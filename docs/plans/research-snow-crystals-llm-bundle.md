@@ -1,7 +1,7 @@
 # Plan — LLM research bundle for the Snow Crystals monograph
 
 - **Phase:** Phase 2b support — parameter and morphology evidence extraction
-- **Status:** in progress
+- **Status:** done
 - **Started:** 2026-07-14
 - **Last touched:** 2026-07-14 by Codex
 
@@ -52,14 +52,14 @@ panel arrangement, and the caption-to-figure relationship.
 
 - [x] Inspect the PDF structure and confirm page count, text-layer quality, image prevalence, and
       canonical SHA-256.
-- [ ] Add the reproducible extractor and bundle-integrity checker. Check: both expose `--help` and
+- [x] Add the reproducible extractor and bundle-integrity checker. Check: both expose `--help` and
       run without modifying tracked research-media policy.
-- [ ] Generate `research/1910.06389v2-llm/`. Check: manifest and page index report 523 pages.
-- [ ] Generate figure cards and condition-aware evidence JSON. Check: every detected numbered
+- [x] Generate `research/1910.06389v2-llm/`. Check: manifest and page index report 523 pages.
+- [x] Generate figure cards and condition-aware evidence JSON. Check: every detected numbered
       caption is represented and every asset reference resolves.
-- [ ] Run automated integrity checks and a deterministic 12-card visual QA sample; repair crop or
+- [x] Run automated integrity checks and a deterministic 12-card visual QA sample; repair crop or
       association failures and record any remaining limitations.
-- [ ] Add a concise tracked source/index Markdown file with regeneration and query instructions,
+- [x] Add a concise tracked source/index Markdown file with regeneration and query instructions,
       then update `docs/PROGRESS.md` without overwriting concurrent edits.
 
 ## Out of scope
@@ -86,6 +86,11 @@ panel arrangement, and the caption-to-figure relationship.
 - **Committing the generated bundle.** Rejected to remain consistent with decision 0004: the
   copyrighted source and full-content derivatives stay local; provenance and reproducible tooling
   are tracked.
+- **Assuming every figure sits above its caption.** The first deterministic QA pass exposed a
+  caption-only crop for Figure 3.47, whose three visuals sit beside the caption. The generator now
+  detects vertically overlapping image blocks beside a caption; the repaired crop contains both
+  photographs, the center drawing, and the condition-bearing caption. The full 523-page bundle was
+  regenerated and the strict integrity check passed afterward.
 
 ## Open questions
 
