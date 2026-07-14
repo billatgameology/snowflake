@@ -1,7 +1,7 @@
 # Plan — Catalog snowcrystals.com visual resources
 
 - **Phase:** Phase 0 — Ground truth (reading, no project code)
-- **Status:** in progress
+- **Status:** done
 - **Started:** 2026-07-14
 - **Last touched:** 2026-07-14 by Codex
 
@@ -29,10 +29,10 @@ page URL and direct image URL for provenance.
 
 ## Steps
 
-- [ ] Inspect the site's visible navigation and identify video/resource sections.
-- [ ] Record each relevant video title and canonical link in a research Markdown index.
-- [ ] Select and save a small set of useful photographs with descriptive filenames.
-- [ ] Verify saved files, source links, and documentation; update project state.
+- [x] Inspect the site's visible navigation and identify video/resource sections.
+- [x] Record each relevant video title and canonical link in a research Markdown index.
+- [x] Select and save a small set of useful photographs with descriptive filenames.
+- [x] Verify saved files, source links, and documentation; update project state.
 
 ## Out of scope
 
@@ -43,9 +43,14 @@ page URL and direct image URL for provenance.
 
 ## Tried and rejected
 
-None yet.
+- An interactive in-app browser connection was unavailable in this session. Direct inspection of
+  the public HTML exposed the same site navigation, link targets, descriptions, and image assets,
+  so the catalog was built from those canonical pages instead.
+- Mirroring the site's full photo galleries was rejected: it would add dozens of copyrighted
+  images without improving the video catalog. The 10 video-preview photographs form a complete,
+  bounded, directly relevant set.
 
 ## Open questions
 
-- The site may expose videos through external hosts or legacy pages; the index will distinguish
-  landing-page links from direct media links when both are available.
+- None for this scoped catalog. Broader gallery selection should be driven by a later, explicit
+  scientific or visual-design need.
