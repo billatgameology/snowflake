@@ -72,7 +72,7 @@ in charter §3.1 and get no retroactive ADR.
 
 - [phase-0-snowcrystals-site-research.md](plans/phase-0-snowcrystals-site-research.md) — ✅ done
   2026-07-14 (Codex). Catalogued the site's videos, archived the 10 highest-available MP4s, and
-  saved 10 attributed stills.
+  saved 10 attributed stills. Local still names begin with their corresponding source movie IDs.
 
 ## Next step
 
