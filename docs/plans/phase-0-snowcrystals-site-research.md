@@ -1,7 +1,7 @@
 # Plan — Catalog snowcrystals.com visual resources
 
 - **Phase:** Phase 0 — Ground truth (reading, no project code)
-- **Status:** done
+- **Status:** in progress — remove local preview stills
 - **Started:** 2026-07-14
 - **Last touched:** 2026-07-14 by Codex
 
@@ -38,6 +38,8 @@ page URL and direct image URL for provenance.
 - [x] Record local filenames, byte sizes, SHA-256 checksums, and source URLs; verify all MP4s.
 - [x] Rename all preview stills to begin with the corresponding source movie ID, update the
   index, and verify that no old or broken paths remain.
+- [ ] Remove the 10 local preview JPEGs at the maker's request, retain their original source
+  URLs in the catalog, and verify that no local-still references remain.
 
 ## Out of scope
 
