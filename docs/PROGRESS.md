@@ -28,11 +28,11 @@ Source material in [research/](../research/):
 - `GravnerGriffeath_PhysRevE09.pdf` — the mesoscopic CA model the solver's update cycle follows
 - `1910.06389v2.pdf`, `1910.09067v2.pdf`, `1211.5555v1.pdf` — the Libbrecht reading list
 - "The Snowflake Myth" video transcript (`.vtt`, plain text, metadata)
-- [`snowcrystals.com-videos-and-stills.md`](../research/snowcrystals.com-videos-and-stills.md) —
+- [`snowcrystals.com-videos.md`](../research/snowcrystals.com-videos.md) —
   10 lab-growth movies (16 resolution-specific MP4 links), one highest-available local MP4 of
-  each movie, and 10 locally saved stills. Sources, byte sizes, media properties, and SHA-256
-  checksums are recorded in the index. Verified 2026-07-14. **Visual reference only** — no claim
-  from it has been counted as evidence for any gate.
+  each movie, and original preview-image URLs (no local JPEG copies). Sources, byte sizes, media
+  properties, and SHA-256 checksums are recorded in the index. Verified 2026-07-14. **Visual
+  reference only** — no claim from it has been counted as evidence for any gate.
 
 ## Phase gates
 
@@ -71,8 +71,8 @@ in charter §3.1 and get no retroactive ADR.
 ## Completed plans
 
 - [phase-0-snowcrystals-site-research.md](plans/phase-0-snowcrystals-site-research.md) — ✅ done
-  2026-07-14 (Codex). Catalogued the site's videos, archived the 10 highest-available MP4s, and
-  saved 10 attributed stills. Local still names begin with their corresponding source movie IDs.
+  2026-07-14 (Codex). Catalogued the site's videos and archived the 10 highest-available MP4s.
+  Preview-image source URLs remain documented, but the local JPEG copies were removed.
 
 ## Next step
 

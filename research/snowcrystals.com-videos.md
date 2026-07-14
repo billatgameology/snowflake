@@ -1,4 +1,4 @@
-# SnowCrystals.com — videos and reference stills
+# SnowCrystals.com — video archive
 
 - **Site:** [SnowCrystals.com](https://snowcrystals.com/)
 - **Video page title:** [Growing Snowflakes - SnowCrystals.com](https://www.snowcrystals.com/videos/videos.html)
@@ -17,18 +17,18 @@ titles for the other six, so those rows are marked **untitled** and retain the s
 
 ## Video links
 
-| # | Site title or description | Direct video links | Local preview still |
+| # | Site title or description | Direct video links | Original preview image |
 |---:|---|---|---|
-| 1 | Same growing snowflake — dark crystal on a bright, colored-light background | [480](https://www.snowcrystals.com/videos/j0323r5-480h.mp4) · [720](https://www.snowcrystals.com/videos/j0323r5-720h.mp4) · [1080](https://www.snowcrystals.com/videos/j0323r5-1080h.mp4) | [j0323r5-dark-on-bright-preview.jpg](snowcrystals.com-video-stills/j0323r5-dark-on-bright-preview.jpg) |
-| 2 | Same growing snowflake — bright-on-dark “negative” treatment | [480](https://www.snowcrystals.com/videos/j0323r5n-480h.mp4) · [720](https://www.snowcrystals.com/videos/j0323r5n-720h.mp4) · [1080](https://www.snowcrystals.com/videos/j0323r5n-1080h.mp4) | [j0323r5n-bright-on-dark-preview.jpg](snowcrystals.com-video-stills/j0323r5n-bright-on-dark-preview.jpg) |
-| 3 | Growing snow crystal — 44-minute growth, final size 2.5 mm | [480](https://www.snowcrystals.com/videos/J0521r2p-480w.mp4) · [720](https://www.snowcrystals.com/videos/J0521r2p-720w.mp4) · [1080](https://www.snowcrystals.com/videos/J0521r2p-1080w.mp4) | [J0521r2p-44-minute-2-5mm-preview.jpg](snowcrystals.com-video-stills/J0521r2p-44-minute-2-5mm-preview.jpg) |
-| 4 | **Untitled** growing-snowflake movie (`J0521r6p`) | [720](https://www.snowcrystals.com/videos/J0521r6p-720w.mp4) | [J0521r6p-preview.jpg](snowcrystals.com-video-stills/J0521r6p-preview.jpg) |
-| 5 | **Untitled** growing-snowflake movie (`I1007r2p`) | [720](https://www.snowcrystals.com/videos/I1007r2p-720h.mp4) | [I1007r2p-preview.jpg](snowcrystals.com-video-stills/I1007r2p-preview.jpg) |
-| 6 | **Untitled** growing-snowflake movie (`I1116r1n`) | [720](https://www.snowcrystals.com/videos/I1116r1n-720w.mp4) | [I1116r1n-preview.jpg](snowcrystals.com-video-stills/I1116r1n-preview.jpg) |
-| 7 | **Untitled** growing-snowflake movie (`J0323r7n`) | [720](https://www.snowcrystals.com/videos/J0323r7n-720w.mp4) | [J0323r7n-preview.jpg](snowcrystals.com-video-stills/J0323r7n-preview.jpg) |
-| 8 | **Untitled** growing-snowflake movie (`J0119r6n`) | [720](https://www.snowcrystals.com/videos/J0119r6n-720w.mp4) | [J0119r6n-preview.jpg](snowcrystals.com-video-stills/J0119r6n-preview.jpg) |
-| 9 | **Untitled** growing-snowflake movie (`J0323r8p`) | [720](https://www.snowcrystals.com/videos/J0323r8p-720w.mp4) | [J0323r8p-preview.jpg](snowcrystals.com-video-stills/J0323r8p-preview.jpg) |
-| 10 | Newer high-resolution growing-snowflake movie showing surrounding droplets | [high resolution](https://www.snowcrystals.com/videos/1aMonoMovie.mp4) | [1aMonoMovie-droplet-surrounded-preview.jpg](snowcrystals.com-video-stills/1aMonoMovie-droplet-surrounded-preview.jpg) |
+| 1 | Same growing snowflake — dark crystal on a bright, colored-light background | [480](https://www.snowcrystals.com/videos/j0323r5-480h.mp4) · [720](https://www.snowcrystals.com/videos/j0323r5-720h.mp4) · [1080](https://www.snowcrystals.com/videos/j0323r5-1080h.mp4) | [`msk125030a.jpg`](https://www.snowcrystals.com/videos/msk125030a.jpg) |
+| 2 | Same growing snowflake — bright-on-dark “negative” treatment | [480](https://www.snowcrystals.com/videos/j0323r5n-480h.mp4) · [720](https://www.snowcrystals.com/videos/j0323r5n-720h.mp4) · [1080](https://www.snowcrystals.com/videos/j0323r5n-1080h.mp4) | [`msk125030.jpg`](https://www.snowcrystals.com/videos/msk125030.jpg) |
+| 3 | Growing snow crystal — 44-minute growth, final size 2.5 mm | [480](https://www.snowcrystals.com/videos/J0521r2p-480w.mp4) · [720](https://www.snowcrystals.com/videos/J0521r2p-720w.mp4) · [1080](https://www.snowcrystals.com/videos/J0521r2p-1080w.mp4) | [`msk092900sm.jpg`](https://www.snowcrystals.com/videos/msk092900sm.jpg) |
+| 4 | **Untitled** growing-snowflake movie (`J0521r6p`) | [720](https://www.snowcrystals.com/videos/J0521r6p-720w.mp4) | [`msk141930.jpg`](https://www.snowcrystals.com/videos/msk141930.jpg) |
+| 5 | **Untitled** growing-snowflake movie (`I1007r2p`) | [720](https://www.snowcrystals.com/videos/I1007r2p-720h.mp4) | [`aIMG_0538sm.jpg`](https://www.snowcrystals.com/videos/aIMG_0538sm.jpg) |
+| 6 | **Untitled** growing-snowflake movie (`I1116r1n`) | [720](https://www.snowcrystals.com/videos/I1116r1n-720w.mp4) | [`msk094425.jpg`](https://www.snowcrystals.com/videos/msk094425.jpg) |
+| 7 | **Untitled** growing-snowflake movie (`J0323r7n`) | [720](https://www.snowcrystals.com/videos/J0323r7n-720w.mp4) | [`msk144630.jpg`](https://www.snowcrystals.com/videos/msk144630.jpg) |
+| 8 | **Untitled** growing-snowflake movie (`J0119r6n`) | [720](https://www.snowcrystals.com/videos/J0119r6n-720w.mp4) | [`b13.16.19.jpg`](https://www.snowcrystals.com/videos/b13.16.19.jpg) |
+| 9 | **Untitled** growing-snowflake movie (`J0323r8p`) | [720](https://www.snowcrystals.com/videos/J0323r8p-720w.mp4) | [`msk161000.jpg`](https://www.snowcrystals.com/videos/msk161000.jpg) |
+| 10 | Newer high-resolution growing-snowflake movie showing surrounding droplets | [high resolution](https://www.snowcrystals.com/videos/1aMonoMovie.mp4) | [`reg2475.jpg`](https://www.snowcrystals.com/videos/reg2475.jpg) |
 
 ## Local video archive
 
@@ -56,28 +56,6 @@ The homepage also features Veritasium's
 [The Snowflake Mystery](https://www.youtube.com/watch?v=ao2Jfm35XeE). Its transcript, metadata,
 captions, and source JSON were already in `research/`, so they were not duplicated.
 
-## Photo provenance
-
-The 10 downloaded JPEGs are the preview photographs used as links to the 10 movie subjects on
-the [Growing Snowflakes page](https://www.snowcrystals.com/videos/videos.html). They are stored
-in [`snowcrystals.com-video-stills/`](snowcrystals.com-video-stills/). Each source below is the
-original image URL on SnowCrystals.com. Local names follow
-`<source-movie-ID>-<known-description>-preview.jpg`; the website's original capitalization is
-preserved because its asset URLs are case-sensitive.
-
-| Local file | Original image |
-|---|---|
-| `j0323r5-dark-on-bright-preview.jpg` | [`msk125030a.jpg`](https://www.snowcrystals.com/videos/msk125030a.jpg) |
-| `j0323r5n-bright-on-dark-preview.jpg` | [`msk125030.jpg`](https://www.snowcrystals.com/videos/msk125030.jpg) |
-| `J0521r2p-44-minute-2-5mm-preview.jpg` | [`msk092900sm.jpg`](https://www.snowcrystals.com/videos/msk092900sm.jpg) |
-| `J0521r6p-preview.jpg` | [`msk141930.jpg`](https://www.snowcrystals.com/videos/msk141930.jpg) |
-| `I1007r2p-preview.jpg` | [`aIMG_0538sm.jpg`](https://www.snowcrystals.com/videos/aIMG_0538sm.jpg) |
-| `I1116r1n-preview.jpg` | [`msk094425.jpg`](https://www.snowcrystals.com/videos/msk094425.jpg) |
-| `J0323r7n-preview.jpg` | [`msk144630.jpg`](https://www.snowcrystals.com/videos/msk144630.jpg) |
-| `J0119r6n-preview.jpg` | [`b13.16.19.jpg`](https://www.snowcrystals.com/videos/b13.16.19.jpg) |
-| `J0323r8p-preview.jpg` | [`msk161000.jpg`](https://www.snowcrystals.com/videos/msk161000.jpg) |
-| `1aMonoMovie-droplet-surrounded-preview.jpg` | [`reg2475.jpg`](https://www.snowcrystals.com/videos/reg2475.jpg) |
-
 ## Rights and use
 
 Libbrecht's [copyright page](https://www.snowcrystals.com/copyright/copyright.html) says that,
@@ -89,5 +67,5 @@ publishing or redistributing them.
 
 ## Scope note
 
-This is a focused archive of the site's dedicated video page and its matching preview stills,
-not a mirror of the site's much larger natural- and designer-snowflake galleries.
+This is a focused archive of the site's dedicated video page, not a mirror of its photo
+galleries. Preview-image URLs are retained for provenance, but the JPEGs are not stored locally.
