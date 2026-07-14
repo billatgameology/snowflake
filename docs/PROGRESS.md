@@ -5,7 +5,7 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
 
 - **Current phase:** Phase 0 complete. Phases 1 (UX spike) and 2 (CPU solver) are next and may
   run in parallel (§3.2).
-- **Last updated:** 2026-07-14 by Claude Opus 4.8
+- **Last updated:** 2026-07-14 by Codex
 - **Active plan:** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — written, not started
 
 ---
@@ -29,9 +29,10 @@ Source material in [research/](../research/):
 - `1910.06389v2.pdf`, `1910.09067v2.pdf`, `1211.5555v1.pdf` — the Libbrecht reading list
 - "The Snowflake Myth" video transcript (`.vtt`, plain text, metadata)
 - [`snowcrystals.com-videos-and-stills.md`](../research/snowcrystals.com-videos-and-stills.md) —
-  10 lab-growth movies (16 resolution-specific MP4 links) and 10 locally saved stills, each
-  attributed to its source page and image URL. Verified 2026-07-14. **Visual reference only** —
-  no claim from it has been counted as evidence for any gate.
+  10 lab-growth movies (16 resolution-specific MP4 links), one highest-available local MP4 of
+  each movie, and 10 locally saved stills. Sources, byte sizes, media properties, and SHA-256
+  checksums are recorded in the index. Verified 2026-07-14. **Visual reference only** — no claim
+  from it has been counted as evidence for any gate.
 
 ## Phase gates
 
@@ -70,7 +71,8 @@ in charter §3.1 and get no retroactive ADR.
 ## Completed plans
 
 - [phase-0-snowcrystals-site-research.md](plans/phase-0-snowcrystals-site-research.md) — ✅ done
-  2026-07-14 (Codex). Catalogued the site's videos and saved 10 attributed stills.
+  2026-07-14 (Codex). Catalogued the site's videos, archived the 10 highest-available MP4s, and
+  saved 10 attributed stills.
 
 ## Next step
 

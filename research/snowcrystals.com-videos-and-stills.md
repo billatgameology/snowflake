@@ -30,6 +30,26 @@ titles for the other six, so those rows are marked **untitled** and retain the s
 | 9 | **Untitled** growing-snowflake movie (`J0323r8p`) | [720](https://www.snowcrystals.com/videos/J0323r8p-720w.mp4) | [J0323r8p-preview.jpg](snowcrystals.com-video-stills/J0323r8p-preview.jpg) |
 | 10 | Newer high-resolution growing-snowflake movie showing surrounding droplets | [high resolution](https://www.snowcrystals.com/videos/1aMonoMovie.mp4) | [droplet-surrounded-growing-snowflake.jpg](snowcrystals.com-video-stills/droplet-surrounded-growing-snowflake.jpg) |
 
+## Local video archive
+
+One highest-available version of each distinct movie is stored in
+[`snowcrystals.com-videos/`](snowcrystals.com-videos/). Lower-resolution alternatives for the
+first three movies remain available through the source links above but are not duplicated
+locally. All 10 files were downloaded and validated as playable H.264 MP4s on 2026-07-14.
+
+| Local file | Source | Bytes | Frame | Duration | SHA-256 |
+|---|---|---:|---:|---:|---|
+| [`j0323r5-dark-on-bright-1080h.mp4`](snowcrystals.com-videos/j0323r5-dark-on-bright-1080h.mp4) | [1080](https://www.snowcrystals.com/videos/j0323r5-1080h.mp4) | 30,427,150 | 1920×1080 | 22.73 s | `ea9921dbaa8bb50b7aa735b983eaa211fdb57b7432ee549e4027c8ca0c674b1f` |
+| [`j0323r5n-bright-on-dark-1080h.mp4`](snowcrystals.com-videos/j0323r5n-bright-on-dark-1080h.mp4) | [1080](https://www.snowcrystals.com/videos/j0323r5n-1080h.mp4) | 35,555,343 | 1920×1080 | 22.73 s | `1e55fad219e185ff342d8392e836d9598b5c575314a53b8849c5e427dffbe640` |
+| [`J0521r2p-44-minute-2-5mm-1080w.mp4`](snowcrystals.com-videos/J0521r2p-44-minute-2-5mm-1080w.mp4) | [1080](https://www.snowcrystals.com/videos/J0521r2p-1080w.mp4) | 40,731,949 | 1920×1080 | 26.27 s | `abe1dced68699829f3886d0697a6b61826a27e8902f48e15e18269b670626e24` |
+| [`J0521r6p-720w.mp4`](snowcrystals.com-videos/J0521r6p-720w.mp4) | [720](https://www.snowcrystals.com/videos/J0521r6p-720w.mp4) | 30,152,959 | 1280×720 | 37.03 s | `72efcf4351b51bece92a80833ce60e172c0b5a2130a4990dd28cfa9c237d91b8` |
+| [`I1007r2p-720h.mp4`](snowcrystals.com-videos/I1007r2p-720h.mp4) | [720](https://www.snowcrystals.com/videos/I1007r2p-720h.mp4) | 17,325,599 | 1280×720 | 24.80 s | `15b59784c6579fe183cbd151daaf33c65d80099554344d92f263c72c8465ce6e` |
+| [`I1116r1n-720w.mp4`](snowcrystals.com-videos/I1116r1n-720w.mp4) | [720](https://www.snowcrystals.com/videos/I1116r1n-720w.mp4) | 18,905,227 | 1280×720 | 20.40 s | `47990ca16ca6695dcf6ae501ef09f845a85f24f507dba772fea6f894a7f6d586` |
+| [`J0323r7n-720w.mp4`](snowcrystals.com-videos/J0323r7n-720w.mp4) | [720](https://www.snowcrystals.com/videos/J0323r7n-720w.mp4) | 22,278,381 | 1280×720 | 25.87 s | `d6afb9ea4e0da16ae2b43a6c1f14fb5df4f3aca7a7c79ece9a8e133cd2c01e76` |
+| [`J0119r6n-720w.mp4`](snowcrystals.com-videos/J0119r6n-720w.mp4) | [720](https://www.snowcrystals.com/videos/J0119r6n-720w.mp4) | 24,779,096 | 1280×720 | 22.60 s | `5a2200b9a9c1c425875d50c394007c72d07d15a18020a5d6ecb960074e27c213` |
+| [`J0323r8p-720w.mp4`](snowcrystals.com-videos/J0323r8p-720w.mp4) | [720](https://www.snowcrystals.com/videos/J0323r8p-720w.mp4) | 24,276,425 | 1280×720 | 25.47 s | `8ea9df72c8c0e6d78f463b08241c4553c4996df3597954e273ede2f656604a9a` |
+| [`1aMonoMovie-droplet-surrounded-high-resolution.mp4`](snowcrystals.com-videos/1aMonoMovie-droplet-surrounded-high-resolution.mp4) | [high resolution](https://www.snowcrystals.com/videos/1aMonoMovie.mp4) | 40,771,383 | 1440×1080 | 35.50 s | `6a8d4057e3e588714345eb156c8129f65037cfb0998e16b63618ffd5382fd7e4` |
+
 ### Already present in this research folder
 
 The homepage also features Veritasium's
@@ -67,5 +87,5 @@ publishing or redistributing them.
 
 ## Scope note
 
-This is a focused catalog of the site's dedicated video page and its matching preview stills,
+This is a focused archive of the site's dedicated video page and its matching preview stills,
 not a mirror of the site's much larger natural- and designer-snowflake galleries.

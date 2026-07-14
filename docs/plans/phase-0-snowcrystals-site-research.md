@@ -1,7 +1,7 @@
 # Plan — Catalog snowcrystals.com visual resources
 
 - **Phase:** Phase 0 — Ground truth (reading, no project code)
-- **Status:** in progress — local video archive extension
+- **Status:** done
 - **Started:** 2026-07-14
 - **Last touched:** 2026-07-14 by Codex
 
@@ -34,8 +34,8 @@ page URL and direct image URL for provenance.
 - [x] Record each relevant video title and canonical link in a research Markdown index.
 - [x] Select and save a small set of useful photographs with descriptive filenames.
 - [x] Verify saved files, source links, and documentation; update project state.
-- [ ] Download one highest-available version of each of the 10 distinct movies.
-- [ ] Record local filenames, byte sizes, SHA-256 checksums, and source URLs; verify all MP4s.
+- [x] Download one highest-available version of each of the 10 distinct movies.
+- [x] Record local filenames, byte sizes, SHA-256 checksums, and source URLs; verify all MP4s.
 
 ## Out of scope
 
