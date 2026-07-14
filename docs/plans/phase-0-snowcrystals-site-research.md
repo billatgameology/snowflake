@@ -1,7 +1,7 @@
 # Plan — Catalog snowcrystals.com visual resources
 
 - **Phase:** Phase 0 — Ground truth (reading, no project code)
-- **Status:** done
+- **Status:** in progress — still-filename normalization
 - **Started:** 2026-07-14
 - **Last touched:** 2026-07-14 by Codex
 
@@ -36,6 +36,8 @@ page URL and direct image URL for provenance.
 - [x] Verify saved files, source links, and documentation; update project state.
 - [x] Download one highest-available version of each of the 10 distinct movies.
 - [x] Record local filenames, byte sizes, SHA-256 checksums, and source URLs; verify all MP4s.
+- [ ] Rename all preview stills to begin with the corresponding source movie ID, update the
+  index, and verify that no old or broken paths remain.
 
 ## Out of scope
 
