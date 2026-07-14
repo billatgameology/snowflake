@@ -1,0 +1,11 @@
+# Research source material is not versioned. See decisions/0004.
+#
+# The media in research/ is third-party and copyrighted — Libbrecht holds copyright on the
+# snowcrystals.com videos and excludes internet publication without permission. Committing it
+# would publish it on the first push to any remote, and git history would make that permanent.
+#
+# The .md indexes stay tracked, and they are the artifact that matters: they carry every source
+# URL, byte size, and SHA-256, so the local copies are re-downloadable and re-verifiable from
+# them. The bytes are a cache; the provenance is the record.
+research/*
+!research/*.md

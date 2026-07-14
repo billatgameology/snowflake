@@ -1,0 +1,96 @@
+# Libbrecht parameters — the mapping layer
+
+**Status: EMPTY. This is the first concrete deliverable of Phase 2b, and it is not yet done.**
+
+This table is the mapping layer from real conditions `(T, σ, P)` into the solver. It is what
+replaces curve-fitting with measured physics — the whole substance of decision
+[0003](decisions/0003-libbrecht-attachment-kinetics.md). Used by
+[attachment-kinetics.md](attachment-kinetics.md).
+
+**Primary source:** K. Libbrecht, "A quantitative physical model of the snow crystal morphology
+diagram," arXiv:1910.09067 — `research/1910.09067v2.pdf`. Secondary: the monograph
+(arXiv:1910.06389), chapters on attachment kinetics and diffusion-limited growth.
+
+---
+
+## The rule for this file
+
+> **No number enters this file without a citation** — paper, section or figure or table, and page.
+> A parameter with no provenance is indistinguishable from a parameter someone tuned until the
+> picture looked right, and that is the exact failure this project exists to avoid.
+>
+> **No number is guessed, interpolated, or recalled from memory.** If a value is not in the
+> source, the cell stays empty and the gap is stated. An empty cell is a research task; a wrong
+> cell is a physics bug that will be discovered three phases later, if ever.
+>
+> Deliberately left blank rather than filled with plausible values, 2026-07-14.
+
+## What must be extracted
+
+### `sigma_0(T)` and `A(T)` — nucleation parameters, per facet family
+
+Feeds `alphaHK = A · exp(−sigma_0 / sigma_surf)`. The **basal/prism crossing in `sigma_0(T)` is
+the mechanism behind the Nakaya flip** (attachment-kinetics §2) — so the temperature resolution
+here directly determines whether Phase 6 can test the flip at all. Extract densely enough around
+the reversals (≈ −2, −5, −15, −30 °C) that the crossings are actually resolved.
+
+| T (°C) | `sigma_0_basal` | `A_basal` | `sigma_0_prism` | `A_prism` | Citation |
+|---|---|---|---|---|---|
+| | | | | | |
+
+Record also: is `A(T)` treated as constant in Libbrecht's model, or does it vary? Is `sigma_0`
+given as a formula or a table of measured points? **If it is a fit, record the fit's functional
+form and its stated domain of validity** — extrapolating a fit outside its range is a silent way
+to manufacture a fake result.
+
+### `v_kin(T)` — kinetic velocity
+
+| T (°C) | `v_kin` (m/s) | Citation |
+|---|---|---|
+| | | |
+
+Expect a closed form (from kinetic theory: proportional to the saturated vapor pressure over the
+ice density, times the mean thermal speed). **Record the closed form, not just sampled values** —
+the solver should compute it, not interpolate a table.
+
+### `D(T, P)` — vapor diffusivity in air
+
+| T (°C) | P | `D` (m²/s) | Citation |
+|---|---|---|---|
+| | | | |
+
+Sets the diffusion-limited ↔ kinetics-limited balance (charter §2.4), so it is also the knob
+behind the "low pressure ⇒ simple compact facets" behavior the slice-plane view is meant to
+reveal. Needed with units for the `n_diff` derivation in attachment-kinetics §4.3.
+
+> **Sanity anchor, NOT a value to use:** water vapor in air near 0 °C and 1 atm is *of order*
+> `2 × 10⁻⁵ m²/s`. This is written here **only** as a smell test for whatever gets extracted — if
+> the cited value lands orders of magnitude away, something is wrong with the units. It is
+> unverified, uncited, and **must not be copied into the code.** Delete this note once a real
+> cited value is in the table above.
+
+## Extraction protocol
+
+1. Work from `research/1910.09067v2.pdf`. Cite section/figure/table and page for every value.
+2. Where the paper gives a formula, record the **formula** and its domain of validity. Where it
+   gives measured points, record the points and their stated uncertainty.
+3. Record what is *measured* versus what Libbrecht himself *fit or assumed* — that distinction
+   propagates directly into charter §1.5 confidence levels, and it is the difference between the
+   model's error bars being real and being decorative.
+4. Note every gap explicitly. Gaps are expected: §2.7 says nobody has closed this loop, so the
+   parameters will not all be sitting there waiting. **A documented gap is a finding.** A gap
+   quietly filled with a plausible number is a fabrication, and it would invalidate Phase 6
+   without anyone noticing.
+5. Sanity-check magnitudes and units before anything is wired into the solver.
+
+## Open questions for the extraction
+
+- Does Libbrecht's model give `sigma_0` and `A` as continuous functions of T, or only at the
+  temperatures he measured? If only at measured points, **what interpolation does Phase 6 use, and
+  does interpolating between them beg the very question Phase 6 asks?** Decide before sweeping,
+  not after seeing the results.
+- His numerics largely use reduced (near-cylindrical) geometry (charter §2.7). Do the published
+  parameters carry any assumption about that geometry which breaks when they are transplanted onto
+  a 3D lattice? **This is the single most likely way the hybrid fails quietly**, and it is worth
+  an hour of suspicion before it is worth a week of debugging.
+- Is there a pressure dependence in `sigma_0` or `A`, or only in `D`?
