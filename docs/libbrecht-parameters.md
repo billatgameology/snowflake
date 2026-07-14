@@ -8,8 +8,11 @@ replaces curve-fitting with measured physics — the whole substance of decision
 [attachment-kinetics.md](attachment-kinetics.md).
 
 **Primary source:** K. Libbrecht, "A quantitative physical model of the snow crystal morphology
-diagram," arXiv:1910.09067 — `research/1910.09067v2.pdf`. Secondary: the monograph
-(arXiv:1910.06389), chapters on attachment kinetics and diffusion-limited growth.
+diagram," arXiv:1910.09067 — `research/1910.09067v2.pdf`. For the **standard kinetic-theory
+forms — `v_kin(T)` and `D(T, P)` — the Snow Crystals monograph (arXiv:1910.06389,
+`research/1910.06389v2.pdf`) is a valid citation source** (charter §3.2 Phase 2b, amended v1.2;
+the previous single-source rule would have blocked textbook constants). The nucleation
+parameters `sigma_0(T)` and `A(T)` come from arXiv:1910.09067.
 
 ---
 
@@ -24,6 +27,11 @@ diagram," arXiv:1910.09067 — `research/1910.09067v2.pdf`. Secondary: the monog
 > cell is a physics bug that will be discovered three phases later, if ever.
 >
 > Deliberately left blank rather than filled with plausible values, 2026-07-14.
+
+> **This file freezes before the first Phase 6 validation sweep** (charter Phase 6 protocol
+> freeze, added v1.2). Post-freeze, any edit to it requires a logged ADR and **invalidates all
+> prior sweep results** — the full sweep re-runs. Until that freeze it is a living extraction
+> target; after it, it is part of a pre-registered protocol.
 
 ## What must be extracted
 
@@ -71,7 +79,9 @@ reveal. Needed with units for the `n_diff` derivation in attachment-kinetics §4
 
 ## Extraction protocol
 
-1. Work from `research/1910.09067v2.pdf`. Cite section/figure/table and page for every value.
+1. Work from `research/1910.09067v2.pdf`; for `v_kin` and `D`, the monograph
+   (`research/1910.06389v2.pdf`) is also valid — see the source note above. Cite source,
+   section/figure/table, and page for every value.
 2. Where the paper gives a formula, record the **formula** and its domain of validity. Where it
    gives measured points, record the points and their stated uncertainty.
 3. Record what is *measured* versus what Libbrecht himself *fit or assumed* — that distinction

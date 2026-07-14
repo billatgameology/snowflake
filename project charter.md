@@ -1,8 +1,10 @@
 The Virtual Cloud Chamber
 
-Project Document — v1.0, July 2026
+Project Document — v1.2, July 2026
 
 Working title. An interactive instrument for designing a snow crystal's growth history and seeing the hidden conditions that shape it.
+
+Revision history. v1.0 — initial charter. v1.1 (2026-07-14) — decision 0003: Libbrecht kinetics become the attachment rule on the G–G skeleton; Phase 2 split into 2a/2b; Phase 6 reframed from calibration to validation; ADR 0001 (non-cubic domains); ADR 0002 (split development hardware). v1.2 (2026-07-14) — review integration: far-field boundary conditions (§2.4, Phase 2b, Phase 6); domain-contact guard and sweep domain policy (§3.1, Phase 6); Phase 4 runs once per attachment rule; Phase 6 protocol freeze (pre-registration); seam implementation spec (Phase 2b); determinism scope (§3.1); cube-speak and citation-source fixes.
 
 
 1. Project Goal
@@ -34,7 +36,7 @@ It fits the maker's direction: a flagship interactive science artifact (in the G
 
 Not a molecular simulation. A real snow crystal contains ~10^18 water molecules. This is a mesoscopic model: each lattice cell stands in for trillions of molecules. That is legitimate because the physics being modeled (vapor diffusion, boundary attachment rates) is already continuum-scale — not because of any hand-wavy "fractal scaling" argument.
 Not a validated physical simulator. The solver is a phenomenological model inspired by real physics. The product's identity includes being honest about this (see §1.5).
-Not mobile. Target: desktop browser, WebGPU required, discrete GPU expected. Development hardware: RTX 4080 (16 GB). Resolution stays a runtime parameter so the sim also runs small and fast (see §3).
+Not mobile. Target: desktop browser, WebGPU required, discrete GPU expected. Resolution stays a runtime parameter so the sim also runs small and fast (see §3).
 Not (initially) a social product. Galleries, sharing, and export come after the science works.
 
 
@@ -119,6 +121,8 @@ Centers starve. The middle of a wide facet is shielded; local supersaturation sa
 
 Air pressure sets the diffusion constant, which shifts the balance between diffusion-limited growth (branchy, at high pressure) and kinetics-limited growth (simple compact facets, at low pressure). The draggable slice-plane view in the app exists to make exactly this physics visible.
 
+The far-field boundary condition (added v1.2). Gravner–Griffeath as published close the box: a reflecting (no-flux) outer boundary conserves total vapor, so the crystal grows by consuming a finite reservoir and σ falls over the run. A morphology grown that way records a downward trajectory through σ-space, not a held point. Nakaya coordinates — and Libbrecht's controlled measurements — assume a maintained far-field supersaturation. The solver therefore supports two far-field conditions: reflecting (G–G fidelity; the Phase 2a default) and fixed-σ Dirichlet (the domain edge is held at the set supersaturation — vapor is replenished; required for every Phase 6 validation run). Which condition a run used is recorded in its checkpoint metadata; the two are not interchangeable and results must never be compared across them silently.
+
 2.5 Interface physics — attachment kinetics
 
 When vapor reaches the surface, how readily does it incorporate? The Hertz–Knudsen form:
@@ -147,7 +151,7 @@ Note the symbol collision, which is a live hazard in this repository: Gravner–
 
 
 Reiter's 2D cellular automaton — a lightweight hex-grid CA that makes pretty branching plates. Not physical. Its role here: the throwaway UX prototype (§3, Phase 1) and nothing more.
-Gravner–Griffeath mesoscopic model — the computational skeleton (amended 2026-07-14; this section previously called it "the implementation blueprint"). Their 3D version runs on the stacked triangular lattice, carries per-cell fields (diffusive vapor mass, boundary/semi-liquid mass, crystal state), and cycles through diffusion → freezing → attachment (with geometry-dependent thresholds) → melting steps. It reproduces plates, solid and hollow columns, sandwich plates, ridges, and dendrites at feasible compute cost. G-G's real contribution to this project is not physics — it is the answer to "how do you compute 3D crystal growth on a lattice at feasible cost." That part is kept in full: the lattice, the diffusion step and its reflecting boundary, the boundary/quasi-liquid mass field, melting, exact mass bookkeeping, and — load-bearing, easily overlooked — the noise term, without which sidebranching never seeds. Only the attachment thresholds are replaced, by §2.5's kinetics (decision 0003). Its honest limitation, and the reason for that replacement: the thresholds are phenomenological knobs containing no temperature, so the relationship to physical (T, σ, p) is not merely unknown, it is unaskable. It also omits latent-heat transport and some surface-diffusion effects — known, acceptable approximations for v1.
+Gravner–Griffeath mesoscopic model — the computational skeleton (amended 2026-07-14; this section previously called it "the implementation blueprint"). Their 3D version runs on the stacked triangular lattice, carries per-cell fields (diffusive vapor mass, boundary/semi-liquid mass, crystal state), and cycles through diffusion → freezing → attachment (with geometry-dependent thresholds) → melting steps. It reproduces plates, solid and hollow columns, sandwich plates, ridges, and dendrites at feasible compute cost. G–G's real contribution to this project is not physics — it is the answer to "how do you compute 3D crystal growth on a lattice at feasible cost." That part is kept in full: the lattice, the diffusion step and its reflecting boundary (the 2a default; §2.4 defines the fixed-σ alternative validation requires), the boundary/quasi-liquid mass field, melting, exact mass bookkeeping, and — load-bearing, easily overlooked — the noise term, without which sidebranching never seeds. Only the attachment thresholds are replaced, by §2.5's kinetics (decision 0003). Its honest limitation, and the reason for that replacement: the thresholds are phenomenological knobs containing no temperature, so the relationship to physical (T, σ, p) is not merely unknown, it is unaskable. It also omits latent-heat transport and some surface-diffusion effects — known, acceptable approximations for v1.
 Phase-field methods — continuum models with a smooth phase variable φ; higher fidelity, heavier compute, still incomplete parameter-to-physics mapping. The candidate engine for a future offline "bake" mode, not for v1.
 
 
@@ -155,7 +159,7 @@ Phase-field methods — continuum models with a smooth phase variable φ; higher
 
 There is no validated end-to-end map from real conditions (T, σ, p) to mesoscopic model parameters. Libbrecht's model is physically grounded but his published numerical work largely uses reduced geometry; Gravner–Griffeath produces the 3D shapes but with abstract knobs. Nobody has fully closed the loop, and this project lives in the gap.
 
-The plan of attack (amended 2026-07-14, decision 0003). The original plan was empirical and, in hindsight, circular: sweep G-G's knobs, measure the morphologies, build an atlas, and map temperature controls onto it after the fact. That fits a curve; it does not close a loop. Because the solver now takes temperature as a physical input (§2.5), the plan is instead to attempt the loop directly: extract σ₀(T), A(T), v_kin(T) and D(T, P) from Libbrecht's measurements into the model, run the solver at a stated temperature, and check the morphology it produces against the Nakaya diagram and Libbrecht's controlled-growth results.
+The plan of attack (amended 2026-07-14, decision 0003). The original plan was empirical and, in hindsight, circular: sweep G–G's knobs, measure the morphologies, build an atlas, and map temperature controls onto it after the fact. That fits a curve; it does not close a loop. Because the solver now takes temperature as a physical input (§2.5), the plan is instead to attempt the loop directly: extract σ₀(T), A(T), v_kin(T) and D(T, P) from Libbrecht's measurements into the model, run the solver at a stated temperature, and check the morphology it produces against the Nakaya diagram and Libbrecht's controlled-growth results.
 
 This converts Phase 6 from calibration into validation, and the difference is the whole point: the model can now fail. Set −5 °C — does a column grow? Set −15 °C — does the habit flip back to plates? A model that cannot be wrong is not attempting this problem. The four confidence levels in §1.5 exist so that the gap between "the model was given real physics" and "the model was shown to reproduce reality" is stated rather than hidden — those are different claims, and Phase 6 is the only thing that can promote the first to the second.
 
@@ -164,7 +168,7 @@ This converts Phase 6 from calibration into validation, and the difference is th
 
 Libbrecht — "Toward a comprehensive model of snow crystal growth dynamics: 1. Overarching features and physical origins" (arXiv:1211.5555). The primer. Extract: vocabulary, the shape of the problem, SDAK intuition.
 Gravner & Griffeath — "Modeling snow-crystal growth: A three-dimensional mesoscopic approach," Phys. Rev. E 79, 011601 (2009). The implementation paper. Read until you can write the update cycle and parameter table as pseudocode from memory. (Their 2D predecessor, Physica D, 2008, is a gentler on-ramp if the 3D paper feels dense.)
-Libbrecht — "A quantitative physical model of the snow crystal morphology diagram" (arXiv:1910.09067). Extract the α_basal / α_prism vs. temperature narrative; this is the future mapping layer's physical anchor.
+Libbrecht — "A quantitative physical model of the snow crystal morphology diagram" (arXiv:1910.09067). Extract the α_basal / α_prism vs. temperature narrative; this is the attachment rule's physical anchor.
 Libbrecht — Snow Crystals (monograph; arXiv:1910.06389 / Princeton University Press, 2022). ~500 pages; use as a reference, not a cover-to-cover read. Prioritize the chapters on attachment kinetics, diffusion-limited growth, and computational modeling.
 snowcrystals.com — Libbrecht's site. Visual ground truth: lab photos, growth videos, the designer-crystal gallery your product implicitly converses with.
 
@@ -195,13 +199,15 @@ Production solver: WGSL compute passes on WebGPU — diffusion, boundary/semi-li
 
 The GPU solver is validated against the CPU oracle with tolerance comparisons (f32 vs f64) on identical seeds. Debugging physics in WGSL is miserable; debugging it in inspectable TypeScript is merely hard. Never port ahead of the oracle.
 
-Repository structure — the solver is not the app. Five parts from the start: core (model definitions, parameters, morphology metrics, checkpoint format), solver-cpu (the oracle), solver-gpu (WGSL passes), runner (headless CLI), and app (the Three.js instrument). The checkpoint format — JSON metadata plus binary field snapshots — lives in core and is defined early, because oracle-vs-GPU comparisons, regression tests, and the sweep harness all speak through it. The headless runner executes the same WGSL solver outside the browser (Deno ships WebGPU; Dawn/wgpu bindings exist for Node), so parameter sweeps, atlas generation, and overnight runs never require a browser tab. The GUI is one client of the solver, not its home.
+Determinism scope (added v1.2). Bitwise reproducibility is claimed only for the oracle pinned to one engine (Node/V8): the JS spec does not guarantee bit-identical Math.exp/Math.pow across engines, and LibbrechtKinetics leans on exp(). Everything cross-engine and cross-backend — Metal vs D3D12/Vulkan, f32 vs f64 — compares by stated tolerance, never bitwise; FMA contraction and driver shader compilers differ legitimately. "Deterministic seeds throughout" therefore means: bitwise within the pinned oracle, tolerance-bounded everywhere else.
+
+Repository structure — the solver is not the app. Five parts from the start: core (model definitions, parameters, morphology metrics, checkpoint format), solver-cpu (the oracle), solver-gpu (WGSL passes), runner (headless CLI), and app (the Three.js instrument). The checkpoint format — JSON metadata plus binary field snapshots — lives in core and is defined early, because oracle-vs-GPU comparisons, regression tests, and the sweep harness all speak through it. Checkpoint metadata records the far-field boundary condition of every run (§2.4). The headless runner executes the same WGSL solver outside the browser (Deno ships WebGPU; Dawn/wgpu bindings exist for Node), so parameter sweeps, atlas generation, and overnight runs never require a browser tab. The GUI is one client of the solver, not its home.
 
 Rendering. Three.js WebGPURenderer. Development geometry is instanced hexagonal prisms of occupied boundary cells — it matches the solver lattice exactly, gives free cell picking, takes field coloring directly, and leaves no interpolation ambiguity. Smooth surfaces come later (exposed-prism-face meshing first; resampling to a Cartesian volume + marching cubes only if needed), and ice materials / post-processing come last.
 
 UI. Tweakpane for development controls. The product UI framework decision (Svelte/Solid/etc.) is deferred until there is a product to build.
 
-Testing. Deterministic seeds throughout. An automated morphology-metrics module (aspect ratio, hollowness index, branch count, sixfold-symmetry error) turns visual milestones into a regression suite: when a later optimization silently breaks hollowing, a test fails.
+Testing. Deterministic seeds throughout (see determinism scope above). An automated morphology-metrics module (aspect ratio, hollowness index, branch count, sixfold-symmetry error) turns visual milestones into a regression suite: when a later optimization silently breaks hollowing, a test fails. The metrics module also enforces a domain-contact guard (added v1.2): any run in which the crystal's bounding box exceeds ~65% of any domain extent is automatically flagged invalid — a crystal near the wall interacts with its own mirror image (reflecting boundary) or with a clamped edge (Dirichlet), corrupting the field silently while the shape still looks plausible. Flagged runs never enter validation results.
 
 Explicitly out of scope (struck from earlier plans): ECS / bitECS, particle systems, spatial hashing for vapor particles, instanced "molecule" meshes, mobile targets, early marching cubes, early bloom/gallery/export work.
 
@@ -217,7 +223,7 @@ Reiter CA on a hex grid in a canvas, with one addition: an editable environmenta
 
 Phase 2 — CPU reference solver. Split into 2a and 2b (2026-07-14, decision 0003). The governing rule is the same one that governs the GPU port: never physics ahead of the machinery. Phase 2a must stand on its own and be gated before any Libbrecht equation is written.
 
-Phase 2a — the machinery, with G-G's thresholds exactly as published.
+Phase 2a — the machinery, with G–G's thresholds exactly as published.
 
 
 Stacked triangular lattice: flat typed arrays, index math, 6+2 neighbor lookup. Unit tests for neighbor symmetry and boundary handling. Done when neighbor tests pass in all directions.
@@ -234,13 +240,13 @@ Phase 2b — attachment becomes physics.
 
 Put attachment behind an AttachmentRule interface with two implementations, GGThreshold (2a's, unchanged) and LibbrechtKinetics. Both are kept permanently, exactly as the CPU oracle is kept permanently: the threshold rule is the working floor and the differential diagnosis when the physics misbehaves.
 Physical units: Δx in microns, Δt in seconds, D in m²/s, and the CFL-like stability bound on the diffusion step. This is the step that yields a principled number of diffusion iterations per growth step — enough for the quasi-static field to relax — rather than a guess.
-The seam, which is the real work of this phase: G-G's attachment is a binary cell flip; Libbrecht's v_n = α·v_kin·σ_surf is a continuous velocity. Converting a surface velocity into lattice attachment events is the substance of LibbrechtKinetics, not an implementation detail of it.
+Both far-field boundary conditions (§2.4): reflecting (2a's default, unchanged) and fixed-σ Dirichlet, selectable per run and recorded in checkpoint metadata. Done when a long crystal-free run under Dirichlet holds σ at the set value to tolerance. (Added v1.2.)
+The seam, which is the real work of this phase: G–G's attachment is a binary cell flip; Libbrecht's v_n = α·v_kin·σ_surf is a continuous velocity. Converting a surface velocity into lattice attachment events is the substance of LibbrechtKinetics, not an implementation detail of it. Reference implementation (added v1.2): a fill-fraction accumulator on boundary cells — each step adds v_n·Δt/Δx to the cell's fill, and the cell freezes when fill ≥ 1 — which reuses the boundary-mass machinery 2a already carries. Accumulation is deterministic; stochasticity enters only through G–G's explicit noise term, never through stochastic rounding, so randomness stays a single labeled dial.
 α(T, σ_surf) with the basal/prism split, from the parameter table (first deliverable of this phase; see below).
 SDAK last, and gated. It is the least certain piece — α depending on facet width requires a local geometric query over surface cells, attackable but unpublished at this resolution. It is deliberately last because it is not load-bearing for the Phase 4 hollowing gate (see §2.4 and decision 0003): hollowing comes primarily from the Berg effect amplified by the nonlinearity of A·exp(−σ₀/σ_surf), and survives dropping the width term. SDAK buys the extreme thin plates and needles, not basic hollowing.
 
 
-First concrete deliverable of Phase 2b: docs/libbrecht-parameters.md — σ₀(T) and A(T) for basal and prism, v_kin(T), and D(T, P), extracted with citations from arXiv:1910.09067. That table is the mapping layer, and it is measured physics in place of curve-fitting. No number enters it without a citation.
-
+First concrete deliverable of Phase 2b: docs/libbrecht-parameters.md — σ₀(T) and A(T) for basal and prism, v_kin(T), and D(T, P), extracted with citations from arXiv:1910.09067 and, for the standard kinetic-theory forms (v_kin, D), the Snow Crystals monograph (amended v1.2 — the previous single-source rule would have blocked textbook constants). That table is the mapping layer, and it is measured physics in place of curve-fitting. No number enters it without a citation.
 
 Phase 3 — Development visualization (Three.js).
 
@@ -249,14 +255,15 @@ Instanced hex prisms of boundary cells; orbit camera.
 Surface overlay with a selectable quantity: vapor availability, growth propensity, boundary mass, recent growth velocity.
 Draggable slice plane through the vapor field; freeze-and-inspect; adjustable value range.
 Cell picking with a hover readout using model-honest labels (§1.5).
+
+
 Done when you can watch a facet center starve in the slice view while the plate grows. These views are debugging instruments first and product features second — that they are the same artifact is the project's luckiest property.
 
+Phase 4 — The morphology gauntlet (CPU solver, all diagnostics on). Run twice — once per AttachmentRule (amended v1.2). Pass A, under GGThreshold, certifies the machinery and the metrics: it proves the lattice, diffusion, and measurement pipeline can express and detect every target morphology, independent of any physics. Pass B, under LibbrechtKinetics, re-runs the gates with temperature as the swept axis — the project's first single-point Nakaya probes, and a cheap early warning, months before Phase 6, about whether the habit flip is in reach.
 
-Phase 4 — The morphology gauntlet (CPU solver, all diagnostics on).
 
-
-Solid column from the same solver — parameter change only. Done when aspect ratio inverts.
-Continuous, controllable plate↔column transition. Done when aspect ratio tracks a swept parameter monotonically.
+Solid column from the same solver — pass A: parameter change only; pass B: temperature change only. Done when aspect ratio inverts.
+Continuous, controllable plate↔column transition. Done when aspect ratio tracks the swept control across a stated interval — monotonic for pass A's abstract knob; for pass B, across a chosen temperature interval (e.g. −2 °C → −6 °C) where a single plate→column transition is expected.
 Facet-center vapor depletion clearly visible in the slice view on a widening column.
 Second scientific gate: hollowing emerges with no explicit hollow rule. Done when the hollowness metric rises from field dynamics alone, reproducibly across seeds.
 Conditions changing mid-growth: the timeline drives the real solver. Done when a plate→column history yields a capped column.
@@ -270,19 +277,22 @@ Diffusion pass alone in WGSL; validate against the CPU oracle to tolerance on id
 Full update cycle on GPU; ping-pong buffers; bounded dispatches; adapter-limit handling.
 Resolution modes wired end-to-end. Each mode is a cell budget, not a cube (ADR 0001) — the (nx, ny, nz) triple is chosen to fit the morphology, since a plate wants roughly 800 × 800 × 80 and a column the transpose. Dev ≈ 1M cells / preview ≈ 8M / detailed ≈ 30M / bake ≈ 130M (the 4080's 16 GB holds several f32 fields at bake size; browser buffer limits, not VRAM, are the practical ceiling to engineer around).
 GPU-resident rendering: overlays and slices sample the solver's buffers directly; no full-field readback per frame. Decouple simulation stepping from display frame rate — run many diffusion iterations per visible growth step.
-Done when GPU and CPU runs agree within tolerance and 256³ is interactively editable.
 
+
+Done when GPU and CPU runs agree within tolerance on both backends (Metal and D3D12/Vulkan — ADR 0002) and the preview budget (≈8M cells) is interactively editable. (Amended v1.2: cell-budget phrasing per ADR 0001.)
 
 Phase 6 — Validation against the Nakaya diagram (renamed 2026-07-14 from "Calibration atlas"; decision 0003). Because temperature is now an input to the physics rather than a label applied afterward, this phase is a test the model can fail. That is its purpose. The old framing — sweep knobs, build an atlas, fit a temperature axis onto it — could not have failed, and therefore could not have taught anything.
 
 
+Protocol freeze (added v1.2 — pre-registration). Before the first validation sweep runs, freeze docs/libbrecht-parameters.md and a written validation protocol: the T/σ grid; the far-field boundary condition (fixed-σ Dirichlet, per §2.4); the crystal size at which habit is measured — habit is size-dependent, so measuring at a stated maximum dimension is what keeps comparisons apples-to-apples; metric thresholds; and domain budgets. Any post-freeze edit to parameters or protocol requires a logged ADR and invalidates prior sweep results — the full sweep re-runs. This is what makes "a negative result is a result" survive contact with a disappointing plot.
 Harden the morphology-metrics module (it already exists from testing).
-Parameter-sweep harness on the headless runner: hundreds of automated runs at preview resolution, no browser involved — this is where the 4080 earns its keep, and it matters more than maximum grid size.
+Parameter-sweep harness on the headless runner: hundreds of automated runs at preview resolution, no browser involved — this is where the 4080 earns its keep, and it matters more than maximum grid size. Sweeps cross habit flips by design, so domains cannot be pre-shaped to a morphology that is not yet known — ADR 0001 cuts both ways (added v1.2). Runs use either compromise near-cubic budgets or a two-pass scheme: a cheap probe run classifies the habit, a fitted domain re-runs it. The domain-contact guard (§3.1) invalidates any run that outgrows its box.
 Sweep temperature and supersaturation — the axes of the real Nakaya diagram — and auto-measure the habit at each point. This produces the model's morphology diagram in the same coordinates as the published one, so the two can be laid side by side rather than mapped onto one another.
 The falsifiable test: does the model reproduce the habit reversals? Plates near −2 °C, columns near −5 °C, plates again near −15 °C, columns below −30 °C. The non-monotonic flip is the thing Libbrecht's α_basal/α_prism crossing explains, and it is the thing a curve-fit could never have predicted.
 Upgrade UI labels from level 1–2 to level 3 (§1.5) only where the comparison supports it, and only where it holds.
-Done when the model's temperature-vs-supersaturation morphology diagram is compared against Nakaya's, with the agreements and the disagreements both stated. A negative result is a result: if the model does not reproduce the flip, that is a finding about the model, it is reported as one, and GGThreshold still ships a beautiful crystal (Phase 2a). What is not permitted is quietly tuning until the diagram matches and calling it validation.
 
+
+Done when the model's temperature-vs-supersaturation morphology diagram is compared against Nakaya's, with the agreements and the disagreements both stated. A negative result is a result: if the model does not reproduce the flip, that is a finding about the model, it is reported as one, and GGThreshold still ships a beautiful crystal (Phase 2a). What is not permitted is quietly tuning until the diagram matches and calling it validation — the protocol freeze (item 1) makes that structurally impossible rather than merely forbidden.
 
 Phase 7 — Product layer.
 
@@ -300,7 +310,9 @@ Optional v2+ candidates, in rough order of value: forecast ghost shell (snapshot
 Model validity outranks compute. Spend surplus GPU budget on diffusion iterations, observability, determinism, and sweeps before resolution.
 The 2D spike stays throwaway; the CPU oracle stays forever. So does GGThreshold — the working floor is never deleted, for the same reason the oracle is never deleted.
 Never physics ahead of the machinery. Phase 2a is gated before any Libbrecht equation is written, exactly as the CPU oracle is gated before any WGSL is written. A physics bug on top of an unproven lattice is two bugs wearing one coat.
+Phase 6 runs pre-registered (added v1.2). The parameter table and validation protocol freeze before the sweep; post-freeze edits are ADR-logged and force a full re-sweep. Quiet tuning is not a discipline failure that review catches — it is structurally impossible to hide.
+Results are never compared across far-field boundary conditions silently (added v1.2); the checkpoint metadata carries the condition precisely so this is checkable by tooling.
 No UI label ever claims more physical confidence than Phase 6 has earned. "The model was given real physics" and "the model was shown to reproduce reality" are different claims; only Phase 6 can promote the first to the second.
 Every scientific milestone is an automated metric, not a screenshot.
-Resolution scaling is never allowed to rot — if 128³ stops working, development speed and testing die with it.
-A bare α is banned from this repository — in code, in docs, in commit messages. Libbrecht's attachment coefficient and Gravner–Griffeath's attachment threshold are both conventionally written α, they are unrelated quantities, and a solver that confuses them will produce plausible-looking crystals for the wrong reasons — the worst possible failure mode for a project whose identity is epistemic honesty. Every occurrence carries its provenance: alphaHK, alphaHKBasal, alphaHKPrism for the Hertz–Knudsen coefficient (dimensionless, [0,1]); ggThreshAlpha, ggThreshBeta, ggThreshTheta for G-G's boundary-mass thresholds. Enforced by lint, not by vigilance.
+Resolution scaling is never allowed to rot — if the dev budget (≈1M cells) stops working, development speed and testing die with it. (Amended v1.2: cell-budget phrasing per ADR 0001.)
+A bare α is banned from this repository — in code, in docs, in commit messages. Libbrecht's attachment coefficient and Gravner–Griffeath's attachment threshold are both conventionally written α, they are unrelated quantities, and a solver that confuses them will produce plausible-looking crystals for the wrong reasons — the worst possible failure mode for a project whose identity is epistemic honesty. Every occurrence carries its provenance: alphaHK, alphaHKBasal, alphaHKPrism for the Hertz–Knudsen coefficient (dimensionless, [0,1]); ggThreshAlpha, ggThreshBeta, ggThreshTheta for G–G's boundary-mass thresholds. Enforced by lint, not by vigilance.

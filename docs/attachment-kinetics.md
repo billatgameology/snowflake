@@ -125,24 +125,41 @@ f(x) += v_n(x) · Δt / Δx          # per growth step
 attach when f(x) ≥ 1
 ```
 
-`f` should be carried by the existing boundary mass field `b` rather than a new field — `b` is
-already the quasi-liquid layer (charter §2.2), and "mass accumulated at the surface but not yet
-incorporated into the lattice" is exactly what it means. Confirm the normalization when
-implementing; do not assume `b` and `f` are the same units without checking.
+**Where `f` lives is deliberately unsettled** (2026-07-14 review; this paragraph previously said
+"carry it in `b`" — that is one candidate, not a decision). The tempting answer — the existing
+boundary-mass field `b`, which is already the quasi-liquid layer (charter §2.2) and is the
+charter's own wording ("reuses the boundary-mass machinery") — cannot be adopted by default: `b`
+is a **mass ledger** with its own per-tick dynamics (step (ii) freezing deposits into it, step
+(iv) melting drains it), while `f` is a **dimensionless fraction**. Read together literally,
+"attach at `b ≥ 1`" stops being an implementation of `v_n`, and adding `v_n·Δt/Δx` to a mass
+ledger injects mass from nowhere. Four sub-decisions must be settled in writing, in the Phase 2b
+plan, before the seam is coded:
 
-**The design question to settle first, deliberately, with a written rationale:**
+1. `f` in `b` under a defined normalization, or a separate dimensionless field — including what
+   the answer does to the `AttachmentRule` interface shape (a per-cell accumulator is state);
+2. what steps (ii) and (iv) do under `LibbrechtKinetics`;
+3. whether exact mass conservation is claimed under `LibbrechtKinetics`, and what test asserts
+   whatever is claimed;
+4. where `sigma_surf` is read from `d` — before or after step (ii) depletes it — and the
+   normalization mapping `d` to the dimensionless σ these equations need.
 
-- **(a) Deterministic accumulation** — as above. **Preferred.** Determinism is a hard requirement
-  (charter §3.1: deterministic seeds throughout; Phase 5's GPU-vs-oracle comparison is
-  meaningless without it), and G-G's noise term already supplies the stochasticity that
-  sidebranching needs.
-- **(b) Stochastic attachment** — attach with probability `p = v_n·Δt/Δx`. Tempting because it
-  supplies noise for free, but it entangles the symmetry-breaking source with the attachment
-  rule, meaning you can no longer turn noise off to run the symmetry gate. It also makes the
-  oracle-vs-GPU comparison a statistical exercise rather than a tolerance check.
+If the resolution departs from the charter's "reuses the boundary-mass machinery" wording, that
+is an ADR (Rule 5).
 
-Pick (a) unless there is a reason not to, and record the reason in the plan's *Tried and
-rejected* if you switch.
+**This question is settled — charter §3.2 Phase 2b (v1.2) specifies (a) as the reference
+implementation.** Both options stay recorded so the rationale survives the decision:
+
+- **(a) Deterministic accumulation** — as above. **The reference implementation.** Determinism
+  is a hard requirement (charter §3.1: deterministic seeds throughout; Phase 5's GPU-vs-oracle
+  comparison is meaningless without it), and G-G's noise term already supplies the stochasticity
+  that sidebranching needs. Stochasticity enters *only* through that explicit noise term — never
+  through stochastic rounding — so randomness stays a single labeled dial.
+- **(b) Stochastic attachment** — attach with probability `p = v_n·Δt/Δx`. **Rejected.** Tempting
+  because it supplies noise for free, but it entangles the symmetry-breaking source with the
+  attachment rule, meaning you can no longer turn noise off to run the symmetry gate. It also
+  makes the oracle-vs-GPU comparison a statistical exercise rather than a tolerance check.
+
+Departing from (a) now contradicts the charter: that takes an ADR (Rule 5), not a code comment.
 
 ### 4.3 Stability and the diffusion iteration count ⚠ DERIVE, DO NOT GUESS
 

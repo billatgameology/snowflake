@@ -4,10 +4,22 @@
 Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charter.md).
 
 - **Current phase:** Phase 0 complete. Phases 1 (UX spike) and 2 (CPU solver) are next and may
-  run in parallel (§3.2).
-- **Last updated:** 2026-07-14 by Claude Opus 4.8
-- **Active plan:** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
-  0003, not started
+  run in parallel (§3.2). Plans exist for both; neither is started.
+- **Last updated:** 2026-07-14 by Claude Fable 5
+- **Active plans:** [phase-1-ux-spike.md](plans/phase-1-ux-spike.md) — written, not started;
+  [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision 0003, synced to
+  charter v1.2, not started. **Both hardened 2026-07-14 by an adversarial review pass** (each
+  plan's header lists what changed). The two blockers it found, so nobody re-trusts the old
+  text: the seam's bookkeeping was being treated as settled while charter / gg-machinery /
+  attachment-kinetics could not all be read literally at once — it is now explicitly unsettled,
+  four written sub-decisions required before the seam is coded; and the Dirichlet gate as
+  charter-phrased could not fail (a uniform field is a fixed point under *both* boundary
+  conditions) — the plan now carries a falsifiable depleted-start differential test.
+- **Charter is at v1.2** (2026-07-14, review integration): far-field boundary conditions (§2.4),
+  domain-contact guard and determinism scope (§3.1), Phase 4 dual-pass, Phase 6 protocol freeze,
+  the seam's reference implementation, cube-speak and citation-source fixes. **Docs and plans
+  were synced to v1.2 on 2026-07-14** — if you are reading a doc that contradicts the charter,
+  the charter wins and the doc needs fixing, not vice versa.
 
 ---
 
@@ -62,6 +74,10 @@ Source material in [research/](../research/):
 
 - `GravnerGriffeath_PhysRevE09.pdf` — the mesoscopic CA model the solver's update cycle follows
 - `1910.06389v2.pdf`, `1910.09067v2.pdf`, `1211.5555v1.pdf` — the Libbrecht reading list
+- [`1910.06389v2-llm.md`](../research/1910.06389v2-llm.md) — reproducible index for the local,
+  gitignored LLM bundle of the 523-page monograph: searchable page text, 376 condition-aware
+  figure cards, and 279 rendered evidence pages. Strict integrity check passed on 2026-07-14;
+  generated full-content derivatives remain untracked under decision 0004.
 - "The Snowflake Myth" video transcript (`.vtt`, plain text, metadata)
 - [`snowcrystals.com-videos.md`](../research/snowcrystals.com-videos.md) —
   10 lab-growth movies (16 resolution-specific MP4 links), one highest-available local MP4 of
@@ -80,21 +96,24 @@ Source material in [research/](../research/):
 Gates come from charter §3.2. A gate flips to ✅ only with a named metric, its value, and the
 seed/resolution/command to reproduce it (AGENTS.md, Rule 6).
 
-**Phase 0 is the one exception, by nature:** its exit criteria (§2.8) are knowledge checks — can
-you sketch the Nakaya diagram from memory, write the G–G update loop as pseudocode, explain
-hollowing without a hollowing rule, say which parts are physics and which are phenomenology. No
-metric can test those. The maker is the only valid evidence source, and the maker asserted them
-on 2026-07-14. Every gate from Phase 1 on is an automated metric, no exceptions (§3.3).
+**Phases 0 and 1 are the two exceptions, by nature.** Phase 0's exit criteria (§2.8) are
+knowledge checks — can you sketch the Nakaya diagram from memory, write the G–G update loop as
+pseudocode, explain hollowing without a hollowing rule, say which parts are physics and which are
+phenomenology. No metric can test those; the maker is the only valid evidence source, and the
+maker asserted them on 2026-07-14. Phase 1's gate is a **UX finding**, not a scientific
+milestone — its evidence is the maker's written play-session notes per the protocol in
+[phase-1-ux-spike.md](plans/phase-1-ux-spike.md), plus saved history artifacts. Every
+*scientific* gate — Phase 2a onward — is an automated metric, no exceptions (§3.3).
 
 | Phase | Gate | Status |
 |---|---|---|
 | 0 | §2.8 exit criteria hold | ✅ maker-asserted, 2026-07-14 |
-| 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ⬜ not started |
+| 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ⬜ plan written |
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ⬜ plan written |
-| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits | ⬜ plan written |
+| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (v1.2): fixed-σ Dirichlet far field passes the plan's **depleted-start differential test** (the charter's "holds σ in a crystal-free run" phrasing is vacuous from a uniform start — see plan) | ⬜ plan written |
 | 3 | Facet center visibly starves in the slice view while the plate grows | ⬜ not started |
-| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds | ⬜ not started |
-| 5 | GPU agrees with CPU oracle to tolerance; 256³ interactively editable | ⬜ not started |
+| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `AttachmentRule`** (v1.2): pass A certifies machinery+metrics under `GGThreshold`, pass B sweeps temperature under `LibbrechtKinetics` | ⬜ not started |
+| 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported** | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
 
@@ -104,7 +123,10 @@ physics bug on an unproven lattice is two bugs wearing one coat.
 
 **Phase 6 may legitimately fail.** If the model does not reproduce the Nakaya habit reversals,
 that is a finding, it gets reported as one, and Phase 2a's `GGThreshold` still ships a beautiful
-crystal. What is forbidden is quietly tuning until the diagram matches and calling it validation.
+crystal. What is forbidden is quietly tuning until the diagram matches and calling it validation —
+and as of charter v1.2 this is **structural, not aspirational**: the parameter table and the
+validation protocol **freeze before the first sweep** (pre-registration); any post-freeze edit
+requires a logged ADR and invalidates prior sweep results.
 
 ## Decisions
 
@@ -128,35 +150,30 @@ in charter §3.1 and get no retroactive ADR.
 - [phase-0-snowcrystals-site-research.md](plans/phase-0-snowcrystals-site-research.md) — ✅ done
   2026-07-14 (Codex). Catalogued the site's videos and archived the 10 highest-available MP4s.
   Preview-image source URLs remain documented, but the local JPEG copies were removed.
+- [research-snow-crystals-llm-bundle.md](plans/research-snow-crystals-llm-bundle.md) — ✅ done
+  2026-07-14 (Codex). Generated a 327 MB local bundle covering 523/523 pages and 376 figures;
+  the strict checker passed with 279 rendered evidence pages and a 12-card visual QA sample.
+  Next use is cited retrieval for the Phase 2b parameter table, not automatic claim acceptance.
 
 ## Next step
 
-Phase 0 is closed, so the next action is **Phase 1 or Phase 2 — they may run in parallel.**
+Phase 0 is closed and both plans are written, so the next action is **start building Phase 1 or
+Phase 2a — they may run in parallel** (§3.2). Cold-start instructions for each:
 
-**If picking up Phase 2 (the spine):** [plans/phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md)
-is written and not started. Read [gg-machinery.md](gg-machinery.md) and
-[attachment-kinetics.md](attachment-kinetics.md) first, then the plan, then scaffold the repo.
-First checkpoint is neighbor-symmetry unit tests on the stacked triangular lattice — 6 in-plane +
-2 vertical, all 8 bonds unit length. Do not write solver code before those tests pass in all
-directions (§3.2).
+- **Phase 1:** open [phase-1-ux-spike.md](plans/phase-1-ux-spike.md), build in `spike/` at the
+  repo root — deliberately *outside* the npm workspace, plain JS, zero dependencies. Traps
+  already known: Reiter's parameters are conventionally α/β/γ — a *third* unrelated α; Rule 7
+  applies even to throwaway code (`reiterAlpha`, `reiterBeta`, `reiterGamma`). No physical labels
+  on the sliders (§1.5 has no prototype exemption). And Reiter's diffusion runs on **every** cell
+  including receptive ones (the plan spells out the exact update rule) — diffusing only
+  non-receptive cells silently kills branching and will look like a parameter problem.
+- **Phase 2a:** open [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md), start at the Scaffold
+  steps (npm workspaces, strict TS, Vitest, the Rule 7 lint check, **counter-based** seeded PRNG
+  in `core`). Trap already known: **gg-machinery §6 (the noise term) is still a hole** — it has
+  not been extracted from `research/GravnerGriffeath_PhysRevE09.pdf`, it blocks the 2a gate, and
+  skipping it will present later as a fake physics failure in 2b. Extract it early, not last.
+  Second trap: the 19-site seed erratum (gg-machinery §5) — the paper says 20; do not "fix" it
+  back. Third trap (2b, not 2a): **the seam's bookkeeping is deliberately unsettled** — four
+  written sub-decisions (plan, Approach item 4) come before any `LibbrechtKinetics` code.
 
-**If picking up Phase 1 (the spike):** no plan exists yet. Write `plans/phase-1-ux-spike.md` from
-[the template](plans/_TEMPLATE.md) before any code. It is a Reiter CA on a 2D hex grid in a
-canvas, plus an editable environmental timeline.
-
-> **Trap, from the charter:** the Phase 1 spike is **throwaway**. It gets archived, not extended
-> — it must not quietly become the architecture (§3.2). The CPU oracle from Phase 2, by contrast,
-> is never deleted (§3.1).
-
-**Housekeeping:** `git init` has been run and the repo now has its **first real commit** (the docs,
-governance files, and ADR 0004; the 277 MB of `research/` media was purged from history first and
-is gitignored). There is now history to recover from — but still no remote, so a push has not
-happened and the copyright exposure that 0004 addresses stays contained until one is added.
-
-> **Concurrency warning, learned the hard way on 2026-07-14:** two models (Codex and Claude) wrote
-> this file within minutes of each other and one write was lost. If another session may be active,
-> re-read `PROGRESS.md` immediately before writing it, and prefer a targeted edit over a full
-> rewrite. **A live Codex session was active during the 2026-07-14 history-purge** — its
-> uncommitted 149-line working copy of this file was reverted by `git filter-repo`'s hard reset and
-> restored from the acting model's context. If two agents may be editing, coordinate before any
-> history rewrite; a rewrite resets the working tree and discards everyone's uncommitted changes.
+Whichever starts first, flip its plan's **Status** to *in progress* and update this file.

@@ -152,6 +152,13 @@ start of the tick**. Attachment must be simultaneous across `∂A_t`: a cell tha
 > **Step (iii) is the seam.** It is the *only* step behind the `AttachmentRule` interface. Steps
 > (i), (ii) and (iv) are identical under both rules. If a diff to this solver touches (i), (ii)
 > or (iv) while claiming to be about physics, it is out of scope.
+>
+> One recorded caveat (2026-07-14 review): "(ii) and (iv) identical under both rules" is exact
+> for `GGThreshold` and **aspirational for `LibbrechtKinetics`** until the seam's bookkeeping is
+> settled — whether freezing and melting keep writing `b` unchanged interacts with where the
+> fill fraction `f` lives, and that is deliberately flagged unsettled in
+> [attachment-kinetics.md](attachment-kinetics.md) §4.2. Do not cite this sentence as having
+> decided it.
 
 ### (i) Diffusion — on `x ∉ A_t`
 
@@ -172,6 +179,20 @@ scaled so all 8 bonds have unit length (§2). Note `4/7 + 2·(3/14) = 1`.
 *centre cell's own value* — `d°(x)` in (1a), `d′(x)` in (1b). Apply the identical rule at the
 domain faces. This is what makes mass conservation exact: a cell retains `(1 + n_attached)/7` of
 its mass and hands `1/7` to each free neighbor, and the books balance.
+
+> **Far-field boundary conditions (charter §2.4, added v1.2).** The reflecting rule above is the
+> **Phase 2a default** and the G-G-fidelity condition: it conserves total vapor, so the crystal
+> grows by consuming a finite reservoir and σ falls over the run. Phase 2b adds a second,
+> per-run-selectable condition — **fixed-σ Dirichlet**: the domain faces are held at the set
+> supersaturation, i.e. vapor is replenished at the far field. Nakaya coordinates and Libbrecht's
+> measurements assume a *maintained* far-field σ, so **every Phase 6 validation run requires
+> Dirichlet.** Two consequences that must not get lost:
+>
+> - The exact mass-conservation invariant (§4 intro) holds **under reflecting only.** Dirichlet
+>   makes the domain boundary a source/sink *by design*; its correctness check is instead the
+>   charter's Phase 2b gate — a long crystal-free run holds σ at the set value to tolerance.
+> - Which condition a run used is recorded in its **checkpoint metadata**, and results are never
+>   compared across conditions silently (charter §3.3) — the two record different experiments.
 
 > **Phase 2b will add an iteration count here.** One diffusion pass per growth step is a *guess*
 > that the vapor field has relaxed. Once Δx, Δt and D carry physical units
@@ -296,6 +317,12 @@ attaches. Sufficient for continued growth in all directions (and necessary too, 
 
 **Stopping rules** (§3): halt when far-field vapor falls to a set fraction of `ρ` (they use
 `2ρ/3` or `ρ/2`), or when the crystal radius exceeds 80% of the domain radius.
+
+**Domain-contact guard (charter §3.1, added v1.2).** Distinct from, and stricter than, G-G's 80%
+stopping rule: the metrics module automatically flags **invalid** any run in which the crystal's
+bounding box exceeds **~65% of any domain extent**. A crystal near the wall interacts with its
+own mirror image (reflecting) or with a clamped edge (Dirichlet), corrupting the field silently
+while the shape still looks plausible. Flagged runs never enter validation results.
 
 ### Monotonicity is a warning, not an error
 
