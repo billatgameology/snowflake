@@ -23,7 +23,8 @@
 //   --stop-check-every N     far-field stopping-rule cadence (default 25)
 //   --enforce-gate           make this run an ENFORCING Phase 2a gate (maker audit
 //                            2026-07-15: printing gate metrics is not a gate; a failing
-//                            build is). Exits 1 unless ALL hold: per-tick delta check clean,
+//                            build is). Exits 1 unless ALL EIGHT hold: preset is plate (the
+//                            gate is defined on it), noise off, per-tick delta check clean,
 //                            full symmetry metric 0 at every cadence point and at end, mass
 //                            drift < 1e-10, aspect ratio < 1, no domain contact, and the run
 //                            ended by the far-field stopping rule. Off by default: grow is
@@ -335,7 +336,12 @@ function grow(options: GrowOptions): void {
   if (options.enforceGate) {
     // The Phase 2a gate, enforced (plan, Done when; maker audit 2026-07-15: a printed
     // metric that nobody has to read is not a gate). Every criterion that fails is named.
+    // Exit 0 must be the whole claim by itself — so the preset is a criterion too (round-3
+    // review: without it, a dendrite run printed GATE PASSED).
     const failures: string[] = [];
+    if (options.preset !== "plate") {
+      failures.push(`preset is ${options.preset}: the 2a gate is defined on the plate preset`);
+    }
     if (!deltaSymmetricAllTicks) {
       failures.push(`per-tick symmetry delta broke at tick ${firstAsymmetricTick}`);
     }

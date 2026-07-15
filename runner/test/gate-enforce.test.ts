@@ -53,4 +53,16 @@ describe("runner --enforce-gate", () => {
     expect(output).toContain("GATE FAILED");
     expect(output).toContain("noise is ON");
   });
+
+  it("FAILS (exit 1) on a non-plate preset — exit 0 must be the whole claim by itself", () => {
+    // Round-3 review demo: before this criterion, a dendrite run printed GATE PASSED and
+    // the claim was only valid jointly with the command line that nobody re-reads.
+    const { status, output } = runGrow(
+      "--preset", "dendrite", "--dims", "24,24,12",
+      "--ticks", "300", "--metrics-every", "0", "--enforce-gate",
+    );
+    expect(status).toBe(1);
+    expect(output).toContain("GATE FAILED");
+    expect(output).toContain("the 2a gate is defined on the plate preset");
+  });
 });

@@ -367,10 +367,14 @@ Order within 2b is deliberate; each step gates the next:
       field is obvious on sight, and that asymmetry is the whole argument for doing this on day
       one.
 - [x] **PHASE 2a GATE.** Plate preset → sixfold hexagonal plate, symmetry error 0 across the entire
-      run (noise off), aspect ratio < 1. "Entire run" defined: until a named gg-machinery §7
-      stopping rule fires (far-field < 2ρ/3) or the domain-contact guard trips — name which, so
-      the run has an end a cold reader can reproduce. Record in PROGRESS.md with the metric
-      value, seed, resolution and exact command (AGENTS.md Rule 6).
+      run (noise off), aspect ratio < 1. "Entire run" defined: until the far-field stopping
+      rule fires (mean shell vapor < 2ρ/3, gg-machinery §7). *(Corrected 2026-07-15, round-3
+      review: this sentence originally also accepted a domain-contact-guard trip as a valid
+      run end — but a contact-stopped run's final state exceeds the 65% limit by construction
+      and is not valid evidence (charter §3.1), the exact rule that invalidated the first
+      needle run. The guard still ends a run; it cannot end a GATE run, and `--enforce-gate`
+      rejects it. Narrowing the accepted ends is a strengthening, not a softening.)* Record in
+      PROGRESS.md with the metric value, seed, resolution and exact command (AGENTS.md Rule 6).
 
       **PASSED 2026-07-15 — and re-passed the same day under enforcement** after the maker's
       audit (see Tried and rejected) turned the runner into an enforcing gate.
@@ -429,8 +433,11 @@ Order within 2b is deliberate; each step gates the next:
       **Inequality outcomes:** plate vs needle AR ✓ (0.169 vs 6.60, comfortably straddling the
       operationalized 1/1.5–1.5 thresholds); dendrite vs plate branch count ✓ (6 vs 0);
       hollow-column hollowness > 0 ✓ (0.188). **needle hollowness ≈ 0 ✗ — measured 0.0740.**
-      Diagnosed (out/needle-hollow-probe.ts against the checkpoint): the needle's shaft slices
-      each enclose **exactly 19 free cells — the seed's own footprint** — i.e. this preset grows
+      Diagnosed (out/needle-hollow-probe.ts against out/needle-256.ckpt; independently
+      recomputed from raw checkpoint bytes in the round-3 review): the **shaft proper — both
+      arms above and below the seed region — encloses exactly 19 free cells per slice, the
+      seed's own footprint** (the few seed-plane-adjacent slices vary, zmirror-symmetrically)
+      — i.e. this preset grows
       a hollow tube: a sheath around the seed's rim that never fills behind the growth front.
       That is a real morphology, not a metric artifact (the metric's open-tube signature,
       sealedVoid = 0, behaves as designed). **Source-confirmed by the maker (2026-07-15): the
