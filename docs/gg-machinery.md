@@ -89,9 +89,12 @@ Boundary set `∂A_t = { x ∉ A_t : some neighbor y ∈ N_x has a(y) = 1 }`.
 Attached sites have `d = 0` forever and **no further dynamics** — attachment is permanent and
 sublimation is not modeled (§2).
 
-> **`b` is where the physics will live.** Charter §2.2 requires the nanoscale premelted
-> quasi-liquid layer to exist as internal state. `b` *is* that layer. `LibbrechtKinetics` reads
-> and writes it; this is not a coincidence but the reason the seam works at all.
+> **`b` is `GGThreshold`'s quasi-liquid layer — and stays exclusively its** (corrected
+> 2026-07-15; this note previously said "`b` is where the physics will live," which the settled
+> surface-operator spec decided otherwise). Under `LibbrechtKinetics` the surface state is a
+> *separate* fill field, `b` is untouched, and charter §2.2's premelting requirement is honored
+> where that rule's physics actually lives: folded into the measured `sigma_0(T)`/`A(T)`
+> (attachment-kinetics §4.4 component 4, and §5).
 
 ## 3. Parameters
 
@@ -153,12 +156,12 @@ start of the tick**. Attachment must be simultaneous across `∂A_t`: a cell tha
 > (i), (ii) and (iv) are identical under both rules. If a diff to this solver touches (i), (ii)
 > or (iv) while claiming to be about physics, it is out of scope.
 >
-> One recorded caveat (2026-07-14 review): "(ii) and (iv) identical under both rules" is exact
-> for `GGThreshold` and **aspirational for `LibbrechtKinetics`** until the seam's bookkeeping is
-> settled — whether freezing and melting keep writing `b` unchanged interacts with where the
-> fill fraction `f` lives, and that is deliberately flagged unsettled in
-> [attachment-kinetics.md](attachment-kinetics.md) §4.2. Do not cite this sentence as having
-> decided it.
+> Settled 2026-07-15 (was a recorded caveat since the 2026-07-14 review): "(ii) and (iv)
+> identical under both rules" is exact for `GGThreshold` and **false for `LibbrechtKinetics`,
+> by decision** — under that rule freezing is *replaced* by the Robin substitution inside the
+> field relaxation and melting is *disabled*; the full kept/replaced/disabled disposition table
+> is [attachment-kinetics.md](attachment-kinetics.md) §4.4 component 5. For `GGThreshold` —
+> everything Phase 2a certified — nothing changes, ever.
 
 ### (i) Diffusion — on `x ∉ A_t`
 
@@ -194,11 +197,12 @@ its mass and hands `1/7` to each free neighbor, and the books balance.
 > - Which condition a run used is recorded in its **checkpoint metadata**, and results are never
 >   compared across conditions silently (charter §3.3) — the two record different experiments.
 
-> **Phase 2b will add an iteration count here.** One diffusion pass per growth step is a *guess*
-> that the vapor field has relaxed. Once Δx, Δt and D carry physical units
-> ([attachment-kinetics.md](attachment-kinetics.md) §4), the number of diffusion iterations
-> needed for the quasi-static field to actually relax becomes a *derived* quantity. This is one
-> of the concrete gifts of taking on units.
+> **Under `LibbrechtKinetics` this pass becomes the relaxation kernel** (settled 2026-07-15;
+> this note previously promised "an iteration count," which ADR 0005 D3 superseded — the field
+> is quasi-static there, iterated to a stated *residual tolerance*, and the count is an output,
+> not a target). Same stencil, iterated, with the Robin surface substitution — the full
+> formulation is [attachment-kinetics.md](attachment-kinetics.md) §4.3–§4.4. Under
+> `GGThreshold` it stays exactly one pass per tick, as published, forever.
 
 ### (ii) Freezing — on `x ∈ ∂A_t`
 
@@ -223,10 +227,11 @@ on attach:  a = 1,  b′(x) = b°(x) + d°(x),  d′(x) = 0
 Step (ii) runs first, so the `b°` tested here already includes this tick's freezing.
 
 **`LibbrechtKinetics` implementation** (Phase 2b): see
-[attachment-kinetics.md](attachment-kinetics.md). Note the hole-filling rule above is *geometric
-hygiene*, not physics — it prevents interior voids from the discretization. Decide deliberately
-whether it survives into `LibbrechtKinetics`; it probably should, and if it does not, hollowing
-results become very hard to interpret.
+[attachment-kinetics.md](attachment-kinetics.md) §4.4. The hole-filling rule above is *geometric
+hygiene*, not physics — it prevents interior voids from the discretization. **Decided
+2026-07-15 (§4.4 component 5): it survives** — kept under both rules, and under the kinetics
+rule it is additionally consistent with barrier-free attachment at maximum-coordination kink
+sites, so hollowing results stay interpretable as physics rather than artifacts.
 
 ### (iv) Melting — on `x ∈ ∂A_t` that did **not** just attach
 

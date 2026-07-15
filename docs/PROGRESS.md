@@ -232,7 +232,7 @@ Phase 1 is closed (2026-07-15). Phase 2a is closed — maker-asserted complete 2
 3. **Doc debt: cleared** — the plan's 2b section is reconciled with ADR 0005 (the "n_diff
    plausibility" step is retracted-as-specified and replaced by the fill-CFL bound and the
    worked Péclet arithmetic: quasi-static is comfortably valid across the Nakaya regime,
-   `Pe ≲ 1e-3` worst case).
+   `Pe ≤ 1.64e-3` worst case).
 
 **Next concrete action (for whoever picks this up): maker review of the two deliverables.**
 If accepted, 2b code starts with the `SurfaceOperator` refactor — `GGThreshold` behind the

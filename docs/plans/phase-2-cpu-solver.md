@@ -485,11 +485,11 @@ Order within 2b is deliberate; each step gates the next:
       and §4.4: a **fill-CFL bound** on `Δt` (physical time lives only in the interface
       update) and the **quasi-static validity (Péclet) check**, arithmetic recorded here as
       §4.4 requires — with the freshly extracted numbers, at −15 °C and 1 atm:
-      `v_kin = 2.079e-4 m/s` (Table 2.1), so `v_n ≤ alphaHK·v_kin·sigma_infinity ≤ 2.1e-6 m/s`
+      `v_kin = 2.079e-4 m/s` (Table 2.1), so `v_n ≤ alphaHK·v_kin·sigma_infinity ≤ 2.08e-6 m/s`
       at `sigma_infinity = 0.01`; with `L = 100 µm` and `D = 2e-5 m²/s`:
-      `Pe = v_n·L/D ≤ 1.0e-5 ≪ 1`. Worst case in the target regime (`sigma_infinity =
-      sigma_water(−15) = 0.157`, `L = 1 mm`): `Pe ≤ 1.6e-3 ≪ 1`. At −5 °C
-      (`v_kin = 4.959e-4`, `sigma_water = 0.05`, `L = 100 µm`): `Pe ≤ 1.2e-4 ≪ 1`. Lower
+      `Pe = v_n·L/D ≤ 1.04e-5 ≪ 1`. Worst case in the target regime (`sigma_infinity =
+      sigma_water(−15) = 0.157`, `L = 1 mm`): `Pe ≤ 1.64e-3 ≪ 1`. At −5 °C
+      (`v_kin = 4.959e-4`, `sigma_water = 0.05`, `L = 100 µm`): `Pe ≤ 1.24e-4 ≪ 1`. Lower
       pressure only helps (`D ∼ P⁻¹`). **Quasi-static is comfortably valid across the whole
       Nakaya-relevant regime**; the per-run assertion stays in the suite per §4.4 test 6.
       Sample fill-CFL: `Δx = 0.5 µm`, `sigma_infinity = 0.01`, bound 0.1 →

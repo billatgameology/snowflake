@@ -201,9 +201,9 @@ embedded image, transcribed 2026-07-15; full table runs −40…0 °C in 1° ste
 | −40 | 0.13 | 3.99e21 | 0.474 | 17.0 | 1.70e-5 | 0.153 |
 
 Cross-check performed (2026-07-15): closed form at −15 °C gives `(4.63e22/3.1e28) ·
-sqrt(1.38e-23·258.15/(2π·3.0e-26))` ≈ 2.05e-4 m/s vs the table's 2.079e-4 — 1.4% agreement
-(rounding of the quoted constants). The solver computes the form and validates against these
-anchors in a unit test.
+sqrt(1.38e-23·258.15/(2π·3.0e-26))` = 2.053e-4 m/s vs the table's 2.079e-4 — agreement to
+≈1.2% (rounding of the quoted constants). The solver computes the form and validates against
+these anchors in a unit test.
 
 ## 6. `D(T, P)` — vapor diffusivity in air
 
