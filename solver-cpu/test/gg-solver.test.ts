@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   cellCount,
   coordsOf,
+  isD6hInvariantSet,
   neighborIndices,
   symmetryError,
   totalMass,
@@ -107,16 +108,65 @@ describe("GGSolver — determinism (charter §3.1, pinned-oracle scope)", () => 
 });
 
 describe("GGSolver — symmetry (dev-grid version of the 2a gate; the gate itself runs via runner)", () => {
-  it("plate preset, noise off: symmetry error is exactly 0 at every checked tick", () => {
-    const solver = new GGSolver({ dims: devDims, params: GG_PRESETS.plate, rngSeed: 1 });
+  it("plate preset, hexPrism domain, noise off: symmetry error is exactly 0 at every checked tick", () => {
+    // The gate's domain is hexPrism (solver header, decision 1): the active region must
+    // itself be D6h-symmetric or the walls break the crystal's symmetry legitimately.
+    const solver = new GGSolver({
+      dims: devDims,
+      params: GG_PRESETS.plate,
+      rngSeed: 1,
+      domain: "hexPrism",
+    });
     for (let t = 0; t < 1000; t++) {
       solver.step();
+      // Every tick: the exact incremental check (a periodic full metric alone can miss a
+      // break that transiently heals — see the negative control below). Seed invariant +
+      // every delta invariant => A_t invariant at every tick, not just sampled ones.
+      if (solver.lastAttached.length > 0) {
+        expect(isD6hInvariantSet(solver.lastAttached, solver.dims, solver.center)).toBe(true);
+      }
       if (t % 50 === 0) {
         expect(symmetryError(solver.a, solver.dims, solver.center)).toBe(0);
       }
     }
     expect(symmetryError(solver.a, solver.dims, solver.center)).toBe(0);
     expect(solver.attachedCount).toBeGreaterThan(19);
+  });
+
+  it("negative control: the box domain breaks symmetry once the field feels the walls", () => {
+    // Root-caused 2026-07-15 (plan, Tried and rejected): a box is not D6h-invariant — the
+    // axial-rectangle footprint is a rhombus (no rot60 invariance), and an even nz has no
+    // center plane (kc sits 8 layers from one z-wall, 7 from the other at nz=16) — so the
+    // reflecting walls imprint their asymmetry on the vapor field and then on the crystal.
+    // At 32x32x16 the first asymmetric attachment lands at tick 270 via zmirror, with a
+    // boundary-mass split of ~0.03 between mirror partners: mesoscopic wall physics, three
+    // orders above ulp scale, NOT index arithmetic. This control documents that the gate's
+    // hexPrism domain is load-bearing; if this test ever fails, the box has silently become
+    // symmetric and the domain machinery changed underneath the gate.
+    const solver = new GGSolver({
+      dims: devDims,
+      params: GG_PRESETS.plate,
+      rngSeed: 1,
+      domain: "box",
+    });
+    let firstBrokenTick = -1;
+    let symErrAtBreak = 0;
+    for (let t = 0; t < 400; t++) {
+      solver.step();
+      if (
+        firstBrokenTick < 0 &&
+        solver.lastAttached.length > 0 &&
+        !isD6hInvariantSet(solver.lastAttached, solver.dims, solver.center)
+      ) {
+        firstBrokenTick = solver.tick;
+        symErrAtBreak = symmetryError(solver.a, solver.dims, solver.center);
+      }
+    }
+    expect(firstBrokenTick).toBe(270);
+    // Measured AT the break tick: the set-level error can transiently heal on later ticks
+    // when the lagging mirror partners catch up — which is exactly why the gate checks the
+    // per-tick delta, not just the periodic full metric.
+    expect(symErrAtBreak).toBeGreaterThan(0);
   });
 });
 

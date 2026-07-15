@@ -4,8 +4,11 @@
 Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charter.md).
 
 - **Current phase:** **Phase 1 is done** (gate maker-asserted 2026-07-15; spike archived under
-  `spike/README.md`). **Phase 2 Stage 2a is in progress** — two red items block its gate (see
-  Next step). Phase 2b is paused (ADR 0005).
+  `spike/README.md`). **Phase 2a's gate PASSED 2026-07-15** (sixfold plate, symmetry error
+  exactly 0 across the full run, noise off — full record in the plan's Steps and the gate table
+  below); all four G-G presets reproduced, with one pre-registered preset inequality honestly
+  failed (needle hollowness — see the plan). Phase 2b is paused (ADR 0005) pending its two
+  opening deliverables.
 - **Last updated:** 2026-07-15 by Claude Fable 5
 - **Active plan:** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
   0003, synced to charter v1.2/v1.3, Scaffold + Stage 2a in progress. Hardened 2026-07-14 by an
@@ -59,10 +62,15 @@ into the two specs below.
 **Phase 0 is done** (maker-asserted, 2026-07-14 — see the gate table). **Code now exists**
 (2026-07-14): the npm workspace scaffold with `core` / `solver-cpu` / `runner` packages plus the
 repo-root Rule 7 lint (`scripts/lint-rule7.mjs`), and the Phase 1 spike in `spike/` (outside the
-workspace, by design). Stage 2a is **in progress and not yet gated** — at last check the D6h
-symmetry test was failing (error 0.0424403183 against a required exact 0) and `npm test` was
-failing in the repo-wide Rule 7 scan; both must be resolved before the 2a gate can be claimed.
-**Phase 2b is paused** (decision 0005) pending its two opening deliverables. The stack is
+workspace, by design). **Stage 2a is gated as of 2026-07-15** — the two red items resolved:
+the D6h symmetry failure was root-caused to the *domain shape*, not index arithmetic (a box
+domain is geometrically incapable of exact D6h symmetry — rhombic footprint, and no center
+plane when nz is even; the gate runs on the solver's hexPrism-masked domain, threshold untouched
+at exactly 0, with a box negative-control test pinning the geometry — full triage in the plan's
+Tried and rejected), and the Rule 7 scan turned out to be already-fixed at HEAD, verified to
+still fail on real violations (the WIP handoff note undersold its own commit — recorded per
+Rule 1). `npm test`: 69/69 green. **Phase 2b is paused** (decision 0005) pending its two
+opening deliverables. The stack is
 decided in charter §3.1 — TypeScript + Vite, WebGPU, stacked triangular lattice, CPU oracle +
 GPU production solver, five-part repo (`core` / `solver-cpu` / `solver-gpu` / `runner` / `app`;
 `solver-gpu` and `app` are reserved and uncreated).
@@ -130,7 +138,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 |---|---|---|
 | 0 | §2.8 exit criteria hold | ✅ maker-asserted, 2026-07-14 |
 | 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ✅ **maker-asserted, 2026-07-15** — informal sessions, positive; the four-task protocol was *not* run (recorded honestly in the plan's Findings, with the Phase 7 takeaways) |
-| **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ⬜ plan written |
+| **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **2026-07-15** — per-tick delta check clean on all 4800 ticks *and* full `\|A Δ g(A)\|/\|A\|` = 0 at every sample and at end; AR 0.168831; mass drift 2.056e-13 (float floor 3.819e-16); run ended by the named far-field rule. Repro: seed 1, dims 128,128,64, hexPrism, `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt`. Full record + all-four-presets values (incl. the honestly-failed needle-hollowness inequality) in [the plan](plans/phase-2-cpu-solver.md), Steps |
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (v1.2): fixed-σ Dirichlet far field passes the plan's **depleted-start differential test** (the charter's "holds σ in a crystal-free run" phrasing is vacuous from a uniform start — see plan) | ⏸ **paused** (ADR 0005): surface-operator spec + parameter table first |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ⬜ not started |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `AttachmentRule`**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ⬜ not started |
@@ -189,30 +197,33 @@ in charter §3.1 and get no retroactive ADR.
 
 ## Next step
 
-Phase 1 is closed (2026-07-15). The work is **Phase 2a**:
+Phase 1 is closed (2026-07-15). **Phase 2a is gated (2026-07-15)** — machinery proven, four
+presets reproduced, evidence in the plan's Steps. The work is now **Phase 2b's two opening
+deliverables**, in order (ADR 0005 keeps 2b's code paused until both exist):
 
-1. **Phase 2a — resolve, verify, then gate (in progress, fresh session 2026-07-15).** The D6h
-   symmetry test **fails** (error 0.0424403183 against a required exact 0 — at 4% of cells this
-   is a real bug, likely a convention mismatch between the neighbor offsets and the D6h
-   operators or a wrong rotation pivot, not a float knife-edge) and `npm test` fails in the
-   repo-wide Rule 7 scan (`runner/test/rule7-lint.test.ts` — needs the mention-vs-use waiver
-   per AGENTS.md Rule 7's policy paragraph). A build session is on it, with three directives:
-   root-cause the symmetry failure (metric tested in isolation before dynamics), implement the
-   Rule 7 waiver so fixtures pass while real violations still fail, and strengthen diffusion
-   verification (uniform fixed point, exact impulse weights, reflecting-boundary conservation at
-   faces/edges/corners, D6h-symmetric impulse response) — then run the 2a gates with recorded
-   metric + seed + dims + command (Rule 6). Standing trap: the 19-site seed erratum
-   (gg-machinery §5) — the paper says 20; do not "fix" it back. **Handoff note (2026-07-15):**
-   that session was stopped mid-work and its partial Rule 7 waiver is committed as WIP — the
-   waiver marker currently sits on a wrapped continuation line and must move to the line
-   containing the span (per-line semantics). The symmetry bug was not yet investigated
-   (vitest: 1 failed / 56 passed). A `symprobe` scratch may exist under `out/` (untracked).
-2. **Phase 2b — stays paused** (ADR 0005) until its two opening deliverables exist: the
-   surface-operator specification (attachment-kinetics §4.2 lists its six required components)
-   and the parameter table (libbrecht-parameters.md — provenance classes P1–P4, canonical
-   units). Known doc debt: the phase-2 plan's 2b section still predates ADR 0005 (its "n_diff
-   plausibility" step and "four sub-decisions" wording need reconciling with the ADR before 2b
-   resumes) — reconcile it when the in-flight 2a build session lands.
+1. **The surface-operator specification.** Open
+   [attachment-kinetics.md](attachment-kinetics.md) §4.2 — it lists the six required components
+   (ADR 0005 D2). This includes settling the seam's four bookkeeping sub-decisions *in writing*
+   (plan, Approach item 4): where the fill fraction lives, what freezing/melting do under
+   `LibbrechtKinetics`, what mass claim holds, and where `sigma_surf` reads from `d`. If the
+   resolution departs from the charter's "reuses the boundary-mass machinery" wording, that is
+   an ADR (Rule 5).
+2. **The parameter table.** Fill [libbrecht-parameters.md](libbrecht-parameters.md) from
+   arXiv:1910.09067 via the LLM bundle index
+   ([1910.06389v2-llm.md](../research/1910.06389v2-llm.md)) — every number cited, provenance
+   class P1–P4, canonical units; σ₀ percent-vs-fraction is a 100× trap. A gap is a finding; a
+   plausible fill-in is a fabrication.
+3. **Doc debt before 2b code starts:** the phase-2 plan's 2b section still predates ADR 0005
+   (its "n_diff plausibility" step and "four sub-decisions" wording need reconciling with the
+   ADR's elliptic-residual numerics decision).
+
+Traps already known: the 19-site seed erratum (gg-machinery §5 — the paper says 20; do not
+"fix" it back). The symmetry gate runs on the **hexPrism** domain — a box cannot pass it for
+geometric reasons (plan, Tried and rejected); do not "simplify" the gate run back to a box. The
+needle preset grows a genuinely hollow tube (hollowness 0.081, bore = the 19-cell seed
+footprint), so do not use "needle hollowness ≈ 0" as an assumption anywhere downstream.
+`out/*.ts` are untracked triage probes (symmetry, metric isolation, needle-bore diagnosis) —
+usable, disposable, not part of the build.
 
 Trap for whoever touches the timeline next (Phase 4, or Phase 7 thinking): timeline semantics
 are an open decision (ADR 0005 D5) — changing temperature changes c_sat(T), so until the

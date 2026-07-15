@@ -11,6 +11,8 @@
 //   --ticks N                tick cap; stopping rules may end the run earlier (default 10000)
 //   --out path.ckpt          checkpoint written at end of run (round-trip verified)
 //   --seed N                 PRNG seed (default 1); only consumed when --noise > 0
+//   --seed-radius N|none     hex seed radius (default 2); none = crystal-free control run
+//                            (float-floor characterization, plan "solver-cpu" check)
 //   --noise EPS              gg-machinery §6 noiseEpsilon (default 0 = off)
 //   --metrics-every N        light metrics line cadence (default 250; 0 = off)
 //   --full-metrics-every N   full morphology metrics cadence (default 2000; 0 = off)
@@ -51,6 +53,7 @@ interface GrowOptions {
   ticks: number;
   out: string | null;
   seed: number;
+  seedRadius: number | null;
   noise: number;
   metricsEvery: number;
   fullMetricsEvery: number;
@@ -68,6 +71,7 @@ function parseArgs(argv: string[]): GrowOptions {
     ticks: 10_000,
     out: null,
     seed: 1,
+    seedRadius: 2,
     noise: 0,
     metricsEvery: 250,
     fullMetricsEvery: 2000,
@@ -117,6 +121,17 @@ function parseArgs(argv: string[]): GrowOptions {
       case "--seed":
         options.seed = Number(value());
         break;
+      case "--seed-radius": {
+        const v = value();
+        if (v === "none") {
+          options.seedRadius = null;
+        } else if (Number.isInteger(Number(v)) && Number(v) >= 0) {
+          options.seedRadius = Number(v);
+        } else {
+          throw new Error(`--seed-radius wants a non-negative integer or "none", got ${v}`);
+        }
+        break;
+      }
       case "--noise":
         options.noise = Number(value());
         break;
@@ -174,6 +189,7 @@ function grow(options: GrowOptions): void {
     rngSeed: options.seed,
     noiseEpsilon: options.noise,
     domain: options.domain,
+    seedRadius: options.seedRadius,
   });
   const { dims, center } = solver;
   const kc = center[2];
