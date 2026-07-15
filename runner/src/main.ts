@@ -21,10 +21,19 @@
 //   --pgm-every N            PGM dump cadence (default 0 = off)
 //   --pgm-dir DIR            where PGM dumps land (default out/pgm)
 //   --stop-check-every N     far-field stopping-rule cadence (default 25)
+//   --enforce-gate           make this run an ENFORCING Phase 2a gate (maker audit
+//                            2026-07-15: printing gate metrics is not a gate; a failing
+//                            build is). Exits 1 unless ALL hold: per-tick delta check clean,
+//                            full symmetry metric 0 at every cadence point and at end, mass
+//                            drift < 1e-10, aspect ratio < 1, no domain contact, and the run
+//                            ended by the far-field stopping rule. Off by default: grow is
+//                            otherwise a neutral instrument (noise-on and box runs are
+//                            asymmetric by design and must stay runnable).
 //
 // Stopping rules (gg-machinery §7 + charter §3.1 guard), whichever fires first:
 //   far-field       mean vapor over free domain-face cells < (2/3) * rho
-//   domain-contact  crystal bounding box > 65% of any domain extent
+//   domain-contact  crystal bounding box > 65% of any domain extent — the final state is
+//                   past the guard by construction, so the run is flagged NOT VALID EVIDENCE
 //   tick-cap        --ticks reached without either rule firing (recorded honestly)
 
 import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
@@ -61,6 +70,7 @@ interface GrowOptions {
   pgmEvery: number;
   pgmDir: string;
   stopCheckEvery: number;
+  enforceGate: boolean;
 }
 
 function parseArgs(argv: string[]): GrowOptions {
@@ -79,6 +89,7 @@ function parseArgs(argv: string[]): GrowOptions {
     pgmEvery: 0,
     pgmDir: "out/pgm",
     stopCheckEvery: 25,
+    enforceGate: false,
   };
   let presetSeen = false;
   for (let i = 0; i < argv.length; i++) {
@@ -154,6 +165,9 @@ function parseArgs(argv: string[]): GrowOptions {
         break;
       case "--stop-check-every":
         options.stopCheckEvery = Number(value());
+        break;
+      case "--enforce-gate":
+        options.enforceGate = true;
         break;
       default:
         throw new Error(`unknown flag: ${flag}`);
@@ -280,6 +294,15 @@ function grow(options: GrowOptions): void {
       (firstAsymmetricTick >= 0 ? ` firstAsymmetricTick=${firstAsymmetricTick}` : "") +
       ` maxFullSymErr=${maxFullSymErr} (full metric every ${options.symmetryEvery} ticks and at end)`,
   );
+  if (stopReason === "domain-contact") {
+    // The guard is checked after each tick, so a contact-stopped run's final state exceeds
+    // the 65% limit by construction (maker audit 2026-07-15: needle z extent 125/192 =
+    // 65.104%). Charter §3.1: such runs never enter validation results.
+    console.log(
+      "WARNING: run ended by the domain-contact guard; the final state exceeds the 65% " +
+        "limit (charter §3.1) and these metrics are NOT valid evidence.",
+    );
+  }
 
   if (options.out !== null) {
     mkdirSync(dirname(options.out) || ".", { recursive: true });
@@ -307,6 +330,39 @@ function grow(options: GrowOptions): void {
       `checkpoint written: ${options.out} (${encoded.length} bytes) roundTripIdentical=${identical}`,
     );
     if (!identical) process.exit(1);
+  }
+
+  if (options.enforceGate) {
+    // The Phase 2a gate, enforced (plan, Done when; maker audit 2026-07-15: a printed
+    // metric that nobody has to read is not a gate). Every criterion that fails is named.
+    const failures: string[] = [];
+    if (!deltaSymmetricAllTicks) {
+      failures.push(`per-tick symmetry delta broke at tick ${firstAsymmetricTick}`);
+    }
+    if (maxFullSymErr !== 0) {
+      failures.push(`full symmetry error ${maxFullSymErr} (gate requires exactly 0)`);
+    }
+    if (!(finalDrift < 1e-10)) {
+      failures.push(`mass drift ${finalDrift.toExponential(3)} not < 1e-10`);
+    }
+    if (!(final.aspectRatio < 1)) {
+      failures.push(`aspect ratio ${fmt(final.aspectRatio)} not < 1 (not a plate)`);
+    }
+    if (final.domainContact) {
+      failures.push("domain-contact guard tripped: not valid evidence (charter §3.1)");
+    }
+    if (stopReason !== "far-field") {
+      failures.push(`run ended by ${stopReason}, not the far-field stopping rule`);
+    }
+    if (options.noise > 0) {
+      failures.push("noise is ON; the symmetry gate is defined noise-off (plan, Done when)");
+    }
+    if (failures.length > 0) {
+      console.error(`GATE FAILED (${failures.length} criteria):`);
+      for (const f of failures) console.error(`  - ${f}`);
+      process.exit(1);
+    }
+    console.log("GATE PASSED: every Phase 2a criterion enforced; exit 0 is the evidence.");
   }
 }
 

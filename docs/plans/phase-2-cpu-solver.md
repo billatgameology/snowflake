@@ -318,13 +318,19 @@ Order within 2b is deliberate; each step gates the next:
       Libbrecht's kinetics are fully deterministic, so without noise, sidebranching never seeds in
       2b — and the failure will look like a physics failure and will not be one. Check: seeded ⇒
       reproducible.
-- [x] *(Done, a00110e + 2026-07-15. Mass gate values: crystal-free float floor at gate scale =
-      **3.819e-16** relative over 10 000 ticks — `node runner/src/main.ts grow --preset plate
-      --dims 128,128,64 --seed-radius none --ticks 10000 --stop-check-every 1000000`; grown plate
-      run drift = **2.056e-13** relative over its full 4800-tick run (stopped by the far-field
-      rule), noise off, reflecting — both < 1e-10, and the grown-run drift sits ~500× above the
-      float floor, consistent with per-tick freeze/melt/attach float shuffling rather than a
-      leak. Dev-grid versions incl. noise-ON and φ>0 conservation: `solver-cpu/test/`. Diffusion
+- [x] *(Done, a00110e + 2026-07-15. Mass gate, **as specified — 10 000 ticks with a growing
+      crystal, noise off, reflecting** (maker audit 2026-07-15 caught the first record
+      combining a 10k crystal-free control with a 4800-tick grown run — that was an evidence
+      failure, corrected here): the enforcing test is
+      `solver-cpu/test/gg-solver.test.ts` "conserves total mass to < 1e-10 relative over
+      10 000 ticks GROWN" — dev grid 32,32,16, seed 1, 704 cells attached, measured drift
+      **4.189e-14**; the maker's independent 10k grown check read ≈ 3.04e-14. Supporting
+      records: crystal-free float floor at gate scale = **3.819e-16** over 10 000 ticks —
+      `node runner/src/main.ts grow --preset plate --dims 128,128,64 --seed-radius none
+      --ticks 10000 --stop-check-every 1000000`; grown plate gate run drift = **2.056e-13**
+      over its full 4800-tick run, ~500× above the float floor, consistent with per-tick
+      freeze/melt/attach float shuffling rather than a leak. Noise-ON and φ>0 conservation:
+      `solver-cpu/test/`. Diffusion
       step verification strengthened 2026-07-15 in `solver-cpu/test/diffusion.test.ts`: uniform
       fixed point ≤ 2 ulp/tick; impulse weights hand-computed one and two ticks out — 4/49,
       3/98 at tick 1; 41/686, 82/2401, 41/4802, 41/2401, 12/343, 9/1372 at tick 2; exact
@@ -344,7 +350,11 @@ Order within 2b is deliberate; each step gates the next:
 - [x] **`runner`.** Headless CLI: `grow --preset plate --dims 128,128,64 --ticks 10000 --out
       run.ckpt`, printing metrics as it goes. Check *(gate)*: a crystal grows at all.
       *(Done: 19 seed sites → 26 783 attached at tick 4800 on the gate run below. Also grew
-      `--seed-radius N|none` for crystal-free control runs, 2026-07-15.)*
+      `--seed-radius N|none` for crystal-free control runs, and `--enforce-gate` — the runner
+      exits 1 naming every failed gate criterion, so the gate is a build failure, not a printed
+      line (maker audit 2026-07-15; pinned by `runner/test/gate-enforce.test.ts`). A
+      contact-stopped run now prints a NOT-valid-evidence warning, since its final state
+      exceeds the 65% guard by construction.)*
 - [x] *(Done, a00110e: `runner/src/pgm.ts`, `--pgm-every`. Gate run dumped vapor/propensity/
       occupancy at 2000-tick cadence; eyeballed 2026-07-15 — and recorded as an eyeball, per
       Rule 6: smooth hexagonal depletion halo, no streaks or checkerboarding, solid plate
@@ -362,9 +372,11 @@ Order within 2b is deliberate; each step gates the next:
       the run has an end a cold reader can reproduce. Record in PROGRESS.md with the metric
       value, seed, resolution and exact command (AGENTS.md Rule 6).
 
-      **PASSED 2026-07-15.**
-      Command: `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000
-      --seed 1 --out out/plate-gate.ckpt --pgm-every 2000 --pgm-dir out/pgm-plate`
+      **PASSED 2026-07-15 — and re-passed the same day under enforcement** after the maker's
+      audit (see Tried and rejected) turned the runner into an enforcing gate.
+      Command (enforcing form; exit 0 is itself the claim):
+      `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1
+      --out out/plate-gate.ckpt --pgm-every 2000 --pgm-dir out/pgm-plate --enforce-gate`
       (domain defaults to hexPrism: hexRadius 63, zHalfExtent 31, 762 111 active cells; noise
       off; seed 1 recorded, unconsumed with noise off).
       Run ended by the **far-field stopping rule** (mean shell vapor < (2/3)·ρ) at **tick 4800**.
@@ -372,7 +384,11 @@ Order within 2b is deliberate; each step gates the next:
       `|A Δ g(A)|/|A|` metric read **0** at every 1000-tick cadence point and on the final
       state (`maxFullSymErr=0`) — symmetry error exactly 0 across the entire run.
       Aspect ratio **0.168831 < 1** (plate). Attached 26 783. Mass drift 2.056e-13 (< 1e-10).
-      Checkpoint round-trip bit-identical. Engine: Node v24.13.1 (pinned-oracle scope).
+      Checkpoint round-trip bit-identical; the enforced re-run reproduced every number and the
+      checkpoint byte count exactly. Independently verified by the maker (2026-07-15) from raw
+      checkpoint bytes without the project decoder: D6h error, AR, mass drift, connectedness,
+      and the far-field stop all confirmed; "compact, connected, safe-domain plate: 26 783
+      cells, bbox 77×77×13." Engine: Node v24.13.1 (pinned-oracle scope).
 - [x] *(Scope of this [x], stated precisely: all four presets grow and are morphologically
       separated; 3 of 4 pre-registered inequality checks hold and one FAILED as a finding —
       detailed below. "Reproduced" in the paper-fidelity sense — visual comparison against
@@ -390,11 +406,15 @@ Order within 2b is deliberate; each step gates the next:
       away:**
       - **plate** (gate run above, 128,128,64): AR **0.168831**, branches 0, hollowness 0.0014,
         stop far-field @ 4800.
-      - **needle** (96,96,192): AR **5.43478**, cross-section hollowness **0.0812**, sealedVoid
-        0, stop **domain-contact** @ 7342 (values reported at guard trip; the guard exists to
-        stop before wall corruption).
-        `node runner/src/main.ts grow --preset needle --dims 96,96,192 --ticks 10000 --seed 1
-        --out out/needle-192.ckpt`
+      - **needle** (96,96,256): AR **6.60000**, cross-section hollowness **0.0740**, sealedVoid
+        0, stop **far-field @ tick 10000**, domainContact=false — valid evidence.
+        `node runner/src/main.ts grow --preset needle --dims 96,96,256 --ticks 20000 --seed 1
+        --out out/needle-256.ckpt`
+        *(Supersedes the first needle run at 96,96,192, whose metrics were taken at the
+        domain-contact trip state — z extent 125/192 = 65.104% > the charter's 65% — and are
+        formally INVALID per charter §3.1. Caught by the maker's audit; that run's numbers are
+        kept out of the record deliberately. A tick-capped 7000-tick run at 192 gave the
+        consistent AR 5.17 / hollowness 0.0908 on a valid state.)*
       - **hollow column** (96,96,192): AR **4.18519**, cross-section hollowness **0.187633**,
         sealedVoid 0, stop far-field @ 7075.
         `node runner/src/main.ts grow --preset hollowColumn --dims 96,96,192 --ticks 10000
@@ -404,21 +424,21 @@ Order within 2b is deliberate; each step gates the next:
         `node runner/src/main.ts grow --preset dendrite --dims 160,160,48 --ticks 12000 --seed 1
         --out out/dendrite.ckpt`
       - All four: symmetry error exactly 0 across the entire run (per-tick delta clean +
-        periodic full metric 0), mass drift ≤ 3.3e-13, checkpoints round-trip identical.
+        periodic full metric 0), mass drift ≤ 4.3e-13, checkpoints round-trip identical.
 
-      **Inequality outcomes:** plate vs needle AR ✓ (0.169 vs 5.43, comfortably straddling the
+      **Inequality outcomes:** plate vs needle AR ✓ (0.169 vs 6.60, comfortably straddling the
       operationalized 1/1.5–1.5 thresholds); dendrite vs plate branch count ✓ (6 vs 0);
-      hollow-column hollowness > 0 ✓ (0.188). **needle hollowness ≈ 0 ✗ — measured 0.0812.**
+      hollow-column hollowness > 0 ✓ (0.188). **needle hollowness ≈ 0 ✗ — measured 0.0740.**
       Diagnosed (out/needle-hollow-probe.ts against the checkpoint): the needle's shaft slices
       each enclose **exactly 19 free cells — the seed's own footprint** — i.e. this preset grows
       a hollow tube: a sheath around the seed's rim that never fills behind the growth front.
       That is a real morphology, not a metric artifact (the metric's open-tube signature,
-      sealedVoid = 0, behaves as designed). What still separates the two presets: hollowness
-      magnitude (0.188 vs 0.081, 2.3×) and, more mechanistically, the needle's much higher AR at
-      stop. The pre-registered check as written was wrong about this preset at these dims/scale;
-      recorded per Rule 6 and left failed rather than re-thresholded post hoc. Anyone tightening
-      this into a future gate must pre-register a new threshold *before* rerunning, and should
-      first check against G-G Fig. 29 whether their needles are visibly hollow.
+      sealedVoid = 0, behaves as designed). **Source-confirmed by the maker (2026-07-15): the
+      G-G paper itself describes this preset's product as a "slender hollow tube" — the
+      pre-registered expectation was wrong, the measurement right.** What still separates the
+      two presets: hollowness magnitude (0.188 vs 0.074, 2.5×) and the needle's much higher AR.
+      Left failed-as-pre-registered per Rule 6; anyone tightening this into a future gate now
+      has the paper's own words to register against.
 
 **Stage 2b — physics**
 - [ ] Fill [libbrecht-parameters.md](../libbrecht-parameters.md) from arXiv:1910.09067, with
@@ -534,6 +554,24 @@ Order within 2b is deliberate; each step gates the next:
   Also observed and pinned in that test: a broken delta can transiently *heal* at the set level
   (box 32×32×16 breaks at tick 270, `|A Δ g(A)|` back to 0 by tick 400) — a periodic full
   metric alone can miss a break, which is why the gate also runs the exact per-tick delta check.
+- **Claiming the 2a gate off non-enforcing tooling and one invalid run (maker audit,
+  2026-07-15).** The first "Phase 2a GATED" claim survived an adversarial subagent review but
+  not the maker's charter-grounded audit, which found the *result* genuine (independent
+  recomputation from raw checkpoint bytes: symmetry, AR, mass, connectedness, far-field stop
+  all confirmed; independent re-implementation of the diffusion equations agreed to 1 ulp) and
+  the *evidence process* deficient in three ways, all fixed same-day: (1) the runner printed
+  gate metrics but enforced nothing — a known-asymmetric box run exited 0; now `--enforce-gate`
+  exits 1 naming each failed criterion, pinned by `runner/test/gate-enforce.test.ts` (the box
+  run's end-state full metric reads 0 by the transient heal, so enforcement keys on the
+  per-tick delta — the test asserts exactly that). (2) The needle-192 run's metrics were taken
+  at the domain-contact trip state — z extent 125/192 = 65.104% > the charter's 65% — formally
+  invalid evidence; replaced by a run ending on a valid state, and the runner now prints a
+  NOT-valid-evidence warning on every contact-stopped run. (3) The declared 10 000-tick grown
+  mass experiment had been recorded as a 10k crystal-free control plus a 4800-tick grown run;
+  the specified experiment now exists as an enforcing test (drift 4.189e-14; maker's
+  independent check ≈ 3.04e-14). Lesson for the next model: **subagent review checks the work
+  against itself; the maker checks it against the charter and the sources — write the gate so
+  a build failure, not a reader, catches the gap.**
 - **"npm test fails in the repo-wide Rule 7 scan" (PROGRESS.md, 2026-07-15 handoff)** — did not
   reproduce at HEAD (a58bac0): the scan and the fixture tests pass, and the lint verifiably
   still fails on real violations (bare stem, provenance-free qualifier, markdown inline-span

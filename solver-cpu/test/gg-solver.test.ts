@@ -38,10 +38,15 @@ describe("GGSolver — mass conservation (gate at full size runs via runner; thi
     expect(drift).toBeLessThan(1e-13);
   });
 
-  it("conserves total mass to < 1e-10 relative over 2000 ticks, noise OFF, reflecting", () => {
+  it("conserves total mass to < 1e-10 relative over 10 000 ticks GROWN, noise OFF, reflecting", () => {
+    // The plan's check, run at its stated length with a crystal actually growing (maker
+    // audit 2026-07-15: a 10k crystal-free control plus a 4800-tick grown run is not the
+    // declared 10k grown experiment). Dev grid, no stop rules — conservation is the claim,
+    // and it holds regardless of what the crystal does to the walls.
     const solver = new GGSolver({ dims: devDims, params: GG_PRESETS.plate, rngSeed: 1 });
     const m0 = totalMass(solver.b, solver.d);
-    for (let t = 0; t < 2000; t++) solver.step();
+    for (let t = 0; t < 10_000; t++) solver.step();
+    expect(solver.attachedCount).toBeGreaterThan(19); // grown, not a fixed-point run
     const drift = Math.abs(totalMass(solver.b, solver.d) - m0) / m0;
     expect(drift).toBeLessThan(1e-10);
   });
