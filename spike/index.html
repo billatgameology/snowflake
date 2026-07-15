@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cloud journey spike — Phase 1 (throwaway)</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel-border: #2d333b;
+    --text: #d6dde5;
+    --text-dim: #8b949e;
+    --accent: #58a6ff;
+    --warn: #e3b341;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  header {
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--panel-border);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 14px;
+  }
+  header h1 { font-size: 17px; margin: 0; font-weight: 600; }
+  header .tag {
+    font-size: 11px; font-weight: 500; color: var(--text-dim);
+    border: 1px solid var(--panel-border); border-radius: 10px; padding: 1px 8px;
+    vertical-align: middle;
+  }
+  .disclaimer {
+    margin: 0; font-size: 12.5px; color: var(--warn);
+  }
+  main { display: flex; gap: 16px; padding: 14px 18px; align-items: flex-start; flex-wrap: wrap; }
+  #view { display: flex; gap: 12px; flex-wrap: wrap; }
+  .canvas-wrap { display: flex; flex-direction: column; gap: 6px; }
+  .canvas-title { font-size: 12.5px; color: var(--text-dim); min-height: 1em; }
+  canvas { background: #0a0e1e; border: 1px solid var(--panel-border); border-radius: 4px; }
+  .stats { font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--text-dim); }
+  #panel { flex: 1 1 380px; max-width: 480px; display: flex; flex-direction: column; gap: 10px; }
+  fieldset {
+    border: 1px solid var(--panel-border); border-radius: 6px;
+    background: var(--panel); padding: 10px 12px; margin: 0;
+  }
+  legend { font-size: 12px; color: var(--text-dim); padding: 0 6px; }
+  button {
+    background: #21262d; color: var(--text); border: 1px solid var(--panel-border);
+    border-radius: 5px; padding: 4px 12px; font-size: 13px; cursor: pointer;
+  }
+  button:hover:not(:disabled) { border-color: var(--accent); }
+  button:disabled { opacity: 0.45; cursor: default; }
+  button.primary { background: #1f6feb; border-color: #1f6feb; color: #fff; }
+  select, input[type=number], input[type=text] {
+    background: #0d1117; color: var(--text); border: 1px solid var(--panel-border);
+    border-radius: 5px; padding: 3px 6px; font-size: 13px;
+  }
+  input[type=number] { width: 74px; }
+  .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 4px 0; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+  .hint { font-size: 11.5px; color: var(--text-dim); margin: 6px 0 0; }
+  .slider-row { display: grid; grid-template-columns: 110px 1fr 150px; gap: 8px; align-items: center; margin: 6px 0; }
+  .slider-row label { font-size: 13px; }
+  .slider-row .mono { color: var(--text-dim); text-align: right; }
+  input[type=range] { width: 100%; }
+  #timelineWrap { position: relative; margin: 4px 0 8px; }
+  #timelineBar {
+    display: flex; height: 34px; border-radius: 4px; overflow: hidden;
+    border: 1px solid var(--panel-border);
+  }
+  .segment {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: rgba(255,255,255,0.85); cursor: pointer;
+    min-width: 6px; overflow: hidden; white-space: nowrap;
+    border-right: 1px solid rgba(0,0,0,0.45);
+  }
+  .segment:last-child { border-right: none; }
+  .segment.selected { outline: 2px solid #fff; outline-offset: -2px; }
+  #timelineCursor {
+    position: absolute; top: -3px; bottom: -3px; width: 2px;
+    background: #fff; box-shadow: 0 0 4px #000; pointer-events: none;
+  }
+  .mini-timeline { position: relative; }
+  .mini-timeline .mini-bar {
+    display: flex; height: 12px; border-radius: 3px; overflow: hidden;
+    border: 1px solid var(--panel-border);
+  }
+  .mini-timeline .mini-seg { min-width: 2px; }
+  .mini-timeline .mini-cursor {
+    position: absolute; top: -2px; bottom: -2px; width: 2px;
+    background: #fff; box-shadow: 0 0 3px #000; pointer-events: none;
+  }
+  .notice {
+    border: 1px solid var(--warn); color: var(--warn); background: rgba(227,179,65,0.08);
+    border-radius: 6px; padding: 6px 10px; font-size: 12.5px;
+  }
+  .status { font-size: 12px; color: var(--text-dim); min-height: 1.2em; margin-top: 4px; }
+  .hidden { display: none !important; }
+  ul.history-list { list-style: none; margin: 6px 0 0; padding: 0; max-height: 150px; overflow-y: auto; }
+  ul.history-list li {
+    display: flex; align-items: center; gap: 8px; padding: 3px 0;
+    border-bottom: 1px solid var(--panel-border); font-size: 12.5px;
+  }
+  ul.history-list li:last-child { border-bottom: none; }
+  ul.history-list .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  ul.history-list button { padding: 1px 8px; font-size: 12px; }
+  .filebtn { display: inline-block; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Cloud journey spike <span class="tag">Phase 1 &middot; throwaway UX probe</span></h1>
+  <p class="disclaimer">Toy model (Reiter CA) &mdash; labels are metaphors, not physics.</p>
+</header>
+
+<main>
+  <section id="view">
+    <div class="canvas-wrap" id="canvasWrapA">
+      <div class="canvas-title" id="canvasTitleA"></div>
+      <div class="mini-timeline hidden" id="miniTimelineA"></div>
+      <canvas id="canvasA"></canvas>
+      <div class="stats" id="statsA"></div>
+    </div>
+    <div class="canvas-wrap hidden" id="canvasWrapB">
+      <div class="canvas-title" id="canvasTitleB"></div>
+      <div class="mini-timeline hidden" id="miniTimelineB"></div>
+      <canvas id="canvasB"></canvas>
+      <div class="stats" id="statsB"></div>
+    </div>
+  </section>
+
+  <section id="panel">
+    <div id="notice" class="notice hidden"></div>
+
+    <fieldset>
+      <legend>Run</legend>
+      <div class="row">
+        <button id="btnPlay" class="primary">Play</button>
+        <button id="btnStep">Step</button>
+        <button id="btnReset">Reset</button>
+        <label>speed
+          <select id="speed">
+            <option value="1">1 tick/frame</option>
+            <option value="2">2</option>
+            <option value="4" selected>4</option>
+            <option value="8">8</option>
+            <option value="16">16</option>
+          </select>
+        </label>
+        <span id="tickReadout" class="mono"></span>
+      </div>
+    </fieldset>
+
+    <fieldset id="conditionsBox">
+      <legend>Conditions of the selected segment</legend>
+      <!-- Slider min/max/step are set at boot from history.mjs PARAM_BOUNDS —
+           the same definition validateHistory enforces. Do not hardcode them
+           here: drift between the two was a maker-found defect. -->
+      <div class="slider-row">
+        <label for="sliderVapor">vapor supply</label>
+        <input type="range" id="sliderVapor">
+        <span class="mono" id="valVapor"></span>
+      </div>
+      <div class="slider-row">
+        <label for="sliderBoost">growth boost</label>
+        <input type="range" id="sliderBoost">
+        <span class="mono" id="valBoost"></span>
+      </div>
+      <div class="slider-row">
+        <label for="sliderMixing">mixing</label>
+        <input type="range" id="sliderMixing">
+        <span class="mono" id="valMixing"></span>
+      </div>
+      <p class="hint">Sliders edit the selected timeline segment; the run reads the timeline every
+      tick. &ldquo;Vapor supply&rdquo; is the far-edge boundary, so mid-journey changes arrive
+      slowly from outside; &ldquo;growth boost&rdquo; and &ldquo;mixing&rdquo; act immediately.</p>
+    </fieldset>
+
+    <fieldset id="timelineBox">
+      <legend>Timeline &mdash; the journey</legend>
+      <div id="timelineWrap">
+        <div id="timelineBar"></div>
+        <div id="timelineCursor"></div>
+      </div>
+      <div class="row">
+        <span id="segReadout" class="mono"></span>
+        <label>ticks <input type="number" id="segTicks"></label>
+      </div>
+      <div class="row">
+        <button id="btnAddSeg">Add after</button>
+        <button id="btnSplitSeg">Split at cursor</button>
+        <button id="btnDeleteSeg">Delete</button>
+      </div>
+      <p class="hint">Click a segment to select it. Structure edits (add / split / delete /
+      resize) need pause; the run auto-pauses at the end of the journey.</p>
+    </fieldset>
+
+    <fieldset id="journeyBox">
+      <legend>Journey &mdash; name, save, load</legend>
+      <div class="row">
+        <label>name <input type="text" id="journeyName" size="22" maxlength="120"></label>
+        <label>grid <input type="number" id="gridSizeInput"></label>
+      </div>
+      <div class="row">
+        <button id="btnSave">Save</button>
+        <button id="btnExport">Export file</button>
+        <button id="btnImport">Import file&hellip;</button>
+        <input type="file" id="importFile" accept="application/json,.json" hidden>
+      </div>
+      <div class="status" id="journeyStatus"></div>
+      <div class="row" style="margin-top:6px"><strong style="font-size:12px">Saved</strong></div>
+      <ul class="history-list" id="savedList"></ul>
+      <div class="row" style="margin-top:6px"><strong style="font-size:12px">Presets</strong></div>
+      <ul class="history-list" id="presetList"></ul>
+    </fieldset>
+
+    <fieldset id="compareBox">
+      <legend>Compare</legend>
+      <label class="row"><input type="checkbox" id="compareToggle">
+        compare mode &mdash; same seed, two journeys, lockstep</label>
+      <div id="compareSelects" class="hidden">
+        <div class="row"><label>A <select id="selectA"></select></label></div>
+        <div class="row"><label>B <select id="selectB"></select></label></div>
+        <p class="hint">Both worlds share the seed cell and the grid (journey A&rsquo;s), and step
+        in lockstep from the shared Run controls; the comparison stops at the shorter
+        journey&rsquo;s end. Each side&rsquo;s starting vapor field comes from its own first
+        segment, so starts can differ &mdash; the B label flags it when they do. Editing is
+        single-view only.</p>
+      </div>
+    </fieldset>
+  </section>
+</main>
+
+<script type="module" src="./js/main.mjs"></script>
+</body>
+</html>

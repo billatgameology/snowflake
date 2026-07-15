@@ -1,11 +1,18 @@
 # Plan — Phase 1 UX spike: the 2D cloud-journey prototype
 
 - **Phase:** Phase 1 — UX spike (charter §3.2). 2D, throwaway, ~a weekend.
-- **Status:** not started
+- **Status:** in progress
 - **Started:** 2026-07-14
 - **Last touched:** 2026-07-14 by Claude Fable 5 — initial plan, written against charter v1.2;
   hardened same day after an adversarial review pass (Reiter update rule made precise enough to
-  not diverge on, lint-rule dependency made real, Findings scaffold added, trim order named)
+  not diverge on, lint-rule dependency made real, Findings scaffold added, trim order named).
+  Build session same day (Claude Fable 5, agent): Steps 1–7 implemented in `spike/`;
+  `spike/check.mjs` (plain node, zero deps) added as the automated core check — see
+  **Verification record** below for what is automated vs eyeballed. Fix session same day after
+  the maker's real-browser review: six interaction defects fixed (live-edit replay fidelity,
+  compare lockstep + evidence, split selection, schema/UI bounds unification, seed validation,
+  prototype-safe storage) with regressions in `check.mjs` — see the Verification record's
+  **Fix session** subsection.
 
 ## Goal
 
@@ -112,32 +119,35 @@ side," and the second half of what the play sessions probe.
 
 ## Steps
 
-- [ ] **Scaffold `spike/`.** `index.html` + JS modules, no dependencies, no workspace membership.
+- [x] **Scaffold `spike/`.** `index.html` + JS modules, no dependencies, no workspace membership.
       Check: serves statically, renders an empty hex grid (axial coordinates, pointy-top, canvas
       2D) at ~200×200 cells with a full-grid redraw around 16 ms or better (devtools frame
-      timing, eyeballed — this is a spike).
-- [ ] **Reiter CA core.** The update rule above, grid edge clamped to `reiterBeta`, single center
+      timing, eyeballed — this is a spike). *Built 2026-07-14; see Verification record.*
+- [x] **Reiter CA core.** The update rule above, grid edge clamped to `reiterBeta`, single center
       seed cell at `s = 1`. Check: at a sensible starting point (e.g. `reiterAlpha ≈ 1`,
       `reiterBeta ≈ 0.4`, `reiterGamma ≈ 0.0001` — curate by experiment, these are ballparks, not
       citations) a recognizably hexagonal, branching crystal grows. Eyeballed, and recorded as
-      eyeballed: this spike has no metrics module and does not need one.
-- [ ] **Run controls + live parameters.** Play / pause / step / reset; tick counter; three
+      eyeballed: this spike has no metrics module and does not need one. *Curated band landed at
+      `reiterBeta ≈ 0.6` for the classic dendrite; the plan's 0.4 ballpark grows but slowly.*
+- [x] **Run controls + live parameters.** Play / pause / step / reset; tick counter; three
       sliders with the honest labels and the disclaimer line. Check: changing `reiterGamma`
       mid-run visibly changes growth character without a restart.
-- [ ] **The timeline.** Segment list + bar + cursor; schedule consulted per tick; edit while
+- [x] **The timeline.** Segment list + bar + cursor; schedule consulted per tick; edit while
       paused (add / split / delete / resize / re-value segments). Check: a two-segment history
       replays *identically* from reset, twice in a row (deterministic replay is what makes the
-      rest of the spike trustworthy).
-- [ ] **Name / save / load histories.** JSON schema `{name, seed, gridSize, segments[]}`;
+      rest of the spike trustworthy). *Automated: check.mjs (b).*
+- [x] **Name / save / load histories.** JSON schema `{name, seed, gridSize, segments[]}`;
       localStorage list plus file export/import. Check: reload the page, load a saved history,
-      get the identical crystal.
-- [ ] **Compare mode.** Two canvases, same seed, two chosen histories, lockstep stepping.
+      get the identical crystal. *Persistence round-trip still needs a human in a real browser —
+      flagged for the play session.*
+- [x] **Compare mode.** Two canvases, same seed, two chosen histories, lockstep stepping.
       Check: histories differing in one segment produce visibly different crystals from identical
       starts, side by side.
-- [ ] **Curate 3–4 preset journeys** as starting points (e.g. "steady growth," "boost then
+- [x] **Curate 3–4 preset journeys** as starting points (e.g. "steady growth," "boost then
       starve," "two-phase"). Check: each grows something visually distinct — presets are what
       make the first five minutes of a play session about *designing*, not about finding the
-      model's narrow good band.
+      model's narrow good band. *Four shipped: steady growth / boost then starve / branch then
+      fill / calm-then-stormy.*
 - [ ] **Play sessions — the gate.** The maker plays through a structured protocol and the notes
       go in *Findings* below:
       1. **Free play**, ~15 minutes. Where does attention go — the sliders, the timeline, the
@@ -156,6 +166,87 @@ side," and the second half of what the play sessions probe.
 - [ ] **Archive.** `spike/README.md` stating: throwaway, frozen, superseded by the real solver;
       do not extend; see this plan for findings. PROGRESS.md updated; status here flipped to
       done. Check: the freeze notice exists and PROGRESS points at the findings.
+
+## Verification record (build session, 2026-07-14)
+
+What is automated and what was eyeballed, per Rule 6. The UX gate itself remains open — nothing
+below claims it.
+
+**Automated — `node spike/check.mjs`, zero deps, exits non-zero on failure.** All 18 checks
+passed on 2026-07-14:
+
+- **(a) growth:** "Preset — steady growth" (620 ticks, grid 200) grows to 5215 ice cells from
+  the 1-cell seed, staying > 3 cells clear of the clamped rim.
+- **(b) deterministic replay:** two runs of the same two-segment history on a 120 grid produce
+  **bit-identical** `Float64Array` fields (byte comparison).
+- **(c) timeline effect:** a two-segment history (`reiterGamma` 0.0001 → 0.010 at tick 125)
+  differs from a one-segment control of the same 250-tick length (1231 vs 2677 ice cells).
+- **Preset sanity:** all four presets validate against the save-format schema, grow, stay inside
+  the grid, and are pairwise non-identical.
+- Informational: sim cost ≈ 0.75 ms/tick at 200×200 under node.
+
+**Automated-ish — headless Chrome (screenshots + console capture), 2026-07-14:** page served by
+`python3 -m http.server` from `spike/`; all modules load (HTTP 200, `text/javascript`); **zero
+console errors**; a full 620-tick autoplay run in the browser finishes with **exactly 5215 ice
+cells — the same count as the node run**, a cross-environment determinism data point. A
+compare-mode screenshot shows both canvases at the same tick (lockstep from the shared control)
+with already-diverging on-screen ice counts (19 vs 13 at tick 16) under two histories from
+identical seeds; headless GPU rAF is vsync-capped, so a *mature* side-by-side was not reachable
+headlessly — that visual is the maker's to eyeball in play. (The headless pass caught one real
+bug: a boot-order crash where the timeline cursor read the runner before it existed — fixed.)
+
+**Eyeballed, and recorded as eyeballed:**
+
+- The crystal is *recognizably hexagonal and branching* — judged from ASCII dumps in node and
+  the headless screenshot (a clean sixfold dendrite). No symmetry metric exists here, by design.
+- Preset journeys are *visually distinct* — judged from ASCII dumps and screenshots; the
+  automated check only proves they are not identical.
+- Redraw cost: the UI shows a live `draw N ms` stat per canvas; headless timing is virtualized
+  (reads 0), so **the ≈16 ms budget must be eyeballed by the maker in a real browser** via that
+  on-screen stat. Sim cost (0.75 ms/tick node) says the budget is spent in drawImage calls, not
+  the CA.
+- **Not yet verified by anyone:** localStorage persistence across a real page reload, and file
+  export/import round-trip — both need a human browser session; flagged as the first two minutes
+  of the play session. The schema validation both paths rely on *is* automated.
+
+Test hooks: `?autoplay=1` starts the run on load; `?compare=1` opens compare mode (used by the
+headless checks; harmless in play).
+
+### Fix session (2026-07-14, after maker browser review)
+
+The maker's real-browser pass found six interaction defects; all are fixed. Status of each,
+with its evidence:
+
+1. **Live edits were not replayable** (saved JSON did not describe the on-screen crystal; 427
+   vs 595 ice cells in the maker's reproduction). Fixed by split-at-cursor in the model layer
+   (`history.mjs` `prepareSegmentEditAt`), used by the slider handler; duration edits of the
+   in-progress segment clamp to the consumed tick count. **Automated:** `check.mjs` (1) —
+   the maker's scenario replays bit-identical, prefix frozen, boundary edits don't split.
+2. **Compare was not lockstep and hid evidence.** One shared clock now stops the comparison at
+   the shorter journey's end (nobody steps alone; the displayed tick is the true shared tick,
+   over the comparison's total); compact read-only timelines (segment bars + cursors, values in
+   tooltips) render under both canvas titles; wording corrected to "same seed cell and grid" and
+   the B label flags a differing first-segment `reiterBeta` explicitly. **Browser-side, not
+   DOM-testable here:** verified by headless screenshot (both panes at the same tick, mini
+   timelines visible) and recorded as such; the mature behavior is the maker's to confirm in
+   play.
+3. **Split-at-cursor left the consumed half selected**, so the natural next edit touched the
+   past. Fixed: the right-hand segment becomes the selection. **Browser-side; eyeballed.**
+4. **Control bounds drifted from the schema** (`reiterGamma` 0.0001 vs slider step 0.0002, grid
+   64–400 vs schema 16–512). Fixed: `PARAM_BOUNDS` (now with steps) and `GRID_BOUNDS` live in
+   `history.mjs` and are consumed by both `validateHistory` and the UI controls at boot; HTML
+   carries no bounds. **Automated:** `check.mjs` (4) — every preset value sits on the shared
+   step lattice; `GRID_BOUNDS` matches what the sim accepts.
+5. **(a) `seed` was reserved but unvalidated.** `validateHistory` now rejects anything but 0.
+   **Automated:** `check.mjs` (a).
+6. **(b) storage used ordinary-object keys** — a history named `__proto__` reported success
+   without persisting. Fixed with a null-prototype store. **Automated:** `check.mjs` (b), which
+   exercises `storage.mjs` under node with a minimal localStorage stand-in.
+
+**Maker's render measurement, recorded for the play session:** ≈16–17 ms per canvas full
+redraw, and compare mode draws both canvases sequentially (≈33 ms/frame). No code fix mandated;
+**the maker should explicitly assess compare-mode responsiveness during the play session** and
+note it in Findings — if it drags, shrinking the compare grid beats optimizing spike code.
 
 ## Out of scope
 
@@ -190,6 +281,50 @@ side," and the second half of what the play sessions probe.
 ## Tried and rejected
 
 *(Append as you go. This is not written at the end.)*
+
+- **Preset journeys whose mid-run drama is a `reiterBeta` jump.** Tried first ("boost then
+  starve" was originally a compact-plate phase followed by a raised-`reiterBeta` phase) and
+  rejected after node experiments: `reiterBeta` is the rim boundary condition plus the initial
+  field, so a mid-journey change only diffuses in from the far edge and takes hundreds of ticks
+  to reach the crystal — raising it from 0.35 to 0.70 mid-run barely changed the next 500 ticks.
+  Not a bug; it is what the parameter *is* in this model. Presets now get immediate mid-journey
+  changes from `reiterGamma` (acts directly on receptive cells) and `reiterAlpha` (global
+  mixing), and the UI's slider hint says exactly this so players are not mystified. Phase 7
+  should remember the general lesson: in any diffusion model, "ambient conditions" knobs act on
+  a lag; "local kinetics" knobs act now.
+- **Letting journeys run past the grid edge.** The rim is clamped to `reiterBeta`, so growth
+  that reaches it is an artifact, not a crystal. Rejected silently allowing it; the run
+  auto-pauses when ice comes within 3 cells of the rim, with an on-screen explanation. Presets
+  were budgeted (by measurement) to end before tripping the guard.
+- **Warning on every mid-run edit that touches already-consumed ticks.** Strictly honest — any
+  edit before the cursor makes the on-screen crystal diverge from a pure replay — but it fires
+  on exactly the interaction the spike exists to probe (turning a knob mid-flight), burying the
+  case that matters. Rejected in favor of: silent for the segment the cursor is inside, loud
+  ("crystal no longer matches this timeline — Reset to replay") for edits to fully-passed
+  segments and for structural inserts/deletes behind the cursor. Splitting a segment never
+  warns: it preserves the schedule exactly.
+- **In-place live edits with the suppressed warning (the compromise directly above) —
+  overturned by maker browser testing.** Mutating the whole in-progress segment was not merely
+  un-warned divergence, it made the save format lie: the maker's reproduction (50 ticks at
+  `reiterGamma` 0.0001, live edit to 0.01, run to tick 100) grew 427 ice cells on screen while
+  its own saved one-segment history replayed to 595. Replaced by split-at-cursor: the first
+  mid-segment edit freezes the consumed prefix with the values that actually ran and lands the
+  edit on the suffix (now the selection). Consequence accepted deliberately: dragging a slider
+  *while playing* lays down a staircase of small segments — that staircase is the faithful
+  record of a knob turned over time, and coalescing it would break bit-exact replay
+  (`MAX_SEGMENTS` raised 64 → 256 for headroom). Regression: `check.mjs` (1) asserts the maker's
+  exact scenario now replays bit-identical (427 = 427).
+- **Requiring equal-length histories in compare mode.** Considered as the lockstep fix
+  (maker-found: one side used to run 625/800 past the other's 620/620 while the UI claimed
+  lockstep). Rejected — it would force pre-editing journeys before any comparison. Instead one
+  shared clock stops the whole comparison at the shorter journey's end, with a notice saying
+  why; nobody ever steps alone.
+- **Enforcing the slider step-lattice in `validateHistory`.** With bounds and steps unified in
+  one exported definition (maker-found drift: `reiterGamma` 0.0001 was unrepresentable on a
+  0.0002-step slider), the last gap is an imported value that is in-bounds but off-lattice
+  (e.g. 0.00015). Rejected rejecting those files: hand-written JSON is legal, the readout always
+  shows the segment's true value, and only an actual slider touch snaps to the lattice. Bounds
+  are enforced; the lattice is a UI property, not a schema one.
 
 - **Physical labels on the sliders ("temperature", "humidity").** Rejected at planning time,
   before any code: Reiter's parameters have no physical meaning, and charter §1.5 does not have a

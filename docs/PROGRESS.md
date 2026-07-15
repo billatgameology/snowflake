@@ -186,15 +186,20 @@ in charter §3.1 and get no retroactive ADR.
 
 Both phases are mid-flight (2026-07-14). In the maker's stated priority order:
 
-1. **Phase 1 — fix, then play, then archive.** Four interaction defects from the maker's browser
-   testing are being fixed: live edits were not replayable (the saved JSON did not describe the
-   crystal that generated it — the worst of the four, it broke the spike's core honesty claim);
-   compare mode was not lockstep and hid both timelines; split-at-cursor left the consumed half
-   selected; slider bounds did not match `validateHistory`. Once fixed and covered in
-   `spike/check.mjs`: the maker runs the play-session protocol (plan, step 8 — ideally plus one
-   naïve participant; record history JSONs into `spike/histories/` plus final-state
-   checksums/screenshots), fills the plan's **Findings** section, then archives
-   (`spike/README.md` freeze notice, step 9).
+1. **Phase 1 — play, then archive (unblocked 2026-07-14).** The four interaction defects from
+   the maker's browser testing are **fixed with regression coverage**: mid-segment edits now
+   split at the cursor so the consumed prefix keeps the values that actually ran — the maker's
+   exact repro replays bit-identical from its own saved history (427 = 427 ice cells, was
+   427 vs 595); compare mode runs one shared clock stopping at the shorter journey and shows
+   read-only mini timelines for both sides; split-at-cursor selects the future half; UI bounds
+   and `validateHistory` consume one shared `PARAM_BOUNDS`/`GRID_BOUNDS` definition; `seed === 0`
+   enforced; storage uses a null-prototype store (`__proto__` persists honestly).
+   `spike/check.mjs` runs 27 checks, all passing. What remains is the maker's: the play-session
+   protocol (plan, step 8 — ideally plus one naïve participant; record history JSONs into
+   `spike/histories/` plus final-state checksums/screenshots; explicitly assess compare-mode
+   responsiveness — ≈33 ms sequential draw — the draw-ms stat, and the localStorage reload
+   round-trip), fill the plan's **Findings**, then archive (`spike/README.md` freeze notice,
+   step 9).
 2. **Phase 2a — resolve, verify, then gate.** At last check the D6h symmetry test **fails**
    (error 0.0424403183 against a required exact 0) and `npm test` fails in the repo-wide Rule 7
    scan (`runner/test/rule7-lint.test.ts`). Resolve both, strengthen diffusion verification, and
