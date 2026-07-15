@@ -43,6 +43,7 @@ import {
   STREAM_NOISE_XI,
   type Dims,
   type DomainShape,
+  type FarFieldCondition,
   type GGParams,
   type SolverState,
 } from "@vcc/core";
@@ -56,6 +57,13 @@ export interface GGSolverOptions {
   readonly noiseEpsilon?: number;
   /** Active-domain shape; default "box". The 2a symmetry gate needs "hexPrism". */
   readonly domain?: DomainShape;
+  /**
+   * Far-field boundary condition (charter §2.4). Default "reflecting" — the published G-G
+   * model and the ONLY condition under which the exact mass invariant holds. "dirichlet"
+   * (Phase 2b) clamps the far-field shell to rho after each diffusion pass and meters the
+   * injected/removed mass (a source/sink BY DESIGN — gg-machinery §4.i).
+   */
+  readonly farField?: FarFieldCondition;
   /**
    * Canonical seed: hexagonal plate (gg-machinery §5). radius 2, thickness 1 = 19 sites —
    * the paper's "20" is a documented erratum; do not "fix" it back. radius: null means no
@@ -75,8 +83,11 @@ export class GGSolver {
   readonly rngSeed: number;
   readonly noiseEpsilon: number;
   readonly domain: DomainShape;
+  readonly farField: FarFieldCondition;
   readonly center: readonly [number, number, number];
   tick = 0;
+  /** Net mass injected (+) / removed (−) by the Dirichlet clamp, accumulated. 0 under reflecting. */
+  dirichletMeter = 0;
 
   readonly a: Uint8Array;
   readonly b: Float64Array;
@@ -123,6 +134,7 @@ export class GGSolver {
     this.rngSeed = options.rngSeed;
     this.noiseEpsilon = options.noiseEpsilon ?? 0;
     this.domain = options.domain ?? "box";
+    this.farField = options.farField ?? "reflecting";
     this.center = options.center ?? domainCenter(this.dims);
 
     const { nx, ny, nz } = this.dims;
@@ -286,7 +298,32 @@ export class GGSolver {
 
   /** One full tick: diffusion, freezing, attachment, melting. */
   step(): void {
+    this.relaxField();
+    this.advanceSurface();
+    this.tick++;
+  }
+
+  /**
+   * Step (i) as the SurfaceOperator sees it: exactly ONE published masked-average pass
+   * (machinery fidelity — under GGThreshold the field is G-G's dynamics, not an elliptic
+   * solve; attachment-kinetics §4.3). Under Dirichlet (2b) the far-field shell is then
+   * clamped to rho, metered.
+   */
+  relaxField(): void {
     this.diffuse();
+    if (this.farField === "dirichlet") {
+      const rho = this.params.rho;
+      for (let c = 0; c < this.farFieldCells.length; c++) {
+        const x = this.farFieldCells[c];
+        if (this.blocked[x] === 1) continue;
+        this.dirichletMeter += rho - this.d[x];
+        this.d[x] = rho;
+      }
+    }
+  }
+
+  /** Steps (ii) freezing, (iii) attachment, (iv) melting — the surface exchange. */
+  advanceSurface(): void {
     const boundary = this.boundaryList;
     const nBoundary = boundary.length;
     const { kappa, mu, ggThreshBeta } = this.params;
@@ -341,8 +378,6 @@ export class GGSolver {
     for (const x of toAttach) this.attachCell(x, false);
     if (toAttach.length > 0) this.rebuildBoundaryList();
     this.lastAttached = toAttach;
-
-    this.tick++;
   }
 
   /**
@@ -549,7 +584,7 @@ export class GGSolver {
       tick: this.tick,
       rngSeed: this.rngSeed,
       noiseEpsilon: this.noiseEpsilon,
-      farField: "reflecting",
+      farField: this.farField,
       domain: this.domain,
       params: this.params,
       a: this.a,

@@ -518,6 +518,29 @@ Order within 2b is deliberate; each step gates the next:
       temperatures, no other change, two different habits, per the operationalized aspect-ratio
       thresholds in Done when (plate ⟺ AR ≤ 1/1.5, column ⟺ AR ≥ 1.5, at the stated measurement
       size; temperatures pre-registered from the `sigma_0` crossing).
+
+      **PRE-REGISTRATION (written and committed 2026-07-15, BEFORE the first gate run; the
+      protocol is PINNED in the runner's flagless `gate2b` command — exit 0 is the whole
+      claim):** parameter set **A1** (1910.09067's own `A ≡ 1` model, p. 5 — chosen over CAK
+      *in advance* because the CAK `A_prism` dip makes the warm side σ-sensitive: with CAK, at
+      −5 °C prism wins only for `sigma_surf ≲ 0.002` while the cold side needs
+      `sigma_infinity ≳ 0.01` to grow at all — no common `sigma_infinity` yields a robust
+      inversion; recorded as a finding in libbrecht-parameters.md and pinned in
+      `core/test/libbrecht.test.ts`). Common conditions, both runs: `sigma_infinity = 0.005`,
+      `Δx = 0.35 µm`, 1 atm, fill-CFL 0.1, relax tolerance 1e-9, noise OFF, seed 1, canonical
+      19-site seed, hexPrism + Dirichlet. **T = −5 °C on 128,128,64 → expect PLATE** (AR ≤
+      1/1.5 at first largest-extent ≥ 60 cells); **T = −15 °C on 96,96,128 → expect COLUMN**
+      (AR ≥ 1.5 at the same measured size). Robustness arithmetic, done in advance — the
+      chosen pair holds for **every** `sigma_surf ∈ (0, sigma_infinity]`, no knife edge:
+      at −5, `alphaHKPrism/alphaHKBasal = exp((0.0070−0.0027)/sigma_surf) ≥ exp(0.86) = 2.36`;
+      at −15, `alphaHKBasal/alphaHKPrism = exp((0.032−0.024)/sigma_surf) ≥ exp(1.6) = 4.95`.
+      **Honesty note, stated before running: the −15 °C expectation is Nakaya-INVERTED** —
+      nature grows plates there; the no-SDAK large-facet model predicts columns (1910.09067
+      Fig. 4's own "striking difference"). The gate claims habit is an *output of temperature*;
+      agreement with nature is Phase 6's question, and this run is expected to *disagree* with
+      it at −15. Additional enforced criteria per run: ends by size-target; D6h delta clean
+      every step and full metric exactly 0 (noise off); every relaxation converged; divergence
+      identity < 1e-6; fill-CFL bound never exceeded.
 - [ ] SDAK, gated. Check: thin plates / needles at the extremes. **Abandon without regret if it
       resists** — the fallback reaches every Phase 4 gate anyway.
 

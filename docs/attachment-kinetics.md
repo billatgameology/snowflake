@@ -263,7 +263,7 @@ already distinguishes these — the classifier is a policy table, not an `if`-ch
 
 | `(n_T, n_Z)` | Reading | `alphaHK` |
 |---|---|---|
-| `(0,1)` | flat basal face | `alphaHKBasal(T, sigma_surf)` |
+| `(0, n_Z ≥ 1)` | flat basal face — *(amended at implementation, 2026-07-15: originally `(0,1)` only, which left `(0,2)` — a cell between two perfect basal faces, still nucleation-limited — with no row)* | `alphaHKBasal(T, sigma_surf)` |
 | `(1,0)` | flat prism face | `alphaHKPrism(T, sigma_surf)` |
 | all others (`n_T ≥ 2`, or `n_T ≥ 1` and `n_Z ≥ 1`) | step/kink/concave site | `1` (rough) |
 | raw `n_T ≥ 4` and `n_Z ≥ 1` | interior void | attach immediately (kept, see component 5) |
@@ -378,8 +378,12 @@ mass, exactly as the plan predicted). Tests the spec commits to, before any habi
    (bitwise); with `alphaHK ≡ 1` and `Δx/X_0 → large`, boundary cells relax toward 0.
 3. **Divergence identity** on converged solves, tolerance stated in the test.
 4. **Ledger identity** exact in ledger arithmetic; metered-source accounting reported.
-5. **Fill-CFL:** the chosen `Δt` keeps `max Δf` under the stated bound (default 0.1) for the
-   run's `v_kin(T)·sigma_infinity`; asserted during runs, recorded in checkpoints.
+5. **Fill-CFL:** `max Δf ≤` the stated bound (default 0.1) on every growth step. *(Amended at
+   implementation, 2026-07-15: `Δt` is ADAPTIVE — `Δt = cfl·Δx/max(v_n)` per step, a
+   deterministic function of the state, so slow-kinetics regimes advance in wall-clock-feasible
+   step counts while the bound holds exactly by construction; a conservative fixed `Δt` from
+   `v_kin·sigma_infinity` would inflate cold runs by orders of magnitude for no accuracy gain.
+   The bound is still asserted per step and the increment recorded.)*
 6. **Quasi-static validity (Péclet):** `v_n·L/D ≪ 1` evaluated with extracted numbers per run
    regime; where it fails, the run is labeled invalid-as-physics. Worked arithmetic in the
    Phase 2 plan (Stage 2b steps).

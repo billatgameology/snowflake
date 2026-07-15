@@ -49,9 +49,12 @@
 import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import {
+  aspectRatio,
   computeMetrics,
   decodeCheckpoint,
+  decodeLKCheckpoint,
   encodeCheckpoint,
+  encodeLKCheckpoint,
   isD6hInvariantSet,
   symmetryError,
   totalMass,
@@ -62,7 +65,7 @@ import {
   type GGPresetName,
   type Metrics,
 } from "@vcc/core";
-import { GGSolver, FAR_FIELD_STOP_FRACTION } from "@vcc/solver-cpu";
+import { GGSolver, LKSolver, FAR_FIELD_STOP_FRACTION } from "@vcc/solver-cpu";
 import { occupancyTopDownPGM, propensitySlicePGM, vaporSlicePGM } from "./pgm.ts";
 
 interface GrowOptions {
@@ -416,9 +419,347 @@ function grow(options: GrowOptions): void {
   }
 }
 
+// ── LibbrechtKinetics runs (Phase 2b; attachment-kinetics §4.4) ─────────────────────────────
+
+interface GrowLKOptions {
+  tempC: number | null;
+  sigmaInf: number | null;
+  dims: Dims;
+  dxUm: number;
+  paramSet: "A1" | "CAK";
+  cfl: number;
+  tol: number;
+  steps: number;
+  targetExtent: number;
+  seed: number;
+  noise: number;
+  out: string | null;
+  metricsEvery: number;
+}
+
+function parseLKArgs(argv: string[]): GrowLKOptions {
+  const options: GrowLKOptions = {
+    tempC: null,
+    sigmaInf: null,
+    dims: { nx: 96, ny: 96, nz: 96 },
+    dxUm: 0.35,
+    paramSet: "A1",
+    cfl: 0.1,
+    tol: 1e-9,
+    steps: 100_000,
+    targetExtent: 60,
+    seed: 1,
+    noise: 0,
+    out: null,
+    metricsEvery: 100,
+  };
+  for (let i = 0; i < argv.length; i++) {
+    const flag = argv[i];
+    const value = (): string => {
+      const v = argv[++i];
+      if (v === undefined) throw new Error(`missing value for ${flag}`);
+      return v;
+    };
+    switch (flag) {
+      case "--temp-c":
+        options.tempC = Number(value());
+        break;
+      case "--sigma-inf":
+        options.sigmaInf = Number(value());
+        break;
+      case "--dims": {
+        const parts = value().split(",").map(Number);
+        if (parts.length !== 3 || parts.some((p) => !Number.isInteger(p) || p < 8)) {
+          throw new Error("--dims wants nx,ny,nz integers >= 8");
+        }
+        options.dims = { nx: parts[0], ny: parts[1], nz: parts[2] };
+        break;
+      }
+      case "--dx-um":
+        options.dxUm = Number(value());
+        break;
+      case "--param-set": {
+        const v = value();
+        if (v !== "A1" && v !== "CAK") throw new Error(`--param-set wants A1 or CAK, got ${v}`);
+        options.paramSet = v;
+        break;
+      }
+      case "--cfl":
+        options.cfl = Number(value());
+        break;
+      case "--tol":
+        options.tol = Number(value());
+        break;
+      case "--steps":
+        options.steps = Number(value());
+        break;
+      case "--target-extent":
+        options.targetExtent = Number(value());
+        break;
+      case "--seed":
+        options.seed = Number(value());
+        break;
+      case "--noise": {
+        const raw = value();
+        const eps = Number(raw);
+        if (!Number.isFinite(eps) || eps < 0) {
+          throw new Error(`--noise wants a finite epsilon >= 0, got "${raw}"`);
+        }
+        options.noise = eps;
+        break;
+      }
+      case "--out":
+        options.out = value();
+        break;
+      case "--metrics-every":
+        options.metricsEvery = Number(value());
+        break;
+      default:
+        throw new Error(`unknown flag: ${flag}`);
+    }
+  }
+  if (options.tempC === null || options.sigmaInf === null) {
+    throw new Error("grow-lk requires --temp-c and --sigma-inf");
+  }
+  return options;
+}
+
+interface LKRunResult {
+  stopReason: "size-target" | "domain-contact" | "step-cap" | "stalled";
+  aspectRatio: number;
+  attached: number;
+  tick: number;
+  extent: number;
+  symmetryClean: boolean;
+  finalSymErr: number;
+  allConverged: boolean;
+  worstDivergence: number;
+  maxFillIncrementEver: number;
+  simTimeSeconds: number;
+}
+
+function growLK(options: GrowLKOptions): LKRunResult {
+  const solver = new LKSolver({
+    dims: options.dims,
+    tempC: options.tempC as number,
+    sigmaInfinity: options.sigmaInf as number,
+    dxUm: options.dxUm,
+    paramSet: options.paramSet,
+    cflFill: options.cfl,
+    relaxTol: options.tol,
+    rngSeed: options.seed,
+    noiseEpsilon: options.noise,
+  });
+  const { dims, center } = solver;
+  console.log(
+    `grow-lk T=${options.tempC}C sigmaInf=${options.sigmaInf} dims=${dims.nx},${dims.ny},${dims.nz}` +
+      ` (hexRadius=${solver.hexRadius}, zHalfExtent=${solver.zHalfExtent}, active=${solver.activeCellCount})` +
+      ` dx=${options.dxUm}um paramSet=${options.paramSet} cfl=${options.cfl} tol=${options.tol}` +
+      ` targetExtent=${options.targetExtent} seed=${options.seed} noise=${options.noise}` +
+      ` seedSites=${solver.attachedCount}` +
+      ` vKin=${solver.vKinMS.toExponential(4)}m/s X0=${(solver.x0M * 1e6).toFixed(4)}um` +
+      ` seedSymErr=${symmetryError(solver.a, dims, center)}`,
+  );
+
+  let symmetryClean = true;
+  let allConverged = true;
+  let worstDivergence = 0;
+  let maxFillIncrementEver = 0;
+  let stopReason: LKRunResult["stopReason"] = "step-cap";
+  const started = Date.now();
+
+  for (let t = 1; t <= options.steps; t++) {
+    const { relaxation, surface } = solver.step();
+    if (!relaxation.converged) allConverged = false;
+    if (relaxation.divergenceResidual > worstDivergence) {
+      worstDivergence = relaxation.divergenceResidual;
+    }
+    if (surface.maxFillIncrement > maxFillIncrementEver) {
+      maxFillIncrementEver = surface.maxFillIncrement;
+    }
+    if (
+      solver.lastAttached.length > 0 &&
+      !isD6hInvariantSet(solver.lastAttached, dims, center)
+    ) {
+      symmetryClean = false;
+    }
+    if (options.metricsEvery > 0 && t % options.metricsEvery === 0) {
+      console.log(
+        `step=${solver.tick} attached=${solver.attachedCount} extent=${solver.largestExtent()}` +
+          ` AR=${fmt(aspectRatio(solver.a, dims))} sweeps=${relaxation.sweeps}` +
+          ` div=${relaxation.divergenceResidual.toExponential(2)}` +
+          ` simTime=${solver.simTimeSeconds.toFixed(2)}s deltaSym=${symmetryClean}` +
+          ` elapsed=${((Date.now() - started) / 1000).toFixed(1)}s`,
+      );
+    }
+    if (surface.stalled) {
+      stopReason = "stalled";
+      break;
+    }
+    if (solver.largestExtent() >= options.targetExtent) {
+      stopReason = "size-target";
+      break;
+    }
+    if (solver.domainContact()) {
+      stopReason = "domain-contact";
+      break;
+    }
+  }
+
+  const finalAR = aspectRatio(solver.a, dims);
+  const finalSymErr = symmetryError(solver.a, dims, center);
+  const result: LKRunResult = {
+    stopReason,
+    aspectRatio: finalAR,
+    attached: solver.attachedCount,
+    tick: solver.tick,
+    extent: solver.largestExtent(),
+    symmetryClean,
+    finalSymErr,
+    allConverged,
+    worstDivergence,
+    maxFillIncrementEver,
+    simTimeSeconds: solver.simTimeSeconds,
+  };
+  console.log(
+    `stop reason=${stopReason} step=${solver.tick} attached=${solver.attachedCount}` +
+      ` extent=${result.extent} AR=${fmt(finalAR)} symErr=${fmt(finalSymErr)}` +
+      ` deltaSymClean=${symmetryClean} allConverged=${allConverged}` +
+      ` worstDiv=${worstDivergence.toExponential(3)} maxFill=${maxFillIncrementEver.toFixed(4)}` +
+      ` simTime=${solver.simTimeSeconds.toFixed(2)}s fillLedger=${solver.fillLedger.toFixed(3)}` +
+      ` holeFillDeficit=${solver.holeFillDeficit.toFixed(3)}`,
+  );
+
+  if (options.out !== null) {
+    mkdirSync(dirname(options.out) || ".", { recursive: true });
+    const encoded = encodeLKCheckpoint({
+      dims,
+      tick: solver.tick,
+      simTimeSeconds: solver.simTimeSeconds,
+      rngSeed: options.seed,
+      noiseEpsilon: options.noise,
+      domain: solver.domain,
+      center,
+      tempC: options.tempC as number,
+      sigmaInfinity: options.sigmaInf as number,
+      dxUm: options.dxUm,
+      pressurePa: solver.pressurePa,
+      paramSet: options.paramSet,
+      cflFill: options.cfl,
+      relaxTol: options.tol,
+      a: solver.a,
+      f: solver.f,
+      sigma: solver.sigma,
+    });
+    writeFileSync(options.out, encoded);
+    const back = decodeLKCheckpoint(new Uint8Array(readFileSync(options.out)));
+    let identical = back.state.tick === solver.tick && back.state.a.length === solver.a.length;
+    if (identical) {
+      for (let i = 0; i < solver.a.length; i++) {
+        if (
+          back.state.a[i] !== solver.a[i] ||
+          back.state.f[i] !== solver.f[i] ||
+          back.state.sigma[i] !== solver.sigma[i]
+        ) {
+          identical = false;
+          break;
+        }
+      }
+    }
+    console.log(
+      `checkpoint written: ${options.out} (${encoded.length} bytes) roundTripIdentical=${identical}`,
+    );
+    if (!identical) process.exit(1);
+  }
+  return result;
+}
+
+/**
+ * The ENFORCED Phase 2b habit gate. The protocol is PINNED here — pre-registered in the
+ * Phase 2 plan before the first run (Rule 6; the 2a lesson: exit 0 must be the whole claim,
+ * so nothing about the protocol is a flag):
+ *   parameter set A1 (1910.09067's own A ≡ 1 model — see libbrecht-parameters.md Branch 1),
+ *   sigma_infinity = 0.005, dx = 0.35 um, 1 atm, cfl 0.1, tol 1e-9, noise OFF, seed 1,
+ *   canonical 19-site seed, hexPrism + Dirichlet,
+ *   run PLATE at T = -5 C on 128,128,64  -> expect AR <= 1/1.5 at first extent >= 60, and
+ *   run COLUMN at T = -15 C on 96,96,128 -> expect AR >= 1.5   at first extent >= 60.
+ * NOTE the expectation is deliberately Nakaya-INVERTED at -15 (the no-SDAK large-facet
+ * model predicts columns there — 1910.09067 Fig. 4's own "striking difference"): the gate
+ * claims habit is an OUTPUT of temperature, not that it matches nature. That comparison is
+ * Phase 6's job.
+ */
+function gate2b(): void {
+  const failures: string[] = [];
+  const common = {
+    sigmaInf: 0.005,
+    dxUm: 0.35,
+    paramSet: "A1" as const,
+    cfl: 0.1,
+    tol: 1e-9,
+    steps: 100_000,
+    targetExtent: 60,
+    seed: 1,
+    noise: 0,
+    out: null,
+    metricsEvery: 200,
+  };
+  console.log("=== 2b GATE run 1/2: plate expectation, T = -5 C ===");
+  const plate = growLK({ ...common, tempC: -5, dims: { nx: 128, ny: 128, nz: 64 } });
+  console.log("=== 2b GATE run 2/2: column expectation, T = -15 C ===");
+  const column = growLK({ ...common, tempC: -15, dims: { nx: 96, ny: 96, nz: 128 } });
+
+  const checkRun = (label: string, r: LKRunResult): void => {
+    if (r.stopReason !== "size-target") {
+      failures.push(`${label}: ended by ${r.stopReason}, not size-target`);
+    }
+    if (!r.symmetryClean || r.finalSymErr !== 0) {
+      failures.push(`${label}: symmetry broke (deltaClean=${r.symmetryClean}, err=${r.finalSymErr})`);
+    }
+    if (!r.allConverged) failures.push(`${label}: a relaxation failed to converge`);
+    if (!(r.worstDivergence < 1e3 * common.tol)) {
+      failures.push(`${label}: divergence identity ${r.worstDivergence} not < ${1e3 * common.tol}`);
+    }
+    if (!(r.maxFillIncrementEver <= common.cfl + 1e-12)) {
+      failures.push(`${label}: fill-CFL bound violated (${r.maxFillIncrementEver})`);
+    }
+  };
+  checkRun("plate(-5C)", plate);
+  checkRun("column(-15C)", column);
+  if (!(plate.aspectRatio <= 1 / 1.5)) {
+    failures.push(`plate(-5C): AR ${plate.aspectRatio} not <= ${1 / 1.5} — not a plate`);
+  }
+  if (!(column.aspectRatio >= 1.5)) {
+    failures.push(`column(-15C): AR ${column.aspectRatio} not >= 1.5 — not a column`);
+  }
+
+  if (failures.length > 0) {
+    console.error(`2B GATE FAILED (${failures.length} criteria):`);
+    for (const f of failures) console.error(`  - ${f}`);
+    process.exit(1);
+  }
+  console.log(
+    `2B GATE PASSED: habit is an output of temperature alone — AR(${-5}C)=${fmt(plate.aspectRatio)}` +
+      ` (plate), AR(${-15}C)=${fmt(column.aspectRatio)} (column); every criterion enforced;` +
+      ` exit 0 is the evidence.`,
+  );
+}
+
 const [command, ...rest] = process.argv.slice(2);
-if (command !== "grow") {
-  console.error("usage: node runner/src/main.ts grow --preset <name> [options]");
+if (command === "grow") {
+  grow(parseArgs(rest));
+} else if (command === "grow-lk") {
+  growLK(parseLKArgs(rest));
+} else if (command === "gate2b") {
+  if (rest.length > 0) {
+    console.error("gate2b takes no flags: the protocol is pinned (pre-registered in the plan)");
+    process.exit(2);
+  }
+  gate2b();
+} else {
+  console.error(
+    "usage: node runner/src/main.ts grow --preset <name> [options]\n" +
+      "       node runner/src/main.ts grow-lk --temp-c <C> --sigma-inf <frac> [options]\n" +
+      "       node runner/src/main.ts gate2b",
+  );
   process.exit(2);
 }
-grow(parseArgs(rest));

@@ -84,6 +84,14 @@ while every individual number "looks right." Pressure: raw units recorded, canon
 | `p_water(T) ≈ (2.8e9 + 1700·T_C³) · exp(−5450/T_K)` **mbar** (same status) | monograph Eq. 2.8, printed p. 58 / pdf 59 |
 | `sigma_water(T) = (c_sat,water − c_sat,ice)/c_sat,ice` (ceiling for physically meaningful `sigma_infinity`) | monograph Eq. 2.9, printed p. 58 / pdf 59 |
 
+**Known limit of the closed forms (found 2026-07-15, pinned in `core/test/libbrecht.test.ts`):
+computing `sigma_water` as the DIFFERENCE of the two Eq. 2.8 fits amplifies their individual
+~1% errors without bound near the melting point — at −1 °C the difference form goes *negative*
+(−0.006 vs Table 2.1's +0.010), at −10 °C it is ~20% low, at −15 °C it reads 0.137 vs the
+table's 0.157 (12.8% low), improving with cold: 8.8% at −20, 4.6% at −30, 2.0% at −40.**
+Use Table 2.1's `sigma_water` column (anchors in §5) wherever the value matters; the fit
+difference is implemented because the forms are cited, not because it is good.
+
 Unit check performed on Eq. 2.8 (2026-07-15): `p_ice(273.15 K) = 3.7e10·exp(−22.515) ≈ 6.1` —
 matches Table 2.1's `P_ice = 6.11` at 0 °C only if the formula's output unit is **mbar** (=
 hPa; 611 Pa is the triple point). The mbar reading is therefore confirmed against the source's

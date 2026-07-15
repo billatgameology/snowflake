@@ -130,6 +130,160 @@ export interface DecodedCheckpoint {
   readonly state: SolverState;
 }
 
+// ── LibbrechtKinetics checkpoints (Phase 2b; attachment-kinetics §4.4 component 4) ──────────
+// Additive: same magic and layout discipline, its own header shape (rule-tagged), its own
+// field list (a, f, sigma — the separate fill field, and the sigma field that IS d under this
+// rule). GGThreshold checkpoints are untouched, bit for bit.
+
+export interface LKCheckpointHeader {
+  readonly version: 1;
+  readonly rule: "LibbrechtKinetics";
+  readonly endianness: "LE";
+  readonly dims: Dims;
+  readonly tick: number;
+  readonly simTimeSeconds: number;
+  readonly rngSeed: number;
+  readonly noiseEpsilon: number;
+  readonly domain: DomainShape;
+  readonly center: readonly [number, number, number];
+  readonly tempC: number;
+  readonly sigmaInfinity: number;
+  readonly dxUm: number;
+  readonly pressurePa: number;
+  readonly paramSet: string;
+  readonly cflFill: number;
+  readonly relaxTol: number;
+  readonly farField: "dirichlet";
+  readonly fields: FieldDescriptor[];
+}
+
+export interface LKRunState {
+  readonly dims: Dims;
+  readonly tick: number;
+  readonly simTimeSeconds: number;
+  readonly rngSeed: number;
+  readonly noiseEpsilon: number;
+  readonly domain: DomainShape;
+  readonly center: readonly [number, number, number];
+  readonly tempC: number;
+  readonly sigmaInfinity: number;
+  readonly dxUm: number;
+  readonly pressurePa: number;
+  readonly paramSet: string;
+  readonly cflFill: number;
+  readonly relaxTol: number;
+  readonly a: Uint8Array;
+  readonly f: Float64Array;
+  readonly sigma: Float64Array;
+}
+
+export function encodeLKCheckpoint(state: LKRunState): Uint8Array {
+  const n = cellCount(state.dims);
+  const header: LKCheckpointHeader = {
+    version: 1,
+    rule: "LibbrechtKinetics",
+    endianness: "LE",
+    dims: state.dims,
+    tick: state.tick,
+    simTimeSeconds: state.simTimeSeconds,
+    rngSeed: state.rngSeed,
+    noiseEpsilon: state.noiseEpsilon,
+    domain: state.domain,
+    center: state.center,
+    tempC: state.tempC,
+    sigmaInfinity: state.sigmaInfinity,
+    dxUm: state.dxUm,
+    pressurePa: state.pressurePa,
+    paramSet: state.paramSet,
+    cflFill: state.cflFill,
+    relaxTol: state.relaxTol,
+    farField: "dirichlet",
+    fields: [
+      { name: "a", dtype: "u8", length: n },
+      { name: "f", dtype: "f64", length: n },
+      { name: "sigma", dtype: "f64", length: n },
+    ],
+  };
+  const headerBytes = new TextEncoder().encode(JSON.stringify(header));
+  const total = 8 + 4 + headerBytes.length + n + 8 * n + 8 * n;
+  const out = new Uint8Array(total);
+  for (let i = 0; i < 8; i++) out[i] = CHECKPOINT_MAGIC.charCodeAt(i);
+  new DataView(out.buffer).setUint32(8, headerBytes.length, true);
+  out.set(headerBytes, 12);
+  let offset = 12 + headerBytes.length;
+  out.set(state.a, offset);
+  offset += n;
+  offset = writeF64(out, offset, state.f);
+  writeF64(out, offset, state.sigma);
+  return out;
+}
+
+export interface DecodedLKCheckpoint {
+  readonly header: LKCheckpointHeader;
+  readonly state: LKRunState;
+}
+
+export function decodeLKCheckpoint(bytes: Uint8Array): DecodedLKCheckpoint {
+  let magic = "";
+  for (let i = 0; i < 8; i++) magic += String.fromCharCode(bytes[i]);
+  if (magic !== CHECKPOINT_MAGIC) {
+    throw new Error(`bad checkpoint magic: ${JSON.stringify(magic)}`);
+  }
+  const headerLength = new DataView(bytes.buffer, bytes.byteOffset).getUint32(8, true);
+  const header = JSON.parse(
+    new TextDecoder().decode(bytes.subarray(12, 12 + headerLength)),
+  ) as LKCheckpointHeader;
+  if (header.rule !== "LibbrechtKinetics") {
+    throw new Error(`not a LibbrechtKinetics checkpoint (rule=${(header as { rule?: string }).rule})`);
+  }
+  if (header.endianness !== "LE") throw new Error("checkpoint must declare LE endianness");
+  const n = cellCount(header.dims);
+  let offset = 12 + headerLength;
+  let a: Uint8Array | null = null;
+  let f: Float64Array | null = null;
+  let sigma: Float64Array | null = null;
+  for (const field of header.fields) {
+    if (field.dtype === "u8") {
+      const copy = new Uint8Array(field.length);
+      copy.set(bytes.subarray(offset, offset + field.length));
+      if (field.name === "a") a = copy;
+      offset += field.length;
+    } else if (field.dtype === "f64") {
+      const values = readF64(bytes, offset, field.length);
+      if (field.name === "f") f = values;
+      if (field.name === "sigma") sigma = values;
+      offset += field.length * 8;
+    } else {
+      throw new Error(`dtype ${field.dtype} not readable by the CPU oracle yet`);
+    }
+  }
+  if (a === null || f === null || sigma === null || a.length !== n) {
+    throw new Error("LK checkpoint is missing one of the fields a, f, sigma");
+  }
+  return {
+    header,
+    state: {
+      dims: header.dims,
+      tick: header.tick,
+      simTimeSeconds: header.simTimeSeconds,
+      rngSeed: header.rngSeed,
+      noiseEpsilon: header.noiseEpsilon,
+      domain: header.domain,
+      center: header.center,
+      tempC: header.tempC,
+      sigmaInfinity: header.sigmaInfinity,
+      dxUm: header.dxUm,
+      pressurePa: header.pressurePa,
+      paramSet: header.paramSet,
+      cflFill: header.cflFill,
+      relaxTol: header.relaxTol,
+      a,
+      f,
+      sigma,
+    },
+  };
+}
+
 export function decodeCheckpoint(bytes: Uint8Array): DecodedCheckpoint {
   let magic = "";
   for (let i = 0; i < 8; i++) magic += String.fromCharCode(bytes[i]);
