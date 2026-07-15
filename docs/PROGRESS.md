@@ -3,20 +3,19 @@
 **This file is the project's state. Read it first, update it as you work, leave it true.**
 Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charter.md).
 
-- **Current phase:** Phases 1 and 2 in progress, in parallel (§3.2). **Phase 1's spike is built**
-  (plan steps 1–7; automated checks pass) — what remains is the gate itself, the maker's
-  play-session protocol, plus the archive step. **Phase 2 Scaffold + Stage 2a is underway.**
-- **Last updated:** 2026-07-14 by Claude Fable 5
-- **Active plans:** [phase-1-ux-spike.md](plans/phase-1-ux-spike.md) — steps 1–7 built
-  2026-07-14, gate awaits the maker; [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) —
-  rewritten for decision 0003, synced to charter v1.2, Scaffold + Stage 2a in progress
-  2026-07-14. **Both hardened 2026-07-14 by an adversarial review pass** (each
-  plan's header lists what changed). The two blockers it found, so nobody re-trusts the old
-  text: the seam's bookkeeping was being treated as settled while charter / gg-machinery /
-  attachment-kinetics could not all be read literally at once — it is now explicitly unsettled,
-  four written sub-decisions required before the seam is coded; and the Dirichlet gate as
-  charter-phrased could not fail (a uniform field is a fixed point under *both* boundary
-  conditions) — the plan now carries a falsifiable depleted-start differential test.
+- **Current phase:** **Phase 1 is done** (gate maker-asserted 2026-07-15; spike archived under
+  `spike/README.md`). **Phase 2 Stage 2a is in progress** — two red items block its gate (see
+  Next step). Phase 2b is paused (ADR 0005).
+- **Last updated:** 2026-07-15 by Claude Fable 5
+- **Active plan:** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
+  0003, synced to charter v1.2/v1.3, Scaffold + Stage 2a in progress. Hardened 2026-07-14 by an
+  adversarial review pass (the plan's header lists what changed); the review's two blockers, so
+  nobody re-trusts the old text: the seam's bookkeeping was being treated as settled while
+  charter / gg-machinery / attachment-kinetics could not all be read literally at once — it is
+  now explicitly unsettled, escalated by ADR 0005 into the required surface-operator spec; and
+  the Dirichlet gate as charter-phrased could not fail (a uniform field is a fixed point under
+  *both* boundary conditions) — the plan now carries a falsifiable depleted-start differential
+  test.
 - **Charter is at v1.3** (2026-07-14, decision
   [0005](decisions/0005-validation-scope-surface-operator-numerics.md) — maker review). The
   three big ones: Phase 6 input-provenance classes with an **in-sample/held-out split** (SDAK
@@ -130,7 +129,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | Phase | Gate | Status |
 |---|---|---|
 | 0 | §2.8 exit criteria hold | ✅ maker-asserted, 2026-07-14 |
-| 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ⬜ plan written |
+| 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ✅ **maker-asserted, 2026-07-15** — informal sessions, positive; the four-task protocol was *not* run (recorded honestly in the plan's Findings, with the Phase 7 takeaways) |
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ⬜ plan written |
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (v1.2): fixed-σ Dirichlet far field passes the plan's **depleted-start differential test** (the charter's "holds σ in a crystal-free run" phrasing is vacuous from a uniform start — see plan) | ⏸ **paused** (ADR 0005): surface-operator spec + parameter table first |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ⬜ not started |
@@ -181,24 +180,18 @@ in charter §3.1 and get no retroactive ADR.
   2026-07-14 (Codex). Generated a 327 MB local bundle covering 523/523 pages and 376 figures;
   the strict checker passed with 279 rendered evidence pages and a 12-card visual QA sample.
   Next use is cited retrieval for the Phase 2b parameter table, not automatic claim acceptance.
+- [phase-1-ux-spike.md](plans/phase-1-ux-spike.md) — ✅ done 2026-07-15. Spike built in
+  `spike/` (outside the workspace), three maker-review fix rounds landed the replay-fidelity
+  invariant (39 automated checks in `spike/check.mjs`), gate closed maker-asserted, spike
+  archived with a freeze README. Findings: positive informal signal; protocol not run; Phase 7
+  takeaways recorded in the plan (frozen-prefix timeline model works; replay honesty must be
+  designed in from day one; slow ambient parameters make poor journey "drama" knobs).
 
 ## Next step
 
-Both phases are mid-flight (2026-07-14). In the maker's stated priority order:
+Phase 1 is closed (2026-07-15). The work is **Phase 2a**:
 
-1. **Phase 1 — all code fixes complete and verified; only the gate itself remains.** All three
-   round-3 replay defects are fixed with regressions (`spike/check.mjs`: 39 checks, all pass,
-   re-verified independently): tick-0 edits re-seed the field losslessly (61 = 61); duration
-   edits to completed segments warn loudly under the precise rule `tick > start + min(old, new)`
-   and totals refresh; a 320-event staircase drag saves (lossless merge 321 → 41 segments,
-   cap 4096) and replays bit-identical. The governing invariant — *live run ≡ replay of its own
-   saved history, or a loud warning; the UI can never record an unsaveable journey* — is stated
-   in the plan and enforced by regression. **The maker's informal findings are recorded in the
-   plan's Findings section** (positive: presets work well, compare mode legible, different
-   journeys → different crystals) — but the four-task protocol was not run, so per the plan's
-   own standard the gate stays open. To close it: run the protocol, or the maker explicitly
-   asserts the answer (Phase 0-style) for the record. Archive (step 9) follows gate closure.
-2. **Phase 2a — resolve, verify, then gate (in progress, fresh session 2026-07-15).** The D6h
+1. **Phase 2a — resolve, verify, then gate (in progress, fresh session 2026-07-15).** The D6h
    symmetry test **fails** (error 0.0424403183 against a required exact 0 — at 4% of cells this
    is a real bug, likely a convention mismatch between the neighbor offsets and the D6h
    operators or a wrong rotation pivot, not a float knife-edge) and `npm test` fails in the
@@ -214,7 +207,7 @@ Both phases are mid-flight (2026-07-14). In the maker's stated priority order:
    waiver marker currently sits on a wrapped continuation line and must move to the line
    containing the span (per-line semantics). The symmetry bug was not yet investigated
    (vitest: 1 failed / 56 passed). A `symprobe` scratch may exist under `out/` (untracked).
-3. **Phase 2b — stays paused** (ADR 0005) until its two opening deliverables exist: the
+2. **Phase 2b — stays paused** (ADR 0005) until its two opening deliverables exist: the
    surface-operator specification (attachment-kinetics §4.2 lists its six required components)
    and the parameter table (libbrecht-parameters.md — provenance classes P1–P4, canonical
    units). Known doc debt: the phase-2 plan's 2b section still predates ADR 0005 (its "n_diff

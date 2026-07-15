@@ -1,7 +1,7 @@
 # Plan — Phase 1 UX spike: the 2D cloud-journey prototype
 
 - **Phase:** Phase 1 — UX spike (charter §3.2). 2D, throwaway, ~a weekend.
-- **Status:** in progress
+- **Status:** done — gate closed as **maker-asserted**, 2026-07-15; spike archived
 - **Started:** 2026-07-14
 - **Last touched:** 2026-07-14 by Claude Fable 5 — initial plan, written against charter v1.2;
   hardened same day after an adversarial review pass (Reiter update rule made precise enough to
@@ -165,9 +165,13 @@ side," and the second half of what the play sessions probe.
       keep, drop, or fix? Check *(gate)*: the charter question answered in *Findings*, with the
       task-by-task notes and the saved history JSONs (`spike/histories/`) as artifacts, and the
       answer recorded in PROGRESS.md.
-- [ ] **Archive.** `spike/README.md` stating: throwaway, frozen, superseded by the real solver;
-      do not extend; see this plan for findings. PROGRESS.md updated; status here flipped to
-      done. Check: the freeze notice exists and PROGRESS points at the findings.
+      **Closed 2026-07-15 as maker-asserted, not protocol-run** — see *Findings* for exactly
+      what evidence exists (informal sessions, positive) and what was skipped (the four tasks,
+      `spike/histories/` artifacts). Recorded honestly rather than checked off as if the
+      protocol ran.
+- [x] **Archive.** `spike/README.md` freeze notice written (2026-07-15); PROGRESS.md updated;
+      status flipped to done. The spike is frozen — extending it requires a new plan file and a
+      conscious decision, per Out of scope.
 
 ## Verification record (build session, 2026-07-14)
 
@@ -435,3 +439,16 @@ that assertion is recorded here and in PROGRESS.md.
 ### Task 4 — explain a comparison
 
 ### The answer: does designing a cloud journey feel engaging?
+
+**Gate closed as maker-asserted, 2026-07-15** (the same evidence class as Phase 0's exit — the
+maker is the evidence source, and the assertion is recorded rather than measured). The maker
+directed closure on the informal evidence above: the spike works, presets grow distinct
+crystals, and compare mode legibly shows one seed under two journeys diverging. The four-task
+protocol was **not** run and `spike/histories/` artifacts were **not** produced — so the richer
+UX questions (can a journey be *reasoned out*? does the metaphor carry an explanation?) remain
+open observations for Phase 7's timeline-editor design, not settled findings. What Phase 7 can
+take from Phase 1 with confidence: the timeline-segment model with a frozen consumed prefix is
+workable and honest; mid-run editing wants replay-fidelity guarantees baked in from day one
+(three of the four defects found here were replay-honesty bugs); and `reiterBeta`-style ambient
+parameters that only act through slow diffusion make poor "drama" knobs for a journey — the
+punchy controls were the local ones.
