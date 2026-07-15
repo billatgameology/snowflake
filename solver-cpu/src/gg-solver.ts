@@ -41,12 +41,14 @@ import {
   randomBit,
   DOMAIN_CONTACT_FRACTION,
   STREAM_NOISE_XI,
+  totalMass,
   type Dims,
   type DomainShape,
   type FarFieldCondition,
   type GGParams,
   type SolverState,
 } from "@vcc/core";
+import type { LedgerReport, RelaxationReport, SurfaceOperator, SurfaceReport } from "./operator.ts";
 
 export interface GGSolverOptions {
   readonly dims: Dims;
@@ -77,7 +79,7 @@ export interface GGSolverOptions {
 /** §7 stopping rule: halt when far-field vapor falls below (2/3) * rho. */
 export const FAR_FIELD_STOP_FRACTION = 2 / 3;
 
-export class GGSolver {
+export class GGSolver implements SurfaceOperator {
   readonly dims: Dims;
   readonly params: GGParams;
   readonly rngSeed: number;
@@ -309,21 +311,31 @@ export class GGSolver {
    * solve; attachment-kinetics §4.3). Under Dirichlet (2b) the far-field shell is then
    * clamped to rho, metered.
    */
-  relaxField(): void {
+  relaxField(): RelaxationReport {
     this.diffuse();
+    let clampDelta = 0;
     if (this.farField === "dirichlet") {
       const rho = this.params.rho;
       for (let c = 0; c < this.farFieldCells.length; c++) {
         const x = this.farFieldCells[c];
         if (this.blocked[x] === 1) continue;
-        this.dirichletMeter += rho - this.d[x];
+        clampDelta += rho - this.d[x];
         this.d[x] = rho;
       }
+      this.dirichletMeter += clampDelta;
     }
+    return {
+      sweeps: 1,
+      converged: true, // vacuously: one pass IS the published dynamics, not a solve
+      residual: null,
+      divergenceResidual: null,
+      shellClampDiagnostic: this.farField === "dirichlet" ? clampDelta : null,
+      absorptionDiagnostic: null,
+    };
   }
 
   /** Steps (ii) freezing, (iii) attachment, (iv) melting — the surface exchange. */
-  advanceSurface(): void {
+  advanceSurface(): SurfaceReport {
     const boundary = this.boundaryList;
     const nBoundary = boundary.length;
     const { kappa, mu, ggThreshBeta } = this.params;
@@ -345,12 +357,14 @@ export class GGSolver {
     // attachment simultaneous, and keeps (iv)'s kappa/mu lookups on start-of-tick counts
     // exactly as the spec requires.
     const toAttach: number[] = [];
+    let holeFillCount = 0;
     for (let bi = 0; bi < nBoundary; bi++) {
       const x = boundary[bi];
       const rawNT = this.nTAtt[x];
       const rawNZ = this.nZAtt[x];
       if (rawNT >= 4 && rawNZ >= 1) {
         toAttach.push(x); // hole-filling rule, UNCAPPED n_T (gg-machinery §4.iii)
+        holeFillCount++;
         continue;
       }
       const nT = rawNT < 3 ? rawNT : 3;
@@ -378,6 +392,32 @@ export class GGSolver {
     for (const x of toAttach) this.attachCell(x, false);
     if (toAttach.length > 0) this.rebuildBoundaryList();
     this.lastAttached = toAttach;
+
+    return {
+      attachedNow: toAttach.length,
+      maxKineticFillIncrement: null, // threshold rule: no fill kinetics, no CFL concept
+      holeFillCount,
+      deltaTimeSeconds: null, // a G-G tick is not physical time
+      stalled: false,
+      skippedUnconverged: false,
+    };
+  }
+
+  /** The rule's conservation claim, measurably (SurfaceOperator; attachment-kinetics §4.4). */
+  ledger(): LedgerReport {
+    return {
+      rule: "GGThreshold",
+      claim:
+        "Sigma(b+d) is exact under the reflecting far field (gg-machinery §4); under " +
+        "Dirichlet the shell is a metered source/sink by design and the meter accounts " +
+        "for the difference",
+      totalMassBD: totalMass(this.b, this.d),
+      dirichletMeter: this.farField === "dirichlet" ? this.dirichletMeter : null,
+      fillLedgerIceCells: null,
+      fillLedgerVaporUnits: null,
+      holeFillDeficit: null,
+      lastDivergenceResidual: null,
+    };
   }
 
   /**

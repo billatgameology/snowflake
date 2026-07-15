@@ -494,7 +494,7 @@ Order within 2b is deliberate; each step gates the next:
       Nakaya-relevant regime**; the per-run assertion stays in the suite per §4.4 test 6.
       Sample fill-CFL: `Δx = 0.5 µm`, `sigma_infinity = 0.01`, bound 0.1 →
       `Δt = 0.1·Δx/(v_kin·sigma_infinity) ≈ 0.024 s` per growth step.
-- [ ] **Fixed-σ Dirichlet far-field condition** (charter §2.4, v1.2), selectable per run, recorded
+- [x] **Fixed-σ Dirichlet far-field condition** (charter §2.4, v1.2), selectable per run, recorded
       in checkpoint metadata; reflecting stays the default. Check *(gate, strengthened — see Done
       when)*: crystal-free, **depleted** start (`d = σ_set/2` uniform — a uniform-at-`σ_set`
       start is a fixed point under both conditions and tests nothing), diffusion-only until the
@@ -502,47 +502,90 @@ Order within 2b is deliberate; each step gates the next:
       *identical* run under reflecting must instead conserve total mass and settle at the initial
       mean — the differential is what proves the two conditions are actually different code
       paths. And the 2a mass-conservation gate still passes untouched under reflecting.
-- [ ] `SurfaceOperator` interface (supersedes the `AttachmentRule` sketch — attachment-kinetics
+      **PASSED 2026-07-15** — `solver-cpu/test/dirichlet.test.ts`, in the suite: Dirichlet
+      climbs back to ρ everywhere (max dev < 1e-6) with the injected mass *metered* and equal
+      to the field's gain to 1e-9 relative; the identical reflecting run conserves to < 1e-12
+      and settles at the depleted mean; checkpoint metadata carries the condition. The 2a mass
+      gates run unchanged in the same suite.
+- [x] `SurfaceOperator` interface (supersedes the `AttachmentRule` sketch — attachment-kinetics
       §4.4 component 6 defines it: it owns per-cell surface state and mediates the mass
       exchange); `GGThreshold` refactored behind it. Check *(gate)*: **all 2a gates still pass,
       bit-identical** (same engine — bitwise claims are scoped to the pinned oracle, charter
       §3.1 v1.2). No physics before this passes.
-- [ ] `LibbrechtKinetics`: the seam — **implemented against attachment-kinetics §4.4** (the
-      surface-operator spec; its four bookkeeping sub-decisions were settled in writing
-      2026-07-15 — see Approach item 4 for the one-line answers). Includes the quasi-static
-      relaxation with the Robin substitution and metered Dirichlet source, the facet
-      classifier policy table, the separate fill field, and §4.4's committed tests 2–5
-      (Robin limits, divergence identity, ledger identity, fill-CFL). Check: a crystal grows
-      at all, and the ledger does exactly what §4.4 component 4 claims it does.
+      **PASSED 2026-07-15, strongest form:** `GGSolver.step()` split into
+      `relaxField()`/`advanceSurface()` (pure code motion; Dirichlet clamp added inside
+      `relaxField` behind the default-off option); the full-scale enforced 2a gate re-run
+      post-refactor produced a **byte-for-byte identical checkpoint** (`cmp` clean,
+      17 826 573 bytes; command as recorded in the 2a gate entry, `--out
+      out/plate-gate-postrefactor.ckpt`), GATE PASSED, exit 0. All 2a suites unchanged.
+- [x] `LibbrechtKinetics`: the seam — **implemented against attachment-kinetics §4.4**
+      (`solver-cpu/src/lk-solver.ts`; the spec's four bookkeeping sub-decisions were settled
+      in writing 2026-07-15 — see Approach item 4). Quasi-static Picard relaxation on the 2a
+      kernel (canonical pair summation preserved — D6h stays bitwise), Robin
+      partial-reflection substitution `s/(1+s)`, metered Dirichlet shell, separate fill
+      field, adaptive fill-CFL `Δt`. §4.4's committed tests all in the suite
+      (`solver-cpu/test/lk-solver.test.ts`, 10 tests): Robin limits incl. **bitwise**
+      recovery of the reflecting pass at `alphaHK ≡ 0`; divergence identity with its stated
+      tolerance scaling (~1e3·relaxTol, and tightening relaxTol tightens it — asserted);
+      ledger identity (fill + hole-fill deficit account for every attached cell and partial
+      fill); fill-CFL never exceeded; a crystal grows at all; bit-identical determinism;
+      D6h delta clean + full metric exactly 0, noise off. Two spec amendments recorded in
+      §4.4 at implementation: the `(0, n_Z ≥ 1)` basal row and adaptive `Δt`.
 - [ ] Basal/prism split. Check *(gate)*: **habit changes with temperature alone** — two
       temperatures, no other change, two different habits, per the operationalized aspect-ratio
       thresholds in Done when (plate ⟺ AR ≤ 1/1.5, column ⟺ AR ≥ 1.5, at the stated measurement
       size; temperatures pre-registered from the `sigma_0` crossing).
 
-      **PRE-REGISTRATION (written and committed 2026-07-15, BEFORE the first gate run; the
-      protocol is PINNED in the runner's flagless `gate2b` command — exit 0 is the whole
-      claim):** parameter set **A1** (1910.09067's own `A ≡ 1` model, p. 5 — chosen over CAK
-      *in advance* because the CAK `A_prism` dip makes the warm side σ-sensitive: with CAK, at
-      −5 °C prism wins only for `sigma_surf ≲ 0.002` while the cold side needs
-      `sigma_infinity ≳ 0.01` to grow at all — no common `sigma_infinity` yields a robust
-      inversion; recorded as a finding in libbrecht-parameters.md and pinned in
-      `core/test/libbrecht.test.ts`). Common conditions, both runs: `sigma_infinity = 0.005`,
-      `Δx = 0.35 µm`, 1 atm, fill-CFL 0.1, relax tolerance 1e-9, noise OFF, seed 1, canonical
-      19-site seed, hexPrism + Dirichlet. **T = −5 °C on 128,128,64 → expect PLATE** (AR ≤
-      1/1.5 at first largest-extent ≥ 60 cells); **T = −15 °C on 96,96,128 → expect COLUMN**
-      (AR ≥ 1.5 at the same measured size). Robustness arithmetic, done in advance — the
-      chosen pair holds for **every** `sigma_surf ∈ (0, sigma_infinity]`, no knife edge:
-      at −5, `alphaHKPrism/alphaHKBasal = exp((0.0070−0.0027)/sigma_surf) ≥ exp(0.86) = 2.36`;
-      at −15, `alphaHKBasal/alphaHKPrism = exp((0.032−0.024)/sigma_surf) ≥ exp(1.6) = 4.95`.
-      **Honesty note, stated before running: the −15 °C expectation is Nakaya-INVERTED** —
-      nature grows plates there; the no-SDAK large-facet model predicts columns (1910.09067
-      Fig. 4's own "striking difference"). The gate claims habit is an *output of temperature*;
-      agreement with nature is Phase 6's question, and this run is expected to *disagree* with
-      it at −15. Additional enforced criteria per run: ends by size-target; D6h delta clean
-      every step and full metric exactly 0 (noise off); every relaxation converged; divergence
-      identity < 1e-6; fill-CFL bound never exceeded.
+      ~~**PRE-REGISTRATION (first version, 2026-07-15)**~~ — **INVALIDATED by the round-2
+      maker review BEFORE any run produced a result** (the in-flight run was killed): it used
+      *different domains* for the two runs (128,128,64 vs 96,96,128 — confounding temperature
+      with reservoir geometry under a fixed-σ shell), mislabeled its parameter set as
+      "1910.09067's own model" (the σ₀ curves were the monograph's CAK digitization
+      throughout — 09067's own Fig. 4 fits are un-digitized), and its robustness arithmetic
+      assumed the cell-center σ that blocker 3 (sink/growth inconsistency) invalidated. Kept
+      struck-through per Rule 4; the full blocker catalog is in Tried and rejected.
+
+      **RE-REGISTRATION (2026-07-15, after the round-2 fixes, committed BEFORE the first
+      accepted gate run; protocol PINNED in the flagless `gate2b` — exit 0 is the whole
+      claim):** **ONE domain for both runs — 96,96,96 hexPrism + Dirichlet; the only
+      difference between the runs is the temperature.** Parameter set **CAK_A1** — named
+      honestly: the monograph's CAK σ₀ curves with the `A ≡ 1` simplification (the same
+      simplification 09067 applies to its own analysis, p. 5), chosen over full CAK *in
+      advance* because the CAK `A_prism` dip makes the warm side σ-sensitive (recorded
+      finding, pinned in `core/test/libbrecht.test.ts`). Common conditions, everything
+      pinned explicitly (no constructor defaults): `sigma_infinity = 0.005`, `Δx = 0.35 µm`,
+      `P = 101325 Pa`, fill-CFL 0.1, relax tolerance 1e-9, max sweeps 2×10⁵, noise OFF, seed
+      1, canonical radius-2/thickness-1 seed asserted to initialize as 19 sites.
+      **T = −5 °C → expect PLATE** (AR ≤ 1/1.5 at first largest-extent ≥ 60 cells);
+      **T = −15 °C → expect COLUMN** (AR ≥ 1.5, same measured size). Robustness arithmetic
+      REDONE for the corrected face-consistent scheme (`sigma_face` solved per facet;
+      `Δx/X_0 ≈ 2.41` at −5 °C, 2.45 at −15 °C): at the worst case `sigma_cell =
+      sigma_infinity = 0.005`, the self-consistent rates give `v_prism/v_basal ≈ 1.77` at
+      −5 °C (σ_face ≈ 0.00266 prism / 0.00366 basal) and `v_basal/v_prism ≈ 4.4` at −15 °C;
+      the ratios grow monotonically as `sigma_cell` falls, so the ordering holds for all
+      `sigma_cell ∈ (0, 0.005]`. **Two caveats stated before running:** (1) these ratios
+      hold for the NOMINAL digitized anchors — under the recorded ±25% digitization bands
+      the −15 °C ordering is not guaranteed (libbrecht-parameters.md Branch 1's band note);
+      a gate failure therefore has parameter uncertainty as a live candidate cause and gets
+      reported as a finding, not tuned away. (2) The −15 °C expectation is
+      **Nakaya-inverted** — nature grows plates there; the no-SDAK large-facet model
+      predicts columns (09067 Fig. 4's own "striking difference"). The gate claims habit is
+      an *output of temperature*; agreement with nature is Phase 6's question. Enforced
+      criteria per run: seed = 19 sites; ends by size-target with extent ≥ 60; D6h delta
+      clean every step and full metric exactly 0 (noise off); every relaxation converged
+      (an unconverged relax never advances the surface); divergence identity < 1e-6;
+      KINETIC fill-CFL never exceeded (hole-fill events counted separately); quasi-static
+      Péclet bound < 1e-2.
 - [ ] SDAK, gated. Check: thin plates / needles at the extremes. **Abandon without regret if it
       resists** — the fallback reaches every Phase 4 gate anyway.
+      **Status at 2b closure (2026-07-15): deliberately NOT implemented, and deliberately not
+      blocking.** This step is outside the 2b done-when by design (this plan: "last, gated,
+      not load-bearing"; attachment-kinetics §3: "the scary part of this spec is not on the
+      critical path"). The P3 dip curves are extracted and waiting (libbrecht-parameters.md
+      Branch 2); the facet-width query hook is identified (§4.4 component 2). Whoever picks
+      it up: it is in-sample for Nakaya purposes (ADR 0005 D1), it requires the Gibbs–Thomson
+      revisit noted in attachment-kinetics §5, and the no-SDAK habit results below are its
+      control group.
 
 ## Out of scope
 
@@ -662,6 +705,37 @@ Order within 2b is deliberate; each step gates the next:
   precondition left un-enforced is a false "exit 0 is the whole claim". Degenerate runs that
   end before the interesting physics starts (tiny domains, short tick caps) pass outcome
   metrics vacuously — enforce that the phenomenon under test actually occurred.**
+- **The first Phase 2b implementation and gate protocol (round-2 maker audit, 2026-07-15;
+  seven blockers, all remediated same-session; the in-flight gate run was killed with no
+  result accepted).** The catalog, so nobody re-trusts the superseded versions:
+  (1) *domain-geometry confound* — the two habit runs used different domains; under a fixed-σ
+  Dirichlet shell that changes the elliptic problem, confounding "temperature alone" → one
+  common domain (96,96,96) for both runs. (2) *mislabeled parameter set* — "A1" claimed to be
+  1910.09067's own model while using the monograph's CAK σ₀ digitization throughout → renamed
+  `CAK_A1`, described honestly; 09067's own Fig. 4 σ₀ fits remain an un-digitized gap.
+  (3) *sink/growth σ inconsistency* — the Robin stencil absorbed at the implied face value
+  `σ/(1+s)` while Hertz–Knudsen growth used the cell value; first-order equivalent only as
+  `Δx/X_0 → 0`, and the gate runs at `Δx/X_0 ≈ 2.45` where growth outran the sink ×1.6–2.4 →
+  one self-consistent `(alphaHK, sigma_face)` fixed point now drives both (spec §4.4
+  component 3, corrected). (4) *no shared `SurfaceOperator`* — two unrelated report shapes,
+  no `ledger()` → `solver-cpu/src/operator.ts`, both solvers conform, compile-checked +
+  tested. (5) *ill-defined ledger* — "metered source − field change" integrated relaxation
+  clamp totals that carry no physical time (the charter's own line) → ledger rewritten:
+  uptake ≡ ice gain by construction via the shared σ_face, non-tautological flux-integral
+  test recomputes it outside the solver; clamp totals demoted to numerical diagnostics.
+  (6) *fill-CFL false-pass* — hole-fill `f → 1` jumps were invisible to the CFL maximum → 
+  kinetic and hole-fill accounting separated; the maker's probe is now a deterministic test
+  (ring-above-seed geometry). (7) *vacuous bitwise test* — the "alphaHK ≡ 0 recovers
+  reflecting" test checked a uniform fixed point that a deleted smoother would also pass →
+  replaced by a one-sweep bitwise comparison against `GGSolver`'s pass on an arbitrary
+  nonuniform field. Plus: `A_prism(−10 °C)` re-digitized 0.95 → 0.83 (was outside its own
+  ±0.03 band); the ±25% uncertainty caveat now bounds all "robustness" claims; the p. 93
+  Appendix-B mis-cite fixed; unconverged relaxations no longer advance the surface; the
+  reflecting diagnostic mode and Péclet assertion exist; gate preconditions pinned
+  explicitly, seed count asserted. Lesson, appended to the 2a list: **an interface the spec
+  names must exist as a type the compiler checks, not as a resemblance; and every quantity a
+  gate criterion reads must be shown uncensorable by construction — a report that a code
+  path can bypass is not evidence.**
 - **"npm test fails in the repo-wide Rule 7 scan" (PROGRESS.md, 2026-07-15 handoff)** — did not
   reproduce at HEAD (a58bac0): the scan and the fixture tests pass, and the lint verifiably
   still fails on real violations (bare stem, provenance-free qualifier, markdown inline-span

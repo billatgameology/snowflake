@@ -56,6 +56,7 @@ import {
   encodeCheckpoint,
   encodeLKCheckpoint,
   isD6hInvariantSet,
+  pecletUpperBound,
   symmetryError,
   totalMass,
   validateParams,
@@ -426,7 +427,7 @@ interface GrowLKOptions {
   sigmaInf: number | null;
   dims: Dims;
   dxUm: number;
-  paramSet: "A1" | "CAK";
+  paramSet: "CAK_A1" | "CAK";
   cfl: number;
   tol: number;
   steps: number;
@@ -435,6 +436,11 @@ interface GrowLKOptions {
   noise: number;
   out: string | null;
   metricsEvery: number;
+  /** Pinned explicitly by gate2b (round-2 review: no mutable constructor defaults in a gate). */
+  pressurePa: number;
+  seedRadius: number;
+  seedThickness: number;
+  relaxMaxSweeps: number;
 }
 
 function parseLKArgs(argv: string[]): GrowLKOptions {
@@ -443,7 +449,7 @@ function parseLKArgs(argv: string[]): GrowLKOptions {
     sigmaInf: null,
     dims: { nx: 96, ny: 96, nz: 96 },
     dxUm: 0.35,
-    paramSet: "A1",
+    paramSet: "CAK_A1",
     cfl: 0.1,
     tol: 1e-9,
     steps: 100_000,
@@ -452,6 +458,10 @@ function parseLKArgs(argv: string[]): GrowLKOptions {
     noise: 0,
     out: null,
     metricsEvery: 100,
+    pressurePa: 101325,
+    seedRadius: 2,
+    seedThickness: 1,
+    relaxMaxSweeps: 200_000,
   };
   for (let i = 0; i < argv.length; i++) {
     const flag = argv[i];
@@ -480,7 +490,9 @@ function parseLKArgs(argv: string[]): GrowLKOptions {
         break;
       case "--param-set": {
         const v = value();
-        if (v !== "A1" && v !== "CAK") throw new Error(`--param-set wants A1 or CAK, got ${v}`);
+        if (v !== "CAK_A1" && v !== "CAK") {
+          throw new Error(`--param-set wants CAK_A1 or CAK, got ${v}`);
+        }
         options.paramSet = v;
         break;
       }
@@ -525,16 +537,19 @@ function parseLKArgs(argv: string[]): GrowLKOptions {
 }
 
 interface LKRunResult {
-  stopReason: "size-target" | "domain-contact" | "step-cap" | "stalled";
+  stopReason: "size-target" | "domain-contact" | "step-cap" | "stalled" | "unconverged";
   aspectRatio: number;
   attached: number;
+  seedSites: number;
   tick: number;
   extent: number;
   symmetryClean: boolean;
   finalSymErr: number;
   allConverged: boolean;
   worstDivergence: number;
-  maxFillIncrementEver: number;
+  maxKineticFillEver: number;
+  holeFillCountTotal: number;
+  pecletBound: number;
   simTimeSeconds: number;
 }
 
@@ -544,39 +559,55 @@ function growLK(options: GrowLKOptions): LKRunResult {
     tempC: options.tempC as number,
     sigmaInfinity: options.sigmaInf as number,
     dxUm: options.dxUm,
+    pressurePa: options.pressurePa,
     paramSet: options.paramSet,
     cflFill: options.cfl,
     relaxTol: options.tol,
+    relaxMaxSweeps: options.relaxMaxSweeps,
     rngSeed: options.seed,
     noiseEpsilon: options.noise,
+    domain: "hexPrism",
+    farField: "dirichlet",
+    seedRadius: options.seedRadius,
+    seedThickness: options.seedThickness,
   });
+  const seedSites = solver.attachedCount;
+  const pecletBound = pecletUpperBound(
+    options.tempC as number,
+    options.sigmaInf as number,
+    Math.max(options.dims.nx, options.dims.ny, options.dims.nz) * options.dxUm * 1e-6,
+    options.pressurePa,
+  );
   const { dims, center } = solver;
   console.log(
     `grow-lk T=${options.tempC}C sigmaInf=${options.sigmaInf} dims=${dims.nx},${dims.ny},${dims.nz}` +
       ` (hexRadius=${solver.hexRadius}, zHalfExtent=${solver.zHalfExtent}, active=${solver.activeCellCount})` +
-      ` dx=${options.dxUm}um paramSet=${options.paramSet} cfl=${options.cfl} tol=${options.tol}` +
+      ` dx=${options.dxUm}um P=${options.pressurePa}Pa paramSet=${options.paramSet}` +
+      ` cfl=${options.cfl} tol=${options.tol} maxSweeps=${options.relaxMaxSweeps}` +
       ` targetExtent=${options.targetExtent} seed=${options.seed} noise=${options.noise}` +
-      ` seedSites=${solver.attachedCount}` +
+      ` seedRadius=${options.seedRadius} seedSites=${seedSites}` +
       ` vKin=${solver.vKinMS.toExponential(4)}m/s X0=${(solver.x0M * 1e6).toFixed(4)}um` +
-      ` seedSymErr=${symmetryError(solver.a, dims, center)}`,
+      ` peclet<=${pecletBound.toExponential(2)} seedSymErr=${symmetryError(solver.a, dims, center)}`,
   );
 
   let symmetryClean = true;
   let allConverged = true;
   let worstDivergence = 0;
-  let maxFillIncrementEver = 0;
+  let maxKineticFillEver = 0;
   let stopReason: LKRunResult["stopReason"] = "step-cap";
   const started = Date.now();
 
   for (let t = 1; t <= options.steps; t++) {
     const { relaxation, surface } = solver.step();
-    if (!relaxation.converged) allConverged = false;
-    if (relaxation.divergenceResidual > worstDivergence) {
-      worstDivergence = relaxation.divergenceResidual;
+    if (!relaxation.converged) {
+      allConverged = false;
+      stopReason = "unconverged"; // step() skipped the surface; growing further is invalid
+      break;
     }
-    if (surface.maxFillIncrement > maxFillIncrementEver) {
-      maxFillIncrementEver = surface.maxFillIncrement;
-    }
+    const divergence = relaxation.divergenceResidual ?? 0;
+    if (divergence > worstDivergence) worstDivergence = divergence;
+    const kinetic = surface.maxKineticFillIncrement ?? 0;
+    if (kinetic > maxKineticFillEver) maxKineticFillEver = kinetic;
     if (
       solver.lastAttached.length > 0 &&
       !isD6hInvariantSet(solver.lastAttached, dims, center)
@@ -587,7 +618,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
       console.log(
         `step=${solver.tick} attached=${solver.attachedCount} extent=${solver.largestExtent()}` +
           ` AR=${fmt(aspectRatio(solver.a, dims))} sweeps=${relaxation.sweeps}` +
-          ` div=${relaxation.divergenceResidual.toExponential(2)}` +
+          ` div=${divergence.toExponential(2)}` +
           ` simTime=${solver.simTimeSeconds.toFixed(2)}s deltaSym=${symmetryClean}` +
           ` elapsed=${((Date.now() - started) / 1000).toFixed(1)}s`,
       );
@@ -612,20 +643,24 @@ function growLK(options: GrowLKOptions): LKRunResult {
     stopReason,
     aspectRatio: finalAR,
     attached: solver.attachedCount,
+    seedSites,
     tick: solver.tick,
     extent: solver.largestExtent(),
     symmetryClean,
     finalSymErr,
     allConverged,
     worstDivergence,
-    maxFillIncrementEver,
+    maxKineticFillEver,
+    holeFillCountTotal: solver.holeFillCountTotal,
+    pecletBound,
     simTimeSeconds: solver.simTimeSeconds,
   };
   console.log(
     `stop reason=${stopReason} step=${solver.tick} attached=${solver.attachedCount}` +
       ` extent=${result.extent} AR=${fmt(finalAR)} symErr=${fmt(finalSymErr)}` +
       ` deltaSymClean=${symmetryClean} allConverged=${allConverged}` +
-      ` worstDiv=${worstDivergence.toExponential(3)} maxFill=${maxFillIncrementEver.toFixed(4)}` +
+      ` worstDiv=${worstDivergence.toExponential(3)} maxKineticFill=${maxKineticFillEver.toFixed(4)}` +
+      ` holeFills=${solver.holeFillCountTotal}` +
       ` simTime=${solver.simTimeSeconds.toFixed(2)}s fillLedger=${solver.fillLedger.toFixed(3)}` +
       ` holeFillDeficit=${solver.holeFillDeficit.toFixed(3)}`,
   );
@@ -675,25 +710,31 @@ function growLK(options: GrowLKOptions): LKRunResult {
 }
 
 /**
- * The ENFORCED Phase 2b habit gate. The protocol is PINNED here — pre-registered in the
- * Phase 2 plan before the first run (Rule 6; the 2a lesson: exit 0 must be the whole claim,
- * so nothing about the protocol is a flag):
- *   parameter set A1 (1910.09067's own A ≡ 1 model — see libbrecht-parameters.md Branch 1),
- *   sigma_infinity = 0.005, dx = 0.35 um, 1 atm, cfl 0.1, tol 1e-9, noise OFF, seed 1,
- *   canonical 19-site seed, hexPrism + Dirichlet,
- *   run PLATE at T = -5 C on 128,128,64  -> expect AR <= 1/1.5 at first extent >= 60, and
- *   run COLUMN at T = -15 C on 96,96,128 -> expect AR >= 1.5   at first extent >= 60.
- * NOTE the expectation is deliberately Nakaya-INVERTED at -15 (the no-SDAK large-facet
- * model predicts columns there — 1910.09067 Fig. 4's own "striking difference"): the gate
- * claims habit is an OUTPUT of temperature, not that it matches nature. That comparison is
- * Phase 6's job.
+ * The ENFORCED Phase 2b habit gate — RE-REGISTERED after the round-2 maker review killed the
+ * first protocol before any result existed (its two runs used different domains, confounding
+ * temperature with reservoir geometry; its parameter set was mislabeled; its sink and growth
+ * disagreed on sigma_surf). The corrected protocol is PINNED here, flagless, and recorded in
+ * the Phase 2 plan BEFORE the first accepted run:
+ *   ONE domain for both runs: 96,96,96 hexPrism + Dirichlet — the ONLY difference between
+ *   the two runs is the temperature;
+ *   parameter set CAK_A1 (the monograph's CAK sigma_0 curves with the A ≡ 1 simplification —
+ *   named honestly; NOT 1910.09067's own sigma_0 fits, which are un-digitized),
+ *   sigma_infinity = 0.005, dx = 0.35 um, P = 101325 Pa, cfl 0.1, tol 1e-9, maxSweeps 2e5,
+ *   noise OFF, seed 1, canonical radius-2/thickness-1 seed (must initialize as 19 sites),
+ *   run PLATE  at T = -5 C  -> expect AR <= 1/1.5 at first extent >= 60 cells, and
+ *   run COLUMN at T = -15 C -> expect AR >= 1.5   at first extent >= 60 cells.
+ * NOTE the -15 C expectation is deliberately Nakaya-INVERTED (the no-SDAK large-facet model
+ * predicts columns there — 1910.09067 Fig. 4's own "striking difference"): the gate claims
+ * habit is an OUTPUT of temperature, not that it matches nature. That is Phase 6's job.
  */
 function gate2b(): void {
   const failures: string[] = [];
-  const common = {
+  const common: GrowLKOptions = {
+    tempC: null,
     sigmaInf: 0.005,
+    dims: { nx: 96, ny: 96, nz: 96 }, // SAME domain for both runs — temperature only
     dxUm: 0.35,
-    paramSet: "A1" as const,
+    paramSet: "CAK_A1",
     cfl: 0.1,
     tol: 1e-9,
     steps: 100_000,
@@ -702,15 +743,25 @@ function gate2b(): void {
     noise: 0,
     out: null,
     metricsEvery: 200,
+    pressurePa: 101325,
+    seedRadius: 2,
+    seedThickness: 1,
+    relaxMaxSweeps: 200_000,
   };
   console.log("=== 2b GATE run 1/2: plate expectation, T = -5 C ===");
-  const plate = growLK({ ...common, tempC: -5, dims: { nx: 128, ny: 128, nz: 64 } });
+  const plate = growLK({ ...common, tempC: -5, out: "out/gate2b-plate.ckpt" });
   console.log("=== 2b GATE run 2/2: column expectation, T = -15 C ===");
-  const column = growLK({ ...common, tempC: -15, dims: { nx: 96, ny: 96, nz: 128 } });
+  const column = growLK({ ...common, tempC: -15, out: "out/gate2b-column.ckpt" });
 
   const checkRun = (label: string, r: LKRunResult): void => {
+    if (r.seedSites !== 19) {
+      failures.push(`${label}: seed initialized as ${r.seedSites} sites, not the canonical 19`);
+    }
     if (r.stopReason !== "size-target") {
       failures.push(`${label}: ended by ${r.stopReason}, not size-target`);
+    }
+    if (!(r.extent >= 60)) {
+      failures.push(`${label}: measured at extent ${r.extent}, below the stated 60`);
     }
     if (!r.symmetryClean || r.finalSymErr !== 0) {
       failures.push(`${label}: symmetry broke (deltaClean=${r.symmetryClean}, err=${r.finalSymErr})`);
@@ -719,8 +770,11 @@ function gate2b(): void {
     if (!(r.worstDivergence < 1e3 * common.tol)) {
       failures.push(`${label}: divergence identity ${r.worstDivergence} not < ${1e3 * common.tol}`);
     }
-    if (!(r.maxFillIncrementEver <= common.cfl + 1e-12)) {
-      failures.push(`${label}: fill-CFL bound violated (${r.maxFillIncrementEver})`);
+    if (!(r.maxKineticFillEver <= common.cfl + 1e-12)) {
+      failures.push(`${label}: kinetic fill-CFL bound violated (${r.maxKineticFillEver})`);
+    }
+    if (!(r.pecletBound < 1e-2)) {
+      failures.push(`${label}: quasi-static validity bound Pe ${r.pecletBound} not < 1e-2`);
     }
   };
   checkRun("plate(-5C)", plate);
@@ -738,9 +792,9 @@ function gate2b(): void {
     process.exit(1);
   }
   console.log(
-    `2B GATE PASSED: habit is an output of temperature alone — AR(${-5}C)=${fmt(plate.aspectRatio)}` +
-      ` (plate), AR(${-15}C)=${fmt(column.aspectRatio)} (column); every criterion enforced;` +
-      ` exit 0 is the evidence.`,
+    `2B GATE PASSED: habit is an output of temperature alone (same domain, same everything,` +
+      ` T only) — AR(-5C)=${fmt(plate.aspectRatio)} (plate), AR(-15C)=${fmt(column.aspectRatio)}` +
+      ` (column); every criterion enforced; exit 0 is the evidence.`,
   );
 }
 

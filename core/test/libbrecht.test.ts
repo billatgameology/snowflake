@@ -11,6 +11,7 @@ import {
   mIce,
   nucleationAPrism,
   pSatIce,
+  pecletUpperBound,
   sigma0Basal,
   sigma0Prism,
   sigmaWater,
@@ -89,7 +90,7 @@ describe("digitized sigma_0 / A anchors (monograph Fig. 4.5; P2, ±25%)", () => 
     expect(sigma0Basal(-5)).toBeCloseTo(0.007, 10);
     expect(sigma0Prism(-5)).toBeCloseTo(0.0027, 10);
     expect(nucleationAPrism(-5, "CAK")).toBeCloseTo(0.18, 10);
-    expect(nucleationAPrism(-5, "A1")).toBe(1);
+    expect(nucleationAPrism(-5, "CAK_A1")).toBe(1);
   });
 
   it("text anchor: sigma_0_prism(-15) = 3 percent (monograph pdf 145) within digitization band", () => {
@@ -118,19 +119,19 @@ describe("alphaHK and facet classification (attachment-kinetics §4.4 component 
   });
 
   it("rough sites are barrier-free; facets are exponentially suppressed at low sigma", () => {
-    expect(alphaHK("rough", -15, 0.001, "A1")).toBe(1);
+    expect(alphaHK("rough", -15, 0.001, "CAK_A1")).toBe(1);
     // relative comparison: the log/exp interpolation round-trip costs a few ulp on sigma_0,
     // amplified by the 1/sigma_surf inside the exponent
-    expect(alphaHK("basal", -15, 0.001, "A1") / Math.exp(-24)).toBeCloseTo(1, 10);
-    expect(alphaHK("basal", -15, 0, "A1")).toBe(0);
-    expect(alphaHK("prism", -15, -0.01, "A1")).toBe(0);
+    expect(alphaHK("basal", -15, 0.001, "CAK_A1") / Math.exp(-24)).toBeCloseTo(1, 10);
+    expect(alphaHK("basal", -15, 0, "CAK_A1")).toBe(0);
+    expect(alphaHK("prism", -15, -0.01, "CAK_A1")).toBe(0);
   });
 
   it("the habit inequality inverts with temperature alone (the 2b gate's mechanism, A1 set)", () => {
     // At any sigma_surf: -5 C has prism faster (plate); -15 C has basal faster (column).
     for (const s of [0.002, 0.005, 0.01]) {
-      expect(alphaHK("prism", -5, s, "A1")).toBeGreaterThan(alphaHK("basal", -5, s, "A1"));
-      expect(alphaHK("basal", -15, s, "A1")).toBeGreaterThan(alphaHK("prism", -15, s, "A1"));
+      expect(alphaHK("prism", -5, s, "CAK_A1")).toBeGreaterThan(alphaHK("basal", -5, s, "CAK_A1"));
+      expect(alphaHK("basal", -15, s, "CAK_A1")).toBeGreaterThan(alphaHK("prism", -15, s, "CAK_A1"));
     }
   });
 
@@ -138,5 +139,16 @@ describe("alphaHK and facet classification (attachment-kinetics §4.4 component 
     // At -5 C with CAK: prism wins only at low sigma_surf; basal wins at higher sigma_surf.
     expect(alphaHK("prism", -5, 0.001, "CAK")).toBeGreaterThan(alphaHK("basal", -5, 0.001, "CAK"));
     expect(alphaHK("basal", -5, 0.005, "CAK")).toBeGreaterThan(alphaHK("prism", -5, 0.005, "CAK"));
+  });
+});
+
+describe("quasi-static validity (Péclet; §4.4 test 6)", () => {
+  it("the 2b gate configurations sit deep in the quasi-static regime", () => {
+    // Gate domain: 96 cells * 0.35 um = 33.6 um across; sigma_infinity = 0.005; 1 atm.
+    const lengthM = 96 * 0.35e-6;
+    expect(pecletUpperBound(-5, 0.005, lengthM, 101325)).toBeLessThan(1e-2);
+    expect(pecletUpperBound(-15, 0.005, lengthM, 101325)).toBeLessThan(1e-2);
+    // And the worst case recorded in the plan (sigma_water ceiling at -15, L = 1 mm):
+    expect(pecletUpperBound(-15, 0.157, 1e-3, 101325)).toBeLessThan(2e-3);
   });
 });

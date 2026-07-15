@@ -80,17 +80,23 @@ export function mIce(tempC: number): number {
 const X_ANCHORS = [1, 2, 3, 5, 10, 15, 20, 30, 50];
 const SIGMA0_BASAL = [0.0030, 0.0035, 0.0045, 0.0070, 0.014, 0.024, 0.038, 0.07, 0.16];
 const SIGMA0_PRISM = [0.00006, 0.00028, 0.0007, 0.0027, 0.014, 0.032, 0.06, 0.13, 0.32];
-const A_PRISM_CAK = [0.45, 0.28, 0.21, 0.18, 0.95, 1, 1, 1, 1];
+// A_prism(x=10) corrected 0.95 -> 0.83 (round-2 maker review: the rendered figure reads
+// 0.83-0.84; 0.95 was outside the stated ±0.03 band).
+const A_PRISM_CAK = [0.45, 0.28, 0.21, 0.18, 0.83, 1, 1, 1, 1];
 
 /**
- * Which A(T) treatment a run uses — BOTH are published (libbrecht-parameters.md Branch 1):
- *   "A1"  — A ≡ 1 on both facets: 1910.09067's own model ("I will proceed by assuming A ≈ 1
- *           ... throughout the remainder of this paper", p. 5).
- *   "CAK" — the monograph's refinement: A_basal = 1, A_prism < 1 above ≈ -13 C
- *           (Fig. 4.5 lower panel, digitized).
+ * Which A(T) treatment a run uses. NAMED HONESTLY (round-2 maker review: the former name
+ * "A1" falsely claimed to be 1910.09067's model — that paper's A ≡ 1 analysis uses its OWN
+ * Fig. 4 sigma_0 fits, which have a different crossing and remain un-digitized; documented
+ * gap in libbrecht-parameters.md Branch 1):
+ *   "CAK_A1" — the monograph's CAK sigma_0 curves with A ≡ 1 on both facets. A documented
+ *              SIMPLIFICATION of the CAK set (the same simplification 1910.09067 applies to
+ *              its own analysis, p. 5), NOT the 09067 model itself.
+ *   "CAK"    — the monograph's full set: CAK sigma_0 plus A_basal = 1 and the digitized
+ *              A_prism dip (Fig. 4.5 lower panel).
  * The choice is recorded per run; the pre-registered 2b habit gate states which it uses.
  */
-export type NucleationParamSet = "A1" | "CAK";
+export type NucleationParamSet = "CAK_A1" | "CAK";
 
 function interpIndex(x: number): number {
   if (!(x >= X_ANCHORS[0] && x <= X_ANCHORS[X_ANCHORS.length - 1])) {
@@ -131,7 +137,21 @@ export function nucleationABasal(_tempC: number, _set: NucleationParamSet): numb
 }
 
 export function nucleationAPrism(tempC: number, set: NucleationParamSet): number {
-  return set === "A1" ? 1 : interpLinear(-tempC, A_PRISM_CAK);
+  return set === "CAK_A1" ? 1 : interpLinear(-tempC, A_PRISM_CAK);
+}
+
+/**
+ * Upper bound on the quasi-static validity (Péclet) number, v_n·L/D with v_n bounded by
+ * alphaHK ≤ 1 (attachment-kinetics §4.3/§4.4 test 6). Must be << 1 for the quasi-static
+ * field model to be valid; asserted by the 2b gate for its runs.
+ */
+export function pecletUpperBound(
+  tempC: number,
+  sigmaInfinity: number,
+  lengthM: number,
+  pressurePa: number,
+): number {
+  return (vKin(tempC) * sigmaInfinity * lengthM) / diffusivity(pressurePa);
 }
 
 // ── The attachment coefficient ──────────────────────────────────────────────────────────────

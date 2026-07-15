@@ -3,7 +3,7 @@
 // through the refactored step()). Dev-grid scale; the habit gate itself runs via the runner.
 
 import { describe, expect, it } from "vitest";
-import { cellCount, isD6hInvariantSet, symmetryError } from "@vcc/core";
+import { alphaHK, cellCount, classifyFacet, isD6hInvariantSet, symmetryError } from "@vcc/core";
 import { LKSolver } from "@vcc/solver-cpu";
 
 const devOptions = {
@@ -22,7 +22,7 @@ describe("LKSolver — Robin limits (§4.4 test 2)", () => {
     // Every face reflects, the field starts uniform at sigma_infinity, and the Dirichlet
     // clamp is a no-op on an already-clamped value: one sweep converges bitwise.
     expect(report.converged).toBe(true);
-    expect(report.absorptionPerSweep).toBe(0);
+    expect(report.absorptionDiagnostic).toBe(0);
     const n = cellCount(solver.dims);
     for (let x = 0; x < n; x++) {
       if (solver.wall[x] === 0 && solver.a[x] === 0) {
@@ -73,7 +73,7 @@ describe("LKSolver — divergence identity (§4.4 test 3)", () => {
     const solver = new LKSolver(devOptions);
     const report = solver.relaxField();
     expect(report.converged).toBe(true);
-    expect(report.absorptionPerSweep).toBeGreaterThan(0);
+    expect(report.absorptionDiagnostic).toBeGreaterThan(0);
     expect(report.divergenceResidual).toBeLessThan(1e3 * devOptions.relaxTol);
     // And it keeps holding as the crystal grows.
     for (let t = 0; t < 30; t++) solver.step();
@@ -83,7 +83,7 @@ describe("LKSolver — divergence identity (§4.4 test 3)", () => {
     // Tightening the tolerance tightens the identity (the scaling claim, tested).
     const tight = new LKSolver({ ...devOptions, relaxTol: 1e-10 });
     const tightReport = tight.relaxField();
-    expect(tightReport.divergenceResidual).toBeLessThan(report.divergenceResidual);
+    expect(tightReport.divergenceResidual).toBeLessThan(report.divergenceResidual as number);
   });
 });
 
@@ -111,15 +111,123 @@ describe("LKSolver — ledger identity (§4.4 test 4)", () => {
     expect(solver.fillLedger).toBe(0);
     expect(solver.holeFillDeficit).toBe(0);
   });
+
+  it("NON-TAUTOLOGICAL: the ledger delta equals an independently recomputed flux integral", () => {
+    // Round-2 maker review, blocker 5: the previous test compared the ledger against sums
+    // the same code path wrote. Here the expected uptake is recomputed OUTSIDE the solver —
+    // from the converged public field, the public neighbor counts, and core's alphaHK — and
+    // must match the ledger delta the step records. First step from the seed: no cell can
+    // clamp at f = 1 (increments <= CFL) and no hole-fill geometry exists, so the integral
+    // is clean.
+    const solver = new LKSolver(devOptions);
+    const relax = solver.relaxField();
+    expect(relax.converged).toBe(true);
+    // Independent recomputation of v_n per boundary cell from the converged field, using
+    // the same self-consistent sigma_face definition the spec states (damped fixed point).
+    const ratio = (devOptions.dxUm * 1e-6) / solver.x0M;
+    const boundary = Array.from(solver.boundaryCells());
+    const vn: number[] = boundary.map((x) => {
+      const [nT, nZ] = solver.neighborCounts(x);
+      const facet = classifyFacet(nT, nZ);
+      const sc = Math.max(solver.sigma[x], 0);
+      let sf = sc;
+      for (let it = 0; it < 60; it++) {
+        const a = alphaHK(facet, devOptions.tempC, sf, "CAK_A1");
+        const next = sc / (1 + a * ratio);
+        if (Math.abs(next - sf) <= 1e-13 * sc) {
+          sf = next;
+          break;
+        }
+        sf = 0.5 * (sf + next);
+      }
+      return alphaHK(facet, devOptions.tempC, sf, "CAK_A1") * solver.vKinMS * sf;
+    });
+    const maxVn = Math.max(...vn);
+    const deltaT = (0.1 * devOptions.dxUm * 1e-6) / maxVn; // cflFill default 0.1
+    const expectedUptake = vn.reduce((sum, v) => sum + (v * deltaT) / (devOptions.dxUm * 1e-6), 0);
+    const before = solver.fillLedger;
+    const surface = solver.advanceSurface();
+    expect(surface.holeFillCount).toBe(0);
+    expect((solver.fillLedger - before) / expectedUptake).toBeCloseTo(1, 9);
+  });
 });
 
-describe("LKSolver — fill-CFL (§4.4 test 5)", () => {
-  it("no growth step ever exceeds the fill-CFL bound", () => {
+describe("LKSolver — §4.4 contract closures (round-2 review)", () => {
+  it("reflecting diagnostic mode: no clamp, no divergence claim, uniform bitwise fixed point", () => {
+    const solver = new LKSolver({
+      ...devOptions,
+      farField: "reflecting",
+      testAlphaOverride: () => 0,
+    });
+    const report = solver.relaxField();
+    expect(report.converged).toBe(true);
+    expect(report.divergenceResidual).toBeNull();
+    expect(report.shellClampDiagnostic).toBeNull();
+    const n = cellCount(solver.dims);
+    for (let x = 0; x < n; x++) {
+      if (solver.wall[x] === 0 && solver.a[x] === 0) {
+        expect(solver.sigma[x]).toBe(devOptions.sigmaInfinity);
+      }
+    }
+  });
+
+  it("an unconverged relaxation NEVER advances the surface", () => {
+    const solver = new LKSolver({ ...devOptions, relaxTol: 1e-30, relaxMaxSweeps: 2 });
+    const before = solver.attachedCount;
+    const tickBefore = solver.tick;
+    const { relaxation, surface } = solver.step();
+    expect(relaxation.converged).toBe(false);
+    expect(surface.skippedUnconverged).toBe(true);
+    expect(surface.attachedNow).toBe(0);
+    expect(solver.attachedCount).toBe(before);
+    expect(solver.tick).toBe(tickBefore);
+    expect(solver.fillLedger).toBe(0);
+  });
+});
+
+describe("LKSolver — fill-CFL (§4.4 test 5, kinetic-only per the round-2 correction)", () => {
+  it("no growth step's KINETIC fill ever exceeds the bound", () => {
     const solver = new LKSolver({ ...devOptions, cflFill: 0.1 });
     for (let t = 0; t < 100; t++) {
       const { surface } = solver.step();
-      expect(surface.maxFillIncrement).toBeLessThanOrEqual(0.1 + 1e-12);
+      expect(surface.maxKineticFillIncrement).toBeLessThanOrEqual(0.1 + 1e-12);
     }
+  });
+
+  it("hole-fill jumps are NOT hidden inside the CFL claim: counted and deficit-ledgered", () => {
+    // Round-2 maker review, blocker 6 — the maker's exact probe, made deterministic: a
+    // boundary cell with raw n_T >= 4 and n_Z >= 1 hole-fills f: ~0 -> 1 in one step. The
+    // kinetic CFL report must NOT absorb that jump; it is counted and deficit-ledgered
+    // separately, and the gate reads both numbers.
+    const dims = { nx: 20, ny: 20, nz: 12 };
+    const ic = 10, jc = 10, kc = 6;
+    const idx = (i: number, j: number, k: number): number => k * 400 + j * 20 + i;
+    // Ring of 6 cells at kc+1 around the (empty) gap cell directly above the seed center:
+    // the gap gets n_T = 6 (raw) from the ring and n_Z = 1 from the seed below.
+    const ring = [
+      idx(ic + 1, jc, kc + 1),
+      idx(ic - 1, jc, kc + 1),
+      idx(ic, jc + 1, kc + 1),
+      idx(ic, jc - 1, kc + 1),
+      idx(ic + 1, jc - 1, kc + 1),
+      idx(ic - 1, jc + 1, kc + 1),
+    ];
+    const solver = new LKSolver({
+      ...devOptions,
+      dims,
+      cflFill: 0.1,
+      testExtraSeedSites: ring,
+    });
+    const gap = idx(ic, jc, kc + 1);
+    expect(solver.neighborCounts(gap)).toEqual([6, 1]);
+    const { surface } = solver.step();
+    expect(surface.holeFillCount).toBeGreaterThanOrEqual(1);
+    expect(solver.a[gap]).toBe(1);
+    // The 0 -> 1 jump is visible in the deficit, NOT censored into the kinetic CFL number.
+    expect(surface.maxKineticFillIncrement).toBeLessThanOrEqual(0.1 + 1e-12);
+    expect(solver.holeFillDeficit).toBeGreaterThan(0.8);
+    expect(solver.holeFillCountTotal).toBeGreaterThanOrEqual(1);
+    expect(solver.ledger().holeFillDeficit).toBe(solver.holeFillDeficit);
   });
 });
 

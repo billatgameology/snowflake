@@ -38,8 +38,10 @@ import {
   type Dims,
   type DomainShape,
   type FacetClass,
+  type FarFieldCondition,
   type NucleationParamSet,
 } from "@vcc/core";
+import type { LedgerReport, RelaxationReport, SurfaceOperator, SurfaceReport } from "./operator.ts";
 
 export interface LKSolverOptions {
   readonly dims: Dims;
@@ -50,7 +52,7 @@ export interface LKSolverOptions {
   /** Lattice spacing, microns (P4 run input). */
   readonly dxUm: number;
   readonly pressurePa?: number; // default 1 atm
-  readonly paramSet?: NucleationParamSet; // default "A1" (see libbrecht.ts)
+  readonly paramSet?: NucleationParamSet; // default "CAK_A1" (see libbrecht.ts)
   /** Fill-CFL bound on max(v_n)·dt/dx per growth step (§4.4 test 5). */
   readonly cflFill?: number; // default 0.1
   /** Relaxation: per-sweep max |change| / sigmaInfinity below this = converged. */
@@ -60,6 +62,13 @@ export interface LKSolverOptions {
   /** v_n slowdown amplitude; 0 (default) = off. P4 dial (§4.4 component 5). */
   readonly noiseEpsilon?: number;
   readonly domain?: DomainShape; // default "hexPrism" (Dirichlet shell needs a defined far field)
+  /**
+   * "dirichlet" (default — the physical condition for this rule) or "reflecting", the
+   * DIAGNOSTIC-ONLY mode §4.4 component 1 promises for machinery tests: no clamp, no source;
+   * a quasi-static reflecting solve has only the depleted steady state, so no physics claim
+   * may cite a reflecting LK run.
+   */
+  readonly farField?: FarFieldCondition;
   readonly seedRadius?: number | null;
   readonly seedThickness?: number;
   readonly center?: readonly [number, number, number];
@@ -69,27 +78,14 @@ export interface LKSolverOptions {
    * the runner does not expose it.
    */
   readonly testAlphaOverride?: (facet: FacetClass, tempC: number, sigmaSurf: number) => number;
+  /**
+   * TEST-ONLY: extra cell indices attached at init (after the hex seed), for constructing
+   * exact boundary geometries (e.g. the hole-fill probe). Never set in runs.
+   */
+  readonly testExtraSeedSites?: readonly number[];
 }
 
-export interface RelaxationReport {
-  readonly sweeps: number;
-  readonly residual: number;
-  readonly converged: boolean;
-  /** |injection − absorption| / max(absorption, tiny) from the measurement sweep at the end. */
-  readonly divergenceResidual: number;
-  readonly injectionPerSweep: number;
-  readonly absorptionPerSweep: number;
-}
-
-export interface SurfaceStepReport {
-  readonly deltaTimeSeconds: number;
-  readonly maxFillIncrement: number;
-  readonly attached: number;
-  readonly maxVn: number;
-  readonly stalled: boolean;
-}
-
-export class LKSolver {
+export class LKSolver implements SurfaceOperator {
   readonly dims: Dims;
   readonly tempC: number;
   readonly sigmaInfinity: number;
@@ -102,12 +98,16 @@ export class LKSolver {
   readonly rngSeed: number;
   readonly noiseEpsilon: number;
   readonly domain: DomainShape;
+  readonly farField: FarFieldCondition;
   readonly center: readonly [number, number, number];
 
   /** Derived physics for this run (libbrecht-parameters.md forms). */
   readonly vKinMS: number;
   readonly x0M: number;
   readonly mIceLedger: number;
+  /** max v_n of the most recent advanceSurface (for observability). */
+  lastMaxVn = 0;
+  holeFillCountTotal = 0;
 
   tick = 0; // growth steps taken
   simTimeSeconds = 0;
@@ -160,13 +160,14 @@ export class LKSolver {
     this.sigmaInfinity = options.sigmaInfinity;
     this.dxM = options.dxUm * 1e-6;
     this.pressurePa = options.pressurePa ?? 101325;
-    this.paramSet = options.paramSet ?? "A1";
+    this.paramSet = options.paramSet ?? "CAK_A1";
     this.cflFill = options.cflFill ?? 0.1;
     this.relaxTol = options.relaxTol ?? 1e-9;
     this.relaxMaxSweeps = options.relaxMaxSweeps ?? 200_000;
     this.rngSeed = options.rngSeed;
     this.noiseEpsilon = options.noiseEpsilon ?? 0;
     this.domain = options.domain ?? "hexPrism";
+    this.farField = options.farField ?? "dirichlet";
     this.center = options.center ?? domainCenter(this.dims);
     this.testAlphaOverride = options.testAlphaOverride;
     if (!(this.sigmaInfinity > 0)) throw new Error("sigmaInfinity must be > 0 (Dirichlet held)");
@@ -255,6 +256,13 @@ export class LKSolver {
       }
       this.rebuildBoundaryList();
     }
+    if (options.testExtraSeedSites !== undefined) {
+      for (const site of options.testExtraSeedSites) {
+        if (this.wall[site] === 1) throw new Error("extra seed site is a wall cell");
+        this.attachCell(site);
+      }
+      this.rebuildBoundaryList();
+    }
   }
 
   private forEachNeighbor(
@@ -329,12 +337,48 @@ export class LKSolver {
     return alphaHK(facet, this.tempC, sigmaSurf, this.paramSet);
   }
 
-  /** Recompute the Robin factor s_eff = s/(1+s), s = alphaHK·dx/X0, from the CURRENT field. */
-  private updateSEff(input: Float64Array): void {
+  /**
+   * Self-consistent surface values at a boundary cell (§4.4 component 3 as CORRECTED after
+   * the round-2 maker review): the discrete Robin substitution implies a surface value
+   * sigma_face = sigma_cell/(1+s) one half-step below the cell sample, and BOTH the vapor
+   * sink and the Hertz-Knudsen growth must use that same sigma_face — the first
+   * implementation grew at the cell value while absorbing at the face value, overdriving
+   * growth by O(dx/X_0) (a factor ~1.6-2.4 at the gate's dx/X_0 = 2.45). alphaHK depends on
+   * sigma_face, so the pair is solved by damped fixed-point iteration: g(sf) =
+   * sigma_cell/(1 + alphaHK(sf)·dx/X_0) is monotone decreasing in sf, and the damped
+   * iterate converges; 60 iterations or 1e-13 relative, deterministic, order-free.
+   */
+  private solveFace(index: number, sigmaCellRaw: number): {
+    alphaHKFace: number;
+    sEff: number;
+    sigmaFace: number;
+  } {
+    const sigmaCell = Math.max(sigmaCellRaw, 0);
     const ratio = this.dxM / this.x0M;
+    if (sigmaCell === 0) {
+      const a0 = this.cellAlphaHK(index, 0);
+      const s0 = a0 * ratio;
+      return { alphaHKFace: a0, sEff: s0 / (1 + s0), sigmaFace: 0 };
+    }
+    let sf = sigmaCell;
+    for (let it = 0; it < 60; it++) {
+      const a = this.cellAlphaHK(index, sf);
+      const next = sigmaCell / (1 + a * ratio);
+      if (Math.abs(next - sf) <= 1e-13 * sigmaCell) {
+        sf = next;
+        break;
+      }
+      sf = 0.5 * (sf + next);
+    }
+    const alphaHKFace = this.cellAlphaHK(index, sf);
+    const s = alphaHKFace * ratio;
+    return { alphaHKFace, sEff: s / (1 + s), sigmaFace: sigmaCell / (1 + s) };
+  }
+
+  /** Recompute the Robin factor per boundary cell from the CURRENT field (Picard). */
+  private updateSEff(input: Float64Array): void {
     for (const x of this.boundaryList) {
-      const s = this.cellAlphaHK(x, Math.max(input[x], 0)) * ratio;
-      this.sEff[x] = s / (1 + s);
+      this.sEff[x] = this.solveFace(x, input[x]).sEff;
     }
   }
 
@@ -441,14 +485,16 @@ export class LKSolver {
       }
     }
 
-    // Dirichlet clamp at the far-field shell, metered.
+    // Dirichlet clamp at the far-field shell (skipped in the reflecting diagnostic mode).
     let injection = 0;
-    const target = this.sigmaInfinity;
-    for (let c = 0; c < this.dirichletCells.length; c++) {
-      const x = this.dirichletCells[c];
-      if (blocked[x] === 1) continue;
-      injection += target - dst[x];
-      dst[x] = target;
+    if (this.farField === "dirichlet") {
+      const target = this.sigmaInfinity;
+      for (let c = 0; c < this.dirichletCells.length; c++) {
+        const x = this.dirichletCells[c];
+        if (blocked[x] === 1) continue;
+        injection += target - dst[x];
+        dst[x] = target;
+      }
     }
 
     const n = plane * nz;
@@ -487,33 +533,41 @@ export class LKSolver {
       sweeps,
       residual,
       converged,
-      divergenceResidual: Math.abs(injection - absorption) / scale,
-      injectionPerSweep: injection,
-      absorptionPerSweep: absorption,
+      // The divergence identity is only defined against the Dirichlet source; in the
+      // reflecting diagnostic mode there is no source and the identity is not a claim.
+      divergenceResidual:
+        this.farField === "dirichlet" ? Math.abs(injection - absorption) / scale : null,
+      shellClampDiagnostic: this.farField === "dirichlet" ? injection : null,
+      absorptionDiagnostic: absorption,
     };
     this.lastRelaxation = report;
     return report;
   }
 
-  /** §4.4 steps 2-5: classify, v_n, fill, attach (simultaneous), ledger. */
-  advanceSurface(): SurfaceStepReport {
+  /**
+   * §4.4 steps 2-5: classify, v_n, fill, attach (simultaneous), ledger. v_n uses the SAME
+   * self-consistent sigma_face as the relaxation's Robin sink (§4.4 component 3 corrected) —
+   * the physical vapor uptake and the ice gain are one number by construction.
+   */
+  advanceSurface(): SurfaceReport {
     const boundary = this.boundaryList;
     const nBoundary = boundary.length;
     const vnArr = new Float64Array(nBoundary);
     let maxVn = 0;
     for (let bi = 0; bi < nBoundary; bi++) {
       const x = boundary[bi];
-      const sigmaSurf = Math.max(this.sigma[x], 0);
-      let vn = this.cellAlphaHK(x, sigmaSurf) * this.vKinMS * sigmaSurf;
+      const face = this.solveFace(x, this.sigma[x]);
+      let vn = face.alphaHKFace * this.vKinMS * face.sigmaFace;
       if (this.noiseEpsilon > 0) {
         vn *= 1 - this.noiseEpsilon * randomBit(this.rngSeed, x, this.tick, STREAM_NOISE_VN);
       }
       vnArr[bi] = vn;
       if (vn > maxVn) maxVn = vn;
     }
+    this.lastMaxVn = maxVn;
 
     const toAttach: number[] = [];
-    let maxFillIncrement = 0;
+    let maxKineticFillIncrement = 0;
     let deltaTime = 0;
     if (maxVn > 0) {
       deltaTime = (this.cflFill * this.dxM) / maxVn;
@@ -525,42 +579,83 @@ export class LKSolver {
           this.fillLedger += room;
           this.f[x] = 1;
           toAttach.push(x);
-          if (room > maxFillIncrement) maxFillIncrement = room;
+          if (room > maxKineticFillIncrement) maxKineticFillIncrement = room;
         } else {
           this.fillLedger += raw;
           this.f[x] += raw;
-          if (raw > maxFillIncrement) maxFillIncrement = raw;
+          if (raw > maxKineticFillIncrement) maxKineticFillIncrement = raw;
         }
       }
       this.simTimeSeconds += deltaTime;
     }
 
     // Hole-filling (kept, §4.4 component 5): raw counts, decided from start-of-step state.
+    // NOT fill-CFL subject (it is a geometric event, not kinetic advance) — counted and
+    // deficit-ledgered SEPARATELY so the kinetic CFL claim cannot be censored by it
+    // (round-2 maker review, blocker 6).
+    let holeFillCount = 0;
     for (let bi = 0; bi < nBoundary; bi++) {
       const x = boundary[bi];
       if (this.f[x] < 1 && this.nTAtt[x] >= 4 && this.nZAtt[x] >= 1) {
         this.holeFillDeficit += 1 - this.f[x];
         this.f[x] = 1;
         toAttach.push(x);
+        holeFillCount++;
       }
     }
+    this.holeFillCountTotal += holeFillCount;
 
     for (const x of toAttach) this.attachCell(x);
     if (toAttach.length > 0) this.rebuildBoundaryList();
     this.lastAttached = toAttach;
 
     return {
+      attachedNow: toAttach.length,
+      maxKineticFillIncrement,
+      holeFillCount,
       deltaTimeSeconds: deltaTime,
-      maxFillIncrement,
-      attached: toAttach.length,
-      maxVn,
       stalled: maxVn <= 0,
+      skippedUnconverged: false,
     };
   }
 
-  /** One full growth step. */
-  step(): { relaxation: RelaxationReport; surface: SurfaceStepReport } {
+  /** The rule's conservation claim, measurably (§4.4 component 6; SurfaceOperator). */
+  ledger(): LedgerReport {
+    return {
+      rule: "LibbrechtKinetics",
+      claim:
+        "vapor uptake ≡ ice gain by construction (one sigma_face feeds both the Robin sink " +
+        "and v_n); solve self-consistency is the divergence identity; the field is a " +
+        "quasi-static potential — no Sigma(b+d) claim exists under this rule",
+      totalMassBD: null,
+      dirichletMeter: null,
+      fillLedgerIceCells: this.fillLedger,
+      fillLedgerVaporUnits: this.fillLedger * this.mIceLedger,
+      holeFillDeficit: this.holeFillDeficit,
+      lastDivergenceResidual: this.lastRelaxation?.divergenceResidual ?? null,
+    };
+  }
+
+  /**
+   * One full growth step. If the relaxation did NOT converge, the surface is NOT advanced
+   * (round-2 maker review: growing on an unconverged field is a silent physics error) —
+   * the caller sees converged=false and skippedUnconverged=true and must stop or re-relax.
+   */
+  step(): { relaxation: RelaxationReport; surface: SurfaceReport } {
     const relaxation = this.relaxField();
+    if (!relaxation.converged) {
+      return {
+        relaxation,
+        surface: {
+          attachedNow: 0,
+          maxKineticFillIncrement: 0,
+          holeFillCount: 0,
+          deltaTimeSeconds: 0,
+          stalled: false,
+          skippedUnconverged: true,
+        },
+      };
+    }
     const surface = this.advanceSurface();
     this.tick++;
     return { relaxation, surface };

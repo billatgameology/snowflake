@@ -294,6 +294,17 @@ facet is a wall); `alphaHK·Δx/X_0 → ∞` gives a perfect absorber (`sigma_fa
 diffusion-limited). `s_eff = s/(1+s)` keeps the substitution stable for any `s > 0` (`Δx` is
 expected to be of order `X_0` or larger, so `s > 1` is the normal regime, not an edge case).
 
+**CORRECTED 2026-07-15 (round-2 maker review, blocker 3): one `sigma_face` feeds BOTH sides
+of the coupling.** The continuous equations use the same `sigma_surf` in the flux balance and
+in Hertz–Knudsen; the first implementation absorbed vapor at the implied face value
+`sigma(x)/(1+s)` while growing at the cell value `sigma(x)` — first-order equivalent as
+`Δx/X_0 → 0`, but the gate runs at `Δx/X_0 ≈ 2.45`, where growth outran the field sink by
+×1.6–2.4. The rule now is: `alphaHK` and `sigma_face` are solved **self-consistently per
+boundary cell** (damped fixed point of `sigma_face = sigma_cell/(1 + alphaHK(sigma_face)·
+Δx/X_0)`, deterministic and order-free), and that one `(alphaHK, sigma_face)` pair drives the
+Robin substitution in the relaxation *and* `v_n = alphaHK·v_kin·sigma_face` in the interface
+update. Vapor uptake and ice gain are one number **by construction**, at any `Δx/X_0`.
+
 **No separate freezing transfer exists** — the Robin substitution is the *only* vapor sink,
 which is what makes double-counting structurally impossible (ADR 0005's disease). Ice gain is
 computed from the converged field via Hertz–Knudsen (component 4), and the **consistency test**
@@ -308,7 +319,7 @@ converged, whatever its residual norm says.
 
 - `b` is a mass ledger with G–G dynamics (freeze/melt); `f` is a geometric fraction with
   Libbrecht dynamics. One array with two meanings under two rules is the field-level version
-  of the bare-α conflation this repo bans (Rule 7's spirit).
+  of the `alpha` conflation this repo bans (Rule 7's spirit: G–G's α vs Libbrecht's α).
 - `b` stays exclusively `GGThreshold`'s, so the control-group rule remains bit-identical
   behind the shared interface — the 2b plan gate demands exactly that.
 - The checkpoint format gains `f` as a per-field entry for `LibbrechtKinetics` runs (the
@@ -329,15 +340,31 @@ survives; a negative `sigma_surf` grows nothing rather than un-growing something
 `a = 1`, `f` frozen at 1 for bookkeeping, cell leaves the vapor domain (`sigma = 0`
 internally, excluded from the solve), neighbors' configurations update next step.
 
-**Ledger.** Ice gained per step, in vapor-ledger units, is `M_ice(T) · Σ Δf` with
-`M_ice = c_ice / c_sat(T)` (Table 2.1 supplies both densities; ≈ 6.7×10⁵ at −15 °C). The
-far-field Dirichlet shell is a **metered source**: every clamp during relaxation accumulates
-its injected/removed amount. The conservation claim under `LibbrechtKinetics` is therefore an
-**accounting identity, not a Σ(b+d) invariant**: ice gained = metered source − field content
-change, exact in ledger arithmetic (asserted), while the *physical* consistency of the solve is
-the divergence identity of component 3 (asserted to tolerance). Anyone expecting the Phase 2a
-mass invariant here has mixed up the rules: G–G's invariant is a reflecting-boundary property
-of a mass field; this rule's field is a quasi-static potential with an explicit source.
+**Ledger — REWRITTEN 2026-07-15 (round-2 maker review, blocker 5; the previous text defined
+an identity that was not physically well-defined).** The defect: it treated relaxation-sweep
+clamp totals as a physical "metered source," but **elliptic relaxation sweeps have no
+physical duration** — the charter is explicit that physical time enters only through the
+interface update — so integrating clamp operations over sweeps measures numerics, not vapor.
+The corrected claims, each measurable:
+
+- **Vapor uptake ≡ ice gain, by construction.** With component 3's correction, one
+  `(alphaHK, sigma_face)` pair drives both the Robin sink and `v_n`; physical uptake over a
+  step is the Hertz–Knudsen flux integral `Σ alphaHK·v_kin·sigma_face·Δt/Δx = Σ Δf` — the
+  fill ledger IS the uptake, in ice-cell units (× `M_ice(T) = c_ice/c_sat(T)` ≈ 6.7×10⁵ at
+  −15 °C for vapor-ledger units). There is no second channel to disagree with it. The
+  **non-tautological test** recomputes the flux integral outside the solver, from the
+  converged public field and core's `alphaHK`, and asserts it equals the ledger delta.
+- **Solve self-consistency = the divergence identity** (component 3): at convergence,
+  per-sweep shell clamp equals per-sweep Robin absorption (the interior kernel conserves), to
+  a tolerance that scales with the relaxation tolerance. This is the quasi-static statement
+  that the far field resupplies what the surface absorbs. Per-sweep clamp totals are
+  reported **as numerical diagnostics only** and must never be integrated into a mass claim.
+- **Hole-filling deficit is reported, never netted away**: cells attached by the geometric
+  hygiene rule carry fill the vapor never supplied; the deficit is a first-class ledger line.
+
+Anyone expecting the Phase 2a mass invariant here has mixed up the rules: G–G's invariant is
+a reflecting-boundary property of a mass field; this rule's field is a quasi-static potential
+with an implicit far-field supply.
 
 ### Component 5 — disposition of the G–G machinery under `LibbrechtKinetics`
 
@@ -349,41 +376,55 @@ of a mass field; this rule's field is a quasi-static potential with an explicit 
 | step (iv) melting (`μ`) | **disabled** | sublimation is not modeled (gg-machinery §2); `μ`'s smoothing role was phenomenological — if a smoothing dial is ever needed it enters as a labeled, documented dial, not as an inherited default |
 | hole-filling (raw `n_T ≥ 4`, `n_Z ≥ 1`) | **kept** | geometric hygiene against discretization voids, now also physically consistent (max-coordination kink sites have no barrier). Answering the plan's open question: it survives, so interior voids remain interpretable as physics, not artifacts |
 | noise (gg-machinery §6) | **redefined for this rule** | §6's diffusion-slowdown perturbs a *mass* pass, which no longer exists. Under this rule noise is a per-cell multiplicative slowdown of the interface update, `v_n → (1 − ξ)·v_n`, `ξ ∈ {0, ε}` from the counter PRNG (own stream id), applied per growth step. Default off; labeled dial; provenance class P4. The gate stays noise-off |
-| drift `φ` | **unsupported (error if set)** | all §8 presets have `φ = 0`; a drift term inside a quasi-static solve is a different physical statement that nobody has specified |
+| drift `φ` | **unsupported — structurally unsettable** (corrected 2026-07-15: "error if set" was vacuous since no option exists; the solver has no `phi` input and the CLI rejects unknown flags — pinned by a test) | all §8 presets have `φ = 0`; a drift term inside a quasi-static solve is a different physical statement that nobody has specified |
 
 ### Component 6 — the interface, and the tests that hold it together
 
 ```ts
 interface SurfaceOperator {
-  /** Field relaxation for one growth step. GGThreshold: exactly one published masked pass.
-      LibbrechtKinetics: iterate to the stated residual tolerance; returns iterations,
-      residual achieved, divergence-identity residual, metered source total. */
-  relaxField(state: SolverState): RelaxationReport;
+  /** Field relaxation for one growth step. GGThreshold: exactly one published masked pass
+      (vacuously converged). LibbrechtKinetics: iterate to the stated residual tolerance;
+      reports sweeps, residual, the divergence-identity residual, and the per-sweep clamp
+      DIAGNOSTIC (never a physical mass number). */
+  relaxField(): RelaxationReport;
   /** The surface exchange: freezing/attachment/melting under GGThreshold (bit-identical to
       Phase 2a); classification, v_n, fill update, attachment under LibbrechtKinetics.
-      Owns per-cell surface state (f). Attachment is simultaneous from start-of-step state. */
-  advanceSurface(state: SolverState): SurfaceReport;
-  /** The rule's conservation claim, measurably: GGThreshold reports the Sigma(b+d) drift;
-      LibbrechtKinetics reports the ledger identity and divergence residual. */
+      Owns per-cell surface state (f). Attachment is simultaneous from start-of-step state.
+      NEVER runs on an unconverged field: LibbrechtKinetics' step() skips the surface and
+      reports skippedUnconverged when relaxation fails (added 2026-07-15, round-2 review —
+      growing on an unconverged field is a silent physics error). */
+  advanceSurface(): SurfaceReport;
+  /** The rule's conservation claim, measurably: GGThreshold reports Sigma(b+d) and its
+      Dirichlet meter; LibbrechtKinetics reports the fill ledger (ice-cell and vapor units),
+      the hole-fill deficit, and the last divergence residual. */
   ledger(): LedgerReport;
 }
 ```
+
+Both solvers implement this interface literally (`solver-cpu/src/operator.ts`; conformance
+is compile-checked and exercised in `solver-cpu/test/operator.test.ts` — added 2026-07-15
+after the round-2 review found the first implementation had shipped two unrelated report
+shapes and no `ledger()` at all).
 
 The old `AttachmentRule.shouldAttach` sketch is superseded (it could not own state or mediate
 mass, exactly as the plan predicted). Tests the spec commits to, before any habit claim:
 
 1. **Bit-identity:** `GGThreshold` behind `SurfaceOperator` reproduces every Phase 2a gate
    bit-identically (pinned engine). This is the refactor gate — no physics lands before it.
-2. **Robin limits:** with `alphaHK ≡ 0` everywhere, the relaxation is G–G's reflecting pass
-   (bitwise); with `alphaHK ≡ 1` and `Δx/X_0 → large`, boundary cells relax toward 0.
+2. **Robin limits:** with `alphaHK ≡ 0` everywhere, one relaxation sweep on an **arbitrary
+   nonuniform field** equals `GGThreshold`'s published diffusion pass **bitwise, cell for
+   cell** (corrected 2026-07-15, round-2 review: the first committed test only checked a
+   uniform fixed point, which a deleted smoother would also pass — vacuous); with
+   `alphaHK ≡ 1` and `Δx/X_0 → large`, boundary cells relax far below the far field.
 3. **Divergence identity** on converged solves, tolerance stated in the test.
 4. **Ledger identity** exact in ledger arithmetic; metered-source accounting reported.
-5. **Fill-CFL:** `max Δf ≤` the stated bound (default 0.1) on every growth step. *(Amended at
-   implementation, 2026-07-15: `Δt` is ADAPTIVE — `Δt = cfl·Δx/max(v_n)` per step, a
-   deterministic function of the state, so slow-kinetics regimes advance in wall-clock-feasible
-   step counts while the bound holds exactly by construction; a conservative fixed `Δt` from
-   `v_kin·sigma_infinity` would inflate cold runs by orders of magnitude for no accuracy gain.
-   The bound is still asserted per step and the increment recorded.)*
+5. **Fill-CFL:** max **kinetic** `Δf ≤` the stated bound (default 0.1) on every growth step.
+   *(Amended at implementation, 2026-07-15: `Δt` is ADAPTIVE — `Δt = cfl·Δx/max(v_n)` per
+   step, a deterministic function of the state, so slow-kinetics regimes advance in
+   wall-clock-feasible step counts while the bound holds exactly by construction. Corrected
+   again same day, round-2 review blocker 6: hole-filling jumps `f → 1` are geometric events
+   OUTSIDE the CFL claim and must never be absorbed into — or censored out of — the kinetic
+   maximum; they are counted and deficit-ledgered separately, and the gate reads both.)*
 6. **Quasi-static validity (Péclet):** `v_n·L/D ≪ 1` evaluated with extracted numbers per run
    regime; where it fails, the run is labeled invalid-as-physics. Worked arithmetic in the
    Phase 2 plan (Stage 2b steps).

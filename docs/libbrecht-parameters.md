@@ -130,7 +130,7 @@ Raw plot units: σ₀ in **percent**, abscissa `(Tm − T)` in °C. Fractions = 
 | 2 | −2 | 0.35 | 0.0035 | 0.028 | 0.00028 | 1 | 0.28 |
 | 3 | −3 | 0.45 | 0.0045 | 0.07 | 0.0007 | 1 | 0.21 |
 | 5 | −5 | 0.70 | 0.0070 | 0.27 | 0.0027 | 1 | 0.18 |
-| 10 | −10 | 1.4 | 0.014 | 1.4 | 0.014 | 1 | 0.95 |
+| 10 | −10 | 1.4 | 0.014 | 1.4 | 0.014 | 1 | 0.83 *(corrected 2026-07-15, round-2 review: first digitized as 0.95, outside the ±0.03 band — the rendered figure reads 0.83–0.84)* |
 | 15 | −15 | 2.4 | 0.024 | 3.2 | 0.032 | 1 | 1 |
 | 20 | −20 | 3.8 | 0.038 | 6 | 0.06 | 1 | 1 |
 | 30 | −30 | 7 | 0.07 | 13 | 0.13 | 1 | 1 |
@@ -162,6 +162,17 @@ against both crossings before any conclusion about "the model" is drawn.
 `(Tm−T)` vs `log sigma_0` (the curves are near-straight on the log–log plot above (Tm−T) ≈ 3).
 To be pre-registered in the Phase 6 protocol freeze; until then any interpolation used in dev
 runs is recorded in the run log.
+
+**What the ±25% band does and does not permit (recorded 2026-07-15, round-2 review):** any
+"robustness" arithmetic built on these anchors holds for the **nominal digitized values
+only**. Propagating the ±25% bands independently per anchor shrinks the −5 °C
+basal/prism separation to a worst-case ratio ≈ 1.5 and lets the −15 °C bands **overlap** —
+uncertainty-consistent parameter draws exist in which the cold-side ordering reverses. No
+covariance information exists to exclude that (the two curves were digitized from one plot,
+so their errors are likely correlated, but "likely" is not a bound). Consequences: a habit
+gate certifies the solver's response to its **recorded** inputs — the exact numbers above —
+and a gate failure has digitization uncertainty as a live candidate cause, to be reported as
+such rather than debugged as code. Phase 6 must treat these bands as a stated systematic.
 
 ## 4. Branch 2 — SDAK narrow-facet hypotheses (**P3** — never merged into Branch 1)
 
@@ -251,8 +262,10 @@ habit gate) it does not bite at all.
    Nakaya-informed hypotheses → P3, per the source's own language.
 4. Gaps found and stated: no printed σ₀/A closed forms or tables (figure-only); no D(T) law;
    no SDAK functional form; no narrow-facet A treatment; monograph "Appendix B" is referenced
-   in the text (e.g. printed p. 65, p. 93) **but does not exist in v2 of the monograph** —
-   Appendix A ends at pdf 502 and the bibliography begins at pdf 503.
+   in the text (printed p. 65 / pdf 66, and printed p. 488 / pdf 489) **but does not exist in
+   v2 of the monograph** — Appendix A ends at pdf 502 and the bibliography begins at pdf 503.
+   *(Corrected 2026-07-15: this note first also cited printed p. 93, whose "doing the math"
+   pointer actually says Appendix A — a mis-cite caught by the round-2 review.)*
 5. Magnitude/unit sanity checks recorded inline (Eq. 2.8 mbar confirmation; v_kin closed-form
    vs table; X_0 back-computation).
 

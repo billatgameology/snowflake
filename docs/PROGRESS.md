@@ -8,12 +8,13 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   adversarial review rounds (three subagent, three maker; the full defect-and-remediation
   history is in the plan's Tried and rejected). The gate is *enforcing*: `--enforce-gate`
   checks twelve criteria and exit 0 is the whole claim; the maker independently recomputed the
-  plate result from raw checkpoint bytes and found no core solver defect. **Phase 2b's two
-  opening deliverables EXIST as of 2026-07-15** — the surface-operator specification
-  ([attachment-kinetics.md](attachment-kinetics.md) §4.4) and the cited parameter table
-  ([libbrecht-parameters.md](libbrecht-parameters.md)) — and **await maker review**; whether
-  they satisfy ADR 0005's pause is the maker's call. **No 2b code has been written** (see
-  Next step for the load-bearing extraction findings and the first code step).
+  plate result from raw checkpoint bytes and found no core solver defect. **Phase 2b: spec +
+  parameter table + implementation exist (commit 565f9dc); the maker's round-2 audit
+  (2026-07-15) found SEVEN BLOCKERS before any gate result existed** — the first gate run was
+  killed mid-flight because its protocol embedded three of them (domain-geometry confound,
+  mislabeled parameter set, sink/growth σ inconsistency). Remediation is in progress in the
+  same session; the plan's Tried and rejected will carry the full catalog. **Phase 2b is NOT
+  closed. No gate result exists.**
 - **Last updated:** 2026-07-15 by Claude Fable 5
 - **Active plan:** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
   0003, synced to charter v1.2/v1.3; Scaffold + Stage 2a complete; Stage 2b section reconciled
