@@ -202,8 +202,9 @@ in charter §3.1 and get no retroactive ADR.
 
 ## Next step
 
-Phase 1 is closed (2026-07-15). **Phase 2a is gated (2026-07-15)** — machinery proven, four
-presets reproduced, evidence in the plan's Steps. The work is now **Phase 2b's two opening
+Phase 1 is closed (2026-07-15). **Phase 2a is gated (2026-07-15)** — machinery proven, all four
+presets grown with 3/4 pre-registered inequality checks held (needle-hollowness failed as a
+finding), evidence in the plan's Steps. The work is now **Phase 2b's two opening
 deliverables**, in order (ADR 0005 keeps 2b's code paused until both exist):
 
 1. **The surface-operator specification.** Open
