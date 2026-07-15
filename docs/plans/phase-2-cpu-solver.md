@@ -2,8 +2,10 @@
 
 - **Phase:** Phase 2 (charter §3.2), split into **2a** (machinery) and **2b** (physics), plus the
   repo scaffold that precedes both
-- **Status:** in progress — Scaffold + Stage 2a underway (2026-07-14, Claude Fable 5); Stage 2b
-  deliberately untouched, including the seam's four sub-decisions
+- **Status:** Scaffold + **Stage 2a COMPLETE and gated** (2026-07-15 — enforced gate,
+  maker-audited through five review rounds; evidence in Steps). **Stage 2b not started**: paused
+  by ADR 0005 until the surface-operator spec and parameter table exist; the seam's four
+  sub-decisions remain deliberately unsettled
 - **Started:** 2026-07-14
 - **2026-07-15 session:** the D6h symmetry failure is resolved (it was the domain shape, not
   index arithmetic — see "The symmetry gate runs on a hexPrism domain" below and Tried and
@@ -239,7 +241,7 @@ Order within 2b is deliberate; each step gates the next:
 **Scaffold**
 - [x] npm workspaces, `tsconfig.base.json` (strict), Vitest. Check: `npm test` exits 0 before the
       first test lands (Vitest needs `--passWithNoTests` for that — set it, remove it once real
-      tests exist). *Done (a00110e); 69 tests green at 2026-07-15.*
+      tests exist). *Done (a00110e); suite green at 2a close (81 tests, 2026-07-15).*
 - [x] **Rule 7 lint.** *(Done: `scripts/lint-rule7.mjs`, mention-vs-use policy in its header and
       AGENTS.md Rule 7; per-line `rule7-waive: <reason>` markers; fixture tests in
       `runner/test/rule7-lint.test.ts`. Verified 2026-07-15: repo scan clean, and real
@@ -576,19 +578,27 @@ Order within 2b is deliberate; each step gates the next:
   NOT-valid-evidence warning on every contact-stopped run. (3) The declared 10 000-tick grown
   mass experiment had been recorded as a 10k crystal-free control plus a 4800-tick grown run;
   the specified experiment now exists as an enforcing test (drift 4.189e-14; maker's
-  independent check ≈ 3.04e-14). The same class of gap surfaced twice more after remediation
-  and was closed the same way: a round-3 review found non-plate presets passing the enforced
-  gate, and the maker then found non-canonical seeds passing it (`--seed-radius 1`/`3` exited
-  0 while gg-machinery §5 mandates the radius-2, 19-site seed) — enforcement now pins the
-  preset AND the seed, the latter both by configuration (radius 2) and by behavior (the run
-  header's `seedSites` must be 19, so "fixing" the seed back to the paper's erroneous 20
-  fails the gate, not just a lattice unit test); all pinned by adversarial regression tests
-  in `runner/test/gate-enforce.test.ts`. Lesson for the next model: **subagent review checks
-  the work against itself; the maker checks it against the charter and the sources — write
-  the gate so a build failure, not a reader, catches the gap. And when enforcing a gate,
-  enumerate the claim's preconditions from the spec (preset, seed, noise, domain era) — not
-  just its outcome metrics; every precondition left un-enforced is a false "exit 0 is the
-  whole claim".**
+  independent check ≈ 3.04e-14). The same class of gap surfaced three more times after
+  remediation and was closed the same way each time: a round-3 review found non-plate presets
+  passing the enforced gate; the maker's round 4 found non-canonical seeds passing it
+  (`--seed-radius 1`/`3` exited 0 while gg-machinery §5 mandates the radius-2, 19-site seed);
+  and the maker's round 5 found three more false-pass paths — a *short* box run that ends by
+  far-field before the walls bite (18,18,12 grew 19→37, exited 0), a seed-only run on a tiny
+  domain (8,8,8 stopped at exactly 19 attached — no growth — against charter §3.2's "a
+  crystal grows at all"), and invalid noise amplitudes (`--noise -0.00001` / `NaN` coerced to
+  silent noise-off while poisoning recorded metadata). Enforcement now pins twelve criteria —
+  preset, hexPrism domain, seed by configuration (radius 2) AND behavior (the run header's
+  `seedSites` must be 19, so "fixing" the seed back to the paper's erroneous 20 fails the
+  gate), noise exactly 0, actual growth, delta clean, full metric 0, drift, AR, no contact,
+  far-field end — and the parser rejects negative/non-finite noise for *every* run; all
+  pinned by adversarial regression tests in `runner/test/gate-enforce.test.ts`. Lesson for
+  the next model: **subagent review checks the work against itself; the maker checks it
+  against the charter and the sources — write the gate so a build failure, not a reader,
+  catches the gap. And when enforcing a gate, enumerate the claim's preconditions from the
+  spec (preset, domain, seed, noise, growth) — not just its outcome metrics; every
+  precondition left un-enforced is a false "exit 0 is the whole claim". Degenerate runs that
+  end before the interesting physics starts (tiny domains, short tick caps) pass outcome
+  metrics vacuously — enforce that the phenomenon under test actually occurred.**
 - **"npm test fails in the repo-wide Rule 7 scan" (PROGRESS.md, 2026-07-15 handoff)** — did not
   reproduce at HEAD (a58bac0): the scan and the fixture tests pass, and the lint verifiably
   still fails on real violations (bare stem, provenance-free qualifier, markdown inline-span

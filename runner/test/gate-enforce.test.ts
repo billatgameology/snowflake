@@ -70,6 +70,46 @@ describe("runner --enforce-gate", () => {
     expect(output).toContain("the 2a gate is defined on the plate preset");
   });
 
+  it("FAILS (exit 1) on a box domain even when a short run stays symmetric", () => {
+    // Maker's round-5 catch: an 18,18,12 box run grew 19 -> 37, never broke symmetry (the
+    // walls hadn't bitten yet), stopped by far-field, and exited 0. The gate's domain is
+    // hexPrism (PROGRESS, plan Done when); a lucky-short box run must not pass.
+    const { status, output } = runGrow(
+      "--preset", "plate", "--dims", "18,18,12", "--domain", "box",
+      "--ticks", "4000", "--metrics-every", "0", "--enforce-gate",
+    );
+    expect(status).toBe(1);
+    expect(output).toContain("GATE FAILED");
+    expect(output).toContain("requires the hexPrism domain");
+  });
+
+  it("FAILS (exit 1) when nothing grew — a seed-only run is not a crystal", () => {
+    // Maker's round-5 catch: an 8,8,8 hexPrism run stopped with exactly the 19 seed sites
+    // attached (the tiny reservoir hit far-field before any attachment) and exited 0,
+    // against charter §3.2's "a crystal grows at all".
+    const { status, output } = runGrow(
+      "--preset", "plate", "--dims", "8,8,8",
+      "--ticks", "4000", "--metrics-every", "0", "--enforce-gate",
+    );
+    expect(status).toBe(1);
+    expect(output).toContain("GATE FAILED");
+    expect(output).toContain("no growth");
+  });
+
+  it.each([["-0.00001"], ["NaN"], ["-1"]])(
+    "rejects invalid --noise %s at parse time (any run, not only gate runs)",
+    (eps) => {
+      // Maker's round-5 catch: negative and NaN epsilons ran as silent noise-off while
+      // poisoning the recorded metadata. Rejected for every run at the parser.
+      const { status, output } = runGrow(
+        "--preset", "plate", "--dims", "24,24,12",
+        "--ticks", "10", "--noise", eps,
+      );
+      expect(status).toBe(1);
+      expect(output).toContain("--noise wants a finite epsilon >= 0");
+    },
+  );
+
   it.each([["1"], ["3"], ["none"]])(
     "FAILS (exit 1) on a non-canonical seed (--seed-radius %s) — gg-machinery §5 mandates radius 2",
     (radius) => {

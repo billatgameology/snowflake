@@ -23,11 +23,14 @@
 //   --stop-check-every N     far-field stopping-rule cadence (default 25)
 //   --enforce-gate           make this run an ENFORCING Phase 2a gate (maker audit
 //                            2026-07-15: printing gate metrics is not a gate; a failing
-//                            build is). Exits 1 unless ALL TEN hold: preset is plate (the
-//                            gate is defined on it), seed radius 2 AND the seed actually
-//                            initialized as the canonical 19 sites (gg-machinery §5 — the
-//                            behavioral check also fails if anyone ever "fixes" the seed
-//                            back to the paper's erroneous 20), noise off, per-tick delta
+//                            build is). Exits 1 unless ALL TWELVE hold: preset is plate
+//                            (the gate is defined on it), hexPrism domain (a box can pass a
+//                            short run before the walls bite — maker round-5), seed radius
+//                            2 AND the seed actually initialized as the canonical 19 sites
+//                            (gg-machinery §5 — the behavioral check also fails if anyone
+//                            ever "fixes" the seed back to the paper's erroneous 20), noise
+//                            exactly 0, the crystal actually grew (charter §3.2 "a crystal
+//                            grows at all" — a seed-only run must not pass), per-tick delta
 //                            check clean, full symmetry metric 0 at every cadence point and
 //                            at end, mass drift < 1e-10, aspect ratio < 1, no domain
 //                            contact, and the run ended by the far-field stopping rule.
@@ -152,9 +155,18 @@ function parseArgs(argv: string[]): GrowOptions {
         }
         break;
       }
-      case "--noise":
-        options.noise = Number(value());
+      case "--noise": {
+        const raw = value();
+        const eps = Number(raw);
+        // Reject, don't coerce: a negative or non-finite epsilon silently behaves as
+        // noise-off in the solver (eps > 0 gates the noise path) while poisoning the
+        // recorded metadata (maker round-5: --noise -0.00001 and --noise NaN both ran).
+        if (!Number.isFinite(eps) || eps < 0) {
+          throw new Error(`--noise wants a finite epsilon >= 0, got "${raw}"`);
+        }
+        options.noise = eps;
         break;
+      }
       case "--metrics-every":
         options.metricsEvery = Number(value());
         break;
@@ -350,6 +362,12 @@ function grow(options: GrowOptions): void {
     if (options.preset !== "plate") {
       failures.push(`preset is ${options.preset}: the 2a gate is defined on the plate preset`);
     }
+    if (options.domain !== "hexPrism") {
+      failures.push(
+        `domain is ${options.domain}: exact D6h symmetry requires the hexPrism domain ` +
+          "(plan, Done when — a box run can stay symmetric until the walls bite)",
+      );
+    }
     if (options.seedRadius !== 2) {
       failures.push(
         `seed radius is ${options.seedRadius === null ? "none" : options.seedRadius}: ` +
@@ -360,6 +378,12 @@ function grow(options: GrowOptions): void {
       failures.push(
         `seed initialized as ${initialAttached} sites, not the canonical 19 ` +
           "(gg-machinery §5 erratum: the paper says 20; 19 is correct — do not fix it back)",
+      );
+    }
+    if (!(final.attachedCount > initialAttached)) {
+      failures.push(
+        `no growth: ${final.attachedCount} attached vs ${initialAttached} seed sites — ` +
+          `"a crystal grows at all" (charter §3.2) not met`,
       );
     }
     if (!deltaSymmetricAllTicks) {
@@ -380,7 +404,7 @@ function grow(options: GrowOptions): void {
     if (stopReason !== "far-field") {
       failures.push(`run ended by ${stopReason}, not the far-field stopping rule`);
     }
-    if (options.noise > 0) {
+    if (options.noise !== 0) {
       failures.push("noise is ON; the symmetry gate is defined noise-off (plan, Done when)");
     }
     if (failures.length > 0) {
