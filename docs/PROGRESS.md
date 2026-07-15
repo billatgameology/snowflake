@@ -186,20 +186,21 @@ in charter §3.1 and get no retroactive ADR.
 
 Both phases are mid-flight (2026-07-14). In the maker's stated priority order:
 
-1. **Phase 1 — play, then archive (unblocked 2026-07-14).** The four interaction defects from
-   the maker's browser testing are **fixed with regression coverage**: mid-segment edits now
-   split at the cursor so the consumed prefix keeps the values that actually ran — the maker's
-   exact repro replays bit-identical from its own saved history (427 = 427 ice cells, was
-   427 vs 595); compare mode runs one shared clock stopping at the shorter journey and shows
-   read-only mini timelines for both sides; split-at-cursor selects the future half; UI bounds
-   and `validateHistory` consume one shared `PARAM_BOUNDS`/`GRID_BOUNDS` definition; `seed === 0`
-   enforced; storage uses a null-prototype store (`__proto__` persists honestly).
-   `spike/check.mjs` runs 27 checks, all passing. What remains is the maker's: the play-session
-   protocol (plan, step 8 — ideally plus one naïve participant; record history JSONs into
-   `spike/histories/` plus final-state checksums/screenshots; explicitly assess compare-mode
-   responsiveness — ≈33 ms sequential draw — the draw-ms stat, and the localStorage reload
-   round-trip), fill the plan's **Findings**, then archive (`spike/README.md` freeze notice,
-   step 9).
+1. **Phase 1 — replay-fidelity round 3 in flight.** Maker re-test verdict (2026-07-14): 3 of 4
+   round-2 fixes pass in the browser (compare lockstep — 620/800 journeys both stop at 620;
+   split selects the future half; shared bounds). **Mid-run replay fidelity is still partial**;
+   the governing invariant is *live run ≡ replay of its own saved history, or a loud warning* —
+   and *the UI must never produce a journey `validateHistory` refuses to save*. Three blocking
+   defects being fixed with regressions: (a) editing first-segment `reiterBeta` at tick 0
+   updates the history but not the already-seeded field (live 271 vs replay 61 cells, silent) —
+   tick-0 initial-state edits must re-seed; (b) lengthening a *completed* segment mid-run
+   silently reassigns consumed ticks (live 427 vs replay 271, totals display stale) — the
+   consumed prefix is immutable for durations too; (c) a prolonged live drag can exceed the
+   256-segment cap and record an unsaveable journey. After fixes land and are verified: the
+   maker's play-session protocol (plan step 8; also assess compare responsiveness ≈33 ms, the
+   draw-ms stat, and the localStorage reload round-trip), Findings, then archive (step 9).
+   The maker's informal impressions were positive (presets grow well; compare mode reads
+   clearly) — record them in Findings when the structured protocol runs.
 2. **Phase 2a — resolve, verify, then gate.** At last check the D6h symmetry test **fails**
    (error 0.0424403183 against a required exact 0) and `npm test` fails in the repo-wide Rule 7
    scan (`runner/test/rule7-lint.test.ts`). Resolve both, strengthen diffusion verification, and
