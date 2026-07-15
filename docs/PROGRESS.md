@@ -209,7 +209,11 @@ Both phases are mid-flight (2026-07-14). In the maker's stated priority order:
    verification (uniform fixed point, exact impulse weights, reflecting-boundary conservation at
    faces/edges/corners, D6h-symmetric impulse response) — then run the 2a gates with recorded
    metric + seed + dims + command (Rule 6). Standing trap: the 19-site seed erratum
-   (gg-machinery §5) — the paper says 20; do not "fix" it back.
+   (gg-machinery §5) — the paper says 20; do not "fix" it back. **Handoff note (2026-07-15):**
+   that session was stopped mid-work and its partial Rule 7 waiver is committed as WIP — the
+   waiver marker currently sits on a wrapped continuation line and must move to the line
+   containing the span (per-line semantics). The symmetry bug was not yet investigated
+   (vitest: 1 failed / 56 passed). A `symprobe` scratch may exist under `out/` (untracked).
 3. **Phase 2b — stays paused** (ADR 0005) until its two opening deliverables exist: the
    surface-operator specification (attachment-kinetics §4.2 lists its six required components)
    and the parameter table (libbrecht-parameters.md — provenance classes P1–P4, canonical

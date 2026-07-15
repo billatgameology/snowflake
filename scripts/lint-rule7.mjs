@@ -17,11 +17,21 @@
 //    or camelCase hump after the bare stem). Natural words with lowercase continuations
 //    (alphabet, betatron) pass. Allowlist: tokens starting with `alphaHK` or `ggThresh`, and
 //    exactly `reiterAlpha`/`reiterBeta`/`reiterGamma` (Phase 1's Reiter CA parameters).
-// 2. Markdown files: PROSE AND INLINE CODE SPANS ARE MENTIONS — always allowed. Only fenced
-//    code blocks (``` / ~~~) are checked, under the same identifier rule as code: fenced
-//    blocks are implementation-shaped and get copied into implementations. This is why
-//    "a fixture containing `const alpha = 1`" may appear in a plan's prose (it does,  // rule7-waive: policy example.
-//    phase-2-cpu-solver.md) while the same text in a fenced block or a .ts file fails.
+// 2. Markdown files (synced 2026-07-14 to AGENTS.md Rule 7's mention-vs-use paragraph: the
+//    ban targets identifiers "in code everywhere, and in inline code in docs"):
+//    a. Fenced code blocks (``` / ~~~) are checked under the full identifier rule — they are
+//       implementation-shaped and get copied into implementations.
+//    b. Inline code spans (`...`) are checked under the identifier rule, with two structural
+//       mention-forms exempt: a span that is EXACTLY one bare stem (a span like the word  // rule7-waive: policy text.
+//       alpha alone names the symbol in order to discuss it — there is no code around it,  // rule7-waive: policy text.
+//       so it cannot be a use), and Greek letters in spans (paper notation under
+//       discussion; prose-Greek provenance is reviewer-enforced per AGENTS.md, and the
+//       lint mechanically enforces only the identifier cases). Anything else in a span —
+//       e.g. a span holding an assignment statement — violates and needs a per-line
+//       waiver: this is why "a fixture containing `const alpha = 1`" in a plan's prose  // rule7-waive: policy example.
+//       carries one (phase-2-cpu-solver.md), while the same text in a fenced block or a
+//       .ts file simply fails.
+//    c. Prose outside code spans is not mechanically checked (reviewer territory).
 // 3. Greek letters: in checked text, a bare Greek letter form violates (both are valid
 //    JS identifiers) — unless immediately followed by a subscript digit: indexed paper
 //    notation in the specs' math blocks names G-G's published symbols and is a mention.
@@ -71,6 +81,27 @@ function violationsInLine(line) {
   return found;
 }
 
+// Markdown prose line: check inline code spans only (header policy 2b). A span that is
+// exactly one bare stem is a structural mention (it names the symbol; nothing is computed);
+// Greek in spans is paper notation (reviewer-enforced provenance). Everything else in a
+// span gets the identifier rule; the per-line waiver applies as everywhere.
+const INLINE_SPAN = /`([^`]+)`/g;
+
+function violationsInSpans(line) {
+  const found = [];
+  if (WAIVER.test(line)) return found;
+  for (const span of line.matchAll(INLINE_SPAN)) {
+    const content = span[1];
+    if (BARE_STEM.test(content.trim())) continue; // single-symbol mention
+    for (const match of content.matchAll(IDENTIFIER)) {
+      const token = match[0];
+      if (ALLOWLIST_PREFIX.test(token) || ALLOWLIST_EXACT.has(token)) continue;
+      if (BARE_STEM.test(token) || QUALIFIED_STEM.test(token)) found.push(token);
+    }
+  }
+  return found;
+}
+
 function checkFile(path) {
   let text;
   try {
@@ -99,7 +130,13 @@ function checkFile(path) {
         }
         continue;
       }
-      if (!inFence) continue; // prose and inline code spans are mentions
+      if (!inFence) {
+        // Prose line: inline code spans only (header policy 2b).
+        for (const token of violationsInSpans(line)) {
+          results.push({ path, line: n + 1, token });
+        }
+        continue;
+      }
     }
     for (const token of violationsInLine(line)) {
       results.push({ path, line: n + 1, token });

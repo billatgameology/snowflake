@@ -1,5 +1,6 @@
 // The Rule 7 lint's fixture test (plan, Scaffold step 2): a fixture containing
-// `const alpha = 1` must FAIL the check; a provenance-carrying fixture must pass.
+// `const alpha = 1` must FAIL the check; // rule7-waive: the test has to name its fixture's contents.
+// a provenance-carrying fixture must pass.
 // The repo-wide scan runs as the first step of `npm test` (package.json), not here —
 // asserting it in a unit test would couple this suite to concurrent work in spike/.
 
@@ -24,11 +25,13 @@ describe("Rule 7 lint", () => {
     expect(output).toContain("bad.ts:3");
   });
 
-  it("fails on a bare identifier inside a markdown fenced block, but not in prose", () => {
+  it("markdown: fenced blocks and implementation-shaped inline spans fail; single-symbol spans and waived spans pass", () => {
     const { status, output } = runLint(join(fixtures, "bad.md"));
     expect(status).toBe(1);
-    expect(output).toContain("bad.md:4");
-    expect(output).not.toContain("bad.md:1"); // the prose mention passes
+    expect(output).toContain("bad.md:2"); // implementation-shaped inline span
+    expect(output).toContain("bad.md:6"); // fenced block
+    expect(output).not.toContain("bad.md:1"); // single-symbol span mention passes
+    expect(output).not.toContain("bad.md:3"); // waived span passes
   });
 
   it("passes allowlisted identifiers, natural words, and waived mentions", () => {

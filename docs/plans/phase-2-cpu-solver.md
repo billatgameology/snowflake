@@ -217,8 +217,9 @@ Order within 2b is deliberate; each step gates the next:
       `reiterAlpha`/`reiterBeta`/`reiterGamma`. Decide and document the mention-vs-use policy as
       part of writing it (the specs legitimately *discuss* the α collision; qualified prose
       mentions pass, bare identifiers never do). Both plans lean on this rule existing; nothing
-      builds it but this step. Check: a fixture containing `const alpha = 1` fails the check; the
-      current repo passes.
+      builds it but this step. Check: a fixture containing
+      `const alpha = 1` <!-- rule7-waive: the check has to name its own fixture. -->
+      fails the check; the current repo passes.
 - [ ] **Counter-based** seeded PRNG in `core` — output is a pure function of
       `(seed, cellIndex, tick, streamId)` (a splitmix/PCG-style hash of the tuple), never a
       sequential stream. A stream PRNG makes the noise realization depend on iteration order,
