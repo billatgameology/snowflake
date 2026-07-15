@@ -6,9 +6,10 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
 - **Current phase:** **Phase 1 is done** (gate maker-asserted 2026-07-15; spike archived under
   `spike/README.md`). **Phase 2a's gate PASSED 2026-07-15** (sixfold plate, symmetry error
   exactly 0 across the full run, noise off — full record in the plan's Steps and the gate table
-  below); all four G-G presets reproduced, with one pre-registered preset inequality honestly
-  failed (needle hollowness — see the plan). Phase 2b is paused (ADR 0005) pending its two
-  opening deliverables.
+  below); all four G-G presets grown and morphologically characterized — 3 of 4 pre-registered
+  inequalities hold, the needle-hollowness one failed and stands as a finding (see the plan; no
+  visual comparison against G-G's published figures was attempted). Phase 2b is paused
+  (ADR 0005) pending its two opening deliverables.
 - **Last updated:** 2026-07-15 by Claude Fable 5
 - **Active plan:** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
   0003, synced to charter v1.2/v1.3, Scaffold + Stage 2a in progress. Hardened 2026-07-14 by an
@@ -62,14 +63,18 @@ into the two specs below.
 **Phase 0 is done** (maker-asserted, 2026-07-14 — see the gate table). **Code now exists**
 (2026-07-14): the npm workspace scaffold with `core` / `solver-cpu` / `runner` packages plus the
 repo-root Rule 7 lint (`scripts/lint-rule7.mjs`), and the Phase 1 spike in `spike/` (outside the
-workspace, by design). **Stage 2a is gated as of 2026-07-15** — the two red items resolved:
-the D6h symmetry failure was root-caused to the *domain shape*, not index arithmetic (a box
+workspace, by design). **Stage 2a is gated as of 2026-07-15** — the two red items resolved,
+and both turned out to be the same Rule 1 pattern: *the handoff undersold the code, and the
+code was right.* The D6h symmetry failure was the *domain shape*, not index arithmetic (a box
 domain is geometrically incapable of exact D6h symmetry — rhombic footprint, and no center
-plane when nz is even; the gate runs on the solver's hexPrism-masked domain, threshold untouched
-at exactly 0, with a box negative-control test pinning the geometry — full triage in the plan's
-Tried and rejected), and the Rule 7 scan turned out to be already-fixed at HEAD, verified to
-still fail on real violations (the WIP handoff note undersold its own commit — recorded per
-Rule 1). `npm test`: 69/69 green. **Phase 2b is paused** (decision 0005) pending its two
+plane when nz is even). The scaffold session had already found this on 2026-07-14 and built the
+hexPrism-masked domain for it, but recorded the finding only in code comments while the handoff
+said "not yet investigated"; the 2026-07-15 session verified the diagnosis by the triage
+protocol (metric certified in isolation, box-scaling probes, hexPrism controls), fixed the gate
+test onto hexPrism — threshold untouched at exactly 0 — and added a box negative-control test
+pinning the geometry (full triage in the plan's Tried and rejected). The Rule 7 scan was
+likewise already fixed at HEAD and was verified to still fail on real violations.
+`npm test`: 69/69 green. **Phase 2b is paused** (decision 0005) pending its two
 opening deliverables. The stack is
 decided in charter §3.1 — TypeScript + Vite, WebGPU, stacked triangular lattice, CPU oracle +
 GPU production solver, five-part repo (`core` / `solver-cpu` / `solver-gpu` / `runner` / `app`;

@@ -167,6 +167,10 @@ describe("GGSolver — symmetry (dev-grid version of the 2a gate; the gate itsel
     // when the lagging mirror partners catch up — which is exactly why the gate checks the
     // per-tick delta, not just the periodic full metric.
     expect(symErrAtBreak).toBeGreaterThan(0);
+    // And the heal itself, pinned: by tick 400 the set-level metric is back to 0 even though
+    // the run demonstrably broke at 270. A periodic full metric alone would report this run
+    // as symmetric — the per-tick delta check is load-bearing, not belt-and-braces.
+    expect(symmetryError(solver.a, solver.dims, solver.center)).toBe(0);
   });
 });
 

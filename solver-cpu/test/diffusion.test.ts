@@ -51,11 +51,12 @@ const inertParams: GGParams = {
 };
 
 describe("diffusion — uniform fixed point", () => {
-  it("one tick moves no cell by more than 1 ulp (exact in real arithmetic)", () => {
+  it("one tick moves no cell by more than 2 ulp (exact in real arithmetic)", () => {
     // Real arithmetic: (1a) at a free interior cell gives (rho + 6*rho)/7 = rho, and (1b)
     // gives (4/7)*rho + (3/14)*(2*rho) = rho; the reflecting substitution replaces neighbor
-    // terms with own = rho, so faces/edges/corners are identical. In f64 the pair-sum
-    // rounding can move a cell by 1 ulp (e.g. rho=0.1: 0.1+0.2 rounds up), no more.
+    // terms with own = rho, so faces/edges/corners are identical. In f64 the pair-sum then
+    // divide-by-7 rounding can move a cell by up to 2 ulp of rho (observed: exactly 2 ulp at
+    // rho=0.1, where 0.1+0.2 rounds up; bitwise-exact 0 at 0.095 and 0.13).
     for (const rho of [0.1, 0.095, 0.13]) {
       const solver = new GGSolver({
         dims: { nx: 20, ny: 18, nz: 10 },
@@ -70,7 +71,8 @@ describe("diffusion — uniform fixed point", () => {
         const dd = Math.abs(solver.d[x] - before[x]);
         if (dd > maxAbs) maxAbs = dd;
       }
-      expect(maxAbs).toBeLessThanOrEqual(1e-16); // a few ulp of rho ~ 0.1 (2 ulp observed)
+      const ulpOfRho = 2 ** (Math.floor(Math.log2(rho)) - 52);
+      expect(maxAbs).toBeLessThanOrEqual(2 * ulpOfRho);
     }
   });
 });

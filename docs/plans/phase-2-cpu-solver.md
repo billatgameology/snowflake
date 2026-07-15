@@ -5,9 +5,11 @@
 - **Status:** in progress — Scaffold + Stage 2a underway (2026-07-14, Claude Fable 5); Stage 2b
   deliberately untouched, including the seam's four sub-decisions
 - **Started:** 2026-07-14
-- **2026-07-15 session:** the D6h symmetry failure is root-caused and fixed (it was the domain
-  shape, not index arithmetic — see "The symmetry gate runs on a hexPrism domain" below and
-  Tried and rejected); the Rule 7 mention-vs-use waiver is verified complete (repo scan clean,
+- **2026-07-15 session:** the D6h symmetry failure is resolved (it was the domain shape, not
+  index arithmetic — see "The symmetry gate runs on a hexPrism domain" below and Tried and
+  rejected; the underlying finding was first made 2026-07-14 by the scaffold session and left
+  code-comment-only, a Rule 1 disagreement recorded in Tried and rejected); the Rule 7
+  mention-vs-use waiver is verified complete (repo scan clean,
   real violations still fail in both `--file` and repo-scan modes); diffusion verification
   strengthened per the triage directives (hand-computed impulse weights one and two ticks out,
   face/edge/corner/attached-cell conservation, bitwise D6h impulse response, uniform fixed
@@ -86,21 +88,25 @@ the threshold.)
 **Run the symmetry gate with noise OFF.** The noise term breaks exact symmetry by design; the
 sidebranching results need it ON. Two different runs, and conflating them will waste a day.
 
-**The symmetry gate runs on a hexPrism domain (root-caused 2026-07-15).** A box domain is
+**The symmetry gate runs on a hexPrism domain (found 2026-07-14, scaffold session;
+independently verified and the gate test fixed 2026-07-15).** A box domain is
 *geometrically incapable* of an exactly-symmetric run: the axial-rectangle footprint is a
 rhombus (not rot60-invariant), and an even `nz` has no center plane, so the reflecting walls
 imprint their asymmetry on the vapor field and, through it, on the crystal — legitimately, not
 as a bug. Measured (see Tried and rejected for the full triage): at 32×32×16 the first
 asymmetric attachment lands at tick 270 via zmirror with a boundary-mass split of ~0.03 between
-mirror partners — mesoscopic wall physics, three orders above ulp scale. The solver therefore
-supports `domain: "hexPrism"` — the active region masked to the inscribed hexagonal prism with
-a zmirror-symmetric z-range, wall cells inert and reflecting exactly like attached cells — and
-the gate runs there (the runner's default). This is the domain shape made D6h-symmetric so the
-*claim under test* (symmetric environment ⇒ symmetric crystal) is actually testable; the gate
-threshold is untouched at exactly 0, and a box negative-control test pins the geometry argument
-so nobody "simplifies" the gate back onto a box. Not an ADR: the charter does not prescribe a
-domain shape, so nothing is contradicted or extended — recorded here and in the solver header
-(decision 1) instead. `box` remains the default everywhere symmetry is not the claim.
+mirror partners — mesoscopic wall physics, three orders above ulp scale. The scaffold session
+had already implemented `domain: "hexPrism"` for exactly this reason — the active region masked
+to the inscribed hexagonal prism with a zmirror-symmetric z-range, wall cells inert and
+reflecting exactly like attached cells (G-G themselves ran "a finite lattice in the shape of
+hexagonal prism", paper §III) — and the gate runs there. This is the domain shape made
+D6h-symmetric so the *claim under test* (symmetric environment ⇒ symmetric crystal) is actually
+testable; the gate threshold is untouched at exactly 0, and a box negative-control test pins the
+geometry argument so nobody "simplifies" the gate back onto a box. Not an ADR: the charter does
+not prescribe a domain shape, so nothing is contradicted or extended — recorded here and in the
+solver header (decision 1) instead. Defaults, precisely: **the runner defaults every run to
+hexPrism**; the `GGSolver` constructor defaults to `box`, which remains available for anything
+that does not need exact sixfold symmetry (most unit tests use it deliberately).
 
 ### Stage 2b
 
@@ -367,7 +373,11 @@ Order within 2b is deliberate; each step gates the next:
       state (`maxFullSymErr=0`) — symmetry error exactly 0 across the entire run.
       Aspect ratio **0.168831 < 1** (plate). Attached 26 783. Mass drift 2.056e-13 (< 1e-10).
       Checkpoint round-trip bit-identical. Engine: Node v24.13.1 (pinned-oracle scope).
-- [x] **Reproduce all four G-G presets** (plate, needle, hollow column, dendrite — but see the
+- [x] *(Scope of this [x], stated precisely: all four presets grow and are morphologically
+      separated; 3 of 4 pre-registered inequality checks hold and one FAILED as a finding —
+      detailed below. "Reproduced" in the paper-fidelity sense — visual comparison against
+      G-G's published figures — was not attempted and is not claimed.)*
+      **Reproduce all four G-G presets** (plate, needle, hollow column, dendrite — but see the
       dendrite risk below). Check — stated inequalities, not "metrics distinguish them": plate vs
       needle by aspect ratio (< 1 vs > 1); hollow column vs needle by cross-section hollowness
       (> 0 vs ≈ 0); dendrite vs plate by branch count / boundary complexity under the documented
@@ -499,7 +509,17 @@ Order within 2b is deliberate; each step gates the next:
   control group.**
 - **Running the symmetry gate on a box domain** — the dev-grid symmetry test as first written
   (32×32×16, default `box`), and the cause of the 0.0424403183 failure that blocked the gate
-  through 2026-07-15. Triage followed the protocol (metric in isolation first): the metric is
+  through 2026-07-15. **Provenance, straightened out 2026-07-15 (Rule 1):** the scaffold
+  session had already made this finding on 2026-07-14 — `core/src/state.ts` carries the full
+  diagnosis dated that day (rhombic footprint, even-nz z-asymmetry, the measured Δb ≈ 0.03 by
+  tick 269) and a00110e already shipped the hexPrism implementation with the runner defaulting
+  to it — but it recorded the finding only in code comments (the state.ts comment even says
+  "recorded in the Phase 2 plan", which was false until 2026-07-15), left the dev-grid test on
+  `box` and failing, and the PROGRESS handoff said the symmetry bug was "not yet investigated."
+  The state file disagreed with the code, and the code was right — same pattern as the Rule 7
+  item below. The 2026-07-15 session found the code's own diagnosis first (solver header,
+  state.ts) and then *verified it rather than trusting it*, by the triage protocol (metric in
+  isolation first): the metric is
   clean — the 19-site seed scores exactly 0, an asymmetric blob's full D6h orbit closure scores
   exactly 0 including about an off-center pivot, and bare asymmetry scores > 0. The dynamics
   probe then separated wall physics from index bugs by scaling the box: first asymmetric

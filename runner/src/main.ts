@@ -125,10 +125,12 @@ function parseArgs(argv: string[]): GrowOptions {
         const v = value();
         if (v === "none") {
           options.seedRadius = null;
-        } else if (Number.isInteger(Number(v)) && Number(v) >= 0) {
+        } else if (/^\d+$/.test(v)) {
+          // Strict digits only: Number("") is 0, and a silent radius-0 (single-cell) seed is
+          // exactly the spurious-needle trap gg-machinery §5 warns about.
           options.seedRadius = Number(v);
         } else {
-          throw new Error(`--seed-radius wants a non-negative integer or "none", got ${v}`);
+          throw new Error(`--seed-radius wants a non-negative integer or "none", got "${v}"`);
         }
         break;
       }
@@ -200,7 +202,8 @@ function grow(options: GrowOptions): void {
       (options.domain === "hexPrism"
         ? ` (hexRadius=${solver.hexRadius}, zHalfExtent=${solver.zHalfExtent}, activeCells=${solver.activeCellCount})`
         : "") +
-      ` ticks<=${options.ticks} seed=${options.seed} noise=${options.noise} ` +
+      ` ticks<=${options.ticks} seed=${options.seed} noise=${options.noise}` +
+      ` seedRadius=${options.seedRadius === null ? "none" : options.seedRadius} ` +
       `m0=${m0.toPrecision(10)} seedSymErr=${startSym}`,
   );
   if (startSym !== 0) throw new Error("seed is not D6h-symmetric; aborting");
