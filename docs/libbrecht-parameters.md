@@ -33,16 +33,49 @@ parameters `sigma_0(T)` and `A(T)` come from arXiv:1910.09067.
 > prior sweep results** — the full sweep re-runs. Until that freeze it is a living extraction
 > target; after it, it is part of a pre-registered protocol.
 
+## Provenance classes (decision 0005; charter §2.7) — every entry carries one
+
+- **P1 — measured broad-facet kinetics.** Instrument data; record the stated uncertainty.
+- **P2 — fitted or inferred.** Record the functional form and its stated domain of validity —
+  extrapolating a fit outside its range silently manufactures a fake result.
+- **P3 — Nakaya-informed SDAK hypotheses.** The narrow-facet dip locations/depths were chosen to
+  impose agreement with the morphology diagram (monograph; extraction p. 153). Any Nakaya
+  comparison using P3 inputs is **in-sample reproduction**, never independent validation.
+- **P4 — numerical/discretization choices** (interpolation schemes, resolutions, tolerances).
+
+Consequently this file keeps **two separate branches** — the broad-facet (large-facet)
+parameters and a separate SDAK section — never merged, because Phase 6 reports no-SDAK and SDAK
+runs separately.
+
+**Canonical units (v1.3):** `sigma_0` and all supersaturations are **dimensionless fractions**
+here and in code. Libbrecht's tables often quote **percent** — record the raw cited value and
+its raw units alongside the converted one, and show the conversion. A silently mis-read percent
+is a **100× error inside `exp(−sigma_0/sigma_surf)`** — the single easiest way to destroy the
+model while every individual number "looks right." Pressure: record raw units, canonicalize to
+Pa.
+
 ## What must be extracted
 
-### `sigma_0(T)` and `A(T)` — nucleation parameters, per facet family
+### Branch 1 — broad-facet `sigma_0(T)` and `A(T)` — nucleation parameters, per facet family
 
 Feeds `alphaHK = A · exp(−sigma_0 / sigma_surf)`. The **basal/prism crossing in `sigma_0(T)` is
 the mechanism behind the Nakaya flip** (attachment-kinetics §2) — so the temperature resolution
 here directly determines whether Phase 6 can test the flip at all. Extract densely enough around
 the reversals (≈ −2, −5, −15, −30 °C) that the crossings are actually resolved.
 
-| T (°C) | `sigma_0_basal` | `A_basal` | `sigma_0_prism` | `A_prism` | Citation |
+| T (°C) | `sigma_0_basal` (fraction) | `A_basal` | `sigma_0_prism` (fraction) | `A_prism` | Raw value + units as cited | Uncertainty | Measured or fitted | Class (P1/P2) | Citation |
+|---|---|---|---|---|---|---|---|---|---|
+| | | | | | | | | | |
+
+### Branch 2 — SDAK narrow-facet hypotheses (P3 — kept separate, never merged into Branch 1)
+
+The width-dependent dips: locations, depths, and functional forms, with citations. These are
+**hypotheses whose shapes were informed by the Nakaya diagram itself** — extract them faithfully,
+label them P3, and remember what that label means: runs using them are in-sample for Nakaya
+purposes (charter Phase 6). Record for each: the facet family, the dip's T-location and depth,
+the functional form, the paper's own stated uncertainty or caveats, and the citation.
+
+| Facet | Dip location T (°C) | Depth / form | Raw values + units as cited | Stated uncertainty / caveats | Citation |
 |---|---|---|---|---|---|
 | | | | | | |
 

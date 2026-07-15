@@ -3,23 +3,31 @@
 **This file is the project's state. Read it first, update it as you work, leave it true.**
 Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charter.md).
 
-- **Current phase:** Phase 0 complete. Phases 1 (UX spike) and 2 (CPU solver) are next and may
-  run in parallel (§3.2). Plans exist for both; neither is started.
+- **Current phase:** Phases 1 and 2 in progress, in parallel (§3.2). **Phase 1's spike is built**
+  (plan steps 1–7; automated checks pass) — what remains is the gate itself, the maker's
+  play-session protocol, plus the archive step. **Phase 2 Scaffold + Stage 2a is underway.**
 - **Last updated:** 2026-07-14 by Claude Fable 5
-- **Active plans:** [phase-1-ux-spike.md](plans/phase-1-ux-spike.md) — written, not started;
-  [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision 0003, synced to
-  charter v1.2, not started. **Both hardened 2026-07-14 by an adversarial review pass** (each
+- **Active plans:** [phase-1-ux-spike.md](plans/phase-1-ux-spike.md) — steps 1–7 built
+  2026-07-14, gate awaits the maker; [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) —
+  rewritten for decision 0003, synced to charter v1.2, Scaffold + Stage 2a in progress
+  2026-07-14. **Both hardened 2026-07-14 by an adversarial review pass** (each
   plan's header lists what changed). The two blockers it found, so nobody re-trusts the old
   text: the seam's bookkeeping was being treated as settled while charter / gg-machinery /
   attachment-kinetics could not all be read literally at once — it is now explicitly unsettled,
   four written sub-decisions required before the seam is coded; and the Dirichlet gate as
   charter-phrased could not fail (a uniform field is a fixed point under *both* boundary
   conditions) — the plan now carries a falsifiable depleted-start differential test.
-- **Charter is at v1.2** (2026-07-14, review integration): far-field boundary conditions (§2.4),
-  domain-contact guard and determinism scope (§3.1), Phase 4 dual-pass, Phase 6 protocol freeze,
-  the seam's reference implementation, cube-speak and citation-source fixes. **Docs and plans
-  were synced to v1.2 on 2026-07-14** — if you are reading a doc that contradicts the charter,
-  the charter wins and the doc needs fixing, not vice versa.
+- **Charter is at v1.3** (2026-07-14, decision
+  [0005](decisions/0005-validation-scope-surface-operator-numerics.md) — maker review). The
+  three big ones: Phase 6 input-provenance classes with an **in-sample/held-out split** (SDAK
+  inputs are Nakaya-informed; matching Nakaya with them active is reproduction, not validation);
+  the seam is a **coupled surface operator** and **Phase 2b is paused** until its spec and the
+  parameter table exist; quasi-static numerics are an **elliptic residual solve**, not
+  physical-time Jacobi sweeps (the "thousands of iterations means wrong units" claim is
+  retracted). Plus: expanded Phase 6 freeze list + convergence controls; Phase 4 pass A blocking
+  / pass B diagnostic; timeline semantics named an open decision; two-axis epistemic labels
+  (Type × Evidence) replacing the four levels; Phase 3 gets a center-vs-rim depletion metric.
+  If a doc contradicts the charter, the charter wins and the doc needs fixing, not vice versa.
 
 ---
 
@@ -37,33 +45,47 @@ fail.** That is the point. The project stops being "pretty crystals with an hone
 becomes an actual attempt at the open loop in charter §2.7.
 
 What survives from G-G, unchanged: the lattice, diffusion, the boundary/quasi-liquid mass field,
-melting, mass bookkeeping, and — load-bearing and easy to overlook — **the noise term** (Libbrecht's
-equations are deterministic; without noise, sidebranching never seeds). Only the attachment
-thresholds are replaced. G-G's rule lives on permanently as `GGThreshold`, the working floor and
-the control group.
+melting, mass bookkeeping, and **the noise term** — status corrected by decision 0005: G-G's
+published 3D snowfakes are deterministic, branches included; noise is their *proposed*
+randomization (§VI.C) and our labeled dial for natural, asymmetric sidebranching, not an
+existence requirement for branches. The surface exchange step is replaced **as a coupled whole**
+(decision 0005 amending 0003 — "only the attachment thresholds" understated the seam). G-G's
+rule lives on permanently as `GGThreshold`, the working floor and the control group.
 
 **If you are holding a stale link to `gg-model.md`, stop** — it is a tombstone. The content split
 into the two specs below.
 
 ## Where we are
 
-**Phase 0 is done** (maker-asserted, 2026-07-14 — see the gate table). Still pre-code: `git init`
-has been run but there is **no scaffold and no solver**. The stack is decided in charter §3.1 —
-TypeScript + Vite, WebGPU, stacked triangular lattice, CPU oracle + GPU production solver,
-five-part repo (`core` / `solver-cpu` / `solver-gpu` / `runner` / `app`).
+**Phase 0 is done** (maker-asserted, 2026-07-14 — see the gate table). **Code now exists**
+(2026-07-14): the npm workspace scaffold with `core` / `solver-cpu` / `runner` packages plus the
+repo-root Rule 7 lint (`scripts/lint-rule7.mjs`), and the Phase 1 spike in `spike/` (outside the
+workspace, by design). Stage 2a is **in progress and not yet gated** — at last check the D6h
+symmetry test was failing (error 0.0424403183 against a required exact 0) and `npm test` was
+failing in the repo-wide Rule 7 scan; both must be resolved before the 2a gate can be claimed.
+**Phase 2b is paused** (decision 0005) pending its two opening deliverables. The stack is
+decided in charter §3.1 — TypeScript + Vite, WebGPU, stacked triangular lattice, CPU oracle +
+GPU production solver, five-part repo (`core` / `solver-cpu` / `solver-gpu` / `runner` / `app`;
+`solver-gpu` and `app` are reserved and uncreated).
 
 The solver specs — **read the relevant one before writing solver code:**
 
 - **[gg-machinery.md](gg-machinery.md)** — lattice, diffusion, state fields, mass bookkeeping,
-  melting, noise, seed, guardrails, G-G's presets. Physics-agnostic infrastructure. Level 1
-  throughout; nothing in it is a physical claim. ⚠ **§6 (noise) is a known hole** — not yet
-  extracted from the paper, and it blocks the Phase 2a gate.
+  melting, noise, seed, guardrails, G-G's presets. Physics-agnostic infrastructure; computed
+  state, Evidence: unvalidated (§1.5 v1.3 taxonomy) — nothing in it is a physical claim. §6
+  (noise) is **extracted** (2026-07-14, from the paper's §VI.C, with the honesty note that G-G's
+  published 3D results are deterministic and the randomization is their proposal).
 - **[attachment-kinetics.md](attachment-kinetics.md)** — the attachment rule, `v_n = alphaHK ·
-  v_kin · sigma_surf`. **The only step of the update cycle that is physics.**
+  v_kin · sigma_surf`. The only **physically parameterized** step of the update cycle
+  (corrected v1.3: diffusion is physical too; κ, μ, hole-filling, noise are phenomenological).
+  §4.2 now carries the **surface-operator spec requirement** (decision 0005 D2) and §4.3 the
+  quasi-static formulation.
 - **[libbrecht-parameters.md](libbrecht-parameters.md)** — σ₀(T), A(T), v_kin(T), D(T,P).
-  **Currently empty by design.** First deliverable of Phase 2b. No number enters it without a
-  citation; a gap filled with a plausible value is a fabrication that would invalidate Phase 6
-  without anyone noticing.
+  **Currently empty by design.** One of Phase 2b's two opening deliverables (with the
+  surface-operator spec). Every entry carries a provenance class (P1–P4) and canonical units —
+  σ₀ is a dimensionless fraction, and percent-vs-fraction is a 100× exponent trap. No number
+  enters it without a citation; a gap filled with a plausible value is a fabrication that would
+  invalidate Phase 6 without anyone noticing.
 
 **Symbol ban, now a standing rule (AGENTS.md Rule 7, charter §3.3):** a bare `alpha` is banned
 repo-wide. Libbrecht's attachment coefficient and G-G's attachment threshold are unrelated
@@ -110,11 +132,11 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | 0 | §2.8 exit criteria hold | ✅ maker-asserted, 2026-07-14 |
 | 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ⬜ plan written |
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ⬜ plan written |
-| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (v1.2): fixed-σ Dirichlet far field passes the plan's **depleted-start differential test** (the charter's "holds σ in a crystal-free run" phrasing is vacuous from a uniform start — see plan) | ⬜ plan written |
-| 3 | Facet center visibly starves in the slice view while the plate grows | ⬜ not started |
-| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `AttachmentRule`** (v1.2): pass A certifies machinery+metrics under `GGThreshold`, pass B sweeps temperature under `LibbrechtKinetics` | ⬜ not started |
+| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (v1.2): fixed-σ Dirichlet far field passes the plan's **depleted-start differential test** (the charter's "holds σ in a crystal-free run" phrasing is vacuous from a uniform start — see plan) | ⏸ **paused** (ADR 0005): surface-operator spec + parameter table first |
+| 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ⬜ not started |
+| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `AttachmentRule`**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ⬜ not started |
 | 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
-| 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported** | ⬜ not started |
+| 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
 
 Phase 2 is now **2a (machinery) / 2b (physics)**, and Phase 6 is **validation, not calibration** —
@@ -141,6 +163,11 @@ Records live in [docs/decisions/](decisions/):
   §2.7, §3.2 (Phases 2 and 6) and §3.3 all amended to match
 - [0004](decisions/0004-research-media-not-versioned.md) — `research/` media is not versioned; its
   `.md` index is. Libbrecht's copyrighted videos were purged from history before the first push
+- **[0005](decisions/0005-validation-scope-surface-operator-numerics.md) — validation scope, the
+  coupled surface operator, quasi-static numerics** (maker review, 2026-07-14). Amends 0003.
+  Phase 6 gets provenance classes and the in-sample/held-out split; **Phase 2b pauses** until the
+  surface-operator spec and parameter table exist; the field solve is elliptic-with-residual, not
+  per-sweep physical time. Charter v1.2 → v1.3 in the same session
 
 The two decisions predating this system (web over native C++/CUDA; the five-part repo split) live
 in charter §3.1 and get no retroactive ADR.
@@ -157,23 +184,31 @@ in charter §3.1 and get no retroactive ADR.
 
 ## Next step
 
-Phase 0 is closed and both plans are written, so the next action is **start building Phase 1 or
-Phase 2a — they may run in parallel** (§3.2). Cold-start instructions for each:
+Both phases are mid-flight (2026-07-14). In the maker's stated priority order:
 
-- **Phase 1:** open [phase-1-ux-spike.md](plans/phase-1-ux-spike.md), build in `spike/` at the
-  repo root — deliberately *outside* the npm workspace, plain JS, zero dependencies. Traps
-  already known: Reiter's parameters are conventionally α/β/γ — a *third* unrelated α; Rule 7
-  applies even to throwaway code (`reiterAlpha`, `reiterBeta`, `reiterGamma`). No physical labels
-  on the sliders (§1.5 has no prototype exemption). And Reiter's diffusion runs on **every** cell
-  including receptive ones (the plan spells out the exact update rule) — diffusing only
-  non-receptive cells silently kills branching and will look like a parameter problem.
-- **Phase 2a:** open [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md), start at the Scaffold
-  steps (npm workspaces, strict TS, Vitest, the Rule 7 lint check, **counter-based** seeded PRNG
-  in `core`). Trap already known: **gg-machinery §6 (the noise term) is still a hole** — it has
-  not been extracted from `research/GravnerGriffeath_PhysRevE09.pdf`, it blocks the 2a gate, and
-  skipping it will present later as a fake physics failure in 2b. Extract it early, not last.
-  Second trap: the 19-site seed erratum (gg-machinery §5) — the paper says 20; do not "fix" it
-  back. Third trap (2b, not 2a): **the seam's bookkeeping is deliberately unsettled** — four
-  written sub-decisions (plan, Approach item 4) come before any `LibbrechtKinetics` code.
+1. **Phase 1 — fix, then play, then archive.** Four interaction defects from the maker's browser
+   testing are being fixed: live edits were not replayable (the saved JSON did not describe the
+   crystal that generated it — the worst of the four, it broke the spike's core honesty claim);
+   compare mode was not lockstep and hid both timelines; split-at-cursor left the consumed half
+   selected; slider bounds did not match `validateHistory`. Once fixed and covered in
+   `spike/check.mjs`: the maker runs the play-session protocol (plan, step 8 — ideally plus one
+   naïve participant; record history JSONs into `spike/histories/` plus final-state
+   checksums/screenshots), fills the plan's **Findings** section, then archives
+   (`spike/README.md` freeze notice, step 9).
+2. **Phase 2a — resolve, verify, then gate.** At last check the D6h symmetry test **fails**
+   (error 0.0424403183 against a required exact 0) and `npm test` fails in the repo-wide Rule 7
+   scan (`runner/test/rule7-lint.test.ts`). Resolve both, strengthen diffusion verification, and
+   only then claim the 2a gate — metric value + seed + dims + exact command in the plan file
+   (Rule 6). Standing trap: the 19-site seed erratum (gg-machinery §5) — the paper says 20; do
+   not "fix" it back.
+3. **Phase 2b — stays paused** (ADR 0005) until its two opening deliverables exist: the
+   surface-operator specification (attachment-kinetics §4.2 lists its six required components)
+   and the parameter table (libbrecht-parameters.md — provenance classes P1–P4, canonical
+   units). Known doc debt: the phase-2 plan's 2b section still predates ADR 0005 (its "n_diff
+   plausibility" step and "four sub-decisions" wording need reconciling with the ADR before 2b
+   resumes) — reconcile it when the in-flight 2a build session lands.
 
-Whichever starts first, flip its plan's **Status** to *in progress* and update this file.
+Trap for whoever touches the timeline next (Phase 4, or Phase 7 thinking): timeline semantics
+are an open decision (ADR 0005 D5) — changing temperature changes c_sat(T), so until the
+conserved field and control semantics are written down, no timeline run carries a physical
+reading.

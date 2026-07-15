@@ -103,6 +103,13 @@ Every occurrence carries its provenance:
 Enforce with a lint rule, not with vigilance. Vigilance does not survive a model handoff; a
 failing build does.
 
+**Mention vs use — the one policy (decided 2026-07-14).** The ban targets *identifiers*: in code
+everywhere (including `spike/` and `scripts/`), and in inline code in docs. Prose may write the
+Greek letter α/β only with provenance attached in the same sentence or heading ("Libbrecht's α",
+"G–G's α", "Reiter's α", "α_basal"); an unqualified Greek α in prose is a violation that
+*reviewers* enforce — the lint mechanically enforces only the identifier cases. Deliberate
+mentions (lint fixtures, this rule's own text) are waived where they occur, explicitly.
+
 ## Rule 8 — Leave the next model a landing spot
 
 End every session by making `PROGRESS.md`'s **Next step** section true and specific enough to

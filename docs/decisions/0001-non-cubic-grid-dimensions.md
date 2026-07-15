@@ -13,7 +13,8 @@ bake". Read literally, that implies one scalar resolution parameter and a cubic 
 
 The morphologies the project exists to produce are not cubic, and are not even close.
 
-Reading the Gravner–Griffeath case studies (see [gg-model.md](../gg-model.md) §7) against their
+Reading the Gravner–Griffeath case studies (see [gg-machinery.md](../gg-machinery.md) §8 — link
+updated 2026-07-14; originally pointed at `gg-model.md` §7, split by decision 0003) against their
 reported sizes: their plate reaches a radius of about 350 lattice units while remaining a *plate*
 — a handful of cells thick. That wants a domain around 800 × 800 × 80. Their needles and columns
 are the transpose: narrow in the T-plane, long in Z. A cube large enough to contain the plate is

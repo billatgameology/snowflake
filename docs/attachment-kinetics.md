@@ -1,7 +1,10 @@
 # Attachment kinetics — the physics spec
 
-The attachment rule. This is the **only** step of the update cycle that is physics; everything
-else is machinery and lives in [gg-machinery.md](gg-machinery.md).
+The attachment rule — the only **physically parameterized** step of the update cycle; the rest
+lives in [gg-machinery.md](gg-machinery.md). (Corrected v1.3, decision 0005: this header
+previously said "the only step that is physics," which overstated it — diffusion is physical
+too, while `κ`, `μ`, hole-filling, and noise are phenomenological machinery. What is unique
+about this step is that its parameters carry physical provenance and units.)
 
 **Source:** K. Libbrecht, "A quantitative physical model of the snow crystal morphology diagram"
 (arXiv:1910.09067) — `research/1910.09067v2.pdf`. Primer: arXiv:1211.5555. Monograph:
@@ -49,9 +52,11 @@ alphaHK = A · exp(−sigma_0 / sigma_surf)
 works.** It is violently nonlinear in `sigma_surf`: as `sigma_surf → 0`, `alphaHK → 0` far faster
 than linearly. So a *modest* sag in supersaturation at a facet center — the Berg effect, which
 the diffusion field produces on its own (charter §2.4) — drives `alphaHK` toward zero there while
-the rim, sitting in richer vapor, keeps growing. **Hollowing is diffusion plus this exponential,
-and nothing else.** No hollowing rule, no SDAK, no width term. That is the Phase 4 gate, and it
-is reachable without the risky part of this spec.
+the rim, sitting in richer vapor, keeps growing. **Hollowing is primarily diffusion plus this
+exponential** — no hollowing rule, no SDAK, no width term required by the hypothesis. (Softened
+v1.3: whether this mechanism *suffices* at this lattice resolution is exactly what Phase 4
+pass B tests — the sentence is the experiment's hypothesis, not a settled fact.) That is the
+Phase 4 gate, and it is reachable without the risky part of this spec.
 
 **Basal and prism facets have different coefficients:**
 
@@ -85,6 +90,13 @@ feedback producing thin plates, sharpening edges, and needles.
 
 Implementing it requires a **local geometric query over surface cells** to estimate local facet
 width each step. Unpublished at this lattice resolution; attackable, not research-hard.
+
+**Provenance (v1.3, decision 0005 — this is the load-bearing caveat):** the SDAK dip locations
+were **chosen to impose agreement with the Nakaya diagram** and remain substantially uncertain
+(monograph; extraction p. 153). SDAK inputs are provenance class **P3**
+([libbrecht-parameters.md](libbrecht-parameters.md)); any Nakaya comparison that uses them is
+**in-sample reproduction**, and Phase 6 reports no-SDAK and SDAK runs separately (charter §2.7,
+Phase 6).
 
 **Sequence it last and gate it behind the basal/prism split working.** It buys the *extreme*
 morphologies — the absurdly thin plates, the needles at the tips of the Nakaya diagram. It does
@@ -132,19 +144,27 @@ charter's own wording ("reuses the boundary-mass machinery") — cannot be adopt
 is a **mass ledger** with its own per-tick dynamics (step (ii) freezing deposits into it, step
 (iv) melting drains it), while `f` is a **dimensionless fraction**. Read together literally,
 "attach at `b ≥ 1`" stops being an implementation of `v_n`, and adding `v_n·Δt/Δx` to a mass
-ledger injects mass from nowhere. Four sub-decisions must be settled in writing, in the Phase 2b
-plan, before the seam is coded:
+ledger injects mass from nowhere. **Escalated (2026-07-14, decision 0005 D2): the sub-decisions below are now part of a required
+surface-operator specification** — one of Phase 2b's two opening deliverables, and **2b is
+paused until it exists.** The physical surface condition is a **Robin boundary condition**: the
+monograph derives the vapor flux balance and `v_n = alphaHK · v_kin · sigma_surf` *together*
+(p. 94). Keeping G–G's `κ` freezing transfer running alongside a separate `v_n` accumulator can
+double-count vapor uptake or disconnect vapor loss from ice gain — the operator must couple
+them so that vapor lost equals ice gained. The spec defines, as one coupled whole:
 
-1. `f` in `b` under a defined normalization, or a separate dimensionless field — including what
-   the answer does to the `AttachmentRule` interface shape (a per-cell accumulator is state);
-2. what steps (ii) and (iv) do under `LibbrechtKinetics`;
-3. whether exact mass conservation is claimed under `LibbrechtKinetics`, and what test asserts
-   whatever is claimed;
-4. where `sigma_surf` is read from `d` — before or after step (ii) depletes it — and the
-   normalization mapping `d` to the dimensionless σ these equations need.
-
-If the resolution departs from the charter's "reuses the boundary-mass machinery" wording, that
-is an ADR (Rule 5).
+1. the `d` → dimensionless-σ normalization, and where `sigma_surf` is sampled (before or after
+   which substep);
+2. facet classification / local normal estimation (what `(n_T, n_Z)` is trusted for, and where
+   it is not enough);
+3. vapor flux into the surface cell and ice-volume gain, coupled (the Robin discipline above);
+4. the fill state — the deterministic accumulator survives — and where it is stored (`b` under a
+   defined normalization, or a separate dimensionless field), including what the answer does to
+   the interface shape (a per-cell accumulator is state);
+5. the explicit **kept / replaced / disabled** disposition of `κ`, `μ`, melting, and
+   hole-filling under `LibbrechtKinetics`, each with a reason — gg-machinery §4's "(ii)/(iv)
+   identical under both rules" is exact for `GGThreshold` and is *not assumed* here;
+6. the interface: a **surface-operator interface**, wider than a per-cell `shouldAttach` — plus
+   the mass-conservation claim made under `LibbrechtKinetics` and the test that asserts it.
 
 **This question is settled — charter §3.2 Phase 2b (v1.2) specifies (a) as the reference
 implementation.** Both options stay recorded so the rationale survives the decision:
@@ -161,28 +181,36 @@ implementation.** Both options stay recorded so the rationale survives the decis
 
 Departing from (a) now contradicts the charter: that takes an ADR (Rule 5), not a code comment.
 
-### 4.3 Stability and the diffusion iteration count ⚠ DERIVE, DO NOT GUESS
+### 4.3 Quasi-static numerics and the two timescales — REWRITTEN v1.3 (decision 0005 D3)
 
-G-G's diffusion step is a **Jacobi relaxation** toward `∇²σ = 0` (a weighted neighbor average),
-not an explicit Euler integration — so it is unconditionally stable *as a smoother*. But once
-`Δx` and `D` carry units, **one diffusion pass corresponds to a definite physical time
-increment**, and that is what makes the iteration count derivable rather than guessed:
+This section previously assigned a physical time increment to each Jacobi sweep and derived an
+iteration count from it. That mixed two different models — **transient diffusion** (stability
+timesteps, physical substeps) and **quasi-static diffusion** (an elliptic solve to a residual
+tolerance) — and produced a wrong test: relaxation counts scale like `(L/Δx)²`, so *thousands of
+Jacobi iterations per growth step are entirely expected* and prove nothing about units.
+**Retracted.**
 
-1. Identify the effective `D·Δt_diff / Δx²` implied by G-G's `1/7` and `4/7, 3/14` weights.
-   **Derive this from the scheme; it is not stated in the paper in these terms.**
-2. That fixes `Δt_diff` — the physical time one diffusion pass represents — given `Δx` and
-   `D(T, P)`.
-3. The quasi-static approximation (charter §2.4) requires the vapor field to relax over the
-   crystal scale `L` *between* growth steps. Relaxation time is `~L²/D`. So the number of
-   diffusion iterations per growth step is roughly `n_diff ≈ (L²/D) / Δt_diff`.
-4. Cross-check the result against the growth timescale: the field must relax **much faster** than
-   the surface moves, or the quasi-static assumption is invalid and the model is wrong in a way
-   no metric will announce.
+The formulation, per rule:
 
-Step 4 is the one to take seriously. If `n_diff` comes out implausible — thousands of iterations
-per growth step, or fewer than one — **the units are wrong somewhere**, and that is a genuine
-finding, not an inconvenience to be tuned away. Record the derivation in the Phase 2b plan with
-its arithmetic shown, so a later model can check it rather than trust it.
+- **`GGThreshold`:** diffusion is G–G's single masked-average pass per tick, exactly as
+  published. That *is* their dynamics — machinery fidelity, no physical-time claim attached.
+- **`LibbrechtKinetics`:** the field is quasi-static. Between growth steps, iterate the smoother
+  (Jacobi is the baseline; accelerated elliptic solvers are permitted later) until a stated
+  **residual norm** (e.g. relative max-residual of the discrete Laplacian with the surface
+  condition applied) falls below a stated **tolerance**, with convergence tests in the suite.
+  The iteration count is an *output*, not a target.
+
+Physical time enters only through the interface update, with its own bounds:
+
+- **fill-CFL:** `v_n·Δt/Δx` bounded below 1 — and small enough that per-step shape change is
+  sub-cell. This, not the diffusion sweep count, is where `Δt` lives.
+- **Quasi-static validity check** (kept from the old text — it was the one right part): the
+  field must relax much faster than the surface moves. Relaxation `~L²/D` against growth `~L/v_n`
+  gives the Péclet-like condition `v_n·L/D ≪ 1`. Evaluate it with the extracted `v_kin`, the
+  measured `alphaHK` ranges, and `D(T, P)` across the target regimes; where it fails, the
+  quasi-static model is invalid *there*, and that is a finding to report, not a nuisance to tune
+  away. Record the arithmetic in the Phase 2b plan so a later model can check it rather than
+  trust it.
 
 ## 5. What this rule does *not* model
 

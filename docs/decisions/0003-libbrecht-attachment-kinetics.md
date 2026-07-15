@@ -1,7 +1,11 @@
 # 0003 — Libbrecht's attachment kinetics drive the solver; G–G supplies the machinery
 
 - **Date:** 2026-07-14
-- **Status:** accepted
+- **Status:** accepted; **amended by
+  [0005](0005-validation-scope-surface-operator-numerics.md)** — the seam is a coupled surface
+  operator, not a threshold swap; Phase 6's Nakaya comparison is in-sample where SDAK inputs are
+  active; and this ADR's "without noise, sidebranching never seeds" is corrected there (G–G's
+  published 3D snowfakes are deterministic)
 - **Charter impact:** §2.5, §2.6, §2.7, §1.5, §3.2 (Phases 2 and 6) and §3.3 amended in this
   session. This ADR **overrides** the charter's original "you will not implement these equations
   literally in v1."

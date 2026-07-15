@@ -4,6 +4,11 @@
 - **Status:** accepted
 - **Charter impact:** §3.1 updated in this session ("Development machine: RTX 4080, 16 GB")
 
+> **Note (2026-07-14, after decisions 0003/0005):** this ADR predates the reframing of Phase 6
+> from "calibration atlas" to validation. Its "calibration atlas" references below are
+> historical wording, left as written; the hardware argument — the sweeps are throughput-bound
+> and belong on the 4080 — is unchanged by the reframing and stands.
+
 ## Context
 
 Charter §3.1 names a single development machine — an RTX 4080 with 16 GB — and engineers around
