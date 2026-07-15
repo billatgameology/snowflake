@@ -4,18 +4,14 @@
 Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charter.md).
 
 - **Current phase:** **Phase 1 is done** (gate maker-asserted 2026-07-15; spike archived under
-  `spike/README.md`). **Phase 2a is gated (2026-07-15), through two review rounds:** an
-  adversarial subagent review (six findings, fixed), then the maker's charter- and
-  source-grounded audit, which confirmed the plate result genuine (independent recomputation
-  from raw checkpoint bytes; independent re-implementation of the diffusion equations agreed
-  to 1 ulp; no core solver defect) but found three evidence problems — non-enforcing gate
-  tooling, an invalid needle run (past the 65% guard), and a mis-recorded 10k mass experiment.
-  All three remediated same-day: the gate is now **enforced** (`--enforce-gate` exits 1;
-  pinned by tests), the needle evidence comes from a valid far-field-stopped run, and the
-  specified 10k grown mass test exists and passes. The maker also source-confirmed the needle
-  finding: G-G's paper calls its needle a "slender hollow tube" — the pre-registered
-  "hollowness ≈ 0" expectation was wrong, the measurement right. Phase 2b remains paused
-  (ADR 0005).
+  `spike/README.md`). **Phase 2a is COMPLETE — maker-asserted 2026-07-15**, closed after six
+  adversarial review rounds (three subagent, three maker; the full defect-and-remediation
+  history is in the plan's Tried and rejected). The gate is *enforcing*: `--enforce-gate`
+  checks twelve criteria and exit 0 is the whole claim; the maker independently recomputed the
+  plate result from raw checkpoint bytes and found no core solver defect. **Phase 2b is next
+  but its code is paused** (ADR 0005) until its two opening deliverables exist — the
+  surface-operator spec and the cited parameter table. That document work is the current task
+  (see Next step).
 - **Last updated:** 2026-07-15 by Claude Fable 5
 - **Active plan:** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
   0003, synced to charter v1.2/v1.3, Scaffold + Stage 2a in progress. Hardened 2026-07-14 by an
@@ -149,7 +145,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 |---|---|---|
 | 0 | §2.8 exit criteria hold | ✅ maker-asserted, 2026-07-14 |
 | 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ✅ **maker-asserted, 2026-07-15** — informal sessions, positive; the four-task protocol was *not* run (recorded honestly in the plan's Findings, with the Phase 7 takeaways) |
-| **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **2026-07-15, enforced + maker-audited** — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Maker independently re-derived the result from raw checkpoint bytes; the audit's three evidence defects are remediated (see the plan's Tried and rejected). Full record in [the plan](plans/phase-2-cpu-solver.md), Steps |
+| **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Maker independently re-derived the result from raw checkpoint bytes. Full record in [the plan](plans/phase-2-cpu-solver.md), Steps |
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (v1.2): fixed-σ Dirichlet far field passes the plan's **depleted-start differential test** (the charter's "holds σ in a crystal-free run" phrasing is vacuous from a uniform start — see plan) | ⏸ **paused** (ADR 0005): surface-operator spec + parameter table first |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ⬜ not started |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `AttachmentRule`**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ⬜ not started |
@@ -208,12 +204,12 @@ in charter §3.1 and get no retroactive ADR.
 
 ## Next step
 
-Phase 1 is closed (2026-07-15). **Phase 2a is gated (2026-07-15, enforced + maker-audited)** —
+Phase 1 is closed (2026-07-15). **Phase 2a is closed — maker-asserted complete 2026-07-15** —
 machinery proven, all four presets grown with 3/4 pre-registered inequality checks held
 (needle-hollowness failed as a finding, and the maker source-confirmed the finding was right:
 the paper's needle is a "slender hollow tube"), evidence in the plan's Steps. The work is now
-**Phase 2b's two opening deliverables**, in order (ADR 0005 keeps 2b's code paused until both
-exist):
+**Phase 2b's two opening deliverables — documents, not solver code** (ADR 0005 keeps 2b's code
+paused until both exist and the maker has seen them):
 
 1. **The surface-operator specification.** Open
    [attachment-kinetics.md](attachment-kinetics.md) §4.2 — it lists the six required components

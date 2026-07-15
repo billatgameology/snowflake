@@ -2,8 +2,9 @@
 
 - **Phase:** Phase 2 (charter §3.2), split into **2a** (machinery) and **2b** (physics), plus the
   repo scaffold that precedes both
-- **Status:** Scaffold + **Stage 2a COMPLETE and gated** (2026-07-15 — enforced gate,
-  maker-audited through five review rounds; evidence in Steps). **Stage 2b not started**: paused
+- **Status:** Scaffold + **Stage 2a COMPLETE — maker-asserted 2026-07-15** (enforced gate,
+  twelve criteria; closed after six adversarial review rounds — three subagent, three maker —
+  all recorded in Tried and rejected; evidence in Steps). **Stage 2b not started**: paused
   by ADR 0005 until the surface-operator spec and parameter table exist; the seam's four
   sub-decisions remain deliberately unsettled
 - **Started:** 2026-07-14
