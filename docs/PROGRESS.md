@@ -8,20 +8,21 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   adversarial review rounds (three subagent, three maker; the full defect-and-remediation
   history is in the plan's Tried and rejected). The gate is *enforcing*: `--enforce-gate`
   checks twelve criteria and exit 0 is the whole claim; the maker independently recomputed the
-  plate result from raw checkpoint bytes and found no core solver defect. **Phase 2b is next
-  but its code is paused** (ADR 0005) until its two opening deliverables exist — the
-  surface-operator spec and the cited parameter table. That document work is the current task
-  (see Next step).
+  plate result from raw checkpoint bytes and found no core solver defect. **Phase 2b's two
+  opening deliverables EXIST as of 2026-07-15** — the surface-operator specification
+  ([attachment-kinetics.md](attachment-kinetics.md) §4.4) and the cited parameter table
+  ([libbrecht-parameters.md](libbrecht-parameters.md)) — and **await maker review**; whether
+  they satisfy ADR 0005's pause is the maker's call. **No 2b code has been written** (see
+  Next step for the load-bearing extraction findings and the first code step).
 - **Last updated:** 2026-07-15 by Claude Fable 5
 - **Active plan:** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
-  0003, synced to charter v1.2/v1.3, Scaffold + Stage 2a in progress. Hardened 2026-07-14 by an
-  adversarial review pass (the plan's header lists what changed); the review's two blockers, so
-  nobody re-trusts the old text: the seam's bookkeeping was being treated as settled while
-  charter / gg-machinery / attachment-kinetics could not all be read literally at once — it is
-  now explicitly unsettled, escalated by ADR 0005 into the required surface-operator spec; and
-  the Dirichlet gate as charter-phrased could not fail (a uniform field is a fixed point under
-  *both* boundary conditions) — the plan now carries a falsifiable depleted-start differential
-  test.
+  0003, synced to charter v1.2/v1.3; Scaffold + Stage 2a complete; Stage 2b section reconciled
+  with ADR 0005 on 2026-07-15 (the seam's four sub-decisions are now settled in writing —
+  answers in the plan's Approach item 4, rationale in attachment-kinetics §4.4; the "n_diff
+  plausibility" step is retracted-as-specified, replaced by fill-CFL + worked Péclet
+  arithmetic). Still true from the 2026-07-14 hardening: the Dirichlet gate as
+  charter-phrased could not fail (a uniform field is a fixed point under *both* boundary
+  conditions) — the plan carries a falsifiable depleted-start differential test.
 - **Charter is at v1.3** (2026-07-14, decision
   [0005](decisions/0005-validation-scope-surface-operator-numerics.md) — maker review). The
   three big ones: Phase 6 input-provenance classes with an **in-sample/held-out split** (SDAK
@@ -76,8 +77,8 @@ protocol (metric certified in isolation, box-scaling probes, hexPrism controls),
 test onto hexPrism — threshold untouched at exactly 0 — and added a box negative-control test
 pinning the geometry (full triage in the plan's Tried and rejected). The Rule 7 scan was
 likewise already fixed at HEAD and was verified to still fail on real violations.
-`npm test`: 81/81 green at 2a close (2026-07-15). **Phase 2b is paused** (decision 0005) pending its two
-opening deliverables. The stack is
+`npm test`: 81/81 green at 2a close (2026-07-15). **Phase 2b's two opening deliverables
+(decision 0005) were produced 2026-07-15 and await maker review; no 2b code exists.** The stack is
 decided in charter §3.1 — TypeScript + Vite, WebGPU, stacked triangular lattice, CPU oracle +
 GPU production solver, five-part repo (`core` / `solver-cpu` / `solver-gpu` / `runner` / `app`;
 `solver-gpu` and `app` are reserved and uncreated).
@@ -92,14 +93,16 @@ The solver specs — **read the relevant one before writing solver code:**
 - **[attachment-kinetics.md](attachment-kinetics.md)** — the attachment rule, `v_n = alphaHK ·
   v_kin · sigma_surf`. The only **physically parameterized** step of the update cycle
   (corrected v1.3: diffusion is physical too; κ, μ, hole-filling, noise are phenomenological).
-  §4.2 now carries the **surface-operator spec requirement** (decision 0005 D2) and §4.3 the
+  **§4.4 is the surface-operator specification** (decision 0005 D2 deliverable, written
+  2026-07-15 — the coupled Robin operator, facet-classification policy, fill state, machinery
+  disposition table, `SurfaceOperator` interface, and its committed tests); §4.3 the
   quasi-static formulation.
 - **[libbrecht-parameters.md](libbrecht-parameters.md)** — σ₀(T), A(T), v_kin(T), D(T,P).
-  **Currently empty by design.** One of Phase 2b's two opening deliverables (with the
-  surface-operator spec). Every entry carries a provenance class (P1–P4) and canonical units —
-  σ₀ is a dimensionless fraction, and percent-vs-fraction is a 100× exponent trap. No number
-  enters it without a citation; a gap filled with a plausible value is a fabrication that would
-  invalidate Phase 6 without anyone noticing.
+  **Extracted 2026-07-15** (first pass, not yet frozen): every entry cited with pages,
+  provenance classes P1–P4, canonical units with raw values alongside — σ₀ is a dimensionless
+  fraction, and percent-vs-fraction is a 100× exponent trap the file guards explicitly. Its
+  own header states the two extraction limits: σ₀/A curves are figure-only in the sources
+  (digitized anchors, labeled, ±25%), and no D(T) law exists in the source (gap recorded).
 
 **Symbol ban, now a standing rule (AGENTS.md Rule 7, charter §3.3):** a bare `alpha` is banned
 repo-wide. Libbrecht's attachment coefficient and G-G's attachment threshold are unrelated
@@ -204,28 +207,37 @@ in charter §3.1 and get no retroactive ADR.
 
 ## Next step
 
-Phase 1 is closed (2026-07-15). **Phase 2a is closed — maker-asserted complete 2026-07-15** —
-machinery proven, all four presets grown with 3/4 pre-registered inequality checks held
-(needle-hollowness failed as a finding, and the maker source-confirmed the finding was right:
-the paper's needle is a "slender hollow tube"), evidence in the plan's Steps. The work is now
-**Phase 2b's two opening deliverables — documents, not solver code** (ADR 0005 keeps 2b's code
-paused until both exist and the maker has seen them):
+Phase 1 is closed (2026-07-15). Phase 2a is closed — maker-asserted complete 2026-07-15
+(evidence in the plan's Steps). **Phase 2b's two opening deliverables were produced
+2026-07-15 and await maker review:**
 
-1. **The surface-operator specification.** Open
-   [attachment-kinetics.md](attachment-kinetics.md) §4.2 — it lists the six required components
-   (ADR 0005 D2). This includes settling the seam's four bookkeeping sub-decisions *in writing*
-   (plan, Approach item 4): where the fill fraction lives, what freezing/melting do under
-   `LibbrechtKinetics`, what mass claim holds, and where `sigma_surf` reads from `d`. If the
-   resolution departs from the charter's "reuses the boundary-mass machinery" wording, that is
-   an ADR (Rule 5).
-2. **The parameter table.** Fill [libbrecht-parameters.md](libbrecht-parameters.md) from
-   arXiv:1910.09067 via the LLM bundle index
-   ([1910.06389v2-llm.md](../research/1910.06389v2-llm.md)) — every number cited, provenance
-   class P1–P4, canonical units; σ₀ percent-vs-fraction is a 100× trap. A gap is a finding; a
-   plausible fill-in is a fabrication.
-3. **Doc debt before 2b code starts:** the phase-2 plan's 2b section still predates ADR 0005
-   (its "n_diff plausibility" step and "four sub-decisions" wording need reconciling with the
-   ADR's elliptic-residual numerics decision).
+1. **The surface-operator specification — [attachment-kinetics.md](attachment-kinetics.md)
+   §4.4.** All six ADR 0005 D2 components defined as one coupled operator; the seam's four
+   bookkeeping sub-decisions settled in writing (one-line answers in the plan, Approach item
+   4): separate fill field (not `b`); freezing replaced by the Robin sink, melting disabled;
+   mass claim is an accounting identity with a metered Dirichlet source, not a `Σ(b+d)`
+   invariant; the field is σ directly, sampled at the boundary cell post-relaxation. Facet
+   classification is a physical policy table — `(0,1)` basal, `(1,0)` prism, everything else
+   a barrier-free kink site — answering the plan's mixed-configuration open question. No ADR
+   was needed: charter v1.3 had already delegated the storage decision to this spec.
+2. **The parameter table — [libbrecht-parameters.md](libbrecht-parameters.md).** Every entry
+   cited (paper + monograph, page numbers), provenance classes P1–P4, canonical units with
+   raw values recorded. Load-bearing findings: σ₀(T)/A(T) exist in the sources **only as
+   figures** (numeric anchors are labeled figure digitizations, ±25%); the two sources put
+   the σ₀ crossing at **different temperatures** (−6 °C vs ≈−10 °C — recorded as a stated
+   systematic, CAK set adopted); **no D(T) law exists in the source** (its own Table 2.1 is
+   consistent with constant D at 1 atm — verified by back-computation); monograph "Appendix
+   B" is cited by its own text but does not exist in v2. Table 2.1 (image) transcribed for
+   v_kin/c_sat/σ_water/X₀ anchors; closed-form cross-check at −15 °C agrees to 1.4%.
+3. **Doc debt: cleared** — the plan's 2b section is reconciled with ADR 0005 (the "n_diff
+   plausibility" step is retracted-as-specified and replaced by the fill-CFL bound and the
+   worked Péclet arithmetic: quasi-static is comfortably valid across the Nakaya regime,
+   `Pe ≲ 1e-3` worst case).
+
+**Next concrete action (for whoever picks this up): maker review of the two deliverables.**
+If accepted, 2b code starts with the `SurfaceOperator` refactor — `GGThreshold` behind the
+interface, gated by bit-identical reproduction of every 2a gate (plan, Stage 2b steps;
+attachment-kinetics §4.4 component 6 test 1). No kinetics code before that gate passes.
 
 Traps already known: the 19-site seed erratum (gg-machinery §5 — the paper says 20; do not
 "fix" it back). The symmetry gate runs on the **hexPrism** domain — a box cannot pass it for

@@ -4,9 +4,13 @@
   repo scaffold that precedes both
 - **Status:** Scaffold + **Stage 2a COMPLETE — maker-asserted 2026-07-15** (enforced gate,
   twelve criteria; closed after six adversarial review rounds — three subagent, three maker —
-  all recorded in Tried and rejected; evidence in Steps). **Stage 2b not started**: paused
-  by ADR 0005 until the surface-operator spec and parameter table exist; the seam's four
-  sub-decisions remain deliberately unsettled
+  all recorded in Tried and rejected; evidence in Steps). **Stage 2b: both ADR 0005 opening
+  deliverables EXIST as of 2026-07-15** — the surface-operator specification
+  (attachment-kinetics §4.4, settling the seam's four sub-decisions in writing) and the cited
+  parameter table (libbrecht-parameters.md). Whether they lift the pause is the maker's call,
+  not this plan's (this project's review history says exactly why). **2b code has not
+  started**; when it does, the first step is the `SurfaceOperator` refactor gated by
+  bit-identity
 - **Started:** 2026-07-14
 - **2026-07-15 session:** the D6h symmetry failure is resolved (it was the domain shape, not
   index arithmetic — see "The symmetry gate runs on a hexPrism domain" below and Tried and
@@ -219,21 +223,31 @@ Order within 2b is deliberate; each step gates the next:
    mass-conservation invariant is a **reflecting-only** property — under Dirichlet the boundary
    is a source/sink by design (gg-machinery §4.i).
 4. **The seam** — continuous `v_n` → discrete lattice attachment (§4.2). What charter v1.2
-   settled is the **determinism**: a fill-fraction accumulator, never stochastic rounding. What
-   it did **not** settle is the bookkeeping — and the three documents involved cannot all be read
-   literally at once (charter: the accumulator "reuses the boundary-mass machinery";
-   attachment-kinetics §4.2: carry `f` in `b`; gg-machinery §4: steps (ii)/(iv) "identical under
-   both rules"). If all three hold, `b` is simultaneously a mass ledger and a dimensionless fill
-   fraction, "attach at `b ≥ 1`" is no longer an implementation of `v_n`, and adding `v_n·Δt/Δx`
-   to a mass ledger injects mass from nowhere. **Four sub-decisions must be settled, in writing,
-   as the first task of the seam step:** (1) where `f` lives — a separate dimensionless field, or
-   `b` under a defined normalization — including what that does to the `AttachmentRule` interface
-   shape; (2) what steps (ii) freezing and (iv) melting do under `LibbrechtKinetics`; (3) whether
-   exact mass conservation is claimed under `LibbrechtKinetics`, and what test asserts whatever
-   is claimed; (4) where `sigma_surf` is read from `d` — before or after step (ii) depletes it —
-   and the normalization mapping `d` to the dimensionless σ the kinetics equations need. If the
-   resolution departs from the charter's "reuses the boundary-mass machinery" wording, that is an
-   ADR (Rule 5), not a code comment. **This is the real work of 2b**; budget accordingly.
+   settled is the **determinism**: a fill-fraction accumulator, never stochastic rounding.
+   **The four bookkeeping sub-decisions are now SETTLED, in writing (2026-07-15), by the
+   surface-operator specification — attachment-kinetics §4.4** (the ADR 0005 D2 deliverable).
+   The answers, one line each, with the rationale living in the spec:
+   1. **Where `f` lives:** a separate dimensionless Float64 field; `b` stays exclusively
+      `GGThreshold`'s (§4.4 component 4). The `AttachmentRule` sketch is superseded by a
+      `SurfaceOperator` interface that owns per-cell surface state (§4.4 component 6). No ADR
+      was needed: charter v1.3 had already demoted "reuses the boundary-mass machinery" to
+      "one candidate answer, not a decision" and delegated the call to the spec.
+   2. **Steps (ii)/(iv) under `LibbrechtKinetics`:** freezing is *replaced* by the Robin-sink
+      substitution inside the field relaxation (the only vapor uptake channel — double
+      counting is structurally impossible); melting is *disabled* (no sublimation; `v_n`
+      clamped at 0 from below). Full disposition table incl. hole-filling (kept) and noise
+      (redefined per-rule): §4.4 component 5.
+   3. **Mass claim:** not a `Σ(b+d)` invariant — an *accounting identity*: ice gained =
+      metered Dirichlet source − field change (exact in ledger arithmetic, asserted), plus a
+      divergence-identity consistency check on every converged solve (to stated tolerance).
+      Reflecting far field under `LibbrechtKinetics` is diagnostic-only (§4.4 components 3–4).
+   4. **`sigma_surf` sampling and normalization:** under `LibbrechtKinetics` the field *is* σ
+      (`d ≡ sigma`; the smoother is affine-invariant so the Phase 2a kernel is reused
+      unchanged); `sigma_surf` is read at the boundary cell from the converged field, before
+      the interface update; there is no "before/after step (ii)" ambiguity because step (ii)
+      no longer exists (§4.4 component 1).
+   The remaining work of the seam is now *implementation against the spec*, gated by the
+   bit-identity refactor test (§4.4 component 6, test 1).
 5. **`alphaHK(T, sigma_surf)`** with the basal/prism split.
 6. **SDAK — last, and gated.** See Out of scope.
 
@@ -451,12 +465,35 @@ Order within 2b is deliberate; each step gates the next:
       has the paper's own words to register against.
 
 **Stage 2b — physics**
-- [ ] Fill [libbrecht-parameters.md](../libbrecht-parameters.md) from arXiv:1910.09067, with
+- [x] **Fill [libbrecht-parameters.md](../libbrecht-parameters.md)** from arXiv:1910.09067, with
       citations. Check: every cell cited, or explicitly marked as a gap. A documented gap is a
       finding; a gap filled with a plausible number is a fabrication.
-- [ ] Units + the `n_diff` derivation, arithmetic shown in this file. Check: `n_diff` is plausible.
-      **If it comes out in the thousands, or under one, the units are wrong — and that is a
-      finding, not a nuisance to tune away.**
+      *(Done 2026-07-15. Every entry cited with page numbers; provenance classes assigned.
+      Findings worth knowing before reading it: the σ₀(T)/A(T) curves exist in the sources
+      ONLY as figures — no printed closed forms or tables anywhere — so the numeric anchors
+      are figure digitizations, labeled P2 with ±25% method uncertainty, against two printed
+      text anchors; the two sources put the σ₀ crossing at different temperatures (−6 °C in
+      1910.09067's A≡1 fits vs ≈−10 °C in the monograph's CAK curves) — recorded as a stated
+      systematic, solver uses CAK; D(T) has NO temperature law in the source (the monograph's
+      own Table 2.1 is consistent with constant D at 1 atm — verified by back-computation);
+      the monograph's "Appendix B" is cited by its own text but does not exist in v2. The
+      monograph's Table 2.1 (image-embedded) was transcribed and supplies v_kin(T), c_sat(T),
+      sigma_water(T), X_0(T) anchors with a closed-form cross-check at −15 °C to 1.4%.)*
+- [x] ~~Units + the `n_diff` derivation~~ **RETRACTED as specified** (ADR 0005 D3: per-sweep
+      physical time was the wrong model; the field solve is elliptic-with-residual, and
+      iteration counts are outputs, not targets). Replaced by, per attachment-kinetics §4.3
+      and §4.4: a **fill-CFL bound** on `Δt` (physical time lives only in the interface
+      update) and the **quasi-static validity (Péclet) check**, arithmetic recorded here as
+      §4.4 requires — with the freshly extracted numbers, at −15 °C and 1 atm:
+      `v_kin = 2.079e-4 m/s` (Table 2.1), so `v_n ≤ alphaHK·v_kin·sigma_infinity ≤ 2.1e-6 m/s`
+      at `sigma_infinity = 0.01`; with `L = 100 µm` and `D = 2e-5 m²/s`:
+      `Pe = v_n·L/D ≤ 1.0e-5 ≪ 1`. Worst case in the target regime (`sigma_infinity =
+      sigma_water(−15) = 0.157`, `L = 1 mm`): `Pe ≤ 1.6e-3 ≪ 1`. At −5 °C
+      (`v_kin = 4.959e-4`, `sigma_water = 0.05`, `L = 100 µm`): `Pe ≤ 1.2e-4 ≪ 1`. Lower
+      pressure only helps (`D ∼ P⁻¹`). **Quasi-static is comfortably valid across the whole
+      Nakaya-relevant regime**; the per-run assertion stays in the suite per §4.4 test 6.
+      Sample fill-CFL: `Δx = 0.5 µm`, `sigma_infinity = 0.01`, bound 0.1 →
+      `Δt = 0.1·Δx/(v_kin·sigma_infinity) ≈ 0.024 s` per growth step.
 - [ ] **Fixed-σ Dirichlet far-field condition** (charter §2.4, v1.2), selectable per run, recorded
       in checkpoint metadata; reflecting stays the default. Check *(gate, strengthened — see Done
       when)*: crystal-free, **depleted** start (`d = σ_set/2` uniform — a uniform-at-`σ_set`
@@ -465,16 +502,18 @@ Order within 2b is deliberate; each step gates the next:
       *identical* run under reflecting must instead conserve total mass and settle at the initial
       mean — the differential is what proves the two conditions are actually different code
       paths. And the 2a mass-conservation gate still passes untouched under reflecting.
-- [ ] `AttachmentRule` interface; `GGThreshold` refactored behind it. Check *(gate)*: **all 2a
-      gates still pass, bit-identical** (same engine — bitwise claims are scoped to the pinned
-      oracle, charter §3.1 v1.2). No physics before this passes.
-- [ ] `LibbrechtKinetics`: the seam (attachment-kinetics §4.2). **First sub-task: settle the four
-      bookkeeping sub-decisions** (Approach, item 4) in writing, here in this file — where `f`
-      lives, what (ii)/(iv) do, what mass claim holds, where `sigma_surf` is read and how `d`
-      maps to it. ADR if the resolution departs from the charter's "reuses the boundary-mass
-      machinery" wording. Only then the deterministic fill-fraction accumulator. Check:
-      sub-decisions recorded with rationale; then a crystal grows at all, and the mass ledger
-      does exactly what sub-decision (3) claims it does.
+- [ ] `SurfaceOperator` interface (supersedes the `AttachmentRule` sketch — attachment-kinetics
+      §4.4 component 6 defines it: it owns per-cell surface state and mediates the mass
+      exchange); `GGThreshold` refactored behind it. Check *(gate)*: **all 2a gates still pass,
+      bit-identical** (same engine — bitwise claims are scoped to the pinned oracle, charter
+      §3.1 v1.2). No physics before this passes.
+- [ ] `LibbrechtKinetics`: the seam — **implemented against attachment-kinetics §4.4** (the
+      surface-operator spec; its four bookkeeping sub-decisions were settled in writing
+      2026-07-15 — see Approach item 4 for the one-line answers). Includes the quasi-static
+      relaxation with the Robin substitution and metered Dirichlet source, the facet
+      classifier policy table, the separate fill field, and §4.4's committed tests 2–5
+      (Robin limits, divergence identity, ledger identity, fill-CFL). Check: a crystal grows
+      at all, and the ledger does exactly what §4.4 component 4 claims it does.
 - [ ] Basal/prism split. Check *(gate)*: **habit changes with temperature alone** — two
       temperatures, no other change, two different habits, per the operationalized aspect-ratio
       thresholds in Done when (plate ⟺ AR ≤ 1/1.5, column ⟺ AR ≥ 1.5, at the stated measurement
@@ -617,20 +656,18 @@ Order within 2b is deliberate; each step gates the next:
   — most of all its three deviations from the published text (19-site seed, the monotonicity
   warning, melting excluded on freshly-attached cells). Each is argued in the file; each is a place
   where a wrong call silently corrupts the 2a gate rather than failing loudly.
-- **Does the hole-filling rule** (`n_T ≥ 4 and n_Z ≥ 1 ⇒ attach`, gg-machinery §4.iii) survive into
-  `LibbrechtKinetics`? It is geometric hygiene, not physics — it prevents discretization voids. It
-  probably should survive, but if it does not, **hollowing results become very hard to interpret**,
-  because an interior void could then be physics or could be an artifact. Decide explicitly and
-  write down which.
-- **The seam's bookkeeping — the four sub-decisions** (Approach, item 4): where `f` lives, what
-  steps (ii)/(iv) do under `LibbrechtKinetics`, what mass-conservation claim holds there and what
-  test asserts it, and the `d` → `sigma_surf` normalization and read point. Settled in writing
-  before the seam is coded. The charter's "reuses the boundary-mass machinery" phrasing is one
-  candidate answer, not a settled one — treating it as settled was this plan's own blocker in the
-  2026-07-14 review.
-- **Mixed/concave boundary configurations** — `(2,1)`, `(3,1)` etc. are neither cleanly basal nor
-  cleanly prism. What interpolation between `alphaHKBasal` and `alphaHKPrism`? Write the policy
-  down; do not let it emerge from whatever the `if`-chain happens to do.
+- ~~**Does the hole-filling rule** survive into `LibbrechtKinetics`?~~ **Resolved 2026-07-15
+  (attachment-kinetics §4.4 component 5): KEPT** — geometric hygiene, now also physically
+  consistent (max-coordination kink sites have no nucleation barrier). Interior voids stay
+  interpretable as physics, not artifacts.
+- ~~**The seam's bookkeeping — the four sub-decisions**~~ **Resolved 2026-07-15, in writing:
+  attachment-kinetics §4.4; one-line answers in Approach item 4.** No ADR was needed — charter
+  v1.3 had already delegated the decision to the spec.
+- ~~**Mixed/concave boundary configurations** — what interpolation?~~ **Resolved 2026-07-15
+  (attachment-kinetics §4.4 component 2, the policy table):** `(0,1)` → basal, `(1,0)` →
+  prism, everything else is a step/kink site with `alphaHK = 1` (nucleation-limited kinetics
+  applies to perfect facets; steps incorporate barrier-free — the sources' own
+  molecularly-rough limit). Not an interpolation: a physical classification.
 - **Do Libbrecht's published parameters carry an assumption about his reduced (near-cylindrical)
   geometry** that breaks when transplanted onto a 3D lattice? Charter §2.7. **The most likely way
   this hybrid fails quietly.** Worth an hour of suspicion before it is worth a week of debugging.
