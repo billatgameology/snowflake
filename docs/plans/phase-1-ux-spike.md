@@ -12,7 +12,9 @@
   the maker's real-browser review: six interaction defects fixed (live-edit replay fidelity,
   compare lockstep + evidence, split selection, schema/UI bounds unification, seed validation,
   prototype-safe storage) with regressions in `check.mjs` — see the Verification record's
-  **Fix session** subsection.
+  **Fix session** subsection. Fix round 2 same day after maker re-test: three replay-honesty
+  defects (tick-0 re-seed, completed-segment re-timing, staircase segment-cap overflow) fixed
+  under one stated invariant — see **Fix session round 2**.
 
 ## Goal
 
@@ -248,6 +250,45 @@ redraw, and compare mode draws both canvases sequentially (≈33 ms/frame). No c
 **the maker should explicitly assess compare-mode responsiveness during the play session** and
 note it in Findings — if it drags, shrinking the compare grid beats optimizing spike code.
 
+### Fix session round 2 (2026-07-14, after maker re-test)
+
+Maker verdict on round 1: compare lockstep, split selection, and shared bounds confirmed in
+browser; replay fidelity was *partial*. The governing invariant, now stated in the code and
+enforced by regression: **the live run always equals the replay of its own saved history, or
+diverges only past a loud visible warning — and the UI can never record a journey that
+`validateHistory` refuses to save.** Three remaining defects, all fixed:
+
+- **A — tick-0 initial-state edit did not re-seed the field** (live 271 vs replay 61, silent).
+  Fixed with `reseedAtTickZero(sim, segments)` in `history.mjs`: at tick 0 nothing is consumed,
+  so any edit that can change the first segment's values (slider edits; deleting segment 0)
+  losslessly rebuilds the field from the edited history. The Reset path already rebuilt from
+  the current history (no cached initial state) — verified by reading and by regression.
+  **Automated:** check.mjs (A) — the maker's scenario replays bit-identical (61 = 61), and the
+  helper refuses to touch a run with consumed ticks.
+- **B — lengthening a completed segment silently reassigned consumed ticks** (live 427 vs
+  replay 271, stale totals). **Choice: warn loudly, don't reject** — duration edits to passed
+  segments follow the same policy as value edits to passed segments, keeping design-while-paused
+  possible; Reset replays the edited history faithfully. Implemented as
+  `applyDurationEdit(segments, index, tick, requested)` in `history.mjs` with the precise
+  divergence rule `tick > start + min(oldTicks, newTicks)` — so lengthening a segment whose end
+  sits exactly at the cursor is correctly *not* divergent (all added ticks are future), while
+  the maker's case is. In-progress segments still clamp to their consumed prefix. Stale totals
+  fixed by refreshing the header readout on every timeline mutation. **Automated:** check.mjs
+  (B) — divergent flag on the maker's case, updated totals, bit-identical replay for the
+  boundary-lengthen case, clamp behavior.
+- **C — a long live drag could exceed the segment cap and record an unsaveable journey.**
+  Three-part fix: `MAX_SEGMENTS` raised to 4096 in the shared bounds (one definition, UI and
+  validation); `normalizeHistory` merges adjacent identical-parameter segments losslessly on
+  save/export (replay is bit-identical — `paramsAtTick` is unchanged); and if the cap is ever
+  reached, `prepareSegmentEditAt` refuses further mid-run splits (`refused: true`) and the UI
+  drops the edit with a loud notice instead of silently diverging or recording an unsaveable
+  journey (Add/Split buttons carry the same guard). **Automated:** check.mjs (C) — a 320-event
+  staircase drag saves (normalized 321 → 41 segments), loads, and replays bit-identical to the
+  live run; cap refusal verified; normalization leaves distinct-parameter journeys untouched.
+
+Browser-side after round 2: boot smoke with zero console errors (screenshot); everything else
+in this round is model-layer and covered by the regressions above.
+
 ## Out of scope
 
 - **Any 3D anything.** No stacked triangular lattice, no aspect ratios, no basal/prism — that is
@@ -325,6 +366,20 @@ note it in Findings — if it drags, shrinking the compare grid beats optimizing
   (e.g. 0.00015). Rejected rejecting those files: hand-written JSON is legal, the readout always
   shows the segment's true value, and only an actual slider touch snaps to the lattice. Bounds
   are enforced; the lattice is a UI property, not a schema one.
+- **Hard-rejecting duration edits to completed segments while a run is in progress** (option
+  (i) of maker defect B). Rejected in favor of allow-with-loud-warning, for consistency with
+  value edits to passed segments and to keep the design-while-paused flow: the maker pauses
+  mid-run, reshapes the whole journey against the current crystal as a visual reference, then
+  Resets to replay the new design. A hard reject would force losing that reference first. The
+  divergence rule is precise (`tick > start + min(old, new)`), so re-timing that only adds
+  future ticks never warns.
+- **Preserving unedited manual splits across save/load.** `normalizeHistory` merges adjacent
+  segments with identical parameters on save, so a Split made deliberately but not yet re-valued
+  is merged back when the journey is saved and reloaded. Considered keeping such splits;
+  rejected: the split carries no replay information (replay is bit-identical either way), the
+  in-editor timeline keeps it during the session, and compact saved files are what defect C
+  needed. If a play session shows this stings, the fix is a `label` field on segments, not
+  keeping ghost boundaries.
 
 - **Physical labels on the sliders ("temperature", "humidity").** Rejected at planning time,
   before any code: Reiter's parameters have no physical meaning, and charter §1.5 does not have a
@@ -350,8 +405,26 @@ note it in Findings — if it drags, shrinking the compare grid beats optimizing
 
 ## Findings
 
-*(Empty until the play sessions run. The gate writes here — task-by-task notes first, then the
-answer to the charter question. Protocol: the play-sessions step above.)*
+*(The gate writes here — task-by-task notes first, then the answer to the charter question.
+Protocol: the play-sessions step above.)*
+
+### Informal session record — 2026-07-14/15 (recorded by Claude Fable 5 from the maker's messages)
+
+The maker play-tested in a real browser across the round-2 and round-3 fix cycles (this was
+functional testing interleaved with play, not the structured protocol). Verbatim: *"i think it
+works, did not try many journey but the few presets in there works well. compare mode also works
+when using different journey, different snowflake are generated."* Earlier in the same sessions
+the maker independently exercised mid-run editing, segment splitting, compare mode with
+unequal-length journeys, and save/reload — finding four real interaction defects in the process,
+all since fixed with regressions.
+
+Honest labeling per this plan's own gate standard: this is **informal positive evidence**
+("works well", compare mode legible), not the protocol's four tasks, and the gate question —
+does *designing a cloud journey* feel engaging? — has not been formally answered. The structured
+tasks below remain empty. The maker has moved on to Phase 2 (the phases were always parallel;
+Phase 2 was never blocked on this gate). **To close this gate:** either run the four-task
+protocol, or the maker explicitly asserts the answer (as Phase 0's exit was maker-asserted) and
+that assertion is recorded here and in PROGRESS.md.
 
 ### Task 1 — free play
 

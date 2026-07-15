@@ -186,27 +186,30 @@ in charter §3.1 and get no retroactive ADR.
 
 Both phases are mid-flight (2026-07-14). In the maker's stated priority order:
 
-1. **Phase 1 — replay-fidelity round 3 in flight.** Maker re-test verdict (2026-07-14): 3 of 4
-   round-2 fixes pass in the browser (compare lockstep — 620/800 journeys both stop at 620;
-   split selects the future half; shared bounds). **Mid-run replay fidelity is still partial**;
-   the governing invariant is *live run ≡ replay of its own saved history, or a loud warning* —
-   and *the UI must never produce a journey `validateHistory` refuses to save*. Three blocking
-   defects being fixed with regressions: (a) editing first-segment `reiterBeta` at tick 0
-   updates the history but not the already-seeded field (live 271 vs replay 61 cells, silent) —
-   tick-0 initial-state edits must re-seed; (b) lengthening a *completed* segment mid-run
-   silently reassigns consumed ticks (live 427 vs replay 271, totals display stale) — the
-   consumed prefix is immutable for durations too; (c) a prolonged live drag can exceed the
-   256-segment cap and record an unsaveable journey. After fixes land and are verified: the
-   maker's play-session protocol (plan step 8; also assess compare responsiveness ≈33 ms, the
-   draw-ms stat, and the localStorage reload round-trip), Findings, then archive (step 9).
-   The maker's informal impressions were positive (presets grow well; compare mode reads
-   clearly) — record them in Findings when the structured protocol runs.
-2. **Phase 2a — resolve, verify, then gate.** At last check the D6h symmetry test **fails**
-   (error 0.0424403183 against a required exact 0) and `npm test` fails in the repo-wide Rule 7
-   scan (`runner/test/rule7-lint.test.ts`). Resolve both, strengthen diffusion verification, and
-   only then claim the 2a gate — metric value + seed + dims + exact command in the plan file
-   (Rule 6). Standing trap: the 19-site seed erratum (gg-machinery §5) — the paper says 20; do
-   not "fix" it back.
+1. **Phase 1 — all code fixes complete and verified; only the gate itself remains.** All three
+   round-3 replay defects are fixed with regressions (`spike/check.mjs`: 39 checks, all pass,
+   re-verified independently): tick-0 edits re-seed the field losslessly (61 = 61); duration
+   edits to completed segments warn loudly under the precise rule `tick > start + min(old, new)`
+   and totals refresh; a 320-event staircase drag saves (lossless merge 321 → 41 segments,
+   cap 4096) and replays bit-identical. The governing invariant — *live run ≡ replay of its own
+   saved history, or a loud warning; the UI can never record an unsaveable journey* — is stated
+   in the plan and enforced by regression. **The maker's informal findings are recorded in the
+   plan's Findings section** (positive: presets work well, compare mode legible, different
+   journeys → different crystals) — but the four-task protocol was not run, so per the plan's
+   own standard the gate stays open. To close it: run the protocol, or the maker explicitly
+   asserts the answer (Phase 0-style) for the record. Archive (step 9) follows gate closure.
+2. **Phase 2a — resolve, verify, then gate (in progress, fresh session 2026-07-15).** The D6h
+   symmetry test **fails** (error 0.0424403183 against a required exact 0 — at 4% of cells this
+   is a real bug, likely a convention mismatch between the neighbor offsets and the D6h
+   operators or a wrong rotation pivot, not a float knife-edge) and `npm test` fails in the
+   repo-wide Rule 7 scan (`runner/test/rule7-lint.test.ts` — needs the mention-vs-use waiver
+   per AGENTS.md Rule 7's policy paragraph). A build session is on it, with three directives:
+   root-cause the symmetry failure (metric tested in isolation before dynamics), implement the
+   Rule 7 waiver so fixtures pass while real violations still fail, and strengthen diffusion
+   verification (uniform fixed point, exact impulse weights, reflecting-boundary conservation at
+   faces/edges/corners, D6h-symmetric impulse response) — then run the 2a gates with recorded
+   metric + seed + dims + command (Rule 6). Standing trap: the 19-site seed erratum
+   (gg-machinery §5) — the paper says 20; do not "fix" it back.
 3. **Phase 2b — stays paused** (ADR 0005) until its two opening deliverables exist: the
    surface-operator specification (attachment-kinetics §4.2 lists its six required components)
    and the parameter table (libbrecht-parameters.md — provenance classes P1–P4, canonical

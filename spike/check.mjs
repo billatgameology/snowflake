@@ -11,7 +11,8 @@
 import { createSim, fieldsEqual } from './js/sim.mjs';
 import {
   paramsAtTick, totalTicks, makeSegment, makeHistory, cloneHistory, validateHistory,
-  prepareSegmentEditAt, PARAM_BOUNDS, GRID_BOUNDS,
+  prepareSegmentEditAt, reseedAtTickZero, applyDurationEdit, normalizeHistory,
+  PARAM_BOUNDS, GRID_BOUNDS, MAX_SEGMENTS,
 } from './js/history.mjs';
 import { PRESETS } from './js/presets.mjs';
 
@@ -131,14 +132,15 @@ function runHistory(gridSize, segments) {
   const live = createSim(gridSize, segments[0].reiterBeta);
   for (let t = 0; t < 50; t++) live.tick(paramsAtTick(segments, t));
   // The mid-run edit, exactly as the slider handler performs it:
-  const target = prepareSegmentEditAt(segments, 0, live.tickCount);
-  segments[target].reiterGamma = 0.01;
+  const prep = prepareSegmentEditAt(segments, 0, live.tickCount);
+  segments[prep.index].reiterGamma = 0.01;
   for (let t = live.tickCount; t < 100; t++) live.tick(paramsAtTick(segments, t));
   check(
     '(1) live edit splits at the cursor: consumed prefix keeps the values that ran',
     segments.length === 2
       && segments[0].ticks === 50 && segments[0].reiterGamma === 0.0001
-      && segments[1].reiterGamma === 0.01 && target === 1,
+      && segments[1].reiterGamma === 0.01
+      && prep.index === 1 && prep.split === true && prep.refused === false,
     `segments = ${JSON.stringify(segments.map((s) => [s.ticks, s.reiterGamma]))}`,
   );
   const replay = createSim(gridSize, segments[0].reiterBeta);
@@ -150,10 +152,164 @@ function runHistory(gridSize, segments) {
   );
   // Edits at a segment boundary or on untouched segments must NOT split.
   const boundary = [makeSegment(50, 1.0, 0.6, 0.0001), makeSegment(50, 1.0, 0.6, 0.001)];
+  const atBoundary = prepareSegmentEditAt(boundary, 1, 50);
+  const atStart = prepareSegmentEditAt(boundary, 0, 0);
   check(
     '(1) an edit exactly at a segment boundary edits in place (no split)',
-    prepareSegmentEditAt(boundary, 1, 50) === 1 && boundary.length === 2
-      && prepareSegmentEditAt(boundary, 0, 0) === 0 && boundary.length === 2,
+    atBoundary.index === 1 && !atBoundary.split && !atBoundary.refused
+      && atStart.index === 0 && !atStart.split && boundary.length === 2,
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Regression (maker review round 2, defect A): a tick-0 edit of the first
+// segment's reiterBeta must re-seed the field — at tick 0 nothing is
+// consumed, so the re-seed is lossless. (Without it: live 271 vs replay 61
+// ice cells in the maker's reproduction — the history changed but the
+// already-initialized field did not.)
+// ---------------------------------------------------------------------------
+{
+  const gridSize = 120;
+  const segments = [makeSegment(300, 1.0, 0.6, 0.0001)];
+  const live = createSim(gridSize, segments[0].reiterBeta); // seeded at 0.6
+  // The tick-0 edit, exactly as the slider handler performs it:
+  const prep = prepareSegmentEditAt(segments, 0, live.tickCount);
+  segments[prep.index].reiterBeta = 0.4;
+  const reseeded = reseedAtTickZero(live, segments);
+  for (let t = 0; t < 100; t++) live.tick(paramsAtTick(segments, t));
+  const replay = createSim(gridSize, segments[0].reiterBeta);
+  for (let t = 0; t < 100; t++) replay.tick(paramsAtTick(segments, t));
+  check(
+    '(A) tick-0 initial-vapor edit re-seeds the world and replays bit-identical',
+    reseeded === true && !prep.split && fieldsEqual(live.s, replay.s),
+    `ice cells: live = ${live.iceCount()}, replay = ${replay.iceCount()}`,
+  );
+  // Past tick 0 the helper must refuse (a re-seed there would destroy state).
+  const running = createSim(gridSize, 0.6);
+  running.tick(paramsAtTick(segments, 0));
+  check(
+    '(A) the re-seed helper does nothing once ticks are consumed',
+    reseedAtTickZero(running, segments) === false && running.tickCount === 1,
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Regression (maker review round 2, defect B): duration edits must never
+// silently reassign consumed ticks. Chosen policy: the edit is applied but
+// flagged divergent, and the caller warns loudly (same as value edits to
+// passed segments). Totals must report the updated value.
+// ---------------------------------------------------------------------------
+{
+  // Maker's reproduction: at tick 100, lengthen the completed first segment
+  // from 50 to 120 — consumed ticks 50..99 ran under segment 2's values.
+  const segments = [makeSegment(50, 1.0, 0.6, 0.0001), makeSegment(520, 1.0, 0.6, 0.01)];
+  const result = applyDurationEdit(segments, 0, 100, 120);
+  check(
+    '(B) lengthening a completed segment past consumed ticks is flagged divergent',
+    result.divergent === true && segments[0].ticks === 120,
+    `divergent = ${result.divergent}`,
+  );
+  check(
+    '(B) the totals helper reports the updated schedule (no stale totals)',
+    totalTicks(segments) === 120 + 520,
+    `totalTicks = ${totalTicks(segments)}`,
+  );
+  // Lengthening a segment whose end sits exactly at the cursor adds only
+  // future ticks — NOT divergent, and the live run must equal the replay.
+  const gridSize = 120;
+  const boundarySegs = [makeSegment(50, 1.0, 0.6, 0.0001), makeSegment(520, 1.0, 0.6, 0.01)];
+  const live = createSim(gridSize, boundarySegs[0].reiterBeta);
+  for (let t = 0; t < 50; t++) live.tick(paramsAtTick(boundarySegs, t));
+  const atEnd = applyDurationEdit(boundarySegs, 0, live.tickCount, 120);
+  for (let t = live.tickCount; t < 150; t++) live.tick(paramsAtTick(boundarySegs, t));
+  const replay = createSim(gridSize, boundarySegs[0].reiterBeta);
+  for (let t = 0; t < 150; t++) replay.tick(paramsAtTick(boundarySegs, t));
+  check(
+    '(B) lengthening at the exact cursor boundary is not divergent and replays bit-identical',
+    atEnd.divergent === false && fieldsEqual(live.s, replay.s),
+    `ice cells: live = ${live.iceCount()}, replay = ${replay.iceCount()}`,
+  );
+  // An in-progress segment never shrinks below its consumed prefix.
+  const inProgress = [makeSegment(620, 1.0, 0.6, 0.0001)];
+  const clampedEdit = applyDurationEdit(inProgress, 0, 100, 50);
+  check(
+    '(B) in-progress shrink clamps to the consumed prefix, not divergent',
+    clampedEdit.clamped === true && clampedEdit.ticks === 100
+      && clampedEdit.divergent === false && inProgress[0].ticks === 100,
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Regression (maker review round 2, defect C): a long live drag (staircase)
+// must always yield a journey that saves, loads, and replays bit-identically
+// — and at the MAX_SEGMENTS cap, further mid-run splits are refused rather
+// than recording an unsaveable journey.
+// ---------------------------------------------------------------------------
+{
+  const gridSize = 120;
+  const segments = [makeSegment(2000, 1.0, 0.6, 0.0)];
+  const live = createSim(gridSize, segments[0].reiterBeta);
+  // 320 drag events, one tick apart, each landing a new reiterGamma value —
+  // the staircase a slider drag during play lays down.
+  let refusals = 0;
+  for (let event = 0; event < 320; event++) {
+    live.tick(paramsAtTick(segments, live.tickCount));
+    const segIndex = paramsAtTick(segments, live.tickCount).segIndex;
+    const prep = prepareSegmentEditAt(segments, segIndex, live.tickCount);
+    if (prep.refused) { refusals++; continue; }
+    // Runs of 8 identical values: produces adjacent-identical segments, so
+    // the save-time merge (normalizeHistory) is genuinely exercised below.
+    segments[prep.index].reiterGamma = ((Math.floor(event / 8) % 10) + 1) * 0.0002;
+  }
+  check(
+    '(C) a 320-event staircase drag stays under the segment cap (no refusals)',
+    refusals === 0 && segments.length > 300 && segments.length <= MAX_SEGMENTS,
+    `segments = ${segments.length}, cap = ${MAX_SEGMENTS}`,
+  );
+  const draggedName = 'staircase drag';
+  const validated = validateHistory(makeHistory(draggedName, gridSize, segments));
+  check(
+    '(C) the staircase journey validates for saving',
+    validated.segments.length === segments.length,
+  );
+  // Save + load through real storage (node stand-in for localStorage), then
+  // replay the loaded journey — must be bit-identical with the live run.
+  globalThis.localStorage = {
+    data: new Map(),
+    getItem(key) { return this.data.has(key) ? this.data.get(key) : null; },
+    setItem(key, value) { this.data.set(key, String(value)); },
+    removeItem(key) { this.data.delete(key); },
+  };
+  const storage = await import('./js/storage.mjs');
+  storage.saveHistory(makeHistory(draggedName, gridSize, segments));
+  const loaded = storage.getSaved(draggedName);
+  const replay = createSim(gridSize, loaded.segments[0].reiterBeta);
+  for (let t = 0; t < live.tickCount; t++) replay.tick(paramsAtTick(loaded.segments, t));
+  check(
+    '(C) the saved staircase loads and replays bit-identical to the live run',
+    loaded !== null && totalTicks(loaded.segments) === 2000
+      && loaded.segments.length < segments.length // the merge actually fired
+      && fieldsEqual(live.s, replay.s),
+    `stored segments = ${loaded.segments.length} (normalized from ${segments.length}), `
+      + `ice cells: live = ${live.iceCount()}, replay = ${replay.iceCount()}`,
+  );
+  storage.deleteHistory(draggedName);
+  delete globalThis.localStorage;
+  // At the cap, mid-run splits are refused and the list stays saveable.
+  const capped = [];
+  for (let i = 0; i < MAX_SEGMENTS; i++) capped.push(makeSegment(2, 1.0, 0.5, 0.001));
+  const refusedPrep = prepareSegmentEditAt(capped, 0, 1);
+  check(
+    '(C) at the segment cap, a mid-segment edit is refused (never silently divergent)',
+    refusedPrep.refused === true && capped.length === MAX_SEGMENTS
+      && capped[0].ticks === 2,
+  );
+  // normalizeHistory is lossless on an already-compact journey.
+  const compact = normalizeHistory(cloneHistory(PRESETS[1]));
+  check(
+    '(C) normalizeHistory leaves distinct-parameter segments untouched',
+    compact.segments.length === PRESETS[1].segments.length
+      && totalTicks(compact.segments) === totalTicks(PRESETS[1].segments),
   );
 }
 

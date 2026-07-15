@@ -9,7 +9,8 @@ import { createSim } from './sim.mjs';
 import {
   paramsAtTick, totalTicks, cloneHistory,
   segmentStartTick, splitSegment, prepareSegmentEditAt,
-  PARAM_BOUNDS, GRID_BOUNDS, MAX_SEGMENT_TICKS,
+  reseedAtTickZero, applyDurationEdit,
+  PARAM_BOUNDS, GRID_BOUNDS, MAX_SEGMENT_TICKS, MAX_SEGMENTS,
 } from './history.mjs';
 import { PRESETS } from './presets.mjs';
 import { createRenderer } from './render.mjs';
@@ -277,12 +278,23 @@ for (const slide of SLIDES) {
     // reproduce the crystal on screen.) While playing, each tick-advancing
     // drag event splits again: the resulting staircase of small segments IS
     // the faithful record of a knob turned over time.
-    const target = prepareSegmentEditAt(working.segments, selectedSeg, runners[0].sim.tickCount);
-    if (target !== selectedSeg) selectedSeg = target;
-    const seg = working.segments[target];
+    const prep = prepareSegmentEditAt(working.segments, selectedSeg, runners[0].sim.tickCount);
+    if (prep.refused) {
+      // At the MAX_SEGMENTS cap the edit is dropped, loudly — recording it
+      // would either rewrite consumed ticks or produce an unsaveable journey.
+      notice(`Timeline is at its ${MAX_SEGMENTS}-segment cap, so this live edit was ignored. `
+        + 'Pause and simplify the journey, or Reset, to keep editing.');
+      refreshSliders();
+      return;
+    }
+    if (prep.index !== selectedSeg) selectedSeg = prep.index;
+    const seg = working.segments[prep.index];
     seg[slide.key] = parseFloat(slide.el.value);
     slide.out.textContent = `${slide.key} = ${seg[slide.key].toFixed(slide.digits)}`;
-    warnIfPastEdited(target);
+    // A tick-0 edit can change the initial field (first segment's
+    // reiterBeta); re-seeding there is lossless (maker-found defect A).
+    if (reseedAtTickZero(runners[0].sim, working.segments)) needsDraw = true;
+    warnIfPastEdited(prep.index);
     renderTimeline();
   });
 }
@@ -346,29 +358,39 @@ function updateTimelineCursor() {
 }
 
 els.segTicks.addEventListener('change', () => {
-  const seg = working.segments[selectedSeg];
   const value = parseInt(els.segTicks.value, 10);
   if (Number.isInteger(value) && value >= 1 && value <= MAX_SEGMENT_TICKS) {
-    // Never shrink the in-progress segment below what the run has consumed —
-    // that would rewrite ticks that already happened.
-    const start = segmentStart(selectedSeg);
-    const tick = runners[0].sim.tickCount;
-    let next = value;
-    if (tick > start && tick < start + seg.ticks && next < tick - start) {
-      next = tick - start;
-      status(`Clamped to ${next} ticks — the run has already consumed that much of this segment.`);
+    // The model decides: in-progress segments never shrink below their
+    // consumed prefix, and any re-timing that changes which values consumed
+    // ticks ran under is flagged divergent (maker-found defect B: lengthening
+    // a completed segment silently reassigned consumed ticks). Divergent
+    // edits are allowed with the loud warning — same policy as value edits to
+    // passed segments — so design-while-paused stays possible.
+    const result = applyDurationEdit(
+      working.segments, selectedSeg, runners[0].sim.tickCount, value,
+    );
+    if (result.clamped) {
+      status(`Clamped to ${result.ticks} ticks — the run has already consumed that much of this segment.`);
     }
-    seg.ticks = next;
-    warnIfPastEdited(selectedSeg);
+    if (result.divergent) {
+      notice('You re-timed a part of the journey the run has already passed — the crystal on '
+        + 'screen no longer matches this timeline. Reset to replay it faithfully.');
+    }
   }
   renderTimeline();
+  needsDraw = true; // the header tick readout shows totals; never leave it stale
 });
 
 els.btnAddSeg.addEventListener('click', () => {
+  if (working.segments.length >= MAX_SEGMENTS) {
+    status(`Timeline is at its ${MAX_SEGMENTS}-segment cap — cannot add.`);
+    return;
+  }
   const seg = working.segments[selectedSeg];
   const insertionStart = segmentStart(selectedSeg) + seg.ticks;
   working.segments.splice(selectedSeg + 1, 0, { ...seg, ticks: 200 });
   selectSegment(selectedSeg + 1);
+  needsDraw = true; // totals changed
   // Inserting behind the cursor rewrites ticks the run already consumed.
   if (runners[0].sim.tickCount > insertionStart) {
     notice('You inserted into a part of the journey the run has already passed — the crystal '
@@ -377,6 +399,10 @@ els.btnAddSeg.addEventListener('click', () => {
 });
 
 els.btnSplitSeg.addEventListener('click', () => {
+  if (working.segments.length >= MAX_SEGMENTS) {
+    status(`Timeline is at its ${MAX_SEGMENTS}-segment cap — cannot split.`);
+    return;
+  }
   const seg = working.segments[selectedSeg];
   if (seg.ticks < 2) return;
   const start = segmentStart(selectedSeg);
@@ -395,6 +421,10 @@ els.btnDeleteSeg.addEventListener('click', () => {
   const start = segmentStart(selectedSeg);
   working.segments.splice(selectedSeg, 1);
   selectSegment(Math.min(selectedSeg, working.segments.length - 1));
+  // Deleting segment 0 at tick 0 changes the initial field; re-seeding there
+  // is lossless (maker-found defect A applies to structure edits too).
+  reseedAtTickZero(runners[0].sim, working.segments);
+  needsDraw = true; // totals changed (and possibly the field)
   if (runners[0].sim.tickCount > start) {
     notice('You deleted a part of the journey the run has already passed — the crystal on '
       + 'screen no longer matches this timeline. Reset to replay it faithfully.');

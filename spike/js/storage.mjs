@@ -5,7 +5,7 @@
 // segments[]}). Everything that enters through here is validated by
 // history.mjs before it is trusted.
 
-import { validateHistory, cloneHistory } from './history.mjs';
+import { validateHistory, cloneHistory, normalizeHistory } from './history.mjs';
 
 const STORAGE_KEY = 'vcc-spike-histories-v1';
 
@@ -50,7 +50,10 @@ export function listSaved() {
 }
 
 export function saveHistory(history) {
-  const valid = validateHistory(history);
+  // Normalize after validating: adjacent identical segments (a live-edit
+  // staircase) merge losslessly, so the stored journey is compact and
+  // replays bit-identically.
+  const valid = normalizeHistory(validateHistory(history));
   const store = readStore();
   store[valid.name] = valid;
   writeStore(store);
@@ -71,7 +74,7 @@ export function getSaved(name) {
 
 /** Download a history as a JSON file. */
 export function exportHistory(history) {
-  const valid = validateHistory(cloneHistory(history));
+  const valid = normalizeHistory(validateHistory(cloneHistory(history)));
   const blob = new Blob([JSON.stringify(valid, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement('a');
