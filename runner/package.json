@@ -1,0 +1,14 @@
+{
+  "name": "@vcc/runner",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Headless CLI for the solver: grow runs, metrics, checkpoints, PGM field dumps. The only package that touches Node APIs.",
+  "exports": {
+    ".": "./src/main.ts"
+  },
+  "dependencies": {
+    "@vcc/core": "*",
+    "@vcc/solver-cpu": "*"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "@vcc/core",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Model definitions, parameters, morphology metrics, checkpoint format, PRNG. Environment-neutral: no Node APIs.",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

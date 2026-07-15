@@ -1,0 +1,299 @@
+// Headless CLI (plan, Stage 2a "runner"):
+//
+//   node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --out out/run.ckpt
+//
+// Options:
+//   --preset plate|needle|hollowColumn|dendrite   (required)
+//   --dims nx,ny,nz          default 128,128,64
+//   --domain hexPrism|box    active-domain shape (default hexPrism — the paper's own domain
+//                            shape, §III, and the only one on which exact D6h symmetry is
+//                            geometrically possible; see core/state DomainShape)
+//   --ticks N                tick cap; stopping rules may end the run earlier (default 10000)
+//   --out path.ckpt          checkpoint written at end of run (round-trip verified)
+//   --seed N                 PRNG seed (default 1); only consumed when --noise > 0
+//   --noise EPS              gg-machinery §6 noiseEpsilon (default 0 = off)
+//   --metrics-every N        light metrics line cadence (default 250; 0 = off)
+//   --full-metrics-every N   full morphology metrics cadence (default 2000; 0 = off)
+//   --symmetry-every N       full |A Δ g(A)|/|A| cadence (default 1000); the exact
+//                            incremental delta check runs EVERY tick regardless
+//   --pgm-every N            PGM dump cadence (default 0 = off)
+//   --pgm-dir DIR            where PGM dumps land (default out/pgm)
+//   --stop-check-every N     far-field stopping-rule cadence (default 25)
+//
+// Stopping rules (gg-machinery §7 + charter §3.1 guard), whichever fires first:
+//   far-field       mean vapor over free domain-face cells < (2/3) * rho
+//   domain-contact  crystal bounding box > 65% of any domain extent
+//   tick-cap        --ticks reached without either rule firing (recorded honestly)
+
+import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import {
+  computeMetrics,
+  decodeCheckpoint,
+  encodeCheckpoint,
+  isD6hInvariantSet,
+  symmetryError,
+  totalMass,
+  validateParams,
+  GG_PRESETS,
+  type Dims,
+  type DomainShape,
+  type GGPresetName,
+  type Metrics,
+} from "@vcc/core";
+import { GGSolver, FAR_FIELD_STOP_FRACTION } from "@vcc/solver-cpu";
+import { occupancyTopDownPGM, propensitySlicePGM, vaporSlicePGM } from "./pgm.ts";
+
+interface GrowOptions {
+  preset: GGPresetName;
+  dims: Dims;
+  domain: DomainShape;
+  ticks: number;
+  out: string | null;
+  seed: number;
+  noise: number;
+  metricsEvery: number;
+  fullMetricsEvery: number;
+  symmetryEvery: number;
+  pgmEvery: number;
+  pgmDir: string;
+  stopCheckEvery: number;
+}
+
+function parseArgs(argv: string[]): GrowOptions {
+  const options: GrowOptions = {
+    preset: "plate",
+    dims: { nx: 128, ny: 128, nz: 64 },
+    domain: "hexPrism",
+    ticks: 10_000,
+    out: null,
+    seed: 1,
+    noise: 0,
+    metricsEvery: 250,
+    fullMetricsEvery: 2000,
+    symmetryEvery: 1000,
+    pgmEvery: 0,
+    pgmDir: "out/pgm",
+    stopCheckEvery: 25,
+  };
+  let presetSeen = false;
+  for (let i = 0; i < argv.length; i++) {
+    const flag = argv[i];
+    const value = (): string => {
+      const v = argv[++i];
+      if (v === undefined) throw new Error(`missing value for ${flag}`);
+      return v;
+    };
+    switch (flag) {
+      case "--preset": {
+        const name = value();
+        if (!(name in GG_PRESETS)) throw new Error(`unknown preset: ${name}`);
+        options.preset = name as GGPresetName;
+        presetSeen = true;
+        break;
+      }
+      case "--dims": {
+        const parts = value().split(",").map(Number);
+        if (parts.length !== 3 || parts.some((p) => !Number.isInteger(p) || p < 8)) {
+          throw new Error("--dims wants nx,ny,nz integers >= 8");
+        }
+        options.dims = { nx: parts[0], ny: parts[1], nz: parts[2] };
+        break;
+      }
+      case "--domain": {
+        const shape = value();
+        if (shape !== "box" && shape !== "hexPrism") {
+          throw new Error(`--domain wants box or hexPrism, got ${shape}`);
+        }
+        options.domain = shape;
+        break;
+      }
+      case "--ticks":
+        options.ticks = Number(value());
+        break;
+      case "--out":
+        options.out = value();
+        break;
+      case "--seed":
+        options.seed = Number(value());
+        break;
+      case "--noise":
+        options.noise = Number(value());
+        break;
+      case "--metrics-every":
+        options.metricsEvery = Number(value());
+        break;
+      case "--full-metrics-every":
+        options.fullMetricsEvery = Number(value());
+        break;
+      case "--symmetry-every":
+        options.symmetryEvery = Number(value());
+        break;
+      case "--pgm-every":
+        options.pgmEvery = Number(value());
+        break;
+      case "--pgm-dir":
+        options.pgmDir = value();
+        break;
+      case "--stop-check-every":
+        options.stopCheckEvery = Number(value());
+        break;
+      default:
+        throw new Error(`unknown flag: ${flag}`);
+    }
+  }
+  if (!presetSeen) throw new Error("--preset is required");
+  return options;
+}
+
+function fmt(x: number): string {
+  return Number.isInteger(x) ? String(x) : x.toPrecision(6);
+}
+
+function printFullMetrics(label: string, m: Metrics, massDrift: number): void {
+  console.log(
+    `${label} tick=${m.tick} attached=${m.attachedCount} massDrift=${massDrift.toExponential(3)} ` +
+      `symErr=${fmt(m.symmetryError)} AR=${fmt(m.aspectRatio)} hollow=${fmt(m.crossSectionHollowness)} ` +
+      `sealedVoid=${fmt(m.sealedVoidFraction)} branches=${m.branchCount} radius=${fmt(m.boundingRadius)} ` +
+      `farField=${fmt(m.farFieldVapor)} domainContact=${m.domainContact}`,
+  );
+}
+
+function grow(options: GrowOptions): void {
+  const params = GG_PRESETS[options.preset];
+  const validation = validateParams(params);
+  for (const w of validation.warnings) console.log(`param warning: ${w}`);
+  if (validation.errors.length > 0) {
+    for (const e of validation.errors) console.error(`param error: ${e}`);
+    process.exit(1);
+  }
+
+  const solver = new GGSolver({
+    dims: options.dims,
+    params,
+    rngSeed: options.seed,
+    noiseEpsilon: options.noise,
+    domain: options.domain,
+  });
+  const { dims, center } = solver;
+  const kc = center[2];
+  const m0 = totalMass(solver.b, solver.d);
+  const startSym = symmetryError(solver.a, dims, center);
+  console.log(
+    `grow preset=${options.preset} dims=${dims.nx},${dims.ny},${dims.nz} domain=${options.domain}` +
+      (options.domain === "hexPrism"
+        ? ` (hexRadius=${solver.hexRadius}, zHalfExtent=${solver.zHalfExtent}, activeCells=${solver.activeCellCount})`
+        : "") +
+      ` ticks<=${options.ticks} seed=${options.seed} noise=${options.noise} ` +
+      `m0=${m0.toPrecision(10)} seedSymErr=${startSym}`,
+  );
+  if (startSym !== 0) throw new Error("seed is not D6h-symmetric; aborting");
+
+  if (options.pgmEvery > 0) mkdirSync(options.pgmDir, { recursive: true });
+
+  // Symmetry accounting for the gate: the exact incremental check every tick, the full
+  // metric on a cadence and at the end. deltaSymmetricAllTicks && full checks 0 => the
+  // symmetry error was exactly 0 across the entire run.
+  let deltaSymmetricAllTicks = true;
+  let firstAsymmetricTick = -1;
+  let maxFullSymErr = 0;
+  let stopReason: string = "tick-cap";
+
+  const dumpPGMs = (): void => {
+    const t = String(solver.tick).padStart(6, "0");
+    writeFileSync(join(options.pgmDir, `vapor-${t}.pgm`), vaporSlicePGM(solver, kc));
+    writeFileSync(join(options.pgmDir, `propensity-${t}.pgm`), propensitySlicePGM(solver, kc));
+    writeFileSync(join(options.pgmDir, `occupancy-${t}.pgm`), occupancyTopDownPGM(solver));
+  };
+
+  const started = Date.now();
+  for (let t = 1; t <= options.ticks; t++) {
+    solver.step();
+
+    if (solver.lastAttached.length > 0 && !isD6hInvariantSet(solver.lastAttached, dims, center)) {
+      if (deltaSymmetricAllTicks) firstAsymmetricTick = solver.tick;
+      deltaSymmetricAllTicks = false;
+    }
+    if (options.symmetryEvery > 0 && t % options.symmetryEvery === 0) {
+      const err = symmetryError(solver.a, dims, center);
+      if (err > maxFullSymErr) maxFullSymErr = err;
+    }
+    if (options.metricsEvery > 0 && t % options.metricsEvery === 0) {
+      const mass = totalMass(solver.b, solver.d);
+      const drift = Math.abs(mass - m0) / m0;
+      console.log(
+        `tick=${solver.tick} attached=${solver.attachedCount} boundary=${solver.boundarySize()} ` +
+          `massDrift=${drift.toExponential(3)} farField=${fmt(solver.farFieldMean())} ` +
+          `deltaSym=${deltaSymmetricAllTicks} elapsed=${((Date.now() - started) / 1000).toFixed(1)}s`,
+      );
+    }
+    if (options.fullMetricsEvery > 0 && t % options.fullMetricsEvery === 0) {
+      const m = computeMetrics(
+        solver.a, solver.b, solver.d, dims, center, solver.tick, solver.farFieldMean(),
+      );
+      printFullMetrics("metrics", m, Math.abs(m.totalMass - m0) / m0);
+    }
+    if (options.pgmEvery > 0 && t % options.pgmEvery === 0) dumpPGMs();
+
+    if (solver.domainContact()) {
+      stopReason = "domain-contact";
+      break;
+    }
+    if (t % options.stopCheckEvery === 0) {
+      if (solver.farFieldMean() < FAR_FIELD_STOP_FRACTION * params.rho) {
+        stopReason = "far-field";
+        break;
+      }
+    }
+  }
+
+  const final = computeMetrics(
+    solver.a, solver.b, solver.d, dims, center, solver.tick, solver.farFieldMean(),
+  );
+  const finalDrift = Math.abs(final.totalMass - m0) / m0;
+  if (final.symmetryError > maxFullSymErr) maxFullSymErr = final.symmetryError;
+  if (options.pgmEvery > 0) dumpPGMs();
+
+  console.log(`stop reason=${stopReason} tick=${solver.tick}`);
+  printFullMetrics("final", final, finalDrift);
+  console.log(
+    `symmetry: deltaCheckCleanAllTicks=${deltaSymmetricAllTicks}` +
+      (firstAsymmetricTick >= 0 ? ` firstAsymmetricTick=${firstAsymmetricTick}` : "") +
+      ` maxFullSymErr=${maxFullSymErr} (full metric every ${options.symmetryEvery} ticks and at end)`,
+  );
+
+  if (options.out !== null) {
+    mkdirSync(dirname(options.out) || ".", { recursive: true });
+    const encoded = encodeCheckpoint(solver.state(), final);
+    writeFileSync(options.out, encoded);
+    // Round-trip verification on a grown crystal (plan, core/checkpoint check).
+    const back = decodeCheckpoint(new Uint8Array(readFileSync(options.out)));
+    let identical =
+      back.state.tick === solver.tick &&
+      back.state.a.length === solver.a.length &&
+      back.header.farField === "reflecting";
+    if (identical) {
+      for (let i = 0; i < solver.a.length; i++) {
+        if (
+          back.state.a[i] !== solver.a[i] ||
+          back.state.b[i] !== solver.b[i] ||
+          back.state.d[i] !== solver.d[i]
+        ) {
+          identical = false;
+          break;
+        }
+      }
+    }
+    console.log(
+      `checkpoint written: ${options.out} (${encoded.length} bytes) roundTripIdentical=${identical}`,
+    );
+    if (!identical) process.exit(1);
+  }
+}
+
+const [command, ...rest] = process.argv.slice(2);
+if (command !== "grow") {
+  console.error("usage: node runner/src/main.ts grow --preset <name> [options]");
+  process.exit(2);
+}
+grow(parseArgs(rest));

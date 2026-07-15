@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": [
+    "core/src/**/*.ts",
+    "core/test/**/*.ts",
+    "solver-cpu/src/**/*.ts",
+    "solver-cpu/test/**/*.ts",
+    "runner/src/**/*.ts",
+    "runner/test/**/*.ts",
+    "vitest.config.ts"
+  ]
+}

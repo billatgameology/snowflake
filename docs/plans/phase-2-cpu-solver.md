@@ -2,7 +2,8 @@
 
 - **Phase:** Phase 2 (charter §3.2), split into **2a** (machinery) and **2b** (physics), plus the
   repo scaffold that precedes both
-- **Status:** not started
+- **Status:** in progress — Scaffold + Stage 2a underway (2026-07-14, Claude Fable 5); Stage 2b
+  deliberately untouched, including the seam's four sub-decisions
 - **Started:** 2026-07-14
 - **Last touched:** 2026-07-14 by Claude Fable 5 — synced to charter v1.2 (review integration),
   then hardened same day after an adversarial review pass: the seam's bookkeeping demoted from

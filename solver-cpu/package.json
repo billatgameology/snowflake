@@ -1,0 +1,13 @@
+{
+  "name": "@vcc/solver-cpu",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "The CPU oracle: plain TypeScript float64 Gravner-Griffeath machinery. Environment-neutral: no Node APIs; all I/O lives in runner.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@vcc/core": "*"
+  }
+}

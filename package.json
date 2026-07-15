@@ -1,0 +1,26 @@
+{
+  "name": "virtual-cloud-chamber",
+  "private": true,
+  "version": "0.0.0",
+  "description": "The Virtual Cloud Chamber — snow crystal growth on a stacked triangular lattice",
+  "type": "module",
+  "workspaces": [
+    "core",
+    "solver-cpu",
+    "runner"
+  ],
+  "scripts": {
+    "lint:rule7": "node scripts/lint-rule7.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run lint:rule7 && npm run typecheck && vitest run",
+    "grow": "node runner/src/main.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=23.6"
+  }
+}

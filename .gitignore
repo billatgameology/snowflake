@@ -9,3 +9,10 @@
 # them. The bytes are a cache; the provenance is the record.
 research/*
 !research/*.md
+
+# Workspace tooling (Phase 2 scaffold)
+node_modules/
+
+# Run outputs: checkpoints and PGM field dumps land in out/ by convention.
+# They are reproducible from the seed/dims/command recorded with each gate (Rule 6).
+out/
