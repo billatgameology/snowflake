@@ -42,6 +42,10 @@ describe("runner --enforce-gate", () => {
     expect(output).toContain("GATE PASSED");
     expect(output).toContain("stop reason=far-field");
     expect(output).toContain("deltaCheckCleanAllTicks=true");
+    // The behavioral half of the seed criterion, observable: the canonical radius-2 seed
+    // initialized as exactly 19 sites (gg-machinery §5 erratum — a future "fix" back to the
+    // paper's 20 fails the gate, not just a lattice unit test).
+    expect(output).toContain("seedSites=19");
   });
 
   it("FAILS (exit 1) with noise on — the symmetry gate is defined noise-off", () => {
@@ -65,4 +69,21 @@ describe("runner --enforce-gate", () => {
     expect(output).toContain("GATE FAILED");
     expect(output).toContain("the 2a gate is defined on the plate preset");
   });
+
+  it.each([["1"], ["3"], ["none"]])(
+    "FAILS (exit 1) on a non-canonical seed (--seed-radius %s) — gg-machinery §5 mandates radius 2",
+    (radius) => {
+      // Maker's round-4 catch: --seed-radius 1 and 3 exited 0 despite the spec mandating the
+      // canonical radius-2, 19-site seed, so "exit 0 is the whole claim" was still false.
+      const { status, output } = runGrow(
+        "--preset", "plate", "--dims", "24,24,12",
+        "--ticks", "300", "--metrics-every", "0",
+        "--seed-radius", radius, "--enforce-gate",
+      );
+      expect(status).toBe(1);
+      expect(output).toContain("GATE FAILED");
+      expect(output).toContain("the 2a gate requires the canonical radius-2 seed");
+    },
+  );
+
 });

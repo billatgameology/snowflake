@@ -23,13 +23,19 @@
 //   --stop-check-every N     far-field stopping-rule cadence (default 25)
 //   --enforce-gate           make this run an ENFORCING Phase 2a gate (maker audit
 //                            2026-07-15: printing gate metrics is not a gate; a failing
-//                            build is). Exits 1 unless ALL EIGHT hold: preset is plate (the
-//                            gate is defined on it), noise off, per-tick delta check clean,
-//                            full symmetry metric 0 at every cadence point and at end, mass
-//                            drift < 1e-10, aspect ratio < 1, no domain contact, and the run
-//                            ended by the far-field stopping rule. Off by default: grow is
-//                            otherwise a neutral instrument (noise-on and box runs are
-//                            asymmetric by design and must stay runnable).
+//                            build is). Exits 1 unless ALL TEN hold: preset is plate (the
+//                            gate is defined on it), seed radius 2 AND the seed actually
+//                            initialized as the canonical 19 sites (gg-machinery §5 — the
+//                            behavioral check also fails if anyone ever "fixes" the seed
+//                            back to the paper's erroneous 20), noise off, per-tick delta
+//                            check clean, full symmetry metric 0 at every cadence point and
+//                            at end, mass drift < 1e-10, aspect ratio < 1, no domain
+//                            contact, and the run ended by the far-field stopping rule.
+//                            (Seed thickness has no CLI flag and stays at the canonical
+//                            default 1; if a flag is ever added, enforcement must learn it.)
+//                            Off by default: grow is otherwise a neutral instrument
+//                            (noise-on and box runs are asymmetric by design and must stay
+//                            runnable).
 //
 // Stopping rules (gg-machinery §7 + charter §3.1 guard), whichever fires first:
 //   far-field       mean vapor over free domain-face cells < (2/3) * rho
@@ -210,6 +216,7 @@ function grow(options: GrowOptions): void {
   });
   const { dims, center } = solver;
   const kc = center[2];
+  const initialAttached = solver.attachedCount;
   const m0 = totalMass(solver.b, solver.d);
   const startSym = symmetryError(solver.a, dims, center);
   console.log(
@@ -218,7 +225,8 @@ function grow(options: GrowOptions): void {
         ? ` (hexRadius=${solver.hexRadius}, zHalfExtent=${solver.zHalfExtent}, activeCells=${solver.activeCellCount})`
         : "") +
       ` ticks<=${options.ticks} seed=${options.seed} noise=${options.noise}` +
-      ` seedRadius=${options.seedRadius === null ? "none" : options.seedRadius} ` +
+      ` seedRadius=${options.seedRadius === null ? "none" : options.seedRadius}` +
+      ` seedSites=${initialAttached} ` +
       `m0=${m0.toPrecision(10)} seedSymErr=${startSym}`,
   );
   if (startSym !== 0) throw new Error("seed is not D6h-symmetric; aborting");
@@ -341,6 +349,18 @@ function grow(options: GrowOptions): void {
     const failures: string[] = [];
     if (options.preset !== "plate") {
       failures.push(`preset is ${options.preset}: the 2a gate is defined on the plate preset`);
+    }
+    if (options.seedRadius !== 2) {
+      failures.push(
+        `seed radius is ${options.seedRadius === null ? "none" : options.seedRadius}: ` +
+          "the 2a gate requires the canonical radius-2 seed (gg-machinery §5)",
+      );
+    }
+    if (initialAttached !== 19) {
+      failures.push(
+        `seed initialized as ${initialAttached} sites, not the canonical 19 ` +
+          "(gg-machinery §5 erratum: the paper says 20; 19 is correct — do not fix it back)",
+      );
     }
     if (!deltaSymmetricAllTicks) {
       failures.push(`per-tick symmetry delta broke at tick ${firstAsymmetricTick}`);

@@ -576,9 +576,19 @@ Order within 2b is deliberate; each step gates the next:
   NOT-valid-evidence warning on every contact-stopped run. (3) The declared 10 000-tick grown
   mass experiment had been recorded as a 10k crystal-free control plus a 4800-tick grown run;
   the specified experiment now exists as an enforcing test (drift 4.189e-14; maker's
-  independent check ≈ 3.04e-14). Lesson for the next model: **subagent review checks the work
-  against itself; the maker checks it against the charter and the sources — write the gate so
-  a build failure, not a reader, catches the gap.**
+  independent check ≈ 3.04e-14). The same class of gap surfaced twice more after remediation
+  and was closed the same way: a round-3 review found non-plate presets passing the enforced
+  gate, and the maker then found non-canonical seeds passing it (`--seed-radius 1`/`3` exited
+  0 while gg-machinery §5 mandates the radius-2, 19-site seed) — enforcement now pins the
+  preset AND the seed, the latter both by configuration (radius 2) and by behavior (the run
+  header's `seedSites` must be 19, so "fixing" the seed back to the paper's erroneous 20
+  fails the gate, not just a lattice unit test); all pinned by adversarial regression tests
+  in `runner/test/gate-enforce.test.ts`. Lesson for the next model: **subagent review checks
+  the work against itself; the maker checks it against the charter and the sources — write
+  the gate so a build failure, not a reader, catches the gap. And when enforcing a gate,
+  enumerate the claim's preconditions from the spec (preset, seed, noise, domain era) — not
+  just its outcome metrics; every precondition left un-enforced is a false "exit 0 is the
+  whole claim".**
 - **"npm test fails in the repo-wide Rule 7 scan" (PROGRESS.md, 2026-07-15 handoff)** — did not
   reproduce at HEAD (a58bac0): the scan and the fixture tests pass, and the lint verifiably
   still fails on real violations (bare stem, provenance-free qualifier, markdown inline-span
