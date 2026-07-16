@@ -34,7 +34,10 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   flagless gate completed and exited 1; the −5 °C run passed its plate threshold, while the
   −15 °C run produced the same one-layer plate instead of the registered column. All enforced
   non-habit criteria passed. This is a failed gate, not missing or invalidated evidence; no
-  passing Phase 2b habit result exists.
+  passing Phase 2b habit result exists. **Decision 0009 and charter v1.7 now adopt the
+  source-constrained aggregate `[HV]` boundary-pixel repair, and protocol v4 is committed in
+  the active plan before implementation-driven morphology.** At this governance state, code
+  still executes `legacy-v3`; v4 implementation and evidence are next.
 - **Last updated:** 2026-07-16 by Codex
 - **Phase 3 started 2026-07-15 under decision
   [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md)** (charter v1.5): maker-directed
@@ -48,25 +51,29 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   [phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md) — criteria-first,
   serial dev/review subagent work packages; the completed gate2b evidence remains immutable.
 - **Active plan (2b):** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
-  0003; the Phase 2b numerical contract is synced through charter v1.4 (v1.5–v1.6 only amend
-  Phase 3 sequencing). Scaffold + Stage 2a complete; Stage 2b section reconciled
-  with ADR 0005 on 2026-07-15 (the seam's four sub-decisions were settled for protocol v3;
-  the 2026-07-16 source audit has reopened only the facet-classification policy for v4 —
-  v3 answers remain in the plan's Approach item 4 and attachment-kinetics §4.4; the "n_diff
+  0003 and synced through charter v1.7. Scaffold + Stage 2a complete; Stage 2b's v3 contract and
+  negative result remain explicit history, while decision
+  [0009](decisions/0009-source-constrained-boundary-pixel-policy.md) settles the reopened
+  classifier/geometry seam as the versioned `aggregate-hv-g1h1-v4` policy and pre-registers
+  its flagless pair. The "n_diff
   plausibility" step is retracted-as-specified, replaced by fill-CFL + worked Péclet
   arithmetic). Still true from the 2026-07-14 hardening: the charter v1.2 Dirichlet wording
   could not fail (a uniform field is a fixed point under *both* boundary conditions). Charter
   v1.4 now carries the plan's falsifiable depleted-start differential test.
-- **Charter is at v1.6** (2026-07-16, decision
+- **Charter is at v1.7** (2026-07-16, decision
+  [0009](decisions/0009-source-constrained-boundary-pixel-policy.md) — forward LK uses an
+  aggregate, policy-versioned boundary-pixel condition: `[01]` basal, `[20]` prism, `[10]`
+  inhibited, cited `G_b = H_b = 1` on the primary facets, v2 policy-bearing checkpoints;
+  per-contact geometry remains `legacy-v3`). Before that, v1.6 (2026-07-16, decision
   [0008](decisions/0008-phase3-completes-after-2b-exit.md) — maker-directed completion of
   Phase 3 after the failed 2b v3 run, with Phase 2b work continuing independently and strict
-  territory separation). Before that, v1.5 (2026-07-15, decision
+  territory separation), v1.5 (2026-07-15, decision
   [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md) — Phase 3 may overlap the tail of
   2b's pre-registered evidence run; §3.2 exception recorded), and v1.4 (2026-07-15, decision
   [0006](decisions/0006-audited-surface-operator-numerics.md) — audited surface-operator
   numerics: fixed-σ Dirichlet LibbrechtKinetics convergence is DUAL (residual AND divergence
   identity; reflecting LK is residual-only diagnostic), fill is per attached face with the
-  hexagonal-prism 2/3 factor, and the seam's exact bookkeeping claim is `placed fill +
+  hexagonal-prism 2/3 factor under the now-historical v3 policy, and the seam's exact bookkeeping claim was `placed fill +
   recorded unapplied saturation excess = computed per-face Hertz–Knudsen kinetic demand`,
   with shell-clamp totals as diagnostics only; amends 0005 after audit rounds 2–6 measured
   the failure modes and documentation overclaims of the older statements). Before that,
@@ -210,7 +217,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | 0 | §2.8 exit criteria hold | ✅ maker-asserted, 2026-07-14 |
 | 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ✅ **maker-asserted, 2026-07-15** — informal sessions, positive; the four-task protocol was *not* run (recorded honestly in the plan's Findings, with the Phase 7 takeaways) |
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited; follow-up evidence hardening complete) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Post-hardening `cmp` is bit-identical, SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Full records: [solver plan](plans/phase-2-cpu-solver.md), [hardening plan](plans/phase-2a-evidence-hardening.md) |
-| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ❌ **open after an execution-valid v3 failure** — protocol v3 completed at execution commit `4ca9680`, command `node runner/src/main.ts gate2b`, exit 1. −5 °C passed plate (AR 0.01888163179957996); −15 °C failed column with the identical AR and attached occupancy. Every non-habit gate criterion and the suite's depleted-start differential passed. The result rejects the exact v3 implementation as a Phase 2b-closing protocol; the post-result classifier defect prevents treating it as a clean falsification of the intended source-backed model. |
+| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ❌ **open after an execution-valid v3 failure** — protocol v3 completed at execution commit `4ca9680`, command `node runner/src/main.ts gate2b`, exit 1. −5 °C passed plate (AR 0.01888163179957996); −15 °C failed column with the identical AR and attached occupancy. Every non-habit gate criterion and the suite's depleted-start differential passed. Decision 0009 repairs the post-result classifier/geometry defect, and v4 is pre-registered but not yet implemented or run. |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | 🔶 **in progress under ADR 0008** — WP3 implementation committed (`068dce4`); the maker authorized R3 review, the recorded visual fix, and the gate3 evidence run to complete independently of still-open Phase 2b. No gate claim yet. |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ⬜ not started |
 | 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
@@ -254,7 +261,8 @@ Records live in [docs/decisions/](decisions/):
   fill-CFL on the per-cell kinetic increment); the exact bookkeeping claim is `placed fill +
   recorded unapplied saturation excess = computed per-face Hertz–Knudsen kinetic demand`,
   shell-clamp totals diagnostics only; noise multiplies `alphaHK` in sink and growth alike.
-  Charter v1.3 → v1.4 in the same session
+  Charter v1.3 → v1.4 in the same session. Per-contact geometry amended for forward policies
+  by 0009; retained as `legacy-v3`
 - [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md) — Phase 3 development-visualization
   work overlaps the tail of Phase 2b's pre-registered evidence run (maker-directed,
   2026-07-15). Constraint-bounded: gate2b process/artifacts untouched, no Phase 3 claim rests
@@ -263,6 +271,11 @@ Records live in [docs/decisions/](decisions/):
   condition ended, the maker explicitly directed Phase 3 to complete R3, its visual fix, and
   gate3 while Phase 2b v4 proceeds independently. The immutable 2b evidence and strict file
   territories remain binding. Charter v1.5 → v1.6 in the same session
+- **[0009](decisions/0009-source-constrained-boundary-pixel-policy.md) — source-constrained
+  boundary-pixel policy after v3's recorded failure and source audit.** `[01]` basal, `[20]`
+  prism, `[10]` inhibited; aggregate Eq. 5.34 with cited `G_b = H_b = 1` on primary facets;
+  a named coupled policy in required v2 LK checkpoints; event-limited timing deferred.
+  Amends 0006's forward geometry and terminology. Charter v1.6 → v1.7 in the same session
 
 The two decisions predating this system (web over native C++/CUDA; the five-part repo split) live
 in charter §3.1 and get no retroactive ADR.
@@ -343,29 +356,28 @@ contradiction is a seam defect discovered after the run, not a reason to rewrite
 the negative result; it limits interpretation of the failure as a test of the intended physical
 model. The governing detail and citations are recorded in attachment-kinetics §4.4.
 
-**Next Phase 2b action:** do not rerun unchanged v3 or tune its supersaturation, seed, target,
-or thresholds. First write an amending ADR (next available number is 0009 after the Phase 3
-completion decision), update attachment-kinetics and
-the plan, and resolve the proven `[20]` classifier error plus every remaining policy case. The
-ADR must also choose checkpoint provenance. Recommended: v1 decoding reports an implicit
-`legacy-v3` policy; v2 requires a recognized `facetPolicy`; new-run solver construction,
-encoding, decoding, runner write-time round trips, and the flagless-gate preconditions all use
-the same enum, with mutation tests for missing, unknown, and mismatched policies. LK resume is
-not currently implemented and is a separate future decision.
-The charter delegates classification, so revise it only if the ADR also changes its per-face
-formula or another charter-level contract. Before calling v4 source-aligned or Phase 2b-closing,
-the ADR must explicitly reconcile the monograph's `[20]` `G_b = H_b = 1` with the current
-per-face fill factor `4/3`, either by justifying the different cell normalization or amending the
-charter-level formula. Decide event-limited stepping separately: v3's approximate 3.50%/6.58%
-clipping makes it worth a controlled probe, but does not establish it as the cause.
-Pre-registration may be preceded only by tests that pin the chosen policy table, the canonical
-seed's
-38 `[01]` / 12 `[20]` / 6 `[10]` boundary composition, actual solver routing of `[20]` through
-`alphaHKPrism` in both sink and fill, checkpoint mutation/round-trip behavior, and all existing
-D6h/divergence/ledger/CFL/determinism controls. Commit the v4 pre-registration before any
-two-temperature morphology, parameter, or size-conditioned habit probe—not merely before the
-final gate. ADR 0008 now authorizes Phase 3 completion independently; its strict file-territory
-separation and the immutability of the recorded gate2b evidence remain binding.
+**Next Phase 2b action:** implement the already-decided and pre-registered
+`aggregate-hv-g1h1-v4` policy—do not rerun or tune v3. Start in `core/src/libbrecht.ts` with
+the validated coupled policy enum and exhaustive classifier; then update
+`solver-cpu/src/lk-solver.ts` to use opposing-vapor averaging, the aggregate nonlinear
+boundary value, signed reflecting-candidate surface exchange, and unit `G_b/H_b` fill. Preserve the
+old path only behind explicit `legacy-v3`. Update `core/src/checkpoint.ts` so v1 without a
+policy decodes as legacy and every new write is v2 with required `surfacePolicy`; construction,
+decode, encode, runner round trip, and gate must reject missing/unknown/mismatched policies.
+LK resume still does not exist and remains separate.
+
+Before any morphology run, complete the non-vacuous tests registered in the plan: all raw
+configuration slots and invalid counts; independent canonical-seed 38 `[01]` / 12 `[20]` /
+6 `[10]` topology; `[20]` routing in both sink and fill; opposing-cell averaging; nonlinear
+and planar `[01]`/`[20]` laws with a legacy `4/3` negative control; checkpoint v1/v2 mutations;
+independent demand bookkeeping through saturation; dual convergence; CFL; determinism; D6h.
+Run `npm test`, then re-run the Phase 2a enforced plate and `cmp` its checkpoint against the
+canonical bytes. Only after those pass may `node runner/src/main.ts gate2b` run the frozen v4
+pair and write `out/gate2b-v4-plate.ckpt` / `out/gate2b-v4-column.ckpt`. Record exit 0 or 1
+honestly with metrics, exact Node/V8, log hash, and checkpoint hashes. Event-limited stepping,
+SDAK, parameter changes, alternate target sizes, and exploratory temperature pairs are outside
+v4. ADR 0008 authorizes Phase 3 completion independently; its strict file-territory separation
+and the immutability of the recorded v3 evidence remain binding.
 
 Traps already known: the 19-site seed erratum (gg-machinery §5 — the paper says 20; do not
 "fix" it back). The symmetry gate runs on the **hexPrism** domain — a box cannot pass it for

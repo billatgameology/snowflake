@@ -20,10 +20,11 @@
   execution, remained unchanged by rounds
   4–6, completed according to its registered controls, and FAILED its habit gate:** both temperatures produced the same
   one-layer plate at the registered measurement size. Every non-habit criterion passed. The
-  negative result is retained; Stage 2b remains open. The `SurfaceOperator`
-  refactor's bit-identity gate is passed (byte-identical 2a checkpoints); LKSolver
-  implements the executed v3 contract, whose classifier is now explicitly legacy pending an
-  ADR-backed replacement in attachment-kinetics §4.4
+  negative result is retained; Stage 2b remains open. Decision 0009 and charter v1.7 now adopt
+  the source-constrained aggregate boundary-pixel repair, and protocol v4 is pre-registered in
+  Steps before implementation-driven morphology. The `SurfaceOperator` refactor's bit-identity
+  gate is passed (byte-identical 2a checkpoints); at this governance commit LKSolver still
+  implements the executed v3 contract, with v4 implementation and evidence explicitly pending
 - **Started:** 2026-07-14
 - **2026-07-15 session:** the D6h symmetry failure is resolved (it was the domain shape, not
   index arithmetic — see "The symmetry gate runs on a hexPrism domain" below and Tried and
@@ -34,14 +35,15 @@
   strengthened per the triage directives (hand-computed impulse weights one and two ticks out,
   face/edge/corner/attached-cell conservation, bitwise D6h impulse response, uniform fixed
   point). Gate results recorded in the Steps checklist as they land.
-- **Last touched:** 2026-07-16 — protocol v3's execution-valid negative evidence recorded after independent
-  checkpoint validation and a primary-source audit of the failed mechanism. Before that, the
+- **Last touched:** 2026-07-16 — decision 0009, charter v1.7, the forward operator spec, and
+  protocol v4 pre-registration written after protocol v3's execution-valid negative evidence
+  and primary-source audit; no v4 morphology has run. Before that, the
   round-6 remediation completed the ADR 0006 truth sweep; LK checkpoint validation is
   symmetric at encode/decode and solver construction (including derived numerical scales),
   every registered header control is verified, and saturation clipping is scoped as unapplied
   demand rather than physical uptake; the last clean committed `npm test` result is 244/244
   (see Tried and rejected).
-  Event-limited stepping is documented as a v4 candidate, not silently substituted. History of the
+  Event-limited stepping is documented as a later-policy candidate and explicitly excluded from v4. History of the
   2026-07-14 hardening, kept: synced to charter v1.2
   (review integration), then hardened same day after an adversarial review pass: the seam's bookkeeping demoted from
   "settled" to explicitly-unsettled (four written sub-decisions required first), the Dirichlet
@@ -71,8 +73,9 @@ stacked triangular lattice, running headless, in two gated stages.
 
 **2a** builds G-G's machinery with G-G's own thresholds and drives it to a certified
 sixfold-symmetric plate. **2b** replaces G-G's four-step surface exchange as one coupled
-`SurfaceOperator` under `LibbrechtKinetics` — iterated Robin relaxation plus per-face fill,
-with freezing replaced and melting disabled — so temperature becomes a model input.
+`SurfaceOperator` under `LibbrechtKinetics`—iterated aggregate boundary-pixel relaxation plus
+policy-versioned fill in forward v4, with the executed per-contact v3 path retained explicitly,
+freezing replaced, and melting disabled—so temperature becomes a model input.
 
 This is the project's spine. The charter is explicit that the oracle is never deleted (§3.1) and
 that the GPU solver is validated against it (Phase 5). Everything downstream — the Three.js
@@ -249,16 +252,17 @@ Order within 2b is deliberate; each step gates the next:
    property; Dirichlet is a source/sink by design (gg-machinery §4.i).
 4. **The seam** — continuous `v_n` → discrete lattice attachment (§4.2). What charter v1.2
    settled is the **determinism**: a fill-fraction accumulator, never stochastic rounding.
-   **The four bookkeeping sub-decisions are now SETTLED, in writing (2026-07-15), by the
-   surface-operator specification — attachment-kinetics §4.4** (the ADR 0005 D2 deliverable).
+   **The four bookkeeping sub-decisions are settled in writing by the surface-operator
+   specification—attachment-kinetics §4.4—with the forward classifier/geometry amended
+   2026-07-16 by decision 0009 after v3's source audit.**
    The answers, one line each, with the rationale living in the spec:
    1. **Where `f` lives:** a separate dimensionless Float64 field; `b` stays exclusively
       `GGThreshold`'s (§4.4 component 4). The `AttachmentRule` sketch is superseded by a
       `SurfaceOperator` interface that owns per-cell surface state (§4.4 component 6). No ADR
       was needed: charter v1.3 had already demoted "reuses the boundary-mass machinery" to
       "one candidate answer, not a decision" and delegated the call to the spec.
-   2. **Steps (ii)/(iv) under `LibbrechtKinetics`:** freezing is *replaced* by the Robin-sink
-      substitution inside the field relaxation (the only vapor uptake channel — double
+   2. **Steps (ii)/(iv) under `LibbrechtKinetics`:** freezing is *replaced* by the selected
+      surface-policy boundary update inside field relaxation (the only vapor uptake channel—double
       counting is structurally impossible); melting is *disabled* (no sublimation; `v_n`
       clamped at 0 from below). Full disposition table incl. hole-filling (kept) and noise
       (redefined per-rule): §4.4 component 5.
@@ -266,7 +270,8 @@ Order within 2b is deliberate; each step gates the next:
       2026-07-15 after audit rounds 2–4; this bullet's first answer — "ice gained = metered
       Dirichlet source − field change" — treated relaxation-sweep clamp totals as physical
       mass, but elliptic sweeps carry no physical duration, and round 4 caught the stale
-      answer still standing here)*: the computed per-face Hertz–Knudsen kinetic demand over
+      answer still standing here)*: the computed geometry-adjusted per-boundary-pixel
+      Hertz–Knudsen kinetic demand over
       a step is the integral, and `placed fill ledger + recorded saturation clipping = that
       demand`, exact in ledger arithmetic, tested non-tautologically. Saturation clipping is
       unapplied numerical excess, not deposited ice or physical uptake. Shell-clamp totals
@@ -275,15 +280,13 @@ Order within 2b is deliberate; each step gates the next:
       itself (iterate residual AND divergence identity under stated tolerances).
       Reflecting far field under `LibbrechtKinetics` is diagnostic-only (§4.4 components 3–4).
    4. **`sigma_surf` sampling and normalization:** under `LibbrechtKinetics` the field *is* σ
-      (`d ≡ sigma`; the smoother is affine-invariant so the Phase 2a kernel is reused
-      unchanged); the raw sample is the boundary-cell value of the converged field, and the
-      physics uses the self-consistent **face** value derived from it — one
-      `(alphaHK, sigma_face)` fixed point drives the Robin sink and `v_n` alike *(unified
-      after round 3; "read at the boundary cell", which this bullet previously said, was
-      exactly the round-2 sink/growth split)* — read after relaxation, before the interface
-      update; there is no "before/after step (ii)" ambiguity because step (ii) no longer
-      exists (§4.4 component 1).
-   The remaining work of the seam is now *implementation against the spec*, gated by the
+      (`d ≡ sigma`; the Phase 2a reflecting smoother is reused). Forward v4 computes
+      `sigma_opp` from opposing vapor pixels and solves one self-consistent aggregate
+      `(alphaHK,sigma_b)` fixed point; the boundary condition and `v_n` use that cached pair.
+      Signed relaxation exchange remains a separate numerical diagnostic. The executed v3 cell-value/inward-ghost pair remains available only under
+      `legacy-v3`. Read after relaxation, before the interface update; there is no
+      "before/after step (ii)" ambiguity because step (ii) no longer exists (§4.4 component 1).
+   The remaining work of the seam is *v4 implementation against the amended spec*, gated by the
    bit-identity refactor test (§4.4 component 6, test 1).
 5. **`alphaHK(T, sigma_surf)`** with the basal/prism split.
 6. **SDAK — last, and gated.** See Out of scope.
@@ -555,7 +558,8 @@ Order within 2b is deliberate; each step gates the next:
       post-refactor produced a **byte-for-byte identical checkpoint** (`cmp` clean,
       17 826 573 bytes; command as recorded in the 2a gate entry, `--out
       out/plate-gate-postrefactor.ckpt`), GATE PASSED, exit 0. All 2a suites unchanged.
-- [x] `LibbrechtKinetics`: the seam — **implemented against attachment-kinetics §4.4**
+- [x] `LibbrechtKinetics` legacy-v3 seam — **implemented against the executed 2026-07-15
+      attachment-kinetics §4.4 contract**
       (`solver-cpu/src/lk-solver.ts`; the spec's four bookkeeping sub-decisions were settled
       in writing 2026-07-15 — see Approach item 4). Quasi-static Picard relaxation on the 2a
       kernel (canonical pair summation preserved — D6h stays bitwise), Robin
@@ -572,7 +576,12 @@ Order within 2b is deliberate; each step gates the next:
       steps; the separate discrete-sink diagnostic against reconstructed kinetic demand;
       fill-CFL never exceeded; a crystal grows at
       all; bit-identical determinism; D6h delta clean + full metric exactly 0, noise off. Two spec amendments recorded in
-      §4.4 at implementation: the `(0, n_Z ≥ 1)` basal row and adaptive `Δt`.
+      §4.4 at implementation: the `(0, n_Z ≥ 1)` basal row and adaptive `Δt`. Decision 0009
+      later rejected this classifier/per-contact geometry for forward use; it remains a named
+      reproducibility path, not the v4 claim.
+- [ ] `aggregate-hv-g1h1-v4`: implement decision 0009's classifier, aggregate opposing-pixel
+      Robin condition, unit `G_b/H_b` fill, and v2 policy-bearing checkpoints; complete every
+      non-morphology test enumerated in the v4 pre-registration below before any gate run.
 - [ ] Basal/prism split. Check *(gate)*: **habit changes with temperature alone** — two
       temperatures, no other change, two different habits, per the operationalized aspect-ratio
       thresholds in Done when (plate ⟺ AR ≤ 1/1.5, column ⟺ AR ≥ 1.5, at the stated measurement
@@ -702,6 +711,78 @@ Order within 2b is deliberate; each step gates the next:
       bound the operative lateral path. Preserve both the result and this limitation. Do not
       rerun unchanged v3 or tune it into a pass; revise the seam under an ADR and pre-register
       v4 before the next gate.
+
+      **RE-REGISTRATION v4 (2026-07-16, decision 0009; committed before implementation-driven
+      morphology or any two-temperature habit probe):** v4 changes exactly the coupled surface
+      policy that the post-result source audit proved defective. All run controls, parameter
+      values, measurement rules, and nominal habit expectations remain frozen from v3 unless
+      this block explicitly says otherwise.
+
+      - **Coupled surface policy:** `aggregate-hv-g1h1-v4`, recorded in required version-2 LK
+        checkpoint headers and asserted by the gate. `[01]` is basal, `[20]` is prism, `[10]`
+        is inhibited (`alphaHK = 0`), the remaining raw nonzero configurations use the
+        explicit rough/P4 closure in attachment-kinetics §4.4, and the retained hole-fill
+        predicate stays separate. The aggregate Eq. 5.34 boundary value uses opposing-vapor
+        averaging with `G_b = 1`; fill uses `H_b = 1` once per boundary pixel. Unit values on
+        `[01]`/`[20]` are source-cited; their extension elsewhere is P4. The policy is
+        source-constrained, not source-faithful, because it omits nonlocal signed-terrace data.
+      - **Pair and sole difference:** one 96×96×96 `hexPrism` domain for both runs, explicit
+        center `[48,48,48]`, fixed-σ Dirichlet shell. Run 1: `T = −5 °C`, expect **PLATE**.
+        Run 2: `T = −15 °C`, expect **COLUMN**. Temperature is the only difference.
+      - **Common physics and numerics:** `CAK_A1`; `sigma_infinity = 0.002`; `Δx = 0.35 µm`;
+        `P = 101325 Pa`; fill-CFL 0.1; relative max iterate tolerance `relaxTol = 1e-9`;
+        divergence tolerance `divTol = 1e-7`; relaxation-sweep cap 200000; interface-step cap
+        200000; noise off; seed 1; canonical radius-2/thickness-1 seed, required to initialize
+        exactly 19 sites; f64 CPU oracle; Node `v24.13.1`, V8 `13.6.233.17-node.40`.
+      - **Measurement and enforced acceptance:** measure at the first step whose largest extent
+        is at least 60 cells. Each run must stop by that size target, not contact, stall, cap, or
+        nonconvergence; initialize 19 seed sites; keep every attachment delta D6h-clean and the
+        final full symmetry metric exactly 0; converge every relaxation; keep worst divergence
+        below `1e-6`; require positive final-sweep far-shell injection and positive signed net
+        surface exchange on every positive-demand gate step; never exceed kinetic fill 0.1;
+        keep the Péclet upper bound below `1e-2`;
+        write and strictly round-trip a v2 checkpoint carrying the actual
+        `aggregate-hv-g1h1-v4` policy. Habit thresholds are unchanged: plate iff
+        `AR <= 1/1.5`; column iff `AR >= 1.5`.
+      - **Necessary-ordering arithmetic, not a habit guarantee:** independently solving
+        `sigma_b = 0.002/(1 + alphaHK(sigma_b)·Δx/X_0)` gives at −5 °C
+        `sigma_basal = 0.001886744837`, `alphaHKBasal = 0.02447523157`,
+        `sigma_prism = 0.001448823587`, `alphaHKPrism = 0.1551161752`, hence nominal
+        prism/basal demand ratio **4.866678034**. At −15 °C it gives
+        `sigma_basal = 0.001999970435`, `alphaHKBasal = 6.143122512e-6`,
+        `sigma_prism = 0.001999999458`, `alphaHKPrism = 1.125346871e-7`, hence nominal
+        basal/prism ratio **54.58790993**. These numbers correct v3's classifier-entangled
+        3.24445/81.8819 arithmetic and do not bound rough sites or prove an AR threshold.
+      - **Uncertainty and interpretation frozen in advance:** the ±25% figure-digitization
+        caveat remains; the gate reports the nominal P2/P4 implementation, and a cold-side
+        failure is recorded rather than tuned. The −15 °C column expectation remains deliberately
+        Nakaya-inverted; agreement with nature is Phase 6, while two temperature-conditioned
+        habits are Phase 2b. No SDAK, event-limited timing, supersaturation/seed/target change,
+        or post-result parameter adjustment is permitted inside v4.
+      - **Evidence command and immutable outputs:** `node runner/src/main.ts gate2b`, with no
+        accepted flags or environment-derived protocol inputs. The runner must print and assert
+        the pinned Node/V8 engine and surface policy. Immediately before launch, all
+        implementation behavior and tests must be committed; the gate derives and prints
+        `git rev-parse HEAD`, refuses tracked worktree changes or an unidentified commit, and the
+        result record names that execution hash. Ignored evidence outputs do not make the tracked
+        tree dirty. The gate writes
+        `out/gate2b-v4-plate.ckpt` / `out/gate2b-v4-column.ckpt`; it exits 0 only if every
+        criterion above passes, otherwise 1 (flags exit 2). Record pass or fail honestly.
+
+      Tests that do not observe size-conditioned morphology may precede the evidence run:
+      exhaustive policy validation, independent 38 `[01]` / 12 `[20]` / 6 `[10]` canonical-seed
+      topology, opposing-cell enumeration, nonlinear and planar boundary laws, actual `[20]`
+      boundary/fill routing, an unequal-neighbor case with negative local numerical exchange,
+      checkpoint mutations, demand bookkeeping, dual convergence, CFL,
+      determinism, D6h, and Phase 2a byte identity. No exploratory temperature pair, habit
+      snapshot, or alternate-size growth probe may run before this registration commit.
+
+      - [x] V3 negative result and source audit recorded without rewriting its evidence.
+      - [x] Decision 0009, charter v1.7, operator spec, and this v4 protocol written before
+        implementation-driven morphology.
+      - [ ] Implement and test `aggregate-hv-g1h1-v4` plus v2 checkpoint provenance.
+      - [ ] Re-run the full suite and the enforced Phase 2a byte-identity differential.
+      - [ ] Run the flagless v4 pair and record its exit, metrics, engine, log, and checkpoints.
 - [ ] SDAK, gated. Check: thin plates / needles at the extremes. **Abandon without regret if it
       resists** — the fallback reaches every Phase 4 gate anyway.
       **Status after the v3 gate failure (2026-07-16): deliberately NOT implemented, and not a
@@ -762,7 +843,7 @@ Order within 2b is deliberate; each step gates the next:
   changes. The cleaner candidate is event-limited stepping,
   `Δt = min(cfl/max(rate), min_{rate>0}[(1-f)/rate])`, then attach and re-relax. It can change
   physical time, elliptic-solve frequency, and the size-conditioned habit, so adopting it
-  requires an amending ADR, a **committed protocol v4 before running**, and a full two-temperature
+  requires an amending ADR, a **newly numbered committed protocol after v4 before running**, and a full two-temperature
   rerun. Implementation trap: retain/snap every simultaneous minimizing cell instead of relying
   on rounded multiplication to hit `f = 1`, and handle an unattached `f = 1` cell as a zero-time
   event even when its rate is zero. Do not retrofit it into v3 or cite recorded clipping as
@@ -1054,21 +1135,20 @@ Order within 2b is deliberate; each step gates the next:
   the broad-facet robustness arithmetic omitted the 12 seed-adjacent `[20]` prism-facet sites
   that v3's classifier instead made rough with `alphaHK = 1`. The monograph explicitly assigns
   `[20]` to prism facets and suggests weak attachment at an isolated `[10]` tip (printed
-  pp. 205–206), while later `[10]` basal tokens make that tip policy an ADR question. Correcting
-  the proven `[20]` classifier error is therefore the first v4 candidate. If the ADR retains the
-  per-face formula, `[20]` has lateral factor `4/3`, so the v4 pre-registration must replace
-  v3's nominal 3.24445 / 81.8819 margins with approximately 6.4889 warm lateral/vertical and
-  40.941 cold vertical/lateral. These are broad-facet necessary-ordering checks, not habit
-  margins; rough `[30]` remains outside them. The same ADR must reconcile the monograph's
-  `[20]` `G_b = H_b = 1` with the project's `4/3` fill normalization—either justify the
-  discretization difference or amend the charter-level formula before a Phase 2b-closing run.
-  Recorded
+  pp. 205–206). Decision 0009 treats the later `[10]` basal tokens as internally contradicted
+  typos, inhibits `[10]`, maps `[20]` to prism, and rejects the classifier-only repair: the
+  per-contact formula would make the real broad prism `4/3`, while the source specifies
+  aggregate `G_b = H_b = 1`. Charter v1.7 and the v4 pre-registration therefore adopt the
+  versioned aggregate boundary-pixel policy. The corrected nominal necessary-ordering ratios
+  are 4.866678 warm prism/basal and 54.587910 cold basal/prism; they remain necessary
+  broad-facet checks, not habit margins, and rough sites remain outside them. Recorded
   approximate clipping (3.50% warm, 6.58% cold from log totals rounded to 0.001) also justifies
   a controlled event-step probe, but does not
   prove causation. Rejected responses: silently reinterpret v3; change its seed, target, or
-  `sigma_infinity`; enable SDAK to rescue it; or rerun unchanged. Any classifier change needs an amending ADR,
-  synced spec/plan, checkpoint provenance, committed v4 pre-registration, and a complete
-  two-temperature rerun. Revise the charter only if a charter-level numerical contract changes.
+  `sigma_infinity`; enable SDAK to rescue it; rerun unchanged; or quietly retain the
+  classifier-entangled per-contact geometry. The required ADR, charter sync, checkpoint
+  provenance, and committed v4 pre-registration now exist; implementation and a complete
+  two-temperature rerun remain.
 
 ## Open questions
 
@@ -1086,14 +1166,13 @@ Order within 2b is deliberate; each step gates the next:
 - ~~**The seam's bookkeeping — the four sub-decisions**~~ **Resolved 2026-07-15, in writing:
   attachment-kinetics §4.4; one-line answers in Approach item 4.** No ADR was needed — charter
   v1.3 had already delegated the decision to the spec.
-- **Mixed/concave boundary configurations — REOPENED 2026-07-16 by the post-v3 source
-  audit.** The 2026-07-15 answer—`(0,1)` basal, `(1,0)` prism, everything else rough with
-  `alphaHK = 1`—is preserved in attachment-kinetics §4.4 as the executed v3 policy, not a
-  resolved physical classification. The source unambiguously assigns `[20]` to the prism facet;
-  it suggests weak attachment at isolated `[10]` tips but later contains a conflicting `[10]`
-  basal token. The Phase 2b amending ADR (next available number 0009) must resolve the complete
-  policy and the adjacent geometry convention
-  before any v4 pre-registration.
+- ~~**Mixed/concave boundary configurations—reopened by the post-v3 audit.**~~ **Resolved for
+  v4 by decision 0009 and attachment-kinetics §4.4:** the coupled policy validates every raw
+  slot, uses `[01]` basal / `[20]` prism / `[10]` inhibited, names source-explicit rough cases,
+  and labels the remaining nearest-neighbor closure P4. Aggregate opposing-pixel geometry uses
+  cited `G_b=H_b=1` on primary facets and the source's tentative unit extension elsewhere.
+  This is not the unresolved full facet-vicinal problem: nonlocal signed-terrace classification
+  remains deliberately out of scope.
 - **Do Libbrecht's published parameters carry an assumption about his reduced (near-cylindrical)
   geometry** that breaks when transplanted onto a 3D lattice? Charter §2.7. **The most likely way
   this hybrid fails quietly.** Worth an hour of suspicion before it is worth a week of debugging.

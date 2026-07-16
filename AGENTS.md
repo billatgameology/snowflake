@@ -104,7 +104,7 @@ separate is deliberate: the G-G path is the differential control when kinetics b
 | Operator | Contract |
 |---|---|
 | `GGThreshold` / `GGSolver` | The published G-G cycle: one masked-average diffusion pass, freezing, threshold attachment, and melting. Its tick has no physical-time interpretation. Reflecting runs support the `Σ(b+d)` mass invariant. |
-| `LibbrechtKinetics` / `LKSolver` | A coupled Robin field/surface operator: quasi-static relaxation, self-consistent face kinetics, deterministic per-face fill, and a physical interface timestep. Temperature is an input to its broad-facet kinetics. |
+| `LibbrechtKinetics` / `LKSolver` | A coupled Robin field/surface operator: quasi-static relaxation, a policy-versioned self-consistent aggregate boundary value, deterministic boundary-pixel fill, and a physical interface timestep. Temperature is an input to its broad-facet kinetics. |
 
 `LibbrechtKinetics` replaces surface exchange as a coupled whole. Do not run G-G freezing or
 melting transfers alongside it: freezing is replaced by the Robin sink plus fill update, melting
@@ -114,28 +114,39 @@ dimensionless field rather than a reuse of G-G boundary mass `b`.
 ## Phase 2b numerical contract — do not regress
 
 The concise contract below is a navigation aid. The equations and rationale live in
-`docs/attachment-kinetics.md` §4.4 and ADRs 0005–0006.
+`docs/attachment-kinetics.md` §4.4 and ADRs 0005–0006 and 0009.
 
 - Fixed-σ Dirichlet physics runs converge only when **both** the iterate residual and discrete
   divergence identity pass their stated tolerances. Reflecting LK is residual-only,
   diagnostic-only, and cannot support a physical gate claim.
-- The same self-consistent face solution drives the Robin sink and Hertz–Knudsen kinetic demand.
-  Never restore cell-value growth sampling as a second, inconsistent path.
-- Fill is accumulated per attached face with the hexagonal-prism factor:
-  `[(2/3) * nT + nZ] * alphaHK * vKin * sigmaFace * dt / dx`. The fill-CFL binds the summed
-  per-cell kinetic increment; hole-fill events are outside that bound and reported separately.
+- Every forward run names the coupled `surfacePolicy`. Under `aggregate-hv-g1h1-v4`, `[01]`
+  is basal, `[20]` is prism, `[10]` is inhibited, and other valid raw configurations follow the
+  explicit P4 closure in §4.4. Do not restore v3's `[10]`-prism / `[20]`-rough mapping.
+- The same self-consistent aggregate `sigma_b` solution defines the surface boundary condition
+  and Hertz–Knudsen kinetic demand. Signed local relaxation exchange may be negative and is a
+  numerical potential diagnostic, never uptake or fill. Never restore cell-value or inward-ghost
+  growth sampling as a second, inconsistent path.
+- V4 fill is accumulated once per boundary pixel:
+  `alphaHK * vKin * sigmaB * dt / (hB * dx)`, with source-cited `G_b = H_b = 1` on `[01]`
+  and `[20]` and a labeled P4 unit extension elsewhere. The fill-CFL binds the per-cell kinetic
+  increment; hole-fill events are outside that bound and reported separately. The per-contact
+  `[(2/3) * nT + nZ]` formula belongs only to the immutable `legacy-v3` policy.
 - The exact ledger claim is **placed fill + recorded unapplied saturation excess = computed
-  per-face Hertz–Knudsen kinetic demand**. Recorded excess is not deposited ice, physical uptake,
-  or a license to hide loss. Shell-clamp totals are elliptic-solve diagnostics, not physical mass.
+  geometry-adjusted per-boundary-pixel Hertz–Knudsen kinetic demand**. Recorded excess is not
+  deposited ice, physical uptake, or a license to hide loss. Shell-clamp totals are
+  elliptic-solve diagnostics, not physical mass.
 - Noise multiplies `alphaHK` identically in sink and fill for a tick. Never perturb only one side.
-- Every LK checkpoint must carry the far-field condition and convergence controls, and encode,
-  decode, solver construction, and runner round trips must reject invalid or shifted state.
+- Every forward LK checkpoint must carry the far-field condition, convergence controls, and
+  recognized coupled surface policy; encode, decode, solver construction, and runner round trips
+  must reject invalid, missing, mismatched, or shifted state. V1 decodes only as implicit
+  `legacy-v3`; new writes are v2.
 - Physical time advances only in the interface update. Elliptic relaxation sweeps are convergence
   work, not timesteps; a large sweep count is not by itself a units bug.
 
-Any change back to uniform fill, residual-only Dirichlet convergence, silent clipping, or a bare
-vapor-loss/ice-gain equality overturns measured audit findings. It requires an ADR and a new,
-committed protocol before results are generated; it is not a cleanup refactor.
+Any change back to the legacy classifier/per-contact geometry, residual-only Dirichlet
+convergence, silent clipping, or a bare vapor-loss/ice-gain equality overturns measured audit
+findings. It requires an ADR and a new, committed protocol before results are generated; it is
+not a cleanup refactor.
 
 ## Commands and evidence semantics
 
