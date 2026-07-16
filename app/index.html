@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VCC dev visualization — GGThreshold (model units, unvalidated)</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #0c0f14;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      #scene {
+        position: fixed;
+        inset: 0;
+      }
+      /* Tweakpane's default dock; widened so §1.5 provenance labels stay readable. */
+      .tp-dfwv {
+        width: 380px;
+      }
+      #status {
+        position: fixed;
+        left: 8px;
+        bottom: 8px;
+        max-width: calc(100vw - 16px);
+        padding: 6px 10px;
+        color: #c9d4e3;
+        background: rgba(12, 15, 20, 0.8);
+        border: 1px solid #2a3342;
+        border-radius: 4px;
+        font-size: 12px;
+        line-height: 1.5;
+        white-space: pre-wrap;
+        pointer-events: none;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="scene"></div>
+    <div id="status">initializing…</div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+# Vite build output — reproducible from source via `npm run build -w app`. Keeping it out of
+# git also keeps it out of the Rule 7 scan, which covers untracked-but-not-ignored files: the
+# bundled three.js legitimately contains its own blending-flag identifiers that the repository
+# bans from first-party code.
+dist/

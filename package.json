@@ -7,13 +7,15 @@
   "workspaces": [
     "core",
     "solver-cpu",
-    "runner"
+    "runner",
+    "app"
   ],
   "scripts": {
     "lint:rule7": "node scripts/lint-rule7.mjs",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc -p app --noEmit",
     "test": "npm run lint:rule7 && npm run typecheck && vitest run",
-    "grow": "node runner/src/main.ts"
+    "grow": "node runner/src/main.ts",
+    "dev": "npm run dev --workspace app"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
