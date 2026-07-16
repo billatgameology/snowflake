@@ -1,7 +1,8 @@
 # Plan — Phase 4: morphology gauntlet, timeline semantics, and visual diagnostics
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — passing criteria frozen; WP0 integration/review CLEAN; WP1 is next
+- **Status:** in progress — passing criteria frozen; WP0 CLEAN; WP1 implementation awaiting
+  independent review
 - **Started:** 2026-07-16
 - **Last touched:** 2026-07-16 by Codex, coordinating session
 
@@ -508,7 +509,8 @@ required schedule manifest and are not advertised as resumable mid-history.
 - [x] Write/accept overlap ADR 0010 and timeline-semantics ADR 0011; update charter to v1.9 and
       PROGRESS before Phase 4 feature implementation.
 - [ ] WP1: pure metrics, schedule evaluator, gate verdict/report types, and adversarial fixtures.
-      Separate review → fix loop.
+      Implementation and coordinator audit are green at 364/364 tests plus the app build;
+      separate review → fix loop is next.
 - [ ] WP2: solver environment transitions, runner `gate4a`/`gate4b`/`gate4`, artifacts, and
       checkpoint/provenance validation. Separate review → fix loop.
 - [ ] WP3: operator-honest app snapshots, scenario/artifact inspection, Phase 4 visual harness.
@@ -596,6 +598,11 @@ required schedule manifest and are not advertised as resumable mid-history.
 - **Ramps in the first real timeline.** Deferred, not approximated. An abrupt source-cited event
   gives exact replay semantics and isolates the conserved-field decision; ramps require a time
   interpolation contract and belong in a later ADR.
+- **Trusting derived first-crossing booleans or leaving no-event timeline boundaries stateless.**
+  Rejected during the WP1 coordinator audit. The branch comparator now carries the raw target,
+  previous/crossing extents, stop reason, and matching common-configuration fingerprints. The
+  timeline cursor advances at tick 0 and every completed cycle, so skipped, reversed, shrinking,
+  or late-observed boundaries fail instead of masquerading as the first crossing.
 - **Launching a duplicate 96-cubed v4 pair.** Rejected: the pre-registered Phase 2b process is
   already running in another worktree. Phase 4 leaves it untouched and uses a separately
   registered 48-cubed diagnostic sweep.

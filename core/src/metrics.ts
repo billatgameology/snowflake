@@ -8,6 +8,7 @@ import {
   cartesian,
   cellCount,
   coordsOf,
+  hexDistance,
   idx,
   mirror,
   rot60,
@@ -140,6 +141,136 @@ export function latticeBBox(a: Uint8Array, dims: Dims): LatticeBBox | null {
   }
   if (attachedCount === 0) return null;
   return { iMin, iMax, jMin, jMax, kMin, kMax, attachedCount };
+}
+
+/**
+ * Exact occupied-cell spans used by Phase 4 size triggers. These are integer lattice spans,
+ * deliberately distinct from aspectRatio's Cartesian across-flats denominator.
+ */
+export interface LatticeExtents {
+  readonly iExtent: number;
+  readonly jExtent: number;
+  readonly zExtent: number;
+  readonly tExtent: number;
+  readonly largestExtent: number;
+  readonly attachedCount: number;
+}
+
+export function latticeExtents(a: Uint8Array, dims: Dims): LatticeExtents | null {
+  if (a.length !== cellCount(dims)) {
+    throw new Error(
+      `occupancy length ${a.length} does not match dimensions (${cellCount(dims)} cells)`,
+    );
+  }
+  const bbox = latticeBBox(a, dims);
+  if (bbox === null) return null;
+  const iExtent = bbox.iMax - bbox.iMin + 1;
+  const jExtent = bbox.jMax - bbox.jMin + 1;
+  const zExtent = bbox.kMax - bbox.kMin + 1;
+  const tExtent = Math.max(iExtent, jExtent);
+  return {
+    iExtent,
+    jExtent,
+    zExtent,
+    tExtent,
+    largestExtent: Math.max(tExtent, zExtent),
+    attachedCount: bbox.attachedCount,
+  };
+}
+
+/** Deterministic occupied-layer profile used by the capped-column criteria. */
+export interface CappedColumnProfile {
+  /** Sorted physical z-layer coordinates, not ordinal ranks. */
+  readonly occupiedLayers: readonly number[];
+  /** Max integer hex distance from center in the corresponding occupied layer. */
+  readonly layerRadii: readonly number[];
+  /** Inclusive occupied-layer rank window used for the trunk median. */
+  readonly trunkRankStart: number;
+  readonly trunkRankEnd: number;
+  readonly capWindowSize: number;
+  readonly trunkRadius: number;
+  readonly bottomCapRadius: number;
+  readonly topCapRadius: number;
+  readonly capScore: number;
+}
+
+/** Ordinary sorted median; the caller guarantees a nonempty array. */
+function sortedMedian(values: readonly number[]): number {
+  const sorted = [...values].sort((left, right) => left - right);
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 1
+    ? sorted[middle]
+    : (sorted[middle - 1] + sorted[middle]) / 2;
+}
+
+/**
+ * Phase 4 capped-column profile, exactly as frozen in the morphology-gauntlet plan.
+ *
+ * Undefined means the profile cannot carry the cap claim: fewer than five occupied layers,
+ * a gap in the occupied z sequence, an invalid center/array shape, an empty derived window,
+ * or a zero-radius trunk. A one-ended flange and a uniform shaft remain defined measurements;
+ * the gate evaluator rejects their insufficient two-cap geometry by name.
+ */
+export function cappedColumnProfile(
+  a: Uint8Array,
+  dims: Dims,
+  center: readonly [number, number, number],
+): CappedColumnProfile | undefined {
+  const dimensionValues = [dims.nx, dims.ny, dims.nz];
+  if (
+    dimensionValues.some((value) => !Number.isSafeInteger(value) || value <= 0) ||
+    a.length !== cellCount(dims) ||
+    center.length !== 3 ||
+    center.some((value) => !Number.isSafeInteger(value)) ||
+    center[0] < 0 || center[0] >= dims.nx ||
+    center[1] < 0 || center[1] >= dims.ny ||
+    center[2] < 0 || center[2] >= dims.nz
+  ) {
+    return undefined;
+  }
+
+  const radiusByLayer = new Map<number, number>();
+  for (let index = 0; index < a.length; index++) {
+    if (a[index] !== 1) continue;
+    const [i, j, k] = coordsOf(dims, index);
+    const radius = hexDistance(i - center[0], j - center[1]);
+    const previous = radiusByLayer.get(k);
+    if (previous === undefined || radius > previous) radiusByLayer.set(k, radius);
+  }
+
+  const occupiedLayers = [...radiusByLayer.keys()].sort((left, right) => left - right);
+  const m = occupiedLayers.length;
+  if (m < 5) return undefined;
+  for (let rank = 1; rank < m; rank++) {
+    if (occupiedLayers[rank] !== occupiedLayers[rank - 1] + 1) return undefined;
+  }
+
+  const layerRadii = occupiedLayers.map((k) => radiusByLayer.get(k) as number);
+  const trunkRankStart = Math.ceil(0.25 * (m - 1));
+  const trunkRankEnd = Math.floor(0.75 * (m - 1));
+  const capWindowSize = Math.ceil(0.2 * m);
+  const trunkValues = layerRadii.slice(trunkRankStart, trunkRankEnd + 1);
+  const bottomValues = layerRadii.slice(0, capWindowSize);
+  const topValues = layerRadii.slice(m - capWindowSize);
+  if (trunkValues.length === 0 || bottomValues.length === 0 || topValues.length === 0) {
+    return undefined;
+  }
+
+  const trunkRadius = sortedMedian(trunkValues);
+  if (trunkRadius === 0) return undefined;
+  const bottomCapRadius = Math.max(...bottomValues);
+  const topCapRadius = Math.max(...topValues);
+  return {
+    occupiedLayers,
+    layerRadii,
+    trunkRankStart,
+    trunkRankEnd,
+    capWindowSize,
+    trunkRadius,
+    bottomCapRadius,
+    topCapRadius,
+    capScore: Math.min(bottomCapRadius, topCapRadius) / trunkRadius,
+  };
 }
 
 /**
