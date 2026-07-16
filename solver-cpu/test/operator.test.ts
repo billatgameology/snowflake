@@ -1,8 +1,7 @@
 // SurfaceOperator conformance + the cross-rule kernel identity (round-2 maker review,
-// blockers 4 and 7). The interface is the §4.4 component-6 contract; the kernel test is the
-// REAL version of "alphaHK ≡ 0 recovers the reflecting pass": one LK sweep on an arbitrary
-// nonuniform field must match GGSolver's published diffusion pass BITWISE, cell for cell —
-// not a fixed-point tautology.
+// blockers 4 and 7). The interface is the §4.4 component-6 contract. The arbitrary-field
+// kernel identity is retained specifically for legacy-v3 reproducibility; aggregate v4 has
+// its own opposing-pixel zero-coefficient boundary-law tests.
 
 import { describe, expect, it } from "vitest";
 import { cellCount, randomUnit, GG_PRESETS, type Dims } from "@vcc/core";
@@ -14,6 +13,7 @@ describe("SurfaceOperator — both rules behind one contract (§4.4 component 6)
   it("GGSolver and LKSolver are SurfaceOperators and their ledgers state their claims", () => {
     const gg = new GGSolver({ dims, params: GG_PRESETS.plate, rngSeed: 1, domain: "hexPrism" });
     const lk = new LKSolver({
+      surfacePolicy: "aggregate-hv-g1h1-v4",
       dims,
       tempC: -5,
       sigmaInfinity: 0.01,
@@ -51,7 +51,7 @@ describe("SurfaceOperator — both rules behind one contract (§4.4 component 6)
   });
 });
 
-describe("cross-rule kernel identity (§4.4 test 2, the REAL bitwise version)", () => {
+describe("legacy-v3 cross-rule kernel identity", () => {
   it("one LK sweep with alphaHK ≡ 0 equals GGSolver's diffusion pass bitwise on an arbitrary field", () => {
     // Same hexPrism domain, same 19-site seed => identical blocked geometry. Fill both
     // fields with the same deterministic NONUNIFORM values, run exactly one pass of each
@@ -64,6 +64,7 @@ describe("cross-rule kernel identity (§4.4 test 2, the REAL bitwise version)", 
       domain: "hexPrism",
     });
     const lk = new LKSolver({
+      surfacePolicy: "legacy-v3",
       dims,
       tempC: -5,
       sigmaInfinity: 0.01,

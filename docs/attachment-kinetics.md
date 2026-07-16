@@ -71,16 +71,19 @@ inequality reverses, growth goes up the c-axis and you get a **column**. The non
 across temperature — plates at −2 °C, columns at −5 °C, plates again at −15 °C, columns below
 −30 °C — is a *crossing* of `sigma_0_basal(T)` and `sigma_0_prism(T)`.
 
-**Under this rule the habit is an output, not a knob.** That is the whole of decision 0003: G-G
-lets you *set* plate-vs-column with `β₀₁/β₂₀`; Libbrecht makes you *predict* it from T. The
-second can be wrong. That is why it is worth doing.
+**The intended test is whether habit becomes an output rather than a knob.** That is the whole
+of decision 0003: G-G lets you *set* plate-vs-column with its qualified attachment-threshold
+ratio; LibbrechtKinetics is meant to *predict* it from T. Protocol v3 did not demonstrate that:
+both registered temperatures reached the same one-layer plate at the measurement size. A
+prediction can be wrong, but Phase 2b still requires two temperature-conditioned habits.
 
-**Which facet is a given cell on?** Reuse G-G's boundary configuration `(n_T, n_Z)` — it already
-classifies this and costs nothing: `(0, n_Z ≥ 1)` is basal, `(1,0)` is a flat prism face
-([gg-machinery.md](gg-machinery.md) §3). The configuration index survives the switch; it stops
-being a *threshold lookup* and becomes a *facet-type classifier*. Mixed and concave configurations
-need a documented interpolation policy — **write it down explicitly, do not let it emerge from
-whatever the `if`-chain happens to do.**
+**Which facet is a given cell on?** Protocol v3 reused G-G's boundary configuration
+`(n_T, n_Z)` through the explicit policy in component 2. That made the choice auditable, but a
+post-result primary-source check found that the chosen mapping was not the monograph's mapping:
+v3 treated `(1,0)` as prism and `[20]` as rough, while the source identifies `[20]` as the prism
+facet and `[10]` as a weak isolated tip. The v3 table is preserved below as the executed
+contract, not endorsed as the forward classifier. Mixed and concave configurations still need
+an explicit policy — **write it down; do not let it emerge from an `if` chain.**
 
 ## 3. SDAK — last, gated, and not load-bearing
 
@@ -132,15 +135,16 @@ A surface advancing at `v_n` for time `Δt` moves forward `v_n · Δt`. A lattic
 is filled when that accumulated advance reaches `Δx`. So accumulate a **filled fraction** on each
 boundary cell and attach when it saturates:
 
-```
-f(x) += [(2/3)·n_T + n_Z] · alphaHK · v_kin · sigma_face · Δt / Δx    # per growth step
+```text
+f(x) += alphaHK · v_kin · sigma_b · Δt / (H_b · Δx)    # per growth step
 attach when f(x) ≥ 1
 ```
 
-*(Formula corrected per decision 0006 — round-5 review caught this block still carrying the
-uniform `v_n·Δt/Δx` sketch after §4.4 component 3 had established the hexagonal-prism face
-factors: a prism face fills a cell at 2/3 the basal rate, so fill is summed per attached
-face. §4.4 component 4 is the governing statement; this section is the pedagogical intro.)*
+*(Forward formula corrected by decision 0009 after the v3 source audit. The selected surface
+policy supplies the aggregate boundary value and geometry; `aggregate-hv-g1h1-v4` uses the
+cited `G_b = H_b = 1` on `[01]` and `[20]` and a labeled P4 unit extension elsewhere.
+Decision 0006's per-contact expression remains the executed `legacy-v3` formula. §4.4
+components 3–4 are governing; this section is the pedagogical intro.)*
 
 **Where `f` lives — SETTLED 2026-07-15 by §4.4 below** (the surface-operator specification that
 this paragraph used to demand; charter v1.3 explicitly delegated the decision to that spec, so
@@ -154,10 +158,10 @@ boundary condition**: the monograph derives the vapor flux balance and `v_n = al
 sigma_surf` *together* (printed p. 93 / pdf p. 94, Eqs. 3.5–3.10). Keeping G–G's `κ` freezing
 transfer running alongside a separate `v_n` accumulator can double-count vapor uptake or
 disconnect the two sides. The continuous equations are one coupled system; in the discrete
-operator the claims are deliberately separated (decision 0006): **exact bookkeeping** is
-`placed fill + saturationClippedFill = computed per-face Hertz–Knudsen kinetic demand`, where
-the clipping term is unapplied numerical excess, while actual stencil absorption versus that
-demand form is a measured first-order diagnostic, never asserted equal.
+operator the claims are deliberately separated (decisions 0006 and 0009): **exact bookkeeping** is
+`placed fill + saturationClippedFill = computed geometry-adjusted per-boundary-pixel Hertz–Knudsen kinetic demand`, where
+the clipping term is unapplied numerical excess, while numerical surface exchange versus that
+demand form is a measured discretization diagnostic, never asserted equal.
 Decision 0005 D2 required the spec to define, as one coupled whole:
 
 1. the `d` → dimensionless-σ normalization, and where `sigma_surf` is sampled (before or after
@@ -218,8 +222,9 @@ The formulation, per rule:
 Physical time enters only through the interface update, with its own bounds:
 
 - **fill-CFL:** the per-cell kinetic fill increment
-  `[(2/3)·n_T + n_Z]·alphaHK·v_kin·sigma_face·Δt/Δx` bounded below 1 *(per-face geometry,
-  decision 0006; the scalar `v_n·Δt/Δx` here predated the face factors)* — and small enough
+  `alphaHK·v_kin·sigma_b·Δt/(H_b·Δx)` under the recorded forward surface policy, bounded
+  below 1 *(aggregate boundary-pixel geometry, decision 0009; the per-contact v3 form is
+  historical)* — and small enough
   that per-step shape change is sub-cell. This, not the diffusion sweep count, is where `Δt`
   lives.
 - **Quasi-static validity check** (kept from the old text — it was the one right part): the
@@ -238,22 +243,22 @@ by the tests it names). Sources: monograph printed pp. 92–93 / pdf 93–94 (Eq
 flux balance and mixed boundary condition), monograph Table 2.1 (printed p. 57 / pdf 58),
 arXiv:1910.09067 Eqs. 1–4. Parameters: [libbrecht-parameters.md](libbrecht-parameters.md).
 
-**The operator in one paragraph** *(synced 2026-07-15, round-6 review: this summary previously
-described the superseded model — cell-value sampling, uniform fill, metered-source
-accounting — after components 1/3/4 below had been corrected; the summary is subordinate to
-the components)*. Under `LibbrechtKinetics` with fixed-σ Dirichlet, one physics growth step is:
-(1) relax the supersaturation
-field until BOTH the iterate residual and the divergence identity are under their stated
-tolerances, with the Robin condition at the crystal surface and fixed-σ Dirichlet at the far
-shell; (2) per boundary cell, solve the self-consistent `(alphaHK, sigma_face)` pair from the
-converged field — the same pair the Robin sink used; (3) classify each boundary cell's facet
-type from `(n_T, n_Z)`; (4) advance the fill state **per attached face** with the
-hexagonal-prism geometry factors, `Δf = [(2/3)·n_T + n_Z]·alphaHK·v_kin·sigma_face·Δt/Δx`,
-attach cells reaching `f ≥ 1` (simultaneously, from start-of-step state), record any
-saturation-clipped excess; (5) settle the ledger — `placed fill + recorded clipping` equals
-the computed per-face Hertz–Knudsen kinetic demand exactly; clipping is unapplied numerical
-excess and shell-clamp totals are numerical diagnostics, never physical uptake or a mass
-claim. This replaces G–G steps (i)–(iv) **as one coupled whole** under
+**The operator in one paragraph** *(forward policy synced 2026-07-16 to decision 0009; the
+per-contact protocol-v3 operator remains documented below as immutable history)*. Under
+`LibbrechtKinetics` with fixed-σ Dirichlet, one physics growth step is: (1) apply the certified
+reflecting smoother and replace each boundary-pixel value with the self-consistent aggregate
+condition `sigma_b = sigma_opp/(1 + alphaHK·G_b·Δx/X_0)`, iterating until BOTH the field
+residual and the divergence identity are under their stated tolerances, then hold the far shell
+at fixed σ; (2) classify the boundary pixel from raw `(n_T,n_Z)` under the checkpointed surface
+policy—`[01]` basal, `[20]` prism, `[10]` inhibited in
+`aggregate-hv-g1h1-v4`; (3) use the same converged `(alphaHK,sigma_b)` pair to advance the
+pixel's fill by `alphaHK·v_kin·sigma_b·Δt/(H_b·Δx)`, with the source's `G_b = H_b = 1` on
+both primary facets and a labeled P4 unit extension elsewhere; (4) attach cells reaching
+`f ≥ 1` simultaneously from start-of-step state and record any saturation-clipped excess;
+(5) settle the ledger—`placed fill + recorded clipping` equals the computed
+geometry-adjusted per-boundary-pixel Hertz–Knudsen demand exactly. Clipping is unapplied
+numerical excess and shell-clamp totals are numerical diagnostics, never physical uptake or a
+mass claim. This replaces G–G steps (i)–(iv) **as one coupled whole** under
 `LibbrechtKinetics`; under `GGThreshold` the four published steps run exactly as in Phase 2a,
 bit-identical, behind the same interface. Reflecting LK is a residual-only diagnostic and omits
 the divergence identity from step (1).
@@ -278,13 +283,14 @@ Consequences, each deliberate:
   (`docs/libbrecht-parameters.md`, “Known source inconsistency”). The registered −5/−15 °C
   runs remain in the positive, source-tabulated regime; no code or evidence reader may claim
   it enforced `sigma_water(T)` until a cited interpolation/domain decision is added.
-- **Sampling point (unified 2026-07-15, round-3 review — this bullet previously said "the
-  boundary-cell value" while component 3 defined the face value, a live contradiction):**
-  the raw sample is the converged field at the boundary cell; **`sigma_surf` as used by the
-  physics is the self-consistent FACE value derived from that sample** (component 3's fixed
-  point), identical in the Robin substitution and in `v_n`. Read after relaxation, before
-  the interface update. There is no "before or after step (ii)" ambiguity because no step
-  (ii) exists under this rule (component 5).
+- **Sampling point (forward policy, decision 0009):** `sigma_surf` is the aggregate boundary
+  value `sigma_b` solved self-consistently from the mean of opposing vapor pixels
+  (`sigma_opp`, component 3). The same cached `(alphaHK,sigma_b)` pair defines the boundary
+  condition and `v_n`; signed relaxation exchange remains a separate diagnostic. The
+  legacy-v3 inward ghost called `sigma_face` is not reused or
+  silently renamed. Read after relaxation, before the interface update. There is no "before
+  or after step (ii)" ambiguity because no G–G freezing step exists under this rule
+  (component 5).
 - **Reflecting far field is diagnostic-only under this rule.** A quasi-static solve with
   reflecting outer walls and an absorbing crystal has only the fully-depleted steady state
   (`sigma → 0` everywhere): no physical growth claim can be made from it. It remains available
@@ -296,21 +302,80 @@ Consequences, each deliberate:
 Nucleation-limited kinetics (`alphaHK = A·exp(−sigma_0/sigma_surf)`) applies to **perfect
 facets**; step and kink sites incorporate admolecules essentially barrier-free (the paper's
 molecularly-rough limit, `alphaHK ≈ 1`, arXiv:1910.09067 pp. 3–4). The boundary configuration
-already distinguishes these — the classifier is a policy table, not an `if`-chain accident:
+was mapped as follows in protocol v3 — the classifier was a policy table, not an `if`-chain
+accident:
 
-| `(n_T, n_Z)` | Reading | `alphaHK` |
+| `(n_T, n_Z)` | v3 reading | v3 `alphaHK` |
 |---|---|---|
 | `(0, n_Z ≥ 1)` | flat basal face — *(amended at implementation, 2026-07-15: originally `(0,1)` only, which left `(0,2)` — a cell between two perfect basal faces, still nucleation-limited — with no row)* | `alphaHKBasal(T, sigma_surf)` |
-| `(1,0)` | flat prism face | `alphaHKPrism(T, sigma_surf)` |
-| all others (`n_T ≥ 2`, or `n_T ≥ 1` and `n_Z ≥ 1`) | step/kink/concave site | `1` (rough) |
+| `(1,0)` | flat prism face *(v3 interpretation; rejected for forward use below)* | `alphaHKPrism(T, sigma_surf)` |
+| all others (`n_T ≥ 2`, or `n_T ≥ 1` and `n_Z ≥ 1`) | step/kink/concave site *(v3 interpretation; rejected for `[20]` below)* | `1` (rough) |
 | raw `n_T ≥ 4` and `n_Z ≥ 1` | interior void | attach immediately (kept, see component 5) |
 
-The third row is the **mixed-configuration interpolation policy** the plan's Open questions
-demanded: sites with more than one attached neighbor sit at terrace steps or concave corners,
-where no 2D nucleation barrier exists — the physical reading of G–G's own monotonicity
-assumption (§7 of gg-machinery: more concave catches more readily). SDAK (facet-width
-dependence) is deliberately absent here; when it lands (last, gated), it modifies rows 1–2 via
-a local facet-width query and touches nothing else.
+**Post-v3 source-audit finding (2026-07-16): this table is rejected for forward use, but remains
+the exact v3 contract.** In monograph arXiv:1910.06389v2's `[HV]` notation, `H` is the in-plane
+attached count and `V` the vertical count (Figure 5.26). It identifies `[01]` as basal (printed
+p. 205) and `[20]` as prism; it then suggests `alphaHK = 0` for isolated `[10]` tips and
+`alphaHK = 1` for `[30]`, `[40]`, `[21]`, etc. kink-dominated sites (printed p. 206).
+The later `G_b`/`H_b` prose prints “`[10]` (basal facet)” (printed pp. 208–209), but that token
+conflicts with Figure 5.26, the explicit `[01]`/`[20]` classification, the isolated-tip paragraph,
+and the source's later return to “`[01]` and `[20]` facet surfaces” (printed p. 209). Decision
+0009 explicitly treats those two tokens as `[01]` typos; this paragraph records the audit path.
+
+The same source also sets the facet geometry factors `G_b = 1` for `[20]` in the Eq. 5.34
+boundary condition and `H_b = 1` for `[20]` in the Eq. 5.36 fill update (printed pp. 208–209).
+V3's per-attached-face formula instead gives `[20]` aggregate fill factor
+`(2/3)·2 = 4/3`; its Robin stencil likewise represents the two contacts separately. The source
+uses a different boundary-pixel/normal discretization, so the source observation alone did not
+authorize a silent formula swap. Decision 0009 resolved the conflict at the governing level:
+forward v4 adopts the aggregate `G_b=H_b=1` boundary-pixel rule and amends the charter, while
+the classifier-only/per-contact alternative is rejected for Phase 2b-closing use.
+
+The mismatch is load-bearing. An ad hoc canonical-seed audit (probe not retained) counted 38
+`[01]`, 12 `[20]`, and 6 `[10]` boundary cells. V3 therefore assigned
+temperature-independent `alphaHK = 1` to all 12 straight prism-facet cells from step zero, while
+`alphaHKPrism` controlled only the six `[10]` sites. Among final unattached boundary cells in the
+−15 °C checkpoint, maximum partial fill by those classes was 1.079e-4 (`[01]`), 0.0716
+(`[20]`), and 5.90e-11 (`[10]`);
+the maximum at `[30]` was 0.645. This diagnostic supports rough-path domination, while the
+gate result itself establishes only identical final attached morphology for the pinned v3 run.
+
+**Forward policy adopted 2026-07-16 by decision 0009.** `aggregate-hv-g1h1-v4` validates raw
+integer `n_T in [0,6]`, `n_Z in [0,2]`, rejects non-boundary `[00]`, and applies this exhaustive
+nearest-neighbor closure:
+
+| Configuration | Kinetic class | Provenance |
+|---|---|---|
+| `[01]` | basal | source-explicit broad-facet family |
+| `[02]` | basal | P4 extension of the basal family |
+| `[10]` | inhibited (`alphaHK = 0`) | source-suggested isolated-tip simplification |
+| `[20]` | prism | source-explicit broad-facet family |
+| `[21]`, `[30]`, `[40]` | rough (`alphaHK = 1`) | source-explicit kink-dominated examples |
+| every other valid nonzero `[HV]` | rough (`alphaHK = 1`) | P4 nearest-neighbor closure |
+
+The hole-fill predicate `n_T >= 4 && n_Z >= 1` remains a separate geometric attachment mode.
+It does not alter the kinetic class or enter the fill-CFL. This policy is source-constrained,
+not source-faithful: raw counts do not implement the source's nonlocal signed-terrace
+classification.
+
+Checkpoint provenance covers the coupled policy, not only this table. Version-1 LK headers
+must omit the field and decode as implicit `legacy-v3`; version 2 requires recognized
+`surfacePolicy`, and every new solver/write/gate uses version 2. LK resume does not exist today.
+The v4 pre-registration is committed before every two-temperature morphology probe.
+
+Decision 0009 also resolves the adjacent geometry conflict by replacing the forward
+per-contact rule with the source's aggregate `G_b = H_b = 1` primary-facet convention
+(component 3). At `sigma_opp = 0.002`, the independently recomputed necessary broad-facet
+demand ratios are 4.866678 prism/basal at −5 °C and 54.587910 basal/prism at −15 °C. These
+are necessary coefficient-ordering checks, not habit margins; rough sites remain outside them.
+
+The original third row was the v3 **mixed-configuration interpolation policy**: it assumed that
+every site with more than one attached neighbor sat at a terrace step or concave corner where no
+2D nucleation barrier exists. The source audit disproved that assumption for `[20]`. A fuller
+facet-vicinal model would use the monograph's signed terrace distances to distinguish upper
+terraces from nearby kink sites, but that larger nonlocal model is not automatically required
+for the nearest-neighbor v4 policy. SDAK remains deliberately absent and must not be enabled as
+a post-result rescue knob.
 
 ### Component 3 — vapor flux and ice gain, coupled (the Robin condition)
 
@@ -319,19 +384,52 @@ Continuous statement (monograph Eqs. 3.7–3.10): diffusive resupply equals kine
 the kinetic length (Table 2.1: `X_0 ≈ 0.145 µm` in air at −15 °C, 1 atm). Growth then follows
 `v_n = alphaHK · v_kin · sigma_surf` — the same equation system, never two mechanisms.
 
-Discrete scheme: during relaxation, a boundary cell's stencil term pointing at an attached
-face is replaced not by the cell's own value (G–G reflecting) but by a **partial reflection**:
+**Forward discrete scheme (`aggregate-hv-g1h1-v4`, decision 0009).** For each attached-neighbor
+direction `d` of boundary pixel `x`, the cell at `x-d` is nominated as an opposing pixel.
+Eq. 5.35's mask retains unique active unattached vapor pixels; `sigma_opp` is their arithmetic
+mean, or zero when the mask is empty. A primary `[01]` or `[20]` pixel has exactly `H+V`
+opposing vapor pixels, as the source states. The partial/empty-mask rule is a P4 closure for
+concave lattice configurations.
+
+The boundary value is the residual-verified nonlinear solution
+
+```text
+sigma_b = sigma_opp / (1 + alphaHK(sigma_b) · G_b · Δx/X_0)
+```
+
+with `G_b = 1` for `[01]` and `[20]` from monograph Eq. 5.34 and `G_b = 1` elsewhere under
+the monograph's explicitly tentative simple geometry (printed p. 209), provenance P4. One
+relaxation sweep applies the certified Phase 2a reflecting smoother, replaces boundary pixels
+by this aggregate value, then clamps the Dirichlet shell. The replacement delta at one pixel may
+have either sign: low tangential neighbors can make the reflecting candidate smaller than
+`sigma_b`. Because σ is a potential, that signed local delta is relaxation redistribution, not
+physical uptake, and is never clamped or deposited. The globally summed
+`surfaceExchangeDiagnostic` is the net numerical boundary exchange; the convergence identity
+compares that signed total with the far-shell injection, and the gate requires both totals
+positive on its positive-demand runs. The nonnegative physical kinetic demand remains the
+separate `alphaHK·v_kin·sigma_b/(H_b·Δx)` ledger quantity; no equality with the relaxation
+diagnostic is promised. An unequal-neighbor negative control pins this distinction. The last
+accepted sweep caches the identical `(alphaHK,sigma_b)` pair for the interface update.
+
+At `alphaHK = 0`, the aggregate condition becomes `sigma_b = sigma_opp`: no kinetic sink or
+growth. It does not claim that one transient v4 sweep on a nonuniform field is bitwise identical
+to GG's reflecting pass. The permanent `GGThreshold` control remains bit-identical; the v4
+limit is tested directly against the aggregate equation and a uniform zero-sink fixed point.
+
+**Executed legacy-v3 discrete scheme (history, not forward use).** During v3 relaxation, a
+boundary cell's stencil term pointing at an attached face was replaced not by the cell's own
+value (G–G reflecting) but by a partial reflection:
 
 ```
 sigma_face = sigma(x) · (1 − s_eff),   s_eff = s / (1 + s),   s = alphaHK(x) · Δx / X_0
 ```
 
-Limits anchor it: `alphaHK → 0` recovers G–G's reflecting substitution exactly (a non-growing
+Legacy limits anchored it: `alphaHK → 0` recovers G–G's reflecting substitution exactly (a non-growing
 facet is a wall); `alphaHK·Δx/X_0 → ∞` gives a perfect absorber (`sigma_face → 0`, fully
 diffusion-limited). `s_eff = s/(1+s)` keeps the substitution stable for any `s > 0` (`Δx` is
 expected to be of order `X_0` or larger, so `s > 1` is the normal regime, not an edge case).
 
-**CORRECTED 2026-07-15 (round-2 review blocker 3, re-corrected round-3 blocker 1): one
+**Legacy-v3 audit correction, 2026-07-15 (round-2 review blocker 3, re-corrected round-3 blocker 1): one
 `sigma_face` feeds both sides, growth is PER FACE with the hexagonal-prism geometry factors,
 and the flux claims are scoped to what is actually exact.**
 
@@ -374,16 +472,25 @@ and the flux claims are scoped to what is actually exact.**
   converged only when the residual AND the divergence identity are under their stated
   tolerances).
 
-**No separate freezing transfer exists** — the Robin substitution is the *only* field-side
-vapor sink, which is what makes double-counting structurally impossible (ADR 0005's disease).
+Decision 0009 preserves this block because it specifies and diagnoses the executed negative
+result. It rejected the block for forward use after the source audit showed two coupled faults:
+`[10]` was not the broad prism configuration, and per-contact `[20]` gives a `4/3` fill factor
+plus a planar fixed point different from Eq. 5.34. Forward tests and ledger language use
+`sigma_b`, aggregate `G_b/H_b`, and per-boundary-pixel demand instead.
+
+**No separate freezing transfer exists** — the selected surface-policy boundary condition is the
+only surface exchange path, which makes a second uptake mechanism structurally impossible
+(ADR 0005's disease).
 The converged field determines Hertz–Knudsen kinetic demand; only the part placed into `f`
 advances ice, while saturation excess remains recorded and unapplied (component 4). The
 **solve-consistency test** is the divergence identity of the converged Dirichlet solve: the final sweep's shell-clamp
-injection must equal that same sweep's **actual discrete Robin absorption** (the split stencil's
-recorded loss) to a stated relative tolerance. Comparing that absorption with the reconstructed
-per-face `alphaHK·sigma_face` kinetic demand is the separate measured diagnostic above; it is
-not the divergence identity. A Dirichlet solve that fails the identity is not converged, whatever its
-residual norm says. Reflecting diagnostic mode has no shell source and makes no identity claim.
+injection must equal that same sweep's **signed net numerical surface-boundary exchange** to a
+stated relative tolerance. Local replacement deltas may have either sign and are not uptake.
+Comparing
+that numerical exchange with reconstructed kinetic demand is a separate discretization diagnostic; it
+is not the divergence identity. A Dirichlet solve that fails the identity is not converged,
+whatever its residual norm says. Reflecting diagnostic mode has no shell source and makes no
+identity claim.
 
 ### Component 4 — the fill state `f`
 
@@ -394,12 +501,12 @@ residual norm says. Reflecting diagnostic mode has no shell source and makes no 
   of the `alpha` conflation this repo bans (Rule 7's spirit: G–G's α vs Libbrecht's α).
 - `b` stays exclusively `GGThreshold`'s, so the control-group rule remains bit-identical
   behind the shared interface — the 2b plan gate demands exactly that.
-- The checkpoint format gains `f` as a per-field entry for `LibbrechtKinetics` runs through a
-  separate rule-tagged LK header and field table (`a`, `f`, `sigma`), introduced as version 1
-  before any accepted LK checkpoint. Convergence controls were added before the first accepted
-  result, so no version bump was needed. The header records the actual far-field condition;
-  reflecting LK checkpoints are valid diagnostic data but cannot support a physics or habit-gate
-  claim, whose acceptance requires fixed-σ Dirichlet.
+- The checkpoint format carries `f` as a per-field entry for `LibbrechtKinetics` runs through a
+  separate rule-tagged LK header and field table (`a`, `f`, `sigma`). Version 1 is the executed
+  implicit `legacy-v3` policy. Decision 0009 advances forward writes to version 2, which requires
+  the coupled `surfacePolicy`; v1 remains decodable only without that field. The header records
+  the actual far-field condition; reflecting LK checkpoints are valid diagnostic data but cannot
+  support a physics or habit-gate claim, whose acceptance requires fixed-σ Dirichlet.
 
 Charter note: v1.3 explicitly delegated this decision to this spec ("v1.2's 'reuses the
 boundary-mass machinery' was one candidate answer, not a decision") — choosing the separate
@@ -407,10 +514,14 @@ field therefore contradicts nothing and needs no ADR. The quasi-liquid layer lan
 charter §2.2 is honored where the physics actually lives in this rule: premelting effects are
 folded into the *measured* `sigma_0(T)`/`A(T)` (§5), not into a simulated mass pool.
 
-Update rule, per growth step, simultaneous across the boundary (start-of-step `(n_T, n_Z)` and
-field): `Δf = min([(2/3)·n_T + n_Z]·alphaHK·v_kin·sigma_face·Δt/Δx, 1 − f)` *(round-4 sync:
-this line previously kept the pre-face-geometry `v_n·Δt/Δx`)* — truncated at saturation so the
-ledger never overdraws; the truncated excess is **recorded** in `saturationClippedFill`
+Forward update rule, per growth step, simultaneous across the boundary (start-of-step
+`(n_T,n_Z)` and field):
+`Δf = min(alphaHK·v_kin·sigma_b·Δt/(H_b·Δx), 1 − f)`, with `H_b = 1` under
+`aggregate-hv-g1h1-v4` (source-explicit on `[01]`/`[20]`, P4 elsewhere). The executed
+legacy-v3 rule was
+`min([(2/3)·n_T+n_Z]·alphaHK·v_kin·sigma_face·Δt/Δx, 1−f)` and is retained only for decoding
+and reproducing its named policy. The active rule is truncated at saturation so the ledger
+never overdraws; the truncated excess is **recorded** in `saturationClippedFill`
 (round-3 blocker 2), so the kinetic-demand bookkeeping identity below stays exact. The kinetic rate is clamped at 0
 from below (no sublimation — gg-machinery §2's permanence rule
 survives; a negative `sigma_surf` grows nothing rather than un-growing something). On attach:
@@ -424,9 +535,10 @@ physical duration** — the charter is explicit that physical time enters only t
 interface update — so integrating clamp operations over sweeps measures numerics, not vapor.
 The corrected claims, each measurable:
 
-- **The bookkeeping identity, exactly stated (re-corrected round-3, blocker 2; terminology
-  narrowed round 6):** computed kinetic demand over a step is the per-face Hertz–Knudsen integral
-  `Σ [(2/3)·n_T + n_Z]·alphaHK·v_kin·sigma_face·Δt/Δx`, and the bookkeeping identity is
+- **The bookkeeping identity, exactly stated (re-corrected round-3, blocker 2; forward geometry
+  amended by decision 0009):** computed kinetic demand over a v4 step is the
+  geometry-adjusted per-boundary-pixel Hertz–Knudsen integral
+  `Σ alphaHK·v_kin·sigma_b·Δt/(H_b·Δx)`, and the bookkeeping identity is
   **`placed fill ledger + saturation-clipped fill = that demand`, exact** — when a cell
   saturates (`f` hits 1 mid-increment) the excess demand is *recorded* in
   `saturationClippedFill`, never silently dropped (the round-3 audit measured a 35% silent
@@ -436,8 +548,8 @@ The corrected claims, each measurable:
   fill-CFL and reported in the ledger; ice-cell units convert by
   `M_ice(T) = c_ice/c_sat(T)` (≈ 6.7×10⁵ at −15 °C).
   There is no second uptake channel. The **non-tautological test** recomputes the integral
-  outside the solver — from the converged public field, public neighbor counts, core's
-  `alphaHK`, and the face factors — across many steps *including saturating ones*, and
+  outside the solver—from the converged public field, public neighbor topology, core's
+  `alphaHK`, and the recorded aggregate geometry—across many steps *including saturating ones*, and
   asserts it equals ledger-delta + clipped-delta.
   **Numerical limitation, stated rather than repaired silently:** v1 chooses
   `Δt = cfl/max(rate)`. If a cell reaches `f = 1` before that interval ends, its remaining
@@ -447,15 +559,22 @@ The corrected claims, each measurable:
   `Δt = min(cfl/max(rate), min_{rate>0}[(1-f)/rate])`, followed by attachment and a fresh
   field relaxation before more physical time advances. That changes event timing,
   relaxation frequency, and potentially size-conditioned habit, so it is **not** silently
-  substituted into registered protocol v3; adopting it requires an amending ADR, a committed
-  protocol v4 before its first run, and a full two-temperature rerun. Implementation must
+  substituted into registered protocol v4; adopting it requires a later amending ADR, a
+  committed new protocol before its first run, and a full two-temperature rerun. Implementation must
   retain and snap all minimizing/tied event cells (rather than trust rounded
   `rate·[(1-f)/rate] ≥ 1-f`) and process an unattached `f = 1` cell as a zero-time topology
   event, including when its rate is zero.
+  **Observed v3 magnitude (2026-07-16):** from log totals rounded to 0.001, the completed warm
+  run recorded approximately 118.059 clipped units out of 3256.413 placed + 118.059 clipped
+  (3.50%); the cold run recorded 151.133 out of 2145.874 + 151.133 (6.58%). Those nonzero fractions justify a controlled event-limited
+  differential, but they do not identify clipping as the cause of the habit failure. Do not
+  bundle this change with the classifier/geometry correction merely to force a pass.
 - **Solve self-consistency = the divergence identity** (component 3): at convergence,
-  per-sweep shell clamp equals per-sweep Robin absorption (the interior kernel conserves), to
+  per-sweep shell clamp equals the signed net numerical surface-boundary exchange (the
+  reflecting interior kernel conserves), to
   a tolerance that scales with the relaxation tolerance. This is the quasi-static statement
-  that the far field resupplies what the surface absorbs. Per-sweep clamp totals are
+  that the global numerical boundary updates balance. Local signed exchange is not uptake;
+  per-sweep clamp totals are
   reported **as numerical diagnostics only** and must never be integrated into a mass claim.
 - **Hole-filling deficit is reported, never netted away**: cells attached by the geometric
   hygiene rule carry fill the vapor never supplied; the deficit is a first-class ledger line.
@@ -470,11 +589,11 @@ residual-only diagnostic with no physics claim.
 | Mechanism | Disposition | Reason |
 |---|---|---|
 | step (i) single diffusion pass | **replaced** — same kernel, iterated to the DUAL criterion for fixed-σ Dirichlet (residual tolerance AND divergence identity); reflecting LK is residual-only diagnostic (ADR 0005 D3 as amended by 0006) | the field is elliptic under this rule; one pass is a G–G-fidelity choice, not physics |
-| step (ii) freezing (`κ`) | **replaced** by the Robin substitution (component 3) | a second uptake channel double-counts vapor |
+| step (ii) freezing (`κ`) | **replaced** by the selected surface-policy boundary update (component 3) | a second uptake channel double-counts vapor |
 | step (iii) threshold attachment | **replaced** by the fill rule (component 4) | this is the seam itself |
 | step (iv) melting (`μ`) | **disabled** | sublimation is not modeled (gg-machinery §2); `μ`'s smoothing role was phenomenological — if a smoothing dial is ever needed it enters as a labeled, documented dial, not as an inherited default |
 | hole-filling (raw `n_T ≥ 4`, `n_Z ≥ 1`) | **kept** | geometric hygiene against discretization voids, now also physically consistent (max-coordination kink sites have no barrier). Answering the plan's open question: it survives, so interior voids remain interpretable as physics, not artifacts |
-| noise (gg-machinery §6) | **redefined for this rule** | §6's diffusion-slowdown perturbs a *mass* pass, which no longer exists. Under this rule noise is a per-cell multiplicative slowdown of the **attachment coefficient**, `alphaHK → (1 − ξ)·alphaHK`, `ξ ∈ {0, ε}` from the counter PRNG (own stream id), per growth step — applied identically in the relaxation's Robin sink and in the interface update for the same tick *(round-3 correction, synced here round-4: the earlier `v_n → (1 − ξ)·v_n` phrasing noised growth but not the sink, silently splitting the coupling)*. Default off; labeled dial; provenance class P4. The gate stays noise-off |
+| noise (gg-machinery §6) | **redefined for this rule** | §6's diffusion-slowdown perturbs a *mass* pass, which no longer exists. Under this rule noise is a per-cell multiplicative slowdown of the **attachment coefficient**, `alphaHK → (1 − ξ)·alphaHK`, `ξ ∈ {0, ε}` from the counter PRNG (own stream id), per growth step — applied identically in the relaxation boundary condition and in the interface update for the same tick *(round-3 correction, synced here round-4: the earlier `v_n → (1 − ξ)·v_n` phrasing noised growth but not the boundary condition, silently splitting the coupling)*. Default off; labeled dial; provenance class P4. The gate stays noise-off |
 | drift `φ` | **unsupported — structurally unsettable** (corrected 2026-07-15: "error if set" was vacuous since no option exists; the solver has no `phi` input and the CLI rejects unknown flags — pinned by a test) | all §8 presets have `φ = 0`; a drift term inside a quasi-static solve is a different physical statement that nobody has specified |
 
 ### Component 6 — the interface, and the tests that hold it together
@@ -489,7 +608,8 @@ interface SurfaceOperator {
       DIAGNOSTIC (never a physical mass number). */
   relaxField(): RelaxationReport;
   /** The surface exchange: freezing/attachment/melting under GGThreshold (bit-identical to
-      Phase 2a); classification, per-face fill update, attachment under LibbrechtKinetics.
+      Phase 2a); policy-versioned classification, aggregate boundary-pixel fill, and
+      attachment under forward LibbrechtKinetics.
       Owns per-cell surface state (f). Attachment is simultaneous from start-of-step state.
       NEVER runs on an unconverged field — ENFORCED, not advisory (round-3 review: the
       public method itself throws without a converged relaxField for this step; step()
@@ -516,24 +636,31 @@ habit claim:
 
 1. **Bit-identity:** `GGThreshold` behind `SurfaceOperator` reproduces every Phase 2a gate
    bit-identically (pinned engine). This is the refactor gate — no physics lands before it.
-2. **Robin limits:** with `alphaHK ≡ 0` everywhere, one relaxation sweep on an **arbitrary
-   nonuniform field** equals `GGThreshold`'s published diffusion pass **bitwise, cell for
-   cell** (corrected 2026-07-15, round-2 review: the first committed test only checked a
-   uniform fixed point, which a deleted smoother would also pass — vacuous); with
-   `alphaHK ≡ 1` and `Δx/X_0 → large`, boundary cells relax far below the far field.
-3. **Divergence identity** on converged fixed-σ Dirichlet solves, tolerance stated in the test;
+2. **Boundary-law limits:** under `aggregate-hv-g1h1-v4`, independently enumerate opposing
+   pixels (including unequal `[20]` values), verify the nonlinear Eq. 5.34 residual, and show
+   planar `[01]` and `[20]` recover the same `G_b=H_b=1` normal law. With `alphaHK ≡ 0`,
+   `sigma_b = sigma_opp`, kinetic demand and growth are zero (signed numerical exchange may
+   still be nonzero during relaxation), and a uniform field is a fixed point;
+   with `alphaHK ≡ 1` and `Δx/X_0 → large`, boundary values relax far below the far field.
+   A negative control must fail the legacy `[20]=4/3` fill rule. The v3 arbitrary-field
+   one-pass bit-identity test remains only a `legacy-v3` regression; Phase 2a byte identity is
+   still mandatory.
+3. **Divergence identity** on converged fixed-σ Dirichlet solves: far-shell injection equals
+   signed net numerical boundary exchange, tolerance stated in the test. Unequal-neighbor
+   negative control proves a local negative replacement is not called uptake or allowed to hide
+   a failing global identity. Gate runs require positive global source and exchange totals;
    reflecting LK mode is diagnostic-only and makes no divergence claim.
 4. **Ledger identity** exact in ledger arithmetic — `placed fill + recorded saturation
-   clipping = computed per-face Hertz–Knudsen kinetic demand`, recomputed outside the solver
+   clipping = computed geometry-adjusted per-boundary-pixel Hertz–Knudsen kinetic demand`, recomputed outside the solver
    across steps including saturating ones; clipping is unapplied numerical excess and
    shell-clamp totals are numerical diagnostics only *(round-5
    sync: this line previously still promised the rejected "metered-source accounting" —
    component 4 above is the governing statement)*.
 5. **Fill-CFL:** max **kinetic** `Δf ≤` the stated bound (default 0.1) on every growth step.
    *(Amended at implementation, 2026-07-15: `Δt` is ADAPTIVE — `Δt = cfl / max(rate)` per
-   step, where a cell's fill rate is `[(2/3)·n_T + n_Z]·alphaHK·v_kin·sigma_face/Δx` (the
-   per-face sum; round-4 sync — this line previously said `cfl·Δx/max(v_n)`, predating the
-   face factors); a deterministic function of the state, so slow-kinetics regimes advance in
+   step, where a v4 cell's fill rate is
+   `alphaHK·v_kin·sigma_b/(H_b·Δx)` under its recorded surface policy; a deterministic
+   function of the state, so slow-kinetics regimes advance in
    wall-clock-feasible step counts while the bound holds exactly by construction. Corrected
    same day, round-2 review blocker 6: hole-filling jumps `f → 1` are geometric events
    OUTSIDE the CFL claim and must never be absorbed into — or censored out of — the kinetic
@@ -541,10 +668,14 @@ habit claim:
 6. **Quasi-static validity (Péclet):** `v_n·L/D ≪ 1` evaluated with extracted numbers per run
    regime; where it fails, the run is labeled invalid-as-physics. Worked arithmetic in the
    Phase 2 plan (Stage 2b steps).
-7. **Discrete-sink diagnostic:** actual last-sweep Robin absorption divided by independently
-   reconstructed per-face kinetic demand, pinned at 0.98922–1.01290 for the stated dev configuration.
-   This is a first-order-consistency diagnostic, not a ledger identity or a claim that the ratio
-   is exactly 1.
+7. **Discrete-surface diagnostic:** independently reconstruct the reflecting candidate and the
+   applied aggregate boundary value, and require their signed difference to equal the reported
+   last-sweep `surfaceExchangeDiagnostic`. Separately report net numerical exchange versus
+   geometry-adjusted kinetic demand as a discretization diagnostic, never a ledger identity or
+   a promised ratio of 1.
+   The v4 dev-grid exchange/demand diagnostic is pinned at 0.3858030057 in
+   `solver-cpu/test/lk-solver.test.ts`; it is deliberately not an identity. The legacy-v3
+   sink band 0.98922–1.01290 remains pinned only under `legacy-v3`.
 
 ## 5. What this rule does *not* model
 

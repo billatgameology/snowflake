@@ -157,17 +157,57 @@ export function pecletUpperBound(
 
 // ── The attachment coefficient ──────────────────────────────────────────────────────────────
 
-export type FacetClass = "basal" | "prism" | "rough";
+/**
+ * The coupled LK surface policy is checkpointed as one value because classification, Robin
+ * geometry, and fill geometry must never be mixed across versions (ADR 0009).
+ */
+export type LKSurfacePolicy = "legacy-v3" | "aggregate-hv-g1h1-v4";
+
+/** Runtime guard for parsed CLI/checkpoint values, where TypeScript's union is not binding. */
+export function isLKSurfacePolicy(value: unknown): value is LKSurfacePolicy {
+  return value === "legacy-v3" || value === "aggregate-hv-g1h1-v4";
+}
+
+export type FacetClass = "basal" | "prism" | "inhibited" | "rough";
 
 /**
- * Facet classification from raw attached-neighbor counts (attachment-kinetics §4.4
- * component 2, amended during implementation: nT = 0 with ANY vertical contact is the basal
- * family — a (0,2) cell sits between two perfect basal faces and remains nucleation-limited;
- * the original table had no row for it).
+ * Classify one raw [HV] boundary configuration under an explicit coupled surface policy.
+ * Counts are deliberately uncapped: the hole-fill rule needs the complete nT in [0, 6] and nZ
+ * in [0, 2]. [00] is not a boundary configuration and reaching this function with it is a
+ * topology error, never a rough-site fallback.
+ *
+ * `legacy-v3` preserves the executed protocol-v3 classifier. `aggregate-hv-g1h1-v4` is ADR
+ * 0009's source-constrained nearest-neighbor table: [01]/[02] basal, [10] inhibited, [20]
+ * prism, and every other valid boundary configuration rough. Hole filling remains a separate
+ * attachment mode in the solver and does not alter the kinetic class returned here.
  */
-export function classifyFacet(rawNT: number, rawNZ: number): FacetClass {
-  if (rawNT === 0 && rawNZ >= 1) return "basal";
-  if (rawNT === 1 && rawNZ === 0) return "prism";
+export function classifyFacet(
+  rawNT: number,
+  rawNZ: number,
+  policy: LKSurfacePolicy,
+): FacetClass {
+  if (!isLKSurfacePolicy(policy)) {
+    throw new Error(`unknown LK surface policy: ${String(policy)}`);
+  }
+  if (!Number.isInteger(rawNT) || rawNT < 0 || rawNT > 6) {
+    throw new Error(`raw nT must be an integer in [0, 6], got ${String(rawNT)}`);
+  }
+  if (!Number.isInteger(rawNZ) || rawNZ < 0 || rawNZ > 2) {
+    throw new Error(`raw nZ must be an integer in [0, 2], got ${String(rawNZ)}`);
+  }
+  if (rawNT === 0 && rawNZ === 0) {
+    throw new Error("[00] is not a boundary configuration");
+  }
+
+  if (policy === "legacy-v3") {
+    if (rawNT === 0) return "basal";
+    if (rawNT === 1 && rawNZ === 0) return "prism";
+    return "rough";
+  }
+
+  if (rawNT === 0) return "basal";
+  if (rawNT === 1 && rawNZ === 0) return "inhibited";
+  if (rawNT === 2 && rawNZ === 0) return "prism";
   return "rough";
 }
 
@@ -178,6 +218,7 @@ export function alphaHK(
   sigmaSurf: number,
   set: NucleationParamSet,
 ): number {
+  if (facet === "inhibited") return 0;
   if (sigmaSurf <= 0) return 0; // no growth from sub/zero saturation (no sublimation modeled)
   if (facet === "rough") return 1;
   if (facet === "basal") {

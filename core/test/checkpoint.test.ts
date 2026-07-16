@@ -284,6 +284,7 @@ function syntheticLKState(): LKRunState {
     relaxTol: 1e-9,
     divTol: 1e-7,
     relaxMaxSweeps: 200_000,
+    surfacePolicy: "aggregate-hv-g1h1-v4",
     farField: "dirichlet",
     a,
     f,
@@ -315,7 +316,8 @@ describe("LK checkpoint round-trip and evidence-strict decode (round-5 review)",
     const state = syntheticLKState();
     const bytes = encodeLKCheckpoint(state);
     const decoded = decodeLKCheckpoint(bytes);
-    expect(decoded.header.version).toBe(1);
+    expect(decoded.header.version).toBe(2);
+    expect(decoded.header.surfacePolicy).toBe("aggregate-hv-g1h1-v4");
     expect(decoded.header.rule).toBe("LibbrechtKinetics");
     expect(decoded.header.endianness).toBe("LE");
     expect(decoded.header.dims).toEqual(state.dims);
@@ -342,6 +344,7 @@ describe("LK checkpoint round-trip and evidence-strict decode (round-5 review)",
       { name: "sigma", dtype: "f64", length: cellCount(state.dims) },
     ]);
     expect(decoded.state.simTimeSeconds).toBe(1.25);
+    expect(decoded.state.surfacePolicy).toBe("aggregate-hv-g1h1-v4");
     expect(decoded.state.farField).toBe("dirichlet");
     expect(Array.from(decoded.state.a)).toEqual(Array.from(state.a));
     expect(Array.from(decoded.state.f)).toEqual(Array.from(state.f));
@@ -352,7 +355,9 @@ describe("LK checkpoint round-trip and evidence-strict decode (round-5 review)",
     const bytes = encodeLKCheckpoint(syntheticLKState());
     const n = cellCount(syntheticLKState().dims);
     const cases: Array<[string, (h: Record<string, unknown>) => void, RegExp]> = [
-      ["version 2", (h) => (h.version = 2), /version/],
+      ["unsupported version", (h) => (h.version = 3), /version/],
+      ["missing surface policy", (h) => delete h.surfacePolicy, /surfacePolicy/],
+      ["unknown surface policy", (h) => (h.surfacePolicy = "bogus"), /surfacePolicy/],
       ["missing relaxTol", (h) => delete h.relaxTol, /relaxTol/],
       ["missing divTol", (h) => delete h.divTol, /divTol/],
       ["missing relaxMaxSweeps", (h) => delete h.relaxMaxSweeps, /relaxMaxSweeps/],
@@ -398,6 +403,29 @@ describe("LK checkpoint round-trip and evidence-strict decode (round-5 review)",
     }
   });
 
+  it("decodes v1 only as implicit legacy-v3 and rejects a policy-bearing v1 header", () => {
+    const bytes = encodeLKCheckpoint(syntheticLKState());
+    const v1 = mutateLKHeader(bytes, (header) => {
+      header.version = 1;
+      delete header.surfacePolicy;
+    });
+    const decoded = decodeLKCheckpoint(v1);
+    expect(decoded.header.version).toBe(1);
+    expect("surfacePolicy" in decoded.header).toBe(false);
+    expect(decoded.state.surfacePolicy).toBe("legacy-v3");
+    const migrated = encodeLKCheckpoint(decoded.state);
+    const migratedDecoded = decodeLKCheckpoint(migrated);
+    expect(migrated).not.toEqual(v1);
+    expect(migratedDecoded.header.version).toBe(2);
+    expect(migratedDecoded.header.surfacePolicy).toBe("legacy-v3");
+    expect(migratedDecoded.state.surfacePolicy).toBe("legacy-v3");
+
+    const invalidV1 = mutateLKHeader(v1, (header) => {
+      header.surfacePolicy = "legacy-v3";
+    });
+    expect(() => decodeLKCheckpoint(invalidV1)).toThrow(/version 1.*surfacePolicy/);
+  });
+
   it("rejects a truncated payload", () => {
     const bytes = encodeLKCheckpoint(syntheticLKState());
     expect(() => decodeLKCheckpoint(bytes.subarray(0, bytes.length - 8))).toThrow(/payload/);
@@ -420,6 +448,11 @@ describe("LK checkpoint round-trip and evidence-strict decode (round-5 review)",
     expect(() => encodeLKCheckpoint({ ...state, pressurePa: Number.MIN_VALUE })).toThrow(
       /derived X_0/,
     );
+    expect(() =>
+      encodeLKCheckpoint({ ...state, surfacePolicy: "bogus" } as unknown as LKRunState),
+    ).toThrow(/surfacePolicy/);
+    const { surfacePolicy: _omittedPolicy, ...missingPolicy } = state;
+    expect(() => encodeLKCheckpoint(missingPolicy as LKRunState)).toThrow(/surfacePolicy/);
     const reflecting = decodeLKCheckpoint(
       encodeLKCheckpoint({ ...state, farField: "reflecting" }),
     );

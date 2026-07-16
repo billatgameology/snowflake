@@ -7,6 +7,8 @@ import {
   alphaHK,
   cSat,
   classifyFacet,
+  type FacetClass,
+  isLKSurfacePolicy,
   kineticLength,
   mIce,
   nucleationAPrism,
@@ -109,17 +111,80 @@ describe("digitized sigma_0 / A anchors (monograph Fig. 4.5; P2, ±25%)", () => 
   });
 });
 
-describe("alphaHK and facet classification (attachment-kinetics §4.4 component 2)", () => {
-  it("classifies per the policy table", () => {
-    expect(classifyFacet(0, 1)).toBe("basal");
-    expect(classifyFacet(0, 2)).toBe("basal"); // between two basal faces — spec amendment
-    expect(classifyFacet(1, 0)).toBe("prism");
-    expect(classifyFacet(2, 0)).toBe("rough");
-    expect(classifyFacet(1, 1)).toBe("rough");
-    expect(classifyFacet(3, 1)).toBe("rough");
+describe("alphaHK and versioned surface classification (ADR 0009)", () => {
+  it("recognizes exactly the two coupled LK surface policies", () => {
+    expect(isLKSurfacePolicy("legacy-v3")).toBe(true);
+    expect(isLKSurfacePolicy("aggregate-hv-g1h1-v4")).toBe(true);
+    for (const value of [undefined, null, "", "v4", 1, {}]) {
+      expect(isLKSurfacePolicy(value), String(value)).toBe(false);
+    }
   });
 
-  it("rough sites are barrier-free; facets are exponentially suppressed at low sigma", () => {
+  it("classifies all 21 raw count slots under aggregate-hv-g1h1-v4", () => {
+    const expected: ReadonlyArray<ReadonlyArray<FacetClass | null>> = [
+      [null, "basal", "basal"],
+      ["inhibited", "rough", "rough"],
+      ["prism", "rough", "rough"],
+      ["rough", "rough", "rough"],
+      ["rough", "rough", "rough"],
+      ["rough", "rough", "rough"],
+      ["rough", "rough", "rough"],
+    ];
+
+    for (let rawNT = 0; rawNT <= 6; rawNT++) {
+      for (let rawNZ = 0; rawNZ <= 2; rawNZ++) {
+        const label = `[${rawNT}${rawNZ}]`;
+        const wanted = expected[rawNT]?.[rawNZ];
+        if (wanted === null) {
+          expect(
+            () => classifyFacet(rawNT, rawNZ, "aggregate-hv-g1h1-v4"),
+            label,
+          ).toThrow(/not a boundary/);
+        } else {
+          expect(
+            classifyFacet(rawNT, rawNZ, "aggregate-hv-g1h1-v4"),
+            label,
+          ).toBe(wanted);
+        }
+      }
+    }
+  });
+
+  it("preserves the executed legacy-v3 cases behind its explicit policy", () => {
+    expect(classifyFacet(0, 1, "legacy-v3")).toBe("basal");
+    expect(classifyFacet(0, 2, "legacy-v3")).toBe("basal");
+    expect(classifyFacet(1, 0, "legacy-v3")).toBe("prism");
+    expect(classifyFacet(2, 0, "legacy-v3")).toBe("rough");
+    expect(classifyFacet(1, 1, "legacy-v3")).toBe("rough");
+    expect(classifyFacet(3, 1, "legacy-v3")).toBe("rough");
+    expect(() => classifyFacet(0, 0, "legacy-v3")).toThrow(/not a boundary/);
+  });
+
+  it("rejects invalid raw counts and unknown runtime policies", () => {
+    for (const [rawNT, rawNZ] of [
+      [-1, 0],
+      [7, 0],
+      [1.5, 0],
+      [Number.NaN, 1],
+      [1, -1],
+      [1, 3],
+      [1, 0.5],
+      [1, Number.POSITIVE_INFINITY],
+    ]) {
+      expect(
+        () => classifyFacet(rawNT, rawNZ, "aggregate-hv-g1h1-v4"),
+        `[${String(rawNT)}${String(rawNZ)}]`,
+      ).toThrow(/raw n[tz]/i);
+    }
+    expect(() => classifyFacet(1, 0, "unknown" as "legacy-v3")).toThrow(
+      /unknown LK surface policy/,
+    );
+  });
+
+  it("inhibited sites stay zero; rough sites are barrier-free; facets are suppressed", () => {
+    expect(alphaHK("inhibited", -15, 0.001, "CAK_A1")).toBe(0);
+    expect(alphaHK("inhibited", -5, 0.01, "CAK")).toBe(0);
+    expect(alphaHK("inhibited", -15, 0, "CAK_A1")).toBe(0);
     expect(alphaHK("rough", -15, 0.001, "CAK_A1")).toBe(1);
     // relative comparison: the log/exp interpolation round-trip costs a few ulp on sigma_0,
     // amplified by the 1/sigma_surf inside the exponent
@@ -128,8 +193,10 @@ describe("alphaHK and facet classification (attachment-kinetics §4.4 component 
     expect(alphaHK("prism", -15, -0.01, "CAK_A1")).toBe(0);
   });
 
-  it("the habit inequality inverts with temperature alone (the 2b gate's mechanism, A1 set)", () => {
-    // At any sigma_surf: -5 C has prism faster (plate); -15 C has basal faster (column).
+  it("the broad-facet coefficient ordering inverts with temperature (necessary, not sufficient for habit)", () => {
+    // At any positive sigma_surf: -5 C has prism faster and -15 C has basal faster. This checks only
+    // the named broad-facet coefficients; protocol v3 showed that it is not a habit test when
+    // the lattice classifier routes primary [20] prism sites through the rough-site path.
     for (const s of [0.002, 0.005, 0.01]) {
       expect(alphaHK("prism", -5, s, "CAK_A1")).toBeGreaterThan(alphaHK("basal", -5, s, "CAK_A1"));
       expect(alphaHK("basal", -15, s, "CAK_A1")).toBeGreaterThan(alphaHK("prism", -15, s, "CAK_A1"));

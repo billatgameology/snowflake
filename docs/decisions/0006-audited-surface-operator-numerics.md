@@ -3,6 +3,10 @@
 - **Date:** 2026-07-15
 - **Status:** accepted (maker audit rounds 2–6, 2026-07-15). **Amends 0005** (D2 item 3 and
   interface name, D3, and D4's convergence-control freeze); does not supersede it.
+  **Amended for forward LK policies by 0009** (2026-07-16): Decision items 2–3's per-contact
+  geometry and per-face demand terminology are retained as the executed `legacy-v3` contract;
+  `aggregate-hv-g1h1-v4` uses the source-constrained aggregate boundary-pixel rule. The dual
+  convergence, auditability, and noise decisions remain in force.
 - **Charter impact:** §2.4 ("How quasi-static is enforced") and §3.2 Phase 2b (units bullet,
   the Dirichlet gate text strengthened from the uniform-start "long crystal-free run holds
   σ" check to the depleted-start differential, and the seam bullet), plus Phase 6's
