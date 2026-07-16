@@ -96,7 +96,7 @@ describe("runner --enforce-gate", () => {
     expect(output).toContain("no growth");
   });
 
-  it.each([["-0.00001"], ["NaN"], ["-1"]])(
+  it.each([["-0.00001"], ["NaN"], ["-1"], ["1.00001"], ["2"]])(
     "rejects invalid --noise %s at parse time (any run, not only gate runs)",
     (eps) => {
       // Maker's round-5 catch: negative and NaN epsilons ran as silent noise-off while
@@ -106,9 +106,32 @@ describe("runner --enforce-gate", () => {
         "--ticks", "10", "--noise", eps,
       );
       expect(status).toBe(1);
-      expect(output).toContain("--noise wants a finite epsilon >= 0");
+      expect(output).toContain("--noise wants a finite epsilon in [0, 1]");
     },
   );
+
+  it.each([["NaN"], ["-1"], ["1.5"], ["4294967296"]])(
+    "rejects invalid --seed %s before a run can emit dishonest metadata",
+    (seed) => {
+      const { status, output } = runGrow(
+        "--preset", "plate", "--dims", "24,24,12", "--ticks", "10", "--seed", seed,
+      );
+      expect(status).toBe(1);
+      expect(output).toContain("--seed wants a safe integer in 0..4294967295");
+    },
+  );
+
+  it.each([
+    ["--symmetry-every", "NaN"],
+    ["--metrics-every", "1.5"],
+    ["--stop-check-every", "0"],
+  ])("rejects invalid cadence %s %s instead of silently disabling a check", (flag, cadence) => {
+    const { status, output } = runGrow(
+      "--preset", "plate", "--dims", "24,24,12", "--ticks", "10", flag, cadence,
+    );
+    expect(status).toBe(1);
+    expect(output).toContain(`${flag} wants a safe integer`);
+  });
 
   it.each([["1"], ["3"], ["none"]])(
     "FAILS (exit 1) on a non-canonical seed (--seed-radius %s) — gg-machinery §5 mandates radius 2",

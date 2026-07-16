@@ -43,6 +43,7 @@ import {
   DOMAIN_CONTACT_FRACTION,
   STREAM_NOISE_XI,
   totalMass,
+  validateParams,
   type Dims,
   type DomainShape,
   type FarFieldCondition,
@@ -79,6 +80,78 @@ export interface GGSolverOptions {
 
 /** §7 stopping rule: halt when far-field vapor falls below (2/3) * rho. */
 export const FAR_FIELD_STOP_FRACTION = 2 / 3;
+
+const UINT32_MAX = 0xffff_ffff;
+
+function validateOptions(options: GGSolverOptions): readonly [number, number, number] {
+  if (options === null || typeof options !== "object") {
+    throw new Error("GGSolver options must be an object");
+  }
+  if (options.dims === null || typeof options.dims !== "object") {
+    throw new Error("dims must be an object");
+  }
+  for (const name of ["nx", "ny", "nz"] as const) {
+    const value = options.dims[name];
+    if (!Number.isSafeInteger(value) || value <= 0) {
+      throw new Error(`dims.${name} must be a positive safe integer, got ${value}`);
+    }
+  }
+  const n = options.dims.nx * options.dims.ny * options.dims.nz;
+  if (!Number.isSafeInteger(n)) throw new Error(`cell count must be a safe integer, got ${n}`);
+
+  if (options.params === null || typeof options.params !== "object") {
+    throw new Error("params must be an object");
+  }
+  for (const name of ["kappa", "mu", "ggThreshBeta"] as const) {
+    if (!(options.params[name] instanceof Float64Array)) {
+      throw new Error(`params.${name} must be a Float64Array`);
+    }
+  }
+  const paramValidation = validateParams(options.params);
+  if (paramValidation.errors.length > 0) {
+    throw new Error(`invalid GG parameters: ${paramValidation.errors.join("; ")}`);
+  }
+
+  if (!Number.isSafeInteger(options.rngSeed) || options.rngSeed < 0 || options.rngSeed > UINT32_MAX) {
+    throw new Error(`rngSeed must be a uint32, got ${options.rngSeed}`);
+  }
+  const noiseEpsilon = options.noiseEpsilon ?? 0;
+  if (!(Number.isFinite(noiseEpsilon) && noiseEpsilon >= 0 && noiseEpsilon <= 1)) {
+    throw new Error(`noiseEpsilon must be finite and in [0, 1], got ${noiseEpsilon}`);
+  }
+  if (options.domain !== undefined && options.domain !== "box" && options.domain !== "hexPrism") {
+    throw new Error(`domain must be box or hexPrism, got ${String(options.domain)}`);
+  }
+  if (
+    options.farField !== undefined &&
+    options.farField !== "reflecting" &&
+    options.farField !== "dirichlet"
+  ) {
+    throw new Error(`farField must be reflecting or dirichlet, got ${String(options.farField)}`);
+  }
+
+  const center = options.center ?? domainCenter(options.dims);
+  if (!Array.isArray(center) || center.length !== 3) {
+    throw new Error("center must contain exactly three coordinates");
+  }
+  for (let axis = 0; axis < 3; axis++) {
+    const value = center[axis];
+    const bound = axis === 0 ? options.dims.nx : axis === 1 ? options.dims.ny : options.dims.nz;
+    if (!Number.isSafeInteger(value) || value < 0 || value >= bound) {
+      throw new Error(`center[${axis}] must be an in-domain integer, got ${value}`);
+    }
+  }
+
+  const seedRadius = options.seedRadius === undefined ? 2 : options.seedRadius;
+  if (seedRadius !== null && (!Number.isSafeInteger(seedRadius) || seedRadius < 0)) {
+    throw new Error(`seed radius must be a non-negative integer or null, got ${seedRadius}`);
+  }
+  const seedThickness = options.seedThickness ?? 1;
+  if (!Number.isSafeInteger(seedThickness) || seedThickness < 1 || seedThickness % 2 === 0) {
+    throw new Error(`seed thickness must be odd and >= 1, got ${seedThickness}`);
+  }
+  return center;
+}
 
 export class GGSolver implements SurfaceOperator {
   readonly dims: Dims;
@@ -132,13 +205,14 @@ export class GGSolver implements SurfaceOperator {
   lastAttached: readonly number[] = [];
 
   constructor(options: GGSolverOptions) {
+    const center = validateOptions(options);
     this.dims = options.dims;
     this.params = options.params;
     this.rngSeed = options.rngSeed;
     this.noiseEpsilon = options.noiseEpsilon ?? 0;
     this.domain = options.domain ?? "box";
     this.farField = options.farField ?? "reflecting";
-    this.center = options.center ?? domainCenter(this.dims);
+    this.center = center;
 
     const { nx, ny, nz } = this.dims;
     const n = cellCount(this.dims);

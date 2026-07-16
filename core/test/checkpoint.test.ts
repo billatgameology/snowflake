@@ -25,7 +25,7 @@ function syntheticState(): SolverState {
   for (let i = 0; i < n; i++) {
     a[i] = hashCounter(1, i, 0, 10) & 1;
     b[i] = hashCounter(1, i, 0, 11) / 2 ** 32;
-    d[i] = hashCounter(1, i, 0, 12) / 2 ** 32;
+    d[i] = a[i] === 1 ? 0 : hashCounter(1, i, 0, 12) / 2 ** 32;
   }
   return {
     dims,
@@ -33,13 +33,31 @@ function syntheticState(): SolverState {
     rngSeed: 42,
     noiseEpsilon: 1e-5,
     farField: "reflecting",
-    domain: "hexPrism",
+    domain: "box",
     params: GG_PRESETS.hollowColumn,
     a,
     b,
     d,
     center: domainCenter(dims),
   };
+}
+
+function mutateGGHeader(
+  bytes: Uint8Array,
+  mutate: (header: Record<string, unknown>) => void,
+): Uint8Array {
+  const headerLength = new DataView(bytes.buffer, bytes.byteOffset).getUint32(8, true);
+  const header = JSON.parse(
+    new TextDecoder().decode(bytes.subarray(12, 12 + headerLength)),
+  ) as Record<string, unknown>;
+  mutate(header);
+  const newHeader = new TextEncoder().encode(JSON.stringify(header));
+  const out = new Uint8Array(12 + newHeader.length + (bytes.length - 12 - headerLength));
+  out.set(bytes.subarray(0, 8), 0);
+  new DataView(out.buffer).setUint32(8, newHeader.length, true);
+  out.set(newHeader, 12);
+  out.set(bytes.subarray(12 + headerLength), 12 + newHeader.length);
+  return out;
 }
 
 describe("checkpoint round-trip (synthetic state; re-verified on a grown crystal by runner)", () => {
@@ -65,7 +83,7 @@ describe("checkpoint round-trip (synthetic state; re-verified on a grown crystal
     expect(decoded.header.rngSeed).toBe(42);
     expect(decoded.header.noiseEpsilon).toBe(1e-5);
     expect(decoded.header.farField).toBe("reflecting");
-    expect(decoded.header.domain).toBe("hexPrism");
+    expect(decoded.header.domain).toBe("box");
     expect(decoded.header.fields.map((f) => f.dtype)).toEqual(["u8", "f64", "f64"]);
     expect(decoded.header.metrics?.totalMass).toBe(metrics.totalMass);
 
@@ -88,6 +106,88 @@ describe("checkpoint round-trip (synthetic state; re-verified on a grown crystal
     const bytes = encodeCheckpoint(syntheticState(), null);
     bytes[0] = 88;
     expect(() => decodeCheckpoint(bytes)).toThrow(/magic/);
+  });
+
+  it("rejects malformed header controls and the shifted-field descriptor probe", () => {
+    const bytes = encodeCheckpoint(syntheticState(), null);
+    const n = cellCount(syntheticState().dims);
+    const cases: Array<[string, (header: Record<string, unknown>) => void, RegExp]> = [
+      ["version 2", (header) => (header.version = 2), /version/],
+      ["fractional seed", (header) => (header.rngSeed = 1.5), /rngSeed/],
+      ["noise above one", (header) => (header.noiseEpsilon = 1.1), /noiseEpsilon/],
+      ["invalid far field", (header) => (header.farField = "bogus"), /farField/],
+      ["invalid domain", (header) => (header.domain = "bogus"), /domain/],
+      ["out-of-domain center", (header) => (header.center = [99, 2, 1]), /center/],
+      [
+        "short parameter vector",
+        (header) => {
+          ((header.params as Record<string, unknown>).kappa as unknown[]).pop();
+        },
+        /params\.kappa.*length 8/,
+      ],
+      [
+        "short b descriptor (the silently shifted state probe)",
+        (header) => {
+          (header.fields as Array<{ length: number }>)[1].length = n - 1;
+        },
+        /field table|payload/,
+      ],
+    ];
+    for (const [label, mutate, pattern] of cases) {
+      expect(() => decodeCheckpoint(mutateGGHeader(bytes, mutate)), label).toThrow(pattern);
+    }
+  });
+
+  it("rejects truncated and extended payloads", () => {
+    const bytes = encodeCheckpoint(syntheticState(), null);
+    expect(() => decodeCheckpoint(bytes.subarray(0, bytes.length - 8))).toThrow(/payload/);
+    const extended = new Uint8Array(bytes.length + 1);
+    extended.set(bytes);
+    expect(() => decodeCheckpoint(extended)).toThrow(/payload/);
+  });
+
+  it("rejects malformed runtime arrays before the writer can shift payloads", () => {
+    const state = syntheticState();
+    const n = cellCount(state.dims);
+    expect(() => encodeCheckpoint({ ...state, a: new Uint8Array(n - 1) }, null)).toThrow(
+      /a.*length/,
+    );
+    expect(() => encodeCheckpoint({ ...state, b: new Float64Array(n - 1) }, null)).toThrow(
+      /b.*length/,
+    );
+    expect(() => encodeCheckpoint({ ...state, d: new Float64Array(n - 1) }, null)).toThrow(
+      /d.*length/,
+    );
+    expect(() => encodeCheckpoint({ ...state, rngSeed: Number.NaN }, null)).toThrow(/rngSeed/);
+    expect(() => encodeCheckpoint({ ...state, noiseEpsilon: 1.1 }, null)).toThrow(
+      /noiseEpsilon/,
+    );
+  });
+
+  it("rejects impossible field semantics and metrics inconsistent with the payload", () => {
+    const state = syntheticState();
+    const negative = Float64Array.from(state.d);
+    negative[0] = -0.01;
+    expect(() => encodeCheckpoint({ ...state, d: negative }, null)).toThrow(/nonnegative/);
+
+    const attached = state.a.findIndex((value) => value === 1);
+    const vaporOnIce = Float64Array.from(state.d);
+    vaporOnIce[attached] = 0.01;
+    expect(() => encodeCheckpoint({ ...state, d: vaporOnIce }, null)).toThrow(/attached cell/);
+
+    const metrics = computeMetrics(
+      state.a,
+      state.b,
+      state.d,
+      state.dims,
+      state.center,
+      state.tick,
+    );
+    const bytes = encodeCheckpoint(state, metrics);
+    const inconsistent = mutateGGHeader(bytes, (header) => {
+      (header.metrics as Record<string, unknown>).totalMass = metrics.totalMass + 1;
+    });
+    expect(() => decodeCheckpoint(inconsistent)).toThrow(/totalMass does not match/);
   });
 });
 

@@ -1,7 +1,7 @@
 # Plan — Phase 2a evidence and input hardening
 
 - **Phase:** Phase 2a — CPU reference solver machinery
-- **Status:** in progress
+- **Status:** complete
 - **Started:** 2026-07-15
 - **Last touched:** 2026-07-15 by Codex
 
@@ -47,19 +47,33 @@ parameter configurations by normalized slot, not by caller spelling.
 
 ## Steps
 
-- [ ] Make `paramVector` require every normalized `(n_T,n_Z)` slot exactly once; add an alias
+- [x] Make `paramVector` require every normalized `(n_T,n_Z)` slot exactly once; add an alias
       collision regression.
-- [ ] Validate `GGSolver` dimensions, center, seed, enums, parameters, uint32 seed, and
+- [x] Validate `GGSolver` dimensions, center, seed, enums, parameters, uint32 seed, and
       `noiseEpsilon ∈ [0,1]`; mirror the seed/noise checks in the CLI.
-- [ ] Add a shared GG checkpoint runtime schema to encode/decode; require the exact v1 field table,
+- [x] Add a shared GG checkpoint runtime schema to encode/decode; require the exact v1 field table,
       exact payload size, valid metadata, and valid field semantics.
-- [ ] Compare every GG v1 header control, serialized metric, parameter, and field bit in the
+- [x] Compare every GG v1 header control, serialized metric, parameter, and field bit in the
       runner's round-trip check.
-- [ ] Add adversarial tests for short/shifted arrays, malformed headers/payloads, `--seed NaN`,
+- [x] Add adversarial tests for short/shifted arrays, malformed headers/payloads, `--seed NaN`,
       oversized noise, and logical parameter-key aliases.
-- [ ] Run `npm test`, the exact canonical Phase 2a gate, and `cmp`/SHA-256 against
+- [x] Run `npm test`, the exact canonical Phase 2a gate, and `cmp`/SHA-256 against
       `out/plate-gate.ckpt`.
-- [ ] Update `docs/PROGRESS.md` and this plan with exact results and any rejected approaches.
+- [x] Update `docs/PROGRESS.md` and this plan with exact results and any rejected approaches.
+
+## Results
+
+- `npm test`: 138/138 passed (14 files), including Rule 7 and TypeScript.
+- Exact enforced command:
+  `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1
+  --out /tmp/phase2a-hardening.ckpt --enforce-gate`.
+- Gate result: exit 0 at far-field stop tick 4800; 26,783 attached; per-tick symmetry delta
+  clean; maximum full symmetry error 0; aspect ratio 0.168831; mass drift 2.056e-13; no domain
+  contact; runner checkpoint round trip byte-identical.
+- Artifact result: `cmp` exit 0 against `out/plate-gate.ckpt`; both SHA-256 values are
+  `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`.
+- Therefore the four boundary/evidence defects are closed without changing the accepted valid
+  dynamics or v1 checkpoint bytes.
 
 ## Out of scope
 
@@ -70,7 +84,15 @@ parameter configurations by normalized slot, not by caller spelling.
 
 ## Tried and rejected
 
-- None yet.
+- Keeping the runner's hand-written comparison of selected fields was rejected: it had already
+  omitted the seed and most header controls. Re-encoding the strict decoded state and comparing
+  the entire file is simpler and covers every serialized byte.
+- Serializing non-finite crystal-free morphology through JSON was rejected because JSON silently
+  rewrites those values to null. Crystal-free checkpoints explicitly record `metrics: null` while
+  preserving their controls and fields.
+- Retaining physically invalid inert parameter sets in diffusion tests was rejected once the
+  public solver boundary began enforcing the published parameter constraints. Those tests now
+  call `relaxField()` directly, which is the operation they intend to isolate.
 
 ## Open questions
 

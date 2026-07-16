@@ -42,7 +42,7 @@ export const PARAM_CONFIGS: ReadonlyArray<readonly [number, number]> = [
  */
 export function paramVector(values: Record<string, number>): Float64Array {
   const v = new Float64Array(8).fill(Number.NaN);
-  const seen = new Set<string>();
+  const seenSlots = new Set<number>();
   for (const [key, value] of Object.entries(values)) {
     const parts = key.split(",");
     if (parts.length !== 2) throw new Error(`bad configuration key: ${key}`);
@@ -51,11 +51,15 @@ export function paramVector(values: Record<string, number>): Float64Array {
     if (!Number.isInteger(nT) || !Number.isInteger(nZ) || nT < 0 || nT > 3 || nZ < 0 || nZ > 1 || (nT === 0 && nZ === 0)) {
       throw new Error(`bad configuration key: ${key}`);
     }
-    v[paramSlot(nT, nZ)] = value;
-    seen.add(key);
+    const slot = paramSlot(nT, nZ);
+    if (seenSlots.has(slot)) {
+      throw new Error(`duplicate configuration slot (${nT},${nZ}) via key: ${key}`);
+    }
+    v[slot] = value;
+    seenSlots.add(slot);
   }
-  if (seen.size !== 7) {
-    throw new Error(`expected all 7 configurations, got ${seen.size}`);
+  if (seenSlots.size !== PARAM_CONFIGS.length) {
+    throw new Error(`expected all 7 configurations, got ${seenSlots.size}`);
   }
   return v;
 }
@@ -166,14 +170,16 @@ export function validateParams(p: GGParams): ParamValidation {
   const errors: string[] = [];
   const warnings: string[] = [];
 
-  if (!(p.rho > 0)) errors.push(`rho must be > 0, got ${p.rho}`);
-  if (!(p.phi >= 0 && p.phi < 1)) errors.push(`phi must be in [0, 1), got ${p.phi}`);
+  if (!(Number.isFinite(p.rho) && p.rho > 0)) errors.push(`rho must be finite and > 0, got ${p.rho}`);
+  if (!(Number.isFinite(p.phi) && p.phi >= 0 && p.phi < 1)) {
+    errors.push(`phi must be finite and in [0, 1), got ${p.phi}`);
+  }
   for (const name of VECTOR_NAMES) {
     const v = p[name];
     if (v.length !== 8) errors.push(`${name} must have length 8, got ${v.length}`);
     for (const [nT, nZ] of PARAM_CONFIGS) {
       const value = v[paramSlot(nT, nZ)];
-      if (Number.isNaN(value)) {
+      if (!Number.isFinite(value)) {
         errors.push(`${name}(${nT},${nZ}) is unset`);
       } else if (name === "ggThreshBeta" ? !(value > 0) : !(value >= 0 && value <= 1)) {
         errors.push(`${name}(${nT},${nZ}) out of range: ${value}`);

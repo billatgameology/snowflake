@@ -11,11 +11,9 @@
 //   4. the impulse response is D6h-symmetric, bitwise — with and without a crystal in the
 //      field (the canonical pair summation, solver header decision 2).
 //
-// To exercise diffusion in isolation on a solver WITH attached cells, tests use "inert"
-// parameters: kappa = 1 (freezing moves nothing), mu = 0 (melting moves nothing),
-// ggThreshBeta huge (threshold attachment never fires; the hole-filling rule needs
-// raw n_T >= 4 AND n_Z >= 1, which no free cell around the flat 19-site seed satisfies).
-// step() is then exactly the diffusion operator.
+// To exercise diffusion in isolation, these tests call SurfaceOperator.relaxField() directly.
+// That is exactly one published G-G diffusion pass and avoids constructing physically invalid
+// "inert" surface parameters merely to make step() degenerate to diffusion.
 
 import { describe, expect, it } from "vitest";
 import {
@@ -24,31 +22,13 @@ import {
   domainCenter,
   idx,
   mirror,
-  paramVector,
   rot60,
   totalMass,
   zmirror,
   GG_PRESETS,
   type Dims,
-  type GGParams,
 } from "@vcc/core";
 import { GGSolver } from "@vcc/solver-cpu";
-
-const ALL_SLOTS = { "1,0": 0, "2,0": 0, "3,0": 0, "0,1": 0, "1,1": 0, "2,1": 0, "3,1": 0 };
-
-function uniformParamVector(value: number): Float64Array {
-  const entries = Object.fromEntries(Object.keys(ALL_SLOTS).map((k) => [k, value]));
-  return paramVector(entries);
-}
-
-/** kappa=1, mu=0, huge thresholds: the full cycle degenerates to pure diffusion. */
-const inertParams: GGParams = {
-  rho: 0.1,
-  phi: 0,
-  kappa: uniformParamVector(1),
-  mu: uniformParamVector(0),
-  ggThreshBeta: uniformParamVector(1e9),
-};
 
 describe("diffusion — uniform fixed point", () => {
   it("one tick moves no cell by more than 2 ulp (exact in real arithmetic)", () => {
@@ -101,7 +81,7 @@ describe("diffusion — single-cell impulse, hand-computed weights", () => {
   const [ic, jc, kc] = domainCenter(dims);
 
   function impulseSolver(): GGSolver {
-    const solver = new GGSolver({ dims, params: inertParams, rngSeed: 1, seedRadius: null });
+    const solver = new GGSolver({ dims, params: GG_PRESETS.plate, rngSeed: 1, seedRadius: null });
     solver.d.fill(0);
     solver.d[idx(dims, ic, jc, kc)] = 1;
     return solver;
@@ -109,7 +89,7 @@ describe("diffusion — single-cell impulse, hand-computed weights", () => {
 
   it("tick 1: 4/49 on the in-plane 7-cell support, 3/98 on the planes above and below", () => {
     const solver = impulseSolver();
-    solver.step();
+    solver.relaxField();
     const ring1 = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, -1], [-1, 1]] as const;
     expect(solver.d[idx(dims, ic, jc, kc)]).toBeCloseTo(4 / 49, 15);
     for (const [di, dj] of ring1) {
@@ -128,8 +108,8 @@ describe("diffusion — single-cell impulse, hand-computed weights", () => {
 
   it("tick 2: hand-computed values at center, both ring-2 cell types, and the z-column", () => {
     const solver = impulseSolver();
-    solver.step();
-    solver.step();
+    solver.relaxField();
+    solver.relaxField();
     expect(solver.d[idx(dims, ic, jc, kc)]).toBeCloseTo(41 / 686, 15);
     expect(solver.d[idx(dims, ic + 1, jc, kc)]).toBeCloseTo(82 / 2401, 15);
     expect(solver.d[idx(dims, ic + 2, jc, kc)]).toBeCloseTo(41 / 4802, 15); // ring-2 vertex
@@ -152,26 +132,30 @@ describe("diffusion — reflecting boundary conserves mass exactly", () => {
     ["face", 0, 9, 5],
     ["interior control", 10, 9, 5],
   ])("impulse at a domain %s keeps total mass 1 over 8 ticks", (_label, i, j, k) => {
-    const solver = new GGSolver({ dims, params: inertParams, rngSeed: 1, seedRadius: null });
+    const solver = new GGSolver({ dims, params: GG_PRESETS.plate, rngSeed: 1, seedRadius: null });
     solver.d.fill(0);
     solver.d[idx(dims, i, j, k)] = 1;
     for (let t = 0; t < 8; t++) {
-      solver.step();
+      solver.relaxField();
       expect(totalMass(solver.b, solver.d)).toBeCloseTo(1, 14);
     }
   });
 
   it("impulse beside an attached crystal keeps total mass exact; nothing leaks into it", () => {
-    const solver = new GGSolver({ dims: { nx: 24, ny: 24, nz: 12 }, params: inertParams, rngSeed: 1 });
+    const solver = new GGSolver({
+      dims: { nx: 24, ny: 24, nz: 12 },
+      params: GG_PRESETS.plate,
+      rngSeed: 1,
+    });
     const [ic, jc, kc] = solver.center;
     const d = solver.d;
     d.fill(0);
     d[idx(solver.dims, ic + 3, jc, kc)] = 1; // touches the seed's boundary ring
     const m0 = totalMass(solver.b, d); // 19 seed cells at b=1, plus the impulse
     expect(m0).toBeCloseTo(20, 14);
-    for (let t = 0; t < 10; t++) solver.step();
+    for (let t = 0; t < 10; t++) solver.relaxField();
     expect(totalMass(solver.b, solver.d)).toBeCloseTo(20, 13);
-    expect(solver.attachedCount).toBe(19); // inert params: no attachment happened
+    expect(solver.attachedCount).toBe(19); // relaxField() cannot perform surface attachment
     for (let x = 0; x < cellCount(solver.dims); x++) {
       if (solver.a[x] === 1) expect(solver.d[x]).toBe(0); // reflecting, not absorbing
     }
@@ -223,11 +207,11 @@ describe("diffusion — D6h-symmetric impulse response (bitwise)", () => {
 
   it("crystal-free: 4 ticks from a centered impulse", () => {
     const dims: Dims = { nx: 24, ny: 24, nz: 12 };
-    const solver = new GGSolver({ dims, params: inertParams, rngSeed: 1, seedRadius: null });
+    const solver = new GGSolver({ dims, params: GG_PRESETS.plate, rngSeed: 1, seedRadius: null });
     const center = solver.center;
     solver.d.fill(0);
     solver.d[idx(dims, center[0], center[1], center[2])] = 1;
-    for (let t = 0; t < 4; t++) solver.step();
+    for (let t = 0; t < 4; t++) solver.relaxField();
     expectBitwiseD6h(solver.d, dims, center);
   });
 
@@ -237,14 +221,14 @@ describe("diffusion — D6h-symmetric impulse response (bitwise)", () => {
     // the box domain fail the symmetry gate. With nz = 13 both walls sit 6 layers from kc,
     // so the reflections themselves are zmirror-symmetric.
     const dims: Dims = { nx: 24, ny: 24, nz: 13 };
-    const solver = new GGSolver({ dims, params: inertParams, rngSeed: 1 });
+    const solver = new GGSolver({ dims, params: GG_PRESETS.plate, rngSeed: 1 });
     const [ic, jc, kc] = solver.center;
     solver.d.fill(0);
     // The pair (c + 2e3, c - 2e3) is invariant under rot60 and mirror (on the axis) and
     // under zmirror (swapped) — a D6h-symmetric initial field over a D6h-symmetric crystal.
     solver.d[idx(dims, ic, jc, kc + 2)] = 0.5;
     solver.d[idx(dims, ic, jc, kc - 2)] = 0.5;
-    for (let t = 0; t < 6; t++) solver.step();
+    for (let t = 0; t < 6; t++) solver.relaxField();
     expect(solver.attachedCount).toBe(19);
     expectBitwiseD6h(solver.d, dims, solver.center);
   });

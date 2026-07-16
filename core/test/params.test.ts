@@ -23,6 +23,20 @@ describe("param vectors", () => {
     expect(() => paramVector({ "0,1": 1 })).toThrow();
     expect(() => paramVector({ "0,0": 1 } as never)).toThrow();
   });
+
+  it("counts normalized slots, so textual aliases cannot counterfeit seven configurations", () => {
+    expect(() =>
+      paramVector({
+        "0,1": 1,
+        "1,0": 1,
+        "01,0": 2,
+        "1,1": 1,
+        "2,0": 1,
+        "2,1": 1,
+        "3,0": 1,
+      }),
+    ).toThrow(/duplicate configuration slot/);
+  });
 });
 
 describe("published presets (gg-machinery §8)", () => {
@@ -77,5 +91,13 @@ describe("validator hard bounds", () => {
     const kappa = Float64Array.from(p.kappa);
     kappa[paramSlot(1, 0)] = 1.5;
     expect(validateParams({ ...p, kappa }).errors.length).toBeGreaterThan(0);
+  });
+
+  it("rejects non-finite scalar and vector values", () => {
+    const p = GG_PRESETS.plate;
+    const threshold = Float64Array.from(p.ggThreshBeta);
+    threshold[paramSlot(3, 1)] = Number.POSITIVE_INFINITY;
+    expect(validateParams({ ...p, rho: Number.POSITIVE_INFINITY }).errors).not.toHaveLength(0);
+    expect(validateParams({ ...p, ggThreshBeta: threshold }).errors).not.toHaveLength(0);
   });
 });

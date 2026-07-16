@@ -20,6 +20,17 @@ describe("GGSolver — growth", () => {
     for (let t = 0; t < 400; t++) solver.step();
     expect(solver.attachedCount).toBeGreaterThan(19);
   });
+
+  it("rejects invalid programmatic controls at the public solver boundary", () => {
+    const base = { dims: devDims, params: GG_PRESETS.plate, rngSeed: 1 };
+    expect(() => new GGSolver({ ...base, rngSeed: Number.NaN })).toThrow(/rngSeed/);
+    expect(() => new GGSolver({ ...base, rngSeed: 0x1_0000_0000 })).toThrow(/rngSeed/);
+    expect(() => new GGSolver({ ...base, noiseEpsilon: 1.000_001 })).toThrow(/noiseEpsilon/);
+    expect(() => new GGSolver({ ...base, noiseEpsilon: Number.NaN })).toThrow(/noiseEpsilon/);
+    expect(() => new GGSolver({ ...base, dims: { ...devDims, nx: 1.5 } })).toThrow(/dims\.nx/);
+    expect(() => new GGSolver({ ...base, center: [-1, 1, 1] })).toThrow(/center/);
+    expect(() => new GGSolver({ ...base, domain: "bogus" as never })).toThrow(/domain/);
+  });
 });
 
 describe("GGSolver — mass conservation (gate at full size runs via runner; this is the dev-grid version)", () => {

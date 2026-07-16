@@ -16,8 +16,8 @@
 
 import { cellCount, hexDistance, type Dims } from "./lattice.ts";
 import { kineticLength, mIce, vKin, type NucleationParamSet } from "./libbrecht.ts";
-import type { Metrics } from "./metrics.ts";
-import type { GGParams } from "./params.ts";
+import { totalMass, type Metrics } from "./metrics.ts";
+import { validateParams, type GGParams } from "./params.ts";
 import type { DomainShape, FarFieldCondition, SolverState } from "./state.ts";
 
 export const CHECKPOINT_MAGIC = "VCCCKPT1";
@@ -58,10 +58,6 @@ function vectorToJson(v: Float64Array): (number | null)[] {
   return Array.from(v, (x) => (Number.isNaN(x) ? null : x));
 }
 
-function vectorFromJson(values: (number | null)[]): Float64Array {
-  return Float64Array.from(values, (x) => (x === null ? Number.NaN : x));
-}
-
 function writeF64(target: Uint8Array, offset: number, source: Float64Array): number {
   if (LITTLE_ENDIAN_PLATFORM) {
     target.set(new Uint8Array(source.buffer, source.byteOffset, source.byteLength), offset);
@@ -86,8 +82,213 @@ function readF64(source: Uint8Array, offset: number, length: number): Float64Arr
   return out;
 }
 
+function requireGGRecord(value: unknown, name: string): Record<string, unknown> {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    throw new Error(`GG checkpoint ${name} must be an object`);
+  }
+  return value as Record<string, unknown>;
+}
+
+function requireGGFinite(value: unknown, name: string): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    throw new Error(`GG checkpoint ${name} must be finite`);
+  }
+  return value;
+}
+
+function readGGParamVector(value: unknown, name: string): Float64Array {
+  if (value instanceof Float64Array) {
+    if (value.length !== 8) throw new Error(`GG checkpoint ${name} must have length 8`);
+    if (!Number.isNaN(value[0])) throw new Error(`GG checkpoint ${name}[0] must be NaN`);
+    return value;
+  }
+  if (!Array.isArray(value) || value.length !== 8) {
+    throw new Error(`GG checkpoint ${name} must be an array of length 8`);
+  }
+  if (value[0] !== null) throw new Error(`GG checkpoint ${name}[0] must be null`);
+  const vector = new Float64Array(8).fill(Number.NaN);
+  for (let slot = 1; slot < 8; slot++) {
+    vector[slot] = requireGGFinite(value[slot], `${name}[${slot}]`);
+  }
+  return vector;
+}
+
+function readGGParams(value: unknown): GGParams {
+  const params = requireGGRecord(value, "params");
+  const result: GGParams = {
+    rho: requireGGFinite(params.rho, "params.rho"),
+    phi: requireGGFinite(params.phi, "params.phi"),
+    kappa: readGGParamVector(params.kappa, "params.kappa"),
+    mu: readGGParamVector(params.mu, "params.mu"),
+    ggThreshBeta: readGGParamVector(params.ggThreshBeta, "params.ggThreshBeta"),
+  };
+  const validation = validateParams(result);
+  if (validation.errors.length > 0) {
+    throw new Error(`GG checkpoint parameters are invalid: ${validation.errors.join("; ")}`);
+  }
+  return result;
+}
+
+/** Runtime schema shared by GG encode and decode; TypeScript types do not validate JS or JSON. */
+function validateGGMetadata(value: unknown): { readonly n: number; readonly params: GGParams } {
+  const metadata = requireGGRecord(value, "metadata");
+  const dimsValue = requireGGRecord(metadata.dims, "dims");
+  const dimension = (name: "nx" | "ny" | "nz"): number => {
+    const size = dimsValue[name];
+    if (!Number.isSafeInteger(size) || (size as number) <= 0) {
+      throw new Error(`GG checkpoint dims.${name} must be a positive safe integer`);
+    }
+    return size as number;
+  };
+  const dims: Dims = { nx: dimension("nx"), ny: dimension("ny"), nz: dimension("nz") };
+  const n = cellCount(dims);
+  if (!Number.isSafeInteger(n) || n <= 0) {
+    throw new Error("GG checkpoint cell count must be a positive safe integer");
+  }
+  if (!Number.isSafeInteger(metadata.tick) || (metadata.tick as number) < 0) {
+    throw new Error("GG checkpoint tick must be a nonnegative safe integer");
+  }
+  if (
+    !Number.isSafeInteger(metadata.rngSeed) ||
+    (metadata.rngSeed as number) < 0 ||
+    (metadata.rngSeed as number) > 0xffff_ffff
+  ) {
+    throw new Error("GG checkpoint rngSeed must be a uint32 integer");
+  }
+  const noise = requireGGFinite(metadata.noiseEpsilon, "noiseEpsilon");
+  if (noise < 0 || noise > 1) {
+    throw new Error("GG checkpoint noiseEpsilon must be in [0, 1]");
+  }
+  if (metadata.farField !== "reflecting" && metadata.farField !== "dirichlet") {
+    throw new Error(`GG checkpoint farField is invalid: ${String(metadata.farField)}`);
+  }
+  if (metadata.domain !== "box" && metadata.domain !== "hexPrism") {
+    throw new Error(`GG checkpoint domain is invalid: ${String(metadata.domain)}`);
+  }
+  if (!Array.isArray(metadata.center) || metadata.center.length !== 3) {
+    throw new Error("GG checkpoint center must contain exactly three coordinates");
+  }
+  for (let axis = 0; axis < 3; axis++) {
+    const coordinate = metadata.center[axis];
+    const limit = axis === 0 ? dims.nx : axis === 1 ? dims.ny : dims.nz;
+    if (
+      !Number.isSafeInteger(coordinate) ||
+      (coordinate as number) < 0 ||
+      (coordinate as number) >= limit
+    ) {
+      throw new Error(`GG checkpoint center[${axis}] must be an in-domain integer`);
+    }
+  }
+  return { n, params: readGGParams(metadata.params) };
+}
+
+function validateGGMetrics(value: unknown, n: number, tick: number): Metrics | null {
+  if (value === null) return null;
+  const metrics = requireGGRecord(value, "metrics");
+  if (!Number.isSafeInteger(metrics.tick) || metrics.tick !== tick) {
+    throw new Error("GG checkpoint metrics.tick must equal the checkpoint tick");
+  }
+  for (const name of ["attachedCount", "branchCount"] as const) {
+    if (!Number.isSafeInteger(metrics[name]) || (metrics[name] as number) < 0) {
+      throw new Error(`GG checkpoint metrics.${name} must be a nonnegative safe integer`);
+    }
+  }
+  if ((metrics.attachedCount as number) > n) {
+    throw new Error("GG checkpoint metrics.attachedCount exceeds the cell count");
+  }
+  for (const name of [
+    "totalMass",
+    "symmetryError",
+    "aspectRatio",
+    "crossSectionHollowness",
+    "sealedVoidFraction",
+    "boundingRadius",
+    "farFieldVapor",
+  ] as const) {
+    requireGGFinite(metrics[name], `metrics.${name}`);
+  }
+  if ((metrics.totalMass as number) < 0) throw new Error("GG checkpoint metrics.totalMass must be nonnegative");
+  if ((metrics.symmetryError as number) < 0 || (metrics.symmetryError as number) > 2) {
+    throw new Error("GG checkpoint metrics.symmetryError must be in [0, 2]");
+  }
+  if ((metrics.attachedCount as number) === 0 || (metrics.aspectRatio as number) <= 0) {
+    throw new Error("GG checkpoint finite metrics require an attached crystal and positive aspectRatio");
+  }
+  for (const name of ["crossSectionHollowness", "sealedVoidFraction"] as const) {
+    const fraction = metrics[name] as number;
+    if (fraction < 0 || fraction > 1) {
+      throw new Error(`GG checkpoint metrics.${name} must be in [0, 1]`);
+    }
+  }
+  if ((metrics.boundingRadius as number) < 0 || (metrics.farFieldVapor as number) < 0) {
+    throw new Error("GG checkpoint metric radii and vapor must be nonnegative");
+  }
+  if (typeof metrics.domainContact !== "boolean") {
+    throw new Error("GG checkpoint metrics.domainContact must be boolean");
+  }
+  return metrics as unknown as Metrics;
+}
+
+function validateGGStateArrays(
+  state: SolverState,
+  n: number,
+  metrics: Metrics | null,
+): void {
+  if (!(state.a instanceof Uint8Array) || state.a.length !== n) {
+    throw new Error(`GG checkpoint a must be a Uint8Array of length ${n}`);
+  }
+  if (!(state.b instanceof Float64Array) || state.b.length !== n) {
+    throw new Error(`GG checkpoint b must be a Float64Array of length ${n}`);
+  }
+  if (!(state.d instanceof Float64Array) || state.d.length !== n) {
+    throw new Error(`GG checkpoint d must be a Float64Array of length ${n}`);
+  }
+  const [ic, jc, kc] = state.center;
+  const radius = Math.min(ic, state.dims.nx - 1 - ic, jc, state.dims.ny - 1 - jc);
+  const halfZ = Math.min(kc, state.dims.nz - 1 - kc);
+  const plane = state.dims.nx * state.dims.ny;
+  let attachedCount = 0;
+  for (let index = 0; index < n; index++) {
+    if (state.a[index] !== 0 && state.a[index] !== 1) {
+      throw new Error(`GG checkpoint a[${index}] must be 0 or 1`);
+    }
+    if (!Number.isFinite(state.b[index]) || state.b[index] < 0) {
+      throw new Error(`GG checkpoint b[${index}] must be finite and nonnegative`);
+    }
+    if (!Number.isFinite(state.d[index]) || state.d[index] < 0) {
+      throw new Error(`GG checkpoint d[${index}] must be finite and nonnegative`);
+    }
+    if (state.a[index] === 1) {
+      attachedCount++;
+      if (state.d[index] !== 0) {
+        throw new Error(`GG checkpoint attached cell ${index} must have d=0`);
+      }
+    }
+    if (state.domain === "hexPrism") {
+      const k = Math.floor(index / plane);
+      const inPlane = index - k * plane;
+      const j = Math.floor(inPlane / state.dims.nx);
+      const i = inPlane - j * state.dims.nx;
+      const active = hexDistance(i - ic, j - jc) <= radius && Math.abs(k - kc) <= halfZ;
+      if (!active && (state.a[index] !== 0 || state.b[index] !== 0 || state.d[index] !== 0)) {
+        throw new Error(`GG checkpoint masked wall cell ${index} must have a=b=d=0`);
+      }
+    }
+  }
+  if (metrics !== null) {
+    if (metrics.attachedCount !== attachedCount) {
+      throw new Error("GG checkpoint metrics.attachedCount does not match field a");
+    }
+    if (metrics.totalMass !== totalMass(state.b, state.d)) {
+      throw new Error("GG checkpoint metrics.totalMass does not match fields b and d");
+    }
+  }
+}
+
 export function encodeCheckpoint(state: SolverState, metrics: Metrics | null): Uint8Array {
-  const n = cellCount(state.dims);
+  const { n } = validateGGMetadata(state);
+  const checkedMetrics = validateGGMetrics(metrics, n, state.tick);
+  validateGGStateArrays(state, n, checkedMetrics);
   const header: CheckpointHeader = {
     version: 1,
     endianness: "LE",
@@ -105,7 +306,7 @@ export function encodeCheckpoint(state: SolverState, metrics: Metrics | null): U
       mu: vectorToJson(state.params.mu),
       ggThreshBeta: vectorToJson(state.params.ggThreshBeta),
     },
-    metrics,
+    metrics: checkedMetrics,
     fields: [
       { name: "a", dtype: "u8", length: n },
       { name: "b", dtype: "f64", length: n },
@@ -500,52 +701,59 @@ export function decodeLKCheckpoint(bytes: Uint8Array): DecodedLKCheckpoint {
 }
 
 export function decodeCheckpoint(bytes: Uint8Array): DecodedCheckpoint {
+  if (bytes.length < 12) throw new Error("GG checkpoint is shorter than its fixed header");
   let magic = "";
   for (let i = 0; i < 8; i++) magic += String.fromCharCode(bytes[i]);
   if (magic !== CHECKPOINT_MAGIC) {
     throw new Error(`bad checkpoint magic: ${JSON.stringify(magic)}`);
   }
-  const headerLength = new DataView(bytes.buffer, bytes.byteOffset).getUint32(8, true);
-  const headerBytes = bytes.subarray(12, 12 + headerLength);
-  const header = JSON.parse(new TextDecoder().decode(headerBytes)) as CheckpointHeader;
+  const headerLength = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength).getUint32(8, true);
+  if (headerLength > bytes.length - 12) {
+    throw new Error("GG checkpoint header length exceeds the available bytes");
+  }
+  const parsedHeader = JSON.parse(
+    new TextDecoder().decode(bytes.subarray(12, 12 + headerLength)),
+  ) as unknown;
+  requireGGRecord(parsedHeader, "header");
+  const header = parsedHeader as CheckpointHeader;
   if (header.version !== 1) throw new Error(`unsupported checkpoint version ${header.version}`);
   if (header.endianness !== "LE") throw new Error("checkpoint must declare LE endianness");
 
-  const n = cellCount(header.dims);
+  const { n, params } = validateGGMetadata(header);
+  const metrics = validateGGMetrics(header.metrics, n, header.tick);
+  if (!Array.isArray(header.fields)) {
+    throw new Error("GG checkpoint fields must be an array");
+  }
+  const expectedFields: ReadonlyArray<readonly [string, string, number]> = [
+    ["a", "u8", n],
+    ["b", "f64", n],
+    ["d", "f64", n],
+  ];
+  if (
+    header.fields.length !== expectedFields.length ||
+    header.fields.some((field, i) => {
+      const descriptor = requireGGRecord(field, `fields[${i}]`);
+      return (
+        descriptor.name !== expectedFields[i][0] ||
+        descriptor.dtype !== expectedFields[i][1] ||
+        descriptor.length !== expectedFields[i][2]
+      );
+    })
+  ) {
+    throw new Error(
+      "GG checkpoint field table must be exactly a:u8, b:f64, d:f64 at the full cell count",
+    );
+  }
+  if (bytes.length !== 12 + headerLength + n + 16 * n) {
+    throw new Error("GG checkpoint payload length does not match its header");
+  }
   let offset = 12 + headerLength;
-  let a: Uint8Array | null = null;
-  let b: Float64Array | null = null;
-  let d: Float64Array | null = null;
-  for (const field of header.fields) {
-    if (field.dtype === "u8") {
-      const view = bytes.subarray(offset, offset + field.length);
-      const copy = new Uint8Array(field.length);
-      copy.set(view);
-      if (field.name === "a") a = copy;
-      offset += field.length;
-    } else if (field.dtype === "f64") {
-      const values = readF64(bytes, offset, field.length);
-      if (field.name === "b") b = values;
-      if (field.name === "d") d = values;
-      offset += field.length * 8;
-    } else {
-      throw new Error(`dtype ${field.dtype} not readable by the CPU oracle yet`);
-    }
-  }
-  if (a === null || b === null || d === null) {
-    throw new Error("checkpoint is missing one of the fields a, b, d");
-  }
-  if (a.length !== n || b.length !== n || d.length !== n) {
-    throw new Error("checkpoint field lengths do not match dims");
-  }
-
-  const params: GGParams = {
-    rho: header.params.rho,
-    phi: header.params.phi,
-    kappa: vectorFromJson(header.params.kappa),
-    mu: vectorFromJson(header.params.mu),
-    ggThreshBeta: vectorFromJson(header.params.ggThreshBeta),
-  };
+  const a = new Uint8Array(n);
+  a.set(bytes.subarray(offset, offset + n));
+  offset += n;
+  const b = readF64(bytes, offset, n);
+  offset += 8 * n;
+  const d = readF64(bytes, offset, n);
   const state: SolverState = {
     dims: header.dims,
     tick: header.tick,
@@ -559,5 +767,6 @@ export function decodeCheckpoint(bytes: Uint8Array): DecodedCheckpoint {
     d,
     center: header.center,
   };
+  validateGGStateArrays(state, n, metrics);
   return { header, state };
 }

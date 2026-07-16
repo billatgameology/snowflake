@@ -8,7 +8,11 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   adversarial review rounds (three subagent, three maker; the full defect-and-remediation
   history is in the plan's Tried and rejected). The gate is *enforcing*: `--enforce-gate`
   checks twelve criteria and exit 0 is the whole claim; the maker independently recomputed the
-  plate result from raw checkpoint bytes and found no core solver defect. **Phase 2b: spec +
+  plate result from raw checkpoint bytes and found no core solver defect. A follow-up senior
+  evidence review closed four residual boundary defects: malformed GG checkpoint arrays could
+  shift fields, non-finite seeds and oversized noise could enter evidence metadata/state, and
+  parameter-key aliases could counterfeit seven slots. The post-fix canonical run remains
+  byte-identical to the accepted checkpoint. **Phase 2b: spec +
   parameter table + implementation exist and have been through SIX maker audit rounds
   (2026-07-15)** — round 2: seven blockers, gate v1 killed; round 3: three blockers +
   closure blocker, gate v2 killed; round 4: physics fixes verified correct but the
@@ -23,8 +27,8 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   load-bearing `divTol` criterion. All are now remediated in the round-6 commit containing this
   update, with symmetric encode/decode/solver validation, non-vacuous negative controls,
   and a full authority-chain truth pass. `npm test`
-  is 122/122 green, including typecheck and the Rule 7 scan. The full catalogs live in the
-  plan's Tried and rejected.
+  is 138/138 green after the Phase 2a evidence hardening, including typecheck and the Rule 7
+  scan. The full catalogs live in the plan's Tried and rejected.
   **Phase 2b is NOT closed. No accepted gate result exists yet** — protocol v3 is
   registered and its accepted-run attempt is in flight.
 - **Last updated:** 2026-07-15 by Codex
@@ -99,7 +103,8 @@ protocol (metric certified in isolation, box-scaling probes, hexPrism controls),
 test onto hexPrism — threshold untouched at exactly 0 — and added a box negative-control test
 pinning the geometry (full triage in the plan's Tried and rejected). The Rule 7 scan was
 likewise already fixed at HEAD and was verified to still fail on real violations.
-`npm test`: 81/81 green at 2a close (2026-07-15); 122/122 after the round-6 remediation
+`npm test`: 81/81 green at 2a close (2026-07-15); 122/122 after the round-6 remediation;
+138/138 after the follow-up Phase 2a evidence hardening
 (2026-07-15 — exact counts only, since the round-4 audit caught a "past 120" here; rounds
 4–6 added the sink-vs-kinetic-demand diagnostic and completed the LK checkpoint mutation-probe matrix).
 **Phase 2b's scoped no-SDAK deliverable docs and implementation exist (LKSolver,
@@ -176,7 +181,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 |---|---|---|
 | 0 | §2.8 exit criteria hold | ✅ maker-asserted, 2026-07-14 |
 | 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ✅ **maker-asserted, 2026-07-15** — informal sessions, positive; the four-task protocol was *not* run (recorded honestly in the plan's Findings, with the Phase 7 takeaways) |
-| **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Maker independently re-derived the result from raw checkpoint bytes. Full record in [the plan](plans/phase-2-cpu-solver.md), Steps |
+| **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited; follow-up evidence hardening complete) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Post-hardening `cmp` is bit-identical, SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Full records: [solver plan](plans/phase-2-cpu-solver.md), [hardening plan](plans/phase-2a-evidence-hardening.md) |
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | 🔶 **in progress** — spec, parameter table, implementation, and six maker audit rounds (round-6 remediation is recorded in the commit containing this update; the ADR 0005 pause was lifted by its deliverables, 2026-07-15); the depleted-start Dirichlet differential passes in the suite (`solver-cpu/test/dirichlet.test.ts`); **no accepted habit-gate result yet** — protocol v3 registered, run in flight |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ⬜ not started |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ⬜ not started |
@@ -245,13 +250,11 @@ in charter §3.1 and get no retroactive ADR.
 ## Next step
 
 Phase 1 is closed (2026-07-15). Phase 2a is closed — maker-asserted complete 2026-07-15
-(evidence in the plan's Steps). 2a byte-identity: **re-verified at the round-5 code state (2026-07-15)** — fresh enforced
-run, exit 0, `cmp` bit-identical to `out/plate-gate.ckpt` (repro:
-`node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out
-out/plate-gate-round5.ckpt --enforce-gate && cmp out/plate-gate-round5.ckpt
-out/plate-gate.ckpt`; log `out/plate-gate-round5.log`). The earlier "after every round"
-wording was round-5-flagged as false and is retracted — completed checks: after round 3,
-and now after round 5. **Phase 2b state (2026-07-15, after the round-6 remediation): the scoped
+(evidence in the plan's Steps). 2a byte-identity was re-verified after the follow-up evidence
+hardening: exact enforced run exit 0, `cmp` exit 0 against `out/plate-gate.ckpt`, SHA-256
+`f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`; exact results and
+adversarial cases are in [the hardening plan](plans/phase-2a-evidence-hardening.md).
+**Phase 2b state (2026-07-15, after the round-6 remediation): the scoped
 no-SDAK deliverables and implementation exist —
 the two ADR 0005 deliverables (attachment-kinetics §4.4 spec; libbrecht-parameters.md table),
 the implementation (`LKSolver`, shared `SurfaceOperator`, GG Dirichlet option, `grow-lk`, the

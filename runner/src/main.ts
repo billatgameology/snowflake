@@ -88,6 +88,22 @@ interface GrowOptions {
   enforceGate: boolean;
 }
 
+const UINT32_MAX = 0xffff_ffff;
+
+function parseSafeInteger(
+  raw: string,
+  flag: string,
+  minimum: number,
+  maximum = Number.MAX_SAFE_INTEGER,
+): number {
+  const value = Number(raw);
+  if (!Number.isSafeInteger(value) || value < minimum || value > maximum) {
+    const range = maximum === Number.MAX_SAFE_INTEGER ? `>= ${minimum}` : `${minimum}..${maximum}`;
+    throw new Error(`${flag} wants a safe integer in ${range}, got "${raw}"`);
+  }
+  return value;
+}
+
 function parseArgs(argv: string[]): GrowOptions {
   const options: GrowOptions = {
     preset: "plate",
@@ -139,13 +155,13 @@ function parseArgs(argv: string[]): GrowOptions {
         break;
       }
       case "--ticks":
-        options.ticks = Number(value());
+        options.ticks = parseSafeInteger(value(), "--ticks", 0);
         break;
       case "--out":
         options.out = value();
         break;
       case "--seed":
-        options.seed = Number(value());
+        options.seed = parseSafeInteger(value(), "--seed", 0, UINT32_MAX);
         break;
       case "--seed-radius": {
         const v = value();
@@ -154,7 +170,7 @@ function parseArgs(argv: string[]): GrowOptions {
         } else if (/^\d+$/.test(v)) {
           // Strict digits only: Number("") is 0, and a silent radius-0 (single-cell) seed is
           // exactly the spurious-needle trap gg-machinery §5 warns about.
-          options.seedRadius = Number(v);
+          options.seedRadius = parseSafeInteger(v, "--seed-radius", 0);
         } else {
           throw new Error(`--seed-radius wants a non-negative integer or "none", got "${v}"`);
         }
@@ -166,29 +182,29 @@ function parseArgs(argv: string[]): GrowOptions {
         // Reject, don't coerce: a negative or non-finite epsilon silently behaves as
         // noise-off in the solver (eps > 0 gates the noise path) while poisoning the
         // recorded metadata (maker round-5: --noise -0.00001 and --noise NaN both ran).
-        if (!Number.isFinite(eps) || eps < 0) {
-          throw new Error(`--noise wants a finite epsilon >= 0, got "${raw}"`);
+        if (!Number.isFinite(eps) || eps < 0 || eps > 1) {
+          throw new Error(`--noise wants a finite epsilon in [0, 1], got "${raw}"`);
         }
         options.noise = eps;
         break;
       }
       case "--metrics-every":
-        options.metricsEvery = Number(value());
+        options.metricsEvery = parseSafeInteger(value(), "--metrics-every", 0);
         break;
       case "--full-metrics-every":
-        options.fullMetricsEvery = Number(value());
+        options.fullMetricsEvery = parseSafeInteger(value(), "--full-metrics-every", 0);
         break;
       case "--symmetry-every":
-        options.symmetryEvery = Number(value());
+        options.symmetryEvery = parseSafeInteger(value(), "--symmetry-every", 0);
         break;
       case "--pgm-every":
-        options.pgmEvery = Number(value());
+        options.pgmEvery = parseSafeInteger(value(), "--pgm-every", 0);
         break;
       case "--pgm-dir":
         options.pgmDir = value();
         break;
       case "--stop-check-every":
-        options.stopCheckEvery = Number(value());
+        options.stopCheckEvery = parseSafeInteger(value(), "--stop-check-every", 1);
         break;
       case "--enforce-gate":
         options.enforceGate = true;
@@ -212,6 +228,14 @@ function printFullMetrics(label: string, m: Metrics, massDrift: number): void {
       `sealedVoid=${fmt(m.sealedVoidFraction)} branches=${m.branchCount} radius=${fmt(m.boundingRadius)} ` +
       `farField=${fmt(m.farFieldVapor)} domainContact=${m.domainContact}`,
   );
+}
+
+function bytesEqual(left: Uint8Array, right: Uint8Array): boolean {
+  if (left.length !== right.length) return false;
+  for (let i = 0; i < left.length; i++) {
+    if (left[i] !== right[i]) return false;
+  }
+  return true;
 }
 
 function grow(options: GrowOptions): void {
@@ -332,30 +356,22 @@ function grow(options: GrowOptions): void {
 
   if (options.out !== null) {
     mkdirSync(dirname(options.out) || ".", { recursive: true });
-    const encoded = encodeCheckpoint(solver.state(), final);
+    // A crystal-free diagnostic has undefined morphology ratios, which JSON cannot represent
+    // without silently rewriting them to null. Its fields and controls remain checkpointable;
+    // metrics are explicitly absent instead of dishonest.
+    const checkpointMetrics = final.attachedCount > 0 ? final : null;
+    const encoded = encodeCheckpoint(solver.state(), checkpointMetrics);
     writeFileSync(options.out, encoded);
-    // Round-trip verification on a grown crystal (plan, core/checkpoint check).
-    const back = decodeCheckpoint(new Uint8Array(readFileSync(options.out)));
-    let identical =
-      back.state.tick === solver.tick &&
-      back.state.a.length === solver.a.length &&
-      back.header.farField === "reflecting";
-    if (identical) {
-      for (let i = 0; i < solver.a.length; i++) {
-        if (
-          back.state.a[i] !== solver.a[i] ||
-          back.state.b[i] !== solver.b[i] ||
-          back.state.d[i] !== solver.d[i]
-        ) {
-          identical = false;
-          break;
-        }
-      }
-    }
+    // Re-encoding the decoded checkpoint compares every v1 control, parameter, metric and
+    // field bit. Comparing the file too makes the filesystem write part of the evidence path.
+    const written = new Uint8Array(readFileSync(options.out));
+    const back = decodeCheckpoint(written);
+    const reencoded = encodeCheckpoint(back.state, back.header.metrics);
+    const identical = bytesEqual(encoded, written) && bytesEqual(written, reencoded);
     console.log(
       `checkpoint written: ${options.out} (${encoded.length} bytes) roundTripIdentical=${identical}`,
     );
-    if (!identical) process.exit(1);
+    if (!identical) throw new Error("GG checkpoint round trip changed header controls or field bits");
   }
 
   if (options.enforceGate) {
