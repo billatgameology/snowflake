@@ -332,7 +332,7 @@ without changing the Phase 3 app (`b080654`), and review round 1 found three blo
 should-fixes before feature work. The negative-supersaturation solver fix is `cc63a87`; the
 criteria now enforce a genuinely solid column, individually named execution validity,
 deterministic cap/trigger semantics, and automated widening; final criteria-freeze commit is
-`98e510d`. The next serial action is the same
+`7e2d08f`. The next serial action is the same
 reviewer's WP0 re-review after this amendment is committed and the full suite rerun. Fix/retest
 until zero blockers and zero unaddressed should-fixes; only then delegate WP1 (pure metrics,
 schedule evaluator, and verdict types). Work only in `/Users/clipper/github/snowflake-phase4`.
