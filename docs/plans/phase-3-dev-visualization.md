@@ -1,7 +1,8 @@
 # Plan — Phase 3: Development visualization (Three.js) + center-vs-rim depletion gate
 
 - **Phase:** Phase 3 — Development visualization (Three.js)
-- **Status:** done (evidence-complete 2026-07-16; gate3 exit 0; pending maker assertion)
+- **Status:** done — evidence-complete 2026-07-16, gate3 exit 0; **READY FOR EXTERNAL
+  REVIEW** (maker-marked 2026-07-16); gate assertion pending that review
 - **Started:** 2026-07-15
 - **Last touched:** 2026-07-16 by Claude (Fable 5), coordinating session
 

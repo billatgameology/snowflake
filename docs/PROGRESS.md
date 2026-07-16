@@ -272,13 +272,20 @@ in charter §3.1 and get no retroactive ADR.
 
 ## Next step
 
-**Phase 3 is EVIDENCE-COMPLETE (2026-07-16; ADRs 0007/0008), orchestrated per
+**Phase 3 is EVIDENCE-COMPLETE and READY FOR EXTERNAL REVIEW (maker-marked 2026-07-16;
+ADRs 0007/0008), orchestrated per
 [phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md)** — all work packages
 built, adversarially reviewed (R1: 2 rounds to CLEAN incl. one blocker; R2 and R3: CLEAN with
 all should-fixes landed), visually inspected, and the flagless `gate3` evidence run passed
-with exit 0 (values in the gate table). **Remaining human step: maker assertion of the
-Phase 3 gate** — review the plan's Steps evidence, `out/gate3.log` + CSV + checkpoint, and
-the `out/phase3-visual/` captures, then flip the gate row to ✅ if satisfied. After that,
+with exit 0 (values in the gate table). **Review entry points:** the plan's passing criteria
+and Steps evidence; the pre-registration trail (thresholds committed at d80b426/4867a67
+before the evidence run); `out/gate3.log`, `out/gate3-depletion.csv`,
+`out/gate3-exit-status.txt`, `out/gate3-plate.ckpt` (byte-identical to the accepted 2a
+artifact); the `out/phase3-visual/` captures, reproducible via `node app/scripts/visual.mjs`;
+and the review-loop records in the plan's Steps. Repro commands: `node runner/src/main.ts
+gate3` (evidence) and `npm test` (248/248). **Gate assertion follows that review** — flip the
+gate row to ✅ if satisfied. The concurrent Phase 2b remediation work has moved to a separate
+worktree (2026-07-16) and no longer shares files with this one. After that,
 Phase 4 (morphology gauntlet, pass A blocking on `GGThreshold`) is the next charter phase and
 now has its visualization instrument (`npm run dev`). Traps for whoever opens `app/`: the
 solver runs ONLY in the worker; checkpoint headers carry exactly the eleven v1 metric keys
