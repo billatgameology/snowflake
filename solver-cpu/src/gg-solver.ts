@@ -416,6 +416,7 @@ export class GGSolver implements SurfaceOperator {
       fillLedgerIceCells: null,
       fillLedgerVaporUnits: null,
       holeFillDeficit: null,
+      saturationClippedFill: null,
       lastDivergenceResidual: null,
     };
   }

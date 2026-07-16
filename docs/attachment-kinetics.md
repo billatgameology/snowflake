@@ -244,10 +244,13 @@ Consequences, each deliberate:
   `sigma_infinity` (charter §2.4: Libbrecht's measurements and Nakaya coordinates assume a
   *maintained* far field). `sigma_infinity` is a run input in [0, sigma_water(T)] — the
   physically meaningful ceiling is supersaturation relative to liquid water, Table 2.1.
-- **Sampling point:** `sigma_surf(x)` is the converged field value **at the boundary cell
-  itself**, read after relaxation and before the interface update. There is no "before or
-  after step (ii)" ambiguity because no step (ii) exists under this rule (component 5): vapor
-  uptake happens only inside the relaxation's Robin condition.
+- **Sampling point (unified 2026-07-15, round-3 review — this bullet previously said "the
+  boundary-cell value" while component 3 defined the face value, a live contradiction):**
+  the raw sample is the converged field at the boundary cell; **`sigma_surf` as used by the
+  physics is the self-consistent FACE value derived from that sample** (component 3's fixed
+  point), identical in the Robin substitution and in `v_n`. Read after relaxation, before
+  the interface update. There is no "before or after step (ii)" ambiguity because no step
+  (ii) exists under this rule (component 5).
 - **Reflecting far field is diagnostic-only under this rule.** A quasi-static solve with
   reflecting outer walls and an absorbing crystal has only the fully-depleted steady state
   (`sigma → 0` everywhere): no physical growth claim can be made from it. It remains available
@@ -294,16 +297,35 @@ facet is a wall); `alphaHK·Δx/X_0 → ∞` gives a perfect absorber (`sigma_fa
 diffusion-limited). `s_eff = s/(1+s)` keeps the substitution stable for any `s > 0` (`Δx` is
 expected to be of order `X_0` or larger, so `s > 1` is the normal regime, not an edge case).
 
-**CORRECTED 2026-07-15 (round-2 maker review, blocker 3): one `sigma_face` feeds BOTH sides
-of the coupling.** The continuous equations use the same `sigma_surf` in the flux balance and
-in Hertz–Knudsen; the first implementation absorbed vapor at the implied face value
-`sigma(x)/(1+s)` while growing at the cell value `sigma(x)` — first-order equivalent as
-`Δx/X_0 → 0`, but the gate runs at `Δx/X_0 ≈ 2.45`, where growth outran the field sink by
-×1.6–2.4. The rule now is: `alphaHK` and `sigma_face` are solved **self-consistently per
-boundary cell** (damped fixed point of `sigma_face = sigma_cell/(1 + alphaHK(sigma_face)·
-Δx/X_0)`, deterministic and order-free), and that one `(alphaHK, sigma_face)` pair drives the
-Robin substitution in the relaxation *and* `v_n = alphaHK·v_kin·sigma_face` in the interface
-update. Vapor uptake and ice gain are one number **by construction**, at any `Δx/X_0`.
+**CORRECTED 2026-07-15 (round-2 review blocker 3, re-corrected round-3 blocker 1): one
+`sigma_face` feeds both sides, growth is PER FACE with the hexagonal-prism geometry factors,
+and the flux claims are scoped to what is actually exact.**
+
+- **One `(alphaHK, sigma_face)` pair.** Solved self-consistently per boundary cell (damped
+  fixed point of `sigma_face = sigma_cell/(1 + alphaHK(sigma_face)·Δx/X_0)`, deterministic,
+  order-free, residual-verified); drives the Robin substitution *and* the interface update.
+  With noise on, the per-cell `(1 − ξ)` factor multiplies `alphaHK` **in both places** for
+  the same tick (round-3: noising growth but not the sink silently split the coupling).
+- **Face geometry (round-3 blocker 1a).** The cell is a hexagonal prism with across-flats =
+  height = `Δx`: volume `(√3/2)·Δx³`, basal face area `(√3/2)·Δx²`, prism face area
+  `(1/√3)·Δx²`. A basal face advancing at `v_n` fills a cell in `Δx/v_n`; a prism face in
+  `(3/2)·Δx/v_n`. Fill is therefore **summed per attached face**:
+  `Δf = [(2/3)·n_T + n_Z] · alphaHK·v_kin·sigma_face·Δt/Δx`. The first implementation's
+  uniform `v_n·Δt/Δx` overdrove lateral growth by 50% — directly biasing the habit gate.
+- **What is exact, and what is first-order (round-3 blocker 1b/1c — the previous "one number
+  by construction at any Δx/X_0" claim overstated):** the **ledger** integrates *exactly*
+  the per-face Hertz–Knudsen flux the solver computed (component 4, including recorded
+  saturation clipping) — that is bookkeeping and is tested non-tautologically. The **field
+  sink** is a first-order-consistent discretization of the same Robin condition: its stencil
+  substitutions act on the operator's own substep fields with the diffusion weights, so the
+  per-face absorbed quantity is not algebraically identical to `alphaHK·sigma_face` at
+  finite `Δx/X_0` — the measured sink/growth ratio at the gate resolution is **0.96–1.01**
+  (round-3 audit measurement), reported as a discretization diagnostic, never claimed as 1.
+  The solve-quality statement is the divergence identity, which is **now part of the
+  convergence criterion itself** (round-3 blocker 3: iterate-change alone reported
+  "converged" fields whose shell-vs-sink imbalance grew with domain size; a solve is
+  converged only when the residual AND the divergence identity are under their stated
+  tolerances).
 
 **No separate freezing transfer exists** — the Robin substitution is the *only* vapor sink,
 which is what makes double-counting structurally impossible (ADR 0005's disease). Ice gain is
@@ -347,13 +369,18 @@ physical duration** — the charter is explicit that physical time enters only t
 interface update — so integrating clamp operations over sweeps measures numerics, not vapor.
 The corrected claims, each measurable:
 
-- **Vapor uptake ≡ ice gain, by construction.** With component 3's correction, one
-  `(alphaHK, sigma_face)` pair drives both the Robin sink and `v_n`; physical uptake over a
-  step is the Hertz–Knudsen flux integral `Σ alphaHK·v_kin·sigma_face·Δt/Δx = Σ Δf` — the
-  fill ledger IS the uptake, in ice-cell units (× `M_ice(T) = c_ice/c_sat(T)` ≈ 6.7×10⁵ at
-  −15 °C for vapor-ledger units). There is no second channel to disagree with it. The
-  **non-tautological test** recomputes the flux integral outside the solver, from the
-  converged public field and core's `alphaHK`, and asserts it equals the ledger delta.
+- **The flux identity, exactly stated (re-corrected round-3, blocker 2):** physical uptake
+  over a step is the per-face Hertz–Knudsen integral
+  `Σ [(2/3)·n_T + n_Z]·alphaHK·v_kin·sigma_face·Δt/Δx`, and the bookkeeping identity is
+  **`fill ledger + saturation-clipped fill = that integral`, exact** — when a cell saturates
+  (`f` hits 1 mid-increment) the excess flux is *recorded* in `saturationClippedFill`, never
+  silently dropped (the round-3 audit measured a 35% silent deficit on an ordinary
+  saturating step). Clipping per cell per step is bounded by the fill-CFL and reported in
+  the ledger; ice-cell units convert by `M_ice(T) = c_ice/c_sat(T)` (≈ 6.7×10⁵ at −15 °C).
+  There is no second uptake channel. The **non-tautological test** recomputes the integral
+  outside the solver — from the converged public field, public neighbor counts, core's
+  `alphaHK`, and the face factors — across many steps *including saturating ones*, and
+  asserts it equals ledger-delta + clipped-delta.
 - **Solve self-consistency = the divergence identity** (component 3): at convergence,
   per-sweep shell clamp equals per-sweep Robin absorption (the interior kernel conserves), to
   a tolerance that scales with the relaxation tolerance. This is the quasi-static statement
@@ -390,9 +417,9 @@ interface SurfaceOperator {
   /** The surface exchange: freezing/attachment/melting under GGThreshold (bit-identical to
       Phase 2a); classification, v_n, fill update, attachment under LibbrechtKinetics.
       Owns per-cell surface state (f). Attachment is simultaneous from start-of-step state.
-      NEVER runs on an unconverged field: LibbrechtKinetics' step() skips the surface and
-      reports skippedUnconverged when relaxation fails (added 2026-07-15, round-2 review —
-      growing on an unconverged field is a silent physics error). */
+      NEVER runs on an unconverged field — ENFORCED, not advisory (round-3 review: the
+      public method itself throws without a converged relaxField for this step; step()
+      additionally reports skippedUnconverged rather than advancing). */
   advanceSurface(): SurfaceReport;
   /** The rule's conservation claim, measurably: GGThreshold reports Sigma(b+d) and its
       Dirichlet meter; LibbrechtKinetics reports the fill ledger (ice-cell and vapor units),

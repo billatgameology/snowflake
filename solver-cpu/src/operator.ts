@@ -60,6 +60,10 @@ export interface LedgerReport {
   readonly fillLedgerVaporUnits: number | null;
   /** LK: fill granted by hole-filling without vapor withdrawal — reported, never hidden. */
   readonly holeFillDeficit: number | null;
+  /** LK: Hertz-Knudsen flux clipped when a cell saturated (f hit 1 mid-increment) — a
+      recorded discretization loss, bounded per cell per step by the fill-CFL (round-3 maker
+      review: silently dropping it broke the flux identity by 35% on saturating steps). */
+  readonly saturationClippedFill: number | null;
   /** LK: divergence residual of the most recent converged relaxation. Null for GG. */
   readonly lastDivergenceResidual: number | null;
 }

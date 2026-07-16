@@ -78,8 +78,10 @@ protocol (metric certified in isolation, box-scaling probes, hexPrism controls),
 test onto hexPrism — threshold untouched at exactly 0 — and added a box negative-control test
 pinning the geometry (full triage in the plan's Tried and rejected). The Rule 7 scan was
 likewise already fixed at HEAD and was verified to still fail on real violations.
-`npm test`: 81/81 green at 2a close (2026-07-15). **Phase 2b's two opening deliverables
-(decision 0005) were produced 2026-07-15 and await maker review; no 2b code exists.** The stack is
+`npm test`: 81/81 green at 2a close (2026-07-15); 2b implementation grew the suite past 120.
+**Phase 2b exists in full — deliverable docs AND implementation (LKSolver, SurfaceOperator,
+Dirichlet, runner gate) — and has been through three maker audit rounds; its habit gate has
+NOT yet produced an accepted result** (protocol v3, re-registered after round 3). The stack is
 decided in charter §3.1 — TypeScript + Vite, WebGPU, stacked triangular lattice, CPU oracle +
 GPU production solver, five-part repo (`core` / `solver-cpu` / `solver-gpu` / `runner` / `app`;
 `solver-gpu` and `app` are reserved and uncreated).
@@ -209,36 +211,21 @@ in charter §3.1 and get no retroactive ADR.
 ## Next step
 
 Phase 1 is closed (2026-07-15). Phase 2a is closed — maker-asserted complete 2026-07-15
-(evidence in the plan's Steps). **Phase 2b's two opening deliverables were produced
-2026-07-15 and await maker review:**
+(evidence in the plan's Steps). **Phase 2b state (end of 2026-07-15): everything exists —
+the two ADR 0005 deliverables (attachment-kinetics §4.4 spec; libbrecht-parameters.md table),
+the implementation (`LKSolver`, shared `SurfaceOperator`, GG Dirichlet option, `grow-lk`, the
+flagless `gate2b`), and three maker audit rounds' worth of remediations — but the habit gate
+has NOT produced an accepted result.** Protocol v3 is re-registered (plan, Steps: same-domain
+96³ pair, `CAK_A1`, `sigma_infinity = 0.002`, per-face fill with the hexagonal-prism 2/3
+factor, divergence-identity convergence). The three protocol versions and every audit finding
+are cataloged in the plan's Tried and rejected — **read that before touching the seam.**
 
-1. **The surface-operator specification — [attachment-kinetics.md](attachment-kinetics.md)
-   §4.4.** All six ADR 0005 D2 components defined as one coupled operator; the seam's four
-   bookkeeping sub-decisions settled in writing (one-line answers in the plan, Approach item
-   4): separate fill field (not `b`); freezing replaced by the Robin sink, melting disabled;
-   mass claim is an accounting identity with a metered Dirichlet source, not a `Σ(b+d)`
-   invariant; the field is σ directly, sampled at the boundary cell post-relaxation. Facet
-   classification is a physical policy table — `(0,1)` basal, `(1,0)` prism, everything else
-   a barrier-free kink site — answering the plan's mixed-configuration open question. No ADR
-   was needed: charter v1.3 had already delegated the storage decision to this spec.
-2. **The parameter table — [libbrecht-parameters.md](libbrecht-parameters.md).** Every entry
-   cited (paper + monograph, page numbers), provenance classes P1–P4, canonical units with
-   raw values recorded. Load-bearing findings: σ₀(T)/A(T) exist in the sources **only as
-   figures** (numeric anchors are labeled figure digitizations, ±25%); the two sources put
-   the σ₀ crossing at **different temperatures** (−6 °C vs ≈−10 °C — recorded as a stated
-   systematic, CAK set adopted); **no D(T) law exists in the source** (its own Table 2.1 is
-   consistent with constant D at 1 atm — verified by back-computation); monograph "Appendix
-   B" is cited by its own text but does not exist in v2. Table 2.1 (image) transcribed for
-   v_kin/c_sat/σ_water/X₀ anchors; closed-form cross-check at −15 °C agrees to 1.4%.
-3. **Doc debt: cleared** — the plan's 2b section is reconciled with ADR 0005 (the "n_diff
-   plausibility" step is retracted-as-specified and replaced by the fill-CFL bound and the
-   worked Péclet arithmetic: quasi-static is comfortably valid across the Nakaya regime,
-   `Pe ≤ 1.64e-3` worst case).
-
-**Next concrete action (for whoever picks this up): maker review of the two deliverables.**
-If accepted, 2b code starts with the `SurfaceOperator` refactor — `GGThreshold` behind the
-interface, gated by bit-identical reproduction of every 2a gate (plan, Stage 2b steps;
-attachment-kinetics §4.4 component 6 test 1). No kinetics code before that gate passes.
+**Next concrete action: run `node runner/src/main.ts gate2b` (v3), record its result
+honestly (pass OR fail — the ±25% digitization caveat makes a cold-side failure a reportable
+finding, not a bug hunt), commit, and put the result in front of the maker.** Expect tens of
+minutes per run; the runner logs to stdout, checkpoints to `out/gate2b-*.ckpt`. After the
+gate: 2a byte-identity re-check (`cmp out/plate-gate.ckpt` against a fresh enforced run) —
+GG is untouched by round 3 but the claim must stay current.
 
 Traps already known: the 19-site seed erratum (gg-machinery §5 — the paper says 20; do not
 "fix" it back). The symmetry gate runs on the **hexPrism** domain — a box cannot pass it for

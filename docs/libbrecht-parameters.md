@@ -87,8 +87,9 @@ while every individual number "looks right." Pressure: raw units recorded, canon
 **Known limit of the closed forms (found 2026-07-15, pinned in `core/test/libbrecht.test.ts`):
 computing `sigma_water` as the DIFFERENCE of the two Eq. 2.8 fits amplifies their individual
 ~1% errors without bound near the melting point — at −1 °C the difference form goes *negative*
-(−0.006 vs Table 2.1's +0.010), at −10 °C it is ~20% low, at −15 °C it reads 0.137 vs the
-table's 0.157 (12.8% low), improving with cold: 8.8% at −20, 4.6% at −30, 2.0% at −40.**
+(−0.009146 computed, vs Table 2.1's +0.010; the −0.006 first recorded here was hand-arithmetic
+error, corrected round-3), at −10 °C it is ~20% low, at −15 °C it reads 0.137 vs the table's
+0.157 (12.8% low), improving with cold: 8.8% at −20, 4.6% at −30, 2.0% at −40.**
 Use Table 2.1's `sigma_water` column (anchors in §5) wherever the value matters; the fit
 difference is implemented because the forms are cited, not because it is good.
 
@@ -148,6 +149,16 @@ own framing**):
   facets when the growth temperature is above −10 C" — 1910.09067 p. 4 (which then *sets this
   aside* and assumes A ≈ 1 throughout; the monograph's CAK curves *include* it — Figure 4.5
   lower panel, and the "frustrated QLL kinetics" discussion, printed p. 145–147 / pdf 146–148).
+
+**Parameter-set provenance (added round-3 — every solver input needs a class, including
+composite sets):** the solver's selectable sets are `CAK` — this Branch's digitized σ₀(T)
+plus the digitized `A(T)` (both **P2**, figure digitizations of the source's own fits) — and
+`CAK_A1` — the same σ₀(T) with `A ≡ 1` on both facets. `CAK_A1` is classified **P2** as a
+whole: its σ₀ component is the P2 digitization above, and its `A ≡ 1` component is the
+simplification 1910.09067 itself adopts for its analysis ("I will proceed by assuming A ≈ 1
+… throughout the remainder of this paper," p. 5 — a cited modeling choice, not a
+measurement). `CAK_A1` is NOT 1910.09067's model: that paper's own Fig. 4 σ₀ fits (made
+under A ≡ 1) are a separate, un-digitized curve set — a recorded gap.
 
 **Source discrepancy, recorded rather than smoothed over:** 1910.09067 Figure 4's caption puts
 the raw-measurement σ₀ crossing at **T ≈ −6 °C** (plates above, columns below, at face value);

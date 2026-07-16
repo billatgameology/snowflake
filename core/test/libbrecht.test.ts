@@ -64,10 +64,10 @@ describe("closed forms vs monograph Table 2.1 anchors", () => {
   it("sigma_water: the fit-difference form works only away from melting — the RECORDED limit", () => {
     // libbrecht-parameters.md §5: sigma_water comes from the DIFFERENCE of two approximate
     // Arrhenius fits, which amplifies their individual ~1% errors without bound as the
-    // difference shrinks toward 0 C — at -1 C the form even goes NEGATIVE (-0.006 vs the
-    // table's +0.010). Pinned here so the limitation cannot silently un-happen; sigma_water
-    // is a documentation-level ceiling, never a dynamical input.
-    expect(sigmaWater(-1)).toBeLessThan(0); // the near-melting breakdown, pinned
+    // difference shrinks toward 0 C — at -1 C the form even goes NEGATIVE (-0.009146
+    // computed, vs the table's +0.010). Pinned here so the limitation cannot silently
+    // un-happen; sigma_water is a documentation-level ceiling, never a dynamical input.
+    expect(sigmaWater(-1)).toBeCloseTo(-0.009146, 5); // the near-melting breakdown, pinned
     expect(relErr(sigmaWater(-10), 0.102)).toBeGreaterThan(0.15); // ~20% off at -10, pinned
     // Measured deviations of the difference form: -15: 12.8%, -20: 8.8%, -30: 4.6%, -40: 2.0%
     for (const [tC, , , sigmaW] of TABLE_2_1) {
@@ -144,11 +144,19 @@ describe("alphaHK and facet classification (attachment-kinetics §4.4 component 
 
 describe("quasi-static validity (Péclet; §4.4 test 6)", () => {
   it("the 2b gate configurations sit deep in the quasi-static regime", () => {
-    // Gate domain: 96 cells * 0.35 um = 33.6 um across; sigma_infinity = 0.005; 1 atm.
+    // Gate domain: 96 cells * 0.35 um = 33.6 um across; sigma_infinity = 0.002; 1 atm.
+    // Two-sided bands (round-3 review: a broken helper returning 0 must not pass) — the
+    // expected values are hand-computed from the cited forms: Pe = vKin*sigma*L/D.
     const lengthM = 96 * 0.35e-6;
-    expect(pecletUpperBound(-5, 0.005, lengthM, 101325)).toBeLessThan(1e-2);
-    expect(pecletUpperBound(-15, 0.005, lengthM, 101325)).toBeLessThan(1e-2);
+    const warm = pecletUpperBound(-5, 0.002, lengthM, 101325);
+    expect(warm).toBeGreaterThan(1e-6); // vKin(-5)*0.002*33.6e-6/2e-5 ~ 1.7e-6
+    expect(warm).toBeLessThan(1e-2);
+    const cold = pecletUpperBound(-15, 0.002, lengthM, 101325);
+    expect(cold).toBeGreaterThan(5e-7); // vKin(-15)*0.002*33.6e-6/2e-5 ~ 7e-7
+    expect(cold).toBeLessThan(1e-2);
     // And the worst case recorded in the plan (sigma_water ceiling at -15, L = 1 mm):
-    expect(pecletUpperBound(-15, 0.157, 1e-3, 101325)).toBeLessThan(2e-3);
+    const worst = pecletUpperBound(-15, 0.157, 1e-3, 101325);
+    expect(worst).toBeGreaterThan(1e-3);
+    expect(worst).toBeLessThan(2e-3);
   });
 });

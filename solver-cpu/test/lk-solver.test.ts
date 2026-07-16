@@ -115,18 +115,14 @@ describe("LKSolver — ledger identity (§4.4 test 4)", () => {
   it("NON-TAUTOLOGICAL: the ledger delta equals an independently recomputed flux integral", () => {
     // Round-2 maker review, blocker 5: the previous test compared the ledger against sums
     // the same code path wrote. Here the expected uptake is recomputed OUTSIDE the solver —
-    // from the converged public field, the public neighbor counts, and core's alphaHK — and
-    // must match the ledger delta the step records. First step from the seed: no cell can
-    // clamp at f = 1 (increments <= CFL) and no hole-fill geometry exists, so the integral
-    // is clean.
+    // from the converged public field, the public neighbor counts, core's alphaHK, and the
+    // hexagonal-prism face factors (2/3 lateral, 1 vertical; round-3 blocker 1a) — and must
+    // match the ledger delta. Round-3 blocker 2: the identity now includes the saturation
+    // clipping term and is asserted across MANY steps, saturating ones included.
     const solver = new LKSolver(devOptions);
-    const relax = solver.relaxField();
-    expect(relax.converged).toBe(true);
-    // Independent recomputation of v_n per boundary cell from the converged field, using
-    // the same self-consistent sigma_face definition the spec states (damped fixed point).
-    const ratio = (devOptions.dxUm * 1e-6) / solver.x0M;
-    const boundary = Array.from(solver.boundaryCells());
-    const vn: number[] = boundary.map((x) => {
+    const dxM = devOptions.dxUm * 1e-6;
+    const ratio = dxM / solver.x0M;
+    const cellRate = (x: number): number => {
       const [nT, nZ] = solver.neighborCounts(x);
       const facet = classifyFacet(nT, nZ);
       const sc = Math.max(solver.sigma[x], 0);
@@ -140,15 +136,31 @@ describe("LKSolver — ledger identity (§4.4 test 4)", () => {
         }
         sf = 0.5 * (sf + next);
       }
-      return alphaHK(facet, devOptions.tempC, sf, "CAK_A1") * solver.vKinMS * sf;
-    });
-    const maxVn = Math.max(...vn);
-    const deltaT = (0.1 * devOptions.dxUm * 1e-6) / maxVn; // cflFill default 0.1
-    const expectedUptake = vn.reduce((sum, v) => sum + (v * deltaT) / (devOptions.dxUm * 1e-6), 0);
-    const before = solver.fillLedger;
-    const surface = solver.advanceSurface();
-    expect(surface.holeFillCount).toBe(0);
-    expect((solver.fillLedger - before) / expectedUptake).toBeCloseTo(1, 9);
+      const vn = alphaHK(facet, devOptions.tempC, sf, "CAK_A1") * solver.vKinMS * sf;
+      return (((2 / 3) * nT + nZ) * vn) / dxM;
+    };
+    let sawSaturation = false;
+    for (let t = 0; t < 60; t++) {
+      const relax = solver.relaxField();
+      expect(relax.converged).toBe(true);
+      const rates = Array.from(solver.boundaryCells()).map(cellRate);
+      const maxRate = Math.max(...rates);
+      if (maxRate <= 0) break;
+      const deltaT = 0.1 / maxRate; // cflFill default 0.1
+      const expectedFlux = rates.reduce((sum, r) => sum + r * deltaT, 0);
+      const ledgerBefore = solver.fillLedger;
+      const clippedBefore = solver.saturationClippedFill;
+      const surface = solver.advanceSurface();
+      if (surface.holeFillCount > 0) continue; // hole-fill is outside the flux integral
+      const accounted =
+        solver.fillLedger - ledgerBefore + (solver.saturationClippedFill - clippedBefore);
+      expect(accounted / expectedFlux, `step ${t}`).toBeCloseTo(1, 8);
+      if (solver.saturationClippedFill > clippedBefore) sawSaturation = true;
+      solver.tick++; // manual stepping: keep the tick advancing as step() would
+    }
+    // The identity must have been exercised on at least one SATURATING step (the round-3
+    // probe scenario: recomputed flux exceeded the ledger by 35% when clipping was silent).
+    expect(sawSaturation).toBe(true);
   });
 });
 
@@ -171,7 +183,7 @@ describe("LKSolver — §4.4 contract closures (round-2 review)", () => {
     }
   });
 
-  it("an unconverged relaxation NEVER advances the surface", () => {
+  it("an unconverged relaxation NEVER advances the surface — including via the public interface", () => {
     const solver = new LKSolver({ ...devOptions, relaxTol: 1e-30, relaxMaxSweeps: 2 });
     const before = solver.attachedCount;
     const tickBefore = solver.tick;
@@ -182,6 +194,22 @@ describe("LKSolver — §4.4 contract closures (round-2 review)", () => {
     expect(solver.attachedCount).toBe(before);
     expect(solver.tick).toBe(tickBefore);
     expect(solver.fillLedger).toBe(0);
+    // Round-3 review: the guard must bind the PUBLIC method too, not just step().
+    expect(() => solver.advanceSurface()).toThrow(/unconverged field/);
+    expect(solver.fillLedger).toBe(0);
+  });
+
+  it("a second advanceSurface without a fresh relaxField also throws (one advance per relax)", () => {
+    const solver = new LKSolver(devOptions);
+    solver.relaxField();
+    solver.advanceSurface();
+    expect(() => solver.advanceSurface()).toThrow(/unconverged field|converged relaxField/);
+  });
+
+  it("drift phi is rejected at runtime, not just by the type system", () => {
+    expect(
+      () => new LKSolver({ ...devOptions, ...({ phi: 0.01 } as object) } as never),
+    ).toThrow(/phi is unsupported/);
   });
 });
 
@@ -262,11 +290,4 @@ describe("LKSolver — growth, determinism, symmetry", () => {
     expect(solver.attachedCount).toBeGreaterThan(19);
   });
 
-  it("drift is unsupported by design — there is no phi option to set", () => {
-    // Compile-time truth stated as a runtime assertion for the reader: LKSolverOptions has
-    // no phi. (attachment-kinetics §4.4 component 5: a drift term inside a quasi-static
-    // solve is a different physical statement nobody has specified.)
-    const solver = new LKSolver(devOptions);
-    expect("phi" in solver).toBe(false);
-  });
 });

@@ -4,13 +4,14 @@
   repo scaffold that precedes both
 - **Status:** Scaffold + **Stage 2a COMPLETE — maker-asserted 2026-07-15** (enforced gate,
   twelve criteria; closed after six adversarial review rounds — three subagent, three maker —
-  all recorded in Tried and rejected; evidence in Steps). **Stage 2b: both ADR 0005 opening
-  deliverables EXIST as of 2026-07-15** — the surface-operator specification
-  (attachment-kinetics §4.4, settling the seam's four sub-decisions in writing) and the cited
-  parameter table (libbrecht-parameters.md). Whether they lift the pause is the maker's call,
-  not this plan's (this project's review history says exactly why). **2b code has not
-  started**; when it does, the first step is the `SurfaceOperator` refactor gated by
-  bit-identity
+  all recorded in Tried and rejected; evidence in Steps). **Stage 2b: deliverables AND
+  implementation exist (maker-directed 2026-07-15); three maker audit rounds each found and
+  killed a defective gate protocol BEFORE any result was accepted** (v1 domain confound /
+  mislabeled set / σ split; v2 face-geometry, clipping, divergence-blind convergence — full
+  catalogs in Tried and rejected). **Protocol v3 is re-registered; the habit gate has NOT
+  yet produced an accepted result.** The `SurfaceOperator` refactor's bit-identity gate is
+  passed (byte-identical 2a checkpoints); LKSolver implements attachment-kinetics §4.4 as
+  corrected through round 3
 - **Started:** 2026-07-14
 - **2026-07-15 session:** the D6h symmetry failure is resolved (it was the domain shape, not
   index arithmetic — see "The symmetry gate runs on a hexPrism domain" below and Tried and
@@ -545,9 +546,15 @@ Order within 2b is deliberate; each step gates the next:
       assumed the cell-center σ that blocker 3 (sink/growth inconsistency) invalidated. Kept
       struck-through per Rule 4; the full blocker catalog is in Tried and rejected.
 
-      **RE-REGISTRATION (2026-07-15, after the round-2 fixes, committed BEFORE the first
-      accepted gate run; protocol PINNED in the flagless `gate2b` — exit 0 is the whole
-      claim):** **ONE domain for both runs — 96,96,96 hexPrism + Dirichlet; the only
+      ~~**RE-REGISTRATION v2 (2026-07-15, after the round-2 fixes)**~~ — **SUPERSEDED by v3
+      below (round-3 maker review, again before any accepted result):** v2's fill rule
+      ignored the hexagonal-prism face geometry (uniform `v_n·Δt/Δx` overdrives lateral
+      growth by 50%, collapsing its "≥ 1.77" warm ratio to ≈ 1.18 in volume-fill terms —
+      inside the very threshold it gated), its convergence ignored the divergence identity
+      (measured 2.5e-6 → 8.9e-6 growing with domain at tol 1e-9, on course to fail its own
+      < 1e-6 criterion at 96³), it silently clipped saturating flux (35% ledger deficit on
+      ordinary steps), and it swapped the two dx/X₀ values. v2's remaining content follows,
+      struck through in spirit — do not run it: **ONE domain for both runs — 96,96,96 hexPrism + Dirichlet; the only
       difference between the runs is the temperature.** Parameter set **CAK_A1** — named
       honestly: the monograph's CAK σ₀ curves with the `A ≡ 1` simplification (the same
       simplification 09067 applies to its own analysis, p. 5), chosen over full CAK *in
@@ -576,6 +583,28 @@ Order within 2b is deliberate; each step gates the next:
       (an unconverged relax never advances the surface); divergence identity < 1e-6;
       KINETIC fill-CFL never exceeded (hole-fill events counted separately); quasi-static
       Péclet bound < 1e-2.
+
+      **RE-REGISTRATION v3 (2026-07-15, after the round-3 fixes, committed BEFORE the first
+      accepted gate run; protocol PINNED in the flagless `gate2b`):** identical to v2
+      except, each forced by a round-3 blocker: **(i) fill is per attached face with the
+      hexagonal-prism geometry factors** — `Δf = [(2/3)·n_T + n_Z]·alphaHK·v_kin·sigma_face·
+      Δt/Δx` (attachment-kinetics §4.4 component 3); **(ii) `sigma_infinity = 0.002`** (with
+      the 2/3 lateral factor, v2's 0.005 left the worst-case warm volume-fill ratio ≈ 1.18 —
+      inside the AR threshold; at 0.002 the worst case `sigma_cell = sigma_infinity` gives,
+      via the face fixed point at `Δx/X_0(−5) = 2.453`: prism `sigma_face ≈ 0.00144`,
+      `alphaHK ≈ 0.153` vs basal `sigma_face ≈ 0.00189`, `alphaHK ≈ 0.0245` → lateral/
+      vertical fill ratio `(2/3)·(0.153·0.00144)/(0.0245·0.00189) ≈ 3.2`; at −15 °C,
+      `Δx/X_0 = 2.414`, basal `alphaHK = exp(−12) ≈ 6.1e-6` vs prism `exp(−16) ≈ 1.1e-7` →
+      vertical/lateral ratio `≈ 82`; both ratios grow monotonically as `sigma_cell` falls,
+      so the ordering holds on `(0, 0.002]`. The v2 arithmetic also swapped the two
+      `Δx/X_0` values — corrected here: **2.453 at −5 °C, 2.414 at −15 °C**);
+      **(iii) convergence requires the divergence identity** — run `divTol = 1e-7`, gate
+      criterion `< 1e-6` unchanged; **(iv) saturation-clipped flux is recorded and
+      reported** (ledger identity: fill + clipped = flux integral, exact); **(v) explicit
+      `center`, no constructor defaults on any gate path.** Step cap 2×10⁵. All v2
+      criteria retained, including both stated caveats (±25% digitization bands can
+      reverse the −15 °C ordering — a failure is reported as a finding; the −15 °C
+      expectation is Nakaya-inverted by the model's own prediction).
 - [ ] SDAK, gated. Check: thin plates / needles at the extremes. **Abandon without regret if it
       resists** — the fallback reaches every Phase 4 gate anyway.
       **Status at 2b closure (2026-07-15): deliberately NOT implemented, and deliberately not
@@ -736,6 +765,35 @@ Order within 2b is deliberate; each step gates the next:
   names must exist as a type the compiler checks, not as a resemblance; and every quantity a
   gate criterion reads must be shown uncensorable by construction — a report that a code
   path can bypass is not evidence.**
+- **The second Phase 2b implementation and gate protocol (round-3 maker audit, 2026-07-15;
+  three blockers + closure blocker + should-fixes, all remediated same-session; the v2 gate
+  run was killed at ~84 CPU-minutes with no result accepted).** The catalog:
+  (1) *face geometry* — the hexagonal-prism cell's basal and prism faces have different
+  area-to-volume ratios; uniform `v_n·Δt/Δx` fill overdrove lateral growth by 50%,
+  quietly biasing the plate gate (its "robust 1.77" was really ≈ 1.18 in volume terms) →
+  per-face fill with factors 2/3 (lateral) and 1 (vertical); σ_infinity re-registered to
+  0.002 so the corrected worst-case ratios are ≥ 3.2 (warm) and ≈ 82 (cold). Also fixed
+  under the same blocker: multi-face cells now fill per face; noise folds into `alphaHK`
+  so the sink and growth see the same perturbed coefficient; the residual sink/growth
+  mismatch (measured 0.96–1.01) is scoped honestly as first-order discretization,
+  reported, not claimed exact. (2) *saturation clipping* — flux beyond a saturating cell's
+  remaining fill was silently dropped (measured 35% ledger deficit on an ordinary step;
+  the round-2 identity test had only exercised the unsaturated first step) → clipped flux
+  is recorded (`saturationClippedFill`), the identity is `fill + clipped = flux integral`,
+  and the test now sweeps many steps and requires a saturating one. (3) *divergence-blind
+  convergence* — iterate-change alone reported "converged" fields whose shell-vs-sink
+  imbalance grew with domain (2.46e-6 at 32³ → 8.85e-6 at 48³ at tol 1e-9, on course to
+  fail the gate's own < 1e-6 at 96³) → convergence now requires residual AND divergence
+  identity (`divTol`, gate 1e-7). Plus: the public `advanceSurface()` now throws on an
+  unconverged field (the guard lived only in `step()`); programmatic `phi` rejected at
+  runtime; `solveFace` verifies its nonlinear residual; Péclet tests two-sided; explicit
+  `center` in gate paths; `CAK_A1` given its P2 provenance classification; the plan's
+  swapped `Δx/X_0` values corrected (2.453 at −5, 2.414 at −15); `sigma_water(−1)` corrected
+  to the computed −0.009146; the sweep's per-cell closure inlined (it dominated 96³ wall
+  time). Lesson, appended: **"consistent to first order" is a claim about a limit — state
+  the measured value at the resolution you actually run, and make every conservation claim
+  an identity over recorded terms, so that nothing physical can be silently dropped,
+  clipped, or absorbed into a report the gate never reads.**
 - **"npm test fails in the repo-wide Rule 7 scan" (PROGRESS.md, 2026-07-15 handoff)** — did not
   reproduce at HEAD (a58bac0): the scan and the fixture tests pass, and the lint verifiably
   still fails on real violations (bare stem, provenance-free qualifier, markdown inline-span

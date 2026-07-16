@@ -53,6 +53,7 @@ import {
   computeMetrics,
   decodeCheckpoint,
   decodeLKCheckpoint,
+  domainCenter,
   encodeCheckpoint,
   encodeLKCheckpoint,
   isD6hInvariantSet,
@@ -436,11 +437,13 @@ interface GrowLKOptions {
   noise: number;
   out: string | null;
   metricsEvery: number;
-  /** Pinned explicitly by gate2b (round-2 review: no mutable constructor defaults in a gate). */
+  /** Pinned explicitly by gate2b (round-2 review: no mutable constructor defaults in a gate;
+      round-3: divTol and center too). */
   pressurePa: number;
   seedRadius: number;
   seedThickness: number;
   relaxMaxSweeps: number;
+  divTol: number;
 }
 
 function parseLKArgs(argv: string[]): GrowLKOptions {
@@ -462,6 +465,7 @@ function parseLKArgs(argv: string[]): GrowLKOptions {
     seedRadius: 2,
     seedThickness: 1,
     relaxMaxSweeps: 200_000,
+    divTol: 1e-7,
   };
   for (let i = 0; i < argv.length; i++) {
     const flag = argv[i];
@@ -471,6 +475,9 @@ function parseLKArgs(argv: string[]): GrowLKOptions {
       return v;
     };
     switch (flag) {
+      case "--div-tol":
+        options.divTol = Number(value());
+        break;
       case "--temp-c":
         options.tempC = Number(value());
         break;
@@ -563,6 +570,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
     paramSet: options.paramSet,
     cflFill: options.cfl,
     relaxTol: options.tol,
+    divTol: options.divTol,
     relaxMaxSweeps: options.relaxMaxSweeps,
     rngSeed: options.seed,
     noiseEpsilon: options.noise,
@@ -570,6 +578,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
     farField: "dirichlet",
     seedRadius: options.seedRadius,
     seedThickness: options.seedThickness,
+    center: domainCenter(options.dims), // explicit — no constructor defaults in gate paths
   });
   const seedSites = solver.attachedCount;
   const pecletBound = pecletUpperBound(
@@ -583,7 +592,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
     `grow-lk T=${options.tempC}C sigmaInf=${options.sigmaInf} dims=${dims.nx},${dims.ny},${dims.nz}` +
       ` (hexRadius=${solver.hexRadius}, zHalfExtent=${solver.zHalfExtent}, active=${solver.activeCellCount})` +
       ` dx=${options.dxUm}um P=${options.pressurePa}Pa paramSet=${options.paramSet}` +
-      ` cfl=${options.cfl} tol=${options.tol} maxSweeps=${options.relaxMaxSweeps}` +
+      ` cfl=${options.cfl} tol=${options.tol} divTol=${options.divTol} maxSweeps=${options.relaxMaxSweeps}` +
       ` targetExtent=${options.targetExtent} seed=${options.seed} noise=${options.noise}` +
       ` seedRadius=${options.seedRadius} seedSites=${seedSites}` +
       ` vKin=${solver.vKinMS.toExponential(4)}m/s X0=${(solver.x0M * 1e6).toFixed(4)}um` +
@@ -662,7 +671,8 @@ function growLK(options: GrowLKOptions): LKRunResult {
       ` worstDiv=${worstDivergence.toExponential(3)} maxKineticFill=${maxKineticFillEver.toFixed(4)}` +
       ` holeFills=${solver.holeFillCountTotal}` +
       ` simTime=${solver.simTimeSeconds.toFixed(2)}s fillLedger=${solver.fillLedger.toFixed(3)}` +
-      ` holeFillDeficit=${solver.holeFillDeficit.toFixed(3)}`,
+      ` holeFillDeficit=${solver.holeFillDeficit.toFixed(3)}` +
+      ` saturationClipped=${solver.saturationClippedFill.toFixed(3)}`,
   );
 
   if (options.out !== null) {
@@ -710,17 +720,20 @@ function growLK(options: GrowLKOptions): LKRunResult {
 }
 
 /**
- * The ENFORCED Phase 2b habit gate — RE-REGISTERED after the round-2 maker review killed the
- * first protocol before any result existed (its two runs used different domains, confounding
- * temperature with reservoir geometry; its parameter set was mislabeled; its sink and growth
- * disagreed on sigma_surf). The corrected protocol is PINNED here, flagless, and recorded in
- * the Phase 2 plan BEFORE the first accepted run:
- *   ONE domain for both runs: 96,96,96 hexPrism + Dirichlet — the ONLY difference between
- *   the two runs is the temperature;
- *   parameter set CAK_A1 (the monograph's CAK sigma_0 curves with the A ≡ 1 simplification —
- *   named honestly; NOT 1910.09067's own sigma_0 fits, which are un-digitized),
- *   sigma_infinity = 0.005, dx = 0.35 um, P = 101325 Pa, cfl 0.1, tol 1e-9, maxSweeps 2e5,
- *   noise OFF, seed 1, canonical radius-2/thickness-1 seed (must initialize as 19 sites),
+ * The ENFORCED Phase 2b habit gate — RE-REGISTERED (protocol v3) after the round-3 maker
+ * review invalidated v2 mid-run (v1: domain confound + mislabeled set + sink/growth sigma
+ * split; v2: uniform fill ignored the hexagonal-prism FACE GEOMETRY — a lateral face fills a
+ * cell at 2/3 the basal rate, so v2 overdrove prism growth 50% — plus divergence-blind
+ * convergence and silent saturation clipping). v3, PINNED here flagless and recorded in the
+ * plan BEFORE the first accepted run:
+ *   ONE domain for both runs: 96,96,96 hexPrism + Dirichlet — temperature is the only
+ *   difference; parameter set CAK_A1 (honest name; see libbrecht-parameters.md);
+ *   sigma_infinity = 0.002 (v3: with the corrected 2/3 lateral face factor, 0.005 left the
+ *   warm-side volume-fill ratio ~1.18 — inside the AR threshold; 0.002 gives worst-case
+ *   lateral/vertical fill ratios >= 3.1 at -5 C and vertical/lateral >= 55 at -15 C,
+ *   arithmetic in the plan), dx = 0.35 um, P = 101325 Pa, cfl 0.1, tol 1e-9, divTol 1e-7
+ *   (convergence REQUIRES the divergence identity), maxSweeps 2e5, noise OFF, seed 1,
+ *   canonical radius-2/thickness-1 seed asserted as 19 sites, explicit center;
  *   run PLATE  at T = -5 C  -> expect AR <= 1/1.5 at first extent >= 60 cells, and
  *   run COLUMN at T = -15 C -> expect AR >= 1.5   at first extent >= 60 cells.
  * NOTE the -15 C expectation is deliberately Nakaya-INVERTED (the no-SDAK large-facet model
@@ -731,13 +744,13 @@ function gate2b(): void {
   const failures: string[] = [];
   const common: GrowLKOptions = {
     tempC: null,
-    sigmaInf: 0.005,
+    sigmaInf: 0.002,
     dims: { nx: 96, ny: 96, nz: 96 }, // SAME domain for both runs — temperature only
     dxUm: 0.35,
     paramSet: "CAK_A1",
     cfl: 0.1,
     tol: 1e-9,
-    steps: 100_000,
+    steps: 200_000,
     targetExtent: 60,
     seed: 1,
     noise: 0,
@@ -747,6 +760,7 @@ function gate2b(): void {
     seedRadius: 2,
     seedThickness: 1,
     relaxMaxSweeps: 200_000,
+    divTol: 1e-7,
   };
   console.log("=== 2b GATE run 1/2: plate expectation, T = -5 C ===");
   const plate = growLK({ ...common, tempC: -5, out: "out/gate2b-plate.ckpt" });
