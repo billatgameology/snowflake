@@ -211,7 +211,12 @@ export function evaluateGate3(
   return { failures, windowMedianRatio, windowFractionBelowOne, windowComplete };
 }
 
-/** CSV serialization: String() keeps full round-trip float precision; NaN prints as NaN. */
+/**
+ * CSV serialization: String() keeps full round-trip float precision; NaN prints as NaN.
+ * Line 1 is a `#` provenance comment (charter §1.5: evidence lines carry field provenance —
+ * chosen over renamed header columns so the column names stay machine-friendly; standard
+ * readers skip it via comment="#" / comment.char="#", and it is trivially strippable).
+ */
 export function gate3Csv(samples: readonly Gate3Sample[]): string {
   const rows = samples.map(
     (s) =>
@@ -219,6 +224,8 @@ export function gate3Csv(samples: readonly Gate3Sample[]): string {
       `${String(s.depletionCenter)},${String(s.depletionRim)},${String(s.depletionRatio)}`,
   );
   return (
+    "# depletionCenter/depletionRim: G-G vapor mass d, model units, unvalidated " +
+    "(charter §1.5); depletionRatio: unitless center/rim quotient\n" +
     "tick,attachedCount,boundingRadius,aspectRatio,depletionCenter,depletionRim,depletionRatio\n" +
     rows.join("\n") +
     "\n"
@@ -271,6 +278,11 @@ export function gate3(): void {
       `registered: minRadius=${GATE3_REGISTERED_MIN_RADIUS} ` +
       `maxMedian=${GATE3_REGISTERED_MAX_MEDIAN} ` +
       `minFracBelow1=${GATE3_REGISTERED_MIN_FRACTION_BELOW_1} maxAR=${GATE3_MAX_ASPECT_RATIO}`,
+  );
+  console.log(
+    "gate3 field provenance: depletion samples read G-G vapor mass d — computed state, " +
+      "model units, unvalidated (charter §1.5); depletionRatio is their unitless " +
+      "center/rim quotient",
   );
 
   const takeSample = (): Gate3Sample => {

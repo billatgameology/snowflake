@@ -42,6 +42,13 @@ function syntheticState(): SolverState {
   };
 }
 
+function parseGGHeader(bytes: Uint8Array): Record<string, unknown> {
+  const headerLength = new DataView(bytes.buffer, bytes.byteOffset).getUint32(8, true);
+  return JSON.parse(
+    new TextDecoder().decode(bytes.subarray(12, 12 + headerLength)),
+  ) as Record<string, unknown>;
+}
+
 function mutateGGHeader(
   bytes: Uint8Array,
   mutate: (header: Record<string, unknown>) => void,
@@ -100,6 +107,51 @@ describe("checkpoint round-trip (synthetic state; re-verified on a grown crystal
       Array.from(state.params.kappa.subarray(1)),
     );
     expect(decoded.state.params.rho).toBe(state.params.rho);
+  });
+
+  // ── The v1 metric block is FROZEN at eleven keys (R1 blocker, 2026-07-15: serializing the
+  // whole in-memory Metrics grew a reproduced 2a canonical header by 111 bytes and changed
+  // its recorded SHA; the depletion metrics live in gate3's CSV, not the checkpoint). ──────
+
+  it("serializes exactly the eleven v1 metric keys, in v1 order, dropping in-memory extras", () => {
+    const state = syntheticState();
+    const metrics = computeMetrics(state.a, state.b, state.d, state.dims, state.center, state.tick);
+    // Non-vacuity: the in-memory bundle really does carry more than the wire contract.
+    expect(Object.keys(metrics)).toContain("depletionRatio");
+
+    const bytes = encodeCheckpoint(state, metrics);
+    const headerMetrics = parseGGHeader(bytes).metrics as Record<string, unknown>;
+    // The frozen v1 key list, hardcoded here independently of core's own constant.
+    expect(Object.keys(headerMetrics)).toEqual([
+      "tick",
+      "attachedCount",
+      "totalMass",
+      "symmetryError",
+      "aspectRatio",
+      "crossSectionHollowness",
+      "sealedVoidFraction",
+      "branchCount",
+      "boundingRadius",
+      "domainContact",
+      "farFieldVapor",
+    ]);
+    // The strict decoder accepts exactly-eleven — its own output round-trips.
+    const decoded = decodeCheckpoint(bytes);
+    expect(decoded.header.metrics?.totalMass).toBe(metrics.totalMass);
+  });
+
+  it("decode rejects a metric block carrying any unknown key, naming the key", () => {
+    const state = syntheticState();
+    const metrics = computeMetrics(state.a, state.b, state.d, state.dims, state.center, state.tick);
+    const bytes = encodeCheckpoint(state, metrics);
+    // Both a plausible smuggle (a Phase 3 in-memory key) and an arbitrary one must be
+    // rejected by name — decoded input is validated, not trusted (round-5/6 posture).
+    for (const key of ["depletionRatio", "smuggledKey"]) {
+      const mutated = mutateGGHeader(bytes, (header) => {
+        (header.metrics as Record<string, unknown>)[key] = 0.5;
+      });
+      expect(() => decodeCheckpoint(mutated)).toThrow(new RegExp(`unknown key "${key}"`));
+    }
   });
 
   it("rejects corrupted magic", () => {

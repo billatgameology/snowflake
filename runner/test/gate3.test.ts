@@ -231,16 +231,20 @@ describe("evaluateGate3 — the plan's negative controls", () => {
 });
 
 describe("gate3 evidence serialization and CLI pinning", () => {
-  it("gate3Csv writes the header and one full-precision row per sample, NaN spelled out", () => {
+  it("gate3Csv writes provenance, the header, and one full-precision row per sample", () => {
     const csv = gate3Csv([sampleAt(100, 0.661291), sampleAt(200, Number.NaN)]);
     const lines = csv.trimEnd().split("\n");
-    expect(lines).toHaveLength(3);
-    expect(lines[0]).toBe(
+    expect(lines).toHaveLength(4);
+    // Line 1: the §1.5 provenance comment — evidence lines carry field provenance.
+    expect(lines[0].startsWith("#")).toBe(true);
+    expect(lines[0]).toContain("G-G vapor mass d");
+    expect(lines[0]).toContain("unvalidated");
+    expect(lines[1]).toBe(
       "tick,attachedCount,boundingRadius,aspectRatio,depletionCenter,depletionRim,depletionRatio",
     );
-    expect(lines[1].startsWith("100,119,")).toBe(true);
-    expect(lines[1].endsWith(",0.661291")).toBe(true);
-    expect(lines[2].endsWith(",NaN")).toBe(true);
+    expect(lines[2].startsWith("100,119,")).toBe(true);
+    expect(lines[2].endsWith(",0.661291")).toBe(true);
+    expect(lines[3].endsWith(",NaN")).toBe(true);
     expect(csv.endsWith("\n")).toBe(true);
   });
 

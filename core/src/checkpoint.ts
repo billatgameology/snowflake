@@ -16,7 +16,7 @@
 
 import { cellCount, hexDistance, type Dims } from "./lattice.ts";
 import { kineticLength, mIce, vKin, type NucleationParamSet } from "./libbrecht.ts";
-import { totalMass, type Metrics } from "./metrics.ts";
+import { totalMass } from "./metrics.ts";
 import { validateParams, type GGParams } from "./params.ts";
 import type { DomainShape, FarFieldCondition, SolverState } from "./state.ts";
 
@@ -48,8 +48,68 @@ export interface CheckpointHeader {
     readonly mu: (number | null)[];
     readonly ggThreshBeta: (number | null)[];
   };
-  readonly metrics: Metrics | null;
+  readonly metrics: CheckpointMetrics | null;
   readonly fields: FieldDescriptor[];
+}
+
+/**
+ * The v1 header metric block: EXACTLY these eleven keys, in exactly this property order —
+ * the wire contract is FROZEN (Phase 2a evidence hardening: "Keep the v1 GG wire layout and
+ * property order unchanged"). The in-memory `Metrics` bundle is a superset (Phase 3 added
+ * depletionCenter/Rim/Ratio, whose evidentiary home is gate3's CSV and the runner's printed
+ * lines, not the checkpoint); encodeCheckpoint PICKS these eleven, and the decoder REJECTS
+ * any other key by name. Measured consequence of not picking (R1 review, 2026-07-15): the
+ * three extra keys grew a reproduced 2a canonical header by 111 bytes and broke the recorded
+ * byte-identity claim while all field payload bytes were identical.
+ */
+export interface CheckpointMetrics {
+  readonly tick: number;
+  readonly attachedCount: number;
+  readonly totalMass: number;
+  readonly symmetryError: number;
+  readonly aspectRatio: number;
+  readonly crossSectionHollowness: number;
+  readonly sealedVoidFraction: number;
+  readonly branchCount: number;
+  readonly boundingRadius: number;
+  readonly domainContact: boolean;
+  readonly farFieldVapor: number;
+}
+
+const GG_METRIC_KEYS = [
+  "tick",
+  "attachedCount",
+  "totalMass",
+  "symmetryError",
+  "aspectRatio",
+  "crossSectionHollowness",
+  "sealedVoidFraction",
+  "branchCount",
+  "boundingRadius",
+  "domainContact",
+  "farFieldVapor",
+] as const;
+
+/**
+ * Explicit pick of the eleven v1 keys in v1 property order. Encode-side only: the in-memory
+ * bundle legitimately carries extra (non-checkpoint) metrics, which are dropped here by
+ * design; decode-side input is never picked — it is validated strictly instead.
+ */
+function pickGGMetrics(metrics: CheckpointMetrics | null): CheckpointMetrics | null {
+  if (metrics === null) return null;
+  return {
+    tick: metrics.tick,
+    attachedCount: metrics.attachedCount,
+    totalMass: metrics.totalMass,
+    symmetryError: metrics.symmetryError,
+    aspectRatio: metrics.aspectRatio,
+    crossSectionHollowness: metrics.crossSectionHollowness,
+    sealedVoidFraction: metrics.sealedVoidFraction,
+    branchCount: metrics.branchCount,
+    boundingRadius: metrics.boundingRadius,
+    domainContact: metrics.domainContact,
+    farFieldVapor: metrics.farFieldVapor,
+  };
 }
 
 const LITTLE_ENDIAN_PLATFORM = new Uint8Array(new Uint16Array([0x0102]).buffer)[0] === 0x02;
@@ -182,9 +242,21 @@ function validateGGMetadata(value: unknown): { readonly n: number; readonly para
   return { n, params: readGGParams(metadata.params) };
 }
 
-function validateGGMetrics(value: unknown, n: number, tick: number): Metrics | null {
+function validateGGMetrics(value: unknown, n: number, tick: number): CheckpointMetrics | null {
   if (value === null) return null;
   const metrics = requireGGRecord(value, "metrics");
+  // Exact key set, unknown keys rejected BY NAME (R1 review 2026-07-15: smuggled keys and
+  // garbage values in non-contract fields decoded successfully, contradicting the round-5/6
+  // "validated, not trusted" posture). Every accepted evidence artifact carries exactly the
+  // eleven v1 keys, so exact-set validation rejects nothing that matters.
+  for (const key of Object.keys(metrics)) {
+    if (!(GG_METRIC_KEYS as readonly string[]).includes(key)) {
+      throw new Error(
+        `GG checkpoint metrics has unknown key "${key}" (the v1 header carries exactly the ` +
+          `eleven registered metric keys)`,
+      );
+    }
+  }
   if (!Number.isSafeInteger(metrics.tick) || metrics.tick !== tick) {
     throw new Error("GG checkpoint metrics.tick must equal the checkpoint tick");
   }
@@ -226,13 +298,15 @@ function validateGGMetrics(value: unknown, n: number, tick: number): Metrics | n
   if (typeof metrics.domainContact !== "boolean") {
     throw new Error("GG checkpoint metrics.domainContact must be boolean");
   }
-  return metrics as unknown as Metrics;
+  // The cast is now earned: every one of the eleven keys was checked above, and no other
+  // key survived the exact-set scan.
+  return metrics as unknown as CheckpointMetrics;
 }
 
 function validateGGStateArrays(
   state: SolverState,
   n: number,
-  metrics: Metrics | null,
+  metrics: CheckpointMetrics | null,
 ): void {
   if (!(state.a instanceof Uint8Array) || state.a.length !== n) {
     throw new Error(`GG checkpoint a must be a Uint8Array of length ${n}`);
@@ -285,9 +359,15 @@ function validateGGStateArrays(
   }
 }
 
-export function encodeCheckpoint(state: SolverState, metrics: Metrics | null): Uint8Array {
+export function encodeCheckpoint(
+  state: SolverState,
+  metrics: CheckpointMetrics | null,
+): Uint8Array {
   const { n } = validateGGMetadata(state);
-  const checkedMetrics = validateGGMetrics(metrics, n, state.tick);
+  // Pick the frozen v1 key set FIRST (in-memory Metrics is a superset by design), then
+  // validate the picked block — so the header serializes exactly the eleven keys in v1
+  // property order, and a decoded header re-encodes byte-identically.
+  const checkedMetrics = validateGGMetrics(pickGGMetrics(metrics), n, state.tick);
   validateGGStateArrays(state, n, checkedMetrics);
   const header: CheckpointHeader = {
     version: 1,
