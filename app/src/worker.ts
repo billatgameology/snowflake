@@ -6,8 +6,9 @@
 // bounded rate (not every batch) with fresh transferable copies, so the render side always
 // holds a coherent frame and the solver's own fields are never detached.
 
-import { GG_PRESETS, cellCount, computeMetrics } from "@vcc/core";
+import { GG_PRESETS, cellCount } from "@vcc/core";
 import { FAR_FIELD_STOP_FRACTION, GGSolver } from "@vcc/solver-cpu";
+import { snapshotSourceFromSolver } from "./snapshot.ts";
 import {
   buildSnapshot,
   validateInitConfig,
@@ -57,7 +58,6 @@ function construct(cfg: InitConfig): void {
       kind: "ready",
       config: cfg,
       center: [solver.center[0], solver.center[1], solver.center[2]],
-      hexRadius: solver.hexRadius,
       wall: wall,
     },
     [wall.buffer],
@@ -70,32 +70,12 @@ function postSnapshot(force: boolean): void {
   const now = performance.now();
   if (!force && now - lastSnapshotAt < SNAPSHOT_INTERVAL_MS) return;
   lastSnapshotAt = now;
-  // The full core bundle rides every POSTED snapshot (bounded rate), not every tick: at
+  // snapshotSourceFromSolver computes the full core Metrics bundle (with the wall mask —
+  // load-bearing for hexPrism depletion) once per POSTED snapshot, not per tick: at
   // 128x128x64 it costs about as much as a whole tick batch.
-  const metrics = computeMetrics(
-    solver.a,
-    solver.b,
-    solver.d,
-    solver.dims,
-    solver.center,
-    solver.tick,
-    solver.farFieldMean(), // hexPrism walls make the box-face far-field mean meaningless
-    solver.wall,
+  const { message, transfers } = buildSnapshot(
+    snapshotSourceFromSolver(solver, attachTick, running, stopReason),
   );
-  const { message, transfers } = buildSnapshot({
-    tick: solver.tick,
-    attachedCount: solver.attachedCount,
-    boundarySize: solver.boundarySize(),
-    farFieldMean: solver.farFieldMean(),
-    domainContact: solver.domainContact(),
-    metrics: metrics,
-    running: running,
-    stopReason: stopReason,
-    a: solver.a,
-    b: solver.b,
-    d: solver.d,
-    attachTick: attachTick,
-  });
   scope.postMessage(message, transfers);
 }
 

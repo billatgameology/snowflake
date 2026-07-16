@@ -46,8 +46,6 @@ export interface ReadyMessage {
   readonly kind: "ready";
   readonly config: InitConfig;
   readonly center: readonly [number, number, number];
-  /** hexPrism: inscribed hexagon radius; box: -1. */
-  readonly hexRadius: number;
   /** 1 = inert wall cell. All zeros on a box domain. */
   readonly wall: Uint8Array;
 }
