@@ -69,6 +69,7 @@ import {
   type Metrics,
 } from "@vcc/core";
 import { GGSolver, LKSolver, FAR_FIELD_STOP_FRACTION } from "@vcc/solver-cpu";
+import { gate3 } from "./gate3.ts";
 import { occupancyTopDownPGM, propensitySlicePGM, vaporSlicePGM } from "./pgm.ts";
 
 interface GrowOptions {
@@ -921,11 +922,28 @@ if (command === "grow") {
     console.error("2B GATE EXIT STATUS: 1");
     process.exitCode = 1;
   }
+} else if (command === "gate3") {
+  if (rest.length > 0) {
+    console.error(
+      "gate3 takes no flags: the protocol is pinned (registered in the plan, " +
+        "phase-3-dev-visualization)",
+    );
+    console.error("GATE3 EXIT STATUS: 2");
+    process.exit(2);
+  }
+  try {
+    gate3();
+  } catch (error) {
+    console.error(error instanceof Error ? (error.stack ?? error.message) : String(error));
+    console.error("GATE3 EXIT STATUS: 1");
+    process.exitCode = 1;
+  }
 } else {
   console.error(
     "usage: node runner/src/main.ts grow --preset <name> [options]\n" +
       "       node runner/src/main.ts grow-lk --temp-c <C> --sigma-inf <frac> [options]\n" +
-      "       node runner/src/main.ts gate2b",
+      "       node runner/src/main.ts gate2b\n" +
+      "       node runner/src/main.ts gate3",
   );
   process.exit(2);
 }
