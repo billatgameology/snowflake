@@ -229,8 +229,13 @@ screenshots at R2/R3 and before the gate claim.
 - [x] Probe run (observational, `out/phase3-probe.log` + `out/phase3-ktop-probe.ts`);
       thresholds REGISTERED above; criteria shape corrected to windowed statistics (see
       Tried and rejected) — committed with this edit
-- [ ] WP1b: gate3 + negative controls (dev agent)
-- [ ] R1 adversarial review loop until zero blockers
+- [x] WP1b: gate3 + negative controls (dev agent; 830c518)
+- [x] R1 adversarial review loop → CLEAN in 2 rounds. Round 1: 1 BLOCKER (checkpoint-header
+      schema drift broke the recorded 2a byte-identity — see Tried and rejected; fixed
+      5dd6127 with the eleven-key wire contract, byte-identity re-proven by cmp + SHA) +
+      3 should-fixes (unknown-key decode rejection; G3-WINDOW/final-symmetry registration,
+      4867a67; evidence-line §1.5 provenance). Round 2: independently re-verified with fresh
+      enforced run + mutation tests, 172/172, no new findings.
 - [ ] WP2: app scaffold + worker + prisms + camera (dev agent)
 - [ ] R2 review + coordinator visual inspection loop until zero blockers
 - [ ] WP3: overlays + slice + picking + HUD (dev agent)
