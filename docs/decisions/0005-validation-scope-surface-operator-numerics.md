@@ -2,6 +2,10 @@
 
 - **Date:** 2026-07-14
 - **Status:** accepted (maker review, 2026-07-14). **Amends 0003**; does not supersede it.
+  **Amended in part by [0006](0006-audited-surface-operator-numerics.md) (2026-07-15):** D2
+  item 3's bare "vapor lost equals ice gained" and D3's residual-only convergence + scalar
+  `v_n·Δt/Δx` fill-CFL are re-stated there after implementation audits measured their
+  failure modes. Inline notes below mark the amended clauses; the rest of this record stands.
 - **Charter impact:** §1.5, §2.4, §2.5, §2.6, §2.7, §3.2 (Phases 2b, 3, 4, 6), §3.3 amended in
   this session (charter v1.2 → v1.3). Phase 2b is **paused** until its two opening deliverables
   (D2 below) exist.
@@ -83,7 +87,10 @@ together, as one coupled operator:
    it is not enough);
 3. vapor flux into the surface cell and ice-volume gain, **coupled** so that vapor lost equals
    ice gained (the Robin-condition discipline: flux balance and `v_n` are one equation system,
-   not two mechanisms);
+   not two mechanisms); *(amended by 0006: the coupling claim is a recorded flux identity —
+   fill + recorded saturation clipping = the per-face Hertz–Knudsen integral — not a bare
+   equality; audits found silent clipping and unphysical metered-source accounting hiding
+   under the slogan)*;
 4. the fill state (the deterministic accumulator survives from v1.2) and its storage;
 5. the explicit disposition of `κ`, `μ`, melting, and hole-filling under `LibbrechtKinetics` —
    each *kept / replaced / disabled*, with a reason; "identical under both rules" (gg-machinery
@@ -103,8 +110,13 @@ parameter table. **Phase 2b is paused until both exist.** GGThreshold/Phase 2a i
   tests; accelerated elliptic solvers are allowed later, Jacobi is the baseline). Iteration
   counts are whatever the tolerance demands; `(L/Δx)²`-scale counts are expected, not a bug.
   The "n_diff in the thousands means the units are wrong" claim is **retracted**.
+  *(Amended by 0006: convergence is DUAL — the divergence identity of the solve is required
+  alongside the residual; residual-only convergence was measured passing fields whose
+  imbalance grew with domain size.)*
 - Physical time enters only through the **interface update**: constrain `v_n·Δt/Δx` (a
-  fill-CFL) separately, as its own stability bound.
+  fill-CFL) separately, as its own stability bound. *(Amended by 0006: the bound binds the
+  per-cell kinetic fill increment summed per attached face with the hexagonal-prism
+  geometry factors — the scalar phrasing predates the face geometry.)*
 
 ### D4 — Phase 6 protocol freeze: expanded; convergence controls; Phase 4 pass semantics
 

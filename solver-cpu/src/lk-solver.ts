@@ -60,7 +60,9 @@ export interface LKSolverOptions {
   readonly dxUm: number;
   readonly pressurePa?: number; // default 1 atm
   readonly paramSet?: NucleationParamSet; // default "CAK_A1" (see libbrecht.ts)
-  /** Fill-CFL bound on max(v_n)·dt/dx per growth step (§4.4 test 5). */
+  /** Fill-CFL bound on the max PER-CELL kinetic fill increment — the per-face sum
+      [(2/3)·nT + nZ]·alphaHK·vKin·sigma_face·dt/dx (§4.4 test 5 as amended; round-5 review:
+      this doc said "max(v_n)·dt/dx" until then, predating the face factors). */
   readonly cflFill?: number; // default 0.1
   /** Relaxation: per-sweep max |change| / sigmaInfinity below this = converged. */
   readonly relaxTol?: number; // default 1e-9
@@ -73,7 +75,9 @@ export interface LKSolverOptions {
   readonly divTol?: number; // default 1e-6
   readonly relaxMaxSweeps?: number; // default 200_000
   readonly rngSeed: number;
-  /** v_n slowdown amplitude; 0 (default) = off. P4 dial (§4.4 component 5). */
+  /** alphaHK slowdown amplitude — applied identically in the relaxation's Robin sink and
+      the interface update for the same tick (round-3 coupling fix; this doc said "v_n
+      slowdown" until round 5); 0 (default) = off. P4 dial (§4.4 component 5). */
   readonly noiseEpsilon?: number;
   readonly domain?: DomainShape; // default "hexPrism" (Dirichlet shell needs a defined far field)
   /**
@@ -120,8 +124,10 @@ export class LKSolver implements SurfaceOperator {
   readonly vKinMS: number;
   readonly x0M: number;
   readonly mIceLedger: number;
-  /** max v_n of the most recent advanceSurface (for observability). */
-  lastMaxVn = 0;
+  /** Face-factor-weighted fill velocity max(rate)·dx (m/s) of the most recent
+      advanceSurface — NOT a bare v_n: the rate includes [(2/3)·nT + nZ] (round-5 review:
+      the old name lastMaxVn misdocumented the stored quantity). Observability only. */
+  lastMaxFillVelocityMS = 0;
   holeFillCountTotal = 0;
 
   tick = 0; // growth steps taken
@@ -645,7 +651,7 @@ export class LKSolver implements SurfaceOperator {
       rateArr[bi] = rate;
       if (rate > maxRate) maxRate = rate;
     }
-    this.lastMaxVn = maxRate * this.dxM;
+    this.lastMaxFillVelocityMS = maxRate * this.dxM;
 
     const toAttach: number[] = [];
     let maxKineticFillIncrement = 0;

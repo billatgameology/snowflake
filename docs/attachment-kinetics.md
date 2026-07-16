@@ -133,9 +133,14 @@ is filled when that accumulated advance reaches `Δx`. So accumulate a **filled 
 boundary cell and attach when it saturates:
 
 ```
-f(x) += v_n(x) · Δt / Δx          # per growth step
+f(x) += [(2/3)·n_T + n_Z] · alphaHK · v_kin · sigma_face · Δt / Δx    # per growth step
 attach when f(x) ≥ 1
 ```
+
+*(Formula corrected per decision 0006 — round-5 review caught this block still carrying the
+uniform `v_n·Δt/Δx` sketch after §4.4 component 3 had established the hexagonal-prism face
+factors: a prism face fills a cell at 2/3 the basal rate, so fill is summed per attached
+face. §4.4 component 4 is the governing statement; this section is the pedagogical intro.)*
 
 **Where `f` lives — SETTLED 2026-07-15 by §4.4 below** (the surface-operator specification that
 this paragraph used to demand; charter v1.3 explicitly delegated the decision to that spec, so
@@ -196,13 +201,19 @@ The formulation, per rule:
 - **`LibbrechtKinetics`:** the field is quasi-static. Between growth steps, iterate the smoother
   (Jacobi is the baseline; accelerated elliptic solvers are permitted later) until a stated
   **residual norm** (e.g. relative max-residual of the discrete Laplacian with the surface
-  condition applied) falls below a stated **tolerance**, with convergence tests in the suite.
-  The iteration count is an *output*, not a target.
+  condition applied) falls below a stated **tolerance** AND the **divergence identity** of the
+  solve is under its own stated tolerance — convergence is DUAL *(decision 0006, synced here
+  round-5: this bullet previously stated the residual alone, which was measured passing
+  fields whose shell-vs-sink imbalance grew with domain size)* — with convergence tests in
+  the suite. The iteration count is an *output*, not a target.
 
 Physical time enters only through the interface update, with its own bounds:
 
-- **fill-CFL:** `v_n·Δt/Δx` bounded below 1 — and small enough that per-step shape change is
-  sub-cell. This, not the diffusion sweep count, is where `Δt` lives.
+- **fill-CFL:** the per-cell kinetic fill increment
+  `[(2/3)·n_T + n_Z]·alphaHK·v_kin·sigma_face·Δt/Δx` bounded below 1 *(per-face geometry,
+  decision 0006; the scalar `v_n·Δt/Δx` here predated the face factors)* — and small enough
+  that per-step shape change is sub-cell. This, not the diffusion sweep count, is where `Δt`
+  lives.
 - **Quasi-static validity check** (kept from the old text — it was the one right part): the
   field must relax much faster than the surface moves. Relaxation `~L²/D` against growth `~L/v_n`
   gives the Péclet-like condition `v_n·L/D ≪ 1`. Evaluate it with the extracted `v_kin`, the
@@ -335,7 +346,12 @@ and the flux claims are scoped to what is actually exact.**
   `sigma_infinity = 0.01`, Δx = 0.35 µm, `CAK_A1`, seed 1; command `npm test`), values
   pinned in the test. At the gate resolution (96³) the round-3 audit measured
   0.95879–1.01266 for the same effect — an audit probe, attributed as such, not reproduced
-  by a committed run. A discretization diagnostic, never claimed as 1.
+  by a committed run. A discretization diagnostic, never claimed as 1. **Scope (round-5
+  review):** the ratio observes the SINK side against the shared per-face uptake form — it
+  never reads the ledger or `advanceSurface`, so ledger defects (e.g. silent clipping) do
+  not move it; the growth/ledger side is held to the same per-face form by component 4's
+  non-tautological flux-integral test, and the two tests together are the sink/growth
+  statement.
   The solve-quality statement is the divergence identity, which is **now part of the
   convergence criterion itself** (round-3 blocker 3: iterate-change alone reported
   "converged" fields whose shell-vs-sink imbalance grew with domain size; a solve is
@@ -414,7 +430,7 @@ with an implicit far-field supply.
 
 | Mechanism | Disposition | Reason |
 |---|---|---|
-| step (i) single diffusion pass | **replaced** — same kernel, iterated to residual tolerance (quasi-static solve; ADR 0005 D3) | the field is elliptic under this rule; one pass is a G–G-fidelity choice, not physics |
+| step (i) single diffusion pass | **replaced** — same kernel, iterated to the DUAL criterion: residual tolerance AND divergence identity (quasi-static solve; ADR 0005 D3 as amended by 0006) | the field is elliptic under this rule; one pass is a G–G-fidelity choice, not physics |
 | step (ii) freezing (`κ`) | **replaced** by the Robin substitution (component 3) | a second uptake channel double-counts vapor |
 | step (iii) threshold attachment | **replaced** by the fill rule (component 4) | this is the seam itself |
 | step (iv) melting (`μ`) | **disabled** | sublimation is not modeled (gg-machinery §2); `μ`'s smoothing role was phenomenological — if a smoothing dial is ever needed it enters as a labeled, documented dial, not as an inherited default |
@@ -427,12 +443,14 @@ with an implicit far-field supply.
 ```ts
 interface SurfaceOperator {
   /** Field relaxation for one growth step. GGThreshold: exactly one published masked pass
-      (vacuously converged). LibbrechtKinetics: iterate to the stated residual tolerance;
-      reports sweeps, residual, the divergence-identity residual, and the per-sweep clamp
+      (vacuously converged). LibbrechtKinetics: iterate until BOTH the stated residual
+      tolerance AND the divergence identity hold — the dual criterion of decision 0006
+      (round-5 sync: this sketch previously promised residual-only convergence); reports
+      sweeps, residual, the divergence-identity residual, and the per-sweep clamp
       DIAGNOSTIC (never a physical mass number). */
   relaxField(): RelaxationReport;
   /** The surface exchange: freezing/attachment/melting under GGThreshold (bit-identical to
-      Phase 2a); classification, v_n, fill update, attachment under LibbrechtKinetics.
+      Phase 2a); classification, per-face fill update, attachment under LibbrechtKinetics.
       Owns per-cell surface state (f). Attachment is simultaneous from start-of-step state.
       NEVER runs on an unconverged field — ENFORCED, not advisory (round-3 review: the
       public method itself throws without a converged relaxField for this step; step()
@@ -440,7 +458,9 @@ interface SurfaceOperator {
   advanceSurface(): SurfaceReport;
   /** The rule's conservation claim, measurably: GGThreshold reports Sigma(b+d) and its
       Dirichlet meter; LibbrechtKinetics reports the fill ledger (ice-cell and vapor units),
-      the hole-fill deficit, and the last divergence residual. */
+      the RECORDED saturation-clipped flux (the ledger identity's second term — round-5
+      sync: this sketch previously omitted it), the hole-fill deficit, and the last
+      divergence residual. */
   ledger(): LedgerReport;
 }
 ```
@@ -461,7 +481,11 @@ mass, exactly as the plan predicted). Tests the spec commits to, before any habi
    uniform fixed point, which a deleted smoother would also pass — vacuous); with
    `alphaHK ≡ 1` and `Δx/X_0 → large`, boundary cells relax far below the far field.
 3. **Divergence identity** on converged solves, tolerance stated in the test.
-4. **Ledger identity** exact in ledger arithmetic; metered-source accounting reported.
+4. **Ledger identity** exact in ledger arithmetic — `fill + recorded saturation clipping =
+   the per-face Hertz–Knudsen flux integral`, recomputed outside the solver across steps
+   including saturating ones; shell-clamp totals are numerical diagnostics only *(round-5
+   sync: this line previously still promised the rejected "metered-source accounting" —
+   component 4 above is the governing statement)*.
 5. **Fill-CFL:** max **kinetic** `Δf ≤` the stated bound (default 0.1) on every growth step.
    *(Amended at implementation, 2026-07-15: `Δt` is ADAPTIVE — `Δt = cfl / max(rate)` per
    step, where a cell's fill rate is `[(2/3)·n_T + n_Z]·alphaHK·v_kin·sigma_face/Δx` (the

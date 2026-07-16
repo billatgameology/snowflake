@@ -9,16 +9,17 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   history is in the plan's Tried and rejected). The gate is *enforcing*: `--enforce-gate`
   checks twelve criteria and exit 0 is the whole claim; the maker independently recomputed the
   plate result from raw checkpoint bytes and found no core solver defect. **Phase 2b: spec +
-  parameter table + implementation exist and have been through FOUR maker audit rounds
+  parameter table + implementation exist and have been through FIVE maker audit rounds
   (2026-07-15)** — round 2: seven blockers, gate v1 killed; round 3: three blockers +
-  closure blocker, gate v2 killed; round 4: the three round-3 physics fixes verified
-  correct, but the governing plan/spec still encoded the superseded physics (blocker),
-  plus evidence should-fixes (prose-only sink/growth diagnostic, missing checkpoint
-  convergence-control provenance, PROGRESS contradictions). All four rounds are remediated;
-  the full catalogs live in the plan's Tried and rejected. **Phase 2b is NOT closed. No
-  accepted gate result exists yet** — protocol v3 is registered and its accepted-run
-  attempt is in flight (the pre-round-4 launch was killed pre-result to fix checkpoint
-  provenance).
+  closure blocker, gate v2 killed; round 4: physics fixes verified correct but the
+  plan/spec still encoded the superseded model (blocker) plus evidence should-fixes;
+  round 5: the same staleness one authority level up — the CHARTER (§2.4, Phase 2b) and
+  ADR 0005 still specified residual-only convergence, uniform fill, and bare-equality mass
+  claims → **ADR 0006 + charter v1.4**, plus evidence-strictness should-fixes (LK decode
+  validation with tests, diagnostic scope overstatement, stale public field docs). All five
+  rounds are remediated; the full catalogs live in the plan's Tried and rejected.
+  **Phase 2b is NOT closed. No accepted gate result exists yet** — protocol v3 is
+  registered and its accepted-run attempt is in flight.
 - **Last updated:** 2026-07-15 by Claude Fable 5
 - **Active plan:** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
   0003, synced to charter v1.2/v1.3; Scaffold + Stage 2a complete; Stage 2b section reconciled
@@ -28,9 +29,15 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   arithmetic). Still true from the 2026-07-14 hardening: the Dirichlet gate as
   charter-phrased could not fail (a uniform field is a fixed point under *both* boundary
   conditions) — the plan carries a falsifiable depleted-start differential test.
-- **Charter is at v1.3** (2026-07-14, decision
-  [0005](decisions/0005-validation-scope-surface-operator-numerics.md) — maker review). The
-  three big ones: Phase 6 input-provenance classes with an **in-sample/held-out split** (SDAK
+- **Charter is at v1.4** (2026-07-15, decision
+  [0006](decisions/0006-audited-surface-operator-numerics.md) — audited surface-operator
+  numerics: LibbrechtKinetics convergence is DUAL (residual AND divergence identity), fill
+  is per attached face with the hexagonal-prism 2/3 factor, and the seam's mass claim is
+  the recorded flux identity `fill + recorded saturation clipping = per-face Hertz–Knudsen
+  integral` with shell-clamp totals as diagnostics only; amends 0005 after audit rounds
+  2–5 measured the failure modes of the older statements). Before that, v1.3 (2026-07-14,
+  decision [0005](decisions/0005-validation-scope-surface-operator-numerics.md) — maker
+  review). v1.3's three big ones: Phase 6 input-provenance classes with an **in-sample/held-out split** (SDAK
   inputs are Nakaya-informed; matching Nakaya with them active is reproduction, not validation);
   the seam is a **coupled surface operator** and **Phase 2b is paused** until its spec and the
   parameter table exist; quasi-static numerics are an **elliptic residual solve**, not
@@ -82,11 +89,13 @@ protocol (metric certified in isolation, box-scaling probes, hexPrism controls),
 test onto hexPrism — threshold untouched at exactly 0 — and added a box negative-control test
 pinning the geometry (full triage in the plan's Tried and rejected). The Rule 7 scan was
 likewise already fixed at HEAD and was verified to still fail on real violations.
-`npm test`: 81/81 green at 2a close (2026-07-15); 118/118 after the round-4 remediation
-(2026-07-15 — the round-4 audit caught the previous "past 120" here; the count is exact now).
+`npm test`: 81/81 green at 2a close (2026-07-15); 121/121 after the round-5 remediation
+(2026-07-15 — exact counts only, since the round-4 audit caught a "past 120" here; rounds
+4–5 added the sink/growth diagnostic and the LK checkpoint mutation-probe matrix).
 **Phase 2b exists in full — deliverable docs AND implementation (LKSolver, SurfaceOperator,
-Dirichlet, runner gate) — and has been through three maker audit rounds; its habit gate has
-NOT yet produced an accepted result** (protocol v3, re-registered after round 3). The stack is
+Dirichlet, runner gate) — and has been through five maker audit rounds; its habit gate has
+NOT yet produced an accepted result** (protocol v3, registered after round 3, unchanged by
+rounds 4–5). The stack is
 decided in charter §3.1 — TypeScript + Vite, WebGPU, stacked triangular lattice, CPU oracle +
 GPU production solver, five-part repo (`core` / `solver-cpu` / `solver-gpu` / `runner` / `app`;
 `solver-gpu` and `app` are reserved and uncreated).
@@ -192,7 +201,13 @@ Records live in [docs/decisions/](decisions/):
   coupled surface operator, quasi-static numerics** (maker review, 2026-07-14). Amends 0003.
   Phase 6 gets provenance classes and the in-sample/held-out split; **Phase 2b pauses** until the
   surface-operator spec and parameter table exist; the field solve is elliptic-with-residual, not
-  per-sweep physical time. Charter v1.2 → v1.3 in the same session
+  per-sweep physical time. Charter v1.2 → v1.3 in the same session. Amended in part by 0006
+- **[0006](decisions/0006-audited-surface-operator-numerics.md) — audited surface-operator
+  numerics** (implementation audit rounds 2–5, 2026-07-15). Amends 0005: convergence is dual
+  (residual AND divergence identity); fill is per attached face (hexagonal-prism 2/3 factor,
+  fill-CFL on the per-cell kinetic increment); the mass claim is the recorded flux identity,
+  shell-clamp totals diagnostics only; noise multiplies `alphaHK` in sink and growth alike.
+  Charter v1.3 → v1.4 in the same session
 
 The two decisions predating this system (web over native C++/CUDA; the five-part repo split) live
 in charter §3.1 and get no retroactive ADR.
@@ -216,13 +231,16 @@ in charter §3.1 and get no retroactive ADR.
 ## Next step
 
 Phase 1 is closed (2026-07-15). Phase 2a is closed — maker-asserted complete 2026-07-15
-(evidence in the plan's Steps; byte-identity re-verified after every 2b round, most recently
-after round 3: fresh enforced run bit-identical to `out/plate-gate.ckpt`, exit 0). **Phase 2b
-state (2026-07-15, after the round-4 remediation): everything exists — the two ADR 0005
-deliverables (attachment-kinetics §4.4 spec; libbrecht-parameters.md table), the
-implementation (`LKSolver`, shared `SurfaceOperator`, GG Dirichlet option, `grow-lk`, the
-flagless `gate2b`), and FOUR maker audit rounds' worth of remediations — but the habit gate
-has NOT produced an accepted result.** Protocol v3 is registered (plan, Steps: same-domain
+(evidence in the plan's Steps). 2a byte-identity: the most recent COMPLETED check was after
+round 3 (fresh enforced run bit-identical to `out/plate-gate.ckpt`, exit 0) — the round-4/5
+wording "after every round" was round-5-flagged as false and is retracted; rounds 4–5 touch
+no GG code path (LK checkpoint fields, LK docs/tests, decode strictness), and a fresh
+post-round-5 enforced byte-check is running alongside the gate — record its result here when
+it exits. **Phase 2b state (2026-07-15, after the round-5 remediation): everything exists —
+the two ADR 0005 deliverables (attachment-kinetics §4.4 spec; libbrecht-parameters.md table),
+the implementation (`LKSolver`, shared `SurfaceOperator`, GG Dirichlet option, `grow-lk`, the
+flagless `gate2b`), ADR 0006 + charter v1.4, and FIVE maker audit rounds' worth of
+remediations — but the habit gate has NOT produced an accepted result.** Protocol v3 is registered (plan, Steps: same-domain
 96³ pair, `CAK_A1`, `sigma_infinity = 0.002`, per-face fill with the hexagonal-prism 2/3
 factor, divergence-identity convergence). The three protocol versions and every audit finding
 are cataloged in the plan's Tried and rejected — **read that before touching the seam.**

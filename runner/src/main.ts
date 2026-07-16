@@ -700,7 +700,19 @@ function growLK(options: GrowLKOptions): LKRunResult {
     });
     writeFileSync(options.out, encoded);
     const back = decodeLKCheckpoint(new Uint8Array(readFileSync(options.out)));
-    let identical = back.state.tick === solver.tick && back.state.a.length === solver.a.length;
+    // Round-5 review: the round trip must verify the header CONTROLS too, not just the
+    // arrays — the checkpoint is the independent record of the dual-criterion protocol.
+    let identical =
+      back.state.tick === solver.tick &&
+      back.state.a.length === solver.a.length &&
+      back.header.relaxTol === options.tol &&
+      back.header.divTol === options.divTol &&
+      back.header.relaxMaxSweeps === options.relaxMaxSweeps &&
+      back.header.cflFill === options.cfl &&
+      back.header.paramSet === options.paramSet &&
+      back.header.sigmaInfinity === (options.sigmaInf as number) &&
+      back.header.tempC === (options.tempC as number) &&
+      back.header.pressurePa === solver.pressurePa;
     if (identical) {
       for (let i = 0; i < solver.a.length; i++) {
         if (

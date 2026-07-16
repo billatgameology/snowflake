@@ -5,13 +5,16 @@
 - **Status:** Scaffold + **Stage 2a COMPLETE — maker-asserted 2026-07-15** (enforced gate,
   twelve criteria; closed after six adversarial review rounds — three subagent, three maker —
   all recorded in Tried and rejected; evidence in Steps). **Stage 2b: deliverables AND
-  implementation exist (maker-directed 2026-07-15); three maker audit rounds each found and
-  killed a defective gate protocol BEFORE any result was accepted** (v1 domain confound /
-  mislabeled set / σ split; v2 face-geometry, clipping, divergence-blind convergence — full
-  catalogs in Tried and rejected). **Protocol v3 is re-registered; the habit gate has NOT
-  yet produced an accepted result.** The `SurfaceOperator` refactor's bit-identity gate is
-  passed (byte-identical 2a checkpoints); LKSolver implements attachment-kinetics §4.4 as
-  corrected through round 3
+  implementation exist (maker-directed 2026-07-15); FIVE maker audit rounds so far** —
+  rounds 2 and 3 each found and killed a defective gate protocol BEFORE any result was
+  accepted (v1 domain confound / mislabeled set / σ split; v2 face-geometry, clipping,
+  divergence-blind convergence); rounds 4 and 5 found the corrected physics still
+  contradicted by progressively higher-authority documents (round 4: plan/spec; round 5:
+  charter + ADR 0005 → **ADR 0006, charter v1.4**) plus evidence-strictness gaps — full
+  catalogs in Tried and rejected. **Protocol v3 is registered, UNCHANGED by rounds 4–5;
+  the habit gate has NOT yet produced an accepted result.** The `SurfaceOperator`
+  refactor's bit-identity gate is passed (byte-identical 2a checkpoints); LKSolver
+  implements attachment-kinetics §4.4 as corrected through round 5
 - **Started:** 2026-07-14
 - **2026-07-15 session:** the D6h symmetry failure is resolved (it was the domain shape, not
   index arithmetic — see "The symmetry gate runs on a hexPrism domain" below and Tried and
@@ -22,8 +25,10 @@
   strengthened per the triage directives (hand-computed impulse weights one and two ticks out,
   face/edge/corner/attached-cell conservation, bitwise D6h impulse response, uniform fixed
   point). Gate results recorded in the Steps checklist as they land.
-- **Last touched:** 2026-07-14 by Claude Fable 5 — synced to charter v1.2 (review integration),
-  then hardened same day after an adversarial review pass: the seam's bookkeeping demoted from
+- **Last touched:** 2026-07-15 by Claude Fable 5 — round-5 maker-audit remediation (ADR 0006 +
+  charter v1.4 sync, evidence-strict LK checkpoint decode + tests, diagnostic scope corrected;
+  see Tried and rejected). History of the 2026-07-14 hardening, kept: synced to charter v1.2
+  (review integration), then hardened same day after an adversarial review pass: the seam's bookkeeping demoted from
   "settled" to explicitly-unsettled (four written sub-decisions required first), the Dirichlet
   gate strengthened from a check that could not fail to a falsifiable differential test, the
   hollowness metric redefined so open-ended hollow columns actually score, the 2b habit gate
@@ -536,7 +541,8 @@ Order within 2b is deliberate; each step gates the next:
       kernel (canonical pair summation preserved — D6h stays bitwise), Robin
       partial-reflection substitution `s/(1+s)`, metered Dirichlet shell, separate fill
       field, adaptive fill-CFL `Δt`. §4.4's committed tests all in the suite
-      (`solver-cpu/test/lk-solver.test.ts`, 10 tests): Robin limits incl. **bitwise**
+      (`solver-cpu/test/lk-solver.test.ts`, 16 tests as of round 5 — the "10" that stood
+      here through round 4 was stale): Robin limits incl. **bitwise**
       recovery of the reflecting pass at `alphaHK ≡ 0`; divergence identity with its stated
       tolerance scaling (~1e3·relaxTol, and tightening relaxTol tightens it — asserted);
       ledger identity (fill + hole-fill deficit account for every attached cell and partial
@@ -849,6 +855,43 @@ Order within 2b is deliberate; each step gates the next:
   right — the spec, the plan, and every doc-comment contract are part of the same
   deliverable, and each correction must be synced everywhere the old model was ever
   written down, or the next reader restores the defect from the docs.**
+- **The round-4 remediation itself, as committed at 4ca9680 (round-5 maker audit,
+  2026-07-15; the physics correct, the sync incomplete one authority level up).** The
+  catalog: (1) *the CHARTER and ADR 0005 still specified the superseded operator* (blocker)
+  — charter §2.4 and the Phase 2b bullets kept residual-only convergence, scalar/uniform
+  `v_n·Δt/Δx` fill-CFL and fill, and the bare "vapor lost equals ice gained"; ADR 0005 D2
+  item 3 and D3 repeated them; attachment-kinetics was internally contradictory (§4.2's
+  uniform formula block, §4.3's residual-only bullet and scalar CFL, component 6's
+  residual-only sketch comment, its ledger sketch omitting clipping, and test 4 still
+  promising "metered-source accounting" — all while the corrected summary stood 200 lines
+  earlier). Since the charter governs, the implementation formally violated its
+  highest-authority spec → **ADR 0006** (dual convergence, per-face fill, recorded flux
+  identity, noise-on-alphaHK) + **charter v1.4** in the same session (Rule 5), ADR 0005
+  annotated amended-in-part, every contradictory spec site rewritten with a dated note.
+  (2) *LK checkpoint decode not evidence-strict* (should-fix) — round-5 mutation probes
+  showed version 2, missing `relaxTol`, a reflecting far field, nonpositive `divTol`,
+  zero/fractional sweep caps, and a short `f` descriptor (silently SHIFTED state — only
+  `a.length` was checked) all decoding; no LK tests existed; the runner round trip ignored
+  the header controls → strict validation of every header control + exact field-table and
+  payload-length checks; a mutation-probe test matrix in `core/test/checkpoint.test.ts`;
+  the runner round trip now compares the controls. (3) *diagnostic scope overstated*
+  (should-fix) — the sink/growth test called itself a "ledger-growth comparison" and
+  claimed the round-3 35% clipping defect would fail its band, but the ratio never reads
+  the ledger or `advanceSurface`; reintroduced silent clipping would NOT move it (the
+  flux-integral test is that regression) → scope corrected in the test and §4.4: the ratio
+  observes the sink side against the shared per-face uptake form; the two tests TOGETHER
+  are the sink/growth statement. (4) *stale public LK docs* (should-fix) — `cflFill`
+  documented as scalar `max(v_n)·dt/dx`, `noiseEpsilon` as a `v_n` slowdown, and
+  `lastMaxVn` misnaming the face-factor-weighted fill velocity it stores → docs corrected,
+  field renamed `lastMaxFillVelocityMS`. (5) *PROGRESS still internally false + plan
+  metadata stale* — "three audit rounds" alongside four-round state; "byte-identity after
+  every round" naming round 3 as the latest check (retracted: round 3 IS the most recent
+  completed check; a post-round-5 check is queued); plan header/"last touched"/LK test
+  count (10 vs 16) → all corrected to exact values. Lesson, appended: **sync propagates
+  UP the authority chain, not just down — an audit fix that lands in code and spec but not
+  in the charter and its ADRs leaves the project violating its own constitution, and "the
+  charter wins" then works against the fix; and every evidence reader (decoder, round
+  trip, diagnostic) must be as adversarially tested as the writer.**
 - **"npm test fails in the repo-wide Rule 7 scan" (PROGRESS.md, 2026-07-15 handoff)** — did not
   reproduce at HEAD (a58bac0): the scan and the fixture tests pass, and the lint verifiably
   still fails on real violations (bare stem, provenance-free qualifier, markdown inline-span

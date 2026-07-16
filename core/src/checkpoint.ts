@@ -248,14 +248,56 @@ export function decodeLKCheckpoint(bytes: Uint8Array): DecodedLKCheckpoint {
     throw new Error(`not a LibbrechtKinetics checkpoint (rule=${(header as { rule?: string }).rule})`);
   }
   if (header.endianness !== "LE") throw new Error("checkpoint must declare LE endianness");
-  // Round-4 maker review: convergence-control provenance is REQUIRED, not optional — a
-  // checkpoint that cannot state its dual-criterion tolerances cannot support a gate claim.
-  if (typeof header.divTol !== "number" || typeof header.relaxMaxSweeps !== "number") {
+  // Round-4/5 maker reviews: decode is EVIDENCE-STRICT. An LK checkpoint is a gate-claim
+  // carrier, so every header control is validated, not trusted — round-5 mutation probes
+  // showed version 2, missing relaxTol, a reflecting far field, nonpositive divTol,
+  // zero/fractional sweep caps, and a short f descriptor all decoding "successfully" (the
+  // last returning a silently SHIFTED state).
+  if (header.version !== 1) {
+    throw new Error(`unsupported LK checkpoint version ${header.version}`);
+  }
+  if (header.farField !== "dirichlet") {
     throw new Error(
-      "LK checkpoint header lacks convergence-control provenance (divTol, relaxMaxSweeps)",
+      `LK checkpoints record Dirichlet runs only (got farField=${String(header.farField)}); ` +
+        "the reflecting mode is a diagnostic that supports no physics claim",
     );
   }
+  const requireFinitePositive = (value: unknown, name: string): void => {
+    if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) {
+      throw new Error(`LK checkpoint header ${name} must be a finite positive number`);
+    }
+  };
+  requireFinitePositive(header.relaxTol, "relaxTol");
+  requireFinitePositive(header.divTol, "divTol");
+  requireFinitePositive(header.cflFill, "cflFill");
+  requireFinitePositive(header.dxUm, "dxUm");
+  requireFinitePositive(header.pressurePa, "pressurePa");
+  requireFinitePositive(header.sigmaInfinity, "sigmaInfinity");
+  if (!Number.isInteger(header.relaxMaxSweeps) || header.relaxMaxSweeps <= 0) {
+    throw new Error("LK checkpoint header relaxMaxSweeps must be a positive integer");
+  }
   const n = cellCount(header.dims);
+  const expectedFields: ReadonlyArray<readonly [string, string, number]> = [
+    ["a", "u8", n],
+    ["f", "f64", n],
+    ["sigma", "f64", n],
+  ];
+  if (
+    header.fields.length !== expectedFields.length ||
+    header.fields.some(
+      (field, i) =>
+        field.name !== expectedFields[i][0] ||
+        field.dtype !== expectedFields[i][1] ||
+        field.length !== expectedFields[i][2],
+    )
+  ) {
+    throw new Error(
+      "LK checkpoint field table must be exactly a:u8, f:f64, sigma:f64 at the full cell count",
+    );
+  }
+  if (bytes.length !== 12 + headerLength + n + 16 * n) {
+    throw new Error("LK checkpoint payload length does not match its header");
+  }
   let offset = 12 + headerLength;
   let a: Uint8Array | null = null;
   let f: Float64Array | null = null;

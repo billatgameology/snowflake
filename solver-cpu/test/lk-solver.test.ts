@@ -180,9 +180,17 @@ describe("LKSolver — sink/growth discretization diagnostic (§4.4 component 3,
     // with (alphaHK, sigma_face) from core's alphaHK and an external damped fixed point.
     // The stencil weights are exactly proportional to the hexagonal-prism face factors
     // ((3/14)/(1/7) = 3/2 = basal/prism face-area ratio), so the denominator IS the
-    // advanceSurface flux integral expressed in per-sweep units, and the ratio is the
-    // field-sink-vs-ledger-growth comparison. Its deviation from 1 is the
-    // intermediate-field discretization effect: measured here, never assumed.
+    // per-face uptake form advanceSurface integrates, expressed in per-sweep units.
+    //
+    // SCOPE (round-5 review — the previous comment here overstated this as a "ledger-growth
+    // comparison"): the ratio observes the SINK side only. Neither numerator nor
+    // denominator reads the ledger or advanceSurface, so ledger defects — e.g. silently
+    // dropped saturation clipping, the round-3 35% case — would NOT move it; the
+    // NON-TAUTOLOGICAL flux-integral test above is their regression. What this diagnostic
+    // detects is a sweep whose actual Robin absorption disagrees with the converged field's
+    // implied uptake (wrong direction weights, wrong s_eff, intermediate-field effects).
+    // Its deviation from 1 is the intermediate-field discretization effect: measured here,
+    // never assumed.
     const solver = new LKSolver(devOptions);
     const dxM = devOptions.dxUm * 1e-6;
     const ratio = dxM / solver.x0M;
@@ -228,9 +236,12 @@ describe("LKSolver — sink/growth discretization diagnostic (§4.4 component 3,
       if (surface.stalled) break;
     }
     expect(measured).toBeGreaterThan(50); // the band must come from a real growth history
-    // Hard physical band: a first-order-consistent sink stays within a few percent of the
-    // converged-field uptake at this resolution. A broken coupling (the round-2/3 defects
-    // were x1.6-2.4 and 35%) lands far outside.
+    // Hard physical band: a first-order-consistent sweep stays within a few percent of the
+    // converged-field uptake at this resolution. A broken Robin substitution (wrong
+    // direction weights, wrong s_eff — the defect class this ratio CAN see) lands far
+    // outside. Round-5 correction: the round-2 sigma split (x1.6-2.4) and round-3 silent
+    // clipping (35%) lived on the growth/ledger side, which this ratio does NOT observe —
+    // the flux-integral test above catches those.
     expect(minRatio).toBeGreaterThan(0.9);
     expect(maxRatio).toBeLessThan(1.1);
     // The MEASURED band at this pinned config (deterministic run — seed 1, noise off):
