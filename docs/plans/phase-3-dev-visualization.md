@@ -1,9 +1,9 @@
 # Plan — Phase 3: Development visualization (Three.js) + center-vs-rim depletion gate
 
 - **Phase:** Phase 3 — Development visualization (Three.js)
-- **Status:** in progress
+- **Status:** done (evidence-complete 2026-07-16; gate3 exit 0; pending maker assertion)
 - **Started:** 2026-07-15
-- **Last touched:** 2026-07-15 by Claude (Fable 5), coordinating session
+- **Last touched:** 2026-07-16 by Claude (Fable 5), coordinating session
 
 ## Goal
 
@@ -243,10 +243,33 @@ screenshots at R2/R3 and before the gate claim.
       WebGL2 fallback forced with truthful label, protocol semantics driven live 13/13;
       coordinator inspected the three screenshots: hexagonal silhouette, flat facets,
       terraced shoulders, §1.5 status footer)
-- [ ] WP3: overlays + slice + picking + HUD (dev agent)
-- [ ] R3 review + coordinator visual inspection loop until zero blockers
-- [ ] gate3 evidence run; result recorded in PROGRESS with metric, value, command
-- [ ] Final: PROGRESS updated, gate marked evidence-complete pending maker assertion
+- [x] WP3: overlays + slice + picking + HUD (dev agent; 068dce4, 43 new tests) + coordinator
+      visual-finding fix round (09d412f — slice captures were illegible: panels occluded the
+      well and the demo range saturated; fixed with a bottom-left chrome column, reproducible
+      camera pose, and a profile-calibrated mid range recorded in the manifest)
+- [x] R3 review + coordinator visual inspection → CLEAN (0 blockers, 1 should-fix, 5 notes).
+      Overlay quantities brute-force-matched exactly (walls included); slice axis mapping
+      proven with an (i,j,k)-encoding fixture both orientations; HUD depletion numbers
+      bit-identical to a fresh oracle at the same tick; labels swept honest; debug hooks
+      proven view-only. Should-fix (slider bounds pinned to default dims → legend/render
+      divergence off-default) fixed in b7653c7 with a single-source clamp + 4 tests, 248/248.
+      Coordinator re-inspection of the fixed captures: PASS (Berg picture legible:
+      depletion band thickest above facet center, pinching at rim tips).
+- [x] gate3 evidence run — **PASSED, exit 0** (2026-07-16): windowMedianRatio 0.531454
+      (registered ≤ 0.75), fractionBelow1 0.902439 (≥ 0.80), finalRadius 38 (≥ 30),
+      finalAR 0.168831 (< 0.3), stop far-field at tick 4800, symErr 0 with delta-sym clean
+      all ticks, no domain contact. Command: `node runner/src/main.ts gate3` (flagless;
+      protocol pinned — plate preset, dims 128,128,64, hexPrism, reflecting, seed 1,
+      noise 0). Artifacts: `out/gate3.log`, `out/gate3-exit-status.txt` (exit 0),
+      `out/gate3-depletion.csv` (48 samples, full series incl. the post-window ring-
+      nucleation inversion 13.5→4.04), `out/gate3-plate.ckpt` (roundTripIdentical=true and
+      **byte-identical to the accepted 2a artifact** — SHA-256 f1796b5015…, `cmp` exit 0).
+      Window statistics reproduce the registered probe exactly (deterministic pinned-engine
+      trajectory).
+- [x] Final: PROGRESS updated, gate marked evidence-complete pending maker assertion
+      (2026-07-16). Both Done-when halves hold: the automated metric via gate3 exit 0, and
+      the watch-it half via the app's slice view (accepted captures in `out/phase3-visual/`,
+      reproducible via `node app/scripts/visual.mjs`).
 
 ## Out of scope
 
