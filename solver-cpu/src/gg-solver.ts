@@ -8,8 +8,9 @@
 //                      is a silent physics bug); optional §6 diffusion-slowdown noise
 //   (ii)  freezing   — boundary cells trade vapor for boundary mass
 //   (iii) attachment — GGThreshold: hole-filling (UNCAPPED n_T >= 4 and n_Z >= 1), else
-//                      b >= ggThreshBeta(n_T, n_Z); THE SEAM (the only step an
-//                      AttachmentRule will ever replace, in 2b — not here)
+//                      b >= ggThreshBeta(n_T, n_Z). This is GGThreshold's attachment substep;
+//                      LibbrechtKinetics replaces the four-step surface exchange as one coupled
+//                      SurfaceOperator, not this line alone.
 //   (iv)  melting    — boundary cells that did NOT just attach leak b back to d
 //
 // All neighbor counts are taken as they stand at the START of the tick, so attachment is
@@ -403,7 +404,7 @@ export class GGSolver implements SurfaceOperator {
     };
   }
 
-  /** The rule's conservation claim, measurably (SurfaceOperator; attachment-kinetics §4.4). */
+  /** The rule's exact evidence claim, measurably (SurfaceOperator; attachment-kinetics §4.4). */
   ledger(): LedgerReport {
     return {
       rule: "GGThreshold",

@@ -2,14 +2,19 @@
 
 This project is worked on by **multiple different LLMs across sessions**, with no shared memory
 between them. Any model may pick up work another left mid-flight. The markdown files described
-here are the *only* handoff channel. Treat them as part of the deliverable, not as bookkeeping.
+here are the authoritative handoff index; logs, checkpoints, and other artifacts are evidence
+only when the handoff points to them. Treat the handoff as part of the deliverable, not as
+bookkeeping.
+
+**`CLAUDE.md` is a symlink to this file.** Keep `AGENTS.md` canonical and never replace the
+symlink with a second copy; two instruction files will drift.
 
 The governing document is [project charter.md](project charter.md). It defines the goal, the
 science, the stack, and Phases 0–7. **The charter is the spec; these files are the state.**
 
 ---
 
-## The three documents
+## Cold-start read order and authority
 
 | File | Answers | Written |
 |---|---|---|
@@ -19,14 +24,163 @@ science, the stack, and Phases 0–7. **The charter is the spec; these files are
 
 Templates live at `docs/plans/_TEMPLATE.md` and `docs/decisions/_TEMPLATE.md`.
 
+Read in this order on every cold start:
+
+1. Read `docs/PROGRESS.md` completely, including **Next step**.
+2. Read the active plan it names, including **Tried and rejected**. That section contains killed
+   protocols and measured failure modes that must not be rediscovered or restored.
+3. Inspect `git status` and the relevant diff before editing. A dirty worktree is often a
+   deliberate, reviewed handoff rather than disposable noise.
+4. Read the relevant charter clauses, accepted ADRs, and solver spec before changing behavior.
+5. Inspect code, tests, logs, and checkpoints only after the intended contract is clear.
+
 **The solver specs** are separate, and they are the technical ground truth — read the relevant
 one before writing solver code, every time:
 
 | File | Contains | Truth status |
 |---|---|---|
-| `docs/gg-machinery.md` | lattice, diffusion, state, mass, melting, noise | physics-agnostic infrastructure |
-| `docs/attachment-kinetics.md` | the attachment rule — Libbrecht's kinetics | **the only step that is physics** |
-| `docs/libbrecht-parameters.md` | measured σ₀(T), A(T), v_kin(T), D(T,P) | empty; no number without a citation |
+| `docs/gg-machinery.md` | lattice, diffusion, state, mass, melting, noise | shared machinery; diffusion is physical transport, G-G surface knobs phenomenological |
+| `docs/attachment-kinetics.md` | the attachment rule and coupled surface operator — Libbrecht's kinetics | **the physically parameterized surface-exchange step** (diffusion is physical transport too) |
+| `docs/libbrecht-parameters.md` | measured σ₀(T), A(T), v_kin(T), D(T,P) | extracted mapping table with P1–P4 provenance, stated digitization uncertainty, and explicit gaps; no number without a citation |
+
+### When sources disagree
+
+These files answer different questions; do not collapse them into one vague "source of truth."
+
+| Source | Authority |
+|---|---|
+| `project charter.md` | Governing product, science, phase, and gate contract. The current charter wins. |
+| Accepted ADRs in `docs/decisions/` | Why the charter changed and which tempting alternative was rejected. An ADR and the charter should already agree. |
+| Solver specs | Delegated technical ground truth for the implemented algorithms. |
+| Active plan | Current implementation approach, pre-registered protocols, evidence, and rejected attempts. |
+| `docs/PROGRESS.md` | Live state: what is complete, what is in flight, and the next concrete action. |
+| Code, tests, logs, checkpoints | Implementation and evidence. They do not silently overrule the written contract. |
+
+If any two disagree, state the disagreement explicitly and fix it at the proper authority level;
+never choose one silently.
+
+---
+
+## Project context — the Phase 2b baseline
+
+This is no longer a greenfield repository. The durable baseline is:
+
+- Phase 0 research is established and the Phase 1 Reiter UX spike is archived under `spike/`.
+- Phase 2a's float64 CPU oracle, G-G machinery, morphology metrics, checkpoints, field dumps,
+  and enforcing plate gate exist. `GGThreshold` is the permanent working floor and control.
+- Phase 2b's operator spec, cited parameter table, `LibbrechtKinetics` implementation,
+  fixed-σ boundary support, strict LK checkpoints, and habit-gate tooling exist. Their existence
+  does **not** mean the Phase 2b scientific gate is accepted; only `docs/PROGRESS.md` may say that.
+- The CPU oracle and `GGThreshold` are never deleted. GPU and app work must stay downstream of
+  their charter gates.
+
+The project is an interactive snow-crystal growth instrument, not merely a crystal generator.
+The product must expose the vapor field and surface propensity so a user can understand why a
+shape grew. Physical inputs make the model falsifiable; they do not make it validated. Only
+Phase 6 can earn a quantitative validation claim over a named domain.
+
+## Repository map
+
+The root is a strict-TypeScript ESM npm workspace on Node 23.6 or newer.
+
+| Path | Responsibility and boundary |
+|---|---|
+| `core/` | Environment-neutral data/model contracts: lattice and D6h transforms, state, G-G parameters, Libbrecht mappings, seeded counter-based PRNG, metrics, and strict checkpoint codecs. |
+| `solver-cpu/` | Permanent float64 oracle. Exports `GGSolver`, `LKSolver`, and their shared `SurfaceOperator` contract. No Node APIs or file I/O. |
+| `runner/` | Node-only CLI and evidence boundary: argument validation, runs, stopping rules, metrics, PGM dumps, checkpoint I/O and round-trip checks, and enforced gates. |
+| `spike/` | Frozen Phase 1 Reiter prototype, deliberately outside the npm workspace. Do not evolve it into the product. |
+| `research/` | Tracked source indexes and citations; most downloaded media are local and gitignored. Never force-add copyrighted media. |
+| `app/`, `solver-gpu/` | Reserved future packages for Phases 3 and 5. Do not scaffold them incidentally; check current state first. |
+
+Dependency direction is `core` → `solver-cpu` → `runner`. Keep solver code environment-neutral
+so the same oracle can later run in a Web Worker and serve as the GPU comparison target.
+
+## The two permanent surface operators
+
+Both solvers implement `SurfaceOperator` with `relaxField()`, `advanceSurface()`, and `ledger()`.
+They share contracts and lattice definitions, but keeping their mutable update implementations
+separate is deliberate: the G-G path is the differential control when kinetics behaves strangely.
+
+| Operator | Contract |
+|---|---|
+| `GGThreshold` / `GGSolver` | The published G-G cycle: one masked-average diffusion pass, freezing, threshold attachment, and melting. Its tick has no physical-time interpretation. Reflecting runs support the `Σ(b+d)` mass invariant. |
+| `LibbrechtKinetics` / `LKSolver` | A coupled Robin field/surface operator: quasi-static relaxation, self-consistent face kinetics, deterministic per-face fill, and a physical interface timestep. Temperature is an input to its broad-facet kinetics. |
+
+`LibbrechtKinetics` replaces surface exchange as a coupled whole. Do not run G-G freezing or
+melting transfers alongside it: freezing is replaced by the Robin sink plus fill update, melting
+is disabled, hole-filling is retained and separately deficit-ledgered, and `f` is a distinct
+dimensionless field rather than a reuse of G-G boundary mass `b`.
+
+## Phase 2b numerical contract — do not regress
+
+The concise contract below is a navigation aid. The equations and rationale live in
+`docs/attachment-kinetics.md` §4.4 and ADRs 0005–0006.
+
+- Fixed-σ Dirichlet physics runs converge only when **both** the iterate residual and discrete
+  divergence identity pass their stated tolerances. Reflecting LK is residual-only,
+  diagnostic-only, and cannot support a physical gate claim.
+- The same self-consistent face solution drives the Robin sink and Hertz–Knudsen kinetic demand.
+  Never restore cell-value growth sampling as a second, inconsistent path.
+- Fill is accumulated per attached face with the hexagonal-prism factor:
+  `[(2/3) * nT + nZ] * alphaHK * vKin * sigmaFace * dt / dx`. The fill-CFL binds the summed
+  per-cell kinetic increment; hole-fill events are outside that bound and reported separately.
+- The exact ledger claim is **placed fill + recorded unapplied saturation excess = computed
+  per-face Hertz–Knudsen kinetic demand**. Recorded excess is not deposited ice, physical uptake,
+  or a license to hide loss. Shell-clamp totals are elliptic-solve diagnostics, not physical mass.
+- Noise multiplies `alphaHK` identically in sink and fill for a tick. Never perturb only one side.
+- Every LK checkpoint must carry the far-field condition and convergence controls, and encode,
+  decode, solver construction, and runner round trips must reject invalid or shifted state.
+- Physical time advances only in the interface update. Elliptic relaxation sweeps are convergence
+  work, not timesteps; a large sweep count is not by itself a units bug.
+
+Any change back to uniform fill, residual-only Dirichlet convergence, silent clipping, or a bare
+vapor-loss/ice-gain equality overturns measured audit findings. It requires an ADR and a new,
+committed protocol before results are generated; it is not a cleanup refactor.
+
+## Commands and evidence semantics
+
+```text
+npm test
+node runner/src/main.ts grow [options]
+node runner/src/main.ts grow-lk --temp-c <C> --sigma-inf <fraction> [options]
+node runner/src/main.ts gate2b
+```
+
+- `npm test` runs the Rule 7 scan, strict typecheck, and all Vitest suites. It is the required
+  local check, but a green self-test is not sufficient evidence for a scientific gate.
+- `grow` is observational unless the appropriate enforcement flag is present. Printed metrics
+  do not turn exit 0 into a gate result.
+- `grow-lk` is exploratory. `gate2b` is flagless because it encodes the pre-registered protocol;
+  it is an hours-scale evidence run, not a smoke test. Read `docs/PROGRESS.md` and check for an
+  existing process before launching, killing, or replacing it.
+- For a gate, derive every precondition from the charter/spec and make the process fail by name
+  when one is violated. Pin each bypass with an adversarial negative-control test.
+- Record the metric and value, seed, dimensions/domain, exact command, termination reason, engine,
+  and validated checkpoint. A liveness line, screenshot, test count, or contact-stopped state is
+  not an accepted result.
+- Tests of scientific contracts must be non-vacuous and independently recompute load-bearing
+  quantities. A uniform fixed point does not prove a diffusion path ran; a report agreeing with
+  itself does not prove its ledger.
+
+## High-value traps already paid for
+
+- `docs/gg-model.md` is a tombstone. Use `docs/gg-machinery.md` and
+  `docs/attachment-kinetics.md`.
+- The canonical radius-2, thickness-1 seed has **19 sites**. The paper's “20” is an erratum.
+- Exact D6h symmetry gates require `hexPrism`. A box footprint and its walls are not a
+  sixfold-symmetric environment. The runner defaults to `hexPrism`; `GGSolver` itself defaults to
+  `box`, so tests must choose intentionally.
+- A uniform field initialized at the Dirichlet set value is a fixed point under reflecting and
+  fixed-σ boundaries alike. Use the documented depleted-start differential test.
+- The 65% domain-contact guard detects collision; it does not prove boundary independence.
+  Contact-stopped states are invalid gate evidence, and Phase 6 still needs domain convergence.
+- Never compare results across far-field conditions silently. The checkpoint records the
+  condition because reflecting is a finite reservoir and fixed-σ Dirichlet is replenished.
+- Bitwise reproducibility is claimed only for the float64 oracle on the pinned Node/V8 engine.
+  Cross-engine, float32, and GPU comparisons use stated tolerances.
+- Use the counter-based seeded PRNG and named streams. Never introduce `Math.random()`.
+- Keep unrelated dirty changes intact. Never “clean up” a handoff by reverting or absorbing it
+  without understanding the active plan.
 
 ---
 
@@ -84,7 +238,11 @@ Scientific milestones are **automated metrics, not screenshots** (§3.3). So:
 
 ## Rule 7 — A bare `alpha` is banned from this repository
 
-In code, in docs, in commit messages, in variable names, in prose. No exceptions.
+The ban targets identifiers and unqualified prose. Bare identifier forms are prohibited in code
+everywhere (including `spike/` and `scripts/`), documentation inline code, and commit messages.
+Prose may use a Greek symbol only when its provenance is attached in the same sentence or heading;
+unqualified prose is forbidden. Deliberate policy mentions and lint fixtures are explicitly
+waived where they occur.
 
 Libbrecht's **attachment coefficient** (Hertz–Knudsen, dimensionless, [0, 1]) and
 Gravner–Griffeath's **attachment threshold** (a boundary-mass cutoff indexed by neighbor count)
@@ -100,15 +258,9 @@ Every occurrence carries its provenance:
 | `alphaHK`, `alphaHKBasal`, `alphaHKPrism` | `alpha`, `α` | Hertz–Knudsen attachment coefficient |
 | `ggThreshAlpha`, `ggThreshBeta`, `ggThreshTheta` | `alpha`, `beta` | G–G boundary-mass thresholds |
 
-Enforce with a lint rule, not with vigilance. Vigilance does not survive a model handoff; a
-failing build does.
-
-**Mention vs use — the one policy (decided 2026-07-14).** The ban targets *identifiers*: in code
-everywhere (including `spike/` and `scripts/`), and in inline code in docs. Prose may write the
-Greek letter α/β only with provenance attached in the same sentence or heading ("Libbrecht's α",
-"G–G's α", "Reiter's α", "α_basal"); an unqualified Greek α in prose is a violation that
-*reviewers* enforce — the lint mechanically enforces only the identifier cases. Deliberate
-mentions (lint fixtures, this rule's own text) are waived where they occur, explicitly.
+Enforce identifier use with a lint rule, not vigilance. Vigilance does not survive a model
+handoff; a failing build does. Reviewers enforce the qualified-prose rule because the scanner
+mechanically covers identifier cases only.
 
 ## Rule 8 — Leave the next model a landing spot
 

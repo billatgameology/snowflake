@@ -1,8 +1,9 @@
 # The Gravner–Griffeath machinery — implementation spec
 
-The computational skeleton: lattice, diffusion, state fields, mass bookkeeping, melting, noise.
-**This file is physics-agnostic infrastructure.** The attachment rule that plugs into it is
-specified separately in [attachment-kinetics.md](attachment-kinetics.md).
+The shared computational skeleton: lattice, diffusion, state fields, mass bookkeeping, melting,
+noise. Diffusion is physical transport; G-G's surface knobs are phenomenological. The coupled
+surface operator that uses this machinery is specified separately in
+[attachment-kinetics.md](attachment-kinetics.md).
 
 Both `solver-cpu` and (later) `solver-gpu` are written against this file, and Phase 5's
 oracle-vs-GPU comparison checks against these definitions.
@@ -11,16 +12,17 @@ oracle-vs-GPU comparison checks against these definitions.
 snowfakes," Phys. Rev. E **79**, 011601 (2009) — `research/GravnerGriffeath_PhysRevE09.pdf`.
 Preprint: arXiv:0711.4020. Sections below cite the paper's own numbering.
 
-Everything here is **level 1 (direct model state)** in the charter §1.5 sense. Nothing in this
-file is a physical claim.
+Outputs here are **Type = computed state, Evidence = unvalidated** in charter §1.5's current
+two-axis taxonomy. This file makes no physical-validation claim.
 
 > **Read this first — the split (decision 0003, 2026-07-14).** This file was previously
 > `gg-model.md` and treated G-G as the whole model. It is not. G-G's contribution to this project
 > is *how to compute 3D crystal growth on a lattice at feasible cost* — and that part is kept in
-> full. Its **attachment thresholds `β(n_T, n_Z)` are replaced** by Libbrecht's kinetics, because
-> they contain no temperature and therefore make the project's central question unaskable.
+> full for `GGThreshold`. Under `LibbrechtKinetics`, the surface exchange is replaced as a
+> coupled whole (iterated Robin relaxation, per-face fill, freezing replaced, melting disabled),
+> because G-G's thresholds contain no temperature and make the central question unaskable.
 >
-> The threshold rule survives permanently as `GGThreshold`, one of two `AttachmentRule`
+> The threshold rule survives permanently as `GGThreshold`, one of two `SurfaceOperator`
 > implementations (§4 below). It is the Phase 2a gate, the working floor, and the differential
 > diagnosis when the physics misbehaves. It is never deleted.
 
@@ -71,7 +73,8 @@ zmirror(k)   = 2·k_c − k       # about the seed plane
 `rot60⁶ = id`. These generate the full group and are the basis of the Phase 2a symmetry metric.
 
 > Note for Phase 2b: the noise term (§6) breaks exact symmetry by design. The symmetry metric is
-> gated with noise **off**; sidebranching requires it **on**. Do not conflate the two runs.
+> gated with noise **off**. G-G's published 3D branches are deterministic; noise is an optional
+> labeled dial for natural asymmetric sidebranching, not an existence requirement.
 
 ## 2. State
 
@@ -118,7 +121,10 @@ Fig. 2 caption fixes it — "the '21' site has 2 horizontal (T-)neighbors and 1 
 | `μ(n_T, n_Z)` | machinery | **melting rate** — fraction of boundary mass returned to vapor |
 | `ggThreshBeta(n_T, n_Z)` | **GGThreshold only** | attachment threshold — boundary mass needed to join the crystal |
 
-Only the last row is replaced by `LibbrechtKinetics`. Everything above it is kept.
+`GGThreshold` uses every row above as published. `LibbrechtKinetics` does **not** merely replace
+the last row: its Robin sink replaces `κ` freezing, its fill rule replaces threshold attachment,
+`μ` melting is disabled, drift `φ` is unsupported, and noise is redefined on `alphaHK`. The
+governing disposition table is attachment-kinetics §4.4 component 5.
 
 The two configurations that carry the habit, under `GGThreshold`:
 
@@ -139,27 +145,25 @@ The other three knobs in G-G's reduced set, worth knowing before tuning anything
 - `ρ` — supersaturation. More vapor ⇒ more side-branching.
 - `β₂₀` — *convexifying strength*. Large `β₂₀` ⇒ the crystal stays a clean hexagonal prism longer.
 - `μ` — semi-liquid layer smoothing. **`μ ≈ 0` makes dendrites impossible** (branch density
-  explodes); `μ` is what suppresses side-branching. Realistic dendrites live in a narrow `μ` band.
-  Note this survives into `LibbrechtKinetics` — it is machinery, not threshold physics.
+  explodes); `μ` is what suppresses side-branching. Realistic G–G dendrites live in a narrow `μ`
+  band. This statement governs `GGThreshold`; `LibbrechtKinetics` disables the G–G melting step
+  by decision (attachment-kinetics §4.4 component 5).
 
 ## 4. Update cycle
 
-Four steps, in order, every tick. **Every step conserves total mass**, and hence so does the
-whole cycle — this is the Phase 2a mass-conservation test, and it is an exact invariant, not an
-approximate one.
+Under `GGThreshold`, four steps run in order every tick. **Every step conserves total mass**, and
+hence so does the whole cycle — this is the Phase 2a mass-conservation test, and it is an exact
+invariant, not an approximate one. `LibbrechtKinetics` replaces the surface exchange as a coupled
+whole; its distinct ledger and convergence claims live in attachment-kinetics §4.4.
 
 All neighbor counts `n_T`, `n_Z` are computed from the attachment flags **as they stand at the
 start of the tick**. Attachment must be simultaneous across `∂A_t`: a cell that attaches in step
 (iii) must not influence its neighbor's counts within the same tick.
 
-> **Step (iii) is the seam.** It is the *only* step behind the `AttachmentRule` interface. Steps
-> (i), (ii) and (iv) are identical under both rules. If a diff to this solver touches (i), (ii)
-> or (iv) while claiming to be about physics, it is out of scope.
->
-> Settled 2026-07-15 (was a recorded caveat since the 2026-07-14 review): "(ii) and (iv)
-> identical under both rules" is exact for `GGThreshold` and **false for `LibbrechtKinetics`,
-> by decision** — under that rule freezing is *replaced* by the Robin substitution inside the
-> field relaxation and melting is *disabled*; the full kept/replaced/disabled disposition table
+> **The four steps below are the `GGThreshold` implementation.** The shared seam is the wider
+> `SurfaceOperator`, not step (iii) alone. Under `LibbrechtKinetics`, diffusion becomes an
+> iterated Robin relaxation, freezing is replaced by that Robin sink, threshold attachment is
+> replaced by per-face fill, and melting is disabled. The complete kept/replaced/disabled table
 > is [attachment-kinetics.md](attachment-kinetics.md) §4.4 component 5. For `GGThreshold` —
 > everything Phase 2a certified — nothing changes, ever.
 
@@ -192,16 +196,17 @@ its mass and hands `1/7` to each free neighbor, and the books balance.
 > Dirichlet.** Two consequences that must not get lost:
 >
 > - The exact mass-conservation invariant (§4 intro) holds **under reflecting only.** Dirichlet
->   makes the domain boundary a source/sink *by design*; its correctness check is instead the
->   charter's Phase 2b gate — a long crystal-free run holds σ at the set value to tolerance.
+>   makes the domain boundary a source/sink *by design*; its strengthened Phase 2b check starts
+>   depleted and verifies that Dirichlet returns to the set value with injected field change
+>   metered and balancing, while the identical reflecting run conserves and settles depleted.
 > - Which condition a run used is recorded in its **checkpoint metadata**, and results are never
 >   compared across conditions silently (charter §3.3) — the two record different experiments.
 
 > **Under `LibbrechtKinetics` this pass becomes the relaxation kernel** (settled 2026-07-15;
-> this note previously promised "an iteration count," which ADR 0005 D3 superseded — the field
-> is quasi-static there, iterated to a stated *residual tolerance*, and the count is an output,
-> not a target). Same stencil, iterated, with the Robin surface substitution — the full
-> formulation is [attachment-kinetics.md](attachment-kinetics.md) §4.3–§4.4. Under
+> this note previously promised "an iteration count," which ADR 0005 D3 superseded). Fixed-σ
+> Dirichlet physics runs require both the residual tolerance and divergence identity; reflecting
+> LK is residual-only diagnostic. Counts are outputs, not targets. Same stencil, iterated with
+> the Robin substitution — full formulation in attachment-kinetics §4.3–§4.4. Under
 > `GGThreshold` it stays exactly one pass per tick, as published, forever.
 
 ### (ii) Freezing — on `x ∈ ∂A_t`
@@ -213,7 +218,7 @@ b′(x) = b°(x) + (1 − κ(n_T, n_Z))·d°(x)
 d′(x) =         κ(n_T, n_Z) ·d°(x)
 ```
 
-### (iii) Attachment — on `x ∈ ∂A_t`  ← THE SEAM
+### (iii) GGThreshold attachment — on `x ∈ ∂A_t`
 
 **`GGThreshold` implementation** (Phase 2a; kept permanently):
 
@@ -275,12 +280,11 @@ spurious needle instability and runaway Z-growth (§2).
 **Extracted 2026-07-14 from the paper, §VI.C "Random dynamics", p. 011601-9.** The former
 version of this section was a documented hole; it is now filled from the published text.
 
-The noise term is load-bearing and easy to overlook. Libbrecht's kinetics are fully
-deterministic and supply **no stochasticity whatsoever** — so if noise is dropped from the
-machinery, **sidebranching never seeds** under `LibbrechtKinetics` and the Phase 4 dendrite
-milestone becomes unreachable for a reason that will look like a physics failure and will not be
-one. Noise is not decoration; it is the symmetry-breaking source the whole branching instability
-feeds on.
+The noise term is an explicit, labeled symmetry-breaking option. It is **not required for branch
+existence**: G-G's published 3D snowfakes, branches included, are deterministic. Use it when the
+experiment asks for natural asymmetric sidebranching; keep it off for exact-symmetry gates.
+Under `LibbrechtKinetics` the same dial is redefined as an `alphaHK` slowdown applied identically
+to sink and growth (attachment-kinetics §4.4 component 5).
 
 **Honesty note first: this is a *proposal* in the paper, not a mechanism their 3D case studies
 used.** §VI.C opens: "Our only three-dimensional virtual snowflakes to date are deterministic,
@@ -325,7 +329,8 @@ d‴ = 𝒟[(1 − ξ_t)·d°] + ξ_t·d°     ( = 𝒟(d°) + ξ_t·d° − �
   tuple, independent of iteration order. Same seed ⇒ same realization, on any engine and on
   the GPU later. Never `Math.random()`.
 - **Symmetry:** ξ is i.i.d. per site, so noise **breaks D6h symmetry by design**. The Phase 2a
-  symmetry gate runs noise **off**; sidebranching studies run it **on**. Two different runs.
+  symmetry gate runs noise **off**; studies specifically targeting natural asymmetric branching
+  may run it **on**. Two different experiments.
 
 **Not adopted (recorded so nobody re-derives it):** §VI.C also sketches variants where a small
 proportion of particles "refuse to freeze in (2), or melt in (4)" — e.g. freezing becomes
@@ -337,9 +342,9 @@ own stream ids if a later phase wants them.
 ## 7. Guardrails on parameter space
 
 G-G derive these in §5. They bound the usable region and belong in the validator (and later, in
-what the UI will let a user reach). **These constrain `GGThreshold`.** `LibbrechtKinetics` will
-need its own stability analysis — the CFL-like bound in
-[attachment-kinetics.md](attachment-kinetics.md) §4 — and it does not inherit these.
+what the UI will let a user reach). **These constrain `GGThreshold`.** `LibbrechtKinetics` does
+not inherit them; its separate fill-CFL and Péclet checks are specified in
+[attachment-kinetics.md](attachment-kinetics.md) §4.3–§4.4.
 
 **Avoid the Packard regime** — unphysical runaway where the crystal expands as fast as the CA
 light cone, an artifact of discrete averaging rather than physics:

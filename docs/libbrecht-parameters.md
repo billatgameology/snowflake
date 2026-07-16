@@ -82,7 +82,7 @@ while every individual number "looks right." Pressure: raw units recorded, canon
 | `X_0(T, P) = (c_sat/c_ice) · D / v_kin` (kinetic length) | monograph Eq. 3.10, printed p. 93 / pdf 94 |
 | `p_ice(T) ≈ 3.7e10 · exp(−6150/T_K)` **mbar** (Arrhenius fit, "slightly modified to better fit the data") | monograph Eq. 2.8, printed p. 58 / pdf 59 |
 | `p_water(T) ≈ (2.8e9 + 1700·T_C³) · exp(−5450/T_K)` **mbar** (same status) | monograph Eq. 2.8, printed p. 58 / pdf 59 |
-| `sigma_water(T) = (c_sat,water − c_sat,ice)/c_sat,ice` (ceiling for physically meaningful `sigma_infinity`) | monograph Eq. 2.9, printed p. 58 / pdf 59 |
+| `sigma_water(T) = (c_sat,water − c_sat,ice)/c_sat,ice` (source-side physical ceiling concept; not an enforced v1 runtime bound across the full domain — see known limit below) | monograph Eq. 2.9, printed p. 58 / pdf 59 |
 
 **Known limit of the closed forms (found 2026-07-15, pinned in `core/test/libbrecht.test.ts`):
 computing `sigma_water` as the DIFFERENCE of the two Eq. 2.8 fits amplifies their individual
@@ -90,6 +90,9 @@ computing `sigma_water` as the DIFFERENCE of the two Eq. 2.8 fits amplifies thei
 (−0.009146 computed, vs Table 2.1's +0.010; the −0.006 first recorded here was hand-arithmetic
 error, corrected round-3), at −10 °C it is ~20% low, at −15 °C it reads 0.137 vs the table's
 0.157 (12.8% low), improving with cold: 8.8% at −20, 4.6% at −30, 2.0% at −40.**
+No cited continuous interpolation of Table 2.1's positive column has been adopted, so v1 uses
+this quantity as a plausibility reference only and does not enforce it as a runtime ceiling
+(attachment-kinetics §4.4 component 1).
 Use Table 2.1's `sigma_water` column (anchors in §5) wherever the value matters; the fit
 difference is implemented because the forms are cited, not because it is good.
 
@@ -258,8 +261,11 @@ habit gate) it does not bite at all.
   (attachment-kinetics §4.4 component 3). Anchors in the Table 2.1 transcription above.
 - `M_ice(T) = c_ice/c_sat(T)` — ice-cell mass in vapor-ledger units (§4.4 component 4).
   ≈ 6.7×10⁵ at −15 °C.
-- `sigma_water(T)` — the physically meaningful ceiling for `sigma_infinity` (a cloud of
-  supercooled droplets pins the far field at or below water saturation): Table 2.1 column.
+
+`sigma_water(T)` is retained as a **source-side plausibility diagnostic**, not a solver input:
+a cloud of supercooled droplets physically pins the far field at or below water saturation,
+but the available fit-difference expression cannot enforce that statement honestly over the
+full temperature domain for the reason recorded above.
 
 ## Extraction protocol (as executed 2026-07-15; kept for reproducibility)
 

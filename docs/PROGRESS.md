@@ -9,38 +9,47 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   history is in the plan's Tried and rejected). The gate is *enforcing*: `--enforce-gate`
   checks twelve criteria and exit 0 is the whole claim; the maker independently recomputed the
   plate result from raw checkpoint bytes and found no core solver defect. **Phase 2b: spec +
-  parameter table + implementation exist and have been through FIVE maker audit rounds
+  parameter table + implementation exist and have been through SIX maker audit rounds
   (2026-07-15)** — round 2: seven blockers, gate v1 killed; round 3: three blockers +
   closure blocker, gate v2 killed; round 4: physics fixes verified correct but the
   plan/spec still encoded the superseded model (blocker) plus evidence should-fixes;
   round 5: the same staleness one authority level up — the CHARTER (§2.4, Phase 2b) and
   ADR 0005 still specified residual-only convergence, uniform fill, and bare-equality mass
   claims → **ADR 0006 + charter v1.4**, plus evidence-strictness should-fixes (LK decode
-  validation with tests, diagnostic scope overstatement, stale public field docs). All five
-  rounds are remediated; the full catalogs live in the plan's Tried and rejected.
+  validation with tests, diagnostic scope overstatement, stale public field docs); round 6
+  found two surviving spec contradictions plus incomplete writer-side checkpoint validation;
+  its final pass also found raw-positive controls whose derived SI scales underflowed or
+  overflowed, plus two committed tests that did not enforce the nonuniform Robin limit or the
+  load-bearing `divTol` criterion. All are now remediated in the round-6 commit containing this
+  update, with symmetric encode/decode/solver validation, non-vacuous negative controls,
+  and a full authority-chain truth pass. `npm test`
+  is 122/122 green, including typecheck and the Rule 7 scan. The full catalogs live in the
+  plan's Tried and rejected.
   **Phase 2b is NOT closed. No accepted gate result exists yet** — protocol v3 is
   registered and its accepted-run attempt is in flight.
-- **Last updated:** 2026-07-15 by Claude Fable 5
+- **Last updated:** 2026-07-15 by Codex
 - **Active plan:** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
-  0003, synced to charter v1.2/v1.3; Scaffold + Stage 2a complete; Stage 2b section reconciled
+  0003, synced through charter v1.4; Scaffold + Stage 2a complete; Stage 2b section reconciled
   with ADR 0005 on 2026-07-15 (the seam's four sub-decisions are now settled in writing —
   answers in the plan's Approach item 4, rationale in attachment-kinetics §4.4; the "n_diff
   plausibility" step is retracted-as-specified, replaced by fill-CFL + worked Péclet
-  arithmetic). Still true from the 2026-07-14 hardening: the Dirichlet gate as
-  charter-phrased could not fail (a uniform field is a fixed point under *both* boundary
-  conditions) — the plan carries a falsifiable depleted-start differential test.
+  arithmetic). Still true from the 2026-07-14 hardening: the charter v1.2 Dirichlet wording
+  could not fail (a uniform field is a fixed point under *both* boundary conditions). Charter
+  v1.4 now carries the plan's falsifiable depleted-start differential test.
 - **Charter is at v1.4** (2026-07-15, decision
   [0006](decisions/0006-audited-surface-operator-numerics.md) — audited surface-operator
-  numerics: LibbrechtKinetics convergence is DUAL (residual AND divergence identity), fill
-  is per attached face with the hexagonal-prism 2/3 factor, and the seam's mass claim is
-  the recorded flux identity `fill + recorded saturation clipping = per-face Hertz–Knudsen
-  integral` with shell-clamp totals as diagnostics only; amends 0005 after audit rounds
-  2–5 measured the failure modes of the older statements). Before that, v1.3 (2026-07-14,
+  numerics: fixed-σ Dirichlet LibbrechtKinetics convergence is DUAL (residual AND divergence
+  identity; reflecting LK is residual-only diagnostic), fill is per attached face with the
+  hexagonal-prism 2/3 factor, and the seam's exact bookkeeping claim is `placed fill +
+  recorded unapplied saturation excess = computed per-face Hertz–Knudsen kinetic demand`,
+  with shell-clamp totals as diagnostics only; amends 0005 after audit rounds 2–6 measured
+  the failure modes and documentation overclaims of the older statements). Before that,
+  v1.3 (2026-07-14,
   decision [0005](decisions/0005-validation-scope-surface-operator-numerics.md) — maker
   review). v1.3's three big ones: Phase 6 input-provenance classes with an **in-sample/held-out split** (SDAK
   inputs are Nakaya-informed; matching Nakaya with them active is reproduction, not validation);
-  the seam is a **coupled surface operator** and **Phase 2b is paused** until its spec and the
-  parameter table exist; quasi-static numerics are an **elliptic residual solve**, not
+  the seam is a **coupled surface operator**, and **Phase 2b was paused** until its spec and the
+  parameter table existed (fulfilled 2026-07-15); quasi-static numerics are an **elliptic residual solve**, not
   physical-time Jacobi sweeps (the "thousands of iterations means wrong units" claim is
   retracted). Plus: expanded Phase 6 freeze list + convergence controls; Phase 4 pass A blocking
   / pass B diagnostic; timeline semantics named an open decision; two-axis epistemic labels
@@ -62,13 +71,14 @@ Libbrecht's α, temperature is an *input to the physics*, so **Phase 6 becomes a
 fail.** That is the point. The project stops being "pretty crystals with an honest disclaimer" and
 becomes an actual attempt at the open loop in charter §2.7.
 
-What survives from G-G, unchanged: the lattice, diffusion, the boundary/quasi-liquid mass field,
-melting, mass bookkeeping, and **the noise term** — status corrected by decision 0005: G-G's
-published 3D snowfakes are deterministic, branches included; noise is their *proposed*
-randomization (§VI.C) and our labeled dial for natural, asymmetric sidebranching, not an
-existence requirement for branches. The surface exchange step is replaced **as a coupled whole**
-(decision 0005 amending 0003 — "only the attachment thresholds" understated the seam). G-G's
-rule lives on permanently as `GGThreshold`, the working floor and the control group.
+What survives from G-G is scoped by operator. `GGThreshold` keeps the published four-step cycle
+bit-identically. `LibbrechtKinetics` shares the lattice and diffusion stencil but replaces surface
+exchange **as a coupled whole**: iterated Robin relaxation, separate fill, freezing replaced,
+melting disabled, and rule-specific noise on `alphaHK` (decision 0005 amending 0003 — "only the
+attachment thresholds" understated the seam). G-G's published 3D snowfakes are deterministic,
+branches included; noise is their *proposed* randomization (§VI.C) and our labeled dial for
+natural asymmetric sidebranching, not an existence requirement. `GGThreshold` remains the
+working floor and control group.
 
 **If you are holding a stale link to `gg-model.md`, stop** — it is a tombstone. The content split
 into the two specs below.
@@ -89,13 +99,13 @@ protocol (metric certified in isolation, box-scaling probes, hexPrism controls),
 test onto hexPrism — threshold untouched at exactly 0 — and added a box negative-control test
 pinning the geometry (full triage in the plan's Tried and rejected). The Rule 7 scan was
 likewise already fixed at HEAD and was verified to still fail on real violations.
-`npm test`: 81/81 green at 2a close (2026-07-15); 121/121 after the round-5 remediation
+`npm test`: 81/81 green at 2a close (2026-07-15); 122/122 after the round-6 remediation
 (2026-07-15 — exact counts only, since the round-4 audit caught a "past 120" here; rounds
-4–5 added the sink/growth diagnostic and the LK checkpoint mutation-probe matrix).
-**Phase 2b exists in full — deliverable docs AND implementation (LKSolver, SurfaceOperator,
-Dirichlet, runner gate) — and has been through five maker audit rounds; its habit gate has
+4–6 added the sink-vs-kinetic-demand diagnostic and completed the LK checkpoint mutation-probe matrix).
+**Phase 2b's scoped no-SDAK deliverable docs and implementation exist (LKSolver,
+SurfaceOperator, Dirichlet, runner gate) and have been through six maker audit rounds; its habit gate has
 NOT yet produced an accepted result** (protocol v3, registered after round 3, unchanged by
-rounds 4–5). The stack is
+rounds 4–6). The stack is
 decided in charter §3.1 — TypeScript + Vite, WebGPU, stacked triangular lattice, CPU oracle +
 GPU production solver, five-part repo (`core` / `solver-cpu` / `solver-gpu` / `runner` / `app`;
 `solver-gpu` and `app` are reserved and uncreated).
@@ -103,8 +113,9 @@ GPU production solver, five-part repo (`core` / `solver-cpu` / `solver-gpu` / `r
 The solver specs — **read the relevant one before writing solver code:**
 
 - **[gg-machinery.md](gg-machinery.md)** — lattice, diffusion, state fields, mass bookkeeping,
-  melting, noise, seed, guardrails, G-G's presets. Physics-agnostic infrastructure; computed
-  state, Evidence: unvalidated (§1.5 v1.3 taxonomy) — nothing in it is a physical claim. §6
+  melting, noise, seed, guardrails, G-G's presets. Shared machinery with physical diffusion
+  transport and phenomenological G-G surface knobs; outputs are Type = computed state,
+  Evidence = unvalidated (§1.5), so this makes no physical-validation claim. §6
   (noise) is **extracted** (2026-07-14, from the paper's §VI.C, with the honesty note that G-G's
   published 3D results are deterministic and the randomization is their proposal).
 - **[attachment-kinetics.md](attachment-kinetics.md)** — the attachment rule, `v_n = alphaHK ·
@@ -166,9 +177,9 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | 0 | §2.8 exit criteria hold | ✅ maker-asserted, 2026-07-14 |
 | 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ✅ **maker-asserted, 2026-07-15** — informal sessions, positive; the four-task protocol was *not* run (recorded honestly in the plan's Findings, with the Phase 7 takeaways) |
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Maker independently re-derived the result from raw checkpoint bytes. Full record in [the plan](plans/phase-2-cpu-solver.md), Steps |
-| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (v1.2): fixed-σ Dirichlet far field passes the plan's **depleted-start differential test** (the charter's "holds σ in a crystal-free run" phrasing is vacuous from a uniform start — see plan) | 🔶 **in progress** — spec, parameter table, implementation, and four maker audit rounds done (the ADR 0005 pause was lifted by its deliverables, 2026-07-15); the depleted-start Dirichlet differential passes in the committed suite (`solver-cpu/test/dirichlet.test.ts`); **no accepted habit-gate result yet** — protocol v3 registered, run in flight |
+| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | 🔶 **in progress** — spec, parameter table, implementation, and six maker audit rounds (round-6 remediation is recorded in the commit containing this update; the ADR 0005 pause was lifted by its deliverables, 2026-07-15); the depleted-start Dirichlet differential passes in the suite (`solver-cpu/test/dirichlet.test.ts`); **no accepted habit-gate result yet** — protocol v3 registered, run in flight |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ⬜ not started |
-| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `AttachmentRule`**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ⬜ not started |
+| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ⬜ not started |
 | 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
@@ -199,13 +210,16 @@ Records live in [docs/decisions/](decisions/):
   `.md` index is. Libbrecht's copyrighted videos were purged from history before the first push
 - **[0005](decisions/0005-validation-scope-surface-operator-numerics.md) — validation scope, the
   coupled surface operator, quasi-static numerics** (maker review, 2026-07-14). Amends 0003.
-  Phase 6 gets provenance classes and the in-sample/held-out split; **Phase 2b pauses** until the
-  surface-operator spec and parameter table exist; the field solve is elliptic-with-residual, not
+  Phase 6 gets provenance classes and the in-sample/held-out split; **Phase 2b was paused** until
+  the surface-operator spec and parameter table existed (condition fulfilled 2026-07-15); the
+  field solve is elliptic-with-residual, not
   per-sweep physical time. Charter v1.2 → v1.3 in the same session. Amended in part by 0006
 - **[0006](decisions/0006-audited-surface-operator-numerics.md) — audited surface-operator
-  numerics** (implementation audit rounds 2–5, 2026-07-15). Amends 0005: convergence is dual
-  (residual AND divergence identity); fill is per attached face (hexagonal-prism 2/3 factor,
-  fill-CFL on the per-cell kinetic increment); the mass claim is the recorded flux identity,
+  numerics** (implementation audit rounds 2–6, 2026-07-15). Amends 0005: fixed-σ Dirichlet
+  convergence is dual (residual AND divergence identity), while reflecting LK is residual-only
+  diagnostic; fill is per attached face (hexagonal-prism 2/3 factor,
+  fill-CFL on the per-cell kinetic increment); the exact bookkeeping claim is `placed fill +
+  recorded unapplied saturation excess = computed per-face Hertz–Knudsen kinetic demand`,
   shell-clamp totals diagnostics only; noise multiplies `alphaHK` in sink and growth alike.
   Charter v1.3 → v1.4 in the same session
 
@@ -237,24 +251,38 @@ run, exit 0, `cmp` bit-identical to `out/plate-gate.ckpt` (repro:
 out/plate-gate-round5.ckpt --enforce-gate && cmp out/plate-gate-round5.ckpt
 out/plate-gate.ckpt`; log `out/plate-gate-round5.log`). The earlier "after every round"
 wording was round-5-flagged as false and is retracted — completed checks: after round 3,
-and now after round 5. **Phase 2b state (2026-07-15, after the round-5 remediation): everything exists —
+and now after round 5. **Phase 2b state (2026-07-15, after the round-6 remediation): the scoped
+no-SDAK deliverables and implementation exist —
 the two ADR 0005 deliverables (attachment-kinetics §4.4 spec; libbrecht-parameters.md table),
 the implementation (`LKSolver`, shared `SurfaceOperator`, GG Dirichlet option, `grow-lk`, the
-flagless `gate2b`), ADR 0006 + charter v1.4, and FIVE maker audit rounds' worth of
-remediations — but the habit gate has NOT produced an accepted result.** Protocol v3 is registered (plan, Steps: same-domain
+flagless `gate2b`), ADR 0006 + charter v1.4, and SIX maker audit rounds' worth of remediations —
+but the habit gate has NOT produced an accepted result.** Protocol v3 is registered (plan, Steps:
+same-domain
 96³ pair, `CAK_A1`, `sigma_infinity = 0.002`, per-face fill with the hexagonal-prism 2/3
 factor, divergence-identity convergence). The three protocol versions and every audit finding
 are cataloged in the plan's Tried and rejected — **read that before touching the seam.**
 
 **Next concrete action: the v3 gate run is in flight (`node runner/src/main.ts gate2b`,
-launched in the background after the round-4 commit; log `out/gate2b.log`, checkpoints
-`out/gate2b-plate.ckpt` / `out/gate2b-column.ckpt`). When it exits: record the result
-honestly (pass OR fail — the ±25% digitization caveat makes a cold-side failure a reportable
-finding, not a bug hunt; exit 0 is the whole claim), commit, and put the result in front of
-the maker.** Runtime is NOT tens of minutes — the killed first launch was ~27 CPU-minutes
-into run 1 without reaching its first 200-step metrics line; expect hours per run, possibly
-long hours (progress lines print every 200 growth steps). If the log looks silent, check the
-process before assuming a hang.
+launched from execution commit 4ca9680 after the round-4 commit; log `out/gate2b.log`,
+checkpoints `out/gate2b-plate.ckpt` / `out/gate2b-column.ckpt`). When it exits: record the
+result honestly (pass OR fail — the ±25% digitization caveat makes a cold-side failure a
+reportable finding, not a bug hunt; exit 0 is the whole claim), then validate both checkpoints
+with the current strict decoder against every existing v1-header control and every field bit;
+reconcile seed geometry and termination controls against the pre-registration and log. The live
+process predates the round-6 runner heartbeat, durable exit-status line, and full-v1-header
+round trip, so those new observability checks cannot be cited for this run; preserve its actual
+process exit status separately. Latest liveness observation, **not an accepted result**:
+`out/gate2b.log` reached run 1 step 200 (registered 96³, −5 °C): attached 583, extent 31,
+AR 0.0370634, sweeps 1, divergence residual 9.99e-8, simulated time 22.35 s, elapsed
+6301.1 s; the process remained active and no checkpoint existed.** Runtime is NOT tens of
+minutes — the killed first launch was
+~27 CPU-minutes into run 1 without reaching its first 200-step metrics line; expect hours per
+run, possibly long hours. If the log looks silent, check the process before assuming a hang.
+The round-6 remediation is committed separately from the eventual gate-results commit. A
+further numerical improvement is documented but deliberately not implemented in this round:
+event-limited surface stepping would eliminate unapplied saturation excess,
+but it changes protocol-v3 numerics and therefore requires an amending ADR, committed v4
+pre-registration, and a full rerun. Recording clipping makes v3 auditable; it does not deposit it.
 
 Traps already known: the 19-site seed erratum (gg-machinery §5 — the paper says 20; do not
 "fix" it back). The symmetry gate runs on the **hexPrism** domain — a box cannot pass it for

@@ -14,7 +14,8 @@
 // last computed metrics. Oracle-vs-GPU comparisons, the regression suite and the sweep
 // harness all speak through this format.
 
-import { cellCount, type Dims } from "./lattice.ts";
+import { cellCount, hexDistance, type Dims } from "./lattice.ts";
+import { kineticLength, mIce, vKin, type NucleationParamSet } from "./libbrecht.ts";
 import type { Metrics } from "./metrics.ts";
 import type { GGParams } from "./params.ts";
 import type { DomainShape, FarFieldCondition, SolverState } from "./state.ts";
@@ -150,17 +151,17 @@ export interface LKCheckpointHeader {
   readonly sigmaInfinity: number;
   readonly dxUm: number;
   readonly pressurePa: number;
-  readonly paramSet: string;
+  readonly paramSet: NucleationParamSet;
   readonly cflFill: number;
   readonly relaxTol: number;
-  /** Divergence-identity tolerance — the OTHER half of the dual convergence criterion.
-      Added 2026-07-15 (round-4 maker review: without it a checkpoint cannot independently
-      establish that its field was solved under the registered protocol). REQUIRED — decode
-      rejects headers missing it. No version bump: no accepted LK checkpoint predates it. */
+  /** Divergence-identity tolerance — the OTHER half of fixed-sigma Dirichlet convergence.
+      Reflecting diagnostic runs record it but do not apply it. Added 2026-07-15 (round-4 maker
+      review: without it a checkpoint cannot independently establish the registered controls).
+      REQUIRED — decode rejects headers missing it. No accepted LK checkpoint predates it. */
   readonly divTol: number;
   /** Sweep cap of the relaxation loop — same round-4 provenance requirement. */
   readonly relaxMaxSweeps: number;
-  readonly farField: "dirichlet";
+  readonly farField: FarFieldCondition;
   readonly fields: FieldDescriptor[];
 }
 
@@ -176,18 +177,174 @@ export interface LKRunState {
   readonly sigmaInfinity: number;
   readonly dxUm: number;
   readonly pressurePa: number;
-  readonly paramSet: string;
+  readonly paramSet: NucleationParamSet;
   readonly cflFill: number;
   readonly relaxTol: number;
   readonly divTol: number;
   readonly relaxMaxSweeps: number;
+  /** Actual condition used. Reflecting LK is diagnostic-only, but its data remains serializable. */
+  readonly farField: FarFieldCondition;
   readonly a: Uint8Array;
   readonly f: Float64Array;
   readonly sigma: Float64Array;
 }
 
+function requireRecord(value: unknown, name: string): Record<string, unknown> {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    throw new Error(`LK checkpoint ${name} must be an object`);
+  }
+  return value as Record<string, unknown>;
+}
+
+function requireFinite(value: unknown, name: string): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    throw new Error(`LK checkpoint ${name} must be finite`);
+  }
+  return value;
+}
+
+function requirePositive(value: unknown, name: string): number {
+  const number = requireFinite(value, name);
+  if (number <= 0) throw new Error(`LK checkpoint ${name} must be positive`);
+  return number;
+}
+
+/** Runtime schema shared by encode and decode: TypeScript types do not validate external JS/JSON. */
+function validateLKMetadata(value: unknown): number {
+  const metadata = requireRecord(value, "metadata");
+  const dimsValue = requireRecord(metadata.dims, "dims");
+  const dimension = (name: "nx" | "ny" | "nz"): number => {
+    const n = dimsValue[name];
+    if (!Number.isSafeInteger(n) || (n as number) <= 0) {
+      throw new Error(`LK checkpoint dims.${name} must be a positive safe integer`);
+    }
+    return n as number;
+  };
+  const dims: Dims = { nx: dimension("nx"), ny: dimension("ny"), nz: dimension("nz") };
+  const n = cellCount(dims);
+  if (!Number.isSafeInteger(n) || n <= 0) {
+    throw new Error("LK checkpoint cell count must be a positive safe integer");
+  }
+
+  if (!Number.isSafeInteger(metadata.tick) || (metadata.tick as number) < 0) {
+    throw new Error("LK checkpoint tick must be a nonnegative safe integer");
+  }
+  const simTime = requireFinite(metadata.simTimeSeconds, "simTimeSeconds");
+  if (simTime < 0) throw new Error("LK checkpoint simTimeSeconds must be nonnegative");
+  if (
+    !Number.isSafeInteger(metadata.rngSeed) ||
+    (metadata.rngSeed as number) < 0 ||
+    (metadata.rngSeed as number) > 0xffff_ffff
+  ) {
+    throw new Error("LK checkpoint rngSeed must be a uint32 integer");
+  }
+  const noise = requireFinite(metadata.noiseEpsilon, "noiseEpsilon");
+  if (noise < 0 || noise > 1) {
+    throw new Error("LK checkpoint noiseEpsilon must be in [0, 1]");
+  }
+  if (metadata.domain !== "box" && metadata.domain !== "hexPrism") {
+    throw new Error(`LK checkpoint domain is invalid: ${String(metadata.domain)}`);
+  }
+  if (!Array.isArray(metadata.center) || metadata.center.length !== 3) {
+    throw new Error("LK checkpoint center must contain exactly three coordinates");
+  }
+  for (let axis = 0; axis < 3; axis++) {
+    const coordinate = metadata.center[axis];
+    const limit = axis === 0 ? dims.nx : axis === 1 ? dims.ny : dims.nz;
+    if (!Number.isSafeInteger(coordinate) || (coordinate as number) < 0 || (coordinate as number) >= limit) {
+      throw new Error(`LK checkpoint center[${axis}] must be an in-domain integer`);
+    }
+  }
+  const tempC = requireFinite(metadata.tempC, "tempC");
+  if (tempC < -50 || tempC > -1) {
+    throw new Error("LK checkpoint tempC must stay in the digitized domain [-50, -1]");
+  }
+  const sigmaInfinity = requirePositive(metadata.sigmaInfinity, "sigmaInfinity");
+  const dxUm = requirePositive(metadata.dxUm, "dxUm");
+  const pressurePa = requirePositive(metadata.pressurePa, "pressurePa");
+  // Keep evidence acceptance symmetric with LKSolver's numerical-representability checks.
+  // Raw finite positive controls can still underflow/overflow after SI conversion or in the
+  // source equations, yielding a checkpoint for a run the solver cannot compute honestly.
+  const dxM = dxUm * 1e-6;
+  const vKinMS = vKin(tempC);
+  const x0M = kineticLength(tempC, pressurePa);
+  const mIceLedger = mIce(tempC);
+  for (const [name, derived] of [
+    ["derived dxM", dxM],
+    ["derived vKinMS", vKinMS],
+    ["derived X_0", x0M],
+    ["derived M_ice", mIceLedger],
+    ["derived dxM/X_0", dxM / x0M],
+    ["derived maximum kinetic fill-rate scale", (6 * vKinMS * sigmaInfinity) / dxM],
+  ] as const) {
+    if (!Number.isFinite(derived) || derived <= 0) {
+      throw new Error(`LK checkpoint ${name} must be finite and positive`);
+    }
+  }
+  if (metadata.paramSet !== "CAK_A1" && metadata.paramSet !== "CAK") {
+    throw new Error(`LK checkpoint paramSet is invalid: ${String(metadata.paramSet)}`);
+  }
+  const cfl = requireFinite(metadata.cflFill, "cflFill");
+  if (!(cfl > 0 && cfl < 1)) {
+    throw new Error("LK checkpoint cflFill must be in (0, 1)");
+  }
+  requirePositive(metadata.relaxTol, "relaxTol");
+  requirePositive(metadata.divTol, "divTol");
+  if (!Number.isSafeInteger(metadata.relaxMaxSweeps) || (metadata.relaxMaxSweeps as number) <= 0) {
+    throw new Error("LK checkpoint relaxMaxSweeps must be a positive safe integer");
+  }
+  if (metadata.farField !== "dirichlet" && metadata.farField !== "reflecting") {
+    throw new Error(`LK checkpoint farField is invalid: ${String(metadata.farField)}`);
+  }
+  return n;
+}
+
+function validateLKStateArrays(state: LKRunState, n: number): void {
+  if (!(state.a instanceof Uint8Array) || state.a.length !== n) {
+    throw new Error(`LK checkpoint a must be a Uint8Array of length ${n}`);
+  }
+  if (!(state.f instanceof Float64Array) || state.f.length !== n) {
+    throw new Error(`LK checkpoint f must be a Float64Array of length ${n}`);
+  }
+  if (!(state.sigma instanceof Float64Array) || state.sigma.length !== n) {
+    throw new Error(`LK checkpoint sigma must be a Float64Array of length ${n}`);
+  }
+  const [ic, jc, kc] = state.center;
+  const radius = Math.min(ic, state.dims.nx - 1 - ic, jc, state.dims.ny - 1 - jc);
+  const halfZ = Math.min(kc, state.dims.nz - 1 - kc);
+  const plane = state.dims.nx * state.dims.ny;
+  for (let i = 0; i < n; i++) {
+    if (state.a[i] !== 0 && state.a[i] !== 1) {
+      throw new Error(`LK checkpoint a[${i}] must be 0 or 1`);
+    }
+    if (!Number.isFinite(state.f[i]) || state.f[i] < 0 || state.f[i] > 1) {
+      throw new Error(`LK checkpoint f[${i}] must be finite and in [0, 1]`);
+    }
+    if (!Number.isFinite(state.sigma[i]) || state.sigma[i] < 0) {
+      throw new Error(`LK checkpoint sigma[${i}] must be finite and nonnegative`);
+    }
+    if (state.a[i] === 1 && (state.f[i] !== 1 || state.sigma[i] !== 0)) {
+      throw new Error(`LK checkpoint attached cell ${i} must have f=1 and sigma=0`);
+    }
+    // Do not require the converse. In advanceSurface's unsaturated branch, floating-point
+    // addition can round f + raw to exactly 1 even though raw < 1 - f; that valid cell attaches
+    // on the following step.
+    if (state.domain === "hexPrism") {
+      const k = Math.floor(i / plane);
+      const inPlane = i - k * plane;
+      const j = Math.floor(inPlane / state.dims.nx);
+      const x = inPlane - j * state.dims.nx;
+      const active = hexDistance(x - ic, j - jc) <= radius && Math.abs(k - kc) <= halfZ;
+      if (!active && (state.a[i] !== 0 || state.f[i] !== 0 || state.sigma[i] !== 0)) {
+        throw new Error(`LK checkpoint masked wall cell ${i} must have a=f=sigma=0`);
+      }
+    }
+  }
+}
+
 export function encodeLKCheckpoint(state: LKRunState): Uint8Array {
-  const n = cellCount(state.dims);
+  const n = validateLKMetadata(state);
+  validateLKStateArrays(state, n);
   const header: LKCheckpointHeader = {
     version: 1,
     rule: "LibbrechtKinetics",
@@ -208,7 +365,7 @@ export function encodeLKCheckpoint(state: LKRunState): Uint8Array {
     relaxTol: state.relaxTol,
     divTol: state.divTol,
     relaxMaxSweeps: state.relaxMaxSweeps,
-    farField: "dirichlet",
+    farField: state.farField,
     fields: [
       { name: "a", dtype: "u8", length: n },
       { name: "f", dtype: "f64", length: n },
@@ -235,48 +392,37 @@ export interface DecodedLKCheckpoint {
 }
 
 export function decodeLKCheckpoint(bytes: Uint8Array): DecodedLKCheckpoint {
+  if (bytes.length < 12) throw new Error("LK checkpoint is shorter than its fixed header");
   let magic = "";
   for (let i = 0; i < 8; i++) magic += String.fromCharCode(bytes[i]);
   if (magic !== CHECKPOINT_MAGIC) {
     throw new Error(`bad checkpoint magic: ${JSON.stringify(magic)}`);
   }
-  const headerLength = new DataView(bytes.buffer, bytes.byteOffset).getUint32(8, true);
-  const header = JSON.parse(
+  const headerLength = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength).getUint32(8, true);
+  if (headerLength > bytes.length - 12) {
+    throw new Error("LK checkpoint header length exceeds the available bytes");
+  }
+  const parsedHeader = JSON.parse(
     new TextDecoder().decode(bytes.subarray(12, 12 + headerLength)),
-  ) as LKCheckpointHeader;
+  ) as unknown;
+  requireRecord(parsedHeader, "header");
+  const header = parsedHeader as LKCheckpointHeader;
   if (header.rule !== "LibbrechtKinetics") {
     throw new Error(`not a LibbrechtKinetics checkpoint (rule=${(header as { rule?: string }).rule})`);
   }
   if (header.endianness !== "LE") throw new Error("checkpoint must declare LE endianness");
-  // Round-4/5 maker reviews: decode is EVIDENCE-STRICT. An LK checkpoint is a gate-claim
-  // carrier, so every header control is validated, not trusted — round-5 mutation probes
-  // showed version 2, missing relaxTol, a reflecting far field, nonpositive divTol,
-  // zero/fractional sweep caps, and a short f descriptor all decoding "successfully" (the
-  // last returning a silently SHIFTED state).
+  // Round-4/5 maker reviews: every wire-format and runtime control is validated, not trusted.
+  // Round-5 probes showed version 2, missing relaxTol, invalid tolerances/sweep caps, and a
+  // short f descriptor all decoding "successfully" (the last silently SHIFTED state). Round 6
+  // corrected one overreach: reflecting LK checkpoints are valid diagnostic data; gate
+  // acceptance, not the codec, enforces Dirichlet physics runs.
   if (header.version !== 1) {
     throw new Error(`unsupported LK checkpoint version ${header.version}`);
   }
-  if (header.farField !== "dirichlet") {
-    throw new Error(
-      `LK checkpoints record Dirichlet runs only (got farField=${String(header.farField)}); ` +
-        "the reflecting mode is a diagnostic that supports no physics claim",
-    );
+  const n = validateLKMetadata(header);
+  if (!Array.isArray(header.fields)) {
+    throw new Error("LK checkpoint fields must be an array");
   }
-  const requireFinitePositive = (value: unknown, name: string): void => {
-    if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) {
-      throw new Error(`LK checkpoint header ${name} must be a finite positive number`);
-    }
-  };
-  requireFinitePositive(header.relaxTol, "relaxTol");
-  requireFinitePositive(header.divTol, "divTol");
-  requireFinitePositive(header.cflFill, "cflFill");
-  requireFinitePositive(header.dxUm, "dxUm");
-  requireFinitePositive(header.pressurePa, "pressurePa");
-  requireFinitePositive(header.sigmaInfinity, "sigmaInfinity");
-  if (!Number.isInteger(header.relaxMaxSweeps) || header.relaxMaxSweeps <= 0) {
-    throw new Error("LK checkpoint header relaxMaxSweeps must be a positive integer");
-  }
-  const n = cellCount(header.dims);
   const expectedFields: ReadonlyArray<readonly [string, string, number]> = [
     ["a", "u8", n],
     ["f", "f64", n],
@@ -317,33 +463,40 @@ export function decodeLKCheckpoint(bytes: Uint8Array): DecodedLKCheckpoint {
       throw new Error(`dtype ${field.dtype} not readable by the CPU oracle yet`);
     }
   }
-  if (a === null || f === null || sigma === null || a.length !== n) {
+  if (
+    a === null ||
+    f === null ||
+    sigma === null ||
+    a.length !== n ||
+    f.length !== n ||
+    sigma.length !== n
+  ) {
     throw new Error("LK checkpoint is missing one of the fields a, f, sigma");
   }
-  return {
-    header,
-    state: {
-      dims: header.dims,
-      tick: header.tick,
-      simTimeSeconds: header.simTimeSeconds,
-      rngSeed: header.rngSeed,
-      noiseEpsilon: header.noiseEpsilon,
-      domain: header.domain,
-      center: header.center,
-      tempC: header.tempC,
-      sigmaInfinity: header.sigmaInfinity,
-      dxUm: header.dxUm,
-      pressurePa: header.pressurePa,
-      paramSet: header.paramSet,
-      cflFill: header.cflFill,
-      relaxTol: header.relaxTol,
-      divTol: header.divTol,
-      relaxMaxSweeps: header.relaxMaxSweeps,
-      a,
-      f,
-      sigma,
-    },
+  const state: LKRunState = {
+    dims: header.dims,
+    tick: header.tick,
+    simTimeSeconds: header.simTimeSeconds,
+    rngSeed: header.rngSeed,
+    noiseEpsilon: header.noiseEpsilon,
+    domain: header.domain,
+    center: header.center,
+    tempC: header.tempC,
+    sigmaInfinity: header.sigmaInfinity,
+    dxUm: header.dxUm,
+    pressurePa: header.pressurePa,
+    paramSet: header.paramSet,
+    cflFill: header.cflFill,
+    relaxTol: header.relaxTol,
+    divTol: header.divTol,
+    relaxMaxSweeps: header.relaxMaxSweeps,
+    farField: header.farField,
+    a,
+    f,
+    sigma,
   };
+  validateLKStateArrays(state, n);
+  return { header, state };
 }
 
 export function decodeCheckpoint(bytes: Uint8Array): DecodedCheckpoint {

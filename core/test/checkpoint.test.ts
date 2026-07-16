@@ -8,6 +8,7 @@ import {
   encodeCheckpoint,
   encodeLKCheckpoint,
   hashCounter,
+  hexDistance,
   CHECKPOINT_MAGIC,
   GG_PRESETS,
   type Dims,
@@ -91,9 +92,9 @@ describe("checkpoint round-trip (synthetic state; re-verified on a grown crystal
 });
 
 // ── LibbrechtKinetics checkpoints (round-5 maker review: no LK tests existed, and mutation
-// probes showed the decoder accepting version 2, missing relaxTol, a reflecting far field,
-// nonpositive divTol, fractional sweep caps, and a short f descriptor — the last returning a
-// silently SHIFTED state). Decode is now evidence-strict; these tests pin that. ─────────────
+// probes showed the decoder accepting version 2, missing relaxTol, malformed controls, and a
+// short f descriptor — the last returning a silently SHIFTED state). Round 6 also pins that a
+// valid reflecting diagnostic round-trips while gate acceptance remains Dirichlet-only. ─────
 
 function syntheticLKState(): LKRunState {
   const dims: Dims = { nx: 5, ny: 4, nz: 3 };
@@ -102,9 +103,17 @@ function syntheticLKState(): LKRunState {
   const f = new Float64Array(n);
   const sigma = new Float64Array(n);
   for (let i = 0; i < n; i++) {
+    const k = Math.floor(i / (dims.nx * dims.ny));
+    const inPlane = i - k * dims.nx * dims.ny;
+    const j = Math.floor(inPlane / dims.nx);
+    const x = inPlane - j * dims.nx;
+    const [ic, jc, kc] = domainCenter(dims);
+    const radius = Math.min(ic, dims.nx - 1 - ic, jc, dims.ny - 1 - jc);
+    const halfZ = Math.min(kc, dims.nz - 1 - kc);
+    if (hexDistance(x - ic, j - jc) > radius || Math.abs(k - kc) > halfZ) continue;
     a[i] = hashCounter(2, i, 0, 20) & 1;
-    f[i] = hashCounter(2, i, 0, 21) / 2 ** 32;
-    sigma[i] = hashCounter(2, i, 0, 22) / 2 ** 33;
+    f[i] = a[i] === 1 ? 1 : hashCounter(2, i, 0, 21) / 2 ** 32;
+    sigma[i] = a[i] === 1 ? 0 : hashCounter(2, i, 0, 22) / 2 ** 33;
   }
   return {
     dims,
@@ -123,6 +132,7 @@ function syntheticLKState(): LKRunState {
     relaxTol: 1e-9,
     divTol: 1e-7,
     relaxMaxSweeps: 200_000,
+    farField: "dirichlet",
     a,
     f,
     sigma,
@@ -153,22 +163,40 @@ describe("LK checkpoint round-trip and evidence-strict decode (round-5 review)",
     const state = syntheticLKState();
     const bytes = encodeLKCheckpoint(state);
     const decoded = decodeLKCheckpoint(bytes);
+    expect(decoded.header.version).toBe(1);
     expect(decoded.header.rule).toBe("LibbrechtKinetics");
+    expect(decoded.header.endianness).toBe("LE");
+    expect(decoded.header.dims).toEqual(state.dims);
+    expect(decoded.header.tick).toBe(77);
+    expect(decoded.header.simTimeSeconds).toBe(1.25);
+    expect(decoded.header.rngSeed).toBe(9);
+    expect(decoded.header.noiseEpsilon).toBe(0);
+    expect(decoded.header.domain).toBe("hexPrism");
+    expect(decoded.header.center).toEqual(state.center);
     expect(decoded.header.tempC).toBe(-15);
     expect(decoded.header.sigmaInfinity).toBe(0.002);
+    expect(decoded.header.dxUm).toBe(0.35);
+    expect(decoded.header.pressurePa).toBe(101325);
     expect(decoded.header.paramSet).toBe("CAK_A1");
     expect(decoded.header.cflFill).toBe(0.1);
     // The dual-criterion controls — the round-4/5 provenance requirement:
     expect(decoded.header.relaxTol).toBe(1e-9);
     expect(decoded.header.divTol).toBe(1e-7);
     expect(decoded.header.relaxMaxSweeps).toBe(200_000);
+    expect(decoded.header.farField).toBe("dirichlet");
+    expect(decoded.header.fields).toEqual([
+      { name: "a", dtype: "u8", length: cellCount(state.dims) },
+      { name: "f", dtype: "f64", length: cellCount(state.dims) },
+      { name: "sigma", dtype: "f64", length: cellCount(state.dims) },
+    ]);
     expect(decoded.state.simTimeSeconds).toBe(1.25);
+    expect(decoded.state.farField).toBe("dirichlet");
     expect(Array.from(decoded.state.a)).toEqual(Array.from(state.a));
     expect(Array.from(decoded.state.f)).toEqual(Array.from(state.f));
     expect(Array.from(decoded.state.sigma)).toEqual(Array.from(state.sigma));
   });
 
-  it("rejects every round-5 mutation probe instead of decoding it", () => {
+  it("rejects malformed header mutations instead of decoding them", () => {
     const bytes = encodeLKCheckpoint(syntheticLKState());
     const n = cellCount(syntheticLKState().dims);
     const cases: Array<[string, (h: Record<string, unknown>) => void, RegExp]> = [
@@ -176,11 +204,35 @@ describe("LK checkpoint round-trip and evidence-strict decode (round-5 review)",
       ["missing relaxTol", (h) => delete h.relaxTol, /relaxTol/],
       ["missing divTol", (h) => delete h.divTol, /divTol/],
       ["missing relaxMaxSweeps", (h) => delete h.relaxMaxSweeps, /relaxMaxSweeps/],
-      ["reflecting far field", (h) => (h.farField = "reflecting"), /[Dd]irichlet/],
+      ["invalid far field", (h) => (h.farField = "bogus"), /farField/],
       ["nonpositive divTol", (h) => (h.divTol = 0), /divTol/],
       ["negative relaxTol", (h) => (h.relaxTol = -1e-9), /relaxTol/],
       ["zero sweep cap", (h) => (h.relaxMaxSweeps = 0), /relaxMaxSweeps/],
       ["fractional sweep cap", (h) => (h.relaxMaxSweeps = 1.5), /relaxMaxSweeps/],
+      ["string dimension", (h) => ((h.dims as Record<string, unknown>).nx = "5"), /dims\.nx/],
+      ["zero dimension", (h) => ((h.dims as Record<string, unknown>).nz = 0), /dims\.nz/],
+      ["negative tick", (h) => (h.tick = -1), /tick/],
+      ["negative simulation time", (h) => (h.simTimeSeconds = -1), /simTimeSeconds/],
+      ["fractional seed", (h) => (h.rngSeed = 1.5), /rngSeed/],
+      ["negative noise", (h) => (h.noiseEpsilon = -1), /noiseEpsilon/],
+      ["noise above one", (h) => (h.noiseEpsilon = 1.1), /noiseEpsilon/],
+      ["invalid domain", (h) => (h.domain = "bogus"), /domain/],
+      ["out-of-domain center", (h) => (h.center = [99, 2, 1]), /center/],
+      ["temperature outside digitization", (h) => (h.tempC = -51), /tempC/],
+      ["zero supersaturation", (h) => (h.sigmaInfinity = 0), /sigmaInfinity/],
+      ["zero lattice spacing", (h) => (h.dxUm = 0), /dxUm/],
+      ["zero pressure", (h) => (h.pressurePa = 0), /pressurePa/],
+      ["SI-underflow lattice spacing", (h) => (h.dxUm = Number.MIN_VALUE), /derived dxM/],
+      ["overflowed kinetic length", (h) => (h.pressurePa = Number.MIN_VALUE), /derived X_0/],
+      [
+        "overflowed stiffness",
+        (h) => (h.dxUm = Number.MAX_VALUE),
+        /derived dxM\/X_0|fill-rate scale/,
+      ],
+      ["invalid parameter set", (h) => (h.paramSet = "bogus"), /paramSet/],
+      ["CFL at one", (h) => (h.cflFill = 1), /cflFill/],
+      ["CFL above one", (h) => (h.cflFill = 2), /cflFill/],
+      ["missing field table", (h) => delete h.fields, /fields/],
       [
         "short f descriptor (the silently-shifted-state probe)",
         (h) => {
@@ -197,5 +249,39 @@ describe("LK checkpoint round-trip and evidence-strict decode (round-5 review)",
   it("rejects a truncated payload", () => {
     const bytes = encodeLKCheckpoint(syntheticLKState());
     expect(() => decodeLKCheckpoint(bytes.subarray(0, bytes.length - 8))).toThrow(/payload/);
+    const extended = new Uint8Array(bytes.length + 1);
+    extended.set(bytes);
+    expect(() => decodeLKCheckpoint(extended)).toThrow(/payload/);
+  });
+
+  it("rejects malformed runtime state before the writer can shift field payloads", () => {
+    const state = syntheticLKState();
+    const n = cellCount(state.dims);
+    expect(() => encodeLKCheckpoint({ ...state, f: new Float64Array(n - 1) })).toThrow(/f.*length/);
+    const invalidFill = state.f.slice();
+    invalidFill[0] = Number.NaN;
+    expect(() => encodeLKCheckpoint({ ...state, f: invalidFill })).toThrow(/f\[0\]/);
+    expect(() =>
+      encodeLKCheckpoint({ ...state, domain: "bogus" } as unknown as LKRunState),
+    ).toThrow(/domain/);
+    expect(() => encodeLKCheckpoint({ ...state, dxUm: Number.MIN_VALUE })).toThrow(/derived dxM/);
+    expect(() => encodeLKCheckpoint({ ...state, pressurePa: Number.MIN_VALUE })).toThrow(
+      /derived X_0/,
+    );
+    const reflecting = decodeLKCheckpoint(
+      encodeLKCheckpoint({ ...state, farField: "reflecting" }),
+    );
+    expect(reflecting.header.farField).toBe("reflecting");
+    expect(reflecting.state.farField).toBe("reflecting");
+    const impossibleAttached = state.f.slice();
+    impossibleAttached[state.a.indexOf(1)] = 0.5;
+    expect(() => encodeLKCheckpoint({ ...state, f: impossibleAttached })).toThrow(/attached cell/);
+    const outsideCrystal = state.a.slice();
+    const outsideFill = state.f.slice();
+    outsideCrystal[0] = 1;
+    outsideFill[0] = 1;
+    expect(() =>
+      encodeLKCheckpoint({ ...state, a: outsideCrystal, f: outsideFill }),
+    ).toThrow(/masked wall cell/);
   });
 });

@@ -76,7 +76,7 @@ lets you *set* plate-vs-column with `β₀₁/β₂₀`; Libbrecht makes you *pr
 second can be wrong. That is why it is worth doing.
 
 **Which facet is a given cell on?** Reuse G-G's boundary configuration `(n_T, n_Z)` — it already
-classifies this and costs nothing: `(0,1)` is a flat basal face, `(1,0)` is a flat prism face
+classifies this and costs nothing: `(0, n_Z ≥ 1)` is basal, `(1,0)` is a flat prism face
 ([gg-machinery.md](gg-machinery.md) §3). The configuration index survives the switch; it stops
 being a *threshold lookup* and becomes a *facet-type classifier*. Mixed and concave configurations
 need a documented interpolation policy — **write it down explicitly, do not let it emerge from
@@ -122,9 +122,9 @@ The model acquires real dimensions:
 | `D(T, P)` — vapor diffusivity in air | m²/s | [libbrecht-parameters.md](libbrecht-parameters.md) |
 | `v_kin(T)` | m/s | same |
 
-The charter previously waved at "run many diffusion iterations per growth step." With units, that
-guess becomes a **derived quantity** — this is the concrete payoff, and it is worth more than the
-cost of carrying units.
+The charter previously waved at "run many diffusion iterations per growth step." Units instead
+make the **interface timestep** a derived quantity through the fill-CFL; the number of elliptic
+relaxation sweeps is a convergence output, never a physical-time derivation (§4.3).
 
 ### 4.2 Velocity → attachment: the conversion
 
@@ -153,8 +153,12 @@ to a mass ledger injects mass from nowhere. The physical surface condition is a 
 boundary condition**: the monograph derives the vapor flux balance and `v_n = alphaHK · v_kin ·
 sigma_surf` *together* (printed p. 93 / pdf p. 94, Eqs. 3.5–3.10). Keeping G–G's `κ` freezing
 transfer running alongside a separate `v_n` accumulator can double-count vapor uptake or
-disconnect vapor loss from ice gain — the operator couples them so that vapor lost equals ice
-gained. Decision 0005 D2 required the spec to define, as one coupled whole:
+disconnect the two sides. The continuous equations are one coupled system; in the discrete
+operator the claims are deliberately separated (decision 0006): **exact bookkeeping** is
+`placed fill + saturationClippedFill = computed per-face Hertz–Knudsen kinetic demand`, where
+the clipping term is unapplied numerical excess, while actual stencil absorption versus that
+demand form is a measured first-order diagnostic, never asserted equal.
+Decision 0005 D2 required the spec to define, as one coupled whole:
 
 1. the `d` → dimensionless-σ normalization, and where `sigma_surf` is sampled (before or after
    which substep);
@@ -168,16 +172,17 @@ gained. Decision 0005 D2 required the spec to define, as one coupled whole:
    hole-filling under `LibbrechtKinetics`, each with a reason — gg-machinery §4's "(ii)/(iv)
    identical under both rules" is exact for `GGThreshold` and is *not assumed* here;
 6. the interface: a **surface-operator interface**, wider than a per-cell `shouldAttach` — plus
-   the mass-conservation claim made under `LibbrechtKinetics` and the test that asserts it.
+   the exact kinetic-demand bookkeeping claim, solve-quality claim, and tests that assert them.
 
 **This question is settled — charter §3.2 Phase 2b (v1.2) specifies (a) as the reference
 implementation.** Both options stay recorded so the rationale survives the decision:
 
 - **(a) Deterministic accumulation** — as above. **The reference implementation.** Determinism
   is a hard requirement (charter §3.1: deterministic seeds throughout; Phase 5's GPU-vs-oracle
-  comparison is meaningless without it), and G-G's noise term already supplies the stochasticity
-  that sidebranching needs. Stochasticity enters *only* through that explicit noise term — never
-  through stochastic rounding — so randomness stays a single labeled dial.
+  comparison is meaningless without it). Branches exist deterministically in G-G's published
+  3D results; the optional labeled noise dial supplies natural asymmetry when requested. It slows
+  G-G diffusion under `GGThreshold` and `alphaHK` under `LibbrechtKinetics`, never attachment by
+  stochastic rounding.
 - **(b) Stochastic attachment** — attach with probability `p = v_n·Δt/Δx`. **Rejected.** Tempting
   because it supplies noise for free, but it entangles the symmetry-breaking source with the
   attachment rule, meaning you can no longer turn noise off to run the symmetry gate. It also
@@ -198,14 +203,17 @@ The formulation, per rule:
 
 - **`GGThreshold`:** diffusion is G–G's single masked-average pass per tick, exactly as
   published. That *is* their dynamics — machinery fidelity, no physical-time claim attached.
-- **`LibbrechtKinetics`:** the field is quasi-static. Between growth steps, iterate the smoother
+- **`LibbrechtKinetics`:** the field is quasi-static. For fixed-σ Dirichlet physics runs,
+  between growth steps iterate the smoother
   (Jacobi is the baseline; accelerated elliptic solvers are permitted later) until a stated
   **residual norm** (e.g. relative max-residual of the discrete Laplacian with the surface
   condition applied) falls below a stated **tolerance** AND the **divergence identity** of the
   solve is under its own stated tolerance — convergence is DUAL *(decision 0006, synced here
   round-5: this bullet previously stated the residual alone, which was measured passing
   fields whose shell-vs-sink imbalance grew with domain size)* — with convergence tests in
-  the suite. The iteration count is an *output*, not a target.
+  the suite. The reflecting mode is diagnostic-only: it has no far-field injection and therefore
+  makes no divergence-identity claim; there convergence is residual-only. The iteration count is
+  an *output*, not a target.
 
 Physical time enters only through the interface update, with its own bounds:
 
@@ -230,10 +238,11 @@ by the tests it names). Sources: monograph printed pp. 92–93 / pdf 93–94 (Eq
 flux balance and mixed boundary condition), monograph Table 2.1 (printed p. 57 / pdf 58),
 arXiv:1910.09067 Eqs. 1–4. Parameters: [libbrecht-parameters.md](libbrecht-parameters.md).
 
-**The operator in one paragraph** *(synced 2026-07-15, round-4 review: this summary still
+**The operator in one paragraph** *(synced 2026-07-15, round-6 review: this summary previously
 described the superseded model — cell-value sampling, uniform fill, metered-source
 accounting — after components 1/3/4 below had been corrected; the summary is subordinate to
-the components)*. Under `LibbrechtKinetics` one growth step is: (1) relax the supersaturation
+the components)*. Under `LibbrechtKinetics` with fixed-σ Dirichlet, one physics growth step is:
+(1) relax the supersaturation
 field until BOTH the iterate residual and the divergence identity are under their stated
 tolerances, with the Robin condition at the crystal surface and fixed-σ Dirichlet at the far
 shell; (2) per boundary cell, solve the self-consistent `(alphaHK, sigma_face)` pair from the
@@ -241,11 +250,13 @@ converged field — the same pair the Robin sink used; (3) classify each boundar
 type from `(n_T, n_Z)`; (4) advance the fill state **per attached face** with the
 hexagonal-prism geometry factors, `Δf = [(2/3)·n_T + n_Z]·alphaHK·v_kin·sigma_face·Δt/Δx`,
 attach cells reaching `f ≥ 1` (simultaneously, from start-of-step state), record any
-saturation-clipped excess; (5) settle the ledger — `fill + recorded clipping` equals the
-per-face Hertz–Knudsen flux integral exactly; shell-clamp totals are numerical diagnostics,
-never a mass claim. This replaces G–G steps (i)–(iv) **as one coupled whole** under
+saturation-clipped excess; (5) settle the ledger — `placed fill + recorded clipping` equals
+the computed per-face Hertz–Knudsen kinetic demand exactly; clipping is unapplied numerical
+excess and shell-clamp totals are numerical diagnostics, never physical uptake or a mass
+claim. This replaces G–G steps (i)–(iv) **as one coupled whole** under
 `LibbrechtKinetics`; under `GGThreshold` the four published steps run exactly as in Phase 2a,
-bit-identical, behind the same interface.
+bit-identical, behind the same interface. Reflecting LK is a residual-only diagnostic and omits
+the divergence identity from step (1).
 
 ### Component 1 — `d` → σ normalization, and where `sigma_surf` is sampled
 
@@ -260,8 +271,13 @@ Consequences, each deliberate:
   relaxation kernel (component 3 modifies only the *surface* substitution).
 - **Initialization:** `sigma = sigma_infinity` uniformly; the Dirichlet far shell holds
   `sigma_infinity` (charter §2.4: Libbrecht's measurements and Nakaya coordinates assume a
-  *maintained* far field). `sigma_infinity` is a run input in [0, sigma_water(T)] — the
-  physically meaningful ceiling is supersaturation relative to liquid water, Table 2.1.
+  *maintained* far field). The runtime requires a finite positive `sigma_infinity`. Table 2.1's
+  supersaturation relative to liquid water is a useful source-side plausibility reference,
+  **not a normative runtime ceiling in v1**: the available fit-difference expression becomes
+  negative near −1 °C and no cited continuous ceiling interpolation has been adopted
+  (`docs/libbrecht-parameters.md`, “Known source inconsistency”). The registered −5/−15 °C
+  runs remain in the positive, source-tabulated regime; no code or evidence reader may claim
+  it enforced `sigma_water(T)` until a cited interpolation/domain decision is added.
 - **Sampling point (unified 2026-07-15, round-3 review — this bullet previously said "the
   boundary-cell value" while component 3 defined the face value, a live contradiction):**
   the raw sample is the converged field at the boundary cell; **`sigma_surf` as used by the
@@ -331,40 +347,43 @@ and the flux claims are scoped to what is actually exact.**
   `Δf = [(2/3)·n_T + n_Z] · alphaHK·v_kin·sigma_face·Δt/Δx`. The first implementation's
   uniform `v_n·Δt/Δx` overdrove lateral growth by 50% — directly biasing the habit gate.
 - **What is exact, and what is first-order (round-3 blocker 1b/1c — the previous "one number
-  by construction at any Δx/X_0" claim overstated):** the **ledger** integrates *exactly*
-  the per-face Hertz–Knudsen flux the solver computed (component 4, including recorded
-  saturation clipping) — that is bookkeeping and is tested non-tautologically. The **field
+  by construction at any Δx/X_0" claim overstated):** the **ledger** records *exactly* the
+  computed per-face Hertz–Knudsen kinetic demand as placed fill plus unapplied saturation
+  excess (component 4) — that is bookkeeping and is tested non-tautologically. The **field
   sink** is a first-order-consistent discretization of the same Robin condition: its stencil
   substitutions act on the operator's own substep fields with the diffusion weights, so the
   per-face absorbed quantity is not algebraically identical to `alphaHK·sigma_face` at
-  finite `Δx/X_0`. The sink/growth ratio is a **computed diagnostic** *(round-4 review: the
-  previous sentence here called it "reported" while nothing in the repo computed it)*: the
-  committed test `solver-cpu/test/lk-solver.test.ts` ("sink/growth discretization
-  diagnostic") recomputes the converged-field per-sweep uptake outside the solver and
+  finite `Δx/X_0`. The sink-vs-kinetic-demand ratio is a **computed diagnostic** *(round-4
+  review: the previous sentence here called it "reported" while nothing in the repo computed
+  it)*: the committed test `solver-cpu/test/lk-solver.test.ts`
+  ("sink-vs-kinetic-demand diagnostic") recomputes the converged-field per-sweep kinetic demand outside the solver and
   divides the last sweep's actual Robin absorption by it — **measured 0.98922–1.01290**
   over 80 growth steps at its pinned configuration (hexPrism 24×24×14, −5 °C,
   `sigma_infinity = 0.01`, Δx = 0.35 µm, `CAK_A1`, seed 1; command `npm test`), values
   pinned in the test. At the gate resolution (96³) the round-3 audit measured
   0.95879–1.01266 for the same effect — an audit probe, attributed as such, not reproduced
   by a committed run. A discretization diagnostic, never claimed as 1. **Scope (round-5
-  review):** the ratio observes the SINK side against the shared per-face uptake form — it
+  review):** the ratio observes the SINK side against the shared per-face kinetic-demand form — it
   never reads the ledger or `advanceSurface`, so ledger defects (e.g. silent clipping) do
-  not move it; the growth/ledger side is held to the same per-face form by component 4's
-  non-tautological flux-integral test, and the two tests together are the sink/growth
-  statement.
-  The solve-quality statement is the divergence identity, which is **now part of the
-  convergence criterion itself** (round-3 blocker 3: iterate-change alone reported
+  not move it. Component 4's independent demand-bookkeeping test covers placed fill plus
+  unapplied clipping. Together the tests separately check sink discretization and demand
+  bookkeeping; they do **not** assert that field sink equals deposited growth.
+  For fixed-σ Dirichlet runs, the solve-quality statement is the divergence identity, which is
+  **now part of the convergence criterion itself** (round-3 blocker 3: iterate-change alone reported
   "converged" fields whose shell-vs-sink imbalance grew with domain size; a solve is
   converged only when the residual AND the divergence identity are under their stated
   tolerances).
 
-**No separate freezing transfer exists** — the Robin substitution is the *only* vapor sink,
-which is what makes double-counting structurally impossible (ADR 0005's disease). Ice gain is
-computed from the converged field via Hertz–Knudsen (component 4), and the **consistency test**
-is the divergence identity of the converged solve: net influx through the Dirichlet shell
-(computed from field gradients) must equal the sum of surface sinks (computed from
-`alphaHK·sigma_surf`) to a stated relative tolerance. A solve that fails the identity is not
-converged, whatever its residual norm says.
+**No separate freezing transfer exists** — the Robin substitution is the *only* field-side
+vapor sink, which is what makes double-counting structurally impossible (ADR 0005's disease).
+The converged field determines Hertz–Knudsen kinetic demand; only the part placed into `f`
+advances ice, while saturation excess remains recorded and unapplied (component 4). The
+**solve-consistency test** is the divergence identity of the converged Dirichlet solve: the final sweep's shell-clamp
+injection must equal that same sweep's **actual discrete Robin absorption** (the split stencil's
+recorded loss) to a stated relative tolerance. Comparing that absorption with the reconstructed
+per-face `alphaHK·sigma_face` kinetic demand is the separate measured diagnostic above; it is
+not the divergence identity. A Dirichlet solve that fails the identity is not converged, whatever its
+residual norm says. Reflecting diagnostic mode has no shell source and makes no identity claim.
 
 ### Component 4 — the fill state `f`
 
@@ -375,9 +394,12 @@ converged, whatever its residual norm says.
   of the `alpha` conflation this repo bans (Rule 7's spirit: G–G's α vs Libbrecht's α).
 - `b` stays exclusively `GGThreshold`'s, so the control-group rule remains bit-identical
   behind the shared interface — the 2b plan gate demands exactly that.
-- The checkpoint format gains `f` as a per-field entry for `LibbrechtKinetics` runs (the
-  header already carries per-field dtype by design; a format version bump, made before any
-  Phase 6 freeze).
+- The checkpoint format gains `f` as a per-field entry for `LibbrechtKinetics` runs through a
+  separate rule-tagged LK header and field table (`a`, `f`, `sigma`), introduced as version 1
+  before any accepted LK checkpoint. Convergence controls were added before the first accepted
+  result, so no version bump was needed. The header records the actual far-field condition;
+  reflecting LK checkpoints are valid diagnostic data but cannot support a physics or habit-gate
+  claim, whose acceptance requires fixed-σ Dirichlet.
 
 Charter note: v1.3 explicitly delegated this decision to this spec ("v1.2's 'reuses the
 boundary-mass machinery' was one candidate answer, not a decision") — choosing the separate
@@ -389,7 +411,7 @@ Update rule, per growth step, simultaneous across the boundary (start-of-step `(
 field): `Δf = min([(2/3)·n_T + n_Z]·alphaHK·v_kin·sigma_face·Δt/Δx, 1 − f)` *(round-4 sync:
 this line previously kept the pre-face-geometry `v_n·Δt/Δx`)* — truncated at saturation so the
 ledger never overdraws; the truncated excess is **recorded** in `saturationClippedFill`
-(round-3 blocker 2), so the flux identity below stays exact. The kinetic rate is clamped at 0
+(round-3 blocker 2), so the kinetic-demand bookkeeping identity below stays exact. The kinetic rate is clamped at 0
 from below (no sublimation — gg-machinery §2's permanence rule
 survives; a negative `sigma_surf` grows nothing rather than un-growing something). On attach:
 `a = 1`, `f` frozen at 1 for bookkeeping, cell leaves the vapor domain (`sigma = 0`
@@ -402,18 +424,34 @@ physical duration** — the charter is explicit that physical time enters only t
 interface update — so integrating clamp operations over sweeps measures numerics, not vapor.
 The corrected claims, each measurable:
 
-- **The flux identity, exactly stated (re-corrected round-3, blocker 2):** physical uptake
-  over a step is the per-face Hertz–Knudsen integral
+- **The bookkeeping identity, exactly stated (re-corrected round-3, blocker 2; terminology
+  narrowed round 6):** computed kinetic demand over a step is the per-face Hertz–Knudsen integral
   `Σ [(2/3)·n_T + n_Z]·alphaHK·v_kin·sigma_face·Δt/Δx`, and the bookkeeping identity is
-  **`fill ledger + saturation-clipped fill = that integral`, exact** — when a cell saturates
-  (`f` hits 1 mid-increment) the excess flux is *recorded* in `saturationClippedFill`, never
-  silently dropped (the round-3 audit measured a 35% silent deficit on an ordinary
-  saturating step). Clipping per cell per step is bounded by the fill-CFL and reported in
-  the ledger; ice-cell units convert by `M_ice(T) = c_ice/c_sat(T)` (≈ 6.7×10⁵ at −15 °C).
+  **`placed fill ledger + saturation-clipped fill = that demand`, exact** — when a cell
+  saturates (`f` hits 1 mid-increment) the excess demand is *recorded* in
+  `saturationClippedFill`, never silently dropped (the round-3 audit measured a 35% silent
+  deficit on an ordinary saturating step — a historical audit probe whose script/config was
+  not retained; see ADR 0006's evidence-status note). The clipped term is unapplied numerical excess,
+  not deposited fill, ice, or physical uptake. Clipping per cell per step is bounded by the
+  fill-CFL and reported in the ledger; ice-cell units convert by
+  `M_ice(T) = c_ice/c_sat(T)` (≈ 6.7×10⁵ at −15 °C).
   There is no second uptake channel. The **non-tautological test** recomputes the integral
   outside the solver — from the converged public field, public neighbor counts, core's
   `alphaHK`, and the face factors — across many steps *including saturating ones*, and
   asserts it equals ledger-delta + clipped-delta.
+  **Numerical limitation, stated rather than repaired silently:** v1 chooses
+  `Δt = cfl/max(rate)`. If a cell reaches `f = 1` before that interval ends, its remaining
+  demand is recorded but not deposited or replayed after the topology change; recording
+  repairs auditability, not the first-order timestep error. The physically cleaner candidate
+  is an event-limited step,
+  `Δt = min(cfl/max(rate), min_{rate>0}[(1-f)/rate])`, followed by attachment and a fresh
+  field relaxation before more physical time advances. That changes event timing,
+  relaxation frequency, and potentially size-conditioned habit, so it is **not** silently
+  substituted into registered protocol v3; adopting it requires an amending ADR, a committed
+  protocol v4 before its first run, and a full two-temperature rerun. Implementation must
+  retain and snap all minimizing/tied event cells (rather than trust rounded
+  `rate·[(1-f)/rate] ≥ 1-f`) and process an unattached `f = 1` cell as a zero-time topology
+  event, including when its rate is zero.
 - **Solve self-consistency = the divergence identity** (component 3): at convergence,
   per-sweep shell clamp equals per-sweep Robin absorption (the interior kernel conserves), to
   a tolerance that scales with the relaxation tolerance. This is the quasi-static statement
@@ -423,14 +461,15 @@ The corrected claims, each measurable:
   hygiene rule carry fill the vapor never supplied; the deficit is a first-class ledger line.
 
 Anyone expecting the Phase 2a mass invariant here has mixed up the rules: G–G's invariant is
-a reflecting-boundary property of a mass field; this rule's field is a quasi-static potential
-with an implicit far-field supply.
+a reflecting-boundary property of a mass field; this rule's field is a quasi-static potential.
+Dirichlet physics runs have an implicit far-field supply; reflecting LK is a depleted,
+residual-only diagnostic with no physics claim.
 
 ### Component 5 — disposition of the G–G machinery under `LibbrechtKinetics`
 
 | Mechanism | Disposition | Reason |
 |---|---|---|
-| step (i) single diffusion pass | **replaced** — same kernel, iterated to the DUAL criterion: residual tolerance AND divergence identity (quasi-static solve; ADR 0005 D3 as amended by 0006) | the field is elliptic under this rule; one pass is a G–G-fidelity choice, not physics |
+| step (i) single diffusion pass | **replaced** — same kernel, iterated to the DUAL criterion for fixed-σ Dirichlet (residual tolerance AND divergence identity); reflecting LK is residual-only diagnostic (ADR 0005 D3 as amended by 0006) | the field is elliptic under this rule; one pass is a G–G-fidelity choice, not physics |
 | step (ii) freezing (`κ`) | **replaced** by the Robin substitution (component 3) | a second uptake channel double-counts vapor |
 | step (iii) threshold attachment | **replaced** by the fill rule (component 4) | this is the seam itself |
 | step (iv) melting (`μ`) | **disabled** | sublimation is not modeled (gg-machinery §2); `μ`'s smoothing role was phenomenological — if a smoothing dial is ever needed it enters as a labeled, documented dial, not as an inherited default |
@@ -443,8 +482,8 @@ with an implicit far-field supply.
 ```ts
 interface SurfaceOperator {
   /** Field relaxation for one growth step. GGThreshold: exactly one published masked pass
-      (vacuously converged). LibbrechtKinetics: iterate until BOTH the stated residual
-      tolerance AND the divergence identity hold — the dual criterion of decision 0006
+      (vacuously converged). LibbrechtKinetics with fixed-σ Dirichlet: iterate until BOTH the
+      stated residual tolerance AND the divergence identity hold — the dual criterion of decision 0006
       (round-5 sync: this sketch previously promised residual-only convergence); reports
       sweeps, residual, the divergence-identity residual, and the per-sweep clamp
       DIAGNOSTIC (never a physical mass number). */
@@ -456,11 +495,12 @@ interface SurfaceOperator {
       public method itself throws without a converged relaxField for this step; step()
       additionally reports skippedUnconverged rather than advancing). */
   advanceSurface(): SurfaceReport;
-  /** The rule's conservation claim, measurably: GGThreshold reports Sigma(b+d) and its
-      Dirichlet meter; LibbrechtKinetics reports the fill ledger (ice-cell and vapor units),
-      the RECORDED saturation-clipped flux (the ledger identity's second term — round-5
-      sync: this sketch previously omitted it), the hole-fill deficit, and the last
-      divergence residual. */
+  /** The rule's evidence/ledger report, measurably: GGThreshold reports Sigma(b+d) and its
+      Dirichlet meter; LibbrechtKinetics reports exact kinetic-demand bookkeeping (ice-cell
+      and vapor units), the RECORDED unapplied saturation excess (the ledger identity's
+      second term — round-5
+      sync: this sketch previously omitted it), the hole-fill deficit, and, for Dirichlet,
+      the last divergence residual. */
   ledger(): LedgerReport;
 }
 ```
@@ -471,7 +511,8 @@ after the round-2 review found the first implementation had shipped two unrelate
 shapes and no `ledger()` at all).
 
 The old `AttachmentRule.shouldAttach` sketch is superseded (it could not own state or mediate
-mass, exactly as the plan predicted). Tests the spec commits to, before any habit claim:
+coupled surface exchange, exactly as the plan predicted). Tests the spec commits to, before any
+habit claim:
 
 1. **Bit-identity:** `GGThreshold` behind `SurfaceOperator` reproduces every Phase 2a gate
    bit-identically (pinned engine). This is the refactor gate — no physics lands before it.
@@ -480,10 +521,12 @@ mass, exactly as the plan predicted). Tests the spec commits to, before any habi
    cell** (corrected 2026-07-15, round-2 review: the first committed test only checked a
    uniform fixed point, which a deleted smoother would also pass — vacuous); with
    `alphaHK ≡ 1` and `Δx/X_0 → large`, boundary cells relax far below the far field.
-3. **Divergence identity** on converged solves, tolerance stated in the test.
-4. **Ledger identity** exact in ledger arithmetic — `fill + recorded saturation clipping =
-   the per-face Hertz–Knudsen flux integral`, recomputed outside the solver across steps
-   including saturating ones; shell-clamp totals are numerical diagnostics only *(round-5
+3. **Divergence identity** on converged fixed-σ Dirichlet solves, tolerance stated in the test;
+   reflecting LK mode is diagnostic-only and makes no divergence claim.
+4. **Ledger identity** exact in ledger arithmetic — `placed fill + recorded saturation
+   clipping = computed per-face Hertz–Knudsen kinetic demand`, recomputed outside the solver
+   across steps including saturating ones; clipping is unapplied numerical excess and
+   shell-clamp totals are numerical diagnostics only *(round-5
    sync: this line previously still promised the rejected "metered-source accounting" —
    component 4 above is the governing statement)*.
 5. **Fill-CFL:** max **kinetic** `Δf ≤` the stated bound (default 0.1) on every growth step.
@@ -498,6 +541,10 @@ mass, exactly as the plan predicted). Tests the spec commits to, before any habi
 6. **Quasi-static validity (Péclet):** `v_n·L/D ≪ 1` evaluated with extracted numbers per run
    regime; where it fails, the run is labeled invalid-as-physics. Worked arithmetic in the
    Phase 2 plan (Stage 2b steps).
+7. **Discrete-sink diagnostic:** actual last-sweep Robin absorption divided by independently
+   reconstructed per-face kinetic demand, pinned at 0.98922–1.01290 for the stated dev configuration.
+   This is a first-order-consistency diagnostic, not a ledger identity or a claim that the ratio
+   is exactly 1.
 
 ## 5. What this rule does *not* model
 

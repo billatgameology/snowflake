@@ -11,21 +11,20 @@
 export interface RelaxationReport {
   /** GGThreshold: always 1 (the published single pass). LibbrechtKinetics: sweeps to tol. */
   readonly sweeps: number;
-  /** GGThreshold: vacuously true (one pass IS its dynamics). LK: the DUAL criterion —
-      residual < relaxTol AND divergenceResidual < divTol (round-3: iterate change alone
-      passed fields whose shell-vs-sink imbalance grew with domain size; round-4 review
-      caught this comment still stating residual-only). */
+  /** GGThreshold: vacuously true (one pass IS its dynamics). LK+Dirichlet: the DUAL
+      criterion — residual < relaxTol AND divergenceResidual < divTol. Reflecting LK is a
+      residual-only diagnostic with no divergence claim. */
   readonly converged: boolean;
   /** Relative per-sweep max change at exit; null under GGThreshold (no residual concept). */
   readonly residual: number | null;
-  /** |shell clamp − Robin absorption| / absorption at convergence; null under GGThreshold. */
+  /** |shell clamp − Robin absorption| / absorption; null under GGThreshold and reflecting LK. */
   readonly divergenceResidual: number | null;
   /**
    * Shell-clamp total for the LAST sweep (LK) or this tick's Dirichlet meter delta (GG).
    * NUMERICAL DIAGNOSTIC ONLY under LK: relaxation sweeps carry no physical time (charter:
    * physical time enters only through the interface update), so clamp totals must never be
-   * integrated into a physical mass claim. The physical uptake statement lives in the
-   * ledger, via the interface update.
+   * integrated into a physical mass claim. The interface-update ledger instead states
+   * exact bookkeeping for computed kinetic demand, placed fill, and unapplied clipping.
    */
   readonly shellClampDiagnostic: number | null;
   /** Robin absorption total for the last sweep; null under GGThreshold. */
@@ -50,27 +49,28 @@ export interface SurfaceReport {
 
 export interface LedgerReport {
   readonly rule: "GGThreshold" | "LibbrechtKinetics";
-  /** The conservation claim this rule makes, in one sentence, measurably. */
+  /** The rule-specific exact evidence claim, in one sentence, measurably. */
   readonly claim: string;
   /** GGThreshold: Σ(b+d) (Neumaier) — the exact reflecting-boundary invariant. Null for LK. */
   readonly totalMassBD: number | null;
   /** GGThreshold+Dirichlet: accumulated metered source. Null for LK (see shellClampDiagnostic). */
   readonly dirichletMeter: number | null;
-  /** LK: kinetic fill actually PLACED, ice-cell units. NOT alone the physical uptake:
-      uptake = fillLedgerIceCells + saturationClippedFill — the per-face Hertz-Knudsen flux
-      integral, exact (§4.4 component 4 as re-corrected round-3; round-4 review caught this
-      comment still equating fill alone with uptake, which understates it on saturating
-      steps). Null for GG. */
+  /** LK: kinetic fill actually PLACED, ice-cell units. It is the deposited part of the
+      computed demand; fillLedgerIceCells + saturationClippedFill equals the computed
+      per-face Hertz-Knudsen kinetic integral exactly (§4.4 component 4). The clipping term
+      is recorded UNAPPLIED numerical excess, not deposited ice or physical uptake. Null for
+      GG. */
   readonly fillLedgerIceCells: number | null;
   /** LK: the PLACED fill in vapor-ledger units, fillLedger · M_ice(T). Null for GG. */
   readonly fillLedgerVaporUnits: number | null;
   /** LK: fill granted by hole-filling without vapor withdrawal — reported, never hidden. */
   readonly holeFillDeficit: number | null;
-  /** LK: Hertz-Knudsen flux clipped when a cell saturated (f hit 1 mid-increment) — a
-      recorded discretization loss, bounded per cell per step by the fill-CFL (round-3 maker
-      review: silently dropping it broke the flux identity by 35% on saturating steps). */
+  /** LK: computed Hertz-Knudsen demand left UNAPPLIED when a cell saturated (f hit 1
+      mid-increment) — recorded numerical excess, bounded per cell per step by the fill-CFL
+      (round-3 maker review: silently dropping it broke the bookkeeping identity by 35% on
+      saturating steps). */
   readonly saturationClippedFill: number | null;
-  /** LK: divergence residual of the most recent converged relaxation. Null for GG. */
+  /** LK+Dirichlet: latest divergence residual. Null for GG and reflecting LK. */
   readonly lastDivergenceResidual: number | null;
 }
 

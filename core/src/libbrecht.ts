@@ -46,8 +46,9 @@ export function vKin(tempC: number): number {
 
 /** Supersaturation of supercooled water relative to ice (fraction) — monograph Eq. 2.9.
     KNOWN LIMIT (recorded in the table): computed from the difference of two Arrhenius fits,
-    this deviates from Table 2.1's measured column by up to ~10% at -15 C. It is used only as
-    a sanity ceiling for sigma_infinity, never in the dynamics. */
+    this deviates from Table 2.1's measured column by up to ~10% at -15 C and becomes negative
+    near -1 C. It is a source-side plausibility reference, NOT an enforced runtime ceiling and
+    never part of the dynamics (attachment-kinetics §4.4 component 1). */
 export function sigmaWater(tempC: number): number {
   const pi = pSatIce(tempC);
   return (pSatWater(tempC) - pi) / pi;
@@ -185,5 +186,5 @@ export function alphaHK(
   return nucleationAPrism(tempC, set) * Math.exp(-sigma0Prism(tempC) / sigmaSurf);
 }
 
-/** Stream id for the LibbrechtKinetics v_n slowdown noise (attachment-kinetics §4.4 comp. 5). */
-export const STREAM_NOISE_VN = 2;
+/** Stream id for the LibbrechtKinetics alphaHK slowdown noise, shared by sink and growth. */
+export const STREAM_NOISE_ALPHA_HK = 2;

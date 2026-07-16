@@ -605,9 +605,27 @@ function growLK(options: GrowLKOptions): LKRunResult {
   let maxKineticFillEver = 0;
   let stopReason: LKRunResult["stopReason"] = "step-cap";
   const started = Date.now();
+  let lastHeartbeat = started;
 
   for (let t = 1; t <= options.steps; t++) {
-    const { relaxation, surface } = solver.step();
+    const { relaxation, surface } = solver.step(
+      options.metricsEvery > 0
+        ? (progress) => {
+            const now = Date.now();
+            if (now - lastHeartbeat < 60_000) return;
+            const div =
+              progress.divergenceResidual === null
+                ? "n/a"
+                : progress.divergenceResidual.toExponential(2);
+            console.log(
+              `relax growthStep=${solver.tick + 1} sweeps=${progress.sweeps}` +
+                ` residual=${progress.residual.toExponential(2)} div=${div}` +
+                ` elapsed=${((now - started) / 1000).toFixed(1)}s`,
+            );
+            lastHeartbeat = now;
+          }
+        : undefined,
+    );
     if (!relaxation.converged) {
       allConverged = false;
       stopReason = "unconverged"; // step() skipped the surface; growing further is invalid
@@ -623,7 +641,11 @@ function growLK(options: GrowLKOptions): LKRunResult {
     ) {
       symmetryClean = false;
     }
-    if (options.metricsEvery > 0 && t % options.metricsEvery === 0) {
+    const now = Date.now();
+    const shouldReport =
+      options.metricsEvery > 0 &&
+      (t === 1 || t % options.metricsEvery === 0 || now - lastHeartbeat >= 60_000);
+    if (shouldReport) {
       console.log(
         `step=${solver.tick} attached=${solver.attachedCount} extent=${solver.largestExtent()}` +
           ` AR=${fmt(aspectRatio(solver.a, dims))} sweeps=${relaxation.sweeps}` +
@@ -631,6 +653,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
           ` simTime=${solver.simTimeSeconds.toFixed(2)}s deltaSym=${symmetryClean}` +
           ` elapsed=${((Date.now() - started) / 1000).toFixed(1)}s`,
       );
+      lastHeartbeat = now;
     }
     if (surface.stalled) {
       stopReason = "stalled";
@@ -677,6 +700,11 @@ function growLK(options: GrowLKOptions): LKRunResult {
 
   if (options.out !== null) {
     mkdirSync(dirname(options.out) || ".", { recursive: true });
+    if (solver.farField !== "dirichlet") {
+      throw new Error(
+        "LK evidence checkpoints require the solver's actual far field to be Dirichlet",
+      );
+    }
     const encoded = encodeLKCheckpoint({
       dims,
       tick: solver.tick,
@@ -694,25 +722,42 @@ function growLK(options: GrowLKOptions): LKRunResult {
       relaxTol: options.tol,
       divTol: options.divTol,
       relaxMaxSweeps: options.relaxMaxSweeps,
+      farField: solver.farField,
       a: solver.a,
       f: solver.f,
       sigma: solver.sigma,
     });
     writeFileSync(options.out, encoded);
     const back = decodeLKCheckpoint(new Uint8Array(readFileSync(options.out)));
-    // Round-5 review: the round trip must verify the header CONTROLS too, not just the
-    // arrays — the checkpoint is the independent record of the dual-criterion protocol.
+    // Round-5/6 review: verify every field in the existing v1 LK header contract, plus every
+    // array bit. The full protocol also includes seed geometry and termination controls, which
+    // remain in the pre-registration + launch/result log + process exit rather than this header.
     let identical =
+      back.header.version === 1 &&
+      back.header.rule === "LibbrechtKinetics" &&
+      back.header.endianness === "LE" &&
+      back.header.farField === "dirichlet" &&
+      back.header.dims.nx === dims.nx &&
+      back.header.dims.ny === dims.ny &&
+      back.header.dims.nz === dims.nz &&
       back.state.tick === solver.tick &&
+      back.header.simTimeSeconds === solver.simTimeSeconds &&
+      back.header.rngSeed === options.seed &&
+      back.header.noiseEpsilon === options.noise &&
+      back.header.domain === solver.domain &&
+      back.header.center[0] === center[0] &&
+      back.header.center[1] === center[1] &&
+      back.header.center[2] === center[2] &&
       back.state.a.length === solver.a.length &&
+      back.header.tempC === (options.tempC as number) &&
+      back.header.sigmaInfinity === (options.sigmaInf as number) &&
+      back.header.dxUm === options.dxUm &&
+      back.header.pressurePa === solver.pressurePa &&
+      back.header.paramSet === options.paramSet &&
+      back.header.cflFill === options.cfl &&
       back.header.relaxTol === options.tol &&
       back.header.divTol === options.divTol &&
-      back.header.relaxMaxSweeps === options.relaxMaxSweeps &&
-      back.header.cflFill === options.cfl &&
-      back.header.paramSet === options.paramSet &&
-      back.header.sigmaInfinity === (options.sigmaInf as number) &&
-      back.header.tempC === (options.tempC as number) &&
-      back.header.pressurePa === solver.pressurePa;
+      back.header.relaxMaxSweeps === options.relaxMaxSweeps;
     if (identical) {
       for (let i = 0; i < solver.a.length; i++) {
         if (
@@ -728,7 +773,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
     console.log(
       `checkpoint written: ${options.out} (${encoded.length} bytes) roundTripIdentical=${identical}`,
     );
-    if (!identical) process.exit(1);
+    if (!identical) throw new Error("LK checkpoint round trip changed header controls or field bits");
   }
   return result;
 }
@@ -819,6 +864,7 @@ function gate2b(): void {
   if (failures.length > 0) {
     console.error(`2B GATE FAILED (${failures.length} criteria):`);
     for (const f of failures) console.error(`  - ${f}`);
+    console.error("2B GATE EXIT STATUS: 1");
     process.exit(1);
   }
   console.log(
@@ -826,6 +872,7 @@ function gate2b(): void {
       ` T only) — AR(-5C)=${fmt(plate.aspectRatio)} (plate), AR(-15C)=${fmt(column.aspectRatio)}` +
       ` (column); every criterion enforced; exit 0 is the evidence.`,
   );
+  console.log("2B GATE EXIT STATUS: 0");
 }
 
 const [command, ...rest] = process.argv.slice(2);
@@ -836,9 +883,16 @@ if (command === "grow") {
 } else if (command === "gate2b") {
   if (rest.length > 0) {
     console.error("gate2b takes no flags: the protocol is pinned (pre-registered in the plan)");
+    console.error("2B GATE EXIT STATUS: 2");
     process.exit(2);
   }
-  gate2b();
+  try {
+    gate2b();
+  } catch (error) {
+    console.error(error instanceof Error ? (error.stack ?? error.message) : String(error));
+    console.error("2B GATE EXIT STATUS: 1");
+    process.exitCode = 1;
+  }
 } else {
   console.error(
     "usage: node runner/src/main.ts grow --preset <name> [options]\n" +

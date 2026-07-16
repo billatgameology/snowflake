@@ -1,13 +1,13 @@
 // LibbrechtKinetics — the surface operator of attachment-kinetics §4.4, implemented.
 //
-// One growth step (§4.4 "the operator in one paragraph", as corrected through audit round 3;
-// header synced round-4 — it had kept the pre-correction formulas):
+// One growth step (§4.4 "the operator in one paragraph", corrected through audit round 6):
 //   1. relaxField(): iterate the Phase 2a smoother kernel (canonical pair summation) with the
 //      Robin partial-reflection substitution at attached faces and the Dirichlet far-field
-//      shell clamped to sigma_infinity, until BOTH the iterate residual (relaxTol) AND the
-//      divergence identity (divTol) are satisfied — the dual criterion IS convergence. The
-//      attachment coefficient is re-evaluated from the current field each sweep (Picard),
-//      so the converged field solves the nonlinear Robin problem self-consistently.
+//      shell clamped to sigma_infinity. Fixed-sigma Dirichlet physics runs require BOTH the
+//      iterate residual (relaxTol) AND divergence identity (divTol); reflecting LK is a
+//      residual-only diagnostic with no divergence claim. The attachment coefficient is
+//      re-evaluated from the current field each sweep (Picard), so the converged field solves
+//      the nonlinear Robin problem self-consistently.
 //   2. advanceSurface(): classify each boundary cell from START-OF-STEP attached counts,
 //      solve the same self-consistent (alphaHK, sigma_face) pair the sink used, fill PER
 //      ATTACHED FACE with the hexagonal-prism geometry factors — per-cell rate =
@@ -22,11 +22,12 @@
 // and the growth (own PRNG stream), drift phi unsupported.
 //
 // Conservation claims (§4.4 components 3-4): the field is a quasi-static POTENTIAL, not a
-// mass store — the meaningful checks are (a) the discrete divergence identity, REQUIRED for
-// convergence (per-sweep Dirichlet injection equals per-sweep Robin absorption, since the
-// interior smoother conserves), and (b) the flux identity: fillLedger + saturationClippedFill
-// integrates exactly the per-face Hertz-Knudsen flux (hole-filled cells' unearned remainder
-// is reported as holeFillDeficit, never hidden). Environment-neutral: no Node APIs
+// mass store — the meaningful checks are (a) for fixed-sigma Dirichlet, the discrete divergence
+// identity REQUIRED for convergence (per-sweep injection equals Robin absorption, since the
+// interior smoother conserves), and (b) exact bookkeeping: fillLedger plus the recorded
+// UNAPPLIED saturation excess equals the computed per-face Hertz-Knudsen kinetic demand
+// (hole-filled cells' unearned remainder is reported as holeFillDeficit, never hidden).
+// Environment-neutral: no Node APIs
 // (charter §3.1).
 
 import {
@@ -41,7 +42,7 @@ import {
   randomBit,
   vKin,
   DOMAIN_CONTACT_FRACTION,
-  STREAM_NOISE_VN,
+  STREAM_NOISE_ALPHA_HK,
   type Dims,
   type DomainShape,
   type FacetClass,
@@ -101,6 +102,13 @@ export interface LKSolverOptions {
    * exact boundary geometries (e.g. the hole-fill probe). Never set in runs.
    */
   readonly testExtraSeedSites?: readonly number[];
+}
+
+/** Read-only liveness report. Observability only; it does not participate in convergence. */
+export interface RelaxationProgress {
+  readonly sweeps: number;
+  readonly residual: number;
+  readonly divergenceResidual: number | null;
 }
 
 export class LKSolver implements SurfaceOperator {
@@ -173,8 +181,9 @@ export class LKSolver implements SurfaceOperator {
   fillLedger = 0;
   /** Fill granted by the hole-filling rule without vapor withdrawal — reported, not hidden. */
   holeFillDeficit = 0;
-  /** Hertz-Knudsen flux clipped at saturating cells (f hit 1 mid-increment) — recorded
-      discretization loss, round-3 review blocker 2. Bounded per cell/step by the CFL. */
+  /** Computed Hertz-Knudsen demand left UNAPPLIED at saturating cells (f hit 1
+      mid-increment) — recorded numerical excess, round-3 review blocker 2. Bounded per
+      cell/step by the CFL. */
   saturationClippedFill = 0;
   lastRelaxation: RelaxationReport | null = null;
   /** Set by a CONVERGED relaxField for this tick; consumed by advanceSurface (round-3
@@ -198,7 +207,66 @@ export class LKSolver implements SurfaceOperator {
     this.center = options.center ?? domainCenter(this.dims);
     this.testAlphaOverride = options.testAlphaOverride;
     this.divTol = options.divTol ?? 1e-6;
-    if (!(this.sigmaInfinity > 0)) throw new Error("sigmaInfinity must be > 0 (Dirichlet held)");
+
+    // Runtime validation is load-bearing: TypeScript does not bind JS callers or parsed CLI
+    // numbers, and an invalid run must fail before doing hours of relaxation or writing a
+    // checkpoint that the evidence-strict reader correctly rejects.
+    const positiveFinite = (value: number, name: string): void => {
+      if (!Number.isFinite(value) || value <= 0) throw new Error(`${name} must be finite and > 0`);
+    };
+    for (const [name, value] of [
+      ["dims.nx", this.dims.nx],
+      ["dims.ny", this.dims.ny],
+      ["dims.nz", this.dims.nz],
+    ] as const) {
+      if (!Number.isSafeInteger(value) || value <= 0) {
+        throw new Error(`${name} must be a positive safe integer`);
+      }
+    }
+    const n = cellCount(this.dims);
+    if (!Number.isSafeInteger(n) || n <= 0) {
+      throw new Error("cell count must be a positive safe integer");
+    }
+    if (!Number.isFinite(this.tempC) || this.tempC < -50 || this.tempC > -1) {
+      throw new Error("tempC must stay in the digitized domain [-50, -1]");
+    }
+    positiveFinite(this.sigmaInfinity, "sigmaInfinity");
+    positiveFinite(options.dxUm, "dxUm");
+    positiveFinite(this.pressurePa, "pressurePa");
+    if (this.paramSet !== "CAK_A1" && this.paramSet !== "CAK") {
+      throw new Error(`paramSet is invalid: ${String(this.paramSet)}`);
+    }
+    if (!Number.isFinite(this.cflFill) || !(this.cflFill > 0 && this.cflFill < 1)) {
+      throw new Error("cflFill must be finite and in (0, 1)");
+    }
+    positiveFinite(this.relaxTol, "relaxTol");
+    positiveFinite(this.divTol, "divTol");
+    if (!Number.isSafeInteger(this.relaxMaxSweeps) || this.relaxMaxSweeps <= 0) {
+      throw new Error("relaxMaxSweeps must be a positive safe integer");
+    }
+    if (!Number.isSafeInteger(this.rngSeed) || this.rngSeed < 0 || this.rngSeed > 0xffff_ffff) {
+      throw new Error("rngSeed must be a uint32 integer");
+    }
+    if (!Number.isFinite(this.noiseEpsilon) || this.noiseEpsilon < 0 || this.noiseEpsilon > 1) {
+      throw new Error("noiseEpsilon must be finite and in [0, 1]");
+    }
+    if (this.domain !== "box" && this.domain !== "hexPrism") {
+      throw new Error(`domain is invalid: ${String(this.domain)}`);
+    }
+    if (this.farField !== "dirichlet" && this.farField !== "reflecting") {
+      throw new Error(`farField is invalid: ${String(this.farField)}`);
+    }
+    if (
+      this.center.length !== 3 ||
+      this.center.some(
+        (coordinate, axis) =>
+          !Number.isSafeInteger(coordinate) ||
+          coordinate < 0 ||
+          coordinate >= (axis === 0 ? this.dims.nx : axis === 1 ? this.dims.ny : this.dims.nz),
+      )
+    ) {
+      throw new Error("center must contain three in-domain integer coordinates");
+    }
     // Drift is unsupported STRUCTURALLY and at runtime (round-3 review: TypeScript's type
     // check does not bind JS callers; §4.4 component 5 promises rejection, so reject).
     if ("phi" in options) {
@@ -208,9 +276,22 @@ export class LKSolver implements SurfaceOperator {
     this.vKinMS = vKin(this.tempC);
     this.x0M = kineticLength(this.tempC, this.pressurePa);
     this.mIceLedger = mIce(this.tempC);
+    // Positive raw inputs are not enough: IEEE-754 conversion/derived arithmetic can still
+    // collapse an accepted run (for example Number.MIN_VALUE µm -> dxM === 0, or an
+    // underflow-scale pressure -> X_0 === Infinity). Validate every derived scale the
+    // update actually divides or multiplies before allocating fields. The factor 6 is the
+    // largest possible hex-prism face sum, (2/3)·nT + nZ with nT <= 6 and nZ <= 2.
+    positiveFinite(this.dxM, "derived dxM");
+    positiveFinite(this.vKinMS, "derived vKinMS");
+    positiveFinite(this.x0M, "derived X_0");
+    positiveFinite(this.mIceLedger, "derived M_ice");
+    positiveFinite(this.dxM / this.x0M, "derived dxM/X_0");
+    positiveFinite(
+      (6 * this.vKinMS * this.sigmaInfinity) / this.dxM,
+      "derived maximum kinetic fill-rate scale",
+    );
 
     const { nx, ny, nz } = this.dims;
-    const n = cellCount(this.dims);
     this.a = new Uint8Array(n);
     this.f = new Float64Array(n);
     this.sigma = new Float64Array(n);
@@ -291,6 +372,9 @@ export class LKSolver implements SurfaceOperator {
     }
     if (options.testExtraSeedSites !== undefined) {
       for (const site of options.testExtraSeedSites) {
+        if (!Number.isSafeInteger(site) || site < 0 || site >= cellCount(this.dims)) {
+          throw new Error(`extra seed site must be an in-domain integer, got ${String(site)}`);
+        }
         if (this.wall[site] === 1) throw new Error("extra seed site is a wall cell");
         this.attachCell(site);
       }
@@ -375,7 +459,11 @@ export class LKSolver implements SurfaceOperator {
         ? this.testAlphaOverride(facet, this.tempC, sigmaSurf)
         : alphaHK(facet, this.tempC, sigmaSurf, this.paramSet);
     if (this.noiseEpsilon > 0) {
-      a *= 1 - this.noiseEpsilon * randomBit(this.rngSeed, index, this.tick, STREAM_NOISE_VN);
+      a *=
+        1 - this.noiseEpsilon * randomBit(this.rngSeed, index, this.tick, STREAM_NOISE_ALPHA_HK);
+    }
+    if (!Number.isFinite(a) || a < 0 || a > 1) {
+      throw new Error(`alphaHK must be finite and in [0, 1] (cell ${index}, got ${String(a)})`);
     }
     return a;
   }
@@ -396,6 +484,9 @@ export class LKSolver implements SurfaceOperator {
     sEff: number;
     sigmaFace: number;
   } {
+    if (!Number.isFinite(sigmaCellRaw)) {
+      throw new Error(`solveFace requires finite sigma (cell ${index}, got ${String(sigmaCellRaw)})`);
+    }
     const sigmaCell = Math.max(sigmaCellRaw, 0);
     const ratio = this.dxM / this.x0M;
     if (sigmaCell === 0) {
@@ -574,8 +665,8 @@ export class LKSolver implements SurfaceOperator {
     return [maxAbs, injection, absorption];
   }
 
-  /** §4.4 step 1: relax to tolerance; measure the divergence identity at convergence. */
-  relaxField(): RelaxationReport {
+  /** §4.4 step 1: relax to tolerance; for Dirichlet, require the divergence identity too. */
+  relaxField(onProgress?: (progress: RelaxationProgress) => void): RelaxationReport {
     let src = this.sigma;
     let dst = this.scratch2;
     let sweeps = 0;
@@ -596,13 +687,21 @@ export class LKSolver implements SurfaceOperator {
       const tmp = src;
       src = dst;
       dst = tmp;
-      // Convergence requires BOTH the iterate-change residual AND the divergence identity
-      // (round-3 review: the identity IS the definition of a converged quasi-static solve;
-      // iterate change alone reported "converged" fields whose imbalance grew with domain).
-      if (residual < this.relaxTol && divergence < this.divTol) break;
+      const divergenceSatisfied = this.farField !== "dirichlet" || divergence < this.divTol;
+      if (onProgress !== undefined && (sweeps === 1 || sweeps % 1024 === 0)) {
+        onProgress({
+          sweeps,
+          residual,
+          divergenceResidual: this.farField === "dirichlet" ? divergence : null,
+        });
+      }
+      // Fixed-sigma Dirichlet requires BOTH criteria. Reflecting is diagnostic-only and has
+      // no source against which a divergence identity could be stated.
+      if (residual < this.relaxTol && divergenceSatisfied) break;
     }
     if (src !== this.sigma) this.sigma.set(src);
-    const converged = residual < this.relaxTol && divergence < this.divTol;
+    const converged =
+      residual < this.relaxTol && (this.farField !== "dirichlet" || divergence < this.divTol);
     this.surfaceReady = converged;
     const scale = Math.max(Math.abs(absorption), 1e-300);
     const report: RelaxationReport = {
@@ -707,15 +806,16 @@ export class LKSolver implements SurfaceOperator {
     };
   }
 
-  /** The rule's conservation claim, measurably (§4.4 component 6; SurfaceOperator). */
+  /** The rule's exact bookkeeping claim, measurably (§4.4 component 6; SurfaceOperator). */
   ledger(): LedgerReport {
     return {
       rule: "LibbrechtKinetics",
       claim:
         "the fill ledger plus recorded saturation clipping integrates exactly the per-face " +
-        "Hertz-Knudsen flux the solver computed (one sigma_face, hexagonal-prism face " +
-        "factors 2/3 lateral / 1 vertical); solve quality is the divergence identity, " +
-        "required for convergence; the field is a quasi-static potential — no Sigma(b+d) " +
+        "Hertz-Knudsen kinetic demand the solver computed; clipping is unapplied numerical " +
+        "excess, not deposited ice (one sigma_face, hexagonal-prism face " +
+        "factors 2/3 lateral / 1 vertical); Dirichlet solve quality is the divergence identity, " +
+        "required for convergence there; the field is a quasi-static potential — no Sigma(b+d) " +
         "claim exists under this rule",
       totalMassBD: null,
       dirichletMeter: null,
@@ -734,8 +834,11 @@ export class LKSolver implements SurfaceOperator {
    * Round-3 hardening: the same guard now binds the PUBLIC interface — advanceSurface()
    * itself throws without a converged relaxField for this step.
    */
-  step(): { relaxation: RelaxationReport; surface: SurfaceReport } {
-    const relaxation = this.relaxField();
+  step(onProgress?: (progress: RelaxationProgress) => void): {
+    relaxation: RelaxationReport;
+    surface: SurfaceReport;
+  } {
+    const relaxation = this.relaxField(onProgress);
     if (!relaxation.converged) {
       return {
         relaxation,

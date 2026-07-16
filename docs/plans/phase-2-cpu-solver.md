@@ -4,17 +4,22 @@
   repo scaffold that precedes both
 - **Status:** Scaffold + **Stage 2a COMPLETE — maker-asserted 2026-07-15** (enforced gate,
   twelve criteria; closed after six adversarial review rounds — three subagent, three maker —
-  all recorded in Tried and rejected; evidence in Steps). **Stage 2b: deliverables AND
-  implementation exist (maker-directed 2026-07-15); FIVE maker audit rounds so far** —
+  all recorded in Tried and rejected; evidence in Steps). **Stage 2b: scoped no-SDAK
+  deliverables AND implementation exist (maker-directed 2026-07-15); SIX maker audit rounds so far** —
   rounds 2 and 3 each found and killed a defective gate protocol BEFORE any result was
   accepted (v1 domain confound / mislabeled set / σ split; v2 face-geometry, clipping,
   divergence-blind convergence); rounds 4 and 5 found the corrected physics still
   contradicted by progressively higher-authority documents (round 4: plan/spec; round 5:
-  charter + ADR 0005 → **ADR 0006, charter v1.4**) plus evidence-strictness gaps — full
-  catalogs in Tried and rejected. **Protocol v3 is registered, UNCHANGED by rounds 4–5;
+  charter + ADR 0005 → **ADR 0006, charter v1.4**) plus evidence-strictness gaps; round 6
+  found two surviving spec sentences that still collapsed discrete Robin absorption into
+  Hertz–Knudsen demand, incomplete runtime validation in the LK checkpoint writer/reader,
+  derived-scale underflow/overflow, and remaining authority/provenance overclaims.
+  Remediation is complete in the round-6 commit containing this update; `npm test` is
+  122/122 green (typecheck and Rule 7 included) — full catalogs in Tried and rejected. **Protocol v3
+  is registered, UNCHANGED by rounds 4–6;
   the habit gate has NOT yet produced an accepted result.** The `SurfaceOperator`
   refactor's bit-identity gate is passed (byte-identical 2a checkpoints); LKSolver
-  implements attachment-kinetics §4.4 as corrected through round 5
+  implements attachment-kinetics §4.4 as corrected through round 6
 - **Started:** 2026-07-14
 - **2026-07-15 session:** the D6h symmetry failure is resolved (it was the domain shape, not
   index arithmetic — see "The symmetry gate runs on a hexPrism domain" below and Tried and
@@ -25,9 +30,13 @@
   strengthened per the triage directives (hand-computed impulse weights one and two ticks out,
   face/edge/corner/attached-cell conservation, bitwise D6h impulse response, uniform fixed
   point). Gate results recorded in the Steps checklist as they land.
-- **Last touched:** 2026-07-15 by Claude Fable 5 — round-5 maker-audit remediation (ADR 0006 +
-  charter v1.4 sync, evidence-strict LK checkpoint decode + tests, diagnostic scope corrected;
-  see Tried and rejected). History of the 2026-07-14 hardening, kept: synced to charter v1.2
+- **Last touched:** 2026-07-15 — round-6 remediation recorded in the commit containing this
+  update: the ADR 0006 truth sweep is complete, LK checkpoint validation is
+  symmetric at encode/decode and solver construction (including derived numerical scales),
+  every registered header control is verified, and saturation clipping is scoped as unapplied
+  demand rather than physical uptake; `npm test` passes 122/122 (see Tried and rejected).
+  Event-limited stepping is documented as a v4 candidate, not silently substituted. History of the
+  2026-07-14 hardening, kept: synced to charter v1.2
   (review integration), then hardened same day after an adversarial review pass: the seam's bookkeeping demoted from
   "settled" to explicitly-unsettled (four written sub-decisions required first), the Dirichlet
   gate strengthened from a check that could not fail to a falsifiable differential test, the
@@ -55,8 +64,9 @@ Stand up the repository and build the CPU oracle: a plain-TypeScript, float64 so
 stacked triangular lattice, running headless, in two gated stages.
 
 **2a** builds G-G's machinery with G-G's own thresholds and drives it to a certified
-sixfold-symmetric plate. **2b** replaces *only* the attachment step with Libbrecht's physics, so
-temperature becomes an input to the model rather than a label pasted onto a knob afterward.
+sixfold-symmetric plate. **2b** replaces G-G's four-step surface exchange as one coupled
+`SurfaceOperator` under `LibbrechtKinetics` — iterated Robin relaxation plus per-face fill,
+with freezing replaced and melting disabled — so temperature becomes a model input.
 
 This is the project's spine. The charter is explicit that the oracle is never deleted (§3.1) and
 that the GPU solver is validated against it (Phase 5). Everything downstream — the Three.js
@@ -129,19 +139,19 @@ that does not need exact sixfold symmetry (most unit tests use it deliberately).
 Not softened: 2b does not pass merely by running. **It passes when the same solver, at two
 different temperatures, with no other change, produces two different habits.**
 
-Plus the far-field gate, copied verbatim from charter §3.2 (added v1.2):
+Historical far-field gate, copied verbatim from charter v1.2 §3.2 (replaced in v1.4):
 
 > - Both far-field boundary conditions (§2.4): reflecting (2a's default, unchanged) and fixed-σ
 >   Dirichlet, selectable per run and recorded in checkpoint metadata. **Done when a long
 >   crystal-free run under Dirichlet holds σ at the set value to tolerance.**
 
-**Strengthened here, deliberately — strengthening is not softening.** As literally written this
-gate cannot fail: the documented initial state (gg-machinery §5) is uniform `d = ρ`, and a
+**Strengthened here, deliberately — strengthening is not softening.** As literally written the
+v1.2 gate cannot fail: the documented initial state (gg-machinery §5) is uniform `d = ρ`, and a
 uniform field is a fixed point of the diffusion smoother under *both* boundary conditions — so
 "holds σ at the set value" passes even if the Dirichlet code is absent, wrong-faced, or never
 called. The Steps section replaces it with a depleted-start differential test that distinguishes
-the two conditions by construction. The charter's phrasing is met a fortiori; a gate that cannot
-fail proves nothing (Rule 6).
+the two conditions by construction. The old v1.2 phrasing was met a fortiori; charter v1.4 now
+states the stronger differential. A gate that cannot fail proves nothing (Rule 6).
 
 Also operationalized here (Rule 6 — a metric, not a feeling): **habit = aspect ratio
 (z-extent / max T-extent), measured when the crystal's largest dimension first reaches a stated
@@ -196,19 +206,21 @@ rather than rediscovered by scanning.
 
 ### Stage 2b — attachment becomes physics
 
-Introduce the `AttachmentRule` interface with **two permanent implementations**:
+Use the settled `SurfaceOperator` interface with **two permanent implementations**:
 
 ```ts
-interface AttachmentRule {
-  // called on boundary cells only; step (iii) of the update cycle
-  shouldAttach(cell: BoundaryCell, ctx: FieldContext): AttachmentResult;
+interface SurfaceOperator {
+  relaxField(): RelaxationReport;
+  advanceSurface(): SurfaceReport;
+  ledger(): LedgerReport;
 }
 ```
 
-`GGThreshold` (2a's, unchanged) and `LibbrechtKinetics`. **Both kept forever**, exactly as the CPU
-oracle is kept forever (charter §3.3). Treat the sketch above as illustrative, not signed-off: a
-rule that owns a per-cell fill accumulator is *stateful*, and a pure `shouldAttach` cannot
-express it — the interface's final shape is part of seam sub-decision (1) below.
+`GGThreshold` preserves 2a's published four-step cycle bit-identically;
+`LibbrechtKinetics` owns field relaxation, per-cell fill, and rule-specific evidence reporting.
+**Both are kept forever**, exactly as the CPU oracle is kept forever (charter §3.3). The initial
+`AttachmentRule.shouldAttach` sketch was rejected because a stateful coupled operator cannot be
+expressed as a pure per-cell predicate; that history remains in Tried and rejected.
 
 `GGThreshold` is the **control group**: when `LibbrechtKinetics` produces something strange,
 re-run `GGThreshold` on the same machinery and the same seed. Still correct ⇒ the bug is in the
@@ -219,15 +231,16 @@ Order within 2b is deliberate; each step gates the next:
 
 1. **Parameter extraction** → [libbrecht-parameters.md](../libbrecht-parameters.md). No number
    without a citation.
-2. **Units** — Δx (µm), Δt (s), D (m²/s) — and derive `n_diff`, the diffusion iterations per
-   growth step ([attachment-kinetics.md](../attachment-kinetics.md) §4.3). **Show the arithmetic
-   in this file.**
+2. **Units** — Δx (µm), Δt (s), D (m²/s) — derive the adaptive fill-CFL interface timestep;
+   elliptic relaxation sweeps are a convergence output, never a physical-time count. Record the
+   quasi-static Péclet arithmetic in this file (attachment-kinetics §4.3–§4.4).
 3. **Far-field boundary conditions** (charter §2.4, added v1.2) — keep reflecting as the 2a
    default, unchanged; add **fixed-σ Dirichlet** (domain faces held at the set supersaturation),
    selectable per run and recorded in checkpoint metadata. Machinery-adjacent, so it lands before
-   the physics: its gate (a crystal-free run holds σ) needs no attachment rule at all. Note the
-   mass-conservation invariant is a **reflecting-only** property — under Dirichlet the boundary
-   is a source/sink by design (gg-machinery §4.i).
+   the physics. Its falsifiable gate starts both runs uniformly depleted: Dirichlet must return
+   everywhere to the set value with injected field change metered and balancing; the identical
+   reflecting run must conserve and settle depleted. Mass conservation is a reflecting-only
+   property; Dirichlet is a source/sink by design (gg-machinery §4.i).
 4. **The seam** — continuous `v_n` → discrete lattice attachment (§4.2). What charter v1.2
    settled is the **determinism**: a fill-fraction accumulator, never stochastic rounding.
    **The four bookkeeping sub-decisions are now SETTLED, in writing (2026-07-15), by the
@@ -243,13 +256,14 @@ Order within 2b is deliberate; each step gates the next:
       counting is structurally impossible); melting is *disabled* (no sublimation; `v_n`
       clamped at 0 from below). Full disposition table incl. hole-filling (kept) and noise
       (redefined per-rule): §4.4 component 5.
-   3. **Mass claim:** not a `Σ(b+d)` invariant — the **fill-ledger flux identity** *(re-stated
+   3. **Exact bookkeeping claim:** not a `Σ(b+d)` invariant — the **kinetic-demand bookkeeping identity** *(re-stated
       2026-07-15 after audit rounds 2–4; this bullet's first answer — "ice gained = metered
       Dirichlet source − field change" — treated relaxation-sweep clamp totals as physical
       mass, but elliptic sweeps carry no physical duration, and round 4 caught the stale
-      answer still standing here)*: physical uptake over a step is the per-face
-      Hertz–Knudsen integral, and `fill ledger + recorded saturation clipping = that
-      integral`, exact in ledger arithmetic, tested non-tautologically. Shell-clamp totals
+      answer still standing here)*: the computed per-face Hertz–Knudsen kinetic demand over
+      a step is the integral, and `placed fill ledger + recorded saturation clipping = that
+      demand`, exact in ledger arithmetic, tested non-tautologically. Saturation clipping is
+      unapplied numerical excess, not deposited ice or physical uptake. Shell-clamp totals
       are numerical diagnostics only, never integrated into a mass claim; the solve-quality
       statement is the divergence identity, which is part of the convergence criterion
       itself (iterate residual AND divergence identity under stated tolerances).
@@ -346,11 +360,11 @@ Order within 2b is deliberate; each step gates the next:
 - [x] *(Done 2026-07-14: gg-machinery §6 extracted from the paper's §VI.C, with the honesty note
       that G-G's published 3D snowfakes are deterministic. Implemented in the solver; seeded ⇒
       bit-identical reproduction and mass conservation with noise ON are tested.)*
-      **⚠ Extract the noise term from the paper.** gg-machinery §6 is a **known hole in our spec**,
-      not an oversight to skip past. Determine the exact expression, which field it perturbs, where
-      in the tick it applies, its symbol and range, and **whether it conserves mass**. Load-bearing:
-      Libbrecht's kinetics are fully deterministic, so without noise, sidebranching never seeds in
-      2b — and the failure will look like a physics failure and will not be one. Check: seeded ⇒
+      **⚠ Extract the noise term from the paper.** gg-machinery §6 was a known hole: determine the
+      exact expression, field, position in the tick, range, and mass behavior. The extraction found
+      G-G's published 3D branches are deterministic; noise is an optional labeled dial for natural
+      asymmetry, not a branch-existence requirement. Its rule-specific disposition is G-G diffusion
+      slowdown under `GGThreshold`, `alphaHK` slowdown under `LibbrechtKinetics`. Check: seeded ⇒
       reproducible.
 - [x] *(Done, a00110e + 2026-07-15. Mass gate, **as specified — 10 000 ticks with a growing
       crystal, noise off, reflecting** (maker audit 2026-07-15 caught the first record
@@ -541,13 +555,17 @@ Order within 2b is deliberate; each step gates the next:
       kernel (canonical pair summation preserved — D6h stays bitwise), Robin
       partial-reflection substitution `s/(1+s)`, metered Dirichlet shell, separate fill
       field, adaptive fill-CFL `Δt`. §4.4's committed tests all in the suite
-      (`solver-cpu/test/lk-solver.test.ts`, 16 tests as of round 5 — the "10" that stood
+      (`solver-cpu/test/lk-solver.test.ts`, 16 tests as of round 6 — the "10" that stood
       here through round 4 was stale): Robin limits incl. **bitwise**
-      recovery of the reflecting pass at `alphaHK ≡ 0`; divergence identity with its stated
-      tolerance scaling (~1e3·relaxTol, and tightening relaxTol tightens it — asserted);
-      ledger identity (fill + hole-fill deficit account for every attached cell and partial
-      fill); fill-CFL never exceeded; a crystal grows at all; bit-identical determinism;
-      D6h delta clean + full metric exactly 0, noise off. Two spec amendments recorded in
+      recovery of the reflecting pass at `alphaHK ≡ 0` on a nonuniform field; divergence
+      identity asserted directly against `divTol`, with a loose-divergence negative control
+      proving residual-only stopping fails (and tightening relaxTol tightens it — asserted);
+      geometric ledger identity (fill + hole-fill deficit account for every attached cell and
+      partial fill); the governing non-tautological bookkeeping identity (`placed fill +
+      recorded clipping = computed per-face Hertz–Knudsen kinetic demand`) across saturating
+      steps; the separate discrete-sink diagnostic against reconstructed kinetic demand;
+      fill-CFL never exceeded; a crystal grows at
+      all; bit-identical determinism; D6h delta clean + full metric exactly 0, noise off. Two spec amendments recorded in
       §4.4 at implementation: the `(0, n_Z ≥ 1)` basal row and adaptive `Δt`.
 - [ ] Basal/prism split. Check *(gate)*: **habit changes with temperature alone** — two
       temperatures, no other change, two different habits, per the operationalized aspect-ratio
@@ -628,13 +646,20 @@ Order within 2b is deliberate; each step gates the next:
       and the ≈ 82 ratio are unaffected, and the value is descriptive arithmetic, not a gate
       criterion. The round-4 audit's exact recomputation of the two worst-case ratios gives
       3.24445 warm and 81.8819 cold, agreeing with the ≈ 3.2 / ≈ 82 above.)*
+      *(Round-6 terminology annotation, 2026-07-15 — registered text above left intact:
+      the “flux integral” in item (iv) is computed Hertz–Knudsen kinetic demand. Its clipped
+      term is recorded unapplied numerical excess, not deposited fill or physical uptake.)*
       **v3 run status (2026-07-15):** the first v3 launch (chained after commit 62af3b3)
       was KILLED ~27 CPU-minutes into run 1 — no step metrics produced, no checkpoints
       written, so nothing was accepted or discarded on results grounds. Reason: the round-4
       maker review required convergence-control provenance (`divTol`, `relaxMaxSweeps`) in
       LK checkpoint headers, and a run started before that fix could never produce
       evidence-grade checkpoints. Protocol UNCHANGED — relaunched, same command
-      (`node runner/src/main.ts gate2b`), after the round-4 remediation commit.
+      (`node runner/src/main.ts gate2b`), after the round-4 remediation commit. **Latest
+      liveness only, not a result:** the second launch remained running at the 2026-07-15
+      round-6 handoff; `out/gate2b.log` had reached run 1, step 200 on the registered 96³
+      −5 °C case: attached 583, extent 31, AR 0.0370634, sweeps 1, divergence residual
+      9.99e-8, simulated time 22.35 s, elapsed 6301.1 s. No gate exit or checkpoint yet.
 - [ ] SDAK, gated. Check: thin plates / needles at the extremes. **Abandon without regret if it
       resists** — the fallback reaches every Phase 4 gate anyway.
       **Status at 2b closure (2026-07-15): deliberately NOT implemented, and deliberately not
@@ -686,6 +711,17 @@ Order within 2b is deliberate; each step gates the next:
   0003 — it is what "the model can now be wrong" *means*. It is survivable precisely because 2a
   ships a working, beautiful crystal regardless. Report a negative result as a result; do not fit
   your way out of it.
+- **Recorded saturation clipping is auditability, not a physics-level deposition fix.** Under
+  protocol v3's accepted `Δt = cfl/max(rate)`, a cell can saturate before the interval ends;
+  the remainder is recorded as unapplied numerical excess and is not replayed after topology
+  changes. The cleaner candidate is event-limited stepping,
+  `Δt = min(cfl/max(rate), min_{rate>0}[(1-f)/rate])`, then attach and re-relax. It can change
+  physical time, elliptic-solve frequency, and the size-conditioned habit, so adopting it
+  requires an amending ADR, a **committed protocol v4 before running**, and a full two-temperature
+  rerun. Implementation trap: retain/snap every simultaneous minimizing cell instead of relying
+  on rounded multiplication to hit `f = 1`, and handle an unattached `f = 1` cell as a zero-time
+  event even when its rate is zero. Do not retrofit it into v3 or cite recorded clipping as
+  deposited uptake.
 
 ## Tried and rejected
 
@@ -779,9 +815,10 @@ Order within 2b is deliberate; each step gates the next:
   component 3, corrected). (4) *no shared `SurfaceOperator`* — two unrelated report shapes,
   no `ledger()` → `solver-cpu/src/operator.ts`, both solvers conform, compile-checked +
   tested. (5) *ill-defined ledger* — "metered source − field change" integrated relaxation
-  clamp totals that carry no physical time (the charter's own line) → ledger rewritten:
-  uptake ≡ ice gain by construction via the shared σ_face, non-tautological flux-integral
-  test recomputes it outside the solver; clamp totals demoted to numerical diagnostics.
+  clamp totals that carry no physical time (the charter's own line) → initially re-scoped
+  through the shared σ_face and a non-tautological external recomputation; the later
+  saturation audit narrowed the exact claim further to `placed fill + recorded unapplied
+  clipping = computed kinetic demand`. Clamp totals were demoted to numerical diagnostics.
   (6) *fill-CFL false-pass* — hole-fill `f → 1` jumps were invisible to the CFL maximum → 
   kinetic and hole-fill accounting separated; the maker's probe is now a deterministic test
   (ring-above-seed geometry). (7) *vacuous bitwise test* — the "alphaHK ≡ 0 recovers
@@ -810,7 +847,10 @@ Order within 2b is deliberate; each step gates the next:
   remaining fill was silently dropped (measured 35% ledger deficit on an ordinary step;
   the round-2 identity test had only exercised the unsaturated first step) → clipped flux
   is recorded (`saturationClippedFill`), the identity is `fill + clipped = flux integral`,
-  and the test now sweeps many steps and requires a saturating one. (3) *divergence-blind
+  and the test now sweeps many steps and requires a saturating one. *(Round-6 terminology
+  sync: this historical remediation was bookkeeping, not a physical-uptake identity — the
+  clipped term is unapplied numerical excess, and the exact current statement is `placed
+  fill + recorded clipping = computed kinetic demand`.)* (3) *divergence-blind
   convergence* — iterate-change alone reported "converged" fields whose shell-vs-sink
   imbalance grew with domain (2.46e-6 at 32³ → 8.85e-6 at 48³ at tol 1e-9, on course to
   fail the gate's own < 1e-6 at 96³) → convergence now requires residual AND divergence
@@ -838,7 +878,7 @@ Order within 2b is deliberate; each step gates the next:
   corrected physics, each carrying a dated sync note. (2) *prose-only sink/growth
   diagnostic* (should-fix) — §4.4 called the 0.96–1.01 band "reported" while nothing
   computed it → now a committed computed diagnostic (`lk-solver.test.ts`), numerator the
-  solver's last-sweep Robin absorption, denominator the converged-field per-sweep uptake
+  solver's last-sweep Robin absorption, denominator the converged-field per-sweep kinetic demand
   recomputed outside the solver; measured 0.98922–1.01290 at the pinned dev config, values
   pinned; the 96³ 0.95879–1.01266 stays attributed to the audit probe. (3) *checkpoint
   convergence-control provenance* (should-fix) — LK headers recorded `relaxTol` but not
@@ -865,8 +905,8 @@ Order within 2b is deliberate; each step gates the next:
   residual-only sketch comment, its ledger sketch omitting clipping, and test 4 still
   promising "metered-source accounting" — all while the corrected summary stood 200 lines
   earlier). Since the charter governs, the implementation formally violated its
-  highest-authority spec → **ADR 0006** (dual convergence, per-face fill, recorded flux
-  identity, noise-on-alphaHK) + **charter v1.4** in the same session (Rule 5), ADR 0005
+  highest-authority spec → **ADR 0006** (dual convergence, per-face fill, recorded
+  kinetic-demand bookkeeping, noise-on-alphaHK) + **charter v1.4** in the same session (Rule 5), ADR 0005
   annotated amended-in-part, every contradictory spec site rewritten with a dated note.
   (2) *LK checkpoint decode not evidence-strict* (should-fix) — round-5 mutation probes
   showed version 2, missing `relaxTol`, a reflecting far field, nonpositive `divTol`,
@@ -878,9 +918,10 @@ Order within 2b is deliberate; each step gates the next:
   (should-fix) — the sink/growth test called itself a "ledger-growth comparison" and
   claimed the round-3 35% clipping defect would fail its band, but the ratio never reads
   the ledger or `advanceSurface`; reintroduced silent clipping would NOT move it (the
-  flux-integral test is that regression) → scope corrected in the test and §4.4: the ratio
-  observes the sink side against the shared per-face uptake form; the two tests TOGETHER
-  are the sink/growth statement. (4) *stale public LK docs* (should-fix) — `cflFill`
+  demand-bookkeeping test is that regression) → scope corrected in the test and §4.4: the
+  ratio observes the sink side against the shared per-face kinetic-demand form; the two tests
+  separately cover sink discretization and demand bookkeeping without asserting equality to
+  deposited growth. (4) *stale public LK docs* (should-fix) — `cflFill`
   documented as scalar `max(v_n)·dt/dx`, `noiseEpsilon` as a `v_n` slowdown, and
   `lastMaxVn` misnaming the face-factor-weighted fill velocity it stores → docs corrected,
   field renamed `lastMaxFillVelocityMS`. (5) *PROGRESS still internally false + plan
@@ -892,6 +933,62 @@ Order within 2b is deliberate; each step gates the next:
   in the charter and its ADRs leaves the project violating its own constitution, and "the
   charter wins" then works against the fix; and every evidence reader (decoder, round
   trip, diagnostic) must be as adversarially tested as the writer.**
+- **The round-5 remediation itself, as committed at e5fae6b and evidence-followup 0ad8253
+  (round-6 maker audit, 2026-07-15; ADR 0006 was the appropriate Rule 5 mechanism, but its
+  conformance sweep was incomplete).** Findings and completed remediation:
+  (1) *the technical ground truth still stated the rejected bare equality* (blocker) —
+  attachment-kinetics §4.2 still said the discrete operator makes “vapor lost equals ice
+  gained,” and component 3 incorrectly defined divergence against `alphaHK·sigma_surf`
+  rather than the split stencil's actual Robin absorption → separate the exact ledger
+  identity, the discrete divergence identity, and the measured sink-vs-HK diagnostic in
+  both passages. The final truth pass narrowed the ledger language too: the raw
+  Hertz–Knudsen integral is computed kinetic demand; saturation clipping is recorded
+  UNAPPLIED numerical excess, not deposited ice or physical uptake. (2) *checkpoint
+  validation remained reader-heavy* (should-fix) — the writer
+  accepted short typed arrays and emitted a schema-valid but shifted payload; reader/tests
+  validated only a subset of runtime controls; runner round-trip omitted dimensions, spacing,
+  seed, noise, domain, center, and simulated time → one shared runtime schema used by encoder
+  and decoder, exact field lengths before writing, semantic attached-cell/masked-wall checks, a
+  full mutation matrix, and complete comparison of the existing v1 header plus field bits.
+  Seed geometry and termination controls remain evidenced by pre-registration + launch/result log
+  + process exit rather than silently being claimed as checkpoint fields. Round 6 also corrected
+  round 5's overreach: reflecting LK checkpoints are valid diagnostic data and round-trip their
+  actual condition; only gate/physics acceptance requires Dirichlet. (3) *authority/state
+  residue* — charter title still v1.2,
+  reflecting diagnostic mode missing from the scope of “dual convergence,” a nonexistent
+  checkpoint version bump, four-vs-five audit counts, stale AGENTS truth cells, incomplete
+  test summary, and the exported `v_n`-noise stream name → truth sweep all named sites. Runtime
+  hardening now rejects invalid solver/test-hook values; future gates emit in-relaxation liveness
+  and durable terminal status without changing numerical updates.
+  (4) *Rule 6 provenance* — ADR 0006 repeated historical audit measurements without a durable
+  command/config → label them explicitly as historical audit findings whose ad-hoc probes were
+  not retained, while retaining committed-test reproduction where it exists. The same
+  authority pass synchronized ADR 0005's implemented `SurfaceOperator` name and Phase 6's
+  frozen `divTol`/`relaxMaxSweeps` controls with ADR 0006 and charter v1.4, and demoted
+  `sigma_water(T)` from an unenforced normative runtime ceiling to a source-side plausibility
+  reference (the fit difference is negative near −1 °C and no continuous ceiling
+  interpolation has been adopted). (5) *derived-scale underflow escaped the “finite and
+  positive” raw-input checks* (final should-fix) — `dxUm = Number.MIN_VALUE` was accepted but
+  converted to `dxM = 0`, after which one step could write NaN fill and ledger state;
+  `pressurePa = Number.MIN_VALUE` produced `X_0 = Infinity` and a false zero-absorption path.
+  Solver construction and checkpoint encode/decode now symmetrically require finite positive
+  `dxM`, `vKin`, `X_0`, `M_ice`, `dxM/X_0`, and the conservative maximum kinetic fill-rate
+  scale; solver construction also rejects an unsafe product of individually valid dimensions
+  before allocation. Regression probes cover underflow and overflow without inventing
+  unsupported physical pressure bounds. (6) *committed tests still did not enforce their
+  stated claims* (closure blockers) — the `alphaHK ≡ 0` Robin-limit test was still the vacuous
+  uniform Dirichlet fixed point that §4.4 said had been replaced, and the divergence test's
+  `1e3·relaxTol` assertion was looser than `divTol`, so a residual-only-equivalent solve passed
+  it. Replace the former with a deterministic nonuniform reflecting one-sweep bitwise
+  comparison against `GGSolver`; assert `divTol` directly with a loose-divergence negative
+  control; and remove the bookkeeping test's hole-fill-step exemption (hole filling does not
+  alter the kinetic ledger terms). **No new ADR:**
+  these edits conform the repo to accepted ADR 0006; they make no new numerical decision and
+  do not change protocol v3. The live gate remains valid because its execution commit 4ca9680
+  already contains the governing solver physics and checkpoint encoding; validate its outputs
+  externally with the corrected current reader before acceptance. Evidence at the completed
+  local state: `npm test` passes 122/122, including typecheck, Rule 7 over 72 files, the 6-test
+  checkpoint suite, and the 16-test LK solver suite.
 - **"npm test fails in the repo-wide Rule 7 scan" (PROGRESS.md, 2026-07-15 handoff)** — did not
   reproduce at HEAD (a58bac0): the scan and the fixture tests pass, and the lint verifiably
   still fails on real violations (bare stem, provenance-free qualifier, markdown inline-span

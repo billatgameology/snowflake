@@ -66,7 +66,8 @@ describe("closed forms vs monograph Table 2.1 anchors", () => {
     // Arrhenius fits, which amplifies their individual ~1% errors without bound as the
     // difference shrinks toward 0 C — at -1 C the form even goes NEGATIVE (-0.009146
     // computed, vs the table's +0.010). Pinned here so the limitation cannot silently
-    // un-happen; sigma_water is a documentation-level ceiling, never a dynamical input.
+    // un-happen; sigma_water is a source-side plausibility reference, not an enforced runtime
+    // ceiling or a dynamical input.
     expect(sigmaWater(-1)).toBeCloseTo(-0.009146, 5); // the near-melting breakdown, pinned
     expect(relErr(sigmaWater(-10), 0.102)).toBeGreaterThan(0.15); // ~20% off at -10, pinned
     // Measured deviations of the difference form: -15: 12.8%, -20: 8.8%, -30: 4.6%, -40: 2.0%
@@ -154,7 +155,7 @@ describe("quasi-static validity (Péclet; §4.4 test 6)", () => {
     const cold = pecletUpperBound(-15, 0.002, lengthM, 101325);
     expect(cold).toBeGreaterThan(5e-7); // vKin(-15)*0.002*33.6e-6/2e-5 ~ 7e-7
     expect(cold).toBeLessThan(1e-2);
-    // And the worst case recorded in the plan (sigma_water ceiling at -15, L = 1 mm):
+    // And the source-side water-saturation reference at -15 C, L = 1 mm (not runtime-enforced):
     const worst = pecletUpperBound(-15, 0.157, 1e-3, 101325);
     expect(worst).toBeGreaterThan(1e-3);
     expect(worst).toBeLessThan(2e-3);
