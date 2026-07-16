@@ -161,8 +161,13 @@ stable execution criteria:
 - `A-EXEC-CONFIG`: canonical 19-site radius-2/thickness-1 seed, hexPrism domain, reflecting far
   field, seed 1 and noise 0 unless the named scenario overrides them, with every registered
   parameter and dimension equal to the manifest.
-- `A-EXEC-SYMMETRY`: the seed, every nonempty per-tick attachment delta, and final full state are
-  exactly D6h symmetric; final `symmetryError = 0`.
+- `A-EXEC-SYMMETRY`: on noise-off runs, the seed, every nonempty per-tick attachment delta, and
+  final full state are exactly D6h symmetric; final `symmetryError = 0`. This criterion does not
+  apply to a registered noise-on ensemble, whose per-cell perturbations break D6h by design.
+- `A-EXEC-NOISE`: on a registered noise-on run, the manifest names the exact epsilon, seed, and
+  counter-PRNG stream; independent named PRNG samples match and contain both outcomes; a same-
+  seed replay is bit-identical across `a`, `b`, and `d`. Symmetry is reported as a diagnostic
+  with no threshold. All mass, domain, termination, and numeric criteria still apply.
 - `A-EXEC-MASS`: `Sigma(b+d)` is finite and relative drift from the initial compensated sum is
   `< 1e-10` at every recorded sample and at termination.
 - `A-EXEC-DOMAIN`: `domainContact` is false on every tick and at termination.
@@ -222,6 +227,8 @@ hollowness was 0.105.
   `sealedVoidFraction = 0`.
 - `A-HOLLOW-NONVACUOUS`: at least two final occupancy hashes differ, proving the seed-dependent
   path ran. A second seed-1 replay must be field-bit-identical to its first run.
+- `A-HOLLOW` uses `A-EXEC-NOISE`, not `A-EXEC-SYMMETRY`; the final symmetry error is reported
+  without an acceptance threshold.
 - `A-HOLLOW-STRUCTURAL`: Phase 4 introduces no center-, radius-, cavity-, or hollowness-driven
   branch in either solver. The gate imports metrics only after stepping; the reviewer checks
   the solver diff as part of this criterion.
@@ -255,8 +262,12 @@ then stopped at tick 3,741 with trunk radius 10, cap radii 13/13, and capScore 1
 
 - Published `dendrite` parameter vectors with `rho=0.105` (the paper's fern endpoint), dims
   `160,160,48`, seed 1, noise 0, at most 12,000 ticks, ordinary far-field stop.
-- `A-BRANCH`: final `branchCount >= 6`, AR `< 0.3`, and a same-size compact plate comparator
-  has branchCount 0. All shared validity criteria apply.
+- `A-BRANCH`: final `branchCount >= 6` and AR `< 0.3`. Let its final integer `tExtent` be `L`.
+  The live compact comparator uses the exact published `plate` preset, the same dims/domain/
+  seed/noise/far field, and stops on the first tick with `tExtent >= L` (12,000-tick cap;
+  reaching the ordinary far-field stop first is invalid). Its branchCount must be 0. This
+  first-crossing rule is the complete meaning of “same-size”; all shared validity criteria
+  apply to both runs.
 - The top-view capture must visibly show six separated primary arms; sidebranch density is a
   visual diagnostic, not smuggled into `branchCount`.
 
@@ -285,8 +296,14 @@ protocol is fixed before any Phase 4 v4 morphology probe:
   - `B-EXEC-TERMINATION`: every run reaches its registered size target before 50,000 surface
     steps, with no domain contact, stall, skipped advance, unconverged relaxation, or alternate
     stop. The actual first-crossing extent and step are recorded.
-  - `B-EXEC-SYMMETRY`: every nonempty per-step attachment delta is exactly D6h invariant and
-    final `symmetryError = 0`.
+  - `B-EXEC-SYMMETRY`: on noise-off runs, every nonempty per-step attachment delta is exactly
+    D6h invariant and final `symmetryError = 0`. It does not apply to registered noise-on runs.
+  - `B-EXEC-NOISE`: on a registered noise-on run, the exact epsilon, seed, and counter-PRNG
+    stream survive the manifest/checkpoint; independent named PRNG samples match and contain
+    both outcomes; same-seed replay is bit-identical across `a`, `f`, and `sigma`. Symmetry is
+    reported without a threshold. Convergence, surface, ledger, domain, checkpoint, and numeric
+    execution criteria remain blocking. Cross-seed morphology differences remain a diagnostic
+    `B-HOLLOW` verdict rather than execution validity.
   - `B-EXEC-CONVERGENCE`: every report has `converged=true`, integer sweeps in `[1,200000]`,
     finite residual in `[0,1e-9)`, finite positive shell injection and signed net surface
     exchange, and finite reported divergence. The runner independently recomputes
@@ -338,7 +355,8 @@ higher-resolution endpoint reference; Phase 4 still runs its own registered dev-
 - Hollow ensemble: same conditions with seeds `[1,2,3]` and `noiseEpsilon=0.001`, target 24.
   Diagnostic success: every run has AR `>= 1.5`, hollowness rise `>= 0.03`, final hollowness
   `>= 0.03`, sealed void 0, at least two occupancy hashes differ, and seed 1 replays bitwise.
-  The threshold is a pre-registered early-warning scale, not a natural-data claim.
+  `B-EXEC-NOISE` replaces exact symmetry for these runs. The threshold is a pre-registered
+  early-warning scale, not a natural-data claim.
 
 #### B-TIMELINE
 
@@ -374,9 +392,9 @@ before/after environment, and a deterministic event index. The app worker and ru
 the same schedule evaluator.
 
 The schedule's counter is completed solver cycles. A `tick=N` event fires at the cycle boundary
-where exactly N cycles have completed, before that cycle's relaxation; therefore tick 0 fires
-before the first solver step. Extent triggers are observed only after a complete interface step
-and fire before the next relaxation. If more than one unfired event becomes eligible at the same
+where exactly N cycles have completed, before the **next** cycle's relaxation; therefore tick 0
+fires before the first solver step. Extent triggers are observed only after a complete interface
+step and fire before the next relaxation. If more than one unfired event becomes eligible at the same
 cycle boundary—including different extent thresholds crossed by one simultaneous attachment
 batch, or a tick event coinciding with a queued extent event—the schedule fails as ambiguous
 before applying any event. Duplicate trigger declarations are rejected at validation. Phase 4
@@ -420,6 +438,9 @@ required schedule manifest and are not advertised as resumable mid-history.
 - Every stable `A-EXEC-*`, morphology `A-*`, `B-EXEC-*`, and visual validity criterion is
   tripped alone by a unit fixture; criterion code that only agrees with its own report is
   rejected.
+- Symmetry controls: a noise-off asymmetric delta fails `*-EXEC-SYMMETRY`; a correctly replayed
+  noisy asymmetric fixture passes the symmetry exemption, while wrong PRNG provenance, a
+  single-outcome PRNG fixture, or a divergent same-seed replay fails `*-EXEC-NOISE`.
 - Aspect sweep: shuffled, equal-adjacent, inverted-endpoint, hollow-column endpoint, incomplete,
   and different-common-parameter controls fail by name.
 - Hollowing: solid column, sealed shell, pre-hollowed seed, identical seed-stream fixture, and
@@ -459,8 +480,11 @@ required schedule manifest and are not advertised as resumable mid-history.
       findings. Round 1 also independently passed the app build, proved Phase 3 trees object-
       identical to `23b5d6c`, and ran the isolated Phase 2a control to exit 0 with canonical
       SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389` at
-      `out/phase4/controls/wp0-phase2a-plate.ckpt`. Same-reviewer re-review is still required
-      before WP0 closes.
+      `out/phase4/controls/wp0-phase2a-plate.ckpt`. Re-review round 2 verified all round-1 fixes,
+      then found one blocker (exact symmetry contradicted the noisy ensembles) and one should-
+      fix (tick-N wording referred to an already-completed cycle). This amendment makes noise
+      validity replay/PRNG-based, retains exact symmetry for noise-off runs, and says “next
+      cycle” explicitly. Same-reviewer re-review is still required before WP0 closes.
 - [x] Freeze the review-strengthened criteria before feature implementation (`98e510d`); both
       gate provenance checks require this commit as an ancestor.
 - [x] Write/accept overlap ADR 0010 and timeline-semantics ADR 0011; update charter to v1.9 and
@@ -509,6 +533,11 @@ required schedule manifest and are not advertised as resumable mid-history.
 - **Unnamed bundles of execution validity.** Rejected by WP0 review. Pass A now has stable
   `A-EXEC-*` criteria and Pass B has individually trippable `B-EXEC-*` criteria, including a
   numeric independent-demand ledger tolerance; implementation cannot invent those semantics.
+- **Exact D6h as a shared validity rule for noise-on ensembles.** Rejected by WP0 re-review.
+  Per-cell noise breaks D6h by design; the registered A-HOLLOW probe first broke a delta at tick
+  151 and ended with symmetry error 0.1334. Noise-off runs retain exact symmetry. Noise-on runs
+  instead require exact PRNG provenance and bit-identical same-seed replay, while mass/domain/
+  convergence/ledger checks remain in force and symmetry is reported without a threshold.
 - **Running Phase 4 in the Phase 3 worktree.** Rejected: Phase 3 external testing and artifacts
   remain independently inspectable. This branch has its own worktree and output tree.
 - **Silently starting Phase 4 under charter v1.6's sequential rule.** Rejected: the maker asked

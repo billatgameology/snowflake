@@ -25,9 +25,9 @@ The source, the product example in §1.1, and the geometry all require column→
 Phase 4 supports deterministic, abrupt events only. A schedule names its operator, initial
 environment, event index, exact trigger (`tick`, largest extent, transverse extent, or z
 extent), and complete post-event environment. The counter is completed solver cycles: a
-`tick=N` event fires at the boundary where exactly N cycles have completed, before that cycle's
-relaxation, so tick 0 precedes the first solver step. An extent trigger is observed only after a
-complete interface step and fires before the next relaxation/update cycle.
+`tick=N` event fires at the boundary where exactly N cycles have completed, before the **next**
+cycle's relaxation, so tick 0 precedes the first solver step. An extent trigger is observed only
+after a complete interface step and fires before the next relaxation/update cycle.
 
 Duplicate trigger declarations are rejected during validation. If multiple unfired events
 become eligible at one cycle boundary—including distinct extent thresholds crossed by one
