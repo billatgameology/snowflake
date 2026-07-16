@@ -236,8 +236,13 @@ screenshots at R2/R3 and before the gate claim.
       3 should-fixes (unknown-key decode rejection; G3-WINDOW/final-symmetry registration,
       4867a67; evidence-line §1.5 provenance). Round 2: independently re-verified with fresh
       enforced run + mutation tests, 172/172, no new findings.
-- [ ] WP2: app scaffold + worker + prisms + camera (dev agent)
-- [ ] R2 review + coordinator visual inspection loop until zero blockers
+- [x] WP2: app scaffold + worker + prisms + camera (dev agent; 05b5027 — 29 new tests,
+      201/201, WebGPU backend measured in headless chromium, 84.9 ticks/s vs the 5 bar)
+- [x] R2 review + coordinator visual inspection → CLEAN round 1 (0 blockers, 0 should-fixes,
+      8 notes — labels honest, worker boundary proven, prism orientation mutation-pinned,
+      WebGL2 fallback forced with truthful label, protocol semantics driven live 13/13;
+      coordinator inspected the three screenshots: hexagonal silhouette, flat facets,
+      terraced shoulders, §1.5 status footer)
 - [ ] WP3: overlays + slice + picking + HUD (dev agent)
 - [ ] R3 review + coordinator visual inspection loop until zero blockers
 - [ ] gate3 evidence run; result recorded in PROGRESS with metric, value, command
