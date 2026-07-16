@@ -1,8 +1,7 @@
 # Plan — Phase 4: morphology gauntlet, timeline semantics, and visual diagnostics
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — passing criteria pre-registered and strengthened after WP0 review;
-  WP0 fix/re-review loop active; no Phase 4 feature implementation has begun
+- **Status:** in progress — passing criteria frozen; WP0 integration/review CLEAN; WP1 is next
 - **Started:** 2026-07-16
 - **Last touched:** 2026-07-16 by Codex, coordinating session
 
@@ -482,7 +481,7 @@ required schedule manifest and are not advertised as resumable mid-history.
 - [x] Run coordinator-only pre-registration probes for the Pass A thresholds above. These are
       explicitly calibration, not gate evidence.
 - [x] Commit this criteria-first plan before any development agent is created (`23b5d6c`).
-- [ ] WP0: integrate accepted Phase 2b v4 history with current Phase 3; resolve authority and
+- [x] WP0: integrate accepted Phase 2b v4 history with current Phase 3; resolve authority and
       app conflicts; full baseline verification. Integration landed at merge `b080654` with
       276/276 tests and the Phase 3 app unchanged. Review round 1 found three blockers and four
       should-fixes: negative LK supersaturation was clamped, the nominal solid-column criterion
@@ -500,7 +499,9 @@ required schedule manifest and are not advertised as resumable mid-history.
       solver to ignore the noise; the applied-noise reference/Robin witnesses above close that
       vacuity without turning B morphology into execution validity. It also clarified that the
       fixed LK noise stream stays in manifest/code provenance rather than widening v2
-      checkpoints. Same-reviewer re-review is still required before WP0 closes.
+      checkpoints. Re-review round 4 reported **CLEAN — zero blockers and zero should-fixes**;
+      278/278 tests and the app production build passed, Phase 3 remained unchanged, and the
+      tracked worktree was clean.
 - [x] Freeze the review-strengthened criteria before feature implementation (round-1 freeze
       `98e510d`, noise-scope freeze `7e2d08f`, final applied-noise-witness freeze `e567767`);
       both gate provenance checks require the final commit as an ancestor.
