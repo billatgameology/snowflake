@@ -288,9 +288,21 @@ same-domain
 factor, divergence-identity convergence). The three protocol versions and every audit finding
 are cataloged in the plan's Tried and rejected — **read that before touching the seam.**
 
-**Next concrete action: the v3 gate run is in flight (`node runner/src/main.ts gate2b`,
+**Next concrete action: the v3 gate run has EXITED (observed 2026-07-16 by the Phase 3
+coordinating session; liveness/exit observation only, NOT a recorded or validated result —
+ADR 0007 keeps 2b recording out of Phase 3's scope). Preserved evidence: process exit status
+1, recovered from the launcher's wrapper echo into `out/gate2b-exit-status.txt` before /tmp
+cleanup; `out/gate2b.log` ends `2B GATE FAILED (1 criteria): column(-15C): AR 0.0188816...
+not >= 1.5 — not a column` after both runs completed and both checkpoints were written with
+`roundTripIdentical=true`. Log facts, no interpretation: plate run (−5 °C) stopped
+size-target step 423; column run (−15 °C) stopped size-target step 459; both print the SAME
+final morphology numbers (attached 2149, extent 61, AR 0.0188816) — the identical-values
+observation is flagged for the recording session to verify against the checkpoints, since
+temperature-independent output would itself be a load-bearing finding. A 2b session must now
+do the registered recording work
+(`node runner/src/main.ts gate2b`,
 launched from execution commit 4ca9680 after the round-4 commit; log `out/gate2b.log`,
-checkpoints `out/gate2b-plate.ckpt` / `out/gate2b-column.ckpt`). When it exits: record the
+checkpoints `out/gate2b-plate.ckpt` / `out/gate2b-column.ckpt`): record the
 result honestly (pass OR fail — the ±25% digitization caveat makes a cold-side failure a
 reportable finding, not a bug hunt; exit 0 is the whole claim), then validate both checkpoints
 with the current strict decoder against every existing v1-header control and every field bit;
