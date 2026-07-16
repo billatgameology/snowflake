@@ -231,12 +231,13 @@ in charter §3.1 and get no retroactive ADR.
 ## Next step
 
 Phase 1 is closed (2026-07-15). Phase 2a is closed — maker-asserted complete 2026-07-15
-(evidence in the plan's Steps). 2a byte-identity: the most recent COMPLETED check was after
-round 3 (fresh enforced run bit-identical to `out/plate-gate.ckpt`, exit 0) — the round-4/5
-wording "after every round" was round-5-flagged as false and is retracted; rounds 4–5 touch
-no GG code path (LK checkpoint fields, LK docs/tests, decode strictness), and a fresh
-post-round-5 enforced byte-check is running alongside the gate — record its result here when
-it exits. **Phase 2b state (2026-07-15, after the round-5 remediation): everything exists —
+(evidence in the plan's Steps). 2a byte-identity: **re-verified at the round-5 code state (2026-07-15)** — fresh enforced
+run, exit 0, `cmp` bit-identical to `out/plate-gate.ckpt` (repro:
+`node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out
+out/plate-gate-round5.ckpt --enforce-gate && cmp out/plate-gate-round5.ckpt
+out/plate-gate.ckpt`; log `out/plate-gate-round5.log`). The earlier "after every round"
+wording was round-5-flagged as false and is retracted — completed checks: after round 3,
+and now after round 5. **Phase 2b state (2026-07-15, after the round-5 remediation): everything exists —
 the two ADR 0005 deliverables (attachment-kinetics §4.4 spec; libbrecht-parameters.md table),
 the implementation (`LKSolver`, shared `SurfaceOperator`, GG Dirichlet option, `grow-lk`, the
 flagless `gate2b`), ADR 0006 + charter v1.4, and FIVE maker audit rounds' worth of
