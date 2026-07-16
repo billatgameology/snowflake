@@ -1,26 +1,33 @@
 // LibbrechtKinetics — the surface operator of attachment-kinetics §4.4, implemented.
 //
-// One growth step (§4.4 "the operator in one paragraph"):
-//   1. relaxField(): iterate the Phase 2a smoother kernel (canonical pair summation) to a
-//      stated residual tolerance, with the Robin partial-reflection substitution at attached
-//      faces and the Dirichlet far-field shell clamped to sigma_infinity (metered). The
+// One growth step (§4.4 "the operator in one paragraph", as corrected through audit round 3;
+// header synced round-4 — it had kept the pre-correction formulas):
+//   1. relaxField(): iterate the Phase 2a smoother kernel (canonical pair summation) with the
+//      Robin partial-reflection substitution at attached faces and the Dirichlet far-field
+//      shell clamped to sigma_infinity, until BOTH the iterate residual (relaxTol) AND the
+//      divergence identity (divTol) are satisfied — the dual criterion IS convergence. The
 //      attachment coefficient is re-evaluated from the current field each sweep (Picard),
 //      so the converged field solves the nonlinear Robin problem self-consistently.
 //   2. advanceSurface(): classify each boundary cell from START-OF-STEP attached counts,
-//      v_n = alphaHK * v_kin * sigma_surf from the CONVERGED field, adaptive
-//      dt = cfl * dx / max(v_n), fill f += min(v_n dt/dx, 1 - f), attach at f = 1
-//      (simultaneous) plus the kept hole-filling rule.
+//      solve the same self-consistent (alphaHK, sigma_face) pair the sink used, fill PER
+//      ATTACHED FACE with the hexagonal-prism geometry factors — per-cell rate =
+//      [(2/3) nT + nZ] * alphaHK * vKin * sigma_face / dx, adaptive dt = cfl / max(rate),
+//      f += min(rate * dt, 1 - f) with the truncated excess RECORDED in
+//      saturationClippedFill — attach at f = 1 (simultaneous) plus the kept hole-filling
+//      rule.
 //
 // Dispositions (§4.4 component 5): no kappa freezing (the Robin substitution is the only
-// vapor uptake), no melting (v_n clamped at 0 from below), hole-filling kept, noise is a
-// per-cell multiplicative v_n slowdown (own PRNG stream), drift phi unsupported.
+// vapor uptake), no melting (the kinetic rate is clamped at 0 from below), hole-filling
+// kept, noise is a per-cell multiplicative alphaHK slowdown applied identically in the sink
+// and the growth (own PRNG stream), drift phi unsupported.
 //
 // Conservation claims (§4.4 components 3-4): the field is a quasi-static POTENTIAL, not a
-// mass store — the meaningful checks are (a) the discrete divergence identity at convergence
-// (per-sweep Dirichlet injection equals per-sweep Robin absorption, exact up to float, since
-// the interior smoother conserves), and (b) the fill ledger (ice gained = sum of fill
-// increments; hole-filled cells' unearned remainder is reported as holeFillDeficit, never
-// hidden). Environment-neutral: no Node APIs (charter §3.1).
+// mass store — the meaningful checks are (a) the discrete divergence identity, REQUIRED for
+// convergence (per-sweep Dirichlet injection equals per-sweep Robin absorption, since the
+// interior smoother conserves), and (b) the flux identity: fillLedger + saturationClippedFill
+// integrates exactly the per-face Hertz-Knudsen flux (hole-filled cells' unearned remainder
+// is reported as holeFillDeficit, never hidden). Environment-neutral: no Node APIs
+// (charter §3.1).
 
 import {
   alphaHK,

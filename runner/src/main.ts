@@ -692,6 +692,8 @@ function growLK(options: GrowLKOptions): LKRunResult {
       paramSet: options.paramSet,
       cflFill: options.cfl,
       relaxTol: options.tol,
+      divTol: options.divTol,
+      relaxMaxSweeps: options.relaxMaxSweeps,
       a: solver.a,
       f: solver.f,
       sigma: solver.sigma,
@@ -730,8 +732,10 @@ function growLK(options: GrowLKOptions): LKRunResult {
  *   difference; parameter set CAK_A1 (honest name; see libbrecht-parameters.md);
  *   sigma_infinity = 0.002 (v3: with the corrected 2/3 lateral face factor, 0.005 left the
  *   warm-side volume-fill ratio ~1.18 — inside the AR threshold; 0.002 gives worst-case
- *   lateral/vertical fill ratios >= 3.1 at -5 C and vertical/lateral >= 55 at -15 C,
- *   arithmetic in the plan), dx = 0.35 um, P = 101325 Pa, cfl 0.1, tol 1e-9, divTol 1e-7
+ *   lateral/vertical fill ratio 3.24 at -5 C and vertical/lateral 81.9 at -15 C — the
+ *   plan's RE-REGISTRATION v3 arithmetic; round-4 review recomputed 3.24445 / 81.8819,
+ *   and this comment's earlier ">= 3.1 / >= 55" was drift), dx = 0.35 um, P = 101325 Pa,
+ *   cfl 0.1, tol 1e-9, divTol 1e-7
  *   (convergence REQUIRES the divergence identity), maxSweeps 2e5, noise OFF, seed 1,
  *   canonical radius-2/thickness-1 seed asserted as 19 sites, explicit center;
  *   run PLATE  at T = -5 C  -> expect AR <= 1/1.5 at first extent >= 60 cells, and

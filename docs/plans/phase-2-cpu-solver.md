@@ -238,15 +238,26 @@ Order within 2b is deliberate; each step gates the next:
       counting is structurally impossible); melting is *disabled* (no sublimation; `v_n`
       clamped at 0 from below). Full disposition table incl. hole-filling (kept) and noise
       (redefined per-rule): §4.4 component 5.
-   3. **Mass claim:** not a `Σ(b+d)` invariant — an *accounting identity*: ice gained =
-      metered Dirichlet source − field change (exact in ledger arithmetic, asserted), plus a
-      divergence-identity consistency check on every converged solve (to stated tolerance).
+   3. **Mass claim:** not a `Σ(b+d)` invariant — the **fill-ledger flux identity** *(re-stated
+      2026-07-15 after audit rounds 2–4; this bullet's first answer — "ice gained = metered
+      Dirichlet source − field change" — treated relaxation-sweep clamp totals as physical
+      mass, but elliptic sweeps carry no physical duration, and round 4 caught the stale
+      answer still standing here)*: physical uptake over a step is the per-face
+      Hertz–Knudsen integral, and `fill ledger + recorded saturation clipping = that
+      integral`, exact in ledger arithmetic, tested non-tautologically. Shell-clamp totals
+      are numerical diagnostics only, never integrated into a mass claim; the solve-quality
+      statement is the divergence identity, which is part of the convergence criterion
+      itself (iterate residual AND divergence identity under stated tolerances).
       Reflecting far field under `LibbrechtKinetics` is diagnostic-only (§4.4 components 3–4).
    4. **`sigma_surf` sampling and normalization:** under `LibbrechtKinetics` the field *is* σ
       (`d ≡ sigma`; the smoother is affine-invariant so the Phase 2a kernel is reused
-      unchanged); `sigma_surf` is read at the boundary cell from the converged field, before
-      the interface update; there is no "before/after step (ii)" ambiguity because step (ii)
-      no longer exists (§4.4 component 1).
+      unchanged); the raw sample is the boundary-cell value of the converged field, and the
+      physics uses the self-consistent **face** value derived from it — one
+      `(alphaHK, sigma_face)` fixed point drives the Robin sink and `v_n` alike *(unified
+      after round 3; "read at the boundary cell", which this bullet previously said, was
+      exactly the round-2 sink/growth split)* — read after relaxation, before the interface
+      update; there is no "before/after step (ii)" ambiguity because step (ii) no longer
+      exists (§4.4 component 1).
    The remaining work of the seam is now *implementation against the spec*, gated by the
    bit-identity refactor test (§4.4 component 6, test 1).
 5. **`alphaHK(T, sigma_surf)`** with the basal/prism split.
@@ -605,6 +616,19 @@ Order within 2b is deliberate; each step gates the next:
       criteria retained, including both stated caveats (±25% digitization bands can
       reverse the −15 °C ordering — a failure is reported as a finding; the −15 °C
       expectation is Nakaya-inverted by the model's own prediction).
+      *(Round-4 arithmetic annotation, 2026-07-15 — registered text above left intact: the
+      closed-form `kineticLength(−15 °C, 1 atm)` gives `X_0 = 0.14545 µm` → `Δx/X_0 =
+      2.406`, not 2.414 — the 2.414 used Table 2.1's rounded 0.145 µm anchor. The exponents
+      and the ≈ 82 ratio are unaffected, and the value is descriptive arithmetic, not a gate
+      criterion. The round-4 audit's exact recomputation of the two worst-case ratios gives
+      3.24445 warm and 81.8819 cold, agreeing with the ≈ 3.2 / ≈ 82 above.)*
+      **v3 run status (2026-07-15):** the first v3 launch (chained after commit 62af3b3)
+      was KILLED ~27 CPU-minutes into run 1 — no step metrics produced, no checkpoints
+      written, so nothing was accepted or discarded on results grounds. Reason: the round-4
+      maker review required convergence-control provenance (`divTol`, `relaxMaxSweeps`) in
+      LK checkpoint headers, and a run started before that fix could never produce
+      evidence-grade checkpoints. Protocol UNCHANGED — relaunched, same command
+      (`node runner/src/main.ts gate2b`), after the round-4 remediation commit.
 - [ ] SDAK, gated. Check: thin plates / needles at the extremes. **Abandon without regret if it
       resists** — the fallback reaches every Phase 4 gate anyway.
       **Status at 2b closure (2026-07-15): deliberately NOT implemented, and deliberately not
@@ -794,6 +818,37 @@ Order within 2b is deliberate; each step gates the next:
   the measured value at the resolution you actually run, and make every conservation claim
   an identity over recorded terms, so that nothing physical can be silently dropped,
   clipped, or absorbed into a report the gate never reads.**
+- **The round-3 remediation itself, as committed at 62af3b3 (round-4 maker audit,
+  2026-07-15; the three physics fixes verified correct, but the surrounding evidence layer
+  was not clean).** The catalog: (1) *the governing plan/spec still encoded the superseded
+  physics* (blocker) — the plan's Approach item 4 still answered the mass claim with "ice
+  gained = metered Dirichlet source − field change" and the σ sampling with "read at the
+  boundary cell"; §4.4's one-paragraph summary still said uniform `v_n·Δt/Δx` fill and
+  metered-source settlement; component 4's update rule and test 5's CFL formula kept the
+  pre-face-factor forms; component 5's noise row still said `v_n → (1 − ξ)·v_n`
+  (interface-only); `operator.ts` documented convergence as residual-only and fill alone as
+  physical uptake. Since AGENTS.md designates §4.4 as technical ground truth, stale spec
+  text is a deliverable defect, not commentary drift → every named site rewritten to the
+  corrected physics, each carrying a dated sync note. (2) *prose-only sink/growth
+  diagnostic* (should-fix) — §4.4 called the 0.96–1.01 band "reported" while nothing
+  computed it → now a committed computed diagnostic (`lk-solver.test.ts`), numerator the
+  solver's last-sweep Robin absorption, denominator the converged-field per-sweep uptake
+  recomputed outside the solver; measured 0.98922–1.01290 at the pinned dev config, values
+  pinned; the 96³ 0.95879–1.01266 stays attributed to the audit probe. (3) *checkpoint
+  convergence-control provenance* (should-fix) — LK headers recorded `relaxTol` but not
+  `divTol`/`relaxMaxSweeps`, so a checkpoint could not independently establish the dual
+  criterion → both REQUIRED in the header; decode rejects headers lacking them; no version
+  bump (no accepted LK checkpoint predates the change). Consequence: the in-flight v3 gate
+  launch was killed pre-result (header-only log, no checkpoints) and relaunched unchanged
+  after this commit. (4) *PROGRESS internally contradictory* (should-fix) — "remediation in
+  progress" for round 2 alongside completed round-3 state; the 2b gate row still "paused";
+  "past 120" tests vs 117 → truth pass, exact counts. (5) *numerical drift nits* — the
+  runner's ">= 3.1 / >= 55" comment vs recomputed 3.24445/81.8819; `Δx/X_0(−15) = 2.414`
+  (Table 2.1's rounded anchor) vs closed-form 2.406 → comment aligned; registered v3 text
+  annotated, not rewritten. Lesson, appended: **remediation is not done when the code is
+  right — the spec, the plan, and every doc-comment contract are part of the same
+  deliverable, and each correction must be synced everywhere the old model was ever
+  written down, or the next reader restores the defect from the docs.**
 - **"npm test fails in the repo-wide Rule 7 scan" (PROGRESS.md, 2026-07-15 handoff)** — did not
   reproduce at HEAD (a58bac0): the scan and the fixture tests pass, and the lint verifiably
   still fails on real violations (bare stem, provenance-free qualifier, markdown inline-span

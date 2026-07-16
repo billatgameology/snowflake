@@ -9,12 +9,16 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   history is in the plan's Tried and rejected). The gate is *enforcing*: `--enforce-gate`
   checks twelve criteria and exit 0 is the whole claim; the maker independently recomputed the
   plate result from raw checkpoint bytes and found no core solver defect. **Phase 2b: spec +
-  parameter table + implementation exist (commit 565f9dc); the maker's round-2 audit
-  (2026-07-15) found SEVEN BLOCKERS before any gate result existed** — the first gate run was
-  killed mid-flight because its protocol embedded three of them (domain-geometry confound,
-  mislabeled parameter set, sink/growth σ inconsistency). Remediation is in progress in the
-  same session; the plan's Tried and rejected will carry the full catalog. **Phase 2b is NOT
-  closed. No gate result exists.**
+  parameter table + implementation exist and have been through FOUR maker audit rounds
+  (2026-07-15)** — round 2: seven blockers, gate v1 killed; round 3: three blockers +
+  closure blocker, gate v2 killed; round 4: the three round-3 physics fixes verified
+  correct, but the governing plan/spec still encoded the superseded physics (blocker),
+  plus evidence should-fixes (prose-only sink/growth diagnostic, missing checkpoint
+  convergence-control provenance, PROGRESS contradictions). All four rounds are remediated;
+  the full catalogs live in the plan's Tried and rejected. **Phase 2b is NOT closed. No
+  accepted gate result exists yet** — protocol v3 is registered and its accepted-run
+  attempt is in flight (the pre-round-4 launch was killed pre-result to fix checkpoint
+  provenance).
 - **Last updated:** 2026-07-15 by Claude Fable 5
 - **Active plan:** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
   0003, synced to charter v1.2/v1.3; Scaffold + Stage 2a complete; Stage 2b section reconciled
@@ -78,7 +82,8 @@ protocol (metric certified in isolation, box-scaling probes, hexPrism controls),
 test onto hexPrism — threshold untouched at exactly 0 — and added a box negative-control test
 pinning the geometry (full triage in the plan's Tried and rejected). The Rule 7 scan was
 likewise already fixed at HEAD and was verified to still fail on real violations.
-`npm test`: 81/81 green at 2a close (2026-07-15); 2b implementation grew the suite past 120.
+`npm test`: 81/81 green at 2a close (2026-07-15); 118/118 after the round-4 remediation
+(2026-07-15 — the round-4 audit caught the previous "past 120" here; the count is exact now).
 **Phase 2b exists in full — deliverable docs AND implementation (LKSolver, SurfaceOperator,
 Dirichlet, runner gate) — and has been through three maker audit rounds; its habit gate has
 NOT yet produced an accepted result** (protocol v3, re-registered after round 3). The stack is
@@ -152,7 +157,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | 0 | §2.8 exit criteria hold | ✅ maker-asserted, 2026-07-14 |
 | 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ✅ **maker-asserted, 2026-07-15** — informal sessions, positive; the four-task protocol was *not* run (recorded honestly in the plan's Findings, with the Phase 7 takeaways) |
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Maker independently re-derived the result from raw checkpoint bytes. Full record in [the plan](plans/phase-2-cpu-solver.md), Steps |
-| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (v1.2): fixed-σ Dirichlet far field passes the plan's **depleted-start differential test** (the charter's "holds σ in a crystal-free run" phrasing is vacuous from a uniform start — see plan) | ⏸ **paused** (ADR 0005): surface-operator spec + parameter table first |
+| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (v1.2): fixed-σ Dirichlet far field passes the plan's **depleted-start differential test** (the charter's "holds σ in a crystal-free run" phrasing is vacuous from a uniform start — see plan) | 🔶 **in progress** — spec, parameter table, implementation, and four maker audit rounds done (the ADR 0005 pause was lifted by its deliverables, 2026-07-15); the depleted-start Dirichlet differential passes in the committed suite (`solver-cpu/test/dirichlet.test.ts`); **no accepted habit-gate result yet** — protocol v3 registered, run in flight |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ⬜ not started |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `AttachmentRule`**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ⬜ not started |
 | 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
@@ -211,21 +216,26 @@ in charter §3.1 and get no retroactive ADR.
 ## Next step
 
 Phase 1 is closed (2026-07-15). Phase 2a is closed — maker-asserted complete 2026-07-15
-(evidence in the plan's Steps). **Phase 2b state (end of 2026-07-15): everything exists —
-the two ADR 0005 deliverables (attachment-kinetics §4.4 spec; libbrecht-parameters.md table),
-the implementation (`LKSolver`, shared `SurfaceOperator`, GG Dirichlet option, `grow-lk`, the
-flagless `gate2b`), and three maker audit rounds' worth of remediations — but the habit gate
-has NOT produced an accepted result.** Protocol v3 is re-registered (plan, Steps: same-domain
+(evidence in the plan's Steps; byte-identity re-verified after every 2b round, most recently
+after round 3: fresh enforced run bit-identical to `out/plate-gate.ckpt`, exit 0). **Phase 2b
+state (2026-07-15, after the round-4 remediation): everything exists — the two ADR 0005
+deliverables (attachment-kinetics §4.4 spec; libbrecht-parameters.md table), the
+implementation (`LKSolver`, shared `SurfaceOperator`, GG Dirichlet option, `grow-lk`, the
+flagless `gate2b`), and FOUR maker audit rounds' worth of remediations — but the habit gate
+has NOT produced an accepted result.** Protocol v3 is registered (plan, Steps: same-domain
 96³ pair, `CAK_A1`, `sigma_infinity = 0.002`, per-face fill with the hexagonal-prism 2/3
 factor, divergence-identity convergence). The three protocol versions and every audit finding
 are cataloged in the plan's Tried and rejected — **read that before touching the seam.**
 
-**Next concrete action: run `node runner/src/main.ts gate2b` (v3), record its result
+**Next concrete action: the v3 gate run is in flight (`node runner/src/main.ts gate2b`,
+launched in the background after the round-4 commit; log `out/gate2b.log`, checkpoints
+`out/gate2b-plate.ckpt` / `out/gate2b-column.ckpt`). When it exits: record the result
 honestly (pass OR fail — the ±25% digitization caveat makes a cold-side failure a reportable
-finding, not a bug hunt), commit, and put the result in front of the maker.** Expect tens of
-minutes per run; the runner logs to stdout, checkpoints to `out/gate2b-*.ckpt`. After the
-gate: 2a byte-identity re-check (`cmp out/plate-gate.ckpt` against a fresh enforced run) —
-GG is untouched by round 3 but the claim must stay current.
+finding, not a bug hunt; exit 0 is the whole claim), commit, and put the result in front of
+the maker.** Runtime is NOT tens of minutes — the killed first launch was ~27 CPU-minutes
+into run 1 without reaching its first 200-step metrics line; expect hours per run, possibly
+long hours (progress lines print every 200 growth steps). If the log looks silent, check the
+process before assuming a hang.
 
 Traps already known: the 19-site seed erratum (gg-machinery §5 — the paper says 20; do not
 "fix" it back). The symmetry gate runs on the **hexPrism** domain — a box cannot pass it for

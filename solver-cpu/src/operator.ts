@@ -11,7 +11,10 @@
 export interface RelaxationReport {
   /** GGThreshold: always 1 (the published single pass). LibbrechtKinetics: sweeps to tol. */
   readonly sweeps: number;
-  /** GGThreshold: vacuously true (one pass IS its dynamics). LK: residual < relaxTol. */
+  /** GGThreshold: vacuously true (one pass IS its dynamics). LK: the DUAL criterion —
+      residual < relaxTol AND divergenceResidual < divTol (round-3: iterate change alone
+      passed fields whose shell-vs-sink imbalance grew with domain size; round-4 review
+      caught this comment still stating residual-only). */
   readonly converged: boolean;
   /** Relative per-sweep max change at exit; null under GGThreshold (no residual concept). */
   readonly residual: number | null;
@@ -53,10 +56,13 @@ export interface LedgerReport {
   readonly totalMassBD: number | null;
   /** GGThreshold+Dirichlet: accumulated metered source. Null for LK (see shellClampDiagnostic). */
   readonly dirichletMeter: number | null;
-  /** LK: total v_n-driven fill, ice-cell units (= physical vapor uptake by construction —
-      §4.4 component 4 as corrected: sink and growth share one sigma_face). Null for GG. */
+  /** LK: kinetic fill actually PLACED, ice-cell units. NOT alone the physical uptake:
+      uptake = fillLedgerIceCells + saturationClippedFill — the per-face Hertz-Knudsen flux
+      integral, exact (§4.4 component 4 as re-corrected round-3; round-4 review caught this
+      comment still equating fill alone with uptake, which understates it on saturating
+      steps). Null for GG. */
   readonly fillLedgerIceCells: number | null;
-  /** LK: the same uptake in vapor-ledger units, fillLedger · M_ice(T). Null for GG. */
+  /** LK: the PLACED fill in vapor-ledger units, fillLedger · M_ice(T). Null for GG. */
   readonly fillLedgerVaporUnits: number | null;
   /** LK: fill granted by hole-filling without vapor withdrawal — reported, never hidden. */
   readonly holeFillDeficit: number | null;

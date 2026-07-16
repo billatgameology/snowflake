@@ -164,6 +164,83 @@ describe("LKSolver — ledger identity (§4.4 test 4)", () => {
   });
 });
 
+describe("LKSolver — sink/growth discretization diagnostic (§4.4 component 3, round-4 review)", () => {
+  it("COMPUTED: last-sweep Robin absorption vs the converged-field per-sweep uptake", () => {
+    // Round-4 maker review, should-fix: §4.4 cited a sink/growth band as a "reported
+    // diagnostic" while nothing in the repo computed it. This test IS the diagnostic now.
+    // Pinned reproduction: devOptions (hexPrism 24,24,14, T=-5C, sigma_inf=0.01,
+    // dx=0.35um, CAK_A1, seed 1, relaxTol 1e-8), 80 growth steps, command `npm test`.
+    //
+    // NUMERATOR: absorptionDiagnostic — what the final relaxation sweep ACTUALLY absorbed
+    // at Robin faces. Its in-plane pass reads the pre-sweep field; its vertical pass reads
+    // the in-plane pass's INTERMEDIATE output (the first-order-consistent discretization,
+    // §4.4 component 3).
+    // DENOMINATOR: the same per-sweep uptake recomputed OUTSIDE the solver from the
+    // CONVERGED public field: sum over boundary cells of [nT/7 + (3/14)·nZ] · s · sigma_face,
+    // with (alphaHK, sigma_face) from core's alphaHK and an external damped fixed point.
+    // The stencil weights are exactly proportional to the hexagonal-prism face factors
+    // ((3/14)/(1/7) = 3/2 = basal/prism face-area ratio), so the denominator IS the
+    // advanceSurface flux integral expressed in per-sweep units, and the ratio is the
+    // field-sink-vs-ledger-growth comparison. Its deviation from 1 is the
+    // intermediate-field discretization effect: measured here, never assumed.
+    const solver = new LKSolver(devOptions);
+    const dxM = devOptions.dxUm * 1e-6;
+    const ratio = dxM / solver.x0M;
+    const faceOf = (x: number): { s: number; sigmaFace: number } => {
+      const [nT, nZ] = solver.neighborCounts(x);
+      const facet = classifyFacet(nT, nZ);
+      const sc = Math.max(solver.sigma[x], 0);
+      let sf = sc;
+      if (sc > 0) {
+        for (let it = 0; it < 60; it++) {
+          const a = alphaHK(facet, devOptions.tempC, sf, "CAK_A1");
+          const next = sc / (1 + a * ratio);
+          if (Math.abs(next - sf) <= 1e-13 * sc) {
+            sf = next;
+            break;
+          }
+          sf = 0.5 * (sf + next);
+        }
+      }
+      const s = alphaHK(facet, devOptions.tempC, sf, "CAK_A1") * ratio;
+      return { s, sigmaFace: sc / (1 + s) };
+    };
+    let minRatio = Infinity;
+    let maxRatio = -Infinity;
+    let measured = 0;
+    for (let t = 0; t < 80; t++) {
+      const relax = solver.relaxField();
+      expect(relax.converged).toBe(true);
+      let perSweepUptake = 0;
+      for (const x of solver.boundaryCells()) {
+        const [nT, nZ] = solver.neighborCounts(x);
+        const { s, sigmaFace } = faceOf(x);
+        perSweepUptake += (nT / 7 + (3 / 14) * nZ) * s * sigmaFace;
+      }
+      if (perSweepUptake > 0) {
+        const r = (relax.absorptionDiagnostic as number) / perSweepUptake;
+        if (r < minRatio) minRatio = r;
+        if (r > maxRatio) maxRatio = r;
+        measured++;
+      }
+      const surface = solver.advanceSurface();
+      solver.tick++; // manual stepping, as in the flux-integral test above
+      if (surface.stalled) break;
+    }
+    expect(measured).toBeGreaterThan(50); // the band must come from a real growth history
+    // Hard physical band: a first-order-consistent sink stays within a few percent of the
+    // converged-field uptake at this resolution. A broken coupling (the round-2/3 defects
+    // were x1.6-2.4 and 35%) lands far outside.
+    expect(minRatio).toBeGreaterThan(0.9);
+    expect(maxRatio).toBeLessThan(1.1);
+    // The MEASURED band at this pinned config (deterministic run — seed 1, noise off):
+    // 0.98922-1.01290 over 80 steps. The round-3/4 audits measured 0.95879-1.01266 for the
+    // same effect at the gate resolution (96^3). Pinned so silent drift becomes a failure:
+    expect(minRatio).toBeCloseTo(0.98922, 3);
+    expect(maxRatio).toBeCloseTo(1.0129, 3);
+  });
+});
+
 describe("LKSolver — §4.4 contract closures (round-2 review)", () => {
   it("reflecting diagnostic mode: no clamp, no divergence claim, uniform bitwise fixed point", () => {
     const solver = new LKSolver({

@@ -153,6 +153,13 @@ export interface LKCheckpointHeader {
   readonly paramSet: string;
   readonly cflFill: number;
   readonly relaxTol: number;
+  /** Divergence-identity tolerance — the OTHER half of the dual convergence criterion.
+      Added 2026-07-15 (round-4 maker review: without it a checkpoint cannot independently
+      establish that its field was solved under the registered protocol). REQUIRED — decode
+      rejects headers missing it. No version bump: no accepted LK checkpoint predates it. */
+  readonly divTol: number;
+  /** Sweep cap of the relaxation loop — same round-4 provenance requirement. */
+  readonly relaxMaxSweeps: number;
   readonly farField: "dirichlet";
   readonly fields: FieldDescriptor[];
 }
@@ -172,6 +179,8 @@ export interface LKRunState {
   readonly paramSet: string;
   readonly cflFill: number;
   readonly relaxTol: number;
+  readonly divTol: number;
+  readonly relaxMaxSweeps: number;
   readonly a: Uint8Array;
   readonly f: Float64Array;
   readonly sigma: Float64Array;
@@ -197,6 +206,8 @@ export function encodeLKCheckpoint(state: LKRunState): Uint8Array {
     paramSet: state.paramSet,
     cflFill: state.cflFill,
     relaxTol: state.relaxTol,
+    divTol: state.divTol,
+    relaxMaxSweeps: state.relaxMaxSweeps,
     farField: "dirichlet",
     fields: [
       { name: "a", dtype: "u8", length: n },
@@ -237,6 +248,13 @@ export function decodeLKCheckpoint(bytes: Uint8Array): DecodedLKCheckpoint {
     throw new Error(`not a LibbrechtKinetics checkpoint (rule=${(header as { rule?: string }).rule})`);
   }
   if (header.endianness !== "LE") throw new Error("checkpoint must declare LE endianness");
+  // Round-4 maker review: convergence-control provenance is REQUIRED, not optional — a
+  // checkpoint that cannot state its dual-criterion tolerances cannot support a gate claim.
+  if (typeof header.divTol !== "number" || typeof header.relaxMaxSweeps !== "number") {
+    throw new Error(
+      "LK checkpoint header lacks convergence-control provenance (divTol, relaxMaxSweeps)",
+    );
+  }
   const n = cellCount(header.dims);
   let offset = 12 + headerLength;
   let a: Uint8Array | null = null;
@@ -277,6 +295,8 @@ export function decodeLKCheckpoint(bytes: Uint8Array): DecodedLKCheckpoint {
       paramSet: header.paramSet,
       cflFill: header.cflFill,
       relaxTol: header.relaxTol,
+      divTol: header.divTol,
+      relaxMaxSweeps: header.relaxMaxSweeps,
       a,
       f,
       sigma,

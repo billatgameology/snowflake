@@ -219,15 +219,22 @@ by the tests it names). Sources: monograph printed pp. 92–93 / pdf 93–94 (Eq
 flux balance and mixed boundary condition), monograph Table 2.1 (printed p. 57 / pdf 58),
 arXiv:1910.09067 Eqs. 1–4. Parameters: [libbrecht-parameters.md](libbrecht-parameters.md).
 
-**The operator in one paragraph.** Under `LibbrechtKinetics` one growth step is: (1) relax the
-supersaturation field to a stated residual tolerance with the Robin condition at the crystal
-surface and fixed-σ Dirichlet at the far shell; (2) read `sigma_surf` per boundary cell from
-the converged field; (3) classify each boundary cell's facet type from `(n_T, n_Z)` and compute
-`v_n = alphaHK · v_kin · sigma_surf`; (4) advance the fill state `f += v_n·Δt/Δx`, attach cells
-reaching `f ≥ 1` (simultaneously, from start-of-step state); (5) settle the ledger — ice gained
-is debited against the metered far-field source. This replaces G–G steps (i)–(iv) **as one
-coupled whole** under `LibbrechtKinetics`; under `GGThreshold` the four published steps run
-exactly as in Phase 2a, bit-identical, behind the same interface.
+**The operator in one paragraph** *(synced 2026-07-15, round-4 review: this summary still
+described the superseded model — cell-value sampling, uniform fill, metered-source
+accounting — after components 1/3/4 below had been corrected; the summary is subordinate to
+the components)*. Under `LibbrechtKinetics` one growth step is: (1) relax the supersaturation
+field until BOTH the iterate residual and the divergence identity are under their stated
+tolerances, with the Robin condition at the crystal surface and fixed-σ Dirichlet at the far
+shell; (2) per boundary cell, solve the self-consistent `(alphaHK, sigma_face)` pair from the
+converged field — the same pair the Robin sink used; (3) classify each boundary cell's facet
+type from `(n_T, n_Z)`; (4) advance the fill state **per attached face** with the
+hexagonal-prism geometry factors, `Δf = [(2/3)·n_T + n_Z]·alphaHK·v_kin·sigma_face·Δt/Δx`,
+attach cells reaching `f ≥ 1` (simultaneously, from start-of-step state), record any
+saturation-clipped excess; (5) settle the ledger — `fill + recorded clipping` equals the
+per-face Hertz–Knudsen flux integral exactly; shell-clamp totals are numerical diagnostics,
+never a mass claim. This replaces G–G steps (i)–(iv) **as one coupled whole** under
+`LibbrechtKinetics`; under `GGThreshold` the four published steps run exactly as in Phase 2a,
+bit-identical, behind the same interface.
 
 ### Component 1 — `d` → σ normalization, and where `sigma_surf` is sampled
 
@@ -319,8 +326,16 @@ and the flux claims are scoped to what is actually exact.**
   sink** is a first-order-consistent discretization of the same Robin condition: its stencil
   substitutions act on the operator's own substep fields with the diffusion weights, so the
   per-face absorbed quantity is not algebraically identical to `alphaHK·sigma_face` at
-  finite `Δx/X_0` — the measured sink/growth ratio at the gate resolution is **0.96–1.01**
-  (round-3 audit measurement), reported as a discretization diagnostic, never claimed as 1.
+  finite `Δx/X_0`. The sink/growth ratio is a **computed diagnostic** *(round-4 review: the
+  previous sentence here called it "reported" while nothing in the repo computed it)*: the
+  committed test `solver-cpu/test/lk-solver.test.ts` ("sink/growth discretization
+  diagnostic") recomputes the converged-field per-sweep uptake outside the solver and
+  divides the last sweep's actual Robin absorption by it — **measured 0.98922–1.01290**
+  over 80 growth steps at its pinned configuration (hexPrism 24×24×14, −5 °C,
+  `sigma_infinity = 0.01`, Δx = 0.35 µm, `CAK_A1`, seed 1; command `npm test`), values
+  pinned in the test. At the gate resolution (96³) the round-3 audit measured
+  0.95879–1.01266 for the same effect — an audit probe, attributed as such, not reproduced
+  by a committed run. A discretization diagnostic, never claimed as 1.
   The solve-quality statement is the divergence identity, which is **now part of the
   convergence criterion itself** (round-3 blocker 3: iterate-change alone reported
   "converged" fields whose shell-vs-sink imbalance grew with domain size; a solve is
@@ -355,9 +370,11 @@ charter §2.2 is honored where the physics actually lives in this rule: premelti
 folded into the *measured* `sigma_0(T)`/`A(T)` (§5), not into a simulated mass pool.
 
 Update rule, per growth step, simultaneous across the boundary (start-of-step `(n_T, n_Z)` and
-field): `Δf = min(v_n·Δt/Δx, 1 − f)` — truncated at saturation so the ledger never overdraws;
-the sub-cell placement error this truncation introduces is bounded by the fill-CFL bound and
-recorded. `v_n` is clamped at 0 from below (no sublimation — gg-machinery §2's permanence rule
+field): `Δf = min([(2/3)·n_T + n_Z]·alphaHK·v_kin·sigma_face·Δt/Δx, 1 − f)` *(round-4 sync:
+this line previously kept the pre-face-geometry `v_n·Δt/Δx`)* — truncated at saturation so the
+ledger never overdraws; the truncated excess is **recorded** in `saturationClippedFill`
+(round-3 blocker 2), so the flux identity below stays exact. The kinetic rate is clamped at 0
+from below (no sublimation — gg-machinery §2's permanence rule
 survives; a negative `sigma_surf` grows nothing rather than un-growing something). On attach:
 `a = 1`, `f` frozen at 1 for bookkeeping, cell leaves the vapor domain (`sigma = 0`
 internally, excluded from the solve), neighbors' configurations update next step.
@@ -402,7 +419,7 @@ with an implicit far-field supply.
 | step (iii) threshold attachment | **replaced** by the fill rule (component 4) | this is the seam itself |
 | step (iv) melting (`μ`) | **disabled** | sublimation is not modeled (gg-machinery §2); `μ`'s smoothing role was phenomenological — if a smoothing dial is ever needed it enters as a labeled, documented dial, not as an inherited default |
 | hole-filling (raw `n_T ≥ 4`, `n_Z ≥ 1`) | **kept** | geometric hygiene against discretization voids, now also physically consistent (max-coordination kink sites have no barrier). Answering the plan's open question: it survives, so interior voids remain interpretable as physics, not artifacts |
-| noise (gg-machinery §6) | **redefined for this rule** | §6's diffusion-slowdown perturbs a *mass* pass, which no longer exists. Under this rule noise is a per-cell multiplicative slowdown of the interface update, `v_n → (1 − ξ)·v_n`, `ξ ∈ {0, ε}` from the counter PRNG (own stream id), applied per growth step. Default off; labeled dial; provenance class P4. The gate stays noise-off |
+| noise (gg-machinery §6) | **redefined for this rule** | §6's diffusion-slowdown perturbs a *mass* pass, which no longer exists. Under this rule noise is a per-cell multiplicative slowdown of the **attachment coefficient**, `alphaHK → (1 − ξ)·alphaHK`, `ξ ∈ {0, ε}` from the counter PRNG (own stream id), per growth step — applied identically in the relaxation's Robin sink and in the interface update for the same tick *(round-3 correction, synced here round-4: the earlier `v_n → (1 − ξ)·v_n` phrasing noised growth but not the sink, silently splitting the coupling)*. Default off; labeled dial; provenance class P4. The gate stays noise-off |
 | drift `φ` | **unsupported — structurally unsettable** (corrected 2026-07-15: "error if set" was vacuous since no option exists; the solver has no `phi` input and the CLI rejects unknown flags — pinned by a test) | all §8 presets have `φ = 0`; a drift term inside a quasi-static solve is a different physical statement that nobody has specified |
 
 ### Component 6 — the interface, and the tests that hold it together
@@ -446,10 +463,12 @@ mass, exactly as the plan predicted). Tests the spec commits to, before any habi
 3. **Divergence identity** on converged solves, tolerance stated in the test.
 4. **Ledger identity** exact in ledger arithmetic; metered-source accounting reported.
 5. **Fill-CFL:** max **kinetic** `Δf ≤` the stated bound (default 0.1) on every growth step.
-   *(Amended at implementation, 2026-07-15: `Δt` is ADAPTIVE — `Δt = cfl·Δx/max(v_n)` per
-   step, a deterministic function of the state, so slow-kinetics regimes advance in
+   *(Amended at implementation, 2026-07-15: `Δt` is ADAPTIVE — `Δt = cfl / max(rate)` per
+   step, where a cell's fill rate is `[(2/3)·n_T + n_Z]·alphaHK·v_kin·sigma_face/Δx` (the
+   per-face sum; round-4 sync — this line previously said `cfl·Δx/max(v_n)`, predating the
+   face factors); a deterministic function of the state, so slow-kinetics regimes advance in
    wall-clock-feasible step counts while the bound holds exactly by construction. Corrected
-   again same day, round-2 review blocker 6: hole-filling jumps `f → 1` are geometric events
+   same day, round-2 review blocker 6: hole-filling jumps `f → 1` are geometric events
    OUTSIDE the CFL claim and must never be absorbed into — or censored out of — the kinetic
    maximum; they are counted and deficit-ledgered separately, and the gate reads both.)*
 6. **Quasi-static validity (Péclet):** `v_n·L/D ≪ 1` evaluated with extracted numbers per run
