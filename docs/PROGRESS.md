@@ -31,8 +31,13 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   scan. The full catalogs live in the plan's Tried and rejected.
   **Phase 2b is NOT closed. No accepted gate result exists yet** — protocol v3 is
   registered and its accepted-run attempt is in flight.
-- **Last updated:** 2026-07-15 by Codex
-- **Active plan:** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
+- **Last updated:** 2026-07-15 by Claude (Fable 5)
+- **Phase 3 started 2026-07-15 under decision
+  [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md)** (charter v1.5): maker-directed
+  overlap with the tail of 2b's in-flight evidence run. Active Phase 3 plan:
+  [phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md) — criteria-first,
+  serial dev/review subagent work packages; the gate2b process and artifacts are untouchable.
+- **Active plan (2b):** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
   0003, synced through charter v1.4; Scaffold + Stage 2a complete; Stage 2b section reconciled
   with ADR 0005 on 2026-07-15 (the seam's four sub-decisions are now settled in writing —
   answers in the plan's Approach item 4, rationale in attachment-kinetics §4.4; the "n_diff
@@ -40,7 +45,9 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   arithmetic). Still true from the 2026-07-14 hardening: the charter v1.2 Dirichlet wording
   could not fail (a uniform field is a fixed point under *both* boundary conditions). Charter
   v1.4 now carries the plan's falsifiable depleted-start differential test.
-- **Charter is at v1.4** (2026-07-15, decision
+- **Charter is at v1.5** (2026-07-15, decision
+  [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md) — Phase 3 may overlap the tail of
+  2b's pre-registered evidence run; §3.2 exception recorded). Before that, v1.4 (2026-07-15, decision
   [0006](decisions/0006-audited-surface-operator-numerics.md) — audited surface-operator
   numerics: fixed-σ Dirichlet LibbrechtKinetics convergence is DUAL (residual AND divergence
   identity; reflecting LK is residual-only diagnostic), fill is per attached face with the
@@ -187,7 +194,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ✅ **maker-asserted, 2026-07-15** — informal sessions, positive; the four-task protocol was *not* run (recorded honestly in the plan's Findings, with the Phase 7 takeaways) |
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited; follow-up evidence hardening complete) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Post-hardening `cmp` is bit-identical, SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Full records: [solver plan](plans/phase-2-cpu-solver.md), [hardening plan](plans/phase-2a-evidence-hardening.md) |
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | 🔶 **in progress** — spec, parameter table, implementation, and six maker audit rounds (round-6 remediation is recorded in the commit containing this update; the ADR 0005 pause was lifted by its deliverables, 2026-07-15); the depleted-start Dirichlet differential passes in the suite (`solver-cpu/test/dirichlet.test.ts`); **no accepted habit-gate result yet** — protocol v3 registered, run in flight |
-| 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ⬜ not started |
+| 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | 🔶 **in progress** (2026-07-15, ADR 0007) — plan + passing criteria committed; no gate claim yet |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ⬜ not started |
 | 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
@@ -231,6 +238,10 @@ Records live in [docs/decisions/](decisions/):
   recorded unapplied saturation excess = computed per-face Hertz–Knudsen kinetic demand`,
   shell-clamp totals diagnostics only; noise multiplies `alphaHK` in sink and growth alike.
   Charter v1.3 → v1.4 in the same session
+- [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md) — Phase 3 development-visualization
+  work overlaps the tail of Phase 2b's pre-registered evidence run (maker-directed,
+  2026-07-15). Constraint-bounded: gate2b process/artifacts untouched, no Phase 3 claim rests
+  on 2b, additive-only changes to shared packages. Charter v1.4 → v1.5 in the same session
 
 The two decisions predating this system (web over native C++/CUDA; the five-part repo split) live
 in charter §3.1 and get no retroactive ADR.
@@ -252,6 +263,14 @@ in charter §3.1 and get no retroactive ADR.
   designed in from day one; slow ambient parameters make poor journey "drama" knobs).
 
 ## Next step
+
+**Phase 3 is in flight (2026-07-15, ADR 0007), orchestrated per
+[phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md)** — read its passing
+criteria before touching `core/metrics`, `runner`, or `app/`. Sequence: WP1 depletion metric →
+probe → threshold registration → WP1b `gate3` → adversarial review → WP2 app scaffold → review
++ visual inspection → WP3 overlays/slice/picking → review + visual inspection → gate3 evidence
+run. The plan's Steps checklist is the live position indicator. Nothing below about 2b is
+superseded by this.
 
 Phase 1 is closed (2026-07-15). Phase 2a is closed — maker-asserted complete 2026-07-15
 (evidence in the plan's Steps). 2a byte-identity was re-verified after the follow-up evidence
