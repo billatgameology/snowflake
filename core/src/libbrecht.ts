@@ -160,10 +160,15 @@ export function pecletUpperBound(
 export type FacetClass = "basal" | "prism" | "rough";
 
 /**
- * Facet classification from raw attached-neighbor counts (attachment-kinetics §4.4
- * component 2, amended during implementation: nT = 0 with ANY vertical contact is the basal
- * family — a (0,2) cell sits between two perfect basal faces and remains nucleation-limited;
- * the original table had no row for it).
+ * Legacy protocol-v3 classifier, preserved until an ADR-backed replacement is implemented.
+ * The post-v3 source audit in attachment-kinetics §4.4 component 2 found that the monograph
+ * identifies [20] as prism; it suggests weak attachment at an isolated [10] tip but later has a
+ * conflicting [10] basal token that the next ADR must resolve. This function routes [20]
+ * through the rough path and [10] through prism. Do not present it as source-validated, and do
+ * not change it before the policy/provenance decision and v4 preregistration described there.
+ *
+ * V3's implementation amendment made nT = 0 with ANY vertical contact the basal family: a
+ * (0,2) cell sits between two perfect basal faces and remains nucleation-limited.
  */
 export function classifyFacet(rawNT: number, rawNZ: number): FacetClass {
   if (rawNT === 0 && rawNZ >= 1) return "basal";

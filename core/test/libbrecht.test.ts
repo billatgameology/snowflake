@@ -109,12 +109,12 @@ describe("digitized sigma_0 / A anchors (monograph Fig. 4.5; P2, ±25%)", () => 
   });
 });
 
-describe("alphaHK and facet classification (attachment-kinetics §4.4 component 2)", () => {
-  it("classifies per the policy table", () => {
+describe("alphaHK and legacy v3 facet classification (attachment-kinetics §4.4 component 2)", () => {
+  it("pins the executed v3 policy pending its ADR-backed replacement", () => {
     expect(classifyFacet(0, 1)).toBe("basal");
     expect(classifyFacet(0, 2)).toBe("basal"); // between two basal faces — spec amendment
-    expect(classifyFacet(1, 0)).toBe("prism");
-    expect(classifyFacet(2, 0)).toBe("rough");
+    expect(classifyFacet(1, 0)).toBe("prism"); // legacy v3; source treatment of [10] needs ADR resolution
+    expect(classifyFacet(2, 0)).toBe("rough"); // source audit: [20] is the prism facet
     expect(classifyFacet(1, 1)).toBe("rough");
     expect(classifyFacet(3, 1)).toBe("rough");
   });
@@ -128,8 +128,10 @@ describe("alphaHK and facet classification (attachment-kinetics §4.4 component 
     expect(alphaHK("prism", -15, -0.01, "CAK_A1")).toBe(0);
   });
 
-  it("the habit inequality inverts with temperature alone (the 2b gate's mechanism, A1 set)", () => {
-    // At any sigma_surf: -5 C has prism faster (plate); -15 C has basal faster (column).
+  it("the broad-facet coefficient ordering inverts with temperature (necessary, not sufficient for habit)", () => {
+    // At any positive sigma_surf: -5 C has prism faster and -15 C has basal faster. This checks only
+    // the named broad-facet coefficients; protocol v3 showed that it is not a habit test when
+    // the lattice classifier routes primary [20] prism sites through the rough-site path.
     for (const s of [0.002, 0.005, 0.01]) {
       expect(alphaHK("prism", -5, s, "CAK_A1")).toBeGreaterThan(alphaHK("basal", -5, s, "CAK_A1"));
       expect(alphaHK("basal", -15, s, "CAK_A1")).toBeGreaterThan(alphaHK("prism", -15, s, "CAK_A1"));

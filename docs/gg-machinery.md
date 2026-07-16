@@ -126,10 +126,18 @@ the last row: its Robin sink replaces `κ` freezing, its fill rule replaces thre
 `μ` melting is disabled, drift `φ` is unsupported, and noise is redefined on `alphaHK`. The
 governing disposition table is attachment-kinetics §4.4 component 5.
 
-The two configurations that carry the habit, under `GGThreshold`:
+The primary-facet configurations relevant to habit, under `GGThreshold`:
 
 - **`(0,1)` = a flat basal face.** `ggThreshBeta₀₁` is the *basal* attachment threshold.
-- **`(1,0)` = a flat prism face.** `ggThreshBeta₁₀` is the *prism* attachment threshold.
+- **`(2,0)` = a flat prism face.** `ggThreshBeta₂₀` is the *prism/convexifying* attachment
+  threshold. `(1,0)` is an isolated lateral tip, not the broad prism facet.
+
+**Corrected interpretation, 2026-07-16:** this paragraph previously called `(1,0)` the flat
+prism face even though the next paragraph and the source's reduced parameter set identify the
+`(0,1)`/`(2,0)` pair. The Phase 2b v3 classifier copied that error. This correction changes no
+`GGThreshold` parameter slot or update mechanic; every configured threshold is still applied to
+its same `[n_T,n_Z]` count. Attachment-kinetics §4.4 records the source audit and the unresolved
+forward LibbrechtKinetics policy.
 
 > **`β₀₁ / β₂₀` is the plate↔column axis under `GGThreshold`.** High `β₀₁` ⇒ basal faces attach
 > reluctantly ⇒ growth goes sideways ⇒ **plate**. Low `β₀₁` ⇒ basal faces attach easily ⇒ growth

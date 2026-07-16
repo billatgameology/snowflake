@@ -14,12 +14,16 @@
   found two surviving spec sentences that still collapsed discrete Robin absorption into
   Hertz–Knudsen demand, incomplete runtime validation in the LK checkpoint writer/reader,
   derived-scale underflow/overflow, and remaining authority/provenance overclaims.
-  Remediation is complete in the round-6 commit containing this update; `npm test` is
-  122/122 green (typecheck and Rule 7 included) — full catalogs in Tried and rejected. **Protocol v3
-  is registered, UNCHANGED by rounds 4–6;
-  the habit gate has NOT yet produced an accepted result.** The `SurfaceOperator`
+  Remediation is complete in the round-6 commit; the last committed full-suite evidence is
+  `npm test` 244/244 after Phase 3 WP3 (typecheck and Rule 7 included) — full catalogs in Tried
+  and rejected. **Protocol v3 was registered before
+  execution, remained unchanged by rounds
+  4–6, completed according to its registered controls, and FAILED its habit gate:** both temperatures produced the same
+  one-layer plate at the registered measurement size. Every non-habit criterion passed. The
+  negative result is retained; Stage 2b remains open. The `SurfaceOperator`
   refactor's bit-identity gate is passed (byte-identical 2a checkpoints); LKSolver
-  implements attachment-kinetics §4.4 as corrected through round 6
+  implements the executed v3 contract, whose classifier is now explicitly legacy pending an
+  ADR-backed replacement in attachment-kinetics §4.4
 - **Started:** 2026-07-14
 - **2026-07-15 session:** the D6h symmetry failure is resolved (it was the domain shape, not
   index arithmetic — see "The symmetry gate runs on a hexPrism domain" below and Tried and
@@ -30,11 +34,13 @@
   strengthened per the triage directives (hand-computed impulse weights one and two ticks out,
   face/edge/corner/attached-cell conservation, bitwise D6h impulse response, uniform fixed
   point). Gate results recorded in the Steps checklist as they land.
-- **Last touched:** 2026-07-15 — round-6 remediation recorded in the commit containing this
-  update: the ADR 0006 truth sweep is complete, LK checkpoint validation is
+- **Last touched:** 2026-07-16 — protocol v3's execution-valid negative evidence recorded after independent
+  checkpoint validation and a primary-source audit of the failed mechanism. Before that, the
+  round-6 remediation completed the ADR 0006 truth sweep; LK checkpoint validation is
   symmetric at encode/decode and solver construction (including derived numerical scales),
   every registered header control is verified, and saturation clipping is scoped as unapplied
-  demand rather than physical uptake; `npm test` passes 122/122 (see Tried and rejected).
+  demand rather than physical uptake; the last clean committed `npm test` result is 244/244
+  (see Tried and rejected).
   Event-limited stepping is documented as a v4 candidate, not silently substituted. History of the
   2026-07-14 hardening, kept: synced to charter v1.2
   (review integration), then hardened same day after an adversarial review pass: the seam's bookkeeping demoted from
@@ -649,21 +655,57 @@ Order within 2b is deliberate; each step gates the next:
       *(Round-6 terminology annotation, 2026-07-15 — registered text above left intact:
       the “flux integral” in item (iv) is computed Hertz–Knudsen kinetic demand. Its clipped
       term is recorded unapplied numerical excess, not deposited fill or physical uptake.)*
-      **v3 run status (2026-07-15):** the first v3 launch (chained after commit 62af3b3)
+      **v3 run result (recorded 2026-07-16):** the first v3 launch (chained after commit
+      `62af3b3`)
       was KILLED ~27 CPU-minutes into run 1 — no step metrics produced, no checkpoints
       written, so nothing was accepted or discarded on results grounds. Reason: the round-4
       maker review required convergence-control provenance (`divTol`, `relaxMaxSweeps`) in
       LK checkpoint headers, and a run started before that fix could never produce
       evidence-grade checkpoints. Protocol UNCHANGED — relaunched, same command
-      (`node runner/src/main.ts gate2b`), after the round-4 remediation commit. **Latest
-      liveness only, not a result:** the second launch remained running at the 2026-07-15
-      round-6 handoff; `out/gate2b.log` had reached run 1, step 200 on the registered 96³
-      −5 °C case: attached 583, extent 31, AR 0.0370634, sweeps 1, divergence residual
-      9.99e-8, simulated time 22.35 s, elapsed 6301.1 s. No gate exit or checkpoint yet.
+      (`node runner/src/main.ts gate2b`), from execution commit `4ca9680` after the round-4
+      remediation commit. The completed wrapper exit was 1. Log SHA-256:
+      `344bbcacfd06626bafd5ea0ca66770fd9e48cbef949d25a8abf7e3bfc17e44b0`.
+
+      - −5 °C stopped by size-target at step 423, simulated time 47.79 s, attached 2,149,
+        extent 61, AR 0.01888163179957996: **plate criterion passed**.
+      - −15 °C stopped by size-target at step 459, simulated time 111.19 s, attached 2,149,
+        extent 61, AR 0.01888163179957996: **column criterion AR ≥ 1.5 failed**.
+      - Every non-habit criterion passed: 19-site seed, size-target termination, exact D6h
+        symmetry throughout, all relaxations converged, the rounded log printed worst
+        divergence 1.000e-7 and the `< 1e-6` gate passed,
+        maximum kinetic fill 0.1, and Péclet ≤ 1.66e-6 / 6.97e-7. The log observed zero hole
+        fills as a diagnostic; the gate did not enforce zero.
+      - Current strict decoding accepts both checkpoints and re-encodes each byte-identically.
+        SHA-256: plate
+        `e1fe0c8062aa4dd21e42a83d1bf953ee5cd72c45e55c6d2bdf18c65595902ecb`;
+        column `108227d929af7686eea6f95e30f60caa5d6f2deed12793340ec0c1931a7723ca`.
+        A one-off independent decode probe (not retained) found both attached fields
+        bit-identical (2,149 cells, one z layer, 61×61 axial bounding box). SHA-256 of each raw
+        decoded 884,736-byte `a:u8` array in checkpoint index order:
+        `b758492e97155307083c5df2dc88eddd74829b9a62f2c2b4fd1f7fc2f566e647`. Their fill
+        fields differ at 4,460 cells and vapor fields at 601,142 cells, so the result is
+        identical morphology at the registered measurement size, not a claim that temperature
+        had no numerical effect. The run did not capture its exact Node/V8 version, so no
+        cross-engine bitwise claim is made.
+      - Approximate saturation clipping from log totals rounded to 0.001 was 3.50% warm and
+        6.58% cold. That is a timestep
+        limitation and v4 investigation candidate, not an established explanation of the
+        habit failure.
+
+      This is **execution-valid negative evidence for the exact v3 implementation, not a killed
+      or steered protocol**. It rejects v3 as
+      a Phase 2b-closing protocol and leaves the Basal/prism split checkbox open. A post-result
+      primary-source audit then found a separate load-bearing seam defect: the monograph calls
+      `[01]` basal and `[20]` prism, while v3 calls `(1,0)` prism and all `n_T ≥ 2` sites rough.
+      The canonical seed begins with 12 `[20]` lateral sites and v3 assigns all of them
+      temperature-independent `alphaHK = 1`; therefore the registered broad-facet ratio did not
+      bound the operative lateral path. Preserve both the result and this limitation. Do not
+      rerun unchanged v3 or tune it into a pass; revise the seam under an ADR and pre-register
+      v4 before the next gate.
 - [ ] SDAK, gated. Check: thin plates / needles at the extremes. **Abandon without regret if it
       resists** — the fallback reaches every Phase 4 gate anyway.
-      **Status at 2b closure (2026-07-15): deliberately NOT implemented, and deliberately not
-      blocking.** This step is outside the 2b done-when by design (this plan: "last, gated,
+      **Status after the v3 gate failure (2026-07-16): deliberately NOT implemented, and not a
+      permitted post-result rescue knob.** This step is outside the 2b done-when by design (this plan: "last, gated,
       not load-bearing"; attachment-kinetics §3: "the scary part of this spec is not on the
       critical path"). The P3 dip curves are extracted and waiting (libbrecht-parameters.md
       Branch 2); the facet-width query hook is identified (§4.4 component 2). Whoever picks
@@ -685,8 +727,10 @@ Order within 2b is deliberate; each step gates the next:
   SIMD, etc.). The gate runs in minutes. Do not trade oracle clarity for speed — that is what the
   GPU is for.
 - **Tuning `LibbrechtKinetics` until it matches Nakaya.** That is **Phase 6, and it is the test.**
-  Pre-tuning here destroys the only thing that makes the test meaningful. If 2b's habits come out
-  wrong, **record it and proceed** — do not fit.
+  Pre-tuning here destroys the only thing that makes the test meaningful. If two
+  temperature-conditioned habits emerge but disagree with nature, **record the disagreement and
+  proceed** — do not fit. If both temperatures produce the same habit, as in v3, Phase 2b's own
+  temperature-output criterion has failed and the phase remains open.
 - **SDAK before the basal/prism split works.** It is the least certain piece and it is *not* on the
   critical path: hollowing comes from the Berg effect amplified by `exp(−sigma_0/sigma_surf)`, and
   survives dropping the width term entirely (attachment-kinetics §2, §3). Doing SDAK first puts the
@@ -709,8 +753,9 @@ Order within 2b is deliberate; each step gates the next:
   future model meeting this on G-G's "eccentric crystals" (§13) recognises it.
 - **2b may simply not reproduce the Nakaya flip.** That is an accepted, deliberate risk of decision
   0003 — it is what "the model can now be wrong" *means*. It is survivable precisely because 2a
-  ships a working, beautiful crystal regardless. Report a negative result as a result; do not fit
-  your way out of it.
+  ships a working, beautiful crystal regardless. A nature-wrong but temperature-conditioned pair
+  can satisfy 2b and become a Phase 6 finding. A same-habit pair cannot satisfy 2b's gate. Report
+  either result honestly; do not fit your way out of it.
 - **Recorded saturation clipping is auditability, not a physics-level deposition fix.** Under
   protocol v3's accepted `Δt = cfl/max(rate)`, a cell can saturate before the interval ends;
   the remainder is recorded as unapplied numerical excess and is not replayed after topology
@@ -984,9 +1029,10 @@ Order within 2b is deliberate; each step gates the next:
   control; and remove the bookkeeping test's hole-fill-step exemption (hole filling does not
   alter the kinetic ledger terms). **No new ADR:**
   these edits conform the repo to accepted ADR 0006; they make no new numerical decision and
-  do not change protocol v3. The live gate remains valid because its execution commit 4ca9680
-  already contains the governing solver physics and checkpoint encoding; validate its outputs
-  externally with the corrected current reader before acceptance. Evidence at the completed
+  do not change protocol v3. The then-live gate remained eligible as evidence for its exact
+  execution commit (`4ca9680`) because that commit already contained v3's governing solver
+  numerics and checkpoint encoding. Its outputs were later validated with the corrected reader
+  and recorded as the failed result above. Evidence at the completed
   local state: `npm test` passes 122/122, including typecheck, Rule 7 over 72 files, the 6-test
   checkpoint suite, and the 16-test LK solver suite.
 - **"npm test fails in the repo-wide Rule 7 scan" (PROGRESS.md, 2026-07-15 handoff)** — did not
@@ -996,6 +1042,33 @@ Order within 2b is deliberate; each step gates the next:
   The WIP commit (6fe21f5) evidently completed more than its own handoff note credited — its
   lint script and fixtures were already the finished per-line-semantics version. Recorded per
   Rule 1: the state file disagreed with the code, and the code was right.
+- **Protocol v3 as a Phase 2b-closing protocol — execution completed as registered and FAILED
+  (2026-07-16).** Pre-registration commit `62af3b3` preceded execution commit `4ca9680`; the
+  flagless `node runner/src/main.ts gate2b` completed with exit 1. Both temperatures reached
+  the same one-layer plate at extent 61 and AR 0.01888163179957996, so the warm plate passed
+  and the cold column failed; every non-habit criterion passed. Current strict decoding accepts
+  and byte-round-trips both checkpoints. Retain this as negative evidence for the exact v3
+  domain, resolution, parameters, seed, and measurement size. It is not evidence that
+  temperature had no effect on the fields, nor that every version of the model must fail.
+  The post-result source audit found why the registered mechanism was not actually isolated:
+  the broad-facet robustness arithmetic omitted the 12 seed-adjacent `[20]` prism-facet sites
+  that v3's classifier instead made rough with `alphaHK = 1`. The monograph explicitly assigns
+  `[20]` to prism facets and suggests weak attachment at an isolated `[10]` tip (printed
+  pp. 205–206), while later `[10]` basal tokens make that tip policy an ADR question. Correcting
+  the proven `[20]` classifier error is therefore the first v4 candidate. If the ADR retains the
+  per-face formula, `[20]` has lateral factor `4/3`, so the v4 pre-registration must replace
+  v3's nominal 3.24445 / 81.8819 margins with approximately 6.4889 warm lateral/vertical and
+  40.941 cold vertical/lateral. These are broad-facet necessary-ordering checks, not habit
+  margins; rough `[30]` remains outside them. The same ADR must reconcile the monograph's
+  `[20]` `G_b = H_b = 1` with the project's `4/3` fill normalization—either justify the
+  discretization difference or amend the charter-level formula before a Phase 2b-closing run.
+  Recorded
+  approximate clipping (3.50% warm, 6.58% cold from log totals rounded to 0.001) also justifies
+  a controlled event-step probe, but does not
+  prove causation. Rejected responses: silently reinterpret v3; change its seed, target, or
+  `sigma_infinity`; enable SDAK to rescue it; or rerun unchanged. Any classifier change needs an amending ADR,
+  synced spec/plan, checkpoint provenance, committed v4 pre-registration, and a complete
+  two-temperature rerun. Revise the charter only if a charter-level numerical contract changes.
 
 ## Open questions
 
@@ -1013,11 +1086,14 @@ Order within 2b is deliberate; each step gates the next:
 - ~~**The seam's bookkeeping — the four sub-decisions**~~ **Resolved 2026-07-15, in writing:
   attachment-kinetics §4.4; one-line answers in Approach item 4.** No ADR was needed — charter
   v1.3 had already delegated the decision to the spec.
-- ~~**Mixed/concave boundary configurations** — what interpolation?~~ **Resolved 2026-07-15
-  (attachment-kinetics §4.4 component 2, the policy table):** `(0,1)` → basal, `(1,0)` →
-  prism, everything else is a step/kink site with `alphaHK = 1` (nucleation-limited kinetics
-  applies to perfect facets; steps incorporate barrier-free — the sources' own
-  molecularly-rough limit). Not an interpolation: a physical classification.
+- **Mixed/concave boundary configurations — REOPENED 2026-07-16 by the post-v3 source
+  audit.** The 2026-07-15 answer—`(0,1)` basal, `(1,0)` prism, everything else rough with
+  `alphaHK = 1`—is preserved in attachment-kinetics §4.4 as the executed v3 policy, not a
+  resolved physical classification. The source unambiguously assigns `[20]` to the prism facet;
+  it suggests weak attachment at isolated `[10]` tips but later contains a conflicting `[10]`
+  basal token. The Phase 2b amending ADR (next available number 0009) must resolve the complete
+  policy and the adjacent geometry convention
+  before any v4 pre-registration.
 - **Do Libbrecht's published parameters carry an assumption about his reduced (near-cylindrical)
   geometry** that breaks when transplanted onto a 3D lattice? Charter §2.7. **The most likely way
   this hybrid fails quietly.** Worth an hour of suspicion before it is worth a week of debugging.

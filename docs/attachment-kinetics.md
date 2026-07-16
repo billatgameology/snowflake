@@ -71,16 +71,19 @@ inequality reverses, growth goes up the c-axis and you get a **column**. The non
 across temperature — plates at −2 °C, columns at −5 °C, plates again at −15 °C, columns below
 −30 °C — is a *crossing* of `sigma_0_basal(T)` and `sigma_0_prism(T)`.
 
-**Under this rule the habit is an output, not a knob.** That is the whole of decision 0003: G-G
-lets you *set* plate-vs-column with `β₀₁/β₂₀`; Libbrecht makes you *predict* it from T. The
-second can be wrong. That is why it is worth doing.
+**The intended test is whether habit becomes an output rather than a knob.** That is the whole
+of decision 0003: G-G lets you *set* plate-vs-column with its qualified attachment-threshold
+ratio; LibbrechtKinetics is meant to *predict* it from T. Protocol v3 did not demonstrate that:
+both registered temperatures reached the same one-layer plate at the measurement size. A
+prediction can be wrong, but Phase 2b still requires two temperature-conditioned habits.
 
-**Which facet is a given cell on?** Reuse G-G's boundary configuration `(n_T, n_Z)` — it already
-classifies this and costs nothing: `(0, n_Z ≥ 1)` is basal, `(1,0)` is a flat prism face
-([gg-machinery.md](gg-machinery.md) §3). The configuration index survives the switch; it stops
-being a *threshold lookup* and becomes a *facet-type classifier*. Mixed and concave configurations
-need a documented interpolation policy — **write it down explicitly, do not let it emerge from
-whatever the `if`-chain happens to do.**
+**Which facet is a given cell on?** Protocol v3 reused G-G's boundary configuration
+`(n_T, n_Z)` through the explicit policy in component 2. That made the choice auditable, but a
+post-result primary-source check found that the chosen mapping was not the monograph's mapping:
+v3 treated `(1,0)` as prism and `[20]` as rough, while the source identifies `[20]` as the prism
+facet and `[10]` as a weak isolated tip. The v3 table is preserved below as the executed
+contract, not endorsed as the forward classifier. Mixed and concave configurations still need
+an explicit policy — **write it down; do not let it emerge from an `if` chain.**
 
 ## 3. SDAK — last, gated, and not load-bearing
 
@@ -296,21 +299,67 @@ Consequences, each deliberate:
 Nucleation-limited kinetics (`alphaHK = A·exp(−sigma_0/sigma_surf)`) applies to **perfect
 facets**; step and kink sites incorporate admolecules essentially barrier-free (the paper's
 molecularly-rough limit, `alphaHK ≈ 1`, arXiv:1910.09067 pp. 3–4). The boundary configuration
-already distinguishes these — the classifier is a policy table, not an `if`-chain accident:
+was mapped as follows in protocol v3 — the classifier was a policy table, not an `if`-chain
+accident:
 
-| `(n_T, n_Z)` | Reading | `alphaHK` |
+| `(n_T, n_Z)` | v3 reading | v3 `alphaHK` |
 |---|---|---|
 | `(0, n_Z ≥ 1)` | flat basal face — *(amended at implementation, 2026-07-15: originally `(0,1)` only, which left `(0,2)` — a cell between two perfect basal faces, still nucleation-limited — with no row)* | `alphaHKBasal(T, sigma_surf)` |
-| `(1,0)` | flat prism face | `alphaHKPrism(T, sigma_surf)` |
-| all others (`n_T ≥ 2`, or `n_T ≥ 1` and `n_Z ≥ 1`) | step/kink/concave site | `1` (rough) |
+| `(1,0)` | flat prism face *(v3 interpretation; rejected for forward use below)* | `alphaHKPrism(T, sigma_surf)` |
+| all others (`n_T ≥ 2`, or `n_T ≥ 1` and `n_Z ≥ 1`) | step/kink/concave site *(v3 interpretation; rejected for `[20]` below)* | `1` (rough) |
 | raw `n_T ≥ 4` and `n_Z ≥ 1` | interior void | attach immediately (kept, see component 5) |
 
-The third row is the **mixed-configuration interpolation policy** the plan's Open questions
-demanded: sites with more than one attached neighbor sit at terrace steps or concave corners,
-where no 2D nucleation barrier exists — the physical reading of G–G's own monotonicity
-assumption (§7 of gg-machinery: more concave catches more readily). SDAK (facet-width
-dependence) is deliberately absent here; when it lands (last, gated), it modifies rows 1–2 via
-a local facet-width query and touches nothing else.
+**Post-v3 source-audit finding (2026-07-16): this table is rejected for forward use, but remains
+the exact v3 contract.** In monograph arXiv:1910.06389v2's `[HV]` notation, `H` is the in-plane
+attached count and `V` the vertical count (Figure 5.26). It identifies `[01]` as basal (printed
+p. 205) and `[20]` as prism; it then suggests `alphaHK = 0` for isolated `[10]` tips and
+`alphaHK = 1` for `[30]`, `[40]`, `[21]`, etc. kink-dominated sites (printed p. 206).
+The later `G_b`/`H_b` prose prints “`[10]` (basal facet)” (printed pp. 208–209), but that token
+conflicts with Figure 5.26, the explicit `[01]`/`[20]` classification, the isolated-tip paragraph,
+and the source's later return to “`[01]` and `[20]` facet surfaces” (printed p. 209). Treating it
+as a source typo must be made explicit in the amending ADR, not silently assumed.
+
+The same source also sets the facet geometry factors `G_b = 1` for `[20]` in the Eq. 5.34
+boundary condition and `H_b = 1` for `[20]` in the Eq. 5.36 fill update (printed pp. 208–209).
+V3's per-attached-face formula instead gives `[20]` aggregate fill factor
+`(2/3)·2 = 4/3`; its Robin stencil likewise represents the two contacts separately. The source
+uses a different boundary-pixel/normal discretization, so this is not by itself an instruction
+to replace `4/3` with `1`. It is an adjacent convention conflict that the Phase 2b amending
+ADR (next available number 0009) must explicitly
+reconcile. Until then, a classifier-only implementation is an exploratory differential, not a
+source-faithful Phase 2b-closing fix.
+
+The mismatch is load-bearing. An ad hoc canonical-seed audit (probe not retained) counted 38
+`[01]`, 12 `[20]`, and 6 `[10]` boundary cells. V3 therefore assigned
+temperature-independent `alphaHK = 1` to all 12 straight prism-facet cells from step zero, while
+`alphaHKPrism` controlled only the six `[10]` sites. Among final unattached boundary cells in the
+−15 °C checkpoint, maximum partial fill by those classes was 1.079e-4 (`[01]`), 0.0716
+(`[20]`), and 5.90e-11 (`[10]`);
+the maximum at `[30]` was 0.645. This diagnostic supports rough-path domination, while the
+gate result itself establishes only identical final attached morphology for the pinned v3 run.
+
+The smallest classifier-correction candidate is an explicit nearest-neighbor policy with `[01]`
+basal, `[20]` prism, the printed-p. 206 suggestion of an inhibited `[10]` tip, and named
+kink-dominated configurations rough. The `[10]` choice and unlisted configurations such as
+`[11]` and `[02]` remain P4 policy questions. This is **not yet adopted**. ADR 0009 must decide
+this component and checkpoint provenance end to end. The recommended checkpoint candidate is:
+v1 decoding reports an implicit `legacy-v3` policy; v2 requires a recognized `facetPolicy`;
+new-run solver construction, encode/decode, runner round trips, and the flagless gate all
+enforce the same enum. (LK resume does not exist today.) Code/tests and committed v4
+pre-registration would precede every two-temperature morphology probe. Under the provisional
+assumption that the ADR retains the current per-face formula, `[20]` has `4/3` lateral factor:
+the named broad-facet ordering ratios become approximately 6.4889 warm lateral/vertical and
+40.941 cold vertical/lateral. They are necessary coefficient-ordering checks, not habit margins;
+rough `[30]` sites remain outside them. Changing the charter-level formula is a separate
+decision and must not be smuggled in merely to obtain a pass.
+
+The original third row was the v3 **mixed-configuration interpolation policy**: it assumed that
+every site with more than one attached neighbor sat at a terrace step or concave corner where no
+2D nucleation barrier exists. The source audit disproved that assumption for `[20]`. A fuller
+facet-vicinal model would use the monograph's signed terrace distances to distinguish upper
+terraces from nearby kink sites, but that larger nonlocal model is not automatically required
+for the minimal classifier correction. SDAK remains deliberately absent and must not be enabled
+as a post-result rescue knob.
 
 ### Component 3 — vapor flux and ice gain, coupled (the Robin condition)
 
@@ -452,6 +501,11 @@ The corrected claims, each measurable:
   retain and snap all minimizing/tied event cells (rather than trust rounded
   `rate·[(1-f)/rate] ≥ 1-f`) and process an unattached `f = 1` cell as a zero-time topology
   event, including when its rate is zero.
+  **Observed v3 magnitude (2026-07-16):** from log totals rounded to 0.001, the completed warm
+  run recorded approximately 118.059 clipped units out of 3256.413 placed + 118.059 clipped
+  (3.50%); the cold run recorded 151.133 out of 2145.874 + 151.133 (6.58%). Those nonzero fractions justify a controlled event-limited
+  differential, but they do not identify clipping as the cause of the habit failure. Do not
+  bundle this change with the minimal classifier correction merely to force a pass.
 - **Solve self-consistency = the divergence identity** (component 3): at convergence,
   per-sweep shell clamp equals per-sweep Robin absorption (the interior kernel conserves), to
   a tolerance that scales with the relaxation tolerance. This is the quasi-static statement
