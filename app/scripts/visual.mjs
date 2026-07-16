@@ -195,31 +195,59 @@ async function main() {
     });
 
     // ── WP3: vertical slice, the Berg view (A3-2, A3-5a) ──────────────────────────────────
-    await page.evaluate(() => window.__vccDebug.setSlice({ enabled: true, orientation: "vertical" }));
+    // Composition for legibility (coordinator finding, R3 round): camera zoomed face-on to
+    // the slice plane with the well centered; HUD/status/readout/pane hidden so no panel
+    // occludes the crystal or its depletion well; the slice LEGEND stays (the colormap key
+    // is part of the honest picture). Overlay off so the crystal edge reads in base color.
+    // distance 75 keeps the visible frame inside the slice plane's 64-cell z-extent (no
+    // background bands); targetZ 0 centers the plate with the well above it.
+    const SLICE_CAMERA = { azimuthDeg: 0, elevationDeg: 8, distance: 75, targetZ: 0 };
+    await page.evaluate((cam) => {
+      window.__vccDebug.setOverlay("none");
+      window.__vccDebug.setSlice({ enabled: true, orientation: "vertical", min: 0, max: 0.1 });
+      window.__vccDebug.setCamera(cam);
+      window.__vccDebug.setChrome({ hud: false, status: false, readout: false, pane: false, legends: true });
+    }, SLICE_CAMERA);
     await page.waitForTimeout(400);
     await capture(
       "slice-vertical",
-      "vertical slice (j through center) of vapor d — Berg-view depression over the facet; HUD visible; default range [0, 0.1]",
-      { slice: { orientation: "vertical", range: [0, 0.1] }, overlay: "vaporAvailability" },
+      "vertical slice (j through center) of vapor d — Berg-view depression over the facet; default range [0, 0.1]; panels hidden, camera face-on",
+      { slice: { orientation: "vertical", range: [0, 0.1] }, camera: SLICE_CAMERA, chrome: "legend only" },
     );
 
-    // Same slice with the range tightened to the boundary-layer scale: the center-vs-rim
-    // contrast in the sampled layer itself, the A3-5a "watch it starve" picture (far field
-    // saturates to the ramp top by construction — stated here and in the legend range).
-    await page.evaluate(() => window.__vccDebug.setSlice({ min: 0, max: 0.0025 }));
+    // Same framing, range calibrated from measured profiles (out/wp3-slice-profile.ts:
+    // above-center 0.017..0.06 vs above-rim 0.030..0.07 over the first ~10 cells) so the
+    // saturation contour itself traces the well dipping toward the facet center.
+    await page.evaluate(() => window.__vccDebug.setSlice({ min: 0, max: 0.05 }));
     await page.waitForTimeout(400);
     await capture(
-      "slice-vertical-tight",
-      "vertical slice of vapor d, range [0, 0.0025] — boundary-layer depression, darkest above the facet center",
-      { slice: { orientation: "vertical", range: [0, 0.0025] }, overlay: "vaporAvailability" },
+      "slice-vertical-mid",
+      "vertical slice of vapor d, range [0, 0.05] — the depletion well: contours visibly deeper above the facet center than above the rim",
+      { slice: { orientation: "vertical", range: [0, 0.05] }, camera: SLICE_CAMERA, chrome: "legend only" },
     );
 
-    // ── WP3: HUD (A3-5d) — same frozen state ──────────────────────────────────────────────
-    await capture("hud-depletion", "depletion HUD with ratio < 1 and sparkline", {
-      overlay: "vaporAvailability",
-      slice: { orientation: "vertical", range: [0, 0.0025] },
+    // ── WP3: HUD (A3-5d) — same frozen state and framing, HUD + status back on ────────────
+    await page.evaluate(() => {
+      window.__vccDebug.setChrome({ hud: true, status: true, legends: false, readout: false, pane: false });
+    });
+    await page.waitForTimeout(300);
+    await capture("hud-depletion", "depletion HUD (ratio < 1, sparkline) beside the unoccluded depletion well", {
+      slice: { orientation: "vertical", range: [0, 0.05] },
+      camera: SLICE_CAMERA,
+      chrome: "hud + status",
       ratioBelow1Found,
     });
+
+    // ── Restore chrome (legends stay hidden: they have their own captures and the readout
+    // is this shot's subject), canonical camera, overlay on for the readout's overlay line.
+    await page.evaluate(() => {
+      window.__vccDebug.setChrome({ hud: true, status: true, legends: false, readout: true, pane: true });
+      window.__vccDebug.setCamera({});
+      window.__vccDebug.setOverlay("vaporAvailability");
+      window.__vccDebug.setOverlayRange(0, 0.0025);
+      window.__vccDebug.setSlice({ min: 0, max: 0.1 });
+    });
+    await page.waitForTimeout(300);
 
     // ── WP3: picking (A3-3, A3-5c) — real raycast first, then the deterministic rim cell ──
     await page.mouse.move(640, 400);

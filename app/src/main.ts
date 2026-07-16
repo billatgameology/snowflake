@@ -22,7 +22,7 @@ import {
   type WorkerToMain,
 } from "./protocol.ts";
 import { surfaceCellIndices } from "./surface.ts";
-import { CrystalView } from "./render.ts";
+import { CrystalView, type CameraPose } from "./render.ts";
 import { normalizeToUnit, srgbToLinear, viridis } from "./colormap.ts";
 import {
   OVERLAY_LABELS,
@@ -75,6 +75,18 @@ interface VccDebug {
   pickCell: (i: number, j: number, k: number) => boolean;
   pickRimCell: () => { i: number; j: number; k: number } | null;
   ratioSeriesTail: (n?: number) => RatioSample[];
+  /** Reproducible camera pose for captures; {} restores the canonical framing. */
+  setCamera: (pose: CameraPose) => void;
+  /** Show/hide UI chrome per capture so panels never occlude the region under review. */
+  setChrome: (opts: {
+    hud?: boolean;
+    legends?: boolean;
+    status?: boolean;
+    readout?: boolean;
+    pane?: boolean;
+  }) => void;
+  /** Debug hook: hide the crystal mesh for slice-only captures (labeled, capture-time only). */
+  setCrystalVisible: (visible: boolean) => void;
 }
 
 const debugHook: VccDebug = {
@@ -99,6 +111,9 @@ const debugHook: VccDebug = {
   pickCell: () => false,
   pickRimCell: () => null,
   ratioSeriesTail: () => [],
+  setCamera: () => undefined,
+  setChrome: () => undefined,
+  setCrystalVisible: () => undefined,
 };
 (window as unknown as { __vccDebug: VccDebug }).__vccDebug = debugHook;
 
@@ -185,6 +200,10 @@ async function boot(): Promise<void> {
   const RATIO_SERIES_MAX = 600;
   const SPARK_Y_MAX = 1.5;
 
+  /** UI chrome visibility (capture control): panels never permanently disappear — the
+   * harness restores everything after each shot. */
+  const chrome = { hud: true, legends: true, status: true, readout: true, pane: true };
+
   // Base (no-overlay) color 0x9fc4e8 as linear floats.
   const BASE_LINEAR: readonly [number, number, number] = [
     srgbToLinear(0x9f / 255),
@@ -222,6 +241,7 @@ async function boot(): Promise<void> {
   }
 
   function renderStatus(): void {
+    statusElement.hidden = !chrome.status;
     const s = latest;
     const lines: string[] = [];
     lines.push(`backend: ${view.backend} — GGThreshold oracle in a Web Worker`);
@@ -262,8 +282,8 @@ async function boot(): Promise<void> {
     max: number,
   ): void {
     const el = byId<HTMLDivElement>(elementId);
-    el.hidden = !visible;
-    if (!visible) return;
+    el.hidden = !(visible && chrome.legends);
+    if (el.hidden) return;
     (el.querySelector(".title") as HTMLDivElement).textContent = title;
     (el.querySelector(".lo") as HTMLSpanElement).textContent = min.toPrecision(3);
     (el.querySelector(".hi") as HTMLSpanElement).textContent = max.toPrecision(3);
@@ -306,7 +326,7 @@ async function boot(): Promise<void> {
   const hudCanvas = byId<HTMLCanvasElement>("hud-canvas");
 
   function updateHud(s: SnapshotMessage): void {
-    hudElement.hidden = false;
+    hudElement.hidden = !chrome.hud;
     const m = s.metrics;
     const fmt = (v: number): string => (Number.isFinite(v) ? v.toFixed(4) : "undefined (NaN)");
     hudText.textContent =
@@ -404,7 +424,7 @@ async function boot(): Promise<void> {
     if (s === null) return false;
     const info = buildPickInfo(overlayContext(s), i, j, k, overlayState.name);
     readoutElement.textContent = formatReadout(info).join("\n");
-    readoutElement.hidden = false;
+    readoutElement.hidden = !chrome.readout;
     debugHook.lastPick = { i, j, k };
     return true;
   }
@@ -680,6 +700,18 @@ async function boot(): Promise<void> {
     return showReadout(best.i, best.j, best.k) ? best : null;
   };
   debugHook.ratioSeriesTail = (n = 12): RatioSample[] => ratioSeries.slice(-n);
+  debugHook.setCamera = (pose: CameraPose): void => view.setCameraPose(pose);
+  debugHook.setChrome = (opts): void => {
+    if (opts.hud !== undefined) chrome.hud = opts.hud;
+    if (opts.legends !== undefined) chrome.legends = opts.legends;
+    if (opts.status !== undefined) chrome.status = opts.status;
+    if (opts.readout !== undefined) chrome.readout = opts.readout;
+    if (opts.pane !== undefined) chrome.pane = opts.pane;
+    pane.element.style.display = chrome.pane ? "" : "none";
+    if (!chrome.readout) hideReadout();
+    refreshView();
+  };
+  debugHook.setCrystalVisible = (visible: boolean): void => view.setCrystalVisible(visible);
 
   renderStatus();
   sendInit();

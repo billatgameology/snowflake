@@ -23,8 +23,33 @@
       .tp-dfwv {
         width: 380px;
       }
-      .panel {
+      /* All info panels live in ONE left-edge flex column: they stack top-to-bottom, never
+         overlap each other, and never occlude the screen center — where the crystal and its
+         depletion well sit. Hidden panels release their space automatically. */
+      #left-column {
         position: fixed;
+        left: 8px;
+        top: 8px;
+        bottom: 8px;
+        width: 348px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 6px;
+        z-index: 10;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      /* The hover readout is transient and lives at the fixed top-left, outside the column,
+         so the bottom-anchored column can never push it off-screen. */
+      #readout {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        max-width: 520px;
+        z-index: 11;
+      }
+      .panel {
         padding: 6px 10px;
         color: #c9d4e3;
         background: rgba(12, 15, 20, 0.82);
@@ -33,38 +58,20 @@
         font-size: 12px;
         line-height: 1.5;
         white-space: pre-wrap;
-        pointer-events: none;
-        z-index: 10;
       }
-      #status {
-        left: 8px;
-        bottom: 8px;
-        max-width: calc(100vw - 16px);
+      #legends {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
       }
-      #readout {
-        left: 8px;
-        top: 8px;
-        max-width: 620px;
-      }
-      #hud {
-        left: 8px;
-        bottom: 118px;
-        width: 330px;
+      #legends[hidden] {
+        display: none;
       }
       #hud canvas {
         display: block;
         margin-top: 4px;
         border: 1px solid #2a3342;
-      }
-      #legends {
-        position: fixed;
-        right: 396px;
-        bottom: 8px;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        z-index: 10;
-        pointer-events: none;
+        max-width: 100%;
       }
       .legend {
         padding: 6px 10px;
@@ -93,23 +100,25 @@
   <body>
     <div id="scene"></div>
     <div id="readout" class="panel" hidden></div>
-    <div id="hud" class="panel" hidden>
-      <div id="hud-text"></div>
-      <canvas id="hud-canvas" width="300" height="70"></canvas>
-    </div>
-    <div id="legends">
-      <div class="legend" id="legend-overlay" hidden>
-        <div class="title"></div>
-        <canvas width="256" height="10"></canvas>
-        <div class="range"><span class="lo"></span><span class="hi"></span></div>
+    <div id="left-column">
+      <div id="legends">
+        <div class="legend" id="legend-overlay" hidden>
+          <div class="title"></div>
+          <canvas width="256" height="10"></canvas>
+          <div class="range"><span class="lo"></span><span class="hi"></span></div>
+        </div>
+        <div class="legend" id="legend-slice" hidden>
+          <div class="title"></div>
+          <canvas width="256" height="10"></canvas>
+          <div class="range"><span class="lo"></span><span class="hi"></span></div>
+        </div>
       </div>
-      <div class="legend" id="legend-slice" hidden>
-        <div class="title"></div>
-        <canvas width="256" height="10"></canvas>
-        <div class="range"><span class="lo"></span><span class="hi"></span></div>
+      <div id="hud" class="panel" hidden>
+        <div id="hud-text"></div>
+        <canvas id="hud-canvas" width="300" height="70"></canvas>
       </div>
+      <div id="status" class="panel">initializing…</div>
     </div>
-    <div id="status" class="panel">initializing…</div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

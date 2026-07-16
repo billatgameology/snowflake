@@ -23,6 +23,21 @@ export interface ViewOptions {
   readonly forceWebGL?: boolean;
 }
 
+/**
+ * Reproducible camera pose (screenshot harness): spherical position about a target on the
+ * domain's vertical axis. Defaults reproduce frameDomain's canonical view.
+ */
+export interface CameraPose {
+  /** Degrees about +z; 0 = looking from -y (face-on to the vertical slice). */
+  readonly azimuthDeg?: number;
+  /** Degrees above the horizontal plane. */
+  readonly elevationDeg?: number;
+  /** World units from the target. */
+  readonly distance?: number;
+  /** Target height above the domain center (world z). */
+  readonly targetZ?: number;
+}
+
 const INITIAL_CAPACITY = 1 << 15;
 
 function buildPrismGeometry(): THREE.BufferGeometry {
@@ -50,6 +65,8 @@ export class CrystalView {
   private readonly raycaster = new THREE.Raycaster();
   private readonly pointerScratch = new THREE.Vector2();
   private worldOffset: readonly [number, number, number] = [0, 0, 0];
+  private domainExtent = 128;
+  private crystalVisible = true;
 
   private sliceMesh: THREE.Mesh | null = null;
   private sliceTexture: THREE.DataTexture | null = null;
@@ -127,11 +144,31 @@ export class CrystalView {
   frameDomain(dims: Dims, center: readonly [number, number, number]): void {
     const c = cartesian(center[0], center[1], center[2]);
     this.worldOffset = c;
-    const extent = Math.max(dims.nx, dims.ny, dims.nz);
-    this.controls.target.set(0, 0, 0);
-    this.camera.position.set(0, -1.05 * extent, 0.62 * extent);
-    this.camera.lookAt(0, 0, 0);
+    this.domainExtent = Math.max(dims.nx, dims.ny, dims.nz);
+    this.setCameraPose({});
+  }
+
+  /** Place the camera at a reproducible pose; defaults = frameDomain's canonical view. */
+  setCameraPose(pose: CameraPose): void {
+    const extent = this.domainExtent;
+    const az = ((pose.azimuthDeg ?? 0) * Math.PI) / 180;
+    const el = ((pose.elevationDeg ?? 30.6) * Math.PI) / 180;
+    const distance = pose.distance ?? 1.22 * extent;
+    const tz = pose.targetZ ?? 0;
+    this.controls.target.set(0, 0, tz);
+    this.camera.position.set(
+      distance * Math.cos(el) * Math.sin(az),
+      -distance * Math.cos(el) * Math.cos(az),
+      tz + distance * Math.sin(el),
+    );
+    this.camera.lookAt(0, 0, tz);
     this.controls.update();
+  }
+
+  /** Show/hide the crystal mesh (debug hook: slice-only captures). */
+  setCrystalVisible(visible: boolean): void {
+    this.crystalVisible = visible;
+    if (this.mesh !== null) this.mesh.visible = visible;
   }
 
   /** The cartesian offset mapping lattice to world (world = cartesian(i,j,k) - offset). */
@@ -158,6 +195,7 @@ export class CrystalView {
     const newCapacity = Math.max(INITIAL_CAPACITY, this.capacity * 2, needed);
     const next = new THREE.InstancedMesh(this.prismGeometry, this.material, newCapacity);
     next.frustumCulled = false; // instance set changes every snapshot; skip stale bounds
+    next.visible = this.crystalVisible;
     next.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
     // Allocate instance colors up front so the shader includes the instanced-color path on
     // both backends from the first compile (overlays just rewrite the values).
