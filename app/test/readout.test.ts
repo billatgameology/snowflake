@@ -65,11 +65,12 @@ describe("buildPickInfo", () => {
 });
 
 describe("formatReadout", () => {
-  it("states uncapped vs capped counts explicitly", () => {
+  it("states uncapped vs capped counts explicitly, with their §1.5 Type", () => {
     const { ctx } = fixture();
     const text = formatReadout(buildPickInfo(ctx, 2, 2, 1, "none")).join("\n");
     expect(text).toContain("nT 4, nZ 2 (uncapped)");
     expect(text).toContain("nT 3, nZ 1 (capped");
+    expect(text).toContain("(computed state, counts, unvalidated)");
   });
 
   it("labels every quantity with §1.5 phrasing and never invents units", () => {

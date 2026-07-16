@@ -4,6 +4,7 @@
 import { describe, expect, it } from "vitest";
 import { GG_PRESETS, cellCount, idx, paramSlot, type Dims } from "@vcc/core";
 import {
+  OVERLAY_LABELS,
   attachedNeighborCountsUncapped,
   capForParamSlot,
   overlayValueAt,
@@ -173,6 +174,28 @@ describe("overlayValueAt — boundaryMass and growthRecency", () => {
     expect(overlayValueAt("growthRecency", ctx, 1, 1, 0)).toBe(0);
     attachTick[x] = 0; // seed
     expect(overlayValueAt("growthRecency", ctx, 1, 1, 0)).toBe(0);
+  });
+});
+
+describe("OVERLAY_LABELS — §1.5 Type and unit accuracy (external review should-fix)", () => {
+  it("claims 'model units' only for quantities that carry them (d and b)", () => {
+    expect(OVERLAY_LABELS.vaporAvailability.definition).toContain("model units");
+    expect(OVERLAY_LABELS.boundaryMass.definition).toContain("model units");
+    // Propensity is a unitless fraction of the threshold; recency is unitless over a
+    // model-tick window — neither may claim bare "model units".
+    expect(OVERLAY_LABELS.growthPropensity.definition).toContain("unitless fraction");
+    expect(OVERLAY_LABELS.growthPropensity.definition).toContain("phenomenological");
+    expect(OVERLAY_LABELS.growthPropensity.definition).not.toContain("model units");
+    expect(OVERLAY_LABELS.growthRecency.definition).toContain("unitless");
+    expect(OVERLAY_LABELS.growthRecency.definition).toContain("model ticks");
+    expect(OVERLAY_LABELS.growthRecency.definition).toContain("derived metric");
+  });
+
+  it("every quantity label carries Evidence = unvalidated and no percentages", () => {
+    for (const name of ["vaporAvailability", "growthPropensity", "boundaryMass", "growthRecency"] as const) {
+      expect(OVERLAY_LABELS[name].definition).toContain("unvalidated");
+      expect(OVERLAY_LABELS[name].definition).not.toContain("%");
+    }
   });
 });
 

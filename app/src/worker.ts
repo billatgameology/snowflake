@@ -5,9 +5,16 @@
 // via setTimeout(0) so pause/reset messages are honored between batches. Snapshots post at a
 // bounded rate (not every batch) with fresh transferable copies, so the render side always
 // holds a coherent frame and the solver's own fields are never detached.
+//
+// STOP RULES ARE EVALUATED AFTER EVERY TICK — inside the batch loop, not per batch — via
+// stoprule.ts, so single-step and free-running stop at the identical tick and zero ticks
+// advance past a tripped rule (external review blocker, 2026-07-16: the old per-batch check
+// let free-running overshoot single-step by up to 15 ticks and display post-domain-contact
+// state — invalid evidence per charter §3.1 — as live growth).
 
 import { GG_PRESETS, cellCount } from "@vcc/core";
-import { FAR_FIELD_STOP_FRACTION, GGSolver } from "@vcc/solver-cpu";
+import { GGSolver } from "@vcc/solver-cpu";
+import { advanceUntilStop } from "./stoprule.ts";
 import { snapshotSourceFromSolver } from "./snapshot.ts";
 import {
   buildSnapshot,
@@ -79,32 +86,32 @@ function postSnapshot(force: boolean): void {
   scope.postMessage(message, transfers);
 }
 
-/** One solver tick plus attach-tick bookkeeping (0 stays "seed or never"). */
-function stepOnce(s: GGSolver): void {
-  s.step();
+/** Attach-tick bookkeeping for the tick just run (0 stays "seed or never"). */
+function recordAttachTicks(s: GGSolver): void {
   for (const x of s.lastAttached) attachTick[x] = s.tick;
 }
 
 /**
- * Autonomous stopping rules, mirroring the runner's semantics (computed state, model units,
- * unvalidated — informational in this dev instrument, evidence only in the runner):
- * far-field vapor below (2/3) * rho (§7 stopping rule) or the 65% domain-contact guard.
+ * Advance up to maxTicks with the stop rules — far-field 2/3*rho and domain contact,
+ * mirroring the runner's semantics (informational in this dev instrument, evidence only in
+ * the runner) — evaluated after EVERY tick. Single-step (maxTicks 1) and free-running
+ * batches share this exact path: the stopping tick is control-mode independent.
  */
-function checkStop(s: GGSolver, cfg: InitConfig): StopReason {
-  if (s.domainContact()) return "domain-contact";
-  if (s.farFieldMean() < FAR_FIELD_STOP_FRACTION * GG_PRESETS[cfg.preset].rho) {
-    return "far-field-stop";
+function advance(maxTicks: number): void {
+  if (solver === null || config === null) return;
+  const rho = GG_PRESETS[config.preset].rho;
+  const result = advanceUntilStop(solver, rho, maxTicks, recordAttachTicks);
+  if (result.stopReason !== null) {
+    stopReason = result.stopReason;
+    running = false;
   }
-  return null;
 }
 
 function pump(): void {
   pumpScheduled = false;
   if (!running || solver === null || config === null) return;
-  for (let n = 0; n < BATCH_TICKS; n++) stepOnce(solver);
-  stopReason = checkStop(solver, config);
+  advance(BATCH_TICKS);
   if (stopReason !== null) {
-    running = false;
     postSnapshot(true);
     return;
   }
@@ -142,8 +149,7 @@ scope.addEventListener("message", (event: MessageEvent) => {
       case "step": {
         if (solver === null) throw new Error("step before init");
         if (!running && stopReason === null) {
-          stepOnce(solver);
-          stopReason = checkStop(solver, config as InitConfig);
+          advance(1);
           postSnapshot(true);
         }
         break;

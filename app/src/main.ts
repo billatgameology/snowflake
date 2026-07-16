@@ -268,12 +268,19 @@ async function boot(): Promise<void> {
     } else {
       const rate = rateEma === null ? "—" : rateEma.toFixed(1);
       const state = s.running ? "running" : s.stopReason === null ? "paused" : `stopped: ${s.stopReason}`;
-      lines.push(`tick ${s.tick} · attached ${s.attachedCount} · boundary ${s.boundarySize} · ${rate} ticks/s · ${state}`);
-      lines.push(`far-field vapor d ${s.farFieldMean.toFixed(4)} (model units) · domain contact: ${s.domainContact}`);
-      lines.push(`aspect ratio ${s.metrics.aspectRatio.toFixed(3)} · symmetry error ${s.metrics.symmetryError} (derived metrics)`);
+      lines.push(
+        `tick ${s.tick} · attached ${s.attachedCount} · boundary ${s.boundarySize} (computed state) · ${state}`,
+      );
+      lines.push(`${rate} ticks/s (instrument performance, not a model quantity)`);
+      lines.push(
+        `far-field vapor d ${s.farFieldMean.toFixed(4)} (computed state, model units) · domain contact: ${s.domainContact} (computed state)`,
+      );
+      lines.push(
+        `aspect ratio ${s.metrics.aspectRatio.toFixed(3)} · symmetry error ${s.metrics.symmetryError} (derived metrics, unitless)`,
+      );
     }
     if (uiHint !== null) lines.push(uiHint);
-    lines.push("all readouts: computed state, model units, unvalidated (§1.5)");
+    lines.push("all model quantities: Evidence = unvalidated (§1.5)");
     statusElement.textContent = lines.join("\n");
   }
 
@@ -355,8 +362,9 @@ async function boot(): Promise<void> {
     const m = s.metrics;
     const fmt = (v: number): string => (Number.isFinite(v) ? v.toFixed(4) : "undefined (NaN)");
     hudText.textContent =
-      "depletion — vapor d above facet center vs rim\n" +
-      "(@vcc/core centerRimDepletion; computed state, model units, unvalidated)\n" +
+      "depletion — vapor d above facet center vs rim (@vcc/core centerRimDepletion)\n" +
+      "(center/rim: computed-state samples, model units; ratio: derived metric,\n" +
+      "unitless quotient; all unvalidated)\n" +
       `center ${fmt(m.depletionCenter)} · rim ${fmt(m.depletionRim)} · ratio ${fmt(m.depletionRatio)}` +
       (Number.isFinite(m.depletionRatio) && m.depletionRatio < 1 ? "  (< 1: center starved)" : "");
 
@@ -613,11 +621,14 @@ async function boot(): Promise<void> {
       refreshView();
     });
   const rangeFormat = (v: number): string => v.toPrecision(3);
+  // The overlay range's unit depends on the quantity (d is in model units; propensity is a
+  // unitless threshold fraction; recency is unitless over a model-tick window) — the legend
+  // states the active one, so the static labels defer to it rather than claim a wrong unit.
   overlayFolder
-    .addBinding(overlayState, "min", { label: "range min (model units)", format: rangeFormat })
+    .addBinding(overlayState, "min", { label: "range min (units per legend)", format: rangeFormat })
     .on("change", refreshView);
   overlayFolder
-    .addBinding(overlayState, "max", { label: "range max (model units)", format: rangeFormat })
+    .addBinding(overlayState, "max", { label: "range max (units per legend)", format: rangeFormat })
     .on("change", refreshView);
   overlayFolder
     .addBinding(overlayState, "recencyWindow", {

@@ -63,7 +63,8 @@ export function formatReadout(info: PickInfo): string[] {
   lines.push(`d = ${num(info.d)} — vapor mass (computed state, model units, unvalidated)`);
   lines.push(
     `attached neighbors: nT ${info.nTUncapped}, nZ ${info.nZUncapped} (uncapped) — ` +
-      `param slot uses nT ${info.nTCapped}, nZ ${info.nZCapped} (capped, as GGSolver does)`,
+      `param slot uses nT ${info.nTCapped}, nZ ${info.nZCapped} (capped, as GGSolver does) ` +
+      `(computed state, counts, unvalidated)`,
   );
   if (info.overlayName !== "none") {
     const label = OVERLAY_LABELS[info.overlayName];

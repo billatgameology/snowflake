@@ -54,7 +54,7 @@ export const OVERLAY_LABELS: Readonly<
     title: "growth propensity",
     definition:
       "max over adjacent boundary sites of b / ggThreshBeta(nT,nZ) — progress toward the G-G " +
-      "attachment threshold (phenomenological, unvalidated)",
+      "attachment threshold (phenomenological, unitless fraction of the threshold, unvalidated)",
   },
   boundaryMass: {
     title: "boundary mass b",
@@ -64,7 +64,7 @@ export const OVERLAY_LABELS: Readonly<
     title: "recent growth",
     definition:
       "1 − (ticks since attachment)/W, clamped to [0,1]; seed cells read 0 " +
-      "(derived metric, model ticks, unvalidated)",
+      "(derived metric: unitless, over a window of W model ticks; unvalidated)",
   },
 };
 
