@@ -165,9 +165,13 @@ stable execution criteria:
   final full state are exactly D6h symmetric; final `symmetryError = 0`. This criterion does not
   apply to a registered noise-on ensemble, whose per-cell perturbations break D6h by design.
 - `A-EXEC-NOISE`: on a registered noise-on run, the manifest names the exact epsilon, seed, and
-  counter-PRNG stream; independent named PRNG samples match and contain both outcomes; a same-
-  seed replay is bit-identical across `a`, `b`, and `d`. Symmetry is reported as a diagnostic
-  with no threshold. All mass, domain, termination, and numeric criteria still apply.
+  counter-PRNG stream. On the first cycle whose positive pre-relaxation `d` cells contain both
+  PRNG outcomes, the runner snapshots the raw state and an independent G-G reference recomputes
+  the complete noise-on diffusion/refusal pass and the zero-noise counterfactual. Actual post-
+  relaxation `d` must be bit-identical to the noised reference, at least one active value must
+  differ from the zero-noise counterfactual, and both outcomes must have been applied to positive
+  inputs. A same-seed replay is bit-identical across `a`, `b`, and `d`. Symmetry is reported as a
+  diagnostic with no threshold. All mass, domain, termination, and numeric criteria still apply.
 - `A-EXEC-MASS`: `Sigma(b+d)` is finite and relative drift from the initial compensated sum is
   `< 1e-10` at every recorded sample and at termination.
 - `A-EXEC-DOMAIN`: `domainContact` is false on every tick and at termination.
@@ -299,11 +303,17 @@ protocol is fixed before any Phase 4 v4 morphology probe:
   - `B-EXEC-SYMMETRY`: on noise-off runs, every nonempty per-step attachment delta is exactly
     D6h invariant and final `symmetryError = 0`. It does not apply to registered noise-on runs.
   - `B-EXEC-NOISE`: on a registered noise-on run, the exact epsilon, seed, and counter-PRNG
-    stream survive the manifest/checkpoint; independent named PRNG samples match and contain
-    both outcomes; same-seed replay is bit-identical across `a`, `f`, and `sigma`. Symmetry is
-    reported without a threshold. Convergence, surface, ledger, domain, checkpoint, and numeric
-    execution criteria remain blocking. Cross-seed morphology differences remain a diagnostic
-    `B-HOLLOW` verdict rather than execution validity.
+    stream are pinned by the manifest and execution code; epsilon and seed, but not the fixed
+    stream ID, round-trip through the frozen LK v2 checkpoint. At the first accepted relaxation
+    with both PRNG outcomes on positive-demand boundary cells, the runner independently computes
+    the unperturbed coefficient and expected applied value
+    `alphaHKBase*(1-noiseEpsilon*randomBit)`. Each cached boundary coefficient must agree within
+    `8*Number.EPSILON*max(1,abs(expected))`, and `sigmaBoundary` must close the aggregate Robin
+    equation with that expected coefficient within `1e-12*max(1,abs(sigmaOpp))`. Both outcomes
+    must occur. `B-EXEC-LEDGER` then independently proves the same applied coefficients drive
+    fill. Same-seed replay is bit-identical across `a`, `f`, and `sigma`. Symmetry is reported
+    without a threshold. Cross-seed morphology differences remain a diagnostic `B-HOLLOW`
+    verdict rather than execution validity.
   - `B-EXEC-CONVERGENCE`: every report has `converged=true`, integer sweeps in `[1,200000]`,
     finite residual in `[0,1e-9)`, finite positive shell injection and signed net surface
     exchange, and finite reported divergence. The runner independently recomputes
@@ -439,8 +449,10 @@ required schedule manifest and are not advertised as resumable mid-history.
   tripped alone by a unit fixture; criterion code that only agrees with its own report is
   rejected.
 - Symmetry controls: a noise-off asymmetric delta fails `*-EXEC-SYMMETRY`; a correctly replayed
-  noisy asymmetric fixture passes the symmetry exemption, while wrong PRNG provenance, a
-  single-outcome PRNG fixture, or a divergent same-seed replay fails `*-EXEC-NOISE`.
+  noisy asymmetric fixture passes the symmetry exemption. Wrong PRNG provenance, a single-
+  outcome positive-input fixture, a solver output matching the zero-noise G-G counterfactual,
+  an LK boundary coefficient/Robin value that ignores the multiplier, or a divergent same-seed
+  replay fails `*-EXEC-NOISE`.
 - Aspect sweep: shuffled, equal-adjacent, inverted-endpoint, hollow-column endpoint, incomplete,
   and different-common-parameter controls fail by name.
 - Hollowing: solid column, sealed shell, pre-hollowed seed, identical seed-stream fixture, and
@@ -484,7 +496,11 @@ required schedule manifest and are not advertised as resumable mid-history.
       then found one blocker (exact symmetry contradicted the noisy ensembles) and one should-
       fix (tick-N wording referred to an already-completed cycle). This amendment makes noise
       validity replay/PRNG-based, retains exact symmetry for noise-off runs, and says “next
-      cycle” explicitly. Same-reviewer re-review is still required before WP0 closes.
+      cycle” explicitly. Re-review round 3 found that PRNG samples plus replay still allowed a
+      solver to ignore the noise; the applied-noise reference/Robin witnesses above close that
+      vacuity without turning B morphology into execution validity. It also clarified that the
+      fixed LK noise stream stays in manifest/code provenance rather than widening v2
+      checkpoints. Same-reviewer re-review is still required before WP0 closes.
 - [x] Freeze the review-strengthened criteria before feature implementation (round-1 freeze
       `98e510d`, final noise-scope freeze `7e2d08f`); both gate provenance checks require the
       final commit as an ancestor.
@@ -539,6 +555,12 @@ required schedule manifest and are not advertised as resumable mid-history.
   151 and ended with symmetry error 0.1334. Noise-off runs retain exact symmetry. Noise-on runs
   instead require exact PRNG provenance and bit-identical same-seed replay, while mass/domain/
   convergence/ledger checks remain in force and symmetry is reported without a threshold.
+- **PRNG samples plus replay as sufficient proof that noise was applied.** Rejected by WP0
+  re-review: an implementation could ignore the multiplier, print independently correct random
+  bits, and replay the wrong result exactly. G-G now needs a raw-state independent diffusion
+  witness that differs from the zero-noise counterfactual; LK needs independently recomputed
+  applied coefficients closing both the Robin equation and fill ledger. Cross-seed B morphology
+  remains diagnostic.
 - **Running Phase 4 in the Phase 3 worktree.** Rejected: Phase 3 external testing and artifacts
   remain independently inspectable. This branch has its own worktree and output tree.
 - **Silently starting Phase 4 under charter v1.6's sequential rule.** Rejected: the maker asked
