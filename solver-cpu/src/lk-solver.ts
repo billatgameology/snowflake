@@ -562,15 +562,18 @@ export class LKSolver implements SurfaceOperator {
         `aggregate boundary solve requires finite sigma_opp (cell ${index}, got ${String(sigmaOppRaw)})`,
       );
     }
-    const sigmaOpp = Math.max(sigmaOppRaw, 0);
-    const ratio = this.dxM / this.x0M; // G_b = 1 under aggregate-hv-g1h1-v4
-    if (sigmaOpp === 0) {
+    const sigmaOpp = sigmaOppRaw;
+    if (sigmaOpp <= 0) {
+      // ADR 0011: a density-conserving temperature event may truthfully produce
+      // subsaturation. Preserve that potential exactly; the no-sublimation production law
+      // has zero attachment coefficient and therefore zero kinetic demand here.
       return {
-        alphaHKBoundary: this.cellAlphaHK(index, 0),
-        sigmaBoundary: 0,
-        sigmaOpp: 0,
+        alphaHKBoundary: 0,
+        sigmaBoundary: sigmaOpp,
+        sigmaOpp,
       };
     }
+    const ratio = this.dxM / this.x0M; // G_b = 1 under aggregate-hv-g1h1-v4
     let sigmaBoundary = sigmaOpp;
     for (let iteration = 0; iteration < 60; iteration++) {
       const coefficient = this.cellAlphaHK(index, sigmaBoundary);

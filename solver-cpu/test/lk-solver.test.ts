@@ -269,6 +269,90 @@ describe("LKSolver — aggregate-hv-g1h1-v4 topology and boundary law (ADR 0009)
     expect(solver.sigma[target]).toBe(state.sigmaBoundary);
   });
 
+  it("preserves a reconstructed negative opposing value with zero production demand", () => {
+    const solver = new LKSolver({
+      ...devOptions,
+      farField: "reflecting",
+      relaxTol: 1e9,
+      relaxMaxSweeps: 1,
+    });
+    const target = solver.boundaryCells().find((cell) => {
+      const [nT, nZ] = independentCounts(solver.a, cell, solver.dims);
+      return nT === 2 && nZ === 0;
+    }) as number;
+    const opposing = independentOpposingCells(solver, target);
+    expect(opposing).toHaveLength(2);
+    for (let index = 0; index < solver.sigma.length; index++) {
+      if (solver.a[index] === 0 && solver.wall[index] === 0) {
+        solver.sigma[index] = -0.002 - 0.004 * randomUnit(17, index, 0, 12);
+      }
+    }
+
+    const source = solver.sigma.slice();
+    const candidate = independentReflectingCandidate(solver, source);
+    const expectedOpposing =
+      opposing.reduce((sum, opposite) => sum + candidate[opposite], 0) / opposing.length;
+    expect(expectedOpposing).toBeLessThan(0);
+    const [nT, nZ] = independentCounts(solver.a, target, solver.dims);
+    const facet = classifyFacet(nT, nZ, "aggregate-hv-g1h1-v4");
+    const expectedCoefficient = alphaHK(facet, devOptions.tempC, expectedOpposing, "CAK_A1");
+    const independentlyComputedDemand =
+      expectedCoefficient * solver.vKinMS * expectedOpposing / solver.dxM;
+    expect(expectedCoefficient).toBe(0);
+    expect(Math.abs(independentlyComputedDemand)).toBe(0);
+
+    const fillBefore = solver.f.slice();
+    expect(solver.relaxField().converged).toBe(true);
+    const state = solver.boundaryState(target);
+    expect(state.sigmaOpp).toBeCloseTo(expectedOpposing, 14);
+    expect(state.sigmaBoundary).toBeCloseTo(expectedOpposing, 14);
+    expect(state.alphaHKBoundary).toBe(expectedCoefficient);
+    expect(solver.sigma[target]).toBeCloseTo(expectedOpposing, 14);
+    const surface = solver.advanceSurface();
+    expect(surface.stalled).toBe(true);
+    expect(surface.deltaTimeSeconds).toBe(0);
+    expect(surface.maxKineticFillIncrement).toBe(0);
+    expect(solver.fillLedger).toBe(0);
+    expect(solver.f).toEqual(fillBefore);
+  });
+
+  it("does not erase a live uniform negative field in reflecting aggregate-v4 relaxation", () => {
+    const solver = new LKSolver({
+      ...devOptions,
+      farField: "reflecting",
+      relaxTol: 1e-12,
+      relaxMaxSweeps: 1,
+    });
+    const subsaturation = -0.003;
+    for (let index = 0; index < solver.sigma.length; index++) {
+      if (solver.a[index] === 0 && solver.wall[index] === 0) {
+        solver.sigma[index] = subsaturation;
+      }
+    }
+    const fieldBefore = solver.sigma.slice();
+    const attachedBefore = solver.attachedCount;
+
+    const relaxation = solver.relaxField();
+    expect(relaxation.converged).toBe(true);
+    expect(relaxation.sweeps).toBe(1);
+    for (let index = 0; index < solver.sigma.length; index++) {
+      if (solver.a[index] === 0 && solver.wall[index] === 0) {
+        expect(solver.sigma[index], `cell ${index}`).toBe(fieldBefore[index]);
+      }
+    }
+    for (const cell of solver.boundaryCells()) {
+      const state = solver.boundaryState(cell);
+      expect(state.sigmaOpp).toBe(subsaturation);
+      expect(state.sigmaBoundary).toBe(subsaturation);
+      expect(state.alphaHKBoundary).toBe(0);
+    }
+    const surface = solver.advanceSurface();
+    expect(surface.stalled).toBe(true);
+    expect(surface.maxKineticFillIncrement).toBe(0);
+    expect(solver.attachedCount).toBe(attachedBefore);
+    expect(solver.fillLedger).toBe(0);
+  });
+
   it("keeps signed negative local relaxation exchange separate from nonnegative demand", () => {
     const makeProbe = (farField: "reflecting" | "dirichlet", sweeps: number): LKSolver => {
       const solver = new LKSolver({
