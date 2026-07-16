@@ -271,6 +271,21 @@ screenshots at R2/R3 and before the gate claim.
       (2026-07-16). Both Done-when halves hold: the automated metric via gate3 exit 0, and
       the watch-it half via the app's slice view (accepted captures in `out/phase3-visual/`,
       reproducible via `node app/scripts/visual.mjs`).
+- [x] External review round 1 (2026-07-16, via maker) → both findings fixed and verified.
+      BLOCKER: app stopping was control-mode-dependent — free-running checked stop rules per
+      16-tick batch vs per tick when stepping (16³ plate: stopped 97 stepped / 112
+      free-running / 100 runner-at-cadence-25), and batches could advance up to 15 invalid
+      ticks past domain contact. Fixed: pure `app/src/stoprule.ts` evaluates far-field and
+      contact rules after every tick, first trip ends the batch; both modes measured stopping
+      at tick 97, coordinator-cross-checked against the runner at `--stop-check-every 1`
+      (also 97); 8 tests pin batch-size invariance and exact first-trip landing; cost 1.4%
+      per tick. (Gate evidence unaffected — gate3 runs in the runner at its pinned cadence.)
+      SHOULD-FIX: §1.5 label inaccuracies — the blanket "computed state, model units" footer
+      covered quantities it was false for; now per-quantity Types (ticks/s = instrument
+      performance, not a model quantity; aspect/depletion ratios = derived metrics, unitless;
+      propensity = unitless threshold fraction; recency window in model ticks; neighbor
+      counts labeled) with a truthful Evidence blanket. Suite 258/258; harness regenerated,
+      zero console errors on both backends; coordinator re-inspected the relabeled captures.
 
 ## Out of scope
 
