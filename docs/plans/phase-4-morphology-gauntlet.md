@@ -1,8 +1,8 @@
 # Plan — Phase 4: morphology gauntlet, timeline semantics, and visual diagnostics
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — passing criteria pre-registered; no Phase 4 development agent has
-  run yet
+- **Status:** in progress — passing criteria pre-registered; v4 integration landed; independent
+  WP0 review is next; no Phase 4 feature implementation has begun
 - **Started:** 2026-07-16
 - **Last touched:** 2026-07-16 by Codex, coordinating session
 
@@ -368,10 +368,13 @@ required schedule manifest and are not advertised as resumable mid-history.
       (258/258).
 - [x] Run coordinator-only pre-registration probes for the Pass A thresholds above. These are
       explicitly calibration, not gate evidence.
-- [ ] Commit this criteria-first plan before any development agent is created.
+- [x] Commit this criteria-first plan before any development agent is created (`23b5d6c`).
 - [ ] WP0: integrate accepted Phase 2b v4 history with current Phase 3; resolve authority and
-      app conflicts; full baseline verification. Separate integration review → fix loop.
-- [ ] Write/accept overlap ADR and timeline-semantics ADR; update charter and PROGRESS.
+      app conflicts; full baseline verification. Integration landed at merge `b080654` with
+      276/276 tests and the Phase 3 app unchanged; separate integration review → fix loop is
+      still required before WP0 closes.
+- [x] Write/accept overlap ADR 0010 and timeline-semantics ADR 0011; update charter to v1.9 and
+      PROGRESS before Phase 4 feature implementation.
 - [ ] WP1: pure metrics, schedule evaluator, gate verdict/report types, and adversarial fixtures.
       Separate review → fix loop.
 - [ ] WP2: solver environment transitions, runner `gate4a`/`gate4b`/`gate4`, artifacts, and

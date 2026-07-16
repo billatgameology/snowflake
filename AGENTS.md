@@ -150,6 +150,27 @@ convergence, silent clipping, or a bare vapor-loss/ice-gain equality overturns m
 findings. It requires an ADR and a new, committed protocol before results are generated; it is
 not a cleanup refactor.
 
+## Phase 4 timeline contract — do not regress
+
+Decision 0011 resolves the timeline seam left open by decision 0005 D5:
+
+- The capped-column history is **column→plate**, matching G-G §XII. The earlier charter
+  plate→column wording was corrected, not implemented.
+- G-G events atomically replace registered parameter vectors and leave `a`, `b`, and `d`
+  bit-unchanged. G-G field state has no temperature or physical-supersaturation meaning.
+- LK temperature events conserve active unattached cells' absolute vapor number density:
+  `sigmaNew = (1 + sigmaOld) * cSat(oldT) / cSat(newT) - 1`. Do not clamp negative results.
+  Attached cells and inactive walls are excluded.
+- Transform the active Dirichlet shell with the field, then let the next elliptic solve clamp
+  it to the schedule's explicit `sigmaInfinity`. Report that reservoir exchange only as a
+  numerical boundary diagnostic.
+- Update temperature-derived kinetics and conversion factors atomically. Accumulate each
+  interface step's vapor-equivalent ledger increment using that step's temperature; never
+  multiply an all-temperature history by the final `M_ice`.
+- Phase 4 supports deterministic abrupt events only. Existing GG v1 and LK v1/v2 checkpoint
+  meanings stay frozen; final-state checkpoints carry an external schedule/event manifest.
+  Resumable mid-history checkpoints require a new version and decision.
+
 ## Commands and evidence semantics
 
 ```text
