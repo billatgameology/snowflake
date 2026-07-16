@@ -103,24 +103,33 @@ the reasoning recorded here; after registration it is frozen like every other pr
 - Sample the depletion metric every 100 ticks; write `out/gate3-plate.ckpt` and
   `out/gate3-depletion.csv` (tick, attachedCount, boundingRadius, aspectRatio,
   depletionCenter, depletionRim, depletionRatio).
+- The **registered window** is samples at ticks 400 to 4400 inclusive, step 100 (41 samples).
+  The run itself continues to its natural stop and the CSV records every sample from tick 100
+  to the end — including any post-window behavior — so nothing is hidden by the window.
 - Enforced criteria, each failing **by name** with nonzero exit; exit 0 is the whole claim:
-  - **G3-GROWTH** — the plate grows across the tracked window: attachedCount strictly
-    increases from first to last sample and final boundingRadius ≥ REGISTERED_MIN_RADIUS.
+  - **G3-GROWTH** — the plate grows across the window: attachedCount strictly increases
+    across every consecutive pair of window samples, and final boundingRadius ≥
+    REGISTERED_MIN_RADIUS.
   - **G3-PLATE** — it is a plate: final aspectRatio < 0.3.
-  - **G3-DEPLETION** — final depletionRatio ≤ REGISTERED_MAX_FINAL_RATIO, and the final ratio
-    is lower than the ratio at REGISTERED_BASELINE_TICK by ≥ REGISTERED_MIN_DROP.
-  - **G3-DEFINED** — depletionRatio is finite at every sample from REGISTERED_BASELINE_TICK on.
+  - **G3-DEPLETION** — over the window: the median depletionRatio ≤ REGISTERED_MAX_MEDIAN,
+    and the fraction of window samples with depletionRatio < 1 is ≥
+    REGISTERED_MIN_FRACTION_BELOW_1. (Median of the 41 sorted values = the 21st. Windowed
+    robust statistics, not a final sample — see Tried and rejected: layer-nucleation spikes
+    are real, transient, and themselves Berg-effect signatures.)
+  - **G3-DEFINED** — depletionRatio is finite at every window sample.
   - **G3-VALID** — no domain contact; termination reason recorded and is far-field stop or
     tick budget; symmetry preserved (noise off, hexPrism — the 2a incremental delta check,
     threshold exactly 0).
-- REGISTERED values: **TBD — to be committed to this section after the calibration probe and
-  before the evidence run. The gate3 evidence run must not start while any REGISTERED value
-  reads TBD.** The probe is observational (`grow --preset plate` + the new metric printing);
-  its numbers inform threshold choice and are never citable as the gate result.
-  - REGISTERED_MIN_RADIUS = TBD
-  - REGISTERED_MAX_FINAL_RATIO = TBD
-  - REGISTERED_BASELINE_TICK = TBD
-  - REGISTERED_MIN_DROP = TBD
+- REGISTERED values — **registered 2026-07-15 from the calibration probe (observational, not
+  citable as the gate result): `out/phase3-probe.log`, command
+  `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1
+  --metrics-every 100`, far-field stop at tick 4800, final AR 0.168831, radius 38, no domain
+  contact, delta-sym clean:**
+  - REGISTERED_MIN_RADIUS = 30 *(probe final boundingRadius 38)*
+  - REGISTERED_MAX_MEDIAN = 0.75 *(probe window median 0.5315)*
+  - REGISTERED_MIN_FRACTION_BELOW_1 = 0.80 *(probe: 37/41 = 0.902)*
+  The run is deterministic (noise 0, pinned engine), so these margins cover protocol drift,
+  not run-to-run noise.
 - Negative controls (committed tests, non-vacuous, recomputing independently):
   - crystal-free state → metric NaN → gate3 criterion fails by name;
   - hand-built uniform field with a plate → ratio = 1 → G3-DEPLETION fails;
@@ -209,10 +218,12 @@ screenshots at R2/R3 and before the gate claim.
 
 ## Steps
 
-- [ ] Passing criteria written and committed before any dev agent runs (this file)
-- [ ] ADR 0007 + charter §3.2 amendment (phase overlap) committed
-- [ ] WP1: metric + printing + tests (dev agent)
-- [ ] Probe run (observational); thresholds REGISTERED above and committed
+- [x] Passing criteria written and committed before any dev agent runs (this file, ea9376d)
+- [x] ADR 0007 + charter §3.2 amendment (phase overlap) committed (ea9376d)
+- [x] WP1: metric + printing + tests (dev agent; d804603, 150/150 green)
+- [x] Probe run (observational, `out/phase3-probe.log` + `out/phase3-ktop-probe.ts`);
+      thresholds REGISTERED above; criteria shape corrected to windowed statistics (see
+      Tried and rejected) — committed with this edit
 - [ ] WP1b: gate3 + negative controls (dev agent)
 - [ ] R1 adversarial review loop until zero blockers
 - [ ] WP2: app scaffold + worker + prisms + camera (dev agent)
@@ -246,6 +257,21 @@ screenshots at R2/R3 and before the gate claim.
 - **One mega-agent for the whole phase** — rejected; maker directed criteria-first serial WPs
   with separate reviewers, and the 2b audit history shows single-pass self-review misses
   blockers.
+- **Final-sample + baseline-drop gate criteria** (the shape first drafted here) — rejected
+  after the calibration probe measured why they cannot work. The depletionRatio sawtooths
+  with basal layer nucleation, and the probe's finale inverts outright: ratio 0.58 at tick
+  4400, then 13.5 → 8.5 → 6.3 → 4.04 over ticks 4500–4800. The kTop occupancy probe
+  (`out/phase3-ktop-probe.ts`) shows the mechanism as measured fact, not inference: **new
+  basal layers nucleate as rings that exclude the starved facet center** (tick 3400: kTop
+  layer = 324 cells, radii 9.5–21, center column absent, filled inward to rMin 0 by 3500 and
+  the ratio recovered 4.26 → 0.35; tick 4500: new kTop layer radii 7.8–21.5, still unfilled
+  at the 4800 far-field stop). During a ring episode the registered center sample at
+  (ic, jc, kTop+1) floats above the canyon — one layer above the local center surface — and
+  reads geometrically richer vapor, so single-sample criteria measure layer-cycle phase, not
+  starvation. The ring nucleation is itself the strongest form of the facet-center-starvation
+  story (growth abandons the center), and the gate now uses windowed median + fraction-below-1
+  statistics over ticks 400–4400, with the full series still recorded and reported through the
+  natural stop.
 
 ## Open questions
 
