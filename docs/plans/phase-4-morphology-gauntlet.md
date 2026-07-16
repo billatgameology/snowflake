@@ -157,7 +157,7 @@ Unless a criterion says otherwise, every Pass A run must pass these independentl
 stable execution criteria:
 
 - `A-EXEC-PROVENANCE`: Node `v24.13.1`, V8 `13.6.233.17-node.40`, float64 CPU oracle, tracked-
-  clean 40-hex execution commit, and final criteria-freeze commit `7e2d08f` is its ancestor.
+  clean 40-hex execution commit, and final criteria-freeze commit `e567767` is its ancestor.
 - `A-EXEC-CONFIG`: canonical 19-site radius-2/thickness-1 seed, hexPrism domain, reflecting far
   field, seed 1 and noise 0 unless the named scenario overrides them, with every registered
   parameter and dimension equal to the manifest.
@@ -292,7 +292,7 @@ protocol is fixed before any Phase 4 v4 morphology probe:
   even when the morphology verdict is diagnostic:
 
   - `B-EXEC-PROVENANCE`: Node `v24.13.1`, V8 `13.6.233.17-node.40`, float64 CPU oracle,
-    tracked-clean 40-hex execution commit, and final criteria-freeze commit `7e2d08f` is its
+    tracked-clean 40-hex execution commit, and final criteria-freeze commit `e567767` is its
     ancestor.
   - `B-EXEC-CONFIG`: canonical 19-site seed; exact common constants above; Dirichlet far field;
     exact `aggregate-hv-g1h1-v4`; only the scenario's registered temperature, seed, noise, or
@@ -502,8 +502,8 @@ required schedule manifest and are not advertised as resumable mid-history.
       fixed LK noise stream stays in manifest/code provenance rather than widening v2
       checkpoints. Same-reviewer re-review is still required before WP0 closes.
 - [x] Freeze the review-strengthened criteria before feature implementation (round-1 freeze
-      `98e510d`, final noise-scope freeze `7e2d08f`); both gate provenance checks require the
-      final commit as an ancestor.
+      `98e510d`, noise-scope freeze `7e2d08f`, final applied-noise-witness freeze `e567767`);
+      both gate provenance checks require the final commit as an ancestor.
 - [x] Write/accept overlap ADR 0010 and timeline-semantics ADR 0011; update charter to v1.9 and
       PROGRESS before Phase 4 feature implementation.
 - [ ] WP1: pure metrics, schedule evaluator, gate verdict/report types, and adversarial fixtures.
