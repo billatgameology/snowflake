@@ -117,6 +117,10 @@ GPU production solver, five-part repo (`core` / `solver-cpu` / `solver-gpu` / `r
 
 The solver specs — **read the relevant one before writing solver code:**
 
+For a high-level map of the repository, package responsibilities, source files, data flow, and
+common commands, start with the root [README](../README.md). It is an orientation layer only;
+the charter, accepted decisions, solver specs, active plan, and this file remain authoritative.
+
 - **[gg-machinery.md](gg-machinery.md)** — lattice, diffusion, state fields, mass bookkeeping,
   melting, noise, seed, guardrails, G-G's presets. Shared machinery with physical diffusion
   transport and phenomenological G-G surface knobs; outputs are Type = computed state,
