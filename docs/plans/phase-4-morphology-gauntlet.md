@@ -157,7 +157,7 @@ Unless a criterion says otherwise, every Pass A run must pass these independentl
 stable execution criteria:
 
 - `A-EXEC-PROVENANCE`: Node `v24.13.1`, V8 `13.6.233.17-node.40`, float64 CPU oracle, tracked-
-  clean 40-hex execution commit, and the final criteria-freeze commit is its ancestor.
+  clean 40-hex execution commit, and final criteria-freeze commit `98e510d` is its ancestor.
 - `A-EXEC-CONFIG`: canonical 19-site radius-2/thickness-1 seed, hexPrism domain, reflecting far
   field, seed 1 and noise 0 unless the named scenario overrides them, with every registered
   parameter and dimension equal to the manifest.
@@ -277,7 +277,8 @@ protocol is fixed before any Phase 4 v4 morphology probe:
   even when the morphology verdict is diagnostic:
 
   - `B-EXEC-PROVENANCE`: Node `v24.13.1`, V8 `13.6.233.17-node.40`, float64 CPU oracle,
-    tracked-clean 40-hex execution commit, and the final criteria-freeze commit is its ancestor.
+    tracked-clean 40-hex execution commit, and final criteria-freeze commit `98e510d` is its
+    ancestor.
   - `B-EXEC-CONFIG`: canonical 19-site seed; exact common constants above; Dirichlet far field;
     exact `aggregate-hv-g1h1-v4`; only the scenario's registered temperature, seed, noise, or
     `sigmaInfinity` override differs. A byte-level canonical manifest comparison enforces this.
@@ -460,6 +461,8 @@ required schedule manifest and are not advertised as resumable mid-history.
       SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389` at
       `out/phase4/controls/wp0-phase2a-plate.ckpt`. Same-reviewer re-review is still required
       before WP0 closes.
+- [x] Freeze the review-strengthened criteria before feature implementation (`98e510d`); both
+      gate provenance checks require this commit as an ancestor.
 - [x] Write/accept overlap ADR 0010 and timeline-semantics ADR 0011; update charter to v1.9 and
       PROGRESS before Phase 4 feature implementation.
 - [ ] WP1: pure metrics, schedule evaluator, gate verdict/report types, and adversarial fixtures.
