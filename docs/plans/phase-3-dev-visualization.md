@@ -50,7 +50,7 @@ Work packages, in order:
 |---|---|---|
 | WP1 | `core/src/metrics.ts`, `core/test/`, `runner/src/main.ts` (additive), `runner/test/` | `centerRimDepletion` metric + `grow` printing + unit tests |
 | probe | coordinator only, `out/` | calibration run (**not evidence**) → thresholds registered here, committed |
-| WP1b | same as WP1 | flagless `gate3` command enforcing the registered protocol + adversarial negative-control tests |
+| WP1b | same as WP1, plus `runner/src/gate3.ts` (new sibling module, the `pgm.ts` pattern — `main.ts` runs its CLI at module top level, so pure criteria functions must live beside it to be testable; recorded post-hoc, R1 note 8) | flagless `gate3` command enforcing the registered protocol + adversarial negative-control tests |
 | WP2 | `app/` (new), root `package.json`/`vitest.config.ts` (additive), `app/tsconfig.json` | Vite + Three.js scaffold, worker-hosted `GGSolver`, instanced hex prisms, orbit camera, run controls |
 | WP3 | `app/` | overlays, slice plane, picking + honest readout, depletion HUD, screenshot harness |
 
@@ -119,7 +119,12 @@ the reasoning recorded here; after registration it is frozen like every other pr
   - **G3-DEFINED** — depletionRatio is finite at every window sample.
   - **G3-VALID** — no domain contact; termination reason recorded and is far-field stop or
     tick budget; symmetry preserved (noise off, hexPrism — the 2a incremental delta check,
-    threshold exactly 0).
+    threshold exactly 0, **and** belt-and-braces the final full symmetryError must be exactly
+    0; implied by delta-clean plus the symmetric seed, so strictly tightening).
+  - **G3-WINDOW** — the registered window must be complete: all 41 samples at ticks 400..4400
+    exist. An incomplete window is this named failure — never a rescaled or partial statistic.
+  (G3-WINDOW and the final-full-symmetry clause were implemented conservatively by WP1b and
+  registered here in the same session, before the evidence run — R1 round-1 should-fix 3.)
 - REGISTERED values — **registered 2026-07-15 from the calibration probe (observational, not
   citable as the gate result): `out/phase3-probe.log`, command
   `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1
@@ -272,6 +277,18 @@ screenshots at R2/R3 and before the gate claim.
   story (growth abandons the center), and the gate now uses windowed median + fraction-below-1
   statistics over ticks 400–4400, with the full series still recorded and reported through the
   natural stop.
+
+- **Embedding the new depletion metrics in checkpoint headers** (WP1's first landing) —
+  reversed by R1 round 1 (2026-07-15), which measured it as a BLOCKER: `Metrics` is
+  serialized whole into the GG v1 checkpoint header, so the three new keys grew the accepted
+  2a artifact's header by 111 bytes and broke the recorded byte-identity claim
+  (SHA f1796b… no longer reproducible at HEAD; field payload and enforced exit 0 were intact).
+  The 2a evidence-hardening plan pins the v1 wire layout and names "new checkpoint fields" as
+  out of scope, so the fix pins `encodeCheckpoint` to exactly the eleven v1 metric keys and
+  makes `validateGGMetrics` validate that exact set (unknown keys rejected). The in-memory
+  `Metrics` bundle keeps the depletion fields for printing, the HUD, and gate3's CSV — the
+  registered evidentiary home for the series. Do NOT re-add fields to the checkpoint header
+  without an ADR: it silently demotes a closed gate's accepted artifact as regression oracle.
 
 ## Open questions
 
