@@ -107,7 +107,8 @@ separate is deliberate: the G-G path is the differential control when kinetics b
 | `LibbrechtKinetics` / `LKSolver` | A coupled Robin field/surface operator: quasi-static relaxation, a policy-versioned self-consistent aggregate boundary value, deterministic boundary-pixel fill, and a physical interface timestep. Temperature is an input to its broad-facet kinetics. |
 
 `LibbrechtKinetics` replaces surface exchange as a coupled whole. Do not run G-G freezing or
-melting transfers alongside it: freezing is replaced by the Robin sink plus fill update, melting
+melting transfers alongside it: freezing is replaced by the policy-versioned boundary condition
+plus fill update, melting
 is disabled, hole-filling is retained and separately deficit-ledgered, and `f` is a distinct
 dimensionless field rather than a reuse of G-G boundary mass `b`.
 
@@ -135,7 +136,8 @@ The concise contract below is a navigation aid. The equations and rationale live
   geometry-adjusted per-boundary-pixel Hertz–Knudsen kinetic demand**. Recorded excess is not
   deposited ice, physical uptake, or a license to hide loss. Shell-clamp totals are
   elliptic-solve diagnostics, not physical mass.
-- Noise multiplies `alphaHK` identically in sink and fill for a tick. Never perturb only one side.
+- Noise multiplies `alphaHK` identically in the boundary condition and fill for a tick. Never
+  perturb only one side.
 - Every forward LK checkpoint must carry the far-field condition, convergence controls, and
   recognized coupled surface policy; encode, decode, solver construction, and runner round trips
   must reject invalid, missing, mismatched, or shifted state. V1 decodes only as implicit

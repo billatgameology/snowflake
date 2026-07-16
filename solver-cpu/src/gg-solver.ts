@@ -405,7 +405,8 @@ export class GGSolver implements SurfaceOperator {
       residual: null,
       divergenceResidual: null,
       shellClampDiagnostic: this.farField === "dirichlet" ? clampDelta : null,
-      absorptionDiagnostic: null,
+      surfaceExchangeDiagnostic: null,
+      minLocalSurfaceExchangeDiagnostic: null,
     };
   }
 

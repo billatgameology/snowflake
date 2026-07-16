@@ -1,31 +1,22 @@
 // LibbrechtKinetics — the surface operator of attachment-kinetics §4.4, implemented.
 //
-// One growth step (§4.4 "the operator in one paragraph", corrected through audit round 6):
-//   1. relaxField(): iterate the Phase 2a smoother kernel (canonical pair summation) with the
-//      Robin partial-reflection substitution at attached faces and the Dirichlet far-field
-//      shell clamped to sigma_infinity. Fixed-sigma Dirichlet physics runs require BOTH the
-//      iterate residual (relaxTol) AND divergence identity (divTol); reflecting LK is a
-//      residual-only diagnostic with no divergence claim. The attachment coefficient is
-//      re-evaluated from the current field each sweep (Picard), so the converged field solves
-//      the nonlinear Robin problem self-consistently.
-//   2. advanceSurface(): classify each boundary cell from START-OF-STEP attached counts,
-//      solve the same self-consistent (alphaHK, sigma_face) pair the sink used, fill PER
-//      ATTACHED FACE with the hexagonal-prism geometry factors — per-cell rate =
-//      [(2/3) nT + nZ] * alphaHK * vKin * sigma_face / dx, adaptive dt = cfl / max(rate),
-//      f += min(rate * dt, 1 - f) with the truncated excess RECORDED in
-//      saturationClippedFill — attach at f = 1 (simultaneous) plus the kept hole-filling
-//      rule.
+// One growth step (§4.4, decision 0009): the named surfacePolicy selects the immutable
+// legacy-v3 per-contact operator or the forward aggregate-hv-g1h1-v4 boundary-pixel operator.
+// V4 applies the Phase 2a reflecting smoother, replaces each boundary pixel by the nonlinear
+// Eq. 5.34 value solved from opposing vapor pixels, and clamps the Dirichlet shell. Fixed-sigma
+// physics runs require BOTH the iterate residual and the signed global exchange divergence
+// identity. The cached self-consistent (alphaHK, sigma_b) pair then fills once per boundary
+// pixel with H_b=1; the adaptive fill-CFL and explicit saturation-clipping ledger are unchanged.
 //
-// Dispositions (§4.4 component 5): no kappa freezing (the Robin substitution is the only
-// vapor uptake), no melting (the kinetic rate is clamped at 0 from below), hole-filling
-// kept, noise is a per-cell multiplicative alphaHK slowdown applied identically in the sink
-// and the growth (own PRNG stream), drift phi unsupported.
+// Dispositions (§4.4 component 5): no kappa freezing (the selected boundary condition is the
+// only exchange path), no melting, hole-filling kept, noise is a per-cell multiplicative
+// alphaHK slowdown applied identically in the boundary condition and growth, drift unsupported.
 //
 // Conservation claims (§4.4 components 3-4): the field is a quasi-static POTENTIAL, not a
 // mass store — the meaningful checks are (a) for fixed-sigma Dirichlet, the discrete divergence
-// identity REQUIRED for convergence (per-sweep injection equals Robin absorption, since the
-// interior smoother conserves), and (b) exact bookkeeping: fillLedger plus the recorded
-// UNAPPLIED saturation excess equals the computed per-face Hertz-Knudsen kinetic demand
+// identity REQUIRED for convergence (per-sweep injection equals signed net numerical boundary
+// exchange, since the interior smoother conserves), and (b) exact bookkeeping: fillLedger plus
+// recorded UNAPPLIED saturation excess equals the selected policy's Hertz-Knudsen demand
 // (hole-filled cells' unearned remainder is reported as holeFillDeficit, never hidden).
 // Environment-neutral: no Node APIs
 // (charter §3.1).
@@ -37,6 +28,7 @@ import {
   domainCenter,
   hexDistance,
   hexSeedSites,
+  isLKSurfacePolicy,
   kineticLength,
   mIce,
   randomBit,
@@ -47,11 +39,14 @@ import {
   type DomainShape,
   type FacetClass,
   type FarFieldCondition,
+  type LKSurfacePolicy,
   type NucleationParamSet,
 } from "@vcc/core";
 import type { LedgerReport, RelaxationReport, SurfaceOperator, SurfaceReport } from "./operator.ts";
 
 export interface LKSolverOptions {
+  /** Coupled classifier/Robin/fill policy. Required: evidence must never rely on a default. */
+  readonly surfacePolicy: LKSurfacePolicy;
   readonly dims: Dims;
   /** Temperature, °C. Must keep (Tm − T) inside the digitized domain [1, 50]. */
   readonly tempC: number;
@@ -61,9 +56,7 @@ export interface LKSolverOptions {
   readonly dxUm: number;
   readonly pressurePa?: number; // default 1 atm
   readonly paramSet?: NucleationParamSet; // default "CAK_A1" (see libbrecht.ts)
-  /** Fill-CFL bound on the max PER-CELL kinetic fill increment — the per-face sum
-      [(2/3)·nT + nZ]·alphaHK·vKin·sigma_face·dt/dx (§4.4 test 5 as amended; round-5 review:
-      this doc said "max(v_n)·dt/dx" until then, predating the face factors). */
+  /** Fill-CFL bound on the selected policy's max per-cell kinetic fill increment. */
   readonly cflFill?: number; // default 0.1
   /** Relaxation: per-sweep max |change| / sigmaInfinity below this = converged. */
   readonly relaxTol?: number; // default 1e-9
@@ -76,7 +69,7 @@ export interface LKSolverOptions {
   readonly divTol?: number; // default 1e-6
   readonly relaxMaxSweeps?: number; // default 200_000
   readonly rngSeed: number;
-  /** alphaHK slowdown amplitude — applied identically in the relaxation's Robin sink and
+  /** alphaHK slowdown amplitude — applied identically in the relaxation boundary condition and
       the interface update for the same tick (round-3 coupling fix; this doc said "v_n
       slowdown" until round 5); 0 (default) = off. P4 dial (§4.4 component 5). */
   readonly noiseEpsilon?: number;
@@ -92,9 +85,7 @@ export interface LKSolverOptions {
   readonly seedThickness?: number;
   readonly center?: readonly [number, number, number];
   /**
-   * TEST-ONLY hook replacing alphaHK, for the §4.4 component-6 Robin-limit tests (alphaHK ≡ 0
-   * must recover the reflecting pass exactly; alphaHK ≡ 1 must absorb). Never set in runs —
-   * the runner does not expose it.
+   * TEST-ONLY hook replacing alphaHK for boundary-law tests. Never set in runs.
    */
   readonly testAlphaOverride?: (facet: FacetClass, tempC: number, sigmaSurf: number) => number;
   /**
@@ -112,6 +103,7 @@ export interface RelaxationProgress {
 }
 
 export class LKSolver implements SurfaceOperator {
+  readonly surfacePolicy: LKSurfacePolicy;
   readonly dims: Dims;
   readonly tempC: number;
   readonly sigmaInfinity: number;
@@ -132,9 +124,7 @@ export class LKSolver implements SurfaceOperator {
   readonly vKinMS: number;
   readonly x0M: number;
   readonly mIceLedger: number;
-  /** Face-factor-weighted fill velocity max(rate)·dx (m/s) of the most recent
-      advanceSurface — NOT a bare v_n: the rate includes [(2/3)·nT + nZ] (round-5 review:
-      the old name lastMaxVn misdocumented the stored quantity). Observability only. */
+  /** Geometry-adjusted max fill velocity max(rate)·dx (m/s) of the most recent update. */
   lastMaxFillVelocityMS = 0;
   holeFillCountTotal = 0;
 
@@ -150,8 +140,12 @@ export class LKSolver implements SurfaceOperator {
   private readonly blocked: Uint8Array;
   private readonly scratch1: Float64Array;
   private readonly scratch2: Float64Array;
-  /** Robin absorption factor s_eff per boundary cell, recomputed each sweep (Picard). */
+  /** Legacy-v3 Robin absorption factor per boundary cell. */
   private readonly sEff: Float64Array;
+  /** Aggregate-v4 boundary pair cached from the last accepted relaxation sweep. */
+  private readonly boundaryAlphaHK: Float64Array;
+  private readonly boundarySigma: Float64Array;
+  private readonly boundarySigmaOpp: Float64Array;
 
   private boundaryList: number[] = [];
   private readonly inBoundary: Uint8Array;
@@ -191,6 +185,7 @@ export class LKSolver implements SurfaceOperator {
   private surfaceReady = false;
 
   constructor(options: LKSolverOptions) {
+    this.surfacePolicy = options.surfacePolicy;
     this.dims = options.dims;
     this.tempC = options.tempC;
     this.sigmaInfinity = options.sigmaInfinity;
@@ -214,6 +209,9 @@ export class LKSolver implements SurfaceOperator {
     const positiveFinite = (value: number, name: string): void => {
       if (!Number.isFinite(value) || value <= 0) throw new Error(`${name} must be finite and > 0`);
     };
+    if (!isLKSurfacePolicy(this.surfacePolicy)) {
+      throw new Error(`surfacePolicy is invalid: ${String(this.surfacePolicy)}`);
+    }
     for (const [name, value] of [
       ["dims.nx", this.dims.nx],
       ["dims.ny", this.dims.ny],
@@ -300,6 +298,9 @@ export class LKSolver implements SurfaceOperator {
     this.scratch1 = new Float64Array(n);
     this.scratch2 = new Float64Array(n);
     this.sEff = new Float64Array(n);
+    this.boundaryAlphaHK = new Float64Array(n);
+    this.boundarySigma = new Float64Array(n);
+    this.boundarySigmaOpp = new Float64Array(n);
     this.inBoundary = new Uint8Array(n);
     this.nTAtt = new Uint8Array(n);
     this.nZAtt = new Uint8Array(n);
@@ -442,15 +443,12 @@ export class LKSolver implements SurfaceOperator {
   }
 
   facetClassOf(index: number): FacetClass {
-    return classifyFacet(this.nTAtt[index], this.nZAtt[index]);
+    return classifyFacet(this.nTAtt[index], this.nZAtt[index], this.surfacePolicy);
   }
 
   /**
-   * alphaHK of a boundary cell given a sigma_surf value (facet class from current counts).
-   * NOISE IS FOLDED IN HERE (round-3 review: the sink and the growth must see the same
-   * perturbed coefficient — noising only v_n silently broke the coupling): with epsilon on,
-   * the cell's coefficient is multiplied by (1 − xi) for the CURRENT tick, deterministically
-   * from the counter PRNG, in both the relaxation's Robin factor and the interface update.
+   * alphaHK of a boundary cell given sigma_surf. Noise is folded in here so the boundary
+   * condition and interface update see the same deterministic coefficient for this tick.
    */
   private cellAlphaHK(index: number, sigmaSurf: number): number {
     const facet = this.facetClassOf(index);
@@ -469,8 +467,8 @@ export class LKSolver implements SurfaceOperator {
   }
 
   /**
-   * Self-consistent surface values at a boundary cell (§4.4 component 3 as CORRECTED after
-   * the round-2 maker review): the discrete Robin substitution implies a surface value
+   * Legacy-v3-only self-consistent surface values at a boundary cell (§4.4's preserved
+   * executed-policy block). The legacy discrete Robin substitution implies a surface value
    * sigma_face = sigma_cell/(1+s) one half-step below the cell sample, and BOTH the vapor
    * sink and the Hertz-Knudsen growth must use that same sigma_face — the first
    * implementation grew at the cell value while absorbing at the face value, overdriving
@@ -517,7 +515,83 @@ export class LKSolver implements SurfaceOperator {
     return { alphaHKFace, sEff: s / (1 + s), sigmaFace };
   }
 
-  /** Recompute the Robin factor per boundary cell from the CURRENT field (Picard). */
+  /**
+   * Eq. 5.35 opposing-vapor mean for aggregate-hv-g1h1-v4. Each attached direction
+   * nominates the cell in the opposite direction; only active unattached vapor cells enter
+   * the mask. The primary [01]/[20] facets therefore have exactly H+V samples.
+   */
+  private opposingSigma(index: number, input: Float64Array): number {
+    const { nx, ny, nz } = this.dims;
+    const plane = nx * ny;
+    const i = index % nx;
+    const inPlane = index % plane;
+    const j = (inPlane - i) / nx;
+    const k = (index - inPlane) / plane;
+    let sum = 0;
+    let count = 0;
+    const include = (attached: number, opposite: number): void => {
+      if (this.a[attached] === 1 && this.blocked[opposite] === 0) {
+        sum += input[opposite];
+        count++;
+      }
+    };
+    if (i + 1 < nx && i - 1 >= 0) include(index + 1, index - 1);
+    if (i - 1 >= 0 && i + 1 < nx) include(index - 1, index + 1);
+    if (j + 1 < ny && j - 1 >= 0) include(index + nx, index - nx);
+    if (j - 1 >= 0 && j + 1 < ny) include(index - nx, index + nx);
+    if (i + 1 < nx && j - 1 >= 0 && i - 1 >= 0 && j + 1 < ny) {
+      include(index + 1 - nx, index - 1 + nx);
+    }
+    if (i - 1 >= 0 && j + 1 < ny && i + 1 < nx && j - 1 >= 0) {
+      include(index - 1 + nx, index + 1 - nx);
+    }
+    if (k + 1 < nz && k - 1 >= 0) include(index + plane, index - plane);
+    if (k - 1 >= 0 && k + 1 < nz) include(index - plane, index + plane);
+    return count === 0 ? 0 : sum / count;
+  }
+
+  /** Self-consistent monograph Eq. 5.34 boundary value, with policy-v4 G_b = 1. */
+  private solveAggregateBoundary(index: number, input: Float64Array): {
+    alphaHKBoundary: number;
+    sigmaBoundary: number;
+    sigmaOpp: number;
+  } {
+    const sigmaOppRaw = this.opposingSigma(index, input);
+    if (!Number.isFinite(sigmaOppRaw)) {
+      throw new Error(
+        `aggregate boundary solve requires finite sigma_opp (cell ${index}, got ${String(sigmaOppRaw)})`,
+      );
+    }
+    const sigmaOpp = Math.max(sigmaOppRaw, 0);
+    const ratio = this.dxM / this.x0M; // G_b = 1 under aggregate-hv-g1h1-v4
+    if (sigmaOpp === 0) {
+      return {
+        alphaHKBoundary: this.cellAlphaHK(index, 0),
+        sigmaBoundary: 0,
+        sigmaOpp: 0,
+      };
+    }
+    let sigmaBoundary = sigmaOpp;
+    for (let iteration = 0; iteration < 60; iteration++) {
+      const coefficient = this.cellAlphaHK(index, sigmaBoundary);
+      const next = sigmaOpp / (1 + coefficient * ratio);
+      if (Math.abs(next - sigmaBoundary) <= 1e-13 * sigmaOpp) {
+        sigmaBoundary = next;
+        break;
+      }
+      sigmaBoundary = 0.5 * (sigmaBoundary + next);
+    }
+    const alphaHKBoundary = this.cellAlphaHK(index, sigmaBoundary);
+    const solved = sigmaOpp / (1 + alphaHKBoundary * ratio);
+    if (Math.abs(solved - sigmaBoundary) > 1e-9 * sigmaOpp) {
+      throw new Error(
+        `aggregate boundary solve did not converge (cell ${index}: sigma_b ${solved} vs iterate ${sigmaBoundary})`,
+      );
+    }
+    return { alphaHKBoundary, sigmaBoundary: solved, sigmaOpp };
+  }
+
+  /** Legacy-v3 only: recompute the Robin factor from the current field (Picard). */
   private updateSEff(input: Float64Array): void {
     for (const x of this.boundaryList) {
       this.sEff[x] = this.solveFace(x, input[x]).sEff;
@@ -530,7 +604,10 @@ export class LKSolver implements SurfaceOperator {
    * clamp. Returns [maxAbsChange, injection, absorption] for convergence and the divergence
    * identity. Reads `src`, writes `dst`.
    */
-  private sweep(src: Float64Array, dst: Float64Array): [number, number, number] {
+  private sweepLegacy(
+    src: Float64Array,
+    dst: Float64Array,
+  ): [number, number, number, null] {
     const { nx, ny, nz } = this.dims;
     const plane = nx * ny;
     const blocked = this.blocked;
@@ -662,7 +739,159 @@ export class LKSolver implements SurfaceOperator {
         if (change > maxAbs) maxAbs = change;
       }
     }
-    return [maxAbs, injection, absorption];
+    return [maxAbs, injection, absorption, null];
+  }
+
+  /**
+   * Aggregate-v4 sweep. The interior pass is the Phase 2a reflecting kernel. Boundary pixels
+   * are then replaced by Eq. 5.34, and the signed replacement total is the numerical surface
+   * exchange used only by the divergence diagnostic. Local exchange may be negative.
+   */
+  private sweepAggregate(
+    src: Float64Array,
+    dst: Float64Array,
+  ): [number, number, number, number] {
+    const { nx, ny, nz } = this.dims;
+    const plane = nx * ny;
+    const blocked = this.blocked;
+    const wall = this.wall;
+    const attached = this.a;
+    const out1 = this.scratch1;
+
+    // In-plane reflecting pass, with the exact canonical pair summation used by the oracle.
+    for (let k = 0; k < nz; k++) {
+      const kBase = k * plane;
+      for (let j = 0; j < ny; j++) {
+        const row = kBase + j * nx;
+        for (let i = 0; i < nx; i++) {
+          const x = row + i;
+          if (blocked[x] === 1) {
+            out1[x] = 0;
+            continue;
+          }
+          const own = src[x];
+          let east: number, west: number, ne: number, sw: number, se: number, nw: number;
+          let neighbor: number;
+          if (i + 1 >= nx) east = own;
+          else if (blocked[(neighbor = x + 1)] === 0) east = src[neighbor];
+          else east = own;
+          if (i - 1 < 0) west = own;
+          else if (blocked[(neighbor = x - 1)] === 0) west = src[neighbor];
+          else west = own;
+          if (j + 1 >= ny) ne = own;
+          else if (blocked[(neighbor = x + nx)] === 0) ne = src[neighbor];
+          else ne = own;
+          if (j - 1 < 0) sw = own;
+          else if (blocked[(neighbor = x - nx)] === 0) sw = src[neighbor];
+          else sw = own;
+          if (i + 1 >= nx || j - 1 < 0) se = own;
+          else if (blocked[(neighbor = x + 1 - nx)] === 0) se = src[neighbor];
+          else se = own;
+          if (i - 1 < 0 || j + 1 >= ny) nw = own;
+          else if (blocked[(neighbor = x - 1 + nx)] === 0) nw = src[neighbor];
+          else nw = own;
+          const p1 = east + west;
+          const p2 = ne + sw;
+          const p3 = se + nw;
+          let lo: number, mid: number, hi: number;
+          if (p1 <= p2) {
+            if (p2 <= p3) {
+              lo = p1;
+              mid = p2;
+              hi = p3;
+            } else if (p1 <= p3) {
+              lo = p1;
+              mid = p3;
+              hi = p2;
+            } else {
+              lo = p3;
+              mid = p1;
+              hi = p2;
+            }
+          } else if (p1 <= p3) {
+            lo = p2;
+            mid = p1;
+            hi = p3;
+          } else if (p2 <= p3) {
+            lo = p2;
+            mid = p3;
+            hi = p1;
+          } else {
+            lo = p3;
+            mid = p2;
+            hi = p1;
+          }
+          out1[x] = (((own + lo) + mid) + hi) / 7;
+        }
+      }
+    }
+
+    // Vertical reflecting pass.
+    for (let k = 0; k < nz; k++) {
+      const kBase = k * plane;
+      const hasUp = k + 1 < nz;
+      const hasDown = k - 1 >= 0;
+      for (let p = 0; p < plane; p++) {
+        const x = kBase + p;
+        if (blocked[x] === 1) {
+          dst[x] = 0;
+          continue;
+        }
+        const own = out1[x];
+        const up = hasUp && blocked[x + plane] === 0 ? out1[x + plane] : own;
+        const down = hasDown && blocked[x - plane] === 0 ? out1[x - plane] : own;
+        dst[x] = (4 / 7) * own + (3 / 14) * (up + down);
+      }
+    }
+
+    // Aggregate nonlinear boundary solve from ONE immutable post-smoother candidate. Do not
+    // read src here: decision 0009's registered order is smoother -> boundary replacement ->
+    // clamp. Do not replace dst in this loop either: an opposing pixel may itself be a
+    // boundary pixel, so in-place replacement would make the answer boundary-list-order
+    // dependent (a hidden Gauss-Seidel/D6h defect).
+    let surfaceExchange = 0;
+    let minLocalSurfaceExchange = Infinity;
+    for (const x of this.boundaryList) {
+      const boundary = this.solveAggregateBoundary(x, dst);
+      const localExchange = dst[x] - boundary.sigmaBoundary;
+      surfaceExchange += localExchange;
+      if (localExchange < minLocalSurfaceExchange) minLocalSurfaceExchange = localExchange;
+      this.boundaryAlphaHK[x] = boundary.alphaHKBoundary;
+      this.boundarySigma[x] = boundary.sigmaBoundary;
+      this.boundarySigmaOpp[x] = boundary.sigmaOpp;
+    }
+    for (const x of this.boundaryList) dst[x] = this.boundarySigma[x];
+    if (minLocalSurfaceExchange === Infinity) minLocalSurfaceExchange = 0;
+
+    let injection = 0;
+    if (this.farField === "dirichlet") {
+      const target = this.sigmaInfinity;
+      for (let cell = 0; cell < this.dirichletCells.length; cell++) {
+        const x = this.dirichletCells[cell];
+        if (blocked[x] === 1) continue;
+        injection += target - dst[x];
+        dst[x] = target;
+      }
+    }
+
+    let maxAbs = 0;
+    const n = plane * nz;
+    for (let x = 0; x < n; x++) {
+      if (attached[x] === 0 && wall[x] === 0) {
+        const change = Math.abs(dst[x] - src[x]);
+        if (change > maxAbs) maxAbs = change;
+      }
+    }
+    return [maxAbs, injection, surfaceExchange, minLocalSurfaceExchange];
+  }
+
+  private sweep(
+    src: Float64Array,
+    dst: Float64Array,
+  ): [number, number, number, number | null] {
+    return this.surfacePolicy === "legacy-v3"
+      ? this.sweepLegacy(src, dst)
+      : this.sweepAggregate(src, dst);
   }
 
   /** §4.4 step 1: relax to tolerance; for Dirichlet, require the divergence identity too. */
@@ -672,17 +901,19 @@ export class LKSolver implements SurfaceOperator {
     let sweeps = 0;
     let residual = Infinity;
     let injection = 0;
-    let absorption = 0;
+    let surfaceExchange = 0;
+    let minLocalSurfaceExchange: number | null = null;
     let divergence = Infinity;
     while (sweeps < this.relaxMaxSweeps) {
-      const [maxAbs, inj, abs] = this.sweep(src, dst);
+      const [maxAbs, inj, exchange, minLocal] = this.sweep(src, dst);
       sweeps++;
       residual = maxAbs / this.sigmaInfinity;
       injection = inj;
-      absorption = abs;
+      surfaceExchange = exchange;
+      minLocalSurfaceExchange = minLocal;
       divergence =
         this.farField === "dirichlet"
-          ? Math.abs(inj - abs) / Math.max(Math.abs(abs), 1e-300)
+          ? Math.abs(inj - exchange) / Math.max(Math.abs(exchange), 1e-300)
           : 0;
       const tmp = src;
       src = dst;
@@ -703,7 +934,7 @@ export class LKSolver implements SurfaceOperator {
     const converged =
       residual < this.relaxTol && (this.farField !== "dirichlet" || divergence < this.divTol);
     this.surfaceReady = converged;
-    const scale = Math.max(Math.abs(absorption), 1e-300);
+    const scale = Math.max(Math.abs(surfaceExchange), 1e-300);
     const report: RelaxationReport = {
       sweeps,
       residual,
@@ -711,23 +942,19 @@ export class LKSolver implements SurfaceOperator {
       // The divergence identity is only defined against the Dirichlet source; in the
       // reflecting diagnostic mode there is no source and the identity is not a claim.
       divergenceResidual:
-        this.farField === "dirichlet" ? Math.abs(injection - absorption) / scale : null,
+        this.farField === "dirichlet" ? Math.abs(injection - surfaceExchange) / scale : null,
       shellClampDiagnostic: this.farField === "dirichlet" ? injection : null,
-      absorptionDiagnostic: absorption,
+      surfaceExchangeDiagnostic: surfaceExchange,
+      minLocalSurfaceExchangeDiagnostic: minLocalSurfaceExchange,
     };
     this.lastRelaxation = report;
     return report;
   }
 
   /**
-   * §4.4 steps 2-5: classify, v_n, fill, attach (simultaneous), ledger. Uses the SAME
-   * self-consistent (alphaHK, sigma_face) as the relaxation's Robin sink, and fills
-   * PER ATTACHED FACE with the hexagonal-prism geometry factors (round-3 review, blocker 1a:
-   * across-flats = height = Δx makes the cell volume (√3/2)·Δx³; a basal face advancing at
-   * v_n fills it in Δx/v_n, a prism face — area (1/√3)·Δx² — in (3/2)·Δx/v_n, so a lateral
-   * face contributes (2/3)·v_n·Δt/Δx and a vertical face v_n·Δt/Δx, summed over the cell's
-   * attached faces). The fill-CFL bounds the resulting PER-CELL rate, so max Δf = cfl
-   * exactly. Throws if called without a converged relaxation for this tick.
+   * §4.4 interface update. Aggregate v4 uses the cached Eq. 5.34 `(alphaHK,sigma_b)` pair
+   * and H_b=1 once per boundary pixel. Legacy v3 retains its named per-contact formula.
+   * The adaptive fill-CFL bounds the selected policy's per-cell kinetic increment.
    */
   advanceSurface(): SurfaceReport {
     if (!this.surfaceReady) {
@@ -743,10 +970,16 @@ export class LKSolver implements SurfaceOperator {
     let maxRate = 0;
     for (let bi = 0; bi < nBoundary; bi++) {
       const x = boundary[bi];
-      const face = this.solveFace(x, this.sigma[x]);
-      const vn = face.alphaHKFace * this.vKinMS * face.sigmaFace;
-      const faceFactor = (2 / 3) * this.nTAtt[x] + this.nZAtt[x];
-      const rate = (faceFactor * vn) / this.dxM; // fill fraction per second
+      let rate: number;
+      if (this.surfacePolicy === "legacy-v3") {
+        const face = this.solveFace(x, this.sigma[x]);
+        const velocity = face.alphaHKFace * this.vKinMS * face.sigmaFace;
+        const faceFactor = (2 / 3) * this.nTAtt[x] + this.nZAtt[x];
+        rate = (faceFactor * velocity) / this.dxM;
+      } else {
+        const velocity = this.boundaryAlphaHK[x] * this.vKinMS * this.boundarySigma[x];
+        rate = velocity / this.dxM; // H_b = 1 under aggregate-hv-g1h1-v4
+      }
       rateArr[bi] = rate;
       if (rate > maxRate) maxRate = rate;
     }
@@ -808,15 +1041,18 @@ export class LKSolver implements SurfaceOperator {
 
   /** The rule's exact bookkeeping claim, measurably (§4.4 component 6; SurfaceOperator). */
   ledger(): LedgerReport {
+    const demandDescription =
+      this.surfacePolicy === "legacy-v3"
+        ? "legacy per-contact Hertz-Knudsen demand (sigma_face; 2/3 lateral / 1 vertical)"
+        : "geometry-adjusted per-boundary-pixel Hertz-Knudsen demand (sigma_b; G_b=H_b=1)";
     return {
       rule: "LibbrechtKinetics",
       claim:
-        "the fill ledger plus recorded saturation clipping integrates exactly the per-face " +
-        "Hertz-Knudsen kinetic demand the solver computed; clipping is unapplied numerical " +
-        "excess, not deposited ice (one sigma_face, hexagonal-prism face " +
-        "factors 2/3 lateral / 1 vertical); Dirichlet solve quality is the divergence identity, " +
-        "required for convergence there; the field is a quasi-static potential — no Sigma(b+d) " +
-        "claim exists under this rule",
+        `the fill ledger plus recorded saturation clipping integrates exactly the ${demandDescription}; ` +
+        "clipping is unapplied numerical excess, not deposited ice; Dirichlet solve quality " +
+        "is the divergence identity over signed net numerical boundary exchange, required for " +
+        "convergence there; local exchange is potential redistribution, not uptake; no " +
+        "Sigma(b+d) claim exists under this rule",
       totalMassBD: null,
       dirichletMeter: null,
       fillLedgerIceCells: this.fillLedger,
@@ -883,5 +1119,31 @@ export class LKSolver implements SurfaceOperator {
 
   neighborCounts(index: number): [number, number] {
     return [this.nTAtt[index], this.nZAtt[index]];
+  }
+
+  /** Read-only aggregate boundary state for diagnostics/UI after relaxation. */
+  boundaryState(index: number): {
+    readonly sigmaOpp: number;
+    readonly sigmaBoundary: number;
+    readonly alphaHKBoundary: number;
+    readonly robinGeometry: number;
+    readonly fillGeometry: number;
+  } {
+    if (this.surfacePolicy !== "aggregate-hv-g1h1-v4") {
+      throw new Error("boundaryState is defined only for aggregate-hv-g1h1-v4");
+    }
+    if (!Number.isSafeInteger(index) || index < 0 || index >= this.a.length) {
+      throw new Error(`boundaryState index is out of range: ${String(index)}`);
+    }
+    if (this.inBoundary[index] !== 1 || this.a[index] === 1) {
+      throw new Error(`cell ${index} is not an active boundary pixel`);
+    }
+    return {
+      sigmaOpp: this.boundarySigmaOpp[index],
+      sigmaBoundary: this.boundarySigma[index],
+      alphaHKBoundary: this.boundaryAlphaHK[index],
+      robinGeometry: 1,
+      fillGeometry: 1,
+    };
   }
 }

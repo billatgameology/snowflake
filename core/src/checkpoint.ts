@@ -15,7 +15,14 @@
 // harness all speak through this format.
 
 import { cellCount, hexDistance, type Dims } from "./lattice.ts";
-import { kineticLength, mIce, vKin, type NucleationParamSet } from "./libbrecht.ts";
+import {
+  isLKSurfacePolicy,
+  kineticLength,
+  mIce,
+  vKin,
+  type LKSurfacePolicy,
+  type NucleationParamSet,
+} from "./libbrecht.ts";
 import { totalMass } from "./metrics.ts";
 import { validateParams, type GGParams } from "./params.ts";
 import type { DomainShape, FarFieldCondition, SolverState } from "./state.ts";
@@ -417,8 +424,7 @@ export interface DecodedCheckpoint {
 // field list (a, f, sigma — the separate fill field, and the sigma field that IS d under this
 // rule). GGThreshold checkpoints are untouched, bit for bit.
 
-export interface LKCheckpointHeader {
-  readonly version: 1;
+interface LKCheckpointHeaderBase {
   readonly rule: "LibbrechtKinetics";
   readonly endianness: "LE";
   readonly dims: Dims;
@@ -446,6 +452,20 @@ export interface LKCheckpointHeader {
   readonly fields: FieldDescriptor[];
 }
 
+/** Executed protocol-v3 wire header. The coupled policy was implicit and must stay absent. */
+export interface LKCheckpointHeaderV1 extends LKCheckpointHeaderBase {
+  readonly version: 1;
+  readonly surfacePolicy?: never;
+}
+
+/** Forward wire header. The coupled classifier/Robin/fill policy is evidence provenance. */
+export interface LKCheckpointHeaderV2 extends LKCheckpointHeaderBase {
+  readonly version: 2;
+  readonly surfacePolicy: LKSurfacePolicy;
+}
+
+export type LKCheckpointHeader = LKCheckpointHeaderV1 | LKCheckpointHeaderV2;
+
 export interface LKRunState {
   readonly dims: Dims;
   readonly tick: number;
@@ -463,6 +483,8 @@ export interface LKRunState {
   readonly relaxTol: number;
   readonly divTol: number;
   readonly relaxMaxSweeps: number;
+  /** Coupled classification, Robin geometry, and fill geometry used by this state. */
+  readonly surfacePolicy: LKSurfacePolicy;
   /** Actual condition used. Reflecting LK is diagnostic-only, but its data remains serializable. */
   readonly farField: FarFieldCondition;
   readonly a: Uint8Array;
@@ -488,6 +510,13 @@ function requirePositive(value: unknown, name: string): number {
   const number = requireFinite(value, name);
   if (number <= 0) throw new Error(`LK checkpoint ${name} must be positive`);
   return number;
+}
+
+function requireLKSurfacePolicy(value: unknown): LKSurfacePolicy {
+  if (!isLKSurfacePolicy(value)) {
+    throw new Error(`LK checkpoint surfacePolicy is invalid: ${String(value)}`);
+  }
+  return value;
 }
 
 /** Runtime schema shared by encode and decode: TypeScript types do not validate external JS/JSON. */
@@ -625,10 +654,14 @@ function validateLKStateArrays(state: LKRunState, n: number): void {
 
 export function encodeLKCheckpoint(state: LKRunState): Uint8Array {
   const n = validateLKMetadata(state);
+  const surfacePolicy = requireLKSurfacePolicy(
+    (state as LKRunState & { readonly surfacePolicy?: unknown }).surfacePolicy,
+  );
   validateLKStateArrays(state, n);
-  const header: LKCheckpointHeader = {
-    version: 1,
+  const header: LKCheckpointHeaderV2 = {
+    version: 2,
     rule: "LibbrechtKinetics",
+    surfacePolicy,
     endianness: "LE",
     dims: state.dims,
     tick: state.tick,
@@ -686,8 +719,20 @@ export function decodeLKCheckpoint(bytes: Uint8Array): DecodedLKCheckpoint {
   const parsedHeader = JSON.parse(
     new TextDecoder().decode(bytes.subarray(12, 12 + headerLength)),
   ) as unknown;
-  requireRecord(parsedHeader, "header");
-  const header = parsedHeader as LKCheckpointHeader;
+  const headerRecord = requireRecord(parsedHeader, "header");
+  const version = headerRecord.version;
+  let surfacePolicy: LKSurfacePolicy;
+  if (version === 1) {
+    if (Object.prototype.hasOwnProperty.call(headerRecord, "surfacePolicy")) {
+      throw new Error("LK checkpoint version 1 must not declare surfacePolicy");
+    }
+    surfacePolicy = "legacy-v3";
+  } else if (version === 2) {
+    surfacePolicy = requireLKSurfacePolicy(headerRecord.surfacePolicy);
+  } else {
+    throw new Error(`unsupported LK checkpoint version ${String(version)}`);
+  }
+  const header = headerRecord as unknown as LKCheckpointHeader;
   if (header.rule !== "LibbrechtKinetics") {
     throw new Error(`not a LibbrechtKinetics checkpoint (rule=${(header as { rule?: string }).rule})`);
   }
@@ -697,9 +742,6 @@ export function decodeLKCheckpoint(bytes: Uint8Array): DecodedLKCheckpoint {
   // short f descriptor all decoding "successfully" (the last silently SHIFTED state). Round 6
   // corrected one overreach: reflecting LK checkpoints are valid diagnostic data; gate
   // acceptance, not the codec, enforces Dirichlet physics runs.
-  if (header.version !== 1) {
-    throw new Error(`unsupported LK checkpoint version ${header.version}`);
-  }
   const n = validateLKMetadata(header);
   if (!Array.isArray(header.fields)) {
     throw new Error("LK checkpoint fields must be an array");
@@ -771,6 +813,7 @@ export function decodeLKCheckpoint(bytes: Uint8Array): DecodedLKCheckpoint {
     relaxTol: header.relaxTol,
     divTol: header.divTol,
     relaxMaxSweeps: header.relaxMaxSweeps,
+    surfacePolicy,
     farField: header.farField,
     a,
     f,

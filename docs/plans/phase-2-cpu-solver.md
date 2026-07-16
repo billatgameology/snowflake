@@ -14,8 +14,10 @@
   found two surviving spec sentences that still collapsed discrete Robin absorption into
   Hertz–Knudsen demand, incomplete runtime validation in the LK checkpoint writer/reader,
   derived-scale underflow/overflow, and remaining authority/provenance overclaims.
-  Remediation is complete in the round-6 commit; the last committed full-suite evidence is
-  `npm test` 244/244 after Phase 3 WP3 (typecheck and Rule 7 included) — full catalogs in Tried
+  Remediation is complete in the round-6 commit. The v4 implementation now adds the explicit
+  classifier, post-smoother aggregate boundary solve, unit `G_b/H_b` fill, v2 provenance,
+  fail-closed gate validation, and the pre-registered adversarial tests; `npm test` is
+  262/262 (typecheck and Rule 7 included) — full catalogs in Tried
   and rejected. **Protocol v3 was registered before
   execution, remained unchanged by rounds
   4–6, completed according to its registered controls, and FAILED its habit gate:** both temperatures produced the same
@@ -23,8 +25,9 @@
   negative result is retained; Stage 2b remains open. Decision 0009 and charter v1.7 now adopt
   the source-constrained aggregate boundary-pixel repair, and protocol v4 is pre-registered in
   Steps before implementation-driven morphology. The `SurfaceOperator` refactor's bit-identity
-  gate is passed (byte-identical 2a checkpoints); at this governance commit LKSolver still
-  implements the executed v3 contract, with v4 implementation and evidence explicitly pending
+  gate is passed (byte-identical 2a checkpoints); LKSolver now keeps the executed v3 contract
+  behind explicit `legacy-v3` while the forward v4 implementation is complete. The flagless v4
+  habit run remains pending
 - **Started:** 2026-07-14
 - **2026-07-15 session:** the D6h symmetry failure is resolved (it was the domain shape, not
   index arithmetic — see "The symmetry gate runs on a hexPrism domain" below and Tried and
@@ -35,14 +38,13 @@
   strengthened per the triage directives (hand-computed impulse weights one and two ticks out,
   face/edge/corner/attached-cell conservation, bitwise D6h impulse response, uniform fixed
   point). Gate results recorded in the Steps checklist as they land.
-- **Last touched:** 2026-07-16 — decision 0009, charter v1.7, the forward operator spec, and
-  protocol v4 pre-registration written after protocol v3's execution-valid negative evidence
-  and primary-source audit; no v4 morphology has run. Before that, the
+- **Last touched:** 2026-07-16 — implemented and adversarially tested decision 0009 after its
+  committed protocol v4 pre-registration; the full suite and unchanged Phase 2a byte control
+  pass, and no v4 morphology has run. Before that, the
   round-6 remediation completed the ADR 0006 truth sweep; LK checkpoint validation is
   symmetric at encode/decode and solver construction (including derived numerical scales),
   every registered header control is verified, and saturation clipping is scoped as unapplied
-  demand rather than physical uptake; the last clean committed `npm test` result is 244/244
-  (see Tried and rejected).
+  demand rather than physical uptake (see Tried and rejected).
   Event-limited stepping is documented as a later-policy candidate and explicitly excluded from v4. History of the
   2026-07-14 hardening, kept: synced to charter v1.2
   (review integration), then hardened same day after an adversarial review pass: the seam's bookkeeping demoted from
@@ -262,8 +264,9 @@ Order within 2b is deliberate; each step gates the next:
       was needed: charter v1.3 had already demoted "reuses the boundary-mass machinery" to
       "one candidate answer, not a decision" and delegated the call to the spec.
    2. **Steps (ii)/(iv) under `LibbrechtKinetics`:** freezing is *replaced* by the selected
-      surface-policy boundary update inside field relaxation (the only vapor uptake channel—double
-      counting is structurally impossible); melting is *disabled* (no sublimation; `v_n`
+      surface-policy boundary update inside field relaxation (the only field/surface
+      boundary-condition path, so a second uptake mechanism is structurally impossible);
+      melting is *disabled* (no sublimation; `v_n`
       clamped at 0 from below). Full disposition table incl. hole-filling (kept) and noise
       (redefined per-rule): §4.4 component 5.
    3. **Exact bookkeeping claim:** not a `Σ(b+d)` invariant — the **kinetic-demand bookkeeping identity** *(re-stated
@@ -286,8 +289,8 @@ Order within 2b is deliberate; each step gates the next:
       Signed relaxation exchange remains a separate numerical diagnostic. The executed v3 cell-value/inward-ghost pair remains available only under
       `legacy-v3`. Read after relaxation, before the interface update; there is no
       "before/after step (ii)" ambiguity because step (ii) no longer exists (§4.4 component 1).
-   The remaining work of the seam is *v4 implementation against the amended spec*, gated by the
-   bit-identity refactor test (§4.4 component 6, test 1).
+   V4 implementation against the amended spec and the bit-identity differential are complete;
+   the remaining seam work is the pre-registered habit run (§4.4 component 6, test 1).
 5. **`alphaHK(T, sigma_surf)`** with the basal/prism split.
 6. **SDAK — last, and gated.** See Out of scope.
 
@@ -579,7 +582,7 @@ Order within 2b is deliberate; each step gates the next:
       §4.4 at implementation: the `(0, n_Z ≥ 1)` basal row and adaptive `Δt`. Decision 0009
       later rejected this classifier/per-contact geometry for forward use; it remains a named
       reproducibility path, not the v4 claim.
-- [ ] `aggregate-hv-g1h1-v4`: implement decision 0009's classifier, aggregate opposing-pixel
+- [x] `aggregate-hv-g1h1-v4`: implement decision 0009's classifier, aggregate opposing-pixel
       Robin condition, unit `G_b/H_b` fill, and v2 policy-bearing checkpoints; complete every
       non-morphology test enumerated in the v4 pre-registration below before any gate run.
 - [ ] Basal/prism split. Check *(gate)*: **habit changes with temperature alone** — two
@@ -684,8 +687,10 @@ Order within 2b is deliberate; each step gates the next:
         divergence 1.000e-7 and the `< 1e-6` gate passed,
         maximum kinetic fill 0.1, and Péclet ≤ 1.66e-6 / 6.97e-7. The log observed zero hole
         fills as a diagnostic; the gate did not enforce zero.
-      - Current strict decoding accepts both checkpoints and re-encodes each byte-identically.
-        SHA-256: plate
+      - The preserved v1 checkpoints were byte-round-tripped under the pre-0009 v1 writer.
+        The current decoder accepts them as implicit `legacy-v3`; the public encoder
+        intentionally migrates decoded state to v2, so current decode→encode is not
+        byte-identical. The original SHA-256 values remain immutable: plate
         `e1fe0c8062aa4dd21e42a83d1bf953ee5cd72c45e55c6d2bdf18c65595902ecb`;
         column `108227d929af7686eea6f95e30f60caa5d6f2deed12793340ec0c1931a7723ca`.
         A one-off independent decode probe (not retained) found both attached fields
@@ -780,8 +785,10 @@ Order within 2b is deliberate; each step gates the next:
       - [x] V3 negative result and source audit recorded without rewriting its evidence.
       - [x] Decision 0009, charter v1.7, operator spec, and this v4 protocol written before
         implementation-driven morphology.
-      - [ ] Implement and test `aggregate-hv-g1h1-v4` plus v2 checkpoint provenance.
-      - [ ] Re-run the full suite and the enforced Phase 2a byte-identity differential.
+      - [x] Implement and test `aggregate-hv-g1h1-v4` plus v2 checkpoint provenance.
+      - [x] Re-run the full suite and the enforced Phase 2a byte-identity differential:
+        262/262 tests; enforced run exit 0; `cmp` exit 0 and SHA-256
+        `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`.
       - [ ] Run the flagless v4 pair and record its exit, metrics, engine, log, and checkpoints.
 - [ ] SDAK, gated. Check: thin plates / needles at the extremes. **Abandon without regret if it
       resists** — the fallback reaches every Phase 4 gate anyway.
@@ -1128,7 +1135,9 @@ Order within 2b is deliberate; each step gates the next:
   flagless `node runner/src/main.ts gate2b` completed with exit 1. Both temperatures reached
   the same one-layer plate at extent 61 and AR 0.01888163179957996, so the warm plate passed
   and the cold column failed; every non-habit criterion passed. Current strict decoding accepts
-  and byte-round-trips both checkpoints. Retain this as negative evidence for the exact v3
+  both checkpoints as implicit `legacy-v3`. Their v1 bytes were round-tripped under the
+  pre-0009 writer; the current public writer intentionally migrates decoded state to v2 and is
+  not byte-identical. Retain the original hashes as negative evidence for the exact v3
   domain, resolution, parameters, seed, and measurement size. It is not evidence that
   temperature had no effect on the fields, nor that every version of the model must fail.
   The post-result source audit found why the registered mechanism was not actually isolated:
@@ -1147,8 +1156,8 @@ Order within 2b is deliberate; each step gates the next:
   prove causation. Rejected responses: silently reinterpret v3; change its seed, target, or
   `sigma_infinity`; enable SDAK to rescue it; rerun unchanged; or quietly retain the
   classifier-entangled per-contact geometry. The required ADR, charter sync, checkpoint
-  provenance, and committed v4 pre-registration now exist; implementation and a complete
-  two-temperature rerun remain.
+  provenance, committed v4 pre-registration, implementation, and non-morphology controls now
+  exist; the complete two-temperature rerun remains.
 
 ## Open questions
 

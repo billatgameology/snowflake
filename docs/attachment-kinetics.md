@@ -487,7 +487,7 @@ advances ice, while saturation excess remains recorded and unapplied (component 
 injection must equal that same sweep's **signed net numerical surface-boundary exchange** to a
 stated relative tolerance. Local replacement deltas may have either sign and are not uptake.
 Comparing
-that absorption with reconstructed kinetic demand is a separate discretization diagnostic; it
+that numerical exchange with reconstructed kinetic demand is a separate discretization diagnostic; it
 is not the divergence identity. A Dirichlet solve that fails the identity is not converged,
 whatever its residual norm says. Reflecting diagnostic mode has no shell source and makes no
 identity claim.
@@ -593,7 +593,7 @@ residual-only diagnostic with no physics claim.
 | step (iii) threshold attachment | **replaced** by the fill rule (component 4) | this is the seam itself |
 | step (iv) melting (`μ`) | **disabled** | sublimation is not modeled (gg-machinery §2); `μ`'s smoothing role was phenomenological — if a smoothing dial is ever needed it enters as a labeled, documented dial, not as an inherited default |
 | hole-filling (raw `n_T ≥ 4`, `n_Z ≥ 1`) | **kept** | geometric hygiene against discretization voids, now also physically consistent (max-coordination kink sites have no barrier). Answering the plan's open question: it survives, so interior voids remain interpretable as physics, not artifacts |
-| noise (gg-machinery §6) | **redefined for this rule** | §6's diffusion-slowdown perturbs a *mass* pass, which no longer exists. Under this rule noise is a per-cell multiplicative slowdown of the **attachment coefficient**, `alphaHK → (1 − ξ)·alphaHK`, `ξ ∈ {0, ε}` from the counter PRNG (own stream id), per growth step — applied identically in the relaxation's Robin sink and in the interface update for the same tick *(round-3 correction, synced here round-4: the earlier `v_n → (1 − ξ)·v_n` phrasing noised growth but not the sink, silently splitting the coupling)*. Default off; labeled dial; provenance class P4. The gate stays noise-off |
+| noise (gg-machinery §6) | **redefined for this rule** | §6's diffusion-slowdown perturbs a *mass* pass, which no longer exists. Under this rule noise is a per-cell multiplicative slowdown of the **attachment coefficient**, `alphaHK → (1 − ξ)·alphaHK`, `ξ ∈ {0, ε}` from the counter PRNG (own stream id), per growth step — applied identically in the relaxation boundary condition and in the interface update for the same tick *(round-3 correction, synced here round-4: the earlier `v_n → (1 − ξ)·v_n` phrasing noised growth but not the boundary condition, silently splitting the coupling)*. Default off; labeled dial; provenance class P4. The gate stays noise-off |
 | drift `φ` | **unsupported — structurally unsettable** (corrected 2026-07-15: "error if set" was vacuous since no option exists; the solver has no `phi` input and the CLI rejects unknown flags — pinned by a test) | all §8 presets have `φ = 0`; a drift term inside a quasi-static solve is a different physical statement that nobody has specified |
 
 ### Component 6 — the interface, and the tests that hold it together
@@ -639,7 +639,8 @@ habit claim:
 2. **Boundary-law limits:** under `aggregate-hv-g1h1-v4`, independently enumerate opposing
    pixels (including unequal `[20]` values), verify the nonlinear Eq. 5.34 residual, and show
    planar `[01]` and `[20]` recover the same `G_b=H_b=1` normal law. With `alphaHK ≡ 0`,
-   `sigma_b = sigma_opp`, absorption and growth are zero, and a uniform field is a fixed point;
+   `sigma_b = sigma_opp`, kinetic demand and growth are zero (signed numerical exchange may
+   still be nonzero during relaxation), and a uniform field is a fixed point;
    with `alphaHK ≡ 1` and `Δx/X_0 → large`, boundary values relax far below the far field.
    A negative control must fail the legacy `[20]=4/3` fill rule. The v3 arbitrary-field
    one-pass bit-identity test remains only a `legacy-v3` regression; Phase 2a byte identity is
@@ -672,7 +673,9 @@ habit claim:
    last-sweep `surfaceExchangeDiagnostic`. Separately report net numerical exchange versus
    geometry-adjusted kinetic demand as a discretization diagnostic, never a ledger identity or
    a promised ratio of 1.
-   The legacy-v3 sink band 0.98922–1.01290 remains pinned only under `legacy-v3`.
+   The v4 dev-grid exchange/demand diagnostic is pinned at 0.3858030057 in
+   `solver-cpu/test/lk-solver.test.ts`; it is deliberately not an identity. The legacy-v3
+   sink band 0.98922–1.01290 remains pinned only under `legacy-v3`.
 
 ## 5. What this rule does *not* model
 

@@ -7,6 +7,8 @@ import {
   alphaHK,
   cSat,
   classifyFacet,
+  type FacetClass,
+  isLKSurfacePolicy,
   kineticLength,
   mIce,
   nucleationAPrism,
@@ -109,17 +111,80 @@ describe("digitized sigma_0 / A anchors (monograph Fig. 4.5; P2, ±25%)", () => 
   });
 });
 
-describe("alphaHK and legacy v3 facet classification (attachment-kinetics §4.4 component 2)", () => {
-  it("pins the executed v3 policy pending its ADR-backed replacement", () => {
-    expect(classifyFacet(0, 1)).toBe("basal");
-    expect(classifyFacet(0, 2)).toBe("basal"); // between two basal faces — spec amendment
-    expect(classifyFacet(1, 0)).toBe("prism"); // legacy v3; source treatment of [10] needs ADR resolution
-    expect(classifyFacet(2, 0)).toBe("rough"); // source audit: [20] is the prism facet
-    expect(classifyFacet(1, 1)).toBe("rough");
-    expect(classifyFacet(3, 1)).toBe("rough");
+describe("alphaHK and versioned surface classification (ADR 0009)", () => {
+  it("recognizes exactly the two coupled LK surface policies", () => {
+    expect(isLKSurfacePolicy("legacy-v3")).toBe(true);
+    expect(isLKSurfacePolicy("aggregate-hv-g1h1-v4")).toBe(true);
+    for (const value of [undefined, null, "", "v4", 1, {}]) {
+      expect(isLKSurfacePolicy(value), String(value)).toBe(false);
+    }
   });
 
-  it("rough sites are barrier-free; facets are exponentially suppressed at low sigma", () => {
+  it("classifies all 21 raw count slots under aggregate-hv-g1h1-v4", () => {
+    const expected: ReadonlyArray<ReadonlyArray<FacetClass | null>> = [
+      [null, "basal", "basal"],
+      ["inhibited", "rough", "rough"],
+      ["prism", "rough", "rough"],
+      ["rough", "rough", "rough"],
+      ["rough", "rough", "rough"],
+      ["rough", "rough", "rough"],
+      ["rough", "rough", "rough"],
+    ];
+
+    for (let rawNT = 0; rawNT <= 6; rawNT++) {
+      for (let rawNZ = 0; rawNZ <= 2; rawNZ++) {
+        const label = `[${rawNT}${rawNZ}]`;
+        const wanted = expected[rawNT]?.[rawNZ];
+        if (wanted === null) {
+          expect(
+            () => classifyFacet(rawNT, rawNZ, "aggregate-hv-g1h1-v4"),
+            label,
+          ).toThrow(/not a boundary/);
+        } else {
+          expect(
+            classifyFacet(rawNT, rawNZ, "aggregate-hv-g1h1-v4"),
+            label,
+          ).toBe(wanted);
+        }
+      }
+    }
+  });
+
+  it("preserves the executed legacy-v3 cases behind its explicit policy", () => {
+    expect(classifyFacet(0, 1, "legacy-v3")).toBe("basal");
+    expect(classifyFacet(0, 2, "legacy-v3")).toBe("basal");
+    expect(classifyFacet(1, 0, "legacy-v3")).toBe("prism");
+    expect(classifyFacet(2, 0, "legacy-v3")).toBe("rough");
+    expect(classifyFacet(1, 1, "legacy-v3")).toBe("rough");
+    expect(classifyFacet(3, 1, "legacy-v3")).toBe("rough");
+    expect(() => classifyFacet(0, 0, "legacy-v3")).toThrow(/not a boundary/);
+  });
+
+  it("rejects invalid raw counts and unknown runtime policies", () => {
+    for (const [rawNT, rawNZ] of [
+      [-1, 0],
+      [7, 0],
+      [1.5, 0],
+      [Number.NaN, 1],
+      [1, -1],
+      [1, 3],
+      [1, 0.5],
+      [1, Number.POSITIVE_INFINITY],
+    ]) {
+      expect(
+        () => classifyFacet(rawNT, rawNZ, "aggregate-hv-g1h1-v4"),
+        `[${String(rawNT)}${String(rawNZ)}]`,
+      ).toThrow(/raw n[tz]/i);
+    }
+    expect(() => classifyFacet(1, 0, "unknown" as "legacy-v3")).toThrow(
+      /unknown LK surface policy/,
+    );
+  });
+
+  it("inhibited sites stay zero; rough sites are barrier-free; facets are suppressed", () => {
+    expect(alphaHK("inhibited", -15, 0.001, "CAK_A1")).toBe(0);
+    expect(alphaHK("inhibited", -5, 0.01, "CAK")).toBe(0);
+    expect(alphaHK("inhibited", -15, 0, "CAK_A1")).toBe(0);
     expect(alphaHK("rough", -15, 0.001, "CAK_A1")).toBe(1);
     // relative comparison: the log/exp interpolation round-trip costs a few ulp on sigma_0,
     // amplified by the 1/sigma_surf inside the exponent
