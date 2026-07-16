@@ -3,8 +3,9 @@
 // bug — produces a mismatch, and the world matrix is checked against cartesian() itself.
 
 import { describe, expect, it } from "vitest";
-import { cartesian, cellCount, idx, type Dims } from "@vcc/core";
+import { cartesian, cellCount, domainCenter, idx, type Dims } from "@vcc/core";
 import {
+  clampSliceIndex,
   extractSlice,
   sliceIndexCount,
   sliceTextureSize,
@@ -36,6 +37,40 @@ describe("sliceTextureSize / sliceIndexCount", () => {
     expect(sliceTextureSize("horizontal", dims)).toEqual({ width: 4, height: 3 });
     expect(sliceIndexCount("vertical", dims)).toBe(3);
     expect(sliceIndexCount("horizontal", dims)).toBe(2);
+  });
+});
+
+describe("clampSliceIndex (R3 finding 1: single source for legend AND render)", () => {
+  // Non-default dims: smaller ny/nz than the 128x128x64 defaults.
+  const smallDims: Dims = { nx: 128, ny: 64, nz: 32 };
+
+  it("clamps an out-of-range request to the index actually rendered", () => {
+    // A stale slider allowing j = 100 on ny = 64 must show — and CLAIM — j = 63.
+    expect(clampSliceIndex("vertical", 100, smallDims)).toBe(63);
+    expect(clampSliceIndex("horizontal", 100, smallDims)).toBe(31);
+    expect(clampSliceIndex("vertical", -5, smallDims)).toBe(0);
+  });
+
+  it("passes in-range indices through unchanged and rounds fractional slider values", () => {
+    expect(clampSliceIndex("vertical", 32, smallDims)).toBe(32);
+    expect(clampSliceIndex("horizontal", 15, smallDims)).toBe(15);
+    expect(clampSliceIndex("vertical", 31.6, smallDims)).toBe(32);
+  });
+
+  it("maps ALL non-finite input to 0 instead of NaN-poisoning the texture lookup", () => {
+    expect(clampSliceIndex("vertical", Number.NaN, smallDims)).toBe(0);
+    expect(clampSliceIndex("horizontal", Number.POSITIVE_INFINITY, smallDims)).toBe(0);
+    expect(clampSliceIndex("horizontal", Number.NEGATIVE_INFINITY, smallDims)).toBe(0);
+  });
+
+  it("reset-time re-centering: the domain center is always within the new bounds", () => {
+    // The ready handler re-centers the slice on the solver's center; that center must be a
+    // fixed point of the clamp (legend == request == render) for any dims.
+    for (const d of [smallDims, { nx: 9, ny: 7, nz: 5 }, { nx: 128, ny: 128, nz: 64 }]) {
+      const [, jc, kc] = domainCenter(d);
+      expect(clampSliceIndex("vertical", jc, d)).toBe(jc);
+      expect(clampSliceIndex("horizontal", kc, d)).toBe(kc);
+    }
   });
 });
 

@@ -32,8 +32,8 @@ import {
   type OverlayName,
 } from "./overlays.ts";
 import {
+  clampSliceIndex,
   extractSlice,
-  sliceIndexCount,
   sliceTextureSize,
   sliceWorldMatrix,
   type SliceOrientation,
@@ -87,6 +87,21 @@ interface VccDebug {
   }) => void;
   /** Debug hook: hide the crystal mesh for slice-only captures (labeled, capture-time only). */
   setCrystalVisible: (visible: boolean) => void;
+  /** Merge run-config fields and re-init — the same path as editing the pane + Reset. */
+  applyConfig: (partial: {
+    preset?: GGPresetName;
+    seed?: number;
+    noiseEpsilon?: number;
+    nx?: number;
+    ny?: number;
+    nz?: number;
+    domain?: DomainShape;
+    farField?: FarFieldCondition;
+  }) => void;
+  /** The slice index actually rendered (== the legend's printed index by construction). */
+  renderedSliceIndex: () => number;
+  /** Current slice-legend text (screenshot-free assertions in the harness/smoke tests). */
+  sliceLegendText: () => string;
 }
 
 const debugHook: VccDebug = {
@@ -114,6 +129,9 @@ const debugHook: VccDebug = {
   setCamera: () => undefined,
   setChrome: () => undefined,
   setCrystalVisible: () => undefined,
+  applyConfig: () => undefined,
+  renderedSliceIndex: () => 0,
+  sliceLegendText: () => "",
 };
 (window as unknown as { __vccDebug: VccDebug }).__vccDebug = debugHook;
 
@@ -296,21 +314,28 @@ async function boot(): Promise<void> {
     }
   }
 
+  /** The slice index the renderer actually shows — legend and texture share this value. */
+  function renderedSliceIndex(): number {
+    const requested = sliceState.orientation === "vertical" ? sliceState.jIndex : sliceState.kIndex;
+    return clampSliceIndex(sliceState.orientation, requested, activeDims);
+  }
+
   function updateLegends(): void {
     const o = overlayState;
     const label = OVERLAY_LABELS[o.name];
     updateLegend(
       "legend-overlay",
       o.name !== "none",
-      `surface overlay: ${label.title}\n${label.definition}`,
+      `surface overlay: ${label.title}\n${label.definition}\nundefined (NaN) renders as gray, outside the ramp`,
       o.min,
       o.max,
     );
     const sl = sliceState;
+    const shownIndex = renderedSliceIndex();
     const orientationText =
       sl.orientation === "vertical"
-        ? `vertical, j = ${sl.jIndex} (Berg view)`
-        : `horizontal, k = ${sl.kIndex}`;
+        ? `vertical, j = ${shownIndex} (Berg view)`
+        : `horizontal, k = ${shownIndex}`;
     updateLegend(
       "legend-slice",
       sl.enabled,
@@ -392,12 +417,11 @@ async function boot(): Promise<void> {
     }
     view.updateCrystal(currentSurface, activeDims, colors);
 
-    // Slice plane.
+    // Slice plane. The index is the SAME clamped value the legend prints (renderedSliceIndex
+    // → clampSliceIndex): legend and texture cannot diverge (R3 finding 1).
     if (sliceState.enabled) {
       const orientation = sliceState.orientation;
-      const maxIndex = sliceIndexCount(orientation, activeDims) - 1;
-      const raw = orientation === "vertical" ? sliceState.jIndex : sliceState.kIndex;
-      const index = Math.min(Math.max(Math.round(raw), 0), maxIndex);
+      const index = renderedSliceIndex();
       const { width, height } = sliceTextureSize(orientation, activeDims);
       const field = extractSlice(orientation, s.d, activeDims, index);
       const rgba = new Uint8Array(width * height * 4);
@@ -468,8 +492,11 @@ async function boot(): Promise<void> {
         uiHint = null;
         debugHook.depletion = null;
         hideReadout();
+        // Re-center the slice within the NEW domain and rebuild the sliders so their
+        // bounds always match the active dims (R3 finding 1).
         sliceState.jIndex = msg.center[1];
         sliceState.kIndex = msg.center[2];
+        rebuildSliceIndexBindings();
         pane.refresh();
         view.frameDomain(activeDims, msg.center);
         renderStatus();
@@ -603,24 +630,6 @@ async function boot(): Promise<void> {
 
   const sliceFolder = pane.addFolder({ title: "slice plane — vapor d (model units, unvalidated)" });
   sliceFolder.addBinding(sliceState, "enabled", { label: "show slice" }).on("change", refreshView);
-  const jBinding = sliceFolder.addBinding(sliceState, "jIndex", {
-    label: "j index (drag along normal)",
-    min: 0,
-    max: DEFAULT_INIT.dims.ny - 1,
-    step: 1,
-  });
-  const kBinding = sliceFolder.addBinding(sliceState, "kIndex", {
-    label: "k index (drag along normal)",
-    min: 0,
-    max: DEFAULT_INIT.dims.nz - 1,
-    step: 1,
-  });
-  jBinding.on("change", refreshView);
-  kBinding.on("change", refreshView);
-  const syncSliceBindingVisibility = (): void => {
-    jBinding.hidden = sliceState.orientation !== "vertical";
-    kBinding.hidden = sliceState.orientation !== "horizontal";
-  };
   sliceFolder
     .addBinding(sliceState, "orientation", {
       label: "orientation",
@@ -628,13 +637,48 @@ async function boot(): Promise<void> {
         "vertical (constant j — Berg view)": "vertical",
         "horizontal (constant k)": "horizontal",
       },
-      index: 1,
     })
     .on("change", () => {
       syncSliceBindingVisibility();
       refreshView();
     });
-  syncSliceBindingVisibility();
+  // The index sliders' bounds depend on the ACTIVE dims, so they are rebuilt on every
+  // init/reset (R3 finding 1: bounds pinned to the defaults let a stale slider request
+  // indices the render clamps away).
+  interface SliceIndexBinding {
+    hidden: boolean;
+    dispose: () => void;
+  }
+  let jBinding: SliceIndexBinding | null = null;
+  let kBinding: SliceIndexBinding | null = null;
+  function syncSliceBindingVisibility(): void {
+    if (jBinding !== null) jBinding.hidden = sliceState.orientation !== "vertical";
+    if (kBinding !== null) kBinding.hidden = sliceState.orientation !== "horizontal";
+  }
+  function rebuildSliceIndexBindings(): void {
+    jBinding?.dispose();
+    kBinding?.dispose();
+    const jApi = sliceFolder.addBinding(sliceState, "jIndex", {
+      label: "j index (drag along normal)",
+      min: 0,
+      max: activeDims.ny - 1,
+      step: 1,
+      index: 2,
+    });
+    jApi.on("change", refreshView);
+    const kApi = sliceFolder.addBinding(sliceState, "kIndex", {
+      label: "k index (drag along normal)",
+      min: 0,
+      max: activeDims.nz - 1,
+      step: 1,
+      index: 3,
+    });
+    kApi.on("change", refreshView);
+    jBinding = jApi;
+    kBinding = kApi;
+    syncSliceBindingVisibility();
+  }
+  rebuildSliceIndexBindings();
   sliceFolder
     .addBinding(sliceState, "min", { label: "range min (model units)", format: rangeFormat })
     .on("change", refreshView);
@@ -712,6 +756,14 @@ async function boot(): Promise<void> {
     refreshView();
   };
   debugHook.setCrystalVisible = (visible: boolean): void => view.setCrystalVisible(visible);
+  debugHook.applyConfig = (partial): void => {
+    Object.assign(ui, partial);
+    pane.refresh();
+    sendInit();
+  };
+  debugHook.renderedSliceIndex = renderedSliceIndex;
+  debugHook.sliceLegendText = (): string =>
+    (byId<HTMLDivElement>("legend-slice").querySelector(".title") as HTMLDivElement).textContent ?? "";
 
   renderStatus();
   sendInit();

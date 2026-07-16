@@ -31,6 +31,23 @@ export function sliceIndexCount(orientation: SliceOrientation, dims: Dims): numb
 }
 
 /**
+ * The slice index actually rendered for a requested slider value: rounded and clamped into
+ * the domain. SINGLE SOURCE OF TRUTH — the render path and the legend must both go through
+ * this function, so the label can never claim an index the texture does not show (§1.5:
+ * a legend that disagrees with the render is a mislabel, R3 finding 1).
+ */
+export function clampSliceIndex(
+  orientation: SliceOrientation,
+  requested: number,
+  dims: Dims,
+): number {
+  if (!Number.isFinite(requested)) return 0;
+  const max = sliceIndexCount(orientation, dims) - 1;
+  const rounded = Math.round(requested);
+  return rounded < 0 ? 0 : rounded > max ? max : rounded;
+}
+
+/**
  * Extract the slice's field values, row-major tex[v * width + u].
  * vertical (fixed j = index): tex[k * nx + i] = field[idx(i, index, k)]
  * horizontal (fixed k = index): tex[j * nx + i] = field[idx(i, j, index)]
