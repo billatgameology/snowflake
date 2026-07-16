@@ -412,7 +412,10 @@ diagnostic is promised. An unequal-neighbor negative control pins this distincti
 accepted sweep caches the identical `(alphaHK,sigma_b)` pair for the interface update.
 
 At `alphaHK = 0`, the aggregate condition becomes `sigma_b = sigma_opp`: no kinetic sink or
-growth. It does not claim that one transient v4 sweep on a nonuniform field is bitwise identical
+growth. This includes nonpositive `sigma_opp` produced by decision 0011's density-conserving
+temperature transform. The signed supersaturation potential is preserved, never clamped to
+zero; the no-sublimation production law instead sets `alphaHK = 0`, so kinetic demand remains
+zero. It does not claim that one transient v4 sweep on a nonuniform field is bitwise identical
 to GG's reflecting pass. The permanent `GGThreshold` control remains bit-identical; the v4
 limit is tested directly against the aggregate equation and a uniform zero-sink fixed point.
 

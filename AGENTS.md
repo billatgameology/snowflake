@@ -90,7 +90,8 @@ The root is a strict-TypeScript ESM npm workspace on Node 23.6 or newer.
 | `runner/` | Node-only CLI and evidence boundary: argument validation, runs, stopping rules, metrics, PGM dumps, checkpoint I/O and round-trip checks, and enforced gates. |
 | `spike/` | Frozen Phase 1 Reiter prototype, deliberately outside the npm workspace. Do not evolve it into the product. |
 | `research/` | Tracked source indexes and citations; most downloaded media are local and gitignored. Never force-add copyrighted media. |
-| `app/`, `solver-gpu/` | Reserved future packages for Phases 3 and 5. Do not scaffold them incidentally; check current state first. |
+| `app/` | Phase 3 Three.js development instrument: Web Worker CPU solver, overlays, vapor slice, picking/readouts, stop-rule parity, and deterministic visual harness. Phase 4 extends it without moving solver work onto the UI thread. |
+| `solver-gpu/` | Reserved future package for Phase 5. Do not scaffold it incidentally. |
 
 Dependency direction is `core` → `solver-cpu` → `runner`. Keep solver code environment-neutral
 so the same oracle can later run in a Web Worker and serve as the GPU comparison target.

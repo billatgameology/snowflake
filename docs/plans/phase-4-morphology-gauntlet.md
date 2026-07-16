@@ -1,8 +1,8 @@
 # Plan — Phase 4: morphology gauntlet, timeline semantics, and visual diagnostics
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — passing criteria pre-registered; v4 integration landed; independent
-  WP0 review is next; no Phase 4 feature implementation has begun
+- **Status:** in progress — passing criteria pre-registered and strengthened after WP0 review;
+  WP0 fix/re-review loop active; no Phase 4 feature implementation has begun
 - **Started:** 2026-07-16
 - **Last touched:** 2026-07-16 by Codex, coordinating session
 
@@ -122,6 +122,10 @@ header.
 
 Existing metrics remain authoritative:
 
+- Extent triggers use integer occupied-cell lattice spans: `iExtent=iMax-iMin+1`, likewise for
+  j/z; `tExtent=max(iExtent,jExtent)`, `zExtent=kExtent`, and
+  `largestExtent=max(tExtent,zExtent)`. These are distinct from aspect ratio's Cartesian
+  across-flats denominator. Widening criteria use this integer `tExtent`.
 - Habit is `aspectRatio = z extent / T extent`; plate is `<= 1/1.5`, column is `>= 1.5`, and
   the interval between is neutral.
 - Hollowing is `crossSectionHollowness`, the per-z-slice open-cavity fraction. An open tube must
@@ -135,37 +139,60 @@ Existing metrics remain authoritative:
 
 One new pure metric is required for the timeline result:
 
-`cappedColumnProfile(a, dims, center)` computes the maximum integer `hexDistance` from the
-center in every occupied z layer. The trunk radius is the median radius of layers in the closed
-central 25–75% of the occupied z span. The bottom and top cap radii are the maxima over the first
-and last `ceil(20%)` of occupied layers. `capScore = min(bottomCap, topCap) / trunk`. It is
-undefined for fewer than five occupied layers or a zero-radius trunk. Tests independently
-recompute it on asymmetric all-distinct fixtures; a uniform prism scores 1, a one-ended flange
-fails the two-cap criterion, and a symmetric capped prism exceeds 1.
+`cappedColumnProfile(a, dims, center)` first builds the sorted integer z-layer list containing at
+least one attached cell. A gap in that list makes the result undefined. For each layer it records
+the maximum integer `hexDistance(i,j,centerI,centerJ)`. With `m` occupied layers, the closed trunk
+window uses zero-based occupied-layer ranks from `ceil(0.25*(m-1))` through
+`floor(0.75*(m-1))`, inclusive. The trunk radius is the ordinary sorted median of those radii;
+for an even count it is the arithmetic mean of the two central values. Each cap window contains
+exactly `ceil(0.20*m)` ranks from its respective end, and each cap radius is that window's
+maximum. `capScore = min(bottomCap, topCap) / trunk`. It is undefined for fewer than five
+occupied layers, an empty window, a z gap, or a zero-radius trunk. Tests independently recompute
+it on asymmetric all-distinct fixtures; a uniform prism scores 1, a one-ended flange fails the
+two-cap criterion, and a symmetric capped prism exceeds 1.
 
 ### Pass A — blocking `GGThreshold` protocol
 
-Unless a criterion says otherwise: canonical 19-site radius-2/thickness-1 seed, hexPrism domain,
-reflecting far field, Node/V8 oracle, noise off, exact per-tick D6h delta symmetry, final full
-symmetry error 0, relative `Sigma(b+d)` drift `< 1e-10`, no domain contact, and measurement on
-the first tick crossing the stated size target. A target may overshoot by one simultaneous
-attachment orbit; the actual extent is recorded and never backdated.
+Unless a criterion says otherwise, every Pass A run must pass these independently evaluated,
+stable execution criteria:
+
+- `A-EXEC-PROVENANCE`: Node `v24.13.1`, V8 `13.6.233.17-node.40`, float64 CPU oracle, tracked-
+  clean 40-hex execution commit, and the final criteria-freeze commit is its ancestor.
+- `A-EXEC-CONFIG`: canonical 19-site radius-2/thickness-1 seed, hexPrism domain, reflecting far
+  field, seed 1 and noise 0 unless the named scenario overrides them, with every registered
+  parameter and dimension equal to the manifest.
+- `A-EXEC-SYMMETRY`: the seed, every nonempty per-tick attachment delta, and final full state are
+  exactly D6h symmetric; final `symmetryError = 0`.
+- `A-EXEC-MASS`: `Sigma(b+d)` is finite and relative drift from the initial compensated sum is
+  `< 1e-10` at every recorded sample and at termination.
+- `A-EXEC-DOMAIN`: `domainContact` is false on every tick and at termination.
+- `A-EXEC-TERMINATION`: the registered stop reason occurs before its cap. Size targets are
+  measured on the first tick crossing the threshold; a simultaneous orbit may overshoot, but
+  the actual extent is recorded and never backdated. Far-field scenarios must stop only when
+  `farFieldMean < (2/3)*rho` is first observed on the registered check cadence.
+- `A-EXEC-NUMERIC`: all recorded fields, ledgers, metrics, and stop values required by a
+  criterion are present and finite; hashes are recomputed from raw arrays rather than trusted
+  from the report.
 
 #### A-HABIT — solid column and continuous transition
 
-- Dims `64,64,128`, seed 1, target largest lattice extent 36, step cap 12,000.
+- Dims `64,64,128`, seed 1, target largest lattice extent 14, step cap 12,000.
 - Start from the published `plate` preset. Sweep one and only one abstract columnarity control
   `u = [0, 0.25, 0.5, 0.75, 1]`, mapped to the basal G-G attachment threshold
   `ggThreshBeta(0,1) = 3 - 2u`, i.e. `[3, 2.5, 2, 1.5, 1]`. Every other scalar and vector slot
   is byte-identical across the five runs.
 - `A-HABIT-GROWTH`: all five runs reach the target before another stop and remain valid.
 - `A-HABIT-ENDPOINTS`: AR at `u=0` is `<= 0.3`; AR at `u=1` is `>= 1.5`.
+- `A-HABIT-SOLID`: the `u=1` endpoint has `crossSectionHollowness = 0` and
+  `sealedVoidFraction = 0`. A hollow open tube is a column by AR but fails this criterion.
 - `A-HABIT-MONOTONE`: AR is strictly increasing at every consecutive `u` value. Equal adjacent
   values fail; no post-hoc tolerance or isotonic fit is allowed.
 
-Calibration only, not gate evidence: a one-off coordinator probe on the inherited solver gave
-AR `[0.1351, 0.1892, 0.7297, 0.9459, 2.1765]` at actual extent 37. The probe script was inline
-and not retained, so these values are margins only and are not citable as Phase 4 evidence.
+Calibration only, not gate evidence: after WP0 review proved that the original target-36
+endpoint was hollow (`crossSectionHollowness = 0.1260`), a pre-feature coordinator probe at the
+replacement target gave actual extent 15, AR `[0.0667, 0.2000, 0.3333, 0.7333, 1.6667]`, and
+endpoint hollowness 0. The inline probe was not retained, so these are margins only and are not
+citable as Phase 4 evidence.
 
 #### A-DEPLETION — widening-column field signal
 
@@ -173,12 +200,15 @@ and not retained, so these values are margins only and are not citable as Phase 
 - Sample at the first ticks crossing extents `[12,16,20,24,28,32,36]`; record the entire series.
 - `A-DEPLETION-COLUMN`: final AR is `>= 1.5`.
 - `A-DEPLETION-DEFINED`: all seven ratios are finite.
+- `A-DEPLETION-WIDENING`: transverse extent is non-decreasing over the seven samples and the
+  final value is at least the first value plus 4 lattice units.
 - `A-DEPLETION-SIGNAL`: median ratio is `<= 0.85` and at least six of seven ratios are `< 1`.
 - The visual capture at or after extent 32 must show the same depressed center in the vertical
   slice while the HUD prints the exact metric values from `@vcc/core`.
 
 Calibration only: inherited-solver ratios were `[0.770, 0.925, 0.688, 0.668, 0.779, 0.771,
-0.731]`; all seven were below 1 and the final hollowness was 0.105.
+0.731]`; all seven were below 1, transverse extents were `[7,9,9,9,11,11,13]`, and final
+hollowness was 0.105.
 
 #### A-HOLLOW — second scientific gate, non-vacuous seed ensemble
 
@@ -243,12 +273,44 @@ protocol is fixed before any Phase 4 v4 morphology probe:
   step cap 50,000; canonical seed; `surfacePolicy=aggregate-hv-g1h1-v4`.
 - `CAK_A1`, `sigmaInfinity=0.002`, `dx=0.35 um`, pressure 101,325 Pa, fill-CFL 0.1,
   `relaxTol=1e-9`, `divTol=1e-7`, `relaxMaxSweeps=200000`, noise 0 unless stated, seed 1.
-- Every run must reach its registered termination without domain contact, skipped surface
-  advance, stall, or unconverged relaxation; dual convergence must hold, worst divergence must
-  be `< 1e-6`, max kinetic fill increment `<= 0.1 + 1e-12`, Péclet bound `< 1e-2`, ledger
-  demand bookkeeping must close, and the required policy must survive encode/decode and
-  field-bit comparison. These are **blocking execution criteria**, even though morphology is
-  diagnostic.
+- Every run must pass every stable criterion below. These are **blocking execution criteria**,
+  even when the morphology verdict is diagnostic:
+
+  - `B-EXEC-PROVENANCE`: Node `v24.13.1`, V8 `13.6.233.17-node.40`, float64 CPU oracle,
+    tracked-clean 40-hex execution commit, and the final criteria-freeze commit is its ancestor.
+  - `B-EXEC-CONFIG`: canonical 19-site seed; exact common constants above; Dirichlet far field;
+    exact `aggregate-hv-g1h1-v4`; only the scenario's registered temperature, seed, noise, or
+    `sigmaInfinity` override differs. A byte-level canonical manifest comparison enforces this.
+  - `B-EXEC-TERMINATION`: every run reaches its registered size target before 50,000 surface
+    steps, with no domain contact, stall, skipped advance, unconverged relaxation, or alternate
+    stop. The actual first-crossing extent and step are recorded.
+  - `B-EXEC-SYMMETRY`: every nonempty per-step attachment delta is exactly D6h invariant and
+    final `symmetryError = 0`.
+  - `B-EXEC-CONVERGENCE`: every report has `converged=true`, integer sweeps in `[1,200000]`,
+    finite residual in `[0,1e-9)`, finite positive shell injection and signed net surface
+    exchange, and finite reported divergence. The runner independently recomputes
+    `abs(shell-exchange)/max(abs(exchange),1e-300)`, agrees with the report within
+    `8*Number.EPSILON*max(1,reported,recomputed)`, and requires the recomputed value `< 1e-7`.
+  - `B-EXEC-SURFACE`: every interface step has finite positive `deltaTimeSeconds`, no stall or
+    skip, and finite positive `maxKineticFillIncrement <= 0.1 + 1e-12`; hole-fill events remain
+    separately counted and deficit-ledgered.
+  - `B-EXEC-LEDGER`: before attachment application the runner independently sums the cached
+    per-boundary-pixel demand using the raw field, counts, `alphaHK`, `vKin`, geometry, and that
+    step's `deltaTimeSeconds`. Per step, let `ledgerError` be the absolute difference between
+    `deltaPlacedFill + deltaSaturationClippedFill` and `independentDemand`; require
+    `ledgerError <= 1e-12*max(1,abs(independentDemand))`. Over a run the independently
+    accumulated total must close within `1e-10*max(1,abs(totalDemand))`. Hole-fill deficit is
+    excluded from both sides.
+  - `B-EXEC-PECLET`: the registered conservative Péclet bound is finite and `< 1e-2`.
+  - `B-EXEC-CHECKPOINT`: final checkpoint metadata exactly matches the run and policy; strict
+    decode/solver reconstruction succeeds; `a`, `f`, and `sigma` compare bit-for-bit and array
+    lengths match; bytes and SHA-256 are recorded without rewriting the source artifact.
+  - `B-EXEC-NUMERIC`: every required metric, report field, event value, derived constant, and
+    ledger value is present and finite. Negative LK supersaturation is permitted; NaN/infinity
+    and silently coerced missing values are not.
+  - `B-EXEC-COMPLETE`: every registered sweep point, seed, replay, sample extent, comparator,
+    and timeline event appears exactly once in the aggregate report. Missing and duplicate
+    records fail by name.
 
 The already-running, separately pre-registered 96-cubed Phase 2b v4 pair is never killed or
 duplicated. If it finishes execution-validly, its honestly recorded result is linked as the
@@ -257,15 +319,21 @@ higher-resolution endpoint reference; Phase 4 still runs its own registered dev-
 #### B-HABIT / B-SWEEP
 
 - Temperatures `[-5, -7.5, -10, -12.5, -15] °C`; temperature is the only run-to-run change.
-- Diagnostic success: AR at −5 °C is `<= 1/1.5`, AR at −15 °C is `>= 1.5`, the five AR values
-  are non-decreasing as temperature falls, and the categorical sequence crosses from plate to
-  column at most once (neutral values may lie between). Every value and failure is reported.
+- `B-HABIT-ENDPOINTS` diagnostic success: AR at −5 °C is `<= 1/1.5` and AR at −15 °C is
+  `>= 1.5`.
+- `B-HABIT-SOLID` diagnostic success: the noise-off −15 °C endpoint has
+  `crossSectionHollowness = 0` and `sealedVoidFraction = 0`.
+- `B-HABIT-MONOTONE` diagnostic success: the five AR values are non-decreasing as temperature
+  falls, and the categorical sequence crosses from plate to column at most once (neutral values
+  may lie between). Every value and failure is reported.
 
 #### B-DEPLETION / B-HOLLOW
 
 - Use the registered −15 °C endpoint, regardless of its observed habit.
-- Depletion samples at first crossing of extents `[10,12,14,16,18,20,22,24]`. Diagnostic
-  success: endpoint AR `>= 1.5`, all ratios finite, median `<= 0.9`, and at least 80% are `< 1`.
+- Depletion samples at first crossing of extents `[10,12,14,16,18,20,22,24]`.
+  `B-DEPLETION` diagnostic success: endpoint AR `>= 1.5`, all ratios finite, median `<= 0.9`,
+  and at least 80% are `< 1`. `B-DEPLETION-WIDENING` additionally requires transverse extent
+  to be non-decreasing and the last sample to be at least the first plus 2 lattice units.
 - Hollow ensemble: same conditions with seeds `[1,2,3]` and `noiseEpsilon=0.001`, target 24.
   Diagnostic success: every run has AR `>= 1.5`, hollowness rise `>= 0.03`, final hollowness
   `>= 0.03`, sealed void 0, at least two occupancy hashes differ, and seed 1 replays bitwise.
@@ -304,6 +372,15 @@ Every event has an exact trigger (`tick`, `largestExtent`, `zExtent`, or `tExten
 before/after environment, and a deterministic event index. The app worker and runner consume
 the same schedule evaluator.
 
+The schedule's counter is completed solver cycles. A `tick=N` event fires at the cycle boundary
+where exactly N cycles have completed, before that cycle's relaxation; therefore tick 0 fires
+before the first solver step. Extent triggers are observed only after a complete interface step
+and fire before the next relaxation. If more than one unfired event becomes eligible at the same
+cycle boundary—including different extent thresholds crossed by one simultaneous attachment
+batch, or a tick event coinciding with a queued extent event—the schedule fails as ambiguous
+before applying any event. Duplicate trigger declarations are rejected at validation. Phase 4
+does not silently choose an event order.
+
 The Phase 4 report records the full schedule and event log. Existing checkpoint wire contracts
 are not silently widened: GG v1 stays frozen, LK v1/v2 retain their meanings. If resumable
 timeline checkpoints are implemented, they require explicitly versioned new headers and
@@ -339,19 +416,21 @@ required schedule manifest and are not advertised as resumable mid-history.
 
 ### Adversarial tests required before evidence
 
-- Every stable `A-*`, `B-EXEC-*`, and visual validity criterion is tripped alone by a unit
-  fixture; criterion code that only agrees with its own report is rejected.
-- Aspect sweep: shuffled, equal-adjacent, inverted-endpoint, incomplete, and different-common-
-  parameter controls fail by name.
+- Every stable `A-EXEC-*`, morphology `A-*`, `B-EXEC-*`, and visual validity criterion is
+  tripped alone by a unit fixture; criterion code that only agrees with its own report is
+  rejected.
+- Aspect sweep: shuffled, equal-adjacent, inverted-endpoint, hollow-column endpoint, incomplete,
+  and different-common-parameter controls fail by name.
 - Hollowing: solid column, sealed shell, pre-hollowed seed, identical seed-stream fixture, and
   domain-contact controls fail the appropriate claim. The test independently hashes occupancy.
 - Capped profile: uniform shaft, one cap, off-center/asymmetric caps, fewer than five layers,
   and a correct two-cap fixture.
-- Timeline: event fires exactly once at the first crossing; a batch that crosses the trigger
-  cannot skip it; G-G field bytes and mass are unchanged at the event; LK density transform is
-  independently recomputed, including a negative-supersaturation case; unsupported ramps and
-  ambiguous triggers reject; cross-temperature vapor ledger catches final-temperature
-  multiplication.
+- Timeline: tick 0 and a later tick fire at the defined cycle boundary; an extent event fires
+  exactly once after the first crossing; a batch cannot skip it; coincident newly eligible
+  events reject before mutation; G-G field bytes and mass are unchanged at the event; LK density
+  transform is independently recomputed, including a negative-supersaturation case; unsupported
+  ramps and duplicate/ambiguous triggers reject; cross-temperature vapor ledger catches final-
+  temperature multiplication.
 - LK: wrong/missing `surfacePolicy`, legacy-v3 artifact, reflecting far field, residual-only
   convergence, divergence failure, clipped-demand omission, checkpoint-policy shift, and
   incomplete temperature sweep all fail execution validity.
@@ -371,8 +450,16 @@ required schedule manifest and are not advertised as resumable mid-history.
 - [x] Commit this criteria-first plan before any development agent is created (`23b5d6c`).
 - [ ] WP0: integrate accepted Phase 2b v4 history with current Phase 3; resolve authority and
       app conflicts; full baseline verification. Integration landed at merge `b080654` with
-      276/276 tests and the Phase 3 app unchanged; separate integration review → fix loop is
-      still required before WP0 closes.
+      276/276 tests and the Phase 3 app unchanged. Review round 1 found three blockers and four
+      should-fixes: negative LK supersaturation was clamped, the nominal solid-column criterion
+      accepted a hollow endpoint, Pass B execution checks were unnamed, capped-profile/trigger/
+      widening semantics were incomplete, and handoff text was stale. The solver fix landed at
+      `cc63a87` with 278/278 tests; this criteria/handoff amendment addresses the remaining
+      findings. Round 1 also independently passed the app build, proved Phase 3 trees object-
+      identical to `23b5d6c`, and ran the isolated Phase 2a control to exit 0 with canonical
+      SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389` at
+      `out/phase4/controls/wp0-phase2a-plate.ckpt`. Same-reviewer re-review is still required
+      before WP0 closes.
 - [x] Write/accept overlap ADR 0010 and timeline-semantics ADR 0011; update charter to v1.9 and
       PROGRESS before Phase 4 feature implementation.
 - [ ] WP1: pure metrics, schedule evaluator, gate verdict/report types, and adversarial fixtures.
@@ -410,6 +497,15 @@ required schedule manifest and are not advertised as resumable mid-history.
 
 - **Starting agents before criteria.** Rejected by maker direction. All development and review
   delegation waits for the commit containing this plan.
+- **Aspect ratio alone as “solid column,” and the original size-36 habit sweep.** Rejected by
+  WP0 review before feature implementation. The registered `u=1` endpoint had AR 2.1765 but
+  `crossSectionHollowness = 0.1260`, so it was an open tube. The corrected target is 14 (actual
+  first crossing 15 in calibration), with an exact zero-hollowness endpoint criterion and a
+  hollow-column negative control. The original size-36 numbers are killed calibration, not
+  evidence.
+- **Unnamed bundles of execution validity.** Rejected by WP0 review. Pass A now has stable
+  `A-EXEC-*` criteria and Pass B has individually trippable `B-EXEC-*` criteria, including a
+  numeric independent-demand ledger tolerance; implementation cannot invent those semantics.
 - **Running Phase 4 in the Phase 3 worktree.** Rejected: Phase 3 external testing and artifacts
   remain independently inspectable. This branch has its own worktree and output tree.
 - **Silently starting Phase 4 under charter v1.6's sequential rule.** Rejected: the maker asked

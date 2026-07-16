@@ -1,7 +1,7 @@
 # 0011 — Phase 4 timeline conserves vapor density across abrupt environment events
 
 - **Date:** 2026-07-16
-- **Status:** accepted
+- **Status:** accepted; trigger-boundary ambiguity clarified after WP0 review on 2026-07-16
 - **Charter impact:** §3.2 Phase 4 updated in this session (charter v1.8 → v1.9). This resolves
   decision 0005 D5 and corrects the capped-column history from plate→column to column→plate.
 
@@ -23,10 +23,17 @@ The source, the product example in §1.1, and the geometry all require column→
 ### 1. Timeline events and triggers
 
 Phase 4 supports deterministic, abrupt events only. A schedule names its operator, initial
-environment, ordered event index, exact trigger (`tick`, largest extent, transverse extent, or
-z extent), and complete post-event environment. When a growth step first makes an extent
-trigger true, its event fires once before the next relaxation/update cycle. Events at the same
-trigger are rejected rather than ordered implicitly. Ramps and interpolation are unsupported.
+environment, event index, exact trigger (`tick`, largest extent, transverse extent, or z
+extent), and complete post-event environment. The counter is completed solver cycles: a
+`tick=N` event fires at the boundary where exactly N cycles have completed, before that cycle's
+relaxation, so tick 0 precedes the first solver step. An extent trigger is observed only after a
+complete interface step and fires before the next relaxation/update cycle.
+
+Duplicate trigger declarations are rejected during validation. If multiple unfired events
+become eligible at one cycle boundary—including distinct extent thresholds crossed by one
+simultaneous attachment batch, or a tick event coinciding with a queued extent event—the run
+fails as ambiguous before any event mutates state. Phase 4 does not infer an order. Ramps and
+interpolation are unsupported.
 
 The capped-column milestone and charter are corrected to **column→plate**. Pass A uses the
 source-cited G-G §XII jump after a column has formed. Pass B uses a cold column-candidate stage
