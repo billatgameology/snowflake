@@ -50,6 +50,7 @@ import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import {
   aspectRatio,
+  centerRimDepletion,
   computeMetrics,
   decodeCheckpoint,
   decodeLKCheckpoint,
@@ -222,11 +223,15 @@ function fmt(x: number): string {
 }
 
 function printFullMetrics(label: string, m: Metrics, massDrift: number): void {
+  // depCenter/depRim are samples of G-G vapor mass d (model units, unvalidated); depRatio is
+  // their unitless center/rim quotient (plan phase-3-dev-visualization, honest-field note).
   console.log(
     `${label} tick=${m.tick} attached=${m.attachedCount} massDrift=${massDrift.toExponential(3)} ` +
       `symErr=${fmt(m.symmetryError)} AR=${fmt(m.aspectRatio)} hollow=${fmt(m.crossSectionHollowness)} ` +
       `sealedVoid=${fmt(m.sealedVoidFraction)} branches=${m.branchCount} radius=${fmt(m.boundingRadius)} ` +
-      `farField=${fmt(m.farFieldVapor)} domainContact=${m.domainContact}`,
+      `farField=${fmt(m.farFieldVapor)} domainContact=${m.domainContact} ` +
+      `depCenter=${fmt(m.depletionCenter)} depRim=${fmt(m.depletionRim)} ` +
+      `depRatio=${fmt(m.depletionRatio)}`,
   );
 }
 
@@ -304,15 +309,21 @@ function grow(options: GrowOptions): void {
     if (options.metricsEvery > 0 && t % options.metricsEvery === 0) {
       const mass = totalMass(solver.b, solver.d);
       const drift = Math.abs(mass - m0) / m0;
+      // Cheap enough for the light line (one plane scan): the Phase 3 depletion samples of
+      // G-G vapor mass d (model units, unvalidated) and their unitless center/rim ratio.
+      const dep = centerRimDepletion(solver.a, solver.d, dims, center, solver.wall);
       console.log(
         `tick=${solver.tick} attached=${solver.attachedCount} boundary=${solver.boundarySize()} ` +
           `massDrift=${drift.toExponential(3)} farField=${fmt(solver.farFieldMean())} ` +
+          `depCenter=${fmt(dep.depletionCenter)} depRim=${fmt(dep.depletionRim)} ` +
+          `depRatio=${fmt(dep.depletionRatio)} ` +
           `deltaSym=${deltaSymmetricAllTicks} elapsed=${((Date.now() - started) / 1000).toFixed(1)}s`,
       );
     }
     if (options.fullMetricsEvery > 0 && t % options.fullMetricsEvery === 0) {
       const m = computeMetrics(
         solver.a, solver.b, solver.d, dims, center, solver.tick, solver.farFieldMean(),
+        solver.wall,
       );
       printFullMetrics("metrics", m, Math.abs(m.totalMass - m0) / m0);
     }
@@ -332,6 +343,7 @@ function grow(options: GrowOptions): void {
 
   const final = computeMetrics(
     solver.a, solver.b, solver.d, dims, center, solver.tick, solver.farFieldMean(),
+    solver.wall,
   );
   const finalDrift = Math.abs(final.totalMass - m0) / m0;
   if (final.symmetryError > maxFullSymErr) maxFullSymErr = final.symmetryError;

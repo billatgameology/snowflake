@@ -12,6 +12,7 @@ import {
   mirror,
   rot60,
   zmirror,
+  T_NEIGHBOR_OFFSETS,
   type Dims,
 } from "./lattice.ts";
 import { paramSlot, type GGParams } from "./params.ts";
@@ -449,6 +450,117 @@ export function farFieldVapor(a: Uint8Array, d: Float64Array, dims: Dims): numbe
   return (sum + compensation) / count;
 }
 
+// ── Center-vs-rim depletion (charter §3.2 Phase 3; plan phase-3-dev-visualization, WP1) ─────
+// The Berg-effect instrument: sample the vapor field in the layer immediately above the
+// crystal's top basal facet — at the facet center and averaged over the facet's edge ring —
+// and report the ratio. Honest-field note (charter §1.5): under GGThreshold the sampled field
+// is G-G's diffusive vapor mass d — computed state, unvalidated, dimensionless model units,
+// NOT a physical supersaturation. The metric is a RATIO of two samples of the same field, so
+// it is well-defined without a unit claim and applies unchanged to a future LK sigma field
+// (sigma there = Libbrecht's water-vapor supersaturation; attachment-kinetics.md §2).
+// Berg-effect expectation for a growing plate: ratio < 1, falling as the facet widens.
+//
+// Conventions, exact (plan, "The metric (WP1) — precise definition"):
+//   kTop            max k over attached cells (a = 1) — the global crystal bbox top.
+//   depletionCenter field at (ic, jc, kTop + 1), the vapor cell above the facet center,
+//                   where (ic, jc) are the in-plane coords of `center`. NaN when that cell
+//                   is out of domain, a wall, or attached.
+//   rim set         attached cells in layer kTop with >= 1 free (unattached, non-wall)
+//                   in-plane T-neighbor within layer kTop — the facet's edge ring.
+//                   Out-of-domain T-neighbors are not cells and never count as free.
+//   depletionRim    mean of field over the cells directly above the rim set (k = kTop + 1),
+//                   counting only free, non-wall cells; NaN when that count is 0. The rim
+//                   ring is small (hundreds of cells at most), so a plain uncompensated mean
+//                   is fine — no Neumaier here, unlike the ~1e6-cell totalMass sum.
+//   depletionRatio  depletionCenter / depletionRim, plain IEEE division: NaN propagates, and
+//                   a zero rim mean gives Infinity (or NaN at 0/0) — non-finite either way,
+//                   which downstream gate criteria must treat as a named failure, not a pass.
+//   no crystal      all three NaN.
+//
+// A cell at kTop + 1 can never be attached (that would contradict kTop being the top), so the
+// attached checks there are defensive. Walls above the facet are real, though: a crystal one
+// layer below a hexPrism domain's z-cap has walls at kTop + 1. `wall` undefined = no walls
+// (box domain).
+
+export interface CenterRimDepletion {
+  readonly depletionCenter: number;
+  readonly depletionRim: number;
+  readonly depletionRatio: number;
+}
+
+export function centerRimDepletion(
+  a: Uint8Array,
+  field: Float64Array,
+  dims: Dims,
+  center: readonly [number, number, number],
+  wall?: Uint8Array,
+): CenterRimDepletion {
+  const { nx, ny, nz } = dims;
+  const plane = nx * ny;
+
+  // kTop: scan layers top-down; the first layer holding an attached cell is the bbox top.
+  let kTop = -1;
+  outer: for (let k = nz - 1; k >= 0; k--) {
+    const base = k * plane;
+    for (let p = 0; p < plane; p++) {
+      if (a[base + p] === 1) {
+        kTop = k;
+        break outer;
+      }
+    }
+  }
+  if (kTop === -1) {
+    return {
+      depletionCenter: Number.NaN,
+      depletionRim: Number.NaN,
+      depletionRatio: Number.NaN,
+    };
+  }
+
+  const kSample = kTop + 1;
+  const free = (index: number): boolean =>
+    a[index] === 0 && (wall === undefined || wall[index] === 0);
+
+  let depletionCenter = Number.NaN;
+  if (kSample < nz) {
+    const centerIndex = idx(dims, center[0], center[1], kSample);
+    if (free(centerIndex)) depletionCenter = field[centerIndex];
+  }
+
+  let sum = 0;
+  let count = 0;
+  if (kSample < nz) {
+    const base = kTop * plane;
+    for (let p = 0; p < plane; p++) {
+      if (a[base + p] !== 1) continue;
+      const i = p % nx;
+      const j = (p - i) / nx;
+      let onRim = false;
+      for (const [di, dj] of T_NEIGHBOR_OFFSETS) {
+        const ni = i + di;
+        const nj = j + dj;
+        if (ni < 0 || ni >= nx || nj < 0 || nj >= ny) continue;
+        if (free(base + nj * nx + ni)) {
+          onRim = true;
+          break;
+        }
+      }
+      if (!onRim) continue;
+      const above = base + plane + p;
+      if (free(above)) {
+        sum += field[above];
+        count++;
+      }
+    }
+  }
+  const depletionRim = count === 0 ? Number.NaN : sum / count;
+  return {
+    depletionCenter,
+    depletionRim,
+    depletionRatio: depletionCenter / depletionRim,
+  };
+}
+
 // ── The bundle the runner prints and the checkpoint records ────────────────────────────────
 
 export interface Metrics {
@@ -463,6 +575,10 @@ export interface Metrics {
   readonly boundingRadius: number;
   readonly domainContact: boolean;
   readonly farFieldVapor: number;
+  /** centerRimDepletion over the d field; NaN encodes as JSON null in checkpoint headers. */
+  readonly depletionCenter: number;
+  readonly depletionRim: number;
+  readonly depletionRatio: number;
 }
 
 export function computeMetrics(
@@ -478,8 +594,14 @@ export function computeMetrics(
    * shell mean instead.
    */
   farFieldOverride?: number,
+  /**
+   * Wall mask for centerRimDepletion (1 = inert wall cell). Undefined = no walls (box
+   * domain). Without it a hexPrism run would count d = 0 wall cells as rim vapor.
+   */
+  wall?: Uint8Array,
 ): Metrics {
   const bbox = latticeBBox(a, dims);
+  const depletion = centerRimDepletion(a, d, dims, center, wall);
   return {
     tick,
     attachedCount: bbox === null ? 0 : bbox.attachedCount,
@@ -492,5 +614,8 @@ export function computeMetrics(
     boundingRadius: boundingRadius(a, dims, center),
     domainContact: domainContact(a, dims),
     farFieldVapor: farFieldOverride ?? farFieldVapor(a, d, dims),
+    depletionCenter: depletion.depletionCenter,
+    depletionRim: depletion.depletionRim,
+    depletionRatio: depletion.depletionRatio,
   };
 }
