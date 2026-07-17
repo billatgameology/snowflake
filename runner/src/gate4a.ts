@@ -1241,11 +1241,16 @@ function validateDeltaWitnesses(result: Gate4ARunResult): ReconstructedDeltaChai
   for (const site of hexSeedSites(dims, 2, 1, center)) addCell(site);
 
   const byCycle = new Map<number, Gate4ADeltaWitness>();
+  let previousWitnessCycle = 0;
   for (const witness of result.deltas) {
     if (!Number.isSafeInteger(witness.cycle) || witness.cycle < 1 || !Array.isArray(witness.indices)) {
       deltaChainFailure(result, "delta witness shape is invalid");
     }
     if (byCycle.has(witness.cycle)) deltaChainFailure(result, `has duplicate delta cycle ${witness.cycle}`);
+    if (witness.cycle <= previousWitnessCycle) {
+      deltaChainFailure(result, `delta witnesses are out of order at cycle ${witness.cycle}`);
+    }
+    previousWitnessCycle = witness.cycle;
     byCycle.set(witness.cycle, witness);
   }
 
@@ -1442,7 +1447,13 @@ export function validateGate4AArtifacts(
   const byPath = new Map(artifacts.map((item) => [item.path, item]));
   const independentlyValidatedNoiseRuns: string[] = [];
   const manifestArtifact = byPath.get(GATE4A_MANIFEST_PATH) as EvidenceArtifactInput;
-  const parsedManifest = parseCanonicalJson(manifestArtifact.bytes, "Pass-A manifest");
+  let parsedManifest: StrictJson;
+  try {
+    parsedManifest = parseCanonicalJson(manifestArtifact.bytes, "Pass-A manifest");
+  } catch (error) {
+    // Corrupt manifest bytes are frozen-configuration evidence, owned by A-EXEC-CONFIG.
+    throw new Error(`A-EXEC-CONFIG: ${error instanceof Error ? error.message : String(error)}`);
+  }
   if (
     canonicalJson(parsedManifest) !== canonicalJson(manifest) ||
     sha256Bytes(manifestArtifact.bytes) !== GATE4A_MANIFEST_SHA256
@@ -1987,8 +1998,10 @@ export function deriveGate4AExecutionRecords(
     noiseRunEvidenceValid(result, validatedNoiseRunIds.has(result.config.id))
   ) && replayBits;
   const noiseArtifactFailure = artifactFailure.startsWith("A-EXEC-NOISE:");
+  const configArtifactFailure = artifactFailure.startsWith("A-EXEC-CONFIG:");
   const noisePass = rawNoisePass && !noiseArtifactFailure;
-  const numericArtifactPass = artifactFailure === "" || noiseArtifactFailure;
+  const configCriterionPass = configPass && !configArtifactFailure;
+  const numericArtifactPass = artifactFailure === "" || noiseArtifactFailure || configArtifactFailure;
   const numericPass = numericArtifactPass && options.results.length === registeredIds.length &&
     options.results.every((result) =>
       rowsStructurallyValid(result) && deltaChainNumericValid(result) && finalFieldsNumeric(result)
@@ -2001,8 +2014,8 @@ export function deriveGate4AExecutionRecords(
     createPhase4CriterionRecord("A-EXEC-PROVENANCE", provenancePass,
       provenancePass ? "exact engine and clean registered ancestry pass" : `provenance failed: ${provenanceFailures.join("; ")}`,
       { head: options.provenance.head, node: options.provenance.node, v8: options.provenance.v8 }),
-    createPhase4CriterionRecord("A-EXEC-CONFIG", configPass,
-      configPass ? "manifest, configs, canonical seeds, operator, and backend match byte-level freeze" : "manifest/config/seed/operator/backend mismatch",
+    createPhase4CriterionRecord("A-EXEC-CONFIG", configCriterionPass,
+      configCriterionPass ? "manifest, configs, canonical seeds, operator, and backend match byte-level freeze" : `manifest/config/seed/operator/backend mismatch${configArtifactFailure ? `: ${artifactFailure}` : ""}`,
       { manifestSha256: canonicalJsonSha256(options.manifest), runs: options.results.length }),
     createPhase4CriterionRecord("A-EXEC-SYMMETRY", symmetryPass,
       symmetryPass ? "all noise-off seeds, nonempty deltas, and final states are exactly D6h" : "noise-off raw symmetry evidence failed",
@@ -2382,6 +2395,14 @@ function terminalFact(label: string, value: unknown): string {
 export function formatGate4ATerminalPresentation(
   outcome: Gate4ARunOutcome,
 ): Gate4ATerminalPresentation {
+  // A terminal result requires publication evidence consistent with its verdict; the real
+  // CLI cannot produce a mismatch, so one here is a forged or corrupted outcome.
+  if (outcome.verdict.gatePass && outcome.publication === null) {
+    throw new Error("A-EXEC-NUMERIC: passing verdict requires a verified publication");
+  }
+  if (!outcome.verdict.gatePass && outcome.publication !== null) {
+    throw new Error("A-EXEC-NUMERIC: failed verdict must not carry a publication");
+  }
   const artifactDescriptors = outcome.publication === null
     ? outcome.artifacts.map((artifact) => ({
         path: artifact.path,

@@ -9,7 +9,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   PHASE4_ARTIFACT_INDEX,
@@ -21,6 +21,7 @@ import {
   sha256Bytes,
   strictJsonSnapshot,
   verifyEvidenceBundle,
+  type EvidenceArtifactIndex,
 } from "../src/gate4-evidence.ts";
 
 const tempRoots: string[] = [];
@@ -35,10 +36,12 @@ afterEach(() => {
   while (tempRoots.length > 0) rmSync(tempRoots.pop() as string, { recursive: true, force: true });
 });
 
-function publishFixture(root: string, hooks?: Parameters<typeof publishEvidenceBundle>[0]["hooks"]): string {
-  const canonicalDirectory = join(root, "pass-a");
-  publishEvidenceBundle({
-    canonicalDirectory,
+function publishOptions(
+  root: string,
+  overrides: Partial<Parameters<typeof publishEvidenceBundle>[0]> = {},
+): Parameters<typeof publishEvidenceBundle>[0] {
+  return {
+    canonicalDirectory: join(root, "pass-a"),
     reportPath: "gate4a-report.json",
     protocol: "phase4-pass-a-v1",
     pass: "A",
@@ -49,9 +52,70 @@ function publishFixture(root: string, hooks?: Parameters<typeof publishEvidenceB
       { path: "runs/b.ckpt", kind: "gg-checkpoint-v1", bytes: new Uint8Array([1, 2, 3]) },
     ],
     attemptId: "fixture",
-    hooks,
-  });
+    ...overrides,
+  };
+}
+
+function publishFixture(root: string, hooks?: Parameters<typeof publishEvidenceBundle>[0]["hooks"]): string {
+  const canonicalDirectory = join(root, "pass-a");
+  publishEvidenceBundle(publishOptions(root, { hooks }));
   return canonicalDirectory;
+}
+
+interface ForgedFile {
+  readonly path: string;
+  readonly bytes: Uint8Array;
+}
+
+/**
+ * A self-consistent alternative bundle graph for the fixture's file set: every internal hash
+ * and byte length is correct, so graph verification alone accepts it. Only the publisher's
+ * immutable in-memory expected root can tell it apart from the staged truth.
+ */
+function coherentForgedFiles(): readonly ForgedFile[] {
+  const payloads = [
+    { path: "runs/a.csv", kind: "text/csv", bytes: new TextEncoder().encode("cycle\n999\n") },
+    { path: "runs/b.ckpt", kind: "gg-checkpoint-v1", bytes: new Uint8Array([1, 2, 3]) },
+  ];
+  const descriptors = payloads.map((item) => ({
+    path: item.path,
+    kind: item.kind,
+    byteLength: item.bytes.byteLength,
+    sha256: sha256Bytes(item.bytes),
+  }));
+  const reportBytes = canonicalJsonBytes({
+    version: 1,
+    protocol: "phase4-pass-a-v1",
+    pass: "A",
+    operator: "GGThreshold",
+    artifacts: descriptors,
+    payload: { verdict: { gatePass: true }, runIds: ["run-a", "run-b"], forged: true },
+  });
+  const reportDescriptor = {
+    path: "gate4a-report.json",
+    kind: "phase4-evidence-report+json",
+    byteLength: reportBytes.byteLength,
+    sha256: sha256Bytes(reportBytes),
+  };
+  const indexBytes = canonicalJsonBytes({
+    version: 1,
+    publication: "complete",
+    report: reportDescriptor,
+    artifacts: [reportDescriptor, ...descriptors],
+  });
+  return [
+    ...payloads.map((item) => ({ path: item.path, bytes: item.bytes })),
+    { path: "gate4a-report.json", bytes: reportBytes },
+    { path: PHASE4_ARTIFACT_INDEX, bytes: indexBytes },
+  ];
+}
+
+function writeForgedBundle(directory: string): void {
+  for (const file of coherentForgedFiles()) {
+    const absolute = join(directory, file.path);
+    mkdirSync(dirname(absolute), { recursive: true });
+    writeFileSync(absolute, file.bytes);
+  }
 }
 
 describe("Phase 4 strict canonical JSON", () => {
@@ -66,6 +130,17 @@ describe("Phase 4 strict canonical JSON", () => {
     expect(() =>
       parseCanonicalJson(new TextEncoder().encode('{"a":1,"a":1}\n')),
     ).toThrow(/not canonical/);
+  });
+
+  it("compares the original bytes so a UTF-8 BOM cannot hide behind text decoding", () => {
+    const canonical = canonicalJsonBytes({ pass: "A" });
+    expect(() => parseCanonicalJson(canonical)).not.toThrow();
+    expect(() =>
+      parseCanonicalJson(Uint8Array.from([0xef, 0xbb, 0xbf, ...canonical]), "artifact index"),
+    ).toThrow(/^artifact index is not canonical JSON$/);
+    expect(() =>
+      parseCanonicalJson(Uint8Array.from([0xef, 0xbb, 0xbf, ...canonical]), "evidence report"),
+    ).toThrow(/^evidence report is not canonical JSON$/);
   });
 
   it.each([
@@ -200,5 +275,174 @@ describe("Phase 4 atomic evidence publication", () => {
     const directory = publishFixture(tempRoot());
     mutate(directory);
     expect(() => verifyEvidenceBundle(directory)).toThrow();
+  });
+
+  it("a coherent last-moment rewrite of payload, report, and index cannot publish", () => {
+    const root = tempRoot();
+    const forgedRoot = join(root, "forged-graph");
+    writeForgedBundle(forgedRoot);
+    // The forged graph is internally complete: reopen/graph verification alone accepts it.
+    expect(() => verifyEvidenceBundle(forgedRoot)).not.toThrow();
+    expect(() =>
+      publishFixture(root, {
+        beforeRename: (stagingDirectory) => writeForgedBundle(stagingDirectory),
+      }),
+    ).toThrow(/evidence bytes differ from the immutable expected root/);
+    expect(existsSync(join(root, "pass-a"))).toBe(false);
+    expect(existsSync(join(root, ".pass-a.attempt-fixture"))).toBe(false);
+  });
+
+  it("a coherent rewrite during artifact staging cannot publish", () => {
+    const root = tempRoot();
+    expect(() =>
+      publishFixture(root, {
+        afterArtifactWrite: (path, stagingDirectory) => {
+          if (path === "runs/a.csv") writeForgedBundle(stagingDirectory);
+        },
+      }),
+    ).toThrow(/EEXIST/);
+    expect(existsSync(join(root, "pass-a"))).toBe(false);
+    expect(existsSync(join(root, ".pass-a.attempt-fixture"))).toBe(false);
+  });
+
+  it("rejects a BOM-prefixed artifact index in a completed bundle", () => {
+    const directory = publishFixture(tempRoot());
+    const indexFile = join(directory, PHASE4_ARTIFACT_INDEX);
+    const original = new Uint8Array(readFileSync(indexFile));
+    writeFileSync(indexFile, Uint8Array.from([0xef, 0xbb, 0xbf, ...original]));
+    expect(() => verifyEvidenceBundle(directory)).toThrow(/^artifact index is not canonical JSON$/);
+  });
+
+  it("rejects a BOM-prefixed report even when the index descriptors are rewritten to match", () => {
+    const directory = publishFixture(tempRoot());
+    const reportFile = join(directory, "gate4a-report.json");
+    const bomReport = Uint8Array.from([
+      0xef, 0xbb, 0xbf,
+      ...new Uint8Array(readFileSync(reportFile)),
+    ]);
+    writeFileSync(reportFile, bomReport);
+    const indexFile = join(directory, PHASE4_ARTIFACT_INDEX);
+    const index = parseCanonicalJson(
+      new Uint8Array(readFileSync(indexFile)),
+    ) as unknown as EvidenceArtifactIndex;
+    const reportDescriptor = {
+      ...index.report,
+      byteLength: bomReport.byteLength,
+      sha256: sha256Bytes(bomReport),
+    };
+    writeFileSync(indexFile, canonicalJsonBytes({
+      ...index,
+      report: reportDescriptor,
+      artifacts: [reportDescriptor, ...index.artifacts.slice(1)],
+    }));
+    expect(() => verifyEvidenceBundle(directory)).toThrow(/^evidence report is not canonical JSON$/);
+  });
+
+  it("rejects an otherwise-valid index whose report descriptor kind shifted", () => {
+    const directory = publishFixture(tempRoot());
+    const indexFile = join(directory, PHASE4_ARTIFACT_INDEX);
+    const index = parseCanonicalJson(
+      new Uint8Array(readFileSync(indexFile)),
+    ) as unknown as EvidenceArtifactIndex;
+    const shifted = { ...index.report, kind: "application/json" };
+    writeFileSync(indexFile, canonicalJsonBytes({
+      ...index,
+      report: shifted,
+      artifacts: [shifted, ...index.artifacts.slice(1)],
+    }));
+    expect(() => verifyEvidenceBundle(directory)).toThrow(/^artifact index report kind is invalid$/);
+  });
+
+  it.each([
+    ["absolute", "/etc/forged.bin"],
+    ["parent traversal", "runs/../forged.bin"],
+    ["backslash", "runs\\forged.bin"],
+    ["empty segment", "runs//forged.bin"],
+    ["trailing slash", "runs/forged.bin/"],
+    ["leading dot", ".forged.bin"],
+    ["dot segment", "runs/./forged.bin"],
+  ])("rejects an unsafe artifact path before staging: %s", (_name, path) => {
+    const root = tempRoot();
+    expect(() => publishEvidenceBundle(publishOptions(root, {
+      artifacts: [{ path, kind: "application/octet-stream", bytes: new Uint8Array([1]) }],
+    }))).toThrow(/is not a safe normalized relative path/);
+    expect(existsSync(join(root, "pass-a"))).toBe(false);
+    expect(existsSync(join(root, ".pass-a.attempt-fixture"))).toBe(false);
+  });
+
+  it.each([
+    ["report path", "gate4a-report.json"],
+    ["artifact index path", PHASE4_ARTIFACT_INDEX],
+  ])("rejects an artifact claiming a reserved path: %s", (_name, path) => {
+    const root = tempRoot();
+    expect(() => publishEvidenceBundle(publishOptions(root, {
+      artifacts: [{ path, kind: "text/plain", bytes: new Uint8Array([1]) }],
+    }))).toThrow(/reserved artifact path/);
+    expect(existsSync(join(root, "pass-a"))).toBe(false);
+    expect(existsSync(join(root, ".pass-a.attempt-fixture"))).toBe(false);
+  });
+
+  it("rejects a report path that collides with the artifact index", () => {
+    const root = tempRoot();
+    expect(() => publishEvidenceBundle(publishOptions(root, {
+      reportPath: PHASE4_ARTIFACT_INDEX,
+    }))).toThrow(/report path must differ from the artifact index/);
+    expect(existsSync(join(root, "pass-a"))).toBe(false);
+  });
+
+  it("rejects duplicate artifact paths before staging", () => {
+    const root = tempRoot();
+    expect(() => publishEvidenceBundle(publishOptions(root, {
+      artifacts: [
+        { path: "runs/a.csv", kind: "text/csv", bytes: new Uint8Array([1]) },
+        { path: "runs/a.csv", kind: "text/csv", bytes: new Uint8Array([2]) },
+      ],
+    }))).toThrow(/duplicate artifact path: runs\/a\.csv/);
+    expect(existsSync(join(root, "pass-a"))).toBe(false);
+    expect(existsSync(join(root, ".pass-a.attempt-fixture"))).toBe(false);
+  });
+
+  it("refuses a colliding staging attempt directory and leaves it intact", () => {
+    const root = tempRoot();
+    const staging = join(root, ".pass-a.attempt-fixture");
+    mkdirSync(staging);
+    writeFileSync(join(staging, "foreign.txt"), "foreign\n");
+    expect(() => publishFixture(root)).toThrow(/staging evidence already exists/);
+    expect(readFileSync(join(staging, "foreign.txt"), "utf8")).toBe("foreign\n");
+    expect(existsSync(join(root, "pass-a"))).toBe(false);
+  });
+
+  it("a foreign canonical directory appearing before rename fails and is preserved", () => {
+    const root = tempRoot();
+    const canonical = join(root, "pass-a");
+    expect(() =>
+      publishFixture(root, {
+        beforeRename: () => {
+          mkdirSync(canonical);
+          writeFileSync(join(canonical, "foreign.txt"), "foreign evidence\n");
+        },
+      }),
+    ).toThrow(/canonical evidence appeared before publication/);
+    expect(readFileSync(join(canonical, "foreign.txt"), "utf8")).toBe("foreign evidence\n");
+    expect(existsSync(join(root, ".pass-a.attempt-fixture"))).toBe(false);
+  });
+
+  it.each([
+    ["underscore", "bad_attempt"],
+    ["traversal", "../escape"],
+    ["empty", ""],
+  ])("rejects an invalid attempt id before staging: %s", (_name, attemptId) => {
+    const root = tempRoot();
+    expect(() => publishEvidenceBundle(publishOptions(root, { attemptId })))
+      .toThrow(/attempt id is invalid/);
+    expect(existsSync(join(root, "pass-a"))).toBe(false);
+  });
+
+  it("rejects a canonical directory named like an attempt directory", () => {
+    const root = tempRoot();
+    expect(() => publishEvidenceBundle(publishOptions(root, {
+      canonicalDirectory: join(root, ".pass-a"),
+    }))).toThrow(/canonical evidence directory must not be an attempt directory/);
+    expect(existsSync(join(root, ".pass-a"))).toBe(false);
   });
 });

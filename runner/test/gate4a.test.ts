@@ -4,7 +4,7 @@
 import { spawnSync } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import {
   DOMAIN_CONTACT_FRACTION,
   STREAM_NOISE_XI,
@@ -28,6 +28,7 @@ import {
   sha256Bytes,
   strictJsonSnapshot,
   type EvidenceArtifactInput,
+  type PublishedEvidenceBundle,
 } from "../src/gate4-evidence.ts";
 import {
   evaluateGGNoiseWitness,
@@ -41,6 +42,7 @@ import {
   GATE4A_MANIFEST_SHA256,
   GATE4A_NODE,
   GATE4A_PROTOCOL,
+  GATE4A_REPORT_PATH,
   GATE4A_RUNNER_FREEZE,
   GATE4A_V8,
   GATE4A_GG_SOURCE_SHA256,
@@ -71,6 +73,13 @@ import type { AExecutionCriterion } from "../src/gate4-protocol.ts";
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const main = join(repoRoot, "runner", "src", "main.ts");
+
+// This suite is minutes of back-to-back synchronous CPU work, which starves the vitest
+// worker RPC channel until its 60s call timeout reports a spurious unhandled error.
+// Yield one macrotask per test so queued channel responses are delivered.
+beforeEach(async () => {
+  await new Promise((resolve) => setTimeout(resolve, 0));
+});
 
 function passingProvenance(): Gate4AProvenance {
   return {
@@ -610,6 +619,43 @@ function serialOrchestrationFixture(): SerialOrchestrationFixture {
   return cachedSerialOrchestration;
 }
 
+/** An honest in-memory mirror of what the shared publisher records for these artifacts. */
+function syntheticPublication(outcome: Gate4ARunOutcome): PublishedEvidenceBundle {
+  const payloadDescriptors = [...outcome.artifacts]
+    .map((artifact) => ({
+      path: artifact.path,
+      kind: artifact.kind,
+      byteLength: artifact.bytes.byteLength,
+      sha256: sha256Bytes(artifact.bytes),
+    }))
+    .sort((left, right) => (left.path < right.path ? -1 : left.path > right.path ? 1 : 0));
+  const report = {
+    version: 1 as const,
+    protocol: GATE4A_PROTOCOL,
+    pass: "A",
+    operator: "GGThreshold",
+    artifacts: payloadDescriptors,
+    payload: strictJsonSnapshot({ synthetic: true }),
+  };
+  const reportBytes = canonicalJsonBytes(report);
+  const reportDescriptor = {
+    path: GATE4A_REPORT_PATH,
+    kind: "phase4-evidence-report+json",
+    byteLength: reportBytes.byteLength,
+    sha256: sha256Bytes(reportBytes),
+  };
+  return {
+    directory: "/synthetic/pass-a",
+    report,
+    index: {
+      version: 1,
+      publication: "complete",
+      report: reportDescriptor,
+      artifacts: [reportDescriptor, ...payloadDescriptors],
+    },
+  };
+}
+
 describe("gate4a frozen registration", () => {
   it("registers the exact 13-run Pass-A matrix and caps", () => {
     const manifest = buildGate4AManifest();
@@ -1111,8 +1157,33 @@ describe("gate4a derives all eight execution criteria from raw evidence", () => 
       );
       return { ...result, previousOccupancy };
     }, /previous occupancy is not the state before the crossing cycle/],
+    ["duplicated delta witness cycle", (result: Gate4ARunResult): Gate4ARunResult => ({
+      ...result,
+      deltas: [result.deltas[0], result.deltas[0]],
+    }), /has duplicate delta cycle 1/],
+    ["orphan delta witness beyond the recorded rows", (result: Gate4ARunResult): Gate4ARunResult => ({
+      ...result,
+      deltas: [...result.deltas, { cycle: result.rows.length + 1, indices: [0] }],
+    }), /has orphan delta witness at cycle 2/],
   ] as const)("A-EXEC-NUMERIC reconstruction rejects delta-chain mutation: %s", (_name, mutate, pattern) => {
     const results = replaceResult("A-HABIT-U0", mutate);
+    expect(
+      () => buildGate4AArtifacts(passingFixture().manifest, results),
+      `${_name} must fail the independent reconstruction before artifact bytes exist`,
+    ).toThrow(pattern);
+  });
+
+  it.each([
+    ["orphan witness on an empty-delta row", (result: Gate4ARunResult): Gate4ARunResult => {
+      expect(result.rows[2].deltaCount).toBe(0);
+      return { ...result, deltas: [...result.deltas, { cycle: 3, indices: [0] }] };
+    }, /empty delta has a witness at cycle 3/],
+    ["out-of-order witness cycles", (result: Gate4ARunResult): Gate4ARunResult => {
+      expect(result.deltas.map((witness) => witness.cycle)).toEqual([1, 2]);
+      return { ...result, deltas: [result.deltas[1], result.deltas[0]] };
+    }, /delta witnesses are out of order at cycle 1/],
+  ] as const)("A-EXEC-NUMERIC reconstruction rejects multi-witness mutation: %s", (_name, mutate, pattern) => {
+    const results = replaceResult("A-TIMELINE", mutate);
     expect(
       () => buildGate4AArtifacts(passingFixture().manifest, results),
       `${_name} must fail the independent reconstruction before artifact bytes exist`,
@@ -1187,6 +1258,30 @@ describe("gate4a artifact and checkpoint seams", () => {
         path,
       ).toThrow();
     }
+  });
+
+  it.each([
+    ["invalid UTF-8", (): Uint8Array => Uint8Array.from([0xff, 0xfe, 0x0a]),
+      /^A-EXEC-CONFIG: Pass-A manifest is not valid UTF-8$/],
+    ["invalid JSON", (): Uint8Array => encoder.encode("{\n"),
+      /^A-EXEC-CONFIG: Pass-A manifest is not valid JSON$/],
+    ["noncanonical whitespace", (): Uint8Array =>
+      encoder.encode(`${canonicalJson(buildGate4AManifest())} \n`),
+      /^A-EXEC-CONFIG: Pass-A manifest is not canonical JSON$/],
+    ["BOM-prefixed canonical bytes", (): Uint8Array =>
+      Uint8Array.from([0xef, 0xbb, 0xbf, ...canonicalJsonBytes(buildGate4AManifest())]),
+      /^A-EXEC-CONFIG: Pass-A manifest is not canonical JSON$/],
+    ["canonical bytes off the freeze", (): Uint8Array =>
+      canonicalJsonBytes({ ...buildGate4AManifest(), canonicalSeedSites: 20 }),
+      /^A-EXEC-CONFIG: manifest bytes differ from the freeze$/],
+  ] as const)("A-EXEC-CONFIG owns corrupt manifest bytes: %s", (_name, makeBytes, pattern) => {
+    const fixture = passingFixture();
+    const artifacts = fixture.artifacts.map((artifact) => artifact.path === "manifest.json"
+      ? { ...artifact, bytes: makeBytes() }
+      : artifact);
+    expect(() => validateGate4AArtifacts(fixture.manifest, fixture.results, artifacts))
+      .toThrow(pattern);
+    expectOnlyFailure("A-EXEC-CONFIG", { artifacts });
   });
 
   it("rejects a canonically re-encoded noise header mutation with unchanged field bytes", () => {
@@ -1380,6 +1475,7 @@ describe("gate4a serial orchestration seams", () => {
 
   it("formats every required exact terminal fact for a passing outcome", () => {
     const failedOutcome = serialOrchestrationFixture().outcome;
+    const publication = syntheticPublication(failedOutcome);
     const outcome: Gate4ARunOutcome = {
       ...failedOutcome,
       verdict: {
@@ -1391,6 +1487,7 @@ describe("gate4a serial orchestration seams", () => {
         gatePass: true,
         exitCode: 0,
       },
+      publication,
     };
     const presentation = formatGate4ATerminalPresentation(outcome);
     const fact = (label: string, value: unknown): string =>
@@ -1419,15 +1516,54 @@ describe("gate4a serial orchestration seams", () => {
         extentCrossing: result.extentCrossing,
         farFieldCrossing: result.farFieldCrossing,
       })));
-    const expectedArtifacts = outcome.artifacts.map((artifact) => ({
-      path: artifact.path,
-      kind: artifact.kind,
-      byteLength: artifact.bytes.byteLength,
-      sha256: sha256Bytes(artifact.bytes),
-    })).sort((left, right) => left.path < right.path ? -1 : left.path > right.path ? 1 : 0);
+    const expectedArtifacts = [
+      ...outcome.artifacts.map((artifact) => ({
+        path: artifact.path,
+        kind: artifact.kind,
+        byteLength: artifact.bytes.byteLength,
+        sha256: sha256Bytes(artifact.bytes),
+      })),
+      publication.index.report,
+    ].sort((left, right) => left.path < right.path ? -1 : left.path > right.path ? 1 : 0);
     expect(presentation.stdoutLines.filter((line) => line.startsWith("GATE4A ARTIFACT ")))
       .toEqual(expectedArtifacts.map((artifact) => fact("ARTIFACT", artifact)));
+    expect(presentation.stdoutLines).toContain(fact("PASSED", {
+      executions: outcome.results.length,
+      payloadArtifacts: outcome.artifacts.length,
+      manifestSha256: GATE4A_MANIFEST_SHA256,
+      published: publication.directory,
+    }));
     expect(presentation.stdoutLines.at(-1)).toBe("GATE4A EXIT STATUS: 0");
+  });
+
+  it("refuses to present a passing verdict without a verified publication", () => {
+    const failedOutcome = serialOrchestrationFixture().outcome;
+    const outcome: Gate4ARunOutcome = {
+      ...failedOutcome,
+      verdict: {
+        ...failedOutcome.verdict,
+        contractFailures: [],
+        blockingFailures: [],
+        executionValid: true,
+        morphologyPass: true,
+        gatePass: true,
+        exitCode: 0,
+      },
+      publication: null,
+    };
+    expect(() => formatGate4ATerminalPresentation(outcome))
+      .toThrow(/^A-EXEC-NUMERIC: passing verdict requires a verified publication$/);
+  });
+
+  it("refuses to present a failed verdict that carries a publication", () => {
+    const failedOutcome = serialOrchestrationFixture().outcome;
+    expect(failedOutcome.verdict.gatePass).toBe(false);
+    const outcome: Gate4ARunOutcome = {
+      ...failedOutcome,
+      publication: syntheticPublication(failedOutcome),
+    };
+    expect(() => formatGate4ATerminalPresentation(outcome))
+      .toThrow(/^A-EXEC-NUMERIC: failed verdict must not carry a publication$/);
   });
 
   it("keeps every failed criterion named in terminal failure output", () => {
