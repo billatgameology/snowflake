@@ -378,9 +378,15 @@ cells, and admitted an event; G-G admitted unmatched surface updates while valid
 both solvers' tick/noise provenance unchanged; changing LK accessors bypassed staging and produced
 mixed invalid live controls; a typed-array subclass defeated G-G control ownership; and the
 running vapor-unit sum broke exact fixed-temperature product compatibility after two steps. The
-next serial action is to return all five findings to the original WP2a developer, rerun every
-target and full check, commit the repair, and send it to the same reviewer until CLEAN. WP2b must
-not start first. Work only in
+repair closes all five with explicit fail-closed cycle states and surface-owned ticks, one-read
+owned environment snapshots, intrinsic base-`Float64Array` copies, and temperature-segment
+bookkeeping. Its 17-case exploit suite covers direct/wrapper noise replay, bare/repeated calls,
+recursive and throwing callbacks/getters with recovery, typed-array subclasses, eight-step exact
+fixed-temperature equality, same-temperature continuity, and three-temperature history. The
+targeted set is 78/78; independent coordinator verification is 421/421 with Rule 7 and both
+TypeScript projects clean; the 27-module app build and `git diff --check` pass. The next serial
+action is to commit this repair and return it to the same WP2a reviewer for exact exploit replay;
+loop any finding to the same developer until CLEAN. WP2b must not start first. Work only in
 `/Users/clipper/github/snowflake-phase4`.
 Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
 artifacts.

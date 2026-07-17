@@ -531,7 +531,12 @@ required schedule manifest and are not advertised as resumable mid-history.
       accessor-driven LK staging bypass, and typed-array-subclass aliasing of G-G controls. One
       should-fix requires exact fixed-temperature vapor-ledger compatibility across multiple
       steps. The complete set is returning to the original developer; same-reviewer recheck to
-      CLEAN remains mandatory.
+      CLEAN remains mandatory. Repair round 1 now passes 17/17 dedicated hardening cases, 78/78
+      targeted tests, 421/421 root tests, and the app build: explicit non-reentrant cycle states
+      make successful surface completion own one tick; changing accessors and typed-array
+      subclasses cannot escape owned staging; and exact constant-temperature segments preserve
+      both fixed-temperature and cross-temperature ledger semantics. Coordinator audit is green;
+      same-reviewer exploit replay remains open.
 - [ ] WP2b: shared runner evidence infrastructure plus flagless `gate4a` and Pass A artifacts.
       Separate review → fix loop.
 - [ ] WP2c: flagless `gate4b`/`gate4`, Pass B execution witnesses, checkpoints, and aggregate

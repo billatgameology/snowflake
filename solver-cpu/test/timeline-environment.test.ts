@@ -17,14 +17,14 @@ function bytes(values: Uint8Array | Float64Array): Uint8Array {
 }
 
 function ggSnapshot(solver: GGSolver): unknown {
-  const internal = solver as unknown as { readonly surfaceUpdatePending: boolean };
+  const internal = solver as unknown as { readonly cycleState: string };
   return {
     environment: solver.timelineEnvironment(),
     tick: solver.tick,
     dirichletMeter: solver.dirichletMeter,
     attachedCount: solver.attachedCount,
     lastAttached: [...solver.lastAttached],
-    surfaceUpdatePending: internal.surfaceUpdatePending,
+    cycleState: internal.cycleState,
     a: bytes(solver.a),
     b: bytes(solver.b),
     d: bytes(solver.d),
@@ -33,13 +33,13 @@ function ggSnapshot(solver: GGSolver): unknown {
 }
 
 interface LKInternalSnapshotView {
-  readonly surfaceReady: boolean;
-  readonly relaxationStartedForCycle: boolean;
+  readonly cycleState: string;
   readonly sEff: Float64Array;
   readonly boundaryAlphaHK: Float64Array;
   readonly boundarySigma: Float64Array;
   readonly boundarySigmaOpp: Float64Array;
-  readonly cumulativePlacedFillVaporUnits: number;
+  readonly closedPlacedFillVaporUnits: number;
+  readonly currentTemperatureSegmentStartFill: number;
 }
 
 function lkSnapshot(solver: LKSolver): unknown {
@@ -62,11 +62,11 @@ function lkSnapshot(solver: LKSolver): unknown {
     fillLedger: solver.fillLedger,
     holeFillDeficit: solver.holeFillDeficit,
     saturationClippedFill: solver.saturationClippedFill,
-    cumulativePlacedFillVaporUnits: internal.cumulativePlacedFillVaporUnits,
+    closedPlacedFillVaporUnits: internal.closedPlacedFillVaporUnits,
+    currentTemperatureSegmentStartFill: internal.currentTemperatureSegmentStartFill,
     lastRelaxation:
       solver.lastRelaxation === null ? null : { ...solver.lastRelaxation },
-    surfaceReady: internal.surfaceReady,
-    relaxationStartedForCycle: internal.relaxationStartedForCycle,
+    cycleState: internal.cycleState,
     a: bytes(solver.a),
     f: bytes(solver.f),
     sigma: bytes(solver.sigma),
@@ -126,7 +126,7 @@ describe("GGSolver abrupt environment transitions (ADR 0011)", () => {
       "dirichletMeter",
       "attachedCount",
       "lastAttached",
-      "surfaceUpdatePending",
+      "cycleState",
       "a",
       "b",
       "d",

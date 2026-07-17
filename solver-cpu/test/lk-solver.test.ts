@@ -581,8 +581,10 @@ describe("LKSolver — divergence identity (§4.4 test 3)", () => {
     expect(looseReport.residual).toBeLessThan(devOptions.relaxTol);
     expect(looseReport.divergenceResidual).toBeGreaterThan(solver.divTol);
     expect(looseReport.sweeps).toBeLessThan(report.sweeps);
+    // Consume the accepted split-cycle relaxation before starting wrapper-owned cycles.
+    solver.advanceSurface();
     // And it keeps holding as the crystal grows.
-    for (let t = 0; t < 30; t++) solver.step();
+    for (let t = 1; t < 30; t++) solver.step();
     const later = solver.relaxField();
     expect(later.converged).toBe(true);
     expect(later.divergenceResidual).toBeLessThan(solver.divTol);
@@ -651,7 +653,7 @@ describe("LKSolver — ledger identity (§4.4 test 4)", () => {
         solver.fillLedger - ledgerBefore + (solver.saturationClippedFill - clippedBefore);
       expect(accounted / expectedDemand, `step ${t}`).toBeCloseTo(1, 8);
       if (solver.saturationClippedFill > clippedBefore) sawSaturation = true;
-      solver.tick++; // manual stepping: keep the tick advancing as step() would
+      // advanceSurface owns the completed-cycle/tick increment.
     }
     // The identity must exercise a SATURATING step. In the historical round-3 audit probe,
     // recomputed demand exceeded the ledger by 35% when clipping was silent; its ad-hoc
@@ -728,7 +730,7 @@ describe("LKSolver — legacy-v3 sink-vs-demand regression", () => {
         measured++;
       }
       const surface = solver.advanceSurface();
-      solver.tick++; // manual stepping, as in the demand-bookkeeping test above
+      // advanceSurface owns the completed-cycle/tick increment.
       if (surface.stalled) break;
     }
     expect(measured).toBeGreaterThan(50); // the band must come from a real growth history

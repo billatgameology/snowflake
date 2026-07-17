@@ -188,6 +188,34 @@ function deriveEnvironmentScales(
   };
 }
 
+function snapshotTimelineEnvironment(value: unknown): LKTimelineEnvironment {
+  if (value === null || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error("LK timeline environment must be an object");
+  }
+  const record = value as Record<string, unknown>;
+  const actual = Object.keys(record).sort();
+  const expected = ["sigmaInfinity", "tempC"];
+  if (
+    actual.length !== expected.length ||
+    actual.some((key, index) => key !== expected[index])
+  ) {
+    throw new Error(`LK timeline environment keys must be exactly [${expected.join(", ")}]`);
+  }
+  // Each caller-controlled accessor is read exactly once. Everything after this point uses
+  // only the owned primitive snapshot.
+  const tempC = record.tempC;
+  const sigmaInfinity = record.sigmaInfinity;
+  return { tempC: tempC as number, sigmaInfinity: sigmaInfinity as number };
+}
+
+type LKCycleState =
+  | "boundary"
+  | "relaxing"
+  | "ready"
+  | "advancing"
+  | "incomplete"
+  | "transitioning";
+
 export class LKSolver implements SurfaceOperator {
   readonly surfacePolicy: LKSurfacePolicy;
   readonly dims: Dims;
@@ -216,7 +244,7 @@ export class LKSolver implements SurfaceOperator {
   lastMaxFillVelocityMS = 0;
   holeFillCountTotal = 0;
 
-  tick = 0; // growth steps taken
+  private _tick = 0; // completed growth steps
   simTimeSeconds = 0;
 
   readonly a: Uint8Array;
@@ -268,13 +296,12 @@ export class LKSolver implements SurfaceOperator {
       cell/step by the CFL. */
   saturationClippedFill = 0;
   lastRelaxation: RelaxationReport | null = null;
-  /** Set by a CONVERGED relaxField for this tick; consumed by advanceSurface (round-3
-      review: the public interface must not be able to bypass the unconverged guard). */
-  private surfaceReady = false;
-  /** True from the first relaxation sweep until a successful interface update completes. */
-  private relaxationStartedForCycle = false;
-  /** Placed fill converted at the temperature of each interface step (ADR 0011). */
-  private cumulativePlacedFillVaporUnits = 0;
+  /** Explicit non-reentrant two-method cycle state. Only boundary accepts an event. */
+  private cycleState: LKCycleState = "boundary";
+  /** Vapor-unit bookkeeping closed at prior temperature changes. */
+  private closedPlacedFillVaporUnits = 0;
+  /** Ice-cell ledger value at the start of the current constant-temperature segment. */
+  private currentTemperatureSegmentStartFill = 0;
 
   constructor(options: LKSolverOptions) {
     this.surfacePolicy = options.surfacePolicy;
@@ -477,6 +504,10 @@ export class LKSolver implements SurfaceOperator {
     return this._tempC;
   }
 
+  get tick(): number {
+    return this._tick;
+  }
+
   get sigmaInfinity(): number {
     return this._sigmaInfinity;
   }
@@ -516,185 +547,206 @@ export class LKSolver implements SurfaceOperator {
     };
   }
 
+  private placedFillVaporUnits(): number {
+    return (
+      this.closedPlacedFillVaporUnits +
+      (this.fillLedger - this.currentTemperatureSegmentStartFill) * this.mIceLedger
+    );
+  }
+
   /**
    * Apply ADR 0011's abrupt LK environment event. All validation, derived arithmetic, and the
    * full O(domain) density transform are staged before any live control, field, cache, or
    * ledger is touched.
    */
   applyTimelineEnvironment(environment: LKTimelineEnvironment): LKEnvironmentTransitionReport {
-    if (this.relaxationStartedForCycle) {
+    if (this.cycleState !== "boundary") {
       throw new Error(
-        "LK timeline environment may only change at a completed interface-cycle boundary; " +
-          "relaxation has already started for the current cycle",
+        `LK timeline environment requires a completed interface-cycle boundary (state=${this.cycleState})`,
       );
     }
-    const beforeEnvironment = this.timelineEnvironment();
-    validateTimelineSchedule({
-      version: 1,
-      mode: "abrupt",
-      operator: "LibbrechtKinetics",
-      initialEnvironment: beforeEnvironment,
-      events: [
-        {
-          index: 0,
-          operator: "LibbrechtKinetics",
-          trigger: { kind: "tick", value: 0 },
-          environment,
+    this.cycleState = "transitioning";
+    try {
+      const target = snapshotTimelineEnvironment(environment);
+      const beforeEnvironment = this.timelineEnvironment();
+      validateTimelineSchedule({
+        version: 1,
+        mode: "abrupt",
+        operator: "LibbrechtKinetics",
+        initialEnvironment: beforeEnvironment,
+        events: [
+          {
+            index: 0,
+            operator: "LibbrechtKinetics",
+            trigger: { kind: "tick", value: 0 },
+            environment: target,
+          },
+        ],
+      });
+
+      const derivedBefore = this.currentDerivedScales();
+      const derivedAfter = deriveEnvironmentScales(
+        target.tempC,
+        target.sigmaInfinity,
+        this.pressurePa,
+        this.dxM,
+      );
+      const temperatureChanged = !Object.is(target.tempC, this.tempC);
+      const cSatRatioOldToNew =
+        derivedBefore.cSatPerCubicMeter / derivedAfter.cSatPerCubicMeter;
+      requirePositiveFinite(cSatRatioOldToNew, "temperature density ratio");
+
+      const stagedSigma = this.sigma.slice();
+      const shellMask = new Uint8Array(this.sigma.length);
+      for (let position = 0; position < this.dirichletCells.length; position++) {
+        shellMask[this.dirichletCells[position]] = 1;
+      }
+      let activeUnattachedCellCount = 0;
+      let activeUnattachedShellCellCount = 0;
+      let absoluteNumberDensitySumBefore = 0;
+      let absoluteNumberDensitySumBeforeCompensation = 0;
+      let absoluteNumberDensitySumAfter = 0;
+      let absoluteNumberDensitySumAfterCompensation = 0;
+      let maxCellAbsoluteNumberDensityError = 0;
+      let maxCellRelativeNumberDensityError = 0;
+      const addBefore = (value: number): void => {
+        const sum = absoluteNumberDensitySumBefore + value;
+        absoluteNumberDensitySumBeforeCompensation +=
+          Math.abs(absoluteNumberDensitySumBefore) >= Math.abs(value)
+            ? absoluteNumberDensitySumBefore - sum + value
+            : value - sum + absoluteNumberDensitySumBefore;
+        absoluteNumberDensitySumBefore = sum;
+      };
+      const addAfter = (value: number): void => {
+        const sum = absoluteNumberDensitySumAfter + value;
+        absoluteNumberDensitySumAfterCompensation +=
+          Math.abs(absoluteNumberDensitySumAfter) >= Math.abs(value)
+            ? absoluteNumberDensitySumAfter - sum + value
+            : value - sum + absoluteNumberDensitySumAfter;
+        absoluteNumberDensitySumAfter = sum;
+      };
+
+      for (let index = 0; index < this.sigma.length; index++) {
+        if (this.a[index] === 1 || this.wall[index] === 1) continue;
+        const sigmaOld = this.sigma[index];
+        if (!Number.isFinite(sigmaOld) || sigmaOld < -1) {
+          throw new Error(
+            `active LK sigma[${index}] must be finite and >= -1 before a temperature event`,
+          );
+        }
+        activeUnattachedCellCount++;
+        if (shellMask[index] === 1) activeUnattachedShellCellCount++;
+        const densityBefore = (1 + sigmaOld) * derivedBefore.cSatPerCubicMeter;
+        const sigmaNew = temperatureChanged
+          ? (1 + sigmaOld) * derivedBefore.cSatPerCubicMeter /
+              derivedAfter.cSatPerCubicMeter -
+            1
+          : sigmaOld;
+        if (!Number.isFinite(sigmaNew) || sigmaNew < -1) {
+          throw new Error(`density transform produced a nonphysical sigma at cell ${index}`);
+        }
+        stagedSigma[index] = sigmaNew;
+        const densityAfter = (1 + sigmaNew) * derivedAfter.cSatPerCubicMeter;
+        if (!Number.isFinite(densityBefore) || !Number.isFinite(densityAfter)) {
+          throw new Error(`density transform overflowed at active cell ${index}`);
+        }
+        addBefore(densityBefore);
+        addAfter(densityAfter);
+        const absoluteError = Math.abs(densityAfter - densityBefore);
+        const relativeError = absoluteError / Math.max(Math.abs(densityBefore), 1e-300);
+        if (absoluteError > maxCellAbsoluteNumberDensityError) {
+          maxCellAbsoluteNumberDensityError = absoluteError;
+        }
+        if (relativeError > maxCellRelativeNumberDensityError) {
+          maxCellRelativeNumberDensityError = relativeError;
+        }
+      }
+      absoluteNumberDensitySumBefore += absoluteNumberDensitySumBeforeCompensation;
+      absoluteNumberDensitySumAfter += absoluteNumberDensitySumAfterCompensation;
+      if (
+        !Number.isFinite(absoluteNumberDensitySumBefore) ||
+        !Number.isFinite(absoluteNumberDensitySumAfter) ||
+        !Number.isFinite(maxCellAbsoluteNumberDensityError) ||
+        !Number.isFinite(maxCellRelativeNumberDensityError)
+      ) {
+        throw new Error("density-transform diagnostics must remain finite");
+      }
+
+      const transformedCellCount = temperatureChanged ? activeUnattachedCellCount : 0;
+      const transformedDirichletShellCellCount =
+        temperatureChanged && this.farField === "dirichlet"
+          ? activeUnattachedShellCellCount
+          : 0;
+      const report: LKEnvironmentTransitionReport = {
+        operator: "LibbrechtKinetics",
+        boundary: {
+          phase: "completedCycleBoundary",
+          completedCycles: this.tick,
+          tick: this.tick,
+          simTimeSeconds: this.simTimeSeconds,
         },
-      ],
-    });
+        beforeEnvironment,
+        afterEnvironment: {
+          tempC: target.tempC,
+          sigmaInfinity: target.sigmaInfinity,
+        },
+        densityTransform: {
+          temperatureChanged,
+          cSatRatioOldToNew,
+          activeUnattachedCellCount,
+          transformedCellCount,
+          transformedInteriorCellCount:
+            transformedCellCount - transformedDirichletShellCellCount,
+          transformedDirichletShellCellCount,
+          absoluteNumberDensitySumBefore,
+          absoluteNumberDensitySumAfter,
+          maxCellAbsoluteNumberDensityError,
+          maxCellRelativeNumberDensityError,
+        },
+        reservoir: {
+          farField: this.farField,
+          activeUnattachedShellCellCount,
+          shellReclampPending: this.farField === "dirichlet",
+          shellClampTargetBefore: this.sigmaInfinity,
+          shellClampTargetAfter: target.sigmaInfinity,
+        },
+        derivedBefore,
+        derivedAfter,
+      };
 
-    const derivedBefore = this.currentDerivedScales();
-    const derivedAfter = deriveEnvironmentScales(
-      environment.tempC,
-      environment.sigmaInfinity,
-      this.pressurePa,
-      this.dxM,
-    );
-    const temperatureChanged = !Object.is(environment.tempC, this.tempC);
-    const cSatRatioOldToNew =
-      derivedBefore.cSatPerCubicMeter / derivedAfter.cSatPerCubicMeter;
-    requirePositiveFinite(cSatRatioOldToNew, "temperature density ratio");
+      const stagedClosedPlacedFillVaporUnits = temperatureChanged
+        ? this.placedFillVaporUnits()
+        : this.closedPlacedFillVaporUnits;
+      const stagedTemperatureSegmentStartFill = temperatureChanged
+        ? this.fillLedger
+        : this.currentTemperatureSegmentStartFill;
 
-    const stagedSigma = this.sigma.slice();
-    const shellMask = new Uint8Array(this.sigma.length);
-    for (let position = 0; position < this.dirichletCells.length; position++) {
-      shellMask[this.dirichletCells[position]] = 1;
+      // Commit block: no operation below can reject. The event itself advances no physical time
+      // and changes no topology/fill/ledger state. The ordinary next relaxation reclamps the
+      // transformed Dirichlet shell to its newly explicit reservoir target.
+      this.sigma.set(stagedSigma);
+      this._tempC = target.tempC;
+      this._sigmaInfinity = target.sigmaInfinity;
+      this._vKinMS = derivedAfter.vKinMS;
+      this._x0M = derivedAfter.x0M;
+      this._mIceLedger = derivedAfter.mIceLedger;
+      this._maximumKineticVelocityScaleMS = derivedAfter.maximumKineticVelocityScaleMS;
+      this._maximumKineticFillRateScalePerSecond =
+        derivedAfter.maximumKineticFillRateScalePerSecond;
+      this.closedPlacedFillVaporUnits = stagedClosedPlacedFillVaporUnits;
+      this.currentTemperatureSegmentStartFill = stagedTemperatureSegmentStartFill;
+      this.sEff.fill(0);
+      this.boundaryAlphaHK.fill(0);
+      this.boundarySigma.fill(0);
+      this.boundarySigmaOpp.fill(0);
+      this.lastRelaxation = null;
+      this.lastMaxFillVelocityMS = 0;
+      this.cycleState = "boundary";
+      return report;
+    } catch (error) {
+      this.cycleState = "boundary";
+      throw error;
     }
-    let activeUnattachedCellCount = 0;
-    let activeUnattachedShellCellCount = 0;
-    let absoluteNumberDensitySumBefore = 0;
-    let absoluteNumberDensitySumBeforeCompensation = 0;
-    let absoluteNumberDensitySumAfter = 0;
-    let absoluteNumberDensitySumAfterCompensation = 0;
-    let maxCellAbsoluteNumberDensityError = 0;
-    let maxCellRelativeNumberDensityError = 0;
-    const addBefore = (value: number): void => {
-      const sum = absoluteNumberDensitySumBefore + value;
-      absoluteNumberDensitySumBeforeCompensation +=
-        Math.abs(absoluteNumberDensitySumBefore) >= Math.abs(value)
-          ? absoluteNumberDensitySumBefore - sum + value
-          : value - sum + absoluteNumberDensitySumBefore;
-      absoluteNumberDensitySumBefore = sum;
-    };
-    const addAfter = (value: number): void => {
-      const sum = absoluteNumberDensitySumAfter + value;
-      absoluteNumberDensitySumAfterCompensation +=
-        Math.abs(absoluteNumberDensitySumAfter) >= Math.abs(value)
-          ? absoluteNumberDensitySumAfter - sum + value
-          : value - sum + absoluteNumberDensitySumAfter;
-      absoluteNumberDensitySumAfter = sum;
-    };
-
-    for (let index = 0; index < this.sigma.length; index++) {
-      if (this.a[index] === 1 || this.wall[index] === 1) continue;
-      const sigmaOld = this.sigma[index];
-      if (!Number.isFinite(sigmaOld) || sigmaOld < -1) {
-        throw new Error(
-          `active LK sigma[${index}] must be finite and >= -1 before a temperature event`,
-        );
-      }
-      activeUnattachedCellCount++;
-      if (shellMask[index] === 1) activeUnattachedShellCellCount++;
-      const densityBefore = (1 + sigmaOld) * derivedBefore.cSatPerCubicMeter;
-      const sigmaNew = temperatureChanged
-        ? (1 + sigmaOld) * derivedBefore.cSatPerCubicMeter /
-            derivedAfter.cSatPerCubicMeter -
-          1
-        : sigmaOld;
-      if (!Number.isFinite(sigmaNew) || sigmaNew < -1) {
-        throw new Error(`density transform produced a nonphysical sigma at cell ${index}`);
-      }
-      stagedSigma[index] = sigmaNew;
-      const densityAfter = (1 + sigmaNew) * derivedAfter.cSatPerCubicMeter;
-      if (!Number.isFinite(densityBefore) || !Number.isFinite(densityAfter)) {
-        throw new Error(`density transform overflowed at active cell ${index}`);
-      }
-      addBefore(densityBefore);
-      addAfter(densityAfter);
-      const absoluteError = Math.abs(densityAfter - densityBefore);
-      const relativeError = absoluteError / Math.max(Math.abs(densityBefore), 1e-300);
-      if (absoluteError > maxCellAbsoluteNumberDensityError) {
-        maxCellAbsoluteNumberDensityError = absoluteError;
-      }
-      if (relativeError > maxCellRelativeNumberDensityError) {
-        maxCellRelativeNumberDensityError = relativeError;
-      }
-    }
-    absoluteNumberDensitySumBefore += absoluteNumberDensitySumBeforeCompensation;
-    absoluteNumberDensitySumAfter += absoluteNumberDensitySumAfterCompensation;
-    if (
-      !Number.isFinite(absoluteNumberDensitySumBefore) ||
-      !Number.isFinite(absoluteNumberDensitySumAfter) ||
-      !Number.isFinite(maxCellAbsoluteNumberDensityError) ||
-      !Number.isFinite(maxCellRelativeNumberDensityError)
-    ) {
-      throw new Error("density-transform diagnostics must remain finite");
-    }
-
-    const transformedCellCount = temperatureChanged ? activeUnattachedCellCount : 0;
-    const transformedDirichletShellCellCount =
-      temperatureChanged && this.farField === "dirichlet"
-        ? activeUnattachedShellCellCount
-        : 0;
-    const report: LKEnvironmentTransitionReport = {
-      operator: "LibbrechtKinetics",
-      boundary: {
-        phase: "completedCycleBoundary",
-        completedCycles: this.tick,
-        tick: this.tick,
-        simTimeSeconds: this.simTimeSeconds,
-      },
-      beforeEnvironment,
-      afterEnvironment: {
-        tempC: environment.tempC,
-        sigmaInfinity: environment.sigmaInfinity,
-      },
-      densityTransform: {
-        temperatureChanged,
-        cSatRatioOldToNew,
-        activeUnattachedCellCount,
-        transformedCellCount,
-        transformedInteriorCellCount:
-          transformedCellCount - transformedDirichletShellCellCount,
-        transformedDirichletShellCellCount,
-        absoluteNumberDensitySumBefore,
-        absoluteNumberDensitySumAfter,
-        maxCellAbsoluteNumberDensityError,
-        maxCellRelativeNumberDensityError,
-      },
-      reservoir: {
-        farField: this.farField,
-        activeUnattachedShellCellCount,
-        shellReclampPending: this.farField === "dirichlet",
-        shellClampTargetBefore: this.sigmaInfinity,
-        shellClampTargetAfter: environment.sigmaInfinity,
-      },
-      derivedBefore,
-      derivedAfter,
-    };
-
-    // Commit block: no operation below can reject. The event itself advances no physical time
-    // and changes no topology/fill/ledger state. The ordinary next relaxation reclamps the
-    // transformed Dirichlet shell to its newly explicit reservoir target.
-    this.sigma.set(stagedSigma);
-    this._tempC = environment.tempC;
-    this._sigmaInfinity = environment.sigmaInfinity;
-    this._vKinMS = derivedAfter.vKinMS;
-    this._x0M = derivedAfter.x0M;
-    this._mIceLedger = derivedAfter.mIceLedger;
-    this._maximumKineticVelocityScaleMS = derivedAfter.maximumKineticVelocityScaleMS;
-    this._maximumKineticFillRateScalePerSecond =
-      derivedAfter.maximumKineticFillRateScalePerSecond;
-    this.sEff.fill(0);
-    this.boundaryAlphaHK.fill(0);
-    this.boundarySigma.fill(0);
-    this.boundarySigmaOpp.fill(0);
-    this.surfaceReady = false;
-    this.relaxationStartedForCycle = false;
-    this.lastRelaxation = null;
-    this.lastMaxFillVelocityMS = 0;
-    return report;
   }
 
   private forEachNeighbor(
@@ -1213,62 +1265,80 @@ export class LKSolver implements SurfaceOperator {
 
   /** §4.4 step 1: relax to tolerance; for Dirichlet, require the divergence identity too. */
   relaxField(onProgress?: (progress: RelaxationProgress) => void): RelaxationReport {
-    // Even an unconverged or throwing solve has entered the cycle. ADR 0011 forbids an
-    // environment jump until a successful interface update returns the solver to a boundary.
-    this.relaxationStartedForCycle = true;
-    let src = this.sigma;
-    let dst = this.scratch2;
-    let sweeps = 0;
-    let residual = Infinity;
-    let injection = 0;
-    let surfaceExchange = 0;
-    let minLocalSurfaceExchange: number | null = null;
-    let divergence = Infinity;
-    while (sweeps < this.relaxMaxSweeps) {
-      const [maxAbs, inj, exchange, minLocal] = this.sweep(src, dst);
-      sweeps++;
-      residual = maxAbs / this.sigmaInfinity;
-      injection = inj;
-      surfaceExchange = exchange;
-      minLocalSurfaceExchange = minLocal;
-      divergence =
-        this.farField === "dirichlet"
-          ? Math.abs(inj - exchange) / Math.max(Math.abs(exchange), 1e-300)
-          : 0;
-      const tmp = src;
-      src = dst;
-      dst = tmp;
-      const divergenceSatisfied = this.farField !== "dirichlet" || divergence < this.divTol;
-      if (onProgress !== undefined && (sweeps === 1 || sweeps % 1024 === 0)) {
-        onProgress({
-          sweeps,
-          residual,
-          divergenceResidual: this.farField === "dirichlet" ? divergence : null,
-        });
-      }
-      // Fixed-sigma Dirichlet requires BOTH criteria. Reflecting is diagnostic-only and has
-      // no source against which a divergence identity could be stated.
-      if (residual < this.relaxTol && divergenceSatisfied) break;
+    if (this.cycleState !== "boundary" && this.cycleState !== "incomplete") {
+      throw new Error(`LK relaxation is not allowed in state ${this.cycleState}`);
     }
-    if (src !== this.sigma) this.sigma.set(src);
-    const converged =
-      residual < this.relaxTol && (this.farField !== "dirichlet" || divergence < this.divTol);
-    this.surfaceReady = converged;
-    const scale = Math.max(Math.abs(surfaceExchange), 1e-300);
-    const report: RelaxationReport = {
-      sweeps,
-      residual,
-      converged,
-      // The divergence identity is only defined against the Dirichlet source; in the
-      // reflecting diagnostic mode there is no source and the identity is not a claim.
-      divergenceResidual:
-        this.farField === "dirichlet" ? Math.abs(injection - surfaceExchange) / scale : null,
-      shellClampDiagnostic: this.farField === "dirichlet" ? injection : null,
-      surfaceExchangeDiagnostic: surfaceExchange,
-      minLocalSurfaceExchangeDiagnostic: minLocalSurfaceExchange,
-    };
-    this.lastRelaxation = report;
-    return report;
+    // Clear readiness and every old kinetic cache BEFORE the first sweep or callback. A
+    // recursive public call therefore sees "relaxing", never a stale accepted surface.
+    this.cycleState = "relaxing";
+    this.lastRelaxation = null;
+    this.lastMaxFillVelocityMS = 0;
+    this.sEff.fill(0);
+    this.boundaryAlphaHK.fill(0);
+    this.boundarySigma.fill(0);
+    this.boundarySigmaOpp.fill(0);
+    try {
+      let src = this.sigma;
+      let dst = this.scratch2;
+      let sweeps = 0;
+      let residual = Infinity;
+      let injection = 0;
+      let surfaceExchange = 0;
+      let minLocalSurfaceExchange: number | null = null;
+      let divergence = Infinity;
+      while (sweeps < this.relaxMaxSweeps) {
+        const [maxAbs, inj, exchange, minLocal] = this.sweep(src, dst);
+        sweeps++;
+        residual = maxAbs / this.sigmaInfinity;
+        injection = inj;
+        surfaceExchange = exchange;
+        minLocalSurfaceExchange = minLocal;
+        divergence =
+          this.farField === "dirichlet"
+            ? Math.abs(inj - exchange) / Math.max(Math.abs(exchange), 1e-300)
+            : 0;
+        const tmp = src;
+        src = dst;
+        dst = tmp;
+        const divergenceSatisfied = this.farField !== "dirichlet" || divergence < this.divTol;
+        if (onProgress !== undefined && (sweeps === 1 || sweeps % 1024 === 0)) {
+          onProgress({
+            sweeps,
+            residual,
+            divergenceResidual: this.farField === "dirichlet" ? divergence : null,
+          });
+        }
+        // Fixed-sigma Dirichlet requires BOTH criteria. Reflecting is diagnostic-only and has
+        // no source against which a divergence identity could be stated.
+        if (residual < this.relaxTol && divergenceSatisfied) break;
+      }
+      if (src !== this.sigma) this.sigma.set(src);
+      const converged =
+        residual < this.relaxTol &&
+        (this.farField !== "dirichlet" || divergence < this.divTol);
+      const scale = Math.max(Math.abs(surfaceExchange), 1e-300);
+      const report: RelaxationReport = {
+        sweeps,
+        residual,
+        converged,
+        // The divergence identity is only defined against the Dirichlet source; in the
+        // reflecting diagnostic mode there is no source and the identity is not a claim.
+        divergenceResidual:
+          this.farField === "dirichlet" ? Math.abs(injection - surfaceExchange) / scale : null,
+        shellClampDiagnostic: this.farField === "dirichlet" ? injection : null,
+        surfaceExchangeDiagnostic: surfaceExchange,
+        minLocalSurfaceExchangeDiagnostic: minLocalSurfaceExchange,
+      };
+      this.lastRelaxation = report;
+      this.cycleState = converged ? "ready" : "incomplete";
+      return report;
+    } catch (error) {
+      // The field may contain a completed subset of sweeps, but topology and fill have not
+      // advanced. A later relaxField may retry from this explicit incomplete state.
+      this.lastRelaxation = null;
+      this.cycleState = "incomplete";
+      throw error;
+    }
   }
 
   /**
@@ -1277,13 +1347,25 @@ export class LKSolver implements SurfaceOperator {
    * The adaptive fill-CFL bounds the selected policy's per-cell kinetic increment.
    */
   advanceSurface(): SurfaceReport {
-    if (!this.surfaceReady) {
+    if (this.cycleState !== "ready") {
       throw new Error(
-        "advanceSurface without a converged relaxField for this step — growing on an " +
-          "unconverged field is a silent physics error (attachment-kinetics §4.4)",
+        "advanceSurface requires exactly one accepted converged relaxField; an unconverged " +
+          `field or unmatched call cannot advance (state=${this.cycleState})`,
       );
     }
-    this.surfaceReady = false;
+    this.cycleState = "advancing";
+    try {
+      const report = this.advanceSurfaceUpdate();
+      this._tick++;
+      this.cycleState = "boundary";
+      return report;
+    } catch (error) {
+      this.cycleState = "incomplete";
+      throw error;
+    }
+  }
+
+  private advanceSurfaceUpdate(): SurfaceReport {
     const boundary = this.boundaryList;
     const nBoundary = boundary.length;
     const rateArr = new Float64Array(nBoundary); // per-cell fill rate, units of v/dx
@@ -1308,7 +1390,6 @@ export class LKSolver implements SurfaceOperator {
     const toAttach: number[] = [];
     let maxKineticFillIncrement = 0;
     let deltaTime = 0;
-    let placedFillThisStep = 0;
     if (maxRate > 0) {
       deltaTime = this.cflFill / maxRate;
       for (let bi = 0; bi < nBoundary; bi++) {
@@ -1317,19 +1398,16 @@ export class LKSolver implements SurfaceOperator {
         const room = 1 - this.f[x];
         if (raw >= room) {
           this.fillLedger += room;
-          placedFillThisStep += room;
           this.saturationClippedFill += raw - room; // round-3 blocker 2: never silently drop
           this.f[x] = 1;
           toAttach.push(x);
           if (raw > maxKineticFillIncrement) maxKineticFillIncrement = raw;
         } else {
           this.fillLedger += raw;
-          placedFillThisStep += raw;
           this.f[x] += raw;
           if (raw > maxKineticFillIncrement) maxKineticFillIncrement = raw;
         }
       }
-      this.cumulativePlacedFillVaporUnits += placedFillThisStep * this.mIceLedger;
       this.simTimeSeconds += deltaTime;
     }
 
@@ -1352,7 +1430,6 @@ export class LKSolver implements SurfaceOperator {
     for (const x of toAttach) this.attachCell(x);
     if (toAttach.length > 0) this.rebuildBoundaryList();
     this.lastAttached = toAttach;
-    this.relaxationStartedForCycle = false;
 
     return {
       attachedNow: toAttach.length,
@@ -1382,7 +1459,7 @@ export class LKSolver implements SurfaceOperator {
       totalMassBD: null,
       dirichletMeter: null,
       fillLedgerIceCells: this.fillLedger,
-      fillLedgerVaporUnits: this.cumulativePlacedFillVaporUnits,
+      fillLedgerVaporUnits: this.placedFillVaporUnits(),
       holeFillDeficit: this.holeFillDeficit,
       saturationClippedFill: this.saturationClippedFill,
       lastDivergenceResidual: this.lastRelaxation?.divergenceResidual ?? null,
@@ -1400,6 +1477,9 @@ export class LKSolver implements SurfaceOperator {
     relaxation: RelaxationReport;
     surface: SurfaceReport;
   } {
+    if (this.cycleState !== "boundary" && this.cycleState !== "incomplete") {
+      throw new Error(`LK step cannot start in state ${this.cycleState}`);
+    }
     const relaxation = this.relaxField(onProgress);
     if (!relaxation.converged) {
       return {
@@ -1415,7 +1495,6 @@ export class LKSolver implements SurfaceOperator {
       };
     }
     const surface = this.advanceSurface();
-    this.tick++;
     return { relaxation, surface };
   }
 
@@ -1458,7 +1537,7 @@ export class LKSolver implements SurfaceOperator {
     if (this.surfacePolicy !== "aggregate-hv-g1h1-v4") {
       throw new Error("boundaryState is defined only for aggregate-hv-g1h1-v4");
     }
-    if (!this.surfaceReady) {
+    if (this.cycleState !== "ready") {
       throw new Error("boundaryState requires a currently accepted converged relaxation");
     }
     if (!Number.isSafeInteger(index) || index < 0 || index >= this.a.length) {
