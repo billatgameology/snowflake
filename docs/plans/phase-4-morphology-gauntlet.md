@@ -1,8 +1,7 @@
 # Plan — Phase 4: morphology gauntlet, timeline semantics, and visual diagnostics
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — passing criteria frozen; WP0 CLEAN; WP1 round-1 fixes awaiting
-  re-review
+- **Status:** in progress — passing criteria frozen; WP0 CLEAN; WP1 round-2 fix loop active
 - **Started:** 2026-07-16
 - **Last touched:** 2026-07-16 by Codex, coordinating session
 
@@ -516,8 +515,10 @@ required schedule manifest and are not advertised as resumable mid-history.
       returned snapshot aliasing, and missing raw morphology false paths. All are repaired with
       raw-boundary/full-state negative controls; coordinator follow-up also pins non-shrinking
       retained histories, finite endpoints, and legitimate shared-boundary depletion samples.
-      Root tests are 372/372 and the app build is green; same-reviewer re-review is next. WP2
-      remains blocked.
+      Round 2 verified every original exploit closed, then found two hollow-contract blockers:
+      raw initial occupancy did not enforce the canonical 19-site seed, and B-HOLLOW did not
+      enforce the common 50,000-step cap. It also requires table-driven mutations for every new
+      raw guard. Fix → retest → same reviewer continues; WP2 remains blocked.
 - [ ] WP2: solver environment transitions, runner `gate4a`/`gate4b`/`gate4`, artifacts, and
       checkpoint/provenance validation. Separate review → fix loop.
 - [ ] WP3: operator-honest app snapshots, scenario/artifact inspection, Phase 4 visual harness.
@@ -620,6 +621,10 @@ required schedule manifest and are not advertised as resumable mid-history.
   could stand in for its replay. Hollow verdicts must recompute metrics from dimensioned raw
   initial/final occupancy, and replay evidence must be a separately identified execution with
   non-aliased buffers.
+- **Assuming another criterion makes raw hollow seed/cap checks redundant.** Rejected by WP1
+  review round 2. A one-site initial occupancy could satisfy the morphology validator, and B
+  could cross after its 50,000-step cap. The raw hollow contract must byte-compare the canonical
+  19-site seed and enforce the operator-specific cap itself, with mutations for every guard.
 - **Launching a duplicate 96-cubed v4 pair.** Rejected: the pre-registered Phase 2b process is
   already running in another worktree. Phase 4 leaves it untouched and uses a separately
   registered 48-cubed diagnostic sweep.
