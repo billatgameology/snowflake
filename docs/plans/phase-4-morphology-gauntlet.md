@@ -536,7 +536,10 @@ required schedule manifest and are not advertised as resumable mid-history.
       make successful surface completion own one tick; changing accessors and typed-array
       subclasses cannot escape owned staging; and exact constant-temperature segments preserve
       both fixed-temperature and cross-temperature ledger semantics. Coordinator audit is green;
-      same-reviewer exploit replay remains open.
+      same-reviewer exploit replay closed every round-1 finding, but round 2 found one should-fix:
+      relaxation entry zeroes `lastMaxFillVelocityMS` without a new surface update, contradicting
+      its most-recent-update meaning on ready, unconverged, and throwing paths. Preserve that
+      completed-update diagnostic through relaxation and re-review to CLEAN.
 - [ ] WP2b: shared runner evidence infrastructure plus flagless `gate4a` and Pass A artifacts.
       Separate review → fix loop.
 - [ ] WP2c: flagless `gate4b`/`gate4`, Pass B execution witnesses, checkpoints, and aggregate

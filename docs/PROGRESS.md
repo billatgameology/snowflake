@@ -385,8 +385,12 @@ recursive and throwing callbacks/getters with recovery, typed-array subclasses, 
 fixed-temperature equality, same-temperature continuity, and three-temperature history. The
 targeted set is 78/78; independent coordinator verification is 421/421 with Rule 7 and both
 TypeScript projects clean; the 27-module app build and `git diff --check` pass. The next serial
-action is to commit this repair and return it to the same WP2a reviewer for exact exploit replay;
-loop any finding to the same developer until CLEAN. WP2b must not start first. Work only in
+action returned repair commit `7b4eca8` to the same reviewer. All five round-1 exploits replay
+closed and root verification remained 421/421, but round 2 found one should-fix: entering a new
+LK relaxation resets `lastMaxFillVelocityMS` even though no new update exists, falsifying its
+most-recent-update definition after ready, unconverged, or throwing relaxation. Return this
+narrow diagnostic-lifetime fix to the same developer, rerun, and re-review to CLEAN. WP2b must
+not start first. Work only in
 `/Users/clipper/github/snowflake-phase4`.
 Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
 artifacts.
