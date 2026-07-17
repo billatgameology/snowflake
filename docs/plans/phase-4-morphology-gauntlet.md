@@ -1,9 +1,8 @@
 # Plan — Phase 4: morphology gauntlet, timeline semantics, and visual diagnostics
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — passing criteria frozen; WP0/WP1/WP2a CLEAN; WP2b review round 1
-  rejected candidate `43fd6b3`; partial repair `3641847` is consolidated on `main` by merge
-  `5ab204f`
+- **Status:** in progress — passing criteria frozen; WP0/WP1/WP2a/WP2b CLEAN; WP2c is the next
+  serial package
 - **Started:** 2026-07-16
 - **Last touched:** 2026-07-16 by Codex, coordinating session
 - **Runner-completion freeze:** `cd24365` (strict A-DEPLETION/A-HOLLOW caps, reviewed solver
@@ -575,7 +574,7 @@ required schedule manifest and are not advertised as resumable mid-history.
       stages its replacement until successful surface completion, and passes 422/422 tests plus
       the app build. Same-reviewer round 3 is CLEAN with zero blockers and zero should-fixes;
       implementation/fix commits are `b19a3c9`, `7b4eca8`, and `a285631`.
-- [ ] WP2b: shared runner evidence infrastructure plus flagless `gate4a` and Pass A artifacts.
+- [x] WP2b: shared runner evidence infrastructure plus flagless `gate4a` and Pass A artifacts.
       Review candidate `34b832a` implements the exact 13-run manifest (SHA-256
       `6d1ee3a262e8985930ded30f8ef490e1e47402dce6c55f2b3b16e4e80b0d9a98`), independent
       G-G applied-noise reference, reconstructed attachment-delta chain, strict checkpoint /
@@ -609,6 +608,19 @@ required schedule manifest and are not advertised as resumable mid-history.
       Merge `5ab204f` preserved the topic history on `main`; the dedicated Phase 4 worktree and
       merged topic branch were removed. Post-merge verification passed the Rule 7 scan over 129
       files, both TypeScript projects, all 508 tests, and the 27-module app production build.
+      The repair completed at `2204f59` (2026-07-16): corrupt manifest bytes are owned by
+      `A-EXEC-CONFIG` with message-spoofing ruled out, terminal verdicts reject
+      publication-state mismatches at the presentation seam every CLI path funnels through,
+      delta witnesses gained a strictly-increasing-cycle guard (order was previously
+      unchecked), and 34 negative controls pin the coherent-rewrite, BOM, report-kind,
+      publisher path/collision/foreign-canonical, and duplicate/orphan/out-of-order
+      delta-witness exploit matrix. Round 1's reviewer session no longer exists; a distinct
+      independent reviewer (not the developer) replayed every round-1 exploit and variation
+      (rewrite-index-only, index+report, add/delete-file, self-consistent full forge,
+      byte-identical no-false-rejection, case-aliasing, symlink injection, unicode paths,
+      number-spelling ambiguity) and reported CLEAN — zero blockers, zero should-fixes — at
+      542/542 tests, Rule 7 over 129 files, both typechecks, and the 27-module app build.
+      WP2b is complete; no real `gate4a` run or canonical Phase 4 evidence directory exists.
 - [ ] WP2c: flagless `gate4b`/`gate4`, Pass B execution witnesses, checkpoints, and aggregate
       artifacts. Separate review → fix loop.
 - [ ] WP3: operator-honest app snapshots, scenario/artifact inspection, Phase 4 visual harness.

@@ -89,18 +89,17 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   provenance/termination/artifact facts. Developer verification is 175/175 targeted and 508/508
   full tests with Rule 7 and both TypeScript projects clean; coordinator re-verification passed
   the same targets plus the 27-module app build. It is not accepted until a distinct reviewer
-  reports zero blockers and zero should-fixes. Independent WP2b review round 1 rejects
-  `43fd6b3` despite those green tests: a coherent pre-rename payload/report/index rewrite can
-  replace the staged evidence graph and still publish. Six should-fixes cover BOM-normalized
-  canonical JSON, corrupt-manifest criterion ownership, terminal success without publication,
-  an unpinned report kind, missing path/collision/foreign-canonical publisher negatives, and
-  missing duplicate/orphan delta mutations. The developer repair was then interrupted for the
-  user-directed consolidation. Commit `3641847` preserves three unreviewed edits: original-byte
-  canonical JSON comparison, exact report-kind validation, and an owned immutable expected
-  publication root checked before/after rename. The other findings, negative controls, full
-  retest, and same-reviewer recheck remain open; the existing full suite passes 508/508 after
-  the partial patch,
-  but this is explicitly not CLEAN because the new exploit matrix is incomplete.
+  reports zero blockers and zero should-fixes. Independent WP2b review round 1 rejected
+  `43fd6b3` (coherent pre-rename payload/report/index rewrite could replace the staged evidence
+  graph and still publish, plus six should-fixes); repairs `3641847` and `2204f59` closed the
+  complete set: original-byte canonical JSON, exact report-kind pinning, an owned immutable
+  expected publication root checked before/after rename, `A-EXEC-CONFIG` ownership of corrupt
+  manifest bytes, verdict/publication mismatch rejection at the terminal seam, a new
+  strictly-increasing delta-witness order guard, and 34 negative controls pinning the full
+  exploit matrix. Because round 1's reviewer session no longer exists, a distinct independent
+  reviewer (not the developer) replayed every round-1 exploit plus novel variations and
+  reported CLEAN — zero blockers, zero should-fixes — at 542/542 tests, Rule 7 over 129 files,
+  both typechecks, and the 27-module app build. **WP2b is complete at `2204f59`.**
   No real `gate4a` run or Phase 4 evidence artifact exists. No solver, app, or external evidence
   artifact changed in WP1/WP2b.
 - **Phase 3 started 2026-07-15 under decision
@@ -441,21 +440,15 @@ as an additional provenance ancestor, then delegate WP2b. That freeze is `cd2436
 execution-cadence freeze additionally pins one series row per completed cycle and ordinary
 far-field observation every 25 completed cycles, while all other execution checks remain
 per-cycle. That freeze is `7be4c5d`. Criteria/provenance freezes `e567767`, `cd24365`, and
-`7be4c5d` must all be ancestors of the 40-hex clean execution commit. WP2b candidate `43fd6b3`
-passes 175/175 targeted and 508/508 full tests after coordinator repair loops, with no real gate
-run or evidence output, but independent review round 1 rejects it with one blocker and six
-should-fixes. Consolidation commit `3641847` already adds an owned expected publication
-root, rejects BOM-normalized canonical JSON, and requires the exact report kind, but has not been
-independently reviewed. Resume in `/Users/clipper/github/snowflake`: finish manifest-artifact
-criterion ownership, verdict/publication mismatch rejection, publisher path/collision/foreign-
-directory controls, coherent-rewrite/BOM/report-kind negatives, and duplicate/orphan delta-
-witness controls. Rerun the focused, targeted, full, build, hash, and artifact audits, commit the
-repair, then send it to the same reviewer until CLEAN. Do not start WP2c before that review loop
-closes. Merge `5ab204f` consolidated the work on `main`; the former
-`/Users/clipper/github/snowflake-phase4` worktree and merged
-`codex/phase4-morphology-gauntlet` branch are removed. Continue only in
-`/Users/clipper/github/snowflake` on `main`. The merged tree passed the Rule 7 scan over 129
-files, both TypeScript projects, all 508 tests, and the 27-module app production build.
+`7be4c5d` must all be ancestors of the 40-hex clean execution commit. **WP2b closed
+CLEAN at `2204f59` (2026-07-16)**: the round-1 blocker and all six should-fixes are repaired and
+independently re-reviewed to zero blockers/zero should-fixes at 542/542 tests (see the plan's
+WP2b step for the exploit matrix). The next serial action is WP2c: implement flagless
+`gate4b`/`gate4`, the Pass B execution witnesses (`B-EXEC-*` criteria), LK v2 checkpoints,
+per-run artifacts, and the aggregate `out/phase4/gate4-report.json`, reusing the reviewed
+shared evidence/publication machinery in `runner/src/gate4-evidence.ts`; then run its separate
+developer/independent-review fix loop to CLEAN before WP3. Work only in
+`/Users/clipper/github/snowflake` on `main`.
 Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
 artifacts.
 
