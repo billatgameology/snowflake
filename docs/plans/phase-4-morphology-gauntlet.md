@@ -1,8 +1,7 @@
 # Plan — Phase 4: morphology gauntlet, timeline semantics, and visual diagnostics
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — passing criteria frozen; WP0 CLEAN; WP1 round-2 fixes awaiting
-  re-review
+- **Status:** in progress — passing criteria frozen; WP0/WP1 CLEAN; WP2 is next
 - **Started:** 2026-07-16
 - **Last touched:** 2026-07-16 by Codex, coordinating session
 
@@ -508,7 +507,7 @@ required schedule manifest and are not advertised as resumable mid-history.
       both gate provenance checks require the final commit as an ancestor.
 - [x] Write/accept overlap ADR 0010 and timeline-semantics ADR 0011; update charter to v1.9 and
       PROGRESS before Phase 4 feature implementation.
-- [ ] WP1: pure metrics, schedule evaluator, gate verdict/report types, and adversarial fixtures.
+- [x] WP1: pure metrics, schedule evaluator, gate verdict/report types, and adversarial fixtures.
       Implementation and coordinator audit were green at 364/364 tests plus the app build.
       Independent review round 1 then found three blockers: forged/late timeline histories,
       assertion-only habit/depletion crossings, and self-reported hollowing with an aliased
@@ -520,9 +519,13 @@ required schedule manifest and are not advertised as resumable mid-history.
       raw initial occupancy did not enforce the canonical 19-site seed, and B-HOLLOW did not
       enforce the common 50,000-step cap. It also requires table-driven mutations for every new
       raw guard. All are repaired; 394/394 tests and the app build pass. Same-reviewer round 3 is
-      next; WP2 remains blocked.
-- [ ] WP2: solver environment transitions, runner `gate4a`/`gate4b`/`gate4`, artifacts, and
-      checkpoint/provenance validation. Separate review → fix loop.
+      CLEAN with zero blockers/should-fixes after confirming every prior exploit rejects.
+- [ ] WP2a: atomic solver environment transitions and cross-temperature ledger machinery.
+      Separate review → fix loop.
+- [ ] WP2b: shared runner evidence infrastructure plus flagless `gate4a` and Pass A artifacts.
+      Separate review → fix loop.
+- [ ] WP2c: flagless `gate4b`/`gate4`, Pass B execution witnesses, checkpoints, and aggregate
+      artifacts. Separate review → fix loop.
 - [ ] WP3: operator-honest app snapshots, scenario/artifact inspection, Phase 4 visual harness.
       Separate code + visual review → fix loop.
 - [ ] Run the complete regression suite, Phase 2a byte control, gate3 regression, app build, and

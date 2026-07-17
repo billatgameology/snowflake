@@ -71,8 +71,9 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   19-site seed, B-HOLLOW omitted the common 50,000-step cap, and the new guards need direct
   mutation coverage. Those findings are repaired with a byte-exact canonical-seed comparison,
   strict B crossing cap, and direct mutations for every raw occupancy/field/replay guard. The
-  tree passes 394/394 tests and the app build; same-reviewer round 3 is next. No solver, app, or
-  external evidence artifact changed in WP1.
+  tree passes 394/394 tests and the app build. Same-reviewer round 3 reported CLEAN — zero
+  blockers and zero should-fixes — after independently rerunning all round-1/2 exploits. WP1 is
+  complete. No solver, app, or external evidence artifact changed in WP1.
 - **Phase 3 started 2026-07-15 under decision
   [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md)** (charter v1.5): maker-directed
   overlap with the tail of the v3 evidence run. Decision
@@ -255,7 +256,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited; follow-up evidence hardening complete) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Post-hardening `cmp` is bit-identical, SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Full records: [solver plan](plans/phase-2-cpu-solver.md), [hardening plan](plans/phase-2a-evidence-hardening.md) |
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ❌ **open after an execution-valid v3 failure** — protocol v3 completed at execution commit `4ca9680`, command `node runner/src/main.ts gate2b`, exit 1. −5 °C passed plate (AR 0.01888163179957996); −15 °C failed column with the identical AR and attached occupancy. Every non-habit gate criterion and the suite's depleted-start differential passed. Decision 0009's v4 repair is pre-registered, implemented, and green on 262 tests plus the byte-identical Phase 2a differential; its isolated flagless v4 habit pair is running and has no result yet. |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | 🔶 **evidence-complete, pending maker assertion** (2026-07-16) — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
-| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | 🔶 **in progress, criteria frozen** — final freeze `e567767`; WP0 CLEAN. WP1 round-2 seed/cap findings are repaired; 394/394 tests and app build pass, round-3 re-review next. No Phase 4 gate result exists. |
+| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | 🔶 **in progress, criteria frozen** — final freeze `e567767`; WP0/WP1 review loops CLEAN. WP1 passes 394/394 tests and app build after three adversarial rounds. WP2 is next; no Phase 4 gate result exists. |
 | 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
@@ -360,8 +361,10 @@ green at 372/372 tests plus the app build, including raw crossing/full-state rep
 coordinator follow-up for simultaneous size crossings. Same-reviewer round 2 closed the original
 findings but caught a noncanonical hollow seed and missing B-HOLLOW 50,000-step cap, plus missing
 mutations for the new raw guards. Those findings are now repaired and independently pass 394/394
-tests plus the app build. The next serial action is same-reviewer WP1 round 3. Loop until zero
-blockers and zero unaddressed should-fixes; only then begin WP2. Work only in
+tests plus the app build. Same-reviewer WP1 round 3 is CLEAN with zero blockers and zero
+should-fixes. The next serial action is WP2a: implement atomic G-G/LK environment transitions,
+the LK density-conserving transform and step-local cross-temperature ledger, then run a separate
+review/fix loop before any gate runner command is built. Work only in
 `/Users/clipper/github/snowflake-phase4`.
 Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
 artifacts.
