@@ -169,6 +169,13 @@ Source material in [research/](../research/):
   gitignored LLM bundle of the 523-page monograph: searchable page text, 376 condition-aware
   figure cards, and 279 rendered evidence pages. Strict integrity check passed on 2026-07-14;
   generated full-content derivatives remain untracked under decision 0004.
+- [`lab-validation-dataset.md`](../research/lab-validation-dataset.md) /
+  [`.jsonl`](../research/lab-validation-dataset.jsonl) — **extracted 2026-07-16**: 122
+  condition-annotated lab-crystal targets from the monograph (the full Fig. 8.16 e-needle
+  morphology grid plus 21 curated case studies, 9 of them quantitative). Phase 6 prep material;
+  source-stated conditions with per-entry verification status; **no entry is gate evidence**.
+  Companion analysis: [monograph-review.md](monograph-review.md) (review findings +
+  exploration candidates, 2026-07-16).
 - "The Snowflake Myth" video transcript (`.vtt`, plain text, metadata)
 - [`snowcrystals.com-videos.md`](../research/snowcrystals.com-videos.md) —
   10 lab-growth movies (16 resolution-specific MP4 links), one highest-available local MP4 of
