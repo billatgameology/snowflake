@@ -404,8 +404,9 @@ so partial or mixed artifacts cannot masquerade as canonical evidence. Record th
 as an additional provenance ancestor, then delegate WP2b. That freeze is `cd24365`; a final
 execution-cadence freeze additionally pins one series row per completed cycle and ordinary
 far-field observation every 25 completed cycles, while all other execution checks remain
-per-cycle. Record its commit before delegation. All freezes must be ancestors of the 40-hex clean
-execution commit. Work only in
+per-cycle. That freeze is `7be4c5d`. Criteria/provenance freezes `e567767`, `cd24365`, and
+`7be4c5d` must all be ancestors of the 40-hex clean execution commit. WP2b delegation may now
+begin. Work only in
 `/Users/clipper/github/snowflake-phase4`.
 Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
 artifacts.
