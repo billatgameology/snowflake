@@ -1,7 +1,8 @@
 # Plan — Phase 4: morphology gauntlet, timeline semantics, and visual diagnostics
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — passing criteria frozen; WP0 CLEAN; WP1 review fix loop active
+- **Status:** in progress — passing criteria frozen; WP0 CLEAN; WP1 round-1 fixes awaiting
+  re-review
 - **Started:** 2026-07-16
 - **Last touched:** 2026-07-16 by Codex, coordinating session
 
@@ -512,8 +513,11 @@ required schedule manifest and are not advertised as resumable mid-history.
       Independent review round 1 then found three blockers: forged/late timeline histories,
       assertion-only habit/depletion crossings, and self-reported hollowing with an aliased
       replay. Four should-fixes cover finite B depletion, negative-zero schedule identity,
-      returned snapshot aliasing, and missing raw morphology false paths. Fix → retest → same
-      reviewer is active; WP2 remains blocked.
+      returned snapshot aliasing, and missing raw morphology false paths. All are repaired with
+      raw-boundary/full-state negative controls; coordinator follow-up also pins non-shrinking
+      retained histories, finite endpoints, and legitimate shared-boundary depletion samples.
+      Root tests are 372/372 and the app build is green; same-reviewer re-review is next. WP2
+      remains blocked.
 - [ ] WP2: solver environment transitions, runner `gate4a`/`gate4b`/`gate4`, artifacts, and
       checkpoint/provenance validation. Separate review → fix loop.
 - [ ] WP3: operator-honest app snapshots, scenario/artifact inspection, Phase 4 visual harness.

@@ -240,8 +240,8 @@ describe("Phase 4 timeline boundary semantics", () => {
     const initial = createTimelineCursor(schedule);
     const first = evaluateTimelineBoundary(schedule, initial, { phase: "initial", completedCycles: 0 });
     expect(first.event?.index).toBe(0);
-    expect(first.logEntry?.completedCycles).toBe(0);
-    expect(first.logEntry?.observedExtents).toBeNull();
+    expect(first.logEntry?.previousBoundary).toBeNull();
+    expect(first.logEntry?.crossingBoundary).toEqual({ phase: "initial", completedCycles: 0 });
 
     const cycle1 = evaluateTimelineBoundary(schedule, first.cursor, after(1));
     expect(cycle1.event).toBeNull();
@@ -291,7 +291,8 @@ describe("Phase 4 timeline boundary semantics", () => {
     expect(before.event).toBeNull();
     const crossed = evaluateTimelineBoundary(schedule, before.cursor, after(9, extents(9, 8, 18)));
     expect(crossed.event?.index).toBe(0);
-    expect(crossed.logEntry?.observedExtents?.zExtent).toBe(18);
+    expect(crossed.logEntry?.previousBoundary).toEqual(after(8, extents(9, 8, 15)));
+    expect(crossed.logEntry?.crossingBoundary).toEqual(after(9, extents(9, 8, 18)));
     const repeated = evaluateTimelineBoundary(schedule, crossed.cursor, after(10, extents(9, 8, 18)));
     expect(repeated.event).toBeNull();
     expect(repeated.cursor.eventLog).toHaveLength(1);
@@ -405,7 +406,7 @@ describe("Phase 4 timeline boundary semantics", () => {
     ).toThrow(/must be sequential/);
     expect(() =>
       evaluateTimelineBoundary(schedule, cycle1.cursor, after(2, extents(8, 8, 14))),
-    ).toThrow(/cannot decrease/);
+    ).toThrow(/cannot shrink/);
   });
 
   it("is deterministic from the same cursor and rejects a shifted replay cursor", () => {
@@ -432,7 +433,7 @@ describe("Phase 4 timeline boundary semantics", () => {
 
     const wrongTick = {
       ...left.cursor,
-      eventLog: [{ ...left.cursor.eventLog[0], completedCycles: 2 }],
+      eventLog: [{ ...left.cursor.eventLog[0], crossingBoundary: after(2) }],
     };
     expect(() => evaluateTimelineBoundary(schedule, wrongTick, after(2))).toThrow(/wrong tick/);
     expect(() =>
@@ -464,6 +465,241 @@ describe("Phase 4 timeline boundary semantics", () => {
     expect(() => evaluateTimelineBoundary(schedule, cursor, after(1))).toThrow(
       /schedule fingerprint/,
     );
+  });
+
+  it("keeps the returned log snapshot independent from the retained cursor history", () => {
+    const schedule = ggSchedule([
+      {
+        index: 0,
+        operator: "GGThreshold",
+        trigger: { kind: "tick", value: 1 },
+        environment: changedGG(3),
+      },
+    ]);
+    const decision = evaluateTimelineBoundary(schedule, beginSchedule(schedule), after(1));
+    const returned = decision.logEntry as unknown as {
+      crossingBoundary: { completedCycles: number };
+      afterEnvironment: GGTimelineEnvironment;
+    };
+    returned.crossingBoundary.completedCycles = 99;
+    (returned.afterEnvironment.ggThreshBeta as unknown as number[])[0] = 99;
+    expect(decision.cursor.eventLog[0].crossingBoundary.completedCycles).toBe(1);
+    expect(
+      (decision.cursor.eventLog[0].afterEnvironment as GGTimelineEnvironment).ggThreshBeta[0],
+    ).toBe(3);
+  });
+
+  it("rejects a cursor whose next extent event was already eligible at its retained boundary", () => {
+    const schedule = ggSchedule([
+      {
+        index: 0,
+        operator: "GGThreshold",
+        trigger: { kind: "zExtent", value: 16 },
+        environment: changedGG(3),
+      },
+    ]);
+    const legitimate = cursorBeforeCycle(schedule, 11, extents(8, 8, 15));
+    const forged = {
+      ...legitimate,
+      lastBoundary: after(10, extents(8, 8, 20)),
+    };
+    expect(() => evaluateTimelineBoundary(schedule, forged, after(11, extents(8, 8, 20))))
+      .toThrow(/already-eligible unfired event/);
+  });
+
+  it("rejects forged late, backdated, and non-consecutive crossing histories", () => {
+    const schedule = ggSchedule([
+      {
+        index: 0,
+        operator: "GGThreshold",
+        trigger: { kind: "zExtent", value: 16 },
+        environment: changedGG(3),
+      },
+    ]);
+    const before = cursorBeforeCycle(schedule, 3, extents(8, 8, 15));
+    const legitimate = evaluateTimelineBoundary(
+      schedule,
+      before,
+      after(3, extents(8, 8, 18)),
+    ).cursor;
+    const entry = legitimate.eventLog[0];
+
+    const late = {
+      ...legitimate,
+      eventLog: [{ ...entry, previousBoundary: after(2, extents(8, 8, 16)) }],
+    };
+    expect(() => evaluateTimelineBoundary(schedule, late, after(4, extents(8, 8, 18))))
+      .toThrow(/first extent crossing/);
+
+    const backdated = {
+      ...legitimate,
+      eventLog: [
+        {
+          ...entry,
+          previousBoundary: { phase: "initial", completedCycles: 0 } as TimelineBoundary,
+          crossingBoundary: after(1, extents(8, 8, 18)),
+        },
+      ],
+    };
+    expect(() => evaluateTimelineBoundary(schedule, backdated, after(4, extents(8, 8, 18))))
+      .toThrow(/raw extent boundaries/);
+
+    const skipped = {
+      ...legitimate,
+      eventLog: [
+        {
+          ...entry,
+          previousBoundary: after(1, extents(8, 8, 15)),
+          crossingBoundary: after(3, extents(8, 8, 18)),
+        },
+      ],
+    };
+    expect(() => evaluateTimelineBoundary(schedule, skipped, after(4, extents(8, 8, 18))))
+      .toThrow(/consecutive raw extent boundaries/);
+  });
+
+  it("rejects shrinking non-trigger extents throughout retained cursor history", () => {
+    const schedule = ggSchedule([
+      {
+        index: 0,
+        operator: "GGThreshold",
+        trigger: { kind: "zExtent", value: 16 },
+        environment: changedGG(3),
+      },
+      {
+        index: 1,
+        operator: "GGThreshold",
+        trigger: { kind: "tick", value: 5 },
+        environment: changedGG(4),
+      },
+    ]);
+    let cursor = beginSchedule(schedule);
+    cursor = evaluateTimelineBoundary(schedule, cursor, after(1, extents(9, 9, 15, 20))).cursor;
+    const firstEvent = evaluateTimelineBoundary(
+      schedule,
+      cursor,
+      after(2, extents(9, 9, 18, 24)),
+    );
+
+    const shrinkingInsideEntry = {
+      ...firstEvent.cursor,
+      lastBoundary: after(2, extents(8, 8, 18, 24)),
+      eventLog: [
+        {
+          ...firstEvent.cursor.eventLog[0],
+          crossingBoundary: after(2, extents(8, 8, 18, 24)),
+        },
+      ],
+    };
+    expect(() =>
+      evaluateTimelineBoundary(
+        schedule,
+        shrinkingInsideEntry,
+        after(3, extents(8, 8, 18, 24)),
+      ),
+    ).toThrow(/iExtent cannot shrink/);
+
+    cursor = evaluateTimelineBoundary(
+      schedule,
+      firstEvent.cursor,
+      after(3, extents(9, 9, 18, 24)),
+    ).cursor;
+    const shrinkingAfterLastEvent = {
+      ...cursor,
+      lastBoundary: after(3, extents(9, 9, 18, 23)),
+    };
+    expect(() =>
+      evaluateTimelineBoundary(
+        schedule,
+        shrinkingAfterLastEvent,
+        after(4, extents(9, 9, 18, 23)),
+      ),
+    ).toThrow(/attachedCount cannot shrink/);
+
+    cursor = evaluateTimelineBoundary(
+      schedule,
+      cursor,
+      after(4, extents(9, 9, 18, 24)),
+    ).cursor;
+    const secondEvent = evaluateTimelineBoundary(
+      schedule,
+      cursor,
+      after(5, extents(9, 9, 18, 25)),
+    );
+    const shrinkingBetweenEntries = {
+      ...secondEvent.cursor,
+      lastBoundary: after(5, extents(8, 8, 18, 25)),
+      eventLog: [
+        secondEvent.cursor.eventLog[0],
+        {
+          ...secondEvent.cursor.eventLog[1],
+          previousBoundary: after(4, extents(8, 8, 18, 24)),
+          crossingBoundary: after(5, extents(8, 8, 18, 25)),
+        },
+      ],
+    };
+    expect(() =>
+      evaluateTimelineBoundary(
+        schedule,
+        shrinkingBetweenEntries,
+        after(6, extents(8, 8, 18, 25)),
+      ),
+    ).toThrow(/iExtent cannot shrink/);
+  });
+
+  it("rejects negative zero in schedules, boundaries, cursors, and fingerprint-colliding inputs", () => {
+    const positive = ggSchedule([
+      {
+        index: 0,
+        operator: "GGThreshold",
+        trigger: { kind: "tick", value: 1 },
+        environment: changedGG(3),
+      },
+    ]);
+    const negativePhi = ggSchedule(positive.events, { ...ggInitial, phi: -0 });
+    expect(JSON.stringify(negativePhi)).toBe(JSON.stringify(positive));
+    expect(() => validateTimelineSchedule(negativePhi)).toThrow(/negative zero/);
+    expect(() =>
+      evaluateTimelineBoundary(
+        negativePhi,
+        createTimelineCursor(positive),
+        { phase: "initial", completedCycles: 0 },
+      ),
+    ).toThrow(/negative zero/);
+
+    const negativeVector = ggSchedule([], {
+      ...ggInitial,
+      kappa: [-0, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
+    });
+    expect(() => validateTimelineSchedule(negativeVector)).toThrow(/negative-zero/);
+
+    const negativeTrigger = ggSchedule([
+      {
+        index: 0,
+        operator: "GGThreshold",
+        trigger: { kind: "tick", value: -0 },
+        environment: changedGG(3),
+      },
+    ]);
+    expect(() => validateTimelineSchedule(negativeTrigger)).toThrow(/safe integer/);
+
+    expect(() =>
+      evaluateTimelineBoundary(
+        positive,
+        createTimelineCursor(positive),
+        { phase: "initial", completedCycles: -0 },
+      ),
+    ).toThrow(/exactly zero/);
+
+    const cursor = createTimelineCursor(positive);
+    const negativeCursor = { ...cursor, nextEventIndex: -0 };
+    expect(() =>
+      evaluateTimelineBoundary(
+        positive,
+        negativeCursor,
+        { phase: "initial", completedCycles: 0 },
+      ),
+    ).toThrow(/nextEventIndex/);
   });
 
   it("does not receive or mutate solver arrays while emitting a G-G parameter jump", () => {

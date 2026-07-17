@@ -1,6 +1,14 @@
 import { createHash } from "node:crypto";
 import { describe, expect, it } from "vitest";
-import type { CappedColumnProfile } from "@vcc/core";
+import {
+  cellCount,
+  domainCenter,
+  hexDistance,
+  hexSeedSites,
+  idx,
+  type CappedColumnProfile,
+  type Dims,
+} from "@vcc/core";
 import {
   A_EXECUTION_CRITERIA,
   A_HABIT_BETA_01,
@@ -30,7 +38,6 @@ import {
   type AHabitPoint,
   type ATimelineMeasurements,
   type HollowRun,
-  type HollowState,
   type Phase4CriterionName,
   type Phase4CriterionRecord,
 } from "../src/gate4-protocol.ts";
@@ -188,6 +195,11 @@ describe("Phase 4 stable criterion record contracts", () => {
         value: Number.POSITIVE_INFINITY,
       }),
     ).toThrow(/cannot create malformed/);
+    expect(() =>
+      createPhase4CriterionRecord("A-EXEC-NUMERIC", false, "negative zero", {
+        value: -0,
+      }),
+    ).toThrow(/cannot create malformed/);
   });
 
   it("a missing diagnostic record invalidates Pass B completeness instead of becoming a silent miss", () => {
@@ -264,7 +276,13 @@ function passingAHabit(): AHabitPoint[] {
   return A_HABIT_CONTROLS.map((u, index) => ({
     u,
     ggThreshBeta01: A_HABIT_BETA_01[index],
-    reachedTarget: true,
+    targetLargestExtent: 14,
+    stepCap: 12_000,
+    stopReason: "size-target",
+    previousCycle: 99 + index,
+    crossingCycle: 100 + index,
+    previousLargestExtent: 13,
+    crossingLargestExtent: index === 2 ? 16 : 14,
     executionValid: true,
     commonConfigHash: "c".repeat(64),
     aspectRatio: ratios[index],
@@ -293,6 +311,10 @@ describe("Phase 4 habit sweep validators", () => {
     invertedEndpoint[4] = { ...invertedEndpoint[4], aspectRatio: 1.49 };
     expect(resultMap(evaluateAHabit(invertedEndpoint)).get("A-HABIT-ENDPOINTS")).toBe(false);
 
+    const infiniteEndpoint = passingAHabit();
+    infiniteEndpoint[4] = { ...infiniteEndpoint[4], aspectRatio: Number.POSITIVE_INFINITY };
+    expect(resultMap(evaluateAHabit(infiniteEndpoint)).get("A-HABIT-ENDPOINTS")).toBe(false);
+
     const hollowEndpoint = passingAHabit();
     hollowEndpoint[4] = { ...hollowEndpoint[4], crossSectionHollowness: 0.01 };
     expect(resultMap(evaluateAHabit(hollowEndpoint)).get("A-HABIT-SOLID")).toBe(false);
@@ -302,6 +324,27 @@ describe("Phase 4 habit sweep validators", () => {
     expect(resultMap(evaluateAHabit(changedCommon)).get("A-HABIT-GROWTH")).toBe(false);
 
     expect(resultMap(evaluateAHabit(passingAHabit().slice(0, 4))).get("A-HABIT-GROWTH")).toBe(false);
+
+    const negativeZeroControl = passingAHabit();
+    negativeZeroControl[0] = { ...negativeZeroControl[0], u: -0 };
+    expect(resultMap(evaluateAHabit(negativeZeroControl)).get("A-HABIT-GROWTH")).toBe(false);
+    const negativeZeroSolid = passingAHabit();
+    negativeZeroSolid[4] = { ...negativeZeroSolid[4], crossSectionHollowness: -0 };
+    expect(resultMap(evaluateAHabit(negativeZeroSolid)).get("A-HABIT-SOLID")).toBe(false);
+
+    for (const override of [
+      { previousLargestExtent: 14 },
+      { crossingLargestExtent: 13 },
+      { crossingCycle: 103 },
+      { targetLargestExtent: 15 },
+      { stepCap: 12_001 },
+      { stopReason: "step-cap" },
+      { previousCycle: 11_999, crossingCycle: 12_000 },
+    ]) {
+      const late = passingAHabit();
+      late[2] = { ...late[2], ...override };
+      expect(resultMap(evaluateAHabit(late)).get("A-HABIT-GROWTH")).toBe(false);
+    }
   });
 
   it("evaluates B morphology without turning a solid all-plate negative into execution failure", () => {
@@ -327,37 +370,151 @@ describe("Phase 4 habit sweep validators", () => {
     const decreasing = [...passing];
     decreasing[2] = { ...decreasing[2], aspectRatio: 0.6 };
     expect(resultMap(evaluateBHabit(decreasing)).get("B-HABIT-MONOTONE")).toBe(false);
+
+    const hollowCold = [...passing];
+    hollowCold[4] = { ...hollowCold[4], crossSectionHollowness: 0.01 };
+    const hollowColdVerdict = resultMap(evaluateBHabit(hollowCold));
+    expect(hollowColdVerdict.get("B-HABIT-ENDPOINTS")).toBe(true);
+    expect(hollowColdVerdict.get("B-HABIT-SOLID")).toBe(false);
+    expect(hollowColdVerdict.get("B-HABIT-MONOTONE")).toBe(true);
+
+    const infiniteCold = [...passing];
+    infiniteCold[4] = { ...infiniteCold[4], aspectRatio: Number.POSITIVE_INFINITY };
+    expect(resultMap(evaluateBHabit(infiniteCold)).get("B-HABIT-ENDPOINTS")).toBe(false);
   });
 });
 
 describe("Phase 4 depletion validators", () => {
   it("pins registered sample order, finite ratios, robust signal, and integer widening", () => {
-    const samples = [12, 16, 20, 24, 28, 32, 36].map((targetExtent, index) => ({
+    const targets = [12, 16, 20, 24, 28, 32, 36];
+    const crossings = [12, 16, 20, 26, 28, 32, 36];
+    const samples = targets.map((targetExtent, index) => ({
       targetExtent,
       tExtent: 7 + index,
       depletionRatio: 0.7 + index * 0.01,
+      previousCycle: 99 + index,
+      crossingCycle: 100 + index,
+      previousLargestExtent: index === 0 ? targetExtent - 1 : crossings[index - 1],
+      crossingLargestExtent: crossings[index],
     }));
-    expect([...resultMap(evaluateADepletion(samples, 2)).values()]).toEqual([true, true, true, true]);
+    const final = {
+      targetExtent: 36,
+      stopReason: "size-target",
+      completedCycles: 106,
+      largestExtent: 36,
+      aspectRatio: 2,
+    };
+    expect([...resultMap(evaluateADepletion(samples, final)).values()]).toEqual([true, true, true, true]);
+
+    const sharedBoundary = samples.map((sample) => ({ ...sample }));
+    sharedBoundary[0] = {
+      ...sharedBoundary[0],
+      previousLargestExtent: 11,
+      crossingLargestExtent: 18,
+      tExtent: 7,
+      depletionRatio: 0.7,
+    };
+    sharedBoundary[1] = {
+      ...sharedBoundary[1],
+      previousCycle: sharedBoundary[0].previousCycle,
+      crossingCycle: sharedBoundary[0].crossingCycle,
+      previousLargestExtent: sharedBoundary[0].previousLargestExtent,
+      crossingLargestExtent: sharedBoundary[0].crossingLargestExtent,
+      tExtent: sharedBoundary[0].tExtent,
+      depletionRatio: sharedBoundary[0].depletionRatio,
+    };
+    sharedBoundary[2] = { ...sharedBoundary[2], previousLargestExtent: 18 };
+    expect([...resultMap(evaluateADepletion(sharedBoundary, final)).values()]).toEqual([
+      true, true, true, true,
+    ]);
+
+    for (const mismatch of [
+      { tExtent: sharedBoundary[1].tExtent + 1 },
+      { depletionRatio: sharedBoundary[1].depletionRatio + 0.01 },
+    ]) {
+      const inconsistentSharedBoundary = sharedBoundary.map((sample) => ({ ...sample }));
+      inconsistentSharedBoundary[1] = {
+        ...inconsistentSharedBoundary[1],
+        ...mismatch,
+      };
+      expect(
+        resultMap(evaluateADepletion(inconsistentSharedBoundary, final)).get(
+          "A-DEPLETION-DEFINED",
+        ),
+      ).toBe(false);
+    }
 
     const flat = samples.map((sample) => ({ ...sample, tExtent: 7 }));
-    expect(resultMap(evaluateADepletion(flat, 2)).get("A-DEPLETION-WIDENING")).toBe(false);
+    expect(resultMap(evaluateADepletion(flat, final)).get("A-DEPLETION-WIDENING")).toBe(false);
     const poisoned = samples.map((sample, index) =>
       index === 2 ? { ...sample, depletionRatio: Number.NaN } : sample,
     );
-    expect(resultMap(evaluateADepletion(poisoned, 2)).get("A-DEPLETION-DEFINED")).toBe(false);
+    expect(resultMap(evaluateADepletion(poisoned, final)).get("A-DEPLETION-DEFINED")).toBe(false);
     const shuffled = [...samples].reverse();
-    expect(resultMap(evaluateADepletion(shuffled, 2)).get("A-DEPLETION-DEFINED")).toBe(false);
+    expect(resultMap(evaluateADepletion(shuffled, final)).get("A-DEPLETION-DEFINED")).toBe(false);
+
+    expect(
+      resultMap(evaluateADepletion(samples, { ...final, aspectRatio: 1.4 })).get(
+        "A-DEPLETION-COLUMN",
+      ),
+    ).toBe(false);
+    const noSignal = samples.map((sample) => ({ ...sample, depletionRatio: 1.1 }));
+    expect(resultMap(evaluateADepletion(noSignal, final)).get("A-DEPLETION-SIGNAL")).toBe(false);
+    const late = samples.map((sample, index) =>
+      index === 2 ? { ...sample, previousLargestExtent: sample.targetExtent } : sample,
+    );
+    expect(resultMap(evaluateADepletion(late, final)).get("A-DEPLETION-DEFINED")).toBe(false);
+    const backdated = samples.map((sample, index) =>
+      index === 3 ? { ...sample, previousCycle: 50, crossingCycle: 51 } : sample,
+    );
+    expect(resultMap(evaluateADepletion(backdated, final)).get("A-DEPLETION-DEFINED")).toBe(false);
+    expect(
+      resultMap(evaluateADepletion(samples, { ...final, stopReason: "step-cap" })).get(
+        "A-DEPLETION-COLUMN",
+      ),
+    ).toBe(false);
   });
 
   it("uses Pass B diagnostic thresholds without changing criterion disposition", () => {
-    const samples = [10, 12, 14, 16, 18, 20, 22, 24].map((targetExtent, index) => ({
+    const targets = [10, 12, 14, 16, 18, 20, 22, 24];
+    const crossings = [10, 12, 14, 16, 19, 20, 22, 24];
+    const samples = targets.map((targetExtent, index) => ({
       targetExtent,
       tExtent: 6 + index,
       depletionRatio: index === 7 ? 1.1 : 0.8,
+      previousCycle: 199 + index,
+      crossingCycle: 200 + index,
+      previousLargestExtent: index === 0 ? targetExtent - 1 : crossings[index - 1],
+      crossingLargestExtent: crossings[index],
     }));
-    const records = evaluateBDepletion(samples, 1.6);
+    const final = {
+      targetExtent: 24,
+      stopReason: "size-target",
+      completedCycles: 207,
+      largestExtent: 24,
+      aspectRatio: 1.6,
+      stepCap: 50_000,
+    };
+    const records = evaluateBDepletion(samples, final);
     expect([...resultMap(records).values()]).toEqual([true, true]);
     expect(records.every((item) => criterionDisposition(item.criterion) === "diagnostic")).toBe(true);
+
+    expect(evaluateBDepletion(samples, { ...final, aspectRatio: Number.NaN })[0].passed).toBe(false);
+    expect(evaluateBDepletion(samples, { ...final, aspectRatio: -1 })[0].passed).toBe(false);
+    expect(
+      evaluateBDepletion(
+        samples.map((sample) => ({ ...sample, depletionRatio: 1.1 })),
+        final,
+      )[0].passed,
+    ).toBe(false);
+    expect(
+      evaluateBDepletion(samples.map((sample) => ({ ...sample, tExtent: 6 })), final)[1].passed,
+    ).toBe(false);
+    expect(evaluateBDepletion(samples, { ...final, stopReason: "step-cap" })[0].passed).toBe(false);
+    const late = samples.map((sample, index) =>
+      index === 4 ? { ...sample, previousLargestExtent: sample.targetExtent } : sample,
+    );
+    expect(evaluateBDepletion(late, final)[0].passed).toBe(false);
   });
 });
 
@@ -365,35 +522,95 @@ function independentOccupancyHash(value: Uint8Array): string {
   return createHash("sha256").update(value).digest("hex");
 }
 
-function state(marker: number): HollowState {
-  const occupancy = new Uint8Array(4);
-  occupancy[marker % occupancy.length] = 1;
-  return {
-    occupancy,
-    surfaceField: new Float64Array([marker, 0.25, 0.5, 0.75]),
-    vaporField: new Float64Array([0.1, marker, 0.3, 0.4]),
-  };
+type HollowFixtureKind = "hollow" | "solid" | "sealed" | "prehollowed";
+
+function addCanonicalSeed(occupancy: Uint8Array, dims: Dims): void {
+  for (const site of hexSeedSites(dims, 2, 1)) occupancy[site] = 1;
 }
 
-function hollowRun(seed: number, marker = seed): HollowRun {
-  const rawState = state(marker);
+function addColumnLayers(
+  occupancy: Uint8Array,
+  dims: Dims,
+  start: number,
+  layers: number,
+  kind: HollowFixtureKind,
+  finalLayerCount: number,
+): void {
+  const [ic, jc] = domainCenter(dims);
+  for (let rank = 0; rank < layers; rank++) {
+    const k = start + rank;
+    const solidLayer =
+      kind === "solid" ||
+      (kind === "sealed" &&
+        (rank === 0 || (layers === finalLayerCount && rank === layers - 1)));
+    for (let dj = -4; dj <= 4; dj++) {
+      for (let di = -4; di <= 4; di++) {
+        const distance = hexDistance(di, dj);
+        if (distance > 4 || (!solidLayer && distance <= 2)) continue;
+        occupancy[idx(dims, ic + di, jc + dj, k)] = 1;
+      }
+    }
+  }
+}
+
+function hollowRun(
+  seed: number,
+  pass: "A" | "B" = "A",
+  kind: HollowFixtureKind = "hollow",
+  distinctMarker = seed,
+): HollowRun {
+  const dims: Dims = pass === "A"
+    ? { nx: 64, ny: 64, nz: 128 }
+    : { nx: 48, ny: 48, nz: 48 };
+  const target = pass === "A" ? 36 : 24;
+  const start = Math.floor(dims.nz / 2) - Math.floor(target / 2);
+  const length = cellCount(dims);
+  const initialOccupancy = new Uint8Array(length);
+  addCanonicalSeed(initialOccupancy, dims);
+  if (kind === "prehollowed") {
+    addColumnLayers(initialOccupancy, dims, Math.floor(dims.nz / 2) + 1, 1, "hollow", target);
+  }
+
+  const previousOccupancy = new Uint8Array(length);
+  addColumnLayers(previousOccupancy, dims, start, target - 1, kind, target);
+  for (let index = 0; index < length; index++) {
+    if (initialOccupancy[index] === 1) previousOccupancy[index] = 1;
+  }
+
+  const occupancy = previousOccupancy.slice();
+  addColumnLayers(occupancy, dims, start, target, kind, target);
+  const [ic, jc, kc] = domainCenter(dims);
+  if (distinctMarker > 1) {
+    occupancy[idx(dims, ic + 4 + distinctMarker, jc, kc)] = 1;
+  }
+  const surfaceField = new Float64Array(length);
+  surfaceField.fill(seed / 10);
+  const vaporField = new Float64Array(length);
+  vaporField.fill(0.5 + seed / 100);
   return {
+    executionId: seed.toString(16).padStart(64, "0"),
     seed,
-    reachedTarget: true,
+    dims,
+    targetLargestExtent: target,
+    stopReason: "size-target",
+    previousCycle: 100 + seed,
+    crossingCycle: 101 + seed,
+    previousLargestExtent: target - 1,
+    crossingLargestExtent: target,
     executionValid: true,
-    domainContact: false,
-    aspectRatio: 2,
-    initialHollowness: 0,
-    finalHollowness: 0.1,
-    sealedVoidFraction: 0,
-    reportedOccupancyHash: independentOccupancyHash(rawState.occupancy),
-    state: rawState,
+    initialOccupancy,
+    previousOccupancy,
+    state: { occupancy, surfaceField, vaporField },
   };
 }
 
 function replayOf(run: HollowRun): HollowRun {
   return {
     ...run,
+    executionId: (10_000 + run.seed).toString(16).padStart(64, "0"),
+    dims: { ...run.dims },
+    initialOccupancy: run.initialOccupancy.slice(),
+    previousOccupancy: run.previousOccupancy.slice(),
     state: {
       occupancy: run.state.occupancy.slice(),
       surfaceField: run.state.surfaceField.slice(),
@@ -403,7 +620,7 @@ function replayOf(run: HollowRun): HollowRun {
 }
 
 describe("Phase 4 hollow ensemble validators", () => {
-  it("independently hashes occupancy and passes distinct streams plus a field-bit replay", () => {
+  it("recomputes real open-tube geometry and passes distinct streams plus a full-state replay", () => {
     const runs = [hollowRun(1), hollowRun(2), hollowRun(3)];
     const records = resultMap(evaluateAHollow(runs, replayOf(runs[0]), true));
     expect([...records.values()]).toEqual([true, true, true]);
@@ -412,45 +629,79 @@ describe("Phase 4 hollow ensemble validators", () => {
     );
   });
 
-  it("rejects solid, sealed, pre-hollowed, and domain-contact members by A-HOLLOW-EACH", () => {
-    const base = [hollowRun(1), hollowRun(2), hollowRun(3)];
-    for (const override of [
-      { finalHollowness: 0 },
-      { sealedVoidFraction: 0.1 },
-      { initialHollowness: 0.01 },
-      { domainContact: true },
+  it("rejects raw solid, sealed, pre-hollowed, and domain-contact geometry by A-HOLLOW-EACH", () => {
+    for (const replacement of [
+      hollowRun(2, "A", "solid"),
+      hollowRun(2, "A", "sealed"),
+      hollowRun(2, "A", "prehollowed"),
+      (() => {
+        const run = hollowRun(2);
+        const [ic, jc] = domainCenter(run.dims);
+        run.state.occupancy[idx(run.dims, ic, jc, 0)] = 1;
+        run.state.occupancy[idx(run.dims, ic, jc, run.dims.nz - 1)] = 1;
+        return { ...run, crossingLargestExtent: run.dims.nz };
+      })(),
     ]) {
-      const runs = base.map((run, index) => index === 1 ? { ...run, ...override } : run);
-      expect(resultMap(evaluateAHollow(runs, replayOf(runs[0]), true)).get("A-HOLLOW-EACH")).toBe(false);
+      const runs = [hollowRun(1), replacement, hollowRun(3)];
+      expect(resultMap(evaluateAHollow(runs, replayOf(runs[0]), true)).get("A-HOLLOW-EACH"))
+        .toBe(false);
     }
   });
 
-  it("rejects identical seed occupancies, shifted reported hashes, and divergent seed-1 replay", () => {
-    const identical = [hollowRun(1, 1), hollowRun(2, 1), hollowRun(3, 1)];
+  it("ignores fabricated metric claims and independently derives a solid failure", () => {
+    const fabricated = {
+      ...hollowRun(2, "A", "solid"),
+      aspectRatio: 99,
+      initialHollowness: 0,
+      finalHollowness: 0.9,
+      sealedVoidFraction: 0,
+      domainContact: false,
+    } as HollowRun;
+    const runs = [hollowRun(1), fabricated, hollowRun(3)];
+    expect(resultMap(evaluateAHollow(runs, replayOf(runs[0]), true)).get("A-HOLLOW-EACH"))
+      .toBe(false);
+  });
+
+  it("rejects seed-vacuous occupancy, replay divergence, identity reuse, and overlapping buffers", () => {
+    const identical = [
+      hollowRun(1, "A", "hollow", 1),
+      hollowRun(2, "A", "hollow", 1),
+      hollowRun(3, "A", "hollow", 1),
+    ];
     expect(
       resultMap(evaluateAHollow(identical, replayOf(identical[0]), true)).get("A-HOLLOW-NONVACUOUS"),
     ).toBe(false);
 
-    const shifted = [hollowRun(1), hollowRun(2), hollowRun(3)];
-    shifted[2] = { ...shifted[2], reportedOccupancyHash: "0".repeat(64) };
-    const shiftedVerdict = resultMap(evaluateAHollow(shifted, replayOf(shifted[0]), true));
-    expect(shiftedVerdict.get("A-HOLLOW-EACH")).toBe(false);
-    expect(shiftedVerdict.get("A-HOLLOW-NONVACUOUS")).toBe(false);
-
-    const replay = replayOf(shifted[0]);
-    replay.state.vaporField[0] += 1;
+    const runs = [hollowRun(1), hollowRun(2), hollowRun(3)];
+    const divergent = replayOf(runs[0]);
+    divergent.state.vaporField[0] += 1;
+    expect(resultMap(evaluateAHollow(runs, divergent, true)).get("A-HOLLOW-NONVACUOUS"))
+      .toBe(false);
+    expect(resultMap(evaluateAHollow(runs, runs[0], true)).get("A-HOLLOW-NONVACUOUS"))
+      .toBe(false);
+    const reusedExecutionId = { ...replayOf(runs[0]), executionId: runs[1].executionId };
     expect(
-      resultMap(evaluateAHollow([hollowRun(1), hollowRun(2), hollowRun(3)], replay, true)).get(
-        "A-HOLLOW-NONVACUOUS",
-      ),
+      resultMap(evaluateAHollow(runs, reusedExecutionId, true)).get("A-HOLLOW-NONVACUOUS"),
     ).toBe(false);
+
+    const overlapping = { ...replayOf(runs[0]), state: runs[0].state };
+    expect(resultMap(evaluateAHollow(runs, overlapping, true)).get("A-HOLLOW-NONVACUOUS"))
+      .toBe(false);
   });
 
-  it("keeps B hollowing diagnostic while checking the complete raw replay", () => {
+  it("keeps structural inspection independent from raw morphology checks", () => {
     const runs = [hollowRun(1), hollowRun(2), hollowRun(3)];
+    const records = resultMap(evaluateAHollow(runs, replayOf(runs[0]), false));
+    expect(records.get("A-HOLLOW-EACH")).toBe(true);
+    expect(records.get("A-HOLLOW-NONVACUOUS")).toBe(true);
+    expect(records.get("A-HOLLOW-STRUCTURAL")).toBe(false);
+  });
+
+  it("keeps B hollowing diagnostic while recomputing the registered B-domain geometry", () => {
+    const runs = [hollowRun(1, "B"), hollowRun(2, "B"), hollowRun(3, "B")];
     expect(evaluateBHollow(runs, replayOf(runs[0])).passed).toBe(true);
-    const misses = runs.map((run) => ({ ...run, finalHollowness: 0.02 }));
-    expect(evaluateBHollow(misses, replayOf(misses[0])).passed).toBe(false);
+    const solid = [runs[0], hollowRun(2, "B", "solid"), runs[2]];
+    expect(evaluateBHollow(solid, replayOf(solid[0])).passed).toBe(false);
     expect(criterionDisposition("B-HOLLOW")).toBe("diagnostic");
   });
 });
@@ -546,6 +797,29 @@ describe("Phase 4 cap/timeline validators", () => {
       resultMap(
         evaluateATimeline({ ...passingATimeline(), beforeMass: Number.NaN, afterMass: Number.NaN }),
       ).get("A-TIMELINE-STATE"),
+    ).toBe(false);
+  });
+
+  it("trips stage-1 and execution-valid timeline criteria independently", () => {
+    const weakStage = resultMap(
+      evaluateATimeline({ ...passingATimeline(), eventAspectRatio: 1.9 }),
+    );
+    expect(weakStage.get("A-TIMELINE-STAGE1")).toBe(false);
+    expect(weakStage.get("A-TIMELINE-STATE")).toBe(true);
+    expect(weakStage.get("A-TIMELINE-CAPS")).toBe(true);
+    expect(weakStage.get("A-TIMELINE-VALID")).toBe(true);
+
+    const invalidTermination = resultMap(
+      evaluateATimeline({ ...passingATimeline(), stopReason: "step-cap" }),
+    );
+    expect(invalidTermination.get("A-TIMELINE-STAGE1")).toBe(true);
+    expect(invalidTermination.get("A-TIMELINE-STATE")).toBe(true);
+    expect(invalidTermination.get("A-TIMELINE-CAPS")).toBe(true);
+    expect(invalidTermination.get("A-TIMELINE-VALID")).toBe(false);
+    expect(
+      resultMap(
+        evaluateATimeline({ ...passingATimeline(), maxRelativeMassDrift: -0 }),
+      ).get("A-TIMELINE-VALID"),
     ).toBe(false);
   });
 

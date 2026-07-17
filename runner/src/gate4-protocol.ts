@@ -5,7 +5,17 @@
 // incomplete/ambiguous record sets, and computes morphology verdicts from raw measurements.
 
 import { createHash } from "node:crypto";
-import type { CappedColumnProfile } from "@vcc/core";
+import {
+  aspectRatio,
+  cellCount,
+  crossSectionHollowness,
+  domainContact,
+  latticeExtents,
+  sealedVoidFraction,
+  type CappedColumnProfile,
+  type Dims,
+  type LatticeExtents,
+} from "@vcc/core";
 
 export const PHASE4_PROTOCOL_VERSION = 1;
 export const PHASE4_CRITERIA_FREEZE = "e567767";
@@ -115,7 +125,7 @@ export function criterionDisposition(name: Phase4CriterionName): CriterionDispos
 }
 
 function finiteOrNull(value: number): number | null {
-  return Number.isFinite(value) ? value : null;
+  return Number.isFinite(value) && !Object.is(value, -0) ? value : null;
 }
 
 function record<N extends Phase4CriterionName>(
@@ -206,7 +216,7 @@ function validateRecord(value: unknown): value is Phase4CriterionRecord {
       measurement === null ||
       typeof measurement === "string" ||
       typeof measurement === "boolean" ||
-      (typeof measurement === "number" && Number.isFinite(measurement))
+      (typeof measurement === "number" && Number.isFinite(measurement) && !Object.is(measurement, -0))
     );
   });
 }
@@ -382,11 +392,50 @@ export function evaluateGate4Aggregate(
 export const A_HABIT_CONTROLS = [0, 0.25, 0.5, 0.75, 1] as const;
 export const A_HABIT_BETA_01 = [3, 2.5, 2, 1.5, 1] as const;
 export const B_HABIT_TEMPERATURES = [-5, -7.5, -10, -12.5, -15] as const;
+export const SIZE_TARGET_STOP_REASON = "size-target";
+export const A_HABIT_TARGET_LARGEST_EXTENT = 14;
+export const A_HABIT_STEP_CAP = 12_000;
+
+interface RawExtentCrossing {
+  readonly previousCycle: number;
+  readonly crossingCycle: number;
+  readonly previousLargestExtent: number;
+  readonly crossingLargestExtent: number;
+}
+
+function validRawExtentCrossing(
+  value: RawExtentCrossing,
+  target: number,
+  stepCap?: number,
+): boolean {
+  return (
+    Number.isSafeInteger(value.previousCycle) &&
+    !Object.is(value.previousCycle, -0) &&
+    value.previousCycle >= 0 &&
+    Number.isSafeInteger(value.crossingCycle) &&
+    !Object.is(value.crossingCycle, -0) &&
+    value.crossingCycle === value.previousCycle + 1 &&
+    (stepCap === undefined || value.crossingCycle < stepCap) &&
+    Number.isSafeInteger(value.previousLargestExtent) &&
+    !Object.is(value.previousLargestExtent, -0) &&
+    value.previousLargestExtent > 0 &&
+    value.previousLargestExtent < target &&
+    Number.isSafeInteger(value.crossingLargestExtent) &&
+    !Object.is(value.crossingLargestExtent, -0) &&
+    value.crossingLargestExtent >= target
+  );
+}
 
 export interface AHabitPoint {
   readonly u: number;
   readonly ggThreshBeta01: number;
-  readonly reachedTarget: boolean;
+  readonly targetLargestExtent: number;
+  readonly stepCap: number;
+  readonly stopReason: string;
+  readonly previousCycle: number;
+  readonly crossingCycle: number;
+  readonly previousLargestExtent: number;
+  readonly crossingLargestExtent: number;
   readonly executionValid: boolean;
   readonly commonConfigHash: string;
   readonly aspectRatio: number;
@@ -394,11 +443,17 @@ export interface AHabitPoint {
   readonly sealedVoidFraction: number;
 }
 
+function finitePositiveAspect(value: number): boolean {
+  return Number.isFinite(value) && !Object.is(value, -0) && value > 0;
+}
+
 export function evaluateAHabit(points: readonly AHabitPoint[]): readonly Phase4CriterionRecord<AMorphologyCriterion>[] {
   const ordered =
     points.length === A_HABIT_CONTROLS.length &&
     points.every(
       (point, index) =>
+        !Object.is(point.u, -0) &&
+        !Object.is(point.ggThreshBeta01, -0) &&
         point.u === A_HABIT_CONTROLS[index] &&
         point.ggThreshBeta01 === A_HABIT_BETA_01[index],
     );
@@ -407,15 +462,24 @@ export function evaluateAHabit(points: readonly AHabitPoint[]): readonly Phase4C
     ordered &&
     points.every(
       (point) =>
-        point.reachedTarget &&
-        point.executionValid &&
+        point.targetLargestExtent === A_HABIT_TARGET_LARGEST_EXTENT &&
+        point.stepCap === A_HABIT_STEP_CAP &&
+        point.stopReason === SIZE_TARGET_STOP_REASON &&
+        validRawExtentCrossing(
+          point,
+          A_HABIT_TARGET_LARGEST_EXTENT,
+          A_HABIT_STEP_CAP,
+        ) &&
+        point.executionValid === true &&
         /^[0-9a-f]{64}$/.test(point.commonConfigHash) &&
         Number.isFinite(point.aspectRatio) &&
         point.aspectRatio > 0 &&
         Number.isFinite(point.crossSectionHollowness) &&
+        !Object.is(point.crossSectionHollowness, -0) &&
         point.crossSectionHollowness >= 0 &&
         point.crossSectionHollowness <= 1 &&
         Number.isFinite(point.sealedVoidFraction) &&
+        !Object.is(point.sealedVoidFraction, -0) &&
         point.sealedVoidFraction >= 0 &&
         point.sealedVoidFraction <= 1,
     ) &&
@@ -425,11 +489,14 @@ export function evaluateAHabit(points: readonly AHabitPoint[]): readonly Phase4C
   const endpoints =
     first !== undefined &&
     last !== undefined &&
-    first.aspectRatio > 0 &&
+    finitePositiveAspect(first.aspectRatio) &&
+    finitePositiveAspect(last.aspectRatio) &&
     first.aspectRatio <= 0.3 &&
     last.aspectRatio >= 1.5;
   const solid =
     last !== undefined &&
+    !Object.is(last.crossSectionHollowness, -0) &&
+    !Object.is(last.sealedVoidFraction, -0) &&
     last.crossSectionHollowness === 0 &&
     last.sealedVoidFraction === 0;
   const monotone =
@@ -471,11 +538,16 @@ export function evaluateBHabit(points: readonly BHabitPoint[]): readonly Phase4C
   const endpoints =
     first !== undefined &&
     last !== undefined &&
-    first.aspectRatio > 0 &&
+    finitePositiveAspect(first.aspectRatio) &&
+    finitePositiveAspect(last.aspectRatio) &&
     first.aspectRatio <= 1 / 1.5 &&
     last.aspectRatio >= 1.5;
   const solid =
-    last !== undefined && last.crossSectionHollowness === 0 && last.sealedVoidFraction === 0;
+    last !== undefined &&
+    !Object.is(last.crossSectionHollowness, -0) &&
+    !Object.is(last.sealedVoidFraction, -0) &&
+    last.crossSectionHollowness === 0 &&
+    last.sealedVoidFraction === 0;
   const classes = points.map((point) => habitClass(point.aspectRatio));
   const nonDecreasing =
     ordered &&
@@ -504,6 +576,22 @@ export interface DepletionSample {
   readonly targetExtent: number;
   readonly tExtent: number;
   readonly depletionRatio: number;
+  readonly previousCycle: number;
+  readonly crossingCycle: number;
+  readonly previousLargestExtent: number;
+  readonly crossingLargestExtent: number;
+}
+
+export interface DepletionFinalEvidence {
+  readonly targetExtent: number;
+  readonly stopReason: string;
+  readonly completedCycles: number;
+  readonly largestExtent: number;
+  readonly aspectRatio: number;
+}
+
+export interface BDepletionFinalEvidence extends DepletionFinalEvidence {
+  readonly stepCap: number;
 }
 
 function ordinaryMedian(values: readonly number[]): number {
@@ -516,28 +604,77 @@ function ordinaryMedian(values: readonly number[]): number {
 function registeredSamples(samples: readonly DepletionSample[], targets: readonly number[]): boolean {
   return (
     samples.length === targets.length &&
-    samples.every((sample, index) => sample.targetExtent === targets[index])
+    samples.every((sample, index) => {
+      const previous = samples[index - 1];
+      const sharedCrossing =
+        previous !== undefined &&
+        sample.previousCycle === previous.previousCycle &&
+        sample.crossingCycle === previous.crossingCycle &&
+        sample.previousLargestExtent === previous.previousLargestExtent &&
+        sample.crossingLargestExtent === previous.crossingLargestExtent &&
+        Object.is(sample.tExtent, previous.tExtent) &&
+        Object.is(sample.depletionRatio, previous.depletionRatio);
+      const chronologicalProgress =
+        previous !== undefined &&
+        sample.crossingCycle > previous.crossingCycle &&
+        sample.previousCycle >= previous.crossingCycle &&
+        sample.previousLargestExtent >= previous.crossingLargestExtent &&
+        (sample.previousCycle !== previous.crossingCycle ||
+          sample.previousLargestExtent === previous.crossingLargestExtent);
+      return (
+        sample.targetExtent === targets[index] &&
+        validRawExtentCrossing(sample, sample.targetExtent) &&
+        Number.isSafeInteger(sample.tExtent) &&
+        !Object.is(sample.tExtent, -0) &&
+        sample.tExtent > 0 &&
+        sample.tExtent <= sample.crossingLargestExtent &&
+        (previous === undefined || sharedCrossing || chronologicalProgress)
+      );
+    })
+  );
+}
+
+function finalDepletionEvidenceMatches(
+  final: DepletionFinalEvidence,
+  target: number,
+  lastSample: DepletionSample | undefined,
+): boolean {
+  return (
+    lastSample !== undefined &&
+    final.targetExtent === target &&
+    final.stopReason === SIZE_TARGET_STOP_REASON &&
+    Number.isSafeInteger(final.completedCycles) &&
+    !Object.is(final.completedCycles, -0) &&
+    final.completedCycles === lastSample.crossingCycle &&
+    Number.isSafeInteger(final.largestExtent) &&
+    !Object.is(final.largestExtent, -0) &&
+    final.largestExtent === lastSample.crossingLargestExtent &&
+    Number.isFinite(final.aspectRatio) &&
+    !Object.is(final.aspectRatio, -0) &&
+    final.aspectRatio > 0
   );
 }
 
 export function evaluateADepletion(
   samples: readonly DepletionSample[],
-  finalAspectRatio: number,
+  final: DepletionFinalEvidence,
 ): readonly Phase4CriterionRecord<AMorphologyCriterion>[] {
   const targets = [12, 16, 20, 24, 28, 32, 36];
-  const registered = registeredSamples(samples, targets);
+  const registered =
+    registeredSamples(samples, targets) &&
+    finalDepletionEvidenceMatches(final, 36, samples[samples.length - 1]);
   const ratios = samples.map((sample) => sample.depletionRatio);
-  const defined = registered && ratios.every(Number.isFinite);
+  const defined =
+    registered && ratios.every((value) => Number.isFinite(value) && !Object.is(value, -0));
   const widening =
     registered &&
-    samples.every((sample) => Number.isSafeInteger(sample.tExtent) && sample.tExtent > 0) &&
     samples.every((sample, index) => index === 0 || sample.tExtent >= samples[index - 1].tExtent) &&
     samples[samples.length - 1].tExtent >= samples[0].tExtent + 4;
   const median = defined ? ordinaryMedian(ratios) : Number.NaN;
   const belowOne = defined ? ratios.filter((value) => value < 1).length : 0;
   const signal = defined && median <= 0.85 && belowOne >= 6;
   return [
-    record("A-DEPLETION-COLUMN", Number.isFinite(finalAspectRatio) && finalAspectRatio >= 1.5, "final widening run column check", { finalAspectRatio: finiteOrNull(finalAspectRatio) }),
+    record("A-DEPLETION-COLUMN", registered && final.aspectRatio >= 1.5, "final widening run column and registered stop check", { finalAspectRatio: finiteOrNull(final.aspectRatio), stopReason: final.stopReason, finalLargestExtent: finiteOrNull(final.largestExtent) }),
     record("A-DEPLETION-DEFINED", defined, defined ? "all registered ratios are finite" : "registered depletion series is incomplete or non-finite", { samples: samples.length }),
     record("A-DEPLETION-WIDENING", widening, widening ? "transverse extent widens sufficiently" : "transverse extent did not widen monotonically by four", { firstT: finiteOrNull(samples[0]?.tExtent ?? Number.NaN), lastT: finiteOrNull(samples[samples.length - 1]?.tExtent ?? Number.NaN) }),
     record("A-DEPLETION-SIGNAL", signal, signal ? "registered depletion signal passes" : "registered depletion signal misses median/count thresholds", { median: finiteOrNull(median), belowOne }),
@@ -546,23 +683,27 @@ export function evaluateADepletion(
 
 export function evaluateBDepletion(
   samples: readonly DepletionSample[],
-  finalAspectRatio: number,
+  final: BDepletionFinalEvidence,
 ): readonly Phase4CriterionRecord<BMorphologyCriterion>[] {
   const targets = [10, 12, 14, 16, 18, 20, 22, 24];
-  const registered = registeredSamples(samples, targets);
+  const registered =
+    registeredSamples(samples, targets) &&
+    final.stepCap === 50_000 &&
+    finalDepletionEvidenceMatches(final, 24, samples[samples.length - 1]) &&
+    final.completedCycles < final.stepCap;
   const ratios = samples.map((sample) => sample.depletionRatio);
-  const finite = registered && ratios.every(Number.isFinite);
+  const finite =
+    registered && ratios.every((value) => Number.isFinite(value) && !Object.is(value, -0));
   const median = finite ? ordinaryMedian(ratios) : Number.NaN;
   const belowFraction = finite ? ratios.filter((value) => value < 1).length / ratios.length : 0;
   const signal =
-    finite && finalAspectRatio >= 1.5 && median <= 0.9 && belowFraction >= 0.8;
+    finite && final.aspectRatio >= 1.5 && median <= 0.9 && belowFraction >= 0.8;
   const widening =
     registered &&
-    samples.every((sample) => Number.isSafeInteger(sample.tExtent) && sample.tExtent > 0) &&
     samples.every((sample, index) => index === 0 || sample.tExtent >= samples[index - 1].tExtent) &&
     samples[samples.length - 1].tExtent >= samples[0].tExtent + 2;
   return [
-    record("B-DEPLETION", signal, signal ? "diagnostic depletion signal passes" : "diagnostic depletion signal misses", { finalAspectRatio: finiteOrNull(finalAspectRatio), median: finiteOrNull(median), belowFraction: finiteOrNull(belowFraction) }),
+    record("B-DEPLETION", signal, signal ? "diagnostic depletion signal passes" : "diagnostic depletion signal misses", { finalAspectRatio: finiteOrNull(final.aspectRatio), median: finiteOrNull(median), belowFraction: finiteOrNull(belowFraction), stopReason: final.stopReason }),
     record("B-DEPLETION-WIDENING", widening, widening ? "diagnostic transverse widening passes" : "diagnostic transverse widening misses", { firstT: finiteOrNull(samples[0]?.tExtent ?? Number.NaN), lastT: finiteOrNull(samples[samples.length - 1]?.tExtent ?? Number.NaN) }),
   ];
 }
@@ -576,17 +717,37 @@ export interface HollowState {
 }
 
 export interface HollowRun {
+  /** Distinct execution identity; a replay must not reuse the original execution. */
+  readonly executionId: string;
   readonly seed: number;
-  readonly reachedTarget: boolean;
+  readonly dims: Dims;
+  readonly targetLargestExtent: number;
+  readonly stopReason: string;
+  readonly previousCycle: number;
+  readonly crossingCycle: number;
+  readonly previousLargestExtent: number;
+  readonly crossingLargestExtent: number;
   readonly executionValid: boolean;
-  readonly domainContact: boolean;
-  readonly aspectRatio: number;
+  readonly initialOccupancy: Uint8Array;
+  readonly previousOccupancy: Uint8Array;
+  readonly state: HollowState;
+}
+
+interface DerivedHollowRun {
   readonly initialHollowness: number;
   readonly finalHollowness: number;
   readonly sealedVoidFraction: number;
-  readonly reportedOccupancyHash: string;
-  readonly state: HollowState;
+  readonly aspectRatio: number;
+  readonly domainContact: boolean;
+  readonly previousExtents: LatticeExtents;
+  readonly finalExtents: LatticeExtents;
+  readonly finalOccupancyHash: string;
 }
+
+const A_HOLLOW_DIMS: Dims = { nx: 64, ny: 64, nz: 128 };
+const B_HOLLOW_DIMS: Dims = { nx: 48, ny: 48, nz: 48 };
+const A_HOLLOW_TARGET = 36;
+const B_HOLLOW_TARGET = 24;
 
 function bytesOf(array: Uint8Array | Float64Array): Uint8Array {
   return new Uint8Array(array.buffer, array.byteOffset, array.byteLength);
@@ -602,31 +763,168 @@ function bytesEqual(left: Uint8Array | Float64Array, right: Uint8Array | Float64
   return true;
 }
 
+function buffersOverlap(
+  left: Uint8Array | Float64Array,
+  right: Uint8Array | Float64Array,
+): boolean {
+  if (left.buffer !== right.buffer) return false;
+  const leftEnd = left.byteOffset + left.byteLength;
+  const rightEnd = right.byteOffset + right.byteLength;
+  return left.byteOffset < rightEnd && right.byteOffset < leftEnd;
+}
+
+function allBuffers(run: HollowRun): readonly (Uint8Array | Float64Array)[] {
+  return [
+    run.initialOccupancy,
+    run.previousOccupancy,
+    run.state.occupancy,
+    run.state.surfaceField,
+    run.state.vaporField,
+  ];
+}
+
+function hasPairwiseNonoverlappingBuffers(
+  buffers: readonly (Uint8Array | Float64Array)[],
+): boolean {
+  return buffers.every((left, index) =>
+    buffers.slice(index + 1).every((right) => !buffersOverlap(left, right)),
+  );
+}
+
+function occupancyIsBinary(occupancy: Uint8Array): boolean {
+  for (const value of occupancy) if (value !== 0 && value !== 1) return false;
+  return true;
+}
+
+function occupancyIsSubset(subset: Uint8Array, superset: Uint8Array): boolean {
+  for (let index = 0; index < subset.length; index++) {
+    if (subset[index] === 1 && superset[index] !== 1) return false;
+  }
+  return true;
+}
+
+function exactDims(actual: unknown, expected: Dims): actual is Dims {
+  if (!isObject(actual)) return false;
+  return (
+    Number.isSafeInteger(actual.nx) &&
+    Number.isSafeInteger(actual.ny) &&
+    Number.isSafeInteger(actual.nz) &&
+    actual.nx === expected.nx &&
+    actual.ny === expected.ny &&
+    actual.nz === expected.nz
+  );
+}
+
 /** SHA-256 of the raw occupancy bytes; evidence code never trusts a reported hash. */
 export function occupancyHash(occupancy: Uint8Array): string {
   return createHash("sha256").update(occupancy).digest("hex");
 }
 
-function validHollowState(run: HollowRun): boolean {
-  const length = run.state.occupancy.length;
-  return (
-    length > 0 &&
-    run.state.surfaceField.length === length &&
-    run.state.vaporField.length === length &&
-    run.reportedOccupancyHash === occupancyHash(run.state.occupancy)
-  );
+function deriveHollowRun(
+  run: HollowRun,
+  expectedDims: Dims,
+  target: number,
+): DerivedHollowRun | undefined {
+  if (
+    !isObject(run) ||
+    !isObject(run.state) ||
+    !(run.initialOccupancy instanceof Uint8Array) ||
+    !(run.previousOccupancy instanceof Uint8Array) ||
+    !(run.state.occupancy instanceof Uint8Array) ||
+    !(run.state.surfaceField instanceof Float64Array) ||
+    !(run.state.vaporField instanceof Float64Array) ||
+    !/^[0-9a-f]{64}$/.test(run.executionId) ||
+    !Number.isSafeInteger(run.seed) ||
+    Object.is(run.seed, -0) ||
+    run.seed < 1 ||
+    !exactDims(run.dims, expectedDims) ||
+    run.targetLargestExtent !== target ||
+    run.stopReason !== SIZE_TARGET_STOP_REASON ||
+    run.executionValid !== true ||
+    !validRawExtentCrossing(run, target) ||
+    !hasPairwiseNonoverlappingBuffers(allBuffers(run))
+  ) {
+    return undefined;
+  }
+  const length = cellCount(expectedDims);
+  if (
+    run.initialOccupancy.length !== length ||
+    run.previousOccupancy.length !== length ||
+    run.state.occupancy.length !== length ||
+    run.state.surfaceField.length !== length ||
+    run.state.vaporField.length !== length ||
+    !occupancyIsBinary(run.initialOccupancy) ||
+    !occupancyIsBinary(run.previousOccupancy) ||
+    !occupancyIsBinary(run.state.occupancy) ||
+    !occupancyIsSubset(run.initialOccupancy, run.previousOccupancy) ||
+    !occupancyIsSubset(run.previousOccupancy, run.state.occupancy)
+  ) {
+    return undefined;
+  }
+  const initialExtents = latticeExtents(run.initialOccupancy, expectedDims);
+  const previousExtents = latticeExtents(run.previousOccupancy, expectedDims);
+  const finalExtents = latticeExtents(run.state.occupancy, expectedDims);
+  if (
+    initialExtents === null ||
+    previousExtents === null ||
+    finalExtents === null ||
+    previousExtents.largestExtent !== run.previousLargestExtent ||
+    finalExtents.largestExtent !== run.crossingLargestExtent
+  ) {
+    return undefined;
+  }
+  return {
+    initialHollowness: crossSectionHollowness(run.initialOccupancy, expectedDims),
+    finalHollowness: crossSectionHollowness(run.state.occupancy, expectedDims),
+    sealedVoidFraction: sealedVoidFraction(run.state.occupancy, expectedDims),
+    aspectRatio: aspectRatio(run.state.occupancy, expectedDims),
+    domainContact: domainContact(run.state.occupancy, expectedDims),
+    previousExtents,
+    finalExtents,
+    finalOccupancyHash: occupancyHash(run.state.occupancy),
+  };
 }
 
-function replayEqual(left: HollowRun | undefined, right: HollowRun | undefined): boolean {
+function replayEqual(
+  left: HollowRun | undefined,
+  right: HollowRun | undefined,
+  expectedDims: Dims,
+  target: number,
+): boolean {
+  if (left === undefined || right === undefined || left === right) return false;
+  const leftDerived = deriveHollowRun(left, expectedDims, target);
+  const rightDerived = deriveHollowRun(right, expectedDims, target);
+  if (leftDerived === undefined || rightDerived === undefined) return false;
+  const leftBuffers = allBuffers(left);
+  const rightBuffers = allBuffers(right);
   return (
-    left !== undefined &&
-    right !== undefined &&
+    left.executionId !== right.executionId &&
     left.seed === right.seed &&
-    validHollowState(left) &&
-    validHollowState(right) &&
+    deepEqualHollowMetadata(left, right) &&
+    leftBuffers.every((leftBuffer) =>
+      rightBuffers.every((rightBuffer) => !buffersOverlap(leftBuffer, rightBuffer)),
+    ) &&
+    bytesEqual(left.initialOccupancy, right.initialOccupancy) &&
+    bytesEqual(left.previousOccupancy, right.previousOccupancy) &&
     bytesEqual(left.state.occupancy, right.state.occupancy) &&
     bytesEqual(left.state.surfaceField, right.state.surfaceField) &&
     bytesEqual(left.state.vaporField, right.state.vaporField)
+  );
+}
+
+function deepEqualHollowMetadata(left: HollowRun, right: HollowRun): boolean {
+  return (
+    left.seed === right.seed &&
+    left.dims.nx === right.dims.nx &&
+    left.dims.ny === right.dims.ny &&
+    left.dims.nz === right.dims.nz &&
+    left.targetLargestExtent === right.targetLargestExtent &&
+    left.stopReason === right.stopReason &&
+    left.previousCycle === right.previousCycle &&
+    left.crossingCycle === right.crossingCycle &&
+    left.previousLargestExtent === right.previousLargestExtent &&
+    left.crossingLargestExtent === right.crossingLargestExtent &&
+    left.executionValid === right.executionValid
   );
 }
 
@@ -636,32 +934,38 @@ export function evaluateAHollow(
   structuralNoDrivenBranches: boolean,
 ): readonly Phase4CriterionRecord<AMorphologyCriterion>[] {
   const orderedSeeds = runs.length === 3 && runs.every((run, index) => run.seed === index + 1);
+  const derived = runs.map((run) => deriveHollowRun(run, A_HOLLOW_DIMS, A_HOLLOW_TARGET));
   const each =
     orderedSeeds &&
-    runs.every(
-      (run) =>
-        run.reachedTarget &&
-        run.executionValid &&
-        !run.domainContact &&
-        validHollowState(run) &&
-        Number.isFinite(run.aspectRatio) &&
-        run.aspectRatio >= 1.5 &&
-        run.initialHollowness === 0 &&
-        Number.isFinite(run.finalHollowness) &&
-        run.finalHollowness >= 0.08 &&
-        run.finalHollowness <= 1 &&
-        run.finalHollowness - run.initialHollowness >= 0.08 &&
-        run.sealedVoidFraction === 0,
+    derived.every(
+      (result) =>
+        result !== undefined &&
+        !result.domainContact &&
+        Number.isFinite(result.aspectRatio) &&
+        result.aspectRatio >= 1.5 &&
+        result.initialHollowness === 0 &&
+        Number.isFinite(result.finalHollowness) &&
+        result.finalHollowness >= 0.08 &&
+        result.finalHollowness <= 1 &&
+        result.finalHollowness - result.initialHollowness >= 0.08 &&
+        result.sealedVoidFraction === 0,
     );
-  const hashes = runs.map((run) => occupancyHash(run.state.occupancy));
+  const hashes = derived.flatMap((result) =>
+    result === undefined ? [] : [result.finalOccupancyHash],
+  );
+  const replayBitwise =
+    seed1Replay !== undefined &&
+    !runs.some((run) => run.executionId === seed1Replay.executionId) &&
+    replayEqual(runs[0], seed1Replay, A_HOLLOW_DIMS, A_HOLLOW_TARGET);
   const nonvacuous =
     orderedSeeds &&
-    runs.every(validHollowState) &&
+    derived.every((result) => result !== undefined) &&
+    new Set(runs.map((run) => run.executionId)).size === runs.length &&
     new Set(hashes).size >= 2 &&
-    replayEqual(runs[0], seed1Replay);
+    replayBitwise;
   return [
     record("A-HOLLOW-EACH", each, each ? "every seed grows a valid open hollow column" : "at least one seed misses the registered hollow-column conditions", { seeds: runs.length }),
-    record("A-HOLLOW-NONVACUOUS", nonvacuous, nonvacuous ? "cross-seed occupancy differs and seed 1 replays bitwise" : "ensemble is seed-vacuous, hash-shifted, or replay-divergent", { distinctOccupancyHashes: new Set(hashes).size, replayBitwise: replayEqual(runs[0], seed1Replay) }),
+    record("A-HOLLOW-NONVACUOUS", nonvacuous, nonvacuous ? "cross-seed occupancy differs and an independent seed-1 execution replays all state bits" : "ensemble is seed-vacuous, execution-aliased, or replay-divergent", { distinctOccupancyHashes: new Set(hashes).size, replayBitwise }),
     record("A-HOLLOW-STRUCTURAL", structuralNoDrivenBranches, structuralNoDrivenBranches ? "solver contains no morphology-driven branch" : "solver structure contains a forbidden morphology-driven branch"),
   ];
 }
@@ -671,27 +975,33 @@ export function evaluateBHollow(
   seed1Replay: HollowRun | undefined,
 ): Phase4CriterionRecord<"B-HOLLOW"> {
   const orderedSeeds = runs.length === 3 && runs.every((run, index) => run.seed === index + 1);
-  const hashes = runs.map((run) => occupancyHash(run.state.occupancy));
+  const derived = runs.map((run) => deriveHollowRun(run, B_HOLLOW_DIMS, B_HOLLOW_TARGET));
+  const hashes = derived.flatMap((result) =>
+    result === undefined ? [] : [result.finalOccupancyHash],
+  );
+  const replayBitwise =
+    seed1Replay !== undefined &&
+    !runs.some((run) => run.executionId === seed1Replay.executionId) &&
+    replayEqual(runs[0], seed1Replay, B_HOLLOW_DIMS, B_HOLLOW_TARGET);
   const passed =
     orderedSeeds &&
-    runs.every(
-      (run) =>
-        run.reachedTarget &&
-        run.executionValid &&
-        !run.domainContact &&
-        validHollowState(run) &&
-        Number.isFinite(run.aspectRatio) &&
-        run.aspectRatio >= 1.5 &&
-        run.initialHollowness >= 0 &&
-        run.initialHollowness <= 1 &&
-        run.finalHollowness >= 0.03 &&
-        run.finalHollowness <= 1 &&
-        run.finalHollowness - run.initialHollowness >= 0.03 &&
-        run.sealedVoidFraction === 0,
+    derived.every(
+      (result) =>
+        result !== undefined &&
+        !result.domainContact &&
+        Number.isFinite(result.aspectRatio) &&
+        result.aspectRatio >= 1.5 &&
+        result.initialHollowness >= 0 &&
+        result.initialHollowness <= 1 &&
+        result.finalHollowness >= 0.03 &&
+        result.finalHollowness <= 1 &&
+        result.finalHollowness - result.initialHollowness >= 0.03 &&
+        result.sealedVoidFraction === 0,
     ) &&
+    new Set(runs.map((run) => run.executionId)).size === runs.length &&
     new Set(hashes).size >= 2 &&
-    replayEqual(runs[0], seed1Replay);
-  return record("B-HOLLOW", passed, passed ? "diagnostic hollow ensemble passes" : "diagnostic hollow ensemble misses", { distinctOccupancyHashes: new Set(hashes).size, replayBitwise: replayEqual(runs[0], seed1Replay) });
+    replayBitwise;
+  return record("B-HOLLOW", passed, passed ? "diagnostic hollow ensemble passes" : "diagnostic hollow ensemble misses", { distinctOccupancyHashes: new Set(hashes).size, replayBitwise });
 }
 
 // ── Timeline and branch morphology ─────────────────────────────────────────────────────────
@@ -792,9 +1102,11 @@ export function evaluateATimeline(
     value.finalZExtent >= 24;
   const valid =
     value.stopReason === "far-field" &&
+    !Object.is(value.finalSymmetryError, -0) &&
     value.finalSymmetryError === 0 &&
     !value.domainContact &&
     Number.isFinite(value.maxRelativeMassDrift) &&
+    !Object.is(value.maxRelativeMassDrift, -0) &&
     value.maxRelativeMassDrift >= 0 &&
     value.maxRelativeMassDrift < 1e-10;
   return [
@@ -862,8 +1174,10 @@ export function evaluateABranch(value: ABranchMeasurements): Phase4CriterionReco
     Number.isSafeInteger(value.finalTExtent) &&
     value.finalTExtent > 0 &&
     firstCrossing &&
+    Number.isSafeInteger(value.comparatorBranchCount) &&
+    !Object.is(value.comparatorBranchCount, -0) &&
     value.comparatorBranchCount === 0 &&
-    value.comparatorExecutionValid &&
+    value.comparatorExecutionValid === true &&
     sharedConfigMatches;
   return record("A-BRANCH", passed, passed ? "dendrite and live compact comparator pass" : "branch shape or raw same-size first-crossing comparator evidence fails", { branchCount: finiteOrNull(value.branchCount), aspectRatio: finiteOrNull(value.aspectRatio), finalTExtent: finiteOrNull(value.finalTExtent), comparatorTargetTExtent: finiteOrNull(value.comparatorTargetTExtent), comparatorPreviousTExtent: finiteOrNull(value.comparatorPreviousTExtent), comparatorFinalTExtent: finiteOrNull(value.comparatorFinalTExtent), comparatorStopReason: value.comparatorStopReason, comparatorBranchCount: finiteOrNull(value.comparatorBranchCount), firstCrossing, sharedConfigMatches });
 }

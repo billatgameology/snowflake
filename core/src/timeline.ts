@@ -98,10 +98,11 @@ export type TimelineBoundary = TimelineInitialBoundary | TimelineCompletedCycleB
 export interface TimelineEventLogEntry {
   readonly eventIndex: number;
   readonly operator: TimelineOperator;
-  readonly completedCycles: number;
   readonly trigger: TimelineTrigger;
-  /** Null at tick 0; exact integer extents at every post-interface event. */
-  readonly observedExtents: LatticeExtents | null;
+  /** Immediate evaluated boundary before the crossing; null only for a tick-0 event. */
+  readonly previousBoundary: TimelineBoundary | null;
+  /** Exact boundary at which this event first became eligible. */
+  readonly crossingBoundary: TimelineBoundary;
   readonly beforeEnvironment: TimelineEnvironment;
   readonly afterEnvironment: TimelineEnvironment;
 }
@@ -119,8 +120,12 @@ export interface TimelineCursor {
 export interface TimelineDecision {
   /** Null when no event is eligible at this boundary. */
   readonly event: TimelineEvent | null;
-  /** New immutable cursor after every evaluated boundary, whether or not an event fired. */
+  /**
+   * Fresh cursor whose lastBoundary is this evaluated boundary. Callers must retain it even
+   * when event is null; discarding a no-event cursor discards first-crossing provenance.
+   */
   readonly cursor: TimelineCursor;
+  /** Independent snapshot: mutating it cannot mutate cursor.eventLog. */
   readonly logEntry: TimelineEventLogEntry | null;
 }
 
@@ -227,6 +232,19 @@ function cloneBoundary(boundary: TimelineBoundary): TimelineBoundary {
       };
 }
 
+function cloneLogEntry(entry: TimelineEventLogEntry): TimelineEventLogEntry {
+  return {
+    eventIndex: entry.eventIndex,
+    operator: entry.operator,
+    trigger: cloneTrigger(entry.trigger),
+    previousBoundary:
+      entry.previousBoundary === null ? null : cloneBoundary(entry.previousBoundary),
+    crossingBoundary: cloneBoundary(entry.crossingBoundary),
+    beforeEnvironment: cloneEnvironment(entry.beforeEnvironment, entry.operator),
+    afterEnvironment: cloneEnvironment(entry.afterEnvironment, entry.operator),
+  };
+}
+
 function cloneEvent(event: TimelineEvent): TimelineEvent {
   if (event.operator === "GGThreshold") {
     return {
@@ -248,9 +266,9 @@ function validateGGVector(value: unknown, label: string): asserts value is GGTim
   if (
     !Array.isArray(value) ||
     value.length !== PARAM_CONFIGS.length ||
-    value.some((entry) => !Number.isFinite(entry))
+    value.some((entry) => !Number.isFinite(entry) || Object.is(entry, -0))
   ) {
-    throw new Error(`${label} must contain seven finite values in PARAM_CONFIGS order`);
+    throw new Error(`${label} must contain seven finite, non-negative-zero values in PARAM_CONFIGS order`);
   }
 }
 
@@ -297,6 +315,14 @@ function validateGGEnvironment(
   validateGGVector(value.kappa, `${label}.kappa`);
   validateGGVector(value.mu, `${label}.mu`);
   validateGGVector(value.ggThreshBeta, `${label}.ggThreshBeta`);
+  if (
+    !Number.isFinite(value.rho) ||
+    Object.is(value.rho, -0) ||
+    !Number.isFinite(value.phi) ||
+    Object.is(value.phi, -0)
+  ) {
+    throw new Error(`${label}.rho and .phi must be finite and must not be negative zero`);
+  }
   const environment: GGTimelineEnvironment = {
     rho: value.rho as number,
     phi: value.phi as number,
@@ -316,10 +342,19 @@ function validateLKEnvironment(
 ): asserts value is LKTimelineEnvironment {
   if (!isObject(value)) throw new Error(`${label} must be an object`);
   requireExactKeys(value, ["tempC", "sigmaInfinity"], label);
-  if (!Number.isFinite(value.tempC) || (value.tempC as number) < -50 || (value.tempC as number) > -1) {
+  if (
+    !Number.isFinite(value.tempC) ||
+    Object.is(value.tempC, -0) ||
+    (value.tempC as number) < -50 ||
+    (value.tempC as number) > -1
+  ) {
     throw new Error(`${label}.tempC must stay in the digitized domain [-50, -1]`);
   }
-  if (!Number.isFinite(value.sigmaInfinity) || (value.sigmaInfinity as number) <= 0) {
+  if (
+    !Number.isFinite(value.sigmaInfinity) ||
+    Object.is(value.sigmaInfinity, -0) ||
+    (value.sigmaInfinity as number) <= 0
+  ) {
     throw new Error(`${label}.sigmaInfinity must be finite and > 0`);
   }
 }
@@ -336,7 +371,11 @@ function validateTrigger(value: unknown, label: string): asserts value is Timeli
     throw new Error(`${label}.kind is not a supported Phase 4 trigger`);
   }
   const minimum = value.kind === "tick" ? 0 : 1;
-  if (!Number.isSafeInteger(value.value) || (value.value as number) < minimum) {
+  if (
+    !Number.isSafeInteger(value.value) ||
+    Object.is(value.value, -0) ||
+    (value.value as number) < minimum
+  ) {
     throw new Error(`${label}.value must be a safe integer >= ${minimum}`);
   }
 }
@@ -373,7 +412,11 @@ export function validateTimelineSchedule(schedule: TimelineSchedule): void {
       ["index", "operator", "trigger", "environment"],
       `timeline.events[${position}]`,
     );
-    if (eventValue.index !== position) {
+    if (
+      !Number.isSafeInteger(eventValue.index) ||
+      Object.is(eventValue.index, -0) ||
+      eventValue.index !== position
+    ) {
       throw new Error(`timeline event indices must be contiguous from zero; got ${String(eventValue.index)} at position ${position}`);
     }
     if (eventValue.operator !== raw.operator) {
@@ -430,7 +473,7 @@ function validateBoundary(boundary: TimelineBoundary): void {
   if (!isObject(raw)) throw new Error("timeline boundary must be an object");
   if (raw.phase === "initial") {
     requireExactKeys(raw, ["phase", "completedCycles"], "initial timeline boundary");
-    if (raw.completedCycles !== 0) {
+    if (!Object.is(raw.completedCycles, 0)) {
       throw new Error("the initial timeline boundary must have exactly zero completed cycles");
     }
     if ("extents" in raw) {
@@ -446,10 +489,50 @@ function validateBoundary(boundary: TimelineBoundary): void {
     ["phase", "completedCycles", "extents"],
     "completed-cycle timeline boundary",
   );
-  if (!Number.isSafeInteger(raw.completedCycles) || (raw.completedCycles as number) < 1) {
+  if (
+    !Number.isSafeInteger(raw.completedCycles) ||
+    Object.is(raw.completedCycles, -0) ||
+    (raw.completedCycles as number) < 1
+  ) {
     throw new Error("a completed-cycle timeline boundary must have at least one completed cycle");
   }
   validateExtents(raw.extents);
+}
+
+function boundariesAreSequential(
+  previous: TimelineBoundary,
+  crossing: TimelineBoundary,
+): boolean {
+  if (crossing.phase !== "afterInterfaceStep") return false;
+  return previous.phase === "initial"
+    ? crossing.completedCycles === 1
+    : crossing.completedCycles === previous.completedCycles + 1;
+}
+
+function boundaryCycle(boundary: TimelineBoundary): number {
+  return boundary.completedCycles;
+}
+
+const MONOTONE_EXTENT_FIELDS = [
+  "iExtent",
+  "jExtent",
+  "zExtent",
+  "tExtent",
+  "largestExtent",
+  "attachedCount",
+] as const;
+
+function assertBoundaryExtentsDoNotShrink(
+  previous: TimelineBoundary,
+  current: TimelineBoundary,
+  label: string,
+): void {
+  if (previous.phase !== "afterInterfaceStep" || current.phase !== "afterInterfaceStep") return;
+  for (const name of MONOTONE_EXTENT_FIELDS) {
+    if (current.extents[name] < previous.extents[name]) {
+      throw new Error(`${label}: timeline extent ${name} cannot shrink`);
+    }
+  }
 }
 
 function environmentBefore(schedule: TimelineSchedule, eventIndex: number): TimelineEnvironment {
@@ -473,6 +556,7 @@ function validateCursor(schedule: TimelineSchedule, cursor: TimelineCursor): voi
   }
   if (
     !Number.isSafeInteger(raw.nextEventIndex) ||
+    Object.is(raw.nextEventIndex, -0) ||
     (raw.nextEventIndex as number) < 0 ||
     (raw.nextEventIndex as number) > schedule.events.length
   ) {
@@ -484,7 +568,12 @@ function validateCursor(schedule: TimelineSchedule, cursor: TimelineCursor): voi
   if (raw.lastBoundary !== null) validateBoundary(raw.lastBoundary as TimelineBoundary);
   const eventLog = raw.eventLog;
   eventLog.forEach((entryValue, index) => {
-    if (!isObject(entryValue) || entryValue.eventIndex !== index) {
+    if (
+      !isObject(entryValue) ||
+      !Number.isSafeInteger(entryValue.eventIndex) ||
+      Object.is(entryValue.eventIndex, -0) ||
+      entryValue.eventIndex !== index
+    ) {
       throw new Error(`timeline cursor log entry ${index} has an invalid event index`);
     }
     requireExactKeys(
@@ -492,15 +581,16 @@ function validateCursor(schedule: TimelineSchedule, cursor: TimelineCursor): voi
       [
         "eventIndex",
         "operator",
-        "completedCycles",
         "trigger",
-        "observedExtents",
+        "previousBoundary",
+        "crossingBoundary",
         "beforeEnvironment",
         "afterEnvironment",
       ],
       `timeline cursor log entry ${index}`,
     );
     const event = schedule.events[index];
+    validateTrigger(entryValue.trigger, `timeline cursor log entry ${index}.trigger`);
     if (
       entryValue.operator !== schedule.operator ||
       !deepEqual(entryValue.trigger, event.trigger) ||
@@ -509,43 +599,113 @@ function validateCursor(schedule: TimelineSchedule, cursor: TimelineCursor): voi
     ) {
       throw new Error(`timeline cursor log entry ${index} does not replay the schedule`);
     }
-    if (!Number.isSafeInteger(entryValue.completedCycles) || (entryValue.completedCycles as number) < 0) {
-      throw new Error(`timeline cursor log entry ${index} has invalid completedCycles`);
+    const previousBoundary = entryValue.previousBoundary as TimelineBoundary | null;
+    const crossingBoundary = entryValue.crossingBoundary as TimelineBoundary;
+    if (previousBoundary !== null) validateBoundary(previousBoundary);
+    validateBoundary(crossingBoundary);
+    if (previousBoundary !== null) {
+      assertBoundaryExtentsDoNotShrink(
+        previousBoundary,
+        crossingBoundary,
+        `timeline cursor log entry ${index}`,
+      );
     }
-    const completedCycles = entryValue.completedCycles as number;
-    if (index > 0) {
-      const previousCycles = (eventLog[index - 1] as Record<string, unknown>).completedCycles;
-      if (!Number.isSafeInteger(previousCycles) || completedCycles <= (previousCycles as number)) {
-        throw new Error("timeline cursor event boundaries must increase strictly");
-      }
-    }
+
     if (event.trigger.kind === "tick") {
-      if (completedCycles !== event.trigger.value) {
-        throw new Error(`timeline cursor log entry ${index} fired at the wrong tick`);
-      }
       if (event.trigger.value === 0) {
-        if (entryValue.observedExtents !== null) {
-          throw new Error("timeline tick-0 log entry cannot contain extent observations");
+        if (
+          previousBoundary !== null ||
+          crossingBoundary.phase !== "initial" ||
+          crossingBoundary.completedCycles !== 0
+        ) {
+          throw new Error("timeline tick-0 log entry must cross the initial boundary");
         }
       } else {
-        validateExtents(entryValue.observedExtents);
+        if (
+          previousBoundary === null ||
+          !boundariesAreSequential(previousBoundary, crossingBoundary) ||
+          crossingBoundary.completedCycles !== event.trigger.value
+        ) {
+          throw new Error(`timeline cursor log entry ${index} fired at the wrong tick boundary`);
+        }
       }
     } else {
-      validateExtents(entryValue.observedExtents);
-      if (entryValue.observedExtents[event.trigger.kind] < event.trigger.value) {
-        throw new Error(`timeline cursor log entry ${index} did not reach its extent trigger`);
+      if (
+        previousBoundary === null ||
+        previousBoundary.phase !== "afterInterfaceStep" ||
+        crossingBoundary.phase !== "afterInterfaceStep" ||
+        !boundariesAreSequential(previousBoundary, crossingBoundary)
+      ) {
+        throw new Error(
+          `timeline cursor log entry ${index} lacks consecutive raw extent boundaries`,
+        );
+      }
+      if (
+        previousBoundary.extents[event.trigger.kind] >= event.trigger.value ||
+        crossingBoundary.extents[event.trigger.kind] < event.trigger.value
+      ) {
+        throw new Error(
+          `timeline cursor log entry ${index} does not prove its first extent crossing`,
+        );
       }
     }
+
+    if (index > 0) {
+      const priorEntry = eventLog[index - 1] as TimelineEventLogEntry;
+      const priorCrossing = priorEntry.crossingBoundary;
+      if (boundaryCycle(crossingBoundary) <= boundaryCycle(priorCrossing)) {
+        throw new Error("timeline cursor event crossing boundaries must increase strictly");
+      }
+      if (
+        previousBoundary === null ||
+        boundaryCycle(previousBoundary) < boundaryCycle(priorCrossing) ||
+        (boundaryCycle(previousBoundary) === boundaryCycle(priorCrossing) &&
+          !deepEqual(previousBoundary, priorCrossing))
+      ) {
+        throw new Error("timeline cursor event history is chronologically inconsistent");
+      }
+      assertBoundaryExtentsDoNotShrink(
+        priorCrossing,
+        previousBoundary,
+        `timeline cursor history before event ${index}`,
+      );
+    }
   });
-  const lastLogEntry = eventLog[eventLog.length - 1];
+  const lastLogEntry = eventLog[eventLog.length - 1] as TimelineEventLogEntry | undefined;
   if (lastLogEntry !== undefined) {
     if (raw.lastBoundary === null) {
       throw new Error("timeline cursor with fired events must retain its last boundary");
     }
-    const lastCycles = (lastLogEntry as Record<string, unknown>).completedCycles as number;
-    const boundaryCycles = (raw.lastBoundary as Record<string, unknown>).completedCycles as number;
+    const lastCycles = boundaryCycle(lastLogEntry.crossingBoundary);
+    const boundaryCycles = boundaryCycle(raw.lastBoundary as TimelineBoundary);
     if (lastCycles > boundaryCycles) {
       throw new Error("timeline cursor event log extends past its last evaluated boundary");
+    }
+    if (
+      lastCycles === boundaryCycles &&
+      !deepEqual(lastLogEntry.crossingBoundary, raw.lastBoundary)
+    ) {
+      throw new Error("timeline cursor last boundary disagrees with its last event crossing");
+    }
+    assertBoundaryExtentsDoNotShrink(
+      lastLogEntry.crossingBoundary,
+      raw.lastBoundary as TimelineBoundary,
+      "timeline cursor history after its last event",
+    );
+  }
+
+  if (raw.lastBoundary !== null) {
+    const lastBoundary = raw.lastBoundary as TimelineBoundary;
+    const alreadyEligible = schedule.events.slice(raw.nextEventIndex as number).find((event) =>
+      event.trigger.kind === "tick"
+        ? event.trigger.value <= lastBoundary.completedCycles
+        : lastBoundary.phase === "afterInterfaceStep" &&
+          lastBoundary.extents[event.trigger.kind] >= event.trigger.value,
+    );
+    if (alreadyEligible !== undefined) {
+      throw new Error(
+        `timeline cursor retains already-eligible unfired event ${alreadyEligible.index}`,
+      );
     }
   }
 }
@@ -597,18 +757,11 @@ export function evaluateTimelineBoundary(
         `timeline completed-cycle boundaries must be sequential after cycle ${previousBoundary.completedCycles}`,
       );
     }
-    for (const name of [
-      "iExtent",
-      "jExtent",
-      "zExtent",
-      "tExtent",
-      "largestExtent",
-      "attachedCount",
-    ] as const) {
-      if (boundary.extents[name] < previousBoundary.extents[name]) {
-        throw new Error(`timeline extent ${name} cannot decrease between completed cycles`);
-      }
-    }
+    assertBoundaryExtentsDoNotShrink(
+      previousBoundary,
+      boundary,
+      "timeline completed-cycle history",
+    );
   }
 
   const evaluatedCursor: TimelineCursor = {
@@ -616,7 +769,7 @@ export function evaluateTimelineBoundary(
     scheduleFingerprint: cursor.scheduleFingerprint,
     lastBoundary: cloneBoundary(boundary),
     nextEventIndex: cursor.nextEventIndex,
-    eventLog: cursor.eventLog,
+    eventLog: cursor.eventLog.map(cloneLogEntry),
   };
 
   const unfired = schedule.events.slice(cursor.nextEventIndex);
@@ -646,21 +799,29 @@ export function evaluateTimelineBoundary(
     );
   }
   const event = cloneEvent(scheduledEvent);
-  const logEntry: TimelineEventLogEntry = {
+  if (event.trigger.kind !== "tick" && previousBoundary?.phase !== "afterInterfaceStep") {
+    throw new Error(
+      `timeline extent event ${event.index} cannot prove a first crossing without a prior extent boundary`,
+    );
+  }
+  const baseLogEntry: TimelineEventLogEntry = {
     eventIndex: event.index,
     operator: schedule.operator,
-    completedCycles: boundary.completedCycles,
     trigger: cloneTrigger(event.trigger),
-    observedExtents: boundary.phase === "afterInterfaceStep" ? cloneExtents(boundary.extents) : null,
+    previousBoundary:
+      previousBoundary === null ? null : cloneBoundary(previousBoundary),
+    crossingBoundary: cloneBoundary(boundary),
     beforeEnvironment: cloneEnvironment(environmentBefore(schedule, event.index), schedule.operator),
     afterEnvironment: cloneEnvironment(event.environment, schedule.operator),
   };
+  const cursorLogEntry = cloneLogEntry(baseLogEntry);
+  const returnedLogEntry = cloneLogEntry(baseLogEntry);
   const nextCursor: TimelineCursor = {
     operator: cursor.operator,
     scheduleFingerprint: cursor.scheduleFingerprint,
     lastBoundary: evaluatedCursor.lastBoundary,
     nextEventIndex: cursor.nextEventIndex + 1,
-    eventLog: [...cursor.eventLog, logEntry],
+    eventLog: [...evaluatedCursor.eventLog, cursorLogEntry],
   };
-  return { event, cursor: nextCursor, logEntry };
+  return { event, cursor: nextCursor, logEntry: returnedLogEntry };
 }
