@@ -520,7 +520,7 @@ required schedule manifest and are not advertised as resumable mid-history.
       enforce the common 50,000-step cap. It also requires table-driven mutations for every new
       raw guard. All are repaired; 394/394 tests and the app build pass. Same-reviewer round 3 is
       CLEAN with zero blockers/should-fixes after confirming every prior exploit rejects.
-- [ ] WP2a: atomic solver environment transitions and cross-temperature ledger machinery.
+- [x] WP2a: atomic solver environment transitions and cross-temperature ledger machinery.
       Implementation is coordinator-accepted at 404/404 tests, 26/26 targeted transition /
       checkpoint / operator tests, and a green app build. G-G parameter replacement is owned and
       boundary-atomic; LK preserves signed active-vapor number density (including the transformed
@@ -542,7 +542,8 @@ required schedule manifest and are not advertised as resumable mid-history.
       completed-update diagnostic through relaxation and re-review to CLEAN. Repair round 2 now
       preserves it through ready, unconverged, throwing, retry, and late-failed surface paths,
       stages its replacement until successful surface completion, and passes 422/422 tests plus
-      the app build. Final same-reviewer confirmation remains open.
+      the app build. Same-reviewer round 3 is CLEAN with zero blockers and zero should-fixes;
+      implementation/fix commits are `b19a3c9`, `7b4eca8`, and `a285631`.
 - [ ] WP2b: shared runner evidence infrastructure plus flagless `gate4a` and Pass A artifacts.
       Separate review → fix loop.
 - [ ] WP2c: flagless `gate4b`/`gate4`, Pass B execution witnesses, checkpoints, and aggregate

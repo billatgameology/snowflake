@@ -393,7 +393,10 @@ narrow diagnostic-lifetime fix to the same developer, rerun, and re-review to CL
 now preserves the completed velocity through ready, unconverged, throwing, retry, and late-failed
 surface paths, stages a replacement until successful completion, and independently passes
 422/422 tests plus the 27-module app build. Commit it and return it to the same reviewer for the
-final CLEAN requirement. WP2b must not start first. Work only in
+final CLEAN requirement. Same-reviewer round 3 is now CLEAN with zero blockers and zero
+should-fixes; WP2a closes at commits `b19a3c9`, `7b4eca8`, and `a285631`. The next serial action is
+WP2b: implement shared runner evidence infrastructure and the flagless Pass A gate/artifacts,
+then run its separate developer/coordinator/reviewer fix loop before WP2c. Work only in
 `/Users/clipper/github/snowflake-phase4`.
 Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
 artifacts.
