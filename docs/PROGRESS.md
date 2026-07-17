@@ -396,7 +396,12 @@ surface paths, stages a replacement until successful completion, and independent
 final CLEAN requirement. Same-reviewer round 3 is now CLEAN with zero blockers and zero
 should-fixes; WP2a closes at commits `b19a3c9`, `7b4eca8`, and `a285631`. The next serial action is
 WP2b: implement shared runner evidence infrastructure and the flagless Pass A gate/artifacts,
-then run its separate developer/coordinator/reviewer fix loop before WP2c. Work only in
+then run its separate developer/coordinator/reviewer fix loop before WP2c. Before delegation, a
+runner-completion freeze closes the only remaining termination ambiguity: A-DEPLETION and every
+A-HOLLOW primary/replay run use a strict 12,000-cycle cap. It also pins the independently reviewed
+G-G/LK solver-source hashes for `A-HOLLOW-STRUCTURAL` and requires staging-directory publication
+so partial or mixed artifacts cannot masquerade as canonical evidence. Record that freeze commit
+as an additional provenance ancestor, then delegate WP2b. Work only in
 `/Users/clipper/github/snowflake-phase4`.
 Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
 artifacts.

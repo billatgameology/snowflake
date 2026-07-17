@@ -117,6 +117,14 @@ independent field-bit comparison of every checkpoint succeeds. GG v1 checkpoint 
 their frozen eleven-key wire contract; Phase 4 series live in CSV/JSON, not silently in that
 header.
 
+Each pass writes into a fresh sibling staging directory, hashes and reopens every artifact, and
+publishes the completed pass directory by one rename only after its manifest, report, CSV rows,
+and checkpoints cross-check. A crash or named failure may retain a clearly labeled attempted-run
+report, but must not leave or overwrite the canonical completed report. Existing canonical
+evidence causes the command to fail closed rather than mix executions; replacement requires the
+coordinator to archive/remove it before a new clean invocation. Tests use injected temporary
+directories and never a hidden CLI bypass of the flagless protocol.
+
 ### Shared metric conventions
 
 Existing metrics remain authoritative:
@@ -156,7 +164,8 @@ Unless a criterion says otherwise, every Pass A run must pass these independentl
 stable execution criteria:
 
 - `A-EXEC-PROVENANCE`: Node `v24.13.1`, V8 `13.6.233.17-node.40`, float64 CPU oracle, tracked-
-  clean 40-hex execution commit, and final criteria-freeze commit `e567767` is its ancestor.
+  clean 40-hex execution commit, final criteria-freeze commit `e567767` is its ancestor, and the
+  runner-completion freeze recorded below is its ancestor.
 - `A-EXEC-CONFIG`: canonical 19-site radius-2/thickness-1 seed, hexPrism domain, reflecting far
   field, seed 1 and noise 0 unless the named scenario overrides them, with every registered
   parameter and dimension equal to the manifest.
@@ -205,6 +214,9 @@ citable as Phase 4 evidence.
 #### A-DEPLETION — widening-column field signal
 
 - Published `hollowColumn` preset, dims `64,64,128`, seed 1, noise 0.
+- Size-target stop at the first crossing of largest extent 36, with a 12,000-cycle cap. Crossing
+  at the cap is invalid; the recorded previous/crossing cycles and extents must prove the first
+  crossing exactly as in A-HABIT.
 - Sample at the first ticks crossing extents `[12,16,20,24,28,32,36]`; record the entire series.
 - `A-DEPLETION-COLUMN`: final AR is `>= 1.5`.
 - `A-DEPLETION-DEFINED`: all seven ratios are finite.
@@ -220,7 +232,9 @@ hollowness was 0.105.
 
 #### A-HOLLOW — second scientific gate, non-vacuous seed ensemble
 
-- Published `hollowColumn`, dims `64,64,128`, target extent 36, seeds `[1,2,3]`.
+- Published `hollowColumn`, dims `64,64,128`, target extent 36, 12,000-cycle cap, seeds
+  `[1,2,3]`. The cap binds all three primary runs and the independent seed-1 replay; crossing at
+  the cap is invalid.
 - `noiseEpsilon = 0.001`. This is a registered **phenomenological stress ensemble**, Evidence =
   unvalidated, not a claim of G-G source-scale realism (the paper suggests order `1e-5`). Its
   purpose is to make the three PRNG streams affect the trajectory rather than cite an unused
@@ -234,7 +248,12 @@ hollowness was 0.105.
   without an acceptance threshold.
 - `A-HOLLOW-STRUCTURAL`: Phase 4 introduces no center-, radius-, cavity-, or hollowness-driven
   branch in either solver. The gate imports metrics only after stepping; the reviewer checks
-  the solver diff as part of this criterion.
+  the solver diff as part of this criterion. Runtime evidence additionally byte-hashes the exact
+  reviewed solver sources and requires `solver-cpu/src/gg-solver.ts` SHA-256
+  `e13cd4c487eb9918b5b68529cc6f0e5c80ce53319343d9f0e7c102f4cf65563b` and
+  `solver-cpu/src/lk-solver.ts` SHA-256
+  `1b10e3b97103000746f02e5989828e8c83eab9014108949f8b0e5bd556c1ecbc`. A source change requires
+  a new reviewed hash before evidence; the runner may not self-attest with a hard-coded `true`.
 
 Calibration only: seeds 1–3 produced AR `[3.364, 3.273, 2.846]` and hollowness
 `[0.182, 0.181, 0.108]` at the target. Those values are not evidence.
