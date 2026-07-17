@@ -193,6 +193,12 @@ stable execution criteria:
   criterion are present and finite; hashes are recomputed from raw arrays rather than trusted
   from the report.
 
+Every Pass A run records one CSV row after every completed surface cycle. Ordinary far-field
+termination is observed only every 25 completed cycles, matching the inherited registered runner
+cadence; the first observed check with `farFieldMean < (2/3)*rho` stops the run. Size, contact,
+numeric, mass, attachment-delta, schedule, and sampling conditions are checked every cycle and
+therefore cannot be skipped by that cadence.
+
 #### A-HABIT — solid column and continuous transition
 
 - Dims `64,64,128`, seed 1, target largest lattice extent 14, step cap 12,000.
