@@ -443,12 +443,17 @@ per-cycle. That freeze is `7be4c5d`. Criteria/provenance freezes `e567767`, `cd2
 `7be4c5d` must all be ancestors of the 40-hex clean execution commit. **WP2b closed
 CLEAN at `2204f59` (2026-07-16)**: the round-1 blocker and all six should-fixes are repaired and
 independently re-reviewed to zero blockers/zero should-fixes at 542/542 tests (see the plan's
-WP2b step for the exploit matrix). The next serial action is WP2c: implement flagless
-`gate4b`/`gate4`, the Pass B execution witnesses (`B-EXEC-*` criteria), LK v2 checkpoints,
-per-run artifacts, and the aggregate `out/phase4/gate4-report.json`, reusing the reviewed
-shared evidence/publication machinery in `runner/src/gate4-evidence.ts`; then run its separate
-developer/independent-review fix loop to CLEAN before WP3. Work only in
-`/Users/clipper/github/snowflake` on `main`.
+WP2b step for the exploit matrix). **WP2c closed CLEAN at `5c382c3` (2026-07-17)**: flagless
+`gate4b`/`gate4` with the frozen 11-run Pass-B manifest (SHA-256
+`c0ceed5b0ebb68defee85b1d78d52c9563f5edd35ed415b8cfdad57dd7c3e812`), twelve independently
+recomputed `B-EXEC-*` witnesses, LK v2 checkpoint round-trips, fail-closed publication, and
+the aggregate report; independent review replayed forgery/seam/exit-semantics/guard-disable
+attacks and reported zero blockers/zero should-fixes at 629/629 tests. Three non-blocking
+observations for the evidence runs are recorded in the plan's WP2c step (source-hash pinning
+across passes, an unreachable schedule+noise binding, and fail-closed 48³ witness risk).
+The next serial action is WP3: operator-honest app snapshots, scenario/artifact inspection,
+and the Phase 4 visual harness (`node app/scripts/visual.mjs --phase4`), then its separate
+code + visual review loop to CLEAN. Work only in `/Users/clipper/github/snowflake` on `main`.
 Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
 artifacts.
 

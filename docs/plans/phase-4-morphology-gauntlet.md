@@ -1,8 +1,8 @@
 # Plan — Phase 4: morphology gauntlet, timeline semantics, and visual diagnostics
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — passing criteria frozen; WP0/WP1/WP2a/WP2b CLEAN; WP2c is the next
-  serial package
+- **Status:** in progress — passing criteria frozen; WP0/WP1/WP2a/WP2b/WP2c CLEAN; WP3 is the
+  next serial package
 - **Started:** 2026-07-16
 - **Last touched:** 2026-07-16 by Codex, coordinating session
 - **Runner-completion freeze:** `cd24365` (strict A-DEPLETION/A-HOLLOW caps, reviewed solver
@@ -621,8 +621,31 @@ required schedule manifest and are not advertised as resumable mid-history.
       number-spelling ambiguity) and reported CLEAN — zero blockers, zero should-fixes — at
       542/542 tests, Rule 7 over 129 files, both typechecks, and the 27-module app build.
       WP2b is complete; no real `gate4a` run or canonical Phase 4 evidence directory exists.
-- [ ] WP2c: flagless `gate4b`/`gate4`, Pass B execution witnesses, checkpoints, and aggregate
-      artifacts. Separate review → fix loop.
+- [x] WP2c: flagless `gate4b`/`gate4`, Pass B execution witnesses, checkpoints, and aggregate
+      artifacts. Implemented at `5c382c3` (2026-07-17): the frozen 11-run Pass-B manifest
+      (canonical SHA-256
+      `c0ceed5b0ebb68defee85b1d78d52c9563f5edd35ed415b8cfdad57dd7c3e812`; habit sweep with the
+      −15 °C run carrying the depletion series, hollow ensemble seeds 1–3 plus a distinct
+      seed-1 replay at `noiseEpsilon = 0.001`, the −15→−5 °C zExtent-16 timeline, and the
+      −5 °C / `sigmaInfinity = 0.01` branch run), an LK executor whose twelve `B-EXEC-*`
+      criteria are independently recomputed from raw rows/fields/checkpoints (never from
+      solver self-reports), LK v2 checkpoint round-trips, fail-closed staged publication to
+      `out/phase4/pass-b`, diagnostic morphology verdicts that never alter exit semantics,
+      and the flagless `gate4` aggregate with an exclusive, reopen-verified
+      `out/phase4/gate4-report.json`. 87 adversarial tests cover every criterion tripped
+      alone, the plan's full LK negative list, noise/timeline/aggregate forgeries, and CLI
+      flag rejection. Independent review (distinct from the developer) replayed forgery,
+      seam-smuggling, exit/publication, and guard-disable attacks — all failed by name — and
+      reported CLEAN, zero blockers/should-fixes, at 629/629 tests, Rule 7 over 133 files,
+      both typechecks, and the app build. Three non-blocking review observations bind the
+      future evidence runs: (1) standalone `gate4b` provenance does not byte-pin solver
+      sources (the `gate4` path inherits Pass A's `A-HOLLOW-STRUCTURAL` pin) — if Pass B
+      evidence is ever generated at a different commit than Pass A, record both head hashes;
+      (2) the noise witness's tempC≡config binding is skipped under a schedule — unreachable
+      in the frozen manifest and guarded by its byte freeze; (3) the 48³ scale is unobserved
+      for the per-step ledger/hole-classification witnesses, whose failure direction is
+      strictly fail-closed — if the real run trips `B-EXEC-LEDGER`/`B-EXEC-SURFACE` just past
+      tolerance, suspect the witness, loop to development, and never widen a bound in place.
 - [ ] WP3: operator-honest app snapshots, scenario/artifact inspection, Phase 4 visual harness.
       Separate code + visual review → fix loop.
 - [ ] Run the complete regression suite, Phase 2a byte control, gate3 regression, app build, and
