@@ -401,7 +401,8 @@ runner-completion freeze closes the only remaining termination ambiguity: A-DEPL
 A-HOLLOW primary/replay run use a strict 12,000-cycle cap. It also pins the independently reviewed
 G-G/LK solver-source hashes for `A-HOLLOW-STRUCTURAL` and requires staging-directory publication
 so partial or mixed artifacts cannot masquerade as canonical evidence. Record that freeze commit
-as an additional provenance ancestor, then delegate WP2b. Work only in
+as an additional provenance ancestor, then delegate WP2b. That freeze is `cd24365`; both
+`e567767` and `cd24365` must be ancestors of the 40-hex clean execution commit. Work only in
 `/Users/clipper/github/snowflake-phase4`.
 Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
 artifacts.

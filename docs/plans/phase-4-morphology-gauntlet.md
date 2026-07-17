@@ -4,6 +4,8 @@
 - **Status:** in progress — passing criteria frozen; WP0/WP1 CLEAN; WP2 is next
 - **Started:** 2026-07-16
 - **Last touched:** 2026-07-16 by Codex, coordinating session
+- **Runner-completion freeze:** `cd24365` (strict A-DEPLETION/A-HOLLOW caps, reviewed solver
+  source hashes, fail-closed pass publication; committed before WP2b delegation)
 
 ## Goal
 
@@ -165,7 +167,7 @@ stable execution criteria:
 
 - `A-EXEC-PROVENANCE`: Node `v24.13.1`, V8 `13.6.233.17-node.40`, float64 CPU oracle, tracked-
   clean 40-hex execution commit, final criteria-freeze commit `e567767` is its ancestor, and the
-  runner-completion freeze recorded below is its ancestor.
+  runner-completion freeze `cd24365` is its ancestor.
 - `A-EXEC-CONFIG`: canonical 19-site radius-2/thickness-1 seed, hexPrism domain, reflecting far
   field, seed 1 and noise 0 unless the named scenario overrides them, with every registered
   parameter and dimension equal to the manifest.
