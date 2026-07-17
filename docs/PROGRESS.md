@@ -48,7 +48,10 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md)** (charter
   v1.8). It began in isolated worktree `/Users/clipper/github/snowflake-phase4`; on 2026-07-16
   the user directed all work to be committed, merged into primary tree
-  `/Users/clipper/github/snowflake`, and the Phase 4 worktree removed. Its passing criteria
+  `/Users/clipper/github/snowflake`, and the Phase 4 worktree removed. Merge `5ab204f` landed the
+  complete topic history on `main`; the dedicated worktree and merged topic branch are now
+  removed. Post-merge verification passed the Rule 7 scan over 129 files, both TypeScript
+  projects, all 508 tests, and the 27-module app production build. Its passing criteria
   were committed at `23b5d6c` before the first development agent; accepted Phase 2b v4 was
   integrated at `b080654`; 276/276 tests pass. Decision
   [0011](decisions/0011-phase4-timeline-environment-semantics.md) (charter v1.9) now resolves
@@ -95,8 +98,8 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   user-directed consolidation. Commit `3641847` preserves three unreviewed edits: original-byte
   canonical JSON comparison, exact report-kind validation, and an owned immutable expected
   publication root checked before/after rename. The other findings, negative controls, full
-  retest, and same-
-  reviewer recheck remain open; the existing full suite passes 508/508 after the partial patch,
+  retest, and same-reviewer recheck remain open; the existing full suite passes 508/508 after
+  the partial patch,
   but this is explicitly not CLEAN because the new exploit matrix is incomplete.
   No real `gate4a` run or Phase 4 evidence artifact exists. No solver, app, or external evidence
   artifact changed in WP1/WP2b.
@@ -448,8 +451,11 @@ criterion ownership, verdict/publication mismatch rejection, publisher path/coll
 directory controls, coherent-rewrite/BOM/report-kind negatives, and duplicate/orphan delta-
 witness controls. Rerun the focused, targeted, full, build, hash, and artifact audits, commit the
 repair, then send it to the same reviewer until CLEAN. Do not start WP2c before that review loop
-closes. The former `/Users/clipper/github/snowflake-phase4` worktree is being removed per user
-direction.
+closes. Merge `5ab204f` consolidated the work on `main`; the former
+`/Users/clipper/github/snowflake-phase4` worktree and merged
+`codex/phase4-morphology-gauntlet` branch are removed. Continue only in
+`/Users/clipper/github/snowflake` on `main`. The merged tree passed the Rule 7 scan over 129
+files, both TypeScript projects, all 508 tests, and the 27-module app production build.
 Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
 artifacts.
 

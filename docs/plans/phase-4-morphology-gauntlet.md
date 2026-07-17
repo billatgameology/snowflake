@@ -2,7 +2,8 @@
 
 - **Phase:** Phase 4 — The morphology gauntlet
 - **Status:** in progress — passing criteria frozen; WP0/WP1/WP2a CLEAN; WP2b review round 1
-  rejected candidate `43fd6b3`; partial repair is being consolidated back to `main`
+  rejected candidate `43fd6b3`; partial repair `3641847` is consolidated on `main` by merge
+  `5ab204f`
 - **Started:** 2026-07-16
 - **Last touched:** 2026-07-16 by Codex, coordinating session
 - **Runner-completion freeze:** `cd24365` (strict A-DEPLETION/A-HOLLOW caps, reviewed solver
@@ -605,6 +606,9 @@ required schedule manifest and are not advertised as resumable mid-history.
       publisher negatives, delta-witness tests, and re-review are still outstanding. Resume this
       package from `main`; the inherited suite remains green at 508/508 after these edits, but
       the missing exploit controls and review mean these partial changes are not a CLEAN result.
+      Merge `5ab204f` preserved the topic history on `main`; the dedicated Phase 4 worktree and
+      merged topic branch were removed. Post-merge verification passed the Rule 7 scan over 129
+      files, both TypeScript projects, all 508 tests, and the 27-module app production build.
 - [ ] WP2c: flagless `gate4b`/`gate4`, Pass B execution witnesses, checkpoints, and aggregate
       artifacts. Separate review → fix loop.
 - [ ] WP3: operator-honest app snapshots, scenario/artifact inspection, Phase 4 visual harness.
