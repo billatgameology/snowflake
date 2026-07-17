@@ -1,8 +1,7 @@
 # Plan — Phase 4: morphology gauntlet, timeline semantics, and visual diagnostics
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — passing criteria frozen; WP0 CLEAN; WP1 implementation awaiting
-  independent review
+- **Status:** in progress — passing criteria frozen; WP0 CLEAN; WP1 review fix loop active
 - **Started:** 2026-07-16
 - **Last touched:** 2026-07-16 by Codex, coordinating session
 
@@ -509,8 +508,12 @@ required schedule manifest and are not advertised as resumable mid-history.
 - [x] Write/accept overlap ADR 0010 and timeline-semantics ADR 0011; update charter to v1.9 and
       PROGRESS before Phase 4 feature implementation.
 - [ ] WP1: pure metrics, schedule evaluator, gate verdict/report types, and adversarial fixtures.
-      Implementation and coordinator audit are green at 364/364 tests plus the app build;
-      separate review → fix loop is next.
+      Implementation and coordinator audit were green at 364/364 tests plus the app build.
+      Independent review round 1 then found three blockers: forged/late timeline histories,
+      assertion-only habit/depletion crossings, and self-reported hollowing with an aliased
+      replay. Four should-fixes cover finite B depletion, negative-zero schedule identity,
+      returned snapshot aliasing, and missing raw morphology false paths. Fix → retest → same
+      reviewer is active; WP2 remains blocked.
 - [ ] WP2: solver environment transitions, runner `gate4a`/`gate4b`/`gate4`, artifacts, and
       checkpoint/provenance validation. Separate review → fix loop.
 - [ ] WP3: operator-honest app snapshots, scenario/artifact inspection, Phase 4 visual harness.
@@ -603,6 +606,16 @@ required schedule manifest and are not advertised as resumable mid-history.
   previous/crossing extents, stop reason, and matching common-configuration fingerprints. The
   timeline cursor advances at tick 0 and every completed cycle, so skipped, reversed, shrinking,
   or late-observed boundaries fail instead of masquerading as the first crossing.
+- **Treating a validated cursor or target label as proof of prior history.** Rejected by WP1
+  review round 1. A caller could forge a cursor already past an unfired extent trigger, or label
+  arbitrarily late depletion rows with the registered targets. Event logs and morphology samples
+  must carry independently checkable preceding/crossing boundaries; habit growth needs the same
+  raw target-stop evidence.
+- **Self-reported hollow metrics and a replay alias.** Rejected by WP1 review round 1. One-hot
+  occupancies with fabricated aspect/hollow/void numbers passed, and the original run object
+  could stand in for its replay. Hollow verdicts must recompute metrics from dimensioned raw
+  initial/final occupancy, and replay evidence must be a separately identified execution with
+  non-aliased buffers.
 - **Launching a duplicate 96-cubed v4 pair.** Rejected: the pre-registered Phase 2b process is
   already running in another worktree. Phase 4 leaves it untouched and uses a separately
   registered 48-cubed diagnostic sweep.
