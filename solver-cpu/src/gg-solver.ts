@@ -43,11 +43,15 @@ import {
   DOMAIN_CONTACT_FRACTION,
   STREAM_NOISE_XI,
   totalMass,
+  ggParamsFromTimelineEnvironment,
+  ggTimelineEnvironmentFromParams,
+  validateTimelineSchedule,
   validateParams,
   type Dims,
   type DomainShape,
   type FarFieldCondition,
   type GGParams,
+  type GGTimelineEnvironment,
   type SolverState,
 } from "@vcc/core";
 import type { LedgerReport, RelaxationReport, SurfaceOperator, SurfaceReport } from "./operator.ts";
@@ -82,6 +86,27 @@ export interface GGSolverOptions {
 export const FAR_FIELD_STOP_FRACTION = 2 / 3;
 
 const UINT32_MAX = 0xffff_ffff;
+
+function cloneParams(params: GGParams): GGParams {
+  return {
+    rho: params.rho,
+    phi: params.phi,
+    kappa: params.kappa.slice(),
+    mu: params.mu.slice(),
+    ggThreshBeta: params.ggThreshBeta.slice(),
+  };
+}
+
+export interface GGEnvironmentTransitionReport {
+  readonly operator: "GGThreshold";
+  readonly boundary: {
+    readonly phase: "completedCycleBoundary";
+    readonly completedCycles: number;
+    readonly tick: number;
+  };
+  readonly beforeEnvironment: GGTimelineEnvironment;
+  readonly afterEnvironment: GGTimelineEnvironment;
+}
 
 function validateOptions(options: GGSolverOptions): readonly [number, number, number] {
   if (options === null || typeof options !== "object") {
@@ -155,7 +180,7 @@ function validateOptions(options: GGSolverOptions): readonly [number, number, nu
 
 export class GGSolver implements SurfaceOperator {
   readonly dims: Dims;
-  readonly params: GGParams;
+  private _params: GGParams;
   readonly rngSeed: number;
   readonly noiseEpsilon: number;
   readonly domain: DomainShape;
@@ -192,6 +217,8 @@ export class GGSolver implements SurfaceOperator {
   // Attached-neighbor counts per cell, UNCAPPED, maintained incrementally on attachment.
   private readonly nTAtt: Uint8Array;
   private readonly nZAtt: Uint8Array;
+  /** True after the published diffusion pass and until its matching surface update completes. */
+  private surfaceUpdatePending = false;
 
   // Crystal lattice bounding box, maintained incrementally (O(1) guard checks).
   private iMin: number;
@@ -207,7 +234,9 @@ export class GGSolver implements SurfaceOperator {
   constructor(options: GGSolverOptions) {
     const center = validateOptions(options);
     this.dims = options.dims;
-    this.params = options.params;
+    // Own every vector. Timeline events replace this complete bundle atomically, and neither
+    // constructor callers nor readers of the public getter may mutate live solver controls.
+    this._params = cloneParams(options.params);
     this.rngSeed = options.rngSeed;
     this.noiseEpsilon = options.noiseEpsilon ?? 0;
     this.domain = options.domain ?? "box";
@@ -243,7 +272,7 @@ export class GGSolver implements SurfaceOperator {
             const inHex = dist <= radius && Math.abs(k - kc) <= halfZ;
             if (inHex) {
               active++;
-              this.d[x] = this.params.rho;
+              this.d[x] = this._params.rho;
               if (dist === radius || Math.abs(k - kc) === halfZ) farField.push(x);
             } else {
               this.wall[x] = 1;
@@ -256,7 +285,7 @@ export class GGSolver implements SurfaceOperator {
     } else {
       this.hexRadius = -1;
       this.zHalfExtent = -1;
-      this.d.fill(this.params.rho);
+      this.d.fill(this._params.rho);
       this.activeCellCount = n;
       const pushed = new Uint8Array(n);
       const push = (x: number): void => {
@@ -305,6 +334,67 @@ export class GGSolver implements SurfaceOperator {
       }
       this.rebuildBoundaryList();
     }
+  }
+
+  /** Copy-safe public controls. Mutating the returned arrays cannot alter the live solver. */
+  get params(): GGParams {
+    return cloneParams(this._params);
+  }
+
+  /** Complete JSON-safe environment consumed by the shared Phase 4 schedule evaluator. */
+  timelineEnvironment(): GGTimelineEnvironment {
+    return ggTimelineEnvironmentFromParams(this._params);
+  }
+
+  /**
+   * Apply one complete G-G environment at a completed-cycle boundary (ADR 0011). The event
+   * changes controls only: it performs no relaxation, surface update, state reconstruction,
+   * mass transfer, or tick advance.
+   */
+  applyTimelineEnvironment(environment: GGTimelineEnvironment): GGEnvironmentTransitionReport {
+    if (this.surfaceUpdatePending) {
+      throw new Error(
+        "G-G timeline environment may only change at a completed-cycle boundary; " +
+          "a relaxation is awaiting its surface update",
+      );
+    }
+    const beforeEnvironment = this.timelineEnvironment();
+    // Reuse the exact schedule wire validator so a direct solver call cannot accept a shape,
+    // non-finite value, negative zero, or no-op that the shared timeline would reject.
+    validateTimelineSchedule({
+      version: 1,
+      mode: "abrupt",
+      operator: "GGThreshold",
+      initialEnvironment: beforeEnvironment,
+      events: [
+        {
+          index: 0,
+          operator: "GGThreshold",
+          trigger: { kind: "tick", value: 0 },
+          environment,
+        },
+      ],
+    });
+    const staged = ggParamsFromTimelineEnvironment(environment);
+    const validation = validateParams(staged);
+    if (validation.errors.length > 0) {
+      throw new Error(`invalid G-G timeline environment: ${validation.errors.join("; ")}`);
+    }
+    const owned = cloneParams(staged);
+    const afterEnvironment = ggTimelineEnvironmentFromParams(owned);
+    const report: GGEnvironmentTransitionReport = {
+      operator: "GGThreshold",
+      boundary: {
+        phase: "completedCycleBoundary",
+        completedCycles: this.tick,
+        tick: this.tick,
+      },
+      beforeEnvironment,
+      afterEnvironment,
+    };
+    // The only mutation in this method. Everything that can reject has completed first.
+    this._params = owned;
+    return report;
   }
 
   /** a = 1, b = 1, d = 0 on the seed (gg-machinery §5); growth attachment folds d into b. */
@@ -390,7 +480,7 @@ export class GGSolver implements SurfaceOperator {
     this.diffuse();
     let clampDelta = 0;
     if (this.farField === "dirichlet") {
-      const rho = this.params.rho;
+      const rho = this._params.rho;
       for (let c = 0; c < this.farFieldCells.length; c++) {
         const x = this.farFieldCells[c];
         if (this.blocked[x] === 1) continue;
@@ -399,6 +489,7 @@ export class GGSolver implements SurfaceOperator {
       }
       this.dirichletMeter += clampDelta;
     }
+    this.surfaceUpdatePending = true;
     return {
       sweeps: 1,
       converged: true, // vacuously: one pass IS the published dynamics, not a solve
@@ -414,7 +505,7 @@ export class GGSolver implements SurfaceOperator {
   advanceSurface(): SurfaceReport {
     const boundary = this.boundaryList;
     const nBoundary = boundary.length;
-    const { kappa, mu, ggThreshBeta } = this.params;
+    const { kappa, mu, ggThreshBeta } = this._params;
 
     // (ii) freezing on the boundary, start-of-tick counts (nTAtt/nZAtt are untouched until
     // the attachments are applied below).
@@ -468,6 +559,7 @@ export class GGSolver implements SurfaceOperator {
     for (const x of toAttach) this.attachCell(x, false);
     if (toAttach.length > 0) this.rebuildBoundaryList();
     this.lastAttached = toAttach;
+    this.surfaceUpdatePending = false;
 
     return {
       attachedNow: toAttach.length,
@@ -612,7 +704,7 @@ export class GGSolver implements SurfaceOperator {
     // (1c) drift, only when phi > 0 (all §8 presets have phi = 0):
     // d'''(x) = (1 - phi*(1 - a(x - e3))) d''(x) + phi*(1 - a(x + e3)) d''(x + e3),
     // out-of-domain/wall treated as attached (reflecting).
-    const phi = this.params.phi;
+    const phi = this._params.phi;
     let result: Float64Array = out2;
     if (phi > 0) {
       const out3 = out1; // (1a) output is no longer needed; reuse as the (1c) buffer

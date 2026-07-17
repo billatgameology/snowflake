@@ -364,7 +364,16 @@ mutations for the new raw guards. Those findings are now repaired and independen
 tests plus the app build. Same-reviewer WP1 round 3 is CLEAN with zero blockers and zero
 should-fixes. The next serial action is WP2a: implement atomic G-G/LK environment transitions,
 the LK density-conserving transform and step-local cross-temperature ledger, then run a separate
-review/fix loop before any gate runner command is built. Work only in
+review/fix loop before any gate runner command is built. WP2a implementation is now coordinator-
+accepted and awaiting that independent review: G-G owns and atomically replaces complete control
+bundles only at completed-cycle boundaries; LK stages the signed active-vapor density transform,
+temperature-derived scales, cache invalidation, and explicit reservoir target before one commit;
+placed-fill vapor units accumulate at each interface step's `M_ice`; and unchanged LK v2
+checkpoint headers now accept active `sigma >= -1` while still rejecting negative attached/wall
+state. The transition/checkpoint/operator target is 26/26, root verification is 404/404 with Rule
+7 and both TypeScript checks clean, the 27-module app production build passes, and `git diff
+--check` is clean. The next serial action is a separate-agent adversarial WP2a review; return every
+finding to the same developer and re-review to CLEAN before WP2b starts. Work only in
 `/Users/clipper/github/snowflake-phase4`.
 Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
 artifacts.

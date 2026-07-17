@@ -630,8 +630,10 @@ function validateLKStateArrays(state: LKRunState, n: number): void {
     if (!Number.isFinite(state.f[i]) || state.f[i] < 0 || state.f[i] > 1) {
       throw new Error(`LK checkpoint f[${i}] must be finite and in [0, 1]`);
     }
-    if (!Number.isFinite(state.sigma[i]) || state.sigma[i] < 0) {
-      throw new Error(`LK checkpoint sigma[${i}] must be finite and nonnegative`);
+    // ADR 0011 temperature events may truthfully produce subsaturation. sigma = -1 is zero
+    // absolute vapor density; anything below it would imply a negative density and is invalid.
+    if (!Number.isFinite(state.sigma[i]) || state.sigma[i] < -1) {
+      throw new Error(`LK checkpoint sigma[${i}] must be finite and >= -1`);
     }
     if (state.a[i] === 1 && (state.f[i] !== 1 || state.sigma[i] !== 0)) {
       throw new Error(`LK checkpoint attached cell ${i} must have f=1 and sigma=0`);

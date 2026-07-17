@@ -311,6 +311,33 @@ function mutateLKHeader(
   return out;
 }
 
+function isActiveLKCell(state: LKRunState, index: number): boolean {
+  if (state.domain === "box") return true;
+  const [ic, jc, kc] = state.center;
+  const plane = state.dims.nx * state.dims.ny;
+  const k = Math.floor(index / plane);
+  const inPlane = index - k * plane;
+  const j = Math.floor(inPlane / state.dims.nx);
+  const i = inPlane - j * state.dims.nx;
+  const radius = Math.min(ic, state.dims.nx - 1 - ic, jc, state.dims.ny - 1 - jc);
+  const halfZ = Math.min(kc, state.dims.nz - 1 - kc);
+  return hexDistance(i - ic, j - jc) <= radius && Math.abs(k - kc) <= halfZ;
+}
+
+/** Mutate one f64 sigma payload cell without changing the frozen LK header. */
+function mutateLKSigmaPayload(bytes: Uint8Array, index: number, value: number): Uint8Array {
+  const out = bytes.slice();
+  const view = new DataView(out.buffer, out.byteOffset, out.byteLength);
+  const headerLength = view.getUint32(8, true);
+  const header = JSON.parse(
+    new TextDecoder().decode(out.subarray(12, 12 + headerLength)),
+  ) as { readonly dims: Dims };
+  const n = cellCount(header.dims);
+  const sigmaOffset = 12 + headerLength + n + 8 * n + 8 * index;
+  view.setFloat64(sigmaOffset, value, true);
+  return out;
+}
+
 describe("LK checkpoint round-trip and evidence-strict decode (round-5 review)", () => {
   it("preserves every field bit-exactly and every header CONTROL", () => {
     const state = syntheticLKState();
@@ -349,6 +376,62 @@ describe("LK checkpoint round-trip and evidence-strict decode (round-5 review)",
     expect(Array.from(decoded.state.a)).toEqual(Array.from(state.a));
     expect(Array.from(decoded.state.f)).toEqual(Array.from(state.f));
     expect(Array.from(decoded.state.sigma)).toEqual(Array.from(state.sigma));
+  });
+
+  it("round-trips physical subsaturation and rejects negative-density payloads symmetrically", () => {
+    const state = syntheticLKState();
+    const activeUnattached = state.a.findIndex(
+      (attached, index) => attached === 0 && isActiveLKCell(state, index),
+    );
+    const attached = state.a.findIndex((value) => value === 1);
+    const wall = state.a.findIndex((_value, index) => !isActiveLKCell(state, index));
+    expect(activeUnattached).toBeGreaterThanOrEqual(0);
+    expect(attached).toBeGreaterThanOrEqual(0);
+    expect(wall).toBeGreaterThanOrEqual(0);
+
+    const signedSigma = state.sigma.slice();
+    signedSigma[activeUnattached] = -0.375;
+    const signedState = { ...state, sigma: signedSigma };
+    const bytes = encodeLKCheckpoint(signedState);
+    const decoded = decodeLKCheckpoint(bytes);
+    expect(decoded.header.version).toBe(2);
+    expect(decoded.header.fields).toEqual([
+      { name: "a", dtype: "u8", length: cellCount(state.dims) },
+      { name: "f", dtype: "f64", length: cellCount(state.dims) },
+      { name: "sigma", dtype: "f64", length: cellCount(state.dims) },
+    ]);
+    expect(decoded.state.sigma[activeUnattached]).toBe(-0.375);
+
+    const zeroDensity = signedSigma.slice();
+    zeroDensity[activeUnattached] = -1;
+    expect(decodeLKCheckpoint(encodeLKCheckpoint({ ...state, sigma: zeroDensity })).state.sigma[
+      activeUnattached
+    ]).toBe(-1);
+
+    const belowMinimum = signedSigma.slice();
+    belowMinimum[activeUnattached] = -1.000_001;
+    expect(() => encodeLKCheckpoint({ ...state, sigma: belowMinimum })).toThrow(/>= -1/);
+    expect(() =>
+      decodeLKCheckpoint(mutateLKSigmaPayload(bytes, activeUnattached, -1.000_001)),
+    ).toThrow(/>= -1/);
+
+    const attachedSubsaturation = signedSigma.slice();
+    attachedSubsaturation[attached] = -0.25;
+    expect(() => encodeLKCheckpoint({ ...state, sigma: attachedSubsaturation })).toThrow(
+      /attached cell/,
+    );
+    expect(() => decodeLKCheckpoint(mutateLKSigmaPayload(bytes, attached, -0.25))).toThrow(
+      /attached cell/,
+    );
+
+    const wallSubsaturation = signedSigma.slice();
+    wallSubsaturation[wall] = -0.25;
+    expect(() => encodeLKCheckpoint({ ...state, sigma: wallSubsaturation })).toThrow(
+      /masked wall cell/,
+    );
+    expect(() => decodeLKCheckpoint(mutateLKSigmaPayload(bytes, wall, -0.25))).toThrow(
+      /masked wall cell/,
+    );
   });
 
   it("rejects malformed header mutations instead of decoding them", () => {

@@ -521,7 +521,12 @@ required schedule manifest and are not advertised as resumable mid-history.
       raw guard. All are repaired; 394/394 tests and the app build pass. Same-reviewer round 3 is
       CLEAN with zero blockers/should-fixes after confirming every prior exploit rejects.
 - [ ] WP2a: atomic solver environment transitions and cross-temperature ledger machinery.
-      Separate review → fix loop.
+      Implementation is coordinator-accepted at 404/404 tests, 26/26 targeted transition /
+      checkpoint / operator tests, and a green app build. G-G parameter replacement is owned and
+      boundary-atomic; LK preserves signed active-vapor number density (including the transformed
+      Dirichlet shell), refreshes all derived controls/caches atomically, and accumulates placed
+      fill in step-local vapor-equivalent units. Existing checkpoint headers are unchanged and
+      accept active `sigma >= -1` only. Separate review → fix loop remains open.
 - [ ] WP2b: shared runner evidence infrastructure plus flagless `gate4a` and Pass A artifacts.
       Separate review → fix loop.
 - [ ] WP2c: flagless `gate4b`/`gate4`, Pass B execution witnesses, checkpoints, and aggregate

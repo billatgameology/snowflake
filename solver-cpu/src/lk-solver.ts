@@ -23,6 +23,7 @@
 
 import {
   alphaHK,
+  cSat,
   cellCount,
   classifyFacet,
   domainCenter,
@@ -32,6 +33,7 @@ import {
   kineticLength,
   mIce,
   randomBit,
+  validateTimelineSchedule,
   vKin,
   DOMAIN_CONTACT_FRACTION,
   STREAM_NOISE_ALPHA_HK,
@@ -40,6 +42,7 @@ import {
   type FacetClass,
   type FarFieldCondition,
   type LKSurfacePolicy,
+  type LKTimelineEnvironment,
   type NucleationParamSet,
 } from "@vcc/core";
 import type { LedgerReport, RelaxationReport, SurfaceOperator, SurfaceReport } from "./operator.ts";
@@ -102,11 +105,94 @@ export interface RelaxationProgress {
   readonly divergenceResidual: number | null;
 }
 
+export interface LKEnvironmentDerivedScales {
+  readonly cSatPerCubicMeter: number;
+  readonly vKinMS: number;
+  readonly x0M: number;
+  readonly mIceLedger: number;
+  /** Conservative six-contact velocity scale retained from the runtime representability guard. */
+  readonly maximumKineticVelocityScaleMS: number;
+  /** Conservative six-contact fill-rate scale in inverse seconds. */
+  readonly maximumKineticFillRateScalePerSecond: number;
+}
+
+export interface LKEnvironmentTransitionReport {
+  readonly operator: "LibbrechtKinetics";
+  readonly boundary: {
+    readonly phase: "completedCycleBoundary";
+    readonly completedCycles: number;
+    readonly tick: number;
+    readonly simTimeSeconds: number;
+  };
+  readonly beforeEnvironment: LKTimelineEnvironment;
+  readonly afterEnvironment: LKTimelineEnvironment;
+  readonly densityTransform: {
+    readonly temperatureChanged: boolean;
+    readonly cSatRatioOldToNew: number;
+    readonly activeUnattachedCellCount: number;
+    readonly transformedCellCount: number;
+    readonly transformedInteriorCellCount: number;
+    readonly transformedDirichletShellCellCount: number;
+    readonly absoluteNumberDensitySumBefore: number;
+    readonly absoluteNumberDensitySumAfter: number;
+    readonly maxCellAbsoluteNumberDensityError: number;
+    readonly maxCellRelativeNumberDensityError: number;
+  };
+  readonly reservoir: {
+    readonly farField: FarFieldCondition;
+    readonly activeUnattachedShellCellCount: number;
+    readonly shellReclampPending: boolean;
+    readonly shellClampTargetBefore: number;
+    readonly shellClampTargetAfter: number;
+  };
+  readonly derivedBefore: LKEnvironmentDerivedScales;
+  readonly derivedAfter: LKEnvironmentDerivedScales;
+}
+
+function requirePositiveFinite(value: number, name: string): void {
+  if (!Number.isFinite(value) || value <= 0) {
+    throw new Error(`${name} must be finite and > 0`);
+  }
+}
+
+function deriveEnvironmentScales(
+  tempC: number,
+  sigmaInfinity: number,
+  pressurePa: number,
+  dxM: number,
+): LKEnvironmentDerivedScales {
+  const cSatPerCubicMeter = cSat(tempC);
+  const vKinMS = vKin(tempC);
+  const x0M = kineticLength(tempC, pressurePa);
+  const mIceLedger = mIce(tempC);
+  const maximumKineticVelocityScaleMS = 6 * vKinMS * sigmaInfinity;
+  const maximumKineticFillRateScalePerSecond = maximumKineticVelocityScaleMS / dxM;
+  for (const [name, value] of [
+    ["derived cSat", cSatPerCubicMeter],
+    ["derived vKinMS", vKinMS],
+    ["derived X_0", x0M],
+    ["derived M_ice", mIceLedger],
+    ["derived dxM/X_0", dxM / x0M],
+    ["derived maximum kinetic velocity scale", maximumKineticVelocityScaleMS],
+    ["derived maximum kinetic fill-rate scale", maximumKineticFillRateScalePerSecond],
+  ] as const) {
+    requirePositiveFinite(value, name);
+  }
+  return {
+    cSatPerCubicMeter,
+    vKinMS,
+    x0M,
+    mIceLedger,
+    maximumKineticVelocityScaleMS,
+    maximumKineticFillRateScalePerSecond,
+  };
+}
+
 export class LKSolver implements SurfaceOperator {
   readonly surfacePolicy: LKSurfacePolicy;
   readonly dims: Dims;
-  readonly tempC: number;
-  readonly sigmaInfinity: number;
+  private _tempC: number;
+  private _sigmaInfinity: number;
   readonly dxM: number;
   readonly pressurePa: number;
   readonly paramSet: NucleationParamSet;
@@ -121,9 +207,11 @@ export class LKSolver implements SurfaceOperator {
   readonly center: readonly [number, number, number];
 
   /** Derived physics for this run (libbrecht-parameters.md forms). */
-  readonly vKinMS: number;
-  readonly x0M: number;
-  readonly mIceLedger: number;
+  private _vKinMS: number;
+  private _x0M: number;
+  private _mIceLedger: number;
+  private _maximumKineticVelocityScaleMS: number;
+  private _maximumKineticFillRateScalePerSecond: number;
   /** Geometry-adjusted max fill velocity max(rate)·dx (m/s) of the most recent update. */
   lastMaxFillVelocityMS = 0;
   holeFillCountTotal = 0;
@@ -183,12 +271,16 @@ export class LKSolver implements SurfaceOperator {
   /** Set by a CONVERGED relaxField for this tick; consumed by advanceSurface (round-3
       review: the public interface must not be able to bypass the unconverged guard). */
   private surfaceReady = false;
+  /** True from the first relaxation sweep until a successful interface update completes. */
+  private relaxationStartedForCycle = false;
+  /** Placed fill converted at the temperature of each interface step (ADR 0011). */
+  private cumulativePlacedFillVaporUnits = 0;
 
   constructor(options: LKSolverOptions) {
     this.surfacePolicy = options.surfacePolicy;
     this.dims = options.dims;
-    this.tempC = options.tempC;
-    this.sigmaInfinity = options.sigmaInfinity;
+    this._tempC = options.tempC;
+    this._sigmaInfinity = options.sigmaInfinity;
     this.dxM = options.dxUm * 1e-6;
     this.pressurePa = options.pressurePa ?? 101325;
     this.paramSet = options.paramSet ?? "CAK_A1";
@@ -206,9 +298,6 @@ export class LKSolver implements SurfaceOperator {
     // Runtime validation is load-bearing: TypeScript does not bind JS callers or parsed CLI
     // numbers, and an invalid run must fail before doing hours of relaxation or writing a
     // checkpoint that the evidence-strict reader correctly rejects.
-    const positiveFinite = (value: number, name: string): void => {
-      if (!Number.isFinite(value) || value <= 0) throw new Error(`${name} must be finite and > 0`);
-    };
     if (!isLKSurfacePolicy(this.surfacePolicy)) {
       throw new Error(`surfacePolicy is invalid: ${String(this.surfacePolicy)}`);
     }
@@ -228,17 +317,17 @@ export class LKSolver implements SurfaceOperator {
     if (!Number.isFinite(this.tempC) || this.tempC < -50 || this.tempC > -1) {
       throw new Error("tempC must stay in the digitized domain [-50, -1]");
     }
-    positiveFinite(this.sigmaInfinity, "sigmaInfinity");
-    positiveFinite(options.dxUm, "dxUm");
-    positiveFinite(this.pressurePa, "pressurePa");
+    requirePositiveFinite(this.sigmaInfinity, "sigmaInfinity");
+    requirePositiveFinite(options.dxUm, "dxUm");
+    requirePositiveFinite(this.pressurePa, "pressurePa");
     if (this.paramSet !== "CAK_A1" && this.paramSet !== "CAK") {
       throw new Error(`paramSet is invalid: ${String(this.paramSet)}`);
     }
     if (!Number.isFinite(this.cflFill) || !(this.cflFill > 0 && this.cflFill < 1)) {
       throw new Error("cflFill must be finite and in (0, 1)");
     }
-    positiveFinite(this.relaxTol, "relaxTol");
-    positiveFinite(this.divTol, "divTol");
+    requirePositiveFinite(this.relaxTol, "relaxTol");
+    requirePositiveFinite(this.divTol, "divTol");
     if (!Number.isSafeInteger(this.relaxMaxSweeps) || this.relaxMaxSweeps <= 0) {
       throw new Error("relaxMaxSweeps must be a positive safe integer");
     }
@@ -271,23 +360,24 @@ export class LKSolver implements SurfaceOperator {
       throw new Error("drift phi is unsupported under LibbrechtKinetics (attachment-kinetics §4.4)");
     }
 
-    this.vKinMS = vKin(this.tempC);
-    this.x0M = kineticLength(this.tempC, this.pressurePa);
-    this.mIceLedger = mIce(this.tempC);
+    requirePositiveFinite(this.dxM, "derived dxM");
+    const initialScales = deriveEnvironmentScales(
+      this.tempC,
+      this.sigmaInfinity,
+      this.pressurePa,
+      this.dxM,
+    );
+    this._vKinMS = initialScales.vKinMS;
+    this._x0M = initialScales.x0M;
+    this._mIceLedger = initialScales.mIceLedger;
+    this._maximumKineticVelocityScaleMS = initialScales.maximumKineticVelocityScaleMS;
+    this._maximumKineticFillRateScalePerSecond =
+      initialScales.maximumKineticFillRateScalePerSecond;
     // Positive raw inputs are not enough: IEEE-754 conversion/derived arithmetic can still
     // collapse an accepted run (for example Number.MIN_VALUE µm -> dxM === 0, or an
     // underflow-scale pressure -> X_0 === Infinity). Validate every derived scale the
     // update actually divides or multiplies before allocating fields. The factor 6 is the
     // largest possible hex-prism face sum, (2/3)·nT + nZ with nT <= 6 and nZ <= 2.
-    positiveFinite(this.dxM, "derived dxM");
-    positiveFinite(this.vKinMS, "derived vKinMS");
-    positiveFinite(this.x0M, "derived X_0");
-    positiveFinite(this.mIceLedger, "derived M_ice");
-    positiveFinite(this.dxM / this.x0M, "derived dxM/X_0");
-    positiveFinite(
-      (6 * this.vKinMS * this.sigmaInfinity) / this.dxM,
-      "derived maximum kinetic fill-rate scale",
-    );
 
     const { nx, ny, nz } = this.dims;
     this.a = new Uint8Array(n);
@@ -381,6 +471,230 @@ export class LKSolver implements SurfaceOperator {
       }
       this.rebuildBoundaryList();
     }
+  }
+
+  get tempC(): number {
+    return this._tempC;
+  }
+
+  get sigmaInfinity(): number {
+    return this._sigmaInfinity;
+  }
+
+  get vKinMS(): number {
+    return this._vKinMS;
+  }
+
+  get x0M(): number {
+    return this._x0M;
+  }
+
+  get mIceLedger(): number {
+    return this._mIceLedger;
+  }
+
+  get maximumKineticVelocityScaleMS(): number {
+    return this._maximumKineticVelocityScaleMS;
+  }
+
+  get maximumKineticFillRateScalePerSecond(): number {
+    return this._maximumKineticFillRateScalePerSecond;
+  }
+
+  timelineEnvironment(): LKTimelineEnvironment {
+    return { tempC: this.tempC, sigmaInfinity: this.sigmaInfinity };
+  }
+
+  private currentDerivedScales(): LKEnvironmentDerivedScales {
+    return {
+      cSatPerCubicMeter: cSat(this.tempC),
+      vKinMS: this.vKinMS,
+      x0M: this.x0M,
+      mIceLedger: this.mIceLedger,
+      maximumKineticVelocityScaleMS: this.maximumKineticVelocityScaleMS,
+      maximumKineticFillRateScalePerSecond: this.maximumKineticFillRateScalePerSecond,
+    };
+  }
+
+  /**
+   * Apply ADR 0011's abrupt LK environment event. All validation, derived arithmetic, and the
+   * full O(domain) density transform are staged before any live control, field, cache, or
+   * ledger is touched.
+   */
+  applyTimelineEnvironment(environment: LKTimelineEnvironment): LKEnvironmentTransitionReport {
+    if (this.relaxationStartedForCycle) {
+      throw new Error(
+        "LK timeline environment may only change at a completed interface-cycle boundary; " +
+          "relaxation has already started for the current cycle",
+      );
+    }
+    const beforeEnvironment = this.timelineEnvironment();
+    validateTimelineSchedule({
+      version: 1,
+      mode: "abrupt",
+      operator: "LibbrechtKinetics",
+      initialEnvironment: beforeEnvironment,
+      events: [
+        {
+          index: 0,
+          operator: "LibbrechtKinetics",
+          trigger: { kind: "tick", value: 0 },
+          environment,
+        },
+      ],
+    });
+
+    const derivedBefore = this.currentDerivedScales();
+    const derivedAfter = deriveEnvironmentScales(
+      environment.tempC,
+      environment.sigmaInfinity,
+      this.pressurePa,
+      this.dxM,
+    );
+    const temperatureChanged = !Object.is(environment.tempC, this.tempC);
+    const cSatRatioOldToNew =
+      derivedBefore.cSatPerCubicMeter / derivedAfter.cSatPerCubicMeter;
+    requirePositiveFinite(cSatRatioOldToNew, "temperature density ratio");
+
+    const stagedSigma = this.sigma.slice();
+    const shellMask = new Uint8Array(this.sigma.length);
+    for (let position = 0; position < this.dirichletCells.length; position++) {
+      shellMask[this.dirichletCells[position]] = 1;
+    }
+    let activeUnattachedCellCount = 0;
+    let activeUnattachedShellCellCount = 0;
+    let absoluteNumberDensitySumBefore = 0;
+    let absoluteNumberDensitySumBeforeCompensation = 0;
+    let absoluteNumberDensitySumAfter = 0;
+    let absoluteNumberDensitySumAfterCompensation = 0;
+    let maxCellAbsoluteNumberDensityError = 0;
+    let maxCellRelativeNumberDensityError = 0;
+    const addBefore = (value: number): void => {
+      const sum = absoluteNumberDensitySumBefore + value;
+      absoluteNumberDensitySumBeforeCompensation +=
+        Math.abs(absoluteNumberDensitySumBefore) >= Math.abs(value)
+          ? absoluteNumberDensitySumBefore - sum + value
+          : value - sum + absoluteNumberDensitySumBefore;
+      absoluteNumberDensitySumBefore = sum;
+    };
+    const addAfter = (value: number): void => {
+      const sum = absoluteNumberDensitySumAfter + value;
+      absoluteNumberDensitySumAfterCompensation +=
+        Math.abs(absoluteNumberDensitySumAfter) >= Math.abs(value)
+          ? absoluteNumberDensitySumAfter - sum + value
+          : value - sum + absoluteNumberDensitySumAfter;
+      absoluteNumberDensitySumAfter = sum;
+    };
+
+    for (let index = 0; index < this.sigma.length; index++) {
+      if (this.a[index] === 1 || this.wall[index] === 1) continue;
+      const sigmaOld = this.sigma[index];
+      if (!Number.isFinite(sigmaOld) || sigmaOld < -1) {
+        throw new Error(
+          `active LK sigma[${index}] must be finite and >= -1 before a temperature event`,
+        );
+      }
+      activeUnattachedCellCount++;
+      if (shellMask[index] === 1) activeUnattachedShellCellCount++;
+      const densityBefore = (1 + sigmaOld) * derivedBefore.cSatPerCubicMeter;
+      const sigmaNew = temperatureChanged
+        ? (1 + sigmaOld) * derivedBefore.cSatPerCubicMeter /
+            derivedAfter.cSatPerCubicMeter -
+          1
+        : sigmaOld;
+      if (!Number.isFinite(sigmaNew) || sigmaNew < -1) {
+        throw new Error(`density transform produced a nonphysical sigma at cell ${index}`);
+      }
+      stagedSigma[index] = sigmaNew;
+      const densityAfter = (1 + sigmaNew) * derivedAfter.cSatPerCubicMeter;
+      if (!Number.isFinite(densityBefore) || !Number.isFinite(densityAfter)) {
+        throw new Error(`density transform overflowed at active cell ${index}`);
+      }
+      addBefore(densityBefore);
+      addAfter(densityAfter);
+      const absoluteError = Math.abs(densityAfter - densityBefore);
+      const relativeError = absoluteError / Math.max(Math.abs(densityBefore), 1e-300);
+      if (absoluteError > maxCellAbsoluteNumberDensityError) {
+        maxCellAbsoluteNumberDensityError = absoluteError;
+      }
+      if (relativeError > maxCellRelativeNumberDensityError) {
+        maxCellRelativeNumberDensityError = relativeError;
+      }
+    }
+    absoluteNumberDensitySumBefore += absoluteNumberDensitySumBeforeCompensation;
+    absoluteNumberDensitySumAfter += absoluteNumberDensitySumAfterCompensation;
+    if (
+      !Number.isFinite(absoluteNumberDensitySumBefore) ||
+      !Number.isFinite(absoluteNumberDensitySumAfter) ||
+      !Number.isFinite(maxCellAbsoluteNumberDensityError) ||
+      !Number.isFinite(maxCellRelativeNumberDensityError)
+    ) {
+      throw new Error("density-transform diagnostics must remain finite");
+    }
+
+    const transformedCellCount = temperatureChanged ? activeUnattachedCellCount : 0;
+    const transformedDirichletShellCellCount =
+      temperatureChanged && this.farField === "dirichlet"
+        ? activeUnattachedShellCellCount
+        : 0;
+    const report: LKEnvironmentTransitionReport = {
+      operator: "LibbrechtKinetics",
+      boundary: {
+        phase: "completedCycleBoundary",
+        completedCycles: this.tick,
+        tick: this.tick,
+        simTimeSeconds: this.simTimeSeconds,
+      },
+      beforeEnvironment,
+      afterEnvironment: {
+        tempC: environment.tempC,
+        sigmaInfinity: environment.sigmaInfinity,
+      },
+      densityTransform: {
+        temperatureChanged,
+        cSatRatioOldToNew,
+        activeUnattachedCellCount,
+        transformedCellCount,
+        transformedInteriorCellCount:
+          transformedCellCount - transformedDirichletShellCellCount,
+        transformedDirichletShellCellCount,
+        absoluteNumberDensitySumBefore,
+        absoluteNumberDensitySumAfter,
+        maxCellAbsoluteNumberDensityError,
+        maxCellRelativeNumberDensityError,
+      },
+      reservoir: {
+        farField: this.farField,
+        activeUnattachedShellCellCount,
+        shellReclampPending: this.farField === "dirichlet",
+        shellClampTargetBefore: this.sigmaInfinity,
+        shellClampTargetAfter: environment.sigmaInfinity,
+      },
+      derivedBefore,
+      derivedAfter,
+    };
+
+    // Commit block: no operation below can reject. The event itself advances no physical time
+    // and changes no topology/fill/ledger state. The ordinary next relaxation reclamps the
+    // transformed Dirichlet shell to its newly explicit reservoir target.
+    this.sigma.set(stagedSigma);
+    this._tempC = environment.tempC;
+    this._sigmaInfinity = environment.sigmaInfinity;
+    this._vKinMS = derivedAfter.vKinMS;
+    this._x0M = derivedAfter.x0M;
+    this._mIceLedger = derivedAfter.mIceLedger;
+    this._maximumKineticVelocityScaleMS = derivedAfter.maximumKineticVelocityScaleMS;
+    this._maximumKineticFillRateScalePerSecond =
+      derivedAfter.maximumKineticFillRateScalePerSecond;
+    this.sEff.fill(0);
+    this.boundaryAlphaHK.fill(0);
+    this.boundarySigma.fill(0);
+    this.boundarySigmaOpp.fill(0);
+    this.surfaceReady = false;
+    this.relaxationStartedForCycle = false;
+    this.lastRelaxation = null;
+    this.lastMaxFillVelocityMS = 0;
+    return report;
   }
 
   private forEachNeighbor(
@@ -899,6 +1213,9 @@ export class LKSolver implements SurfaceOperator {
 
   /** §4.4 step 1: relax to tolerance; for Dirichlet, require the divergence identity too. */
   relaxField(onProgress?: (progress: RelaxationProgress) => void): RelaxationReport {
+    // Even an unconverged or throwing solve has entered the cycle. ADR 0011 forbids an
+    // environment jump until a successful interface update returns the solver to a boundary.
+    this.relaxationStartedForCycle = true;
     let src = this.sigma;
     let dst = this.scratch2;
     let sweeps = 0;
@@ -991,6 +1308,7 @@ export class LKSolver implements SurfaceOperator {
     const toAttach: number[] = [];
     let maxKineticFillIncrement = 0;
     let deltaTime = 0;
+    let placedFillThisStep = 0;
     if (maxRate > 0) {
       deltaTime = this.cflFill / maxRate;
       for (let bi = 0; bi < nBoundary; bi++) {
@@ -999,16 +1317,19 @@ export class LKSolver implements SurfaceOperator {
         const room = 1 - this.f[x];
         if (raw >= room) {
           this.fillLedger += room;
+          placedFillThisStep += room;
           this.saturationClippedFill += raw - room; // round-3 blocker 2: never silently drop
           this.f[x] = 1;
           toAttach.push(x);
           if (raw > maxKineticFillIncrement) maxKineticFillIncrement = raw;
         } else {
           this.fillLedger += raw;
+          placedFillThisStep += raw;
           this.f[x] += raw;
           if (raw > maxKineticFillIncrement) maxKineticFillIncrement = raw;
         }
       }
+      this.cumulativePlacedFillVaporUnits += placedFillThisStep * this.mIceLedger;
       this.simTimeSeconds += deltaTime;
     }
 
@@ -1031,6 +1352,7 @@ export class LKSolver implements SurfaceOperator {
     for (const x of toAttach) this.attachCell(x);
     if (toAttach.length > 0) this.rebuildBoundaryList();
     this.lastAttached = toAttach;
+    this.relaxationStartedForCycle = false;
 
     return {
       attachedNow: toAttach.length,
@@ -1052,6 +1374,7 @@ export class LKSolver implements SurfaceOperator {
       rule: "LibbrechtKinetics",
       claim:
         `the fill ledger plus recorded saturation clipping integrates exactly the ${demandDescription}; ` +
+        "placed-fill vapor units accumulate each interface step at that step's M_ice; " +
         "clipping is unapplied numerical excess, not deposited ice; Dirichlet solve quality " +
         "is the divergence identity over signed net numerical boundary exchange, required for " +
         "convergence there; local exchange is potential redistribution, not uptake; no " +
@@ -1059,7 +1382,7 @@ export class LKSolver implements SurfaceOperator {
       totalMassBD: null,
       dirichletMeter: null,
       fillLedgerIceCells: this.fillLedger,
-      fillLedgerVaporUnits: this.fillLedger * this.mIceLedger,
+      fillLedgerVaporUnits: this.cumulativePlacedFillVaporUnits,
       holeFillDeficit: this.holeFillDeficit,
       saturationClippedFill: this.saturationClippedFill,
       lastDivergenceResidual: this.lastRelaxation?.divergenceResidual ?? null,
@@ -1134,6 +1457,9 @@ export class LKSolver implements SurfaceOperator {
   } {
     if (this.surfacePolicy !== "aggregate-hv-g1h1-v4") {
       throw new Error("boundaryState is defined only for aggregate-hv-g1h1-v4");
+    }
+    if (!this.surfaceReady) {
+      throw new Error("boundaryState requires a currently accepted converged relaxation");
     }
     if (!Number.isSafeInteger(index) || index < 0 || index >= this.a.length) {
       throw new Error(`boundaryState index is out of range: ${String(index)}`);

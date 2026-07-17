@@ -69,7 +69,10 @@ export interface LedgerReport {
       per boundary pixel under aggregate v4, per contact under legacy v3. The clipping term is
       recorded UNAPPLIED numerical excess, not deposited ice or physical uptake. Null for GG. */
   readonly fillLedgerIceCells: number | null;
-  /** LK: the PLACED fill in vapor-ledger units, fillLedger · M_ice(T). Null for GG. */
+  /** LK: the PLACED fill in vapor-ledger units. Fixed-temperature runs equal
+      fillLedgerIceCells · M_ice(T); timeline histories sum each interface step's placed-fill
+      delta at that step's M_ice. This is bookkeeping, not a conserved vapor-pool claim.
+      Null for GG. */
   readonly fillLedgerVaporUnits: number | null;
   /** LK: fill granted by hole-filling without vapor withdrawal — reported, never hidden. */
   readonly holeFillDeficit: number | null;
