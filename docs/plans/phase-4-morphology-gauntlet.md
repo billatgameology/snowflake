@@ -597,8 +597,9 @@ required schedule manifest and are not advertised as resumable mid-history.
       delta witnesses. Return the complete set to the original developer, then send the repaired
       immutable revision to the same reviewer; do not check this item or start WP2c before CLEAN.
       The user then stopped the repair loop to consolidate work back to the primary tree. The
-      interrupted repair preserves three unreviewed code changes: canonical JSON compares the
-      original bytes (closing the BOM bypass), artifact indexes require the exact report kind,
+      interrupted repair at `3641847` preserves three unreviewed code changes: canonical JSON
+      compares the original bytes (closing the BOM bypass), artifact indexes require the exact
+      report kind,
       and publication retains/cross-checks an owned expected byte root across the final hook and
       rename. The manifest-criterion routing, verdict/publication mismatch guard, remaining
       publisher negatives, delta-witness tests, and re-review are still outstanding. Resume this

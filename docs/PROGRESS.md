@@ -92,9 +92,10 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   canonical JSON, corrupt-manifest criterion ownership, terminal success without publication,
   an unpinned report kind, missing path/collision/foreign-canonical publisher negatives, and
   missing duplicate/orphan delta mutations. The developer repair was then interrupted for the
-  user-directed consolidation. Three unreviewed edits are preserved: original-byte canonical
-  JSON comparison, exact report-kind validation, and an owned immutable expected publication
-  root checked before/after rename. The other findings, negative controls, full retest, and same-
+  user-directed consolidation. Commit `3641847` preserves three unreviewed edits: original-byte
+  canonical JSON comparison, exact report-kind validation, and an owned immutable expected
+  publication root checked before/after rename. The other findings, negative controls, full
+  retest, and same-
   reviewer recheck remain open; the existing full suite passes 508/508 after the partial patch,
   but this is explicitly not CLEAN because the new exploit matrix is incomplete.
   No real `gate4a` run or Phase 4 evidence artifact exists. No solver, app, or external evidence
@@ -433,7 +434,7 @@ per-cycle. That freeze is `7be4c5d`. Criteria/provenance freezes `e567767`, `cd2
 `7be4c5d` must all be ancestors of the 40-hex clean execution commit. WP2b candidate `43fd6b3`
 passes 175/175 targeted and 508/508 full tests after coordinator repair loops, with no real gate
 run or evidence output, but independent review round 1 rejects it with one blocker and six
-should-fixes. The interrupted consolidation patch already adds an owned expected publication
+should-fixes. Consolidation commit `3641847` already adds an owned expected publication
 root, rejects BOM-normalized canonical JSON, and requires the exact report kind, but has not been
 independently reviewed. Resume in `/Users/clipper/github/snowflake`: finish manifest-artifact
 criterion ownership, verdict/publication mismatch rejection, publisher path/collision/foreign-
