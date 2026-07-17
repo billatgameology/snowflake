@@ -2,7 +2,7 @@
 
 - **Phase:** Phase 4 — The morphology gauntlet
 - **Status:** in progress — passing criteria frozen; WP0/WP1/WP2a CLEAN; WP2b review candidate
-  is awaiting independent adversarial review
+  `34b832a` is awaiting independent adversarial review
 - **Started:** 2026-07-16
 - **Last touched:** 2026-07-16 by Codex, coordinating session
 - **Runner-completion freeze:** `cd24365` (strict A-DEPLETION/A-HOLLOW caps, reviewed solver
@@ -575,19 +575,21 @@ required schedule manifest and are not advertised as resumable mid-history.
       the app build. Same-reviewer round 3 is CLEAN with zero blockers and zero should-fixes;
       implementation/fix commits are `b19a3c9`, `7b4eca8`, and `a285631`.
 - [ ] WP2b: shared runner evidence infrastructure plus flagless `gate4a` and Pass A artifacts.
-      The uncommitted review candidate now implements the exact 13-run manifest (SHA-256
+      Review candidate `34b832a` implements the exact 13-run manifest (SHA-256
       `6d1ee3a262e8985930ded30f8ef490e1e47402dce6c55f2b3b16e4e80b0d9a98`), independent
       G-G applied-noise reference, reconstructed attachment-delta chain, strict checkpoint /
       scenario / timeline cross-links, fail-closed staged publication, flagless orchestration,
       and complete deterministic terminal facts. Coordinator audit returned several findings to
-      the developer before review: raw deltas now reconstruct occupancy instead of merely
+      the developer before its independent review: raw deltas now reconstruct occupancy instead of merely
       matching hashes; noise witnesses bind the initial wall/field and independent reference;
       exact D6h covers all final state bits; timeline reports/mass bind the raw crossing; stale
       canonical evidence fails before execution; and staging corruption cannot leave a canonical
       report. The repaired candidate passes 175/175 targeted tests and the complete 508/508 root
       suite with Rule 7 and both TypeScript projects clean. No real `gate4a` run or Phase 4
-      evidence directory has been created. Commit the candidate, then run the required separate
-      review → fix loop before checking this item or starting WP2c.
+      evidence directory has been created. Coordinator re-verification independently passed the
+      same 175/175 target, the complete 508/508 suite, and the 27-module app build. Hand the
+      immutable candidate to a distinct reviewer, then run the required review → fix loop before
+      checking this item or starting WP2c.
 - [ ] WP2c: flagless `gate4b`/`gate4`, Pass B execution witnesses, checkpoints, and aggregate
       artifacts. Separate review → fix loop.
 - [ ] WP3: operator-honest app snapshots, scenario/artifact inspection, Phase 4 visual harness.
