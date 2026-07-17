@@ -10,10 +10,16 @@
 
 import {
   GG_PRESETS,
+  ggTimelineEnvironmentFromParams,
+  paramSlot,
+  validateTimelineSchedule,
   type Dims,
   type DomainShape,
   type FarFieldCondition,
+  type GGParams,
   type GGPresetName,
+  type GGTimelineEnvironment,
+  type GGTimelineSchedule,
   type Metrics,
 } from "@vcc/core";
 
@@ -29,6 +35,21 @@ export interface InitConfig {
   readonly noiseEpsilon: number;
   readonly domain: DomainShape;
   readonly farField: FarFieldCondition;
+  /**
+   * Phase 4 scenario overrides over the preset (null = published preset value). The
+   * ggThreshBeta(0,1) override is A-HABIT's single abstract columnarity control; the rho
+   * override is A-BRANCH's registered fern endpoint. Both are phenomenological model
+   * parameters, unvalidated.
+   */
+  readonly rhoOverride: number | null;
+  readonly ggThreshBeta01Override: number | null;
+  /**
+   * Phase 4 abrupt G-G environment schedule (ADR 0011), evaluated in the worker by the SAME
+   * @vcc/core schedule evaluator the runner uses. Its initialEnvironment must equal the
+   * preset-plus-overrides initial parameters, so the recorded config cannot mislabel the
+   * environment the run actually started in.
+   */
+  readonly schedule: GGTimelineSchedule | null;
 }
 
 export type MainToWorker =
@@ -53,8 +74,18 @@ export interface ReadyMessage {
 /** Why the worker stopped stepping on its own (null = it did not). */
 export type StopReason = "far-field-stop" | "domain-contact" | null;
 
+/** Live progress of a configured G-G schedule (null when the run has no schedule). */
+export interface TimelineSummary {
+  readonly appliedEvents: number;
+  readonly totalEvents: number;
+  /** Completed-cycle count at the last applied event's crossing boundary. */
+  readonly lastEventCycle: number | null;
+}
+
 export interface SnapshotMessage {
   readonly kind: "snapshot";
+  /** Operator identity of this snapshot (V4-1). Live worker stepping is GG-only. */
+  readonly operator: "GGThreshold";
   readonly tick: number;
   readonly attachedCount: number;
   readonly boundarySize: number;
@@ -77,6 +108,14 @@ export interface SnapshotMessage {
    * model units, unvalidated.
    */
   readonly metrics: Metrics;
+  /**
+   * The solver's ACTIVE environment at this snapshot (solver.timelineEnvironment()). With
+   * overrides or an applied timeline event this differs from the preset; overlays and
+   * readouts must use it, never the preset table, or the G-G threshold-progress overlay
+   * silently lies about the thresholds in force.
+   */
+  readonly environment: GGTimelineEnvironment;
+  readonly timeline: TimelineSummary | null;
 }
 
 export interface FaultMessage {
@@ -102,6 +141,9 @@ export const DEFAULT_INIT: InitConfig = {
   noiseEpsilon: 0,
   domain: "hexPrism",
   farField: "reflecting",
+  rhoOverride: null,
+  ggThreshBeta01Override: null,
+  schedule: null,
 };
 
 const UINT32_MAX = 0xffff_ffff;
@@ -155,13 +197,69 @@ export function validateInitConfig(raw: unknown): InitConfig {
     throw new Error(`farField must be reflecting or dirichlet, got ${String(farField)}`);
   }
 
-  return {
+  const positiveOrNull = (name: "rhoOverride" | "ggThreshBeta01Override"): number | null => {
+    const value = c[name];
+    if (value === undefined || value === null) return null;
+    if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) {
+      throw new Error(`${name} must be finite and > 0, got ${String(value)}`);
+    }
+    return value;
+  };
+  const rhoOverride = positiveOrNull("rhoOverride");
+  const ggThreshBeta01Override = positiveOrNull("ggThreshBeta01Override");
+
+  let schedule: GGTimelineSchedule | null = null;
+  if (c.schedule !== undefined && c.schedule !== null) {
+    const raw = c.schedule as GGTimelineSchedule;
+    validateTimelineSchedule(raw);
+    if (raw.operator !== "GGThreshold") {
+      throw new Error("schedule operator must be GGThreshold (live worker stepping is GG-only)");
+    }
+    schedule = raw;
+  }
+
+  const config: InitConfig = {
     preset: preset as GGPresetName,
     dims: { nx: d.nx as number, ny: d.ny as number, nz: d.nz as number },
     seed: seed,
     noiseEpsilon: noiseEpsilon,
     domain: domain,
     farField: farField,
+    rhoOverride,
+    ggThreshBeta01Override,
+    schedule,
+  };
+
+  if (schedule !== null) {
+    // The recorded initial environment must be the one the run actually starts in.
+    const derived = ggTimelineEnvironmentFromParams(ggParamsForInit(config));
+    if (JSON.stringify(derived) !== JSON.stringify(schedule.initialEnvironment)) {
+      throw new Error(
+        "schedule.initialEnvironment must equal the preset-plus-overrides initial parameters",
+      );
+    }
+  }
+  return config;
+}
+
+/**
+ * The exact G-G parameters the worker constructs the solver with: the published preset with
+ * the config's Phase 4 overrides applied. Fresh owned vectors every call; the preset table is
+ * never mutated. When a schedule is configured its initialEnvironment equals this by
+ * validation, so there is exactly one truth about the starting parameters.
+ */
+export function ggParamsForInit(config: InitConfig): GGParams {
+  const preset = GG_PRESETS[config.preset];
+  const ggThreshBeta = preset.ggThreshBeta.slice();
+  if (config.ggThreshBeta01Override !== null) {
+    ggThreshBeta[paramSlot(0, 1)] = config.ggThreshBeta01Override;
+  }
+  return {
+    rho: config.rhoOverride ?? preset.rho,
+    phi: preset.phi,
+    kappa: preset.kappa.slice(),
+    mu: preset.mu.slice(),
+    ggThreshBeta,
   };
 }
 
@@ -184,6 +282,9 @@ export interface SnapshotSource {
   readonly d: Float64Array;
   readonly attachTick: Uint32Array;
   readonly metrics: Metrics;
+  /** The solver's active environment (solver.timelineEnvironment()), JSON-safe. */
+  readonly environment: GGTimelineEnvironment;
+  readonly timeline: TimelineSummary | null;
 }
 
 /**
@@ -203,6 +304,7 @@ export function buildSnapshot(src: SnapshotSource): {
   const attachTick = src.attachTick.slice();
   const message: SnapshotMessage = {
     kind: "snapshot",
+    operator: "GGThreshold",
     tick: src.tick,
     attachedCount: src.attachedCount,
     boundarySize: src.boundarySize,
@@ -215,6 +317,8 @@ export function buildSnapshot(src: SnapshotSource): {
     d: d,
     attachTick: attachTick,
     metrics: src.metrics,
+    environment: src.environment,
+    timeline: src.timeline,
   };
   return { message, transfers: [a.buffer, b.buffer, d.buffer, attachTick.buffer] };
 }

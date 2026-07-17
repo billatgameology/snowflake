@@ -1,5 +1,7 @@
 // The solver worker: GGSolver lives here and ONLY here (charter §3.1 — the solver runs in a
-// Web Worker; the main thread renders snapshots and never steps the model).
+// Web Worker; the main thread renders snapshots and never steps the model). Live worker
+// stepping remains GG-only in Phase 4; LibbrechtKinetics honesty applies to loaded artifacts
+// (V4-1 keeps the worker-only invariant).
 //
 // Loop shape: while running, step a small batch of ticks, then yield back to the event loop
 // via setTimeout(0) so pause/reset messages are honored between batches. Snapshots post at a
@@ -11,19 +13,35 @@
 // advance past a tripped rule (external review blocker, 2026-07-16: the old per-batch check
 // let free-running overshoot single-step by up to 15 ticks and display post-domain-contact
 // state — invalid evidence per charter §3.1 — as live growth).
+//
+// PHASE 4 TIMELINE (decision 0011): when the config carries a G-G schedule, this worker
+// drives it through the SAME @vcc/core evaluator the runner uses (ggtimeline.ts is wiring,
+// not trigger logic). The tick-0 boundary is evaluated before the first cycle; every
+// completed cycle's boundary is evaluated inside the per-tick loop, before the next
+// relaxation; eligible events apply atomically via GGSolver.applyTimelineEnvironment (a/b/d
+// bit-unchanged), and the active rho feeds the far-field stop rule from the very next tick.
 
-import { GG_PRESETS, cellCount } from "@vcc/core";
+import { GG_PRESETS, cellCount, latticeExtents } from "@vcc/core";
 import { GGSolver } from "@vcc/solver-cpu";
 import { advanceUntilStop } from "./stoprule.ts";
 import { snapshotSourceFromSolver } from "./snapshot.ts";
 import {
   buildSnapshot,
+  ggParamsForInit,
   validateInitConfig,
   type InitConfig,
   type MainToWorker,
   type StopReason,
   type WorkerToMain,
 } from "./protocol.ts";
+import {
+  completedCycleBoundary,
+  createScheduleRuntime,
+  evaluateScheduleBoundary,
+  initialBoundary,
+  timelineSummaryOf,
+  type GGScheduleRuntime,
+} from "./ggtimeline.ts";
 
 // DedicatedWorkerGlobalScope is absent from the DOM lib; a minimal structural type keeps this
 // file compiling in the same tsconfig as the rest of the app.
@@ -40,6 +58,9 @@ const SNAPSHOT_INTERVAL_MS = 100;
 
 let solver: GGSolver | null = null;
 let config: InitConfig | null = null;
+let scheduleRuntime: GGScheduleRuntime | null = null;
+/** rho of the ACTIVE environment — updated atomically with each applied timeline event. */
+let activeRho = GG_PRESETS.plate.rho;
 let attachTick: Uint32Array = new Uint32Array(0);
 let running = false;
 let stopReason: StopReason = null;
@@ -49,16 +70,27 @@ let pumpScheduled = false;
 function construct(cfg: InitConfig): void {
   running = false;
   stopReason = null;
+  const params = ggParamsForInit(cfg);
   solver = new GGSolver({
     dims: cfg.dims,
-    params: GG_PRESETS[cfg.preset],
+    params,
     rngSeed: cfg.seed,
     noiseEpsilon: cfg.noiseEpsilon,
     domain: cfg.domain,
     farField: cfg.farField,
   });
   config = cfg;
+  activeRho = params.rho;
   attachTick = new Uint32Array(cellCount(cfg.dims));
+  scheduleRuntime = cfg.schedule === null ? null : createScheduleRuntime(cfg.schedule);
+  if (scheduleRuntime !== null) {
+    // Tick-0 boundary: a tick=0 event fires before the first solver cycle (decision 0011).
+    const s = solver;
+    const applied = evaluateScheduleBoundary(scheduleRuntime, initialBoundary(), (env) => {
+      s.applyTimelineEnvironment(env);
+    });
+    if (applied !== null) activeRho = applied.event.environment.rho;
+  }
   const wall = solver.wall.slice();
   scope.postMessage(
     {
@@ -81,26 +113,49 @@ function postSnapshot(force: boolean): void {
   // load-bearing for hexPrism depletion) once per POSTED snapshot, not per tick: at
   // 128x128x64 it costs about as much as a whole tick batch.
   const { message, transfers } = buildSnapshot(
-    snapshotSourceFromSolver(solver, attachTick, running, stopReason),
+    snapshotSourceFromSolver(
+      solver,
+      attachTick,
+      running,
+      stopReason,
+      timelineSummaryOf(scheduleRuntime),
+    ),
   );
   scope.postMessage(message, transfers);
 }
 
-/** Attach-tick bookkeeping for the tick just run (0 stays "seed or never"). */
-function recordAttachTicks(s: GGSolver): void {
+/**
+ * Per-tick bookkeeping: attach ticks for the tick just run (0 stays "seed or never"), then
+ * the timeline boundary for the completed cycle — before the next relaxation, exactly the
+ * boundary decision 0011 defines. Runs inside advanceUntilStop's per-tick loop, so stepped
+ * and free-running modes share it identically.
+ */
+function afterTick(s: GGSolver): void {
   for (const x of s.lastAttached) attachTick[x] = s.tick;
+  if (scheduleRuntime !== null) {
+    const extents = latticeExtents(s.a, s.dims);
+    if (extents === null) throw new Error("timeline boundary requires an attached crystal");
+    const applied = evaluateScheduleBoundary(
+      scheduleRuntime,
+      completedCycleBoundary(s.tick, extents),
+      (env) => {
+        s.applyTimelineEnvironment(env);
+      },
+    );
+    if (applied !== null) activeRho = applied.event.environment.rho;
+  }
 }
 
 /**
- * Advance up to maxTicks with the stop rules — far-field 2/3*rho and domain contact,
- * mirroring the runner's semantics (informational in this dev instrument, evidence only in
- * the runner) — evaluated after EVERY tick. Single-step (maxTicks 1) and free-running
- * batches share this exact path: the stopping tick is control-mode independent.
+ * Advance up to maxTicks with the stop rules — far-field 2/3*rho (rho of the ACTIVE
+ * environment) and domain contact, mirroring the runner's semantics (informational in this
+ * dev instrument, evidence only in the runner) — evaluated after EVERY tick. Single-step
+ * (maxTicks 1) and free-running batches share this exact path: the stopping tick is
+ * control-mode independent.
  */
 function advance(maxTicks: number): void {
   if (solver === null || config === null) return;
-  const rho = GG_PRESETS[config.preset].rho;
-  const result = advanceUntilStop(solver, rho, maxTicks, recordAttachTicks);
+  const result = advanceUntilStop(solver, () => activeRho, maxTicks, afterTick);
   if (result.stopReason !== null) {
     stopReason = result.stopReason;
     running = false;

@@ -1,37 +1,52 @@
 #!/usr/bin/env node
-// Screenshot harness (A2-9 + A3-5): builds the app, serves it with `vite preview`, drives it
-// in headless chromium via Playwright, and captures PNGs + a manifest to out/phase3-visual/.
+// Screenshot harness. TWO modes:
 //
-// Server choice, stated per the WP2 criteria: `vite build` + `vite preview` — the harness
-// exercises the production bundling path (including worker bundling), not just the dev
-// transform pipeline, and the built page loads faster for repeated review rounds.
+// Phase 3 (default; A2-9 + A3-5): builds the app, serves it with `vite preview`, drives the
+// LIVE GGThreshold worker in headless chromium, and captures PNGs + a manifest to
+// out/phase3-visual/ (overridable with --out-dir; review evidence in the default directory is
+// regenerated only deliberately, never as a side effect of a verification run).
 //
-// WebGPU is attempted (--enable-unsafe-webgpu, Metal ANGLE); if headless chromium does not
-// expose navigator.gpu the app's automatic WebGL2 fallback renders instead. Either way the
-// manifest records the backend that ACTUALLY ran (charter §1.5: the claim is only ever what
-// happened). A dedicated ?webgl2=1 pass additionally forces the WebGL2 fallback so overlays,
-// slice, and picking are proven on BOTH backends. Exit is nonzero on any console error, page
-// error, or in-app fault (A2-2), on either page.
+// Phase 4 (--phase4; V4-5/V4-6): VERIFIES the published Pass A / Pass B evidence bundles
+// BEFORE any capture (artifact-index file-set equality, SHA-256 of every artifact,
+// report/index cross-links, canonical-JSON shape of index+report, checkpoint strict decode +
+// metadata/array-length consistency with the report run summaries — every mismatch fails by
+// a stable V4-* name), then loads the actual gate checkpoints into the app's view-only
+// inspect mode and captures the required views on BOTH backend passes (auto backend + forced
+// ?webgl2=1), writing full-resolution PNGs and a manifest to out/phase4-visual/ (--out-dir
+// overrides). The harness NEVER executes evidence runs; it only renders published evidence.
 //
-// WP3 captures (A3-5 visual gate rehearsal): vapor-availability overlay, vertical slice
-// through the facet center (Berg view), picking readout on a deterministic rim cell, and the
-// depletion HUD; depletion numbers ride the manifest (NaN serializes as null).
+//   node app/scripts/visual.mjs [--out-dir <dir>]
+//   node app/scripts/visual.mjs --phase4 [--pass-a-dir <dir>] [--pass-b-dir <dir>]
+//                               [--out-dir <dir>] [--require-pass-b]
+//
+// Ports: 4319 (phase 3) / 4321 (phase 4). WebGPU is attempted (--enable-unsafe-webgpu,
+// Metal ANGLE); the manifest records the backend that ACTUALLY ran (charter §1.5). Exit is
+// nonzero on any console error, page error, in-app fault, verification failure, or
+// incomplete view manifest.
 //
 // Dev tooling only: nothing in app/src imports from here or from Playwright.
 
 import { spawn, spawnSync } from "node:child_process";
-import { mkdirSync, writeFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
+import {
+  PASS_A_IDENTITY,
+  PASS_B_IDENTITY,
+  REQUIRED_PASS_A_VIEWS,
+  assertViewManifestComplete,
+  planPassBViews,
+  verifyPhase4Bundle,
+} from "./phase4-verify.ts";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const appDir = resolve(scriptDir, "..");
 const repoRoot = resolve(appDir, "..");
-const outDir = resolve(repoRoot, "out", "phase3-visual");
 const viteBin = resolve(repoRoot, "node_modules", "vite", "bin", "vite.js");
 
-const PORT = 4319;
+const PHASE3_PORT = 4319;
+const PHASE4_PORT = 4321;
 const EARLY_TICK = 300;
 const MID_TICK = 1500;
 const ORBIT_DEGREES = 40;
@@ -39,6 +54,38 @@ const ORBIT_DEGREES = 40;
 function log(line) {
   process.stdout.write(`[visual] ${line}\n`);
 }
+
+// ── CLI arguments ──────────────────────────────────────────────────────────────────────────
+
+function parseArgs(argv) {
+  const args = {
+    phase4: false,
+    outDir: null,
+    passADir: null,
+    passBDir: null,
+    requirePassB: false,
+  };
+  for (let n = 0; n < argv.length; n++) {
+    const flag = argv[n];
+    const valueOf = () => {
+      const value = argv[n + 1];
+      if (value === undefined || value.startsWith("--")) {
+        throw new Error(`${flag} requires a value`);
+      }
+      n++;
+      return value;
+    };
+    if (flag === "--phase4") args.phase4 = true;
+    else if (flag === "--out-dir") args.outDir = valueOf();
+    else if (flag === "--pass-a-dir") args.passADir = valueOf();
+    else if (flag === "--pass-b-dir") args.passBDir = valueOf();
+    else if (flag === "--require-pass-b") args.requirePassB = true;
+    else throw new Error(`unknown argument: ${flag}`);
+  }
+  return args;
+}
+
+// ── Shared plumbing ────────────────────────────────────────────────────────────────────────
 
 async function waitForServer(url, timeoutMs) {
   const deadline = Date.now() + timeoutMs;
@@ -54,9 +101,29 @@ async function waitForServer(url, timeoutMs) {
   throw new Error(`preview server did not answer at ${url} within ${timeoutMs} ms`);
 }
 
+function buildApp() {
+  log("vite build…");
+  const build = spawnSync(process.execPath, [viteBin, "build"], {
+    cwd: appDir,
+    stdio: ["ignore", "inherit", "inherit"],
+  });
+  if (build.status !== 0) throw new Error(`vite build failed with status ${build.status}`);
+}
+
+function startPreview(port) {
+  log(`vite preview on :${port}…`);
+  const preview = spawn(
+    process.execPath,
+    [viteBin, "preview", "--port", String(port), "--strictPort"],
+    { cwd: appDir, stdio: ["ignore", "pipe", "pipe"] },
+  );
+  preview.stderr.on("data", (chunk) => process.stderr.write(chunk));
+  return preview;
+}
+
 /** Open the app, wire error collection, and wait for the first snapshot. */
-async function openApp(browser, url, consoleErrors, pageErrors) {
-  const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+async function openApp(browser, url, consoleErrors, pageErrors, viewport) {
+  const page = await browser.newPage({ viewport });
   page.on("console", (msg) => {
     if (msg.type() === "error") consoleErrors.push(msg.text());
   });
@@ -91,24 +158,14 @@ async function runToTick(page, targetTick, timeoutMs) {
   await page.waitForTimeout(400); // let the forced pause snapshot land and render
 }
 
-async function main() {
+// ── Phase 3 mode (unchanged flow; out dir injectable via --out-dir) ────────────────────────
+
+async function runPhase3(outDir) {
   const startedAt = Date.now();
   mkdirSync(outDir, { recursive: true });
 
-  log("vite build…");
-  const build = spawnSync(process.execPath, [viteBin, "build"], {
-    cwd: appDir,
-    stdio: ["ignore", "inherit", "inherit"],
-  });
-  if (build.status !== 0) throw new Error(`vite build failed with status ${build.status}`);
-
-  log(`vite preview on :${PORT}…`);
-  const preview = spawn(
-    process.execPath,
-    [viteBin, "preview", "--port", String(PORT), "--strictPort"],
-    { cwd: appDir, stdio: ["ignore", "pipe", "pipe"] },
-  );
-  preview.stderr.on("data", (chunk) => process.stderr.write(chunk));
+  buildApp();
+  const preview = startPreview(PHASE3_PORT);
 
   let browser = null;
   const consoleErrors = [];
@@ -116,7 +173,7 @@ async function main() {
   const captures = [];
 
   try {
-    await waitForServer(`http://localhost:${PORT}/`, 20_000);
+    await waitForServer(`http://localhost:${PHASE3_PORT}/`, 20_000);
 
     browser = await chromium.launch({
       headless: true,
@@ -124,7 +181,13 @@ async function main() {
     });
 
     // ── Primary pass (backend auto-selected; record what actually ran) ────────────────────
-    const page = await openApp(browser, `http://localhost:${PORT}/`, consoleErrors, pageErrors);
+    const page = await openApp(
+      browser,
+      `http://localhost:${PHASE3_PORT}/`,
+      consoleErrors,
+      pageErrors,
+      { width: 1280, height: 800 },
+    );
     const backend = await page.evaluate(() => window.__vccDebug.backend);
     log(`active backend: ${backend}`);
 
@@ -271,9 +334,10 @@ async function main() {
     const fbPageErrors = [];
     const fbPage = await openApp(
       browser,
-      `http://localhost:${PORT}/?webgl2=1`,
+      `http://localhost:${PHASE3_PORT}/?webgl2=1`,
       fbConsoleErrors,
       fbPageErrors,
+      { width: 1280, height: 800 },
     );
     const fbBackend = await fbPage.evaluate(() => window.__vccDebug.backend);
     log(`fallback backend: ${fbBackend}`);
@@ -345,6 +409,303 @@ async function main() {
   } finally {
     if (browser !== null) await browser.close();
     preview.kill();
+  }
+}
+
+// ── Phase 4 mode (V4-5/V4-6): verify bundles, then capture inspected evidence states ───────
+
+/** Per-view scene setup: camera pose and slice; the slice range spans the operator's own
+ * field scale (GG rho / LK sigmaInfinity), recorded in the manifest entry. */
+function viewSetup(style, fieldScale) {
+  switch (style) {
+    case "solid":
+      return { camera: { azimuthDeg: 20, elevationDeg: 32 }, slice: null };
+    case "column":
+      return { camera: { azimuthDeg: 20, elevationDeg: 12 }, slice: null };
+    case "slice":
+      return {
+        camera: { azimuthDeg: 0, elevationDeg: 8 },
+        slice: { orientation: "vertical", min: 0, max: fieldScale },
+      };
+    case "profile":
+      return { camera: { azimuthDeg: 0, elevationDeg: 5 }, slice: null };
+    case "top":
+      return { camera: { azimuthDeg: 0, elevationDeg: 88 }, slice: null };
+    default:
+      throw new Error(`unknown view style ${style}`);
+  }
+}
+
+async function runPhase4(options) {
+  const startedAt = Date.now();
+  const outDir = options.outDir ?? resolve(repoRoot, "out", "phase4-visual");
+  const passADir = options.passADir ?? resolve(repoRoot, "out", "phase4", "pass-a");
+  const passBDir = options.passBDir ?? resolve(repoRoot, "out", "phase4", "pass-b");
+
+  // ── Bundle verification: EVERY integrity check happens BEFORE any capture ───────────────
+  if (!existsSync(passADir)) {
+    throw new Error(
+      `V4-BUNDLE-FILESET: pass-a evidence directory is missing: ${passADir} (Pass A is ` +
+        `required; there is nothing to capture)`,
+    );
+  }
+  log(`verifying pass-a bundle: ${passADir}`);
+  const bundleA = verifyPhase4Bundle(passADir, PASS_A_IDENTITY);
+  log(`pass-a bundle OK (${bundleA.runs.size} runs)`);
+
+  let bundleB = null;
+  let passBRecord;
+  if (existsSync(passBDir)) {
+    log(`verifying pass-b bundle: ${passBDir}`);
+    bundleB = verifyPhase4Bundle(passBDir, PASS_B_IDENTITY);
+    log(`pass-b bundle OK (${bundleB.runs.size} runs)`);
+    passBRecord = { present: true, directory: passBDir };
+  } else if (options.requirePassB) {
+    throw new Error(`V4-BUNDLE-FILESET: --require-pass-b given but ${passBDir} is absent`);
+  } else {
+    passBRecord = {
+      present: false,
+      directory: passBDir,
+      reason: "pass-b evidence directory is absent (Pass A precedes Pass B in the phase plan)",
+    };
+    log(`pass-b bundle absent (recorded explicitly, not silently skipped): ${passBDir}`);
+  }
+  const passBPlan = planPassBViews(bundleB);
+  for (const absent of passBPlan.absent) {
+    log(`pass-b view ABSENT: ${absent.name} — ${absent.reason}`);
+  }
+  const requiredViews = [...REQUIRED_PASS_A_VIEWS, ...passBPlan.available];
+
+  mkdirSync(outDir, { recursive: true });
+  buildApp();
+  const preview = startPreview(PHASE4_PORT);
+
+  let browser = null;
+  const consoleErrors = [];
+  const pageErrors = [];
+  const inAppErrors = [];
+  const entries = [];
+  const backendPassNames = [];
+  const actualBackends = {};
+
+  try {
+    await waitForServer(`http://localhost:${PHASE4_PORT}/`, 20_000);
+    browser = await chromium.launch({
+      headless: true,
+      args: ["--enable-unsafe-webgpu", "--use-angle=metal"],
+    });
+
+    const backendPasses = [
+      { name: "primary", query: "" },
+      { name: "forced-webgl2", query: "?webgl2=1" },
+    ];
+
+    for (const backendPass of backendPasses) {
+      backendPassNames.push(backendPass.name);
+      const page = await openApp(
+        browser,
+        `http://localhost:${PHASE4_PORT}/${backendPass.query}`,
+        consoleErrors,
+        pageErrors,
+        { width: 1600, height: 1200 },
+      );
+      const actualBackend = await page.evaluate(() => window.__vccDebug.backend);
+      actualBackends[backendPass.name] = actualBackend;
+      log(`backend pass "${backendPass.name}": actual backend ${actualBackend}`);
+      // The live worker is not this mode's subject; keep it paused for stable captures.
+      await page.evaluate(() => window.__vccDebug.pause());
+
+      for (const view of requiredViews) {
+        const bundle = view.pass === "A" ? bundleA : bundleB;
+        const identity = view.pass === "A" ? PASS_A_IDENTITY : PASS_B_IDENTITY;
+        const run = bundle.runs.get(view.runId);
+        if (run === undefined) {
+          throw new Error(`V4-VIEW-MANIFEST: view ${view.name} needs missing run ${view.runId}`);
+        }
+        const bytes = readFileSync(join(bundle.directory, run.checkpointPath));
+        const evidenceStatus =
+          view.pass === "A"
+            ? `published Pass A evidence (${identity.reportPath}, gatePass=true)`
+            : `published Pass B evidence (${identity.reportPath}, executionValid=true, ` +
+              `diagnosticPass=${String(bundle.verdict.diagnosticPass)})`;
+        const context = {
+          runId: run.runId,
+          pass: view.pass,
+          operator: identity.operator,
+          backend: String(run.config.backend ?? "float64-cpu-oracle"),
+          evidenceStatus,
+          checkpointSha256: run.checkpointSha256,
+        };
+        const loadResult = await page.evaluate(
+          ({ b64, ctx }) => window.__vccDebug.loadArtifactBase64(b64, ctx),
+          { b64: Buffer.from(bytes).toString("base64"), ctx: context },
+        );
+        if (!loadResult.ok) {
+          throw new Error(`V4-ARTIFACT-LOAD: ${view.name}: ${loadResult.error}`);
+        }
+
+        // Label honesty before capture acceptance (the plan's visual adversarial bullet):
+        // the DISPLAYED operator and field/surface identities must match the bundle's.
+        const info = await page.evaluate(() => window.__vccDebug.inspectedInfo());
+        if (info === null || info.operator !== identity.operator) {
+          throw new Error(
+            `V4-LABEL-MISMATCH: ${view.name} displays operator ${info?.operator}, expected ` +
+              identity.operator,
+          );
+        }
+        const expectedField = identity.operator === "GGThreshold" ? "d" : "sigma";
+        const expectedSurface = identity.operator === "GGThreshold" ? "b" : "f";
+        if (info.fieldName !== expectedField || info.surfaceName !== expectedSurface) {
+          throw new Error(
+            `V4-LABEL-MISMATCH: ${view.name} labels fields ${info.fieldName}/${info.surfaceName}, ` +
+              `expected ${expectedField}/${expectedSurface}`,
+          );
+        }
+        if (info.runId !== run.runId || info.sha256 !== run.checkpointSha256) {
+          throw new Error(`V4-LABEL-MISMATCH: ${view.name} shows a different run/checkpoint`);
+        }
+
+        const fieldScale =
+          identity.operator === "GGThreshold"
+            ? Number(info.ggControl?.rho ?? 0.1)
+            : Number(info.sigmaInfinity ?? 0.002);
+        const setup = viewSetup(view.style, fieldScale);
+        await page.evaluate(
+          ({ camera, slice }) => {
+            window.__vccDebug.setInspectOverlay("none");
+            if (slice === null) {
+              window.__vccDebug.setSlice({ enabled: false });
+            } else {
+              window.__vccDebug.setSlice({
+                enabled: true,
+                orientation: slice.orientation,
+                min: slice.min,
+                max: slice.max,
+              });
+            }
+            window.__vccDebug.setCamera(camera);
+            window.__vccDebug.setChrome({
+              hud: true,
+              status: true,
+              legends: true,
+              readout: false,
+              pane: false,
+            });
+          },
+          { camera: setup.camera, slice: setup.slice },
+        );
+        await page.waitForTimeout(500);
+
+        const file = resolve(outDir, `${view.name}--${backendPass.name}.png`);
+        await page.screenshot({ path: file });
+        entries.push({
+          name: view.name,
+          backendPass: backendPass.name,
+          file: file.replace(`${repoRoot}/`, ""),
+          actualBackend,
+          pass: view.pass,
+          runId: run.runId,
+          sourceCheckpoint: {
+            path: join(bundle.directory, run.checkpointPath).replace(`${repoRoot}/`, ""),
+            sha256: run.checkpointSha256,
+          },
+          operator: info.operator,
+          policy:
+            info.operator === "GGThreshold"
+              ? "GGThreshold (abstract thresholds; no physical surface policy)"
+              : info.surfacePolicy,
+          controls:
+            info.operator === "GGThreshold"
+              ? { ggControl: info.ggControl }
+              : { tempC: info.tempC, sigmaInfinity: info.sigmaInfinity },
+          seed: info.seed,
+          noiseEpsilon: info.noiseEpsilon,
+          dims: info.dims,
+          tick: info.tick,
+          simTimeSeconds: info.simTimeSeconds,
+          recordedBackend: info.recordedBackend,
+          evidenceStatus: info.evidenceStatus,
+          metrics: {
+            depletionCenter: info.depletion.center,
+            depletionRim: info.depletion.rim,
+            depletionRatio: info.depletion.ratio,
+            aspectRatio: info.aspectRatio,
+            attachedCount: info.attachedCount,
+          },
+          camera: setup.camera,
+          slice: setup.slice,
+        });
+        log(`${view.name}--${backendPass.name}.png (run ${run.runId}, ${info.operator})`);
+      }
+
+      const pageState = await debugState(page);
+      inAppErrors.push(...pageState.errors);
+      await page.close();
+    }
+
+    // ── Self-check BEFORE exit: a manifest missing any required view fails by name ────────
+    assertViewManifestComplete(
+      entries,
+      requiredViews,
+      backendPassNames,
+      passBPlan.absent,
+      passBPlan.absent,
+    );
+
+    const manifest = {
+      command: "node app/scripts/visual.mjs --phase4",
+      server: "vite build + vite preview (production bundle)",
+      viewport: { width: 1600, height: 1200 },
+      passA: { present: true, directory: passADir },
+      passB: passBRecord,
+      absentViews: passBPlan.absent,
+      backendPasses: backendPassNames,
+      actualBackends,
+      captures: entries,
+      consoleErrors,
+      pageErrors,
+      inAppErrors,
+      durationSeconds: (Date.now() - startedAt) / 1000,
+      generatedAt: new Date().toISOString(),
+    };
+    writeFileSync(resolve(outDir, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
+    log(`manifest written to ${resolve(outDir, "manifest.json")}`);
+
+    const failures = consoleErrors.length + pageErrors.length + inAppErrors.length;
+    if (failures > 0) {
+      log(
+        `FAIL: ${consoleErrors.length} console error(s), ${pageErrors.length} page error(s), ` +
+          `${inAppErrors.length} in-app error(s)`,
+      );
+      process.exitCode = 1;
+    } else {
+      log(
+        `OK in ${manifest.durationSeconds.toFixed(1)}s — ${entries.length} captures across ` +
+          `${backendPassNames.length} backend passes (${passBPlan.absent.length} absent pass-b ` +
+          `view(s) recorded)`,
+      );
+    }
+  } finally {
+    if (browser !== null) await browser.close();
+    preview.kill();
+  }
+}
+
+// ── Entry ──────────────────────────────────────────────────────────────────────────────────
+
+async function main() {
+  const args = parseArgs(process.argv.slice(2));
+  if (args.phase4) {
+    await runPhase4({
+      outDir: args.outDir === null ? null : resolve(args.outDir),
+      passADir: args.passADir === null ? null : resolve(args.passADir),
+      passBDir: args.passBDir === null ? null : resolve(args.passBDir),
+      requirePassB: args.requirePassB,
+    });
+  } else {
+    const outDir =
+      args.outDir === null ? resolve(repoRoot, "out", "phase3-visual") : resolve(args.outDir);
+    await runPhase3(outDir);
   }
 }
 

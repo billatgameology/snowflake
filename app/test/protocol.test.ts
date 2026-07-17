@@ -1,7 +1,7 @@
 // Node-side tests for the pure parts of the worker message protocol (A2-3).
 
 import { describe, expect, it } from "vitest";
-import { GG_PRESETS, type Metrics } from "@vcc/core";
+import { GG_PRESETS, ggTimelineEnvironmentFromParams, type Metrics } from "@vcc/core";
 import {
   DEFAULT_INIT,
   PRESET_NAMES,
@@ -106,6 +106,8 @@ describe("buildSnapshot", () => {
       d: Float64Array.from([0.1, 0, 0.099, 0]),
       attachTick: Uint32Array.from([0, 3, 0, 17]),
       metrics: metricsFixture,
+      environment: ggTimelineEnvironmentFromParams(GG_PRESETS.plate),
+      timeline: null,
     };
   }
 

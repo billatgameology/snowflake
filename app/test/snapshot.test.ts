@@ -90,5 +90,25 @@ describe("snapshotSourceFromSolver", () => {
     expect(src.running).toBe(true);
     expect(src.stopReason).toBeNull();
     expect(src.metrics.attachedCount).toBe(solver.attachedCount);
+    expect(src.timeline).toBeNull();
+  });
+
+  it("carries the solver's ACTIVE environment, not the preset table (V4-3 honesty)", () => {
+    const solver = buildSolverWithWallAdjacentCrystal();
+    // Apply a timeline event that changes the basal threshold; the next snapshot must show
+    // the ACTIVE thresholds, or the app's threshold-progress overlay silently lies.
+    const environment = solver.timelineEnvironment();
+    const changed = {
+      ...environment,
+      ggThreshBeta: [9, ...environment.ggThreshBeta.slice(1)] as unknown as
+        typeof environment.ggThreshBeta,
+    };
+    solver.applyTimelineEnvironment(changed);
+    const attachTick = new Uint32Array(solver.a.length);
+    const src = snapshotSourceFromSolver(solver, attachTick, false, null);
+    expect(src.environment).toEqual(changed);
+    expect(src.environment.ggThreshBeta[0]).toBe(9);
+    // The preset table is untouched (the change lives in the solver's owned params).
+    expect(GG_PRESETS.plate.ggThreshBeta[1]).toBe(2.5);
   });
 });

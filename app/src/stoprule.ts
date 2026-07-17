@@ -49,20 +49,25 @@ export interface SteppableSolver {
  * immediately when one trips. Both the worker's free-running batches (maxTicks = batch
  * size) and single-step (maxTicks = 1) go through this one loop, which is what makes the
  * stopping tick identical across control modes.
+ *
+ * `rho` may be a getter: a Phase 4 timeline event can replace the environment (including
+ * rho) mid-batch via afterTick, and the very next tick's far-field decision must use the
+ * NEW value — a batch-frozen rho would reintroduce a control-mode-dependent stop.
  */
 export function advanceUntilStop<S extends SteppableSolver>(
   solver: S,
-  rho: number,
+  rho: number | (() => number),
   maxTicks: number,
   afterTick?: (solver: S) => void,
 ): { ticksRun: number; stopReason: StopReason } {
+  const rhoNow = typeof rho === "number" ? () => rho : rho;
   for (let n = 0; n < maxTicks; n++) {
     solver.step();
     afterTick?.(solver);
     const stopReason = evaluateStopRules({
       domainContact: solver.domainContact(),
       farFieldMean: solver.farFieldMean(),
-      rho,
+      rho: rhoNow(),
     });
     if (stopReason !== null) return { ticksRun: n + 1, stopReason };
   }
