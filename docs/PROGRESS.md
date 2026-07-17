@@ -73,7 +73,18 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   strict B crossing cap, and direct mutations for every raw occupancy/field/replay guard. The
   tree passes 394/394 tests and the app build. Same-reviewer round 3 reported CLEAN — zero
   blockers and zero should-fixes — after independently rerunning all round-1/2 exploits. WP1 is
-  complete. No solver, app, or external evidence artifact changed in WP1.
+  complete. WP2a is also complete after three review rounds: atomic G-G/LK environment changes,
+  density-preserving LK temperature transitions, step-local vapor-unit ledger accounting, and
+  hardened split-cycle state machines pass 422/422 tests and the app build; same-reviewer round
+  3 was CLEAN. WP2b now has an uncommitted Pass-A runner/evidence review candidate. It registers
+  the exact 13-run manifest (SHA-256
+  `6d1ee3a262e8985930ded30f8ef490e1e47402dce6c55f2b3b16e4e80b0d9a98`), reconstructs raw
+  attachment histories, independently witnesses applied G-G noise, cross-links timeline and
+  checkpoint evidence, publishes only a reopened complete staging graph, and prints exact
+  provenance/termination/artifact facts. Developer verification is 175/175 targeted and 508/508
+  full tests with Rule 7 and both TypeScript projects clean. It is not accepted until a distinct
+  reviewer reports zero blockers and zero should-fixes. No real `gate4a` run or Phase 4 evidence
+  artifact exists. No solver, app, or external evidence artifact changed in WP1/WP2b.
 - **Phase 3 started 2026-07-15 under decision
   [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md)** (charter v1.5): maker-directed
   overlap with the tail of the v3 evidence run. Decision
@@ -405,8 +416,11 @@ as an additional provenance ancestor, then delegate WP2b. That freeze is `cd2436
 execution-cadence freeze additionally pins one series row per completed cycle and ordinary
 far-field observation every 25 completed cycles, while all other execution checks remain
 per-cycle. That freeze is `7be4c5d`. Criteria/provenance freezes `e567767`, `cd24365`, and
-`7be4c5d` must all be ancestors of the 40-hex clean execution commit. WP2b delegation may now
-begin. Work only in
+`7be4c5d` must all be ancestors of the 40-hex clean execution commit. The WP2b candidate now
+passes 175/175 targeted and 508/508 full tests after coordinator repair loops, with no real gate
+run or evidence output. Commit it as an immutable review revision, hand that exact revision to a
+distinct adversarial reviewer, and return every blocker/should-fix to the same developer until
+the reviewer reports CLEAN. Do not start WP2c before that review loop closes. Work only in
 `/Users/clipper/github/snowflake-phase4`.
 Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
 artifacts.

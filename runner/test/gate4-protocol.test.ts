@@ -403,6 +403,7 @@ describe("Phase 4 depletion validators", () => {
       completedCycles: 106,
       largestExtent: 36,
       aspectRatio: 2,
+      stepCap: 12_000,
     };
     expect([...resultMap(evaluateADepletion(samples, final)).values()]).toEqual([true, true, true, true]);
 
@@ -470,6 +471,18 @@ describe("Phase 4 depletion validators", () => {
     expect(resultMap(evaluateADepletion(backdated, final)).get("A-DEPLETION-DEFINED")).toBe(false);
     expect(
       resultMap(evaluateADepletion(samples, { ...final, stopReason: "step-cap" })).get(
+        "A-DEPLETION-COLUMN",
+      ),
+    ).toBe(false);
+    for (const completedCycles of [12_000, 12_001]) {
+      expect(
+        resultMap(evaluateADepletion(samples, { ...final, completedCycles })).get(
+          "A-DEPLETION-COLUMN",
+        ),
+      ).toBe(false);
+    }
+    expect(
+      resultMap(evaluateADepletion(samples, { ...final, stepCap: 12_001 })).get(
         "A-DEPLETION-COLUMN",
       ),
     ).toBe(false);
@@ -592,6 +605,7 @@ function hollowRun(
     seed,
     dims,
     targetLargestExtent: target,
+    stepCap: pass === "A" ? 12_000 : 50_000,
     stopReason: "size-target",
     previousCycle: 100 + seed,
     crossingCycle: 101 + seed,
@@ -660,6 +674,10 @@ const aHollowRawGuardCases: readonly HollowRunMutationCase[] = [
   {
     name: "wrong target",
     mutate: (run) => ({ ...run, targetLargestExtent: run.targetLargestExtent + 1 }),
+  },
+  {
+    name: "wrong step cap",
+    mutate: (run) => ({ ...run, stepCap: run.stepCap + 1 }),
   },
   {
     name: "wrong stop",
@@ -896,16 +914,25 @@ describe("Phase 4 hollow ensemble validators", () => {
     expect(criterionDisposition("B-HOLLOW")).toBe("diagnostic");
   });
 
-  it("applies the 50,000-step bound only to the Pass B hollow protocol", () => {
-    const aRuns = [hollowRun(1), hollowRun(2), hollowRun(3)];
-    aRuns[1] = {
-      ...aRuns[1],
-      previousCycle: 49_999,
-      crossingCycle: 50_000,
-    };
-    const aRecords = resultMap(evaluateAHollow(aRuns, replayOf(aRuns[0]), true));
-    expect(aRecords.get("A-HOLLOW-EACH")).toBe(true);
-    expect(aRecords.get("A-HOLLOW-NONVACUOUS")).toBe(true);
+  it("enforces the 12,000-cycle cap on every Pass A hollow primary and replay", () => {
+    for (const target of ["primary-1", "primary-2", "primary-3", "replay"] as const) {
+      for (const crossingCycle of [12_000, 12_001]) {
+        const runs = [hollowRun(1), hollowRun(2), hollowRun(3)];
+        let replay = replayOf(runs[0]);
+        if (target === "replay") {
+          replay = { ...replay, previousCycle: crossingCycle - 1, crossingCycle };
+        } else {
+          const index = Number(target.at(-1)) - 1;
+          runs[index] = { ...runs[index], previousCycle: crossingCycle - 1, crossingCycle };
+          if (index === 0) replay = replayOf(runs[0]);
+        }
+        const records = resultMap(evaluateAHollow(runs, replay, true));
+        expect(
+          records.get(target === "replay" ? "A-HOLLOW-NONVACUOUS" : "A-HOLLOW-EACH"),
+          `${target} crossing ${crossingCycle}`,
+        ).toBe(false);
+      }
+    }
   });
 });
 

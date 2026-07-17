@@ -396,6 +396,8 @@ export const B_HABIT_TEMPERATURES = [-5, -7.5, -10, -12.5, -15] as const;
 export const SIZE_TARGET_STOP_REASON = "size-target";
 export const A_HABIT_TARGET_LARGEST_EXTENT = 14;
 export const A_HABIT_STEP_CAP = 12_000;
+export const A_DEPLETION_STEP_CAP = 12_000;
+export const A_HOLLOW_STEP_CAP = 12_000;
 
 interface RawExtentCrossing {
   readonly previousCycle: number;
@@ -591,6 +593,10 @@ export interface DepletionFinalEvidence {
   readonly aspectRatio: number;
 }
 
+export interface ADepletionFinalEvidence extends DepletionFinalEvidence {
+  readonly stepCap: number;
+}
+
 export interface BDepletionFinalEvidence extends DepletionFinalEvidence {
   readonly stepCap: number;
 }
@@ -658,12 +664,14 @@ function finalDepletionEvidenceMatches(
 
 export function evaluateADepletion(
   samples: readonly DepletionSample[],
-  final: DepletionFinalEvidence,
+  final: ADepletionFinalEvidence,
 ): readonly Phase4CriterionRecord<AMorphologyCriterion>[] {
   const targets = [12, 16, 20, 24, 28, 32, 36];
   const registered =
     registeredSamples(samples, targets) &&
-    finalDepletionEvidenceMatches(final, 36, samples[samples.length - 1]);
+    final.stepCap === A_DEPLETION_STEP_CAP &&
+    finalDepletionEvidenceMatches(final, 36, samples[samples.length - 1]) &&
+    final.completedCycles < final.stepCap;
   const ratios = samples.map((sample) => sample.depletionRatio);
   const defined =
     registered && ratios.every((value) => Number.isFinite(value) && !Object.is(value, -0));
@@ -723,6 +731,7 @@ export interface HollowRun {
   readonly seed: number;
   readonly dims: Dims;
   readonly targetLargestExtent: number;
+  readonly stepCap: number;
   readonly stopReason: string;
   readonly previousCycle: number;
   readonly crossingCycle: number;
@@ -826,7 +835,7 @@ function deriveHollowRun(
   run: HollowRun,
   expectedDims: Dims,
   target: number,
-  stepCap?: number,
+  stepCap: number,
 ): DerivedHollowRun | undefined {
   if (
     !isObject(run) ||
@@ -842,6 +851,7 @@ function deriveHollowRun(
     run.seed < 1 ||
     !exactDims(run.dims, expectedDims) ||
     run.targetLargestExtent !== target ||
+    run.stepCap !== stepCap ||
     run.stopReason !== SIZE_TARGET_STOP_REASON ||
     run.executionValid !== true ||
     !validRawExtentCrossing(run, target, stepCap) ||
@@ -896,7 +906,7 @@ function replayEqual(
   right: HollowRun | undefined,
   expectedDims: Dims,
   target: number,
-  stepCap?: number,
+  stepCap: number,
 ): boolean {
   if (left === undefined || right === undefined || left === right) return false;
   const leftDerived = deriveHollowRun(left, expectedDims, target, stepCap);
@@ -941,7 +951,9 @@ export function evaluateAHollow(
   structuralNoDrivenBranches: boolean,
 ): readonly Phase4CriterionRecord<AMorphologyCriterion>[] {
   const orderedSeeds = runs.length === 3 && runs.every((run, index) => run.seed === index + 1);
-  const derived = runs.map((run) => deriveHollowRun(run, A_HOLLOW_DIMS, A_HOLLOW_TARGET));
+  const derived = runs.map((run) =>
+    deriveHollowRun(run, A_HOLLOW_DIMS, A_HOLLOW_TARGET, A_HOLLOW_STEP_CAP),
+  );
   const each =
     orderedSeeds &&
     derived.every(
@@ -963,7 +975,13 @@ export function evaluateAHollow(
   const replayBitwise =
     seed1Replay !== undefined &&
     !runs.some((run) => run.executionId === seed1Replay.executionId) &&
-    replayEqual(runs[0], seed1Replay, A_HOLLOW_DIMS, A_HOLLOW_TARGET);
+    replayEqual(
+      runs[0],
+      seed1Replay,
+      A_HOLLOW_DIMS,
+      A_HOLLOW_TARGET,
+      A_HOLLOW_STEP_CAP,
+    );
   const nonvacuous =
     orderedSeeds &&
     derived.every((result) => result !== undefined) &&

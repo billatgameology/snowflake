@@ -72,6 +72,7 @@ import {
 } from "@vcc/core";
 import { GGSolver, LKSolver, FAR_FIELD_STOP_FRACTION } from "@vcc/solver-cpu";
 import { gate3 } from "./gate3.ts";
+import { gate4a } from "./gate4a.ts";
 import {
   GATE2B_NODE,
   GATE2B_V8,
@@ -1003,12 +1004,29 @@ if (command === "grow") {
     console.error("GATE3 EXIT STATUS: 1");
     process.exitCode = 1;
   }
+} else if (command === "gate4a") {
+  if (rest.length > 0) {
+    console.error(
+      "gate4a takes no flags: the Phase 4 Pass-A protocol is pinned in " +
+        "docs/plans/phase-4-morphology-gauntlet.md",
+    );
+    console.error("GATE4A EXIT STATUS: 2");
+    process.exit(2);
+  }
+  try {
+    process.exitCode = gate4a();
+  } catch (error) {
+    console.error(error instanceof Error ? (error.stack ?? error.message) : String(error));
+    console.error("GATE4A EXIT STATUS: 1");
+    process.exitCode = 1;
+  }
 } else {
   console.error(
     "usage: node runner/src/main.ts grow --preset <name> [options]\n" +
       "       node runner/src/main.ts grow-lk --temp-c <C> --sigma-inf <frac> [options]\n" +
       "       node runner/src/main.ts gate2b\n" +
-      "       node runner/src/main.ts gate3",
+      "       node runner/src/main.ts gate3\n" +
+      "       node runner/src/main.ts gate4a",
   );
   process.exit(2);
 }
