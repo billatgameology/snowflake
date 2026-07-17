@@ -10,6 +10,7 @@ import {
   cellCount,
   crossSectionHollowness,
   domainContact,
+  hexSeedSites,
   latticeExtents,
   sealedVoidFraction,
   type CappedColumnProfile,
@@ -748,6 +749,7 @@ const A_HOLLOW_DIMS: Dims = { nx: 64, ny: 64, nz: 128 };
 const B_HOLLOW_DIMS: Dims = { nx: 48, ny: 48, nz: 48 };
 const A_HOLLOW_TARGET = 36;
 const B_HOLLOW_TARGET = 24;
+const B_HOLLOW_STEP_CAP = 50_000;
 
 function bytesOf(array: Uint8Array | Float64Array): Uint8Array {
   return new Uint8Array(array.buffer, array.byteOffset, array.byteLength);
@@ -824,6 +826,7 @@ function deriveHollowRun(
   run: HollowRun,
   expectedDims: Dims,
   target: number,
+  stepCap?: number,
 ): DerivedHollowRun | undefined {
   if (
     !isObject(run) ||
@@ -841,7 +844,7 @@ function deriveHollowRun(
     run.targetLargestExtent !== target ||
     run.stopReason !== SIZE_TARGET_STOP_REASON ||
     run.executionValid !== true ||
-    !validRawExtentCrossing(run, target) ||
+    !validRawExtentCrossing(run, target, stepCap) ||
     !hasPairwiseNonoverlappingBuffers(allBuffers(run))
   ) {
     return undefined;
@@ -861,6 +864,9 @@ function deriveHollowRun(
   ) {
     return undefined;
   }
+  const canonicalSeed = new Uint8Array(length);
+  for (const site of hexSeedSites(expectedDims, 2, 1)) canonicalSeed[site] = 1;
+  if (!bytesEqual(run.initialOccupancy, canonicalSeed)) return undefined;
   const initialExtents = latticeExtents(run.initialOccupancy, expectedDims);
   const previousExtents = latticeExtents(run.previousOccupancy, expectedDims);
   const finalExtents = latticeExtents(run.state.occupancy, expectedDims);
@@ -890,10 +896,11 @@ function replayEqual(
   right: HollowRun | undefined,
   expectedDims: Dims,
   target: number,
+  stepCap?: number,
 ): boolean {
   if (left === undefined || right === undefined || left === right) return false;
-  const leftDerived = deriveHollowRun(left, expectedDims, target);
-  const rightDerived = deriveHollowRun(right, expectedDims, target);
+  const leftDerived = deriveHollowRun(left, expectedDims, target, stepCap);
+  const rightDerived = deriveHollowRun(right, expectedDims, target, stepCap);
   if (leftDerived === undefined || rightDerived === undefined) return false;
   const leftBuffers = allBuffers(left);
   const rightBuffers = allBuffers(right);
@@ -975,14 +982,22 @@ export function evaluateBHollow(
   seed1Replay: HollowRun | undefined,
 ): Phase4CriterionRecord<"B-HOLLOW"> {
   const orderedSeeds = runs.length === 3 && runs.every((run, index) => run.seed === index + 1);
-  const derived = runs.map((run) => deriveHollowRun(run, B_HOLLOW_DIMS, B_HOLLOW_TARGET));
+  const derived = runs.map((run) =>
+    deriveHollowRun(run, B_HOLLOW_DIMS, B_HOLLOW_TARGET, B_HOLLOW_STEP_CAP),
+  );
   const hashes = derived.flatMap((result) =>
     result === undefined ? [] : [result.finalOccupancyHash],
   );
   const replayBitwise =
     seed1Replay !== undefined &&
     !runs.some((run) => run.executionId === seed1Replay.executionId) &&
-    replayEqual(runs[0], seed1Replay, B_HOLLOW_DIMS, B_HOLLOW_TARGET);
+    replayEqual(
+      runs[0],
+      seed1Replay,
+      B_HOLLOW_DIMS,
+      B_HOLLOW_TARGET,
+      B_HOLLOW_STEP_CAP,
+    );
   const passed =
     orderedSeeds &&
     derived.every(

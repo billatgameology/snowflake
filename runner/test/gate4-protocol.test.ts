@@ -619,6 +619,156 @@ function replayOf(run: HollowRun): HollowRun {
   };
 }
 
+interface HollowRunMutationCase {
+  readonly name: string;
+  readonly mutate: (run: HollowRun) => HollowRun;
+}
+
+const aHollowRawGuardCases: readonly HollowRunMutationCase[] = [
+  {
+    name: "missing canonical seed site",
+    mutate: (run) => {
+      const initialOccupancy = run.initialOccupancy.slice();
+      initialOccupancy[hexSeedSites(run.dims, 2, 1)[0]] = 0;
+      return { ...run, initialOccupancy };
+    },
+  },
+  {
+    name: "extra canonical seed site",
+    mutate: (run) => {
+      const initialOccupancy = run.initialOccupancy.slice();
+      const [ic, jc, kc] = domainCenter(run.dims);
+      initialOccupancy[idx(run.dims, ic + 3, jc, kc)] = 1;
+      return { ...run, initialOccupancy };
+    },
+  },
+  {
+    name: "shifted canonical seed",
+    mutate: (run) => {
+      const initialOccupancy = new Uint8Array(run.initialOccupancy.length);
+      const [ic, jc, kc] = domainCenter(run.dims);
+      for (const site of hexSeedSites(run.dims, 2, 1, [ic + 1, jc, kc])) {
+        initialOccupancy[site] = 1;
+      }
+      return { ...run, initialOccupancy };
+    },
+  },
+  {
+    name: "wrong dimensions",
+    mutate: (run) => ({ ...run, dims: { ...run.dims, nz: run.dims.nz - 1 } }),
+  },
+  {
+    name: "wrong target",
+    mutate: (run) => ({ ...run, targetLargestExtent: run.targetLargestExtent + 1 }),
+  },
+  {
+    name: "wrong stop",
+    mutate: (run) => ({ ...run, stopReason: "step-cap" }),
+  },
+  {
+    name: "nonconsecutive crossing",
+    mutate: (run) => ({ ...run, crossingCycle: run.crossingCycle + 1 }),
+  },
+  {
+    name: "malformed final occupancy length",
+    mutate: (run) => ({
+      ...run,
+      state: { ...run.state, occupancy: run.state.occupancy.slice(1) },
+    }),
+  },
+  {
+    name: "nonbinary occupancy",
+    mutate: (run) => {
+      const previousOccupancy = run.previousOccupancy.slice();
+      previousOccupancy[0] = 2;
+      return { ...run, previousOccupancy };
+    },
+  },
+  {
+    name: "initial occupancy not subset of previous",
+    mutate: (run) => {
+      const previousOccupancy = run.previousOccupancy.slice();
+      previousOccupancy[hexSeedSites(run.dims, 2, 1)[0]] = 0;
+      return { ...run, previousOccupancy };
+    },
+  },
+  {
+    name: "previous occupancy not subset of final",
+    mutate: (run) => {
+      const previousOccupancy = run.previousOccupancy.slice();
+      const [ic, jc] = domainCenter(run.dims);
+      const start = Math.floor(run.dims.nz / 2) - Math.floor(run.targetLargestExtent / 2);
+      previousOccupancy[idx(run.dims, ic, jc, start)] = 1;
+      return { ...run, previousOccupancy };
+    },
+  },
+  {
+    name: "wrong previous raw extent",
+    mutate: (run) => ({ ...run, previousLargestExtent: run.previousLargestExtent - 1 }),
+  },
+  {
+    name: "wrong final raw extent",
+    mutate: (run) => ({ ...run, crossingLargestExtent: run.crossingLargestExtent + 1 }),
+  },
+  {
+    name: "invalid execution identity",
+    mutate: (run) => ({ ...run, executionId: "not-a-sha256" }),
+  },
+  {
+    name: "overlapping raw field buffers",
+    mutate: (run) => ({
+      ...run,
+      state: { ...run.state, vaporField: run.state.surfaceField },
+    }),
+  },
+];
+
+const hollowReplayDivergenceCases: readonly HollowRunMutationCase[] = [
+  {
+    name: "initial occupancy",
+    mutate: (run) => {
+      const initialOccupancy = run.initialOccupancy.slice();
+      initialOccupancy[hexSeedSites(run.dims, 2, 1)[0]] = 0;
+      return { ...run, initialOccupancy };
+    },
+  },
+  {
+    name: "previous occupancy",
+    mutate: (run) => {
+      const previousOccupancy = run.previousOccupancy.slice();
+      const [ic, jc, kc] = domainCenter(run.dims);
+      previousOccupancy[idx(run.dims, ic + 3, jc, kc)] = 0;
+      return { ...run, previousOccupancy };
+    },
+  },
+  {
+    name: "final occupancy",
+    mutate: (run) => {
+      const occupancy = run.state.occupancy.slice();
+      const [ic, jc] = domainCenter(run.dims);
+      const start = Math.floor(run.dims.nz / 2) - Math.floor(run.targetLargestExtent / 2);
+      occupancy[idx(run.dims, ic, jc, start + 1)] = 1;
+      return { ...run, state: { ...run.state, occupancy } };
+    },
+  },
+  {
+    name: "surface field",
+    mutate: (run) => {
+      const surfaceField = run.state.surfaceField.slice();
+      surfaceField[0] += 1;
+      return { ...run, state: { ...run.state, surfaceField } };
+    },
+  },
+  {
+    name: "vapor field",
+    mutate: (run) => {
+      const vaporField = run.state.vaporField.slice();
+      vaporField[0] += 1;
+      return { ...run, state: { ...run.state, vaporField } };
+    },
+  },
+];
+
 describe("Phase 4 hollow ensemble validators", () => {
   it("recomputes real open-tube geometry and passes distinct streams plus a full-state replay", () => {
     const runs = [hollowRun(1), hollowRun(2), hollowRun(3)];
@@ -628,6 +778,35 @@ describe("Phase 4 hollow ensemble validators", () => {
       independentOccupancyHash(runs[1].state.occupancy),
     );
   });
+
+  it.each(aHollowRawGuardCases)(
+    "rejects raw guard mutation: $name",
+    ({ mutate }) => {
+      const runs = [hollowRun(1), mutate(hollowRun(2)), hollowRun(3)];
+      const records = resultMap(evaluateAHollow(runs, replayOf(runs[0]), true));
+      expect(records.get("A-HOLLOW-EACH")).toBe(false);
+      expect(records.get("A-HOLLOW-STRUCTURAL")).toBe(true);
+    },
+  );
+
+  it("rejects a reused ensemble execution identity through A-HOLLOW-NONVACUOUS", () => {
+    const runs = [hollowRun(1), hollowRun(2), hollowRun(3)];
+    runs[1] = { ...runs[1], executionId: runs[0].executionId };
+    const records = resultMap(evaluateAHollow(runs, replayOf(runs[0]), true));
+    expect(records.get("A-HOLLOW-EACH")).toBe(true);
+    expect(records.get("A-HOLLOW-NONVACUOUS")).toBe(false);
+  });
+
+  it.each(hollowReplayDivergenceCases)(
+    "rejects independent replay divergence in $name",
+    ({ mutate }) => {
+      const runs = [hollowRun(1), hollowRun(2), hollowRun(3)];
+      const replay = mutate(replayOf(runs[0]));
+      const records = resultMap(evaluateAHollow(runs, replay, true));
+      expect(records.get("A-HOLLOW-EACH")).toBe(true);
+      expect(records.get("A-HOLLOW-NONVACUOUS")).toBe(false);
+    },
+  );
 
   it("rejects raw solid, sealed, pre-hollowed, and domain-contact geometry by A-HOLLOW-EACH", () => {
     for (const replacement of [
@@ -700,9 +879,33 @@ describe("Phase 4 hollow ensemble validators", () => {
   it("keeps B hollowing diagnostic while recomputing the registered B-domain geometry", () => {
     const runs = [hollowRun(1, "B"), hollowRun(2, "B"), hollowRun(3, "B")];
     expect(evaluateBHollow(runs, replayOf(runs[0])).passed).toBe(true);
+    for (const crossingCycle of [50_000, 50_001]) {
+      const atOrAfterCap = [
+        runs[0],
+        {
+          ...hollowRun(2, "B"),
+          previousCycle: crossingCycle - 1,
+          crossingCycle,
+        },
+        runs[2],
+      ];
+      expect(evaluateBHollow(atOrAfterCap, replayOf(atOrAfterCap[0])).passed).toBe(false);
+    }
     const solid = [runs[0], hollowRun(2, "B", "solid"), runs[2]];
     expect(evaluateBHollow(solid, replayOf(solid[0])).passed).toBe(false);
     expect(criterionDisposition("B-HOLLOW")).toBe("diagnostic");
+  });
+
+  it("applies the 50,000-step bound only to the Pass B hollow protocol", () => {
+    const aRuns = [hollowRun(1), hollowRun(2), hollowRun(3)];
+    aRuns[1] = {
+      ...aRuns[1],
+      previousCycle: 49_999,
+      crossingCycle: 50_000,
+    };
+    const aRecords = resultMap(evaluateAHollow(aRuns, replayOf(aRuns[0]), true));
+    expect(aRecords.get("A-HOLLOW-EACH")).toBe(true);
+    expect(aRecords.get("A-HOLLOW-NONVACUOUS")).toBe(true);
   });
 });
 

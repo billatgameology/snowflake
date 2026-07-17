@@ -1,7 +1,8 @@
 # Plan — Phase 4: morphology gauntlet, timeline semantics, and visual diagnostics
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — passing criteria frozen; WP0 CLEAN; WP1 round-2 fix loop active
+- **Status:** in progress — passing criteria frozen; WP0 CLEAN; WP1 round-2 fixes awaiting
+  re-review
 - **Started:** 2026-07-16
 - **Last touched:** 2026-07-16 by Codex, coordinating session
 
@@ -518,7 +519,8 @@ required schedule manifest and are not advertised as resumable mid-history.
       Round 2 verified every original exploit closed, then found two hollow-contract blockers:
       raw initial occupancy did not enforce the canonical 19-site seed, and B-HOLLOW did not
       enforce the common 50,000-step cap. It also requires table-driven mutations for every new
-      raw guard. Fix → retest → same reviewer continues; WP2 remains blocked.
+      raw guard. All are repaired; 394/394 tests and the app build pass. Same-reviewer round 3 is
+      next; WP2 remains blocked.
 - [ ] WP2: solver environment transitions, runner `gate4a`/`gate4b`/`gate4`, artifacts, and
       checkpoint/provenance validation. Separate review → fix loop.
 - [ ] WP3: operator-honest app snapshots, scenario/artifact inspection, Phase 4 visual harness.
