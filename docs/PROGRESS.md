@@ -40,8 +40,9 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   source-constrained aggregate `[HV]` boundary-pixel repair, and protocol v4 is committed in
   the active plan before implementation-driven morphology.** V4 code and non-morphology
   controls now pass; `legacy-v3` remains only as an explicit reproduction path. The flagless
-  v4 habit run is the remaining Phase 2b closure item.
-- **Last updated:** 2026-07-16 by Codex
+  v4 habit run is the remaining Phase 2b closure item. The first v4 execution attempt was
+  interrupted before producing a checkpoint or result and must be rerun from the beginning.
+- **Last updated:** 2026-07-17 by Codex
 - **Phase 3 started 2026-07-15 under decision
   [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md)** (charter v1.5): maker-directed
   overlap with the tail of the then-in-flight 2b evidence run, which has since completed and
@@ -362,8 +363,14 @@ contradiction is a seam defect discovered after the run, not a reason to rewrite
 the negative result; it limits interpretation of the failure as a test of the intended physical
 model. The governing detail and citations are recorded in attachment-kinetics §4.4.
 
-**Next Phase 2b action:** run exactly `node runner/src/main.ts gate2b` from the tracked-clean v4
-implementation commit. The pre-gate controls
+**Next Phase 2b action:** rerun exactly `node runner/src/main.ts gate2b` from a tracked-clean v4
+implementation commit. The first v4 attempt was externally interrupted on 2026-07-17 during
+warm run 1/2. Its log ended during relaxation for growth step 771; the last completed metric
+line was step 768 with 16,873 attached cells, extent 57, AR 0.122807, exact symmetry, and
+elapsed 48,867.0 s. It never reached the registered extent-60 measurement, wrote no plate or
+column checkpoint, never started the cold run, and emitted no terminal gate result. This is
+incomplete liveness evidence, not a failed or accepted gate result. LK resume does not exist,
+so the complete two-temperature v4 pair must restart from the beginning. The pre-gate controls
 are complete: 262/262 tests; exact engine Node v24.13.1 / V8 13.6.233.17-node.40; enforced
 Phase 2a exit 0; `cmp` exit 0 and canonical SHA-256
 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. The v4 tests independently
