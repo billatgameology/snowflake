@@ -146,7 +146,7 @@ export function parseCanonicalJson(bytes: Uint8Array, label = "JSON artifact"): 
     throw new Error(`${label} is not valid JSON`);
   }
   const snapshot = strictJsonSnapshot(parsed);
-  if (text !== `${canonicalString(snapshot)}\n`) {
+  if (!bytesEqual(bytes, canonicalJsonBytes(snapshot))) {
     throw new Error(`${label} is not canonical JSON`);
   }
   return snapshot;
@@ -326,6 +326,9 @@ function assertArtifactIndex(value: unknown): EvidenceArtifactIndex {
     throw new Error("artifact index version/publication is invalid");
   }
   const report = assertDescriptor(objectSnapshot.report, "artifact index report");
+  if (report.kind !== "phase4-evidence-report+json") {
+    throw new Error("artifact index report kind is invalid");
+  }
   if (!Array.isArray(objectSnapshot.artifacts)) throw new Error("artifact index artifacts must be an array");
   const artifacts = objectSnapshot.artifacts.map((item, index) =>
     assertDescriptor(item, `artifact index artifacts[${index}]`),
@@ -364,6 +367,32 @@ function verifyDescriptor(root: string, descriptor: EvidenceArtifactDescriptor):
   }
   if (sha256Bytes(bytes) !== descriptor.sha256) {
     throw new Error(`artifact hash mismatch: ${descriptor.path}`);
+  }
+}
+
+interface ExpectedEvidenceFile {
+  readonly path: string;
+  readonly bytes: Uint8Array;
+}
+
+/** Byte-compare the publisher's immutable in-memory root, not a self-consistent disk rewrite. */
+function verifyExpectedEvidenceRoot(
+  root: string,
+  expectedFiles: readonly ExpectedEvidenceFile[],
+): void {
+  const expectedPaths = expectedFiles.map((file) => file.path).sort(lexicalCompare);
+  const actualPaths = listFiles(root);
+  if (
+    actualPaths.length !== expectedPaths.length ||
+    actualPaths.some((path, index) => path !== expectedPaths[index])
+  ) {
+    throw new Error("evidence directory differs from the immutable expected file set");
+  }
+  for (const expected of expectedFiles) {
+    const actual = new Uint8Array(readFileSync(join(root, expected.path)));
+    if (!bytesEqual(actual, expected.bytes)) {
+      throw new Error(`evidence bytes differ from the immutable expected root: ${expected.path}`);
+    }
   }
 }
 
@@ -446,7 +475,12 @@ export function publishEvidenceBundle(options: PublishEvidenceOptions): Publishe
 
   const byPath = new Map<string, { readonly input: EvidenceArtifactInput; readonly descriptor: EvidenceArtifactDescriptor }>();
   for (const input of options.artifacts) {
-    const descriptor = descriptorFor(input);
+    const ownedInput: EvidenceArtifactInput = {
+      path: input.path,
+      kind: input.kind,
+      bytes: input.bytes.slice(),
+    };
+    const descriptor = descriptorFor(ownedInput);
     if (
       descriptor.path === options.reportPath ||
       descriptor.path === PHASE4_ARTIFACT_INDEX
@@ -454,7 +488,7 @@ export function publishEvidenceBundle(options: PublishEvidenceOptions): Publishe
       throw new Error(`reserved artifact path: ${descriptor.path}`);
     }
     if (byPath.has(descriptor.path)) throw new Error(`duplicate artifact path: ${descriptor.path}`);
-    byPath.set(descriptor.path, { input, descriptor });
+    byPath.set(descriptor.path, { input: ownedInput, descriptor });
   }
   const payloads = [...byPath.values()].sort((left, right) =>
     lexicalCompare(left.descriptor.path, right.descriptor.path),
@@ -469,6 +503,26 @@ export function publishEvidenceBundle(options: PublishEvidenceOptions): Publishe
     payload: payloadSnapshot,
   };
   assertReportEnvelope(report);
+  const reportBytes = canonicalJsonBytes(report);
+  const reportDescriptor: EvidenceArtifactDescriptor = {
+    path: options.reportPath,
+    kind: "phase4-evidence-report+json",
+    byteLength: reportBytes.byteLength,
+    sha256: sha256Bytes(reportBytes),
+  };
+  const index: EvidenceArtifactIndex = {
+    version: 1,
+    publication: "complete",
+    report: reportDescriptor,
+    artifacts: [reportDescriptor, ...payloads.map((item) => item.descriptor)],
+  };
+  assertArtifactIndex(index);
+  const indexBytes = canonicalJsonBytes(index);
+  const expectedFiles: readonly ExpectedEvidenceFile[] = [
+    ...payloads.map((item) => ({ path: item.descriptor.path, bytes: item.input.bytes })),
+    { path: options.reportPath, bytes: reportBytes },
+    { path: PHASE4_ARTIFACT_INDEX, bytes: indexBytes },
+  ];
 
   mkdirSync(stagingDirectory, { recursive: false });
   let renamedByThisInvocation = false;
@@ -479,13 +533,6 @@ export function publishEvidenceBundle(options: PublishEvidenceOptions): Publishe
       options.hooks?.afterArtifactWrite?.(item.descriptor.path, stagingDirectory);
     }
 
-    const reportBytes = canonicalJsonBytes(report);
-    const reportDescriptor: EvidenceArtifactDescriptor = {
-      path: options.reportPath,
-      kind: "phase4-evidence-report+json",
-      byteLength: reportBytes.byteLength,
-      sha256: sha256Bytes(reportBytes),
-    };
     writeExclusive(join(stagingDirectory, options.reportPath), reportBytes);
     assertReportEnvelope(
       parseCanonicalJson(
@@ -494,18 +541,12 @@ export function publishEvidenceBundle(options: PublishEvidenceOptions): Publishe
       ),
     );
 
-    const index: EvidenceArtifactIndex = {
-      version: 1,
-      publication: "complete",
-      report: reportDescriptor,
-      artifacts: [reportDescriptor, ...payloads.map((item) => item.descriptor)],
-    };
-    assertArtifactIndex(index);
     writeExclusive(
       join(stagingDirectory, PHASE4_ARTIFACT_INDEX),
-      canonicalJsonBytes(index),
+      indexBytes,
     );
     verifyEvidenceBundle(stagingDirectory);
+    verifyExpectedEvidenceRoot(stagingDirectory, expectedFiles);
     options.hooks?.beforeRename?.(stagingDirectory);
     // A test hook models any last-moment writer or crash window. Reopen the complete staged
     // graph again after it, immediately before the only publishing rename.
@@ -513,8 +554,10 @@ export function publishEvidenceBundle(options: PublishEvidenceOptions): Publishe
     if (existsSync(canonicalDirectory)) {
       throw new Error(`canonical evidence appeared before publication: ${canonicalDirectory}`);
     }
+    verifyExpectedEvidenceRoot(stagingDirectory, expectedFiles);
     renameSync(stagingDirectory, canonicalDirectory);
     renamedByThisInvocation = true;
+    verifyExpectedEvidenceRoot(canonicalDirectory, expectedFiles);
     const verified = verifyEvidenceBundle(canonicalDirectory);
     return { directory: canonicalDirectory, ...verified };
   } catch (error) {

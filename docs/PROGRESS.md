@@ -46,7 +46,9 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
 - **Last updated:** 2026-07-16 by Codex
 - **Phase 4 is active under maker-directed decision
   [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md)** (charter
-  v1.8), in isolated worktree `/Users/clipper/github/snowflake-phase4`. Its passing criteria
+  v1.8). It began in isolated worktree `/Users/clipper/github/snowflake-phase4`; on 2026-07-16
+  the user directed all work to be committed, merged into primary tree
+  `/Users/clipper/github/snowflake`, and the Phase 4 worktree removed. Its passing criteria
   were committed at `23b5d6c` before the first development agent; accepted Phase 2b v4 was
   integrated at `b080654`; 276/276 tests pass. Decision
   [0011](decisions/0011-phase4-timeline-environment-semantics.md) (charter v1.9) now resolves
@@ -84,8 +86,19 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   provenance/termination/artifact facts. Developer verification is 175/175 targeted and 508/508
   full tests with Rule 7 and both TypeScript projects clean; coordinator re-verification passed
   the same targets plus the 27-module app build. It is not accepted until a distinct reviewer
-  reports zero blockers and zero should-fixes. No real `gate4a` run or Phase 4 evidence
-  artifact exists. No solver, app, or external evidence artifact changed in WP1/WP2b.
+  reports zero blockers and zero should-fixes. Independent WP2b review round 1 rejects
+  `43fd6b3` despite those green tests: a coherent pre-rename payload/report/index rewrite can
+  replace the staged evidence graph and still publish. Six should-fixes cover BOM-normalized
+  canonical JSON, corrupt-manifest criterion ownership, terminal success without publication,
+  an unpinned report kind, missing path/collision/foreign-canonical publisher negatives, and
+  missing duplicate/orphan delta mutations. The developer repair was then interrupted for the
+  user-directed consolidation. Three unreviewed edits are preserved: original-byte canonical
+  JSON comparison, exact report-kind validation, and an owned immutable expected publication
+  root checked before/after rename. The other findings, negative controls, full retest, and same-
+  reviewer recheck remain open; the existing full suite passes 508/508 after the partial patch,
+  but this is explicitly not CLEAN because the new exploit matrix is incomplete.
+  No real `gate4a` run or Phase 4 evidence artifact exists. No solver, app, or external evidence
+  artifact changed in WP1/WP2b.
 - **Phase 3 started 2026-07-15 under decision
   [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md)** (charter v1.5): maker-directed
   overlap with the tail of the v3 evidence run. Decision
@@ -417,12 +430,18 @@ as an additional provenance ancestor, then delegate WP2b. That freeze is `cd2436
 execution-cadence freeze additionally pins one series row per completed cycle and ordinary
 far-field observation every 25 completed cycles, while all other execution checks remain
 per-cycle. That freeze is `7be4c5d`. Criteria/provenance freezes `e567767`, `cd24365`, and
-`7be4c5d` must all be ancestors of the 40-hex clean execution commit. WP2b candidate `34b832a` now
+`7be4c5d` must all be ancestors of the 40-hex clean execution commit. WP2b candidate `43fd6b3`
 passes 175/175 targeted and 508/508 full tests after coordinator repair loops, with no real gate
-run or evidence output. Hand this exact immutable revision (including this documentation-only
-review pointer) to a distinct adversarial reviewer, and return every blocker/should-fix to the same developer until
-the reviewer reports CLEAN. Do not start WP2c before that review loop closes. Work only in
-`/Users/clipper/github/snowflake-phase4`.
+run or evidence output, but independent review round 1 rejects it with one blocker and six
+should-fixes. The interrupted consolidation patch already adds an owned expected publication
+root, rejects BOM-normalized canonical JSON, and requires the exact report kind, but has not been
+independently reviewed. Resume in `/Users/clipper/github/snowflake`: finish manifest-artifact
+criterion ownership, verdict/publication mismatch rejection, publisher path/collision/foreign-
+directory controls, coherent-rewrite/BOM/report-kind negatives, and duplicate/orphan delta-
+witness controls. Rerun the focused, targeted, full, build, hash, and artifact audits, commit the
+repair, then send it to the same reviewer until CLEAN. Do not start WP2c before that review loop
+closes. The former `/Users/clipper/github/snowflake-phase4` worktree is being removed per user
+direction.
 Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
 artifacts.
 

@@ -1,8 +1,8 @@
 # Plan — Phase 4: morphology gauntlet, timeline semantics, and visual diagnostics
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — passing criteria frozen; WP0/WP1/WP2a CLEAN; WP2b review candidate
-  `34b832a` is awaiting independent adversarial review
+- **Status:** in progress — passing criteria frozen; WP0/WP1/WP2a CLEAN; WP2b review round 1
+  rejected candidate `43fd6b3`; partial repair is being consolidated back to `main`
 - **Started:** 2026-07-16
 - **Last touched:** 2026-07-16 by Codex, coordinating session
 - **Runner-completion freeze:** `cd24365` (strict A-DEPLETION/A-HOLLOW caps, reviewed solver
@@ -587,9 +587,23 @@ required schedule manifest and are not advertised as resumable mid-history.
       report. The repaired candidate passes 175/175 targeted tests and the complete 508/508 root
       suite with Rule 7 and both TypeScript projects clean. No real `gate4a` run or Phase 4
       evidence directory has been created. Coordinator re-verification independently passed the
-      same 175/175 target, the complete 508/508 suite, and the 27-module app build. Hand the
-      immutable candidate to a distinct reviewer, then run the required review → fix loop before
-      checking this item or starting WP2c.
+      same 175/175 target, the complete 508/508 suite, and the 27-module app build. Independent
+      review round 1 nevertheless rejects `43fd6b3` with one blocker and six should-fixes. A
+      coherent last-moment rewrite of payload, report, and index passes both graph verifications
+      because the mutable index is trusted as its own root. Further findings require rejecting a
+      UTF-8 BOM, assigning corrupt manifest bytes to `A-EXEC-CONFIG`, refusing terminal success
+      without publication (and publication on failure), pinning the report descriptor kind,
+      covering path/collision/foreign-canonical publisher branches, and pinning duplicate/orphan
+      delta witnesses. Return the complete set to the original developer, then send the repaired
+      immutable revision to the same reviewer; do not check this item or start WP2c before CLEAN.
+      The user then stopped the repair loop to consolidate work back to the primary tree. The
+      interrupted repair preserves three unreviewed code changes: canonical JSON compares the
+      original bytes (closing the BOM bypass), artifact indexes require the exact report kind,
+      and publication retains/cross-checks an owned expected byte root across the final hook and
+      rename. The manifest-criterion routing, verdict/publication mismatch guard, remaining
+      publisher negatives, delta-witness tests, and re-review are still outstanding. Resume this
+      package from `main`; the inherited suite remains green at 508/508 after these edits, but
+      the missing exploit controls and review mean these partial changes are not a CLEAN result.
 - [ ] WP2c: flagless `gate4b`/`gate4`, Pass B execution witnesses, checkpoints, and aggregate
       artifacts. Separate review → fix loop.
 - [ ] WP3: operator-honest app snapshots, scenario/artifact inspection, Phase 4 visual harness.
@@ -727,6 +741,13 @@ required schedule manifest and are not advertised as resumable mid-history.
   cross-link to reconstructed rows, while the publisher reopens the entire graph again after
   its final pre-rename hook and removes any canonical directory created by a failed final
   verification.
+- **Treating a self-consistent mutable index as an immutable publication root.** Rejected by
+  WP2b independent review round 1. A last-moment writer coherently replaced a CSV, report, and
+  index; both reopen passes accepted the forged graph. Publication must retain the expected
+  in-memory root/index bytes and require byte identity immediately before and after rename.
+- **Decoder-normalized text as proof of canonical bytes.** Rejected by WP2b review round 1. The
+  default decoder stripped a leading UTF-8 BOM before text comparison, so canonical parsing must
+  compare the original bytes to a fresh canonical encoding instead.
 
 ## Open questions
 
