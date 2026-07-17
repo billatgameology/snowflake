@@ -170,6 +170,50 @@ describe("SurfaceOperator cycle ownership hardening", () => {
 });
 
 describe("LK non-reentrant relaxation hardening", () => {
+  it("keeps the last completed fill-velocity diagnostic until another surface completes", () => {
+    const completed = (): readonly [LKSolver, number] => {
+      const solver = new LKSolver(lkOptions);
+      expect(solver.step().relaxation.converged).toBe(true);
+      const value = solver.lastMaxFillVelocityMS;
+      expect(value).toBeGreaterThan(0);
+      return [solver, value];
+    };
+
+    const [ready, readyValue] = completed();
+    expect(ready.relaxField().converged).toBe(true);
+    expect(ready.lastMaxFillVelocityMS).toBe(readyValue);
+
+    const [unconverged, unconvergedValue] = completed();
+    (unconverged as unknown as { relaxTol: number }).relaxTol = 1e-30;
+    expect(unconverged.relaxField().converged).toBe(false);
+    expect(unconverged.lastMaxFillVelocityMS).toBe(unconvergedValue);
+
+    const [retry, retryValue] = completed();
+    expect(() =>
+      retry.relaxField(() => {
+        throw new Error("diagnostic-preservation callback failure");
+      }),
+    ).toThrow(/diagnostic-preservation callback failure/);
+    expect(retry.lastMaxFillVelocityMS).toBe(retryValue);
+    expect(retry.relaxField().converged).toBe(true);
+    expect(retry.lastMaxFillVelocityMS).toBe(retryValue);
+    retry.advanceSurface();
+    expect(retry.lastMaxFillVelocityMS).toBeGreaterThan(0);
+    expect(retry.lastMaxFillVelocityMS).not.toBe(retryValue);
+
+    const [failedAdvance, failedAdvanceValue] = completed();
+    expect(failedAdvance.relaxField().converged).toBe(true);
+    Object.defineProperty(failedAdvance, "lastAttached", {
+      configurable: true,
+      get: () => [],
+      set: () => {
+        throw new Error("late surface completion failure");
+      },
+    });
+    expect(() => failedAdvance.advanceSurface()).toThrow(/late surface completion failure/);
+    expect(failedAdvance.lastMaxFillVelocityMS).toBe(failedAdvanceValue);
+  });
+
   it("rejects the stale-readiness second-relaxation exploit before its callback runs", () => {
     const solver = new LKSolver(lkOptions);
     expect(solver.relaxField().converged).toBe(true);

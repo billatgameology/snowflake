@@ -539,7 +539,10 @@ required schedule manifest and are not advertised as resumable mid-history.
       same-reviewer exploit replay closed every round-1 finding, but round 2 found one should-fix:
       relaxation entry zeroes `lastMaxFillVelocityMS` without a new surface update, contradicting
       its most-recent-update meaning on ready, unconverged, and throwing paths. Preserve that
-      completed-update diagnostic through relaxation and re-review to CLEAN.
+      completed-update diagnostic through relaxation and re-review to CLEAN. Repair round 2 now
+      preserves it through ready, unconverged, throwing, retry, and late-failed surface paths,
+      stages its replacement until successful surface completion, and passes 422/422 tests plus
+      the app build. Final same-reviewer confirmation remains open.
 - [ ] WP2b: shared runner evidence infrastructure plus flagless `gate4a` and Pass A artifacts.
       Separate review → fix loop.
 - [ ] WP2c: flagless `gate4b`/`gate4`, Pass B execution witnesses, checkpoints, and aggregate

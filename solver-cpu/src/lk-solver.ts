@@ -1272,7 +1272,6 @@ export class LKSolver implements SurfaceOperator {
     // recursive public call therefore sees "relaxing", never a stale accepted surface.
     this.cycleState = "relaxing";
     this.lastRelaxation = null;
-    this.lastMaxFillVelocityMS = 0;
     this.sEff.fill(0);
     this.boundaryAlphaHK.fill(0);
     this.boundarySigma.fill(0);
@@ -1385,7 +1384,7 @@ export class LKSolver implements SurfaceOperator {
       rateArr[bi] = rate;
       if (rate > maxRate) maxRate = rate;
     }
-    this.lastMaxFillVelocityMS = maxRate * this.dxM;
+    const stagedMaxFillVelocityMS = maxRate * this.dxM;
 
     const toAttach: number[] = [];
     let maxKineticFillIncrement = 0;
@@ -1430,6 +1429,9 @@ export class LKSolver implements SurfaceOperator {
     for (const x of toAttach) this.attachCell(x);
     if (toAttach.length > 0) this.rebuildBoundaryList();
     this.lastAttached = toAttach;
+    // Publish the diagnostic only after the complete interface update succeeds. A failed
+    // update must continue to report the most recent completed update, never a staged value.
+    this.lastMaxFillVelocityMS = stagedMaxFillVelocityMS;
 
     return {
       attachedNow: toAttach.length,
