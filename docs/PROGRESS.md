@@ -41,9 +41,9 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   source-constrained aggregate `[HV]` boundary-pixel repair, and protocol v4 is committed in
   the active plan before implementation-driven morphology.** V4 code and non-morphology
   controls now pass; `legacy-v3` remains only as an explicit reproduction path. The flagless
-  v4 habit run is executing in its isolated Phase 2b worktree and remains the Phase 2b closure
-  item; its process and artifacts are untouchable from this worktree.
-- **Last updated:** 2026-07-16 by Codex
+  v4 habit run remains the Phase 2b closure item. The first v4 execution attempt was interrupted
+  before producing a checkpoint or result and must be rerun from the beginning.
+- **Last updated:** 2026-07-17 by Codex
 - **Phase 4 is active under maker-directed decision
   [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md)** (charter
   v1.8). It began in isolated worktree `/Users/clipper/github/snowflake-phase4`; on 2026-07-16
@@ -454,8 +454,8 @@ across passes, an unreachable schedule+noise binding, and fail-closed 48³ witne
 The next serial action is WP3: operator-honest app snapshots, scenario/artifact inspection,
 and the Phase 4 visual harness (`node app/scripts/visual.mjs --phase4`), then its separate
 code + visual review loop to CLEAN. Work only in `/Users/clipper/github/snowflake` on `main`.
-Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
-artifacts.
+No Phase 2b process is live; its full v4 rerun remains a separate Phase 2b action. Do not alter
+external `out/gate2b*` / `out/gate3*` evidence artifacts while completing WP3.
 
 **Phase 3 remains EVIDENCE-COMPLETE and READY FOR EXTERNAL REVIEW (maker-marked 2026-07-16;
 ADRs 0007/0008), orchestrated per
@@ -530,11 +530,15 @@ contradiction is a seam defect discovered after the run, not a reason to rewrite
 the negative result; it limits interpretation of the failure as a test of the intended physical
 model. The governing detail and citations are recorded in attachment-kinetics §4.4.
 
-**Current Phase 2b action belongs to its isolated worktree:** its tracked-clean v4 command
-`node runner/src/main.ts gate2b` is already running (PID 10608 observed read-only on
-2026-07-16). Do not launch a duplicate, kill it, or inspect/modify its live artifacts from this
-worktree. Its pre-gate controls were complete: 262/262 tests; exact engine Node v24.13.1 / V8
-13.6.233.17-node.40; enforced
+**Next Phase 2b action:** rerun exactly `node runner/src/main.ts gate2b` from a tracked-clean v4
+implementation commit. The first v4 attempt was externally interrupted on 2026-07-17 during
+warm run 1/2. Its log ended during relaxation for growth step 771; the last completed metric
+line was step 768 with 16,873 attached cells, extent 57, AR 0.122807, exact symmetry, and
+elapsed 48,867.0 s. It never reached the registered extent-60 measurement, wrote no plate or
+column checkpoint, never started the cold run, and emitted no terminal gate result. This is
+incomplete liveness evidence, not a failed or accepted gate result. LK resume does not exist,
+so the complete two-temperature v4 pair must restart from the beginning. Its pre-gate controls
+were complete: 262/262 tests; exact engine Node v24.13.1 / V8 13.6.233.17-node.40; enforced
 Phase 2a exit 0; `cmp` exit 0 and canonical SHA-256
 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. The v4 tests independently
 cover all raw slots and invalid counts; canonical-seed 38 `[01]` / 12 `[20]` / 6 `[10]`
@@ -542,8 +546,8 @@ topology; `[20]` routing in the boundary condition and fill; unequal opposing-ce
 nonlinear/planar laws and the legacy `4/3` negative control; signed exchange reconstruction;
 noise coupling; checkpoint v1/v2 mutations and migration; demand bookkeeping through
 saturation; dual convergence; CFL; determinism; D6h; and fail-closed gate provenance/reports.
-The owning Phase 2b session must record exit 0 or 1 honestly with metrics, execution hash, log
-hash, and checkpoint hashes after the run exits. LK resume still does not exist. Event-limited
+The rerun must record exit 0 or 1 honestly with metrics, execution hash, log hash, and checkpoint
+hashes after it exits. Event-limited
 stepping, SDAK, parameter changes, alternate target sizes, and exploratory temperature pairs
 remain outside v4. ADRs 0008/0010 authorize other work independently; their strict territory
 separation and the immutable v3 evidence remain binding.

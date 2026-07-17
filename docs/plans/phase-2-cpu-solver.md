@@ -790,6 +790,11 @@ Order within 2b is deliberate; each step gates the next:
         262/262 tests; enforced run exit 0; `cmp` exit 0 and SHA-256
         `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`.
       - [ ] Run the flagless v4 pair and record its exit, metrics, engine, log, and checkpoints.
+        The first attempt was externally interrupted on 2026-07-17 during warm-run relaxation
+        at growth step 771 (last completed metric: step 768, extent 57). It produced neither
+        checkpoint, never started the cold run, and has no terminal gate result. Because LK
+        resume does not exist, this item requires a full rerun from the beginning; the partial
+        log is liveness evidence only.
 - [ ] SDAK, gated. Check: thin plates / needles at the extremes. **Abandon without regret if it
       resists** — the fallback reaches every Phase 4 gate anyway.
       **Status after the v3 gate failure (2026-07-16): deliberately NOT implemented, and not a
