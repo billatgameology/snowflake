@@ -26,40 +26,116 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   overflowed, plus two committed tests that did not enforce the nonuniform Robin limit or the
   load-bearing `divTol` criterion. All are now remediated in the round-6 commit containing this
   update, with symmetric encode/decode/solver validation, non-vacuous negative controls,
-  and a full authority-chain truth pass. `npm test`
-  is 248/248 green at Phase 3 evidence-close (2026-07-16; was 138/138 after the Phase 2a
-  evidence hardening), including typecheck and the Rule 7 scan. The full catalogs live in the
-  plan's Tried and rejected.
-  **Phase 2b is NOT closed. No accepted gate result exists yet** — protocol v3 is
-  registered; its run has exited (2026-07-16, exit status preserved in
-  `out/gate2b-exit-status.txt` — liveness fact, see Next step) and the result awaits honest
-  recording by a 2b session.
-- **Last updated:** 2026-07-15 by Claude (Fable 5)
+  and a full authority-chain truth pass. Decision 0009's v4 implementation is now complete:
+  explicit coupled policy routing, the post-smoother aggregate boundary condition, unit
+  `G_b/H_b` fill, v2 checkpoints, and fail-closed gate validation. After integration with the
+  completed Phase 3 implementation, `npm test` is 278/278 after the WP0 negative-
+  supersaturation fix, including typecheck and the Rule 7
+  scan. The full catalogs live in the plans' Tried and rejected sections.
+  **Phase 2b is NOT closed. Protocol v3 is now an execution-valid recorded negative result for
+  the exact registered v3 implementation:** the
+  flagless gate completed and exited 1; the −5 °C run passed its plate threshold, while the
+  −15 °C run produced the same one-layer plate instead of the registered column. All enforced
+  non-habit criteria passed. This is a failed gate, not missing or invalidated evidence; no
+  passing Phase 2b habit result exists. **Decision 0009 and charter v1.7 now adopt the
+  source-constrained aggregate `[HV]` boundary-pixel repair, and protocol v4 is committed in
+  the active plan before implementation-driven morphology.** V4 code and non-morphology
+  controls now pass; `legacy-v3` remains only as an explicit reproduction path. The flagless
+  v4 habit run is executing in its isolated Phase 2b worktree and remains the Phase 2b closure
+  item; its process and artifacts are untouchable from this worktree.
+- **Last updated:** 2026-07-16 by Codex
+- **Phase 4 is active under maker-directed decision
+  [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md)** (charter
+  v1.8). It began in isolated worktree `/Users/clipper/github/snowflake-phase4`; on 2026-07-16
+  the user directed all work to be committed, merged into primary tree
+  `/Users/clipper/github/snowflake`, and the Phase 4 worktree removed. Its passing criteria
+  were committed at `23b5d6c` before the first development agent; accepted Phase 2b v4 was
+  integrated at `b080654`; 276/276 tests pass. Decision
+  [0011](decisions/0011-phase4-timeline-environment-semantics.md) (charter v1.9) now resolves
+  the timeline contract and corrects the capped history to column→plate. Active plan:
+  [phase-4-morphology-gauntlet.md](plans/phase-4-morphology-gauntlet.md). WP0's independent
+  integration review found three blockers and four should-fixes before feature implementation;
+  re-review verified those fixes, then caught a noisy-ensemble symmetry contradiction and tick-
+  boundary wording ambiguity. A third round caught a vacuous applied-noise witness and frozen-
+  checkpoint wording conflict. All were fixed before feature work; round 4 reported CLEAN with
+  zero blockers/should-fixes, 278/278 tests, and a green app build. WP1 implementation is now
+  complete at review commit `7af3f2e`: exact lattice/cap metrics, a strict operator-tagged
+  abrupt timeline cursor, and fail-closed A/B/visual criterion contracts passed 364/364 tests
+  and the app production build. Independent WP1 review round 1 nevertheless found three
+  blockers and four should-fixes: late/forged cursor history, assertion-only target crossings,
+  self-reported hollowing and replay aliasing, plus finite/negative-zero/snapshot/test-coverage
+  hardening. All findings are now repaired: event logs prove raw first crossings, habit and
+  depletion records bind raw targets/stops, hollow metrics are recomputed from full occupancy,
+  and replays require distinct executions/non-overlapping buffers. Coordinator follow-up also
+  pins non-shrinking retained histories, finite endpoints, and simultaneous-batch depletion
+  sampling. Round 2 verified every original exploit closed, then found two hollow-contract
+  blockers and one coverage should-fix: the raw initial state did not enforce the canonical
+  19-site seed, B-HOLLOW omitted the common 50,000-step cap, and the new guards need direct
+  mutation coverage. Those findings are repaired with a byte-exact canonical-seed comparison,
+  strict B crossing cap, and direct mutations for every raw occupancy/field/replay guard. The
+  tree passes 394/394 tests and the app build. Same-reviewer round 3 reported CLEAN — zero
+  blockers and zero should-fixes — after independently rerunning all round-1/2 exploits. WP1 is
+  complete. WP2a is also complete after three review rounds: atomic G-G/LK environment changes,
+  density-preserving LK temperature transitions, step-local vapor-unit ledger accounting, and
+  hardened split-cycle state machines pass 422/422 tests and the app build; same-reviewer round
+  3 was CLEAN. WP2b now has Pass-A runner/evidence review candidate `34b832a`. It registers
+  the exact 13-run manifest (SHA-256
+  `6d1ee3a262e8985930ded30f8ef490e1e47402dce6c55f2b3b16e4e80b0d9a98`), reconstructs raw
+  attachment histories, independently witnesses applied G-G noise, cross-links timeline and
+  checkpoint evidence, publishes only a reopened complete staging graph, and prints exact
+  provenance/termination/artifact facts. Developer verification is 175/175 targeted and 508/508
+  full tests with Rule 7 and both TypeScript projects clean; coordinator re-verification passed
+  the same targets plus the 27-module app build. It is not accepted until a distinct reviewer
+  reports zero blockers and zero should-fixes. Independent WP2b review round 1 rejects
+  `43fd6b3` despite those green tests: a coherent pre-rename payload/report/index rewrite can
+  replace the staged evidence graph and still publish. Six should-fixes cover BOM-normalized
+  canonical JSON, corrupt-manifest criterion ownership, terminal success without publication,
+  an unpinned report kind, missing path/collision/foreign-canonical publisher negatives, and
+  missing duplicate/orphan delta mutations. The developer repair was then interrupted for the
+  user-directed consolidation. Commit `3641847` preserves three unreviewed edits: original-byte
+  canonical JSON comparison, exact report-kind validation, and an owned immutable expected
+  publication root checked before/after rename. The other findings, negative controls, full
+  retest, and same-
+  reviewer recheck remain open; the existing full suite passes 508/508 after the partial patch,
+  but this is explicitly not CLEAN because the new exploit matrix is incomplete.
+  No real `gate4a` run or Phase 4 evidence artifact exists. No solver, app, or external evidence
+  artifact changed in WP1/WP2b.
 - **Phase 3 started 2026-07-15 under decision
   [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md)** (charter v1.5): maker-directed
-  overlap with the tail of 2b's then-in-flight evidence run; after that run exited, the maker
-  directed completion — decision
-  [0008](decisions/0008-phase3-completes-after-2b-exit.md), charter v1.6, constraints carried
-  condition-independent. Active Phase 3 plan:
+  overlap with the tail of the v3 evidence run. Decision
+  [0008](decisions/0008-phase3-completes-after-2b-exit.md) (charter v1.6) then authorized
+  condition-independent completion. Phase 3 is now evidence-complete and awaiting maker
+  assertion; its plan is:
   [phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md) — criteria-first,
-  serial dev/review subagent work packages; the gate2b process and artifacts are untouchable.
-- **Active plan (2b):** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
-  0003, synced through charter v1.4; Scaffold + Stage 2a complete; Stage 2b section reconciled
-  with ADR 0005 on 2026-07-15 (the seam's four sub-decisions are now settled in writing —
-  answers in the plan's Approach item 4, rationale in attachment-kinetics §4.4; the "n_diff
+  serial dev/review subagent work packages; the completed gate2b evidence remains immutable.
+- **Concurrent plan (2b):** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
+  0003 and synced through charter v1.7. Scaffold + Stage 2a complete; Stage 2b's v3 contract and
+  negative result remain explicit history, while decision
+  [0009](decisions/0009-source-constrained-boundary-pixel-policy.md) settles the reopened
+  classifier/geometry seam as the versioned `aggregate-hv-g1h1-v4` policy and pre-registers
+  its flagless pair. The "n_diff
   plausibility" step is retracted-as-specified, replaced by fill-CFL + worked Péclet
   arithmetic). Still true from the 2026-07-14 hardening: the charter v1.2 Dirichlet wording
   could not fail (a uniform field is a fixed point under *both* boundary conditions). Charter
   v1.4 now carries the plan's falsifiable depleted-start differential test.
-- **Charter is at v1.6** (2026-07-16, decision
-  [0008](decisions/0008-phase3-completes-after-2b-exit.md) — Phase 3 completes after the 2b
-  run's exit, maker-directed). Before that, v1.5 (2026-07-15, decision
+- **Charter is at v1.9** (2026-07-16): decision
+  [0011](decisions/0011-phase4-timeline-environment-semantics.md) resolves abrupt operator-
+  specific timeline events and the source-correct column→plate capped history; decision
+  [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md) authorizes the
+  isolated Phase 4 overlap. Before those, v1.7 (decision
+  [0009](decisions/0009-source-constrained-boundary-pixel-policy.md)) makes forward LK use an
+  aggregate, policy-versioned boundary-pixel condition: `[01]` basal, `[20]` prism, `[10]`
+  inhibited, cited `G_b = H_b = 1` on the primary facets, v2 policy-bearing checkpoints;
+  per-contact geometry remains `legacy-v3`). Before that, v1.6 (2026-07-16, decision
+  [0008](decisions/0008-phase3-completes-after-2b-exit.md) — maker-directed completion of
+  Phase 3 after the failed 2b v3 run, with Phase 2b work continuing independently and strict
+  territory separation), v1.5 (2026-07-15, decision
   [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md) — Phase 3 may overlap the tail of
-  2b's pre-registered evidence run; §3.2 exception recorded). Before that, v1.4 (2026-07-15, decision
+  2b's pre-registered evidence run; §3.2 exception recorded), and v1.4 (2026-07-15, decision
   [0006](decisions/0006-audited-surface-operator-numerics.md) — audited surface-operator
   numerics: fixed-σ Dirichlet LibbrechtKinetics convergence is DUAL (residual AND divergence
   identity; reflecting LK is residual-only diagnostic), fill is per attached face with the
-  hexagonal-prism 2/3 factor, and the seam's exact bookkeeping claim is `placed fill +
+  hexagonal-prism 2/3 factor under the now-historical v3 policy, and the seam's exact bookkeeping claim was `placed fill +
   recorded unapplied saturation excess = computed per-face Hertz–Knudsen kinetic demand`,
   with shell-clamp totals as diagnostics only; amends 0005 after audit rounds 2–6 measured
   the failure modes and documentation overclaims of the older statements). Before that,
@@ -121,14 +197,17 @@ likewise already fixed at HEAD and was verified to still fail on real violations
 `npm test`: 81/81 green at 2a close (2026-07-15); 122/122 after the round-6 remediation;
 138/138 after the follow-up Phase 2a evidence hardening
 (2026-07-15 — exact counts only, since the round-4 audit caught a "past 120" here; rounds
-4–6 added the sink-vs-kinetic-demand diagnostic and completed the LK checkpoint mutation-probe matrix).
+4–6 added the sink-vs-kinetic-demand diagnostic and completed the LK checkpoint mutation-probe
+matrix); 201/201 in the committed Phase 3 WP2 evidence; 244/244 after WP3 (`068dce4`);
+262/262 after the v4 surface-policy implementation and gate hardening.
 **Phase 2b's scoped no-SDAK deliverable docs and implementation exist (LKSolver,
-SurfaceOperator, Dirichlet, runner gate) and have been through six maker audit rounds; its habit gate has
-NOT yet produced an accepted result** (protocol v3, registered after round 3, unchanged by
-rounds 4–6). The stack is
+SurfaceOperator, Dirichlet, runner gate) and have been through six maker audit rounds. Protocol
+v3 completed according to its registered controls and FAILED its habit gate:** both registered temperatures reached the same
+one-layer plate at the measurement size. The protocol was registered after round 3 and unchanged
+by rounds 4–6. The stack is
 decided in charter §3.1 — TypeScript + Vite, WebGPU, stacked triangular lattice, CPU oracle +
 GPU production solver, five-part repo (`core` / `solver-cpu` / `solver-gpu` / `runner` / `app`;
-`solver-gpu` and `app` are reserved and uncreated).
+`app` now exists under Phase 3, while `solver-gpu` remains reserved and uncreated).
 
 The solver specs — **read the relevant one before writing solver code:**
 
@@ -208,9 +287,9 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | 0 | §2.8 exit criteria hold | ✅ maker-asserted, 2026-07-14 |
 | 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ✅ **maker-asserted, 2026-07-15** — informal sessions, positive; the four-task protocol was *not* run (recorded honestly in the plan's Findings, with the Phase 7 takeaways) |
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited; follow-up evidence hardening complete) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Post-hardening `cmp` is bit-identical, SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Full records: [solver plan](plans/phase-2-cpu-solver.md), [hardening plan](plans/phase-2a-evidence-hardening.md) |
-| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | 🔶 **in progress** — spec, parameter table, implementation, and six maker audit rounds (round-6 remediation is recorded in the commit containing this update; the ADR 0005 pause was lifted by its deliverables, 2026-07-15); the depleted-start Dirichlet differential passes in the suite (`solver-cpu/test/dirichlet.test.ts`); **no accepted habit-gate result yet** — protocol v3 registered; its run exited 2026-07-16 (liveness fact; see Next step) with the result awaiting recording |
+| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ❌ **open after an execution-valid v3 failure** — protocol v3 completed at execution commit `4ca9680`, command `node runner/src/main.ts gate2b`, exit 1. −5 °C passed plate (AR 0.01888163179957996); −15 °C failed column with the identical AR and attached occupancy. Every non-habit gate criterion and the suite's depleted-start differential passed. Decision 0009's v4 repair is pre-registered, implemented, and green on 262 tests plus the byte-identical Phase 2a differential; its isolated flagless v4 habit pair is running and has no result yet. |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | 🔶 **evidence-complete, pending maker assertion** (2026-07-16) — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
-| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ⬜ not started |
+| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | 🔶 **in progress, criteria frozen** — final freeze `e567767`; WP0/WP1 review loops CLEAN. WP1 passes 394/394 tests and app build after three adversarial rounds. WP2 is next; no Phase 4 gate result exists. |
 | 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
@@ -252,11 +331,29 @@ Records live in [docs/decisions/](decisions/):
   fill-CFL on the per-cell kinetic increment); the exact bookkeeping claim is `placed fill +
   recorded unapplied saturation excess = computed per-face Hertz–Knudsen kinetic demand`,
   shell-clamp totals diagnostics only; noise multiplies `alphaHK` in sink and growth alike.
-  Charter v1.3 → v1.4 in the same session
+  Charter v1.3 → v1.4 in the same session. Per-contact geometry amended for forward policies
+  by 0009; retained as `legacy-v3`
 - [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md) — Phase 3 development-visualization
   work overlaps the tail of Phase 2b's pre-registered evidence run (maker-directed,
   2026-07-15). Constraint-bounded: gate2b process/artifacts untouched, no Phase 3 claim rests
   on 2b, additive-only changes to shared packages. Charter v1.4 → v1.5 in the same session
+- [0008](decisions/0008-phase3-completes-after-2b-exit.md) — after gate2b exited and 0007's
+  condition ended, the maker explicitly directed Phase 3 to complete R3, its visual fix, and
+  gate3 while Phase 2b v4 proceeds independently. The immutable 2b evidence and strict file
+  territories remain binding. Charter v1.5 → v1.6 in the same session
+- **[0009](decisions/0009-source-constrained-boundary-pixel-policy.md) — source-constrained
+  boundary-pixel policy after v3's recorded failure and source audit.** `[01]` basal, `[20]`
+  prism, `[10]` inhibited; aggregate Eq. 5.34 with cited `G_b = H_b = 1` on primary facets;
+  a named coupled policy in required v2 LK checkpoints; event-limited timing deferred.
+  Amends 0006's forward geometry and terminology. Charter v1.6 → v1.7 in the same session
+- [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md) — maker-directed
+  Phase 4 work proceeds in its own worktree while Phase 3 external review and Phase 2b v4
+  evidence finish; external processes/artifacts are immutable, claims remain independent, and
+  relevant upstream fixes require integration and reruns. Charter v1.7 → v1.8
+- [0011](decisions/0011-phase4-timeline-environment-semantics.md) — deterministic abrupt
+  timeline events; G-G parameter jumps preserve state, LK temperature jumps conserve interior
+  absolute vapor density, the Dirichlet reservoir stays explicit, and capped-column direction
+  is corrected to column→plate. Charter v1.8 → v1.9
 
 The two decisions predating this system (web over native C++/CUDA; the five-part repo split) live
 in charter §3.1 and get no retroactive ADR.
@@ -279,7 +376,84 @@ in charter §3.1 and get no retroactive ADR.
 
 ## Next step
 
-**Phase 3 is EVIDENCE-COMPLETE and READY FOR EXTERNAL REVIEW (maker-marked 2026-07-16;
+**Phase 4 is ACTIVE under decisions 0010/0011 and
+[phase-4-morphology-gauntlet.md](plans/phase-4-morphology-gauntlet.md).** The criteria were
+committed before delegation (`23b5d6c`), WP0 integrated decision 0009's accepted v4 history
+without changing the Phase 3 app (`b080654`), and review round 1 found three blockers/four
+should-fixes before feature work. The negative-supersaturation solver fix is `cc63a87`; the
+criteria now enforce a genuinely solid column, individually named execution validity,
+deterministic cap/trigger semantics, and automated widening; final criteria-freeze commit is
+`e567767`. WP0 re-review round 4 is CLEAN: zero blockers/should-fixes, 278/278 tests, app build
+green, Phase 3 unchanged. WP1 implementation commit `7af3f2e` passed 364/364 tests and the app
+build, but independent review round 1 found three blockers and four should-fixes: forged/late
+timeline history, assertion-only habit/depletion crossings, self-reported hollow metrics and an
+aliased replay, plus finite B depletion, negative-zero identity, returned snapshot aliasing, and
+raw false-path coverage. The next serial action is to return this complete set to the WP1
+developer, run the full checks, and send the fix commit to the same reviewer. That repair is now
+green at 372/372 tests plus the app build, including raw crossing/full-state replay controls and
+coordinator follow-up for simultaneous size crossings. Same-reviewer round 2 closed the original
+findings but caught a noncanonical hollow seed and missing B-HOLLOW 50,000-step cap, plus missing
+mutations for the new raw guards. Those findings are now repaired and independently pass 394/394
+tests plus the app build. Same-reviewer WP1 round 3 is CLEAN with zero blockers and zero
+should-fixes. The next serial action is WP2a: implement atomic G-G/LK environment transitions,
+the LK density-conserving transform and step-local cross-temperature ledger, then run a separate
+review/fix loop before any gate runner command is built. WP2a implementation is now coordinator-
+accepted and awaiting that independent review: G-G owns and atomically replaces complete control
+bundles only at completed-cycle boundaries; LK stages the signed active-vapor density transform,
+temperature-derived scales, cache invalidation, and explicit reservoir target before one commit;
+placed-fill vapor units accumulate at each interface step's `M_ice`; and unchanged LK v2
+checkpoint headers now accept active `sigma >= -1` while still rejecting negative attached/wall
+state. The transition/checkpoint/operator target was 26/26, root verification was 404/404 with
+Rule 7 and both TypeScript checks clean, and the 27-module app build passed, but independent
+review round 1 rejected commit `b19a3c9` with four blockers and one should-fix: a second LK
+relaxation could reuse stale readiness so a callback advanced mid-solve, corrupted 56 attached
+cells, and admitted an event; G-G admitted unmatched surface updates while valid split calls left
+both solvers' tick/noise provenance unchanged; changing LK accessors bypassed staging and produced
+mixed invalid live controls; a typed-array subclass defeated G-G control ownership; and the
+running vapor-unit sum broke exact fixed-temperature product compatibility after two steps. The
+repair closes all five with explicit fail-closed cycle states and surface-owned ticks, one-read
+owned environment snapshots, intrinsic base-`Float64Array` copies, and temperature-segment
+bookkeeping. Its 17-case exploit suite covers direct/wrapper noise replay, bare/repeated calls,
+recursive and throwing callbacks/getters with recovery, typed-array subclasses, eight-step exact
+fixed-temperature equality, same-temperature continuity, and three-temperature history. The
+targeted set is 78/78; independent coordinator verification is 421/421 with Rule 7 and both
+TypeScript projects clean; the 27-module app build and `git diff --check` pass. The next serial
+action returned repair commit `7b4eca8` to the same reviewer. All five round-1 exploits replay
+closed and root verification remained 421/421, but round 2 found one should-fix: entering a new
+LK relaxation resets `lastMaxFillVelocityMS` even though no new update exists, falsifying its
+most-recent-update definition after ready, unconverged, or throwing relaxation. Return this
+narrow diagnostic-lifetime fix to the same developer, rerun, and re-review to CLEAN. That repair
+now preserves the completed velocity through ready, unconverged, throwing, retry, and late-failed
+surface paths, stages a replacement until successful completion, and independently passes
+422/422 tests plus the 27-module app build. Commit it and return it to the same reviewer for the
+final CLEAN requirement. Same-reviewer round 3 is now CLEAN with zero blockers and zero
+should-fixes; WP2a closes at commits `b19a3c9`, `7b4eca8`, and `a285631`. The next serial action is
+WP2b: implement shared runner evidence infrastructure and the flagless Pass A gate/artifacts,
+then run its separate developer/coordinator/reviewer fix loop before WP2c. Before delegation, a
+runner-completion freeze closes the only remaining termination ambiguity: A-DEPLETION and every
+A-HOLLOW primary/replay run use a strict 12,000-cycle cap. It also pins the independently reviewed
+G-G/LK solver-source hashes for `A-HOLLOW-STRUCTURAL` and requires staging-directory publication
+so partial or mixed artifacts cannot masquerade as canonical evidence. Record that freeze commit
+as an additional provenance ancestor, then delegate WP2b. That freeze is `cd24365`; a final
+execution-cadence freeze additionally pins one series row per completed cycle and ordinary
+far-field observation every 25 completed cycles, while all other execution checks remain
+per-cycle. That freeze is `7be4c5d`. Criteria/provenance freezes `e567767`, `cd24365`, and
+`7be4c5d` must all be ancestors of the 40-hex clean execution commit. WP2b candidate `43fd6b3`
+passes 175/175 targeted and 508/508 full tests after coordinator repair loops, with no real gate
+run or evidence output, but independent review round 1 rejects it with one blocker and six
+should-fixes. Consolidation commit `3641847` already adds an owned expected publication
+root, rejects BOM-normalized canonical JSON, and requires the exact report kind, but has not been
+independently reviewed. Resume in `/Users/clipper/github/snowflake`: finish manifest-artifact
+criterion ownership, verdict/publication mismatch rejection, publisher path/collision/foreign-
+directory controls, coherent-rewrite/BOM/report-kind negatives, and duplicate/orphan delta-
+witness controls. Rerun the focused, targeted, full, build, hash, and artifact audits, commit the
+repair, then send it to the same reviewer until CLEAN. Do not start WP2c before that review loop
+closes. The former `/Users/clipper/github/snowflake-phase4` worktree is being removed per user
+direction.
+Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
+artifacts.
+
+**Phase 3 remains EVIDENCE-COMPLETE and READY FOR EXTERNAL REVIEW (maker-marked 2026-07-16;
 ADRs 0007/0008), orchestrated per
 [phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md)** — all work packages
 built, adversarially reviewed (R1: 2 rounds to CLEAN incl. one blocker; R2 and R3: CLEAN with
@@ -290,11 +464,9 @@ before the evidence run); `out/gate3.log`, `out/gate3-depletion.csv`,
 `out/gate3-exit-status.txt`, `out/gate3-plate.ckpt` (byte-identical to the accepted 2a
 artifact); the `out/phase3-visual/` captures, reproducible via `node app/scripts/visual.mjs`;
 and the review-loop records in the plan's Steps. Repro commands: `node runner/src/main.ts
-gate3` (evidence) and `npm test` (248/248). **Gate assertion follows that review** — flip the
-gate row to ✅ if satisfied. The concurrent Phase 2b remediation work has moved to a separate
-worktree (2026-07-16) and no longer shares files with this one. After that,
-Phase 4 (morphology gauntlet, pass A blocking on `GGThreshold`) is the next charter phase and
-now has its visualization instrument (`npm run dev`). Traps for whoever opens `app/`: the
+gate3` (evidence) and the Phase 3 plan's recorded suite. **Gate assertion follows that external
+review** — flip the gate row to ✅ if satisfied. Phase 4 does not make that assertion. Traps for
+whoever opens `app/`: the
 solver runs ONLY in the worker; checkpoint headers carry exactly the eleven v1 metric keys
 (depletion metrics are print/CSV material — re-adding them to headers needs an ADR, see the
 phase-3 plan's Tried and rejected); the Rule 7 scan covers app code, so Three.js's
@@ -305,50 +477,72 @@ Phase 1 is closed (2026-07-15). Phase 2a is closed — maker-asserted complete 2
 hardening: exact enforced run exit 0, `cmp` exit 0 against `out/plate-gate.ckpt`, SHA-256
 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`; exact results and
 adversarial cases are in [the hardening plan](plans/phase-2a-evidence-hardening.md).
-**Phase 2b state (2026-07-15, after the round-6 remediation): the scoped
-no-SDAK deliverables and implementation exist —
-the two ADR 0005 deliverables (attachment-kinetics §4.4 spec; libbrecht-parameters.md table),
-the implementation (`LKSolver`, shared `SurfaceOperator`, GG Dirichlet option, `grow-lk`, the
-flagless `gate2b`), ADR 0006 + charter v1.4, and SIX maker audit rounds' worth of remediations —
-but the habit gate has NOT produced an accepted result.** Protocol v3 is registered (plan, Steps:
-same-domain
-96³ pair, `CAK_A1`, `sigma_infinity = 0.002`, per-face fill with the hexagonal-prism 2/3
-factor, divergence-identity convergence). The three protocol versions and every audit finding
-are cataloged in the plan's Tried and rejected — **read that before touching the seam.**
+**Phase 2b state (2026-07-16): the scoped no-SDAK deliverables and implementation exist, and
+protocol v3 completed as execution-valid negative evidence for the exact v3 implementation.**
+Its pre-registration is commit `62af3b3`,
+before execution commit `4ca9680`; the flagless command was
+`node runner/src/main.ts gate2b`. The recovered wrapper status is 1
+(`out/gate2b-exit-status.txt`). `out/gate2b.log` has SHA-256
+`344bbcacfd06626bafd5ea0ca66770fd9e48cbef949d25a8abf7e3bfc17e44b0` and records:
 
-**Next concrete action: the v3 gate run has EXITED (observed 2026-07-16 by the Phase 3
-coordinating session; liveness/exit observation only, NOT a recorded or validated result —
-ADR 0007 keeps 2b recording out of Phase 3's scope). Preserved evidence: process exit status
-1, recovered from the launcher's wrapper echo into `out/gate2b-exit-status.txt` before /tmp
-cleanup; `out/gate2b.log` ends `2B GATE FAILED (1 criteria): column(-15C): AR 0.0188816...
-not >= 1.5 — not a column` after both runs completed and both checkpoints were written with
-`roundTripIdentical=true`. Log facts, no interpretation: plate run (−5 °C) stopped
-size-target step 423; column run (−15 °C) stopped size-target step 459; both print the SAME
-final morphology numbers (attached 2149, extent 61, AR 0.0188816) — the identical-values
-observation is flagged for the recording session to verify against the checkpoints, since
-temperature-independent output would itself be a load-bearing finding. A 2b session must now
-do the registered recording work
-(`node runner/src/main.ts gate2b`,
-launched from execution commit 4ca9680 after the round-4 commit; log `out/gate2b.log`,
-checkpoints `out/gate2b-plate.ckpt` / `out/gate2b-column.ckpt`): record the
-result honestly (pass OR fail — the ±25% digitization caveat makes a cold-side failure a
-reportable finding, not a bug hunt; exit 0 is the whole claim), then validate both checkpoints
-with the current strict decoder against every existing v1-header control and every field bit;
-reconcile seed geometry and termination controls against the pre-registration and log. The live
-process predates the round-6 runner heartbeat, durable exit-status line, and full-v1-header
-round trip, so those new observability checks cannot be cited for this run; preserve its actual
-process exit status separately. Latest liveness observation, **not an accepted result**:
-`out/gate2b.log` reached run 1 step 200 (registered 96³, −5 °C): attached 583, extent 31,
-AR 0.0370634, sweeps 1, divergence residual 9.99e-8, simulated time 22.35 s, elapsed
-6301.1 s; the process remained active and no checkpoint existed.** Runtime is NOT tens of
-minutes — the killed first launch was
-~27 CPU-minutes into run 1 without reaching its first 200-step metrics line; expect hours per
-run, possibly long hours. If the log looks silent, check the process before assuming a hang.
-The round-6 remediation is committed separately from the eventual gate-results commit. A
-further numerical improvement is documented but deliberately not implemented in this round:
-event-limited surface stepping would eliminate unapplied saturation excess,
-but it changes protocol-v3 numerics and therefore requires an amending ADR, committed v4
-pre-registration, and a full rerun. Recording clipping makes v3 auditable; it does not deposit it.
+- −5 °C: size-target at step 423, simulated time 47.79 s, attached 2,149, extent 61,
+  AR 0.01888163179957996 — the registered plate criterion passed.
+- −15 °C: size-target at step 459, simulated time 111.19 s, attached 2,149, extent 61,
+  AR 0.01888163179957996 — the registered column criterion AR ≥ 1.5 failed.
+- Both runs used the registered 96³ hexPrism centered at `[48,48,48]`, 19-site radius-2 seed,
+  seed 1, Dirichlet far field,
+  `CAK_A1`, `sigma_infinity = 0.002`, `dx = 0.35 µm`, 101325 Pa, fill-CFL 0.1,
+  `relaxTol = 1e-9`, `divTol = 1e-7`, 200000 relaxation-sweep and surface-step caps, target
+  extent 60, and noise off. Every enforced
+  non-habit criterion passed: size-target termination, exact D6h symmetry (delta clean and
+  final metric 0), all relaxations converged, the rounded log printed worst divergence
+  1.000e-7 and the `< 1e-6` gate passed, maximum
+  kinetic fill 0.1, and Péclet ≤ 1.66e-6 / 6.97e-7. The log also observed zero hole fills;
+  that is a diagnostic, not an enforced gate criterion.
+- The preserved v1 checkpoints were byte-round-tripped under the pre-0009 v1 writer. The
+  current decoder accepts them as implicit `legacy-v3`; the public encoder intentionally
+  migrates decoded state to v2, so current decode→encode is not byte-identical. The original
+  SHA-256 values remain immutable: plate `e1fe0c8062aa4dd21e42a83d1bf953ee5cd72c45e55c6d2bdf18c65595902ecb`;
+  column `108227d929af7686eea6f95e30f60caa5d6f2deed12793340ec0c1931a7723ca`.
+  A one-off independent decode probe (not retained) found the two attached-occupancy arrays
+  bit-identical: 2,149 cells in one z layer, axial bounding box 61×61. SHA-256 of the raw
+  decoded 884,736-byte `a:u8` array in checkpoint index order:
+  `b758492e97155307083c5df2dc88eddd74829b9a62f2c2b4fd1f7fc2f566e647`. The fill fields
+  differ at 4,460 cells and the vapor fields at 601,142, so the supported claim is **identical
+  final morphology at the registered measurement size**, not “temperature had no effect.”
+  The exact Node/V8 version was not captured; no cross-engine bitwise claim is made.
+- From log totals rounded to 0.001, recorded unapplied saturation excess was approximately
+  118.059 / (3256.413 + 118.059) = 3.50% warm and
+  151.133 / (2145.874 + 151.133) = 6.58% cold. This is a documented timestep limitation, not
+  by itself a demonstrated cause of the habit failure.
+
+**Post-result source-audit finding (one-off primary-source/checkpoint probes; probes not
+retained):** the monograph identifies `[01]` as basal and `[20]` as the prism facet (printed
+pp. 205–206), while the executed component-2 policy classifies `(1,0)` as prism and every
+`n_T ≥ 2` site—including `[20]`—as barrier-free rough. The canonical seed begins with 12
+such `[20]` lateral boundary sites. Thus protocol v3's broad-facet rate-ratio arithmetic did
+not bound the temperature-independent rough path that controlled those sites. This source
+contradiction is a seam defect discovered after the run, not a reason to rewrite or discard
+the negative result; it limits interpretation of the failure as a test of the intended physical
+model. The governing detail and citations are recorded in attachment-kinetics §4.4.
+
+**Current Phase 2b action belongs to its isolated worktree:** its tracked-clean v4 command
+`node runner/src/main.ts gate2b` is already running (PID 10608 observed read-only on
+2026-07-16). Do not launch a duplicate, kill it, or inspect/modify its live artifacts from this
+worktree. Its pre-gate controls were complete: 262/262 tests; exact engine Node v24.13.1 / V8
+13.6.233.17-node.40; enforced
+Phase 2a exit 0; `cmp` exit 0 and canonical SHA-256
+`f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. The v4 tests independently
+cover all raw slots and invalid counts; canonical-seed 38 `[01]` / 12 `[20]` / 6 `[10]`
+topology; `[20]` routing in the boundary condition and fill; unequal opposing-cell averaging;
+nonlinear/planar laws and the legacy `4/3` negative control; signed exchange reconstruction;
+noise coupling; checkpoint v1/v2 mutations and migration; demand bookkeeping through
+saturation; dual convergence; CFL; determinism; D6h; and fail-closed gate provenance/reports.
+The owning Phase 2b session must record exit 0 or 1 honestly with metrics, execution hash, log
+hash, and checkpoint hashes after the run exits. LK resume still does not exist. Event-limited
+stepping, SDAK, parameter changes, alternate target sizes, and exploratory temperature pairs
+remain outside v4. ADRs 0008/0010 authorize other work independently; their strict territory
+separation and the immutable v3 evidence remain binding.
 
 Traps already known: the 19-site seed erratum (gg-machinery §5 — the paper says 20; do not
 "fix" it back). The symmetry gate runs on the **hexPrism** domain — a box cannot pass it for
@@ -362,7 +556,8 @@ use "needle hollowness ≈ 0" as an assumption anywhere downstream.
 `out/*.ts` are untracked triage probes (symmetry, metric isolation, needle-bore diagnosis) —
 usable, disposable, not part of the build.
 
-Trap for whoever touches the timeline next (Phase 4, or Phase 7 thinking): timeline semantics
-are an open decision (ADR 0005 D5) — changing temperature changes c_sat(T), so until the
-conserved field and control semantics are written down, no timeline run carries a physical
-reading.
+Timeline semantics are no longer open: decision 0011 resolves ADR 0005 D5. G-G parameter jumps
+leave state bytes unchanged; LK temperature jumps conserve active unattached vapor number
+density with the registered affine transform, preserve negative supersaturation, and expose the
+Dirichlet re-clamp as a numerical reservoir diagnostic. Events are abrupt; ambiguous coincident
+triggers reject; ramps remain unsupported.

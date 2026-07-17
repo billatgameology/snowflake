@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   aspectRatio,
   branchCount,
+  cappedColumnProfile,
   cellCount,
   centerRimDepletion,
   coordsOf,
@@ -11,6 +12,7 @@ import {
   hexDistance,
   hexSeedSites,
   idx,
+  latticeExtents,
   sealedVoidFraction,
   symmetryError,
   totalMass,
@@ -71,6 +73,132 @@ describe("aspect ratio", () => {
     const column = emptyA(dims);
     for (const s of hexSeedSites(dims, 1, 11)) column[s] = 1;
     expect(aspectRatio(column, dims)).toBeGreaterThan(1);
+  });
+});
+
+describe("Phase 4 exact lattice extents", () => {
+  const dims: Dims = { nx: 12, ny: 10, nz: 9 };
+
+  it("uses occupied integer i/j/z spans, not Cartesian bounding-box floats", () => {
+    const a = emptyA(dims);
+    const sites: Array<[number, number, number]> = [
+      [2, 3, 1],
+      [9, 4, 4],
+      [5, 5, 7],
+      [4, 3, 6],
+    ];
+    for (const [i, j, k] of sites) a[idx(dims, i, j, k)] = 1;
+
+    // Independent hand spans: i=2..9 -> 8, j=3..5 -> 3, z=1..7 -> 7.
+    expect(latticeExtents(a, dims)).toEqual({
+      iExtent: 8,
+      jExtent: 3,
+      zExtent: 7,
+      tExtent: 8,
+      largestExtent: 8,
+      attachedCount: 4,
+    });
+  });
+
+  it("returns null for no occupied cells and rejects a shifted array shape", () => {
+    expect(latticeExtents(emptyA(dims), dims)).toBeNull();
+    expect(() => latticeExtents(new Uint8Array(cellCount(dims) - 1), dims)).toThrow(
+      /occupancy length/,
+    );
+  });
+});
+
+describe("Phase 4 capped-column profile", () => {
+  const dims: Dims = { nx: 32, ny: 32, nz: 20 };
+  const center: readonly [number, number, number] = [16, 16, 10];
+
+  /**
+   * Put one deliberately asymmetric occupied cell at each requested radius. This makes every
+   * layer's maximum independently obvious: at axial offset (r, 0), hex distance is exactly r.
+   */
+  function profileWithRadii(radii: readonly number[], firstK = 3): Uint8Array {
+    const a = emptyA(dims);
+    radii.forEach((radius, rank) => {
+      a[idx(dims, center[0] + radius, center[1], firstK + rank)] = 1;
+    });
+    return a;
+  }
+
+  it("matches the frozen rank windows and ordinary median on an all-distinct asymmetric fixture", () => {
+    const radii = [9, 2, 8, 4, 7, 6, 5, 3, 10];
+    const got = cappedColumnProfile(profileWithRadii(radii), dims, center);
+    expect(got).toBeDefined();
+    // m=9: trunk ranks ceil(2)..floor(6), values [8,4,7,6,5], sorted median 6.
+    // Each cap has ceil(1.8)=2 ranks: max([9,2])=9, max([3,10])=10.
+    expect(got).toEqual({
+      occupiedLayers: [3, 4, 5, 6, 7, 8, 9, 10, 11],
+      layerRadii: radii,
+      trunkRankStart: 2,
+      trunkRankEnd: 6,
+      capWindowSize: 2,
+      trunkRadius: 6,
+      bottomCapRadius: 9,
+      topCapRadius: 10,
+      capScore: 1.5,
+    });
+  });
+
+  it("uses the arithmetic median for an even trunk-window count", () => {
+    // m=6: trunk ranks 2..3 -> [2,4], ordinary median 3; cap windows contain two ranks.
+    const got = cappedColumnProfile(profileWithRadii([8, 6, 2, 4, 7, 9]), dims, center);
+    expect(got?.trunkRankStart).toBe(2);
+    expect(got?.trunkRankEnd).toBe(3);
+    expect(got?.trunkRadius).toBe(3);
+    expect(got?.bottomCapRadius).toBe(8);
+    expect(got?.topCapRadius).toBe(9);
+    expect(got?.capScore).toBe(8 / 3);
+  });
+
+  it("keeps uniform shafts and one-ended flanges defined for downstream named rejection", () => {
+    const uniform = cappedColumnProfile(profileWithRadii([4, 4, 4, 4, 4]), dims, center);
+    expect(uniform?.capScore).toBe(1);
+    expect(uniform?.bottomCapRadius).toBe(4);
+    expect(uniform?.topCapRadius).toBe(4);
+
+    const oneEnded = cappedColumnProfile(
+      profileWithRadii([8, 3, 3, 3, 3, 3, 3, 3, 3]),
+      dims,
+      center,
+    );
+    expect(oneEnded?.bottomCapRadius).toBe(8);
+    expect(oneEnded?.topCapRadius).toBe(3);
+    expect(oneEnded?.capScore).toBe(1);
+  });
+
+  it("defines a correct two-cap fixture above one and retains asymmetric cap radii", () => {
+    const got = cappedColumnProfile(
+      profileWithRadii([7, 5, 3, 3, 3, 3, 3, 5, 8]),
+      dims,
+      center,
+    );
+    expect(got?.trunkRadius).toBe(3);
+    expect(got?.bottomCapRadius).toBe(7);
+    expect(got?.topCapRadius).toBe(8);
+    expect(got?.capScore).toBe(7 / 3);
+  });
+
+  it("returns undefined for too few layers, a z gap, a zero-radius trunk, or invalid inputs", () => {
+    expect(cappedColumnProfile(profileWithRadii([5, 3, 3, 5]), dims, center)).toBeUndefined();
+
+    const gapped = profileWithRadii([5, 3, 3, 3, 5]);
+    // Move rank 2 from k=5 to k=12, leaving a physical z gap without changing layer count.
+    gapped[idx(dims, center[0] + 3, center[1], 5)] = 0;
+    gapped[idx(dims, center[0] + 3, center[1], 12)] = 1;
+    expect(cappedColumnProfile(gapped, dims, center)).toBeUndefined();
+
+    const zeroTrunk = emptyA(dims);
+    for (let k = 3; k < 8; k++) zeroTrunk[idx(dims, center[0], center[1], k)] = 1;
+    expect(cappedColumnProfile(zeroTrunk, dims, center)).toBeUndefined();
+
+    expect(
+      cappedColumnProfile(new Uint8Array(cellCount(dims) - 1), dims, center),
+    ).toBeUndefined();
+    expect(cappedColumnProfile(profileWithRadii([5, 3, 3, 3, 5]), dims, [-1, 0, 0])).toBeUndefined();
   });
 });
 

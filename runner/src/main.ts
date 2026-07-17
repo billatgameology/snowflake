@@ -48,6 +48,7 @@
 
 import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
+import { execFileSync } from "node:child_process";
 import {
   aspectRatio,
   centerRimDepletion,
@@ -66,10 +67,18 @@ import {
   type Dims,
   type DomainShape,
   type GGPresetName,
+  type LKSurfacePolicy,
   type Metrics,
 } from "@vcc/core";
 import { GGSolver, LKSolver, FAR_FIELD_STOP_FRACTION } from "@vcc/solver-cpu";
 import { gate3 } from "./gate3.ts";
+import { gate4a } from "./gate4a.ts";
+import {
+  GATE2B_NODE,
+  GATE2B_V8,
+  validateGate2bProvenance,
+  validateLKStepEvidence,
+} from "./gate2b-validation.ts";
 import { occupancyTopDownPGM, propensitySlicePGM, vaporSlicePGM } from "./pgm.ts";
 
 interface GrowOptions {
@@ -453,6 +462,7 @@ function grow(options: GrowOptions): void {
 // ── LibbrechtKinetics runs (Phase 2b; attachment-kinetics §4.4) ─────────────────────────────
 
 interface GrowLKOptions {
+  surfacePolicy: LKSurfacePolicy;
   tempC: number | null;
   sigmaInf: number | null;
   dims: Dims;
@@ -477,6 +487,7 @@ interface GrowLKOptions {
 
 function parseLKArgs(argv: string[]): GrowLKOptions {
   const options: GrowLKOptions = {
+    surfacePolicy: "aggregate-hv-g1h1-v4",
     tempC: null,
     sigmaInf: null,
     dims: { nx: 96, ny: 96, nz: 96 },
@@ -504,6 +515,14 @@ function parseLKArgs(argv: string[]): GrowLKOptions {
       return v;
     };
     switch (flag) {
+      case "--surface-policy": {
+        const policy = value();
+        if (policy !== "legacy-v3" && policy !== "aggregate-hv-g1h1-v4") {
+          throw new Error(`--surface-policy is invalid: ${policy}`);
+        }
+        options.surfacePolicy = policy;
+        break;
+      }
       case "--div-tol":
         options.divTol = Number(value());
         break;
@@ -573,6 +592,7 @@ function parseLKArgs(argv: string[]): GrowLKOptions {
 }
 
 interface LKRunResult {
+  surfacePolicy: LKSurfacePolicy;
   stopReason: "size-target" | "domain-contact" | "step-cap" | "stalled" | "unconverged";
   aspectRatio: number;
   attached: number;
@@ -582,6 +602,8 @@ interface LKRunResult {
   symmetryClean: boolean;
   finalSymErr: number;
   allConverged: boolean;
+  minShellInjection: number;
+  minSurfaceExchange: number;
   worstDivergence: number;
   maxKineticFillEver: number;
   holeFillCountTotal: number;
@@ -591,6 +613,7 @@ interface LKRunResult {
 
 function growLK(options: GrowLKOptions): LKRunResult {
   const solver = new LKSolver({
+    surfacePolicy: options.surfacePolicy,
     dims: options.dims,
     tempC: options.tempC as number,
     sigmaInfinity: options.sigmaInf as number,
@@ -621,6 +644,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
     `grow-lk T=${options.tempC}C sigmaInf=${options.sigmaInf} dims=${dims.nx},${dims.ny},${dims.nz}` +
       ` (hexRadius=${solver.hexRadius}, zHalfExtent=${solver.zHalfExtent}, active=${solver.activeCellCount})` +
       ` dx=${options.dxUm}um P=${options.pressurePa}Pa paramSet=${options.paramSet}` +
+      ` surfacePolicy=${solver.surfacePolicy}` +
       ` cfl=${options.cfl} tol=${options.tol} divTol=${options.divTol} maxSweeps=${options.relaxMaxSweeps}` +
       ` targetExtent=${options.targetExtent} seed=${options.seed} noise=${options.noise}` +
       ` seedRadius=${options.seedRadius} seedSites=${seedSites}` +
@@ -630,6 +654,8 @@ function growLK(options: GrowLKOptions): LKRunResult {
 
   let symmetryClean = true;
   let allConverged = true;
+  let minShellInjection = Infinity;
+  let minSurfaceExchange = Infinity;
   let worstDivergence = 0;
   let maxKineticFillEver = 0;
   let stopReason: LKRunResult["stopReason"] = "step-cap";
@@ -660,9 +686,21 @@ function growLK(options: GrowLKOptions): LKRunResult {
       stopReason = "unconverged"; // step() skipped the surface; growing further is invalid
       break;
     }
-    const divergence = relaxation.divergenceResidual ?? 0;
+    const evidence = validateLKStepEvidence(
+      relaxation,
+      surface,
+      options.tol,
+      options.divTol,
+    );
+    const divergence = evidence.divergenceResidual;
     if (divergence > worstDivergence) worstDivergence = divergence;
-    const kinetic = surface.maxKineticFillIncrement ?? 0;
+    if (evidence.shellInjection < minShellInjection) {
+      minShellInjection = evidence.shellInjection;
+    }
+    if (evidence.surfaceExchange < minSurfaceExchange) {
+      minSurfaceExchange = evidence.surfaceExchange;
+    }
+    const kinetic = evidence.maxKineticFillIncrement;
     if (kinetic > maxKineticFillEver) maxKineticFillEver = kinetic;
     if (
       solver.lastAttached.length > 0 &&
@@ -688,12 +726,14 @@ function growLK(options: GrowLKOptions): LKRunResult {
       stopReason = "stalled";
       break;
     }
-    if (solver.largestExtent() >= options.targetExtent) {
-      stopReason = "size-target";
-      break;
-    }
+    // Contact wins if one simultaneous attachment batch crosses both thresholds. Otherwise a
+    // large jump could be mislabeled size-target and admitted as boundary-confounded evidence.
     if (solver.domainContact()) {
       stopReason = "domain-contact";
+      break;
+    }
+    if (solver.largestExtent() >= options.targetExtent) {
+      stopReason = "size-target";
       break;
     }
   }
@@ -701,6 +741,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
   const finalAR = aspectRatio(solver.a, dims);
   const finalSymErr = symmetryError(solver.a, dims, center);
   const result: LKRunResult = {
+    surfacePolicy: solver.surfacePolicy,
     stopReason,
     aspectRatio: finalAR,
     attached: solver.attachedCount,
@@ -710,6 +751,8 @@ function growLK(options: GrowLKOptions): LKRunResult {
     symmetryClean,
     finalSymErr,
     allConverged,
+    minShellInjection,
+    minSurfaceExchange,
     worstDivergence,
     maxKineticFillEver,
     holeFillCountTotal: solver.holeFillCountTotal,
@@ -720,6 +763,8 @@ function growLK(options: GrowLKOptions): LKRunResult {
     `stop reason=${stopReason} step=${solver.tick} attached=${solver.attachedCount}` +
       ` extent=${result.extent} AR=${fmt(finalAR)} symErr=${fmt(finalSymErr)}` +
       ` deltaSymClean=${symmetryClean} allConverged=${allConverged}` +
+      ` minShell=${minShellInjection.toExponential(3)}` +
+      ` minExchange=${minSurfaceExchange.toExponential(3)}` +
       ` worstDiv=${worstDivergence.toExponential(3)} maxKineticFill=${maxKineticFillEver.toFixed(4)}` +
       ` holeFills=${solver.holeFillCountTotal}` +
       ` simTime=${solver.simTimeSeconds.toFixed(2)}s fillLedger=${solver.fillLedger.toFixed(3)}` +
@@ -735,6 +780,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
       );
     }
     const encoded = encodeLKCheckpoint({
+      surfacePolicy: solver.surfacePolicy,
       dims,
       tick: solver.tick,
       simTimeSeconds: solver.simTimeSeconds,
@@ -758,14 +804,15 @@ function growLK(options: GrowLKOptions): LKRunResult {
     });
     writeFileSync(options.out, encoded);
     const back = decodeLKCheckpoint(new Uint8Array(readFileSync(options.out)));
-    // Round-5/6 review: verify every field in the existing v1 LK header contract, plus every
-    // array bit. The full protocol also includes seed geometry and termination controls, which
-    // remain in the pre-registration + launch/result log + process exit rather than this header.
+    // Verify every v2 policy/control field plus every array bit. Seed geometry and termination
+    // controls remain in the pre-registration + launch/result log + process exit.
     let identical =
-      back.header.version === 1 &&
+      back.header.version === 2 &&
       back.header.rule === "LibbrechtKinetics" &&
       back.header.endianness === "LE" &&
       back.header.farField === "dirichlet" &&
+      back.header.surfacePolicy === solver.surfacePolicy &&
+      back.state.surfacePolicy === solver.surfacePolicy &&
       back.header.dims.nx === dims.nx &&
       back.header.dims.ny === dims.ny &&
       back.header.dims.nz === dims.nz &&
@@ -807,32 +854,37 @@ function growLK(options: GrowLKOptions): LKRunResult {
   return result;
 }
 
-/**
- * The ENFORCED Phase 2b habit gate — RE-REGISTERED (protocol v3) after the round-3 maker
- * review invalidated v2 mid-run (v1: domain confound + mislabeled set + sink/growth sigma
- * split; v2: uniform fill ignored the hexagonal-prism FACE GEOMETRY — a lateral face fills a
- * cell at 2/3 the basal rate, so v2 overdrove prism growth 50% — plus divergence-blind
- * convergence and silent saturation clipping). v3, PINNED here flagless and recorded in the
- * plan BEFORE the first accepted run:
- *   ONE domain for both runs: 96,96,96 hexPrism + Dirichlet — temperature is the only
- *   difference; parameter set CAK_A1 (honest name; see libbrecht-parameters.md);
- *   sigma_infinity = 0.002 (v3: with the corrected 2/3 lateral face factor, 0.005 left the
- *   warm-side volume-fill ratio ~1.18 — inside the AR threshold; 0.002 gives worst-case
- *   lateral/vertical fill ratio 3.24 at -5 C and vertical/lateral 81.9 at -15 C — the
- *   plan's RE-REGISTRATION v3 arithmetic; round-4 review recomputed 3.24445 / 81.8819,
- *   and this comment's earlier ">= 3.1 / >= 55" was drift), dx = 0.35 um, P = 101325 Pa,
- *   cfl 0.1, tol 1e-9, divTol 1e-7
- *   (convergence REQUIRES the divergence identity), maxSweeps 2e5, noise OFF, seed 1,
- *   canonical radius-2/thickness-1 seed asserted as 19 sites, explicit center;
- *   run PLATE  at T = -5 C  -> expect AR <= 1/1.5 at first extent >= 60 cells, and
- *   run COLUMN at T = -15 C -> expect AR >= 1.5   at first extent >= 60 cells.
- * NOTE the -15 C expectation is deliberately Nakaya-INVERTED (the no-SDAK large-facet model
- * predicts columns there — 1910.09067 Fig. 4's own "striking difference"): the gate claims
- * habit is an OUTPUT of temperature, not that it matches nature. That is Phase 6's job.
- */
+/** The flagless Phase 2b protocol v4, frozen in the plan at preregistration commit 8e0017a. */
 function gate2b(): void {
   const failures: string[] = [];
+  const executionCommit = execFileSync("git", ["rev-parse", "HEAD"], {
+    encoding: "utf8",
+  }).trim();
+  const trackedChanges = execFileSync(
+    "git",
+    ["status", "--porcelain", "--untracked-files=no"],
+    { encoding: "utf8" },
+  ).trim();
+  let preregistrationIsAncestor = false;
+  try {
+    execFileSync("git", ["merge-base", "--is-ancestor", "8e0017a", executionCommit]);
+    preregistrationIsAncestor = true;
+  } catch {
+    preregistrationIsAncestor = false;
+  }
+  validateGate2bProvenance({
+    node: process.version,
+    v8: process.versions.v8,
+    head: executionCommit,
+    trackedStatus: trackedChanges,
+    preregistrationIsAncestor,
+  });
+  console.log(
+    `gate2b protocol=v4 preregistration=8e0017a executionCommit=${executionCommit}` +
+      ` node=${GATE2B_NODE} v8=${GATE2B_V8}`,
+  );
   const common: GrowLKOptions = {
+    surfacePolicy: "aggregate-hv-g1h1-v4",
     tempC: null,
     sigmaInf: 0.002,
     dims: { nx: 96, ny: 96, nz: 96 }, // SAME domain for both runs — temperature only
@@ -853,9 +905,9 @@ function gate2b(): void {
     divTol: 1e-7,
   };
   console.log("=== 2b GATE run 1/2: plate expectation, T = -5 C ===");
-  const plate = growLK({ ...common, tempC: -5, out: "out/gate2b-plate.ckpt" });
+  const plate = growLK({ ...common, tempC: -5, out: "out/gate2b-v4-plate.ckpt" });
   console.log("=== 2b GATE run 2/2: column expectation, T = -15 C ===");
-  const column = growLK({ ...common, tempC: -15, out: "out/gate2b-column.ckpt" });
+  const column = growLK({ ...common, tempC: -15, out: "out/gate2b-v4-column.ckpt" });
 
   const checkRun = (label: string, r: LKRunResult): void => {
     if (r.seedSites !== 19) {
@@ -871,6 +923,20 @@ function gate2b(): void {
       failures.push(`${label}: symmetry broke (deltaClean=${r.symmetryClean}, err=${r.finalSymErr})`);
     }
     if (!r.allConverged) failures.push(`${label}: a relaxation failed to converge`);
+    if (r.surfacePolicy !== common.surfacePolicy) {
+      failures.push(`${label}: ran surface policy ${r.surfacePolicy}, expected ${common.surfacePolicy}`);
+    }
+    if (
+      !Number.isFinite(r.minShellInjection) ||
+      !(r.minShellInjection > 0) ||
+      !Number.isFinite(r.minSurfaceExchange) ||
+      !(r.minSurfaceExchange > 0)
+    ) {
+      failures.push(
+        `${label}: invalid source/exchange minima ` +
+          `(shell=${r.minShellInjection}, exchange=${r.minSurfaceExchange})`,
+      );
+    }
     if (!(r.worstDivergence < 1e3 * common.tol)) {
       failures.push(`${label}: divergence identity ${r.worstDivergence} not < ${1e3 * common.tol}`);
     }
@@ -938,12 +1004,29 @@ if (command === "grow") {
     console.error("GATE3 EXIT STATUS: 1");
     process.exitCode = 1;
   }
+} else if (command === "gate4a") {
+  if (rest.length > 0) {
+    console.error(
+      "gate4a takes no flags: the Phase 4 Pass-A protocol is pinned in " +
+        "docs/plans/phase-4-morphology-gauntlet.md",
+    );
+    console.error("GATE4A EXIT STATUS: 2");
+    process.exit(2);
+  }
+  try {
+    process.exitCode = gate4a();
+  } catch (error) {
+    console.error(error instanceof Error ? (error.stack ?? error.message) : String(error));
+    console.error("GATE4A EXIT STATUS: 1");
+    process.exitCode = 1;
+  }
 } else {
   console.error(
     "usage: node runner/src/main.ts grow --preset <name> [options]\n" +
       "       node runner/src/main.ts grow-lk --temp-c <C> --sigma-inf <frac> [options]\n" +
       "       node runner/src/main.ts gate2b\n" +
-      "       node runner/src/main.ts gate3",
+      "       node runner/src/main.ts gate3\n" +
+      "       node runner/src/main.ts gate4a",
   );
   process.exit(2);
 }

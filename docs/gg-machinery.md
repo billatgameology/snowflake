@@ -19,7 +19,8 @@ two-axis taxonomy. This file makes no physical-validation claim.
 > `gg-model.md` and treated G-G as the whole model. It is not. G-G's contribution to this project
 > is *how to compute 3D crystal growth on a lattice at feasible cost* — and that part is kept in
 > full for `GGThreshold`. Under `LibbrechtKinetics`, the surface exchange is replaced as a
-> coupled whole (iterated Robin relaxation, per-face fill, freezing replaced, melting disabled),
+> coupled whole (iterated surface-boundary relaxation, policy-versioned boundary-pixel fill,
+> freezing replaced, melting disabled),
 > because G-G's thresholds contain no temperature and make the central question unaskable.
 >
 > The threshold rule survives permanently as `GGThreshold`, one of two `SurfaceOperator`
@@ -126,10 +127,18 @@ the last row: its Robin sink replaces `κ` freezing, its fill rule replaces thre
 `μ` melting is disabled, drift `φ` is unsupported, and noise is redefined on `alphaHK`. The
 governing disposition table is attachment-kinetics §4.4 component 5.
 
-The two configurations that carry the habit, under `GGThreshold`:
+The primary-facet configurations relevant to habit, under `GGThreshold`:
 
 - **`(0,1)` = a flat basal face.** `ggThreshBeta₀₁` is the *basal* attachment threshold.
-- **`(1,0)` = a flat prism face.** `ggThreshBeta₁₀` is the *prism* attachment threshold.
+- **`(2,0)` = a flat prism face.** `ggThreshBeta₂₀` is the *prism/convexifying* attachment
+  threshold. `(1,0)` is an isolated lateral tip, not the broad prism facet.
+
+**Corrected interpretation, 2026-07-16:** this paragraph previously called `(1,0)` the flat
+prism face even though the next paragraph and the source's reduced parameter set identify the
+`(0,1)`/`(2,0)` pair. The Phase 2b v3 classifier copied that error. This correction changes no
+`GGThreshold` parameter slot or update mechanic; every configured threshold is still applied to
+its same `[n_T,n_Z]` count. Attachment-kinetics §4.4 records the source audit and the unresolved
+forward LibbrechtKinetics policy.
 
 > **`β₀₁ / β₂₀` is the plate↔column axis under `GGThreshold`.** High `β₀₁` ⇒ basal faces attach
 > reluctantly ⇒ growth goes sideways ⇒ **plate**. Low `β₀₁` ⇒ basal faces attach easily ⇒ growth
@@ -162,8 +171,8 @@ start of the tick**. Attachment must be simultaneous across `∂A_t`: a cell tha
 
 > **The four steps below are the `GGThreshold` implementation.** The shared seam is the wider
 > `SurfaceOperator`, not step (iii) alone. Under `LibbrechtKinetics`, diffusion becomes an
-> iterated Robin relaxation, freezing is replaced by that Robin sink, threshold attachment is
-> replaced by per-face fill, and melting is disabled. The complete kept/replaced/disabled table
+> iterated surface-boundary relaxation, freezing is replaced by that sole sink, threshold
+> attachment is replaced by policy-versioned boundary-pixel fill, and melting is disabled. The complete kept/replaced/disabled table
 > is [attachment-kinetics.md](attachment-kinetics.md) §4.4 component 5. For `GGThreshold` —
 > everything Phase 2a certified — nothing changes, ever.
 
@@ -206,7 +215,8 @@ its mass and hands `1/7` to each free neighbor, and the books balance.
 > this note previously promised "an iteration count," which ADR 0005 D3 superseded). Fixed-σ
 > Dirichlet physics runs require both the residual tolerance and divergence identity; reflecting
 > LK is residual-only diagnostic. Counts are outputs, not targets. Same stencil, iterated with
-> the Robin substitution — full formulation in attachment-kinetics §4.3–§4.4. Under
+> the selected aggregate boundary-pixel condition—full formulation in attachment-kinetics
+> §4.3–§4.4 and decision 0009. Under
 > `GGThreshold` it stays exactly one pass per tick, as published, forever.
 
 ### (ii) Freezing — on `x ∈ ∂A_t`

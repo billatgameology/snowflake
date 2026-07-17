@@ -6,7 +6,10 @@
   item 3's bare "vapor lost equals ice gained," D2's implemented interface name, D3's
   residual-only convergence + scalar `v_n·Δt/Δx` fill-CFL, and D4's convergence-control
   freeze are re-stated there after implementation audits measured their failure modes. Inline
-  notes below mark the amended clauses; the rest of this record stands.
+  notes below mark the amended clauses; the rest of this record stands. **Amended again for
+  forward LK policies by [0009](0009-source-constrained-boundary-pixel-policy.md)
+  (2026-07-16):** the v3 per-contact classifier/geometry is historical, forward fill and sink
+  use a checkpointed aggregate boundary-pixel policy, and D4 freezes that policy.
 - **Charter impact:** §1.5, §2.4, §2.5, §2.6, §2.7, §3.2 (Phases 2b, 3, 4, 6), §3.3 amended in
   this session (charter v1.2 → v1.3). Phase 2b was **paused** until its two opening deliverables
   (D2 below) existed; that condition was fulfilled before implementation on 2026-07-15.
@@ -89,9 +92,9 @@ together, as one coupled operator:
 3. vapor flux into the surface cell and ice-volume gain, **coupled** so that vapor lost equals
    ice gained (the Robin-condition discipline: flux balance and `v_n` are one equation system,
    not two mechanisms); *(amended by 0006: the exact discrete claim is kinetic-demand
-   bookkeeping — placed fill + recorded unapplied saturation excess = computed per-face
-   Hertz–Knudsen demand — not a bare physical-uptake equality; audits found silent clipping
-   and unphysical metered-source accounting hiding under the slogan)*;
+   bookkeeping—placed fill + recorded unapplied saturation excess = computed kinetic demand—
+   not a bare physical-uptake equality; 0009 changes forward demand geometry from per-contact
+   to aggregate per-boundary-pixel while preserving this auditability posture)*;
 4. the fill state (the deterministic accumulator survives from v1.2) and its storage;
 5. the explicit disposition of `κ`, `μ`, melting, and hole-filling under `LibbrechtKinetics` —
    each *kept / replaced / disabled*, with a reason; "identical under both rules" (gg-machinery
@@ -117,9 +120,9 @@ parameter table. **Phase 2b is paused until both exist.** GGThreshold/Phase 2a i
   divergence claim. Residual-only Dirichlet convergence passed fields whose imbalance grew
   with domain size.)*
 - Physical time enters only through the **interface update**: constrain `v_n·Δt/Δx` (a
-  fill-CFL) separately, as its own stability bound. *(Amended by 0006: the bound binds the
-  per-cell kinetic fill increment summed per attached face with the hexagonal-prism
-  geometry factors — the scalar phrasing predates the face geometry.)*
+  fill-CFL) separately, as its own stability bound. *(Amended by 0006 and then 0009: the bound
+  binds the per-cell kinetic fill increment under the recorded surface policy; per-contact
+  face factors are `legacy-v3`, while forward v4 is aggregate per boundary pixel.)*
 
 ### D4 — Phase 6 protocol freeze: expanded; convergence controls; Phase 4 pass semantics
 
@@ -128,7 +131,7 @@ The freeze list (charter Phase 6, item 1) additionally includes: pressure; physi
 parameter interpolation scheme; noise amplitude; seed-ensemble size; model/code version (commit
 hash); and the uncertainty-reporting scheme. *(Amended by 0006: because fixed-σ Dirichlet
 convergence is dual, freeze `divTol` and `relaxMaxSweeps` as well; both determine whether a
-field is accepted as converged.)*
+field is accepted as converged. Amended by 0009: freeze the coupled `surfacePolicy`.)*
 
 The 65% domain-contact guard is a **collision heuristic**, not proof of far-field irrelevance:
 Phase 6 adds **grid-, timestep-, and domain-convergence studies** at representative sweep points.

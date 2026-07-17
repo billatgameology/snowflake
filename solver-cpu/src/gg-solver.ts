@@ -43,11 +43,15 @@ import {
   DOMAIN_CONTACT_FRACTION,
   STREAM_NOISE_XI,
   totalMass,
+  ggParamsFromTimelineEnvironment,
+  ggTimelineEnvironmentFromParams,
+  validateTimelineSchedule,
   validateParams,
   type Dims,
   type DomainShape,
   type FarFieldCondition,
   type GGParams,
+  type GGTimelineEnvironment,
   type SolverState,
 } from "@vcc/core";
 import type { LedgerReport, RelaxationReport, SurfaceOperator, SurfaceReport } from "./operator.ts";
@@ -83,7 +87,140 @@ export const FAR_FIELD_STOP_FRACTION = 2 / 3;
 
 const UINT32_MAX = 0xffff_ffff;
 
-function validateOptions(options: GGSolverOptions): readonly [number, number, number] {
+const typedArrayLengthGetter = Object.getOwnPropertyDescriptor(
+  Object.getPrototypeOf(Float64Array.prototype) as object,
+  "length",
+)?.get;
+
+function copyBaseFloat64(values: Float64Array, label: string): Float64Array {
+  if (typedArrayLengthGetter === undefined) {
+    throw new Error("Float64Array length intrinsic is unavailable");
+  }
+  let length: number;
+  try {
+    length = Reflect.apply(typedArrayLengthGetter, values, []) as number;
+  } catch {
+    throw new Error(`${label} must be a genuine Float64Array`);
+  }
+  const owned = new Float64Array(length);
+  for (let index = 0; index < length; index++) owned[index] = values[index];
+  return owned;
+}
+
+function cloneParams(params: GGParams): GGParams {
+  return {
+    rho: params.rho,
+    phi: params.phi,
+    kappa: copyBaseFloat64(params.kappa, "params.kappa"),
+    mu: copyBaseFloat64(params.mu, "params.mu"),
+    ggThreshBeta: copyBaseFloat64(params.ggThreshBeta, "params.ggThreshBeta"),
+  };
+}
+
+function snapshotParams(value: unknown): GGParams {
+  if (value === null || typeof value !== "object") {
+    throw new Error("params must be an object");
+  }
+  const record = value as Record<string, unknown>;
+  // Snapshot each caller-controlled property exactly once before validation.
+  const rho = record.rho;
+  const phi = record.phi;
+  const kappa = record.kappa;
+  const mu = record.mu;
+  const ggThreshBeta = record.ggThreshBeta;
+  for (const [name, vector] of [
+    ["kappa", kappa],
+    ["mu", mu],
+    ["ggThreshBeta", ggThreshBeta],
+  ] as const) {
+    if (!(vector instanceof Float64Array)) {
+      throw new Error(`params.${name} must be a Float64Array`);
+    }
+  }
+  return {
+    rho: rho as number,
+    phi: phi as number,
+    kappa: copyBaseFloat64(kappa as Float64Array, "params.kappa"),
+    mu: copyBaseFloat64(mu as Float64Array, "params.mu"),
+    ggThreshBeta: copyBaseFloat64(
+      ggThreshBeta as Float64Array,
+      "params.ggThreshBeta",
+    ),
+  };
+}
+
+function exactOwnKeys(
+  value: Record<string, unknown>,
+  expected: readonly string[],
+  label: string,
+): void {
+  const actual = Object.keys(value).sort();
+  const wanted = [...expected].sort();
+  if (actual.length !== wanted.length || actual.some((key, index) => key !== wanted[index])) {
+    throw new Error(`${label} keys must be exactly [${wanted.join(", ")}]`);
+  }
+}
+
+function snapshotTimelineVector(value: unknown, label: string): GGTimelineEnvironment["kappa"] {
+  if (!Array.isArray(value)) throw new Error(`${label} must be an array`);
+  const length = value.length;
+  if (length !== 7) throw new Error(`${label} must contain exactly seven values`);
+  const owned = new Array<number>(7);
+  for (let index = 0; index < owned.length; index++) owned[index] = value[index] as number;
+  return owned as unknown as GGTimelineEnvironment["kappa"];
+}
+
+function snapshotTimelineEnvironment(value: unknown): GGTimelineEnvironment {
+  if (value === null || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error("G-G timeline environment must be an object");
+  }
+  const record = value as Record<string, unknown>;
+  exactOwnKeys(
+    record,
+    ["rho", "phi", "kappa", "mu", "ggThreshBeta"],
+    "G-G timeline environment",
+  );
+  // Read each accessor once, then operate only on owned plain data.
+  const rho = record.rho;
+  const phi = record.phi;
+  const kappa = record.kappa;
+  const mu = record.mu;
+  const ggThreshBeta = record.ggThreshBeta;
+  return {
+    rho: rho as number,
+    phi: phi as number,
+    kappa: snapshotTimelineVector(kappa, "G-G timeline environment.kappa"),
+    mu: snapshotTimelineVector(mu, "G-G timeline environment.mu"),
+    ggThreshBeta: snapshotTimelineVector(
+      ggThreshBeta,
+      "G-G timeline environment.ggThreshBeta",
+    ),
+  };
+}
+
+type GGCycleState =
+  | "boundary"
+  | "relaxed"
+  | "diagnosticRelaxed"
+  | "advancing"
+  | "transitioning"
+  | "incomplete";
+
+export interface GGEnvironmentTransitionReport {
+  readonly operator: "GGThreshold";
+  readonly boundary: {
+    readonly phase: "completedCycleBoundary";
+    readonly completedCycles: number;
+    readonly tick: number;
+  };
+  readonly beforeEnvironment: GGTimelineEnvironment;
+  readonly afterEnvironment: GGTimelineEnvironment;
+}
+
+function validateOptions(options: GGSolverOptions): {
+  readonly center: readonly [number, number, number];
+  readonly params: GGParams;
+} {
   if (options === null || typeof options !== "object") {
     throw new Error("GGSolver options must be an object");
   }
@@ -99,15 +236,8 @@ function validateOptions(options: GGSolverOptions): readonly [number, number, nu
   const n = options.dims.nx * options.dims.ny * options.dims.nz;
   if (!Number.isSafeInteger(n)) throw new Error(`cell count must be a safe integer, got ${n}`);
 
-  if (options.params === null || typeof options.params !== "object") {
-    throw new Error("params must be an object");
-  }
-  for (const name of ["kappa", "mu", "ggThreshBeta"] as const) {
-    if (!(options.params[name] instanceof Float64Array)) {
-      throw new Error(`params.${name} must be a Float64Array`);
-    }
-  }
-  const paramValidation = validateParams(options.params);
+  const params = snapshotParams(options.params);
+  const paramValidation = validateParams(params);
   if (paramValidation.errors.length > 0) {
     throw new Error(`invalid GG parameters: ${paramValidation.errors.join("; ")}`);
   }
@@ -150,18 +280,18 @@ function validateOptions(options: GGSolverOptions): readonly [number, number, nu
   if (!Number.isSafeInteger(seedThickness) || seedThickness < 1 || seedThickness % 2 === 0) {
     throw new Error(`seed thickness must be odd and >= 1, got ${seedThickness}`);
   }
-  return center;
+  return { center, params };
 }
 
 export class GGSolver implements SurfaceOperator {
   readonly dims: Dims;
-  readonly params: GGParams;
+  private _params: GGParams;
   readonly rngSeed: number;
   readonly noiseEpsilon: number;
   readonly domain: DomainShape;
   readonly farField: FarFieldCondition;
   readonly center: readonly [number, number, number];
-  tick = 0;
+  private _tick = 0;
   /** Net mass injected (+) / removed (−) by the Dirichlet clamp, accumulated. 0 under reflecting. */
   dirichletMeter = 0;
 
@@ -192,6 +322,8 @@ export class GGSolver implements SurfaceOperator {
   // Attached-neighbor counts per cell, UNCAPPED, maintained incrementally on attachment.
   private readonly nTAtt: Uint8Array;
   private readonly nZAtt: Uint8Array;
+  /** Explicit two-method cycle state; only "boundary" may accept an environment event. */
+  private cycleState: GGCycleState = "boundary";
 
   // Crystal lattice bounding box, maintained incrementally (O(1) guard checks).
   private iMin: number;
@@ -205,9 +337,11 @@ export class GGSolver implements SurfaceOperator {
   lastAttached: readonly number[] = [];
 
   constructor(options: GGSolverOptions) {
-    const center = validateOptions(options);
+    const { center, params } = validateOptions(options);
     this.dims = options.dims;
-    this.params = options.params;
+    // Own every vector. Timeline events replace this complete bundle atomically, and neither
+    // constructor callers nor readers of the public getter may mutate live solver controls.
+    this._params = params;
     this.rngSeed = options.rngSeed;
     this.noiseEpsilon = options.noiseEpsilon ?? 0;
     this.domain = options.domain ?? "box";
@@ -243,7 +377,7 @@ export class GGSolver implements SurfaceOperator {
             const inHex = dist <= radius && Math.abs(k - kc) <= halfZ;
             if (inHex) {
               active++;
-              this.d[x] = this.params.rho;
+              this.d[x] = this._params.rho;
               if (dist === radius || Math.abs(k - kc) === halfZ) farField.push(x);
             } else {
               this.wall[x] = 1;
@@ -256,7 +390,7 @@ export class GGSolver implements SurfaceOperator {
     } else {
       this.hexRadius = -1;
       this.zHalfExtent = -1;
-      this.d.fill(this.params.rho);
+      this.d.fill(this._params.rho);
       this.activeCellCount = n;
       const pushed = new Uint8Array(n);
       const push = (x: number): void => {
@@ -304,6 +438,77 @@ export class GGSolver implements SurfaceOperator {
         this.attachCell(site, /*seedInit*/ true);
       }
       this.rebuildBoundaryList();
+    }
+  }
+
+  get tick(): number {
+    return this._tick;
+  }
+
+  /** Copy-safe public controls. Mutating the returned arrays cannot alter the live solver. */
+  get params(): GGParams {
+    return cloneParams(this._params);
+  }
+
+  /** Complete JSON-safe environment consumed by the shared Phase 4 schedule evaluator. */
+  timelineEnvironment(): GGTimelineEnvironment {
+    return ggTimelineEnvironmentFromParams(this._params);
+  }
+
+  /**
+   * Apply one complete G-G environment at a completed-cycle boundary (ADR 0011). The event
+   * changes controls only: it performs no relaxation, surface update, state reconstruction,
+   * mass transfer, or tick advance.
+   */
+  applyTimelineEnvironment(environment: GGTimelineEnvironment): GGEnvironmentTransitionReport {
+    if (this.cycleState !== "boundary") {
+      throw new Error(
+        `G-G timeline environment requires a completed-cycle boundary (state=${this.cycleState})`,
+      );
+    }
+    this.cycleState = "transitioning";
+    try {
+      const target = snapshotTimelineEnvironment(environment);
+      const beforeEnvironment = this.timelineEnvironment();
+      // Reuse the exact schedule wire validator on owned plain data. No caller accessor is
+      // reread after the snapshot.
+      validateTimelineSchedule({
+        version: 1,
+        mode: "abrupt",
+        operator: "GGThreshold",
+        initialEnvironment: beforeEnvironment,
+        events: [
+          {
+            index: 0,
+            operator: "GGThreshold",
+            trigger: { kind: "tick", value: 0 },
+            environment: target,
+          },
+        ],
+      });
+      const staged = ggParamsFromTimelineEnvironment(target);
+      const validation = validateParams(staged);
+      if (validation.errors.length > 0) {
+        throw new Error(`invalid G-G timeline environment: ${validation.errors.join("; ")}`);
+      }
+      const owned = cloneParams(staged);
+      const afterEnvironment = ggTimelineEnvironmentFromParams(owned);
+      const report: GGEnvironmentTransitionReport = {
+        operator: "GGThreshold",
+        boundary: {
+          phase: "completedCycleBoundary",
+          completedCycles: this.tick,
+          tick: this.tick,
+        },
+        beforeEnvironment,
+        afterEnvironment,
+      };
+      this._params = owned;
+      this.cycleState = "boundary";
+      return report;
+    } catch (error) {
+      this.cycleState = "boundary";
+      throw error;
     }
   }
 
@@ -375,9 +580,11 @@ export class GGSolver implements SurfaceOperator {
 
   /** One full tick: diffusion, freezing, attachment, melting. */
   step(): void {
+    if (this.cycleState !== "boundary") {
+      throw new Error(`G-G step requires a completed-cycle boundary (state=${this.cycleState})`);
+    }
     this.relaxField();
     this.advanceSurface();
-    this.tick++;
   }
 
   /**
@@ -387,33 +594,66 @@ export class GGSolver implements SurfaceOperator {
    * clamped to rho, metered.
    */
   relaxField(): RelaxationReport {
-    this.diffuse();
-    let clampDelta = 0;
-    if (this.farField === "dirichlet") {
-      const rho = this.params.rho;
-      for (let c = 0; c < this.farFieldCells.length; c++) {
-        const x = this.farFieldCells[c];
-        if (this.blocked[x] === 1) continue;
-        clampDelta += rho - this.d[x];
-        this.d[x] = rho;
+    const nextState: GGCycleState =
+      this.cycleState === "boundary"
+        ? "relaxed"
+        : this.cycleState === "relaxed" || this.cycleState === "diagnosticRelaxed"
+          ? "diagnosticRelaxed"
+          : (() => {
+              throw new Error(`G-G relaxation is not allowed in state ${this.cycleState}`);
+            })();
+    try {
+      this.diffuse();
+      let clampDelta = 0;
+      if (this.farField === "dirichlet") {
+        const rho = this._params.rho;
+        for (let c = 0; c < this.farFieldCells.length; c++) {
+          const x = this.farFieldCells[c];
+          if (this.blocked[x] === 1) continue;
+          clampDelta += rho - this.d[x];
+          this.d[x] = rho;
+        }
+        this.dirichletMeter += clampDelta;
       }
-      this.dirichletMeter += clampDelta;
+      this.cycleState = nextState;
+      return {
+        sweeps: 1,
+        converged: true, // vacuously: one pass IS the published dynamics, not a solve
+        residual: null,
+        divergenceResidual: null,
+        shellClampDiagnostic: this.farField === "dirichlet" ? clampDelta : null,
+        surfaceExchangeDiagnostic: null,
+        minLocalSurfaceExchangeDiagnostic: null,
+      };
+    } catch (error) {
+      this.cycleState = "incomplete";
+      throw error;
     }
-    return {
-      sweeps: 1,
-      converged: true, // vacuously: one pass IS the published dynamics, not a solve
-      residual: null,
-      divergenceResidual: null,
-      shellClampDiagnostic: this.farField === "dirichlet" ? clampDelta : null,
-      absorptionDiagnostic: null,
-    };
   }
 
   /** Steps (ii) freezing, (iii) attachment, (iv) melting — the surface exchange. */
   advanceSurface(): SurfaceReport {
+    if (this.cycleState !== "relaxed") {
+      throw new Error(
+        `G-G advanceSurface requires exactly one unmatched relaxation (state=${this.cycleState})`,
+      );
+    }
+    this.cycleState = "advancing";
+    try {
+      const report = this.advanceSurfaceUpdate();
+      this._tick++;
+      this.cycleState = "boundary";
+      return report;
+    } catch (error) {
+      this.cycleState = "incomplete";
+      throw error;
+    }
+  }
+
+  private advanceSurfaceUpdate(): SurfaceReport {
     const boundary = this.boundaryList;
     const nBoundary = boundary.length;
-    const { kappa, mu, ggThreshBeta } = this.params;
+    const { kappa, mu, ggThreshBeta } = this._params;
 
     // (ii) freezing on the boundary, start-of-tick counts (nTAtt/nZAtt are untouched until
     // the attachments are applied below).
@@ -611,7 +851,7 @@ export class GGSolver implements SurfaceOperator {
     // (1c) drift, only when phi > 0 (all §8 presets have phi = 0):
     // d'''(x) = (1 - phi*(1 - a(x - e3))) d''(x) + phi*(1 - a(x + e3)) d''(x + e3),
     // out-of-domain/wall treated as attached (reflecting).
-    const phi = this.params.phi;
+    const phi = this._params.phi;
     let result: Float64Array = out2;
     if (phi > 0) {
       const out3 = out1; // (1a) output is no longer needed; reuse as the (1c) buffer

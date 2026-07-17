@@ -17,7 +17,9 @@ export interface RelaxationReport {
   readonly converged: boolean;
   /** Relative per-sweep max change at exit; null under GGThreshold (no residual concept). */
   readonly residual: number | null;
-  /** |shell clamp − Robin absorption| / absorption; null under GGThreshold and reflecting LK. */
+  /** |shell clamp − net surface exchange| / |net surface exchange|; null under GGThreshold
+      and reflecting LK. Under aggregate v4, local exchange is signed numerical potential
+      redistribution, not physical uptake. */
   readonly divergenceResidual: number | null;
   /**
    * Shell-clamp total for the LAST sweep (LK) or this tick's Dirichlet meter delta (GG).
@@ -27,8 +29,14 @@ export interface RelaxationReport {
    * exact bookkeeping for computed kinetic demand, placed fill, and unapplied clipping.
    */
   readonly shellClampDiagnostic: number | null;
-  /** Robin absorption total for the last sweep; null under GGThreshold. */
-  readonly absorptionDiagnostic: number | null;
+  /** Signed net numerical surface-boundary exchange for the last sweep; null under
+      GGThreshold. Legacy-v3's value is its nonnegative Robin absorption total. This is a
+      relaxation diagnostic, never deposited fill or physical uptake. */
+  readonly surfaceExchangeDiagnostic: number | null;
+  /** Minimum local boundary-replacement exchange in the last aggregate-v4 sweep. It may be
+      negative because tangential potential redistribution is signed. Null under GGThreshold
+      and policies without an aggregate boundary replacement. */
+  readonly minLocalSurfaceExchangeDiagnostic: number | null;
 }
 
 export interface SurfaceReport {
@@ -57,11 +65,14 @@ export interface LedgerReport {
   readonly dirichletMeter: number | null;
   /** LK: kinetic fill actually PLACED, ice-cell units. It is the deposited part of the
       computed demand; fillLedgerIceCells + saturationClippedFill equals the computed
-      per-face Hertz-Knudsen kinetic integral exactly (§4.4 component 4). The clipping term
-      is recorded UNAPPLIED numerical excess, not deposited ice or physical uptake. Null for
-      GG. */
+      selected surface policy's Hertz-Knudsen kinetic demand exactly (§4.4 component 4):
+      per boundary pixel under aggregate v4, per contact under legacy v3. The clipping term is
+      recorded UNAPPLIED numerical excess, not deposited ice or physical uptake. Null for GG. */
   readonly fillLedgerIceCells: number | null;
-  /** LK: the PLACED fill in vapor-ledger units, fillLedger · M_ice(T). Null for GG. */
+  /** LK: the PLACED fill in vapor-ledger units. Fixed-temperature runs equal
+      fillLedgerIceCells · M_ice(T); timeline histories sum each interface step's placed-fill
+      delta at that step's M_ice. This is bookkeeping, not a conserved vapor-pool claim.
+      Null for GG. */
   readonly fillLedgerVaporUnits: number | null;
   /** LK: fill granted by hole-filling without vapor withdrawal — reported, never hidden. */
   readonly holeFillDeficit: number | null;
