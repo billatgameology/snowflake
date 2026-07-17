@@ -370,10 +370,17 @@ bundles only at completed-cycle boundaries; LK stages the signed active-vapor de
 temperature-derived scales, cache invalidation, and explicit reservoir target before one commit;
 placed-fill vapor units accumulate at each interface step's `M_ice`; and unchanged LK v2
 checkpoint headers now accept active `sigma >= -1` while still rejecting negative attached/wall
-state. The transition/checkpoint/operator target is 26/26, root verification is 404/404 with Rule
-7 and both TypeScript checks clean, the 27-module app production build passes, and `git diff
---check` is clean. The next serial action is a separate-agent adversarial WP2a review; return every
-finding to the same developer and re-review to CLEAN before WP2b starts. Work only in
+state. The transition/checkpoint/operator target was 26/26, root verification was 404/404 with
+Rule 7 and both TypeScript checks clean, and the 27-module app build passed, but independent
+review round 1 rejected commit `b19a3c9` with four blockers and one should-fix: a second LK
+relaxation could reuse stale readiness so a callback advanced mid-solve, corrupted 56 attached
+cells, and admitted an event; G-G admitted unmatched surface updates while valid split calls left
+both solvers' tick/noise provenance unchanged; changing LK accessors bypassed staging and produced
+mixed invalid live controls; a typed-array subclass defeated G-G control ownership; and the
+running vapor-unit sum broke exact fixed-temperature product compatibility after two steps. The
+next serial action is to return all five findings to the original WP2a developer, rerun every
+target and full check, commit the repair, and send it to the same reviewer until CLEAN. WP2b must
+not start first. Work only in
 `/Users/clipper/github/snowflake-phase4`.
 Do not touch the live Phase 2b process/worktree or any external `out/gate2b*` / `out/gate3*`
 artifacts.

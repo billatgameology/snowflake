@@ -526,7 +526,12 @@ required schedule manifest and are not advertised as resumable mid-history.
       boundary-atomic; LK preserves signed active-vapor number density (including the transformed
       Dirichlet shell), refreshes all derived controls/caches atomically, and accumulates placed
       fill in step-local vapor-equivalent units. Existing checkpoint headers are unchanged and
-      accept active `sigma >= -1` only. Separate review → fix loop remains open.
+      accept active `sigma >= -1` only. Independent review round 1 rejected the implementation:
+      four blockers expose reentrant relaxation corruption, false split-call cycle boundaries,
+      accessor-driven LK staging bypass, and typed-array-subclass aliasing of G-G controls. One
+      should-fix requires exact fixed-temperature vapor-ledger compatibility across multiple
+      steps. The complete set is returning to the original developer; same-reviewer recheck to
+      CLEAN remains mandatory.
 - [ ] WP2b: shared runner evidence infrastructure plus flagless `gate4a` and Pass A artifacts.
       Separate review → fix loop.
 - [ ] WP2c: flagless `gate4b`/`gate4`, Pass B execution witnesses, checkpoints, and aggregate
@@ -613,6 +618,19 @@ required schedule manifest and are not advertised as resumable mid-history.
 - **Multiplying an all-temperature LK fill ledger by the final temperature's ice/vapor scale.**
   Rejected: the conversion is temperature-dependent. Vapor-unit ledger increments accumulate at
   the temperature of each interface step.
+- **Treating a public two-method surface cycle as complete without an enforced state machine.**
+  Rejected by WP2a review round 1. A bare G-G surface update mutated fields and then admitted an
+  event; valid split cycles left `tick` unchanged and could reuse a noise counter. Successful
+  surface completion must own exactly one cycle increment, while unmatched, repeated, recursive,
+  and mid-relaxation calls reject before mutation.
+- **Trusting `.slice()` or repeatedly reading caller accessors as ownership/staging.** Rejected by
+  WP2a review round 1. A typed-array subclass aliased G-G controls, and changing LK accessors
+  produced valid report/derived values alongside invalid live controls. Inputs must be copied
+  into guaranteed base storage or snapshotted once before validation, then never reread.
+- **Replacing fixed-temperature ledger multiplication with a differently grouped running sum.**
+  Rejected by WP2a review round 1. It was mathematically equivalent but changed existing results
+  after two steps. Close temperature segments at events while retaining exact fixed-temperature
+  `fillLedgerIceCells * M_ice(T)` behavior.
 - **Ramps in the first real timeline.** Deferred, not approximated. An abrupt source-cited event
   gives exact replay semantics and isolates the conserved-field decision; ramps require a time
   interpolation contract and belong in a later ADR.
