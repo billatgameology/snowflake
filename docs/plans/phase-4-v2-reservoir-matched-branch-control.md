@@ -1,7 +1,7 @@
 # Plan — Phase 4 v2: reservoir-matched branch control and gate completion
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — implementation review CLEAN; controls pending
+- **Status:** in progress — controls green; canonical gate pending
 - **Started:** 2026-07-18
 - **Last touched:** 2026-07-18 by Codex, coordinating session
 - **V2 criteria freeze:** `9c9dd5a45eafb80f3e547298494f005a73d19086`
@@ -274,8 +274,24 @@ The coordinator alone edits authority documents and commits. After the criteria 
       `dce70816e34a6eee8ed15edff3c254d6da7fa7d8`, stderr remained zero bytes, and the log had
       advanced to growth step 600. Main was tracked-clean at `f340c79`; no `out/phase4`, Pass-A,
       Pass-B, or aggregate canonical path existed.
-- [ ] On a tracked-clean execution commit, rerun the exact Phase 2a enforcing byte control,
-      flagless `gate3`, full regressions, app build, and synthetic visual harnesses.
+- [x] On tracked-clean `c96f4d6e2deac668bb65ae2ae67411ec7c52c619`, rerun the exact
+      Phase 2a enforcing byte control, flagless `gate3`, full regressions, app build, and
+      synthetic visual harnesses. Exact root `npm test` passed Rule 7 over 524 files, both
+      typechecks, and 779/779 tests in 388.7 seconds; the app build transformed 33 modules.
+      `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1
+      --out .tmp-phase4-v2-controls-c96f4d6/plate-control.ckpt --enforce-gate` exited 0 at
+      far-field tick 4800, symmetry error 0, mass drift `2.056e-13`; its 17,826,573-byte
+      checkpoint exactly matched accepted SHA-256
+      `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Detached clean
+      worktree `.tmp-phase4-v2-gate3-c96f4d6` ran flagless `node runner/src/main.ts gate3`:
+      exit 0, median ratio `0.531454`, fraction below one `0.902439`, radius 38, aspect ratio
+      `0.168831`, exact symmetry, far-field tick 4800, and the same byte-identical checkpoint.
+      Fresh explicit synthetic NOT-GATE-EVIDENCE Phase 4 visual control produced 20/20 captures
+      across primary/forced-WebGL2 with zero console/page/in-app errors; manifest schema version 1
+      recorded A `phase4-pass-a-v2` and B `phase4-pass-b-v1`, SHA-256
+      `6e23c6831a36a4c66a8d06601cae6dcafc3f5f9d9d257811b0ae70129672ff4a`. Fresh Phase 3 visual
+      control produced 9/9 captures with zero errors, manifest SHA-256
+      `d71f3546acc4b9e6062eaa85f8d3bcc4d0d5cbd18c8fecbd67521a4986f58d74`.
 - [ ] Run `node runner/src/main.ts gate4` exactly once. Record exit status, runtime, engine,
       commit, both manifest hashes, every criterion value, stop, checkpoint, and artifact hash.
 - [ ] If Pass A succeeds and Pass B is execution-valid, run the real Phase 4 visual harness;

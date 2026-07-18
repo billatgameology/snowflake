@@ -575,7 +575,11 @@ isolation reconciliation is also clean: exactly one `gate2b` process remains (PI
 detached worktree is tracked-clean at `dce7081`, stderr is empty, and it advanced to growth step
 600; no canonical Phase 4 output path exists. The next serial action is to run the registered
 Phase 2a, Phase 3, regression, app-build, and synthetic visual controls on tracked-clean main.
-Only green controls permit the one canonical flagless `gate4` execution. Do not calibrate, alter any
+Those controls are now green on `c96f4d6`: 779/779 tests, 33-module build, Phase 2a and gate3
+checkpoints both match accepted SHA-256 `f1796b5015…a389`, Phase 4 synthetic visual is 20/20 with
+exact schema v1/A-v2/B-v1 and zero errors, and Phase 3 visual is 9/9 with zero errors. The next
+serial action is the one canonical exact `node runner/src/main.ts gate4` execution; record its
+blocking Pass A and diagnostic Pass B facts without tuning or rerunning. Do not calibrate, alter any
 morphology parameter or
 threshold, run Pass B alone, or reuse v1 output. Work only on `main`. The Phase 2b v4 rerun remains
 live in Windows worktree `.tmp-gate2b-clean-1784305494` at tracked-clean detached commit `dce7081`;
