@@ -52,6 +52,7 @@ import {
   buildGate4AManifest,
   deriveGate4AExecutionRecords,
   deriveGate4AFarFieldSupport,
+  deriveGate4AMorphologyRecords,
   executeGate4ARun,
   formatGate4ATerminalPresentation,
   gate4ANoiseRunEvidenceValid,
@@ -554,6 +555,64 @@ function sizeResultWithOccupancy(result: Gate4ARunResult, finalA: Uint8Array): G
   });
 }
 
+function sixArmStar(dims: Dims): Uint8Array {
+  const a = initialSeed(dims);
+  const [ic, jc, kc] = domainCenter(dims);
+  for (const [di, dj] of [[1, 0], [-1, 0], [0, 1], [0, -1], [1, -1], [-1, 1]] as const) {
+    for (let distance = 1; distance <= 14; distance++) {
+      a[idx(dims, ic + di * distance, jc + dj * distance, kc)] = 1;
+    }
+  }
+  return a;
+}
+
+function farFieldResultWithOccupancy(
+  result: Gate4ARunResult,
+  finalA: Uint8Array,
+): Gate4ARunResult {
+  const fields = finalFields(result.config, finalA);
+  const support = deriveGate4AFarFieldSupport(result.config.dims);
+  const crossingMean = result.config.params.rho / 2;
+  for (const cell of support) {
+    if (finalA[cell] === 0) fields.d[cell] = crossingMean;
+  }
+  const delta = difference(finalA, result.initialOccupancy);
+  const rows = Array.from({ length: GATE4A_FAR_FIELD_CADENCE }, (_, index) => {
+    const cycle = index + 1;
+    return cycleRow(
+      result.config,
+      cycle,
+      finalA,
+      1,
+      cycle === 1 ? delta : [],
+      cycle === GATE4A_FAR_FIELD_CADENCE ? crossingMean : null,
+    );
+  });
+  const rebuilt = rebuildFinalState(result, {
+    finalA,
+    finalB: fields.b,
+    finalD: fields.d,
+    rows,
+    deltas: delta.length === 0 ? [] : [{ cycle: 1, indices: delta }],
+    previousOccupancy: null,
+  });
+  return {
+    ...rebuilt,
+    farFieldWitness: {
+      supportIndices: support,
+      sampleCycles: [0, GATE4A_FAR_FIELD_CADENCE],
+      values: Float64Array.from([
+        ...Array.from(support, () => result.config.params.rho),
+        ...Array.from(support, (cell) => fields.d[cell]),
+      ]),
+    },
+  };
+}
+
+function seedOnlyFarFieldResult(result: Gate4ARunResult): Gate4ARunResult {
+  return farFieldResultWithOccupancy(result, initialSeed(result.config.dims));
+}
+
 interface PassingFixture {
   readonly manifest: Gate4AManifest;
   readonly results: readonly Gate4ARunResult[];
@@ -738,6 +797,29 @@ describe("gate4a frozen registration", () => {
       return distance <= radius && Math.abs(k - kc) <= halfZ &&
         (distance === radius || Math.abs(k - kc) === halfZ);
     })).toBe(true);
+  });
+
+  it("matches the complete independently enumerated hex-prism outer shell", () => {
+    const dims = buildGate4AManifest().runs.at(-1)?.dims as Dims;
+    const [ic, jc, kc] = domainCenter(dims);
+    const radius = Math.min(ic, dims.nx - 1 - ic, jc, dims.ny - 1 - jc);
+    const halfZ = Math.min(kc, dims.nz - 1 - kc);
+    const expected: number[] = [];
+    for (let cell = 0; cell < cellCount(dims); cell++) {
+      const k = Math.floor(cell / (dims.nx * dims.ny));
+      const planeIndex = cell - k * dims.nx * dims.ny;
+      const j = Math.floor(planeIndex / dims.nx);
+      const i = planeIndex - j * dims.nx;
+      const di = i - ic;
+      const dj = j - jc;
+      const distance = (Math.abs(di) + Math.abs(dj) + Math.abs(di + dj)) / 2;
+      const zDistance = Math.abs(k - kc);
+      if (
+        distance <= radius && zDistance <= halfZ &&
+        (distance === radius || zDistance === halfZ)
+      ) expected.push(cell);
+    }
+    expect(Array.from(deriveGate4AFarFieldSupport(dims))).toEqual(expected);
   });
 });
 
@@ -1260,6 +1342,68 @@ describe("gate4a derives all eight execution criteria from raw evidence", () => 
       results,
       artifacts: buildGate4AArtifacts(passingFixture().manifest, results),
     });
+  });
+});
+
+describe("gate4a branch morphology is nonvacuous against raw attachment chains", () => {
+  const sourceHashes = {
+    gg: GATE4A_GG_SOURCE_SHA256,
+    lk: GATE4A_LK_SOURCE_SHA256,
+  } as const;
+
+  it("a coherent seed-only comparator changes only A-BRANCH from true to false", () => {
+    const fixture = passingFixture();
+    const grownBranchResults = fixture.results.map((result) =>
+      result.config.id === "A-BRANCH-DENDRITE"
+        ? farFieldResultWithOccupancy(result, sixArmStar(result.config.dims))
+        : result,
+    );
+    const baseline = deriveGate4AMorphologyRecords(
+      fixture.manifest,
+      grownBranchResults,
+      sourceHashes,
+      true,
+    );
+    const results = grownBranchResults.map((result) =>
+      result.config.id === "A-BRANCH-COMPARATOR" ? seedOnlyFarFieldResult(result) : result,
+    );
+    const artifacts = buildGate4AArtifacts(fixture.manifest, results);
+    const execution = deriveGate4AExecutionRecords({
+      manifest: fixture.manifest,
+      results,
+      artifacts,
+      provenance: passingProvenance(),
+      sourceHashes,
+    });
+    expect(execution.every((record) => record.passed)).toBe(true);
+    const morphology = deriveGate4AMorphologyRecords(
+      fixture.manifest,
+      results,
+      sourceHashes,
+      execution.every((record) => record.passed),
+    );
+    const baselineByCriterion = new Map(baseline.map((record) => [record.criterion, record.passed]));
+    expect(morphology.filter((record) => baselineByCriterion.get(record.criterion) !== record.passed)
+      .map((record) => record.criterion)).toEqual(["A-BRANCH"]);
+    const branch = morphology.find((record) => record.criterion === "A-BRANCH");
+    expect(baselineByCriterion.get("A-BRANCH")).toBe(true);
+    expect(branch?.passed).toBe(false);
+    expect(branch?.measurements.comparatorFinalAttachedCount).toBe(19);
+    expect(branch?.measurements.comparatorNonemptyAttachmentDeltaCycles).toBe(0);
+  });
+
+  it("rejects a grown final comparator whose attachment deltas are missing before morphology", () => {
+    const fixture = passingFixture();
+    const results = replaceResult("A-BRANCH-COMPARATOR", (result) => ({
+      ...result,
+      deltas: [],
+    }));
+    expect(() => deriveGate4AMorphologyRecords(
+      fixture.manifest,
+      results,
+      sourceHashes,
+      true,
+    )).toThrow(/nonempty delta witness is missing/);
   });
 });
 

@@ -6,7 +6,7 @@
 // index + descriptors all updated together), so passing them would mean the verifier trusts
 // a self-consistent forgery — exactly the WP2b review exploit this layer must also refuse.
 
-import { execFileSync, spawn } from "node:child_process";
+import { execFileSync, spawn, spawnSync } from "node:child_process";
 import {
   existsSync,
   linkSync,
@@ -43,9 +43,11 @@ import {
   assertViewManifestComplete,
   canonicalJsonBytesOf,
   parseCanonicalJsonBytes,
+  phase4VisualManifestIdentity,
   planPassBViews,
   sha256HexNode,
   validatePublishedRecordVerdictContract,
+  validatePhase4VisualManifestIdentity,
   validateRealProvenance,
   verifyPhase4Bundle,
   type VerifiedPhase4Bundle,
@@ -405,6 +407,31 @@ describe("frozen run completeness and provenance", () => {
       manifest.protocol = "phase4-pass-a-v1";
     });
     expect(() => verifySynthetic(manifestDir, PASS_A_IDENTITY)).toThrow(/manifest identity\/version/);
+  });
+
+  it("the visual harness rejects a Pass-A v1 bundle before capture output exists", () => {
+    const caseRoot = join(root, `visual-v1-a-${counter++}`);
+    const passA = join(caseRoot, "pass-a");
+    const passB = join(caseRoot, "absent-pass-b");
+    const outDir = join(caseRoot, "captures");
+    buildFixturePassA(passA);
+    rewriteReport(passA, "gate4a-report.json", (report) => {
+      report.protocol = "phase4-pass-a-v1";
+    });
+    const result = spawnSync(process.execPath, [
+      resolve(repoRoot, "app/scripts/visual.mjs"),
+      "--phase4",
+      "--allow-synthetic-fixtures",
+      "--pass-a-dir",
+      passA,
+      "--pass-b-dir",
+      passB,
+      "--out-dir",
+      outDir,
+    ], { cwd: repoRoot, encoding: "utf8" });
+    expect(result.status).not.toBe(0);
+    expect(`${result.stdout}\n${result.stderr}`).toMatch(/report identity/);
+    expect(existsSync(outDir)).toBe(false);
   });
 
   it("rejects a duplicate manifest run ID", () => {
@@ -1204,6 +1231,26 @@ describe.runIf(process.platform === "win32")("visual harness staged-file hard-li
 });
 
 describe("required views and manifest completeness (V4-5 self-check)", () => {
+  it("writes only the version-1 A-v2/B-v1 visual source identity matrix", () => {
+    const identity = phase4VisualManifestIdentity();
+    expect(identity).toEqual({
+      version: 1,
+      sourceProtocols: {
+        passA: "phase4-pass-a-v2",
+        passB: "phase4-pass-b-v1",
+      },
+    });
+    expect(() => validatePhase4VisualManifestIdentity({ ...identity, captures: [] })).not.toThrow();
+    for (const forged of [
+      { ...identity, version: 2 },
+      { ...identity, sourceProtocols: { ...identity.sourceProtocols, passA: "phase4-pass-a-v1" } },
+      { ...identity, sourceProtocols: { ...identity.sourceProtocols, passB: "phase4-pass-b-v2" } },
+      { ...identity, sourceProtocols: { ...identity.sourceProtocols, extra: "phase4-pass-a-v2" } },
+    ]) {
+      expect(() => validatePhase4VisualManifestIdentity(forged)).toThrow(/V4-VIEW-MANIFEST/);
+    }
+  });
+
   it("registers exactly the five required Pass A views and five B counterparts", () => {
     expect(REQUIRED_PASS_A_VIEWS.map((v) => v.name)).toEqual([
       "pass-a-plate-endpoint",

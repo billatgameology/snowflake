@@ -21,6 +21,8 @@ import {
 import {
   GATE4A_MANIFEST_SHA256,
   GATE4A_PROTOCOL,
+  GATE4A_REPORT_PATH,
+  gate4AResultSummary,
   runGate4A,
   validateGate4AProvenance,
   type Gate4ARunOutcome,
@@ -28,6 +30,8 @@ import {
 import {
   GATE4B_MANIFEST_SHA256,
   GATE4B_PROTOCOL,
+  GATE4B_REPORT_PATH,
+  gate4BResultSummary,
   runGate4B,
   validateGate4BProvenance,
   type Gate4BRunOutcome,
@@ -76,12 +80,6 @@ function passPublicationFacts(
   );
 }
 
-function payloadVersion(payload: StrictJson): number | null {
-  if (payload === null || typeof payload !== "object" || Array.isArray(payload)) return null;
-  const version = (payload as Readonly<Record<string, StrictJson>>).version;
-  return typeof version === "number" ? version : null;
-}
-
 function exactPassIdentity(
   label: "A" | "B",
   outcome: Gate4ARunOutcome | Gate4BRunOutcome,
@@ -107,15 +105,56 @@ function exactPassIdentity(
   }
   const publication = outcome.publication;
   if (publication === null) return;
-  if (
-    publication.index.version !== 1 ||
-    publication.report.version !== 1 ||
-    publication.report.protocol !== expectedProtocol ||
-    publication.report.pass !== label ||
-    publication.report.operator !== expectedOperator ||
-    payloadVersion(publication.report.payload) !== expectedPayloadVersion
-  ) {
+  const expectedArtifacts = outcome.artifacts.map((artifact) => ({
+    path: artifact.path,
+    kind: artifact.kind,
+    byteLength: artifact.bytes.byteLength,
+    sha256: sha256Bytes(artifact.bytes),
+  })).sort((left, right) => left.path < right.path ? -1 : left.path > right.path ? 1 : 0);
+  const expectedPayload = strictJsonSnapshot(isA
+    ? {
+        version: expectedPayloadVersion,
+        manifestSha256: expectedManifestHash,
+        provenance: outcome.provenance,
+        sourceHashes: (outcome as Gate4ARunOutcome).sourceHashes,
+        records: outcome.records,
+        verdict: outcome.verdict,
+        runs: (outcome as Gate4ARunOutcome).results.map(gate4AResultSummary),
+      }
+    : {
+        version: expectedPayloadVersion,
+        manifestSha256: expectedManifestHash,
+        provenance: outcome.provenance,
+        records: outcome.records,
+        verdict: outcome.verdict,
+        runs: (outcome as Gate4BRunOutcome).results.map(gate4BResultSummary),
+      });
+  const expectedReport = strictJsonSnapshot({
+    version: 1,
+    protocol: expectedProtocol,
+    pass: label,
+    operator: expectedOperator,
+    artifacts: expectedArtifacts,
+    payload: expectedPayload,
+  });
+  if (canonicalJson(publication.report) !== canonicalJson(expectedReport)) {
     throw new Error(`GATE4: Pass ${label} publication identity differs from the frozen protocol`);
+  }
+  const reportBytes = canonicalJsonBytes(expectedReport);
+  const expectedReportDescriptor = {
+    path: isA ? GATE4A_REPORT_PATH : GATE4B_REPORT_PATH,
+    kind: "phase4-evidence-report+json",
+    byteLength: reportBytes.byteLength,
+    sha256: sha256Bytes(reportBytes),
+  };
+  const expectedIndex = strictJsonSnapshot({
+    version: 1,
+    publication: "complete",
+    report: expectedReportDescriptor,
+    artifacts: [expectedReportDescriptor, ...expectedArtifacts],
+  });
+  if (canonicalJson(publication.index) !== canonicalJson(expectedIndex)) {
+    throw new Error(`GATE4: Pass ${label} publication descriptor graph is not cross-linked`);
   }
 }
 

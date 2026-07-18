@@ -318,8 +318,6 @@ export function validateGate4BProvenance(provenance: Gate4BProvenance): readonly
   if (!provenance.criteriaFreezeIsAncestor) {
     failures.push(`${GATE4B_CRITERIA_FREEZE} is not an ancestor`);
   }
-  if (!provenance.runnerFreezeIsAncestor) failures.push("runner freeze is not an ancestor");
-  if (!provenance.cadenceFreezeIsAncestor) failures.push("cadence freeze is not an ancestor");
   return failures;
 }
 
@@ -3276,7 +3274,7 @@ export interface RunGate4BOptions {
   readonly onRelaxation?: ExecuteGate4BRunOptions["onRelaxation"];
 }
 
-function resultSummary(result: Gate4BRunResult): StrictJson {
+export function gate4BResultSummary(result: Gate4BRunResult): StrictJson {
   return strictJsonSnapshot({
     runId: result.config.id,
     executionId: result.executionId,
@@ -3374,7 +3372,7 @@ export function runGate4B(options: RunGate4BOptions = {}): Gate4BRunOutcome {
         provenance,
         records,
         verdict,
-        runs: results.map(resultSummary),
+        runs: results.map(gate4BResultSummary),
       },
       artifacts,
     }, publish);

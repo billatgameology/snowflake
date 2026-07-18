@@ -9,6 +9,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
 import {
+  canonicalJsonBytes,
   parseCanonicalJson,
   sha256Bytes,
   strictJsonSnapshot,
@@ -26,15 +27,21 @@ import {
   type Phase4CriterionRecord,
 } from "../src/gate4-protocol.ts";
 import {
+  GATE4A_MANIFEST_SHA256,
   GATE4A_NODE,
   GATE4A_PROTOCOL,
+  GATE4A_REPORT_PATH,
   GATE4A_V8,
   buildGate4AManifest,
+  gate4AResultSummary,
   type Gate4ARunOutcome,
 } from "../src/gate4a.ts";
 import {
+  GATE4B_MANIFEST_SHA256,
   GATE4B_PROTOCOL,
+  GATE4B_REPORT_PATH,
   buildGate4BManifest,
+  gate4BResultSummary,
   type Gate4BRunOutcome,
 } from "../src/gate4b.ts";
 import {
@@ -90,38 +97,78 @@ function records<N extends Phase4CriterionName>(
 
 function syntheticPublication(
   directory: string,
+  outcome: Gate4ARunOutcome | Gate4BRunOutcome,
   identity: { readonly protocol: string; readonly pass: "A" | "B"; readonly operator: string; readonly payloadVersion: number },
 ) {
-  const reportBytes = new TextEncoder().encode("{}\n");
+  const isA = identity.pass === "A";
+  const artifactDescriptors = outcome.artifacts.map((artifact) => ({
+    path: artifact.path,
+    kind: artifact.kind,
+    byteLength: artifact.bytes.byteLength,
+    sha256: sha256Bytes(artifact.bytes),
+  })).sort((left, right) => left.path < right.path ? -1 : left.path > right.path ? 1 : 0);
+  const payload = strictJsonSnapshot(isA ? {
+    version: identity.payloadVersion,
+    manifestSha256: GATE4A_MANIFEST_SHA256,
+    provenance: outcome.provenance,
+    sourceHashes: (outcome as Gate4ARunOutcome).sourceHashes,
+    records: outcome.records,
+    verdict: outcome.verdict,
+    runs: (outcome as Gate4ARunOutcome).results.map(gate4AResultSummary),
+  } : {
+    version: identity.payloadVersion,
+    manifestSha256: GATE4B_MANIFEST_SHA256,
+    provenance: outcome.provenance,
+    records: outcome.records,
+    verdict: outcome.verdict,
+    runs: (outcome as Gate4BRunOutcome).results.map(gate4BResultSummary),
+  });
+  const report = {
+    version: 1 as const,
+    protocol: identity.protocol,
+    pass: identity.pass,
+    operator: identity.operator,
+    artifacts: artifactDescriptors,
+    payload,
+  };
+  const reportBytes = canonicalJsonBytes(report);
   const descriptor = {
-    path: "report.json",
+    path: isA ? GATE4A_REPORT_PATH : GATE4B_REPORT_PATH,
     kind: "phase4-evidence-report+json",
     byteLength: reportBytes.byteLength,
     sha256: sha256Bytes(reportBytes),
   };
   return {
     directory,
-    report: {
-      version: 1 as const,
-      protocol: identity.protocol,
-      pass: identity.pass,
-      operator: identity.operator,
-      artifacts: [],
-      payload: strictJsonSnapshot({ version: identity.payloadVersion }),
-    },
+    report,
     index: {
       version: 1 as const,
       publication: "complete" as const,
       report: descriptor,
-      artifacts: [descriptor],
+      artifacts: [descriptor, ...artifactDescriptors],
     },
   };
+}
+
+function rewritePublicationPayload<T extends Gate4ARunOutcome | Gate4BRunOutcome>(
+  outcome: T,
+  rewrite: (payload: Readonly<Record<string, StrictJson>>) => StrictJson,
+): T {
+  const publication = outcome.publication as NonNullable<T["publication"]>;
+  const payload = publication.report.payload as Readonly<Record<string, StrictJson>>;
+  return {
+    ...outcome,
+    publication: {
+      ...publication,
+      report: { ...publication.report, payload: rewrite(payload) },
+    },
+  } as T;
 }
 
 function passAOutcome(failing: readonly Phase4CriterionName[] = []): Gate4ARunOutcome {
   const recordsA = records([...A_EXECUTION_CRITERIA, ...A_MORPHOLOGY_CRITERIA], failing);
   const verdict = evaluateGate4A(recordsA);
-  return {
+  const outcome: Gate4ARunOutcome = {
     manifest: buildGate4AManifest(),
     provenance: passingProvenance(),
     sourceHashes: { gg: "0".repeat(64), lk: "0".repeat(64) },
@@ -129,7 +176,11 @@ function passAOutcome(failing: readonly Phase4CriterionName[] = []): Gate4ARunOu
     records: recordsA,
     verdict,
     artifacts: [],
-    publication: verdict.gatePass ? (syntheticPublication("/synthetic/pass-a", {
+    publication: null,
+  };
+  return {
+    ...outcome,
+    publication: verdict.gatePass ? (syntheticPublication("/synthetic/pass-a", outcome, {
       protocol: GATE4A_PROTOCOL,
       pass: "A",
       operator: "GGThreshold",
@@ -141,14 +192,18 @@ function passAOutcome(failing: readonly Phase4CriterionName[] = []): Gate4ARunOu
 function passBOutcome(failing: readonly Phase4CriterionName[] = []): Gate4BRunOutcome {
   const recordsB = records([...B_EXECUTION_CRITERIA, ...B_MORPHOLOGY_CRITERIA], failing);
   const verdict = evaluateGate4B(recordsB);
-  return {
+  const outcome: Gate4BRunOutcome = {
     manifest: buildGate4BManifest(),
     provenance: (({ v2CriteriaFreezeIsAncestor: _omitted, ...passB }) => passB)(passingProvenance()),
     results: [],
     records: recordsB,
     verdict,
     artifacts: [],
-    publication: verdict.executionValid ? (syntheticPublication("/synthetic/pass-b", {
+    publication: null,
+  };
+  return {
+    ...outcome,
+    publication: verdict.executionValid ? (syntheticPublication("/synthetic/pass-b", outcome, {
       protocol: GATE4B_PROTOCOL,
       pass: "B",
       operator: "LibbrechtKinetics",
@@ -361,12 +416,116 @@ describe("gate4 forged-outcome guards", () => {
     })).toThrow(/Pass B provenance identity failed/);
   });
 
+  it("rejects publication payloads relabelled away from their Pass-A outcome", () => {
+    const valid = passAOutcome();
+    const mutations = [
+      (payload: Readonly<Record<string, StrictJson>>) => ({ ...payload, manifestSha256: "f".repeat(64) }),
+      (payload: Readonly<Record<string, StrictJson>>) => ({ ...payload, provenance: { forged: true } }),
+      (payload: Readonly<Record<string, StrictJson>>) => ({ ...payload, records: [] }),
+      (payload: Readonly<Record<string, StrictJson>>) => ({ ...payload, verdict: { gatePass: false } }),
+      (payload: Readonly<Record<string, StrictJson>>) => ({ ...payload, runs: [{ runId: "relabelled" }] }),
+      (payload: Readonly<Record<string, StrictJson>>) => ({ ...payload, sourceHashes: { gg: "f".repeat(64), lk: "e".repeat(64) } }),
+      (payload: Readonly<Record<string, StrictJson>>) => ({ ...payload, unexpected: true }),
+    ];
+    for (const mutate of mutations) {
+      const forged = rewritePublicationPayload(valid, (payload) => strictJsonSnapshot(mutate(payload)));
+      expect(() => runGate4({
+        repoRoot,
+        reportPath: temporaryReportPath(),
+        runPassA: () => forged,
+        runPassB: () => passBOutcome(),
+      })).toThrow(/Pass A publication identity/);
+    }
+  });
+
+  it("rejects publication payloads relabelled away from their Pass-B outcome", () => {
+    const valid = passBOutcome();
+    const mutations = [
+      (payload: Readonly<Record<string, StrictJson>>) => ({ ...payload, manifestSha256: "f".repeat(64) }),
+      (payload: Readonly<Record<string, StrictJson>>) => ({ ...payload, provenance: { forged: true } }),
+      (payload: Readonly<Record<string, StrictJson>>) => ({ ...payload, records: [] }),
+      (payload: Readonly<Record<string, StrictJson>>) => ({ ...payload, verdict: { executionValid: false } }),
+      (payload: Readonly<Record<string, StrictJson>>) => ({ ...payload, runs: [{ runId: "relabelled" }] }),
+      (payload: Readonly<Record<string, StrictJson>>) => ({ ...payload, sourceHashes: { gg: "not-a-b-field" } }),
+    ];
+    for (const mutate of mutations) {
+      const forged = rewritePublicationPayload(valid, (payload) => strictJsonSnapshot(mutate(payload)));
+      expect(() => runGate4({
+        repoRoot,
+        reportPath: temporaryReportPath(),
+        runPassA: () => passAOutcome(),
+        runPassB: () => forged,
+      })).toThrow(/Pass B publication identity/);
+    }
+  });
+
+  it("rejects report descriptors that do not describe the exact canonical report bytes", () => {
+    const valid = passAOutcome();
+    const publication = valid.publication as NonNullable<typeof valid.publication>;
+    const descriptorMutations = [
+      { ...publication.index.report, path: "relabelled-report.json" },
+      { ...publication.index.report, kind: "application/json" },
+      { ...publication.index.report, byteLength: publication.index.report.byteLength + 1 },
+      { ...publication.index.report, sha256: "0".repeat(64) },
+    ];
+    for (const descriptor of descriptorMutations) {
+      const forged: Gate4ARunOutcome = {
+        ...valid,
+        publication: {
+          ...publication,
+          index: {
+            ...publication.index,
+            report: descriptor,
+            artifacts: [descriptor, ...publication.index.artifacts.slice(1)],
+          },
+        },
+      };
+      expect(() => runGate4({
+        repoRoot,
+        reportPath: temporaryReportPath(),
+        runPassA: () => forged,
+        runPassB: () => passBOutcome(),
+      })).toThrow(/Pass A publication descriptor graph/);
+    }
+  });
+
+  it("rejects an index artifact graph detached from the report artifact descriptors", () => {
+    const valid = passBOutcome();
+    const publication = valid.publication as NonNullable<typeof valid.publication>;
+    const detached = {
+      path: "detached.bin",
+      kind: "application/octet-stream",
+      byteLength: 0,
+      sha256: sha256Bytes(new Uint8Array(0)),
+    };
+    const forged: Gate4BRunOutcome = {
+      ...valid,
+      publication: {
+        ...publication,
+        index: {
+          ...publication.index,
+          artifacts: [...publication.index.artifacts, detached],
+        },
+      },
+    };
+    expect(() => runGate4({
+      repoRoot,
+      reportPath: temporaryReportPath(),
+      runPassA: () => passAOutcome(),
+      runPassB: () => forged,
+    })).toThrow(/Pass B publication descriptor graph/);
+  });
+
   it("rejects a Pass A outcome whose verdict does not match its own records", () => {
     const forged = passAOutcome(["A-EXEC-MASS"]);
-    const outcome: Gate4ARunOutcome = {
+    const unpublished: Gate4ARunOutcome = {
       ...forged,
       verdict: { ...forged.verdict, gatePass: true, exitCode: 0, blockingFailures: [] },
-      publication: syntheticPublication("/synthetic/pass-a", {
+      publication: null,
+    };
+    const outcome: Gate4ARunOutcome = {
+      ...unpublished,
+      publication: syntheticPublication("/synthetic/pass-a", unpublished, {
         protocol: GATE4A_PROTOCOL, pass: "A", operator: "GGThreshold", payloadVersion: 2,
       }) as never,
     };
@@ -380,7 +539,7 @@ describe("gate4 forged-outcome guards", () => {
 
   it("rejects a Pass B outcome whose verdict does not match its own records", () => {
     const forged = passBOutcome(["B-EXEC-LEDGER"]);
-    const outcome: Gate4BRunOutcome = {
+    const unpublished: Gate4BRunOutcome = {
       ...forged,
       verdict: {
         ...forged.verdict,
@@ -389,7 +548,11 @@ describe("gate4 forged-outcome guards", () => {
         exitCode: 0,
         executionFailures: [],
       },
-      publication: syntheticPublication("/synthetic/pass-b", {
+      publication: null,
+    };
+    const outcome: Gate4BRunOutcome = {
+      ...unpublished,
+      publication: syntheticPublication("/synthetic/pass-b", unpublished, {
         protocol: GATE4B_PROTOCOL, pass: "B", operator: "LibbrechtKinetics", payloadVersion: 1,
       }) as never,
     };
@@ -417,7 +580,7 @@ describe("gate4 forged-outcome guards", () => {
       runPassA: () => passAOutcome(),
       runPassB: () => ({
         ...invalidB,
-        publication: syntheticPublication("/synthetic/pass-b", {
+        publication: syntheticPublication("/synthetic/pass-b", invalidB, {
           protocol: GATE4B_PROTOCOL, pass: "B", operator: "LibbrechtKinetics", payloadVersion: 1,
         }) as never,
       }),

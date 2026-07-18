@@ -2488,7 +2488,7 @@ export interface RunGate4AOptions {
   readonly onProgress?: (runId: string, cycle: number, attached: number) => void;
 }
 
-function resultSummary(result: Gate4ARunResult): StrictJson {
+export function gate4AResultSummary(result: Gate4ARunResult): StrictJson {
   return strictJsonSnapshot({
     runId: result.config.id,
     executionId: result.executionId,
@@ -2597,7 +2597,7 @@ export function runGate4A(options: RunGate4AOptions = {}): Gate4ARunOutcome {
         sourceHashes,
         records,
         verdict,
-        runs: results.map(resultSummary),
+        runs: results.map(gate4AResultSummary),
       },
       artifacts,
     }, publish);

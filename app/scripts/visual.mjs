@@ -40,7 +40,9 @@ import {
   SYNTHETIC_FIXTURE_NOTICE,
   assertViewManifestComplete,
   planPassBViews,
+  phase4VisualManifestIdentity,
   sha256HexNode,
+  validatePhase4VisualManifestIdentity,
   verifyPhase4Bundle,
 } from "./phase4-verify.ts";
 
@@ -801,6 +803,7 @@ async function runPhase4(options) {
     );
 
     const manifest = {
+      ...phase4VisualManifestIdentity(),
       command: {
         executable: "node",
         script: "app/scripts/visual.mjs",
@@ -838,6 +841,7 @@ async function runPhase4(options) {
       durationSeconds: (Date.now() - startedAt) / 1000,
       generatedAt: new Date().toISOString(),
     };
+    validatePhase4VisualManifestIdentity(manifest);
     const failures = consoleErrors.length + pageErrors.length + inAppErrors.length;
     if (failures > 0) {
       throw new Error(

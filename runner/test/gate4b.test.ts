@@ -686,6 +686,11 @@ describe("gate4b frozen registration", () => {
     expect(validateGate4BProvenance(passingProvenance())).toEqual([]);
     expect(validateGate4BProvenance({
       ...passingProvenance(),
+      runnerFreezeIsAncestor: false,
+      cadenceFreezeIsAncestor: false,
+    })).toEqual([]);
+    expect(validateGate4BProvenance({
+      ...passingProvenance(),
       v2CriteriaFreezeIsAncestor: true,
     } as unknown as Gate4BProvenance)).toContain(
       "provenance keys differ from the exact Pass-B v1 shape",

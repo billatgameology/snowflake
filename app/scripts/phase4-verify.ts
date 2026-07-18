@@ -84,6 +84,55 @@ export const PASS_B_IDENTITY: Phase4PassIdentity = {
   payloadVersion: 1,
 };
 
+export interface Phase4VisualManifestIdentity {
+  readonly version: 1;
+  readonly sourceProtocols: {
+    readonly passA: "phase4-pass-a-v2";
+    readonly passB: "phase4-pass-b-v1";
+  };
+}
+
+/** Exact Phase-4 visual wire identity written into every capture manifest. */
+export function phase4VisualManifestIdentity(): Phase4VisualManifestIdentity {
+  if (
+    PASS_A_IDENTITY.protocol !== "phase4-pass-a-v2" ||
+    PASS_B_IDENTITY.protocol !== "phase4-pass-b-v1"
+  ) {
+    throw new Error("V4-VIEW-MANIFEST: verifier pass identities differ from the visual wire matrix");
+  }
+  return {
+    version: 1,
+    sourceProtocols: {
+      passA: "phase4-pass-a-v2",
+      passB: "phase4-pass-b-v1",
+    },
+  };
+}
+
+/** Fail closed if a written/read capture manifest is relabelled onto another pass matrix. */
+export function validatePhase4VisualManifestIdentity(value: unknown): void {
+  if (value === null || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error("V4-VIEW-MANIFEST: capture manifest must be an object");
+  }
+  const manifest = value as Readonly<Record<string, unknown>>;
+  if (manifest.version !== 1) {
+    throw new Error("V4-VIEW-MANIFEST: capture manifest version must be 1");
+  }
+  const protocols = manifest.sourceProtocols;
+  if (protocols === null || typeof protocols !== "object" || Array.isArray(protocols)) {
+    throw new Error("V4-VIEW-MANIFEST: sourceProtocols must be an object");
+  }
+  const record = protocols as Readonly<Record<string, unknown>>;
+  if (Object.keys(record).sort().join("\n") !== ["passA", "passB"].sort().join("\n")) {
+    throw new Error("V4-VIEW-MANIFEST: sourceProtocols keys are invalid");
+  }
+  if (record.passA !== "phase4-pass-a-v2" || record.passB !== "phase4-pass-b-v1") {
+    throw new Error(
+      "V4-VIEW-MANIFEST: sourceProtocols must be phase4-pass-a-v2 / phase4-pass-b-v1",
+    );
+  }
+}
+
 export const PASS_A_MANIFEST_SHA256 =
   "e5e85c70d377e90dcca2974579122e67417c60fd2c11683276f528615e608644";
 export const PASS_B_MANIFEST_SHA256 =
