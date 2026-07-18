@@ -6,11 +6,13 @@
 // index + descriptors all updated together), so passing them would mean the verifier trusts
 // a self-consistent forgery — exactly the WP2b review exploit this layer must also refuse.
 
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawn } from "node:child_process";
 import {
+  existsSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
+  readdirSync,
   realpathSync,
   rmSync,
   symlinkSync,
@@ -18,7 +20,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { join, resolve } from "node:path";
+import { basename, join, relative, resolve } from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import {
   PASS_A_IDENTITY,
@@ -28,6 +30,7 @@ import {
   PASS_B_COUNTERPART_VIEWS,
   PASS_B_EXECUTION_CRITERIA,
   PASS_B_MORPHOLOGY_CRITERIA,
+  Phase4OutputPublicationGuard,
   PHASE4_CRITERIA_FREEZE,
   PHASE4_GG_SOURCE_SHA256,
   PHASE4_INDEX_FILE,
@@ -75,6 +78,101 @@ function freshPassB(): string {
 
 function verifySynthetic(directory: string, identity: Phase4PassIdentity): VerifiedPhase4Bundle {
   return verifyPhase4Bundle(directory, identity, { allowSyntheticFixture: true });
+}
+
+function snapshotTree(directory: string): readonly string[] {
+  const entries: string[] = [];
+  const visit = (current: string): void => {
+    for (const entry of readdirSync(current, { withFileTypes: true })) {
+      const absolute = join(current, entry.name);
+      const portable = relative(directory, absolute).replaceAll("\\", "/");
+      if (entry.isDirectory()) {
+        entries.push(`D ${portable}`);
+        visit(absolute);
+      } else if (entry.isFile()) {
+        entries.push(`F ${portable} ${sha256HexNode(readFileSync(absolute))}`);
+      } else {
+        entries.push(`X ${portable}`);
+      }
+    }
+  };
+  visit(directory);
+  return entries.sort();
+}
+
+interface Phase4HookPayload {
+  readonly outDir: string;
+  readonly passADir: string;
+  readonly passBDir: string;
+  readonly stagingDir?: string;
+}
+
+async function waitForIpcHook(
+  child: ReturnType<typeof spawn>,
+  hook: "after-verifying-pass-a" | "after-fresh-noncanonical-staging",
+): Promise<Phase4HookPayload> {
+  return await new Promise((accept, reject) => {
+    const finish = (error: Error | null, payload?: Phase4HookPayload): void => {
+      clearTimeout(timeout);
+      child.off("message", onMessage);
+      child.off("close", onClose);
+      if (error !== null) reject(error);
+      else accept(payload!);
+    };
+    const onMessage = (message: unknown): void => {
+      if (
+        typeof message === "object" &&
+        message !== null &&
+        (message as Record<string, unknown>).type === "vcc-phase4-test-hook-ready" &&
+        (message as Record<string, unknown>).version === 1 &&
+        (message as Record<string, unknown>).hook === hook
+      ) {
+        finish(null, (message as { payload: Phase4HookPayload }).payload);
+      }
+    };
+    const onClose = (code: number | null): void =>
+      finish(new Error(`visual harness exited ${String(code)} before IPC hook ${hook}`));
+    const timeout = setTimeout(
+      () => finish(new Error(`timed out waiting for visual IPC hook ${hook}`)),
+      15_000,
+    );
+    child.on("message", onMessage);
+    child.once("close", onClose);
+  });
+}
+
+async function continueIpcHook(
+  child: ReturnType<typeof spawn>,
+  hook: "after-verifying-pass-a" | "after-fresh-noncanonical-staging",
+): Promise<void> {
+  await new Promise<void>((accept, reject) => {
+    if (typeof child.send !== "function" || !child.connected) {
+      reject(new Error(`visual harness IPC is unavailable at ${hook}`));
+      return;
+    }
+    child.send(
+      { type: "vcc-phase4-test-hook-continue", version: 1, hook },
+      (error) => (error === null ? accept() : reject(error)),
+    );
+  });
+}
+
+async function waitForExit(
+  child: ReturnType<typeof spawn>,
+  timeoutMs = 15_000,
+): Promise<number | null> {
+  if (child.exitCode !== null) return child.exitCode;
+  return await new Promise((accept, reject) => {
+    const timeout = setTimeout(() => {
+      child.off("close", onClose);
+      reject(new Error(`timed out waiting for visual harness exit after ${timeoutMs} ms`));
+    }, timeoutMs);
+    const onClose = (code: number | null): void => {
+      clearTimeout(timeout);
+      accept(code);
+    };
+    child.once("close", onClose);
+  });
 }
 
 /** Coherent report rewrite: report bytes, report descriptor, and index all stay consistent. */
@@ -633,6 +731,33 @@ describe("pass identity cross-checks", () => {
 });
 
 describe("capture output safety", () => {
+  it("publishes the same identity-bound staging directory by one atomic rename", () => {
+    const parent = join(root, `publication-parent-${counter++}`);
+    const output = join(parent, "captures");
+    const evidence = freshPassA();
+    const publication = new Phase4OutputPublicationGuard(output, [evidence]);
+    publication.prepareOutputParent();
+    const staging = publication.createTrustedStagingDirectory();
+    const file = publication.stagingFile("capture.png");
+    publication.beforeStagingWrite(file, "test capture write");
+    writeFileSync(file, "png bytes");
+    publication.afterStagingWrite(file, "test capture write");
+    publication.publish();
+    publication.cleanupStagingDirectory();
+    expect(existsSync(staging)).toBe(false);
+    expect(readFileSync(join(output, "capture.png"), "utf8")).toBe("png bytes");
+  });
+
+  it("requires an evidence directory authorized as absent to remain absent", () => {
+    const output = join(root, `absent-evidence-output-${counter++}`, "captures");
+    const initiallyAbsentEvidence = join(root, `initially-absent-evidence-${counter++}`);
+    const publication = new Phase4OutputPublicationGuard(output, [initiallyAbsentEvidence]);
+    mkdirSync(initiallyAbsentEvidence);
+    expect(() => publication.revalidate("direct absent-evidence regression")).toThrow(
+      /V4-OUTPUT-SAFETY: initially absent evidence bundle 1 appeared/,
+    );
+  });
+
   it("rejects output equal to, inside, or containing either evidence bundle", () => {
     const passA = join(root, "immutable-pass-a");
     const passB = join(root, "immutable-pass-b");
@@ -690,6 +815,152 @@ describe("capture output safety", () => {
         ]),
       ).toThrow(/overlaps immutable evidence bundle/);
     },
+  );
+});
+
+describe("visual harness test-hook isolation", () => {
+  it(
+    "an ordinary harness without IPC never activates or waits for a test hook",
+    async () => {
+      const caseRoot = join(root, `visual-no-ipc-${counter++}`);
+      const passA = join(caseRoot, "pass-a");
+      const missingPassB = join(caseRoot, "pass-b-absent");
+      const outDir = join(caseRoot, "output", "captures");
+      buildFixturePassA(passA);
+      const evidenceBefore = snapshotTree(passA);
+      const child = spawn(
+        process.execPath,
+        [
+          resolve(repoRoot, "app/scripts/visual.mjs"),
+          "--phase4",
+          "--allow-synthetic-fixtures",
+          "--require-pass-b",
+          "--pass-a-dir",
+          passA,
+          "--pass-b-dir",
+          missingPassB,
+          "--out-dir",
+          outDir,
+        ],
+        { cwd: repoRoot, stdio: ["ignore", "pipe", "pipe"] },
+      );
+      let stdout = "";
+      let stderr = "";
+      child.stdout!.on("data", (chunk) => {
+        stdout += String(chunk);
+      });
+      child.stderr!.on("data", (chunk) => {
+        stderr += String(chunk);
+      });
+      try {
+        const exitCode = await waitForExit(child);
+        expect(exitCode).not.toBe(0);
+        expect(`${stdout}\n${stderr}`).toMatch(/--require-pass-b given/);
+        expect(`${stdout}\n${stderr}`).not.toMatch(/V4-TEST-HOOK|test hook paused/);
+        expect(existsSync(outDir)).toBe(false);
+        expect(snapshotTree(passA)).toEqual(evidenceBefore);
+      } finally {
+        if (child.exitCode === null) child.kill();
+      }
+    },
+    20_000,
+  );
+});
+
+describe.runIf(process.platform === "win32")("visual harness output-parent swap hooks", () => {
+  async function exerciseSwap(
+    hookName: "after-verifying-pass-a" | "after-fresh-noncanonical-staging",
+  ): Promise<void> {
+    const caseRoot = join(root, `visual-swap-${hookName}-${counter++}`);
+    const passA = join(caseRoot, "pass-a");
+    const missingPassB = join(caseRoot, "pass-b-absent");
+    const outputParent = join(caseRoot, "initially-absent-output-parent");
+    const outDir = join(outputParent, "captures");
+    buildFixturePassA(passA);
+    const evidenceBefore = snapshotTree(passA);
+    const child = spawn(
+      process.execPath,
+      [
+        resolve(repoRoot, "app/scripts/visual.mjs"),
+        "--phase4",
+        "--allow-synthetic-fixtures",
+        "--pass-a-dir",
+        passA,
+        "--pass-b-dir",
+        missingPassB,
+        "--out-dir",
+        outDir,
+      ],
+      {
+        cwd: repoRoot,
+        stdio: ["ignore", "pipe", "pipe", "ipc"],
+      },
+    );
+    let stdout = "";
+    let stderr = "";
+    child.stdout!.on("data", (chunk) => {
+      stdout += String(chunk);
+    });
+    child.stderr!.on("data", (chunk) => {
+      stderr += String(chunk);
+    });
+
+    let injectedExpectedLeaf: string | null = null;
+    let stagingDirectory: string | null = null;
+    try {
+      if (hookName === "after-fresh-noncanonical-staging") {
+        const earlierHook = "after-verifying-pass-a";
+        await waitForIpcHook(child, earlierHook);
+        await continueIpcHook(child, earlierHook);
+      }
+      const payload = await waitForIpcHook(child, hookName);
+      if (hookName === "after-fresh-noncanonical-staging") {
+        stagingDirectory = payload.stagingDir ?? null;
+        expect(stagingDirectory).not.toBeNull();
+        rmSync(outputParent, { recursive: true, force: false });
+      }
+      symlinkSync(passA, outputParent, "junction");
+      if (stagingDirectory !== null) {
+        // Recreate the leaf the vulnerable sibling-staging implementation would have used.
+        // The repaired harness has an independently bound staging directory and must never
+        // write through this output-parent alias.
+        injectedExpectedLeaf = join(outputParent, basename(stagingDirectory));
+        mkdirSync(injectedExpectedLeaf);
+      }
+      await continueIpcHook(child, hookName);
+      const exitCode = await waitForExit(child);
+      expect(exitCode, `${stdout}\n${stderr}`).not.toBe(0);
+      expect(`${stdout}\n${stderr}`).toMatch(/V4-OUTPUT-SAFETY/);
+      expect(existsSync(outDir)).toBe(false);
+      if (stagingDirectory !== null) expect(existsSync(stagingDirectory)).toBe(false);
+
+      if (injectedExpectedLeaf !== null) {
+        expect(readdirSync(injectedExpectedLeaf)).toEqual([]);
+        rmSync(injectedExpectedLeaf, { recursive: true, force: false });
+      }
+      expect(snapshotTree(passA)).toEqual(evidenceBefore);
+      unlinkSync(outputParent);
+      expect(existsSync(outDir)).toBe(false);
+      expect(snapshotTree(passA)).toEqual(evidenceBefore);
+    } finally {
+      if (child.exitCode === null) child.kill();
+      if (injectedExpectedLeaf !== null && existsSync(injectedExpectedLeaf)) {
+        rmSync(injectedExpectedLeaf, { recursive: true, force: true });
+      }
+      if (existsSync(outputParent)) unlinkSync(outputParent);
+    }
+  }
+
+  it(
+    "fails closed when the absent output parent becomes a Pass A junction after the verifying log",
+    async () => exerciseSwap("after-verifying-pass-a"),
+    30_000,
+  );
+
+  it(
+    "cleans trusted staging when the output parent becomes a Pass A junction after staging",
+    async () => exerciseSwap("after-fresh-noncanonical-staging"),
+    30_000,
   );
 });
 

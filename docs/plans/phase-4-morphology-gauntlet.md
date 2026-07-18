@@ -687,9 +687,18 @@ required schedule manifest and are not advertised as resumable mid-history.
       However, output identity was checked only once. Two deterministic timing probes replaced
       an initially absent parent with a junction into disposable Pass A: once after bundle
       verification began and once after staging was announced. Both runs published all 20 PNGs
-      plus the manifest inside evidence and exited 0. Identity-bound staging plus revalidation at
-      every write/publication boundary, with direct controls for both swaps, is required before
-      another immutable same-reviewer candidate. Do not check this item before zero blockers and
+      plus the manifest inside evidence and exited 0. The repair stages beneath the initially
+      bound existing ancestor rather than the replaceable output subtree; pins realpath,
+      filesystem device, and inode identities for the trusted ancestor, evidence, output parent,
+      and staging; pins an initially absent evidence path absent throughout; and revalidates
+      original paths around every mkdir, capture, manifest, read, cleanup, and atomic rename
+      boundary. Typed Node IPC supplies deterministic pause/continue
+      hooks without marker files or any new unguarded filesystem writer. Both exact swaps now
+      exit nonzero by `V4-OUTPUT-SAFETY`, leave no output/staging residue, and preserve the full
+      evidence snapshot. A no-IPC test proves ordinary runs never activate the hook. Current
+      verification is 47/47 targeted tests, 195/195 app tests, both typechecks, the 33-module
+      build, and clean inspected 20/20 Phase 4 plus 9/9 Phase 3 visual sets. Return the immutable
+      repair to the same reviewer for round 4; do not check this item before zero blockers and
       zero should-fixes.
 - [ ] Run the complete regression suite, Phase 2a byte control, gate3 regression, app build, and
       both screenshot backends; loop every failure.

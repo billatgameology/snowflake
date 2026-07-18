@@ -25,7 +25,18 @@
 
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { existsSync, lstatSync, readFileSync, readdirSync, realpathSync } from "node:fs";
+import {
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  realpathSync,
+  renameSync,
+  rmSync,
+  statSync,
+} from "node:fs";
 import { basename, dirname, join, parse, relative, resolve, sep } from "node:path";
 import {
   decodeCheckpoint,
@@ -378,6 +389,329 @@ export function assertSafePhase4OutputPaths(
     }
   }
   return { outputDirectory: output, evidenceDirectories: evidence };
+}
+
+interface DirectoryIdentity {
+  readonly canonicalPath: string;
+  readonly dev: bigint;
+  readonly ino: bigint;
+}
+
+function bindDirectoryIdentity(directory: string, purpose: string): DirectoryIdentity {
+  const absolute = resolve(directory);
+  const linkStats = lstatSync(absolute);
+  if (linkStats.isSymbolicLink() || !linkStats.isDirectory()) {
+    throw new Error(`V4-OUTPUT-SAFETY: ${purpose} is not a direct directory: ${absolute}`);
+  }
+  const canonicalPath = realpathSync.native(absolute);
+  const stats = statSync(canonicalPath, { bigint: true });
+  if (!stats.isDirectory()) {
+    throw new Error(`V4-OUTPUT-SAFETY: ${purpose} is not a directory: ${canonicalPath}`);
+  }
+  return { canonicalPath, dev: stats.dev, ino: stats.ino };
+}
+
+function assertSameDirectoryIdentity(
+  expected: DirectoryIdentity,
+  actual: DirectoryIdentity,
+  purpose: string,
+): void {
+  if (
+    comparisonPath(expected.canonicalPath) !== comparisonPath(actual.canonicalPath) ||
+    expected.dev !== actual.dev ||
+    expected.ino !== actual.ino
+  ) {
+    throw new Error(
+      `V4-OUTPUT-SAFETY: ${purpose} filesystem identity changed ` +
+        `(${expected.canonicalPath} -> ${actual.canonicalPath})`,
+    );
+  }
+}
+
+function assertSameDirectoryObject(
+  expected: DirectoryIdentity,
+  actual: DirectoryIdentity,
+  purpose: string,
+): void {
+  if (expected.dev !== actual.dev || expected.ino !== actual.ino) {
+    throw new Error(
+      `V4-OUTPUT-SAFETY: ${purpose} filesystem object changed ` +
+        `(${expected.canonicalPath} -> ${actual.canonicalPath})`,
+    );
+  }
+}
+
+function closestExistingDirectory(requested: string): string {
+  let candidate = resolve(requested);
+  while (!existsSync(candidate)) {
+    const parent = dirname(candidate);
+    if (parent === candidate) {
+      throw new Error(`V4-OUTPUT-SAFETY: no existing ancestor for ${requested}`);
+    }
+    candidate = parent;
+  }
+  const stats = lstatSync(candidate);
+  if (stats.isSymbolicLink() || !stats.isDirectory()) {
+    throw new Error(`V4-OUTPUT-SAFETY: closest existing output ancestor is not trusted: ${candidate}`);
+  }
+  return candidate;
+}
+
+/**
+ * Identity-bound publication guard for the Phase 4 visual harness.
+ *
+ * The capture staging directory is created beneath the closest existing, identity-bound
+ * ancestor of the initially absent output. It is deliberately not created beneath a later
+ * mkdir-created output parent: that parent is replaceable on Windows by a junction. Every
+ * filesystem write and the final rename is bracketed by `revalidate` calls, which re-resolve
+ * the original requested paths and require their real paths plus dev/inode identities to stay
+ * fixed. This makes an output-parent swap fail closed while leaving immutable evidence and the
+ * trusted staging directory independently recoverable.
+ */
+export class Phase4OutputPublicationGuard {
+  readonly outputDirectory: string;
+  readonly evidenceDirectories: readonly string[];
+
+  readonly #requestedOutputDirectory: string;
+  readonly #requestedEvidenceDirectories: readonly string[];
+  readonly #trustedAncestor: DirectoryIdentity;
+  readonly #evidenceIdentities: readonly (DirectoryIdentity | null)[];
+  #outputParentIdentity: DirectoryIdentity | null = null;
+  #stagingIdentity: DirectoryIdentity | null = null;
+  #published = false;
+
+  constructor(outputDirectory: string, evidenceDirectories: readonly string[]) {
+    this.#requestedOutputDirectory = resolve(outputDirectory);
+    this.#requestedEvidenceDirectories = evidenceDirectories.map((directory) => resolve(directory));
+    const safe = assertSafePhase4OutputPaths(
+      this.#requestedOutputDirectory,
+      this.#requestedEvidenceDirectories,
+    );
+    this.outputDirectory = safe.outputDirectory;
+    this.evidenceDirectories = safe.evidenceDirectories;
+    this.#trustedAncestor = bindDirectoryIdentity(
+      closestExistingDirectory(this.outputDirectory),
+      "trusted output ancestor",
+    );
+    this.#evidenceIdentities = this.evidenceDirectories.map((directory, index) =>
+      existsSync(directory)
+        ? bindDirectoryIdentity(directory, `immutable evidence bundle ${index + 1}`)
+        : null,
+    );
+    this.revalidate("initial path authorization");
+  }
+
+  revalidate(boundary: string): void {
+    const safe = assertSafePhase4OutputPaths(
+      this.#requestedOutputDirectory,
+      this.#requestedEvidenceDirectories,
+    );
+    if (comparisonPath(safe.outputDirectory) !== comparisonPath(this.outputDirectory)) {
+      throw new Error(
+        `V4-OUTPUT-SAFETY: output resolution changed at ${boundary}: ` +
+          `${this.outputDirectory} -> ${safe.outputDirectory}`,
+      );
+    }
+    for (let index = 0; index < safe.evidenceDirectories.length; index++) {
+      if (
+        comparisonPath(safe.evidenceDirectories[index]!) !==
+        comparisonPath(this.evidenceDirectories[index]!)
+      ) {
+        throw new Error(
+          `V4-OUTPUT-SAFETY: evidence resolution changed at ${boundary}: ` +
+            `${this.evidenceDirectories[index]} -> ${safe.evidenceDirectories[index]}`,
+        );
+      }
+    }
+
+    assertSameDirectoryIdentity(
+      this.#trustedAncestor,
+      bindDirectoryIdentity(this.#trustedAncestor.canonicalPath, "trusted output ancestor"),
+      `trusted output ancestor at ${boundary}`,
+    );
+    for (let index = 0; index < this.#evidenceIdentities.length; index++) {
+      const expected = this.#evidenceIdentities[index];
+      if (expected !== null) {
+        assertSameDirectoryIdentity(
+          expected,
+          bindDirectoryIdentity(
+            this.evidenceDirectories[index]!,
+            `immutable evidence bundle ${index + 1}`,
+          ),
+          `immutable evidence bundle ${index + 1} at ${boundary}`,
+        );
+      } else if (existsSync(this.evidenceDirectories[index]!)) {
+        throw new Error(
+          `V4-OUTPUT-SAFETY: initially absent evidence bundle ${index + 1} appeared at ` +
+            `${boundary}: ${this.evidenceDirectories[index]}`,
+        );
+      }
+    }
+    if (this.#outputParentIdentity !== null) {
+      assertSameDirectoryIdentity(
+        this.#outputParentIdentity,
+        bindDirectoryIdentity(dirname(this.outputDirectory), "output parent"),
+        `output parent at ${boundary}`,
+      );
+    }
+    if (this.#stagingIdentity !== null && !this.#published) {
+      assertSameDirectoryIdentity(
+        this.#stagingIdentity,
+        bindDirectoryIdentity(this.#stagingIdentity.canonicalPath, "trusted staging directory"),
+        `trusted staging directory at ${boundary}`,
+      );
+    }
+  }
+
+  prepareOutputParent(): void {
+    this.revalidate("before output-parent mkdir");
+    mkdirSync(dirname(this.outputDirectory), { recursive: true });
+    this.revalidate("after output-parent mkdir");
+    this.#outputParentIdentity = bindDirectoryIdentity(dirname(this.outputDirectory), "output parent");
+    this.revalidate("after output-parent identity binding");
+  }
+
+  createTrustedStagingDirectory(): string {
+    if (this.#outputParentIdentity === null) {
+      throw new Error("V4-OUTPUT-SAFETY: output parent must be prepared before staging");
+    }
+    this.revalidate("before trusted staging mkdir");
+    const prefix = join(
+      this.#trustedAncestor.canonicalPath,
+      `.${basename(this.outputDirectory)}.attempt-${process.pid}-${Date.now()}-NONCANONICAL-`,
+    );
+    const stagingDirectory = mkdtempSync(prefix);
+    this.#stagingIdentity = bindDirectoryIdentity(stagingDirectory, "trusted staging directory");
+    if (this.#stagingIdentity.dev !== this.#outputParentIdentity.dev) {
+      this.cleanupStagingDirectory();
+      throw new Error(
+        "V4-OUTPUT-SAFETY: trusted staging and output parent are on different filesystems",
+      );
+    }
+    for (const evidence of this.evidenceDirectories) {
+      if (
+        sameOrInside(evidence, this.#stagingIdentity.canonicalPath) ||
+        sameOrInside(this.#stagingIdentity.canonicalPath, evidence)
+      ) {
+        this.cleanupStagingDirectory();
+        throw new Error("V4-OUTPUT-SAFETY: trusted staging overlaps immutable evidence");
+      }
+    }
+    this.revalidate("after trusted staging mkdir");
+    return this.#stagingIdentity.canonicalPath;
+  }
+
+  stagingFile(fileName: string): string {
+    if (this.#stagingIdentity === null || this.#published) {
+      throw new Error("V4-OUTPUT-SAFETY: no active trusted staging directory");
+    }
+    const target = resolve(this.#stagingIdentity.canonicalPath, fileName);
+    if (!sameOrInside(this.#stagingIdentity.canonicalPath, target) || target === this.#stagingIdentity.canonicalPath) {
+      throw new Error(`V4-OUTPUT-SAFETY: staged file escapes trusted staging: ${fileName}`);
+    }
+    return target;
+  }
+
+  beforeStagingWrite(target: string, purpose: string): void {
+    this.assertStagingTarget(target, purpose, false);
+    this.revalidate(`immediately before ${purpose}`);
+  }
+
+  afterStagingWrite(target: string, purpose: string): void {
+    this.revalidate(`immediately after ${purpose}`);
+    this.assertStagingTarget(target, purpose, true);
+  }
+
+  beforeStagingRead(target: string, purpose: string): void {
+    this.revalidate(`immediately before ${purpose}`);
+    this.assertStagingTarget(target, purpose, true);
+  }
+
+  afterStagingRead(target: string, purpose: string): void {
+    this.revalidate(`immediately after ${purpose}`);
+    this.assertStagingTarget(target, purpose, true);
+  }
+
+  publish(): void {
+    if (this.#stagingIdentity === null || this.#published) {
+      throw new Error("V4-OUTPUT-SAFETY: no active staging directory to publish");
+    }
+    this.revalidate("publication preflight");
+    if (existsSync(this.outputDirectory)) {
+      throw new Error(
+        `V4-OUTPUT-SAFETY: canonical output appeared before publication: ${this.outputDirectory}`,
+      );
+    }
+    this.revalidate("immediately before publication rename");
+    const stagingIdentity = this.#stagingIdentity;
+    renameSync(stagingIdentity.canonicalPath, this.outputDirectory);
+
+    const safe = assertSafePhase4OutputPaths(
+      this.#requestedOutputDirectory,
+      this.#requestedEvidenceDirectories,
+    );
+    if (comparisonPath(safe.outputDirectory) !== comparisonPath(this.outputDirectory)) {
+      throw new Error("V4-OUTPUT-SAFETY: output resolution changed immediately after rename");
+    }
+    const publishedIdentity = bindDirectoryIdentity(this.outputDirectory, "published output");
+    assertSameDirectoryObject(
+      stagingIdentity,
+      publishedIdentity,
+      "published output immediately after rename",
+    );
+    if (existsSync(stagingIdentity.canonicalPath)) {
+      throw new Error("V4-OUTPUT-SAFETY: trusted staging still exists after publication rename");
+    }
+    this.#published = true;
+    this.#stagingIdentity = null;
+    this.revalidate("immediately after publication rename");
+  }
+
+  cleanupStagingDirectory(): void {
+    const staging = this.#stagingIdentity;
+    if (staging === null || this.#published) return;
+    assertSameDirectoryIdentity(
+      this.#trustedAncestor,
+      bindDirectoryIdentity(this.#trustedAncestor.canonicalPath, "trusted output ancestor"),
+      "trusted output ancestor during staging cleanup",
+    );
+    if (!existsSync(staging.canonicalPath)) {
+      this.#stagingIdentity = null;
+      return;
+    }
+    assertSameDirectoryIdentity(
+      staging,
+      bindDirectoryIdentity(staging.canonicalPath, "trusted staging directory"),
+      "trusted staging directory during cleanup",
+    );
+    for (const evidence of this.evidenceDirectories) {
+      if (sameOrInside(evidence, staging.canonicalPath) || sameOrInside(staging.canonicalPath, evidence)) {
+        throw new Error("V4-OUTPUT-SAFETY: refusing to clean staging overlapping evidence");
+      }
+    }
+    rmSync(staging.canonicalPath, { recursive: true, force: false });
+    if (existsSync(staging.canonicalPath)) {
+      throw new Error("V4-OUTPUT-SAFETY: trusted staging remained after cleanup");
+    }
+    this.#stagingIdentity = null;
+  }
+
+  private assertStagingTarget(target: string, purpose: string, requireFile: boolean): void {
+    if (this.#stagingIdentity === null || this.#published) {
+      throw new Error(`V4-OUTPUT-SAFETY: ${purpose} has no active trusted staging directory`);
+    }
+    const absolute = resolve(target);
+    if (!sameOrInside(this.#stagingIdentity.canonicalPath, absolute)) {
+      throw new Error(`V4-OUTPUT-SAFETY: ${purpose} escapes trusted staging: ${absolute}`);
+    }
+    refuseOutputAliases(absolute);
+    if (requireFile) {
+      const stats = lstatSync(absolute);
+      if (stats.isSymbolicLink() || !stats.isFile()) {
+        throw new Error(`V4-OUTPUT-SAFETY: ${purpose} did not produce a direct file: ${absolute}`);
+      }
+    }
+  }
 }
 
 // ── Run summaries and manifest configs (the fields this harness consumes) ──────────────────

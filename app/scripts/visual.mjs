@@ -28,16 +28,16 @@
 // Dev tooling only: nothing in app/src imports from here or from Playwright.
 
 import { spawn, spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
-import { basename, dirname, join, relative, resolve, sep } from "node:path";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import {
   PASS_A_IDENTITY,
   PASS_B_IDENTITY,
+  Phase4OutputPublicationGuard,
   REQUIRED_PASS_A_VIEWS,
   SYNTHETIC_FIXTURE_NOTICE,
-  assertSafePhase4OutputPaths,
   assertViewManifestComplete,
   planPassBViews,
   sha256HexNode,
@@ -100,6 +100,53 @@ function chromiumGpuArgs() {
 function portableFromManifest(manifestDirectory, target) {
   const rel = relative(manifestDirectory, target).split(sep).join("/");
   return rel === "" ? "." : rel;
+}
+
+// Deterministic, test-only handshakes for the two Windows junction swap seams found in review.
+// They are completely inert in an ordinary invocation: only a child spawned with Node's IPC
+// channel has process.send. IPC carries both the typed ready payload and typed continuation, so
+// the coordination mechanism performs no filesystem writes and cannot itself touch evidence.
+async function phase4TestHook(name, payload) {
+  if (typeof process.send !== "function" || !process.connected) return;
+  await new Promise((accept, reject) => {
+    const finish = (error) => {
+      clearTimeout(timeout);
+      process.off("message", onMessage);
+      process.off("disconnect", onDisconnect);
+      if (error === null) accept();
+      else reject(error);
+    };
+    const onMessage = (message) => {
+      if (
+        typeof message === "object" &&
+        message !== null &&
+        message.type === "vcc-phase4-test-hook-continue" &&
+        message.version === 1 &&
+        message.hook === name
+      ) {
+        finish(null);
+      }
+    };
+    const onDisconnect = () => finish(new Error(`V4-TEST-HOOK: IPC disconnected at ${name}`));
+    const timeout = setTimeout(
+      () => finish(new Error(`V4-TEST-HOOK: timed out waiting for IPC continuation at ${name}`)),
+      30_000,
+    );
+    process.on("message", onMessage);
+    process.once("disconnect", onDisconnect);
+    process.send(
+      {
+        type: "vcc-phase4-test-hook-ready",
+        version: 1,
+        hook: name,
+        payload,
+      },
+      (error) => {
+        if (error !== null) finish(new Error(`V4-TEST-HOOK: IPC send failed at ${name}: ${error.message}`));
+      },
+    );
+    log(`test hook paused: ${name}`);
+  });
 }
 
 // ── Shared plumbing ────────────────────────────────────────────────────────────────────────
@@ -461,12 +508,12 @@ async function runPhase4(options) {
   const requestedOutDir = options.outDir ?? resolve(repoRoot, "out", "phase4-visual");
   const requestedPassADir = options.passADir ?? resolve(repoRoot, "out", "phase4", "pass-a");
   const requestedPassBDir = options.passBDir ?? resolve(repoRoot, "out", "phase4", "pass-b");
-  const safePaths = assertSafePhase4OutputPaths(requestedOutDir, [
+  const publication = new Phase4OutputPublicationGuard(requestedOutDir, [
     requestedPassADir,
     requestedPassBDir,
   ]);
-  const outDir = safePaths.outputDirectory;
-  const [passADir, passBDir] = safePaths.evidenceDirectories;
+  const outDir = publication.outputDirectory;
+  const [passADir, passBDir] = publication.evidenceDirectories;
   if (existsSync(outDir)) {
     throw new Error(`V4-OUTPUT-SAFETY: canonical output already exists: ${outDir}`);
   }
@@ -483,6 +530,7 @@ async function runPhase4(options) {
     );
   }
   log(`verifying pass-a bundle: ${passADir}`);
+  await phase4TestHook("after-verifying-pass-a", { outDir, passADir, passBDir });
   const bundleA = verifyPhase4Bundle(passADir, PASS_A_IDENTITY, verifyOptions);
   log(`pass-a bundle OK (${bundleA.runs.size} runs)`);
 
@@ -508,17 +556,8 @@ async function runPhase4(options) {
     log(`pass-b view ABSENT: ${absent.name} — ${absent.reason}`);
   }
   const requiredViews = [...REQUIRED_PASS_A_VIEWS, ...passBPlan.available];
-
-  mkdirSync(dirname(outDir), { recursive: true });
-  const stagingDir = join(
-    dirname(outDir),
-    `.${basename(outDir)}.attempt-${process.pid}-${Date.now()}-NONCANONICAL`,
-  );
-  mkdirSync(stagingDir);
-  log(`fresh noncanonical staging: ${stagingDir}`);
-  buildApp();
-  const preview = startPreview(PHASE4_PORT);
-
+  let stagingDir = null;
+  let preview = null;
   let browser = null;
   const consoleErrors = [];
   const pageErrors = [];
@@ -528,6 +567,18 @@ async function runPhase4(options) {
   const actualBackends = {};
 
   try {
+    publication.prepareOutputParent();
+    stagingDir = publication.createTrustedStagingDirectory();
+    log(`fresh noncanonical staging: ${stagingDir}`);
+    await phase4TestHook("after-fresh-noncanonical-staging", {
+      outDir,
+      passADir,
+      passBDir,
+      stagingDir,
+    });
+    publication.revalidate("after fresh noncanonical staging hook");
+    buildApp();
+    preview = startPreview(PHASE4_PORT);
     await waitForServer(`http://localhost:${PHASE4_PORT}/`, 20_000);
     browser = await chromium.launch({
       headless: true,
@@ -564,7 +615,9 @@ async function runPhase4(options) {
         if (run === undefined) {
           throw new Error(`V4-VIEW-MANIFEST: view ${view.name} needs missing run ${view.runId}`);
         }
+        publication.revalidate(`before evidence checkpoint read for ${view.name}`);
         const bytes = readFileSync(join(bundle.directory, run.checkpointPath));
+        publication.revalidate(`after evidence checkpoint read for ${view.name}`);
         const viewVerdict = bundle.records.get(view.verdictCriterion);
         if (viewVerdict === undefined) {
           throw new Error(
@@ -667,9 +720,13 @@ async function runPhase4(options) {
         }
 
         const fileName = `${view.name}--${backendPass.name}.png`;
-        const file = resolve(stagingDir, fileName);
+        const file = publication.stagingFile(fileName);
+        publication.beforeStagingWrite(file, `screenshot write ${fileName}`);
         await page.screenshot({ path: file });
+        publication.afterStagingWrite(file, `screenshot write ${fileName}`);
+        publication.beforeStagingRead(file, `screenshot hash read ${fileName}`);
         const pngBytes = readFileSync(file);
+        publication.afterStagingRead(file, `screenshot hash read ${fileName}`);
         entries.push({
           name: view.name,
           backendPass: backendPass.name,
@@ -782,7 +839,10 @@ async function runPhase4(options) {
       );
     }
     for (const entry of entries) {
-      const reopened = readFileSync(join(stagingDir, entry.file));
+      const stagedFile = publication.stagingFile(entry.file);
+      publication.beforeStagingRead(stagedFile, `prepublication PNG read ${entry.file}`);
+      const reopened = readFileSync(stagedFile);
+      publication.afterStagingRead(stagedFile, `prepublication PNG read ${entry.file}`);
       if (reopened.byteLength !== entry.pngByteLength || sha256HexNode(reopened) !== entry.pngSha256) {
         throw new Error(`V4-CAPTURE-HASH: staged PNG changed before publication: ${entry.file}`);
       }
@@ -793,11 +853,11 @@ async function runPhase4(options) {
       await browser.close();
       browser = null;
     }
-    writeFileSync(resolve(stagingDir, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
-    if (existsSync(outDir)) {
-      throw new Error(`V4-OUTPUT-SAFETY: canonical output appeared before publication: ${outDir}`);
-    }
-    renameSync(stagingDir, outDir);
+    const manifestPath = publication.stagingFile("manifest.json");
+    publication.beforeStagingWrite(manifestPath, "manifest write");
+    writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+    publication.afterStagingWrite(manifestPath, "manifest write");
+    publication.publish();
     log(`manifest atomically published to ${resolve(outDir, "manifest.json")}`);
     {
       log(
@@ -808,7 +868,8 @@ async function runPhase4(options) {
     }
   } finally {
     if (browser !== null) await browser.close();
-    preview.kill();
+    if (preview !== null) preview.kill();
+    publication.cleanupStagingDirectory();
   }
 }
 
