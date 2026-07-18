@@ -720,8 +720,22 @@ required schedule manifest and are not advertised as resumable mid-history.
       `npm test` at 42 files / 742 tests with Rule 7 over 529 files and both typechecks. Fresh
       Phase 4 20/20, absent-B 10/10, and Phase 3 9/9 captures passed manifest/hash/link-count/
       backend/framing checks and full-resolution inspection. WP3 is complete.
-- [ ] Run the complete regression suite, Phase 2a byte control, gate3 regression, app build, and
-      both screenshot backends; loop every failure.
+- [x] Run the complete regression suite, Phase 2a byte control, gate3 regression, app build, and
+      both screenshot backends; loop every failure. On tracked-clean `dfd83ec`, exact `npm test`
+      passed Rule 7 over 459 files, both typechecks, and 742/742 tests; the app production build
+      transformed 33 modules. Exact enforcing Phase 2a control command
+      `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1
+      --out .tmp-phase4-controls-dfd83ec/plate-control.ckpt --enforce-gate` exited 0 at far-field
+      tick 4800, symmetry error 0, mass drift `2.056e-13`; its checkpoint is byte-identical to
+      accepted SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`.
+      Detached clean worktree `.tmp-phase4-gate3-dfd83ec` ran flagless
+      `node runner/src/main.ts gate3`: exit 0, median ratio `0.531454`, fraction below one
+      `0.902439`, radius 38, aspect ratio `0.168831`, exact symmetry, far-field tick 4800, and the
+      same byte-identical checkpoint. Fresh explicit synthetic NOT-GATE-EVIDENCE Phase 4 harness
+      was 20/20 with zero errors across primary/forced-WebGL2 and manifest SHA-256
+      `567a0e940dd0480a7c28cbc337783b2142f54e44633c6559bf26ee275048e5b0`; Phase 3 was 9/9,
+      zero errors, manifest SHA-256
+      `95a06cd9ab245b92e892f443bff98e31d353cc2915fab94c9f6a943c188ea37d`.
 - [ ] Run flagless Pass A and record the blocking result with hashes and exact metrics.
 - [ ] Run flagless Pass B and record both execution validity and every positive/negative
       diagnostic morphology finding without tuning.
