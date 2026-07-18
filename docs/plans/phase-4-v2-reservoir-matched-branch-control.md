@@ -1,9 +1,10 @@
 # Plan — Phase 4 v2: reservoir-matched branch control and gate completion
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — independently reviewed criteria awaiting freeze commit
+- **Status:** in progress — criteria frozen; implementation pending
 - **Started:** 2026-07-18
 - **Last touched:** 2026-07-18 by Codex, coordinating session
+- **V2 criteria freeze:** `9c9dd5a45eafb80f3e547298494f005a73d19086`
 
 ## Goal
 
@@ -244,9 +245,10 @@ The coordinator alone edits authority documents and commits. After the criteria 
       CLEAN on 2026-07-18 with zero blockers and zero should-fixes after verifying the normalized
       reservoir rule, non-vacuous compact control, raw far-field witness, exact version/provenance
       matrix, immutable v1 history, unchanged Pass-B manifest, and verbatim charter gate.
-- [ ] Commit the reviewed authority criteria; that commit defines the v2 freeze hash.
-- [ ] In a metadata-only follow-up, record the full freeze hash here and in PROGRESS, verify that
-      no protocol criterion changed from the freeze, and only then permit implementation.
+- [x] Commit the reviewed authority criteria; freeze
+      `9c9dd5a45eafb80f3e547298494f005a73d19086` defines the v2 authority and provenance hash.
+- [x] In this metadata-only follow-up, record the full freeze hash here and in PROGRESS, verify
+      that no protocol criterion changed from the freeze, and only then permit implementation.
 - [ ] Delegate the bounded v2 implementation; run targeted tests, exact root `npm test`, app
       build, Rule 7, both typechecks, and `git diff --check`.
 - [ ] Complete separate adversarial implementation review/fix cycles to CLEAN.
