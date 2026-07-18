@@ -1,11 +1,12 @@
 # Plan — Phase 4 v2: reservoir-matched branch control and gate completion
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — implementation candidate complete; adversarial review pending
+- **Status:** in progress — implementation review CLEAN; controls pending
 - **Started:** 2026-07-18
 - **Last touched:** 2026-07-18 by Codex, coordinating session
 - **V2 criteria freeze:** `9c9dd5a45eafb80f3e547298494f005a73d19086`
 - **V2 implementation candidate:** `90f19a786d113f673815d4cf75459e3177806c94`
+- **V2 reviewed implementation:** `bbb14740642488c92720888d3887806b49c42e15`
 
 ## Goal
 
@@ -256,7 +257,17 @@ The coordinator alone edits authority documents and commits. After the criteria 
       and app identity split. Developer verification passed exact root `npm test` at 42/42 files
       and 770/770 tests in 383.5 seconds, both typechecks, Rule 7 over 524 files, the 33-module app
       production build, and `git diff --check`.
-- [ ] Complete separate adversarial implementation review/fix cycles to CLEAN.
+- [x] Complete separate adversarial implementation review/fix cycles to CLEAN. Review round 1
+      found three blockers and two should-fixes: Pass B had promoted two informational ancestry
+      fields into new v1 blockers; aggregate injection accepted an outer relabel without binding
+      inner payload/report/index facts; the written visual manifest omitted its version and source
+      protocols; support completeness was not independently enumerated; and raw compact
+      non-vacuity lacked a baseline-true derivation test. Repair
+      `bbb14740642488c92720888d3887806b49c42e15` restores B semantics, exact-crosslinks both pass
+      publications, records visual schema v1 with A-v2/B-v1 sources, and adds non-vacuous raw
+      controls. Developer verification passed 779/779 tests, both typechecks, Rule 7, app build,
+      and diff check. Same-reviewer replay passed 16/16 selected exploit tests and reported CLEAN
+      with zero blockers and zero should-fixes.
 - [ ] Reconcile Phase 2b and verify its live process/artifacts were not mutated or duplicated.
 - [ ] On a tracked-clean execution commit, rerun the exact Phase 2a enforcing byte control,
       flagless `gate3`, full regressions, app build, and synthetic visual harnesses.
