@@ -1,10 +1,11 @@
 # Plan — Phase 4 v2: reservoir-matched branch control and gate completion
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — criteria frozen; implementation pending
+- **Status:** in progress — implementation candidate complete; adversarial review pending
 - **Started:** 2026-07-18
 - **Last touched:** 2026-07-18 by Codex, coordinating session
 - **V2 criteria freeze:** `9c9dd5a45eafb80f3e547298494f005a73d19086`
+- **V2 implementation candidate:** `90f19a786d113f673815d4cf75459e3177806c94`
 
 ## Goal
 
@@ -249,8 +250,12 @@ The coordinator alone edits authority documents and commits. After the criteria 
       `9c9dd5a45eafb80f3e547298494f005a73d19086` defines the v2 authority and provenance hash.
 - [x] In this metadata-only follow-up, record the full freeze hash here and in PROGRESS, verify
       that no protocol criterion changed from the freeze, and only then permit implementation.
-- [ ] Delegate the bounded v2 implementation; run targeted tests, exact root `npm test`, app
-      build, Rule 7, both typechecks, and `git diff --check`.
+- [x] Delegate the bounded v2 implementation; candidate
+      `90f19a786d113f673815d4cf75459e3177806c94` implements the exact Pass-A v2 raw witness,
+      independent branch stops, compact non-vacuity, Pass-B seven-key projection, aggregate v2,
+      and app identity split. Developer verification passed exact root `npm test` at 42/42 files
+      and 770/770 tests in 383.5 seconds, both typechecks, Rule 7 over 524 files, the 33-module app
+      production build, and `git diff --check`.
 - [ ] Complete separate adversarial implementation review/fix cycles to CLEAN.
 - [ ] Reconcile Phase 2b and verify its live process/artifacts were not mutated or duplicated.
 - [ ] On a tracked-clean execution commit, rerun the exact Phase 2a enforcing byte control,
