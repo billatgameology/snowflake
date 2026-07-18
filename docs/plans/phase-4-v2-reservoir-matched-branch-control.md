@@ -268,7 +268,12 @@ The coordinator alone edits authority documents and commits. After the criteria 
       controls. Developer verification passed 779/779 tests, both typechecks, Rule 7, app build,
       and diff check. Same-reviewer replay passed 16/16 selected exploit tests and reported CLEAN
       with zero blockers and zero should-fixes.
-- [ ] Reconcile Phase 2b and verify its live process/artifacts were not mutated or duplicated.
+- [x] Reconcile Phase 2b and verify its live process/artifacts were not mutated or duplicated.
+      On 2026-07-18 immediately after implementation review, exactly one `gate2b` process existed
+      (PID 36792), its isolated worktree was tracked-clean at
+      `dce70816e34a6eee8ed15edff3c254d6da7fa7d8`, stderr remained zero bytes, and the log had
+      advanced to growth step 600. Main was tracked-clean at `f340c79`; no `out/phase4`, Pass-A,
+      Pass-B, or aggregate canonical path existed.
 - [ ] On a tracked-clean execution commit, rerun the exact Phase 2a enforcing byte control,
       flagless `gate3`, full regressions, app build, and synthetic visual harnesses.
 - [ ] Run `node runner/src/main.ts gate4` exactly once. Record exit status, runtime, engine,

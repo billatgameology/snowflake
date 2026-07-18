@@ -570,10 +570,12 @@ Pass B retains its exact v1 wire shape, aggregate publication is v2, and the app
 exact A-v2/B-v1 split. Independent review found three blockers and two should-fixes; repair
 `bbb14740642488c92720888d3887806b49c42e15` closes all five. Exact root `npm test` now passes
 779/779 tests, both typechecks and Rule 7 are clean, the 33-module app build passes, and the same
-reviewer replayed 16/16 selected exploits to CLEAN with zero blockers/should-fixes. The next
-serial action is to reconcile the still-live Phase 2b isolation, then run the registered Phase 2a,
-Phase 3, regression, app-build, and synthetic visual controls on a tracked-clean commit. Only
-green controls permit the one canonical flagless `gate4` execution. Do not calibrate, alter any
+reviewer replayed 16/16 selected exploits to CLEAN with zero blockers/should-fixes. Phase 2b
+isolation reconciliation is also clean: exactly one `gate2b` process remains (PID 36792), its
+detached worktree is tracked-clean at `dce7081`, stderr is empty, and it advanced to growth step
+600; no canonical Phase 4 output path exists. The next serial action is to run the registered
+Phase 2a, Phase 3, regression, app-build, and synthetic visual controls on tracked-clean main.
+Only green controls permit the one canonical flagless `gate4` execution. Do not calibrate, alter any
 morphology parameter or
 threshold, run Pass B alone, or reuse v1 output. Work only on `main`. The Phase 2b v4 rerun remains
 live in Windows worktree `.tmp-gate2b-clean-1784305494` at tracked-clean detached commit `dce7081`;
