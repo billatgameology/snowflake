@@ -737,6 +737,15 @@ required schedule manifest and are not advertised as resumable mid-history.
       zero errors, manifest SHA-256
       `95a06cd9ab245b92e892f443bff98e31d353cc2915fab94c9f6a943c188ea37d`.
 - [ ] Run flagless Pass A and record the blocking result with hashes and exact metrics.
+      First canonical aggregate attempt: tracked-clean commit
+      `ad04e87100fd1ad8f472ec5ca6b5e6c9138be709`, exact command
+      `node runner/src/main.ts gate4`, exit 1 after 371.2 s with
+      `A-EXEC-TERMINATION: A-BRANCH-COMPARATOR has no extent crossing`. Pass B did not start;
+      `out/phase4/{pass-a,pass-b}` and `gate4-report.json` remain absent. The attempt is invalid
+      evidence under step 5. The thrown morphology-derivation seam did not retain unpublished raw
+      rows, so it does not yet identify comparator stop reason, target/final extents, cycle count,
+      or far-field crossing. Diagnose by replaying only the unchanged registered dendrite and
+      comparator as explicitly non-evidence; never widen the cap or change the frozen manifest.
 - [ ] Run flagless Pass B and record both execution validity and every positive/negative
       diagnostic morphology finding without tuning.
 - [ ] Inspect all Phase 4 captures at full resolution; independent reviewer does the same;
@@ -906,6 +915,11 @@ required schedule manifest and are not advertised as resumable mid-history.
   exclusively, and require one-link file identities and hashes through publication. A failure
   discovered only after rename must also roll the same proven directory object back before
   cleanup; otherwise a failed harness can strand canonical output.
+- **Treating a missing branch-comparator crossing as permission to tune.** Rejected by the first
+  real Pass-A attempt. The registered comparator must reach the dendrite's final `tExtent` before
+  ordinary far-field stop or the 12,000-step cap; either earlier stop is invalid by design.
+  Diagnose and report the unchanged run facts first. Any cap, vector, target, or stop-contract
+  change is a new protocol decision that invalidates the attempted sweep; it is not a bug fix.
 
 ## Open questions
 
