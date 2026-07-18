@@ -2,9 +2,11 @@
 // evidence validators on synthetic raw states; they never launch the hours-scale gate4a run.
 
 import { spawnSync } from "node:child_process";
+import { mkdtempSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterAll, beforeEach, describe, expect, it } from "vitest";
 import {
   DOMAIN_CONTACT_FRACTION,
   STREAM_NOISE_XI,
@@ -84,6 +86,19 @@ const main = join(repoRoot, "runner", "src", "main.ts");
 beforeEach(async () => {
   await new Promise((resolve) => setTimeout(resolve, 0));
 });
+
+const temporaryDirectories: string[] = [];
+afterAll(() => {
+  while (temporaryDirectories.length > 0) {
+    rmSync(temporaryDirectories.pop() as string, { recursive: true, force: true });
+  }
+});
+
+function temporaryCanonicalDirectory(label: string): string {
+  const root = mkdtempSync(join(tmpdir(), "vcc-gate4a-"));
+  temporaryDirectories.push(root);
+  return join(root, label);
+}
 
 function passingProvenance(): Gate4AProvenance {
   return {
@@ -676,6 +691,7 @@ function serialOrchestrationFixture(): SerialOrchestrationFixture {
   const calls: string[] = [];
   let publishCalls = 0;
   const outcome = runGate4A({
+    canonicalDirectory: temporaryCanonicalDirectory("serial-outcome"),
     collectProvenance: passingProvenance,
     collectSourceHashes: () => ({
       gg: GATE4A_GG_SOURCE_SHA256,
@@ -1747,6 +1763,7 @@ describe("gate4a serial orchestration seams", () => {
       canonicalSeedSites: 20,
     } as unknown as Gate4AManifest;
     expect(() => runGate4A({
+      canonicalDirectory: temporaryCanonicalDirectory("shifted-manifest"),
       buildManifest: () => shifted,
       collectProvenance: () => {
         provenanceCollections++;
@@ -1773,6 +1790,7 @@ describe("gate4a serial orchestration seams", () => {
     } as unknown as Gate4AManifest;
     let executions = 0;
     expect(() => runGate4A({
+      canonicalDirectory: temporaryCanonicalDirectory(`shifted-branch-${runId}`),
       buildManifest: () => shifted,
       collectProvenance: passingProvenance,
       executeRun: () => {
@@ -1831,6 +1849,7 @@ describe("gate4a serial orchestration seams", () => {
   it("fails provenance and solver-source preflight before invoking an execution", () => {
     let executions = 0;
     expect(() => runGate4A({
+      canonicalDirectory: temporaryCanonicalDirectory("provenance-preflight"),
       collectProvenance: () => ({ ...passingProvenance(), trackedStatus: " M tracked" }),
       collectSourceHashes: () => {
         throw new Error("source collection must not run");
@@ -1843,6 +1862,7 @@ describe("gate4a serial orchestration seams", () => {
     expect(executions).toBe(0);
 
     expect(() => runGate4A({
+      canonicalDirectory: temporaryCanonicalDirectory("source-preflight"),
       collectProvenance: passingProvenance,
       collectSourceHashes: () => ({ gg: "0".repeat(64), lk: GATE4A_LK_SOURCE_SHA256 }),
       executeRun: () => {

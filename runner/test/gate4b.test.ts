@@ -1577,6 +1577,7 @@ describe("gate4b serial orchestration seams", () => {
       canonicalSeedSites: 20,
     } as unknown as Gate4BManifest;
     expect(() => runGate4B({
+      canonicalDirectory: join(temporaryDirectory(), "shifted-manifest"),
       buildManifest: () => shifted,
       collectProvenance: () => {
         provenanceCollections++;
@@ -1619,6 +1620,7 @@ describe("gate4b serial orchestration seams", () => {
   it("fails provenance preflight before invoking an execution", () => {
     let executions = 0;
     expect(() => runGate4B({
+      canonicalDirectory: join(temporaryDirectory(), "provenance-preflight"),
       collectProvenance: () => ({ ...passingProvenance(), trackedStatus: " M tracked" }),
       executeRun: () => {
         executions++;
