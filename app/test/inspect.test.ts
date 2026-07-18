@@ -249,9 +249,9 @@ describe("evidence context verification", () => {
       operator: "GGThreshold",
       backend: "float64-cpu-oracle",
       evidenceClass: "published-gate-evidence",
-      protocol: "phase4-pass-a-v1",
+      protocol: "phase4-pass-a-v2",
       reportPath: "gate4a-report.json",
-      manifestSha256: "6d1ee3a262e8985930ded30f8ef490e1e47402dce6c55f2b3b16e4e80b0d9a98",
+      manifestSha256: "e5e85c70d377e90dcca2974579122e67417c60fd2c11683276f528615e608644",
       viewVerdict: {
         criterion: "A-HABIT-ENDPOINTS",
         passed: true,
@@ -278,6 +278,14 @@ describe("evidence context verification", () => {
     const bytes = ggFixtureBytes();
     const context = { ...contextFor(bytes), checkpointSha256: "0".repeat(64) };
     expect(() => inspectCheckpointBytes(bytes, context)).toThrow(/artifact hash mismatch/);
+  });
+
+  it("rejects the immutable failed Pass-A v1 identity", () => {
+    const bytes = ggFixtureBytes();
+    expect(() => inspectCheckpointBytes(bytes, {
+      ...contextFor(bytes),
+      protocol: "phase4-pass-a-v1",
+    } as unknown as ArtifactEvidenceContext)).toThrow(/pass\/protocol\/report identity is invalid/);
   });
 
   it("rejects an operator label mismatch by name (LK context on GG bytes)", () => {

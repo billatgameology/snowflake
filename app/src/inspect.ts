@@ -54,7 +54,7 @@ export interface ArtifactEvidenceContext {
   readonly evidenceClass:
     | "published-gate-evidence"
     | "synthetic-fixture-not-gate-evidence";
-  readonly protocol: "phase4-pass-a-v1" | "phase4-pass-b-v1";
+  readonly protocol: "phase4-pass-a-v2" | "phase4-pass-b-v1";
   readonly reportPath: "gate4a-report.json" | "gate4b-report.json";
   readonly manifestSha256: string;
   readonly syntheticNotice?: "SYNTHETIC FIXTURE - NOT GATE EVIDENCE";
@@ -212,7 +212,7 @@ function looseEvidence(sha256: string): InspectedEvidence {
 }
 
 const PASS_A_MANIFEST_SHA256 =
-  "6d1ee3a262e8985930ded30f8ef490e1e47402dce6c55f2b3b16e4e80b0d9a98";
+  "e5e85c70d377e90dcca2974579122e67417c60fd2c11683276f528615e608644";
 const PASS_B_MANIFEST_SHA256 =
   "c0ceed5b0ebb68defee85b1d78d52c9563f5edd35ed415b8cfdad57dd7c3e812";
 const SHA256_PATTERN = /^[0-9a-f]{64}$/;
@@ -253,7 +253,7 @@ function verifyContext(
     );
   }
   const expectedPass = actualOperator === "GGThreshold" ? "A" : "B";
-  const expectedProtocol = expectedPass === "A" ? "phase4-pass-a-v1" : "phase4-pass-b-v1";
+  const expectedProtocol = expectedPass === "A" ? "phase4-pass-a-v2" : "phase4-pass-b-v1";
   const expectedReport = expectedPass === "A" ? "gate4a-report.json" : "gate4b-report.json";
   if (
     context.pass !== expectedPass ||

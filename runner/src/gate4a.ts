@@ -25,6 +25,7 @@ import {
   evaluateTimelineBoundary,
   ggParamsFromTimelineEnvironment,
   ggTimelineEnvironmentFromParams,
+  hexDistance,
   hexSeedSites,
   idx,
   isD6hInvariantSet,
@@ -40,7 +41,7 @@ import {
   type TimelineCursor,
   type TimelineEventLogEntry,
 } from "@vcc/core";
-import { FAR_FIELD_STOP_FRACTION, GGSolver } from "@vcc/solver-cpu";
+import { GGSolver } from "@vcc/solver-cpu";
 import {
   canonicalJson,
   canonicalJsonBytes,
@@ -63,7 +64,6 @@ import {
   type GGNoiseWitnessVerdict,
 } from "./gate4a-reference.ts";
 import {
-  A_BRANCH_COMPARATOR_STOP_REASON,
   A_DEPLETION_STEP_CAP,
   A_EXECUTION_CRITERIA,
   A_HABIT_BETA_01,
@@ -86,7 +86,7 @@ import {
   type Phase4CriterionRecord,
 } from "./gate4-protocol.ts";
 
-export const GATE4A_PROTOCOL = "phase4-pass-a-v1";
+export const GATE4A_PROTOCOL = "phase4-pass-a-v2";
 export const GATE4A_REPORT_PATH = "gate4a-report.json";
 export const GATE4A_MANIFEST_PATH = "manifest.json";
 export const GATE4A_CANONICAL_DIRECTORY = "out/phase4/pass-a";
@@ -95,7 +95,10 @@ export const GATE4A_V8 = "13.6.233.17-node.40";
 export const GATE4A_CRITERIA_FREEZE = "e567767";
 export const GATE4A_RUNNER_FREEZE = "cd24365";
 export const GATE4A_CADENCE_FREEZE = "7be4c5d";
+export const GATE4A_V2_CRITERIA_FREEZE = "9c9dd5a45eafb80f3e547298494f005a73d19086";
 export const GATE4A_FAR_FIELD_CADENCE = 25;
+export const GATE4A_FAR_FIELD_KIND = "phase4-far-field-f64le-v1";
+export const GATE4A_FAR_FIELD_SUPPORT_DEFINITION = "hex-prism-active-outer-shell-v1";
 export const GATE4A_GG_SOURCE_SHA256 = "e13cd4c487eb9918b5b68529cc6f0e5c80ce53319343d9f0e7c102f4cf65563b";
 export const GATE4A_LK_SOURCE_SHA256 = "1b10e3b97103000746f02e5989828e8c83eab9014108949f8b0e5bd556c1ecbc";
 
@@ -103,12 +106,7 @@ type Gate4AScenario = "habit" | "depletion" | "hollow" | "timeline" | "branch" |
 
 export type Gate4AStopContract =
   | { readonly kind: "largestExtent"; readonly target: number; readonly cap: number }
-  | { readonly kind: "farField"; readonly cap: number }
-  | {
-      readonly kind: "tExtentFromRun";
-      readonly sourceRunId: "A-BRANCH-DENDRITE";
-      readonly cap: number;
-    };
+  | { readonly kind: "farField"; readonly cap: number };
 
 export interface Gate4ARunConfig {
   readonly id: string;
@@ -133,13 +131,13 @@ export interface Gate4ARunConfig {
 }
 
 export interface Gate4AManifest {
-  readonly version: 1;
+  readonly version: 2;
   readonly protocol: typeof GATE4A_PROTOCOL;
   readonly operator: "GGThreshold";
   readonly backend: "float64-cpu-oracle";
   readonly precision: "float64";
   readonly canonicalSeedSites: 19;
-  readonly criteriaFreezes: readonly [string, string, string];
+  readonly criteriaFreezes: readonly [string, string, string, string];
   readonly solverSourceHashes: {
     readonly gg: string;
     readonly lk: string;
@@ -299,11 +297,11 @@ export function buildGate4AManifest(): Gate4AManifest {
       "branch-comparator",
       { nx: 160, ny: 160, nz: 48 },
       plate,
-      { kind: "tExtentFromRun", sourceRunId: "A-BRANCH-DENDRITE", cap: 12_000 },
+      { kind: "farField", cap: 12_000 },
     ),
   ];
   return strictJsonSnapshot({
-    version: 1,
+    version: 2,
     protocol: GATE4A_PROTOCOL,
     operator: "GGThreshold",
     backend: "float64-cpu-oracle",
@@ -313,6 +311,7 @@ export function buildGate4AManifest(): Gate4AManifest {
       GATE4A_CRITERIA_FREEZE,
       GATE4A_RUNNER_FREEZE,
       GATE4A_CADENCE_FREEZE,
+      GATE4A_V2_CRITERIA_FREEZE,
     ],
     solverSourceHashes: {
       gg: GATE4A_GG_SOURCE_SHA256,
@@ -323,7 +322,7 @@ export function buildGate4AManifest(): Gate4AManifest {
 }
 
 /** Reviewed freeze: never derive an alleged protocol freeze from the mutable builder. */
-export const GATE4A_MANIFEST_SHA256 = "6d1ee3a262e8985930ded30f8ef490e1e47402dce6c55f2b3b16e4e80b0d9a98";
+export const GATE4A_MANIFEST_SHA256 = "e5e85c70d377e90dcca2974579122e67417c60fd2c11683276f528615e608644";
 
 export interface Gate4AProvenance {
   readonly node: string;
@@ -333,6 +332,7 @@ export interface Gate4AProvenance {
   readonly criteriaFreezeIsAncestor: boolean;
   readonly runnerFreezeIsAncestor: boolean;
   readonly cadenceFreezeIsAncestor: boolean;
+  readonly v2CriteriaFreezeIsAncestor: boolean;
 }
 
 type ExecFile = typeof execFileSync;
@@ -364,11 +364,25 @@ export function collectGate4AProvenance(
     criteriaFreezeIsAncestor: ancestor(GATE4A_CRITERIA_FREEZE),
     runnerFreezeIsAncestor: ancestor(GATE4A_RUNNER_FREEZE),
     cadenceFreezeIsAncestor: ancestor(GATE4A_CADENCE_FREEZE),
+    v2CriteriaFreezeIsAncestor: ancestor(GATE4A_V2_CRITERIA_FREEZE),
   };
 }
 
 export function validateGate4AProvenance(provenance: Gate4AProvenance): readonly string[] {
   const failures: string[] = [];
+  const expectedKeys = [
+    "node",
+    "v8",
+    "head",
+    "trackedStatus",
+    "criteriaFreezeIsAncestor",
+    "runnerFreezeIsAncestor",
+    "cadenceFreezeIsAncestor",
+    "v2CriteriaFreezeIsAncestor",
+  ].sort();
+  if (Object.keys(provenance).sort().join("\n") !== expectedKeys.join("\n")) {
+    failures.push("provenance keys differ from the exact Pass-A v2 shape");
+  }
   if (provenance.node !== GATE4A_NODE || provenance.v8 !== GATE4A_V8) {
     failures.push(
       `engine expected Node ${GATE4A_NODE} / V8 ${GATE4A_V8}, got Node ${provenance.node} / V8 ${provenance.v8}`,
@@ -379,6 +393,7 @@ export function validateGate4AProvenance(provenance: Gate4AProvenance): readonly
   if (!provenance.criteriaFreezeIsAncestor) failures.push(`${GATE4A_CRITERIA_FREEZE} is not an ancestor`);
   if (!provenance.runnerFreezeIsAncestor) failures.push(`${GATE4A_RUNNER_FREEZE} is not an ancestor`);
   if (!provenance.cadenceFreezeIsAncestor) failures.push(`${GATE4A_CADENCE_FREEZE} is not an ancestor`);
+  if (!provenance.v2CriteriaFreezeIsAncestor) failures.push(`${GATE4A_V2_CRITERIA_FREEZE} is not an ancestor`);
   return failures;
 }
 
@@ -451,10 +466,15 @@ export interface Gate4ATimelineEvidence {
   readonly eventZExtent: number;
 }
 
+export interface Gate4AFarFieldWitness {
+  readonly supportIndices: Int32Array;
+  readonly sampleCycles: readonly number[];
+  readonly values: Float64Array;
+}
+
 export interface Gate4ARunResult {
   readonly config: Gate4ARunConfig;
   readonly registeredConfigSha256: string;
-  readonly resolvedTargetTExtent: number | null;
   readonly executionId: string;
   readonly initialOccupancy: Uint8Array;
   readonly initialMass: number;
@@ -465,6 +485,7 @@ export interface Gate4ARunResult {
   readonly stopReason: string;
   readonly extentCrossing: Gate4AExtentCrossing | null;
   readonly farFieldCrossing: Gate4AFarFieldCrossing | null;
+  readonly farFieldWitness: Gate4AFarFieldWitness;
   readonly previousOccupancy: Uint8Array | null;
   readonly finalA: Uint8Array;
   readonly finalB: Float64Array;
@@ -549,8 +570,69 @@ function scanGGState(solver: GGSolver): StateScan {
   };
 }
 
-function rawBytes(value: Uint8Array | Float64Array): Uint8Array {
+function rawBytes(value: Uint8Array | Int32Array | Float64Array): Uint8Array {
   return new Uint8Array(value.buffer, value.byteOffset, value.byteLength);
+}
+
+/** Independently derive the registered hex-prism active outer shell in flat-index order. */
+export function deriveGate4AFarFieldSupport(dims: Dims): Int32Array {
+  const [ic, jc, kc] = domainCenter(dims);
+  const radius = Math.min(ic, dims.nx - 1 - ic, jc, dims.ny - 1 - jc);
+  const halfZ = Math.min(kc, dims.nz - 1 - kc);
+  const support: number[] = [];
+  for (let k = 0; k < dims.nz; k++) {
+    for (let j = 0; j < dims.ny; j++) {
+      for (let i = 0; i < dims.nx; i++) {
+        const distance = hexDistance(i - ic, j - jc);
+        if (
+          distance <= radius && Math.abs(k - kc) <= halfZ &&
+          (distance === radius || Math.abs(k - kc) === halfZ)
+        ) {
+          support.push(idx(dims, i, j, k));
+        }
+      }
+    }
+  }
+  return Int32Array.from(support);
+}
+
+function encodeInt32LE(values: Int32Array): Uint8Array {
+  const bytes = new Uint8Array(values.length * 4);
+  const view = new DataView(bytes.buffer);
+  for (let index = 0; index < values.length; index++) view.setInt32(index * 4, values[index], true);
+  return bytes;
+}
+
+/** Encode raw far-field samples explicitly, independent of host endianness. */
+export function encodeGate4AFarFieldWitness(witness: Gate4AFarFieldWitness): Uint8Array {
+  const bytes = new Uint8Array(witness.values.length * 8);
+  const view = new DataView(bytes.buffer);
+  for (let index = 0; index < witness.values.length; index++) {
+    view.setFloat64(index * 8, witness.values[index], true);
+  }
+  return bytes;
+}
+
+function orderedFarFieldMean(
+  values: Float64Array,
+  offset: number,
+  support: Int32Array,
+  occupancy: Uint8Array,
+): number {
+  let sum = 0;
+  let compensation = 0;
+  let count = 0;
+  for (let index = 0; index < support.length; index++) {
+    if (occupancy[support[index]] === 1) continue;
+    const value = values[offset + index];
+    const next = sum + value;
+    compensation += Math.abs(sum) >= Math.abs(value)
+      ? sum - next + value
+      : value - next + sum;
+    sum = next;
+    count++;
+  }
+  return count === 0 ? Number.NaN : (sum + compensation) / count;
 }
 
 function combinedFieldHash(a: Uint8Array, b: Float64Array, d: Float64Array): string {
@@ -558,10 +640,10 @@ function combinedFieldHash(a: Uint8Array, b: Float64Array, d: Float64Array): str
 }
 
 function typedBitsEqual(
-  left: Uint8Array | Float64Array,
-  right: Uint8Array | Float64Array,
+  left: Uint8Array | Int32Array | Float64Array,
+  right: Uint8Array | Int32Array | Float64Array,
 ): boolean {
-  return left.byteLength === right.byteLength && rawTypedArraySha256(left) === rawTypedArraySha256(right);
+  return left.byteLength === right.byteLength && sha256Bytes(rawBytes(left)) === sha256Bytes(rawBytes(right));
 }
 
 function deltaBytes(indices: readonly number[]): Uint8Array {
@@ -587,24 +669,15 @@ function stopCap(config: Gate4ARunConfig): number {
   return config.stop.cap;
 }
 
-function registeredTarget(
-  config: Gate4ARunConfig,
-  resolvedTargetTExtent: number | null,
-): { readonly kind: "largestExtent" | "tExtent"; readonly value: number } | null {
+function registeredTarget(config: Gate4ARunConfig): { readonly kind: "largestExtent"; readonly value: number } | null {
   if (config.stop.kind === "largestExtent") {
     return { kind: "largestExtent", value: config.stop.target };
-  }
-  if (config.stop.kind === "tExtentFromRun") {
-    if (!Number.isSafeInteger(resolvedTargetTExtent) || (resolvedTargetTExtent as number) <= 0) {
-      throw new Error("A-EXEC-CONFIG: branch comparator target is unresolved");
-    }
-    return { kind: "tExtent", value: resolvedTargetTExtent as number };
   }
   return null;
 }
 
-function targetValue(extents: LatticeExtents, target: { readonly kind: "largestExtent" | "tExtent"; readonly value: number }): number {
-  return target.kind === "largestExtent" ? extents.largestExtent : extents.tExtent;
+function targetValue(extents: LatticeExtents, target: { readonly kind: "largestExtent"; readonly value: number }): number {
+  return extents.largestExtent;
 }
 
 function relaxationReportValid(report: ReturnType<GGSolver["relaxField"]>): boolean {
@@ -633,7 +706,6 @@ function shouldSnapshotNoise(solver: GGSolver): boolean {
 }
 
 export interface ExecuteGate4ARunOptions {
-  readonly resolvedTargetTExtent?: number;
   readonly onProgress?: (runId: string, cycle: number, attached: number) => void;
 }
 
@@ -715,10 +787,7 @@ export function executeGate4ARun(
   }
   const config = strictJsonSnapshot(configInput) as unknown as Gate4ARunConfig;
   const registeredConfigSha256 = canonicalJsonSha256(config);
-  const resolvedTargetTExtent = config.stop.kind === "tExtentFromRun"
-    ? (options.resolvedTargetTExtent ?? null)
-    : null;
-  const target = registeredTarget(config, resolvedTargetTExtent);
+  const target = registeredTarget(config);
   const params = ggParamsFromTimelineEnvironment(config.params);
   const center = domainCenter(config.dims);
   const solver = new GGSolver({
@@ -736,6 +805,10 @@ export function executeGate4ARun(
   const seedSymmetric = symmetryError(solver.a, solver.dims, solver.center) === 0;
   if (!seedSymmetric) throw new Error(`A-EXEC-SYMMETRY: ${config.id} seed is asymmetric`);
   const initialOccupancy = solver.a.slice();
+  const farFieldSupport = deriveGate4AFarFieldSupport(config.dims);
+  const farFieldSampleCycles: number[] = [0];
+  const farFieldValues: number[] = [];
+  for (const cell of farFieldSupport) farFieldValues.push(solver.d[cell]);
   const initialScan = scanGGState(solver);
   const initialMass = initialScan.totalMass;
   let previousExtents = initialScan.extents;
@@ -859,6 +932,10 @@ export function executeGate4ARun(
 
     const farFieldObserved = cycle % config.farFieldCadence === 0;
     const farFieldMean = farFieldObserved ? solver.farFieldMean() : null;
+    if (farFieldObserved) {
+      farFieldSampleCycles.push(cycle);
+      for (const cell of farFieldSupport) farFieldValues.push(solver.d[cell]);
+    }
     const relativeMassDrift = Math.abs(scan.totalMass - initialMass) / initialMass;
     const contact = solver.domainContact();
     rows.push({
@@ -898,10 +975,10 @@ export function executeGate4ARun(
       };
       previousOccupancy = solver.a.slice();
       for (const index of solver.lastAttached) previousOccupancy[index] = 0;
-      candidates.push(target.kind === "tExtent" ? A_BRANCH_COMPARATOR_STOP_REASON : "size-target");
+      candidates.push("size-target");
     }
     if (farFieldObserved) {
-      const threshold = FAR_FIELD_STOP_FRACTION * solver.params.rho;
+      const threshold = (2 * solver.params.rho) / 3;
       if ((farFieldMean as number) < threshold) {
         farFieldCrossing = {
           previousObservedCycle: previousFarFieldCycle,
@@ -956,7 +1033,6 @@ export function executeGate4ARun(
   const executionId = canonicalJsonSha256({
     runId: config.id,
     configSha256: registeredConfigSha256,
-    resolvedTargetTExtent,
     tick: solver.tick,
     a: rawTypedArraySha256(finalA),
     b: rawTypedArraySha256(finalB),
@@ -978,7 +1054,6 @@ export function executeGate4ARun(
   return {
     config,
     registeredConfigSha256,
-    resolvedTargetTExtent,
     executionId,
     initialOccupancy,
     initialMass,
@@ -989,6 +1064,11 @@ export function executeGate4ARun(
     stopReason,
     extentCrossing,
     farFieldCrossing,
+    farFieldWitness: {
+      supportIndices: farFieldSupport,
+      sampleCycles: farFieldSampleCycles,
+      values: Float64Array.from(farFieldValues),
+    },
     previousOccupancy,
     finalA,
     finalB,
@@ -1135,14 +1215,30 @@ function finalEnvironment(result: Gate4ARunResult): GGTimelineEnvironment {
     : lastEvent.afterEnvironment as GGTimelineEnvironment;
 }
 
+function farFieldWitnessPayload(result: Gate4ARunResult): StrictJson {
+  const bytes = encodeGate4AFarFieldWitness(result.farFieldWitness);
+  return strictJsonSnapshot({
+    version: 1,
+    path: runArtifactPath(result.config.id, "far-field.f64le"),
+    kind: GATE4A_FAR_FIELD_KIND,
+    encoding: "float64-le",
+    supportDefinition: GATE4A_FAR_FIELD_SUPPORT_DEFINITION,
+    supportCount: result.farFieldWitness.supportIndices.length,
+    supportIndicesSha256: sha256Bytes(encodeInt32LE(result.farFieldWitness.supportIndices)),
+    sampleCycles: result.farFieldWitness.sampleCycles,
+    valuesPerSample: result.farFieldWitness.supportIndices.length,
+    byteLength: bytes.byteLength,
+    sha256: sha256Bytes(bytes),
+  });
+}
+
 function scenarioPayload(result: Gate4ARunResult): StrictJson {
   const decoded = decodeCheckpoint(result.checkpoint);
   return strictJsonSnapshot({
-    version: 1,
+    version: 2,
     runId: result.config.id,
     executionId: result.executionId,
     registeredConfigSha256: result.registeredConfigSha256,
-    resolvedTargetTExtent: result.resolvedTargetTExtent,
     completedCycles: result.rows.length,
     stopReason: result.stopReason,
     initial: {
@@ -1175,6 +1271,7 @@ function scenarioPayload(result: Gate4ARunResult): StrictJson {
         },
     timeline: result.timeline,
     deltaWitnessCount: result.deltas.length,
+    farFieldWitness: farFieldWitnessPayload(result),
   });
 }
 
@@ -1192,6 +1289,11 @@ interface ReconstructedDeltaChain {
   readonly finalDomainContact: boolean;
   readonly contactEvidenceConsistent: boolean;
   readonly recordedTimelineAspectRatio: number | null;
+}
+
+interface ValidatedFarFieldWitness {
+  readonly means: readonly number[];
+  readonly firstCrossing: Gate4AFarFieldCrossing | null;
 }
 
 function deltaChainFailure(result: Gate4ARunResult, message: string): never {
@@ -1357,6 +1459,110 @@ function validateDeltaWitnesses(result: Gate4ARunResult): ReconstructedDeltaChai
   };
 }
 
+/**
+ * Reconstruct every raw far-field observation from the canonical seed and attachment deltas.
+ * The support is derived here rather than trusted from the solver or scenario metadata.
+ */
+export function validateGate4AFarFieldWitness(
+  result: Gate4ARunResult,
+  artifactBytes = encodeGate4AFarFieldWitness(result.farFieldWitness),
+): ValidatedFarFieldWitness {
+  validateDeltaWitnesses(result);
+  const fail = (message: string): never => {
+    throw new Error(`A-EXEC-TERMINATION: ${result.config.id} ${message}`);
+  };
+  const expectedSupport = deriveGate4AFarFieldSupport(result.config.dims);
+  if (
+    result.farFieldWitness.supportIndices.length !== expectedSupport.length ||
+    !typedBitsEqual(result.farFieldWitness.supportIndices, expectedSupport)
+  ) fail("far-field support differs from the independently derived shell");
+  const expectedCycles = [
+    0,
+    ...result.rows.filter((row) => row.farFieldObserved).map((row) => row.cycle),
+  ];
+  if (canonicalJson(result.farFieldWitness.sampleCycles) !== canonicalJson(expectedCycles)) {
+    fail("far-field samples are missing, duplicated, or reordered");
+  }
+  const valuesPerSample = expectedSupport.length;
+  const expectedValueCount = valuesPerSample * expectedCycles.length;
+  if (
+    result.farFieldWitness.values.length !== expectedValueCount ||
+    artifactBytes.byteLength !== expectedValueCount * 8 ||
+    !typedBitsEqual(artifactBytes, encodeGate4AFarFieldWitness(result.farFieldWitness))
+  ) fail("far-field artifact byte shape or encoding shifted");
+
+  const occupancy = new Uint8Array(cellCount(result.config.dims));
+  for (const site of hexSeedSites(
+    result.config.dims,
+    result.config.seedRadius,
+    result.config.seedThickness,
+    domainCenter(result.config.dims),
+  )) occupancy[site] = 1;
+  const deltasByCycle = new Map(result.deltas.map((witness) => [witness.cycle, witness.indices]));
+  let appliedThrough = 0;
+  const means: number[] = [];
+  for (let sample = 0; sample < expectedCycles.length; sample++) {
+    const cycle = expectedCycles[sample];
+    for (let current = appliedThrough + 1; current <= cycle; current++) {
+      for (const cell of deltasByCycle.get(current) ?? []) occupancy[cell] = 1;
+    }
+    appliedThrough = cycle;
+    const offset = sample * valuesPerSample;
+    for (let index = 0; index < valuesPerSample; index++) {
+      const value = result.farFieldWitness.values[offset + index];
+      if (!Number.isFinite(value) || value < 0 || Object.is(value, -0)) {
+        fail(`far-field sample ${cycle} contains a noncanonical value`);
+      }
+      if (cycle === 0 && !Object.is(value, result.config.params.rho)) {
+        fail(`cycle-0 far-field sample differs from registered initial rho at cell ${expectedSupport[index]}`);
+      }
+      if (cycle === result.rows.length && !Object.is(value, result.finalD[expectedSupport[index]])) {
+        fail(`final far-field sample differs from final checkpoint field at cell ${expectedSupport[index]}`);
+      }
+    }
+    const mean = orderedFarFieldMean(
+      result.farFieldWitness.values,
+      offset,
+      expectedSupport,
+      occupancy,
+    );
+    if (!Number.isFinite(mean)) fail(`far-field mean is undefined at cycle ${cycle}`);
+    means.push(mean);
+    if (cycle > 0) {
+      const row = result.rows[cycle - 1];
+      if (!row.farFieldObserved || row.farFieldMean === null || !Object.is(mean, row.farFieldMean)) {
+        fail(`far-field raw mean differs bitwise from CSV at cycle ${cycle}`);
+      }
+    }
+  }
+
+  const threshold = (2 * result.config.params.rho) / 3;
+  let firstCrossing: Gate4AFarFieldCrossing | null = null;
+  for (let sample = 1; sample < expectedCycles.length; sample++) {
+    if (means[sample] < threshold) {
+      firstCrossing = {
+        previousObservedCycle: expectedCycles[sample - 1],
+        previousMean: means[sample - 1],
+        crossingObservedCycle: expectedCycles[sample],
+        crossingMean: means[sample],
+        threshold,
+      };
+      break;
+    }
+  }
+  if (result.config.stop.kind === "farField") {
+    if (
+      firstCrossing === null ||
+      firstCrossing.crossingObservedCycle !== result.rows.length ||
+      result.stopReason !== "far-field" ||
+      canonicalJson(firstCrossing) !== canonicalJson(result.farFieldCrossing)
+    ) fail("far-field stop is not the first raw below-threshold observation");
+  } else if (firstCrossing !== null || result.farFieldCrossing !== null) {
+    fail("size-target run crossed the raw far-field threshold before stopping");
+  }
+  return { means, firstCrossing };
+}
+
 /** Build every payload artifact; report/index are added only by the shared publisher. */
 export function buildGate4AArtifacts(
   manifest: Gate4AManifest,
@@ -1371,6 +1577,7 @@ export function buildGate4AArtifacts(
   ];
   for (const result of results) {
     validateDeltaWitnesses(result);
+    validateGate4AFarFieldWitness(result);
     const csv = gate4ASeriesCsv(result.rows);
     validateGate4ASeriesCsv(csv, result.rows);
     artifacts.push(
@@ -1393,6 +1600,11 @@ export function buildGate4AArtifacts(
         path: runArtifactPath(result.config.id, "scenario.json"),
         kind: "phase4-pass-a-scenario+json",
         bytes: canonicalJsonBytes(scenarioPayload(result)),
+      },
+      {
+        path: runArtifactPath(result.config.id, "far-field.f64le"),
+        kind: GATE4A_FAR_FIELD_KIND,
+        bytes: encodeGate4AFarFieldWitness(result.farFieldWitness),
       },
     );
     if (result.noiseWitness !== null) {
@@ -1421,11 +1633,13 @@ export function validateGate4AArtifacts(
     const deltasPath = runArtifactPath(result.config.id, "deltas.json");
     const checkpointPath = runArtifactPath(result.config.id, "final.ckpt");
     const scenarioPath = runArtifactPath(result.config.id, "scenario.json");
-    expectedPaths.push(seriesPath, deltasPath, checkpointPath, scenarioPath);
+    const farFieldPath = runArtifactPath(result.config.id, "far-field.f64le");
+    expectedPaths.push(seriesPath, deltasPath, checkpointPath, scenarioPath, farFieldPath);
     expectedKinds.set(seriesPath, "phase4-pass-a-series+csv");
     expectedKinds.set(deltasPath, "phase4-pass-a-attachment-deltas+json");
     expectedKinds.set(checkpointPath, "gg-checkpoint-v1");
     expectedKinds.set(scenarioPath, "phase4-pass-a-scenario+json");
+    expectedKinds.set(farFieldPath, GATE4A_FAR_FIELD_KIND);
     if (result.noiseWitness !== null) {
       const witnessPath = runArtifactPath(result.config.id, "noise-witness.bin");
       expectedPaths.push(witnessPath);
@@ -1470,6 +1684,8 @@ export function validateGate4AArtifacts(
       throw new Error(`A-EXEC-NUMERIC: ${result.config.id} delta artifact shifted`);
     }
     validateDeltaWitnesses(result);
+    const farFieldArtifact = byPath.get(runArtifactPath(result.config.id, "far-field.f64le")) as EvidenceArtifactInput;
+    validateGate4AFarFieldWitness(result, farFieldArtifact.bytes);
     const checkpointArtifact = byPath.get(runArtifactPath(result.config.id, "final.ckpt")) as EvidenceArtifactInput;
     verifyGate4ACheckpoint(checkpointArtifact.bytes, {
       config: result.config,
@@ -1601,11 +1817,10 @@ function rowsStructurallyValid(result: Gate4ARunResult): boolean {
   );
 }
 
-function sizeTerminationValid(result: Gate4ARunResult, kind: "largestExtent" | "tExtent", target: number): boolean {
-  const expectedReason = kind === "largestExtent" ? "size-target" : A_BRANCH_COMPARATOR_STOP_REASON;
+function sizeTerminationValid(result: Gate4ARunResult, target: number): boolean {
   const crossing = result.extentCrossing;
   if (
-    result.stopReason !== expectedReason ||
+    result.stopReason !== "size-target" ||
     crossing === null ||
     result.rows.length !== crossing.crossingCycle ||
     crossing.crossingCycle >= stopCap(result.config) ||
@@ -1613,8 +1828,7 @@ function sizeTerminationValid(result: Gate4ARunResult, kind: "largestExtent" | "
   ) {
     return false;
   }
-  const value = (extents: LatticeExtents) => kind === "largestExtent" ? extents.largestExtent : extents.tExtent;
-  if (!(value(crossing.previousExtents) < target && value(crossing.crossingExtents) >= target)) return false;
+  if (!(crossing.previousExtents.largestExtent < target && crossing.crossingExtents.largestExtent >= target)) return false;
   if (result.previousOccupancy === null) return false;
   const previous = latticeExtents(result.previousOccupancy, result.config.dims);
   const crossingFinal = latticeExtents(result.finalA, result.config.dims);
@@ -1631,7 +1845,7 @@ function farFieldTerminationValid(result: Gate4ARunResult): boolean {
     result.rows.length !== crossing.crossingObservedCycle ||
     crossing.crossingObservedCycle >= stopCap(result.config) ||
     crossing.crossingObservedCycle % GATE4A_FAR_FIELD_CADENCE !== 0 ||
-    crossing.threshold !== FAR_FIELD_STOP_FRACTION * result.config.params.rho ||
+    !Object.is(crossing.threshold, (2 * result.config.params.rho) / 3) ||
     !(crossing.crossingMean < crossing.threshold) ||
     !(crossing.previousMean >= crossing.threshold)
   ) {
@@ -1745,17 +1959,22 @@ function terminationValid(result: Gate4ARunResult): boolean {
     (stop.kind !== "farField" && result.farFieldCrossing !== null)
   ) return false;
   const primary = stop.kind === "largestExtent"
-    ? sizeTerminationValid(result, "largestExtent", stop.target)
-    : stop.kind === "tExtentFromRun"
-      ? sizeTerminationValid(result, "tExtent", result.resolvedTargetTExtent as number)
-      : farFieldTerminationValid(result);
+    ? sizeTerminationValid(result, stop.target)
+    : farFieldTerminationValid(result);
   if (!primary) return false;
   // No size-target run may have crossed the far-field threshold first on an observed row.
   if (stop.kind !== "farField") {
     const rho = result.config.params.rho;
-    if (result.rows.some((row) => row.farFieldObserved && (row.farFieldMean as number) < FAR_FIELD_STOP_FRACTION * rho)) {
+    if (result.rows.some((row) => row.farFieldObserved && (row.farFieldMean as number) < (2 * rho) / 3)) {
       return false;
     }
+  }
+  try {
+    validateGate4AFarFieldWitness(result);
+  } catch (error) {
+    // Malformed attachment reconstruction remains owned by A-EXEC-NUMERIC alone.
+    if (error instanceof Error && error.message.startsWith("A-EXEC-NUMERIC:")) return true;
+    return false;
   }
   return gate4ATimelineEvidenceValid(result);
 }
@@ -1981,7 +2200,7 @@ export function deriveGate4AExecutionRecords(
     typedBitsEqual(primaryReplay.finalD, replay.finalD);
   const massPass = options.results.length === registeredIds.length && options.results.every(massValid);
   const domainPass = options.results.length === registeredIds.length && options.results.every(domainValid);
-  const terminationPass = options.results.length === registeredIds.length && options.results.every(terminationValid);
+  const rawTerminationPass = options.results.length === registeredIds.length && options.results.every(terminationValid);
   let artifactFailure = "";
   let independentlyValidatedNoiseRuns: readonly string[] = [];
   try {
@@ -1999,9 +2218,12 @@ export function deriveGate4AExecutionRecords(
   ) && replayBits;
   const noiseArtifactFailure = artifactFailure.startsWith("A-EXEC-NOISE:");
   const configArtifactFailure = artifactFailure.startsWith("A-EXEC-CONFIG:");
+  const terminationArtifactFailure = artifactFailure.startsWith("A-EXEC-TERMINATION:");
   const noisePass = rawNoisePass && !noiseArtifactFailure;
   const configCriterionPass = configPass && !configArtifactFailure;
-  const numericArtifactPass = artifactFailure === "" || noiseArtifactFailure || configArtifactFailure;
+  const terminationPass = rawTerminationPass && !terminationArtifactFailure;
+  const numericArtifactPass = artifactFailure === "" || noiseArtifactFailure ||
+    configArtifactFailure || terminationArtifactFailure;
   const numericPass = numericArtifactPass && options.results.length === registeredIds.length &&
     options.results.every((result) =>
       rowsStructurallyValid(result) && deltaChainNumericValid(result) && finalFieldsNumeric(result)
@@ -2099,12 +2321,15 @@ export function deriveGate4AMorphologyRecords(
   manifest: Gate4AManifest,
   results: readonly Gate4ARunResult[],
   sourceHashes: Gate4ASourceHashes,
+  sharedExecutionValid: boolean,
 ): readonly Phase4CriterionRecord<AMorphologyCriterion>[] {
   const byId = new Map(results.map((result) => [result.config.id, result]));
   const registeredById = new Map(manifest.runs.map((config) => [config.id, config]));
+  const structural = validateGate4ASourceHashes(sourceHashes);
   const valid = (result: Gate4ARunResult) => {
     const registered = registeredById.get(result.config.id);
-    return registered !== undefined && singleRunExecutionValid(result, registered);
+    return sharedExecutionValid && structural && registered !== undefined &&
+      singleRunExecutionValid(result, registered);
   };
   const habitResults = A_HABIT_CONTROLS.map((u) =>
     requiredResult(byId, `A-HABIT-U${String(u).replace(".", "P")}`),
@@ -2172,7 +2397,6 @@ export function deriveGate4AMorphologyRecords(
       },
     };
   };
-  const structural = validateGate4ASourceHashes(sourceHashes);
   const hollowRecords = evaluateAHollow(
     hollowResults.map(asHollow),
     asHollow(replay),
@@ -2199,19 +2423,35 @@ export function deriveGate4AMorphologyRecords(
 
   const dendrite = requiredResult(byId, "A-BRANCH-DENDRITE");
   const comparator = requiredResult(byId, "A-BRANCH-COMPARATOR");
-  const comparatorCrossing = crossingOrThrow(comparator);
+  const dendriteCrossing = dendrite.farFieldCrossing;
+  const comparatorCrossing = comparator.farFieldCrossing;
+  const comparatorReconstruction = validateDeltaWitnesses(comparator);
+  let comparatorAttachedCount = 0;
+  for (const attached of comparatorReconstruction.finalOccupancy) comparatorAttachedCount += attached;
+  const branchMeasurement = (
+    result: Gate4ARunResult,
+    crossing: Gate4AFarFieldCrossing | null,
+  ) => ({
+    rho: result.config.params.rho,
+    threshold: crossing?.threshold ?? Number.NaN,
+    previousObservedCycle: crossing?.previousObservedCycle ?? -1,
+    previousMean: crossing?.previousMean ?? Number.NaN,
+    crossingObservedCycle: crossing?.crossingObservedCycle ?? -1,
+    crossingMean: crossing?.crossingMean ?? Number.NaN,
+    stopReason: result.stopReason,
+    finalTExtent: latticeExtents(result.finalA, result.config.dims)?.tExtent ?? 0,
+    branchCount: branchCount(result.finalA, result.config.dims, domainCenter(result.config.dims)),
+    aspectRatio: aspectRatio(result.finalA, result.config.dims),
+    executionValid: valid(result),
+    sharedConfigHash: branchSharedConfigHash(result.config),
+  });
   const branchRecord = evaluateABranch({
-    branchCount: branchCount(dendrite.finalA, dendrite.config.dims, domainCenter(dendrite.config.dims)),
-    aspectRatio: aspectRatio(dendrite.finalA, dendrite.config.dims),
-    finalTExtent: latticeExtents(dendrite.finalA, dendrite.config.dims)?.tExtent ?? 0,
-    comparatorTargetTExtent: comparator.resolvedTargetTExtent ?? 0,
-    comparatorPreviousTExtent: comparatorCrossing.previousExtents.tExtent,
-    comparatorFinalTExtent: comparatorCrossing.crossingExtents.tExtent,
-    comparatorStopReason: comparator.stopReason,
-    comparatorBranchCount: branchCount(comparator.finalA, comparator.config.dims, domainCenter(comparator.config.dims)),
-    comparatorExecutionValid: valid(comparator),
-    dendriteSharedConfigHash: branchSharedConfigHash(dendrite.config),
-    comparatorSharedConfigHash: branchSharedConfigHash(comparator.config),
+    dendrite: branchMeasurement(dendrite, dendriteCrossing),
+    comparator: {
+      ...branchMeasurement(comparator, comparatorCrossing),
+      finalAttachedCount: comparatorAttachedCount,
+      nonemptyAttachmentDeltaCycles: comparator.deltas.filter((witness) => witness.indices.length > 0).length,
+    },
   });
   return [
     ...habitRecords,
@@ -2255,7 +2495,6 @@ function resultSummary(result: Gate4ARunResult): StrictJson {
     configSha256: result.registeredConfigSha256,
     completedCycles: result.rows.length,
     stopReason: result.stopReason,
-    resolvedTargetTExtent: result.resolvedTargetTExtent,
     extentCrossing: result.extentCrossing,
     farFieldCrossing: result.farFieldCrossing,
     final: {
@@ -2320,22 +2559,11 @@ export function runGate4A(options: RunGate4AOptions = {}): Gate4ARunOutcome {
   }
   const executeRun = options.executeRun ?? executeGate4ARun;
   const results: Gate4ARunResult[] = [];
-  let dendriteTExtent: number | null = null;
   for (const config of manifest.runs) {
-    const resolvedTargetTExtent = config.stop.kind === "tExtentFromRun"
-      ? dendriteTExtent ?? undefined
-      : undefined;
     const result = executeRun(config, {
-      resolvedTargetTExtent,
       onProgress: options.onProgress,
     });
     results.push(result);
-    if (config.id === "A-BRANCH-DENDRITE") {
-      dendriteTExtent = latticeExtents(result.finalA, config.dims)?.tExtent ?? null;
-      if (!Number.isSafeInteger(dendriteTExtent) || (dendriteTExtent as number) <= 0) {
-        throw new Error("A-EXEC-TERMINATION: dendrite produced no comparator extent");
-      }
-    }
   }
   const artifacts = buildGate4AArtifacts(manifest, results);
   const executionRecords = deriveGate4AExecutionRecords({
@@ -2345,7 +2573,12 @@ export function runGate4A(options: RunGate4AOptions = {}): Gate4ARunOutcome {
     results,
     artifacts,
   });
-  const morphologyRecords = deriveGate4AMorphologyRecords(manifest, results, sourceHashes);
+  const morphologyRecords = deriveGate4AMorphologyRecords(
+    manifest,
+    results,
+    sourceHashes,
+    executionRecords.every((record) => record.passed),
+  );
   const records = [...executionRecords, ...morphologyRecords];
   const verdict = evaluateGate4A(records);
   let publication: PublishedEvidenceBundle | null = null;
@@ -2358,7 +2591,7 @@ export function runGate4A(options: RunGate4AOptions = {}): Gate4ARunOutcome {
       pass: "A",
       operator: "GGThreshold",
       payload: {
-        version: 1,
+        version: 2,
         manifestSha256: GATE4A_MANIFEST_SHA256,
         provenance,
         sourceHashes,
@@ -2429,7 +2662,6 @@ export function formatGate4ATerminalPresentation(
       executionId: result.executionId,
       completedCycles: result.rows.length,
       stopReason: result.stopReason,
-      resolvedTargetTExtent: result.resolvedTargetTExtent,
       extentCrossing: result.extentCrossing,
       farFieldCrossing: result.farFieldCrossing,
     })),

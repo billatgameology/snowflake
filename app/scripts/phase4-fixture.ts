@@ -436,13 +436,52 @@ function rawSha(view: Uint8Array | Float64Array): string {
   return sha256HexNode(new Uint8Array(view.buffer, view.byteOffset, view.byteLength));
 }
 
+function fixtureFarFieldSupport(): Int32Array {
+  const support: number[] = [];
+  for (let k = 0; k < DIMS.nz; k++) {
+    for (let j = 0; j < DIMS.ny; j++) {
+      for (let i = 0; i < DIMS.nx; i++) {
+        const distance = hexDistance(i - CENTER[0], j - CENTER[1]);
+        if (activeCell(i, j, k) && (distance === RADIUS || Math.abs(k - CENTER[2]) === HALF_Z)) {
+          support.push(k * DIMS.nx * DIMS.ny + j * DIMS.nx + i);
+        }
+      }
+    }
+  }
+  return Int32Array.from(support);
+}
+
+function int32LE(values: Int32Array): Uint8Array {
+  const bytes = new Uint8Array(values.length * 4);
+  const view = new DataView(bytes.buffer);
+  values.forEach((value, index) => view.setInt32(index * 4, value, true));
+  return bytes;
+}
+
+function fixtureFarFieldBytes(
+  field: Float64Array,
+  support: Int32Array,
+  sampleCycles: readonly number[],
+): Uint8Array {
+  const bytes = new Uint8Array(support.length * sampleCycles.length * 8);
+  const view = new DataView(bytes.buffer);
+  let offset = 0;
+  for (const _cycle of sampleCycles) {
+    for (const cell of support) {
+      view.setFloat64(offset, field[cell], true);
+      offset += 8;
+    }
+  }
+  return bytes;
+}
+
 /** Build the complete frozen Pass-A run set as a tiny synthetic bundle. */
 export function buildFixturePassA(directory: string): void {
   const tick = 100;
   const runs = ggFixtureRuns();
   const manifest = {
-    version: 1,
-    protocol: "phase4-pass-a-v1",
+    version: 2,
+    protocol: "phase4-pass-a-v2",
     operator: "GGThreshold",
     backend: "float64-cpu-oracle",
     precision: "float64",
@@ -468,6 +507,8 @@ export function buildFixturePassA(directory: string): void {
     { path: "manifest.json", kind: "phase4-pass-a-manifest+json", bytes: manifestBytes },
   ];
   const summaries: unknown[] = [];
+  const farFieldSupport = fixtureFarFieldSupport();
+  const sampleCycles = [0, 25, 50, 75, 100];
   for (const run of runs) {
     const state = ggFixtureState(run, tick);
     const metrics = computeMetrics(
@@ -484,6 +525,34 @@ export function buildFixturePassA(directory: string): void {
       kind: "gg-checkpoint-v1",
       bytes: checkpoint,
     });
+    const farFieldPath = `runs/${run.id}/far-field.f64le`;
+    const farFieldBytes = fixtureFarFieldBytes(state.d, farFieldSupport, sampleCycles);
+    payloads.push({
+      path: farFieldPath,
+      kind: "phase4-far-field-f64le-v1",
+      bytes: farFieldBytes,
+    });
+    payloads.push({
+      path: `runs/${run.id}/scenario.json`,
+      kind: "phase4-pass-a-scenario+json",
+      bytes: canonicalJsonBytesOf({
+        version: 2,
+        runId: run.id,
+        farFieldWitness: {
+          version: 1,
+          path: farFieldPath,
+          kind: "phase4-far-field-f64le-v1",
+          encoding: "float64-le",
+          supportDefinition: "hex-prism-active-outer-shell-v1",
+          supportCount: farFieldSupport.length,
+          supportIndicesSha256: sha256HexNode(int32LE(farFieldSupport)),
+          sampleCycles,
+          valuesPerSample: farFieldSupport.length,
+          byteLength: farFieldBytes.byteLength,
+          sha256: sha256HexNode(farFieldBytes),
+        },
+      }),
+    });
     summaries.push({
       runId: run.id,
       executionId: `fixture-${run.id}`,
@@ -498,11 +567,11 @@ export function buildFixturePassA(directory: string): void {
     });
   }
   writeBundle(directory, "gate4a-report.json", {
-    protocol: "phase4-pass-a-v1",
+    protocol: "phase4-pass-a-v2",
     pass: "A",
     operator: "GGThreshold",
     payloadWithoutRuns: {
-      version: 1,
+      version: 2,
       manifestSha256: sha256HexNode(manifestBytes),
       fixture: SYNTHETIC_FIXTURE_NOTICE,
       records: [

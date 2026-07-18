@@ -25,8 +25,18 @@ import {
   type Phase4CriterionName,
   type Phase4CriterionRecord,
 } from "../src/gate4-protocol.ts";
-import { GATE4A_NODE, GATE4A_V8, type Gate4ARunOutcome } from "../src/gate4a.ts";
-import type { Gate4BRunOutcome } from "../src/gate4b.ts";
+import {
+  GATE4A_NODE,
+  GATE4A_PROTOCOL,
+  GATE4A_V8,
+  buildGate4AManifest,
+  type Gate4ARunOutcome,
+} from "../src/gate4a.ts";
+import {
+  GATE4B_PROTOCOL,
+  buildGate4BManifest,
+  type Gate4BRunOutcome,
+} from "../src/gate4b.ts";
 import {
   GATE4_PROTOCOL,
   formatGate4TerminalPresentation,
@@ -63,6 +73,7 @@ function passingProvenance() {
     criteriaFreezeIsAncestor: true,
     runnerFreezeIsAncestor: true,
     cadenceFreezeIsAncestor: true,
+    v2CriteriaFreezeIsAncestor: true,
   };
 }
 
@@ -77,7 +88,10 @@ function records<N extends Phase4CriterionName>(
   ));
 }
 
-function syntheticPublication(directory: string) {
+function syntheticPublication(
+  directory: string,
+  identity: { readonly protocol: string; readonly pass: "A" | "B"; readonly operator: string; readonly payloadVersion: number },
+) {
   const reportBytes = new TextEncoder().encode("{}\n");
   const descriptor = {
     path: "report.json",
@@ -89,11 +103,11 @@ function syntheticPublication(directory: string) {
     directory,
     report: {
       version: 1 as const,
-      protocol: "synthetic",
-      pass: "X",
-      operator: "synthetic",
+      protocol: identity.protocol,
+      pass: identity.pass,
+      operator: identity.operator,
       artifacts: [],
-      payload: strictJsonSnapshot({ synthetic: true }),
+      payload: strictJsonSnapshot({ version: identity.payloadVersion }),
     },
     index: {
       version: 1 as const,
@@ -108,14 +122,19 @@ function passAOutcome(failing: readonly Phase4CriterionName[] = []): Gate4ARunOu
   const recordsA = records([...A_EXECUTION_CRITERIA, ...A_MORPHOLOGY_CRITERIA], failing);
   const verdict = evaluateGate4A(recordsA);
   return {
-    manifest: { synthetic: true } as never,
+    manifest: buildGate4AManifest(),
     provenance: passingProvenance(),
     sourceHashes: { gg: "0".repeat(64), lk: "0".repeat(64) },
     results: [],
     records: recordsA,
     verdict,
     artifacts: [],
-    publication: verdict.gatePass ? (syntheticPublication("/synthetic/pass-a") as never) : null,
+    publication: verdict.gatePass ? (syntheticPublication("/synthetic/pass-a", {
+      protocol: GATE4A_PROTOCOL,
+      pass: "A",
+      operator: "GGThreshold",
+      payloadVersion: 2,
+    }) as never) : null,
   };
 }
 
@@ -123,13 +142,18 @@ function passBOutcome(failing: readonly Phase4CriterionName[] = []): Gate4BRunOu
   const recordsB = records([...B_EXECUTION_CRITERIA, ...B_MORPHOLOGY_CRITERIA], failing);
   const verdict = evaluateGate4B(recordsB);
   return {
-    manifest: { synthetic: true } as never,
-    provenance: passingProvenance(),
+    manifest: buildGate4BManifest(),
+    provenance: (({ v2CriteriaFreezeIsAncestor: _omitted, ...passB }) => passB)(passingProvenance()),
     results: [],
     records: recordsB,
     verdict,
     artifacts: [],
-    publication: verdict.executionValid ? (syntheticPublication("/synthetic/pass-b") as never) : null,
+    publication: verdict.executionValid ? (syntheticPublication("/synthetic/pass-b", {
+      protocol: GATE4B_PROTOCOL,
+      pass: "B",
+      operator: "LibbrechtKinetics",
+      payloadVersion: 1,
+    }) as never) : null,
   };
 }
 
@@ -242,19 +266,25 @@ describe("gate4 aggregate exit semantics", () => {
       readonly version: number;
       readonly protocol: string;
       readonly passA: {
+        readonly protocol: string;
+        readonly manifestVersion: number;
         readonly publication: { readonly directory: string; readonly report: StrictJson };
         readonly verdict: { readonly gatePass: boolean };
         readonly records: readonly unknown[];
       };
       readonly passB: {
+        readonly protocol: string;
+        readonly manifestVersion: number;
         readonly publication: { readonly directory: string };
         readonly verdict: { readonly executionValid: boolean };
         readonly records: readonly unknown[];
       };
       readonly aggregate: { readonly gatePass: boolean; readonly exitCode: number };
     };
-    expect(report.version).toBe(1);
+    expect(report.version).toBe(2);
     expect(report.protocol).toBe(GATE4_PROTOCOL);
+    expect(report.passA).toMatchObject({ protocol: GATE4A_PROTOCOL, manifestVersion: 2 });
+    expect(report.passB).toMatchObject({ protocol: GATE4B_PROTOCOL, manifestVersion: 1 });
     expect(report.passA.publication.directory).toBe("/synthetic/pass-a");
     expect(report.passB.publication.directory).toBe("/synthetic/pass-b");
     expect(report.passA.verdict.gatePass).toBe(true);
@@ -286,12 +316,59 @@ describe("gate4 aggregate exit semantics", () => {
 });
 
 describe("gate4 forged-outcome guards", () => {
+  it("rejects Pass-A v1 manifest, report, and payload identities", () => {
+    const valid = passAOutcome();
+    for (const forged of [
+      { ...valid, manifest: { ...valid.manifest, version: 1, protocol: "phase4-pass-a-v1" } },
+      {
+        ...valid,
+        publication: {
+          ...valid.publication,
+          report: { ...(valid.publication as NonNullable<typeof valid.publication>).report, protocol: "phase4-pass-a-v1" },
+        },
+      },
+      {
+        ...valid,
+        publication: {
+          ...valid.publication,
+          report: {
+            ...(valid.publication as NonNullable<typeof valid.publication>).report,
+            payload: strictJsonSnapshot({ version: 1 }),
+          },
+        },
+      },
+    ] as const) {
+      expect(() => runGate4({
+        repoRoot,
+        reportPath: temporaryReportPath(),
+        runPassA: () => forged as Gate4ARunOutcome,
+        runPassB: () => passBOutcome(),
+      })).toThrow(/Pass A (manifest|publication) identity/);
+    }
+  });
+
+  it("rejects v2 ancestry leakage into Pass-B provenance", () => {
+    const valid = passBOutcome();
+    const forged = {
+      ...valid,
+      provenance: { ...valid.provenance, v2CriteriaFreezeIsAncestor: true },
+    } as Gate4BRunOutcome;
+    expect(() => runGate4({
+      repoRoot,
+      reportPath: temporaryReportPath(),
+      runPassA: () => passAOutcome(),
+      runPassB: () => forged,
+    })).toThrow(/Pass B provenance identity failed/);
+  });
+
   it("rejects a Pass A outcome whose verdict does not match its own records", () => {
     const forged = passAOutcome(["A-EXEC-MASS"]);
     const outcome: Gate4ARunOutcome = {
       ...forged,
       verdict: { ...forged.verdict, gatePass: true, exitCode: 0, blockingFailures: [] },
-      publication: syntheticPublication("/synthetic/pass-a") as never,
+      publication: syntheticPublication("/synthetic/pass-a", {
+        protocol: GATE4A_PROTOCOL, pass: "A", operator: "GGThreshold", payloadVersion: 2,
+      }) as never,
     };
     expect(() => runGate4({
       repoRoot,
@@ -312,7 +389,9 @@ describe("gate4 forged-outcome guards", () => {
         exitCode: 0,
         executionFailures: [],
       },
-      publication: syntheticPublication("/synthetic/pass-b") as never,
+      publication: syntheticPublication("/synthetic/pass-b", {
+        protocol: GATE4B_PROTOCOL, pass: "B", operator: "LibbrechtKinetics", payloadVersion: 1,
+      }) as never,
     };
     expect(() => runGate4({
       repoRoot,
@@ -338,7 +417,9 @@ describe("gate4 forged-outcome guards", () => {
       runPassA: () => passAOutcome(),
       runPassB: () => ({
         ...invalidB,
-        publication: syntheticPublication("/synthetic/pass-b") as never,
+        publication: syntheticPublication("/synthetic/pass-b", {
+          protocol: GATE4B_PROTOCOL, pass: "B", operator: "LibbrechtKinetics", payloadVersion: 1,
+        }) as never,
       }),
     })).toThrow(/GATE4: Pass B verdict\/publication state is inconsistent/);
   });

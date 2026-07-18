@@ -245,11 +245,38 @@ function rewriteManifest(
   writeFileSync(join(dir, PHASE4_INDEX_FILE), canonicalJsonBytesOf(index));
 }
 
+function rewritePayloadArtifact(
+  dir: string,
+  reportPath: string,
+  artifactPath: string,
+  bytes: Uint8Array,
+): void {
+  writeFileSync(join(dir, artifactPath), bytes);
+  const sha256 = sha256HexNode(bytes);
+  rewriteReport(dir, reportPath, (report) => {
+    const descriptor = (report.artifacts as Array<Record<string, unknown>>).find(
+      (item) => item.path === artifactPath,
+    ) as Record<string, unknown>;
+    descriptor.byteLength = bytes.byteLength;
+    descriptor.sha256 = sha256;
+  });
+  const index = JSON.parse(readFileSync(join(dir, PHASE4_INDEX_FILE), "utf8")) as {
+    artifacts: Array<Record<string, unknown>>;
+  };
+  const descriptor = index.artifacts.find((item) => item.path === artifactPath) as Record<string, unknown>;
+  descriptor.byteLength = bytes.byteLength;
+  descriptor.sha256 = sha256;
+  writeFileSync(join(dir, PHASE4_INDEX_FILE), canonicalJsonBytesOf(index));
+}
+
 function gitText(cwd: string, args: readonly string[]): string {
   return execFileSync("git", [...args], { cwd, encoding: "utf8" }).trim();
 }
 
-function provenancePayload(head = gitText(repoRoot, ["rev-parse", "HEAD"])): Record<string, unknown> {
+function provenancePayload(
+  head = gitText(repoRoot, ["rev-parse", "HEAD"]),
+  pass: "A" | "B" = "A",
+): Record<string, unknown> {
   return {
     provenance: {
       node: PHASE4_NODE,
@@ -259,6 +286,7 @@ function provenancePayload(head = gitText(repoRoot, ["rev-parse", "HEAD"])): Rec
       criteriaFreezeIsAncestor: true,
       runnerFreezeIsAncestor: true,
       cadenceFreezeIsAncestor: true,
+      ...(pass === "A" ? { v2CriteriaFreezeIsAncestor: true } : {}),
     },
     sourceHashes: {
       gg: PHASE4_GG_SOURCE_SHA256,
@@ -358,6 +386,27 @@ describe("coherent fixture bundles verify cleanly", () => {
 });
 
 describe("frozen run completeness and provenance", () => {
+  it("rejects immutable Pass-A v1 report, payload, and manifest identities", () => {
+    const reportDir = freshPassA();
+    rewriteReport(reportDir, "gate4a-report.json", (report) => {
+      report.protocol = "phase4-pass-a-v1";
+    });
+    expect(() => verifySynthetic(reportDir, PASS_A_IDENTITY)).toThrow(/report identity/);
+
+    const payloadDir = freshPassA();
+    rewriteReport(payloadDir, "gate4a-report.json", (report) => {
+      (report.payload as Record<string, unknown>).version = 1;
+    });
+    expect(() => verifySynthetic(payloadDir, PASS_A_IDENTITY)).toThrow(/payload version must be 2/);
+
+    const manifestDir = freshPassA();
+    rewriteManifest(manifestDir, "gate4a-report.json", (manifest) => {
+      manifest.version = 1;
+      manifest.protocol = "phase4-pass-a-v1";
+    });
+    expect(() => verifySynthetic(manifestDir, PASS_A_IDENTITY)).toThrow(/manifest identity\/version/);
+  });
+
   it("rejects a duplicate manifest run ID", () => {
     const dir = freshPassA();
     rewriteManifest(dir, "gate4a-report.json", (manifest) => {
@@ -396,13 +445,22 @@ describe("frozen run completeness and provenance", () => {
 });
 
 describe("real publication provenance is derived from recorded Git objects", () => {
+  it("requires v2 ancestry only on A and forbids it on frozen B v1", () => {
+    const missingA = provenancePayload();
+    delete (missingA.provenance as Record<string, unknown>).v2CriteriaFreezeIsAncestor;
+    expect(() => validateRealProvenance(missingA, PASS_A_IDENTITY, repoRoot)).toThrow(/keys are invalid/);
+    const leakedB = provenancePayload(undefined, "B");
+    (leakedB.provenance as Record<string, unknown>).v2CriteriaFreezeIsAncestor = true;
+    expect(() => validateRealProvenance(leakedB, PASS_B_IDENTITY, repoRoot)).toThrow(/keys are invalid/);
+  });
+
   it("accepts current and archived valid commits without requiring recorded HEAD == current HEAD", () => {
     const current = gitText(repoRoot, ["rev-parse", "HEAD"]);
     const archived = gitText(repoRoot, ["rev-parse", "dce7081^{commit}"]);
     expect(archived).not.toBe(current);
     expect(() => validateRealProvenance(provenancePayload(current), PASS_A_IDENTITY, repoRoot)).not.toThrow();
 
-    const archivedB = provenancePayload(archived);
+    const archivedB = provenancePayload(archived, "B");
     delete archivedB.sourceHashes;
     expect(() => validateRealProvenance(archivedB, PASS_B_IDENTITY, repoRoot)).not.toThrow();
   });
@@ -437,7 +495,7 @@ describe("real publication provenance is derived from recorded Git objects", () 
     execFileSync("git", ["add", "solver-cpu/src/lk-solver.ts"], { cwd: clone });
     execFileSync("git", ["commit", "--quiet", "-m", "test-only source rewrite"], { cwd: clone });
     const rewrittenHead = gitText(clone, ["rev-parse", "HEAD"]);
-    const payload = provenancePayload(rewrittenHead);
+    const payload = provenancePayload(rewrittenHead, "B");
     delete payload.sourceHashes;
     expect(() => validateRealProvenance(payload, PASS_B_IDENTITY, clone)).toThrow(
       /solver sources at recorded head.*do not match the freeze/,
@@ -589,6 +647,56 @@ describe("artifact hash / file-set mutations fail by name", () => {
 });
 
 describe("coherent forgeries still fail by name (no self-consistent-graph trust)", () => {
+  it("rejects a coherently rewritten Pass-A far-field scenario metadata claim", () => {
+    const dir = freshPassA();
+    const path = "runs/A-HABIT-U0/scenario.json";
+    const scenario = JSON.parse(readFileSync(join(dir, path), "utf8")) as {
+      farFieldWitness: Record<string, unknown>;
+    };
+    scenario.farFieldWitness.supportCount =
+      (scenario.farFieldWitness.supportCount as number) + 1;
+    rewritePayloadArtifact(dir, "gate4a-report.json", path, canonicalJsonBytesOf(scenario));
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(/farFieldWitness metadata is invalid/);
+  });
+
+  it("rejects extra Pass-A scenario farFieldWitness keys", () => {
+    const dir = freshPassA();
+    const path = "runs/A-HABIT-U0/scenario.json";
+    const scenario = JSON.parse(readFileSync(join(dir, path), "utf8")) as {
+      farFieldWitness: Record<string, unknown>;
+    };
+    scenario.farFieldWitness.unexpected = true;
+    rewritePayloadArtifact(dir, "gate4a-report.json", path, canonicalJsonBytesOf(scenario));
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(/keys are invalid/);
+  });
+
+  it("rejects a coherently relabeled raw far-field descriptor kind", () => {
+    const dir = freshPassA();
+    const path = "runs/A-HABIT-U0/far-field.f64le";
+    rewriteReport(dir, "gate4a-report.json", (report) => {
+      const descriptor = (report.artifacts as Array<Record<string, unknown>>).find(
+        (item) => item.path === path,
+      ) as Record<string, unknown>;
+      descriptor.kind = "application/octet-stream";
+    });
+    const index = JSON.parse(readFileSync(join(dir, PHASE4_INDEX_FILE), "utf8")) as {
+      artifacts: Array<Record<string, unknown>>;
+    };
+    const descriptor = index.artifacts.find((item) => item.path === path) as Record<string, unknown>;
+    descriptor.kind = "application/octet-stream";
+    writeFileSync(join(dir, PHASE4_INDEX_FILE), canonicalJsonBytesOf(index));
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(/far-field\.f64le kind is invalid/);
+  });
+
+  it("rejects coherently rehashed raw far-field bytes against scenario metadata", () => {
+    const dir = freshPassA();
+    const path = "runs/A-HABIT-U0/far-field.f64le";
+    const bytes = new Uint8Array(readFileSync(join(dir, path)));
+    bytes[0] ^= 1;
+    rewritePayloadArtifact(dir, "gate4a-report.json", path, bytes);
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(/farFieldWitness metadata is invalid/);
+  });
+
   it("run-summary field-hash rewrite -> V4-CHECKPOINT-METADATA (aSha256)", () => {
     const dir = freshPassA();
     rewriteReport(dir, "gate4a-report.json", (report) => {

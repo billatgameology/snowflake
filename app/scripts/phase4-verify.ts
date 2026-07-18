@@ -58,15 +58,19 @@ export interface Phase4PassIdentity {
   readonly operator: "GGThreshold" | "LibbrechtKinetics";
   readonly checkpointKind: string;
   readonly manifestKind: string;
+  readonly manifestVersion: 1 | 2;
+  readonly payloadVersion: 1 | 2;
 }
 
 export const PASS_A_IDENTITY: Phase4PassIdentity = {
   pass: "A",
   reportPath: "gate4a-report.json",
-  protocol: "phase4-pass-a-v1",
+  protocol: "phase4-pass-a-v2",
   operator: "GGThreshold",
   checkpointKind: "gg-checkpoint-v1",
   manifestKind: "phase4-pass-a-manifest+json",
+  manifestVersion: 2,
+  payloadVersion: 2,
 };
 
 export const PASS_B_IDENTITY: Phase4PassIdentity = {
@@ -76,10 +80,12 @@ export const PASS_B_IDENTITY: Phase4PassIdentity = {
   operator: "LibbrechtKinetics",
   checkpointKind: "lk-checkpoint-v2",
   manifestKind: "phase4-pass-b-manifest+json",
+  manifestVersion: 1,
+  payloadVersion: 1,
 };
 
 export const PASS_A_MANIFEST_SHA256 =
-  "6d1ee3a262e8985930ded30f8ef490e1e47402dce6c55f2b3b16e4e80b0d9a98";
+  "e5e85c70d377e90dcca2974579122e67417c60fd2c11683276f528615e608644";
 export const PASS_B_MANIFEST_SHA256 =
   "c0ceed5b0ebb68defee85b1d78d52c9563f5edd35ed415b8cfdad57dd7c3e812";
 export const PHASE4_EVIDENCE_BACKEND = "float64-cpu-oracle";
@@ -88,6 +94,7 @@ export const PHASE4_V8 = "13.6.233.17-node.40";
 export const PHASE4_CRITERIA_FREEZE = "e567767";
 export const PHASE4_RUNNER_FREEZE = "cd24365";
 export const PHASE4_CADENCE_FREEZE = "7be4c5d";
+export const PHASE4_V2_CRITERIA_FREEZE = "9c9dd5a45eafb80f3e547298494f005a73d19086";
 export const PHASE4_GG_SOURCE_SHA256 =
   "e13cd4c487eb9918b5b68529cc6f0e5c80ce53319343d9f0e7c102f4cf65563b";
 export const PHASE4_LK_SOURCE_SHA256 =
@@ -1075,7 +1082,16 @@ export function validateRealProvenance(
   const provenance = asRecord(payload.provenance, "payload.provenance");
   expectExactKeys(
     provenance,
-    [
+    identity.pass === "A" ? [
+      "node",
+      "v8",
+      "head",
+      "trackedStatus",
+      "criteriaFreezeIsAncestor",
+      "runnerFreezeIsAncestor",
+      "cadenceFreezeIsAncestor",
+      "v2CriteriaFreezeIsAncestor",
+    ] : [
       "node",
       "v8",
       "head",
@@ -1108,11 +1124,14 @@ export function validateRealProvenance(
   }
   gitBytes(root, ["cat-file", "-e", `${head}^{commit}`], `recorded commit ${head}`);
 
-  const ancestry = {
+  const ancestry: Record<string, boolean> = {
     criteriaFreezeIsAncestor: gitIsAncestor(root, PHASE4_CRITERIA_FREEZE, head),
     runnerFreezeIsAncestor: gitIsAncestor(root, PHASE4_RUNNER_FREEZE, head),
     cadenceFreezeIsAncestor: gitIsAncestor(root, PHASE4_CADENCE_FREEZE, head),
-  } as const;
+  };
+  if (identity.pass === "A") {
+    ancestry.v2CriteriaFreezeIsAncestor = gitIsAncestor(root, PHASE4_V2_CRITERIA_FREEZE, head);
+  }
   for (const [field, actual] of Object.entries(ancestry)) {
     if (provenance[field] !== actual) {
       throw new Error(
@@ -1322,6 +1341,90 @@ export function validatePublishedRecordVerdictContract(
   return validated.records;
 }
 
+function validatePassAFarFieldArtifact(
+  runId: string,
+  config: Record<string, unknown>,
+  completedCycles: number,
+  descriptors: readonly ArtifactDescriptor[],
+  bytesByPath: ReadonlyMap<string, Uint8Array>,
+): void {
+  const rawPath = `runs/${runId}/far-field.f64le`;
+  const scenarioPath = `runs/${runId}/scenario.json`;
+  const rawDescriptor = descriptors.find((descriptor) => descriptor.path === rawPath);
+  const scenarioDescriptor = descriptors.find((descriptor) => descriptor.path === scenarioPath);
+  if (rawDescriptor?.kind !== "phase4-far-field-f64le-v1") {
+    throw new Error(`V4-BUNDLE-CROSSLINK: ${rawPath} kind is invalid`);
+  }
+  if (scenarioDescriptor?.kind !== "phase4-pass-a-scenario+json") {
+    throw new Error(`V4-BUNDLE-CROSSLINK: ${scenarioPath} kind is invalid`);
+  }
+  const rawBytes = bytesByPath.get(rawPath);
+  const scenarioBytes = bytesByPath.get(scenarioPath);
+  if (rawBytes === undefined || scenarioBytes === undefined) {
+    throw new Error(`V4-BUNDLE-FILESET: run ${runId} lacks its v2 far-field witness`);
+  }
+  const scenario = asRecord(
+    parseCanonicalJsonBytes(scenarioBytes, `run ${runId} scenario`),
+    `run ${runId} scenario`,
+  );
+  if (scenario.version !== 2 || Object.hasOwn(scenario, "resolvedTargetTExtent")) {
+    throw new Error(`V4-BUNDLE-CROSSLINK: run ${runId} scenario is not exact v2`);
+  }
+  const witness = asRecord(scenario.farFieldWitness, `run ${runId} farFieldWitness`);
+  expectExactKeys(witness, [
+    "version", "path", "kind", "encoding", "supportDefinition", "supportCount",
+    "supportIndicesSha256", "sampleCycles", "valuesPerSample", "byteLength", "sha256",
+  ], `run ${runId} farFieldWitness`);
+  if (
+    witness.version !== 1 || witness.path !== rawPath ||
+    witness.kind !== "phase4-far-field-f64le-v1" || witness.encoding !== "float64-le" ||
+    witness.supportDefinition !== "hex-prism-active-outer-shell-v1"
+  ) {
+    throw new Error(`V4-BUNDLE-CROSSLINK: run ${runId} farFieldWitness literals are invalid`);
+  }
+
+  const dims = asRecord(config.dims, `run ${runId} dims`);
+  const nx = asFinite(dims.nx, `run ${runId} dims.nx`);
+  const ny = asFinite(dims.ny, `run ${runId} dims.ny`);
+  const nz = asFinite(dims.nz, `run ${runId} dims.nz`);
+  if (![nx, ny, nz].every((value) => Number.isSafeInteger(value) && value > 0)) {
+    throw new Error(`V4-BUNDLE-CROSSLINK: run ${runId} dims are invalid`);
+  }
+  const ic = Math.floor(nx / 2);
+  const jc = Math.floor(ny / 2);
+  const kc = Math.floor(nz / 2);
+  const radius = Math.min(ic, nx - 1 - ic, jc, ny - 1 - jc);
+  const halfZ = Math.min(kc, nz - 1 - kc);
+  const support: number[] = [];
+  for (let k = 0; k < nz; k++) {
+    for (let j = 0; j < ny; j++) {
+      for (let i = 0; i < nx; i++) {
+        const di = i - ic;
+        const dj = j - jc;
+        const distance = (Math.abs(di) + Math.abs(dj) + Math.abs(di + dj)) / 2;
+        if (
+          distance <= radius && Math.abs(k - kc) <= halfZ &&
+          (distance === radius || Math.abs(k - kc) === halfZ)
+        ) support.push(k * nx * ny + j * nx + i);
+      }
+    }
+  }
+  const supportBytes = new Uint8Array(support.length * 4);
+  const supportView = new DataView(supportBytes.buffer);
+  support.forEach((cell, index) => supportView.setInt32(index * 4, cell, true));
+  const expectedCycles = [0];
+  for (let cycle = 25; cycle <= completedCycles; cycle += 25) expectedCycles.push(cycle);
+  if (
+    witness.supportCount !== support.length || witness.valuesPerSample !== support.length ||
+    witness.supportIndicesSha256 !== sha256HexNode(supportBytes) ||
+    canonicalString(witness.sampleCycles) !== canonicalString(expectedCycles) ||
+    witness.byteLength !== support.length * expectedCycles.length * 8 ||
+    witness.byteLength !== rawBytes.byteLength || witness.sha256 !== sha256HexNode(rawBytes)
+  ) {
+    throw new Error(`V4-BUNDLE-CROSSLINK: run ${runId} farFieldWitness metadata is invalid`);
+  }
+}
+
 /**
  * Verify one published pass bundle completely: canonical index/report, file-set equality,
  * every artifact's SHA-256 and byte length, report/index descriptor cross-links, the
@@ -1428,6 +1531,11 @@ export function verifyPhase4Bundle(
 
   // 5. Manifest binding: payload.manifestSha256 must hash the actual manifest.json bytes.
   const payload = asRecord(report.payload, "report payload");
+  if (payload.version !== identity.payloadVersion) {
+    throw new Error(
+      `V4-BUNDLE-CROSSLINK: Pass ${identity.pass} payload version must be ${identity.payloadVersion}`,
+    );
+  }
   const manifestBytes = bytesByPath.get("manifest.json");
   if (manifestBytes === undefined) {
     throw new Error("V4-BUNDLE-FILESET: bundle has no manifest.json");
@@ -1443,6 +1551,11 @@ export function verifyPhase4Bundle(
     parseCanonicalJsonBytes(manifestBytes, "pass manifest"),
     "pass manifest",
   );
+  if (manifest.version !== identity.manifestVersion || manifest.protocol !== identity.protocol) {
+    throw new Error(
+      `V4-BUNDLE-CROSSLINK: Pass ${identity.pass} manifest identity/version is invalid`,
+    );
+  }
   if (manifest.operator !== identity.operator) {
     throw new Error(
       `V4-LABEL-MISMATCH: pass manifest operator is ${String(manifest.operator)}, expected ` +
@@ -1565,7 +1678,6 @@ export function verifyPhase4Bundle(
           ? {
               runId,
               configSha256,
-              resolvedTargetTExtent: summary.resolvedTargetTExtent,
               tick: completedSteps,
               a: final.aSha256,
               b: final.bSha256,
@@ -1655,6 +1767,15 @@ export function verifyPhase4Bundle(
         sha256HexNode(rawViewBytes(state.sigma)),
         final.sigmaSha256,
         `run ${runId} sigmaSha256`,
+      );
+    }
+    if (identity.pass === "A") {
+      validatePassAFarFieldArtifact(
+        runId,
+        config,
+        completedSteps,
+        indexedPayloads,
+        bytesByPath,
       );
     }
     runs.set(runId, {

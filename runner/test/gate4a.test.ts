@@ -45,11 +45,13 @@ import {
   GATE4A_REPORT_PATH,
   GATE4A_RUNNER_FREEZE,
   GATE4A_V8,
+  GATE4A_V2_CRITERIA_FREEZE,
   GATE4A_GG_SOURCE_SHA256,
   GATE4A_LK_SOURCE_SHA256,
   buildGate4AArtifacts,
   buildGate4AManifest,
   deriveGate4AExecutionRecords,
+  deriveGate4AFarFieldSupport,
   executeGate4ARun,
   formatGate4ATerminalPresentation,
   gate4ANoiseRunEvidenceValid,
@@ -58,6 +60,7 @@ import {
   publishGate4ABundle,
   runGate4A,
   validateGate4AArtifacts,
+  validateGate4AFarFieldWitness,
   validateGate4AProvenance,
   validateGate4ASeriesCsv,
   verifyGate4ACheckpoint,
@@ -90,6 +93,7 @@ function passingProvenance(): Gate4AProvenance {
     criteriaFreezeIsAncestor: true,
     runnerFreezeIsAncestor: true,
     cadenceFreezeIsAncestor: true,
+    v2CriteriaFreezeIsAncestor: true,
   };
 }
 
@@ -267,6 +271,12 @@ function makeRunResult(config: Gate4ARunConfig): Gate4ARunResult {
   const fields = finalFields(config, finalA);
   const isFarField = config.stop.kind === "farField";
   const crossingFarFieldMean = isFarField ? config.params.rho / 2 : null;
+  const farFieldSupport = deriveGate4AFarFieldSupport(config.dims);
+  if (isFarField) {
+    for (const cell of farFieldSupport) {
+      if (finalA[cell] === 0) fields.d[cell] = crossingFarFieldMean as number;
+    }
+  }
   const finalMetrics = computeMetrics(
     finalA,
     fields.b,
@@ -311,7 +321,7 @@ function makeRunResult(config: Gate4ARunConfig): Gate4ARunResult {
       previousMean: config.params.rho,
       crossingObservedCycle: GATE4A_FAR_FIELD_CADENCE,
       crossingMean: crossingFarFieldMean as number,
-      threshold: (2 / 3) * config.params.rho,
+      threshold: (2 * config.params.rho) / 3,
     };
     if (config.scenario === "timeline") {
       const previousExtents = latticeExtents(prism(config.dims, 2, 23), config.dims) as LatticeExtents;
@@ -367,7 +377,6 @@ function makeRunResult(config: Gate4ARunConfig): Gate4ARunResult {
     };
   }
 
-  const resolvedTargetTExtent = config.stop.kind === "tExtentFromRun" ? 21 : null;
   const witness = config.noiseEpsilon > 0 ? noiseWitness(config) : null;
   const finalEnvironment = timeline === null
     ? config.params
@@ -386,10 +395,14 @@ function makeRunResult(config: Gate4ARunConfig): Gate4ARunResult {
     center: domainCenter(config.dims),
   }, { ...finalMetrics, tick: rows.length });
   const metrics = { ...finalMetrics, tick: rows.length };
+  const farFieldValues: number[] = [];
+  for (const cell of farFieldSupport) farFieldValues.push(config.params.rho);
+  if (isFarField) {
+    for (const cell of farFieldSupport) farFieldValues.push(fields.d[cell]);
+  }
   return {
     config,
     registeredConfigSha256: canonicalJsonSha256(config),
-    resolvedTargetTExtent,
     executionId: sha256Bytes(encoder.encode(`${config.id}:synthetic-execution`)),
     initialOccupancy,
     initialMass: totalMass,
@@ -397,11 +410,14 @@ function makeRunResult(config: Gate4ARunConfig): Gate4ARunResult {
     rows,
     deltas,
     depletionSamples: [],
-    stopReason: isFarField
-      ? "far-field"
-      : config.stop.kind === "tExtentFromRun" ? "t-extent-target" : "size-target",
+    stopReason: isFarField ? "far-field" : "size-target",
     extentCrossing,
     farFieldCrossing,
+    farFieldWitness: {
+      supportIndices: farFieldSupport,
+      sampleCycles: isFarField ? [0, GATE4A_FAR_FIELD_CADENCE] : [0],
+      values: Float64Array.from(farFieldValues),
+    },
     previousOccupancy,
     finalA,
     finalB: fields.b,
@@ -588,7 +604,7 @@ function expectOnlyFailure(
 
 interface SerialOrchestrationFixture {
   readonly outcome: Gate4ARunOutcome;
-  readonly calls: readonly { readonly id: string; readonly resolved: number | undefined }[];
+  readonly calls: readonly string[];
   readonly publishCalls: number;
 }
 
@@ -598,7 +614,7 @@ function serialOrchestrationFixture(): SerialOrchestrationFixture {
   if (cachedSerialOrchestration !== undefined) return cachedSerialOrchestration;
   const fixture = passingFixture();
   const byId = new Map(fixture.results.map((result) => [result.config.id, result]));
-  const calls: { readonly id: string; readonly resolved: number | undefined }[] = [];
+  const calls: string[] = [];
   let publishCalls = 0;
   const outcome = runGate4A({
     collectProvenance: passingProvenance,
@@ -606,8 +622,8 @@ function serialOrchestrationFixture(): SerialOrchestrationFixture {
       gg: GATE4A_GG_SOURCE_SHA256,
       lk: GATE4A_LK_SOURCE_SHA256,
     }),
-    executeRun: (config, options) => {
-      calls.push({ id: config.id, resolved: options.resolvedTargetTExtent });
+    executeRun: (config) => {
+      calls.push(config.id);
       return byId.get(config.id) as Gate4ARunResult;
     },
     publish: () => {
@@ -663,7 +679,10 @@ describe("gate4a frozen registration", () => {
       GATE4A_CRITERIA_FREEZE,
       GATE4A_RUNNER_FREEZE,
       GATE4A_CADENCE_FREEZE,
+      GATE4A_V2_CRITERIA_FREEZE,
     ]);
+    expect(manifest.version).toBe(2);
+    expect(manifest.protocol).toBe("phase4-pass-a-v2");
     expect(manifest.runs).toHaveLength(13);
     expect(manifest.runs.map((run) => run.id)).toEqual([
       "A-HABIT-U0",
@@ -695,13 +714,35 @@ describe("gate4a frozen registration", () => {
     ]);
     expect(manifest.runs.find((run) => run.id === "A-TIMELINE")?.schedule?.events)
       .toHaveLength(1);
+    expect(manifest.runs.slice(-2).map((run) => run.stop)).toEqual([
+      { kind: "farField", cap: 12_000 },
+      { kind: "farField", cap: 12_000 },
+    ]);
     expect(GATE4A_MANIFEST_SHA256)
-      .toBe("6d1ee3a262e8985930ded30f8ef490e1e47402dce6c55f2b3b16e4e80b0d9a98");
+      .toBe("e5e85c70d377e90dcca2974579122e67417c60fd2c11683276f528615e608644");
+  });
+
+  it("derives far-field capture support independently in increasing flat-index order", () => {
+    const dims = buildGate4AManifest().runs.at(-1)?.dims as Dims;
+    const support = deriveGate4AFarFieldSupport(dims);
+    const [ic, jc, kc] = domainCenter(dims);
+    const radius = Math.min(ic, dims.nx - 1 - ic, jc, dims.ny - 1 - jc);
+    const halfZ = Math.min(kc, dims.nz - 1 - kc);
+    expect([...support].every((cell, index) => index === 0 || support[index - 1] < cell)).toBe(true);
+    expect([...support].every((cell) => {
+      const k = Math.floor(cell / (dims.nx * dims.ny));
+      const planeIndex = cell - k * dims.nx * dims.ny;
+      const j = Math.floor(planeIndex / dims.nx);
+      const i = planeIndex - j * dims.nx;
+      const distance = hexDistance(i - ic, j - jc);
+      return distance <= radius && Math.abs(k - kc) <= halfZ &&
+        (distance === radius || Math.abs(k - kc) === halfZ);
+    })).toBe(true);
   });
 });
 
 describe("gate4a provenance preflight", () => {
-  it("accepts only the exact engine, clean tracked state, 40-hex HEAD, and all three ancestors", () => {
+  it("accepts only the exact v2 key set, engine, clean tracked state, 40-hex HEAD, and all four ancestors", () => {
     expect(validateGate4AProvenance(passingProvenance())).toEqual([]);
     const controls: Gate4AProvenance[] = [
       { ...passingProvenance(), node: "v24.13.0" },
@@ -711,6 +752,13 @@ describe("gate4a provenance preflight", () => {
       { ...passingProvenance(), criteriaFreezeIsAncestor: false },
       { ...passingProvenance(), runnerFreezeIsAncestor: false },
       { ...passingProvenance(), cadenceFreezeIsAncestor: false },
+      { ...passingProvenance(), v2CriteriaFreezeIsAncestor: false },
+      (() => {
+        const value = { ...passingProvenance() } as Record<string, unknown>;
+        delete value.v2CriteriaFreezeIsAncestor;
+        return value as unknown as Gate4AProvenance;
+      })(),
+      { ...passingProvenance(), unexpected: true } as Gate4AProvenance,
     ];
     for (const control of controls) expect(validateGate4AProvenance(control)).not.toEqual([]);
   });
@@ -915,7 +963,9 @@ describe("gate4a derives all eight execution criteria from raw evidence", () => 
     const results = replaceResult("A-BRANCH-DENDRITE", mutate);
     expectOnlyFailure("A-EXEC-TERMINATION", {
       results,
-      artifacts: buildGate4AArtifacts(passingFixture().manifest, results),
+      artifacts: _name === "far-field run carrying extent witness"
+        ? buildGate4AArtifacts(passingFixture().manifest, results)
+        : passingFixture().artifacts,
     });
   });
 
@@ -932,7 +982,7 @@ describe("gate4a derives all eight execution criteria from raw evidence", () => 
     }));
     expectOnlyFailure("A-EXEC-TERMINATION", {
       results,
-      artifacts: buildGate4AArtifacts(passingFixture().manifest, results),
+      artifacts: passingFixture().artifacts,
     });
   });
 
@@ -1218,6 +1268,48 @@ describe("gate4a artifact and checkpoint seams", () => {
     const fixture = passingFixture();
     expect(() => validateGate4AArtifacts(fixture.manifest, fixture.results, fixture.artifacts))
       .not.toThrow();
+    const scenarioArtifact = fixture.artifacts.find(
+      (artifact) => artifact.path === "runs/A-BRANCH-COMPARATOR/scenario.json",
+    ) as EvidenceArtifactInput;
+    const scenario = JSON.parse(new TextDecoder().decode(scenarioArtifact.bytes)) as {
+      version: number;
+      farFieldWitness: Record<string, unknown>;
+    };
+    expect(scenario.version).toBe(2);
+    expect(Object.hasOwn(scenario, "resolvedTargetTExtent")).toBe(false);
+    expect(Object.keys(scenario.farFieldWitness).sort()).toEqual([
+      "version",
+      "path",
+      "kind",
+      "encoding",
+      "supportDefinition",
+      "supportCount",
+      "supportIndicesSha256",
+      "sampleCycles",
+      "valuesPerSample",
+      "byteLength",
+      "sha256",
+    ].sort());
+  });
+
+  it("rejects Pass-A v1 manifest and scenario identities", () => {
+    const fixture = passingFixture();
+    const manifestArtifacts = fixture.artifacts.map((artifact) => artifact.path === "manifest.json"
+      ? { ...artifact, bytes: canonicalJsonBytes({ ...fixture.manifest, version: 1, protocol: "phase4-pass-a-v1" }) }
+      : artifact);
+    expect(() => validateGate4AArtifacts(fixture.manifest, fixture.results, manifestArtifacts))
+      .toThrow(/A-EXEC-CONFIG/);
+
+    const scenarioPath = "runs/A-BRANCH-COMPARATOR/scenario.json";
+    const scenarioArtifacts = fixture.artifacts.map((artifact) => {
+      if (artifact.path !== scenarioPath) return artifact;
+      const scenario = JSON.parse(new TextDecoder().decode(artifact.bytes)) as Record<string, unknown>;
+      scenario.version = 1;
+      scenario.resolvedTargetTExtent = 21;
+      return { ...artifact, bytes: canonicalJsonBytes(scenario) };
+    });
+    expect(() => validateGate4AArtifacts(fixture.manifest, fixture.results, scenarioArtifacts))
+      .toThrow(/scenario artifact shifted/);
   });
 
   it("rejects missing, duplicate, and unexpected artifact paths", () => {
@@ -1244,6 +1336,7 @@ describe("gate4a artifact and checkpoint seams", () => {
       "runs/A-DEPLETION/deltas.json",
       "runs/A-DEPLETION/final.ckpt",
       "runs/A-DEPLETION/scenario.json",
+      "runs/A-DEPLETION/far-field.f64le",
       "runs/A-HOLLOW-SEED-1/noise-witness.bin",
     ];
     for (const path of familyPaths) {
@@ -1259,6 +1352,138 @@ describe("gate4a artifact and checkpoint seams", () => {
       ).toThrow();
     }
   });
+
+  it.each([
+    ["reordered support", (result: Gate4ARunResult): Gate4ARunResult => ({
+      ...result,
+      farFieldWitness: {
+        ...result.farFieldWitness,
+        supportIndices: result.farFieldWitness.supportIndices.slice().reverse(),
+      },
+    })],
+    ["missing cadence sample", (result: Gate4ARunResult): Gate4ARunResult => ({
+      ...result,
+      farFieldWitness: { ...result.farFieldWitness, sampleCycles: [0] },
+    })],
+    ["duplicated cadence sample", (result: Gate4ARunResult): Gate4ARunResult => ({
+      ...result,
+      farFieldWitness: { ...result.farFieldWitness, sampleCycles: [0, 25, 25] },
+    })],
+    ["truncated raw values", (result: Gate4ARunResult): Gate4ARunResult => ({
+      ...result,
+      farFieldWitness: {
+        ...result.farFieldWitness,
+        values: result.farFieldWitness.values.slice(0, -1),
+      },
+    })],
+    ["shifted cycle-0 raw value", (result: Gate4ARunResult): Gate4ARunResult => {
+      const values = result.farFieldWitness.values.slice();
+      values[0] += 0.001;
+      return { ...result, farFieldWitness: { ...result.farFieldWitness, values } };
+    }],
+    ["shifted final raw value", (result: Gate4ARunResult): Gate4ARunResult => {
+      const values = result.farFieldWitness.values.slice();
+      values[values.length - 1] += 0.001;
+      return { ...result, farFieldWitness: { ...result.farFieldWitness, values } };
+    }],
+  ] as const)("rejects raw far-field witness mutation: %s", (_name, mutate) => {
+    const result = passingFixture().results.find(
+      (candidate) => candidate.config.id === "A-BRANCH-DENDRITE",
+    ) as Gate4ARunResult;
+    expect(() => validateGate4AFarFieldWitness(mutate(result))).toThrow(/A-EXEC-TERMINATION/);
+  });
+
+  it("rejects a coherent CSV/crossing scalar rewrite when raw values are unchanged", () => {
+    const result = passingFixture().results.find(
+      (candidate) => candidate.config.id === "A-BRANCH-DENDRITE",
+    ) as Gate4ARunResult;
+    const shifted = (result.farFieldCrossing as NonNullable<Gate4ARunResult["farFieldCrossing"]>)
+      .crossingMean + 0.001;
+    const changed: Gate4ARunResult = {
+      ...result,
+      rows: result.rows.map((row) => row.cycle === result.rows.length
+        ? { ...row, farFieldMean: shifted }
+        : row),
+      farFieldCrossing: {
+        ...(result.farFieldCrossing as NonNullable<Gate4ARunResult["farFieldCrossing"]>),
+        crossingMean: shifted,
+      },
+    };
+    expect(() => validateGate4AFarFieldWitness(changed)).toThrow(/differs bitwise from CSV/);
+  });
+
+  it("recomputes the raw mean after excluding support cells attached by the sampled cycle", () => {
+    const result = passingFixture().results.find(
+      (candidate) => candidate.config.id === "A-BRANCH-DENDRITE",
+    ) as Gate4ARunResult;
+    const attachedSupport = result.farFieldWitness.supportIndices[0];
+    const finalA = result.finalA.slice();
+    finalA[attachedSupport] = 1;
+    const finalD = result.finalD.slice();
+    finalD[attachedSupport] = 0;
+    const values = result.farFieldWitness.values.slice();
+    values[result.farFieldWitness.supportIndices.length] = 0;
+    const extents = latticeExtents(finalA, result.config.dims) as LatticeExtents;
+    const finalCycle = result.rows.length;
+    const changed: Gate4ARunResult = {
+      ...result,
+      finalA,
+      finalD,
+      deltas: [...result.deltas, { cycle: finalCycle, indices: [attachedSupport] }],
+      rows: result.rows.map((row) => row.cycle === finalCycle
+        ? {
+            ...row,
+            ...extents,
+            domainContact: true,
+            deltaCount: 1,
+            deltaSha256: deltaSha256([attachedSupport]),
+            deltaSymmetric: false,
+          }
+        : row),
+      farFieldWitness: { ...result.farFieldWitness, values },
+    };
+    expect(() => validateGate4AFarFieldWitness(changed)).not.toThrow();
+
+    const includedMean = (result.config.params.rho / 2) *
+      (result.farFieldWitness.supportIndices.length - 1) /
+      result.farFieldWitness.supportIndices.length;
+    const forged = {
+      ...changed,
+      rows: changed.rows.map((row) => row.cycle === finalCycle
+        ? { ...row, farFieldMean: includedMean }
+        : row),
+      farFieldCrossing: {
+        ...(changed.farFieldCrossing as NonNullable<Gate4ARunResult["farFieldCrossing"]>),
+        crossingMean: includedMean,
+      },
+    };
+    expect(() => validateGate4AFarFieldWitness(forged)).toThrow(/differs bitwise from CSV/);
+  });
+
+  it.each(["missing", "extra", "renamed", "mistyped"] as const)(
+    "rejects %s scenario farFieldWitness metadata keys or types",
+    (mutation) => {
+      const fixture = passingFixture();
+      const path = "runs/A-BRANCH-DENDRITE/scenario.json";
+      const artifacts = fixture.artifacts.map((artifact) => {
+        if (artifact.path !== path) return artifact;
+        const scenario = JSON.parse(new TextDecoder().decode(artifact.bytes)) as {
+          farFieldWitness: Record<string, unknown>;
+        };
+        if (mutation === "missing") delete scenario.farFieldWitness.supportCount;
+        if (mutation === "extra") scenario.farFieldWitness.unexpected = true;
+        if (mutation === "renamed") {
+          scenario.farFieldWitness.supportHash = scenario.farFieldWitness.supportIndicesSha256;
+          delete scenario.farFieldWitness.supportIndicesSha256;
+        }
+        if (mutation === "mistyped") scenario.farFieldWitness.valuesPerSample = "1";
+        return { ...artifact, bytes: canonicalJsonBytes(scenario) };
+      });
+      expect(() => validateGate4AArtifacts(fixture.manifest, fixture.results, artifacts)).toThrow(
+        /scenario artifact shifted/,
+      );
+    },
+  );
 
   it.each([
     ["invalid UTF-8", (): Uint8Array => Uint8Array.from([0xff, 0xfe, 0x0a]),
@@ -1392,6 +1617,28 @@ describe("gate4a serial orchestration seams", () => {
     expect(executions).toBe(0);
   });
 
+  it.each([
+    ["A-BRANCH-DENDRITE", "stop kind", { stop: { kind: "largestExtent", target: 40, cap: 12_000 } }],
+    ["A-BRANCH-COMPARATOR", "cap", { stop: { kind: "farField", cap: 11_999 } }],
+    ["A-BRANCH-COMPARATOR", "cadence", { farFieldCadence: 24 }],
+  ] as const)("fails a branch %s %s shift at frozen-config preflight", (runId, _name, changes) => {
+    const manifest = buildGate4AManifest();
+    const shifted = {
+      ...manifest,
+      runs: manifest.runs.map((run) => run.id === runId ? { ...run, ...changes } : run),
+    } as unknown as Gate4AManifest;
+    let executions = 0;
+    expect(() => runGate4A({
+      buildManifest: () => shifted,
+      collectProvenance: passingProvenance,
+      executeRun: () => {
+        executions++;
+        throw new Error("execution must not run");
+      },
+    })).toThrow(/A-EXEC-CONFIG/);
+    expect(executions).toBe(0);
+  });
+
   it("rejects a preexisting canonical directory before provenance, source, execution, or publish", () => {
     let provenanceCollections = 0;
     let sourceCollections = 0;
@@ -1462,12 +1709,9 @@ describe("gate4a serial orchestration seams", () => {
     expect(executions).toBe(0);
   });
 
-  it("executes the frozen matrix serially and resolves the comparator from dendrite output", () => {
-    const fixture = passingFixture();
+  it("executes the frozen matrix serially without a cross-run resolver", () => {
     const { outcome, calls, publishCalls } = serialOrchestrationFixture();
-    expect(calls.map((call) => call.id)).toEqual(fixture.manifest.runs.map((run) => run.id));
-    expect(calls.slice(0, -1).every((call) => call.resolved === undefined)).toBe(true);
-    expect(calls.at(-1)).toEqual({ id: "A-BRANCH-COMPARATOR", resolved: 21 });
+    expect(calls).toEqual(buildGate4AManifest().runs.map((run) => run.id));
     expect(outcome.verdict.gatePass).toBe(false);
     expect(outcome.publication).toBeNull();
     expect(publishCalls).toBe(0);
@@ -1512,7 +1756,6 @@ describe("gate4a serial orchestration seams", () => {
         executionId: result.executionId,
         completedCycles: result.rows.length,
         stopReason: result.stopReason,
-        resolvedTargetTExtent: result.resolvedTargetTExtent,
         extentCrossing: result.extentCrossing,
         farFieldCrossing: result.farFieldCrossing,
       })));

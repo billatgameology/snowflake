@@ -60,7 +60,7 @@ import {
   type PublishedEvidenceBundle,
   type StrictJson,
 } from "./gate4-evidence.ts";
-import { collectGate4AProvenance, type Gate4AProvenance } from "./gate4a.ts";
+import { collectGate4AProvenance } from "./gate4a.ts";
 import {
   B_EXECUTION_CRITERIA,
   B_HABIT_TEMPERATURES,
@@ -265,20 +265,49 @@ export const GATE4B_MANIFEST_SHA256 = "c0ceed5b0ebb68defee85b1d78d52c9563f5edd35
 
 // ── Provenance ─────────────────────────────────────────────────────────────────────────────
 
-export type Gate4BProvenance = Gate4AProvenance;
+export interface Gate4BProvenance {
+  readonly node: string;
+  readonly v8: string;
+  readonly head: string;
+  readonly trackedStatus: string;
+  readonly criteriaFreezeIsAncestor: boolean;
+  readonly runnerFreezeIsAncestor: boolean;
+  readonly cadenceFreezeIsAncestor: boolean;
+}
 
 type ExecFile = typeof execFileSync;
 
-/** Reuse the reviewed Pass-A collector; Pass B validates its own subset of the facts. */
+/** Project the shared git probe onto Pass B's frozen, owned seven-key v1 wire shape. */
 export function collectGate4BProvenance(
   repoRoot = process.cwd(),
   execFile: ExecFile = execFileSync,
 ): Gate4BProvenance {
-  return collectGate4AProvenance(repoRoot, execFile);
+  const collected = collectGate4AProvenance(repoRoot, execFile);
+  return {
+    node: collected.node,
+    v8: collected.v8,
+    head: collected.head,
+    trackedStatus: collected.trackedStatus,
+    criteriaFreezeIsAncestor: collected.criteriaFreezeIsAncestor,
+    runnerFreezeIsAncestor: collected.runnerFreezeIsAncestor,
+    cadenceFreezeIsAncestor: collected.cadenceFreezeIsAncestor,
+  };
 }
 
 export function validateGate4BProvenance(provenance: Gate4BProvenance): readonly string[] {
   const failures: string[] = [];
+  const expectedKeys = [
+    "node",
+    "v8",
+    "head",
+    "trackedStatus",
+    "criteriaFreezeIsAncestor",
+    "runnerFreezeIsAncestor",
+    "cadenceFreezeIsAncestor",
+  ].sort();
+  if (Object.keys(provenance).sort().join("\n") !== expectedKeys.join("\n")) {
+    failures.push("provenance keys differ from the exact Pass-B v1 shape");
+  }
   if (provenance.node !== GATE4B_NODE || provenance.v8 !== GATE4B_V8) {
     failures.push(
       `engine expected Node ${GATE4B_NODE} / V8 ${GATE4B_V8}, got Node ${provenance.node} / V8 ${provenance.v8}`,
@@ -289,6 +318,8 @@ export function validateGate4BProvenance(provenance: Gate4BProvenance): readonly
   if (!provenance.criteriaFreezeIsAncestor) {
     failures.push(`${GATE4B_CRITERIA_FREEZE} is not an ancestor`);
   }
+  if (!provenance.runnerFreezeIsAncestor) failures.push("runner freeze is not an ancestor");
+  if (!provenance.cadenceFreezeIsAncestor) failures.push("cadence freeze is not an ancestor");
   return failures;
 }
 
