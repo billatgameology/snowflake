@@ -6,15 +6,34 @@
 // index + descriptors all updated together), so passing them would mean the verifier trusts
 // a self-consistent forgery — exactly the WP2b review exploit this layer must also refuse.
 
-import { mkdtempSync, readFileSync, rmSync, writeFileSync, unlinkSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import {
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  realpathSync,
+  rmSync,
+  symlinkSync,
+  unlinkSync,
+  writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import {
   PASS_A_IDENTITY,
+  PASS_A_EXECUTION_CRITERIA,
+  PASS_A_MORPHOLOGY_CRITERIA,
   PASS_B_IDENTITY,
   PASS_B_COUNTERPART_VIEWS,
+  PASS_B_EXECUTION_CRITERIA,
+  PASS_B_MORPHOLOGY_CRITERIA,
+  PHASE4_CRITERIA_FREEZE,
+  PHASE4_GG_SOURCE_SHA256,
   PHASE4_INDEX_FILE,
+  PHASE4_LK_SOURCE_SHA256,
+  PHASE4_NODE,
+  PHASE4_V8,
   REQUIRED_PASS_A_VIEWS,
   assertSafePhase4OutputPaths,
   assertViewManifestComplete,
@@ -22,6 +41,8 @@ import {
   parseCanonicalJsonBytes,
   planPassBViews,
   sha256HexNode,
+  validatePublishedRecordVerdictContract,
+  validateRealProvenance,
   verifyPhase4Bundle,
   type VerifiedPhase4Bundle,
   type Phase4PassIdentity,
@@ -30,6 +51,7 @@ import { buildFixturePassA, buildFixturePassB } from "../scripts/phase4-fixture.
 
 let root: string;
 let counter = 0;
+const repoRoot = resolve(import.meta.dirname, "../..");
 
 beforeAll(() => {
   root = mkdtempSync(join(tmpdir(), "wp3-phase4-verify-"));
@@ -115,6 +137,71 @@ function rewriteManifest(
   writeFileSync(join(dir, PHASE4_INDEX_FILE), canonicalJsonBytesOf(index));
 }
 
+function gitText(cwd: string, args: readonly string[]): string {
+  return execFileSync("git", [...args], { cwd, encoding: "utf8" }).trim();
+}
+
+function provenancePayload(head = gitText(repoRoot, ["rev-parse", "HEAD"])): Record<string, unknown> {
+  return {
+    provenance: {
+      node: PHASE4_NODE,
+      v8: PHASE4_V8,
+      head,
+      trackedStatus: "",
+      criteriaFreezeIsAncestor: true,
+      runnerFreezeIsAncestor: true,
+      cadenceFreezeIsAncestor: true,
+    },
+    sourceHashes: {
+      gg: PHASE4_GG_SOURCE_SHA256,
+      lk: PHASE4_LK_SOURCE_SHA256,
+    },
+  };
+}
+
+function criterionRecord(criterion: string, passed = true): Record<string, unknown> {
+  return { criterion, passed, summary: `${criterion} test record`, measurements: {} };
+}
+
+function passARecordPayload(): Record<string, unknown> {
+  const records = [...PASS_A_EXECUTION_CRITERIA, ...PASS_A_MORPHOLOGY_CRITERIA].map((name) =>
+    criterionRecord(name),
+  );
+  return {
+    records,
+    verdict: {
+      pass: "A",
+      contractFailures: [],
+      blockingFailures: [],
+      executionValid: true,
+      morphologyPass: true,
+      gatePass: true,
+      exitCode: 0,
+      records,
+    },
+  };
+}
+
+function passBRecordPayload(): Record<string, unknown> {
+  const records = [...PASS_B_EXECUTION_CRITERIA, ...PASS_B_MORPHOLOGY_CRITERIA].map((name) =>
+    criterionRecord(name),
+  );
+  return {
+    records,
+    verdict: {
+      pass: "B",
+      contractFailures: [],
+      executionFailures: [],
+      diagnosticFailures: [],
+      executionValid: true,
+      diagnosticPass: true,
+      gatePass: true,
+      exitCode: 0,
+      records,
+    },
+  };
+}
+
 describe("coherent fixture bundles verify cleanly", () => {
   it("default real-evidence verification refuses a synthetic fixture", () => {
     const dir = freshPassA();
@@ -197,6 +284,142 @@ describe("frozen run completeness and provenance", () => {
       manifest.backend = "gpu-float32";
     });
     expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(/backend must be float64-cpu-oracle/);
+  });
+});
+
+describe("real publication provenance is derived from recorded Git objects", () => {
+  it("accepts current and archived valid commits without requiring recorded HEAD == current HEAD", () => {
+    const current = gitText(repoRoot, ["rev-parse", "HEAD"]);
+    const archived = gitText(repoRoot, ["rev-parse", "dce7081^{commit}"]);
+    expect(archived).not.toBe(current);
+    expect(() => validateRealProvenance(provenancePayload(current), PASS_A_IDENTITY, repoRoot)).not.toThrow();
+
+    const archivedB = provenancePayload(archived);
+    delete archivedB.sourceHashes;
+    expect(() => validateRealProvenance(archivedB, PASS_B_IDENTITY, repoRoot)).not.toThrow();
+  });
+
+  it("rejects an all-zero nonexistent recorded head", () => {
+    expect(() =>
+      validateRealProvenance(provenancePayload("0".repeat(40)), PASS_A_IDENTITY, repoRoot),
+    ).toThrow(/Git could not verify recorded commit/);
+  });
+
+  it("rejects both false and true ancestry rewrites against independently recomputed facts", () => {
+    const falseRewrite = provenancePayload();
+    (falseRewrite.provenance as Record<string, unknown>).criteriaFreezeIsAncestor = false;
+    expect(() => validateRealProvenance(falseRewrite, PASS_A_IDENTITY, repoRoot)).toThrow(
+      /criteriaFreezeIsAncestor=false.*disagrees with Git/,
+    );
+
+    const preRunnerFreeze = gitText(repoRoot, ["rev-parse", `${PHASE4_CRITERIA_FREEZE}^{commit}`]);
+    const trueRewrite = provenancePayload(preRunnerFreeze);
+    expect(() => validateRealProvenance(trueRewrite, PASS_A_IDENTITY, repoRoot)).toThrow(
+      /runnerFreezeIsAncestor=true.*disagrees with Git/,
+    );
+  });
+
+  it("rejects solver source rewrites at an otherwise descendant recorded commit", () => {
+    const clone = join(root, `source-rewrite-repo-${counter++}`);
+    execFileSync("git", ["clone", "--quiet", "--shared", repoRoot, clone], { stdio: "ignore" });
+    execFileSync("git", ["config", "user.name", "WP3 adversarial test"], { cwd: clone });
+    execFileSync("git", ["config", "user.email", "wp3-test@example.invalid"], { cwd: clone });
+    const sourcePath = join(clone, "solver-cpu/src/lk-solver.ts");
+    writeFileSync(sourcePath, `${readFileSync(sourcePath, "utf8")}\n// test-only source rewrite\n`);
+    execFileSync("git", ["add", "solver-cpu/src/lk-solver.ts"], { cwd: clone });
+    execFileSync("git", ["commit", "--quiet", "-m", "test-only source rewrite"], { cwd: clone });
+    const rewrittenHead = gitText(clone, ["rev-parse", "HEAD"]);
+    const payload = provenancePayload(rewrittenHead);
+    delete payload.sourceHashes;
+    expect(() => validateRealProvenance(payload, PASS_B_IDENTITY, clone)).toThrow(
+      /solver sources at recorded head.*do not match the freeze/,
+    );
+  });
+
+  it("cross-checks Pass A payload source facts against accepted recorded-head hashes", () => {
+    const payload = provenancePayload();
+    (payload.sourceHashes as Record<string, unknown>).gg = "0".repeat(64);
+    expect(() => validateRealProvenance(payload, PASS_A_IDENTITY, repoRoot)).toThrow(
+      /Pass A solver-source hashes are invalid/,
+    );
+  });
+});
+
+describe("real publication criterion sets and verdicts are independently recomputed", () => {
+  it("accepts the exact full Pass A and Pass B contracts", () => {
+    expect(() => validatePublishedRecordVerdictContract(passARecordPayload(), PASS_A_IDENTITY)).not.toThrow();
+    expect(() => validatePublishedRecordVerdictContract(passBRecordPayload(), PASS_B_IDENTITY)).not.toThrow();
+  });
+
+  it("rejects a coherent Pass A required-record failure while gatePass remains true", () => {
+    const payload = passARecordPayload();
+    const record = (payload.records as Array<Record<string, unknown>>).find(
+      (item) => item.criterion === "A-EXEC-MASS",
+    ) as Record<string, unknown>;
+    record.passed = false;
+    expect(() => validatePublishedRecordVerdictContract(payload, PASS_A_IDENTITY)).toThrow(
+      /Pass A verdict disagrees with independently recomputed records/,
+    );
+  });
+
+  it("rejects missing and false B-EXEC records while executionValid remains true", () => {
+    const missing = passBRecordPayload();
+    missing.records = (missing.records as Array<Record<string, unknown>>).filter(
+      (item) => item.criterion !== "B-EXEC-LEDGER",
+    );
+    expect(() => validatePublishedRecordVerdictContract(missing, PASS_B_IDENTITY)).toThrow(
+      /exact frozen set/,
+    );
+
+    const failed = passBRecordPayload();
+    const record = (failed.records as Array<Record<string, unknown>>).find(
+      (item) => item.criterion === "B-EXEC-LEDGER",
+    ) as Record<string, unknown>;
+    record.passed = false;
+    expect(() => validatePublishedRecordVerdictContract(failed, PASS_B_IDENTITY)).toThrow(
+      /Pass B verdict disagrees with independently recomputed records/,
+    );
+  });
+
+  it("rejects duplicate, extra, and malformed real criterion records", () => {
+    const duplicate = passARecordPayload();
+    (duplicate.records as Array<Record<string, unknown>>).push(
+      criterionRecord("A-EXEC-PROVENANCE"),
+    );
+    expect(() => validatePublishedRecordVerdictContract(duplicate, PASS_A_IDENTITY)).toThrow(
+      /criterion records are duplicated/,
+    );
+
+    const extra = passBRecordPayload();
+    (extra.records as Array<Record<string, unknown>>).push(criterionRecord("B-EXTRA"));
+    expect(() => validatePublishedRecordVerdictContract(extra, PASS_B_IDENTITY)).toThrow(
+      /exact frozen set/,
+    );
+
+    const malformed = passARecordPayload();
+    delete (malformed.records as Array<Record<string, unknown>>)[0].measurements;
+    expect(() => validatePublishedRecordVerdictContract(malformed, PASS_A_IDENTITY)).toThrow(
+      /criterion A-EXEC-PROVENANCE.*keys are invalid/,
+    );
+  });
+
+  it("allows diagnostic-only Pass B misses only when every verdict field records them", () => {
+    const payload = passBRecordPayload();
+    const records = payload.records as Array<Record<string, unknown>>;
+    const branch = records.find((item) => item.criterion === "B-BRANCH") as Record<string, unknown>;
+    branch.passed = false;
+    payload.verdict = {
+      pass: "B",
+      contractFailures: [],
+      executionFailures: [],
+      diagnosticFailures: ["B-BRANCH"],
+      executionValid: true,
+      diagnosticPass: false,
+      gatePass: true,
+      exitCode: 0,
+      records,
+    };
+    expect(() => validatePublishedRecordVerdictContract(payload, PASS_B_IDENTITY)).not.toThrow();
   });
 });
 
@@ -420,6 +643,54 @@ describe("capture output safety", () => {
     expect(() => assertSafePhase4OutputPaths(root, [passA, passB])).toThrow(/V4-OUTPUT-SAFETY/);
     expect(() => assertSafePhase4OutputPaths(join(root, "safe-captures"), [passA, passB])).not.toThrow();
   });
+
+  it("rejects an output symlink/junction alias into immutable evidence before creating output", () => {
+    const evidence = join(root, `alias-target-evidence-${counter++}`);
+    const alias = join(root, `alias-output-${counter++}`);
+    mkdirSync(evidence);
+    symlinkSync(evidence, alias, process.platform === "win32" ? "junction" : "dir");
+    const requested = join(alias, "captures");
+    expect(() => assertSafePhase4OutputPaths(requested, [evidence])).toThrow(
+      /symlink or junction component/,
+    );
+    expect(() => realpathSync(requested)).toThrow();
+  });
+
+  it("canonicalizes an evidence alias whose target lies inside the output in the reverse direction", () => {
+    const output = join(root, `reverse-output-${counter++}`);
+    const evidenceTarget = join(output, "immutable-pass-a");
+    const evidenceAlias = join(root, `reverse-evidence-alias-${counter++}`);
+    mkdirSync(evidenceTarget, { recursive: true });
+    symlinkSync(
+      evidenceTarget,
+      evidenceAlias,
+      process.platform === "win32" ? "junction" : "dir",
+    );
+    expect(() => assertSafePhase4OutputPaths(output, [evidenceAlias])).toThrow(
+      /overlaps immutable evidence bundle/,
+    );
+  });
+
+  it("projects an unresolved output suffix through its closest existing real ancestor", () => {
+    const ancestor = join(root, `projection-ancestor-${counter++}`);
+    mkdirSync(ancestor);
+    const requested = join(ancestor, "unresolved", "captures");
+    const safe = assertSafePhase4OutputPaths(requested, [join(root, "unrelated-evidence")]);
+    expect(safe.outputDirectory).toBe(join(realpathSync(ancestor), "unresolved", "captures"));
+  });
+
+  it.runIf(process.platform === "win32")(
+    "uses case-insensitive Windows overlap semantics",
+    () => {
+      const evidence = join(root, `Case-Evidence-${counter++}`);
+      mkdirSync(evidence);
+      expect(() =>
+        assertSafePhase4OutputPaths(join(evidence.toUpperCase(), "CAPTURES"), [
+          evidence.toLowerCase(),
+        ]),
+      ).toThrow(/overlaps immutable evidence bundle/);
+    },
+  );
 });
 
 describe("required views and manifest completeness (V4-5 self-check)", () => {

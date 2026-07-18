@@ -667,8 +667,22 @@ required schedule manifest and are not advertised as resumable mid-history.
       default Vitest fork transport twice passed all assertions but timed out its worker-status
       RPC on Windows; the serial thread transport retains all tests and made exact root
       `npm test` exit 0 at 42 files / 719 tests, Rule 7 over 306 files, and both typechecks.
-      Return this immutable candidate to the same reviewer and do not check this item before
-      zero blockers and zero should-fixes.
+      Same-reviewer round 2 rejected repair `b9f8ccb` with three blockers and no should-fixes:
+      a Windows junction could publish captures inside immutable Pass A; a coherent false
+      criterion plus true verdict, or a Pass B report missing all `B-EXEC-*` records, passed;
+      and a nonexistent 40-hex recorded head with trusted ancestry/source facts forged real
+      provenance. The second repair canonicalizes existing evidence and the closest existing
+      output ancestor, rejects every symlink/junction output component before a write, applies
+      case-insensitive Windows overlap checks, requires exact complete A/B record sets, and
+      independently recomputes every verdict field. It also verifies that the recorded commit
+      exists, recomputes all three freeze ancestries, and hashes both solver sources from that
+      commit's Git objects. Direct negative controls cover aliases in both directions, missing,
+      duplicate, extra, false, and malformed records, nonexistent commits, forged ancestry, and
+      descendant source rewrites. Verification is 190/190 app tests, a 33-module build, fresh
+      20/20 synthetic Phase 4 and 9/9 Phase 3 captures inspected at 1600x1200, and exact root
+      `npm test` at 42 files / 733 tests with Rule 7 over 353 files and both typechecks clean.
+      Return an immutable second-repair commit to the same reviewer and do not check this item
+      before zero blockers and zero should-fixes.
 - [ ] Run the complete regression suite, Phase 2a byte control, gate3 regression, app build, and
       both screenshot backends; loop every failure.
 - [ ] Run flagless Pass A and record the blocking result with hashes and exact metrics.
@@ -821,6 +835,16 @@ required schedule manifest and are not advertised as resumable mid-history.
   overlap evidence or combine stale and partial images. Captures frame independently recomputed
   occupied geometry, enforce visible margins, write to disjoint fresh staging, and publish only
   a complete checked set.
+- **Treating lexical path comparison as evidence isolation.** Rejected by WP3 review round 2. A
+  Windows junction made an apparently disjoint output path resolve inside immutable Pass A and
+  the harness published there. Resolve real evidence roots and the closest existing output
+  ancestor, reject every output alias component before any write, and compare Windows paths
+  case-insensitively in both containment directions.
+- **Trusting a report's verdict and recorded Git facts.** Rejected by WP3 review round 2. A
+  coherent false record plus true Pass-A verdict, an incomplete Pass-B record set, a nonexistent
+  recorded commit, and declared ancestry/source facts all passed. Real publication requires the
+  exact frozen criterion sets, independently derived verdicts, an existing recorded commit,
+  recomputed freeze ancestry, and solver-source bytes read from that commit's Git objects.
 
 ## Open questions
 

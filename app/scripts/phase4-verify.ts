@@ -24,8 +24,9 @@
 // NOT GATE EVIDENCE identity through inspection and capture publication.
 
 import { createHash } from "node:crypto";
-import { readFileSync, readdirSync } from "node:fs";
-import { join, relative, resolve, sep } from "node:path";
+import { execFileSync } from "node:child_process";
+import { existsSync, lstatSync, readFileSync, readdirSync, realpathSync } from "node:fs";
+import { basename, dirname, join, parse, relative, resolve, sep } from "node:path";
 import {
   decodeCheckpoint,
   decodeLKCheckpoint,
@@ -72,6 +73,10 @@ export const PHASE4_V8 = "13.6.233.17-node.40";
 export const PHASE4_CRITERIA_FREEZE = "e567767";
 export const PHASE4_RUNNER_FREEZE = "cd24365";
 export const PHASE4_CADENCE_FREEZE = "7be4c5d";
+export const PHASE4_GG_SOURCE_SHA256 =
+  "e13cd4c487eb9918b5b68529cc6f0e5c80ce53319343d9f0e7c102f4cf65563b";
+export const PHASE4_LK_SOURCE_SHA256 =
+  "1b10e3b97103000746f02e5989828e8c83eab9014108949f8b0e5bd556c1ecbc";
 export const SYNTHETIC_FIXTURE_NOTICE = "SYNTHETIC FIXTURE - NOT GATE EVIDENCE";
 
 export const PASS_A_RUN_IDS = [
@@ -100,6 +105,62 @@ export const PASS_B_RUN_IDS = [
   "B-HOLLOW-SEED-2",
   "B-HOLLOW-SEED-3",
   "B-HOLLOW-SEED-1-REPLAY",
+  "B-TIMELINE",
+  "B-BRANCH",
+] as const;
+
+export const PASS_A_EXECUTION_CRITERIA = [
+  "A-EXEC-PROVENANCE",
+  "A-EXEC-CONFIG",
+  "A-EXEC-SYMMETRY",
+  "A-EXEC-NOISE",
+  "A-EXEC-MASS",
+  "A-EXEC-DOMAIN",
+  "A-EXEC-TERMINATION",
+  "A-EXEC-NUMERIC",
+] as const;
+
+export const PASS_A_MORPHOLOGY_CRITERIA = [
+  "A-HABIT-GROWTH",
+  "A-HABIT-ENDPOINTS",
+  "A-HABIT-SOLID",
+  "A-HABIT-MONOTONE",
+  "A-DEPLETION-COLUMN",
+  "A-DEPLETION-DEFINED",
+  "A-DEPLETION-WIDENING",
+  "A-DEPLETION-SIGNAL",
+  "A-HOLLOW-EACH",
+  "A-HOLLOW-NONVACUOUS",
+  "A-HOLLOW-STRUCTURAL",
+  "A-TIMELINE-STAGE1",
+  "A-TIMELINE-STATE",
+  "A-TIMELINE-CAPS",
+  "A-TIMELINE-VALID",
+  "A-BRANCH",
+] as const;
+
+export const PASS_B_EXECUTION_CRITERIA = [
+  "B-EXEC-PROVENANCE",
+  "B-EXEC-CONFIG",
+  "B-EXEC-TERMINATION",
+  "B-EXEC-SYMMETRY",
+  "B-EXEC-NOISE",
+  "B-EXEC-CONVERGENCE",
+  "B-EXEC-SURFACE",
+  "B-EXEC-LEDGER",
+  "B-EXEC-PECLET",
+  "B-EXEC-CHECKPOINT",
+  "B-EXEC-NUMERIC",
+  "B-EXEC-COMPLETE",
+] as const;
+
+export const PASS_B_MORPHOLOGY_CRITERIA = [
+  "B-HABIT-ENDPOINTS",
+  "B-HABIT-SOLID",
+  "B-HABIT-MONOTONE",
+  "B-DEPLETION",
+  "B-DEPLETION-WIDENING",
+  "B-HOLLOW",
   "B-TIMELINE",
   "B-BRANCH",
 ] as const;
@@ -255,9 +316,51 @@ function listFiles(root: string, current = root): string[] {
   return files.sort(lexicalCompare);
 }
 
+function comparisonPath(path: string): string {
+  return process.platform === "win32" ? path.toLowerCase() : path;
+}
+
 function sameOrInside(parent: string, candidate: string): boolean {
-  const rel = relative(parent, candidate);
+  const rel = relative(comparisonPath(parent), comparisonPath(candidate));
   return rel === "" || (rel !== ".." && !rel.startsWith(`..${sep}`));
+}
+
+function refuseOutputAliases(absolute: string): void {
+  const parsed = parse(absolute);
+  let current = parsed.root;
+  for (const part of absolute.slice(parsed.root.length).split(sep).filter(Boolean)) {
+    current = join(current, part);
+    try {
+      if (lstatSync(current).isSymbolicLink()) {
+        throw new Error(
+          `V4-OUTPUT-SAFETY: output path contains a symlink or junction component: ${current}`,
+        );
+      }
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (code === "ENOENT" || code === "ENOTDIR") return;
+      throw error;
+    }
+  }
+}
+
+/** Resolve a possibly nonexistent path through the real path of its closest existing ancestor. */
+function projectCanonicalPath(requested: string, refuseAliases: boolean): string {
+  const absolute = resolve(requested);
+  if (refuseAliases) refuseOutputAliases(absolute);
+
+  let ancestor = absolute;
+  const suffix: string[] = [];
+  while (!existsSync(ancestor)) {
+    const parent = dirname(ancestor);
+    if (parent === ancestor) {
+      throw new Error(`V4-OUTPUT-SAFETY: no existing ancestor for ${absolute}`);
+    }
+    suffix.unshift(basename(ancestor));
+    ancestor = parent;
+  }
+  const canonicalAncestor = realpathSync.native(ancestor);
+  return suffix.length === 0 ? canonicalAncestor : resolve(canonicalAncestor, ...suffix);
 }
 
 /** Output may neither overlap nor contain either immutable evidence bundle. */
@@ -265,8 +368,8 @@ export function assertSafePhase4OutputPaths(
   outputDirectory: string,
   evidenceDirectories: readonly string[],
 ): { readonly outputDirectory: string; readonly evidenceDirectories: readonly string[] } {
-  const output = resolve(outputDirectory);
-  const evidence = evidenceDirectories.map((directory) => resolve(directory));
+  const output = projectCanonicalPath(outputDirectory, true);
+  const evidence = evidenceDirectories.map((directory) => projectCanonicalPath(directory, false));
   for (const directory of evidence) {
     if (sameOrInside(directory, output) || sameOrInside(output, directory)) {
       throw new Error(
@@ -317,6 +420,8 @@ export interface VerifiedPhase4Bundle {
 export interface VerifyPhase4BundleOptions {
   /** Dev-only: accept an exact synthetic NOT GATE EVIDENCE marker. */
   readonly allowSyntheticFixture?: boolean;
+  /** Explicit repository whose immutable Git objects authenticate recorded evidence HEAD. */
+  readonly repoRoot?: string;
 }
 
 function ggEnvironmentOfConfig(config: Record<string, unknown>): unknown {
@@ -378,9 +483,43 @@ function validateExactRunSet(
   }
 }
 
-function validateRealProvenance(
+function gitBytes(repoRoot: string, args: readonly string[], label: string): Uint8Array {
+  try {
+    return new Uint8Array(
+      execFileSync("git", [...args], {
+        cwd: repoRoot,
+        stdio: ["ignore", "pipe", "pipe"],
+      }),
+    );
+  } catch {
+    throw new Error(`V4-EVIDENCE-PROVENANCE: Git could not verify ${label}`);
+  }
+}
+
+function gitText(repoRoot: string, args: readonly string[], label: string): string {
+  return new TextDecoder().decode(gitBytes(repoRoot, args, label)).trim();
+}
+
+function gitIsAncestor(repoRoot: string, ancestor: string, descendant: string): boolean {
+  try {
+    execFileSync("git", ["merge-base", "--is-ancestor", ancestor, descendant], {
+      cwd: repoRoot,
+      stdio: "ignore",
+    });
+    return true;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException & { status?: number }).status === 1) return false;
+    throw new Error(
+      `V4-EVIDENCE-PROVENANCE: Git could not verify ancestry ${ancestor} -> ${descendant}`,
+    );
+  }
+}
+
+/** Authenticate provenance against immutable objects at the RECORDED head, not current HEAD. */
+export function validateRealProvenance(
   payload: Record<string, unknown>,
   identity: Phase4PassIdentity,
+  repoRoot = process.cwd(),
 ): void {
   const provenance = asRecord(payload.provenance, "payload.provenance");
   expectExactKeys(
@@ -396,34 +535,240 @@ function validateRealProvenance(
     ],
     "payload.provenance",
   );
-  if (
-    provenance.node !== PHASE4_NODE ||
-    provenance.v8 !== PHASE4_V8 ||
-    typeof provenance.head !== "string" ||
-    !/^[0-9a-f]{40}$/.test(provenance.head) ||
-    provenance.trackedStatus !== "" ||
-    provenance.criteriaFreezeIsAncestor !== true
-  ) {
+  if (provenance.node !== PHASE4_NODE || provenance.v8 !== PHASE4_V8) {
     throw new Error(
-      "V4-EVIDENCE-PROVENANCE: engine, commit, cleanliness, or criteria ancestry is invalid",
+      "V4-EVIDENCE-PROVENANCE: recorded Node/V8 engine is invalid",
     );
   }
-  if (
-    identity.pass === "A" &&
-    (provenance.runnerFreezeIsAncestor !== true || provenance.cadenceFreezeIsAncestor !== true)
-  ) {
-    throw new Error("V4-EVIDENCE-PROVENANCE: Pass A runner/cadence ancestry is invalid");
+  const head = provenance.head;
+  if (typeof head !== "string" || !/^[0-9a-f]{40}$/.test(head)) {
+    throw new Error("V4-EVIDENCE-PROVENANCE: recorded head is not 40-hex");
   }
+  if (provenance.trackedStatus !== "") {
+    throw new Error("V4-EVIDENCE-PROVENANCE: recorded tracked worktree was not clean");
+  }
+
+  const root = realpathSync.native(resolve(repoRoot));
+  const discoveredRoot = realpathSync.native(
+    gitText(root, ["rev-parse", "--show-toplevel"], "repository root"),
+  );
+  if (comparisonPath(discoveredRoot) !== comparisonPath(root)) {
+    throw new Error("V4-EVIDENCE-PROVENANCE: repoRoot is not the Git worktree root");
+  }
+  gitBytes(root, ["cat-file", "-e", `${head}^{commit}`], `recorded commit ${head}`);
+
+  const ancestry = {
+    criteriaFreezeIsAncestor: gitIsAncestor(root, PHASE4_CRITERIA_FREEZE, head),
+    runnerFreezeIsAncestor: gitIsAncestor(root, PHASE4_RUNNER_FREEZE, head),
+    cadenceFreezeIsAncestor: gitIsAncestor(root, PHASE4_CADENCE_FREEZE, head),
+  } as const;
+  for (const [field, actual] of Object.entries(ancestry)) {
+    if (provenance[field] !== actual) {
+      throw new Error(
+        `V4-EVIDENCE-PROVENANCE: recorded ${field}=${String(provenance[field])} ` +
+          `disagrees with Git (${String(actual)})`,
+      );
+    }
+    if (!actual) {
+      throw new Error(`V4-EVIDENCE-PROVENANCE: ${field} is false at recorded head ${head}`);
+    }
+  }
+
+  const sourceHashes = {
+    gg: sha256HexNode(
+      gitBytes(root, ["show", `${head}:solver-cpu/src/gg-solver.ts`], "recorded G-G source"),
+    ),
+    lk: sha256HexNode(
+      gitBytes(root, ["show", `${head}:solver-cpu/src/lk-solver.ts`], "recorded LK source"),
+    ),
+  };
+  if (
+    sourceHashes.gg !== PHASE4_GG_SOURCE_SHA256 ||
+    sourceHashes.lk !== PHASE4_LK_SOURCE_SHA256
+  ) {
+    throw new Error(
+      `V4-EVIDENCE-PROVENANCE: solver sources at recorded head ${head} do not match the freeze`,
+    );
+  }
+
   if (identity.pass === "A") {
     const sourceHashes = asRecord(payload.sourceHashes, "payload.sourceHashes");
     expectExactKeys(sourceHashes, ["gg", "lk"], "payload.sourceHashes");
     if (
-      sourceHashes.gg !== "e13cd4c487eb9918b5b68529cc6f0e5c80ce53319343d9f0e7c102f4cf65563b" ||
-      sourceHashes.lk !== "1b10e3b97103000746f02e5989828e8c83eab9014108949f8b0e5bd556c1ecbc"
+      sourceHashes.gg !== PHASE4_GG_SOURCE_SHA256 ||
+      sourceHashes.lk !== PHASE4_LK_SOURCE_SHA256
     ) {
       throw new Error("V4-EVIDENCE-PROVENANCE: Pass A solver-source hashes are invalid");
     }
+  } else if (payload.sourceHashes !== undefined) {
+    const recordedSourceHashes = asRecord(payload.sourceHashes, "payload.sourceHashes");
+    expectExactKeys(recordedSourceHashes, ["gg", "lk"], "payload.sourceHashes");
+    if (
+      recordedSourceHashes.gg !== PHASE4_GG_SOURCE_SHA256 ||
+      recordedSourceHashes.lk !== PHASE4_LK_SOURCE_SHA256
+    ) {
+      throw new Error("V4-EVIDENCE-PROVENANCE: Pass B solver-source hashes are invalid");
+    }
   }
+}
+
+function expectedCriterionNames(identity: Phase4PassIdentity): readonly string[] {
+  return identity.pass === "A"
+    ? [...PASS_A_EXECUTION_CRITERIA, ...PASS_A_MORPHOLOGY_CRITERIA]
+    : [...PASS_B_EXECUTION_CRITERIA, ...PASS_B_MORPHOLOGY_CRITERIA];
+}
+
+function validateMeasurementRecord(value: unknown, criterion: string): void {
+  const measurements = asRecord(value, `criterion ${criterion} measurements`);
+  for (const [key, measurement] of Object.entries(measurements)) {
+    if (
+      measurement !== null &&
+      typeof measurement !== "string" &&
+      typeof measurement !== "boolean" &&
+      !(
+        typeof measurement === "number" &&
+        Number.isFinite(measurement) &&
+        !Object.is(measurement, -0)
+      )
+    ) {
+      throw new Error(
+        `V4-BUNDLE-CROSSLINK: criterion ${criterion} measurement ${key} is invalid`,
+      );
+    }
+  }
+}
+
+function validatePublishedRecords(
+  value: unknown,
+  identity: Phase4PassIdentity,
+): {
+  readonly raw: readonly Record<string, unknown>[];
+  readonly records: ReadonlyMap<string, VerifiedCriterionRecord>;
+} {
+  const raw = asArray(value, "payload.records").map((item, index) => {
+    const record = asRecord(item, `payload.records[${index}]`);
+    const criterion = asString(record.criterion, `payload.records[${index}].criterion`);
+    const actualKeys = Object.keys(record).sort(lexicalCompare);
+    const expectedKeys = ["criterion", "passed", "summary", "measurements"].sort(
+      lexicalCompare,
+    );
+    if (canonicalString(actualKeys) !== canonicalString(expectedKeys)) {
+      throw new Error(`V4-BUNDLE-CROSSLINK: criterion ${criterion} record keys are invalid`);
+    }
+    if (typeof record.passed !== "boolean") {
+      throw new Error(`V4-BUNDLE-CROSSLINK: criterion ${criterion} passed must be boolean`);
+    }
+    if (asString(record.summary, `criterion ${criterion} summary`).trim().length === 0) {
+      throw new Error(`V4-BUNDLE-CROSSLINK: criterion ${criterion} summary is blank`);
+    }
+    validateMeasurementRecord(record.measurements, criterion);
+    return record;
+  });
+  const actualNames = raw.map((record) => record.criterion as string);
+  if (new Set(actualNames).size !== actualNames.length) {
+    throw new Error(`V4-RUN-COMPLETE: Pass ${identity.pass} criterion records are duplicated`);
+  }
+  if (canonicalString(actualNames) !== canonicalString(expectedCriterionNames(identity))) {
+    throw new Error(
+      `V4-RUN-COMPLETE: Pass ${identity.pass} criterion records must equal the exact frozen set`,
+    );
+  }
+  return {
+    raw,
+    records: new Map(
+      raw.map((record) => {
+        const criterion = record.criterion as string;
+        return [
+          criterion,
+          {
+            criterion,
+            passed: record.passed as boolean,
+            summary: record.summary as string,
+          },
+        ];
+      }),
+    ),
+  };
+}
+
+function validatePublishedVerdict(
+  verdict: Record<string, unknown>,
+  rawRecords: readonly Record<string, unknown>[],
+  identity: Phase4PassIdentity,
+): void {
+  const byName = new Map(
+    rawRecords.map((record) => [record.criterion as string, record.passed as boolean]),
+  );
+  if (identity.pass === "A") {
+    const blockingFailures = expectedCriterionNames(identity).filter(
+      (criterion) => byName.get(criterion) === false,
+    );
+    const executionValid = PASS_A_EXECUTION_CRITERIA.every(
+      (criterion) => byName.get(criterion) === true,
+    );
+    const morphologyPass = PASS_A_MORPHOLOGY_CRITERIA.every(
+      (criterion) => byName.get(criterion) === true,
+    );
+    const gatePass = executionValid && morphologyPass;
+    const expected = {
+      pass: "A",
+      contractFailures: [],
+      blockingFailures,
+      executionValid,
+      morphologyPass,
+      gatePass,
+      exitCode: gatePass ? 0 : 1,
+      records: rawRecords,
+    };
+    if (canonicalString(verdict) !== canonicalString(expected)) {
+      throw new Error(
+        "V4-BUNDLE-CROSSLINK: Pass A verdict disagrees with independently recomputed records",
+      );
+    }
+    if (!gatePass) {
+      throw new Error("V4-BUNDLE-CROSSLINK: published Pass A records do not pass the gate");
+    }
+    return;
+  }
+
+  const executionFailures = PASS_B_EXECUTION_CRITERIA.filter(
+    (criterion) => byName.get(criterion) === false,
+  );
+  const diagnosticFailures = PASS_B_MORPHOLOGY_CRITERIA.filter(
+    (criterion) => byName.get(criterion) === false,
+  );
+  const executionValid = executionFailures.length === 0;
+  const diagnosticPass = diagnosticFailures.length === 0;
+  const expected = {
+    pass: "B",
+    contractFailures: [],
+    executionFailures,
+    diagnosticFailures,
+    executionValid,
+    diagnosticPass,
+    gatePass: executionValid,
+    exitCode: executionValid ? 0 : 1,
+    records: rawRecords,
+  };
+  if (canonicalString(verdict) !== canonicalString(expected)) {
+    throw new Error(
+      "V4-BUNDLE-CROSSLINK: Pass B verdict disagrees with independently recomputed records",
+    );
+  }
+  if (!executionValid) {
+    throw new Error("V4-BUNDLE-CROSSLINK: published Pass B records are execution-invalid");
+  }
+}
+
+/** Exact real-publication record/verdict contract, exported for adversarial harness tests. */
+export function validatePublishedRecordVerdictContract(
+  payload: Record<string, unknown>,
+  identity: Phase4PassIdentity,
+): ReadonlyMap<string, VerifiedCriterionRecord> {
+  const verdict = asRecord(payload.verdict, "payload.verdict");
+  const validated = validatePublishedRecords(payload.records, identity);
+  validatePublishedVerdict(verdict, validated.raw, identity);
+  return validated.records;
 }
 
 /**
@@ -580,22 +925,25 @@ export function verifyPhase4Bundle(
         `V4-EVIDENCE-PROVENANCE: Pass ${identity.pass} manifest does not match its frozen SHA-256`,
       );
     }
-    validateRealProvenance(payload, identity);
+    validateRealProvenance(payload, identity, options.repoRoot);
     evidenceClass = "published-gate-evidence";
   }
   if (manifest.backend !== PHASE4_EVIDENCE_BACKEND) {
     throw new Error(`V4-EVIDENCE-PROVENANCE: manifest backend must be ${PHASE4_EVIDENCE_BACKEND}`);
   }
 
-  // 6. Verdict identity: a published bundle exists only for a passing/execution-valid run.
+  // 6. Verdict envelope. Real publication is recomputed from the exact record set below;
+  // synthetic fixtures retain only the minimal explicit-dev contract.
   const verdict = asRecord(payload.verdict, "payload.verdict");
-  if (identity.pass === "A" && verdict.gatePass !== true) {
-    throw new Error("V4-BUNDLE-CROSSLINK: published Pass A bundle must record gatePass=true");
-  }
-  if (identity.pass === "B" && verdict.executionValid !== true) {
-    throw new Error(
-      "V4-BUNDLE-CROSSLINK: published Pass B bundle must record executionValid=true",
-    );
+  if (evidenceClass === "synthetic-fixture-not-gate-evidence") {
+    if (identity.pass === "A" && verdict.gatePass !== true) {
+      throw new Error("V4-BUNDLE-CROSSLINK: synthetic Pass A fixture must record gatePass=true");
+    }
+    if (identity.pass === "B" && verdict.executionValid !== true) {
+      throw new Error(
+        "V4-BUNDLE-CROSSLINK: synthetic Pass B fixture must record executionValid=true",
+      );
+    }
   }
 
   // 7. Per-run checkpoint strict decode + metadata/array-length/field-hash consistency.
@@ -768,21 +1116,27 @@ export function verifyPhase4Bundle(
     });
   }
 
-  const records = new Map<string, VerifiedCriterionRecord>();
-  for (const item of asArray(payload.records, "payload.records")) {
-    const record = asRecord(item, "criterion record");
-    const criterion = asString(record.criterion, "criterion record name");
-    if (records.has(criterion)) {
-      throw new Error(`V4-RUN-COMPLETE: duplicate criterion record ${criterion}`);
+  let records: ReadonlyMap<string, VerifiedCriterionRecord>;
+  if (evidenceClass === "published-gate-evidence") {
+    records = validatePublishedRecordVerdictContract(payload, identity);
+  } else {
+    const fixtureRecords = new Map<string, VerifiedCriterionRecord>();
+    for (const item of asArray(payload.records, "payload.records")) {
+      const record = asRecord(item, "criterion record");
+      const criterion = asString(record.criterion, "criterion record name");
+      if (fixtureRecords.has(criterion)) {
+        throw new Error(`V4-RUN-COMPLETE: duplicate criterion record ${criterion}`);
+      }
+      if (typeof record.passed !== "boolean") {
+        throw new Error(`V4-BUNDLE-CROSSLINK: criterion ${criterion} passed must be boolean`);
+      }
+      fixtureRecords.set(criterion, {
+        criterion,
+        passed: record.passed,
+        summary: asString(record.summary, `criterion ${criterion} summary`),
+      });
     }
-    if (typeof record.passed !== "boolean") {
-      throw new Error(`V4-BUNDLE-CROSSLINK: criterion ${criterion} passed must be boolean`);
-    }
-    records.set(criterion, {
-      criterion,
-      passed: record.passed,
-      summary: asString(record.summary, `criterion ${criterion} summary`),
-    });
+    records = fixtureRecords;
   }
   const requiredCriteria =
     identity.pass === "A"

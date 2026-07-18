@@ -470,7 +470,10 @@ async function runPhase4(options) {
   if (existsSync(outDir)) {
     throw new Error(`V4-OUTPUT-SAFETY: canonical output already exists: ${outDir}`);
   }
-  const verifyOptions = { allowSyntheticFixture: options.allowSyntheticFixtures === true };
+  const verifyOptions = {
+    allowSyntheticFixture: options.allowSyntheticFixtures === true,
+    repoRoot,
+  };
 
   // ── Bundle verification: EVERY integrity check happens BEFORE any capture ───────────────
   if (!existsSync(passADir)) {
