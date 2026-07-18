@@ -9,6 +9,7 @@
 import { execFileSync, spawn } from "node:child_process";
 import {
   existsSync,
+  linkSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
@@ -105,11 +106,20 @@ interface Phase4HookPayload {
   readonly passADir: string;
   readonly passBDir: string;
   readonly stagingDir?: string;
+  readonly fileName?: string;
+  readonly stagedFile?: string;
+  readonly publishedFile?: string;
 }
+
+type Phase4HookName =
+  | "after-verifying-pass-a"
+  | "after-fresh-noncanonical-staging"
+  | "after-first-staged-png"
+  | "after-publication-rename";
 
 async function waitForIpcHook(
   child: ReturnType<typeof spawn>,
-  hook: "after-verifying-pass-a" | "after-fresh-noncanonical-staging",
+  hook: Phase4HookName,
 ): Promise<Phase4HookPayload> {
   return await new Promise((accept, reject) => {
     const finish = (error: Error | null, payload?: Phase4HookPayload): void => {
@@ -143,7 +153,7 @@ async function waitForIpcHook(
 
 async function continueIpcHook(
   child: ReturnType<typeof spawn>,
-  hook: "after-verifying-pass-a" | "after-fresh-noncanonical-staging",
+  hook: Phase4HookName,
 ): Promise<void> {
   await new Promise<void>((accept, reject) => {
     if (typeof child.send !== "function" || !child.connected) {
@@ -731,18 +741,18 @@ describe("pass identity cross-checks", () => {
 });
 
 describe("capture output safety", () => {
-  it("publishes the same identity-bound staging directory by one atomic rename", () => {
+  it("publishes the same identity-bound staging directory by one atomic rename", async () => {
     const parent = join(root, `publication-parent-${counter++}`);
     const output = join(parent, "captures");
     const evidence = freshPassA();
     const publication = new Phase4OutputPublicationGuard(output, [evidence]);
     publication.prepareOutputParent();
     const staging = publication.createTrustedStagingDirectory();
-    const file = publication.stagingFile("capture.png");
-    publication.beforeStagingWrite(file, "test capture write");
-    writeFileSync(file, "png bytes");
-    publication.afterStagingWrite(file, "test capture write");
-    publication.publish();
+    publication.createNewStagedFile("capture.png", Buffer.from("png bytes"));
+    expect(Buffer.from(publication.readStagedFile("capture.png", "test capture read")).toString()).toBe(
+      "png bytes",
+    );
+    await publication.publish();
     publication.cleanupStagingDirectory();
     expect(existsSync(staging)).toBe(false);
     expect(readFileSync(join(output, "capture.png"), "utf8")).toBe("png bytes");
@@ -961,6 +971,127 @@ describe.runIf(process.platform === "win32")("visual harness output-parent swap 
     "cleans trusted staging when the output parent becomes a Pass A junction after staging",
     async () => exerciseSwap("after-fresh-noncanonical-staging"),
     30_000,
+  );
+});
+
+describe.runIf(process.platform === "win32")("visual harness staged-file hard-link attacks", () => {
+  type Attack =
+    | "precreated-png"
+    | "precreated-manifest"
+    | "postcreate-png-link"
+    | "postrename-png-link";
+
+  async function exerciseHardLinkAttack(attack: Attack): Promise<void> {
+    const caseRoot = join(root, `visual-hardlink-${attack}-${counter++}`);
+    const passA = join(caseRoot, "pass-a");
+    const missingPassB = join(caseRoot, "pass-b-absent");
+    const outDir = join(caseRoot, "output", "captures");
+    const externalAlias = join(caseRoot, "external-first-capture-hardlink.png");
+    buildFixturePassA(passA);
+    const evidenceBefore = snapshotTree(passA);
+    const child = spawn(
+      process.execPath,
+      [
+        resolve(repoRoot, "app/scripts/visual.mjs"),
+        "--phase4",
+        "--allow-synthetic-fixtures",
+        "--pass-a-dir",
+        passA,
+        "--pass-b-dir",
+        missingPassB,
+        "--out-dir",
+        outDir,
+      ],
+      { cwd: repoRoot, stdio: ["ignore", "pipe", "pipe", "ipc"] },
+    );
+    let stdout = "";
+    let stderr = "";
+    child.stdout!.on("data", (chunk) => {
+      stdout += String(chunk);
+    });
+    child.stderr!.on("data", (chunk) => {
+      stderr += String(chunk);
+    });
+
+    let stagingDirectory: string | null = null;
+    try {
+      await waitForIpcHook(child, "after-verifying-pass-a");
+      await continueIpcHook(child, "after-verifying-pass-a");
+      const stagingPayload = await waitForIpcHook(child, "after-fresh-noncanonical-staging");
+      stagingDirectory = stagingPayload.stagingDir ?? null;
+      expect(stagingDirectory).not.toBeNull();
+
+      if (attack === "precreated-png") {
+        linkSync(
+          join(passA, "manifest.json"),
+          join(stagingDirectory!, "pass-a-plate-endpoint--primary.png"),
+        );
+      } else if (attack === "precreated-manifest") {
+        linkSync(join(passA, "gate4a-report.json"), join(stagingDirectory!, "manifest.json"));
+      }
+      await continueIpcHook(child, "after-fresh-noncanonical-staging");
+
+      if (attack !== "precreated-png") {
+        const firstPng = await waitForIpcHook(child, "after-first-staged-png");
+        expect(firstPng.fileName).toBe("pass-a-plate-endpoint--primary.png");
+        expect(firstPng.stagedFile).toBe(join(stagingDirectory!, firstPng.fileName!));
+        if (attack === "postcreate-png-link") {
+          linkSync(firstPng.stagedFile!, externalAlias);
+        }
+        await continueIpcHook(child, "after-first-staged-png");
+      }
+
+      if (attack === "postrename-png-link") {
+        const published = await waitForIpcHook(child, "after-publication-rename");
+        expect(published.fileName).toBe("pass-a-plate-endpoint--primary.png");
+        expect(published.stagingDir).toBe(stagingDirectory);
+        expect(published.publishedFile).toBe(join(outDir, published.fileName!));
+        linkSync(published.publishedFile!, externalAlias);
+        await continueIpcHook(child, "after-publication-rename");
+      }
+
+      const exitCode = await waitForExit(child, 60_000);
+      expect(exitCode, `${stdout}\n${stderr}`).not.toBe(0);
+      expect(`${stdout}\n${stderr}`).toMatch(/V4-OUTPUT-SAFETY/);
+      if (attack === "postcreate-png-link" || attack === "postrename-png-link") {
+        expect(`${stdout}\n${stderr}`).toMatch(/hard links, expected exactly 1/);
+        expect(existsSync(externalAlias)).toBe(true);
+        unlinkSync(externalAlias);
+      } else {
+        expect(`${stdout}\n${stderr}`).toMatch(/refusing pre-existing staged-file destination/);
+      }
+      expect(existsSync(outDir)).toBe(false);
+      expect(existsSync(stagingDirectory!)).toBe(false);
+      expect(existsSync(externalAlias)).toBe(false);
+      expect(snapshotTree(passA)).toEqual(evidenceBefore);
+    } finally {
+      if (child.exitCode === null) child.kill();
+      if (existsSync(externalAlias)) unlinkSync(externalAlias);
+    }
+  }
+
+  it(
+    "rejects a first-PNG destination precreated as a hard link to the Pass A manifest",
+    async () => exerciseHardLinkAttack("precreated-png"),
+    70_000,
+  );
+
+  it(
+    "rejects a staged manifest precreated as a hard link to the Pass A report",
+    async () => exerciseHardLinkAttack("precreated-manifest"),
+    70_000,
+  );
+
+  it(
+    "rejects a post-create external hard link before publication",
+    async () => exerciseHardLinkAttack("postcreate-png-link"),
+    70_000,
+  );
+
+  it(
+    "rolls back and rejects a post-rename external hard link before publication verification",
+    async () => exerciseHardLinkAttack("postrename-png-link"),
+    70_000,
   );
 });
 

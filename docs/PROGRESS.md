@@ -139,9 +139,16 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   hard-linked to a Pass-A report, was overwritten while the harness exited 0; a post-create
   external hard link also survived publication and could later mutate the canonical PNG. Every
   directory-identity/junction/absent-evidence repair and all other WP3 surfaces passed, including
-  738/738 root tests. The file-identity repair is now in flight with the same fixer; WP3 remains
-  unaccepted. No real `gate4a`, `gate4b`, or `gate4` run and no canonical Phase 4 evidence
-  artifact exists yet.
+  738/738 root tests. The repair now keeps Phase 4 screenshots in memory, exclusively creates
+  every staged file, and pins one-link device/inode/size/hash facts across every read and both
+  sides of the rename. Four deterministic hard-link controls cover precreated PNG and manifest,
+  plus post-create and post-rename aliases. Post-rename failures safely roll the exact directory
+  object back to trusted staging before cleanup, or refuse destructive cleanup if identity proof
+  is lost. The first three repairs passed exact root `npm test` at 741/741 plus fresh inspected
+  20/20 Phase 4 and 9/9 Phase 3 captures; the final rollback follow-up passes 199/199 app tests,
+  typecheck, and the 33-module build. It awaits an immutable commit and same-reviewer round 5;
+  WP3 remains unaccepted. No real `gate4a`, `gate4b`, or `gate4` run and no canonical Phase 4
+  evidence artifact exists yet.
 - **Phase 3 started 2026-07-15 under decision
   [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md)** (charter v1.5): maker-directed
   overlap with the tail of the v3 evidence run. Decision
@@ -331,7 +338,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited; follow-up evidence hardening complete) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Post-hardening `cmp` is bit-identical, SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Full records: [solver plan](plans/phase-2-cpu-solver.md), [hardening plan](plans/phase-2a-evidence-hardening.md) |
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ❌ **open after an execution-valid v3 failure** — protocol v3 completed at execution commit `4ca9680`, command `node runner/src/main.ts gate2b`, exit 1. −5 °C passed plate (AR 0.01888163179957996); −15 °C failed column with the identical AR and attached occupancy. Every non-habit gate criterion and the suite's depleted-start differential passed. Decision 0009's v4 repair is pre-registered, implemented, and green on 262 tests plus the byte-identical Phase 2a differential; its isolated flagless v4 habit pair is running and has no result yet. |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | 🔶 **evidence-complete, pending maker assertion** (2026-07-16) — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
-| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | 🔶 **in progress, criteria frozen** — final freeze `e567767`; WP0/WP1/WP2a/WP2b/WP2c are CLEAN. WP3 round 4 found one staged-file hard-link blocker family; repair/re-review is in flight. No Phase 4 gate result exists. |
+| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | 🔶 **in progress, criteria frozen** — final freeze `e567767`; WP0/WP1/WP2a/WP2b/WP2c are CLEAN. WP3 round-4 hard-link repair awaits immutable commit and same-reviewer round 5. No Phase 4 gate result exists. |
 | 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
@@ -503,12 +510,12 @@ and both typechecks. Same-reviewer round 3 rejected `b0cfb92` with one blocker a
 should-fixes: an absent output parent could be replaced by a junction after the one-time safety
 check, both before and after staging creation, redirecting all captures and the manifest into
 evidence while the harness exited 0. Every other round-3 exploit and regression passed. The next
-serial action is to replace path-based screenshot/manifest writes with in-memory PNG capture and
-exclusive new-file creation, pin direct-file device/inode/link-count/hash facts across every
-read and publication boundary, and replay round 4's three hard-link attacks. Directory-level
-identity binding remains accepted. Commit the repaired candidate and return it to the same
-reviewer until CLEAN. Only after CLEAN may the remaining Phase 2a/gate3 controls run before any
-real Phase 4 gate command. Work
+serial action is to commit the now-green in-memory/exclusive-create file-identity repair and
+return it to the same reviewer for round 5. Four deterministic hard-link controls cover both
+precreated destinations, a prepublication alias, and a post-rename alias with proof-bound
+rollback; current app verification is 199/199 plus typecheck/build, and the immediately preceding
+full root/visual matrix is 741/741 plus 20/20 and 9/9. Only after CLEAN may the remaining Phase
+2a/gate3 controls run before any real Phase 4 gate command. Work
 only on `main`. A Phase 2b v4 rerun is live in the Windows
 worktree `.tmp-gate2b-clean-1784305494` at tracked-clean detached commit `dce7081`; its process
 and `out/gate2b-rerun-20260717_162624.*` artifacts are immutable from Phase 4. Do not alter

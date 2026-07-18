@@ -704,11 +704,17 @@ required schedule manifest and are not advertised as resumable mid-history.
       link to the Pass-A manifest made Playwright overwrite evidence; precreating staged
       `manifest.json` as a hard link to the Pass-A report overwrote that report; and adding an
       external hard link after PNG creation produced published `nlink = 2` bytes that remained
-      mutable through the alias. All three harnesses exited 0. Capture PNG bytes in memory, create
-      every staged file exclusively, and bind/recheck direct-file device, inode, link count,
-      length, and hash across reads and rename. Add deterministic controls for all three attacks,
-      then return an immutable candidate to the same reviewer; do not check this item before zero
-      blockers and zero should-fixes.
+      mutable through the alias. All three harnesses exited 0. The repair captures PNG bytes in
+      memory, exclusively creates each staged PNG/manifest, and binds/rechecks direct-file device,
+      inode, one-link count, length, and hash across reads and both sides of rename. Deterministic
+      controls now cover both precreated destinations, a post-create alias, and a post-rename
+      alias. If post-rename verification fails, rollback first proves the canonical directory is
+      the exact staged object under unchanged output/evidence/parent identities, atomically moves
+      it back, and verifies it before cleanup; unprovable rollback performs no destructive delete.
+      The first three controls passed exact root `npm test` at 741/741 and fresh inspected 20/20
+      Phase 4 plus 9/9 Phase 3 captures; the final rollback control and successful path pass
+      199/199 app tests, typecheck, and the 33-module build. Return the immutable candidate to the
+      same reviewer for round 5; do not check this item before zero blockers and zero should-fixes.
 - [ ] Run the complete regression suite, Phase 2a byte control, gate3 regression, app build, and
       both screenshot backends; loop every failure.
 - [ ] Run flagless Pass A and record the blocking result with hashes and exact metrics.
@@ -878,7 +884,9 @@ required schedule manifest and are not advertised as resumable mid-history.
   hard links are not symlinks and share an inode across otherwise disjoint paths. Path-based
   screenshot or manifest writers can therefore overwrite evidence, while a post-create link can
   leave canonical output externally mutable. Capture bytes in memory, create destinations
-  exclusively, and require one-link file identities and hashes through publication.
+  exclusively, and require one-link file identities and hashes through publication. A failure
+  discovered only after rename must also roll the same proven directory object back before
+  cleanup; otherwise a failed harness can strand canonical output.
 
 ## Open questions
 

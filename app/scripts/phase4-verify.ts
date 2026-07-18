@@ -26,16 +26,20 @@
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import {
+  closeSync,
   existsSync,
+  fsyncSync,
   lstatSync,
   mkdirSync,
   mkdtempSync,
+  openSync,
   readFileSync,
   readdirSync,
   realpathSync,
   renameSync,
   rmSync,
   statSync,
+  writeFileSync,
 } from "node:fs";
 import { basename, dirname, join, parse, relative, resolve, sep } from "node:path";
 import {
@@ -397,6 +401,49 @@ interface DirectoryIdentity {
   readonly ino: bigint;
 }
 
+interface StagedFileIdentity {
+  readonly relativePath: string;
+  readonly dev: bigint;
+  readonly ino: bigint;
+  readonly size: bigint;
+  readonly sha256: string;
+}
+
+export interface CreatedStagedFile {
+  readonly path: string;
+  readonly byteLength: number;
+  readonly sha256: string;
+}
+
+interface DirectFileStats {
+  readonly dev: bigint;
+  readonly ino: bigint;
+  readonly size: bigint;
+}
+
+function directSingleLinkFileStats(path: string, purpose: string): DirectFileStats {
+  const stats = lstatSync(path, { bigint: true });
+  if (stats.isSymbolicLink() || !stats.isFile()) {
+    throw new Error(`V4-OUTPUT-SAFETY: ${purpose} is not a direct regular file: ${path}`);
+  }
+  if (stats.nlink !== 1n) {
+    throw new Error(
+      `V4-OUTPUT-SAFETY: ${purpose} has ${stats.nlink.toString()} hard links, expected exactly 1: ${path}`,
+    );
+  }
+  return { dev: stats.dev, ino: stats.ino, size: stats.size };
+}
+
+function assertSameFileStats(
+  expected: DirectFileStats,
+  actual: DirectFileStats,
+  purpose: string,
+): void {
+  if (expected.dev !== actual.dev || expected.ino !== actual.ino || expected.size !== actual.size) {
+    throw new Error(`V4-OUTPUT-SAFETY: ${purpose} file identity or size changed`);
+  }
+}
+
 function bindDirectoryIdentity(directory: string, purpose: string): DirectoryIdentity {
   const absolute = resolve(directory);
   const linkStats = lstatSync(absolute);
@@ -478,6 +525,7 @@ export class Phase4OutputPublicationGuard {
   readonly #evidenceIdentities: readonly (DirectoryIdentity | null)[];
   #outputParentIdentity: DirectoryIdentity | null = null;
   #stagingIdentity: DirectoryIdentity | null = null;
+  readonly #stagedFiles = new Map<string, StagedFileIdentity>();
   #published = false;
 
   constructor(outputDirectory: string, evidenceDirectories: readonly string[]) {
@@ -601,42 +649,74 @@ export class Phase4OutputPublicationGuard {
     return this.#stagingIdentity.canonicalPath;
   }
 
-  stagingFile(fileName: string): string {
-    if (this.#stagingIdentity === null || this.#published) {
-      throw new Error("V4-OUTPUT-SAFETY: no active trusted staging directory");
+  createNewStagedFile(fileName: string, bytes: Uint8Array): CreatedStagedFile {
+    const { target, relativePath } = this.resolveStagedTarget(fileName);
+    if (this.#stagedFiles.has(relativePath)) {
+      throw new Error(`V4-OUTPUT-SAFETY: staged file was already created: ${relativePath}`);
     }
-    const target = resolve(this.#stagingIdentity.canonicalPath, fileName);
-    if (!sameOrInside(this.#stagingIdentity.canonicalPath, target) || target === this.#stagingIdentity.canonicalPath) {
-      throw new Error(`V4-OUTPUT-SAFETY: staged file escapes trusted staging: ${fileName}`);
+    this.revalidate(`immediately before exclusive staged-file creation ${relativePath}`);
+
+    let descriptor: number;
+    try {
+      descriptor = openSync(target, "wx");
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (code === "EEXIST") {
+        throw new Error(
+          `V4-OUTPUT-SAFETY: refusing pre-existing staged-file destination: ${target}`,
+        );
+      }
+      throw error;
     }
-    return target;
+    try {
+      writeFileSync(descriptor, bytes);
+      fsyncSync(descriptor);
+    } finally {
+      closeSync(descriptor);
+    }
+
+    this.revalidate(`immediately after exclusive staged-file creation ${relativePath}`);
+    const firstStats = directSingleLinkFileStats(target, `new staged file ${relativePath}`);
+    this.assertFileOnStagingDevice(firstStats, `new staged file ${relativePath}`);
+    const reopened = readFileSync(target);
+    const secondStats = directSingleLinkFileStats(target, `new staged file ${relativePath}`);
+    assertSameFileStats(firstStats, secondStats, `new staged file ${relativePath}`);
+    const sha256 = sha256HexNode(reopened);
+    if (
+      reopened.byteLength !== bytes.byteLength ||
+      sha256 !== sha256HexNode(bytes) ||
+      secondStats.size !== BigInt(reopened.byteLength)
+    ) {
+      throw new Error(`V4-OUTPUT-SAFETY: staged bytes changed during creation: ${relativePath}`);
+    }
+    this.#stagedFiles.set(relativePath, {
+      relativePath,
+      dev: secondStats.dev,
+      ino: secondStats.ino,
+      size: secondStats.size,
+      sha256,
+    });
+    return { path: target, byteLength: reopened.byteLength, sha256 };
   }
 
-  beforeStagingWrite(target: string, purpose: string): void {
-    this.assertStagingTarget(target, purpose, false);
+  readStagedFile(fileName: string, purpose: string): Uint8Array {
+    const { target, relativePath } = this.resolveStagedTarget(fileName);
+    const expected = this.#stagedFiles.get(relativePath);
+    if (expected === undefined) {
+      throw new Error(`V4-OUTPUT-SAFETY: ${purpose} requested an unbound staged file: ${relativePath}`);
+    }
     this.revalidate(`immediately before ${purpose}`);
-  }
-
-  afterStagingWrite(target: string, purpose: string): void {
+    const bytes = this.readAndVerifyBoundFile(expected, target, purpose);
     this.revalidate(`immediately after ${purpose}`);
-    this.assertStagingTarget(target, purpose, true);
+    return bytes;
   }
 
-  beforeStagingRead(target: string, purpose: string): void {
-    this.revalidate(`immediately before ${purpose}`);
-    this.assertStagingTarget(target, purpose, true);
-  }
-
-  afterStagingRead(target: string, purpose: string): void {
-    this.revalidate(`immediately after ${purpose}`);
-    this.assertStagingTarget(target, purpose, true);
-  }
-
-  publish(): void {
+  async publish(afterRename?: () => void | Promise<void>): Promise<void> {
     if (this.#stagingIdentity === null || this.#published) {
       throw new Error("V4-OUTPUT-SAFETY: no active staging directory to publish");
     }
     this.revalidate("publication preflight");
+    this.assertBoundFileSet(this.#stagingIdentity.canonicalPath, "publication preflight");
     if (existsSync(this.outputDirectory)) {
       throw new Error(
         `V4-OUTPUT-SAFETY: canonical output appeared before publication: ${this.outputDirectory}`,
@@ -644,27 +724,49 @@ export class Phase4OutputPublicationGuard {
     }
     this.revalidate("immediately before publication rename");
     const stagingIdentity = this.#stagingIdentity;
+    this.assertBoundFileSet(stagingIdentity.canonicalPath, "immediately before publication rename");
     renameSync(stagingIdentity.canonicalPath, this.outputDirectory);
 
-    const safe = assertSafePhase4OutputPaths(
-      this.#requestedOutputDirectory,
-      this.#requestedEvidenceDirectories,
-    );
-    if (comparisonPath(safe.outputDirectory) !== comparisonPath(this.outputDirectory)) {
-      throw new Error("V4-OUTPUT-SAFETY: output resolution changed immediately after rename");
+    try {
+      await afterRename?.();
+      const safe = assertSafePhase4OutputPaths(
+        this.#requestedOutputDirectory,
+        this.#requestedEvidenceDirectories,
+      );
+      if (comparisonPath(safe.outputDirectory) !== comparisonPath(this.outputDirectory)) {
+        throw new Error("V4-OUTPUT-SAFETY: output resolution changed immediately after rename");
+      }
+      const publishedIdentity = bindDirectoryIdentity(this.outputDirectory, "published output");
+      assertSameDirectoryObject(
+        stagingIdentity,
+        publishedIdentity,
+        "published output immediately after rename",
+      );
+      this.assertBoundFileSet(this.outputDirectory, "immediately after publication rename");
+      if (existsSync(stagingIdentity.canonicalPath)) {
+        throw new Error("V4-OUTPUT-SAFETY: trusted staging still exists after publication rename");
+      }
+      this.#published = true;
+      this.revalidate("immediately after publication rename");
+      this.#stagingIdentity = null;
+    } catch (publicationError) {
+      this.#published = false;
+      this.#stagingIdentity = stagingIdentity;
+      try {
+        this.rollbackFailedPublication(stagingIdentity);
+      } catch (rollbackError) {
+        const publicationMessage =
+          publicationError instanceof Error ? publicationError.message : String(publicationError);
+        const rollbackMessage =
+          rollbackError instanceof Error ? rollbackError.message : String(rollbackError);
+        throw new Error(
+          "V4-OUTPUT-SAFETY: post-rename publication failed and safe rollback could not be " +
+            `proven (${publicationMessage}); rollback refused (${rollbackMessage})`,
+          { cause: publicationError },
+        );
+      }
+      throw publicationError;
     }
-    const publishedIdentity = bindDirectoryIdentity(this.outputDirectory, "published output");
-    assertSameDirectoryObject(
-      stagingIdentity,
-      publishedIdentity,
-      "published output immediately after rename",
-    );
-    if (existsSync(stagingIdentity.canonicalPath)) {
-      throw new Error("V4-OUTPUT-SAFETY: trusted staging still exists after publication rename");
-    }
-    this.#published = true;
-    this.#stagingIdentity = null;
-    this.revalidate("immediately after publication rename");
   }
 
   cleanupStagingDirectory(): void {
@@ -693,23 +795,138 @@ export class Phase4OutputPublicationGuard {
     if (existsSync(staging.canonicalPath)) {
       throw new Error("V4-OUTPUT-SAFETY: trusted staging remained after cleanup");
     }
+    this.#stagedFiles.clear();
     this.#stagingIdentity = null;
   }
 
-  private assertStagingTarget(target: string, purpose: string, requireFile: boolean): void {
+  private resolveStagedTarget(fileName: string): {
+    readonly target: string;
+    readonly relativePath: string;
+  } {
     if (this.#stagingIdentity === null || this.#published) {
-      throw new Error(`V4-OUTPUT-SAFETY: ${purpose} has no active trusted staging directory`);
+      throw new Error("V4-OUTPUT-SAFETY: no active trusted staging directory");
     }
-    const absolute = resolve(target);
-    if (!sameOrInside(this.#stagingIdentity.canonicalPath, absolute)) {
-      throw new Error(`V4-OUTPUT-SAFETY: ${purpose} escapes trusted staging: ${absolute}`);
+    const target = resolve(this.#stagingIdentity.canonicalPath, fileName);
+    if (
+      comparisonPath(dirname(target)) !== comparisonPath(this.#stagingIdentity.canonicalPath) ||
+      target === this.#stagingIdentity.canonicalPath
+    ) {
+      throw new Error(`V4-OUTPUT-SAFETY: staged file must be a direct child: ${fileName}`);
     }
-    refuseOutputAliases(absolute);
-    if (requireFile) {
-      const stats = lstatSync(absolute);
-      if (stats.isSymbolicLink() || !stats.isFile()) {
-        throw new Error(`V4-OUTPUT-SAFETY: ${purpose} did not produce a direct file: ${absolute}`);
+    refuseOutputAliases(target);
+    return { target, relativePath: basename(target) };
+  }
+
+  private assertFileOnStagingDevice(stats: DirectFileStats, purpose: string): void {
+    if (this.#stagingIdentity === null || stats.dev !== this.#stagingIdentity.dev) {
+      throw new Error(`V4-OUTPUT-SAFETY: ${purpose} is not on the trusted staging device`);
+    }
+  }
+
+  private rollbackFailedPublication(stagingIdentity: DirectoryIdentity): void {
+    const safe = assertSafePhase4OutputPaths(
+      this.#requestedOutputDirectory,
+      this.#requestedEvidenceDirectories,
+    );
+    if (comparisonPath(safe.outputDirectory) !== comparisonPath(this.outputDirectory)) {
+      throw new Error("V4-OUTPUT-SAFETY: output resolution changed before rollback");
+    }
+    assertSameDirectoryIdentity(
+      this.#trustedAncestor,
+      bindDirectoryIdentity(this.#trustedAncestor.canonicalPath, "trusted output ancestor"),
+      "trusted output ancestor before rollback",
+    );
+    for (let index = 0; index < this.#evidenceIdentities.length; index++) {
+      const expected = this.#evidenceIdentities[index];
+      if (expected !== null) {
+        assertSameDirectoryIdentity(
+          expected,
+          bindDirectoryIdentity(
+            this.evidenceDirectories[index]!,
+            `immutable evidence bundle ${index + 1}`,
+          ),
+          `immutable evidence bundle ${index + 1} before rollback`,
+        );
+      } else if (existsSync(this.evidenceDirectories[index]!)) {
+        throw new Error(
+          `V4-OUTPUT-SAFETY: initially absent evidence bundle ${index + 1} appeared before rollback`,
+        );
       }
+    }
+    if (this.#outputParentIdentity === null) {
+      throw new Error("V4-OUTPUT-SAFETY: output parent identity is absent before rollback");
+    }
+    assertSameDirectoryIdentity(
+      this.#outputParentIdentity,
+      bindDirectoryIdentity(dirname(this.outputDirectory), "output parent"),
+      "output parent before rollback",
+    );
+    if (existsSync(stagingIdentity.canonicalPath)) {
+      throw new Error("V4-OUTPUT-SAFETY: refusing to overwrite an occupied trusted staging path");
+    }
+    const failedOutputIdentity = bindDirectoryIdentity(
+      this.outputDirectory,
+      "failed published output",
+    );
+    assertSameDirectoryObject(
+      stagingIdentity,
+      failedOutputIdentity,
+      "failed published output before rollback",
+    );
+
+    renameSync(this.outputDirectory, stagingIdentity.canonicalPath);
+    if (existsSync(this.outputDirectory)) {
+      throw new Error("V4-OUTPUT-SAFETY: canonical output remained after rollback rename");
+    }
+    assertSameDirectoryIdentity(
+      stagingIdentity,
+      bindDirectoryIdentity(stagingIdentity.canonicalPath, "rolled-back staging directory"),
+      "rolled-back staging directory after rollback rename",
+    );
+  }
+
+  private readAndVerifyBoundFile(
+    expected: StagedFileIdentity,
+    path: string,
+    purpose: string,
+  ): Uint8Array {
+    const firstStats = directSingleLinkFileStats(path, purpose);
+    if (firstStats.dev !== expected.dev) {
+      throw new Error(`V4-OUTPUT-SAFETY: ${purpose} moved off its bound staging device`);
+    }
+    assertSameFileStats(expected, firstStats, purpose);
+    const bytes = readFileSync(path);
+    const secondStats = directSingleLinkFileStats(path, purpose);
+    assertSameFileStats(firstStats, secondStats, purpose);
+    assertSameFileStats(expected, secondStats, purpose);
+    if (
+      secondStats.size !== BigInt(bytes.byteLength) ||
+      sha256HexNode(bytes) !== expected.sha256
+    ) {
+      throw new Error(`V4-OUTPUT-SAFETY: ${purpose} content hash changed: ${path}`);
+    }
+    return bytes;
+  }
+
+  private assertBoundFileSet(root: string, purpose: string): void {
+    const entries = readdirSync(root, { withFileTypes: true });
+    const actual = entries.map((entry) => entry.name).sort(lexicalCompare);
+    const expected = [...this.#stagedFiles.keys()].sort(lexicalCompare);
+    if (
+      actual.length !== expected.length ||
+      actual.some((name, index) => comparisonPath(name) !== comparisonPath(expected[index]!))
+    ) {
+      throw new Error(`V4-OUTPUT-SAFETY: ${purpose} staged file set changed`);
+    }
+    for (const entry of entries) {
+      if (!entry.isFile() || entry.isSymbolicLink()) {
+        throw new Error(`V4-OUTPUT-SAFETY: ${purpose} contains a non-direct file: ${entry.name}`);
+      }
+      const bound = this.#stagedFiles.get(entry.name);
+      if (bound === undefined) {
+        throw new Error(`V4-OUTPUT-SAFETY: ${purpose} contains an unbound file: ${entry.name}`);
+      }
+      this.readAndVerifyBoundFile(bound, resolve(root, entry.name), `${purpose} ${entry.name}`);
     }
   }
 }

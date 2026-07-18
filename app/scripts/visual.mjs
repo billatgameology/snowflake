@@ -102,7 +102,7 @@ function portableFromManifest(manifestDirectory, target) {
   return rel === "" ? "." : rel;
 }
 
-// Deterministic, test-only handshakes for the two Windows junction swap seams found in review.
+// Deterministic, test-only handshakes for the Windows path-identity seams found in review.
 // They are completely inert in an ordinary invocation: only a child spawned with Node's IPC
 // channel has process.send. IPC carries both the typed ready payload and typed continuation, so
 // the coordination mechanism performs no filesystem writes and cannot itself touch evidence.
@@ -720,19 +720,26 @@ async function runPhase4(options) {
         }
 
         const fileName = `${view.name}--${backendPass.name}.png`;
-        const file = publication.stagingFile(fileName);
-        publication.beforeStagingWrite(file, `screenshot write ${fileName}`);
-        await page.screenshot({ path: file });
-        publication.afterStagingWrite(file, `screenshot write ${fileName}`);
-        publication.beforeStagingRead(file, `screenshot hash read ${fileName}`);
-        const pngBytes = readFileSync(file);
-        publication.afterStagingRead(file, `screenshot hash read ${fileName}`);
+        // Playwright never receives a filesystem path. The guard exclusively creates a new
+        // direct staged file from these in-memory bytes and binds its identity + content.
+        const pngBytes = await page.screenshot({ type: "png" });
+        const stagedPng = publication.createNewStagedFile(fileName, pngBytes);
+        if (entries.length === 0) {
+          await phase4TestHook("after-first-staged-png", {
+            outDir,
+            passADir,
+            passBDir,
+            stagingDir,
+            fileName,
+            stagedFile: stagedPng.path,
+          });
+        }
         entries.push({
           name: view.name,
           backendPass: backendPass.name,
           file: fileName,
-          pngSha256: sha256HexNode(pngBytes),
-          pngByteLength: pngBytes.byteLength,
+          pngSha256: stagedPng.sha256,
+          pngByteLength: stagedPng.byteLength,
           actualBackend,
           pass: view.pass,
           runId: run.runId,
@@ -839,10 +846,10 @@ async function runPhase4(options) {
       );
     }
     for (const entry of entries) {
-      const stagedFile = publication.stagingFile(entry.file);
-      publication.beforeStagingRead(stagedFile, `prepublication PNG read ${entry.file}`);
-      const reopened = readFileSync(stagedFile);
-      publication.afterStagingRead(stagedFile, `prepublication PNG read ${entry.file}`);
+      const reopened = publication.readStagedFile(
+        entry.file,
+        `prepublication PNG read ${entry.file}`,
+      );
       if (reopened.byteLength !== entry.pngByteLength || sha256HexNode(reopened) !== entry.pngSha256) {
         throw new Error(`V4-CAPTURE-HASH: staged PNG changed before publication: ${entry.file}`);
       }
@@ -853,11 +860,22 @@ async function runPhase4(options) {
       await browser.close();
       browser = null;
     }
-    const manifestPath = publication.stagingFile("manifest.json");
-    publication.beforeStagingWrite(manifestPath, "manifest write");
-    writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
-    publication.afterStagingWrite(manifestPath, "manifest write");
-    publication.publish();
+    publication.createNewStagedFile(
+      "manifest.json",
+      Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`, "utf8"),
+    );
+    await publication.publish(async () => {
+      const firstCapture = entries[0];
+      await phase4TestHook("after-publication-rename", {
+        outDir,
+        passADir,
+        passBDir,
+        stagingDir,
+        fileName: firstCapture?.file,
+        publishedFile:
+          firstCapture === undefined ? undefined : resolve(outDir, firstCapture.file),
+      });
+    });
     log(`manifest atomically published to ${resolve(outDir, "manifest.json")}`);
     {
       log(
