@@ -1,10 +1,11 @@
 # Plan — Phase 4: morphology gauntlet, timeline semantics, and visual diagnostics
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — passing criteria frozen; WP0/WP1/WP2a/WP2b/WP2c CLEAN; WP3 repair
-  candidate is awaiting same-reviewer round 2
+- **Status:** superseded for execution by
+  [phase-4-v2-reservoir-matched-branch-control.md](phase-4-v2-reservoir-matched-branch-control.md);
+  v1 remains immutable failed history
 - **Started:** 2026-07-16
-- **Last touched:** 2026-07-17 by Codex, coordinating session
+- **Last touched:** 2026-07-18 by Codex, coordinating session
 - **Runner-completion freeze:** `cd24365` (strict A-DEPLETION/A-HOLLOW caps, reviewed solver
   source hashes, fail-closed pass publication; committed before WP2b delegation)
 - **Execution-cadence freeze:** `7be4c5d` (per-cycle series and checks; ordinary far-field
@@ -935,9 +936,6 @@ required schedule manifest and are not advertised as resumable mid-history.
 
 ## Open questions
 
-- **Blocking maker decision:** preserve Phase 4 v1 as the honest infeasible attempt and stop, or
-  authorize a separately versioned Phase 4 v2 ADR/protocol redesign. V2 must resolve the
-  reflecting finite-reservoir versus same-extent comparator contradiction without selecting a
-  threshold or cap to fit the observed 99/83 result, and must freeze before any new sweep.
-- Pass B morphology remains intentionally unknown because v1 correctly never started it after the
-  blocking Pass-A failure.
+None for v1. The maker authorized decision 0012 and the separately versioned v2 plan on
+2026-07-18. Pass B morphology remains unknown because v1 correctly never started it after the
+blocking Pass-A failure.

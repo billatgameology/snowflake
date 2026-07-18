@@ -1,8 +1,9 @@
 # 0010 — Phase 4 may proceed in isolation while Phase 3 review and Phase 2b evidence finish
 
 - **Date:** 2026-07-16
-- **Status:** accepted (maker-directed)
-- **Charter impact:** §3.2 updated in this session (charter v1.7 → v1.8)
+- **Status:** accepted (maker-directed); original location clause amended by decision 0012
+- **Charter impact:** §3.2 updated in this session (charter v1.7 → v1.8); execution location
+  updated after maker consolidation in charter v1.10
 
 ## Context
 
@@ -38,6 +39,18 @@ Phase 4 may proceed on branch `codex/phase4-morphology-gauntlet` in the isolated
    different agent's adversarial review and fix/retest loop before the next package begins.
 6. This exception ends with Phase 4. It does not authorize Phase 5, Phase 6, or arbitrary
    overlapping work.
+
+### 2026-07-18 location amendment — decision 0012
+
+After the original isolated work completed, the maker directed that its commits be merged to
+`main` and that the Phase 4 worktree/branch be removed. Phase 4 v2 therefore executes only on
+`main` in the current Windows root `G:\Code Files\snowflake`; the obsolete branch/path in the
+opening sentence above remains historical, not a live requirement.
+
+This amendment changes location only. Items 1–6 retain their substantive force: the separate
+Phase 2b worktree, PID, and evidence are read-only; no claim is borrowed; relevant upstream
+corrections require integration/review/rerun; serial independent review remains mandatory; and
+the overlap exception still ends with Phase 4. Phase 4 continues to write only `out/phase4/`.
 
 ## Consequences
 

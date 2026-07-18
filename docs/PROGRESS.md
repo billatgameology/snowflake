@@ -43,7 +43,7 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   controls now pass; `legacy-v3` remains only as an explicit reproduction path. The flagless
   v4 habit run remains the Phase 2b closure item. The first v4 execution attempt was interrupted
   before producing a checkpoint or result and must be rerun from the beginning.
-- **Last updated:** 2026-07-17 by Codex
+- **Last updated:** 2026-07-18 by Codex
 - **Phase 4 is active under maker-directed decision
   [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md)** (charter
   v1.8). It began in isolated worktree `/Users/clipper/github/snowflake-phase4`; on 2026-07-16
@@ -55,8 +55,11 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   were committed at `23b5d6c` before the first development agent; accepted Phase 2b v4 was
   integrated at `b080654`; 276/276 tests pass. Decision
   [0011](decisions/0011-phase4-timeline-environment-semantics.md) (charter v1.9) now resolves
-  the timeline contract and corrects the capped history to column→plate. Active plan:
-  [phase-4-morphology-gauntlet.md](plans/phase-4-morphology-gauntlet.md). WP0's independent
+  the timeline contract and corrects the capped history to column→plate. Decision
+  [0012](decisions/0012-phase4-reservoir-matched-branch-control.md) supersedes only v1's
+  infeasible dependent-extent branch control. Active plan:
+  [phase-4-v2-reservoir-matched-branch-control.md](plans/phase-4-v2-reservoir-matched-branch-control.md);
+  [the v1 plan](plans/phase-4-morphology-gauntlet.md) remains immutable failed history. WP0's independent
   integration review found three blockers and four should-fixes before feature implementation;
   re-review verified those fixes, then caught a noisy-ensemble symmetry contradiction and tick-
   boundary wording ambiguity. A third round caught a vacuous applied-noise witness and frozen-
@@ -201,7 +204,11 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   arithmetic). Still true from the 2026-07-14 hardening: the charter v1.2 Dirichlet wording
   could not fail (a uniform field is a fixed point under *both* boundary conditions). Charter
   v1.4 now carries the plan's falsifiable depleted-start differential test.
-- **Charter is at v1.9** (2026-07-16): decision
+- **Charter is at v1.10** (2026-07-18): decision
+  [0012](decisions/0012-phase4-reservoir-matched-branch-control.md) replaces Phase 4 v1's
+  infeasible dependent-extent compact control with the same normalized reflecting-reservoir
+  threshold, cadence, and first-crossing rule for each branch run, while preserving all
+  parameters and thresholds; decision
   [0011](decisions/0011-phase4-timeline-environment-semantics.md) resolves abrupt operator-
   specific timeline events and the source-correct column→plate capped history; decision
   [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md) authorizes the
@@ -372,7 +379,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited; follow-up evidence hardening complete) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Post-hardening `cmp` is bit-identical, SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Full records: [solver plan](plans/phase-2-cpu-solver.md), [hardening plan](plans/phase-2a-evidence-hardening.md) |
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ❌ **open after an execution-valid v3 failure** — protocol v3 completed at execution commit `4ca9680`, command `node runner/src/main.ts gate2b`, exit 1. −5 °C passed plate (AR 0.01888163179957996); −15 °C failed column with the identical AR and attached occupancy. Every non-habit gate criterion and the suite's depleted-start differential passed. Decision 0009's v4 repair is pre-registered, implemented, and green on 262 tests plus the byte-identical Phase 2a differential; its isolated flagless v4 habit pair is running and has no result yet. |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | 🔶 **evidence-complete, pending maker assertion** (2026-07-16) — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
-| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ❌ **blocked by honest infeasible frozen Pass-A comparator** — `ad04e87` flagless `gate4` exit 1; unchanged replay proved dendrite target `tExtent=99` while comparator exhausted its ordinary finite reservoir at 83, long before cap. Pass B did not run; no canonical artifact. A versioned protocol decision is required; v1 cannot be tuned or marked complete. |
+| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | 🔶 **v2 preregistration in progress** — v1 remains an honest immutable failure: `ad04e87` flagless `gate4` exit 1; unchanged replay proved dendrite `tExtent=99` while the dependent compact comparator reached its ordinary far-field stop at 83, long before cap. Maker-authorized decision 0012 replaces that cross-run geometry dependency with the same `2*rho/3` threshold, cadence, and first-crossing rule for both runs; numeric morphology parameters and thresholds remain frozen. No v2 evidence exists yet. |
 | 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
@@ -430,13 +437,18 @@ Records live in [docs/decisions/](decisions/):
   a named coupled policy in required v2 LK checkpoints; event-limited timing deferred.
   Amends 0006's forward geometry and terminology. Charter v1.6 → v1.7 in the same session
 - [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md) — maker-directed
-  Phase 4 work proceeds in its own worktree while Phase 3 external review and Phase 2b v4
-  evidence finish; external processes/artifacts are immutable, claims remain independent, and
-  relevant upstream fixes require integration and reruns. Charter v1.7 → v1.8
+  Phase 4 work proceeds while Phase 3 external review and Phase 2b v4 evidence finish; external
+  processes/artifacts are immutable, claims remain independent, and relevant upstream fixes
+  require integration and reruns. Its original isolated-worktree location was later amended by
+  0012 after maker consolidation to `main`. Charter v1.7 → v1.8; location synchronized in v1.10
 - [0011](decisions/0011-phase4-timeline-environment-semantics.md) — deterministic abrupt
   timeline events; G-G parameter jumps preserve state, LK temperature jumps conserve interior
   absolute vapor density, the Dirichlet reservoir stays explicit, and capped-column direction
   is corrected to column→plate. Charter v1.8 → v1.9
+- [0012](decisions/0012-phase4-reservoir-matched-branch-control.md) — Phase 4 v1 remains an
+  immutable failed protocol; v2 replaces only its infeasible dependent-extent compact control
+  with each branch run's first registered normalized reflecting-reservoir crossing, pins the
+  complete v2/v1 wire identity, and executes on consolidated `main`. Charter v1.9 → v1.10
 
 The two decisions predating this system (web over native C++/CUDA; the five-part repo split) live
 in charter §3.1 and get no retroactive ADR.
@@ -459,8 +471,9 @@ in charter §3.1 and get no retroactive ADR.
 
 ## Next step
 
-**Phase 4 is ACTIVE under decisions 0010/0011 and
-[phase-4-morphology-gauntlet.md](plans/phase-4-morphology-gauntlet.md).** The criteria were
+**Phase 4 v2 is ACTIVE under decisions 0010/0011/0012 and
+[phase-4-v2-reservoir-matched-branch-control.md](plans/phase-4-v2-reservoir-matched-branch-control.md).**
+The v1 plan remains immutable failed history. Its original criteria were
 committed before delegation (`23b5d6c`), WP0 integrated decision 0009's accepted v4 history
 without changing the Phase 3 app (`b080654`), and review round 1 found three blockers/four
 should-fixes before feature work. The negative-supersaturation solver fix is `cc63a87`; the
@@ -543,18 +556,18 @@ inspected at full resolution, plus exact root `npm test` at 733/733 with Rule 7 
 and both typechecks. Same-reviewer round 3 rejected `b0cfb92` with one blocker and no
 should-fixes: an absent output parent could be replaced by a junction after the one-time safety
 check, both before and after staging creation, redirecting all captures and the manifest into
-evidence while the harness exited 0. Every other round-3 exploit and regression passed. The next
-serial action requires maker direction. Frozen Phase 4 v1 is honestly infeasible and cannot earn
-its blocking gate. Preserve the failed attempt and diagnostic facts above. If a Phase 4 v2 is
-authorized, first write an ADR and a new pre-registered plan that explicitly invalidates v1 for
-completion purposes, removes the finite-reservoir/same-extent contradiction on principled grounds,
-and freezes its protocol before implementation or calibration execution. Do not widen the v1 cap,
-select a post-outcome target, alter vectors, start Pass B alone, or launch another canonical v1
-gate. Work
-only on `main`. A Phase 2b v4 rerun is live in the Windows
-worktree `.tmp-gate2b-clean-1784305494` at tracked-clean detached commit `dce7081`; its process
-and `out/gate2b-rerun-20260717_162624.*` artifacts are immutable from Phase 4. Do not alter
-external `out/gate2b*` / `out/gate3*` evidence artifacts while completing WP3.
+evidence while the harness exited 0. Every other round-3 exploit and regression passed. WP3 later
+closed CLEAN at `4f2d14c`; exact review and regression evidence is in the v1 plan. Independent
+review of decision 0012, charter v1.10, and the v2 criteria-first plan is now CLEAN with zero
+blockers and zero should-fixes after the reviewer verified the normalized reservoir rule,
+non-vacuous compact control, raw far-field witness, exact wire/provenance matrix, immutable v1
+history, and unchanged Pass-B manifest. The next serial action is to commit this reviewed authority
+as the v2 criteria freeze, record its full hash in a metadata-only follow-up, and only then delegate
+the bounded manifest/runner/app version delta. Do not calibrate, alter any morphology parameter or
+threshold, run Pass B alone, or reuse v1 output. Work only on `main`. The Phase 2b v4 rerun remains
+live in Windows worktree `.tmp-gate2b-clean-1784305494` at tracked-clean detached commit `dce7081`;
+PID 36792 and `out/gate2b-rerun-20260717_162624.*` are immutable from Phase 4. Do not alter or
+duplicate them.
 
 **Phase 3 remains EVIDENCE-COMPLETE and READY FOR EXTERNAL REVIEW (maker-marked 2026-07-16;
 ADRs 0007/0008), orchestrated per
