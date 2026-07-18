@@ -746,6 +746,18 @@ required schedule manifest and are not advertised as resumable mid-history.
       rows, so it does not yet identify comparator stop reason, target/final extents, cycle count,
       or far-field crossing. Diagnose by replaying only the unchanged registered dendrite and
       comparator as explicitly non-evidence; never widen the cap or change the frozen manifest.
+      That exact replay at `ddd04e8` classifies the failure as an honest infeasible comparator,
+      not a runner defect. Frozen manifest SHA-256 remained
+      `6d1ee3a262e8985930ded30f8ef490e1e47402dce6c55f2b3b16e4e80b0d9a98`. Dendrite
+      (`eaffd62b25a6f472f6de82141d5d53afc608420871701c93c421b8ef2e918410`) stopped on
+      far field at cycle 4,775 with `tExtent=99`, attached 25,605, mean
+      `0.06982702050795417 < 0.07`, six branches, AR `0.0909091`, no contact. Comparator
+      (`93307656c2bfe690b9b4590aa1b71d4e7eaeafcc56a81c3242271c15b68080f7`) inherited
+      target 99 but stopped on far field at cycle 5,450 with `tExtent=83`, attached 28,511,
+      previous/crossing means `0.06672679203869303 >= 0.06666666666666667` and
+      `0.06643583913501325 < 0.06666666666666667`, zero branches, AR `0.1325301`, no contact.
+      The 12,000-cycle cap did not bind. Execution/witness code is unchanged from `ad04e87`.
+      Phase 4 v1 cannot complete; any v2 requires a prior ADR and new freeze, not an in-place fix.
 - [ ] Run flagless Pass B and record both execution validity and every positive/negative
       diagnostic morphology finding without tuning.
 - [ ] Inspect all Phase 4 captures at full resolution; independent reviewer does the same;
@@ -923,5 +935,9 @@ required schedule manifest and are not advertised as resumable mid-history.
 
 ## Open questions
 
-- None that block implementation. Pass B morphology is intentionally unknown; its uncertainty is
-  the experiment, not a question to answer before running it.
+- **Blocking maker decision:** preserve Phase 4 v1 as the honest infeasible attempt and stop, or
+  authorize a separately versioned Phase 4 v2 ADR/protocol redesign. V2 must resolve the
+  reflecting finite-reservoir versus same-extent comparator contradiction without selecting a
+  threshold or cap to fit the observed 99/83 result, and must freeze before any new sweep.
+- Pass B morphology remains intentionally unknown because v1 correctly never started it after the
+  blocking Pass-A failure.
