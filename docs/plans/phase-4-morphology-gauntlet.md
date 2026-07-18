@@ -646,7 +646,7 @@ required schedule manifest and are not advertised as resumable mid-history.
       for the per-step ledger/hole-classification witnesses, whose failure direction is
       strictly fail-closed — if the real run trips `B-EXEC-LEDGER`/`B-EXEC-SURFACE` just past
       tolerance, suspect the witness, loop to development, and never widen a bound in place.
-- [ ] WP3: operator-honest app snapshots, scenario/artifact inspection, Phase 4 visual harness.
+- [x] WP3: operator-honest app snapshots, scenario/artifact inspection, Phase 4 visual harness.
       Implementation candidate `dce7081` passed 166/166 app tests, the 33-module app build,
       Phase 3's nine-capture harness, and a 20-capture synthetic Phase 4 harness. Independent
       review round 1 nevertheless rejected it with seven blockers and two should-fixes:
@@ -714,7 +714,12 @@ required schedule manifest and are not advertised as resumable mid-history.
       The first three controls passed exact root `npm test` at 741/741 and fresh inspected 20/20
       Phase 4 plus 9/9 Phase 3 captures; the final rollback control and successful path pass
       199/199 app tests, typecheck, and the 33-module build. Return the immutable candidate to the
-      same reviewer for round 5; do not check this item before zero blockers and zero should-fixes.
+      same reviewer for round 5. Round 5 reports CLEAN at immutable commit `4f2d14c`: zero
+      blockers and zero should-fixes after replaying every round-1–4 exploit. Independent checks
+      passed 51/51 verifier tests, 199/199 app tests, the 33-module build, and exact root
+      `npm test` at 42 files / 742 tests with Rule 7 over 529 files and both typechecks. Fresh
+      Phase 4 20/20, absent-B 10/10, and Phase 3 9/9 captures passed manifest/hash/link-count/
+      backend/framing checks and full-resolution inspection. WP3 is complete.
 - [ ] Run the complete regression suite, Phase 2a byte control, gate3 regression, app build, and
       both screenshot backends; loop every failure.
 - [ ] Run flagless Pass A and record the blocking result with hashes and exact metrics.
