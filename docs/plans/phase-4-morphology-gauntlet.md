@@ -681,8 +681,16 @@ required schedule manifest and are not advertised as resumable mid-history.
       descendant source rewrites. Verification is 190/190 app tests, a 33-module build, fresh
       20/20 synthetic Phase 4 and 9/9 Phase 3 captures inspected at 1600x1200, and exact root
       `npm test` at 42 files / 733 tests with Rule 7 over 353 files and both typechecks clean.
-      Return an immutable second-repair commit to the same reviewer and do not check this item
-      before zero blockers and zero should-fixes.
+      Same-reviewer round 3 rejected immutable commit `b0cfb92` with one blocker and no
+      should-fixes. The prelaunch checks reject an existing output junction, reverse evidence
+      alias, and Windows case alias, and every provenance/verdict/visual regression passed.
+      However, output identity was checked only once. Two deterministic timing probes replaced
+      an initially absent parent with a junction into disposable Pass A: once after bundle
+      verification began and once after staging was announced. Both runs published all 20 PNGs
+      plus the manifest inside evidence and exited 0. Identity-bound staging plus revalidation at
+      every write/publication boundary, with direct controls for both swaps, is required before
+      another immutable same-reviewer candidate. Do not check this item before zero blockers and
+      zero should-fixes.
 - [ ] Run the complete regression suite, Phase 2a byte control, gate3 regression, app build, and
       both screenshot backends; loop every failure.
 - [ ] Run flagless Pass A and record the blocking result with hashes and exact metrics.
@@ -839,7 +847,10 @@ required schedule manifest and are not advertised as resumable mid-history.
   Windows junction made an apparently disjoint output path resolve inside immutable Pass A and
   the harness published there. Resolve real evidence roots and the closest existing output
   ancestor, reject every output alias component before any write, and compare Windows paths
-  case-insensitively in both containment directions.
+  case-insensitively in both containment directions. Round 3 then rejected doing that only once:
+  an initially absent parent could be replaced with a junction after preflight, both before and
+  after staging creation. Staging and publication must remain bound to revalidated filesystem
+  identities throughout the run; preflight alone cannot carry the immutability claim.
 - **Trusting a report's verdict and recorded Git facts.** Rejected by WP3 review round 2. A
   coherent false record plus true Pass-A verdict, an incomplete Pass-B record set, a nonexistent
   recorded commit, and declared ancestry/source facts all passed. Real publication requires the
