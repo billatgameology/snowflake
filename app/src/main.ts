@@ -94,6 +94,8 @@ interface VccDebug {
   ratioSeriesTail: (n?: number) => RatioSample[];
   /** Reproducible camera pose for captures; {} restores the canonical framing. */
   setCamera: (pose: CameraPose) => void;
+  /** Raw-occupancy projected bounds used by Phase 4 clipping assertions. */
+  framingInfo: () => ReturnType<CrystalView["framingInfo"]>;
   /** Show/hide UI chrome per capture so panels never occlude the region under review. */
   setChrome: (opts: {
     hud?: boolean;
@@ -165,6 +167,7 @@ const debugHook: VccDebug = {
   pickRimCell: () => null,
   ratioSeriesTail: () => [],
   setCamera: () => undefined,
+  framingInfo: () => null,
   setChrome: () => undefined,
   setCrystalVisible: () => undefined,
   applyConfig: () => undefined,
@@ -1035,7 +1038,7 @@ async function boot(): Promise<void> {
     rebuildSliceIndexBindings();
     currentSurface = surfaceCellIndices(artifact.a, artifact.wall, artifact.dims);
     hideReadout();
-    view.frameDomain(artifact.dims, artifact.center);
+    view.frameOccupancy(artifact.a, artifact.dims, artifact.center);
     pane.refresh();
     refreshView();
   }
@@ -1044,27 +1047,59 @@ async function boot(): Promise<void> {
     if (raw === undefined || raw === null) return null;
     if (typeof raw !== "object") throw new Error("evidence context must be an object");
     const c = raw as Record<string, unknown>;
-    for (const key of [
+    const stringKeys = [
       "runId",
       "pass",
       "operator",
       "backend",
-      "evidenceStatus",
+      "evidenceClass",
+      "protocol",
+      "reportPath",
+      "manifestSha256",
       "checkpointSha256",
-    ] as const) {
+    ] as const;
+    for (const key of stringKeys) {
       if (typeof c[key] !== "string" || (c[key] as string).length === 0) {
         throw new Error(`evidence context ${key} must be a nonempty string`);
       }
     }
+    const allowed = new Set<string>([...stringKeys, "viewVerdict", "syntheticNotice"]);
+    for (const key of Object.keys(c)) {
+      if (!allowed.has(key)) throw new Error(`evidence context contains unknown key ${key}`);
+    }
     if (c.operator !== "GGThreshold" && c.operator !== "LibbrechtKinetics") {
       throw new Error(`evidence context operator is unknown: ${String(c.operator)}`);
     }
+    if (c.pass !== "A" && c.pass !== "B") throw new Error("evidence context pass is invalid");
+    if (c.backend !== "float64-cpu-oracle") {
+      throw new Error("evidence context backend must be float64-cpu-oracle");
+    }
+    if (typeof c.viewVerdict !== "object" || c.viewVerdict === null) {
+      throw new Error("evidence context viewVerdict must be an object");
+    }
+    const verdict = c.viewVerdict as Record<string, unknown>;
+    if (
+      typeof verdict.criterion !== "string" ||
+      typeof verdict.passed !== "boolean" ||
+      typeof verdict.summary !== "string"
+    ) {
+      throw new Error("evidence context viewVerdict fields are invalid");
+    }
     return {
       runId: c.runId as string,
-      pass: c.pass as string,
+      pass: c.pass,
       operator: c.operator,
-      backend: c.backend as string,
-      evidenceStatus: c.evidenceStatus as string,
+      backend: c.backend,
+      evidenceClass: c.evidenceClass as ArtifactEvidenceContext["evidenceClass"],
+      protocol: c.protocol as ArtifactEvidenceContext["protocol"],
+      reportPath: c.reportPath as ArtifactEvidenceContext["reportPath"],
+      manifestSha256: c.manifestSha256 as string,
+      syntheticNotice: c.syntheticNotice as ArtifactEvidenceContext["syntheticNotice"],
+      viewVerdict: {
+        criterion: verdict.criterion,
+        passed: verdict.passed,
+        summary: verdict.summary,
+      },
       checkpointSha256: c.checkpointSha256 as string,
     };
   }
@@ -1229,6 +1264,7 @@ async function boot(): Promise<void> {
   };
   debugHook.ratioSeriesTail = (n = 12): RatioSample[] => ratioSeries.slice(-n);
   debugHook.setCamera = (pose: CameraPose): void => view.setCameraPose(pose);
+  debugHook.framingInfo = () => view.framingInfo();
   debugHook.setChrome = (opts): void => {
     if (opts.hud !== undefined) chrome.hud = opts.hud;
     if (opts.legends !== undefined) chrome.legends = opts.legends;
@@ -1287,16 +1323,26 @@ async function boot(): Promise<void> {
           : null,
       runId: art.evidence.runId,
       evidenceStatus: art.evidence.status,
+      evidenceClass: art.evidence.evidenceClass,
+      evidencePass: art.evidence.pass,
+      manifestSha256: art.evidence.manifestSha256,
+      viewVerdict: art.evidence.viewVerdict,
       recordedBackend: art.evidence.backend,
       sha256: art.evidence.sha256,
       seed: art.rngSeed,
       noiseEpsilon: art.noiseEpsilon,
       tick: art.tick,
       dims: { nx: art.dims.nx, ny: art.dims.ny, nz: art.dims.nz },
+      bbox: art.bbox,
+      extents: art.extents,
       domain: art.domain,
       farField: art.farField,
       attachedCount: art.attachedCount,
       aspectRatio: art.aspectRatio,
+      crossSectionHollowness: art.morphology.crossSectionHollowness,
+      sealedVoidFraction: art.morphology.sealedVoidFraction,
+      capProfile: art.morphology.cappedColumnProfile,
+      branchCount: art.morphology.branchCount,
       depletion: {
         center: art.depletion.depletionCenter,
         rim: art.depletion.depletionRim,

@@ -18,14 +18,14 @@
 // shape, SHA-256 of every artifact, file-set equality, report/index cross-links, and
 // metadata/array-length consistency with the report's run summaries are all enforced here.
 //
-// Scope note (honest): this harness renders PUBLISHED evidence. It verifies the bundle's
-// internal integrity graph and identity, including that manifest.json matches the report's
-// recorded manifestSha256 — it does not re-assert the gate's hard-coded frozen manifest hash
-// or provenance ancestry; those are gate4a/gate4b enforcement at evidence-generation time.
+// Real-evidence mode additionally pins the gate's frozen manifest hash, engine/backend,
+// solver-source hashes, exact registered run set, and recorded freeze ancestry. Synthetic
+// fixture bundles are accepted only through an explicit developer opt-in and retain their
+// NOT GATE EVIDENCE identity through inspection and capture publication.
 
 import { createHash } from "node:crypto";
 import { readFileSync, readdirSync } from "node:fs";
-import { join, relative, sep } from "node:path";
+import { join, relative, resolve, sep } from "node:path";
 import {
   decodeCheckpoint,
   decodeLKCheckpoint,
@@ -61,6 +61,48 @@ export const PASS_B_IDENTITY: Phase4PassIdentity = {
   checkpointKind: "lk-checkpoint-v2",
   manifestKind: "phase4-pass-b-manifest+json",
 };
+
+export const PASS_A_MANIFEST_SHA256 =
+  "6d1ee3a262e8985930ded30f8ef490e1e47402dce6c55f2b3b16e4e80b0d9a98";
+export const PASS_B_MANIFEST_SHA256 =
+  "c0ceed5b0ebb68defee85b1d78d52c9563f5edd35ed415b8cfdad57dd7c3e812";
+export const PHASE4_EVIDENCE_BACKEND = "float64-cpu-oracle";
+export const PHASE4_NODE = "v24.13.1";
+export const PHASE4_V8 = "13.6.233.17-node.40";
+export const PHASE4_CRITERIA_FREEZE = "e567767";
+export const PHASE4_RUNNER_FREEZE = "cd24365";
+export const PHASE4_CADENCE_FREEZE = "7be4c5d";
+export const SYNTHETIC_FIXTURE_NOTICE = "SYNTHETIC FIXTURE - NOT GATE EVIDENCE";
+
+export const PASS_A_RUN_IDS = [
+  "A-HABIT-U0",
+  "A-HABIT-U0P25",
+  "A-HABIT-U0P5",
+  "A-HABIT-U0P75",
+  "A-HABIT-U1",
+  "A-DEPLETION",
+  "A-HOLLOW-SEED-1",
+  "A-HOLLOW-SEED-2",
+  "A-HOLLOW-SEED-3",
+  "A-HOLLOW-SEED-1-REPLAY",
+  "A-TIMELINE",
+  "A-BRANCH-DENDRITE",
+  "A-BRANCH-COMPARATOR",
+] as const;
+
+export const PASS_B_RUN_IDS = [
+  "B-HABIT-TM5",
+  "B-HABIT-TM7P5",
+  "B-HABIT-TM10",
+  "B-HABIT-TM12P5",
+  "B-HABIT-TM15",
+  "B-HOLLOW-SEED-1",
+  "B-HOLLOW-SEED-2",
+  "B-HOLLOW-SEED-3",
+  "B-HOLLOW-SEED-1-REPLAY",
+  "B-TIMELINE",
+  "B-BRANCH",
+] as const;
 
 export function sha256HexNode(bytes: Uint8Array): string {
   return createHash("sha256").update(bytes).digest("hex");
@@ -213,6 +255,28 @@ function listFiles(root: string, current = root): string[] {
   return files.sort(lexicalCompare);
 }
 
+function sameOrInside(parent: string, candidate: string): boolean {
+  const rel = relative(parent, candidate);
+  return rel === "" || (rel !== ".." && !rel.startsWith(`..${sep}`));
+}
+
+/** Output may neither overlap nor contain either immutable evidence bundle. */
+export function assertSafePhase4OutputPaths(
+  outputDirectory: string,
+  evidenceDirectories: readonly string[],
+): { readonly outputDirectory: string; readonly evidenceDirectories: readonly string[] } {
+  const output = resolve(outputDirectory);
+  const evidence = evidenceDirectories.map((directory) => resolve(directory));
+  for (const directory of evidence) {
+    if (sameOrInside(directory, output) || sameOrInside(output, directory)) {
+      throw new Error(
+        `V4-OUTPUT-SAFETY: output ${output} overlaps immutable evidence bundle ${directory}`,
+      );
+    }
+  }
+  return { outputDirectory: output, evidenceDirectories: evidence };
+}
+
 // ── Run summaries and manifest configs (the fields this harness consumes) ──────────────────
 
 export interface VerifiedRun {
@@ -227,6 +291,16 @@ export interface VerifiedRun {
   readonly summary: Record<string, unknown>;
 }
 
+export type VerifiedEvidenceClass =
+  | "published-gate-evidence"
+  | "synthetic-fixture-not-gate-evidence";
+
+export interface VerifiedCriterionRecord {
+  readonly criterion: string;
+  readonly passed: boolean;
+  readonly summary: string;
+}
+
 export interface VerifiedPhase4Bundle {
   readonly directory: string;
   readonly identity: Phase4PassIdentity;
@@ -235,6 +309,14 @@ export interface VerifiedPhase4Bundle {
   readonly verdict: Record<string, unknown>;
   readonly manifest: Record<string, unknown>;
   readonly runs: ReadonlyMap<string, VerifiedRun>;
+  readonly manifestSha256: string;
+  readonly evidenceClass: VerifiedEvidenceClass;
+  readonly records: ReadonlyMap<string, VerifiedCriterionRecord>;
+}
+
+export interface VerifyPhase4BundleOptions {
+  /** Dev-only: accept an exact synthetic NOT GATE EVIDENCE marker. */
+  readonly allowSyntheticFixture?: boolean;
 }
 
 function ggEnvironmentOfConfig(config: Record<string, unknown>): unknown {
@@ -261,6 +343,89 @@ function expectEqual(actual: unknown, expected: unknown, label: string): void {
   }
 }
 
+function expectExactKeys(
+  record: Record<string, unknown>,
+  keys: readonly string[],
+  label: string,
+): void {
+  const actual = Object.keys(record).sort(lexicalCompare);
+  const expected = [...keys].sort(lexicalCompare);
+  if (canonicalString(actual) !== canonicalString(expected)) {
+    throw new Error(`V4-EVIDENCE-PROVENANCE: ${label} keys are invalid`);
+  }
+}
+
+function expectedRunIds(identity: Phase4PassIdentity): readonly string[] {
+  return identity.pass === "A" ? PASS_A_RUN_IDS : PASS_B_RUN_IDS;
+}
+
+function expectedManifestSha256(identity: Phase4PassIdentity): string {
+  return identity.pass === "A" ? PASS_A_MANIFEST_SHA256 : PASS_B_MANIFEST_SHA256;
+}
+
+function validateExactRunSet(
+  ids: readonly string[],
+  identity: Phase4PassIdentity,
+  label: string,
+): void {
+  if (new Set(ids).size !== ids.length) {
+    throw new Error(`V4-RUN-COMPLETE: ${label} contains duplicate run IDs`);
+  }
+  if (canonicalString(ids) !== canonicalString(expectedRunIds(identity))) {
+    throw new Error(
+      `V4-RUN-COMPLETE: ${label} must equal the frozen Pass ${identity.pass} run set`,
+    );
+  }
+}
+
+function validateRealProvenance(
+  payload: Record<string, unknown>,
+  identity: Phase4PassIdentity,
+): void {
+  const provenance = asRecord(payload.provenance, "payload.provenance");
+  expectExactKeys(
+    provenance,
+    [
+      "node",
+      "v8",
+      "head",
+      "trackedStatus",
+      "criteriaFreezeIsAncestor",
+      "runnerFreezeIsAncestor",
+      "cadenceFreezeIsAncestor",
+    ],
+    "payload.provenance",
+  );
+  if (
+    provenance.node !== PHASE4_NODE ||
+    provenance.v8 !== PHASE4_V8 ||
+    typeof provenance.head !== "string" ||
+    !/^[0-9a-f]{40}$/.test(provenance.head) ||
+    provenance.trackedStatus !== "" ||
+    provenance.criteriaFreezeIsAncestor !== true
+  ) {
+    throw new Error(
+      "V4-EVIDENCE-PROVENANCE: engine, commit, cleanliness, or criteria ancestry is invalid",
+    );
+  }
+  if (
+    identity.pass === "A" &&
+    (provenance.runnerFreezeIsAncestor !== true || provenance.cadenceFreezeIsAncestor !== true)
+  ) {
+    throw new Error("V4-EVIDENCE-PROVENANCE: Pass A runner/cadence ancestry is invalid");
+  }
+  if (identity.pass === "A") {
+    const sourceHashes = asRecord(payload.sourceHashes, "payload.sourceHashes");
+    expectExactKeys(sourceHashes, ["gg", "lk"], "payload.sourceHashes");
+    if (
+      sourceHashes.gg !== "e13cd4c487eb9918b5b68529cc6f0e5c80ce53319343d9f0e7c102f4cf65563b" ||
+      sourceHashes.lk !== "1b10e3b97103000746f02e5989828e8c83eab9014108949f8b0e5bd556c1ecbc"
+    ) {
+      throw new Error("V4-EVIDENCE-PROVENANCE: Pass A solver-source hashes are invalid");
+    }
+  }
+}
+
 /**
  * Verify one published pass bundle completely: canonical index/report, file-set equality,
  * every artifact's SHA-256 and byte length, report/index descriptor cross-links, the
@@ -270,6 +435,7 @@ function expectEqual(actual: unknown, expected: unknown, label: string): void {
 export function verifyPhase4Bundle(
   directory: string,
   identity: Phase4PassIdentity,
+  options: VerifyPhase4BundleOptions = {},
 ): VerifiedPhase4Bundle {
   // 1. Canonical artifact index.
   const indexBytes = new Uint8Array(readFileSync(join(directory, PHASE4_INDEX_FILE)));
@@ -388,6 +554,39 @@ export function verifyPhase4Bundle(
     );
   }
 
+  const manifestSha256 = sha256HexNode(manifestBytes);
+  const syntheticMarked =
+    manifest.fixture === SYNTHETIC_FIXTURE_NOTICE || payload.fixture === SYNTHETIC_FIXTURE_NOTICE;
+  let evidenceClass: VerifiedEvidenceClass;
+  if (syntheticMarked) {
+    if (options.allowSyntheticFixture !== true) {
+      throw new Error(
+        "V4-EVIDENCE-PROVENANCE: synthetic fixture refused; use the explicit dev-only opt-in",
+      );
+    }
+    if (
+      manifest.fixture !== SYNTHETIC_FIXTURE_NOTICE ||
+      payload.fixture !== SYNTHETIC_FIXTURE_NOTICE
+    ) {
+      throw new Error("V4-EVIDENCE-PROVENANCE: synthetic fixture marker is incomplete");
+    }
+    evidenceClass = "synthetic-fixture-not-gate-evidence";
+  } else {
+    if (manifest.fixture !== undefined || payload.fixture !== undefined) {
+      throw new Error("V4-EVIDENCE-PROVENANCE: unrecognized fixture marker");
+    }
+    if (manifestSha256 !== expectedManifestSha256(identity)) {
+      throw new Error(
+        `V4-EVIDENCE-PROVENANCE: Pass ${identity.pass} manifest does not match its frozen SHA-256`,
+      );
+    }
+    validateRealProvenance(payload, identity);
+    evidenceClass = "published-gate-evidence";
+  }
+  if (manifest.backend !== PHASE4_EVIDENCE_BACKEND) {
+    throw new Error(`V4-EVIDENCE-PROVENANCE: manifest backend must be ${PHASE4_EVIDENCE_BACKEND}`);
+  }
+
   // 6. Verdict identity: a published bundle exists only for a passing/execution-valid run.
   const verdict = asRecord(payload.verdict, "payload.verdict");
   if (identity.pass === "A" && verdict.gatePass !== true) {
@@ -400,15 +599,37 @@ export function verifyPhase4Bundle(
   }
 
   // 7. Per-run checkpoint strict decode + metadata/array-length/field-hash consistency.
+  const manifestRunItems = asArray(manifest.runs, "manifest.runs");
+  const manifestRunIds = manifestRunItems.map((item) =>
+    asString(asRecord(item, "manifest run").id, "manifest run id")
+  );
+  validateExactRunSet(manifestRunIds, identity, "manifest.runs");
   const manifestRuns = new Map<string, Record<string, unknown>>();
-  for (const item of asArray(manifest.runs, "manifest.runs")) {
+  for (const item of manifestRunItems) {
     const config = asRecord(item, "manifest run");
+    if (config.backend !== PHASE4_EVIDENCE_BACKEND || config.operator !== identity.operator) {
+      throw new Error(`V4-EVIDENCE-PROVENANCE: run ${String(config.id)} backend/operator is invalid`);
+    }
     manifestRuns.set(asString(config.id, "manifest run id"), config);
   }
+  const reportRunItems = asArray(payload.runs, "payload.runs");
+  const reportRunIds = reportRunItems.map((item) =>
+    asString(asRecord(item, "run summary").runId, "run summary runId")
+  );
+  validateExactRunSet(reportRunIds, identity, "payload.runs");
+  if (canonicalString(reportRunIds) !== canonicalString(manifestRunIds)) {
+    throw new Error("V4-RUN-COMPLETE: manifest/report run sets or order differ");
+  }
   const runs = new Map<string, VerifiedRun>();
-  for (const item of asArray(payload.runs, "payload.runs")) {
+  const executionIds = new Set<string>();
+  for (const item of reportRunItems) {
     const summary = asRecord(item, "run summary");
     const runId = asString(summary.runId, "run summary runId");
+    const executionId = asString(summary.executionId, `run ${runId} executionId`);
+    if (executionIds.has(executionId)) {
+      throw new Error("V4-RUN-COMPLETE: report contains duplicate execution IDs");
+    }
+    executionIds.add(executionId);
     const config = manifestRuns.get(runId);
     if (config === undefined) {
       throw new Error(`V4-CHECKPOINT-METADATA: run ${runId} is absent from manifest.json`);
@@ -434,6 +655,35 @@ export function verifyPhase4Bundle(
       identity.pass === "A"
         ? asFinite(summary.completedCycles, `run ${runId} completedCycles`)
         : asFinite(summary.completedSteps, `run ${runId} completedSteps`);
+
+    if (evidenceClass === "published-gate-evidence") {
+      const configSha256 = asString(summary.configSha256, `run ${runId} configSha256`);
+      if (configSha256 !== sha256HexNode(canonicalJsonBytesOf(config))) {
+        throw new Error(`V4-EVIDENCE-PROVENANCE: run ${runId} config identity is invalid`);
+      }
+      const identityPayload =
+        identity.pass === "A"
+          ? {
+              runId,
+              configSha256,
+              resolvedTargetTExtent: summary.resolvedTargetTExtent,
+              tick: completedSteps,
+              a: final.aSha256,
+              b: final.bSha256,
+              d: final.dSha256,
+            }
+          : {
+              runId,
+              configSha256,
+              tick: completedSteps,
+              a: final.aSha256,
+              f: final.fSha256,
+              sigma: final.sigmaSha256,
+            };
+      if (executionId !== sha256HexNode(canonicalJsonBytesOf(identityPayload))) {
+        throw new Error(`V4-EVIDENCE-PROVENANCE: run ${runId} execution identity is invalid`);
+      }
+    }
 
     if (identity.pass === "A") {
       let decoded;
@@ -518,7 +768,44 @@ export function verifyPhase4Bundle(
     });
   }
 
-  return { directory, identity, report, payload, verdict, manifest, runs };
+  const records = new Map<string, VerifiedCriterionRecord>();
+  for (const item of asArray(payload.records, "payload.records")) {
+    const record = asRecord(item, "criterion record");
+    const criterion = asString(record.criterion, "criterion record name");
+    if (records.has(criterion)) {
+      throw new Error(`V4-RUN-COMPLETE: duplicate criterion record ${criterion}`);
+    }
+    if (typeof record.passed !== "boolean") {
+      throw new Error(`V4-BUNDLE-CROSSLINK: criterion ${criterion} passed must be boolean`);
+    }
+    records.set(criterion, {
+      criterion,
+      passed: record.passed,
+      summary: asString(record.summary, `criterion ${criterion} summary`),
+    });
+  }
+  const requiredCriteria =
+    identity.pass === "A"
+      ? ["A-HABIT-ENDPOINTS", "A-HABIT-SOLID", "A-DEPLETION-SIGNAL", "A-TIMELINE-CAPS", "A-BRANCH"]
+      : ["B-HABIT-ENDPOINTS", "B-HABIT-SOLID", "B-HOLLOW", "B-TIMELINE", "B-BRANCH"];
+  for (const criterion of requiredCriteria) {
+    if (!records.has(criterion)) {
+      throw new Error(`V4-VIEW-MANIFEST: report lacks required view criterion ${criterion}`);
+    }
+  }
+
+  return {
+    directory,
+    identity,
+    report,
+    payload,
+    verdict,
+    manifest,
+    runs,
+    manifestSha256,
+    evidenceClass,
+    records,
+  };
 }
 
 // ── Required views (V4-5) ──────────────────────────────────────────────────────────────────
@@ -530,23 +817,24 @@ export interface RequiredView {
   readonly pass: "A" | "B";
   readonly runId: string;
   readonly style: ViewStyle;
+  readonly verdictCriterion: string;
 }
 
 export const REQUIRED_PASS_A_VIEWS: readonly RequiredView[] = [
-  { name: "pass-a-plate-endpoint", pass: "A", runId: "A-HABIT-U0", style: "solid" },
-  { name: "pass-a-column-endpoint", pass: "A", runId: "A-HABIT-U1", style: "column" },
-  { name: "pass-a-hollow-column-slice", pass: "A", runId: "A-DEPLETION", style: "slice" },
-  { name: "pass-a-capped-column-profile", pass: "A", runId: "A-TIMELINE", style: "profile" },
-  { name: "pass-a-dendrite-top", pass: "A", runId: "A-BRANCH-DENDRITE", style: "top" },
+  { name: "pass-a-plate-endpoint", pass: "A", runId: "A-HABIT-U0", style: "solid", verdictCriterion: "A-HABIT-ENDPOINTS" },
+  { name: "pass-a-column-endpoint", pass: "A", runId: "A-HABIT-U1", style: "column", verdictCriterion: "A-HABIT-SOLID" },
+  { name: "pass-a-hollow-column-slice", pass: "A", runId: "A-DEPLETION", style: "slice", verdictCriterion: "A-DEPLETION-SIGNAL" },
+  { name: "pass-a-capped-column-profile", pass: "A", runId: "A-TIMELINE", style: "profile", verdictCriterion: "A-TIMELINE-CAPS" },
+  { name: "pass-a-dendrite-top", pass: "A", runId: "A-BRANCH-DENDRITE", style: "top", verdictCriterion: "A-BRANCH" },
 ];
 
 /** Pass B counterparts; B-HABIT-TM15 is also the registered B-DEPLETION run (plan §B). */
 export const PASS_B_COUNTERPART_VIEWS: readonly RequiredView[] = [
-  { name: "pass-b-plate-endpoint", pass: "B", runId: "B-HABIT-TM5", style: "solid" },
-  { name: "pass-b-column-endpoint", pass: "B", runId: "B-HABIT-TM15", style: "column" },
-  { name: "pass-b-hollow-column-slice", pass: "B", runId: "B-HABIT-TM15", style: "slice" },
-  { name: "pass-b-capped-column-profile", pass: "B", runId: "B-TIMELINE", style: "profile" },
-  { name: "pass-b-dendrite-top", pass: "B", runId: "B-BRANCH", style: "top" },
+  { name: "pass-b-plate-endpoint", pass: "B", runId: "B-HABIT-TM5", style: "solid", verdictCriterion: "B-HABIT-ENDPOINTS" },
+  { name: "pass-b-column-endpoint", pass: "B", runId: "B-HABIT-TM15", style: "column", verdictCriterion: "B-HABIT-SOLID" },
+  { name: "pass-b-hollow-column-slice", pass: "B", runId: "B-HOLLOW-SEED-1", style: "slice", verdictCriterion: "B-HOLLOW" },
+  { name: "pass-b-capped-column-profile", pass: "B", runId: "B-TIMELINE", style: "profile", verdictCriterion: "B-TIMELINE" },
+  { name: "pass-b-dendrite-top", pass: "B", runId: "B-BRANCH", style: "top", verdictCriterion: "B-BRANCH" },
 ];
 
 export interface AbsentView {
@@ -571,10 +859,7 @@ export function planPassBViews(bundle: VerifiedPhase4Bundle | null): {
         reason: "pass-b evidence directory is absent (Pass A precedes Pass B in the phase plan)",
       });
     } else if (!bundle.runs.has(view.runId)) {
-      absent.push({
-        name: view.name,
-        reason: `run ${view.runId} is absent from the pass-b report`,
-      });
+      throw new Error(`V4-RUN-COMPLETE: verified Pass B bundle is missing ${view.runId}`);
     } else {
       available.push(view);
     }
@@ -599,6 +884,13 @@ export function assertViewManifestComplete(
   absences: readonly AbsentView[],
   expectedAbsent: readonly AbsentView[],
 ): void {
+  if (new Set(backendPasses).size !== backendPasses.length) {
+    throw new Error("V4-VIEW-MANIFEST: backend pass names are duplicated");
+  }
+  const entryKeys = entries.map((entry) => `${entry.backendPass}\u0000${entry.name}`);
+  if (new Set(entryKeys).size !== entryKeys.length) {
+    throw new Error("V4-VIEW-MANIFEST: capture entries are duplicated");
+  }
   for (const backendPass of backendPasses) {
     for (const view of requiredViews) {
       const found = entries.some(
@@ -612,6 +904,9 @@ export function assertViewManifestComplete(
       }
     }
   }
+  if (entries.length !== requiredViews.length * backendPasses.length) {
+    throw new Error("V4-VIEW-MANIFEST: capture entry count is not exact");
+  }
   for (const expected of expectedAbsent) {
     const recorded = absences.some(
       (item) => item.name === expected.name && item.reason === expected.reason,
@@ -621,5 +916,11 @@ export function assertViewManifestComplete(
         `V4-VIEW-MANIFEST: absent view ${expected.name} is not recorded with its reason`,
       );
     }
+  }
+  const absenceKey = (item: AbsentView) => `${item.name}\u0000${item.reason}`;
+  const actualAbsences = absences.map(absenceKey).sort(lexicalCompare);
+  const requiredAbsences = expectedAbsent.map(absenceKey).sort(lexicalCompare);
+  if (canonicalString(actualAbsences) !== canonicalString(requiredAbsences)) {
+    throw new Error("V4-VIEW-MANIFEST: absent-view set is not exact");
   }
 }

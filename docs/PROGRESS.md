@@ -100,8 +100,21 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   reviewer (not the developer) replayed every round-1 exploit plus novel variations and
   reported CLEAN — zero blockers, zero should-fixes — at 542/542 tests, Rule 7 over 129 files,
   both typechecks, and the 27-module app build. **WP2b is complete at `2204f59`.**
-  No real `gate4a` run or Phase 4 evidence artifact exists. No solver, app, or external evidence
-  artifact changed in WP1/WP2b.
+  WP2c is also complete and CLEAN at `5c382c3`. WP3 implementation candidate `dce7081` adds the
+  operator-honest app instrument and Phase 4 visual harness. Independent WP3 review round 1
+  rejected it with seven blockers and two should-fixes: synthetic fixtures could be relabeled as
+  published evidence; bundle run sets and backend provenance were fail-open; capture manifests
+  omitted load-bearing morphology/size facts; original-resolution images clipped a column and
+  every checkpoint hash; the Windows launch hard-coded Metal and never exercised available
+  WebGPU; output paths could overwrite evidence or mix stale captures; and the exact root test
+  command exited 1 on a Vitest worker RPC timeout despite all 709 assertions passing. Portable
+  paths/hashes and morphology-based framing are the two should-fixes. The repair candidate now
+  closes that set and passes 176/176 app tests, a 33-module build, 20/20 synthetic Phase 4
+  captures, 9/9 Phase 3 regression captures, and exact root `npm test` at 719/719 with Rule 7
+  and both typechecks clean. Vitest now uses one serial thread worker because its default fork
+  transport twice timed out a worker-status RPC after every assertion had passed on Windows.
+  Same-reviewer round 2 is next; WP3 remains unaccepted. No real `gate4a`, `gate4b`, or `gate4`
+  run and no canonical Phase 4 evidence artifact exists yet.
 - **Phase 3 started 2026-07-15 under decision
   [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md)** (charter v1.5): maker-directed
   overlap with the tail of the v3 evidence run. Decision
@@ -291,7 +304,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited; follow-up evidence hardening complete) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Post-hardening `cmp` is bit-identical, SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Full records: [solver plan](plans/phase-2-cpu-solver.md), [hardening plan](plans/phase-2a-evidence-hardening.md) |
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ❌ **open after an execution-valid v3 failure** — protocol v3 completed at execution commit `4ca9680`, command `node runner/src/main.ts gate2b`, exit 1. −5 °C passed plate (AR 0.01888163179957996); −15 °C failed column with the identical AR and attached occupancy. Every non-habit gate criterion and the suite's depleted-start differential passed. Decision 0009's v4 repair is pre-registered, implemented, and green on 262 tests plus the byte-identical Phase 2a differential; its isolated flagless v4 habit pair is running and has no result yet. |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | 🔶 **evidence-complete, pending maker assertion** (2026-07-16) — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
-| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | 🔶 **in progress, criteria frozen** — final freeze `e567767`; WP0/WP1 review loops CLEAN. WP1 passes 394/394 tests and app build after three adversarial rounds. WP2 is next; no Phase 4 gate result exists. |
+| 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | 🔶 **in progress, criteria frozen** — final freeze `e567767`; WP0/WP1/WP2a/WP2b/WP2c are CLEAN. WP3 repair awaits same-reviewer round 2; no Phase 4 gate result exists. |
 | 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
@@ -451,10 +464,17 @@ the aggregate report; independent review replayed forgery/seam/exit-semantics/gu
 attacks and reported zero blockers/zero should-fixes at 629/629 tests. Three non-blocking
 observations for the evidence runs are recorded in the plan's WP2c step (source-hash pinning
 across passes, an unreachable schedule+noise binding, and fail-closed 48³ witness risk).
-The next serial action is WP3: operator-honest app snapshots, scenario/artifact inspection,
-and the Phase 4 visual harness (`node app/scripts/visual.mjs --phase4`), then its separate
-code + visual review loop to CLEAN. Work only in `/Users/clipper/github/snowflake` on `main`.
-No Phase 2b process is live; its full v4 rerun remains a separate Phase 2b action. Do not alter
+WP3 implementation landed at `dce7081`: operator-honest snapshots and overlays, registered
+scenario/artifact inspection, and `node app/scripts/visual.mjs --phase4`. Independent review
+round 1 rejected it with the seven blockers and two should-fixes summarized above. The repair
+candidate is now green on 176/176 app tests, the 33-module build, 20/20 synthetic Phase 4 and
+9/9 Phase 3 captures inspected at full resolution, plus exact root `npm test` at 719/719 after
+moving Vitest from its Windows-timeout-prone fork RPC to one serial thread worker. The next
+serial action is to commit this immutable repair and return it to the same reviewer until CLEAN;
+only then run the remaining Phase 2a/gate3 controls before any real Phase 4 gate command. Work
+only on `main`. A Phase 2b v4 rerun is live in the Windows
+worktree `.tmp-gate2b-clean-1784305494` at tracked-clean detached commit `dce7081`; its process
+and `out/gate2b-rerun-20260717_162624.*` artifacts are immutable from Phase 4. Do not alter
 external `out/gate2b*` / `out/gate3*` evidence artifacts while completing WP3.
 
 **Phase 3 remains EVIDENCE-COMPLETE and READY FOR EXTERNAL REVIEW (maker-marked 2026-07-16;
@@ -530,14 +550,22 @@ contradiction is a seam defect discovered after the run, not a reason to rewrite
 the negative result; it limits interpretation of the failure as a test of the intended physical
 model. The governing detail and citations are recorded in attachment-kinetics §4.4.
 
-**Next Phase 2b action:** rerun exactly `node runner/src/main.ts gate2b` from a tracked-clean v4
-implementation commit. The first v4 attempt was externally interrupted on 2026-07-17 during
-warm run 1/2. Its log ended during relaxation for growth step 771; the last completed metric
-line was step 768 with 16,873 attached cells, extent 57, AR 0.122807, exact symmetry, and
-elapsed 48,867.0 s. It never reached the registered extent-60 measurement, wrote no plate or
-column checkpoint, never started the cold run, and emitted no terminal gate result. This is
-incomplete liveness evidence, not a failed or accepted gate result. LK resume does not exist,
-so the complete two-temperature v4 pair must restart from the beginning. Its pre-gate controls
+**Next Phase 2b action:** leave the live full rerun untouched, then record its terminal result.
+It started on 2026-07-17 at 16:26 local from tracked-clean detached commit `dce7081` in Windows
+worktree `.tmp-gate2b-clean-1784305494`. Its immutable stdout/stderr paths are
+`out/gate2b-rerun-20260717_162624.log` / `.err` inside that worktree. The log header records
+protocol v4, preregistration `8e0017a`, Node v24.13.1, V8 13.6.233.17-node.40, and the exact
+execution commit; while this update was written the warm run was still advancing, with an empty
+stderr and no terminal result. Do not launch a duplicate or treat liveness output as evidence.
+After exit, record exit 0 or 1 honestly with metrics, execution hash, log hash, and checkpoint
+hashes.
+
+The first v4 attempt was externally interrupted on 2026-07-17 during warm run 1/2. Its log
+ended during relaxation for growth step 771; the last completed metric line was step 768 with
+16,873 attached cells, extent 57, AR 0.122807, exact symmetry, and elapsed 48,867.0 s. It never
+reached the registered extent-60 measurement, wrote no plate or column checkpoint, never
+started the cold run, and emitted no terminal gate result. This is incomplete liveness
+evidence, not a failed or accepted gate result. LK resume does not exist. Its pre-gate controls
 were complete: 262/262 tests; exact engine Node v24.13.1 / V8 13.6.233.17-node.40; enforced
 Phase 2a exit 0; `cmp` exit 0 and canonical SHA-256
 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. The v4 tests independently
@@ -546,9 +574,7 @@ topology; `[20]` routing in the boundary condition and fill; unequal opposing-ce
 nonlinear/planar laws and the legacy `4/3` negative control; signed exchange reconstruction;
 noise coupling; checkpoint v1/v2 mutations and migration; demand bookkeeping through
 saturation; dual convergence; CFL; determinism; D6h; and fail-closed gate provenance/reports.
-The rerun must record exit 0 or 1 honestly with metrics, execution hash, log hash, and checkpoint
-hashes after it exits. Event-limited
-stepping, SDAK, parameter changes, alternate target sizes, and exploratory temperature pairs
+Event-limited stepping, SDAK, parameter changes, alternate target sizes, and exploratory temperature pairs
 remain outside v4. ADRs 0008/0010 authorize other work independently; their strict territory
 separation and the immutable v3 evidence remain binding.
 

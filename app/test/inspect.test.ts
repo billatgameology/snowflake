@@ -6,12 +6,19 @@
 import { describe, expect, it } from "vitest";
 import {
   GG_PRESETS,
+  aspectRatio,
+  branchCount,
+  cappedColumnProfile,
   centerRimDepletion,
   computeMetrics,
+  crossSectionHollowness,
   encodeCheckpoint,
   encodeLKCheckpoint,
   hexDistance,
   idx,
+  latticeBBox,
+  latticeExtents,
+  sealedVoidFraction,
   type Dims,
   type LKRunState,
   type SolverState,
@@ -241,7 +248,15 @@ describe("evidence context verification", () => {
       pass: "A",
       operator: "GGThreshold",
       backend: "float64-cpu-oracle",
-      evidenceStatus: "published Pass A evidence (gate4a-report.json, gatePass=true)",
+      evidenceClass: "published-gate-evidence",
+      protocol: "phase4-pass-a-v1",
+      reportPath: "gate4a-report.json",
+      manifestSha256: "6d1ee3a262e8985930ded30f8ef490e1e47402dce6c55f2b3b16e4e80b0d9a98",
+      viewVerdict: {
+        criterion: "A-HABIT-ENDPOINTS",
+        passed: true,
+        summary: "registered endpoint aspect ratios invert",
+      },
       checkpointSha256: sha256Hex(bytes),
     };
   }
@@ -253,7 +268,8 @@ describe("evidence context verification", () => {
     expect(artifact.evidence.backend).toBe("float64-cpu-oracle");
     const status = artifact.statusLines.join("\n");
     expect(status).toContain("run: A-HABIT-U0");
-    expect(status).toContain("published Pass A evidence");
+    expect(status).toContain("published Pass A gate evidence");
+    expect(status).toContain("A-HABIT-ENDPOINTS=true");
     expect(status).toContain("recorded backend: float64-cpu-oracle");
     expect(status).not.toContain("loose artifact");
   });
@@ -271,6 +287,60 @@ describe("evidence context verification", () => {
       operator: "LibbrechtKinetics" as const,
     };
     expect(() => inspectCheckpointBytes(bytes, context)).toThrow(/operator label mismatch/);
+  });
+
+  it("rejects forged backend, manifest, and free-form status context", () => {
+    const bytes = ggFixtureBytes();
+    expect(() =>
+      inspectCheckpointBytes(bytes, {
+        ...contextFor(bytes),
+        backend: "gpu-float32",
+      } as unknown as ArtifactEvidenceContext),
+    ).toThrow(/backend must be float64-cpu-oracle/);
+    expect(() =>
+      inspectCheckpointBytes(bytes, {
+        ...contextFor(bytes),
+        manifestSha256: "0".repeat(64),
+      }),
+    ).toThrow(/does not pin the frozen manifest/);
+    expect(() =>
+      inspectCheckpointBytes(bytes, {
+        ...contextFor(bytes),
+        evidenceStatus: "published despite forgery",
+      } as unknown as ArtifactEvidenceContext),
+    ).toThrow(/unknown key evidenceStatus/);
+    expect(inspectCheckpointBytes(bytes, contextFor(bytes)).evidence.status).not.toContain(
+      "published despite forgery",
+    );
+  });
+
+  it("keeps opted-in synthetic context labeled NOT gate evidence", () => {
+    const bytes = ggFixtureBytes();
+    const artifact = inspectCheckpointBytes(bytes, {
+      ...contextFor(bytes),
+      evidenceClass: "synthetic-fixture-not-gate-evidence",
+      manifestSha256: "1".repeat(64),
+      syntheticNotice: "SYNTHETIC FIXTURE - NOT GATE EVIDENCE",
+    });
+    expect(artifact.evidence.status).toBe("SYNTHETIC FIXTURE - NOT GATE EVIDENCE");
+    expect(artifact.statusLines.join("\n")).toContain("NOT GATE EVIDENCE");
+  });
+});
+
+describe("raw occupancy morphology metadata", () => {
+  it("derives bbox/extents and every shared-core morphology metric from checkpoint occupancy", () => {
+    const bytes = ggFixtureBytes();
+    const artifact = inspectCheckpointBytes(bytes, null);
+    expect(artifact.bbox).toEqual(latticeBBox(artifact.a, artifact.dims));
+    expect(artifact.extents).toEqual(latticeExtents(artifact.a, artifact.dims));
+    expect(artifact.morphology).toEqual({
+      aspectRatio: aspectRatio(artifact.a, artifact.dims),
+      attachedCount: latticeExtents(artifact.a, artifact.dims)?.attachedCount ?? 0,
+      crossSectionHollowness: crossSectionHollowness(artifact.a, artifact.dims),
+      sealedVoidFraction: sealedVoidFraction(artifact.a, artifact.dims),
+      branchCount: branchCount(artifact.a, artifact.dims, artifact.center),
+      cappedColumnProfile: cappedColumnProfile(artifact.a, artifact.dims, artifact.center) ?? null,
+    });
   });
 });
 

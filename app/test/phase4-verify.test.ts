@@ -16,6 +16,7 @@ import {
   PASS_B_COUNTERPART_VIEWS,
   PHASE4_INDEX_FILE,
   REQUIRED_PASS_A_VIEWS,
+  assertSafePhase4OutputPaths,
   assertViewManifestComplete,
   canonicalJsonBytesOf,
   parseCanonicalJsonBytes,
@@ -23,6 +24,7 @@ import {
   sha256HexNode,
   verifyPhase4Bundle,
   type VerifiedPhase4Bundle,
+  type Phase4PassIdentity,
 } from "../scripts/phase4-verify.ts";
 import { buildFixturePassA, buildFixturePassB } from "../scripts/phase4-fixture.ts";
 
@@ -47,6 +49,10 @@ function freshPassB(): string {
   const dir = join(root, `pass-b-${counter++}`);
   buildFixturePassB(dir);
   return dir;
+}
+
+function verifySynthetic(directory: string, identity: Phase4PassIdentity): VerifiedPhase4Bundle {
+  return verifyPhase4Bundle(directory, identity, { allowSyntheticFixture: true });
 }
 
 /** Coherent report rewrite: report bytes, report descriptor, and index all stay consistent. */
@@ -77,29 +83,120 @@ function rewriteReport(
   writeFileSync(join(dir, PHASE4_INDEX_FILE), canonicalJsonBytesOf(index));
 }
 
+function rewriteManifest(
+  dir: string,
+  reportPath: string,
+  mutate: (manifest: Record<string, unknown>) => void,
+): void {
+  const manifestPath = join(dir, "manifest.json");
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as Record<string, unknown>;
+  mutate(manifest);
+  const bytes = canonicalJsonBytesOf(manifest);
+  const sha256 = sha256HexNode(bytes);
+  writeFileSync(manifestPath, bytes);
+  rewriteReport(dir, reportPath, (report) => {
+    for (const descriptor of report.artifacts as Array<Record<string, unknown>>) {
+      if (descriptor.path === "manifest.json") {
+        descriptor.byteLength = bytes.byteLength;
+        descriptor.sha256 = sha256;
+      }
+    }
+    (report.payload as Record<string, unknown>).manifestSha256 = sha256;
+  });
+  const index = JSON.parse(readFileSync(join(dir, PHASE4_INDEX_FILE), "utf8")) as {
+    artifacts: Array<Record<string, unknown>>;
+  };
+  for (const descriptor of index.artifacts) {
+    if (descriptor.path === "manifest.json") {
+      descriptor.byteLength = bytes.byteLength;
+      descriptor.sha256 = sha256;
+    }
+  }
+  writeFileSync(join(dir, PHASE4_INDEX_FILE), canonicalJsonBytesOf(index));
+}
+
 describe("coherent fixture bundles verify cleanly", () => {
+  it("default real-evidence verification refuses a synthetic fixture", () => {
+    const dir = freshPassA();
+    expect(() => verifyPhase4Bundle(dir, PASS_A_IDENTITY)).toThrow(/explicit dev-only opt-in/);
+  });
+
   it("pass-a: 5 runs, identity, run summaries bound to real checkpoints", () => {
     const dir = freshPassA();
-    const bundle = verifyPhase4Bundle(dir, PASS_A_IDENTITY);
+    const bundle = verifySynthetic(dir, PASS_A_IDENTITY);
     expect([...bundle.runs.keys()]).toEqual([
       "A-HABIT-U0",
+      "A-HABIT-U0P25",
+      "A-HABIT-U0P5",
+      "A-HABIT-U0P75",
       "A-HABIT-U1",
       "A-DEPLETION",
+      "A-HOLLOW-SEED-1",
+      "A-HOLLOW-SEED-2",
+      "A-HOLLOW-SEED-3",
+      "A-HOLLOW-SEED-1-REPLAY",
       "A-TIMELINE",
       "A-BRANCH-DENDRITE",
+      "A-BRANCH-COMPARATOR",
     ]);
     expect(bundle.identity.operator).toBe("GGThreshold");
+    expect(bundle.evidenceClass).toBe("synthetic-fixture-not-gate-evidence");
   });
 
   it("pass-b: 4 runs under the LK identity", () => {
     const dir = freshPassB();
-    const bundle = verifyPhase4Bundle(dir, PASS_B_IDENTITY);
+    const bundle = verifySynthetic(dir, PASS_B_IDENTITY);
     expect([...bundle.runs.keys()]).toEqual([
       "B-HABIT-TM5",
+      "B-HABIT-TM7P5",
+      "B-HABIT-TM10",
+      "B-HABIT-TM12P5",
       "B-HABIT-TM15",
+      "B-HOLLOW-SEED-1",
+      "B-HOLLOW-SEED-2",
+      "B-HOLLOW-SEED-3",
+      "B-HOLLOW-SEED-1-REPLAY",
       "B-TIMELINE",
       "B-BRANCH",
     ]);
+  });
+});
+
+describe("frozen run completeness and provenance", () => {
+  it("rejects a duplicate manifest run ID", () => {
+    const dir = freshPassA();
+    rewriteManifest(dir, "gate4a-report.json", (manifest) => {
+      const runs = manifest.runs as Array<Record<string, unknown>>;
+      runs[1].id = runs[0].id;
+    });
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(/V4-RUN-COMPLETE.*duplicate/);
+  });
+
+  it("rejects a duplicate report run ID and execution ID", () => {
+    const dir = freshPassB();
+    rewriteReport(dir, "gate4b-report.json", (report) => {
+      const runs = (report.payload as { runs: Array<Record<string, unknown>> }).runs;
+      runs[1].runId = runs[0].runId;
+      runs[1].executionId = runs[0].executionId;
+    });
+    expect(() => verifySynthetic(dir, PASS_B_IDENTITY)).toThrow(/V4-RUN-COMPLETE/);
+  });
+
+  it("rejects a missing registered run even when the remaining graph is coherent", () => {
+    const dir = freshPassB();
+    rewriteReport(dir, "gate4b-report.json", (report) => {
+      const payload = report.payload as { runs: Array<Record<string, unknown>> };
+      payload.runs = payload.runs.filter((run) => run.runId !== "B-BRANCH");
+    });
+    expect(() => verifySynthetic(dir, PASS_B_IDENTITY)).toThrow(/frozen Pass B run set/);
+  });
+
+  it("rejects a forged evidence backend", () => {
+    const dir = freshPassA();
+    rewriteManifest(dir, "gate4a-report.json", (manifest) => {
+      manifest.backend = "gpu-float32";
+    });
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(/backend must be float64-cpu-oracle/);
   });
 });
 
@@ -134,7 +231,7 @@ describe("artifact hash / file-set mutations fail by name", () => {
     const bytes = new Uint8Array(readFileSync(path));
     bytes[bytes.length >> 1] ^= 0x01;
     writeFileSync(path, bytes);
-    expect(() => verifyPhase4Bundle(dir, PASS_A_IDENTITY)).toThrow(
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(
       /V4-BUNDLE-HASH: artifact hash mismatch: runs\/A-HABIT-U0\/final\.ckpt/,
     );
   });
@@ -142,13 +239,13 @@ describe("artifact hash / file-set mutations fail by name", () => {
   it("a deleted indexed file -> V4-BUNDLE-FILESET", () => {
     const dir = freshPassA();
     unlinkSync(join(dir, "runs/A-DEPLETION/final.ckpt"));
-    expect(() => verifyPhase4Bundle(dir, PASS_A_IDENTITY)).toThrow(/V4-BUNDLE-FILESET/);
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(/V4-BUNDLE-FILESET/);
   });
 
   it("an extra unindexed file -> V4-BUNDLE-FILESET", () => {
     const dir = freshPassA();
     writeFileSync(join(dir, "extra.bin"), new Uint8Array([1, 2, 3]));
-    expect(() => verifyPhase4Bundle(dir, PASS_A_IDENTITY)).toThrow(/V4-BUNDLE-FILESET/);
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(/V4-BUNDLE-FILESET/);
   });
 
   it("a non-canonical index (added whitespace) -> V4-BUNDLE-CANONICAL", () => {
@@ -156,7 +253,7 @@ describe("artifact hash / file-set mutations fail by name", () => {
     const path = join(dir, PHASE4_INDEX_FILE);
     const text = readFileSync(path, "utf8");
     writeFileSync(path, text.replace('"version":1', '"version": 1'));
-    expect(() => verifyPhase4Bundle(dir, PASS_A_IDENTITY)).toThrow(/V4-BUNDLE-CANONICAL/);
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(/V4-BUNDLE-CANONICAL/);
   });
 });
 
@@ -168,7 +265,7 @@ describe("coherent forgeries still fail by name (no self-consistent-graph trust)
       payload.runs[0].final.aSha256 = "0".repeat(64);
     });
     // The graph is fully self-consistent again; only the decoded checkpoint can expose it.
-    expect(() => verifyPhase4Bundle(dir, PASS_A_IDENTITY)).toThrow(
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(
       /V4-CHECKPOINT-METADATA: run A-HABIT-U0 aSha256/,
     );
   });
@@ -179,7 +276,7 @@ describe("coherent forgeries still fail by name (no self-consistent-graph trust)
       const payload = report.payload as { runs: Array<Record<string, unknown>> };
       payload.runs[0].completedCycles = 12345;
     });
-    expect(() => verifyPhase4Bundle(dir, PASS_A_IDENTITY)).toThrow(
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(
       /V4-CHECKPOINT-METADATA: run A-HABIT-U0 tick/,
     );
   });
@@ -213,7 +310,7 @@ describe("coherent forgeries still fail by name (no self-consistent-graph trust)
       }
     }
     writeFileSync(join(dir, PHASE4_INDEX_FILE), canonicalJsonBytesOf(index));
-    expect(() => verifyPhase4Bundle(dir, PASS_A_IDENTITY)).toThrow(
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(
       /V4-CHECKPOINT-DECODE: run A-HABIT-U1/,
     );
   });
@@ -223,7 +320,7 @@ describe("coherent forgeries still fail by name (no self-consistent-graph trust)
     rewriteReport(dir, "gate4a-report.json", (report) => {
       report.operator = "LibbrechtKinetics";
     });
-    expect(() => verifyPhase4Bundle(dir, PASS_A_IDENTITY)).toThrow(/V4-LABEL-MISMATCH/);
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(/V4-LABEL-MISMATCH/);
   });
 
   it("manifest bytes changed without updating manifestSha256 -> V4-BUNDLE-HASH", () => {
@@ -254,7 +351,7 @@ describe("coherent forgeries still fail by name (no self-consistent-graph trust)
       }
     }
     writeFileSync(join(dir, PHASE4_INDEX_FILE), canonicalJsonBytesOf(index));
-    expect(() => verifyPhase4Bundle(dir, PASS_B_IDENTITY)).toThrow(
+    expect(() => verifySynthetic(dir, PASS_B_IDENTITY)).toThrow(
       /V4-BUNDLE-HASH: payload\.manifestSha256/,
     );
   });
@@ -291,7 +388,7 @@ describe("coherent forgeries still fail by name (no self-consistent-graph trust)
       }
     }
     writeFileSync(join(dir, PHASE4_INDEX_FILE), canonicalJsonBytesOf(index));
-    expect(() => verifyPhase4Bundle(dir, PASS_B_IDENTITY)).toThrow(
+    expect(() => verifySynthetic(dir, PASS_B_IDENTITY)).toThrow(
       /V4-CHECKPOINT-METADATA: run B-HABIT-TM5 surfacePolicy/,
     );
   });
@@ -301,14 +398,27 @@ describe("coherent forgeries still fail by name (no self-consistent-graph trust)
     rewriteReport(dir, "gate4a-report.json", (report) => {
       (report.payload as { verdict: Record<string, unknown> }).verdict.gatePass = false;
     });
-    expect(() => verifyPhase4Bundle(dir, PASS_A_IDENTITY)).toThrow(/gatePass=true/);
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(/gatePass=true/);
   });
 });
 
 describe("pass identity cross-checks", () => {
   it("a pass-b bundle under the pass-a identity fails (report path first)", () => {
     const dir = freshPassB();
-    expect(() => verifyPhase4Bundle(dir, PASS_A_IDENTITY)).toThrow(/V4-BUNDLE-CROSSLINK/);
+    expect(() => verifySynthetic(dir, PASS_A_IDENTITY)).toThrow(/V4-BUNDLE-CROSSLINK/);
+  });
+});
+
+describe("capture output safety", () => {
+  it("rejects output equal to, inside, or containing either evidence bundle", () => {
+    const passA = join(root, "immutable-pass-a");
+    const passB = join(root, "immutable-pass-b");
+    expect(() => assertSafePhase4OutputPaths(passA, [passA, passB])).toThrow(/V4-OUTPUT-SAFETY/);
+    expect(() => assertSafePhase4OutputPaths(join(passA, "captures"), [passA, passB])).toThrow(
+      /V4-OUTPUT-SAFETY/,
+    );
+    expect(() => assertSafePhase4OutputPaths(root, [passA, passB])).toThrow(/V4-OUTPUT-SAFETY/);
+    expect(() => assertSafePhase4OutputPaths(join(root, "safe-captures"), [passA, passB])).not.toThrow();
   });
 });
 
@@ -324,7 +434,7 @@ describe("required views and manifest completeness (V4-5 self-check)", () => {
     expect(PASS_B_COUNTERPART_VIEWS.map((v) => v.runId)).toEqual([
       "B-HABIT-TM5",
       "B-HABIT-TM15",
-      "B-HABIT-TM15",
+      "B-HOLLOW-SEED-1",
       "B-TIMELINE",
       "B-BRANCH",
     ]);
@@ -339,14 +449,11 @@ describe("required views and manifest completeness (V4-5 self-check)", () => {
     }
   });
 
-  it("planPassBViews: a run missing from the report -> that view absent-with-reason", () => {
+  it("planPassBViews: a present bundle may not excuse a missing registered run/view", () => {
     const bundle = {
       runs: new Map([["B-HABIT-TM5", {}]]),
     } as unknown as VerifiedPhase4Bundle;
-    const plan = planPassBViews(bundle);
-    expect(plan.available.map((v) => v.name)).toEqual(["pass-b-plate-endpoint"]);
-    const branch = plan.absent.find((v) => v.name === "pass-b-dendrite-top");
-    expect(branch?.reason).toContain("B-BRANCH");
+    expect(() => planPassBViews(bundle)).toThrow(/V4-RUN-COMPLETE.*B-HABIT-TM15/);
   });
 
   it("a manifest missing one required view fails by name (per backend pass)", () => {
@@ -364,6 +471,17 @@ describe("required views and manifest completeness (V4-5 self-check)", () => {
     expect(() =>
       assertViewManifestComplete(missing, REQUIRED_PASS_A_VIEWS, backends, [], []),
     ).toThrow(/V4-VIEW-MANIFEST: manifest is missing required view pass-a-dendrite-top/);
+  });
+
+  it("duplicate capture entries and backend passes fail instead of satisfying completeness", () => {
+    const view = REQUIRED_PASS_A_VIEWS[0];
+    const entry = { name: view.name, backendPass: "primary" };
+    expect(() => assertViewManifestComplete([entry, entry], [view], ["primary"], [], [])).toThrow(
+      /duplicated/,
+    );
+    expect(() =>
+      assertViewManifestComplete([entry, { ...entry, backendPass: "forced-webgl2" }], [view], ["primary", "primary"], [], []),
+    ).toThrow(/backend pass names are duplicated/);
   });
 
   it("an unrecorded absent view fails by name", () => {

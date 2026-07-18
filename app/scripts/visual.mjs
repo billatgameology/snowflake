@@ -6,37 +6,41 @@
 // out/phase3-visual/ (overridable with --out-dir; review evidence in the default directory is
 // regenerated only deliberately, never as a side effect of a verification run).
 //
-// Phase 4 (--phase4; V4-5/V4-6): VERIFIES the published Pass A / Pass B evidence bundles
+// Phase 4 (--phase4; V4-5/V4-6): VERIFIES real Pass A / Pass B evidence bundles
 // BEFORE any capture (artifact-index file-set equality, SHA-256 of every artifact,
 // report/index cross-links, canonical-JSON shape of index+report, checkpoint strict decode +
 // metadata/array-length consistency with the report run summaries — every mismatch fails by
 // a stable V4-* name), then loads the actual gate checkpoints into the app's view-only
 // inspect mode and captures the required views on BOTH backend passes (auto backend + forced
 // ?webgl2=1), writing full-resolution PNGs and a manifest to out/phase4-visual/ (--out-dir
-// overrides). The harness NEVER executes evidence runs; it only renders published evidence.
+// overrides). Synthetic fixtures require --allow-synthetic-fixtures and remain labeled NOT
+// GATE EVIDENCE throughout. The harness NEVER executes evidence runs; it only renders bundles.
 //
 //   node app/scripts/visual.mjs [--out-dir <dir>]
 //   node app/scripts/visual.mjs --phase4 [--pass-a-dir <dir>] [--pass-b-dir <dir>]
 //                               [--out-dir <dir>] [--require-pass-b]
 //
-// Ports: 4319 (phase 3) / 4321 (phase 4). WebGPU is attempted (--enable-unsafe-webgpu,
-// Metal ANGLE); the manifest records the backend that ACTUALLY ran (charter §1.5). Exit is
+// Ports: 4319 (phase 3) / 4321 (phase 4). WebGPU is attempted with platform-appropriate
+// Chromium GPU arguments; the manifest records the backend that ACTUALLY ran (charter §1.5). Exit is
 // nonzero on any console error, page error, in-app fault, verification failure, or
 // incomplete view manifest.
 //
 // Dev tooling only: nothing in app/src imports from here or from Playwright.
 
 import { spawn, spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { basename, dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import {
   PASS_A_IDENTITY,
   PASS_B_IDENTITY,
   REQUIRED_PASS_A_VIEWS,
+  SYNTHETIC_FIXTURE_NOTICE,
+  assertSafePhase4OutputPaths,
   assertViewManifestComplete,
   planPassBViews,
+  sha256HexNode,
   verifyPhase4Bundle,
 } from "./phase4-verify.ts";
 
@@ -64,6 +68,7 @@ function parseArgs(argv) {
     passADir: null,
     passBDir: null,
     requirePassB: false,
+    allowSyntheticFixtures: false,
   };
   for (let n = 0; n < argv.length; n++) {
     const flag = argv[n];
@@ -80,9 +85,21 @@ function parseArgs(argv) {
     else if (flag === "--pass-a-dir") args.passADir = valueOf();
     else if (flag === "--pass-b-dir") args.passBDir = valueOf();
     else if (flag === "--require-pass-b") args.requirePassB = true;
+    else if (flag === "--allow-synthetic-fixtures") args.allowSyntheticFixtures = true;
     else throw new Error(`unknown argument: ${flag}`);
   }
   return args;
+}
+
+function chromiumGpuArgs() {
+  if (process.platform === "darwin") return ["--enable-unsafe-webgpu", "--use-angle=metal"];
+  if (process.platform === "win32") return ["--enable-unsafe-webgpu", "--use-angle=d3d11"];
+  return ["--enable-unsafe-webgpu", "--use-angle=vulkan", "--enable-features=Vulkan"];
+}
+
+function portableFromManifest(manifestDirectory, target) {
+  const rel = relative(manifestDirectory, target).split(sep).join("/");
+  return rel === "" ? "." : rel;
 }
 
 // ── Shared plumbing ────────────────────────────────────────────────────────────────────────
@@ -177,7 +194,7 @@ async function runPhase3(outDir) {
 
     browser = await chromium.launch({
       headless: true,
-      args: ["--enable-unsafe-webgpu", "--use-angle=metal"],
+      args: chromiumGpuArgs(),
     });
 
     // ── Primary pass (backend auto-selected; record what actually ran) ────────────────────
@@ -341,6 +358,9 @@ async function runPhase3(outDir) {
     );
     const fbBackend = await fbPage.evaluate(() => window.__vccDebug.backend);
     log(`fallback backend: ${fbBackend}`);
+    if (fbBackend !== "WebGL2") {
+      throw new Error(`forced WebGL2 pass reported ${fbBackend}`);
+    }
     await fbPage.evaluate(() => window.__vccDebug.start());
     await fbPage.waitForFunction((t) => window.__vccDebug.tick >= t, EARLY_TICK, {
       timeout: 120_000,
@@ -438,9 +458,19 @@ function viewSetup(style, fieldScale) {
 
 async function runPhase4(options) {
   const startedAt = Date.now();
-  const outDir = options.outDir ?? resolve(repoRoot, "out", "phase4-visual");
-  const passADir = options.passADir ?? resolve(repoRoot, "out", "phase4", "pass-a");
-  const passBDir = options.passBDir ?? resolve(repoRoot, "out", "phase4", "pass-b");
+  const requestedOutDir = options.outDir ?? resolve(repoRoot, "out", "phase4-visual");
+  const requestedPassADir = options.passADir ?? resolve(repoRoot, "out", "phase4", "pass-a");
+  const requestedPassBDir = options.passBDir ?? resolve(repoRoot, "out", "phase4", "pass-b");
+  const safePaths = assertSafePhase4OutputPaths(requestedOutDir, [
+    requestedPassADir,
+    requestedPassBDir,
+  ]);
+  const outDir = safePaths.outputDirectory;
+  const [passADir, passBDir] = safePaths.evidenceDirectories;
+  if (existsSync(outDir)) {
+    throw new Error(`V4-OUTPUT-SAFETY: canonical output already exists: ${outDir}`);
+  }
+  const verifyOptions = { allowSyntheticFixture: options.allowSyntheticFixtures === true };
 
   // ── Bundle verification: EVERY integrity check happens BEFORE any capture ───────────────
   if (!existsSync(passADir)) {
@@ -450,14 +480,14 @@ async function runPhase4(options) {
     );
   }
   log(`verifying pass-a bundle: ${passADir}`);
-  const bundleA = verifyPhase4Bundle(passADir, PASS_A_IDENTITY);
+  const bundleA = verifyPhase4Bundle(passADir, PASS_A_IDENTITY, verifyOptions);
   log(`pass-a bundle OK (${bundleA.runs.size} runs)`);
 
   let bundleB = null;
   let passBRecord;
   if (existsSync(passBDir)) {
     log(`verifying pass-b bundle: ${passBDir}`);
-    bundleB = verifyPhase4Bundle(passBDir, PASS_B_IDENTITY);
+    bundleB = verifyPhase4Bundle(passBDir, PASS_B_IDENTITY, verifyOptions);
     log(`pass-b bundle OK (${bundleB.runs.size} runs)`);
     passBRecord = { present: true, directory: passBDir };
   } else if (options.requirePassB) {
@@ -476,7 +506,13 @@ async function runPhase4(options) {
   }
   const requiredViews = [...REQUIRED_PASS_A_VIEWS, ...passBPlan.available];
 
-  mkdirSync(outDir, { recursive: true });
+  mkdirSync(dirname(outDir), { recursive: true });
+  const stagingDir = join(
+    dirname(outDir),
+    `.${basename(outDir)}.attempt-${process.pid}-${Date.now()}-NONCANONICAL`,
+  );
+  mkdirSync(stagingDir);
+  log(`fresh noncanonical staging: ${stagingDir}`);
   buildApp();
   const preview = startPreview(PHASE4_PORT);
 
@@ -492,7 +528,7 @@ async function runPhase4(options) {
     await waitForServer(`http://localhost:${PHASE4_PORT}/`, 20_000);
     browser = await chromium.launch({
       headless: true,
-      args: ["--enable-unsafe-webgpu", "--use-angle=metal"],
+      args: chromiumGpuArgs(),
     });
 
     const backendPasses = [
@@ -512,6 +548,9 @@ async function runPhase4(options) {
       const actualBackend = await page.evaluate(() => window.__vccDebug.backend);
       actualBackends[backendPass.name] = actualBackend;
       log(`backend pass "${backendPass.name}": actual backend ${actualBackend}`);
+      if (backendPass.name === "forced-webgl2" && actualBackend !== "WebGL2") {
+        throw new Error(`V4-BACKEND: forced WebGL2 pass reported ${actualBackend}`);
+      }
       // The live worker is not this mode's subject; keep it paused for stable captures.
       await page.evaluate(() => window.__vccDebug.pause());
 
@@ -523,17 +562,25 @@ async function runPhase4(options) {
           throw new Error(`V4-VIEW-MANIFEST: view ${view.name} needs missing run ${view.runId}`);
         }
         const bytes = readFileSync(join(bundle.directory, run.checkpointPath));
-        const evidenceStatus =
-          view.pass === "A"
-            ? `published Pass A evidence (${identity.reportPath}, gatePass=true)`
-            : `published Pass B evidence (${identity.reportPath}, executionValid=true, ` +
-              `diagnosticPass=${String(bundle.verdict.diagnosticPass)})`;
+        const viewVerdict = bundle.records.get(view.verdictCriterion);
+        if (viewVerdict === undefined) {
+          throw new Error(
+            `V4-VIEW-MANIFEST: ${view.name} lacks criterion ${view.verdictCriterion}`,
+          );
+        }
         const context = {
           runId: run.runId,
           pass: view.pass,
           operator: identity.operator,
-          backend: String(run.config.backend ?? "float64-cpu-oracle"),
-          evidenceStatus,
+          backend: run.config.backend,
+          evidenceClass: bundle.evidenceClass,
+          protocol: identity.protocol,
+          reportPath: identity.reportPath,
+          manifestSha256: bundle.manifestSha256,
+          ...(bundle.evidenceClass === "synthetic-fixture-not-gate-evidence"
+            ? { syntheticNotice: SYNTHETIC_FIXTURE_NOTICE }
+            : {}),
+          viewVerdict,
           checkpointSha256: run.checkpointSha256,
         };
         const loadResult = await page.evaluate(
@@ -561,7 +608,14 @@ async function runPhase4(options) {
               `expected ${expectedField}/${expectedSurface}`,
           );
         }
-        if (info.runId !== run.runId || info.sha256 !== run.checkpointSha256) {
+        if (
+          info.runId !== run.runId ||
+          info.sha256 !== run.checkpointSha256 ||
+          info.recordedBackend !== "float64-cpu-oracle" ||
+          info.evidenceClass !== bundle.evidenceClass ||
+          info.viewVerdict?.criterion !== view.verdictCriterion ||
+          info.viewVerdict?.passed !== viewVerdict.passed
+        ) {
           throw new Error(`V4-LABEL-MISMATCH: ${view.name} shows a different run/checkpoint`);
         }
 
@@ -596,17 +650,34 @@ async function runPhase4(options) {
         );
         await page.waitForTimeout(500);
 
-        const file = resolve(outDir, `${view.name}--${backendPass.name}.png`);
+        const framing = await page.evaluate(() => window.__vccDebug.framingInfo());
+        if (
+          framing === null ||
+          framing.clipped ||
+          framing.minPixelMargin < 24 ||
+          Math.max(framing.projectedWidthPixels, framing.projectedHeightPixels) < 280
+        ) {
+          throw new Error(
+            `V4-FRAMING: ${view.name} occupied morphology is clipped, under-margined, or illegible: ` +
+              JSON.stringify(framing),
+          );
+        }
+
+        const fileName = `${view.name}--${backendPass.name}.png`;
+        const file = resolve(stagingDir, fileName);
         await page.screenshot({ path: file });
+        const pngBytes = readFileSync(file);
         entries.push({
           name: view.name,
           backendPass: backendPass.name,
-          file: file.replace(`${repoRoot}/`, ""),
+          file: fileName,
+          pngSha256: sha256HexNode(pngBytes),
+          pngByteLength: pngBytes.byteLength,
           actualBackend,
           pass: view.pass,
           runId: run.runId,
           sourceCheckpoint: {
-            path: join(bundle.directory, run.checkpointPath).replace(`${repoRoot}/`, ""),
+            path: portableFromManifest(outDir, join(bundle.directory, run.checkpointPath)),
             sha256: run.checkpointSha256,
           },
           operator: info.operator,
@@ -625,15 +696,25 @@ async function runPhase4(options) {
           simTimeSeconds: info.simTimeSeconds,
           recordedBackend: info.recordedBackend,
           evidenceStatus: info.evidenceStatus,
+          evidenceClass: info.evidenceClass,
+          manifestSha256: info.manifestSha256,
+          viewVerdict: info.viewVerdict,
           metrics: {
             depletionCenter: info.depletion.center,
             depletionRim: info.depletion.rim,
             depletionRatio: info.depletion.ratio,
             aspectRatio: info.aspectRatio,
             attachedCount: info.attachedCount,
+            latticeExtents: info.extents,
+            occupiedBbox: info.bbox,
+            crossSectionHollowness: info.crossSectionHollowness,
+            sealedVoidFraction: info.sealedVoidFraction,
+            capProfile: info.capProfile,
+            branchCount: info.branchCount,
           },
           camera: setup.camera,
           slice: setup.slice,
+          framing,
         });
         log(`${view.name}--${backendPass.name}.png (run ${run.runId}, ${info.operator})`);
       }
@@ -653,11 +734,33 @@ async function runPhase4(options) {
     );
 
     const manifest = {
-      command: "node app/scripts/visual.mjs --phase4",
+      command: {
+        executable: "node",
+        script: "app/scripts/visual.mjs",
+        argv: process.argv.slice(2),
+        effective: {
+          phase4: true,
+          outDir: ".",
+          passADir: portableFromManifest(outDir, passADir),
+          passBDir: portableFromManifest(outDir, passBDir),
+          requirePassB: options.requirePassB === true,
+          allowSyntheticFixtures: options.allowSyntheticFixtures === true,
+        },
+      },
       server: "vite build + vite preview (production bundle)",
+      gpuAttempt: { platform: process.platform, chromiumArgs: chromiumGpuArgs() },
       viewport: { width: 1600, height: 1200 },
-      passA: { present: true, directory: passADir },
-      passB: passBRecord,
+      evidenceClass: {
+        passA: bundleA.evidenceClass,
+        passB: bundleB?.evidenceClass ?? null,
+        notice:
+          bundleA.evidenceClass === "synthetic-fixture-not-gate-evidence" ||
+          bundleB?.evidenceClass === "synthetic-fixture-not-gate-evidence"
+            ? SYNTHETIC_FIXTURE_NOTICE
+            : null,
+      },
+      passA: { present: true, directory: portableFromManifest(outDir, passADir) },
+      passB: { ...passBRecord, directory: portableFromManifest(outDir, passBDir) },
       absentViews: passBPlan.absent,
       backendPasses: backendPassNames,
       actualBackends,
@@ -668,17 +771,32 @@ async function runPhase4(options) {
       durationSeconds: (Date.now() - startedAt) / 1000,
       generatedAt: new Date().toISOString(),
     };
-    writeFileSync(resolve(outDir, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
-    log(`manifest written to ${resolve(outDir, "manifest.json")}`);
-
     const failures = consoleErrors.length + pageErrors.length + inAppErrors.length;
     if (failures > 0) {
-      log(
-        `FAIL: ${consoleErrors.length} console error(s), ${pageErrors.length} page error(s), ` +
-          `${inAppErrors.length} in-app error(s)`,
+      throw new Error(
+        `V4-CAPTURE-ERRORS: ${consoleErrors.length} console error(s), ` +
+          `${pageErrors.length} page error(s), ${inAppErrors.length} in-app error(s)`,
       );
-      process.exitCode = 1;
-    } else {
+    }
+    for (const entry of entries) {
+      const reopened = readFileSync(join(stagingDir, entry.file));
+      if (reopened.byteLength !== entry.pngByteLength || sha256HexNode(reopened) !== entry.pngSha256) {
+        throw new Error(`V4-CAPTURE-HASH: staged PNG changed before publication: ${entry.file}`);
+      }
+    }
+    // Chromium can retain transient screenshot handles on Windows until browser shutdown.
+    // Close it before the one atomic directory rename; the staged bytes are already reopened.
+    if (browser !== null) {
+      await browser.close();
+      browser = null;
+    }
+    writeFileSync(resolve(stagingDir, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
+    if (existsSync(outDir)) {
+      throw new Error(`V4-OUTPUT-SAFETY: canonical output appeared before publication: ${outDir}`);
+    }
+    renameSync(stagingDir, outDir);
+    log(`manifest atomically published to ${resolve(outDir, "manifest.json")}`);
+    {
       log(
         `OK in ${manifest.durationSeconds.toFixed(1)}s — ${entries.length} captures across ` +
           `${backendPassNames.length} backend passes (${passBPlan.absent.length} absent pass-b ` +
@@ -701,6 +819,7 @@ async function main() {
       passADir: args.passADir === null ? null : resolve(args.passADir),
       passBDir: args.passBDir === null ? null : resolve(args.passBDir),
       requirePassB: args.requirePassB,
+      allowSyntheticFixtures: args.allowSyntheticFixtures,
     });
   } else {
     const outDir =

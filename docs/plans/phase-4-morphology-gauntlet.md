@@ -1,10 +1,10 @@
 # Plan — Phase 4: morphology gauntlet, timeline semantics, and visual diagnostics
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — passing criteria frozen; WP0/WP1/WP2a/WP2b/WP2c CLEAN; WP3 is the
-  next serial package
+- **Status:** in progress — passing criteria frozen; WP0/WP1/WP2a/WP2b/WP2c CLEAN; WP3 repair
+  candidate is awaiting same-reviewer round 2
 - **Started:** 2026-07-16
-- **Last touched:** 2026-07-16 by Codex, coordinating session
+- **Last touched:** 2026-07-17 by Codex, coordinating session
 - **Runner-completion freeze:** `cd24365` (strict A-DEPLETION/A-HOLLOW caps, reviewed solver
   source hashes, fail-closed pass publication; committed before WP2b delegation)
 - **Execution-cadence freeze:** `7be4c5d` (per-cycle series and checks; ordinary far-field
@@ -647,7 +647,28 @@ required schedule manifest and are not advertised as resumable mid-history.
       strictly fail-closed — if the real run trips `B-EXEC-LEDGER`/`B-EXEC-SURFACE` just past
       tolerance, suspect the witness, loop to development, and never widen a bound in place.
 - [ ] WP3: operator-honest app snapshots, scenario/artifact inspection, Phase 4 visual harness.
-      Separate code + visual review → fix loop.
+      Implementation candidate `dce7081` passed 166/166 app tests, the 33-module app build,
+      Phase 3's nine-capture harness, and a 20-capture synthetic Phase 4 harness. Independent
+      review round 1 nevertheless rejected it with seven blockers and two should-fixes:
+      explicitly synthetic NOT-gate-evidence bundles were relabeled as published evidence;
+      backend provenance and exact run-set completeness were fail-open; capture manifests
+      omitted crystal size and load-bearing morphology metrics; original-resolution captures
+      clipped both A-column views and every checkpoint hash; the Windows WebGPU attempt used a
+      Metal-only flag; output paths could overlap evidence or retain mixed stale captures; and
+      the exact root test command exited 1 on a Vitest worker RPC timeout despite all 709
+      assertions passing. Portable command/path/PNG-hash records and morphology-bbox camera
+      framing are the should-fixes. The repair candidate closes the full set with frozen
+      real-evidence provenance/run sets, explicit synthetic opt-in and persistent NOT GATE
+      EVIDENCE labels, raw checkpoint morphology and criterion verdicts, occupied-geometry
+      framing with pixel-margin assertions, platform-aware backend attempts plus an exact forced
+      WebGL2 check, and staged/reopened/atomically published capture output with portable paths
+      and PNG hashes. App verification is 176/176 tests, a 33-module build, 20/20 synthetic
+      Phase 4 captures and 9/9 Phase 3 regression captures, all inspected at 1600x1200. The
+      default Vitest fork transport twice passed all assertions but timed out its worker-status
+      RPC on Windows; the serial thread transport retains all tests and made exact root
+      `npm test` exit 0 at 42 files / 719 tests, Rule 7 over 306 files, and both typechecks.
+      Return this immutable candidate to the same reviewer and do not check this item before
+      zero blockers and zero should-fixes.
 - [ ] Run the complete regression suite, Phase 2a byte control, gate3 regression, app build, and
       both screenshot backends; loop every failure.
 - [ ] Run flagless Pass A and record the blocking result with hashes and exact metrics.
@@ -788,6 +809,18 @@ required schedule manifest and are not advertised as resumable mid-history.
 - **Decoder-normalized text as proof of canonical bytes.** Rejected by WP2b review round 1. The
   default decoder stripped a leading UTF-8 BOM before text comparison, so canonical parsing must
   compare the original bytes to a fresh canonical encoding instead.
+- **Treating an internally consistent visual bundle as published gate evidence.** Rejected by
+  WP3 review round 1. The repository's explicit synthetic NOT-gate-evidence fixtures passed the
+  visual verifier, which then displayed and recorded them as published Pass A/B evidence; a
+  coherent backend rewrite passed too. Real visual acceptance must pin the frozen manifest,
+  provenance, backend, and exact run set. Synthetic fixtures require an explicit developer-only
+  opt-in and retain their NOT-gate-evidence label through the app and capture manifest.
+- **Framing captures by the simulation domain and writing directly into a reusable output
+  directory.** Rejected by WP3 review round 1. Domain framing made small registered crystals
+  illegible and already clipped the synthetic A column, while direct writes allowed output to
+  overlap evidence or combine stale and partial images. Captures frame independently recomputed
+  occupied geometry, enforce visible margins, write to disjoint fresh staging, and publish only
+  a complete checked set.
 
 ## Open questions
 

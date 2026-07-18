@@ -34,8 +34,20 @@ export interface CameraPose {
   readonly elevationDeg?: number;
   /** World units from the target. */
   readonly distance?: number;
+  /** Target offsets from the domain center in world x/y. */
+  readonly targetX?: number;
+  readonly targetY?: number;
   /** Target height above the domain center (world z). */
   readonly targetZ?: number;
+}
+
+export interface FramingInfo {
+  readonly clipped: boolean;
+  readonly minPixelMargin: number;
+  readonly projectedWidthPixels: number;
+  readonly projectedHeightPixels: number;
+  readonly viewportWidth: number;
+  readonly viewportHeight: number;
 }
 
 const INITIAL_CAPACITY = 1 << 15;
@@ -66,6 +78,9 @@ export class CrystalView {
   private readonly pointerScratch = new THREE.Vector2();
   private worldOffset: readonly [number, number, number] = [0, 0, 0];
   private domainExtent = 128;
+  private defaultDistance = 1.22 * 128;
+  private frameTarget: readonly [number, number, number] = [0, 0, 0];
+  private occupiedBounds: { readonly min: THREE.Vector3; readonly max: THREE.Vector3 } | null = null;
   private crystalVisible = true;
 
   private sliceMesh: THREE.Mesh | null = null;
@@ -145,24 +160,93 @@ export class CrystalView {
     const c = cartesian(center[0], center[1], center[2]);
     this.worldOffset = c;
     this.domainExtent = Math.max(dims.nx, dims.ny, dims.nz);
+    this.defaultDistance = 1.22 * this.domainExtent;
+    this.frameTarget = [0, 0, 0];
+    this.occupiedBounds = null;
+    this.setCameraPose({});
+  }
+
+  /** Fit the default camera to raw occupied bounds, independent of empty domain padding. */
+  frameOccupancy(
+    a: Uint8Array,
+    dims: Dims,
+    center: readonly [number, number, number],
+  ): void {
+    this.frameDomain(dims, center);
+    const [ox, oy, oz] = this.worldOffset;
+    const min = new THREE.Vector3(Infinity, Infinity, Infinity);
+    const max = new THREE.Vector3(-Infinity, -Infinity, -Infinity);
+    for (let index = 0; index < a.length; index++) {
+      if (a[index] !== 1) continue;
+      const [i, j, k] = coordsOf(dims, index);
+      const [x, y, z] = cartesian(i, j, k);
+      min.min(new THREE.Vector3(x - ox - 0.6, y - oy - 0.55, z - oz - 0.55));
+      max.max(new THREE.Vector3(x - ox + 0.6, y - oy + 0.55, z - oz + 0.55));
+    }
+    if (!Number.isFinite(min.x)) return;
+    const target = min.clone().add(max).multiplyScalar(0.5);
+    const radius = Math.max(1, max.clone().sub(min).length() / 2);
+    const halfVerticalFov = (this.camera.fov * Math.PI) / 360;
+    this.frameTarget = [target.x, target.y, target.z];
+    this.defaultDistance = (radius / Math.sin(halfVerticalFov)) * 1.18;
+    this.occupiedBounds = { min, max };
     this.setCameraPose({});
   }
 
   /** Place the camera at a reproducible pose; defaults = frameDomain's canonical view. */
   setCameraPose(pose: CameraPose): void {
-    const extent = this.domainExtent;
     const az = ((pose.azimuthDeg ?? 0) * Math.PI) / 180;
     const el = ((pose.elevationDeg ?? 30.6) * Math.PI) / 180;
-    const distance = pose.distance ?? 1.22 * extent;
-    const tz = pose.targetZ ?? 0;
-    this.controls.target.set(0, 0, tz);
+    const distance = pose.distance ?? this.defaultDistance;
+    const tx = pose.targetX ?? this.frameTarget[0];
+    const ty = pose.targetY ?? this.frameTarget[1];
+    const tz = pose.targetZ ?? this.frameTarget[2];
+    this.controls.target.set(tx, ty, tz);
     this.camera.position.set(
-      distance * Math.cos(el) * Math.sin(az),
-      -distance * Math.cos(el) * Math.cos(az),
+      tx + distance * Math.cos(el) * Math.sin(az),
+      ty - distance * Math.cos(el) * Math.cos(az),
       tz + distance * Math.sin(el),
     );
     this.camera.lookAt(0, 0, tz);
     this.controls.update();
+  }
+
+  /** Project raw occupied bounds for non-vacuous screenshot clipping/margin assertions. */
+  framingInfo(): FramingInfo | null {
+    if (this.occupiedBounds === null) return null;
+    this.camera.updateMatrixWorld(true);
+    const { min, max } = this.occupiedBounds;
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+    for (const x of [min.x, max.x]) {
+      for (const y of [min.y, max.y]) {
+        for (const z of [min.z, max.z]) {
+          const projected = new THREE.Vector3(x, y, z).project(this.camera);
+          minX = Math.min(minX, projected.x);
+          maxX = Math.max(maxX, projected.x);
+          minY = Math.min(minY, projected.y);
+          maxY = Math.max(maxY, projected.y);
+        }
+      }
+    }
+    const viewportWidth = this.renderer.domElement.clientWidth;
+    const viewportHeight = this.renderer.domElement.clientHeight;
+    const margins = [
+      ((minX + 1) / 2) * viewportWidth,
+      ((1 - maxX) / 2) * viewportWidth,
+      ((1 - maxY) / 2) * viewportHeight,
+      ((minY + 1) / 2) * viewportHeight,
+    ];
+    return {
+      clipped: margins.some((margin) => margin < 0),
+      minPixelMargin: Math.min(...margins),
+      projectedWidthPixels: ((maxX - minX) / 2) * viewportWidth,
+      projectedHeightPixels: ((maxY - minY) / 2) * viewportHeight,
+      viewportWidth,
+      viewportHeight,
+    };
   }
 
   /** Show/hide the crystal mesh (debug hook: slice-only captures). */

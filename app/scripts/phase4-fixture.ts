@@ -29,7 +29,11 @@ import {
   type SolverState,
 } from "@vcc/core";
 import { CAPPED_COLUMN_EVENT_ENVIRONMENT, cappedColumnSchedule } from "../src/scenarios.ts";
-import { canonicalJsonBytesOf, sha256HexNode } from "./phase4-verify.ts";
+import {
+  SYNTHETIC_FIXTURE_NOTICE,
+  canonicalJsonBytesOf,
+  sha256HexNode,
+} from "./phase4-verify.ts";
 
 const DIMS: Dims = { nx: 16, ny: 16, nz: 16 };
 const CENTER: readonly [number, number, number] = [8, 8, 8];
@@ -137,6 +141,8 @@ interface GGFixtureRun {
   readonly finalParams: GGTimelineEnvironment;
   readonly schedule: unknown;
   readonly habitControl: { u: number; ggThreshBeta01: number } | null;
+  readonly rngSeed?: number;
+  readonly noiseEpsilon?: number;
 }
 
 function ggFixtureRuns(): GGFixtureRun[] {
@@ -147,25 +153,26 @@ function ggFixtureRuns(): GGFixtureRun[] {
     rho: 0.105,
   });
   const u0 = ggEnvironmentWithThresholdBasal(plate, 3);
-  const u1 = ggEnvironmentWithThresholdBasal(plate, 1);
+  const habit = [
+    ["A-HABIT-U0", 0, 3, "plate"],
+    ["A-HABIT-U0P25", 0.25, 2.5, "plate"],
+    ["A-HABIT-U0P5", 0.5, 2, "plate"],
+    ["A-HABIT-U0P75", 0.75, 1.5, "column"],
+    ["A-HABIT-U1", 1, 1, "column"],
+  ] as const;
   const schedule = cappedColumnSchedule();
   return [
-    {
-      id: "A-HABIT-U0",
-      shape: "plate",
-      params: u0,
-      finalParams: u0,
-      schedule: null,
-      habitControl: { u: 0, ggThreshBeta01: 3 },
-    },
-    {
-      id: "A-HABIT-U1",
-      shape: "column",
-      params: u1,
-      finalParams: u1,
-      schedule: null,
-      habitControl: { u: 1, ggThreshBeta01: 1 },
-    },
+    ...habit.map(([id, u, threshold, shape]) => {
+      const params = ggEnvironmentWithThresholdBasal(plate, threshold);
+      return {
+        id,
+        shape,
+        params,
+        finalParams: params,
+        schedule: null,
+        habitControl: { u, ggThreshBeta01: threshold },
+      };
+    }),
     {
       id: "A-DEPLETION",
       shape: "ring",
@@ -173,6 +180,26 @@ function ggFixtureRuns(): GGFixtureRun[] {
       finalParams: hollow,
       schedule: null,
       habitControl: null,
+    },
+    ...[1, 2, 3].map((rngSeed) => ({
+      id: `A-HOLLOW-SEED-${rngSeed}`,
+      shape: "ring" as const,
+      params: hollow,
+      finalParams: hollow,
+      schedule: null,
+      habitControl: null,
+      rngSeed,
+      noiseEpsilon: 0.001,
+    })),
+    {
+      id: "A-HOLLOW-SEED-1-REPLAY",
+      shape: "ring",
+      params: hollow,
+      finalParams: hollow,
+      schedule: null,
+      habitControl: null,
+      rngSeed: 1,
+      noiseEpsilon: 0.001,
     },
     {
       id: "A-TIMELINE",
@@ -187,6 +214,14 @@ function ggFixtureRuns(): GGFixtureRun[] {
       shape: "star",
       params: dendrite,
       finalParams: dendrite,
+      schedule: null,
+      habitControl: null,
+    },
+    {
+      id: "A-BRANCH-COMPARATOR",
+      shape: "plate",
+      params: u0,
+      finalParams: u0,
       schedule: null,
       habitControl: null,
     },
@@ -219,8 +254,8 @@ function ggFixtureState(run: GGFixtureRun, tick: number): SolverState {
   return {
     dims: DIMS,
     tick,
-    rngSeed: 1,
-    noiseEpsilon: 0,
+    rngSeed: run.rngSeed ?? 1,
+    noiseEpsilon: run.noiseEpsilon ?? 0,
     farField: "reflecting",
     domain: "hexPrism",
     params,
@@ -240,6 +275,8 @@ interface LKFixtureRun {
   readonly sigmaInfinity: number;
   readonly finalTempC: number;
   readonly schedule: unknown;
+  readonly rngSeed?: number;
+  readonly noiseEpsilon?: number;
 }
 
 const LK_COMMON = {
@@ -270,7 +307,21 @@ function lkFixtureRuns(): LKFixtureRun[] {
   };
   return [
     { id: "B-HABIT-TM5", shape: "plate", tempC: -5, sigmaInfinity: 0.002, finalTempC: -5, schedule: null },
+    { id: "B-HABIT-TM7P5", shape: "plate", tempC: -7.5, sigmaInfinity: 0.002, finalTempC: -7.5, schedule: null },
+    { id: "B-HABIT-TM10", shape: "column", tempC: -10, sigmaInfinity: 0.002, finalTempC: -10, schedule: null },
+    { id: "B-HABIT-TM12P5", shape: "column", tempC: -12.5, sigmaInfinity: 0.002, finalTempC: -12.5, schedule: null },
     { id: "B-HABIT-TM15", shape: "column", tempC: -15, sigmaInfinity: 0.002, finalTempC: -15, schedule: null },
+    ...[1, 2, 3].map((rngSeed) => ({
+      id: `B-HOLLOW-SEED-${rngSeed}`,
+      shape: "ring" as const,
+      tempC: -15,
+      sigmaInfinity: 0.002,
+      finalTempC: -15,
+      schedule: null,
+      rngSeed,
+      noiseEpsilon: 0.001,
+    })),
+    { id: "B-HOLLOW-SEED-1-REPLAY", shape: "ring", tempC: -15, sigmaInfinity: 0.002, finalTempC: -15, schedule: null, rngSeed: 1, noiseEpsilon: 0.001 },
     { id: "B-TIMELINE", shape: "capped", tempC: -15, sigmaInfinity: 0.002, finalTempC: -5, schedule: timelineSchedule },
     { id: "B-BRANCH", shape: "star", tempC: -5, sigmaInfinity: 0.01, finalTempC: -5, schedule: null },
   ];
@@ -301,8 +352,8 @@ function lkFixtureState(run: LKFixtureRun, tick: number): LKRunState {
     dims: DIMS,
     tick,
     simTimeSeconds: tick * 0.01,
-    rngSeed: 1,
-    noiseEpsilon: 0,
+    rngSeed: run.rngSeed ?? 1,
+    noiseEpsilon: run.noiseEpsilon ?? 0,
     domain: "hexPrism",
     center: CENTER,
     tempC: run.finalTempC,
@@ -385,7 +436,7 @@ function rawSha(view: Uint8Array | Float64Array): string {
   return sha256HexNode(new Uint8Array(view.buffer, view.byteOffset, view.byteLength));
 }
 
-/** Build the pass-a fixture bundle (5 runs covering every required Pass A view). */
+/** Build the complete frozen Pass-A run set as a tiny synthetic bundle. */
 export function buildFixturePassA(directory: string): void {
   const tick = 100;
   const runs = ggFixtureRuns();
@@ -396,7 +447,7 @@ export function buildFixturePassA(directory: string): void {
     backend: "float64-cpu-oracle",
     precision: "float64",
     canonicalSeedSites: 19,
-    fixture: "wp3-synthetic-16cubed (NOT gate evidence)",
+    fixture: SYNTHETIC_FIXTURE_NOTICE,
     runs: runs.map((run) => ({
       id: run.id,
       scenario: run.id,
@@ -405,8 +456,8 @@ export function buildFixturePassA(directory: string): void {
       dims: DIMS,
       domain: "hexPrism",
       farField: "reflecting",
-      rngSeed: 1,
-      noiseEpsilon: 0,
+      rngSeed: run.rngSeed ?? 1,
+      noiseEpsilon: run.noiseEpsilon ?? 0,
       params: run.params,
       habitControl: run.habitControl,
       schedule: run.schedule,
@@ -453,7 +504,14 @@ export function buildFixturePassA(directory: string): void {
     payloadWithoutRuns: {
       version: 1,
       manifestSha256: sha256HexNode(manifestBytes),
-      fixture: "wp3-synthetic (NOT gate evidence)",
+      fixture: SYNTHETIC_FIXTURE_NOTICE,
+      records: [
+        { criterion: "A-HABIT-ENDPOINTS", passed: true, summary: "synthetic fixture verdict" },
+        { criterion: "A-HABIT-SOLID", passed: true, summary: "synthetic fixture verdict" },
+        { criterion: "A-DEPLETION-SIGNAL", passed: true, summary: "synthetic fixture verdict" },
+        { criterion: "A-TIMELINE-CAPS", passed: true, summary: "synthetic fixture verdict" },
+        { criterion: "A-BRANCH", passed: true, summary: "synthetic fixture verdict" },
+      ],
       verdict: { gatePass: true, blockingFailures: [], contractFailures: [] },
     },
     runs: summaries,
@@ -461,7 +519,7 @@ export function buildFixturePassA(directory: string): void {
   });
 }
 
-/** Build the pass-b fixture bundle (4 runs covering every Pass B counterpart view). */
+/** Build the complete frozen Pass-B run set as a tiny synthetic bundle. */
 export function buildFixturePassB(directory: string): void {
   const tick = 50;
   const runs = lkFixtureRuns();
@@ -473,7 +531,7 @@ export function buildFixturePassB(directory: string): void {
     precision: "float64",
     canonicalSeedSites: 19,
     surfacePolicy: LK_COMMON.surfacePolicy,
-    fixture: "wp3-synthetic-16cubed (NOT gate evidence)",
+    fixture: SYNTHETIC_FIXTURE_NOTICE,
     runs: runs.map((run) => ({
       id: run.id,
       scenario: run.id,
@@ -483,8 +541,8 @@ export function buildFixturePassB(directory: string): void {
       dims: DIMS,
       domain: "hexPrism",
       farField: "dirichlet",
-      rngSeed: 1,
-      noiseEpsilon: 0,
+      rngSeed: run.rngSeed ?? 1,
+      noiseEpsilon: run.noiseEpsilon ?? 0,
       tempC: run.tempC,
       sigmaInfinity: run.sigmaInfinity,
       dxUm: LK_COMMON.dxUm,
@@ -535,7 +593,14 @@ export function buildFixturePassB(directory: string): void {
     payloadWithoutRuns: {
       version: 1,
       manifestSha256: sha256HexNode(manifestBytes),
-      fixture: "wp3-synthetic (NOT gate evidence)",
+      fixture: SYNTHETIC_FIXTURE_NOTICE,
+      records: [
+        { criterion: "B-HABIT-ENDPOINTS", passed: true, summary: "synthetic fixture verdict" },
+        { criterion: "B-HABIT-SOLID", passed: true, summary: "synthetic fixture verdict" },
+        { criterion: "B-HOLLOW", passed: true, summary: "synthetic fixture verdict" },
+        { criterion: "B-TIMELINE", passed: true, summary: "synthetic fixture verdict" },
+        { criterion: "B-BRANCH", passed: true, summary: "synthetic fixture verdict" },
+      ],
       verdict: { executionValid: true, diagnosticPass: true, diagnosticFailures: [] },
     },
     runs: summaries,

@@ -15,13 +15,19 @@
 
 import {
   aspectRatio,
+  branchCount,
+  cappedColumnProfile,
   cellCount,
   centerRimDepletion,
+  crossSectionHollowness,
   decodeCheckpoint,
   decodeLKCheckpoint,
   hexDistance,
+  latticeBBox,
   latticeExtents,
   paramSlot,
+  sealedVoidFraction,
+  type CappedColumnProfile,
   type CenterRimDepletion,
   type CheckpointMetrics,
   type Dims,
@@ -29,6 +35,7 @@ import {
   type FarFieldCondition,
   type GGParams,
   type LatticeExtents,
+  type LatticeBBox,
   type LKSurfacePolicy,
 } from "@vcc/core";
 import { fieldSemanticsFor, type FieldSemantics, type OperatorName } from "./display.ts";
@@ -41,20 +48,42 @@ import { sha256Hex } from "./sha256.ts";
  */
 export interface ArtifactEvidenceContext {
   readonly runId: string;
-  readonly pass: string;
+  readonly pass: "A" | "B";
   readonly operator: OperatorName;
-  /** Backend recorded by the evidence run (e.g. "float64-cpu-oracle"). */
-  readonly backend: string;
-  /** Honest evidence-status sentence from the bundle (verdict, report identity). */
-  readonly evidenceStatus: string;
+  readonly backend: "float64-cpu-oracle";
+  readonly evidenceClass:
+    | "published-gate-evidence"
+    | "synthetic-fixture-not-gate-evidence";
+  readonly protocol: "phase4-pass-a-v1" | "phase4-pass-b-v1";
+  readonly reportPath: "gate4a-report.json" | "gate4b-report.json";
+  readonly manifestSha256: string;
+  readonly syntheticNotice?: "SYNTHETIC FIXTURE - NOT GATE EVIDENCE";
+  readonly viewVerdict: {
+    readonly criterion: string;
+    readonly passed: boolean;
+    readonly summary: string;
+  };
   readonly checkpointSha256: string;
 }
 
 export interface InspectedEvidence {
   readonly runId: string | null;
+  readonly pass: "A" | "B" | null;
   readonly status: string;
   readonly backend: string;
   readonly sha256: string;
+  readonly evidenceClass: "loose-unverified" | ArtifactEvidenceContext["evidenceClass"];
+  readonly manifestSha256: string | null;
+  readonly viewVerdict: ArtifactEvidenceContext["viewVerdict"] | null;
+}
+
+export interface InspectedMorphology {
+  readonly aspectRatio: number;
+  readonly attachedCount: number;
+  readonly crossSectionHollowness: number;
+  readonly sealedVoidFraction: number;
+  readonly branchCount: number;
+  readonly cappedColumnProfile: CappedColumnProfile | null;
 }
 
 interface InspectedArtifactBase {
@@ -77,9 +106,11 @@ interface InspectedArtifactBase {
   readonly surface32: Float32Array;
   /** Shared @vcc/core metric over the operator's own field (V4-4). */
   readonly depletion: CenterRimDepletion;
+  readonly bbox: LatticeBBox | null;
   readonly extents: LatticeExtents | null;
   readonly aspectRatio: number;
   readonly attachedCount: number;
+  readonly morphology: InspectedMorphology;
   readonly evidence: InspectedEvidence;
   /** Complete metadata block for the status panel (operator, policy, control, seed, …). */
   readonly statusLines: readonly string[];
@@ -170,11 +201,21 @@ function toF32(values: Float64Array): Float32Array {
 function looseEvidence(sha256: string): InspectedEvidence {
   return {
     runId: null,
+    pass: null,
     status: "loose artifact — unverified, NOT gate evidence",
     backend: "unrecorded",
     sha256,
+    evidenceClass: "loose-unverified",
+    manifestSha256: null,
+    viewVerdict: null,
   };
 }
+
+const PASS_A_MANIFEST_SHA256 =
+  "6d1ee3a262e8985930ded30f8ef490e1e47402dce6c55f2b3b16e4e80b0d9a98";
+const PASS_B_MANIFEST_SHA256 =
+  "c0ceed5b0ebb68defee85b1d78d52c9563f5edd35ed415b8cfdad57dd7c3e812";
+const SHA256_PATTERN = /^[0-9a-f]{64}$/;
 
 function verifyContext(
   bytes: Uint8Array,
@@ -183,6 +224,22 @@ function verifyContext(
 ): InspectedEvidence {
   const actualSha = sha256Hex(bytes);
   if (context === null) return looseEvidence(actualSha);
+  const allowedContextKeys = new Set([
+    "runId",
+    "pass",
+    "operator",
+    "backend",
+    "evidenceClass",
+    "protocol",
+    "reportPath",
+    "manifestSha256",
+    "syntheticNotice",
+    "viewVerdict",
+    "checkpointSha256",
+  ]);
+  for (const key of Object.keys(context)) {
+    if (!allowedContextKeys.has(key)) throw new Error(`evidence context contains unknown key ${key}`);
+  }
   if (context.checkpointSha256 !== actualSha) {
     throw new Error(
       `artifact hash mismatch: evidence context records sha256 ${context.checkpointSha256}, ` +
@@ -195,16 +252,81 @@ function verifyContext(
         `decodes as ${actualOperator}`,
     );
   }
+  const expectedPass = actualOperator === "GGThreshold" ? "A" : "B";
+  const expectedProtocol = expectedPass === "A" ? "phase4-pass-a-v1" : "phase4-pass-b-v1";
+  const expectedReport = expectedPass === "A" ? "gate4a-report.json" : "gate4b-report.json";
+  if (
+    context.pass !== expectedPass ||
+    context.protocol !== expectedProtocol ||
+    context.reportPath !== expectedReport
+  ) {
+    throw new Error("evidence context pass/protocol/report identity is invalid");
+  }
+  if (context.backend !== "float64-cpu-oracle") {
+    throw new Error("evidence context backend must be float64-cpu-oracle");
+  }
+  if (!SHA256_PATTERN.test(context.manifestSha256)) {
+    throw new Error("evidence context manifestSha256 is invalid");
+  }
+  if (
+    typeof context.viewVerdict !== "object" ||
+    context.viewVerdict === null ||
+    typeof context.viewVerdict.criterion !== "string" ||
+    !context.viewVerdict.criterion.startsWith(`${expectedPass}-`) ||
+    typeof context.viewVerdict.passed !== "boolean" ||
+    typeof context.viewVerdict.summary !== "string" ||
+    context.viewVerdict.summary.length === 0
+  ) {
+    throw new Error("evidence context view verdict is invalid");
+  }
+  let status: string;
+  if (context.evidenceClass === "published-gate-evidence") {
+    const frozenManifest = expectedPass === "A" ? PASS_A_MANIFEST_SHA256 : PASS_B_MANIFEST_SHA256;
+    if (context.manifestSha256 !== frozenManifest || context.syntheticNotice !== undefined) {
+      throw new Error("published evidence context does not pin the frozen manifest");
+    }
+    status =
+      expectedPass === "A"
+        ? `published Pass A gate evidence (${expectedReport})`
+        : `published Pass B execution-valid evidence (${expectedReport}); morphology verdict is diagnostic`;
+  } else if (context.evidenceClass === "synthetic-fixture-not-gate-evidence") {
+    if (context.syntheticNotice !== "SYNTHETIC FIXTURE - NOT GATE EVIDENCE") {
+      throw new Error("synthetic evidence context lacks the exact NOT GATE EVIDENCE notice");
+    }
+    status = "SYNTHETIC FIXTURE - NOT GATE EVIDENCE";
+  } else {
+    throw new Error("evidence context classification is unknown");
+  }
   return {
     runId: context.runId,
-    status: context.evidenceStatus,
+    pass: context.pass,
+    status,
     backend: context.backend,
     sha256: actualSha,
+    evidenceClass: context.evidenceClass,
+    manifestSha256: context.manifestSha256,
+    viewVerdict: context.viewVerdict,
   };
 }
 
 function num(value: number): string {
   return Number.isFinite(value) ? String(value) : "undefined (NaN)";
+}
+
+function morphologyOf(
+  a: Uint8Array,
+  dims: Dims,
+  center: readonly [number, number, number],
+): InspectedMorphology {
+  const extents = latticeExtents(a, dims);
+  return {
+    aspectRatio: aspectRatio(a, dims),
+    attachedCount: extents?.attachedCount ?? 0,
+    crossSectionHollowness: crossSectionHollowness(a, dims),
+    sealedVoidFraction: sealedVoidFraction(a, dims),
+    branchCount: branchCount(a, dims, center),
+    cappedColumnProfile: cappedColumnProfile(a, dims, center) ?? null,
+  };
 }
 
 /**
@@ -230,18 +352,26 @@ export function inspectCheckpointBytes(
       wall ?? undefined,
     );
     const extents = latticeExtents(state.a, state.dims);
+    const bbox = latticeBBox(state.a, state.dims);
+    const morphology = morphologyOf(state.a, state.dims, state.center);
     const ggThreshBeta01 = state.params.ggThreshBeta[paramSlot(0, 1)];
     const statusLines = [
       "INSPECTING ARTIFACT — view-only; evidence bytes are never modified",
       "operator: GGThreshold (abstract thresholds; no physical surface policy)",
       `run: ${evidence.runId ?? "(loose artifact)"} · evidence: ${evidence.status}`,
       `recorded backend: ${evidence.backend}`,
+      evidence.viewVerdict === null
+        ? "view verdict: unavailable (loose artifact)"
+        : `view verdict: ${evidence.viewVerdict.criterion}=${evidence.viewVerdict.passed} - ${evidence.viewVerdict.summary}`,
       `G-G control: rho ${num(state.params.rho)} · phi ${num(state.params.phi)} · ` +
         `ggThreshBeta(0,1) ${num(ggThreshBeta01)} (model units, unvalidated)`,
       `seed ${state.rngSeed} · noise ${state.noiseEpsilon} · tick ${state.tick} ` +
         `(G-G ticks have no physical-time interpretation)`,
       `domain ${state.domain} · far field ${state.farField} · dims ` +
         `${state.dims.nx},${state.dims.ny},${state.dims.nz}`,
+      `raw morphology: extents ${extents?.iExtent ?? 0},${extents?.jExtent ?? 0},${extents?.zExtent ?? 0}; ` +
+        `hollow ${num(morphology.crossSectionHollowness)}; sealed ${num(morphology.sealedVoidFraction)}; ` +
+        `branches ${morphology.branchCount}; cap score ${num(morphology.cappedColumnProfile?.capScore ?? Number.NaN)}`,
       `checkpoint sha256 ${evidence.sha256}`,
     ];
     return {
@@ -261,9 +391,11 @@ export function inspectCheckpointBytes(
       surface64: state.b,
       surface32: toF32(state.b),
       depletion,
+      bbox,
       extents,
-      aspectRatio: aspectRatio(state.a, state.dims),
-      attachedCount: extents?.attachedCount ?? 0,
+      aspectRatio: morphology.aspectRatio,
+      attachedCount: morphology.attachedCount,
+      morphology,
       evidence,
       statusLines,
       params: state.params,
@@ -281,18 +413,26 @@ export function inspectCheckpointBytes(
     wall ?? undefined,
   );
   const extents = latticeExtents(state.a, state.dims);
+  const bbox = latticeBBox(state.a, state.dims);
+  const morphology = morphologyOf(state.a, state.dims, state.center);
   const statusLines = [
     "INSPECTING ARTIFACT — view-only; evidence bytes are never modified",
     "operator: LibbrechtKinetics (source-cited kinetics; Evidence = unvalidated)",
     `surface policy: ${state.surfacePolicy}`,
     `run: ${evidence.runId ?? "(loose artifact)"} · evidence: ${evidence.status}`,
     `recorded backend: ${evidence.backend}`,
+    evidence.viewVerdict === null
+      ? "view verdict: unavailable (loose artifact)"
+      : `view verdict: ${evidence.viewVerdict.criterion}=${evidence.viewVerdict.passed} - ${evidence.viewVerdict.summary}`,
     `control: temperature ${num(state.tempC)} C · sigmaInfinity ${num(state.sigmaInfinity)} ` +
       `(dimensionless) · ${state.paramSet} · ${num(state.pressurePa)} Pa · dx ${num(state.dxUm)} um`,
     `seed ${state.rngSeed} · noise ${state.noiseEpsilon} · interface step ${state.tick} · ` +
       `physical time ${num(state.simTimeSeconds)} s`,
     `domain ${state.domain} · far field ${state.farField} · dims ` +
       `${state.dims.nx},${state.dims.ny},${state.dims.nz}`,
+    `raw morphology: extents ${extents?.iExtent ?? 0},${extents?.jExtent ?? 0},${extents?.zExtent ?? 0}; ` +
+      `hollow ${num(morphology.crossSectionHollowness)}; sealed ${num(morphology.sealedVoidFraction)}; ` +
+      `branches ${morphology.branchCount}; cap score ${num(morphology.cappedColumnProfile?.capScore ?? Number.NaN)}`,
     `checkpoint sha256 ${evidence.sha256}`,
   ];
   return {
@@ -312,9 +452,11 @@ export function inspectCheckpointBytes(
     surface64: state.f,
     surface32: toF32(state.f),
     depletion,
+    bbox,
     extents,
-    aspectRatio: aspectRatio(state.a, state.dims),
-    attachedCount: extents?.attachedCount ?? 0,
+    aspectRatio: morphology.aspectRatio,
+    attachedCount: morphology.attachedCount,
+    morphology,
     evidence,
     statusLines,
     surfacePolicy: state.surfacePolicy,
