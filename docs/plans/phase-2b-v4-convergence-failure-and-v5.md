@@ -168,7 +168,17 @@ exact `npm test` passes the Rule 7 scan over 156 files, both TypeScript projects
 across 43 files. The final depleted-start differential passes 3/3, and the enforcing Phase 2a
 control again exits 0 at tick 4,800 with exact symmetry, mass drift `2.056e-13`, and canonical
 checkpoint SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`.
-The same reviewer must now re-audit every round-1 finding and the provenance-test correction.
+The same reviewer replayed every round-1 finding and the provenance-test correction at
+`9640c42`: all five original findings are closed, the authenticated cold reconstruction remains
+inside the registered-scale bound, and focused solver/runner/artifact/Phase 4 tests pass. That
+review found one new should-fix before freeze: for an accepted all-subnormal field such as
+`sigmaInfinity = 1e-320`, the relative-error product could underflow to a zero bound while the
+stencil still produced nonzero subnormal roundoff. This is fail-closed and cannot affect the
+registered `0.002` condition, but decision 0014 applies to the full accepted domain. The authority
+and implementation now floor the per-cell error scale at one minimum binary64 subnormal while
+special-casing an exact zero field. The reviewer's exact three-site reproduction passes, as do
+Rule 7, both typechecks, and 30/30 focused solver tests. The same reviewer must re-check this
+immutable remediation before protocol freeze; zero blockers and zero should-fixes remain binding.
 
 ## Out of scope
 

@@ -2,7 +2,7 @@
 
 - **Date:** 2026-07-19
 - **Status:** accepted; tightens decision 0013 before any v5 morphology execution
-- **Charter impact:** §2.4 and Phase 2b updated in this session (charter v1.11 → v1.12)
+- **Charter impact:** §2.4 and Phase 2b updated in this session (charter v1.11 → v1.13)
 
 ## Context
 
@@ -26,12 +26,17 @@ count while remaining explicitly at aggregate float64-roundoff scale.
 1. Every aggregate-v5 sweep computes the independent absolute bound
 
    ```text
+   perCellRoundoffScale =
+     max(Number.EPSILON * maxAbsSweepInput, Number.MIN_VALUE)
    smootherDriftAbsLimit =
-     1024 * Number.EPSILON * activeCellCount * maxAbsSweepInput
+     1024 * activeCellCount * perCellRoundoffScale
    ```
 
-   where `maxAbsSweepInput` is measured over active unattached cells before the smoother. A zero
-   field has a zero bound and zero drift.
+   where `maxAbsSweepInput` is measured over active unattached cells before the smoother and
+   `Number.MIN_VALUE` is one minimum positive binary64 subnormal. A zero field is special-cased
+   to a zero bound and zero drift. The absolute floor covers the at-most-one-ULP rounding of each
+   operation when the relative product itself underflows; the same factor 1024 remains the
+   conservative per-cell operation-count allowance.
 2. The solver must reject a non-finite drift or any
    `abs(smootherDrift) > smootherDriftAbsLimit`; such a sweep is not convergence evidence.
 3. The registered positive-supersaturation, fixed-temperature Phase 2b runner independently uses
@@ -52,6 +57,8 @@ count while remaining explicitly at aggregate float64-roundoff scale.
   are forged coherently.
 - The bound is deliberately conservative because it covers the block accumulator as well as the
   stencil. It is not a measurement of expected error and must not be used as a tuning target.
+- Positive subnormal fields remain accepted without collapsing the bound to zero. The floor is
+  immaterial at the registered `sigmaInfinity = 0.002` gate condition.
 - A future smoother or accumulator change must re-derive this operation-count bound or introduce
   a new policy. Silently retaining 1024 after changing the arithmetic is forbidden.
 
@@ -64,5 +71,8 @@ count while remaining explicitly at aggregate float64-roundoff scale.
   arithmetic, not surface physics.
 - **Use an empirical multiple of the observed cold drift.** Rejected because one checkpoint is
   not a forward-error proof and would turn an evidence artifact into a numerical control.
+- **Reject all subnormal field values.** Rejected because the solver already accepts finite
+  positive supersaturation values in that domain and an operation-count-derived absolute ULP
+  floor closes the bound without narrowing the numerical input contract.
 - **Drop the drift term and loosen `divTol`.** Rejected by decisions 0006 and 0013: that weakens
   dual convergence and does not describe the actual float64 operator.

@@ -648,6 +648,35 @@ describe("LKSolver — divergence identity (§4.4 test 3)", () => {
     expect(() => solver.relaxField()).toThrow(/exceeds float64 roundoff bound/);
   });
 
+  it("keeps the operation-count bound nonzero for an accepted subnormal field", () => {
+    const dims = { nx: 8, ny: 8, nz: 8 } as const;
+    const center = [4, 4, 4] as const;
+    const solver = new LKSolver({
+      surfacePolicy: "aggregate-hv-g1h1-v5",
+      dims,
+      center,
+      tempC: -15,
+      sigmaInfinity: 1e-320,
+      dxUm: 0.35,
+      rngSeed: 1,
+      relaxTol: 1,
+      divTol: 1,
+      relaxMaxSweeps: 1,
+      seedRadius: null,
+      testExtraSeedSites: [
+        indexOf(4, 4, 4, dims),
+        indexOf(5, 4, 4, dims),
+        indexOf(4, 5, 4, dims),
+      ],
+    });
+
+    const bound = float64SmootherDriftAbsLimit(solver.activeCellCount, 1e-320);
+    expect(bound).toBeGreaterThan(0);
+    const report = solver.relaxField();
+    expect(report.smootherDriftDiagnostic).not.toBeNull();
+    expect(Math.abs(report.smootherDriftDiagnostic as number)).toBeLessThanOrEqual(bound);
+  });
+
   it("v5 leaves the v4 one-sweep field arithmetic bit-identical", () => {
     const controls = {
       dims: { nx: 16, ny: 16, nz: 12 },

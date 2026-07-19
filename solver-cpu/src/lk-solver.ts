@@ -204,11 +204,16 @@ export function float64SmootherDriftAbsLimit(
   if (!Number.isFinite(maxAbsSweepInput) || maxAbsSweepInput < 0) {
     throw new Error(`maxAbsSweepInput must be finite and nonnegative, got ${maxAbsSweepInput}`);
   }
+  if (maxAbsSweepInput === 0) return 0;
+  // `EPSILON * maxAbsSweepInput` underflows for an all-subnormal field even though each
+  // rounded stencil operation can still move one minimum subnormal. Decision 0014 therefore
+  // keeps the same operation-count factor and floors the per-cell scale at one binary64 ULP.
+  const perCellRoundoffScale = Math.max(
+    Number.EPSILON * maxAbsSweepInput,
+    Number.MIN_VALUE,
+  );
   const limit =
-    FLOAT64_SMOOTHER_DRIFT_BOUND_FACTOR *
-    Number.EPSILON *
-    activeCellCount *
-    maxAbsSweepInput;
+    FLOAT64_SMOOTHER_DRIFT_BOUND_FACTOR * activeCellCount * perCellRoundoffScale;
   if (!Number.isFinite(limit)) {
     throw new Error(`float64 smoother drift bound overflowed: ${limit}`);
   }

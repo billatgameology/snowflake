@@ -500,7 +500,9 @@ surface-boundary exchange** to a stated relative tolerance. Under exact arithmet
 zero, recovering the executed legacy-v3/aggregate-v4 two-term identity. Local replacement deltas
 may have either sign and are not uptake.
 The drift must separately satisfy decision 0014's absolute float64 bound
-`1024 * Number.EPSILON * activeCellCount * maxAbsSweepInput`. The registered positive,
+`1024 * activeCellCount * max(Number.EPSILON * maxAbsSweepInput, Number.MIN_VALUE)` for a
+nonzero field; an exact zero field has a zero bound. The minimum-subnormal floor prevents the
+relative product itself from underflowing while rounded stencil operations remain nonzero. The registered positive,
 fixed-temperature gate independently substitutes `sigma_infinity` for `maxAbsSweepInput` by the
 discrete maximum principle. A finite or identity-canceling term outside that bound is a smoother
 failure, not convergence.
