@@ -163,8 +163,12 @@ exposed a narrower stale test assumption: they treated the current repository he
 Phase 4 evidence source forever. The verifier was correct to reject the evolved v5 source. The
 tests now use immutable recorded Phase 4 commits `70a2496` (Pass A) and `dce7081` (archived Pass B)
 as their positive fixtures, while current `HEAD` is deliberately irrelevant. The unchanged
-verifier passes all 59/59 targeted tests with that correction. Commit the test repair, then rerun
-the exact root suite.
+verifier passes all 59/59 targeted tests with that correction. At tracked-clean commit `61ccc40`,
+exact `npm test` passes the Rule 7 scan over 156 files, both TypeScript projects, and 788/788 tests
+across 43 files. The final depleted-start differential passes 3/3, and the enforcing Phase 2a
+control again exits 0 at tick 4,800 with exact symmetry, mass drift `2.056e-13`, and canonical
+checkpoint SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`.
+The same reviewer must now re-audit every round-1 finding and the provenance-test correction.
 
 ## Out of scope
 

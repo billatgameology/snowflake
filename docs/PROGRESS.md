@@ -70,8 +70,11 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   `47fc01d`; the two failures exposed stale Phase 4 tests that assumed current `HEAD` must forever
   match the frozen solver source. The verifier itself correctly rejected v5. Positive fixtures
   now name immutable recorded commits `70a2496`/`dce7081`, and the unchanged verifier passes 59/59
-  targeted tests. Commit that test correction and replay root next. The v5 morphology protocol is
-  not yet frozen or executed.
+  targeted tests. At tracked-clean `61ccc40`, exact root verification is Rule 7 clean over 156
+  files with both typechecks and 788/788 tests green. The final depleted-start differential is
+  3/3 and enforcing Phase 2a control exits 0 with canonical hash
+  `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Same-reviewer re-audit is
+  next. The v5 morphology protocol is not yet frozen or executed.
 - **Last updated:** 2026-07-19 by Codex
 - **Phase 4 is COMPLETE under maker-directed decision
   [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md)** (charter
@@ -713,9 +716,8 @@ contradiction is a seam defect discovered after the run, not a reason to rewrite
 the negative result; it limits interpretation of the failure as a test of the intended physical
 model. The governing detail and citations are recorded in attachment-kinetics §4.4.
 
-**Next Phase 2b action:** commit every round-1 review repair under decisions 0013–0014 in the
-isolated v5 repository, replay the exact root/permanent controls from that source identity, and
-have the same reviewer replay all five findings. Only after
+**Next Phase 2b action:** have the same independent reviewer replay all five round-1 findings and
+the Phase 4 provenance-fixture correction at the immutable v5 repair candidate. Only after
 a clean review, freeze the exact v5 pair in a distinct pre-registration commit. The
 terminal v4 stdout, stderr, and checkpoints in `.tmp-gate2b-clean-1784305494/out/` are immutable;
 their exact hashes and result are in the active v5 plan. Do not rerun or relabel v4.
