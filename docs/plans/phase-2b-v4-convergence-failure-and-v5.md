@@ -80,11 +80,28 @@ must use distinct filenames and must not modify, replace, or relabel them.
    pair exactly once. Validate process exit, report criteria, checkpoint round trips, provenance,
    and hashes before updating the gate state.
 
+## Diagnosed cause and authority decision
+
+`scripts/diagnose-gate2b-v4.ts` independently decoded the immutable cold checkpoint, rebuilt the
+aggregate boundary set and reflecting stencil from raw arrays, and compared naïve,
+Neumaier-compensated, and exact binary-rational sums. All three reproduced the solver's one-sweep
+result: max change `0`, injection `3.679402302324622e-7`, exchange
+`3.679401162802118e-7`, and divergence `3.097032516200489e-7`. The independently metered signed
+reflecting-smoother change was exactly `-1.1395225041344048e-13`, which closes
+`injection + smoother drift − exchange` exactly.
+
+The plateau is therefore local float64 stencil roundoff, not naïve total accumulation, incomplete
+relaxation, or a physical imbalance. Because the governing two-term identity expressly omitted
+that third term, this requires an authority change. Decision
+[0013](../decisions/0013-float64-smoother-drift-divergence-identity.md) and charter v1.11 create
+`aggregate-hv-g1h1-v5`: v4 surface physics is unchanged, but v5 directly meters the pre-boundary
+smoother drift and includes it in the divergence numerator. V4 remains immutable.
+
 ## Steps
 
 - [x] Preserve and hash the terminal v4 log, stderr, and both checkpoints; classify the cold run
   as execution-invalid rather than a habit measurement.
-- [ ] Independently reproduce and explain the cold step-12 divergence plateau from its checkpoint.
+- [x] Independently reproduce and explain the cold step-12 divergence plateau from its checkpoint.
 - [ ] Add a non-vacuous regression and implement the minimum contract-honest repair, or stop for
   an ADR if the accepted numerical contract must change.
 - [ ] Pass targeted numerical checks, permanent controls, and exact `npm test`.
@@ -121,8 +138,9 @@ must use distinct filenames and must not modify, replace, or relabel them.
 
 ## Open questions
 
-- Does the `3.10e-7` floor come from naïve global accumulation, inconsistent arithmetic paths
-  between the stencil and diagnostic, or a deeper discrete-operator mismatch?
-- Can the cold checkpoint alone reproduce the attempted step exactly, or must the regression
-  replay the first eleven interface steps from the registered initial state?
-
+- ~~Does the floor come from naïve accumulation or a deeper mismatch?~~ Resolved: exact summation
+  proves it is the directly measurable float64 conservation drift of the split reflecting
+  smoother.
+- ~~Can the checkpoint reproduce the attempt?~~ Resolved: the written checkpoint contains the
+  step-11 topology and attempted step-12 fixed-point field; one reconstructed sweep reproduces the
+  plateau exactly without replaying morphology.

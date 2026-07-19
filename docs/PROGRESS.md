@@ -48,6 +48,11 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   completed step 11 and extent 5. **V4 is execution-invalid, not a measured cold-habit failure.**
   Exact artifact hashes and the criteria-first repair protocol are in
   [phase-2b-v4-convergence-failure-and-v5.md](plans/phase-2b-v4-convergence-failure-and-v5.md).
+  The cold checkpoint now reproduces the cause exactly: naïve, compensated, and exact sums all
+  give the same `1.1395225041344048e-13` mismatch, while the independently metered float64
+  reflecting-smoother drift is its exact negative. Decision
+  [0013](decisions/0013-float64-smoother-drift-divergence-identity.md) and charter v1.11 define
+  an explicit aggregate-v5 three-term identity; implementation and regression are next.
 - **Last updated:** 2026-07-19 by Codex
 - **Phase 4 is COMPLETE under maker-directed decision
   [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md)** (charter
@@ -219,7 +224,11 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   arithmetic). Still true from the 2026-07-14 hardening: the charter v1.2 Dirichlet wording
   could not fail (a uniform field is a fixed point under *both* boundary conditions). Charter
   v1.4 now carries the plan's falsifiable depleted-start differential test.
-- **Charter is at v1.10** (2026-07-18): decision
+- **Charter is at v1.11** (2026-07-19): decision
+  [0013](decisions/0013-float64-smoother-drift-divergence-identity.md) retains dual convergence
+  and every v4 surface-physics choice while adding the independently metered float64
+  reflecting-smoother drift to aggregate v5's divergence identity. Executed v3/v4 and Phase 4
+  meanings remain frozen. Before it, decision
   [0012](decisions/0012-phase4-reservoir-matched-branch-control.md) replaces Phase 4 v1's
   infeasible dependent-extent compact control with the same normalized reflecting-reservoir
   threshold, cadence, and first-crossing rule for each branch run, while preserving all
@@ -590,27 +599,25 @@ exact A-v2/B-v1 split. Independent review found three blockers and two should-fi
 `bbb14740642488c92720888d3887806b49c42e15` closes all five. Exact root `npm test` now passes
 779/779 tests, both typechecks and Rule 7 are clean, the 33-module app build passes, and the same
 reviewer replayed 16/16 selected exploits to CLEAN with zero blockers/should-fixes. Phase 2b
-isolation reconciliation is also clean: exactly one `gate2b` process remains (PID 36792), its
-detached worktree is tracked-clean at `dce7081`, stderr is empty, and it advanced to growth step
-600 before controls. Those controls then closed green on `c96f4d6`: 779/779 tests, 33-module
+isolation reconciliation was also clean at Phase 4 closure: exactly one `gate2b` process existed
+(PID 36792), its detached worktree was tracked-clean at `dce7081`, stderr was empty, and it had
+advanced to growth step 600 before controls. Those controls then closed green on `c96f4d6`: 779/779 tests, 33-module
 build, byte-identical Phase 2a/gate3 checkpoints, 20/20 synthetic Phase 4 captures, and 9/9 Phase
 3 captures. The one canonical exact `gate4` execution at `70a2496` exited 0 with blocking Pass A
 green and execution-valid Pass B diagnostic-negative; real visual evidence was 20/20 and clean.
 Final independent review authenticated the complete graph and images, found one post-publication
 test-isolation blocker, and closed CLEAN after test-only repair `b7153cc`; exact root verification
-is 779/779. The Phase 2b v4 rerun remains live in Windows worktree
-`.tmp-gate2b-clean-1784305494` at tracked-clean detached commit `dce7081`; PID 36792 and
-`out/gate2b-rerun-20260717_162624.*` remain immutable from Phase 4.
+is 779/779. The Phase 2b v4 rerun later terminated with the execution-invalid cold convergence
+result recorded above; its `out/gate2b-rerun-20260717_162624.*` artifacts remain immutable.
 
 ## Next step
 
 **Do not start Phase 5 while Phase 2b remains open.** Follow
 [phase-2b-v4-convergence-failure-and-v5.md](plans/phase-2b-v4-convergence-failure-and-v5.md):
-decode `gate2b-v4-column.ckpt`, reproduce the attempted cold step-12 relaxation, and independently
-recompute the iterate residual and divergence identity. Explain the fixed-point plateau before
-editing solver numerics. If it is a conformance bug, add a regression and the smallest repair; if
-the accepted equation, convergence meaning, tolerance, or cap must change, stop for an ADR and
-authority sync. Freeze v5 only after the cause is known and before any morphology execution, then
+implement decision 0013's versioned aggregate-v5 smoother-drift diagnostic, add the checkpoint
+fixed-point regression plus residual-only and forged-drift negative controls, and prove aggregate
+v4 remains bit-identical. Freeze v5 only after the repair is green and before any morphology
+execution, then
 review it independently and run the exact flagless pair once. Preserve every v4 artifact byte.
 Phase 3 separately remains evidence-complete and awaits the maker assertion described below.
 
@@ -687,15 +694,11 @@ contradiction is a seam defect discovered after the run, not a reason to rewrite
 the negative result; it limits interpretation of the failure as a test of the intended physical
 model. The governing detail and citations are recorded in attachment-kinetics §4.4.
 
-**Next Phase 2b action:** leave the live full rerun untouched, then record its terminal result.
-It started on 2026-07-17 at 16:26 local from tracked-clean detached commit `dce7081` in Windows
-worktree `.tmp-gate2b-clean-1784305494`. Its immutable stdout/stderr paths are
-`out/gate2b-rerun-20260717_162624.log` / `.err` inside that worktree. The log header records
-protocol v4, preregistration `8e0017a`, Node v24.13.1, V8 13.6.233.17-node.40, and the exact
-execution commit; while this update was written the warm run was still advancing, with an empty
-stderr and no terminal result. Do not launch a duplicate or treat liveness output as evidence.
-After exit, record exit 0 or 1 honestly with metrics, execution hash, log hash, and checkpoint
-hashes.
+**Next Phase 2b action:** implement and test decision 0013 in the isolated v5 repository. The
+terminal v4 stdout, stderr, and checkpoints in `.tmp-gate2b-clean-1784305494/out/` are immutable;
+their exact hashes and result are in the active v5 plan. Do not rerun or relabel v4. Commit and
+independently review the numerical repair, then freeze the exact v5 pair before its first
+morphology execution.
 
 The first v4 attempt was externally interrupted on 2026-07-17 during warm run 1/2. Its log
 ended during relaxation for growth step 771; the last completed metric line was step 768 with
