@@ -2,11 +2,13 @@
 //
 // One growth step (§4.4, decision 0009): the named surfacePolicy selects the immutable
 // legacy-v3 per-contact operator or the forward aggregate-hv-g1h1-v4 boundary-pixel operator.
-// V4 applies the Phase 2a reflecting smoother, replaces each boundary pixel by the nonlinear
-// Eq. 5.34 value solved from opposing vapor pixels, and clamps the Dirichlet shell. Fixed-sigma
+// Aggregate v4/v5 apply the Phase 2a reflecting smoother, replace each boundary pixel by the
+// nonlinear Eq. 5.34 value solved from opposing vapor pixels, and clamp the Dirichlet shell. Fixed-sigma
 // physics runs require BOTH the iterate residual and the signed global exchange divergence
-// identity. The cached self-consistent (alphaHK, sigma_b) pair then fills once per boundary
-// pixel with H_b=1; the adaptive fill-CFL and explicit saturation-clipping ledger are unchanged.
+// identity. V5 directly meters float64 reflecting-smoother drift in that identity (ADR 0013)
+// without changing any field value. The cached self-consistent (alphaHK, sigma_b) pair then fills
+// once per boundary pixel with H_b=1; the adaptive fill-CFL and explicit saturation-clipping
+// ledger are unchanged.
 //
 // Dispositions (§4.4 component 5): no kappa freezing (the selected boundary condition is the
 // only exchange path), no melting, hole-filling kept, noise is a per-cell multiplicative
@@ -152,6 +154,39 @@ export interface LKEnvironmentTransitionReport {
 function requirePositiveFinite(value: number, name: string): void {
   if (!Number.isFinite(value) || value <= 0) {
     throw new Error(`${name} must be finite and > 0`);
+  }
+}
+
+/** Low-overhead deterministic block-Neumaier accumulator for one full-field sweep diagnostic. */
+class BlockCompensatedSum {
+  private block = 0;
+  private blockCount = 0;
+  private sum = 0;
+  private correction = 0;
+
+  add(value: number): void {
+    this.block += value;
+    this.blockCount++;
+    if (this.blockCount === 256) this.flush();
+  }
+
+  value(): number {
+    this.flush();
+    return this.sum + this.correction;
+  }
+
+  private flush(): void {
+    if (this.blockCount === 0) return;
+    const value = this.block;
+    const next = this.sum + value;
+    if (Math.abs(this.sum) >= Math.abs(value)) {
+      this.correction += this.sum - next + value;
+    } else {
+      this.correction += value - next + this.sum;
+    }
+    this.sum = next;
+    this.block = 0;
+    this.blockCount = 0;
   }
 }
 
@@ -1119,13 +1154,15 @@ export class LKSolver implements SurfaceOperator {
   private sweepAggregate(
     src: Float64Array,
     dst: Float64Array,
-  ): [number, number, number, number] {
+  ): [number, number, number, number, number | null] {
     const { nx, ny, nz } = this.dims;
     const plane = nx * ny;
     const blocked = this.blocked;
     const wall = this.wall;
     const attached = this.a;
     const out1 = this.scratch1;
+    const smootherDrift =
+      this.surfacePolicy === "aggregate-hv-g1h1-v5" ? new BlockCompensatedSum() : null;
 
     // In-plane reflecting pass, with the exact canonical pair summation used by the oracle.
     for (let k = 0; k < nz; k++) {
@@ -1209,7 +1246,9 @@ export class LKSolver implements SurfaceOperator {
         const own = out1[x];
         const up = hasUp && blocked[x + plane] === 0 ? out1[x + plane] : own;
         const down = hasDown && blocked[x - plane] === 0 ? out1[x - plane] : own;
-        dst[x] = (4 / 7) * own + (3 / 14) * (up + down);
+        const candidate = (4 / 7) * own + (3 / 14) * (up + down);
+        dst[x] = candidate;
+        if (smootherDrift !== null) smootherDrift.add(candidate - src[x]);
       }
     }
 
@@ -1251,16 +1290,24 @@ export class LKSolver implements SurfaceOperator {
         if (change > maxAbs) maxAbs = change;
       }
     }
-    return [maxAbs, injection, surfaceExchange, minLocalSurfaceExchange];
+    return [
+      maxAbs,
+      injection,
+      surfaceExchange,
+      minLocalSurfaceExchange,
+      smootherDrift?.value() ?? null,
+    ];
   }
 
   private sweep(
     src: Float64Array,
     dst: Float64Array,
-  ): [number, number, number, number | null] {
-    return this.surfacePolicy === "legacy-v3"
-      ? this.sweepLegacy(src, dst)
-      : this.sweepAggregate(src, dst);
+  ): [number, number, number, number | null, number | null] {
+    if (this.surfacePolicy === "legacy-v3") {
+      const [maxAbs, injection, exchange, minimum] = this.sweepLegacy(src, dst);
+      return [maxAbs, injection, exchange, minimum, null];
+    }
+    return this.sweepAggregate(src, dst);
   }
 
   /** §4.4 step 1: relax to tolerance; for Dirichlet, require the divergence identity too. */
@@ -1284,17 +1331,29 @@ export class LKSolver implements SurfaceOperator {
       let injection = 0;
       let surfaceExchange = 0;
       let minLocalSurfaceExchange: number | null = null;
+      let smootherDrift: number | null = null;
       let divergence = Infinity;
       while (sweeps < this.relaxMaxSweeps) {
-        const [maxAbs, inj, exchange, minLocal] = this.sweep(src, dst);
+        const [maxAbs, inj, exchange, minLocal, drift] = this.sweep(src, dst);
         sweeps++;
         residual = maxAbs / this.sigmaInfinity;
         injection = inj;
         surfaceExchange = exchange;
         minLocalSurfaceExchange = minLocal;
+        smootherDrift = drift;
+        if (
+          this.surfacePolicy === "aggregate-hv-g1h1-v5" &&
+          (drift === null || !Number.isFinite(drift))
+        ) {
+          throw new Error(`aggregate-v5 smoother drift must be finite, got ${String(drift)}`);
+        }
+        const divergenceDifference =
+          this.surfacePolicy === "aggregate-hv-g1h1-v5"
+            ? inj + (drift as number) - exchange
+            : inj - exchange;
         divergence =
           this.farField === "dirichlet"
-            ? Math.abs(inj - exchange) / Math.max(Math.abs(exchange), 1e-300)
+            ? Math.abs(divergenceDifference) / Math.max(Math.abs(exchange), 1e-300)
             : 0;
         const tmp = src;
         src = dst;
@@ -1315,17 +1374,17 @@ export class LKSolver implements SurfaceOperator {
       const converged =
         residual < this.relaxTol &&
         (this.farField !== "dirichlet" || divergence < this.divTol);
-      const scale = Math.max(Math.abs(surfaceExchange), 1e-300);
       const report: RelaxationReport = {
         sweeps,
         residual,
         converged,
         // The divergence identity is only defined against the Dirichlet source; in the
         // reflecting diagnostic mode there is no source and the identity is not a claim.
-        divergenceResidual:
-          this.farField === "dirichlet" ? Math.abs(injection - surfaceExchange) / scale : null,
+        divergenceResidual: this.farField === "dirichlet" ? divergence : null,
         shellClampDiagnostic: this.farField === "dirichlet" ? injection : null,
         surfaceExchangeDiagnostic: surfaceExchange,
+        smootherDriftDiagnostic:
+          this.surfacePolicy === "aggregate-hv-g1h1-v5" ? smootherDrift : null,
         minLocalSurfaceExchangeDiagnostic: minLocalSurfaceExchange,
       };
       this.lastRelaxation = report;
@@ -1341,7 +1400,7 @@ export class LKSolver implements SurfaceOperator {
   }
 
   /**
-   * §4.4 interface update. Aggregate v4 uses the cached Eq. 5.34 `(alphaHK,sigma_b)` pair
+   * §4.4 interface update. Aggregate v4/v5 use the cached Eq. 5.34 `(alphaHK,sigma_b)` pair
    * and H_b=1 once per boundary pixel. Legacy v3 retains its named per-contact formula.
    * The adaptive fill-CFL bounds the selected policy's per-cell kinetic increment.
    */
@@ -1536,8 +1595,8 @@ export class LKSolver implements SurfaceOperator {
     readonly robinGeometry: number;
     readonly fillGeometry: number;
   } {
-    if (this.surfacePolicy !== "aggregate-hv-g1h1-v4") {
-      throw new Error("boundaryState is defined only for aggregate-hv-g1h1-v4");
+    if (this.surfacePolicy === "legacy-v3") {
+      throw new Error("boundaryState is defined only for aggregate surface policies");
     }
     if (this.cycleState !== "ready") {
       throw new Error("boundaryState requires a currently accepted converged relaxation");

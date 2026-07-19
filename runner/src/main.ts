@@ -693,6 +693,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
       surface,
       options.tol,
       options.divTol,
+      options.surfacePolicy,
     );
     const divergence = evidence.divergenceResidual;
     if (divergence > worstDivergence) worstDivergence = divergence;

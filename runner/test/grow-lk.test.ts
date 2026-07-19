@@ -122,6 +122,7 @@ describe("gate2b fail-closed evidence validation", () => {
           divergenceResidual: divergence,
           shellClampDiagnostic: shell,
           surfaceExchangeDiagnostic: exchange,
+          smootherDriftDiagnostic: null,
           minLocalSurfaceExchangeDiagnostic: -0.01,
         },
         {
@@ -134,13 +135,73 @@ describe("gate2b fail-closed evidence validation", () => {
         },
         1e-9,
         1e-7,
+        "aggregate-hv-g1h1-v4",
       ),
     ).toEqual({
       divergenceResidual: divergence,
       maxKineticFillIncrement: 0.1,
       shellInjection: shell,
       surfaceExchange: exchange,
+      smootherDrift: null,
     });
+  });
+
+  it("requires and independently recomputes aggregate-v5 smoother drift", () => {
+    const shell = 1;
+    const exchange = 0.99999995;
+    const drift = exchange - shell;
+    const divergence = Math.abs(shell + drift - exchange) / exchange;
+    const relaxation = {
+      sweeps: 10,
+      residual: 5e-10,
+      converged: true,
+      divergenceResidual: divergence,
+      shellClampDiagnostic: shell,
+      surfaceExchangeDiagnostic: exchange,
+      smootherDriftDiagnostic: drift,
+      minLocalSurfaceExchangeDiagnostic: -0.01,
+    } as const;
+    const surface = {
+      attachedNow: 1,
+      maxKineticFillIncrement: 0.1,
+      holeFillCount: 0,
+      deltaTimeSeconds: 1,
+      stalled: false,
+      skippedUnconverged: false,
+    } as const;
+    expect(
+      validateLKStepEvidence(
+        relaxation,
+        surface,
+        1e-9,
+        1e-7,
+        "aggregate-hv-g1h1-v5",
+      ),
+    ).toEqual({
+      divergenceResidual: divergence,
+      maxKineticFillIncrement: 0.1,
+      shellInjection: shell,
+      surfaceExchange: exchange,
+      smootherDrift: drift,
+    });
+    expect(() =>
+      validateLKStepEvidence(
+        { ...relaxation, smootherDriftDiagnostic: null },
+        surface,
+        1e-9,
+        1e-7,
+        "aggregate-hv-g1h1-v5",
+      ),
+    ).toThrow(/smoother drift/);
+    expect(() =>
+      validateLKStepEvidence(
+        { ...relaxation, smootherDriftDiagnostic: drift * 2 },
+        surface,
+        1e-9,
+        1e-7,
+        "aggregate-hv-g1h1-v5",
+      ),
+    ).toThrow(/divergence report mismatch/);
   });
 
   it("rejects null, NaN, infinity, nonpositive, and self-inconsistent step evidence", () => {
@@ -154,6 +215,7 @@ describe("gate2b fail-closed evidence validation", () => {
       divergenceResidual: divergence,
       shellClampDiagnostic: shell,
       surfaceExchangeDiagnostic: exchange,
+      smootherDriftDiagnostic: null,
       minLocalSurfaceExchangeDiagnostic: -0.01,
     } as const;
     const surface = {
@@ -177,9 +239,12 @@ describe("gate2b fail-closed evidence validation", () => {
       { ...relaxation, shellClampDiagnostic: 0 },
       { ...relaxation, surfaceExchangeDiagnostic: Number.POSITIVE_INFINITY },
       { ...relaxation, surfaceExchangeDiagnostic: 0 },
+      { ...relaxation, smootherDriftDiagnostic: 0 },
     ];
     for (const sample of invalidRelaxations) {
-      expect(() => validateLKStepEvidence(sample, surface, 1e-9, 1e-7)).toThrow();
+      expect(() =>
+        validateLKStepEvidence(sample, surface, 1e-9, 1e-7, "aggregate-hv-g1h1-v4"),
+      ).toThrow();
     }
     const invalidSurfaces = [
       { ...surface, maxKineticFillIncrement: null },
@@ -191,7 +256,9 @@ describe("gate2b fail-closed evidence validation", () => {
       { ...surface, skippedUnconverged: true },
     ];
     for (const sample of invalidSurfaces) {
-      expect(() => validateLKStepEvidence(relaxation, sample, 1e-9, 1e-7)).toThrow();
+      expect(() =>
+        validateLKStepEvidence(relaxation, sample, 1e-9, 1e-7, "aggregate-hv-g1h1-v4"),
+      ).toThrow();
     }
   });
 });

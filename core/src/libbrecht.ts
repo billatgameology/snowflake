@@ -161,11 +161,18 @@ export function pecletUpperBound(
  * The coupled LK surface policy is checkpointed as one value because classification, Robin
  * geometry, and fill geometry must never be mixed across versions (ADR 0009).
  */
-export type LKSurfacePolicy = "legacy-v3" | "aggregate-hv-g1h1-v4";
+export type LKSurfacePolicy =
+  | "legacy-v3"
+  | "aggregate-hv-g1h1-v4"
+  | "aggregate-hv-g1h1-v5";
 
 /** Runtime guard for parsed CLI/checkpoint values, where TypeScript's union is not binding. */
 export function isLKSurfacePolicy(value: unknown): value is LKSurfacePolicy {
-  return value === "legacy-v3" || value === "aggregate-hv-g1h1-v4";
+  return (
+    value === "legacy-v3" ||
+    value === "aggregate-hv-g1h1-v4" ||
+    value === "aggregate-hv-g1h1-v5"
+  );
 }
 
 export type FacetClass = "basal" | "prism" | "inhibited" | "rough";
@@ -176,10 +183,11 @@ export type FacetClass = "basal" | "prism" | "inhibited" | "rough";
  * in [0, 2]. [00] is not a boundary configuration and reaching this function with it is a
  * topology error, never a rough-site fallback.
  *
- * `legacy-v3` preserves the executed protocol-v3 classifier. `aggregate-hv-g1h1-v4` is ADR
+ * `legacy-v3` preserves the executed protocol-v3 classifier. Aggregate v4 and v5 share ADR
  * 0009's source-constrained nearest-neighbor table: [01]/[02] basal, [10] inhibited, [20]
- * prism, and every other valid boundary configuration rough. Hole filling remains a separate
- * attachment mode in the solver and does not alter the kinetic class returned here.
+ * prism, and every other valid boundary configuration rough. V5 differs only in its float64
+ * divergence identity (ADR 0013). Hole filling remains a separate attachment mode in the
+ * solver and does not alter the kinetic class returned here.
  */
 export function classifyFacet(
   rawNT: number,

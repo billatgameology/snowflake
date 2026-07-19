@@ -251,6 +251,56 @@ const compensatedInjectionValue = compensatedInjection.value();
 const compensatedExchangeValue = compensatedExchange.value();
 const compensatedSmootherDriftValue = compensatedSmootherDrift.value();
 
+const v5Solver = new LKSolver({
+  surfacePolicy: "aggregate-hv-g1h1-v5",
+  dims: state.dims,
+  tempC: state.tempC,
+  sigmaInfinity: state.sigmaInfinity,
+  dxUm: state.dxUm,
+  pressurePa: state.pressurePa,
+  paramSet: state.paramSet,
+  cflFill: state.cflFill,
+  relaxTol: state.relaxTol,
+  divTol: state.divTol,
+  relaxMaxSweeps: state.relaxMaxSweeps,
+  rngSeed: state.rngSeed,
+  noiseEpsilon: state.noiseEpsilon,
+  domain: state.domain,
+  farField: state.farField,
+  seedRadius: null,
+  center: state.center,
+});
+const v5Internals = v5Solver as unknown as SolverInternals;
+for (let index = 0; index < state.a.length; index++) {
+  if (state.a[index] === 1) v5Internals.attachCell(index);
+}
+v5Internals.rebuildBoundaryList();
+v5Solver.f.set(state.f);
+v5Solver.sigma.set(state.sigma);
+const v5Report = v5Solver.relaxField();
+
+if (privateMaxAbs !== 0) {
+  throw new Error(`registered v4 terminal field is not a fixed point: ${privateMaxAbs}`);
+}
+if (relativeDifference(privateInjection, privateExchange) <= state.divTol) {
+  throw new Error("registered v4 terminal field unexpectedly passes the two-term identity");
+}
+if (exactSmootherDriftUnits === 0n) {
+  throw new Error("registered v4 terminal field has no independently metered smoother drift");
+}
+if (exactInjectionUnits + exactSmootherDriftUnits - exactExchangeUnits !== 0n) {
+  throw new Error("independent exact-arithmetic three-term identity does not close");
+}
+if (
+  v5Report.sweeps !== 1 ||
+  v5Report.residual !== 0 ||
+  v5Report.smootherDriftDiagnostic !== exactSmootherDrift ||
+  v5Report.divergenceResidual > state.divTol ||
+  !v5Report.converged
+) {
+  throw new Error(`v5 does not accept the registered fixed point: ${JSON.stringify(v5Report)}`);
+}
+
 console.log(JSON.stringify({
   checkpoint: {
     path: checkpointPath,
@@ -296,5 +346,12 @@ console.log(JSON.stringify({
     correctedCompensatedDivergence: Math.abs(
       compensatedInjectionValue + compensatedSmootherDriftValue - compensatedExchangeValue,
     ) / Math.max(Math.abs(compensatedExchangeValue), 1e-300),
+  },
+  v5Reconstruction: {
+    sweeps: v5Report.sweeps,
+    residual: v5Report.residual,
+    smootherDrift: v5Report.smootherDriftDiagnostic,
+    divergence: v5Report.divergenceResidual,
+    converged: v5Report.converged,
   },
 }, null, 2));

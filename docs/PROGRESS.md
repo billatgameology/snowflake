@@ -52,7 +52,15 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   give the same `1.1395225041344048e-13` mismatch, while the independently metered float64
   reflecting-smoother drift is its exact negative. Decision
   [0013](decisions/0013-float64-smoother-drift-divergence-identity.md) and charter v1.11 define
-  an explicit aggregate-v5 three-term identity; implementation and regression are next.
+  an explicit aggregate-v5 three-term identity. The repair is now implemented without changing
+  field arithmetic: focused classification/solver/gate tests pass 54/54, checkpoint/gate tests
+  pass 22/22 with both TypeScript projects clean, aggregate-v4/v5 one-sweep fields are
+  bit-identical, and the retained cold-checkpoint regression accepts the same fixed point under
+  v5 in one sweep with residual/divergence exactly zero. Exact root verification is Rule 7 clean
+  over 153 files with both typechecks and 784/784 tests green; the depleted-start differential
+  passes 3/3; and the enforcing Phase 2a control exits 0 with its canonical checkpoint SHA-256
+  `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Independent repair review
+  is next; the v5 morphology protocol is not yet frozen or executed.
 - **Last updated:** 2026-07-19 by Codex
 - **Phase 4 is COMPLETE under maker-directed decision
   [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md)** (charter
@@ -694,11 +702,10 @@ contradiction is a seam defect discovered after the run, not a reason to rewrite
 the negative result; it limits interpretation of the failure as a test of the intended physical
 model. The governing detail and citations are recorded in attachment-kinetics §4.4.
 
-**Next Phase 2b action:** implement and test decision 0013 in the isolated v5 repository. The
+**Next Phase 2b action:** commit and independently review the decision 0013 repair in the isolated
+v5 repository. Only after a clean review, freeze the exact v5 pair in a distinct pre-registration commit. The
 terminal v4 stdout, stderr, and checkpoints in `.tmp-gate2b-clean-1784305494/out/` are immutable;
-their exact hashes and result are in the active v5 plan. Do not rerun or relabel v4. Commit and
-independently review the numerical repair, then freeze the exact v5 pair before its first
-morphology execution.
+their exact hashes and result are in the active v5 plan. Do not rerun or relabel v4.
 
 The first v4 attempt was externally interrupted on 2026-07-17 during warm run 1/2. Its log
 ended during relaxation for growth step 771; the last completed metric line was step 768 with

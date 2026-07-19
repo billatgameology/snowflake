@@ -1,3 +1,4 @@
+import type { LKSurfacePolicy } from "@vcc/core";
 import type { RelaxationReport, SurfaceReport } from "@vcc/solver-cpu";
 
 export const GATE2B_NODE = "v24.13.1";
@@ -37,6 +38,7 @@ export interface ValidatedLKStepEvidence {
   readonly maxKineticFillIncrement: number;
   readonly shellInjection: number;
   readonly surfaceExchange: number;
+  readonly smootherDrift: number | null;
 }
 
 /**
@@ -50,6 +52,7 @@ export function validateLKStepEvidence(
   surface: SurfaceReport,
   relaxTol: number,
   divTol: number,
+  surfacePolicy: LKSurfacePolicy,
 ): ValidatedLKStepEvidence {
   if (
     !relaxation.converged ||
@@ -73,6 +76,16 @@ export function validateLKStepEvidence(
   if (exchange === null || !Number.isFinite(exchange) || !(exchange > 0)) {
     throw new Error(`gate2b invalid signed net surface exchange: ${String(exchange)}`);
   }
+  const drift = relaxation.smootherDriftDiagnostic;
+  if (surfacePolicy === "aggregate-hv-g1h1-v5") {
+    if (drift === null || !Number.isFinite(drift)) {
+      throw new Error(`gate2b invalid aggregate-v5 smoother drift: ${String(drift)}`);
+    }
+  } else if (drift !== null) {
+    throw new Error(
+      `gate2b policy ${surfacePolicy} must not report aggregate-v5 smoother drift`,
+    );
+  }
   const reportedDivergence = relaxation.divergenceResidual;
   if (
     reportedDivergence === null ||
@@ -81,7 +94,8 @@ export function validateLKStepEvidence(
   ) {
     throw new Error(`gate2b invalid divergence residual: ${String(reportedDivergence)}`);
   }
-  const recomputedDivergence = Math.abs(shell - exchange) / Math.max(Math.abs(exchange), 1e-300);
+  const recomputedDivergence =
+    Math.abs(shell + (drift ?? 0) - exchange) / Math.max(Math.abs(exchange), 1e-300);
   const agreementScale = Math.max(1, reportedDivergence, recomputedDivergence);
   if (
     !Number.isFinite(recomputedDivergence) ||
@@ -116,5 +130,6 @@ export function validateLKStepEvidence(
     maxKineticFillIncrement: kinetic,
     shellInjection: shell,
     surfaceExchange: exchange,
+    smootherDrift: drift,
   };
 }

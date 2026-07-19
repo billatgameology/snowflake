@@ -102,14 +102,40 @@ smoother drift and includes it in the divergence numerator. V4 remains immutable
 - [x] Preserve and hash the terminal v4 log, stderr, and both checkpoints; classify the cold run
   as execution-invalid rather than a habit measurement.
 - [x] Independently reproduce and explain the cold step-12 divergence plateau from its checkpoint.
-- [ ] Add a non-vacuous regression and implement the minimum contract-honest repair, or stop for
+- [x] Add a non-vacuous regression and implement the minimum contract-honest repair, or stop for
   an ADR if the accepted numerical contract must change.
-- [ ] Pass targeted numerical checks, permanent controls, and exact `npm test`.
+- [x] Pass targeted numerical checks, permanent controls, and exact `npm test`.
 - [ ] Freeze and commit the complete v5 protocol before any two-temperature morphology run.
 - [ ] Complete independent adversarial review with no unresolved findings.
 - [ ] Execute the flagless v5 pair once from a clean isolated worktree and validate all artifacts.
 - [ ] Record the result in this plan and `docs/PROGRESS.md`; close Phase 2b only if every criterion
   passes.
+
+## Repair evidence before protocol freeze
+
+The implementation adds only the versioned aggregate-v5 diagnostic path defined by decision
+0013. Aggregate-v5 directly accumulates each active unattached cell's post-smoother candidate
+minus sweep input before boundary replacement and clamp; aggregate-v4 continues to report no
+such term and retains its executed two-term convergence meaning. The gate validator requires a
+finite direct term for v5, rejects it for older policies, and independently recomputes the
+three-term ratio. Existing v2 checkpoint framing already carries the surface-policy string;
+an aggregate-v5 encode/decode control proves that no wire-version reinterpretation is required.
+
+Focused verification on Node v24.13.1 passed 54/54 classification, solver, and fail-closed gate
+tests, followed by 22/22 checkpoint and gate tests plus both TypeScript projects. The regression
+includes a real compact float64 fixed-point floor, an independent stencil/drift reconstruction,
+forged and missing drift controls, and a one-sweep aggregate-v4/v5 field comparison that is
+bit-identical. Running `scripts/diagnose-gate2b-v4.ts` against the immutable cold checkpoint also
+passes its embedded assertions: v4's two-term ratio is `3.097032516200489e-7`, the independently
+metered drift is `-1.1395225041344048e-13`, exact three-term closure is zero, and v5 accepts the
+same field in one sweep with residual and divergence both exactly zero.
+
+Exact root verification then passed the Rule 7 scan over 153 files, both TypeScript projects,
+and 784/784 tests across 42 files. The explicit depleted-start differential passed 3/3. The
+permanent enforcing Phase 2a command exited 0 at far-field stop tick 4,800 with exact symmetry,
+mass drift `2.056e-13`, aspect ratio `0.168831`, and a round-trip-identical 17,826,573-byte
+checkpoint whose SHA-256 is the canonical
+`f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`.
 
 ## Out of scope
 

@@ -153,6 +153,32 @@ function independentReflectingCandidate(
   return candidate;
 }
 
+function independentBlockCompensatedDifference(
+  candidate: Float64Array,
+  source: Float64Array,
+): number {
+  let block = 0;
+  let blockCount = 0;
+  let sum = 0;
+  let correction = 0;
+  const flush = (): void => {
+    if (blockCount === 0) return;
+    const next = sum + block;
+    if (Math.abs(sum) >= Math.abs(block)) correction += sum - next + block;
+    else correction += block - next + sum;
+    sum = next;
+    block = 0;
+    blockCount = 0;
+  };
+  for (let index = 0; index < source.length; index++) {
+    block += candidate[index] - source[index];
+    blockCount++;
+    if (blockCount === 256) flush();
+  }
+  flush();
+  return sum + correction;
+}
+
 describe("LKSolver — aggregate-hv-g1h1-v4 topology and boundary law (ADR 0009)", () => {
   it("independently derives the canonical seed's exact [01]/[20]/[10] boundary histogram", () => {
     const solver = new LKSolver(devOptions);
@@ -561,6 +587,68 @@ describe("LKSolver — Robin limits (§4.4 test 2)", () => {
 });
 
 describe("LKSolver — divergence identity (§4.4 test 3)", () => {
+  it("v5 closes a real float64 fixed-point floor and independently meters the drift", () => {
+    const controls = {
+      surfacePolicy: "aggregate-hv-g1h1-v5",
+      dims: { nx: 16, ny: 16, nz: 12 },
+      tempC: -15,
+      sigmaInfinity: 0.002,
+      dxUm: 0.35,
+      rngSeed: 1,
+      relaxTol: 1e-15,
+      divTol: 1e-12,
+      relaxMaxSweeps: 2_000,
+    } as const;
+    const v5 = new LKSolver(controls);
+    const v5Report = v5.relaxField();
+    expect(v5Report.converged).toBe(true);
+    expect(v5Report.residual).toBe(0);
+    expect(v5Report.smootherDriftDiagnostic).not.toBeNull();
+    expect(v5Report.smootherDriftDiagnostic).not.toBe(0);
+    expect(v5Report.divergenceResidual).toBe(0);
+    const rawV4Ratio = Math.abs(
+      (v5Report.shellClampDiagnostic as number) -
+        (v5Report.surfaceExchangeDiagnostic as number),
+    ) / Math.abs(v5Report.surfaceExchangeDiagnostic as number);
+    expect(rawV4Ratio).toBeGreaterThan(controls.divTol);
+
+    const fixedPoint = v5.sigma.slice();
+    const candidate = independentReflectingCandidate(v5, fixedPoint);
+    const independentDrift = independentBlockCompensatedDifference(candidate, fixedPoint);
+    expect(v5Report.smootherDriftDiagnostic).toBe(independentDrift);
+    expect(
+      Math.abs(
+        (v5Report.shellClampDiagnostic as number) + independentDrift -
+          (v5Report.surfaceExchangeDiagnostic as number),
+      ),
+    ).toBe(0);
+
+  });
+
+  it("v5 leaves the v4 one-sweep field arithmetic bit-identical", () => {
+    const controls = {
+      dims: { nx: 16, ny: 16, nz: 12 },
+      tempC: -15,
+      sigmaInfinity: 0.002,
+      dxUm: 0.35,
+      rngSeed: 1,
+      relaxTol: 1,
+      divTol: 1,
+      relaxMaxSweeps: 1,
+    } as const;
+    const v4 = new LKSolver({ ...controls, surfacePolicy: "aggregate-hv-g1h1-v4" });
+    const v5 = new LKSolver({ ...controls, surfacePolicy: "aggregate-hv-g1h1-v5" });
+
+    const v4Report = v4.relaxField();
+    const v5Report = v5.relaxField();
+
+    expect(v4Report.sweeps).toBe(1);
+    expect(v5Report.sweeps).toBe(1);
+    expect(v4Report.smootherDriftDiagnostic).toBeNull();
+    expect(v5Report.smootherDriftDiagnostic).not.toBeNull();
+    expect(v5.sigma).toEqual(v4.sigma);
+  });
+
   it("at convergence, Dirichlet injection equals signed net boundary exchange", () => {
     // The identity is exact at the true fixed point; at a field converged to relaxTol it
     // holds to ~1e3 x relaxTol (the per-sweep-change criterion under-reports distance to
