@@ -39,6 +39,7 @@ export interface ValidatedLKStepEvidence {
   readonly shellInjection: number;
   readonly surfaceExchange: number;
   readonly smootherDrift: number | null;
+  readonly smootherDriftAbsLimit: number | null;
 }
 
 /**
@@ -53,6 +54,7 @@ export function validateLKStepEvidence(
   relaxTol: number,
   divTol: number,
   surfacePolicy: LKSurfacePolicy,
+  smootherDriftAbsLimit: number | null,
 ): ValidatedLKStepEvidence {
   if (
     !relaxation.converged ||
@@ -81,9 +83,28 @@ export function validateLKStepEvidence(
     if (drift === null || !Number.isFinite(drift)) {
       throw new Error(`gate2b invalid aggregate-v5 smoother drift: ${String(drift)}`);
     }
+    if (
+      smootherDriftAbsLimit === null ||
+      !Number.isFinite(smootherDriftAbsLimit) ||
+      smootherDriftAbsLimit < 0
+    ) {
+      throw new Error(
+        `gate2b invalid independent smoother drift bound: ${String(smootherDriftAbsLimit)}`,
+      );
+    }
+    if (Math.abs(drift) > smootherDriftAbsLimit) {
+      throw new Error(
+        `gate2b smoother drift ${drift} exceeds float64 roundoff bound ` +
+          `${smootherDriftAbsLimit}`,
+      );
+    }
   } else if (drift !== null) {
     throw new Error(
       `gate2b policy ${surfacePolicy} must not report aggregate-v5 smoother drift`,
+    );
+  } else if (smootherDriftAbsLimit !== null) {
+    throw new Error(
+      `gate2b policy ${surfacePolicy} must not use an aggregate-v5 smoother drift bound`,
     );
   }
   const reportedDivergence = relaxation.divergenceResidual;
@@ -131,5 +152,6 @@ export function validateLKStepEvidence(
     shellInjection: shell,
     surfaceExchange: exchange,
     smootherDrift: drift,
+    smootherDriftAbsLimit,
   };
 }

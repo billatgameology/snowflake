@@ -148,6 +148,20 @@ explicit v5 `grow-lk` parsing/round-trip coverage, a deterministic nonuniform v4
 control, and correction of v4-only aggregate comments. The same reviewer must re-check every
 finding before freeze.
 
+All five repairs are now implemented. The solver and runner independently enforce decision
+0014's bound; a coherent `shell=1`, `exchange=1e-6`, `drift=-0.999999` report fails by name.
+The exact checkpoint length/hash are authenticated before decode with same-length shifted-byte
+and shifted-length controls. Explicit aggregate-v5 CLI routing writes and round-trips a v2
+checkpoint, the v4/v5 bit control starts from a deterministic nonuniform field, and aggregate
+comments cover both policies. Both TypeScript projects, Rule 7 over 156 files, the authenticated
+cold-checkpoint reconstruction, and 73/73 focused tests pass.
+
+The first root replay while these source edits were deliberately uncommitted passed 786/788; its
+only two failures were Phase 4 visual-provenance controls correctly rejecting solver source bytes
+that differed from Git `HEAD`. This is the expected fail-closed behavior of the completed Phase 4
+verifier, not a solver regression. Commit the remediation, then rerun the provenance tests and
+exact root suite against that immutable source identity.
+
 ## Out of scope
 
 - Phase 5, GPU scaffolding, Phase 6 sweeps, and any modification of Phase 4 evidence.
@@ -178,6 +192,9 @@ finding before freeze.
 - **Trusting checkpoint metadata as artifact identity.** Rejected by review: another structurally
   compatible tick-11 checkpoint could satisfy the numerical assertions. The retained regression
   must authenticate exact byte length and SHA-256 before decode.
+- **Treating the dirty-source root replay as a product failure.** Rejected: 786/788 passed and the
+  two named failures were the Phase 4 verifier proving that current solver bytes did not match
+  Git `HEAD`. Commit the reviewed source identity and replay; never weaken that provenance guard.
 
 ## Open questions
 

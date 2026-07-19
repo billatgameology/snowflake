@@ -36,7 +36,8 @@ export interface RelaxationReport {
   readonly surfaceExchangeDiagnostic: number | null;
   /** Aggregate-v5 only: signed active-field change produced by the reflecting smoother before
       boundary replacement and Dirichlet clamp. Directly metered in the same sweep; never
-      inferred from other report terms. Null for GG, legacy-v3, and aggregate-v4. */
+      inferred from other report terms, and rejected if it exceeds decision 0014's independent
+      float64 roundoff bound. Null for GG, legacy-v3, and aggregate-v4. */
   readonly smootherDriftDiagnostic: number | null;
   /** Minimum local boundary-replacement exchange in the last aggregate-v4/v5 sweep. It may be
       negative because tangential potential redistribution is signed. Null under GGThreshold

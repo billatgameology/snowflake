@@ -15,7 +15,7 @@ import {
   GG_PRESETS,
   STREAM_NOISE_ALPHA_HK,
 } from "@vcc/core";
-import { GGSolver, LKSolver } from "@vcc/solver-cpu";
+import { GGSolver, LKSolver, float64SmootherDriftAbsLimit } from "@vcc/solver-cpu";
 
 const devOptions = {
   surfacePolicy: "aggregate-hv-g1h1-v4",
@@ -616,13 +616,36 @@ describe("LKSolver — divergence identity (§4.4 test 3)", () => {
     const candidate = independentReflectingCandidate(v5, fixedPoint);
     const independentDrift = independentBlockCompensatedDifference(candidate, fixedPoint);
     expect(v5Report.smootherDriftDiagnostic).toBe(independentDrift);
+    const maxAbsFixedPoint = fixedPoint.reduce(
+      (maximum, value) => Math.max(maximum, Math.abs(value)),
+      0,
+    );
+    expect(Math.abs(independentDrift)).toBeLessThanOrEqual(
+      float64SmootherDriftAbsLimit(v5.activeCellCount, maxAbsFixedPoint),
+    );
     expect(
       Math.abs(
         (v5Report.shellClampDiagnostic as number) + independentDrift -
           (v5Report.surfaceExchangeDiagnostic as number),
       ),
     ).toBe(0);
+  });
 
+  it("rejects a coherently identity-canceling drift outside the float64 bound", () => {
+    const solver = new LKSolver({
+      ...devOptions,
+      surfacePolicy: "aggregate-hv-g1h1-v5",
+      relaxMaxSweeps: 1,
+    });
+    const internals = solver as unknown as {
+      sweepAggregate(
+        source: Float64Array,
+        destination: Float64Array,
+      ): [number, number, number, number, number | null, number | null];
+    };
+    internals.sweepAggregate = () => [0, 1, 1e-6, 0, -0.999999, 1e-9];
+
+    expect(() => solver.relaxField()).toThrow(/exceeds float64 roundoff bound/);
   });
 
   it("v5 leaves the v4 one-sweep field arithmetic bit-identical", () => {
@@ -638,6 +661,13 @@ describe("LKSolver — divergence identity (§4.4 test 3)", () => {
     } as const;
     const v4 = new LKSolver({ ...controls, surfacePolicy: "aggregate-hv-g1h1-v4" });
     const v5 = new LKSolver({ ...controls, surfacePolicy: "aggregate-hv-g1h1-v5" });
+    for (let index = 0; index < v4.sigma.length; index++) {
+      if (v4.a[index] === 0 && v4.wall[index] === 0) {
+        const value = 0.0002 + ((index * 37) % 101) * 0.000015;
+        v4.sigma[index] = value;
+        v5.sigma[index] = value;
+      }
+    }
 
     const v4Report = v4.relaxField();
     const v5Report = v5.relaxField();

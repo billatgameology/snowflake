@@ -1,7 +1,7 @@
 // LibbrechtKinetics — the surface operator of attachment-kinetics §4.4, implemented.
 //
 // One growth step (§4.4, decision 0009): the named surfacePolicy selects the immutable
-// legacy-v3 per-contact operator or the forward aggregate-hv-g1h1-v4 boundary-pixel operator.
+// legacy-v3 per-contact operator or a forward aggregate-hv-g1h1-v4/v5 boundary-pixel operator.
 // Aggregate v4/v5 apply the Phase 2a reflecting smoother, replace each boundary pixel by the
 // nonlinear Eq. 5.34 value solved from opposing vapor pixels, and clamp the Dirichlet shell. Fixed-sigma
 // physics runs require BOTH the iterate residual and the signed global exchange divergence
@@ -190,6 +190,31 @@ class BlockCompensatedSum {
   }
 }
 
+/** Decision 0014: conservative operation-count factor for the split stencil + block meter. */
+export const FLOAT64_SMOOTHER_DRIFT_BOUND_FACTOR = 1024;
+
+/** Absolute aggregate-v5 roundoff bound for one reflecting-smoother sweep. */
+export function float64SmootherDriftAbsLimit(
+  activeCellCount: number,
+  maxAbsSweepInput: number,
+): number {
+  if (!Number.isSafeInteger(activeCellCount) || activeCellCount <= 0) {
+    throw new Error(`activeCellCount must be a positive safe integer, got ${activeCellCount}`);
+  }
+  if (!Number.isFinite(maxAbsSweepInput) || maxAbsSweepInput < 0) {
+    throw new Error(`maxAbsSweepInput must be finite and nonnegative, got ${maxAbsSweepInput}`);
+  }
+  const limit =
+    FLOAT64_SMOOTHER_DRIFT_BOUND_FACTOR *
+    Number.EPSILON *
+    activeCellCount *
+    maxAbsSweepInput;
+  if (!Number.isFinite(limit)) {
+    throw new Error(`float64 smoother drift bound overflowed: ${limit}`);
+  }
+  return limit;
+}
+
 function deriveEnvironmentScales(
   tempC: number,
   sigmaInfinity: number,
@@ -293,7 +318,7 @@ export class LKSolver implements SurfaceOperator {
   private readonly scratch2: Float64Array;
   /** Legacy-v3 Robin absorption factor per boundary cell. */
   private readonly sEff: Float64Array;
-  /** Aggregate-v4 boundary pair cached from the last accepted relaxation sweep. */
+  /** Aggregate-v4/v5 boundary pair cached from the last accepted relaxation sweep. */
   private readonly boundaryAlphaHK: Float64Array;
   private readonly boundarySigma: Float64Array;
   private readonly boundarySigmaOpp: Float64Array;
@@ -917,7 +942,7 @@ export class LKSolver implements SurfaceOperator {
   }
 
   /**
-   * Eq. 5.35 opposing-vapor mean for aggregate-hv-g1h1-v4. Each attached direction
+   * Eq. 5.35 opposing-vapor mean for aggregate-hv-g1h1-v4/v5. Each attached direction
    * nominates the cell in the opposite direction; only active unattached vapor cells enter
    * the mask. The primary [01]/[20] facets therefore have exactly H+V samples.
    */
@@ -951,7 +976,7 @@ export class LKSolver implements SurfaceOperator {
     return count === 0 ? 0 : sum / count;
   }
 
-  /** Self-consistent monograph Eq. 5.34 boundary value, with policy-v4 G_b = 1. */
+  /** Self-consistent monograph Eq. 5.34 boundary value, with aggregate-v4/v5 G_b = 1. */
   private solveAggregateBoundary(index: number, input: Float64Array): {
     alphaHKBoundary: number;
     sigmaBoundary: number;
@@ -974,7 +999,7 @@ export class LKSolver implements SurfaceOperator {
         sigmaOpp,
       };
     }
-    const ratio = this.dxM / this.x0M; // G_b = 1 under aggregate-hv-g1h1-v4
+    const ratio = this.dxM / this.x0M; // G_b = 1 under aggregate-hv-g1h1-v4/v5
     let sigmaBoundary = sigmaOpp;
     for (let iteration = 0; iteration < 60; iteration++) {
       const coefficient = this.cellAlphaHK(index, sigmaBoundary);
@@ -1147,14 +1172,14 @@ export class LKSolver implements SurfaceOperator {
   }
 
   /**
-   * Aggregate-v4 sweep. The interior pass is the Phase 2a reflecting kernel. Boundary pixels
+   * Aggregate-v4/v5 sweep. The interior pass is the Phase 2a reflecting kernel. Boundary pixels
    * are then replaced by Eq. 5.34, and the signed replacement total is the numerical surface
    * exchange used only by the divergence diagnostic. Local exchange may be negative.
    */
   private sweepAggregate(
     src: Float64Array,
     dst: Float64Array,
-  ): [number, number, number, number, number | null] {
+  ): [number, number, number, number, number | null, number | null] {
     const { nx, ny, nz } = this.dims;
     const plane = nx * ny;
     const blocked = this.blocked;
@@ -1163,6 +1188,7 @@ export class LKSolver implements SurfaceOperator {
     const out1 = this.scratch1;
     const smootherDrift =
       this.surfacePolicy === "aggregate-hv-g1h1-v5" ? new BlockCompensatedSum() : null;
+    let maxAbsSweepInput = 0;
 
     // In-plane reflecting pass, with the exact canonical pair summation used by the oracle.
     for (let k = 0; k < nz; k++) {
@@ -1243,6 +1269,10 @@ export class LKSolver implements SurfaceOperator {
           dst[x] = 0;
           continue;
         }
+        if (smootherDrift !== null) {
+          const magnitude = Math.abs(src[x]);
+          if (magnitude > maxAbsSweepInput) maxAbsSweepInput = magnitude;
+        }
         const own = out1[x];
         const up = hasUp && blocked[x + plane] === 0 ? out1[x + plane] : own;
         const down = hasDown && blocked[x - plane] === 0 ? out1[x - plane] : own;
@@ -1290,22 +1320,28 @@ export class LKSolver implements SurfaceOperator {
         if (change > maxAbs) maxAbs = change;
       }
     }
+    const smootherDriftValue = smootherDrift?.value() ?? null;
+    const smootherDriftLimit =
+      smootherDrift === null
+        ? null
+        : float64SmootherDriftAbsLimit(this.activeCellCount, maxAbsSweepInput);
     return [
       maxAbs,
       injection,
       surfaceExchange,
       minLocalSurfaceExchange,
-      smootherDrift?.value() ?? null,
+      smootherDriftValue,
+      smootherDriftLimit,
     ];
   }
 
   private sweep(
     src: Float64Array,
     dst: Float64Array,
-  ): [number, number, number, number | null, number | null] {
+  ): [number, number, number, number | null, number | null, number | null] {
     if (this.surfacePolicy === "legacy-v3") {
       const [maxAbs, injection, exchange, minimum] = this.sweepLegacy(src, dst);
-      return [maxAbs, injection, exchange, minimum, null];
+      return [maxAbs, injection, exchange, minimum, null, null];
     }
     return this.sweepAggregate(src, dst);
   }
@@ -1334,7 +1370,7 @@ export class LKSolver implements SurfaceOperator {
       let smootherDrift: number | null = null;
       let divergence = Infinity;
       while (sweeps < this.relaxMaxSweeps) {
-        const [maxAbs, inj, exchange, minLocal, drift] = this.sweep(src, dst);
+        const [maxAbs, inj, exchange, minLocal, drift, driftLimit] = this.sweep(src, dst);
         sweeps++;
         residual = maxAbs / this.sigmaInfinity;
         injection = inj;
@@ -1343,9 +1379,25 @@ export class LKSolver implements SurfaceOperator {
         smootherDrift = drift;
         if (
           this.surfacePolicy === "aggregate-hv-g1h1-v5" &&
-          (drift === null || !Number.isFinite(drift))
+          (drift === null ||
+            !Number.isFinite(drift) ||
+            driftLimit === null ||
+            !Number.isFinite(driftLimit) ||
+            driftLimit < 0)
         ) {
-          throw new Error(`aggregate-v5 smoother drift must be finite, got ${String(drift)}`);
+          throw new Error(
+            `aggregate-v5 smoother drift/bound must be finite: ` +
+              `drift=${String(drift)}, bound=${String(driftLimit)}`,
+          );
+        }
+        if (
+          this.surfacePolicy === "aggregate-hv-g1h1-v5" &&
+          Math.abs(drift as number) > (driftLimit as number)
+        ) {
+          throw new Error(
+            `aggregate-v5 smoother drift ${String(drift)} exceeds float64 roundoff bound ` +
+              `${String(driftLimit)}`,
+          );
         }
         const divergenceDifference =
           this.surfacePolicy === "aggregate-hv-g1h1-v5"
@@ -1438,7 +1490,7 @@ export class LKSolver implements SurfaceOperator {
         rate = (faceFactor * velocity) / this.dxM;
       } else {
         const velocity = this.boundaryAlphaHK[x] * this.vKinMS * this.boundarySigma[x];
-        rate = velocity / this.dxM; // H_b = 1 under aggregate-hv-g1h1-v4
+        rate = velocity / this.dxM; // H_b = 1 under aggregate-hv-g1h1-v4/v5
       }
       rateArr[bi] = rate;
       if (rate > maxRate) maxRate = rate;

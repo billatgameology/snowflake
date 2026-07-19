@@ -58,6 +58,7 @@ import {
   domainCenter,
   encodeCheckpoint,
   encodeLKCheckpoint,
+  isLKSurfacePolicy,
   isD6hInvariantSet,
   pecletUpperBound,
   symmetryError,
@@ -70,7 +71,12 @@ import {
   type LKSurfacePolicy,
   type Metrics,
 } from "@vcc/core";
-import { GGSolver, LKSolver, FAR_FIELD_STOP_FRACTION } from "@vcc/solver-cpu";
+import {
+  GGSolver,
+  LKSolver,
+  FAR_FIELD_STOP_FRACTION,
+  float64SmootherDriftAbsLimit,
+} from "@vcc/solver-cpu";
 import { gate3 } from "./gate3.ts";
 import { gate4a } from "./gate4a.ts";
 import { gate4b } from "./gate4b.ts";
@@ -519,7 +525,7 @@ function parseLKArgs(argv: string[]): GrowLKOptions {
     switch (flag) {
       case "--surface-policy": {
         const policy = value();
-        if (policy !== "legacy-v3" && policy !== "aggregate-hv-g1h1-v4") {
+        if (!isLKSurfacePolicy(policy)) {
           throw new Error(`--surface-policy is invalid: ${policy}`);
         }
         options.surfacePolicy = policy;
@@ -607,6 +613,8 @@ interface LKRunResult {
   minShellInjection: number;
   minSurfaceExchange: number;
   worstDivergence: number;
+  maxAbsSmootherDrift: number | null;
+  smootherDriftAbsLimit: number | null;
   maxKineticFillEver: number;
   holeFillCountTotal: number;
   pecletBound: number;
@@ -635,6 +643,10 @@ function growLK(options: GrowLKOptions): LKRunResult {
     center: domainCenter(options.dims), // explicit — no constructor defaults in gate paths
   });
   const seedSites = solver.attachedCount;
+  const smootherDriftAbsLimit =
+    solver.surfacePolicy === "aggregate-hv-g1h1-v5"
+      ? float64SmootherDriftAbsLimit(solver.activeCellCount, options.sigmaInf as number)
+      : null;
   const pecletBound = pecletUpperBound(
     options.tempC as number,
     options.sigmaInf as number,
@@ -652,6 +664,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
       ` seedRadius=${options.seedRadius} seedSites=${seedSites}` +
       ` vKin=${solver.vKinMS.toExponential(4)}m/s X0=${(solver.x0M * 1e6).toFixed(4)}um` +
       ` peclet<=${pecletBound.toExponential(2)} seedSymErr=${symmetryError(solver.a, dims, center)}`,
+      ` smootherDriftLimit=${smootherDriftAbsLimit?.toExponential(3) ?? "n/a"}`,
   );
 
   let symmetryClean = true;
@@ -659,6 +672,8 @@ function growLK(options: GrowLKOptions): LKRunResult {
   let minShellInjection = Infinity;
   let minSurfaceExchange = Infinity;
   let worstDivergence = 0;
+  let maxAbsSmootherDrift: number | null =
+    solver.surfacePolicy === "aggregate-hv-g1h1-v5" ? 0 : null;
   let maxKineticFillEver = 0;
   let stopReason: LKRunResult["stopReason"] = "step-cap";
   const started = Date.now();
@@ -694,9 +709,16 @@ function growLK(options: GrowLKOptions): LKRunResult {
       options.tol,
       options.divTol,
       options.surfacePolicy,
+      smootherDriftAbsLimit,
     );
     const divergence = evidence.divergenceResidual;
     if (divergence > worstDivergence) worstDivergence = divergence;
+    if (
+      evidence.smootherDrift !== null &&
+      (maxAbsSmootherDrift === null || Math.abs(evidence.smootherDrift) > maxAbsSmootherDrift)
+    ) {
+      maxAbsSmootherDrift = Math.abs(evidence.smootherDrift);
+    }
     if (evidence.shellInjection < minShellInjection) {
       minShellInjection = evidence.shellInjection;
     }
@@ -757,6 +779,8 @@ function growLK(options: GrowLKOptions): LKRunResult {
     minShellInjection,
     minSurfaceExchange,
     worstDivergence,
+    maxAbsSmootherDrift,
+    smootherDriftAbsLimit,
     maxKineticFillEver,
     holeFillCountTotal: solver.holeFillCountTotal,
     pecletBound,
@@ -769,6 +793,8 @@ function growLK(options: GrowLKOptions): LKRunResult {
       ` minShell=${minShellInjection.toExponential(3)}` +
       ` minExchange=${minSurfaceExchange.toExponential(3)}` +
       ` worstDiv=${worstDivergence.toExponential(3)} maxKineticFill=${maxKineticFillEver.toFixed(4)}` +
+      ` maxAbsSmootherDrift=${maxAbsSmootherDrift?.toExponential(3) ?? "n/a"}` +
+      ` smootherDriftLimit=${smootherDriftAbsLimit?.toExponential(3) ?? "n/a"}` +
       ` holeFills=${solver.holeFillCountTotal}` +
       ` simTime=${solver.simTimeSeconds.toFixed(2)}s fillLedger=${solver.fillLedger.toFixed(3)}` +
       ` holeFillDeficit=${solver.holeFillDeficit.toFixed(3)}` +

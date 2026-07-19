@@ -64,7 +64,12 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   absolute roundoff-scale bound, the checkpoint regression did not enforce its registered hash,
   explicit CLI v5 routing was absent, the bit-preservation input was uniform, and comments were
   stale. Decision 0014 and charter v1.12 now define the bound before remediation. The v5
-  morphology protocol is not yet frozen or executed.
+  remediation now addresses all five findings: focused tests pass 73/73, Rule 7 is clean over
+  156 files, both typechecks pass, and the authenticated cold checkpoint closes within its
+  independent bound. A dirty-source root replay passed 786/788; only the two Phase 4
+  source-provenance controls failed, correctly, because solver bytes differed from Git `HEAD`.
+  Commit and replay from the immutable source identity next. The v5 morphology protocol is not
+  yet frozen or executed.
 - **Last updated:** 2026-07-19 by Codex
 - **Phase 4 is COMPLETE under maker-directed decision
   [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md)** (charter
@@ -706,8 +711,9 @@ contradiction is a seam defect discovered after the run, not a reason to rewrite
 the negative result; it limits interpretation of the failure as a test of the intended physical
 model. The governing detail and citations are recorded in attachment-kinetics §4.4.
 
-**Next Phase 2b action:** implement every round-1 review repair under decisions 0013–0014 in the
-isolated v5 repository, commit it, and have the same reviewer replay all five findings. Only after
+**Next Phase 2b action:** commit every round-1 review repair under decisions 0013–0014 in the
+isolated v5 repository, replay the exact root/permanent controls from that source identity, and
+have the same reviewer replay all five findings. Only after
 a clean review, freeze the exact v5 pair in a distinct pre-registration commit. The
 terminal v4 stdout, stderr, and checkpoints in `.tmp-gate2b-clean-1784305494/out/` are immutable;
 their exact hashes and result are in the active v5 plan. Do not rerun or relabel v4.

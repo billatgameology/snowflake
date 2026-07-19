@@ -75,6 +75,39 @@ describe("grow-lk policy/checkpoint evidence path", () => {
     expect(result.stderr).toMatch(/surface-policy is invalid/);
   });
 
+  it("routes explicit aggregate-v5 through CLI and strict checkpoint round trip", () => {
+    const output = temporaryCheckpoint();
+    const stdout = execFileSync(
+      process.execPath,
+      [
+        "runner/src/main.ts",
+        "grow-lk",
+        "--temp-c",
+        "-15",
+        "--sigma-inf",
+        "0.002",
+        "--dims",
+        "8,8,8",
+        "--steps",
+        "0",
+        "--metrics-every",
+        "0",
+        "--surface-policy",
+        "aggregate-hv-g1h1-v5",
+        "--out",
+        output,
+      ],
+      { cwd: process.cwd(), encoding: "utf8" },
+    );
+    expect(stdout).toContain("surfacePolicy=aggregate-hv-g1h1-v5");
+    expect(stdout).toContain("smootherDriftLimit=");
+    expect(stdout).toContain("roundTripIdentical=true");
+    const decoded = decodeLKCheckpoint(new Uint8Array(readFileSync(output)));
+    expect(decoded.header.version).toBe(2);
+    expect(decoded.header.surfacePolicy).toBe("aggregate-hv-g1h1-v5");
+    expect(decoded.state.surfacePolicy).toBe("aggregate-hv-g1h1-v5");
+  });
+
   it("keeps gate2b flagless and exits 2 before any evidence work", () => {
     const result = spawnSync(
       process.execPath,
@@ -136,6 +169,7 @@ describe("gate2b fail-closed evidence validation", () => {
         1e-9,
         1e-7,
         "aggregate-hv-g1h1-v4",
+        null,
       ),
     ).toEqual({
       divergenceResidual: divergence,
@@ -143,13 +177,15 @@ describe("gate2b fail-closed evidence validation", () => {
       shellInjection: shell,
       surfaceExchange: exchange,
       smootherDrift: null,
+      smootherDriftAbsLimit: null,
     });
   });
 
   it("requires and independently recomputes aggregate-v5 smoother drift", () => {
     const shell = 1;
     const exchange = 0.99999995;
-    const drift = exchange - shell;
+    const drift = -1e-12;
+    const driftLimit = 1e-9;
     const divergence = Math.abs(shell + drift - exchange) / exchange;
     const relaxation = {
       sweeps: 10,
@@ -176,6 +212,7 @@ describe("gate2b fail-closed evidence validation", () => {
         1e-9,
         1e-7,
         "aggregate-hv-g1h1-v5",
+        driftLimit,
       ),
     ).toEqual({
       divergenceResidual: divergence,
@@ -183,6 +220,7 @@ describe("gate2b fail-closed evidence validation", () => {
       shellInjection: shell,
       surfaceExchange: exchange,
       smootherDrift: drift,
+      smootherDriftAbsLimit: driftLimit,
     });
     expect(() =>
       validateLKStepEvidence(
@@ -191,8 +229,29 @@ describe("gate2b fail-closed evidence validation", () => {
         1e-9,
         1e-7,
         "aggregate-hv-g1h1-v5",
+        driftLimit,
       ),
     ).toThrow(/smoother drift/);
+    expect(() =>
+      validateLKStepEvidence(
+        relaxation,
+        surface,
+        1e-9,
+        1e-7,
+        "aggregate-hv-g1h1-v5",
+        null,
+      ),
+    ).toThrow(/drift bound/);
+    expect(() =>
+      validateLKStepEvidence(
+        relaxation,
+        surface,
+        1e-9,
+        1e-7,
+        "aggregate-hv-g1h1-v5",
+        Number.NaN,
+      ),
+    ).toThrow(/drift bound/);
     expect(() =>
       validateLKStepEvidence(
         { ...relaxation, smootherDriftDiagnostic: drift * 2 },
@@ -200,8 +259,29 @@ describe("gate2b fail-closed evidence validation", () => {
         1e-9,
         1e-7,
         "aggregate-hv-g1h1-v5",
+        driftLimit,
       ),
     ).toThrow(/divergence report mismatch/);
+
+    const maskingExchange = 1e-6;
+    const maskingDrift = maskingExchange - shell;
+    const maskingDivergence =
+      Math.abs(shell + maskingDrift - maskingExchange) / maskingExchange;
+    expect(() =>
+      validateLKStepEvidence(
+        {
+          ...relaxation,
+          surfaceExchangeDiagnostic: maskingExchange,
+          smootherDriftDiagnostic: maskingDrift,
+          divergenceResidual: maskingDivergence,
+        },
+        surface,
+        1e-9,
+        1e-7,
+        "aggregate-hv-g1h1-v5",
+        driftLimit,
+      ),
+    ).toThrow(/roundoff bound/);
   });
 
   it("rejects null, NaN, infinity, nonpositive, and self-inconsistent step evidence", () => {
@@ -243,7 +323,7 @@ describe("gate2b fail-closed evidence validation", () => {
     ];
     for (const sample of invalidRelaxations) {
       expect(() =>
-        validateLKStepEvidence(sample, surface, 1e-9, 1e-7, "aggregate-hv-g1h1-v4"),
+        validateLKStepEvidence(sample, surface, 1e-9, 1e-7, "aggregate-hv-g1h1-v4", null),
       ).toThrow();
     }
     const invalidSurfaces = [
@@ -257,7 +337,14 @@ describe("gate2b fail-closed evidence validation", () => {
     ];
     for (const sample of invalidSurfaces) {
       expect(() =>
-        validateLKStepEvidence(relaxation, sample, 1e-9, 1e-7, "aggregate-hv-g1h1-v4"),
+        validateLKStepEvidence(
+          relaxation,
+          sample,
+          1e-9,
+          1e-7,
+          "aggregate-hv-g1h1-v4",
+          null,
+        ),
       ).toThrow();
     }
   });

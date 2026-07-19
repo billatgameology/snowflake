@@ -1,7 +1,7 @@
-import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { decodeLKCheckpoint, hexDistance } from "@vcc/core";
-import { LKSolver } from "@vcc/solver-cpu";
+import { LKSolver, float64SmootherDriftAbsLimit } from "@vcc/solver-cpu";
+import { authenticateGate2bV4ColdCheckpoint } from "./gate2b-v4-artifact.ts";
 
 class CompensatedSum {
   private sum = 0;
@@ -60,7 +60,7 @@ if (checkpointPath === undefined) {
 }
 
 const bytes = new Uint8Array(readFileSync(checkpointPath));
-const sha256 = createHash("sha256").update(bytes).digest("hex");
+const sha256 = authenticateGate2bV4ColdCheckpoint(bytes);
 const decoded = decodeLKCheckpoint(bytes);
 const state = decoded.state;
 if (
@@ -278,6 +278,10 @@ v5Internals.rebuildBoundaryList();
 v5Solver.f.set(state.f);
 v5Solver.sigma.set(state.sigma);
 const v5Report = v5Solver.relaxField();
+const v5SmootherDriftLimit = float64SmootherDriftAbsLimit(
+  v5Solver.activeCellCount,
+  state.sigmaInfinity,
+);
 
 if (privateMaxAbs !== 0) {
   throw new Error(`registered v4 terminal field is not a fixed point: ${privateMaxAbs}`);
@@ -295,6 +299,7 @@ if (
   v5Report.sweeps !== 1 ||
   v5Report.residual !== 0 ||
   v5Report.smootherDriftDiagnostic !== exactSmootherDrift ||
+  Math.abs(v5Report.smootherDriftDiagnostic) > v5SmootherDriftLimit ||
   v5Report.divergenceResidual > state.divTol ||
   !v5Report.converged
 ) {
@@ -351,6 +356,7 @@ console.log(JSON.stringify({
     sweeps: v5Report.sweeps,
     residual: v5Report.residual,
     smootherDrift: v5Report.smootherDriftDiagnostic,
+    smootherDriftAbsLimit: v5SmootherDriftLimit,
     divergence: v5Report.divergenceResidual,
     converged: v5Report.converged,
   },
