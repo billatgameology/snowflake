@@ -126,6 +126,10 @@ The concise contract below is a navigation aid. The equations and rationale live
   measured before boundary replacement/clamp, is zero in exact arithmetic, and is never inferred
   from the other terms or called vapor. Legacy-v3 and aggregate-v4 keep their executed two-term
   identity (decision 0013).
+- Aggregate-v5 drift must also satisfy decision 0014's absolute roundoff bound:
+  `1024 * Number.EPSILON * activeCellCount * maxAbsSweepInput`. The positive fixed-temperature
+  gate derives its independent bound with `sigmaInfinity`; a finite or coherently canceling term
+  outside the bound is a solver failure, never accepted convergence.
 - Every forward run names the coupled `surfacePolicy`. Under aggregate v4 and v5, `[01]`
   is basal, `[20]` is prism, `[10]` is inhibited, and other valid raw configurations follow the
   explicit P4 closure in §4.4. Do not restore v3's `[10]`-prism / `[20]`-rough mapping.

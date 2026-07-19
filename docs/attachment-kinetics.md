@@ -499,6 +499,11 @@ signed float64 reflecting-smoother drift must equal that sweep's **signed net nu
 surface-boundary exchange** to a stated relative tolerance. Under exact arithmetic the drift is
 zero, recovering the executed legacy-v3/aggregate-v4 two-term identity. Local replacement deltas
 may have either sign and are not uptake.
+The drift must separately satisfy decision 0014's absolute float64 bound
+`1024 * Number.EPSILON * activeCellCount * maxAbsSweepInput`. The registered positive,
+fixed-temperature gate independently substitutes `sigma_infinity` for `maxAbsSweepInput` by the
+discrete maximum principle. A finite or identity-canceling term outside that bound is a smoother
+failure, not convergence.
 Comparing
 that numerical exchange with reconstructed kinetic demand is a separate discretization diagnostic; it
 is not the divergence identity. A Dirichlet solve that fails the identity is not converged,

@@ -1,8 +1,9 @@
 # 0013 — Float64 smoother drift in the Dirichlet divergence identity
 
 - **Date:** 2026-07-19
-- **Status:** accepted; amends 0006 for the new `aggregate-hv-g1h1-v5` policy. The executed
-  `legacy-v3` and `aggregate-hv-g1h1-v4` meanings remain immutable.
+- **Status:** accepted; amends 0006 for the new `aggregate-hv-g1h1-v5` policy and is tightened by
+  decision 0014's mandatory roundoff-scale bound. The executed `legacy-v3` and
+  `aggregate-hv-g1h1-v4` meanings remain immutable.
 - **Charter impact:** §2.4 and Phase 2b updated in this session (charter v1.10 → v1.11).
 
 ## Context
@@ -99,4 +100,3 @@ registered relative tolerance. More sweeps cannot move a floating-point fixed po
   divergence to zero by construction and destroy the guard.
 - **Apply v5 semantics retroactively to v4.** Rejected: executed policies and evidence retain the
   meanings under which they ran.
-

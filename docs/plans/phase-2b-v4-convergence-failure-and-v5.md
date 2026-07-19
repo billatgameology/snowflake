@@ -137,6 +137,17 @@ mass drift `2.056e-13`, aspect ratio `0.168831`, and a round-trip-identical 17,8
 checkpoint whose SHA-256 is the canonical
 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`.
 
+Independent repair review round 1 rejected commit `975f304` with two blockers and three
+should-fixes. The blockers were an unbounded finite drift term that could coherently mask a
+non-conservative smoother, and a retained cold-checkpoint regression that computed but did not
+enforce the registered byte length/hash. Decision
+[0014](../decisions/0014-bound-float64-smoother-drift.md) resolves the first before code changes:
+both the absolute operation-count-derived roundoff bound and the corrected divergence tolerance
+are load-bearing. The repair must also authenticate the artifact before decode. Should-fixes are
+explicit v5 `grow-lk` parsing/round-trip coverage, a deterministic nonuniform v4/v5 field-bit
+control, and correction of v4-only aggregate comments. The same reviewer must re-check every
+finding before freeze.
+
 ## Out of scope
 
 - Phase 5, GPU scaffolding, Phase 6 sweeps, and any modification of Phase 4 evidence.
@@ -161,6 +172,12 @@ checkpoint whose SHA-256 is the canonical
   diagnose the numerical failure and would turn a pre-registered test into post-result tuning.
 - **Starting Phase 5 while Phase 2b is unresolved.** Rejected: the charter permits no Phase 5
   overlap exception.
+- **Accepting any finite drift that closes the identity.** Rejected by review: direct metering
+  prevents inference but does not prove roundoff scale. Decision 0014 adds an independent
+  operation-count-derived absolute bound.
+- **Trusting checkpoint metadata as artifact identity.** Rejected by review: another structurally
+  compatible tick-11 checkpoint could satisfy the numerical assertions. The retained regression
+  must authenticate exact byte length and SHA-256 before decode.
 
 ## Open questions
 
