@@ -66,10 +66,12 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   stale. Decision 0014 and charter v1.12 now define the bound before remediation. The v5
   remediation now addresses all five findings: focused tests pass 73/73, Rule 7 is clean over
   156 files, both typechecks pass, and the authenticated cold checkpoint closes within its
-  independent bound. A dirty-source root replay passed 786/788; only the two Phase 4
-  source-provenance controls failed, correctly, because solver bytes differed from Git `HEAD`.
-  Commit and replay from the immutable source identity next. The v5 morphology protocol is not
-  yet frozen or executed.
+  independent bound. Root replay passed 786/788 both before and after remediation commit
+  `47fc01d`; the two failures exposed stale Phase 4 tests that assumed current `HEAD` must forever
+  match the frozen solver source. The verifier itself correctly rejected v5. Positive fixtures
+  now name immutable recorded commits `70a2496`/`dce7081`, and the unchanged verifier passes 59/59
+  targeted tests. Commit that test correction and replay root next. The v5 morphology protocol is
+  not yet frozen or executed.
 - **Last updated:** 2026-07-19 by Codex
 - **Phase 4 is COMPLETE under maker-directed decision
   [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md)** (charter

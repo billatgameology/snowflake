@@ -481,13 +481,17 @@ describe("real publication provenance is derived from recorded Git objects", () 
     expect(() => validateRealProvenance(leakedB, PASS_B_IDENTITY, repoRoot)).toThrow(/keys are invalid/);
   });
 
-  it("accepts current and archived valid commits without requiring recorded HEAD == current HEAD", () => {
+  it("accepts immutable recorded commits without requiring recorded HEAD == current HEAD", () => {
     const current = gitText(repoRoot, ["rev-parse", "HEAD"]);
-    const archived = gitText(repoRoot, ["rev-parse", "dce7081^{commit}"]);
-    expect(archived).not.toBe(current);
-    expect(() => validateRealProvenance(provenancePayload(current), PASS_A_IDENTITY, repoRoot)).not.toThrow();
+    const recordedA = gitText(repoRoot, ["rev-parse", "70a2496^{commit}"]);
+    const archivedBHead = gitText(repoRoot, ["rev-parse", "dce7081^{commit}"]);
+    expect(recordedA).not.toBe(current);
+    expect(archivedBHead).not.toBe(current);
+    expect(() =>
+      validateRealProvenance(provenancePayload(recordedA), PASS_A_IDENTITY, repoRoot),
+    ).not.toThrow();
 
-    const archivedB = provenancePayload(archived, "B");
+    const archivedB = provenancePayload(archivedBHead, "B");
     delete archivedB.sourceHashes;
     expect(() => validateRealProvenance(archivedB, PASS_B_IDENTITY, repoRoot)).not.toThrow();
   });
@@ -530,7 +534,8 @@ describe("real publication provenance is derived from recorded Git objects", () 
   });
 
   it("cross-checks Pass A payload source facts against accepted recorded-head hashes", () => {
-    const payload = provenancePayload();
+    const recordedA = gitText(repoRoot, ["rev-parse", "70a2496^{commit}"]);
+    const payload = provenancePayload(recordedA);
     (payload.sourceHashes as Record<string, unknown>).gg = "0".repeat(64);
     expect(() => validateRealProvenance(payload, PASS_A_IDENTITY, repoRoot)).toThrow(
       /Pass A solver-source hashes are invalid/,

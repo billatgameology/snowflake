@@ -157,10 +157,14 @@ comments cover both policies. Both TypeScript projects, Rule 7 over 156 files, t
 cold-checkpoint reconstruction, and 73/73 focused tests pass.
 
 The first root replay while these source edits were deliberately uncommitted passed 786/788; its
-only two failures were Phase 4 visual-provenance controls correctly rejecting solver source bytes
-that differed from Git `HEAD`. This is the expected fail-closed behavior of the completed Phase 4
-verifier, not a solver regression. Commit the remediation, then rerun the provenance tests and
-exact root suite against that immutable source identity.
+only two failures were Phase 4 visual-provenance controls rejecting solver source bytes that
+differed from Git `HEAD`. After remediation commit `47fc01d`, those two controls still failed and
+exposed a narrower stale test assumption: they treated the current repository head as an accepted
+Phase 4 evidence source forever. The verifier was correct to reject the evolved v5 source. The
+tests now use immutable recorded Phase 4 commits `70a2496` (Pass A) and `dce7081` (archived Pass B)
+as their positive fixtures, while current `HEAD` is deliberately irrelevant. The unchanged
+verifier passes all 59/59 targeted tests with that correction. Commit the test repair, then rerun
+the exact root suite.
 
 ## Out of scope
 
@@ -192,9 +196,9 @@ exact root suite against that immutable source identity.
 - **Trusting checkpoint metadata as artifact identity.** Rejected by review: another structurally
   compatible tick-11 checkpoint could satisfy the numerical assertions. The retained regression
   must authenticate exact byte length and SHA-256 before decode.
-- **Treating the dirty-source root replay as a product failure.** Rejected: 786/788 passed and the
-  two named failures were the Phase 4 verifier proving that current solver bytes did not match
-  Git `HEAD`. Commit the reviewed source identity and replay; never weaken that provenance guard.
+- **Requiring current `HEAD` to remain a valid Phase 4 evidence source.** Rejected after the
+  committed replay: a later versioned solver must differ. Positive provenance tests use the
+  immutable recorded Phase 4 commits; the verifier still rejects evolved or rewritten sources.
 
 ## Open questions
 
