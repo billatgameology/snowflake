@@ -716,12 +716,13 @@ contradiction is a seam defect discovered after the run, not a reason to rewrite
 the negative result; it limits interpretation of the failure as a test of the intended physical
 model. The governing detail and citations are recorded in attachment-kinetics §4.4.
 
-**Next Phase 2b action:** have the same independent reviewer re-check the minimum-subnormal ULP
-floor added after its otherwise-successful round-2 replay found one remaining should-fix. The
-five original findings and Phase 4 provenance-fixture correction are closed; the new exact
-three-site `sigmaInfinity = 1e-320` reproduction now passes, along with Rule 7, both typechecks,
-and 30/30 focused solver tests. Only after a zero-blocker/zero-should-fix review may the exact v5
-pair be frozen in a distinct pre-registration commit. The
+**Next Phase 2b action:** the same reviewer returned 0 blockers / 0 should-fixes on immutable
+repair commit `af90921`; exact `npm test` passes 789/789. The complete unchanged-input v5 pair is
+now frozen in the active plan; the commit containing that freeze is its pre-registration. Update
+`runner/src/main.ts` and its fail-closed tests to pin the full pre-registration hash, route the
+flagless gate and forward `grow-lk` default to `aggregate-hv-g1h1-v5`, use distinct v5 checkpoint
+paths, and enforce the frozen bounded-drift result fields. Commit and have the same reviewer audit
+that execution commit before launching `node runner/src/main.ts gate2b` once. The
 terminal v4 stdout, stderr, and checkpoints in `.tmp-gate2b-clean-1784305494/out/` are immutable;
 their exact hashes and result are in the active v5 plan. Do not rerun or relabel v4.
 

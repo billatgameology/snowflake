@@ -105,8 +105,8 @@ smoother drift and includes it in the divergence numerator. V4 remains immutable
 - [x] Add a non-vacuous regression and implement the minimum contract-honest repair, or stop for
   an ADR if the accepted numerical contract must change.
 - [x] Pass targeted numerical checks, permanent controls, and exact `npm test`.
-- [ ] Freeze and commit the complete v5 protocol before any two-temperature morphology run.
-- [ ] Complete independent adversarial review with no unresolved findings.
+- [x] Freeze and commit the complete v5 protocol before any two-temperature morphology run.
+- [x] Complete independent adversarial repair review with no unresolved findings.
 - [ ] Execute the flagless v5 pair once from a clean isolated worktree and validate all artifacts.
 - [ ] Record the result in this plan and `docs/PROGRESS.md`; close Phase 2b only if every criterion
   passes.
@@ -177,8 +177,85 @@ stencil still produced nonzero subnormal roundoff. This is fail-closed and canno
 registered `0.002` condition, but decision 0014 applies to the full accepted domain. The authority
 and implementation now floor the per-cell error scale at one minimum binary64 subnormal while
 special-casing an exact zero field. The reviewer's exact three-site reproduction passes, as do
-Rule 7, both typechecks, and 30/30 focused solver tests. The same reviewer must re-check this
-immutable remediation before protocol freeze; zero blockers and zero should-fixes remain binding.
+Rule 7, both typechecks, and 30/30 focused solver tests. The same reviewer re-checked immutable
+commit `af90921` and returned **0 blockers / 0 should-fixes**. Its independent nonuniform
+subnormal probe measured drift `2e-323` within bound `1.31034e-318`; exact zero produced zero
+drift and bound; the registered-scale bound remained bit-identical at
+`2.924275577242952e-10`. Exact `npm test` at that tracked-clean commit passes Rule 7 over 156
+files, both TypeScript projects, and 789/789 tests across 43 files.
+
+## Frozen protocol v5 — pre-registration
+
+This section is the complete protocol freeze. The commit containing this section is the v5
+pre-registration commit; the subsequent execution implementation must pin its full hash and may
+change only the runner routing named below. No two-temperature v5 morphology has been run before
+this freeze. The independently reviewed repair baseline is
+`af90921def17961a45765ca83c672c6c742112c6`.
+
+### Execution and provenance
+
+- Command: `node runner/src/main.ts gate2b`, with no flags. Any flag is an error.
+- Engine: exactly Node `v24.13.1`, V8 `13.6.233.17-node.40`.
+- Execution state: a tracked-clean Git commit for which this pre-registration commit is an
+  ancestor. The runner prints both full identities before starting.
+- Order: run −5 °C first, then −15 °C. Execute the pair exactly once; there is no mid-run resume,
+  substitution from v4, tuning between temperatures, or exploratory v5 morphology beforehand.
+- Outputs: `out/gate2b-v5-plate.ckpt` and `out/gate2b-v5-column.ckpt`. These are distinct from and
+  may not overwrite the immutable v3/v4 evidence. Stdout, stderr, wrapper exit status, checkpoint
+  byte lengths, and SHA-256 values are retained after termination.
+
+### Frozen controls
+
+Both runs use `aggregate-hv-g1h1-v5`, the same v4 aggregate boundary/fill physics and arithmetic
+ordering with only decisions 0013–0014's directly metered, bounded float64 smoother-drift
+diagnostic added to convergence. Temperature is the only differing control.
+
+| Control | Frozen value |
+|---|---|
+| temperatures / expected habits | −5 °C plate, then −15 °C column |
+| domain | `96 × 96 × 96` `hexPrism`, center `[48,48,48]` |
+| far field | fixed-σ Dirichlet |
+| `sigmaInfinity` | `0.002` dimensionless fraction |
+| air pressure | `101325 Pa` |
+| lattice spacing | `0.35 µm` |
+| nucleation mapping | `CAK_A1` |
+| fill-CFL | `0.1` |
+| relaxation residual tolerance | `1e-9` |
+| divergence tolerance | `1e-7` |
+| maximum sweeps per relaxation | `200000` |
+| maximum completed surface steps | `200000` |
+| stopping target | largest extent at least `60` cells |
+| seed | radius `2`, thickness `1`, canonical `19` sites |
+| PRNG seed / production noise | `1` / `0` |
+| metrics cadence | every `200` completed steps |
+| events, SDAK, ramps | none |
+
+### Enforced acceptance criteria
+
+The flagless process exits 0 only when every item below passes for both runs; otherwise it exits
+1 and names each failed criterion. A contact-stopped, stalled, unconverged, or step-limited state
+is not habit evidence even if its instantaneous aspect ratio crosses a threshold.
+
+1. Provenance and engine match the frozen values above; execution is tracked-clean and descends
+   from this pre-registration.
+2. The decoded/constructed policy is exactly `aggregate-hv-g1h1-v5`, and the seed contains exactly
+   19 sites.
+3. Termination is `size-target`, with measured extent at least 60 and no domain contact.
+4. Every attachment delta is D6h-invariant and final symmetry error is exactly zero.
+5. Every fixed-σ relaxation converges with residual `< 1e-9` and independently recomputed
+   three-term divergence residual `< 1e-7`. Signed shell injection and signed net surface
+   exchange are finite and strictly positive on every accepted step.
+6. Every directly metered smoother drift is finite and satisfies the independently constructed
+   decision 0014 bound using the fixed `sigmaInfinity`; report-supplied scale cannot authorize it.
+7. Maximum kinetic fill increment is `<= 0.1 + 1e-12`; hole-fill events remain separately
+   deficit-ledgered and do not consume this bound.
+8. The conservative Péclet upper bound is `< 1e-2`.
+9. Each final v2 checkpoint round-trips with identical controls and field bits and names v5.
+10. At the registered extent, −5 °C has aspect ratio `<= 1/1.5`; −15 °C has aspect ratio `>= 1.5`.
+
+Exit 0 is the Phase 2b result. Exit 1 with valid numerical execution is an honest morphology
+negative; an unconverged or provenance-invalid execution is invalid gate evidence and must not be
+relabelled as a habit result.
 
 ## Out of scope
 
