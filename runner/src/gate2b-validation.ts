@@ -3,6 +3,7 @@ import type { RelaxationReport, SurfaceReport } from "@vcc/solver-cpu";
 
 export const GATE2B_NODE = "v24.13.1";
 export const GATE2B_V8 = "13.6.233.17-node.40";
+export const GATE2B_PREREGISTRATION = "acf4f82e80382b01c5dc13dc353d96b070077cf6";
 
 export interface Gate2bProvenance {
   readonly node: string;
@@ -29,7 +30,9 @@ export function validateGate2bProvenance(provenance: Gate2bProvenance): void {
     );
   }
   if (!provenance.preregistrationIsAncestor) {
-    throw new Error("gate2b preregistration commit 8e0017a is not an ancestor of execution HEAD");
+    throw new Error(
+      `gate2b preregistration commit ${GATE2B_PREREGISTRATION} is not an ancestor of execution HEAD`,
+    );
   }
 }
 
@@ -40,6 +43,39 @@ export interface ValidatedLKStepEvidence {
   readonly surfaceExchange: number;
   readonly smootherDrift: number | null;
   readonly smootherDriftAbsLimit: number | null;
+}
+
+/** Revalidate the run-level aggregate so missing/shifted v5 drift evidence cannot pass later. */
+export function validateGate2bDriftSummary(
+  surfacePolicy: LKSurfacePolicy,
+  maxAbsSmootherDrift: number | null,
+  smootherDriftAbsLimit: number | null,
+): void {
+  if (surfacePolicy === "aggregate-hv-g1h1-v5") {
+    if (
+      maxAbsSmootherDrift === null ||
+      !Number.isFinite(maxAbsSmootherDrift) ||
+      maxAbsSmootherDrift < 0 ||
+      smootherDriftAbsLimit === null ||
+      !Number.isFinite(smootherDriftAbsLimit) ||
+      !(smootherDriftAbsLimit > 0)
+    ) {
+      throw new Error(
+        `invalid aggregate-v5 smoother drift summary ` +
+          `(maxAbs=${String(maxAbsSmootherDrift)}, bound=${String(smootherDriftAbsLimit)})`,
+      );
+    }
+    if (maxAbsSmootherDrift > smootherDriftAbsLimit) {
+      throw new Error(
+        `aggregate-v5 maximum smoother drift ${maxAbsSmootherDrift} exceeds bound ` +
+          `${smootherDriftAbsLimit}`,
+      );
+    }
+    return;
+  }
+  if (maxAbsSmootherDrift !== null || smootherDriftAbsLimit !== null) {
+    throw new Error(`policy ${surfacePolicy} must not carry aggregate-v5 drift summary fields`);
+  }
 }
 
 /**

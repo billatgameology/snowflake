@@ -83,7 +83,9 @@ import { gate4b } from "./gate4b.ts";
 import { gate4 } from "./gate4-aggregate.ts";
 import {
   GATE2B_NODE,
+  GATE2B_PREREGISTRATION,
   GATE2B_V8,
+  validateGate2bDriftSummary,
   validateGate2bProvenance,
   validateLKStepEvidence,
 } from "./gate2b-validation.ts";
@@ -495,7 +497,7 @@ interface GrowLKOptions {
 
 function parseLKArgs(argv: string[]): GrowLKOptions {
   const options: GrowLKOptions = {
-    surfacePolicy: "aggregate-hv-g1h1-v4",
+    surfacePolicy: "aggregate-hv-g1h1-v5",
     tempC: null,
     sigmaInf: null,
     dims: { nx: 96, ny: 96, nz: 96 },
@@ -883,7 +885,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
   return result;
 }
 
-/** The flagless Phase 2b protocol v4, frozen in the plan at preregistration commit 8e0017a. */
+/** The flagless Phase 2b protocol v5, frozen in the plan at its pinned preregistration commit. */
 function gate2b(): void {
   const failures: string[] = [];
   const executionCommit = execFileSync("git", ["rev-parse", "HEAD"], {
@@ -896,7 +898,12 @@ function gate2b(): void {
   ).trim();
   let preregistrationIsAncestor = false;
   try {
-    execFileSync("git", ["merge-base", "--is-ancestor", "8e0017a", executionCommit]);
+    execFileSync("git", [
+      "merge-base",
+      "--is-ancestor",
+      GATE2B_PREREGISTRATION,
+      executionCommit,
+    ]);
     preregistrationIsAncestor = true;
   } catch {
     preregistrationIsAncestor = false;
@@ -909,11 +916,12 @@ function gate2b(): void {
     preregistrationIsAncestor,
   });
   console.log(
-    `gate2b protocol=v4 preregistration=8e0017a executionCommit=${executionCommit}` +
+    `gate2b protocol=v5 preregistration=${GATE2B_PREREGISTRATION}` +
+      ` executionCommit=${executionCommit}` +
       ` node=${GATE2B_NODE} v8=${GATE2B_V8}`,
   );
   const common: GrowLKOptions = {
-    surfacePolicy: "aggregate-hv-g1h1-v4",
+    surfacePolicy: "aggregate-hv-g1h1-v5",
     tempC: null,
     sigmaInf: 0.002,
     dims: { nx: 96, ny: 96, nz: 96 }, // SAME domain for both runs — temperature only
@@ -934,9 +942,9 @@ function gate2b(): void {
     divTol: 1e-7,
   };
   console.log("=== 2b GATE run 1/2: plate expectation, T = -5 C ===");
-  const plate = growLK({ ...common, tempC: -5, out: "out/gate2b-v4-plate.ckpt" });
+  const plate = growLK({ ...common, tempC: -5, out: "out/gate2b-v5-plate.ckpt" });
   console.log("=== 2b GATE run 2/2: column expectation, T = -15 C ===");
-  const column = growLK({ ...common, tempC: -15, out: "out/gate2b-v4-column.ckpt" });
+  const column = growLK({ ...common, tempC: -15, out: "out/gate2b-v5-column.ckpt" });
 
   const checkRun = (label: string, r: LKRunResult): void => {
     if (r.seedSites !== 19) {
@@ -966,8 +974,17 @@ function gate2b(): void {
           `(shell=${r.minShellInjection}, exchange=${r.minSurfaceExchange})`,
       );
     }
-    if (!(r.worstDivergence < 1e3 * common.tol)) {
-      failures.push(`${label}: divergence identity ${r.worstDivergence} not < ${1e3 * common.tol}`);
+    if (!(r.worstDivergence < common.divTol)) {
+      failures.push(`${label}: divergence identity ${r.worstDivergence} not < ${common.divTol}`);
+    }
+    try {
+      validateGate2bDriftSummary(
+        r.surfacePolicy,
+        r.maxAbsSmootherDrift,
+        r.smootherDriftAbsLimit,
+      );
+    } catch (error) {
+      failures.push(`${label}: ${error instanceof Error ? error.message : String(error)}`);
     }
     if (!(r.maxKineticFillEver <= common.cfl + 1e-12)) {
       failures.push(`${label}: kinetic fill-CFL bound violated (${r.maxKineticFillEver})`);

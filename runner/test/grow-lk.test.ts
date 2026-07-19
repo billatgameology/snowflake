@@ -6,7 +6,9 @@ import { afterEach, describe, expect, it } from "vitest";
 import { decodeLKCheckpoint } from "@vcc/core";
 import {
   GATE2B_NODE,
+  GATE2B_PREREGISTRATION,
   GATE2B_V8,
+  validateGate2bDriftSummary,
   validateGate2bProvenance,
   validateLKStepEvidence,
 } from "../src/gate2b-validation.ts";
@@ -48,12 +50,12 @@ describe("grow-lk policy/checkpoint evidence path", () => {
       ],
       { cwd: process.cwd(), encoding: "utf8" },
     );
-    expect(stdout).toContain("surfacePolicy=aggregate-hv-g1h1-v4");
+    expect(stdout).toContain("surfacePolicy=aggregate-hv-g1h1-v5");
     expect(stdout).toContain("roundTripIdentical=true");
     const decoded = decodeLKCheckpoint(new Uint8Array(readFileSync(output)));
     expect(decoded.header.version).toBe(2);
-    expect(decoded.header.surfacePolicy).toBe("aggregate-hv-g1h1-v4");
-    expect(decoded.state.surfacePolicy).toBe("aggregate-hv-g1h1-v4");
+    expect(decoded.header.surfacePolicy).toBe("aggregate-hv-g1h1-v5");
+    expect(decoded.state.surfacePolicy).toBe("aggregate-hv-g1h1-v5");
   });
 
   it("rejects unknown exploratory policies before solver construction", () => {
@@ -108,6 +110,36 @@ describe("grow-lk policy/checkpoint evidence path", () => {
     expect(decoded.state.surfacePolicy).toBe("aggregate-hv-g1h1-v5");
   });
 
+  it("retains aggregate-v4 only through an explicit historical reproduction route", () => {
+    const output = temporaryCheckpoint();
+    const stdout = execFileSync(
+      process.execPath,
+      [
+        "runner/src/main.ts",
+        "grow-lk",
+        "--temp-c",
+        "-15",
+        "--sigma-inf",
+        "0.002",
+        "--dims",
+        "8,8,8",
+        "--steps",
+        "0",
+        "--metrics-every",
+        "0",
+        "--surface-policy",
+        "aggregate-hv-g1h1-v4",
+        "--out",
+        output,
+      ],
+      { cwd: process.cwd(), encoding: "utf8" },
+    );
+    expect(stdout).toContain("surfacePolicy=aggregate-hv-g1h1-v4");
+    const decoded = decodeLKCheckpoint(new Uint8Array(readFileSync(output)));
+    expect(decoded.header.surfacePolicy).toBe("aggregate-hv-g1h1-v4");
+    expect(decoded.state.surfacePolicy).toBe("aggregate-hv-g1h1-v4");
+  });
+
   it("keeps gate2b flagless and exits 2 before any evidence work", () => {
     const result = spawnSync(
       process.execPath,
@@ -121,6 +153,7 @@ describe("grow-lk policy/checkpoint evidence path", () => {
 
 describe("gate2b fail-closed evidence validation", () => {
   it("rejects wrong engines, unidentified commits, and tracked changes", () => {
+    expect(GATE2B_PREREGISTRATION).toBe("acf4f82e80382b01c5dc13dc353d96b070077cf6");
     const valid = {
       node: GATE2B_NODE,
       v8: GATE2B_V8,
@@ -179,6 +212,22 @@ describe("gate2b fail-closed evidence validation", () => {
       smootherDrift: null,
       smootherDriftAbsLimit: null,
     });
+  });
+
+  it("revalidates aggregate-v5 run-level drift summaries and rejects shifted fields", () => {
+    expect(() =>
+      validateGate2bDriftSummary("aggregate-hv-g1h1-v5", 1e-13, 1e-9),
+    ).not.toThrow();
+    expect(() =>
+      validateGate2bDriftSummary("aggregate-hv-g1h1-v5", null, 1e-9),
+    ).toThrow(/drift summary/);
+    expect(() =>
+      validateGate2bDriftSummary("aggregate-hv-g1h1-v5", 1e-8, 1e-9),
+    ).toThrow(/exceeds bound/);
+    expect(() =>
+      validateGate2bDriftSummary("aggregate-hv-g1h1-v4", 0, null),
+    ).toThrow(/must not carry/);
+    expect(() => validateGate2bDriftSummary("aggregate-hv-g1h1-v4", null, null)).not.toThrow();
   });
 
   it("requires and independently recomputes aggregate-v5 smoother drift", () => {

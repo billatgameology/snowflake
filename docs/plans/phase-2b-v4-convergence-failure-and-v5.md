@@ -257,6 +257,25 @@ Exit 0 is the Phase 2b result. Exit 1 with valid numerical execution is an hones
 negative; an unconverged or provenance-invalid execution is invalid gate evidence and must not be
 relabelled as a habit result.
 
+## Execution implementation verification
+
+The runner now pins full pre-registration commit
+`acf4f82e80382b01c5dc13dc353d96b070077cf6`, requires it as an ancestor of tracked-clean execution
+`HEAD`, routes the flagless pair and forward `grow-lk` default to aggregate v5, and writes only the
+frozen v5 checkpoint paths. Aggregate v4 remains available only by an explicit exploratory policy
+flag. Per-step validation still independently recomputes the three-term identity and absolute
+drift bound; a separate run-summary validator rejects missing, shifted, non-finite, out-of-bound,
+or older-policy drift fields. The final aggregate divergence criterion now uses the frozen
+`divTol = 1e-7` directly rather than v4's redundant looser `1e3 * relaxTol` summary check.
+
+Focused runner/artifact verification passes 12/12 with both typechecks and Rule 7 clean. The
+depleted-start differential passes 3/3. The permanent enforcing Phase 2a command exits 0 at
+far-field stop tick 4,800 with exact symmetry, mass drift `2.056e-13`, aspect ratio `0.168831`,
+and canonical checkpoint SHA-256
+`f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Exact `npm test` after all
+execution-routing changes passes Rule 7 over 156 files, both TypeScript projects, and 791/791
+tests across 43 files.
+
 ## Out of scope
 
 - Phase 5, GPU scaffolding, Phase 6 sweeps, and any modification of Phase 4 evidence.
