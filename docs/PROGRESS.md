@@ -41,10 +41,14 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   source-constrained aggregate `[HV]` boundary-pixel repair, and protocol v4 is committed in
   the active plan before implementation-driven morphology.** V4 code and non-morphology
   controls now pass; `legacy-v3` remains only as an explicit reproduction path. The flagless
-  v4 habit rerun remains the Phase 2b closure item: exactly one isolated process (PID 36792) is
-  live at tracked-clean `dce7081`, stderr is empty, and it had reached growth step 655 during
-  Phase 4's final review. It has no result yet and remains immutable from other phases.
-- **Last updated:** 2026-07-18 by Codex
+  v4 habit rerun has now terminated at tracked-clean `dce7081` with exit 1. The −5 °C run
+  reached extent 61 and passed its registered plate threshold, but the −15 °C run exhausted
+  200,000 relaxation sweeps while attempting step 12: iterate residual reached zero while the
+  divergence identity plateaued at `3.10e-7 > divTol=1e-7`. It therefore stopped unconverged at
+  completed step 11 and extent 5. **V4 is execution-invalid, not a measured cold-habit failure.**
+  Exact artifact hashes and the criteria-first repair protocol are in
+  [phase-2b-v4-convergence-failure-and-v5.md](plans/phase-2b-v4-convergence-failure-and-v5.md).
+- **Last updated:** 2026-07-19 by Codex
 - **Phase 4 is COMPLETE under maker-directed decision
   [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md)** (charter
   v1.8). It began in isolated worktree `/Users/clipper/github/snowflake-phase4`; on 2026-07-16
@@ -388,7 +392,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | 0 | §2.8 exit criteria hold | ✅ maker-asserted, 2026-07-14 |
 | 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ✅ **maker-asserted, 2026-07-15** — informal sessions, positive; the four-task protocol was *not* run (recorded honestly in the plan's Findings, with the Phase 7 takeaways) |
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited; follow-up evidence hardening complete) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Post-hardening `cmp` is bit-identical, SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Full records: [solver plan](plans/phase-2-cpu-solver.md), [hardening plan](plans/phase-2a-evidence-hardening.md) |
-| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ❌ **open after an execution-valid v3 failure** — protocol v3 completed at execution commit `4ca9680`, command `node runner/src/main.ts gate2b`, exit 1. −5 °C passed plate (AR 0.01888163179957996); −15 °C failed column with the identical AR and attached occupancy. Every non-habit gate criterion and the suite's depleted-start differential passed. Decision 0009's v4 repair is pre-registered, implemented, and green on 262 tests plus the byte-identical Phase 2a differential; its isolated flagless v4 habit pair is running and has no result yet. |
+| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ❌ **open after an execution-valid v3 habit failure and execution-invalid v4 attempt.** V3 completed at `4ca9680`, command `node runner/src/main.ts gate2b`, exit 1: −5 °C passed plate while −15 °C formed the identical plate; every non-habit criterion passed. V4 ran at `dce7081`, exit 1: −5 °C passed at extent 61, but −15 °C stopped unconverged at extent 5 after its attempted step-12 divergence identity plateaued at `3.10e-7 > 1e-7` despite zero iterate residual. The cold aspect ratio is not a valid habit measurement. Investigation and any v5 freeze are governed by [the active repair plan](plans/phase-2b-v4-convergence-failure-and-v5.md). |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | 🔶 **evidence-complete, pending maker assertion** (2026-07-16) — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ✅ **complete, 2026-07-18** — one canonical `node runner/src/main.ts gate4` at `70a2496`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exit 0 in 7,178.8 s. Pass A: 13 runs, 24/24 records green; plate/column AR `0.0666667`/`1.66667`; five-point sweep strictly increasing; depletion median `0.770238`, 7/7 samples below one, width 7→13; three distinct reproducible open-hollow occupancies; cap score `1.3`; dendrite/compact branches 6/0 at independent first reservoir crossings (cycles 4,775/5,450, extents 99/83). A manifest/report/index SHA-256: `e5e85c70…8644` / `bcb29e05…7188` / `92346e3e…1917`. Pass B: 11 runs, 12/12 execution records green; three morphology diagnostics pass and five honestly miss (depletion, widening, hollowing, capped history, branch). B manifest/report/index: `c0ceed5b…e812` / `22c8a92c…fa2d` / `5644f838…5cb0`. Aggregate v2 SHA-256 `194f837d…d8e2`, `gatePass=true`, `passBDiagnosticPass=false`. Real `node app/scripts/visual.mjs --phase4`: 20/20 original-resolution captures inspected by coordinator and reviewer, zero absent/error/clipped/hash-mismatch views, manifest `19e0fcfe…573b`. Post-publication exact root suite 779/779 and 33-module build green; final same-reviewer verdict on repair `b7153cc`: CLEAN, 0 blockers / 0 should-fixes. Full record: [v2 plan](plans/phase-4-v2-reservoir-matched-branch-control.md). |
 | 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
@@ -600,15 +604,15 @@ is 779/779. The Phase 2b v4 rerun remains live in Windows worktree
 
 ## Next step
 
-**Do not start Phase 5 while its upstream charter gates remain open.** Phase 2b's single
-pre-registered v4 process is still running independently at PID 36792; do not kill, duplicate, or
-interpret partial log lines. Monitor
-`.tmp-gate2b-clean-1784305494/out/gate2b-rerun-20260717_162624.log` and its zero-byte `.err`, then
-when the process exits, verify its wrapper status, canonical report/checkpoints, exact protocol,
-and artifact hashes against [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) before changing
-the Phase 2b gate row. Phase 3 separately remains evidence-complete and awaits the maker assertion
-described below. Only after those upstream states are resolved should the next session create the
-required Phase 5 plan before implementation.
+**Do not start Phase 5 while Phase 2b remains open.** Follow
+[phase-2b-v4-convergence-failure-and-v5.md](plans/phase-2b-v4-convergence-failure-and-v5.md):
+decode `gate2b-v4-column.ckpt`, reproduce the attempted cold step-12 relaxation, and independently
+recompute the iterate residual and divergence identity. Explain the fixed-point plateau before
+editing solver numerics. If it is a conformance bug, add a regression and the smallest repair; if
+the accepted equation, convergence meaning, tolerance, or cap must change, stop for an ADR and
+authority sync. Freeze v5 only after the cause is known and before any morphology execution, then
+review it independently and run the exact flagless pair once. Preserve every v4 artifact byte.
+Phase 3 separately remains evidence-complete and awaits the maker assertion described below.
 
 **Phase 3 remains EVIDENCE-COMPLETE and READY FOR EXTERNAL REVIEW (maker-marked 2026-07-16;
 ADRs 0007/0008), orchestrated per
