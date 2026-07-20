@@ -76,6 +76,14 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Same-reviewer re-audit is
   next. The v5 morphology protocol is not yet frozen or executed.
 - **Last updated:** 2026-07-19 by Codex
+- **Phase 2b v5 execution update:** reviewed sequential execution commit `dd762f0` was interrupted
+  by accidental host shutdown during warm step-189 relaxation, after completed step 188. No warm
+  checkpoint, exit status, terminal verdict, or cold start exists; the attempt is incomplete
+  liveness evidence, not a pass/fail result. Exact artifact hashes are in the active
+  [v5p retry plan](plans/phase-2b-v5p-parallel-retry.md). At the user's direction, accepted
+  decision [0015](decisions/0015-parallel-phase2b-temperature-pair.md) replaces only sequential
+  scheduling with two isolated concurrent Node processes; all aggregate-v5 scientific and
+  numerical controls remain frozen.
 - **Phase 4 is COMPLETE under maker-directed decision
   [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md)** (charter
   v1.8). It began in isolated worktree `/Users/clipper/github/snowflake-phase4`; on 2026-07-16
@@ -716,14 +724,12 @@ contradiction is a seam defect discovered after the run, not a reason to rewrite
 the negative result; it limits interpretation of the failure as a test of the intended physical
 model. The governing detail and citations are recorded in attachment-kinetics §4.4.
 
-**Next Phase 2b action:** the execution routing now pins full pre-registration
-`acf4f82e80382b01c5dc13dc353d96b070077cf6`, defaults forward LK to v5, retains explicit v4
-reproduction, uses distinct v5 outputs, and revalidates bounded-drift summary fields. Focused
-runner/artifact tests pass 12/12, the depleted-start differential passes 3/3, exact `npm test`
-passes 791/791, and the enforcing Phase 2a control exits 0 with canonical checkpoint SHA-256
-`f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Commit these changes and
-have the same reviewer audit the immutable execution commit. Only a 0-blocker/0-should-fix verdict
-authorizes launching `node runner/src/main.ts gate2b` once. The
+**Next Phase 2b action:** implement the pre-registered v5p coordinator in
+`runner/src/main.ts`: launch fixed −5/−15 roles as isolated concurrent Node processes, bind their
+IPC/results/checkpoints fail-closed, and retain every sequential-v5 scientific criterion. First
+prove compact sequential/concurrent checkpoint byte identity and adversarial coordinator
+failures, then pass exact root tests and permanent controls and obtain a zero-finding independent
+audit before launching the flagless pair. The
 terminal v4 stdout, stderr, and checkpoints in `.tmp-gate2b-clean-1784305494/out/` are immutable;
 their exact hashes and result are in the active v5 plan. Do not rerun or relabel v4.
 
