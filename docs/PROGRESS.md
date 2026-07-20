@@ -73,8 +73,11 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   targeted tests. At tracked-clean `61ccc40`, exact root verification is Rule 7 clean over 156
   files with both typechecks and 788/788 tests green. The final depleted-start differential is
   3/3 and enforcing Phase 2a control exits 0 with canonical hash
-  `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Same-reviewer re-audit is
-  next. The v5 morphology protocol is not yet frozen or executed.
+  `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Sequential v5 was later
+  frozen at `acf4f82`; its reviewed execution was interrupted by host shutdown without a
+  checkpoint or cold start. Concurrent v5p is pre-registered at `8adea86`, implemented at
+  `c30aa6f`, and has passed its code/protocol audit; the final handoff-text recheck authorizes the
+  immediate flagless launch when it closes with no findings.
 - **Last updated:** 2026-07-19 by Codex
 - **Phase 2b v5 execution update:** reviewed sequential execution commit `dd762f0` was interrupted
   by accidental host shutdown during warm step-189 relaxation, after completed step 188. No warm
