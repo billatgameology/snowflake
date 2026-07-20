@@ -643,12 +643,14 @@ result recorded above; its `out/gate2b-rerun-20260717_162624.*` artifacts remain
 ## Next step
 
 **Do not start Phase 5 while Phase 2b remains open.** Follow
-[phase-2b-v4-convergence-failure-and-v5.md](plans/phase-2b-v4-convergence-failure-and-v5.md):
-implement decision 0013's versioned aggregate-v5 smoother-drift diagnostic, add the checkpoint
-fixed-point regression plus residual-only and forged-drift negative controls, and prove aggregate
-v4 remains bit-identical. Freeze v5 only after the repair is green and before any morphology
-execution, then
-review it independently and run the exact flagless pair once. Preserve every v4 artifact byte.
+[phase-2b-v5p-parallel-retry.md](plans/phase-2b-v5p-parallel-retry.md). Decision 0015 and
+pre-registration `8adea86` freeze the unchanged aggregate-v5 scientific pair with concurrent
+fixed-role execution. Implementation `c30aa6f` launches −5/−15 °C in separate Node processes,
+binds IPC/results/new checkpoints fail-closed, and passes 793/793 tests plus permanent controls.
+The commit containing this handoff correction resolves the independent audit's sole documentation
+should-fix. Obtain the same reviewer's 0-blocker/0-should-fix recheck of current tracked-clean
+`HEAD`, then run `node runner/src/main.ts gate2b` once and retain the v5p logs, status, and both
+checkpoints. Preserve every v3/v4/sequential-v5 artifact byte.
 Phase 3 separately remains evidence-complete and awaits the maker assertion described below.
 
 **Phase 3 remains EVIDENCE-COMPLETE and READY FOR EXTERNAL REVIEW (maker-marked 2026-07-16;
@@ -729,8 +731,11 @@ fail-closed validation binds their processes, IPC, results, and newly decoded ch
 Focused verification is 14/14; compact concurrent checkpoints are byte-identical to sequential
 counterparts; exact `npm test` passes 793/793; the depleted-start differential passes 3/3; and
 the enforcing Phase 2a control exits 0 with canonical checkpoint SHA-256
-`f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Commit the implementation
-and obtain a zero-finding independent audit before launching the flagless pair. The
+`f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Implementation is committed
+at `c30aa6f`; its independent code/protocol audit found zero blockers
+and only the stale-handoff text corrected by the commit containing this paragraph. Have the same
+reviewer recheck current tracked-clean `HEAD`; a 0/0 result authorizes immediate flagless v5p
+launch. The
 terminal v4 stdout, stderr, and checkpoints in `.tmp-gate2b-clean-1784305494/out/` are immutable;
 their exact hashes and result are in the active v5 plan. Do not rerun or relabel v4.
 
