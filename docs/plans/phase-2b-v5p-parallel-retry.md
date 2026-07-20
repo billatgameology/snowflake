@@ -84,14 +84,34 @@ zero blockers and zero should-fixes before launch.
 
 - [x] Preserve and classify the interrupted sequential-v5 attempt.
 - [x] Record decision 0015 and freeze v5p before implementation or morphology.
-- [ ] Implement isolated concurrent workers, labeled streams, IPC binding, and aggregate checks.
-- [ ] Prove compact sequential/concurrent checkpoint byte identity and adversarial coordinator
+- [x] Implement isolated concurrent workers, labeled streams, IPC binding, and aggregate checks.
+- [x] Prove compact sequential/concurrent checkpoint byte identity and adversarial coordinator
   failures.
-- [ ] Pass exact root tests, depleted-start differential, and enforcing Phase 2a control.
+- [x] Pass exact root tests, depleted-start differential, and enforcing Phase 2a control.
 - [ ] Obtain independent review with zero blockers and zero should-fixes.
 - [ ] Run the flagless v5p pair once and retain stdout, stderr, status, checkpoints, byte lengths,
   and SHA-256 values.
 - [ ] Record the terminal result; close Phase 2b only if both habits and all criteria pass.
+
+## Implementation evidence before final audit
+
+The flagless parent now forks both fixed-role children before awaiting either. Each worker builds
+the frozen options internally, writes only its registered v5p path, round-trips its v2 checkpoint,
+and sends one typed terminal envelope. The parent role-prefixes both streams, waits for both,
+authenticates exact IPC count/kind/role/temperature/path and process exit, reopens and decodes each
+new checkpoint, checks every frozen header control, and independently binds tick, simulated time,
+attached count, largest extent, aspect ratio, and final symmetry to the returned result. Existing
+output paths reject before launch, preventing overwrite or stale-artifact substitution.
+
+Focused verification passes 14/14 tests. The real compact process control starts separate warm
+and cold Node processes concurrently and requires both checkpoint byte arrays to equal their
+sequential counterparts exactly. Negative controls independently shift message count, role,
+temperature, checkpoint path, exit code, signal, finite result data, and pre-existing outputs.
+Exact `npm test` passes Rule 7 over 158 files, both TypeScript projects, and 793/793 tests across
+43 files. The depleted-start differential passes 3/3. The permanent enforcing Phase 2a command
+exits 0 at far-field stop tick 4,800 with exact symmetry, mass drift `2.056e-13`, aspect ratio
+`0.168831`, and canonical checkpoint SHA-256
+`f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`.
 
 ## Out of scope
 

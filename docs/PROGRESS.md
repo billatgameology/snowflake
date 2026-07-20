@@ -724,12 +724,13 @@ contradiction is a seam defect discovered after the run, not a reason to rewrite
 the negative result; it limits interpretation of the failure as a test of the intended physical
 model. The governing detail and citations are recorded in attachment-kinetics §4.4.
 
-**Next Phase 2b action:** implement the pre-registered v5p coordinator in
-`runner/src/main.ts`: launch fixed −5/−15 roles as isolated concurrent Node processes, bind their
-IPC/results/checkpoints fail-closed, and retain every sequential-v5 scientific criterion. First
-prove compact sequential/concurrent checkpoint byte identity and adversarial coordinator
-failures, then pass exact root tests and permanent controls and obtain a zero-finding independent
-audit before launching the flagless pair. The
+**Next Phase 2b action:** the v5p coordinator now launches fixed −5/−15 roles concurrently and
+fail-closed validation binds their processes, IPC, results, and newly decoded checkpoints.
+Focused verification is 14/14; compact concurrent checkpoints are byte-identical to sequential
+counterparts; exact `npm test` passes 793/793; the depleted-start differential passes 3/3; and
+the enforcing Phase 2a control exits 0 with canonical checkpoint SHA-256
+`f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Commit the implementation
+and obtain a zero-finding independent audit before launching the flagless pair. The
 terminal v4 stdout, stderr, and checkpoints in `.tmp-gate2b-clean-1784305494/out/` are immutable;
 their exact hashes and result are in the active v5 plan. Do not rerun or relabel v4.
 

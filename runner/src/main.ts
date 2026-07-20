@@ -46,9 +46,11 @@
 //                   past the guard by construction, so the run is flagged NOT VALID EVIDENCE
 //   tick-cap        --ticks reached without either rule firing (recorded honestly)
 
-import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { execFileSync } from "node:child_process";
+import { execFileSync, fork } from "node:child_process";
+import { createInterface } from "node:readline";
+import { fileURLToPath } from "node:url";
 import {
   aspectRatio,
   centerRimDepletion,
@@ -60,6 +62,7 @@ import {
   encodeLKCheckpoint,
   isLKSurfacePolicy,
   isD6hInvariantSet,
+  latticeExtents,
   pecletUpperBound,
   symmetryError,
   totalMass,
@@ -84,9 +87,16 @@ import { gate4 } from "./gate4-aggregate.ts";
 import {
   GATE2B_NODE,
   GATE2B_PREREGISTRATION,
+  GATE2B_WORKER_SPECS,
   GATE2B_V8,
+  type Gate2bRole,
+  type Gate2bWorkerEnvelope,
+  type Gate2bWorkerSpec,
+  type LKRunResult,
   validateGate2bDriftSummary,
+  validateGate2bOutputAbsence,
   validateGate2bProvenance,
+  validateGate2bWorkerCompletion,
   validateLKStepEvidence,
 } from "./gate2b-validation.ts";
 import { occupancyTopDownPGM, propensitySlicePGM, vaporSlicePGM } from "./pgm.ts";
@@ -601,28 +611,6 @@ function parseLKArgs(argv: string[]): GrowLKOptions {
   return options;
 }
 
-interface LKRunResult {
-  surfacePolicy: LKSurfacePolicy;
-  stopReason: "size-target" | "domain-contact" | "step-cap" | "stalled" | "unconverged";
-  aspectRatio: number;
-  attached: number;
-  seedSites: number;
-  tick: number;
-  extent: number;
-  symmetryClean: boolean;
-  finalSymErr: number;
-  allConverged: boolean;
-  minShellInjection: number;
-  minSurfaceExchange: number;
-  worstDivergence: number;
-  maxAbsSmootherDrift: number | null;
-  smootherDriftAbsLimit: number | null;
-  maxKineticFillEver: number;
-  holeFillCountTotal: number;
-  pecletBound: number;
-  simTimeSeconds: number;
-}
-
 function growLK(options: GrowLKOptions): LKRunResult {
   const solver = new LKSolver({
     surfacePolicy: options.surfacePolicy,
@@ -885,8 +873,160 @@ function growLK(options: GrowLKOptions): LKRunResult {
   return result;
 }
 
-/** The flagless Phase 2b protocol v5, frozen in the plan at its pinned preregistration commit. */
-function gate2b(): void {
+function gate2bOptions(spec: Gate2bWorkerSpec): GrowLKOptions {
+  return {
+    surfacePolicy: "aggregate-hv-g1h1-v5",
+    tempC: spec.tempC,
+    sigmaInf: 0.002,
+    dims: { nx: 96, ny: 96, nz: 96 }, // SAME domain for both jobs — temperature only
+    dxUm: 0.35,
+    paramSet: "CAK_A1",
+    cfl: 0.1,
+    tol: 1e-9,
+    steps: 200_000,
+    targetExtent: 60,
+    seed: 1,
+    noise: 0,
+    out: spec.checkpointPath,
+    metricsEvery: 200,
+    pressurePa: 101325,
+    seedRadius: 2,
+    seedThickness: 1,
+    relaxMaxSweeps: 200_000,
+    divTol: 1e-7,
+  };
+}
+
+function prefixGate2bWorkerStream(
+  stream: NodeJS.ReadableStream,
+  label: string,
+  toError: boolean,
+): void {
+  const lines = createInterface({ input: stream });
+  lines.on("line", (line) => {
+    const message = `[${label}] ${line}`;
+    if (toError) console.error(message);
+    else console.log(message);
+  });
+}
+
+function validateGate2bWorkerCheckpoint(spec: Gate2bWorkerSpec, result: LKRunResult): void {
+  const decoded = decodeLKCheckpoint(new Uint8Array(readFileSync(spec.checkpointPath)));
+  const { header, state } = decoded;
+  const expectedDims = { nx: 96, ny: 96, nz: 96 } as const;
+  const expectedCenter = domainCenter(expectedDims);
+  if (
+    header.version !== 2 ||
+    header.rule !== "LibbrechtKinetics" ||
+    header.surfacePolicy !== "aggregate-hv-g1h1-v5" ||
+    state.surfacePolicy !== "aggregate-hv-g1h1-v5" ||
+    header.tempC !== spec.tempC ||
+    header.sigmaInfinity !== 0.002 ||
+    header.dims.nx !== expectedDims.nx ||
+    header.dims.ny !== expectedDims.ny ||
+    header.dims.nz !== expectedDims.nz ||
+    header.domain !== "hexPrism" ||
+    header.farField !== "dirichlet" ||
+    header.center[0] !== expectedCenter[0] ||
+    header.center[1] !== expectedCenter[1] ||
+    header.center[2] !== expectedCenter[2] ||
+    header.dxUm !== 0.35 ||
+    header.pressurePa !== 101325 ||
+    header.paramSet !== "CAK_A1" ||
+    header.cflFill !== 0.1 ||
+    header.relaxTol !== 1e-9 ||
+    header.divTol !== 1e-7 ||
+    header.relaxMaxSweeps !== 200_000 ||
+    header.rngSeed !== 1 ||
+    header.noiseEpsilon !== 0 ||
+    state.tick !== result.tick ||
+    header.simTimeSeconds !== result.simTimeSeconds
+  ) {
+    throw new Error(`${spec.label} parent checkpoint control/result authentication failed`);
+  }
+  let attached = 0;
+  for (const value of state.a) attached += value;
+  const extents = latticeExtents(state.a, expectedDims);
+  if (extents === null) throw new Error(`${spec.label} parent checkpoint contains no crystal`);
+  const extent = extents.largestExtent;
+  const checkpointAspectRatio = aspectRatio(state.a, expectedDims);
+  const checkpointSymmetry = symmetryError(state.a, expectedDims, expectedCenter);
+  if (
+    attached !== result.attached ||
+    extent !== result.extent ||
+    checkpointAspectRatio !== result.aspectRatio ||
+    checkpointSymmetry !== result.finalSymErr
+  ) {
+    throw new Error(
+      `${spec.label} parent checkpoint morphology/result authentication failed: ` +
+        `attached=${attached}/${result.attached}, extent=${extent}/${result.extent}, ` +
+        `AR=${checkpointAspectRatio}/${result.aspectRatio}, ` +
+        `symmetry=${checkpointSymmetry}/${result.finalSymErr}`,
+    );
+  }
+}
+
+function launchGate2bWorker(spec: Gate2bWorkerSpec): Promise<LKRunResult> {
+  const child = fork(fileURLToPath(import.meta.url), ["__gate2b-worker", spec.role], {
+    cwd: process.cwd(),
+    silent: true,
+  });
+  console.log(
+    `gate2b v5p launched role=${spec.role} tempC=${spec.tempC}` +
+      ` checkpoint=${spec.checkpointPath} pid=${String(child.pid)}`,
+  );
+  if (child.stdout !== null) prefixGate2bWorkerStream(child.stdout, spec.label, false);
+  if (child.stderr !== null) prefixGate2bWorkerStream(child.stderr, spec.label, true);
+  const messages: unknown[] = [];
+  child.on("message", (message) => messages.push(message));
+  return new Promise<LKRunResult>((resolve, reject) => {
+    let settled = false;
+    child.once("error", (error) => {
+      if (settled) return;
+      settled = true;
+      reject(new Error(`${spec.label} worker process error: ${error.message}`, { cause: error }));
+    });
+    child.once("close", (exitCode, signal) => {
+      if (settled) return;
+      settled = true;
+      try {
+        const envelope = validateGate2bWorkerCompletion(spec, messages, exitCode, signal);
+        validateGate2bWorkerCheckpoint(spec, envelope.result);
+        resolve(envelope.result);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  });
+}
+
+async function runGate2bWorker(role: Gate2bRole): Promise<void> {
+  const spec = GATE2B_WORKER_SPECS[role];
+  const result = growLK(gate2bOptions(spec));
+  if (typeof process.send !== "function" || !process.connected) {
+    throw new Error(`${spec.label} gate worker requires a connected parent IPC channel`);
+  }
+  const envelope: Gate2bWorkerEnvelope = {
+    kind: "gate2b-v5p-result",
+    role: spec.role,
+    tempC: spec.tempC,
+    checkpointPath: spec.checkpointPath,
+    result,
+  };
+  await new Promise<void>((resolve, reject) => {
+    process.send?.(envelope, (error) => {
+      if (error !== null) {
+        reject(error);
+        return;
+      }
+      process.disconnect?.();
+      resolve();
+    });
+  });
+}
+
+/** The flagless Phase 2b protocol v5p, frozen at the pinned concurrent pre-registration. */
+async function gate2b(): Promise<void> {
   const failures: string[] = [];
   const executionCommit = execFileSync("git", ["rev-parse", "HEAD"], {
     encoding: "utf8",
@@ -916,35 +1056,37 @@ function gate2b(): void {
     preregistrationIsAncestor,
   });
   console.log(
-    `gate2b protocol=v5 preregistration=${GATE2B_PREREGISTRATION}` +
+    `gate2b protocol=v5p surfacePolicy=aggregate-hv-g1h1-v5` +
+      ` preregistration=${GATE2B_PREREGISTRATION}` +
       ` executionCommit=${executionCommit}` +
       ` node=${GATE2B_NODE} v8=${GATE2B_V8}`,
   );
-  const common: GrowLKOptions = {
-    surfacePolicy: "aggregate-hv-g1h1-v5",
-    tempC: null,
-    sigmaInf: 0.002,
-    dims: { nx: 96, ny: 96, nz: 96 }, // SAME domain for both runs — temperature only
-    dxUm: 0.35,
-    paramSet: "CAK_A1",
-    cfl: 0.1,
-    tol: 1e-9,
-    steps: 200_000,
-    targetExtent: 60,
-    seed: 1,
-    noise: 0,
-    out: null,
-    metricsEvery: 200,
-    pressurePa: 101325,
-    seedRadius: 2,
-    seedThickness: 1,
-    relaxMaxSweeps: 200_000,
-    divTol: 1e-7,
-  };
-  console.log("=== 2b GATE run 1/2: plate expectation, T = -5 C ===");
-  const plate = growLK({ ...common, tempC: -5, out: "out/gate2b-v5-plate.ckpt" });
-  console.log("=== 2b GATE run 2/2: column expectation, T = -15 C ===");
-  const column = growLK({ ...common, tempC: -15, out: "out/gate2b-v5-column.ckpt" });
+  const common = gate2bOptions(GATE2B_WORKER_SPECS.plate);
+  validateGate2bOutputAbsence(
+    Object.values(GATE2B_WORKER_SPECS)
+      .map((spec) => spec.checkpointPath)
+      .filter((path) => existsSync(path)),
+  );
+  console.log("=== 2b GATE concurrent pair: -5 C plate + -15 C column ===");
+  // Both calls synchronously fork before either returned promise is awaited.
+  const platePromise = launchGate2bWorker(GATE2B_WORKER_SPECS.plate);
+  const columnPromise = launchGate2bWorker(GATE2B_WORKER_SPECS.column);
+  const [plateSettlement, columnSettlement] = await Promise.allSettled([
+    platePromise,
+    columnPromise,
+  ]);
+  const plate = plateSettlement.status === "fulfilled" ? plateSettlement.value : null;
+  const column = columnSettlement.status === "fulfilled" ? columnSettlement.value : null;
+  if (plateSettlement.status === "rejected") {
+    failures.push(
+      `plate(-5C): worker failed: ${plateSettlement.reason instanceof Error ? plateSettlement.reason.message : String(plateSettlement.reason)}`,
+    );
+  }
+  if (columnSettlement.status === "rejected") {
+    failures.push(
+      `column(-15C): worker failed: ${columnSettlement.reason instanceof Error ? columnSettlement.reason.message : String(columnSettlement.reason)}`,
+    );
+  }
 
   const checkRun = (label: string, r: LKRunResult): void => {
     if (r.seedSites !== 19) {
@@ -993,12 +1135,12 @@ function gate2b(): void {
       failures.push(`${label}: quasi-static validity bound Pe ${r.pecletBound} not < 1e-2`);
     }
   };
-  checkRun("plate(-5C)", plate);
-  checkRun("column(-15C)", column);
-  if (!(plate.aspectRatio <= 1 / 1.5)) {
+  if (plate !== null) checkRun("plate(-5C)", plate);
+  if (column !== null) checkRun("column(-15C)", column);
+  if (plate !== null && !(plate.aspectRatio <= 1 / 1.5)) {
     failures.push(`plate(-5C): AR ${plate.aspectRatio} not <= ${1 / 1.5} — not a plate`);
   }
-  if (!(column.aspectRatio >= 1.5)) {
+  if (column !== null && !(column.aspectRatio >= 1.5)) {
     failures.push(`column(-15C): AR ${column.aspectRatio} not >= 1.5 — not a column`);
   }
 
@@ -1007,6 +1149,9 @@ function gate2b(): void {
     for (const f of failures) console.error(`  - ${f}`);
     console.error("2B GATE EXIT STATUS: 1");
     process.exit(1);
+  }
+  if (plate === null || column === null) {
+    throw new Error("gate2b v5p reached an impossible empty-result success path");
   }
   console.log(
     `2B GATE PASSED: habit is an output of temperature alone (same domain, same everything,` +
@@ -1017,7 +1162,19 @@ function gate2b(): void {
 }
 
 const [command, ...rest] = process.argv.slice(2);
-if (command === "grow") {
+if (command === "__gate2b-worker") {
+  const role = rest.length === 1 ? rest[0] : null;
+  if (role !== "plate" && role !== "column") {
+    console.error("internal gate2b worker requires exactly one recognized fixed role");
+    process.exit(2);
+  }
+  try {
+    await runGate2bWorker(role);
+  } catch (error) {
+    console.error(error instanceof Error ? (error.stack ?? error.message) : String(error));
+    process.exitCode = 1;
+  }
+} else if (command === "grow") {
   grow(parseArgs(rest));
 } else if (command === "grow-lk") {
   growLK(parseLKArgs(rest));
@@ -1028,7 +1185,7 @@ if (command === "grow") {
     process.exit(2);
   }
   try {
-    gate2b();
+    await gate2b();
   } catch (error) {
     console.error(error instanceof Error ? (error.stack ?? error.message) : String(error));
     console.error("2B GATE EXIT STATUS: 1");
