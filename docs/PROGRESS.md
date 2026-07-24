@@ -84,6 +84,16 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   round-trip-identical checkpoints. Stable evidence and exact hashes are in
   [the v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result).
 - **Last updated:** 2026-07-23 by Codex
+- **Phase 5 handoff is ready, implementation has not started.** Decision
+  [0016](decisions/0016-phase5-hardware-backend-lanes.md) and charter v1.14 name the actual
+  hardware lanes: the Windows Ryzen 7 5700G / 64 GB / RTX 3080 10 GB host is primary and supplies
+  D3D12/Vulkan plus Phase 6 sweep throughput; the previously documented M4 Mac supplies the
+  mandatory Metal lane. The active criteria-first plan is
+  [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). Its WP0 is the only authorized next work:
+  freeze exact fixtures, float32 tolerances, runtime/backend provenance, interactive thresholds,
+  artifact schema, gate command, and negative controls before creating `solver-gpu/`. The
+  documentation handoff passes exact root `npm test`: Rule 7 clean over 161 files, both
+  TypeScript checks green, and 43 files / 793 tests passed.
 - **Phase 2b v5 execution update:** reviewed sequential execution commit `dd762f0` was interrupted
   by accidental host shutdown during warm step-189 relaxation, after completed step 188. No warm
   checkpoint, exit status, terminal verdict, or cold start exists; the attempt is incomplete
@@ -363,7 +373,8 @@ one-layer plate at the measurement size. The protocol was registered after round
 by rounds 4–6. The stack is
 decided in charter §3.1 — TypeScript + Vite, WebGPU, stacked triangular lattice, CPU oracle +
 GPU production solver, five-part repo (`core` / `solver-cpu` / `solver-gpu` / `runner` / `app`;
-`app` now exists under Phase 3, while `solver-gpu` remains reserved and uncreated).
+`app` now exists under Phase 3, while `solver-gpu` remains reserved and uncreated until the active
+Phase 5 plan's WP0 criteria freeze is committed and reviewed).
 
 The solver specs — **read the relevant one before writing solver code:**
 
@@ -446,7 +457,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ✅ **complete, 2026-07-20.** One flagless v5p run at tracked-clean `0dc0f86`, pre-registration `8adea86`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exited 0. Same `96×96×96` hexPrism, extent target, fixed-σ far field, `sigmaInfinity=0.002`, pressure, spacing, mapping, seed 1, noise 0, CFL, and convergence controls; temperature alone differed. −5 °C: step 814, extent 61, attached 18,193, AR `0.118644` plate. −15 °C: step 330, extent 61, attached 1,159, AR `12.2000` column. Both: size-target, symmetry error 0, every relaxation converged, bounded smoother drift, checkpoint round trip identical. The depleted-start differential was 3/3 and permanent Phase 2a control retained canonical SHA-256 `f1796b5015…a389`. Final log SHA-256 `ea69d65a…c45e`, status 0, empty stderr; complete evidence: [v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result). V3 negative and v4 execution-invalid history remain preserved. |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ✅ **maker-asserted complete, 2026-07-23** — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ✅ **complete, 2026-07-18** — one canonical `node runner/src/main.ts gate4` at `70a2496`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exit 0 in 7,178.8 s. Pass A: 13 runs, 24/24 records green; plate/column AR `0.0666667`/`1.66667`; five-point sweep strictly increasing; depletion median `0.770238`, 7/7 samples below one, width 7→13; three distinct reproducible open-hollow occupancies; cap score `1.3`; dendrite/compact branches 6/0 at independent first reservoir crossings (cycles 4,775/5,450, extents 99/83). A manifest/report/index SHA-256: `e5e85c70…8644` / `bcb29e05…7188` / `92346e3e…1917`. Pass B: 11 runs, 12/12 execution records green; three morphology diagnostics pass and five honestly miss (depletion, widening, hollowing, capped history, branch). B manifest/report/index: `c0ceed5b…e812` / `22c8a92c…fa2d` / `5644f838…5cb0`. Aggregate v2 SHA-256 `194f837d…d8e2`, `gatePass=true`, `passBDiagnosticPass=false`. Real `node app/scripts/visual.mjs --phase4`: 20/20 original-resolution captures inspected by coordinator and reviewer, zero absent/error/clipped/hash-mismatch views, manifest `19e0fcfe…573b`. Post-publication exact root suite 779/779 and 33-module build green; final same-reviewer verdict on repair `b7153cc`: CLEAN, 0 blockers / 0 should-fixes. Full record: [v2 plan](plans/phase-4-v2-reservoir-matched-branch-control.md). |
-| 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
+| 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | 🔶 **handoff ready; WP0 not started** (2026-07-23) — decision 0016 and charter v1.14 bind the RTX 3080 Windows lane plus M4 Metal lane without weakening the gate. Active plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). No `solver-gpu/` package or Phase 5 gate evidence exists yet. |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
 
@@ -467,8 +478,8 @@ Records live in [docs/decisions/](decisions/):
 
 - [0001](decisions/0001-non-cubic-grid-dimensions.md) — grid dimensions are `(nx, ny, nz)`, not
   `N³`; charter §3.1/§3.2 updated to match
-- [0002](decisions/0002-dev-hardware-split.md) — dev hardware is split: Mac for the solver, the
-  RTX 4080 for GPU work and sweeps; charter §3.1 updated to match
+- [0002](decisions/0002-dev-hardware-split.md) — historical M4/RTX 4080 hardware split,
+  superseded by 0016; its two-backend and bounded-dispatch requirements survive
 - **[0003](decisions/0003-libbrecht-attachment-kinetics.md) — Libbrecht's attachment kinetics
   drive the solver; G-G supplies the machinery.** The load-bearing one. Charter §1.5, §2.5, §2.6,
   §2.7, §3.2 (Phases 2 and 6) and §3.3 all amended to match
@@ -524,9 +535,20 @@ Records live in [docs/decisions/](decisions/):
 - [0015](decisions/0015-parallel-phase2b-temperature-pair.md) — the registered v5p replacement
   runs the fixed −5/−15 °C roles in isolated concurrent Node processes without changing any
   scientific or numerical control. No charter impact
+- [0016](decisions/0016-phase5-hardware-backend-lanes.md) — the Windows Ryzen 7 5700G / 64 GB /
+  RTX 3080 10 GB machine is the primary Phase 5 development, D3D12/Vulkan, and Phase 6 sweep
+  host; the M4 Mac is the mandatory Metal lane. Preview and the two-backend gate remain binding;
+  bake is adapter-dependent. Charter v1.13 → v1.14
 
 The two decisions predating this system (web over native C++/CUDA; the five-part repo split) live
 in charter §3.1 and get no retroactive ADR.
+
+## Active plan
+
+- [phase-5-gpu-port.md](plans/phase-5-gpu-port.md) — handoff ready 2026-07-23; WP0 not started.
+  The next session freezes the two-host capability record, comparison fixtures, CPU-derived
+  float32 tolerances, headless runtime, interactive/dispatch thresholds, evidence schema, and
+  negative controls. `solver-gpu/` stays absent until that freeze is committed and reviewed.
 
 ## Completed plans
 
@@ -676,15 +698,21 @@ immutable.
 
 ## Next step
 
-**Phases 2b, 3, and 4 are complete.** The next concrete action is to record an ADR and synchronize
-the charter for the actual Phase 5 hardware/backend plan, then create the required Phase 5
-criteria-first plan before any GPU implementation.
+**Phases 2b, 3, and 4 are complete; Phase 5 is active at its pre-implementation WP0.** Open
+[phase-5-gpu-port.md](plans/phase-5-gpu-port.md), read both solver specs completely, and perform
+only **WP0 — criteria and backend freeze**. Start by running `npm test` on the tracked-clean
+Windows baseline, then record the actual Windows adapter/backend/runtime limits and the M4
+Metal-lane identity. Build the CPU-side float32 shadow probe and commit the exact fixtures,
+tolerance table, interactive/dispatch thresholds, evidence schema, flagless gate command, and
+negative controls into the plan before any production WGSL physics or `solver-gpu/` scaffold.
 
-Decision 0002 and the charter still describe an RTX 4080/16 GB plus Metal test host, while the
-current primary Windows machine is an RTX 3080/10 GB system and supplies only the D3D12/Vulkan
-side. The ADR must identify how the Metal backend will be tested and must not silently weaken the
-required Metal + D3D12/Vulkan CPU-oracle comparison. The accepted Phase 2b artifacts are stable
-under `out/phase2b/`; do not rerun or relabel v3, v4, interrupted v5, or passing v5p.
+Decision 0016 and charter v1.14 resolve the former RTX 4080 mismatch. The ≈8M preview and both
+backend lanes remain blocking; ≈30M detailed and ≈130M bake are capability-reported targets.
+If the M4 is unavailable, record that fact: Phase 5's gate is blocked until a named Metal host
+exists, and Windows results cannot substitute for it. Independent CPU fixtures should run in
+parallel processes where memory permits, but canonical GPU latency/watchdog evidence uses one
+process per physical adapter. Preserve accepted evidence under `out/phase2b/`, `out/phase4/`, and
+`out/phase4-visual/`; do not rerun or relabel historical protocols.
 
 **Phase 3 is COMPLETE — maker-asserted 2026-07-23 (ADRs 0007/0008), orchestrated per
 [phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md)** — all work packages

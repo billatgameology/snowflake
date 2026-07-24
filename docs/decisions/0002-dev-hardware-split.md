@@ -1,8 +1,12 @@
 # 0002 — Development hardware is split: Mac for the solver, RTX 4080 for GPU and sweeps
 
 - **Date:** 2026-07-14
-- **Status:** accepted
+- **Status:** superseded by 0016
 - **Charter impact:** §3.1 updated in this session ("Development machine: RTX 4080, 16 GB")
+
+> **Supersession note (2026-07-23):** decision 0016 replaces the hardware assignment with the
+> current RTX 3080 primary host and retains the M4 as the Metal conformance lane. The two-backend
+> comparison and bounded-dispatch requirements survive unchanged.
 
 > **Note (2026-07-14, after decisions 0003/0005):** this ADR predates the reframing of Phase 6
 > from "calibration atlas" to validation. Its "calibration atlas" references below are
