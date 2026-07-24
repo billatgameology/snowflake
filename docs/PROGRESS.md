@@ -104,7 +104,8 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   The M4 was unreachable and is explicitly unobserved; that blocks cross-backend milestones and
   the final gate, while decision 0016 permitted WP1 implementation. `solver-gpu/` was absent
   at the immutable WP0 boundary.
-- **Phase 5 WP1 Windows implementation is complete; the WP1 milestone remains open.** The exact
+- **Phase 5 WP1 Windows implementation is complete at `1a2c2a4`; the WP1 milestone remains
+  open.** The exact
   root pre-WP1 baseline at clean commit `c29754b`
   exited 0 in 371.1 seconds: Rule 7 clean over 166 files, both TypeScript projects green, and
   44 files / 802 tests passed. The concurrent canonical capability probe passed on observed

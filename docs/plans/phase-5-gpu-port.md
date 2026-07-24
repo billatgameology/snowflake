@@ -498,8 +498,9 @@ fixture, tolerance, criterion, lane, or evidence meaning.
 
 ### WP1 Windows implementation result
 
-The environment-neutral `@vcc/solver-gpu` implementation now exists downstream of its committed
-design freeze. It provides the frozen structure-of-arrays plans, checked non-cubic index ABI,
+The environment-neutral `@vcc/solver-gpu` implementation at
+`1a2c2a4900a7952f92130f4cefc075627043fdca` now exists downstream of its committed design
+freeze. It provides the frozen structure-of-arrays plans, checked non-cubic index ABI,
 uniform encoder/WGSL declaration, exact counter-PRNG transcription, word-copy transport,
 capability and allocation rejection, generation-scoped resource/submission ownership, bounded
 dispatch ranges, and audited readback. No diffusion or surface-operator shader exists.
@@ -512,6 +513,10 @@ dev/preview GG/LK allocation cases succeeded sequentially, both preview dispatch
 contiguous with at most 16,384 workgroups/range, the required-limit and full-field-display-frame
 negative controls failed closed, and uncaptured GPU errors were zero. Detailed and bake support
 was capability-reported from observed limits only; it is not acceptance evidence.
+
+The canonical capability probe was then rerun from that tracked-clean commit and passed with
+the same observed D3D12 backend and zero uncaptured errors. The WP1 transport probe also reran
+from the clean commit with the exact counts above.
 
 Exact root `npm test` then exited 0 in 357.4 seconds: Rule 7 was clean over 177 files, both
 TypeScript projects passed, and 46 files / 816 tests passed. `npm run build -w app` transformed

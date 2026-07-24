@@ -3,8 +3,11 @@
 // the frozen transport ABI and blocking memory budgets on the local registered browser lane.
 
 import { existsSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { createServer } from "node:http";
+import os from "node:os";
 import process from "node:process";
+import { resolve } from "node:path";
 import { chromium } from "playwright";
 import { hashCounter } from "../../core/src/index.ts";
 import {
@@ -30,6 +33,16 @@ import {
   PHASE5_REQUIRED_FEATURES,
   PHASE5_REQUIRED_LIMITS,
 } from "../../runner/src/phase5-protocol.ts";
+
+const repoRoot = resolve(import.meta.dirname, "..", "..");
+
+function git(...args) {
+  return execFileSync("git", args, {
+    cwd: repoRoot,
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+  }).trim();
+}
 
 function platformContract() {
   if (process.platform === "win32") {
@@ -508,6 +521,10 @@ async function main() {
       };
     });
     const backend = String(deviceResult.adapter.info.backend ?? "");
+    const repository = {
+      commit: git("rev-parse", "HEAD"),
+      clean: git("status", "--porcelain").length === 0,
+    };
     const browserVersion = await (
       await browser.newBrowserCDPSession()
     ).send("Browser.getVersion");
@@ -515,6 +532,7 @@ async function main() {
       schema: "phase5-wp1-transport-v1",
       lane: platform.lane,
       pass:
+        repository.clean &&
         backend.toLowerCase() === platform.expectedBackend.toLowerCase() &&
         requirementCheck.supported &&
         !requiredLimitNegative.supported &&
@@ -537,6 +555,15 @@ async function main() {
         residencyNegativePassed &&
         readbackAudit.fullFieldDisplayFrameCount() === 0 &&
         deviceResult.uncapturedErrors.length === 0,
+      repository,
+      host: {
+        platform: process.platform,
+        release: os.release(),
+        architecture: os.arch(),
+        cpu: os.cpus()[0]?.model ?? "unknown",
+        logicalProcessors: os.cpus().length,
+        totalMemoryBytes: os.totalmem(),
+      },
       runtime: {
         name: PHASE5_HEADLESS_RUNTIME,
         frozenVersion: PHASE5_HEADLESS_RUNTIME_VERSION,
