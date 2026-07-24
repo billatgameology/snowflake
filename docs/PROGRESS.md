@@ -119,7 +119,10 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   coordinate mismatches, 3,366 detected j/k-mutation mismatches, 0/4,096 mixed-word-copy
   mismatches, 0/3,553 PRNG mismatches, all eight dev/preview GG/LK allocations passing,
   contiguous bounded preview ranges, both registered WP1 negative controls passing, and zero
-  uncaptured errors. Exact root `npm test` exited 0 in 357.4 seconds: Rule 7 clean over 177
+  uncaptured errors. The canonical capability and WP1 probes reran from tracked-clean
+  `27f69994696ac486a689b5aeada8f7b83f0214ef`; both independently recorded that commit and
+  cleanliness, observed D3D12, and exited 0. Exact root `npm test` exited 0 in 357.4 seconds:
+  Rule 7 clean over 177
   files, both typechecks green, and 46 files / 816 tests passed; the 33-module app build also
   passed. The M4 replay and independent review are still absent. Under the serial stage contract,
   WP1 cannot close and WP2 cannot start until both exist.
@@ -733,8 +736,8 @@ immutable.
 ## Next step
 
 **Phases 2b, 3, and 4 are complete; Phase 5 is blocked at WP1 cross-backend closure.** On the
-named M4 host, check out the WP1 implementation commit named by the active plan, confirm a clean
-tree, run `npm install --ignore-scripts`, `npm test`,
+named M4 host, check out `27f69994696ac486a689b5aeada8f7b83f0214ef`, confirm a clean tree,
+run `npm install --ignore-scripts`, `npm test`,
 `node app/scripts/phase5-capability.mjs`, and `node app/scripts/phase5-wp1.mjs`, then preserve the
 complete JSON outputs and exact exit statuses. The capability report must observe backend
 `metal`; the WP1 report must have zero coordinate/copy/PRNG mismatches, every blocking

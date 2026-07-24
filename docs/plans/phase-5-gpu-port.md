@@ -514,9 +514,10 @@ contiguous with at most 16,384 workgroups/range, the required-limit and full-fie
 negative controls failed closed, and uncaptured GPU errors were zero. Detailed and bake support
 was capability-reported from observed limits only; it is not acceptance evidence.
 
-The canonical capability probe was then rerun from that tracked-clean commit and passed with
-the same observed D3D12 backend and zero uncaptured errors. The WP1 transport probe also reran
-from the clean commit with the exact counts above.
+After provenance binding, both canonical probes reran at tracked-clean
+`27f69994696ac486a689b5aeada8f7b83f0214ef`. The capability report and WP1 report independently
+recorded that exact commit and a clean tree, passed with the same observed D3D12 backend, and
+reported zero uncaptured errors; the WP1 report retained the exact counts above.
 
 Exact root `npm test` then exited 0 in 357.4 seconds: Rule 7 was clean over 177 files, both
 TypeScript projects passed, and 46 files / 816 tests passed. `npm run build -w app` transformed
