@@ -181,7 +181,9 @@ describe("GPU G-G diffusion input and ABI", () => {
 
 type PureDiffusionMutation =
   | "none"
-  | "zero-reflection"
+  | "zero-face-reflection"
+  | "zero-attached-reflection"
+  | "zero-wall-reflection"
   | "unsorted-pairs"
   | "wrong-noise-stream"
   | "skip-drift"
@@ -227,11 +229,14 @@ function independentDiffusionPass(
     k: number,
   ) => {
     if (i < 0 || i >= nx || j < 0 || j >= ny || k < 0 || k >= nz) {
-      return mutation === "zero-reflection" ? 0 : own;
+      return mutation === "zero-face-reflection" ? 0 : own;
     }
     const neighbor = k * plane + j * nx + i;
-    if (blocked(neighbor)) {
-      return mutation === "zero-reflection" ? 0 : own;
+    if (fixture.occupancy[neighbor] !== 0) {
+      return mutation === "zero-attached-reflection" ? 0 : own;
+    }
+    if (fixture.wall[neighbor] !== 0) {
+      return mutation === "zero-wall-reflection" ? 0 : own;
     }
     return field[neighbor];
   };
@@ -380,7 +385,9 @@ describe("independent GPU G-G diffusion numerical contract", () => {
     expect(reference[59]).toBe(Math.fround(0.123));
 
     for (const mutation of [
-      "zero-reflection",
+      "zero-face-reflection",
+      "zero-attached-reflection",
+      "zero-wall-reflection",
       "unsorted-pairs",
       "wrong-noise-stream",
       "skip-drift",
@@ -403,7 +410,9 @@ interface FakeGpu {
   readonly buffers: { destroy: ReturnType<typeof vi.fn>; size: number }[];
 }
 
-function fakeGpu(): FakeGpu {
+function fakeGpu(
+  lost = new Promise<GPUDeviceLostInfo>(() => undefined),
+): FakeGpu {
   const entryPoints: string[] = [];
   const dispatches: string[] = [];
   const buffers: { destroy: ReturnType<typeof vi.fn>; size: number }[] = [];
@@ -417,7 +426,7 @@ function fakeGpu(): FakeGpu {
       maxBufferSize: 1_000_000,
       maxStorageBufferBindingSize: 1_000_000,
     },
-    lost: new Promise<GPUDeviceLostInfo>(() => undefined),
+    lost,
     destroy: vi.fn(),
     queue,
     createBuffer: vi.fn((descriptor: GPUBufferDescriptor) => {
@@ -490,6 +499,89 @@ describe("GPU G-G diffusion orchestration", () => {
     firstArena.destroy();
     firstSubmissions.destroy();
     secondSubmissions.destroy();
+  });
+
+  test("rejects destroyed or lost controllers before creation and refuses access after later loss", async () => {
+    const plan = createGpuBufferPlan({ nx: 3, ny: 3, nz: 3 }, "gg");
+    const destroyedFake = fakeGpu();
+    const destroyedArena = GpuBufferArena.create(
+      destroyedFake.device,
+      1,
+      plan,
+    );
+    const destroyedSubmissions = new GpuSubmissionController(
+      destroyedFake.device,
+    );
+    destroyedSubmissions.acknowledgeEdit(1);
+    destroyedSubmissions.destroy();
+    await expect(
+      GpuGgDiffusion.create(
+        destroyedFake.device,
+        destroyedSubmissions,
+        destroyedArena,
+        validInput(plan.layout.cellCount, "reflecting"),
+      ),
+    ).rejects.toThrow(/controller is destroyed/);
+    expect(destroyedFake.device.createShaderModule).not.toHaveBeenCalled();
+    expect(destroyedFake.device.queue.writeBuffer).not.toHaveBeenCalled();
+    destroyedArena.destroy();
+
+    let resolvePreCreateLoss:
+      | ((info: GPUDeviceLostInfo) => void)
+      | undefined;
+    const preCreateLost = new Promise<GPUDeviceLostInfo>((resolve) => {
+      resolvePreCreateLoss = resolve;
+    });
+    const lostFake = fakeGpu(preCreateLost);
+    const lostArena = GpuBufferArena.create(lostFake.device, 1, plan);
+    const lostSubmissions = new GpuSubmissionController(lostFake.device);
+    lostSubmissions.acknowledgeEdit(1);
+    resolvePreCreateLoss?.({
+      reason: "unknown",
+      message: "lost before diffusion creation",
+    } as GPUDeviceLostInfo);
+    await Promise.resolve();
+    await Promise.resolve();
+    await expect(
+      GpuGgDiffusion.create(
+        lostFake.device,
+        lostSubmissions,
+        lostArena,
+        validInput(plan.layout.cellCount, "reflecting"),
+      ),
+    ).rejects.toThrow(/device was lost/);
+    expect(lostFake.device.createShaderModule).not.toHaveBeenCalled();
+    expect(lostFake.device.queue.writeBuffer).not.toHaveBeenCalled();
+    lostArena.destroy();
+    lostSubmissions.destroy();
+
+    let resolveLaterLoss:
+      | ((info: GPUDeviceLostInfo) => void)
+      | undefined;
+    const laterLost = new Promise<GPUDeviceLostInfo>((resolve) => {
+      resolveLaterLoss = resolve;
+    });
+    const activeFake = fakeGpu(laterLost);
+    const activeArena = GpuBufferArena.create(activeFake.device, 1, plan);
+    const activeSubmissions = new GpuSubmissionController(activeFake.device);
+    activeSubmissions.acknowledgeEdit(1);
+    const diffusion = await GpuGgDiffusion.create(
+      activeFake.device,
+      activeSubmissions,
+      activeArena,
+      validInput(plan.layout.cellCount, "reflecting"),
+    );
+    resolveLaterLoss?.({
+      reason: "unknown",
+      message: "lost after diffusion creation",
+    } as GPUDeviceLostInfo);
+    await Promise.resolve();
+    await Promise.resolve();
+    expect(() => diffusion.activeVaporName()).toThrow(/device was lost/);
+    expect(() => diffusion.activeVaporBuffer()).toThrow(/device was lost/);
+    diffusion.destroy();
+    activeArena.destroy();
+    activeSubmissions.destroy();
   });
 
   test("uses explicit ping-pong ownership and the minimal reflecting pass graph", async () => {

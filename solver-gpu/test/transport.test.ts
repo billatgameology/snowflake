@@ -429,5 +429,31 @@ describe("GPU submission lifecycle", () => {
     await Promise.resolve();
     await Promise.resolve();
     expect(destroyed.unexpectedLossReason()).toBeNull();
+
+    let resolveDelayedFailure:
+      | ((info: GPUDeviceLostInfo) => void)
+      | undefined;
+    const delayedFailureLost = new Promise<GPUDeviceLostInfo>((resolve) => {
+      resolveDelayedFailure = resolve;
+    });
+    const delayedFailureDevice = {
+      queue: {
+        submit: vi.fn(),
+        onSubmittedWorkDone: vi.fn(async () => undefined),
+      },
+      destroy: vi.fn(),
+      lost: delayedFailureLost,
+    } as unknown as GPUDevice;
+    const delayedFailure = new GpuSubmissionController(delayedFailureDevice);
+    delayedFailure.destroy();
+    resolveDelayedFailure?.({
+      reason: "unknown",
+      message: "failure delivered after teardown",
+    } as GPUDeviceLostInfo);
+    await Promise.resolve();
+    await Promise.resolve();
+    expect(delayedFailure.unexpectedLossReason()).toBe(
+      "unknown:failure delivered after teardown",
+    );
   });
 });

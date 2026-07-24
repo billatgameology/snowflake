@@ -63,13 +63,14 @@ export class GpuSubmissionController {
     this.device = device;
     this.clock = clock;
     void device.lost.then((info) => {
-      if (!this.destroyed) {
+      if (!this.destroyed || info.reason !== "destroyed") {
         this.lostReason = `${info.reason}:${info.message}`;
       }
     });
   }
 
   assertDevice(device: GPUDevice): void {
+    this.assertUsable();
     if (device !== this.device) {
       throw new Error("GPU submission controller belongs to a different device");
     }
@@ -80,6 +81,7 @@ export class GpuSubmissionController {
   }
 
   currentGeneration(): number {
+    this.assertUsable();
     return this.generation;
   }
 

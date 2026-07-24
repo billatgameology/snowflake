@@ -731,7 +731,29 @@ wrong-clamp mutation, reported zero uncaptured errors and `unexpectedDeviceLoss:
 exited 1 only because its repair tree was intentionally dirty. Exact root `npm test` then exited
 0 in 368.8 seconds: Rule 7 was clean over 182 files, both TypeScript projects passed, and 47
 files / 832 tests passed. The app production build transformed 33 modules and exited 0.
-Tracked-clean D3D12 replay and same-reviewer round 2 remain required before WP2 closes.
+Repair commit `7d2bfa6da0c2e0b62c694615b079e92509fd452d` then passed the complete
+tracked-clean D3D12 predicate with the same numerical values, the wrong-clamp mutation rejected,
+zero uncaptured errors, and no unexpected device loss.
+
+Same-reviewer round 2 independently authenticated and replayed that commit but rejected two
+narrower blockers and two should-fixes. Exact device identity was enforced, but controller
+destroy/loss state did not fail `currentGeneration` or compatibility checks before pipeline work
+and later active-buffer access. The pure reflection mutation combined domain faces, attached
+neighbors, and walls, so a face-only effect could mask vacuous attached/wall coverage. In
+addition, delayed non-destroy loss after teardown was misclassified as intentional, and the
+committed handoff still described the now-clean repair as uncommitted.
+
+The round-2 repair makes device compatibility and every generation read assert controller
+liveness, including before and after asynchronous pipeline construction and during active-buffer
+access. Adversarial tests prove destroyed/lost controllers perform zero shader or upload work and
+that later loss refuses both active-buffer accessors. The pure test now mutates face, attached,
+and wall reflection separately and requires each category to change output. Only an actual
+`destroyed` loss reason following intentional teardown is ignored; a delayed `unknown` reason is
+recorded. Focused diffusion/transport tests pass 21/21, both TypeScript projects pass, and the
+provisional D3D12 replay preserves every accepted result with both error channels empty. Exact
+root `npm test` exited 0 in 374.5 seconds: Rule 7 was clean over 182 files, both TypeScript
+projects passed, and 47 files / 833 tests passed. The app production build transformed 33
+modules and exited 0. A tracked-clean replay and same-reviewer round 3 remain required.
 
 ## Steps
 
