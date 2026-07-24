@@ -632,6 +632,59 @@ reviewer's final provenance audit accepted the commit/tree/blob identity, object
 both complete probe predicates with zero blockers and zero should-fixes. No WP2 code began before
 that clean closure.
 
+## WP2 diffusion design
+
+WP2 ports only the G-G masked-average diffusion contract used by the four frozen diffusion
+fixtures. It does not port freezing, attachment, melting, an LK Robin boundary, convergence
+classification, metrics, checkpoints, or app ownership. The unchanged float64 `GGSolver` remains
+the oracle, and `runner/src/phase5-shadow.ts` remains the independently written binary32
+operation-order witness. Neither implementation is shared with the production WGSL.
+
+The production pass owns these exact stages:
+
+1. when `noiseEpsilon > 0`, generate the counter-hash bit for
+   `(rngSeed, cellIndex, tick, STREAM_NOISE_XI)` and write `(1 - xi) * source` plus the refusal
+   coefficient to GPU-resident buffers;
+2. compute the canonical in-plane seven-point average into `scratchScalarA`, including the
+   sorted three opposite-direction pair sums and centre-value reflection at attached cells,
+   inactive walls, and domain faces;
+3. compute the vertical `4/7` plus `3/14` split into `scratchScalarB`, with the same reflecting
+   rule;
+4. when `phi > 0`, apply the specified downward drift from `scratchScalarB` into
+   `scratchScalarA`;
+5. commit into the opposite G-G vapor buffer, restore `xi * source` when noise is active, and
+   zero every blocked cell; then, and only then, clamp the active fixed-σ shell to `rho` for a
+   Dirichlet fixture.
+
+Each published pass ends in the opposite `ggVaporA`/`ggVaporB` buffer, and repeated passes use
+that completed destination as the next source. The active-buffer identity is explicit host state;
+there is no in-place update or implicit parity guess. Occupancy, wall, and shell masks are
+uploaded separately and validated for exact length, binary values, disjoint attached/wall
+membership, and active-only shell membership. Options are snapshotted and validated before any
+GPU allocation or upload. A failed construction destroys all WP2-owned resources and never
+changes the caller-owned WP1 arena.
+
+WP2 reuses WP1’s bounded dispatch ranges and generation-scoped submission controller. Every
+range receives immutable uniform bytes, so a later `queue.writeBuffer` cannot silently retarget
+an already encoded range. The same production pipelines and buffer graph serve all four frozen
+fixtures; the D3D12 probe may compile a separately labeled mutated clamp shader only for
+`NC-WRONG-BOUNDARY-CLAMP`. No runtime flag, public option, or fallback permits production code to
+skip or move the clamp.
+
+WP2 closes only when:
+
+- pure tests independently exercise mask/input rejection, non-cubic neighbors, attached/wall/face
+  reflection, canonical pair ordering, counter-noise, drift, clamp order, ping-pong ownership,
+  repeated passes, bounded ranges, generation mismatch, and teardown;
+- the pinned Chromium probe on the RTX 3080 observes D3D12 and compares the complete vapor array
+  after every registered pass count for all four frozen fixtures against the unchanged float64
+  oracle using `PHASE5_FIELD_TOLERANCES.diffusionD`;
+- the real-device wrong-clamp mutation exceeds at least one frozen field tolerance while the
+  production path passes the same Dirichlet case;
+- zero device losses, uncaptured errors, hidden retries, or full-field display-frame readbacks
+  occur; test-purpose readback is audited; exact root tests and the app build pass; and an
+  independent reviewer reports zero blockers and zero should-fixes.
+
 ## Steps
 
 - [x] Record decision 0016, synchronize charter v1.14, and create this cold-start handoff.
