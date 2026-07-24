@@ -112,8 +112,7 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   uncaptured errors.
   The M4 was unreachable and remains explicitly unobserved; decision 0018 now defers it rather
   than guessing or relabeling a result. `solver-gpu/` was absent at the immutable v1 WP0 boundary.
-- **Phase 5 WP1 code review is accepted, but the milestone remains open because read-only Git
-  metadata blocks its commit and clean probes; WP2 has not started.** The exact
+- **Phase 5 WP1 is COMPLETE at `afd94078e515236124bace82ff263390d80609f9`; WP2 is next.** The exact
   root pre-WP1 baseline at clean commit `c29754b`
   exited 0 in 371.1 seconds: Rule 7 clean over 166 files, both TypeScript projects green, and
   44 files / 802 tests passed. The concurrent canonical capability probe passed on observed
@@ -164,10 +163,18 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   Exact root `npm test` exited 0 in 367.7 seconds: Rule 7 was clean over 178 files, both
   typechecks passed, and 46 files / 821 tests passed; the 33-module app build also exited 0.
   Same-reviewer round 4 is ACCEPTED with zero blockers and zero should-fixes after independent
-  focused-test and real-D3D12 replay. Ten tracked files remain modified at
-  `5707708f686652f3f35f3f989d8a46f0d8ee8c43`; the probe exits 1 only on
-  `repository.clean: false`. WP1 cannot close until the accepted diff is committed and both
-  canonical probes pass from that tracked-clean commit.
+  focused-test and real-D3D12 replay. The primary workspace could not write `.git/index.lock`,
+  so the operator directed creation of an isolated clone under ignored `out/worktrees/`.
+  That clone committed the exact accepted ten-file diff as
+  `afd94078e515236124bace82ff263390d80609f9`. Both canonical probes then ran serially from that
+  tracked-clean commit and exited 0. Capability recorded clean provenance, D3D12, timestamp
+  completion, captured validation, and zero uncaptured errors. WP1 recorded the same clean
+  commit/backend with 0 coordinate/copy/PRNG mismatches, 3,366 axis-swap mismatches, 14 real
+  coordinate ranges including 13 nonzero bases, 17 submissions, five accepted readbacks, every
+  residency/purpose/request mutation rejected, all eight blocking arenas passing, all four
+  bake/operator cases rejected from negotiated limits, and zero uncaptured errors. The final
+  same-reviewer provenance audit accepted the commit parent, exact ten-file tree/blob identity,
+  object integrity, and both complete probe predicates with zero blockers and zero should-fixes.
 - **Phase 2b v5 execution update:** reviewed sequential execution commit `dd762f0` was interrupted
   by accidental host shutdown during warm step-189 relaxation, after completed step 188. No warm
   checkpoint, exit status, terminal verdict, or cold start exists; the attempt is incomplete
@@ -785,19 +792,15 @@ immutable.
 
 ## Next step
 
-**Phases 2b, 3, and 4 are complete; Phase 5 WP1 code is accepted but awaits a commit and clean
-probes before WP2.**
-Same-reviewer round 4 accepted the WP1 code with zero blockers and zero should-fixes. This
-session exposes `.git` read-only and cannot create the required commit. When Git metadata writes
-are restored, commit the accepted WP1 remediation, then run
-`node app/scripts/phase5-capability.mjs` and `node app/scripts/phase5-wp1.mjs` from that clean
-commit. Record the exact commit and results in this file and the active plan. Verify the
-canonical manifest hashes, exact 16-criterion/control ownership, checked buffer/index ABI,
-real-device negative controls, negotiated-device allocation classification, production
-transport paths, root tests, and app build. Record zero blockers and zero should-fixes before
-closing WP1. Then implement only **WP2 — diffusion**: one and repeated masked-average passes for
-reflecting and fixed-sigma boundaries, compared with the unchanged CPU fixtures/tolerances and
-pinned by the wrong-boundary-clamp negative control.
+**Phases 2b, 3, 4, and Phase 5 WP1 are complete. Phase 5 is at WP2 — diffusion.** Work only in
+the isolated clone rooted at `G:/Code Files/snowflake/out/worktrees/phase5-wp1/`, whose writable
+Git history contains the accepted WP1 commit
+`afd94078e515236124bace82ff263390d80609f9`; the primary workspace remains a read-only-metadata
+source and must not be mistaken for the clean execution tree. Implement and independently
+validate one and repeated masked-average passes for reflecting and fixed-sigma boundaries on
+Windows D3D12. Compare against the unchanged CPU fixtures and frozen tolerances, pin the
+wrong-boundary-clamp negative control, update this handoff after the meaningful WP2 steps, and do
+not begin WP3 until WP2 receives clean review.
 
 Protocol `phase5-gpu-conformance-windows-v2` is frozen at SHA-256
 `223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`; changing a fixture,

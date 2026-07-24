@@ -1,8 +1,8 @@
 # Plan — Phase 5: WebGPU solver port and Windows D3D12 conformance
 
 - **Phase:** Phase 5 — GPU port
-- **Status:** Decision 0018 Windows-only protocol is frozen and clean; WP1 code review round 4
-  is accepted, but read-only Git metadata blocks its commit/clean probes, and WP2 has not started
+- **Status:** Decision 0018 Windows-only protocol is frozen and clean; WP1 is complete at
+  `afd94078e515236124bace82ff263390d80609f9`, and WP2 is next
 - **Started:** 2026-07-23
 - **Last touched:** 2026-07-24 by Codex
 
@@ -615,9 +615,22 @@ original and follow-up finding closed, and observed zero numerical mismatches, 1
 submissions, five accepted readbacks, every residency/request mutation rejected, all eight
 blocking arenas passing, bake rejected from negotiated limits, and zero uncaptured errors.
 `git diff --check` also passes. This acceptance covers the code diff only. Ten tracked files
-remain modified at base `5707708f686652f3f35f3f989d8a46f0d8ee8c43` because this session cannot
-write `.git/index.lock`; therefore WP1 remains open until the accepted diff is committed and both
-canonical probes pass from that tracked-clean commit.
+remained modified at base `5707708f686652f3f35f3f989d8a46f0d8ee8c43` because the primary
+workspace could not write `.git/index.lock`. At the operator's direction, an isolated clone under
+the ignored `out/worktrees/` boundary committed the exact reviewed diff as
+`afd94078e515236124bace82ff263390d80609f9`.
+
+Both canonical probes then ran serially from that tracked-clean commit and exited 0. The
+capability probe recorded clean provenance, observed D3D12, completed the timestamped dispatch,
+captured the scoped validation error, and reported zero uncaptured errors. The WP1 probe recorded
+the same clean commit and backend; coordinate/copy/counter-PRNG mismatches were 0, the axis-swap
+negative produced 3,366 mismatches, all 14 real coordinate ranges including 13 nonzero bases
+passed, 17 production submissions and five accepted readbacks were audited, every
+residency/purpose/request mutation rejected, all eight blocking arenas passed, all four
+bake/operator cases rejected from negotiated limits, and uncaptured errors were zero. The same
+reviewer's final provenance audit accepted the commit/tree/blob identity, object integrity, and
+both complete probe predicates with zero blockers and zero should-fixes. No WP2 code began before
+that clean closure.
 
 ## Steps
 
@@ -631,13 +644,13 @@ canonical probes pass from that tracked-clean commit.
       this freeze before `solver-gpu/` exists. Completed as immutable two-lane v1 history;
       decision 0018 now supersedes only its lane/evidence scope through the Windows-only v2
       re-freeze above.
-- [ ] **WP1 — package and transport.** Review round 1 rejected the clean candidate with five
+- [x] **WP1 — package and transport.** Review round 1 rejected the clean candidate with five
       blockers and three should-fixes; round 2 closed six but found cumulative chunked readback
       and exact request-boundary blockers; round 3 closed those but found active-frame token
       omission. The third remediation passes both typechecks, focused and exact root tests, the
       app build, and a provisional real-D3D12 run; round 4 accepted the code with zero blockers
-      and zero should-fixes. Commit when Git writes are restored and run the canonical clean
-      probes before closing this item or starting WP2.
+      and zero should-fixes. Exact reviewed commit `afd94078e515236124bace82ff263390d80609f9`
+      then passed both canonical clean D3D12 probes with zero uncaptured errors.
 - [ ] **WP2 — diffusion.** Implement and independently validate one and repeated masked-average
       diffusion passes for reflecting and fixed-σ boundaries on Windows D3D12.
 - [ ] **WP3 — `GGThreshold`.** Port complete cycles with parameter events, noise, melting,
