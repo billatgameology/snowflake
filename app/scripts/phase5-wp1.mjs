@@ -26,7 +26,6 @@ import {
 } from "../../solver-gpu/src/index.ts";
 import {
   PHASE5_BUDGETS,
-  PHASE5_EXPECTED_METAL_BACKEND,
   PHASE5_EXPECTED_WINDOWS_BACKEND,
   PHASE5_HEADLESS_RUNTIME,
   PHASE5_HEADLESS_RUNTIME_VERSION,
@@ -47,9 +46,6 @@ function git(...args) {
 function platformContract() {
   if (process.platform === "win32") {
     return { lane: "windows-d3d12", expectedBackend: PHASE5_EXPECTED_WINDOWS_BACKEND };
-  }
-  if (process.platform === "darwin") {
-    return { lane: "macos-metal", expectedBackend: PHASE5_EXPECTED_METAL_BACKEND };
   }
   throw new Error(`WP1 transport conformance does not support ${process.platform}`);
 }

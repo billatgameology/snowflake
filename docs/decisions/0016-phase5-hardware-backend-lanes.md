@@ -1,7 +1,7 @@
 # 0016 — Phase 5 uses the RTX 3080 primary host and the M4 Metal lane
 
 - **Date:** 2026-07-23
-- **Status:** accepted
+- **Status:** accepted; Metal/two-lane gate clauses superseded by 0018
 - **Charter impact:** §3.1 and Phases 5–6 updated in this session
 
 ## Context

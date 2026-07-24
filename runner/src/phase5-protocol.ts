@@ -1,34 +1,27 @@
-// Phase 5 WP0: the criteria-first GPU conformance protocol. This file deliberately lives in
-// runner, upstream of the future solver-gpu package, so fixtures and tolerances exist before
-// production WGSL output can influence them.
+// Phase 5 criteria-first GPU conformance protocol. The numerical fixtures and tolerances were
+// frozen before solver-gpu existed; decision 0018's Windows-only v2 changes lane/evidence scope
+// without using production GPU output to revise any numerical envelope.
 
 import type { Dims, DomainShape, FarFieldCondition, GGPresetName } from "@vcc/core";
 
-export const PHASE5_PROTOCOL = "phase5-gpu-conformance-v1";
+export const PHASE5_PROTOCOL = "phase5-gpu-conformance-windows-v2";
 export const PHASE5_PROTOCOL_SHA256 =
-  "b62ec34cf118ebffbfd493203b68ff1028cf057f1b1736b5fc5028a87091ff09";
+  "223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e";
 export const PHASE5_FIXTURES_SHA256 =
   "29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512";
 export const PHASE5_TOLERANCES_SHA256 =
-  "96bf73b6e3a4f1937c86972f7cadf00766afdacc8f13c5efb5ab416184ce4053";
+  "1e77ed673e77aba6598c2bdd56e6b80f0f59343067bd7cb2c677d220d2fc05ba";
 export const PHASE5_GATE_COMMAND = "node runner/src/main.ts gate5";
 export const PHASE5_LANE_COMMAND = "node runner/src/main.ts gate5-lane";
 export const PHASE5_HEADLESS_RUNTIME = "playwright-bundled-chromium";
 export const PHASE5_HEADLESS_RUNTIME_VERSION = "playwright-1.61.1/chromium-1228";
 export const PHASE5_EXPECTED_WINDOWS_BACKEND = "D3D12";
-export const PHASE5_EXPECTED_METAL_BACKEND = "metal";
-export const PHASE5_CROSS_BACKEND_TOLERANCE_MULTIPLIER = 2;
 
 export const PHASE5_LANES = [
   {
     id: "windows-d3d12",
     operatingSystem: "windows",
     expectedBackend: PHASE5_EXPECTED_WINDOWS_BACKEND,
-  },
-  {
-    id: "macos-metal",
-    operatingSystem: "macos",
-    expectedBackend: PHASE5_EXPECTED_METAL_BACKEND,
   },
 ] as const;
 
@@ -551,7 +544,6 @@ export const PHASE5_PERFORMANCE = {
 
 export const PHASE5_CRITERIA = [
   "P5-WINDOWS-PROVENANCE",
-  "P5-METAL-PROVENANCE",
   "P5-PROTOCOL-MATCH",
   "P5-ADAPTER-LIMITS",
   "P5-LAYOUT-INDEXING",
@@ -560,7 +552,6 @@ export const PHASE5_CRITERIA = [
   "P5-LIBBRECHT-KINETICS",
   "P5-SYMMETRY",
   "P5-DOMAIN-SAFETY",
-  "P5-CROSS-BACKEND",
   "P5-DISPATCH-SAFETY",
   "P5-EDIT-ACK",
   "P5-FIRST-VALID-FRAME",
@@ -583,11 +574,6 @@ export const PHASE5_NEGATIVE_CONTROLS: readonly Phase5NegativeControl[] = [
     id: "NC-WINDOWS-BACKEND-RELABEL",
     owner: "P5-WINDOWS-PROVENANCE",
     mutation: "relabel the observed Windows backend or adapter",
-  },
-  {
-    id: "NC-METAL-BACKEND-RELABEL",
-    owner: "P5-METAL-PROVENANCE",
-    mutation: "relabel or omit the observed Metal backend or adapter",
   },
   {
     id: "NC-PROTOCOL-HASH-SHIFT",
@@ -628,11 +614,6 @@ export const PHASE5_NEGATIVE_CONTROLS: readonly Phase5NegativeControl[] = [
     id: "NC-DOMAIN-CONTACT",
     owner: "P5-DOMAIN-SAFETY",
     mutation: "mark a contacting fixture as eligible comparison evidence",
-  },
-  {
-    id: "NC-CROSS-BACKEND-SUBSTITUTION",
-    owner: "P5-CROSS-BACKEND",
-    mutation: "duplicate the Windows bundle in place of the Metal bundle",
   },
   {
     id: "NC-EXCESSIVE-DISPATCH",
@@ -680,8 +661,6 @@ export interface Phase5ProtocolManifest {
   readonly headlessRuntime: typeof PHASE5_HEADLESS_RUNTIME;
   readonly headlessRuntimeVersion: typeof PHASE5_HEADLESS_RUNTIME_VERSION;
   readonly lanes: typeof PHASE5_LANES;
-  readonly crossBackendToleranceMultiplier:
-    typeof PHASE5_CROSS_BACKEND_TOLERANCE_MULTIPLIER;
   readonly checkpointConversion: typeof PHASE5_CHECKPOINT_CONVERSION;
   readonly laneArtifactPaths: typeof PHASE5_LANE_ARTIFACT_PATHS;
   readonly aggregateArtifactPaths: typeof PHASE5_AGGREGATE_ARTIFACT_PATHS;
@@ -709,8 +688,6 @@ export function phase5ProtocolManifest(): Phase5ProtocolManifest {
     headlessRuntime: PHASE5_HEADLESS_RUNTIME,
     headlessRuntimeVersion: PHASE5_HEADLESS_RUNTIME_VERSION,
     lanes: PHASE5_LANES,
-    crossBackendToleranceMultiplier:
-      PHASE5_CROSS_BACKEND_TOLERANCE_MULTIPLIER,
     checkpointConversion: PHASE5_CHECKPOINT_CONVERSION,
     laneArtifactPaths: PHASE5_LANE_ARTIFACT_PATHS,
     aggregateArtifactPaths: PHASE5_AGGREGATE_ARTIFACT_PATHS,
@@ -740,7 +717,5 @@ export function phase5ToleranceManifest() {
     decisionMargins: PHASE5_DECISION_MARGINS,
     float32Epsilon: FLOAT32_EPSILON,
     float32SmootherDriftBoundFactor: FLOAT32_SMOOTHER_DRIFT_BOUND_FACTOR,
-    crossBackendToleranceMultiplier:
-      PHASE5_CROSS_BACKEND_TOLERANCE_MULTIPLIER,
   } as const;
 }

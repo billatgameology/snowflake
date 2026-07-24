@@ -7,7 +7,6 @@ import {
   PHASE5_BUDGETS,
   PHASE5_CHECKPOINT_CONVERSION,
   PHASE5_CRITERIA,
-  PHASE5_CROSS_BACKEND_TOLERANCE_MULTIPLIER,
   PHASE5_DECISION_MARGINS,
   PHASE5_EVIDENCE_SCHEMA,
   PHASE5_FIELD_TOLERANCES,
@@ -31,8 +30,8 @@ import {
   runPhase5ShadowProbe,
 } from "../src/phase5-shadow.ts";
 
-describe("Phase 5 WP0 criteria freeze", () => {
-  it("pins the exact protocol manifest before solver-gpu exists", () => {
+describe("Phase 5 criteria freeze", () => {
+  it("pins the exact Windows-only v2 protocol and inherited numerical manifests", () => {
     expect(canonicalJsonSha256(phase5ProtocolManifest())).toBe(PHASE5_PROTOCOL_SHA256);
     expect(canonicalJsonSha256(phase5FixtureManifest())).toBe(PHASE5_FIXTURES_SHA256);
     expect(canonicalJsonSha256(phase5ToleranceManifest())).toBe(
@@ -66,20 +65,15 @@ describe("Phase 5 WP0 criteria freeze", () => {
     });
   });
 
-  it("pins both authenticated lanes, artifact graph, triangle bound, and checkpoint conversion", () => {
+  it("pins the authenticated Windows lane, artifact graph, and checkpoint conversion", () => {
     expect(PHASE5_LANES).toEqual([
       {
         id: "windows-d3d12",
         operatingSystem: "windows",
         expectedBackend: "D3D12",
       },
-      {
-        id: "macos-metal",
-        operatingSystem: "macos",
-        expectedBackend: "metal",
-      },
     ]);
-    expect(PHASE5_CROSS_BACKEND_TOLERANCE_MULTIPLIER).toBe(2);
+    expect(PHASE5_LANES).toHaveLength(1);
     expect(new Set(PHASE5_LANE_ARTIFACT_PATHS).size).toBe(
       PHASE5_LANE_ARTIFACT_PATHS.length,
     );
@@ -138,6 +132,9 @@ describe("Phase 5 WP0 criteria freeze", () => {
   });
 
   it("assigns exactly one independently named negative control to every criterion", () => {
+    expect(PHASE5_CRITERIA).toHaveLength(16);
+    expect(PHASE5_CRITERIA).not.toContain("P5-METAL-PROVENANCE");
+    expect(PHASE5_CRITERIA).not.toContain("P5-CROSS-BACKEND");
     expect(new Set(PHASE5_CRITERIA).size).toBe(PHASE5_CRITERIA.length);
     expect(new Set(PHASE5_NEGATIVE_CONTROLS.map((control) => control.id)).size).toBe(
       PHASE5_NEGATIVE_CONTROLS.length,

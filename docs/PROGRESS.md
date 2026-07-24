@@ -84,14 +84,20 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   round-trip-identical checkpoints. Stable evidence and exact hashes are in
   [the v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result).
 - **Last updated:** 2026-07-24 by Codex
-- **Phase 5 WP0 is complete; WP1 now passes on Windows but is not cross-backend complete.** Decisions
-  [0016](decisions/0016-phase5-hardware-backend-lanes.md) and
-  [0017](decisions/0017-phase5-headless-runtime.md), charter v1.15, and the active
-  [Phase 5 plan](plans/phase-5-gpu-port.md) now freeze the two hardware lanes, pinned Playwright
-  Chromium runtime, morphology-shaped budgets, exact CPU fixtures, binary32-derived tolerances,
-  decision margins, dispatch/interactivity limits, checkpoint conversion, artifact graph,
-  18 named criteria, and one negative control per criterion. The canonical manifest SHA-256 is
-  `b62ec34cf118ebffbfd493203b68ff1028cf057f1b1736b5fc5028a87091ff09`.
+- **Phase 5 is being re-frozen as Windows-only at the operator's direction.** Decision
+  [0018](decisions/0018-phase5-windows-only-gate.md), charter v1.16, and the active
+  [Phase 5 plan](plans/phase-5-gpu-port.md) defer Metal to a later machine and narrow the current
+  claim to Windows/Chromium/D3D12. The old two-lane `phase5-gpu-conformance-v1` hash
+  `b62ec34cf118ebffbfd493203b68ff1028cf057f1b1736b5fc5028a87091ff09` remains immutable
+  superseded history. The new `phase5-gpu-conformance-windows-v2` manifest has SHA-256
+  `223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`, with 16 criteria and one
+  negative control per criterion. Fixtures remain unchanged at
+  `29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`; removing only the
+  cross-backend term changes the tolerance-manifest hash to
+  `1e77ed673e77aba6598c2bdd56e6b80f0f59343067bd7cb2c677d220d2fc05ba`, while every numerical
+  CPU-vs-GPU tolerance and decision margin remains unchanged. The v2 freeze candidate passes
+  exact root `npm test` in 371.8 seconds: Rule 7 clean over 178 files, both typechecks green, and
+  46 files / 816 tests passed; the 33-module app build also exits 0.
   The Windows RTX 3080 capability probe observed D3D12, passed the requested limits,
   timestamped dispatch, and scoped validation-error checks. The CPU shadow passes all blocking
   envelopes with zero occupancy/convergence classification mismatches; minimum decision margins
@@ -101,9 +107,8 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   `f2373bea9294947aa501805e4299ea08d829878f` then passed the canonical capability probe from a
   tracked-clean tree with observed D3D12, timestamp dispatch, validation capture, and zero
   uncaptured errors.
-  The M4 was unreachable and is explicitly unobserved; that blocks cross-backend milestones and
-  the final gate, while decision 0016 permitted WP1 implementation. `solver-gpu/` was absent
-  at the immutable WP0 boundary.
+  The M4 was unreachable and remains explicitly unobserved; decision 0018 now defers it rather
+  than guessing or relabeling a result. `solver-gpu/` was absent at the immutable v1 WP0 boundary.
 - **Phase 5 WP1 Windows implementation is complete at `1a2c2a4`; the WP1 milestone remains
   open.** The exact
   root pre-WP1 baseline at clean commit `c29754b`
@@ -124,8 +129,8 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   cleanliness, observed D3D12, and exited 0. Exact root `npm test` exited 0 in 357.4 seconds:
   Rule 7 clean over 177
   files, both typechecks green, and 46 files / 816 tests passed; the 33-module app build also
-  passed. The M4 replay and independent review are still absent. Under the serial stage contract,
-  WP1 cannot close and WP2 cannot start until both exist.
+  passed. Decision 0018 removes the former Metal replay precondition. WP1 still requires review
+  against the newly frozen Windows-only authority before it closes and WP2 starts.
 - **Phase 2b v5 execution update:** reviewed sequential execution commit `dd762f0` was interrupted
   by accidental host shutdown during warm step-189 relaxation, after completed step 188. No warm
   checkpoint, exit status, terminal verdict, or cold start exists; the attempt is incomplete
@@ -489,7 +494,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ✅ **complete, 2026-07-20.** One flagless v5p run at tracked-clean `0dc0f86`, pre-registration `8adea86`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exited 0. Same `96×96×96` hexPrism, extent target, fixed-σ far field, `sigmaInfinity=0.002`, pressure, spacing, mapping, seed 1, noise 0, CFL, and convergence controls; temperature alone differed. −5 °C: step 814, extent 61, attached 18,193, AR `0.118644` plate. −15 °C: step 330, extent 61, attached 1,159, AR `12.2000` column. Both: size-target, symmetry error 0, every relaxation converged, bounded smoother drift, checkpoint round trip identical. The depleted-start differential was 3/3 and permanent Phase 2a control retained canonical SHA-256 `f1796b5015…a389`. Final log SHA-256 `ea69d65a…c45e`, status 0, empty stderr; complete evidence: [v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result). V3 negative and v4 execution-invalid history remain preserved. |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ✅ **maker-asserted complete, 2026-07-23** — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ✅ **complete, 2026-07-18** — one canonical `node runner/src/main.ts gate4` at `70a2496`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exit 0 in 7,178.8 s. Pass A: 13 runs, 24/24 records green; plate/column AR `0.0666667`/`1.66667`; five-point sweep strictly increasing; depletion median `0.770238`, 7/7 samples below one, width 7→13; three distinct reproducible open-hollow occupancies; cap score `1.3`; dendrite/compact branches 6/0 at independent first reservoir crossings (cycles 4,775/5,450, extents 99/83). A manifest/report/index SHA-256: `e5e85c70…8644` / `bcb29e05…7188` / `92346e3e…1917`. Pass B: 11 runs, 12/12 execution records green; three morphology diagnostics pass and five honestly miss (depletion, widening, hollowing, capped history, branch). B manifest/report/index: `c0ceed5b…e812` / `22c8a92c…fa2d` / `5644f838…5cb0`. Aggregate v2 SHA-256 `194f837d…d8e2`, `gatePass=true`, `passBDiagnosticPass=false`. Real `node app/scripts/visual.mjs --phase4`: 20/20 original-resolution captures inspected by coordinator and reviewer, zero absent/error/clipped/hash-mismatch views, manifest `19e0fcfe…573b`. Post-publication exact root suite 779/779 and 33-module build green; final same-reviewer verdict on repair `b7153cc`: CLEAN, 0 blockers / 0 should-fixes. Full record: [v2 plan](plans/phase-4-v2-reservoir-matched-branch-control.md). |
-| 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | 🔶 **WP1 Windows candidate passes; cross-backend milestone open** (2026-07-24) — protocol `phase5-gpu-conformance-v1` remains frozen at SHA-256 `b62ec34c…7091ff09`. Transport conformance on observed D3D12 has zero coordinate/copy/PRNG mismatches, all blocking allocations pass, and zero uncaptured errors; 816/816 root tests pass. The M4 Metal record and independent review remain mandatory before WP1 closes or WP2 starts. No Phase 5 gate evidence exists yet. Active plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). |
+| 5 | GPU agrees with CPU oracle to tolerance on observed Windows D3D12; preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable. This phase makes no Metal/general-WebGPU portability claim (ADR 0018). | 🔶 **Windows-only v2 re-freeze in progress** (2026-07-24) — protocol `phase5-gpu-conformance-windows-v2` is prepared at SHA-256 `223428d8…984c5e`; fixtures and all numerical CPU-vs-GPU tolerances remain unchanged. WP1 transport on observed D3D12 has zero coordinate/copy/PRNG mismatches, all blocking allocations pass, and zero uncaptured errors; 816/816 root tests pass. Review/recommit the v2 authority, then begin WP2. Metal is deferred to another machine and separately frozen extension. No Phase 5 gate evidence exists yet. Active plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
 
@@ -511,7 +516,7 @@ Records live in [docs/decisions/](decisions/):
 - [0001](decisions/0001-non-cubic-grid-dimensions.md) — grid dimensions are `(nx, ny, nz)`, not
   `N³`; charter §3.1/§3.2 updated to match
 - [0002](decisions/0002-dev-hardware-split.md) — historical M4/RTX 4080 hardware split,
-  superseded by 0016; its two-backend and bounded-dispatch requirements survive
+  superseded by 0016 and then by 0018 for the current gate; bounded dispatch survives
 - **[0003](decisions/0003-libbrecht-attachment-kinetics.md) — Libbrecht's attachment kinetics
   drive the solver; G-G supplies the machinery.** The load-bearing one. Charter §1.5, §2.5, §2.6,
   §2.7, §3.2 (Phases 2 and 6) and §3.3 all amended to match
@@ -569,23 +574,27 @@ Records live in [docs/decisions/](decisions/):
   scientific or numerical control. No charter impact
 - [0016](decisions/0016-phase5-hardware-backend-lanes.md) — the Windows Ryzen 7 5700G / 64 GB /
   RTX 3080 10 GB machine is the primary Phase 5 development, D3D12/Vulkan, and Phase 6 sweep
-  host; the M4 Mac is the mandatory Metal lane. Preview and the two-backend gate remain binding;
-  bake is adapter-dependent. Charter v1.13 → v1.14
+  host; it originally retained the M4 Metal lane, which decision 0018 now defers. Preview and
+  bounded dispatch remain binding; bake is adapter-dependent. Charter v1.13 → v1.14
 - [0017](decisions/0017-phase5-headless-runtime.md) — Phase 5 uses Playwright 1.61.1's
-  lockfile-pinned Chromium revision 1228 for headless WebGPU capability and evidence runs; both
-  lanes record observed backend/adapter/runtime provenance and run the same future package/WGSL
-  as the browser instrument. The unobserved M4 record remains blocking. Charter v1.14 → v1.15
+  lockfile-pinned Chromium revision 1228 for headless WebGPU capability and evidence runs; the
+  evidence path and browser instrument run the same package/WGSL. Its former two-host clause is
+  superseded by 0018. Charter v1.14 → v1.15
+- [0018](decisions/0018-phase5-windows-only-gate.md) — at the operator's direction, current
+  Phase 5 closes on the available Windows RTX 3080 / observed D3D12 stack. Metal is deferred to
+  a later machine and separately frozen extension; no cross-backend claim is made. All numerical,
+  residency, checkpoint, bounded-dispatch, interactivity, and evidence controls remain binding.
+  Charter v1.15 → v1.16
 
 The two decisions predating this system (web over native C++/CUDA; the five-part repo split) live
 in charter §3.1 and get no retroactive ADR.
 
 ## Active plan
 
-- [phase-5-gpu-port.md](plans/phase-5-gpu-port.md) — WP0 complete 2026-07-23. The next work is
-  WP1 package/transport only: scaffold `solver-gpu/`, implement checked layout/indexing,
-  adapter/limit reporting, buffer lifecycle, PRNG parity, bounded submission plumbing, and
-  test-only readback against the frozen manifest. The exact M4 capability record must close
-  before the first cross-backend milestone.
+- [phase-5-gpu-port.md](plans/phase-5-gpu-port.md) — two-lane WP0 remains superseded history;
+  decision 0018's Windows-only v2 freeze is the current authority. WP1 transport passes on
+  observed D3D12. Review and commit the v2 authority/protocol, close WP1, then begin WP2
+  diffusion without changing the unchanged fixtures or numerical tolerances.
 
 ## Completed plans
 
@@ -735,21 +744,21 @@ immutable.
 
 ## Next step
 
-**Phases 2b, 3, and 4 are complete; Phase 5 is blocked at WP1 cross-backend closure.** On the
-named M4 host, check out `27f69994696ac486a689b5aeada8f7b83f0214ef`, confirm a clean tree,
-run `npm install --ignore-scripts`, `npm test`,
-`node app/scripts/phase5-capability.mjs`, and `node app/scripts/phase5-wp1.mjs`, then preserve the
-complete JSON outputs and exact exit statuses. The capability report must observe backend
-`metal`; the WP1 report must have zero coordinate/copy/PRNG mismatches, every blocking
-allocation passing, both negative controls passing, and zero uncaptured errors. Return the
-authenticated outputs for an independent review. Do not start WP2 until that review reports
-zero blockers and zero should-fixes.
+**Phases 2b, 3, and 4 are complete; Phase 5 is at the Windows-only v2 authority freeze before
+WP2.** Review decision 0018, charter v1.16, the active plan, and
+`runner/src/phase5-protocol.ts`; verify the canonical manifest hashes, exact 16-criterion/control
+ownership, capability/WP1 scripts, root tests, and app build. Commit that freeze before adding
+diffusion WGSL. Then close WP1 and implement only **WP2 — diffusion**: one and repeated
+masked-average passes for reflecting and fixed-sigma boundaries, compared with the unchanged
+CPU fixtures/tolerances and pinned by the wrong-boundary-clamp negative control.
 
-Windows cannot substitute for the Metal lane. Protocol `phase5-gpu-conformance-v1` is frozen at SHA-256
-`b62ec34cf118ebffbfd493203b68ff1028cf057f1b1736b5fc5028a87091ff09`; changing a fixture,
+Protocol `phase5-gpu-conformance-windows-v2` is frozen at SHA-256
+`223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`; changing a fixture,
 tolerance, lane, runtime, criterion, evidence meaning, or decision margin requires an ADR and
-invalidates prior lane bundles. Preserve accepted evidence under `out/phase2b/`, `out/phase4/`,
-and `out/phase4-visual/`; do not rerun or relabel historical protocols.
+invalidates the Windows bundle. Metal is deferred to another machine and a separately frozen
+extension; never relabel Windows evidence as Metal or claim general WebGPU portability. Preserve
+accepted evidence under `out/phase2b/`, `out/phase4/`, and `out/phase4-visual/`; do not rerun or
+relabel historical protocols.
 
 **Phase 3 is COMPLETE — maker-asserted 2026-07-23 (ADRs 0007/0008), orchestrated per
 [phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md)** — all work packages

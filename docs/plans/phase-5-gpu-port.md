@@ -1,8 +1,8 @@
-# Plan — Phase 5: WebGPU solver port and two-backend conformance
+# Plan — Phase 5: WebGPU solver port and Windows D3D12 conformance
 
 - **Phase:** Phase 5 — GPU port
-- **Status:** WP1 package/transport implementation passes on Windows D3D12; cross-backend closure
-  and WP2 entry await the mandatory M4 capability/conformance record and independent review
+- **Status:** Decision 0018 Windows-only protocol re-freeze in progress; WP1 passes on D3D12 and
+  WP2 has not started
 - **Started:** 2026-07-23
 - **Last touched:** 2026-07-24 by Codex
 
@@ -12,33 +12,38 @@ Build the production float32 WebGPU solver downstream of the permanent float64 C
 without changing either CPU `SurfaceOperator`. The result runs the shared lattice, diffusion,
 `GGThreshold`, and `LibbrechtKinetics` update contracts through bounded WGSL dispatches, exposes
 GPU-resident state to the existing instrument, and produces authenticated CPU-vs-GPU comparison
-evidence on both the Windows D3D12/Vulkan and Apple Metal lanes.
+evidence on the observed Windows D3D12 lane. Metal conformance is deferred to a later machine
+and separately frozen extension.
 
 This is a numerical-portability and interactive-performance phase. It does not validate the
 physical model, beautify the Phase 4 diagnostic renderer, or replace the CPU oracle.
 
 ## Done when
 
-Done when GPU and CPU runs agree within pre-registered tolerance on both backends (Metal and
-D3D12/Vulkan — ADRs 0002 and 0016) and the preview budget (≈8M cells) is interactively editable.
-(Amended v1.2: cell-budget phrasing per ADR 0001; hardware lanes and tolerance pre-registration
-clarified v1.14 by ADR 0016.)
+Done when GPU and CPU runs agree within pre-registered tolerance on the observed Windows D3D12
+backend and the preview budget (≈8M cells) is interactively editable. Exact
+host/runtime/adapter/backend provenance, bounded dispatch, GPU residency, and fail-closed
+evidence remain required. This is a Windows/Chromium/D3D12 claim, not Metal or general WebGPU
+portability. (Amended v1.2: cell-budget phrasing per ADR 0001; hardware/tolerance freeze
+clarified v1.14 by ADR 0016; Windows-only scope directed v1.16 by ADR 0018.)
 
 ## Authority and starting state
 
 - Governing documents: charter §3.1 and Phase 5; decisions
   [0001](../decisions/0001-non-cubic-grid-dimensions.md),
   [0002](../decisions/0002-dev-hardware-split.md), and
-  [0016](../decisions/0016-phase5-hardware-backend-lanes.md), plus headless-runtime decision
-  [0017](../decisions/0017-phase5-headless-runtime.md).
+  [0016](../decisions/0016-phase5-hardware-backend-lanes.md), headless-runtime decision
+  [0017](../decisions/0017-phase5-headless-runtime.md), and Windows-only scope decision
+  [0018](../decisions/0018-phase5-windows-only-gate.md).
 - Solver truth: [gg-machinery.md](../gg-machinery.md) and
   [attachment-kinetics.md](../attachment-kinetics.md), including the aggregate-v5
   convergence identity and `aggregate-hv-g1h1-v5` surface policy.
 - Permanent controls: `GGSolver`, `LKSolver`, strict checkpoints, counter-based PRNG, morphology
   metrics, and accepted Phase 2–4 evidence. None may be deleted, weakened, or reinterpreted.
-- `solver-gpu/` is intentionally absent. Do not scaffold it until WP0 is committed and reviewed.
-- Primary lane: Ryzen 7 5700G / 64 GB / RTX 3080 10 GB Windows host, with the actual observed
-  D3D12/Vulkan backend recorded. Metal lane: the M4 Mac from decision 0002.
+- `solver-gpu/` exists with its reviewed-design WP1 transport candidate. It contains no
+  production diffusion or surface operator at the v2 freeze boundary.
+- Gate lane: Ryzen 7 5700G / 64 GB / RTX 3080 10 GB Windows host, with the actual observed
+  D3D12 backend recorded. Metal is deferred by decision 0018 and carries no current claim.
 - Current local verification baseline: `npm test` passed 43 files / 793 tests at repository
   reconciliation; Phase 3 acceptance after that was documentation-only and Rule 7-clean.
 
@@ -63,7 +68,7 @@ It must name:
 Tolerance values come from an operation-count error analysis plus a CPU-side float32 shadow probe,
 not from relaxing thresholds until a WGSL result passes. The probe and threshold rationale are
 committed before implementation results are inspected. Any later tolerance relaxation requires
-an ADR, invalidates comparison evidence, and reruns both backend lanes.
+an ADR, invalidates comparison evidence, and reruns the Windows lane.
 
 Fixtures that make an attachment decision numerically ambiguous are labeled stress diagnostics,
 not used to excuse disagreement. Blocking fixtures keep CPU decisions a registered distance from
@@ -92,7 +97,7 @@ An f32 result is compared by frozen tolerance, never described as bitwise-equiva
 Large domains are divided into explicit bounded submissions. On the Windows preview protocol,
 30 consecutive edit/step samples must have no device loss or uncaptured GPU errors, no measured
 submission segment above 500 ms, and a p99 no higher than 250 ms. The UI must acknowledge an edit
-within 100 ms and render the first valid post-edit state within 2 seconds on both backend lanes.
+within 100 ms and render the first valid post-edit state within 2 seconds on the Windows lane.
 WP0 may tighten these numbers but may not weaken them without an ADR.
 
 At ≈8M cells, simulation fields remain GPU-resident. The app may read back named probes, compact
@@ -104,12 +109,13 @@ Dev ≈1M and preview ≈8M are required. Detailed ≈30M and bake ≈130M are a
 not gate criteria. Unsupported requested modes fail with the observed limits and estimated memory
 need rather than allocating partially or silently lowering resolution.
 
-### 4. Treat the two machines as one evidence protocol
+### 4. Keep one authenticated Windows evidence protocol
 
-One frozen manifest drives both lanes. Each lane publishes a canonical report, manifest, artifact
-index, logs, error stream, and exit status. The aggregate gate accepts only matching protocol and
-fixture hashes, authenticated commits, complete criterion sets, and an observed Metal result plus
-an observed Windows D3D12/Vulkan-family result.
+One frozen manifest drives the Windows lane. It publishes a canonical report, manifest, artifact
+index, logs, error stream, and exit status. The aggregate gate accepts only the exact frozen
+protocol and fixture hashes, authenticated commit, complete criterion set, and observed D3D12
+result. The aggregate still independently reopens the lane bundle; a lane exit 0 is not the
+Phase 5 claim.
 
 Independent CPU fixture generation and comparisons run in parallel processes on the Windows host
 when memory permits. Canonical GPU latency/watchdog measurements use one process per physical
@@ -118,18 +124,37 @@ adapter. Parallel GPU experimentation is non-gate work unless separately pre-reg
 The headless runtime choice is made in WP0 by a bounded capability spike. The browser and headless
 paths must use the same solver package and WGSL; the GUI is not the solver's owner.
 
-## WP0 frozen protocol
+## Superseded WP0 two-lane freeze
 
-This section and `runner/src/phase5-protocol.ts` are the Phase 5 pre-registration. The canonical
-machine-readable protocol id is `phase5-gpu-conformance-v1`; its canonical-JSON SHA-256 is
+The original machine-readable protocol id was `phase5-gpu-conformance-v1`; its canonical-JSON
+SHA-256 was
 `b62ec34cf118ebffbfd493203b68ff1028cf057f1b1736b5fc5028a87091ff09`. The separate fixture
 and tolerance SHA-256 values are
 `29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512` and
-`96bf73b6e3a4f1937c86972f7cadf00766afdacc8f13c5efb5ab416184ce4053`. Any post-freeze change to
-a blocking fixture, tolerance, decision margin, performance threshold, criterion, negative
-control, runtime revision, or evidence meaning requires an ADR and invalidates both lane bundles.
-Production GPU output played no role in selecting any value below: no production WGSL or
-`solver-gpu/` package existed at freeze time.
+`96bf73b6e3a4f1937c86972f7cadf00766afdacc8f13c5efb5ab416184ce4053`. Decision 0018 supersedes
+its two-lane acceptance meaning without rewriting that history. No canonical v1 lane bundle was
+published.
+
+## Windows-only v2 frozen protocol
+
+This section and `runner/src/phase5-protocol.ts` are the current Phase 5 pre-registration. The
+canonical machine-readable protocol id is `phase5-gpu-conformance-windows-v2`; its
+canonical-JSON SHA-256 is
+`223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`. The fixture manifest is
+unchanged at `29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`. Removing only the
+cross-backend comparison term changes the tolerance-manifest SHA-256 to
+`1e77ed673e77aba6598c2bdd56e6b80f0f59343067bd7cb2c677d220d2fc05ba`; every numerical
+CPU-vs-GPU tolerance and decision margin remains byte-for-byte unchanged. Any later change to a
+blocking fixture, tolerance, decision margin, performance threshold, criterion, negative
+control, runtime revision, or evidence meaning requires an ADR and invalidates the Windows
+bundle. Production diffusion/surface WGSL does not exist at this freeze.
+
+The v2 freeze candidate passes exact root `npm test` in 371.8 seconds: Rule 7 clean over 178
+files, both TypeScript projects green, and 46 files / 816 tests passed. The app production build
+transformed 33 modules and exited 0. The protocol test independently recomputes all three
+canonical hashes, requires exactly one Windows lane, requires exactly 16 criteria, rejects the
+removed Metal/cross-backend criteria, and preserves one uniquely owned negative control per
+criterion.
 
 ### Baseline and host capability record
 
@@ -174,17 +199,14 @@ regression result, not Phase 5 gate evidence. The WP0 freeze is commit
 tracked-clean commit passed with bundled Chrome/149.0.7827.55, observed D3D12, completed
 timestamp dispatch, captured validation error, and zero uncaptured errors.
 
-**Metal lane status at WP0:** the M4 Mac was not reachable from this Windows session. Its exact
-model, memory, macOS, Chromium product, adapter, backend, driver, features, limits, timestamp
-dispatch, and error-capture result are therefore **unobserved**, not guessed. Run the same probe
-on that host with no options; it defaults to lane `macos-metal` and requires observed backend
-`metal`. Decision 0016 permits implementation to proceed while the lane is idle, but no
-cross-backend milestone or Phase 5 gate can pass until that record exists. Windows never
-substitutes for it.
+**Deferred Metal history:** at WP0 the M4 was unreachable and every Metal capability remained
+unobserved rather than guessed. Decision 0018 now defers that work to another machine and removes
+it from this gate. The old absence is not a failure of the Windows v2 protocol, and the Windows
+bundle is never relabeled as Metal.
 
 ### Resolution and memory budgets
 
-Every budget is a morphology-shaped triple. Dev and preview are blocking on both lanes; detailed
+Every budget is a morphology-shaped triple. Dev and preview are blocking on Windows; detailed
 and bake are capability-reported only.
 
 | Budget | Plate `(nx,ny,nz)` / cells | Column `(nx,ny,nz)` / cells | Disposition |
@@ -311,10 +333,8 @@ and the erroneous requirement that a million-scale vapor-unit ledger differ by l
 `1e-4`. Field-derived metrics have max absolute `1e-4`. Occupancy-derived integer/boolean
 metrics, exact symmetry, decisions, event records, and stop reasons require equality.
 
-Each lane must independently pass the CPU oracle. After that, corresponding Metal/Windows fields
-must compare to each other within twice the applicable field tolerances (triangle bound), while
-all discrete results remain exact. This cross-backend check cannot turn two oracle failures into
-a pass.
+The Windows lane must independently pass the CPU oracle using the unchanged field and scalar
+tolerances above. There is no cross-backend multiplier or triangle comparison in v2.
 
 Aggregate-v5 keeps dual convergence with the fixture's unchanged `relaxTol` and `divTol`. The GPU
 meters binary32 smoother drift directly and uses a deterministic pairwise/tree reduction—no
@@ -343,8 +363,8 @@ that is a new checkpoint version and ADR, not a hidden Phase 5 extension.
 
 ### Performance and residency protocol
 
-Both preview shapes run separately on both physical adapters. Each case has 5 untimed warmups
-followed by 30 consecutive edit/step samples, one process per adapter:
+Both preview shapes run separately on the Windows adapter. Each case has 5 untimed warmups
+followed by 30 consecutive edit/step samples, one process on the physical adapter:
 
 - every bounded submission segment is timestamped and must be ≤500 ms; p99 over the 30 measured
   samples is the nearest-rank 30th value and must be ≤250 ms;
@@ -372,19 +392,18 @@ The future per-host flagless lane command is:
 node runner/src/main.ts gate5-lane
 ```
 
-It detects and verifies the observed backend, writes only its corresponding
-`out/phase5/windows-d3d12/` or `out/phase5/macos-metal/` bundle, and exits 0 only for a complete
-valid lane. A lane exit 0 is not the Phase 5 claim. After the authenticated Metal bundle is
-transferred without rewriting bytes, the one aggregate flagless gate is:
+It detects and verifies the observed D3D12 backend, writes only the
+`out/phase5/windows-d3d12/` bundle, and exits 0 only for a complete valid lane. A lane exit 0 is
+not the Phase 5 claim. The one aggregate flagless gate is:
 
 ```text
 node runner/src/main.ts gate5
 ```
 
-Only aggregate exit 0 is the Phase 5 claim. The aggregate command requires both bundles from the
-same repository commit, protocol hash, fixture hash, tolerance hash, solver-source hashes, and
-runtime revision; independently reopens every artifact; re-derives all criteria; performs the
-two-lane triangle comparisons; and publishes `out/phase5/gate5-report.json` plus
+Only aggregate exit 0 is the Phase 5 claim. The aggregate command requires the Windows bundle's
+exact repository commit, protocol hash, fixture hash, tolerance hash, solver-source hashes, and
+runtime revision; independently reopens every artifact; re-derives all criteria; and publishes
+`out/phase5/gate5-report.json` plus
 `out/phase5/gate5-artifact-index.json`.
 
 Each lane is a canonical UTF-8/no-BOM JSON and binary graph, atomically staged and indexed by
@@ -417,22 +436,21 @@ mutated, stale, or mixed-commit artifacts fail closed and publish no aggregate.
 The exact aggregate criterion names are:
 
 ```text
-P5-WINDOWS-PROVENANCE     P5-METAL-PROVENANCE       P5-PROTOCOL-MATCH
-P5-ADAPTER-LIMITS         P5-LAYOUT-INDEXING         P5-DIFFUSION
-P5-GG-THRESHOLD           P5-LIBBRECHT-KINETICS      P5-SYMMETRY
-P5-DOMAIN-SAFETY          P5-CROSS-BACKEND           P5-DISPATCH-SAFETY
-P5-EDIT-ACK               P5-FIRST-VALID-FRAME       P5-RESIDENCY
-P5-CHECKPOINTS            P5-NEGATIVE-CONTROLS       P5-PUBLICATION
+P5-WINDOWS-PROVENANCE     P5-PROTOCOL-MATCH          P5-ADAPTER-LIMITS
+P5-LAYOUT-INDEXING        P5-DIFFUSION               P5-GG-THRESHOLD
+P5-LIBBRECHT-KINETICS     P5-SYMMETRY                P5-DOMAIN-SAFETY
+P5-DISPATCH-SAFETY        P5-EDIT-ACK                P5-FIRST-VALID-FRAME
+P5-RESIDENCY              P5-CHECKPOINTS             P5-NEGATIVE-CONTROLS
+P5-PUBLICATION
 ```
 
-`PHASE5_NEGATIVE_CONTROLS` registers one uniquely owned mutation per criterion: backend
-relabeling on each lane, protocol-hash shift, required-limit downgrade, axis swap, wrong boundary
-clamp, stale ping-pong state, residual-only LK convergence, symmetry-bit flip, accepted domain
-contact, duplicated Windows-as-Metal bundle, excessive dispatch, late acknowledgement, late
-valid frame, full-field frame readback, checkpoint dtype/length/endianness shift, tolerance
-bypass, and post-publication artifact mutation. WP5 must make each mutation trip only its named
-owner before the final gate runs; the current WP0 tests enforce registration/completeness, not a
-GPU gate that does not exist yet.
+`PHASE5_NEGATIVE_CONTROLS` registers one uniquely owned mutation per criterion: Windows backend
+relabeling, protocol-hash shift, required-limit downgrade, axis swap, wrong boundary clamp,
+stale ping-pong state, residual-only LK convergence, symmetry-bit flip, accepted domain contact,
+excessive dispatch, late acknowledgement, late valid frame, full-field frame readback,
+checkpoint dtype/length/endianness shift, tolerance bypass, and post-publication artifact
+mutation. WP5 must make each mutation trip only its named owner before the final gate runs; the
+current protocol tests enforce registration/completeness, not a GPU gate that does not exist yet.
 
 ## Gate contract
 
@@ -440,16 +458,15 @@ WP0 supplies exact subcriterion names and numerical tolerances, but it may not r
 
 | Area | Blocking claim |
 |---|---|
-| Provenance | Both bundles authenticate commit, protocol, fixtures, adapter, observed backend, OS, runtime, and exposed driver |
+| Provenance | The Windows bundle authenticates commit, protocol, fixtures, adapter, observed backend, OS, runtime, and exposed driver |
 | Adapter limits | Required limits are requested explicitly; supported budgets allocate exactly; unsupported budgets fail clearly |
 | Layout/indexing | Non-cubic D6h indexing, active masks, field offsets, and ping-pong ownership match `core` |
 | Diffusion | One-pass and repeated-pass fields agree with the CPU oracle under both far-field conditions |
 | `GGThreshold` | Full cycles agree on fields, attachment decisions, mass ledger, noise witness, metrics, and stop reason |
 | `LibbrechtKinetics` | Full cycles agree on field/surface state, convergence classification, fill-CFL, ledger, policy, events, metrics, and stop reason |
 | Symmetry/domain | Registered noise-off fixtures retain exact occupancy symmetry and no evidence run contacts its domain |
-| Cross-backend | Metal and Windows bundles pass the same frozen fixtures and tolerances; neither substitutes for the other |
 | Dispatch safety | Preview submissions meet the frozen bound with no device loss, uncaptured error, or hidden retry |
-| Interactivity | ≈8M cells meet the edit acknowledgement and first-valid-render thresholds on both lanes |
+| Interactivity | ≈8M cells meet the edit acknowledgement and first-valid-render thresholds on Windows |
 | Residency | Preview rendering performs no per-frame full-field readback; probes and metrics remain explicit |
 | Checkpoints | Exported state uses strict `core` codecs and round-trips into the CPU oracle within the frozen conversion contract |
 | Negative controls | Axis swaps, stale ping-pong state, wrong boundary clamps, shader perturbations, skipped passes, forged provenance, tolerance bypass, excessive dispatch, and full-field readback each fail by name |
@@ -493,8 +510,7 @@ fixture, tolerance, criterion, lane, or evidence meaning.
 - WP1 closes when pure tests cover layout/overflow/budget/resource/submission/readback failures
   and the pinned Chromium probe on the RTX 3080 runs the non-cubic coordinate fixture, exact
   copy, counter-PRNG parity, dev/preview allocations, bounded ranges, and the axis-swap plus
-  required-limit negative controls with zero uncaptured errors. The absent M4 record is reported
-  honestly and remains required before the first cross-backend milestone.
+  required-limit negative controls with zero uncaptured errors, followed by clean review.
 
 ### WP1 Windows implementation result
 
@@ -521,9 +537,9 @@ reported zero uncaptured errors; the WP1 report retained the exact counts above.
 
 Exact root `npm test` then exited 0 in 357.4 seconds: Rule 7 was clean over 177 files, both
 TypeScript projects passed, and 46 files / 816 tests passed. `npm run build -w app` transformed
-33 modules and exited 0. This establishes a Windows implementation candidate, not WP1 closure:
-the required Metal replay and an independent review are absent, so the WP1 checkbox remains open
-and the serial stage contract forbids starting WP2.
+33 modules and exited 0. Decision 0018 removes the former Metal replay precondition without
+changing any WP1 implementation or numerical check. Review remains required before the WP1
+checkbox closes and WP2 starts.
 
 ## Steps
 
@@ -534,15 +550,15 @@ and the serial stage contract forbids starting WP2.
       CPU state/ledger field; probe the actual adapters and candidate headless runtimes on both
       hosts; build the CPU float32 shadow; add exact fixtures, tolerances, latency protocol,
       artifact schema, flagless command, and negative controls to this plan. Commit and review
-      this freeze before `solver-gpu/` exists. Completed on the Windows host with the M4 lane
-      explicitly recorded as unreachable/unobserved; that missing record blocks cross-backend
-      milestones and the final gate, but does not authorize a Windows substitute.
+      this freeze before `solver-gpu/` exists. Completed as immutable two-lane v1 history;
+      decision 0018 now supersedes only its lane/evidence scope through the Windows-only v2
+      re-freeze above.
 - [ ] **WP1 — package and transport.** Windows implementation and D3D12 conformance are complete
       with 0 coordinate/copy/PRNG mismatches, all eight blocking allocation cases passing, and
-      zero uncaptured errors. Pass the same layout/capability controls on Metal and obtain
-      independent clean review before closing this item or starting WP2.
+      zero uncaptured errors. Obtain clean review against decision 0018 and the v2 manifest
+      before closing this item or starting WP2.
 - [ ] **WP2 — diffusion.** Implement and independently validate one and repeated masked-average
-      diffusion passes for reflecting and fixed-σ boundaries on both backends.
+      diffusion passes for reflecting and fixed-σ boundaries on Windows D3D12.
 - [ ] **WP3 — `GGThreshold`.** Port complete cycles with parameter events, noise, melting,
       attachment, hole filling, mass ledger, metrics, and stop-rule parity. Keep CPU state
       untouched and compare through the frozen harness.
@@ -556,10 +572,10 @@ and the serial stage contract forbids starting WP2.
 - [ ] **WP6 — app integration.** Move live simulation to the GPU package, wire GPU-resident
       overlays/slices and resolution budgets, preserve view-only evidence inspection, and prove
       the CPU worker remains an available oracle/debug path. Do not perform Phase 7 visual polish.
-- [ ] **WP7 — canonical two-lane evidence.** Run all preconditions, execute the frozen Windows and
-      Metal commands, authenticate and aggregate both bundles, inspect the interactive preview
-      evidence, obtain independent clean review, and update `PROGRESS.md` with every metric,
-      value, host, command, commit, and artifact hash.
+- [ ] **WP7 — canonical Windows evidence.** Run all preconditions, execute the frozen Windows
+      commands, authenticate and aggregate the bundle, inspect the interactive preview evidence,
+      obtain clean review, and update `PROGRESS.md` with every metric, value, host, command,
+      commit, and artifact hash. State the Windows/Chromium/D3D12 scope prominently.
 
 ## Out of scope
 
@@ -572,12 +588,14 @@ and the serial stage contract forbids starting WP2.
 - Changing `aggregate-hv-g1h1-v4`, aggregate-v5 convergence, attachment kinetics, G-G machinery,
   timeline semantics, or morphology thresholds to make float32 comparisons easier.
 - Mid-history resumability beyond existing checkpoint semantics; a new meaning requires an ADR.
-- Running the final gate while the Metal lane, exact tolerances, or headless runtime remain open.
+- Running the final gate while exact tolerances, Windows provenance, or headless runtime remain
+  open.
 
 ## Tried and rejected
 
-- **Validate only on the Windows RTX 3080.** Rejected by decisions 0002/0016 and the charter:
-  one WebGPU backend cannot establish WGSL portability.
+- **Call Windows-only evidence cross-backend portability.** Rejected by decision 0018. The
+  earlier v1 plan required Metal; the operator later deferred Metal to another machine and
+  narrowed this gate instead of preserving the broader claim without evidence.
 - **Assume the former RTX 4080 memory budget.** Rejected because the current primary GPU has
   10 GB. Preview remains blocking; detailed and bake remain capability-reported targets.
 - **Port directly from prose into WGSL and compare afterward.** Rejected because thresholds can
@@ -604,10 +622,9 @@ and the serial stage contract forbids starting WP2.
   compiler, which fails mixed multiplication/XOR expressions without explicit parentheses.
   The hash terms are now individually parenthesized; the corrected real-device run is exact.
 
-## Remaining external gate precondition
+## Deferred Metal extension
 
-Confirm the M4 Mac is reachable and run `node app/scripts/phase5-capability.mjs` there. Record its
-exact model, memory, macOS, pinned Chromium product, adapter/backend, driver where exposed,
-features, limits, timestamp dispatch, error capture, repository commit, and worktree cleanliness
-before the first cross-backend milestone. Runtime selection and numerical tolerances are frozen;
-no GPU result may be used to revise them without an ADR and invalidating prior lane bundles.
+Metal work resumes later on another machine under a new ADR and separately frozen conformance
+protocol. That extension must record exact host/runtime/adapter/backend provenance and compare
+against the CPU oracle before extending the portability claim. It does not block this Windows
+Phase 5, and this Windows evidence must never be relabeled as Metal evidence.

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Phase 5 WP0 two-host capability probe. It launches the lockfile-pinned Chromium through
+// Phase 5 Windows capability probe. It launches the lockfile-pinned Chromium through
 // Playwright, enables Chrome's development-only adapter provenance fields, requests the exact
 // frozen limits, executes one timestamped compute dispatch, and proves validation errors are
 // capturable. It prints JSON and writes no evidence by itself.
@@ -12,7 +12,6 @@ import { resolve } from "node:path";
 import process from "node:process";
 import { chromium } from "playwright";
 import {
-  PHASE5_EXPECTED_METAL_BACKEND,
   PHASE5_EXPECTED_WINDOWS_BACKEND,
   PHASE5_HEADLESS_RUNTIME,
   PHASE5_HEADLESS_RUNTIME_VERSION,
@@ -24,13 +23,11 @@ const repoRoot = resolve(import.meta.dirname, "..", "..");
 
 function defaultLane() {
   if (process.platform === "win32") return "windows-d3d12";
-  if (process.platform === "darwin") return "macos-metal";
   return "unsupported";
 }
 
 function defaultExpectedBackend() {
   if (process.platform === "win32") return PHASE5_EXPECTED_WINDOWS_BACKEND;
-  if (process.platform === "darwin") return PHASE5_EXPECTED_METAL_BACKEND;
   return "unsupported";
 }
 

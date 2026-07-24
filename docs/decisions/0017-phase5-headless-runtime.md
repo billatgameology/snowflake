@@ -1,7 +1,7 @@
 # 0017 — Phase 5 uses Playwright's pinned Chromium as the headless WebGPU runtime
 
 - **Date:** 2026-07-23
-- **Status:** accepted
+- **Status:** accepted; two-host gate clauses superseded by 0018
 - **Charter impact:** §3.1 updated in this session
 
 ## Context
