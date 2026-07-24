@@ -1,7 +1,7 @@
 # Plan — Repository reconciliation and temporary-workspace cleanup
 
 - **Phase:** Cross-phase repository maintenance after Phase 2b v5p
-- **Status:** in progress
+- **Status:** complete
 - **Started:** 2026-07-23
 - **Last touched:** 2026-07-23 by Codex
 
@@ -53,8 +53,8 @@ This maintenance task does not change a charter gate. It is complete when:
 - [x] Preserve and authenticate v4, interrupted-v5, and passing-v5p artifacts under `out/phase2b/`.
 - [x] Update the Phase 2b plans and `docs/PROGRESS.md` with the terminal gate result.
 - [x] Pass exact root verification on consolidated `main`.
-- [ ] Remove redundant temporary worktrees and generated directories, then verify clean Git state.
-- [ ] Mark this plan complete and leave the next concrete charter action in `docs/PROGRESS.md`.
+- [x] Remove redundant temporary worktrees and generated directories, then verify clean Git state.
+- [x] Mark this plan complete and leave the next concrete charter action in `docs/PROGRESS.md`.
 
 ## Out of scope
 
@@ -84,3 +84,11 @@ After merge and evidence reconciliation, exact `npm test` passed: Rule 7 clean o
 both TypeScript projects clean, and 43 test files / 793 tests green. The retained output is
 `out/repository-reconciliation-npm-test.log`. The final v5p evidence copy was independently
 re-hashed byte-for-byte against its isolated source before any cleanup target was removed.
+
+Cleanup removed three registered temporary worktrees, the separately cloned v5p repository, 17
+generated evidence-review/control directories, and the root debug log (about 0.41 GiB total).
+`git worktree list` now contains only primary `main` and the separate
+`snowflake-education` worktree; no root `.tmp-*` directory remains. The temporary integration
+branch and the authenticated duplicate pre-integration stash were removed. Three older stashes
+containing PDF-bundle script work, local Claude settings/symlink state, and an earlier Phase 2b
+recording remain intentionally preserved because they contain user changes not proven redundant.
