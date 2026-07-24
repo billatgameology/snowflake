@@ -97,7 +97,10 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   envelopes with zero occupancy/convergence classification mismatches; minimum decision margins
   are `0.002877725076560811` (G-G) and `0.6` (LK), both above `4e-4`.
   Final exact root `npm test` exited 0 in 377.6 seconds: Rule 7 clean over 166 files, both
-  TypeScript projects green, and 44 files / 802 tests passed.
+  TypeScript projects green, and 44 files / 802 tests passed. WP0 freeze commit
+  `f2373bea9294947aa501805e4299ea08d829878f` then passed the canonical capability probe from a
+  tracked-clean tree with observed D3D12, timestamp dispatch, validation capture, and zero
+  uncaptured errors.
   The M4 was unreachable and is explicitly unobserved; that blocks cross-backend milestones and
   the final gate, while decision 0016 still permits WP1 implementation. `solver-gpu/` remains
   absent at the WP0 boundary.

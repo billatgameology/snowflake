@@ -170,7 +170,10 @@ Deno is absent.
 
 Final exact root `npm test` on the WP0 source state exited 0 in 377.6 seconds: Rule 7 was clean
 over 166 files, both TypeScript projects passed, and 44 files / 802 tests passed. This is a
-regression result, not Phase 5 gate evidence.
+regression result, not Phase 5 gate evidence. The WP0 freeze is commit
+`f2373bea9294947aa501805e4299ea08d829878f`; the canonical capability probe rerun from that
+tracked-clean commit passed with bundled Chrome/149.0.7827.55, observed D3D12, completed
+timestamp dispatch, captured validation error, and zero uncaptured errors.
 
 **Metal lane status at WP0:** the M4 Mac was not reachable from this Windows session. Its exact
 model, memory, macOS, Chromium product, adapter, backend, driver, features, limits, timestamp
