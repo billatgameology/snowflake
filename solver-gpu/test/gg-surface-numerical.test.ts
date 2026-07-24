@@ -20,6 +20,14 @@ interface SurfaceResult extends SurfaceState {
   readonly holeFills: readonly number[];
 }
 
+type SurfaceMutation =
+  | "none"
+  | "pre-freeze-decision"
+  | "sequential-decisions"
+  | "melt-fresh-attachment"
+  | "hole-fill-clamped-counts"
+  | "reverse-neighbor-order";
+
 function counts(
   occupancy: Uint32Array,
   dims: Dims,
@@ -53,7 +61,7 @@ function surfaceCycle(
   dims: Dims,
   params: GGParams,
   input: SurfaceState,
-  holeFillUsesRawCounts = true,
+  mutation: SurfaceMutation = "none",
 ): SurfaceResult {
   const occupancy = new Uint32Array(input.occupancy);
   const wall = new Uint32Array(input.wall);
@@ -76,12 +84,21 @@ function surfaceCycle(
   }
 
   for (const index of input.boundary) {
-    const [nT, nZ] = startCounts.get(index) ?? [-1, -1];
+    const [nT, nZ] =
+      mutation === "sequential-decisions"
+        ? counts(occupancy, dims, index)
+        : startCounts.get(index) ?? [-1, -1];
     const slot = paramSlot(Math.min(nT, 3), Math.min(nZ, 1));
-    const holeFill = holeFillUsesRawCounts && nT >= 4 && nZ >= 1;
-    if (holeFill || boundaryMass[index] >= Math.fround(params.ggThreshBeta[slot])) {
+    const holeFill =
+      mutation !== "hole-fill-clamped-counts" && nT >= 4 && nZ >= 1;
+    const decisionMass =
+      mutation === "pre-freeze-decision"
+        ? input.boundaryMass[index]
+        : boundaryMass[index];
+    if (holeFill || decisionMass >= Math.fround(params.ggThreshBeta[slot])) {
       decisions.push(index);
       if (holeFill) holeFills.push(index);
+      if (mutation === "sequential-decisions") occupancy[index] = 1;
     }
   }
 
@@ -104,6 +121,19 @@ function surfaceCycle(
     boundaryMass[index] = Math.fround(boundaryMass[index] + vapor[index]);
     vapor[index] = 0;
   }
+  if (mutation === "melt-fresh-attachment") {
+    for (const index of decisions) {
+      const [nT, nZ] = startCounts.get(index) ?? [-1, -1];
+      const slot = paramSlot(Math.min(nT, 3), Math.min(nZ, 1));
+      const oldMass = boundaryMass[index];
+      boundaryMass[index] = Math.fround(
+        Math.fround(1 - Math.fround(params.mu[slot])) * oldMass,
+      );
+      vapor[index] = Math.fround(
+        vapor[index] + Math.fround(Math.fround(params.mu[slot]) * oldMass),
+      );
+    }
+  }
 
   const boundary: number[] = input.boundary.filter(
     (index) => !decisionSet.has(index),
@@ -115,7 +145,12 @@ function surfaceCycle(
     const remainder = index - k * plane;
     const j = Math.floor(remainder / dims.nx);
     const i = remainder - j * dims.nx;
-    for (const neighbor of neighborIndices(dims, i, j, k)) {
+    const neighbors = neighborIndices(dims, i, j, k);
+    const orderedNeighbors =
+      mutation === "reverse-neighbor-order"
+        ? [...neighbors].reverse()
+        : neighbors;
+    for (const neighbor of orderedNeighbors) {
       if (
         neighbor >= 0 &&
         occupancy[neighbor] === 0 &&
@@ -223,13 +258,24 @@ describe("independent G-G surface numerics", () => {
         vapor,
       }).attached,
     ).toEqual([holeAttachment]);
+    const input = { occupancy, wall, boundary, boundaryMass, vapor };
     expect(
-      surfaceCycle(
-        dims,
-        params,
-        { occupancy, wall, boundary, boundaryMass, vapor },
-        false,
-      ).attached,
+      surfaceCycle(dims, params, input, "hole-fill-clamped-counts").attached,
     ).toEqual([thresholdAttachment]);
+
+    expect(
+      surfaceCycle(dims, params, input, "pre-freeze-decision").attached,
+    ).not.toEqual(result.attached);
+    expect(
+      surfaceCycle(dims, params, input, "sequential-decisions").attached,
+    ).not.toEqual(result.attached);
+    expect(
+      surfaceCycle(dims, params, input, "melt-fresh-attachment").vapor[
+        thresholdAttachment
+      ],
+    ).not.toBe(result.vapor[thresholdAttachment]);
+    expect(
+      surfaceCycle(dims, params, input, "reverse-neighbor-order").boundary,
+    ).not.toEqual(result.boundary);
   });
 });

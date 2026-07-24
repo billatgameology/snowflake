@@ -507,32 +507,32 @@ export class GpuGgSolver {
           `(state=${this.cycleState})`,
       );
     }
+    const target = snapshotTimelineEnvironment(environment);
+    const beforeEnvironment = this.timelineEnvironment();
+    validateTimelineSchedule({
+      version: 1,
+      mode: "abrupt",
+      operator: "GGThreshold",
+      initialEnvironment: beforeEnvironment,
+      events: [
+        {
+          index: 0,
+          operator: "GGThreshold",
+          trigger: { kind: "tick", value: 0 },
+          environment: target,
+        },
+      ],
+    });
+    const params = snapshotParams(ggParamsFromTimelineEnvironment(target));
+    const afterEnvironment = ggTimelineEnvironmentFromParams(params);
     this.cycleState = "transitioning";
     try {
-      const target = snapshotTimelineEnvironment(environment);
-      const beforeEnvironment = this.timelineEnvironment();
-      validateTimelineSchedule({
-        version: 1,
-        mode: "abrupt",
-        operator: "GGThreshold",
-        initialEnvironment: beforeEnvironment,
-        events: [
-          {
-            index: 0,
-            operator: "GGThreshold",
-            trigger: { kind: "tick", value: 0 },
-            environment: target,
-          },
-        ],
-      });
-      const params = snapshotParams(ggParamsFromTimelineEnvironment(target));
       this.diffusion.updateControls({
         tick: this.tickInternal,
         rho: params.rho,
         phi: params.phi,
       });
       this.surface.updateControls({ params, tick: this.tickInternal });
-      const afterEnvironment = ggTimelineEnvironmentFromParams(params);
       this.paramsInternal = params;
       this.cycleState = "boundary";
       return {

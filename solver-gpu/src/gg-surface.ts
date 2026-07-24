@@ -615,6 +615,7 @@ export class GpuGgSurface {
   }
 
   params(): GGParams {
+    this.assertUsable();
     return snapshotParams(this.paramsInternal);
   }
 

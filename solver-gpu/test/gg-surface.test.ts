@@ -15,6 +15,7 @@ import {
   GPU_GG_SURFACE_UNIFORM_BYTES,
   GpuBufferArena,
   GpuGgSolver,
+  GpuGgSurface,
   GpuSubmissionController,
   planGpuGgClampReduction,
 } from "../src/index.ts";
@@ -31,6 +32,49 @@ function cloneParams(name: keyof typeof GG_PRESETS): GGParams {
 }
 
 describe("GPU G-G surface ABI and reduction", () => {
+  test("pins every blocking G-G SurfaceReport field and reflecting meter", () => {
+    interface ReportPredicateCandidate {
+      readonly attachedNow: number;
+      readonly maxKineticFillIncrement: number | null;
+      readonly holeFillCount: number;
+      readonly deltaTimeSeconds: number | null;
+      readonly stalled: boolean;
+      readonly skippedUnconverged: boolean;
+      readonly dirichletMeter: number;
+      readonly meterBlocking: boolean;
+    }
+    const expected: ReportPredicateCandidate = {
+      attachedNow: 3,
+      maxKineticFillIncrement: null,
+      holeFillCount: 1,
+      deltaTimeSeconds: null,
+      stalled: false,
+      skippedUnconverged: false,
+      dirichletMeter: 0,
+      meterBlocking: true,
+    };
+    const passes = (candidate: ReportPredicateCandidate): boolean =>
+      candidate.attachedNow === expected.attachedNow &&
+      candidate.maxKineticFillIncrement === null &&
+      candidate.holeFillCount === expected.holeFillCount &&
+      candidate.deltaTimeSeconds === null &&
+      candidate.stalled === false &&
+      candidate.skippedUnconverged === false &&
+      (!candidate.meterBlocking || candidate.dirichletMeter === 0);
+    expect(passes(expected)).toBe(true);
+    for (const mutation of [
+      { ...expected, attachedNow: 4 },
+      { ...expected, maxKineticFillIncrement: 0 },
+      { ...expected, holeFillCount: 2 },
+      { ...expected, deltaTimeSeconds: 1 },
+      { ...expected, stalled: true },
+      { ...expected, skippedUnconverged: true },
+      { ...expected, dirichletMeter: 1 },
+    ] as const) {
+      expect(passes(mutation)).toBe(false);
+    }
+  });
+
   test("encodes all eight parameter slots and the mixed control header", () => {
     const layout = createGpuGridLayout({ nx: 17, ny: 19, nz: 11 });
     const params = cloneParams("hollowColumn");
@@ -225,6 +269,56 @@ function oracleInput(
 }
 
 describe("GPU complete G-G cycle orchestration", () => {
+  test("refuses low-level surface parameter access after teardown", async () => {
+    const fake = fakeGpu();
+    const { oracle, input } = oracleInput();
+    const arena = GpuBufferArena.create(
+      fake.device,
+      1,
+      createGpuBufferPlan({ nx: 7, ny: 7, nz: 5 }, "gg"),
+    );
+    const submissions = new GpuSubmissionController(fake.device);
+    submissions.acknowledgeEdit(1);
+    const surface = await GpuGgSurface.create(
+      fake.device,
+      submissions,
+      arena,
+      {
+        initialBoundaryMass: input.initialBoundaryMass,
+        initialBoundaryIndices: input.initialBoundaryIndices,
+        attachedCount: oracle.attachedCount,
+        params: input.params,
+        tick: input.tick,
+        farField: input.farField,
+      },
+    );
+    expect(surface.params().rho).toBe(input.params.rho);
+    surface.destroy();
+    expect(() => surface.params()).toThrow(/destroyed/);
+    arena.destroy();
+    submissions.destroy();
+  });
+
+  test("rejects negative vapor through the complete wrapper before GPU work", async () => {
+    const fake = fakeGpu();
+    const { input } = oracleInput();
+    const arena = GpuBufferArena.create(
+      fake.device,
+      1,
+      createGpuBufferPlan({ nx: 7, ny: 7, nz: 5 }, "gg"),
+    );
+    const submissions = new GpuSubmissionController(fake.device);
+    submissions.acknowledgeEdit(1);
+    input.initialVapor[0] = -0.25;
+    await expect(
+      GpuGgSolver.create(fake.device, submissions, arena, input),
+    ).rejects.toThrow(/nonnegative/);
+    expect(fake.device.createShaderModule).not.toHaveBeenCalled();
+    expect(fake.device.queue.writeBuffer).not.toHaveBeenCalled();
+    arena.destroy();
+    submissions.destroy();
+  });
+
   test("runs reviewed diffusion before the ordered reflecting surface graph", async () => {
     const fake = fakeGpu();
     const { input } = oracleInput();
@@ -351,6 +445,51 @@ describe("GPU complete G-G cycle orchestration", () => {
     expect(solver.tick()).toBe(1);
     solver.destroy();
     arena.destroy();
+  });
+
+  test("keeps validation-only timeline failures recoverable and poisons partial writes", async () => {
+    const fake = fakeGpu();
+    const { input } = oracleInput();
+    const arena = GpuBufferArena.create(
+      fake.device,
+      1,
+      createGpuBufferPlan({ nx: 7, ny: 7, nz: 5 }, "gg"),
+    );
+    const submissions = new GpuSubmissionController(fake.device);
+    submissions.acknowledgeEdit(1);
+    const solver = await GpuGgSolver.create(
+      fake.device,
+      submissions,
+      arena,
+      input,
+    );
+    const writesBeforeValidation = vi.mocked(fake.device.queue.writeBuffer).mock
+      .calls.length;
+    expect(() =>
+      solver.applyTimelineEnvironment(solver.timelineEnvironment()),
+    ).toThrow();
+    expect(() =>
+      solver.applyTimelineEnvironment({
+        ...solver.timelineEnvironment(),
+        rho: Number.NaN,
+      }),
+    ).toThrow();
+    expect(vi.mocked(fake.device.queue.writeBuffer).mock.calls.length).toBe(
+      writesBeforeValidation,
+    );
+    expect(solver.params().rho).toBe(input.params.rho);
+    await solver.step("after-validation-rejection");
+
+    vi.mocked(fake.device.queue.writeBuffer).mockImplementationOnce(() => {
+      throw new Error("injected event control write failure");
+    });
+    expect(() =>
+      solver.applyTimelineEnvironment(
+        ggTimelineEnvironmentFromParams(cloneParams("needle")),
+      ),
+    ).toThrow(/injected event control write failure/);
+    expect(solver.isDestroyed()).toBe(true);
+    expect(() => solver.params()).toThrow(/poisoned/);
   });
 
   test("snapshots parameters and releases all owned resources on teardown", async () => {

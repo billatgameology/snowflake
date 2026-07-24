@@ -1,8 +1,8 @@
 # Plan — Phase 5: WebGPU solver port and Windows D3D12 conformance
 
 - **Phase:** Phase 5 — GPU port
-- **Status:** Decision 0018 Windows-only protocol is frozen and clean; WP1 is complete at
-  `afd94078e515236124bace82ff263390d80609f9`, and WP2 is next
+- **Status:** WP1 and WP2 are independently accepted; the WP3 repair candidate is fully verified
+  and awaits a clean canonical D3D12 replay plus same-reviewer closure
 - **Started:** 2026-07-23
 - **Last touched:** 2026-07-24 by Codex
 
@@ -153,8 +153,8 @@ CPU-vs-GPU tolerance and decision margin is byte-for-byte unchanged. V3 adds the
 `NC-TOLERANCE-BYPASS` to blocking comparisons exactly as decision 0019 requires. Any later
 change to a blocking fixture, tolerance, decision margin, performance threshold, criterion,
 negative control, runtime revision, or evidence meaning requires an ADR and invalidates the
-Windows bundle. This v3 freeze precedes canonical WP3 execution; WP1/WP2 production and a
-provisional WP3 implementation exist, but their output did not revise a numerical envelope.
+Windows bundle. This v3 freeze precedes canonical WP3 execution; WP1/WP2 production and the
+WP3 review candidate did not revise a numerical envelope.
 
 The superseded v2 freeze candidate passed exact root `npm test` in 371.8 seconds: Rule 7 clean over 178
 files, both TypeScript projects green, and 46 files / 816 tests passed. The app production build
@@ -163,8 +163,9 @@ canonical hashes, requires exactly one Windows lane, requires exactly 16 criteri
 removed Metal/cross-backend criteria, and preserves one uniquely owned negative control per
 criterion.
 
-The authority/protocol freeze is commit
-`60be8c0f14b44c1f5bf1b2753c409baad3da0833`. From that tracked-clean commit, the canonical
+The current v3 authority/protocol freeze is commit
+`70f85e15babc9eae8e13b93c2442babe14b63a23`; the superseded v2 freeze is
+`60be8c0f14b44c1f5bf1b2753c409baad3da0833`. From the v2 tracked-clean commit, the canonical
 capability and WP1 probes independently recorded the same commit and clean tree, observed D3D12,
 exited 0, and reported zero uncaptured errors. WP1 retained 0 coordinate/copy/PRNG mismatches,
 3,366 detected axis-swap mismatches, and zero blocking-allocation failures.
@@ -347,7 +348,7 @@ and the erroneous requirement that a million-scale vapor-unit ledger differ by l
 metrics, exact symmetry, decisions, event records, and stop reasons require equality.
 
 The Windows lane must independently pass the CPU oracle using the unchanged field and scalar
-tolerances above. There is no cross-backend multiplier or triangle comparison in v2.
+tolerances above. There is no cross-backend multiplier or triangle comparison in v3.
 
 Aggregate-v5 keeps dual convergence with the fixture's unchanged `relaxTol` and `divTol`. The GPU
 meters binary32 smoother drift directly and uses a deterministic pairwise/tree reduction—no
@@ -935,10 +936,28 @@ WP3 closes only when all of the following hold:
 - [ ] **WP3 — `GGThreshold`.** Port complete cycles with parameter events, noise, melting,
       attachment, hole filling, mass ledger, metrics, and stop-rule parity. Keep CPU state
       untouched and compare through the frozen harness.
-      Implementation candidate is complete but not yet independently accepted. Focused GPU
-      verification passes 41/41, both TypeScript projects pass, the app build transforms 33
-      modules, and exact root `npm test` passes 49 files / 844 tests in 357.05 seconds.
-      Provisional v3 D3D12 execution passes both 256/128-cycle fixtures with exact
+      Candidate `12f7af4` passed provisional v3 D3D12 execution, but independent review round 1
+      rejected it with six blockers and four should-fixes: the decision margin was sampled before
+      relaxation; per-cycle direct-meter diagnostics were discarded; the reflecting meter was
+      omitted from the fixture predicate; walls, packed raw-count/decision flags, complete
+      event-boundary state/order/report semantics, and full `SurfaceReport` semantics were not
+      independently authenticated; negative vapor was accepted; canonical protocol/runtime/
+      host/adapter identity was recorded but not fully enforced; validation-only events poisoned
+      the solver; a surface accessor omitted its liveness guard; targeted branch mutations were
+      incomplete; and the handoff remained stale.
+      The repair moves margin measurement to the actual post-relaxation decision seam, prints all
+      128 Dirichlet cycle comparisons, makes every blocking meter condition explicit, reads and
+      compares GPU walls and packed flags, authenticates full state/order/report/tick across the
+      cycle-64 event, enforces every null/false G-G report field, rejects negative vapor before
+      low-level or wrapper GPU work, and binds canonical pass to v3 SHA-256, Playwright 1.61.1 /
+      Chromium 1228, launch flags, the registered host, RTX 3080, and observed D3D12.
+      Invalid/no-op events remain usable while an attempted partial control write poisons;
+      focused mutants pin post-freeze decisions, simultaneous attachment, fresh-attachment
+      melting exclusion, append direction, event atomicity, and report predicates.
+      Focused GPU verification passes 46/46, both TypeScript projects pass, the 33-module app
+      build passes, and exact root `npm test` passes 49 files / 849 tests.
+      A dirty-tree v3 D3D12 verification fails only the deliberate clean-tree predicate and passes
+      both 256/128-cycle fixtures with exact
       occupancy/topology/boundary order/events/noise/stop reason and no GPU error/loss. Worst
       plate `b`/`d` max-absolute errors are `2.5812467e-5` / `1.6563363e-6`; worst Dirichlet
       values are `1.0507191e-5` / `8.1515096e-7`. The two complete clamp-path sign witnesses
@@ -948,9 +967,11 @@ WP3 closes only when all of the following hold:
       `0.04080885148141533` / `0.040876508731344074`, below unchanged mixed-scalar limits
       `0.9119800135314465` / `0.9119799999999965`. The direct meter difference remains honestly
       failed and diagnostic at `0.024480659606307853 > 0.004255350462365598`.
-      Preliminary independent review found the v3 authority and complete clamp-path witness
-      blockers; decision 0019, freeze `70f85e1`, and the current probe close both. Candidate
-      commit, clean replay, and a fresh complete review remain before this box may close.
+      The correctly sampled minimum margins are `0.002879962029400218` and
+      `0.002877725076560811`, both above `4e-4`; wall, packed-flag, and surface-report mismatch
+      counts are zero. Commit this repair, run its exact clean replay, and return it to the same
+      reviewer. WP4 remains forbidden until that review reports zero blockers and zero
+      should-fixes.
 - [ ] **WP4 — `LibbrechtKinetics`.** Port the coupled aggregate-v5 relaxation/interface operator,
       including dual Dirichlet convergence, reflecting diagnostics, signed smoother drift,
       boundary-pixel fill, CFL, ledgers, schedules, and checkpoint conversion.

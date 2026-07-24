@@ -86,6 +86,12 @@ describe("GPU G-G diffusion input and ABI", () => {
       /blocked vapor/,
     );
 
+    const negativeVapor = validInput(layout.cellCount, "dirichlet");
+    negativeVapor.initialVapor[0] = -0.25;
+    expect(() => snapshotGpuGgDiffusionInput(layout, negativeVapor)).toThrow(
+      /nonnegative/,
+    );
+
     const badShell = validInput(layout.cellCount, "dirichlet");
     badShell.topology.fill(0);
     expect(() => snapshotGpuGgDiffusionInput(layout, badShell)).toThrow(
@@ -466,6 +472,23 @@ function fakeGpu(
 }
 
 describe("GPU G-G diffusion orchestration", () => {
+  test("rejects negative vapor before low-level shader creation or upload", async () => {
+    const fake = fakeGpu();
+    const plan = createGpuBufferPlan({ nx: 3, ny: 3, nz: 3 }, "gg");
+    const arena = GpuBufferArena.create(fake.device, 1, plan);
+    const submissions = new GpuSubmissionController(fake.device);
+    submissions.acknowledgeEdit(1);
+    const input = validInput(plan.layout.cellCount, "reflecting");
+    input.initialVapor[0] = -0.25;
+    await expect(
+      GpuGgDiffusion.create(fake.device, submissions, arena, input),
+    ).rejects.toThrow(/nonnegative/);
+    expect(fake.device.createShaderModule).not.toHaveBeenCalled();
+    expect(fake.device.queue.writeBuffer).not.toHaveBeenCalled();
+    arena.destroy();
+    submissions.destroy();
+  });
+
   test("rejects every cross-device arena/controller composition before GPU work", async () => {
     const first = fakeGpu();
     const second = fakeGpu();

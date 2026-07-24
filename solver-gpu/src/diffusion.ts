@@ -215,6 +215,9 @@ export function snapshotGpuGgDiffusionInput(
     if (!Number.isFinite(vapor)) {
       throw new Error(`initialVapor must be finite at ${index}`);
     }
+    if (vapor < 0) {
+      throw new Error(`initialVapor must be nonnegative at ${index}`);
+    }
     if (
       attached > 1 ||
       inactive > 1 ||

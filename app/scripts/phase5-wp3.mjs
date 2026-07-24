@@ -3,22 +3,50 @@
 // final Phase 5 gate.
 
 import { execFileSync } from "node:child_process";
+import { createRequire } from "node:module";
 import { existsSync } from "node:fs";
 import os from "node:os";
 import process from "node:process";
 import { resolve } from "node:path";
 import { chromium } from "playwright";
 import { createServer as createViteServer } from "vite";
+import { canonicalJsonSha256 } from "../../runner/src/gate4-evidence.ts";
 import {
   PHASE5_EXPECTED_WINDOWS_BACKEND,
   PHASE5_HEADLESS_RUNTIME,
   PHASE5_HEADLESS_RUNTIME_VERSION,
   PHASE5_PROTOCOL,
+  PHASE5_PROTOCOL_SHA256,
   PHASE5_REQUIRED_FEATURES,
   PHASE5_REQUIRED_LIMITS,
+  phase5ProtocolManifest,
 } from "../../runner/src/phase5-protocol.ts";
 
 const repoRoot = resolve(import.meta.dirname, "..", "..");
+const require = createRequire(import.meta.url);
+const playwrightPackage = require("playwright/package.json");
+const launchFlags = [
+  "--enable-unsafe-webgpu",
+  "--enable-webgpu-developer-features",
+];
+const expectedRuntime = {
+  playwrightVersion: "1.61.1",
+  chromiumRevision: "1228",
+  product: "Chrome/149.0.7827.55",
+  revision: "@3188f8a607ae7e067593be8aab7f02d2451fec07",
+};
+const expectedHost = {
+  platform: "win32",
+  cpu: "AMD Ryzen 7 5700G with Radeon Graphics",
+};
+const expectedAdapter = {
+  vendor: "nvidia",
+  architecture: "ampere",
+  device: "0x2206",
+  description: "NVIDIA GeForce RTX 3080",
+  backend: "D3D12",
+  type: "discrete GPU",
+};
 
 function git(...args) {
   return execFileSync("git", args, {
@@ -76,7 +104,7 @@ async function main() {
     browser = await chromium.launch({
       executablePath: browserPath,
       headless: true,
-      args: ["--enable-unsafe-webgpu", "--enable-webgpu-developer-features"],
+      args: launchFlags,
     });
     const page = await browser.newPage();
     await page.goto(`${origin}/phase5-wp3`, { waitUntil: "load" });
@@ -263,6 +291,35 @@ async function main() {
           return minimum;
         }
 
+        function expectedRenderFlags(solver, startBoundary) {
+          const result = new Uint32Array(solver.a.length);
+          const params = solver.params;
+          for (const index of startBoundary) {
+            const [rawNT, rawNZ] = solver.neighborCounts(index);
+            const slot = core.paramSlot(
+              Math.min(rawNT, 3),
+              Math.min(rawNZ, 1),
+            );
+            const postFreeze =
+              solver.b[index] + (1 - params.kappa[slot]) * solver.d[index];
+            const holeFill = rawNT >= 4 && rawNZ >= 1;
+            const attach =
+              holeFill || postFreeze >= params.ggThreshBeta[slot];
+            let packed =
+              production.GPU_GG_RENDER_BOUNDARY |
+              (rawNT << production.GPU_GG_RENDER_NT_SHIFT) |
+              (rawNZ << production.GPU_GG_RENDER_NZ_SHIFT);
+            if (attach) {
+              packed |=
+                production.GPU_GG_RENDER_ATTACH_DECISION |
+                production.GPU_GG_RENDER_ATTACHED_NOW;
+            }
+            if (holeFill) packed |= production.GPU_GG_RENDER_HOLE_FILL;
+            result[index] = packed;
+          }
+          return result;
+        }
+
         function farFieldMean(occupancy, vapor, topology) {
           let sum = 0;
           let compensation = 0;
@@ -348,11 +405,21 @@ async function main() {
         }
 
         async function readState(gpu, fixtureId, suffix) {
-          const [occupancyBytes, boundaryMassBytes, vaporBytes, topologyBytes] =
+          const [
+            occupancyBytes,
+            wallBytes,
+            boundaryMassBytes,
+            vaporBytes,
+            topologyBytes,
+          ] =
             await Promise.all([
               readBuffer(
                 gpu.occupancyBuffer(),
                 `${fixtureId}:${suffix}:occupancy`,
+              ),
+              readBuffer(
+                gpu.wallBuffer(),
+                `${fixtureId}:${suffix}:wall`,
               ),
               readBuffer(
                 gpu.boundaryMassBuffer(),
@@ -369,9 +436,42 @@ async function main() {
             ]);
           return {
             occupancy: new Uint32Array(occupancyBytes),
+            wall: new Uint32Array(wallBytes),
             boundaryMass: new Float32Array(boundaryMassBytes),
             vapor: new Float32Array(vaporBytes),
             topology: new Uint32Array(topologyBytes),
+          };
+        }
+
+        async function readEventSnapshot(gpu, fixtureId, suffix) {
+          const [state, reportBytes, renderFlagBytes] = await Promise.all([
+            readState(gpu, fixtureId, suffix),
+            readBuffer(
+              gpu.reportBuffer(),
+              `${fixtureId}:${suffix}:report`,
+            ),
+            readBuffer(
+              gpu.renderFlagsBuffer(),
+              `${fixtureId}:${suffix}:render-flags`,
+            ),
+          ]);
+          const report = production.decodeGpuGgCycleReport(reportBytes);
+          const boundaryIndices = new Uint32Array(
+            report.boundaryCount === 0
+              ? new ArrayBuffer(0)
+              : await readBuffer(
+                  gpu.boundaryIndicesBuffer(),
+                  `${fixtureId}:${suffix}:boundary-indices`,
+                  report.boundaryCount * 4,
+                ),
+          );
+          return {
+            state,
+            report,
+            reportWords: new Uint32Array(reportBytes),
+            renderFlags: new Uint32Array(renderFlagBytes),
+            boundaryIndices,
+            tick: gpu.tick(),
           };
         }
 
@@ -408,18 +508,104 @@ async function main() {
             let clampOracleWithinMixedTolerance = true;
             let attachmentDeltaMismatchCount = 0;
             let noiseMismatchCount = 0;
+            let renderFlagMismatchCount = 0;
+            let surfaceReportMismatchCount = 0;
             let eventStateMismatchCount = 0;
+            const directClampComparisons = [];
             const events = [];
+            let lastExpectedRenderFlags = new Uint32Array(oracle.a.length);
+            let lastSurfaceReport = {
+              attachedNow: 0,
+              maxKineticFillIncrement: null,
+              holeFillCount: 0,
+              deltaTimeSeconds: null,
+              stalled: false,
+              skippedUnconverged: false,
+            };
             for (let cycle = 0; cycle < cycleCap; cycle++) {
               if (
                 fixture.timeline !== null &&
                 cycle === fixture.timeline.completedCycle
               ) {
-                const beforeState = await readState(
+                const compareEventSnapshot = (snapshot) => {
+                  const occupancyMismatchCount = exactArrayMismatch(
+                    Uint32Array.from(oracle.a),
+                    snapshot.state.occupancy,
+                  );
+                  const wallMismatchCount = exactArrayMismatch(
+                    Uint32Array.from(oracle.wall),
+                    snapshot.state.wall,
+                  );
+                  const topologyMismatchCount = exactArrayMismatch(
+                    topologyFor(oracle, true),
+                    snapshot.state.topology,
+                  );
+                  const boundaryOrderMismatchCount = exactArrayMismatch(
+                    Uint32Array.from(oracle.boundaryCells()),
+                    snapshot.boundaryIndices,
+                  );
+                  const renderFlagMismatchCount = exactArrayMismatch(
+                    lastExpectedRenderFlags,
+                    snapshot.renderFlags,
+                  );
+                  const boundaryMass = compareArrays(
+                    oracle.b,
+                    snapshot.state.boundaryMass,
+                    protocol.PHASE5_FIELD_TOLERANCES.ggBoundaryMass,
+                  );
+                  const vapor = compareArrays(
+                    oracle.d,
+                    snapshot.state.vapor,
+                    protocol.PHASE5_FIELD_TOLERANCES.ggVapor,
+                  );
+                  const gpuSurfaceReport = {
+                    attachedNow: snapshot.report.attachedNow,
+                    maxKineticFillIncrement: null,
+                    holeFillCount: snapshot.report.holeFillNow,
+                    deltaTimeSeconds: null,
+                    stalled: false,
+                    skippedUnconverged: false,
+                  };
+                  const report = {
+                    surfaceExact:
+                      JSON.stringify(lastSurfaceReport) ===
+                      JSON.stringify(gpuSurfaceReport),
+                    boundaryCountExact:
+                      snapshot.report.boundaryCount === oracle.boundarySize(),
+                    attachedTotalExact:
+                      snapshot.report.attachedTotal === oracle.attachedCount,
+                    errorFlagsExact: snapshot.report.errorFlags === 0,
+                  };
+                  report.pass = Object.values(report).every(Boolean);
+                  const tickExact = snapshot.tick === oracle.tick;
+                  return {
+                    occupancyMismatchCount,
+                    wallMismatchCount,
+                    topologyMismatchCount,
+                    boundaryOrderMismatchCount,
+                    renderFlagMismatchCount,
+                    boundaryMass,
+                    vapor,
+                    report,
+                    tickExact,
+                    pass:
+                      occupancyMismatchCount === 0 &&
+                      wallMismatchCount === 0 &&
+                      topologyMismatchCount === 0 &&
+                      boundaryOrderMismatchCount === 0 &&
+                      renderFlagMismatchCount === 0 &&
+                      boundaryMass.pass &&
+                      vapor.pass &&
+                      report.pass &&
+                      tickExact,
+                  };
+                };
+                const beforeSnapshot = await readEventSnapshot(
                   gpu,
                   fixture.id,
                   `event-${cycle}:before`,
                 );
+                const beforeComparison = compareEventSnapshot(beforeSnapshot);
                 const next = cloneParams(
                   fixture.timeline.nextPreset,
                   fixture.phi,
@@ -427,43 +613,85 @@ async function main() {
                 const environment = core.ggTimelineEnvironmentFromParams(next);
                 const cpuEvent = oracle.applyTimelineEnvironment(environment);
                 const gpuEvent = gpu.applyTimelineEnvironment(environment);
-                const afterState = await readState(
+                const afterSnapshot = await readEventSnapshot(
                   gpu,
                   fixture.id,
                   `event-${cycle}:after`,
                 );
-                eventStateMismatchCount +=
-                  exactArrayMismatch(
-                    new Uint32Array(beforeState.occupancy),
-                    new Uint32Array(afterState.occupancy),
-                  ) +
-                  exactArrayMismatch(
-                    new Uint32Array(beforeState.boundaryMass.buffer),
-                    new Uint32Array(afterState.boundaryMass.buffer),
-                  ) +
-                  exactArrayMismatch(
-                    new Uint32Array(beforeState.vapor.buffer),
-                    new Uint32Array(afterState.vapor.buffer),
-                  ) +
-                  exactArrayMismatch(
-                    beforeState.topology,
-                    afterState.topology,
+                const afterComparison = compareEventSnapshot(afterSnapshot);
+                const preservation = {
+                  occupancyMismatchCount: exactArrayMismatch(
+                    beforeSnapshot.state.occupancy,
+                    afterSnapshot.state.occupancy,
+                  ),
+                  wallMismatchCount: exactArrayMismatch(
+                    beforeSnapshot.state.wall,
+                    afterSnapshot.state.wall,
+                  ),
+                  boundaryMassBitMismatchCount: exactArrayMismatch(
+                    new Uint32Array(beforeSnapshot.state.boundaryMass.buffer),
+                    new Uint32Array(afterSnapshot.state.boundaryMass.buffer),
+                  ),
+                  vaporBitMismatchCount: exactArrayMismatch(
+                    new Uint32Array(beforeSnapshot.state.vapor.buffer),
+                    new Uint32Array(afterSnapshot.state.vapor.buffer),
+                  ),
+                  topologyMismatchCount: exactArrayMismatch(
+                    beforeSnapshot.state.topology,
+                    afterSnapshot.state.topology,
+                  ),
+                  renderFlagMismatchCount: exactArrayMismatch(
+                    beforeSnapshot.renderFlags,
+                    afterSnapshot.renderFlags,
+                  ),
+                  boundaryOrderMismatchCount: exactArrayMismatch(
+                    beforeSnapshot.boundaryIndices,
+                    afterSnapshot.boundaryIndices,
+                  ),
+                  reportBitMismatchCount: exactArrayMismatch(
+                    beforeSnapshot.reportWords,
+                    afterSnapshot.reportWords,
+                  ),
+                  tickExact: beforeSnapshot.tick === afterSnapshot.tick,
+                };
+                preservation.pass =
+                  Object.entries(preservation).every(([name, value]) =>
+                    name === "tickExact" ? value === true : value === 0
                   );
+                const transitionExact =
+                  JSON.stringify(cpuEvent) === JSON.stringify(gpuEvent);
+                const eventPass =
+                  transitionExact &&
+                  beforeComparison.pass &&
+                  afterComparison.pass &&
+                  preservation.pass;
+                if (!eventPass) eventStateMismatchCount++;
                 events.push({
                   cycle,
-                  exact: JSON.stringify(cpuEvent) === JSON.stringify(gpuEvent),
+                  exact: eventPass,
+                  transitionExact,
                   cpu: cpuEvent,
                   gpu: gpuEvent,
+                  beforeComparison,
+                  afterComparison,
+                  preservation,
                 });
               }
               const oldBoundaryCount = oracle.boundarySize();
               const tickBefore = oracle.tick;
+              const startBoundary = oracle.boundaryCells();
+              const relaxation = oracle.relaxField();
               minimumMargin = Math.min(
                 minimumMargin,
                 minimumDecisionMargin(oracle),
               );
-              const relaxation = oracle.relaxField();
+              const expectedFlags = expectedRenderFlags(
+                oracle,
+                startBoundary,
+              );
               const surface = oracle.advanceSurface();
+              lastExpectedRenderFlags = expectedFlags;
+              lastSurfaceReport = surface;
               await gpu.step(`${fixture.id}:cycle-${cycle + 1}`);
               const report = production.decodeGpuGgCycleReport(
                 await readBuffer(
@@ -484,6 +712,16 @@ async function main() {
                 Uint32Array.from(oracle.lastAttached),
                 attachmentIndices,
               );
+              const observedRenderFlags = new Uint32Array(
+                await readBuffer(
+                  gpu.renderFlagsBuffer(),
+                  `${fixture.id}:cycle-${cycle + 1}:render-flags`,
+                ),
+              );
+              renderFlagMismatchCount += exactArrayMismatch(
+                expectedFlags,
+                observedRenderFlags,
+              );
               const expectedClamp =
                 relaxation.shellClampDiagnostic === null
                   ? 0
@@ -492,6 +730,12 @@ async function main() {
                 expectedClamp,
                 report.lastClampDelta,
               );
+              if (fixture.farField === "dirichlet") {
+                directClampComparisons.push({
+                  cycle: cycle + 1,
+                  ...clamp,
+                });
+              }
               clampOracleMaxAbs = Math.max(
                 clampOracleMaxAbs,
                 clamp.difference,
@@ -506,6 +750,17 @@ async function main() {
                   ),
               );
               if (!clamp.pass) clampOracleWithinMixedTolerance = false;
+              const gpuSurfaceReport = {
+                attachedNow: report.attachedNow,
+                maxKineticFillIncrement: null,
+                holeFillCount: report.holeFillNow,
+                deltaTimeSeconds: null,
+                stalled: false,
+                skippedUnconverged: false,
+              };
+              const surfaceReportExact =
+                JSON.stringify(surface) === JSON.stringify(gpuSurfaceReport);
+              if (!surfaceReportExact) surfaceReportMismatchCount++;
               if (
                 report.oldBoundaryCount !== oldBoundaryCount ||
                 report.boundaryCount !== oracle.boundarySize() ||
@@ -535,6 +790,9 @@ async function main() {
                     errorFlags: report.errorFlags,
                     expectedTick: oracle.tick,
                     observedTick: gpu.tick(),
+                    expectedSurfaceReport: surface,
+                    observedSurfaceReport: gpuSurfaceReport,
+                    surfaceReportExact,
                   });
                 }
               }
@@ -580,6 +838,10 @@ async function main() {
               Uint32Array.from(oracle.a),
               finalState.occupancy,
             );
+            const wallMismatchCount = exactArrayMismatch(
+              Uint32Array.from(oracle.wall),
+              finalState.wall,
+            );
             const boundaryOrderMismatchCount = exactArrayMismatch(
               Uint32Array.from(oracle.boundaryCells()),
               boundaryIndices,
@@ -602,7 +864,7 @@ async function main() {
             const gpuA = Uint8Array.from(finalState.occupancy);
             const gpuB = Float64Array.from(finalState.boundaryMass);
             const gpuD = Float64Array.from(finalState.vapor);
-            const gpuWall = Uint8Array.from(oracle.wall);
+            const gpuWall = Uint8Array.from(finalState.wall);
             const cpuMetrics = core.computeMetrics(
               oracle.a,
               oracle.b,
@@ -685,15 +947,22 @@ async function main() {
             };
             const pass =
               occupancyMismatchCount === 0 &&
+              wallMismatchCount === 0 &&
               boundaryOrderMismatchCount === 0 &&
               topologyMismatchCount === 0 &&
               boundaryMass.pass &&
               vapor.pass &&
               reportMismatchCount === 0 &&
+              surfaceReportMismatchCount === 0 &&
               attachmentDeltaMismatchCount === 0 &&
               noiseMismatchCount === 0 &&
+              renderFlagMismatchCount === 0 &&
               eventStateMismatchCount === 0 &&
               events.every((event) => event.exact) &&
+              directClampComparisons.length ===
+                (fixture.farField === "dirichlet" ? cycleCap : 0) &&
+              (!directOracleMeterComparison.blocking ||
+                directOracleMeterComparison.pass) &&
               minimumMargin >=
                 protocol.PHASE5_DECISION_MARGINS.ggBoundaryMass &&
               metrics.pass &&
@@ -707,11 +976,13 @@ async function main() {
               cycles: cycleCap,
               minimumDecisionMargin: minimumMargin,
               occupancyMismatchCount,
+              wallMismatchCount,
               boundaryOrderMismatchCount,
               topologyMismatchCount,
               boundaryMass,
               vapor,
               reportMismatchCount,
+              surfaceReportMismatchCount,
               reportMismatchSamples,
               clampOracleComparison: {
                 maxAbs: clampOracleMaxAbs,
@@ -724,10 +995,12 @@ async function main() {
               },
               attachmentDeltaMismatchCount,
               noiseMismatchCount,
+              renderFlagMismatchCount,
               eventStateMismatchCount,
               events,
               metrics,
               mass,
+              directClampComparisons,
               directOracleMeterComparison,
               correctedMassLedger,
               stopReason,
@@ -1244,12 +1517,58 @@ async function main() {
       await browser.newBrowserCDPSession()
     ).send("Browser.getVersion");
     const backend = String(deviceResult.adapter.info.backend ?? "");
+    const protocolManifest = phase5ProtocolManifest();
+    const protocolSha256 = canonicalJsonSha256(protocolManifest);
+    const host = {
+      platform: process.platform,
+      release: os.release(),
+      architecture: os.arch(),
+      cpu: os.cpus()[0]?.model.trim() ?? "unknown",
+      logicalProcessors: os.cpus().length,
+      totalMemoryBytes: os.totalmem(),
+    };
+    const protocolProvenancePass =
+      PHASE5_PROTOCOL === "phase5-gpu-conformance-windows-v3" &&
+      PHASE5_PROTOCOL_SHA256 ===
+        "ce1821df86461cbd7660cbb34c697071bd5d3822a4ca4def042245f569d61e98" &&
+      protocolSha256 === PHASE5_PROTOCOL_SHA256;
+    const runtimeProvenancePass =
+      PHASE5_HEADLESS_RUNTIME === "playwright-bundled-chromium" &&
+      PHASE5_HEADLESS_RUNTIME_VERSION ===
+        `playwright-${expectedRuntime.playwrightVersion}/chromium-${expectedRuntime.chromiumRevision}` &&
+      playwrightPackage.version === expectedRuntime.playwrightVersion &&
+      browserPath
+        .toLowerCase()
+        .includes(`\\chromium-${expectedRuntime.chromiumRevision}\\`) &&
+      browserVersion.product === expectedRuntime.product &&
+      browserVersion.revision === expectedRuntime.revision &&
+      JSON.stringify(launchFlags) ===
+        JSON.stringify([
+          "--enable-unsafe-webgpu",
+          "--enable-webgpu-developer-features",
+        ]);
+    const hostProvenancePass =
+      host.platform === expectedHost.platform &&
+      host.cpu === expectedHost.cpu;
+    const adapterProvenancePass =
+      Object.entries(expectedAdapter).every(
+        ([name, expected]) => deviceResult.adapter.info[name] === expected,
+      );
     const report = {
-      schema: "phase5-wp3-gg-v1",
+      schema: "phase5-wp3-gg-v2",
       protocol: PHASE5_PROTOCOL,
+      protocolSha256: {
+        expected: PHASE5_PROTOCOL_SHA256,
+        actual: protocolSha256,
+        pass: protocolProvenancePass,
+      },
       lane: "windows-d3d12",
       pass:
         repository.clean &&
+        protocolProvenancePass &&
+        runtimeProvenancePass &&
+        hostProvenancePass &&
+        adapterProvenancePass &&
         backend.toLowerCase() === PHASE5_EXPECTED_WINDOWS_BACKEND.toLowerCase() &&
         deviceResult.fixtures.length === 2 &&
         deviceResult.fixtures.every((fixture) => fixture.pass) &&
@@ -1263,23 +1582,26 @@ async function main() {
         deviceResult.unexpectedDeviceLoss === null,
       repository,
       host: {
-        platform: process.platform,
-        release: os.release(),
-        architecture: os.arch(),
-        cpu: os.cpus()[0]?.model ?? "unknown",
-        logicalProcessors: os.cpus().length,
-        totalMemoryBytes: os.totalmem(),
+        ...host,
+        expected: expectedHost,
+        provenancePass: hostProvenancePass,
       },
       runtime: {
         name: PHASE5_HEADLESS_RUNTIME,
         frozenVersion: PHASE5_HEADLESS_RUNTIME_VERSION,
+        actualPlaywrightVersion: playwrightPackage.version,
         product: browserVersion.product,
         revision: browserVersion.revision,
         executablePath: browserPath,
+        launchFlags,
+        expected: expectedRuntime,
+        provenancePass: runtimeProvenancePass,
       },
       adapter: {
         expectedBackend: PHASE5_EXPECTED_WINDOWS_BACKEND,
         actualBackend: backend,
+        expected: expectedAdapter,
+        provenancePass: adapterProvenancePass,
         ...deviceResult.adapter,
       },
       device: deviceResult.device,

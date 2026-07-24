@@ -119,7 +119,8 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   uncaptured errors.
   The M4 was unreachable and remains explicitly unobserved; decision 0018 now defers it rather
   than guessing or relabeling a result. `solver-gpu/` was absent at the immutable v1 WP0 boundary.
-- **Phase 5 WP1 is COMPLETE at `afd94078e515236124bace82ff263390d80609f9`; WP2 is next.** The exact
+- **Phase 5 WP1 and WP2 are COMPLETE; WP3 is in its review/fix loop.** WP1 closes at
+  `afd94078e515236124bace82ff263390d80609f9`. The exact
   root pre-WP1 baseline at clean commit `c29754b`
   exited 0 in 371.1 seconds: Rule 7 clean over 166 files, both TypeScript projects green, and
   44 files / 802 tests passed. The concurrent canonical capability probe passed on observed
@@ -182,20 +183,21 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   bake/operator cases rejected from negotiated limits, and zero uncaptured errors. The final
   same-reviewer provenance audit accepted the commit parent, exact ten-file tree/blob identity,
   object integrity, and both complete probe predicates with zero blockers and zero should-fixes.
-- **Phase 5 WP2 has a numerically passing implementation candidate; review is not yet earned.**
-  Production WGSL and host orchestration implement the frozen noise/in-plane/vertical/drift/
-  commit/post-commit-clamp graph with explicit ping-pong ownership and generation/in-flight
-  rejection. A provisional dirty-tree RTX 3080 D3D12 run passed all six registered field
-  comparisons: the limiting noisy/drifting Dirichlet pass-64 result was maximum absolute
-  `4.623779701201647e-7`, RMS `1.8798277887340792e-7`, and maximum relative
-  `4.42435275103415e-6`, within the frozen `2e-6` / `2e-7` / `2e-4` limits.
-  The wrong-clamp mutation failed decisively at maximum absolute `0.018228875100612635` and RMS
-  `0.006723246872232541`. Seven submissions and seven audited test readbacks completed with zero
-  display-frame full-field reads and zero uncaptured GPU errors. Focused GPU tests pass 26/26,
-  both TypeScript projects pass, and the 33-module app build is green. Exact root `npm test`
-  exited 0 in 384.1 seconds: Rule 7 was clean over 182 files, both TypeScript projects passed,
-  and 47 files / 828 tests passed. This is provisional: a candidate commit, canonical clean
-  replay, and independent zero-finding review are still required.
+- **Phase 5 WP2 is COMPLETE at reviewed implementation
+  `9f7a7b476a17e9f47849cc323d49e928fc177b65`.** Its tracked-clean RTX 3080 D3D12 replay passed
+  all six registered field comparisons and rejected the wrong-clamp mutation with zero
+  uncaptured errors or unexpected loss. Same-reviewer round 3 reported zero code/evidence
+  findings; docs-only closure is `20cba9d`. WP3 candidate `12f7af4` then implemented complete
+  G-G cycles. Review round 1 found six blockers and four should-fixes; the current repair closes
+  them with correctly placed decision margins, mandatory per-cycle meter diagnostics, blocking
+  reflecting-meter enforcement, raw wall/flag/report/event authentication, negative-vapor
+  rejection, exact v3/runtime/host/adapter provenance, recoverable validation-only events,
+  fail-closed partial writes/accessors, and targeted branch/report mutations. Focused GPU tests
+  pass 46/46, exact root `npm test` passes 49 files / 849 tests, and the
+  33-module app build passes. The dirty-tree D3D12 replay passes every scientific/provenance
+  predicate and fails only required worktree cleanliness; its correctly sampled decision
+  margins are `0.002879962029400218` and `0.002877725076560811`, with zero wall, packed-flag,
+  or `SurfaceReport` mismatches and all 128 Dirichlet cycle diagnostics retained.
 - **Phase 2b v5 execution update:** reviewed sequential execution commit `dd762f0` was interrupted
   by accidental host shutdown during warm step-189 relaxation, after completed step 188. No warm
   checkpoint, exit status, terminal verdict, or cold start exists; the attempt is incomplete
@@ -828,31 +830,29 @@ comparison inside tolerance, wrong clamp rejected, and both GPU error channels e
 accepted all code/evidence with zero findings; the immediately following docs-only commit closes
 its stale-handoff should-fix.
 
-The committed WP3 design is `6fb3ab95204c63007939c8489cf627f9dbb8c229`. The current
-implementation passes 41/41 focused GPU tests, both TypeScript projects, the 33-module app
-build, and exact root `npm test` at 49 files / 844 tests in 357.05 seconds. A provisional
-real D3D12 run compiled every production shader, ran both complete frozen fixtures, preserved
-exact occupancy/topology/boundary order/events/noise/stop reasons, passed all `b`/`d`, metric,
-mass, decision-margin, stale-ping-pong, and GPU-error checks, and exactly reproduced a synthetic
-two-level meter reduction plus accumulation. The added complete clamp-path witnesses have zero
-delta-field/clamped-vapor mismatches for positive and negative signs and reject wrong sign,
-wrong mask, omitted delta, and scaling. Within-GPU and cross-lane Dirichlet corrected-mass
-differences are `0.04080885148141533` and `0.040876508731344074`, inside unchanged bounds
-`0.9119800135314465` and `0.9119799999999965`. It also exposed that the v2 direct Dirichlet-meter
-criterion was not feasible under the independently frozen field envelope: direct difference
-`0.024480659606307853` exceeded its generic `0.004255350462365598` scalar bound even though the
-underlying fields passed.
+The committed WP3 design is `6fb3ab95204c63007939c8489cf627f9dbb8c229`; decision
+[0019](decisions/0019-phase5-gg-dirichlet-ledger-conformance.md) and freeze
+`70f85e15babc9eae8e13b93c2442babe14b63a23` already establish Windows v3. Candidate `12f7af4`
+passed provisional D3D12 execution but review round 1 rejected it with six blockers and four
+should-fixes. The current repair closes all ten: it measures the decision margin after
+relaxation, retains all 128 per-cycle direct-meter diagnostics, predicates the blocking
+reflecting meter, independently reads walls and packed raw-count/decision flags, authenticates
+complete event-boundary state/order/report/tick plus every G-G `SurfaceReport` field, rejects
+negative vapor before any GPU work, and binds pass to the exact v3 SHA, Playwright/Chromium
+runtime and flags, registered host, RTX 3080, and D3D12. Validation/no-op event failures remain
+recoverable; partial writes and dead accessors fail closed; targeted mutants pin order,
+simultaneity, fresh-attachment exclusion, event atomicity, and report predicates.
 
-Decision [0019](decisions/0019-phase5-gg-dirichlet-ledger-conformance.md) therefore supersedes
-Windows v2 before canonical WP3 evidence. Freeze Windows v3 in
-`runner/src/phase5-protocol.ts`: keep the exact fixtures, numerical tolerances, lane, runtime,
-and margins; add the explicit corrected-mass ledger policy; narrow `NC-TOLERANCE-BYPASS` to
-blocking comparisons; derive and pin the new protocol hash; and update the WP0 hash tests.
-The independent preliminary audit's v3-authority and complete-clamp-witness blockers are now
-closed. Commit the bounded WP3 implementation, execute its canonical clean D3D12 probe, and
-obtain a fresh independent zero-finding review. WP1/WP2 implementation remains accepted, but
-their canonical protocol-identity probes must be replayed under v3 before final evidence. Do
-not begin WP4 until WP3 independently reaches zero blockers and zero should-fixes.
+Exact root `npm test` passes 49 files / 849 tests; focused GPU tests are
+46/46, both typechecks pass, and the 33-module app build passes. A dirty-tree RTX 3080 replay
+passes every numerical, structural, event, ledger, mutation, runtime, host, adapter, submission,
+readback, and GPU-error predicate and fails only the deliberate clean-worktree requirement.
+Correctly sampled decision margins are `0.002879962029400218` and `0.002877725076560811`; wall,
+packed-flag, and complete surface-report mismatches are zero. **Next action:** commit this exact
+repair, run `node app/scripts/phase5-wp3.mjs` from that clean commit into a clearly named ignored
+`out/wp3-canonical-*.log`, then return the exact commit and log to the same independent reviewer.
+Do not begin WP4 until that reviewer reports zero blockers and zero should-fixes. WP1/WP2 remain
+accepted, but their protocol-identity probes must replay under v3 before final WP7 evidence.
 
 The superseded `phase5-gpu-conformance-windows-v2` SHA-256 is
 `223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`. Decision 0019 is the
