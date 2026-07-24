@@ -765,6 +765,121 @@ with zero remaining code findings. The only reported should-fix was that this pl
 docs-only closure corrects that handoff. WP2 is complete at reviewed implementation
 `9f7a7b476a17e9f47849cc323d49e928fc177b65`; no WP3 code existed at closure.
 
+## WP3 complete `GGThreshold` cycle design
+
+WP3 ports the remaining three G-G surface stages and complete-cycle orchestration without
+changing the reviewed WP2 shader equations, the CPU oracle, the frozen fixtures, or any
+tolerance. The production seam has two low-level GPU components plus one fail-closed wrapper:
+
+- `GpuGgDiffusion` remains the sole implementation of noise, in-plane/vertical diffusion,
+  optional drift, commit, and post-commit Dirichlet clamp. WP3 adds an idle-only control update
+  for the next completed-cycle tick, `rho`, and `phi`; it rewrites every immutable range-uniform
+  payload only after the prior submission has completed.
+- `GpuGgSurface` owns freezing, threshold/hole-fill decisions, melting, attachment, exact
+  boundary-order maintenance, the compact cycle report, and the Dirichlet meter reduction. It
+  accepts an explicit vapor-buffer identity so the high-level wrapper can authenticate the
+  active ping-pong side and the registered stale-source negative can deliberately supply the
+  inactive side without adding a production fallback.
+- `GpuGgSolver` snapshots the complete caller state once, constructs both low-level components
+  over one generation/device-authenticated arena, and is the only production complete-cycle
+  path. One cycle is two ordered bounded submissions—reviewed diffusion first, surface second.
+  It advances host tick/parameter ownership only after both complete. Any encode, queue,
+  submitted-work, loss, or partial-control-write uncertainty poisons the wrapper, destroys the
+  arena, and refuses every later state accessor or retry.
+
+The input owns exact `a`, `b`, and active `d`; wall and far-field masks; the CPU oracle's current
+boundary index list and order; dimensions/domain/far field/center; tick, seed, noise; and the
+complete eight-slot G-G parameter vectors. Validation independently reconstructs boundary
+membership and uncapped neighbor counts from occupancy, rejects duplicate/missing/blocked
+boundary entries, rejects invalid masks and non-finite/negative state, and uses the existing
+parameter validator before any upload. No persistent full-field host copy remains after
+creation.
+
+### Surface stage order and storage
+
+Each surface cycle uses the diffusion output named by `GpuGgDiffusion.activeVaporName()` and
+executes these dispatches in order:
+
+1. reset only per-cycle report fields; under Dirichlet, deterministically reduce the signed
+   per-cell clamp deltas left by the reviewed clamp shader and add the final binary32 sum to the
+   persistent Dirichlet meter;
+2. on every current boundary cell, derive raw `nT`/`nZ` from the unchanged start-of-cycle
+   occupancy, pack the uncapped counts into `renderFlags`, and apply freezing to `b` and the
+   active vapor buffer;
+3. decide every threshold or raw-`nT >= 4 && nZ >= 1` hole-fill attachment into per-cell flags,
+   without changing occupancy;
+4. melt only boundary cells not selected for attachment, using the same start-of-cycle count
+   slot; freshly selected cells never melt;
+5. apply every selected attachment in parallel (`a=1`, `b+=d`, `d=0`) and atomically count the
+   cycle's attachments and hole fills;
+6. rebuild the boundary list with the CPU oracle's exact observable order, then publish it.
+
+The order in step 6 is not silently replaced with a sorted set. It is the CPU contract:
+surviving old entries retain their order, then newly exposed neighbors append in selected-cell
+order and the canonical eight-neighbor direction order, with first encounter winning. A
+single-invocation stable rebuild over the compact boundary list reproduces that ordering; its
+work is explicitly bounded by the validated boundary count plus eight times the attachment
+count, and its wall time remains subject to the frozen submission limit. A following bounded
+copy publishes the rebuilt list. Physics kernels remain one invocation per cell/range and never
+depend on the serial list mutation.
+
+Existing 48-byte-per-cell allocation remains unchanged. `topology` bit 0 stays the fixed-sigma
+shell and bit 1 becomes current boundary membership; `boundaryIndices` is the compact ordered
+list; `renderFlags` carries start-of-cycle counts and decision/result bits; `scratchScalarA/B`
+and `reduction` are stage-local scratch, with `reduction` ending each cycle as the exact ordered
+last-attachment list. A small non-cell report buffer carries current boundary count, cumulative
+attached count, last attachment/hole-fill counts, last clamp delta, and cumulative Dirichlet
+meter. Reduction levels use deterministic 256-lane trees and explicit bounded range uniforms;
+no float atomic addition or host full-field sum defines the meter.
+
+### Cycle, event, ledger, and comparison contract
+
+`GpuGgSolver.step()` is legal only at a completed-cycle boundary and cannot overlap itself,
+destruction, or an event. Noise uses the pre-surface tick exactly; tick increments only after
+surface completion. An abrupt event snapshots and validates the entire parameter bundle,
+updates diffusion and surface controls as one fail-closed operation, leaves `a`, `b`, active
+`d`, boundary state, counters, and tick bit-unchanged, and returns the same completed-boundary
+before/after record as the CPU oracle. `rngSeed`, `noiseEpsilon`, domain, far-field condition,
+and center are immutable.
+
+The reflecting ledger is independently reconstructed as the binary32 state's `Sigma(b+d)` and
+compared to the float64 oracle with the frozen mixed scalar bound. Under Dirichlet the compact
+GPU reduction reports each clamp delta and the accumulated meter; field mass plus the meter is
+checked independently rather than trusting the report's own claim. Surface reports require
+exact attachment indices/order, counts, hole fills, null physical-time/CFL fields, and false
+stall/unconverged flags. The gate reconstructs wall/active masks, far-field set, boundary
+membership/order, uncapped counts, attached total/delta, bounds, domain contact, far-field mean,
+and every morphology metric from raw GPU buffers. Occupancy-derived values, event records,
+noise bits, symmetry, and the cap stop reason are exact; `b`, `d`, field-derived metrics,
+Dirichlet meter, and total mass use only the already frozen field/scalar tolerances.
+
+WP3 does not add checkpoint wire meanings, a host-resident simulation mirror, a physical-time
+interpretation, an alternate boundary order, early event application, or a runtime option to
+select stale ping-pong state. Checkpoint conversion/publication remains WP5; render integration
+remains WP6.
+
+### WP3 close predicate
+
+WP3 closes only when all of the following hold:
+
+- pure tests independently calculate non-cubic freezing, post-freeze threshold decisions,
+  uncapped hole fill, simultaneous attachment, fresh-attachment melting exclusion, exact
+  boundary-order evolution, deterministic reduction planning, parameter-event atomicity,
+  ping-pong/tick ownership, poisoning, and teardown; targeted mutations make every branch fail;
+- a pinned Chromium/RTX 3080/D3D12 probe runs both frozen G-G fixtures through all 256/128
+  completed cycles, applies the cycle-64 event at the exact boundary, compares every exact
+  attachment delta/report/noise witness, and compares final plus event-boundary raw state,
+  boundary order, ledger, metrics, domain safety, and cap stop reason;
+- the CPU precheck retains at least the frozen `4e-4` decision margin; the non-blocking
+  `stress-gg-attachment-margin` reports both sides honestly and cannot excuse a blocking result;
+- `NC-STALE-PING-PONG` uses the production low-level components with the inactive vapor side and
+  is rejected by the frozen comparison, while the high-level production wrapper has no stale
+  selection control;
+- all submissions are bounded and generation/device/loss authenticated, every readback is
+  test-purpose audited, display-frame full-field readbacks remain zero, uncaptured errors and
+  unexpected losses are zero, exact root tests and the app build pass, and an independent
+  reviewer reports zero blockers and zero should-fixes.
+
 ## Steps
 
 - [x] Record decision 0016, synchronize charter v1.14, and create this cold-start handoff.

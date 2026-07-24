@@ -822,13 +822,16 @@ accepted all code/evidence with zero findings; the immediately following docs-on
 its stale-handoff should-fix.
 
 After that docs-only commit receives its final provenance/truth audit, begin WP3 by extending
-the **WP3 design section in `docs/plans/phase-5-gpu-port.md` before writing code**. Re-read the
-`GGThreshold` cycle in `docs/gg-machinery.md`, inventory the mutable cycle state and exact ledger
-from `solver-cpu/src/gg-solver.ts`, and map the frozen WP3 fixtures/negative controls from
-`runner/src/phase5-protocol.ts`. Freeze explicit GPU stage order, buffer ownership, parameter
-event semantics, hole-fill/melting handling, ledger reductions, metric/stop-rule comparisons,
-and the exact pure/adversarial/D3D12 close predicate. Commit that design before implementing a
-complete GPU cycle, and do not begin WP4 until WP3 independently reaches zero blockers and zero
+the **WP3 design section in `docs/plans/phase-5-gpu-port.md` before writing code**. That design is
+now written from a complete reread of `docs/gg-machinery.md`, the mutable state/ledger inventory
+in `solver-cpu/src/gg-solver.ts`, and the frozen fixtures/negative controls in
+`runner/src/phase5-protocol.ts`. It freezes the two-submission diffusion/surface composition,
+start-of-cycle counts, exact CPU boundary-list order, deterministic Dirichlet reduction,
+parameter-event atomicity, fail-closed lifecycle, raw-state metric reconstruction, stale-source
+negative, and the pure/adversarial/D3D12 close predicate. Commit this design before adding or
+changing solver code. Then implement `GpuGgSurface` and `GpuGgSolver` against it, extend
+`GpuGgDiffusion` only for idle completed-cycle controls/clamp-delta output, and run the full WP3
+probe/review loop. Do not begin WP4 until WP3 independently reaches zero blockers and zero
 should-fixes.
 
 Protocol `phase5-gpu-conformance-windows-v2` is frozen at SHA-256
