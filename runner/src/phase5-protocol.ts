@@ -609,7 +609,17 @@ export interface Phase5LkF32ConvergenceInput {
   readonly relaxTol: number;
   readonly farField: FarFieldCondition;
   readonly divTol: number;
+  readonly currentDivergenceStatus:
+    | "finite"
+    | "zero-exchange-unconverged"
+    | "not-applicable"
+    | "unavailable";
   readonly currentDivergenceResidual: number | null;
+  readonly previousDivergenceStatus:
+    | "finite"
+    | "zero-exchange-unconverged"
+    | "not-applicable"
+    | "unavailable";
   readonly previousDivergenceResidual: number | null;
   readonly completedSweepsAfterMutation: number;
   readonly maximumCurrentStepUlpDistance: number;
@@ -644,6 +654,10 @@ export function phase5Float32UlpDistance(left: number, right: number): number {
 
 function phase5LkDivergenceRequirementPassed(
   farField: FarFieldCondition,
+  status: Phase5LkF32ConvergenceInput[
+    | "currentDivergenceStatus"
+    | "previousDivergenceStatus"
+  ],
   divergenceResidual: number | null,
   divTol: number,
   phase: "current" | "previous",
@@ -652,20 +666,27 @@ function phase5LkDivergenceRequirementPassed(
     throw new Error("LK f32 convergence divTol must be finite and positive");
   }
   if (farField === "reflecting") {
-    if (divergenceResidual !== null) {
+    if (status !== "not-applicable" || divergenceResidual !== null) {
       throw new Error(
-        `${phase} reflecting LK divergence residual must be null because reflecting mode makes no divergence claim`,
+        `${phase} reflecting LK divergence must be not-applicable with a null residual`,
       );
     }
     return true;
   }
   if (
+    status === "zero-exchange-unconverged" &&
+    divergenceResidual === Number.POSITIVE_INFINITY
+  ) {
+    return false;
+  }
+  if (
+    status !== "finite" ||
     divergenceResidual === null ||
     !Number.isFinite(divergenceResidual) ||
     divergenceResidual < 0
   ) {
     throw new Error(
-      `${phase} fixed-sigma LK divergence residual must be finite and nonnegative`,
+      `${phase} fixed-sigma LK divergence status and residual are inconsistent`,
     );
   }
   return divergenceResidual < divTol;
@@ -674,6 +695,9 @@ function phase5LkDivergenceRequirementPassed(
 export function classifyPhase5LkF32Convergence(
   input: Phase5LkF32ConvergenceInput,
 ): Phase5LkF32ConvergenceMode {
+  if (input.farField !== "dirichlet" && input.farField !== "reflecting") {
+    throw new Error("LK f32 convergence farField is invalid");
+  }
   if (
     !Number.isFinite(input.residual) ||
     input.residual < 0 ||
@@ -700,27 +724,33 @@ export function classifyPhase5LkF32Convergence(
   const currentDivergenceRequirementPassed =
     phase5LkDivergenceRequirementPassed(
       input.farField,
+      input.currentDivergenceStatus,
       input.currentDivergenceResidual,
       input.divTol,
       "current",
-    );
-  const previousDivergenceRequirementPassed =
-    phase5LkDivergenceRequirementPassed(
-      input.farField,
-      input.previousDivergenceResidual,
-      input.divTol,
-      "previous",
     );
   const currentGuardsPassed =
     currentDivergenceRequirementPassed && input.currentDriftBoundPassed;
   if (input.residual < input.relaxTol && currentGuardsPassed) {
     return "fixed-point";
   }
+  if (
+    input.completedSweepsAfterMutation <
+    PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY.minimumCompletedSweepsAfterMutation
+  ) {
+    return "incomplete";
+  }
+  const previousDivergenceRequirementPassed =
+    phase5LkDivergenceRequirementPassed(
+      input.farField,
+      input.previousDivergenceStatus,
+      input.previousDivergenceResidual,
+      input.divTol,
+      "previous",
+    );
   const previousGuardsPassed =
     previousDivergenceRequirementPassed && input.previousDriftBoundPassed;
   if (
-    input.completedSweepsAfterMutation >=
-      PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY.minimumCompletedSweepsAfterMutation &&
     input.maximumCurrentStepUlpDistance <=
       PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY.maximumCurrentStepUlpDistance &&
     input.maximumTwoBackUlpDistance ===

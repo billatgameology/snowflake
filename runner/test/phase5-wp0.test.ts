@@ -130,7 +130,9 @@ describe("Phase 5 criteria freeze", () => {
       relaxTol: 1e-9,
       farField: "dirichlet" as const,
       divTol: 1e-7,
+      currentDivergenceStatus: "finite" as const,
       currentDivergenceResidual: 0,
+      previousDivergenceStatus: "finite" as const,
       previousDivergenceResidual: 0,
       completedSweepsAfterMutation: 2,
       maximumCurrentStepUlpDistance: 1,
@@ -145,8 +147,19 @@ describe("Phase 5 criteria freeze", () => {
       classifyPhase5LkF32Convergence({
         ...boundedCycle,
         residual: 0,
+        completedSweepsAfterMutation: 1,
+        previousDivergenceStatus: "unavailable",
+        previousDivergenceResidual: null,
       }),
     ).toBe("fixed-point");
+    expect(
+      classifyPhase5LkF32Convergence({
+        ...boundedCycle,
+        completedSweepsAfterMutation: 1,
+        previousDivergenceStatus: "unavailable",
+        previousDivergenceResidual: null,
+      }),
+    ).toBe("incomplete");
     for (const mutation of [
       { completedSweepsAfterMutation: 1 },
       { maximumCurrentStepUlpDistance: 2 },
@@ -173,7 +186,9 @@ describe("Phase 5 criteria freeze", () => {
       classifyPhase5LkF32Convergence({
         ...boundedCycle,
         farField: "reflecting",
+        currentDivergenceStatus: "not-applicable",
         currentDivergenceResidual: null,
+        previousDivergenceStatus: "not-applicable",
         previousDivergenceResidual: null,
       }),
     ).toBe("bounded-two-cycle");
@@ -192,7 +207,45 @@ describe("Phase 5 criteria freeze", () => {
     expect(() =>
       classifyPhase5LkF32Convergence({
         ...boundedCycle,
+        currentDivergenceResidual: Number.NaN,
+      }),
+    ).toThrow();
+    expect(() =>
+      classifyPhase5LkF32Convergence({
+        ...boundedCycle,
+        currentDivergenceResidual: Number.NEGATIVE_INFINITY,
+      }),
+    ).toThrow();
+    expect(
+      classifyPhase5LkF32Convergence({
+        ...boundedCycle,
         currentDivergenceResidual: Number.POSITIVE_INFINITY,
+        currentDivergenceStatus: "zero-exchange-unconverged",
+      }),
+    ).toBe("incomplete");
+    expect(
+      classifyPhase5LkF32Convergence({
+        ...boundedCycle,
+        previousDivergenceResidual: Number.POSITIVE_INFINITY,
+        previousDivergenceStatus: "zero-exchange-unconverged",
+      }),
+    ).toBe("incomplete");
+    expect(() =>
+      classifyPhase5LkF32Convergence({
+        ...boundedCycle,
+        currentDivergenceResidual: Number.POSITIVE_INFINITY,
+      }),
+    ).toThrow();
+    expect(() =>
+      classifyPhase5LkF32Convergence({
+        ...boundedCycle,
+        currentDivergenceStatus: "zero-exchange-unconverged",
+      }),
+    ).toThrow();
+    expect(() =>
+      classifyPhase5LkF32Convergence({
+        ...boundedCycle,
+        farField: "invalid" as never,
       }),
     ).toThrow();
     expect(() =>
