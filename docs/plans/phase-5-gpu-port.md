@@ -1,8 +1,8 @@
 # Plan — Phase 5: WebGPU solver port and Windows D3D12 conformance
 
 - **Phase:** Phase 5 — GPU port
-- **Status:** WP1 and WP2 are independently accepted; the WP3 repair candidate is fully verified
-  and awaits a clean canonical D3D12 replay plus same-reviewer closure
+- **Status:** WP1 and WP2 are independently accepted; WP3 code/evidence is accepted with zero
+  blockers, and its sole docs-only closure awaits zero-finding re-review before WP4
 - **Started:** 2026-07-23
 - **Last touched:** 2026-07-24 by Codex
 
@@ -969,9 +969,13 @@ WP3 closes only when all of the following hold:
       failed and diagnostic at `0.024480659606307853 > 0.004255350462365598`.
       The correctly sampled minimum margins are `0.002879962029400218` and
       `0.002877725076560811`, both above `4e-4`; wall, packed-flag, and surface-report mismatch
-      counts are zero. Commit this repair, run its exact clean replay, and return it to the same
-      reviewer. WP4 remains forbidden until that review reports zero blockers and zero
-      should-fixes.
+      counts are zero. Repair commit `0ff70b65403655d3e5084717dafa2f1656fd66be` passed the exact
+      clean canonical D3D12 replay in `out/wp3-canonical-0ff70b6.log` (SHA-256
+      `a0578ffecdcf15688343b8a50e8d96d1032bd6cc51e2256a4bf5036fd6a51827`), with 778 bounded
+      submissions, 946 audited test readbacks, zero display-frame full-field reads, and zero GPU
+      errors/loss. Same-reviewer round 2 reports zero blockers and accepts all code/evidence; its
+      sole should-fix is this stale post-run handoff. This docs-only closure records the result
+      and must receive a zero-finding re-review before the checkbox closes and WP4 begins.
 - [ ] **WP4 — `LibbrechtKinetics`.** Port the coupled aggregate-v5 relaxation/interface operator,
       including dual Dirichlet convergence, reflecting diagnostics, signed smoother drift,
       boundary-pixel fill, CFL, ledgers, schedules, and checkpoint conversion.

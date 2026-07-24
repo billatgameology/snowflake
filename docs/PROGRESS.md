@@ -197,7 +197,14 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   33-module app build passes. The dirty-tree D3D12 replay passes every scientific/provenance
   predicate and fails only required worktree cleanliness; its correctly sampled decision
   margins are `0.002879962029400218` and `0.002877725076560811`, with zero wall, packed-flag,
-  or `SurfaceReport` mismatches and all 128 Dirichlet cycle diagnostics retained.
+  or `SurfaceReport` mismatches and all 128 Dirichlet cycle diagnostics retained. Repair commit
+  `0ff70b65403655d3e5084717dafa2f1656fd66be` then passed the exact clean canonical D3D12 replay;
+  `out/wp3-canonical-0ff70b6.log` has SHA-256
+  `a0578ffecdcf15688343b8a50e8d96d1032bd6cc51e2256a4bf5036fd6a51827`, report `pass: true`,
+  778 bounded submissions (maximum 5.9 ms), 946 audited test readbacks, zero display-frame
+  full-field reads, and zero GPU errors/loss. Same-reviewer round 2 reports zero blockers and
+  accepts all code/evidence. Its one docs-only should-fix is closed by the current handoff update;
+  a zero-finding re-review of that docs-only commit remains the sole WP3 closure action.
 - **Phase 2b v5 execution update:** reviewed sequential execution commit `dd762f0` was interrupted
   by accidental host shutdown during warm step-189 relaxation, after completed step 188. No warm
   checkpoint, exit status, terminal verdict, or cold start exists; the attempt is incomplete
@@ -843,16 +850,13 @@ runtime and flags, registered host, RTX 3080, and D3D12. Validation/no-op event 
 recoverable; partial writes and dead accessors fail closed; targeted mutants pin order,
 simultaneity, fresh-attachment exclusion, event atomicity, and report predicates.
 
-Exact root `npm test` passes 49 files / 849 tests; focused GPU tests are
-46/46, both typechecks pass, and the 33-module app build passes. A dirty-tree RTX 3080 replay
-passes every numerical, structural, event, ledger, mutation, runtime, host, adapter, submission,
-readback, and GPU-error predicate and fails only the deliberate clean-worktree requirement.
-Correctly sampled decision margins are `0.002879962029400218` and `0.002877725076560811`; wall,
-packed-flag, and complete surface-report mismatches are zero. **Next action:** commit this exact
-repair, run `node app/scripts/phase5-wp3.mjs` from that clean commit into a clearly named ignored
-`out/wp3-canonical-*.log`, then return the exact commit and log to the same independent reviewer.
-Do not begin WP4 until that reviewer reports zero blockers and zero should-fixes. WP1/WP2 remain
-accepted, but their protocol-identity probes must replay under v3 before final WP7 evidence.
+Exact root `npm test` passes 49 files / 849 tests; focused GPU tests are 46/46, both typechecks
+pass, and the 33-module app build passes. Exact clean candidate `0ff70b6` and canonical report
+SHA-256 `a0578ffe…1827` are accepted by same-reviewer round 2 with zero blockers. **Next action:**
+commit this docs-only closure and return that exact commit to the same reviewer. If it receives
+zero blockers and zero should-fixes, WP3 is complete and WP4 design is immediately next; no
+implementation work may begin before that verdict. WP1/WP2 remain accepted, but their
+protocol-identity probes must replay under v3 before final WP7 evidence.
 
 The superseded `phase5-gpu-conformance-windows-v2` SHA-256 is
 `223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`. Decision 0019 is the
