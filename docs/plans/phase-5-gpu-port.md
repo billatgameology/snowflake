@@ -916,14 +916,16 @@ flagless Phase 5 lane. The CPU `LKSolver` remains the semantic oracle. WP4 owns 
 GPU operator, exact small-fixture comparison probe, and pure checkpoint conversion primitives;
 WP5 owns authenticated checkpoint artifacts, the lane runner, and aggregate publication.
 
-The public seam is `GpuLkSolver`, backed by a claimed `lk` `GpuBufferArena` and the existing
-generation-bound `GpuSubmissionController`. Construction snapshots and validates every input
-before the first upload: f32 `sigma` and `f`; exact occupancy, wall, topology, and boundary
-order; complete aggregate-v5 controls; tick, time, cumulative ledgers, and temperature-segment
-state. Active unattached `sigma` may be signed but must be finite and at least `-1`; attached
-and wall cells retain the strict zero-field meanings of LK v2. Any validation-only rejection
-leaves the solver usable. A failed or partially submitted state mutation poisons the instance,
-because host metadata may no longer describe the resident buffers.
+The advancing public seam is `GpuLkSolver`, backed by a claimed `lk` `GpuBufferArena` and the
+existing generation-bound `GpuSubmissionController`. Fresh-run construction snapshots and
+validates every input before the first upload: f32 `sigma` and `f`; exact occupancy, wall,
+topology, and boundary order; complete aggregate-v5 controls; tick, time, cumulative ledgers,
+and temperature-segment state. Active unattached `sigma` may be signed but must be finite and at
+least `-1`; attached and wall cells retain the strict zero-field meanings of LK v2. Checkpoint
+conversion is a separate non-advancing evidence seam below; LK v2 cannot supply the ledger,
+schedule-cursor, cache, or historical-order state required by this constructor. Any
+validation-only rejection leaves a live solver usable. A failed or partially submitted state
+mutation poisons the instance, because host metadata may no longer describe resident buffers.
 
 ### Relaxation pipelines and deterministic reductions
 
@@ -944,18 +946,38 @@ The shader derives the raw `nT/nZ` counts from exact occupancy. Aggregate classi
 `[01]/[02]` basal, `[10]` inhibited, `[20]` prism, and every other valid nonzero configuration
 rough. Host uniforms carry the source-defined temperature interpolation results and derived
 `dx/X0`, `vKin/dx`, and saturation-density ratio; WGSL evaluates the same nucleation law and
-counter-based noise bit. The damped self-consistent solve runs its fixed 60-iteration ceiling,
-then independently checks its binary32 fixed-point residual. Nonpositive opposing
-supersaturation is preserved exactly with zero kinetic coefficient and zero demand.
+counter-based noise bit. The damped self-consistent solve always performs 60 binary32
+iterations, with every shaped operation rounded once, then requires
+`abs(solved - iterate) <= 8 * 2^-23 * max(abs(sigmaOpp), 2^-126)`. Nonpositive opposing
+supersaturation is preserved exactly with zero kinetic coefficient and zero demand. A
+non-finite coefficient, boundary value, residual, reduction result, or corrected diagnostic
+poisons the solver.
 
 Every sum/max/min uses the frozen 256-lane pairwise/tree shape and the existing bounded dispatch
 planner. No float atomic participates in a numerical result. The signed smoother drift is
 metered before boundary replacement and clamping, never inferred, and must satisfy
 `64 * activeCellCount * 2^-23 * maxAbsSweepInput` (zero for an exact zero field). Fixed-sigma
-convergence requires both `residual < relaxTol` and
-`abs(shellInjection + smootherDrift - surfaceExchange) /
-max(abs(surfaceExchange), 1e-300) < divTol`. Reflecting mode is residual-only and reports null
-shell/divergence diagnostics.
+residual is `f32(maxAbsChange / f32(sigmaInfinity))`. The three signed global terms are reduced
+separately and the decision invocation computes
+`corrected = f32(f32(shellInjection + smootherDrift) - surfaceExchange)`. When
+`surfaceExchange != 0`, divergence is
+`f32(abs(corrected) / abs(surfaceExchange))`; when exchange is zero, exactly zero corrected
+numerator passes and any nonzero numerator fails. This is the binary32-operational equivalent of
+the CPU's unrepresentable `1e-300` floor. Fixed-sigma convergence requires both
+`residual < relaxTol` and `divergence < divTol`. Reflecting mode is residual-only and reports
+null shell/divergence diagnostics.
+
+The committed pre-shader probe `runner/src/phase5-lk-reduction-shadow.ts` freezes those operations
+before WGSL exists: 256-lane recursive reduction, f32 composition order, 60 fixed-point
+iterations, the fixed-point bound, zero-exchange branch, and per-operation `Math.fround`
+arithmetic. It samples each accepted CPU topology for all three blocking LK fixtures. Nine
+samples pass: f32 settling takes 22–141 sweeps, final residual and divergence are exactly zero,
+minimum positive shell injection/exchange are `1.7043203115463257e-7` /
+`3.7532299757003784e-7`, maximum absolute drift is `3.8230791687965393e-7`, and the smallest
+independent drift limit is `0.00004966732028321985`. This proves representability for the frozen
+fixtures without relaxing `divTol`; it is not GPU evidence or a general error proof. Production
+WGSL and the D3D12 probe must match this exact composition, and a changed composition invalidates
+the probe.
 
 Relaxation is encoded in bounded multi-sweep segments. A GPU-resident convergence flag makes all
 passes after the first accepted sweep in a segment no-ops while preserving the exact first
@@ -968,50 +990,79 @@ incomplete state; it never authorizes the interface update.
 
 `GpuLkSurface` consumes only the cached tuple from the accepted final relaxation sweep. It
 computes one rate per boundary pixel, `alphaHK * vKin * sigmaB / dx`, reduces the maximum
-deterministically, sets `dt = cflFill / maxRate`, and applies the same `dt` to every boundary
-pixel. A separate flag pass records saturation decisions and unapplied excess before topology
-changes. Hole fill then uses raw start-of-interface `nT >= 4 && nZ >= 1`, remains outside the
-kinetic CFL, and records its full deficit. A serial order-preserving compaction pass removes
-attachments and appends newly exposed neighbors in the CPU oracle's attachment/neighbor order;
-a parallel publication pass updates the canonical boundary buffer.
+deterministically. If `maxRate > 0`, it sets `dt = cflFill / maxRate` and applies the same `dt`
+to every boundary pixel. If `maxRate <= 0`, it sets `dt=0`, performs no kinetic fill or time
+advance, reports maximum kinetic increment zero and `stalled=true`, but still evaluates hole
+fill. A separate flag pass records saturation decisions and unapplied excess before topology
+changes. Hole fill uses raw start-of-interface `nT >= 4 && nZ >= 1`, remains outside the kinetic
+CFL, and records its full deficit.
 
-The exact per-step identity is reduced from raw per-pixel values:
+For every pixel the same invocation computes raw demand, placed fill, and
+`clipped = f32(raw - placed)`, then records the non-tautological partition error
+`f32(f32(placed + clipped) - raw)`. It requires finite nonnegative components, valid post-fill
+state, and
+`abs(partitionError) <= 4 * 2^-23 * max(abs(raw), 2^-126)`. Separate deterministic trees reduce
+demand, placed fill, clipped fill, and partition error. Global closure must satisfy
+`abs(f32(f32(placedTotal + clippedTotal) - demandTotal)) <=
+64 * boundaryCount * 2^-23 * maxRawDemand`; cross-lane totals still pass the unchanged frozen
+mixed-scalar tolerance. The `stress-lk-fill-margin` additionally requires exact decisions on
+both sides, observes the nonzero `1e-5` clipping branch directly, and rejects an omitted-clipping
+mutation even though that value is below the generic scalar absolute tolerance. Thus the
+real-arithmetic claim remains:
 
 ```text
 placed fill + saturation-clipped fill = computed kinetic demand
 ```
 
+and the GPU evidence reports its independently bounded binary32 closure rather than falsely
+requiring independently rounded global trees to be bit-equal.
+
+Kinetic attachments are emitted in current boundary order before hole-fill attachments. For
+each attachment, occupancy becomes one, `f=1`, and `sigma=0`; topology clears its boundary bit.
+The serial publisher updates uncapped `nT/nZ`, bounds, attached count, attachment order, and
+render flags, visits the eight directions in the CPU order, retains surviving boundary entries,
+and appends each newly eligible active unattached neighbor once. Fresh neighbors cannot
+participate until the next relaxation. A parallel publication pass then updates the canonical
+boundary buffer.
+
 Placed fill, clipping, hole deficit/count, maximum increment, maximum fill velocity, attachment
 delta/order, physical-time increment, and complete `SurfaceReport` fields are returned in a
-compact report. The high-level solver accumulates those compact f32-produced deltas in host
-binary64 metadata, including each placed-fill delta at that step's current `M_ice`. This is
-permitted compact state, not a full-field readback. It preserves the temperature-segment
-bookkeeping contract while `sigma`, `f`, occupancy, caches, topology, and render flags stay on
-the device.
+compact report. The high-level solver accumulates the compact f32-produced placed/clipped/demand
+deltas in host binary64 in fixed boundary-step order, including each placed-fill delta at that
+step's current `M_ice`. This is permitted compact state, not a full-field readback. It preserves
+temperature-segment bookkeeping while `sigma`, `f`, occupancy, caches, topology, and render
+flags stay on the device.
+
+The pre-interface tick drives every relaxation retry and the matching accepted fill, including
+both uses of the noise bit. Failed or unconverged relaxation and failed interface calls do not
+advance it. Every successful interface increments exactly once, including stalled and hole-only
+updates.
 
 `applyTimelineEnvironment` is accepted only at a completed interface boundary. It validates and
-derives the whole target environment first, then one GPU pass applies
+derives the whole target environment first. If temperature changes, one GPU pass applies
 `sigmaNew = (1 + sigmaOld) * cSat(oldT) / cSat(newT) - 1` to every active unattached cell,
-including the active Dirichlet shell, without clamping negative values. Deterministic reductions
-produce before/after normalized density sums, transformed interior/shell counts, and maximum
-cell error. Only after successful completion does the host commit temperature, far-field target,
-derived kinetics, ledger segment boundary, and event record; the next relaxation performs the
-explicit shell reclamp. Caches/readiness are invalidated atomically and the event consumes no
-tick or physical time.
+including the active Dirichlet shell, without clamping negative values. If only
+`sigmaInfinity` changes, no field write is encoded and every f32 sigma bit is preserved.
+Deterministic reductions produce before/after absolute number-density sums, transformed
+interior/shell counts, and maximum cell absolute/relative error. Only after successful completion
+does the host commit temperature, far-field target, derived kinetics, ledger segment boundary,
+and event record; the next relaxation performs the explicit shell reclamp. Caches/readiness are
+invalidated atomically and the event consumes no tick or physical time.
 
 ### Conversion, comparison, and failure controls
 
 WP4 adds strict pure helpers at the CPU/GPU boundary:
 
-- LK v2 CPU-to-GPU import consumes only a successfully decoded `core` state, validates metadata
-  and lengths, preserves discrete controls exactly, and rounds each f64 field value once to
-  nearest-even f32.
+- LK v2 CPU-to-GPU conversion consumes only a successfully decoded `core` state, explicitly
+  rejects `legacy-v3` and aggregate-v4, validates metadata and lengths, preserves discrete
+  controls exactly, and rounds each f64 field value once to nearest-even f32.
 - Explicit GPU-to-CPU export reads the complete state only under a checkpoint/evidence readback
   purpose, widens each f32 exactly to f64, and returns data accepted by the unchanged LK v2
   encoder. The widen/encode/decode/round loop must preserve every original f32 bit.
 - No display path may call either helper, and no mutable cache absent from LK v2 is smuggled into
-  the wire meaning. A resumed export starts at a cycle boundary and must relax again before
-  advancing.
+  the wire meaning. Conversion snapshots are non-advancing comparison artifacts only. They do
+  not create a resumable GPU solver or restore cumulative ledgers, schedule position, boundary
+  order, readiness, or caches; that requires a new checkpoint version and ADR.
 
 The WP4 D3D12 probe runs all three frozen blocking LK fixtures plus the fill-margin, nonlinear
 boundary, and signed-subsaturation stress diagnostics. For every blocking fixture it compares
@@ -1021,14 +1072,20 @@ derived scales, event records, density/reservoir diagnostics, stop reason, metri
 witnesses. The harness reconstructs boundary membership, raw counts, cached opposing means,
 fill demand, drift identity/bound, and decision margins independently from read-back raw state.
 The blocking fill margin must remain at least `4e-4`; tolerances remain the WP0 v3 values.
+Positive-supersaturation fixed-sigma fixture acceptance also requires independently recomputed
+strictly positive global shell injection and global surface exchange. Reflecting diagnostics
+make no source-sign claim.
 
 Targeted mutations must fail independently: residual-only acceptance; inferred, omitted, or
 over-bound smoother drift; unordered/changed reduction shape; in-place boundary replacement;
 wrong aggregate facet mapping; cache/growth mismatch; noise on only one side; per-contact fill;
-silent saturation loss; hole fill counted as kinetic CFL; advance after unconverged or stale
-relaxation; signed-value clamp; skipped shell transform/reclamp; final-temperature ledger
-rescaling; topology append reordering; stale generation; full-field display readback; and
-checkpoint f32-bit loss.
+silent saturation loss and the `1e-5` clipping witness; hole fill counted as kinetic CFL;
+advance after unconverged or stale relaxation; one-tick noise shift; signed-value clamp;
+sigmaInfinity-only field rewrite; skipped shell transform/reclamp; zero/negative source or
+exchange accepted on a positive Dirichlet fixture; final-temperature ledger rescaling;
+kinetic/hole attachment reordering; wrong neighbor direction or premature fresh-neighbor use;
+stale generation; full-field display readback; legacy-policy import; checkpoint f32-bit loss;
+and any checkpoint-resume claim.
 
 WP4 closes only when focused tests, both TypeScript projects, the app build, exact root
 `npm test`, and a clean-tree canonical Windows/Chromium/D3D12 probe all pass with zero GPU
@@ -1105,7 +1162,16 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
       `39d8b435ef638608b98480cb7f052adb845e9ad1` received zero-finding re-review; WP3 is closed.
 - [ ] **WP4 — `LibbrechtKinetics`.** Port the coupled aggregate-v5 relaxation/interface operator,
       including dual Dirichlet convergence, reflecting diagnostics, signed smoother drift,
-      boundary-pixel fill, CFL, ledgers, schedules, and checkpoint conversion.
+      boundary-pixel fill, CFL, ledgers, schedules, and checkpoint conversion. Design commit
+      `5ca5c36` received seven blockers and three should-fixes before production WGSL: unproven
+      f32 divergence-floor feasibility, an unrepresentable denominator, false bit-exact global
+      ledger wording, missing stalled behavior, a field-rewriting far-field-only event,
+      unsupported LK v2 resume semantics, missing positive source/exchange guards, and incomplete
+      tick/topology/handoff details. The current design repair closes each item and adds the
+      nine-sample operation-rounded pre-shader probe; same-reviewer re-review is required before
+      implementation. Focused probe tests pass 3/3, both TypeScript projects and Rule 7 pass,
+      the 33-module app build passes, and exact root `npm test` passes 50 files / 852 tests in
+      391.00 seconds.
 - [ ] **WP5 — headless runner and evidence boundary.** Land the selected runtime, flagless gate,
       strict manifest/report/index publication, complete exit semantics, and every adversarial
       bypass test. Re-run permanent Phase 2a, Phase 2b, gate3, and gate4 regression controls where
