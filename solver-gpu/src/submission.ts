@@ -19,9 +19,11 @@ export function planGpuDispatchRanges(
   if (
     !Number.isSafeInteger(maxWorkgroups) ||
     maxWorkgroups <= 0 ||
-    maxWorkgroups > 65_535
+    maxWorkgroups > GPU_MAX_WORKGROUPS_PER_DISPATCH
   ) {
-    throw new Error("maxWorkgroups must be an integer in [1,65535]");
+    throw new Error(
+      `maxWorkgroups must be an integer in [1,${GPU_MAX_WORKGROUPS_PER_DISPATCH}]`,
+    );
   }
   const maxCells = maxWorkgroups * GPU_WORKGROUP_SIZE;
   const ranges: GpuDispatchRange[] = [];
@@ -100,6 +102,12 @@ export class GpuSubmissionController {
     this.device.queue.submit([...commandBuffers]);
     await this.device.queue.onSubmittedWorkDone();
     this.assertUsable();
+    if (generation !== this.generation) {
+      throw new Error(
+        `GPU submission generation ${generation} became stale while in flight; ` +
+          `current generation is ${this.generation}`,
+      );
+    }
     const completedMs = this.clock();
     const record = {
       label,

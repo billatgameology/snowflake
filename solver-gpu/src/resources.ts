@@ -1,4 +1,7 @@
-import type { GpuBufferPlan } from "./layout.ts";
+import {
+  validateGpuAllocation,
+  type GpuBufferPlan,
+} from "./layout.ts";
 
 export const GPU_CELL_BUFFER_USAGE =
   0x0004 | // COPY_SRC
@@ -37,6 +40,15 @@ export class GpuBufferArena {
       generation > 0xffff_ffff
     ) {
       throw new Error("GPU arena generation must be a u32-safe integer");
+    }
+    const support = validateGpuAllocation(plan, {
+      maxBufferSize: Number(device.limits.maxBufferSize),
+      maxStorageBufferBindingSize: Number(
+        device.limits.maxStorageBufferBindingSize,
+      ),
+    });
+    if (!support.supported) {
+      throw new Error(`GPU allocation is unsupported: ${support.reasons.join("; ")}`);
     }
     const arena = new GpuBufferArena(generation, plan);
     try {

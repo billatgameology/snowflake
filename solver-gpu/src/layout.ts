@@ -152,6 +152,9 @@ export function createGpuBufferPlan(
   dims: Dims,
   operator: GpuOperatorKind,
 ): GpuBufferPlan {
+  if (operator !== "gg" && operator !== "lk") {
+    throw new Error(`unsupported GPU operator: ${String(operator)}`);
+  }
   const layout = createGpuGridLayout(dims);
   const operatorBuffers =
     operator === "gg" ? GPU_GG_CELL_BUFFERS : GPU_LK_CELL_BUFFERS;
@@ -182,6 +185,50 @@ export function createGpuBufferPlan(
   };
 }
 
+export function validateGpuBufferPlan(plan: GpuBufferPlan): void {
+  if (plan === null || typeof plan !== "object") {
+    throw new Error("GPU buffer plan must be an object");
+  }
+  if (plan.operator !== "gg" && plan.operator !== "lk") {
+    throw new Error(`unsupported GPU operator: ${String(plan.operator)}`);
+  }
+  if (plan.layout === null || typeof plan.layout !== "object") {
+    throw new Error("GPU buffer plan layout must be an object");
+  }
+  const canonical = createGpuBufferPlan(plan.layout.dims, plan.operator);
+  if (
+    plan.layout.plane !== canonical.layout.plane ||
+    plan.layout.cellCount !== canonical.layout.cellCount ||
+    plan.layout.dims.nx !== canonical.layout.dims.nx ||
+    plan.layout.dims.ny !== canonical.layout.dims.ny ||
+    plan.layout.dims.nz !== canonical.layout.dims.nz
+  ) {
+    throw new Error("GPU buffer plan layout disagrees with its dimensions");
+  }
+  if (
+    plan.bytesPerCell !== canonical.bytesPerCell ||
+    plan.totalCellBytes !== canonical.totalCellBytes
+  ) {
+    throw new Error("GPU buffer plan totals disagree with the canonical schema");
+  }
+  if (!Array.isArray(plan.buffers) || plan.buffers.length !== canonical.buffers.length) {
+    throw new Error("GPU buffer plan has the wrong canonical buffer count");
+  }
+  for (let index = 0; index < canonical.buffers.length; index++) {
+    const actual = plan.buffers[index];
+    const expected = canonical.buffers[index];
+    if (
+      actual === undefined ||
+      actual.name !== expected.name ||
+      actual.scalarType !== expected.scalarType ||
+      actual.ownership !== expected.ownership ||
+      actual.byteLength !== expected.byteLength
+    ) {
+      throw new Error(`GPU buffer plan schema mismatch at buffer ${index}`);
+    }
+  }
+}
+
 export interface GpuAllocationLimits {
   readonly maxBufferSize: number;
   readonly maxStorageBufferBindingSize: number;
@@ -199,6 +246,7 @@ export function validateGpuAllocation(
   plan: GpuBufferPlan,
   limits: GpuAllocationLimits,
 ): GpuAllocationSupport {
+  validateGpuBufferPlan(plan);
   for (const [name, value] of Object.entries(limits)) {
     if (
       value !== undefined &&

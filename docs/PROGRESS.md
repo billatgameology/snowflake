@@ -112,8 +112,8 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   uncaptured errors.
   The M4 was unreachable and remains explicitly unobserved; decision 0018 now defers it rather
   than guessing or relabeling a result. `solver-gpu/` was absent at the immutable v1 WP0 boundary.
-- **Phase 5 WP1 Windows implementation is complete at `1a2c2a4`; the WP1 milestone remains
-  open.** The exact
+- **Phase 5 WP1 code review is accepted, but the milestone remains open because read-only Git
+  metadata blocks its commit and clean probes; WP2 has not started.** The exact
   root pre-WP1 baseline at clean commit `c29754b`
   exited 0 in 371.1 seconds: Rule 7 clean over 166 files, both TypeScript projects green, and
   44 files / 802 tests passed. The concurrent canonical capability probe passed on observed
@@ -132,8 +132,42 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   cleanliness, observed D3D12, and exited 0. Exact root `npm test` exited 0 in 357.4 seconds:
   Rule 7 clean over 177
   files, both typechecks green, and 46 files / 816 tests passed; the 33-module app build also
-  passed. Decision 0018 removes the former Metal replay precondition. WP1 still requires review
-  against the newly frozen Windows-only authority before it closes and WP2 starts.
+  passed. Decision 0018 removes the former Metal replay precondition. Independent review of
+  clean handoff `5707708f686652f3f35f3f989d8a46f0d8ee8c43` found five blockers and three
+  should-fixes: caller-trusted readback classification/purpose, an oversized dispatch override,
+  an in-flight stale-generation success seam, forged allocation plans/duplicate-name leakage,
+  adapter-maxima allocation reporting, absent real nonzero-base dispatch, probe duplication of
+  production transport, and the stale charter line below. The remediation candidate closes all
+  eight findings. Both typechecks, Rule 7 over 178 files, and focused tests 17/17 pass. Its
+  provisional dirty-tree D3D12 run retained zero coordinate/copy/PRNG mismatches, executed 14
+  real coordinate ranges (13 nonzero bases), passed all eight blocking arenas, rejected all four
+  bake/operator cases from the negotiated device limits, rejected both forbidden readbacks, and
+  reported zero uncaptured errors. Exact root `npm test` exited 0 in 369.5 seconds: Rule 7 was
+  clean over 178 files, both typechecks passed, and 46 files / 819 tests passed; the 33-module
+  app build also exited 0. This session's Git metadata is read-only, so creating the repair
+  commit failed at `.git/index.lock`. Same-reviewer round 2 closed six of the eight findings but
+  found two remaining blockers: display-frame chunks could cumulatively cover a full source, and
+  the required-limit negative mutated advertised capability rather than omission/downgrade at
+  the production request boundary. The second repair uses audit-issued frame tokens, actual
+  source identity, cumulative interval coverage, and exact frozen request comparison. Both
+  typechecks and focused tests 19/19 pass. Its provisional D3D12 run rejects the direct and
+  chunked full-field attacks plus both request mutations while retaining every prior exact
+  transport/allocation result and zero uncaptured errors. Exact root `npm test` exited 0 in 366.9
+  seconds: Rule 7 was clean over 178 files, both typechecks passed, and 46 files / 821 tests
+  passed; the 33-module app build also exited 0. A clean commit, canonical clean probes, and
+  same-reviewer zero-finding result remain mandatory before WP1 closes. Same-reviewer round 3
+  found one surviving blocker: an active frame could omit its token and classify a full read as
+  non-display. The third repair makes active audit state authoritative and requires the exact
+  token for every read during that scope. Both typechecks and focused tests 19/19 pass; the
+  provisional D3D12 probe rejects the omission, direct-full, and cumulative-chunk attacks plus
+  both request mutations while retaining all prior exact results and zero uncaptured errors.
+  Exact root `npm test` exited 0 in 367.7 seconds: Rule 7 was clean over 178 files, both
+  typechecks passed, and 46 files / 821 tests passed; the 33-module app build also exited 0.
+  Same-reviewer round 4 is ACCEPTED with zero blockers and zero should-fixes after independent
+  focused-test and real-D3D12 replay. Ten tracked files remain modified at
+  `5707708f686652f3f35f3f989d8a46f0d8ee8c43`; the probe exits 1 only on
+  `repository.clean: false`. WP1 cannot close until the accepted diff is committed and both
+  canonical probes pass from that tracked-clean commit.
 - **Phase 2b v5 execution update:** reviewed sequential execution commit `dd762f0` was interrupted
   by accidental host shutdown during warm step-189 relaxation, after completed step 188. No warm
   checkpoint, exit status, terminal verdict, or cold start exists; the attempt is incomplete
@@ -313,8 +347,12 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   arithmetic). Still true from the 2026-07-14 hardening: the charter v1.2 Dirichlet wording
   could not fail (a uniform field is a fixed point under *both* boundary conditions). Charter
   v1.4 now carries the plan's falsifiable depleted-start differential test.
-- **Charter is at v1.13** (2026-07-19): decision
-  [0014](decisions/0014-bound-float64-smoother-drift.md) bounds aggregate-v5 smoother drift at
+- **Charter is at v1.16** (2026-07-24): decisions
+  [0016](decisions/0016-phase5-hardware-backend-lanes.md) and
+  [0018](decisions/0018-phase5-windows-only-gate.md) define the Phase 5 backend protocol and
+  narrow the current gate to Windows/Chromium/D3D12 while deferring Metal. Before those, v1.13
+  (2026-07-19) and decision
+  [0014](decisions/0014-bound-float64-smoother-drift.md) bound aggregate-v5 smoother drift at
   operation-count-derived float64 roundoff scale, including the minimum-subnormal floor. Decision
   [0013](decisions/0013-float64-smoother-drift-divergence-identity.md) retains dual convergence
   and every v4 surface-physics choice while adding the independently metered drift to aggregate
@@ -747,14 +785,19 @@ immutable.
 
 ## Next step
 
-**Phases 2b, 3, and 4 are complete; Phase 5 is at WP1 clean review before WP2.** Review
-`60be8c0f14b44c1f5bf1b2753c409baad3da0833` against decision 0018, charter v1.16, the active
-plan, `runner/src/phase5-protocol.ts`, and the WP1 transport implementation. Verify the canonical
-manifest hashes, exact 16-criterion/control ownership, checked buffer/index ABI, real-device
-negative controls, capability/WP1 scripts, root tests, and app build. Record zero blockers and
-zero should-fixes before closing WP1. Then implement only **WP2 — diffusion**: one and repeated
-masked-average passes for reflecting and fixed-sigma boundaries, compared with the unchanged CPU
-fixtures/tolerances and pinned by the wrong-boundary-clamp negative control.
+**Phases 2b, 3, and 4 are complete; Phase 5 WP1 code is accepted but awaits a commit and clean
+probes before WP2.**
+Same-reviewer round 4 accepted the WP1 code with zero blockers and zero should-fixes. This
+session exposes `.git` read-only and cannot create the required commit. When Git metadata writes
+are restored, commit the accepted WP1 remediation, then run
+`node app/scripts/phase5-capability.mjs` and `node app/scripts/phase5-wp1.mjs` from that clean
+commit. Record the exact commit and results in this file and the active plan. Verify the
+canonical manifest hashes, exact 16-criterion/control ownership, checked buffer/index ABI,
+real-device negative controls, negotiated-device allocation classification, production
+transport paths, root tests, and app build. Record zero blockers and zero should-fixes before
+closing WP1. Then implement only **WP2 — diffusion**: one and repeated masked-average passes for
+reflecting and fixed-sigma boundaries, compared with the unchanged CPU fixtures/tolerances and
+pinned by the wrong-boundary-clamp negative control.
 
 Protocol `phase5-gpu-conformance-windows-v2` is frozen at SHA-256
 `223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`; changing a fixture,

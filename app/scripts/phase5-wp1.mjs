@@ -4,11 +4,11 @@
 
 import { existsSync } from "node:fs";
 import { execFileSync } from "node:child_process";
-import { createServer } from "node:http";
 import os from "node:os";
 import process from "node:process";
 import { resolve } from "node:path";
 import { chromium } from "playwright";
+import { createServer as createViteServer } from "vite";
 import { hashCounter } from "../../core/src/index.ts";
 import {
   coordinateHash,
@@ -18,7 +18,6 @@ import {
   GPU_COORDINATE_HASH_WGSL,
   GPU_COPY_WORDS_WGSL,
   GPU_COUNTER_PRNG_WGSL,
-  GpuReadbackAudit,
   gpuCoords,
   planGpuDispatchRanges,
   validateGpuAllocation,
@@ -50,30 +49,12 @@ function platformContract() {
   throw new Error(`WP1 transport conformance does not support ${process.platform}`);
 }
 
-async function listen(server) {
-  await new Promise((resolvePromise, reject) => {
-    server.once("error", reject);
-    server.listen(0, "127.0.0.1", resolvePromise);
-  });
-  const address = server.address();
-  if (address === null || typeof address === "string") {
-    throw new Error("WP1 server did not receive an IPv4 port");
-  }
-  return address.port;
-}
-
-function stop(server) {
-  return new Promise((resolvePromise, reject) => {
-    server.close((error) => (error === undefined ? resolvePromise() : reject(error)));
-  });
-}
-
 function makeUniformWords(layout, options = {}) {
   return Array.from(
     new Uint32Array(
       encodeGpuGridUniforms({
         layout,
-        baseCell: 0,
+        baseCell: options.baseCell ?? 0,
         generation: options.generation ?? 1,
         rngSeed: options.rngSeed ?? 0,
         tick: options.tick ?? 0,
@@ -154,6 +135,7 @@ async function main() {
   if (axisSwapShader === GPU_COORDINATE_HASH_WGSL) {
     throw new Error("registered axis-swap shader mutation was not applied");
   }
+  const coordinateDispatchRanges = planGpuDispatchRanges(layout.cellCount, 1);
 
   const blockingAllocations = PHASE5_BUDGETS.filter(
     (budget) => budget.disposition === "blocking",
@@ -164,19 +146,43 @@ async function main() {
         budget: budget.id,
         operator,
         totalCellBytes: plan.totalCellBytes,
-        buffers: plan.buffers.map((buffer) => ({
-          name: buffer.name,
-          byteLength: buffer.byteLength,
-        })),
+        plan,
       };
     }),
   );
 
-  const server = createServer((_request, response) => {
-    response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
-    response.end("<!doctype html><title>VCC Phase 5 WP1 transport</title>");
+  const vite = await createViteServer({
+    root: repoRoot,
+    appType: "custom",
+    logLevel: "error",
+    server: {
+      host: "127.0.0.1",
+      port: 0,
+      strictPort: false,
+      fs: { allow: [repoRoot] },
+    },
+    plugins: [{
+      name: "vcc-phase5-wp1-page",
+      configureServer(viteServer) {
+        viteServer.middlewares.use((request, response, next) => {
+          if (request.url?.split("?")[0] !== "/phase5-wp1") {
+            next();
+            return;
+          }
+          response.writeHead(200, {
+            "content-type": "text/html; charset=utf-8",
+          });
+          response.end("<!doctype html><title>VCC Phase 5 WP1 transport</title>");
+        });
+      },
+    }],
   });
-  const port = await listen(server);
+  await vite.listen();
+  const address = vite.httpServer?.address();
+  if (address === null || address === undefined || typeof address === "string") {
+    throw new Error("WP1 Vite server did not receive an IPv4 port");
+  }
+  const origin = `http://127.0.0.1:${address.port}`;
   let browser = null;
   try {
     browser = await chromium.launch({
@@ -185,23 +191,80 @@ async function main() {
       args: ["--enable-unsafe-webgpu", "--enable-webgpu-developer-features"],
     });
     const page = await browser.newPage();
-    await page.goto(`http://127.0.0.1:${port}`, { waitUntil: "load" });
+    await page.goto(`${origin}/phase5-wp1`, { waitUntil: "load" });
     const deviceResult = await page.evaluate(
       async (input) => {
         if (!isSecureContext) throw new Error("WP1 requires a secure context");
         if (navigator.gpu === undefined) throw new Error("navigator.gpu is unavailable");
+        const production = await import(input.productionModuleUrl);
         const adapter = await navigator.gpu.requestAdapter({
           powerPreference: "high-performance",
         });
         if (adapter === null) throw new Error("WebGPU returned no adapter");
         const uncapturedErrors = [];
-        const device = await adapter.requestDevice({
+        const requirements = {
           requiredFeatures: input.requiredFeatures,
           requiredLimits: input.requiredLimits,
-        });
+        };
+        const device = await production.requestCheckedGpuDevice(
+          adapter,
+          requirements,
+          requirements,
+          "vcc-phase5-wp1-device",
+        );
         device.addEventListener("uncapturederror", (event) => {
           uncapturedErrors.push(event.error.message);
         });
+        const submissionController = new production.GpuSubmissionController(device);
+        submissionController.acknowledgeEdit(1);
+        const readbackAudit = new production.GpuReadbackAudit();
+        let residencyNegativePassed = false;
+        let omittedFrameTokenNegativePassed = false;
+        let chunkedResidencyNegativePassed = false;
+        let invalidPurposeNegativePassed = false;
+        let requiredLimitOmissionNegativePassed = false;
+        let requiredLimitDowngradeNegativePassed = false;
+        const omittedLimits = { ...input.requiredLimits };
+        delete omittedLimits.maxBufferSize;
+        try {
+          const unexpectedDevice = await production.requestCheckedGpuDevice(
+            adapter,
+            {
+              requiredFeatures: input.requiredFeatures,
+              requiredLimits: omittedLimits,
+            },
+            requirements,
+            "vcc-phase5-wp1-omitted-limit-negative",
+          );
+          unexpectedDevice.destroy();
+        } catch (error) {
+          requiredLimitOmissionNegativePassed =
+            error instanceof Error &&
+            error.message.includes(
+              "GPU limit request does not match the frozen policy",
+            );
+        }
+        try {
+          const unexpectedDevice = await production.requestCheckedGpuDevice(
+            adapter,
+            {
+              requiredFeatures: input.requiredFeatures,
+              requiredLimits: {
+                ...input.requiredLimits,
+                maxBufferSize: input.requiredLimits.maxBufferSize - 1,
+              },
+            },
+            requirements,
+            "vcc-phase5-wp1-downgraded-limit-negative",
+          );
+          unexpectedDevice.destroy();
+        } catch (error) {
+          requiredLimitDowngradeNegativePassed =
+            error instanceof Error &&
+            error.message.includes(
+              "GPU limit request does not match the frozen policy",
+            );
+        }
 
         async function runKernel(kernel) {
           const shader = device.createShaderModule({
@@ -232,11 +295,6 @@ async function main() {
             size: kernel.outputWordCount * 4,
             usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC,
           });
-          const staging = device.createBuffer({
-            label: `vcc:wp1:${kernel.label}:readback`,
-            size: kernel.outputWordCount * 4,
-            usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.MAP_READ,
-          });
           let source = null;
           try {
             const entries = [
@@ -256,35 +314,146 @@ async function main() {
                 { binding: 2, resource: { buffer: output } },
               );
             }
-            device.queue.writeBuffer(uniform, 0, new Uint32Array(kernel.uniformWords));
             const bindGroup = device.createBindGroup({
               layout: pipeline.getBindGroupLayout(0),
               entries,
             });
-            const encoder = device.createCommandEncoder({
-              label: `vcc:wp1:${kernel.label}`,
-            });
-            const pass = encoder.beginComputePass();
-            pass.setPipeline(pipeline);
-            pass.setBindGroup(0, bindGroup);
-            pass.dispatchWorkgroups(kernel.workgroupCount);
-            pass.end();
-            encoder.copyBufferToBuffer(
+            for (let index = 0; index < kernel.dispatches.length; index++) {
+              const dispatch = kernel.dispatches[index];
+              device.queue.writeBuffer(
+                uniform,
+                0,
+                new Uint32Array(dispatch.uniformWords),
+              );
+              const encoder = device.createCommandEncoder({
+                label: `vcc:wp1:${kernel.label}:${index}`,
+              });
+              const pass = encoder.beginComputePass();
+              pass.setPipeline(pipeline);
+              pass.setBindGroup(0, bindGroup);
+              pass.dispatchWorkgroups(dispatch.workgroupCount);
+              pass.end();
+              await submissionController.submit(
+                `vcc:wp1:${kernel.label}:${index}`,
+                1,
+                [encoder.finish()],
+              );
+            }
+            const readbackIntent = {
+              purpose: "test",
+              label: kernel.label,
+              generation: 1,
+              byteOffset: 0,
+              byteLength: kernel.outputWordCount * 4,
+            };
+            const copy = await production.readGpuBuffer(
+              device,
               output,
-              0,
-              staging,
-              0,
-              kernel.outputWordCount * 4,
+              readbackIntent,
+              readbackAudit,
             );
-            device.queue.submit([encoder.finish()]);
-            await device.queue.onSubmittedWorkDone();
-            await staging.mapAsync(GPUMapMode.READ);
-            const copy = staging
-              .getMappedRange(0, kernel.outputWordCount * 4)
-              .slice(0);
-            staging.unmap();
+            if (kernel.label === "coordinate-hash") {
+              const omittedTokenFrame =
+                readbackAudit.beginDisplayFrame("omitted-token-negative");
+              try {
+                await production.readGpuBuffer(
+                  device,
+                  output,
+                  {
+                    ...readbackIntent,
+                    label: "omitted-active-frame-token-negative",
+                  },
+                  readbackAudit,
+                );
+              } catch (error) {
+                omittedFrameTokenNegativePassed =
+                  error instanceof Error &&
+                  error.message.includes(
+                    "active display frame requires its token",
+                  );
+              } finally {
+                readbackAudit.endDisplayFrame(omittedTokenFrame);
+              }
+              const fullFieldFrame =
+                readbackAudit.beginDisplayFrame("full-field-negative");
+              try {
+                await production.readGpuBuffer(
+                  device,
+                  output,
+                  {
+                    ...readbackIntent,
+                    label: "full-field-display-frame-negative",
+                    displayFrame: fullFieldFrame,
+                  },
+                  readbackAudit,
+                );
+              } catch (error) {
+                residencyNegativePassed =
+                  error instanceof Error &&
+                  error.message.includes(
+                    "cumulative full-field display-frame readback is forbidden",
+                  );
+              } finally {
+                readbackAudit.endDisplayFrame(fullFieldFrame);
+              }
+              const chunkedFrame =
+                readbackAudit.beginDisplayFrame("chunked-field-negative");
+              const firstChunkBytes =
+                Math.floor(kernel.outputWordCount / 2) * 4;
+              try {
+                await production.readGpuBuffer(
+                  device,
+                  output,
+                  {
+                    ...readbackIntent,
+                    label: "chunked-field-first-half",
+                    byteLength: firstChunkBytes,
+                    displayFrame: chunkedFrame,
+                  },
+                  readbackAudit,
+                );
+                try {
+                  await production.readGpuBuffer(
+                    device,
+                    output,
+                    {
+                      ...readbackIntent,
+                      label: "chunked-field-second-half",
+                      byteOffset: firstChunkBytes,
+                      byteLength:
+                        readbackIntent.byteLength - firstChunkBytes,
+                      displayFrame: chunkedFrame,
+                    },
+                    readbackAudit,
+                  );
+                } catch (error) {
+                  chunkedResidencyNegativePassed =
+                    error instanceof Error &&
+                    error.message.includes(
+                      "cumulative full-field display-frame readback is forbidden",
+                    );
+                }
+              } finally {
+                readbackAudit.endDisplayFrame(chunkedFrame);
+              }
+              try {
+                await production.readGpuBuffer(
+                  device,
+                  output,
+                  { ...readbackIntent, purpose: "arbitrary-purpose",
+                    label: "invalid-purpose-negative" },
+                  readbackAudit,
+                );
+              } catch {
+                invalidPurposeNegativePassed = true;
+              }
+            }
             return {
               output: Array.from(new Uint32Array(copy)),
+              dispatches: kernel.dispatches.map((dispatch) => ({
+                baseCell: dispatch.baseCell,
+                workgroupCount: dispatch.workgroupCount,
+              })),
               compilationMessages: compilation.messages.map((message) => ({
                 type: message.type,
                 lineNum: message.lineNum,
@@ -294,7 +463,6 @@ async function main() {
             };
           } finally {
             source?.destroy();
-            staging.destroy();
             output.destroy();
             uniform.destroy();
           }
@@ -310,32 +478,26 @@ async function main() {
 
         const allocations = [];
         for (const allocation of input.blockingAllocations) {
-          const buffers = [];
+          let arena = null;
           try {
-            for (const descriptor of allocation.buffers) {
-              const buffer = device.createBuffer({
-                label:
-                  `vcc:wp1:${allocation.budget}:${allocation.operator}:` +
-                  descriptor.name,
-                size: descriptor.byteLength,
-                usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST,
-              });
-              buffers.push(buffer);
-              device.queue.writeBuffer(buffer, 0, new Uint32Array([0]));
+            arena = production.GpuBufferArena.create(device, 1, allocation.plan);
+            for (const name of arena.names()) {
+              arena.upload(device, name, new Uint32Array([0]));
             }
             await device.queue.onSubmittedWorkDone();
             allocations.push({
               budget: allocation.budget,
               operator: allocation.operator,
               totalCellBytes: allocation.totalCellBytes,
-              bufferCount: buffers.length,
-              pass: buffers.length === allocation.buffers.length,
+              bufferCount: arena.names().length,
+              pass: arena.names().length === allocation.plan.buffers.length,
             });
           } finally {
-            for (const buffer of buffers) buffer.destroy();
+            arena?.destroy();
           }
         }
         await new Promise((resolvePromise) => setTimeout(resolvePromise, 0));
+        const limitNames = Object.keys(input.requiredLimits);
         const result = {
           adapter: {
             info: {
@@ -348,21 +510,40 @@ async function main() {
               driver: adapter.info.driver,
             },
             features: [...adapter.features].sort(),
-            requiredLimits: Object.fromEntries(
-              Object.keys(input.requiredLimits).map((name) => [
+            limits: Object.fromEntries(
+              limitNames.map((name) => [
                 name,
                 adapter.limits[name],
               ]),
             ),
           },
+          device: {
+            limits: Object.fromEntries(
+              limitNames.map((name) => [
+                name,
+                device.limits[name],
+              ]),
+            ),
+          },
           kernels,
           allocations,
+          submissionRecords: submissionController.records(),
+          readbackRecords: readbackAudit.records(),
+          fullFieldDisplayFrameCount:
+            readbackAudit.fullFieldDisplayFrameCount(),
+          residencyNegativePassed,
+          omittedFrameTokenNegativePassed,
+          chunkedResidencyNegativePassed,
+          invalidPurposeNegativePassed,
+          requiredLimitOmissionNegativePassed,
+          requiredLimitDowngradeNegativePassed,
           uncapturedErrors,
         };
-        device.destroy();
+        submissionController.destroy();
         return result;
       },
       {
+        productionModuleUrl: `${origin}/solver-gpu/src/index.ts`,
         requiredFeatures: [...PHASE5_REQUIRED_FEATURES],
         requiredLimits: { ...PHASE5_REQUIRED_LIMITS },
         kernels: [
@@ -370,37 +551,51 @@ async function main() {
             label: "coordinate-hash",
             shader: GPU_COORDINATE_HASH_WGSL,
             entryPoint: "coordinateHash",
-            uniformWords: makeUniformWords(layout),
             outputWordCount: layout.cellCount,
             sourceWords: null,
-            workgroupCount: Math.ceil(layout.cellCount / 256),
+            dispatches: coordinateDispatchRanges.map((range) => ({
+              baseCell: range.baseCell,
+              uniformWords: makeUniformWords(layout, {
+                baseCell: range.baseCell,
+              }),
+              workgroupCount: range.workgroupCount,
+            })),
           },
           {
             label: "coordinate-axis-swap-negative",
             shader: axisSwapShader,
             entryPoint: "coordinateHash",
-            uniformWords: makeUniformWords(layout),
             outputWordCount: layout.cellCount,
             sourceWords: null,
-            workgroupCount: Math.ceil(layout.cellCount / 256),
+            dispatches: [{
+              baseCell: 0,
+              uniformWords: makeUniformWords(layout),
+              workgroupCount: Math.ceil(layout.cellCount / 256),
+            }],
           },
           {
             label: "copy-u32-f32-bits",
             shader: GPU_COPY_WORDS_WGSL,
             entryPoint: "copyWords",
-            uniformWords: makeUniformWords(copyLayout),
             outputWordCount: copyLayout.cellCount,
             sourceWords: Array.from(copyWords),
-            workgroupCount: Math.ceil(copyLayout.cellCount / 256),
+            dispatches: [{
+              baseCell: 0,
+              uniformWords: makeUniformWords(copyLayout),
+              workgroupCount: Math.ceil(copyLayout.cellCount / 256),
+            }],
           },
           {
             label: "counter-prng",
             shader: GPU_COUNTER_PRNG_WGSL,
             entryPoint: "counterPrng",
-            uniformWords: makeUniformWords(layout, prngOptions),
             outputWordCount: layout.cellCount,
             sourceWords: null,
-            workgroupCount: Math.ceil(layout.cellCount / 256),
+            dispatches: [{
+              baseCell: 0,
+              uniformWords: makeUniformWords(layout, prngOptions),
+              workgroupCount: Math.ceil(layout.cellCount / 256),
+            }],
           },
         ],
         blockingAllocations,
@@ -431,36 +626,9 @@ async function main() {
       kernelByLabel["counter-prng"].output,
     );
 
-    const readbackAudit = new GpuReadbackAudit();
-    for (const kernel of deviceResult.kernels) {
-      readbackAudit.authorize({
-        purpose: "test",
-        label: kernel.label,
-        generation: 1,
-        byteOffset: 0,
-        byteLength: kernel.output.length * 4,
-        fullField: true,
-        displayFrame: false,
-      });
-    }
-    let residencyNegativePassed = false;
-    try {
-      readbackAudit.authorize({
-        purpose: "test",
-        label: "full-field-display-frame-negative",
-        generation: 1,
-        byteOffset: 0,
-        byteLength: layout.cellCount * 4,
-        fullField: true,
-        displayFrame: true,
-      });
-    } catch {
-      residencyNegativePassed = true;
-    }
-
     const adapterCapability = {
       features: new Set(deviceResult.adapter.features),
-      limits: deviceResult.adapter.requiredLimits,
+      limits: deviceResult.adapter.limits,
     };
     const requirements = {
       requiredFeatures: [...PHASE5_REQUIRED_FEATURES],
@@ -488,9 +656,9 @@ async function main() {
           disposition: budget.disposition,
           operator,
           ...validateGpuAllocation(plan, {
-            maxBufferSize: deviceResult.adapter.requiredLimits.maxBufferSize,
+            maxBufferSize: deviceResult.device.limits.maxBufferSize,
             maxStorageBufferBindingSize:
-              deviceResult.adapter.requiredLimits.maxStorageBufferBindingSize,
+              deviceResult.device.limits.maxStorageBufferBindingSize,
           }),
         };
       }),
@@ -517,6 +685,18 @@ async function main() {
       };
     });
     const backend = String(deviceResult.adapter.info.backend ?? "");
+    const coordinateDispatches =
+      kernelByLabel["coordinate-hash"].dispatches;
+    const coordinateMultiRangePassed =
+      coordinateDispatches.length === coordinateDispatchRanges.length &&
+      coordinateDispatches.length > 1 &&
+      coordinateDispatches.some((dispatch) => dispatch.baseCell > 0) &&
+      coordinateDispatches.every(
+        (dispatch, index) =>
+          dispatch.baseCell === coordinateDispatchRanges[index].baseCell &&
+          dispatch.workgroupCount ===
+            coordinateDispatchRanges[index].workgroupCount,
+      );
     const repository = {
       commit: git("rev-parse", "HEAD"),
       clean: git("status", "--porcelain").length === 0,
@@ -542,14 +722,26 @@ async function main() {
         allocationCapabilities
           .filter((entry) => entry.disposition === "blocking")
           .every((entry) => entry.supported) &&
+        allocationCapabilities
+          .filter((entry) => entry.budget.startsWith("bake-"))
+          .every((entry) => !entry.supported) &&
         previewRanges.every(
           (entry) =>
             entry.contiguous &&
             entry.coveredCells === entry.cellCount &&
             entry.maxWorkgroupCount <= 16_384,
         ) &&
-        residencyNegativePassed &&
-        readbackAudit.fullFieldDisplayFrameCount() === 0 &&
+        coordinateMultiRangePassed &&
+        deviceResult.submissionRecords.length >=
+          coordinateDispatchRanges.length + 3 &&
+        deviceResult.readbackRecords.length === 5 &&
+        deviceResult.residencyNegativePassed &&
+        deviceResult.omittedFrameTokenNegativePassed &&
+        deviceResult.chunkedResidencyNegativePassed &&
+        deviceResult.invalidPurposeNegativePassed &&
+        deviceResult.requiredLimitOmissionNegativePassed &&
+        deviceResult.requiredLimitDowngradeNegativePassed &&
+        deviceResult.fullFieldDisplayFrameCount === 0 &&
         deviceResult.uncapturedErrors.length === 0,
       repository,
       host: {
@@ -572,6 +764,7 @@ async function main() {
         actualBackend: backend,
         ...deviceResult.adapter,
       },
+      device: deviceResult.device,
       checks: {
         requirements: requirementCheck,
         requiredLimitNegative,
@@ -583,10 +776,27 @@ async function main() {
         blockingAllocations: deviceResult.allocations,
         allocationCapabilities,
         previewRanges,
+        coordinateMultiRange: {
+          expected: coordinateDispatchRanges,
+          observed: coordinateDispatches,
+          pass: coordinateMultiRangePassed,
+        },
+        submissions: deviceResult.submissionRecords,
         readback: {
-          records: readbackAudit.records(),
-          fullFieldDisplayFrameCount: readbackAudit.fullFieldDisplayFrameCount(),
-          residencyNegativePassed,
+          records: deviceResult.readbackRecords,
+          fullFieldDisplayFrameCount:
+            deviceResult.fullFieldDisplayFrameCount,
+          residencyNegativePassed: deviceResult.residencyNegativePassed,
+          omittedFrameTokenNegativePassed:
+            deviceResult.omittedFrameTokenNegativePassed,
+          chunkedResidencyNegativePassed:
+            deviceResult.chunkedResidencyNegativePassed,
+          invalidPurposeNegativePassed:
+            deviceResult.invalidPurposeNegativePassed,
+        },
+        requiredRequestNegatives: {
+          omission: deviceResult.requiredLimitOmissionNegativePassed,
+          downgrade: deviceResult.requiredLimitDowngradeNegativePassed,
         },
         uncapturedErrors: deviceResult.uncapturedErrors,
       },
@@ -595,7 +805,7 @@ async function main() {
     if (!report.pass) process.exitCode = 1;
   } finally {
     if (browser !== null) await browser.close();
-    await stop(server);
+    await vite.close();
   }
 }
 

@@ -63,11 +63,59 @@ function adapterLimitRecord(
   return record;
 }
 
+export function validateGpuRequirementRequest(
+  requested: GpuRequirementSet,
+  frozen: GpuRequirementSet,
+): void {
+  if (
+    requested === null ||
+    typeof requested !== "object" ||
+    frozen === null ||
+    typeof frozen !== "object" ||
+    !Array.isArray(requested.requiredFeatures) ||
+    !Array.isArray(frozen.requiredFeatures) ||
+    requested.requiredLimits === null ||
+    typeof requested.requiredLimits !== "object" ||
+    frozen.requiredLimits === null ||
+    typeof frozen.requiredLimits !== "object"
+  ) {
+    throw new Error("GPU requirement request and frozen policy must be objects");
+  }
+  const requestedFeatures = [...new Set(requested.requiredFeatures)].sort();
+  const frozenFeatures = [...new Set(frozen.requiredFeatures)].sort();
+  if (
+    requestedFeatures.length !== requested.requiredFeatures.length ||
+    frozenFeatures.length !== frozen.requiredFeatures.length ||
+    requestedFeatures.length !== frozenFeatures.length ||
+    requestedFeatures.some((feature, index) => feature !== frozenFeatures[index])
+  ) {
+    throw new Error("GPU feature request does not match the frozen policy");
+  }
+  const requestedLimits = Object.entries(requested.requiredLimits).sort();
+  const frozenLimits = Object.entries(frozen.requiredLimits).sort();
+  if (
+    requestedLimits.length !== frozenLimits.length ||
+    requestedLimits.some(
+      ([name, value], index) =>
+        name !== frozenLimits[index]?.[0] || value !== frozenLimits[index]?.[1],
+    )
+  ) {
+    throw new Error("GPU limit request does not match the frozen policy");
+  }
+  for (const [name, value] of frozenLimits) {
+    if (!Number.isFinite(value) || value <= 0) {
+      throw new Error(`frozen GPU limit ${name} must be finite and positive`);
+    }
+  }
+}
+
 export async function requestCheckedGpuDevice(
   adapter: GPUAdapter,
   requirements: GpuRequirementSet,
+  frozenRequirements: GpuRequirementSet,
   label = "vcc-phase5-device",
 ): Promise<GPUDevice> {
+  validateGpuRequirementRequest(requirements, frozenRequirements);
   const result = validateGpuRequirements(
     {
       features: new Set([...adapter.features]),

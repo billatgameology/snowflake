@@ -155,7 +155,59 @@ describe("GPU memory and dispatch planning", () => {
     expect(
       ranges.reduce((sum, range) => sum + range.cellCount, 0),
     ).toBe(count);
-    expect(() => planGpuDispatchRanges(count, 65_536)).toThrow(/\[1,65535\]/);
+    expect(() => planGpuDispatchRanges(count, 16_385)).toThrow(/\[1,16384\]/);
+  });
+
+  test("rejects forged operator tags, layouts, totals, and schemas", () => {
+    expect(() =>
+      createGpuBufferPlan(NONCUBIC_DIMS, "unexpected-operator" as never),
+    ).toThrow(/unsupported GPU operator/);
+
+    const canonical = createGpuBufferPlan(NONCUBIC_DIMS, "gg");
+    expect(() =>
+      validateGpuAllocation(
+        {
+          ...canonical,
+          layout: { ...canonical.layout, plane: canonical.layout.plane + 1 },
+        },
+        {
+          maxBufferSize: 256 * 1024 * 1024,
+          maxStorageBufferBindingSize: 64 * 1024 * 1024,
+        },
+      ),
+    ).toThrow(/layout disagrees/);
+    expect(() =>
+      validateGpuAllocation(
+        { ...canonical, totalCellBytes: canonical.totalCellBytes - 4 },
+        {
+          maxBufferSize: 256 * 1024 * 1024,
+          maxStorageBufferBindingSize: 64 * 1024 * 1024,
+        },
+      ),
+    ).toThrow(/totals disagree/);
+    expect(() =>
+      validateGpuAllocation(
+        { ...canonical, buffers: canonical.buffers.slice(0, 2) },
+        {
+          maxBufferSize: 256 * 1024 * 1024,
+          maxStorageBufferBindingSize: 64 * 1024 * 1024,
+        },
+      ),
+    ).toThrow(/wrong canonical buffer count/);
+    expect(() =>
+      validateGpuAllocation(
+        {
+          ...canonical,
+          buffers: canonical.buffers.map((buffer, index) =>
+            index === 1 ? { ...buffer, name: "occupancy" } : buffer,
+          ),
+        },
+        {
+          maxBufferSize: 256 * 1024 * 1024,
+          maxStorageBufferBindingSize: 64 * 1024 * 1024,
+        },
+      ),
+    ).toThrow(/schema mismatch/);
   });
 });
 

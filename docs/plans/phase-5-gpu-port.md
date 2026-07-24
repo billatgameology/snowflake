@@ -1,8 +1,8 @@
 # Plan — Phase 5: WebGPU solver port and Windows D3D12 conformance
 
 - **Phase:** Phase 5 — GPU port
-- **Status:** Decision 0018 Windows-only protocol is frozen and clean; WP1 passes on D3D12,
-  awaits clean review, and WP2 has not started
+- **Status:** Decision 0018 Windows-only protocol is frozen and clean; WP1 code review round 4
+  is accepted, but read-only Git metadata blocks its commit/clean probes, and WP2 has not started
 - **Started:** 2026-07-23
 - **Last touched:** 2026-07-24 by Codex
 
@@ -547,6 +547,78 @@ TypeScript projects passed, and 46 files / 816 tests passed. `npm run build -w a
 changing any WP1 implementation or numerical check. Review remains required before the WP1
 checkbox closes and WP2 starts.
 
+### WP1 independent review round 1 and remediation
+
+Independent review of clean handoff `5707708f686652f3f35f3f989d8a46f0d8ee8c43` rejected WP1
+with five blockers and three should-fixes. The blockers were: readback trusted caller-declared
+full-field state and accepted arbitrary runtime purposes; the dispatch override exceeded the
+frozen 16,384-workgroup ceiling; an edit could make a submission stale while it was in flight
+without preventing a success record; forged operator/layout/schema plans could reach allocation
+and duplicate names could orphan a buffer; and the browser probe classified allocation support
+from adapter maxima rather than the negotiated device limits. The should-fixes were that the
+real D3D12 path never executed a nonzero `baseCell`/multi-range dispatch, the probe bypassed the
+production device/arena/submission/readback APIs, and `PROGRESS.md` retained a stale charter
+version line.
+
+The remediation candidate derives full-field status from the actual source buffer, validates
+the runtime purpose allowlist, caps every planner entry point at 16,384 workgroups, rechecks
+generation after GPU completion, validates the exact canonical buffer schema before any
+allocation, and preflights the negotiated device limits. Its Vite-served browser probe imports
+and exercises `requestCheckedGpuDevice`, `GpuBufferArena`, `GpuSubmissionController`, and
+`readGpuBuffer` from the production package. On the real D3D12 device, the provisional dirty-tree
+run retained zero coordinate/copy/PRNG mismatches, executed 14 coordinate ranges including 13
+nonzero bases, recorded 17 production submissions and four audited readbacks, rejected both
+forbidden readback attempts, passed all eight blocking arenas, rejected all four bake/operator
+combinations from the negotiated 256 MiB/128 MiB limits, and reported zero uncaptured errors.
+Exact root `npm test` then exited 0 in 369.5 seconds: Rule 7 was clean over 178 files, both
+TypeScript projects passed, and 46 files / 819 tests passed. The app production build transformed
+33 modules and exited 0. This is repair evidence only: the session's read-only Git metadata
+prevented creation of the repair commit, so canonical clean probes and a same-reviewer
+zero-finding recheck are still required before WP1 closes.
+
+Same-reviewer round 2 closed six of the original eight findings but rejected the candidate with
+two blockers. First, two display-frame reads could cover separate halves of one source because
+the audit had no frame/source identity or cumulative coverage. Second,
+`NC-REQUIRED-LIMIT-DOWNGRADE` still mutated an advertised adapter limit only; it did not prove
+that the production request boundary rejects an omitted or lowered required limit.
+
+The round-2 repair replaces the caller boolean with an audit-issued active-frame token, derives
+stable source identity from the actual `GPUBuffer`, merges per-frame byte intervals per source,
+and rejects any request whose cumulative coverage reaches the full source. The production device
+request now compares its exact requested feature/limit set with the frozen policy before
+capability validation or `requestDevice`. Unit negatives prove two half-source reads reject and
+that omitted/downgraded limits never call the adapter. Both typechecks and focused tests 19/19
+pass. The provisional real-D3D12 probe records five successful production readbacks (the four
+tests plus the allowed first half), rejects the second half and the direct full-field attempt,
+rejects both exact request mutations, retains 17 bounded submissions and zero numerical
+mismatches, passes all eight blocking arenas, rejects all four bake/operator cases from the
+negotiated limits, and reports zero uncaptured errors. Full root verification and same-reviewer
+round 3 remain pending; Git metadata is still read-only. Exact root `npm test` then exited 0 in
+366.9 seconds: Rule 7 was clean over 178 files, both TypeScript projects passed, and 46 files /
+821 tests passed. The app production build transformed 33 modules and exited 0.
+
+Same-reviewer round 3 rejected one surviving caller-classification seam: after beginning an
+active audit frame, a caller could omit the token and receive a full-field readback classified
+as non-display. The round-3 repair makes audit state authoritative: while a display frame is
+active, every readback must carry that exact token; a token is also invalid outside its active
+scope. The pure omission attack, both typechecks, and focused tests 19/19 pass. The provisional
+real-D3D12 probe now rejects direct full-field, cumulative two-chunk, and active-token-omission
+attacks, as well as both frozen request mutations, while retaining five successful audited
+readbacks, every exact numerical/allocation result, and zero uncaptured errors. Exact root
+`npm test` then exited 0 in
+367.7 seconds: Rule 7 was clean over 178 files, both TypeScript projects passed, and 46 files /
+821 tests passed. The app production build transformed 33 modules and exited 0.
+
+Same-reviewer round 4 is **ACCEPTED with zero blockers and zero should-fixes**. The reviewer
+independently replayed focused tests 19/19 and the real RTX 3080 D3D12 probe, confirmed every
+original and follow-up finding closed, and observed zero numerical mismatches, 17 bounded
+submissions, five accepted readbacks, every residency/request mutation rejected, all eight
+blocking arenas passing, bake rejected from negotiated limits, and zero uncaptured errors.
+`git diff --check` also passes. This acceptance covers the code diff only. Ten tracked files
+remain modified at base `5707708f686652f3f35f3f989d8a46f0d8ee8c43` because this session cannot
+write `.git/index.lock`; therefore WP1 remains open until the accepted diff is committed and both
+canonical probes pass from that tracked-clean commit.
+
 ## Steps
 
 - [x] Record decision 0016, synchronize charter v1.14, and create this cold-start handoff.
@@ -559,10 +631,13 @@ checkbox closes and WP2 starts.
       this freeze before `solver-gpu/` exists. Completed as immutable two-lane v1 history;
       decision 0018 now supersedes only its lane/evidence scope through the Windows-only v2
       re-freeze above.
-- [ ] **WP1 — package and transport.** Windows implementation and D3D12 conformance are complete
-      with 0 coordinate/copy/PRNG mismatches, all eight blocking allocation cases passing, and
-      zero uncaptured errors. Obtain clean review against decision 0018 and the v2 manifest
-      before closing this item or starting WP2.
+- [ ] **WP1 — package and transport.** Review round 1 rejected the clean candidate with five
+      blockers and three should-fixes; round 2 closed six but found cumulative chunked readback
+      and exact request-boundary blockers; round 3 closed those but found active-frame token
+      omission. The third remediation passes both typechecks, focused and exact root tests, the
+      app build, and a provisional real-D3D12 run; round 4 accepted the code with zero blockers
+      and zero should-fixes. Commit when Git writes are restored and run the canonical clean
+      probes before closing this item or starting WP2.
 - [ ] **WP2 — diffusion.** Implement and independently validate one and repeated masked-average
       diffusion passes for reflecting and fixed-σ boundaries on Windows D3D12.
 - [ ] **WP3 — `GGThreshold`.** Port complete cycles with parameter events, noise, melting,
@@ -627,6 +702,21 @@ checkbox closes and WP2 starts.
 - **Rely on WGSL operator precedence for the coordinate hash.** Rejected by the pinned Chromium
   compiler, which fails mixed multiplication/XOR expressions without explicit parentheses.
   The hash terms are now individually parenthesized; the corrected real-device run is exact.
+- **Treat a probe that reimplements transport as evidence for the production transport.**
+  Rejected by WP1 independent review. A browser script can pass while the exported device,
+  allocation, submission, or readback path remains broken. The probe now imports those exact
+  production APIs through Vite and reports their records and negotiated limits.
+- **Treat independently legal display-frame chunks as residency-safe without cumulative
+  accounting.** Rejected by WP1 review round 2. Per-request full-field derivation alone still
+  allowed two half-source transfers. Display reads now require an audit-issued frame token and
+  are union-accounted against the actual source identity.
+- **Substitute a weak-adapter simulation for the registered required-request mutation.** Rejected
+  by WP1 review round 2. An adapter below the minimum tests capability reporting but does not pin
+  omission from `requestDevice`. The production boundary now compares the exact request with the
+  frozen policy, and both omission and downgrade attacks prove the adapter is never called.
+- **Let callers opt out of an already-active display-frame scope by omitting its token.** Rejected
+  by WP1 review round 3. Active audit state, not an optional request field, now determines display
+  classification; every read during that scope requires the exact audit-issued token.
 
 ## Deferred Metal extension
 
