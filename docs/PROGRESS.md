@@ -809,7 +809,7 @@ immutable.
 
 ## Next step
 
-**Phases 2b, 3, 4, and Phase 5 WP1–WP2 are complete. Phase 5 is at WP3 —
+**Phases 2b, 3, 4, and Phase 5 WP1–WP2 are complete. Phase 5 is implementing WP3 —
 `GGThreshold`.** Work only in
 the isolated clone rooted at `G:/Code Files/snowflake/out/worktrees/phase5-wp1/`, whose writable
 Git history contains the accepted WP1 commit
@@ -821,24 +821,34 @@ comparison inside tolerance, wrong clamp rejected, and both GPU error channels e
 accepted all code/evidence with zero findings; the immediately following docs-only commit closes
 its stale-handoff should-fix.
 
-After that docs-only commit receives its final provenance/truth audit, begin WP3 by extending
-the **WP3 design section in `docs/plans/phase-5-gpu-port.md` before writing code**. That design is
-now written from a complete reread of `docs/gg-machinery.md`, the mutable state/ledger inventory
-in `solver-cpu/src/gg-solver.ts`, and the frozen fixtures/negative controls in
-`runner/src/phase5-protocol.ts`. It freezes the two-submission diffusion/surface composition,
-start-of-cycle counts, exact CPU boundary-list order, deterministic Dirichlet reduction,
-parameter-event atomicity, fail-closed lifecycle, raw-state metric reconstruction, stale-source
-negative, and the pure/adversarial/D3D12 close predicate. Commit this design before adding or
-changing solver code. Then implement `GpuGgSurface` and `GpuGgSolver` against it, extend
-`GpuGgDiffusion` only for idle completed-cycle controls/clamp-delta output, and run the full WP3
-probe/review loop. Do not begin WP4 until WP3 independently reaches zero blockers and zero
-should-fixes.
+The committed WP3 design is `6fb3ab95204c63007939c8489cf627f9dbb8c229`. The current
+implementation typechecks and its focused orchestration/numerical suite passes. A provisional
+real D3D12 run compiled every production shader, ran both complete frozen fixtures, preserved
+exact occupancy/topology/boundary order/events/noise/stop reasons, passed all `b`/`d`, metric,
+mass, decision-margin, stale-ping-pong, and GPU-error checks, and exactly reproduced a synthetic
+two-level meter reduction plus accumulation. It also exposed that the v2 direct Dirichlet-meter
+criterion was not feasible under the independently frozen field envelope: direct difference
+`0.024480659606307853` exceeded its generic `0.004255350462365598` scalar bound even though the
+underlying fields passed.
 
-Protocol `phase5-gpu-conformance-windows-v2` is frozen at SHA-256
-`223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`; changing a fixture,
-tolerance, lane, runtime, criterion, evidence meaning, or decision margin requires an ADR and
-invalidates the Windows bundle. Metal is deferred to another machine and a separately frozen
-extension; never relabel Windows evidence as Metal or claim general WebGPU portability. Preserve
+Decision [0019](decisions/0019-phase5-gg-dirichlet-ledger-conformance.md) therefore supersedes
+Windows v2 before canonical WP3 evidence. Freeze Windows v3 in
+`runner/src/phase5-protocol.ts`: keep the exact fixtures, numerical tolerances, lane, runtime,
+and margins; add the explicit corrected-mass ledger policy; narrow `NC-TOLERANCE-BYPASS` to
+blocking comparisons; derive and pin the new protocol hash; and update the WP0 hash tests.
+Extend the real probe with the independent review's required complete clamp→delta→reduction
+witness for both signs and wrong-sign/wrong-mask/omitted/scaled mutations; block on each lane's
+corrected-mass conservation comparison plus cross-lane agreement. Then rerun
+focused/typecheck/root/app checks, commit WP3, execute its canonical clean D3D12 probe, and
+obtain independent zero-finding review. WP1/WP2 implementation remains accepted, but
+their canonical protocol-identity probes must be replayed under v3 before final evidence. Do
+not begin WP4 until WP3 independently reaches zero blockers and zero should-fixes.
+
+The superseded `phase5-gpu-conformance-windows-v2` SHA-256 is
+`223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`. Decision 0019 is the
+required authority for the criterion/evidence change and invalidates v2 for final publication;
+it does not widen a numerical tolerance. Metal is deferred to another machine and a separately
+frozen extension; never relabel Windows evidence as Metal or claim general WebGPU portability. Preserve
 accepted evidence under `out/phase2b/`, `out/phase4/`, and `out/phase4-visual/`; do not rerun or
 relabel historical protocols.
 

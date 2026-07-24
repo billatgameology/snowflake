@@ -844,14 +844,32 @@ and center are immutable.
 
 The reflecting ledger is independently reconstructed as the binary32 state's `Sigma(b+d)` and
 compared to the float64 oracle with the frozen mixed scalar bound. Under Dirichlet the compact
-GPU reduction reports each clamp delta and the accumulated meter; field mass plus the meter is
-checked independently rather than trusting the report's own claim. Surface reports require
+GPU reduction reports each clamp delta and the accumulated meter. Decision 0019 supersedes the
+unmeasured v2 assumption that this cancellation-heavy signed sum must itself meet the generic
+mixed-scalar bound across already-different binary64/binary32 fields. V3 instead requires an
+exact real-device witness for clamp-delta generation on the selected shell, the production
+deterministic reduction, and its accumulator. Both signs are exercised; wrong-sign, wrong-mask,
+omitted-delta, and scaled-delta mutations reject. CPU and GPU each compare
+`Sigma(b+d)_final - dirichletMeter` with their own independently reconstructed initial mass,
+then compare that corrected-mass invariant across lanes, all with the unchanged mixed-scalar
+bound on the extensive invariant. Final `b`, `d`, and total mass remain independently blocking.
+Every direct per-cycle/final meter comparison is still printed, but is explicitly diagnostic
+and may not be reported as equal when it is not. Surface reports require
 exact attachment indices/order, counts, hole fills, null physical-time/CFL fields, and false
 stall/unconverged flags. The gate reconstructs wall/active masks, far-field set, boundary
 membership/order, uncapped counts, attached total/delta, bounds, domain contact, far-field mean,
 and every morphology metric from raw GPU buffers. Occupancy-derived values, event records,
-noise bits, symmetry, and the cap stop reason are exact; `b`, `d`, field-derived metrics,
-Dirichlet meter, and total mass use only the already frozen field/scalar tolerances.
+noise bits, symmetry, and the cap stop reason are exact; `b`, `d`, field-derived metrics, total
+mass, and the corrected-mass invariant use only the already frozen field/scalar tolerances.
+
+This v3 criterion was registered before any canonical WP3 run. The provisional D3D12
+measurement that forced the decision had exact occupancy/order/events/noise and passing fields,
+but direct accumulated-meter difference `0.024480659606307853` exceeded its generic
+`0.004255350462365598` bound. A production-tree witness already matched two independent
+binary32 reductions and their accumulated value exactly. Decision 0019 therefore changes the
+criterion and protocol identity rather than hiding the failed diagnostic or widening a
+tolerance. The v2 WP1/WP2 records become historical development evidence and must be replayed
+under v3 before final publication.
 
 WP3 does not add checkpoint wire meanings, a host-resident simulation mirror, a physical-time
 interpretation, an alternate boundary order, early event application, or a runtime option to
@@ -868,8 +886,10 @@ WP3 closes only when all of the following hold:
   ping-pong/tick ownership, poisoning, and teardown; targeted mutations make every branch fail;
 - a pinned Chromium/RTX 3080/D3D12 probe runs both frozen G-G fixtures through all 256/128
   completed cycles, applies the cycle-64 event at the exact boundary, compares every exact
-  attachment delta/report/noise witness, and compares final plus event-boundary raw state,
-  boundary order, ledger, metrics, domain safety, and cap stop reason;
+  attachment delta/structural report/noise witness, exactly authenticates clamp selection/sign,
+  the production meter tree, and accumulation on synthetic inputs with all four registered
+  mutations rejected, and compares final plus event-boundary raw state, boundary order,
+  within-lane and cross-lane corrected-mass ledgers, metrics, domain safety, and cap stop reason;
 - the CPU precheck retains at least the frozen `4e-4` decision margin; the non-blocking
   `stress-gg-attachment-margin` reports both sides honestly and cannot excuse a blocking result;
 - `NC-STALE-PING-PONG` uses the production low-level components with the inactive vapor side and
@@ -988,6 +1008,16 @@ WP3 closes only when all of the following hold:
   WGSL fused multiply-adds instead reduced error against the unchanged float64 oracle to
   `1.8798277887340792e-7`; the separate binary32 shadow remains a diagnostic witness rather than
   the implementation target.
+- **Apply the generic scalar bound directly to the G-G Dirichlet meter.** Rejected by decision
+  0019 before canonical WP3 evidence. The signed shell sum is cancellation-heavy across
+  independently accepted binary64/binary32 fields: the provisional direct difference was
+  `0.024480659606307853` against a `0.004255350462365598` bound, while raw fields, total mass,
+  exact topology, and decisions passed. V3 keeps the failed direct comparison visible, pins the
+  production tree exactly, and applies the unchanged scalar bound to the corrected-mass
+  invariant.
+- **Change G-G transfer equations to improve that meter.** Rejected after a local-conservation
+  experiment did not materially change the discrepancy. It was reverted because it also changed
+  the specified freezing/melting arithmetic merely to improve evidence.
 
 ## Deferred Metal extension
 
