@@ -32,12 +32,12 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   completed Phase 3 implementation, `npm test` is 278/278 after the WP0 negative-
   supersaturation fix, including typecheck and the Rule 7
   scan. The full catalogs live in the plans' Tried and rejected sections.
-  **Phase 2b is NOT closed. Protocol v3 is now an execution-valid recorded negative result for
+  **Phase 2b history preserves protocol v3 as an execution-valid recorded negative result for
   the exact registered v3 implementation:** the
   flagless gate completed and exited 1; the −5 °C run passed its plate threshold, while the
   −15 °C run produced the same one-layer plate instead of the registered column. All enforced
-  non-habit criteria passed. This is a failed gate, not missing or invalidated evidence; no
-  passing Phase 2b habit result exists. **Decision 0009 and charter v1.7 now adopt the
+  non-habit criteria passed. This is a failed gate, not missing or invalidated evidence.
+  **Decision 0009 and charter v1.7 then adopted the
   source-constrained aggregate `[HV]` boundary-pixel repair, and protocol v4 is committed in
   the active plan before implementation-driven morphology.** V4 code and non-morphology
   controls now pass; `legacy-v3` remains only as an explicit reproduction path. The flagless
@@ -63,7 +63,7 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   round 1 rejected `975f304` with two blockers and three should-fixes: the finite drift lacked an
   absolute roundoff-scale bound, the checkpoint regression did not enforce its registered hash,
   explicit CLI v5 routing was absent, the bit-preservation input was uniform, and comments were
-  stale. Decision 0014 and charter v1.12 now define the bound before remediation. The v5
+  stale. Decision 0014 and charter v1.12–v1.13 define the bound before remediation. The v5
   remediation now addresses all five findings: focused tests pass 73/73, Rule 7 is clean over
   156 files, both typechecks pass, and the authenticated cold checkpoint closes within its
   independent bound. Root replay passed 786/788 both before and after remediation commit
@@ -76,9 +76,14 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Sequential v5 was later
   frozen at `acf4f82`; its reviewed execution was interrupted by host shutdown without a
   checkpoint or cold start. Concurrent v5p is pre-registered at `8adea86`, implemented at
-  `c30aa6f`, and has passed its code/protocol audit; the final handoff-text recheck authorizes the
-  immediate flagless launch when it closes with no findings.
-- **Last updated:** 2026-07-19 by Codex
+  `c30aa6f`, and passed its code/protocol audit plus final 0-blocker/0-should-fix recheck.
+  **Phase 2b is COMPLETE:** the one flagless concurrent v5p execution at tracked-clean `0dc0f86`
+  exited 0. At the same registered extent 61, −5 °C produced a plate with aspect ratio `0.118644`
+  and −15 °C produced a column with aspect ratio `12.2000`; both had symmetry error 0,
+  size-target termination, all relaxations converged, bounded smoother drift, and
+  round-trip-identical checkpoints. Stable evidence and exact hashes are in
+  [the v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result).
+- **Last updated:** 2026-07-23 by Codex
 - **Phase 2b v5 execution update:** reviewed sequential execution commit `dd762f0` was interrupted
   by accidental host shutdown during warm step-189 relaxation, after completed step 188. No warm
   checkpoint, exit status, terminal verdict, or cold start exists; the attempt is incomplete
@@ -86,7 +91,8 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   [v5p retry plan](plans/phase-2b-v5p-parallel-retry.md). At the user's direction, accepted
   decision [0015](decisions/0015-parallel-phase2b-temperature-pair.md) replaces only sequential
   scheduling with two isolated concurrent Node processes; all aggregate-v5 scientific and
-  numerical controls remain frozen.
+  numerical controls remain frozen. V5p completed at `0dc0f86` with status 0 and both registered
+  habits; its authenticated artifacts now live below `out/phase2b/v5p/`.
 - **Phase 4 is COMPLETE under maker-directed decision
   [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md)** (charter
   v1.8). It began in isolated worktree `/Users/clipper/github/snowflake-phase4`; on 2026-07-16
@@ -257,11 +263,14 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   arithmetic). Still true from the 2026-07-14 hardening: the charter v1.2 Dirichlet wording
   could not fail (a uniform field is a fixed point under *both* boundary conditions). Charter
   v1.4 now carries the plan's falsifiable depleted-start differential test.
-- **Charter is at v1.11** (2026-07-19): decision
+- **Charter is at v1.13** (2026-07-19): decision
+  [0014](decisions/0014-bound-float64-smoother-drift.md) bounds aggregate-v5 smoother drift at
+  operation-count-derived float64 roundoff scale, including the minimum-subnormal floor. Decision
   [0013](decisions/0013-float64-smoother-drift-divergence-identity.md) retains dual convergence
-  and every v4 surface-physics choice while adding the independently metered float64
-  reflecting-smoother drift to aggregate v5's divergence identity. Executed v3/v4 and Phase 4
-  meanings remain frozen. Before it, decision
+  and every v4 surface-physics choice while adding the independently metered drift to aggregate
+  v5's divergence identity. Executed v3/v4 and Phase 4 meanings remain frozen. Decision
+  [0015](decisions/0015-parallel-phase2b-temperature-pair.md) changes only v5p scheduling and has
+  no charter impact. Before those, decision
   [0012](decisions/0012-phase4-reservoir-matched-branch-control.md) replaces Phase 4 v1's
   infeasible dependent-extent compact control with the same normalized reflecting-reservoir
   threshold, cadence, and first-crossing rule for each branch run, while preserving all
@@ -434,7 +443,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | 0 | §2.8 exit criteria hold | ✅ maker-asserted, 2026-07-14 |
 | 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ✅ **maker-asserted, 2026-07-15** — informal sessions, positive; the four-task protocol was *not* run (recorded honestly in the plan's Findings, with the Phase 7 takeaways) |
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited; follow-up evidence hardening complete) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Post-hardening `cmp` is bit-identical, SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Full records: [solver plan](plans/phase-2-cpu-solver.md), [hardening plan](plans/phase-2a-evidence-hardening.md) |
-| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ❌ **open after an execution-valid v3 habit failure and execution-invalid v4 attempt.** V3 completed at `4ca9680`, command `node runner/src/main.ts gate2b`, exit 1: −5 °C passed plate while −15 °C formed the identical plate; every non-habit criterion passed. V4 ran at `dce7081`, exit 1: −5 °C passed at extent 61, but −15 °C stopped unconverged at extent 5 after its attempted step-12 divergence identity plateaued at `3.10e-7 > 1e-7` despite zero iterate residual. The cold aspect ratio is not a valid habit measurement. Investigation and any v5 freeze are governed by [the active repair plan](plans/phase-2b-v4-convergence-failure-and-v5.md). |
+| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ✅ **complete, 2026-07-20.** One flagless v5p run at tracked-clean `0dc0f86`, pre-registration `8adea86`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exited 0. Same `96×96×96` hexPrism, extent target, fixed-σ far field, `sigmaInfinity=0.002`, pressure, spacing, mapping, seed 1, noise 0, CFL, and convergence controls; temperature alone differed. −5 °C: step 814, extent 61, attached 18,193, AR `0.118644` plate. −15 °C: step 330, extent 61, attached 1,159, AR `12.2000` column. Both: size-target, symmetry error 0, every relaxation converged, bounded smoother drift, checkpoint round trip identical. The depleted-start differential was 3/3 and permanent Phase 2a control retained canonical SHA-256 `f1796b5015…a389`. Final log SHA-256 `ea69d65a…c45e`, status 0, empty stderr; complete evidence: [v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result). V3 negative and v4 execution-invalid history remain preserved. |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | 🔶 **evidence-complete, pending maker assertion** (2026-07-16) — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ✅ **complete, 2026-07-18** — one canonical `node runner/src/main.ts gate4` at `70a2496`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exit 0 in 7,178.8 s. Pass A: 13 runs, 24/24 records green; plate/column AR `0.0666667`/`1.66667`; five-point sweep strictly increasing; depletion median `0.770238`, 7/7 samples below one, width 7→13; three distinct reproducible open-hollow occupancies; cap score `1.3`; dendrite/compact branches 6/0 at independent first reservoir crossings (cycles 4,775/5,450, extents 99/83). A manifest/report/index SHA-256: `e5e85c70…8644` / `bcb29e05…7188` / `92346e3e…1917`. Pass B: 11 runs, 12/12 execution records green; three morphology diagnostics pass and five honestly miss (depletion, widening, hollowing, capped history, branch). B manifest/report/index: `c0ceed5b…e812` / `22c8a92c…fa2d` / `5644f838…5cb0`. Aggregate v2 SHA-256 `194f837d…d8e2`, `gatePass=true`, `passBDiagnosticPass=false`. Real `node app/scripts/visual.mjs --phase4`: 20/20 original-resolution captures inspected by coordinator and reviewer, zero absent/error/clipped/hash-mismatch views, manifest `19e0fcfe…573b`. Post-publication exact root suite 779/779 and 33-module build green; final same-reviewer verdict on repair `b7153cc`: CLEAN, 0 blockers / 0 should-fixes. Full record: [v2 plan](plans/phase-4-v2-reservoir-matched-branch-control.md). |
 | 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
@@ -506,12 +515,29 @@ Records live in [docs/decisions/](decisions/):
   immutable failed protocol; v2 replaces only its infeasible dependent-extent compact control
   with each branch run's first registered normalized reflecting-reservoir crossing, pins the
   complete v2/v1 wire identity, and executes on consolidated `main`. Charter v1.9 → v1.10
+- [0013](decisions/0013-float64-smoother-drift-divergence-identity.md) — aggregate v5 retains
+  dual convergence while directly metering the float64 reflecting-smoother drift in the actual
+  three-term divergence identity. V3/v4 meanings remain immutable. Charter v1.10 → v1.11
+- [0014](decisions/0014-bound-float64-smoother-drift.md) — the directly metered drift must also
+  satisfy an independent operation-count-derived absolute roundoff bound, including a
+  minimum-subnormal floor. Charter v1.11 → v1.13
+- [0015](decisions/0015-parallel-phase2b-temperature-pair.md) — the registered v5p replacement
+  runs the fixed −5/−15 °C roles in isolated concurrent Node processes without changing any
+  scientific or numerical control. No charter impact
 
 The two decisions predating this system (web over native C++/CUDA; the five-part repo split) live
 in charter §3.1 and get no retroactive ADR.
 
 ## Completed plans
 
+- [phase-2b-v5p-parallel-retry.md](plans/phase-2b-v5p-parallel-retry.md) — ✅ done 2026-07-20.
+  Reviewed v5p ran the unchanged temperature pair concurrently and exited 0: extent-61 aspect
+  ratios `0.118644` at −5 °C and `12.2000` at −15 °C, exact symmetry, all relaxations converged,
+  bounded float64 smoother drift, and authenticated round-trip checkpoints.
+- [phase-2b-v4-convergence-failure-and-v5.md](plans/phase-2b-v4-convergence-failure-and-v5.md)
+  — ✅ done 2026-07-20. Preserved v4's invalid cold convergence attempt, diagnosed the exact
+  float64 drift floor, froze and reviewed aggregate v5, and closed through decision 0015's v5p
+  replacement after the sequential attempt was externally interrupted.
 - [phase-4-v2-reservoir-matched-branch-control.md](plans/phase-4-v2-reservoir-matched-branch-control.md)
   — ✅ done 2026-07-18. Blocking G-G Pass A earned all 24 records; LK Pass B was execution-valid
   and recorded five diagnostic morphology misses; real evidence and 20/20 visual captures passed
@@ -641,20 +667,24 @@ green and execution-valid Pass B diagnostic-negative; real visual evidence was 2
 Final independent review authenticated the complete graph and images, found one post-publication
 test-isolation blocker, and closed CLEAN after test-only repair `b7153cc`; exact root verification
 is 779/779. The Phase 2b v4 rerun later terminated with the execution-invalid cold convergence
-result recorded above; its `out/gate2b-rerun-20260717_162624.*` artifacts remain immutable.
+result recorded above; authenticated copies now live under `out/phase2b/v4/` and remain
+immutable.
 
 ## Next step
 
-**Do not start Phase 5 while Phase 2b remains open.** Follow
-[phase-2b-v5p-parallel-retry.md](plans/phase-2b-v5p-parallel-retry.md). Decision 0015 and
-pre-registration `8adea86` freeze the unchanged aggregate-v5 scientific pair with concurrent
-fixed-role execution. Implementation `c30aa6f` launches −5/−15 °C in separate Node processes,
-binds IPC/results/new checkpoints fail-closed, and passes 793/793 tests plus permanent controls.
-The commit containing this handoff correction resolves the independent audit's sole documentation
-should-fix. Obtain the same reviewer's 0-blocker/0-should-fix recheck of current tracked-clean
-`HEAD`, then run `node runner/src/main.ts gate2b` once and retain the v5p logs, status, and both
-checkpoints. Preserve every v3/v4/sequential-v5 artifact byte.
-Phase 3 separately remains evidence-complete and awaits the maker assertion described below.
+**Phase 2b and Phase 4 are complete. Phase 3 remains evidence-complete but still requires the
+maker assertion described below before the sequential charter can advance.** The next concrete
+action is for the maker to review the Phase 3 gate row and its linked
+[plan](plans/phase-3-dev-visualization.md), then explicitly accept or reject that gate. If
+accepted, update the Phase 3 row and create the required Phase 5 criteria-first plan before any
+GPU implementation.
+
+Before freezing that Phase 5 plan, reconcile a real authority mismatch: decision 0002 and the
+charter still describe an RTX 4080/16 GB plus Metal test host, while the current primary Windows
+machine is an RTX 3080/10 GB system and supplies only the D3D12/Vulkan side. Record the actual
+hardware/backend plan in an ADR and synchronize the charter; do not silently weaken the required
+Metal + D3D12/Vulkan CPU-oracle comparison. The accepted Phase 2b artifacts are stable under
+`out/phase2b/`; do not rerun or relabel v3, v4, interrupted v5, or passing v5p.
 
 **Phase 3 remains EVIDENCE-COMPLETE and READY FOR EXTERNAL REVIEW (maker-marked 2026-07-16;
 ADRs 0007/0008), orchestrated per
@@ -680,8 +710,9 @@ Phase 1 is closed (2026-07-15). Phase 2a is closed — maker-asserted complete 2
 hardening: exact enforced run exit 0, `cmp` exit 0 against `out/plate-gate.ckpt`, SHA-256
 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`; exact results and
 adversarial cases are in [the hardening plan](plans/phase-2a-evidence-hardening.md).
-**Phase 2b state (2026-07-16): the scoped no-SDAK deliverables and implementation exist, and
-protocol v3 completed as execution-valid negative evidence for the exact v3 implementation.**
+**Phase 2b historical v3 record (2026-07-16): the scoped no-SDAK deliverables and implementation
+existed, and protocol v3 completed as execution-valid negative evidence for its exact
+implementation.** This history is retained after the passing v5p result above.
 Its pre-registration is commit `62af3b3`,
 before execution commit `4ca9680`; the flagless command was
 `node runner/src/main.ts gate2b`. The recovered wrapper status is 1
@@ -729,18 +760,17 @@ contradiction is a seam defect discovered after the run, not a reason to rewrite
 the negative result; it limits interpretation of the failure as a test of the intended physical
 model. The governing detail and citations are recorded in attachment-kinetics §4.4.
 
-**Next Phase 2b action:** the v5p coordinator now launches fixed −5/−15 roles concurrently and
-fail-closed validation binds their processes, IPC, results, and newly decoded checkpoints.
-Focused verification is 14/14; compact concurrent checkpoints are byte-identical to sequential
-counterparts; exact `npm test` passes 793/793; the depleted-start differential passes 3/3; and
-the enforcing Phase 2a control exits 0 with canonical checkpoint SHA-256
-`f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Implementation is committed
-at `c30aa6f`; its independent code/protocol audit found zero blockers
-and only the stale-handoff text corrected by the commit containing this paragraph. Have the same
-reviewer recheck current tracked-clean `HEAD`; a 0/0 result authorizes immediate flagless v5p
-launch. The
-terminal v4 stdout, stderr, and checkpoints in `.tmp-gate2b-clean-1784305494/out/` are immutable;
-their exact hashes and result are in the active v5 plan. Do not rerun or relabel v4.
+**Phase 2b terminal v5p record (2026-07-20):** implementation `c30aa6f` and final reviewed
+execution commit `0dc0f86` launch fixed −5/−15 °C roles concurrently and bind processes, IPC,
+results, and decoded checkpoints fail-closed. The one flagless run exited 0 with aspect ratios
+`0.118644` and `12.2000` at extent 61, exact symmetry, all relaxations converged, and every
+registered criterion enforced. The final log SHA-256 is
+`ea69d65ab5baf4c06d0f6947683f4f7c580ebec3d3590f7db83b7730a14c45e6`; plate and column
+checkpoint SHA-256 values are
+`c81f45b7efba2a4db92da0b3871e919e74b93e3a8a99663add4103d58e8b532f` and
+`28e97c088b3ce6ad3bd1d15f1a3638b1a1ac17092aacb2c07b085c04432a669a`. Stable local copies live
+under `out/phase2b/v5p/`; v4 is under `out/phase2b/v4/`; interrupted sequential-v5 liveness logs
+are under `out/phase2b/v5-interrupted/`. Preserve those bytes and do not rerun or relabel them.
 
 The first v4 attempt was externally interrupted on 2026-07-17 during warm run 1/2. Its log
 ended during relaxation for growth step 771; the last completed metric line was step 768 with

@@ -1,9 +1,9 @@
 # Plan — Phase 2b v5p parallel retry
 
 - **Phase:** Phase 2b — attachment becomes physics
-- **Status:** in progress
+- **Status:** complete
 - **Started:** 2026-07-19
-- **Last touched:** 2026-07-19 by Codex
+- **Last touched:** 2026-07-23 by Codex
 
 ## Goal
 
@@ -88,10 +88,10 @@ zero blockers and zero should-fixes before launch.
 - [x] Prove compact sequential/concurrent checkpoint byte identity and adversarial coordinator
   failures.
 - [x] Pass exact root tests, depleted-start differential, and enforcing Phase 2a control.
-- [ ] Obtain independent review with zero blockers and zero should-fixes.
-- [ ] Run the flagless v5p pair once and retain stdout, stderr, status, checkpoints, byte lengths,
+- [x] Obtain independent review with zero blockers and zero should-fixes.
+- [x] Run the flagless v5p pair once and retain stdout, stderr, status, checkpoints, byte lengths,
   and SHA-256 values.
-- [ ] Record the terminal result; close Phase 2b only if both habits and all criteria pass.
+- [x] Record the terminal result; close Phase 2b only if both habits and all criteria pass.
 
 ## Implementation evidence before final audit
 
@@ -112,6 +112,44 @@ Exact `npm test` passes Rule 7 over 158 files, both TypeScript projects, and 793
 exits 0 at far-field stop tick 4,800 with exact symmetry, mass drift `2.056e-13`, aspect ratio
 `0.168831`, and canonical checkpoint SHA-256
 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`.
+
+## Terminal v5p result
+
+The reviewed concurrent protocol ran once from tracked-clean execution commit
+`0dc0f863299dbb4f244ae4b3720ce7f8fba243cc`, with pre-registration
+`8adea86ef3fcf8f6ba8ea5a3764e56de6d193f49`, Node `v24.13.1`, and V8
+`13.6.233.17-node.40`. The flagless command started both roles on 2026-07-19 at 20:42 local and
+completed on 2026-07-20 at 23:08 local. The wrapper status is `0`, stderr is empty, and the parent
+printed the enforcing terminal verdict:
+
+```text
+2B GATE PASSED: habit is an output of temperature alone (same domain, same everything, T only)
+```
+
+- −5 °C plate: `size-target` at step 814, attached 18,193, extent 61, aspect ratio
+  `0.118644`, symmetry error 0, every relaxation converged, maximum smoother drift
+  `7.262e-14` against limit `2.924e-10`, and checkpoint round trip identical.
+- −15 °C column: `size-target` at step 330, attached 1,159, extent 61, aspect ratio
+  `12.2000`, symmetry error 0, every relaxation converged, maximum smoother drift
+  `1.001e-13` against limit `2.924e-10`, and checkpoint round trip identical.
+- Both runs report worst divergence `1.000e-7` at rounded display precision, while the enforcing
+  unrounded comparisons passed the frozen strict `< 1e-7` criterion. Maximum kinetic fill was
+  `0.1000`; no contact, stalled, step-limited, or unconverged termination occurred.
+
+Stable local evidence is preserved below `out/phase2b/v5p/`:
+
+| Artifact | Bytes | SHA-256 |
+|---|---:|---|
+| `gate2b-v5p-20260719_204213.log` | 135,074 | `ea69d65ab5baf4c06d0f6947683f4f7c580ebec3d3590f7db83b7730a14c45e6` |
+| `gate2b-v5p-20260719_204213.err` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+| `gate2b-v5p-20260719_204213.exit-status.txt` | 3 | `13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354` |
+| `gate2b-v5p-plate.ckpt` | 15,041,088 | `c81f45b7efba2a4db92da0b3871e919e74b93e3a8a99663add4103d58e8b532f` |
+| `gate2b-v5p-column.ckpt` | 15,041,089 | `28e97c088b3ce6ad3bd1d15f1a3638b1a1ac17092aacb2c07b085c04432a669a` |
+
+The final pre-launch same-reviewer recheck of `0dc0f86` reported **0 blockers / 0 should-fixes**.
+Post-run reconciliation independently confirmed status 0, empty stderr, both exact hashes and
+lengths, both terminal metric records, both round-trip-identical checkpoint notices, and no
+surviving gate process. All registered Phase 2b criteria passed; Phase 2b is complete.
 
 ## Out of scope
 

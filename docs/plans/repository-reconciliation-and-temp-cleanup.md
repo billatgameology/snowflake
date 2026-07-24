@@ -48,11 +48,11 @@ This maintenance task does not change a charter gate. It is complete when:
 
 - [x] Inventory all root `.tmp-*` directories, Git identities, dirty states, sizes, and live
   processes.
-- [ ] Commit this plan before reconciliation or deletion.
-- [ ] Integrate the isolated Phase 2b history into `main`.
-- [ ] Preserve and authenticate v4, interrupted-v5, and passing-v5p artifacts under `out/phase2b/`.
-- [ ] Update the Phase 2b plans and `docs/PROGRESS.md` with the terminal gate result.
-- [ ] Pass exact root verification on consolidated `main`.
+- [x] Commit this plan before reconciliation or deletion.
+- [x] Integrate the isolated Phase 2b history into `main`.
+- [x] Preserve and authenticate v4, interrupted-v5, and passing-v5p artifacts under `out/phase2b/`.
+- [x] Update the Phase 2b plans and `docs/PROGRESS.md` with the terminal gate result.
+- [x] Pass exact root verification on consolidated `main`.
 - [ ] Remove redundant temporary worktrees and generated directories, then verify clean Git state.
 - [ ] Mark this plan complete and leave the next concrete charter action in `docs/PROGRESS.md`.
 
@@ -77,3 +77,10 @@ This maintenance task does not change a charter gate. It is complete when:
 None for cleanup. Phase 5 planning must separately reconcile the charter's original RTX 4080 /
 Metal+D3D12 hardware assumption with the current RTX 3080 Windows host; this cleanup does not
 silently amend that contract.
+
+## Verification evidence
+
+After merge and evidence reconciliation, exact `npm test` passed: Rule 7 clean over 159 files,
+both TypeScript projects clean, and 43 test files / 793 tests green. The retained output is
+`out/repository-reconciliation-npm-test.log`. The final v5p evidence copy was independently
+re-hashed byte-for-byte against its isolated source before any cleanup target was removed.

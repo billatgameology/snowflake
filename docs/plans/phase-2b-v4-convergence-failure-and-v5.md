@@ -1,9 +1,9 @@
 # Plan — Phase 2b v4 convergence failure and v5 closure attempt
 
 - **Phase:** Phase 2b — attachment becomes physics
-- **Status:** in progress
+- **Status:** complete
 - **Started:** 2026-07-19
-- **Last touched:** 2026-07-19 by Codex
+- **Last touched:** 2026-07-23 by Codex
 
 ## Goal
 
@@ -42,17 +42,18 @@ from tracked-clean execution commit `dce70816e34a6eee8ed15edff3c254d6da7fa7d8`, 
   has no habit meaning.
 - Terminal stderr named four criteria: unconverged termination, extent below 60, failed
   relaxation, and aspect ratio below the column threshold. Exit status was 1.
-- Log: `out/gate2b-rerun-20260717_162624.log`, 116,549 bytes, SHA-256
+- Log: `out/phase2b/v4/gate2b-rerun-20260717_162624.log`, 116,549 bytes, SHA-256
   `9f6ac629a5175cacbe0f55435e638276fdfc018d7ef163855c5a1c2ce0de41e6`.
-- Stderr: `out/gate2b-rerun-20260717_162624.err`, 271 bytes, SHA-256
+- Stderr: `out/phase2b/v4/gate2b-rerun-20260717_162624.err`, 271 bytes, SHA-256
   `17535e98a254c4986eccc919f0e6e70a40dbc3e088b4f3ec70bb9a8190669b10`.
-- Warm checkpoint: `out/gate2b-v4-plate.ckpt`, 15,041,089 bytes, SHA-256
+- Warm checkpoint: `out/phase2b/v4/gate2b-v4-plate.ckpt`, 15,041,089 bytes, SHA-256
   `fee39ec1ebdf481e370661e1ca4a13384b2d6f3a56477db1b35927f2355179a8`.
-- Cold checkpoint: `out/gate2b-v4-column.ckpt`, 15,041,088 bytes, SHA-256
+- Cold checkpoint: `out/phase2b/v4/gate2b-v4-column.ckpt`, 15,041,088 bytes, SHA-256
   `8997d90689fdbe6fb7fe496e4d2780d2f61abe92166e67ed56fa77e65f2de91d`.
 
-All paths above are relative to `.tmp-gate2b-clean-1784305494`. These bytes are immutable; v5
-must use distinct filenames and must not modify, replace, or relabel them.
+The original paths were relative to `.tmp-gate2b-clean-1784305494`; authenticated copies now
+live at the stable primary-tree paths above. These bytes are immutable; v5/v5p use distinct
+filenames and must not modify, replace, or relabel them.
 
 ## Approach
 
@@ -107,8 +108,9 @@ smoother drift and includes it in the divergence numerator. V4 remains immutable
 - [x] Pass targeted numerical checks, permanent controls, and exact `npm test`.
 - [x] Freeze and commit the complete v5 protocol before any two-temperature morphology run.
 - [x] Complete independent adversarial repair review with no unresolved findings.
-- [ ] Execute the flagless v5 pair once from a clean isolated worktree and validate all artifacts.
-- [ ] Record the result in this plan and `docs/PROGRESS.md`; close Phase 2b only if every criterion
+- [x] Execute decision 0015's flagless concurrent v5p replacement once from a clean isolated
+  repository and validate all artifacts.
+- [x] Record the result in this plan and `docs/PROGRESS.md`; close Phase 2b only if every criterion
   passes.
 
 ## Repair evidence before protocol freeze
@@ -275,6 +277,24 @@ and canonical checkpoint SHA-256
 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Exact `npm test` after all
 execution-routing changes passes Rule 7 over 156 files, both TypeScript projects, and 791/791
 tests across 43 files.
+
+## Terminal execution result
+
+The first sequential-v5 execution at reviewed commit `dd762f0` was interrupted by accidental host
+shutdown during warm step-189 relaxation. It produced no checkpoint, no wrapper status, no
+terminal verdict, and never started the cold role. Its immutable liveness-only log and stderr are
+preserved below `out/phase2b/v5-interrupted/` with SHA-256 values
+`7b19399678bbc9c5696b30dcfbb0f84fba8b3aee97ba367da8fec28bf2e5a610` and
+`61ee8cd4a9ad5d215ef299be3dcfb018d3a693505767f562704e256025d4632b`.
+
+Decision [0015](../decisions/0015-parallel-phase2b-temperature-pair.md) then pre-registered v5p,
+changing only scheduling and artifact names. Its reviewed flagless execution at `0dc0f86` exited
+0: the −5 °C role reached extent 61 with aspect ratio `0.118644`, and the −15 °C role reached
+extent 61 with aspect ratio `12.2000`. Both had exact symmetry, size-target termination, all
+relaxations converged, bounded float64 smoother drift, fill-CFL and Péclet controls satisfied,
+and round-trip-identical checkpoints. The complete artifact table and hashes are in
+[the v5p plan](phase-2b-v5p-parallel-retry.md#terminal-v5p-result). This satisfies the frozen
+Phase 2b milestone; the earlier v3 negative and v4 execution-invalid records remain immutable.
 
 ## Out of scope
 
