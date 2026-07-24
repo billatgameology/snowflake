@@ -1,8 +1,8 @@
 # Plan — Phase 5: WebGPU solver port and Windows D3D12 conformance
 
 - **Phase:** Phase 5 — GPU port
-- **Status:** WP1 and WP2 are independently accepted; WP3 code/evidence is accepted with zero
-  blockers, and its sole docs-only closure awaits zero-finding re-review before WP4
+- **Status:** WP1, WP2, and WP3 are independently accepted; WP4 has entered its reviewed-design
+  boundary and no LK GPU implementation exists yet
 - **Started:** 2026-07-23
 - **Last touched:** 2026-07-24 by Codex
 
@@ -908,6 +908,133 @@ WP3 closes only when all of the following hold:
   unexpected losses are zero, exact root tests and the app build pass, and an independent
   reviewer reports zero blockers and zero should-fixes.
 
+## WP4 `LibbrechtKinetics` design
+
+WP4 implements only the forward `aggregate-hv-g1h1-v5` policy. It does not port `legacy-v3` or
+aggregate v4, change either CPU solver, reinterpret the accepted LK v2 checkpoint, or publish the
+flagless Phase 5 lane. The CPU `LKSolver` remains the semantic oracle. WP4 owns the production
+GPU operator, exact small-fixture comparison probe, and pure checkpoint conversion primitives;
+WP5 owns authenticated checkpoint artifacts, the lane runner, and aggregate publication.
+
+The public seam is `GpuLkSolver`, backed by a claimed `lk` `GpuBufferArena` and the existing
+generation-bound `GpuSubmissionController`. Construction snapshots and validates every input
+before the first upload: f32 `sigma` and `f`; exact occupancy, wall, topology, and boundary
+order; complete aggregate-v5 controls; tick, time, cumulative ledgers, and temperature-segment
+state. Active unattached `sigma` may be signed but must be finite and at least `-1`; attached
+and wall cells retain the strict zero-field meanings of LK v2. Any validation-only rejection
+leaves the solver usable. A failed or partially submitted state mutation poisons the instance,
+because host metadata may no longer describe the resident buffers.
+
+### Relaxation pipelines and deterministic reductions
+
+One aggregate-v5 sweep has this immutable order:
+
+1. an in-plane reflecting pass with the oracle's canonical three-pair sort/sum;
+2. a vertical reflecting pass into the other sigma buffer, directly writing the signed
+   candidate-minus-input drift term and maximum absolute sweep input;
+3. a full-grid nonlinear boundary solve from that one immutable post-smoother candidate,
+   caching `sigmaOpp`, `sigmaB`, and `alphaHK` per boundary pixel without modifying the
+   candidate;
+4. deterministic reduction of signed boundary replacement and minimum local exchange, followed
+   by a separate boundary publication pass;
+5. Dirichlet-shell clamp and signed shell-injection reduction, or no clamp in reflecting mode;
+6. residual reduction over active unattached cells and a one-invocation convergence decision.
+
+The shader derives the raw `nT/nZ` counts from exact occupancy. Aggregate classification is
+`[01]/[02]` basal, `[10]` inhibited, `[20]` prism, and every other valid nonzero configuration
+rough. Host uniforms carry the source-defined temperature interpolation results and derived
+`dx/X0`, `vKin/dx`, and saturation-density ratio; WGSL evaluates the same nucleation law and
+counter-based noise bit. The damped self-consistent solve runs its fixed 60-iteration ceiling,
+then independently checks its binary32 fixed-point residual. Nonpositive opposing
+supersaturation is preserved exactly with zero kinetic coefficient and zero demand.
+
+Every sum/max/min uses the frozen 256-lane pairwise/tree shape and the existing bounded dispatch
+planner. No float atomic participates in a numerical result. The signed smoother drift is
+metered before boundary replacement and clamping, never inferred, and must satisfy
+`64 * activeCellCount * 2^-23 * maxAbsSweepInput` (zero for an exact zero field). Fixed-sigma
+convergence requires both `residual < relaxTol` and
+`abs(shellInjection + smootherDrift - surfaceExchange) /
+max(abs(surfaceExchange), 1e-300) < divTol`. Reflecting mode is residual-only and reports null
+shell/divergence diagnostics.
+
+Relaxation is encoded in bounded multi-sweep segments. A GPU-resident convergence flag makes all
+passes after the first accepted sweep in a segment no-ops while preserving the exact first
+accepted sweep count and ping-pong owner. Only the compact segment report is read back; complete
+fields stay resident. Segment size is selected below the registered 500 ms submission ceiling
+and is not allowed to change numerical order. An unconverged sweep cap returns an explicit
+incomplete state; it never authorizes the interface update.
+
+### Interface, topology, ledgers, and timeline
+
+`GpuLkSurface` consumes only the cached tuple from the accepted final relaxation sweep. It
+computes one rate per boundary pixel, `alphaHK * vKin * sigmaB / dx`, reduces the maximum
+deterministically, sets `dt = cflFill / maxRate`, and applies the same `dt` to every boundary
+pixel. A separate flag pass records saturation decisions and unapplied excess before topology
+changes. Hole fill then uses raw start-of-interface `nT >= 4 && nZ >= 1`, remains outside the
+kinetic CFL, and records its full deficit. A serial order-preserving compaction pass removes
+attachments and appends newly exposed neighbors in the CPU oracle's attachment/neighbor order;
+a parallel publication pass updates the canonical boundary buffer.
+
+The exact per-step identity is reduced from raw per-pixel values:
+
+```text
+placed fill + saturation-clipped fill = computed kinetic demand
+```
+
+Placed fill, clipping, hole deficit/count, maximum increment, maximum fill velocity, attachment
+delta/order, physical-time increment, and complete `SurfaceReport` fields are returned in a
+compact report. The high-level solver accumulates those compact f32-produced deltas in host
+binary64 metadata, including each placed-fill delta at that step's current `M_ice`. This is
+permitted compact state, not a full-field readback. It preserves the temperature-segment
+bookkeeping contract while `sigma`, `f`, occupancy, caches, topology, and render flags stay on
+the device.
+
+`applyTimelineEnvironment` is accepted only at a completed interface boundary. It validates and
+derives the whole target environment first, then one GPU pass applies
+`sigmaNew = (1 + sigmaOld) * cSat(oldT) / cSat(newT) - 1` to every active unattached cell,
+including the active Dirichlet shell, without clamping negative values. Deterministic reductions
+produce before/after normalized density sums, transformed interior/shell counts, and maximum
+cell error. Only after successful completion does the host commit temperature, far-field target,
+derived kinetics, ledger segment boundary, and event record; the next relaxation performs the
+explicit shell reclamp. Caches/readiness are invalidated atomically and the event consumes no
+tick or physical time.
+
+### Conversion, comparison, and failure controls
+
+WP4 adds strict pure helpers at the CPU/GPU boundary:
+
+- LK v2 CPU-to-GPU import consumes only a successfully decoded `core` state, validates metadata
+  and lengths, preserves discrete controls exactly, and rounds each f64 field value once to
+  nearest-even f32.
+- Explicit GPU-to-CPU export reads the complete state only under a checkpoint/evidence readback
+  purpose, widens each f32 exactly to f64, and returns data accepted by the unchanged LK v2
+  encoder. The widen/encode/decode/round loop must preserve every original f32 bit.
+- No display path may call either helper, and no mutable cache absent from LK v2 is smuggled into
+  the wire meaning. A resumed export starts at a cycle boundary and must relax again before
+  advancing.
+
+The WP4 D3D12 probe runs all three frozen blocking LK fixtures plus the fill-margin, nonlinear
+boundary, and signed-subsaturation stress diagnostics. For every blocking fixture it compares
+the complete WP0 LK inventory: raw `sigma`/`f`, exact occupancy/walls/topology/boundary order,
+cached boundary tuple, attachment delta, reports, convergence diagnostics, ledgers, time,
+derived scales, event records, density/reservoir diagnostics, stop reason, metrics, and noise
+witnesses. The harness reconstructs boundary membership, raw counts, cached opposing means,
+fill demand, drift identity/bound, and decision margins independently from read-back raw state.
+The blocking fill margin must remain at least `4e-4`; tolerances remain the WP0 v3 values.
+
+Targeted mutations must fail independently: residual-only acceptance; inferred, omitted, or
+over-bound smoother drift; unordered/changed reduction shape; in-place boundary replacement;
+wrong aggregate facet mapping; cache/growth mismatch; noise on only one side; per-contact fill;
+silent saturation loss; hole fill counted as kinetic CFL; advance after unconverged or stale
+relaxation; signed-value clamp; skipped shell transform/reclamp; final-temperature ledger
+rescaling; topology append reordering; stale generation; full-field display readback; and
+checkpoint f32-bit loss.
+
+WP4 closes only when focused tests, both TypeScript projects, the app build, exact root
+`npm test`, and a clean-tree canonical Windows/Chromium/D3D12 probe all pass with zero GPU
+errors/loss and bounded submissions; the implementation/evidence commit is then independently
+reviewed to zero blockers and zero should-fixes. WP5 may begin only after that exact closure.
+
 ## Steps
 
 - [x] Record decision 0016, synchronize charter v1.14, and create this cold-start handoff.
@@ -933,7 +1060,7 @@ WP3 closes only when all of the following hold:
       passes every registered field tolerance and rejects wrong clamp with both GPU error
       channels empty. Round 3 accepted code/evidence with zero findings; its sole docs should-fix
       is closed by the immediately following handoff-only commit.
-- [ ] **WP3 — `GGThreshold`.** Port complete cycles with parameter events, noise, melting,
+- [x] **WP3 — `GGThreshold`.** Port complete cycles with parameter events, noise, melting,
       attachment, hole filling, mass ledger, metrics, and stop-rule parity. Keep CPU state
       untouched and compare through the frozen harness.
       Candidate `12f7af4` passed provisional v3 D3D12 execution, but independent review round 1
@@ -974,8 +1101,8 @@ WP3 closes only when all of the following hold:
       `a0578ffecdcf15688343b8a50e8d96d1032bd6cc51e2256a4bf5036fd6a51827`), with 778 bounded
       submissions, 946 audited test readbacks, zero display-frame full-field reads, and zero GPU
       errors/loss. Same-reviewer round 2 reports zero blockers and accepts all code/evidence; its
-      sole should-fix is this stale post-run handoff. This docs-only closure records the result
-      and must receive a zero-finding re-review before the checkbox closes and WP4 begins.
+      sole should-fix was this stale post-run handoff. Docs closure
+      `39d8b435ef638608b98480cb7f052adb845e9ad1` received zero-finding re-review; WP3 is closed.
 - [ ] **WP4 — `LibbrechtKinetics`.** Port the coupled aggregate-v5 relaxation/interface operator,
       including dual Dirichlet convergence, reflecting diagnostics, signed smoother drift,
       boundary-pixel fill, CFL, ledgers, schedules, and checkpoint conversion.

@@ -675,7 +675,16 @@ in charter §3.1 and get no retroactive ADR.
   `9f7a7b476a17e9f47849cc323d49e928fc177b65`: focused tests pass 21/21, exact root
   verification passes 47 files / 833 tests, the 33-module app build passes, and the canonical
   clean D3D12 probe passes every registered comparison and negative with zero uncaptured errors
-  and no unexpected device loss. WP3 design is next; no WP3 code exists yet.
+  and no unexpected device loss. WP3 is independently closed at docs closure
+  `39d8b435ef638608b98480cb7f052adb845e9ad1`: exact root verification passes 49 files /
+  849 tests, the app build passes, and canonical D3D12 log
+  `out/wp3-canonical-0ff70b6.log` has SHA-256
+  `a0578ffecdcf15688343b8a50e8d96d1032bd6cc51e2256a4bf5036fd6a51827`, zero GPU
+  errors/loss, 778 bounded submissions, 946 audited test readbacks, and zero display-frame
+  full-field reads. Both blocking G-G fixtures pass exact discrete comparisons and unchanged
+  frozen tolerances; same-reviewer closure found zero blockers and zero should-fixes. The next
+  action is to commit and independently review the detailed WP4 aggregate-v5 design in the
+  active plan before writing LK GPU code.
 
 ## Completed plans
 
