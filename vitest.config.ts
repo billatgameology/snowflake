@@ -5,6 +5,7 @@ export default defineConfig({
     include: [
       "core/test/**/*.test.ts",
       "solver-cpu/test/**/*.test.ts",
+      "solver-gpu/test/**/*.test.ts",
       "runner/test/**/*.test.ts",
       "app/test/**/*.test.ts",
     ],

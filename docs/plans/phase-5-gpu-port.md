@@ -1,8 +1,8 @@
 # Plan — Phase 5: WebGPU solver port and two-backend conformance
 
 - **Phase:** Phase 5 — GPU port
-- **Status:** WP1 package/transport design frozen; implementation in progress on Windows, while
-  the mandatory M4 capability record remains an external gate precondition
+- **Status:** WP1 package/transport implementation passes on Windows D3D12; cross-backend closure
+  and WP2 entry await the mandatory M4 capability/conformance record and independent review
 - **Started:** 2026-07-23
 - **Last touched:** 2026-07-24 by Codex
 
@@ -496,6 +496,29 @@ fixture, tolerance, criterion, lane, or evidence meaning.
   required-limit negative controls with zero uncaptured errors. The absent M4 record is reported
   honestly and remains required before the first cross-backend milestone.
 
+### WP1 Windows implementation result
+
+The environment-neutral `@vcc/solver-gpu` implementation now exists downstream of its committed
+design freeze. It provides the frozen structure-of-arrays plans, checked non-cubic index ABI,
+uniform encoder/WGSL declaration, exact counter-PRNG transcription, word-copy transport,
+capability and allocation rejection, generation-scoped resource/submission ownership, bounded
+dispatch ranges, and audited readback. No diffusion or surface-operator shader exists.
+
+On the registered Windows host, `node app/scripts/phase5-wp1.mjs` used the pinned Playwright
+Chromium and observed D3D12. Coordinate mapping had 0/3,553 mismatches; the injected j/k mutation
+had 3,366 mismatches and exactly matched the independently computed mutated output; mixed u32/f32
+bit-copy had 0/4,096 mismatches; and counter-PRNG output had 0/3,553 mismatches. All eight
+dev/preview GG/LK allocation cases succeeded sequentially, both preview dispatch plans were
+contiguous with at most 16,384 workgroups/range, the required-limit and full-field-display-frame
+negative controls failed closed, and uncaptured GPU errors were zero. Detailed and bake support
+was capability-reported from observed limits only; it is not acceptance evidence.
+
+Exact root `npm test` then exited 0 in 357.4 seconds: Rule 7 was clean over 177 files, both
+TypeScript projects passed, and 46 files / 816 tests passed. `npm run build -w app` transformed
+33 modules and exited 0. This establishes a Windows implementation candidate, not WP1 closure:
+the required Metal replay and an independent review are absent, so the WP1 checkbox remains open
+and the serial stage contract forbids starting WP2.
+
 ## Steps
 
 - [x] Record decision 0016, synchronize charter v1.14, and create this cold-start handoff.
@@ -508,9 +531,10 @@ fixture, tolerance, criterion, lane, or evidence meaning.
       this freeze before `solver-gpu/` exists. Completed on the Windows host with the M4 lane
       explicitly recorded as unreachable/unobserved; that missing record blocks cross-backend
       milestones and the final gate, but does not authorize a Windows substitute.
-- [ ] **WP1 — package and transport.** Scaffold `solver-gpu/`; implement adapter/limit reporting,
-      checked layout/indexing, buffer lifecycle, PRNG parity, bounded submission plumbing, and
-      test-only readback. Pass layout/capability negative controls on Windows and Metal.
+- [ ] **WP1 — package and transport.** Windows implementation and D3D12 conformance are complete
+      with 0 coordinate/copy/PRNG mismatches, all eight blocking allocation cases passing, and
+      zero uncaptured errors. Pass the same layout/capability controls on Metal and obtain
+      independent clean review before closing this item or starting WP2.
 - [ ] **WP2 — diffusion.** Implement and independently validate one and repeated masked-average
       diffusion passes for reflecting and fixed-σ boundaries on both backends.
 - [ ] **WP3 — `GGThreshold`.** Port complete cycles with parameter events, noise, melting,
@@ -570,6 +594,9 @@ fixture, tolerance, criterion, lane, or evidence meaning.
   six minutes on this host. A 10-second wrapper timeout left its Vitest child running and
   produced no trustworthy status; that child was allowed to finish, then a fresh uncontended
   `npm test` with a 10-minute command bound produced the recorded exit-0 result.
+- **Rely on WGSL operator precedence for the coordinate hash.** Rejected by the pinned Chromium
+  compiler, which fails mixed multiplication/XOR expressions without explicit parentheses.
+  The hash terms are now individually parenthesized; the corrected real-device run is exact.
 
 ## Remaining external gate precondition
 
