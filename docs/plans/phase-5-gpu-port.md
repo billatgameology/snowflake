@@ -1,8 +1,8 @@
 # Plan — Phase 5: WebGPU solver port and Windows D3D12 conformance
 
 - **Phase:** Phase 5 — GPU port
-- **Status:** WP1, WP2, and WP3 are independently accepted; WP4 has entered its reviewed-design
-  boundary and no LK GPU implementation exists yet
+- **Status:** WP1, WP2, and WP3 are independently accepted; WP4 design is independently accepted
+  and LK GPU implementation is the active work
 - **Started:** 2026-07-23
 - **Last touched:** 2026-07-24 by Codex
 
@@ -1202,8 +1202,12 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
       zero-exchange state, nonzero-exchange overflow rejection, bit-preserving same-temperature
       ledger rule/mutation, and independent fixture/predicate/extrema recomputation. Exact
       root `npm test` passes 50 files / 852 tests in 368.3 seconds; both TypeScript projects,
-      Rule 7 over 192 files, focused v4 tests 13/13, and the 33-module app build also pass. Exact
-      same-reviewer closure remains required before WGSL begins.
+      Rule 7 over 192 files, focused v4 tests 13/13, and the 33-module app build also pass.
+      Same-reviewer round 3 authenticated exact clean commit
+      `87150eb8d0835d7bf5fd595d075dd9a6f92ef4dd`, independently reran those checks and the direct
+      shadow, and returned zero blockers and zero should-fixes. Production LK WGSL may proceed
+      under this exact accepted design; the implementation/evidence commit still requires its own
+      zero-finding review before WP5.
 - [ ] **WP5 — headless runner and evidence boundary.** Land the selected runtime, flagless gate,
       strict manifest/report/index publication, complete exit semantics, and every adversarial
       bypass test. Re-run permanent Phase 2a, Phase 2b, gate3, and gate4 regression controls where
