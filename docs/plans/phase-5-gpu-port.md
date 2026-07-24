@@ -1,11 +1,10 @@
 # Plan — Phase 5: WebGPU solver port and two-backend conformance
 
 - **Phase:** Phase 5 — GPU port
-- **Status:** WP0 criteria/backend freeze complete and self-reviewed; WP1 is next, while the
-  mandatory M4 capability record remains an external gate precondition; `solver-gpu/` remains
-  absent
+- **Status:** WP1 package/transport design frozen; implementation in progress on Windows, while
+  the mandatory M4 capability record remains an external gate precondition
 - **Started:** 2026-07-23
-- **Last touched:** 2026-07-23 by Codex
+- **Last touched:** 2026-07-24 by Codex
 
 ## Goal
 
@@ -458,6 +457,44 @@ WP0 supplies exact subcriterion names and numerical tolerances, but it may not r
 The gate is a flagless runner command to be named and frozen in WP0. Exit 0 is the aggregate
 claim; printed metrics from exploratory runs are not gate evidence. The canonical gate is not run
 until all preconditions and regression controls pass on tracked-clean commits.
+
+## WP1 package/transport design
+
+This is an implementation design downstream of the immutable WP0 manifest; it changes no
+fixture, tolerance, criterion, lane, or evidence meaning.
+
+- `solver-gpu/` is an environment-neutral browser package depending only on `@vcc/core`.
+  It owns WebGPU resources, WGSL, checked layouts, and command submission. It has no Node I/O,
+  no Three.js dependency, and no CPU-solver dependency.
+- Grid uniforms are one 48-byte, 16-byte-aligned record: `dims: vec3<u32>`, `cellCount`,
+  `plane`, `baseCell`, `generation`, `rngSeed`, `tick`, `streamId`, and two reserved words.
+  Host offsets and the WGSL declaration are asserted together.
+- Every per-cell buffer is a structure-of-arrays element of exactly four bytes. Shared buffers
+  are occupancy, wall, packed topology, boundary indices, two scalar scratch buffers, noise,
+  reduction, and render flags (36 bytes/cell). G-G adds separately named boundary-mass and two
+  vapor ping-pong buffers (48 bytes/cell total). LK adds separately named fill, two
+  supersaturation ping-pong buffers, boundary attachment coefficient, boundary supersaturation,
+  and opposing supersaturation (60 bytes/cell total). The separate names preserve the
+  operator-specific field meanings and stay below WP0's 64-byte ceiling.
+- A shader pass binds at most eight storage buffers. Allocation validation checks safe integer
+  products, 4-byte alignment, per-buffer limits, aggregate bytes, operator tag, and exact
+  dimensions before creating anything. Failed construction destroys every buffer already
+  created. Explicit destruction is idempotent and generation-scoped.
+- One dispatch range covers at most 16,384 workgroups of 256 cells, or 4,194,304 cells. Larger
+  domains become ordered ranges with explicit `baseCell`; the last range is bounds-checked.
+  This stays below the frozen adapter limit and gives later physics passes a fixed bounded
+  submission seam without claiming that cell count alone proves the timing gate.
+- The WP1 shaders are transport-only: coordinate-hash, exact u32 copy, and counter-PRNG parity.
+  The PRNG is a direct u32 WGSL transcription of `core/hashCounter`; no sequential state exists.
+  Production diffusion remains forbidden until WP2.
+- Readback requires a named purpose, byte range, and generation. The audit rejects full-field
+  display-frame reads, records every requested/copied byte, and permits only test, named-probe,
+  compact-metric, evidence-snapshot, or explicit-checkpoint purposes.
+- WP1 closes when pure tests cover layout/overflow/budget/resource/submission/readback failures
+  and the pinned Chromium probe on the RTX 3080 runs the non-cubic coordinate fixture, exact
+  copy, counter-PRNG parity, dev/preview allocations, bounded ranges, and the axis-swap plus
+  required-limit negative controls with zero uncaptured errors. The absent M4 record is reported
+  honestly and remains required before the first cross-backend milestone.
 
 ## Steps
 
