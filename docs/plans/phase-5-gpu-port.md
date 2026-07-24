@@ -661,8 +661,9 @@ that completed destination as the next source. The active-buffer identity is exp
 there is no in-place update or implicit parity guess. Occupancy, wall, and shell masks are
 uploaded separately and validated for exact length, binary values, disjoint attached/wall
 membership, and active-only shell membership. Options are snapshotted and validated before any
-GPU allocation or upload. A failed construction destroys all WP2-owned resources and never
-changes the caller-owned WP1 arena.
+GPU allocation or upload. A pre-upload failure destroys every WP2-owned resource and leaves the
+caller arena reusable. Once arena upload begins, any queue/device failure destroys that arena
+rather than exposing partially initialized buffers for silent reuse.
 
 WP2 reuses WP1’s bounded dispatch ranges and generation-scoped submission controller. Every
 range receives immutable uniform bytes, so a later `queue.writeBuffer` cannot silently retarget
@@ -684,6 +685,33 @@ WP2 closes only when:
 - zero device losses, uncaptured errors, hidden retries, or full-field display-frame readbacks
   occur; test-purpose readback is audited; exact root tests and the app build pass; and an
   independent reviewer reports zero blockers and zero should-fixes.
+
+### WP2 implementation candidate
+
+The implementation candidate adds a strict input/uniform ABI, production G-G diffusion
+pipelines, explicit active-vapor ownership, exclusive generation-scoped submission, audited
+full-field test readback, and a pinned Chromium probe. It keeps every field GPU-resident between
+registered observations and executes noise, in-plane diffusion, vertical diffusion, optional
+drift, commit, and post-commit Dirichlet clamp as ordered dispatches. Explicit WGSL `fma`
+expressions reduce binary32 rounding relative to the float64 oracle without changing a frozen
+tolerance or CPU implementation.
+
+The provisional dirty-tree D3D12 run exercised all four fixtures. Reflecting pass 1/64 and both
+dev one-pass cases had maximum absolute error `1.4901161415892261e-9`. The noisy/drifting
+Dirichlet case had pass-1 maximum absolute/RMS error
+`1.7707778396380824e-8` / `6.236895619658439e-9`; at pass 64 those were
+`4.623779701201647e-7` / `1.8798277887340792e-7`, inside the frozen
+`2e-6` / `2e-7` limits, with maximum relative error `4.42435275103415e-6`.
+Skipping the post-pass clamp produced maximum absolute/RMS error
+`0.018228875100612635` / `0.006723246872232541` and was rejected. The run used seven
+generation-scoped submissions and seven audited test reads, performed zero display-frame
+full-field reads, and observed zero uncaptured GPU errors. Its report correctly exited 1 only
+because the implementation was not yet committed and the probe requires a tracked-clean tree.
+
+Focused GPU verification passes 26/26 tests, both TypeScript projects pass, and the app build
+transforms 33 modules. Exact root `npm test` then exited 0 in 384.1 seconds: Rule 7 was clean
+over 182 files, both TypeScript projects passed, and 47 files / 828 tests passed. Candidate
+commit, canonical clean D3D12 replay, and independent review remain required before WP2 closes.
 
 ## Steps
 
@@ -783,6 +811,12 @@ WP2 closes only when:
 - **Let callers opt out of an already-active display-frame scope by omitting its token.** Rejected
   by WP1 review round 3. Active audit state, not an optional request field, now determines display
   classification; every read during that scope requires the exact audit-issued token.
+- **Force every WGSL intermediate through the operation-rounded shadow sequence.** Rejected after
+  the real D3D12 64-pass noisy/drifting fixture produced RMS error `2.0899141975678157e-7`,
+  narrowly above the independently frozen `2e-7` bound. The tolerance was not relaxed. Explicit
+  WGSL fused multiply-adds instead reduced error against the unchanged float64 oracle to
+  `1.8798277887340792e-7`; the separate binary32 shadow remains a diagnostic witness rather than
+  the implementation target.
 
 ## Deferred Metal extension
 

@@ -175,6 +175,20 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   bake/operator cases rejected from negotiated limits, and zero uncaptured errors. The final
   same-reviewer provenance audit accepted the commit parent, exact ten-file tree/blob identity,
   object integrity, and both complete probe predicates with zero blockers and zero should-fixes.
+- **Phase 5 WP2 has a numerically passing implementation candidate; review is not yet earned.**
+  Production WGSL and host orchestration implement the frozen noise/in-plane/vertical/drift/
+  commit/post-commit-clamp graph with explicit ping-pong ownership and generation/in-flight
+  rejection. A provisional dirty-tree RTX 3080 D3D12 run passed all six registered field
+  comparisons: the limiting noisy/drifting Dirichlet pass-64 result was maximum absolute
+  `4.623779701201647e-7`, RMS `1.8798277887340792e-7`, and maximum relative
+  `4.42435275103415e-6`, within the frozen `2e-6` / `2e-7` / `2e-4` limits.
+  The wrong-clamp mutation failed decisively at maximum absolute `0.018228875100612635` and RMS
+  `0.006723246872232541`. Seven submissions and seven audited test readbacks completed with zero
+  display-frame full-field reads and zero uncaptured GPU errors. Focused GPU tests pass 26/26,
+  both TypeScript projects pass, and the 33-module app build is green. Exact root `npm test`
+  exited 0 in 384.1 seconds: Rule 7 was clean over 182 files, both TypeScript projects passed,
+  and 47 files / 828 tests passed. This is provisional: a candidate commit, canonical clean
+  replay, and independent zero-finding review are still required.
 - **Phase 2b v5 execution update:** reviewed sequential execution commit `dd762f0` was interrupted
   by accidental host shutdown during warm step-189 relaxation, after completed step 188. No warm
   checkpoint, exit status, terminal verdict, or cold start exists; the attempt is incomplete
@@ -797,12 +811,12 @@ the isolated clone rooted at `G:/Code Files/snowflake/out/worktrees/phase5-wp1/`
 Git history contains the accepted WP1 commit
 `afd94078e515236124bace82ff263390d80609f9`; the primary workspace remains a read-only-metadata
 source and must not be mistaken for the clean execution tree. The WP2 design in the active plan
-now freezes the exact GPU-resident noise/in-plane/vertical/drift/commit/clamp pass graph, explicit
-ping-pong ownership, strict mask/input validation, and the real-device wrong-clamp negative. Commit
-that design before shader code, then implement it and independently validate every registered
-one- and repeated-pass comparison on Windows D3D12 against the unchanged CPU fixtures and frozen
-tolerances. Update this handoff after meaningful WP2 steps, and do not begin WP3 until WP2 receives
-clean review.
+is committed at `037de8d`; the implementation candidate now passes every registered numerical
+comparison and its real-device wrong-clamp negative provisionally. Run exact root `npm test`,
+commit the bounded WP2 implementation, replay `node app/scripts/phase5-wp2.mjs` from that
+tracked-clean commit, and send the commit plus complete report to an independent review subagent.
+Repair every blocker and should-fix through a clean same-scope re-review. Do not begin WP3 until
+WP2 receives zero-finding review and this handoff records the clean commit and canonical probe.
 
 Protocol `phase5-gpu-conformance-windows-v2` is frozen at SHA-256
 `223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`; changing a fixture,
