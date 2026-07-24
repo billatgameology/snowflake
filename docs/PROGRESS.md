@@ -249,8 +249,8 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   [0007](decisions/0007-phase3-overlaps-2b-evidence-run.md)** (charter v1.5): maker-directed
   overlap with the tail of the v3 evidence run. Decision
   [0008](decisions/0008-phase3-completes-after-2b-exit.md) (charter v1.6) then authorized
-  condition-independent completion. Phase 3 is now evidence-complete and awaiting maker
-  assertion; its plan is:
+  condition-independent completion. Phase 3 is maker-asserted complete as of 2026-07-23; its
+  plan is:
   [phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md) — criteria-first,
   serial dev/review subagent work packages; the completed gate2b evidence remains immutable.
 - **Concurrent plan (2b):** [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) — rewritten for decision
@@ -444,7 +444,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ✅ **maker-asserted, 2026-07-15** — informal sessions, positive; the four-task protocol was *not* run (recorded honestly in the plan's Findings, with the Phase 7 takeaways) |
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited; follow-up evidence hardening complete) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Post-hardening `cmp` is bit-identical, SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Full records: [solver plan](plans/phase-2-cpu-solver.md), [hardening plan](plans/phase-2a-evidence-hardening.md) |
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ✅ **complete, 2026-07-20.** One flagless v5p run at tracked-clean `0dc0f86`, pre-registration `8adea86`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exited 0. Same `96×96×96` hexPrism, extent target, fixed-σ far field, `sigmaInfinity=0.002`, pressure, spacing, mapping, seed 1, noise 0, CFL, and convergence controls; temperature alone differed. −5 °C: step 814, extent 61, attached 18,193, AR `0.118644` plate. −15 °C: step 330, extent 61, attached 1,159, AR `12.2000` column. Both: size-target, symmetry error 0, every relaxation converged, bounded smoother drift, checkpoint round trip identical. The depleted-start differential was 3/3 and permanent Phase 2a control retained canonical SHA-256 `f1796b5015…a389`. Final log SHA-256 `ea69d65a…c45e`, status 0, empty stderr; complete evidence: [v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result). V3 negative and v4 execution-invalid history remain preserved. |
-| 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | 🔶 **evidence-complete, pending maker assertion** (2026-07-16) — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
+| 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ✅ **maker-asserted complete, 2026-07-23** — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ✅ **complete, 2026-07-18** — one canonical `node runner/src/main.ts gate4` at `70a2496`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exit 0 in 7,178.8 s. Pass A: 13 runs, 24/24 records green; plate/column AR `0.0666667`/`1.66667`; five-point sweep strictly increasing; depletion median `0.770238`, 7/7 samples below one, width 7→13; three distinct reproducible open-hollow occupancies; cap score `1.3`; dendrite/compact branches 6/0 at independent first reservoir crossings (cycles 4,775/5,450, extents 99/83). A manifest/report/index SHA-256: `e5e85c70…8644` / `bcb29e05…7188` / `92346e3e…1917`. Pass B: 11 runs, 12/12 execution records green; three morphology diagnostics pass and five honestly miss (depletion, widening, hollowing, capped history, branch). B manifest/report/index: `c0ceed5b…e812` / `22c8a92c…fa2d` / `5644f838…5cb0`. Aggregate v2 SHA-256 `194f837d…d8e2`, `gatePass=true`, `passBDiagnosticPass=false`. Real `node app/scripts/visual.mjs --phase4`: 20/20 original-resolution captures inspected by coordinator and reviewer, zero absent/error/clipped/hash-mismatch views, manifest `19e0fcfe…573b`. Post-publication exact root suite 779/779 and 33-module build green; final same-reviewer verdict on repair `b7153cc`: CLEAN, 0 blockers / 0 should-fixes. Full record: [v2 plan](plans/phase-4-v2-reservoir-matched-branch-control.md). |
 | 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
@@ -530,6 +530,10 @@ in charter §3.1 and get no retroactive ADR.
 
 ## Completed plans
 
+- [phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md) — ✅ done 2026-07-23.
+  The maker accepted the previously reviewed flagless gate3 result and its visual evidence:
+  median depletion ratio `0.531454`, 90.2% of samples below one, radius 38, aspect ratio
+  `0.168831`, exact symmetry, and a byte-identical Phase 2a checkpoint.
 - [phase-2b-v5p-parallel-retry.md](plans/phase-2b-v5p-parallel-retry.md) — ✅ done 2026-07-20.
   Reviewed v5p ran the unchanged temperature pair concurrently and exited 0: extent-61 aspect
   ratios `0.118644` at −5 °C and `12.2000` at −15 °C, exact symmetry, all relaxations converged,
@@ -672,22 +676,17 @@ immutable.
 
 ## Next step
 
-**Phase 2b and Phase 4 are complete. Phase 3 remains evidence-complete but still requires the
-maker assertion described below before the sequential charter can advance.** The next concrete
-action is for the maker to review the Phase 3 gate row and its linked
-[plan](plans/phase-3-dev-visualization.md), then explicitly accept or reject that gate. If
-accepted, update the Phase 3 row and create the required Phase 5 criteria-first plan before any
-GPU implementation.
+**Phases 2b, 3, and 4 are complete.** The next concrete action is to record an ADR and synchronize
+the charter for the actual Phase 5 hardware/backend plan, then create the required Phase 5
+criteria-first plan before any GPU implementation.
 
-Before freezing that Phase 5 plan, reconcile a real authority mismatch: decision 0002 and the
-charter still describe an RTX 4080/16 GB plus Metal test host, while the current primary Windows
-machine is an RTX 3080/10 GB system and supplies only the D3D12/Vulkan side. Record the actual
-hardware/backend plan in an ADR and synchronize the charter; do not silently weaken the required
-Metal + D3D12/Vulkan CPU-oracle comparison. The accepted Phase 2b artifacts are stable under
-`out/phase2b/`; do not rerun or relabel v3, v4, interrupted v5, or passing v5p.
+Decision 0002 and the charter still describe an RTX 4080/16 GB plus Metal test host, while the
+current primary Windows machine is an RTX 3080/10 GB system and supplies only the D3D12/Vulkan
+side. The ADR must identify how the Metal backend will be tested and must not silently weaken the
+required Metal + D3D12/Vulkan CPU-oracle comparison. The accepted Phase 2b artifacts are stable
+under `out/phase2b/`; do not rerun or relabel v3, v4, interrupted v5, or passing v5p.
 
-**Phase 3 remains EVIDENCE-COMPLETE and READY FOR EXTERNAL REVIEW (maker-marked 2026-07-16;
-ADRs 0007/0008), orchestrated per
+**Phase 3 is COMPLETE — maker-asserted 2026-07-23 (ADRs 0007/0008), orchestrated per
 [phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md)** — all work packages
 built, adversarially reviewed (R1: 2 rounds to CLEAN incl. one blocker; R2 and R3: CLEAN with
 all should-fixes landed), visually inspected, and the flagless `gate3` evidence run passed
@@ -697,9 +696,8 @@ before the evidence run); `out/gate3.log`, `out/gate3-depletion.csv`,
 `out/gate3-exit-status.txt`, `out/gate3-plate.ckpt` (byte-identical to the accepted 2a
 artifact); the `out/phase3-visual/` captures, reproducible via `node app/scripts/visual.mjs`;
 and the review-loop records in the plan's Steps. Repro commands: `node runner/src/main.ts
-gate3` (evidence) and the Phase 3 plan's recorded suite. **Gate assertion follows that external
-review** — flip the gate row to ✅ if satisfied. Phase 4 does not make that assertion. Traps for
-whoever opens `app/`: the
+gate3` (evidence) and the Phase 3 plan's recorded suite. The maker accepted this evidence on
+2026-07-23 without changing the protocol. Traps for whoever opens `app/`: the
 solver runs ONLY in the worker; checkpoint headers carry exactly the eleven v1 metric keys
 (depletion metrics are print/CSV material — re-adding them to headers needs an ADR, see the
 phase-3 plan's Tried and rejected); the Rule 7 scan covers app code, so Three.js's
