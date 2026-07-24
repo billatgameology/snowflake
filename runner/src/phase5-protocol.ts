@@ -1,12 +1,13 @@
 // Phase 5 criteria-first GPU conformance protocol. The numerical fixtures and tolerances were
-// frozen before solver-gpu existed; decision 0018's Windows-only v2 changes lane/evidence scope
-// without using production GPU output to revise any numerical envelope.
+// frozen before solver-gpu existed. Decision 0018 narrowed v2 to Windows; decision 0019's v3
+// changes only the G-G Dirichlet ledger evidence meaning after a cancellation seam was measured,
+// without revising a numerical envelope.
 
 import type { Dims, DomainShape, FarFieldCondition, GGPresetName } from "@vcc/core";
 
-export const PHASE5_PROTOCOL = "phase5-gpu-conformance-windows-v2";
+export const PHASE5_PROTOCOL = "phase5-gpu-conformance-windows-v3";
 export const PHASE5_PROTOCOL_SHA256 =
-  "223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e";
+  "ce1821df86461cbd7660cbb34c697071bd5d3822a4ca4def042245f569d61e98";
 export const PHASE5_FIXTURES_SHA256 =
   "29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512";
 export const PHASE5_TOLERANCES_SHA256 =
@@ -542,6 +543,24 @@ export const PHASE5_PERFORMANCE = {
   permittedFullFieldReadbacksPerDisplayFrame: 0,
 } as const;
 
+export const PHASE5_GG_DIRICHLET_LEDGER_POLICY = {
+  id: "corrected-mass-invariant-v1",
+  authority: "ADR-0019",
+  directMeterComparison: "required-diagnostic",
+  clampPathWitness: "exact-delta-field-reduction-accumulation",
+  clampPathSigns: ["positive", "negative"],
+  rejectedMutations: [
+    "wrong-sign",
+    "wrong-shell-mask",
+    "omit-one-delta",
+    "scale-deltas",
+  ],
+  withinLaneInvariant:
+    "final-total-mass-bd-minus-dirichlet-meter-vs-initial-total-mass-bd",
+  crossLaneInvariant: "cpu-corrected-mass-vs-gpu-corrected-mass",
+  blockingTolerance: "phase5-mixed-scalar-v1",
+} as const;
+
 export const PHASE5_CRITERIA = [
   "P5-WINDOWS-PROVENANCE",
   "P5-PROTOCOL-MATCH",
@@ -643,7 +662,8 @@ export const PHASE5_NEGATIVE_CONTROLS: readonly Phase5NegativeControl[] = [
   {
     id: "NC-TOLERANCE-BYPASS",
     owner: "P5-NEGATIVE-CONTROLS",
-    mutation: "report pass while one raw comparison exceeds its frozen tolerance",
+    mutation:
+      "report pass while one blocking raw field, scalar, decision, or invariant comparison exceeds its frozen tolerance",
   },
   {
     id: "NC-ARTIFACT-BYTE-MUTATION",
@@ -674,6 +694,7 @@ export interface Phase5ProtocolManifest {
   readonly scalarTolerances: typeof PHASE5_SCALAR_TOLERANCES;
   readonly decisionMargins: typeof PHASE5_DECISION_MARGINS;
   readonly performance: typeof PHASE5_PERFORMANCE;
+  readonly ggDirichletLedgerPolicy: typeof PHASE5_GG_DIRICHLET_LEDGER_POLICY;
   readonly criteria: typeof PHASE5_CRITERIA;
   readonly negativeControls: typeof PHASE5_NEGATIVE_CONTROLS;
 }
@@ -701,6 +722,7 @@ export function phase5ProtocolManifest(): Phase5ProtocolManifest {
     scalarTolerances: PHASE5_SCALAR_TOLERANCES,
     decisionMargins: PHASE5_DECISION_MARGINS,
     performance: PHASE5_PERFORMANCE,
+    ggDirichletLedgerPolicy: PHASE5_GG_DIRICHLET_LEDGER_POLICY,
     criteria: PHASE5_CRITERIA,
     negativeControls: PHASE5_NEGATIVE_CONTROLS,
   };

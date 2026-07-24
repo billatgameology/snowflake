@@ -12,6 +12,7 @@ import {
   PHASE5_FIELD_TOLERANCES,
   PHASE5_FIXTURES,
   PHASE5_FIXTURES_SHA256,
+  PHASE5_GG_DIRICHLET_LEDGER_POLICY,
   PHASE5_NEGATIVE_CONTROLS,
   PHASE5_LANE_ARTIFACT_PATHS,
   PHASE5_LANES,
@@ -31,11 +32,34 @@ import {
 } from "../src/phase5-shadow.ts";
 
 describe("Phase 5 criteria freeze", () => {
-  it("pins the exact Windows-only v2 protocol and inherited numerical manifests", () => {
+  it("pins the exact Windows-only v3 protocol and unchanged numerical manifests", () => {
     expect(canonicalJsonSha256(phase5ProtocolManifest())).toBe(PHASE5_PROTOCOL_SHA256);
     expect(canonicalJsonSha256(phase5FixtureManifest())).toBe(PHASE5_FIXTURES_SHA256);
     expect(canonicalJsonSha256(phase5ToleranceManifest())).toBe(
       PHASE5_TOLERANCES_SHA256,
+    );
+  });
+
+  it("pins ADR 0019's cancellation-safe G-G Dirichlet ledger meaning", () => {
+    expect(PHASE5_GG_DIRICHLET_LEDGER_POLICY).toEqual({
+      id: "corrected-mass-invariant-v1",
+      authority: "ADR-0019",
+      directMeterComparison: "required-diagnostic",
+      clampPathWitness: "exact-delta-field-reduction-accumulation",
+      clampPathSigns: ["positive", "negative"],
+      rejectedMutations: [
+        "wrong-sign",
+        "wrong-shell-mask",
+        "omit-one-delta",
+        "scale-deltas",
+      ],
+      withinLaneInvariant:
+        "final-total-mass-bd-minus-dirichlet-meter-vs-initial-total-mass-bd",
+      crossLaneInvariant: "cpu-corrected-mass-vs-gpu-corrected-mass",
+      blockingTolerance: "phase5-mixed-scalar-v1",
+    });
+    expect(PHASE5_TOLERANCES_SHA256).toBe(
+      "1e77ed673e77aba6598c2bdd56e6b80f0f59343067bd7cb2c677d220d2fc05ba",
     );
   });
 

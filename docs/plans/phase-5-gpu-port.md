@@ -135,21 +135,28 @@ and tolerance SHA-256 values are
 its two-lane acceptance meaning without rewriting that history. No canonical v1 lane bundle was
 published.
 
-## Windows-only v2 frozen protocol
+## Windows-only v3 frozen protocol
 
-This section and `runner/src/phase5-protocol.ts` are the current Phase 5 pre-registration. The
-canonical machine-readable protocol id is `phase5-gpu-conformance-windows-v2`; its
-canonical-JSON SHA-256 is
-`223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`. The fixture manifest is
-unchanged at `29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`. Removing only the
-cross-backend comparison term changes the tolerance-manifest SHA-256 to
+This section and `runner/src/phase5-protocol.ts` are the current Phase 5 pre-registration.
+Decision 0019 supersedes the Windows v2 protocol before canonical WP3 evidence. V2 remains
+immutable history at id `phase5-gpu-conformance-windows-v2` and canonical-JSON SHA-256
+`223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`. The current
+machine-readable protocol id is `phase5-gpu-conformance-windows-v3`; its canonical-JSON SHA-256
+is `ce1821df86461cbd7660cbb34c697071bd5d3822a4ca4def042245f569d61e98`.
+
+The fixture manifest remains
+`29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`. The Windows tolerance
+manifest remains
 `1e77ed673e77aba6598c2bdd56e6b80f0f59343067bd7cb2c677d220d2fc05ba`; every numerical
-CPU-vs-GPU tolerance and decision margin remains byte-for-byte unchanged. Any later change to a
-blocking fixture, tolerance, decision margin, performance threshold, criterion, negative
-control, runtime revision, or evidence meaning requires an ADR and invalidates the Windows
-bundle. Production diffusion/surface WGSL does not exist at this freeze.
+CPU-vs-GPU tolerance and decision margin is byte-for-byte unchanged. V3 adds the explicit
+`corrected-mass-invariant-v1` G-G Dirichlet ledger policy and narrows
+`NC-TOLERANCE-BYPASS` to blocking comparisons exactly as decision 0019 requires. Any later
+change to a blocking fixture, tolerance, decision margin, performance threshold, criterion,
+negative control, runtime revision, or evidence meaning requires an ADR and invalidates the
+Windows bundle. This v3 freeze precedes canonical WP3 execution; WP1/WP2 production and a
+provisional WP3 implementation exist, but their output did not revise a numerical envelope.
 
-The v2 freeze candidate passes exact root `npm test` in 371.8 seconds: Rule 7 clean over 178
+The superseded v2 freeze candidate passed exact root `npm test` in 371.8 seconds: Rule 7 clean over 178
 files, both TypeScript projects green, and 46 files / 816 tests passed. The app production build
 transformed 33 modules and exited 0. The protocol test independently recomputes all three
 canonical hashes, requires exactly one Windows lane, requires exactly 16 criteria, rejects the
