@@ -1,8 +1,8 @@
 # Plan — Phase 5: WebGPU solver port and Windows D3D12 conformance
 
 - **Phase:** Phase 5 — GPU port
-- **Status:** Decision 0018 Windows-only protocol re-freeze in progress; WP1 passes on D3D12 and
-  WP2 has not started
+- **Status:** Decision 0018 Windows-only protocol is frozen and clean; WP1 passes on D3D12,
+  awaits clean review, and WP2 has not started
 - **Started:** 2026-07-23
 - **Last touched:** 2026-07-24 by Codex
 
@@ -155,6 +155,12 @@ transformed 33 modules and exited 0. The protocol test independently recomputes 
 canonical hashes, requires exactly one Windows lane, requires exactly 16 criteria, rejects the
 removed Metal/cross-backend criteria, and preserves one uniquely owned negative control per
 criterion.
+
+The authority/protocol freeze is commit
+`60be8c0f14b44c1f5bf1b2753c409baad3da0833`. From that tracked-clean commit, the canonical
+capability and WP1 probes independently recorded the same commit and clean tree, observed D3D12,
+exited 0, and reported zero uncaptured errors. WP1 retained 0 coordinate/copy/PRNG mismatches,
+3,366 detected axis-swap mismatches, and zero blocking-allocation failures.
 
 ### Baseline and host capability record
 
