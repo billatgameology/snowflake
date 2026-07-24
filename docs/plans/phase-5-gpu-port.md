@@ -935,6 +935,22 @@ WP3 closes only when all of the following hold:
 - [ ] **WP3 — `GGThreshold`.** Port complete cycles with parameter events, noise, melting,
       attachment, hole filling, mass ledger, metrics, and stop-rule parity. Keep CPU state
       untouched and compare through the frozen harness.
+      Implementation candidate is complete but not yet independently accepted. Focused GPU
+      verification passes 41/41, both TypeScript projects pass, the app build transforms 33
+      modules, and exact root `npm test` passes 49 files / 844 tests in 357.05 seconds.
+      Provisional v3 D3D12 execution passes both 256/128-cycle fixtures with exact
+      occupancy/topology/boundary order/events/noise/stop reason and no GPU error/loss. Worst
+      plate `b`/`d` max-absolute errors are `2.5812467e-5` / `1.6563363e-6`; worst Dirichlet
+      values are `1.0507191e-5` / `8.1515096e-7`. The two complete clamp-path sign witnesses
+      have zero delta-field and clamped-vapor mismatches and reject wrong sign, wrong mask,
+      omitted delta, and scaling. The separate two-input production reduction/accumulator
+      witness is exact. The Dirichlet within-GPU/cross-lane corrected-mass differences are
+      `0.04080885148141533` / `0.040876508731344074`, below unchanged mixed-scalar limits
+      `0.9119800135314465` / `0.9119799999999965`. The direct meter difference remains honestly
+      failed and diagnostic at `0.024480659606307853 > 0.004255350462365598`.
+      Preliminary independent review found the v3 authority and complete clamp-path witness
+      blockers; decision 0019, freeze `70f85e1`, and the current probe close both. Candidate
+      commit, clean replay, and a fresh complete review remain before this box may close.
 - [ ] **WP4 — `LibbrechtKinetics`.** Port the coupled aggregate-v5 relaxation/interface operator,
       including dual Dirichlet convergence, reflecting diagnostics, signed smoother drift,
       boundary-pixel fill, CFL, ledgers, schedules, and checkpoint conversion.

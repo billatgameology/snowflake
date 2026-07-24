@@ -23,6 +23,10 @@ const claimedArenas = new WeakSet<GpuBufferArena>();
 
 export const GPU_GG_DIFFUSION_UNIFORM_BYTES = 64;
 export const GPU_GG_DIFFUSION_MAX_PASSES_PER_SUBMISSION = 64;
+export const GPU_TOPOLOGY_FAR_FIELD = 1;
+export const GPU_TOPOLOGY_BOUNDARY = 2;
+const GPU_TOPOLOGY_KNOWN_MASK =
+  GPU_TOPOLOGY_FAR_FIELD | GPU_TOPOLOGY_BOUNDARY;
 
 export const GPU_GG_DIFFUSION_UNIFORM_OFFSETS = {
   dims: 0,
@@ -45,7 +49,7 @@ export interface GpuGgDiffusionInput {
   readonly initialVapor: Float32Array;
   readonly occupancy: Uint32Array;
   readonly wall: Uint32Array;
-  /** Bit 0 marks the fixed-sigma far-field shell. Other topology bits are reserved. */
+  /** Bit 0 marks the fixed-sigma shell; bit 1 marks current G-G boundary membership. */
   readonly topology: Uint32Array;
   readonly phi: number;
   readonly rho: number;
@@ -79,6 +83,12 @@ export interface GpuGgDiffusionUniformValues {
   readonly phi: number;
   readonly rho: number;
   readonly noiseEpsilon: number;
+}
+
+export interface GpuGgDiffusionControls {
+  readonly tick: number;
+  readonly rho: number;
+  readonly phi: number;
 }
 
 const float32LengthGetter = Object.getOwnPropertyDescriptor(
@@ -205,7 +215,11 @@ export function snapshotGpuGgDiffusionInput(
     if (!Number.isFinite(vapor)) {
       throw new Error(`initialVapor must be finite at ${index}`);
     }
-    if (attached > 1 || inactive > 1 || topologyBits > 1) {
+    if (
+      attached > 1 ||
+      inactive > 1 ||
+      (topologyBits & ~GPU_TOPOLOGY_KNOWN_MASK) !== 0
+    ) {
       throw new Error(`GPU diffusion masks must be binary at ${index}`);
     }
     if (attached === 1 && inactive === 1) {
@@ -214,11 +228,17 @@ export function snapshotGpuGgDiffusionInput(
     if ((attached === 1 || inactive === 1) && vapor !== 0) {
       throw new Error(`blocked vapor must be zero at ${index}`);
     }
-    if (topologyBits === 1) {
+    if ((topologyBits & GPU_TOPOLOGY_FAR_FIELD) !== 0) {
       shellCount++;
       if (attached === 1 || inactive === 1) {
         throw new Error(`far-field shell must be active and unattached at ${index}`);
       }
+    }
+    if (
+      (topologyBits & GPU_TOPOLOGY_BOUNDARY) !== 0 &&
+      (attached === 1 || inactive === 1)
+    ) {
+      throw new Error(`boundary topology must be active and unattached at ${index}`);
     }
   }
   if (farField === "dirichlet" && shellCount === 0) {
@@ -383,7 +403,11 @@ export class GpuGgDiffusion {
   private readonly submissions: GpuSubmissionController;
   private readonly arena: GpuBufferArena;
   readonly generation: number;
-  private readonly flags: number;
+  private flags: number;
+  private readonly layout: GpuGridLayout;
+  private readonly rngSeed: number;
+  private readonly noiseEpsilon: number;
+  private readonly farField: FarFieldCondition;
   private readonly pipelines: GpuGgDiffusionPipelines;
   private readonly rangeUniforms: readonly GpuRangeUniform[];
 
@@ -392,7 +416,8 @@ export class GpuGgDiffusion {
     submissions: GpuSubmissionController,
     arena: GpuBufferArena,
     generation: number,
-    flags: number,
+    snapshot: GpuGgDiffusionSnapshot,
+    layout: GpuGridLayout,
     pipelines: GpuGgDiffusionPipelines,
     rangeUniforms: readonly GpuRangeUniform[],
   ) {
@@ -400,7 +425,11 @@ export class GpuGgDiffusion {
     this.submissions = submissions;
     this.arena = arena;
     this.generation = generation;
-    this.flags = flags;
+    this.flags = snapshot.flags;
+    this.layout = layout;
+    this.rngSeed = snapshot.rngSeed;
+    this.noiseEpsilon = snapshot.noiseEpsilon;
+    this.farField = snapshot.farField;
     this.pipelines = pipelines;
     this.rangeUniforms = rangeUniforms;
   }
@@ -469,7 +498,8 @@ export class GpuGgDiffusion {
         submissions,
         arena,
         arena.generation,
-        snapshot.flags,
+        snapshot,
+        layout,
         pipelines,
         rangeUniforms,
       );
@@ -493,6 +523,55 @@ export class GpuGgDiffusion {
   activeVaporBuffer(): GPUBuffer {
     this.assertUsable();
     return this.arena.get(this.activeVapor);
+  }
+
+  inactiveVaporName(): "ggVaporA" | "ggVaporB" {
+    this.assertUsable();
+    return this.activeVapor === "ggVaporA" ? "ggVaporB" : "ggVaporA";
+  }
+
+  updateControls(controls: GpuGgDiffusionControls): void {
+    this.assertUsable();
+    if (this.inFlight) {
+      throw new Error("cannot update GPU diffusion controls while work is in flight");
+    }
+    requireU32(controls.tick, "tick");
+    requireFiniteFloat32(controls.rho, "rho");
+    if (controls.rho <= 0) throw new Error("rho must be positive");
+    requireFiniteFloat32(controls.phi, "phi");
+    if (controls.phi < 0 || controls.phi >= 1) {
+      throw new Error("phi must be in [0,1)");
+    }
+    let flags = 0;
+    if (this.noiseEpsilon > 0) flags |= GPU_GG_DIFFUSION_FLAG_NOISE;
+    if (controls.phi > 0) flags |= GPU_GG_DIFFUSION_FLAG_DRIFT;
+    if (this.farField === "dirichlet") flags |= GPU_GG_DIFFUSION_FLAG_DIRICHLET;
+    const payloads = this.rangeUniforms.map((entry) =>
+      encodeGpuGgDiffusionUniforms({
+        layout: this.layout,
+        baseCell: entry.range.baseCell,
+        generation: this.generation,
+        rngSeed: this.rngSeed,
+        tick: controls.tick,
+        flags,
+        phi: controls.phi,
+        rho: controls.rho,
+        noiseEpsilon: this.noiseEpsilon,
+      }),
+    );
+    try {
+      for (let index = 0; index < this.rangeUniforms.length; index++) {
+        this.device.queue.writeBuffer(
+          this.rangeUniforms[index].buffer,
+          0,
+          payloads[index],
+        );
+      }
+      this.flags = flags;
+    } catch (error) {
+      this.poison(error);
+      throw error;
+    }
   }
 
   async runPasses(passCount: number, label = "gg-diffusion"): Promise<void> {

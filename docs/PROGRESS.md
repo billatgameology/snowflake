@@ -829,11 +829,16 @@ accepted all code/evidence with zero findings; the immediately following docs-on
 its stale-handoff should-fix.
 
 The committed WP3 design is `6fb3ab95204c63007939c8489cf627f9dbb8c229`. The current
-implementation typechecks and its focused orchestration/numerical suite passes. A provisional
+implementation passes 41/41 focused GPU tests, both TypeScript projects, the 33-module app
+build, and exact root `npm test` at 49 files / 844 tests in 357.05 seconds. A provisional
 real D3D12 run compiled every production shader, ran both complete frozen fixtures, preserved
 exact occupancy/topology/boundary order/events/noise/stop reasons, passed all `b`/`d`, metric,
 mass, decision-margin, stale-ping-pong, and GPU-error checks, and exactly reproduced a synthetic
-two-level meter reduction plus accumulation. It also exposed that the v2 direct Dirichlet-meter
+two-level meter reduction plus accumulation. The added complete clamp-path witnesses have zero
+delta-field/clamped-vapor mismatches for positive and negative signs and reject wrong sign,
+wrong mask, omitted delta, and scaling. Within-GPU and cross-lane Dirichlet corrected-mass
+differences are `0.04080885148141533` and `0.040876508731344074`, inside unchanged bounds
+`0.9119800135314465` and `0.9119799999999965`. It also exposed that the v2 direct Dirichlet-meter
 criterion was not feasible under the independently frozen field envelope: direct difference
 `0.024480659606307853` exceeded its generic `0.004255350462365598` scalar bound even though the
 underlying fields passed.
@@ -843,11 +848,9 @@ Windows v2 before canonical WP3 evidence. Freeze Windows v3 in
 `runner/src/phase5-protocol.ts`: keep the exact fixtures, numerical tolerances, lane, runtime,
 and margins; add the explicit corrected-mass ledger policy; narrow `NC-TOLERANCE-BYPASS` to
 blocking comparisons; derive and pin the new protocol hash; and update the WP0 hash tests.
-Extend the real probe with the independent review's required complete clamp→delta→reduction
-witness for both signs and wrong-sign/wrong-mask/omitted/scaled mutations; block on each lane's
-corrected-mass conservation comparison plus cross-lane agreement. Then rerun
-focused/typecheck/root/app checks, commit WP3, execute its canonical clean D3D12 probe, and
-obtain independent zero-finding review. WP1/WP2 implementation remains accepted, but
+The independent preliminary audit's v3-authority and complete-clamp-witness blockers are now
+closed. Commit the bounded WP3 implementation, execute its canonical clean D3D12 probe, and
+obtain a fresh independent zero-finding review. WP1/WP2 implementation remains accepted, but
 their canonical protocol-identity probes must be replayed under v3 before final evidence. Do
 not begin WP4 until WP3 independently reaches zero blockers and zero should-fixes.
 

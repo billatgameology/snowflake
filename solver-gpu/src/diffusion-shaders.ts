@@ -277,7 +277,9 @@ fn clampDirichlet(@builtin(global_invocation_id) invocation: vec3<u32>) {
     return;
   }
   let index = uniforms.baseCell + invocation.x;
+  auxiliaryA[index] = 0.0;
   if (!blocked(index) && (topology[index] & 1u) != 0u) {
+    auxiliaryA[index] = uniforms.rho - destination[index];
     destination[index] = uniforms.rho;
   }
 }
