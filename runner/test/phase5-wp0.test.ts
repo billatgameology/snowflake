@@ -25,6 +25,7 @@ import {
   PHASE5_TOLERANCES_SHA256,
   classifyPhase5LkF32Convergence,
   float32SmootherDriftAbsLimit,
+  phase5Float32OrderedKey,
   phase5Float32UlpDistance,
   phase5FixtureManifest,
   phase5ProtocolManifest,
@@ -40,7 +41,7 @@ describe("Phase 5 criteria freeze", () => {
   it("pins the exact Windows-only v5 protocol and bounded f32 cycle manifest", () => {
     expect(PHASE5_PROTOCOL).toBe("phase5-gpu-conformance-windows-v5");
     expect(PHASE5_PROTOCOL_SHA256).toBe(
-      "52cf359feb56709207585737ecefe8ea06235bfdbb2d9af8ada4c2449c0716fa",
+      "bdc61bfe5cb48e9e29f5b79337036d7b23ec11e1677f1657595d00f5e7de91ec",
     );
     expect(PHASE5_FIXTURES_SHA256).toBe(
       "29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512",
@@ -63,7 +64,15 @@ describe("Phase 5 criteria freeze", () => {
       maximumCurrentStepUlpDistance: 1,
       requiredTwoBackUlpDistance: 0,
       minimumCompletedSweepsAfterMutation: 2,
-      requiredForBothOrbitPhases: ["divergence", "smoother-drift-bound"],
+      requiredForBothOrbitPhases: [
+        "fixed-sigma-dirichlet-divergence-when-applicable",
+        "smoother-drift-bound",
+      ],
+      persistentHistoryAcrossSegments: [
+        "two-sweep-reference",
+        "previous-applicable-dirichlet-divergence-result",
+        "previous-smoother-drift-bound-result",
+      ],
       resetAfter: [
         "construction-or-import",
         "interface-or-topology-update",
@@ -94,16 +103,38 @@ describe("Phase 5 criteria freeze", () => {
     ).toBe(1);
     expect(phase5Float32UlpDistance(-0, 0)).toBe(1);
     expect(phase5Float32UlpDistance(-1, -1.0000001192092896)).toBe(1);
+    const minimumSubnormal = 2 ** -149;
+    expect(phase5Float32UlpDistance(-minimumSubnormal, -0)).toBe(1);
+    expect(phase5Float32UlpDistance(0, minimumSubnormal)).toBe(1);
+    expect(phase5Float32UlpDistance(-minimumSubnormal, minimumSubnormal)).toBe(3);
+    const orderedFiniteValues = [
+      -Math.fround(3.4028234663852886e38),
+      -1,
+      -minimumSubnormal,
+      -0,
+      0,
+      minimumSubnormal,
+      1,
+      Math.fround(3.4028234663852886e38),
+    ];
+    const orderedKeys = orderedFiniteValues.map(phase5Float32OrderedKey);
+    for (let index = 1; index < orderedKeys.length; index += 1) {
+      expect(orderedKeys[index]).toBeGreaterThan(orderedKeys[index - 1]!);
+    }
     expect(() => phase5Float32UlpDistance(Number.NaN, 0)).toThrow();
+    expect(() => phase5Float32UlpDistance(Number.NEGATIVE_INFINITY, 0)).toThrow();
+    expect(() => phase5Float32UlpDistance(Number.POSITIVE_INFINITY, 0)).toThrow();
 
     const boundedCycle = {
       residual: 5.82076573607537e-8,
       relaxTol: 1e-9,
+      farField: "dirichlet" as const,
+      divTol: 1e-7,
+      currentDivergenceResidual: 0,
+      previousDivergenceResidual: 0,
       completedSweepsAfterMutation: 2,
       maximumCurrentStepUlpDistance: 1,
       maximumTwoBackUlpDistance: 0,
-      currentDivergencePassed: true,
-      previousDivergencePassed: true,
       currentDriftBoundPassed: true,
       previousDriftBoundPassed: true,
     } as const;
@@ -120,8 +151,8 @@ describe("Phase 5 criteria freeze", () => {
       { completedSweepsAfterMutation: 1 },
       { maximumCurrentStepUlpDistance: 2 },
       { maximumTwoBackUlpDistance: 1 },
-      { currentDivergencePassed: false },
-      { previousDivergencePassed: false },
+      { currentDivergenceResidual: 1e-7 },
+      { previousDivergenceResidual: 1e-7 },
       { currentDriftBoundPassed: false },
       { previousDriftBoundPassed: false },
     ]) {
@@ -136,6 +167,44 @@ describe("Phase 5 criteria freeze", () => {
       classifyPhase5LkF32Convergence({
         ...boundedCycle,
         residual: Number.NaN,
+      }),
+    ).toThrow();
+    expect(
+      classifyPhase5LkF32Convergence({
+        ...boundedCycle,
+        farField: "reflecting",
+        currentDivergenceResidual: null,
+        previousDivergenceResidual: null,
+      }),
+    ).toBe("bounded-two-cycle");
+    expect(() =>
+      classifyPhase5LkF32Convergence({
+        ...boundedCycle,
+        farField: "reflecting",
+      }),
+    ).toThrow();
+    expect(() =>
+      classifyPhase5LkF32Convergence({
+        ...boundedCycle,
+        currentDivergenceResidual: null,
+      }),
+    ).toThrow();
+    expect(() =>
+      classifyPhase5LkF32Convergence({
+        ...boundedCycle,
+        currentDivergenceResidual: Number.POSITIVE_INFINITY,
+      }),
+    ).toThrow();
+    expect(() =>
+      classifyPhase5LkF32Convergence({
+        ...boundedCycle,
+        currentDriftBoundPassed: "false" as never,
+      }),
+    ).toThrow();
+    expect(() =>
+      classifyPhase5LkF32Convergence({
+        ...boundedCycle,
+        previousDriftBoundPassed: 1 as never,
       }),
     ).toThrow();
   });

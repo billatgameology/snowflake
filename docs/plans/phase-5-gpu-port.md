@@ -170,7 +170,7 @@ divergence is zero and every other numerical guard passes. Decision 0021 therefo
 adds exact period-two / maximum-one-ULP evidence, raises the LK allocation from 60 to the
 already-frozen 64 bytes/cell ceiling, and changes no CPU or aggregate-v5 physics meaning. The
 proposed canonical-JSON aggregate SHA-256 is
-`52cf359feb56709207585737ecefe8ea06235bfdbb2d9af8ada4c2449c0716fa`; its tolerance-manifest
+`bdc61bfe5cb48e9e29f5b79337036d7b23ec11e1677f1657595d00f5e7de91ec`; its tolerance-manifest
 SHA-256 is `d38ec0f7a0096dc297d651cd1b89fb80275edb4098c16545c44274e585c2a09b`;
 the fixture SHA-256 remains
 `29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`. These values must be
@@ -998,7 +998,8 @@ The ordinary fixed-point branch remains `residual < relaxTol`, plus `divergence 
 fixed-sigma runs. Decision 0021 adds one alternative f32 classification: after two genuine
 sweeps under unchanged state and controls, every active destination value must bit-equal its
 value two sweeps earlier, every current-to-destination ordered-f32 distance must be at most one
-ULP, and both orbit phases must pass the unchanged divergence and drift requirements. The
+ULP, and both orbit phases must pass the unchanged applicable fixed-sigma Dirichlet divergence
+and drift requirements. The
 report names `fixed-point`, `bounded-two-cycle`, or `incomplete` and preserves the actual
 residual plus both maximum ULP distances. It never rewrites a cycle residual to zero.
 Reflecting mode keeps no divergence claim, but a bounded cycle still requires both phases'
@@ -1025,10 +1026,11 @@ history after any mutation, non-finite values, and failed divergence/drift.
 Relaxation is encoded in bounded multi-sweep segments. A GPU-resident convergence flag makes all
 passes after the first accepted sweep in a segment no-ops while preserving the exact first
 accepted sweep count and ping-pong owner. Only the compact segment report is read back; complete
-fields stay resident. The two-sweep reference and previous-phase divergence status survive
-segment boundaries, but are reset after construction/import, every interface, topology change,
-timeline event, or other field mutation; cycle acceptance is disabled until two genuine new
-sweeps complete. Segment size is selected below the registered 500 ms submission ceiling and
+fields stay resident. The two-sweep reference, previous-phase applicable Dirichlet divergence
+status, and previous-phase smoother-drift-bound status survive segment boundaries, but are reset
+after construction/import, every interface, topology change, timeline event, or other field
+mutation; cycle acceptance is disabled until two genuine new sweeps complete. Segment size is
+selected below the registered 500 ms submission ceiling and
 is not allowed to change numerical order. An unconverged sweep cap returns an explicit
 incomplete state; it never authorizes the interface update.
 

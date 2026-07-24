@@ -125,7 +125,7 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   [0021](decisions/0021-bound-phase5-float32-two-cycles.md) creates Windows protocol v5 with
   exact period-two / maximum-one-ULP classification, both phases' unchanged divergence/drift
   guards, resettable history, and explicit reporting. Proposed aggregate/tolerance SHA-256
-  values are `52cf359feb56709207585737ecefe8ea06235bfdbb2d9af8ada4c2449c0716fa` /
+  values are `bdc61bfe5cb48e9e29f5b79337036d7b23ec11e1677f1657595d00f5e7de91ec` /
   `d38ec0f7a0096dc297d651cd1b89fb80275edb4098c16545c44274e585c2a09b`; fixtures are unchanged.
   Final exact root `npm test` exited 0 in 377.6 seconds: Rule 7 clean over 166 files, both
   TypeScript projects green, and 44 files / 802 tests passed. WP0 freeze commit
@@ -611,7 +611,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ✅ **complete, 2026-07-20.** One flagless v5p run at tracked-clean `0dc0f86`, pre-registration `8adea86`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exited 0. Same `96×96×96` hexPrism, extent target, fixed-σ far field, `sigmaInfinity=0.002`, pressure, spacing, mapping, seed 1, noise 0, CFL, and convergence controls; temperature alone differed. −5 °C: step 814, extent 61, attached 18,193, AR `0.118644` plate. −15 °C: step 330, extent 61, attached 1,159, AR `12.2000` column. Both: size-target, symmetry error 0, every relaxation converged, bounded smoother drift, checkpoint round trip identical. The depleted-start differential was 3/3 and permanent Phase 2a control retained canonical SHA-256 `f1796b5015…a389`. Final log SHA-256 `ea69d65a…c45e`, status 0, empty stderr; complete evidence: [v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result). V3 negative and v4 execution-invalid history remain preserved. |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ✅ **maker-asserted complete, 2026-07-23** — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ✅ **complete, 2026-07-18** — one canonical `node runner/src/main.ts gate4` at `70a2496`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exit 0 in 7,178.8 s. Pass A: 13 runs, 24/24 records green; plate/column AR `0.0666667`/`1.66667`; five-point sweep strictly increasing; depletion median `0.770238`, 7/7 samples below one, width 7→13; three distinct reproducible open-hollow occupancies; cap score `1.3`; dendrite/compact branches 6/0 at independent first reservoir crossings (cycles 4,775/5,450, extents 99/83). A manifest/report/index SHA-256: `e5e85c70…8644` / `bcb29e05…7188` / `92346e3e…1917`. Pass B: 11 runs, 12/12 execution records green; three morphology diagnostics pass and five honestly miss (depletion, widening, hollowing, capped history, branch). B manifest/report/index: `c0ceed5b…e812` / `22c8a92c…fa2d` / `5644f838…5cb0`. Aggregate v2 SHA-256 `194f837d…d8e2`, `gatePass=true`, `passBDiagnosticPass=false`. Real `node app/scripts/visual.mjs --phase4`: 20/20 original-resolution captures inspected by coordinator and reviewer, zero absent/error/clipped/hash-mismatch views, manifest `19e0fcfe…573b`. Post-publication exact root suite 779/779 and 33-module build green; final same-reviewer verdict on repair `b7153cc`: CLEAN, 0 blockers / 0 should-fixes. Full record: [v2 plan](plans/phase-4-v2-reservoir-matched-branch-control.md). |
-| 5 | GPU agrees with CPU oracle to tolerance on observed Windows D3D12; preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable. This phase makes no Metal/general-WebGPU portability claim (ADR 0018). | 🔶 **WP1–WP3 complete; WP4 protocol v5 repair active** (2026-07-24) — real D3D12 execution disproved v4's fresh-seed reachability premise with an exact two-cell, one-ULP, period-two cold orbit. Proposed decision 0021 preserves the configured CPU convergence controls and adds only explicit exact-period-two / maximum-one-ULP GPU classification with both phases' divergence/drift guards. Proposed v5/tolerance hashes are `52cf359f…6fa` / `d38ec0f7…09b`; fixtures are unchanged. Same-reviewer diagnosis returned one blocker, zero should-fixes and endorsed this repair over a generic floor. WP1/WP2/WP3 independently close at `afd9407` / `9f7a7b4` / `39d8b43` and must replay under accepted v5 before WP7. No WP4 or final Phase 5 evidence exists yet. Metal remains a separately frozen later-machine extension. Active plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). |
+| 5 | GPU agrees with CPU oracle to tolerance on observed Windows D3D12; preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable. This phase makes no Metal/general-WebGPU portability claim (ADR 0018). | 🔶 **WP1–WP3 complete; WP4 protocol v5 repair active** (2026-07-24) — real D3D12 execution disproved v4's fresh-seed reachability premise with an exact two-cell, one-ULP, period-two cold orbit. Proposed decision 0021 preserves the configured CPU convergence controls and adds only explicit exact-period-two / maximum-one-ULP GPU classification with both phases' divergence/drift guards. Proposed v5/tolerance hashes are `bdc61bfe…91ec` / `d38ec0f7…09b`; fixtures are unchanged. Same-reviewer diagnosis returned one blocker, zero should-fixes and endorsed this repair over a generic floor. WP1/WP2/WP3 independently close at `afd9407` / `9f7a7b4` / `39d8b43` and must replay under accepted v5 before WP7. No WP4 or final Phase 5 evidence exists yet. Metal remains a separately frozen later-machine extension. Active plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
 
@@ -708,8 +708,14 @@ Records live in [docs/decisions/](decisions/):
   Numerical field/scalar tolerances are unchanged. Charter impact: none
 - [0020](decisions/0020-floor-phase5-float32-smoother-drift.md) — Phase 5 protocol v4 adds the
   binary32 minimum-subnormal floor to the independently computed aggregate-v5 smoother-drift
-  bound before production LK WGSL. Fixtures and normal-field envelopes are unchanged; WP1–WP3
-  canonical probes must replay under v4 before final publication. Charter impact: none
+  bound before production LK WGSL. Fixtures and normal-field envelopes are unchanged. V4 is
+  historical after production execution exposed the persistent-f32 orbit addressed by 0021.
+  Charter impact: none
+- [0021](decisions/0021-bound-phase5-float32-two-cycles.md) — proposed Phase 5 protocol v5 keeps
+  the normal fixed-point branch and adds a narrowly bounded exact-period-two / maximum-one-ULP
+  f32 classification. Both phases retain the applicable fixed-sigma Dirichlet divergence and
+  smoother-drift guards; history resets on mutation and persists across bounded segments.
+  Fixtures and configured tolerances are unchanged. Charter impact: none
 
 The two decisions predating this system (web over native C++/CUDA; the five-part repo split) live
 in charter §3.1 and get no retroactive ADR.
@@ -717,7 +723,8 @@ in charter §3.1 and get no retroactive ADR.
 ## Active plan
 
 - [phase-5-gpu-port.md](plans/phase-5-gpu-port.md) — two-lane WP0 remains superseded history;
-  decision 0018 narrows the active lane to Windows and decision 0020's v4 protocol is current.
+  decision 0018 narrows the active lane to Windows. Proposed decision 0021 and protocol v5 are
+  the current WP4 repair; implementation remains paused pending independent acceptance.
   WP1 is independently closed. WP2 is independently closed at reviewed implementation
   `9f7a7b476a17e9f47849cc323d49e928fc177b65`: focused tests pass 21/21, exact root
   verification passes 47 files / 833 tests, the 33-module app build passes, and the canonical
@@ -731,10 +738,12 @@ in charter §3.1 and get no retroactive ADR.
   full-field reads. Both blocking G-G fixtures pass exact discrete comparisons and unchanged
   frozen tolerances; same-reviewer closure found zero blockers and zero should-fixes. WP4 design
   commit `5ca5c36` received seven blockers and three should-fixes; repair `98a8083` then received
-  four blockers and one should-fix. The current v4 repair adds the minimum-subnormal drift floor,
-  an integrated legal zero-exchange state, same-temperature ledger continuity, and independent
-  sample/predicate recomputation. Exact clean `87150eb` received same-reviewer round-3 acceptance
-  with zero blockers and zero should-fixes. Implement WP4 under that accepted design next.
+  four blockers and one should-fix. Protocol v4's minimum-subnormal drift repair at exact clean
+  `87150eb` received same-reviewer round-3 acceptance with zero blockers and zero should-fixes,
+  but production execution then exposed the persistent-f32 cold orbit. Proposed protocol v5
+  repairs only that representability seam. Independently accept decision 0021 and v5 before
+  resuming WP4 implementation; WP1–WP3 canonical probes must replay under accepted v5 before
+  final publication.
 
 ## Completed plans
 
@@ -929,7 +938,7 @@ blocker, zero should-fixes.
 **Next action:** finish and independently review proposed decision
 [0021](decisions/0021-bound-phase5-float32-two-cycles.md) and exact protocol v5 registration in
 [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). Proposed protocol/tolerance SHA-256 values are
-`52cf359feb56709207585737ecefe8ea06235bfdbb2d9af8ada4c2449c0716fa` and
+`bdc61bfe5cb48e9e29f5b79337036d7b23ec11e1677f1657595d00f5e7de91ec` and
 `d38ec0f7a0096dc297d651cd1b89fb80275edb4098c16545c44274e585c2a09b`; the fixture SHA remains
 `29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`. V5 keeps the normal
 fixed-point branch and configured tolerances, and allows only an explicitly reported exact

@@ -11,7 +11,7 @@ import type { Dims, DomainShape, FarFieldCondition, GGPresetName } from "@vcc/co
 
 export const PHASE5_PROTOCOL = "phase5-gpu-conformance-windows-v5";
 export const PHASE5_PROTOCOL_SHA256 =
-  "52cf359feb56709207585737ecefe8ea06235bfdbb2d9af8ada4c2449c0716fa";
+  "bdc61bfe5cb48e9e29f5b79337036d7b23ec11e1677f1657595d00f5e7de91ec";
 export const PHASE5_FIXTURES_SHA256 =
   "29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512";
 export const PHASE5_TOLERANCES_SHA256 =
@@ -573,7 +573,15 @@ export const PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY = {
   maximumCurrentStepUlpDistance: 1,
   requiredTwoBackUlpDistance: 0,
   minimumCompletedSweepsAfterMutation: 2,
-  requiredForBothOrbitPhases: ["divergence", "smoother-drift-bound"],
+  requiredForBothOrbitPhases: [
+    "fixed-sigma-dirichlet-divergence-when-applicable",
+    "smoother-drift-bound",
+  ],
+  persistentHistoryAcrossSegments: [
+    "two-sweep-reference",
+    "previous-applicable-dirichlet-divergence-result",
+    "previous-smoother-drift-bound-result",
+  ],
   resetAfter: [
     "construction-or-import",
     "interface-or-topology-update",
@@ -599,11 +607,13 @@ export type Phase5LkF32ConvergenceMode =
 export interface Phase5LkF32ConvergenceInput {
   readonly residual: number;
   readonly relaxTol: number;
+  readonly farField: FarFieldCondition;
+  readonly divTol: number;
+  readonly currentDivergenceResidual: number | null;
+  readonly previousDivergenceResidual: number | null;
   readonly completedSweepsAfterMutation: number;
   readonly maximumCurrentStepUlpDistance: number;
   readonly maximumTwoBackUlpDistance: number;
-  readonly currentDivergencePassed: boolean;
-  readonly previousDivergencePassed: boolean;
   readonly currentDriftBoundPassed: boolean;
   readonly previousDriftBoundPassed: boolean;
 }
@@ -632,6 +642,35 @@ export function phase5Float32UlpDistance(left: number, right: number): number {
   );
 }
 
+function phase5LkDivergenceRequirementPassed(
+  farField: FarFieldCondition,
+  divergenceResidual: number | null,
+  divTol: number,
+  phase: "current" | "previous",
+): boolean {
+  if (!Number.isFinite(divTol) || divTol <= 0) {
+    throw new Error("LK f32 convergence divTol must be finite and positive");
+  }
+  if (farField === "reflecting") {
+    if (divergenceResidual !== null) {
+      throw new Error(
+        `${phase} reflecting LK divergence residual must be null because reflecting mode makes no divergence claim`,
+      );
+    }
+    return true;
+  }
+  if (
+    divergenceResidual === null ||
+    !Number.isFinite(divergenceResidual) ||
+    divergenceResidual < 0
+  ) {
+    throw new Error(
+      `${phase} fixed-sigma LK divergence residual must be finite and nonnegative`,
+    );
+  }
+  return divergenceResidual < divTol;
+}
+
 export function classifyPhase5LkF32Convergence(
   input: Phase5LkF32ConvergenceInput,
 ): Phase5LkF32ConvergenceMode {
@@ -652,13 +691,33 @@ export function classifyPhase5LkF32Convergence(
       throw new Error(`${name} must be a nonnegative safe integer`);
     }
   }
+  if (
+    typeof input.currentDriftBoundPassed !== "boolean" ||
+    typeof input.previousDriftBoundPassed !== "boolean"
+  ) {
+    throw new Error("LK f32 drift-bound results must be exact booleans");
+  }
+  const currentDivergenceRequirementPassed =
+    phase5LkDivergenceRequirementPassed(
+      input.farField,
+      input.currentDivergenceResidual,
+      input.divTol,
+      "current",
+    );
+  const previousDivergenceRequirementPassed =
+    phase5LkDivergenceRequirementPassed(
+      input.farField,
+      input.previousDivergenceResidual,
+      input.divTol,
+      "previous",
+    );
   const currentGuardsPassed =
-    input.currentDivergencePassed && input.currentDriftBoundPassed;
+    currentDivergenceRequirementPassed && input.currentDriftBoundPassed;
   if (input.residual < input.relaxTol && currentGuardsPassed) {
     return "fixed-point";
   }
   const previousGuardsPassed =
-    input.previousDivergencePassed && input.previousDriftBoundPassed;
+    previousDivergenceRequirementPassed && input.previousDriftBoundPassed;
   if (
     input.completedSweepsAfterMutation >=
       PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY.minimumCompletedSweepsAfterMutation &&

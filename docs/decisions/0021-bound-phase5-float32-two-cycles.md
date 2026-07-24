@@ -56,7 +56,8 @@ hide rather than solve the representability problem.
    - every active unattached destination value bit-equals its value two sweeps earlier;
    - every active unattached destination value is at most one ordered finite-f32 ULP from the
      immediately preceding value;
-   - both orbit phases pass the unchanged Dirichlet divergence criterion; and
+   - both orbit phases pass the unchanged Dirichlet divergence criterion when fixed-sigma
+     Dirichlet is applicable; reflecting mode makes no divergence claim; and
    - both orbit phases pass the unchanged independently checked smoother-drift bound.
 
    The chosen state is the destination state from that deterministic accepted sweep. Its actual
@@ -74,8 +75,9 @@ hide rather than solve the representability problem.
    exactly the already frozen Phase 5 ceiling. The reference is comparison state only; it is
    not a new checkpoint field or resumable wire meaning. Reference validity resets after
    construction/import, every interface or topology update, every timeline event, and every
-   other field mutation. It remains valid across bounded submission-segment retries so segment
-   boundaries cannot alter classification.
+   other field mutation. The two-sweep reference, previous phase's applicable Dirichlet
+   divergence result, and previous phase's smoother-drift-bound result remain valid across
+   bounded submission-segment retries so segment boundaries cannot alter classification.
 7. The evolving-f32 cold trajectory above becomes a mandatory regression. Mutations that accept
    a first-sweep stale reference, a nonperiodic one-ULP drift, period-three behavior, a two-ULP
    period-two orbit, one active-cell mismatch against the two-back state, residual-only
