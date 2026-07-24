@@ -655,8 +655,11 @@ in charter §3.1 and get no retroactive ADR.
 
 - [phase-5-gpu-port.md](plans/phase-5-gpu-port.md) — two-lane WP0 remains superseded history;
   decision 0018's Windows-only v2 freeze is committed at `60be8c0` and is the current authority.
-  WP1 transport passes on observed D3D12. Obtain clean WP1 review, close WP1, then begin WP2
-  diffusion without changing the unchanged fixtures or numerical tolerances.
+  WP1 is independently closed. WP2 candidate `c546c2b` passed the complete clean D3D12 probe;
+  review round 1 found four lifecycle/evidence blockers. The repair now passes 20/20 focused
+  tests, exact root verification at 47 files / 832 tests, the 33-module app build, and a
+  provisional D3D12 replay with unchanged numerical results, zero uncaptured errors, and no
+  unexpected device loss. A clean replay and round-2 review remain.
 
 ## Completed plans
 
@@ -811,12 +814,17 @@ the isolated clone rooted at `G:/Code Files/snowflake/out/worktrees/phase5-wp1/`
 Git history contains the accepted WP1 commit
 `afd94078e515236124bace82ff263390d80609f9`; the primary workspace remains a read-only-metadata
 source and must not be mistaken for the clean execution tree. The WP2 design in the active plan
-is committed at `037de8d`; the implementation candidate now passes every registered numerical
-comparison and its real-device wrong-clamp negative provisionally. Run exact root `npm test`,
-commit the bounded WP2 implementation, replay `node app/scripts/phase5-wp2.mjs` from that
-tracked-clean commit, and send the commit plus complete report to an independent review subagent.
-Repair every blocker and should-fix through a clean same-scope re-review. Do not begin WP3 until
-WP2 receives zero-finding review and this handoff records the clean commit and canonical probe.
+is committed at `037de8d`; implementation candidate `c546c2b` passes every registered numerical
+comparison and the real-device wrong-clamp negative. Independent review round 1 found four
+blockers; the current uncommitted repair authenticates exact device ownership, fail-closes
+uncertain submitted work, independently calculates and mutates every numerical branch, and
+predicates unexpected `device.lost`. Focused tests pass 20/20, both typechecks pass, and the
+exact root suite passes 47 files / 832 tests; the 33-module app build also passes. The provisional
+D3D12 replay differs from the accepted candidate only in dirty-tree provenance. Commit the
+six-file repair plus this handoff, replay `node app/scripts/phase5-wp2.mjs` from that tracked-clean
+commit, and return the exact commit and complete report to the same reviewer for round 2. Do not
+begin WP3 until WP2 receives zero blockers and zero should-fixes and this handoff records the
+clean commit and canonical probe.
 
 Protocol `phase5-gpu-conformance-windows-v2` is frozen at SHA-256
 `223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`; changing a fixture,

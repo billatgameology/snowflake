@@ -134,6 +134,12 @@ describe("GPU buffer ownership", () => {
     expect(arena.byteLength("occupancy")).toBe(240);
     arena.upload(device, "occupancy", new Uint32Array([1, 2, 3]), 4);
     expect(queue.writeBuffer).toHaveBeenCalledOnce();
+    const otherQueue = { writeBuffer: vi.fn() };
+    const otherDevice = { queue: otherQueue } as unknown as GPUDevice;
+    expect(() =>
+      arena.upload(otherDevice, "occupancy", new Uint32Array([1]), 0),
+    ).toThrow(/different device/);
+    expect(otherQueue.writeBuffer).not.toHaveBeenCalled();
     expect(() =>
       arena.upload(device, "occupancy", new Uint8Array([1]), 0),
     ).toThrow(/invalid/);
@@ -312,6 +318,10 @@ describe("GPU submission lifecycle", () => {
       device,
       () => clockValues.shift() ?? 21,
     );
+    expect(() => controller.assertDevice({} as GPUDevice)).toThrow(
+      /different device/,
+    );
+    expect(controller.unexpectedLossReason()).toBeNull();
 
     expect(controller.acknowledgeEdit(1)).toBe(10);
     await expect(
@@ -364,5 +374,60 @@ describe("GPU submission lifecycle", () => {
     await expect(pending).rejects.toThrow(/became stale while in flight/);
     expect(controller.records()).toHaveLength(0);
     controller.destroy();
+  });
+
+  test("records unexpected device loss but excludes intentional destruction", async () => {
+    let resolveUnexpected:
+      | ((info: GPUDeviceLostInfo) => void)
+      | undefined;
+    const unexpectedLost = new Promise<GPUDeviceLostInfo>((resolve) => {
+      resolveUnexpected = resolve;
+    });
+    const unexpectedDevice = {
+      queue: {
+        submit: vi.fn(),
+        onSubmittedWorkDone: vi.fn(async () => undefined),
+      },
+      destroy: vi.fn(),
+      lost: unexpectedLost,
+    } as unknown as GPUDevice;
+    const unexpected = new GpuSubmissionController(unexpectedDevice);
+    resolveUnexpected?.({
+      reason: "unknown",
+      message: "injected loss",
+    } as GPUDeviceLostInfo);
+    await Promise.resolve();
+    await Promise.resolve();
+    expect(unexpected.unexpectedLossReason()).toBe(
+      "unknown:injected loss",
+    );
+    await expect(
+      unexpected.submit("after-loss", 0, [{} as GPUCommandBuffer]),
+    ).rejects.toThrow(/device was lost/);
+
+    let resolveDestroyed:
+      | ((info: GPUDeviceLostInfo) => void)
+      | undefined;
+    const destroyedLost = new Promise<GPUDeviceLostInfo>((resolve) => {
+      resolveDestroyed = resolve;
+    });
+    const destroyedDevice = {
+      queue: {
+        submit: vi.fn(),
+        onSubmittedWorkDone: vi.fn(async () => undefined),
+      },
+      destroy: vi.fn(() => {
+        resolveDestroyed?.({
+          reason: "destroyed",
+          message: "intentional test teardown",
+        } as GPUDeviceLostInfo);
+      }),
+      lost: destroyedLost,
+    } as unknown as GPUDevice;
+    const destroyed = new GpuSubmissionController(destroyedDevice);
+    destroyed.destroy();
+    await Promise.resolve();
+    await Promise.resolve();
+    expect(destroyed.unexpectedLossReason()).toBeNull();
   });
 });

@@ -711,7 +711,27 @@ because the implementation was not yet committed and the probe requires a tracke
 Focused GPU verification passes 26/26 tests, both TypeScript projects pass, and the app build
 transforms 33 modules. Exact root `npm test` then exited 0 in 384.1 seconds: Rule 7 was clean
 over 182 files, both TypeScript projects passed, and 47 files / 828 tests passed. Candidate
-commit, canonical clean D3D12 replay, and independent review remain required before WP2 closes.
+commit `c546c2b27755efdd20255f6010fccf59c6223fe5` then reproduced the same complete
+D3D12 predicate from a tracked-clean tree.
+
+Independent review round 1 authenticated the exact commit and independently replayed 16/16
+focused tests plus the complete D3D12 probe, but rejected four lifecycle/evidence blockers:
+cross-device arena/controller composition was not rejected synchronously; a rejected submitted
+work completion left stale host ping-pong ownership reusable; the required pure independent
+branch calculation was absent; and the probe did not witness or predicate `device.lost`.
+
+The round-1 repair binds each arena and submission controller to the exact creating device,
+poisons the diffuser and destroys its arena after any encoded/submitted-work uncertainty, adds a
+standalone non-cubic binary32 calculation whose reflection, canonical-pair order, counter-noise,
+drift, and post-commit-clamp mutations must all disagree, and records unexpected device loss
+separately from intentional teardown. Cross-device operations are rejected before shader
+creation, upload, or submission. Focused diffusion/transport tests pass 20/20 and both TypeScript
+projects pass. A provisional D3D12 replay retained every registered numerical value, rejected the
+wrong-clamp mutation, reported zero uncaptured errors and `unexpectedDeviceLoss: null`, and
+exited 1 only because its repair tree was intentionally dirty. Exact root `npm test` then exited
+0 in 368.8 seconds: Rule 7 was clean over 182 files, both TypeScript projects passed, and 47
+files / 832 tests passed. The app production build transformed 33 modules and exited 0.
+Tracked-clean D3D12 replay and same-reviewer round 2 remain required before WP2 closes.
 
 ## Steps
 

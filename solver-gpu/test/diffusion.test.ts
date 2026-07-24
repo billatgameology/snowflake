@@ -1,4 +1,5 @@
 import { describe, expect, test, vi } from "vitest";
+import { randomBit, STREAM_NOISE_XI } from "@vcc/core";
 import {
   createGpuBufferPlan,
   createGpuGridLayout,
@@ -178,6 +179,223 @@ describe("GPU G-G diffusion input and ABI", () => {
   });
 });
 
+type PureDiffusionMutation =
+  | "none"
+  | "zero-reflection"
+  | "unsorted-pairs"
+  | "wrong-noise-stream"
+  | "skip-drift"
+  | "skip-clamp";
+
+interface PureDiffusionCase {
+  readonly dims: { readonly nx: number; readonly ny: number; readonly nz: number };
+  readonly source: Float32Array;
+  readonly occupancy: Uint32Array;
+  readonly wall: Uint32Array;
+  readonly topology: Uint32Array;
+  readonly phi: number;
+  readonly rho: number;
+  readonly noiseEpsilon: number;
+  readonly rngSeed: number;
+  readonly tick: number;
+}
+
+function independentDiffusionPass(
+  fixture: PureDiffusionCase,
+  mutation: PureDiffusionMutation,
+): Float32Array {
+  const { nx, ny, nz } = fixture.dims;
+  const plane = nx * ny;
+  const count = plane * nz;
+  const noised = new Float32Array(count);
+  const noise = new Float32Array(count);
+  const inPlane = new Float32Array(count);
+  const vertical = new Float32Array(count);
+  const drifted = new Float32Array(count);
+  const result = new Float32Array(count);
+  const fAdd = (left: number, right: number) =>
+    Math.fround(Math.fround(left) + Math.fround(right));
+  const fMul = (left: number, right: number) =>
+    Math.fround(Math.fround(left) * Math.fround(right));
+  const blocked = (index: number) =>
+    fixture.occupancy[index] !== 0 || fixture.wall[index] !== 0;
+  const sample = (
+    field: Float32Array,
+    own: number,
+    i: number,
+    j: number,
+    k: number,
+  ) => {
+    if (i < 0 || i >= nx || j < 0 || j >= ny || k < 0 || k >= nz) {
+      return mutation === "zero-reflection" ? 0 : own;
+    }
+    const neighbor = k * plane + j * nx + i;
+    if (blocked(neighbor)) {
+      return mutation === "zero-reflection" ? 0 : own;
+    }
+    return field[neighbor];
+  };
+
+  const stream =
+    mutation === "wrong-noise-stream"
+      ? STREAM_NOISE_XI + 1
+      : STREAM_NOISE_XI;
+  for (let index = 0; index < count; index++) {
+    const xi = Math.fround(
+      fixture.noiseEpsilon *
+        randomBit(fixture.rngSeed, index, fixture.tick, stream),
+    );
+    noise[index] = xi;
+    noised[index] = Math.fround(
+      fixture.source[index] - fMul(xi, fixture.source[index]),
+    );
+  }
+
+  for (let index = 0; index < count; index++) {
+    if (blocked(index)) continue;
+    const k = Math.floor(index / plane);
+    const remainder = index - k * plane;
+    const j = Math.floor(remainder / nx);
+    const i = remainder - j * nx;
+    const own = noised[index];
+    const pairs = [
+      fAdd(
+        sample(noised, own, i + 1, j, k),
+        sample(noised, own, i - 1, j, k),
+      ),
+      fAdd(
+        sample(noised, own, i, j + 1, k),
+        sample(noised, own, i, j - 1, k),
+      ),
+      fAdd(
+        sample(noised, own, i + 1, j - 1, k),
+        sample(noised, own, i - 1, j + 1, k),
+      ),
+    ];
+    if (mutation !== "unsorted-pairs") pairs.sort((left, right) => left - right);
+    inPlane[index] = Math.fround(
+      fAdd(fAdd(fAdd(own, pairs[0]), pairs[1]), pairs[2]) / 7,
+    );
+  }
+
+  for (let index = 0; index < count; index++) {
+    if (blocked(index)) continue;
+    const k = Math.floor(index / plane);
+    const remainder = index - k * plane;
+    const j = Math.floor(remainder / nx);
+    const i = remainder - j * nx;
+    const own = inPlane[index];
+    const pair = fAdd(
+      sample(inPlane, own, i, j, k + 1),
+      sample(inPlane, own, i, j, k - 1),
+    );
+    vertical[index] = fAdd(fMul(4 / 7, own), fMul(3 / 14, pair));
+  }
+
+  for (let index = 0; index < count; index++) {
+    if (blocked(index)) continue;
+    if (mutation === "skip-drift") {
+      drifted[index] = vertical[index];
+      continue;
+    }
+    const k = Math.floor(index / plane);
+    const own = vertical[index];
+    const below = index - plane;
+    const above = index + plane;
+    const freeBelow = k > 0 && !blocked(below);
+    const freeAbove = k + 1 < nz && !blocked(above);
+    const retained = freeBelow
+      ? Math.fround(own - fMul(fixture.phi, own))
+      : own;
+    drifted[index] = freeAbove
+      ? fAdd(retained, fMul(fixture.phi, vertical[above]))
+      : retained;
+  }
+
+  for (let index = 0; index < count; index++) {
+    if (blocked(index)) continue;
+    result[index] = fAdd(
+      drifted[index],
+      fMul(noise[index], fixture.source[index]),
+    );
+    if (mutation !== "skip-clamp" && fixture.topology[index] !== 0) {
+      result[index] = Math.fround(fixture.rho);
+    }
+  }
+  return result;
+}
+
+function numericalDifference(
+  reference: Float32Array,
+  candidate: Float32Array,
+): { readonly changed: number; readonly maxAbs: number } {
+  let changed = 0;
+  let maxAbs = 0;
+  for (let index = 0; index < reference.length; index++) {
+    const difference = Math.abs(reference[index] - candidate[index]);
+    if (difference !== 0) changed++;
+    maxAbs = Math.max(maxAbs, difference);
+  }
+  return { changed, maxAbs };
+}
+
+describe("independent GPU G-G diffusion numerical contract", () => {
+  test("rejects reflection, pair-order, noise, drift, and post-commit clamp mutations", () => {
+    const dims = { nx: 5, ny: 4, nz: 3 } as const;
+    const count = dims.nx * dims.ny * dims.nz;
+    const source = new Float32Array(count);
+    const magnitudes = [1e-7, 0.00031, 0.047, 0.3, 0.91, 12_345];
+    for (let index = 0; index < count; index++) {
+      source[index] = Math.fround(
+        magnitudes[index % magnitudes.length] *
+          (1 + (index % 7) / 32),
+      );
+    }
+    const occupancy = new Uint32Array(count);
+    const wall = new Uint32Array(count);
+    const topology = new Uint32Array(count);
+    occupancy[1 * 20 + 2 * 5 + 2] = 1;
+    wall[1 * 20 + 1 * 5 + 3] = 1;
+    source[32] = 0;
+    source[28] = 0;
+    topology[0] = 1;
+    topology[count - 1] = 1;
+    const fixture: PureDiffusionCase = {
+      dims,
+      source,
+      occupancy,
+      wall,
+      topology,
+      phi: Math.fround(0.17),
+      rho: Math.fround(0.123),
+      noiseEpsilon: Math.fround(0.125),
+      rngSeed: 0x2468_ace0,
+      tick: 19,
+    };
+    const reference = independentDiffusionPass(fixture, "none");
+    expect(reference).toHaveLength(60);
+    expect(reference[32]).toBe(0);
+    expect(reference[28]).toBe(0);
+    expect(reference[0]).toBe(Math.fround(0.123));
+    expect(reference[59]).toBe(Math.fround(0.123));
+
+    for (const mutation of [
+      "zero-reflection",
+      "unsorted-pairs",
+      "wrong-noise-stream",
+      "skip-drift",
+      "skip-clamp",
+    ] as const) {
+      const difference = numericalDifference(
+        reference,
+        independentDiffusionPass(fixture, mutation),
+      );
+      expect(difference.changed, mutation).toBeGreaterThan(0);
+      expect(difference.maxAbs, mutation).toBeGreaterThan(0);
+    }
+  });
+});
+
 interface FakeGpu {
   readonly device: GPUDevice;
   readonly entryPoints: string[];
@@ -239,6 +457,41 @@ function fakeGpu(): FakeGpu {
 }
 
 describe("GPU G-G diffusion orchestration", () => {
+  test("rejects every cross-device arena/controller composition before GPU work", async () => {
+    const first = fakeGpu();
+    const second = fakeGpu();
+    const plan = createGpuBufferPlan({ nx: 3, ny: 3, nz: 3 }, "gg");
+    const firstArena = GpuBufferArena.create(first.device, 1, plan);
+    const firstSubmissions = new GpuSubmissionController(first.device);
+    firstSubmissions.acknowledgeEdit(1);
+    await expect(
+      GpuGgDiffusion.create(
+        second.device,
+        firstSubmissions,
+        firstArena,
+        validInput(plan.layout.cellCount, "reflecting"),
+      ),
+    ).rejects.toThrow(/arena belongs to a different device/);
+    expect(second.device.createShaderModule).not.toHaveBeenCalled();
+    expect(second.device.queue.writeBuffer).not.toHaveBeenCalled();
+
+    const secondSubmissions = new GpuSubmissionController(second.device);
+    secondSubmissions.acknowledgeEdit(1);
+    await expect(
+      GpuGgDiffusion.create(
+        first.device,
+        secondSubmissions,
+        firstArena,
+        validInput(plan.layout.cellCount, "reflecting"),
+      ),
+    ).rejects.toThrow(/controller belongs to a different device/);
+    expect(first.device.createShaderModule).not.toHaveBeenCalled();
+    expect(first.device.queue.writeBuffer).not.toHaveBeenCalled();
+    firstArena.destroy();
+    firstSubmissions.destroy();
+    secondSubmissions.destroy();
+  });
+
   test("uses explicit ping-pong ownership and the minimal reflecting pass graph", async () => {
     const fake = fakeGpu();
     const plan = createGpuBufferPlan({ nx: 3, ny: 3, nz: 3 }, "gg");
@@ -377,5 +630,36 @@ describe("GPU G-G diffusion orchestration", () => {
     ).rejects.toThrow(/injected upload failure/);
     expect(failing.buffers.at(-1)?.destroy).toHaveBeenCalledOnce();
     expect(failingArena.isDestroyed()).toBe(true);
+  });
+
+  test("poisons host ownership and destroys the arena after uncertain submitted work", async () => {
+    const fake = fakeGpu();
+    const plan = createGpuBufferPlan({ nx: 3, ny: 3, nz: 3 }, "gg");
+    const arena = GpuBufferArena.create(fake.device, 1, plan);
+    const submissions = new GpuSubmissionController(fake.device, () => 1);
+    submissions.acknowledgeEdit(1);
+    const diffusion = await GpuGgDiffusion.create(
+      fake.device,
+      submissions,
+      arena,
+      validInput(plan.layout.cellCount, "reflecting"),
+    );
+    vi.mocked(fake.device.queue.onSubmittedWorkDone).mockRejectedValueOnce(
+      new Error("injected completion uncertainty"),
+    );
+    await expect(diffusion.runPasses(1, "uncertain")).rejects.toThrow(
+      /injected completion uncertainty/,
+    );
+    expect(diffusion.isDestroyed()).toBe(true);
+    expect(arena.isDestroyed()).toBe(true);
+    expect(diffusion.completedPasses()).toBe(0);
+    expect(() => diffusion.activeVaporName()).toThrow(
+      /poisoned: injected completion uncertainty/,
+    );
+    expect(() => diffusion.activeVaporBuffer()).toThrow(/poisoned/);
+    await expect(diffusion.runPasses(1, "retry")).rejects.toThrow(/poisoned/);
+    for (const buffer of fake.buffers) {
+      expect(buffer.destroy).toHaveBeenCalledOnce();
+    }
   });
 });

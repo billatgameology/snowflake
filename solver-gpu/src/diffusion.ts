@@ -375,6 +375,8 @@ interface StageBuffers {
 export class GpuGgDiffusion {
   private destroyed = false;
   private inFlight = false;
+  private ownedResourcesReleased = false;
+  private poisonedReason: string | null = null;
   private activeVapor: "ggVaporA" | "ggVaporB" = "ggVaporA";
   private completedPassesInternal = 0;
   private readonly device: GPUDevice;
@@ -410,6 +412,8 @@ export class GpuGgDiffusion {
     input: GpuGgDiffusionInput,
   ): Promise<GpuGgDiffusion> {
     if (arena.isDestroyed()) throw new Error("GPU diffusion arena is destroyed");
+    arena.assertDevice(device);
+    submissions.assertDevice(device);
     validateGpuBufferPlan(arena.plan);
     if (arena.plan.operator !== "gg") {
       throw new Error("G-G diffusion requires a gg buffer arena");
@@ -531,6 +535,9 @@ export class GpuGgDiffusion {
       await this.submissions.submit(label, this.generation, [commandBuffer]);
       this.activeVapor = sourceName;
       this.completedPassesInternal += passCount;
+    } catch (error) {
+      this.poison(error);
+      throw error;
     } finally {
       this.inFlight = false;
     }
@@ -542,8 +549,7 @@ export class GpuGgDiffusion {
       throw new Error("cannot destroy GPU G-G diffusion while work is in flight");
     }
     this.destroyed = true;
-    for (const entry of this.rangeUniforms) entry.buffer.destroy();
-    claimedArenas.delete(this.arena);
+    this.releaseOwnedResources(false);
   }
 
   isDestroyed(): boolean {
@@ -653,10 +659,31 @@ export class GpuGgDiffusion {
   }
 
   private assertUsable(): void {
+    if (this.poisonedReason !== null) {
+      throw new Error(`GPU G-G diffusion is poisoned: ${this.poisonedReason}`);
+    }
     if (this.destroyed) throw new Error("GPU G-G diffusion is destroyed");
     if (this.arena.isDestroyed()) throw new Error("GPU diffusion arena is destroyed");
     if (this.submissions.currentGeneration() !== this.generation) {
       throw new Error("GPU diffusion generation is stale");
     }
+  }
+
+  private poison(error: unknown): void {
+    if (this.poisonedReason === null) {
+      this.poisonedReason =
+        error instanceof Error ? error.message : "unknown GPU execution failure";
+    }
+    this.destroyed = true;
+    this.releaseOwnedResources(true);
+  }
+
+  private releaseOwnedResources(destroyArena: boolean): void {
+    if (!this.ownedResourcesReleased) {
+      this.ownedResourcesReleased = true;
+      for (const entry of this.rangeUniforms) entry.buffer.destroy();
+      claimedArenas.delete(this.arena);
+    }
+    if (destroyArena) this.arena.destroy();
   }
 }

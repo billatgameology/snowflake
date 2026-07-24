@@ -376,6 +376,7 @@ async function main() {
             totalBytes: readbackAudit.totalBytes(),
           },
           uncapturedErrors,
+          unexpectedDeviceLoss: submissions.unexpectedLossReason(),
         };
         submissions.destroy();
         return result;
@@ -458,7 +459,8 @@ async function main() {
         deviceResult.submissions.length === expectedComparisonCount + 1 &&
         deviceResult.readback.records.length === expectedComparisonCount + 1 &&
         deviceResult.readback.fullFieldDisplayFrameCount === 0 &&
-        deviceResult.uncapturedErrors.length === 0,
+        deviceResult.uncapturedErrors.length === 0 &&
+        deviceResult.unexpectedDeviceLoss === null,
       repository,
       host: {
         platform: process.platform,
@@ -488,6 +490,7 @@ async function main() {
         submissions: deviceResult.submissions,
         readback: deviceResult.readback,
         uncapturedErrors: deviceResult.uncapturedErrors,
+        unexpectedDeviceLoss: deviceResult.unexpectedDeviceLoss,
       },
     };
     console.log(JSON.stringify(report, null, 2));

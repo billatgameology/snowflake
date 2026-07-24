@@ -20,11 +20,17 @@ export interface GpuOwnedBuffer {
 
 export class GpuBufferArena {
   private destroyed = false;
+  private readonly device: GPUDevice;
   private readonly owned = new Map<string, GpuOwnedBuffer>();
   readonly generation: number;
   readonly plan: GpuBufferPlan;
 
-  private constructor(generation: number, plan: GpuBufferPlan) {
+  private constructor(
+    device: GPUDevice,
+    generation: number,
+    plan: GpuBufferPlan,
+  ) {
+    this.device = device;
     this.generation = generation;
     this.plan = plan;
   }
@@ -50,7 +56,7 @@ export class GpuBufferArena {
     if (!support.supported) {
       throw new Error(`GPU allocation is unsupported: ${support.reasons.join("; ")}`);
     }
-    const arena = new GpuBufferArena(generation, plan);
+    const arena = new GpuBufferArena(device, generation, plan);
     try {
       for (const descriptor of plan.buffers) {
         const buffer = device.createBuffer({
@@ -97,6 +103,7 @@ export class GpuBufferArena {
     destinationOffset = 0,
   ): void {
     this.assertAlive();
+    this.assertDevice(device);
     const entry = this.owned.get(name);
     if (entry === undefined) throw new Error(`GPU buffer is not owned: ${name}`);
     if (
@@ -126,6 +133,12 @@ export class GpuBufferArena {
 
   isDestroyed(): boolean {
     return this.destroyed;
+  }
+
+  assertDevice(device: GPUDevice): void {
+    if (device !== this.device) {
+      throw new Error("GPU buffer arena belongs to a different device");
+    }
   }
 
   private assertAlive(): void {
