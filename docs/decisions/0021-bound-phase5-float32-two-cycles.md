@@ -1,7 +1,7 @@
 # 0021 — Bound exact Phase 5 float32 relaxation two-cycles
 
 - **Date:** 2026-07-24
-- **Status:** proposed; supersedes the WP4 residual-classification portion of protocol v4
+- **Status:** accepted; supersedes the WP4 residual-classification portion of protocol v4
 - **Charter impact:** none; the float64 CPU oracle and aggregate-v5 physical/numerical contract
   remain unchanged, while Phase 5 still requires tolerance-bounded CPU-oracle agreement on the
   authenticated Windows D3D12 lane

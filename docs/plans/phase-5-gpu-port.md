@@ -1,8 +1,8 @@
 # Plan — Phase 5: WebGPU solver port and Windows D3D12 conformance
 
 - **Phase:** Phase 5 — GPU port
-- **Status:** WP1, WP2, and WP3 are independently accepted; WP4 implementation exposed an exact
-  f32 period-two relaxation orbit, so decision 0021 / protocol v5 repair is the active work
+- **Status:** WP1, WP2, and WP3 are independently accepted; decision 0021 / protocol v5 is
+  independently accepted and WP4 implementation is active
 - **Started:** 2026-07-23
 - **Last touched:** 2026-07-24 by Codex
 
@@ -38,7 +38,7 @@ clarified v1.14 by ADR 0016; Windows-only scope directed v1.16 by ADR 0018.)
   [0019](../decisions/0019-phase5-gg-dirichlet-ledger-conformance.md) defines the G-G
   Dirichlet gate, and decision
   [0020](../decisions/0020-floor-phase5-float32-smoother-drift.md) defines the binary32
-  minimum-subnormal floor. Proposed decision
+  minimum-subnormal floor. Accepted decision
   [0021](../decisions/0021-bound-phase5-float32-two-cycles.md) defines the only bounded f32
   two-cycle convergence classification permitted by the port.
 - Solver truth: [gg-machinery.md](../gg-machinery.md) and
@@ -141,7 +141,7 @@ and tolerance SHA-256 values are
 its two-lane acceptance meaning without rewriting that history. No canonical v1 lane bundle was
 published.
 
-## Proposed Windows-only v5 protocol repair
+## Accepted Windows-only v5 protocol repair
 
 This section and `runner/src/phase5-protocol.ts` are the current Phase 5 pre-registration.
 Decision 0019 superseded Windows v2 with v3 before canonical WP3 evidence. V2 remains immutable
@@ -165,16 +165,16 @@ policy and blocking-only `NC-TOLERANCE-BYPASS`.
 
 Production D3D12 execution then disproved v4's history-local feasibility premise before final
 WP4 evidence: cold fixture step 3 enters an exact two-cell, one-ULP, period-two orbit while
-divergence is zero and every other numerical guard passes. Decision 0021 therefore proposes
+divergence is zero and every other numerical guard passes. Decision 0021 therefore adopts
 `phase5-gpu-conformance-windows-v5`. V5 keeps every fixture and configured tolerance unchanged,
 adds exact period-two / maximum-one-ULP evidence, raises the LK allocation from 60 to the
 already-frozen 64 bytes/cell ceiling, and changes no CPU or aggregate-v5 physics meaning. The
-proposed canonical-JSON aggregate SHA-256 is
+accepted canonical-JSON aggregate SHA-256 is
 `bdc61bfe5cb48e9e29f5b79337036d7b23ec11e1677f1657595d00f5e7de91ec`; its tolerance-manifest
 SHA-256 is `d38ec0f7a0096dc297d651cd1b89fb80275edb4098c16545c44274e585c2a09b`;
 the fixture SHA-256 remains
-`29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`. These values must be
-independently accepted before implementation resumes.
+`29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`. Same-reviewer acceptance
+of exact repair `79ec3222bb9f74329968728072fdca9d9d4e6138` returned zero blockers and zero should-fixes.
 
 Any later change to a blocking fixture, tolerance, decision margin, performance threshold,
 criterion, negative control, runtime revision, or evidence meaning requires an ADR and
@@ -1244,11 +1244,12 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
       deterministic two-cell period-two orbit with one ULP per cell, residual
       `5.82076573607537e-8`, divergence zero, positive shell/exchange, bounded drift, and exact
       agreement with an independent f32 replay. Same-reviewer diagnosis returned one blocker and
-      zero should-fixes: v4 cannot classify that reachable f32 history. Proposed decision 0021
+      zero should-fixes: v4 cannot classify that reachable f32 history. Accepted decision 0021
       and protocol v5 retain the normal fixed-point branch and add only exact period two with
       maximum one-ULP motion, both phases' unchanged divergence/drift guards, explicit reporting,
-      resettable history, evolving-f32 regression, and adversarial near misses. Register and
-      independently review v5 before resuming implementation.
+      resettable history, evolving-f32 regression, and adversarial near misses. Exact repair
+      `79ec322` received same-reviewer acceptance with zero blockers and zero should-fixes; WP4
+      implementation resumes under that identity.
 - [ ] **WP5 — headless runner and evidence boundary.** Land the selected runtime, flagless gate,
       strict manifest/report/index publication, complete exit semantics, and every adversarial
       bypass test. Re-run permanent Phase 2a, Phase 2b, gate3, and gate4 regression controls where
@@ -1353,7 +1354,7 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
   phases and every shaped intermediate now match the independent operation-rounded calculation;
   an unchanged deterministic operator cannot leave the orbit.
 - **Accept any residual below a generic f32 floor.** Rejected by decision 0021 because monotonic
-  drift or longer/multi-ULP cycles could pass. The proposed v5 exception requires exact period
+  drift or longer/multi-ULP cycles could pass. The accepted v5 exception requires exact period
   two, at most one ordered-f32 ULP locally, and both phases' existing divergence/drift guards.
 
 ## Deferred Metal extension
