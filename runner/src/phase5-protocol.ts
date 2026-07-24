@@ -1,17 +1,18 @@
 // Phase 5 criteria-first GPU conformance protocol. The numerical fixtures and tolerances were
 // frozen before solver-gpu existed. Decision 0018 narrowed v2 to Windows; decision 0019's v3
-// changes only the G-G Dirichlet ledger evidence meaning after a cancellation seam was measured,
-// without revising a numerical envelope.
+// changed only the G-G Dirichlet ledger evidence meaning after a cancellation seam was measured.
+// Decision 0020's v4 adds the binary32 minimum-subnormal ULP floor required for the already
+// frozen aggregate-v5 smoother-drift bound; registered normal-field envelopes are unchanged.
 
 import type { Dims, DomainShape, FarFieldCondition, GGPresetName } from "@vcc/core";
 
-export const PHASE5_PROTOCOL = "phase5-gpu-conformance-windows-v3";
+export const PHASE5_PROTOCOL = "phase5-gpu-conformance-windows-v4";
 export const PHASE5_PROTOCOL_SHA256 =
-  "ce1821df86461cbd7660cbb34c697071bd5d3822a4ca4def042245f569d61e98";
+  "62f6f940a38a477dd34b6fd53687808708f7ccf89d6f59eccc8cb7960ccc8688";
 export const PHASE5_FIXTURES_SHA256 =
   "29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512";
 export const PHASE5_TOLERANCES_SHA256 =
-  "1e77ed673e77aba6598c2bdd56e6b80f0f59343067bd7cb2c677d220d2fc05ba";
+  "c0062a8b9c2d01ed8fba7d43ad64f3da7a6dc931f50265257b545de665281866";
 export const PHASE5_GATE_COMMAND = "node runner/src/main.ts gate5";
 export const PHASE5_LANE_COMMAND = "node runner/src/main.ts gate5-lane";
 export const PHASE5_HEADLESS_RUNTIME = "playwright-bundled-chromium";
@@ -493,6 +494,8 @@ export const PHASE5_SCALAR_TOLERANCES = {
 
 /** IEEE-754 binary32 spacing at one; WGSL arithmetic uses binary32 for the production fields. */
 export const FLOAT32_EPSILON = 2 ** -23;
+/** Smallest positive IEEE-754 binary32 subnormal. */
+export const FLOAT32_MIN_VALUE = 2 ** -149;
 /** Deterministic tree reduction plus the 12-operation split smoother, with a safety factor. */
 export const FLOAT32_SMOOTHER_DRIFT_BOUND_FACTOR = 64;
 
@@ -510,8 +513,7 @@ export function float32SmootherDriftAbsLimit(
   return (
     FLOAT32_SMOOTHER_DRIFT_BOUND_FACTOR *
     activeCellCount *
-    FLOAT32_EPSILON *
-    maxAbsSweepInput
+    Math.max(FLOAT32_EPSILON * maxAbsSweepInput, FLOAT32_MIN_VALUE)
   );
 }
 
@@ -738,6 +740,7 @@ export function phase5ToleranceManifest() {
     scalarTolerances: PHASE5_SCALAR_TOLERANCES,
     decisionMargins: PHASE5_DECISION_MARGINS,
     float32Epsilon: FLOAT32_EPSILON,
+    float32MinimumSubnormal: FLOAT32_MIN_VALUE,
     float32SmootherDriftBoundFactor: FLOAT32_SMOOTHER_DRIFT_BOUND_FACTOR,
   } as const;
 }

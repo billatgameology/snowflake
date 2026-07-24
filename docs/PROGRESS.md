@@ -107,11 +107,18 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   are `0.002877725076560811` (G-G) and `0.6` (LK), both above `4e-4`.
   Decision [0019](decisions/0019-phase5-gg-dirichlet-ledger-conformance.md) supersedes v2 for
   final evidence after provisional WP3 execution exposed its unmeasured cancellation-heavy
-  direct-meter criterion. Current v3 id `phase5-gpu-conformance-windows-v3` has SHA-256
+  direct-meter criterion. Historical v3 id `phase5-gpu-conformance-windows-v3` has SHA-256
   `ce1821df86461cbd7660cbb34c697071bd5d3822a4ca4def042245f569d61e98`; fixture and tolerance
   hashes and every numerical envelope are unchanged. V3 blocks on exact clamp-path witnesses,
   within-lane corrected-mass conservation, and cross-lane corrected-mass agreement while
   retaining direct meter differences as mandatory diagnostics.
+  Decision [0020](decisions/0020-floor-phase5-float32-smoother-drift.md) supersedes v3 for final
+  evidence before production LK WGSL. Current v4 id `phase5-gpu-conformance-windows-v4` has
+  SHA-256 `62f6f940a38a477dd34b6fd53687808708f7ccf89d6f59eccc8cb7960ccc8688`; fixture SHA-256 remains
+  `29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`, while tolerance SHA-256 is
+  `c0062a8b9c2d01ed8fba7d43ad64f3da7a6dc931f50265257b545de665281866`. The only numerical
+  addition is the binary32 minimum-subnormal `2^-149` floor in the independently computed
+  smoother-drift bound; every registered normal-field envelope and non-LK criterion is unchanged.
   Final exact root `npm test` exited 0 in 377.6 seconds: Rule 7 clean over 166 files, both
   TypeScript projects green, and 44 files / 802 tests passed. WP0 freeze commit
   `f2373bea9294947aa501805e4299ea08d829878f` then passed the canonical capability probe from a
@@ -206,16 +213,23 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   accepts all code/evidence. Docs closure
   `39d8b435ef638608b98480cb7f052adb845e9ad1` received zero-finding re-review, so WP3 is closed.
   WP4 design commit `5ca5c3651c4ea5f968c8c976607b7f9e42289625` was rejected with seven blockers
-  and three should-fixes before production LK WGSL began. The repair now specifies the
+  and three should-fixes before production LK WGSL began. Repair `98a8083` specified the
   representable zero-exchange divergence branch, f32 ledger-closure bounds and clipping stress,
   stalled updates, no-write far-field-only events, non-resumable LK v2 conversion scope,
   positive source/exchange guards, tick/noise lifetime, complete topology order, and synchronized
-  handoff. The committed pre-shader operation-rounded probe covers all nine registered LK
+  handoff. Its pre-shader operation-rounded probe covers all nine registered LK
   topology samples: 22–141 sweeps, final residual/divergence exactly zero, positive Dirichlet
-  source/exchange, and every direct drift below its independent f32 limit. The next action is to
-  commit this repair and return it to the same reviewer; no production LK shader exists yet.
-  Focused probe tests pass 3/3, both TypeScript projects and Rule 7 pass, the 33-module app build
-  passes, and exact root `npm test` passes 50 files / 852 tests in 391.00 seconds.
+  source/exchange, and every direct drift below its independent f32 limit. Same-reviewer round 2
+  closed the original findings but found four blockers and one should-fix: the drift bound omitted
+  a binary32 minimum-subnormal floor; a legal zero-exchange first sweep was poisoned; same-
+  temperature events could split ledger segments; load-bearing tests trusted producer flags; and
+  this handoff was stale. Decision 0020 and the current repair close those findings with protocol
+  v4, a host-binary64 `2^-149` floor, an integrated unconverged zero-exchange probe, ordinary
+  nonzero-exchange overflow rejection, a bit-preserving same-temperature ledger rule/mutation,
+  and independent sample-matrix/predicate/extrema recomputation. Focused v4 tests pass 13/13. The
+  exact repair commit must return to the same reviewer; no production LK shader exists yet.
+  Exact root `npm test` passes 50 files / 852 tests in 368.3 seconds, both TypeScript projects
+  pass, Rule 7 is clean over 192 files, and the 33-module app build passes.
 - **Phase 2b v5 execution update:** reviewed sequential execution commit `dd762f0` was interrupted
   by accidental host shutdown during warm step-189 relaxation, after completed step 188. No warm
   checkpoint, exit status, terminal verdict, or cold start exists; the attempt is incomplete
@@ -583,7 +597,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ✅ **complete, 2026-07-20.** One flagless v5p run at tracked-clean `0dc0f86`, pre-registration `8adea86`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exited 0. Same `96×96×96` hexPrism, extent target, fixed-σ far field, `sigmaInfinity=0.002`, pressure, spacing, mapping, seed 1, noise 0, CFL, and convergence controls; temperature alone differed. −5 °C: step 814, extent 61, attached 18,193, AR `0.118644` plate. −15 °C: step 330, extent 61, attached 1,159, AR `12.2000` column. Both: size-target, symmetry error 0, every relaxation converged, bounded smoother drift, checkpoint round trip identical. The depleted-start differential was 3/3 and permanent Phase 2a control retained canonical SHA-256 `f1796b5015…a389`. Final log SHA-256 `ea69d65a…c45e`, status 0, empty stderr; complete evidence: [v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result). V3 negative and v4 execution-invalid history remain preserved. |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ✅ **maker-asserted complete, 2026-07-23** — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ✅ **complete, 2026-07-18** — one canonical `node runner/src/main.ts gate4` at `70a2496`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exit 0 in 7,178.8 s. Pass A: 13 runs, 24/24 records green; plate/column AR `0.0666667`/`1.66667`; five-point sweep strictly increasing; depletion median `0.770238`, 7/7 samples below one, width 7→13; three distinct reproducible open-hollow occupancies; cap score `1.3`; dendrite/compact branches 6/0 at independent first reservoir crossings (cycles 4,775/5,450, extents 99/83). A manifest/report/index SHA-256: `e5e85c70…8644` / `bcb29e05…7188` / `92346e3e…1917`. Pass B: 11 runs, 12/12 execution records green; three morphology diagnostics pass and five honestly miss (depletion, widening, hollowing, capped history, branch). B manifest/report/index: `c0ceed5b…e812` / `22c8a92c…fa2d` / `5644f838…5cb0`. Aggregate v2 SHA-256 `194f837d…d8e2`, `gatePass=true`, `passBDiagnosticPass=false`. Real `node app/scripts/visual.mjs --phase4`: 20/20 original-resolution captures inspected by coordinator and reviewer, zero absent/error/clipped/hash-mismatch views, manifest `19e0fcfe…573b`. Post-publication exact root suite 779/779 and 33-module build green; final same-reviewer verdict on repair `b7153cc`: CLEAN, 0 blockers / 0 should-fixes. Full record: [v2 plan](plans/phase-4-v2-reservoir-matched-branch-control.md). |
-| 5 | GPU agrees with CPU oracle to tolerance on observed Windows D3D12; preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable. This phase makes no Metal/general-WebGPU portability claim (ADR 0018). | 🔶 **WP1–WP3 complete; WP4 design remediation in progress** (2026-07-24) — decision 0019 supersedes v2 with protocol `phase5-gpu-conformance-windows-v3`, SHA-256 `ce1821df…1e98`; fixtures and all numerical CPU-vs-GPU tolerances remain unchanged. WP1/WP2/WP3 independently close at `afd9407` / `9f7a7b4` / `39d8b43`. WP4 review found seven blockers and three should-fixes before LK WGSL; the repaired design and f32 reduction-floor probe await same-reviewer re-review. Metal remains a separately frozen later-machine extension. No final Phase 5 gate evidence exists yet. Active plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). |
+| 5 | GPU agrees with CPU oracle to tolerance on observed Windows D3D12; preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable. This phase makes no Metal/general-WebGPU portability claim (ADR 0018). | 🔶 **WP1–WP3 complete; WP4 design remediation in progress** (2026-07-24) — decision 0020 supersedes historical v3 with final-evidence protocol `phase5-gpu-conformance-windows-v4`, SHA-256 `62f6f940…8688`; fixtures and every normal-field CPU-vs-GPU envelope remain unchanged, while the binary32 drift bound gains its minimum-subnormal floor. WP1/WP2/WP3 independently close at `afd9407` / `9f7a7b4` / `39d8b43` and must replay under v4 before WP7. WP4 review round 2 found four blockers and one should-fix before LK WGSL; the repaired design and independently checked reduction-floor probe await exact same-reviewer closure. Metal remains a separately frozen later-machine extension. No final Phase 5 gate evidence exists yet. Active plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
 
@@ -678,6 +692,10 @@ Records live in [docs/decisions/](decisions/):
   the direct G-G Dirichlet meter difference visible but gates on independently reconstructed
   within-GPU and CPU-vs-GPU corrected-mass invariants after the cancellation seam was measured.
   Numerical field/scalar tolerances are unchanged. Charter impact: none
+- [0020](decisions/0020-floor-phase5-float32-smoother-drift.md) — Phase 5 protocol v4 adds the
+  binary32 minimum-subnormal floor to the independently computed aggregate-v5 smoother-drift
+  bound before production LK WGSL. Fixtures and normal-field envelopes are unchanged; WP1–WP3
+  canonical probes must replay under v4 before final publication. Charter impact: none
 
 The two decisions predating this system (web over native C++/CUDA; the five-part repo split) live
 in charter §3.1 and get no retroactive ADR.
@@ -685,7 +703,7 @@ in charter §3.1 and get no retroactive ADR.
 ## Active plan
 
 - [phase-5-gpu-port.md](plans/phase-5-gpu-port.md) — two-lane WP0 remains superseded history;
-  decision 0018 narrows the active lane to Windows and decision 0019's v3 protocol is current.
+  decision 0018 narrows the active lane to Windows and decision 0020's v4 protocol is current.
   WP1 is independently closed. WP2 is independently closed at reviewed implementation
   `9f7a7b476a17e9f47849cc323d49e928fc177b65`: focused tests pass 21/21, exact root
   verification passes 47 files / 833 tests, the 33-module app build passes, and the canonical
@@ -698,10 +716,11 @@ in charter §3.1 and get no retroactive ADR.
   errors/loss, 778 bounded submissions, 946 audited test readbacks, and zero display-frame
   full-field reads. Both blocking G-G fixtures pass exact discrete comparisons and unchanged
   frozen tolerances; same-reviewer closure found zero blockers and zero should-fixes. WP4 design
-  commit `5ca5c36` received seven blockers and three should-fixes. Its repaired numerical,
-  ledger, stalled-event, conversion, source-sign, tick, and topology contracts are accompanied
-  by a passing nine-sample f32 reduction-floor probe. The next action is to commit and return the
-  repair to the same reviewer before writing production LK GPU code.
+  commit `5ca5c36` received seven blockers and three should-fixes; repair `98a8083` then received
+  four blockers and one should-fix. The current v4 repair adds the minimum-subnormal drift floor,
+  an integrated legal zero-exchange state, same-temperature ledger continuity, and independent
+  sample/predicate recomputation. The next action after this changeset lands is to return its
+  exact HEAD to the same reviewer before writing production LK GPU code.
 
 ## Completed plans
 
@@ -864,24 +883,35 @@ fixtures passing, 778 bounded submissions, 946 audited test reads, zero display 
 reads, and zero GPU errors/loss.
 
 WP4 design commit `5ca5c3651c4ea5f968c8c976607b7f9e42289625` was independently rejected with
-seven blockers and three should-fixes before any production LK shader existed. The current
-repair freezes the exact 256-lane f32 reduction composition, a representable zero-exchange
-divergence rule, fixed-point tolerance, bounded non-tautological ledger closure, stalled
-zero-rate behavior, no-write `sigmaInfinity`-only events, non-resumable LK v2 conversion scope,
-strictly positive source/exchange evidence, tick/noise lifetime, and complete CPU-order topology
-publication. `node runner/src/phase5-lk-reduction-shadow.ts` now supplies the required
-pre-shader feasibility evidence: all nine registered topology samples pass in 22–141 f32
-sweeps; final residual/divergence are exactly zero, every fixed-sigma sample has positive source
-and exchange, maximum absolute drift is `3.8230791687965393e-7`, and the smallest independent
-drift limit is `0.00004966732028321985`.
+seven blockers and three should-fixes before any production LK shader existed. Repair
+`98a8083a73504213bd6471f77ec8a693d27ee80a` froze the exact 256-lane f32 reduction composition,
+representable zero-exchange rule, fixed-point tolerance, bounded non-tautological ledger closure,
+stalled zero-rate behavior, no-write `sigmaInfinity`-only events, non-resumable LK v2 conversion
+scope, positive source/exchange evidence, tick/noise lifetime, and complete CPU-order topology
+publication. Same-reviewer round 2 closed those findings but rejected four remaining seams plus
+one stale-handoff should-fix: no binary32 minimum-subnormal drift floor, a poisoned legal
+zero-exchange first sweep, missing same-temperature ledger-segment continuity, and a
+producer-trusting load-bearing test.
 
-**Next action:** commit the repaired plan/probe/handoff and return that exact commit to the same
-reviewer. Verification is green: probe 3/3, root 50 files / 852 tests, 33-module app build, both
-typechecks, Rule 7, and diff check. Production LK WGSL may begin only after zero blockers and
-zero should-fixes. The active final-evidence
-protocol is decision 0019's `phase5-gpu-conformance-windows-v3`, SHA-256
-`ce1821df86461cbd7660cbb34c697071bd5d3822a4ca4def042245f569d61e98`; v2 is historical.
-WP1/WP2 probes must replay under v3 before WP7. Metal is deferred to a separately frozen
+Decision 0020 and the current repair create
+`phase5-gpu-conformance-windows-v4`, SHA-256
+`62f6f940a38a477dd34b6fd53687808708f7ccf89d6f59eccc8cb7960ccc8688`, tolerance SHA-256
+`c0062a8b9c2d01ed8fba7d43ad64f3da7a6dc931f50265257b545de665281866`. The host-binary64 drift
+bound is `64 * activeCellCount * max(2^-23 * maxAbsSweepInput, 2^-149)`, with an exact-zero
+special case. The integrated legal first sweep reports positive shell injection, zero surface
+exchange, a positive-infinity unconverged divergence status, and no poison. The test independently
+pins all nine fixture/step samples and recomputes drift, convergence, positivity, and extrema.
+Normal samples still pass in 22–141 f32 sweeps; final residual/divergence are exactly zero,
+minimum positive shell injection/exchange are `1.7043203115463257e-7` /
+`3.7532299757003784e-7`, maximum absolute drift is `3.8230791687965393e-7`, and the smallest
+normal-field limit is `0.00004966732028321985`.
+
+**Next action after this changeset lands:** return its exact tracked-clean HEAD to the same
+reviewer. Focused v4 tests pass 13/13; exact root tests pass 50 files / 852 tests in 368.3
+seconds, both typechecks pass, Rule 7 is clean over 192 files, the 33-module app build passes,
+and the diff check is clean. Production LK WGSL may begin only after zero
+blockers and zero should-fixes. WP1–WP3 canonical probes must replay under exact v4 identity
+before WP7 publication. Metal is deferred to a separately frozen
 later-machine extension; never relabel Windows evidence as Metal or claim general WebGPU
 portability. Preserve accepted evidence under `out/phase2b/`, `out/phase4/`, and
 `out/phase4-visual/`.

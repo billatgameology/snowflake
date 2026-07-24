@@ -34,7 +34,11 @@ clarified v1.14 by ADR 0016; Windows-only scope directed v1.16 by ADR 0018.)
   [0002](../decisions/0002-dev-hardware-split.md), and
   [0016](../decisions/0016-phase5-hardware-backend-lanes.md), headless-runtime decision
   [0017](../decisions/0017-phase5-headless-runtime.md), and Windows-only scope decision
-  [0018](../decisions/0018-phase5-windows-only-gate.md).
+  [0018](../decisions/0018-phase5-windows-only-gate.md). Decision
+  [0019](../decisions/0019-phase5-gg-dirichlet-ledger-conformance.md) defines the G-G
+  Dirichlet gate, and decision
+  [0020](../decisions/0020-floor-phase5-float32-smoother-drift.md) defines the binary32
+  minimum-subnormal floor.
 - Solver truth: [gg-machinery.md](../gg-machinery.md) and
   [attachment-kinetics.md](../attachment-kinetics.md), including the aggregate-v5
   convergence identity and `aggregate-hv-g1h1-v5` surface policy.
@@ -135,26 +139,32 @@ and tolerance SHA-256 values are
 its two-lane acceptance meaning without rewriting that history. No canonical v1 lane bundle was
 published.
 
-## Windows-only v3 frozen protocol
+## Windows-only v4 frozen protocol
 
 This section and `runner/src/phase5-protocol.ts` are the current Phase 5 pre-registration.
-Decision 0019 supersedes the Windows v2 protocol before canonical WP3 evidence. V2 remains
-immutable history at id `phase5-gpu-conformance-windows-v2` and canonical-JSON SHA-256
-`223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`. The current
-machine-readable protocol id is `phase5-gpu-conformance-windows-v3`; its canonical-JSON SHA-256
-is `ce1821df86461cbd7660cbb34c697071bd5d3822a4ca4def042245f569d61e98`.
+Decision 0019 superseded Windows v2 with v3 before canonical WP3 evidence. V2 remains immutable
+history at id `phase5-gpu-conformance-windows-v2` and canonical-JSON SHA-256
+`223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`. V3 remains immutable WP3
+development evidence at id `phase5-gpu-conformance-windows-v3`, canonical-JSON SHA-256
+`ce1821df86461cbd7660cbb34c697071bd5d3822a4ca4def042245f569d61e98`, and tolerance-manifest
+SHA-256 `1e77ed673e77aba6598c2bdd56e6b80f0f59343067bd7cb2c677d220d2fc05ba`.
 
-The fixture manifest remains
-`29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`. The Windows tolerance
-manifest remains
-`1e77ed673e77aba6598c2bdd56e6b80f0f59343067bd7cb2c677d220d2fc05ba`; every numerical
-CPU-vs-GPU tolerance and decision margin is byte-for-byte unchanged. V3 adds the explicit
-`corrected-mass-invariant-v1` G-G Dirichlet ledger policy and narrows
-`NC-TOLERANCE-BYPASS` to blocking comparisons exactly as decision 0019 requires. Any later
-change to a blocking fixture, tolerance, decision margin, performance threshold, criterion,
-negative control, runtime revision, or evidence meaning requires an ADR and invalidates the
-Windows bundle. This v3 freeze precedes canonical WP3 execution; WP1/WP2 production and the
-WP3 review candidate did not revise a numerical envelope.
+Before production LK WGSL existed, decision 0020 superseded v3 for final evidence because the
+relative-only binary32 smoother-drift bound did not cover legal subnormal input. The current
+machine-readable id is `phase5-gpu-conformance-windows-v4`; its canonical-JSON SHA-256 is
+`62f6f940a38a477dd34b6fd53687808708f7ccf89d6f59eccc8cb7960ccc8688`. The fixture manifest
+remains `29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`. The current
+tolerance-manifest SHA-256 is
+`c0062a8b9c2d01ed8fba7d43ad64f3da7a6dc931f50265257b545de665281866`; the only new value is
+the binary32 minimum subnormal `2^-149` used by the smoother-drift bound. Every fixture,
+CPU-vs-GPU field/scalar tolerance, decision margin, performance threshold, and non-LK criterion
+is unchanged. V4 retains decision 0019's `corrected-mass-invariant-v1` G-G Dirichlet ledger
+policy and blocking-only `NC-TOLERANCE-BYPASS`.
+
+Any later change to a blocking fixture, tolerance, decision margin, performance threshold,
+criterion, negative control, runtime revision, or evidence meaning requires an ADR and
+invalidates the Windows bundle. WP1–WP3 closures remain valid, but their canonical probes must
+replay under exact v4 identity before WP7 publication.
 
 The superseded v2 freeze candidate passed exact root `npm test` in 371.8 seconds: Rule 7 clean over 178
 files, both TypeScript projects green, and 46 files / 816 tests passed. The app production build
@@ -163,7 +173,7 @@ canonical hashes, requires exactly one Windows lane, requires exactly 16 criteri
 removed Metal/cross-backend criteria, and preserves one uniquely owned negative control per
 criterion.
 
-The current v3 authority/protocol freeze is commit
+The historical v3 authority/protocol freeze is commit
 `70f85e15babc9eae8e13b93c2442babe14b63a23`; the superseded v2 freeze is
 `60be8c0f14b44c1f5bf1b2753c409baad3da0833`. From the v2 tracked-clean commit, the canonical
 capability and WP1 probes independently recorded the same commit and clean tree, observed D3D12,
@@ -348,15 +358,16 @@ and the erroneous requirement that a million-scale vapor-unit ledger differ by l
 metrics, exact symmetry, decisions, event records, and stop reasons require equality.
 
 The Windows lane must independently pass the CPU oracle using the unchanged field and scalar
-tolerances above. There is no cross-backend multiplier or triangle comparison in v3.
+tolerances above. There is no cross-backend multiplier or triangle comparison in v4.
 
 Aggregate-v5 keeps dual convergence with the fixture's unchanged `relaxTol` and `divTol`. The GPU
 meters binary32 smoother drift directly and uses a deterministic pairwise/tree reduction—no
-unordered floating atomic. Its independent nonzero-field bound is
-`64 * activeCellCount * 2^-23 * maxAbsSweepInput`; an exact zero field has bound zero. The factor
-covers the 12 rounded split-smoother operations plus a bounded tree depth. Changing the reduction
-shape invalidates the factor. This is a GPU conformance diagnostic; it does not alter the CPU
-oracle's decision-0014 binary64 bound.
+unordered floating atomic. Under decision 0020, its independent nonzero-field bound is
+`64 * activeCellCount * max(2^-23 * maxAbsSweepInput, 2^-149)`; an exact zero field has bound
+zero. The host computes this bound in binary64 from the independently reduced binary32 maximum,
+so the floor cannot underflow in a shader. The factor covers the 12 rounded split-smoother
+operations plus a bounded tree depth. Changing the reduction shape invalidates the factor. This
+is a GPU conformance diagnostic; it does not alter the CPU oracle's decision-0014 binary64 bound.
 
 ### Checkpoint conversion contract
 
@@ -950,27 +961,33 @@ counter-based noise bit. The damped self-consistent solve always performs 60 bin
 iterations, with every shaped operation rounded once, then requires
 `abs(solved - iterate) <= 8 * 2^-23 * max(abs(sigmaOpp), 2^-126)`. Nonpositive opposing
 supersaturation is preserved exactly with zero kinetic coefficient and zero demand. A
-non-finite coefficient, boundary value, residual, reduction result, or corrected diagnostic
-poisons the solver.
+non-finite coefficient, boundary value, raw reduction result, or non-sentinel corrected
+diagnostic poisons the solver. The explicit zero-exchange/nonzero-numerator divergence status is
+positive infinity by contract: it means unconverged and continues sweeping, not poisoned.
 
 Every sum/max/min uses the frozen 256-lane pairwise/tree shape and the existing bounded dispatch
 planner. No float atomic participates in a numerical result. The signed smoother drift is
 metered before boundary replacement and clamping, never inferred, and must satisfy
-`64 * activeCellCount * 2^-23 * maxAbsSweepInput` (zero for an exact zero field). Fixed-sigma
-residual is `f32(maxAbsChange / f32(sigmaInfinity))`. The three signed global terms are reduced
-separately and the decision invocation computes
+`64 * activeCellCount * max(2^-23 * maxAbsSweepInput, 2^-149)` (zero for an exact zero field).
+The host computes the limit in binary64 from the independently reduced binary32 maximum.
+Fixed-sigma residual is `f32(maxAbsChange / f32(sigmaInfinity))`. The three signed global terms
+are reduced separately and the decision invocation computes
 `corrected = f32(f32(shellInjection + smootherDrift) - surfaceExchange)`. When
 `surfaceExchange != 0`, divergence is
 `f32(abs(corrected) / abs(surfaceExchange))`; when exchange is zero, exactly zero corrected
-numerator passes and any nonzero numerator fails. This is the binary32-operational equivalent of
-the CPU's unrepresentable `1e-300` floor. Fixed-sigma convergence requires both
+numerator passes and any nonzero numerator produces the positive-infinity unconverged sentinel.
+This is the binary32-operational equivalent of the CPU's unrepresentable `1e-300` floor.
+Overflow or non-finite arithmetic in the nonzero-exchange branch remains a solver failure.
+Fixed-sigma convergence requires both
 `residual < relaxTol` and `divergence < divTol`. Reflecting mode is residual-only and reports
 null shell/divergence diagnostics.
 
 The committed pre-shader probe `runner/src/phase5-lk-reduction-shadow.ts` freezes those operations
 before WGSL exists: 256-lane recursive reduction, f32 composition order, 60 fixed-point
 iterations, the fixed-point bound, zero-exchange branch, and per-operation `Math.fround`
-arithmetic. It samples each accepted CPU topology for all three blocking LK fixtures. Nine
+arithmetic. It also pins decision 0020's minimum-subnormal floor and an integrated legal first
+sweep with positive shell injection, zero surface exchange, and an unconverged sentinel. It
+samples each accepted CPU topology for all three blocking LK fixtures. Nine
 samples pass: f32 settling takes 22–141 sweeps, final residual and divergence are exactly zero,
 minimum positive shell injection/exchange are `1.7043203115463257e-7` /
 `3.7532299757003784e-7`, maximum absolute drift is `3.8230791687965393e-7`, and the smallest
@@ -1045,9 +1062,12 @@ including the active Dirichlet shell, without clamping negative values. If only
 `sigmaInfinity` changes, no field write is encoded and every f32 sigma bit is preserved.
 Deterministic reductions produce before/after absolute number-density sums, transformed
 interior/shell counts, and maximum cell absolute/relative error. Only after successful completion
-does the host commit temperature, far-field target, derived kinetics, ledger segment boundary,
-and event record; the next relaxation performs the explicit shell reclamp. Caches/readiness are
-invalidated atomically and the event consumes no tick or physical time.
+does the host commit temperature, far-field target, derived kinetics, and event record; the next
+relaxation performs the explicit shell reclamp. A real temperature change also closes the current
+ledger segment and starts the next one. A same-temperature event,
+including a far-field-only event, preserves `closedPlacedFillVaporUnits` and the segment start
+bit-for-bit and does not create a ledger boundary. Caches/readiness are invalidated atomically and
+the event consumes no tick or physical time.
 
 ### Conversion, comparison, and failure controls
 
@@ -1071,7 +1091,7 @@ cached boundary tuple, attachment delta, reports, convergence diagnostics, ledge
 derived scales, event records, density/reservoir diagnostics, stop reason, metrics, and noise
 witnesses. The harness reconstructs boundary membership, raw counts, cached opposing means,
 fill demand, drift identity/bound, and decision margins independently from read-back raw state.
-The blocking fill margin must remain at least `4e-4`; tolerances remain the WP0 v3 values.
+The blocking fill margin must remain at least `4e-4`; tolerances remain the WP0 v4 values.
 Positive-supersaturation fixed-sigma fixture acceptance also requires independently recomputed
 strictly positive global shell injection and global surface exchange. Reflecting diagnostics
 make no source-sign claim.
@@ -1083,7 +1103,8 @@ silent saturation loss and the `1e-5` clipping witness; hole fill counted as kin
 advance after unconverged or stale relaxation; one-tick noise shift; signed-value clamp;
 sigmaInfinity-only field rewrite; skipped shell transform/reclamp; zero/negative source or
 exchange accepted on a positive Dirichlet fixture; final-temperature ledger rescaling;
-kinetic/hole attachment reordering; wrong neighbor direction or premature fresh-neighbor use;
+same-temperature ledger-segment split; kinetic/hole attachment reordering; wrong neighbor
+direction or premature fresh-neighbor use;
 stale generation; full-field display readback; legacy-policy import; checkpoint f32-bit loss;
 and any checkpoint-resume claim.
 
@@ -1172,6 +1193,17 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
       implementation. Focused probe tests pass 3/3, both TypeScript projects and Rule 7 pass,
       the 33-module app build passes, and exact root `npm test` passes 50 files / 852 tests in
       391.00 seconds.
+      Same-reviewer round 2 on `98a8083` closed the original findings but rejected four remaining
+      numerical/state seams plus one handoff should-fix: the relative-only drift bound omitted a
+      binary32 subnormal floor; a legal zero-exchange first sweep was poisoned instead of remaining
+      unconverged; same-temperature events could split a ledger segment; and the probe test trusted
+      producer booleans instead of independently pinning the sample matrix and predicates. Decision
+      0020 creates protocol v4 with the host-computed `2^-149` floor. The repair adds the integrated
+      zero-exchange state, nonzero-exchange overflow rejection, bit-preserving same-temperature
+      ledger rule/mutation, and independent fixture/predicate/extrema recomputation. Exact
+      root `npm test` passes 50 files / 852 tests in 368.3 seconds; both TypeScript projects,
+      Rule 7 over 192 files, focused v4 tests 13/13, and the 33-module app build also pass. Exact
+      same-reviewer closure remains required before WGSL begins.
 - [ ] **WP5 — headless runner and evidence boundary.** Land the selected runtime, flagless gate,
       strict manifest/report/index publication, complete exit semantics, and every adversarial
       bypass test. Re-run permanent Phase 2a, Phase 2b, gate3, and gate4 regression controls where
@@ -1259,6 +1291,13 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
 - **Change G-G transfer equations to improve that meter.** Rejected after a local-conservation
   experiment did not materially change the discrepancy. It was reverted because it also changed
   the specified freezing/melting arithmetic merely to improve evidence.
+- **Keep a relative-only binary32 smoother-drift bound.** Rejected by decision 0020 because legal
+  subnormal input can make that expression smaller than one binary32 ULP. The exact-zero special
+  case remains, while every nonzero field uses the `2^-149` floor.
+- **Poison a legal zero-exchange/nonzero-source relaxation sweep.** Rejected because early
+  Dirichlet sweeps can inject at the shell before surface exchange becomes representable. The
+  positive-infinity divergence status remains unconverged and continues; non-sentinel non-finite
+  arithmetic still fails closed.
 
 ## Deferred Metal extension
 

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { canonicalJsonSha256 } from "../src/gate4-evidence.ts";
 import {
   FLOAT32_EPSILON,
+  FLOAT32_MIN_VALUE,
   FLOAT32_SMOOTHER_DRIFT_BOUND_FACTOR,
   PHASE5_AGGREGATE_ARTIFACT_PATHS,
   PHASE5_BUDGETS,
@@ -17,6 +18,7 @@ import {
   PHASE5_LANE_ARTIFACT_PATHS,
   PHASE5_LANES,
   PHASE5_MEMORY_PLANNING,
+  PHASE5_PROTOCOL,
   PHASE5_PROTOCOL_SHA256,
   PHASE5_PERFORMANCE,
   PHASE5_TOLERANCES_SHA256,
@@ -32,7 +34,17 @@ import {
 } from "../src/phase5-shadow.ts";
 
 describe("Phase 5 criteria freeze", () => {
-  it("pins the exact Windows-only v3 protocol and unchanged numerical manifests", () => {
+  it("pins the exact Windows-only v4 protocol and subnormal-safe tolerance manifest", () => {
+    expect(PHASE5_PROTOCOL).toBe("phase5-gpu-conformance-windows-v4");
+    expect(PHASE5_PROTOCOL_SHA256).toBe(
+      "62f6f940a38a477dd34b6fd53687808708f7ccf89d6f59eccc8cb7960ccc8688",
+    );
+    expect(PHASE5_FIXTURES_SHA256).toBe(
+      "29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512",
+    );
+    expect(PHASE5_TOLERANCES_SHA256).toBe(
+      "c0062a8b9c2d01ed8fba7d43ad64f3da7a6dc931f50265257b545de665281866",
+    );
     expect(canonicalJsonSha256(phase5ProtocolManifest())).toBe(PHASE5_PROTOCOL_SHA256);
     expect(canonicalJsonSha256(phase5FixtureManifest())).toBe(PHASE5_FIXTURES_SHA256);
     expect(canonicalJsonSha256(phase5ToleranceManifest())).toBe(
@@ -58,9 +70,6 @@ describe("Phase 5 criteria freeze", () => {
       crossLaneInvariant: "cpu-corrected-mass-vs-gpu-corrected-mass",
       blockingTolerance: "phase5-mixed-scalar-v1",
     });
-    expect(PHASE5_TOLERANCES_SHA256).toBe(
-      "1e77ed673e77aba6598c2bdd56e6b80f0f59343067bd7cb2c677d220d2fc05ba",
-    );
   });
 
   it("uses morphology-shaped dev and preview budgets rather than cube aliases", () => {
@@ -173,10 +182,14 @@ describe("Phase 5 criteria freeze", () => {
 
   it("defines an independent operation-count binary32 smoother-drift bound", () => {
     expect(FLOAT32_EPSILON).toBe(2 ** -23);
+    expect(FLOAT32_MIN_VALUE).toBe(2 ** -149);
     expect(FLOAT32_SMOOTHER_DRIFT_BOUND_FACTOR).toBe(64);
     expect(float32SmootherDriftAbsLimit(1000, 0)).toBe(0);
     expect(float32SmootherDriftAbsLimit(1000, 0.002)).toBe(
       64 * 1000 * 2 ** -23 * 0.002,
+    );
+    expect(float32SmootherDriftAbsLimit(1000, FLOAT32_MIN_VALUE)).toBe(
+      64 * 1000 * FLOAT32_MIN_VALUE,
     );
     expect(() => float32SmootherDriftAbsLimit(0, 0.002)).toThrow();
     expect(() => float32SmootherDriftAbsLimit(1, Number.NaN)).toThrow();

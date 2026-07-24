@@ -20,8 +20,8 @@ import {
 import { LKSolver } from "@vcc/solver-cpu";
 import {
   FLOAT32_EPSILON,
-  FLOAT32_SMOOTHER_DRIFT_BOUND_FACTOR,
   PHASE5_FIXTURES,
+  float32SmootherDriftAbsLimit,
   type Phase5LKFixture,
 } from "./phase5-protocol.ts";
 
@@ -103,7 +103,11 @@ export function phase5LkDivergenceFloat32(
   const exchange = Math.fround(surfaceExchange);
   const corrected = fsub(fadd(shellInjection, smootherDrift), exchange);
   if (exchange === 0) return corrected === 0 ? 0 : Infinity;
-  return fdiv(Math.abs(corrected), Math.abs(exchange));
+  const residual = fdiv(Math.abs(corrected), Math.abs(exchange));
+  if (!Number.isFinite(residual)) {
+    throw new Error("LK f32 divergence residual overflowed");
+  }
+  return residual;
 }
 
 function classifyAggregateFacet(rawNT: number, rawNZ: number): FacetClass {
@@ -259,6 +263,7 @@ interface SweepResult {
   readonly shellInjection: number;
   readonly surfaceExchange: number;
   readonly smootherDrift: number;
+  readonly maxAbsSweepInput: number;
   readonly smootherDriftLimit: number;
   readonly divergenceResidual: number | null;
   readonly minLocalSurfaceExchange: number;
@@ -359,13 +364,10 @@ function f32Sweep(solver: LKSolver, src: Float32Array): SweepResult {
   const shellInjection = reducePhase5LkFloat32(shellTerms, "sum");
   const smootherDrift = reducePhase5LkFloat32(driftTerms, "sum");
   const maxAbsSweepInput = reducePhase5LkFloat32(maxInputTerms, "max");
-  const smootherDriftLimit =
-    maxAbsSweepInput === 0
-      ? 0
-      : FLOAT32_SMOOTHER_DRIFT_BOUND_FACTOR *
-        solver.activeCellCount *
-        FLOAT32_EPSILON *
-        maxAbsSweepInput;
+  const smootherDriftLimit = float32SmootherDriftAbsLimit(
+    solver.activeCellCount,
+    maxAbsSweepInput,
+  );
   const residual = fdiv(
     reducePhase5LkFloat32(residualTerms, "max"),
     solver.sigmaInfinity,
@@ -388,8 +390,8 @@ function f32Sweep(solver: LKSolver, src: Float32Array): SweepResult {
   ] as const) {
     if (!Number.isFinite(value)) throw new Error(`non-finite f32 ${name}`);
   }
-  if (divergenceResidual !== null && !Number.isFinite(divergenceResidual)) {
-    throw new Error("non-finite f32 divergence residual");
+  if (divergenceResidual !== null && Number.isNaN(divergenceResidual)) {
+    throw new Error("NaN f32 divergence residual");
   }
   return {
     sigma: dst,
@@ -397,9 +399,63 @@ function f32Sweep(solver: LKSolver, src: Float32Array): SweepResult {
     shellInjection,
     surfaceExchange,
     smootherDrift,
+    maxAbsSweepInput,
     smootherDriftLimit,
     divergenceResidual,
     minLocalSurfaceExchange,
+  };
+}
+
+export interface Phase5LkZeroExchangeProbe {
+  readonly shellInjection: number;
+  readonly surfaceExchange: 0;
+  readonly divergenceResidual: typeof Infinity;
+  readonly residual: number;
+  readonly converged: false;
+}
+
+/** Legal early Dirichlet sweep: no surface exchange yet, but the shell reservoir injects. */
+export function runPhase5LkZeroExchangeProbe(): Phase5LkZeroExchangeProbe {
+  const solver = new LKSolver({
+    surfacePolicy: "aggregate-hv-g1h1-v5",
+    dims: { nx: 9, ny: 9, nz: 7 },
+    tempC: -15,
+    sigmaInfinity: 0.002,
+    dxUm: 0.35,
+    pressurePa: 101_325,
+    paramSet: "CAK_A1",
+    cflFill: 0.1,
+    relaxTol: 1e-9,
+    divTol: 1e-7,
+    relaxMaxSweeps: 100,
+    rngSeed: 1,
+    noiseEpsilon: 0,
+    domain: "hexPrism",
+    farField: "dirichlet",
+    seedRadius: 2,
+    seedThickness: 1,
+  });
+  for (let index = 0; index < solver.sigma.length; index++) {
+    if (solver.a[index] === 0 && solver.wall[index] === 0) solver.sigma[index] = 0;
+  }
+  const sweep = f32Sweep(
+    solver,
+    Float32Array.from(solver.sigma, Math.fround),
+  );
+  if (
+    sweep.shellInjection <= 0 ||
+    sweep.surfaceExchange !== 0 ||
+    sweep.divergenceResidual !== Infinity ||
+    !(sweep.residual > solver.relaxTol)
+  ) {
+    throw new Error("zero-exchange sentinel probe did not reach its registered legal state");
+  }
+  return {
+    shellInjection: sweep.shellInjection,
+    surfaceExchange: 0,
+    divergenceResidual: Infinity,
+    residual: sweep.residual,
+    converged: false,
   };
 }
 
@@ -412,6 +468,8 @@ export interface Phase5LkReductionSample {
   readonly shellInjection: number;
   readonly surfaceExchange: number;
   readonly smootherDrift: number;
+  readonly activeCellCount: number;
+  readonly maxAbsSweepInput: number;
   readonly smootherDriftLimit: number;
   readonly passesDriftBound: boolean;
   readonly passesDualConvergence: boolean;
@@ -501,6 +559,8 @@ function runFixture(fixture: Phase5LKFixture): Phase5LkReductionSample[] {
       shellInjection: last.shellInjection,
       surfaceExchange: last.surfaceExchange,
       smootherDrift: last.smootherDrift,
+      activeCellCount: solver.activeCellCount,
+      maxAbsSweepInput: last.maxAbsSweepInput,
       smootherDriftLimit: last.smootherDriftLimit,
       passesDriftBound,
       passesDualConvergence,
