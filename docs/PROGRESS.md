@@ -556,7 +556,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ✅ **complete, 2026-07-20.** One flagless v5p run at tracked-clean `0dc0f86`, pre-registration `8adea86`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exited 0. Same `96×96×96` hexPrism, extent target, fixed-σ far field, `sigmaInfinity=0.002`, pressure, spacing, mapping, seed 1, noise 0, CFL, and convergence controls; temperature alone differed. −5 °C: step 814, extent 61, attached 18,193, AR `0.118644` plate. −15 °C: step 330, extent 61, attached 1,159, AR `12.2000` column. Both: size-target, symmetry error 0, every relaxation converged, bounded smoother drift, checkpoint round trip identical. The depleted-start differential was 3/3 and permanent Phase 2a control retained canonical SHA-256 `f1796b5015…a389`. Final log SHA-256 `ea69d65a…c45e`, status 0, empty stderr; complete evidence: [v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result). V3 negative and v4 execution-invalid history remain preserved. |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ✅ **maker-asserted complete, 2026-07-23** — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ✅ **complete, 2026-07-18** — one canonical `node runner/src/main.ts gate4` at `70a2496`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exit 0 in 7,178.8 s. Pass A: 13 runs, 24/24 records green; plate/column AR `0.0666667`/`1.66667`; five-point sweep strictly increasing; depletion median `0.770238`, 7/7 samples below one, width 7→13; three distinct reproducible open-hollow occupancies; cap score `1.3`; dendrite/compact branches 6/0 at independent first reservoir crossings (cycles 4,775/5,450, extents 99/83). A manifest/report/index SHA-256: `e5e85c70…8644` / `bcb29e05…7188` / `92346e3e…1917`. Pass B: 11 runs, 12/12 execution records green; three morphology diagnostics pass and five honestly miss (depletion, widening, hollowing, capped history, branch). B manifest/report/index: `c0ceed5b…e812` / `22c8a92c…fa2d` / `5644f838…5cb0`. Aggregate v2 SHA-256 `194f837d…d8e2`, `gatePass=true`, `passBDiagnosticPass=false`. Real `node app/scripts/visual.mjs --phase4`: 20/20 original-resolution captures inspected by coordinator and reviewer, zero absent/error/clipped/hash-mismatch views, manifest `19e0fcfe…573b`. Post-publication exact root suite 779/779 and 33-module build green; final same-reviewer verdict on repair `b7153cc`: CLEAN, 0 blockers / 0 should-fixes. Full record: [v2 plan](plans/phase-4-v2-reservoir-matched-branch-control.md). |
-| 5 | GPU agrees with CPU oracle to tolerance on observed Windows D3D12; preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable. This phase makes no Metal/general-WebGPU portability claim (ADR 0018). | 🔶 **WP1 complete; WP2 diffusion design frozen** (2026-07-24) — protocol `phase5-gpu-conformance-windows-v2` is committed at `60be8c0`, SHA-256 `223428d8…984c5e`; fixtures and all numerical CPU-vs-GPU tolerances remain unchanged. WP1 independently closed with zero findings at reviewed implementation `afd9407`; canonical clean D3D12 probes retained zero coordinate/copy/PRNG mismatches, all blocking allocations passed, and uncaptured errors were zero. WP2 now has a committed design for the exact noise/in-plane/vertical/drift/commit/clamp graph and remains implementation-in-progress. Metal is deferred to another machine and separately frozen extension. No Phase 5 gate evidence exists yet. Active plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). |
+| 5 | GPU agrees with CPU oracle to tolerance on observed Windows D3D12; preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable. This phase makes no Metal/general-WebGPU portability claim (ADR 0018). | 🔶 **WP1 and WP2 complete; WP3 next** (2026-07-24) — protocol `phase5-gpu-conformance-windows-v2` is committed at `60be8c0`, SHA-256 `223428d8…984c5e`; fixtures and all numerical CPU-vs-GPU tolerances remain unchanged. WP1 independently closed at `afd9407`. WP2 independently closed at reviewed implementation `9f7a7b4`: exact root verification passed 47 files / 833 tests, the app build passed, and the canonical clean RTX 3080/D3D12 probe passed all six field comparisons, rejected wrong clamp, audited seven submissions/readbacks, and reported zero uncaptured errors or unexpected device loss. Metal remains a separately frozen later-machine extension. No final Phase 5 gate evidence exists yet. Active plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
 
@@ -655,11 +655,11 @@ in charter §3.1 and get no retroactive ADR.
 
 - [phase-5-gpu-port.md](plans/phase-5-gpu-port.md) — two-lane WP0 remains superseded history;
   decision 0018's Windows-only v2 freeze is committed at `60be8c0` and is the current authority.
-  WP1 is independently closed. WP2 candidate `c546c2b` passed the complete clean D3D12 probe;
-  round-1 repair `7d2bfa6` passed 47 files / 832 tests, the app build, and a clean D3D12 replay.
-  Review round 2 found two narrower liveness/reflection blockers and two should-fixes. Their
-  current repair passes 21/21 focused tests, 47 files / 833 exact root tests, the app build, and
-  a provisional unchanged D3D12 replay with zero uncaptured errors and no unexpected device loss.
+  WP1 is independently closed. WP2 is independently closed at reviewed implementation
+  `9f7a7b476a17e9f47849cc323d49e928fc177b65`: focused tests pass 21/21, exact root
+  verification passes 47 files / 833 tests, the 33-module app build passes, and the canonical
+  clean D3D12 probe passes every registered comparison and negative with zero uncaptured errors
+  and no unexpected device loss. WP3 design is next; no WP3 code exists yet.
 
 ## Completed plans
 
@@ -809,22 +809,27 @@ immutable.
 
 ## Next step
 
-**Phases 2b, 3, 4, and Phase 5 WP1 are complete. Phase 5 is at WP2 — diffusion.** Work only in
+**Phases 2b, 3, 4, and Phase 5 WP1–WP2 are complete. Phase 5 is at WP3 —
+`GGThreshold`.** Work only in
 the isolated clone rooted at `G:/Code Files/snowflake/out/worktrees/phase5-wp1/`, whose writable
 Git history contains the accepted WP1 commit
 `afd94078e515236124bace82ff263390d80609f9`; the primary workspace remains a read-only-metadata
-source and must not be mistaken for the clean execution tree. The WP2 design in the active plan
-is committed at `037de8d`; implementation candidate `c546c2b` passes every registered numerical
-comparison and the real-device wrong-clamp negative. Round-1 repair `7d2bfa6` passed exact root
-verification, the app build, and a canonical clean D3D12 replay. Independent review round 2 found
-two narrower blockers and two should-fixes. The current three-code-file repair makes every
-controller compatibility/generation check assert liveness, splits pure face/attached/wall
-reflection mutations, and records delayed non-destroy loss even after teardown. Focused tests
-pass 21/21; exact root verification passes 47 files / 833 tests; and the 33-module app build plus
-a provisional D3D12 replay preserve all results. Commit the repair plus this handoff, replay
-`node app/scripts/phase5-wp2.mjs` from that tracked-clean commit, and return the exact commit and
-complete report to the same reviewer for round 3. Do not begin WP3 until WP2 receives zero
-blockers and zero should-fixes and this handoff records the clean commit and canonical probe.
+source and must not be mistaken for the clean execution tree. WP2 closes at reviewed
+implementation `9f7a7b476a17e9f47849cc323d49e928fc177b65`; its canonical report is
+`out/wp2-canonical-9f7a7b4.log`, with `pass: true`, exact clean provenance, every registered
+comparison inside tolerance, wrong clamp rejected, and both GPU error channels empty. Round 3
+accepted all code/evidence with zero findings; the immediately following docs-only commit closes
+its stale-handoff should-fix.
+
+After that docs-only commit receives its final provenance/truth audit, begin WP3 by extending
+the **WP3 design section in `docs/plans/phase-5-gpu-port.md` before writing code**. Re-read the
+`GGThreshold` cycle in `docs/gg-machinery.md`, inventory the mutable cycle state and exact ledger
+from `solver-cpu/src/gg-solver.ts`, and map the frozen WP3 fixtures/negative controls from
+`runner/src/phase5-protocol.ts`. Freeze explicit GPU stage order, buffer ownership, parameter
+event semantics, hole-fill/melting handling, ledger reductions, metric/stop-rule comparisons,
+and the exact pure/adversarial/D3D12 close predicate. Commit that design before implementing a
+complete GPU cycle, and do not begin WP4 until WP3 independently reaches zero blockers and zero
+should-fixes.
 
 Protocol `phase5-gpu-conformance-windows-v2` is frozen at SHA-256
 `223428d864189130f675e5595e44325c0adccad90bb4484ed051910878984c5e`; changing a fixture,

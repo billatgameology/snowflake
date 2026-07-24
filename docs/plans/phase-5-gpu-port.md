@@ -753,7 +753,17 @@ recorded. Focused diffusion/transport tests pass 21/21, both TypeScript projects
 provisional D3D12 replay preserves every accepted result with both error channels empty. Exact
 root `npm test` exited 0 in 374.5 seconds: Rule 7 was clean over 182 files, both TypeScript
 projects passed, and 47 files / 833 tests passed. The app production build transformed 33
-modules and exited 0. A tracked-clean replay and same-reviewer round 3 remain required.
+modules and exited 0. Repair commit `9f7a7b476a17e9f47849cc323d49e928fc177b65`
+then passed the complete tracked-clean D3D12 predicate with every accepted numerical value
+unchanged, the wrong-clamp negative rejected, seven audited submissions/readbacks, zero
+uncaptured errors, and no unexpected device loss.
+
+Same-reviewer round 3 independently authenticated the five-file repair, replayed focused tests
+21/21 and the complete RTX 3080 D3D12 probe, and accepted every code, test, and evidence item
+with zero remaining code findings. The only reported should-fix was that this plan and
+`PROGRESS.md` still described the now-complete commit/probe/review actions as pending. This
+docs-only closure corrects that handoff. WP2 is complete at reviewed implementation
+`9f7a7b476a17e9f47849cc323d49e928fc177b65`; no WP3 code existed at closure.
 
 ## Steps
 
@@ -774,8 +784,12 @@ modules and exited 0. A tracked-clean replay and same-reviewer round 3 remain re
       app build, and a provisional real-D3D12 run; round 4 accepted the code with zero blockers
       and zero should-fixes. Exact reviewed commit `afd94078e515236124bace82ff263390d80609f9`
       then passed both canonical clean D3D12 probes with zero uncaptured errors.
-- [ ] **WP2 — diffusion.** Implement and independently validate one and repeated masked-average
-      diffusion passes for reflecting and fixed-σ boundaries on Windows D3D12.
+- [x] **WP2 — diffusion.** Reviewed implementation `9f7a7b4` passes one and repeated
+      masked-average diffusion for reflecting and fixed-σ boundaries on Windows D3D12. Exact
+      root verification is 47 files / 833 tests; the app build passes; the canonical clean probe
+      passes every registered field tolerance and rejects wrong clamp with both GPU error
+      channels empty. Round 3 accepted code/evidence with zero findings; its sole docs should-fix
+      is closed by the immediately following handoff-only commit.
 - [ ] **WP3 — `GGThreshold`.** Port complete cycles with parameter events, noise, melting,
       attachment, hole filling, mass ledger, metrics, and stop-rule parity. Keep CPU state
       untouched and compare through the frozen harness.
