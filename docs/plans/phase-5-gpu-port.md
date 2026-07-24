@@ -1,8 +1,8 @@
 # Plan — Phase 5: WebGPU solver port and Windows D3D12 conformance
 
 - **Phase:** Phase 5 — GPU port
-- **Status:** WP1, WP2, and WP3 are independently accepted; WP4 design is independently accepted
-  and LK GPU implementation is the active work
+- **Status:** WP1, WP2, and WP3 are independently accepted; WP4 implementation exposed an exact
+  f32 period-two relaxation orbit, so decision 0021 / protocol v5 repair is the active work
 - **Started:** 2026-07-23
 - **Last touched:** 2026-07-24 by Codex
 
@@ -38,7 +38,9 @@ clarified v1.14 by ADR 0016; Windows-only scope directed v1.16 by ADR 0018.)
   [0019](../decisions/0019-phase5-gg-dirichlet-ledger-conformance.md) defines the G-G
   Dirichlet gate, and decision
   [0020](../decisions/0020-floor-phase5-float32-smoother-drift.md) defines the binary32
-  minimum-subnormal floor.
+  minimum-subnormal floor. Proposed decision
+  [0021](../decisions/0021-bound-phase5-float32-two-cycles.md) defines the only bounded f32
+  two-cycle convergence classification permitted by the port.
 - Solver truth: [gg-machinery.md](../gg-machinery.md) and
   [attachment-kinetics.md](../attachment-kinetics.md), including the aggregate-v5
   convergence identity and `aggregate-hv-g1h1-v5` surface policy.
@@ -139,7 +141,7 @@ and tolerance SHA-256 values are
 its two-lane acceptance meaning without rewriting that history. No canonical v1 lane bundle was
 published.
 
-## Windows-only v4 frozen protocol
+## Proposed Windows-only v5 protocol repair
 
 This section and `runner/src/phase5-protocol.ts` are the current Phase 5 pre-registration.
 Decision 0019 superseded Windows v2 with v3 before canonical WP3 evidence. V2 remains immutable
@@ -150,10 +152,10 @@ development evidence at id `phase5-gpu-conformance-windows-v3`, canonical-JSON S
 SHA-256 `1e77ed673e77aba6598c2bdd56e6b80f0f59343067bd7cb2c677d220d2fc05ba`.
 
 Before production LK WGSL existed, decision 0020 superseded v3 for final evidence because the
-relative-only binary32 smoother-drift bound did not cover legal subnormal input. The current
+relative-only binary32 smoother-drift bound did not cover legal subnormal input. The v4
 machine-readable id is `phase5-gpu-conformance-windows-v4`; its canonical-JSON SHA-256 is
 `62f6f940a38a477dd34b6fd53687808708f7ccf89d6f59eccc8cb7960ccc8688`. The fixture manifest
-remains `29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`. The current
+is `29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`. Its
 tolerance-manifest SHA-256 is
 `c0062a8b9c2d01ed8fba7d43ad64f3da7a6dc931f50265257b545de665281866`; the only new value is
 the binary32 minimum subnormal `2^-149` used by the smoother-drift bound. Every fixture,
@@ -161,10 +163,23 @@ CPU-vs-GPU field/scalar tolerance, decision margin, performance threshold, and n
 is unchanged. V4 retains decision 0019's `corrected-mass-invariant-v1` G-G Dirichlet ledger
 policy and blocking-only `NC-TOLERANCE-BYPASS`.
 
+Production D3D12 execution then disproved v4's history-local feasibility premise before final
+WP4 evidence: cold fixture step 3 enters an exact two-cell, one-ULP, period-two orbit while
+divergence is zero and every other numerical guard passes. Decision 0021 therefore proposes
+`phase5-gpu-conformance-windows-v5`. V5 keeps every fixture and configured tolerance unchanged,
+adds exact period-two / maximum-one-ULP evidence, raises the LK allocation from 60 to the
+already-frozen 64 bytes/cell ceiling, and changes no CPU or aggregate-v5 physics meaning. The
+proposed canonical-JSON aggregate SHA-256 is
+`52cf359feb56709207585737ecefe8ea06235bfdbb2d9af8ada4c2449c0716fa`; its tolerance-manifest
+SHA-256 is `d38ec0f7a0096dc297d651cd1b89fb80275edb4098c16545c44274e585c2a09b`;
+the fixture SHA-256 remains
+`29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`. These values must be
+independently accepted before implementation resumes.
+
 Any later change to a blocking fixture, tolerance, decision margin, performance threshold,
 criterion, negative control, runtime revision, or evidence meaning requires an ADR and
 invalidates the Windows bundle. WP1–WP3 closures remain valid, but their canonical probes must
-replay under exact v4 identity before WP7 publication.
+replay under exact final v5 identity before WP7 publication.
 
 The superseded v2 freeze candidate passed exact root `npm test` in 371.8 seconds: Rule 7 clean over 178
 files, both TypeScript projects green, and 46 files / 816 tests passed. The app production build
@@ -516,8 +531,9 @@ fixture, tolerance, criterion, lane, or evidence meaning.
   reduction, and render flags (36 bytes/cell). G-G adds separately named boundary-mass and two
   vapor ping-pong buffers (48 bytes/cell total). LK adds separately named fill, two
   supersaturation ping-pong buffers, boundary attachment coefficient, boundary supersaturation,
-  and opposing supersaturation (60 bytes/cell total). The separate names preserve the
-  operator-specific field meanings and stay below WP0's 64-byte ceiling.
+  opposing supersaturation, and decision 0021's f32 two-sweep reference (64 bytes/cell total).
+  The separate names preserve the operator-specific field meanings and meet WP0's 64-byte
+  ceiling exactly.
 - A shader pass binds at most eight storage buffers. Allocation validation checks safe integer
   products, 4-byte alignment, per-buffer limits, aggregate bytes, operator tag, and exact
   dimensions before creating anything. Failed construction destroys every buffer already
@@ -978,9 +994,15 @@ are reduced separately and the decision invocation computes
 numerator passes and any nonzero numerator produces the positive-infinity unconverged sentinel.
 This is the binary32-operational equivalent of the CPU's unrepresentable `1e-300` floor.
 Overflow or non-finite arithmetic in the nonzero-exchange branch remains a solver failure.
-Fixed-sigma convergence requires both
-`residual < relaxTol` and `divergence < divTol`. Reflecting mode is residual-only and reports
-null shell/divergence diagnostics.
+The ordinary fixed-point branch remains `residual < relaxTol`, plus `divergence < divTol` for
+fixed-sigma runs. Decision 0021 adds one alternative f32 classification: after two genuine
+sweeps under unchanged state and controls, every active destination value must bit-equal its
+value two sweeps earlier, every current-to-destination ordered-f32 distance must be at most one
+ULP, and both orbit phases must pass the unchanged divergence and drift requirements. The
+report names `fixed-point`, `bounded-two-cycle`, or `incomplete` and preserves the actual
+residual plus both maximum ULP distances. It never rewrites a cycle residual to zero.
+Reflecting mode keeps no divergence claim, but a bounded cycle still requires both phases'
+drift checks.
 
 The committed pre-shader probe `runner/src/phase5-lk-reduction-shadow.ts` freezes those operations
 before WGSL exists: 256-lane recursive reduction, f32 composition order, 60 fixed-point
@@ -991,16 +1013,23 @@ samples each accepted CPU topology for all three blocking LK fixtures. Nine
 samples pass: f32 settling takes 22–141 sweeps, final residual and divergence are exactly zero,
 minimum positive shell injection/exchange are `1.7043203115463257e-7` /
 `3.7532299757003784e-7`, maximum absolute drift is `3.8230791687965393e-7`, and the smallest
-independent drift limit is `0.00004966732028321985`. This proves representability for the frozen
-fixtures without relaxing `divTol`; it is not GPU evidence or a general error proof. Production
-WGSL and the D3D12 probe must match this exact composition, and a changed composition invalidates
-the probe.
+independent drift limit is `0.00004966732028321985`. This proves local representability for the
+frozen fixtures from fresh CPU-converged seeds without relaxing `divTol`; it is not a
+persistent-f32 trajectory proof. Production D3D12 execution found that missing case at cold
+step 3: indices 4419 and 4743 alternate by one ULP with exact period two, residual
+`5.82076573607537e-8`, and divergence zero. A v5 evolving-f32 regression must carry state across
+the timeline/interface history, require the bounded-cycle classification there, and reject
+monotonic one-ULP drift, period three, a two-ULP transition, one mismatching active cell, stale
+history after any mutation, non-finite values, and failed divergence/drift.
 
 Relaxation is encoded in bounded multi-sweep segments. A GPU-resident convergence flag makes all
 passes after the first accepted sweep in a segment no-ops while preserving the exact first
 accepted sweep count and ping-pong owner. Only the compact segment report is read back; complete
-fields stay resident. Segment size is selected below the registered 500 ms submission ceiling
-and is not allowed to change numerical order. An unconverged sweep cap returns an explicit
+fields stay resident. The two-sweep reference and previous-phase divergence status survive
+segment boundaries, but are reset after construction/import, every interface, topology change,
+timeline event, or other field mutation; cycle acceptance is disabled until two genuine new
+sweeps complete. Segment size is selected below the registered 500 ms submission ceiling and
+is not allowed to change numerical order. An unconverged sweep cap returns an explicit
 incomplete state; it never authorizes the interface update.
 
 ### Interface, topology, ledgers, and timeline
@@ -1208,6 +1237,16 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
       shadow, and returned zero blockers and zero should-fixes. Production LK WGSL may proceed
       under this exact accepted design; the implementation/evidence commit still requires its own
       zero-finding review before WP5.
+      Production execution subsequently disproved one premise of that design before final
+      evidence. After exact shaped-operation rounding was enforced, cold step 3 still entered a
+      deterministic two-cell period-two orbit with one ULP per cell, residual
+      `5.82076573607537e-8`, divergence zero, positive shell/exchange, bounded drift, and exact
+      agreement with an independent f32 replay. Same-reviewer diagnosis returned one blocker and
+      zero should-fixes: v4 cannot classify that reachable f32 history. Proposed decision 0021
+      and protocol v5 retain the normal fixed-point branch and add only exact period two with
+      maximum one-ULP motion, both phases' unchanged divergence/drift guards, explicit reporting,
+      resettable history, evolving-f32 regression, and adversarial near misses. Register and
+      independently review v5 before resuming implementation.
 - [ ] **WP5 — headless runner and evidence boundary.** Land the selected runtime, flagless gate,
       strict manifest/report/index publication, complete exit semantics, and every adversarial
       bypass test. Re-run permanent Phase 2a, Phase 2b, gate3, and gate4 regression controls where
@@ -1228,8 +1267,10 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
 - CUDA, native binaries, a GPU-only checkpoint meaning, or deleting the web implementation.
 - Deleting or editing away `GGSolver`, `LKSolver`, `GGThreshold`, strict CPU checkpoints, or
   accepted Phase 2–4 evidence.
-- Changing `aggregate-hv-g1h1-v4`, aggregate-v5 convergence, attachment kinetics, G-G machinery,
-  timeline semantics, or morphology thresholds to make float32 comparisons easier.
+- Changing `aggregate-hv-g1h1-v4`, the CPU aggregate-v5 equations or configured convergence
+  controls, attachment kinetics, G-G machinery, timeline semantics, or morphology thresholds
+  to make float32 comparisons easier. Decision 0021's explicitly reported exact/one-ULP
+  GPU-periodic classification is a port representability rule, not a CPU solver change.
 - Mid-history resumability beyond existing checkpoint semantics; a new meaning requires an ADR.
 - Running the final gate while exact tolerances, Windows provenance, or headless runtime remain
   open.
@@ -1302,6 +1343,16 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
   Dirichlet sweeps can inject at the shell before surface exchange becomes representable. The
   positive-infinity divergence status remains unconverged and continues; non-sentinel non-finite
   arithmetic still fails closed.
+- **Treat the nine fresh-seed f32 samples as a persistent-trajectory proof.** Rejected after the
+  real GPU-resident cold history reached a deterministic one-ULP period-two orbit. The old probe
+  reconverged the CPU float64 field and rounded it afresh at every step, so it never exercised
+  that basin.
+- **Keep sweeping the exact f32 two-cycle or reshape more arithmetic.** Rejected because both
+  phases and every shaped intermediate now match the independent operation-rounded calculation;
+  an unchanged deterministic operator cannot leave the orbit.
+- **Accept any residual below a generic f32 floor.** Rejected by decision 0021 because monotonic
+  drift or longer/multi-ULP cycles could pass. The proposed v5 exception requires exact period
+  two, at most one ordered-f32 ULP locally, and both phases' existing divergence/drift guards.
 
 ## Deferred Metal extension
 

@@ -1,18 +1,21 @@
 // Phase 5 criteria-first GPU conformance protocol. The numerical fixtures and tolerances were
 // frozen before solver-gpu existed. Decision 0018 narrowed v2 to Windows; decision 0019's v3
 // changed only the G-G Dirichlet ledger evidence meaning after a cancellation seam was measured.
-// Decision 0020's v4 adds the binary32 minimum-subnormal ULP floor required for the already
-// frozen aggregate-v5 smoother-drift bound; registered normal-field envelopes are unchanged.
+// Decision 0020's v4 added the binary32 minimum-subnormal ULP floor required for the already
+// frozen aggregate-v5 smoother-drift bound. Decision 0021's v5 adds only an exact period-two,
+// maximum-one-ULP GPU relaxation classification after the evolving f32 history disproved v4's
+// fresh-CPU-seed reachability premise. Configured CPU tolerances and comparison envelopes remain
+// unchanged.
 
 import type { Dims, DomainShape, FarFieldCondition, GGPresetName } from "@vcc/core";
 
-export const PHASE5_PROTOCOL = "phase5-gpu-conformance-windows-v4";
+export const PHASE5_PROTOCOL = "phase5-gpu-conformance-windows-v5";
 export const PHASE5_PROTOCOL_SHA256 =
-  "62f6f940a38a477dd34b6fd53687808708f7ccf89d6f59eccc8cb7960ccc8688";
+  "52cf359feb56709207585737ecefe8ea06235bfdbb2d9af8ada4c2449c0716fa";
 export const PHASE5_FIXTURES_SHA256 =
   "29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512";
 export const PHASE5_TOLERANCES_SHA256 =
-  "c0062a8b9c2d01ed8fba7d43ad64f3da7a6dc931f50265257b545de665281866";
+  "d38ec0f7a0096dc297d651cd1b89fb80275edb4098c16545c44274e585c2a09b";
 export const PHASE5_GATE_COMMAND = "node runner/src/main.ts gate5";
 export const PHASE5_LANE_COMMAND = "node runner/src/main.ts gate5-lane";
 export const PHASE5_HEADLESS_RUNTIME = "playwright-bundled-chromium";
@@ -563,6 +566,114 @@ export const PHASE5_GG_DIRICHLET_LEDGER_POLICY = {
   blockingTolerance: "phase5-mixed-scalar-v1",
 } as const;
 
+export const PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY = {
+  id: "exact-period2-one-ulp-v1",
+  authority: "ADR-0021",
+  convergenceModes: ["fixed-point", "bounded-two-cycle", "incomplete"],
+  maximumCurrentStepUlpDistance: 1,
+  requiredTwoBackUlpDistance: 0,
+  minimumCompletedSweepsAfterMutation: 2,
+  requiredForBothOrbitPhases: ["divergence", "smoother-drift-bound"],
+  resetAfter: [
+    "construction-or-import",
+    "interface-or-topology-update",
+    "timeline-event",
+    "other-field-mutation",
+  ],
+  preservedAcross: ["bounded-submission-segment"],
+  rejectedNearMisses: [
+    "monotonic-one-ulp-drift",
+    "period-three",
+    "two-ulp-transition",
+    "one-active-cell-two-back-mismatch",
+    "stale-history-after-mutation",
+    "non-finite-value",
+    "either-phase-divergence-failure",
+    "either-phase-drift-bound-failure",
+  ],
+} as const;
+
+export type Phase5LkF32ConvergenceMode =
+  (typeof PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY.convergenceModes)[number];
+
+export interface Phase5LkF32ConvergenceInput {
+  readonly residual: number;
+  readonly relaxTol: number;
+  readonly completedSweepsAfterMutation: number;
+  readonly maximumCurrentStepUlpDistance: number;
+  readonly maximumTwoBackUlpDistance: number;
+  readonly currentDivergencePassed: boolean;
+  readonly previousDivergencePassed: boolean;
+  readonly currentDriftBoundPassed: boolean;
+  readonly previousDriftBoundPassed: boolean;
+}
+
+const float32BitsBuffer = new ArrayBuffer(4);
+const float32BitsView = new DataView(float32BitsBuffer);
+
+function finiteFloat32Bits(value: number): number {
+  if (!Number.isFinite(value) || Math.fround(value) !== value) {
+    throw new Error("ordered-ULP input must be a finite binary32 value");
+  }
+  float32BitsView.setFloat32(0, value, true);
+  return float32BitsView.getUint32(0, true);
+}
+
+export function phase5Float32OrderedKey(value: number): number {
+  const bits = finiteFloat32Bits(value);
+  return (bits & 0x8000_0000) === 0
+    ? (bits | 0x8000_0000) >>> 0
+    : (~bits) >>> 0;
+}
+
+export function phase5Float32UlpDistance(left: number, right: number): number {
+  return Math.abs(
+    phase5Float32OrderedKey(left) - phase5Float32OrderedKey(right),
+  );
+}
+
+export function classifyPhase5LkF32Convergence(
+  input: Phase5LkF32ConvergenceInput,
+): Phase5LkF32ConvergenceMode {
+  if (
+    !Number.isFinite(input.residual) ||
+    input.residual < 0 ||
+    !Number.isFinite(input.relaxTol) ||
+    input.relaxTol <= 0
+  ) {
+    throw new Error("LK f32 convergence residual inputs must be finite and valid");
+  }
+  for (const [name, value] of [
+    ["completedSweepsAfterMutation", input.completedSweepsAfterMutation],
+    ["maximumCurrentStepUlpDistance", input.maximumCurrentStepUlpDistance],
+    ["maximumTwoBackUlpDistance", input.maximumTwoBackUlpDistance],
+  ] as const) {
+    if (!Number.isSafeInteger(value) || value < 0) {
+      throw new Error(`${name} must be a nonnegative safe integer`);
+    }
+  }
+  const currentGuardsPassed =
+    input.currentDivergencePassed && input.currentDriftBoundPassed;
+  if (input.residual < input.relaxTol && currentGuardsPassed) {
+    return "fixed-point";
+  }
+  const previousGuardsPassed =
+    input.previousDivergencePassed && input.previousDriftBoundPassed;
+  if (
+    input.completedSweepsAfterMutation >=
+      PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY.minimumCompletedSweepsAfterMutation &&
+    input.maximumCurrentStepUlpDistance <=
+      PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY.maximumCurrentStepUlpDistance &&
+    input.maximumTwoBackUlpDistance ===
+      PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY.requiredTwoBackUlpDistance &&
+    currentGuardsPassed &&
+    previousGuardsPassed
+  ) {
+    return "bounded-two-cycle";
+  }
+  return "incomplete";
+}
+
 export const PHASE5_CRITERIA = [
   "P5-WINDOWS-PROVENANCE",
   "P5-PROTOCOL-MATCH",
@@ -697,6 +808,7 @@ export interface Phase5ProtocolManifest {
   readonly decisionMargins: typeof PHASE5_DECISION_MARGINS;
   readonly performance: typeof PHASE5_PERFORMANCE;
   readonly ggDirichletLedgerPolicy: typeof PHASE5_GG_DIRICHLET_LEDGER_POLICY;
+  readonly lkBoundedTwoCyclePolicy: typeof PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY;
   readonly criteria: typeof PHASE5_CRITERIA;
   readonly negativeControls: typeof PHASE5_NEGATIVE_CONTROLS;
 }
@@ -725,6 +837,7 @@ export function phase5ProtocolManifest(): Phase5ProtocolManifest {
     decisionMargins: PHASE5_DECISION_MARGINS,
     performance: PHASE5_PERFORMANCE,
     ggDirichletLedgerPolicy: PHASE5_GG_DIRICHLET_LEDGER_POLICY,
+    lkBoundedTwoCyclePolicy: PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY,
     criteria: PHASE5_CRITERIA,
     negativeControls: PHASE5_NEGATIVE_CONTROLS,
   };
@@ -742,5 +855,9 @@ export function phase5ToleranceManifest() {
     float32Epsilon: FLOAT32_EPSILON,
     float32MinimumSubnormal: FLOAT32_MIN_VALUE,
     float32SmootherDriftBoundFactor: FLOAT32_SMOOTHER_DRIFT_BOUND_FACTOR,
+    lkBoundedTwoCycleMaximumUlpDistance:
+      PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY.maximumCurrentStepUlpDistance,
+    lkBoundedTwoCycleRequiredTwoBackUlpDistance:
+      PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY.requiredTwoBackUlpDistance,
   } as const;
 }

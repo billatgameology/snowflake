@@ -17,12 +17,15 @@ import {
   PHASE5_NEGATIVE_CONTROLS,
   PHASE5_LANE_ARTIFACT_PATHS,
   PHASE5_LANES,
+  PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY,
   PHASE5_MEMORY_PLANNING,
   PHASE5_PROTOCOL,
   PHASE5_PROTOCOL_SHA256,
   PHASE5_PERFORMANCE,
   PHASE5_TOLERANCES_SHA256,
+  classifyPhase5LkF32Convergence,
   float32SmootherDriftAbsLimit,
+  phase5Float32UlpDistance,
   phase5FixtureManifest,
   phase5ProtocolManifest,
   phase5ToleranceManifest,
@@ -34,22 +37,107 @@ import {
 } from "../src/phase5-shadow.ts";
 
 describe("Phase 5 criteria freeze", () => {
-  it("pins the exact Windows-only v4 protocol and subnormal-safe tolerance manifest", () => {
-    expect(PHASE5_PROTOCOL).toBe("phase5-gpu-conformance-windows-v4");
+  it("pins the exact Windows-only v5 protocol and bounded f32 cycle manifest", () => {
+    expect(PHASE5_PROTOCOL).toBe("phase5-gpu-conformance-windows-v5");
     expect(PHASE5_PROTOCOL_SHA256).toBe(
-      "62f6f940a38a477dd34b6fd53687808708f7ccf89d6f59eccc8cb7960ccc8688",
+      "52cf359feb56709207585737ecefe8ea06235bfdbb2d9af8ada4c2449c0716fa",
     );
     expect(PHASE5_FIXTURES_SHA256).toBe(
       "29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512",
     );
     expect(PHASE5_TOLERANCES_SHA256).toBe(
-      "c0062a8b9c2d01ed8fba7d43ad64f3da7a6dc931f50265257b545de665281866",
+      "d38ec0f7a0096dc297d651cd1b89fb80275edb4098c16545c44274e585c2a09b",
     );
     expect(canonicalJsonSha256(phase5ProtocolManifest())).toBe(PHASE5_PROTOCOL_SHA256);
     expect(canonicalJsonSha256(phase5FixtureManifest())).toBe(PHASE5_FIXTURES_SHA256);
     expect(canonicalJsonSha256(phase5ToleranceManifest())).toBe(
       PHASE5_TOLERANCES_SHA256,
     );
+  });
+
+  it("pins ADR 0021's exact period-two and one-ULP acceptance boundary", () => {
+    expect(PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY).toEqual({
+      id: "exact-period2-one-ulp-v1",
+      authority: "ADR-0021",
+      convergenceModes: ["fixed-point", "bounded-two-cycle", "incomplete"],
+      maximumCurrentStepUlpDistance: 1,
+      requiredTwoBackUlpDistance: 0,
+      minimumCompletedSweepsAfterMutation: 2,
+      requiredForBothOrbitPhases: ["divergence", "smoother-drift-bound"],
+      resetAfter: [
+        "construction-or-import",
+        "interface-or-topology-update",
+        "timeline-event",
+        "other-field-mutation",
+      ],
+      preservedAcross: ["bounded-submission-segment"],
+      rejectedNearMisses: [
+        "monotonic-one-ulp-drift",
+        "period-three",
+        "two-ulp-transition",
+        "one-active-cell-two-back-mismatch",
+        "stale-history-after-mutation",
+        "non-finite-value",
+        "either-phase-divergence-failure",
+        "either-phase-drift-bound-failure",
+      ],
+    });
+    expect(phase5ToleranceManifest()).toMatchObject({
+      lkBoundedTwoCycleMaximumUlpDistance: 1,
+      lkBoundedTwoCycleRequiredTwoBackUlpDistance: 0,
+    });
+    expect(
+      phase5Float32UlpDistance(
+        0.0018111496465280652,
+        0.001811149762943387,
+      ),
+    ).toBe(1);
+    expect(phase5Float32UlpDistance(-0, 0)).toBe(1);
+    expect(phase5Float32UlpDistance(-1, -1.0000001192092896)).toBe(1);
+    expect(() => phase5Float32UlpDistance(Number.NaN, 0)).toThrow();
+
+    const boundedCycle = {
+      residual: 5.82076573607537e-8,
+      relaxTol: 1e-9,
+      completedSweepsAfterMutation: 2,
+      maximumCurrentStepUlpDistance: 1,
+      maximumTwoBackUlpDistance: 0,
+      currentDivergencePassed: true,
+      previousDivergencePassed: true,
+      currentDriftBoundPassed: true,
+      previousDriftBoundPassed: true,
+    } as const;
+    expect(classifyPhase5LkF32Convergence(boundedCycle)).toBe(
+      "bounded-two-cycle",
+    );
+    expect(
+      classifyPhase5LkF32Convergence({
+        ...boundedCycle,
+        residual: 0,
+      }),
+    ).toBe("fixed-point");
+    for (const mutation of [
+      { completedSweepsAfterMutation: 1 },
+      { maximumCurrentStepUlpDistance: 2 },
+      { maximumTwoBackUlpDistance: 1 },
+      { currentDivergencePassed: false },
+      { previousDivergencePassed: false },
+      { currentDriftBoundPassed: false },
+      { previousDriftBoundPassed: false },
+    ]) {
+      expect(
+        classifyPhase5LkF32Convergence({
+          ...boundedCycle,
+          ...mutation,
+        }),
+      ).toBe("incomplete");
+    }
+    expect(() =>
+      classifyPhase5LkF32Convergence({
+        ...boundedCycle,
+        residual: Number.NaN,
+      }),
+    ).toThrow();
   });
 
   it("pins ADR 0019's cancellation-safe G-G Dirichlet ledger meaning", () => {
