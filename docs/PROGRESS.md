@@ -41,10 +41,52 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   source-constrained aggregate `[HV]` boundary-pixel repair, and protocol v4 is committed in
   the active plan before implementation-driven morphology.** V4 code and non-morphology
   controls now pass; `legacy-v3` remains only as an explicit reproduction path. The flagless
-  v4 habit rerun remains the Phase 2b closure item: exactly one isolated process (PID 36792) is
-  live at tracked-clean `dce7081`, stderr is empty, and it had reached growth step 655 during
-  Phase 4's final review. It has no result yet and remains immutable from other phases.
-- **Last updated:** 2026-07-18 by Codex
+  v4 habit rerun has now terminated at tracked-clean `dce7081` with exit 1. The −5 °C run
+  reached extent 61 and passed its registered plate threshold, but the −15 °C run exhausted
+  200,000 relaxation sweeps while attempting step 12: iterate residual reached zero while the
+  divergence identity plateaued at `3.10e-7 > divTol=1e-7`. It therefore stopped unconverged at
+  completed step 11 and extent 5. **V4 is execution-invalid, not a measured cold-habit failure.**
+  Exact artifact hashes and the criteria-first repair protocol are in
+  [phase-2b-v4-convergence-failure-and-v5.md](plans/phase-2b-v4-convergence-failure-and-v5.md).
+  The cold checkpoint now reproduces the cause exactly: naïve, compensated, and exact sums all
+  give the same `1.1395225041344048e-13` mismatch, while the independently metered float64
+  reflecting-smoother drift is its exact negative. Decision
+  [0013](decisions/0013-float64-smoother-drift-divergence-identity.md) and charter v1.11 define
+  an explicit aggregate-v5 three-term identity. The repair is now implemented without changing
+  field arithmetic: focused classification/solver/gate tests pass 54/54, checkpoint/gate tests
+  pass 22/22 with both TypeScript projects clean, aggregate-v4/v5 one-sweep fields are
+  bit-identical, and the retained cold-checkpoint regression accepts the same fixed point under
+  v5 in one sweep with residual/divergence exactly zero. Exact root verification is Rule 7 clean
+  over 153 files with both typechecks and 784/784 tests green; the depleted-start differential
+  passes 3/3; and the enforcing Phase 2a control exits 0 with its canonical checkpoint SHA-256
+  `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Independent repair review
+  round 1 rejected `975f304` with two blockers and three should-fixes: the finite drift lacked an
+  absolute roundoff-scale bound, the checkpoint regression did not enforce its registered hash,
+  explicit CLI v5 routing was absent, the bit-preservation input was uniform, and comments were
+  stale. Decision 0014 and charter v1.12 now define the bound before remediation. The v5
+  remediation now addresses all five findings: focused tests pass 73/73, Rule 7 is clean over
+  156 files, both typechecks pass, and the authenticated cold checkpoint closes within its
+  independent bound. Root replay passed 786/788 both before and after remediation commit
+  `47fc01d`; the two failures exposed stale Phase 4 tests that assumed current `HEAD` must forever
+  match the frozen solver source. The verifier itself correctly rejected v5. Positive fixtures
+  now name immutable recorded commits `70a2496`/`dce7081`, and the unchanged verifier passes 59/59
+  targeted tests. At tracked-clean `61ccc40`, exact root verification is Rule 7 clean over 156
+  files with both typechecks and 788/788 tests green. The final depleted-start differential is
+  3/3 and enforcing Phase 2a control exits 0 with canonical hash
+  `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Sequential v5 was later
+  frozen at `acf4f82`; its reviewed execution was interrupted by host shutdown without a
+  checkpoint or cold start. Concurrent v5p is pre-registered at `8adea86`, implemented at
+  `c30aa6f`, and has passed its code/protocol audit; the final handoff-text recheck authorizes the
+  immediate flagless launch when it closes with no findings.
+- **Last updated:** 2026-07-19 by Codex
+- **Phase 2b v5 execution update:** reviewed sequential execution commit `dd762f0` was interrupted
+  by accidental host shutdown during warm step-189 relaxation, after completed step 188. No warm
+  checkpoint, exit status, terminal verdict, or cold start exists; the attempt is incomplete
+  liveness evidence, not a pass/fail result. Exact artifact hashes are in the active
+  [v5p retry plan](plans/phase-2b-v5p-parallel-retry.md). At the user's direction, accepted
+  decision [0015](decisions/0015-parallel-phase2b-temperature-pair.md) replaces only sequential
+  scheduling with two isolated concurrent Node processes; all aggregate-v5 scientific and
+  numerical controls remain frozen.
 - **Phase 4 is COMPLETE under maker-directed decision
   [0010](decisions/0010-phase4-overlaps-pending-phase3-and-phase2b-evidence.md)** (charter
   v1.8). It began in isolated worktree `/Users/clipper/github/snowflake-phase4`; on 2026-07-16
@@ -215,7 +257,11 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   arithmetic). Still true from the 2026-07-14 hardening: the charter v1.2 Dirichlet wording
   could not fail (a uniform field is a fixed point under *both* boundary conditions). Charter
   v1.4 now carries the plan's falsifiable depleted-start differential test.
-- **Charter is at v1.10** (2026-07-18): decision
+- **Charter is at v1.11** (2026-07-19): decision
+  [0013](decisions/0013-float64-smoother-drift-divergence-identity.md) retains dual convergence
+  and every v4 surface-physics choice while adding the independently metered float64
+  reflecting-smoother drift to aggregate v5's divergence identity. Executed v3/v4 and Phase 4
+  meanings remain frozen. Before it, decision
   [0012](decisions/0012-phase4-reservoir-matched-branch-control.md) replaces Phase 4 v1's
   infeasible dependent-extent compact control with the same normalized reflecting-reservoir
   threshold, cadence, and first-crossing rule for each branch run, while preserving all
@@ -388,7 +434,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | 0 | §2.8 exit criteria hold | ✅ maker-asserted, 2026-07-14 |
 | 1 | 2D spike answers "is designing a cloud journey engaging?" with evidence | ✅ **maker-asserted, 2026-07-15** — informal sessions, positive; the four-task protocol was *not* run (recorded honestly in the plan's Findings, with the Phase 7 takeaways) |
 | **2a** | Sixfold-symmetric plate on G-G machinery; symmetry error **exactly 0** across a full run, noise off | ✅ **maker-asserted complete, 2026-07-15** (enforced + maker-audited; follow-up evidence hardening complete) — plate, seed 1, dims 128,128,64, hexPrism: delta check clean all 4800 ticks, full metric 0 everywhere sampled, AR 0.168831, drift 2.056e-13 (float floor 3.8e-16; 10k grown test 4.19e-14), far-field stop. Enforcing repro (exit 0 is the claim, twelve criteria): `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1 --out out/plate-gate.ckpt --enforce-gate`. Post-hardening `cmp` is bit-identical, SHA-256 `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Full records: [solver plan](plans/phase-2-cpu-solver.md), [hardening plan](plans/phase-2a-evidence-hardening.md) |
-| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ❌ **open after an execution-valid v3 failure** — protocol v3 completed at execution commit `4ca9680`, command `node runner/src/main.ts gate2b`, exit 1. −5 °C passed plate (AR 0.01888163179957996); −15 °C failed column with the identical AR and attached occupancy. Every non-habit gate criterion and the suite's depleted-start differential passed. Decision 0009's v4 repair is pre-registered, implemented, and green on 262 tests plus the byte-identical Phase 2a differential; its isolated flagless v4 habit pair is running and has no result yet. |
+| **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ❌ **open after an execution-valid v3 habit failure and execution-invalid v4 attempt.** V3 completed at `4ca9680`, command `node runner/src/main.ts gate2b`, exit 1: −5 °C passed plate while −15 °C formed the identical plate; every non-habit criterion passed. V4 ran at `dce7081`, exit 1: −5 °C passed at extent 61, but −15 °C stopped unconverged at extent 5 after its attempted step-12 divergence identity plateaued at `3.10e-7 > 1e-7` despite zero iterate residual. The cold aspect ratio is not a valid habit measurement. Investigation and any v5 freeze are governed by [the active repair plan](plans/phase-2b-v4-convergence-failure-and-v5.md). |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | 🔶 **evidence-complete, pending maker assertion** (2026-07-16) — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ✅ **complete, 2026-07-18** — one canonical `node runner/src/main.ts gate4` at `70a2496`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exit 0 in 7,178.8 s. Pass A: 13 runs, 24/24 records green; plate/column AR `0.0666667`/`1.66667`; five-point sweep strictly increasing; depletion median `0.770238`, 7/7 samples below one, width 7→13; three distinct reproducible open-hollow occupancies; cap score `1.3`; dendrite/compact branches 6/0 at independent first reservoir crossings (cycles 4,775/5,450, extents 99/83). A manifest/report/index SHA-256: `e5e85c70…8644` / `bcb29e05…7188` / `92346e3e…1917`. Pass B: 11 runs, 12/12 execution records green; three morphology diagnostics pass and five honestly miss (depletion, widening, hollowing, capped history, branch). B manifest/report/index: `c0ceed5b…e812` / `22c8a92c…fa2d` / `5644f838…5cb0`. Aggregate v2 SHA-256 `194f837d…d8e2`, `gatePass=true`, `passBDiagnosticPass=false`. Real `node app/scripts/visual.mjs --phase4`: 20/20 original-resolution captures inspected by coordinator and reviewer, zero absent/error/clipped/hash-mismatch views, manifest `19e0fcfe…573b`. Post-publication exact root suite 779/779 and 33-module build green; final same-reviewer verdict on repair `b7153cc`: CLEAN, 0 blockers / 0 should-fixes. Full record: [v2 plan](plans/phase-4-v2-reservoir-matched-branch-control.md). |
 | 5 | GPU agrees with CPU oracle to tolerance **on both backends** (Metal and D3D12/Vulkan); preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable | ⬜ not started |
@@ -586,29 +632,29 @@ exact A-v2/B-v1 split. Independent review found three blockers and two should-fi
 `bbb14740642488c92720888d3887806b49c42e15` closes all five. Exact root `npm test` now passes
 779/779 tests, both typechecks and Rule 7 are clean, the 33-module app build passes, and the same
 reviewer replayed 16/16 selected exploits to CLEAN with zero blockers/should-fixes. Phase 2b
-isolation reconciliation is also clean: exactly one `gate2b` process remains (PID 36792), its
-detached worktree is tracked-clean at `dce7081`, stderr is empty, and it advanced to growth step
-600 before controls. Those controls then closed green on `c96f4d6`: 779/779 tests, 33-module
+isolation reconciliation was also clean at Phase 4 closure: exactly one `gate2b` process existed
+(PID 36792), its detached worktree was tracked-clean at `dce7081`, stderr was empty, and it had
+advanced to growth step 600 before controls. Those controls then closed green on `c96f4d6`: 779/779 tests, 33-module
 build, byte-identical Phase 2a/gate3 checkpoints, 20/20 synthetic Phase 4 captures, and 9/9 Phase
 3 captures. The one canonical exact `gate4` execution at `70a2496` exited 0 with blocking Pass A
 green and execution-valid Pass B diagnostic-negative; real visual evidence was 20/20 and clean.
 Final independent review authenticated the complete graph and images, found one post-publication
 test-isolation blocker, and closed CLEAN after test-only repair `b7153cc`; exact root verification
-is 779/779. The Phase 2b v4 rerun remains live in Windows worktree
-`.tmp-gate2b-clean-1784305494` at tracked-clean detached commit `dce7081`; PID 36792 and
-`out/gate2b-rerun-20260717_162624.*` remain immutable from Phase 4.
+is 779/779. The Phase 2b v4 rerun later terminated with the execution-invalid cold convergence
+result recorded above; its `out/gate2b-rerun-20260717_162624.*` artifacts remain immutable.
 
 ## Next step
 
-**Do not start Phase 5 while its upstream charter gates remain open.** Phase 2b's single
-pre-registered v4 process is still running independently at PID 36792; do not kill, duplicate, or
-interpret partial log lines. Monitor
-`.tmp-gate2b-clean-1784305494/out/gate2b-rerun-20260717_162624.log` and its zero-byte `.err`, then
-when the process exits, verify its wrapper status, canonical report/checkpoints, exact protocol,
-and artifact hashes against [phase-2-cpu-solver.md](plans/phase-2-cpu-solver.md) before changing
-the Phase 2b gate row. Phase 3 separately remains evidence-complete and awaits the maker assertion
-described below. Only after those upstream states are resolved should the next session create the
-required Phase 5 plan before implementation.
+**Do not start Phase 5 while Phase 2b remains open.** Follow
+[phase-2b-v5p-parallel-retry.md](plans/phase-2b-v5p-parallel-retry.md). Decision 0015 and
+pre-registration `8adea86` freeze the unchanged aggregate-v5 scientific pair with concurrent
+fixed-role execution. Implementation `c30aa6f` launches −5/−15 °C in separate Node processes,
+binds IPC/results/new checkpoints fail-closed, and passes 793/793 tests plus permanent controls.
+The commit containing this handoff correction resolves the independent audit's sole documentation
+should-fix. Obtain the same reviewer's 0-blocker/0-should-fix recheck of current tracked-clean
+`HEAD`, then run `node runner/src/main.ts gate2b` once and retain the v5p logs, status, and both
+checkpoints. Preserve every v3/v4/sequential-v5 artifact byte.
+Phase 3 separately remains evidence-complete and awaits the maker assertion described below.
 
 **Phase 3 remains EVIDENCE-COMPLETE and READY FOR EXTERNAL REVIEW (maker-marked 2026-07-16;
 ADRs 0007/0008), orchestrated per
@@ -683,15 +729,18 @@ contradiction is a seam defect discovered after the run, not a reason to rewrite
 the negative result; it limits interpretation of the failure as a test of the intended physical
 model. The governing detail and citations are recorded in attachment-kinetics §4.4.
 
-**Next Phase 2b action:** leave the live full rerun untouched, then record its terminal result.
-It started on 2026-07-17 at 16:26 local from tracked-clean detached commit `dce7081` in Windows
-worktree `.tmp-gate2b-clean-1784305494`. Its immutable stdout/stderr paths are
-`out/gate2b-rerun-20260717_162624.log` / `.err` inside that worktree. The log header records
-protocol v4, preregistration `8e0017a`, Node v24.13.1, V8 13.6.233.17-node.40, and the exact
-execution commit; while this update was written the warm run was still advancing, with an empty
-stderr and no terminal result. Do not launch a duplicate or treat liveness output as evidence.
-After exit, record exit 0 or 1 honestly with metrics, execution hash, log hash, and checkpoint
-hashes.
+**Next Phase 2b action:** the v5p coordinator now launches fixed −5/−15 roles concurrently and
+fail-closed validation binds their processes, IPC, results, and newly decoded checkpoints.
+Focused verification is 14/14; compact concurrent checkpoints are byte-identical to sequential
+counterparts; exact `npm test` passes 793/793; the depleted-start differential passes 3/3; and
+the enforcing Phase 2a control exits 0 with canonical checkpoint SHA-256
+`f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Implementation is committed
+at `c30aa6f`; its independent code/protocol audit found zero blockers
+and only the stale-handoff text corrected by the commit containing this paragraph. Have the same
+reviewer recheck current tracked-clean `HEAD`; a 0/0 result authorizes immediate flagless v5p
+launch. The
+terminal v4 stdout, stderr, and checkpoints in `.tmp-gate2b-clean-1784305494/out/` are immutable;
+their exact hashes and result are in the active v5 plan. Do not rerun or relabel v4.
 
 The first v4 attempt was externally interrupted on 2026-07-17 during warm run 1/2. Its log
 ended during relaxation for growth step 771; the last completed metric line was step 768 with

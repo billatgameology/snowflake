@@ -378,6 +378,21 @@ describe("LK checkpoint round-trip and evidence-strict decode (round-5 review)",
     expect(Array.from(decoded.state.sigma)).toEqual(Array.from(state.sigma));
   });
 
+  it("round-trips aggregate-v5 under the existing policy-bearing v2 wire format", () => {
+    const state = {
+      ...syntheticLKState(),
+      surfacePolicy: "aggregate-hv-g1h1-v5" as const,
+    };
+    const decoded = decodeLKCheckpoint(encodeLKCheckpoint(state));
+
+    expect(decoded.header.version).toBe(2);
+    expect(decoded.header.surfacePolicy).toBe("aggregate-hv-g1h1-v5");
+    expect(decoded.state.surfacePolicy).toBe("aggregate-hv-g1h1-v5");
+    expect(Array.from(decoded.state.a)).toEqual(Array.from(state.a));
+    expect(Array.from(decoded.state.f)).toEqual(Array.from(state.f));
+    expect(Array.from(decoded.state.sigma)).toEqual(Array.from(state.sigma));
+  });
+
   it("round-trips physical subsaturation and rejects negative-density payloads symmetrically", () => {
     const state = syntheticLKState();
     const activeUnattached = state.a.findIndex(

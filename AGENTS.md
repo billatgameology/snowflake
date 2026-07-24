@@ -116,12 +116,23 @@ dimensionless field rather than a reuse of G-G boundary mass `b`.
 ## Phase 2b numerical contract — do not regress
 
 The concise contract below is a navigation aid. The equations and rationale live in
-`docs/attachment-kinetics.md` §4.4 and ADRs 0005–0006 and 0009.
+`docs/attachment-kinetics.md` §4.4 and ADRs 0005–0006, 0009, and 0013.
 
 - Fixed-σ Dirichlet physics runs converge only when **both** the iterate residual and discrete
   divergence identity pass their stated tolerances. Reflecting LK is residual-only,
   diagnostic-only, and cannot support a physical gate claim.
-- Every forward run names the coupled `surfacePolicy`. Under `aggregate-hv-g1h1-v4`, `[01]`
+- Under `aggregate-hv-g1h1-v5`, the divergence numerator is shell injection plus the directly
+  metered signed float64 reflecting-smoother drift minus signed boundary exchange. The drift is
+  measured before boundary replacement/clamp, is zero in exact arithmetic, and is never inferred
+  from the other terms or called vapor. Legacy-v3 and aggregate-v4 keep their executed two-term
+  identity (decision 0013).
+- Aggregate-v5 drift must also satisfy decision 0014's absolute roundoff bound. For a nonzero
+  field it is `1024 * activeCellCount * max(Number.EPSILON * maxAbsSweepInput,
+  Number.MIN_VALUE)`; an exact zero field has a zero bound. The minimum-subnormal ULP floor keeps
+  accepted subnormal fields covered. The positive fixed-temperature gate derives its independent
+  bound with `sigmaInfinity`; a finite or coherently canceling term outside the bound is a solver
+  failure, never accepted convergence.
+- Every forward run names the coupled `surfacePolicy`. Under aggregate v4 and v5, `[01]`
   is basal, `[20]` is prism, `[10]` is inhibited, and other valid raw configurations follow the
   explicit P4 closure in §4.4. Do not restore v3's `[10]`-prism / `[20]`-rough mapping.
 - The same self-consistent aggregate `sigma_b` solution defines the surface boundary condition

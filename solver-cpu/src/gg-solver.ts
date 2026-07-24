@@ -623,6 +623,7 @@ export class GGSolver implements SurfaceOperator {
         divergenceResidual: null,
         shellClampDiagnostic: this.farField === "dirichlet" ? clampDelta : null,
         surfaceExchangeDiagnostic: null,
+        smootherDriftDiagnostic: null,
         minLocalSurfaceExchangeDiagnostic: null,
       };
     } catch (error) {

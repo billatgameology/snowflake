@@ -15,7 +15,7 @@ import {
   GG_PRESETS,
   STREAM_NOISE_ALPHA_HK,
 } from "@vcc/core";
-import { GGSolver, LKSolver } from "@vcc/solver-cpu";
+import { GGSolver, LKSolver, float64SmootherDriftAbsLimit } from "@vcc/solver-cpu";
 
 const devOptions = {
   surfacePolicy: "aggregate-hv-g1h1-v4",
@@ -151,6 +151,32 @@ function independentReflectingCandidate(
     }
   }
   return candidate;
+}
+
+function independentBlockCompensatedDifference(
+  candidate: Float64Array,
+  source: Float64Array,
+): number {
+  let block = 0;
+  let blockCount = 0;
+  let sum = 0;
+  let correction = 0;
+  const flush = (): void => {
+    if (blockCount === 0) return;
+    const next = sum + block;
+    if (Math.abs(sum) >= Math.abs(block)) correction += sum - next + block;
+    else correction += block - next + sum;
+    sum = next;
+    block = 0;
+    blockCount = 0;
+  };
+  for (let index = 0; index < source.length; index++) {
+    block += candidate[index] - source[index];
+    blockCount++;
+    if (blockCount === 256) flush();
+  }
+  flush();
+  return sum + correction;
 }
 
 describe("LKSolver — aggregate-hv-g1h1-v4 topology and boundary law (ADR 0009)", () => {
@@ -561,6 +587,127 @@ describe("LKSolver — Robin limits (§4.4 test 2)", () => {
 });
 
 describe("LKSolver — divergence identity (§4.4 test 3)", () => {
+  it("v5 closes a real float64 fixed-point floor and independently meters the drift", () => {
+    const controls = {
+      surfacePolicy: "aggregate-hv-g1h1-v5",
+      dims: { nx: 16, ny: 16, nz: 12 },
+      tempC: -15,
+      sigmaInfinity: 0.002,
+      dxUm: 0.35,
+      rngSeed: 1,
+      relaxTol: 1e-15,
+      divTol: 1e-12,
+      relaxMaxSweeps: 2_000,
+    } as const;
+    const v5 = new LKSolver(controls);
+    const v5Report = v5.relaxField();
+    expect(v5Report.converged).toBe(true);
+    expect(v5Report.residual).toBe(0);
+    expect(v5Report.smootherDriftDiagnostic).not.toBeNull();
+    expect(v5Report.smootherDriftDiagnostic).not.toBe(0);
+    expect(v5Report.divergenceResidual).toBe(0);
+    const rawV4Ratio = Math.abs(
+      (v5Report.shellClampDiagnostic as number) -
+        (v5Report.surfaceExchangeDiagnostic as number),
+    ) / Math.abs(v5Report.surfaceExchangeDiagnostic as number);
+    expect(rawV4Ratio).toBeGreaterThan(controls.divTol);
+
+    const fixedPoint = v5.sigma.slice();
+    const candidate = independentReflectingCandidate(v5, fixedPoint);
+    const independentDrift = independentBlockCompensatedDifference(candidate, fixedPoint);
+    expect(v5Report.smootherDriftDiagnostic).toBe(independentDrift);
+    const maxAbsFixedPoint = fixedPoint.reduce(
+      (maximum, value) => Math.max(maximum, Math.abs(value)),
+      0,
+    );
+    expect(Math.abs(independentDrift)).toBeLessThanOrEqual(
+      float64SmootherDriftAbsLimit(v5.activeCellCount, maxAbsFixedPoint),
+    );
+    expect(
+      Math.abs(
+        (v5Report.shellClampDiagnostic as number) + independentDrift -
+          (v5Report.surfaceExchangeDiagnostic as number),
+      ),
+    ).toBe(0);
+  });
+
+  it("rejects a coherently identity-canceling drift outside the float64 bound", () => {
+    const solver = new LKSolver({
+      ...devOptions,
+      surfacePolicy: "aggregate-hv-g1h1-v5",
+      relaxMaxSweeps: 1,
+    });
+    const internals = solver as unknown as {
+      sweepAggregate(
+        source: Float64Array,
+        destination: Float64Array,
+      ): [number, number, number, number, number | null, number | null];
+    };
+    internals.sweepAggregate = () => [0, 1, 1e-6, 0, -0.999999, 1e-9];
+
+    expect(() => solver.relaxField()).toThrow(/exceeds float64 roundoff bound/);
+  });
+
+  it("keeps the operation-count bound nonzero for an accepted subnormal field", () => {
+    const dims = { nx: 8, ny: 8, nz: 8 } as const;
+    const center = [4, 4, 4] as const;
+    const solver = new LKSolver({
+      surfacePolicy: "aggregate-hv-g1h1-v5",
+      dims,
+      center,
+      tempC: -15,
+      sigmaInfinity: 1e-320,
+      dxUm: 0.35,
+      rngSeed: 1,
+      relaxTol: 1,
+      divTol: 1,
+      relaxMaxSweeps: 1,
+      seedRadius: null,
+      testExtraSeedSites: [
+        indexOf(4, 4, 4, dims),
+        indexOf(5, 4, 4, dims),
+        indexOf(4, 5, 4, dims),
+      ],
+    });
+
+    const bound = float64SmootherDriftAbsLimit(solver.activeCellCount, 1e-320);
+    expect(bound).toBeGreaterThan(0);
+    const report = solver.relaxField();
+    expect(report.smootherDriftDiagnostic).not.toBeNull();
+    expect(Math.abs(report.smootherDriftDiagnostic as number)).toBeLessThanOrEqual(bound);
+  });
+
+  it("v5 leaves the v4 one-sweep field arithmetic bit-identical", () => {
+    const controls = {
+      dims: { nx: 16, ny: 16, nz: 12 },
+      tempC: -15,
+      sigmaInfinity: 0.002,
+      dxUm: 0.35,
+      rngSeed: 1,
+      relaxTol: 1,
+      divTol: 1,
+      relaxMaxSweeps: 1,
+    } as const;
+    const v4 = new LKSolver({ ...controls, surfacePolicy: "aggregate-hv-g1h1-v4" });
+    const v5 = new LKSolver({ ...controls, surfacePolicy: "aggregate-hv-g1h1-v5" });
+    for (let index = 0; index < v4.sigma.length; index++) {
+      if (v4.a[index] === 0 && v4.wall[index] === 0) {
+        const value = 0.0002 + ((index * 37) % 101) * 0.000015;
+        v4.sigma[index] = value;
+        v5.sigma[index] = value;
+      }
+    }
+
+    const v4Report = v4.relaxField();
+    const v5Report = v5.relaxField();
+
+    expect(v4Report.sweeps).toBe(1);
+    expect(v5Report.sweeps).toBe(1);
+    expect(v4Report.smootherDriftDiagnostic).toBeNull();
+    expect(v5Report.smootherDriftDiagnostic).not.toBeNull();
+    expect(v5.sigma).toEqual(v4.sigma);
+  });
+
   it("at convergence, Dirichlet injection equals signed net boundary exchange", () => {
     // The identity is exact at the true fixed point; at a field converged to relaxTol it
     // holds to ~1e3 x relaxTol (the per-sweep-change criterion under-reports distance to

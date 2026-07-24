@@ -112,9 +112,10 @@ describe("digitized sigma_0 / A anchors (monograph Fig. 4.5; P2, ±25%)", () => 
 });
 
 describe("alphaHK and versioned surface classification (ADR 0009)", () => {
-  it("recognizes exactly the two coupled LK surface policies", () => {
+  it("recognizes exactly the three coupled LK surface policies", () => {
     expect(isLKSurfacePolicy("legacy-v3")).toBe(true);
     expect(isLKSurfacePolicy("aggregate-hv-g1h1-v4")).toBe(true);
+    expect(isLKSurfacePolicy("aggregate-hv-g1h1-v5")).toBe(true);
     for (const value of [undefined, null, "", "v4", 1, {}]) {
       expect(isLKSurfacePolicy(value), String(value)).toBe(false);
     }
@@ -146,6 +147,17 @@ describe("alphaHK and versioned surface classification (ADR 0009)", () => {
             label,
           ).toBe(wanted);
         }
+      }
+    }
+  });
+
+  it("keeps aggregate-v5 facet classification identical to aggregate-v4", () => {
+    for (let rawNT = 0; rawNT <= 6; rawNT++) {
+      for (let rawNZ = 0; rawNZ <= 2; rawNZ++) {
+        if (rawNT === 0 && rawNZ === 0) continue;
+        expect(classifyFacet(rawNT, rawNZ, "aggregate-hv-g1h1-v5")).toBe(
+          classifyFacet(rawNT, rawNZ, "aggregate-hv-g1h1-v4"),
+        );
       }
     }
   });
