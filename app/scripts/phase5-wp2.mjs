@@ -170,6 +170,17 @@ async function main() {
           );
         }
 
+        function base64(bytes) {
+          let binary = "";
+          const chunkSize = 0x8000;
+          for (let offset = 0; offset < bytes.length; offset += chunkSize) {
+            binary += String.fromCharCode(
+              ...bytes.subarray(offset, offset + chunkSize),
+            );
+          }
+          return btoa(binary);
+        }
+
         function paramsFor(fixture) {
           const preset = core.GG_PRESETS[fixture.preset];
           return {
@@ -249,6 +260,7 @@ async function main() {
             );
             const comparisons = [];
             let finalObserved = null;
+            let checkpointObserved = null;
             let completedPasses = 0;
             for (const targetPass of fixture.passes) {
               const delta = targetPass - completedPasses;
@@ -280,13 +292,44 @@ async function main() {
               ) {
                 finalObserved = Array.from(observed);
               }
+              checkpointObserved = observed;
               completedPasses = targetPass;
             }
+            if (checkpointObserved === null) {
+              throw new Error(`${fixture.id} produced no checkpoint state`);
+            }
+            const checkpointBase = {
+              dims: oracle.dims,
+              tick: oracle.tick,
+              rngSeed: oracle.rngSeed,
+              noiseEpsilon: oracle.noiseEpsilon,
+              farField: oracle.farField,
+              domain: oracle.domain,
+              params: oracle.params,
+              center: oracle.center,
+              a: oracle.a,
+              b: oracle.b,
+            };
             fixtureReports.push({
               id: fixture.id,
               farField: fixture.farField,
               comparisons,
               finalObserved,
+              cpuCheckpointBase64: base64(
+                core.encodeCheckpoint(
+                  { ...checkpointBase, d: oracle.d },
+                  null,
+                ),
+              ),
+              gpuCheckpointBase64: base64(
+                core.encodeCheckpoint(
+                  {
+                    ...checkpointBase,
+                    d: Float64Array.from(checkpointObserved),
+                  },
+                  null,
+                ),
+              ),
               pass: comparisons.every((comparison) => comparison.pass),
             });
           } finally {

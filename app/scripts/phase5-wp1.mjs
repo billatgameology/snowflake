@@ -9,7 +9,12 @@ import process from "node:process";
 import { resolve } from "node:path";
 import { chromium } from "playwright";
 import { createServer as createViteServer } from "vite";
-import { hashCounter } from "../../core/src/index.ts";
+import {
+  domainCenter,
+  encodeCheckpoint,
+  GG_PRESETS,
+  hashCounter,
+} from "../../core/src/index.ts";
 import {
   coordinateHash,
   createGpuBufferPlan,
@@ -26,6 +31,7 @@ import {
 import {
   PHASE5_BUDGETS,
   PHASE5_EXPECTED_WINDOWS_BACKEND,
+  PHASE5_FIXTURES,
   PHASE5_HEADLESS_RUNTIME,
   PHASE5_HEADLESS_RUNTIME_VERSION,
   PHASE5_REQUIRED_FEATURES,
@@ -138,7 +144,7 @@ async function main() {
   const coordinateDispatchRanges = planGpuDispatchRanges(layout.cellCount, 1);
 
   const blockingAllocations = PHASE5_BUDGETS.filter(
-    (budget) => budget.disposition === "blocking",
+    (budget) => !budget.id.startsWith("bake-"),
   ).flatMap((budget) =>
     ["gg", "lk"].map((operator) => {
       const plan = createGpuBufferPlan(budget.dims, operator);
@@ -625,6 +631,44 @@ async function main() {
       prngExpected,
       kernelByLabel["counter-prng"].output,
     );
+    const layoutFixture = PHASE5_FIXTURES.find(
+      (fixture) => fixture.id === "layout-noncubic-box-17x19x11",
+    );
+    if (layoutFixture === undefined || layoutFixture.kind !== "layout") {
+      throw new Error("WP1 layout fixture is absent");
+    }
+    function layoutState(words) {
+      const a = Uint8Array.from(words, (word) => word & 1);
+      const b = new Float64Array(words.length);
+      const d = Float64Array.from(
+        words,
+        (word, index) => a[index] === 1 ? 0 : Math.fround(word / 2 ** 32),
+      );
+      return {
+        dims: layoutFixture.dims,
+        tick: 0,
+        rngSeed: layoutFixture.rngSeed,
+        noiseEpsilon: layoutFixture.noiseEpsilon,
+        farField: "reflecting",
+        domain: layoutFixture.domain,
+        params: GG_PRESETS.plate,
+        center: domainCenter(layoutFixture.dims),
+        a,
+        b,
+        d,
+      };
+    }
+    const layoutCheckpoint = {
+      cpuCheckpointBase64: Buffer.from(
+        encodeCheckpoint(layoutState(coordinateExpected), null),
+      ).toString("base64"),
+      gpuCheckpointBase64: Buffer.from(
+        encodeCheckpoint(
+          layoutState(kernelByLabel["coordinate-hash"].output),
+          null,
+        ),
+      ).toString("base64"),
+    };
 
     const adapterCapability = {
       features: new Set(deviceResult.adapter.features),
@@ -769,6 +813,7 @@ async function main() {
         requirements: requirementCheck,
         requiredLimitNegative,
         coordinate,
+        layoutCheckpoint,
         axisSwapNegative: axisSwap,
         axisSwapMutationIntegrity,
         copy,

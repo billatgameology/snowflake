@@ -901,60 +901,36 @@ immutable.
 
 ## Next step
 
-**Phases 2b, 3, 4, and Phase 5 WP1–WP3 are complete. Phase 5 WP4 is repairing its
-pre-evidence convergence protocol.** Work only in the isolated clone rooted at
-`G:/Code Files/snowflake/out/worktrees/phase5-wp1/`; the primary workspace has read-only stale
-Git metadata and is not the execution tree. WP1/WP2/WP3 independently close at
-`afd94078e515236124bace82ff263390d80609f9`,
-`9f7a7b476a17e9f47849cc323d49e928fc177b65`, and
-`39d8b435ef638608b98480cb7f052adb845e9ad1`. WP3's canonical D3D12 log is
-`out/wp3-canonical-0ff70b6.log`, SHA-256
-`a0578ffecdcf15688343b8a50e8d96d1032bd6cc51e2256a4bf5036fd6a51827`, with both frozen G-G
-fixtures passing, 778 bounded submissions, 946 audited test reads, zero display full-field
-reads, and zero GPU errors/loss.
+**Phases 2b, 3, 4, and Phase 5 WP1–WP4 are complete. Phase 5 WP5 is in review repair.**
+WP4 implementation `2788cc060116ce8021911248771aa3c148b8fe63` and documentation closure
+`e91dd1dd3f9603c029276b194bb6d535a374b989` have zero-finding independent review. Its canonical
+D3D12 artifact is `out/wp4-canonical-2788cc0.json`, SHA-256
+`541c73d60894cd217514652c4d55738a4e802fc5d745d9e6a4ec7f752bf8d20e`.
 
-WP4 design commit `5ca5c3651c4ea5f968c8c976607b7f9e42289625` was independently rejected with
-seven blockers and three should-fixes before any production LK shader existed. Repair
-`98a8083a73504213bd6471f77ec8a693d27ee80a` froze the exact 256-lane f32 reduction composition,
-representable zero-exchange rule, fixed-point tolerance, bounded non-tautological ledger closure,
-stalled zero-rate behavior, no-write `sigmaInfinity`-only events, non-resumable LK v2 conversion
-scope, positive source/exchange evidence, tick/noise lifetime, and complete CPU-order topology
-publication. Same-reviewer round 2 closed those findings but rejected four remaining seams plus
-one stale-handoff should-fix: no binary32 minimum-subnormal drift floor, a poisoned legal
-zero-exchange first sweep, missing same-temperature ledger-segment continuity, and a
-producer-trusting load-bearing test.
+WP5 now implements the flagless `gate5-lane` publisher and `gate5` aggregate verifier, exact
+16-criterion negative-control ownership, strict canonical artifact graphs, authenticated GG v1
+and LK v2 checkpoint conversion, complete scientific comparison inventories, per-readback
+purpose/byte audits, exact runtime/adapter/requested-limit provenance, source/capture identity
+checks, bounded production probes, and recoverable report-before-index aggregate publication.
+The final browser command orchestrates the production WP1 transport/layout/allocation, WP2
+diffusion, WP3 G-G, WP4 LK, and exact-preview performance paths; it does not depend on a missing
+app global. The first independent review found eight blockers and four should-fixes across those
+areas; all are repaired in the current candidate, but same-reviewer re-review and clean hardware
+execution remain outstanding. Exact root `npm test` is green: Rule 7 clean over 211 files, both
+TypeScript projects pass, and 56 files / 918 tests pass in 413.96 seconds. The app production
+build transforms 33 modules and exits 0.
 
-Decision 0020 and the accepted prior repair created historical
-`phase5-gpu-conformance-windows-v4`, SHA-256
-`62f6f940a38a477dd34b6fd53687808708f7ccf89d6f59eccc8cb7960ccc8688`, tolerance SHA-256
-`c0062a8b9c2d01ed8fba7d43ad64f3da7a6dc931f50265257b545de665281866`. The host-binary64 drift
-bound is `64 * activeCellCount * max(2^-23 * maxAbsSweepInput, 2^-149)`, with an exact-zero
-special case. The integrated legal first sweep reports positive shell injection, zero surface
-exchange, a positive-infinity unconverged divergence status, and no poison. The test independently
-pins all nine fixture/step samples and recomputes drift, convergence, positivity, and extrema.
-Normal samples still pass in 22–141 f32 sweeps; final residual/divergence are exactly zero,
-minimum positive shell injection/exchange are `1.7043203115463257e-7` /
-`3.7532299757003784e-7`, maximum absolute drift is `3.8230791687965393e-7`, and the smallest
-normal-field limit is `0.00004966732028321985`. Production D3D12 execution then reached an exact
-period-two orbit at cold step 3 in indices 4419 and 4743. Each moves one local f32 ULP, the
-relative residual is `5.82076573607537e-8`, divergence is zero, shell/exchange are positive, and
-drift is bounded. Storage-separated shaped arithmetic plus correctly rounded binary32 division
-by seven matches an independent `Math.fround` replay exactly, so this is not a remaining shader
-composition defect. Same-reviewer diagnosis independently reproduced it and returned one
-blocker, zero should-fixes.
-
-**Next action:** implement WP5's reviewed evidence boundary in
-[phase-5-gpu-port.md](plans/phase-5-gpu-port.md). Add the flagless
-`node runner/src/main.ts gate5-lane` Windows/D3D12 publisher and flagless
-`node runner/src/main.ts gate5` aggregate verifier, using the hardened Phase 4
-canonical-JSON/SHA-256/atomic-publication machinery. Publish exactly the frozen
-`out/phase5/windows-d3d12/` graph, re-open every byte, re-derive all 16 `P5-*` criteria, and
-make every registered Phase 5 mutation trip only its named owner. Do not claim WP5 from the WP4
-probe or relax the frozen hashes/tolerances. Obtain zero-finding review before WP6. WP1–WP4
-canonical probes must replay under exact v5 identity before WP7 publication. Metal is deferred to a separately frozen
-later-machine extension; never relabel Windows evidence as Metal or claim general WebGPU
-portability. Preserve accepted evidence under `out/phase2b/`, `out/phase4/`, and
-`out/phase4-visual/`.
+**Next action:** on the committed WP5 candidate in the isolated clone at
+`G:/Code Files/snowflake/out/worktrees/phase5-wp1/`, run `node runner/src/main.ts gate5-lane`
+and then `node runner/src/main.ts gate5` on the registered
+Windows/Chromium/D3D12 host, repair any measured failure without changing the frozen protocol,
+and obtain same-reviewer zero blockers / zero should-fixes before checking WP5 or starting WP6.
+The real parent checkout remains `G:/Code Files/snowflake`; after a clean WP5 boundary, retry an
+exact fast-forward from the nested clone. The parent `.git/FETCH_HEAD` is currently denied by
+the execution sandbox, not locked or diverged, and its existing dirty WP1 files must not be
+overwritten. Metal is deferred to a separately frozen later-machine extension; never relabel
+Windows evidence as Metal or claim general WebGPU portability. Preserve accepted evidence under
+`out/phase2b/`, `out/phase4/`, and `out/phase4-visual/`.
 
 **Phase 3 is COMPLETE — maker-asserted 2026-07-23 (ADRs 0007/0008), orchestrated per
 [phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md)** — all work packages

@@ -84,6 +84,8 @@ import { gate3 } from "./gate3.ts";
 import { gate4a } from "./gate4a.ts";
 import { gate4b } from "./gate4b.ts";
 import { gate4 } from "./gate4-aggregate.ts";
+import { gate5Lane } from "./gate5-lane.ts";
+import { gate5 } from "./gate5-aggregate.ts";
 import {
   GATE2B_NODE,
   GATE2B_PREREGISTRATION,
@@ -1255,6 +1257,38 @@ if (command === "__gate2b-worker") {
     console.error("GATE4 EXIT STATUS: 1");
     process.exitCode = 1;
   }
+} else if (command === "gate5-lane") {
+  if (rest.length > 0) {
+    console.error(
+      "gate5-lane takes no flags: the Windows/D3D12 protocol is pinned in " +
+        "docs/plans/phase-5-gpu-port.md",
+    );
+    console.error("GATE5-LANE EXIT STATUS: 2");
+    process.exit(2);
+  }
+  try {
+    process.exitCode = gate5Lane();
+  } catch (error) {
+    console.error(error instanceof Error ? (error.stack ?? error.message) : String(error));
+    console.error("GATE5-LANE EXIT STATUS: 1");
+    process.exitCode = 1;
+  }
+} else if (command === "gate5") {
+  if (rest.length > 0) {
+    console.error(
+      "gate5 takes no flags: the Phase 5 aggregate protocol is pinned in " +
+        "docs/plans/phase-5-gpu-port.md",
+    );
+    console.error("GATE5 EXIT STATUS: 2");
+    process.exit(2);
+  }
+  try {
+    process.exitCode = gate5();
+  } catch (error) {
+    console.error(error instanceof Error ? (error.stack ?? error.message) : String(error));
+    console.error("GATE5 EXIT STATUS: 1");
+    process.exitCode = 1;
+  }
 } else {
   console.error(
     "usage: node runner/src/main.ts grow --preset <name> [options]\n" +
@@ -1263,7 +1297,9 @@ if (command === "__gate2b-worker") {
       "       node runner/src/main.ts gate3\n" +
       "       node runner/src/main.ts gate4a\n" +
       "       node runner/src/main.ts gate4b\n" +
-      "       node runner/src/main.ts gate4",
+      "       node runner/src/main.ts gate4\n" +
+      "       node runner/src/main.ts gate5-lane\n" +
+      "       node runner/src/main.ts gate5",
   );
   process.exit(2);
 }

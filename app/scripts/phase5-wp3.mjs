@@ -265,6 +265,17 @@ async function main() {
           };
         }
 
+        function base64(bytes) {
+          let binary = "";
+          const chunkSize = 0x8000;
+          for (let offset = 0; offset < bytes.length; offset += chunkSize) {
+            binary += String.fromCharCode(
+              ...bytes.subarray(offset, offset + chunkSize),
+            );
+          }
+          return btoa(binary);
+        }
+
         function exactArrayMismatch(reference, candidate) {
           if (reference.length !== candidate.length) return Infinity;
           let mismatch = 0;
@@ -945,6 +956,16 @@ async function main() {
               },
               exact: oracle.tick === gpu.tick() && gpu.tick() === cycleCap,
             };
+            const checkpointBase = {
+              dims: oracle.dims,
+              tick: oracle.tick,
+              rngSeed: oracle.rngSeed,
+              noiseEpsilon: oracle.noiseEpsilon,
+              farField: oracle.farField,
+              domain: oracle.domain,
+              params: oracle.params,
+              center: oracle.center,
+            };
             const pass =
               occupancyMismatchCount === 0 &&
               wallMismatchCount === 0 &&
@@ -999,13 +1020,56 @@ async function main() {
               eventStateMismatchCount,
               events,
               metrics,
+              metricValues: {
+                cpu: cpuMetrics,
+                gpu: gpuMetrics,
+              },
               mass,
+              ledgerValues: {
+                cpu: cpuLedger,
+                gpu: {
+                  rule: "GGThreshold",
+                  claim: cpuLedger.claim,
+                  totalMassBD: gpuMetrics.totalMass,
+                  dirichletMeter:
+                    fixture.farField === "dirichlet"
+                      ? finalReport.dirichletMeter
+                      : null,
+                  fillLedgerIceCells: null,
+                  fillLedgerVaporUnits: null,
+                  holeFillDeficit: null,
+                  saturationClippedFill: null,
+                  lastDivergenceResidual: null,
+                },
+              },
               directClampComparisons,
               directOracleMeterComparison,
               correctedMassLedger,
               stopReason,
               cpuDomainContact: cpuMetrics.domainContact,
               gpuDomainContact: gpuMetrics.domainContact,
+              cpuCheckpointBase64: base64(
+                core.encodeCheckpoint(
+                  {
+                    ...checkpointBase,
+                    a: oracle.a,
+                    b: oracle.b,
+                    d: oracle.d,
+                  },
+                  null,
+                ),
+              ),
+              gpuCheckpointBase64: base64(
+                core.encodeCheckpoint(
+                  {
+                    ...checkpointBase,
+                    a: gpuA,
+                    b: gpuB,
+                    d: gpuD,
+                  },
+                  null,
+                ),
+              ),
               pass,
             });
           } finally {

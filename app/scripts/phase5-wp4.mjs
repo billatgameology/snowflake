@@ -320,6 +320,17 @@ async function main() {
           };
         }
 
+        function base64(bytes) {
+          let binary = "";
+          const chunkSize = 0x8000;
+          for (let offset = 0; offset < bytes.length; offset += chunkSize) {
+            binary += String.fromCharCode(
+              ...bytes.subarray(offset, offset + chunkSize),
+            );
+          }
+          return btoa(binary);
+        }
+
         function binary32ScalarComparison(reference, candidate) {
           const difference = Math.abs(candidate - reference);
           const limit =
@@ -2615,7 +2626,15 @@ async function main() {
                 fields,
                 exact,
                 ledger,
+                ledgerValues: {
+                  cpu: cpuLedger,
+                  gpu: gpuLedger,
+                },
                 metrics,
+                metricValues: {
+                  cpu: cpuMetrics,
+                  gpu: gpuMetrics,
+                },
                 controls,
                 noiseWitness,
                 pass,
@@ -2747,6 +2766,32 @@ async function main() {
                   : "incomplete",
               pass: solver.tick === fixture.stop.value,
             };
+            const gpuConversion = await solver.exportConversionSnapshot(
+              `${fixture.id}:final-checkpoint`,
+            );
+            const cpuCheckpoint = core.encodeLKCheckpoint({
+              surfacePolicy: oracle.surfacePolicy,
+              dims: oracle.dims,
+              tick: oracle.tick,
+              simTimeSeconds: oracle.simTimeSeconds,
+              rngSeed: fixture.rngSeed,
+              noiseEpsilon: fixture.noiseEpsilon,
+              domain: oracle.domain,
+              center: oracle.center,
+              tempC: oracle.tempC,
+              sigmaInfinity: oracle.sigmaInfinity,
+              dxUm: fixture.dxUm,
+              pressurePa: fixture.pressurePa,
+              paramSet: fixture.paramSet,
+              cflFill: fixture.cflFill,
+              relaxTol: fixture.relaxTol,
+              divTol: fixture.divTol,
+              relaxMaxSweeps: fixture.relaxMaxSweeps,
+              farField: fixture.farField,
+              a: oracle.a,
+              f: oracle.f,
+              sigma: oracle.sigma,
+            });
             fixtureReports.push({
               id: fixture.id,
               steps,
@@ -2754,6 +2799,10 @@ async function main() {
               minimumDecisionMargin,
               decisionMarginPass,
               stopReason,
+              cpuCheckpointBase64: base64(cpuCheckpoint),
+              gpuCheckpointBase64: base64(
+                production.encodeGpuLkConversionSnapshot(gpuConversion),
+              ),
               pass:
                 steps.length === fixture.stop.value &&
                 steps.every((stepReport) => stepReport.pass) &&
