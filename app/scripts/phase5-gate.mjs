@@ -353,7 +353,18 @@ function scalarPair(fixture, name, source, decoded) {
     if (name === "state.vapor-total") {
       return [sum(decoded.cpu.state.d), sum(decoded.gpu.state.d)];
     }
-    if (name === "relaxation.sweeps") return [1, 1];
+    if (name === "relaxation.sweeps") {
+      // Each lane's own per-cycle relaxation work, measured independently by the probe: the
+      // CPU count is what the oracle's own relaxField report stated for the last completed
+      // cycle, and the GPU count is the pass-counter delta the probe measured around that
+      // lane's own final step. GGThreshold's contract is one masked-average diffusion pass
+      // per cycle, so both lanes must independently measure 1 — never assert it here.
+      const relaxation = source.laneObservations?.["reports.relaxation-classification"];
+      return [
+        finiteOrNull(relaxation?.cpu?.sweeps),
+        finiteOrNull(relaxation?.gpu?.sweeps),
+      ];
+    }
     if (name === "relaxation.shell-clamp") {
       const last = source.directClampComparisons?.at(-1);
       return last === undefined
@@ -412,17 +423,25 @@ function scalarPair(fixture, name, source, decoded) {
       finiteOrNull(last.gpuRelaxation?.trace?.at(-1)?.smootherDriftLimit),
     ];
   }
+  // ULP-distance operands come from two separate measurements: the host convergence witness
+  // recomputes both distances from the readback field history, while the GPU operator reports
+  // its own in-shader reductions. ADR 0021 accepts only distances of 0 or 1, so the frozen
+  // mixed-scalar tolerance requires the two measurements to agree exactly.
   if (name === "relaxation.maximum-current-step-ulp") {
-    const value = finiteOrNull(
-      last.convergenceWitness?.current?.maximumCurrentStepUlpDistance,
-    );
-    return [value, value];
+    return [
+      finiteOrNull(
+        last.convergenceWitness?.classification?.maximumCurrentStepUlpDistance,
+      ),
+      finiteOrNull(last.gpuRelaxation?.maximumCurrentStepUlpDistance),
+    ];
   }
   if (name === "relaxation.maximum-two-back-ulp") {
-    const value = finiteOrNull(
-      last.convergenceWitness?.previous?.maximumCurrentStepUlpDistance,
-    );
-    return [value, value];
+    return [
+      finiteOrNull(
+        last.convergenceWitness?.classification?.maximumTwoBackUlpDistance,
+      ),
+      finiteOrNull(last.gpuRelaxation?.maximumTwoBackUlpDistance),
+    ];
   }
   const scaleMap = {
     "scales.c-sat": "cSatPerCubicMeter",
