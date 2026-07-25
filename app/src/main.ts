@@ -25,6 +25,14 @@ import {
   type StopReason,
 } from "./protocol.ts";
 import { WorkerEngine, type Engine } from "./engine.ts";
+import {
+  acquireProductionGpuDevice,
+  decideGpuBoot,
+  gpuDeviceStatusReport,
+  gpuStatusLine,
+  type GpuAcquisition,
+  type GpuDeviceStatusReport,
+} from "./gpudevice.ts";
 import { surfaceCellIndices } from "./surface.ts";
 import { CrystalView, type CameraPose } from "./render.ts";
 import { normalizeToUnit, srgbToLinear, viridis } from "./colormap.ts";
@@ -143,6 +151,15 @@ interface VccDebug {
   /** Apply a registered Phase 4 live-GG scenario config (same path as pane + reset). */
   applyScenario: (id: string) => boolean;
   scenarioIds: () => string[];
+  // ── Phase 5 (WP6 S2): production GPU device state — engine-neutral addition only ───────
+  /**
+   * Observed production GPU device state (D4): the acquisition outcome and fallback
+   * reason, the frozen Phase 5 requirements the request was checked against, the observed
+   * device capability, and by-value copies of the live uncaptured-error / device-loss
+   * observation lists at call time. Null until boot decides. Reports device state only,
+   * never engine identity — in S2 the solver is the CPU worker on every branch.
+   */
+  gpuDeviceStatus: () => GpuDeviceStatusReport | null;
 }
 
 const debugHook: VccDebug = {
@@ -181,6 +198,7 @@ const debugHook: VccDebug = {
   lastInspectError: null,
   applyScenario: () => false,
   scenarioIds: () => [],
+  gpuDeviceStatus: () => null,
 };
 (window as unknown as { __vccDebug: VccDebug }).__vccDebug = debugHook;
 
@@ -206,7 +224,22 @@ function byId<T extends HTMLElement>(id: string): T {
 async function boot(): Promise<void> {
   const container = byId<HTMLDivElement>("scene");
   const params = new URLSearchParams(window.location.search);
-  const view = await CrystalView.create(container, { forceWebGL: params.get("webgl2") === "1" });
+  // WP6 S2 boot order (frozen design D4): attempt the checked production device acquisition
+  // BEFORE the renderer exists. On success the device is handed to CrystalView (D2: one
+  // device, first-class three parameter) and its capability recorded; on any skip or
+  // failure (?webgl2=1, ?engine=cpu, missing navigator.gpu, a thrown feature/limit request)
+  // the app boots today's path unchanged and the status panel names the reason — an honest
+  // fallback, never a silent downgrade (charter §1.5).
+  const decision = decideGpuBoot(params, navigator.gpu !== undefined);
+  const acquisition: GpuAcquisition = decision.attempt
+    ? await acquireProductionGpuDevice(navigator.gpu)
+    : { state: "fallback", reason: decision.skipReason, detail: null };
+  debugHook.gpuDeviceStatus = () => gpuDeviceStatusReport(acquisition);
+  const gpuLine = gpuStatusLine(acquisition);
+  const view = await CrystalView.create(container, {
+    forceWebGL: params.get("webgl2") === "1",
+    ...(acquisition.state === "acquired" ? { device: acquisition.device } : {}),
+  });
   debugHook.backend = view.backend;
 
   // The engine seam (WP6 S1): main drives ONE Engine. In S1 it is always the CPU worker,
@@ -375,6 +408,9 @@ async function boot(): Promise<void> {
     }
     const s = latest;
     lines.push(`backend: ${view.backend} — GGThreshold oracle in a Web Worker`);
+    // S2 device honesty (D4): the acquisition outcome — or the named fallback reason — is
+    // always visible, on success and on failure alike.
+    lines.push(gpuLine);
     if (s === null) {
       lines.push("waiting for first snapshot…");
     } else {
