@@ -566,6 +566,53 @@ export const PHASE5_GG_DIRICHLET_LEDGER_POLICY = {
   blockingTolerance: "phase5-mixed-scalar-v1",
 } as const;
 
+/**
+ * Registered construction of the ADR 0019 clamp-path and meter-reduction witnesses.
+ *
+ * The browser probe builds both witnesses from exactly these values and the runner
+ * reconstructs their expected delta fields, reduction inventory, and binary32 sums from the
+ * same values without reading any producer-computed expectation. They are deliberately NOT in
+ * `phase5ProtocolManifest()`: they add no criterion and change no evidence meaning, so the
+ * pre-registered protocol hash keeps the meaning ADR 0019 froze.
+ *
+ * `reduction` mirrors the shipped clamp reduction geometry. It is stated independently rather
+ * than imported from `solver-gpu` so a change to the implementation's workgroup size or
+ * per-dispatch ceiling fails the published dispatch inventory instead of silently redefining
+ * the expectation.
+ */
+export const PHASE5_GG_DIRICHLET_LEDGER_WITNESS = {
+  reduction: {
+    laneCount: 256,
+    maxWorkgroupsPerDispatch: 16_384,
+  },
+  clampPath: {
+    dims: { nx: 17, ny: 19, nz: 11 },
+    shellModulus: 11,
+    shellResidue: 3,
+    cases: [
+      {
+        id: "clamp-path-positive",
+        sign: "positive",
+        initialValue: 0.125,
+        rho: 0.25,
+      },
+      {
+        id: "clamp-path-negative",
+        sign: "negative",
+        initialValue: 0.25,
+        rho: 0.125,
+      },
+    ],
+  },
+  meterReduction: {
+    fixtureId: "gg-column-dirichlet-noise-timeline-32x32x64",
+    fields: [
+      { id: "first", modulus: 19, offset: 7, scale: 1e-6, bias: 2e-7 },
+      { id: "second", modulus: 23, offset: 13, scale: 3e-7, bias: -1e-7 },
+    ],
+  },
+} as const;
+
 export const PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY = {
   id: "exact-period2-one-ulp-v1",
   authority: "ADR-0021",

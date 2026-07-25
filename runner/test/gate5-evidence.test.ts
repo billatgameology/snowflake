@@ -8,6 +8,7 @@ import {
   rmSync,
   writeFileSync,
 } from "node:fs";
+import { Buffer } from "node:buffer";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { afterEach, describe, expect, it } from "vitest";
@@ -29,6 +30,7 @@ import {
 import { PHASE5_FIXTURES } from "../src/phase5-protocol.ts";
 import {
   TEST_PHASE5_CHECKPOINT_HOOKS,
+  TEST_PHASE5_GG_LEDGER_FIXTURE_ID,
   TEST_PHASE5_SOURCE_HASHES,
   passingPhase5Capture,
 } from "./phase5-test-fixtures.ts";
@@ -521,5 +523,314 @@ describe("Phase 5 lane evidence publication", () => {
       }),
     ).toThrow(/already exists/);
     expect(readFileSync(join(canonicalDirectory, "owner.txt"), "utf8")).toBe("keep");
+  });
+});
+
+interface MutableGgLedger {
+  policy: Record<string, unknown>;
+  cycles: Array<{
+    cycle: number;
+    cpu: {
+      clampDelta: number;
+      cumulativeMeter: number;
+      tick: number;
+      oldBoundaryCount: number;
+      boundaryCount: number;
+      attachedTotal: number;
+      relaxation: Record<string, unknown>;
+      surface: Record<string, unknown>;
+    };
+    gpu: {
+      clampDelta: number;
+      cumulativeMeter: number;
+      tick: number;
+      report: Record<string, number>;
+    };
+  }>;
+  clampPathWitness: {
+    policy: Record<string, unknown>;
+    cases: Array<{
+      id: string;
+      dims: Record<string, number>;
+      cellCount: number;
+      shellCellCount: number;
+      initialValue: number;
+      rho: number;
+      observedDeltasBase64: string;
+      observedVaporBase64: string;
+      report: Record<string, number>;
+    }>;
+  };
+  meterReductionWitness: {
+    cellCount: number;
+    reductionDispatches: number;
+    firstReport: Record<string, number>;
+    secondReport: Record<string, number>;
+  };
+  correctedMassOperands: {
+    cpuInitialMass: number;
+    gpuInitialMass: number;
+    cpuFinalMass: number;
+    gpuFinalMass: number;
+    cpuFinalMeter: number;
+    gpuFinalMeter: number;
+  };
+}
+
+interface MutableScalar {
+  name: string;
+  cpu: number;
+  gpu: number;
+}
+
+describe("ADR-0019 G-G Dirichlet corrected-mass ledger", () => {
+  function ledgerCapture() {
+    const capture = passingPhase5Capture();
+    const fixture = capture.fixtures.find(
+      (entry) => entry.id === TEST_PHASE5_GG_LEDGER_FIXTURE_ID,
+    );
+    if (fixture === undefined) {
+      throw new Error("missing the frozen G-G Dirichlet fixture");
+    }
+    const comparison = fixture.comparison as {
+      ggDirichletLedger: MutableGgLedger;
+      scalars: MutableScalar[];
+    };
+    return {
+      capture,
+      ledger: comparison.ggDirichletLedger,
+      scalars: comparison.scalars,
+    };
+  }
+
+  function expectRejected(capture: unknown, pattern: RegExp): void {
+    const root = temporaryRoot();
+    expect(() =>
+      publishPhase5Lane({
+        canonicalDirectory: join(root, "windows-d3d12"),
+        capture: capture as Parameters<
+          typeof publishPhase5Lane
+        >[0]["capture"],
+        sourceHashes: TEST_PHASE5_SOURCE_HASHES,
+        verificationHooks: TEST_PHASE5_CHECKPOINT_HOOKS,
+      }),
+    ).toThrow(pattern);
+  }
+
+  it("publishes the complete registered chronology and both device witnesses", () => {
+    const frozen = PHASE5_FIXTURES.find(
+      (fixture) => fixture.id === TEST_PHASE5_GG_LEDGER_FIXTURE_ID,
+    );
+    if (frozen === undefined || frozen.kind !== "gg") {
+      throw new Error("missing the frozen G-G Dirichlet fixture");
+    }
+    expect(frozen.stop).toEqual({ kind: "completed-cycle-cap", value: 128 });
+    const root = temporaryRoot();
+    const bundle = publish(root);
+    // The same graph validator runs on publication and on independent reopening, so the
+    // aggregate gate re-derives this ledger from the published bytes.
+    expect(
+      verifyPhase5LaneBundle(
+        bundle.directory,
+        TEST_PHASE5_SOURCE_HASHES,
+        TEST_PHASE5_CHECKPOINT_HOOKS,
+      ).report.gatePass,
+    ).toBe(true);
+    const published = JSON.parse(
+      readFileSync(
+        join(
+          bundle.directory,
+          "fixtures",
+          TEST_PHASE5_GG_LEDGER_FIXTURE_ID,
+          "comparison.json",
+        ),
+        "utf8",
+      ),
+    ) as { ggDirichletLedger: MutableGgLedger };
+    const ledger = published.ggDirichletLedger;
+    expect(ledger.cycles.length).toBe(128);
+    expect(ledger.cycles.at(-1)?.cycle).toBe(128);
+    expect(ledger.clampPathWitness.cases.map((entry) => entry.id)).toEqual([
+      "clamp-path-positive",
+      "clamp-path-negative",
+    ]);
+    expect(ledger.meterReductionWitness.reductionDispatches).toBe(2);
+    expect(ledger.correctedMassOperands.gpuFinalMeter).toBe(
+      ledger.cycles.at(-1)?.gpu.cumulativeMeter,
+    );
+  });
+
+  it("rejects a fixture that omits its ledger", () => {
+    const { capture } = ledgerCapture();
+    const fixture = capture.fixtures.find(
+      (entry) => entry.id === TEST_PHASE5_GG_LEDGER_FIXTURE_ID,
+    );
+    if (fixture === undefined) throw new Error("missing fixture");
+    delete (fixture.comparison as { ggDirichletLedger?: unknown })
+      .ggDirichletLedger;
+    expectRejected(capture, /comparison keys are invalid/);
+  });
+
+  it("rejects a ledger attached to a fixture that must not carry one", () => {
+    const { capture, ledger } = ledgerCapture();
+    const other = capture.fixtures.find(
+      (entry) => entry.id === "gg-plate-reflecting-48x48x24",
+    );
+    if (other === undefined) throw new Error("missing reflecting G-G fixture");
+    (other.comparison as { ggDirichletLedger?: unknown }).ggDirichletLedger =
+      structuredClone(ledger);
+    expectRejected(capture, /comparison keys are invalid/);
+  });
+
+  it("rejects a ledger that does not carry the frozen ADR-0019 policy", () => {
+    const { capture, ledger } = ledgerCapture();
+    ledger.policy.blockingTolerance = "relaxed-for-this-run";
+    expectRejected(capture, /frozen ADR-0019 policy/);
+  });
+
+  it("rejects a truncated cycle chronology", () => {
+    const { capture, ledger } = ledgerCapture();
+    ledger.cycles.pop();
+    expectRejected(capture, /all 128 signed cycles/);
+  });
+
+  it("rejects a chronology that skips a cycle", () => {
+    const { capture, ledger } = ledgerCapture();
+    ledger.cycles.splice(63, 1);
+    ledger.cycles.push(structuredClone(ledger.cycles[126]));
+    expectRejected(capture, /not a contiguous cycle chronology/);
+  });
+
+  it("rejects a forged binary64 CPU meter", () => {
+    const { capture, ledger } = ledgerCapture();
+    for (const cycle of ledger.cycles.slice(64)) {
+      cycle.cpu.cumulativeMeter += 1e-9;
+    }
+    expectRejected(capture, /binary64 CPU meter recurrence/);
+  });
+
+  it("rejects a forged persistent binary32 GPU meter", () => {
+    const { capture, ledger } = ledgerCapture();
+    const cycle = ledger.cycles[100];
+    cycle.gpu.cumulativeMeter = Math.fround(cycle.gpu.cumulativeMeter * 1.5);
+    cycle.gpu.report.dirichletMeter = cycle.gpu.cumulativeMeter;
+    expectRejected(capture, /binary32 GPU meter recurrence/);
+  });
+
+  it("rejects a GPU meter that no binary32 accumulator could hold", () => {
+    const { capture, ledger } = ledgerCapture();
+    const cycle = ledger.cycles[7];
+    cycle.gpu.cumulativeMeter = 0.1234567890123;
+    cycle.gpu.report.dirichletMeter = cycle.gpu.cumulativeMeter;
+    expectRejected(capture, /not an exact binary32 value/);
+  });
+
+  it("rejects a CPU clamp delta that its own relaxation report contradicts", () => {
+    const { capture, ledger } = ledgerCapture();
+    ledger.cycles[12].cpu.relaxation.shellClampDiagnostic = 0;
+    expectRejected(capture, /clamp delta differs from its relaxation report/);
+  });
+
+  it("rejects per-cycle bookkeeping that the two lanes do not share", () => {
+    const { capture, ledger } = ledgerCapture();
+    ledger.cycles[42].gpu.report.attachedTotal += 1;
+    expectRejected(capture, /cycle bookkeeping disagree/);
+  });
+
+  it("rejects a cycle whose device report raised error flags", () => {
+    const { capture, ledger } = ledgerCapture();
+    ledger.cycles[3].gpu.report.errorFlags = 1;
+    expectRejected(capture, /device error flags/);
+  });
+
+  it("rejects a clamp-path delta field that omits one shell cell", () => {
+    const { capture, ledger } = ledgerCapture();
+    const entry = ledger.clampPathWitness.cases[0];
+    const deltas = Buffer.from(entry.observedDeltasBase64, "base64");
+    deltas.writeFloatLE(0, 3 * 4);
+    entry.observedDeltasBase64 = deltas.toString("base64");
+    expectRejected(capture, /rho minus destination on the shell/);
+  });
+
+  it("rejects a clamp-path vapor field that was not clamped to rho", () => {
+    const { capture, ledger } = ledgerCapture();
+    const entry = ledger.clampPathWitness.cases[1];
+    const vapor = Buffer.from(entry.observedVaporBase64, "base64");
+    vapor.writeFloatLE(entry.initialValue, 3 * 4);
+    entry.observedVaporBase64 = vapor.toString("base64");
+    expectRejected(capture, /clamped vapor field is not the registered clamp/);
+  });
+
+  it("rejects a clamp-path reduction the delta field does not produce", () => {
+    const { capture, ledger } = ledgerCapture();
+    const entry = ledger.clampPathWitness.cases[0];
+    entry.report.lastClampDelta = Math.fround(entry.report.lastClampDelta * 2);
+    expectRejected(capture, /reduction or first accumulation is not exact/);
+  });
+
+  it("rejects a clamp-path case that abandons its registered construction", () => {
+    const { capture, ledger } = ledgerCapture();
+    ledger.clampPathWitness.cases[1].rho =
+      ledger.clampPathWitness.cases[1].initialValue;
+    expectRejected(capture, /does not match its registered construction/);
+  });
+
+  it("rejects a clamp-path shell count that differs from the registered set", () => {
+    const { capture, ledger } = ledgerCapture();
+    ledger.clampPathWitness.cases[0].shellCellCount -= 1;
+    expectRejected(capture, /shell membership differs from the registered set/);
+  });
+
+  it("rejects a meter-reduction witness that does not accumulate persistently", () => {
+    const { capture, ledger } = ledgerCapture();
+    ledger.meterReductionWitness.secondReport.dirichletMeter =
+      ledger.meterReductionWitness.secondReport.lastClampDelta;
+    expectRejected(capture, /accumulate persistently in binary32/);
+  });
+
+  it("rejects a meter-reduction dispatch inventory that was never planned", () => {
+    const { capture, ledger } = ledgerCapture();
+    ledger.meterReductionWitness.reductionDispatches += 1;
+    expectRejected(capture, /dispatch inventory differs from the planned reduction/);
+  });
+
+  it("rejects final meters that the reconstructed chronology does not reach", () => {
+    const { capture, ledger, scalars } = ledgerCapture();
+    const shifted = ledger.correctedMassOperands.cpuFinalMeter + 1e-6;
+    ledger.correctedMassOperands.cpuFinalMeter = shifted;
+    const scalar = scalars.find((entry) => entry.name === "ledger.dirichlet-meter");
+    if (scalar === undefined) throw new Error("missing meter scalar");
+    scalar.cpu = shifted;
+    expectRejected(capture, /differ from the reconstructed cycle chronology/);
+  });
+
+  it("rejects a ledger whose operands the published science scalars contradict", () => {
+    const { capture, ledger, scalars } = ledgerCapture();
+    const scalar = scalars.find((entry) => entry.name === "ledger.total-mass-bd");
+    if (scalar === undefined) throw new Error("missing total mass scalar");
+    scalar.cpu = ledger.correctedMassOperands.cpuFinalMass + 1e-6;
+    scalar.gpu = ledger.correctedMassOperands.gpuFinalMass + 1e-6;
+    expectRejected(capture, /differ from the fixture's published science scalars/);
+  });
+
+  it("rejects a within-lane corrected mass outside the frozen mixed-scalar bound", () => {
+    const { capture, ledger, scalars } = ledgerCapture();
+    const inflated = ledger.correctedMassOperands.cpuFinalMass + 1;
+    ledger.correctedMassOperands.cpuFinalMass = inflated;
+    const scalar = scalars.find((entry) => entry.name === "ledger.total-mass-bd");
+    if (scalar === undefined) throw new Error("missing total mass scalar");
+    scalar.cpu = inflated;
+    expectRejected(capture, /CPU corrected-mass invariant exceeds/);
+  });
+
+  it("rejects a cross-lane corrected-mass disagreement", () => {
+    const { capture, ledger, scalars } = ledgerCapture();
+    const operands = ledger.correctedMassOperands;
+    operands.gpuInitialMass += 1;
+    operands.gpuFinalMass += 1;
+    const scalar = scalars.find((entry) => entry.name === "ledger.total-mass-bd");
+    if (scalar === undefined) throw new Error("missing total mass scalar");
+    scalar.gpu = operands.gpuFinalMass;
+    expectRejected(capture, /cross-lane corrected-mass invariant exceeds/);
   });
 });

@@ -44,6 +44,7 @@ import {
   phase5ToleranceManifest,
   PHASE5_BUDGETS,
   PHASE5_DECISION_MARGINS,
+  PHASE5_GG_DIRICHLET_LEDGER_WITNESS,
   PHASE5_FIXTURES,
   PHASE5_FIXTURES_SHA256,
   PHASE5_HEADLESS_RUNTIME,
@@ -62,6 +63,8 @@ import {
 const repoRoot = resolve(import.meta.dirname, "..", "..");
 const SAFE_PATH = /^[a-z0-9][a-z0-9._/-]*$/;
 const PROBE_TIMEOUT_MS = 30 * 60 * 1_000;
+const GG_DIRICHLET_LEDGER_FIXTURE_ID =
+  PHASE5_GG_DIRICHLET_LEDGER_WITNESS.meterReduction.fixtureId;
 
 function lexical(left, right) {
   return left < right ? -1 : left > right ? 1 : 0;
@@ -638,6 +641,19 @@ function scienceArtifacts(fixture, source, checkpoint) {
   return { scalars, decisions, invariants, records };
 }
 
+// The producer's raw ADR-0019 ledger travels verbatim into comparison.json. The gate asserts
+// only that the probe emitted it; every value in it is reconstructed independently by
+// `runner/src/gate5-evidence.ts`, which never reads a producer verdict.
+function ggDirichletLedger(source) {
+  const ledger = source.ggDirichletLedger;
+  if (ledger === null || typeof ledger !== "object" || Array.isArray(ledger)) {
+    throw new Error(
+      `${GG_DIRICHLET_LEDGER_FIXTURE_ID} probe omitted its ADR-0019 Dirichlet ledger`,
+    );
+  }
+  return safeJson(ledger);
+}
+
 function readbackRecords(reports) {
   const sources = [
     ["layout-noncubic-box-17x19x11", reports.wp1.checks.readback.records],
@@ -819,6 +835,9 @@ function buildCapture(reports, repository) {
         decisions: science.decisions,
         invariants: science.invariants,
         checkpoint: checkpoint.derived.checkpoint,
+        ...(fixture.id === GG_DIRICHLET_LEDGER_FIXTURE_ID
+          ? { ggDirichletLedger: ggDirichletLedger(source) }
+          : {}),
       },
       events: {
         schema: "phase5-events-v1",

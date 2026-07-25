@@ -14,6 +14,7 @@ import {
   PHASE5_FIXTURES,
   PHASE5_FIXTURES_SHA256,
   PHASE5_GG_DIRICHLET_LEDGER_POLICY,
+  PHASE5_GG_DIRICHLET_LEDGER_WITNESS,
   PHASE5_NEGATIVE_CONTROLS,
   PHASE5_LANE_ARTIFACT_PATHS,
   PHASE5_LANES,
@@ -280,6 +281,50 @@ describe("Phase 5 criteria freeze", () => {
       crossLaneInvariant: "cpu-corrected-mass-vs-gpu-corrected-mass",
       blockingTolerance: "phase5-mixed-scalar-v1",
     });
+  });
+
+  it("registers the ADR 0019 ledger witness construction without moving the protocol hash", () => {
+    expect(PHASE5_GG_DIRICHLET_LEDGER_WITNESS).toEqual({
+      reduction: { laneCount: 256, maxWorkgroupsPerDispatch: 16_384 },
+      clampPath: {
+        dims: { nx: 17, ny: 19, nz: 11 },
+        shellModulus: 11,
+        shellResidue: 3,
+        cases: [
+          {
+            id: "clamp-path-positive",
+            sign: "positive",
+            initialValue: 0.125,
+            rho: 0.25,
+          },
+          {
+            id: "clamp-path-negative",
+            sign: "negative",
+            initialValue: 0.25,
+            rho: 0.125,
+          },
+        ],
+      },
+      meterReduction: {
+        fixtureId: "gg-column-dirichlet-noise-timeline-32x32x64",
+        fields: [
+          { id: "first", modulus: 19, offset: 7, scale: 1e-6, bias: 2e-7 },
+          { id: "second", modulus: 23, offset: 13, scale: 3e-7, bias: -1e-7 },
+        ],
+      },
+    });
+    expect(
+      PHASE5_GG_DIRICHLET_LEDGER_WITNESS.clampPath.cases.map(
+        (entry) => entry.sign,
+      ),
+    ).toEqual([...PHASE5_GG_DIRICHLET_LEDGER_POLICY.clampPathSigns]);
+    // The witness parameterizes an already-frozen criterion, so it stays out of the manifest.
+    expect(
+      Object.hasOwn(phase5ProtocolManifest(), "ggDirichletLedgerWitness"),
+    ).toBe(false);
+    expect(canonicalJsonSha256(phase5ProtocolManifest())).toBe(
+      PHASE5_PROTOCOL_SHA256,
+    );
   });
 
   it("uses morphology-shaped dev and preview budgets rather than cube aliases", () => {

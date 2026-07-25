@@ -742,9 +742,31 @@ async function main() {
                 report.lastClampDelta,
               );
               if (fixture.farField === "dirichlet") {
+                const cpuDirichletMeter = oracle.ledger().dirichletMeter;
+                if (cpuDirichletMeter === null) {
+                  throw new Error(
+                    `${fixture.id} lost its CPU Dirichlet meter at cycle ${cycle + 1}`,
+                  );
+                }
                 directClampComparisons.push({
                   cycle: cycle + 1,
                   ...clamp,
+                  cpu: {
+                    clampDelta: expectedClamp,
+                    cumulativeMeter: cpuDirichletMeter,
+                    tick: oracle.tick,
+                    oldBoundaryCount,
+                    boundaryCount: oracle.boundarySize(),
+                    attachedTotal: oracle.attachedCount,
+                    relaxation,
+                    surface,
+                  },
+                  gpu: {
+                    clampDelta: report.lastClampDelta,
+                    cumulativeMeter: report.dirichletMeter,
+                    tick: gpu.tick(),
+                    report: { ...report },
+                  },
                 });
               }
               clampOracleMaxAbs = Math.max(
@@ -1045,6 +1067,17 @@ async function main() {
               directClampComparisons,
               directOracleMeterComparison,
               correctedMassLedger,
+              correctedMassOperands: {
+                cpuInitialMass: initialCpuLedger.totalMassBD,
+                gpuInitialMass: initialGpuMass,
+                cpuFinalMass: cpuLedger.totalMassBD,
+                gpuFinalMass: gpuMetrics.totalMass,
+                cpuFinalMeter: cpuLedger.dirichletMeter,
+                gpuFinalMeter:
+                  fixture.farField === "dirichlet"
+                    ? finalReport.dirichletMeter
+                    : null,
+              },
               stopReason,
               cpuDomainContact: cpuMetrics.domainContact,
               gpuDomainContact: gpuMetrics.domainContact,
@@ -1104,20 +1137,19 @@ async function main() {
           return source[0] ?? 0;
         }
 
-        async function runClampPathWitnessCase(
-          id,
-          initialValueInput,
-          rhoInput,
-        ) {
-          const dims = { nx: 17, ny: 19, nz: 11 };
+        async function runClampPathWitnessCase(registered) {
+          const witness =
+            protocol.PHASE5_GG_DIRICHLET_LEDGER_WITNESS.clampPath;
+          const id = registered.id;
+          const dims = { ...witness.dims };
           const plan = production.createGpuBufferPlan(dims, "gg");
           const arena = production.GpuBufferArena.create(device, 1, plan);
           let diffusion = null;
           let surface = null;
           try {
             const count = plan.layout.cellCount;
-            const initialValue = Math.fround(initialValueInput);
-            const rho = Math.fround(rhoInput);
+            const initialValue = Math.fround(registered.initialValue);
+            const rho = Math.fround(registered.rho);
             const initialVapor = new Float32Array(count);
             initialVapor.fill(initialValue);
             const occupancy = new Uint32Array(count);
@@ -1125,7 +1157,7 @@ async function main() {
             const topology = new Uint32Array(count);
             const shellIndices = [];
             for (let index = 0; index < count; index++) {
-              if (index % 11 === 3) {
+              if (index % witness.shellModulus === witness.shellResidue) {
                 topology[index] = 1;
                 shellIndices.push(index);
               }
@@ -1215,6 +1247,21 @@ async function main() {
               initialValue,
               rho,
               delta,
+              observedDeltasBase64: base64(
+                new Uint8Array(
+                  observedDeltas.buffer,
+                  observedDeltas.byteOffset,
+                  observedDeltas.byteLength,
+                ),
+              ),
+              observedVaporBase64: base64(
+                new Uint8Array(
+                  observedVapor.buffer,
+                  observedVapor.byteOffset,
+                  observedVapor.byteLength,
+                ),
+              ),
+              report: { ...report },
               deltaFieldMismatchCount: exactArrayMismatch(
                 new Uint32Array(expectedDeltas.buffer),
                 new Uint32Array(observedDeltas.buffer),
@@ -1258,20 +1305,16 @@ async function main() {
           }
         }
 
+        const clampPathCases = [];
+        for (
+          const registered of protocol.PHASE5_GG_DIRICHLET_LEDGER_WITNESS
+            .clampPath.cases
+        ) {
+          clampPathCases.push(await runClampPathWitnessCase(registered));
+        }
         const clampPathWitness = {
           policy: protocol.PHASE5_GG_DIRICHLET_LEDGER_POLICY,
-          cases: [
-            await runClampPathWitnessCase(
-              "clamp-path-positive",
-              0.125,
-              0.25,
-            ),
-            await runClampPathWitnessCase(
-              "clamp-path-negative",
-              0.25,
-              0.125,
-            ),
-          ],
+          cases: clampPathCases,
         };
         clampPathWitness.pass =
           clampPathWitness.cases.every((entry) => entry.pass) &&
@@ -1279,9 +1322,17 @@ async function main() {
             Object.values(entry.mutations).every(Boolean)
           );
 
-        const meterOracle = makeOracle(
-          fixtures.find((fixture) => fixture.farField === "dirichlet"),
+        const meterFixtureId =
+          protocol.PHASE5_GG_DIRICHLET_LEDGER_WITNESS.meterReduction.fixtureId;
+        const meterFixture = fixtures.find(
+          (fixture) => fixture.id === meterFixtureId,
         );
+        if (meterFixture === undefined) {
+          throw new Error(
+            `the registered meter-reduction fixture is absent: ${meterFixtureId}`,
+          );
+        }
+        const meterOracle = makeOracle(meterFixture);
         const meterArena = production.GpuBufferArena.create(
           device,
           1,
@@ -1322,16 +1373,22 @@ async function main() {
               farField: initial.farField,
             },
           );
-          const first = new Float32Array(meterArena.plan.layout.cellCount);
-          const second = new Float32Array(first.length);
-          for (let index = 0; index < first.length; index++) {
-            first[index] = Math.fround(
-              ((index % 19) - 7) * 1e-6 + 2e-7,
-            );
-            second[index] = Math.fround(
-              ((index % 23) - 13) * 3e-7 - 1e-7,
-            );
-          }
+          const [firstSpec, secondSpec] =
+            protocol.PHASE5_GG_DIRICHLET_LEDGER_WITNESS.meterReduction.fields;
+          const registeredMeterField = (spec, length) => {
+            const values = new Float32Array(length);
+            for (let index = 0; index < length; index++) {
+              values[index] = Math.fround(
+                (index % spec.modulus - spec.offset) * spec.scale + spec.bias,
+              );
+            }
+            return values;
+          };
+          const first = registeredMeterField(
+            firstSpec,
+            meterArena.plan.layout.cellCount,
+          );
+          const second = registeredMeterField(secondSpec, first.length);
           const firstExpected = binary32TreeSum(first);
           meterArena.upload(device, "scratchScalarA", first);
           await meterSurface.advance(
@@ -1368,6 +1425,8 @@ async function main() {
             reductionDispatches:
               production.planGpuGgClampReduction(first.length).dispatches
                 .length,
+            firstReport: { ...firstReport },
+            secondReport: { ...secondReport },
             firstExpected,
             firstActual: firstReport.lastClampDelta,
             secondExpected,
@@ -1386,6 +1445,52 @@ async function main() {
           meterDiffusion?.destroy();
           meterArena.destroy();
         }
+
+        const dirichletFixtureReport = fixtureReports.find(
+          (entry) => entry.id === meterFixtureId,
+        );
+        if (
+          dirichletFixtureReport === undefined ||
+          dirichletFixtureReport.correctedMassOperands.cpuFinalMeter === null ||
+          dirichletFixtureReport.correctedMassOperands.gpuFinalMeter === null
+        ) {
+          throw new Error(
+            "registered G-G Dirichlet fixture lacks complete ledger operands",
+          );
+        }
+        dirichletFixtureReport.ggDirichletLedger = {
+          policy: protocol.PHASE5_GG_DIRICHLET_LEDGER_POLICY,
+          cycles: dirichletFixtureReport.directClampComparisons.map(
+            (entry) => ({
+              cycle: entry.cycle,
+              cpu: entry.cpu,
+              gpu: entry.gpu,
+            }),
+          ),
+          clampPathWitness: {
+            policy: clampPathWitness.policy,
+            cases: clampPathWitness.cases.map((entry) => ({
+              id: entry.id,
+              dims: entry.dims,
+              cellCount: entry.cellCount,
+              shellCellCount: entry.shellCellCount,
+              initialValue: entry.initialValue,
+              rho: entry.rho,
+              observedDeltasBase64: entry.observedDeltasBase64,
+              observedVaporBase64: entry.observedVaporBase64,
+              report: entry.report,
+            })),
+          },
+          meterReductionWitness: {
+            cellCount: meterReductionWitness.cellCount,
+            reductionDispatches:
+              meterReductionWitness.reductionDispatches,
+            firstReport: meterReductionWitness.firstReport,
+            secondReport: meterReductionWitness.secondReport,
+          },
+          correctedMassOperands:
+            dirichletFixtureReport.correctedMassOperands,
+        };
 
         const negativeFixture = fixtures[0];
         const negativeOracle = makeOracle(negativeFixture);

@@ -4,6 +4,7 @@
 // reopened and verified against an immutable in-memory root, and published by one directory
 // rename. The aggregate gate uses the same verifier and never trusts a lane report's booleans.
 
+import { Buffer } from "node:buffer";
 import { randomUUID } from "node:crypto";
 import {
   existsSync,
@@ -43,6 +44,8 @@ import {
   PHASE5_FIXTURES,
   PHASE5_FIXTURES_SHA256,
   PHASE5_FIELD_TOLERANCES,
+  PHASE5_GG_DIRICHLET_LEDGER_POLICY,
+  PHASE5_GG_DIRICHLET_LEDGER_WITNESS,
   PHASE5_PROTOCOL,
   PHASE5_PROTOCOL_SHA256,
   PHASE5_SCALAR_TOLERANCES,
@@ -821,6 +824,647 @@ function exactComparisonFailures(
   return failures;
 }
 
+export const PHASE5_GG_DIRICHLET_LEDGER_FIXTURE_ID =
+  PHASE5_GG_DIRICHLET_LEDGER_WITNESS.meterReduction.fixtureId;
+
+const GG_CYCLE_REPORT_KEYS = [
+  "boundaryCount",
+  "attachedTotal",
+  "attachedNow",
+  "holeFillNow",
+  "lastClampDelta",
+  "dirichletMeter",
+  "oldBoundaryCount",
+  "errorFlags",
+] as const;
+
+const GG_CYCLE_REPORT_COUNT_KEYS = [
+  "boundaryCount",
+  "attachedTotal",
+  "attachedNow",
+  "holeFillNow",
+  "oldBoundaryCount",
+  "errorFlags",
+] as const;
+
+const GG_RELAXATION_REPORT_KEYS = [
+  "sweeps",
+  "converged",
+  "residual",
+  "divergenceResidual",
+  "shellClampDiagnostic",
+  "surfaceExchangeDiagnostic",
+  "smootherDriftDiagnostic",
+  "minLocalSurfaceExchangeDiagnostic",
+] as const;
+
+const GG_SURFACE_REPORT_KEYS = [
+  "attachedNow",
+  "maxKineticFillIncrement",
+  "holeFillCount",
+  "deltaTimeSeconds",
+  "stalled",
+  "skippedUnconverged",
+] as const;
+
+function strictNumber(value: StrictJson, label: string): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    throw new Error(`${label} must be a finite number`);
+  }
+  return value;
+}
+
+function strictCount(value: StrictJson, label: string): number {
+  if (!Number.isSafeInteger(value) || (value as number) < 0) {
+    throw new Error(`${label} must be an unsigned integer`);
+  }
+  return value as number;
+}
+
+function strictBinary32(value: StrictJson, label: string): number {
+  const scalar = strictNumber(value, label);
+  if (Math.fround(scalar) !== scalar) {
+    throw new Error(`${label} is not an exact binary32 value`);
+  }
+  return scalar;
+}
+
+function withinMixedScalarBound(reference: number, candidate: number): boolean {
+  return (
+    Math.abs(candidate - reference) <=
+    PHASE5_SCALAR_TOLERANCES.maxAbs +
+      PHASE5_SCALAR_TOLERANCES.maxRelative * Math.abs(reference)
+  );
+}
+
+/**
+ * Independent reference for the shipped clamp reduction. Each level loads `laneCount` binary32
+ * lanes per workgroup (zero-padded past the input), halves them with binary32 adds, and emits
+ * one partial per workgroup. Written from the published `reduceClamp` semantics so a probe
+ * helper that drifts from the device cannot certify itself.
+ */
+function binary32ClampReduction(values: Float32Array): number {
+  const lanes = PHASE5_GG_DIRICHLET_LEDGER_WITNESS.reduction.laneCount;
+  let level = Float32Array.from(values);
+  while (level.length > 1) {
+    const next = new Float32Array(Math.ceil(level.length / lanes));
+    for (let group = 0; group < next.length; group++) {
+      const window = new Float32Array(lanes);
+      const base = group * lanes;
+      for (let lane = 0; lane < lanes && base + lane < level.length; lane++) {
+        window[lane] = level[base + lane];
+      }
+      for (let stride = lanes / 2; stride >= 1; stride /= 2) {
+        for (let lane = 0; lane < stride; lane++) {
+          window[lane] = Math.fround(window[lane] + window[lane + stride]);
+        }
+      }
+      next[group] = window[0];
+    }
+    level = next;
+  }
+  return level.length === 0 ? 0 : level[0];
+}
+
+/** Independent reference for the shipped clamp reduction dispatch inventory. */
+function plannedClampReductionDispatches(cellCount: number): number {
+  const { laneCount, maxWorkgroupsPerDispatch } =
+    PHASE5_GG_DIRICHLET_LEDGER_WITNESS.reduction;
+  const maxCells = laneCount * maxWorkgroupsPerDispatch;
+  let count = cellCount;
+  let dispatches = 0;
+  while (count > 1) {
+    let workgroups = 0;
+    for (let base = 0; base < count; base += maxCells) {
+      workgroups += Math.ceil(Math.min(maxCells, count - base) / laneCount);
+      dispatches++;
+    }
+    count = workgroups;
+  }
+  return dispatches;
+}
+
+function decodeBinary32Field(
+  value: StrictJson,
+  cellCount: number,
+  label: string,
+): Float32Array {
+  if (typeof value !== "string" || !/^[A-Za-z0-9+/]+={0,2}$/.test(value)) {
+    throw new Error(`${label} must be a base64 binary32 field`);
+  }
+  const bytes = Buffer.from(value, "base64");
+  if (bytes.toString("base64") !== value) {
+    throw new Error(`${label} is not canonically encoded`);
+  }
+  if (bytes.byteLength !== cellCount * 4) {
+    throw new Error(`${label} does not carry exactly ${cellCount} cells`);
+  }
+  const aligned = new Uint8Array(bytes.byteLength);
+  aligned.set(bytes);
+  return new Float32Array(aligned.buffer);
+}
+
+function binary32BitMismatchCount(
+  expected: Float32Array,
+  actual: Float32Array,
+): number {
+  const left = new Uint32Array(expected.buffer, expected.byteOffset, expected.length);
+  const right = new Uint32Array(actual.buffer, actual.byteOffset, actual.length);
+  let mismatches = 0;
+  for (let index = 0; index < left.length; index++) {
+    if (left[index] !== right[index]) mismatches++;
+  }
+  return mismatches;
+}
+
+function ggCycleReport(
+  value: StrictJson,
+  label: string,
+): Readonly<Record<string, StrictJson>> {
+  const report = plainObject(value, label);
+  exactKeys(report, [...GG_CYCLE_REPORT_KEYS], label);
+  for (const key of GG_CYCLE_REPORT_COUNT_KEYS) {
+    strictCount(report[key], `${label} ${key}`);
+  }
+  strictBinary32(report.lastClampDelta, `${label} lastClampDelta`);
+  strictBinary32(report.dirichletMeter, `${label} dirichletMeter`);
+  if (report.errorFlags !== 0) {
+    throw new Error(`${label} reports device error flags`);
+  }
+  return report;
+}
+
+interface RegisteredMeterField {
+  readonly modulus: number;
+  readonly offset: number;
+  readonly scale: number;
+  readonly bias: number;
+}
+
+interface GgDirichletChronology {
+  readonly cpuFinalMeter: number;
+  readonly gpuFinalMeter: number;
+  readonly cpuFinalClampDelta: number;
+  readonly gpuFinalClampDelta: number;
+}
+
+/**
+ * Reconstructs the complete signed clamp/meter chronology. Both accumulators are replayed here
+ * from the per-cycle signed deltas — the binary64 CPU meter exactly, the persistent binary32
+ * GPU meter under single-rounded addition — so a published cumulative value that was not
+ * actually produced by its own lane's arithmetic is rejected.
+ */
+function validateGgDirichletCycles(
+  value: StrictJson,
+  cycleCap: number,
+): GgDirichletChronology {
+  const cycles = strictArray(value, "G-G Dirichlet ledger cycles");
+  if (cycles.length !== cycleCap) {
+    throw new Error(
+      `G-G Dirichlet ledger must carry all ${cycleCap} signed cycles, not ${cycles.length}`,
+    );
+  }
+  let cpuMeter = 0;
+  let gpuMeter = 0;
+  let cpuClampDelta = 0;
+  let gpuClampDelta = 0;
+  for (const [index, entry] of cycles.entries()) {
+    const label = `G-G Dirichlet ledger cycle ${index + 1}`;
+    const cycle = plainObject(entry, label);
+    exactKeys(cycle, ["cycle", "cpu", "gpu"], label);
+    if (cycle.cycle !== index + 1) {
+      throw new Error(`${label} is not a contiguous cycle chronology`);
+    }
+    const cpu = plainObject(cycle.cpu, `${label} cpu`);
+    exactKeys(
+      cpu,
+      [
+        "clampDelta",
+        "cumulativeMeter",
+        "tick",
+        "oldBoundaryCount",
+        "boundaryCount",
+        "attachedTotal",
+        "relaxation",
+        "surface",
+      ],
+      `${label} cpu`,
+    );
+    const gpu = plainObject(cycle.gpu, `${label} gpu`);
+    exactKeys(
+      gpu,
+      ["clampDelta", "cumulativeMeter", "tick", "report"],
+      `${label} gpu`,
+    );
+    const relaxation = plainObject(cpu.relaxation, `${label} cpu relaxation`);
+    exactKeys(relaxation, [...GG_RELAXATION_REPORT_KEYS], `${label} cpu relaxation`);
+    const surface = plainObject(cpu.surface, `${label} cpu surface`);
+    exactKeys(surface, [...GG_SURFACE_REPORT_KEYS], `${label} cpu surface`);
+    const report = ggCycleReport(gpu.report, `${label} gpu report`);
+
+    cpuClampDelta = strictNumber(cpu.clampDelta, `${label} cpu clampDelta`);
+    gpuClampDelta = strictBinary32(gpu.clampDelta, `${label} gpu clampDelta`);
+    const cpuCumulative = strictNumber(
+      cpu.cumulativeMeter,
+      `${label} cpu cumulativeMeter`,
+    );
+    const gpuCumulative = strictBinary32(
+      gpu.cumulativeMeter,
+      `${label} gpu cumulativeMeter`,
+    );
+    if (cpuCumulative !== cpuMeter + cpuClampDelta) {
+      throw new Error(`${label} breaks the binary64 CPU meter recurrence`);
+    }
+    if (gpuCumulative !== Math.fround(gpuMeter + gpuClampDelta)) {
+      throw new Error(`${label} breaks the persistent binary32 GPU meter recurrence`);
+    }
+    cpuMeter = cpuCumulative;
+    gpuMeter = gpuCumulative;
+
+    if (relaxation.shellClampDiagnostic !== cpuClampDelta) {
+      throw new Error(`${label} CPU clamp delta differs from its relaxation report`);
+    }
+    if (relaxation.sweeps !== 1 || relaxation.converged !== true) {
+      throw new Error(`${label} is not the published single-pass G-G relaxation`);
+    }
+    for (
+      const key of [
+        "residual",
+        "divergenceResidual",
+        "surfaceExchangeDiagnostic",
+        "smootherDriftDiagnostic",
+        "minLocalSurfaceExchangeDiagnostic",
+      ] as const
+    ) {
+      if (relaxation[key] !== null) {
+        throw new Error(`${label} relaxation ${key} is not a GGThreshold report`);
+      }
+    }
+    if (
+      surface.maxKineticFillIncrement !== null ||
+      surface.deltaTimeSeconds !== null ||
+      surface.stalled !== false ||
+      surface.skippedUnconverged !== false
+    ) {
+      throw new Error(`${label} surface report is not a GGThreshold report`);
+    }
+    if (
+      report.lastClampDelta !== gpuClampDelta ||
+      report.dirichletMeter !== gpuCumulative
+    ) {
+      throw new Error(`${label} GPU meter differs from its own device report`);
+    }
+    if (cpu.tick !== index + 1 || gpu.tick !== index + 1) {
+      throw new Error(`${label} tick identity is not the completed cycle`);
+    }
+    if (
+      report.oldBoundaryCount !==
+        strictCount(cpu.oldBoundaryCount, `${label} cpu oldBoundaryCount`) ||
+      report.boundaryCount !==
+        strictCount(cpu.boundaryCount, `${label} cpu boundaryCount`) ||
+      report.attachedTotal !==
+        strictCount(cpu.attachedTotal, `${label} cpu attachedTotal`) ||
+      report.attachedNow !==
+        strictCount(surface.attachedNow, `${label} cpu surface attachedNow`) ||
+      report.holeFillNow !==
+        strictCount(surface.holeFillCount, `${label} cpu surface holeFillCount`)
+    ) {
+      throw new Error(`${label} CPU and GPU cycle bookkeeping disagree`);
+    }
+  }
+  return {
+    cpuFinalMeter: cpuMeter,
+    gpuFinalMeter: gpuMeter,
+    cpuFinalClampDelta: cpuClampDelta,
+    gpuFinalClampDelta: gpuClampDelta,
+  };
+}
+
+/**
+ * Rebuilds each registered clamp-path case from the frozen witness construction: the expected
+ * delta field is `rho - destination` on exactly the registered topology set and zero elsewhere,
+ * the reduction is replayed here, and every mutation named by the policy is required to change
+ * the reduced value. Only raw device bytes and the device report are read from the payload.
+ */
+function validateGgClampPathWitness(value: StrictJson): void {
+  const witness = plainObject(value, "G-G clamp-path witness");
+  exactKeys(witness, ["policy", "cases"], "G-G clamp-path witness");
+  if (
+    canonicalJson(witness.policy) !==
+      canonicalJson(PHASE5_GG_DIRICHLET_LEDGER_POLICY)
+  ) {
+    throw new Error("G-G clamp-path witness does not carry the frozen ADR-0019 policy");
+  }
+  const registered = PHASE5_GG_DIRICHLET_LEDGER_WITNESS.clampPath;
+  const cases = strictArray(witness.cases, "G-G clamp-path witness cases");
+  if (cases.length !== registered.cases.length) {
+    throw new Error(
+      `G-G clamp-path witness must carry ${registered.cases.length} registered cases`,
+    );
+  }
+  const observedSigns: string[] = [];
+  for (const [index, entry] of cases.entries()) {
+    const expected = registered.cases[index];
+    const label = `G-G clamp-path case ${expected.id}`;
+    const observed = plainObject(entry, label);
+    exactKeys(
+      observed,
+      [
+        "id",
+        "dims",
+        "cellCount",
+        "shellCellCount",
+        "initialValue",
+        "rho",
+        "observedDeltasBase64",
+        "observedVaporBase64",
+        "report",
+      ],
+      label,
+    );
+    if (
+      observed.id !== expected.id ||
+      canonicalJson(observed.dims) !== canonicalJson(registered.dims) ||
+      observed.initialValue !== Math.fround(expected.initialValue) ||
+      observed.rho !== Math.fround(expected.rho)
+    ) {
+      throw new Error(`${label} does not match its registered construction`);
+    }
+    const cellCount =
+      registered.dims.nx * registered.dims.ny * registered.dims.nz;
+    if (observed.cellCount !== cellCount) {
+      throw new Error(`${label} cell count differs from the registered grid`);
+    }
+    const initialValue = Math.fround(expected.initialValue);
+    const rho = Math.fround(expected.rho);
+    const delta = Math.fround(rho - initialValue);
+    const sign = delta > 0 ? "positive" : delta < 0 ? "negative" : "zero";
+    if (sign !== expected.sign) {
+      throw new Error(`${label} does not exercise its registered clamp sign`);
+    }
+    observedSigns.push(sign);
+
+    const expectedDeltas = new Float32Array(cellCount);
+    const expectedVapor = new Float32Array(cellCount);
+    expectedVapor.fill(initialValue);
+    let shellCellCount = 0;
+    let firstShellIndex = -1;
+    for (let index2 = 0; index2 < cellCount; index2++) {
+      if (index2 % registered.shellModulus !== registered.shellResidue) continue;
+      expectedDeltas[index2] = delta;
+      expectedVapor[index2] = rho;
+      if (firstShellIndex < 0) firstShellIndex = index2;
+      shellCellCount++;
+    }
+    if (shellCellCount === 0 || observed.shellCellCount !== shellCellCount) {
+      throw new Error(`${label} shell membership differs from the registered set`);
+    }
+    const observedDeltas = decodeBinary32Field(
+      observed.observedDeltasBase64,
+      cellCount,
+      `${label} delta field`,
+    );
+    const observedVapor = decodeBinary32Field(
+      observed.observedVaporBase64,
+      cellCount,
+      `${label} clamped vapor field`,
+    );
+    if (binary32BitMismatchCount(expectedDeltas, observedDeltas) !== 0) {
+      throw new Error(`${label} device delta field is not rho minus destination on the shell`);
+    }
+    if (binary32BitMismatchCount(expectedVapor, observedVapor) !== 0) {
+      throw new Error(`${label} device clamped vapor field is not the registered clamp`);
+    }
+    const report = ggCycleReport(observed.report, `${label} report`);
+    const expectedSum = binary32ClampReduction(expectedDeltas);
+    if (
+      report.lastClampDelta !== expectedSum ||
+      report.dirichletMeter !== expectedSum
+    ) {
+      throw new Error(`${label} reduction or first accumulation is not exact`);
+    }
+    if (report.boundaryCount !== 0 || report.attachedNow !== 0) {
+      throw new Error(`${label} did not run on an inert surface configuration`);
+    }
+    const mutations: Record<string, () => Float32Array> = {
+      "wrong-sign": () =>
+        Float32Array.from(expectedDeltas, (cell) => Math.fround(-cell)),
+      "wrong-shell-mask": () => {
+        const mutated = new Float32Array(cellCount);
+        mutated.fill(delta);
+        return mutated;
+      },
+      "omit-one-delta": () => {
+        const mutated = Float32Array.from(expectedDeltas);
+        mutated[firstShellIndex] = 0;
+        return mutated;
+      },
+      "scale-deltas": () =>
+        Float32Array.from(expectedDeltas, (cell) => Math.fround(cell * 0.5)),
+    };
+    for (const name of PHASE5_GG_DIRICHLET_LEDGER_POLICY.rejectedMutations) {
+      const mutate = mutations[name];
+      if (mutate === undefined) {
+        throw new Error(`${label} has no reconstruction for the ${name} mutation`);
+      }
+      if (binary32ClampReduction(mutate()) === expectedSum) {
+        throw new Error(`${label} does not reject the ${name} mutation`);
+      }
+    }
+  }
+  for (const sign of PHASE5_GG_DIRICHLET_LEDGER_POLICY.clampPathSigns) {
+    if (!observedSigns.includes(sign)) {
+      throw new Error(`G-G clamp-path witness omits the ${sign} clamp sign`);
+    }
+  }
+}
+
+/**
+ * Replays the persistent-accumulator witness: both registered fields are regenerated here,
+ * reduced here, and required to match the device's per-advance reduction and its single
+ * binary32 accumulation across two advances.
+ */
+function validateGgMeterReductionWitness(
+  value: StrictJson,
+  cellCount: number,
+): void {
+  const witness = plainObject(value, "G-G meter reduction witness");
+  exactKeys(
+    witness,
+    ["cellCount", "reductionDispatches", "firstReport", "secondReport"],
+    "G-G meter reduction witness",
+  );
+  if (witness.cellCount !== cellCount) {
+    throw new Error(
+      "G-G meter reduction witness did not run on the registered fixture grid",
+    );
+  }
+  if (witness.reductionDispatches !== plannedClampReductionDispatches(cellCount)) {
+    throw new Error(
+      "G-G meter reduction witness dispatch inventory differs from the planned reduction",
+    );
+  }
+  const [firstSpec, secondSpec] =
+    PHASE5_GG_DIRICHLET_LEDGER_WITNESS.meterReduction.fields;
+  const registeredField = (spec: RegisteredMeterField): Float32Array => {
+    const values = new Float32Array(cellCount);
+    for (let index = 0; index < cellCount; index++) {
+      values[index] = Math.fround(
+        (index % spec.modulus - spec.offset) * spec.scale + spec.bias,
+      );
+    }
+    return values;
+  };
+  const firstExpected = binary32ClampReduction(registeredField(firstSpec));
+  const secondExpected = binary32ClampReduction(registeredField(secondSpec));
+  const first = ggCycleReport(witness.firstReport, "G-G meter reduction first report");
+  const second = ggCycleReport(witness.secondReport, "G-G meter reduction second report");
+  if (
+    first.lastClampDelta !== firstExpected ||
+    first.dirichletMeter !== firstExpected
+  ) {
+    throw new Error("G-G meter reduction witness first advance is not exact");
+  }
+  if (second.lastClampDelta !== secondExpected) {
+    throw new Error("G-G meter reduction witness second reduction is not exact");
+  }
+  if (second.dirichletMeter !== Math.fround(firstExpected + secondExpected)) {
+    throw new Error(
+      "G-G meter reduction witness does not accumulate persistently in binary32",
+    );
+  }
+}
+
+function scalarPairByName(
+  values: readonly StrictJson[],
+  name: string,
+  label: string,
+): { readonly cpu: number; readonly gpu: number } {
+  for (const value of values) {
+    const scalar = plainObject(value, `${label} ${name}`);
+    if (scalar.name !== name) continue;
+    return {
+      cpu: strictNumber(scalar.cpu, `${label} ${name} cpu`),
+      gpu: strictNumber(scalar.gpu, `${label} ${name} gpu`),
+    };
+  }
+  throw new Error(`${label} omits ${name}`);
+}
+
+/**
+ * ADR-0019's blocking corrected-mass criterion. Nothing here reads a producer verdict: the
+ * chronology, both witnesses, and all three safeguards are recomputed from raw values, and the
+ * ledger's own operands are cross-linked to the fixture's published science scalars so an
+ * internally consistent but unrelated ledger cannot satisfy it.
+ */
+function validateGgDirichletLedger(
+  value: StrictJson,
+  scalars: readonly StrictJson[],
+  cycleCap: number,
+  cellCount: number,
+): void {
+  const ledger = plainObject(value, "G-G Dirichlet ledger");
+  exactKeys(
+    ledger,
+    [
+      "policy",
+      "cycles",
+      "clampPathWitness",
+      "meterReductionWitness",
+      "correctedMassOperands",
+    ],
+    "G-G Dirichlet ledger",
+  );
+  if (
+    canonicalJson(ledger.policy) !==
+      canonicalJson(PHASE5_GG_DIRICHLET_LEDGER_POLICY)
+  ) {
+    throw new Error("G-G Dirichlet ledger does not carry the frozen ADR-0019 policy");
+  }
+  const chronology = validateGgDirichletCycles(ledger.cycles, cycleCap);
+  validateGgClampPathWitness(ledger.clampPathWitness);
+  validateGgMeterReductionWitness(ledger.meterReductionWitness, cellCount);
+
+  const operands = plainObject(
+    ledger.correctedMassOperands,
+    "G-G corrected-mass operands",
+  );
+  exactKeys(
+    operands,
+    [
+      "cpuInitialMass",
+      "gpuInitialMass",
+      "cpuFinalMass",
+      "gpuFinalMass",
+      "cpuFinalMeter",
+      "gpuFinalMeter",
+    ],
+    "G-G corrected-mass operands",
+  );
+  const cpuInitialMass = strictNumber(
+    operands.cpuInitialMass,
+    "G-G corrected-mass cpuInitialMass",
+  );
+  const gpuInitialMass = strictNumber(
+    operands.gpuInitialMass,
+    "G-G corrected-mass gpuInitialMass",
+  );
+  const cpuFinalMass = strictNumber(
+    operands.cpuFinalMass,
+    "G-G corrected-mass cpuFinalMass",
+  );
+  const gpuFinalMass = strictNumber(
+    operands.gpuFinalMass,
+    "G-G corrected-mass gpuFinalMass",
+  );
+  const cpuFinalMeter = strictNumber(
+    operands.cpuFinalMeter,
+    "G-G corrected-mass cpuFinalMeter",
+  );
+  const gpuFinalMeter = strictBinary32(
+    operands.gpuFinalMeter,
+    "G-G corrected-mass gpuFinalMeter",
+  );
+  if (
+    cpuFinalMeter !== chronology.cpuFinalMeter ||
+    gpuFinalMeter !== chronology.gpuFinalMeter
+  ) {
+    throw new Error(
+      "G-G corrected-mass meters differ from the reconstructed cycle chronology",
+    );
+  }
+  const label = `${PHASE5_GG_DIRICHLET_LEDGER_FIXTURE_ID} scalars`;
+  const publishedMass = scalarPairByName(scalars, "ledger.total-mass-bd", label);
+  const publishedMeter = scalarPairByName(scalars, "ledger.dirichlet-meter", label);
+  const publishedClamp = scalarPairByName(scalars, "relaxation.shell-clamp", label);
+  if (
+    publishedMass.cpu !== cpuFinalMass ||
+    publishedMass.gpu !== gpuFinalMass ||
+    publishedMeter.cpu !== cpuFinalMeter ||
+    publishedMeter.gpu !== gpuFinalMeter ||
+    publishedClamp.cpu !== chronology.cpuFinalClampDelta ||
+    publishedClamp.gpu !== chronology.gpuFinalClampDelta
+  ) {
+    throw new Error(
+      "G-G Dirichlet ledger operands differ from the fixture's published science scalars",
+    );
+  }
+
+  const cpuCorrectedMass = cpuFinalMass - cpuFinalMeter;
+  const gpuCorrectedMass = gpuFinalMass - gpuFinalMeter;
+  if (!withinMixedScalarBound(cpuInitialMass, cpuCorrectedMass)) {
+    throw new Error("the CPU corrected-mass invariant exceeds the frozen mixed-scalar bound");
+  }
+  if (!withinMixedScalarBound(gpuInitialMass, gpuCorrectedMass)) {
+    throw new Error("the GPU corrected-mass invariant exceeds the frozen mixed-scalar bound");
+  }
+  if (!withinMixedScalarBound(cpuCorrectedMass, gpuCorrectedMass)) {
+    throw new Error(
+      "the cross-lane corrected-mass invariant exceeds the frozen mixed-scalar bound",
+    );
+  }
+}
+
 function validateFixturePayloadGraph(
   fixtures: readonly Phase5FixtureCapture[],
   raw: Phase5LaneRawEvidence,
@@ -849,6 +1493,8 @@ function validateFixturePayloadGraph(
       fixture.comparison,
       `${frozen.id} comparison`,
     );
+    const carriesGgDirichletLedger =
+      frozen.id === PHASE5_GG_DIRICHLET_LEDGER_FIXTURE_ID;
     exactKeys(
       comparison,
       [
@@ -859,6 +1505,7 @@ function validateFixturePayloadGraph(
         "decisions",
         "invariants",
         "checkpoint",
+        ...(carriesGgDirichletLedger ? ["ggDirichletLedger"] : []),
       ],
       `${frozen.id} comparison`,
     );
@@ -912,6 +1559,25 @@ function validateFixturePayloadGraph(
       canonicalJson(actualFieldNames) !== canonicalJson(expectedFieldNames)
     ) {
       throw new Error(`${frozen.id} comparison inventory is incomplete`);
+    }
+    if (carriesGgDirichletLedger) {
+      const cycleCap = frozen.stop.value;
+      if (
+        frozen.kind !== "gg" ||
+        frozen.farField !== "dirichlet" ||
+        frozen.stop.kind !== "completed-cycle-cap" ||
+        typeof cycleCap !== "number"
+      ) {
+        throw new Error(
+          `${frozen.id} is not the frozen Dirichlet completed-cycle-cap fixture`,
+        );
+      }
+      validateGgDirichletLedger(
+        comparison.ggDirichletLedger,
+        scalars,
+        cycleCap,
+        frozen.dims.nx * frozen.dims.ny * frozen.dims.nz,
+      );
     }
     if (
       measurement.fieldFailureCount !== fieldFailures ||

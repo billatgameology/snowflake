@@ -1,7 +1,10 @@
+import { Buffer } from "node:buffer";
 import {
   PHASE5_FIXTURES,
   PHASE5_BUDGETS,
   PHASE5_FIXTURES_SHA256,
+  PHASE5_GG_DIRICHLET_LEDGER_POLICY,
+  PHASE5_GG_DIRICHLET_LEDGER_WITNESS,
   PHASE5_HEADLESS_RUNTIME,
   PHASE5_HEADLESS_RUNTIME_VERSION,
   PHASE5_NEGATIVE_CONTROLS,
@@ -63,6 +66,260 @@ function testFieldEvidence(
   }
   return [value("d", "diffusionD")];
 }
+
+export const TEST_PHASE5_GG_LEDGER_FIXTURE_ID =
+  PHASE5_GG_DIRICHLET_LEDGER_WITNESS.meterReduction.fixtureId;
+
+/**
+ * Device-emulating helpers for the ADR-0019 ledger. They are written separately from the
+ * runner's verifier on purpose: a fixture that called the verifier's own reduction could not
+ * show that the verifier reconstructs anything.
+ */
+function testBinary32Reduction(values: Float32Array): number {
+  const lanes = PHASE5_GG_DIRICHLET_LEDGER_WITNESS.reduction.laneCount;
+  let level = values;
+  while (level.length > 1) {
+    const next = new Float32Array(Math.ceil(level.length / lanes));
+    for (let group = 0; group < next.length; group++) {
+      const window = new Float32Array(lanes);
+      window.set(
+        level.subarray(
+          group * lanes,
+          Math.min((group + 1) * lanes, level.length),
+        ),
+      );
+      for (let stride = lanes / 2; stride >= 1; stride /= 2) {
+        for (let lane = 0; lane < stride; lane++) {
+          window[lane] = Math.fround(window[lane] + window[lane + stride]);
+        }
+      }
+      next[group] = window[0];
+    }
+    level = next;
+  }
+  return level[0] ?? 0;
+}
+
+function testReductionDispatches(cellCount: number): number {
+  const { laneCount, maxWorkgroupsPerDispatch } =
+    PHASE5_GG_DIRICHLET_LEDGER_WITNESS.reduction;
+  const maxCells = laneCount * maxWorkgroupsPerDispatch;
+  let count = cellCount;
+  let dispatches = 0;
+  while (count > 1) {
+    let workgroups = 0;
+    for (let base = 0; base < count; base += maxCells) {
+      workgroups += Math.ceil(Math.min(maxCells, count - base) / laneCount);
+      dispatches++;
+    }
+    count = workgroups;
+  }
+  return dispatches;
+}
+
+function testBase64(values: Float32Array): string {
+  return Buffer.from(
+    values.buffer,
+    values.byteOffset,
+    values.byteLength,
+  ).toString("base64");
+}
+
+function testGgCycleReport(values: {
+  boundaryCount: number;
+  attachedTotal: number;
+  attachedNow: number;
+  holeFillNow: number;
+  lastClampDelta: number;
+  dirichletMeter: number;
+  oldBoundaryCount: number;
+}) {
+  return { ...values, errorFlags: 0 };
+}
+
+function testGgDirichletLedger() {
+  const frozen = PHASE5_FIXTURES.find(
+    (fixture) => fixture.id === TEST_PHASE5_GG_LEDGER_FIXTURE_ID,
+  );
+  if (frozen === undefined || frozen.kind !== "gg") {
+    throw new Error("the frozen G-G Dirichlet ledger fixture is absent");
+  }
+  const cycleCap = frozen.stop.value;
+  if (typeof cycleCap !== "number") {
+    throw new Error("the frozen G-G Dirichlet fixture has no numeric cycle cap");
+  }
+  const cellCount = frozen.dims.nx * frozen.dims.ny * frozen.dims.nz;
+
+  const cycles = [];
+  let cpuMeter = 0;
+  let gpuMeter = 0;
+  let cpuClampDelta = 0;
+  let gpuClampDelta = 0;
+  for (let cycle = 1; cycle <= cycleCap; cycle++) {
+    cpuClampDelta = cycle * 1e-7;
+    gpuClampDelta = Math.fround(cpuClampDelta);
+    cpuMeter += cpuClampDelta;
+    gpuMeter = Math.fround(gpuMeter + gpuClampDelta);
+    const oldBoundaryCount = 18 + cycle;
+    const boundaryCount = 19 + cycle;
+    const attachedTotal = 19 + cycle;
+    const attachedNow = 1;
+    const holeFillNow = 0;
+    cycles.push({
+      cycle,
+      cpu: {
+        clampDelta: cpuClampDelta,
+        cumulativeMeter: cpuMeter,
+        tick: cycle,
+        oldBoundaryCount,
+        boundaryCount,
+        attachedTotal,
+        relaxation: {
+          sweeps: 1,
+          converged: true,
+          residual: null,
+          divergenceResidual: null,
+          shellClampDiagnostic: cpuClampDelta,
+          surfaceExchangeDiagnostic: null,
+          smootherDriftDiagnostic: null,
+          minLocalSurfaceExchangeDiagnostic: null,
+        },
+        surface: {
+          attachedNow,
+          maxKineticFillIncrement: null,
+          holeFillCount: holeFillNow,
+          deltaTimeSeconds: null,
+          stalled: false,
+          skippedUnconverged: false,
+        },
+      },
+      gpu: {
+        clampDelta: gpuClampDelta,
+        cumulativeMeter: gpuMeter,
+        tick: cycle,
+        report: testGgCycleReport({
+          boundaryCount,
+          attachedTotal,
+          attachedNow,
+          holeFillNow,
+          lastClampDelta: gpuClampDelta,
+          dirichletMeter: gpuMeter,
+          oldBoundaryCount,
+        }),
+      },
+    });
+  }
+
+  const clampPath = PHASE5_GG_DIRICHLET_LEDGER_WITNESS.clampPath;
+  const witnessCellCount =
+    clampPath.dims.nx * clampPath.dims.ny * clampPath.dims.nz;
+  const clampPathCases = clampPath.cases.map((registered) => {
+    const initialValue = Math.fround(registered.initialValue);
+    const rho = Math.fround(registered.rho);
+    const delta = Math.fround(rho - initialValue);
+    const deltas = new Float32Array(witnessCellCount);
+    const vapor = new Float32Array(witnessCellCount);
+    vapor.fill(initialValue);
+    let shellCellCount = 0;
+    for (let index = 0; index < witnessCellCount; index++) {
+      if (index % clampPath.shellModulus !== clampPath.shellResidue) continue;
+      deltas[index] = delta;
+      vapor[index] = rho;
+      shellCellCount++;
+    }
+    const reduced = testBinary32Reduction(Float32Array.from(deltas));
+    return {
+      id: registered.id,
+      dims: { ...clampPath.dims },
+      cellCount: witnessCellCount,
+      shellCellCount,
+      initialValue,
+      rho,
+      observedDeltasBase64: testBase64(deltas),
+      observedVaporBase64: testBase64(vapor),
+      report: testGgCycleReport({
+        boundaryCount: 0,
+        attachedTotal: 0,
+        attachedNow: 0,
+        holeFillNow: 0,
+        lastClampDelta: reduced,
+        dirichletMeter: reduced,
+        oldBoundaryCount: 0,
+      }),
+    };
+  });
+
+  const [firstSpec, secondSpec] =
+    PHASE5_GG_DIRICHLET_LEDGER_WITNESS.meterReduction.fields;
+  const registeredField = (spec: {
+    readonly modulus: number;
+    readonly offset: number;
+    readonly scale: number;
+    readonly bias: number;
+  }): Float32Array => {
+    const values = new Float32Array(cellCount);
+    for (let index = 0; index < cellCount; index++) {
+      values[index] = Math.fround(
+        (index % spec.modulus - spec.offset) * spec.scale + spec.bias,
+      );
+    }
+    return values;
+  };
+  const firstReduced = testBinary32Reduction(registeredField(firstSpec));
+  const secondReduced = testBinary32Reduction(registeredField(secondSpec));
+
+  const cpuInitialMass = 12.5;
+  const gpuInitialMass = 12.5;
+  const cpuFinalMass = cpuInitialMass + cpuMeter;
+  const gpuFinalMass = gpuInitialMass + gpuMeter;
+  return {
+    ledger: {
+      policy: structuredClone(PHASE5_GG_DIRICHLET_LEDGER_POLICY),
+      cycles,
+      clampPathWitness: {
+        policy: structuredClone(PHASE5_GG_DIRICHLET_LEDGER_POLICY),
+        cases: clampPathCases,
+      },
+      meterReductionWitness: {
+        cellCount,
+        reductionDispatches: testReductionDispatches(cellCount),
+        firstReport: testGgCycleReport({
+          boundaryCount: 19,
+          attachedTotal: 19,
+          attachedNow: 0,
+          holeFillNow: 0,
+          lastClampDelta: firstReduced,
+          dirichletMeter: firstReduced,
+          oldBoundaryCount: 19,
+        }),
+        secondReport: testGgCycleReport({
+          boundaryCount: 19,
+          attachedTotal: 19,
+          attachedNow: 0,
+          holeFillNow: 0,
+          lastClampDelta: secondReduced,
+          dirichletMeter: Math.fround(firstReduced + secondReduced),
+          oldBoundaryCount: 19,
+        }),
+      },
+      correctedMassOperands: {
+        cpuInitialMass,
+        gpuInitialMass,
+        cpuFinalMass,
+        gpuFinalMass,
+        cpuFinalMeter: cpuMeter,
+        gpuFinalMeter: gpuMeter,
+      },
+    },
+    scalars: {
+      "ledger.total-mass-bd": { cpu: cpuFinalMass, gpu: gpuFinalMass },
+      "ledger.dirichlet-meter": { cpu: cpuMeter, gpu: gpuMeter },
+      "relaxation.shell-clamp": { cpu: cpuClampDelta, gpu: gpuClampDelta },
+    } as Readonly<Record<string, { readonly cpu: number; readonly gpu: number }>>,
+  };
+}
+
+const TEST_PHASE5_GG_LEDGER = testGgDirichletLedger();
 
 export const TEST_PHASE5_CHECKPOINT_HOOKS: Phase5LaneVerificationHooks = {
   verifyCheckpointPair: (fixture, cpuBytes, gpuBytes) => {
@@ -278,8 +535,7 @@ export function passingPhase5Capture(): Phase5LaneCapture {
           scalars: PHASE5_SCIENCE_INVENTORY[fixture.kind].scalars.map(
             (name) => {
               const rationale =
-                fixture.id ===
-                    "gg-column-dirichlet-noise-timeline-32x32x64" &&
+                fixture.id === TEST_PHASE5_GG_LEDGER_FIXTURE_ID &&
                   (
                     name === "relaxation.shell-clamp" ||
                     name === "ledger.dirichlet-meter"
@@ -288,10 +544,14 @@ export function passingPhase5Capture(): Phase5LaneCapture {
                   : fixture.kind === "lk" && name === "relaxation.sweeps"
                     ? PHASE5_LK_SWEEP_DIAGNOSTIC_RATIONALE
                     : null;
+              const ledgerScalar =
+                fixture.id === TEST_PHASE5_GG_LEDGER_FIXTURE_ID
+                  ? TEST_PHASE5_GG_LEDGER.scalars[name]
+                  : undefined;
               return {
                 name,
-                cpu: 1,
-                gpu: 1,
+                cpu: ledgerScalar === undefined ? 1 : ledgerScalar.cpu,
+                gpu: ledgerScalar === undefined ? 1 : ledgerScalar.gpu,
                 blocking: rationale === null,
                 rationale,
               };
@@ -316,6 +576,13 @@ export function passingPhase5Capture(): Phase5LaneCapture {
               (entry) => entry.fixtureId === fixture.id,
             ),
           ),
+          ...(fixture.id === TEST_PHASE5_GG_LEDGER_FIXTURE_ID
+            ? {
+                ggDirichletLedger: structuredClone(
+                  TEST_PHASE5_GG_LEDGER.ledger,
+                ),
+              }
+            : {}),
         },
         events: {
           schema: "phase5-events-v1",
