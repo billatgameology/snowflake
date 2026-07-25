@@ -48,16 +48,33 @@ import {
   PHASE5_GG_DIRICHLET_LEDGER_WITNESS,
   PHASE5_PROTOCOL,
   PHASE5_PROTOCOL_SHA256,
-  PHASE5_SCALAR_NON_APPLICABILITY,
   PHASE5_SCALAR_TOLERANCES,
   PHASE5_TOLERANCES_SHA256,
 } from "./phase5-protocol.ts";
+import { comparePhase5Arrays } from "./phase5-shadow.ts";
 import {
-  comparePhase5Arrays,
-  phase5ComparisonPasses,
-} from "./phase5-shadow.ts";
-// Runtime edge is acyclic: gate5-negative-controls imports only TYPES from this module.
+  exactComparisonFailures,
+  exactInventory,
+  exactKeys,
+  fieldComparisonFailures,
+  fixturePath,
+  phase5CaptureArtifactInputs,
+  plainObject,
+  scalarComparisonFailures,
+  PHASE5_SCIENCE_INVENTORY,
+  type Phase5CaptureArtifactInput,
+} from "./gate5-comparison.ts";
+// Runtime edge is acyclic: gate5-negative-controls and gate5-comparison import only TYPES
+// from this module.
 import { derivePhase5NegativeControlOutcomes } from "./gate5-negative-controls.ts";
+
+// The shared comparison contract stays importable from this module: the gate script and the
+// tests read the frozen inventory and rationales from the evidence boundary.
+export {
+  PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE,
+  PHASE5_LK_SWEEP_DIAGNOSTIC_RATIONALE,
+  PHASE5_SCIENCE_INVENTORY,
+} from "./gate5-comparison.ts";
 
 export const PHASE5_LANE_MANIFEST_PATH = "lane-manifest.json";
 export const PHASE5_LANE_REPORT_PATH = "lane-report.json";
@@ -189,12 +206,6 @@ export interface PublishPhase5LaneOptions {
   readonly verificationHooks?: Phase5LaneVerificationHooks;
 }
 
-interface ArtifactInput {
-  readonly path: string;
-  readonly kind: string;
-  readonly bytes: Uint8Array;
-}
-
 interface ExpectedFile {
   readonly path: string;
   readonly bytes: Uint8Array;
@@ -267,29 +278,6 @@ function removeOwnedDirectory(
   rmSync(quarantine, { recursive: true, force: true });
 }
 
-function exactKeys(
-  value: Readonly<Record<string, StrictJson>>,
-  expected: readonly string[],
-  label: string,
-): void {
-  const actual = Object.keys(value).sort(lexical);
-  const wanted = [...expected].sort(lexical);
-  if (
-    actual.length !== wanted.length ||
-    actual.some((key, index) => key !== wanted[index])
-  ) {
-    throw new Error(`${label} keys are invalid`);
-  }
-}
-
-function plainObject(value: unknown, label: string): Readonly<Record<string, StrictJson>> {
-  const snapshot = strictJsonSnapshot(value);
-  if (snapshot === null || typeof snapshot !== "object" || Array.isArray(snapshot)) {
-    throw new Error(`${label} must be an object`);
-  }
-  return snapshot as Readonly<Record<string, StrictJson>>;
-}
-
 function safePath(path: string): void {
   if (
     !SAFE_PATH.test(path) ||
@@ -302,7 +290,7 @@ function safePath(path: string): void {
   }
 }
 
-function descriptor(input: ArtifactInput): Phase5ArtifactDescriptor {
+function descriptor(input: Phase5CaptureArtifactInput): Phase5ArtifactDescriptor {
   safePath(input.path);
   if (input.kind.trim().length === 0) throw new Error(`${input.path} kind is empty`);
   return {
@@ -334,10 +322,6 @@ function assertDescriptor(value: unknown, label: string): Phase5ArtifactDescript
   return { path, kind, byteLength: byteLength as number, sha256 };
 }
 
-function utf8Text(value: string): Uint8Array {
-  return new TextEncoder().encode(value);
-}
-
 function decodeUtf8WithoutBom(bytes: Uint8Array, label: string): string {
   if (
     bytes.byteLength >= 3 &&
@@ -348,15 +332,6 @@ function decodeUtf8WithoutBom(bytes: Uint8Array, label: string): string {
     throw new Error(`${label} must not contain a UTF-8 BOM`);
   }
   return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
-}
-
-function canonicalArtifact(path: string, kind: string, value: unknown): ArtifactInput {
-  return { path, kind, bytes: canonicalJsonBytes(value) };
-}
-
-function fixturePath(id: string, name: string): string {
-  if (!/^[a-z0-9][a-z0-9-]*$/.test(id)) throw new Error(`invalid fixture id: ${id}`);
-  return `fixtures/${id}/${name}`;
 }
 
 function expectedLaneArtifactContracts(): readonly {
@@ -422,473 +397,6 @@ function expectedLaneArtifactContracts(): readonly {
 function strictArray(value: StrictJson, label: string): readonly StrictJson[] {
   if (!Array.isArray(value)) throw new Error(`${label} must be an array`);
   return value;
-}
-
-export const PHASE5_SCIENCE_INVENTORY = {
-  layout: {
-    scalars: [],
-    decisions: [
-      "checkpoint.metadata",
-      "layout.active-mask",
-      "layout.field-offsets",
-      "layout.index-round-trip",
-      "layout.ping-pong-ownership",
-      "stop.reason",
-    ],
-    invariants: [],
-    events: ["layout-round-trip", "stop"],
-  },
-  diffusion: {
-    scalars: [],
-    decisions: [
-      "checkpoint.metadata",
-      "noise.witness",
-      "state.active-mask",
-      "state.boundary-membership-order",
-      "state.far-field-set",
-      "state.neighbor-counts",
-      "state.occupancy",
-      "state.ping-pong-ownership",
-      "state.stage-hashes",
-      "state.wall-mask",
-      "stop.reason",
-    ],
-    invariants: [
-      "domain.no-contact",
-    ],
-    events: ["diffusion-passes", "noise-witness", "stop"],
-  },
-  gg: {
-    scalars: [
-      "ledger.dirichlet-meter",
-      "ledger.total-mass-bd",
-      "metrics.aspect-ratio",
-      "metrics.bounding-radius",
-      "metrics.branch-count",
-      "metrics.cross-section-hollowness",
-      "metrics.depletion-center",
-      "metrics.depletion-ratio",
-      "metrics.depletion-rim",
-      "metrics.far-field-vapor",
-      "metrics.sealed-void-fraction",
-      "metrics.total-mass",
-      "relaxation.residual",
-      "relaxation.shell-clamp",
-      "relaxation.surface-exchange",
-      "relaxation.sweeps",
-      "state.boundary-mass-total",
-      "state.vapor-total",
-      "surface.frozen-amount",
-      "surface.melted-amount",
-    ],
-    decisions: [
-      "checkpoint.metadata",
-      "identity.controls",
-      "metrics.occupancy",
-      "noise.witness",
-      "reports.ledger-rule",
-      "reports.relaxation-classification",
-      "reports.surface-discrete",
-      "state.active-mask",
-      "state.attached-count",
-      "state.boundary-membership-order",
-      "state.bounds",
-      "state.cycle-phase",
-      "state.domain-extents",
-      "state.far-field-set",
-      "state.last-attachment-delta",
-      "state.neighbor-counts",
-      "state.occupancy",
-      "state.render-flags",
-      "state.wall-mask",
-      "stop.reason",
-      "timeline.records",
-    ],
-    invariants: [
-      "decision.gg-margin",
-      "domain.no-contact",
-      "mass.reflecting-or-corrected",
-      "symmetry.exact",
-    ],
-    events: [
-      "attachment-delta-log",
-      "cycle-boundary-log",
-      "noise-witness",
-      "stop",
-    ],
-  },
-  lk: {
-    scalars: [
-      "identity.sim-time-seconds",
-      "ledger.closed-placed-fill-vapor-units",
-      "ledger.current-temperature-segment-m-ice",
-      "ledger.current-temperature-segment-start-fill",
-      "ledger.fill-ice-cells",
-      "ledger.fill-vapor-units",
-      "ledger.hole-fill-deficit",
-      "ledger.kinetic-demand",
-      "ledger.last-divergence-residual",
-      "ledger.saturation-clipped-fill",
-      "metrics.aspect-ratio",
-      "metrics.bounding-radius",
-      "metrics.branch-count",
-      "metrics.cross-section-hollowness",
-      "metrics.depletion-center",
-      "metrics.depletion-ratio",
-      "metrics.depletion-rim",
-      "metrics.far-field-vapor",
-      "metrics.sealed-void-fraction",
-      "relaxation.divergence-residual",
-      "relaxation.maximum-current-step-ulp",
-      "relaxation.maximum-two-back-ulp",
-      "relaxation.min-local-exchange",
-      "relaxation.residual",
-      "relaxation.shell-clamp",
-      "relaxation.smoother-drift",
-      "relaxation.smoother-drift-bound",
-      "relaxation.surface-exchange",
-      "relaxation.sweeps",
-      "scales.c-sat",
-      "scales.kinetic-length",
-      "scales.m-ice",
-      "scales.v-kin",
-      "surface.delta-time-seconds",
-      "surface.hole-fill-deficit",
-      "surface.kinetic-demand",
-      "surface.max-kinetic-fill",
-      "surface.partition-error",
-      "surface.placed-fill",
-      "surface.saturation-clipped-fill",
-    ],
-    decisions: [
-      "checkpoint.metadata",
-      "identity.controls",
-      "metrics.occupancy",
-      "noise.witness",
-      "reports.convergence-classification",
-      "reports.divergence-status",
-      "reports.ledger-rule",
-      "reports.surface-discrete",
-      "state.active-mask",
-      "state.attached-count",
-      "state.boundary-membership-order",
-      "state.bounds",
-      "state.cached-boundary-tuple",
-      "state.cycle-phase",
-      "state.domain-extents",
-      "state.far-field-set",
-      "state.last-attachment-delta",
-      "state.neighbor-counts",
-      "state.occupancy",
-      "state.render-flags",
-      "state.surface-policy",
-      "state.wall-mask",
-      "stop.reason",
-      "timeline.density-transform-records",
-      "timeline.reservoir-records",
-    ],
-    invariants: [
-      "convergence.dual-or-reflecting",
-      "decision.lk-fill-margin",
-      "domain.no-contact",
-      "fill.cfl",
-      "ledger.partition",
-      "relaxation.smoother-drift-bound",
-      "symmetry.exact",
-      "timeline.number-density-conservation",
-    ],
-    events: [
-      "attachment-delta-log",
-      "interface-step-log",
-      "noise-witness",
-      "relaxation-log",
-      "stop",
-    ],
-  },
-} as const;
-
-export const PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE =
-  "required cancellation-heavy diagnostic; exact clamp-path reduction and corrected-mass ledger are blocking";
-
-export const PHASE5_LK_SWEEP_DIAGNOSTIC_RATIONALE =
-  "elliptic convergence work may differ between binary64 and binary32; each lane's convergence criteria and the independent GPU trace replay are blocking";
-
-function permittedNonblockingScalarRationale(
-  fixtureId: string,
-  name: unknown,
-): string | null {
-  if (
-    fixtureId === "gg-column-dirichlet-noise-timeline-32x32x64" &&
-    (name === "relaxation.shell-clamp" || name === "ledger.dirichlet-meter")
-  ) {
-    return PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE;
-  }
-  if (
-    fixtureId.startsWith("lk-") &&
-    name === "relaxation.sweeps"
-  ) {
-    return PHASE5_LK_SWEEP_DIAGNOSTIC_RATIONALE;
-  }
-  return null;
-}
-
-function exactInventory(
-  actual: readonly string[],
-  expected: readonly string[],
-  label: string,
-): void {
-  const left = [...actual].sort(lexical);
-  const right = [...expected].sort(lexical);
-  if (
-    left.length !== right.length ||
-    left.some((name, index) => name !== right[index])
-  ) {
-    throw new Error(`${label} inventory differs from the frozen scientific contract`);
-  }
-}
-
-function fieldComparisonFailures(
-  values: readonly StrictJson[],
-  fixtureId: string,
-): number {
-  let failures = 0;
-  for (const [index, value] of values.entries()) {
-    const field = plainObject(value, `${fixtureId} fields[${index}]`);
-    exactKeys(
-      field,
-      [
-        "name",
-        "tolerance",
-        "length",
-        "maxAbs",
-        "rms",
-        "maxRelative",
-        "relativeComparedCount",
-      ],
-      `${fixtureId} fields[${index}]`,
-    );
-    const toleranceName = field.tolerance;
-    if (
-      typeof field.name !== "string" ||
-      typeof toleranceName !== "string" ||
-      !Object.hasOwn(PHASE5_FIELD_TOLERANCES, toleranceName) ||
-      !Number.isSafeInteger(field.length) ||
-      (field.length as number) <= 0 ||
-      !Number.isSafeInteger(field.relativeComparedCount) ||
-      (field.relativeComparedCount as number) < 0 ||
-      typeof field.maxAbs !== "number" ||
-      typeof field.rms !== "number" ||
-      typeof field.maxRelative !== "number"
-    ) {
-      throw new Error(`${fixtureId} fields[${index}] is invalid`);
-    }
-    if (
-      !phase5ComparisonPasses(
-        {
-          length: field.length as number,
-          relativeComparedCount: field.relativeComparedCount as number,
-          maxAbs: field.maxAbs,
-          rms: field.rms,
-          maxRelative: field.maxRelative,
-        },
-        PHASE5_FIELD_TOLERANCES[
-          toleranceName as keyof typeof PHASE5_FIELD_TOLERANCES
-        ],
-      )
-    ) {
-      failures++;
-    }
-  }
-  return failures;
-}
-
-function registeredNonApplicability(
-  fixtureId: string,
-  name: unknown,
-): string | null {
-  const roster = (
-    PHASE5_SCALAR_NON_APPLICABILITY as Readonly<
-      Record<string, Readonly<Record<string, string>>>
-    >
-  )[fixtureId];
-  if (roster === undefined || typeof name !== "string") return null;
-  return Object.hasOwn(roster, name) ? roster[name] : null;
-}
-
-function scalarComparisonFailures(
-  values: readonly StrictJson[],
-  fixtureId: string,
-  expectedNames: readonly string[],
-): number {
-  let failures = 0;
-  const names = new Set<string>();
-  for (const [index, value] of values.entries()) {
-    const scalar = plainObject(value, `${fixtureId} scalars[${index}]`);
-    exactKeys(
-      scalar,
-      ["name", "cpu", "gpu", "blocking", "rationale", "applicability"],
-      `${fixtureId} scalars[${index}]`,
-    );
-    // A blocking scalar that was never measured used to publish null on both lanes and pass,
-    // because null === null. Applicability is now declared and checked against the frozen
-    // roster: "not-applicable" requires a registered reason for this exact fixture and null on
-    // both lanes; "measured" requires two finite operands.
-    const nonApplicability = registeredNonApplicability(fixtureId, scalar.name);
-    if (scalar.applicability === "not-applicable") {
-      if (nonApplicability === null) {
-        throw new Error(
-          `${fixtureId} scalars[${index}] claims an unregistered non-applicability`,
-        );
-      }
-      if (scalar.cpu !== null || scalar.gpu !== null) {
-        throw new Error(
-          `${fixtureId} scalars[${index}] is not applicable yet carries operands`,
-        );
-      }
-    } else if (scalar.applicability === "measured") {
-      if (
-        typeof scalar.cpu !== "number" ||
-        !Number.isFinite(scalar.cpu) ||
-        typeof scalar.gpu !== "number" ||
-        !Number.isFinite(scalar.gpu)
-      ) {
-        throw new Error(
-          `${fixtureId} scalars[${index}] is declared measured without two finite operands`,
-        );
-      }
-    } else {
-      throw new Error(`${fixtureId} scalars[${index}] declares no applicability`);
-    }
-    const permittedRationale = permittedNonblockingScalarRationale(
-      fixtureId,
-      scalar.name,
-    );
-    if (
-      typeof scalar.name !== "string" ||
-      scalar.name.length === 0 ||
-      names.has(scalar.name) ||
-      (scalar.cpu !== null && typeof scalar.cpu !== "number") ||
-      (scalar.gpu !== null && typeof scalar.gpu !== "number") ||
-      typeof scalar.blocking !== "boolean" ||
-      (
-        scalar.blocking
-          ? scalar.rationale !== null
-          : permittedRationale === null ||
-            scalar.rationale !== permittedRationale
-      )
-    ) {
-      throw new Error(`${fixtureId} scalars[${index}] is invalid`);
-    }
-    names.add(scalar.name);
-    if (scalar.cpu === null || scalar.gpu === null) {
-      if (scalar.blocking && scalar.cpu !== scalar.gpu) failures++;
-      continue;
-    }
-    const limit =
-      PHASE5_SCALAR_TOLERANCES.maxAbs +
-      PHASE5_SCALAR_TOLERANCES.maxRelative * Math.abs(scalar.cpu);
-    if (
-      scalar.blocking &&
-      Math.abs(scalar.gpu - scalar.cpu) > limit
-    ) failures++;
-  }
-  exactInventory([...names], expectedNames, `${fixtureId} scalar`);
-  return failures;
-}
-
-function exactComparisonFailures(
-  values: readonly StrictJson[],
-  fixtureId: string,
-  label: "decisions" | "invariants",
-  expectedNames: readonly string[],
-): number {
-  let failures = 0;
-  const names = new Set<string>();
-  for (const [index, value] of values.entries()) {
-    const comparison = plainObject(
-      value,
-      `${fixtureId} ${label}[${index}]`,
-    );
-    if (label === "decisions") {
-      exactKeys(
-        comparison,
-        ["name", "cpu", "gpu"],
-        `${fixtureId} ${label}[${index}]`,
-      );
-      if (
-        typeof comparison.name !== "string" ||
-        comparison.name.length === 0 ||
-        names.has(comparison.name)
-      ) {
-        throw new Error(`${fixtureId} ${label}[${index}] is invalid`);
-      }
-      names.add(comparison.name);
-      if (canonicalJson(comparison.cpu) !== canonicalJson(comparison.gpu)) {
-        failures++;
-      }
-    } else {
-      exactKeys(
-        comparison,
-        [
-          "name",
-          "relation",
-          "left",
-          "right",
-          "absoluteTolerance",
-          "relativeTolerance",
-        ],
-        `${fixtureId} ${label}[${index}]`,
-      );
-      if (
-        typeof comparison.name !== "string" ||
-        comparison.name.length === 0 ||
-        names.has(comparison.name) ||
-        typeof comparison.relation !== "string" ||
-        !["equal", "greater-or-equal", "less-or-equal", "mixed-tolerance"]
-          .includes(comparison.relation) ||
-        typeof comparison.absoluteTolerance !== "number" ||
-        !Number.isFinite(comparison.absoluteTolerance) ||
-        comparison.absoluteTolerance < 0 ||
-        typeof comparison.relativeTolerance !== "number" ||
-        !Number.isFinite(comparison.relativeTolerance) ||
-        comparison.relativeTolerance < 0
-      ) {
-        throw new Error(`${fixtureId} ${label}[${index}] is invalid`);
-      }
-      names.add(comparison.name);
-      if (comparison.relation === "equal") {
-        if (canonicalJson(comparison.left) !== canonicalJson(comparison.right)) {
-          failures++;
-        }
-      } else {
-        if (
-          typeof comparison.left !== "number" ||
-          typeof comparison.right !== "number" ||
-          !Number.isFinite(comparison.left) ||
-          !Number.isFinite(comparison.right)
-        ) {
-          throw new Error(
-            `${fixtureId} ${label}[${index}] numeric operands are invalid`,
-          );
-        }
-        const tolerance =
-          comparison.absoluteTolerance +
-          comparison.relativeTolerance * Math.abs(comparison.right);
-        if (
-          (comparison.relation === "greater-or-equal" &&
-            comparison.left + tolerance < comparison.right) ||
-          (comparison.relation === "less-or-equal" &&
-            comparison.left - tolerance > comparison.right) ||
-          (comparison.relation === "mixed-tolerance" &&
-            Math.abs(comparison.left - comparison.right) > tolerance)
-        ) {
-          failures++;
-        }
-      }
-    }
-  }
-  exactInventory([...names], expectedNames, `${fixtureId} ${label}`);
-  return failures;
 }
 
 export const PHASE5_GG_DIRICHLET_LEDGER_FIXTURE_ID =
@@ -1875,9 +1383,15 @@ function validateFixturePayloadGraph(
   }
 }
 
-function fixtureArtifactInputs(
+/**
+ * Validate a capture's fixture payload graph and return every payload artifact the lane
+ * publishes. The byte set itself comes from the shared `phase5CaptureArtifactInputs`, the
+ * same statement the negative controls digest, so publication and control scoring can never
+ * cover different bytes.
+ */
+function verifiedCaptureArtifactInputs(
   capture: Phase5LaneCapture,
-): readonly ArtifactInput[] {
+): readonly Phase5CaptureArtifactInput[] {
   const expectedFixtures = PHASE5_FIXTURES.filter((fixture) => fixture.blocking);
   const expectedIds = expectedFixtures.map((fixture) => fixture.id).sort(lexical);
   const actualIds = capture.fixtures.map((fixture) => fixture.id).sort(lexical);
@@ -1889,7 +1403,6 @@ function fixtureArtifactInputs(
   }
   validateFixturePayloadGraph(capture.fixtures, capture.raw);
   assertObservedNegativeControls(capture, capture.raw.negativeControls);
-  const inputs: ArtifactInput[] = [];
   for (const frozen of expectedFixtures) {
     const fixture = capture.fixtures.find((candidate) => candidate.id === frozen.id);
     if (fixture === undefined) throw new Error(`missing fixture capture: ${frozen.id}`);
@@ -1906,45 +1419,8 @@ function fixtureArtifactInputs(
     ) {
       throw new Error(`${fixture.id} checkpoints must be nonempty`);
     }
-    inputs.push(
-      canonicalArtifact(
-        fixturePath(fixture.id, "config.json"),
-        "phase5-fixture-config+json",
-        config,
-      ),
-      {
-        path: fixturePath(fixture.id, "cpu-reference.ckpt"),
-        kind: frozen.kind === "lk" ? "vcc-lk-v2-checkpoint" : "vcc-gg-v1-checkpoint",
-        bytes: fixture.cpuReferenceCheckpoint.slice(),
-      },
-      {
-        path: fixturePath(fixture.id, "gpu-export.ckpt"),
-        kind: frozen.kind === "lk" ? "vcc-lk-v2-checkpoint" : "vcc-gg-v1-checkpoint",
-        bytes: fixture.gpuExportCheckpoint.slice(),
-      },
-      canonicalArtifact(
-        fixturePath(fixture.id, "comparison.json"),
-        "phase5-comparison+json",
-        fixture.comparison,
-      ),
-      canonicalArtifact(
-        fixturePath(fixture.id, "events.json"),
-        "phase5-events+json",
-        fixture.events,
-      ),
-      canonicalArtifact(
-        fixturePath(fixture.id, "timing.json"),
-        "phase5-timing+json",
-        fixture.timing,
-      ),
-      canonicalArtifact(
-        fixturePath(fixture.id, "readback.json"),
-        "phase5-readback+json",
-        fixture.readback,
-      ),
-    );
   }
-  return inputs;
+  return phase5CaptureArtifactInputs(capture);
 }
 
 function validateIso(value: string, label: string): void {
@@ -2014,24 +1490,9 @@ function makeLaneRoot(
           .join(", "),
     );
   }
-  const payloadInputs = [
-    {
-      path: "stdout.log",
-      kind: "utf8-log",
-      bytes: capture.stdout.slice(),
-    },
-    {
-      path: "stderr.log",
-      kind: "utf8-log",
-      bytes: capture.stderr.slice(),
-    },
-    {
-      path: "exit-status.txt",
-      kind: "utf8-exit-status",
-      bytes: utf8Text("0\n"),
-    },
-    ...fixtureArtifactInputs(capture),
-  ].sort((left, right) => lexical(left.path, right.path));
+  const payloadInputs = [...verifiedCaptureArtifactInputs(capture)].sort(
+    (left, right) => lexical(left.path, right.path),
+  );
   const payloadDescriptors = payloadInputs.map(descriptor);
   const adapter = {
     vendor: raw.adapter.vendor,

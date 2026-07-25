@@ -11,20 +11,27 @@
 // and the recorded `failedCriteria` is exactly the set that evaluator refused. A control is
 // only satisfied when that observed set contains its registered owner.
 //
-// The re-derivation mirrors the payload-graph recomputation in `gate5-evidence.ts`. That
-// module's `validateFixturePayloadGraph` is private, so the counting rules are restated here;
-// `assertPhase5CaptureRederivationAgrees` fails loudly if the restatement ever disagrees with
-// an accepted capture's own declared raw evidence, so drift cannot silently make a control
+// The re-derivation mirrors the payload-graph recomputation in `gate5-evidence.ts` using the
+// same comparison-failure counters and published byte set both modules import from
+// `gate5-comparison.ts`; only the aggregation across fixtures is mirrored here.
+// `assertPhase5CaptureRederivationAgrees` fails loudly if that mirror ever disagrees with an
+// accepted capture's own declared raw evidence, so drift cannot silently make a control
 // vacuous.
 
 import { GG_PRESETS } from "@vcc/core";
 import {
   canonicalJson,
-  canonicalJsonBytes,
   sha256Bytes,
   strictJsonSnapshot,
   type StrictJson,
 } from "./gate4-evidence.ts";
+import {
+  exactComparisonFailures,
+  fieldComparisonFailures,
+  phase5CaptureArtifactDigests,
+  scalarComparisonFailures,
+  PHASE5_SCIENCE_INVENTORY,
+} from "./gate5-comparison.ts";
 import type { Phase5FixtureCapture, Phase5LaneCapture } from "./gate5-evidence.ts";
 import {
   evaluatePhase5Lane,
@@ -40,14 +47,12 @@ import {
   PHASE5_NEGATIVE_CONTROLS,
   PHASE5_PERFORMANCE,
   PHASE5_REQUIRED_LIMITS,
-  PHASE5_SCALAR_TOLERANCES,
   type Phase5Criterion,
   type Phase5DiffusionFixture,
   type Phase5GGFixture,
   type Phase5LKFixture,
   type Phase5LayoutFixture,
 } from "./phase5-protocol.ts";
-import { phase5ComparisonPasses } from "./phase5-shadow.ts";
 
 /** Backend label a relabelling probe would publish in place of the observed one. */
 const RELABELLED_BACKEND = "Vulkan";
@@ -653,56 +658,10 @@ export function applyPhase5NegativeControlMutation(
 // Published artifact digests
 // ---------------------------------------------------------------------------
 
-/**
- * The digest of every artifact a lane publication indexes, keyed by its published path.
- *
- * This mirrors the artifact set `gate5-evidence.ts` writes: the three lane logs and, per
- * blocking fixture, the config, both checkpoints, and the four payload artifacts.
- */
-export function phase5CaptureArtifactDigests(
-  capture: Phase5LaneCapture,
-): ReadonlyMap<string, string> {
-  const digests = new Map<string, string>();
-  digests.set("stdout.log", sha256Bytes(capture.stdout));
-  digests.set("stderr.log", sha256Bytes(capture.stderr));
-  digests.set(
-    "exit-status.txt",
-    sha256Bytes(new TextEncoder().encode(`${capture.exitStatus}\n`)),
-  );
-  for (const frozen of blockingFrozenFixtures()) {
-    const fixture = captureFixture(capture, frozen.id);
-    const base = `fixtures/${frozen.id}`;
-    digests.set(
-      `${base}/config.json`,
-      sha256Bytes(canonicalJsonBytes(fixture.config)),
-    );
-    digests.set(
-      `${base}/cpu-reference.ckpt`,
-      sha256Bytes(fixture.cpuReferenceCheckpoint),
-    );
-    digests.set(
-      `${base}/gpu-export.ckpt`,
-      sha256Bytes(fixture.gpuExportCheckpoint),
-    );
-    digests.set(
-      `${base}/comparison.json`,
-      sha256Bytes(canonicalJsonBytes(fixture.comparison)),
-    );
-    digests.set(
-      `${base}/events.json`,
-      sha256Bytes(canonicalJsonBytes(fixture.events)),
-    );
-    digests.set(
-      `${base}/timing.json`,
-      sha256Bytes(canonicalJsonBytes(fixture.timing)),
-    );
-    digests.set(
-      `${base}/readback.json`,
-      sha256Bytes(canonicalJsonBytes(fixture.readback)),
-    );
-  }
-  return digests;
-}
+// The digest map is `gate5-comparison.ts`'s statement of the published byte set — the same
+// statement `gate5-evidence.ts` publishes from — re-exported for the tests that inspect a
+// mutation's byte-level effect.
+export { phase5CaptureArtifactDigests };
 
 function digestsAgree(
   sealed: ReadonlyMap<string, string>,
@@ -718,124 +677,6 @@ function digestsAgree(
 // ---------------------------------------------------------------------------
 // Independent re-derivation of raw evidence from the payload graph
 // ---------------------------------------------------------------------------
-
-function rederivedFieldFailures(
-  values: readonly StrictJson[],
-  fixtureId: string,
-): number {
-  let failures = 0;
-  for (const [index, value] of values.entries()) {
-    const label = `${fixtureId} fields[${index}]`;
-    const field = readonlyObject(value, label);
-    const tolerance = field.tolerance;
-    if (
-      typeof tolerance !== "string" ||
-      !Object.hasOwn(PHASE5_FIELD_TOLERANCES, tolerance)
-    ) {
-      throw new Error(`${label} names no frozen field tolerance`);
-    }
-    const comparison = {
-      length: finiteNumber(field.length, `${label} length`),
-      relativeComparedCount: finiteNumber(
-        field.relativeComparedCount,
-        `${label} relativeComparedCount`,
-      ),
-      maxAbs: finiteNumber(field.maxAbs, `${label} maxAbs`),
-      rms: finiteNumber(field.rms, `${label} rms`),
-      maxRelative: finiteNumber(field.maxRelative, `${label} maxRelative`),
-    };
-    if (
-      !phase5ComparisonPasses(
-        comparison,
-        PHASE5_FIELD_TOLERANCES[
-          tolerance as keyof typeof PHASE5_FIELD_TOLERANCES
-        ],
-      )
-    ) {
-      failures++;
-    }
-  }
-  return failures;
-}
-
-function rederivedScalarFailures(
-  values: readonly StrictJson[],
-  fixtureId: string,
-): number {
-  let failures = 0;
-  for (const [index, value] of values.entries()) {
-    const label = `${fixtureId} scalars[${index}]`;
-    const scalar = readonlyObject(value, label);
-    const blocking = scalar.blocking;
-    if (typeof blocking !== "boolean") {
-      throw new Error(`${label} does not declare whether it blocks`);
-    }
-    const cpu = scalar.cpu;
-    const gpu = scalar.gpu;
-    if (cpu === null || gpu === null) {
-      if (blocking && cpu !== gpu) failures++;
-      continue;
-    }
-    const reference = finiteNumber(cpu, `${label} cpu`);
-    const candidate = finiteNumber(gpu, `${label} gpu`);
-    const limit =
-      PHASE5_SCALAR_TOLERANCES.maxAbs +
-      PHASE5_SCALAR_TOLERANCES.maxRelative * Math.abs(reference);
-    if (blocking && Math.abs(candidate - reference) > limit) failures++;
-  }
-  return failures;
-}
-
-function rederivedDecisionFailures(
-  values: readonly StrictJson[],
-  fixtureId: string,
-): number {
-  let failures = 0;
-  for (const [index, value] of values.entries()) {
-    const decision = readonlyObject(value, `${fixtureId} decisions[${index}]`);
-    if (canonicalJson(decision.cpu) !== canonicalJson(decision.gpu)) failures++;
-  }
-  return failures;
-}
-
-function rederivedInvariantFailures(
-  values: readonly StrictJson[],
-  fixtureId: string,
-): number {
-  let failures = 0;
-  for (const [index, value] of values.entries()) {
-    const label = `${fixtureId} invariants[${index}]`;
-    const invariant = readonlyObject(value, label);
-    const relation = invariant.relation;
-    if (relation === "equal") {
-      if (canonicalJson(invariant.left) !== canonicalJson(invariant.right)) {
-        failures++;
-      }
-      continue;
-    }
-    if (
-      relation !== "greater-or-equal" &&
-      relation !== "less-or-equal" &&
-      relation !== "mixed-tolerance"
-    ) {
-      throw new Error(`${label} carries an unregistered relation`);
-    }
-    const left = finiteNumber(invariant.left, `${label} left`);
-    const right = finiteNumber(invariant.right, `${label} right`);
-    const tolerance =
-      finiteNumber(invariant.absoluteTolerance, `${label} absoluteTolerance`) +
-      finiteNumber(invariant.relativeTolerance, `${label} relativeTolerance`) *
-        Math.abs(right);
-    if (
-      (relation === "greater-or-equal" && left + tolerance < right) ||
-      (relation === "less-or-equal" && left - tolerance > right) ||
-      (relation === "mixed-tolerance" && Math.abs(left - right) > tolerance)
-    ) {
-      failures++;
-    }
-  }
-  return failures;
-}
 
 function invariantNamed(
   values: readonly StrictJson[],
@@ -923,7 +764,8 @@ export function rederivePhase5RawEvidence(
   let readbackTotalBytes = 0;
   let toleranceBypassCount = 0;
 
-  for (const frozen of blockingFrozenFixtures()) {
+  for (const frozen of PHASE5_FIXTURES) {
+    if (!frozen.blocking) continue;
     const fixture = captureFixture(capture, frozen.id);
     const declared = capture.raw.fixtures.find((entry) => entry.id === frozen.id);
     if (declared === undefined) {
@@ -937,12 +779,24 @@ export function rederivePhase5RawEvidence(
       comparison.invariants,
       `${frozen.id} invariants`,
     );
-    const fieldFailureCount = rederivedFieldFailures(fields, frozen.id);
-    const scalarFailureCount = rederivedScalarFailures(scalars, frozen.id);
-    const decisionFailureCount = rederivedDecisionFailures(decisions, frozen.id);
-    const invariantFailureCount = rederivedInvariantFailures(
+    const scienceInventory = PHASE5_SCIENCE_INVENTORY[frozen.kind];
+    const fieldFailureCount = fieldComparisonFailures(fields, frozen.id);
+    const scalarFailureCount = scalarComparisonFailures(
+      scalars,
+      frozen.id,
+      scienceInventory.scalars,
+    );
+    const decisionFailureCount = exactComparisonFailures(
+      decisions,
+      frozen.id,
+      "decisions",
+      scienceInventory.decisions,
+    );
+    const invariantFailureCount = exactComparisonFailures(
       invariants,
       frozen.id,
+      "invariants",
+      scienceInventory.invariants,
     );
     fixtures.push({
       id: frozen.id,
