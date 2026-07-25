@@ -1,5 +1,8 @@
 // Phase 5 criteria-first GPU conformance protocol. The numerical fixtures and tolerances were
-// frozen before solver-gpu existed. Decision 0018 narrowed v2 to Windows; decision 0019's v3
+// frozen before solver-gpu existed. Decision 0022's v6 changes only the negative-control
+// ownership rule, from "fails exactly its owner" to "the observed failing set contains its
+// owner", after the stricter form proved satisfiable only by asserting a singleton.
+// Decision 0018 narrowed v2 to Windows; decision 0019's v3
 // changed only the G-G Dirichlet ledger evidence meaning after a cancellation seam was measured.
 // Decision 0020's v4 added the binary32 minimum-subnormal ULP floor required for the already
 // frozen aggregate-v5 smoother-drift bound. Decision 0021's v5 adds only an exact period-two,
@@ -9,9 +12,9 @@
 
 import type { Dims, DomainShape, FarFieldCondition, GGPresetName } from "@vcc/core";
 
-export const PHASE5_PROTOCOL = "phase5-gpu-conformance-windows-v5";
+export const PHASE5_PROTOCOL = "phase5-gpu-conformance-windows-v6";
 export const PHASE5_PROTOCOL_SHA256 =
-  "bdc61bfe5cb48e9e29f5b79337036d7b23ec11e1677f1657595d00f5e7de91ec";
+  "5ef6d11bab19e722379b3ba0c6a39bddc619cb22e21ed672478f0530a19ad115";
 export const PHASE5_FIXTURES_SHA256 =
   "29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512";
 export const PHASE5_TOLERANCES_SHA256 =

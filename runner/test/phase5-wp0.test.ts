@@ -40,9 +40,9 @@ import {
 
 describe("Phase 5 criteria freeze", () => {
   it("pins the exact Windows-only v5 protocol and bounded f32 cycle manifest", () => {
-    expect(PHASE5_PROTOCOL).toBe("phase5-gpu-conformance-windows-v5");
+    expect(PHASE5_PROTOCOL).toBe("phase5-gpu-conformance-windows-v6");
     expect(PHASE5_PROTOCOL_SHA256).toBe(
-      "bdc61bfe5cb48e9e29f5b79337036d7b23ec11e1677f1657595d00f5e7de91ec",
+      "5ef6d11bab19e722379b3ba0c6a39bddc619cb22e21ed672478f0530a19ad115",
     );
     expect(PHASE5_FIXTURES_SHA256).toBe(
       "29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512",

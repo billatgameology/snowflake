@@ -1316,10 +1316,16 @@ function evaluatePhase5LaneInternal(
       observed.owner !== expected.owner ||
       observed.mutation !== expected.mutation ||
       !observed.rejected ||
-      observed.failedCriteria.length !== 1 ||
-      observed.failedCriteria[0] !== expected.owner
+      observed.failedCriteria.length === 0 ||
+      !observed.failedCriteria.includes(expected.owner)
     ) {
-      negativeFailures.push(`${expected.id} does not fail only ${expected.owner}`);
+      // ADR 0022: the observed failing set must contain the registered owner. Demanding it be
+      // exactly the owner was satisfiable only by asserting a singleton, which is why the
+      // producer hardcoded `[control.owner]`. A mutation applied at a real boundary corrupts
+      // real, cross-linked evidence, so more than one criterion may legitimately notice.
+      negativeFailures.push(
+        `${expected.id} was not observed to fail ${expected.owner}`,
+      );
     }
   }
   const hasFixtureFailure = raw.fixtures.some(
