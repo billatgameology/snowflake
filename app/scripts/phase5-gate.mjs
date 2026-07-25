@@ -847,6 +847,53 @@ function ggDirichletLedger(source) {
   return safeJson(ledger);
 }
 
+// Observed runtime state. Every count below is read from what a probe actually recorded, so a
+// published zero always stands beside the empty observation list that produced it. The probes
+// do not yet publish an observed re-acquisition count, so `hiddenRetryCount` is taken only from
+// a probe that measures it and is otherwise reported as unmeasured rather than as zero.
+function observedRuntimeCounts(report, label) {
+  const errors = report.uncapturedErrors ?? report.checks?.uncapturedErrors;
+  if (!Array.isArray(errors)) {
+    throw new Error(`${label} omitted its uncaptured-error observations`);
+  }
+  const declared = report.uncapturedErrorCount;
+  if (typeof declared === "number" && declared !== errors.length) {
+    throw new Error(`${label} error count disagrees with its own observations`);
+  }
+  const loss = report.unexpectedDeviceLoss ?? report.checks?.unexpectedDeviceLoss ?? null;
+  const declaredLoss = report.deviceLossCount;
+  const deviceLossCount =
+    typeof declaredLoss === "number" ? declaredLoss : loss === null ? 0 : 1;
+  if (deviceLossCount === 0 && loss !== null) {
+    throw new Error(`${label} reported no device loss beside an observed loss reason`);
+  }
+  return {
+    uncapturedErrorCount: errors.length,
+    deviceLossCount,
+    hiddenRetryCount:
+      typeof report.hiddenRetryCount === "number" ? report.hiddenRetryCount : null,
+  };
+}
+
+function totalObservedRuntimeCounts(reports) {
+  const totals = {
+    deviceLossCount: 0,
+    uncapturedErrorCount: 0,
+    hiddenRetryCount: 0,
+    measuredRetryProbes: 0,
+  };
+  for (const [label, report] of Object.entries(reports)) {
+    const observed = observedRuntimeCounts(report, label);
+    totals.deviceLossCount += observed.deviceLossCount;
+    totals.uncapturedErrorCount += observed.uncapturedErrorCount;
+    if (observed.hiddenRetryCount !== null) {
+      totals.hiddenRetryCount += observed.hiddenRetryCount;
+      totals.measuredRetryProbes++;
+    }
+  }
+  return totals;
+}
+
 function readbackRecords(reports) {
   const sources = [
     ["layout-noncubic-box-17x19x11", reports.wp1.checks.readback.records],
@@ -984,10 +1031,12 @@ function buildCapture(reports, repository) {
   if (!Array.isArray(submissions) || !Array.isArray(interactions)) {
     throw new Error("performance probe omitted registered samples");
   }
+  const observedRuntime = totalObservedRuntimeCounts(reports);
   const fixtureMeasurements = [];
   const artifacts = [];
   for (const fixture of PHASE5_FIXTURES) {
     if (!fixture.blocking) continue;
+    const isFirstFixture = artifacts.length === 0;
     const source = fixtureSource(fixture, reports);
     const checkpoint = checkpoints.get(fixture.id);
     if (checkpoint === undefined) throw new Error(`missing ${fixture.id} checkpoint`);
@@ -1044,9 +1093,14 @@ function buildCapture(reports, repository) {
         fixtureId: fixture.id,
         submissionSamples: fixtureSubmissions,
         interactions: fixtureInteractions,
-        deviceLossCount: fixture.kind === "layout" ? 0 : 0,
-        uncapturedErrorCount: fixture.kind === "layout" ? 0 : 0,
-        hiddenRetryCount: 0,
+        // Device loss, uncaptured errors and re-acquisitions are device-global, not per
+        // fixture. They are carried on the first published fixture so the per-fixture sum
+        // equals the observed totals exactly, the same way the negative-control roster is.
+        deviceLossCount: isFirstFixture ? observedRuntime.deviceLossCount : 0,
+        uncapturedErrorCount: isFirstFixture
+          ? observedRuntime.uncapturedErrorCount
+          : 0,
+        hiddenRetryCount: isFirstFixture ? observedRuntime.hiddenRetryCount : 0,
       },
       readback: {
         schema: "phase5-readback-v1",
@@ -1130,9 +1184,9 @@ function buildCapture(reports, repository) {
     stressDiagnostics: stressDiagnostics(reports),
     submissions: {
       samples: submissions,
-      deviceLossCount: 0,
-      uncapturedErrorCount: 0,
-      hiddenRetryCount: 0,
+      deviceLossCount: observedRuntime.deviceLossCount,
+      uncapturedErrorCount: observedRuntime.uncapturedErrorCount,
+      hiddenRetryCount: observedRuntime.hiddenRetryCount,
     },
     interactions,
     readback: {
