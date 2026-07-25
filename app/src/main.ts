@@ -1,5 +1,6 @@
 // Main thread: rendering, controls, overlays, slice, picking, HUD, and status. The solver
-// runs in the worker — nothing here ever constructs or steps a GGSolver (charter §3.1).
+// runs behind the Engine seam (engine.ts, WP6 D1) — in S1 always the CPU worker — and
+// nothing here ever constructs or steps a GGSolver (charter §3.1).
 // Every view refresh reads the LATEST snapshot object, so pausing the solver freezes a fully
 // inspectable state: slice, overlays, picking, and HUD keep working on it (freeze-and-inspect).
 
@@ -22,8 +23,8 @@ import {
   type InitConfig,
   type SnapshotMessage,
   type StopReason,
-  type WorkerToMain,
 } from "./protocol.ts";
+import { WorkerEngine, type Engine } from "./engine.ts";
 import { surfaceCellIndices } from "./surface.ts";
 import { CrystalView, type CameraPose } from "./render.ts";
 import { normalizeToUnit, srgbToLinear, viridis } from "./colormap.ts";
@@ -208,7 +209,9 @@ async function boot(): Promise<void> {
   const view = await CrystalView.create(container, { forceWebGL: params.get("webgl2") === "1" });
   debugHook.backend = view.backend;
 
-  const worker = new Worker(new URL("./worker.ts", import.meta.url), { type: "module" });
+  // The engine seam (WP6 S1): main drives ONE Engine. In S1 it is always the CPU worker,
+  // so the snapshot variant is pinned to the CPU wire shape — no GPU engine exists yet.
+  const engine: Engine<SnapshotMessage> = new WorkerEngine();
 
   // ── Mutable UI state (Tweakpane binds to these objects) ──────────────────────────────────
   const ui = {
@@ -350,7 +353,7 @@ async function boot(): Promise<void> {
     inspected = null;
     rateEma = null;
     ratePrevTime = null;
-    worker.postMessage({ kind: "init", config });
+    engine.init(config);
   }
 
   function renderStatus(): void {
@@ -733,9 +736,8 @@ async function boot(): Promise<void> {
   });
   view.renderer.domElement.addEventListener("pointerleave", hideReadout);
 
-  // ── Worker messages ──────────────────────────────────────────────────────────────────────
-  worker.addEventListener("message", (event: MessageEvent) => {
-    const msg = event.data as WorkerToMain;
+  // ── Engine messages (ready/snapshot/fault — the worker protocol behind the seam) ─────────
+  engine.onMessage((msg) => {
     switch (msg.kind) {
       case "ready": {
         appliedPreset = msg.config.preset;
@@ -799,8 +801,10 @@ async function boot(): Promise<void> {
     }
   });
 
-  worker.addEventListener("error", (event: ErrorEvent) => {
-    fail(`worker error: ${event.message}`);
+  // Transport-level failures (the engine labels them; WorkerEngine keeps the exact
+  // "worker error: …" string the old inline listener produced).
+  engine.onError((message) => {
+    fail(message);
   });
 
   // ── Controls (Tweakpane). Labels carry §1.5 Type; values are model units, unvalidated. ───
@@ -842,9 +846,9 @@ async function boot(): Promise<void> {
       renderStatus();
       return;
     }
-    worker.postMessage({ kind: "run" });
+    engine.run();
   };
-  const pause = (): void => worker.postMessage({ kind: "pause" });
+  const pause = (): void => engine.pause();
   const step = (): void => {
     if (inspected !== null) {
       uiHint = "inspecting an artifact (view-only) — clear it to control the live run";
@@ -856,7 +860,7 @@ async function boot(): Promise<void> {
       renderStatus();
       return;
     }
-    worker.postMessage({ kind: "step" });
+    engine.step();
   };
   const reset = (): void => sendInit();
   runFolder.addButton({ title: "start" }).on("click", start);
@@ -1028,7 +1032,7 @@ async function boot(): Promise<void> {
 
   function enterInspectMode(artifact: InspectedArtifact): void {
     inspected = artifact;
-    worker.postMessage({ kind: "pause" });
+    engine.pause();
     inspectOverlayState.name = "none";
     inspectOverlayState.min = 0;
     inspectOverlayState.max = 1;
