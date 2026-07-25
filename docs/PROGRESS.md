@@ -611,7 +611,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ✅ **complete, 2026-07-20.** One flagless v5p run at tracked-clean `0dc0f86`, pre-registration `8adea86`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exited 0. Same `96×96×96` hexPrism, extent target, fixed-σ far field, `sigmaInfinity=0.002`, pressure, spacing, mapping, seed 1, noise 0, CFL, and convergence controls; temperature alone differed. −5 °C: step 814, extent 61, attached 18,193, AR `0.118644` plate. −15 °C: step 330, extent 61, attached 1,159, AR `12.2000` column. Both: size-target, symmetry error 0, every relaxation converged, bounded smoother drift, checkpoint round trip identical. The depleted-start differential was 3/3 and permanent Phase 2a control retained canonical SHA-256 `f1796b5015…a389`. Final log SHA-256 `ea69d65a…c45e`, status 0, empty stderr; complete evidence: [v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result). V3 negative and v4 execution-invalid history remain preserved. |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ✅ **maker-asserted complete, 2026-07-23** — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ✅ **complete, 2026-07-18** — one canonical `node runner/src/main.ts gate4` at `70a2496`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exit 0 in 7,178.8 s. Pass A: 13 runs, 24/24 records green; plate/column AR `0.0666667`/`1.66667`; five-point sweep strictly increasing; depletion median `0.770238`, 7/7 samples below one, width 7→13; three distinct reproducible open-hollow occupancies; cap score `1.3`; dendrite/compact branches 6/0 at independent first reservoir crossings (cycles 4,775/5,450, extents 99/83). A manifest/report/index SHA-256: `e5e85c70…8644` / `bcb29e05…7188` / `92346e3e…1917`. Pass B: 11 runs, 12/12 execution records green; three morphology diagnostics pass and five honestly miss (depletion, widening, hollowing, capped history, branch). B manifest/report/index: `c0ceed5b…e812` / `22c8a92c…fa2d` / `5644f838…5cb0`. Aggregate v2 SHA-256 `194f837d…d8e2`, `gatePass=true`, `passBDiagnosticPass=false`. Real `node app/scripts/visual.mjs --phase4`: 20/20 original-resolution captures inspected by coordinator and reviewer, zero absent/error/clipped/hash-mismatch views, manifest `19e0fcfe…573b`. Post-publication exact root suite 779/779 and 33-module build green; final same-reviewer verdict on repair `b7153cc`: CLEAN, 0 blockers / 0 should-fixes. Full record: [v2 plan](plans/phase-4-v2-reservoir-matched-branch-control.md). |
-| 5 | GPU agrees with CPU oracle to tolerance on observed Windows D3D12; preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable. This phase makes no Metal/general-WebGPU portability claim (ADR 0018). | 🔶 **WP1–WP3 complete; WP4 protocol v5 implementation active** (2026-07-24) — real D3D12 execution disproved v4's fresh-seed reachability premise with an exact two-cell, one-ULP, period-two cold orbit. Accepted decision 0021 preserves the configured CPU convergence controls and adds only explicit exact-period-two / maximum-one-ULP GPU classification with both phases' divergence/drift guards. Accepted v5/tolerance hashes are `bdc61bfe…91ec` / `d38ec0f7…09b`; fixtures are unchanged. Same-reviewer design acceptance at `79ec322` returned zero blockers and zero should-fixes. WP1/WP2/WP3 independently close at `afd9407` / `9f7a7b4` / `39d8b43` and must replay under accepted v5 before WP7. No WP4 or final Phase 5 evidence exists yet. Metal remains a separately frozen later-machine extension. Active plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). |
+| 5 | GPU agrees with CPU oracle to tolerance on observed Windows D3D12; preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable. This phase makes no Metal/general-WebGPU portability claim (ADR 0018). | 🔶 **WP1–WP4 complete; WP5 review repair in progress** (2026-07-24). WP4 implementation `2788cc0` and its canonical D3D12 artifact have zero-finding review. WP5 candidate `eb5c5fb` ran both registered commands but its evidence is rejected provisional: review found five blockers and two should-fixes covering independent science witnesses, complete G-G ledger chronology, actual UI/render timing, all sixteen named controls, immutable-source execution, both allocation graphs, and race-safe cleanup. Local `main` is at `e04d250`; no accepted Phase 5 gate evidence exists. WP6/WP7 must not start. Metal remains a separately frozen later-machine extension. Active plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
 
@@ -937,26 +937,70 @@ should-fixes are to preserve both observed GG and LK per-buffer allocation graph
 identity-check-to-recursive-delete capture-cleanup race. WP5 remains open; WP6 and WP7 must not
 start.
 
-**Next action:** open `app/scripts/phase5-gate.mjs`, `app/scripts/phase5-performance.mjs`,
-`runner/src/gate5-evidence.ts`, `runner/src/gate5-protocol.ts`, `runner/src/gate5-lane.ts`, and
-decision 0019. Replace every fallback science witness with preserved raw measurements and
-independent reconstruction; reject blocking `null`/`null` scalars; persist and validate all 128
-G-G clamp/meter cycles and their corrected-mass path; measure actual UI edit acknowledgement and
-rendered-first-frame latency while preserving observed runtime errors/loss; execute all sixteen
-named mutations at their registered boundary and observe the owning criterion fail; and run the
-lane from an immutable source snapshot. Land the two should-fixes in the same repair, rerun focused
-and exact root verification, produce a fresh clean `gate5-lane` / `gate5` bundle bound to the new
-commit, and return it to the same reviewer until zero blockers and zero should-fixes. Do not begin
-WP6 before that closure.
+The 2026-07-24 repair audit ran from the real parent checkout
+`G:/Code Files/snowflake`, local `main` `e04d250f159aa2cca172373b747a19cf489716b9`.
+That commit contained all 34 local Phase 5 commits and was 34 ahead of `origin/main`. The first
+repair commit `758c06d` sits directly on it; **nothing has been pushed**. The redundant nested
+clone `out/worktrees/phase5-wp1` was clean and byte-identical at `e04d250`, and is deliberately
+not removed while repair work remains open.
 
-The real parent checkout remains `G:/Code Files/snowflake`. At this stopping boundary it is clean
-on `main` at WP4 closure `e91dd1dd3f9603c029276b194bb6d535a374b989`; an exact fast-forward
-retry from the nested clone failed only with `cannot open '.git/FETCH_HEAD': Permission denied`.
-No parent files changed. Retry that fast-forward from an execution context allowed to write the
-parent `.git` directory; do not overwrite any later user changes. Metal is deferred to a
-separately frozen later-machine extension; never relabel Windows evidence as Metal or claim
-general WebGPU portability. Preserve accepted evidence under `out/phase2b/`, `out/phase4/`, and
-`out/phase4-visual/`.
+**Blocker (2) — the G-G Dirichlet ledger — is repaired in implementation and unit-tested at
+`758c06d`. It is not yet proven on hardware: no `gate5-lane` or `gate5` run has executed since
+the repair.**
+The producer keeps every Dirichlet cycle's CPU/GPU clamp delta, cumulative meter, tick, boundary
+and attachment bookkeeping, relaxation/surface reports, corrected-mass operands, raw
+positive/negative clamp-path delta and vapor bytes, both persistent-meter reduction reports, and
+a consolidated `ggDirichletLedger`. `app/scripts/phase5-gate.mjs` now publishes that payload
+verbatim into the Dirichlet fixture's `comparison.json`, and `runner/src/gate5-evidence.ts`
+reconstructs it independently on both publication and reopening — so the aggregate gate
+re-derives it rather than trusting a lane report. The runner reads no producer verdict: it
+replays the 128 contiguous cycles, the exact binary64 CPU and single-rounded persistent binary32
+GPU meter recurrences, per-cycle cross-lane tick/boundary/attachment/hole-fill agreement, both
+clamp-path delta and clamped-vapor fields rebuilt from the registered `rho − destination`
+construction and compared bit-exactly, its own 256-lane reduction and dispatch inventory, all
+four policy-named mutations, the persistent two-advance accumulation, and the three
+corrected-mass safeguards under the unchanged mixed-scalar bound — then cross-links the ledger's
+operands to the fixture's published `ledger.total-mass-bd`, `ledger.dirichlet-meter`, and
+`relaxation.shell-clamp` scalars so an internally consistent but unrelated ledger cannot pass.
+The registered witness construction is the new non-manifest
+`PHASE5_GG_DIRICHLET_LEDGER_WITNESS`; `PHASE5_PROTOCOL_SHA256` is unchanged at
+`bdc61bfe5cb48e9e29f5b79337036d7b23ec11e1677f1657595d00f5e7de91ec`, which
+`runner/test/phase5-wp0.test.ts` asserts directly, because the witness parameterizes an already
+frozen ADR 0019 criterion rather than changing one.
+
+Verification actually run for this slice, all from `G:/Code Files/snowflake`: exact root
+`npm test` passed 56 files / 946 tests in 420.90 seconds, including Rule 7 (clean, 211 files
+scanned) and both TypeScript projects; `npm run build --workspace app` built 33 modules;
+`node --check` passed on both changed probe scripts; `git diff --check` is clean. The 22 new
+`ADR-0019 G-G Dirichlet corrected-mass ledger` tests in `runner/test/gate5-evidence.test.ts`
+each reject one tampered ledger — omitted or misplaced ledger, altered policy, truncated or
+skipped chronology, forged binary64 and binary32 meters, a meter no binary32 accumulator could
+hold, a clamp delta its own relaxation report contradicts, cross-lane bookkeeping disagreement,
+raised device error flags, an omitted shell delta, an unclamped vapor cell, a reduction the
+delta field does not produce, an abandoned registered construction, a wrong shell count, a
+non-persistent accumulation, an unplanned dispatch inventory, final meters the chronology never
+reaches, operands the published scalars contradict, and both within-lane and cross-lane
+corrected-mass breaches.
+
+**Next action:** continue the remaining reviewer repairs from the same active plan:
+
+- replace every fallback/duplicated science witness and reject blocking `null`/`null`;
+- rebuild `phase5-performance.mjs` around 70 trusted DOM edits and same-device WebGPU canvas
+  frames, with unique edit generations, a completed-cycle-boundary step, changed slice, compact
+  frame-scoped probe, queue completion plus presentation receipt, and preserved error/loss data;
+- execute all sixteen negative controls at their named boundary and derive ownership from the
+  observed evaluator failure instead of producer booleans or summary-field substitutes;
+- execute Vite from a detached commit-bound source snapshot, quarantine before recursive
+  cleanup, and preserve both GG and LK observed per-buffer allocation graphs.
+
+Then run focused tests, Rule 7, both typechecks, the app build, and exact root `npm test`; commit
+locally so the tree is tracked-clean; produce fresh `gate5-lane` / `gate5` D3D12 evidence — which
+is what will first exercise the repaired ledger against the real device — and return it to the
+same reviewer until zero blockers and zero should-fixes. Do not push unless the
+user separately asks. Do not delete `out/worktrees/phase5-wp1` until the repaired parent is
+committed, verified, and reconfirmed to contain everything unique. Do not begin WP6. Metal is
+deferred; never relabel Windows evidence as Metal or claim general WebGPU portability. Preserve
+accepted evidence under `out/phase2b/`, `out/phase4/`, and `out/phase4-visual/`.
 
 **Phase 3 is COMPLETE — maker-asserted 2026-07-23 (ADRs 0007/0008), orchestrated per
 [phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md)** — all work packages

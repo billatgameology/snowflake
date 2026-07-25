@@ -1,8 +1,8 @@
 # Plan — Phase 5: WebGPU solver port and Windows D3D12 conformance
 
 - **Phase:** Phase 5 — GPU port
-- **Status:** WP1, WP2, and WP3 are independently accepted; decision 0021 / protocol v5 is
-  independently accepted and WP4 implementation is active
+- **Status:** WP1-WP4 are independently accepted; WP5's first candidate was rejected and its
+  review repair is in progress. WP6 and WP7 remain blocked.
 - **Started:** 2026-07-23
 - **Last touched:** 2026-07-24 by Codex
 
@@ -1292,6 +1292,22 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
       operators' observed allocation graphs and closing the capture-cleanup replacement race.
       Repair these findings, rerun all verification and hardware evidence at the new exact clean
       commit, and obtain same-reviewer zero blockers / zero should-fixes before checking WP5.
+      The 2026-07-24 repair audit confirmed every finding against local `main` at `e04d250`.
+      Blocker (2) is repaired at `758c06d`. The WP3 probe emits a complete `ggDirichletLedger`
+      (per-cycle CPU/GPU clamp deltas, cumulative meters, tick and boundary/attachment
+      bookkeeping, relaxation/surface reports, raw clamp-path delta and vapor bytes, both
+      meter-reduction reports, corrected-mass operands); `phase5-gate.mjs` publishes it into the
+      Dirichlet fixture's `comparison.json`; and `runner/src/gate5-evidence.ts` reconstructs
+      every part of it — 128 contiguous cycles, both meter recurrences, cross-lane per-cycle
+      bookkeeping, bit-exact clamp-path fields, its own reduction and dispatch inventory, all
+      four policy mutations, persistent accumulation, and the three corrected-mass safeguards —
+      on publication and on independent reopening, cross-linked to the fixture's published
+      science scalars. The shared witness construction
+      `PHASE5_GG_DIRICHLET_LEDGER_WITNESS` stays outside the protocol manifest, so
+      `PHASE5_PROTOCOL_SHA256` is unchanged. Twenty-two tamper tests each reject one forged
+      ledger; exact root `npm test` passes 56 files / 946 tests in 420.90 s and the app build
+      passes 33 modules. This repair has **not** run on the RTX 3080 / D3D12 lane yet.
+      Blockers (1), (3), (4), (5) and both should-fixes remain open.
 - [ ] **WP6 — app integration.** Move live simulation to the GPU package, wire GPU-resident
       overlays/slices and resolution budgets, preserve view-only evidence inspection, and prove
       the CPU worker remains an available oracle/debug path. Do not perform Phase 7 visual polish.
