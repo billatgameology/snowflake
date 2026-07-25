@@ -1553,7 +1553,9 @@ function ggMetadata(decoded: ReturnType<typeof decodeCheckpoint>): StrictJson {
   });
 }
 
-function lkMetadata(decoded: ReturnType<typeof decodeLKCheckpoint>): StrictJson {
+function lkControlMetadata(
+  decoded: ReturnType<typeof decodeLKCheckpoint>,
+): StrictJson {
   const { header } = decoded;
   return strictJsonSnapshot({
     version: header.version,
@@ -1561,7 +1563,6 @@ function lkMetadata(decoded: ReturnType<typeof decodeLKCheckpoint>): StrictJson 
     endianness: header.endianness,
     dims: header.dims,
     tick: header.tick,
-    simTimeSeconds: header.simTimeSeconds,
     rngSeed: header.rngSeed,
     noiseEpsilon: header.noiseEpsilon,
     domain: header.domain,
@@ -1635,7 +1636,6 @@ function expectedLkCheckpointMetadata(
     (typeof PHASE5_FIXTURES)[number],
     { readonly kind: "lk" }
   >,
-  simTimeSeconds: number,
 ): StrictJson {
   const length = fixture.dims.nx * fixture.dims.ny * fixture.dims.nz;
   return strictJsonSnapshot({
@@ -1644,7 +1644,6 @@ function expectedLkCheckpointMetadata(
     endianness: "LE",
     dims: fixture.dims,
     tick: Number(fixture.stop.value),
-    simTimeSeconds,
     rngSeed: fixture.rngSeed,
     noiseEpsilon: fixture.noiseEpsilon,
     domain: fixture.domain,
@@ -1742,12 +1741,12 @@ export function derivePhase5CheckpointVerification(
     ) {
       throw new Error(`${fixture.id} LK checkpoint physical time is invalid`);
     }
-    const cpuMetadata = lkMetadata(cpu);
-    const gpuMetadata = lkMetadata(gpu);
-    const expectedMetadata = expectedLkCheckpointMetadata(
-      fixture,
-      cpu.state.simTimeSeconds,
-    );
+    // Physical time is accumulated from binary64 CPU versus binary32 GPU interface
+    // increments and is compared as a frozen scalar, not counterfeited as exact metadata.
+    // Every identity/control field on both checkpoints remains exact to the fixture here.
+    const cpuMetadata = lkControlMetadata(cpu);
+    const gpuMetadata = lkControlMetadata(gpu);
+    const expectedMetadata = expectedLkCheckpointMetadata(fixture);
     return {
       checkpoint: {
         fixtureId: fixture.id,

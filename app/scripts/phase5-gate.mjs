@@ -427,7 +427,13 @@ function scalarPair(fixture, name, source, decoded) {
 
 function exactDecisionPair(fixture, name, source, decoded) {
   if (name === "checkpoint.metadata") {
-    return [safeJson(decoded.cpu.header), safeJson(decoded.gpu.header)];
+    const cpu = safeJson(decoded.cpu.header);
+    const gpu = safeJson(decoded.gpu.header);
+    if (fixture.kind === "lk") {
+      delete cpu.simTimeSeconds;
+      delete gpu.simTimeSeconds;
+    }
+    return [cpu, gpu];
   }
   if (name === "stop.reason") {
     if (fixture.kind === "gg") {
@@ -928,12 +934,14 @@ async function run(captureDirectory) {
   const { raw, artifacts } = buildCapture(reports, repository);
   const verdict = evaluatePhase5Lane({ ...raw, publicationVerified: true });
   if (!verdict.gatePass) {
+    const failures = verdict.criteria
+      .filter((criterion) => !criterion.pass)
+      .map(
+        (criterion) =>
+          `${criterion.id}: ${criterion.failures.join("; ")}`,
+      );
     throw new Error(
-      "Phase 5 production probes fail " +
-        verdict.criteria
-          .filter((criterion) => !criterion.pass)
-          .map((criterion) => criterion.id)
-          .join(", "),
+      `Phase 5 production probes fail ${failures.join(" | ")}`,
     );
   }
   const emitted = new Set();

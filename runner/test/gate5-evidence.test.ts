@@ -14,6 +14,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import {
   domainCenter,
   encodeCheckpoint,
+  encodeLKCheckpoint,
   GG_PRESETS,
 } from "@vcc/core";
 import {
@@ -227,6 +228,53 @@ describe("Phase 5 lane evidence publication", () => {
     const derived = derivePhase5CheckpointVerification(fixture, bytes, bytes);
     expect(derived.checkpoint.occupancyMismatchCount).toBe(0);
     expect(derived.checkpoint.metadataMismatchCount).toBe(1);
+  });
+
+  it("authenticates LK controls exactly while leaving physical time to scalar tolerance", () => {
+    const fixture = PHASE5_FIXTURES.find(
+      (candidate) => candidate.id === "lk-warm-dirichlet-24x24x18",
+    );
+    if (fixture === undefined || !fixture.blocking || fixture.kind !== "lk") {
+      throw new Error("missing warm LK fixture");
+    }
+    const length = fixture.dims.nx * fixture.dims.ny * fixture.dims.nz;
+    const base = {
+      surfacePolicy: fixture.surfacePolicy,
+      dims: fixture.dims,
+      tick: Number(fixture.stop.value),
+      rngSeed: fixture.rngSeed,
+      noiseEpsilon: fixture.noiseEpsilon,
+      domain: fixture.domain,
+      center: domainCenter(fixture.dims),
+      tempC: fixture.tempC,
+      sigmaInfinity: fixture.sigmaInfinity,
+      dxUm: fixture.dxUm,
+      pressurePa: fixture.pressurePa,
+      paramSet: fixture.paramSet,
+      cflFill: fixture.cflFill,
+      relaxTol: fixture.relaxTol,
+      divTol: fixture.divTol,
+      relaxMaxSweeps: fixture.relaxMaxSweeps,
+      farField: fixture.farField,
+      a: new Uint8Array(length),
+      f: new Float64Array(length),
+      sigma: new Float64Array(length),
+    } as const;
+    const cpu = encodeLKCheckpoint({ ...base, simTimeSeconds: 1 });
+    const gpu = encodeLKCheckpoint({ ...base, simTimeSeconds: 1.00001 });
+    expect(
+      derivePhase5CheckpointVerification(fixture, cpu, gpu).checkpoint
+        .metadataMismatchCount,
+    ).toBe(0);
+    const shifted = encodeLKCheckpoint({
+      ...base,
+      simTimeSeconds: 1.00001,
+      tempC: fixture.tempC + 1,
+    });
+    expect(
+      derivePhase5CheckpointVerification(fixture, cpu, shifted).checkpoint
+        .metadataMismatchCount,
+    ).toBe(1);
   });
 
   it("rejects an indexed artifact byte mutation after publication", () => {
