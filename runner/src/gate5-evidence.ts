@@ -580,6 +580,9 @@ export const PHASE5_SCIENCE_INVENTORY = {
   },
 } as const;
 
+export const PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE =
+  "required cancellation-heavy diagnostic; exact clamp-path reduction and corrected-mass ledger are blocking";
+
 function exactInventory(
   actual: readonly string[],
   expected: readonly string[],
@@ -661,27 +664,40 @@ function scalarComparisonFailures(
     const scalar = plainObject(value, `${fixtureId} scalars[${index}]`);
     exactKeys(
       scalar,
-      ["name", "cpu", "gpu"],
+      ["name", "cpu", "gpu", "blocking", "rationale"],
       `${fixtureId} scalars[${index}]`,
     );
+    const allowedNonblocking =
+      fixtureId === "gg-column-dirichlet-noise-timeline-32x32x64" &&
+      scalar.name === "relaxation.shell-clamp";
     if (
       typeof scalar.name !== "string" ||
       scalar.name.length === 0 ||
       names.has(scalar.name) ||
       (scalar.cpu !== null && typeof scalar.cpu !== "number") ||
-      (scalar.gpu !== null && typeof scalar.gpu !== "number")
+      (scalar.gpu !== null && typeof scalar.gpu !== "number") ||
+      typeof scalar.blocking !== "boolean" ||
+      (
+        scalar.blocking
+          ? scalar.rationale !== null
+          : !allowedNonblocking ||
+            scalar.rationale !== PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE
+      )
     ) {
       throw new Error(`${fixtureId} scalars[${index}] is invalid`);
     }
     names.add(scalar.name);
     if (scalar.cpu === null || scalar.gpu === null) {
-      if (scalar.cpu !== scalar.gpu) failures++;
+      if (scalar.blocking && scalar.cpu !== scalar.gpu) failures++;
       continue;
     }
     const limit =
       PHASE5_SCALAR_TOLERANCES.maxAbs +
       PHASE5_SCALAR_TOLERANCES.maxRelative * Math.abs(scalar.cpu);
-    if (Math.abs(scalar.gpu - scalar.cpu) > limit) failures++;
+    if (
+      scalar.blocking &&
+      Math.abs(scalar.gpu - scalar.cpu) > limit
+    ) failures++;
   }
   exactInventory([...names], expectedNames, `${fixtureId} scalar`);
   return failures;

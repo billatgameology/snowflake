@@ -19,6 +19,7 @@ import {
 } from "@vcc/core";
 import {
   derivePhase5CheckpointVerification,
+  PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE,
   PHASE5_LANE_INDEX_PATH,
   PHASE5_LANE_REPORT_PATH,
   publishPhase5Lane,
@@ -141,12 +142,20 @@ describe("Phase 5 lane evidence publication", () => {
     const fixture = capture.fixtures.find((entry) => entry.id.startsWith("gg-"));
     if (fixture === undefined) throw new Error("missing G-G fixture");
     const comparison = fixture.comparison as {
-      scalars: Array<{ name: string; cpu: number; gpu: number }>;
+      scalars: Array<{
+        name: string;
+        cpu: number;
+        gpu: number;
+        blocking: boolean;
+        rationale: string | null;
+      }>;
     };
     comparison.scalars[0] = {
       name: "invented.self-attested-scalar",
       cpu: 1,
       gpu: 1,
+      blocking: true,
+      rationale: null,
     };
     expect(() =>
       publishPhase5Lane({
@@ -156,6 +165,32 @@ describe("Phase 5 lane evidence publication", () => {
         verificationHooks: TEST_PHASE5_CHECKPOINT_HOOKS,
       }),
     ).toThrow(/scalar inventory differs/);
+  });
+
+  it("rejects an unregistered nonblocking scalar", () => {
+    const root = temporaryRoot();
+    const capture = passingPhase5Capture();
+    const fixture = capture.fixtures.find(
+      (entry) => entry.id === "gg-plate-reflecting-48x48x24",
+    );
+    if (fixture === undefined) throw new Error("missing reflecting G-G fixture");
+    const comparison = fixture.comparison as {
+      scalars: Array<{
+        blocking: boolean;
+        rationale: string | null;
+      }>;
+    };
+    comparison.scalars[0].blocking = false;
+    comparison.scalars[0].rationale =
+      PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE;
+    expect(() =>
+      publishPhase5Lane({
+        canonicalDirectory: join(root, "windows-d3d12"),
+        capture,
+        sourceHashes: TEST_PHASE5_SOURCE_HASHES,
+        verificationHooks: TEST_PHASE5_CHECKPOINT_HOOKS,
+      }),
+    ).toThrow(/scalars\[0\] is invalid/);
   });
 
   it("rejects uninterpreted or incomplete event records", () => {
