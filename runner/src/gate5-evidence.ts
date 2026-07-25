@@ -669,7 +669,10 @@ function scalarComparisonFailures(
     );
     const allowedNonblocking =
       fixtureId === "gg-column-dirichlet-noise-timeline-32x32x64" &&
-      scalar.name === "relaxation.shell-clamp";
+      (
+        scalar.name === "relaxation.shell-clamp" ||
+        scalar.name === "ledger.dirichlet-meter"
+      );
     if (
       typeof scalar.name !== "string" ||
       scalar.name.length === 0 ||

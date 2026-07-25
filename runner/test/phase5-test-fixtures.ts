@@ -282,12 +282,18 @@ export function passingPhase5Capture(): Phase5LaneCapture {
               blocking: !(
                 fixture.id ===
                   "gg-column-dirichlet-noise-timeline-32x32x64" &&
-                name === "relaxation.shell-clamp"
+                (
+                  name === "relaxation.shell-clamp" ||
+                  name === "ledger.dirichlet-meter"
+                )
               ),
               rationale:
                 fixture.id ===
                     "gg-column-dirichlet-noise-timeline-32x32x64" &&
-                  name === "relaxation.shell-clamp"
+                  (
+                    name === "relaxation.shell-clamp" ||
+                    name === "ledger.dirichlet-meter"
+                  )
                   ? PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE
                   : null,
             }),

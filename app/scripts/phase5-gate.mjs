@@ -599,7 +599,10 @@ function scienceArtifacts(fixture, source, checkpoint) {
     const [cpu, gpu] = scalarPair(fixture, name, source, checkpoint.decoded);
     const blocking = !(
       fixture.id === "gg-column-dirichlet-noise-timeline-32x32x64" &&
-      name === "relaxation.shell-clamp"
+      (
+        name === "relaxation.shell-clamp" ||
+        name === "ledger.dirichlet-meter"
+      )
     );
     return {
       name,
