@@ -905,32 +905,58 @@ immutable.
 WP4 implementation `2788cc060116ce8021911248771aa3c148b8fe63` and documentation closure
 `e91dd1dd3f9603c029276b194bb6d535a374b989` have zero-finding independent review. Its canonical
 D3D12 artifact is `out/wp4-canonical-2788cc0.json`, SHA-256
-`541c73d60894cd217514652c4d55738a4e802fc5d745d9e6a4ec7f752bf8d20e`.
+`541c73d6f940e4f5676f3f38a469a0cf3b92e0067a3e60b8c6ed29c463a35d00`.
 
-WP5 now implements the flagless `gate5-lane` publisher and `gate5` aggregate verifier, exact
-16-criterion negative-control ownership, strict canonical artifact graphs, authenticated GG v1
-and LK v2 checkpoint conversion, complete scientific comparison inventories, per-readback
-purpose/byte audits, exact runtime/adapter/requested-limit provenance, source/capture identity
-checks, bounded production probes, and recoverable report-before-index aggregate publication.
-The final browser command orchestrates the production WP1 transport/layout/allocation, WP2
-diffusion, WP3 G-G, WP4 LK, and exact-preview performance paths; it does not depend on a missing
-app global. The first independent review found eight blockers and four should-fixes across those
-areas; all are repaired in the current candidate, but same-reviewer re-review and clean hardware
-execution remain outstanding. Exact root `npm test` is green: Rule 7 clean over 211 files, both
-TypeScript projects pass, and 56 files / 918 tests pass in 413.96 seconds. The app production
-build transforms 33 modules and exits 0.
+WP5 candidate `eb5c5fbd6dff7025bf59e562d9925a45b19b5051` completed both registered hardware
+commands on the Windows RTX 3080 / observed D3D12 lane: `node runner/src/main.ts gate5-lane`
+published 155 source files, and `node runner/src/main.ts gate5` reported 16/16 criteria. The
+candidate report records zero device loss/errors/retries, 70 measured submissions, 60 edit
+acknowledgements and first-frame samples, 1,518 audited readbacks totaling 150,348,576 bytes,
+and zero full-field display-frame readbacks. These artifacts are preserved as **rejected,
+provisional evidence**, not an accepted or canonical claim. Their hashes are: lane artifact
+index `3f7921aef61944492a41a00d14c3e01efbf0fc9c4e4c0c25e52016c2f9205d5b`,
+lane manifest `fb216d8cb4abdba76b1fc0421f9400cd89cb013968cbd06fb7a00590e0b6ca25`,
+lane report `7dab57a2597799485777ccccc0bbbfa90f1c91d8e874ce5edf24ed423fdab191`,
+aggregate report `2d0ce1bf74565232749b2c5ecc8730a39502d28a52ec5c8e0a333c62277aa2ac`, and
+aggregate artifact index `3a4b8a38eded44f1431571895910161d79e7b87200394d21a8923e4491ff5954`.
+Post-repair focused verification passed 59 tests, Rule 7, and both TypeScript projects. The last
+full root result remains the earlier 56 files / 918 tests and must not be presented as verification
+of the final candidate.
 
-**Next action:** on the committed WP5 candidate in the isolated clone at
-`G:/Code Files/snowflake/out/worktrees/phase5-wp1/`, run `node runner/src/main.ts gate5-lane`
-and then `node runner/src/main.ts gate5` on the registered
-Windows/Chromium/D3D12 host, repair any measured failure without changing the frozen protocol,
-and obtain same-reviewer zero blockers / zero should-fixes before checking WP5 or starting WP6.
-The real parent checkout remains `G:/Code Files/snowflake`; after a clean WP5 boundary, retry an
-exact fast-forward from the nested clone. The parent `.git/FETCH_HEAD` is currently denied by
-the execution sandbox, not locked or diverged, and its existing dirty WP1 files must not be
-overwritten. Metal is deferred to a separately frozen later-machine extension; never relabel
-Windows evidence as Metal or claim general WebGPU portability. Preserve accepted evidence under
-`out/phase2b/`, `out/phase4/`, and `out/phase4-visual/`.
+Independent review rejected exact clean commit `eb5c5fb` with five blockers and two should-fixes:
+(1) science comparisons contain self-attested duplicate witnesses and blocking `null`/`null`
+scalars instead of independent CPU/GPU measurements; (2) the G-G exception retains only the last
+clamp comparison rather than the required complete 128-cycle signed chronology and independently
+reconstructed corrected-mass safeguards; (3) the performance probe times direct environment
+application, a solver step, and a tiny report read rather than registered UI edits and rendered
+frames, and replaces observed error/loss state with zeroes; (4) ten of sixteen negative controls
+do not execute their named mutation and hardcode criterion ownership, while aggregate replay uses
+substitute summary-field mutations; and (5) source authentication permits a change-and-restore
+race during live Vite execution instead of executing an immutable source snapshot. The two
+should-fixes are to preserve both observed GG and LK per-buffer allocation graphs and to close the
+identity-check-to-recursive-delete capture-cleanup race. WP5 remains open; WP6 and WP7 must not
+start.
+
+**Next action:** open `app/scripts/phase5-gate.mjs`, `app/scripts/phase5-performance.mjs`,
+`runner/src/gate5-evidence.ts`, `runner/src/gate5-protocol.ts`, `runner/src/gate5-lane.ts`, and
+decision 0019. Replace every fallback science witness with preserved raw measurements and
+independent reconstruction; reject blocking `null`/`null` scalars; persist and validate all 128
+G-G clamp/meter cycles and their corrected-mass path; measure actual UI edit acknowledgement and
+rendered-first-frame latency while preserving observed runtime errors/loss; execute all sixteen
+named mutations at their registered boundary and observe the owning criterion fail; and run the
+lane from an immutable source snapshot. Land the two should-fixes in the same repair, rerun focused
+and exact root verification, produce a fresh clean `gate5-lane` / `gate5` bundle bound to the new
+commit, and return it to the same reviewer until zero blockers and zero should-fixes. Do not begin
+WP6 before that closure.
+
+The real parent checkout remains `G:/Code Files/snowflake`. At this stopping boundary it is clean
+on `main` at WP4 closure `e91dd1dd3f9603c029276b194bb6d535a374b989`; an exact fast-forward
+retry from the nested clone failed only with `cannot open '.git/FETCH_HEAD': Permission denied`.
+No parent files changed. Retry that fast-forward from an execution context allowed to write the
+parent `.git` directory; do not overwrite any later user changes. Metal is deferred to a
+separately frozen later-machine extension; never relabel Windows evidence as Metal or claim
+general WebGPU portability. Preserve accepted evidence under `out/phase2b/`, `out/phase4/`, and
+`out/phase4-visual/`.
 
 **Phase 3 is COMPLETE — maker-asserted 2026-07-23 (ADRs 0007/0008), orchestrated per
 [phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md)** — all work packages

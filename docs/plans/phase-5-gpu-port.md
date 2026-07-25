@@ -1282,6 +1282,16 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
       strict manifest/report/index publication, complete exit semantics, and every adversarial
       bypass test. Re-run permanent Phase 2a, Phase 2b, gate3, and gate4 regression controls where
       the frozen WP0 protocol requires them; do not rewrite accepted artifacts.
+      Candidate `eb5c5fbd6dff7025bf59e562d9925a45b19b5051` passed the registered Windows D3D12
+      `gate5-lane` and `gate5` commands, but the resulting bundle is rejected provisional evidence.
+      Independent review found five blockers: self-attested/null science comparisons; missing full
+      G-G clamp/meter chronology and independent corrected-mass safeguards; a performance probe
+      that does not measure registered UI edits or rendered frames and discards runtime error/loss
+      state; ten unexecuted named negative controls plus substitute aggregate mutations; and
+      change-and-restore-vulnerable source authentication. It also requested preserving both
+      operators' observed allocation graphs and closing the capture-cleanup replacement race.
+      Repair these findings, rerun all verification and hardware evidence at the new exact clean
+      commit, and obtain same-reviewer zero blockers / zero should-fixes before checking WP5.
 - [ ] **WP6 — app integration.** Move live simulation to the GPU package, wire GPU-resident
       overlays/slices and resolution budgets, preserve view-only evidence inspection, and prove
       the CPU worker remains an available oracle/debug path. Do not perform Phase 7 visual polish.
