@@ -724,8 +724,7 @@ in charter §3.1 and get no retroactive ADR.
 
 - [phase-5-gpu-port.md](plans/phase-5-gpu-port.md) — two-lane WP0 remains superseded history;
   decision 0018 narrows the active lane to Windows. Accepted decision 0021 and protocol v5 are
-  the current WP4 contract; the reviewed implementation repair is ready for its clean canonical
-  run.
+  the current contract. WP4 is independently closed; WP5 is active.
   WP1 is independently closed. WP2 is independently closed at reviewed implementation
   `9f7a7b476a17e9f47849cc323d49e928fc177b65`: focused tests pass 21/21, exact root
   verification passes 47 files / 833 tests, the 33-module app build passes, and the canonical
@@ -743,16 +742,16 @@ in charter §3.1 and get no retroactive ADR.
   `87150eb` received same-reviewer round-3 acceptance with zero blockers and zero should-fixes,
   but production execution then exposed the persistent-f32 cold orbit. Protocol v5 repairs only
   that representability seam. Same-reviewer acceptance of exact repair `79ec322` returned zero
-  blockers and zero should-fixes. The reviewed WP4 repair passes provisional v19 on the registered
-  RTX 3080 / D3D12 lane: 3/3 blocking fixtures, 3/3 stress diagnostics, exact 48/48 production and
-  classifier controls, 133 bounded submissions (21 ms maximum / 20.5 ms p99), 481 audited
-  readbacks with zero full-field display reads, and zero GPU errors/loss. Focused GPU tests pass
-  56/56, both TypeScript projects and the 33-module app build pass, and exact root `npm test`
-  passes 53 files / 863 tests in 437.48 seconds. Independent implementation/evidence re-review
-  reports zero blockers and zero should-fixes. The only v19 failure is the deliberate dirty-tree
-  predicate. Commit this exact repair, rerun the required checks from that commit, and mint the
-  clean canonical D3D12 artifact before closing WP4. WP1–WP3 canonical probes must replay before
-  final publication.
+  blockers and zero should-fixes. WP4 exact implementation
+  `2788cc060116ce8021911248771aa3c148b8fe63` passes post-commit root `npm test`
+  (53 files / 863 tests in 436.80 seconds). Clean canonical artifact
+  `out/wp4-canonical-2788cc0.json` has SHA-256
+  `541c73d6f940e4f5676f3f38a469a0cf3b92e0067a3e60b8c6ed29c463a35d00`,
+  strict UTF-8/no-BOM bytes, internal `pass: true`, 3/3 blocking fixtures, 3/3 stress
+  diagnostics, exact 48/48 controls, 133 bounded submissions (22.2 ms maximum / 20.4 ms p99),
+  481 audited readbacks with zero full-field display reads, and zero GPU errors/loss. Final
+  same-reviewer closure on the exact commit/artifact reports zero blockers and zero should-fixes.
+  WP4 is closed. WP1–WP4 canonical probes must replay before final publication.
 
 ## Completed plans
 
@@ -944,22 +943,15 @@ by seven matches an independent `Math.fround` replay exactly, so this is not a r
 composition defect. Same-reviewer diagnosis independently reproduced it and returned one
 blocker, zero should-fixes.
 
-**Next action:** commit the zero-finding WP4 implementation repair for accepted decision
-[0021](decisions/0021-bound-phase5-float32-two-cycles.md) and exact protocol v5 in
-[phase-5-gpu-port.md](plans/phase-5-gpu-port.md). Accepted protocol/tolerance SHA-256 values are
-`bdc61bfe5cb48e9e29f5b79337036d7b23ec11e1677f1657595d00f5e7de91ec` and
-`d38ec0f7a0096dc297d651cd1b89fb80275edb4098c16545c44274e585c2a09b`; the fixture SHA remains
-`29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`. V5 keeps the normal
-fixed-point branch and configured tolerances, and allows only an explicitly reported exact
-period-two orbit with maximum one ordered-f32 ULP, both phases' unchanged divergence/drift
-guards, reset history, and adversarial near-miss failures. Design review closed with zero
-findings at `79ec322`; implementation/evidence re-review now also reports zero blockers and zero
-should-fixes. Provisional v19 and exact root verification pass every substantive predicate.
-Commit the reviewed state, rerun exact root `npm test` from that commit, and run
-`node app/scripts/phase5-wp4.mjs` from a clean tree. Preserve the resulting UTF-8/no-BOM JSON
-under `out/`, record its SHA-256 and exact commit, then check WP4 and begin WP5 only after those
-clean results. WP1–WP3 canonical probes
-must replay under exact v5 identity before WP7 publication. Metal is deferred to a separately frozen
+**Next action:** implement WP5's reviewed evidence boundary in
+[phase-5-gpu-port.md](plans/phase-5-gpu-port.md). Add the flagless
+`node runner/src/main.ts gate5-lane` Windows/D3D12 publisher and flagless
+`node runner/src/main.ts gate5` aggregate verifier, using the hardened Phase 4
+canonical-JSON/SHA-256/atomic-publication machinery. Publish exactly the frozen
+`out/phase5/windows-d3d12/` graph, re-open every byte, re-derive all 16 `P5-*` criteria, and
+make every registered Phase 5 mutation trip only its named owner. Do not claim WP5 from the WP4
+probe or relax the frozen hashes/tolerances. Obtain zero-finding review before WP6. WP1–WP4
+canonical probes must replay under exact v5 identity before WP7 publication. Metal is deferred to a separately frozen
 later-machine extension; never relabel Windows evidence as Metal or claim general WebGPU
 portability. Preserve accepted evidence under `out/phase2b/`, `out/phase4/`, and
 `out/phase4-visual/`.

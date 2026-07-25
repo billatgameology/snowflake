@@ -1212,7 +1212,7 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
       errors/loss. Same-reviewer round 2 reports zero blockers and accepts all code/evidence; its
       sole should-fix was this stale post-run handoff. Docs closure
       `39d8b435ef638608b98480cb7f052adb845e9ad1` received zero-finding re-review; WP3 is closed.
-- [ ] **WP4 — `LibbrechtKinetics`.** Port the coupled aggregate-v5 relaxation/interface operator,
+- [x] **WP4 — `LibbrechtKinetics`.** Port the coupled aggregate-v5 relaxation/interface operator,
       including dual Dirichlet convergence, reflecting diagnostics, signed smoother drift,
       boundary-pixel fill, CFL, ledgers, schedules, and checkpoint conversion. Design commit
       `5ca5c36` received seven blockers and three should-fixes before production WGSL: unproven
@@ -1270,6 +1270,14 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
       re-review reports zero blockers and zero should-fixes. The sole provisional failure is the
       intentional dirty-tree predicate; commit this exact state and run the clean canonical
       D3D12 probe before checking WP4.
+      Exact implementation `2788cc060116ce8021911248771aa3c148b8fe63` passes post-commit
+      root `npm test` (53 files / 863 tests in 436.80 seconds). Its clean canonical artifact is
+      `out/wp4-canonical-2788cc0.json`, SHA-256
+      `541c73d6f940e4f5676f3f38a469a0cf3b92e0067a3e60b8c6ed29c463a35d00`:
+      strict UTF-8 without BOM, internal `pass: true`, 3/3 fixtures, 3/3 stresses, exact 48/48
+      controls, 133 bounded submissions (22.2 ms maximum / 20.4 ms p99), 481 audited readbacks
+      with zero full-field display reads, and zero GPU errors/loss. Final same-reviewer closure
+      on that exact commit/artifact reports zero blockers and zero should-fixes. WP4 is closed.
 - [ ] **WP5 — headless runner and evidence boundary.** Land the selected runtime, flagless gate,
       strict manifest/report/index publication, complete exit semantics, and every adversarial
       bypass test. Re-run permanent Phase 2a, Phase 2b, gate3, and gate4 regression controls where
