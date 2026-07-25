@@ -999,16 +999,51 @@ evidence: no `gate5-lane` or `gate5` bundle was produced, and none should be unt
 (3), (4), (5) are closed, because the reviewer requires one exact clean commit whose bundle has
 zero blockers.
 
-**Next action:** continue the remaining reviewer repairs from the same active plan:
+**All five blockers and both should-fixes are repaired, and a full v6 bundle exists
+(2026-07-25).** Exact clean commit `947f22f5c90b52bbf390c93f6872c974b67f298e`. Both registered
+hardware commands succeeded on the RTX 3080 / observed `D3D12` lane: `node runner/src/main.ts
+gate5-lane` exited 0 publishing `out/phase5/windows-d3d12` over 158 authenticated source files,
+and `node runner/src/main.ts gate5` exited 0 with 16/16 criteria. Protocol is
+`phase5-gpu-conformance-windows-v6`, SHA-256
+`5ef6d11bab19e722379b3ba0c6a39bddc619cb22e21ed672478f0530a19ad115`. Artifact hashes:
+`gate5-report.json` `6bf151f630ddf60b551673b86be47e35298f313359cd971d4b37959d1eb507aa`,
+`gate5-artifact-index.json` `15c781426efdd9bc4e064fb8c29d633a72e3b79881441177b1be784bf48cba1c`,
+`lane-manifest.json` `b7e346563b125bd58fdee0131a57385fd0f30e84cd1132c2dbac743f8eb9cdde`,
+`lane-report.json` `2abad182e5769563b5baadb865857e99bf046b7fadf144316c1c33b1378ca8ba`,
+`artifact-index.json` `5993d69455bb9aa82e29be0c06ae0d0ca9e8b1da471d0a516d92ea50052891f0`.
 
-- replace every fallback/duplicated science witness and reject blocking `null`/`null`;
-- rebuild `phase5-performance.mjs` around 70 trusted DOM edits and same-device WebGPU canvas
-  frames, with unique edit generations, a completed-cycle-boundary step, changed slice, compact
-  frame-scoped probe, queue completion plus presentation receipt, and preserved error/loss data;
-- execute all sixteen negative controls at their named boundary and derive ownership from the
-  observed evaluator failure instead of producer booleans or summary-field substitutes;
-- execute Vite from a detached commit-bound source snapshot, quarantine before recursive
-  cleanup, and preserve both GG and LK observed per-buffer allocation graphs.
+An independent audit of the published artifacts — not of the gate's own verdict — reports **zero
+self-attested comparisons** across all ten fixtures, against 15 in the previous bundle: 242
+comparisons carry two separately computed operands. The 10 remaining `null`/`null` scalars are
+exactly the frozen non-applicability roster, each declaring `applicability: "not-applicable"`
+with a registered reason; **zero** are unregistered and none declares itself measured while
+carrying a null. All 16 negative controls were rejected with their registered owner in the
+observed failing set. `NC-TOLERANCE-BYPASS` observes
+`[P5-LAYOUT-INDEXING, P5-NEGATIVE-CONTROLS]`, the two-criterion outcome ADR 0022 predicted and
+the old sole-criterion rule made impossible to report honestly. The bundle records 1,730 audited
+readbacks totalling 185,578,140 bytes with **zero** full-field display-frame reads, and zero
+device losses, uncaptured errors and hidden retries, each standing beside the observation list
+that produced it. Preview performance measured 15.7 ms edit acknowledgement against 100,
+132.1 ms first valid post-edit frame against 2,000, 36.4 and 15.1 ms p99 submission segments
+against 250, and a 43.4 ms maximum against 500, over 70 opened display frames.
+
+Supporting verification at the same commit: exact root `npm test` passes 58 files / 1,008 tests
+in 411.05 seconds, including Rule 7 (clean, 215 files) and both TypeScript projects, and
+`npm run build --workspace app` builds 33 modules.
+
+**Next action:** this bundle has not been reviewed. Return it to the same independent reviewer
+and repair whatever comes back. Three known code-quality items are open and must be disclosed
+rather than left for the reviewer to find:
+
+- `runner/src/gate5-negative-controls.ts` restates comparison-failure and artifact-descriptor
+  logic that is private to `gate5-evidence.ts`; export those helpers and delete the duplicate.
+- that re-derivation computes `symmetryMismatchCount` and `domainContact` from the corresponding
+  invariant operands, while `validateFixturePayloadGraph` still trusts both as declared raw
+  fields. Production should derive them the same way.
+- WP3 and WP4 still publish no observed re-acquisition count, so `hiddenRetryCount` is summed
+  only over WP1, WP2 and the performance probe.
+
+Do not start WP6 until the reviewer returns zero blockers and zero should-fixes.
 
 Then run focused tests, Rule 7, both typechecks, the app build, and exact root `npm test`; commit
 locally so the tree is tracked-clean; produce fresh `gate5-lane` / `gate5` D3D12 evidence — which
