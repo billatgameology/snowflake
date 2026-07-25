@@ -8,6 +8,7 @@
 // verdicts and checkpoint authentication to the runner.
 
 import { execFileSync, spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import {
   existsSync,
   lstatSync,
@@ -54,6 +55,7 @@ import {
   PHASE5_PROTOCOL_SHA256,
   PHASE5_REQUIRED_FEATURES,
   PHASE5_REQUIRED_LIMITS,
+  PHASE5_SCALAR_TOLERANCES,
   PHASE5_TOLERANCES_SHA256,
 } from "../../runner/src/phase5-protocol.ts";
 import {
@@ -430,7 +432,88 @@ function scalarPair(fixture, name, source, decoded) {
   return [null, null];
 }
 
+function typedArrayDigest(values) {
+  return createHash("sha256")
+    .update(new Uint8Array(values.buffer, values.byteOffset, values.byteLength))
+    .digest("hex");
+}
+
+function occupancyBounds(a, dims) {
+  const { nx, ny } = dims;
+  const plane = nx * ny;
+  let iMin = null;
+  let iMax = null;
+  let jMin = null;
+  let jMax = null;
+  let kMin = null;
+  let kMax = null;
+  for (let index = 0; index < a.length; index++) {
+    if (a[index] === 0) continue;
+    const i = index % nx;
+    const j = ((index % plane) - i) / nx;
+    const k = (index - j * nx - i) / plane;
+    if (iMin === null || i < iMin) iMin = i;
+    if (iMax === null || i > iMax) iMax = i;
+    if (jMin === null || j < jMin) jMin = j;
+    if (jMax === null || j > jMax) jMax = j;
+    if (kMin === null || k < kMin) kMin = k;
+    if (kMax === null || k > kMax) kMax = k;
+  }
+  return { iMin, iMax, jMin, jMax, kMin, kMax };
+}
+
+function occupiedNeighborCounts(a, dims) {
+  const { nx, ny, nz } = dims;
+  const plane = nx * ny;
+  const counts = new Uint8Array(a.length);
+  for (let index = 0; index < a.length; index++) {
+    const i = index % nx;
+    const j = ((index % plane) - i) / nx;
+    const k = (index - j * nx - i) / plane;
+    let total = 0;
+    if (i > 0 && a[index - 1] !== 0) total++;
+    if (i + 1 < nx && a[index + 1] !== 0) total++;
+    if (j > 0 && a[index - nx] !== 0) total++;
+    if (j + 1 < ny && a[index + nx] !== 0) total++;
+    if (k > 0 && a[index - plane] !== 0) total++;
+    if (k + 1 < nz && a[index + plane] !== 0) total++;
+    counts[index] = total;
+  }
+  return counts;
+}
+
+// Per-lane values re-derived from each lane's OWN exported occupancy field. Only the field
+// payloads are lane-independent: the probe copies one header into both checkpoints, so
+// header-derived quantities (controls, domain extents, field offsets) stay out of this helper
+// until the probes publish the GPU operator's own values. `checkpoint.metadata` already anchors
+// both headers to the frozen fixture, which is a real check rather than a lane-vs-lane one.
+function checkpointDerivedPair(name, decoded) {
+  const perLane = (derive) => [derive(decoded.cpu), derive(decoded.gpu)];
+  switch (name) {
+    case "layout.active-mask":
+    case "state.active-mask":
+      return perLane((lane) => typedArrayDigest(Uint8Array.from(lane.state.a)));
+    case "state.attached-count":
+      return perLane((lane) =>
+        Array.from(lane.state.a).reduce(
+          (total, value) => total + (value === 0 ? 0 : 1),
+          0,
+        )
+      );
+    case "state.bounds":
+      return perLane((lane) => occupancyBounds(lane.state.a, lane.header.dims));
+    case "state.neighbor-counts":
+      return perLane((lane) =>
+        typedArrayDigest(occupiedNeighborCounts(lane.state.a, lane.header.dims))
+      );
+    default:
+      return undefined;
+  }
+}
+
 function exactDecisionPair(fixture, name, source, decoded) {
+  const derived = checkpointDerivedPair(name, decoded);
+  if (derived !== undefined) return derived;
   if (name === "checkpoint.metadata") {
     const cpu = safeJson(decoded.cpu.header);
     const gpu = safeJson(decoded.gpu.header);
@@ -527,6 +610,23 @@ function invariantRecord(fixture, name, source) {
       right: false,
       absoluteTolerance: 0,
       relativeTolerance: 0,
+    };
+  }
+  if (name === "mass.reflecting-or-corrected" && fixture.kind === "gg") {
+    // Each lane's own final Σ(b+d) less its own Dirichlet meter. Reflecting fixtures never
+    // meter, so the invariant reduces to each lane's own conserved total.
+    const operands = source.correctedMassOperands;
+    return {
+      name,
+      relation: "mixed-tolerance",
+      left: finiteOrNull(
+        operands.cpuFinalMass - (operands.cpuFinalMeter ?? 0),
+      ),
+      right: finiteOrNull(
+        operands.gpuFinalMass - (operands.gpuFinalMeter ?? 0),
+      ),
+      absoluteTolerance: PHASE5_SCALAR_TOLERANCES.maxAbs,
+      relativeTolerance: PHASE5_SCALAR_TOLERANCES.maxRelative,
     };
   }
   if (name === "symmetry.exact") {
