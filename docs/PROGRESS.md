@@ -1050,8 +1050,11 @@ blockers with four should-fixes; all four are repaired at this commit: PROGRESS'
 prose measurements corrected, the plan's pre-ADR-0022 sole-criterion wording replaced, the
 eight single-source blocking scalars now carry genuinely two-sided operands (GG
 `relaxation.sweeps` measured 1/1 from the oracle report and the GPU pass-counter delta; LK ULP
-scalars 0/0 from the host replay against the in-shader reductions — the two-back operand also
-previously read the wrong quantity and now reads the ADR 0021 definition), and the
+scalars from the host replay against the in-shader reductions, per fixture: warm 0/0 & 0/0,
+cold 1/1 & 0/0, reflecting 0/0 & 1/1 — the nonzero pairs are what proves these are
+measurements, correct for cold's bounded-two-cycle classification and honest under
+reflecting's fixed-point; the two-back operand also previously read the wrong quantity and
+now reads the ADR 0021 definition), and the
 negative-control replay now imports one shared comparison statement from the new leaf module
 `gate5-comparison.ts` (no runtime cycle; drift guard retained). `gate5-lane` and `gate5` both
 exited 0 at `0a611e7`, the latter 16/16; the published-artifact audit again reports zero
