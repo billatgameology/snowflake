@@ -31,8 +31,8 @@ import {
   type VerifiedPhase5LaneBundle,
 } from "./gate5-evidence.ts";
 import {
+  collectPhase5CommitSourceHashes,
   collectPhase5RepositoryIdentity,
-  collectPhase5SourceHashes,
   PHASE5_WINDOWS_LANE_DIRECTORY,
   type Phase5RepositoryIdentity,
 } from "./gate5-lane.ts";
@@ -98,7 +98,11 @@ export interface RunGate5Options {
   readonly reportPath?: string;
   readonly indexPath?: string;
   readonly collectRepositoryIdentity?: () => Phase5RepositoryIdentity;
-  readonly collectSourceHashes?: () => readonly Phase5SourceHash[];
+  /**
+   * Test-only seam. The flagless CLI always re-exports the lane's commit and hashes that
+   * snapshot, which is the same inventory the lane published.
+   */
+  readonly collectSourceHashes?: (commit: string) => readonly Phase5SourceHash[];
   /** Test-only checkpoint-size seam; the CLI never supplies it. */
   readonly laneVerificationHooks?: Phase5LaneVerificationHooks;
   /** Test-only mutation seam, called after the commit marker is renamed. */
@@ -359,7 +363,8 @@ export function verifyGate5Aggregate(
     collectPhase5RepositoryIdentity(repoRoot);
   if (!identity.clean) throw new Error("GATE5: repository is dirty");
   const sourceHashes = [
-    ...(options.collectSourceHashes?.() ?? collectPhase5SourceHashes(repoRoot)),
+    ...(options.collectSourceHashes?.(identity.commit) ??
+      collectPhase5CommitSourceHashes(repoRoot, identity.commit)),
   ];
   const lane = verifyPhase5LaneBundle(
     laneDirectory,
@@ -453,7 +458,8 @@ export function runGate5(
     collectPhase5RepositoryIdentity(repoRoot);
   if (!identity.clean) throw new Error("GATE5: repository must be clean");
   const sourceHashes = [
-    ...(options.collectSourceHashes?.() ?? collectPhase5SourceHashes(repoRoot)),
+    ...(options.collectSourceHashes?.(identity.commit) ??
+      collectPhase5CommitSourceHashes(repoRoot, identity.commit)),
   ];
   const lane = verifyPhase5LaneBundle(
     laneDirectory,
@@ -506,7 +512,8 @@ export function runGate5(
     const afterIdentity = options.collectRepositoryIdentity?.() ??
       collectPhase5RepositoryIdentity(repoRoot);
     const afterHashes = [
-      ...(options.collectSourceHashes?.() ?? collectPhase5SourceHashes(repoRoot)),
+      ...(options.collectSourceHashes?.(afterIdentity.commit) ??
+        collectPhase5CommitSourceHashes(repoRoot, afterIdentity.commit)),
     ];
     if (
       !sameIdentity(identity, afterIdentity) ||
