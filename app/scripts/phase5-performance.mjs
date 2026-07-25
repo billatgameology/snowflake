@@ -203,15 +203,17 @@ fn previewVertex(@builtin(vertex_index) index: u32) -> Varying {
     vec2<f32>(3.0, 1.0)
   );
   let corner = corners[index];
-  var varying: Varying;
-  varying.clipPosition = vec4<f32>(corner, 0.0, 1.0);
-  varying.texCoord = vec2<f32>((corner.x + 1.0) * 0.5, (1.0 - corner.y) * 0.5);
-  return varying;
+  // `varying` is a WGSL reserved keyword; the pinned Chromium compiler rejects it as an
+  // identifier, so the interpolated record is named plainly on both stages.
+  var interpolated: Varying;
+  interpolated.clipPosition = vec4<f32>(corner, 0.0, 1.0);
+  interpolated.texCoord = vec2<f32>((corner.x + 1.0) * 0.5, (1.0 - corner.y) * 0.5);
+  return interpolated;
 }
 
 @fragment
-fn previewFragment(varying: Varying) -> @location(0) vec4<f32> {
-  return textureSample(sliceTexture, sliceSampler, varying.texCoord);
+fn previewFragment(interpolated: Varying) -> @location(0) vec4<f32> {
+  return textureSample(sliceTexture, sliceSampler, interpolated.texCoord);
 }
 `;
 
