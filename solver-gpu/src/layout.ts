@@ -32,6 +32,7 @@ export const GPU_LK_CELL_BUFFERS = [
   { name: "lkFill", scalarType: "f32", bytesPerCell: 4, ownership: "lk" },
   { name: "lkSigmaA", scalarType: "f32", bytesPerCell: 4, ownership: "lk" },
   { name: "lkSigmaB", scalarType: "f32", bytesPerCell: 4, ownership: "lk" },
+  { name: "lkCycleReference", scalarType: "f32", bytesPerCell: 4, ownership: "lk" },
   {
     name: "lkBoundaryAttachmentCoefficient",
     scalarType: "f32",
@@ -53,7 +54,7 @@ export const GPU_LK_CELL_BUFFERS = [
 ] as const satisfies readonly GpuCellBufferSchema[];
 
 export const GPU_GG_BYTES_PER_CELL = 48;
-export const GPU_LK_BYTES_PER_CELL = 60;
+export const GPU_LK_BYTES_PER_CELL = 64;
 export const GPU_CELL_BYTES_CEILING = 64;
 
 export interface GpuGridLayout {

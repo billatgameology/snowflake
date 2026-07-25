@@ -116,12 +116,12 @@ describe("GPU memory and dispatch planning", () => {
     expect(gg.bytesPerCell).toBe(GPU_GG_BYTES_PER_CELL);
     expect(lk.bytesPerCell).toBe(GPU_LK_BYTES_PER_CELL);
     expect(GPU_GG_BYTES_PER_CELL).toBe(48);
-    expect(GPU_LK_BYTES_PER_CELL).toBe(60);
+    expect(GPU_LK_BYTES_PER_CELL).toBe(64);
     expect(Math.max(gg.bytesPerCell, lk.bytesPerCell)).toBeLessThanOrEqual(
       GPU_CELL_BYTES_CEILING,
     );
     expect(gg.totalCellBytes).toBe(gg.layout.cellCount * 48);
-    expect(lk.totalCellBytes).toBe(lk.layout.cellCount * 60);
+    expect(lk.totalCellBytes).toBe(lk.layout.cellCount * 64);
   });
 
   test("reports unsupported allocations instead of silently lowering a budget", () => {
@@ -135,7 +135,7 @@ describe("GPU memory and dispatch planning", () => {
     });
     expect(result.supported).toBe(false);
     expect(result.reasons.some((reason) => reason.includes("lkFill"))).toBe(true);
-    expect(result.totalCellBytes).toBe(7_987_200_000);
+    expect(result.totalCellBytes).toBe(8_519_680_000);
   });
 
   test("splits large grids into bounded, contiguous dispatch ranges", () => {

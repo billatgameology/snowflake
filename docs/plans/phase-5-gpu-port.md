@@ -1250,6 +1250,26 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
       resettable history, evolving-f32 regression, and adversarial near misses. Exact repair
       `79ec322` received same-reviewer acceptance with zero blockers and zero should-fixes; WP4
       implementation resumes under that identity.
+      The first uncommitted implementation then passed a provisional real D3D12 run and exact
+      root verification, but independent pre-commit review rejected closure with nine blockers:
+      missing exact far-field topology validation; timeline getter re-entry; attachment evidence
+      aliasing reduction scratch; non-atomic evidence reads; producer-trusting and incomplete WP0
+      comparison; vacuous production clipping/topology/noise coverage; absent registered
+      production mutations; and unenforced D3D12/runtime/artifact provenance. No canonical claim
+      or implementation commit was made. Repair every finding and obtain zero-finding re-review
+      before checking WP4 or beginning WP5.
+      The review repair now validates the exact domain/topology contract, locks every
+      caller-controlled lifecycle seam, preserves attachment and bounded-cycle report evidence,
+      reconstructs the complete registered state/ledger inventory independently, and exercises
+      every frozen production mutation. Provisional v19 passes 3/3 blocking fixtures, 3/3 stress
+      diagnostics, and the exact 48/48 control roster on the registered RTX 3080 / D3D12 lane.
+      Its 133 submissions are bounded at 21 ms maximum and 20.5 ms p99; 481 audited readbacks
+      include zero full-field display reads, and GPU errors/loss are zero. Focused GPU tests pass
+      56/56, both TypeScript projects and the 33-module app build pass, and exact root `npm test`
+      passes 53 files / 863 tests in 437.48 seconds. Independent implementation/evidence
+      re-review reports zero blockers and zero should-fixes. The sole provisional failure is the
+      intentional dirty-tree predicate; commit this exact state and run the clean canonical
+      D3D12 probe before checking WP4.
 - [ ] **WP5 — headless runner and evidence boundary.** Land the selected runtime, flagless gate,
       strict manifest/report/index publication, complete exit semantics, and every adversarial
       bypass test. Re-run permanent Phase 2a, Phase 2b, gate3, and gate4 regression controls where
