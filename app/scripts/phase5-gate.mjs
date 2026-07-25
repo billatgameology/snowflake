@@ -40,6 +40,9 @@ import {
   validatePhase5RawEvidence,
 } from "../../runner/src/gate5-protocol.ts";
 import {
+  derivePhase5NegativeControlOutcomes,
+} from "../../runner/src/gate5-negative-controls.ts";
+import {
   phase5FixtureManifest,
   phase5ProtocolManifest,
   phase5ToleranceManifest,
@@ -68,6 +71,9 @@ const SAFE_PATH = /^[a-z0-9][a-z0-9._/-]*$/;
 const PROBE_TIMEOUT_MS = 30 * 60 * 1_000;
 const GG_DIRICHLET_LEDGER_FIXTURE_ID =
   PHASE5_GG_DIRICHLET_LEDGER_WITNESS.meterReduction.fixtureId;
+// The negative-control replay reads only the evidence graph, never the capture's timestamps,
+// so the real run instants are not available or needed at this point.
+const PROVISIONAL_CAPTURE_INSTANT = "1970-01-01T00:00:00.000Z";
 
 function lexical(left, right) {
   return left < right ? -1 : left > right ? 1 : 0;
@@ -1032,6 +1038,10 @@ function stressDiagnostics(reports) {
   );
 }
 
+// Device-level witnesses. Six controls also have a real negative executed against the hardware
+// by a probe — an actual axis swap, an actual wrong clamp, an actual stale ping-pong. Those are
+// a different boundary from the evidence-graph mutations and are required IN ADDITION to them,
+// not instead. `null` means this control has no device-level witness.
 function productionNegativeRejected(control, reports) {
   switch (control.id) {
     case "NC-REQUIRED-LIMIT-DOWNGRADE":
@@ -1052,9 +1062,19 @@ function productionNegativeRejected(control, reports) {
     case "NC-FULL-FIELD-PER-FRAME":
       return reports.wp1.checks.readback.residencyNegativePassed === true;
     default:
-      // These controls attack the final evaluator/publication boundary. The runner repeats
-      // every mutation independently before accepting a fully passing candidate.
-      return true;
+      return null;
+  }
+}
+
+function assertDeviceLevelNegatives(reports) {
+  for (const control of PHASE5_NEGATIVE_CONTROLS) {
+    const observed = productionNegativeRejected(control, reports);
+    if (observed === null) continue;
+    if (observed !== true) {
+      throw new Error(
+        `${control.id} device-level negative was not rejected by its probe`,
+      );
+    }
   }
 }
 
@@ -1074,6 +1094,7 @@ function buildCapture(reports, repository) {
     throw new Error("performance probe omitted registered samples");
   }
   const observedRuntime = totalObservedRuntimeCounts(reports);
+  assertDeviceLevelNegatives(reports);
   const fixtureMeasurements = [];
   const artifacts = [];
   for (const fixture of PHASE5_FIXTURES) {
@@ -1098,13 +1119,15 @@ function buildCapture(reports, repository) {
         : fixture.id === "gg-column-dirichlet-noise-timeline-32x32x64"
           ? interactions.filter((entry) => entry.budgetId === "preview-column")
           : [];
+    // Provisional only. Every control is executed against this candidate's own finished
+    // evidence below, and these placeholders are replaced by the observed outcomes.
     const negativeControls =
       fixture.kind === "layout"
         ? PHASE5_NEGATIVE_CONTROLS.map((control) => ({
             id: control.id,
             owner: control.owner,
             mutation: control.mutation,
-            rejected: productionNegativeRejected(control, reports),
+            rejected: true,
             failedCriteria: [control.owner],
           }))
         : [];
@@ -1183,7 +1206,7 @@ function buildCapture(reports, repository) {
     });
   }
   const adapterInfo = reports.wp1.adapter;
-  const raw = validatePhase5RawEvidence({
+  const rawInput = {
     schema: PHASE5_RAW_EVIDENCE_SCHEMA,
     repository,
     host: hostFacts(),
@@ -1242,6 +1265,36 @@ function buildCapture(reports, repository) {
     toleranceBypassCount: 0,
     negativeControls: artifacts[0].events.negativeControls,
     publicationVerified: false,
+  };
+
+  // Execute every registered negative control against this candidate's OWN finished evidence.
+  // Each mutation corrupts the payload at the boundary its registered text names, the mutated
+  // evidence goes through the production evaluator, and `failedCriteria` is the set that
+  // actually failed. Nothing here consults the registered owner while deciding that set, and
+  // no control reports a rejection it did not observe.
+  const captureFixtures = artifacts.map((entry) => ({
+    id: entry.fixture.id,
+    config: { schema: "phase5-fixture-config-v1", fixture: entry.fixture },
+    cpuReferenceCheckpoint: entry.checkpoint.cpuBytes,
+    gpuExportCheckpoint: entry.checkpoint.gpuBytes,
+    comparison: entry.comparison,
+    events: entry.events,
+    timing: entry.timing,
+    readback: entry.readback,
+  }));
+  const observedControls = derivePhase5NegativeControlOutcomes({
+    startedAtUtc: PROVISIONAL_CAPTURE_INSTANT,
+    completedAtUtc: PROVISIONAL_CAPTURE_INSTANT,
+    raw: validatePhase5RawEvidence(rawInput),
+    fixtures: captureFixtures,
+    stdout: new Uint8Array(),
+    stderr: new Uint8Array(),
+    exitStatus: 0,
+  });
+  artifacts[0].events.negativeControls = observedControls;
+  const raw = validatePhase5RawEvidence({
+    ...rawInput,
+    negativeControls: observedControls,
   });
   return { raw, artifacts };
 }
