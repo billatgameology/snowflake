@@ -1000,8 +1000,9 @@ evidence: no `gate5-lane` or `gate5` bundle was produced, and none should be unt
 zero blockers.
 
 **All five blockers and both should-fixes are repaired, and a full v6 bundle exists
-(2026-07-25).** Exact clean commit `42c7f3c5510e7151c0b4c9f31332015ca2a3bf02`, which supersedes
-the earlier `947f22f` bundle: a self-audit found that bundle's closure claim for blocker (4)
+(2026-07-25).** Exact clean commit `2e746f5786dfda7809799b10349a63448c9c7309` (WP3/WP4 now also
+measure re-acquisition, so all five probes observe retry counts), superseding `42c7f3c` and
+the earlier `947f22f`: a self-audit found that bundle's closure claim for blocker (4)
 incomplete — the evaluator's internal replay still used the substitute summary-field mutations
 the reviewer rejected, and no verifier re-derived the producer's control roster, so a fabricated
 `failedCriteria` would have published. That replay is now deleted, and the runner re-executes
@@ -1009,16 +1010,16 @@ all sixteen registered mutations against the published payloads at both publicat
 reopening (`assertObservedNegativeControls`), refusing any roster differing from its own
 observations. `symmetryChecked`, `symmetryMismatchCount` and `domainContact` are likewise now
 derived from the frozen fixture and the invariant operands instead of trusted as declared.
-Both registered hardware commands succeeded at `42c7f3c` on the RTX 3080 / observed `D3D12`
+Both registered hardware commands succeeded at `2e746f5` on the RTX 3080 / observed `D3D12`
 lane: `node runner/src/main.ts gate5-lane` exited 0 publishing `out/phase5/windows-d3d12` over
 158 authenticated source files, and `node runner/src/main.ts gate5` exited 0 with 16/16
 criteria. Protocol is `phase5-gpu-conformance-windows-v6`, SHA-256
 `5ef6d11bab19e722379b3ba0c6a39bddc619cb22e21ed672478f0530a19ad115`. Artifact hashes:
-`gate5-report.json` `d7b806339501b9e7d36336f8072166b5c2d9a150c52fa7184e7d292704d3f89a`,
-`gate5-artifact-index.json` `e6506dcdc5a66134d37e2b0541c7063b80d7523776966f5d2798fac2042193af`,
-`lane-manifest.json` `648a394918bc6209792f505734d255acf4dfe68780f9fca267726f18375808c3`,
-`lane-report.json` `8f6bdd472bf66bacb29b8961945f9ba0b99d35676e172c2291586d874b9372e1`,
-`artifact-index.json` `234068db167baf3e1f6864af21b4cc55ebc8b1c9adccf98ed60f167499e50567`.
+`gate5-report.json` `ce500f96f85530cb5d1d776f6e1230afa36ed356f88504680694d3e9377e10bd`,
+`gate5-artifact-index.json` `3e77dbc8e5378753d11bff72d5b554cfed7c230615618f75bcfc7b0673db98cf`,
+`lane-manifest.json` `441ae0c09cf2077dad4dbdc7c8227ca4f141bcb7454a064026ff446a67185a44`,
+`lane-report.json` `a9b9f538c02143cfc9ea71ecc3fed8ba54e8c8cbe7616adf635fa94620e36c0d`,
+`artifact-index.json` `9817ec77c0f28f8726e8b912f5bbdfdb58b6e710864a205c603d17c8735f84ba`.
 Root `npm test` at this commit passes 58 files / 1,011 tests in 471.20 seconds.
 
 An independent audit of the published artifacts — not of the gate's own verdict — reports **zero
@@ -1048,9 +1049,6 @@ rather than left for the reviewer to find:
   logic that is private to `gate5-evidence.ts`. The drift guard is that its raw re-derivation
   must canonically equal the accepted capture's raw before any control runs, but the duplication
   should still be removed by exporting the helpers.
-- WP3 and WP4 still publish no observed re-acquisition count, so `hiddenRetryCount` is summed
-  only over WP1, WP2 and the performance probe; those two are carried as unmeasured rather than
-  as zeros nothing observed.
 
 Do not start WP6 until the reviewer returns zero blockers and zero should-fixes.
 
