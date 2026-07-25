@@ -1147,6 +1147,82 @@ WP4 closes only when focused tests, both TypeScript projects, the app build, exa
 errors/loss and bounded submissions; the implementation/evidence commit is then independently
 reviewed to zero blockers and zero should-fixes. WP5 may begin only after that exact closure.
 
+## WP6 app integration design (frozen 2026-07-25, before implementation)
+
+**Scope sentence (verbatim from the checklist):** move live simulation to the GPU package, wire
+GPU-resident overlays/slices and resolution budgets, preserve view-only evidence inspection,
+and prove the CPU worker remains an available oracle/debug path. No Phase 7 visual polish.
+
+**Frozen decisions.**
+
+- **D1 — Engine seam, not a worker rewrite.** An `Engine` abstraction carries the worker's
+  exact message semantics (`ready`/`snapshot`/`fault`, `init`/`run`/`pause`/`step`/`reset`).
+  `WorkerEngine` wraps the existing `worker.ts` unmodified; `GpuEngine` orchestrates
+  `GpuGgSolver` on the main thread — the GPU does the work, JS only encodes bounded
+  submissions. This deliberately supersedes the Phase 3 trap note "the solver runs ONLY in the
+  worker", which governed the CPU reference solver; that solver stays in its worker.
+- **D2 — One device, two canvases.** The app acquires the device via `requestCheckedGpuDevice`
+  (frozen features/limits) and passes it to Three.js through the first-class `device`
+  constructor parameter (three 0.185 `WebGPUBackend` accepts it; no interception needed).
+  GPU-mode diagnostics render on a second full-size `pointer-events: none` WebGPU canvas
+  appended AFTER Three's canvas inside `#scene`, so the frozen probes' `#scene canvas`
+  first-match selector still resolves to Three's pointer/orbit surface.
+- **D3 — Two submission controllers**, as the accepted performance probe proved: a solver
+  controller at the arena generation (bumped per init/reset; `GpuGgSolver.assertUsable`
+  requires it) and an edit controller advanced per registered UI edit.
+- **D4 — Engine default.** GPU engine at dev budget when the checked device request succeeds;
+  automatic honestly-labeled fallback to the CPU worker otherwise (`?webgl2=1`, missing
+  WebGPU, failed limit request). Legacy harnesses pin `?engine=cpu` so Phase 3/4 capture
+  regressions stay byte-comparable. `__vccDebug` fields are engine-neutral.
+- **D5 — Instrument WGSL lives in `app/src/`; zero changes to `solver-gpu/`.** Surface
+  extraction, overlay coloring, slice painting, shell-mean reduction and attach-tick
+  maintenance are display/instrument passes over solver buffers via exported ABI constants,
+  with unit tests pinning the app's copies against the `solver-gpu` exports. Any accessor gap
+  becomes a minimal accessor-only change with its own focused review.
+- **D6 — GPU-mode status honesty.** GPU snapshots carry counters and compact probes only
+  (tick, attachedCount, boundarySize, instrument far-field mean, host bbox/contact, active
+  environment, stop reason, provenance line). Full-field-only metrics display "not computed in
+  GPU mode (full-field metric)" — never fake values. Environment edits route to
+  `applyTimelineEnvironment` at completed boundaries (decision 0011); CPU mode keeps its
+  apply-via-reset semantics.
+
+**Slices, in dependency order.** S0 this design (docs only). S1 engine seam refactor,
+behavior-preserving, CPU-only (`engine.ts` new; `main.ts`, `protocol.ts` split into an
+operator-tagged snapshot union; `worker.ts` untouched). S2 production device acquisition and
+shared-device boot with honest fallback (`gpudevice.ts` new; `render.ts`; app gains
+`@vcc/solver-gpu` dependency). S3 `GpuEngine` with budget wiring (`gpuengine.ts`,
+`gpu-instrument.ts` new): transient CPU `GGSolver` as the initial-state factory,
+`createGpuBufferPlan`/`GpuBufferArena` with fail-closed budget reporting that names the
+violated limit and estimated bytes, production `GpuReadbackAudit` on every readback, async
+pump decoupled from rAF, stop rules from an instrument shell-mean reduction plus host bbox
+from compact attachment reads, engine/budget selectors as NEW pane rows (no frozen control
+label changes). S4 GPU-resident overlays/slice/crystal view (`gpuview.ts` new): surface
+extraction per completed step, overlay parity with `overlays.ts` semantics through a viridis
+ramp matching `colormap.ts`, instanced hex prisms sharing the OrbitControls camera, the
+productionized slice pass; picking floor is named-probe `pickCell` readout, raycast picking
+deferred explicitly if time-boxed out. S5 the differential probe `phase5-wp6.mjs`: engine
+switching both ways through real UI events, the frozen `gg-plate-reflecting-48x48x24` fixture
+run on BOTH engines for its registered 256 cycles with occupancy/attachment compared exactly
+and `b`/`d` under frozen field tolerances, inspection regression in both modes, fallback
+proof. S6 harness reconciliation: `phase5-performance.mjs` drives the app's OWN GPU engine
+(registered editScript/thresholds/criteria byte-identical; `PHASE5_PROTOCOL_SHA256`
+untouched), `visual.mjs`/`phase4-verify` pinned to `?engine=cpu`, Phase 3/4 capture
+regressions rerun, preview-budget performance measured on the real app path. S7 close-out:
+Steps entry with every metric, PROGRESS update superseding the Phase 3 trap note, exact root
+`npm test`, app build, tracked-clean commit, independent review to zero blockers and zero
+should-fixes.
+
+**Riskiest slice: S4.** The probe proved shared-device compositing and the slice quad, not
+surface extraction, WGSL overlay parity, or instanced 3D drawing with a synchronized camera.
+An early preview-scale timing spike is the go/no-go: if extraction/overlay passes push a
+submission segment past the frozen 500 ms / p99 250 ms bounds, the fallback is lower
+step-batching per frame — never relaxed bounds, which would require an ADR.
+
+**Deliberately not done in WP6:** live LK stepping (inspect-only preserved); app-side GPU
+checkpoint export; mouse-raycast GPU picking if time-boxed out; any change to
+`PHASE5_PROTOCOL_SHA256`, tolerances, fixtures, thresholds; any edit to `out/phase5/`
+canonical evidence; Metal or general-WebGPU claims; Phase 7 presentation work.
+
 ## Steps
 
 - [x] Record decision 0016, synchronize charter v1.14, and create this cold-start handoff.
