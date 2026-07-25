@@ -30,6 +30,7 @@ import {
 import {
   derivePhase5CheckpointVerification,
   PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE,
+  PHASE5_LK_SWEEP_DIAGNOSTIC_RATIONALE,
   PHASE5_SCIENCE_INVENTORY,
 } from "../../runner/src/gate5-evidence.ts";
 import {
@@ -597,20 +598,19 @@ function scienceArtifacts(fixture, source, checkpoint) {
   const inventory = PHASE5_SCIENCE_INVENTORY[fixture.kind];
   const scalars = inventory.scalars.map((name) => {
     const [cpu, gpu] = scalarPair(fixture, name, source, checkpoint.decoded);
-    const blocking = !(
+    const rationale =
       fixture.id === "gg-column-dirichlet-noise-timeline-32x32x64" &&
-      (
-        name === "relaxation.shell-clamp" ||
-        name === "ledger.dirichlet-meter"
-      )
-    );
+        (name === "relaxation.shell-clamp" || name === "ledger.dirichlet-meter")
+        ? PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE
+        : fixture.kind === "lk" && name === "relaxation.sweeps"
+          ? PHASE5_LK_SWEEP_DIAGNOSTIC_RATIONALE
+          : null;
     return {
       name,
       cpu,
       gpu,
-      blocking,
-      rationale:
-        blocking ? null : PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE,
+      blocking: rationale === null,
+      rationale,
     };
   });
   const decisions = inventory.decisions.map((name) => {

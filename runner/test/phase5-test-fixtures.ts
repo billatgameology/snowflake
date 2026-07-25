@@ -24,6 +24,7 @@ import {
   type Phase5FieldComparisonEvidence,
   type Phase5SourceHash,
   PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE,
+  PHASE5_LK_SWEEP_DIAGNOSTIC_RATIONALE,
   PHASE5_SCIENCE_INVENTORY,
 } from "../src/gate5-evidence.ts";
 import { sha256Bytes } from "../src/gate4-evidence.ts";
@@ -275,19 +276,8 @@ export function passingPhase5Capture(): Phase5LaneCapture {
           fixtureId: fixture.id,
           fields: testFieldEvidence(fixture),
           scalars: PHASE5_SCIENCE_INVENTORY[fixture.kind].scalars.map(
-            (name) => ({
-              name,
-              cpu: 1,
-              gpu: 1,
-              blocking: !(
-                fixture.id ===
-                  "gg-column-dirichlet-noise-timeline-32x32x64" &&
-                (
-                  name === "relaxation.shell-clamp" ||
-                  name === "ledger.dirichlet-meter"
-                )
-              ),
-              rationale:
+            (name) => {
+              const rationale =
                 fixture.id ===
                     "gg-column-dirichlet-noise-timeline-32x32x64" &&
                   (
@@ -295,8 +285,17 @@ export function passingPhase5Capture(): Phase5LaneCapture {
                     name === "ledger.dirichlet-meter"
                   )
                   ? PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE
-                  : null,
-            }),
+                  : fixture.kind === "lk" && name === "relaxation.sweeps"
+                    ? PHASE5_LK_SWEEP_DIAGNOSTIC_RATIONALE
+                    : null;
+              return {
+                name,
+                cpu: 1,
+                gpu: 1,
+                blocking: rationale === null,
+                rationale,
+              };
+            },
           ),
           decisions: PHASE5_SCIENCE_INVENTORY[fixture.kind].decisions.map(
             (name) => ({ name, cpu: { value: name }, gpu: { value: name } }),

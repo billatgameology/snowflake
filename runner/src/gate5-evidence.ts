@@ -583,6 +583,28 @@ export const PHASE5_SCIENCE_INVENTORY = {
 export const PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE =
   "required cancellation-heavy diagnostic; exact clamp-path reduction and corrected-mass ledger are blocking";
 
+export const PHASE5_LK_SWEEP_DIAGNOSTIC_RATIONALE =
+  "elliptic convergence work may differ between binary64 and binary32; each lane's convergence criteria and the independent GPU trace replay are blocking";
+
+function permittedNonblockingScalarRationale(
+  fixtureId: string,
+  name: unknown,
+): string | null {
+  if (
+    fixtureId === "gg-column-dirichlet-noise-timeline-32x32x64" &&
+    (name === "relaxation.shell-clamp" || name === "ledger.dirichlet-meter")
+  ) {
+    return PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE;
+  }
+  if (
+    fixtureId.startsWith("lk-") &&
+    name === "relaxation.sweeps"
+  ) {
+    return PHASE5_LK_SWEEP_DIAGNOSTIC_RATIONALE;
+  }
+  return null;
+}
+
 function exactInventory(
   actual: readonly string[],
   expected: readonly string[],
@@ -667,12 +689,10 @@ function scalarComparisonFailures(
       ["name", "cpu", "gpu", "blocking", "rationale"],
       `${fixtureId} scalars[${index}]`,
     );
-    const allowedNonblocking =
-      fixtureId === "gg-column-dirichlet-noise-timeline-32x32x64" &&
-      (
-        scalar.name === "relaxation.shell-clamp" ||
-        scalar.name === "ledger.dirichlet-meter"
-      );
+    const permittedRationale = permittedNonblockingScalarRationale(
+      fixtureId,
+      scalar.name,
+    );
     if (
       typeof scalar.name !== "string" ||
       scalar.name.length === 0 ||
@@ -683,8 +703,8 @@ function scalarComparisonFailures(
       (
         scalar.blocking
           ? scalar.rationale !== null
-          : !allowedNonblocking ||
-            scalar.rationale !== PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE
+          : permittedRationale === null ||
+            scalar.rationale !== permittedRationale
       )
     ) {
       throw new Error(`${fixtureId} scalars[${index}] is invalid`);

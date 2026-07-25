@@ -20,6 +20,7 @@ import {
 import {
   derivePhase5CheckpointVerification,
   PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE,
+  PHASE5_LK_SWEEP_DIAGNOSTIC_RATIONALE,
   PHASE5_LANE_INDEX_PATH,
   PHASE5_LANE_REPORT_PATH,
   publishPhase5Lane,
@@ -191,6 +192,36 @@ describe("Phase 5 lane evidence publication", () => {
         verificationHooks: TEST_PHASE5_CHECKPOINT_HOOKS,
       }),
     ).toThrow(/scalars\[0\] is invalid/);
+  });
+
+  it("rejects the LK sweep rationale on a gate-bearing scalar", () => {
+    const root = temporaryRoot();
+    const capture = passingPhase5Capture();
+    const fixture = capture.fixtures.find(
+      (entry) => entry.id === "lk-warm-dirichlet-24x24x18",
+    );
+    if (fixture === undefined) throw new Error("missing warm LK fixture");
+    const comparison = fixture.comparison as {
+      scalars: Array<{
+        name: string;
+        blocking: boolean;
+        rationale: string | null;
+      }>;
+    };
+    const residual = comparison.scalars.find(
+      (entry) => entry.name === "relaxation.residual",
+    );
+    if (residual === undefined) throw new Error("missing LK residual scalar");
+    residual.blocking = false;
+    residual.rationale = PHASE5_LK_SWEEP_DIAGNOSTIC_RATIONALE;
+    expect(() =>
+      publishPhase5Lane({
+        canonicalDirectory: join(root, "windows-d3d12"),
+        capture,
+        sourceHashes: TEST_PHASE5_SOURCE_HASHES,
+        verificationHooks: TEST_PHASE5_CHECKPOINT_HOOKS,
+      }),
+    ).toThrow(/is invalid/);
   });
 
   it("rejects uninterpreted or incomplete event records", () => {
