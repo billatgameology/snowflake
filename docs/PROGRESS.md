@@ -1043,6 +1043,26 @@ Supporting verification at the same commit: exact root `npm test` passes 58 file
 in 471.20 seconds, including Rule 7 (clean, 215 files) and both TypeScript projects, and
 `npm run build --workspace app` builds 33 modules.
 
+**Round-two candidate (2026-07-25), exact clean commit
+`0a611e797203d7eba65e79657228268df4105292`.** Independent review of the `2e746f5` bundle
+verified all five original blockers and both original should-fixes REPAIRED and returned zero
+blockers with four should-fixes; all four are repaired at this commit: PROGRESS's superseded
+prose measurements corrected, the plan's pre-ADR-0022 sole-criterion wording replaced, the
+eight single-source blocking scalars now carry genuinely two-sided operands (GG
+`relaxation.sweeps` measured 1/1 from the oracle report and the GPU pass-counter delta; LK ULP
+scalars 0/0 from the host replay against the in-shader reductions — the two-back operand also
+previously read the wrong quantity and now reads the ADR 0021 definition), and the
+negative-control replay now imports one shared comparison statement from the new leaf module
+`gate5-comparison.ts` (no runtime cycle; drift guard retained). `gate5-lane` and `gate5` both
+exited 0 at `0a611e7`, the latter 16/16; the published-artifact audit again reports zero
+self-attested comparisons (242 measured). Root `npm test` passes 58 files / 1,011 tests in
+499.72 seconds. Artifact hashes: `gate5-report.json`
+`3c213ef580ef645aadccd7c70a053455c92e4bee28bf994c89c74eeb3295fbbc`, `gate5-artifact-index.json`
+`550dff1ff672c7ced947360bb3d2379ca45c275a52cf1736dfb23dcd776d287b`, `lane-manifest.json`
+`3f196044aa6181c34c62816e50d9eb94af2b6de013817bd268a5464a6a3963da`, `lane-report.json`
+`9c4fda75f220517dad64cf71a4f735b2e123a4e1a0be9474221df2b0a3c7ac3f`, `artifact-index.json`
+`94d1f00571223249ce25d2d687ff5f06e521d61eddc207adfa100b79acee9ce8`.
+
 **Next action:** this bundle has not been reviewed. Return it to the same independent reviewer
 and repair whatever comes back. Two known code-quality items are open and must be disclosed
 rather than left for the reviewer to find:
