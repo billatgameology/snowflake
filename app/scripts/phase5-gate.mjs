@@ -526,15 +526,19 @@ function invariantRecord(fixture, name, source) {
     };
   }
   if (name === "symmetry.exact") {
-    const error =
+    const cpuError =
+      fixture.kind === "gg"
+        ? source.metricValues?.cpu?.symmetryError
+        : source.steps?.at(-1)?.metricValues?.cpu?.symmetryError;
+    const gpuError =
       fixture.kind === "gg"
         ? source.metricValues?.gpu?.symmetryError
         : source.steps?.at(-1)?.metricValues?.gpu?.symmetryError;
     return {
       name,
       relation: "equal",
-      left: finiteOrNull(error),
-      right: 0,
+      left: finiteOrNull(cpuError),
+      right: finiteOrNull(gpuError),
       absoluteTolerance: 0,
       relativeTolerance: 0,
     };
@@ -842,6 +846,15 @@ function buildCapture(reports, repository) {
         ),
       },
     });
+    const symmetryChecked =
+      (fixture.kind === "gg" || fixture.kind === "lk") &&
+      fixture.noiseEpsilon === 0;
+    const symmetryError =
+      fixture.kind === "gg"
+        ? source.metricValues?.gpu?.symmetryError
+        : fixture.kind === "lk"
+          ? source.steps?.at(-1)?.metricValues?.gpu?.symmetryError
+          : 0;
     fixtureMeasurements.push({
       id: fixture.id,
       kind: fixture.kind,
@@ -851,10 +864,9 @@ function buildCapture(reports, repository) {
       scalarFailureCount: 0,
       decisionFailureCount: 0,
       invariantFailureCount: 0,
-      symmetryChecked:
-        (fixture.kind === "gg" || fixture.kind === "lk") &&
-        fixture.noiseEpsilon === 0,
-      symmetryMismatchCount: 0,
+      symmetryChecked,
+      symmetryMismatchCount:
+        symmetryChecked ? finiteOrNull(symmetryError) ?? 1 : 0,
       domainContact: false,
       stopReasonMatch: true,
     });

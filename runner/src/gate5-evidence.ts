@@ -899,7 +899,11 @@ function validateFixturePayloadGraph(
         fieldFailures + scalarFailures + decisionFailures + invariantFailures
     ) {
       throw new Error(
-        `${frozen.id} raw failure counts differ from measured comparisons`,
+        `${frozen.id} raw failure counts differ from measured comparisons: ` +
+          `field ${measurement.fieldFailureCount}/${fieldFailures}, ` +
+          `scalar ${measurement.scalarFailureCount}/${scalarFailures}, ` +
+          `decision ${measurement.decisionFailureCount}/${decisionFailures}, ` +
+          `invariant ${measurement.invariantFailureCount}/${invariantFailures}`,
       );
     }
 
