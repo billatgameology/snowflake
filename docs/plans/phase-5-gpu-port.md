@@ -1313,17 +1313,22 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
       bound while the direct meter difference stays at ADR 0019's recorded
       `0.024480659606307853`.
       All five blockers and both should-fixes are now repaired, and a complete v6 bundle exists
-      at exact clean commit `947f22f`. `gate5-lane` and `gate5` both exited 0 on the RTX 3080 /
-      D3D12 lane, the latter 16/16, under protocol `phase5-gpu-conformance-windows-v6`
-      (`5ef6d11b…`, ADR 0022). An independent audit of the published artifacts reports zero
-      self-attested comparisons (242 measured), zero unregistered `null`/`null` scalars, all 16
-      negative controls rejected with their owner observed, 1,730 audited readbacks with zero
-      full-field display reads, and zero losses/errors/retries. Root `npm test` passes 58 files
-      / 1,008 tests. **The bundle has not been reviewed**, and three code-quality items remain
-      open: the negative-control re-derivation duplicates private `gate5-evidence.ts` logic,
-      `validateFixturePayloadGraph` still trusts `symmetryMismatchCount` and `domainContact` as
-      declared rather than deriving them, and WP3/WP4 publish no observed re-acquisition count.
-      WP5 stays unchecked until the same reviewer returns zero blockers and zero should-fixes.
+      at exact clean commit `42c7f3c` (superseding `947f22f`, whose blocker-(4) closure was
+      incomplete: the evaluator's summary-field replay survived and no verifier re-derived the
+      producer's control roster). The substitute replay is deleted; the runner now re-executes
+      all sixteen registered mutations against the published payloads on publication and
+      reopening and refuses any roster differing from its own observations, and the payload
+      validator derives `symmetryChecked`/`symmetryMismatchCount`/`domainContact` from the
+      freeze and the invariant operands instead of trusting declarations. `gate5-lane` and
+      `gate5` both exited 0 at `42c7f3c` on the RTX 3080 / D3D12 lane, the latter 16/16, under
+      protocol `phase5-gpu-conformance-windows-v6` (`5ef6d11b…`, ADR 0022). An independent audit
+      of the published artifacts reports zero self-attested comparisons (242 measured), zero
+      unregistered `null`/`null` scalars, and all 16 negative controls rejected with their owner
+      observed. Root `npm test` passes 58 files / 1,011 tests. **The bundle has not been
+      reviewed**, and two code-quality items remain open: the negative-control re-derivation
+      restates private `gate5-evidence.ts` comparison logic, and WP3/WP4 publish no observed
+      re-acquisition count. WP5 stays unchecked until the same reviewer returns zero blockers
+      and zero should-fixes.
 - [ ] **WP6 — app integration.** Move live simulation to the GPU package, wire GPU-resident
       overlays/slices and resolution budgets, preserve view-only evidence inspection, and prove
       the CPU worker remains an available oracle/debug path. Do not perform Phase 7 visual polish.

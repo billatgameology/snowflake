@@ -1000,17 +1000,26 @@ evidence: no `gate5-lane` or `gate5` bundle was produced, and none should be unt
 zero blockers.
 
 **All five blockers and both should-fixes are repaired, and a full v6 bundle exists
-(2026-07-25).** Exact clean commit `947f22f5c90b52bbf390c93f6872c974b67f298e`. Both registered
-hardware commands succeeded on the RTX 3080 / observed `D3D12` lane: `node runner/src/main.ts
-gate5-lane` exited 0 publishing `out/phase5/windows-d3d12` over 158 authenticated source files,
-and `node runner/src/main.ts gate5` exited 0 with 16/16 criteria. Protocol is
-`phase5-gpu-conformance-windows-v6`, SHA-256
+(2026-07-25).** Exact clean commit `42c7f3c5510e7151c0b4c9f31332015ca2a3bf02`, which supersedes
+the earlier `947f22f` bundle: a self-audit found that bundle's closure claim for blocker (4)
+incomplete — the evaluator's internal replay still used the substitute summary-field mutations
+the reviewer rejected, and no verifier re-derived the producer's control roster, so a fabricated
+`failedCriteria` would have published. That replay is now deleted, and the runner re-executes
+all sixteen registered mutations against the published payloads at both publication and
+reopening (`assertObservedNegativeControls`), refusing any roster differing from its own
+observations. `symmetryChecked`, `symmetryMismatchCount` and `domainContact` are likewise now
+derived from the frozen fixture and the invariant operands instead of trusted as declared.
+Both registered hardware commands succeeded at `42c7f3c` on the RTX 3080 / observed `D3D12`
+lane: `node runner/src/main.ts gate5-lane` exited 0 publishing `out/phase5/windows-d3d12` over
+158 authenticated source files, and `node runner/src/main.ts gate5` exited 0 with 16/16
+criteria. Protocol is `phase5-gpu-conformance-windows-v6`, SHA-256
 `5ef6d11bab19e722379b3ba0c6a39bddc619cb22e21ed672478f0530a19ad115`. Artifact hashes:
-`gate5-report.json` `6bf151f630ddf60b551673b86be47e35298f313359cd971d4b37959d1eb507aa`,
-`gate5-artifact-index.json` `15c781426efdd9bc4e064fb8c29d633a72e3b79881441177b1be784bf48cba1c`,
-`lane-manifest.json` `b7e346563b125bd58fdee0131a57385fd0f30e84cd1132c2dbac743f8eb9cdde`,
-`lane-report.json` `2abad182e5769563b5baadb865857e99bf046b7fadf144316c1c33b1378ca8ba`,
-`artifact-index.json` `5993d69455bb9aa82e29be0c06ae0d0ca9e8b1da471d0a516d92ea50052891f0`.
+`gate5-report.json` `d7b806339501b9e7d36336f8072166b5c2d9a150c52fa7184e7d292704d3f89a`,
+`gate5-artifact-index.json` `e6506dcdc5a66134d37e2b0541c7063b80d7523776966f5d2798fac2042193af`,
+`lane-manifest.json` `648a394918bc6209792f505734d255acf4dfe68780f9fca267726f18375808c3`,
+`lane-report.json` `8f6bdd472bf66bacb29b8961945f9ba0b99d35676e172c2291586d874b9372e1`,
+`artifact-index.json` `234068db167baf3e1f6864af21b4cc55ebc8b1c9adccf98ed60f167499e50567`.
+Root `npm test` at this commit passes 58 files / 1,011 tests in 471.20 seconds.
 
 An independent audit of the published artifacts — not of the gate's own verdict — reports **zero
 self-attested comparisons** across all ten fixtures, against 15 in the previous bundle: 242
@@ -1032,16 +1041,16 @@ in 411.05 seconds, including Rule 7 (clean, 215 files) and both TypeScript proje
 `npm run build --workspace app` builds 33 modules.
 
 **Next action:** this bundle has not been reviewed. Return it to the same independent reviewer
-and repair whatever comes back. Three known code-quality items are open and must be disclosed
+and repair whatever comes back. Two known code-quality items are open and must be disclosed
 rather than left for the reviewer to find:
 
 - `runner/src/gate5-negative-controls.ts` restates comparison-failure and artifact-descriptor
-  logic that is private to `gate5-evidence.ts`; export those helpers and delete the duplicate.
-- that re-derivation computes `symmetryMismatchCount` and `domainContact` from the corresponding
-  invariant operands, while `validateFixturePayloadGraph` still trusts both as declared raw
-  fields. Production should derive them the same way.
+  logic that is private to `gate5-evidence.ts`. The drift guard is that its raw re-derivation
+  must canonically equal the accepted capture's raw before any control runs, but the duplication
+  should still be removed by exporting the helpers.
 - WP3 and WP4 still publish no observed re-acquisition count, so `hiddenRetryCount` is summed
-  only over WP1, WP2 and the performance probe.
+  only over WP1, WP2 and the performance probe; those two are carried as unmeasured rather than
+  as zeros nothing observed.
 
 Do not start WP6 until the reviewer returns zero blockers and zero should-fixes.
 
