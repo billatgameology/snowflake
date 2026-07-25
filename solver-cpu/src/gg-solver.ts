@@ -198,7 +198,7 @@ function snapshotTimelineEnvironment(value: unknown): GGTimelineEnvironment {
   };
 }
 
-type GGCycleState =
+export type GGCycleState =
   | "boundary"
   | "relaxed"
   | "diagnosticRelaxed"
@@ -448,6 +448,15 @@ export class GGSolver implements SurfaceOperator {
   /** Copy-safe public controls. Mutating the returned arrays cannot alter the live solver. */
   get params(): GGParams {
     return cloneParams(this._params);
+  }
+
+  /**
+   * The oracle's own cycle phase. Only "boundary" is a completed-cycle boundary that accepts
+   * a step or an environment event; "relaxed" and "diagnosticRelaxed" mean a relaxation is
+   * still unmatched by a surface update. Observability only — reading it changes nothing.
+   */
+  cyclePhase(): GGCycleState {
+    return this.cycleState;
   }
 
   /** Complete JSON-safe environment consumed by the shared Phase 4 schedule evaluator. */

@@ -4,7 +4,12 @@ import {
   ggTimelineEnvironmentFromParams,
   type GGParams,
 } from "@vcc/core";
-import { GGSolver } from "../../solver-cpu/src/index.ts";
+import {
+  GGSolver,
+  type LedgerReport,
+  type RelaxationReport,
+  type SurfaceReport,
+} from "../../solver-cpu/src/index.ts";
 import {
   createGpuBufferPlan,
   createGpuGridLayout,
@@ -13,6 +18,7 @@ import {
   GPU_GG_CYCLE_REPORT_BYTES,
   GPU_GG_SURFACE_FLAG_DIRICHLET,
   GPU_GG_SURFACE_UNIFORM_BYTES,
+  GPU_TOPOLOGY_FAR_FIELD,
   GpuBufferArena,
   GpuGgSolver,
   GpuGgSurface,
@@ -268,6 +274,83 @@ function oracleInput(
   };
 }
 
+// The WP3 probe's CPU-side derivations and its wall/topology scans, recomputed here so the
+// GPU operator's own statements can be held against the oracle's own reports in the same
+// shapes and key order the published lane observations use.
+function cpuLedgerRule(ledger: LedgerReport) {
+  return {
+    rule: ledger.rule,
+    totalMassBDApplicable: ledger.totalMassBD !== null,
+    dirichletMeterApplicable: ledger.dirichletMeter !== null,
+    fillLedgerIceCellsApplicable: ledger.fillLedgerIceCells !== null,
+    fillLedgerVaporUnitsApplicable: ledger.fillLedgerVaporUnits !== null,
+    holeFillDeficitApplicable: ledger.holeFillDeficit !== null,
+    saturationClippedFillApplicable: ledger.saturationClippedFill !== null,
+    lastDivergenceResidualApplicable: ledger.lastDivergenceResidual !== null,
+  };
+}
+
+function cpuRelaxationClassification(report: RelaxationReport) {
+  return {
+    converged: report.converged,
+    residualApplicable: report.residual !== null,
+    divergenceApplicable: report.divergenceResidual !== null,
+    shellClampApplicable: report.shellClampDiagnostic !== null,
+    surfaceExchangeApplicable: report.surfaceExchangeDiagnostic !== null,
+    smootherDriftApplicable: report.smootherDriftDiagnostic !== null,
+    minLocalSurfaceExchangeApplicable:
+      report.minLocalSurfaceExchangeDiagnostic !== null,
+  };
+}
+
+function cpuSurfaceClassification(report: SurfaceReport) {
+  return {
+    deltaTimeSeconds: report.deltaTimeSeconds,
+    maxKineticFillIncrement: report.maxKineticFillIncrement,
+    stalled: report.stalled,
+    skippedUnconverged: report.skippedUnconverged,
+  };
+}
+
+function activeWallExtents(
+  wall: Uint8Array | Uint32Array,
+  dims: { readonly nx: number; readonly ny: number; readonly nz: number },
+) {
+  const plane = dims.nx * dims.ny;
+  let activeCellCount = 0;
+  let iMin: number | null = null;
+  let iMax: number | null = null;
+  let jMin: number | null = null;
+  let jMax: number | null = null;
+  let kMin: number | null = null;
+  let kMax: number | null = null;
+  for (let index = 0; index < wall.length; index++) {
+    if (wall[index] !== 0) continue;
+    activeCellCount++;
+    const i = index % dims.nx;
+    const j = ((index % plane) - i) / dims.nx;
+    const k = (index - j * dims.nx - i) / plane;
+    if (iMin === null || i < iMin) iMin = i;
+    if (iMax === null || i > iMax) iMax = i;
+    if (jMin === null || j < jMin) jMin = j;
+    if (jMax === null || j > jMax) jMax = j;
+    if (kMin === null || k < kMin) kMin = k;
+    if (kMax === null || k > kMax) kMax = k;
+  }
+  return {
+    activeCellCount,
+    activeBounds: { iMin, iMax, jMin, jMax, kMin, kMax },
+  };
+}
+
+function farFieldCellCount(topology: Uint32Array): number {
+  let count = 0;
+  for (let index = 0; index < topology.length; index++) {
+    if ((topology[index] & GPU_TOPOLOGY_FAR_FIELD) !== 0) count++;
+  }
+  return count;
+}
+
 describe("GPU complete G-G cycle orchestration", () => {
   test("refuses low-level surface parameter access after teardown", async () => {
     const fake = fakeGpu();
@@ -516,6 +599,177 @@ describe("GPU complete G-G cycle orchestration", () => {
     arena.destroy();
     expect(fake.buffers.every((buffer) => buffer.destroy.mock.calls.length === 1))
       .toBe(true);
+  });
+
+  test("states a ledger rule and report classifications the oracle's own reports match", async () => {
+    for (const farField of ["reflecting", "dirichlet"] as const) {
+      const fake = fakeGpu();
+      const { oracle, input } = oracleInput({ nx: 7, ny: 7, nz: 5 }, farField);
+      const arena = GpuBufferArena.create(
+        fake.device,
+        1,
+        createGpuBufferPlan({ nx: 7, ny: 7, nz: 5 }, "gg"),
+      );
+      const submissions = new GpuSubmissionController(fake.device, () => 1);
+      submissions.acknowledgeEdit(1);
+      const solver = await GpuGgSolver.create(
+        fake.device,
+        submissions,
+        arena,
+        input,
+      );
+      const relaxation = oracle.relaxField();
+      const surface = oracle.advanceSurface();
+      // Exactly the comparison `phase5-gate.mjs` makes: one lane's own accessor output
+      // against the other lane's own emitted reports, with no operand copied across.
+      expect(JSON.stringify(solver.ledgerRule())).toBe(
+        JSON.stringify(cpuLedgerRule(oracle.ledger())),
+      );
+      expect(JSON.stringify(solver.relaxationClassification())).toBe(
+        JSON.stringify(cpuRelaxationClassification(relaxation)),
+      );
+      expect(JSON.stringify(solver.surfaceStepClassification())).toBe(
+        JSON.stringify(cpuSurfaceClassification(surface)),
+      );
+      // Non-vacuous: the Dirichlet-only terms are the ones that actually move.
+      expect(solver.ledgerRule().dirichletMeterApplicable).toBe(
+        farField === "dirichlet",
+      );
+      expect(solver.relaxationClassification().shellClampApplicable).toBe(
+        farField === "dirichlet",
+      );
+      expect(solver.surfaceStepClassification()).toEqual({
+        deltaTimeSeconds: null,
+        maxKineticFillIncrement: null,
+        stalled: false,
+        skippedUnconverged: false,
+      });
+      solver.destroy();
+      arena.destroy();
+      submissions.destroy();
+    }
+  });
+
+  test("counts the diffusion passes it ran and names its own cycle phase", async () => {
+    const fake = fakeGpu();
+    const { oracle, input } = oracleInput();
+    const arena = GpuBufferArena.create(
+      fake.device,
+      1,
+      createGpuBufferPlan({ nx: 7, ny: 7, nz: 5 }, "gg"),
+    );
+    const submissions = new GpuSubmissionController(fake.device, () => 1);
+    submissions.acknowledgeEdit(1);
+    const solver = await GpuGgSolver.create(
+      fake.device,
+      submissions,
+      arena,
+      input,
+    );
+    expect(solver.cyclePhase()).toBe("boundary");
+    expect(solver.cyclePhase()).toBe(oracle.cyclePhase());
+    expect(solver.completedDiffusionPasses()).toBe(0);
+    let oracleSweeps = 0;
+    for (let cycle = 0; cycle < 3; cycle++) {
+      const before = solver.completedDiffusionPasses();
+      oracleSweeps += oracle.relaxField().sweeps;
+      oracle.advanceSurface();
+      await solver.step(`counted-${cycle + 1}`);
+      expect(solver.completedDiffusionPasses() - before).toBe(1);
+      expect(solver.cyclePhase()).toBe(oracle.cyclePhase());
+    }
+    // Each lane's own count of the relaxation work it actually performed.
+    expect(solver.completedDiffusionPasses()).toBe(oracleSweeps);
+    expect(solver.tick()).toBe(oracle.tick);
+
+    let releaseDiffusion: (() => void) | undefined;
+    vi.mocked(fake.device.queue.onSubmittedWorkDone).mockImplementationOnce(
+      () =>
+        new Promise<undefined>((resolve) => {
+          releaseDiffusion = () => resolve(undefined);
+        }),
+    );
+    const advancing = solver.step("held");
+    expect(solver.cyclePhase()).toBe("advancing");
+    releaseDiffusion?.();
+    await advancing;
+    expect(solver.cyclePhase()).toBe("boundary");
+    expect(solver.completedDiffusionPasses()).toBe(4);
+    solver.destroy();
+    arena.destroy();
+    submissions.destroy();
+  });
+
+  test("states the grid it allocated and the domain it was configured for", async () => {
+    const fake = fakeGpu();
+    const { oracle, input } = oracleInput();
+    const arena = GpuBufferArena.create(
+      fake.device,
+      1,
+      createGpuBufferPlan({ nx: 7, ny: 7, nz: 5 }, "gg"),
+    );
+    const submissions = new GpuSubmissionController(fake.device);
+    submissions.acknowledgeEdit(1);
+    const solver = await GpuGgSolver.create(
+      fake.device,
+      submissions,
+      arena,
+      input,
+    );
+    expect(solver.domainExtents()).toEqual({
+      dims: { nx: 7, ny: 7, nz: 5 },
+      plane: 49,
+      cellCount: 245,
+      domain: oracle.domain,
+      center: [oracle.center[0], oracle.center[1], oracle.center[2]],
+    });
+    // The WP3 probe measures the rest of the extents from each lane's own wall and topology
+    // buffers. Recomputed here from the mask this operator holds: it must reproduce the
+    // oracle's independently maintained active-cell and far-field counts.
+    const extents = activeWallExtents(input.wall, solver.domainExtents().dims);
+    expect(extents.activeCellCount).toBe(oracle.activeCellCount);
+    expect(extents.activeCellCount).toBeLessThan(245);
+    expect(extents.activeBounds).toEqual({
+      iMin: 0,
+      iMax: 6,
+      jMin: 0,
+      jMax: 6,
+      kMin: 0,
+      kMax: 4,
+    });
+    expect(farFieldCellCount(input.topology)).toBe(
+      oracle.farFieldCells.length,
+    );
+    solver.destroy();
+    arena.destroy();
+    submissions.destroy();
+  });
+
+  test("refuses every own-state accessor after teardown", async () => {
+    const fake = fakeGpu();
+    const { input } = oracleInput();
+    const arena = GpuBufferArena.create(
+      fake.device,
+      1,
+      createGpuBufferPlan({ nx: 7, ny: 7, nz: 5 }, "gg"),
+    );
+    const submissions = new GpuSubmissionController(fake.device);
+    submissions.acknowledgeEdit(1);
+    const solver = await GpuGgSolver.create(
+      fake.device,
+      submissions,
+      arena,
+      input,
+    );
+    solver.destroy();
+    expect(() => solver.cyclePhase()).toThrow(/destroyed/);
+    expect(() => solver.completedDiffusionPasses()).toThrow(/destroyed/);
+    expect(() => solver.domainExtents()).toThrow(/destroyed/);
+    expect(() => solver.ledgerRule()).toThrow(/destroyed/);
+    expect(() => solver.relaxationClassification()).toThrow(/destroyed/);
+    expect(() => solver.surfaceStepClassification()).toThrow(/destroyed/);
+    arena.destroy();
+    submissions.destroy();
   });
 
   test("poisons the complete solver and arena after uncertain surface completion", async () => {

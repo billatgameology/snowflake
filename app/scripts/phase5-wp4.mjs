@@ -2066,24 +2066,15 @@ async function main() {
                 activeCellCount: solver.activeCellCount(),
                 boundarySize: solver.boundarySize(),
               };
-              laneSteps.noiseWitness.cpu.push({
-                tick: laneReadyCpu.tick,
-                epsilon: oracle.noiseEpsilon,
-                markedBoundaryCellCount: noiseMarkedBoundaryCount(
-                  cpuReadyBoundary,
-                  oracle.rngSeed,
-                  laneReadyCpu.tick,
-                ),
-              });
-              laneSteps.noiseWitness.gpu.push({
-                tick: laneReadyGpu.tick,
-                epsilon: solver.configuration().noiseEpsilon,
-                markedBoundaryCellCount: noiseMarkedBoundaryCount(
-                  readyState.boundaryIndices,
-                  solver.configuration().rngSeed,
-                  laneReadyGpu.tick,
-                ),
-              });
+              // The GPU operator's OWN applied-noise measurement, taken while the accepted
+              // relaxation is still the current phase. It reconstructs that phase from the
+              // source buffer the accepted sweep consumed and solves its boundary twice — at
+              // the configured noise amplitude and with the amplitude forced to zero — so both
+              // operands are GPU readbacks. It overwrites shared scratch, so it must run after
+              // the evidence snapshot above and before the interface update below.
+              const gpuAppliedNoise = await solver.readAppliedNoise(
+                `${fixture.id}:applied-noise-${step}`,
+              );
               const coefficientReference = [];
               const boundarySigmaReference = [];
               const opposingReference = [];
@@ -2390,6 +2381,14 @@ async function main() {
                     gpuLedger
                       .currentTemperatureSegmentStartFillIceCells,
                   ),
+                // The same quantity as the entry above, but as the registered blocking scalar
+                // the two OPERATORS each report: the CPU oracle's own segment origin against
+                // the GPU operator's own. The entry above keeps the independent host
+                // accumulation as its reference; neither operand is copied from the other.
+                currentTemperatureSegmentStartFill: scalarComparison(
+                  oracle.currentTemperatureSegmentStartFillIceCells(),
+                  gpuLedger.currentTemperatureSegmentStartFillIceCells,
+                ),
                 currentTemperatureSegmentMIceLedger: scalarComparison(
                   independentMIce,
                   gpuLedger.currentTemperatureSegmentMIceLedger,
@@ -2729,6 +2728,55 @@ async function main() {
                 pass:
                   fixture.noiseEpsilon === 0 || noisyCells.length > 0,
               };
+              // The CPU lane's applied-noise field, recomputed independently on the host: the
+              // same accepted phase replayed in binary32 with and without the noise amplitude,
+              // walked in the CPU oracle's own boundary order. Its exact-difference predicate
+              // matches the GPU accessor's so the two digests are comparable; it never reads a
+              // GPU coefficient. A zero configured amplitude applies no noise at all, so the
+              // field is empty on both lanes by construction rather than by assumption.
+              const cpuAppliedNoiseIndices = [];
+              if (noNoisePhase !== null) {
+                for (const index of cpuReadyBoundary) {
+                  if (
+                    !Object.is(
+                      convergenceWitness.current.coefficient[index],
+                      noNoisePhase.coefficient[index],
+                    )
+                  ) {
+                    cpuAppliedNoiseIndices.push(index);
+                  }
+                }
+              }
+              // `noise-witness` pairs what each lane actually applied. The cpu operand is the
+              // independent host replay differential above; the gpu operand is the GPU
+              // operator's own two-solve readback differential. Tick, amplitude and the
+              // RNG-marked count stay as each lane's own held configuration — they witness
+              // agreement on the stream's inputs, not that noise reached the operator.
+              laneSteps.noiseWitness.cpu.push({
+                tick: laneReadyCpu.tick,
+                epsilon: oracle.noiseEpsilon,
+                markedBoundaryCellCount: noiseMarkedBoundaryCount(
+                  cpuReadyBoundary,
+                  oracle.rngSeed,
+                  laneReadyCpu.tick,
+                ),
+                appliedNoiseCellCount: cpuAppliedNoiseIndices.length,
+                appliedNoiseDigest: await laneDigest(cpuAppliedNoiseIndices),
+              });
+              laneSteps.noiseWitness.gpu.push({
+                tick: laneReadyGpu.tick,
+                epsilon: solver.configuration().noiseEpsilon,
+                markedBoundaryCellCount: noiseMarkedBoundaryCount(
+                  readyState.boundaryIndices,
+                  solver.configuration().rngSeed,
+                  laneReadyGpu.tick,
+                ),
+                appliedNoiseCellCount:
+                  gpuAppliedNoise.appliedNoiseIndices.length,
+                appliedNoiseDigest: await laneDigest(
+                  gpuAppliedNoise.appliedNoiseIndices,
+                ),
+              });
               const compactPhase = (phase) => ({
                 residual: phase.residual,
                 divergenceResidual: phase.divergenceResidual,
@@ -3171,10 +3219,9 @@ async function main() {
               f: oracle.f,
               sigma: oracle.sigma,
             });
-            // `state.cycle-phase` publishes each lane's own completed interface-step count
-            // plus the interface-cycle phase its own timeline reports carry. The GPU's
-            // end-of-run `cyclePhase()` has no CPU counterpart — `LKSolver.cycleState` is
-            // private and unexported — so it is deliberately not published as a lane pair.
+            // `state.cycle-phase` publishes each lane's own completed interface-step count,
+            // the interface-cycle phase its own timeline reports carry, and the end-of-run
+            // phase each operator reports through its own `cyclePhase()` accessor.
             const laneObservations = {
               "attachment-delta-log": laneSteps.attachmentDeltaLog,
               "interface-step-log": laneSteps.interfaceStepLog,
@@ -3192,10 +3239,12 @@ async function main() {
               "state.cycle-phase": {
                 cpu: {
                   completedInterfaceSteps: oracle.tick,
+                  phase: oracle.cyclePhase(),
                   eventBoundaries: laneTimeline.cycleBoundary.cpu,
                 },
                 gpu: {
                   completedInterfaceSteps: solver.tick,
+                  phase: solver.cyclePhase(),
                   eventBoundaries: laneTimeline.cycleBoundary.gpu,
                 },
               },

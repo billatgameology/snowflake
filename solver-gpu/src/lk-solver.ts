@@ -265,6 +265,56 @@ export interface GpuLkStressDiagnostics {
   readonly boundarySupersaturation: Float32Array;
 }
 
+/**
+ * What the GPU operator actually applied as noise during the accepted relaxation phase.
+ *
+ * LK never materializes a noise field: `1 - noiseEpsilon * bit` multiplies the Hertz-Knudsen
+ * attachment coefficient inside the boundary solve, so there is no buffer to hand back the way
+ * `GpuGgSolver.noiseBuffer()` does. The observable quantity is therefore the operator's own
+ * differential: the SAME reconstructed accepted sweep solved once at the configured noise
+ * amplitude and once with that amplitude forced to zero. Both coefficient fields are GPU
+ * readbacks; nothing here is recomputed on the host.
+ */
+export interface GpuLkAppliedNoiseObservation {
+  /** Interface tick whose noise stream the accepted relaxation phase consumed. */
+  readonly tick: number;
+  /** Seed and amplitude the operator itself holds, echoed for the record. */
+  readonly rngSeed: number;
+  readonly noiseEpsilon: number;
+  /** The operator's own boundary set at the observed phase. */
+  readonly boundaryIndices: Uint32Array;
+  /** GPU-solved coefficient field at the configured noise amplitude. */
+  readonly noisyBoundaryAttachmentCoefficient: Float32Array;
+  /** GPU-solved coefficient field with the noise amplitude forced to zero. */
+  readonly noiseFreeBoundaryAttachmentCoefficient: Float32Array;
+  /** Boundary cells at which the operator's own noise application changed its coefficient. */
+  readonly appliedNoiseIndices: Uint32Array;
+}
+
+/**
+ * Boundary cells at which the noisy and noise-free coefficient fields disagree. Exact by
+ * construction: a zero noise bit reuses identical inputs and therefore reproduces the value
+ * bit-for-bit, so any disagreement is applied noise and nothing else. `Object.is` is used so a
+ * signed-zero difference is reported rather than silently collapsed.
+ */
+export function deriveGpuLkAppliedNoiseIndices(
+  boundaryIndices: Uint32Array,
+  noisy: Float32Array,
+  noiseFree: Float32Array,
+): Uint32Array {
+  if (noisy.length !== noiseFree.length) {
+    throw new Error("GPU LK applied-noise coefficient fields must share a length");
+  }
+  const changed: number[] = [];
+  for (const index of boundaryIndices) {
+    if (index >= noisy.length) {
+      throw new Error(`GPU LK applied-noise boundary index ${index} is out of range`);
+    }
+    if (!Object.is(noisy[index], noiseFree[index])) changed.push(index);
+  }
+  return Uint32Array.from(changed);
+}
+
 interface GpuLkControls {
   readonly tempC: number;
   readonly sigmaInfinity: number;
@@ -1802,7 +1852,9 @@ export class GpuLkSolver {
   }
 
   private controls(
-    overrides: Partial<Pick<GpuLkControls, "tempC" | "sigmaInfinity" | "tick">> = {},
+    overrides: Partial<
+      Pick<GpuLkControls, "tempC" | "sigmaInfinity" | "tick" | "noiseEpsilon">
+    > = {},
   ): GpuLkControls {
     const tempC = overrides.tempC ?? this.tempCInternal;
     const sigmaInfinity =
@@ -1823,7 +1875,7 @@ export class GpuLkSolver {
       relaxTol: this.relaxTol,
       divTol: this.divTol,
       rngSeed: this.rngSeed,
-      noiseEpsilon: this.noiseEpsilon,
+      noiseEpsilon: overrides.noiseEpsilon ?? this.noiseEpsilon,
       tick,
       farField: this.farField,
       derived,
@@ -1886,6 +1938,7 @@ export class GpuLkSolver {
       values.controls.tempC,
       values.controls.sigmaInfinity,
       values.controls.tick,
+      values.controls.noiseEpsilon,
     ].join("|");
     const cached = resources.uniformCache.get(key);
     if (cached !== undefined) return cached;
@@ -2082,6 +2135,147 @@ export class GpuLkSolver {
       this.audit,
     );
     return decodeGpuLkCompactReport(bytes);
+  }
+
+  /**
+   * Re-run one relaxation phase's shader stages from `sourceName` into shared scratch, leaving
+   * the reconstructed destination field in `reduction`. Exactly the stage order and bindings
+   * the accepted sweep used, with the sweep's own source substituted for the live ping-pong
+   * pair, so the reconstruction is the deterministic same-arithmetic phase and not a model of
+   * it. Callers own the report guard words and the scratch lifetime.
+   */
+  private encodeReconstructedPhase(
+    pass: GPUComputePassEncoder,
+    sourceName: string,
+    controls: GpuLkControls,
+    resources: TemporaryGpuResources,
+    label: string,
+  ): void {
+    const overrides = {
+      localSweep: 0,
+      ownerAfter: this.activeOwner,
+    } satisfies Partial<GpuLkUniformValues>;
+    this.dispatchRanges(
+      pass,
+      this.pipelines.diffuseInPlanePairs,
+      [
+        "occupancy",
+        "wall",
+        sourceName,
+        "scratchScalarA",
+        "scratchScalarB",
+        "noise",
+      ],
+      controls,
+      resources,
+      `${label}:in-plane-pairs`,
+      overrides,
+    );
+    this.dispatchRanges(
+      pass,
+      this.pipelines.diffuseInPlaneAddLow,
+      ["occupancy", "wall", sourceName, "scratchScalarA"],
+      controls,
+      resources,
+      `${label}:in-plane-add-low`,
+      overrides,
+    );
+    this.dispatchRanges(
+      pass,
+      this.pipelines.diffuseInPlaneAccumulate,
+      ["occupancy", "wall", "scratchScalarA", "scratchScalarB"],
+      controls,
+      resources,
+      `${label}:in-plane-add-middle`,
+      overrides,
+    );
+    this.dispatchRanges(
+      pass,
+      this.pipelines.diffuseInPlaneAccumulate,
+      ["occupancy", "wall", "scratchScalarA", "noise"],
+      controls,
+      resources,
+      `${label}:in-plane-add-high`,
+      overrides,
+    );
+    this.dispatchRanges(
+      pass,
+      this.pipelines.diffuseInPlaneDivide,
+      ["occupancy", "wall", "scratchScalarA"],
+      controls,
+      resources,
+      `${label}:in-plane-divide`,
+      overrides,
+    );
+    this.dispatchRanges(
+      pass,
+      this.pipelines.diffuseVerticalNeighborSum,
+      [
+        "occupancy",
+        "wall",
+        "scratchScalarA",
+        sourceName,
+        "scratchScalarB",
+        "noise",
+      ],
+      controls,
+      resources,
+      `${label}:vertical-neighbor-sum`,
+      overrides,
+    );
+    this.dispatchRanges(
+      pass,
+      this.pipelines.diffuseVerticalProducts,
+      [
+        "occupancy",
+        "wall",
+        "scratchScalarA",
+        "scratchScalarB",
+        "reduction",
+      ],
+      controls,
+      resources,
+      `${label}:vertical-products`,
+      overrides,
+    );
+    this.dispatchRanges(
+      pass,
+      this.pipelines.diffuseVerticalCombine,
+      ["occupancy", "wall", "reduction", "scratchScalarB"],
+      controls,
+      resources,
+      `${label}:vertical-combine`,
+      overrides,
+    );
+  }
+
+  /**
+   * Solve the aggregate boundary on the field left in `reduction` by
+   * `encodeReconstructedPhase`, writing the attachment coefficient into `scratchScalarA`.
+   */
+  private encodeReconstructedBoundarySolve(
+    pass: GPUComputePassEncoder,
+    controls: GpuLkControls,
+    resources: TemporaryGpuResources,
+    label: string,
+  ): void {
+    this.dispatchRanges(
+      pass,
+      this.pipelines.solveBoundary,
+      [
+        "occupancy",
+        "wall",
+        "topology",
+        "reduction",
+        "scratchScalarA",
+        "scratchScalarB",
+        "noise",
+      ],
+      controls,
+      resources,
+      `${label}:boundary-solve`,
+      { localSweep: 0, ownerAfter: this.activeOwner },
+    );
   }
 
   private async reconstructPreviousBoundaryCache(label: string): Promise<void> {
@@ -3842,6 +4036,177 @@ export class GpuLkSolver {
       throw error;
     } finally {
       if (resources !== null) this.destroyTemporaryResources(resources);
+      this.inFlight = false;
+    }
+  }
+
+  /**
+   * Observe the noise this operator actually applied during the accepted relaxation phase.
+   *
+   * Boundary publication and the Dirichlet shell clamp overwrite the accepted phase's
+   * destination field, so the phase is first reconstructed from the SAME source buffer the
+   * accepted sweep consumed through the SAME shader stages. The aggregate boundary solve then
+   * runs twice over that one reconstruction — once at the configured noise amplitude and once
+   * with the amplitude forced to zero — and both coefficient fields are read back. A zero noise
+   * bit feeds identical inputs to identical arithmetic, so the two fields differ at exactly the
+   * cells where this operator applied noise.
+   *
+   * This overwrites the shared scratch buffers, including the previous-phase boundary cache, so
+   * the accepted evidence snapshot must be taken first; the cache is marked unavailable
+   * afterwards rather than left silently stale.
+   */
+  async readAppliedNoise(
+    label = "lk-applied-noise",
+  ): Promise<GpuLkAppliedNoiseObservation> {
+    this.assertUsable();
+    if (typeof label !== "string" || label.length === 0) {
+      throw new Error("GPU LK applied-noise label is required");
+    }
+    if (this.inFlight || this.cycleState !== "ready") {
+      throw new Error(
+        `GPU LK applied-noise observation requires an accepted relaxation (state=${this.cycleState})`,
+      );
+    }
+    this.inFlight = true;
+    let resources: TemporaryGpuResources | null = null;
+    let acceptedReportBytes: ArrayBuffer | null = null;
+    try {
+      acceptedReportBytes = await readGpuBuffer(
+        this.device,
+        this.report,
+        {
+          purpose: "compact-metric",
+          label: `${label}:accepted-report-snapshot`,
+          generation: this.generation,
+          byteOffset: 0,
+          byteLength: GPU_LK_REPORT_BYTES,
+        },
+        this.audit,
+      );
+      resources = this.createTemporaryResources();
+      this.device.queue.writeBuffer(
+        this.report,
+        GPU_LK_REPORT_WORD.converged * Uint32Array.BYTES_PER_ELEMENT,
+        new Uint32Array([0]),
+      );
+      this.device.queue.writeBuffer(
+        this.report,
+        GPU_LK_REPORT_WORD.convergenceMode * Uint32Array.BYTES_PER_ELEMENT,
+        new Uint32Array([0]),
+      );
+      const sourceName = this.activeOwner === 0 ? "lkSigmaB" : "lkSigmaA";
+      const configuredControls = this.controls();
+      const zeroNoiseControls = this.controls({ noiseEpsilon: 0 });
+      const configuredEncoder = this.device.createCommandEncoder({
+        label: `vcc:${label}:configured-noise`,
+      });
+      const configuredPass = configuredEncoder.beginComputePass({
+        label: `vcc:${label}:configured-noise:stages`,
+      });
+      this.encodeReconstructedPhase(
+        configuredPass,
+        sourceName,
+        configuredControls,
+        resources,
+        `${label}:phase`,
+      );
+      this.encodeReconstructedBoundarySolve(
+        configuredPass,
+        configuredControls,
+        resources,
+        `${label}:configured-noise`,
+      );
+      configuredPass.end();
+      await this.submissions.submit(
+        `${label}:configured-noise`,
+        this.generation,
+        [configuredEncoder.finish()],
+      );
+      const configuredReport = await this.readCompactReport(
+        `${label}:configured-noise:report`,
+      );
+      if (configuredReport.errorFlags !== 0) {
+        throw new Error(
+          "GPU LK applied-noise phase reconstruction failed: " +
+            explainErrorFlags(configuredReport.errorFlags),
+        );
+      }
+      const configuredBytes = await this.readArenaBuffer(
+        "scratchScalarA",
+        "evidence-snapshot",
+        `${label}:configured-noise-coefficient`,
+      );
+      const zeroNoiseEncoder = this.device.createCommandEncoder({
+        label: `vcc:${label}:zero-noise`,
+      });
+      const zeroNoisePass = zeroNoiseEncoder.beginComputePass({
+        label: `vcc:${label}:zero-noise:stages`,
+      });
+      this.encodeReconstructedBoundarySolve(
+        zeroNoisePass,
+        zeroNoiseControls,
+        resources,
+        `${label}:zero-noise`,
+      );
+      zeroNoisePass.end();
+      await this.submissions.submit(
+        `${label}:zero-noise`,
+        this.generation,
+        [zeroNoiseEncoder.finish()],
+      );
+      const zeroNoiseReport = await this.readCompactReport(
+        `${label}:zero-noise:report`,
+      );
+      if (zeroNoiseReport.errorFlags !== 0) {
+        throw new Error(
+          "GPU LK zero-noise boundary solve failed: " +
+            explainErrorFlags(zeroNoiseReport.errorFlags),
+        );
+      }
+      const [zeroNoiseBytes, boundaryBytes] = await Promise.all([
+        this.readArenaBuffer(
+          "scratchScalarA",
+          "evidence-snapshot",
+          `${label}:zero-noise-coefficient`,
+        ),
+        this.readArenaBuffer(
+          "boundaryIndices",
+          "evidence-snapshot",
+          `${label}:boundary-indices`,
+        ),
+      ]);
+      const noisyBoundaryAttachmentCoefficient = new Float32Array(
+        configuredBytes,
+      );
+      const noiseFreeBoundaryAttachmentCoefficient = new Float32Array(
+        zeroNoiseBytes,
+      );
+      const boundaryIndices = new Uint32Array(boundaryBytes).slice(
+        0,
+        this.boundaryCountInternal,
+      );
+      return {
+        tick: this.tickInternal,
+        rngSeed: this.rngSeed,
+        noiseEpsilon: this.noiseEpsilon,
+        boundaryIndices,
+        noisyBoundaryAttachmentCoefficient,
+        noiseFreeBoundaryAttachmentCoefficient,
+        appliedNoiseIndices: deriveGpuLkAppliedNoiseIndices(
+          boundaryIndices,
+          noisyBoundaryAttachmentCoefficient,
+          noiseFreeBoundaryAttachmentCoefficient,
+        ),
+      };
+    } catch (error) {
+      this.poison(error);
+      throw error;
+    } finally {
+      if (acceptedReportBytes !== null && !this.destroyed) {
+        this.device.queue.writeBuffer(this.report, 0, acceptedReportBytes);
+      }
+      if (resources !== null) this.destroyTemporaryResources(resources);
+      this.previousBoundaryCacheAvailableInternal = false;
       this.inFlight = false;
     }
   }

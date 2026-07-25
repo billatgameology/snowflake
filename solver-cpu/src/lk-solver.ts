@@ -273,7 +273,11 @@ function snapshotTimelineEnvironment(value: unknown): LKTimelineEnvironment {
   return { tempC: tempC as number, sigmaInfinity: sigmaInfinity as number };
 }
 
-type LKCycleState =
+/**
+ * The explicit interface-cycle phase. Exported so an evidence probe can pair this operator's
+ * own phase against another implementation's, instead of publishing one lane's value twice.
+ */
+export type LKCycleState =
   | "boundary"
   | "relaxing"
   | "ready"
@@ -599,6 +603,22 @@ export class LKSolver implements SurfaceOperator {
 
   timelineEnvironment(): LKTimelineEnvironment {
     return { tempC: this.tempC, sigmaInfinity: this.sigmaInfinity };
+  }
+
+  /**
+   * This operator's own interface-cycle phase. Read-only: it reports the guard state that
+   * relaxField()/advanceSurface()/applyTimelineEnvironment() already enforce and never sets it.
+   */
+  cyclePhase(): LKCycleState {
+    return this.cycleState;
+  }
+
+  /**
+   * Ice-cell fill-ledger value at the start of the current constant-temperature segment. It is
+   * the ledger's own segment origin, not a re-derivation from the vapor-unit total.
+   */
+  currentTemperatureSegmentStartFillIceCells(): number {
+    return this.currentTemperatureSegmentStartFill;
   }
 
   private currentDerivedScales(): LKEnvironmentDerivedScales {

@@ -299,6 +299,93 @@ async function main() {
           return mismatch;
         }
 
+        // CPU-side report classifications, in the same shapes the GPU operator states about
+        // itself through its own accessors (WP4 publishes the LK counterparts the same way).
+        // Each helper is a pure function of ONE report the oracle actually emitted this run;
+        // no operand here is read from, or derived from, the GPU lane.
+        function ledgerRuleFrom(ledger) {
+          return {
+            rule: ledger.rule,
+            totalMassBDApplicable: ledger.totalMassBD !== null,
+            dirichletMeterApplicable: ledger.dirichletMeter !== null,
+            fillLedgerIceCellsApplicable: ledger.fillLedgerIceCells !== null,
+            fillLedgerVaporUnitsApplicable: ledger.fillLedgerVaporUnits !== null,
+            holeFillDeficitApplicable: ledger.holeFillDeficit !== null,
+            saturationClippedFillApplicable:
+              ledger.saturationClippedFill !== null,
+            lastDivergenceResidualApplicable:
+              ledger.lastDivergenceResidual !== null,
+          };
+        }
+
+        function relaxationClassificationFrom(report) {
+          return {
+            converged: report.converged,
+            residualApplicable: report.residual !== null,
+            divergenceApplicable: report.divergenceResidual !== null,
+            shellClampApplicable: report.shellClampDiagnostic !== null,
+            surfaceExchangeApplicable:
+              report.surfaceExchangeDiagnostic !== null,
+            smootherDriftApplicable: report.smootherDriftDiagnostic !== null,
+            minLocalSurfaceExchangeApplicable:
+              report.minLocalSurfaceExchangeDiagnostic !== null,
+          };
+        }
+
+        function surfaceStepClassificationFrom(report) {
+          return {
+            deltaTimeSeconds: report.deltaTimeSeconds,
+            maxKineticFillIncrement: report.maxKineticFillIncrement,
+            stalled: report.stalled,
+            skippedUnconverged: report.skippedUnconverged,
+          };
+        }
+
+        // `state.domain-extents`: the active domain measured from ONE lane's own wall mask.
+        // Wall cells are the inert complement of the active domain, so the zero cells are the
+        // domain and their bounding box is its extent. The CPU scans the oracle's mask; the GPU
+        // scans the mask read back out of device memory.
+        function activeWallExtents(wall, dims) {
+          const { nx, ny } = dims;
+          const plane = nx * ny;
+          let activeCellCount = 0;
+          let iMin = null;
+          let iMax = null;
+          let jMin = null;
+          let jMax = null;
+          let kMin = null;
+          let kMax = null;
+          for (let index = 0; index < wall.length; index++) {
+            if (wall[index] !== 0) continue;
+            activeCellCount++;
+            const i = index % nx;
+            const j = ((index % plane) - i) / nx;
+            const k = (index - j * nx - i) / plane;
+            if (iMin === null || i < iMin) iMin = i;
+            if (iMax === null || i > iMax) iMax = i;
+            if (jMin === null || j < jMin) jMin = j;
+            if (jMax === null || j > jMax) jMax = j;
+            if (kMin === null || k < kMin) kMin = k;
+            if (kMax === null || k > kMax) kMax = k;
+          }
+          return {
+            activeCellCount,
+            activeBounds: { iMin, iMax, jMin, jMax, kMin, kMax },
+          };
+        }
+
+        function farFieldCellCount(topology) {
+          let count = 0;
+          for (let index = 0; index < topology.length; index++) {
+            if (
+              (topology[index] & production.GPU_TOPOLOGY_FAR_FIELD) !== 0
+            ) {
+              count++;
+            }
+          }
+          return count;
+        }
+
         function minimumDecisionMargin(solver) {
           const params = solver.params;
           let minimum = Infinity;
@@ -556,6 +643,14 @@ async function main() {
               stalled: false,
               skippedUnconverged: false,
             };
+            // The last report each lane emitted for itself, plus each lane's own executed
+            // relaxation-pass counts. The CPU sums the sweeps its own reports state; the GPU
+            // reads the pass counter its diffusion stage increments as it submits work.
+            let lastCpuRelaxation = null;
+            let lastCpuSurface = null;
+            let cpuRelaxationSweepTotal = 0;
+            let lastCpuCycleSweeps = null;
+            let lastGpuCycleSweeps = null;
             for (let cycle = 0; cycle < cycleCap; cycle++) {
               if (
                 fixture.timeline !== null &&
@@ -715,6 +810,9 @@ async function main() {
               const tickBefore = oracle.tick;
               const startBoundary = oracle.boundaryCells();
               const relaxation = oracle.relaxField();
+              lastCpuRelaxation = relaxation;
+              lastCpuCycleSweeps = relaxation.sweeps;
+              cpuRelaxationSweepTotal += relaxation.sweeps;
               minimumMargin = Math.min(
                 minimumMargin,
                 minimumDecisionMargin(oracle),
@@ -726,7 +824,11 @@ async function main() {
               const surface = oracle.advanceSurface();
               lastExpectedRenderFlags = expectedFlags;
               lastSurfaceReport = surface;
+              lastCpuSurface = surface;
+              const gpuPassesBeforeCycle = gpu.completedDiffusionPasses();
               await gpu.step(`${fixture.id}:cycle-${cycle + 1}`);
+              lastGpuCycleSweeps =
+                gpu.completedDiffusionPasses() - gpuPassesBeforeCycle;
               const report = production.decodeGpuGgCycleReport(
                 await readBuffer(
                   gpu.reportBuffer(),
@@ -1096,10 +1198,112 @@ async function main() {
                 Number.isFinite(value) ? value : null
               ),
             });
+            if (lastCpuRelaxation === null || lastCpuSurface === null) {
+              throw new Error(
+                `${fixture.id} completed no G-G cycle, so no lane has a report to classify`,
+              );
+            }
+            // Everything below is stated by ONE operator about itself: the GPU accessors read
+            // the GPU operator's own rule, far field, state machine, pass counter, and grid,
+            // and the extents are measured from that lane's own wall/topology readback.
+            const gpuLedgerRule = gpu.ledgerRule();
+            const gpuRelaxation = gpu.relaxationClassification();
+            const gpuSurfaceClassification = gpu.surfaceStepClassification();
+            const gpuGridExtents = gpu.domainExtents();
+            const cpuWallExtents = activeWallExtents(oracle.wall, oracle.dims);
+            const gpuWallExtents = activeWallExtents(
+              finalState.wall,
+              gpuGridExtents.dims,
+            );
             const laneObservations = {
               "identity.controls": {
                 cpu: serializableParams(oracle.params),
                 gpu: serializableParams(gpu.params()),
+              },
+              // The rule each operator implements, as each states it for itself. The
+              // Sigma(b+d) and meter VALUES are lane-divergent binary32/binary64 sums and are
+              // compared under tolerance as scalars; what an exact decision can carry is which
+              // ledger terms each rule defines.
+              "reports.ledger-rule": {
+                cpu: ledgerRuleFrom(cpuLedger),
+                gpu: gpuLedgerRule,
+              },
+              // Sweep counts are each lane's own: the CPU sums what its relaxation reports
+              // state, the GPU reads the pass counter its diffusion stage increments.
+              "reports.relaxation-classification": {
+                cpu: {
+                  ...relaxationClassificationFrom(lastCpuRelaxation),
+                  sweeps: lastCpuCycleSweeps,
+                  executedRelaxationPasses: cpuRelaxationSweepTotal,
+                },
+                gpu: {
+                  ...gpuRelaxation,
+                  sweeps: lastGpuCycleSweeps,
+                  executedRelaxationPasses: gpu.completedDiffusionPasses(),
+                },
+              },
+              // A G-G surface step advances no physical time and computes no kinetic fill
+              // increment; the counts beside that classification are the last cycle's, taken
+              // from the oracle's own report and from the decoded device report.
+              "reports.surface-discrete": {
+                cpu: {
+                  ...surfaceStepClassificationFrom(lastCpuSurface),
+                  attachedNow: lastCpuSurface.attachedNow,
+                  holeFillCount: lastCpuSurface.holeFillCount,
+                },
+                gpu: {
+                  ...gpuSurfaceClassification,
+                  attachedNow: finalReport.attachedNow,
+                  holeFillCount: finalReport.holeFillNow,
+                },
+              },
+              "state.cycle-phase": {
+                cpu: {
+                  phase: oracle.cyclePhase(),
+                  completedCycles: oracle.tick,
+                },
+                gpu: {
+                  phase: gpu.cyclePhase(),
+                  completedCycles: gpu.tick(),
+                },
+              },
+              "state.domain-extents": {
+                cpu: {
+                  dims: {
+                    nx: oracle.dims.nx,
+                    ny: oracle.dims.ny,
+                    nz: oracle.dims.nz,
+                  },
+                  plane: oracle.dims.nx * oracle.dims.ny,
+                  cellCount: oracle.a.length,
+                  domain: oracle.domain,
+                  center: [
+                    oracle.center[0],
+                    oracle.center[1],
+                    oracle.center[2],
+                  ],
+                  activeCellCount: cpuWallExtents.activeCellCount,
+                  activeBounds: cpuWallExtents.activeBounds,
+                  farFieldCellCount: oracle.farFieldCells.length,
+                },
+                gpu: {
+                  dims: {
+                    nx: gpuGridExtents.dims.nx,
+                    ny: gpuGridExtents.dims.ny,
+                    nz: gpuGridExtents.dims.nz,
+                  },
+                  plane: gpuGridExtents.plane,
+                  cellCount: gpuGridExtents.cellCount,
+                  domain: gpuGridExtents.domain,
+                  center: [
+                    gpuGridExtents.center[0],
+                    gpuGridExtents.center[1],
+                    gpuGridExtents.center[2],
+                  ],
+                  activeCellCount: gpuWallExtents.activeCellCount,
+                  activeBounds: gpuWallExtents.activeBounds,
+                  farFieldCellCount: farFieldCellCount(finalState.topology),
+                },
               },
               "state.wall-mask": {
                 cpu: await digestHex(Uint32Array.from(oracle.wall)),

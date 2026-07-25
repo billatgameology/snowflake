@@ -3,6 +3,7 @@ import {
   ggTimelineEnvironmentFromParams,
   validateParams,
   validateTimelineSchedule,
+  type Dims,
   type DomainShape,
   type FarFieldCondition,
   type GGParams,
@@ -48,11 +49,61 @@ export interface GpuGgEnvironmentTransitionReport {
   readonly afterEnvironment: GGTimelineEnvironment;
 }
 
-type GpuGgCycleState =
+export type GpuGgCycleState =
   | "boundary"
   | "advancing"
   | "transitioning"
   | "incomplete";
+
+/**
+ * This operator's own statement of the ledger rule it implements, in the shared
+ * `SurfaceOperator` ledger vocabulary (solver-cpu/src/operator.ts `LedgerReport`). GGThreshold
+ * claims Sigma(b+d) unconditionally and meters the Dirichlet shell only when THIS operator's
+ * own far field is the replenished one; every remaining term belongs to LibbrechtKinetics and
+ * is never populated here. The prose claim is deliberately absent: the applicable-term
+ * partition is what a lane can state about itself without restating the oracle's wording.
+ */
+export interface GpuGgLedgerRule {
+  readonly rule: "GGThreshold";
+  readonly totalMassBDApplicable: boolean;
+  readonly dirichletMeterApplicable: boolean;
+  readonly fillLedgerIceCellsApplicable: boolean;
+  readonly fillLedgerVaporUnitsApplicable: boolean;
+  readonly holeFillDeficitApplicable: boolean;
+  readonly saturationClippedFillApplicable: boolean;
+  readonly lastDivergenceResidualApplicable: boolean;
+}
+
+/**
+ * This operator's own classification of its field relaxation, in the shared `RelaxationReport`
+ * vocabulary: which diagnostics its rule and its own far-field condition define.
+ */
+export interface GpuGgRelaxationClassification {
+  readonly converged: boolean;
+  readonly residualApplicable: boolean;
+  readonly divergenceApplicable: boolean;
+  readonly shellClampApplicable: boolean;
+  readonly surfaceExchangeApplicable: boolean;
+  readonly smootherDriftApplicable: boolean;
+  readonly minLocalSurfaceExchangeApplicable: boolean;
+}
+
+/** This operator's own classification of its surface step. */
+export interface GpuGgSurfaceStepClassification {
+  readonly deltaTimeSeconds: number | null;
+  readonly maxKineticFillIncrement: number | null;
+  readonly stalled: boolean;
+  readonly skippedUnconverged: boolean;
+}
+
+/** The grid this operator actually allocated, plus the domain it was configured for. */
+export interface GpuGgDomainExtents {
+  readonly dims: Dims;
+  readonly plane: number;
+  readonly cellCount: number;
+  readonly domain: DomainShape;
+  readonly center: readonly [number, number, number];
+}
 
 const float32LengthGetter = Object.getOwnPropertyDescriptor(
   Object.getPrototypeOf(Float32Array.prototype) as object,
@@ -495,6 +546,88 @@ export class GpuGgSolver {
   timelineEnvironment(): GGTimelineEnvironment {
     this.assertUsable();
     return ggTimelineEnvironmentFromParams(this.paramsInternal);
+  }
+
+  /**
+   * This operator's own cycle phase. Only "boundary" accepts a step or an environment event;
+   * the value is the same explicit state machine `step()` and `applyTimelineEnvironment()`
+   * enforce, never a restatement of the oracle's phase.
+   */
+  cyclePhase(): GpuGgCycleState {
+    this.assertUsable();
+    return this.cycleState;
+  }
+
+  /**
+   * Total masked-average diffusion passes this operator has actually executed, counted by the
+   * diffusion stage as it submits them. Not derived from the tick and not supplied by a caller.
+   */
+  completedDiffusionPasses(): number {
+    this.assertUsable();
+    return this.diffusion.completedPasses();
+  }
+
+  /** The grid this operator allocated and the domain/center it holds. */
+  domainExtents(): GpuGgDomainExtents {
+    this.assertUsable();
+    const layout = createGpuGridLayout(this.arena.plan.layout.dims);
+    return {
+      dims: { nx: layout.dims.nx, ny: layout.dims.ny, nz: layout.dims.nz },
+      plane: layout.plane,
+      cellCount: layout.cellCount,
+      domain: this.domain,
+      center: [this.center[0], this.center[1], this.center[2]],
+    };
+  }
+
+  /** The ledger rule this operator implements, under this operator's own far field. */
+  ledgerRule(): GpuGgLedgerRule {
+    this.assertUsable();
+    return {
+      rule: "GGThreshold",
+      totalMassBDApplicable: true,
+      dirichletMeterApplicable: this.farField === "dirichlet",
+      fillLedgerIceCellsApplicable: false,
+      fillLedgerVaporUnitsApplicable: false,
+      holeFillDeficitApplicable: false,
+      saturationClippedFillApplicable: false,
+      lastDivergenceResidualApplicable: false,
+    };
+  }
+
+  /**
+   * How this operator's relaxation classifies itself: the published single masked-average pass
+   * IS the G-G dynamics rather than a solve, so it converges vacuously and defines no residual,
+   * no divergence identity, no surface exchange, no smoother drift, and no local exchange
+   * minimum. The shell clamp is a diagnostic only under this operator's own Dirichlet far
+   * field, where its surface stage reduces and accumulates the clamp delta.
+   */
+  relaxationClassification(): GpuGgRelaxationClassification {
+    this.assertUsable();
+    return {
+      converged: true,
+      residualApplicable: false,
+      divergenceApplicable: false,
+      shellClampApplicable: this.farField === "dirichlet",
+      surfaceExchangeApplicable: false,
+      smootherDriftApplicable: false,
+      minLocalSurfaceExchangeApplicable: false,
+    };
+  }
+
+  /**
+   * How this operator's surface step reports itself. Its cycle report carries counters only —
+   * the ABI has no physical-time and no kinetic-fill term — and its WGSL has no stall and no
+   * unconverged-skip path, so a G-G cycle is discrete by construction.
+   */
+  surfaceStepClassification(): GpuGgSurfaceStepClassification {
+    this.assertUsable();
+    return {
+      deltaTimeSeconds: null,
+      maxKineticFillIncrement: null,
+      stalled: false,
+      skippedUnconverged: false,
+    };
   }
 
   applyTimelineEnvironment(
