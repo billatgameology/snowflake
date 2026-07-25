@@ -1033,12 +1033,14 @@ observed failing set. `NC-TOLERANCE-BYPASS` observes
 the old sole-criterion rule made impossible to report honestly. The bundle records 1,730 audited
 readbacks totalling 185,578,140 bytes with **zero** full-field display-frame reads, and zero
 device losses, uncaptured errors and hidden retries, each standing beside the observation list
-that produced it. Preview performance measured 15.7 ms edit acknowledgement against 100,
-132.1 ms first valid post-edit frame against 2,000, 36.4 and 15.1 ms p99 submission segments
-against 250, and a 43.4 ms maximum against 500, over 70 opened display frames.
+that produced it. Preview performance in this exact bundle (`out/phase5/gate5-report.json` at
+`2e746f5`) measured 15.4 ms edit acknowledgement against 100, 131.3 ms first valid post-edit
+frame against 2,000, 33.8 and 17.6 ms p99 submission segments against 250, and a 42.4 ms
+maximum against 500, over 70 opened display frames. (Earlier superseded bundles measured
+slightly different values; independent review caught this section still quoting them.)
 
-Supporting verification at the same commit: exact root `npm test` passes 58 files / 1,008 tests
-in 411.05 seconds, including Rule 7 (clean, 215 files) and both TypeScript projects, and
+Supporting verification at the same commit: exact root `npm test` passes 58 files / 1,011 tests
+in 471.20 seconds, including Rule 7 (clean, 215 files) and both TypeScript projects, and
 `npm run build --workspace app` builds 33 modules.
 
 **Next action:** this bundle has not been reviewed. Return it to the same independent reviewer

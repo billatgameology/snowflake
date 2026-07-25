@@ -489,8 +489,11 @@ relabeling, protocol-hash shift, required-limit downgrade, axis swap, wrong boun
 stale ping-pong state, residual-only LK convergence, symmetry-bit flip, accepted domain contact,
 excessive dispatch, late acknowledgement, late valid frame, full-field frame readback,
 checkpoint dtype/length/endianness shift, tolerance bypass, and post-publication artifact
-mutation. WP5 must make each mutation trip only its named owner before the final gate runs; the
-current protocol tests enforce registration/completeness, not a GPU gate that does not exist yet.
+mutation. Per ADR 0022 (protocol v6), WP5 must execute each mutation at its named boundary and
+require the OBSERVED failing set to contain its registered owner — real evidence is
+cross-linked, so more than one criterion may legitimately notice (the v5 sole-criterion rule
+was satisfiable only by asserting a singleton, which is how the hardcoding the reviewer
+rejected arose). The runner re-derives every control's outcome from the published payloads.
 
 ## Gate contract
 
@@ -1312,23 +1315,21 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
       dispatches, and all three corrected-mass safeguards inside the unchanged mixed-scalar
       bound while the direct meter difference stays at ADR 0019's recorded
       `0.024480659606307853`.
-      All five blockers and both should-fixes are now repaired, and a complete v6 bundle exists
-      at exact clean commit `42c7f3c` (superseding `947f22f`, whose blocker-(4) closure was
-      incomplete: the evaluator's summary-field replay survived and no verifier re-derived the
-      producer's control roster). The substitute replay is deleted; the runner now re-executes
-      all sixteen registered mutations against the published payloads on publication and
-      reopening and refuses any roster differing from its own observations, and the payload
-      validator derives `symmetryChecked`/`symmetryMismatchCount`/`domainContact` from the
-      freeze and the invariant operands instead of trusting declarations. `gate5-lane` and
-      `gate5` both exited 0 at `42c7f3c` on the RTX 3080 / D3D12 lane, the latter 16/16, under
-      protocol `phase5-gpu-conformance-windows-v6` (`5ef6d11b…`, ADR 0022). An independent audit
-      of the published artifacts reports zero self-attested comparisons (242 measured), zero
-      unregistered `null`/`null` scalars, and all 16 negative controls rejected with their owner
-      observed. Root `npm test` passes 58 files / 1,011 tests. **The bundle has not been
-      reviewed**, and two code-quality items remain open: the negative-control re-derivation
-      restates private `gate5-evidence.ts` comparison logic, and WP3/WP4 publish no observed
-      re-acquisition count. WP5 stays unchecked until the same reviewer returns zero blockers
-      and zero should-fixes.
+      All five blockers and both should-fixes are now repaired. The review-candidate v6 bundle
+      exists at exact clean commit `2e746f5` (all five probes measure re-acquisition; the
+      runner re-executes all sixteen negative-control mutations against the published payloads
+      on publication and reopening and refuses any roster differing from its own observations).
+      `gate5-lane` and `gate5` both exited 0 at `2e746f5` on the RTX 3080 / D3D12 lane, the
+      latter 16/16, under protocol `phase5-gpu-conformance-windows-v6` (`5ef6d11b…`, ADR 0022).
+      Independent review of that bundle (2026-07-25) verified all five original blockers and
+      both original should-fixes REPAIRED — including the reviewer's own replay of the ledger
+      recurrences and the negative-control roster — and returned **zero blockers, four
+      should-fixes**: superseded performance figures quoted in PROGRESS, this plan's stale
+      pre-ADR-0022 wording, eight blocking scalar pairs published from a single source
+      (GG `relaxation.sweeps` hardcoded `[1,1]`; LK ULP scalars copied host-to-both-sides),
+      and the drift-guarded comparison-logic duplication in `gate5-negative-controls.ts`.
+      Those four are the current repair round. WP5 stays unchecked until the same reviewer
+      returns zero blockers and zero should-fixes.
 - [ ] **WP6 — app integration.** Move live simulation to the GPU package, wire GPU-resident
       overlays/slices and resolution budgets, preserve view-only evidence inspection, and prove
       the CPU worker remains an available oracle/debug path. Do not perform Phase 7 visual polish.
