@@ -595,7 +595,71 @@ function exactDecisionPair(fixture, name, source, decoded) {
   return [witness, witness];
 }
 
+// Relations and tolerances for the LK invariants the probe measures. The probe supplies only
+// the measured operands; the relation, the tolerance, and any frozen right-hand side are
+// decided here so a probe cannot pick its own bound. `fill.cfl` carries the registered
+// mixed-scalar envelope because the GPU increment is binary32 and lands just above a binary64
+// `cflFill`; the frozen CFL value itself is unchanged.
+const LK_INVARIANT_CONTRACTS = {
+  "convergence.dual-or-reflecting": {
+    relation: "less-or-equal",
+    frozenRight: () => 1,
+    absoluteTolerance: 0,
+    relativeTolerance: 0,
+  },
+  "fill.cfl": {
+    relation: "less-or-equal",
+    frozenRight: (fixture) => fixture.cflFill,
+    absoluteTolerance: PHASE5_SCALAR_TOLERANCES.maxAbs,
+    relativeTolerance: PHASE5_SCALAR_TOLERANCES.maxRelative,
+  },
+  "ledger.partition": {
+    relation: "mixed-tolerance",
+    frozenRight: null,
+    absoluteTolerance: PHASE5_SCALAR_TOLERANCES.maxAbs,
+    relativeTolerance: PHASE5_SCALAR_TOLERANCES.maxRelative,
+  },
+  "relaxation.smoother-drift-bound": {
+    relation: "less-or-equal",
+    frozenRight: null,
+    absoluteTolerance: 0,
+    relativeTolerance: 0,
+  },
+  "timeline.number-density-conservation": {
+    relation: "mixed-tolerance",
+    frozenRight: null,
+    absoluteTolerance: 0,
+    relativeTolerance: PHASE5_SCALAR_TOLERANCES.eventDensityMaxRelative,
+  },
+};
+
+function measuredInvariantRecord(fixture, name, source) {
+  const contract = LK_INVARIANT_CONTRACTS[name];
+  const measured = source.laneInvariants?.[name];
+  if (
+    contract === undefined ||
+    measured === null ||
+    typeof measured !== "object" ||
+    Array.isArray(measured)
+  ) {
+    return undefined;
+  }
+  return {
+    name,
+    relation: contract.relation,
+    left: finiteOrNull(measured.left),
+    right:
+      contract.frozenRight === null
+        ? finiteOrNull(measured.right)
+        : contract.frozenRight(fixture),
+    absoluteTolerance: contract.absoluteTolerance,
+    relativeTolerance: contract.relativeTolerance,
+  };
+}
+
 function invariantRecord(fixture, name, source) {
+  const measured = measuredInvariantRecord(fixture, name, source);
+  if (measured !== undefined) return measured;
   if (name === "decision.gg-margin") {
     return {
       name,

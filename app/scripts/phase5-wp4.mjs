@@ -331,6 +331,73 @@ async function main() {
           return btoa(binary);
         }
 
+        // Lane observations never share an operand: each digest covers only its own lane's
+        // bytes. Values are widened to one canonical unsigned 32-bit encoding first, so a
+        // digest records the observed indices/flags rather than the lane's element width.
+        async function laneDigest(values) {
+          const digest = await crypto.subtle.digest(
+            "SHA-256",
+            new Uint8Array(
+              Uint32Array.from(values, (value) => value >>> 0).buffer,
+            ),
+          );
+          return Array.from(
+            new Uint8Array(digest),
+            (byte) => byte.toString(16).padStart(2, "0"),
+          ).join("");
+        }
+
+        function activeCellTotal(occupancy, wall) {
+          let total = 0;
+          for (let index = 0; index < occupancy.length; index++) {
+            if (occupancy[index] === 0 && wall[index] === 0) total++;
+          }
+          return total;
+        }
+
+        function attachedCellTotal(occupancy) {
+          let total = 0;
+          for (let index = 0; index < occupancy.length; index++) {
+            if (occupancy[index] !== 0) total++;
+          }
+          return total;
+        }
+
+        function farFieldIndices(topology) {
+          const indices = [];
+          for (let index = 0; index < topology.length; index++) {
+            if (
+              (topology[index] & production.GPU_LK_TOPOLOGY_FAR_FIELD) !== 0
+            ) {
+              indices.push(index);
+            }
+          }
+          return indices;
+        }
+
+        function finiteCount(values) {
+          let total = 0;
+          for (const value of values) {
+            if (Number.isFinite(value)) total++;
+          }
+          return total;
+        }
+
+        function noiseMarkedBoundaryCount(indices, rngSeed, tick) {
+          let total = 0;
+          for (const index of indices) {
+            if (
+              core.randomBit(
+                rngSeed,
+                index,
+                tick,
+                core.STREAM_NOISE_ALPHA_HK,
+              ) === 1
+            ) total++;
+          }
+          return total;
+        }
+
         function binary32ScalarComparison(reference, candidate) {
           const difference = Math.abs(candidate - reference);
           const limit =
@@ -1161,6 +1228,42 @@ async function main() {
             );
             const steps = [];
             const events = [];
+            // Per-lane observations for the registered science inventory. Every `cpu` entry is
+            // computed only from the float64 oracle or an independent host recomputation;
+            // every `gpu` entry only from a GPU readback or the GPU operator's own report.
+            const laneSteps = {
+              attachmentDeltaLog: { cpu: [], gpu: [] },
+              convergenceClassification: { cpu: [], gpu: [] },
+              divergenceStatus: { cpu: [], gpu: [] },
+              interfaceStepLog: { cpu: [], gpu: [] },
+              noiseWitness: { cpu: [], gpu: [] },
+              relaxationLog: { cpu: [], gpu: [] },
+              surfaceDiscrete: { cpu: [], gpu: [] },
+            };
+            const laneTimeline = {
+              cycleBoundary: { cpu: [], gpu: [] },
+              densityTransform: { cpu: [], gpu: [] },
+              reservoir: { cpu: [], gpu: [] },
+            };
+            let laneFinal = {
+              boundaryMembershipOrder: { cpu: null, gpu: null },
+              cachedBoundaryTuple: { cpu: null, gpu: null },
+              domainExtents: { cpu: null, gpu: null },
+              farFieldSet: { cpu: null, gpu: null },
+              lastAttachmentDelta: { cpu: null, gpu: null },
+              ledgerRule: { cpu: null, gpu: null },
+              renderFlags: { cpu: null, gpu: null },
+              surfacePolicy: { cpu: null, gpu: null },
+              wallMask: { cpu: null, gpu: null },
+            };
+            const laneMeasures = {
+              convergenceCriterion: 0,
+              densityAfter: 0,
+              densityBefore: 0,
+              driftBound: { ratio: -1, left: 0, right: 0 },
+              ledgerPartition: { left: 0, right: 0 },
+              maxKineticFillIncrement: 0,
+            };
             let independentPlacedFill = 0;
             let independentKineticDemand = 0;
             let independentClippedFill = 0;
@@ -1497,6 +1600,46 @@ async function main() {
                     ),
                   },
                 });
+                // Each lane's OWN timeline record. Only the discrete fields are published
+                // here: the transform's real-valued sums are registered scalars compared
+                // under their own tolerance, and binary64 and binary32 never agree exactly.
+                const densityRecord = (report) => ({
+                  temperatureChanged: report.densityTransform.temperatureChanged,
+                  activeUnattachedCellCount:
+                    report.densityTransform.activeUnattachedCellCount,
+                  transformedCellCount:
+                    report.densityTransform.transformedCellCount,
+                  transformedInteriorCellCount:
+                    report.densityTransform.transformedInteriorCellCount,
+                  transformedDirichletShellCellCount:
+                    report.densityTransform.transformedDirichletShellCellCount,
+                });
+                const reservoirRecord = (report) => ({
+                  farField: report.reservoir.farField,
+                  activeUnattachedShellCellCount:
+                    report.reservoir.activeUnattachedShellCellCount,
+                  shellReclampPending: report.reservoir.shellReclampPending,
+                });
+                const cycleBoundaryRecord = (report) => ({
+                  operator: report.operator,
+                  phase: report.boundary.phase,
+                  completedCycles: report.boundary.completedCycles,
+                  tick: report.boundary.tick,
+                });
+                laneTimeline.densityTransform.cpu.push(densityRecord(cpuEvent));
+                laneTimeline.densityTransform.gpu.push(densityRecord(gpuEvent));
+                laneTimeline.reservoir.cpu.push(reservoirRecord(cpuEvent));
+                laneTimeline.reservoir.gpu.push(reservoirRecord(gpuEvent));
+                laneTimeline.cycleBoundary.cpu.push(
+                  cycleBoundaryRecord(cpuEvent),
+                );
+                laneTimeline.cycleBoundary.gpu.push(
+                  cycleBoundaryRecord(gpuEvent),
+                );
+                laneMeasures.densityBefore +=
+                  gpuEvent.densityTransform.absoluteNumberDensitySumBefore;
+                laneMeasures.densityAfter +=
+                  gpuEvent.densityTransform.absoluteNumberDensitySumAfter;
               }
 
               const cpuRelaxation = oracle.relaxField();
@@ -1906,10 +2049,41 @@ async function main() {
                 oracle.a,
                 readyState.occupancy,
               );
+              const cpuReadyBoundary = oracle.boundaryCells();
               const readyBoundary = exactArray(
-                oracle.boundaryCells(),
+                cpuReadyBoundary,
                 readyState.boundaryIndices,
               );
+              // The relaxation-ready facts each lane holds on its own, captured before the
+              // interface update mutates either one.
+              const laneReadyCpu = {
+                tick: oracle.tick,
+                activeCellCount: activeCellTotal(oracle.a, oracle.wall),
+                boundarySize: cpuReadyBoundary.length,
+              };
+              const laneReadyGpu = {
+                tick: solver.tick,
+                activeCellCount: solver.activeCellCount(),
+                boundarySize: solver.boundarySize(),
+              };
+              laneSteps.noiseWitness.cpu.push({
+                tick: laneReadyCpu.tick,
+                epsilon: oracle.noiseEpsilon,
+                markedBoundaryCellCount: noiseMarkedBoundaryCount(
+                  cpuReadyBoundary,
+                  oracle.rngSeed,
+                  laneReadyCpu.tick,
+                ),
+              });
+              laneSteps.noiseWitness.gpu.push({
+                tick: laneReadyGpu.tick,
+                epsilon: solver.configuration().noiseEpsilon,
+                markedBoundaryCellCount: noiseMarkedBoundaryCount(
+                  readyState.boundaryIndices,
+                  solver.configuration().rngSeed,
+                  laneReadyGpu.tick,
+                ),
+              });
               const coefficientReference = [];
               const boundarySigmaReference = [];
               const opposingReference = [];
@@ -2639,6 +2813,211 @@ async function main() {
                 noiseWitness,
                 pass,
               });
+              laneSteps.convergenceClassification.cpu.push({
+                mode: convergenceWitness.classification.classified,
+                maximumCurrentStepUlpDistance:
+                  convergenceWitness.classification
+                    .maximumCurrentStepUlpDistance,
+                maximumTwoBackUlpDistance:
+                  convergenceWitness.classification.maximumTwoBackUlpDistance,
+              });
+              laneSteps.convergenceClassification.gpu.push({
+                mode: gpuRelaxation.convergenceMode,
+                maximumCurrentStepUlpDistance:
+                  gpuRelaxation.maximumCurrentStepUlpDistance,
+                maximumTwoBackUlpDistance:
+                  gpuRelaxation.maximumTwoBackUlpDistance,
+              });
+              laneSteps.divergenceStatus.cpu.push(
+                convergenceWitness.current.divergenceStatus,
+              );
+              laneSteps.divergenceStatus.gpu.push(
+                gpuRelaxation.divergenceStatus,
+              );
+              // The relaxation log's sweep counts are a registered per-lane diagnostic, so the
+              // published record carries each lane's converged state, its own relaxation
+              // domain size, and which diagnostics its own far-field condition defines.
+              laneSteps.relaxationLog.cpu.push({
+                converged: cpuRelaxation.converged,
+                activeCellCount: laneReadyCpu.activeCellCount,
+                boundarySize: laneReadyCpu.boundarySize,
+                divergenceApplicable: cpuRelaxation.divergenceResidual !== null,
+                shellClampApplicable:
+                  cpuRelaxation.shellClampDiagnostic !== null,
+                smootherDriftApplicable:
+                  cpuRelaxation.smootherDriftDiagnostic !== null,
+              });
+              laneSteps.relaxationLog.gpu.push({
+                converged: gpuRelaxation.converged,
+                activeCellCount: laneReadyGpu.activeCellCount,
+                boundarySize: laneReadyGpu.boundarySize,
+                divergenceApplicable: gpuRelaxation.divergenceResidual !== null,
+                shellClampApplicable:
+                  gpuRelaxation.shellClampDiagnostic !== null,
+                smootherDriftApplicable:
+                  gpuRelaxation.smootherDriftDiagnostic !== null,
+              });
+              laneSteps.surfaceDiscrete.cpu.push({
+                attachedNow: cpuSurface.attachedNow,
+                holeFillCount: cpuSurface.holeFillCount,
+                stalled: cpuSurface.stalled,
+                skippedUnconverged: cpuSurface.skippedUnconverged,
+              });
+              laneSteps.surfaceDiscrete.gpu.push({
+                attachedNow: gpuSurface.attachedNow,
+                holeFillCount: gpuSurface.holeFillCount,
+                stalled: gpuSurface.stalled,
+                skippedUnconverged: gpuSurface.skippedUnconverged,
+              });
+              laneSteps.interfaceStepLog.cpu.push({
+                tick: oracle.tick,
+                attachedCount: attachedCellTotal(oracle.a),
+                boundarySize: oracle.boundaryCells().length,
+              });
+              laneSteps.interfaceStepLog.gpu.push({
+                tick: solver.tick,
+                attachedCount: solver.attachedCount(),
+                boundarySize: solver.boundarySize(),
+              });
+              laneSteps.attachmentDeltaLog.cpu.push({
+                attachedNow: cpuSurface.attachedNow,
+                holeFillCount: cpuSurface.holeFillCount,
+                orderDigest: await laneDigest(oracle.lastAttached),
+              });
+              laneSteps.attachmentDeltaLog.gpu.push({
+                attachedNow: solver.lastAttachmentDelta(),
+                holeFillCount: gpuSurface.holeFillCount,
+                orderDigest: await laneDigest(finalState.attachmentIndices),
+              });
+              const cpuFarField = farFieldIndices(topologyFor(oracle));
+              const gpuFarField = farFieldIndices(finalState.topology);
+              laneFinal = {
+                boundaryMembershipOrder: {
+                  cpu: await laneDigest(oracle.boundaryCells()),
+                  gpu: await laneDigest(finalState.boundaryIndices),
+                },
+                // The cached tuple's magnitudes are binary64 against binary32 and are compared
+                // under the registered cache tolerances; what an exact decision can carry is
+                // the set the tuple is defined over and its finiteness.
+                cachedBoundaryTuple: {
+                  cpu: {
+                    entryCount: coefficientReference.length,
+                    finiteCoefficientCount: finiteCount(coefficientReference),
+                    finiteBoundarySigmaCount:
+                      finiteCount(boundarySigmaReference),
+                    finiteOpposingCount: finiteCount(opposingReference),
+                    indexDigest: await laneDigest(cpuReadyBoundary),
+                  },
+                  gpu: {
+                    entryCount: coefficientCandidate.length,
+                    finiteCoefficientCount: finiteCount(coefficientCandidate),
+                    finiteBoundarySigmaCount:
+                      finiteCount(boundarySigmaCandidate),
+                    finiteOpposingCount: finiteCount(opposingCandidate),
+                    indexDigest: await laneDigest(readyState.boundaryIndices),
+                  },
+                },
+                domainExtents: {
+                  cpu: {
+                    dims: oracle.dims,
+                    largestExtent: oracle.largestExtent(),
+                    activeCellCount: activeCellTotal(oracle.a, oracle.wall),
+                  },
+                  gpu: {
+                    dims: solver.configuration().dims,
+                    largestExtent: solver.largestExtent(),
+                    activeCellCount: solver.activeCellCount(),
+                  },
+                },
+                farFieldSet: {
+                  cpu: {
+                    count: cpuFarField.length,
+                    digest: await laneDigest(cpuFarField),
+                  },
+                  gpu: {
+                    count: gpuFarField.length,
+                    digest: await laneDigest(gpuFarField),
+                  },
+                },
+                lastAttachmentDelta: {
+                  cpu: cpuSurface.attachedNow,
+                  gpu: solver.lastAttachmentDelta(),
+                },
+                // The two rules word their prose claim differently by design, so only the
+                // rule identity and its explicit null Sigma(b+d)/Dirichlet-meter claims are
+                // published here.
+                ledgerRule: {
+                  cpu: {
+                    rule: cpuLedger.rule,
+                    totalMassBD: cpuLedger.totalMassBD,
+                    dirichletMeter: cpuLedger.dirichletMeter,
+                  },
+                  gpu: {
+                    rule: gpuLedger.rule,
+                    totalMassBD: gpuLedger.totalMassBD,
+                    dirichletMeter: gpuLedger.dirichletMeter,
+                  },
+                },
+                renderFlags: {
+                  cpu: await laneDigest(surfaceWitness.renderFlags),
+                  gpu: await laneDigest(finalState.renderFlags),
+                },
+                surfacePolicy: {
+                  cpu: oracle.surfacePolicy,
+                  gpu: solver.configuration().surfacePolicy,
+                },
+                wallMask: {
+                  cpu: await laneDigest(oracle.wall),
+                  gpu: await laneDigest(finalState.wall),
+                },
+              };
+              laneMeasures.maxKineticFillIncrement = Math.max(
+                laneMeasures.maxKineticFillIncrement,
+                gpuSurface.maxKineticFillIncrement,
+              );
+              laneMeasures.ledgerPartition = {
+                left:
+                  gpuLedger.fillLedgerIceCells +
+                  gpuLedger.saturationClippedFill,
+                right: gpuLedger.kineticDemand,
+              };
+              // ADR 0021: a fixed point answers to the configured residual tolerance and a
+              // bounded two-cycle to the registered one-ULP current-step bound. Fixed-sigma
+              // Dirichlet additionally answers to the divergence identity; reflecting makes
+              // no divergence claim and contributes no divergence term.
+              const residualCriterion =
+                gpuRelaxation.convergenceMode === "bounded-two-cycle"
+                  ? gpuRelaxation.maximumCurrentStepUlpDistance /
+                    protocol.PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY
+                      .maximumCurrentStepUlpDistance
+                  : gpuRelaxation.residual / fixture.relaxTol;
+              const divergenceCriterion =
+                gpuRelaxation.divergenceResidual === null
+                  ? 0
+                  : Math.abs(gpuRelaxation.divergenceResidual) /
+                    fixture.divTol;
+              laneMeasures.convergenceCriterion = Math.max(
+                laneMeasures.convergenceCriterion,
+                residualCriterion,
+                divergenceCriterion,
+              );
+              for (const entry of convergenceWitness.traceAudit) {
+                const measured = Math.abs(entry.smootherDrift);
+                const bound = entry.independentlyDerivedLimit;
+                const ratio =
+                  bound > 0
+                    ? measured / bound
+                    : measured === 0
+                      ? 0
+                      : Number.POSITIVE_INFINITY;
+                if (ratio >= laneMeasures.driftBound.ratio) {
+                  laneMeasures.driftBound = {
+                    ratio,
+                    left: measured,
+                    right: bound,
+                  };
+                }
+              }
             }
             if (fixture.id === "lk-reflecting-diagnostic-17x19x15") {
               const fillFixture = stressFixtures.find(
@@ -2792,6 +3171,65 @@ async function main() {
               f: oracle.f,
               sigma: oracle.sigma,
             });
+            // `state.cycle-phase` publishes each lane's own completed interface-step count
+            // plus the interface-cycle phase its own timeline reports carry. The GPU's
+            // end-of-run `cyclePhase()` has no CPU counterpart — `LKSolver.cycleState` is
+            // private and unexported — so it is deliberately not published as a lane pair.
+            const laneObservations = {
+              "attachment-delta-log": laneSteps.attachmentDeltaLog,
+              "interface-step-log": laneSteps.interfaceStepLog,
+              "noise-witness": laneSteps.noiseWitness,
+              "noise.witness": laneSteps.noiseWitness,
+              "relaxation-log": laneSteps.relaxationLog,
+              "reports.convergence-classification":
+                laneSteps.convergenceClassification,
+              "reports.divergence-status": laneSteps.divergenceStatus,
+              "reports.ledger-rule": laneFinal.ledgerRule,
+              "reports.surface-discrete": laneSteps.surfaceDiscrete,
+              "state.boundary-membership-order":
+                laneFinal.boundaryMembershipOrder,
+              "state.cached-boundary-tuple": laneFinal.cachedBoundaryTuple,
+              "state.cycle-phase": {
+                cpu: {
+                  completedInterfaceSteps: oracle.tick,
+                  eventBoundaries: laneTimeline.cycleBoundary.cpu,
+                },
+                gpu: {
+                  completedInterfaceSteps: solver.tick,
+                  eventBoundaries: laneTimeline.cycleBoundary.gpu,
+                },
+              },
+              "state.domain-extents": laneFinal.domainExtents,
+              "state.far-field-set": laneFinal.farFieldSet,
+              "state.last-attachment-delta": laneFinal.lastAttachmentDelta,
+              "state.render-flags": laneFinal.renderFlags,
+              "state.surface-policy": laneFinal.surfacePolicy,
+              "state.wall-mask": laneFinal.wallMask,
+              "timeline.density-transform-records":
+                laneTimeline.densityTransform,
+              "timeline.reservoir-records": laneTimeline.reservoir,
+            };
+            // Measured operands for the registered LK invariants. Each pair is the two
+            // quantities the invariant actually relates; no operand is a probe verdict.
+            const laneInvariants = {
+              "convergence.dual-or-reflecting": {
+                left: laneMeasures.convergenceCriterion,
+                right: 1,
+              },
+              "fill.cfl": {
+                left: laneMeasures.maxKineticFillIncrement,
+                right: fixture.cflFill,
+              },
+              "ledger.partition": laneMeasures.ledgerPartition,
+              "relaxation.smoother-drift-bound": {
+                left: laneMeasures.driftBound.left,
+                right: laneMeasures.driftBound.right,
+              },
+              "timeline.number-density-conservation": {
+                left: laneMeasures.densityAfter,
+                right: laneMeasures.densityBefore,
+              },
+            };
             fixtureReports.push({
               id: fixture.id,
               steps,
@@ -2799,6 +3237,8 @@ async function main() {
               minimumDecisionMargin,
               decisionMarginPass,
               stopReason,
+              laneObservations,
+              laneInvariants,
               cpuCheckpointBase64: base64(cpuCheckpoint),
               gpuCheckpointBase64: base64(
                 production.encodeGpuLkConversionSnapshot(gpuConversion),
