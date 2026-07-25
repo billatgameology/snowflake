@@ -381,7 +381,7 @@ function scalarPair(fixture, name, source, decoded) {
   if (name === "relaxation.smoother-drift-bound") {
     return [
       finiteOrNull(last.convergenceWitness?.current?.smootherDriftLimit),
-      finiteOrNull(last.gpuRelaxation?.smootherDriftBound),
+      finiteOrNull(last.gpuRelaxation?.trace?.at(-1)?.smootherDriftLimit),
     ];
   }
   if (name === "relaxation.maximum-current-step-ulp") {
