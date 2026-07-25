@@ -4,6 +4,7 @@
 
 import { existsSync } from "node:fs";
 import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import os from "node:os";
 import process from "node:process";
 import { resolve } from "node:path";
@@ -24,6 +25,7 @@ import {
   GPU_COPY_WORDS_WGSL,
   GPU_COUNTER_PRNG_WGSL,
   gpuCoords,
+  gpuIndex,
   planGpuDispatchRanges,
   validateGpuAllocation,
   validateGpuRequirements,
@@ -39,6 +41,10 @@ import {
 } from "../../runner/src/phase5-protocol.ts";
 
 const repoRoot = resolve(import.meta.dirname, "..", "..");
+
+// Both frozen cell-buffer schemas are published per lane so the layout fixture's field-offset
+// observation covers the whole registered ABI, not only the operator the probe happens to run.
+const LANE_OBSERVATION_OPERATORS = ["gg", "lk"];
 
 function git(...args) {
   return execFileSync("git", args, {
@@ -88,6 +94,15 @@ function exactComparison(expected, observed) {
   return { mismatchCount, firstMismatch };
 }
 
+// Lowercase SHA-256 over one lane's OWN bytes, so no comparison can agree because one side was
+// copied from the other. WP1 compares in the Node process rather than in the page, so this uses
+// node:crypto where the in-page probes use `crypto.subtle`.
+function digestHex(values) {
+  return createHash("sha256")
+    .update(new Uint8Array(values.buffer, values.byteOffset, values.byteLength))
+    .digest("hex");
+}
+
 async function main() {
   if (process.argv.length !== 2) {
     throw new Error("WP1 transport conformance accepts no options");
@@ -97,6 +112,12 @@ async function main() {
     throw new Error(`the frozen Chromium executable is absent: ${browserPath}`);
   }
   const platform = platformContract();
+  const layoutFixture = PHASE5_FIXTURES.find(
+    (fixture) => fixture.id === "layout-noncubic-box-17x19x11",
+  );
+  if (layoutFixture === undefined || layoutFixture.kind !== "layout") {
+    throw new Error("WP1 layout fixture is absent");
+  }
   const layout = createGpuGridLayout({ nx: 17, ny: 19, nz: 11 });
   const coordinateExpected = Array.from(
     { length: layout.cellCount },
@@ -502,6 +523,47 @@ async function main() {
             arena?.destroy();
           }
         }
+        // GPU-lane view of the frozen cell-buffer layout at the layout fixture's own
+        // dimensions: the live arena's owned-buffer inventory, in arena order, with every
+        // byte length taken from the device buffer object instead of the host plan.
+        const deviceFieldOffsets = {};
+        let devicePingPong = null;
+        for (const operator of input.laneOperators) {
+          const laneArena = production.GpuBufferArena.create(
+            device,
+            1,
+            production.createGpuBufferPlan(input.laneDims, operator),
+          );
+          try {
+            let byteOffset = 0;
+            deviceFieldOffsets[operator] = laneArena.names().map((name) => {
+              const entry = {
+                name,
+                byteOffset,
+                byteLength: Number(laneArena.get(name).size),
+              };
+              byteOffset += entry.byteLength;
+              return entry;
+            });
+            if (operator === "gg") {
+              const pingPongNames = laneArena
+                .names()
+                .filter((name) => name.startsWith("ggVapor"));
+              devicePingPong = {
+                ownership: operator,
+                buffers: pingPongNames.map((name) => ({
+                  name,
+                  byteLength: Number(laneArena.get(name).size),
+                })),
+                distinctBuffers: new Set(
+                  pingPongNames.map((name) => laneArena.get(name)),
+                ).size,
+              };
+            }
+          } finally {
+            laneArena.destroy();
+          }
+        }
         await new Promise((resolvePromise) => setTimeout(resolvePromise, 0));
         const limitNames = Object.keys(input.requiredLimits);
         const result = {
@@ -533,6 +595,8 @@ async function main() {
           },
           kernels,
           allocations,
+          deviceFieldOffsets,
+          devicePingPong,
           submissionRecords: submissionController.records(),
           readbackRecords: readbackAudit.records(),
           fullFieldDisplayFrameCount:
@@ -552,6 +616,8 @@ async function main() {
         productionModuleUrl: `${origin}/solver-gpu/src/index.ts`,
         requiredFeatures: [...PHASE5_REQUIRED_FEATURES],
         requiredLimits: { ...PHASE5_REQUIRED_LIMITS },
+        laneOperators: [...LANE_OBSERVATION_OPERATORS],
+        laneDims: { ...layoutFixture.dims },
         kernels: [
           {
             label: "coordinate-hash",
@@ -631,12 +697,6 @@ async function main() {
       prngExpected,
       kernelByLabel["counter-prng"].output,
     );
-    const layoutFixture = PHASE5_FIXTURES.find(
-      (fixture) => fixture.id === "layout-noncubic-box-17x19x11",
-    );
-    if (layoutFixture === undefined || layoutFixture.kind !== "layout") {
-      throw new Error("WP1 layout fixture is absent");
-    }
     function layoutState(words) {
       const a = Uint8Array.from(words, (word) => word & 1);
       const b = new Float64Array(words.length);
@@ -658,6 +718,98 @@ async function main() {
         d,
       };
     }
+    // Per-lane observations for the registered layout science names. Every `cpu` value is
+    // computed only from host-recomputed expected data and every `gpu` value only from the
+    // device readbacks or the live device objects; a lane is never filled from the other.
+    const coordinateObserved = kernelByLabel["coordinate-hash"].output;
+    const copyObserved = kernelByLabel["copy-u32-f32-bits"].output;
+    const prngObserved = kernelByLabel["counter-prng"].output;
+    let cpuRoundTripCells = 0;
+    for (let index = 0; index < layout.cellCount; index++) {
+      const [i, j, k] = gpuCoords(layout, index);
+      if (gpuIndex(layout, i, j, k) === index) cpuRoundTripCells++;
+    }
+    const cpuFieldOffsets = Object.fromEntries(
+      LANE_OBSERVATION_OPERATORS.map((operator) => {
+        let byteOffset = 0;
+        return [
+          operator,
+          createGpuBufferPlan(layoutFixture.dims, operator).buffers.map(
+            (descriptor) => {
+              const entry = {
+                name: descriptor.name,
+                byteOffset,
+                byteLength: descriptor.byteLength,
+              };
+              byteOffset += descriptor.byteLength;
+              return entry;
+            },
+          ),
+        ];
+      }),
+    );
+    const cpuPingPongBuffers = createGpuBufferPlan(layoutFixture.dims, "gg")
+      .buffers.filter((descriptor) => descriptor.name.startsWith("ggVapor"))
+      .map((descriptor) => ({
+        name: descriptor.name,
+        byteLength: descriptor.byteLength,
+      }));
+    const cpuTerminal = {
+      reason:
+        cpuRoundTripCells === layout.cellCount ? "completed" : "incomplete",
+      cells: cpuRoundTripCells,
+    };
+    const gpuTerminal = {
+      reason:
+        deviceResult.uncapturedErrors.length > 0
+          ? "device-error"
+          : coordinateObserved.length === layout.cellCount
+            ? "completed"
+            : "incomplete",
+      cells: coordinateObserved.length,
+    };
+    const layoutObservations = {
+      "layout.field-offsets": {
+        cpu: cpuFieldOffsets,
+        gpu: deviceResult.deviceFieldOffsets,
+      },
+      "layout.index-round-trip": {
+        cpu: {
+          cellCount: layout.cellCount,
+          sha256: digestHex(Uint32Array.from(coordinateExpected)),
+        },
+        gpu: {
+          cellCount: coordinateObserved.length,
+          sha256: digestHex(Uint32Array.from(coordinateObserved)),
+        },
+      },
+      "layout.ping-pong-ownership": {
+        cpu: {
+          ownership: "gg",
+          buffers: cpuPingPongBuffers,
+          distinctBuffers: new Set(
+            cpuPingPongBuffers.map((entry) => entry.name),
+          ).size,
+        },
+        gpu: deviceResult.devicePingPong,
+      },
+      "stop.reason": { cpu: cpuTerminal, gpu: gpuTerminal },
+      "layout-round-trip": {
+        cpu: {
+          coordinateHashSha256: digestHex(Uint32Array.from(coordinateExpected)),
+          copyWordsSha256: digestHex(copyWords),
+          counterPrngSha256: digestHex(Uint32Array.from(prngExpected)),
+          copyWordCount: copyWords.length,
+        },
+        gpu: {
+          coordinateHashSha256: digestHex(Uint32Array.from(coordinateObserved)),
+          copyWordsSha256: digestHex(Uint32Array.from(copyObserved)),
+          counterPrngSha256: digestHex(Uint32Array.from(prngObserved)),
+          copyWordCount: copyObserved.length,
+        },
+      },
+      stop: { cpu: cpuTerminal, gpu: gpuTerminal },
+    };
     const layoutCheckpoint = {
       cpuCheckpointBase64: Buffer.from(
         encodeCheckpoint(layoutState(coordinateExpected), null),
@@ -668,6 +820,7 @@ async function main() {
           null,
         ),
       ).toString("base64"),
+      laneObservations: layoutObservations,
     };
 
     const adapterCapability = {

@@ -28,6 +28,11 @@ import {
 
 const repoRoot = resolve(import.meta.dirname, "..", "..");
 
+// Shared cell buffers read back once per fixture so the GPU lane can publish its own mask and
+// noise observations. They are audited exactly like every other readback; the pass rule below
+// accounts for them so the readback inventory stays an exact equality.
+const LANE_OBSERVATION_BUFFERS = ["occupancy", "wall", "topology", "noise"];
+
 function git(...args) {
   return execFileSync("git", args, {
     cwd: repoRoot,
@@ -181,6 +186,61 @@ async function main() {
           return btoa(binary);
         }
 
+        // Lowercase SHA-256 over one lane's OWN bytes, so no comparison can agree because one
+        // side was copied from the other. CPU arrays are normalized to the GPU element type
+        // first, exactly as the existing exact-mismatch comparisons already do.
+        async function digestHex(values) {
+          const hash = await crypto.subtle.digest(
+            "SHA-256",
+            new Uint8Array(values.buffer, values.byteOffset, values.byteLength),
+          );
+          return Array.from(new Uint8Array(hash), (byte) =>
+            byte.toString(16).padStart(2, "0")
+          ).join("");
+        }
+
+        /** Widen a host mask to the u32 cell width the GPU buffers use. */
+        function widenToWords(mask) {
+          const words = new Uint32Array(mask.length);
+          for (let index = 0; index < mask.length; index++) {
+            words[index] = mask[index];
+          }
+          return words;
+        }
+
+        /** 1 where the lane's own field is exactly zero, i.e. its blocked-cell support. */
+        function zeroSupportWords(field) {
+          const words = new Uint32Array(field.length);
+          for (let index = 0; index < field.length; index++) {
+            words[index] = field[index] === 0 ? 1 : 0;
+          }
+          return words;
+        }
+
+        function bitWords(words, bit) {
+          const extracted = new Uint32Array(words.length);
+          for (let index = 0; index < words.length; index++) {
+            extracted[index] = (words[index] & bit) === 0 ? 0 : 1;
+          }
+          return extracted;
+        }
+
+        function bitIndices(words, bit) {
+          const indices = [];
+          for (let index = 0; index < words.length; index++) {
+            if ((words[index] & bit) !== 0) indices.push(index);
+          }
+          return indices;
+        }
+
+        function countNonzero(values) {
+          let total = 0;
+          for (let index = 0; index < values.length; index++) {
+            if (values[index] !== 0) total++;
+          }
+          return total;
+        }
+
         function paramsFor(fixture) {
           const preset = core.GG_PRESETS[fixture.preset];
           return {
@@ -239,6 +299,24 @@ async function main() {
           return new Float32Array(copy);
         }
 
+        /** Audited readback of one shared cell buffer, for the GPU lane's own observations. */
+        async function readOwnedBuffer(arena, fixtureId, name) {
+          const source = arena.get(name);
+          const copy = await production.readGpuBuffer(
+            device,
+            source,
+            {
+              purpose: "test",
+              label: `${fixtureId}:lane-observation:${name}`,
+              generation: 1,
+              byteOffset: 0,
+              byteLength: source.size,
+            },
+            readbackAudit,
+          );
+          return new Uint32Array(copy);
+        }
+
         const fixtureReports = [];
         const fixtures = protocol.PHASE5_FIXTURES.filter(
           (fixture) => fixture.kind === "diffusion",
@@ -259,12 +337,18 @@ async function main() {
               makeGpuInput(oracle),
             );
             const comparisons = [];
+            const cpuStages = [];
+            const gpuStages = [];
             let finalObserved = null;
             let checkpointObserved = null;
             let completedPasses = 0;
+            let cpuCompletedPasses = 0;
             for (const targetPass of fixture.passes) {
               const delta = targetPass - completedPasses;
-              for (let pass = 0; pass < delta; pass++) oracle.relaxField();
+              for (let pass = 0; pass < delta; pass++) {
+                oracle.relaxField();
+                cpuCompletedPasses++;
+              }
               await diffusion.runPasses(
                 delta,
                 `${fixture.id}:through-${targetPass}`,
@@ -285,6 +369,18 @@ async function main() {
                   protocol.PHASE5_FIELD_TOLERANCES.diffusionD,
                 ),
               });
+              // Per-stage support digests: the float values are only tolerance-comparable
+              // across lanes, so each lane hashes its own blocked-cell support instead.
+              cpuStages.push({
+                target: targetPass,
+                passCount: cpuCompletedPasses,
+                supportSha256: await digestHex(zeroSupportWords(oracle.d)),
+              });
+              gpuStages.push({
+                target: targetPass,
+                passCount: diffusion.completedPasses(),
+                supportSha256: await digestHex(zeroSupportWords(observed)),
+              });
               if (
                 fixture.id ===
                   "diff-small-dirichlet-noise-drift-31x29x21" &&
@@ -298,6 +394,127 @@ async function main() {
             if (checkpointObserved === null) {
               throw new Error(`${fixture.id} produced no checkpoint state`);
             }
+            // Per-lane observations for the registered diffusion science names. Every `cpu`
+            // value comes only from the oracle or an independent host recomputation, and every
+            // `gpu` value only from an audited device readback or the production operator's
+            // own report. Neither lane is ever filled from the other.
+            const laneBuffers = {};
+            for (const name of input.laneObservationBuffers) {
+              laneBuffers[name] = await readOwnedBuffer(arena, fixture.id, name);
+            }
+            const cpuTopology = new Uint32Array(oracle.d.length);
+            for (const index of oracle.farFieldCells) cpuTopology[index] = 1;
+            const cpuNoise = new Float32Array(oracle.d.length);
+            if (oracle.noiseEpsilon > 0) {
+              for (let index = 0; index < cpuNoise.length; index++) {
+                cpuNoise[index] =
+                  oracle.noiseEpsilon *
+                  core.randomBit(
+                    oracle.rngSeed,
+                    index,
+                    oracle.tick,
+                    core.STREAM_NOISE_XI,
+                  );
+              }
+            }
+            const cpuFarField = bitWords(cpuTopology, 1);
+            const gpuFarField = bitWords(laneBuffers.topology, 1);
+            const cpuNoiseWitness = {
+              sha256: await digestHex(cpuNoise),
+              nonzeroCount: countNonzero(cpuNoise),
+            };
+            const gpuNoiseWitness = {
+              sha256: await digestHex(laneBuffers.noise),
+              nonzeroCount: countNonzero(laneBuffers.noise),
+            };
+            const cpuStop = {
+              reason: oracle.domainContact()
+                ? "domain-contact"
+                : cpuCompletedPasses === fixture.stop.value
+                  ? "completed"
+                  : "incomplete",
+              completedPasses: cpuCompletedPasses,
+            };
+            const gpuStop = {
+              reason:
+                uncapturedErrors.length > 0
+                  ? "device-error"
+                  : submissions.unexpectedLossReason() !== null
+                    ? "device-loss"
+                    : diffusion.completedPasses() === fixture.stop.value
+                      ? "completed"
+                      : "incomplete",
+              completedPasses: diffusion.completedPasses(),
+            };
+            const laneObservations = {
+              "noise.witness": { cpu: cpuNoiseWitness, gpu: gpuNoiseWitness },
+              "state.boundary-membership-order": {
+                cpu: { order: bitIndices(cpuTopology, 2) },
+                gpu: { order: bitIndices(laneBuffers.topology, 2) },
+              },
+              "state.far-field-set": {
+                cpu: {
+                  sha256: await digestHex(cpuFarField),
+                  shellCount: countNonzero(cpuFarField),
+                },
+                gpu: {
+                  sha256: await digestHex(gpuFarField),
+                  shellCount: countNonzero(gpuFarField),
+                },
+              },
+              "state.occupancy": {
+                cpu: {
+                  sha256: await digestHex(widenToWords(oracle.a)),
+                  attachedCount: countNonzero(oracle.a),
+                },
+                gpu: {
+                  sha256: await digestHex(laneBuffers.occupancy),
+                  attachedCount: countNonzero(laneBuffers.occupancy),
+                },
+              },
+              "state.ping-pong-ownership": {
+                cpu: {
+                  active:
+                    cpuCompletedPasses % 2 === 0 ? "ggVaporA" : "ggVaporB",
+                  inactive:
+                    cpuCompletedPasses % 2 === 0 ? "ggVaporB" : "ggVaporA",
+                },
+                gpu: {
+                  active: diffusion.activeVaporName(),
+                  inactive: diffusion.inactiveVaporName(),
+                },
+              },
+              "state.stage-hashes": { cpu: cpuStages, gpu: gpuStages },
+              "state.wall-mask": {
+                cpu: {
+                  sha256: await digestHex(widenToWords(oracle.wall)),
+                  inactiveCount: countNonzero(oracle.wall),
+                },
+                gpu: {
+                  sha256: await digestHex(laneBuffers.wall),
+                  inactiveCount: countNonzero(laneBuffers.wall),
+                },
+              },
+              "stop.reason": { cpu: cpuStop, gpu: gpuStop },
+              "diffusion-passes": {
+                cpu: {
+                  totalPasses: cpuCompletedPasses,
+                  stages: cpuStages.map((stage) => ({
+                    target: stage.target,
+                    passCount: stage.passCount,
+                  })),
+                },
+                gpu: {
+                  totalPasses: diffusion.completedPasses(),
+                  stages: gpuStages.map((stage) => ({
+                    target: stage.target,
+                    passCount: stage.passCount,
+                  })),
+                },
+              },
+              "noise-witness": { cpu: cpuNoiseWitness, gpu: gpuNoiseWitness },
+              stop: { cpu: cpuStop, gpu: gpuStop },
+            };
             const checkpointBase = {
               dims: oracle.dims,
               tick: oracle.tick,
@@ -330,6 +547,7 @@ async function main() {
                   null,
                 ),
               ),
+              laneObservations,
               pass: comparisons.every((comparison) => comparison.pass),
             });
           } finally {
@@ -431,6 +649,7 @@ async function main() {
         protocolModuleUrl: `${origin}/runner/src/phase5-protocol.ts`,
         requiredFeatures: [...PHASE5_REQUIRED_FEATURES],
         requiredLimits: { ...PHASE5_REQUIRED_LIMITS },
+        laneObservationBuffers: [...LANE_OBSERVATION_BUFFERS],
       },
     );
 
@@ -500,7 +719,10 @@ async function main() {
         deviceResult.fixtures.every((fixture) => fixture.pass) &&
         deviceResult.wrongClampNegative.rejected &&
         deviceResult.submissions.length === expectedComparisonCount + 1 &&
-        deviceResult.readback.records.length === expectedComparisonCount + 1 &&
+        deviceResult.readback.records.length ===
+          expectedComparisonCount +
+            1 +
+            LANE_OBSERVATION_BUFFERS.length * deviceResult.fixtures.length &&
         deviceResult.readback.fullFieldDisplayFrameCount === 0 &&
         deviceResult.uncapturedErrors.length === 0 &&
         deviceResult.unexpectedDeviceLoss === null,
