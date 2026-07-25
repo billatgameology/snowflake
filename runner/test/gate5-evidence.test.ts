@@ -75,6 +75,37 @@ describe("Phase 5 lane evidence publication", () => {
       .toBe("{".charCodeAt(0));
   });
 
+  it("reconstructs an interleaved global readback audit from per-fixture artifacts", () => {
+    const root = temporaryRoot();
+    const capture = passingPhase5Capture();
+    const reordered = [...capture.raw.readback.records].reverse();
+    for (const [sequence, record] of reordered.entries()) {
+      (record as { sequence: number }).sequence = sequence;
+      const fixture = capture.fixtures.find(
+        (entry) => entry.id === record.fixtureId,
+      );
+      if (fixture === undefined) throw new Error("missing readback fixture");
+      const artifactRecord = (fixture.readback as {
+        records: Array<{ sequence: number }>;
+      }).records[0];
+      if (artifactRecord === undefined) {
+        throw new Error("missing fixture readback record");
+      }
+      artifactRecord.sequence = sequence;
+    }
+    (capture.raw.readback as unknown as {
+      records: typeof reordered;
+    }).records = reordered;
+    expect(() =>
+      publishPhase5Lane({
+        canonicalDirectory: join(root, "windows-d3d12"),
+        capture,
+        sourceHashes: TEST_PHASE5_SOURCE_HASHES,
+        verificationHooks: TEST_PHASE5_CHECKPOINT_HOOKS,
+      }),
+    ).not.toThrow();
+  });
+
   it("uses the real core decoders when no test-only checkpoint seam is supplied", () => {
     const root = temporaryRoot();
     const canonicalDirectory = join(root, "windows-d3d12");

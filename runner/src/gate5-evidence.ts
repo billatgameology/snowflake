@@ -1069,7 +1069,27 @@ function validateFixturePayloadGraph(
     throw new Error("Phase 5 timing artifacts differ from raw evidence");
   }
   if (
-    canonicalJson(readbackRecords) !== canonicalJson(raw.readback.records) ||
+    canonicalJson(
+      [...readbackRecords].sort((left, right) => {
+        const leftSequence = plainObject(
+          left,
+          "reconstructed readback record",
+        ).sequence;
+        const rightSequence = plainObject(
+          right,
+          "reconstructed readback record",
+        ).sequence;
+        if (
+          !Number.isSafeInteger(leftSequence) ||
+          !Number.isSafeInteger(rightSequence)
+        ) {
+          throw new Error(
+            "reconstructed readback record sequence is invalid",
+          );
+        }
+        return (leftSequence as number) - (rightSequence as number);
+      }),
+    ) !== canonicalJson(raw.readback.records) ||
     fullFieldDisplayFrameCount !== raw.readback.fullFieldDisplayFrameCount ||
     readbackTotalBytes !== raw.readback.totalBytes
   ) {
