@@ -4461,9 +4461,9 @@ async function main() {
       totalMemoryBytes: os.totalmem(),
     };
     const protocolProvenancePass =
-      PHASE5_PROTOCOL === "phase5-gpu-conformance-windows-v5" &&
+      PHASE5_PROTOCOL === "phase5-gpu-conformance-windows-v6" &&
       PHASE5_PROTOCOL_SHA256 ===
-        "bdc61bfe5cb48e9e29f5b79337036d7b23ec11e1677f1657595d00f5e7de91ec" &&
+        "5ef6d11bab19e722379b3ba0c6a39bddc619cb22e21ed672478f0530a19ad115" &&
       protocolSha256 === PHASE5_PROTOCOL_SHA256;
     const runtimeProvenancePass =
       PHASE5_HEADLESS_RUNTIME === "playwright-bundled-chromium" &&
