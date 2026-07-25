@@ -944,9 +944,9 @@ repair commit `758c06d` sits directly on it; **nothing has been pushed**. The re
 clone `out/worktrees/phase5-wp1` was clean and byte-identical at `e04d250`, and is deliberately
 not removed while repair work remains open.
 
-**Blocker (2) — the G-G Dirichlet ledger — is repaired in implementation and unit-tested at
-`758c06d`. It is not yet proven on hardware: no `gate5-lane` or `gate5` run has executed since
-the repair.**
+**Blocker (2) — the G-G Dirichlet ledger — is repaired at `758c06d` and confirmed on the
+registered hardware lane. No canonical `gate5-lane` or `gate5` bundle has been produced since
+the repair, and none should be until the other blockers are closed.**
 The producer keeps every Dirichlet cycle's CPU/GPU clamp delta, cumulative meter, tick, boundary
 and attachment bookkeeping, relaxation/surface reports, corrected-mass operands, raw
 positive/negative clamp-path delta and vapor bytes, both persistent-meter reduction reports, and
@@ -981,6 +981,23 @@ delta field does not produce, an abandoned registered construction, a wrong shel
 non-persistent accumulation, an unplanned dispatch inventory, final meters the chronology never
 reaches, operands the published scalars contradict, and both within-lane and cross-lane
 corrected-mass breaches.
+
+**Hardware confirmation of the repaired ledger (2026-07-24).** `node app/scripts/phase5-wp3.mjs`
+ran at clean commit `7bbacfb` on the registered Windows lane — NVIDIA GeForce RTX 3080, observed
+backend `D3D12`, protocol `phase5-gpu-conformance-windows-v5` — and exited 0 with `pass: true`,
+both G-G fixtures passing, 946 audited readbacks, `clampPathWitness.pass` and
+`meterReductionWitness.exact` both true. Its real `ggDirichletLedger` was then accepted by the
+production runner validator: 128 contiguous cycles, both meter recurrences exact on device data,
+123 positive and 5 negative CPU clamp cycles, and `reductionDispatches` 2 as independently
+planned. The measured corrected-mass safeguards are CPU `4559.399999999982` against initial
+`4559.400000000001`, GPU `4559.440876508714` against initial `4559.400067657232`, all inside the
+unchanged mixed-scalar bound `0.911980`. The direct CPU-vs-GPU meter difference is
+`0.024480659606307853` — bit-for-bit the value ADR 0019 recorded when it made that comparison a
+required diagnostic, which is independent confirmation that the ledger measures the same seam
+the decision describes. This is an implementation-stage probe result, **not** canonical gate
+evidence: no `gate5-lane` or `gate5` bundle was produced, and none should be until blockers (1),
+(3), (4), (5) are closed, because the reviewer requires one exact clean commit whose bundle has
+zero blockers.
 
 **Next action:** continue the remaining reviewer repairs from the same active plan:
 

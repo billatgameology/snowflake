@@ -1306,8 +1306,14 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
       `PHASE5_GG_DIRICHLET_LEDGER_WITNESS` stays outside the protocol manifest, so
       `PHASE5_PROTOCOL_SHA256` is unchanged. Twenty-two tamper tests each reject one forged
       ledger; exact root `npm test` passes 56 files / 946 tests in 420.90 s and the app build
-      passes 33 modules. This repair has **not** run on the RTX 3080 / D3D12 lane yet.
-      Blockers (1), (3), (4), (5) and both should-fixes remain open.
+      passes 33 modules. The WP3 probe then ran at clean `7bbacfb` on the RTX 3080 / D3D12 lane
+      and exited 0 with `pass: true`; the runner validator accepted its real ledger, with both
+      meter recurrences exact, 123 positive / 5 negative clamp cycles, the planned 2 reduction
+      dispatches, and all three corrected-mass safeguards inside the unchanged mixed-scalar
+      bound while the direct meter difference stays at ADR 0019's recorded
+      `0.024480659606307853`. That is implementation-stage evidence only — no canonical
+      `gate5-lane` / `gate5` bundle exists for it. Blockers (1), (3), (4), (5) and both
+      should-fixes remain open.
 - [ ] **WP6 — app integration.** Move live simulation to the GPU package, wire GPU-resident
       overlays/slices and resolution budgets, preserve view-only evidence inspection, and prove
       the CPU worker remains an available oracle/debug path. Do not perform Phase 7 visual polish.
