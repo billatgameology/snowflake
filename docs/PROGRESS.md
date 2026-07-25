@@ -901,7 +901,7 @@ immutable.
 
 ## Next step
 
-**Phases 2b, 3, 4, and Phase 5 WP1–WP4 are complete. Phase 5 WP5 is in review repair.**
+**Phases 2b, 3, 4, and Phase 5 WP1–WP5 are complete. Phase 5 WP6 is next.**
 WP4 implementation `2788cc060116ce8021911248771aa3c148b8fe63` and documentation closure
 `e91dd1dd3f9603c029276b194bb6d535a374b989` have zero-finding independent review. Its canonical
 D3D12 artifact is `out/wp4-canonical-2788cc0.json`, SHA-256
@@ -1066,16 +1066,20 @@ self-attested comparisons (242 measured). Root `npm test` passes 58 files / 1,01
 `9c4fda75f220517dad64cf71a4f735b2e123a4e1a0be9474221df2b0a3c7ac3f`, `artifact-index.json`
 `94d1f00571223249ce25d2d687ff5f06e521d61eddc207adfa100b79acee9ce8`.
 
-**Next action:** this bundle has not been reviewed. Return it to the same independent reviewer
-and repair whatever comes back. Two known code-quality items are open and must be disclosed
-rather than left for the reviewer to find:
+**WP5 is CLOSED (2026-07-25).** The same independent reviewer returned **zero blockers and
+zero should-fixes** on round three. Round one verified all five original blockers and both
+original should-fixes repaired (with the reviewer's own replays of the ledger recurrences,
+negative-control roster, and protocol hashes) and returned four should-fixes; round two
+verified those four repaired against the regenerated `0a611e7` bundle and returned one prose
+defect; round three verified that sentence repaired at docs-only `bb97e26` with the bundle
+byte-unchanged. Canonical WP5 evidence: the `0a611e7` bundle at `out/phase5/` under protocol
+`phase5-gpu-conformance-windows-v6` (hashes above). Scope is Windows/Chromium/D3D12 only.
 
-- `runner/src/gate5-negative-controls.ts` restates comparison-failure and artifact-descriptor
-  logic that is private to `gate5-evidence.ts`. The drift guard is that its raw re-derivation
-  must canonically equal the accepted capture's raw before any control runs, but the duplication
-  should still be removed by exporting the helpers.
-
-Do not start WP6 until the reviewer returns zero blockers and zero should-fixes.
+**Next action:** begin WP6 — move live simulation to the GPU package, wire GPU-resident
+overlays/slices and resolution budgets, preserve view-only evidence inspection, and prove the
+CPU worker remains an available oracle/debug path. No Phase 7 visual polish. Do not modify
+WP5's canonical evidence; produce new evidence for WP6 work rather than editing the accepted
+bundle. WP7 (canonical Windows evidence with full PROGRESS metrics) follows WP6.
 
 Then run focused tests, Rule 7, both typechecks, the app build, and exact root `npm test`; commit
 locally so the tree is tracked-clean; produce fresh `gate5-lane` / `gate5` D3D12 evidence — which

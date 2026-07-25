@@ -1281,7 +1281,7 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
       controls, 133 bounded submissions (22.2 ms maximum / 20.4 ms p99), 481 audited readbacks
       with zero full-field display reads, and zero GPU errors/loss. Final same-reviewer closure
       on that exact commit/artifact reports zero blockers and zero should-fixes. WP4 is closed.
-- [ ] **WP5 — headless runner and evidence boundary.** Land the selected runtime, flagless gate,
+- [x] **WP5 — headless runner and evidence boundary.** Land the selected runtime, flagless gate,
       strict manifest/report/index publication, complete exit semantics, and every adversarial
       bypass test. Re-run permanent Phase 2a, Phase 2b, gate3, and gate4 regression controls where
       the frozen WP0 protocol requires them; do not rewrite accepted artifacts.
@@ -1328,8 +1328,13 @@ reviewed to zero blockers and zero should-fixes. WP5 may begin only after that e
       pre-ADR-0022 wording, eight blocking scalar pairs published from a single source
       (GG `relaxation.sweeps` hardcoded `[1,1]`; LK ULP scalars copied host-to-both-sides),
       and the drift-guarded comparison-logic duplication in `gate5-negative-controls.ts`.
-      Those four are the current repair round. WP5 stays unchecked until the same reviewer
-      returns zero blockers and zero should-fixes.
+      All four were repaired (`87e8f4b`, `82e8c29`, `0a611e7`); round two verified them against
+      the regenerated `0a611e7` bundle and returned one prose should-fix (a blanket "0/0" claim
+      the bundle contradicted), repaired at docs-only `bb97e26`. **Round three (2026-07-25):
+      the same reviewer returned zero blockers and zero should-fixes. WP5 is closed.** Canonical
+      evidence: the `0a611e7` bundle at `out/phase5/` (hashes in PROGRESS), protocol
+      `phase5-gpu-conformance-windows-v6`, docs state `bb97e26`. Scope remains
+      Windows/Chromium/D3D12 only; Metal is deferred.
 - [ ] **WP6 — app integration.** Move live simulation to the GPU package, wire GPU-resident
       overlays/slices and resolution budgets, preserve view-only evidence inspection, and prove
       the CPU worker remains an available oracle/debug path. Do not perform Phase 7 visual polish.
