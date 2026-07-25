@@ -117,6 +117,31 @@ async function main() {
         if (navigator.gpu === undefined) {
           throw new Error("navigator.gpu is unavailable");
         }
+        // Observed adapter/device acquisition. Both entry points are wrapped before this probe
+        // acquires anything, so every acquisition the run performs is counted and the
+        // re-acquisition count derived below is measured rather than assumed.
+        const acquisitions = [];
+        const acquisitionCounts = { adapter: 0, device: 0 };
+        const nativeRequestAdapter = navigator.gpu.requestAdapter.bind(navigator.gpu);
+        navigator.gpu.requestAdapter = function requestAdapter(options) {
+          acquisitionCounts.adapter++;
+          acquisitions.push({
+            kind: "adapter",
+            ordinal: acquisitionCounts.adapter,
+            label: String(options?.powerPreference ?? "default"),
+          });
+          return nativeRequestAdapter(options);
+        };
+        const nativeRequestDevice = GPUAdapter.prototype.requestDevice;
+        GPUAdapter.prototype.requestDevice = function requestDevice(descriptor) {
+          acquisitionCounts.device++;
+          acquisitions.push({
+            kind: "device",
+            ordinal: acquisitionCounts.device,
+            label: String(descriptor?.label ?? ""),
+          });
+          return nativeRequestDevice.call(this, descriptor);
+        };
         const [core, cpu, production, protocol, independent] = await Promise.all([
           import(input.coreModuleUrl),
           import(input.cpuModuleUrl),
@@ -143,6 +168,15 @@ async function main() {
         const uncapturedErrors = [];
         device.addEventListener("uncapturederror", (event) => {
           uncapturedErrors.push(event.error.message);
+        });
+        // Device loss is observed from the moment the device exists, so the published loss
+        // count is the length of a list this run actually recorded.
+        const deviceLossRecords = [];
+        void device.lost.then((info) => {
+          deviceLossRecords.push({
+            reason: String(info.reason),
+            message: String(info.message),
+          });
         });
         const submissions = new production.GpuSubmissionController(device);
         const audit = new production.GpuReadbackAudit();
@@ -4424,6 +4458,17 @@ async function main() {
               audit.fullFieldDisplayFrameCount(),
             totalBytes: audit.totalBytes(),
           },
+          // Re-acquisitions are the acquisitions beyond the first of their kind. The counted
+          // requests and the acquisition inventory beside them are what make that a
+          // measurement instead of an assumption.
+          adapterRequests: acquisitionCounts.adapter,
+          deviceRequests: acquisitionCounts.device,
+          acquisitions,
+          reacquisitions: acquisitions.filter((entry) => entry.ordinal > 1),
+          // Snapshotted here, after the run's work and while the device is still alive: this
+          // probe alone tears its device down with the intentional destroy() below, and that
+          // deliberate teardown must not race into the published record as a runtime loss.
+          deviceLossRecords: deviceLossRecords.slice(),
           uncapturedErrors,
           unexpectedDeviceLoss: submissions.unexpectedLossReason(),
         };
@@ -4487,6 +4532,12 @@ async function main() {
       Object.entries(expectedAdapter).every(
         ([name, expected]) => result.adapter.info[name] === expected,
       );
+    // Observed runtime counters. Each one is the length of this probe's OWN observation list,
+    // published beside that list, so a zero here always names the observations that produced
+    // it instead of substituting for a quantity the run never measured.
+    const deviceLossCount = result.deviceLossRecords.length;
+    const uncapturedErrorCount = result.uncapturedErrors.length;
+    const hiddenRetryCount = result.reacquisitions.length;
     const report = {
       schema: "phase5-wp4-lk-v1",
       encoding: "utf-8-without-bom",
@@ -4542,6 +4593,9 @@ async function main() {
         ...result.adapter,
       },
       device: result.device,
+      deviceLossCount,
+      uncapturedErrorCount,
+      hiddenRetryCount,
       checks: {
         fixtures: result.fixtures,
         stressDiagnostics: result.stressDiagnostics,
@@ -4550,6 +4604,13 @@ async function main() {
         submissionSummary: result.submissionSummary,
         submissions: result.submissions,
         readback: result.readback,
+        deviceAcquisition: {
+          adapterRequests: result.adapterRequests,
+          deviceRequests: result.deviceRequests,
+          acquisitions: result.acquisitions,
+          reacquisitions: result.reacquisitions,
+        },
+        deviceLossRecords: result.deviceLossRecords,
         uncapturedErrors: result.uncapturedErrors,
         unexpectedDeviceLoss: result.unexpectedDeviceLoss,
       },

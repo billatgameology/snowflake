@@ -112,6 +112,31 @@ async function main() {
       async (input) => {
         if (!isSecureContext) throw new Error("WP3 requires a secure context");
         if (navigator.gpu === undefined) throw new Error("navigator.gpu is unavailable");
+        // Observed adapter/device acquisition. Both entry points are wrapped before this probe
+        // acquires anything, so every acquisition the run performs is counted and the
+        // re-acquisition count derived below is measured rather than assumed.
+        const acquisitions = [];
+        const acquisitionCounts = { adapter: 0, device: 0 };
+        const nativeRequestAdapter = navigator.gpu.requestAdapter.bind(navigator.gpu);
+        navigator.gpu.requestAdapter = function requestAdapter(options) {
+          acquisitionCounts.adapter++;
+          acquisitions.push({
+            kind: "adapter",
+            ordinal: acquisitionCounts.adapter,
+            label: String(options?.powerPreference ?? "default"),
+          });
+          return nativeRequestAdapter(options);
+        };
+        const nativeRequestDevice = GPUAdapter.prototype.requestDevice;
+        GPUAdapter.prototype.requestDevice = function requestDevice(descriptor) {
+          acquisitionCounts.device++;
+          acquisitions.push({
+            kind: "device",
+            ordinal: acquisitionCounts.device,
+            label: String(descriptor?.label ?? ""),
+          });
+          return nativeRequestDevice.call(this, descriptor);
+        };
         const [core, cpu, production, protocol] = await Promise.all([
           import(input.coreModuleUrl),
           import(input.cpuModuleUrl),
@@ -135,6 +160,15 @@ async function main() {
         const uncapturedErrors = [];
         device.addEventListener("uncapturederror", (event) => {
           uncapturedErrors.push(event.error.message);
+        });
+        // Device loss is observed from the moment the device exists, so the published loss
+        // count is the length of a list this run actually recorded.
+        const deviceLossRecords = [];
+        void device.lost.then((info) => {
+          deviceLossRecords.push({
+            reason: String(info.reason),
+            message: String(info.message),
+          });
         });
         const submissions = new production.GpuSubmissionController(device);
         submissions.acknowledgeEdit(1);
@@ -1991,6 +2025,14 @@ async function main() {
               readbackAudit.fullFieldDisplayFrameCount(),
             totalBytes: readbackAudit.totalBytes(),
           },
+          // Re-acquisitions are the acquisitions beyond the first of their kind. The counted
+          // requests and the acquisition inventory beside them are what make that a
+          // measurement instead of an assumption.
+          adapterRequests: acquisitionCounts.adapter,
+          deviceRequests: acquisitionCounts.device,
+          acquisitions,
+          reacquisitions: acquisitions.filter((entry) => entry.ordinal > 1),
+          deviceLossRecords,
           uncapturedErrors,
           unexpectedDeviceLoss: submissions.unexpectedLossReason(),
         };
@@ -2052,6 +2094,12 @@ async function main() {
       Object.entries(expectedAdapter).every(
         ([name, expected]) => deviceResult.adapter.info[name] === expected,
       );
+    // Observed runtime counters. Each one is the length of this probe's OWN observation list,
+    // published beside that list, so a zero here always names the observations that produced
+    // it instead of substituting for a quantity the run never measured.
+    const deviceLossCount = deviceResult.deviceLossRecords.length;
+    const uncapturedErrorCount = deviceResult.uncapturedErrors.length;
+    const hiddenRetryCount = deviceResult.reacquisitions.length;
     const report = {
       schema: "phase5-wp3-gg-v2",
       protocol: PHASE5_PROTOCOL,
@@ -2103,6 +2151,9 @@ async function main() {
         ...deviceResult.adapter,
       },
       device: deviceResult.device,
+      deviceLossCount,
+      uncapturedErrorCount,
+      hiddenRetryCount,
       checks: {
         fixtures: deviceResult.fixtures,
         clampPathWitness: deviceResult.clampPathWitness,
@@ -2112,6 +2163,13 @@ async function main() {
         submissionSummary: deviceResult.submissionSummary,
         submissions: deviceResult.submissions,
         readback: deviceResult.readback,
+        deviceAcquisition: {
+          adapterRequests: deviceResult.adapterRequests,
+          deviceRequests: deviceResult.deviceRequests,
+          acquisitions: deviceResult.acquisitions,
+          reacquisitions: deviceResult.reacquisitions,
+        },
+        deviceLossRecords: deviceResult.deviceLossRecords,
         uncapturedErrors: deviceResult.uncapturedErrors,
         unexpectedDeviceLoss: deviceResult.unexpectedDeviceLoss,
       },
