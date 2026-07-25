@@ -1618,7 +1618,7 @@ function expectedGgCheckpointMetadata(
     ],
     params: {
       rho: params.rho,
-      phi: params.phi,
+      phi: fixture.kind === "layout" ? params.phi : fixture.phi,
       kappa: serializableParameterVector(params.kappa),
       mu: serializableParameterVector(params.mu),
       ggThreshBeta: serializableParameterVector(params.ggThreshBeta),
