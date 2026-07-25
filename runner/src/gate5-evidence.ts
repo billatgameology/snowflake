@@ -235,13 +235,34 @@ function assertDirectoryIdentity(
   }
 }
 
+/**
+ * Quarantine before recursing. Checking a directory's identity and then recursively deleting
+ * the same public path leaves a window in which the path can be replaced between the two, so
+ * the delete lands on someone else's tree. The tree is renamed to a private sibling only this
+ * process can name, re-authenticated THERE, and only then removed. A post-move identity
+ * mismatch throws and leaves the tree in quarantine rather than deleting it.
+ */
 function removeOwnedDirectory(
   path: string,
   identity: OwnedDirectoryIdentity,
 ): void {
   if (!existsSync(path)) return;
   assertDirectoryIdentity(path, identity, "Phase 5 owned publication directory");
-  rmSync(path, { recursive: true, force: true });
+  const quarantine = join(
+    dirname(path),
+    `.discard-${process.pid}-${randomUUID()}`,
+  );
+  renameSync(path, quarantine);
+  // A rename changes the path but not the inode, so the quarantined tree is re-authenticated
+  // on dev/ino rather than on `realPath`, which necessarily differs now.
+  const moved = directoryIdentity(
+    quarantine,
+    "Phase 5 quarantined publication directory",
+  );
+  if (moved.dev !== identity.dev || moved.ino !== identity.ino) {
+    throw new Error("Phase 5 quarantined publication directory identity changed");
+  }
+  rmSync(quarantine, { recursive: true, force: true });
 }
 
 function exactKeys(

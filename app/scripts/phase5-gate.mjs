@@ -889,9 +889,10 @@ function ggDirichletLedger(source) {
 }
 
 // Observed runtime state. Every count below is read from what a probe actually recorded, so a
-// published zero always stands beside the empty observation list that produced it. The probes
-// do not yet publish an observed re-acquisition count, so `hiddenRetryCount` is taken only from
-// a probe that measures it and is otherwise reported as unmeasured rather than as zero.
+// published zero always stands beside the empty observation list that produced it. WP1, WP2 and
+// the performance probe wrap adapter/device acquisition and publish an observed re-acquisition
+// count; WP3 and WP4 do not yet, so `hiddenRetryCount` is summed only over probes that measure
+// it and those two are carried as unmeasured rather than as a zero nothing observed.
 function observedRuntimeCounts(report, label) {
   const errors = report.uncapturedErrors ?? report.checks?.uncapturedErrors;
   if (!Array.isArray(errors)) {

@@ -94,6 +94,37 @@ function exactComparison(expected, observed) {
   return { mismatchCount, firstMismatch };
 }
 
+// The host plan's complete per-buffer schema for one budget/operator, in plan order. These are
+// PLANNED values with no device observation in them: they cover every registered budget,
+// including the bake budgets the lane never attempts. The per-buffer graph the device actually
+// accepted is published per attempted budget as `checks.blockingAllocations[].buffers`.
+function planAllocationGraph(plan) {
+  let byteOffset = 0;
+  const buffers = plan.buffers.map((descriptor, index) => {
+    const entry = {
+      index,
+      name: descriptor.name,
+      byteOffset,
+      byteLength: descriptor.byteLength,
+      scalarType: descriptor.scalarType,
+      ownership: descriptor.ownership,
+    };
+    byteOffset += descriptor.byteLength;
+    return entry;
+  });
+  return {
+    buffers,
+    totals: {
+      bufferCount: buffers.length,
+      cellCount: plan.layout.cellCount,
+      bytesPerCell: plan.bytesPerCell,
+      totalCellBytes: plan.totalCellBytes,
+      summedBufferBytes: byteOffset,
+      largestBufferBytes: Math.max(...buffers.map((entry) => entry.byteLength)),
+    },
+  };
+}
+
 // Lowercase SHA-256 over one lane's OWN bytes, so no comparison can agree because one side was
 // copied from the other. WP1 compares in the Node process rather than in the page, so this uses
 // node:crypto where the in-page probes use `crypto.subtle`.
@@ -171,6 +202,7 @@ async function main() {
       const plan = createGpuBufferPlan(budget.dims, operator);
       return {
         budget: budget.id,
+        disposition: budget.disposition,
         operator,
         totalCellBytes: plan.totalCellBytes,
         plan,
@@ -223,6 +255,31 @@ async function main() {
       async (input) => {
         if (!isSecureContext) throw new Error("WP1 requires a secure context");
         if (navigator.gpu === undefined) throw new Error("navigator.gpu is unavailable");
+        // Observed adapter/device acquisition. Both entry points are wrapped before this probe
+        // acquires anything, so every acquisition the run performs is counted and the
+        // re-acquisition count derived below is measured rather than assumed.
+        const acquisitions = [];
+        const acquisitionCounts = { adapter: 0, device: 0 };
+        const nativeRequestAdapter = navigator.gpu.requestAdapter.bind(navigator.gpu);
+        navigator.gpu.requestAdapter = function requestAdapter(options) {
+          acquisitionCounts.adapter++;
+          acquisitions.push({
+            kind: "adapter",
+            ordinal: acquisitionCounts.adapter,
+            label: String(options?.powerPreference ?? "default"),
+          });
+          return nativeRequestAdapter(options);
+        };
+        const nativeRequestDevice = GPUAdapter.prototype.requestDevice;
+        GPUAdapter.prototype.requestDevice = function requestDevice(descriptor) {
+          acquisitionCounts.device++;
+          acquisitions.push({
+            kind: "device",
+            ordinal: acquisitionCounts.device,
+            label: String(descriptor?.label ?? ""),
+          });
+          return nativeRequestDevice.call(this, descriptor);
+        };
         const production = await import(input.productionModuleUrl);
         const adapter = await navigator.gpu.requestAdapter({
           powerPreference: "high-performance",
@@ -241,6 +298,15 @@ async function main() {
         );
         device.addEventListener("uncapturederror", (event) => {
           uncapturedErrors.push(event.error.message);
+        });
+        // Device loss is observed from the moment the device exists, so the published loss
+        // count is the length of a list this run actually recorded.
+        const deviceLossRecords = [];
+        void device.lost.then((info) => {
+          deviceLossRecords.push({
+            reason: String(info.reason),
+            message: String(info.message),
+          });
         });
         const submissionController = new production.GpuSubmissionController(device);
         submissionController.acknowledgeEdit(1);
@@ -503,21 +569,71 @@ async function main() {
           });
         }
 
+        // Every registered non-bake budget is attempted for BOTH operators, and the complete
+        // per-buffer allocation graph the device accepted is preserved for each attempt: the
+        // live arena's owned-buffer inventory, in arena order, with every byte length, usage,
+        // label and map state read from the device buffer object rather than from the host
+        // plan, beside the plan descriptor each buffer was created for.
         const allocations = [];
         for (const allocation of input.blockingAllocations) {
           let arena = null;
           try {
             arena = production.GpuBufferArena.create(device, 1, allocation.plan);
+            const probeUpload = new Uint32Array([0]);
             for (const name of arena.names()) {
-              arena.upload(device, name, new Uint32Array([0]));
+              arena.upload(device, name, probeUpload);
             }
             await device.queue.onSubmittedWorkDone();
+            const names = arena.names();
+            let byteOffset = 0;
+            const buffers = names.map((name, index) => {
+              const buffer = arena.get(name);
+              const descriptor = allocation.plan.buffers[index] ?? null;
+              const byteLength = Number(buffer.size);
+              const entry = {
+                index,
+                name,
+                byteOffset,
+                byteLength,
+                usage: Number(buffer.usage),
+                label: String(buffer.label),
+                mapState: String(buffer.mapState),
+                uploadedBytes: probeUpload.byteLength,
+                planName: descriptor === null ? null : descriptor.name,
+                planByteLength: descriptor === null ? null : descriptor.byteLength,
+                scalarType: descriptor === null ? null : descriptor.scalarType,
+                ownership: descriptor === null ? null : descriptor.ownership,
+                matchesPlan:
+                  descriptor !== null &&
+                  descriptor.name === name &&
+                  descriptor.byteLength === byteLength,
+              };
+              byteOffset += byteLength;
+              return entry;
+            });
             allocations.push({
               budget: allocation.budget,
+              disposition: allocation.disposition,
               operator: allocation.operator,
               totalCellBytes: allocation.totalCellBytes,
-              bufferCount: arena.names().length,
-              pass: arena.names().length === allocation.plan.buffers.length,
+              bufferCount: names.length,
+              pass: names.length === allocation.plan.buffers.length,
+              buffers,
+              totals: {
+                bufferCount: names.length,
+                planBufferCount: allocation.plan.buffers.length,
+                cellCount: allocation.plan.layout.cellCount,
+                bytesPerCell: allocation.plan.bytesPerCell,
+                observedTotalBytes: byteOffset,
+                planTotalCellBytes: allocation.plan.totalCellBytes,
+                largestObservedBufferBytes: Math.max(
+                  ...buffers.map((entry) => entry.byteLength),
+                ),
+                matchesPlan:
+                  names.length === allocation.plan.buffers.length &&
+                  byteOffset === allocation.plan.totalCellBytes &&
+                  buffers.every((entry) => entry.matchesPlan),
+              },
             });
           } finally {
             arena?.destroy();
@@ -607,6 +723,15 @@ async function main() {
           invalidPurposeNegativePassed,
           requiredLimitOmissionNegativePassed,
           requiredLimitDowngradeNegativePassed,
+          // Re-acquisitions are the acquisitions beyond the first of their kind. The counted
+          // requests and the acquisition inventory beside them are what make that a
+          // measurement instead of an assumption.
+          adapterRequests: acquisitionCounts.adapter,
+          deviceRequests: acquisitionCounts.device,
+          acquisitions,
+          reacquisitions: acquisitions.filter((entry) => entry.ordinal > 1),
+          deviceLossRecords,
+          unexpectedDeviceLoss: submissionController.unexpectedLossReason(),
           uncapturedErrors,
         };
         submissionController.destroy();
@@ -848,6 +973,7 @@ async function main() {
     const allocationCapabilities = PHASE5_BUDGETS.flatMap((budget) =>
       ["gg", "lk"].map((operator) => {
         const plan = createGpuBufferPlan(budget.dims, operator);
+        const graph = planAllocationGraph(plan);
         return {
           budget: budget.id,
           disposition: budget.disposition,
@@ -857,6 +983,11 @@ async function main() {
             maxStorageBufferBindingSize:
               deviceResult.device.limits.maxStorageBufferBindingSize,
           }),
+          attempted: blockingAllocations.some(
+            (entry) => entry.budget === budget.id && entry.operator === operator,
+          ),
+          plannedBuffers: graph.buffers,
+          plannedTotals: graph.totals,
         };
       }),
     );
@@ -901,6 +1032,12 @@ async function main() {
     const browserVersion = await (
       await browser.newBrowserCDPSession()
     ).send("Browser.getVersion");
+    // Observed runtime counters. Each one is the length of this probe's OWN observation list,
+    // published beside that list, so a zero here always names the observations that produced
+    // it instead of substituting for a quantity the run never measured.
+    const deviceLossCount = deviceResult.deviceLossRecords.length;
+    const uncapturedErrorCount = deviceResult.uncapturedErrors.length;
+    const hiddenRetryCount = deviceResult.reacquisitions.length;
     const report = {
       schema: "phase5-wp1-transport-v1",
       lane: platform.lane,
@@ -962,6 +1099,9 @@ async function main() {
         ...deviceResult.adapter,
       },
       device: deviceResult.device,
+      deviceLossCount,
+      uncapturedErrorCount,
+      hiddenRetryCount,
       checks: {
         requirements: requirementCheck,
         requiredLimitNegative,
@@ -996,6 +1136,14 @@ async function main() {
           omission: deviceResult.requiredLimitOmissionNegativePassed,
           downgrade: deviceResult.requiredLimitDowngradeNegativePassed,
         },
+        deviceAcquisition: {
+          adapterRequests: deviceResult.adapterRequests,
+          deviceRequests: deviceResult.deviceRequests,
+          acquisitions: deviceResult.acquisitions,
+          reacquisitions: deviceResult.reacquisitions,
+        },
+        deviceLossRecords: deviceResult.deviceLossRecords,
+        unexpectedDeviceLoss: deviceResult.unexpectedDeviceLoss,
         uncapturedErrors: deviceResult.uncapturedErrors,
       },
     };
