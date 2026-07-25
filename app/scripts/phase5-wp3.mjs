@@ -276,6 +276,20 @@ async function main() {
           return btoa(binary);
         }
 
+        // Per-lane content digest. Each operand of a science comparison is digested from that
+        // lane's OWN bytes, so no comparison can agree because one side was copied from the
+        // other. CPU arrays are normalized to the GPU element type first, exactly as the
+        // existing exact-mismatch comparisons already do.
+        async function digestHex(values) {
+          const hash = await crypto.subtle.digest(
+            "SHA-256",
+            new Uint8Array(values.buffer, values.byteOffset, values.byteLength),
+          );
+          return Array.from(new Uint8Array(hash), (byte) =>
+            byte.toString(16).padStart(2, "0")
+          ).join("");
+        }
+
         function exactArrayMismatch(reference, candidate) {
           if (reference.length !== candidate.length) return Infinity;
           let mismatch = 0;
@@ -525,6 +539,15 @@ async function main() {
             const directClampComparisons = [];
             const events = [];
             let lastExpectedRenderFlags = new Uint32Array(oracle.a.length);
+            let lastObservedRenderFlags = new Uint32Array(oracle.a.length);
+            let lastExpectedAttachment = new Uint32Array(0);
+            let lastObservedAttachment = new Uint32Array(0);
+            // Independent per-lane cycle logs. The CPU entries come only from the oracle, the
+            // GPU entries only from the decoded device report.
+            const cpuCycleLog = [];
+            const gpuCycleLog = [];
+            const cpuAttachmentLog = [];
+            const gpuAttachmentLog = [];
             let lastSurfaceReport = {
               attachedNow: 0,
               maxKineticFillIncrement: null,
@@ -733,6 +756,29 @@ async function main() {
                 expectedFlags,
                 observedRenderFlags,
               );
+              lastObservedRenderFlags = observedRenderFlags;
+              lastExpectedAttachment = Uint32Array.from(oracle.lastAttached);
+              lastObservedAttachment = attachmentIndices;
+              cpuCycleLog.push({
+                cycle: cycle + 1,
+                tick: oracle.tick,
+                oldBoundaryCount,
+                boundaryCount: oracle.boundarySize(),
+                attachedTotal: oracle.attachedCount,
+                attachedNow: surface.attachedNow,
+                holeFillCount: surface.holeFillCount,
+              });
+              gpuCycleLog.push({
+                cycle: cycle + 1,
+                tick: gpu.tick(),
+                oldBoundaryCount: report.oldBoundaryCount,
+                boundaryCount: report.boundaryCount,
+                attachedTotal: report.attachedTotal,
+                attachedNow: report.attachedNow,
+                holeFillCount: report.holeFillNow,
+              });
+              cpuAttachmentLog.push(...lastExpectedAttachment);
+              gpuAttachmentLog.push(...attachmentIndices);
               const expectedClamp =
                 relaxation.shellClampDiagnostic === null
                   ? 0
@@ -1014,8 +1060,87 @@ async function main() {
               stopReason.exact &&
               !cpuMetrics.domainContact &&
               !gpuMetrics.domainContact;
+            const observedNoiseField = new Float32Array(
+              await readBuffer(gpu.noiseBuffer(), `${fixture.id}:final:noise`),
+            );
+            const expectedNoiseField = new Float32Array(
+              observedNoiseField.length,
+            );
+            {
+              const epsilon = Math.fround(fixture.noiseEpsilon);
+              const noiseTick = oracle.tick - 1;
+              for (let index = 0; index < expectedNoiseField.length; index++) {
+                expectedNoiseField[index] = Math.fround(
+                  epsilon *
+                    core.randomBit(
+                      fixture.rngSeed,
+                      index,
+                      noiseTick,
+                      core.STREAM_NOISE_XI,
+                    ),
+                );
+              }
+            }
+            // Each operator states its own controls; nothing is copied between lanes. Vectors
+            // are normalized the way the checkpoint codec does, with the poisoned slot as null.
+            const serializableParams = (params) => ({
+              rho: params.rho,
+              phi: params.phi,
+              kappa: Array.from(params.kappa, (value) =>
+                Number.isFinite(value) ? value : null
+              ),
+              mu: Array.from(params.mu, (value) =>
+                Number.isFinite(value) ? value : null
+              ),
+              ggThreshBeta: Array.from(params.ggThreshBeta, (value) =>
+                Number.isFinite(value) ? value : null
+              ),
+            });
+            const laneObservations = {
+              "identity.controls": {
+                cpu: serializableParams(oracle.params),
+                gpu: serializableParams(gpu.params()),
+              },
+              "state.wall-mask": {
+                cpu: await digestHex(Uint32Array.from(oracle.wall)),
+                gpu: await digestHex(finalState.wall),
+              },
+              "state.far-field-set": {
+                cpu: await digestHex(expectedTopology),
+                gpu: await digestHex(finalState.topology),
+              },
+              "state.boundary-membership-order": {
+                cpu: await digestHex(Uint32Array.from(oracle.boundaryCells())),
+                gpu: await digestHex(boundaryIndices),
+              },
+              "state.render-flags": {
+                cpu: await digestHex(lastExpectedRenderFlags),
+                gpu: await digestHex(lastObservedRenderFlags),
+              },
+              "state.last-attachment-delta": {
+                cpu: await digestHex(lastExpectedAttachment),
+                gpu: await digestHex(lastObservedAttachment),
+              },
+              "noise.witness": {
+                cpu: await digestHex(expectedNoiseField),
+                gpu: await digestHex(observedNoiseField),
+              },
+              "noise-witness": {
+                cpu: await digestHex(expectedNoiseField),
+                gpu: await digestHex(observedNoiseField),
+              },
+              "attachment-delta-log": {
+                cpu: await digestHex(Uint32Array.from(cpuAttachmentLog)),
+                gpu: await digestHex(Uint32Array.from(gpuAttachmentLog)),
+              },
+              "cycle-boundary-log": {
+                cpu: cpuCycleLog,
+                gpu: gpuCycleLog,
+              },
+            };
             fixtureReports.push({
               id: fixture.id,
+              laneObservations,
               cycles: cycleCap,
               minimumDecisionMargin: minimumMargin,
               occupancyMismatchCount,

@@ -511,9 +511,29 @@ function checkpointDerivedPair(name, decoded) {
   }
 }
 
+// Per-lane observations published by the probes: `cpu` is computed only from CPU-oracle data,
+// `gpu` only from GPU readbacks or the GPU operator's own reports. Large fields arrive as
+// SHA-256 digests of each lane's own bytes. These supersede the older special cases so a probe
+// that publishes a real measurement always beats a derived-from-one-side stand-in.
+function laneObservationPair(name, source) {
+  const observation = source.laneObservations?.[name];
+  if (
+    observation === null ||
+    typeof observation !== "object" ||
+    Array.isArray(observation) ||
+    !Object.hasOwn(observation, "cpu") ||
+    !Object.hasOwn(observation, "gpu")
+  ) {
+    return undefined;
+  }
+  return [safeJson(observation.cpu), safeJson(observation.gpu)];
+}
+
 function exactDecisionPair(fixture, name, source, decoded) {
   const derived = checkpointDerivedPair(name, decoded);
   if (derived !== undefined) return derived;
+  const observed = laneObservationPair(name, source);
+  if (observed !== undefined) return observed;
   if (name === "checkpoint.metadata") {
     const cpu = safeJson(decoded.cpu.header);
     const gpu = safeJson(decoded.gpu.header);
@@ -658,6 +678,8 @@ function invariantRecord(fixture, name, source) {
 }
 
 function eventPair(fixture, kind, source) {
+  const observed = laneObservationPair(kind, source);
+  if (observed !== undefined) return observed;
   if (kind === "stop") {
     if (fixture.kind === "gg") {
       return [safeJson(source.stopReason?.cpu), safeJson(source.stopReason?.gpu)];
@@ -688,7 +710,14 @@ function eventPair(fixture, kind, source) {
 
 function fixtureSource(fixture, reports) {
   if (fixture.kind === "layout") {
+    // The layout fixture's evidence lives on the WP1 checkpoint check, including its per-lane
+    // observations. Synthesizing a bare `{pass}` object here was why every layout comparison
+    // fell through to the self-attested witness.
     return {
+      ...asObject(
+        reports.wp1.checks.layoutCheckpoint,
+        "WP1 layout checkpoint check",
+      ),
       pass:
         reports.wp1.checks.coordinate.mismatchCount === 0 &&
         reports.wp1.checks.copy.mismatchCount === 0,
