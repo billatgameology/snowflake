@@ -182,6 +182,7 @@ describe("Phase 5 lane evidence publication", () => {
         gpu: number;
         blocking: boolean;
         rationale: string | null;
+        applicability: string;
       }>;
     };
     comparison.scalars[0] = {
@@ -190,6 +191,7 @@ describe("Phase 5 lane evidence publication", () => {
       gpu: 1,
       blocking: true,
       rationale: null,
+      applicability: "measured",
     };
     expect(() =>
       publishPhase5Lane({
@@ -578,6 +580,7 @@ interface MutableGgLedger {
 }
 
 interface MutableScalar {
+  applicability: string;
   name: string;
   cpu: number;
   gpu: number;
@@ -680,6 +683,50 @@ describe("ADR-0019 G-G Dirichlet corrected-mass ledger", () => {
     (other.comparison as { ggDirichletLedger?: unknown }).ggDirichletLedger =
       structuredClone(ledger);
     expectRejected(capture, /comparison keys are invalid/);
+  });
+
+  it("rejects a blocking scalar that was never measured on either lane", () => {
+    const { capture, scalars } = ledgerCapture();
+    const scalar = scalars.find((entry) => entry.name === "metrics.total-mass");
+    if (scalar === undefined) throw new Error("missing total mass metric");
+    // Before the applicability contract this passed, because null === null.
+    (scalar as { cpu: number | null }).cpu = null;
+    (scalar as { gpu: number | null }).gpu = null;
+    expectRejected(capture, /declared measured without two finite operands/);
+  });
+
+  it("rejects an unregistered claim of non-applicability", () => {
+    const { capture, scalars } = ledgerCapture();
+    const scalar = scalars.find((entry) => entry.name === "metrics.total-mass");
+    if (scalar === undefined) throw new Error("missing total mass metric");
+    (scalar as { cpu: number | null }).cpu = null;
+    (scalar as { gpu: number | null }).gpu = null;
+    (scalar as { applicability: string }).applicability = "not-applicable";
+    expectRejected(capture, /unregistered non-applicability/);
+  });
+
+  it("rejects a registered non-applicable scalar that smuggles in operands", () => {
+    const capture = passingPhase5Capture();
+    const fixture = capture.fixtures.find(
+      (entry) => entry.id === "gg-plate-reflecting-48x48x24",
+    );
+    if (fixture === undefined) throw new Error("missing reflecting G-G fixture");
+    const comparison = fixture.comparison as {
+      scalars: Array<{ name: string; cpu: number | null; gpu: number | null }>;
+    };
+    const scalar = comparison.scalars.find(
+      (entry) => entry.name === "ledger.dirichlet-meter",
+    );
+    if (scalar === undefined) throw new Error("missing dirichlet meter scalar");
+    scalar.cpu = 0;
+    scalar.gpu = 0;
+    expectRejected(capture, /not applicable yet carries operands/);
+  });
+
+  it("rejects a scalar that declares no applicability at all", () => {
+    const { capture, scalars } = ledgerCapture();
+    delete (scalars[0] as { applicability?: string }).applicability;
+    expectRejected(capture, /keys are invalid/);
   });
 
   it("rejects a ledger that does not carry the frozen ADR-0019 policy", () => {

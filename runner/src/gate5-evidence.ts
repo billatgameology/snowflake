@@ -48,6 +48,7 @@ import {
   PHASE5_GG_DIRICHLET_LEDGER_WITNESS,
   PHASE5_PROTOCOL,
   PHASE5_PROTOCOL_SHA256,
+  PHASE5_SCALAR_NON_APPLICABILITY,
   PHASE5_SCALAR_TOLERANCES,
   PHASE5_TOLERANCES_SHA256,
 } from "./phase5-protocol.ts";
@@ -678,6 +679,19 @@ function fieldComparisonFailures(
   return failures;
 }
 
+function registeredNonApplicability(
+  fixtureId: string,
+  name: unknown,
+): string | null {
+  const roster = (
+    PHASE5_SCALAR_NON_APPLICABILITY as Readonly<
+      Record<string, Readonly<Record<string, string>>>
+    >
+  )[fixtureId];
+  if (roster === undefined || typeof name !== "string") return null;
+  return Object.hasOwn(roster, name) ? roster[name] : null;
+}
+
 function scalarComparisonFailures(
   values: readonly StrictJson[],
   fixtureId: string,
@@ -689,9 +703,39 @@ function scalarComparisonFailures(
     const scalar = plainObject(value, `${fixtureId} scalars[${index}]`);
     exactKeys(
       scalar,
-      ["name", "cpu", "gpu", "blocking", "rationale"],
+      ["name", "cpu", "gpu", "blocking", "rationale", "applicability"],
       `${fixtureId} scalars[${index}]`,
     );
+    // A blocking scalar that was never measured used to publish null on both lanes and pass,
+    // because null === null. Applicability is now declared and checked against the frozen
+    // roster: "not-applicable" requires a registered reason for this exact fixture and null on
+    // both lanes; "measured" requires two finite operands.
+    const nonApplicability = registeredNonApplicability(fixtureId, scalar.name);
+    if (scalar.applicability === "not-applicable") {
+      if (nonApplicability === null) {
+        throw new Error(
+          `${fixtureId} scalars[${index}] claims an unregistered non-applicability`,
+        );
+      }
+      if (scalar.cpu !== null || scalar.gpu !== null) {
+        throw new Error(
+          `${fixtureId} scalars[${index}] is not applicable yet carries operands`,
+        );
+      }
+    } else if (scalar.applicability === "measured") {
+      if (
+        typeof scalar.cpu !== "number" ||
+        !Number.isFinite(scalar.cpu) ||
+        typeof scalar.gpu !== "number" ||
+        !Number.isFinite(scalar.gpu)
+      ) {
+        throw new Error(
+          `${fixtureId} scalars[${index}] is declared measured without two finite operands`,
+        );
+      }
+    } else {
+      throw new Error(`${fixtureId} scalars[${index}] declares no applicability`);
+    }
     const permittedRationale = permittedNonblockingScalarRationale(
       fixtureId,
       scalar.name,

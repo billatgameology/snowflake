@@ -8,6 +8,7 @@ import {
   PHASE5_HEADLESS_RUNTIME,
   PHASE5_HEADLESS_RUNTIME_VERSION,
   PHASE5_NEGATIVE_CONTROLS,
+  PHASE5_SCALAR_NON_APPLICABILITY,
   PHASE5_PERFORMANCE,
   PHASE5_PROTOCOL,
   PHASE5_PROTOCOL_SHA256,
@@ -548,12 +549,33 @@ export function passingPhase5Capture(): Phase5LaneCapture {
                 fixture.id === TEST_PHASE5_GG_LEDGER_FIXTURE_ID
                   ? TEST_PHASE5_GG_LEDGER.scalars[name]
                   : undefined;
+              const nonApplicable = Object.hasOwn(
+                PHASE5_SCALAR_NON_APPLICABILITY,
+                fixture.id,
+              ) &&
+                Object.hasOwn(
+                  (PHASE5_SCALAR_NON_APPLICABILITY as Readonly<
+                    Record<string, Readonly<Record<string, string>>>
+                  >)[fixture.id],
+                  name,
+                );
+              if (nonApplicable) {
+                return {
+                  name,
+                  cpu: null,
+                  gpu: null,
+                  blocking: rationale === null,
+                  rationale,
+                  applicability: "not-applicable" as const,
+                };
+              }
               return {
                 name,
                 cpu: ledgerScalar === undefined ? 1 : ledgerScalar.cpu,
                 gpu: ledgerScalar === undefined ? 1 : ledgerScalar.gpu,
                 blocking: rationale === null,
                 rationale,
+                applicability: "measured" as const,
               };
             },
           ),

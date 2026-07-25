@@ -55,6 +55,7 @@ import {
   PHASE5_PROTOCOL_SHA256,
   PHASE5_REQUIRED_FEATURES,
   PHASE5_REQUIRED_LIMITS,
+  PHASE5_SCALAR_NON_APPLICABILITY,
   PHASE5_SCALAR_TOLERANCES,
   PHASE5_TOLERANCES_SHA256,
 } from "../../runner/src/phase5-protocol.ts";
@@ -328,6 +329,21 @@ function scalarPair(fixture, name, source, decoded) {
     if (name === "state.boundary-mass-total") {
       return [sum(decoded.cpu.state.b), sum(decoded.gpu.state.b)];
     }
+    // The GGThreshold phase partition of each lane's own exported boundary-mass field.
+    // Attachment folds vapor into boundary mass on occupied cells and the rule never melts,
+    // so mass held off the ice phase must be zero in both lanes.
+    if (name === "surface.frozen-amount" || name === "surface.melted-amount") {
+      const frozen = name === "surface.frozen-amount";
+      const partition = (lane) => {
+        let total = 0;
+        for (let index = 0; index < lane.state.b.length; index++) {
+          const occupied = lane.state.a[index] !== 0;
+          if (occupied === frozen) total += lane.state.b[index];
+        }
+        return total;
+      };
+      return [partition(decoded.cpu), partition(decoded.gpu)];
+    }
     if (name === "state.vapor-total") {
       return [sum(decoded.cpu.state.d), sum(decoded.gpu.state.d)];
     }
@@ -502,6 +518,19 @@ function checkpointDerivedPair(name, decoded) {
       );
     case "state.bounds":
       return perLane((lane) => occupancyBounds(lane.state.a, lane.header.dims));
+    case "state.occupancy":
+      // Distinct from `state.active-mask`, which digests the raw field: this is the binarized
+      // phase membership plus its count, so a lane that carried a non-binary value in an
+      // occupied cell would agree on one and differ on the other.
+      return perLane((lane) => {
+        const occupied = Uint8Array.from(lane.state.a, (value) =>
+          value === 0 ? 0 : 1
+        );
+        return {
+          occupiedCount: occupied.reduce((total, value) => total + value, 0),
+          digest: typedArrayDigest(occupied),
+        };
+      });
     case "state.neighbor-counts":
       return perLane((lane) =>
         typedArrayDigest(occupiedNeighborCounts(lane.state.a, lane.header.dims))
@@ -801,12 +830,24 @@ function scienceArtifacts(fixture, source, checkpoint) {
         : fixture.kind === "lk" && name === "relaxation.sweeps"
           ? PHASE5_LK_SWEEP_DIAGNOSTIC_RATIONALE
           : null;
+    const nonApplicability = PHASE5_SCALAR_NON_APPLICABILITY[fixture.id]?.[name];
+    if (nonApplicability !== undefined && (cpu !== null || gpu !== null)) {
+      throw new Error(
+        `${fixture.id} ${name} is registered non-applicable yet was measured`,
+      );
+    }
+    if (nonApplicability === undefined && (cpu === null || gpu === null)) {
+      throw new Error(
+        `${fixture.id} ${name} is blocking but was not measured on both lanes`,
+      );
+    }
     return {
       name,
       cpu,
       gpu,
       blocking: rationale === null,
       rationale,
+      applicability: nonApplicability === undefined ? "measured" : "not-applicable",
     };
   });
   const decisions = inventory.decisions.map((name) => {

@@ -613,6 +613,44 @@ export const PHASE5_GG_DIRICHLET_LEDGER_WITNESS = {
   },
 } as const;
 
+/**
+ * Registered non-applicability roster for the frozen science inventory.
+ *
+ * The scalar inventory is shared across operators and far-field conditions, so some registered
+ * names genuinely do not exist for a given fixture: GGThreshold publishes no relaxation
+ * residual, a reflecting fixture meters no Dirichlet shell. Before this roster a blocking
+ * scalar that was never measured published `null` on both lanes and passed, because
+ * `null === null` — measuring nothing scored the same as agreeing. Every scalar now declares an
+ * applicability, and only a name listed here for that exact fixture may declare itself
+ * not-applicable; anything else must carry two finite measured operands.
+ *
+ * This strengthens a criterion rather than relaxing one, so it is not a tolerance bypass and
+ * stays outside `phase5ProtocolManifest()`.
+ */
+export const PHASE5_SCALAR_NON_APPLICABILITY = {
+  "gg-plate-reflecting-48x48x24": {
+    "ledger.dirichlet-meter": "reflecting far field meters no Dirichlet shell source",
+    "relaxation.shell-clamp": "reflecting far field applies no shell clamp",
+    "relaxation.residual": "GGThreshold publishes one pass and defines no residual",
+    "relaxation.surface-exchange":
+      "GGThreshold defines no surface-exchange diagnostic",
+  },
+  "gg-column-dirichlet-noise-timeline-32x32x64": {
+    "relaxation.residual": "GGThreshold publishes one pass and defines no residual",
+    "relaxation.surface-exchange":
+      "GGThreshold defines no surface-exchange diagnostic",
+  },
+  "lk-reflecting-diagnostic-17x19x15": {
+    "relaxation.divergence-residual":
+      "reflecting LK carries a residual-only diagnostic and no divergence claim",
+    "ledger.last-divergence-residual":
+      "reflecting LK carries a residual-only diagnostic and no divergence claim",
+    "relaxation.shell-clamp": "reflecting far field applies no shell clamp",
+    "metrics.far-field-vapor":
+      "reflecting far field defines no far-field vapor reference",
+  },
+} as const;
+
 export const PHASE5_LK_BOUNDED_TWO_CYCLE_POLICY = {
   id: "exact-period2-one-ulp-v1",
   authority: "ADR-0021",
