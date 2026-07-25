@@ -1166,7 +1166,17 @@ async function main() {
       name: "vcc-phase5-performance-page",
       configureServer(viteServer) {
         viteServer.middlewares.use((request, response, next) => {
-          if (request.url?.split("?")[0] !== "/phase5-performance") {
+          const path = request.url?.split("?")[0];
+          // Chromium requests a favicon for every top-level page. The application does not
+          // ship one, so without this the browser logs a 404 that has nothing to do with the
+          // measurement. Answering only this exact path keeps every other missing resource a
+          // real, reported console error.
+          if (path === "/favicon.ico") {
+            response.writeHead(204);
+            response.end();
+            return;
+          }
+          if (path !== "/phase5-performance") {
             next();
             return;
           }
@@ -1195,7 +1205,15 @@ async function main() {
     const consoleErrors = [];
     const pageErrors = [];
     page.on("console", (message) => {
-      if (message.type() === "error") consoleErrors.push(message.text());
+      if (message.type() !== "error") return;
+      // Record where the error came from, not just its text: a bare "404 (Not Found)" names
+      // no resource, which makes an observed failure unauditable.
+      const location = message.location();
+      consoleErrors.push({
+        text: message.text(),
+        url: location.url,
+        lineNumber: location.lineNumber,
+      });
     });
     page.on("pageerror", (error) => pageErrors.push(String(error)));
     await page.addInitScript(installDeviceInterception, {
