@@ -56,6 +56,8 @@ import {
   comparePhase5Arrays,
   phase5ComparisonPasses,
 } from "./phase5-shadow.ts";
+// Runtime edge is acyclic: gate5-negative-controls imports only TYPES from this module.
+import { derivePhase5NegativeControlOutcomes } from "./gate5-negative-controls.ts";
 
 export const PHASE5_LANE_MANIFEST_PATH = "lane-manifest.json";
 export const PHASE5_LANE_REPORT_PATH = "lane-report.json";
@@ -1644,6 +1646,45 @@ function validateFixturePayloadGraph(
         frozen.dims.nx * frozen.dims.ny * frozen.dims.nz,
       );
     }
+    // Derive the symmetry and domain-contact measurements from the frozen fixture and the
+    // published invariant operands instead of trusting the declared raw fields. Before this,
+    // a capture whose declared flags contradicted its own invariants still published.
+    {
+      const operand = (name: string): { left: StrictJson; right: StrictJson } => {
+        for (const value of invariants) {
+          const invariant = plainObject(value, `${frozen.id} invariant`);
+          if (invariant.name === name) {
+            return { left: invariant.left, right: invariant.right };
+          }
+        }
+        return { left: null, right: null };
+      };
+      const expectedChecked =
+        (frozen.kind === "gg" || frozen.kind === "lk") &&
+        frozen.noiseEpsilon === 0;
+      if (measurement.symmetryChecked !== expectedChecked) {
+        throw new Error(
+          `${frozen.id} symmetryChecked contradicts the frozen fixture`,
+        );
+      }
+      const symmetry = operand("symmetry.exact");
+      const expectedMismatch = !expectedChecked
+        ? 0
+        : typeof symmetry.right === "number" && Number.isFinite(symmetry.right)
+          ? symmetry.right
+          : 1;
+      if (measurement.symmetryMismatchCount !== expectedMismatch) {
+        throw new Error(
+          `${frozen.id} symmetryMismatchCount contradicts its own invariant operands`,
+        );
+      }
+      const contact = operand("domain.no-contact");
+      if (measurement.domainContact !== (contact.left === true)) {
+        throw new Error(
+          `${frozen.id} domainContact contradicts its own invariant operands`,
+        );
+      }
+    }
     if (
       measurement.fieldFailureCount !== fieldFailures ||
       measurement.scalarFailureCount !== scalarFailures ||
@@ -1847,6 +1888,7 @@ function fixtureArtifactInputs(
     throw new Error("Phase 5 fixture capture inventory differs from the freeze");
   }
   validateFixturePayloadGraph(capture.fixtures, capture.raw);
+  assertObservedNegativeControls(capture, capture.raw.negativeControls);
   const inputs: ArtifactInput[] = [];
   for (const frozen of expectedFixtures) {
     const fixture = capture.fixtures.find((candidate) => candidate.id === frozen.id);
@@ -2708,6 +2750,39 @@ function verifyFixtureGraph(
     });
   }
   validateFixturePayloadGraph(captures, report.raw);
+  assertObservedNegativeControls(
+    {
+      startedAtUtc: PHASE5_REPLAY_CAPTURE_INSTANT,
+      completedAtUtc: PHASE5_REPLAY_CAPTURE_INSTANT,
+      raw: report.raw,
+      fixtures: captures,
+      stdout: new Uint8Array(readFileSync(join(root, "stdout.log"))),
+      stderr: new Uint8Array(readFileSync(join(root, "stderr.log"))),
+      exitStatus: 0,
+    },
+    report.raw.negativeControls,
+  );
+}
+
+// ADR 0022: the runner re-executes every registered mutation against the published payloads
+// and requires the producer's roster to equal the outcomes it observed itself. A roster the
+// producer asserted but did not measure — the previous bundle's `failedCriteria:
+// [control.owner]` — cannot survive this, because the observed sets come from the runner's own
+// replay of the mutated evidence through the production evaluator.
+const PHASE5_REPLAY_CAPTURE_INSTANT = "1970-01-01T00:00:00.000Z";
+
+function assertObservedNegativeControls(
+  capture: Phase5LaneCapture,
+  declared: Phase5LaneRawEvidence["negativeControls"],
+): void {
+  const observed = derivePhase5NegativeControlOutcomes(capture);
+  if (canonicalJson(observed as unknown as StrictJson) !==
+      canonicalJson(declared as unknown as StrictJson)) {
+    throw new Error(
+      "Phase 5 negative-control roster differs from the runner's own replay of the " +
+        "published evidence",
+    );
+  }
 }
 
 export function verifyPhase5LaneBundle(

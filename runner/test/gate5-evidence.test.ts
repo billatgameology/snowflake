@@ -685,6 +685,57 @@ describe("ADR-0019 G-G Dirichlet corrected-mass ledger", () => {
     expectRejected(capture, /comparison keys are invalid/);
   });
 
+  it("rejects a negative-control roster the runner's own replay does not observe", () => {
+    const capture = passingPhase5Capture();
+    const roster = (capture.raw as unknown as {
+      negativeControls: Array<{ failedCriteria: string[] }>;
+    }).negativeControls;
+    const bypass = roster.find(
+      (entry) => (entry as { id?: string }).id === "NC-TOLERANCE-BYPASS",
+    );
+    if (bypass === undefined) throw new Error("missing NC-TOLERANCE-BYPASS");
+    // The producer asserts the pre-ADR-0022 singleton it never observed.
+    bypass.failedCriteria = ["P5-NEGATIVE-CONTROLS"];
+    const events = capture.fixtures[0].events as {
+      negativeControls: unknown;
+    };
+    events.negativeControls = structuredClone(roster);
+    expectRejected(capture, /roster differs from the runner's own replay/);
+  });
+
+  it("rejects declared symmetry state that contradicts the invariant operands", () => {
+    const capture = passingPhase5Capture();
+    const fixture = capture.fixtures.find(
+      (entry) => entry.id === "gg-plate-reflecting-48x48x24",
+    );
+    if (fixture === undefined) throw new Error("missing reflecting G-G fixture");
+    const invariants = (fixture.comparison as {
+      invariants: Array<{ name: string; left: unknown; right: unknown }>;
+    }).invariants;
+    const symmetry = invariants.find((entry) => entry.name === "symmetry.exact");
+    if (symmetry === undefined) throw new Error("missing symmetry invariant");
+    // A real orbit mismatch in the operands while the declared count still reads zero.
+    symmetry.left = 1;
+    symmetry.right = 1;
+    expectRejected(capture, /symmetryMismatchCount contradicts/);
+  });
+
+  it("rejects a declared no-contact flag that contradicts the invariant operands", () => {
+    const capture = passingPhase5Capture();
+    const fixture = capture.fixtures.find(
+      (entry) => entry.id === "diff-small-dirichlet-noise-drift-31x29x21",
+    );
+    if (fixture === undefined) throw new Error("missing diffusion fixture");
+    const invariants = (fixture.comparison as {
+      invariants: Array<{ name: string; left: unknown; right: unknown }>;
+    }).invariants;
+    const contact = invariants.find((entry) => entry.name === "domain.no-contact");
+    if (contact === undefined) throw new Error("missing contact invariant");
+    contact.left = true;
+    contact.right = true;
+    expectRejected(capture, /domainContact contradicts/);
+  });
+
   it("rejects a blocking scalar that was never measured on either lane", () => {
     const { capture, scalars } = ledgerCapture();
     const scalar = scalars.find((entry) => entry.name === "metrics.total-mass");

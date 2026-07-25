@@ -761,105 +761,8 @@ function criterionMap(
   return new Map(criteria.map((entry) => [entry.id, entry]));
 }
 
-function blockingFixture(
-  raw: Phase5LaneRawEvidence,
-  kind: Phase5FixtureMeasurement["kind"],
-): Phase5FixtureMeasurement {
-  const fixture = raw.fixtures.find((entry) => entry.kind === kind);
-  if (fixture === undefined) throw new Error(`missing ${kind} negative-control fixture`);
-  return fixture;
-}
-
-function applyPhase5CriterionMutation(
-  owner: Phase5Criterion,
-  raw: Phase5LaneRawEvidence,
-): void {
-  switch (owner) {
-    case "P5-WINDOWS-PROVENANCE":
-      (raw.adapter as { backend: string }).backend = "Vulkan";
-      return;
-    case "P5-PROTOCOL-MATCH": {
-      const manifest = raw.protocol.fixtureManifest as {
-        fixtures: Array<{ rngSeed: number }>;
-      };
-      manifest.fixtures[0].rngSeed += 1;
-      return;
-    }
-    case "P5-ADAPTER-LIMITS": {
-      const budget = raw.adapter.budgets.find(
-        (entry) => entry.id === "preview-plate",
-      );
-      if (budget === undefined) throw new Error("missing preview budget");
-      (budget as { requiredBytes: number }).requiredBytes = 1;
-      (budget as { allocatedBytes: number | null }).allocatedBytes = 1;
-      return;
-    }
-    case "P5-LAYOUT-INDEXING":
-      (blockingFixture(raw, "layout") as {
-        comparisonFailureCount: number;
-      }).comparisonFailureCount += 1;
-      return;
-    case "P5-DIFFUSION":
-      (blockingFixture(raw, "diffusion") as {
-        fieldFailureCount: number;
-      }).fieldFailureCount += 1;
-      return;
-    case "P5-GG-THRESHOLD":
-      (blockingFixture(raw, "gg") as {
-        decisionFailureCount: number;
-      }).decisionFailureCount += 1;
-      return;
-    case "P5-LIBBRECHT-KINETICS":
-      (blockingFixture(raw, "lk") as {
-        invariantFailureCount: number;
-      }).invariantFailureCount += 1;
-      return;
-    case "P5-SYMMETRY": {
-      const fixture = raw.fixtures.find(
-        (entry) =>
-          (entry.kind === "gg" || entry.kind === "lk") &&
-          entry.symmetryChecked,
-      );
-      if (fixture === undefined) throw new Error("missing symmetry fixture");
-      (fixture as { symmetryMismatchCount: number }).symmetryMismatchCount += 1;
-      return;
-    }
-    case "P5-DOMAIN-SAFETY":
-      (raw.fixtures[0] as { domainContact: boolean }).domainContact = true;
-      return;
-    case "P5-DISPATCH-SAFETY":
-      (raw.submissions.samples[0].segmentWallMs as number[])[0] =
-        PHASE5_PERFORMANCE.maxSubmissionSegmentMs + 1;
-      return;
-    case "P5-EDIT-ACK":
-      (raw.interactions[0] as { editAcknowledgementMs: number })
-        .editAcknowledgementMs =
-          PHASE5_PERFORMANCE.editAcknowledgementMs + 1;
-      return;
-    case "P5-FIRST-VALID-FRAME":
-      (raw.interactions[0] as { firstValidFrameMs: number })
-        .firstValidFrameMs =
-          PHASE5_PERFORMANCE.firstValidPostEditFrameMs + 1;
-      return;
-    case "P5-RESIDENCY":
-      (raw.readback as { fullFieldDisplayFrameCount: number })
-        .fullFieldDisplayFrameCount += 1;
-      return;
-    case "P5-CHECKPOINTS":
-      (raw.checkpoints[0] as { gpuDecodePass: boolean }).gpuDecodePass = false;
-      return;
-    case "P5-NEGATIVE-CONTROLS":
-      (raw as { toleranceBypassCount: number }).toleranceBypassCount += 1;
-      return;
-    case "P5-PUBLICATION":
-      (raw as { publicationVerified: boolean }).publicationVerified = false;
-      return;
-  }
-}
-
 function evaluatePhase5LaneInternal(
   input: Phase5LaneRawEvidence,
-  executeNegativeControls: boolean,
 ): Phase5LaneVerdict {
   const raw = validatePhase5RawEvidence(input);
   if (raw.schema !== PHASE5_RAW_EVIDENCE_SCHEMA) {
@@ -1353,24 +1256,13 @@ function evaluatePhase5LaneInternal(
       checkpointFailures,
       negativeFailures,
     ].every((failures) => failures.length === 0);
-  if (executeNegativeControls && baselineCandidate) {
-    for (const expected of PHASE5_NEGATIVE_CONTROLS) {
-      const mutated = structuredClone(raw);
-      applyPhase5CriterionMutation(expected.owner, mutated);
-      const verdict = evaluatePhase5LaneInternal(mutated, false);
-      const failures = verdict.criteria
-        .filter((criterion) => !criterion.pass)
-        .map((criterion) => criterion.id);
-      if (
-        failures.length !== 1 ||
-        failures[0] !== expected.owner
-      ) {
-        negativeFailures.push(
-          `${expected.id} independent evaluator mutation does not fail only ${expected.owner}`,
-        );
-      }
-    }
-  }
+  // ADR 0022: the registered mutations execute against the real capture payloads in
+  // `gate5-negative-controls.ts`, invoked by the gate before publication and re-derived
+  // independently by the runner whenever a bundle is published or reopened. The former
+  // summary-field replay here — incrementing failure counters keyed by the registered owner
+  // and demanding a sole failing criterion — was the substitute the reviewer rejected, and it
+  // is deliberately gone rather than retained beside the real replay.
+  void baselineCandidate;
 
   const criteria = [
     result("P5-WINDOWS-PROVENANCE", provenanceFailures, {
@@ -1479,7 +1371,7 @@ function evaluatePhase5LaneInternal(
 export function evaluatePhase5Lane(
   input: Phase5LaneRawEvidence,
 ): Phase5LaneVerdict {
-  return evaluatePhase5LaneInternal(input, true);
+  return evaluatePhase5LaneInternal(input);
 }
 
 export function failedPhase5Criteria(

@@ -32,6 +32,7 @@ import {
   PHASE5_SCIENCE_INVENTORY,
 } from "../src/gate5-evidence.ts";
 import { sha256Bytes } from "../src/gate4-evidence.ts";
+import { derivePhase5NegativeControlOutcomes } from "../src/gate5-negative-controls.ts";
 
 export const TEST_PHASE5_COMMIT = "1".repeat(40);
 export const TEST_PHASE5_SOURCE_HASHES: readonly Phase5SourceHash[] = [
@@ -351,7 +352,11 @@ export function passingPhase5Raw(): Phase5LaneRawEvidence {
       scalarFailureCount: 0,
       decisionFailureCount: 0,
       invariantFailureCount: 0,
-      symmetryChecked: true,
+      // Must match what the payload validator derives from the freeze and the invariant
+      // operands: only noise-free gg/lk fixtures are symmetry-checked.
+      symmetryChecked:
+        (fixture.kind === "gg" || fixture.kind === "lk") &&
+        fixture.noiseEpsilon === 0,
       symmetryMismatchCount: 0,
       domainContact: false,
       stopReasonMatch: true,
@@ -517,7 +522,24 @@ export function passingPhase5Raw(): Phase5LaneRawEvidence {
   };
 }
 
+// The roster must be what the runner's own replay observes, not a hand-written singleton —
+// `assertObservedNegativeControls` re-derives it on publish and reopen. Derived once (16
+// evaluator replays) and reused by clone; the capture is deterministic.
+let derivedControlRoster: Phase5LaneRawEvidence["negativeControls"] | null = null;
+
 export function passingPhase5Capture(): Phase5LaneCapture {
+  const capture = provisionalPhase5Capture();
+  if (derivedControlRoster === null) {
+    derivedControlRoster = derivePhase5NegativeControlOutcomes(capture);
+  }
+  const roster = structuredClone(derivedControlRoster);
+  (capture.raw as { negativeControls: typeof roster }).negativeControls = roster;
+  (capture.fixtures[0].events as { negativeControls: typeof roster })
+    .negativeControls = structuredClone(roster);
+  return capture;
+}
+
+function provisionalPhase5Capture(): Phase5LaneCapture {
   const raw = passingPhase5Raw();
   return {
     startedAtUtc: "2026-07-24T20:00:00.000Z",
@@ -587,8 +609,10 @@ export function passingPhase5Capture(): Phase5LaneCapture {
               name,
               relation:
                 name.includes("margin") ? "greater-or-equal" : "equal",
-              left: name.includes("margin") ? 1 : false,
-              right: name.includes("margin") ? 0 : false,
+              // symmetry.exact carries numeric per-lane errors; the payload validator derives
+              // symmetryMismatchCount from its gpu operand, so it must be a finite number.
+              left: name.includes("margin") ? 1 : name === "symmetry.exact" ? 0 : false,
+              right: name.includes("margin") ? 0 : name === "symmetry.exact" ? 0 : false,
               absoluteTolerance: 0,
               relativeTolerance: 0,
             }),
