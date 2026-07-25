@@ -94,6 +94,10 @@ export class CrystalView {
   private sliceTexture: THREE.DataTexture | null = null;
   private sliceMaterial: THREE.MeshBasicMaterial | null = null;
 
+  /** WP6 S4 camera sharing: per-frame listeners run AFTER controls.update() + render, so
+   * the GPU view reads this frame's exact camera matrices (D2: one camera, two canvases). */
+  private readonly frameListeners: (() => void)[] = [];
+
   private constructor(renderer: THREE.WebGPURenderer, backend: BackendName, container: HTMLElement) {
     this.renderer = renderer;
     this.backend = backend;
@@ -134,9 +138,15 @@ export class CrystalView {
     this.renderer.setAnimationLoop(() => {
       this.controls.update();
       this.renderer.render(this.scene, this.camera);
+      for (const listener of this.frameListeners) listener();
     });
 
     window.addEventListener("resize", () => this.resize(container));
+  }
+
+  /** Register a per-frame callback (WP6 S4: the second-canvas GPU view renders here). */
+  onFrame(listener: () => void): void {
+    this.frameListeners.push(listener);
   }
 
   /** Awaited construction: WebGPURenderer.init() decides WebGPU vs its WebGL2 fallback. */

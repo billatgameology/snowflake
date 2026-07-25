@@ -7,11 +7,22 @@
 
 import { describe, expect, it } from "vitest";
 import { GGSolver } from "@vcc/solver-cpu";
-import { GPU_TOPOLOGY_FAR_FIELD, GPU_WORKGROUP_SIZE } from "@vcc/solver-gpu";
 import {
+  GPU_GG_RENDER_ATTACHED_NOW,
+  GPU_GG_RENDER_ATTACH_DECISION,
+  GPU_GG_RENDER_BOUNDARY,
+  GPU_GG_RENDER_HOLE_FILL,
+  GPU_MAX_WORKGROUPS_PER_DISPATCH,
+  GPU_TOPOLOGY_FAR_FIELD,
+  GPU_WORKGROUP_SIZE,
+} from "@vcc/solver-gpu";
+import {
+  ATTACH_TICK_WGSL,
   SHELL_MEAN_MAX_PARTIAL_WORKGROUPS,
   SHELL_MEAN_RESULT_BYTES,
   SHELL_MEAN_WGSL,
+  attachTickDispatchPlan,
+  attachTickMaintenanceShadow,
   decodeShellMeanResult,
   shellMeanDispatchPlan,
 } from "../src/gpu-instrument.ts";
@@ -100,6 +111,62 @@ describe("WGSL ABI pinning against the @vcc/solver-gpu exports (D5)", () => {
     expect(SHELL_MEAN_WGSL).toContain("sum: f32");
     expect(SHELL_MEAN_WGSL).toContain("count: u32");
     expect(SHELL_MEAN_RESULT_BYTES).toBe(8);
+  });
+});
+
+describe("attach-tick maintenance (WP6 S4, D5)", () => {
+  it("plans a capped grid-stride sweep covering every cell", () => {
+    expect(attachTickDispatchPlan(1)).toEqual({
+      workgroups: 1,
+      strideThreads: GPU_WORKGROUP_SIZE,
+    });
+    expect(attachTickDispatchPlan(GPU_WORKGROUP_SIZE + 1).workgroups).toBe(2);
+    const previewPlate = attachTickDispatchPlan(400 * 400 * 50);
+    expect(previewPlate.workgroups).toBe(GPU_MAX_WORKGROUPS_PER_DISPATCH);
+    expect(previewPlate.strideThreads).toBe(
+      GPU_MAX_WORKGROUPS_PER_DISPATCH * GPU_WORKGROUP_SIZE,
+    );
+    expect(
+      previewPlate.strideThreads * Math.ceil((400 * 400 * 50) / previewPlate.strideThreads),
+    ).toBeGreaterThanOrEqual(400 * 400 * 50);
+    for (const bad of [0, -1, 1.5, 2 ** 32, Number.NaN]) {
+      expect(() => attachTickDispatchPlan(bad)).toThrow(/u32-safe/);
+    }
+  });
+
+  it("interpolates the exported ATTACHED_NOW bit and workgroup size (ABI pin)", () => {
+    expect(GPU_GG_RENDER_ATTACHED_NOW).toBe(8); // frozen render-flag ABI
+    expect(ATTACH_TICK_WGSL).toContain(`& ${GPU_GG_RENDER_ATTACHED_NOW}u`);
+    expect(ATTACH_TICK_WGSL).toContain(`@workgroup_size(${GPU_WORKGROUP_SIZE})`);
+    expect(ATTACH_TICK_WGSL).toContain("fn recordAttachTicks(");
+    expect(ATTACH_TICK_WGSL).toContain("attachTick[index] = uniforms.tick;");
+  });
+
+  it("stamps exactly the ATTACHED_NOW cells with the post-step tick (shadow)", () => {
+    const renderFlags = Uint32Array.from([
+      0,
+      GPU_GG_RENDER_BOUNDARY,
+      GPU_GG_RENDER_BOUNDARY | GPU_GG_RENDER_ATTACH_DECISION,
+      GPU_GG_RENDER_BOUNDARY | GPU_GG_RENDER_ATTACH_DECISION | GPU_GG_RENDER_ATTACHED_NOW,
+      GPU_GG_RENDER_ATTACHED_NOW | GPU_GG_RENDER_HOLE_FILL,
+      (3 << 8) | (1 << 12), // packed counts only — no flags
+    ]);
+    const prior = Uint32Array.from([0, 0, 0, 5, 0, 9]);
+    const next = attachTickMaintenanceShadow(renderFlags, prior, 42);
+    // ONLY the two ATTACHED_NOW cells change; a bare attach DECISION (melted away) or a
+    // boundary/hole-fill bit without ATTACHED_NOW never stamps.
+    expect([...next]).toEqual([0, 0, 0, 42, 42, 9]);
+    // Prior array is untouched (fresh array out).
+    expect([...prior]).toEqual([0, 0, 0, 5, 0, 9]);
+  });
+
+  it("rejects mismatched lengths and non-u32 ticks", () => {
+    expect(() =>
+      attachTickMaintenanceShadow(new Uint32Array(2), new Uint32Array(3), 1),
+    ).toThrow(/matching array lengths/);
+    expect(() =>
+      attachTickMaintenanceShadow(new Uint32Array(2), new Uint32Array(2), -1),
+    ).toThrow(/u32-safe/);
   });
 });
 

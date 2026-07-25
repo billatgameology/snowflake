@@ -77,7 +77,8 @@ import {
   type GGScheduleRuntime,
 } from "./ggtimeline.ts";
 import { evaluateStopRules } from "./stoprule.ts";
-import { GpuShellMeanInstrument } from "./gpu-instrument.ts";
+import { GpuAttachTickInstrument, GpuShellMeanInstrument } from "./gpu-instrument.ts";
+import type { GpuViewSource } from "./gpuview.ts";
 
 export type { Phase5Budget, Phase5BudgetName };
 export type { GpuSubmissionRecord };
@@ -507,6 +508,8 @@ export class GpuEngine implements Engine<GpuSnapshot> {
   private solver: GpuGgSolver | null = null;
   private arena: GpuBufferArena | null = null;
   private instrument: GpuShellMeanInstrument | null = null;
+  /** S4 attach-tick maintenance (D5): display-owned per-cell attach ticks for overlays. */
+  private attachTicks: GpuAttachTickInstrument | null = null;
   private scheduleRuntime: GGScheduleRuntime | null = null;
   private solverGeneration = 0;
   private editGeneration = 0;
@@ -655,6 +658,53 @@ export class GpuEngine implements Engine<GpuSnapshot> {
     return this.editQueue.pending();
   }
 
+  /**
+   * Register an overlay/slice display-control edit on the EDIT submission controller (D3:
+   * the edit controller advances per registered UI edit; the display repaint itself reads
+   * solver buffers and therefore submits through the SOLVER controller).
+   */
+  registerViewEdit(): number {
+    const generation = ++this.editGeneration;
+    this.editSubmissions.acknowledgeEdit(generation);
+    return generation;
+  }
+
+  /**
+   * Everything the S4 GPU view reads for its display passes (D5: solver buffers via the
+   * solver's exported accessors, the display-owned attach-tick buffer, and the SOLVER
+   * submission controller + production audit the passes/probes must go through). Fresh per
+   * call because the solver's vapor buffer ping-pongs per cycle. Null whenever no usable
+   * solver exists (empty/faulted/stale) — the view skips the frame instead of faulting.
+   */
+  viewSource(): GpuViewSource | null {
+    const solver = this.solver;
+    const attachTicks = this.attachTicks;
+    const environment = this.environment;
+    if (solver === null || attachTicks === null || environment === null) return null;
+    if (this.state === "empty" || this.state === "faulted") return null;
+    try {
+      return {
+        dims: { ...this.dims },
+        center: [this.center[0], this.center[1], this.center[2]],
+        generation: this.solverGeneration,
+        tick: solver.tick(),
+        environment,
+        buffers: {
+          vapor: solver.activeVaporBuffer(),
+          occupancy: solver.occupancyBuffer(),
+          wall: solver.wallBuffer(),
+          boundaryMass: solver.boundaryMassBuffer(),
+          attachTick: attachTicks.buffer(),
+        },
+        submissions: this.solverSubmissions,
+        audit: this.audit,
+      };
+    } catch {
+      // A poisoned/stale solver refuses its accessors; the view treats that as "no state".
+      return null;
+    }
+  }
+
   engineState(): GpuEngineState {
     return this.state;
   }
@@ -756,6 +806,7 @@ export class GpuEngine implements Engine<GpuSnapshot> {
     this.solver = solver;
     this.arena = arena;
     this.instrument = GpuShellMeanInstrument.create(this.device, cellCount(dims));
+    this.attachTicks = GpuAttachTickInstrument.create(this.device, cellCount(dims));
     this.dims = dims;
     this.center = seed.center;
     this.bbox = seed.bbox;
@@ -791,6 +842,8 @@ export class GpuEngine implements Engine<GpuSnapshot> {
     this.solver = null;
     this.instrument?.destroy();
     this.instrument = null;
+    this.attachTicks?.destroy();
+    this.attachTicks = null;
     if (this.arena !== null && !this.arena.isDestroyed()) this.arena.destroy();
     this.arena = null;
     this.scheduleRuntime = null;
@@ -833,6 +886,18 @@ export class GpuEngine implements Engine<GpuSnapshot> {
     if (solver === null || instrument === null) throw new Error("step before init");
     const label = `app:gg:tick-${solver.tick() + 1}`;
     await solver.step(label);
+    // S4 attach-tick maintenance (D5): stamp this cycle's ATTACHED_NOW render flags with
+    // the post-step tick BEFORE the next cycle clears them — the CPU worker's exact
+    // `attachTick[x] = s.tick` rule, kept on the GPU as display/instrument state.
+    if (this.attachTicks !== null) {
+      await this.attachTicks.record(
+        solver.renderFlagsBuffer(),
+        solver.tick(),
+        this.solverGeneration,
+        this.solverSubmissions,
+        `${label}:attach-ticks`,
+      );
+    }
     const reportBytes = await readGpuBuffer(
       this.device,
       solver.reportBuffer(),

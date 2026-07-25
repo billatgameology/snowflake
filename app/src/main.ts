@@ -44,6 +44,7 @@ import {
   type GpuAcquisition,
   type GpuDeviceStatusReport,
 } from "./gpudevice.ts";
+import { GpuView, type GpuViewControls } from "./gpuview.ts";
 import { surfaceCellIndices } from "./surface.ts";
 import { CrystalView, type CameraPose } from "./render.ts";
 import { normalizeToUnit, srgbToLinear, viridis } from "./colormap.ts";
@@ -188,6 +189,14 @@ interface VccDebug {
   gpuAuditSummary: () => GpuAuditSummary | null;
   /** Both submission controllers' records and generations (null when no GPU engine). */
   gpuSubmissionRecords: () => GpuControllerReport | null;
+  // ── Phase 5 (WP6 S4): the GPU-resident second-canvas view ──────────────────────────────
+  /** Display-state summary of the S4 GPU view (null when it has no generation yet). */
+  gpuViewInfo: () => Record<string, unknown> | null;
+  /**
+   * Compact audited sample of the GPU view's extracted surface list + overlay colors
+   * (first N entries; parity checks on the registered host). Never a full-field read.
+   */
+  gpuViewSample: (maxEntries?: number) => Promise<Record<string, unknown> | null>;
 }
 
 const debugHook: VccDebug = {
@@ -233,6 +242,8 @@ const debugHook: VccDebug = {
   setBudget: () => false,
   gpuAuditSummary: () => null,
   gpuSubmissionRecords: () => null,
+  gpuViewInfo: () => null,
+  gpuViewSample: () => Promise.resolve(null),
 };
 (window as unknown as { __vccDebug: VccDebug }).__vccDebug = debugHook;
 
@@ -289,6 +300,26 @@ async function boot(): Promise<void> {
   function activeEngine(): Engine<EngineSnapshot> {
     return activeEngineKind === "gpu" && gpuEngine !== null ? gpuEngine : workerEngine;
   }
+
+  // WP6 S4 (D2): the GPU-resident crystal/overlay/slice view on a second full-size
+  // pointer-events:none canvas appended AFTER Three's canvas, sharing the ONE device. It
+  // exists exactly when the GPU engine does; CPU mode and inspect mode hide it and keep
+  // today's Three path byte-identical.
+  const gpuView: GpuView | null =
+    acquisition.state === "acquired" && gpuEngine !== null
+      ? GpuView.create(acquisition.device, container)
+      : null;
+  gpuView?.onError((message) => {
+    debugHook.errors.push(`gpu view: ${message}`);
+    console.error(`gpu view: ${message}`);
+    uiHint = `GPU VIEW FAULT: ${message}`;
+    renderStatus();
+  });
+  // Camera sharing (D2): every Three frame, the second canvas redraws with the SAME
+  // OrbitControls camera matrices — orbiting moves both canvases in lockstep.
+  view.onFrame(() => {
+    gpuView?.renderFrame(view.camera);
+  });
 
   /**
    * The status panel's device line. Fallbacks keep the exact S2 wording (gpuStatusLine);
@@ -372,6 +403,9 @@ async function boot(): Promise<void> {
   /** The exact surface list last handed to the renderer — instanceId indexes into it. */
   let currentSurface: Uint32Array = new Uint32Array(0);
   let uiHint: string | null = null;
+  /** Signature of the overlay/slice controls last pushed to the GPU view (S4): a change
+   * is a registered display edit (D3 edit controller) followed by a bounded repaint. */
+  let lastGpuViewControlsKey: string | null = null;
 
   // ── Phase 4 inspect mode (V4-2): a loaded artifact replaces the LIVE view (view-only);
   // the worker keeps its own state untouched and resumes when the artifact is cleared. ──────
@@ -676,11 +710,12 @@ async function boot(): Promise<void> {
   }
 
   function updateLegends(): void {
-    // D6 status honesty (S3): live GPU snapshots carry no full fields, so an enabled
-    // overlay/slice legend says the quantity is not computed instead of implying a ramp of
-    // real values. Inspect mode and CPU mode keep their exact captions.
+    // S4 honesty: with the GPU engine live, overlays and the slice ARE computed — by
+    // GPU-resident display passes over the solver's float32 buffers — and the legend says
+    // exactly that instead of S3's "not computed". Inspect and CPU modes keep their exact
+    // captions.
     const gpuLive = inspected === null && activeEngineKind === "gpu";
-    const gpuNote = "\nnot computed in GPU mode (full-field metric)";
+    const gpuNote = "\nGPU-resident display pass over float32 solver state (computed state, unvalidated)";
     const o = activeOverlayLegend();
     updateLegend(
       "legend-overlay",
@@ -789,20 +824,82 @@ async function boot(): Promise<void> {
     ctx2d.stroke();
   }
 
+  // ── WP6 S4: the GPU view's control push (display edits + bounded repaints) ───────────────
+  /** The overlay/slice control state the GPU view renders — the SAME values the legends
+   * print (renderedSliceIndex is the clamped legend index; ggThreshBeta is the ACTIVE
+   * environment's thresholds, never the preset table). */
+  function currentGpuViewControls(): GpuViewControls {
+    const dims = activeDims;
+    const index = renderedSliceIndex();
+    return {
+      overlayName: overlayState.name,
+      overlayMin: overlayState.min,
+      overlayMax: overlayState.max,
+      recencyWindowTicks: overlayState.recencyWindow,
+      sliceEnabled: sliceState.enabled,
+      sliceOrientation: sliceState.orientation,
+      sliceIndex: index,
+      sliceMin: sliceState.min,
+      sliceMax: sliceState.max,
+      // The EXISTING slice.ts world-placement math, reused verbatim (S4).
+      sliceModelRowMajor: sliceWorldMatrix(sliceState.orientation, index, dims, view.offset),
+      ggThreshBeta: activeGGThreshBeta(),
+    };
+  }
+
+  /**
+   * Push state/controls into the GPU view. afterState=true reruns the full bounded
+   * pipeline (extraction + overlay + slice) after a completed step/reset/env change;
+   * afterState=false is the control path — an ACTUAL control change registers one display
+   * edit on the D3 edit controller and repaints overlay/slice over the current surface
+   * list, an unchanged control state is a no-op.
+   */
+  function syncGpuView(afterState: boolean): void {
+    if (gpuView === null || gpuEngine === null) return;
+    if (inspected !== null || activeEngineKind !== "gpu") return;
+    const source = gpuEngine.viewSource();
+    if (source === null) return;
+    const controls = currentGpuViewControls();
+    const key = JSON.stringify([
+      controls.overlayName,
+      controls.overlayMin,
+      controls.overlayMax,
+      controls.recencyWindowTicks,
+      controls.sliceEnabled,
+      controls.sliceOrientation,
+      controls.sliceIndex,
+      controls.sliceMin,
+      controls.sliceMax,
+    ]);
+    if (afterState) {
+      lastGpuViewControlsKey = key;
+      gpuView.syncState(source, controls);
+      return;
+    }
+    if (key === lastGpuViewControlsKey) return;
+    lastGpuViewControlsKey = key;
+    gpuEngine.registerViewEdit();
+    gpuView.repaintControls(source, controls);
+  }
+
   // ── The one refresh path: everything below reads `latest` OR the inspected artifact
   // (freeze-and-inspect; V4-2 inspect mode is a frozen state by construction) ──────────────
   function refreshView(): void {
     renderStatus();
     updateLegends();
     const dims = viewDims();
+    // S4: the second canvas shows exactly when the LIVE GPU engine is displayed; CPU mode
+    // and inspect mode fall back to the Three path with the GPU canvas hidden.
+    gpuView?.setVisible(inspected === null && activeEngineKind === "gpu");
 
     if (inspected === null && activeEngineKind === "gpu") {
-      // S3: live GPU snapshots carry no full fields, so there is nothing to raster — the
-      // scene legitimately shows an empty lattice (the crystal instances were cleared at
-      // ready) and the slice plane hides. The GPU-resident crystal/overlay/slice passes
-      // are S4; displaying stale CPU fields as if they were live GPU state would lie.
+      // S4: the crystal/overlay/slice render GPU-resident on the second canvas; Three's
+      // own crystal instances stay cleared and its slice plane hidden (they would show
+      // stale CPU state). The HUD's depletion metric still needs the full field and
+      // honestly says so.
       view.hideSlice();
       updateHud(null);
+      syncGpuView(false);
       return;
     }
 
@@ -921,6 +1018,49 @@ async function boot(): Promise<void> {
     debugHook.lastPick = null;
   }
 
+  /**
+   * WP6 S4 picking floor: in live GPU mode, pickCell reads EXACTLY the probed cells via
+   * small audited named-probe readbacks (never a full field) and fills the readout when
+   * they land. Free-running is refused (pause first) so the probe reads one frozen state,
+   * not a torn mid-cycle mix; mouse raycast picking over the GPU surface is explicitly
+   * deferred. Returns true when the probe was accepted.
+   */
+  function gpuPickCell(i: number, j: number, k: number): boolean {
+    if (gpuView === null || gpuEngine === null) return false;
+    const dims = activeDims;
+    if (
+      !Number.isSafeInteger(i) || i < 0 || i >= dims.nx ||
+      !Number.isSafeInteger(j) || j < 0 || j >= dims.ny ||
+      !Number.isSafeInteger(k) || k < 0 || k >= dims.nz
+    ) {
+      return false;
+    }
+    if (debugHook.running) {
+      uiHint = "pause to pick in GPU mode (the named probe reads one frozen state)";
+      renderStatus();
+      return false;
+    }
+    const source = gpuEngine.viewSource();
+    if (source === null) return false;
+    debugHook.lastPick = { i, j, k };
+    readoutElement.textContent =
+      `cell (${i}, ${j}, ${k}) — reading GPU-resident state (audited named probe)…`;
+    readoutElement.hidden = !chrome.readout;
+    void gpuView
+      .pickCell(source, wall, overlayState.name, overlayState.recencyWindow, i, j, k)
+      .then((lines) => {
+        const pick = debugHook.lastPick;
+        if (pick === null || pick.i !== i || pick.j !== j || pick.k !== k) return;
+        readoutElement.textContent = lines.join("\n");
+        readoutElement.hidden = !chrome.readout;
+      })
+      .catch((err: unknown) => {
+        uiHint = `GPU pick failed: ${err instanceof Error ? err.message : String(err)}`;
+        renderStatus();
+      });
+    return true;
+  }
+
   let lastRaycastAt = 0;
   view.renderer.domElement.addEventListener("pointermove", (event: PointerEvent) => {
     const now = performance.now();
@@ -969,10 +1109,26 @@ async function boot(): Promise<void> {
         pane.refresh();
         view.frameDomain(activeDims, msg.center);
         if (source === "gpu") {
-          // S3: the GPU engine renders no crystal yet (S4) — clear any stale CPU-mode
-          // instances so the scene honestly shows an empty lattice, not old state as live.
+          // S4: the crystal renders GPU-resident on the second canvas — Three's instances
+          // stay cleared (stale CPU state must never pose as live GPU state) and the GPU
+          // view allocates fresh display buffers for the new solver generation.
           view.updateCrystal(new Uint32Array(0), activeDims, new Float32Array(0));
           view.hideSlice();
+          lastGpuViewControlsKey = null;
+          if (gpuView !== null && gpuEngine !== null) {
+            const viewSource = gpuEngine.viewSource();
+            if (viewSource !== null) {
+              try {
+                gpuView.beginGeneration(viewSource, view.offset);
+                syncGpuView(true);
+              } catch (err) {
+                // Fail-closed display allocation: the fault names the violated limit; the
+                // solver keeps running (status shows the crystal cannot be displayed).
+                uiHint = `GPU VIEW FAULT: ${err instanceof Error ? err.message : String(err)}`;
+                debugHook.errors.push(`gpu view: ${String(uiHint)}`);
+              }
+            }
+          }
         }
         renderStatus();
         updateLegends();
@@ -998,7 +1154,14 @@ async function boot(): Promise<void> {
           debugHook.stopReason = msg.stopReason;
           debugHook.depletion = null;
           debugHook.snapshotCount++;
-          if (inspected === null) refreshView();
+          if (inspected === null) {
+            refreshView();
+            // S4: a posted GPU snapshot marks advanced/changed resident state (step, reset,
+            // pause boundary, applied environment edit) — rerun the bounded extraction +
+            // overlay + slice pipeline. Snapshot cadence bounds this at the worker's own
+            // 100 ms throttle while free-running.
+            syncGpuView(true);
+          }
           break;
         }
         latest = msg;
@@ -1497,6 +1660,10 @@ async function boot(): Promise<void> {
     rateEma = null;
     ratePrevTime = null;
     uiHint = null;
+    // S4: the second canvas belongs to the LIVE GPU engine only — hide it immediately on a
+    // switch to CPU rather than waiting for the first CPU snapshot's refresh.
+    lastGpuViewControlsKey = null;
+    gpuView?.setVisible(kind === "gpu");
     pane.refresh();
     sendInit();
     return true;
@@ -1605,7 +1772,10 @@ async function boot(): Promise<void> {
     pane.refresh();
     refreshView();
   };
-  debugHook.pickCell = (i: number, j: number, k: number): boolean => showReadout(i, j, k);
+  debugHook.pickCell = (i: number, j: number, k: number): boolean =>
+    inspected === null && activeEngineKind === "gpu"
+      ? gpuPickCell(i, j, k)
+      : showReadout(i, j, k);
   debugHook.pickRimCell = (): { i: number; j: number; k: number } | null => {
     // Reads whatever is DISPLAYED: the inspected artifact's occupancy, else the live one.
     const a = inspected !== null ? inspected.a : latest?.a;
@@ -1642,7 +1812,10 @@ async function boot(): Promise<void> {
     if (!chrome.readout) hideReadout();
     refreshView();
   };
-  debugHook.setCrystalVisible = (visible: boolean): void => view.setCrystalVisible(visible);
+  debugHook.setCrystalVisible = (visible: boolean): void => {
+    view.setCrystalVisible(visible);
+    gpuView?.setCrystalVisible(visible);
+  };
   debugHook.applyConfig = (partial): void => {
     Object.assign(ui, partial);
     pane.refresh();
@@ -1730,6 +1903,15 @@ async function boot(): Promise<void> {
   debugHook.gpuAuditSummary = (): GpuAuditSummary | null => gpuEngine?.auditSummary() ?? null;
   debugHook.gpuSubmissionRecords = (): GpuControllerReport | null =>
     gpuEngine?.controllerReport() ?? null;
+  // ── Phase 5 hooks (WP6 S4): GPU view state + compact parity sampling ───────────────────
+  debugHook.gpuViewInfo = (): Record<string, unknown> | null => gpuView?.info() ?? null;
+  debugHook.gpuViewSample = async (maxEntries = 256): Promise<Record<string, unknown> | null> => {
+    if (gpuView === null || gpuEngine === null) return null;
+    const source = gpuEngine.viewSource();
+    if (source === null) return null;
+    const sample = await gpuView.sampleInstances(source, maxEntries);
+    return { tick: source.tick, ...sample };
+  };
 
   renderStatus();
   sendInit();

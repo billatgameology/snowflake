@@ -19,6 +19,8 @@
 // build/tests here rather than silently mis-masking the instrument.
 
 import {
+  GPU_GG_RENDER_ATTACHED_NOW,
+  GPU_MAX_WORKGROUPS_PER_DISPATCH,
   GPU_TOPOLOGY_FAR_FIELD,
   GPU_WORKGROUP_SIZE,
   readGpuBuffer,
@@ -354,6 +356,233 @@ export class GpuShellMeanInstrument {
     this.partialSums.destroy();
     this.partialCounts.destroy();
     this.resultBuffer.destroy();
+    this.bindGroups.clear();
+  }
+}
+
+// ── Attach-tick maintenance (WP6 frozen design D5, slice S4) ───────────────────────────────
+//
+// S3 deferred attach-tick maintenance; the growthRecency overlay needs it. This is the tiny
+// post-step instrument pass the frozen design names: after EVERY completed G-G cycle it
+// reads the solver's per-cell render flags (the surface stage sets GPU_GG_RENDER_ATTACHED_NOW
+// on exactly the cells attached THIS cycle, and clears all flags at the start of the next
+// cycle) and stamps the completed cycle's post-step tick into a display-owned attach-tick
+// buffer — the same rule the CPU worker applies host-side (`attachTick[x] = s.tick` over
+// `lastAttached`). Cells never attached keep 0 ("seed or never attached"; WebGPU buffers are
+// zero-initialized, matching the worker's fresh Uint32Array per init). The buffer is
+// display/instrument state read by the S4 overlay pass and the named-probe pick readout; the
+// solver never reads it, and solver-gpu/ is unchanged (D5).
+
+export interface AttachTickDispatchPlan {
+  /** Grid-stride workgroups: ceil(cellCount / workgroup size), capped per dispatch bound. */
+  readonly workgroups: number;
+  /** Total threads per sweep iteration = workgroups * workgroup size (the WGSL stride). */
+  readonly strideThreads: number;
+}
+
+export function attachTickDispatchPlan(cellCountValue: number): AttachTickDispatchPlan {
+  if (
+    !Number.isSafeInteger(cellCountValue) ||
+    cellCountValue <= 0 ||
+    cellCountValue > 0xffff_ffff
+  ) {
+    throw new Error("attach-tick cellCount must be a positive u32-safe integer");
+  }
+  const workgroups = Math.min(
+    GPU_MAX_WORKGROUPS_PER_DISPATCH,
+    Math.ceil(cellCountValue / GPU_WORKGROUP_SIZE),
+  );
+  return { workgroups, strideThreads: workgroups * GPU_WORKGROUP_SIZE };
+}
+
+/**
+ * The maintenance WGSL. The ATTACHED_NOW bit and the workgroup size are interpolated from
+ * the @vcc/solver-gpu exports (D5 ABI pinning; unit tests assert the interpolated text).
+ */
+export const ATTACH_TICK_WGSL = /* wgsl */ `
+struct AttachTickUniforms {
+  cellCount: u32,
+  tick: u32,
+  strideThreads: u32,
+  reserved0: u32,
+}
+
+@group(0) @binding(0) var<uniform> uniforms: AttachTickUniforms;
+@group(0) @binding(1) var<storage, read> renderFlags: array<u32>;
+@group(0) @binding(2) var<storage, read_write> attachTick: array<u32>;
+
+@compute @workgroup_size(${GPU_WORKGROUP_SIZE})
+fn recordAttachTicks(@builtin(global_invocation_id) invocation: vec3<u32>) {
+  var index = invocation.x;
+  loop {
+    if (index >= uniforms.cellCount) { break; }
+    if ((renderFlags[index] & ${GPU_GG_RENDER_ATTACHED_NOW}u) != 0u) {
+      attachTick[index] = uniforms.tick;
+    }
+    index = index + uniforms.strideThreads;
+  }
+}
+`;
+
+/**
+ * Pure JS shadow of the WGSL update rule (returns a fresh array; used by the unit tests to
+ * pin the semantics non-vacuously and available for host-side debugging comparisons).
+ */
+export function attachTickMaintenanceShadow(
+  renderFlags: Uint32Array,
+  attachTick: Uint32Array,
+  tick: number,
+): Uint32Array {
+  if (renderFlags.length !== attachTick.length) {
+    throw new Error("attach-tick shadow requires matching array lengths");
+  }
+  if (!Number.isSafeInteger(tick) || tick < 0 || tick > 0xffff_ffff) {
+    throw new Error("attach-tick shadow tick must be a u32-safe integer");
+  }
+  const next = attachTick.slice();
+  for (let index = 0; index < renderFlags.length; index++) {
+    if ((renderFlags[index] & GPU_GG_RENDER_ATTACHED_NOW) !== 0) next[index] = tick;
+  }
+  return next;
+}
+
+/**
+ * The S4 attach-tick maintenance instrument. One instance per solver init; the display-owned
+ * buffer starts all-zero (seed semantics) and is stamped once per completed cycle through
+ * the SOLVER submission controller at the solver's generation, exactly like the shell-mean
+ * instrument's dispatches (they read solver buffers, so they obey the same generation fence).
+ */
+export class GpuAttachTickInstrument {
+  private destroyed = false;
+  private readonly device: GPUDevice;
+  private readonly plan: AttachTickDispatchPlan;
+  private readonly cellCount: number;
+  private readonly layout: GPUBindGroupLayout;
+  private readonly pipeline: GPUComputePipeline;
+  private readonly uniformBuffer: GPUBuffer;
+  private readonly attachTickBuffer: GPUBuffer;
+  private readonly bindGroups = new Map<GPUBuffer, GPUBindGroup>();
+
+  private constructor(
+    device: GPUDevice,
+    plan: AttachTickDispatchPlan,
+    cellCountValue: number,
+    layout: GPUBindGroupLayout,
+    pipeline: GPUComputePipeline,
+    uniformBuffer: GPUBuffer,
+    attachTickBuffer: GPUBuffer,
+  ) {
+    this.device = device;
+    this.plan = plan;
+    this.cellCount = cellCountValue;
+    this.layout = layout;
+    this.pipeline = pipeline;
+    this.uniformBuffer = uniformBuffer;
+    this.attachTickBuffer = attachTickBuffer;
+  }
+
+  static create(device: GPUDevice, cellCountValue: number): GpuAttachTickInstrument {
+    const plan = attachTickDispatchPlan(cellCountValue);
+    const module = device.createShaderModule({
+      label: "vcc:instrument:attach-tick",
+      code: ATTACH_TICK_WGSL,
+    });
+    const layout = device.createBindGroupLayout({
+      label: "vcc:instrument:attach-tick",
+      entries: [
+        { binding: 0, visibility: GPU_COMPUTE_STAGE, buffer: { type: "uniform" } },
+        { binding: 1, visibility: GPU_COMPUTE_STAGE, buffer: { type: "read-only-storage" } },
+        { binding: 2, visibility: GPU_COMPUTE_STAGE, buffer: { type: "storage" } },
+      ],
+    });
+    const pipeline = device.createComputePipeline({
+      label: "vcc:instrument:attach-tick",
+      layout: device.createPipelineLayout({
+        label: "vcc:instrument:attach-tick",
+        bindGroupLayouts: [layout],
+      }),
+      compute: { module, entryPoint: "recordAttachTicks" },
+    });
+    const uniformBuffer = device.createBuffer({
+      label: "vcc:instrument:attach-tick:uniforms",
+      size: 16,
+      usage: USAGE_UNIFORM | USAGE_COPY_DST,
+    });
+    // Zero-initialized by WebGPU: 0 = "seed or never attached", the CPU worker's exact
+    // fresh-init meaning. COPY_SRC so the pick readout's audited named probes can read it.
+    const attachTickBuffer = device.createBuffer({
+      label: "vcc:instrument:attach-tick:ticks",
+      size: cellCountValue * 4,
+      usage: USAGE_STORAGE | USAGE_COPY_SRC,
+    });
+    return new GpuAttachTickInstrument(
+      device,
+      plan,
+      cellCountValue,
+      layout,
+      pipeline,
+      uniformBuffer,
+      attachTickBuffer,
+    );
+  }
+
+  /** The display-owned attach-tick buffer (u32 per cell; 0 = seed or never attached). */
+  buffer(): GPUBuffer {
+    if (this.destroyed) throw new Error("attach-tick instrument is destroyed");
+    return this.attachTickBuffer;
+  }
+
+  private bindGroupFor(renderFlags: GPUBuffer): GPUBindGroup {
+    const cached = this.bindGroups.get(renderFlags);
+    if (cached !== undefined) return cached;
+    const group = this.device.createBindGroup({
+      label: "vcc:instrument:attach-tick",
+      layout: this.layout,
+      entries: [
+        { binding: 0, resource: { buffer: this.uniformBuffer } },
+        { binding: 1, resource: { buffer: renderFlags } },
+        { binding: 2, resource: { buffer: this.attachTickBuffer } },
+      ],
+    });
+    this.bindGroups.set(renderFlags, group);
+    return group;
+  }
+
+  /**
+   * Stamp the completed cycle's attachments. `tick` is the POST-step tick, matching the CPU
+   * worker's `attachTick[x] = s.tick` rule. Must run before the next cycle clears the
+   * solver's render flags — the engine's op queue serializes exactly that.
+   */
+  async record(
+    renderFlags: GPUBuffer,
+    tick: number,
+    generation: number,
+    submissions: GpuSubmissionController,
+    label: string,
+  ): Promise<void> {
+    if (this.destroyed) throw new Error("attach-tick instrument is destroyed");
+    if (!Number.isSafeInteger(tick) || tick < 0 || tick > 0xffff_ffff) {
+      throw new Error("attach-tick tick must be a u32-safe integer");
+    }
+    this.device.queue.writeBuffer(
+      this.uniformBuffer,
+      0,
+      Uint32Array.of(this.cellCount, tick, this.plan.strideThreads, 0),
+    );
+    const encoder = this.device.createCommandEncoder({ label });
+    const pass = encoder.beginComputePass({ label });
+    pass.setPipeline(this.pipeline);
+    pass.setBindGroup(0, this.bindGroupFor(renderFlags));
+    pass.dispatchWorkgroups(this.plan.workgroups);
+    pass.end();
+    await submissions.submit(label, generation, [encoder.finish()]);
+  }
+
+  destroy(): void {
+    if (this.destroyed) return;
+    this.destroyed = true;
+    this.uniformBuffer.destroy();
+    this.attachTickBuffer.destroy();
     this.bindGroups.clear();
   }
 }
