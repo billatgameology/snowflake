@@ -9,6 +9,7 @@ import { describe, expect, it } from "vitest";
 import {
   attributePerformanceReadback,
   performanceReadbackWindows,
+  previewCaseOfFixture,
   PHASE5_PREVIEW_CASE_FIXTURES,
   type Phase5PreviewReadbackWindow,
 } from "../src/gate5-readback-attribution.ts";
@@ -105,6 +106,24 @@ describe("PHASE5_PREVIEW_CASE_FIXTURES", () => {
       const fixture = PHASE5_FIXTURES.find((entry) => entry.id === fixtureId);
       expect(fixture?.blocking).toBe(true);
     }
+  });
+
+  it("inverts exactly, so a fixture's submissions, interactions and readbacks share one map", () => {
+    // The capture publishes all three from `previewCaseOfFixture`; if it ever disagreed with
+    // the forward map, a fixture's timing evidence and its readbacks would name different
+    // cases. This pins them as exact inverses over every registered blocking fixture.
+    for (const [budgetId, fixtureId] of Object.entries(PHASE5_PREVIEW_CASE_FIXTURES)) {
+      expect(previewCaseOfFixture(fixtureId)).toBe(budgetId);
+    }
+    const owned = new Set(Object.values(PHASE5_PREVIEW_CASE_FIXTURES));
+    for (const fixture of PHASE5_FIXTURES) {
+      expect(previewCaseOfFixture(fixture.id)).toBe(
+        owned.has(fixture.id) ? PHASE5_PERFORMANCE.previewCases.find(
+          (budgetId) => PHASE5_PREVIEW_CASE_FIXTURES[budgetId] === fixture.id,
+        ) : null,
+      );
+    }
+    expect(previewCaseOfFixture("not-a-fixture")).toBeNull();
   });
 
   it("keeps the two preview cases' pick targets distinct and per-budget", () => {

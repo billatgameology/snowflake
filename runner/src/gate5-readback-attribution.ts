@@ -12,9 +12,13 @@
 //
 // The windows partition the complete list: case k owns `[previous case end, its own end)`.
 // The records before a case's own `auditRecordsAtStart` are the reads the application
-// performed while that case was being set up — its engine construction's initial far-field
-// instrument read after the budget selection — and are published with the case they precede.
-// Records observed after the last case closed have no successor to belong to and fail closed.
+// performed before that case opened, and are published with the case they precede. On the
+// registered host that is one `init:far-field-mean` compact read per engine construction: the
+// plate window's three cover the page-load boot engine, the probe's `applyConfig` re-init, and
+// the budget selection that builds the case's own engine; the column window's two cover its
+// own `applyConfig` re-init and budget selection. `setupRecordCount` publishes how many a case
+// carries, so the count is disclosed rather than implied. Records observed after the last case
+// closed have no successor to belong to and fail closed.
 //
 // Every window is then cross-checked against self-identifying evidence: each named-probe pick
 // label carries the exact cell the app was asked to probe, and the probe picks the case's own
@@ -34,6 +38,19 @@ export const PHASE5_PREVIEW_CASE_FIXTURES: Readonly<Record<string, string>> =
     "preview-plate": "gg-plate-reflecting-48x48x24",
     "preview-column": "gg-column-dirichlet-noise-timeline-32x32x64",
   });
+
+/**
+ * The inverse of {@link PHASE5_PREVIEW_CASE_FIXTURES}: the preview case whose evidence one
+ * blocking fixture publishes, or `null` for a fixture no preview case ran. The capture uses
+ * this one map for a fixture's submissions, interactions AND readbacks so the three cannot
+ * drift apart.
+ */
+export function previewCaseOfFixture(fixtureId: string): string | null {
+  for (const [budgetId, owned] of Object.entries(PHASE5_PREVIEW_CASE_FIXTURES)) {
+    if (owned === fixtureId) return budgetId;
+  }
+  return null;
+}
 
 /** `app:view:pick-<i>-<j>-<k>:...` — the app's own named-probe pick readback labels. */
 const APP_PICK_LABEL = /^app:view:pick-(\d+)-(\d+)-(\d+):/;
@@ -55,7 +72,7 @@ export interface Phase5PreviewReadbackWindow {
   readonly inCaseStartIndex: number;
   /** One past the last app-path record index this case owns. */
   readonly endIndex: number;
-  /** How many owned records preceded the case's own opening (its setup reads). */
+  /** How many owned records preceded the case's own opening (the reads taken before it). */
   readonly setupRecordCount: number;
   /** The cell the probe asks the app to probe by name throughout this case. */
   readonly pickTarget: Phase5PickTarget;

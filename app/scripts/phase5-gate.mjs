@@ -68,6 +68,7 @@ import {
 import {
   attributePerformanceReadback,
   performanceReadbackWindows,
+  previewCaseOfFixture,
 } from "../../runner/src/gate5-readback-attribution.ts";
 
 const repoRoot = resolve(import.meta.dirname, "..", "..");
@@ -1143,18 +1144,18 @@ function buildCapture(reports, repository) {
     const fixtureReadbacks = readbacks.filter(
       (entry) => entry.fixtureId === fixture.id,
     );
+    // Submissions, interactions and audited readbacks are published under the fixture of the
+    // preview case that produced them, by the ONE registered map — not by three copies of it
+    // that could drift apart.
+    const previewBudget = previewCaseOfFixture(fixture.id);
     const fixtureSubmissions =
-      fixture.id === "gg-plate-reflecting-48x48x24"
-        ? submissions.filter((entry) => entry.budgetId === "preview-plate")
-        : fixture.id === "gg-column-dirichlet-noise-timeline-32x32x64"
-          ? submissions.filter((entry) => entry.budgetId === "preview-column")
-          : [];
+      previewBudget === null
+        ? []
+        : submissions.filter((entry) => entry.budgetId === previewBudget);
     const fixtureInteractions =
-      fixture.id === "gg-plate-reflecting-48x48x24"
-        ? interactions.filter((entry) => entry.budgetId === "preview-plate")
-        : fixture.id === "gg-column-dirichlet-noise-timeline-32x32x64"
-          ? interactions.filter((entry) => entry.budgetId === "preview-column")
-          : [];
+      previewBudget === null
+        ? []
+        : interactions.filter((entry) => entry.budgetId === previewBudget);
     // Provisional only. Every control is executed against this candidate's own finished
     // evidence below, and these placeholders are replaced by the observed outcomes.
     const negativeControls =
@@ -1439,8 +1440,8 @@ async function run(captureDirectory) {
       productionProbes: Object.keys(reports),
       // The exact app-path readback boundaries this capture attributed by, from the
       // application's own append-only audit counts observed at each preview case's start and
-      // end. `setupRecordCount` is how many of a case's published records preceded its own
-      // opening — the reads its engine construction performed while the case was set up.
+      // end. `setupRecordCount` is how many of a case's published records were taken before
+      // it opened — one compact far-field read per engine construction that preceded it.
       readbackAttribution: performanceReadbackWindows(reports.performance),
       pass: true,
     })}\n`,
