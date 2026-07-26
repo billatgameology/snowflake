@@ -106,8 +106,15 @@ export const PHASE6_LATENT_HEATING = {
 
 /** Charter §2.4: required for every Phase 6 validation run. */
 export const PHASE6_FAR_FIELD = "fixed-sigma-dirichlet";
-/** ADR 0009: the coupled policy the forward LK operator runs. */
-export const PHASE6_SURFACE_POLICY = "aggregate-hv-g1h1-v4";
+/**
+ * The coupled policy the forward LK operator runs. ADR 0009 introduced
+ * `aggregate-hv-g1h1-v4`; ADRs 0013/0014 added the metered float64 smoother-drift term to the
+ * divergence identity, which is `-v5`, and that is what the solver actually runs today (a
+ * calibration probe printed `surfacePolicy=aggregate-hv-g1h1-v5`). Registering the ADR 0009
+ * name alone would have frozen a policy no run uses — exactly the drift the freeze list exists
+ * to catch. `runner/test/phase6-protocol.test.ts` pins this against the solver's own default.
+ */
+export const PHASE6_SURFACE_POLICY = "aggregate-hv-g1h1-v5";
 
 // ── The freeze list ─────────────────────────────────────────────────────────────────────────
 

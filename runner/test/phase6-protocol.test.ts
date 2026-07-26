@@ -2,8 +2,15 @@
 // charter still requires something, and the registered interpolation scheme cannot drift away
 // from the solver it claims to describe.
 
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { sigma0Basal, sigma0Prism, nucleationABasal, nucleationAPrism } from "../../core/src/index.ts";
+import {
+  isLKSurfacePolicy,
+  nucleationABasal,
+  nucleationAPrism,
+  sigma0Basal,
+  sigma0Prism,
+} from "../../core/src/index.ts";
 import {
   phase6FreezeComplete,
   phase6MeasureInterpolationError,
@@ -72,7 +79,18 @@ describe("the Phase 6 freeze list", () => {
     expect(byId.get("far-field")?.value).toBe(PHASE6_FAR_FIELD);
     expect(PHASE6_FAR_FIELD).toBe("fixed-sigma-dirichlet");
     expect(byId.get("surface-policy")?.status).toBe("registered");
-    expect(PHASE6_SURFACE_POLICY).toBe("aggregate-hv-g1h1-v4");
+    expect(PHASE6_SURFACE_POLICY).toBe("aggregate-hv-g1h1-v5");
+  });
+
+  it("registers the surface policy the runner actually defaults to, not the ADR 0009 name", () => {
+    // A calibration probe printed `surfacePolicy=aggregate-hv-g1h1-v5` while the freeze list
+    // had registered ADR 0009's `-v4`, which no run uses since ADRs 0013/0014 added the
+    // metered smoother-drift term. Freezing a policy nothing runs is precisely the drift this
+    // list exists to catch, so the registered value is pinned against the runner's own default.
+    const runnerSource = readFileSync(new URL("../src/main.ts", import.meta.url), "utf8");
+    const declared = /surfacePolicy:\s*"([a-z0-9-]+)"/.exec(runnerSource)?.[1];
+    expect(declared).toBe(PHASE6_SURFACE_POLICY);
+    expect(isLKSurfacePolicy(PHASE6_SURFACE_POLICY)).toBe(true);
   });
 });
 
