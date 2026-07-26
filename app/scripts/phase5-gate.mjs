@@ -65,6 +65,10 @@ import {
 import {
   PHASE5_PROBE_CAPTURE_SCHEMA,
 } from "../../runner/src/gate5-lane.ts";
+import {
+  attributePerformanceReadback,
+  performanceReadbackWindows,
+} from "../../runner/src/gate5-readback-attribution.ts";
 
 const repoRoot = resolve(import.meta.dirname, "..", "..");
 const SAFE_PATH = /^[a-z0-9][a-z0-9._/-]*$/;
@@ -962,29 +966,42 @@ function totalObservedRuntimeCounts(reports) {
 }
 
 function readbackRecords(reports) {
+  // The WP1-WP4 probes label every readback with the fixture it belongs to; the probe's own
+  // primary fixture owns the records its device-level negatives and shared setup produce.
+  //
+  // The WP6 S6 performance probe's records carry the APPLICATION's production labels
+  // (`app:gg:tick-N:…`, `app:view:pick-i-j-k:…`, `app:view:sample:…`, `init:far-field-mean`),
+  // none of which names a fixture. They are attributed instead from the app's own append-only
+  // audit-record counts observed at each preview case's start and end, cross-checked against
+  // the self-identifying pick labels — see `gate5-readback-attribution.ts`. The boundary
+  // numbers ride the gate's terminal line, which the lane publishes as `stdout.log`.
   const sources = [
     ["layout-noncubic-box-17x19x11", reports.wp1.checks.readback.records],
     ["diff-small-reflecting-hex-29x31x17", reports.wp2.checks.readback.records],
     ["gg-plate-reflecting-48x48x24", reports.wp3.checks.readback.records],
     ["lk-warm-dirichlet-24x24x18", reports.wp4.checks.readback.records],
-    ["gg-plate-reflecting-48x48x24", reports.performance.readback.records],
   ];
+  const performanceWindows = performanceReadbackWindows(reports.performance);
   const records = [];
   let sequence = 0;
   let sourceOffset = 0;
-  for (const [fallbackFixtureId, entries] of sources) {
+  for (const [probeFixtureId, entries] of [
+    ...sources,
+    [null, reports.performance.readback.records],
+  ]) {
     if (!Array.isArray(entries)) throw new Error("probe readback inventory is absent");
+    let indexInSource = 0;
     for (const entry of entries) {
       const fixtureId =
-        PHASE5_FIXTURES.find(
-          (fixture) =>
-            fixture.blocking &&
-            typeof entry.label === "string" &&
-            entry.label.includes(fixture.id),
-        )?.id ??
-        (typeof entry.label === "string" && entry.label.includes("preview-column")
-          ? "gg-column-dirichlet-noise-timeline-32x32x64"
-          : fallbackFixtureId);
+        probeFixtureId === null
+          ? attributePerformanceReadback(indexInSource, entry.label, performanceWindows)
+          : (PHASE5_FIXTURES.find(
+              (fixture) =>
+                fixture.blocking &&
+                typeof entry.label === "string" &&
+                entry.label.includes(fixture.id),
+            )?.id ?? probeFixtureId);
+      indexInSource++;
       records.push({
         fixtureId,
         purpose: entry.purpose,
@@ -1412,7 +1429,7 @@ async function run(captureDirectory) {
   );
   process.stdout.write(
     `${JSON.stringify({
-      schema: "phase5-browser-gate-terminal-v1",
+      schema: "phase5-browser-gate-terminal-v2",
       protocol: PHASE5_PROTOCOL,
       protocolSha256: canonicalJsonSha256(phase5ProtocolManifest()),
       commit: repository.commit,
@@ -1420,6 +1437,11 @@ async function run(captureDirectory) {
       artifacts: actual.length,
       backend: raw.adapter.backend,
       productionProbes: Object.keys(reports),
+      // The exact app-path readback boundaries this capture attributed by, from the
+      // application's own append-only audit counts observed at each preview case's start and
+      // end. `setupRecordCount` is how many of a case's published records preceded its own
+      // opening — the reads its engine construction performed while the case was set up.
+      readbackAttribution: performanceReadbackWindows(reports.performance),
       pass: true,
     })}\n`,
   );
