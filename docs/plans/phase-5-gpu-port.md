@@ -1411,9 +1411,20 @@ canonical evidence; Metal or general-WebGPU claims; Phase 7 presentation work.
       evidence: the `0a611e7` bundle at `out/phase5/` (hashes in PROGRESS), protocol
       `phase5-gpu-conformance-windows-v6`, docs state `bb97e26`. Scope remains
       Windows/Chromium/D3D12 only; Metal is deferred.
-- [ ] **WP6 — app integration.** Move live simulation to the GPU package, wire GPU-resident
+- [x] **WP6 — app integration.** Move live simulation to the GPU package, wire GPU-resident
       overlays/slices and resolution budgets, preserve view-only evidence inspection, and prove
       the CPU worker remains an available oracle/debug path. Do not perform Phase 7 visual polish.
+      **CLOSED 2026-07-25: the same independent reviewer returned zero blockers and zero
+      should-fixes over two rounds.** Round one verified all five scope clauses and the frozen
+      D1-D6 design from primary sources — the reviewer's own hardware run of
+      `phase5-wp6.mjs` (13/13 checks, deterministic quantities reproduced exactly), its own
+      byte-comparison of the 20 Phase 4 regression captures, its own backend-control run, and
+      the full root suite (62 files / 1,110 tests) — returning one prose should-fix (a
+      file-count transcription), repaired at docs-only `f188573` and verified in round two.
+      Canonical evidence: clean commit `b26b0af`; implementation `f357756`..`97c9689`; docs
+      `3ec38e9`/`f188573`. WP7 precondition confirmed by the reviewer: the gate's
+      label-to-fixture fallback would misattribute all app-path performance readbacks to the
+      plate fixture and must be fixed before the canonical `gate5-lane`/`gate5` run.
 - [ ] **WP7 — canonical Windows evidence.** Run all preconditions, execute the frozen Windows
       commands, authenticate and aggregate the bundle, inspect the interactive preview evidence,
       obtain clean review, and update `PROGRESS.md` with every metric, value, host, command,
