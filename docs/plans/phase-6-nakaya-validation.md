@@ -87,7 +87,7 @@ different `(T, σ)`.
 
 | Source | What it is | Role here | Strongest permitted claim |
 |---|---|---|---|
-| **The Nakaya diagram** — Libbrecht 1211.5555v1 Figure 1 (printed p. 2) | The classical morphology diagram, redrawn: T from 0 to −35 °C, supersaturation 0–0.3 **g/m³**, water-saturation curve overlaid, regime bands bounded near −3, −10 and −20/−22 °C | **The report card.** Does the model cross plate → column → plate → column at roughly the right temperatures? | Qualitative / ordinal. Never percent-level onset claims: it is a schematic composite of natural free-falling crystals |
+| **The Nakaya diagram** — Libbrecht 1211.5555v1 Figure 1 (printed p. 2), digitized in [`research/nakaya-morphology-diagram.md`](../../research/nakaya-morphology-diagram.md) | The classical morphology diagram, redrawn. Measured boundaries **−3.3, −9.9, −21.5 °C (±0.5)** bounding plates → columns → plates → columns-and-plates | **The report card.** Does the model cross plate → column → plate → column at roughly the right temperatures? | Qualitative / ordinal. Never percent-level onset claims: it is a schematic composite of natural free-falling crystals, and its σ axis is measurably off (below) |
 | **Libbrecht Figure 8.16** — the e-needle grid indexed in `research/lab-validation-dataset.md` (109 morphology tiles, T −0.5 to −21 °C, σ 8–128% rel. ice) | Controlled measurements of isolated single crystals on e-needle tips at fixed `(T, σ)` per tile | **Quantitative onset boundaries**, measured in the same geometry class our runs use | Quantitative onset/trend comparison — but only after the column-seed ADR and per-entry PDF re-verification |
 
 Two consequences the plan is built around:
@@ -225,10 +225,21 @@ runs, or protocol violations exit 1. Any flag exits 2.
       coordinator-only calibration probes for every threshold; register the full freeze list
       above in a tracked protocol module with a hash pin; freeze the parameter table. Nothing
       sweeps until this commit exists and review accepts it.
-- [ ] **WP1 — Nakaya reference data.** Produce the tracked derived-measurement file for
-      1211.5555v1 Figure 1: the habit-boundary temperatures with read uncertainty, the g/m³→σ
-      conversion, and the water-saturation cross-check against `sigmaWater()` with its recorded
-      residual. Cite figure, printed page and PDF page. No solver work.
+- [x] **WP1 — Nakaya reference data.** **DONE 2026-07-26**:
+      [`research/nakaya-morphology-diagram.md`](../../research/nakaya-morphology-diagram.md).
+      Boundaries measured at **−3.3, −9.9, −21.5 °C (±0.5)**, bounding plates → columns →
+      plates → columns-and-plates. Three findings changed how the figure may be used:
+      (1) **its temperature axis is not uniform** — tick spacing compresses 1.77× from warm to
+      cold and no linear, power or log model fits, so a single linear calibration would misplace
+      every boundary by up to ~1.6 °C; calibration is piecewise between labelled ticks;
+      (2) the water-saturation cross-check **passes on position and fails on scale** — the
+      digitized curve peaks at −14.09 °C against our computed −14.35 °C (0.26 °C, which is what
+      licenses using the boundary temperatures), but its amplitude is a flat **0.724 ± 0.030**
+      of ours across −10 to −30 °C and 30–42% below Murphy-Koop, so the printed σ values are
+      never used as targets; (3) incidentally, our own `pSatIce` matches Murphy-Koop within
+      0.8% while our water-minus-ice excess runs 5–20% low, which touches no accepted evidence
+      (`sigmaWater` is a diagnostic, not a solver input) but is recorded before any protocol
+      sets a far field relative to water saturation.
 - [ ] **WP2 — sweep harness and diagram artifact.** A flagless registered command that runs the
       frozen (T, σ) grid on the headless runner, classifies habit at the registered measurement
       size, excludes domain-contacted runs by name, and emits the model's own diagram as an
