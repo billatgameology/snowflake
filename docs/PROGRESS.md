@@ -1086,7 +1086,7 @@ the worker" is superseded by the frozen WP6 design's D1: the float64 CPU referen
 stays in its worker as the selectable oracle; the GPU engine orchestrates on the main thread.
 
 Canonical evidence at exact clean commit `b26b0af` (contains all WP6 work): root `npm test`
-passes 61 files / 1,110 tests in 510.35 s; `node app/scripts/phase5-wp6.mjs` exits 0 with
+passes 62 files / 1,110 tests in 510.35 s; `node app/scripts/phase5-wp6.mjs` exits 0 with
 `pass: true` and a clean repository. Its observed quantities: the production CPU engine ran
 `gg-plate-reflecting-48x48x24` at its exact registered dims to the 256-cycle cap BIT-exactly
 against an independent float64 oracle; the cross-engine differential at dev-plate matched
