@@ -488,6 +488,81 @@ export interface GpuControllerReport {
   readonly pendingEnvironmentEdits: number;
 }
 
+// ── TEST-purpose audited state readback (WP6 S5 differential-probe seam) ───────────────────
+//
+// The S5 differential probe must compare the LIVE GPU engine's resident state against the
+// CPU worker oracle under the frozen Phase 5 field tolerances. D6 keeps display paths free
+// of full-field reads; this seam is NOT a display path — it is the probe's oracle-comparison
+// hook: every read goes through the production GpuReadbackAudit under purpose "test",
+// outside any display frame (so fullFieldDisplayFrameReadCount stays structurally zero),
+// and no render or snapshot code calls it.
+
+/** The frozen roster of per-cell buffers the S5 debug readback covers, in read order. */
+export const GPU_DEBUG_READBACK_FIELDS = [
+  "occupancy",
+  "wall",
+  "boundaryMass",
+  "vapor",
+  "attachTick",
+  "topology",
+] as const;
+
+export type GpuDebugReadbackField = (typeof GPU_DEBUG_READBACK_FIELDS)[number];
+
+export interface GpuDebugReadbackPlanEntry {
+  readonly name: GpuDebugReadbackField;
+  readonly purpose: "test";
+  readonly label: string;
+  readonly generation: number;
+  readonly byteOffset: 0;
+  readonly byteLength: number;
+}
+
+/**
+ * Pure plan for the TEST-purpose full-state readback: one complete-buffer read per frozen
+ * field (cellCount 4-byte words each), labeled with the tick and field name, at the given
+ * solver generation. Pure and node-testable; the engine method below executes it verbatim.
+ */
+export function gpuDebugFieldReadbackPlan(
+  cellCountValue: number,
+  generation: number,
+  tick: number,
+): readonly GpuDebugReadbackPlanEntry[] {
+  if (
+    !Number.isSafeInteger(cellCountValue) ||
+    cellCountValue <= 0 ||
+    cellCountValue > 0xffff_ffff
+  ) {
+    throw new Error("debug readback cellCount must be a positive u32-safe integer");
+  }
+  if (!Number.isSafeInteger(generation) || generation < 0 || generation > 0xffff_ffff) {
+    throw new Error("debug readback generation must be a u32-safe integer");
+  }
+  if (!Number.isSafeInteger(tick) || tick < 0 || tick > 0xffff_ffff) {
+    throw new Error("debug readback tick must be a u32-safe integer");
+  }
+  return GPU_DEBUG_READBACK_FIELDS.map((name) => ({
+    name,
+    purpose: "test",
+    label: `app:debug:tick-${tick}:${name}`,
+    generation,
+    byteOffset: 0,
+    byteLength: cellCountValue * 4,
+  }));
+}
+
+/** One complete TEST-purpose readback of the resident solver state (fresh host copies). */
+export interface GpuDebugFieldReadback {
+  readonly tick: number;
+  readonly generation: number;
+  readonly occupancy: Uint32Array;
+  readonly wall: Uint32Array;
+  readonly boundaryMass: Float32Array;
+  readonly vapor: Float32Array;
+  readonly attachTick: Uint32Array;
+  readonly topology: Uint32Array;
+}
+
 // ── The engine ─────────────────────────────────────────────────────────────────────────────
 
 export class GpuEngine implements Engine<GpuSnapshot> {
@@ -731,6 +806,83 @@ export class GpuEngine implements Engine<GpuSnapshot> {
       editGeneration: this.editGeneration,
       pendingEnvironmentEdits: this.editQueue.pending(),
     };
+  }
+
+  /**
+   * TEST-purpose audited readback of the complete resident solver state (WP6 S5). Queued on
+   * the op queue so it can never observe a torn mid-cycle state; resolves null when no
+   * usable solver exists (empty/faulted). Every read follows gpuDebugFieldReadbackPlan
+   * through the production audit under purpose "test", outside any display frame; a failed
+   * read rejects WITHOUT poisoning the solver (a read mutates nothing). This is the S5
+   * differential probe's comparison seam, never a display or snapshot path (D6).
+   */
+  debugFieldReadback(): Promise<GpuDebugFieldReadback | null> {
+    return new Promise((resolveReadback, rejectReadback) => {
+      this.enqueue(async () => {
+        const solver = this.solver;
+        const attachTicks = this.attachTicks;
+        if (
+          solver === null ||
+          attachTicks === null ||
+          this.state === "empty" ||
+          this.state === "faulted"
+        ) {
+          resolveReadback(null);
+          return;
+        }
+        try {
+          const tick = solver.tick();
+          const plan = gpuDebugFieldReadbackPlan(
+            cellCount(this.dims),
+            this.solverGeneration,
+            tick,
+          );
+          const buffers: Record<GpuDebugReadbackField, GPUBuffer> = {
+            occupancy: solver.occupancyBuffer(),
+            wall: solver.wallBuffer(),
+            boundaryMass: solver.boundaryMassBuffer(),
+            vapor: solver.activeVaporBuffer(),
+            attachTick: attachTicks.buffer(),
+            topology: solver.topologyBuffer(),
+          };
+          const bytes = new Map<GpuDebugReadbackField, ArrayBuffer>();
+          for (const entry of plan) {
+            bytes.set(
+              entry.name,
+              await readGpuBuffer(
+                this.device,
+                buffers[entry.name],
+                {
+                  purpose: entry.purpose,
+                  label: entry.label,
+                  generation: entry.generation,
+                  byteOffset: entry.byteOffset,
+                  byteLength: entry.byteLength,
+                },
+                this.audit,
+              ),
+            );
+          }
+          const wordsOf = (name: GpuDebugReadbackField): ArrayBuffer => {
+            const buffer = bytes.get(name);
+            if (buffer === undefined) throw new Error(`debug readback missed ${name}`);
+            return buffer;
+          };
+          resolveReadback({
+            tick,
+            generation: this.solverGeneration,
+            occupancy: new Uint32Array(wordsOf("occupancy")),
+            wall: new Uint32Array(wordsOf("wall")),
+            boundaryMass: new Float32Array(wordsOf("boundaryMass")),
+            vapor: new Float32Array(wordsOf("vapor")),
+            attachTick: new Uint32Array(wordsOf("attachTick")),
+            topology: new Uint32Array(wordsOf("topology")),
+          });
+        } catch (err) {
+          rejectReadback(err instanceof Error ? err : new Error(String(err)));
+        }
+      });
+    });
   }
 
   // ── Op queue ─────────────────────────────────────────────────────────────────────────────

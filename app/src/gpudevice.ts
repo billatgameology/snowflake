@@ -105,9 +105,11 @@ export function decideGpuBoot(params: URLSearchParams, webGpuAvailable: boolean)
  */
 export function gpuStatusLine(view: GpuAcquisitionView): string {
   if (view.state === "acquired") {
+    // Device-level line only: which solver engine is active is main.ts's dynamic status,
+    // composed beside this one, so this wording must stay engine-neutral.
     return (
       "gpu: production device acquired (checked against frozen Phase 5 features/limits) — " +
-      "shared with the renderer; solver: CPU worker (GPU engine not landed)"
+      "shared with the renderer; solver engine per the engine selector"
     );
   }
   switch (view.reason) {

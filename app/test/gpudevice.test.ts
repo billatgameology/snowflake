@@ -80,10 +80,10 @@ describe("decideGpuBoot", () => {
 });
 
 describe("gpuStatusLine", () => {
-  it("states the acquired outcome and that the solver stays in the CPU worker", () => {
+  it("states the acquired outcome and stays engine-neutral about the solver", () => {
     expect(gpuStatusLine(acquiredView())).toBe(
       "gpu: production device acquired (checked against frozen Phase 5 features/limits) — " +
-        "shared with the renderer; solver: CPU worker (GPU engine not landed)",
+        "shared with the renderer; solver engine per the engine selector",
     );
   });
 

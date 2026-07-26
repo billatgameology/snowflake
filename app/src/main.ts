@@ -35,6 +35,7 @@ import {
   gpuBudgetIds,
   type GpuAuditSummary,
   type GpuControllerReport,
+  type GpuDebugFieldReadback,
 } from "./gpuengine.ts";
 import {
   acquireProductionGpuDevice,
@@ -197,6 +198,25 @@ interface VccDebug {
    * (first N entries; parity checks on the registered host). Never a full-field read.
    */
   gpuViewSample: (maxEntries?: number) => Promise<Record<string, unknown> | null>;
+  // ── Phase 5 (WP6 S5): differential-probe TEST seams — read-only observation ────────────
+  /**
+   * The latest CPU-worker snapshot exactly as posted (full fields) plus the live run's
+   * wall mask. The worker already posts this state to the page; the hook only exposes what
+   * the page holds — no new solver work, no readback. IN-PAGE consumption only: the typed
+   * arrays are megabytes and must never be serialized across an automation boundary.
+   */
+  cpuSnapshotFields: () => {
+    snapshot: SnapshotMessage;
+    wall: Uint8Array | null;
+  } | null;
+  /**
+   * TEST-purpose audited full-state readback of the live GPU solver (occupancy, wall,
+   * boundary mass b, active vapor d, display attach ticks, topology) through the
+   * production GpuReadbackAudit under purpose "test" — never a display frame, so
+   * gpuAuditSummary().fullFieldDisplayFrameReadCount stays zero. Null when no usable GPU
+   * solver exists. IN-PAGE consumption only (same serialization caution as above).
+   */
+  gpuFieldReadback: () => Promise<GpuDebugFieldReadback | null>;
 }
 
 const debugHook: VccDebug = {
@@ -244,6 +264,8 @@ const debugHook: VccDebug = {
   gpuSubmissionRecords: () => null,
   gpuViewInfo: () => null,
   gpuViewSample: () => Promise.resolve(null),
+  cpuSnapshotFields: () => null,
+  gpuFieldReadback: () => Promise.resolve(null),
 };
 (window as unknown as { __vccDebug: VccDebug }).__vccDebug = debugHook;
 
@@ -1912,6 +1934,10 @@ async function boot(): Promise<void> {
     const sample = await gpuView.sampleInstances(source, maxEntries);
     return { tick: source.tick, ...sample };
   };
+  // ── Phase 5 hooks (WP6 S5): differential-probe TEST seams (read-only observation) ─────
+  debugHook.cpuSnapshotFields = () => (latest === null ? null : { snapshot: latest, wall });
+  debugHook.gpuFieldReadback = () =>
+    gpuEngine !== null ? gpuEngine.debugFieldReadback() : Promise.resolve(null);
 
   renderStatus();
   sendInit();

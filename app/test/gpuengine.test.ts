@@ -23,6 +23,7 @@ import {
   PHASE5_REQUIRED_LIMITS,
 } from "../../runner/src/phase5-protocol.ts";
 import {
+  GPU_DEBUG_READBACK_FIELDS,
   GPU_ENGINE_PROVENANCE,
   GpuEnvironmentEditQueue,
   bboxDomainContact,
@@ -32,6 +33,7 @@ import {
   extentsFromBBox,
   gpuBudgetById,
   gpuBudgetIds,
+  gpuDebugFieldReadbackPlan,
   gpuEngineControlDecision,
   gpuInputFromConfig,
   type GpuEngineState,
@@ -473,6 +475,48 @@ describe("control-state machine (worker-equivalent message semantics)", () => {
     });
     for (const state of ["idle", "running", "stopped", "faulted"] as const) {
       expect(gpuEngineControlDecision(state, "reset")).toEqual({ action: "reconstruct" });
+    }
+  });
+});
+
+describe("TEST-purpose debug readback plan (WP6 S5 differential-probe seam)", () => {
+  it("covers exactly the frozen six-field roster, complete buffers, purpose test", () => {
+    const cells = 48 * 48 * 24;
+    const plan = gpuDebugFieldReadbackPlan(cells, 3, 256);
+    // The roster and its order are frozen: the engine method zips readbacks by name, and
+    // the S5 probe's comparison inventory depends on every one of these being present.
+    expect(plan.map((entry) => entry.name)).toEqual([
+      "occupancy",
+      "wall",
+      "boundaryMass",
+      "vapor",
+      "attachTick",
+      "topology",
+    ]);
+    expect(plan.map((entry) => entry.name)).toEqual([...GPU_DEBUG_READBACK_FIELDS]);
+    for (const entry of plan) {
+      // Purpose "test" and NO display-frame token: the production audit records these
+      // outside any display frame, so fullFieldDisplayFrameReadCount stays zero (D6).
+      expect(entry.purpose).toBe("test");
+      expect(Object.keys(entry)).not.toContain("displayFrame");
+      // Complete per-cell buffer: offset 0, cellCount 4-byte words, 4-byte aligned.
+      expect(entry.byteOffset).toBe(0);
+      expect(entry.byteLength).toBe(cells * 4);
+      expect(entry.byteLength % 4).toBe(0);
+      expect(entry.generation).toBe(3);
+      expect(entry.label).toBe(`app:debug:tick-256:${entry.name}`);
+    }
+    // Labels are distinct (one auditable record per field).
+    expect(new Set(plan.map((entry) => entry.label)).size).toBe(plan.length);
+  });
+
+  it("rejects invalid cell counts, generations, and ticks by name", () => {
+    for (const bad of [0, -1, 1.5, Number.NaN, 0x1_0000_0000]) {
+      expect(() => gpuDebugFieldReadbackPlan(bad, 1, 1)).toThrow(/cellCount/);
+    }
+    for (const bad of [-1, 1.5, Number.NaN, 0x1_0000_0000]) {
+      expect(() => gpuDebugFieldReadbackPlan(64, bad, 1)).toThrow(/generation/);
+      expect(() => gpuDebugFieldReadbackPlan(64, 1, bad)).toThrow(/tick/);
     }
   });
 });
