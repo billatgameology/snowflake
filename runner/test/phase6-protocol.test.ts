@@ -17,6 +17,7 @@ import {
   phase6PendingFreezeItems,
   phase6ProtocolManifest,
   PHASE6_FAR_FIELD,
+  PHASE6_ENGINE_CONTROL,
   PHASE6_FREEZE_LIST,
   PHASE6_INTERPOLATION,
   PHASE6_INTERPOLATION_LEAVE_ONE_OUT,
@@ -160,6 +161,25 @@ describe("the registered interpolation scheme", () => {
     expect(measured.prism).toBeCloseTo(PHASE6_INTERPOLATION_LEAVE_ONE_OUT.prism, 3);
     expect(measured.basal).toBeLessThan(PHASE6_SIGMA0_DIGITIZATION_BAND);
     expect(measured.prism).toBeLessThan(PHASE6_SIGMA0_DIGITIZATION_BAND);
+  });
+});
+
+describe("the engine decision", () => {
+  it("runs sweeps on the GPU and keeps the CPU oracle as the differential control", () => {
+    expect(PHASE6_ENGINE_CONTROL.sweepEngine).toBe("gpu-float32");
+    expect(PHASE6_ENGINE_CONTROL.oracleEngine).toBe("cpu-float64");
+    // The control compares the only quantity the comparison consumes, so a float32 difference
+    // that cannot change a habit call cannot fail the control either.
+    expect(PHASE6_ENGINE_CONTROL.comparedQuantity).toContain("habit-classification");
+    // Control points are chosen with the grid, so this stays null until the grid is registered.
+    expect(PHASE6_ENGINE_CONTROL.controlPoints).toBeNull();
+    const floatItem = PHASE6_FREEZE_LIST.find((item) => item.id === "float-precision");
+    expect(floatItem?.status).toBe("registered");
+    expect(floatItem?.value).toContain("float32 GPU");
+    expect(floatItem?.value).toContain("differential control");
+    // Phase 5's certificate was measured on Phase 5's fixtures; the source note must say so,
+    // because the whole reason for a per-sweep control is that it does not transfer for free.
+    expect(floatItem?.source).toContain("NOT at Phase 6's sweep conditions");
   });
 });
 

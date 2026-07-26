@@ -116,6 +116,28 @@ export const PHASE6_FAR_FIELD = "fixed-sigma-dirichlet";
  */
 export const PHASE6_SURFACE_POLICY = "aggregate-hv-g1h1-v5";
 
+// ── Registered: which engine produces sweep evidence, and what checks it ────────────────────
+//
+// Phase 5 certified the float32 GPU port against the float64 CPU oracle under frozen
+// tolerances — but it certified it ON THE PHASE 5 FIXTURES, at their exact dims and
+// conditions. Phase 6 sweeps different temperatures, supersaturations and domains, so quoting
+// that certificate here would extend a measurement past where it was made. The sweep therefore
+// runs on the GPU (which is what makes hundreds of runs affordable at all) and carries its own
+// differential control: registered grid points re-run on the CPU oracle and must agree on the
+// habit classification, which is the only quantity the comparison actually consumes.
+//
+// A disagreement at a control point is a finding about float32 at sweep conditions, reported as
+// one — not a reason to quietly prefer whichever engine produced the nicer diagram.
+export const PHASE6_ENGINE_CONTROL = {
+  sweepEngine: "gpu-float32",
+  oracleEngine: "cpu-float64",
+  /** What the control compares. Habit is the comparison's only consumed output. */
+  comparedQuantity: "habit-classification-at-the-registered-measurement-size",
+  /** Chosen in WP0 alongside the grid: which points get a CPU re-run. */
+  controlPoints: null as readonly { readonly tempC: number; readonly sigmaInf: number }[] | null,
+  onDisagreement: "reported as a float32-at-sweep-conditions finding; neither engine is dropped",
+} as const;
+
 // ── The freeze list ─────────────────────────────────────────────────────────────────────────
 
 export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
@@ -259,12 +281,18 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
   {
     id: "float-precision",
     group: "numerics",
-    status: "pending",
+    status: "registered",
     requirement: "float precision",
-    value: null,
+    value:
+      "float32 GPU (@vcc/solver-gpu) produces the sweep evidence; the float64 CPU oracle is " +
+      "the differential control at registered grid points",
     source:
-      "WP0; the float64 CPU oracle and the Phase 5 float32 GPU port are both available, and " +
-      "which one produces sweep evidence is a registered choice, not an implementation detail",
+      "operator decision 2026-07-26. Charter §3.2 item 4 earmarks the RTX 3080 for these " +
+      "sweeps — 'hundreds of automated runs at preview resolution' — and Phase 5 established " +
+      "GPU-vs-oracle conformance under frozen tolerances. That conformance was measured on the " +
+      "Phase 5 fixtures, NOT at Phase 6's sweep conditions, so the sweep carries its own " +
+      "differential control rather than extrapolating the Phase 5 claim (see " +
+      "PHASE6_ENGINE_CONTROL)",
   },
   {
     id: "seed-ensemble-size",
