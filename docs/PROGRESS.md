@@ -611,7 +611,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ✅ **complete, 2026-07-20.** One flagless v5p run at tracked-clean `0dc0f86`, pre-registration `8adea86`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exited 0. Same `96×96×96` hexPrism, extent target, fixed-σ far field, `sigmaInfinity=0.002`, pressure, spacing, mapping, seed 1, noise 0, CFL, and convergence controls; temperature alone differed. −5 °C: step 814, extent 61, attached 18,193, AR `0.118644` plate. −15 °C: step 330, extent 61, attached 1,159, AR `12.2000` column. Both: size-target, symmetry error 0, every relaxation converged, bounded smoother drift, checkpoint round trip identical. The depleted-start differential was 3/3 and permanent Phase 2a control retained canonical SHA-256 `f1796b5015…a389`. Final log SHA-256 `ea69d65a…c45e`, status 0, empty stderr; complete evidence: [v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result). V3 negative and v4 execution-invalid history remain preserved. |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ✅ **maker-asserted complete, 2026-07-23** — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ✅ **complete, 2026-07-18** — one canonical `node runner/src/main.ts gate4` at `70a2496`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exit 0 in 7,178.8 s. Pass A: 13 runs, 24/24 records green; plate/column AR `0.0666667`/`1.66667`; five-point sweep strictly increasing; depletion median `0.770238`, 7/7 samples below one, width 7→13; three distinct reproducible open-hollow occupancies; cap score `1.3`; dendrite/compact branches 6/0 at independent first reservoir crossings (cycles 4,775/5,450, extents 99/83). A manifest/report/index SHA-256: `e5e85c70…8644` / `bcb29e05…7188` / `92346e3e…1917`. Pass B: 11 runs, 12/12 execution records green; three morphology diagnostics pass and five honestly miss (depletion, widening, hollowing, capped history, branch). B manifest/report/index: `c0ceed5b…e812` / `22c8a92c…fa2d` / `5644f838…5cb0`. Aggregate v2 SHA-256 `194f837d…d8e2`, `gatePass=true`, `passBDiagnosticPass=false`. Real `node app/scripts/visual.mjs --phase4`: 20/20 original-resolution captures inspected by coordinator and reviewer, zero absent/error/clipped/hash-mismatch views, manifest `19e0fcfe…573b`. Post-publication exact root suite 779/779 and 33-module build green; final same-reviewer verdict on repair `b7153cc`: CLEAN, 0 blockers / 0 should-fixes. Full record: [v2 plan](plans/phase-4-v2-reservoir-matched-branch-control.md). |
-| 5 | GPU agrees with CPU oracle to tolerance on observed Windows D3D12; preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable. This phase makes no Metal/general-WebGPU portability claim (ADR 0018). | 🔶 **WP1–WP6 closed with zero-finding review; WP7 evidence exists and is under review** (2026-07-26). WP4 implementation `2788cc0` and its canonical D3D12 artifact have zero-finding review. WP5 closed on its round-three clean verdict (canonical bundle `0a611e7`, now preserved at `out/phase5-wp5-0a611e7/`); WP6 closed on a two-round clean verdict (`b26b0af`). WP7's canonical run at clean commit `c436df5` exits 0 on both frozen commands — `gate5-lane` (D3D12, 172 source files) and `gate5` (16/16 criteria) — publishing the bundle now at `out/phase5/`; the preview cases meet every registered bound with zero losses, errors, retries, stale generations, and full-field display reads. Review round one on the earlier `32eed48` bundle returned zero blockers and four should-fixes, all repaired, and the evidence was regenerated at the repaired commit. That evidence is not accepted until review returns zero blockers and zero should-fixes. Metal remains a separately frozen later-machine extension. Active plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). |
+| 5 | GPU agrees with CPU oracle to tolerance on observed Windows D3D12; preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable. This phase makes no Metal/general-WebGPU portability claim (ADR 0018). | ✅ **maker-asserted complete, 2026-07-26** — all seven work packages closed with zero-finding independent review. The canonical run at exact clean commit `c436df5` exits 0 on both frozen flagless commands: `node runner/src/main.ts gate5-lane` (observed D3D12, 172 commit-derived source hashes) and `node runner/src/main.ts gate5` (**16/16 criteria**), publishing `out/phase5/`. Both preview budgets meet every registered bound (plate edit-ack max 9.90 ms and first valid frame max 308.0 ms; column 10.90 ms and 309.3 ms; published p99 37.70 / 34.40 ms; all 560 bounded segments inside 500 ms) with zero device losses, uncaptured errors, hidden retries, stale generations, and **zero full-field display-frame reads** across 2,715 audited readbacks. All sixteen negative controls were rejected with their registered owner in the observed failing set (ADR 0022, protocol v6 `5ef6d11b…`). Three review rounds: four should-fixes, then two, then **CLEAN**. Scope is Windows/Chromium/D3D12 only — **no Metal and no general-WebGPU portability claim** (ADR 0018); Metal remains a separately frozen later-machine extension. Plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
 
@@ -901,11 +901,14 @@ immutable.
 
 ## Next step
 
-**Phases 2b, 3, and 4 are complete. Phase 5 WP1–WP6 are complete; WP7's canonical
-Windows/D3D12 evidence exists at `out/phase5/` (both frozen commands exit 0, 16/16 criteria at
-commit `c436df5`) and is in its second review round after the first returned zero blockers and
-four should-fixes, all repaired. That review is the last thing between here and Phase 5 being
-complete.**
+**Phases 2b, 3, 4, and 5 are complete. Phase 6 is next.**
+**Phase 5 is COMPLETE — maker-asserted 2026-07-26.** All seven work packages closed with
+zero-finding independent review, the last of them on the canonical Windows/Chromium/D3D12
+evidence at `out/phase5/`: both frozen flagless commands exit 0 at exact clean commit
+`c436df5`, `gate5` reporting 16/16 criteria. The float64 CPU solvers remain the permanent
+oracle — unchanged, selectable in the app, and the differential control the GPU port is
+measured against. This phase makes **no Metal and no general-WebGPU portability claim**
+(ADR 0018).
 WP4 implementation `2788cc060116ce8021911248771aa3c148b8fe63` and documentation closure
 `e91dd1dd3f9603c029276b194bb6d535a374b989` have zero-finding independent review. Its canonical
 D3D12 artifact is `out/wp4-canonical-2788cc0.json`, SHA-256
@@ -1037,8 +1040,9 @@ observed failing set. `NC-TOLERANCE-BYPASS` observes
 the old sole-criterion rule made impossible to report honestly. The bundle records 1,730 audited
 readbacks totalling 185,578,140 bytes with **zero** full-field display-frame reads, and zero
 device losses, uncaptured errors and hidden retries, each standing beside the observation list
-that produced it. Preview performance in this exact bundle (`out/phase5/gate5-report.json` at
-`2e746f5`) measured 15.4 ms edit acknowledgement against 100, 131.3 ms first valid post-edit
+that produced it. Preview performance in that exact bundle (the `2e746f5` candidate's own
+`gate5-report.json`, published at `out/phase5/` when it ran and since replaced there by WP7's
+evidence; the `2e746f5` bytes are not preserved on disk) measured 15.4 ms edit acknowledgement against 100, 131.3 ms first valid post-edit
 frame against 2,000, 33.8 and 17.6 ms p99 submission segments against 250, and a 42.4 ms
 maximum against 500, over 70 opened display frames. (Earlier superseded bundles measured
 slightly different values; independent review caught this section still quoting them.)
@@ -1115,8 +1119,10 @@ its own byte-comparison of all 20 Phase 4 captures, its own backend-control run,
 root suite at 62 files / 1,110 tests) and returned one file-count transcription should-fix,
 repaired at docs-only `f188573` and verified in round two.
 
-**WP7 canonical Windows evidence EXISTS and awaits independent review (2026-07-26). Scope is
-Windows/Chromium/D3D12 only — no Metal and no general-WebGPU portability claim (ADR 0018).**
+**WP7 is CLOSED and PHASE 5 IS COMPLETE (2026-07-26): the independent reviewer returned zero
+blockers and zero should-fixes on round three, and stated that every WP7 scope clause is met.
+Scope is Windows/Chromium/D3D12 only — no Metal and no general-WebGPU portability claim
+(ADR 0018).**
 
 *The precondition repair.* The WP6 reviewer's confirmed finding was fixed first, at
 `32eed48`, and hardened after review at `c436df5`. The WP6-S6 performance probe collects the
@@ -1232,15 +1238,46 @@ that commit** so the published bundle is the product of exactly the code that sh
 `32eed48` bundle is preserved under `out/phase5-wp7-32eed48-superseded/` and must not be
 quoted as current.
 
+*Rounds two and three.* Round two re-authenticated the regenerated bundle rather than carrying
+round one forward — all 78 hashes, both artifact indexes cross-linked, the 172 source hashes
+against a fresh detached-worktree export of `c436df5`, both runner verifiers accepting the
+published bytes, the negative-control replay, the attribution re-derived from the bundle alone,
+and its own probe run at this commit reproducing the same windows and the same 598/597 split.
+It also checked that the two code repairs are behaviour-preserving: `previewCaseOfFixture`
+agrees with the deleted inline ternaries across all fourteen registered fixtures with zero
+disagreements, and all twenty fail-closed mutations still refuse. It returned **zero blockers
+and two should-fixes**, both prose: three sentences still pointed at `out/phase5/` for WP5's
+accepted bundle, and the WP7 summary clause kept the over-narrow phrasing round one had flagged
+in the code comment. Both are repaired at docs-only `dae9aef` with the bundle byte-unchanged
+(re-hashed after the edits). **Round three returned CLEAN — zero blockers, zero should-fixes —
+and stated that every WP7 scope clause is met, that the box may be checked, and that Phase 5
+may be called complete.** The reviewer's own summary of the evidence itself: nothing wrong in
+the bundle, the code, or any published number.
+
+*What the reviewer did not check, recorded as a limit of this evidence rather than a gap in
+it.* The numerical physics behind the science comparisons was not recomputed from the
+checkpoint bytes — the tolerance manifest hash, the zero-failure counters, the applicability
+rules and the runner's own payload-graph re-derivation were verified instead; that recompute
+was WP5's review scope and the tolerance hash is unchanged. Re-running the frozen commands to
+reproduce this exact bundle was out of scope by instruction (the two runner verifiers are the
+read-only substitute), as were the browser probe's internal timing seams and the historical
+WP1-WP4 claims. One inherent limit of the attribution rule is disclosed by the module itself:
+shifting a window boundary by ±1 inside a run of records that carry no self-identifying content
+would be accepted, so roughly 30% of app-path records rest on the application's own audit
+counts rather than on label corroboration.
+
 *The superseded WP5 bundle is preserved, not overwritten.* Its five recorded hashes were
 re-verified on disk first, then it was copied file-by-file to `out/phase5-wp5-0a611e7/` (78/78
 byte-identical) and the original directory renamed to `out/phase5-wp5-0a611e7-original/`
 before the WP7 run created a fresh `out/phase5/`. Both copies are the accepted `0a611e7` WP5
 evidence; neither may be relabelled as WP7's.
 
-**Next action:** obtain round-two review of the `c436df5` bundle to zero blockers and zero
-should-fixes, then record the closure here and check WP7 complete in the plan — which closes
-Phase 5. Do not push unless the user separately asks. Do not modify, move, or delete anything
+**Next action: Phase 5 is closed; Phase 6 is next** and needs its own plan before any work
+starts (charter §2.4 and the phase table above own its gate: the T-vs-σ morphology diagram
+against Nakaya's, agreements *and* disagreements both reported, no-SDAK and SDAK runs reported
+separately). Nothing in Phase 5 authorizes a physical-validation or calibration claim; the GPU
+port's claim is conformance to the CPU oracle on observed Windows D3D12, nothing more.
+Do not push unless the user separately asks. Do not modify, move, or delete anything
 under `out/phase5/`, `out/phase5-wp5-0a611e7/`, `out/phase5-wp5-0a611e7-original/`, or
 `out/phase5-wp7-32eed48-superseded/`. Metal is deferred; never relabel Windows evidence as
 Metal or claim general WebGPU portability. Preserve accepted evidence under `out/phase2b/`,

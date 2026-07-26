@@ -1,10 +1,12 @@
 # Plan — Phase 5: WebGPU solver port and Windows D3D12 conformance
 
 - **Phase:** Phase 5 — GPU port
-- **Status:** WP1-WP6 are independently accepted with zero-finding reviews. WP7's canonical
-  Windows/D3D12 evidence exists at `out/phase5/` — both frozen commands exit 0 at clean commit
-  `c436df5`, `gate5` reporting 16/16 criteria — and is in its second review round, which is the
-  last step before Phase 5 is complete.
+- **Status:** **COMPLETE — maker-asserted 2026-07-26.** All seven work packages are
+  independently accepted with zero-finding reviews. The canonical Windows/Chromium/D3D12
+  evidence is at `out/phase5/`: both frozen flagless commands exit 0 at exact clean commit
+  `c436df5`, `gate5` reporting 16/16 criteria under protocol
+  `phase5-gpu-conformance-windows-v6`. No Metal or general-WebGPU portability claim is made
+  (ADR 0018).
 - **Started:** 2026-07-23
 - **Last touched:** 2026-07-26 by Claude
 
@@ -1428,7 +1430,7 @@ canonical evidence; Metal or general-WebGPU claims; Phase 7 presentation work.
       `3ec38e9`/`f188573`. WP7 precondition confirmed by the reviewer: the gate's
       label-to-fixture fallback would misattribute all app-path performance readbacks to the
       plate fixture and must be fixed before the canonical `gate5-lane`/`gate5` run.
-- [ ] **WP7 — canonical Windows evidence.** Run all preconditions, execute the frozen Windows
+- [x] **WP7 — canonical Windows evidence.** Run all preconditions, execute the frozen Windows
       commands, authenticate and aggregate the bundle, inspect the interactive preview evidence,
       obtain clean review, and update `PROGRESS.md` with every metric, value, host, command,
       commit, and artifact hash. State the Windows/Chromium/D3D12 scope prominently.
@@ -1453,8 +1455,21 @@ canonical evidence; Metal or general-WebGPU claims; Phase 7 presentation work.
       2,715 audited readbacks. All sixteen negative controls were rejected with their
       registered owner in the observed failing set; the published-artifact audit finds zero
       self-attested operands among the 242 decision, event-record and invariant comparisons.
-      Every value, hash, and provenance field is transcribed in `PROGRESS.md`. This box stays
-      unchecked until independent review returns zero blockers and zero should-fixes.
+      Every value, hash, and provenance field is transcribed in `PROGRESS.md`.
+      **CLOSED 2026-07-26 after three review rounds: four should-fixes, then two, then zero
+      blockers and zero should-fixes.** Round two re-authenticated the regenerated bundle from
+      its own bytes — all 78 hashes, both artifact indexes, the 172 source hashes against a
+      fresh export of `c436df5`, both runner verifiers, the negative-control replay, its own
+      probe run reproducing the windows and the 598/597 split — and confirmed the code repairs
+      behaviour-preserving (`previewCaseOfFixture` agrees with the replaced ternaries across
+      all fourteen fixtures; all twenty fail-closed mutations still refuse). Its two prose
+      should-fixes were repaired at docs-only `dae9aef` with the bundle byte-unchanged, and
+      round three verified them and stated that every scope clause above is met. **Phase 5 is
+      complete.** Canonical evidence: the `c436df5` bundle at `out/phase5/` under protocol
+      `phase5-gpu-conformance-windows-v6` (`5ef6d11b…`, unmoved); superseded bundles preserved
+      at `out/phase5-wp7-32eed48-superseded/`, `out/phase5-wp5-0a611e7/` and
+      `out/phase5-wp5-0a611e7-original/`. Scope is Windows/Chromium/D3D12 only; Metal is
+      deferred and no general-WebGPU portability claim is made.
 
 ## Out of scope
 
