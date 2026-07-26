@@ -1,6 +1,14 @@
 # Libbrecht parameters — the mapping layer
 
-**Status: EXTRACTED 2026-07-15 (first pass, Phase 2b opening deliverable). Not yet frozen.**
+**Status: EXTRACTED 2026-07-15 (first pass, Phase 2b opening deliverable). Corrected 2026-07-26
+against the canonical source, before the Phase 6 freeze. Not yet frozen.**
+The 2026-07-26 pass landed four source-verified corrections while they were still free to make
+(post-freeze, each would cost a full re-sweep by charter rule): SDAK-2 recorded as an
+`A_prism` mechanism rather than a missing `A` gap (§4.2); the printed width parameterization
+recorded (§4.3); the latent-heating parameter `chi_0(T, P)` given anchors and its first-order
+correction (§7); and the CAK pressure-independence assumption qualified with the monograph's
+own retraction of it (Open questions). Every quotation was verified against the page renders,
+not taken from a summary.
 Every numeric entry below carries its citation and provenance class. The two known extraction
 limits are stated where they bite: the nucleation-parameter curves are **published only as
 figures** (no closed forms, no numeric tables exist in either source), so their numeric anchors
@@ -190,13 +198,22 @@ such rather than debugged as code. Phase 6 must treat these bands as a stated sy
 
 ## 4. Branch 2 — SDAK narrow-facet hypotheses (**P3** — never merged into Branch 1)
 
+**There are two distinct SDAK hypotheses in the sources, and this section records both.**
+SDAK-1 modifies `sigma_0` on narrow facets (the dips digitized below); SDAK-2 modifies
+`A_prism` on narrow prism facets (§4.2). They are separate mechanisms aimed at different
+observations, and neither implies the other. Nothing in the solver implements either one —
+`SDAK` appears in no source file — so every run to date is a no-SDAK run.
+
+### 4.1 SDAK-1 — the `sigma_0` dips
+
 Source: monograph Figure 4.12 (printed p. 152 / pdf 153) — dips drawn **dotted** "to signify
 their substantial uncertainties"; curves assume edge radius `R_edge ≈ 1–2 µm` ("typical for
 snow-crystal growth in air"). 1910.09067 p. 13: "Neither the width nor depth of the dip
 structure … is well constrained by measurements"; dip positions set by the premelting onset
-temperature per facet, "somewhat constrained by other measurements, but not tightly so." **No
-functional form is printed for the dips — figure-only. Documented gap.** Digitized (same
-method and uncertainty as Branch 1):
+temperature per facet, "somewhat constrained by other measurements, but not tightly so."
+**No functional form is printed for the temperature dips themselves — figure-only. Documented
+gap.** A functional form for the *width* dependence is printed, and is recorded in §4.3.
+Digitized (same method and uncertainty as Branch 1):
 
 | Facet | Dip minimum | At (Tm−T) | Departs / rejoins large-facet curve | Explains (source's claim) |
 |---|---|---|---|---|
@@ -208,8 +225,42 @@ The reduction is relative to the large-facet curve at the same T: roughly **×6�
 curves were drawn to reproduce the Nakaya diagram, and every run using them is in-sample for
 Nakaya purposes (charter §2.7; ADR 0005 D1).
 
-`A(T)` under SDAK: the sources modify only `sigma_0`; `A` handling on narrow facets is not
-separately specified (gap).
+### 4.2 SDAK-2 — the `A_prism` recovery on narrow prism facets (**P3**)
+
+*Corrected 2026-07-26 (pre-freeze). This section previously said the sources "modify only
+`sigma_0`" and recorded `A` handling on narrow facets as an unspecified gap. That was wrong:
+the monograph states the mechanism explicitly.* Monograph Figure 4.14 (printed p. 154 /
+pdf 155), caption verbatim:
+
+> The SDAK-2 mechanism increases the value of `A_prism` on small prism facets at temperatures
+> above -10 C, as approximated here by the dotted curve. This curve is expected to depend on
+> supersaturation, such that `A_prism → 1` at especially high `sigma_surf`. The solid curves
+> are reproduced from Figure 4.5. This change in `A_prism` mainly affects the growth of
+> sharp-tipped dendritic structures, which are often observed in high-supersaturation
+> experiments.
+
+So: a second, `A`-side hypothesis, restricted to **small prism facets above ≈ −10 °C**,
+**supersaturation-dependent** (→ 1 at high `sigma_surf`), and aimed at **sharp-tipped
+dendrites** — a different target from SDAK-1's hollow-column edges near −5 °C and thin-plate
+edges near −15 °C. Like SDAK-1 it is dotted-curve P3, and it is **not digitized here**: no
+anchor table is extracted, because nothing in the solver consumes it yet. Digitizing it is
+work for the SDAK work package, and doing so does not merge it into Branch 1.
+
+### 4.3 The printed width parameterization (a real head start)
+
+The temperature dips have no printed form, but the **width** dependence does. Monograph
+printed p. 157 / pdf 158, verbatim:
+
+> For example, in [2015Lib2] we used the functional form `sigma_0 = sigma_0,∞[1 −
+> exp(−w/w_0)]`, where `sigma_0,∞` is the broad-facet value and `w_0` is an adjustable model
+> parameter. This allowed us to reproduce the ESI transition to platelike growth at -15 C
+> reasonably well, as the behavior that mattered most was having `sigma_0 → 0` as `w → 0`.
+
+Note the source's own framing on the same page: "the precise functional form for the SDAK
+effect may not be essential… the details may not matter as much as the attachment coefficients
+on the narrow 1-2 µm tips and edges." `w_0` is an **adjustable model parameter**, not a
+measurement — P3/P4, and any value chosen for it is registered in a protocol freeze, never
+tuned against a comparison.
 
 ## 5. `v_kin(T)` — kinetic velocity
 
@@ -255,7 +306,41 @@ added; anyone tempted to import a `T^1.94`-style law from other literature must 
 log the change here. This matters most for Phase 6 temperature sweeps; at fixed T (the 2b
 habit gate) it does not bite at all.
 
-## 7. Derived quantities the solver uses (forms, not new data)
+## 7. `chi_0(T, P)` — the latent-heating correction (**P1**, currently unmodelled)
+
+Recorded 2026-07-26 (pre-freeze). The solver ignores latent heat, and the honest-limits list
+in `attachment-kinetics.md` says so — but "ignored" was recorded without its magnitude, and the
+source both quantifies it and prints a first-order fix that lives entirely inside the existing
+model. Monograph printed p. 98 / pdf 99, verbatim:
+
+> The relevant variable `chi_0` equals about **0.8 at -1 C**, drops to about **0.4 at -10 C**,
+> and it continues falling with colder temperatures. If the growth is mainly kinetics-limited,
+> then neither particle or heat diffusion matters much (in air at normal pressures).
+
+In the diffusion-limited regime the same page prints the normal growth velocity as the
+diffusion-limited attachment coefficient times `v_kin · sigma_inf / (1 + chi_0)` — that is, the
+whole heating correction enters as a rescaling of the driving supersaturation:
+**`sigma_inf → sigma_inf/(1 + chi_0)`**. (The source's symbol for that coefficient is the
+diffusion-limited one, not the Hertz-Knudsen `alphaHK` this repository names; it is spelled out
+here rather than abbreviated so the two cannot be confused — Rule 7.) Pressure scaling, printed
+p. 98 / pdf 99: `D ∝ 1/P` while `kappa_air` is roughly independent of `P`, so **`chi_0 ~ P⁻¹`**
+and heating becomes pronounced at low pressure.
+
+| T (°C) | `chi_0` | Growth overestimated by, if heating is ignored and growth is diffusion-limited |
+|---|---|---|
+| −1 | ≈ 0.8 | ≈ 80% |
+| −10 | ≈ 0.4 | ≈ 40% |
+| colder | continues falling | less |
+
+Anchors only — the source prints two values and a trend, not a curve, so any interpolation
+between them is P4 and is registered, not assumed. **What this changes:** nothing in the
+kinetics-limited gates run so far (the source says so directly, and the registered
+`sigma_infinity = 0.002` runs sit in that regime). It matters for any Phase 6 sweep point that
+is diffusion-limited, especially on the warm side. Whether Phase 6 applies the correction as a
+labelled term or carries it as a stated systematic is a protocol-freeze decision, not a
+silent one.
+
+## 8. Derived quantities the solver uses (forms, not new data)
 
 - `X_0(T, P) = (c_sat/c_ice)·D/v_kin` — kinetic length; Robin condition scale
   (attachment-kinetics §4.4 component 3). Anchors in the Table 2.1 transcription above.
@@ -286,7 +371,18 @@ full temperature domain for the reason recorded above.
 5. Magnitude/unit sanity checks recorded inline (Eq. 2.8 mbar confirmation; v_kin closed-form
    vs table; X_0 back-computation).
 
-## Open questions for the extraction (updated 2026-07-15)
+## Open questions for the extraction (updated 2026-07-26)
+
+- **SDAK-2 (`A_prism`) is recorded but not digitized.** §4.2 now carries the mechanism, its
+  restriction (small prism facets above ≈ −10 °C), its supersaturation dependence, and its
+  target (sharp-tipped dendrites) from Figure 4.14's caption. No anchor table is extracted,
+  because nothing consumes it. Digitizing Figure 4.14 is SDAK work-package work, and it stays
+  P3 when it happens.
+- **`w_0` in the printed width form (§4.3) is an adjustable model parameter, not a
+  measurement.** Any value is registered in a protocol freeze; it is never fitted against a
+  comparison this project is also using as evidence.
+- **`chi_0` has two printed anchors and a trend, not a curve** (§7). Interpolating between
+  −1 °C and −10 °C is P4 and is registered rather than assumed.
 
 - ~~Does Libbrecht's model give `sigma_0` and `A` as continuous functions of T?~~ **Answered:
   as continuous *curves* (figures), with no printed functional form.** The interpolation
@@ -300,7 +396,18 @@ full temperature domain for the reason recorded above.
   strongly diffusion effects contaminated historical measurements. The suspicion stands where
   it always did: **the transplanted numbers are only as geometry-free as [2013Lib]'s analysis
   made them.** Worth an hour of suspicion before a week of debugging, unchanged.
-- Pressure dependence: **answered at the model level** — "The CAK model includes an implicit
-  assumption that the attachment kinetics does not depend on background gas pressure" (mono
-  printed p. 145 / pdf 146); pressure lives in `D ∼ P⁻¹` only. Recorded as a model assumption,
-  P2.
+- Pressure dependence: **answered at the model level, but the source does not stand behind the
+  assumption** (qualified 2026-07-26, pre-freeze; previously recorded as simply "answered").
+  The CAK model does assume it — "The CAK model includes an implicit assumption that the
+  attachment kinetics does not depend on background gas pressure" (mono printed p. 145 /
+  pdf 146) — and pressure enters the solver through `D ∼ P⁻¹` only. But the monograph is
+  internally split, and Ch. 7.3's "Well-Behaved-Basal" model states the author's own reading of
+  the in-air free-fall data: assuming `sigma_0,basal(T)` is pressure-independent is "a somewhat
+  sketchy assumption" and "clearly just a first step toward a final, pressure-dependent model
+  of the attachment kinetics", because the analysis "already suggests **rather substantial
+  changes in `sigma_0,prism(T)` with air pressure** are required in any future model" (printed
+  p. 272 / pdf 273). Ch. 4.8 separately finds no significant pressure dependence in the
+  restricted low-`alpha` regime (printed pp. 169–171). **This matters here because the
+  digitized CAK curves come mostly from low-pressure measurements while the solver grows
+  crystals at 1 atm.** Recorded as the stated systematic **"CAK-in-air vs CAK-in-vacuum"**,
+  carried in the Phase 6 report beside the σ₀-crossing discrepancy above. Class P2.

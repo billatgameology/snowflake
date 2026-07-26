@@ -705,7 +705,14 @@ habit claim:
 State these plainly; they are the honest limits of the v1 physics, and they belong in any writeup:
 
 - **Latent heat transport.** Deposition warms the surface; the model ignores it. Inherited from
-  G-G, accepted (charter §2.6).
+  G-G, accepted (charter §2.6). **Magnitude, recorded 2026-07-26 rather than left qualitative:**
+  the monograph puts the heating parameter at `chi_0 ≈ 0.8` at −1 °C and `≈ 0.4` at −10 °C,
+  falling with colder temperatures, and prints the first-order fix inside our existing model —
+  in the diffusion-limited regime `v_n ∝ sigma_inf/(1 + chi_0)`, so ignoring heating
+  overestimates diffusion-limited growth by roughly 40–80% on the warm side. Kinetics-limited
+  growth (where every gate run so far sits) is essentially unaffected; the source says so
+  directly. Anchors and citation: `libbrecht-parameters.md` §7. Whether Phase 6 applies this as
+  a labelled correction or carries it as a stated systematic is a protocol-freeze decision.
 - **The Gibbs–Thomson effect** (added 2026-07-15 with §4.4). Curvature raises the equilibrium
   vapor pressure; the monograph calls it minor and calculable (`d_sv ≈ 1 nm`, Appendix A) and
   uses it in the SDAK edge argument. v1 omits the curvature correction to `sigma_surf` —

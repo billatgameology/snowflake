@@ -1275,11 +1275,16 @@ evidence; neither may be relabelled as WP7's.
 
 **Next action: Phase 6 WP0 — pre-registration.** Phase 5 is closed and pushed (`d8a8a39`); the
 Phase 6 plan is registered at [phase-6-nakaya-validation.md](plans/phase-6-nakaya-validation.md)
-and **no validation sweep may run until WP0's freeze lands**. WP0: correct the two known SDAK
-errors in `docs/libbrecht-parameters.md` while it is still unfrozen (post-freeze they cost a
-full re-sweep by charter rule), decide and register the parameter interpolation scheme, run
-coordinator-only calibration probes for every threshold, register the whole freeze list in a
-hash-pinned protocol module, then freeze the parameter table. The comparison target is settled:
+and **no validation sweep may run until WP0's freeze lands**. The pre-freeze source corrections
+are already in (2026-07-26): `docs/libbrecht-parameters.md` now records SDAK-2 as an `A_prism`
+mechanism rather than a missing gap (§4.2), the printed width parameterization (§4.3), the
+latent-heating parameter `chi_0(T, P)` with anchors and its `sigma_inf/(1 + chi_0)` correction
+(§7), and a qualified pressure-independence entry carrying the monograph's own retraction —
+each quotation verified against the page renders, and each free to make only while the file is
+unfrozen. WP0's remainder: decide and register the parameter and `chi_0` interpolation schemes
+and the latent-heating treatment, run coordinator-only calibration probes for every threshold,
+register the whole freeze list in a hash-pinned protocol module, then freeze the parameter
+table. The comparison target is settled:
 the classical Nakaya diagram (Libbrecht 1211.5555v1 Fig. 1) is the qualitative report card
 charter §2.3 asks for — its axis converts to σ exactly via `cSat()`, and its printed
 water-saturation curve cross-checks the transcription against `sigmaWater()` — while Libbrecht's

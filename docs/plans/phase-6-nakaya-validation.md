@@ -183,11 +183,18 @@ the Phase 3 pattern: run coordinator-only probes, register the resulting numbers
 probe output named, and state the margin reasoning. A probe's printed metrics are never citable
 as a gate result.
 
-**Two corrections must land before the freeze, while no ADR is required.**
-`docs/monograph-review.md` records two factual errors in the SDAK section of
-`docs/libbrecht-parameters.md` (SDAK-2 modifies `A_prism`, not `sigma_0`; a printed width form
-`sigma_0(w) = sigma_0,broad·[1 − exp(−w/w_0)]` does exist). The file is not yet frozen, so these
-are ordinary corrections now and would cost a full re-sweep later.
+**The pre-freeze corrections are done (2026-07-26).** Four source-verified corrections landed
+in `docs/libbrecht-parameters.md` while they were still free to make; after the freeze each
+would have cost a full re-sweep by charter rule. SDAK-2 is recorded as an `A_prism` mechanism
+restricted to small prism facets above ≈ −10 °C rather than as a missing `A` gap (§4.2); the
+printed width parameterization `sigma_0 = sigma_0,∞[1 − exp(−w/w_0)]` from [2015Lib2] is
+recorded (§4.3); the latent-heating parameter `chi_0(T, P)` has anchors, its first-order
+`sigma_inf → sigma_inf/(1 + chi_0)` correction, and its `chi_0 ~ P⁻¹` scaling (§7); and the CAK
+pressure-independence assumption is qualified with the monograph's own retraction of it. Every
+quotation was verified against the page renders rather than taken from `monograph-review.md`.
+Two decisions those corrections surface belong to this work package: whether latent heating
+enters as a labelled correction or a stated systematic, and how `chi_0` is interpolated between
+its two printed anchors.
 
 ## Gate contract
 
@@ -211,9 +218,11 @@ runs, or protocol violations exit 1. Any flag exits 2.
 
 ## Steps
 
-- [ ] **WP0 — pre-registration.** Correct the two known SDAK errors in
-      `docs/libbrecht-parameters.md`; decide and register the parameter interpolation scheme;
-      run coordinator-only calibration probes for every threshold; register the full freeze list
+- [ ] **WP0 — pre-registration.** Pre-freeze source corrections to
+      `docs/libbrecht-parameters.md` are **done** (2026-07-26; see above). Remaining: decide and
+      register the parameter interpolation scheme and the `chi_0` interpolation; decide whether
+      latent heating enters as a labelled correction or a stated systematic; run
+      coordinator-only calibration probes for every threshold; register the full freeze list
       above in a tracked protocol module with a hash pin; freeze the parameter table. Nothing
       sweeps until this commit exists and review accepts it.
 - [ ] **WP1 — Nakaya reference data.** Produce the tracked derived-measurement file for
