@@ -214,21 +214,30 @@ describe("the water-saturation ladder reference", () => {
 });
 
 describe("the engine decision", () => {
-  it("runs sweeps on the GPU and keeps the CPU oracle as the differential control", () => {
-    expect(PHASE6_ENGINE_CONTROL.sweepEngine).toBe("gpu-float32");
-    expect(PHASE6_ENGINE_CONTROL.oracleEngine).toBe("cpu-float64");
-    // The control compares the only quantity the comparison consumes, so a float32 difference
-    // that cannot change a habit call cannot fail the control either.
+  it("runs sweeps on the float64 oracle and demotes the GPU to a labelled diagnostic", () => {
+    // Revised on measurement: the GPU is 6x slower at 28^3 and cannot satisfy the frozen
+    // absolute divTol in sustained runs at all. It keeps a cross-check role at a relaxed,
+    // separately-labelled tolerance, which is why it can never be a gate criterion.
+    expect(PHASE6_ENGINE_CONTROL.sweepEngine).toBe("cpu-float64");
+    expect(PHASE6_ENGINE_CONTROL.diagnosticEngine).toContain("relaxed");
     expect(PHASE6_ENGINE_CONTROL.comparedQuantity).toContain("habit-classification");
     // Control points are chosen with the grid, so this stays null until the grid is registered.
     expect(PHASE6_ENGINE_CONTROL.controlPoints).toBeNull();
     const floatItem = PHASE6_FREEZE_LIST.find((item) => item.id === "float-precision");
     expect(floatItem?.status).toBe("registered");
-    expect(floatItem?.value).toContain("float32 GPU");
-    expect(floatItem?.value).toContain("differential control");
-    // Phase 5's certificate was measured on Phase 5's fixtures; the source note must say so,
-    // because the whole reason for a per-sweep control is that it does not transfer for free.
-    expect(floatItem?.source).toContain("NOT at Phase 6's sweep conditions");
+    expect(floatItem?.value).toContain("float64 CPU oracle");
+    expect(floatItem?.value).toContain("never a gate criterion");
+    // The source must carry WHY it was revised, so the retraction cannot quietly become a
+    // preference: the measured numbers and the tolerance floor both belong in the record.
+    expect(floatItem?.source).toContain("32.9 s");
+    expect(floatItem?.source).toContain("below the float32 roundoff floor");
+  });
+
+  it("registers a cross-platform reproducibility control", () => {
+    // Math.exp/log/pow are not specified to be correctly rounded and this solver depends on
+    // them, so a habit class that differs between arm64 and x64 is a fragility finding.
+    expect(PHASE6_ENGINE_CONTROL.reproducibilityControl).toContain("arm64");
+    expect(PHASE6_ENGINE_CONTROL.reproducibilityControl).toContain("habit class");
   });
 });
 

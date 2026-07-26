@@ -181,13 +181,25 @@ export function phase6SigmaWaterFromTable(tempC: number): number {
 // A disagreement at a control point is a finding about float32 at sweep conditions, reported as
 // one — not a reason to quietly prefer whichever engine produced the nicer diagram.
 export const PHASE6_ENGINE_CONTROL = {
-  sweepEngine: "gpu-float32",
-  oracleEngine: "cpu-float64",
-  /** What the control compares. Habit is the comparison's only consumed output. */
+  sweepEngine: "cpu-float64",
+  /**
+   * The GPU is a labelled diagnostic cross-check, never the primary and never a gate criterion:
+   * it cannot satisfy the frozen absolute `divTol` in sustained runs, so any GPU comparison
+   * runs at a relaxed, separately-labelled tolerance and is reported as a diagnostic.
+   */
+  diagnosticEngine: "gpu-float32-at-relaxed-divergence-tolerance",
+  /** What the cross-check compares. Habit is the comparison's only consumed output. */
   comparedQuantity: "habit-classification-at-the-registered-measurement-size",
-  /** Chosen in WP0 alongside the grid: which points get a CPU re-run. */
+  /** Chosen in WP0c alongside the grid: which points get a GPU diagnostic re-run. */
   controlPoints: null as readonly { readonly tempC: number; readonly sigmaInf: number }[] | null,
   onDisagreement: "reported as a float32-at-sweep-conditions finding; neither engine is dropped",
+  /**
+   * Cross-platform reproducibility control (WP3). `Math.exp`/`log`/`pow` are not specified to
+   * be correctly rounded, and this solver depends on them, so results may differ in the last
+   * ULP across architectures. A habit classification that differs between arm64 and x64 means
+   * that conclusion rested on a coin toss, and is reported as fragile rather than averaged away.
+   */
+  reproducibilityControl: "same registered fixture on arm64 and x64; compare habit class",
 } as const;
 
 // ── The freeze list ─────────────────────────────────────────────────────────────────────────
@@ -336,15 +348,21 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
     status: "registered",
     requirement: "float precision",
     value:
-      "float32 GPU (@vcc/solver-gpu) produces the sweep evidence; the float64 CPU oracle is " +
-      "the differential control at registered grid points",
+      "float64 CPU oracle produces the sweep evidence; the float32 GPU port is a labelled " +
+      "diagnostic cross-check only, at a relaxed divergence tolerance, never a gate criterion",
     source:
-      "operator decision 2026-07-26. Charter §3.2 item 4 earmarks the RTX 3080 for these " +
-      "sweeps — 'hundreds of automated runs at preview resolution' — and Phase 5 established " +
-      "GPU-vs-oracle conformance under frozen tolerances. That conformance was measured on the " +
-      "Phase 5 fixtures, NOT at Phase 6's sweep conditions, so the sweep carries its own " +
-      "differential control rather than extrapolating the Phase 5 claim (see " +
-      "PHASE6_ENGINE_CONTROL)",
+      "operator decision 2026-07-26, revised the same day on measurement. The first decision " +
+      "registered the GPU on the premise that it was equal-quality and faster; a calibration " +
+      "probe measured neither. Slower: 32.9 s against the oracle's ~5 s at 28^3, because the " +
+      "CPU converges warm-started steps in one relaxation sweep while the GPU cannot submit " +
+      "fewer than a 16-sweep segment plus a queue sync. Not equal-quality: the frozen absolute " +
+      "divTol = 1e-7 sits below the float32 roundoff floor, so sustained runs refuse at a " +
+      "bit-stationary fixed point (residual exactly 0, both ULP distances 0, divergence " +
+      "residual 1.0-1.6e-7 on a ~0.596 operand). Phase 5 certified this path for four " +
+      "interface steps at 24x24x18 only. Reinstating the GPU as primary would require an ADR " +
+      "replacing the absolute tolerance with a relative bound (the shape ADR 0014 uses for " +
+      "smoother drift). Sweeps also parallelise across 16 CPU cores while the Phase 5 protocol " +
+      "permits one process per physical adapter",
   },
   {
     id: "seed-ensemble-size",

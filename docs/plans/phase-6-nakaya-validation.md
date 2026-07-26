@@ -1,11 +1,18 @@
 # Plan — Phase 6: Validation against the Nakaya diagram
 
 - **Phase:** Phase 6 — validation, not calibration (decision 0003)
-- **Status:** registered, not started. WP0 is the pre-registration work package; **no validation
-  sweep runs until its freeze lands**.
+- **Status:** registered, WP0/WP1 in progress. **No validation sweep runs until the freeze
+  lands**, and the freeze now waits on convergence evidence rather than preceding it.
 - **Started:** 2026-07-26
 - **Last touched:** 2026-07-26 by Claude
 - **Charter version at registration:** v1.16 (2026-07-24)
+- **Revised 2026-07-26 on the operator's stated priority: accuracy to reality and science
+  first; development and runtime speed secondary.** That priority changed five things, each
+  recorded where it applies: the sweep runs on the **float64 CPU oracle** rather than the
+  float32 GPU port; **domain convergence runs before the grid freeze** rather than after;
+  measurement precision is spent on **temperature spacing near the boundaries** rather than on
+  aspect-ratio resolution; the parameter **uncertainty is swept rather than narrated**; and the
+  **1D spherical reference solver** returns to scope as the only absolute accuracy anchor.
 
 ## Goal
 
@@ -154,13 +161,35 @@ yet known, which would guarantee an ADR-and-re-sweep cycle later.
   comparison actually supports it, and only for the named domain.
 - Exploratory comparisons say that they are exploratory.
 
-### Numerical verification (charter item 2)
+### Numerical verification (charter item 2), and why it now runs first
 
 Grid-, timestep- and domain-convergence studies at representative sweep points. The 65%
 domain-contact guard is a collision heuristic and **is not** a proof that the far boundary is
-irrelevant; only a domain-convergence study is. Scope for this phase is the charter minimum: the
-1D spherical reference solver proposed in `docs/monograph-review.md` is explicitly **not** in
-scope here (see Out of scope).
+irrelevant; only a domain-convergence study is.
+
+**These run before the grid freeze, not after it.** Calibration measured a crystal at 28³ and
+extent 17 coming out as a *needle* (aspect ratio 3.4, on both engines) at the same temperature
+and far field where Phase 2b at 96³ and extent 61 produced a *plate* (0.119). A small domain is
+therefore not a coarse version of the right answer — it is a different regime, with the
+Dirichlet shell close enough to keep feeding the crystal. Freezing a grid before that is
+characterised would produce confidently wrong physics at every point, and by charter rule the
+correction would cost a full re-sweep.
+
+**The 1D spherical reference solver is in scope** (reversing this plan's first draft). Convergence
+studies establish only that the solver agrees *with itself* under refinement. The 1D spherical
+`LibbrechtKinetics` reference proposed in `docs/monograph-review.md` is the project's only
+**absolute** accuracy anchor — the one control that can say the numbers are right rather than
+merely self-consistent. Under the operator's accuracy-first priority that is worth its cost.
+
+**Cross-platform reproducibility is a registered control.** IEEE 754 makes `+ − × ÷ √`
+correctly rounded everywhere, but `Math.exp`, `Math.log` and `Math.pow` are not specified to be,
+and this solver depends on them throughout (`pSatIce`, the attachment coefficients, `v_kin`).
+Results may therefore differ in the last ULP across engine versions or CPU architectures. Phase
+2b already pinned its exact Node/V8 build and declined any cross-engine bitwise claim. Phase 6
+goes one step further and *tests* it: the same registered fixture runs on a second machine
+(Apple M-series, arm64) and the habit classification is compared. **If a classification changes,
+that conclusion was resting on a last-ULP coin toss and the finding is reported as fragile.** If
+no second machine is available the claim is scoped to the registered host and says so.
 
 ## Pre-registration contents (WP0)
 
@@ -268,13 +297,33 @@ runs, or protocol violations exit 1. Any flag exits 2.
 
 ## Steps
 
-- [ ] **WP0 — pre-registration.** Pre-freeze source corrections to
-      `docs/libbrecht-parameters.md` are **done** (2026-07-26; see above). Remaining: decide and
-      register the parameter interpolation scheme and the `chi_0` interpolation; decide whether
-      latent heating enters as a labelled correction or a stated systematic; run
-      coordinator-only calibration probes for every threshold; register the full freeze list
-      above in a tracked protocol module with a hash pin; freeze the parameter table. Nothing
-      sweeps until this commit exists and review accepts it.
+The order below changed on 2026-07-26: **numerical verification now precedes the grid freeze**,
+because calibration showed a small domain produces a different growth regime rather than a
+coarser one, and a grid frozen against that would be wrong at every point.
+
+- [ ] **WP0a — decisions that need no probe.** **DONE** (`7382df4`, `b5a35b5`, `f9e335b`,
+      `5c5537f`, `cbe0f7a`): pre-freeze source corrections to `docs/libbrecht-parameters.md`;
+      the parameter interpolation scheme, with its justification corrected by measurement; the
+      latent-heating treatment; the surface policy (`v5`, not ADR 0009's `v4` — caught by
+      probe); the water-relative σ ladder from printed Table 2.1 (the `sigmaWater()` difference
+      form is unusable warm); and the freeze list itself as a fail-closed module that refuses to
+      emit a protocol manifest while any required item is pending.
+- [ ] **WP0b — resolve the symmetry anomaly.** One calibration run (−5 °C, f = 0.50, 48³)
+      reported `symErr = 0.020915` with noise off where every sibling reported exactly 0.
+      Noise-off runs must retain exact D6h symmetry and the Phase 2b gate enforced zero.
+      Reproduce it, determine whether it is a tie-break/ordering degeneracy, a small-domain
+      artefact, or a defect, and fix or register it. **Blocking**: symmetry is a validity check
+      on every Phase 6 run, so a condition that silently breaks it would invalidate grid points
+      without announcing itself.
+- [ ] **WP0c — the remaining freeze values, after WP3.** The T/σ grid, habit measurement size,
+      metric thresholds, domain budgets, Δx, pressure, seed size, noise amplitude, fill-CFL,
+      residual tolerance and norm, `divTol`, `relaxMaxSweeps`, seed-ensemble size, uncertainty
+      scheme, and the parameter-table freeze itself. Threshold values come from coordinator-only
+      calibration probes whose printed metrics are never citable as a gate result. Two design
+      rules the calibration earned: spend precision on **temperature spacing near the −3.3,
+      −9.9 and −21.5 °C boundaries** rather than on aspect-ratio resolution, because the
+      registered question is where the habit class changes, not the third decimal of a ratio;
+      and choose the measurement size **jointly with the domain**, never independently.
 - [x] **WP1 — Nakaya reference data.** **DONE 2026-07-26**:
       [`research/nakaya-morphology-diagram.md`](../../research/nakaya-morphology-diagram.md).
       Boundaries measured at **−3.3, −9.9, −21.5 °C (±0.5)**, bounding plates → columns →
@@ -290,20 +339,40 @@ runs, or protocol violations exit 1. Any flag exits 2.
       0.8% while our water-minus-ice excess runs 5–20% low, which touches no accepted evidence
       (`sigmaWater` is a diagnostic, not a solver input) but is recorded before any protocol
       sets a far field relative to water saturation.
+- [ ] **WP3 — numerical verification. Runs BEFORE the grid freeze.** Grid, timestep and domain
+      convergence studies at representative conditions, reported with deltas. The domain study
+      is the only thing that speaks to far-field independence, and calibration already shows it
+      is load-bearing rather than pro forma: 28³ gives a needle where 96³ gives a plate at the
+      same temperature and far field. Its deliverable is the smallest domain at which the habit
+      classification stops changing under refinement — which then sets WP0c's domain budgets and
+      measurement size. Also includes the **cross-platform reproducibility control** (same
+      fixture on arm64 and x64; a classification that differs is a fragility finding, reported
+      as one).
+- [ ] **WP3b — the 1D spherical reference solver.** A 1D spherical `LibbrechtKinetics`
+      reference, per `docs/monograph-review.md`, giving the project its only **absolute**
+      accuracy anchor. Convergence studies show self-consistency under refinement; this shows
+      whether the numbers are right. Compared against the 3D solver at conditions where the
+      spherical idealisation is defensible, with the idealisation's own error stated.
 - [ ] **WP2 — sweep harness and diagram artifact.** A flagless registered command that runs the
-      frozen (T, σ) grid on the headless runner, classifies habit at the registered measurement
-      size, excludes domain-contacted runs by name, and emits the model's own diagram as an
-      authenticated artifact with every point traceable to its run. Sweeps cross habit flips by
-      design, so domains may not be pre-shaped to a morphology that is not yet known (ADR 0001
-      cuts both ways): use compromise near-cubic budgets or the two-pass probe-then-refit scheme.
-- [ ] **WP3 — numerical verification.** Grid, timestep and domain convergence studies at the
-      registered representative sweep points, reported with deltas. The domain study is the only
-      thing that speaks to far-field independence.
-- [ ] **WP4 — the no-SDAK reversal probe.** Run the frozen grid with SDAK inactive and answer
-      the charter's question: does the measured large-facet crossing alone produce any habit
-      reversal? Report the model's diagram beside Figure 1's boundaries, with agreements and
-      disagreements both stated, and every systematic from Open questions carried in the report.
-      **Either answer closes this work package.** A null result is written up as a result.
+      frozen (T, σ) grid on the **float64 CPU oracle**, parallel across cores (the Phase 2b v5p
+      pattern: independent processes, bound and fail-closed), classifies habit at the registered
+      measurement size, excludes domain-contacted runs by name, and emits the model's own
+      diagram as an authenticated artifact with every point traceable to its run. Sweeps cross
+      habit flips by design, so domains may not be pre-shaped to a morphology that is not yet
+      known (ADR 0001 cuts both ways): use compromise near-cubic budgets or the two-pass
+      probe-then-refit scheme.
+- [ ] **WP4 — the no-SDAK reversal probe, swept across its own uncertainty.** Run the frozen
+      grid with SDAK inactive and answer the charter's question: does the measured large-facet
+      crossing alone produce any habit reversal? **The nominal parameter values are not run
+      alone.** Two uncertainty axes are registered protocol rather than narrated caveats:
+      (a) **both σ₀ crossing candidates** — the −6 °C raw-measurement crossing and the CAK
+      curves' −9/−10 °C — which `docs/libbrecht-parameters.md` already requires before any
+      conclusion "about the model"; and (b) the **±25% digitization band edges on the cold
+      side**, where uncertainty-consistent draws are known to be able to reverse the basal/prism
+      ordering. A conclusion that flips between draws is not a conclusion, and the sweep is what
+      tells us which we have. Report the model's diagram beside Figure 1's boundaries with
+      agreements and disagreements both stated. **Either answer closes this work package.** A
+      null result is written up as a result.
 - [ ] **WP5 — canonical evidence and closure.** Run the registered gate command flagless at one
       exact clean commit, authenticate the artifacts, obtain independent review to zero blockers
       and zero should-fixes, and record every metric, value, host, command, commit and artifact
@@ -317,9 +386,14 @@ observables — are registered when they open, each with its own frozen protocol
 
 - Calibration. Phase 6 is validation (decision 0003); tuning inputs to improve agreement is the
   one thing the freeze exists to prevent.
-- The 1D spherical reference solver proposed in `docs/monograph-review.md`. It is the project's
-  only absolute accuracy anchor and remains a good idea; this phase runs the charter minimum
-  (convergence studies) and does not take it on.
+- ~~The 1D spherical reference solver.~~ **Moved into scope 2026-07-26 as WP3b** on the
+  operator's accuracy-first priority: convergence studies establish self-consistency, and only
+  an absolute anchor establishes correctness.
+- Running the sweep on the float32 GPU port. Measured 6× slower than the CPU oracle at 28³, and
+  unable to satisfy the frozen absolute `divTol = 1e-7` at all in sustained runs (it sits below
+  the float32 roundoff floor). Reinstating it would need an ADR replacing that tolerance with a
+  relative bound; the GPU may still serve as a labelled diagnostic cross-check, never as the
+  primary or as a gate criterion.
 - A `monopole-matched` third far-field condition (`docs/monograph-review.md`) — an ADR-level
   addition, not a Phase 6 deliverable.
 - An elongated/column seed class, until the ADR that authorizes it for evidence use.
@@ -331,6 +405,32 @@ observables — are registered when they open, each with its own frozen protocol
 
 ## Tried and rejected
 
+- **Run the sweep on the float32 GPU port.** Registered on 2026-07-26 and **retracted the same
+  day on measurement.** The premise was that the GPU would be the same quality and faster.
+  Neither held. Faster: at 28³ the GPU took 32.9 s against the CPU oracle's ≈5 s, because the
+  CPU warm-starts and converges many interface steps in a single relaxation sweep while the GPU
+  cannot submit fewer than a 16-sweep segment plus a queue sync; no size was measured where the
+  GPU wins. Same quality: the GPU cannot satisfy the frozen `divTol = 1e-7` in sustained runs at
+  all — refusals at 20³/24³/28³ showed a relaxation residual of exactly 0 and both ULP distances
+  0, a bit-stationary float32 fixed point, with the divergence residual at 1.0–1.6e-7, a few ULP
+  of the ≈0.596 operand magnitude. The tolerance is absolute and sits below float32's noise
+  floor. Phase 5 had only certified this path for **four** interface steps at 24×24×18, so
+  sustained running was never covered. Two lessons recorded rather than buried: an engine
+  certified on one workload does not transfer to a different workload of different duration, and
+  a plan sentence asserting one engine's necessity from the other engine's cost alone is not
+  evidence. Additionally, sweeps are embarrassingly parallel across 16 CPU cores while the
+  Phase 5 protocol permits one process per physical adapter — so the CPU wins on throughput too,
+  by arrangement rather than by clock.
+- **Choose the habit measurement size independently of the domain size.** Rejected on
+  measurement: at 28³/extent 17 both engines produce a needle (aspect ratio 3.4) where Phase 2b
+  at 96³/extent 61 produces a plate (0.119) at the same temperature and far field. Small
+  domains are a different regime, not a coarser view of the same one, so domain convergence
+  sets the measurement size rather than the reverse.
+- **Carry the parameter uncertainty as stated systematics only.** Rejected under accuracy-first:
+  the ±25% digitization bands are known to admit draws that reverse the cold-side ordering, and
+  the σ₀ crossing sits at −6 °C in one source and −9/−10 °C in the set the solver uses. A result
+  that flips between uncertainty-consistent draws is not a result, and prose cannot tell us
+  which we have. Both axes are swept (WP4).
 - **Make Libbrecht Figure 8.16 the primary comparison target and write an ADR deviating from the
   charter's "Nakaya's" wording.** Rejected on 2026-07-26 once Figure 1 of 1211.5555v1 was
   located: the project does own the classical diagram, the charter asks only for a qualitative
