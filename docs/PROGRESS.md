@@ -947,9 +947,10 @@ start.
 The 2026-07-24 repair audit ran from the real parent checkout
 `G:/Code Files/snowflake`, local `main` `e04d250f159aa2cca172373b747a19cf489716b9`.
 That commit contained all 34 local Phase 5 commits and was 34 ahead of `origin/main`. The first
-repair commit `758c06d` sits directly on it; **nothing has been pushed**. The redundant nested
-clone `out/worktrees/phase5-wp1` was clean and byte-identical at `e04d250`, and is deliberately
-not removed while repair work remains open.
+repair commit `758c06d` sits directly on it. (Phase 5 was pushed to `origin/main` at `d8a8a39`
+on completion, 2026-07-26.) The redundant nested clone `out/worktrees/phase5-wp1` was clean and
+byte-identical at `e04d250`; it was kept while repair work was open and removed at Phase 5
+closeout, having never been referenced by any published evidence.
 
 **Blocker (2) — the G-G Dirichlet ledger — is repaired at `758c06d` and confirmed on the
 registered hardware lane. No canonical `gate5-lane` or `gate5` bundle has been produced since
