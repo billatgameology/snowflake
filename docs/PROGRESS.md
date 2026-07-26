@@ -901,7 +901,7 @@ immutable.
 
 ## Next step
 
-**Phases 2b, 3, 4, and Phase 5 WP1–WP5 are complete. Phase 5 WP6 is next.**
+**Phases 2b, 3, 4, and Phase 5 WP1–WP6 are complete. Phase 5 WP7 is next.**
 WP4 implementation `2788cc060116ce8021911248771aa3c148b8fe63` and documentation closure
 `e91dd1dd3f9603c029276b194bb6d535a374b989` have zero-finding independent review. Its canonical
 D3D12 artifact is `out/wp4-canonical-2788cc0.json`, SHA-256
@@ -1100,11 +1100,22 @@ every numeric quantity with PNG deltas traced to named causes (S2 status line, S
 tick-rate text, and a backend-name change a control run proved predates the pin).
 `PHASE5_PROTOCOL_SHA256` is unmoved; `out/phase5/` WP5 evidence untouched.
 
-**Next action:** independent review of WP6 to zero blockers and zero should-fixes (same
-reviewer); then check WP6 in the plan and begin WP7. Known review-relevant disclosures: the
-gate's label-to-fixture fallback will attribute app-path performance readbacks to the plate
-fixture (flagged for WP7); GPU-mode raycast picking is deferred with named-probe pickCell as
-the floor; growthPropensity is refused by name in GPU pick readouts.
+**WP6 is CLOSED (2026-07-25): the same independent reviewer returned zero blockers and zero
+should-fixes over two rounds** — round one verified every scope clause from primary sources
+(its own hardware run of `phase5-wp6.mjs` reproducing the deterministic quantities exactly,
+its own byte-comparison of all 20 Phase 4 captures, its own backend-control run, and the full
+root suite at 62 files / 1,110 tests) and returned one file-count transcription should-fix,
+repaired at docs-only `f188573` and verified in round two.
+
+**Next action:** begin WP7. First fix the gate's label-to-fixture readback attribution
+(reviewer-confirmed: none of the 1,195 app-path performance readback labels name a fixture, so
+the unmodified gate would attribute them all to the plate fixture); then run all
+preconditions, execute the frozen Windows commands at one exact clean commit, authenticate and
+aggregate the bundle, inspect the interactive preview evidence, obtain clean review, and
+record every metric, value, host, command, commit and artifact hash in PROGRESS with the
+Windows/Chromium/D3D12 scope stated prominently. Standing disclosures: GPU-mode raycast
+picking is deferred with named-probe pickCell as the floor; growthPropensity is refused by
+name in GPU pick readouts.
 
 Then run focused tests, Rule 7, both typechecks, the app build, and exact root `npm test`; commit
 locally so the tree is tracked-clean; produce fresh `gate5-lane` / `gate5` D3D12 evidence — which
