@@ -1,35 +1,51 @@
 #!/usr/bin/env node
-// Canonical Phase 5 preview responsiveness probe.
+// Canonical Phase 5 preview responsiveness probe — WP6 S6: reconciled onto the REAL app path.
 //
 // This probe measures what `PHASE5_PERFORMANCE` registered, and nothing cheaper:
 //
-//   * the page IS the Phase 3/4 application (`app/index.html` + `app/src/main.ts`), served by
-//     Vite and booted in the frozen Chromium lane;
+//   * the page IS the Phase 3/4/5 application (`app/index.html` + `app/src/main.ts`), served
+//     by Vite from the app root and booted in the frozen Chromium lane;
+//   * the application acquires its OWN production device (S2 `acquireProductionGpuDevice`:
+//     the high-performance adapter through `requestCheckedGpuDevice` against the frozen
+//     Phase 5 features/limits) and shares it with its renderer — the probe intercepts
+//     nothing and injects nothing; a passive document-start hook only COUNTS adapter/device
+//     requests so silent re-acquisitions are observed from the first moment;
+//   * the solver is the application's OWN `GpuEngine` (WP6 S3) at the registered frozen
+//     preview budgets, selected through the application's real budget pane row;
 //   * the registered `editScript` is executed as FIVE trusted DOM interactions per sample on
 //     the application's own Tweakpane controls and its own scene canvas — never by calling a
 //     solver API directly. Every registered edit event is asserted `isTrusted`;
-//   * the production GPU package runs on the SAME `GPUDevice` that Three.js presents the
-//     application with. The device is created once, through the production
-//     `requestCheckedGpuDevice` path, by an init script that intercepts the renderer's own
-//     device request before the application boots;
-//   * each edit carries a unique, monotonically increasing edit generation accepted by a
-//     production `GpuSubmissionController`, and the rendered generation is read back OUT OF
-//     THE GPU rather than assumed;
-//   * every sample ends in a real WebGPU canvas frame: a compute pass paints the solver's
-//     resident vapor slice into a storage texture and a render pass presents it. First-valid
-//     frame time is queue completion (`onSubmittedWorkDone`) plus a presentation receipt
-//     (`requestAnimationFrame`);
-//   * per-frame readbacks are frame-scoped (`beginDisplayFrame`) and compact sub-ranges, so
-//     the registered zero full-field-per-display-frame budget is exercised, not skipped;
+//   * every registered edit advances a unique, monotonically increasing generation
+//     acknowledged by the application's PRODUCTION edit submission controller (D3): the
+//     preset edit through the app's own live preset→environment handler, the slice edit
+//     through the app's own display-controls sync, the abrupt event through the production
+//     decision-0011 queue seam (`gpuQueueEnvironmentEdit`), and step / named-probe requests
+//     through the `gpuRegisterProbeEdit` seam — all four routes acknowledge on the SAME
+//     app-owned controller, and acknowledgement timestamps are at-or-after observations of
+//     the controller's acceptance (a conservative bound, never an earlier claim);
+//   * solver and display work submit through the application's OWN bounded submission
+//     controllers: `segmentWallMs` is the app solver controller's completed-record wall
+//     times for the sample window (G-G cycle work, instrument reads, S4 extraction/overlay/
+//     slice display passes, and the slice-repaint display edit);
+//   * first-valid-frame is taken from the application's OWN rendered frame: the app's Three
+//     animation loop redraws the S4 GPU view every frame from the display-owned buffers, so
+//     the receipt is a double-rAF presentation timestamp AFTER every production submission
+//     of the sample completed, with validity evidenced by audited compact reads of the very
+//     buffers that frame drew (`gpuViewSample`), the app-rendered slice index, the app's
+//     posted snapshot tick, and the production edit controller's generation;
+//   * the audit is the application's own production `GpuReadbackAudit`
+//     (`__vccDebug.gpuAuditRecords`): the app's render path opens NO display frames and
+//     performs NO readbacks per frame, so the registered zero full-field-per-display-frame
+//     budget is exercised over the app's real audit rather than a probe-owned one;
 //   * observed error, device-loss and re-acquisition state is reported as observed. Nothing
 //     here substitutes a literal zero for a quantity the run did not measure.
 //
-// The application does not yet run the solver on the GPU — that is WP6. Until it does, the
-// GPU-resident slice preview surface created by this probe is the rendered frame, and it is
-// presented from the application's own device, inside the application's own page, in response
-// to the application's own control events.
+// The registered editScript entries, preview cases, warmup/sample counts, and every frozen
+// threshold (`editAcknowledgementMs`, `firstValidPostEditFrameMs`, `p99SubmissionSegmentMs`,
+// `maxSubmissionSegmentMs`, permitted losses/errors/retries/full-field reads) are
+// byte-identical to the accepted protocol; `PHASE5_PROTOCOL_SHA256` is untouched.
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync } from "node:fs";
 import os from "node:os";
 import process from "node:process";
 import { resolve } from "node:path";
@@ -43,9 +59,11 @@ import {
 } from "../../runner/src/phase5-protocol.ts";
 
 const repoRoot = resolve(import.meta.dirname, "..", "..");
+const appDir = resolve(repoRoot, "app");
 
-/** The device label the interception hook uses to recognize its own production request. */
-const PROBE_DEVICE_LABEL = "vcc-phase5-performance-device";
+/** The label the app's production shared device is created under (gpudevice.ts
+ * APP_GPU_DEVICE_LABEL; asserted against the observed device status, never assumed). */
+const APP_DEVICE_LABEL = "vcc-app-shared-device";
 const VIEWPORT = { width: 1440, height: 1200 };
 /** Scene-canvas points used by the `request-named-probes` interaction (alternating). */
 const PROBE_POINTER_POINTS = [
@@ -91,7 +109,10 @@ const EDIT_SCRIPT_BINDINGS = [
   },
 ];
 
-/** Preview cases: the registered budgets plus the preset pair each case's UI alternates. */
+/** Preview cases: the registered budgets plus the preset pair each case's UI alternates.
+ * The run configuration matches the accepted probe's preview cases exactly: seed 1,
+ * noiseEpsilon 0, hexPrism domain, dirichlet far field, radius-2/thickness-1 seed (the
+ * app's own initial-state factory constructs it). */
 const PREVIEW_CASES = [
   {
     id: "preview-plate",
@@ -108,267 +129,132 @@ const PREVIEW_CASES = [
 /** The two registered Phase 4 scenarios whose environments the abrupt-event edit applies. */
 const SCENARIO_PAIR = ["A-TIMELINE", "A-BRANCH-DENDRITE"];
 
-// One workgroup paints the whole slice plane and hashes both the plane it painted and the
-// plane the previous slice index would have painted from the SAME field state. That second
-// hash is what proves a slice edit changed the rendered output rather than only moving a
-// control: it removes the confound of the field having advanced a cycle.
-const SLICE_FRAME_WGSL = /* wgsl */ `
-struct SliceControls {
-  nx: u32,
-  ny: u32,
-  nz: u32,
-  sliceIndex: u32,
-  previousSliceIndex: u32,
-  editGeneration: u32,
-  ordinal: u32,
-  scale: f32,
-}
-
-@group(0) @binding(0) var<uniform> controls: SliceControls;
-@group(0) @binding(1) var<storage, read> vapor: array<f32>;
-@group(0) @binding(2) var<storage, read_write> probe: array<u32>;
-@group(0) @binding(3) var sliceTarget: texture_storage_2d<rgba8unorm, write>;
-
-var<workgroup> currentHash: atomic<u32>;
-var<workgroup> priorHash: atomic<u32>;
-var<workgroup> paintedTexels: atomic<u32>;
-
-fn cellOf(x: u32, j: u32, y: u32) -> u32 {
-  return y * controls.nx * controls.ny + j * controls.nx + x;
-}
-
-fn shade(value: f32) -> vec4<f32> {
-  let unit = clamp(value / controls.scale, 0.0, 1.0);
-  return vec4<f32>(unit, unit * unit, sqrt(unit), 1.0);
-}
-
-@compute @workgroup_size(256)
-fn paintSlice(@builtin(local_invocation_index) lane: u32) {
-  if (lane == 0u) {
-    atomicStore(&currentHash, 0u);
-    atomicStore(&priorHash, 0u);
-    atomicStore(&paintedTexels, 0u);
-  }
-  workgroupBarrier();
-  let width = controls.nx;
-  let height = controls.nz;
-  let total = width * height;
-  var localCurrent: u32 = 0u;
-  var localPrior: u32 = 0u;
-  var localPainted: u32 = 0u;
-  var texel: u32 = lane;
-  while (texel < total) {
-    let x = texel % width;
-    let y = texel / width;
-    let currentColor = shade(vapor[cellOf(x, controls.sliceIndex, y)]);
-    let priorColor = shade(vapor[cellOf(x, controls.previousSliceIndex, y)]);
-    textureStore(sliceTarget, vec2<u32>(x, y), currentColor);
-    let salt = texel * 2246822519u + 1u;
-    localCurrent = localCurrent ^ (pack4x8unorm(currentColor) * 2654435761u + salt);
-    localPrior = localPrior ^ (pack4x8unorm(priorColor) * 2654435761u + salt);
-    localPainted = localPainted + 1u;
-    texel = texel + 256u;
-  }
-  atomicXor(&currentHash, localCurrent);
-  atomicXor(&priorHash, localPrior);
-  atomicAdd(&paintedTexels, localPainted);
-  workgroupBarrier();
-  if (lane == 0u) {
-    probe[0] = controls.editGeneration;
-    probe[1] = controls.sliceIndex;
-    probe[2] = atomicLoad(&currentHash);
-    probe[3] = controls.previousSliceIndex;
-    probe[4] = atomicLoad(&priorHash);
-    probe[5] = atomicLoad(&paintedTexels);
-    probe[6] = controls.ordinal;
-    probe[7] = total;
-  }
-}
-`;
-
-const SLICE_PREVIEW_WGSL = /* wgsl */ `
-struct Varying {
-  @builtin(position) clipPosition: vec4<f32>,
-  @location(0) texCoord: vec2<f32>,
-}
-
-@group(0) @binding(0) var sliceTexture: texture_2d<f32>;
-@group(0) @binding(1) var sliceSampler: sampler;
-
-@vertex
-fn previewVertex(@builtin(vertex_index) index: u32) -> Varying {
-  var corners = array<vec2<f32>, 3>(
-    vec2<f32>(-1.0, -3.0),
-    vec2<f32>(-1.0, 1.0),
-    vec2<f32>(3.0, 1.0)
-  );
-  let corner = corners[index];
-  // The WGSL reserved keyword cannot name a value here; the pinned Chromium compiler rejects
-  // it as an identifier, so the interpolated record is named plainly on both stages.
-  var interpolated: Varying;
-  interpolated.clipPosition = vec4<f32>(corner, 0.0, 1.0);
-  interpolated.texCoord = vec2<f32>((corner.x + 1.0) * 0.5, (1.0 - corner.y) * 0.5);
-  return interpolated;
-}
-
-@fragment
-fn previewFragment(interpolated: Varying) -> @location(0) vec4<f32> {
-  return textureSample(sliceTexture, sliceSampler, interpolated.texCoord);
-}
-`;
-
 /**
- * Serve the application's OWN index.html, with only the module path rebased so the repository
- * root can also serve `core/`, `solver-cpu/`, `solver-gpu/` and `runner/` to the same origin.
- * Any other difference from the shipped page would make this measurement a different page's.
+ * Runs at document start, BEFORE the application boots. It changes NOTHING about how the
+ * application acquires its device — the app's own S2 production path runs untouched — it
+ * only counts adapter/device requests so a silent re-acquisition is observed from the first
+ * moment any code could make one, and retains the first adapter's info for provenance.
  */
-function applicationPageHtml() {
-  const original = readFileSync(resolve(repoRoot, "app", "index.html"), "utf8");
-  const rebased = original.replace('src="/src/main.ts"', 'src="/app/src/main.ts"');
-  if (rebased === original) {
-    throw new Error("the application page no longer loads /src/main.ts");
-  }
-  return rebased;
-}
-
-/**
- * Runs at document start, BEFORE the application boots. It intercepts the adapter/device
- * acquisition so that:
- *   - the renderer and the production solver share one device;
- *   - that device is created by the production `requestCheckedGpuDevice` path against the
- *     frozen features and limits;
- *   - uncaptured errors, device loss and silent re-acquisitions are observed from the first
- *     moment the device exists, not sampled later.
- */
-function installDeviceInterception(input) {
+function installDeviceObservation() {
   const state = {
-    label: input.deviceLabel,
     adapterRequests: 0,
     deviceRequests: 0,
-    adapter: null,
-    device: null,
-    devicePromise: null,
-    deviceError: null,
-    uncapturedErrors: [],
-    deviceLossRecords: [],
     reacquisitions: [],
+    adapterInfo: null,
+    adapterFeatures: null,
   };
-  window.__vccPhase5Device = state;
+  window.__vccPhase5DeviceObserver = state;
+  if (navigator.gpu === undefined) return;
   const nativeRequestAdapter = navigator.gpu.requestAdapter.bind(navigator.gpu);
-  navigator.gpu.requestAdapter = function requestAdapter(options) {
+  navigator.gpu.requestAdapter = async function requestAdapter(options) {
     state.adapterRequests++;
     if (state.adapterRequests > 1) {
       state.reacquisitions.push({ kind: "adapter", ordinal: state.adapterRequests });
     }
-    // The other Phase 5 probes measure the high-performance adapter; a compatibility-level
-    // adapter would silently narrow the frozen limits this lane must be measured against.
-    return nativeRequestAdapter({
-      ...(options ?? {}),
-      featureLevel: undefined,
-      powerPreference: "high-performance",
-    });
+    const adapter = await nativeRequestAdapter(options);
+    if (adapter !== null && state.adapterInfo === null) {
+      state.adapterInfo = {
+        vendor: adapter.info.vendor,
+        architecture: adapter.info.architecture,
+        device: adapter.info.device,
+        description: adapter.info.description,
+        backend: adapter.info.backend,
+        type: adapter.info.type,
+        driver: adapter.info.driver,
+      };
+      state.adapterFeatures = [...adapter.features].sort();
+    }
+    return adapter;
   };
   const nativeRequestDevice = GPUAdapter.prototype.requestDevice;
   GPUAdapter.prototype.requestDevice = function requestDevice(descriptor) {
-    if (descriptor !== undefined && descriptor !== null && descriptor.label === state.label) {
-      return nativeRequestDevice.call(this, descriptor);
-    }
     state.deviceRequests++;
     if (state.deviceRequests > 1) {
       state.reacquisitions.push({ kind: "device", ordinal: state.deviceRequests });
     }
-    if (state.devicePromise === null) {
-      state.adapter = this;
-      const adapter = this;
-      state.devicePromise = (async () => {
-        const production = await import(input.productionModuleUrl);
-        const requirements = {
-          requiredFeatures: input.requiredFeatures,
-          requiredLimits: input.requiredLimits,
-        };
-        const device = await production.requestCheckedGpuDevice(
-          adapter,
-          requirements,
-          requirements,
-          state.label,
-        );
-        device.addEventListener("uncapturederror", (event) => {
-          state.uncapturedErrors.push(String(event.error.message));
-        });
-        void device.lost.then((info) => {
-          state.deviceLossRecords.push({
-            reason: String(info.reason),
-            message: String(info.message),
-          });
-        });
-        state.device = device;
-        return device;
-      })();
-      state.devicePromise.catch((error) => {
-        state.deviceError = error instanceof Error ? error.message : String(error);
-      });
-    }
-    return state.devicePromise;
+    return nativeRequestDevice.call(this, descriptor);
   };
 }
 
 /**
- * The in-page bridge. It owns nothing the application owns: it observes the application's own
- * trusted control events, translates each into one production GPU edit at a unique generation,
- * and renders the resulting resident state to a WebGPU surface on the application's device.
+ * The in-page bridge. It owns NO GPU resources and steps NO solver: it observes the
+ * application's own trusted control events, verifies each registered edit's effect from the
+ * application's own posted state, and reads the application's own production controllers,
+ * audit, and rendered-frame source buffers through the S6 debug seams.
  */
-function installPreviewBridge(input) {
-  const deviceState = window.__vccPhase5Device;
-  if (deviceState === undefined) throw new Error("the device interception hook did not run");
-  if (deviceState.deviceError !== null) {
-    throw new Error(`the shared GPU device failed: ${deviceState.deviceError}`);
-  }
-  const device = deviceState.device;
-  if (device === null || device === undefined) {
-    throw new Error("the application never acquired a GPU device");
+function installAppProbeBridge(input) {
+  const dbg = window.__vccDebug;
+  if (dbg === undefined) throw new Error("__vccDebug is absent");
+  if (dbg.engine() !== "gpu") {
+    throw new Error(`the application engine is ${dbg.engine()}, not the GPU engine`);
   }
 
   const bridge = {
     input,
-    device,
     core: null,
-    cpu: null,
-    production: null,
     scenarios: null,
     appProtocol: null,
     controls: new Map(),
-    computePipeline: null,
-    renderPipeline: null,
-    sampler: null,
-    canvasContext: null,
-    canvasFormat: null,
-    uniformBuffer: null,
-    probeBuffer: null,
-    sliceTexture: null,
-    previewBindGroup: null,
-    audit: null,
-    editSubmissions: null,
-    solverSubmissions: null,
-    solver: null,
-    arena: null,
     activeCase: null,
-    editGeneration: 0,
+    ordinal: null,
     queue: Promise.resolve(),
     armed: null,
     pendingEdits: new Map(),
-    ordinal: null,
     unarmedTrustedEvents: 0,
     untrustedRegisteredEvents: 0,
-    sliceIndex: 0,
-    previousSliceIndex: 0,
-    appSliceBaseIndex: 0,
-    lastPaintedHash: null,
-    shaderMessages: [],
   };
   window.__vccPhase5Bridge = bridge;
 
   function fail(message) {
     throw new Error(message);
+  }
+
+  function sleep(ms) {
+    return new Promise((accept) => {
+      setTimeout(accept, ms);
+    });
+  }
+
+  async function waitFor(label, predicate, timeoutMs, intervalMs = 5) {
+    const deadline = performance.now() + timeoutMs;
+    for (;;) {
+      const value = predicate();
+      if (value) return value;
+      if (performance.now() > deadline) fail(`probe wait timed out: ${label}`);
+      await sleep(intervalMs);
+    }
+  }
+
+  function controllerReport() {
+    const report = dbg.gpuSubmissionRecords();
+    if (report === null) fail("the application has no GPU submission controllers");
+    return report;
+  }
+
+  function editGenerationNow() {
+    return controllerReport().editGeneration;
+  }
+
+  function snapshotNow() {
+    const snapshot = dbg.gpuSnapshot();
+    if (snapshot === null) fail("the application has posted no GPU snapshot");
+    return snapshot;
+  }
+
+  /** Key-order-independent environment identity (snapshot envs and scenario/preset envs
+   * are built by different code paths; values, not key order, are the comparison). */
+  function environmentKey(environment) {
+    return JSON.stringify([
+      environment.rho,
+      environment.phi,
+      [...environment.kappa],
+      [...environment.mu],
+      [...environment.ggThreshBeta],
+    ]);
+  }
+
+  function readoutText() {
+    return document.getElementById("readout")?.textContent ?? "";
   }
 
   function paneRowValue(labelPrefix) {
@@ -406,6 +292,9 @@ function installPreviewBridge(input) {
   }
 
   function tag(name, element) {
+    if (element === null || element === undefined) {
+      fail(`the application control element is absent: ${name}`);
+    }
     element.dataset.vccPhase5Control = name;
     bridge.controls.set(name, element);
   }
@@ -415,182 +304,6 @@ function installPreviewBridge(input) {
     const option = select.options[select.selectedIndex];
     if (option === undefined) fail(`${name} has no selected option`);
     return (option.textContent ?? "").trim();
-  }
-
-  bridge.setup = async () => {
-    const [core, cpu, production, scenarios, appProtocol] = await Promise.all([
-      import(input.coreModuleUrl),
-      import(input.cpuModuleUrl),
-      import(input.productionModuleUrl),
-      import(input.scenariosModuleUrl),
-      import(input.appProtocolModuleUrl),
-    ]);
-    bridge.core = core;
-    bridge.cpu = cpu;
-    bridge.production = production;
-    bridge.scenarios = scenarios;
-    bridge.appProtocol = appProtocol;
-
-    tag("runConfigFolder", paneFolder("run config"));
-    tag("phase4Folder", paneFolder("phase 4"));
-    tag("stepButton", paneButton("step (one tick)"));
-    tag("presetSelect", paneRowValue("preset (").querySelector(".tp-lstv_s"));
-    tag("scenarioSelect", paneRowValue("scenario (").querySelector(".tp-lstv_s"));
-    tag("sliceTrack", paneRowValue("j index").querySelector(".tp-sldv_t"));
-    const sceneCanvas = document.querySelector("#scene canvas");
-    if (sceneCanvas === null) fail("the application scene canvas is absent");
-    tag("sceneCanvas", sceneCanvas);
-
-    // The GPU-resident preview surface. `pointer-events: none` keeps it from ever intercepting
-    // an interaction meant for one of the application's own controls.
-    const preview = document.createElement("canvas");
-    preview.id = "vcc-phase5-slice-preview";
-    preview.width = 256;
-    preview.height = 256;
-    preview.style.cssText =
-      "position:fixed;right:8px;bottom:8px;width:192px;height:192px;z-index:20;" +
-      "border:1px solid #2a3342;pointer-events:none";
-    document.body.appendChild(preview);
-    const context = preview.getContext("webgpu");
-    if (context === null) fail("the preview surface has no WebGPU context");
-    const format = navigator.gpu.getPreferredCanvasFormat();
-    context.configure({ device: bridge.device, format });
-    bridge.canvasContext = context;
-    bridge.canvasFormat = format;
-
-    async function compile(label, code) {
-      const module = bridge.device.createShaderModule({ label, code });
-      const info = await module.getCompilationInfo();
-      for (const message of info.messages) {
-        bridge.shaderMessages.push({
-          label,
-          type: message.type,
-          lineNum: message.lineNum,
-          linePos: message.linePos,
-          message: message.message,
-        });
-      }
-      const errors = info.messages.filter((message) => message.type === "error");
-      if (errors.length > 0) {
-        fail(`${label} shader compilation failed: ${errors.map((m) => m.message).join("; ")}`);
-      }
-      return module;
-    }
-
-    const frameModule = await compile("vcc:phase5:slice-frame", input.sliceFrameShader);
-    const previewModule = await compile("vcc:phase5:slice-preview", input.slicePreviewShader);
-    bridge.computePipeline = await bridge.device.createComputePipelineAsync({
-      label: "vcc:phase5:slice-frame",
-      layout: "auto",
-      compute: { module: frameModule, entryPoint: "paintSlice" },
-    });
-    bridge.renderPipeline = await bridge.device.createRenderPipelineAsync({
-      label: "vcc:phase5:slice-preview",
-      layout: "auto",
-      vertex: { module: previewModule, entryPoint: "previewVertex" },
-      fragment: {
-        module: previewModule,
-        entryPoint: "previewFragment",
-        targets: [{ format }],
-      },
-      primitive: { topology: "triangle-list" },
-    });
-    bridge.sampler = bridge.device.createSampler({
-      label: "vcc:phase5:slice-sampler",
-      magFilter: "nearest",
-      minFilter: "nearest",
-    });
-    bridge.uniformBuffer = bridge.device.createBuffer({
-      label: "vcc:phase5:slice-controls",
-      size: 32,
-      usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
-    });
-    bridge.probeBuffer = bridge.device.createBuffer({
-      label: "vcc:phase5:frame-probe",
-      size: 256,
-      usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC,
-    });
-
-    bridge.audit = new production.GpuReadbackAudit();
-    bridge.editSubmissions = new production.GpuSubmissionController(bridge.device);
-    bridge.solverSubmissions = new production.GpuSubmissionController(bridge.device);
-    bridge.appSliceBaseIndex = window.__vccDebug.renderedSliceIndex();
-
-    for (const type of input.observedEventTypes) {
-      // Bubble phase on `window`: every listener the application itself installed on the
-      // control, and on every ancestor, has already run, so the observed state is the state
-      // the application accepted for that interaction.
-      window.addEventListener(type, onRegisteredEvent, false);
-    }
-
-    return {
-      controls: [...bridge.controls.keys()],
-      canvasFormat: format,
-      appSliceBaseIndex: bridge.appSliceBaseIndex,
-      shaderMessages: bridge.shaderMessages,
-      backend: window.__vccDebug.backend,
-      deviceFeatures: [...bridge.device.features].sort(),
-      deviceLimits: Object.fromEntries(
-        Object.keys(input.requiredLimits).map((name) => [
-          name,
-          Number(bridge.device.limits[name]),
-        ]),
-      ),
-      adapterInfo: {
-        vendor: deviceState.adapter.info.vendor,
-        architecture: deviceState.adapter.info.architecture,
-        device: deviceState.adapter.info.device,
-        description: deviceState.adapter.info.description,
-        backend: deviceState.adapter.info.backend,
-        type: deviceState.adapter.info.type,
-        driver: deviceState.adapter.info.driver,
-      },
-      adapterFeatures: [...deviceState.adapter.features].sort(),
-    };
-  };
-
-  function onRegisteredEvent(event) {
-    const armed = bridge.armed;
-    if (armed === null) {
-      if (event.isTrusted) bridge.unarmedTrustedEvents++;
-      return;
-    }
-    if (event.type !== armed.eventType) return;
-    const element = bridge.controls.get(armed.control);
-    const target = event.target;
-    if (!(target instanceof Node) || !(element === target || element.contains(target))) return;
-    bridge.armed = null;
-    if (!event.isTrusted) {
-      // A synthesized event is not a UI interaction. It is recorded and left unserviced, so
-      // the awaiting driver fails by name instead of measuring a scripted mutation.
-      bridge.untrustedRegisteredEvents++;
-      return;
-    }
-    const editedAtMs = event.timeStamp;
-    const generation = ++bridge.editGeneration;
-    // Acceptance of the new generation id by the production submission queue. This is the
-    // acknowledgement the protocol bounds; the work it schedules is bounded separately by the
-    // first-valid-frame budget.
-    const acceptedAtMs = bridge.editSubmissions.acknowledgeEdit(generation);
-    const record = {
-      index: armed.index,
-      entry: armed.entry,
-      control: armed.control,
-      eventType: event.type,
-      trusted: true,
-      editGeneration: generation,
-      acceptedGeneration: bridge.editSubmissions.currentGeneration(),
-      editedAtMs,
-      acceptedAtMs,
-      acknowledgementMs: acceptedAtMs - editedAtMs,
-    };
-    bridge.ordinal.edits.push(record);
-    const work = bridge.queue.then(() => applyEdit(record));
-    bridge.queue = work.then(
-      () => undefined,
-      () => undefined,
-    );
-    bridge.pendingEdits.set(armed.index, work);
   }
 
   function environmentOfSelectedPreset() {
@@ -627,198 +340,334 @@ function installPreviewBridge(input) {
     };
   }
 
-  function summarizeTransition(report) {
-    return {
-      operator: report.operator,
-      phase: report.boundary.phase,
-      completedCycles: report.boundary.completedCycles,
-      tick: report.boundary.tick,
-      changed:
-        JSON.stringify(report.beforeEnvironment) !== JSON.stringify(report.afterEnvironment),
-      beforeEnvironment: report.beforeEnvironment,
-      afterEnvironment: report.afterEnvironment,
-    };
-  }
+  bridge.setup = async () => {
+    const [core, scenarios, appProtocol] = await Promise.all([
+      import(input.coreModuleUrl),
+      import(input.scenariosModuleUrl),
+      import(input.appProtocolModuleUrl),
+    ]);
+    bridge.core = core;
+    bridge.scenarios = scenarios;
+    bridge.appProtocol = appProtocol;
 
-  async function applyEdit(record) {
-    const solver = bridge.solver;
-    const activeCase = bridge.activeCase;
-    const label = `${activeCase.id}:${bridge.ordinal.phase}:${bridge.ordinal.sample}`;
-    if (record.entry === "change-one-valid-operator-control") {
-      const selection = environmentOfSelectedPreset();
-      const tickBefore = solver.tick();
-      record.control = selection.control;
-      record.transition = summarizeTransition(
-        solver.applyTimelineEnvironment(selection.environment),
-      );
-      record.tickBefore = tickBefore;
+    tag("runConfigFolder", paneFolder("run config"));
+    tag("phase4Folder", paneFolder("phase 4"));
+    tag("stepButton", paneButton("step (one tick)"));
+    tag("presetSelect", paneRowValue("preset (").querySelector(".tp-lstv_s"));
+    tag("scenarioSelect", paneRowValue("scenario (").querySelector(".tp-lstv_s"));
+    tag("budgetSelect", paneRowValue("gpu budget (").querySelector(".tp-lstv_s"));
+    // D2 guarantee: the `#scene canvas` FIRST match is Three's pointer/orbit canvas; the S4
+    // GPU view canvas sits after it with pointer-events: none.
+    const sceneCanvas = document.querySelector("#scene canvas");
+    if (sceneCanvas === null) fail("the application scene canvas is absent");
+    tag("sceneCanvas", sceneCanvas);
+
+    for (const type of input.observedEventTypes) {
+      // Bubble phase on `window`: every listener the application itself installed on the
+      // control, and on every ancestor, has already run, so the observed state is the state
+      // the application accepted for that interaction.
+      window.addEventListener(type, onRegisteredEvent, false);
+    }
+
+    const deviceStatus = dbg.gpuDeviceStatus();
+    return {
+      controls: [...bridge.controls.keys()],
+      backend: dbg.backend,
+      engine: dbg.engine(),
+      budget: dbg.gpuBudget(),
+      canvasFormat: navigator.gpu.getPreferredCanvasFormat(),
+      deviceStatus,
+    };
+  };
+
+  /**
+   * Per-entry acknowledgement, SYNCHRONOUS in the bubble listener. Two routes exist, both
+   * ending at the application's production edit controller:
+   *   - app-native (preset → queueEnvironmentEdit; slice → registerViewEdit via the
+   *     display-controls sync): the app's own handler acknowledged during dispatch, so the
+   *     listener observes the advanced generation and stamps an at-or-after time;
+   *   - seam-routed (scenario → gpuQueueEnvironmentEdit; step and named probes →
+   *     gpuRegisterProbeEdit): the seam acknowledges NOW and returns the accepted
+   *     generation with its at-or-after acceptance time.
+   */
+  function acknowledgeRegisteredEdit(record) {
+    if (
+      record.entry === "change-one-valid-operator-control" ||
+      record.entry === "move-slice"
+    ) {
+      if (record.entry === "change-one-valid-operator-control") {
+        const selection = environmentOfSelectedPreset();
+        record.control = selection.control;
+        record.expectedEnvironment = selection.environment;
+      }
+      const generation = editGenerationNow();
+      if (generation === record.generationBefore + 1) {
+        record.editGeneration = generation;
+        record.acceptedGeneration = generation;
+        record.acceptedAtMs = performance.now();
+        record.acknowledgementMs = record.acceptedAtMs - record.editedAtMs;
+        record.acknowledgementSource =
+          "application-handler (production edit controller; observed at bubble listener)";
+      } else {
+        // Deferred handler emission: the bounded applyEdit poll observes the acceptance.
+        record.pendingAcknowledgement = true;
+      }
       return;
     }
     if (record.entry === "apply-one-valid-abrupt-event-at-completed-boundary") {
       const selection = environmentOfSelectedScenario();
-      const tickBefore = solver.tick();
       record.control = selection.control;
-      record.transition = summarizeTransition(
-        solver.applyTimelineEnvironment(selection.environment),
+      record.expectedEnvironment = selection.environment;
+      const accepted = dbg.gpuQueueEnvironmentEdit(selection.environment);
+      if (accepted === null) fail("the application refused the environment edit (no GPU engine)");
+      record.editGeneration = accepted.generation;
+      record.acceptedGeneration = editGenerationNow();
+      record.acceptedAtMs = accepted.acceptedAtMs;
+      record.acknowledgementMs = accepted.acceptedAtMs - record.editedAtMs;
+      record.acknowledgementSource =
+        "gpuQueueEnvironmentEdit (production decision-0011 environment queue)";
+      return;
+    }
+    const accepted = dbg.gpuRegisterProbeEdit();
+    if (accepted === null) fail("the application refused the probe edit (no GPU engine)");
+    record.editGeneration = accepted.generation;
+    record.acceptedGeneration = editGenerationNow();
+    record.acceptedAtMs = accepted.acceptedAtMs;
+    record.acknowledgementMs = accepted.acceptedAtMs - record.editedAtMs;
+    record.acknowledgementSource = "gpuRegisterProbeEdit (production edit controller)";
+  }
+
+  function onRegisteredEvent(event) {
+    const armed = bridge.armed;
+    if (armed === null) {
+      if (event.isTrusted) bridge.unarmedTrustedEvents++;
+      return;
+    }
+    if (event.type !== armed.eventType) return;
+    const element = bridge.controls.get(armed.control);
+    const target = event.target;
+    if (!(target instanceof Node) || !(element === target || element.contains(target))) return;
+    bridge.armed = null;
+    if (!event.isTrusted) {
+      // A synthesized event is not a UI interaction. It is recorded and left unserviced, so
+      // the awaiting driver fails by name instead of measuring a scripted mutation.
+      bridge.untrustedRegisteredEvents++;
+      return;
+    }
+    const record = {
+      index: armed.index,
+      entry: armed.entry,
+      control: armed.control,
+      eventType: event.type,
+      trusted: true,
+      editedAtMs: event.timeStamp,
+      generationBefore: armed.generationBefore,
+      tickBefore: armed.tickBefore,
+      environmentBefore: armed.environmentBefore,
+      sliceIndexBefore: armed.sliceIndexBefore,
+      expectedSliceIndex: armed.expectedSliceIndex,
+      solverRecordsBefore: armed.solverRecordsBefore,
+    };
+    acknowledgeRegisteredEdit(record);
+    bridge.ordinal.edits.push(record);
+    const work = bridge.queue.then(() => applyEdit(record));
+    bridge.queue = work.then(
+      () => undefined,
+      () => undefined,
+    );
+    bridge.pendingEdits.set(record.index, work);
+  }
+
+  async function applyEdit(record) {
+    const activeCase = bridge.activeCase;
+    const label = `${activeCase.id}:${bridge.ordinal.phase}:${bridge.ordinal.sample}:${record.entry}`;
+    if (record.pendingAcknowledgement === true) {
+      await waitFor(
+        `${label} acknowledgement`,
+        () => editGenerationNow() >= record.generationBefore + 1,
+        10_000,
+        1,
       );
-      record.tickBefore = tickBefore;
-      // The production solver refuses this call anywhere but a completed-cycle boundary; the
-      // report it returns names the boundary it was applied at.
-      record.atCompletedCycleBoundary =
-        record.transition.phase === "completedCycleBoundary" &&
-        record.transition.completedCycles === tickBefore;
+      record.editGeneration = record.generationBefore + 1;
+      record.acceptedGeneration = editGenerationNow();
+      record.acceptedAtMs = performance.now();
+      record.acknowledgementMs = record.acceptedAtMs - record.editedAtMs;
+      record.acknowledgementSource =
+        "application-handler (production edit controller; observed by bounded poll)";
+      record.pendingAcknowledgement = false;
+    }
+    if (
+      record.entry === "change-one-valid-operator-control" ||
+      record.entry === "apply-one-valid-abrupt-event-at-completed-boundary"
+    ) {
+      const expectedKey = environmentKey(record.expectedEnvironment);
+      await waitFor(
+        `${label} applied environment`,
+        () =>
+          controllerReport().pendingEnvironmentEdits === 0 &&
+          environmentKey(snapshotNow().environment) === expectedKey,
+        30_000,
+        2,
+      );
+      const after = snapshotNow();
+      record.tickAfter = after.tick;
+      record.transition = {
+        beforeEnvironment: record.environmentBefore,
+        afterEnvironment: after.environment,
+        changed: environmentKey(record.environmentBefore) !== expectedKey,
+      };
+      if (record.entry === "apply-one-valid-abrupt-event-at-completed-boundary") {
+        // The production engine applies queued environment edits ONLY at completed-cycle
+        // boundaries (decision 0011; `GpuGgSolver.applyTimelineEnvironment` refuses any
+        // other seam). Applied-with-tick-unchanged == applied at THIS completed boundary.
+        record.atCompletedCycleBoundary =
+          after.tick === record.tickBefore &&
+          controllerReport().pendingEnvironmentEdits === 0;
+      }
+      delete record.expectedEnvironment;
       return;
     }
     if (record.entry === "step") {
-      const tickBefore = solver.tick();
-      await solver.step(label);
-      record.tickBefore = tickBefore;
-      record.tickAfter = solver.tick();
+      await waitFor(
+        `${label} tick`,
+        () => dbg.tick === record.tickBefore + 1 && snapshotNow().tick === record.tickBefore + 1,
+        60_000,
+        2,
+      );
+      record.tickAfter = dbg.tick;
       return;
     }
     if (record.entry === "move-slice") {
-      const appIndex = window.__vccDebug.renderedSliceIndex();
-      const dims = activeCase.dims;
-      const offset = appIndex - bridge.appSliceBaseIndex;
-      const requested = activeCase.centerJ + offset;
-      const next = Math.min(Math.max(requested, 0), dims.ny - 1);
-      bridge.previousSliceIndex = bridge.sliceIndex;
-      bridge.sliceIndex = next;
+      await waitFor(
+        `${label} rendered index`,
+        () => dbg.renderedSliceIndex() === record.expectedSliceIndex,
+        10_000,
+        2,
+      );
+      // The display repaint for this control edit is a bounded submission through the
+      // application's SOLVER controller (the display passes read solver buffers).
+      await waitFor(
+        `${label} repaint submission`,
+        () => {
+          const report = controllerReport();
+          return report.solver
+            .slice(record.solverRecordsBefore)
+            .some((entry) => entry.label.startsWith("app:view:controls-"));
+        },
+        30_000,
+        2,
+      );
       record.slice = {
-        appRenderedIndex: appIndex,
-        appBaseIndex: bridge.appSliceBaseIndex,
-        appLegend: window.__vccDebug.sliceLegendText(),
-        gpuSliceIndex: bridge.sliceIndex,
-        gpuPreviousSliceIndex: bridge.previousSliceIndex,
-        moved: bridge.sliceIndex !== bridge.previousSliceIndex,
+        appRenderedIndex: dbg.renderedSliceIndex(),
+        appBaseIndex: activeCase.appSliceBaseIndex,
+        appLegend: dbg.sliceLegendText(),
+        movedFromIndex: record.sliceIndexBefore,
+        moved: dbg.renderedSliceIndex() !== record.sliceIndexBefore,
       };
       return;
     }
     if (record.entry === "request-named-probes") {
-      // The user asked the instrument for values. This is the named probe that is NOT part of
-      // a display frame; the frame-scoped compact probes follow with the frame itself.
-      const counters = await bridge.production.readGpuBuffer(
-        bridge.device,
-        solver.reportBuffer(),
-        {
-          purpose: "named-probe",
-          label: `${label}:cycle-report-counters`,
-          generation: record.editGeneration,
-          byteOffset: 0,
-          byteLength: 16,
+      // The user asked the instrument for values: the app's named-probe picking floor reads
+      // exactly the probed cells through the production audit (never a full field).
+      const target = activeCase.pickTarget;
+      const accepted = dbg.pickCell(target.i, target.j, target.k);
+      if (accepted !== true) fail(`${label}: the application refused the named-probe pick`);
+      await waitFor(
+        `${label} readout`,
+        () => {
+          const text = readoutText();
+          return (
+            !text.includes("reading GPU-resident state") &&
+            text.includes("float32 GPU-resident state via audited named probes")
+          );
         },
-        bridge.audit,
+        30_000,
+        5,
       );
-      const view = new DataView(counters);
+      const text = readoutText();
+      const bMatch = /b = ([-\d.]+)/.exec(text);
+      const dMatch = /d = ([-\d.]+)/.exec(text);
       record.namedProbe = {
-        pick: window.__vccDebug.lastPick,
-        boundaryCount: view.getUint32(0, true),
-        attachedTotal: view.getUint32(4, true),
-        attachedNow: view.getUint32(8, true),
-        holeFillNow: view.getUint32(12, true),
+        pick: dbg.lastPick,
+        cell: { ...target },
+        b: bMatch === null ? null : Number(bMatch[1]),
+        d: dMatch === null ? null : Number(dMatch[1]),
+        provenanceLinePresent: true,
       };
       return;
     }
     fail(`the edit script contains an unbound entry: ${record.entry}`);
   }
 
-  bridge.beginCase = async (caseInput) => {
-    const budget = caseInput.dims;
-    const oracle = new bridge.cpu.GGSolver({
-      dims: budget,
-      params: presetParams(caseInput.initialPreset),
-      rngSeed: 1,
-      noiseEpsilon: 0,
-      domain: "hexPrism",
-      farField: "dirichlet",
-      seedRadius: 2,
-      seedThickness: 1,
-    });
-    const topology = new Uint32Array(oracle.d.length);
-    for (const index of oracle.farFieldCells) topology[index] = 1;
-    const arena = bridge.production.GpuBufferArena.create(
-      bridge.device,
-      caseInput.solverGeneration,
-      bridge.production.createGpuBufferPlan(budget, "gg"),
-    );
-    bridge.solverSubmissions.acknowledgeEdit(caseInput.solverGeneration);
-    const solver = await bridge.production.GpuGgSolver.create(
-      bridge.device,
-      bridge.solverSubmissions,
-      arena,
-      {
-        initialVapor: Float32Array.from(oracle.d, Math.fround),
-        initialBoundaryMass: Float32Array.from(oracle.b, Math.fround),
-        occupancy: Uint32Array.from(oracle.a),
-        wall: Uint32Array.from(oracle.wall),
-        topology,
-        initialBoundaryIndices: Uint32Array.from(oracle.boundaryCells()),
-        params: oracle.params,
-        rngSeed: oracle.rngSeed,
-        noiseEpsilon: oracle.noiseEpsilon,
-        tick: oracle.tick,
-        farField: oracle.farField,
-        domain: oracle.domain,
-        center: oracle.center,
-      },
-    );
-    bridge.arena = arena;
-    bridge.solver = solver;
+  bridge.beginCase = (caseInput) => {
+    // The application just (re)initialized at this case's frozen budget: re-resolve the
+    // rebuilt slice slider (init disposes and recreates the index bindings) and record the
+    // case baselines from the app's own posted state.
+    tag("sliceTrack", paneRowValue("j index").querySelector(".tp-sldv_t"));
+    const snapshot = snapshotNow();
+    const viewInfo = dbg.gpuViewInfo();
+    if (viewInfo === null) fail("the application GPU view has no display state");
+    const dims = viewInfo.dims;
+    if (
+      dims.nx !== caseInput.dims.nx ||
+      dims.ny !== caseInput.dims.ny ||
+      dims.nz !== caseInput.dims.nz
+    ) {
+      fail(
+        `the application is at ${dims.nx}x${dims.ny}x${dims.nz}, not the ${caseInput.id} ` +
+          `budget ${caseInput.dims.nx}x${caseInput.dims.ny}x${caseInput.dims.nz}`,
+      );
+    }
+    if (dbg.gpuBudget() !== caseInput.id) {
+      fail(`the application budget is ${dbg.gpuBudget()}, not ${caseInput.id}`);
+    }
+    if (snapshot.tick !== 0) fail(`the ${caseInput.id} case did not begin at tick 0`);
+    const bbox = snapshot.bbox;
+    if (bbox === null) fail("the initial snapshot has no seed bbox");
+    // Deterministic named-probe target: the seed's bbox midpoint — attached at tick 0 and
+    // (G-G attachment being permanent) at every later tick.
+    const pickTarget = {
+      i: (bbox.iMin + bbox.iMax) >> 1,
+      j: (bbox.jMin + bbox.jMax) >> 1,
+      k: (bbox.kMin + bbox.kMax) >> 1,
+    };
+    const report = controllerReport();
     bridge.activeCase = {
       id: caseInput.id,
-      dims: budget,
-      centerJ: solver.center[1],
-      cellCount: budget.nx * budget.ny * budget.nz,
+      dims: { nx: dims.nx, ny: dims.ny, nz: dims.nz },
+      appSliceBaseIndex: dbg.renderedSliceIndex(),
+      pickTarget,
+      cellCount: dims.nx * dims.ny * dims.nz,
     };
-    bridge.sliceIndex = solver.center[1];
-    bridge.previousSliceIndex = solver.center[1];
-    bridge.lastPaintedHash = null;
-    bridge.sliceTexture = bridge.device.createTexture({
-      label: `vcc:phase5:${caseInput.id}:slice`,
-      size: { width: budget.nx, height: budget.nz },
-      format: "rgba8unorm",
-      usage: GPUTextureUsage.STORAGE_BINDING | GPUTextureUsage.TEXTURE_BINDING,
-    });
-    bridge.previewBindGroup = bridge.device.createBindGroup({
-      label: `vcc:phase5:${caseInput.id}:preview`,
-      layout: bridge.renderPipeline.getBindGroupLayout(0),
-      entries: [
-        { binding: 0, resource: bridge.sliceTexture.createView() },
-        { binding: 1, resource: bridge.sampler },
-      ],
-    });
     return {
       id: caseInput.id,
-      dims: budget,
-      centerJ: bridge.activeCase.centerJ,
-      tick: solver.tick(),
-      solverGeneration: caseInput.solverGeneration,
-      arenaBufferCount: arena.names().length,
-      initialEnvironment: solver.timelineEnvironment(),
+      dims: bridge.activeCase.dims,
+      budget: dbg.gpuBudget(),
+      tick: snapshot.tick,
+      attachedCount: snapshot.attachedCount,
+      boundarySize: snapshot.boundarySize,
+      appSliceBaseIndex: bridge.activeCase.appSliceBaseIndex,
+      pickTarget,
+      initialEnvironment: snapshot.environment,
+      viewGeneration: viewInfo.generation,
+      solverSubmissionsAtStart: report.solver.length,
+      editGenerationAtStart: report.editGeneration,
+      auditRecordsAtStart: (dbg.gpuAuditRecords() ?? []).length,
     };
   };
 
-  function presetParams(name) {
-    const preset = bridge.core.GG_PRESETS[name];
-    return {
-      rho: preset.rho,
-      phi: preset.phi,
-      kappa: new Float64Array(preset.kappa),
-      mu: new Float64Array(preset.mu),
-      ggThreshBeta: new Float64Array(preset.ggThreshBeta),
-    };
-  }
-
   bridge.beginOrdinal = (ordinalInput) => {
+    const report = controllerReport();
     bridge.ordinal = {
       ...ordinalInput,
       edits: [],
-      solverRecordsBefore: bridge.solverSubmissions.records().length,
-      editRecordsBefore: bridge.editSubmissions.records().length,
+      solverRecordsBefore: report.solver.length,
+      editRecordsBefore: report.edit.length,
+      editGenerationBefore: report.editGeneration,
     };
     bridge.pendingEdits = new Map();
     bridge.armed = null;
-    return { ordinal: ordinalInput.ordinal, generation: bridge.editGeneration };
+    return { ordinal: ordinalInput.ordinal, generation: report.editGeneration };
   };
 
   bridge.armEdit = (armInput) => {
@@ -826,23 +675,40 @@ function installPreviewBridge(input) {
     if (!bridge.controls.has(armInput.control)) {
       fail(`the application control is not resolved: ${armInput.control}`);
     }
-    bridge.armed = armInput;
+    const report = controllerReport();
+    const snapshot = snapshotNow();
+    const sliceIndexBefore = dbg.renderedSliceIndex();
+    const dims = bridge.activeCase.dims;
+    const expectedSliceIndex =
+      armInput.entry === "move-slice"
+        ? Math.min(Math.max(sliceIndexBefore + (armInput.forward ? 1 : -1), 0), dims.ny - 1)
+        : null;
+    bridge.armed = {
+      index: armInput.index,
+      entry: armInput.entry,
+      control: armInput.control,
+      eventType: armInput.eventType,
+      generationBefore: report.editGeneration,
+      solverRecordsBefore: report.solver.length,
+      tickBefore: snapshot.tick,
+      environmentBefore: JSON.parse(JSON.stringify(snapshot.environment)),
+      sliceIndexBefore,
+      expectedSliceIndex,
+    };
     return { armed: armInput.index };
   };
 
   bridge.awaitEdit = async (index) => {
-    // The trusted event is dispatched by the browser, so it can land a beat after the driver's
-    // input call resolves. The wait is bounded and never invents an edit: a script entry that
-    // produced no trusted event on its own control fails by name.
+    // The trusted event is dispatched by the browser, so it can land a beat after the
+    // driver's input call resolves. The wait is bounded and never invents an edit: a script
+    // entry that produced no trusted event on its own control fails by name.
     const deadline = performance.now() + 5_000;
     while (!bridge.pendingEdits.has(index)) {
       if (performance.now() > deadline) {
         bridge.armed = null;
         fail(`the registered edit ${index} produced no observed trusted event`);
       }
-      await new Promise((accept) => {
-        setTimeout(accept, 2);
-      });
+      await sleep(2);
     }
     await bridge.pendingEdits.get(index);
     return bridge.ordinal.edits.find((entry) => entry.index === index);
@@ -851,126 +717,75 @@ function installPreviewBridge(input) {
   bridge.finishOrdinal = async () => {
     const ordinal = bridge.ordinal;
     const activeCase = bridge.activeCase;
-    const solver = bridge.solver;
     if (ordinal.edits.length !== bridge.input.editScript.length) {
       fail(`ordinal ${ordinal.ordinal} observed ${ordinal.edits.length} registered edits`);
     }
     const last = ordinal.edits[ordinal.edits.length - 1];
     const generation = last.editGeneration;
     const label = `${activeCase.id}:${ordinal.phase}:${ordinal.sample}`;
-    const dims = activeCase.dims;
-    const controls = new ArrayBuffer(32);
-    const controlWords = new Uint32Array(controls);
-    controlWords[0] = dims.nx;
-    controlWords[1] = dims.ny;
-    controlWords[2] = dims.nz;
-    controlWords[3] = bridge.sliceIndex;
-    controlWords[4] = bridge.previousSliceIndex;
-    controlWords[5] = generation;
-    controlWords[6] = ordinal.ordinal;
-    new Float32Array(controls)[7] = Math.fround(solver.params().rho);
-    bridge.device.queue.writeBuffer(bridge.uniformBuffer, 0, controls);
-    const frameBindGroup = bridge.device.createBindGroup({
-      label: `vcc:phase5:${label}:frame`,
-      layout: bridge.computePipeline.getBindGroupLayout(0),
-      entries: [
-        { binding: 0, resource: { buffer: bridge.uniformBuffer } },
-        { binding: 1, resource: { buffer: solver.activeVaporBuffer() } },
-        { binding: 2, resource: { buffer: bridge.probeBuffer } },
-        { binding: 3, resource: bridge.sliceTexture.createView() },
-      ],
-    });
-    const frameToken = bridge.audit.beginDisplayFrame(`${label}:frame`);
-    let frame;
-    try {
-      const encoder = bridge.device.createCommandEncoder({
-        label: `vcc:phase5:${label}:frame`,
-      });
-      const paint = encoder.beginComputePass({ label: `vcc:phase5:${label}:paint` });
-      paint.setPipeline(bridge.computePipeline);
-      paint.setBindGroup(0, frameBindGroup);
-      paint.dispatchWorkgroups(1);
-      paint.end();
-      const pass = encoder.beginRenderPass({
-        label: `vcc:phase5:${label}:present`,
-        colorAttachments: [{
-          view: bridge.canvasContext.getCurrentTexture().createView(),
-          clearValue: { r: 0, g: 0, b: 0, a: 1 },
-          loadOp: "clear",
-          storeOp: "store",
-        }],
-      });
-      pass.setPipeline(bridge.renderPipeline);
-      pass.setBindGroup(0, bridge.previewBindGroup);
-      pass.draw(3);
-      pass.end();
-      // The controller submits and awaits queue completion on the rendering device, and
-      // refuses a submission whose generation went stale while it was in flight.
-      const submission = await bridge.editSubmissions.submit(
-        `${label}:frame`,
-        generation,
-        [encoder.finish()],
-      );
-      const presentedMs = await new Promise((accept) => {
+    // Settle: the engine idle with nothing pending, and the app's bounded submission stream
+    // quiescent (a display submission still in flight would misattribute its wall time to
+    // the next sample's window).
+    let stableCount = 0;
+    let stableRecords = -1;
+    await waitFor(
+      `${label} settled`,
+      () => {
+        const report = dbg.gpuSubmissionRecords();
+        if (report === null || report.pendingEnvironmentEdits !== 0 || dbg.running) {
+          stableCount = 0;
+          return false;
+        }
+        if (report.solver.length === stableRecords) stableCount++;
+        else {
+          stableRecords = report.solver.length;
+          stableCount = 1;
+        }
+        return stableCount >= 3;
+      },
+      30_000,
+      15,
+    );
+    // Presentation receipt from the application's OWN render loop: the app redraws the S4
+    // GPU view every Three frame from the display-owned buffers. The first rAF may belong
+    // to a frame whose draw was encoded before the last submission completed; the second
+    // receipt is a frame whose draw began strictly after it.
+    const presentedMs = await new Promise((accept) => {
+      requestAnimationFrame(() => {
         requestAnimationFrame(() => accept(performance.now()));
       });
-      const probeBytes = await bridge.production.readGpuBuffer(
-        bridge.device,
-        bridge.probeBuffer,
-        {
-          purpose: "compact-metric",
-          label: `${label}:frame-probe`,
-          generation,
-          byteOffset: 0,
-          byteLength: 32,
-          displayFrame: frameToken,
-        },
-        bridge.audit,
-      );
-      const meterBytes = await bridge.production.readGpuBuffer(
-        bridge.device,
-        solver.reportBuffer(),
-        {
-          purpose: "named-probe",
-          label: `${label}:cycle-report-meters`,
-          generation,
-          byteOffset: 16,
-          byteLength: 16,
-          displayFrame: frameToken,
-        },
-        bridge.audit,
-      );
-      const probeWords = new Uint32Array(probeBytes);
-      const meterView = new DataView(meterBytes);
-      frame = {
-        label,
-        submissionWallMs: submission.wallMs,
-        presentedMs,
-        renderedGeneration: probeWords[0],
-        renderedSliceIndex: probeWords[1],
-        renderedSliceHash: probeWords[2],
-        comparedSliceIndex: probeWords[3],
-        comparedSliceHash: probeWords[4],
-        paintedTexels: probeWords[5],
-        renderedOrdinal: probeWords[6],
-        expectedTexels: probeWords[7],
-        lastClampDelta: meterView.getFloat32(0, true),
-        dirichletMeter: meterView.getFloat32(4, true),
-        oldBoundaryCount: meterView.getUint32(8, true),
-        errorFlags: meterView.getUint32(12, true),
-      };
-    } finally {
-      bridge.audit.endDisplayFrame(frameToken);
-    }
-    frame.sliceContentChanged =
-      frame.renderedSliceIndex !== frame.comparedSliceIndex &&
-      frame.renderedSliceHash !== frame.comparedSliceHash;
-    frame.repaintedSameOutput =
-      bridge.lastPaintedHash !== null && bridge.lastPaintedHash === frame.renderedSliceHash;
-    bridge.lastPaintedHash = frame.renderedSliceHash;
-
-    const solverRecords = bridge.solverSubmissions.records().slice(ordinal.solverRecordsBefore);
-    const editRecords = bridge.editSubmissions.records().slice(ordinal.editRecordsBefore);
+    });
+    const report = controllerReport();
+    const solverRecords = report.solver.slice(ordinal.solverRecordsBefore);
+    const editRecords = report.edit.slice(ordinal.editRecordsBefore);
+    const renderedGeneration = report.editGeneration;
+    // Audited compact reads of the very display buffers the presented frame drew.
+    const sample = await dbg.gpuViewSample(64);
+    if (sample === null) fail(`${label}: the application view sample is unavailable`);
+    const viewInfo = dbg.gpuViewInfo();
+    const snapshot = snapshotNow();
+    const moveEdit = ordinal.edits.find((entry) => entry.entry === "move-slice");
+    const frame = {
+      label,
+      presentedMs,
+      // The application's production edit controller generation observed with the frame
+      // receipt — no other actor advances it, so it equals the last registered edit's.
+      renderedGeneration,
+      renderedSliceIndex: dbg.renderedSliceIndex(),
+      comparedSliceIndex: moveEdit === undefined ? null : moveEdit.slice.movedFromIndex,
+      sampleTick: sample.tick,
+      instanceCount: sample.instanceCount,
+      sampledEntries: sample.cells.length,
+      attachedCount: snapshot.attachedCount,
+      viewGeneration: viewInfo === null ? null : viewInfo.generation,
+      sliceEnabled: viewInfo === null ? null : viewInfo.sliceEnabled,
+      controlsRepaintSubmitted: solverRecords.some((entry) =>
+        entry.label.startsWith("app:view:controls-"),
+      ),
+      stateSyncSubmitted: solverRecords.some((entry) =>
+        entry.label.startsWith("app:view:state-t"),
+      ),
+    };
     const editedAtMs = ordinal.edits[0].editedAtMs;
     return {
       budgetId: activeCase.id,
@@ -979,65 +794,83 @@ function installPreviewBridge(input) {
       sample: ordinal.sample,
       warmup: ordinal.phase === "warmup",
       editGeneration: generation,
-      acceptedGeneration: bridge.editSubmissions.currentGeneration(),
+      acceptedGeneration: report.editGeneration,
+      editGenerationAtStart: ordinal.editGenerationBefore,
       firstEditAtMs: editedAtMs,
       lastEditAtMs: last.editedAtMs,
       editAcknowledgementMs: Math.max(...ordinal.edits.map((entry) => entry.acknowledgementMs)),
       minimumEditAcknowledgementMs: Math.min(
         ...ordinal.edits.map((entry) => entry.acknowledgementMs),
       ),
-      firstValidFrameMs: frame.presentedMs - editedAtMs,
-      firstValidFrameFromLastEditMs: frame.presentedMs - last.editedAtMs,
+      firstValidFrameMs: presentedMs - editedAtMs,
+      firstValidFrameFromLastEditMs: presentedMs - last.editedAtMs,
       segmentWallMs: [
-        ...solverRecords.map((record) => record.wallMs),
-        ...editRecords.map((record) => record.wallMs),
+        ...solverRecords.map((entry) => entry.wallMs),
+        ...editRecords.map((entry) => entry.wallMs),
       ],
-      solverSegments: solverRecords.map((record) => ({
-        label: record.label,
-        wallMs: record.wallMs,
+      solverSegments: solverRecords.map((entry) => ({
+        label: entry.label,
+        wallMs: entry.wallMs,
       })),
       edits: ordinal.edits,
       frame,
-      tick: solver.tick(),
+      tick: snapshot.tick,
     };
   };
 
   bridge.endCase = () => {
-    const tick = bridge.solver === null ? null : bridge.solver.tick();
-    const environment = bridge.solver === null ? null : bridge.solver.timelineEnvironment();
-    bridge.solver?.destroy();
-    bridge.arena?.destroy();
-    bridge.sliceTexture?.destroy();
-    bridge.solver = null;
-    bridge.arena = null;
-    bridge.sliceTexture = null;
-    bridge.previewBindGroup = null;
+    const snapshot = snapshotNow();
+    const report = controllerReport();
+    const closing = {
+      tick: snapshot.tick,
+      stopReason: snapshot.stopReason,
+      finalEnvironment: snapshot.environment,
+      solverSubmissionsAtEnd: report.solver.length,
+      editGenerationAtEnd: report.editGeneration,
+      auditRecordsAtEnd: (dbg.gpuAuditRecords() ?? []).length,
+    };
     bridge.activeCase = null;
-    return { tick, finalEnvironment: environment };
+    return closing;
   };
 
-  bridge.observed = () => ({
-    adapterRequests: deviceState.adapterRequests,
-    deviceRequests: deviceState.deviceRequests,
-    reacquisitions: deviceState.reacquisitions,
-    uncapturedErrors: deviceState.uncapturedErrors,
-    deviceLossRecords: deviceState.deviceLossRecords,
-    editQueueLossReason: bridge.editSubmissions.unexpectedLossReason(),
-    solverQueueLossReason: bridge.solverSubmissions.unexpectedLossReason(),
-    unarmedTrustedEvents: bridge.unarmedTrustedEvents,
-    untrustedRegisteredEvents: bridge.untrustedRegisteredEvents,
-    applicationErrors: [...window.__vccDebug.errors],
-    applicationBackend: window.__vccDebug.backend,
-    applicationTick: window.__vccDebug.tick,
-    applicationSnapshotCount: window.__vccDebug.snapshotCount,
-    lastInspectError: window.__vccDebug.lastInspectError,
-    readbackRecords: bridge.audit.records(),
-    fullFieldDisplayFrameCount: bridge.audit.fullFieldDisplayFrameCount(),
-    readbackTotalBytes: bridge.audit.totalBytes(),
-    editSubmissionCount: bridge.editSubmissions.records().length,
-    solverSubmissionCount: bridge.solverSubmissions.records().length,
-    finalEditGeneration: bridge.editGeneration,
-  });
+  bridge.observed = () => {
+    const device = dbg.gpuDeviceStatus();
+    const audit = dbg.gpuAuditSummary();
+    const auditRecords = dbg.gpuAuditRecords() ?? [];
+    const report = dbg.gpuSubmissionRecords();
+    const hook = window.__vccPhase5DeviceObserver ?? null;
+    return {
+      deviceState: device === null ? null : device.state,
+      deviceLabel: device === null ? null : device.label,
+      deviceStatusLine: device === null ? null : device.statusLine,
+      requiredFeatures: device === null ? null : device.requiredFeatures,
+      requiredLimits: device === null ? null : device.requiredLimits,
+      observedFeatures: device === null ? null : device.observedFeatures,
+      observedLimits: device === null ? null : device.observedLimits,
+      uncapturedErrors: device === null ? [] : [...device.uncapturedErrors],
+      deviceLossRecords: device === null ? [] : [...device.deviceLossRecords],
+      adapterRequests: hook === null ? null : hook.adapterRequests,
+      deviceRequests: hook === null ? null : hook.deviceRequests,
+      reacquisitions: hook === null ? null : [...hook.reacquisitions],
+      adapterInfo: hook === null ? null : hook.adapterInfo,
+      adapterFeatures: hook === null ? null : hook.adapterFeatures,
+      unarmedTrustedEvents: bridge.unarmedTrustedEvents,
+      untrustedRegisteredEvents: bridge.untrustedRegisteredEvents,
+      applicationErrors: [...dbg.errors],
+      applicationBackend: dbg.backend,
+      applicationTick: dbg.tick,
+      applicationSnapshotCount: dbg.snapshotCount,
+      lastInspectError: dbg.lastInspectError,
+      auditSummary: audit,
+      readbackRecords: auditRecords,
+      fullFieldDisplayFrameCount: audit === null ? null : audit.fullFieldDisplayFrameReadCount,
+      readbackTotalBytes: audit === null ? null : audit.totalBytes,
+      editSubmissionCount: report === null ? null : report.edit.length,
+      solverSubmissionCount: report === null ? null : report.solver.length,
+      finalEditGeneration: report === null ? null : report.editGeneration,
+      pendingEnvironmentEdits: report === null ? null : report.pendingEnvironmentEdits,
+    };
+  };
 
   return { installed: true };
 }
@@ -1095,17 +928,6 @@ async function optionTextsOf(page, control) {
   );
 }
 
-/** Move a list control to a registered option with real arrow-key interactions only. */
-async function moveSelectTo(page, control, targetIndex) {
-  const locator = page.locator(`[data-vcc-phase5-control="${control}"]`);
-  for (let attempt = 0; attempt <= 16; attempt++) {
-    const current = await selectedIndexOf(page, control);
-    if (current === targetIndex) return;
-    await locator.press(current < targetIndex ? "ArrowDown" : "ArrowUp");
-  }
-  throw new Error(`${control} did not reach option index ${targetIndex}`);
-}
-
 async function performInteraction(page, binding, ordinal) {
   const selector = `[data-vcc-phase5-control="${binding.control}"]`;
   if (binding.interaction === "click") {
@@ -1142,10 +964,11 @@ async function main() {
   if (!existsSync(browserPath)) {
     throw new Error(`the frozen Chromium executable is absent: ${browserPath}`);
   }
-  const pageHtml = applicationPageHtml();
   const vite = await createViteServer({
-    root: repoRoot,
-    appType: "custom",
+    // The application's OWN root and dev configuration (app/vite.config.ts adds the module
+    // worker format); fs.allow lets the same origin serve core/, solver-cpu/, solver-gpu/
+    // and runner/ sources to the page.
+    root: appDir,
     logLevel: "error",
     // A probe-private dependency cache: the measurement never inherits, and never disturbs,
     // whatever state an interactive `vite dev` left behind.
@@ -1156,34 +979,25 @@ async function main() {
       strictPort: false,
       fs: { allow: [repoRoot] },
     },
-    // The application's own dev configuration: module workers, and its exact bare dependency
-    // set pre-bundled at start so no dependency discovery can reload the page mid-measurement.
-    worker: { format: "es" },
+    // The app's exact bare dependency set pre-bundled at start so no dependency discovery
+    // can reload the page mid-measurement.
     optimizeDeps: {
       include: ["tweakpane", "three/webgpu", "three/addons/controls/OrbitControls.js"],
     },
     plugins: [{
-      name: "vcc-phase5-performance-page",
+      name: "vcc-phase5-performance-favicon",
       configureServer(viteServer) {
         viteServer.middlewares.use((request, response, next) => {
-          const path = request.url?.split("?")[0];
           // Chromium requests a favicon for every top-level page. The application does not
-          // ship one, so without this the browser logs a 404 that has nothing to do with the
-          // measurement. Answering only this exact path keeps every other missing resource a
-          // real, reported console error.
-          if (path === "/favicon.ico") {
+          // ship one, so without this the browser logs a 404 that has nothing to do with
+          // the measurement. Answering only this exact path keeps every other missing
+          // resource a real, reported console error.
+          if (request.url?.split("?")[0] === "/favicon.ico") {
             response.writeHead(204);
             response.end();
             return;
           }
-          if (path !== "/phase5-performance") {
-            next();
-            return;
-          }
-          response.writeHead(200, {
-            "content-type": "text/html; charset=utf-8",
-          });
-          response.end(pageHtml);
+          next();
         });
       },
     }],
@@ -1194,6 +1008,8 @@ async function main() {
     throw new Error("Phase 5 performance Vite server did not receive an IPv4 port");
   }
   const origin = `http://127.0.0.1:${address.port}`;
+  const fsUrl = (...segments) =>
+    `${origin}/@fs/${encodeURI(resolve(repoRoot, ...segments).replaceAll("\\", "/"))}`;
   let browser = null;
   try {
     browser = await chromium.launch({
@@ -1202,12 +1018,13 @@ async function main() {
       args: ["--enable-unsafe-webgpu", "--enable-webgpu-developer-features"],
     });
     const page = await browser.newPage({ viewport: VIEWPORT });
+    page.setDefaultTimeout(180_000);
     const consoleErrors = [];
     const pageErrors = [];
     page.on("console", (message) => {
       if (message.type() !== "error") return;
-      // Record where the error came from, not just its text: a bare "404 (Not Found)" names
-      // no resource, which makes an observed failure unauditable.
+      // Record where the error came from, not just its text: a bare "404 (Not Found)"
+      // names no resource, which makes an observed failure unauditable.
       const location = message.location();
       consoleErrors.push({
         text: message.text(),
@@ -1216,28 +1033,32 @@ async function main() {
       });
     });
     page.on("pageerror", (error) => pageErrors.push(String(error)));
-    await page.addInitScript(installDeviceInterception, {
-      deviceLabel: PROBE_DEVICE_LABEL,
-      productionModuleUrl: `${origin}/solver-gpu/src/index.ts`,
-      requiredFeatures: [...PHASE5_REQUIRED_FEATURES],
-      requiredLimits: { ...PHASE5_REQUIRED_LIMITS },
-    });
-    await page.goto(`${origin}/phase5-performance`, { waitUntil: "load" });
-    // The measurement never starts before the application itself is live: a booted renderer,
-    // a resolved backend, and its first worker snapshot rendered. A device or boot fault
-    // resolves the same wait immediately so the failure is reported, not timed out.
+    await page.addInitScript(installDeviceObservation);
+    await page.goto(`${origin}/`, { waitUntil: "load" });
+    // The measurement never starts before the application itself is live ON ITS GPU ENGINE:
+    // a booted WebGPU renderer, the acquired production shared device (D4 default), and its
+    // first GPU snapshot posted. A device fallback or boot fault resolves the same wait
+    // immediately so the failure is reported, not timed out.
     const bootHandle = await page.waitForFunction(
       () => {
-        const deviceState = window.__vccPhase5Device;
-        if (deviceState !== undefined && deviceState.deviceError !== null) {
-          return { booted: false, reason: `shared device: ${deviceState.deviceError}` };
-        }
         const debugHook = window.__vccDebug;
         if (debugHook === undefined) return null;
         if (debugHook.errors.length > 0) {
           return { booted: false, reason: `application: ${debugHook.errors.join(" | ")}` };
         }
+        const device = debugHook.gpuDeviceStatus === undefined
+          ? null
+          : debugHook.gpuDeviceStatus();
+        if (device !== null && device.state === "fallback") {
+          return { booted: false, reason: `device fallback: ${device.statusLine}` };
+        }
         if (debugHook.backend === null || debugHook.snapshotCount === 0) return null;
+        if (debugHook.engine() !== "gpu") {
+          return { booted: false, reason: `active engine: ${debugHook.engine()}` };
+        }
+        if (debugHook.gpuSnapshot === undefined || debugHook.gpuSnapshot() === null) {
+          return null;
+        }
         return { booted: true, backend: debugHook.backend };
       },
       undefined,
@@ -1251,24 +1072,40 @@ async function main() {
     if (backend !== "WebGPU") {
       throw new Error(`the application rendered on ${String(backend)}, not WebGPU`);
     }
-    const installed = await page.evaluate(installPreviewBridge, {
-      coreModuleUrl: `${origin}/core/src/index.ts`,
-      cpuModuleUrl: `${origin}/solver-cpu/src/index.ts`,
-      productionModuleUrl: `${origin}/solver-gpu/src/index.ts`,
-      scenariosModuleUrl: `${origin}/app/src/scenarios.ts`,
-      appProtocolModuleUrl: `${origin}/app/src/protocol.ts`,
-      sliceFrameShader: SLICE_FRAME_WGSL,
-      slicePreviewShader: SLICE_PREVIEW_WGSL,
-      requiredLimits: { ...PHASE5_REQUIRED_LIMITS },
+    const installed = await page.evaluate(installAppProbeBridge, {
+      coreModuleUrl: fsUrl("core", "src", "index.ts"),
+      scenariosModuleUrl: `${origin}/src/scenarios.ts`,
+      appProtocolModuleUrl: `${origin}/src/protocol.ts`,
       observedEventTypes: [...new Set(EDIT_SCRIPT_BINDINGS.map((entry) => entry.eventType))],
       editScript: [...PHASE5_PERFORMANCE.editScript],
     });
-    if (installed.installed !== true) throw new Error("the preview bridge did not install");
+    if (installed.installed !== true) throw new Error("the probe bridge did not install");
     const bridgeSetup = await page.evaluate(() => window.__vccPhase5Bridge.setup());
+    const deviceStatus = bridgeSetup.deviceStatus;
+    if (deviceStatus === null || deviceStatus.state !== "acquired") {
+      throw new Error("the application did not acquire its production shared device");
+    }
+    if (deviceStatus.label !== APP_DEVICE_LABEL) {
+      throw new Error(
+        `the application device label is ${String(deviceStatus.label)}, ` +
+          `not ${APP_DEVICE_LABEL}`,
+      );
+    }
+    if (
+      JSON.stringify(deviceStatus.requiredFeatures) !==
+        JSON.stringify([...PHASE5_REQUIRED_FEATURES]) ||
+      JSON.stringify(deviceStatus.requiredLimits) !==
+        JSON.stringify({ ...PHASE5_REQUIRED_LIMITS })
+    ) {
+      throw new Error(
+        "the application checked its device against a different frozen requirement set",
+      );
+    }
 
-    // Untimed preparation, through the application's own affordances: expand the two collapsed
-    // folders with real clicks, and enable the application's own slice view through the same
-    // debug hook `app/scripts/visual.mjs` uses. None of this is a registered edit.
+    // Untimed preparation, through the application's own affordances: expand the two
+    // collapsed folders with real clicks, and enable the application's own slice view
+    // through the same debug hook `app/scripts/visual.mjs` uses. None of this is a
+    // registered edit.
     for (const folder of ["runConfigFolder", "phase4Folder"]) {
       await page.locator(`[data-vcc-phase5-control="${folder}"]`).click();
     }
@@ -1281,9 +1118,6 @@ async function main() {
         max: 0.1,
       });
     });
-    const appSliceBaseIndex = await page.evaluate(() =>
-      window.__vccDebug.renderedSliceIndex()
-    );
 
     const scenarioOptions = await optionTextsOf(page, "scenarioSelect");
     const scenarioLabels = await page.evaluate(
@@ -1303,14 +1137,16 @@ async function main() {
       return index;
     });
     const presetOptions = await optionTextsOf(page, "presetSelect");
+    const budgetOptions = await optionTextsOf(page, "budgetSelect");
 
     const submissionSamples = [];
     const interactions = [];
     const ordinals = [];
     const caseReports = [];
     const failures = [];
+    const appSliceBaseIndexByCase = {};
     const total = PHASE5_PERFORMANCE.warmupCount + PHASE5_PERFORMANCE.sampleCount;
-    for (const [caseIndex, previewCase] of PREVIEW_CASES.entries()) {
+    for (const previewCase of PREVIEW_CASES) {
       const dims = budgetDims(previewCase.id);
       const presetIndices = previewCase.presetPair.map((name) => {
         const index = presetOptions.indexOf(name);
@@ -1323,17 +1159,77 @@ async function main() {
       if (scenarioIndices[1] !== scenarioIndices[0] + 1) {
         throw new Error("the registered scenario pair is not adjacent in the control");
       }
-      await moveSelectTo(page, "presetSelect", presetIndices[0]);
-      await moveSelectTo(page, "scenarioSelect", scenarioIndices[0]);
-      const caseReport = await page.evaluate(
-        (caseInput) => window.__vccPhase5Bridge.beginCase(caseInput),
+
+      // ── Untimed case preparation, through the application's own controls/seams ─────────
+      // Position the scenario select at the pair's base row (its change handler routes
+      // nothing live; the probe's armed listener is what the registered edit uses).
+      await page
+        .locator('[data-vcc-phase5-control="scenarioSelect"]')
+        .selectOption({ label: scenarioLabels[0] });
+      // The case's run configuration through the app's own config path (pane + Reset
+      // semantics): the accepted probe's exact preview-case parameters.
+      await page.evaluate(
+        (config) => window.__vccDebug.applyConfig(config),
         {
-          id: previewCase.id,
-          dims,
-          initialPreset: previewCase.initialPreset,
-          solverGeneration: caseIndex + 1,
+          preset: previewCase.initialPreset,
+          seed: 1,
+          noiseEpsilon: 0,
+          domain: "hexPrism",
+          farField: "dirichlet",
         },
       );
+      await page.waitForFunction(
+        () => {
+          const debugHook = window.__vccDebug;
+          const snapshot = debugHook.gpuSnapshot();
+          return snapshot !== null && snapshot.tick === 0 && !debugHook.running;
+        },
+        undefined,
+        { timeout: 300_000, polling: 100 },
+      );
+      // The frozen budget through the application's REAL budget pane row (re-inits at the
+      // budget's dims through the app's own fail-closed selection path).
+      const budgetLabel = `${previewCase.id} (${dims.nx}x${dims.ny}x${dims.nz})`;
+      if (!budgetOptions.includes(budgetLabel)) {
+        throw new Error(`the budget control has no option ${budgetLabel}`);
+      }
+      await page
+        .locator('[data-vcc-phase5-control="budgetSelect"]')
+        .selectOption({ label: budgetLabel });
+      await page.waitForFunction(
+        (input) => {
+          const debugHook = window.__vccDebug;
+          const info = debugHook.gpuViewInfo();
+          const snapshot = debugHook.gpuSnapshot();
+          return (
+            debugHook.gpuBudget() === input.id &&
+            info !== null &&
+            info.dims.nx === input.dims.nx &&
+            info.dims.ny === input.dims.ny &&
+            info.dims.nz === input.dims.nz &&
+            snapshot !== null &&
+            snapshot.tick === 0 &&
+            !debugHook.running &&
+            debugHook.errors.length === 0
+          );
+        },
+        { id: previewCase.id, dims },
+        { timeout: 300_000, polling: 100 },
+      );
+      // Confirm the preset select landed on the case's initial preset (applyConfig syncs
+      // the pane), so the in-sample arrow alternation starts from the registered pair base.
+      const presetIndex = await selectedIndexOf(page, "presetSelect");
+      if (presetIndex !== presetIndices[0]) {
+        throw new Error(
+          `the preset control is at index ${presetIndex}, not the ${previewCase.id} base`,
+        );
+      }
+
+      const caseReport = await page.evaluate(
+        (caseInput) => window.__vccPhase5Bridge.beginCase(caseInput),
+        { id: previewCase.id, dims },
+      );
+      appSliceBaseIndexByCase[previewCase.id] = caseReport.appSliceBaseIndex;
       const ordinalRecords = [];
       try {
         for (let ordinal = 0; ordinal < total; ordinal++) {
@@ -1353,6 +1249,7 @@ async function main() {
                 entry: binding.entry,
                 control: binding.control,
                 eventType: binding.eventType,
+                forward: ordinal % 2 === 0,
               },
             );
             dispatched.push(await performInteraction(page, binding, ordinal));
@@ -1385,7 +1282,7 @@ async function main() {
           }
         }
       } finally {
-        // Releasing the case's resident buffers must never mask the fault that got us here.
+        // Closing the case must never mask the fault that got us here.
         caseReport.closing = await page
           .evaluate(() => window.__vccPhase5Bridge.endCase())
           .catch((error) => ({
@@ -1399,11 +1296,19 @@ async function main() {
     const observed = await page.evaluate(() => window.__vccPhase5Bridge.observed());
     const deviceLossCount = observed.deviceLossRecords.length;
     const uncapturedErrorCount = observed.uncapturedErrors.length;
-    const hiddenRetryCount = observed.reacquisitions.length;
+    const hiddenRetryCount =
+      observed.reacquisitions === null ? null : observed.reacquisitions.length;
+    const unexpectedDeviceLoss =
+      observed.deviceLossRecords.length === 0
+        ? null
+        : `${observed.deviceLossRecords[0].reason}:${observed.deviceLossRecords[0].message}`;
 
     // ── Every verdict below is a comparison against an OBSERVED quantity ──────────────────
     if (observed.applicationBackend !== "WebGPU") {
       failures.push(`the application backend is ${String(observed.applicationBackend)}`);
+    }
+    if (observed.deviceState !== "acquired") {
+      failures.push(`the application device state is ${String(observed.deviceState)}`);
     }
     if (deviceLossCount !== PHASE5_PERFORMANCE.permittedDeviceLosses) {
       failures.push(`observed ${deviceLossCount} device loss event(s)`);
@@ -1412,10 +1317,11 @@ async function main() {
       failures.push(`observed ${uncapturedErrorCount} uncaptured GPU error(s)`);
     }
     if (hiddenRetryCount !== PHASE5_PERFORMANCE.permittedHiddenRetries) {
-      failures.push(`observed ${hiddenRetryCount} silent GPU re-acquisition(s)`);
-    }
-    if (observed.editQueueLossReason !== null || observed.solverQueueLossReason !== null) {
-      failures.push("a production submission queue recorded an unexpected device loss");
+      failures.push(
+        hiddenRetryCount === null
+          ? "the adapter/device request observation hook did not run"
+          : `observed ${hiddenRetryCount} silent GPU re-acquisition(s)`,
+      );
     }
     if (observed.untrustedRegisteredEvents !== 0) {
       failures.push(
@@ -1425,33 +1331,57 @@ async function main() {
     if (observed.applicationErrors.length !== 0) {
       failures.push(`the application recorded ${observed.applicationErrors.length} error(s)`);
     }
-    if (observed.fullFieldDisplayFrameCount !==
-      PHASE5_PERFORMANCE.permittedFullFieldReadbacksPerDisplayFrame) {
-      failures.push("a display frame performed a full-field readback");
+    if (observed.pendingEnvironmentEdits !== 0) {
+      failures.push(
+        `${String(observed.pendingEnvironmentEdits)} environment edit(s) never applied`,
+      );
     }
-    if (consoleErrors.length !== 0) failures.push(`${consoleErrors.length} console error(s)`);
-    if (pageErrors.length !== 0) failures.push(`${pageErrors.length} page error(s)`);
-    if (observed.finalEditGeneration !== ordinals.length * EDIT_SCRIPT_BINDINGS.length) {
-      failures.push("the observed edit-generation count does not match the executed script");
+    // Residency over the APPLICATION's own audit: the app's render path opens no display
+    // frames and reads nothing back per frame, so both the summary count and the records
+    // recomputation must equal the registered zero budget.
+    const fullFieldDisplayReads = observed.readbackRecords.filter(
+      (entry) => entry.fullField === true && entry.displayFrame === true,
+    ).length;
+    if (
+      observed.fullFieldDisplayFrameCount !==
+        PHASE5_PERFORMANCE.permittedFullFieldReadbacksPerDisplayFrame ||
+      fullFieldDisplayReads !==
+        PHASE5_PERFORMANCE.permittedFullFieldReadbacksPerDisplayFrame
+    ) {
+      failures.push("a display frame performed a full-field readback");
     }
     const displayFrames = new Set(
       observed.readbackRecords
-        .filter((entry) => entry.displayFrame)
+        .filter((entry) => entry.displayFrame === true)
         .map((entry) => entry.displayFrameSequence),
     );
-    if (displayFrames.size !== ordinals.length) {
+    if (displayFrames.size !== 0) {
       failures.push(
-        `observed ${displayFrames.size} display frames for ${ordinals.length} samples`,
+        "the application render path opened display-frame readbacks (D6 forbids them)",
       );
     }
+    if (consoleErrors.length !== 0) failures.push(`${consoleErrors.length} console error(s)`);
+    if (pageErrors.length !== 0) failures.push(`${pageErrors.length} page error(s)`);
 
     let previousGeneration = 0;
     for (const record of ordinals) {
       const where = `${record.budgetId}:${record.phase}:${record.sample}`;
+      if (record.edits[0].editGeneration !== record.editGenerationAtStart + 1) {
+        failures.push(
+          `${where} an unregistered edit generation intervened before the first edit`,
+        );
+      }
+      let expectedNext = null;
       for (const edit of record.edits) {
         if (edit.editGeneration <= previousGeneration) {
           failures.push(`${where}:${edit.entry} generation did not increase monotonically`);
         }
+        if (expectedNext !== null && edit.editGeneration !== expectedNext) {
+          failures.push(
+            `${where}:${edit.entry} generation is not consecutive within the sample`,
+          );
+        }
+        expectedNext = edit.editGeneration + 1;
         previousGeneration = edit.editGeneration;
         if (edit.acceptedGeneration !== edit.editGeneration) {
           failures.push(`${where}:${edit.entry} accepted a different generation`);
@@ -1472,29 +1402,42 @@ async function main() {
       if (abrupt === undefined || abrupt.atCompletedCycleBoundary !== true) {
         failures.push(`${where} did not apply its abrupt event at a completed-cycle boundary`);
       }
+      const stepped = record.edits.find((edit) => edit.entry === "step");
+      if (stepped === undefined || stepped.tickAfter !== stepped.tickBefore + 1) {
+        failures.push(`${where} did not advance exactly one tick`);
+      }
       const moved = record.edits.find((edit) => edit.entry === "move-slice");
       if (moved === undefined || moved.slice.moved !== true) {
         failures.push(`${where} did not move the slice`);
-      } else if (
-        moved.slice.gpuSliceIndex !== record.frame.renderedSliceIndex ||
-        moved.slice.gpuPreviousSliceIndex !== record.frame.comparedSliceIndex
-      ) {
+      } else if (moved.slice.appRenderedIndex !== record.frame.renderedSliceIndex) {
         failures.push(`${where} rendered a slice the edit did not select`);
       }
-      if (record.frame.sliceContentChanged !== true) {
-        failures.push(`${where} rendered an unchanged slice`);
+      const probed = record.edits.find((edit) => edit.entry === "request-named-probes");
+      if (
+        probed === undefined ||
+        probed.namedProbe.provenanceLinePresent !== true ||
+        probed.namedProbe.b === null ||
+        probed.namedProbe.d === null
+      ) {
+        failures.push(`${where} did not read its named probes`);
       }
       if (record.frame.renderedGeneration !== record.editGeneration) {
         failures.push(`${where} rendered a stale generation`);
       }
-      if (record.frame.renderedOrdinal !== record.ordinal) {
-        failures.push(`${where} rendered a stale ordinal`);
+      if (record.frame.sampleTick !== record.tick) {
+        failures.push(`${where} sampled display buffers at a stale tick`);
       }
-      if (record.frame.paintedTexels !== record.frame.expectedTexels) {
-        failures.push(`${where} painted ${record.frame.paintedTexels} texels`);
+      if (!(record.frame.instanceCount > 0) || !(record.frame.sampledEntries > 0)) {
+        failures.push(`${where} presented no extracted surface instances`);
       }
-      if (record.frame.errorFlags !== 0) {
-        failures.push(`${where} reported GPU error flags ${record.frame.errorFlags}`);
+      if (record.frame.controlsRepaintSubmitted !== true) {
+        failures.push(`${where} has no completed slice-repaint display submission`);
+      }
+      if (record.frame.stateSyncSubmitted !== true) {
+        failures.push(`${where} has no completed post-state display sync submission`);
+      }
+      if (record.frame.sliceEnabled !== true) {
+        failures.push(`${where} rendered without the slice enabled`);
       }
       if (record.segmentWallMs.length === 0) {
         failures.push(`${where} has no bounded submission segment`);
@@ -1526,7 +1469,7 @@ async function main() {
     }
 
     const report = {
-      schema: "phase5-performance-v2",
+      schema: "phase5-performance-v3",
       pass: failures.length === 0,
       failures,
       protocol: {
@@ -1549,14 +1492,13 @@ async function main() {
       uncapturedErrorCount,
       hiddenRetryCount,
       uncapturedErrors: observed.uncapturedErrors,
-      unexpectedDeviceLoss: observed.editQueueLossReason ?? observed.solverQueueLossReason,
+      unexpectedDeviceLoss,
       observedRuntimeState: {
         deviceLossRecords: observed.deviceLossRecords,
         reacquisitions: observed.reacquisitions,
         adapterRequests: observed.adapterRequests,
         deviceRequests: observed.deviceRequests,
-        editQueueLossReason: observed.editQueueLossReason,
-        solverQueueLossReason: observed.solverQueueLossReason,
+        deviceStatusLine: observed.deviceStatusLine,
         applicationErrors: observed.applicationErrors,
         applicationBackend: observed.applicationBackend,
         applicationTick: observed.applicationTick,
@@ -1569,27 +1511,31 @@ async function main() {
         editSubmissionCount: observed.editSubmissionCount,
         solverSubmissionCount: observed.solverSubmissionCount,
         finalEditGeneration: observed.finalEditGeneration,
-        shaderMessages: bridgeSetup.shaderMessages,
+        pendingEnvironmentEdits: observed.pendingEnvironmentEdits,
+        auditSummary: observed.auditSummary,
       },
       interactionEvidence: {
         bindings: EDIT_SCRIPT_BINDINGS,
-        appSliceBaseIndex,
+        appSliceBaseIndexByCase,
         presetOptions,
         scenarioOptions,
+        budgetOptions,
         ordinals,
       },
       renderer: {
         backend,
         canvasFormat: bridgeSetup.canvasFormat,
-        adapter: bridgeSetup.adapterInfo,
-        adapterFeatures: bridgeSetup.adapterFeatures,
-        deviceFeatures: bridgeSetup.deviceFeatures,
-        deviceLimits: bridgeSetup.deviceLimits,
+        adapter: observed.adapterInfo,
+        adapterFeatures: observed.adapterFeatures,
+        deviceLabel: observed.deviceLabel,
+        deviceFeatures: observed.observedFeatures,
+        deviceLimits: observed.observedLimits,
         requestedFeatures: [...PHASE5_REQUIRED_FEATURES],
         requestedLimits: { ...PHASE5_REQUIRED_LIMITS },
         resolvedControls: bridgeSetup.controls,
-        // The renderer's device IS the solver's device: the interception hook hands the
-        // production-checked device to the application's own `WebGPURenderer`.
+        // The renderer's device IS the solver's device: the application acquires ONE
+        // production-checked device (S2) and hands it to its own WebGPURenderer while the
+        // GPU engine (S3) and GPU view (S4) run on the same device.
         sharedWithSolver: true,
       },
       cases: caseReports,

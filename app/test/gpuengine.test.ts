@@ -36,6 +36,7 @@ import {
   gpuDebugFieldReadbackPlan,
   gpuEngineControlDecision,
   gpuInputFromConfig,
+  validatedEnvironmentEdit,
   type GpuEngineState,
 } from "../src/gpuengine.ts";
 import { DEFAULT_DIMS, ggParamsForInit, validateInitConfig } from "../src/protocol.ts";
@@ -431,6 +432,53 @@ describe("boundary-only environment-edit queueing (D6, decision 0011)", () => {
     });
     expect(second?.event.trigger).toEqual({ kind: "tick", value: 2 });
     expect(applied).toEqual([2]);
+  });
+});
+
+describe("seam validation of debug-supplied environment edits (WP6 S6)", () => {
+  const validEnv = () => ggTimelineEnvironmentFromParams(GG_PRESETS.dendrite);
+
+  it("normalizes a valid environment to an equal value with FRESH arrays", () => {
+    const input = validEnv();
+    const normalized = validatedEnvironmentEdit(input);
+    expect(normalized).toEqual(validEnv());
+    expect(normalized).not.toBe(input);
+    expect(normalized.kappa).not.toBe(input.kappa);
+    expect(normalized.mu).not.toBe(input.mu);
+    expect(normalized.ggThreshBeta).not.toBe(input.ggThreshBeta);
+    // Mutating the caller's object after validation cannot rewrite what was normalized.
+    (input.kappa as unknown as number[])[0] = 999;
+    expect(normalized.kappa[0]).toBe(validEnv().kappa[0]);
+    // The normalized shape carries exactly the five environment keys, nothing extra.
+    expect(Object.keys(normalized).sort()).toEqual([
+      "ggThreshBeta",
+      "kappa",
+      "mu",
+      "phi",
+      "rho",
+    ]);
+  });
+
+  it("rejects a non-object by name before anything reaches the queue", () => {
+    for (const bad of [null, undefined, 7, "plate", [1, 2, 3]]) {
+      expect(() =>
+        validatedEnvironmentEdit(bad as unknown as ReturnType<typeof validEnv>),
+      ).toThrow(/environment edit/);
+    }
+  });
+
+  it("rejects a non-finite rho through the tested core validation", () => {
+    const input = { ...validEnv(), rho: Number.NaN };
+    expect(() => validatedEnvironmentEdit(input)).toThrow(/environment edit rejected/);
+  });
+
+  it("rejects a short threshold vector (missing slots become NaN and fail validation)", () => {
+    const base = validEnv();
+    const input = {
+      ...base,
+      ggThreshBeta: base.ggThreshBeta.slice(0, 3) as unknown as typeof base.ggThreshBeta,
+    };
+    expect(() => validatedEnvironmentEdit(input)).toThrow(/environment edit rejected/);
   });
 });
 

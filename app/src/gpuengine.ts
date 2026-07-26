@@ -36,6 +36,8 @@
 import {
   DOMAIN_CONTACT_FRACTION,
   cellCount,
+  ggParamsFromTimelineEnvironment,
+  ggTimelineEnvironmentFromParams,
   type Dims,
   type GGTimelineEnvironment,
   type LatticeBBox,
@@ -427,6 +429,29 @@ export class GpuEnvironmentEditQueue {
 
   clear(): void {
     this.entries = [];
+  }
+}
+
+/**
+ * Validate and deep-copy a debug-seam-supplied timeline environment BEFORE it reaches the
+ * production edit queue (WP6 S6). The reconciled performance probe routes its registered
+ * abrupt-event edit through `__vccDebug.gpuQueueEnvironmentEdit`; an invalid environment
+ * must fail AT THE SEAM by name — a bad object that reached the queue would throw inside
+ * `applyTimelineEnvironment` on the engine's op queue and poison the whole engine. The
+ * round trip through the tested core conversions rejects wrong shapes and values
+ * (`validateParams` inside `ggTimelineEnvironmentFromParams`) and returns a normalized
+ * environment with FRESH arrays, so no caller can mutate what was queued.
+ */
+export function validatedEnvironmentEdit(raw: GGTimelineEnvironment): GGTimelineEnvironment {
+  if (typeof raw !== "object" || raw === null || Array.isArray(raw)) {
+    throw new Error("environment edit must be a GGTimelineEnvironment object");
+  }
+  try {
+    return ggTimelineEnvironmentFromParams(ggParamsFromTimelineEnvironment(raw));
+  } catch (err) {
+    throw new Error(
+      `environment edit rejected: ${err instanceof Error ? err.message : String(err)}`,
+    );
   }
 }
 

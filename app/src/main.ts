@@ -33,6 +33,7 @@ import {
   GpuEngine,
   gpuBudgetById,
   gpuBudgetIds,
+  validatedEnvironmentEdit,
   type GpuAuditSummary,
   type GpuControllerReport,
   type GpuDebugFieldReadback,
@@ -217,6 +218,35 @@ interface VccDebug {
    * solver exists. IN-PAGE consumption only (same serialization caution as above).
    */
   gpuFieldReadback: () => Promise<GpuDebugFieldReadback | null>;
+  // ── Phase 5 (WP6 S6): reconciled performance-probe seams. The registered probe now
+  // drives the app's OWN GPU engine, so it needs read access to the latest compact GPU
+  // snapshot and the production audit, plus a route that acknowledges registered edits on
+  // the app's production EDIT controller for editScript entries whose app handlers do
+  // solver work (step) or audited probe reads (named probes) rather than environment or
+  // display-control edits. ─────────────────────────────────────────────────────────────
+  /** The latest compact GPU snapshot exactly as posted (D6 counters/probes only; the
+   * object is a fresh copy built by buildGpuSnapshot — treat it as read-only). */
+  gpuSnapshot: () => GpuSnapshot | null;
+  /**
+   * Register one probe-driven UI edit generation on the production edit controller (D3).
+   * `acceptedAtMs` is sampled immediately AFTER the controller acknowledged, so it is an
+   * at-or-after observation of acceptance — a conservative bound, never an earlier claim.
+   * Null when no GPU engine exists.
+   */
+  gpuRegisterProbeEdit: () => { generation: number; acceptedAtMs: number } | null;
+  /**
+   * Queue one environment edit through the production decision-0011 queue (acknowledged
+   * NOW by the edit controller, applied at the next completed-cycle boundary). The
+   * environment is validated and deep-copied AT THIS SEAM (validatedEnvironmentEdit), so
+   * an invalid object throws here by name instead of poisoning the engine's op queue.
+   * Null when no GPU engine exists.
+   */
+  gpuQueueEnvironmentEdit: (
+    environment: GGTimelineEnvironment,
+  ) => { generation: number; acceptedAtMs: number } | null;
+  /** By-value copies of the app's production GpuReadbackAudit records (null when no
+   * usable GPU solver state exists). */
+  gpuAuditRecords: () => Record<string, unknown>[] | null;
 }
 
 const debugHook: VccDebug = {
@@ -266,6 +296,10 @@ const debugHook: VccDebug = {
   gpuViewSample: () => Promise.resolve(null),
   cpuSnapshotFields: () => null,
   gpuFieldReadback: () => Promise.resolve(null),
+  gpuSnapshot: () => null,
+  gpuRegisterProbeEdit: () => null,
+  gpuQueueEnvironmentEdit: () => null,
+  gpuAuditRecords: () => null,
 };
 (window as unknown as { __vccDebug: VccDebug }).__vccDebug = debugHook;
 
@@ -1938,6 +1972,30 @@ async function boot(): Promise<void> {
   debugHook.cpuSnapshotFields = () => (latest === null ? null : { snapshot: latest, wall });
   debugHook.gpuFieldReadback = () =>
     gpuEngine !== null ? gpuEngine.debugFieldReadback() : Promise.resolve(null);
+  // ── Phase 5 hooks (WP6 S6): reconciled performance-probe seams ─────────────────────────
+  debugHook.gpuSnapshot = (): GpuSnapshot | null => latestGpu;
+  debugHook.gpuRegisterProbeEdit = (): { generation: number; acceptedAtMs: number } | null => {
+    if (gpuEngine === null) return null;
+    const generation = gpuEngine.registerViewEdit();
+    // Sampled AFTER acknowledgeEdit returned: an at-or-after observation of acceptance.
+    return { generation, acceptedAtMs: performance.now() };
+  };
+  debugHook.gpuQueueEnvironmentEdit = (
+    environment: GGTimelineEnvironment,
+  ): { generation: number; acceptedAtMs: number } | null => {
+    if (gpuEngine === null) return null;
+    // Fail-closed at the seam: validatedEnvironmentEdit throws by name on an invalid
+    // environment BEFORE anything reaches the production queue (a bad object applied on
+    // the op queue would poison the engine).
+    const generation = gpuEngine.queueEnvironmentEdit(validatedEnvironmentEdit(environment));
+    renderStatus();
+    return { generation, acceptedAtMs: performance.now() };
+  };
+  debugHook.gpuAuditRecords = (): Record<string, unknown>[] | null => {
+    const source = gpuEngine?.viewSource() ?? null;
+    if (source === null) return null;
+    return source.audit.records().map((record) => ({ ...record }));
+  };
 
   renderStatus();
   sendInit();

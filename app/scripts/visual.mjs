@@ -247,9 +247,13 @@ async function runPhase3(outDir) {
     });
 
     // ── Primary pass (backend auto-selected; record what actually ran) ────────────────────
+    // WP6 D4: legacy Phase 3/4 capture harnesses pin `?engine=cpu` so the solver stays the
+    // byte-comparable CPU worker (the pin skips the shared-device acquisition and the GPU
+    // engine; the renderer still auto-selects WebGPU/WebGL2 exactly as before S2). Known S2
+    // delta: the status panel gains one device line naming the pin, in all modes.
     const page = await openApp(
       browser,
-      `http://localhost:${PHASE3_PORT}/`,
+      `http://localhost:${PHASE3_PORT}/?engine=cpu`,
       consoleErrors,
       pageErrors,
       { width: 1280, height: 800 },
@@ -447,7 +451,9 @@ async function runPhase3(outDir) {
       backend,
       fallbackBackend: fbBackend,
       viewport: { width: 1280, height: 800 },
-      config: "plate preset, dims 128x128x64, hexPrism, reflecting, seed 1, noise 0 (app defaults)",
+      config:
+        "plate preset, dims 128x128x64, hexPrism, reflecting, seed 1, noise 0 (app defaults); " +
+        "solver engine pinned to the CPU worker (?engine=cpu; ?webgl2=1 pins it implicitly)",
       ticks: Object.fromEntries(captures.map((c) => [c.name, c.tick])),
       ticksPerSec: finalState.ticksPerSec,
       depletionAtWp3Capture: finalState.depletion,
@@ -587,8 +593,11 @@ async function runPhase4(options) {
       args: chromiumGpuArgs(),
     });
 
+    // WP6 D4: the primary pass pins `?engine=cpu` so the live solver stays the
+    // byte-comparable CPU worker (renderer backend still auto-selects and is recorded);
+    // `?webgl2=1` already pins the CPU engine by precedence in decideGpuBoot.
     const backendPasses = [
-      { name: "primary", query: "" },
+      { name: "primary", query: "?engine=cpu" },
       { name: "forced-webgl2", query: "?webgl2=1" },
     ];
 
