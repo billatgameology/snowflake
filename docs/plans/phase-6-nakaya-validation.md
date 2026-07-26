@@ -199,18 +199,31 @@ coarsely that the metric is degenerate. Only the two warmest, lowest-σ points s
 discriminate, and that size has to be established by probe, not assumed.** A grid frozen at a
 degenerate measurement size would produce a diagram of one value.
 
-**2. The CPU cannot reach that size across a grid, so the GPU is not an optimization but a
-prerequisite.** At 48³/extent 17 runs cost 191–289 s, and the two lowest-σ cold points
+**2. CPU cost is high — but the claim that "the GPU is therefore a prerequisite" was WRONG, and
+is retracted here.** At 48³/extent 17 CPU runs cost 191–289 s, and the two lowest-σ cold points
 (−10 and −15 at f = 0.15) exceeded a 300 s budget without finishing — slow growth means many
-steps, so the *low*-σ end is the expensive end at cold temperatures. Extrapolating to Phase 2b's
-extent 61 at 96³, where single runs took hours (its interrupted v4 attempt ran 48,867 s to step
-768), a 30-point grid on CPU is days of compute per sweep, before any ensemble or convergence
-study.
+steps, so the *low*-σ end is the expensive end at cold temperatures. From that alone this plan
+asserted the GPU was a prerequisite. **A GPU calibration probe then measured the opposite**: at
+28³ to the same target the GPU took 32.9 s against the CPU oracle's ≈5 s, roughly **6× slower**,
+because the CPU warm-starts and converges many steps in a single sweep while the GPU always
+submits a 16-sweep segment with a full queue sync. No size was measured at which the GPU wins.
+The original sentence was an extrapolation from one engine's cost with no measurement of the
+other, and that is exactly the reasoning this project is supposed to refuse.
 
-**Consequence for sequencing:** WP0 cannot finish on CPU probes alone. The minimal GPU run path
-(a slice of WP2) is needed to establish the measurement size at which the metric resolves and
-the throughput that sizes the grid — and only then can the grid and measurement size be frozen.
-That reorders WP0 and WP2 slightly and is recorded here rather than discovered later.
+**2b. The GPU cannot run the mirrored physics at all for sustained runs.** The frozen
+`divTol = 1e-7` is an *absolute* divergence-identity tolerance, and in float32 it sits below the
+roundoff floor: the probe recorded refusals at 20³/24³/28³ where the relaxation residual was
+**exactly 0** and both ULP distances were **0** — a bit-stationary float32 fixed point, where
+more sweeps provably cannot change anything — while the divergence residual sat at 1.0–1.6e-7,
+a few ULP of the ≈0.596 operand magnitude. Refusals occurred at steps 11–47 with no monotonic
+pattern in domain size, which is what a roundoff floor straddling a fixed absolute threshold
+looks like. Phase 5 only ever conformance-tested the GPU LK path at 24×24×18 for **four**
+interface steps, so sustained GPU LK running is new ground rather than a regression.
+
+**Consequence:** the engine choice must be re-decided on this evidence, and running the sweep on
+the GPU would first require an ADR replacing the absolute `divTol` with a magnitude- and
+cell-count-relative bound — the shape decision 0014 already uses for smoother drift. That is a
+protocol decision, not something a probe or a work package may substitute quietly.
 
 **3. One symmetry observation to resolve before the freeze.** The (−5, f = 0.50) run reported
 `symErr = 0.020915` with noise off, where every other run in the matrix reported exactly 0.
