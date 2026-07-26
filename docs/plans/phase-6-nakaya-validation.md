@@ -183,6 +183,43 @@ the Phase 3 pattern: run coordinator-only probes, register the resulting numbers
 probe output named, and state the margin reasoning. A probe's printed metrics are never citable
 as a gate result.
 
+### Calibration results so far (2026-07-26, CPU, coordinator-only — not evidence)
+
+A 3 × 3 matrix at 48³, measurement extent 16, water-relative σ fractions 0.15/0.50/0.90,
+temperatures −5/−10/−15 °C. Two results change the plan.
+
+**1. The habit metric does not resolve at a small measurement size.** `AR = 0.740` came back
+from **five** different runs — (−5, 0.90), (−10, 0.50), (−10, 0.90), (−15, 0.50) and more —
+whose attached counts ranged from 761 to 1,099. Five physically different crystals cannot share
+an aspect ratio to three decimals: at extent 17 the integer bounding box is quantized so
+coarsely that the metric is degenerate. Only the two warmest, lowest-σ points separated at all
+(`0.471` and `0.606`, both plate, matching the σ₀-ordering prediction and Phase 2b's plate at
+−5 °C). Phase 2b measured at extent 61 and got `0.119` versus `12.2` — enormous separation.
+**Consequence: the registered measurement size must be large enough for the metric to
+discriminate, and that size has to be established by probe, not assumed.** A grid frozen at a
+degenerate measurement size would produce a diagram of one value.
+
+**2. The CPU cannot reach that size across a grid, so the GPU is not an optimization but a
+prerequisite.** At 48³/extent 17 runs cost 191–289 s, and the two lowest-σ cold points
+(−10 and −15 at f = 0.15) exceeded a 300 s budget without finishing — slow growth means many
+steps, so the *low*-σ end is the expensive end at cold temperatures. Extrapolating to Phase 2b's
+extent 61 at 96³, where single runs took hours (its interrupted v4 attempt ran 48,867 s to step
+768), a 30-point grid on CPU is days of compute per sweep, before any ensemble or convergence
+study.
+
+**Consequence for sequencing:** WP0 cannot finish on CPU probes alone. The minimal GPU run path
+(a slice of WP2) is needed to establish the measurement size at which the metric resolves and
+the throughput that sizes the grid — and only then can the grid and measurement size be frozen.
+That reorders WP0 and WP2 slightly and is recorded here rather than discovered later.
+
+**3. One symmetry observation to resolve before the freeze.** The (−5, f = 0.50) run reported
+`symErr = 0.020915` with noise off, where every other run in the matrix reported exactly 0.
+Noise-off runs are supposed to retain exact D6h symmetry (charter §3.1; the Phase 2b gate
+enforced `symErr = 0` at 96³). This is either a tie-break/ordering degeneracy that appears at
+particular conditions, a small-domain artefact, or a defect. It is **not** dismissed: symmetry
+is a registered validity check for every Phase 6 run, so a condition that breaks it would
+invalidate that grid point. Reproducing and explaining it is WP0 work.
+
 **The pre-freeze corrections are done (2026-07-26).** Four source-verified corrections landed
 in `docs/libbrecht-parameters.md` while they were still free to make; after the freeze each
 would have cost a full re-sweep by charter rule. SDAK-2 is recorded as an `A_prism` mechanism

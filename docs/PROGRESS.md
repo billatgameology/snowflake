@@ -1275,7 +1275,7 @@ evidence; neither may be relabelled as WP7's.
 
 **Next action: Phase 6 WP0 — pre-registration.** Phase 5 is closed and pushed (`d8a8a39`); the
 Phase 6 plan is registered at [phase-6-nakaya-validation.md](plans/phase-6-nakaya-validation.md)
-and **no validation sweep may run until WP0's freeze lands**. The pre-freeze source corrections
+and **no validation sweep may run until WP0's freeze lands**. WP1 is done (`research/nakaya-morphology-diagram.md`: boundaries −3.3/−9.9/−21.5 °C ±0.5, a non-uniform temperature axis, and a water-saturation cross-check that passes on position and fails on scale). WP0 calibration has already caught three things by running rather than reading: the registered surface policy was ADR 0009's `v4` while every run uses `v5`; the σ ladder cannot be computed from `sigmaWater()`, whose difference form goes negative warmer than about −3 °C; and **the habit metric is degenerate at a small measurement size** — five physically different runs all returned `AR = 0.740`. That last one, plus CPU run costs of 191–289 s at a *degenerate* size, means the measurement size and grid cannot be frozen from CPU probes: the minimal GPU run path is a WP0 prerequisite, not a WP2 convenience. The pre-freeze source corrections
 are already in (2026-07-26): `docs/libbrecht-parameters.md` now records SDAK-2 as an `A_prism`
 mechanism rather than a missing gap (§4.2), the printed width parameterization (§4.3), the
 latent-heating parameter `chi_0(T, P)` with anchors and its `sigma_inf/(1 + chi_0)` correction
