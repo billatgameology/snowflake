@@ -1,10 +1,12 @@
 # Plan — Phase 5: WebGPU solver port and Windows D3D12 conformance
 
 - **Phase:** Phase 5 — GPU port
-- **Status:** WP1-WP4 are independently accepted; WP5's first candidate was rejected and its
-  review repair is in progress. WP6 and WP7 remain blocked.
+- **Status:** WP1-WP6 are independently accepted with zero-finding reviews. WP7's canonical
+  Windows/D3D12 evidence exists at `out/phase5/` — both frozen commands exit 0 at clean commit
+  `32eed48`, `gate5` reporting 16/16 criteria — and is awaiting its independent review, which
+  is the last step before Phase 5 is complete.
 - **Started:** 2026-07-23
-- **Last touched:** 2026-07-24 by Codex
+- **Last touched:** 2026-07-26 by Claude
 
 ## Goal
 
@@ -1429,6 +1431,22 @@ canonical evidence; Metal or general-WebGPU claims; Phase 7 presentation work.
       commands, authenticate and aggregate the bundle, inspect the interactive preview evidence,
       obtain clean review, and update `PROGRESS.md` with every metric, value, host, command,
       commit, and artifact hash. State the Windows/Chromium/D3D12 scope prominently.
+      **Evidence exists and is under review (2026-07-26).** The precondition the WP6 reviewer
+      named was repaired first at `32eed48`: app-path readbacks are attributed to the preview
+      case that produced them, from the application's own append-only audit counts observed at
+      each case's start and end and cross-checked against the self-identifying named-probe pick
+      labels (`runner/src/gate5-readback-attribution.ts`, 15 tests). Root `npm test` passes
+      63 files / 1,125 tests in 512.72 s and the app build exits 0 at that commit. Both frozen
+      commands then ran at exact clean commit `32eed481b8f2b57723ef5355fc406c347a17979f`:
+      `gate5-lane` exit 0 (D3D12, 172 source files) and `gate5` exit 0 with 16/16 criteria,
+      publishing `out/phase5/`. The preview cases meet every registered bound — plate edit-ack
+      max 10.30 ms and first valid frame max 308.4 ms, column 13.00 ms and 295.7 ms, submission
+      p99 17.80 / 17.30 ms — with zero device losses, uncaptured errors, hidden retries, stale
+      generations, and zero full-field display-frame reads across 2,715 audited readbacks. All
+      sixteen negative controls were rejected with their registered owner in the observed
+      failing set; the published-artifact audit finds zero self-attested comparisons of 242
+      measured. Every value, hash, and provenance field is transcribed in `PROGRESS.md`. This
+      box stays unchecked until independent review returns zero blockers and zero should-fixes.
 
 ## Out of scope
 

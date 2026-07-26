@@ -611,7 +611,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | **2b** | Habit changes with **temperature alone** — two temperatures, no other change, two habits (habit = pre-registered aspect-ratio thresholds at a stated crystal size — operationalized in the plan). Plus (introduced v1.2; strengthened v1.4): fixed-σ Dirichlet far field passes the **depleted-start differential test** (v1.2's "holds σ in a crystal-free run" wording was vacuous from a uniform start — see plan) | ✅ **complete, 2026-07-20.** One flagless v5p run at tracked-clean `0dc0f86`, pre-registration `8adea86`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exited 0. Same `96×96×96` hexPrism, extent target, fixed-σ far field, `sigmaInfinity=0.002`, pressure, spacing, mapping, seed 1, noise 0, CFL, and convergence controls; temperature alone differed. −5 °C: step 814, extent 61, attached 18,193, AR `0.118644` plate. −15 °C: step 330, extent 61, attached 1,159, AR `12.2000` column. Both: size-target, symmetry error 0, every relaxation converged, bounded smoother drift, checkpoint round trip identical. The depleted-start differential was 3/3 and permanent Phase 2a control retained canonical SHA-256 `f1796b5015…a389`. Final log SHA-256 `ea69d65a…c45e`, status 0, empty stderr; complete evidence: [v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result). V3 negative and v4 execution-invalid history remain preserved. |
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ✅ **maker-asserted complete, 2026-07-23** — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ✅ **complete, 2026-07-18** — one canonical `node runner/src/main.ts gate4` at `70a2496`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exit 0 in 7,178.8 s. Pass A: 13 runs, 24/24 records green; plate/column AR `0.0666667`/`1.66667`; five-point sweep strictly increasing; depletion median `0.770238`, 7/7 samples below one, width 7→13; three distinct reproducible open-hollow occupancies; cap score `1.3`; dendrite/compact branches 6/0 at independent first reservoir crossings (cycles 4,775/5,450, extents 99/83). A manifest/report/index SHA-256: `e5e85c70…8644` / `bcb29e05…7188` / `92346e3e…1917`. Pass B: 11 runs, 12/12 execution records green; three morphology diagnostics pass and five honestly miss (depletion, widening, hollowing, capped history, branch). B manifest/report/index: `c0ceed5b…e812` / `22c8a92c…fa2d` / `5644f838…5cb0`. Aggregate v2 SHA-256 `194f837d…d8e2`, `gatePass=true`, `passBDiagnosticPass=false`. Real `node app/scripts/visual.mjs --phase4`: 20/20 original-resolution captures inspected by coordinator and reviewer, zero absent/error/clipped/hash-mismatch views, manifest `19e0fcfe…573b`. Post-publication exact root suite 779/779 and 33-module build green; final same-reviewer verdict on repair `b7153cc`: CLEAN, 0 blockers / 0 should-fixes. Full record: [v2 plan](plans/phase-4-v2-reservoir-matched-branch-control.md). |
-| 5 | GPU agrees with CPU oracle to tolerance on observed Windows D3D12; preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable. This phase makes no Metal/general-WebGPU portability claim (ADR 0018). | 🔶 **WP1–WP4 complete; WP5 review repair in progress** (2026-07-24). WP4 implementation `2788cc0` and its canonical D3D12 artifact have zero-finding review. WP5 candidate `eb5c5fb` ran both registered commands but its evidence is rejected provisional: review found five blockers and two should-fixes covering independent science witnesses, complete G-G ledger chronology, actual UI/render timing, all sixteen named controls, immutable-source execution, both allocation graphs, and race-safe cleanup. Local `main` is at `e04d250`; no accepted Phase 5 gate evidence exists. WP6/WP7 must not start. Metal remains a separately frozen later-machine extension. Active plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). |
+| 5 | GPU agrees with CPU oracle to tolerance on observed Windows D3D12; preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable. This phase makes no Metal/general-WebGPU portability claim (ADR 0018). | 🔶 **WP1–WP6 closed with zero-finding review; WP7 evidence exists and is under review** (2026-07-26). WP4 implementation `2788cc0` and its canonical D3D12 artifact have zero-finding review. WP5 closed on its round-three clean verdict (canonical bundle `0a611e7`, now preserved at `out/phase5-wp5-0a611e7/`); WP6 closed on a two-round clean verdict (`b26b0af`). WP7's canonical run at clean commit `32eed48` exits 0 on both frozen commands — `gate5-lane` (D3D12, 172 source files) and `gate5` (16/16 criteria) — publishing the bundle now at `out/phase5/`; the preview cases meet every registered bound with zero losses, errors, retries, stale generations, and full-field display reads. That evidence is not accepted until its independent review returns zero blockers and zero should-fixes. Metal remains a separately frozen later-machine extension. Active plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). |
 | 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | ⬜ not started |
 | 7 | Product layer | ⬜ not started |
 
@@ -901,7 +901,10 @@ immutable.
 
 ## Next step
 
-**Phases 2b, 3, 4, and Phase 5 WP1–WP6 are complete. Phase 5 WP7 is next.**
+**Phases 2b, 3, and 4 are complete. Phase 5 WP1–WP6 are complete; WP7's canonical
+Windows/D3D12 evidence exists at `out/phase5/` (both frozen commands exit 0, 16/16 criteria at
+commit `32eed48`) and is awaiting its independent review, which is the last thing between here
+and Phase 5 being complete.**
 WP4 implementation `2788cc060116ce8021911248771aa3c148b8fe63` and documentation closure
 `e91dd1dd3f9603c029276b194bb6d535a374b989` have zero-finding independent review. Its canonical
 D3D12 artifact is `out/wp4-canonical-2788cc0.json`, SHA-256
@@ -1107,24 +1110,110 @@ its own byte-comparison of all 20 Phase 4 captures, its own backend-control run,
 root suite at 62 files / 1,110 tests) and returned one file-count transcription should-fix,
 repaired at docs-only `f188573` and verified in round two.
 
-**Next action:** begin WP7. First fix the gate's label-to-fixture readback attribution
-(reviewer-confirmed: none of the 1,195 app-path performance readback labels name a fixture, so
-the unmodified gate would attribute them all to the plate fixture); then run all
-preconditions, execute the frozen Windows commands at one exact clean commit, authenticate and
-aggregate the bundle, inspect the interactive preview evidence, obtain clean review, and
-record every metric, value, host, command, commit and artifact hash in PROGRESS with the
-Windows/Chromium/D3D12 scope stated prominently. Standing disclosures: GPU-mode raycast
-picking is deferred with named-probe pickCell as the floor; growthPropensity is refused by
-name in GPU pick readouts.
+**WP7 canonical Windows evidence EXISTS and awaits independent review (2026-07-26). Scope is
+Windows/Chromium/D3D12 only — no Metal and no general-WebGPU portability claim (ADR 0018).**
 
-Then run focused tests, Rule 7, both typechecks, the app build, and exact root `npm test`; commit
-locally so the tree is tracked-clean; produce fresh `gate5-lane` / `gate5` D3D12 evidence — which
-is what will first exercise the repaired ledger against the real device — and return it to the
-same reviewer until zero blockers and zero should-fixes. Do not push unless the
-user separately asks. Do not delete `out/worktrees/phase5-wp1` until the repaired parent is
-committed, verified, and reconfirmed to contain everything unique. Do not begin WP6. Metal is
-deferred; never relabel Windows evidence as Metal or claim general WebGPU portability. Preserve
-accepted evidence under `out/phase2b/`, `out/phase4/`, and `out/phase4-visual/`.
+*The precondition repair.* The WP6 reviewer's confirmed finding was fixed first, at
+`32eed481b8f2b57723ef5355fc406c347a17979f`. The WP6-S6 performance probe collects the
+APPLICATION's own production readback labels (`app:gg:tick-N:…`, `app:view:pick-i-j-k:…`,
+`app:view:sample:…`, `init:far-field-mean`), and none of them names a fixture, so the gate's
+label match with a per-source default would have published all 1,195 app-path records under
+the plate fixture — including the 597 the preview-column case produced. They are now
+attributed from the probe's own observations: each preview case reports the application's
+audit-record count at case start and at case end, and the app's `GpuReadbackAudit` is
+append-only for the session, so those counts are exact index boundaries into the one published
+list. The windows partition it — case k owns `[previous case end, its own end)` — the reads a
+case's engine construction performed while it was being set up are published with the case
+they precede, and records after the last case closed fail closed. Each window is then
+cross-checked rather than trusted: every named-probe pick label carries the cell the app was
+asked to probe, so a pick naming a different cell than its window, or a label naming a
+different registered preview case, rejects the attribution. The rule lives in the runner as
+`runner/src/gate5-readback-attribution.ts` with 15 tests; no evidence-artifact schema, protocol
+hash, or `app/src` source changed. The gate's terminal line (now
+`phase5-browser-gate-terminal-v2`) publishes the boundary numbers, and the lane publishes that
+line as `stdout.log`, so the attribution is re-derivable from the bundle alone.
+
+*Preconditions at that commit.* Root `npm test` — which runs the Rule 7 scan and both
+typechecks before vitest — passes **63 files / 1,125 tests in 512.72 s**;
+`npm run build --workspace app` exits 0; `git status --porcelain=v1 --untracked-files=all` is
+empty.
+
+*The frozen commands, both at exact clean commit
+`32eed481b8f2b57723ef5355fc406c347a17979f`.* `node runner/src/main.ts gate5-lane` exited 0
+(protocol `phase5-gpu-conformance-windows-v6`, backend D3D12, 172 source files) publishing
+`out/phase5/windows-d3d12/`; `node runner/src/main.ts gate5` exited 0 with **16/16 criteria**
+publishing `out/phase5/gate5-report.json` and `out/phase5/gate5-artifact-index.json`. The
+manifest's own capture window is `2026-07-26T15:36:39.166Z` → `2026-07-26T15:37:37.632Z`
+(58.466 s for all five production probes plus capture assembly); the lane command's whole run
+spans `15:36:36.178Z` → `15:38:13.089Z` by its own redirected stdout file's timestamps, and
+the aggregate report was written at `15:45:17.603Z`. The bundle is 78 files / 80,944,780 bytes
+with 172 source hashes and 73 lane artifacts.
+
+*Provenance as published.* Host win32 10.0.26200, x64, AMD Ryzen 7 5700G with Radeon Graphics,
+16 logical processors, 68,502,585,344 bytes of memory. Adapter NVIDIA GeForce RTX 3080 —
+vendor `nvidia`, architecture `ampere`, device `0x2206`, discrete GPU, backend **D3D12**,
+driver `D3D12 driver version 32.0.15.9186`. Runtime `playwright-bundled-chromium`
+`playwright-1.61.1/chromium-1228`, product `Chrome/149.0.7827.55`, revision
+`@3188f8a607ae7e067593be8aab7f02d2451fec07`, launched with `--enable-unsafe-webgpu` and
+`--enable-webgpu-developer-features`. Protocol `phase5-gpu-conformance-windows-v6`
+`5ef6d11bab19e722379b3ba0c6a39bddc619cb22e21ed672478f0530a19ad115`, fixtures
+`29874e660296676113fc2851804be7e47dc994dea0cc3a5caf35d8aabfb67512`, tolerances
+`d38ec0f7a0096dc297d651cd1b89fb80275edb4098c16545c44274e585c2a09b`.
+
+*Artifact SHA-256.* `gate5-report.json`
+`2047a5f3bc286cf1728a707ad9dfd3f58c26f33f4c91fe71cd4bd4587aafef9f` (931,172 B);
+`gate5-artifact-index.json`
+`eab607490be5a372eaf95d30153bfff2361ed7eefd590846608d024a6346410b` (16,014 B);
+`windows-d3d12/lane-manifest.json`
+`151ff1160dbf5e59d3290cbcd070285f18ba648b4c76d62369c44a63052301b2` (46,083 B);
+`windows-d3d12/lane-report.json`
+`c3b1888fb83abff277a4e0701ad37c987603bbada2b07d28a2517164c4b6844d` (1,915,766 B);
+`windows-d3d12/artifact-index.json`
+`e02348e64cedf1b8c193ecbc37751e0d8f2ae541f8d9fe787ad48d3ed4b14b18` (14,796 B);
+`windows-d3d12/stdout.log`
+`a9ff9fe75a8ca9e461af28065fc6eedf94b2020c5709452ec30a6da655d7ac49` (754 B);
+`windows-d3d12/exit-status.txt`
+`9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa` (2 B).
+
+*Interactive preview evidence, as published in `lane-report.json` (bounds in parentheses).*
+`preview-plate`: 30 measured samples, edit acknowledgement min 4.40 / **max 10.30 ms**
+(≤ 100), first valid post-edit frame min 146.0 / **max 308.4 ms** (≤ 2,000), 280 bounded
+submission segments with **p99 17.80 ms** (≤ 250) and **max 18.30 ms** (≤ 500).
+`preview-column`: 30 measured samples, edit acknowledgement min 7.00 / **max 13.00 ms**, first
+valid post-edit frame min 162.8 / **max 295.7 ms**, 280 segments with **p99 17.30 ms** and
+**max 19.70 ms**. Zero samples accepted or rendered a stale generation. Device losses,
+uncaptured errors and hidden retries are **0/0/0**. The audit holds **2,715 readback records
+totalling 185,590,780 bytes with zero full-field display-frame reads**.
+
+*Published-artifact audits (run against the bundle bytes, not against any evaluator verdict).*
+Zero self-attested comparisons out of 242 measured. Ten null/null blocking scalar pairs, every
+one registered in `PHASE5_SCALAR_NON_APPLICABILITY`, zero unregistered or inconsistent. All
+**16 negative controls REJECTED with the registered owner inside the observed failing set**
+(ADR 0022's rule; `NC-TOLERANCE-BYPASS` legitimately fails `P5-LAYOUT-INDEXING` alongside its
+owner `P5-NEGATIVE-CONTROLS`). The attribution audit, derived from the published bundle alone,
+reproduces the two windows (`preview-plate` → `gg-plate-reflecting-48x48x24`, records
+`[0, 598)`, in-case from 3, 3 setup reads, pick target 200-200-25; `preview-column` →
+`gg-column-dirichlet-noise-timeline-32x32x64`, records `[598, 1195)`, in-case from 600, 2
+setup reads, pick target 80-80-160), confirms the per-fixture record sets reconstruct the raw
+2,715-record inventory exactly, splits the 1,195 app-path records **598 plate / 597 column**,
+and finds **840 self-identifying pick labels agreeing and 0 contradicting** while **0 of the
+1,195 labels name a fixture at all** — which is the defect the repair removes.
+
+*The superseded WP5 bundle is preserved, not overwritten.* Its five recorded hashes were
+re-verified on disk first, then it was copied file-by-file to `out/phase5-wp5-0a611e7/` (78/78
+byte-identical) and the original directory renamed to `out/phase5-wp5-0a611e7-original/`
+before the WP7 run created a fresh `out/phase5/`. Both copies are the accepted `0a611e7` WP5
+evidence; neither may be relabelled as WP7's.
+
+**Next action:** obtain independent review of this WP7 bundle to zero blockers and zero
+should-fixes, then record the closure here and check WP7 complete in the plan — which closes
+Phase 5. Do not push unless the user separately asks. Do not modify, move, or delete anything
+under `out/phase5/`, `out/phase5-wp5-0a611e7/`, or `out/phase5-wp5-0a611e7-original/`. Metal
+is deferred; never relabel Windows evidence as Metal or claim general WebGPU portability.
+Preserve accepted evidence under `out/phase2b/`, `out/phase4/`, and `out/phase4-visual/`.
+Standing disclosures that are not defects: GPU-mode raycast picking is deferred with
+named-probe `pickCell` as the floor; `growthPropensity` is refused by name in GPU pick
+readouts.
 
 **Phase 3 is COMPLETE — maker-asserted 2026-07-23 (ADRs 0007/0008), orchestrated per
 [phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md)** — all work packages
