@@ -180,10 +180,31 @@ source statement*. **The solver uses the CAK set (the later, fuller synthesis); 
 carry this discrepancy as a stated systematic**, and the no-SDAK habit probe should be run
 against both crossings before any conclusion about "the model" is drawn.
 
-**Interpolation between anchors is a P4 decision, not physics:** proposed log-linear in
-`(Tm−T)` vs `log sigma_0` (the curves are near-straight on the log–log plot above (Tm−T) ≈ 3).
-To be pre-registered in the Phase 6 protocol freeze; until then any interpolation used in dev
-runs is recorded in the run log.
+**Interpolation between anchors is a P4 decision, not physics — REGISTERED 2026-07-26**
+(`runner/src/phase6-protocol.ts`, `PHASE6_INTERPOLATION`). The scheme is **piecewise log–log
+linear between adjacent anchors** for `sigma_0` (both facets), **piecewise linear in `(Tm−T)`**
+for `A_prism` (it touches 1 and dips, so a log scheme is wrong for it), `A_basal ≡ 1`, and
+**extrapolation is banned** — the solver throws outside `(Tm−T) ∈ [1, 50]`, i.e.
+`T ∈ [−50, −1] °C`. This is the scheme every run to date has used
+(`core/src/libbrecht.ts`); the freeze registers and verifies it rather than changing it.
+
+*The justification previously recorded here was wrong and is corrected.* This file used to say
+the curves are "near-straight on the log–log plot above (Tm−T) ≈ 3". They are not: the local
+log–log slope runs **0.22 → 1.62** (basal) and **2.26 → 1.76** (prism) across the digitized
+range, and a single power law fitted over `(Tm−T) ≥ 3` leaves residuals of **21%** (basal) and
+**23.8%** (prism). Global straightness is not why the scheme is acceptable.
+
+The measured reason is that its error is subdominant to the digitization band already carried
+on the anchors. Dropping each interior anchor and rebuilding it from its two neighbours by the
+same rule — a conservative bound, since it spans two intervals where the solver spans one —
+gives a worst relative error of **10.7% (basal)** and **9.0% (prism)** against the **±25%**
+band above. `runner/test/phase6-protocol.test.ts` recomputes both numbers from the live solver,
+so this justification cannot drift away from the code it describes.
+
+**Consequence for the Phase 6 grid:** the banned extrapolation is a hard constraint on the
+frozen T grid. The Nakaya diagram runs to 0 °C; the warmest temperature Phase 6 may sweep is
+**−1 °C**, and the coldest is **−50 °C**. Any comparison against the diagram's 0 to −1 °C strip
+is outside the digitized domain and is not made.
 
 **What the ±25% band does and does not permit (recorded 2026-07-15, round-2 review):** any
 "robustness" arithmetic built on these anchors holds for the **nominal digitized values
