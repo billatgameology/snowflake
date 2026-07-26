@@ -1410,8 +1410,9 @@ canonical evidence; Metal or general-WebGPU claims; Phase 7 presentation work.
       the regenerated `0a611e7` bundle and returned one prose should-fix (a blanket "0/0" claim
       the bundle contradicted), repaired at docs-only `bb97e26`. **Round three (2026-07-25):
       the same reviewer returned zero blockers and zero should-fixes. WP5 is closed.** Canonical
-      evidence: the `0a611e7` bundle at `out/phase5/` (hashes in PROGRESS), protocol
-      `phase5-gpu-conformance-windows-v6`, docs state `bb97e26`. Scope remains
+      evidence: the `0a611e7` bundle, produced at `out/phase5/` and preserved since WP7's run
+      at `out/phase5-wp5-0a611e7/` and `out/phase5-wp5-0a611e7-original/` (hashes in PROGRESS),
+      protocol `phase5-gpu-conformance-windows-v6`, docs state `bb97e26`. Scope remains
       Windows/Chromium/D3D12 only; Metal is deferred.
 - [x] **WP6 — app integration.** Move live simulation to the GPU package, wire GPU-resident
       overlays/slices and resolution budgets, preserve view-only evidence inspection, and prove

@@ -1076,8 +1076,11 @@ original should-fixes repaired (with the reviewer's own replays of the ledger re
 negative-control roster, and protocol hashes) and returned four should-fixes; round two
 verified those four repaired against the regenerated `0a611e7` bundle and returned one prose
 defect; round three verified that sentence repaired at docs-only `bb97e26` with the bundle
-byte-unchanged. Canonical WP5 evidence: the `0a611e7` bundle at `out/phase5/` under protocol
-`phase5-gpu-conformance-windows-v6` (hashes above). Scope is Windows/Chromium/D3D12 only.
+byte-unchanged. Canonical WP5 evidence: the `0a611e7` bundle, produced at `out/phase5/` and
+preserved since WP7's run at `out/phase5-wp5-0a611e7/` and `out/phase5-wp5-0a611e7-original/`
+(byte-identical, hashes above), under protocol `phase5-gpu-conformance-windows-v6`. Scope is
+Windows/Chromium/D3D12 only. `out/phase5/` now holds WP7's bundle, which is a different
+commit's evidence and must never be read as WP5's.
 
 **WP6 implementation is COMPLETE and awaiting independent review (2026-07-25).** Slices S0-S6
 landed as `f357756` (frozen design), `a19f45b` (engine seam; worker untouched), `03254a4`
@@ -1102,7 +1105,8 @@ reads. App-path preview performance: edit ack max 10.7 ms (≤100), first valid 
 losses/errors/retries. Phase 4 captures reran 20/20 byte-identical; Phase 3 bit-identical in
 every numeric quantity with PNG deltas traced to named causes (S2 status line, S3 pane rows,
 tick-rate text, and a backend-name change a control run proved predates the pin).
-`PHASE5_PROTOCOL_SHA256` is unmoved; `out/phase5/` WP5 evidence untouched.
+`PHASE5_PROTOCOL_SHA256` is unmoved; WP6 left the WP5 evidence then at `out/phase5/` untouched
+(WP7 later preserved it at `out/phase5-wp5-0a611e7/` before publishing its own bundle there).
 
 **WP6 is CLOSED (2026-07-25): the same independent reviewer returned zero blockers and zero
 should-fixes over two rounds** — round one verified every scope clause from primary sources
@@ -1123,9 +1127,9 @@ the plate fixture — including the 597 the preview-column case produced. They a
 attributed from the probe's own observations: each preview case reports the application's
 audit-record count at case start and at case end, and the app's `GpuReadbackAudit` is
 append-only for the session, so those counts are exact index boundaries into the one published
-list. The windows partition it — case k owns `[previous case end, its own end)` — the reads a
-case's engine construction performed while it was being set up are published with the case
-they precede, and records after the last case closed fail closed. Each window is then
+list. The windows partition it — case k owns `[previous case end, its own end)` — so the reads
+the application performed before a case opened are published with the case they precede, and
+records after the last case closed fail closed. Each window is then
 cross-checked rather than trusted: every named-probe pick label carries the cell the app was
 asked to probe, so a pick naming a different cell than its window, or a label naming a
 different registered preview case, rejects the attribution. The rule lives in the runner as
