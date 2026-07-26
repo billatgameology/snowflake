@@ -117,19 +117,28 @@ figure runs **30–42% low**:
 | −25 | 0.1445 | 0.1527 | 0.1072 | 0.702 |
 | −30 | 0.1112 | 0.1152 | 0.0802 | 0.696 |
 
-## Result 3 — an incidental finding about our own code
+## Result 3 — the σ_water difference form, re-measured (a known limitation, not a new one)
 
-The same table referees `core/src/libbrecht.ts` against Murphy & Koop. Our `pSatIce` is
+The same referee run checked `core/src/libbrecht.ts` against Murphy & Koop (2005). `pSatIce` is
 excellent — within **0.8%** at every temperature checked (262.08 vs 259.89 Pa at −10 °C;
-166.67 vs 165.29 at −15; 38.33 vs 38.01 at −30). But our **water-minus-ice excess runs 5–20%
-below** Murphy-Koop, worst on the warm side, which traces to the monograph's `pSatWater` fit
-for supercooled water rather than to anything in the port.
+166.67 vs 165.29 at −15; 38.33 vs 38.01 at −30). The **water-minus-ice difference form runs
+5–20% low**, worst on the warm side.
 
-This does not touch any accepted evidence: `sigmaWater` is a source-side plausibility
-diagnostic, not a solver input (`docs/libbrecht-parameters.md` §8). It matters for Phase 6 only
-if a protocol ever sets a far field *relative to water saturation* — the Nakaya diagram's upper
-region is bounded by exactly that curve — and it is recorded here so that choice is made with
-the number in hand.
+**This is already known and pinned**, not a discovery: `core/test/libbrecht.test.ts` records
+that the form "even goes NEGATIVE" at −1 °C (−0.009146 computed against Table 2.1's +0.010),
+that it is ~20% off at −10 °C, and it asserts those deviations so "the limitation cannot
+silently un-happen". The measurements here extend that record with an independent standard and
+add the warm-end shape: our value is **−0.0138 at −0.5 °C, −0.0092 at −1, 0.00029 at −2** —
+i.e. the form is unusable warmer than about −3 °C, since the supersaturation of supercooled
+water over ice is strictly positive for every T < 0 °C.
+
+The consequence is a design constraint, and it lands in the Phase 6 protocol rather than here:
+a σ ladder defined as a fraction of water saturation cannot be computed from that difference
+form. It is computed from the monograph's **own Table 2.1 σ_water anchors** instead — printed
+source values, which Murphy-Koop independently confirms to within about 1% (Table 2.1 gives
+0.010, 0.020, 0.050, 0.102, 0.157 at −1, −2, −5, −10, −15; Murphy-Koop gives 0.0098, 0.0197,
+0.0498, 0.1022, 0.1574). No accepted evidence is affected either way: `sigmaWater` is a
+source-side plausibility diagnostic and no solver or gate consumes it.
 
 ## Rules for using these numbers
 

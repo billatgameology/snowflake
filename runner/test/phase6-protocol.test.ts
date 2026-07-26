@@ -10,12 +10,14 @@ import {
   nucleationAPrism,
   sigma0Basal,
   sigma0Prism,
+  sigmaWater,
 } from "../../core/src/index.ts";
 import {
   phase6FreezeComplete,
   phase6MeasureInterpolationError,
   phase6PendingFreezeItems,
   phase6ProtocolManifest,
+  phase6SigmaWaterFromTable,
   PHASE6_FAR_FIELD,
   PHASE6_ENGINE_CONTROL,
   PHASE6_FREEZE_LIST,
@@ -23,6 +25,7 @@ import {
   PHASE6_INTERPOLATION_LEAVE_ONE_OUT,
   PHASE6_LATENT_HEATING,
   PHASE6_SIGMA0_ANCHORS_X,
+  PHASE6_SIGMA_WATER_ANCHORS,
   PHASE6_SIGMA0_DIGITIZATION_BAND,
   PHASE6_SURFACE_POLICY,
 } from "../src/phase6-protocol.ts";
@@ -161,6 +164,52 @@ describe("the registered interpolation scheme", () => {
     expect(measured.prism).toBeCloseTo(PHASE6_INTERPOLATION_LEAVE_ONE_OUT.prism, 3);
     expect(measured.basal).toBeLessThan(PHASE6_SIGMA0_DIGITIZATION_BAND);
     expect(measured.prism).toBeLessThan(PHASE6_SIGMA0_DIGITIZATION_BAND);
+  });
+});
+
+describe("the water-saturation ladder reference", () => {
+  it("uses printed Table 2.1 anchors, which an independent standard confirms", () => {
+    // Murphy & Koop (2005) — not used by the solver, here only to referee the printed anchors.
+    const mkIce = (T: number) =>
+      Math.exp(9.550426 - 5723.265 / T + 3.53068 * Math.log(T) - 0.00728332 * T);
+    const mkLiquid = (T: number) =>
+      Math.exp(
+        54.842763 - 6763.22 / T - 4.21 * Math.log(T) + 0.000367 * T +
+          Math.tanh(0.0415 * (T - 218.8)) *
+            (53.878 - 1331.22 / T - 9.44523 * Math.log(T) + 0.014025 * T),
+      );
+    for (const { tempC, sigmaWater } of PHASE6_SIGMA_WATER_ANCHORS) {
+      if (tempC === 0) continue; // the anchor is exactly 0 by definition
+      const kelvin = tempC + 273.15;
+      const reference = (mkLiquid(kelvin) - mkIce(kelvin)) / mkIce(kelvin);
+      expect(Math.abs(sigmaWater / reference - 1)).toBeLessThan(0.02);
+    }
+  });
+
+  it("is not the sigmaWater() difference form, which is unusable at the warm end", () => {
+    // The reason the ladder does not call sigmaWater(): warmer than about -3 C that form
+    // returns values at or below zero, while water saturation over ice is strictly positive
+    // below 0 C. This pins the motivation so nobody 'simplifies' the ladder back onto it.
+    expect(sigmaWater(-1)).toBeLessThan(0);
+    expect(phase6SigmaWaterFromTable(-1)).toBeGreaterThan(0);
+    expect(phase6SigmaWaterFromTable(-1)).toBeCloseTo(0.01, 6);
+  });
+
+  it("interpolates between anchors and refuses to extrapolate", () => {
+    // Exact at anchors.
+    expect(phase6SigmaWaterFromTable(-15)).toBeCloseTo(0.157, 9);
+    expect(phase6SigmaWaterFromTable(-2)).toBeCloseTo(0.02, 9);
+    // Linear between them.
+    expect(phase6SigmaWaterFromTable(-25)).toBeCloseTo((0.215 + 0.34) / 2, 9);
+    // Monotone increasing as it gets colder.
+    let previous = 0;
+    for (let T = -1; T >= -40; T--) {
+      const value = phase6SigmaWaterFromTable(T);
+      expect(value).toBeGreaterThan(previous);
+      previous = value;
+    }
+    expect(() => phase6SigmaWaterFromTable(0.5)).toThrow(/extrapolation is banned/);
+    expect(() => phase6SigmaWaterFromTable(-40.5)).toThrow(/extrapolation is banned/);
   });
 });
 

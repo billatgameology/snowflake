@@ -116,6 +116,58 @@ export const PHASE6_FAR_FIELD = "fixed-sigma-dirichlet";
  */
 export const PHASE6_SURFACE_POLICY = "aggregate-hv-g1h1-v5";
 
+// ── Registered: how the supersaturation ladder is defined ───────────────────────────────────
+//
+// The Nakaya diagram's upper region is bounded by the water-saturation curve, so the physically
+// meaningful ladder is a fraction of water saturation rather than a set of absolute sigma
+// values: at -2 C, sigma = 0.05 would be 2.5x water saturation, which no cloud produces, while
+// the same number at -15 C sits comfortably below it. A water-relative ladder also tracks
+// sigma_0(T) automatically, which keeps grid points out of the dead-facet regime that the
+// plan's open question 6 warns about.
+//
+// It is NOT computed from `sigmaWater()`. That difference form is a known, pinned limitation
+// (`core/test/libbrecht.test.ts`): it is ~20% low at -10 C and goes NEGATIVE warmer than about
+// -3 C, where the true value is strictly positive. The ladder therefore uses the monograph's
+// own printed Table 2.1 anchors, which Murphy & Koop (2005) independently confirms to ~1%.
+export const PHASE6_SIGMA_WATER_ANCHORS = [
+  { tempC: 0, sigmaWater: 0.0 },
+  { tempC: -1, sigmaWater: 0.01 },
+  { tempC: -2, sigmaWater: 0.02 },
+  { tempC: -5, sigmaWater: 0.05 },
+  { tempC: -10, sigmaWater: 0.102 },
+  { tempC: -15, sigmaWater: 0.157 },
+  { tempC: -20, sigmaWater: 0.215 },
+  { tempC: -30, sigmaWater: 0.34 },
+  { tempC: -40, sigmaWater: 0.474 },
+] as const;
+
+/**
+ * Water saturation at one temperature, from the printed Table 2.1 anchors by linear
+ * interpolation. Linear (not log-log) because the anchors are near-linear in T and the quantity
+ * passes through zero at 0 C, where a log scheme is undefined. Extrapolation is banned, exactly
+ * as it is for the sigma_0 anchors.
+ */
+export function phase6SigmaWaterFromTable(tempC: number): number {
+  const anchors = PHASE6_SIGMA_WATER_ANCHORS;
+  const warmest = anchors[0].tempC;
+  const coldest = anchors[anchors.length - 1].tempC;
+  if (!(tempC <= warmest && tempC >= coldest)) {
+    throw new Error(
+      `T = ${tempC} C is outside the Table 2.1 sigma_water anchors [${coldest}, ${warmest}] — ` +
+        "extrapolation is banned",
+    );
+  }
+  for (let i = 0; i < anchors.length - 1; i++) {
+    const left = anchors[i] as { tempC: number; sigmaWater: number };
+    const right = anchors[i + 1] as { tempC: number; sigmaWater: number };
+    if (tempC <= left.tempC && tempC >= right.tempC) {
+      const t = (tempC - left.tempC) / (right.tempC - left.tempC);
+      return left.sigmaWater + t * (right.sigmaWater - left.sigmaWater);
+    }
+  }
+  throw new Error(`no Table 2.1 interval contains T = ${tempC} C`);
+}
+
 // ── Registered: which engine produces sweep evidence, and what checks it ────────────────────
 //
 // Phase 5 certified the float32 GPU port against the float64 CPU oracle under frozen
