@@ -1075,11 +1075,36 @@ defect; round three verified that sentence repaired at docs-only `bb97e26` with 
 byte-unchanged. Canonical WP5 evidence: the `0a611e7` bundle at `out/phase5/` under protocol
 `phase5-gpu-conformance-windows-v6` (hashes above). Scope is Windows/Chromium/D3D12 only.
 
-**Next action:** begin WP6 — move live simulation to the GPU package, wire GPU-resident
-overlays/slices and resolution budgets, preserve view-only evidence inspection, and prove the
-CPU worker remains an available oracle/debug path. No Phase 7 visual polish. Do not modify
-WP5's canonical evidence; produce new evidence for WP6 work rather than editing the accepted
-bundle. WP7 (canonical Windows evidence with full PROGRESS metrics) follows WP6.
+**WP6 implementation is COMPLETE and awaiting independent review (2026-07-25).** Slices S0-S6
+landed as `f357756` (frozen design), `a19f45b` (engine seam; worker untouched), `03254a4`
+(shared production-checked device; honest fallback taxonomy), `83b2e22` (GpuEngine: live
+simulation on the GPU package, fail-closed budgets naming violated limits, ~135 ticks/s on
+dev-plate), `698f46b` (GPU-resident overlays/slice/crystal; go/no-go passed at 73.3 ms vs the
+frozen 500 ms bound), `9115dde` (differential probe), `97c9689` (harnesses reconciled;
+performance measured on the app's own engine). The Phase 3 trap note "the solver runs ONLY in
+the worker" is superseded by the frozen WP6 design's D1: the float64 CPU reference solver
+stays in its worker as the selectable oracle; the GPU engine orchestrates on the main thread.
+
+Canonical evidence at exact clean commit `b26b0af` (contains all WP6 work): root `npm test`
+passes 61 files / 1,110 tests in 510.35 s; `node app/scripts/phase5-wp6.mjs` exits 0 with
+`pass: true` and a clean repository. Its observed quantities: the production CPU engine ran
+`gg-plate-reflecting-48x48x24` at its exact registered dims to the 256-cycle cap BIT-exactly
+against an independent float64 oracle; the cross-engine differential at dev-plate matched
+occupancy/wall/topology/attachment history with zero mismatches and held `b` (maxAbs 2.551e-5,
+rms 2.336e-7) and `d` (maxAbs 1.483e-6) inside the frozen field bounds; overlay parity showed
+max channel delta 0 across all five overlays; residency stayed at zero full-field display
+reads. App-path preview performance: edit ack max 10.7 ms (≤100), first valid frame max
+314.5 ms (≤2,000), p99 segments 37.1 ms (≤250), max 51 ms (≤500), zero
+losses/errors/retries. Phase 4 captures reran 20/20 byte-identical; Phase 3 bit-identical in
+every numeric quantity with PNG deltas traced to named causes (S2 status line, S3 pane rows,
+tick-rate text, and a backend-name change a control run proved predates the pin).
+`PHASE5_PROTOCOL_SHA256` is unmoved; `out/phase5/` WP5 evidence untouched.
+
+**Next action:** independent review of WP6 to zero blockers and zero should-fixes (same
+reviewer); then check WP6 in the plan and begin WP7. Known review-relevant disclosures: the
+gate's label-to-fixture fallback will attribute app-path performance readbacks to the plate
+fixture (flagged for WP7); GPU-mode raycast picking is deferred with named-probe pickCell as
+the floor; growthPropensity is refused by name in GPU pick readouts.
 
 Then run focused tests, Rule 7, both typechecks, the app build, and exact root `npm test`; commit
 locally so the tree is tracked-clean; produce fresh `gate5-lane` / `gate5` D3D12 evidence — which
