@@ -3,8 +3,8 @@
 - **Phase:** Phase 5 — GPU port
 - **Status:** WP1-WP6 are independently accepted with zero-finding reviews. WP7's canonical
   Windows/D3D12 evidence exists at `out/phase5/` — both frozen commands exit 0 at clean commit
-  `32eed48`, `gate5` reporting 16/16 criteria — and is awaiting its independent review, which
-  is the last step before Phase 5 is complete.
+  `c436df5`, `gate5` reporting 16/16 criteria — and is in its second review round, which is the
+  last step before Phase 5 is complete.
 - **Started:** 2026-07-23
 - **Last touched:** 2026-07-26 by Claude
 
@@ -1435,18 +1435,25 @@ canonical evidence; Metal or general-WebGPU claims; Phase 7 presentation work.
       named was repaired first at `32eed48`: app-path readbacks are attributed to the preview
       case that produced them, from the application's own append-only audit counts observed at
       each case's start and end and cross-checked against the self-identifying named-probe pick
-      labels (`runner/src/gate5-readback-attribution.ts`, 15 tests). Root `npm test` passes
-      63 files / 1,125 tests in 512.72 s and the app build exits 0 at that commit. Both frozen
-      commands then ran at exact clean commit `32eed481b8f2b57723ef5355fc406c347a17979f`:
-      `gate5-lane` exit 0 (D3D12, 172 source files) and `gate5` exit 0 with 16/16 criteria,
-      publishing `out/phase5/`. The preview cases meet every registered bound — plate edit-ack
-      max 10.30 ms and first valid frame max 308.4 ms, column 13.00 ms and 295.7 ms, submission
-      p99 17.80 / 17.30 ms — with zero device losses, uncaptured errors, hidden retries, stale
-      generations, and zero full-field display-frame reads across 2,715 audited readbacks. All
-      sixteen negative controls were rejected with their registered owner in the observed
-      failing set; the published-artifact audit finds zero self-attested comparisons of 242
-      measured. Every value, hash, and provenance field is transcribed in `PROGRESS.md`. This
-      box stays unchecked until independent review returns zero blockers and zero should-fixes.
+      labels (`runner/src/gate5-readback-attribution.ts`). Round-one review of that bundle
+      returned zero blockers and four should-fixes — a p99 quoted from a statistic the bundle
+      does not publish, an over-narrow comment about a case's pre-opening reads, a duplicated
+      preview-case-to-fixture map, and an unexplained "242 measured" denominator. All four are
+      repaired at `c436df5` (16 attribution tests) and the evidence was regenerated there, so
+      the published bundle is the product of exactly the code that ships. Root `npm test`
+      passes 63 files / 1,126 tests in 529.02 s and the app build exits 0 at that commit. Both
+      frozen commands ran at exact clean commit
+      `c436df5716578a61f8c0598e9230420cbdef6108`: `gate5-lane` exit 0 (D3D12, 172 source files)
+      and `gate5` exit 0 with 16/16 criteria, publishing `out/phase5/`. The preview cases meet
+      every registered bound — plate edit-ack max 9.90 ms, first valid frame max 308.0 ms,
+      published p99 37.70 ms; column 10.90 ms, 309.3 ms, published p99 34.40 ms; every one of
+      the 560 bounded segments inside the 500 ms bound — with zero device losses, uncaptured
+      errors, hidden retries, stale generations, and zero full-field display-frame reads across
+      2,715 audited readbacks. All sixteen negative controls were rejected with their
+      registered owner in the observed failing set; the published-artifact audit finds zero
+      self-attested operands among the 242 decision, event-record and invariant comparisons.
+      Every value, hash, and provenance field is transcribed in `PROGRESS.md`. This box stays
+      unchecked until independent review returns zero blockers and zero should-fixes.
 
 ## Out of scope
 
