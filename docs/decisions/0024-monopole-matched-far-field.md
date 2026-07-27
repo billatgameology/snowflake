@@ -49,12 +49,33 @@ per-pixel monopole-matched value instead of a flat `sigma_infinity`.
 
 Three implementation points that are decisions rather than details:
 
-**`rho_far` is per shell cell, measured through the registered cartesian embedding.** Eq. 5.30
-defines it per boundary pixel. Lattice index differences are not distances on a triangular
-lattice, so the distance is computed from `cartesian(i, j, k)` (`x = i + j/2`,
-`y = j·sqrt(3)/2`, `z = k`) scaled by Δx. Because the value depends on `rho_far` alone and
-`rho_far` is D6h-invariant, the shell stays exactly symmetric and ADR 0023's symmetry guarantee
-is untouched.
+**`rho_far` is per shell cell, and is computed from the INTEGER quadratic form.** Eq. 5.30
+defines it per boundary pixel. Under the registered embedding (`x = i + j/2`, `y = j·sqrt(3)/2`,
+`z = k`) the squared distance from the centre is
+
+`(di + dj/2)² + 3·dj²/4 + dk² = di² + di·dj + dj² + dk²`
+
+— an integer that rot60 `(di, dj) → (−dj, di + dj)` and mirror `(di, dj) → (dj, di)` preserve
+exactly. `rho_far` is therefore bitwise identical across an orbit, the shell stays exactly
+symmetric, and ADR 0023's guarantee is untouched.
+
+> **Erratum on this ADR's own first implementation (same day).** The distance was first computed
+> the obvious way, by evaluating the cartesian coordinates in float64 and taking
+> `sqrt(dx² + dy² + dz²)`. That is invariant in exact arithmetic and **not** invariant once
+> evaluated: symmetry-equivalent shell cells came out differing by up to ~7e-15, which
+> propagated into the clamped shell value and broke D6h. It was caught by the WP3 timestep
+> ladder, where warm 48³ at `cflFill = 0.2` reported `deltaSymClean = false`, and reproduced in
+> seconds at 32³ — where the break appears **only** under `monopole-matched` at `cfl = 0.2`,
+> never under `dirichlet` and never at `cfl = 0.1`. A larger step lets many cells cross the
+> attachment threshold together, which is what turns a ulp into a split orbit.
+>
+> This is exactly the hazard ADR 0023 is about, reintroduced by the ADR that cites it. The
+> lesson generalises past both: **a quantity that is invariant in exact arithmetic is not
+> automatically invariant once evaluated** — the invariance has to survive the floating-point
+> expression chosen to compute it, and the cheapest way to guarantee that is to key the value to
+> an integer the group preserves. The regression is now pinned two ways: a bitwise equality
+> assertion on `rho_far` across each orbit that needs no growth at all, and an end-to-end
+> symmetry run **at `cfl = 0.2`**, the amplifying setting the original test missed by using 0.1.
 
 **The per-site volume in Eq. 5.31 is derived from our own embedding, not transcribed.** Sites
 sit on a triangular lattice of unit nearest-neighbour spacing, whose Voronoi cell has area

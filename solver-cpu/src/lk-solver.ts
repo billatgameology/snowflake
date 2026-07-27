@@ -26,7 +26,7 @@
 import {
   alphaHK,
   cSat,
-  cartesian,
+
   cellCount,
   classifyFacet,
   coordsOf,
@@ -582,20 +582,26 @@ export class LKSolver implements SurfaceOperator {
     this.dirichletCells = Int32Array.from(shell);
     this.hasClampedShell =
       this.farField === "dirichlet" || this.farField === "monopole-matched";
-    // Eq. 5.30's rho_far is measured from the model's physical centre to each shell pixel, so
-    // it is computed through the registered cartesian embedding (x = i + j/2, y = j*sqrt(3)/2,
-    // z = k) rather than from lattice index differences, which are not distances on this
-    // lattice. Only the monopole lane needs it; the others keep an empty array.
+    // Eq. 5.30's rho_far is measured from the model's physical centre to each shell pixel.
+    //
+    // It is computed from the INTEGER quadratic form, not from cartesian floats. Under the
+    // registered embedding (x = i + j/2, y = j*sqrt(3)/2, z = k) the squared in-plane distance
+    // is exactly (di + dj/2)^2 + 3*dj^2/4 = di^2 + di*dj + dj^2, an integer that rot60
+    // (di,dj) -> (-dj, di+dj) and mirror (di,dj) -> (dj,di) preserve EXACTLY. Evaluating the
+    // cartesian form in float64 instead gives symmetry-equivalent shell cells radii that differ
+    // by up to ~7e-15, which propagates into the clamped shell value and breaks D6h — measured,
+    // and the reason this is not written the obvious way (ADR 0024, erratum). Same hazard as
+    // ADR 0023: a quantity that is invariant in exact arithmetic is not automatically invariant
+    // once evaluated.
     if (this.farField === "monopole-matched") {
-      const [cx, cy, cz] = cartesian(this.center[0], this.center[1], this.center[2]);
       this.shellRadiusM = new Float64Array(this.dirichletCells.length);
       for (let position = 0; position < this.dirichletCells.length; position++) {
         const [i, j, k] = coordsOf(this.dims, this.dirichletCells[position]);
-        const [px, py, pz] = cartesian(i, j, k);
-        const dx = px - cx;
-        const dy = py - cy;
-        const dz = pz - cz;
-        const distance = Math.sqrt(dx * dx + dy * dy + dz * dz) * this.dxM;
+        const di = i - this.center[0];
+        const dj = j - this.center[1];
+        const dk = k - this.center[2];
+        const squared = di * di + di * dj + dj * dj + dk * dk;
+        const distance = Math.sqrt(squared) * this.dxM;
         if (!(distance > 0)) {
           throw new Error("monopole-matched far field requires every shell cell off-centre");
         }
