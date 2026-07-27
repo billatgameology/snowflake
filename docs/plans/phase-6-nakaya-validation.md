@@ -350,6 +350,33 @@ this. Until they land, no measurement size may be frozen.
 Wall times are not recorded as costs here: the ladder ran up to thirteen jobs concurrently on
 eight physical cores, so every second is contended by construction.
 
+**5. The timestep (fill-CFL) ladder (2026-07-26, v6 + monopole-matched, f = 0.15, 48³,
+extent 15).** Four timesteps spanning 8×, both temperatures.
+
+| fill-CFL | steps warm | warm attached / AR | steps cold | cold attached / AR |
+|---|---|---|---|---|
+| 0.2 | 44 | 539 / 0.3810 | 91 | 1697 / 0.9905 |
+| 0.1 | 87 | 521 / 0.3810 | 176 | 1505 / 0.9905 |
+| 0.05 | 168 | 527 / 0.3810 | 342 | 1649 / 0.9905 |
+| 0.025 | 333 | 521 / 0.3810 | 677 | 1649 / 0.9905 |
+
+**Same split as the domain ladder, and it is becoming the pattern of this phase: the habit
+metric converges early and the volume metric converges late.** `AR` is identical at every
+timestep at both temperatures — an 8× change in step size does not move the registered
+criterion at all. Attached count is not converged until `cflFill ≤ 0.05`: on the cold side it
+runs 1697 → 1505 → 1649 → 1649, non-monotone, settling on 1649, so **cfl = 0.1 is 8.7% off the
+converged volume** while classifying identically. Warm spreads ~1% over the same range.
+
+**Consequence for WP0c:** `cflFill = 0.1` is adequate for a habit-class sweep and is not
+adequate for any reported volume-like quantity. Whichever is registered, the other must be
+labelled as not converged at that setting rather than quietly inheriting the number.
+
+This ladder is also what caught the ADR 0024 `rho_far` defect: warm cfl = 0.2 originally
+reported `deltaSymClean = false`. Re-run under the fix, **every value in the table above is
+identical to the pre-fix run and only that one flag changed** to `true` — which confirms both
+that the fix is inert on the physics and that the pre-fix points reporting a clean delta were
+genuinely clean, the same reasoning applied to v5 in WP0b.
+
 **The pre-freeze corrections are done (2026-07-26).** Four source-verified corrections landed
 in `docs/libbrecht-parameters.md` while they were still free to make; after the freeze each
 would have cost a full re-sweep by charter rule. SDAK-2 is recorded as an `A_prism` mechanism
