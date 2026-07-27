@@ -288,22 +288,37 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
   {
     id: "habit-measurement-size",
     group: "comparison-design",
-    status: "pending",
+    status: "registered",
     requirement:
       "the crystal size at which habit is measured — habit is size-dependent, so a stated " +
       "maximum dimension is what keeps comparisons apples-to-apples",
-    value: null,
-    source: "WP0 calibration probes",
+    value:
+      "largest extent 21 lattice cells — 7.35 µm at the registered Δx — where largest extent " +
+      "is max(tExtent, zExtent), so the crystal is bounded in EVERY direction at measurement " +
+      "regardless of habit",
+    source:
+      "WP3 §3 (research/phase6-convergence.md). Set by the slowest-developing habit, not the " +
+      "fastest: the warm plate classifies correctly from extent 9, but at that size the cold " +
+      "condition reads AR = 0.63 and classifies plate — the opposite of its converged class, " +
+      "and a silent misclassification of half the diagram. Cold's CLASS settles at extent 11 " +
+      "and holds comfortable margin by 15–19; its VALUE settles only near 31. Extent 21 is the " +
+      "class-adequate size and is registered for classification. Any quantitative AR quoted at " +
+      "this size carries the residual drift toward the extent-31 value, on top of the grid " +
+      "systematic, and says so",
   },
   {
     id: "metric-thresholds",
     group: "comparison-design",
-    status: "pending",
+    status: "registered",
     requirement: "metric thresholds",
-    value: null,
+    value:
+      "AR = z-extent / T-extent; plate AR ≤ 1/1.5 (0.6667), column AR ≥ 1.5, otherwise neutral",
     source:
-      "WP0; the Phase 2b/4 habit criterion (plate ≤ 1/1.5, column ≥ 1.5, else neutral) is the " +
-      "candidate and is registered explicitly rather than inherited silently",
+      "the Phase 2b/4 habit criterion, registered explicitly here rather than inherited " +
+      "silently. Three-way with an explicit neutral class on purpose: at the registered " +
+      "conditions the cold point measures AR ≈ 1.11, which a two-way plate/column split would " +
+      "force into one class or the other and report as agreement or disagreement when the " +
+      "honest answer is that the model produced neither habit",
   },
   {
     id: "uncertainty-reporting",
@@ -355,22 +370,43 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
     value: "carried as a stated systematic; not applied",
     source: "PHASE6_LATENT_HEATING; docs/libbrecht-parameters.md §7",
   },
-  { id: "pressure", group: "physics-inputs", status: "pending", requirement: "pressure", value: null, source: "WP0" },
+  {
+    id: "pressure",
+    group: "physics-inputs",
+    status: "registered",
+    requirement: "pressure",
+    value: "101325 Pa (1 atm), fixed for every sweep point",
+    source:
+      "every run in this project to date, registered rather than inherited. It is also the " +
+      "reference pressure for D_AIR_1ATM, so the diffusivity P^-1 scaling is exact rather " +
+      "than extrapolated at this value. Held FIXED because pressure enters both the kinetic " +
+      "length X_0 and the latent-heating chi_0 (~1/P), and the sweep varies temperature and " +
+      "supersaturation only — a varying pressure would confound the axis under test",
+  },
   {
     id: "physical-seed-size",
     group: "physics-inputs",
-    status: "pending",
+    status: "registered",
     requirement: "physical seed size",
-    value: null,
-    source: "WP0; the canonical 19-site seed is pinned, and a seed class change is ADR-level",
+    value:
+      "the canonical 19-site hexagonal seed: seedRadius 2, seedThickness 1 — 0.7 µm radius at " +
+      "the registered Δx",
+    source:
+      "gg-machinery §5; the same seed every gate in this project has used. A seed CLASS change " +
+      "(a column seed, per the plan's open ADR-level question) is not available to this " +
+      "protocol and would require an ADR and a full re-sweep",
   },
   {
     id: "noise-amplitude",
     group: "physics-inputs",
-    status: "pending",
+    status: "registered",
     requirement: "noise amplitude",
-    value: null,
-    source: "WP0",
+    value: "0 — noise off at every sweep point",
+    source:
+      "WP0. Noise off is what makes the D6h symmetry check enforceable (symErr must be exactly " +
+      "0 and every per-tick delta D6h-invariant), and that check is this project's strongest " +
+      "evidence that a run did what the operator specified. It also makes each point a single " +
+      "deterministic run rather than an ensemble — see seed-ensemble-size",
   },
   {
     id: "far-field",
@@ -383,14 +419,37 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
   {
     id: "domain-budgets",
     group: "boundary-and-domain",
-    status: "pending",
+    status: "registered",
     requirement: "domain budgets",
+    value: "48 x 48 x 48, hexPrism active domain — a 16.8 µm box at the registered Δx",
+    source:
+      "WP3 §1.2, measured AT the registered measurement extent rather than at a convenient " +
+      "smaller one. Ten points, N = 40…80: warm is bit-identical at all five domains and cold " +
+      "converges exactly by N = 64 (5185 -> 5161 -> 5161 -> 5159 -> 5159), so N = 48 carries a " +
+      "+0.04% attached-count residual against the asymptote — 200x smaller than the +8.7% " +
+      "volume residual already accepted at the registered fill-CFL, and AR is identical at all " +
+      "five domains so it cannot move a habit class. N = 64 is the exact answer and costs ~3x " +
+      "more per point. It generalises across habits by construction, because the stopping " +
+      "criterion bounds the crystal in every direction (see habit-measurement-size). It does " +
+      "NOT generalise across growth RATE: Eq. 5.30's correction scales with dV/dt, so the " +
+      "sweep's fastest-growing point must be spot-checked against N = 64 rather than assumed " +
+      "covered. WP3 §1.3 also disproved ADR 0024's ratio-based validity limit, so this number " +
+      "may not be extrapolated to any other configuration — it must be re-measured if Δx, the " +
+      "measurement extent, or the far field changes",
+  },
+  {
+    id: "dx",
+    group: "boundary-and-domain",
+    status: "pending",
+    requirement: "Δx",
     value: null,
     source:
-      "WP0; sweeps cross habit flips by design, so domains may not be pre-shaped to an unknown " +
-      "morphology (ADR 0001)",
+      "WP0c, on measured cost. This is NOT a free pick: WP3 §4 found Δx is the one axis that " +
+      "does not converge — 0.7 µm flips the cold habit class outright, and 0.35 µm still moves " +
+      "AR +10.6% cold and +18% warm going finer, approximately first order. Whatever is " +
+      "registered carries the extrapolated grid bias on every reported point, and points whose " +
+      "CLASS would change under that extrapolation are flagged individually",
   },
-  { id: "dx", group: "boundary-and-domain", status: "pending", requirement: "Δx", value: null, source: "WP0" },
   {
     id: "surface-policy",
     group: "surface-operator",
@@ -399,30 +458,60 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
     value: PHASE6_SURFACE_POLICY,
     source: "ADR 0009, amended by ADR 0023 (D6h-equivariant opposing-vapor mean)",
   },
-  { id: "fill-cfl", group: "numerics", status: "pending", requirement: "the fill-CFL bound", value: null, source: "WP0" },
+  {
+    id: "fill-cfl",
+    group: "numerics",
+    status: "registered",
+    requirement: "the fill-CFL bound",
+    value: "0.1",
+    source:
+      "WP3 §2, four timesteps spanning 8x. AR is IDENTICAL at every one of them at both " +
+      "temperatures, so the registered habit criterion is insensitive to this choice across " +
+      "the whole range tested. The attached count is not: cold runs 1697 -> 1505 -> 1649 -> " +
+      "1649, settling only at cfl <= 0.05, so 0.1 sits 8.7% off the converged volume. " +
+      "REGISTERED CONSEQUENCE: 0.1 is adequate for a habit-class sweep and is NOT adequate " +
+      "for any reported volume-like quantity, which must be labelled not-converged at this " +
+      "setting rather than quietly inheriting the number",
+  },
   {
     id: "residual-tolerance",
     group: "numerics",
-    status: "pending",
+    status: "registered",
     requirement: "the diffusion residual tolerance and its norm",
-    value: null,
-    source: "WP0",
+    value:
+      "1e-9, on the RELATIVE MAX-NORM OF THE SUCCESSIVE-ITERATE CHANGE: " +
+      "max|sigma_new - sigma_old| over the sweep, divided by sigma_infinity",
+    source:
+      "the value every LK run in this project has used, with its norm now stated exactly " +
+      "because the charter asks for the norm and the distinction is load-bearing. This is an " +
+      "iterate-CHANGE criterion, not a PDE residual: on a slowly-converging relaxation the " +
+      "change can be small while the true error is not, so alone it would be optimistic. That " +
+      "is precisely why ADR 0006 pairs it with the divergence identity below, which is an " +
+      "independent global conservation check rather than another look at the same iteration",
   },
   {
     id: "div-tol",
     group: "numerics",
-    status: "pending",
+    status: "registered",
     requirement: "the divergence-identity tolerance",
-    value: null,
-    source: "ADR 0006 — dual convergence",
+    value:
+      "1e-7, RELATIVE: |injection + smoother drift - surface exchange| / |surface exchange|",
+    source:
+      "ADR 0006 dual convergence, with ADR 0013/0014's metered float64 smoother-drift term in " +
+      "the numerator. Relative, not absolute — an earlier description of it as absolute was " +
+      "corrected in WP0c. Both engines compute the same form, which is why the float32 " +
+      "diagnostic lane cannot satisfy it: 1e-7 is below one float32 epsilon (1.19e-7)",
   },
   {
     id: "relax-max-sweeps",
     group: "numerics",
-    status: "pending",
+    status: "registered",
     requirement: "the relaxation-sweep cap",
-    value: null,
-    source: "ADR 0006",
+    value: "200000",
+    source:
+      "ADR 0006. It is a REFUSAL BOUND, not a convergence setting: a run that reaches it has " +
+      "not converged and fails closed rather than publishing a partially-relaxed field. Every " +
+      "one of WP3's 38 convergence points and all 8 WP0c cost points converged well inside it",
   },
   {
     id: "float-precision",
@@ -450,10 +539,18 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
   {
     id: "seed-ensemble-size",
     group: "statistics",
-    status: "pending",
+    status: "registered",
     requirement: "seed-ensemble size",
-    value: null,
-    source: "WP0",
+    value: "1 — a single deterministic run per grid point",
+    source:
+      "follows from noise-amplitude = 0. The RNG is consumed only by the alphaHK slowdown " +
+      "noise, so with noise off a grid point has no stochasticity to average over and repeated " +
+      "runs are bit-identical by construction — which the project already demonstrates, since " +
+      "gate2b requires bit-identical checkpoints across separate processes. An ensemble of " +
+      "N > 1 here would report a spread of exactly zero and would misrepresent a deterministic " +
+      "result as a sampled one. The uncertainty that DOES exist at each point is systematic " +
+      "(grid, measurement extent, digitization band) and is carried by the uncertainty-" +
+      "reporting scheme instead, which is where it belongs",
   },
   {
     id: "code-version",

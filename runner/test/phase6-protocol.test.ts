@@ -93,6 +93,46 @@ describe("the Phase 6 freeze list", () => {
     expect(PHASE6_SURFACE_POLICY).toBe("aggregate-hv-g1h1-v6");
   });
 
+  it("registers what WP3 measured, with each value tied to the study that produced it", () => {
+    // WP0c registers these from WP3's convergence report. Each is pinned with the property that
+    // makes it defensible, so a later edit that keeps the number but loses the reasoning fails.
+    const byId = new Map(PHASE6_FREEZE_LIST.map((item) => [item.id, item]));
+
+    // Measurement size: set by the SLOWEST-developing habit. The failure this avoids is not
+    // subtle — extent 9 misclassifies the cold half of the diagram.
+    expect(byId.get("habit-measurement-size")?.status).toBe("registered");
+    expect(byId.get("habit-measurement-size")?.value).toContain("21");
+    expect(byId.get("habit-measurement-size")?.source).toContain("slowest-developing");
+
+    // Domain: measured AT the registered extent. WP3's whole sequencing lesson is in that word.
+    expect(byId.get("domain-budgets")?.status).toBe("registered");
+    expect(byId.get("domain-budgets")?.value).toContain("48");
+    expect(byId.get("domain-budgets")?.source).toContain("registered measurement extent");
+    // And it must carry the two limits on its own transferability.
+    expect(byId.get("domain-budgets")?.source).toContain("re-measured");
+    expect(byId.get("domain-budgets")?.source).toContain("fastest-growing");
+
+    // fill-CFL: adequate for class, NOT for volume. Both halves must survive together.
+    expect(byId.get("fill-cfl")?.value).toBe("0.1");
+    expect(byId.get("fill-cfl")?.source).toContain("8.7%");
+    expect(byId.get("fill-cfl")?.source).toContain("NOT adequate");
+
+    // The charter asks for the residual tolerance AND ITS NORM.
+    expect(byId.get("residual-tolerance")?.value).toContain("1e-9");
+    expect(byId.get("residual-tolerance")?.value).toContain("SUCCESSIVE-ITERATE CHANGE");
+    expect(byId.get("div-tol")?.value).toContain("RELATIVE");
+
+    // Ensemble size 1 is a consequence of noise = 0, not an independent choice; if noise ever
+    // becomes nonzero this pairing must be revisited, so they are asserted together.
+    expect(byId.get("noise-amplitude")?.value).toContain("0");
+    expect(byId.get("seed-ensemble-size")?.value).toContain("1");
+    expect(byId.get("seed-ensemble-size")?.source).toContain("noise-amplitude = 0");
+
+    // Δx is deliberately still open, and its row must say WHY rather than just be blank.
+    expect(byId.get("dx")?.status).toBe("pending");
+    expect(byId.get("dx")?.source).toContain("does not converge");
+  });
+
   it("registers the D6h-equivariant policy and departs from the runner default deliberately", () => {
     // Two separate hazards, pinned together.
     //
