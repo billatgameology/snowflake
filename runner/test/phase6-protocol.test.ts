@@ -225,19 +225,47 @@ describe("the water-saturation ladder reference", () => {
           Math.tanh(0.0415 * (T - 218.8)) *
             (53.878 - 1331.22 / T - 9.44523 * Math.log(T) + 0.014025 * T),
       );
+    // Measured worst deviation is 1.78%, at the -1 C anchor; every anchor from -5 C to -40 C
+    // agrees to within 0.5%. The two bounds are asserted separately so a regression at the warm
+    // end cannot hide inside a single loose tolerance.
     for (const { tempC, sigmaWater } of PHASE6_SIGMA_WATER_ANCHORS) {
       if (tempC === 0) continue; // the anchor is exactly 0 by definition
       const kelvin = tempC + 273.15;
       const reference = (mkLiquid(kelvin) - mkIce(kelvin)) / mkIce(kelvin);
-      expect(Math.abs(sigmaWater / reference - 1)).toBeLessThan(0.02);
+      const deviation = Math.abs(sigmaWater / reference - 1);
+      expect(deviation).toBeLessThan(0.02);
+      if (tempC <= -5) expect(deviation).toBeLessThan(0.005);
     }
   });
 
-  it("is not the sigmaWater() difference form, which is unusable at the warm end", () => {
-    // The reason the ladder does not call sigmaWater(): warmer than about -3 C that form
-    // returns values at or below zero, while water saturation over ice is strictly positive
-    // below 0 C. This pins the motivation so nobody 'simplifies' the ladder back onto it.
+  it("is not the sigmaWater() difference form, which is unusable across the whole range", () => {
+    // Two independent reasons the ladder does not call sigmaWater(), pinned so nobody
+    // 'simplifies' the ladder back onto it.
+
+    // 1. It goes negative, where water saturation over ice is strictly positive below 0 C. The
+    //    crossing is at -1.969 C — NOT "about -3 C", as this file and phase6-protocol.ts both
+    //    used to claim; it is positive at both -3 C and -2 C.
     expect(sigmaWater(-1)).toBeLessThan(0);
+    expect(sigmaWater(-2)).toBeGreaterThan(0);
+    expect(sigmaWater(-3)).toBeGreaterThan(0);
+    let lo = -5;
+    let hi = -0.001;
+    for (let i = 0; i < 200; i++) {
+      const mid = (lo + hi) / 2;
+      if (sigmaWater(mid) > 0) lo = mid;
+      else hi = mid;
+    }
+    expect(lo).toBeCloseTo(-1.969, 3);
+
+    // 2. The disqualifying one: its error against the anchors is not an offset but a strong
+    //    function of temperature, so a ladder built on it would make a fixed water-relative
+    //    fraction mean wildly different physical fractions at different temperatures — the
+    //    sweep's temperature axis would be confounded with a systematic spanning ~65x.
+    const ratio = (T: number) => sigmaWater(T) / phase6SigmaWaterFromTable(T);
+    expect(ratio(-2)).toBeLessThan(0.02);
+    expect(ratio(-30)).toBeGreaterThan(0.95);
+    expect(ratio(-30) / ratio(-2)).toBeGreaterThan(60);
+
     expect(phase6SigmaWaterFromTable(-1)).toBeGreaterThan(0);
     expect(phase6SigmaWaterFromTable(-1)).toBeCloseTo(0.01, 6);
   });

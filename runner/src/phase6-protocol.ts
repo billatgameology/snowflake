@@ -170,9 +170,22 @@ export function phase6AmbiguityHalfWidthC(tGridSpacingC: number): number {
 // plan's open question 6 warns about.
 //
 // It is NOT computed from `sigmaWater()`. That difference form is a known, pinned limitation
-// (`core/test/libbrecht.test.ts`): it is ~20% low at -10 C and goes NEGATIVE warmer than about
-// -3 C, where the true value is strictly positive. The ladder therefore uses the monograph's
-// own printed Table 2.1 anchors, which Murphy & Koop (2005) independently confirms to ~1%.
+// (`core/test/libbrecht.test.ts`), and WP0c measured how bad it actually is rather than
+// repeating the estimate this comment used to carry:
+//
+//   - it crosses ZERO at T = -1.969 C and is negative warmer than that, where the true value is
+//     strictly positive. (An earlier version of this comment said "warmer than about -3 C",
+//     which is wrong: it is positive at both -3 C and -2 C.)
+//   - its error is not an offset but a strong function of temperature. Against the anchors below
+//     it runs 0.015x at -2 C, 0.59x at -5 C, 0.80x at -10 C, 0.87x at -15 C and 0.96x at -30 C.
+//
+// That second point is the disqualifying one. A ladder built on it would make "f = 0.15" mean
+// 0.2% of water saturation at -2 C and 14% at -30 C, so the sweep's temperature axis would be
+// confounded with a systematic varying by a factor of ~65 — it would not be a temperature scan
+// at all. The ladder therefore uses the monograph's own printed Table 2.1 anchors, which
+// Murphy & Koop (2005) independently confirms: recomputing their Eqs. 7 and 10 reproduces every
+// anchor below to within 1.8%, worst at the -1 C anchor and within 0.5% from -5 C to -40 C.
+// Pinned in runner/test/phase6-protocol.test.ts.
 export const PHASE6_SIGMA_WATER_ANCHORS = [
   { tempC: 0, sigmaWater: 0.0 },
   { tempC: -1, sigmaWater: 0.01 },

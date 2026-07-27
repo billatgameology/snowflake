@@ -46,9 +46,11 @@ export function vKin(tempC: number): number {
 
 /** Supersaturation of supercooled water relative to ice (fraction) — monograph Eq. 2.9.
     KNOWN LIMIT (recorded in the table): computed from the difference of two Arrhenius fits,
-    this deviates from Table 2.1's measured column by up to ~10% at -15 C and becomes negative
-    near -1 C. It is a source-side plausibility reference, NOT an enforced runtime ceiling and
-    never part of the dynamics (attachment-kinetics §4.4 component 1). */
+    this deviates from Table 2.1's measured column by up to ~10% at -15 C and crosses zero at
+    T = -1.969 C, so it is negative over the whole range warmer than that. It is a source-side
+    plausibility reference, NOT an enforced runtime ceiling and never part of the dynamics
+    (attachment-kinetics §4.4 component 1). Phase 6's supersaturation ladder therefore uses the
+    printed Table 2.1 anchors instead — see runner/src/phase6-protocol.ts. */
 export function sigmaWater(tempC: number): number {
   const pi = pSatIce(tempC);
   return (pSatWater(tempC) - pi) / pi;
