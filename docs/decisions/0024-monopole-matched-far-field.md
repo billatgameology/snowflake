@@ -133,6 +133,26 @@ must set it under this condition rather than inheriting a Dirichlet-era number. 
 neglected term is the dipole, of order `(R/rho_far)²`, which is the right quantity to bound; the
 bound itself is deliberately not invented here and is left to measurement.
 
+> **Erratum on the paragraph above (WP3, `research/phase6-convergence.md` §1.3).** The effect is
+> real and reproduces exactly — 20³ returns 105 attached where 24³ through 48³ all return 81 —
+> but two claims about it are wrong.
+>
+> **The number is wrong.** The nearest shell cell at 20³ sits at 7.81 cells against a crystal
+> half-extent of 4.5, a ratio of **1.74**, not "about 2.3". The 2.3 came from assuming the shell
+> sits at N/2; the `hexPrism` domain's nearest shell cell is at ≈ 0.42·N.
+>
+> **The explanation is wrong.** WP3's extent-21 domain ladder is bit-identical from N = 32 to
+> N = 80, and its N = 40 point sits at ratio 1.57 — *below* the 1.74 that breaks here — so the
+> ratio does not order the two observations. Absolute clearance does not either (breaks at 3.31
+> cells, exact at 2.50 at the larger crystal), and the dipole term `(R/rho_far)²` anti-predicts:
+> 0.407 at an exact point against 0.332 at a broken one. Every candidate makes the *smaller*
+> crystal the more sensitive one, which is the reverse of a multipole-truncation argument, so the
+> residual is probably not multipole truncation. **The governing quantity is not identified.**
+>
+> The operative consequence is unchanged and now rests on firmer ground: the minimum domain must
+> be **measured at the configuration that will actually be run**, because no scaling rule is
+> available to extrapolate one configuration's limit to another. WP3 §1.2 does exactly that.
+
 **Forecloses.** Reading a fixed-σ Dirichlet result as domain-independent because it passed the
 65% contact guard. Comparing a monopole-matched run against a Dirichlet run without naming the
 difference. Retrofitting this condition onto Phase 2b, 4 or 5 evidence.

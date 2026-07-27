@@ -331,21 +331,31 @@ converged at all ten points.
 
 **The two metrics converge at different rates, and only one of them is the registered
 criterion.** The aspect ratio — which is what classifies habit — is converged from N = 28 warm
-and N = 40 cold, and the habit *class* is stable at every point. The attached count is **not**
-converged even at 64³ on the cold side: it climbs 1481 → 1505 → 1553 while `AR` sits fixed at
-0.9905, meaning the crystal fills the same bounding box more densely in a larger domain. That is
-a real domain effect the registered criterion does not see, and it should be reported as a
-systematic rather than treated as converged. **Minimum domain for habit classification: N = 40.**
+and N = 40 cold, and the habit *class* is stable at every point. The attached count appears
+**not** converged even at 64³ on the cold side: it climbs 1481 → 1505 → 1553 while `AR` sits
+fixed at 0.9905.
 
-**The cold reading is not yet the predicted one, and that is the open question.** At −15 °C and
-f = 0.15 the α-ratio table predicts 1.40 — basal faster, i.e. a **column** — while extent 15
-measures `AR = 0.9905`, which classifies neutral. The most likely explanation is that extent 15
-is simply too small for the column to have developed: the σ∞ = 0.002 cold run showed `AR` at 2.2
-by extent 11, 9.4 at extent 47 and 12.2 at extent 61, so the column emerges with size and does so
-slowly. If that holds at f = 0.15, **the measurement size must be set by the slowest-developing
-habit**, and a size adequate for the warm plate — which converges immediately — would silently
-misclassify the cold half of the diagram. The AR-vs-extent trajectory runs are measuring exactly
-this. Until they land, no measurement size may be frozen.
+> **Superseded 2026-07-27, and the conclusion reversed.** This ladder was run at extent 15, and
+> the measurement extent was *then* chosen from the AR-vs-extent trajectories — so the two never
+> composed, and domain independence was never demonstrated at the size actually registered.
+> Re-run at extent 21 ([`research/phase6-convergence.md`](../../research/phase6-convergence.md)
+> §1.2), the cold attached count converges **exactly** by N = 64
+> (5185 → 5161 → 5161 → 5159 → 5159), and warm is bit-identical across all five domains. The
+> apparent domain effect above was an artefact of stopping mid-development, where a one-step
+> difference in which step trips the size target moves the count. **Registered minimum domain:
+> N = 48**, not the N = 40 this section concluded.
+
+**The cold reading is not the predicted one, and it is now measured rather than open.** At −15 °C
+and f = 0.15 the α-ratio table predicts 1.40 — basal faster, i.e. a **column** — while extent 15
+measured `AR = 0.9905`, classifying neutral. The trajectories have since run to extent 39: cold
+rises to 1.258 and flattens from extent 31, so it is **neutral at every size measured and never a
+column**. The size-development explanation was therefore only half right — the habit does develop
+with size, 0.63 → 1.26, but it stops well short of the 1.5 column floor. Whether the model
+delivers the habit its own parameters predict at cloud-realistic supersaturation is a live WP4
+question, not a measurement artefact. The registered measurement size is **extent 21**, set by
+the slowest-developing habit: a size adequate for the warm plate (extent 9) reads cold at 0.63
+and would classify it **plate** — the opposite of its converged class, and a silent
+misclassification of half the diagram.
 
 Wall times are not recorded as costs here: the ladder ran up to thirteen jobs concurrently on
 eight physical cores, so every second is contended by construction.
@@ -383,20 +393,22 @@ rather than reasoned once. The grid ladder's six points all reported clean delta
 that verified argument without a third re-run, whose finest point costs ~6 hours.
 
 **6. The expected no-SDAK result, registered BEFORE the sweep (2026-07-26).** The AR-vs-extent
-trajectories (v6 + monopole, f = 0.15, 64³) give the first real curves:
+trajectories (v6 + monopole, f = 0.15, 64³) are now complete to extent 39:
 
-| extent | warm −5 °C | cold −15 °C |
-|---|---|---|
-| 9 | 0.378 | 0.631 |
-| 13 | 0.439 | 0.750 |
-| 15 | 0.381 | 0.991 |
-| 17 | 0.337 | 0.938 |
-| 27 | 0.383 | *(running)* |
+| extent | 9 | 13 | 17 | 21 | 25 | 29 | 33 | 37 | 39 |
+|---|---|---|---|---|---|---|---|---|---|
+| **warm −5 °C** | 0.378 | 0.439 | 0.337 | 0.382 | 0.413 | 0.423 | 0.419 | 0.371 | 0.405 |
+| **cold −15 °C** | 0.631 | 0.750 | 0.938 | 1.105 | 1.190 | 1.160 | 1.222 | 1.276 | 1.258 |
 
 Warm oscillates in a stable band ≈ 0.31–0.45 — **robustly plate from extent 9**, never near the
-0.667 threshold, with ±15% swing from lattice discreteness that does not threaten the class.
-Cold rises steeply, then flattens near ≈ 0.95 — **neutral, and not yet a column**, through
-extent 17.
+0.667 threshold, with lattice-discreteness swing that does not threaten the class. Cold rises
+steeply to ≈ 1.25 and flattens from extent 31 — **neutral, and still not a column at extent 39**,
+against a column floor of 1.5.
+
+The interim reading above, taken while the runs were in flight, said cold "flattens near ≈ 0.95".
+That was mid-rise: the value was still climbing and the final figure is a quarter higher. The
+*class* it reported happens to be the right one, but it was right for the wrong reason, and the
+correction matters because §4 of the convergence report extrapolates from this value.
 
 **This sharpens into a specific, falsifiable expectation, and it is not the one the diagram
 shows.** The registered σ₀(T) has a *single* crossing, at exactly −10 °C where
@@ -611,8 +623,17 @@ coarser one, and a grid frozen against that would be wrong at every point.
       0.8% while our water-minus-ice excess runs 5–20% low, which touches no accepted evidence
       (`sigmaWater` is a diagnostic, not a solver input) but is recorded before any protocol
       sets a far field relative to water saturation.
-- [ ] **WP3 — numerical verification. Runs BEFORE the grid freeze.** Grid, timestep and domain
-      convergence studies at representative conditions, reported with deltas.
+- [x] **WP3 — numerical verification. Runs BEFORE the grid freeze. DONE 2026-07-27**:
+      [`research/phase6-convergence.md`](../../research/phase6-convergence.md). Grid, timestep and
+      domain convergence studies at representative conditions, reported with deltas. Registered
+      outcomes: **domain N = 48** (+0.04% attached against the N ≥ 64 asymptote), **measurement
+      extent 21** (class-adequate; the value settles only near 31), **`cflFill` = 0.1** (+8.7% on
+      volume, exact on class). Δx is handed to WP0c as an open cost/systematic decision because it
+      **does not converge** — 0.7 flips the cold class, and 0.35 still moves `AR` +10.6% cold going
+      finer. Two corrections came out of it: the first domain ladder was run at the wrong
+      measurement extent and its conclusion reversed when re-run at the right one, and ADR 0024's
+      ratio-based validity limit was disproved (erratum logged; the governing quantity is not
+      identified, so a domain budget must be measured per configuration and never extrapolated).
 
       **"Representative" is a regime judgement, not a convenience one, and getting it wrong
       would invalidate the study silently.** Two constraints, from the project's own analysis:
@@ -680,9 +701,13 @@ coarser one, and a grid frozen against that would be wrong at every point.
       against 279 at 40³ — a 4.1% swing from domain size alone — while the monopole shell gives
       231 at both, with an identical aspect ratio. It is not a free lunch: it moves the habit
       metric (AR 0.500 → 0.300 on that comparison), so **no threshold measured under the
-      Dirichlet shell transfers**, and it has its own validity limit — 28³/32³/48³ agree but 20³
-      does not, because Eq. 5.30 treats the crystal as a point source. The ladder still sets the
-      minimum domain; monopole matching moves that minimum outward rather than removing it. It also revives the
+      Dirichlet shell transfers**, and it has its own validity limit — 24³ through 48³ agree but
+      20³ does not. The ADR attributed that to Eq. 5.30's point-source approximation, i.e. to the
+      ratio `rho_far/R`; **WP3 disproved the attribution** (the break is at ratio 1.74 while the
+      extent-21 ladder is exact down to 1.24, and every other candidate anti-predicts too), so the
+      governing quantity is unidentified and a domain budget must be **measured per configuration
+      and never extrapolated**. The ladder still sets the minimum domain; monopole matching moves
+      that minimum outward rather than removing it. It also revives the
       explanation for 28³-needle versus 96³-plate that the first version of this note had ruled
       out on the strength of the printed formula. The estimate stays an order-of-magnitude tool —
       it is isotropic, identifies R with extent/2, and cannot express the **differential**

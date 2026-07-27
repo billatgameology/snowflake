@@ -34,7 +34,7 @@ const base = {
 
 /** Enough growth for the fixed-σ shell's over-supply to show; below ~50 it has not yet bitten. */
 const STEPS = 60;
-/** Both comfortably satisfy rho_far >> crystal size — see the validity-limit test below. */
+/** Both sit above the measured limit at this crystal size — see the validity-limit test below. */
 const NEAR = 28;
 const FAR = 40;
 
@@ -246,12 +246,18 @@ describe("monopole-matched far field — construction", () => {
 });
 
 describe("monopole-matched far field — its validity limit", () => {
-  it("stops being domain-independent once the shell is not far from the crystal", () => {
-    // Eq. 5.30 treats the crystal as a point source, so it needs rho_far >> crystal size. At
-    // 20^3 the nearest shell cell sits ~2.3 crystal radii out and the approximation fails: the
-    // answer moves. This is a REGISTERED LIMIT, not a defect — it is why the comparison above
-    // uses 28 and 40, and why WP0c has to set the minimum domain from the WP3 ladder rather
-    // than assume monopole matching makes domain size irrelevant.
+  it("stops being domain-independent below a limit that has to be measured per configuration", () => {
+    // At 20^3 the answer moves; from 24^3 up it does not. This is a REGISTERED LIMIT, not a
+    // defect — it is why the comparison above uses 28 and 40.
+    //
+    // What the limit is NOT: a ratio. This test's 20^3 break is at rho_far / R = 1.74, while
+    // WP3's extent-21 ladder is bit-identical down to ratio 1.24 (research/phase6-convergence.md
+    // §1.3). Absolute clearance in cells does not order them either, and the dipole term
+    // (R/rho_far)^2 anti-predicts. Every candidate makes the SMALLER crystal more sensitive,
+    // which is the reverse of multipole truncation, so the mechanism is not identified and the
+    // ADR 0024 erratum records it as open. The consequence for WP0c is that the minimum domain
+    // must be measured at the configuration actually being run — which is what §1.2 does — and
+    // must not be extrapolated from this test.
     const tooClose = grow(20, "monopole-matched", 30);
     const adequate = grow(28, "monopole-matched", 30);
     const roomier = grow(32, "monopole-matched", 30);

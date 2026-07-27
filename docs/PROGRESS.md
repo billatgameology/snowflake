@@ -1338,14 +1338,49 @@ each shell pixel at `sigma_inf − (dV/dt)/(4·pi·rho_far·X_0·v_kin)` rather 
 28³ against 279 at 40³ — a 4.1% swing from domain size alone — while the monopole shell gives
 **231 at both**, identical aspect ratio, symmetry exactly 0. Two consequences are stated rather
 than buried: **it changes the answer** (AR 0.500 → 0.300), so no threshold measured under the
-Dirichlet shell transfers; and **it has a validity limit** (28³/32³/48³ agree, 20³ does not,
-because Eq. 5.30 treats the crystal as a point source), so it moves the minimum domain outward
-rather than removing it. `dirichlet` and `reflecting` are bit-unchanged and gate 2b pins its own.
+Dirichlet shell transfers; and **it has a validity limit** (24³ through 48³ agree, 20³ does not),
+so it moves the minimum domain outward rather than removing it. The ADR attributed that limit to
+the point-source approximation and so to the ratio `rho_far/R`; **WP3 disproved the attribution**
+and the ADR now carries an erratum — see below. `dirichlet` and `reflecting` are bit-unchanged and
+gate 2b pins its own.
 
 **v6 reproduces Phase 2b exactly at full scale.** Re-running Phase 2b's −15 °C column condition
 (96³, σ∞ = 0.002, extent 61) under v6 returns step 330, attached 1,159, extent 61,
 `AR = 12.2000`, `symErr = 0` — every published digit of the accepted v5 evidence. That is the
 strongest available evidence that ADR 0023 changed summation order and not physics.
+
+**WP3 is closed and reported at [phase6-convergence.md](../research/phase6-convergence.md).** Four
+convergence studies, all under v6 + monopole matching; every point reported `symErr = 0`,
+`deltaSymClean = true` and a converged relaxation. The dominant finding is a **class/value split**:
+on three of the four axes the habit CLASS converges early while the value underneath converges late
+or not at all. Registered from it: **domain N = 48**, **measurement extent 21**, **`cflFill` = 0.1**
+— each carrying a measured residual rather than a claim of convergence. Four things are worth
+carrying forward:
+
+- **Domain, and a sequencing error that cost correctness rather than confidence.** The first ladder
+  ran at extent 15 and the measurement extent was *then* chosen from the trajectory curves, so the
+  two did not compose. Re-running at the registered extent 21 (10 points, N = 40…80) did not merely
+  reconfirm it — it **reversed its central conclusion**. At extent 15 the cold attached count
+  climbed monotonically to 64³ and was reported as an unconverged domain systematic; at extent 21 it
+  converges exactly by N = 64 (5185 → 5161 → 5161 → 5159 → 5159), and warm is bit-identical at all
+  five domains. The non-convergence was an artefact of measuring mid-development.
+- **Grid Δx is the axis that does not converge.** Δx = 0.7 flips the cold habit class outright;
+  Δx = 0.35 — the value every result in this project has used — still moves `AR` +10.6% cold and
+  +18% warm going finer, approximately first order, extrapolating to warm 0.584 and cold 1.305
+  against thresholds of 0.667 and 1.5. Neither class flips under the extrapolation and **both move
+  in the direction that would flip them**. This is what makes Δx a cost/systematic decision at WP0c
+  rather than a free pick.
+- **ADR 0024's validity limit is real; its explanation was wrong.** The 20³ break sits at
+  `rho_far/R` = 1.74, not the "about 2.3" recorded — the `hexPrism` shell's nearest cell is at
+  ≈ 0.42·N, not N/2 — while the extent-21 ladder is bit-identical down to ratio 1.24. Absolute
+  clearance in cells does not order the two either (3.31 breaks, 2.50 is exact), and the dipole term
+  `(R/rho_far)²` anti-predicts. Every candidate makes the *smaller* crystal the more sensitive one,
+  the reverse of multipole truncation, so **the governing quantity is not identified**. The
+  operative consequence is that the minimum domain must be measured at the configuration actually
+  being run and must not be extrapolated from another.
+- **The 65% domain-contact guard is not a convergence criterion.** At extent 21 it admits cold at
+  N = 40, which still carries a +0.50% attached-count error. It is a collision heuristic and must
+  not be read as evidence of domain independence.
 
 WP0's remainder is **WP0c**, which the rewritten plan sequences *after* WP3's convergence
 studies: re-run the calibration probes under v6 **and the monopole shell**, choose the T/σ grid,
