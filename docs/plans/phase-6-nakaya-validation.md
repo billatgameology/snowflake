@@ -293,6 +293,39 @@ finding 2/2b (engine cost and the float32 `divTol` floor) rest on comparisons ac
 all shared the defect, so their *direction* is expected to survive but their *values* are not
 citable.
 
+**4. The domain ladder (2026-07-26, v6 + monopole-matched, f = 0.15, measured at extent 15).**
+Five domains per temperature, `symErr = 0` and `deltaSymClean = true` and every relaxation
+converged at all ten points.
+
+| N | warm −5 °C: attached / AR | cold −15 °C: attached / AR |
+|---|---|---|
+| 28 | 521 / 0.3810 plate | 1409 / 0.8381 neutral |
+| 32 | 521 / 0.3810 plate | 1409 / 0.8381 neutral |
+| 40 | 521 / 0.3810 plate | 1481 / 0.9905 neutral |
+| 48 | 521 / 0.3810 plate | 1505 / 0.9905 neutral |
+| 64 | 521 / 0.3810 plate | 1553 / 0.9905 neutral |
+
+**The two metrics converge at different rates, and only one of them is the registered
+criterion.** The aspect ratio — which is what classifies habit — is converged from N = 28 warm
+and N = 40 cold, and the habit *class* is stable at every point. The attached count is **not**
+converged even at 64³ on the cold side: it climbs 1481 → 1505 → 1553 while `AR` sits fixed at
+0.9905, meaning the crystal fills the same bounding box more densely in a larger domain. That is
+a real domain effect the registered criterion does not see, and it should be reported as a
+systematic rather than treated as converged. **Minimum domain for habit classification: N = 40.**
+
+**The cold reading is not yet the predicted one, and that is the open question.** At −15 °C and
+f = 0.15 the α-ratio table predicts 1.40 — basal faster, i.e. a **column** — while extent 15
+measures `AR = 0.9905`, which classifies neutral. The most likely explanation is that extent 15
+is simply too small for the column to have developed: the σ∞ = 0.002 cold run showed `AR` at 2.2
+by extent 11, 9.4 at extent 47 and 12.2 at extent 61, so the column emerges with size and does so
+slowly. If that holds at f = 0.15, **the measurement size must be set by the slowest-developing
+habit**, and a size adequate for the warm plate — which converges immediately — would silently
+misclassify the cold half of the diagram. The AR-vs-extent trajectory runs are measuring exactly
+this. Until they land, no measurement size may be frozen.
+
+Wall times are not recorded as costs here: the ladder ran up to thirteen jobs concurrently on
+eight physical cores, so every second is contended by construction.
+
 **The pre-freeze corrections are done (2026-07-26).** Four source-verified corrections landed
 in `docs/libbrecht-parameters.md` while they were still free to make; after the freeze each
 would have cost a full re-sweep by charter rule. SDAK-2 is recorded as an `A_prism` mechanism
