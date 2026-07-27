@@ -100,8 +100,33 @@ the 1.20–1.28 band from extent 31 onward.
 
 **Measurement size must be set by the slowest-developing habit.** A size adequate for the warm
 plate (extent 9) would read cold at ≈ 0.63 and classify it **plate** — the opposite of its
-converged neutral, and a silent misclassification of half the diagram. **Registered minimum
-measurement extent: 31.**
+converged neutral, and a silent misclassification of half the diagram.
+
+**The class/value split applies here too, and the distinction is what makes the sweep
+affordable.** Cold's *classification* settles at extent 11 and carries comfortable margin by
+15–19 (`AR` 0.99–1.06 against a 0.667 plate ceiling); its *value* settles only near 31.
+
+| cold extent | 9 | 11 | 15 | 19 | 31 | 39 |
+|---|---|---|---|---|---|---|
+| `AR` | 0.631 | 0.700 | 0.991 | 1.056 | 1.240 | 1.258 |
+| class | plate | neutral | neutral | neutral | neutral | neutral |
+
+Since the registered criterion is the class, **extent ≈ 21 is the defensible measurement size**
+and extent 31 is what a converged *value* would require. That difference is not a nicety: it
+interacts with the ADR 0024 monopole validity limit, which needs `rho_far` comfortably larger
+than the crystal. At extent 31 the ratio is 2.06 at 64³ and 1.55 at 48³ — inside the regime
+where the measured breakdown occurred — so a value-converged measurement would force N ≈ 96 and
+make the sweep unaffordable. At extent 21 the ratio at 64³ is 3.05, safely outside it.
+
+**Registered minimum measurement extent: 21, for classification.** Any quantitative `AR` quoted
+at that size carries the residual extent drift toward the extent-31 value, on top of the grid
+systematic below.
+
+> **Sequencing note, recorded because it was an error.** The domain ladder in §1 was run at
+> extent 15 and the measurement extent was then chosen from these curves, so the two do not
+> compose: domain independence was never demonstrated at the size actually registered. A domain
+> ladder at extent 21 across N = 40…80 closes that gap and is what fixes the registered domain
+> budget; §1's N = 40 is a lower bound established at a smaller crystal, not the answer.
 
 ## 4. Grid spacing — the axis that does not converge
 
