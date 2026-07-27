@@ -373,9 +373,14 @@ labelled as not converged at that setting rather than quietly inheriting the num
 
 This ladder is also what caught the ADR 0024 `rho_far` defect: warm cfl = 0.2 originally
 reported `deltaSymClean = false`. Re-run under the fix, **every value in the table above is
-identical to the pre-fix run and only that one flag changed** to `true` — which confirms both
-that the fix is inert on the physics and that the pre-fix points reporting a clean delta were
-genuinely clean, the same reasoning applied to v5 in WP0b.
+identical to the pre-fix run and only that one flag changed** to `true`.
+
+**The inertness of that fix is now verified on 18 points, not argued.** The domain ladder was
+also re-run and is **bit-identical across all ten points**; the timestep ladder is identical
+across all eight but for the one broken flag. So a pre-fix run reporting a clean delta really
+was clean, which is the same reasoning applied to v5 in WP0b — and it is now measured twice
+rather than reasoned once. The grid ladder's six points all reported clean deltas and stand on
+that verified argument without a third re-run, whose finest point costs ~6 hours.
 
 **6. The expected no-SDAK result, registered BEFORE the sweep (2026-07-26).** The AR-vs-extent
 trajectories (v6 + monopole, f = 0.15, 64³) give the first real curves:
