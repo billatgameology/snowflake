@@ -216,6 +216,73 @@ export function phase6TemperatureGrid(): readonly number[] {
 /** Registered as a number, now that the T grid is fixed: 0.5 + 1/2 = 1.0 °C. */
 export const PHASE6_AMBIGUITY_HALF_WIDTH_C = phase6AmbiguityHalfWidthC(PHASE6_T_GRID.spacingC);
 
+// ── Registered: the supersaturation axis ────────────────────────────────────────────────────
+//
+// Water-relative fractions, not absolute sigma values, for the reason recorded above the Table
+// 2.1 ladder: the diagram's upper region is bounded by water saturation, so at -2 C an absolute
+// sigma = 0.05 would be 2.5x water saturation (which no cloud produces) while the same number at
+// -15 C sits comfortably below it.
+//
+// The usable window is bounded at BOTH ends, and WP0c measured where rather than asserting it.
+// Both bounds are properties of alphaHK = A*exp(-sigma_0/sigma_surf) evaluated on the registered
+// sigma_0 curves:
+//
+//   TOO LOW — the dead-facet regime. At f = 0.05 the smaller of the two facet coefficients falls
+//   to 2.3e-4 at -35 C against rough-site 1.0, so both facet families are effectively frozen and
+//   habit is set by rough-site geometry and hole filling rather than by the CAK crossing under
+//   test. That is the regime `monograph-review.md` §2.5 warns about, and it is where Phase 2b's
+//   sigma_inf = 0.002 sat. f = 0.10 keeps the smaller coefficient at 1.5e-2 or above everywhere
+//   on the registered T axis, which is the low bound registered here.
+//
+//   TOO HIGH — contrast collapse. alphaHK saturates toward A as sigma_surf grows, so the
+//   basal/prism ratio compresses toward 1: it spans 0.34–3.76 across the T axis at f = 0.15 but
+//   only 0.84–1.25 at f = 0.90.
+//
+// The top of the range is kept ANYWAY, and deliberately. Weak facet contrast is not the same as
+// weak habit variation — at high supersaturation growth is increasingly diffusion-limited and
+// morphology is set by branching instability rather than facet kinetics, which is precisely the
+// regime the diagram fills with dendrites and needles. So f = 0.90 is not registered as a
+// prediction of "no habit variation"; it is registered as the row where facet kinetics stop
+// being the dominant mechanism, and what the model does there is a genuine question rather than
+// a foregone one.
+export const PHASE6_SIGMA_FRACTIONS = [0.1, 0.15, 0.25, 0.4, 0.6, 0.9] as const;
+
+/** σ∞ at a registered grid point: a fraction of Table 2.1 water saturation. */
+export function phase6SigmaInf(tempC: number, fraction: number): number {
+  if (!(PHASE6_SIGMA_FRACTIONS as readonly number[]).includes(fraction)) {
+    throw new Error(
+      `f = ${String(fraction)} is not a registered sigma fraction ` +
+        `[${PHASE6_SIGMA_FRACTIONS.join(", ")}]`,
+    );
+  }
+  return phase6SigmaWaterFromTable(tempC) * fraction;
+}
+
+export interface Phase6GridPoint {
+  readonly tempC: number;
+  readonly fraction: number;
+  readonly sigmaInf: number;
+  readonly inAmbiguityBand: boolean;
+  readonly distanceToBoundaryC: number;
+}
+
+/** The full registered sweep grid: 34 temperatures x 6 fractions = 204 points. */
+export function phase6SweepGrid(): readonly Phase6GridPoint[] {
+  const out: Phase6GridPoint[] = [];
+  for (const tempC of phase6TemperatureGrid()) {
+    for (const fraction of PHASE6_SIGMA_FRACTIONS) {
+      out.push({
+        tempC,
+        fraction,
+        sigmaInf: phase6SigmaInf(tempC, fraction),
+        inAmbiguityBand: phase6IsInAmbiguityBand(tempC),
+        distanceToBoundaryC: phase6DistanceToNearestBoundaryC(tempC),
+      });
+    }
+  }
+  return out;
+}
+
 /** Distance in °C from a temperature to the nearest digitized Nakaya habit boundary. */
 export function phase6DistanceToNearestBoundaryC(tempC: number): number {
   let best = Infinity;
@@ -384,12 +451,24 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
   {
     id: "t-sigma-grid",
     group: "comparison-design",
-    status: "pending",
+    status: "registered",
     requirement: "the T/σ grid",
-    value: null,
+    value:
+      "34 temperatures x 6 water-relative fractions = 204 points. T: uniform 1 °C from −2 to " +
+      "−35 °C. σ: f ∈ {0.10, 0.15, 0.25, 0.40, 0.60, 0.90} of Table 2.1 water saturation, " +
+      "σ∞ = f · phase6SigmaWaterFromTable(T)",
     source:
-      "WP0 calibration probes; constrained by the interpolation domain (T ∈ [−50, −1] °C, " +
-      "extrapolation banned) and by open question 6 (σ∞ regime placement)",
+      "WP0c. The T axis is uniform because a cost probe showed fine spacing need not be bought " +
+      "by coarsening elsewhere, and because the ambiguity-band formula takes ONE spacing — a " +
+      "mixed grid would leave no honest value to hand it. Its range is the digitized figure's " +
+      "own labelled span. The σ axis is bounded at both ends by measured facet physics rather " +
+      "than by assertion: below f ≈ 0.10 the smaller facet coefficient collapses into the " +
+      "dead-facet regime (2.3e-4 at f = 0.05, −35 °C, against rough-site 1.0), and toward " +
+      "f = 0.90 the basal/prism contrast compresses from 0.34–3.76 to 0.84–1.25. The top row " +
+      "is kept deliberately: weak facet contrast is not weak habit variation, because at high " +
+      "supersaturation morphology is set by branching instability rather than facet kinetics, " +
+      "so what the model does there is a real question. Constrained throughout by the " +
+      "interpolation domain (T ∈ [−50, −1] °C, extrapolation banned)",
   },
   {
     id: "habit-measurement-size",
@@ -579,15 +658,26 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
   {
     id: "dx",
     group: "boundary-and-domain",
-    status: "pending",
+    status: "registered",
     requirement: "Δx",
-    value: null,
+    value: "0.35 µm",
     source:
-      "WP0c, on measured cost. This is NOT a free pick: WP3 §4 found Δx is the one axis that " +
-      "does not converge — 0.7 µm flips the cold habit class outright, and 0.35 µm still moves " +
-      "AR +10.6% cold and +18% warm going finer, approximately first order. Whatever is " +
-      "registered carries the extrapolated grid bias on every reported point, and points whose " +
-      "CLASS would change under that extrapolation are flagged individually",
+      "WP0c, by a COST rule fixed in advance: the finest spacing whose full registered grid " +
+      "fits an overnight-scale wall-clock budget on the registered host. Deciding it on cost " +
+      "rather than on outcome is the point — a spacing chosen because of the habits it " +
+      "produced would be tuning, so the choice was made and recorded BEFORE any habit result " +
+      "existed at the finer spacing. Measured: at the registered configuration eight " +
+      "temperatures cost 748–2424 s each and 40 min wall across seven cores; the same eight at " +
+      "Δx = 0.2333 µm (72³, extent 32, identical physical box and measurement size) ran 153 " +
+      "minutes without completing even the cheapest point, so the finer grid costs at least 12x " +
+      "per point. That puts one 34-temperature row at the finer spacing near 28 h — plus a " +
+      "fresh domain ladder, because WP3 §1.3 disproved the rule that would have let the " +
+      "existing one transfer — against about 14 h for the entire six-row grid at 0.35 µm. " +
+      "This is NOT a converged value and is not registered as one: WP3 §4 found Δx is the one " +
+      "axis that does not converge, 0.7 µm flips the cold habit class outright, and 0.35 µm " +
+      "still moves AR +10.6% cold and +18% warm going finer. The bias is therefore CARRIED on " +
+      "every reported point under the uncertainty-reporting scheme, and points whose class " +
+      "would change under extrapolation are flagged individually",
   },
   {
     id: "surface-policy",

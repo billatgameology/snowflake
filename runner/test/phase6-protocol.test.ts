@@ -6,6 +6,7 @@ import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { describe, expect, it } from "vitest";
 import {
+  alphaHK,
   isLKSurfacePolicy,
   metersSmootherDrift,
   nucleationABasal,
@@ -38,6 +39,8 @@ import {
   PHASE6_NAKAYA_BOUNDARIES_C,
   PHASE6_PARAMETER_TABLE_SHA256,
   PHASE6_T_GRID,
+  phase6SigmaInf,
+  phase6SweepGrid,
   phase6DistanceToNearestBoundaryC,
   phase6EvidencePartition,
   phase6IsInAmbiguityBand,
@@ -88,8 +91,12 @@ describe("the Phase 6 freeze list", () => {
     expect(phase6FreezeComplete()).toBe(false);
     expect(phase6PendingFreezeItems().length).toBeGreaterThan(0);
     expect(() => phase6ProtocolManifest()).toThrow(/not frozen/);
-    // The error names what is missing, so the failure is actionable rather than opaque.
-    expect(() => phase6ProtocolManifest()).toThrow(/t-sigma-grid/);
+    // The error names what is missing, so the failure is actionable rather than opaque. Every
+    // substantive protocol value is now registered; what remains is code-version, which cannot
+    // be filled in the same commit that finalizes the values, because a commit cannot contain
+    // its own hash. It is recorded in the immediately following commit, which adds no protocol
+    // content — so the commit named there is genuinely the one the protocol froze in.
+    expect(() => phase6ProtocolManifest()).toThrow(/code-version/);
   });
 
   it("has the conditions the charter fixes outright already registered", () => {
@@ -137,8 +144,9 @@ describe("the Phase 6 freeze list", () => {
     expect(byId.get("seed-ensemble-size")?.value).toContain("1");
     expect(byId.get("seed-ensemble-size")?.source).toContain("noise-amplitude = 0");
 
-    // Δx is deliberately still open, and its row must say WHY rather than just be blank.
-    expect(byId.get("dx")?.status).toBe("pending");
+    // Δx is registered, but its row must keep saying that the value is not converged — the
+    // number alone would read as a settled choice, which is exactly what it is not.
+    expect(byId.get("dx")?.status).toBe("registered");
     expect(byId.get("dx")?.source).toContain("does not converge");
   });
 
@@ -242,6 +250,68 @@ describe("the registered temperature axis", () => {
     expect(phase6DistanceToNearestBoundaryC(-15)).toBeCloseTo(5.1, 12);
     // Exactly on the band edge counts as ambiguous — the inclusive side is the cautious one.
     expect(phase6IsInAmbiguityBand(-9.9 - PHASE6_AMBIGUITY_HALF_WIDTH_C)).toBe(true);
+  });
+});
+
+describe("the registered sweep grid", () => {
+  it("is 34 temperatures by 6 fractions, with its evidence budget known in advance", () => {
+    const grid = phase6SweepGrid();
+    expect(grid.length).toBe(204);
+    expect(grid.filter((p) => !p.inAmbiguityBand).length).toBe(168);
+    expect(grid.filter((p) => p.inAmbiguityBand).length).toBe(36);
+    // Every point carries its own distance to the nearest boundary, so the band decision is
+    // attached to the point rather than recomputed later against a possibly-different rule.
+    for (const point of grid) {
+      expect(point.sigmaInf).toBeGreaterThan(0);
+      expect(point.inAmbiguityBand).toBe(
+        point.distanceToBoundaryC <= PHASE6_AMBIGUITY_HALF_WIDTH_C,
+      );
+    }
+  });
+
+  it("keeps every point out of the dead-facet regime", () => {
+    // The low end of the sigma axis is bounded by physics, not preference: if both facet
+    // coefficients collapse toward zero, habit is set by rough-site geometry rather than by the
+    // CAK crossing under test, and the sweep would be measuring the wrong mechanism. Rough
+    // sites are 1.0 by definition, so this asserts the facets are not effectively frozen.
+    for (const point of phase6SweepGrid()) {
+      const smaller = Math.min(
+        alphaHK("basal", point.tempC, point.sigmaInf, "CAK_A1"),
+        alphaHK("prism", point.tempC, point.sigmaInf, "CAK_A1"),
+      );
+      expect(smaller, `T=${point.tempC} f=${point.fraction}`).toBeGreaterThan(1e-2);
+    }
+  });
+
+  it("spans a real contrast range, or the sigma axis would carry no information", () => {
+    // If the basal/prism ratio were flat across the whole grid there would be nothing for the
+    // sigma axis to resolve. This pins that the registered fractions actually span the
+    // mechanism: strong contrast at the bottom, compressed at the top.
+    const ratioAt = (tempC: number, fraction: number): number => {
+      const sigma = phase6SigmaInf(tempC, fraction);
+      return alphaHK("basal", tempC, sigma, "CAK_A1") / alphaHK("prism", tempC, sigma, "CAK_A1");
+    };
+    expect(ratioAt(-35, 0.1)).toBeGreaterThan(5); // strongly column-forming
+    expect(ratioAt(-35, 0.9)).toBeLessThan(1.5); // compressed toward 1
+    expect(ratioAt(-2, 0.1)).toBeLessThan(0.5); // strongly plate-forming
+  });
+
+  it("refuses a fraction that is not on the registered axis", () => {
+    // A sweep point at an unregistered supersaturation would be outside the frozen protocol.
+    expect(() => phase6SigmaInf(-15, 0.3)).toThrow(/not a registered sigma fraction/);
+    expect(() => phase6SigmaInf(-15, 0.15)).not.toThrow();
+  });
+
+  it("registers Delta-x on cost, and says out loud that it is not converged", () => {
+    const dx = PHASE6_FREEZE_LIST.find((item) => item.id === "dx");
+    expect(dx?.status).toBe("registered");
+    expect(dx?.value).toBe("0.35 µm");
+    // The rule must be a COST rule, and must record that it was applied before any habit
+    // result existed at the finer spacing — otherwise the choice is unfalsifiably tunable.
+    expect(dx?.source).toContain("COST rule");
+    expect(dx?.source).toContain("BEFORE any habit result");
+    // And it must not be mistaken for a converged value.
+    expect(dx?.source).toContain("NOT a converged value");
   });
 });
 
