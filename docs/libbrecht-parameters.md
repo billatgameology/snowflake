@@ -1,7 +1,23 @@
 # Libbrecht parameters — the mapping layer
 
-**Status: EXTRACTED 2026-07-15 (first pass, Phase 2b opening deliverable). Corrected 2026-07-26
-against the canonical source, before the Phase 6 freeze. Not yet frozen.**
+**Status: FROZEN 2026-07-27 for Phase 6 (charter §3.2 Phase 6 item 1).** Extracted 2026-07-15
+(first pass, Phase 2b opening deliverable); corrected 2026-07-26 against the canonical source
+while corrections were still free to make.
+
+> **This file is now a frozen protocol input.** Its content hash is registered as
+> `PHASE6_PARAMETER_TABLE_SHA256` in `runner/src/phase6-protocol.ts` and enforced by
+> `runner/test/phase6-protocol.test.ts`, so an edit here fails the suite rather than silently
+> changing the physics under a completed sweep. The hash is taken over the file with line
+> endings normalized to LF, so it survives this repository's CRLF checkout conversion and can be
+> verified on any platform — including the arm64 cross-platform control.
+>
+> **Any change requires a logged ADR and invalidates every Phase 6 sweep result produced under
+> the current protocol; the sweep re-runs in full.** That cost is the point: it is what stops a
+> parameter from being adjusted after a disagreeing result is seen. Corrections that are genuinely
+> source-verified are still welcome — they just cost a re-sweep, and the ADR records why.
+>
+> Nothing here is frozen for other phases. Phase 2b/4/5 evidence keeps the values that produced
+> it, and this freeze binds Phase 6 only.
 The 2026-07-26 pass landed four source-verified corrections while they were still free to make
 (post-freeze, each would cost a full re-sweep by charter rule): SDAK-2 recorded as an
 `A_prism` mechanism rather than a missing `A` gap (§4.2); the printed width parameterization

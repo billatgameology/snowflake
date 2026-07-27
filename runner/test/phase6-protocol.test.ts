@@ -3,6 +3,7 @@
 // from the solver it claims to describe.
 
 import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { describe, expect, it } from "vitest";
 import {
   isLKSurfacePolicy,
@@ -35,6 +36,7 @@ import {
   PHASE6_SURFACE_POLICY,
   PHASE6_AMBIGUITY_HALF_WIDTH_C,
   PHASE6_NAKAYA_BOUNDARIES_C,
+  PHASE6_PARAMETER_TABLE_SHA256,
   PHASE6_T_GRID,
   phase6DistanceToNearestBoundaryC,
   phase6EvidencePartition,
@@ -138,6 +140,22 @@ describe("the Phase 6 freeze list", () => {
     // Δx is deliberately still open, and its row must say WHY rather than just be blank.
     expect(byId.get("dx")?.status).toBe("pending");
     expect(byId.get("dx")?.source).toContain("does not converge");
+  });
+
+  it("enforces the frozen parameter table by content, not by promise", () => {
+    // The charter freezes docs/libbrecht-parameters.md in full. A freeze nothing checks is a
+    // comment, so this recomputes the hash from the file on every run: an edit to the physics
+    // inputs fails here rather than silently changing what a completed sweep was run against.
+    const source = readFileSync(new URL("../../docs/libbrecht-parameters.md", import.meta.url), "utf8");
+    // LF-normalized — this repo checks out CRLF, and the hash must describe the content rather
+    // than the checking-out machine's git configuration. Without this the arm64 cross-platform
+    // control would fail on a difference that has nothing to do with the physics.
+    const normalized = source.replace(/\r\n/g, "\n");
+    const digest = createHash("sha256").update(normalized, "utf8").digest("hex");
+    expect(digest).toBe(PHASE6_PARAMETER_TABLE_SHA256);
+    // The file must also SAY it is frozen, so a reader of the document alone is not misled.
+    expect(normalized).toContain("FROZEN 2026-07-27");
+    expect(normalized).toContain("invalidates every Phase 6 sweep result");
   });
 
   it("reports uncertainty as class robustness, not as an interval on the ratio", () => {

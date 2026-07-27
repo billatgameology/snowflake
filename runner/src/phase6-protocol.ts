@@ -365,6 +365,19 @@ export const PHASE6_ENGINE_CONTROL = {
   reproducibilityControl: "same registered fixture on arm64 and x64; compare habit class",
 } as const;
 
+// ── Registered: the frozen parameter table ──────────────────────────────────────────────────
+
+/**
+ * sha256 of `docs/libbrecht-parameters.md` **with line endings normalized to LF**.
+ *
+ * Normalized deliberately. This repository converts LF to CRLF on checkout, so a hash of the raw
+ * bytes would depend on the checking-out machine's git configuration rather than on the content,
+ * and would fail spuriously on exactly the second platform the cross-platform control needs to
+ * run on. Normalizing makes the hash a statement about the physics, which is what it is for.
+ */
+export const PHASE6_PARAMETER_TABLE_SHA256 =
+  "e572da78f9fe1b1178ef0fd83cf0d6de3ac698a7413342b1e1bb4e235f0d2ed3";
+
 // ── The freeze list ─────────────────────────────────────────────────────────────────────────
 
 export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
@@ -463,10 +476,16 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
   {
     id: "parameter-table",
     group: "physics-inputs",
-    status: "pending",
+    status: "registered",
     requirement: "docs/libbrecht-parameters.md frozen in full",
-    value: null,
-    source: "WP0 freezes the file; pre-freeze source corrections landed 2026-07-26",
+    value: `docs/libbrecht-parameters.md at sha256 ${PHASE6_PARAMETER_TABLE_SHA256} (LF-normalized)`,
+    source:
+      "frozen 2026-07-27 by WP0c and enforced by runner/test/phase6-protocol.test.ts, so an " +
+      "edit fails the suite rather than silently changing the physics under a completed sweep. " +
+      "The four pre-freeze source corrections landed 2026-07-26 while they were still free to " +
+      "make. Post-freeze changes need a logged ADR and invalidate every Phase 6 sweep result " +
+      "under this protocol — the sweep re-runs in full, which is the cost that stops a " +
+      "parameter being adjusted after a disagreeing result is seen",
   },
   {
     id: "parameter-interpolation",
