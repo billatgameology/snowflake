@@ -109,6 +109,99 @@ matches Table 2.1's `P_ice = 6.11` at 0 °C only if the formula's output unit is
 hPa; 611 Pa is the triple point). The mbar reading is therefore confirmed against the source's
 own table. `c_sat = p_ice/(kT)` converts to number density.
 
+### 1.1 The spherical analytic solutions (**P1** — exact, transcribed 2026-07-26)
+
+Added for Phase 6 WP3/WP3b. These are the project's only **absolute** accuracy anchor: every
+other numerical control shows the solver agreeing with itself under refinement, while these say
+whether the numbers are right. Transcribed from the page renders (`research/1910.06389v2/`),
+not from `monograph-review.md`.
+
+The monograph writes the attachment coefficient as a bare Greek letter; in this model that
+quantity is `alphaHK`. Its diffusive counterpart, Eq. 3.18, is the ratio `X_0/R`, and is written
+out here rather than given a name, because a name built on the bare stem is what Rule 7 bans.
+
+**Sphere of radius R against an infinite far field** (printed p. 96 / pdf 97):
+
+| Equation | Form | Number |
+|---|---|---|
+| radial field | `sigma(r) = sigma_inf − (R/r)·(sigma_inf − sigma_surf)` | 3.16 |
+| surface value | `sigma_surf = [(X_0/R) / (alphaHK + X_0/R)] · sigma_inf` | 3.17 |
+| diffusive coefficient | `X_0/R` | 3.18 |
+| growth velocity | `v_n = [alphaHK·(X_0/R) / (alphaHK + X_0/R)] · v_kin · sigma_inf` | 3.19 |
+| kinetics-limited when | `alphaHK << X_0/R`, giving `v_n ≈ alphaHK·v_kin·sigma_inf` and `sigma_surf ≈ sigma_inf` | 3.20–3.22 |
+| diffusion-limited when | `X_0/R << alphaHK`, giving `v_n ≈ (c_sat·D)/(c_ice·R)·sigma_inf ≈ (X_0/R)·v_kin·sigma_inf` | 3.23–3.24 |
+
+**Finite outer boundary at R_far** (printed p. 100 / pdf 101, attributed to [2013Lib1]) — the
+case that matters to us, because our far field is a fixed-σ Dirichlet shell at finite radius:
+
+| Equation | Form | Number |
+|---|---|---|
+| radial field | `sigma(r) = sigma_out − (R'/r − R'/R_far)·sigma_out` | 3.33 |
+| length scale | `R' = [gamma/R − 1/R_far]^(−1)` | 3.34 |
+| ratio (**as printed — see erratum**) | `gamma = (alphaHK + X_0/R) / (X_0/R)` | 3.35 |
+| growth velocity | `v_n = [alphaHK·(X_0/R) / (alphaHK + X_0/R)] · v_kin · sigma_inf · [1 − R/(gamma·R_far)]^(−1)` | 3.36 |
+
+The source states 3.36 reduces to 3.19 as `R_far → ∞`, "as it must". That identity is worth
+asserting in any implementation, but note it does **not** constrain `gamma`: the bracket tends
+to 1 for any value, so the source's own stated check cannot catch the error below.
+
+**Erratum in Eq. 3.35 (found 2026-07-26, Phase 6 WP3b; pinned in
+`solver-cpu/test/spherical-reference.test.ts`).** The printed denominator is `X_0/R`. It should
+be `alphaHK`:
+
+`gamma = (alphaHK + X_0/R) / alphaHK = 1 + (X_0/R)/alphaHK`
+
+The transcription above was verified at magnification against the page render, so this is a
+disagreement with the source, not a misreading of it. Three independent checks, each of which
+the printed form fails:
+
+1. **Eq. 3.33 must reduce to Eq. 3.17 as `R_far → ∞`.** Its limit is
+   `sigma_surf/sigma_inf = 1 − 1/gamma`. The printed form gives `alphaHK/(alphaHK + X_0/R)` —
+   exactly the *complement* of Eq. 3.17. The corrected form reproduces Eq. 3.17 identically
+   (0.10797279 against 0.10797279 at the −5 °C test point).
+2. **Against an exact solve of the same boundary-value problem** — Eq. 3.9's Robin condition at
+   `R`, Dirichlet at `R_far`, `sigma = A + B/r`, which shares no derivation with Eqs. 3.33–3.36 —
+   the amplification is 1.18947162. The corrected bracket gives 1.18947162; the printed bracket
+   gives 1.01965991.
+3. **A crystal that is not growing cannot be biased by the far boundary.** As `alphaHK → 0` the
+   corrected bias vanishes (3.7e−6 at `alphaHK = 1e−8`); the printed form instead tends to
+   `[1 − R/R_far]^(−1) − 1`, about 22% at the test point, for a crystal with no flux at all.
+
+**What 3.36 buys, with the correction applied.** The bracket is the finite-shell bias in closed
+form: a Dirichlet shell held at `sigma_inf` at finite radius over-supplies vapor by
+`[1 − R/(gamma·R_far)]^(−1)` relative to true infinity. Substituting the corrected 3.35, the
+excess is
+
+`R/(gamma·R_far) = alphaHK·R² / ((alphaHK·R + X_0)·R_far)`
+
+which **grows with the crystal**, tending to `R/R_far` — so the bias tends to
+`[1 − R/R_far]^(−1)` and diverges as the crystal approaches the shell. This is the opposite of
+what the printed form implies, and it is much larger. At Phase 6's discriminating condition
+(f = 0.15, basal facet, −5 °C, `dx` = 0.35 µm, `R` = extent/2, `R_far` = N/2):
+
+| measured extent | N = 40 | N = 48 | N = 64 | N = 80 | N = 96 |
+|---|---|---|---|---|---|
+| 17 | 61% | 46% | 31% | 23% | 19% |
+| 31 | 266% | 153% | 83% | 57% | 43% |
+| 61 | — | — | 1179% | 281% | 159% |
+
+Phase 2b measured at extent 61 in 96³, so its own configuration sits at roughly a **160%**
+finite-shell over-supply on this estimate. The −15 °C numbers are within a point of these.
+
+**Consequences.** The fixed-σ Dirichlet far field at these domain sizes is not a mild
+approximation, and the bias falls only as ~1/N, so the WP3 domain ladder is load-bearing rather
+than pro forma. It also makes the monopole-matched far field (`monograph-review.md` §2.4) a
+substantive candidate rather than a refinement. **This supersedes an earlier note here that a
+"few-percent" bias could not explain the calibration observation of a needle at 28³ where 96³
+gives a plate at identical conditions — that note was computed with the printed `gamma` and was
+wrong; a bias of this size is a live candidate for exactly that effect.**
+
+Two limits of the estimate, both of which keep it an order-of-magnitude tool rather than a
+correction to apply: it is isotropic, so identifying `R` with extent/2 for a plate or column is
+crude; and it assumes an isolated sphere, whereas at these ratios the crystal occupies much of
+the domain. A **differential** per-facet bias — prism tips sit far closer to the wall than basal
+faces — is not expressible in this form at all, and is the natural next question.
+
 ## 2. Physical constants (monograph Appendix A, printed pp. 500–501 / pdf 501–502)
 
 | Constant | Value (as cited) | Canonical | Class |

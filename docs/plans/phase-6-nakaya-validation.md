@@ -461,12 +461,25 @@ coarser one, and a grid frozen against that would be wrong at every point.
       cross-check against Phase 2b's known answer, labelled as such, and are **not** the
       representative-condition study.
 
-      **The far-field bias has a closed form and should be used, not just guarded against.**
-      `monograph-review.md` §2.4: the fixed-σ Dirichlet shell holds σ∞ at finite radius and
-      therefore over-supplies vapor increasingly as the crystal grows, and the finite-outer-
-      boundary spherical solution (Eqs. 3.33–3.36) gives that bias in closed form. The domain
-      ladder should be reported against that analytic expectation rather than as bare
-      self-consistency — which is also what makes WP3b worth its cost here rather than later.
+      **The far-field bias has a closed form, it is large, and it is the leading candidate for
+      the regime change.** `monograph-review.md` §2.4: the fixed-σ Dirichlet shell holds σ∞ at
+      finite radius and over-supplies vapor increasingly as the crystal grows, and the
+      finite-outer-boundary spherical solution (Eqs. 3.33–3.36) gives that bias in closed form.
+      Transcribing it for WP3b turned up an **erratum in the printed Eq. 3.35** — its
+      denominator should be the attachment coefficient, not X₀/R — caught by three independent
+      checks and recorded in `docs/libbrecht-parameters.md` §1.1. The correction matters here
+      rather than being a curiosity: the printed form makes the bias a few percent and
+      *independent of crystal size*, while the corrected form makes it grow toward
+      [1 − R/R_far]⁻¹. On the corrected estimate a measurement at extent 17 carries ~46% bias at
+      48³ and ~19% at 96³, and Phase 2b's own extent-61-in-96³ configuration sits near **160%**.
+
+      So the domain ladder is load-bearing, the bias falls only as ~1/N, and the monopole-matched
+      far field becomes a substantive candidate rather than a refinement. It also revives the
+      explanation for 28³-needle versus 96³-plate that the first version of this note had ruled
+      out on the strength of the printed formula. The estimate stays an order-of-magnitude tool —
+      it is isotropic, identifies R with extent/2, and cannot express the **differential**
+      per-facet bias that a plate's prism tips (much nearer the wall than its basal faces) would
+      feel — so the ladder measures the effect and the closed form only sets the expectation.
 
       The domain study
       is the only thing that speaks to far-field independence, and calibration already shows it
