@@ -412,7 +412,63 @@ coarser one, and a grid frozen against that would be wrong at every point.
       (`sigmaWater` is a diagnostic, not a solver input) but is recorded before any protocol
       sets a far field relative to water saturation.
 - [ ] **WP3 — numerical verification. Runs BEFORE the grid freeze.** Grid, timestep and domain
-      convergence studies at representative conditions, reported with deltas. The domain study
+      convergence studies at representative conditions, reported with deltas.
+
+      **"Representative" is a regime judgement, not a convenience one, and getting it wrong
+      would invalidate the study silently.** Two constraints, from the project's own analysis:
+
+      1. *Not too high.* α_HK = A·exp(−σ₀/σ_surf) saturates toward A as σ_surf grows, so at high
+         supersaturation the basal/prism distinction — the whole mechanism under test — weakens.
+         The v6 calibration shows it directly at −5 °C: `AR` runs 0.471 → 0.606 → 0.740 (plate →
+         plate → neutral) as f goes 0.15 → 0.50 → 0.90. Convergence measured at f = 0.90 would
+         be convergence of a crystal with no habit to resolve.
+      2. *Not too low.* `monograph-review.md` §2.5 records that at −15 °C with the Phase 2b
+         σ∞ = 0.002, σ₀_basal/σ∞ = 12 and σ₀_prism/σ∞ = 16, giving facet coefficients of order
+         6e−6 and 1e−7 against rough-site 1 — **both facet families are effectively dead**, and
+         habit there is set by rough-site geometry, step flow and hole filling rather than by the
+         CAK crossing. Phase 2b's column at −15 °C is a real result about the solver but is not
+         the facet mechanism Phase 6 is testing.
+
+      Both constraints are quantitative, and the deciding quantity — the ratio α_basal/α_prism,
+      which is what actually selects habit — can be computed from the registered parameters with
+      no 3D run at all:
+
+      | T | σ₀ basal | σ₀ prism | α_bas/α_pri, f=0.15 | f=0.50 | f=0.90 |
+      | --- | --- | --- | --- | --- | --- |
+      | −5 °C | 0.00700 | 0.00270 | **0.56** | 0.84 | 0.91 |
+      | −10 °C | 0.01400 | 0.01400 | **1.00** | 1.00 | 1.00 |
+      | −15 °C | 0.02400 | 0.03200 | **1.40** | 1.11 | 1.06 |
+
+      Three things fall out. **(a)** The contrast collapses toward 1 — no habit preference — as f
+      rises, at every temperature, confirming constraint 1 numerically. **(b)** The ratio
+      *inverts* with temperature, below 1 at −5 °C (prism faster ⇒ plate) and above 1 at −15 °C
+      (basal faster ⇒ column). That inversion is the CAK crossing the sweep exists to test.
+      **(c)** σ₀_basal and σ₀_prism are **exactly equal at −10 °C**, so the model's own crossing
+      sits there. Nakaya's second measured boundary is at −9.9 ± 0.5 °C (WP1).
+
+      Point (c) must not be read as an early success. σ₀(T) is digitized Libbrecht input data,
+      not a model output, so where its crossing lands is a property of the inputs; under the
+      provenance rules this is at best P2/P3 and the agreement is closer to in-sample than to
+      prediction. What it *is* good for is registering a falsifiable expectation before the
+      sweep: if the 3D runs do not flip habit near −10 °C at low f, the disagreement is with the
+      solver rather than with the parameters.
+
+      The water-relative ladder was chosen precisely to avoid both traps, and **f = 0.15 is the
+      discriminating fraction**: σ₀/σ∞ is 0.93/0.36 at −5 °C and 1.02/1.36 at −15 °C.
+      It is also the expensive end — the calibration's f = 0.15 cold points exceeded a 300 s
+      budget at 48³ — which is the accuracy-versus-cost tension made concrete. Under the stated
+      priority the answer is to pay it. Runs at σ∞ = 0.002 are retained as a numerical
+      cross-check against Phase 2b's known answer, labelled as such, and are **not** the
+      representative-condition study.
+
+      **The far-field bias has a closed form and should be used, not just guarded against.**
+      `monograph-review.md` §2.4: the fixed-σ Dirichlet shell holds σ∞ at finite radius and
+      therefore over-supplies vapor increasingly as the crystal grows, and the finite-outer-
+      boundary spherical solution (Eqs. 3.33–3.36) gives that bias in closed form. The domain
+      ladder should be reported against that analytic expectation rather than as bare
+      self-consistency — which is also what makes WP3b worth its cost here rather than later.
+
+      The domain study
       is the only thing that speaks to far-field independence, and calibration already shows it
       is load-bearing rather than pro forma: 28³ gives a needle where 96³ gives a plate at the
       same temperature and far field. Its deliverable is the smallest domain at which the habit
