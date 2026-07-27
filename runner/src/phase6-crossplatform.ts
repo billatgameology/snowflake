@@ -39,7 +39,12 @@ import {
   sigma0Prism,
   vKin,
 } from "../../core/src/index.ts";
-import { PHASE6_FAR_FIELD, PHASE6_SURFACE_POLICY, phase6SigmaWaterFromTable } from "./phase6-protocol.ts";
+import {
+  PHASE6_FAR_FIELD,
+  PHASE6_NAKAYA_BOUNDARIES_C,
+  PHASE6_SURFACE_POLICY,
+  phase6SigmaWaterFromTable,
+} from "./phase6-protocol.ts";
 
 /** Exact float64 bits of a number, as a stable 16-hex-digit string. */
 export function float64Bits(value: number): string {
@@ -95,7 +100,8 @@ export function phase6FixtureSigmaInf(tempC: number): number {
 function fingerprintTemperatures(): number[] {
   const temps = new Set<number>();
   for (let t = -2; t >= -30; t--) temps.add(t);
-  for (const extra of [-3.3, -9.9, -21.5, -5, -15]) temps.add(extra);
+  for (const boundary of PHASE6_NAKAYA_BOUNDARIES_C) temps.add(boundary);
+  for (const point of PHASE6_CROSSPLATFORM_FIXTURE.points) temps.add(point.tempC);
   return [...temps].sort((a, b) => b - a);
 }
 

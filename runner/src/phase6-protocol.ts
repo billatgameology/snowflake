@@ -160,6 +160,99 @@ export function phase6AmbiguityHalfWidthC(tGridSpacingC: number): number {
   return PHASE6_REFERENCE_BOUNDARY_UNCERTAINTY_C + tGridSpacingC / 2;
 }
 
+// ── Registered: the temperature axis ────────────────────────────────────────────────────────
+
+/**
+ * The habit-boundary temperatures WP1 measured off Libbrecht 1211.5555v1 Fig. 1, each ±0.5 °C
+ * (`PHASE6_REFERENCE_BOUNDARY_UNCERTAINTY_C`). Bounding the sequence
+ * plates -> columns -> plates -> columns-and-plates as temperature falls.
+ *
+ * These are the ONLY quantities taken from that figure. Its printed supersaturation values are
+ * not used as targets at all: WP1's cross-check passes on position (the water-saturation curve
+ * peaks at −14.09 °C against our −14.35 °C) and fails on scale (amplitude a flat 0.724 of ours,
+ * 30–42% below Murphy-Koop).
+ */
+export const PHASE6_NAKAYA_BOUNDARIES_C = [-3.3, -9.9, -21.5] as const;
+
+/**
+ * The registered temperature axis: uniform 1 °C from −2 to −35 °C, 34 points.
+ *
+ * **Uniform, not clustered near the boundaries**, which reverses the plan's earlier design note.
+ * That note assumed fine spacing had to be bought by coarsening elsewhere. WP0c measured the
+ * cost and it does not: at the registered configuration a whole 1 °C row of this range costs a
+ * couple of hours across seven cores, so the axis can simply be fine everywhere. A non-uniform
+ * axis would also make `phase6AmbiguityHalfWidthC` ill-posed — it takes ONE spacing, and with a
+ * mixed grid there is no honest single value to hand it.
+ *
+ * **Why 1 °C and not finer.** The band half-width is `0.5 + spacing/2`, so halving the spacing
+ * moves it only 1.0 → 0.75 °C: the 0.5 °C floor is the reference's own boundary uncertainty and
+ * no grid refinement can beat it. Resolving finer than the reference locates its own boundaries
+ * would be measuring our axis, not comparing against theirs.
+ *
+ * **Why it ends at −35.** That is the coldest labelled tick on the digitized figure, and the
+ * caption makes a claim below −30 ("predominantly columns") that the range must cover to test.
+ * Colder than −35 the reference says nothing, so a model result there could not be scored.
+ *
+ * **Why it starts at −2.** Warmer than that, `phase6SigmaWaterFromTable` still interpolates, but
+ * two things degrade together: the unapplied latent-heating systematic is largest at the warm
+ * end (`chi_0 ≈ 0.8` at −1 °C, biasing diffusion-limited growth fast by up to ~40–80%), and the
+ * figure's own warmest labelled habit is at −2 °C.
+ */
+export const PHASE6_T_GRID = {
+  warmestC: -2,
+  coldestC: -35,
+  spacingC: 1,
+} as const;
+
+/** The registered temperature axis, warmest first. */
+export function phase6TemperatureGrid(): readonly number[] {
+  const { warmestC, coldestC, spacingC } = PHASE6_T_GRID;
+  const out: number[] = [];
+  const count = Math.round((warmestC - coldestC) / spacingC) + 1;
+  for (let i = 0; i < count; i++) out.push(warmestC - i * spacingC);
+  return out;
+}
+
+/** Registered as a number, now that the T grid is fixed: 0.5 + 1/2 = 1.0 °C. */
+export const PHASE6_AMBIGUITY_HALF_WIDTH_C = phase6AmbiguityHalfWidthC(PHASE6_T_GRID.spacingC);
+
+/** Distance in °C from a temperature to the nearest digitized Nakaya habit boundary. */
+export function phase6DistanceToNearestBoundaryC(tempC: number): number {
+  let best = Infinity;
+  for (const boundary of PHASE6_NAKAYA_BOUNDARIES_C) {
+    const distance = Math.abs(tempC - boundary);
+    if (distance < best) best = distance;
+  }
+  return best;
+}
+
+/**
+ * True when a habit disagreement at this temperature is REPORTED BUT NOT COUNTED as evidence
+ * about the model, because near a boundary both classes are plausible in the reference itself.
+ *
+ * It cuts both ways deliberately, and that is the point: agreement inside the band earns nothing
+ * either. The claim Phase 6 can earn is agreement in the interiors plus flips in roughly the
+ * right places.
+ */
+export function phase6IsInAmbiguityBand(tempC: number): boolean {
+  return phase6DistanceToNearestBoundaryC(tempC) <= PHASE6_AMBIGUITY_HALF_WIDTH_C;
+}
+
+/**
+ * How the registered axis splits before any run happens — published pre-sweep so the evidence
+ * budget is known in advance rather than discovered afterwards.
+ */
+export function phase6EvidencePartition(): {
+  counting: readonly number[];
+  ambiguous: readonly number[];
+} {
+  const grid = phase6TemperatureGrid();
+  return {
+    counting: grid.filter((t) => !phase6IsInAmbiguityBand(t)),
+    ambiguous: grid.filter((t) => phase6IsInAmbiguityBand(t)),
+  };
+}
+
 // ── Registered: how the supersaturation ladder is defined ───────────────────────────────────
 //
 // The Nakaya diagram's upper region is bounded by the water-saturation curve, so the physically
@@ -331,14 +424,21 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
   {
     id: "boundary-ambiguity-band",
     group: "comparison-design",
-    status: "pending",
+    status: "registered",
     requirement: "the half-width of the near-boundary band, inside which habit disagreement is not counted",
-    value: null,
+    value:
+      "±1.0 °C around each of −3.3, −9.9 and −21.5 °C — WP1's measured ±0.5 °C reference " +
+      "uncertainty plus half the registered 1 °C T-grid spacing. Of the 34 grid temperatures, " +
+      "28 count as evidence and 6 are ambiguous (−3, −4, −9, −10, −21, −22), two flanking each " +
+      "boundary",
     source:
-      "WP0c, by the formula PHASE6_AMBIGUITY_HALF_WIDTH_C once the T grid is frozen. The Nakaya " +
-      "figure is a redrawn schematic whose boundaries carry ±0.5 C (WP1), so the model cannot be " +
-      "asked to place a flip more precisely than the reference locates it. MUST be fixed before " +
-      "any sweep runs: applied afterwards the same rule is post-hoc rationalisation",
+      "the pre-registered formula phase6AmbiguityHalfWidthC, evaluated at the now-frozen grid " +
+      "spacing. The Nakaya figure is a redrawn schematic whose boundaries carry ±0.5 C (WP1), " +
+      "so the model cannot be asked to place a flip more precisely than the reference locates " +
+      "it. It cuts BOTH ways: agreement inside the band earns nothing either, because a model " +
+      "agreeing with the diagram only near boundaries has demonstrated nothing. The evidence " +
+      "budget is published here pre-sweep so that 'the disagreeing points happened to be near a " +
+      "boundary' cannot be discovered afterwards",
   },
   {
     id: "parameter-table",

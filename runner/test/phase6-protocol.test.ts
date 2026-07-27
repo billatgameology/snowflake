@@ -33,6 +33,13 @@ import {
   PHASE6_SIGMA_WATER_ANCHORS,
   PHASE6_SIGMA0_DIGITIZATION_BAND,
   PHASE6_SURFACE_POLICY,
+  PHASE6_AMBIGUITY_HALF_WIDTH_C,
+  PHASE6_NAKAYA_BOUNDARIES_C,
+  PHASE6_T_GRID,
+  phase6DistanceToNearestBoundaryC,
+  phase6EvidencePartition,
+  phase6IsInAmbiguityBand,
+  phase6TemperatureGrid,
 } from "../src/phase6-protocol.ts";
 
 describe("the Phase 6 freeze list", () => {
@@ -158,13 +165,65 @@ describe("the Phase 6 freeze list", () => {
   });
 });
 
+describe("the registered temperature axis", () => {
+  it("is uniform 1 C over the digitized figure's own range", () => {
+    const grid = phase6TemperatureGrid();
+    expect(grid.length).toBe(34);
+    expect(grid[0]).toBe(-2);
+    expect(grid[grid.length - 1]).toBe(-35);
+    // Uniform, and uniform is load-bearing: phase6AmbiguityHalfWidthC takes ONE spacing, so a
+    // mixed grid would leave no honest value to hand it.
+    for (let i = 1; i < grid.length; i++) {
+      expect((grid[i - 1] as number) - (grid[i] as number)).toBeCloseTo(PHASE6_T_GRID.spacingC, 12);
+    }
+    // It must reach past the coldest boundary far enough to test the caption's sub-30 claim.
+    expect(grid[grid.length - 1]).toBeLessThan(-30);
+  });
+
+  it("publishes its evidence budget before any run happens", () => {
+    // Registering this pre-sweep is the point: afterwards, "the disagreeing points happened to
+    // be near a boundary" is exactly the post-hoc move the charter freeze exists to prevent.
+    const { counting, ambiguous } = phase6EvidencePartition();
+    expect(counting.length + ambiguous.length).toBe(phase6TemperatureGrid().length);
+    expect(ambiguous).toEqual([-3, -4, -9, -10, -21, -22]);
+    expect(counting.length).toBe(28);
+    // Every boundary is flanked, so no boundary is scored more leniently than another.
+    for (const boundary of PHASE6_NAKAYA_BOUNDARIES_C) {
+      const flanking = ambiguous.filter(
+        (t) => Math.abs(t - boundary) <= PHASE6_AMBIGUITY_HALF_WIDTH_C,
+      );
+      expect(flanking.length, `boundary ${boundary}`).toBe(2);
+    }
+    // Most of the axis must still count, or the comparison could not conclude anything.
+    expect(counting.length / phase6TemperatureGrid().length).toBeGreaterThan(0.75);
+  });
+
+  it("cuts both ways — the band suppresses agreement as well as disagreement", () => {
+    // A model that agreed with the diagram only near boundaries would have demonstrated
+    // nothing, so membership is a pure function of temperature and knows nothing about outcome.
+    expect(phase6IsInAmbiguityBand(-10)).toBe(true);
+    expect(phase6IsInAmbiguityBand(-15)).toBe(false);
+    expect(phase6DistanceToNearestBoundaryC(-10)).toBeCloseTo(0.1, 12);
+    expect(phase6DistanceToNearestBoundaryC(-15)).toBeCloseTo(5.1, 12);
+    // Exactly on the band edge counts as ambiguous — the inclusive side is the cautious one.
+    expect(phase6IsInAmbiguityBand(-9.9 - PHASE6_AMBIGUITY_HALF_WIDTH_C)).toBe(true);
+  });
+});
+
 describe("the near-boundary ambiguity band", () => {
-  it("is still pending, because it cannot be set before the T grid is frozen", () => {
+  it("is registered as a number now that the T grid is frozen, and matches the formula", () => {
     const byId = new Map(PHASE6_FREEZE_LIST.map((item) => [item.id, item]));
     const band = byId.get("boundary-ambiguity-band");
-    expect(band?.status).toBe("pending");
+    expect(band?.status).toBe("registered");
     expect(band?.group).toBe("comparison-design");
-    expect(band?.value).toBeNull();
+    // The registered number must BE the pre-registered formula's output at the frozen spacing,
+    // not a value that merely resembles it. This is the whole guarantee: the band was fixed by
+    // a rule written down before the grid, so it could not be chosen to suit any result.
+    expect(PHASE6_AMBIGUITY_HALF_WIDTH_C).toBe(phase6AmbiguityHalfWidthC(PHASE6_T_GRID.spacingC));
+    expect(band?.value).toContain("1.0 °C");
+    expect(band?.value).toContain("28");
+    // And it must record that it suppresses agreement too, not only disagreement.
+    expect(band?.source).toContain("BOTH ways");
   });
 
   it("adds WP1's measured reference uncertainty to half the T-grid spacing", () => {
