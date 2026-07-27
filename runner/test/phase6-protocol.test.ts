@@ -5,6 +5,7 @@
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { describe, expect, it } from "vitest";
+import { canonicalJsonSha256 } from "../src/gate4-evidence.ts";
 import {
   alphaHK,
   isLKSurfacePolicy,
@@ -38,6 +39,10 @@ import {
   PHASE6_AMBIGUITY_HALF_WIDTH_C,
   PHASE6_NAKAYA_BOUNDARIES_C,
   PHASE6_PARAMETER_TABLE_SHA256,
+  PHASE6_PROTOCOL_FREEZE_COMMIT,
+  PHASE6_PROTOCOL_SHA256,
+  phase6ProtocolProvenance,
+  type Phase6FreezeItem,
   PHASE6_T_GRID,
   phase6SigmaInf,
   phase6SweepGrid,
@@ -85,18 +90,49 @@ describe("the Phase 6 freeze list", () => {
     }
   });
 
-  it("refuses to produce a protocol manifest while anything is pending", () => {
-    // This is the fail-closed property: a sweep cannot quote a protocol hash the freeze has
-    // not earned. WP0 is incomplete by construction today, so this must throw.
-    expect(phase6FreezeComplete()).toBe(false);
-    expect(phase6PendingFreezeItems().length).toBeGreaterThan(0);
-    expect(() => phase6ProtocolManifest()).toThrow(/not frozen/);
-    // The error names what is missing, so the failure is actionable rather than opaque. Every
-    // substantive protocol value is now registered; what remains is code-version, which cannot
-    // be filled in the same commit that finalizes the values, because a commit cannot contain
-    // its own hash. It is recorded in the immediately following commit, which adds no protocol
-    // content — so the commit named there is genuinely the one the protocol froze in.
-    expect(() => phase6ProtocolManifest()).toThrow(/code-version/);
+  it("is COMPLETE, so the manifest exists and carries a pinned hash", () => {
+    expect(phase6FreezeComplete()).toBe(true);
+    expect(phase6PendingFreezeItems()).toHaveLength(0);
+    // Changing ANY registered value — a temperature, a fraction, a tolerance, even a
+    // justification string — moves this hash and fails here, rather than silently producing
+    // sweep evidence under a protocol nobody agreed to.
+    expect(canonicalJsonSha256(phase6ProtocolManifest())).toBe(PHASE6_PROTOCOL_SHA256);
+    // The hash must not be inside the thing it hashes.
+    expect(JSON.stringify(phase6ProtocolManifest())).not.toContain(PHASE6_PROTOCOL_SHA256);
+  });
+
+  it("still refuses to produce a manifest if anything is pending", () => {
+    // The fail-closed property, kept under test now that nothing real is pending to exercise
+    // it. A sweep must not be able to quote a protocol hash the freeze has not earned.
+    const withPending: Phase6FreezeItem[] = [
+      ...PHASE6_FREEZE_LIST,
+      {
+        id: "synthetic-unfrozen-item",
+        group: "numerics",
+        status: "pending",
+        requirement: "a requirement nobody has answered",
+        value: null,
+        source: "test only",
+      },
+    ];
+    expect(phase6FreezeComplete(withPending)).toBe(false);
+    expect(() => phase6ProtocolManifest(withPending)).toThrow(/not frozen/);
+    // The error names what is missing, so the failure is actionable rather than opaque.
+    expect(() => phase6ProtocolManifest(withPending)).toThrow(/synthetic-unfrozen-item/);
+  });
+
+  it("names a freeze commit that is a real ancestor of HEAD", () => {
+    // "The protocol was frozen before the sweep ran" has to be checkable, not asserted. The
+    // commit named by code-version is the one where every substantive value became final; it is
+    // recorded from the following commit because a commit cannot contain its own hash.
+    expect(PHASE6_PROTOCOL_FREEZE_COMMIT).toMatch(/^[0-9a-f]{40}$/);
+    const provenance = phase6ProtocolProvenance();
+    expect(provenance.freezeIsAncestor).toBe(true);
+    expect(provenance.head).toMatch(/^[0-9a-f]{40}$/);
+    const codeVersion = PHASE6_FREEZE_LIST.find((item) => item.id === "code-version");
+    expect(codeVersion?.value).toBe(PHASE6_PROTOCOL_FREEZE_COMMIT);
+    // treeIsClean is NOT asserted here: a working tree is dirty during development by design.
+    // It is a gate-time requirement on evidence production, not a condition on the test suite.
   });
 
   it("has the conditions the charter fixes outright already registered", () => {

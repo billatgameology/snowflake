@@ -11,6 +11,7 @@
 // coupled surface policy). Any post-freeze edit to a registered value requires a logged ADR and
 // invalidates that protocol's prior sweep results — the sweep re-runs in full.
 
+import { execFileSync } from "node:child_process";
 import { sigma0Basal, sigma0Prism } from "../../core/src/index.ts";
 
 /** Status of one freeze-list item. A protocol freezes only when nothing is `pending`. */
@@ -445,6 +446,64 @@ export const PHASE6_ENGINE_CONTROL = {
 export const PHASE6_PARAMETER_TABLE_SHA256 =
   "e572da78f9fe1b1178ef0fd83cf0d6de3ac698a7413342b1e1bb4e235f0d2ed3";
 
+// ── Registered: the freeze commit ───────────────────────────────────────────────────────────
+
+/**
+ * The commit in which every substantive Phase 6 protocol value became final.
+ *
+ * It is named from the commit that immediately follows it. A commit cannot contain its own
+ * hash, and the alternative — declaring the freeze in the same commit that records the pointer —
+ * would make the recorded hash name a commit whose protocol was still incomplete. The following
+ * commit adds no protocol content of its own (this constant, the `code-version` row, and their
+ * tests), so the hash below is genuinely the commit the protocol froze in. This is the shape
+ * `GATE4A_CRITERIA_FREEZE` already uses.
+ *
+ * **Every Phase 6 execution commit must have this as an ancestor.** That is what makes "the
+ * protocol was frozen before the sweep ran" checkable rather than asserted.
+ */
+export const PHASE6_PROTOCOL_FREEZE_COMMIT = "e2f1bfcab4cf605f5c9c44ad096d8b1bcc0fe967";
+
+export interface Phase6Provenance {
+  readonly node: string;
+  readonly v8: string;
+  readonly head: string;
+  readonly trackedStatus: string;
+  readonly freezeIsAncestor: boolean;
+  readonly treeIsClean: boolean;
+}
+
+/**
+ * Exact engine and git facts for a Phase 6 run. Same shape and the same refusal to shell-parse
+ * as `collectGate4AProvenance`.
+ */
+export function phase6ProtocolProvenance(
+  repoRoot: string = process.cwd(),
+  execFile: typeof execFileSync = execFileSync,
+): Phase6Provenance {
+  const run = (args: readonly string[]): string =>
+    execFile("git", [...args], { cwd: repoRoot, encoding: "utf8" }).trim();
+  const head = run(["rev-parse", "HEAD"]);
+  let freezeIsAncestor = false;
+  try {
+    execFile("git", ["merge-base", "--is-ancestor", PHASE6_PROTOCOL_FREEZE_COMMIT, head], {
+      cwd: repoRoot,
+      stdio: "ignore",
+    });
+    freezeIsAncestor = true;
+  } catch {
+    freezeIsAncestor = false;
+  }
+  const trackedStatus = run(["status", "--porcelain", "--untracked-files=no"]);
+  return {
+    node: process.version,
+    v8: process.versions.v8,
+    head,
+    trackedStatus,
+    freezeIsAncestor,
+    treeIsClean: trackedStatus === "",
+  };
+}
+
 // ── The freeze list ─────────────────────────────────────────────────────────────────────────
 
 export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
@@ -784,29 +843,38 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
   {
     id: "code-version",
     group: "provenance",
-    status: "pending",
+    status: "registered",
     requirement: "the model/code version (commit hash)",
-    value: null,
-    source: "the freeze commit itself; recorded when the protocol freezes",
+    value: PHASE6_PROTOCOL_FREEZE_COMMIT,
+    source:
+      "the commit in which every substantive protocol value became final. It is named from the " +
+      "commit that FOLLOWS it, because a commit cannot contain its own hash; that following " +
+      "commit adds no protocol content, so the hash recorded here is genuinely the one the " +
+      "protocol froze in. Verified by phase6ProtocolProvenance(): it must be an ancestor of " +
+      "every execution commit, and the tree must be tracked-clean when evidence is produced",
   },
 ];
 
 /** Every freeze-list item that still has no registered value. */
-export function phase6PendingFreezeItems(): readonly Phase6FreezeItem[] {
-  return PHASE6_FREEZE_LIST.filter((item) => item.status === "pending");
+export function phase6PendingFreezeItems(
+  items: readonly Phase6FreezeItem[] = PHASE6_FREEZE_LIST,
+): readonly Phase6FreezeItem[] {
+  return items.filter((item) => item.status === "pending");
 }
 
 /** True only when every charter-required item carries a registered value. */
-export function phase6FreezeComplete(): boolean {
-  return phase6PendingFreezeItems().length === 0;
+export function phase6FreezeComplete(items: readonly Phase6FreezeItem[] = PHASE6_FREEZE_LIST): boolean {
+  return phase6PendingFreezeItems(items).length === 0;
 }
 
 /**
  * The frozen protocol manifest. Refuses to exist while any required item is pending, so a
  * sweep cannot quote a protocol hash the freeze has not actually earned.
  */
-export function phase6ProtocolManifest(): Record<string, unknown> {
-  const pending = phase6PendingFreezeItems();
+export function phase6ProtocolManifest(
+  items: readonly Phase6FreezeItem[] = PHASE6_FREEZE_LIST,
+): Record<string, unknown> {
+  const pending = phase6PendingFreezeItems(items);
   if (pending.length > 0) {
     throw new Error(
       `Phase 6 protocol is not frozen: ${pending.length} freeze-list item(s) pending — ` +
@@ -818,9 +886,31 @@ export function phase6ProtocolManifest(): Record<string, unknown> {
     latentHeating: PHASE6_LATENT_HEATING,
     farField: PHASE6_FAR_FIELD,
     surfacePolicy: PHASE6_SURFACE_POLICY,
-    freezeList: PHASE6_FREEZE_LIST,
+    freezeCommit: PHASE6_PROTOCOL_FREEZE_COMMIT,
+    parameterTableSha256: PHASE6_PARAMETER_TABLE_SHA256,
+    // The grid axes go in by VALUE, not by point count. A manifest hash that moved only when a
+    // count changed would not notice a temperature or a fraction being swapped for another.
+    temperatureGrid: phase6TemperatureGrid(),
+    sigmaFractions: PHASE6_SIGMA_FRACTIONS,
+    sigmaWaterAnchors: PHASE6_SIGMA_WATER_ANCHORS,
+    nakayaBoundariesC: PHASE6_NAKAYA_BOUNDARIES_C,
+    ambiguityHalfWidthC: PHASE6_AMBIGUITY_HALF_WIDTH_C,
+    engineControl: PHASE6_ENGINE_CONTROL,
+    freezeList: items,
   };
 }
+
+/**
+ * The frozen protocol's content hash — `canonicalJsonSha256(phase6ProtocolManifest())`, the same
+ * construction `PHASE5_PROTOCOL_SHA256` uses.
+ *
+ * Deliberately NOT part of the manifest it describes, which would be self-referential. Pinned in
+ * `runner/test/phase6-protocol.test.ts`, so changing any registered value — a temperature, a
+ * fraction, a tolerance, a justification string — fails there rather than silently producing
+ * sweep evidence under a protocol nobody agreed to.
+ */
+export const PHASE6_PROTOCOL_SHA256 =
+  "9e49c2a8a811e9d62d383730878d125bad50c5e86b71a95d1aff64277e434547";
 
 /**
  * Recompute the registered leave-one-out interpolation error from the LIVE solver, so the
