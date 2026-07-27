@@ -241,8 +241,16 @@ export const PHASE6_ENGINE_CONTROL = {
   sweepEngine: "cpu-float64",
   /**
    * The GPU is a labelled diagnostic cross-check, never the primary and never a gate criterion:
-   * it cannot satisfy the frozen absolute `divTol` in sustained runs, so any GPU comparison
-   * runs at a relaxed, separately-labelled tolerance and is reported as a diagnostic.
+   * it cannot satisfy the frozen `divTol` in sustained runs, so any GPU comparison runs at a
+   * relaxed, separately-labelled tolerance and is reported as a diagnostic.
+   *
+   * `divTol` is RELATIVE, not absolute — both engines compute
+   * `|injection + drift - exchange| / |exchange|`. WP0c corrected that description, and the
+   * correction sharpens the conclusion: the numerator is a difference of float32 accumulations
+   * of magnitude ~0.596, whose rounding floor is about one ULP of that magnitude, so the
+   * relative floor is about one float32 epsilon (1.19e-7). The frozen 1e-7 sits BELOW a single
+   * machine epsilon of the arithmetic asked to meet it, which is why the observed residuals
+   * cluster at 1.0-1.6e-7 and why more sweeps provably cannot help.
    *
    * It also runs a DIFFERENT SURFACE OPERATOR. The WGSL boundary kernel was not ported to ADR
    * 0023's canonical opposing-operand order and the GPU LK entry points refuse any policy but
@@ -429,12 +437,13 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
       "registered the GPU on the premise that it was equal-quality and faster; a calibration " +
       "probe measured neither. Slower: 32.9 s against the oracle's ~5 s at 28^3, because the " +
       "CPU converges warm-started steps in one relaxation sweep while the GPU cannot submit " +
-      "fewer than a 16-sweep segment plus a queue sync. Not equal-quality: the frozen absolute " +
-      "divTol = 1e-7 sits below the float32 roundoff floor, so sustained runs refuse at a " +
-      "bit-stationary fixed point (residual exactly 0, both ULP distances 0, divergence " +
-      "residual 1.0-1.6e-7 on a ~0.596 operand). Phase 5 certified this path for four " +
-      "interface steps at 24x24x18 only. Reinstating the GPU as primary would require an ADR " +
-      "replacing the absolute tolerance with a relative bound (the shape ADR 0014 uses for " +
+      "fewer than a 16-sweep segment plus a queue sync. Not equal-quality: divTol is RELATIVE " +
+      "(|injection + drift - exchange| / |exchange|, both engines), and the frozen 1e-7 sits " +
+      "below ONE float32 epsilon (1.19e-7) of the arithmetic asked to meet it, so sustained " +
+      "runs refuse at a bit-stationary fixed point (residual exactly 0, both ULP distances 0, " +
+      "divergence residual 1.0-1.6e-7 on a ~0.596 operand). Phase 5 certified this path for " +
+      "four interface steps at 24x24x18 only. Reinstating the GPU as primary would require an " +
+      "ADR replacing it with a bound scaled to the arithmetic's own epsilon (the shape 0014 uses for " +
       "smoother drift). Sweeps also parallelise across 16 CPU cores while the Phase 5 protocol " +
       "permits one process per physical adapter",
   },

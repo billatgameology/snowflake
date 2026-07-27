@@ -280,19 +280,32 @@ The original sentence was an extrapolation from one engine's cost with no measur
 other, and that is exactly the reasoning this project is supposed to refuse.
 
 **2b. The GPU cannot run the mirrored physics at all for sustained runs.** The frozen
-`divTol = 1e-7` is an *absolute* divergence-identity tolerance, and in float32 it sits below the
+`divTol = 1e-7` is a *relative* divergence-identity tolerance, and in float32 it sits below the
 roundoff floor: the probe recorded refusals at 20³/24³/28³ where the relaxation residual was
 **exactly 0** and both ULP distances were **0** — a bit-stationary float32 fixed point, where
 more sweeps provably cannot change anything — while the divergence residual sat at 1.0–1.6e-7,
 a few ULP of the ≈0.596 operand magnitude. Refusals occurred at steps 11–47 with no monotonic
-pattern in domain size, which is what a roundoff floor straddling a fixed absolute threshold
-looks like. Phase 5 only ever conformance-tested the GPU LK path at 24×24×18 for **four**
-interface steps, so sustained GPU LK running is new ground rather than a regression.
+pattern in domain size, which is what a roundoff floor straddling a fixed threshold looks like.
+Phase 5 only ever conformance-tested the GPU LK path at 24×24×18 for **four** interface steps,
+so sustained GPU LK running is new ground rather than a regression.
+
+> **Corrected 2026-07-27 (WP0c), and the conclusion gets sharper rather than weaker.** This
+> paragraph called `divTol` an *absolute* tolerance. It is not: both engines compute
+> `|injection + drift − exchange| / |exchange|` — `solver-cpu/src/lk-solver.ts` and the WGSL
+> reduction in `solver-gpu/src/lk-shaders.ts` agree — so it is **relative**, normalized by the
+> surface exchange. That makes the float32 result exact rather than approximate. The numerator is
+> a difference of float32 accumulations of magnitude ≈ 0.596, so its rounding floor is about one
+> ULP of that magnitude, and dividing by ≈ 0.596 puts the relative floor at about **one float32
+> epsilon, 1.19e-7**. The frozen `divTol = 1e-7` therefore sits *below a single machine epsilon
+> of the arithmetic being asked to satisfy it* — which is why the observed residuals cluster at
+> 1.0–1.6e-7 and why no amount of extra sweeping helps. It is unreachable by construction, not by
+> misfortune.
 
 **Consequence:** the engine choice must be re-decided on this evidence, and running the sweep on
-the GPU would first require an ADR replacing the absolute `divTol` with a magnitude- and
-cell-count-relative bound — the shape decision 0014 already uses for smoother drift. That is a
-protocol decision, not something a probe or a work package may substitute quietly.
+the GPU would first require an ADR replacing this tolerance with a bound that scales with the
+arithmetic's own epsilon and the cell count — the shape decision 0014 already uses for smoother
+drift. That is a protocol decision, not something a probe or a work package may substitute
+quietly.
 
 **3. A symmetry observation that turned out to be a solver defect — RESOLVED in WP0b.** The
 (−5, f = 0.50) run reported `symErr = 0.020915` with noise off, where every other run in the
@@ -764,10 +777,11 @@ observables — are registered when they open, each with its own frozen protocol
   operator's accuracy-first priority: convergence studies establish self-consistency, and only
   an absolute anchor establishes correctness.
 - Running the sweep on the float32 GPU port. Measured 6× slower than the CPU oracle at 28³, and
-  unable to satisfy the frozen absolute `divTol = 1e-7` at all in sustained runs (it sits below
-  the float32 roundoff floor). Reinstating it would need an ADR replacing that tolerance with a
-  relative bound; the GPU may still serve as a labelled diagnostic cross-check, never as the
-  primary or as a gate criterion.
+  unable to satisfy the frozen `divTol = 1e-7` at all in sustained runs — the tolerance is
+  relative, and 1e-7 is below one float32 epsilon (1.19e-7) of the arithmetic asked to meet it.
+  Reinstating it would need an ADR replacing that tolerance with one that scales with the
+  arithmetic's own epsilon; the GPU may still serve as a labelled diagnostic cross-check, never
+  as the primary or as a gate criterion.
 - A `monopole-matched` third far-field condition (`docs/monograph-review.md`) — an ADR-level
   addition, not a Phase 6 deliverable.
 - An elongated/column seed class, until the ADR that authorizes it for evidence use.

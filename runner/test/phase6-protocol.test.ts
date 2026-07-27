@@ -291,8 +291,14 @@ describe("the water-saturation ladder reference", () => {
 describe("the engine decision", () => {
   it("runs sweeps on the float64 oracle and demotes the GPU to a labelled diagnostic", () => {
     // Revised on measurement: the GPU is 6x slower at 28^3 and cannot satisfy the frozen
-    // absolute divTol in sustained runs at all. It keeps a cross-check role at a relaxed,
+    // divTol in sustained runs at all. It keeps a cross-check role at a relaxed,
     // separately-labelled tolerance, which is why it can never be a gate criterion.
+    //
+    // divTol is RELATIVE on both engines (|injection + drift - exchange| / |exchange|), and the
+    // registered justification must say so: the earlier text called it absolute, which made the
+    // float32 argument sound like a coincidence of scale rather than what it is. 1e-7 is below
+    // one float32 epsilon, so no float32 implementation can ever satisfy it.
+    expect(Math.fround(1.19e-7)).toBeGreaterThan(1e-7); // the frozen tolerance < 1 f32 epsilon
     expect(PHASE6_ENGINE_CONTROL.sweepEngine).toBe("cpu-float64");
     expect(PHASE6_ENGINE_CONTROL.diagnosticEngine).toContain("relaxed");
     expect(PHASE6_ENGINE_CONTROL.comparedQuantity).toContain("habit-classification");
@@ -305,7 +311,8 @@ describe("the engine decision", () => {
     // The source must carry WHY it was revised, so the retraction cannot quietly become a
     // preference: the measured numbers and the tolerance floor both belong in the record.
     expect(floatItem?.source).toContain("32.9 s");
-    expect(floatItem?.source).toContain("below the float32 roundoff floor");
+    expect(floatItem?.source).toContain("below ONE float32 epsilon");
+    expect(floatItem?.source).toContain("RELATIVE");
   });
 
   it("registers a cross-platform reproducibility control", () => {
