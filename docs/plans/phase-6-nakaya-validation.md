@@ -377,6 +377,58 @@ identical to the pre-fix run and only that one flag changed** to `true` — whic
 that the fix is inert on the physics and that the pre-fix points reporting a clean delta were
 genuinely clean, the same reasoning applied to v5 in WP0b.
 
+**6. The expected no-SDAK result, registered BEFORE the sweep (2026-07-26).** The AR-vs-extent
+trajectories (v6 + monopole, f = 0.15, 64³) give the first real curves:
+
+| extent | warm −5 °C | cold −15 °C |
+|---|---|---|
+| 9 | 0.378 | 0.631 |
+| 13 | 0.439 | 0.750 |
+| 15 | 0.381 | 0.991 |
+| 17 | 0.337 | 0.938 |
+| 27 | 0.383 | *(running)* |
+
+Warm oscillates in a stable band ≈ 0.31–0.45 — **robustly plate from extent 9**, never near the
+0.667 threshold, with ±15% swing from lattice discreteness that does not threaten the class.
+Cold rises steeply, then flattens near ≈ 0.95 — **neutral, and not yet a column**, through
+extent 17.
+
+**This sharpens into a specific, falsifiable expectation, and it is not the one the diagram
+shows.** The registered σ₀(T) has a *single* crossing, at exactly −10 °C where
+σ₀_basal = σ₀_prism = 0.0140. Warmer, σ₀_prism is lower, prism facets advance faster, the
+crystal spreads: **plate**. Colder, σ₀_basal is lower, basal facets advance faster, the crystal
+lengthens along c: **column**. So crossing the model's boundary from warm to cold gives
+**plate → column**.
+
+Nakaya's figure, by its own caption, switches "plates (−2 °C) to columns (−5 °C) to plates
+(−15 °C) to predominantly columns (< −30 °C)". Its boundary near −9.9 °C therefore separates
+**columns on the warm side from plates on the cold side** — crossing it warm to cold gives
+**column → plate**.
+
+The model's single crossing lands within 0.1 °C of a measured Nakaya boundary and runs in the
+**opposite sense**. Two consequences follow, and both are results rather than problems:
+
+1. **One crossing cannot reproduce three transitions.** Nakaya has three; the large-facet CAK
+   σ₀ curves cross once and are monotone either side. No-SDAK is therefore *structurally*
+   incapable of reproducing the full diagram, independent of any numerics — which is exactly
+   what ADR 0005 makes a first-class result.
+2. **The sense at that one crossing is inverted.** This is the sharp claim WP4 must test, and
+   it is registered here before the sweep so it cannot be discovered after the fact.
+
+Three things must be ruled out before this is asserted as a finding rather than an expectation,
+and WP4 owns all three. The digitization is **not** one of the loose ends: σ₀_prism at −15 °C
+carries an independent text-cited anchor ("σ₀ = 3 percent for a prism facet at −15 °C", printed
+p. 144) that matches the digitized 3.2%, so the curves are not mislabelled.
+
+- The **source discrepancy already recorded** in `libbrecht-parameters.md` §3: 1910.09067's
+  Fig. 4 puts the raw-measurement crossing at ≈ −6 °C, the monograph's CAK curves at ≈ −10 °C.
+  Both crossings must be probed; the plan already requires this.
+- The **±25% digitization band** on σ₀, whose edges move the crossing.
+- **Whether the cold column develops at all at f = 0.15.** It is measuring neutral, not column,
+  so the model may not even deliver the habit its own parameters predict at cloud-realistic
+  supersaturation. That is a separate finding from the sense inversion and must not be merged
+  with it.
+
 **The pre-freeze corrections are done (2026-07-26).** Four source-verified corrections landed
 in `docs/libbrecht-parameters.md` while they were still free to make; after the freeze each
 would have cost a full re-sweep by charter rule. SDAK-2 is recorded as an `A_prism` mechanism
