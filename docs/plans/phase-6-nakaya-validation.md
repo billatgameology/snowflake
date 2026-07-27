@@ -429,6 +429,48 @@ p. 144) that matches the digitized 3.2%, so the curves are not mislabelled.
   supersaturation. That is a separate finding from the sense inversion and must not be merged
   with it.
 
+**7. The grid (Δx) ladder — and it is the one that does NOT converge (2026-07-27).** Fixed
+physical box (16.8 µm) and fixed physical measurement size, three spacings, v6 + monopole,
+f = 0.15. Every point `symErr = 0`, `deltaSymClean = true`, all relaxations converged.
+
+| Δx (µm) | N | extent | warm attached / AR | cold attached / AR |
+|---|---|---|---|---|
+| 0.700 | 24 | 9 | 67 / 0.3784 plate | 141 / **0.6307 plate** |
+| 0.350 | 48 | 15 | 521 / 0.3810 plate | 1505 / **0.9905 neutral** |
+| 0.2333 | 72 | 23 | 2325 / 0.4488 plate | 6951 / **1.0952 neutral** |
+
+**Δx = 0.7 changes the habit class.** Cold reads plate there and neutral at both finer spacings,
+so the coarse grid is not a cheaper version of the answer — it is a different one. That alone
+makes Δx a first-order scientific choice rather than a refinement knob.
+
+**And Δx = 0.35 — what every result in this project so far has used — is not converged either.**
+Between 0.35 and 0.2333 the class holds but `AR` still moves, +10.6% cold and +18% warm, and it
+moves *toward* column. Successive changes fall by a factor 0.291 against the 0.333 expected for
+first order, so the convergence is roughly first order and can be extrapolated:
+
+> **h → 0: warm `AR` ≈ 0.584, cold `AR` ≈ 1.305.**
+
+That is an extrapolation from three points assuming first order, not a measurement, and it is
+labelled as such. But its implication is not comfortable and must not be softened: **both
+conditions sit substantially closer to their classification thresholds in the converged limit
+than the Δx = 0.35 numbers suggest** — warm 0.584 against a plate ceiling of 0.667, cold 1.305
+against a column floor of 1.5. Neither class flips under the extrapolation, but the margins are
+thin, and *both* move in the direction that would flip them.
+
+**This qualifies §6 above rather than overturning it.** The registered expectation — one
+crossing, in the opposite sense to Nakaya — is a statement about the σ₀ ordering and does not
+depend on Δx. But the specific reading "cold measures neutral, not the column its parameters
+predict" is **provisional**: the grid trend points at column, and a converged grid may deliver
+the predicted column after all. That reading may not be quoted as a finding until it is
+measured at a converged spacing or reported with this systematic attached.
+
+**Consequence for WP0c, and it is a cost problem rather than a physics one.** Δx = 0.2333 at
+N = 72 cost ~6 hours for one point (contended), so a full sweep at that spacing is likely
+infeasible. The honest options are to register the finest affordable Δx and **report the grid
+bias as a measured, extrapolated systematic on every point**, or to restrict quantitative claims
+to the classifications that survive the extrapolation. Choosing the coarse grid and calling the
+result converged is the one option the measurements above have removed.
+
 **The pre-freeze corrections are done (2026-07-26).** Four source-verified corrections landed
 in `docs/libbrecht-parameters.md` while they were still free to make; after the freeze each
 would have cost a full re-sweep by charter rule. SDAK-2 is recorded as an `A_prism` mechanism
