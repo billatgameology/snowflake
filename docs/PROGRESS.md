@@ -1273,7 +1273,9 @@ byte-identical) and the original directory renamed to `out/phase5-wp5-0a611e7-or
 before the WP7 run created a fresh `out/phase5/`. Both copies are the accepted `0a611e7` WP5
 evidence; neither may be relabelled as WP7's.
 
-**Next action: Phase 6 WP0c — freeze the remaining protocol values.** Phase 5 is closed and pushed (`d8a8a39`); the
+**Next action: close Phase 6 WP0c — Δx and the σ axis are the last two freeze rows.** Both wait on
+a cost measurement of the finer grid that is running now; everything else in the freeze list is
+registered and the parameter table is frozen and hash-enforced. Phase 5 is closed and pushed (`d8a8a39`); the
 Phase 6 plan is registered at [phase-6-nakaya-validation.md](plans/phase-6-nakaya-validation.md)
 and **no validation sweep may run until WP0's freeze lands**. WP1 is done (`research/nakaya-morphology-diagram.md`: boundaries −3.3/−9.9/−21.5 °C ±0.5, a non-uniform temperature axis, and a water-saturation cross-check that passes on position and fails on scale).
 
@@ -1381,6 +1383,57 @@ carrying forward:
 - **The 65% domain-contact guard is not a convergence criterion.** At extent 21 it admits cold at
   N = 40, which still carries a +0.50% attached-count error. It is a collision heuristic and must
   not be read as evidence of domain independence.
+
+**WP0c is most of the way in (2026-07-27).** Nineteen of the twenty-one freeze rows now carry a
+registered value, each tied to the study that produced it. Registered: measurement extent 21,
+domain 48³, `cflFill` 0.1, the habit thresholds, `relaxTol` 1e-9 **with its norm stated**
+(a relative max-norm on the successive-iterate *change*, not a PDE residual — which is why ADR
+0006 pairs it with the independent divergence identity), `divTol` 1e-7 relative,
+`relaxMaxSweeps` 200000, 101325 Pa, the canonical 19-site seed, noise 0, and seed-ensemble size
+1 (a *consequence* of noise 0 — the RNG is consumed only by the alphaHK slowdown, so an ensemble
+would report a spread of exactly zero and misrepresent a deterministic result as a sampled one).
+
+Four WP0c decisions are worth carrying rather than just recording:
+
+- **The temperature axis is uniform 1 °C from −2 to −35, and that reverses the plan's own design
+  note.** The note assumed fine spacing near the boundaries had to be bought by coarsening
+  elsewhere; a cost probe measured otherwise, so the axis is fine everywhere. Not finer than
+  1 °C, because the band half-width is `0.5 + spacing/2` and the 0.5 floor is the *reference's*
+  uncertainty — resolving past it would measure our axis, not compare against theirs.
+- **The ambiguity band is now a number, ±1.0 °C, and the evidence budget is published
+  pre-sweep**: of 34 temperatures, **28 count as evidence and 6 are ambiguous** (−3, −4, −9,
+  −10, −21, −22), two flanking each boundary. Discovering that split after seeing results is the
+  post-hoc move the freeze exists to prevent.
+- **Uncertainty is reported as class robustness, not as an interval on `AR`.** The grid does not
+  converge, so a bar around `AR` would imply a precision the study itself denies. Every point
+  instead carries its measured class *and* its grid-extrapolated class, and headline agreement is
+  counted twice. Where the two differ the point is flagged grid-fragile in both counts rather
+  than dropped from either. The σ₀ ±25% band is not folded in — it moves the inputs rather than
+  the measurement, so WP4 sweeps its edges as separate runs.
+- **`docs/libbrecht-parameters.md` is FROZEN and enforced by content hash**, recomputed from the
+  live file by the test suite, LF-normalized so it verifies on any platform including the arm64
+  control. An edit now fails the suite instead of silently changing what a completed sweep ran
+  against.
+
+**The cross-platform control is built, measured on x64, and committed marked `MAC RUN NEEDED`**
+([docs/phase6-cross-platform-control.md](phase6-cross-platform-control.md)) rather than blocking
+the phase. Tier 1 is a millisecond libm fingerprint — 448 bitwise float64 entries covering every
+transcendental the solver consumes, digest `560aeaf7` — which localizes a difference to a
+function and an argument. Tier 2 is the end-to-end habit class at the sweep's own configuration;
+its baseline needed no new runs because the fixture reproduces WP3's extent-21 ladder conditions
+exactly, which a test asserts so the two cannot drift apart. **A habit class that differs across
+architectures is a FINDING reported as fragile** — never averaged away, and neither architecture
+declared correct.
+
+Two rows remain: **Δx** and the **σ axis**, both waiting on a cost measurement of the finer grid
+(Δx = 0.2333 µm, 72³, extent 32) now running. The coarse-grid cost is measured: eight
+temperatures at the registered configuration cost 40 minutes wall across seven cores, and cost
+peaks at −15 °C and falls both ways — so the plan's assumption that the cold low-σ end is
+uniformly the expensive one does not hold at fixed water-relative fraction. Δx is under the
+operator's option 1: register the finest affordable spacing and carry the extrapolated grid bias
+on every point. It is not a free pick — WP3 §4 found Δx is the one axis that does not converge —
+and choosing a finer one **re-opens the domain budget**, because WP3 §1.3 disproved the rule that
+would have let it be extrapolated.
 
 WP0's remainder is **WP0c**, which the rewritten plan sequences *after* WP3's convergence
 studies: re-run the calibration probes under v6 **and the monopole shell**, choose the T/σ grid,
