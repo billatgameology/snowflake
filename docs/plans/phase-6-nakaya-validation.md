@@ -154,7 +154,31 @@ yet known, which would guarantee an ADR-and-re-sweep cycle later.
 - Wherever P3 inputs are active, the comparison is labelled **in-sample reproduction**, never
   independent validation.
 - Results are never compared across far-field boundary conditions silently. Every Phase 6
-  validation run uses **fixed-σ Dirichlet** (charter §2.4).
+  validation run uses the **monopole-matched** shell ([ADR 0024](../decisions/0024-monopole-matched-far-field.md));
+  the fixed-σ Dirichlet runs that produced Phase 2b/4/5 evidence keep their own condition and
+  are never pooled with sweep results.
+- **Agreement is scored against distance from a reference boundary, and the band is frozen
+  before the sweep.** The Nakaya figure is a *redrawn schematic* — WP1 measured a temperature
+  axis that is not uniform and a supersaturation axis whose water-saturation curve sits 30–42%
+  below Murphy-Koop — so its boundaries carry real uncertainty (±0.5 °C as digitized) and the
+  model cannot be expected to place a flip more precisely than the reference locates it.
+  Disagreement close to a boundary is therefore *expected* and is not evidence against the
+  model; disagreement far from one is a genuine finding. Every reported point carries its
+  distance to the nearest boundary, and the counts inside and outside the band are published
+  separately.
+
+  The band must be registered **before** any sweep runs, because applied afterwards the same
+  rule becomes "the points that disagreed happened to be near a boundary" — exactly the
+  post-hoc rationalisation the §3.2 freeze exists to make impossible. Its half-width is fixed
+  by formula now and by number in WP0c once the T grid is frozen:
+
+  > **ambiguity half-width = 0.5 °C (WP1's measured boundary uncertainty) + half the frozen
+  > T-grid spacing.**
+
+  It cuts both ways, and that is the point: a model that agrees with the diagram *only* near
+  the boundaries has demonstrated nothing, because near a boundary both classes are plausible.
+  The claim Phase 6 can earn is agreement in the interiors plus flips in roughly the right
+  places — not boundary temperatures matched to a decimal the reference does not itself carry.
 - Any run that trips the 65% domain-contact guard is invalid for validation and is excluded by
   name, not silently dropped.
 - Evidence labels move to "quantitatively validated over a named domain" only where a

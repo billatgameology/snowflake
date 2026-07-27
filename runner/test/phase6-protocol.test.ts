@@ -19,7 +19,9 @@ import {
   phase6FreezeComplete,
   phase6MeasureInterpolationError,
   phase6PendingFreezeItems,
+  phase6AmbiguityHalfWidthC,
   phase6ProtocolManifest,
+  PHASE6_REFERENCE_BOUNDARY_UNCERTAINTY_C,
   phase6SigmaWaterFromTable,
   PHASE6_FAR_FIELD,
   PHASE6_ENGINE_CONTROL,
@@ -42,6 +44,7 @@ describe("the Phase 6 freeze list", () => {
       "habit-measurement-size",
       "metric-thresholds",
       "uncertainty-reporting",
+      "boundary-ambiguity-band",
       "parameter-table",
       "parameter-interpolation",
       "pressure",
@@ -84,7 +87,8 @@ describe("the Phase 6 freeze list", () => {
     const byId = new Map(PHASE6_FREEZE_LIST.map((item) => [item.id, item]));
     expect(byId.get("far-field")?.status).toBe("registered");
     expect(byId.get("far-field")?.value).toBe(PHASE6_FAR_FIELD);
-    expect(PHASE6_FAR_FIELD).toBe("fixed-sigma-dirichlet");
+    // ADR 0024 moved this off fixed-σ Dirichlet; the plan and the module must not drift apart.
+    expect(PHASE6_FAR_FIELD).toBe("monopole-matched");
     expect(byId.get("surface-policy")?.status).toBe("registered");
     expect(PHASE6_SURFACE_POLICY).toBe("aggregate-hv-g1h1-v6");
   });
@@ -111,6 +115,33 @@ describe("the Phase 6 freeze list", () => {
     expect(usesCanonicalOpposingOrder(runnerDefault as LKSurfacePolicy)).toBe(false);
     // v6 keeps v5's divergence identity, so the drift evidence Phase 6 collects is the same.
     expect(metersSmootherDrift(PHASE6_SURFACE_POLICY)).toBe(true);
+  });
+});
+
+describe("the near-boundary ambiguity band", () => {
+  it("is still pending, because it cannot be set before the T grid is frozen", () => {
+    const byId = new Map(PHASE6_FREEZE_LIST.map((item) => [item.id, item]));
+    const band = byId.get("boundary-ambiguity-band");
+    expect(band?.status).toBe("pending");
+    expect(band?.group).toBe("comparison-design");
+    expect(band?.value).toBeNull();
+  });
+
+  it("adds WP1's measured reference uncertainty to half the T-grid spacing", () => {
+    expect(PHASE6_REFERENCE_BOUNDARY_UNCERTAINTY_C).toBe(0.5);
+    expect(phase6AmbiguityHalfWidthC(1)).toBeCloseTo(1.0, 12);
+    expect(phase6AmbiguityHalfWidthC(2)).toBeCloseTo(1.5, 12);
+    expect(phase6AmbiguityHalfWidthC(0.5)).toBeCloseTo(0.75, 12);
+    // A finer grid can never shrink the band below what the REFERENCE itself cannot resolve.
+    expect(phase6AmbiguityHalfWidthC(1e-6)).toBeGreaterThan(
+      PHASE6_REFERENCE_BOUNDARY_UNCERTAINTY_C,
+    );
+  });
+
+  it("refuses a nonsensical grid spacing rather than returning a plausible band", () => {
+    for (const bad of [0, -1, Number.NaN, Number.POSITIVE_INFINITY]) {
+      expect(() => phase6AmbiguityHalfWidthC(bad)).toThrow(/positive T-grid spacing/);
+    }
   });
 });
 

@@ -104,8 +104,17 @@ export const PHASE6_LATENT_HEATING = {
 
 // ── Registered: conditions the charter fixes outright ───────────────────────────────────────
 
-/** Charter §2.4: required for every Phase 6 validation run. */
-export const PHASE6_FAR_FIELD = "fixed-sigma-dirichlet";
+/**
+ * Charter §2.4 requires every Phase 6 validation run to name its far-field condition. It was
+ * registered as fixed-σ Dirichlet until WP3b measured what that shell costs: it holds
+ * `sigma_infinity` at a finite radius and so over-supplies vapor by roughly 46% at 48³ and 160%
+ * at Phase 2b's own configuration. ADR 0024 adds the monopole-matched shell of monograph
+ * Eq. 5.30, which removes the domain dependence outright — a 4.1% swing becomes 0.0% — and
+ * Phase 6 runs it.
+ *
+ * Phase 2b/4/5 evidence keeps the condition that produced it and is never pooled with sweeps.
+ */
+export const PHASE6_FAR_FIELD = "monopole-matched";
 /**
  * The coupled policy the forward LK operator runs. ADR 0009 introduced
  * `aggregate-hv-g1h1-v4`; ADRs 0013/0014 added the metered float64 smoother-drift term to the
@@ -119,6 +128,37 @@ export const PHASE6_FAR_FIELD = "fixed-sigma-dirichlet";
  * executed evidence keeps replaying under the policy that produced it.
  */
 export const PHASE6_SURFACE_POLICY = "aggregate-hv-g1h1-v6";
+
+/**
+ * WP1's measured uncertainty on each digitized Nakaya boundary, in °C. The figure is a redrawn
+ * schematic — its temperature axis is not uniform and its supersaturation axis fails an
+ * independent check — so the boundary temperatures carry this and the σ values are not used as
+ * targets at all.
+ */
+export const PHASE6_REFERENCE_BOUNDARY_UNCERTAINTY_C = 0.5;
+
+/**
+ * Half-width of the band around a reference boundary inside which a habit disagreement is
+ * reported but NOT counted as evidence about the model. Near a boundary both classes are
+ * plausible in the reference itself, so the model cannot be asked to place a flip more
+ * precisely than the reference locates it; far from one, a disagreement is a real finding.
+ *
+ * It cuts both ways deliberately: a model agreeing with the diagram only near boundaries has
+ * demonstrated nothing. The claim Phase 6 can earn is agreement in the interiors plus flips in
+ * roughly the right places.
+ *
+ * Registered as a FORMULA before any sweep and as a number in WP0c, because applied after
+ * results are seen the same rule becomes "the points that disagreed happened to be near a
+ * boundary" — the post-hoc rationalisation the charter §3.2 freeze exists to prevent.
+ */
+export function phase6AmbiguityHalfWidthC(tGridSpacingC: number): number {
+  if (!Number.isFinite(tGridSpacingC) || tGridSpacingC <= 0) {
+    throw new Error(
+      `Phase 6 ambiguity band needs a positive T-grid spacing, got ${String(tGridSpacingC)}`,
+    );
+  }
+  return PHASE6_REFERENCE_BOUNDARY_UNCERTAINTY_C + tGridSpacingC / 2;
+}
 
 // ── Registered: how the supersaturation ladder is defined ───────────────────────────────────
 //
@@ -253,6 +293,18 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
     source: "WP0; must cover the ±25% digitization band and the interpolation error above",
   },
   {
+    id: "boundary-ambiguity-band",
+    group: "comparison-design",
+    status: "pending",
+    requirement: "the half-width of the near-boundary band, inside which habit disagreement is not counted",
+    value: null,
+    source:
+      "WP0c, by the formula PHASE6_AMBIGUITY_HALF_WIDTH_C once the T grid is frozen. The Nakaya " +
+      "figure is a redrawn schematic whose boundaries carry ±0.5 C (WP1), so the model cannot be " +
+      "asked to place a flip more precisely than the reference locates it. MUST be fixed before " +
+      "any sweep runs: applied afterwards the same rule is post-hoc rationalisation",
+  },
+  {
     id: "parameter-table",
     group: "physics-inputs",
     status: "pending",
@@ -303,7 +355,7 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
     id: "far-field",
     group: "boundary-and-domain",
     status: "registered",
-    requirement: "the far-field boundary condition (fixed-σ Dirichlet, per §2.4)",
+    requirement: "the far-field boundary condition (monopole-matched, per §2.4 and ADR 0024)",
     value: PHASE6_FAR_FIELD,
     source: "charter §2.4 — required for every Phase 6 validation run",
   },
