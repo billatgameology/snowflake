@@ -127,10 +127,28 @@ The concise contract below is a navigation aid. The equations and rationale live
   inferred from the other terms or called vapor. Legacy-v3 and aggregate-v4 keep their executed
   two-term identity (decision 0013). Ask `metersSmootherDrift(policy)`; never re-spell the
   comparison, because a fifth policy added to one site and missed at another is the failure mode.
-- **Any reduction over a neighborhood that a D6h generator permutes must be a function of the
-  multiset, not of the enumeration order** (gg-solver determinism decision 2; ADR 0023). Float
-  addition is not associative, so a fixed direction order makes a cell and its image round
-  differently, and growth amplifies that ulp until an orbit splits. The in-plane smoother
+- **Anything a D6h generator maps onto itself must be computed so that the invariance survives
+  evaluation, not merely so that it holds in exact arithmetic** (gg-solver determinism decision
+  2; ADRs 0023 and 0024). This has now been got wrong twice, in two different ways, so it is
+  stated in the general form and both instances are named below. The cheapest guarantee is to
+  key the value to something the group preserves *exactly* — a multiset, or an integer.
+  - **Reductions over a permuted neighborhood** must be a function of the multiset, not of the
+    enumeration order (ADR 0023). Float addition is not associative, so a fixed direction order
+    makes a cell and its image round differently.
+  - **Geometric quantities must be keyed to an integer invariant, not to evaluated cartesian
+    floats** (ADR 0024). The distance from the centre is equal across an orbit in exact
+    arithmetic, but `sqrt(dx² + dy² + dz²)` on the embedded coordinates differs by up to ~7e-15
+    between equivalent cells. Use the integer form `di² + di·dj + dj² + dk²`, which rot60 and
+    mirror preserve exactly.
+
+  Either way, growth amplifies the ulp until an orbit splits, and a larger fill-CFL amplifies it
+  faster — the ADR 0024 break was invisible at `cfl = 0.1` and obvious at `0.2`, so a symmetry
+  regression test that does not run at the largest admissible step is not testing much.
+
+  Audited 2026-07-26: the remaining float-geometry sites (`Math.hypot` in `core/src/metrics.ts`,
+  for `centerRimDepletion` and `boundingRadius`) are REPORTED DIAGNOSTICS that never feed back
+  into the evolution, so they cannot break the crystal's symmetry. If any of them is ever wired
+  into the solver's own decisions, it inherits this rule. The in-plane smoother
   discharges this by summing opposite-direction pairs then adding the three pair sums sorted.
   ADR 0009's aggregate boundary operator did **not** inherit the rule: v4 and v5 sum the Eq. 5.35
   opposing-vapor operands in gather order and are therefore not D6h-equivariant, so a noise-off
