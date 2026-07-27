@@ -104,6 +104,12 @@ import {
   validateLKStepEvidence,
 } from "./gate2b-validation.ts";
 import { occupancyTopDownPGM, propensitySlicePGM, vaporSlicePGM } from "./pgm.ts";
+import {
+  PHASE6_CROSSPLATFORM_FIXTURE,
+  phase6FixtureSigmaInf,
+  phase6LibmDigest,
+  phase6LibmFingerprint,
+} from "./phase6-crossplatform.ts";
 
 interface GrowOptions {
   preset: GGPresetName;
@@ -1183,6 +1189,43 @@ async function gate2b(): Promise<void> {
   console.log("2B GATE EXIT STATUS: 0");
 }
 
+/**
+ * Phase 6 cross-platform reproducibility control, tier 1 — the libm fingerprint.
+ *
+ * Prints the exact float64 bits of every transcendental-dependent physics quantity the solver
+ * consumes, plus a one-line digest, plus the host identity that scopes the result. Tier 2 (the
+ * end-to-end habit runs) is a `grow-lk` invocation and is printed here as the exact command
+ * rather than executed, because it costs a full growth run per point and the operator running
+ * this on a second machine should decide when to spend that.
+ *
+ * See docs/runbooks/phase6-cross-platform-control.md.
+ */
+function phase6Fixture(): void {
+  const entries = phase6LibmFingerprint();
+  console.log("PHASE 6 CROSS-PLATFORM CONTROL — tier 1, libm fingerprint");
+  console.log(
+    `host platform=${process.platform} arch=${process.arch} node=${process.version} ` +
+      `v8=${process.versions.v8}`,
+  );
+  console.log(`entries=${entries.length}`);
+  for (const entry of entries) {
+    console.log(`  ${entry.name}\t${entry.argument}\t${entry.bits}`);
+  }
+  console.log(`PHASE6 LIBM DIGEST: ${phase6LibmDigest(entries)}`);
+  console.log("");
+  console.log("tier 2 — run each of these and compare the habit class, not the digits:");
+  const f = PHASE6_CROSSPLATFORM_FIXTURE;
+  for (const point of f.points) {
+    console.log(
+      `  node runner/src/main.ts grow-lk --temp-c ${point.tempC} ` +
+        `--sigma-inf ${phase6FixtureSigmaInf(point.tempC).toFixed(6)} ` +
+        `--dims ${f.dims.nx},${f.dims.ny},${f.dims.nz} --dx-um ${f.dxUm} --cfl ${f.cflFill} ` +
+        `--target-extent ${f.targetExtent} --surface-policy ${f.surfacePolicy} ` +
+        `--far-field ${f.farField} --metrics-every 100000`,
+    );
+  }
+}
+
 const [command, ...rest] = process.argv.slice(2);
 if (command === "__gate2b-worker") {
   const role = rest.length === 1 ? rest[0] : null;
@@ -1309,6 +1352,16 @@ if (command === "__gate2b-worker") {
     console.error("GATE5 EXIT STATUS: 1");
     process.exitCode = 1;
   }
+} else if (command === "phase6-fixture") {
+  if (rest.length > 0) {
+    console.error(
+      "phase6-fixture takes no flags: the fixture is registered in " +
+        "runner/src/phase6-crossplatform.ts and a comparison across machines is only " +
+        "meaningful if both ran exactly the same thing",
+    );
+    process.exit(2);
+  }
+  phase6Fixture();
 } else {
   console.error(
     "usage: node runner/src/main.ts grow --preset <name> [options]\n" +
@@ -1319,7 +1372,8 @@ if (command === "__gate2b-worker") {
       "       node runner/src/main.ts gate4b\n" +
       "       node runner/src/main.ts gate4\n" +
       "       node runner/src/main.ts gate5-lane\n" +
-      "       node runner/src/main.ts gate5",
+      "       node runner/src/main.ts gate5\n" +
+      "       node runner/src/main.ts phase6-fixture",
   );
   process.exit(2);
 }
