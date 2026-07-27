@@ -379,8 +379,16 @@ coarser one, and a grid frozen against that would be wrong at every point.
       **Scope note**: equivariance under v6 is structural, not statistical — smoother
       equivariant, boundary operator equivariant, clamp constant, attachment threshold
       deterministic, so invariance follows by induction from a symmetric seed and does not decay
-      with run length. The longest confirmation so far is 88 growth steps at 48³. A run at the
-      Phase 2b scale (96³, extent 61) belongs to WP3's convergence work, not here.
+      with run length.
+
+      **Confirmed at the Phase 2b scale (2026-07-26).** Re-running Phase 2b's −15 °C column
+      condition (96³, σ∞ = 0.002, extent target 61, fixed-σ Dirichlet) under v6 reproduces the
+      accepted v5 evidence **exactly**: step 330, attached 1,159, extent 61, `AR = 12.2000`,
+      `symErr = 0`, `deltaSymClean = true` — every published digit. This is the strongest
+      available check that ADR 0023 is an ordering change rather than a physics change: an
+      independent hours-long run at the largest scale the project has used, reproducing
+      accepted evidence bit for bit. The −5 °C plate condition is still running (extent 17 of
+      61 at the time of writing) and is the slower of the pair by roughly 2.5× in step count.
 
       **Not fixed**: the WGSL kernel has the same defect, in f32 where one ulp is ~1.2e-7 rather
       than ~2.2e-16. It is registered, not repaired — the GPU LK entry points already refuse any

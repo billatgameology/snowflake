@@ -1315,11 +1315,45 @@ latent-heating parameter `chi_0(T, P)` with anchors and its `sigma_inf/(1 + chi_
 (§7), and a qualified pressure-independence entry carrying the monograph's own retraction —
 each quotation verified against the page renders, and each free to make only while the file is
 unfrozen. WP0a (schemes and decisions needing no probe) and WP0b (the symmetry defect) are
-closed. WP0's remainder is **WP0c**, which the rewritten plan sequences *after* WP3's convergence
-studies: re-run the calibration probes under v6, choose the T/σ grid, the habit measurement size,
-the metric thresholds, the domain budgets, Δx, the numerics tolerances and the seed-ensemble size
-from them, register the whole freeze list in the hash-pinned protocol module, then freeze the
-parameter table. The comparison target is settled:
+closed.
+
+**WP3b is closed (`7d821ee`) and it corrected the source.** The 1D spherical reference
+(`solver-cpu/src/spherical-reference.ts`) is the project's only *absolute* accuracy anchor —
+everything else shows the solver agreeing with itself under refinement. Transcribing monograph
+Eqs. 3.16–3.24 and 3.33–3.36 from the page renders exposed an **erratum in the printed Eq. 3.35**:
+its denominator should be the attachment coefficient, not `X_0/R`. Three independent checks
+confirm it, each of which the printed form fails — Eq. 3.33 must reduce to Eq. 3.17 as the shell
+recedes (the printed form yields the exact complement); an independent exact solve of the same
+boundary-value problem gives an amplification of 1.18947162 that the corrected bracket matches to
+every digit and the printed one misses by 16%; and a crystal with zero attachment must carry no
+far-field bias, where the printed form asserts 22%. The source's own stated check cannot catch
+this, because the bracket tends to 1 for any value. The consequence is large: the printed form
+makes the finite-shell bias a few percent and independent of crystal size, while the corrected
+form makes it grow toward `[1 − R/R_far]^(−1)` — about 46% at 48³ and **~160% at Phase 2b's own
+extent-61-in-96³ configuration**.
+
+**That drove ADR 0024 (`c16208e`): a monopole-matched far field.** Monograph Eqs. 5.30–5.31 hold
+each shell pixel at `sigma_inf − (dV/dt)/(4·pi·rho_far·X_0·v_kin)` rather than at a flat
+`sigma_inf`. Measured: growing the same crystal 60 steps, the fixed-σ shell gives 291 attached at
+28³ against 279 at 40³ — a 4.1% swing from domain size alone — while the monopole shell gives
+**231 at both**, identical aspect ratio, symmetry exactly 0. Two consequences are stated rather
+than buried: **it changes the answer** (AR 0.500 → 0.300), so no threshold measured under the
+Dirichlet shell transfers; and **it has a validity limit** (28³/32³/48³ agree, 20³ does not,
+because Eq. 5.30 treats the crystal as a point source), so it moves the minimum domain outward
+rather than removing it. `dirichlet` and `reflecting` are bit-unchanged and gate 2b pins its own.
+
+**v6 reproduces Phase 2b exactly at full scale.** Re-running Phase 2b's −15 °C column condition
+(96³, σ∞ = 0.002, extent 61) under v6 returns step 330, attached 1,159, extent 61,
+`AR = 12.2000`, `symErr = 0` — every published digit of the accepted v5 evidence. That is the
+strongest available evidence that ADR 0023 changed summation order and not physics.
+
+WP0's remainder is **WP0c**, which the rewritten plan sequences *after* WP3's convergence
+studies: re-run the calibration probes under v6 **and the monopole shell**, choose the T/σ grid,
+the habit measurement size, the metric thresholds, the domain budgets, Δx, the numerics
+tolerances and the seed-ensemble size from them, register the whole freeze list in the
+hash-pinned protocol module, then freeze the parameter table. Two corrections have now
+invalidated earlier calibration numbers, which is precisely why numerical verification runs
+before the freeze rather than after it. The comparison target is settled:
 the classical Nakaya diagram (Libbrecht 1211.5555v1 Fig. 1) is the qualitative report card
 charter §2.3 asks for — its axis converts to σ exactly via `cSat()`, and its printed
 water-saturation curve cross-checks the transcription against `sigmaWater()` — while Libbrecht's
