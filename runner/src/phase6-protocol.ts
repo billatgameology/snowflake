@@ -416,10 +416,30 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
   {
     id: "uncertainty-reporting",
     group: "comparison-design",
-    status: "pending",
+    status: "registered",
     requirement: "the uncertainty-reporting scheme",
-    value: null,
-    source: "WP0; must cover the ±25% digitization band and the interpolation error above",
+    value:
+      "Per point: the measured AR and class at the registered grid; the first-order " +
+      "grid-extrapolated AR and ITS class; a classSurvivesGridExtrapolation flag when the two " +
+      "agree; the distance to the nearest reference boundary; and whether the point falls in " +
+      "the ambiguity band. Headline agreement counts are reported over the 28 band-excluded " +
+      "points and are reported TWICE — once on measured class, once on extrapolated class. " +
+      "Global qualifiers travel with every table: volume-like quantities are not converged at " +
+      "the registered fill-CFL (+8.7%) or domain (+0.04%); latent heating is carried and not " +
+      "applied; cross-platform reproducibility is unestablished until the arm64 control runs; " +
+      "quantitative AR at extent 21 carries residual drift toward its extent-31 value",
+    source:
+      "WP0c, from the systematics WP3 actually measured rather than a generic error budget. " +
+      "The scheme is about CLASS ROBUSTNESS, not error bars on a ratio, because the class is " +
+      "the only quantity the comparison consumes — an interval on AR would imply a precision " +
+      "the unconverged grid cannot support, and would invite reading a habit boundary off the " +
+      "third decimal of a number whose own convergence study says it still moves 10.6%. " +
+      "Reporting agreement on BOTH the measured and the extrapolated class is what keeps the " +
+      "unconverged Δx honest: where the two disagree, the point is reported as grid-fragile " +
+      "and is excluded from neither count but flagged in both. The ±25% σ_0 digitization band " +
+      "and the 10.7%/9.0% interpolation error are NOT folded in here — they move the physics " +
+      "inputs rather than the measurement, so they are swept explicitly at their edges by WP4 " +
+      "and reported as separate runs, never as a widened bar on a single run",
   },
   {
     id: "boundary-ambiguity-band",

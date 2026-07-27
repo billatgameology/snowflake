@@ -140,6 +140,23 @@ describe("the Phase 6 freeze list", () => {
     expect(byId.get("dx")?.source).toContain("does not converge");
   });
 
+  it("reports uncertainty as class robustness, not as an interval on the ratio", () => {
+    const scheme = PHASE6_FREEZE_LIST.find((item) => item.id === "uncertainty-reporting");
+    expect(scheme?.status).toBe("registered");
+    // The unconverged grid is carried by reporting BOTH classes, not by widening a bar.
+    expect(scheme?.value).toContain("classSurvivesGridExtrapolation");
+    expect(scheme?.value).toContain("TWICE");
+    expect(scheme?.source).toContain("CLASS ROBUSTNESS");
+    // The parameter-side uncertainties are swept, not folded in — they move the inputs, not
+    // the measurement, so averaging them into one bar would hide a structural question.
+    expect(scheme?.source).toContain("NOT folded in");
+    expect(scheme?.source).toContain("WP4");
+    // The global qualifiers that must travel with every table.
+    for (const qualifier of ["8.7%", "latent heating", "arm64", "extent-31"]) {
+      expect(scheme?.value, qualifier).toContain(qualifier);
+    }
+  });
+
   it("registers the D6h-equivariant policy and departs from the runner default deliberately", () => {
     // Two separate hazards, pinned together.
     //
