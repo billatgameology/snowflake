@@ -387,8 +387,17 @@ coarser one, and a grid frozen against that would be wrong at every point.
       `symErr = 0`, `deltaSymClean = true` — every published digit. This is the strongest
       available check that ADR 0023 is an ordering change rather than a physics change: an
       independent hours-long run at the largest scale the project has used, reproducing
-      accepted evidence bit for bit. The −5 °C plate condition is still running (extent 17 of
-      61 at the time of writing) and is the slower of the pair by roughly 2.5× in step count.
+      accepted evidence bit for bit.
+
+      The matching −5 °C plate condition was **started and then deliberately killed**, and is
+      recorded here as a non-result rather than quietly dropped. It reached growth step ~174 of
+      the ~814 Phase 2b needed after 2.3 hours, with a projected 12–24 h to finish, and its value
+      had fallen: the −15 °C run had already delivered the reproduction check, and this one used
+      the fixed-σ Dirichlet shell that ADR 0024 supersedes, so its aspect-ratio trajectory could
+      not inform WP0c. It was occupying a core that WP3's remaining ladders need. Its last
+      logged state was step 160, extent 19, `AR = 0.166667`, `deltaSym = true` — consistent with
+      the Phase 2b plate it was heading toward, but **it is not a reproduction and must not be
+      cited as one**. Confirming the warm half is a candidate for a later low-priority re-run.
 
       **Not fixed**: the WGSL kernel has the same defect, in f32 where one ulp is ~1.2e-7 rather
       than ~2.2e-16. It is registered, not repaired — the GPU LK entry points already refuse any
