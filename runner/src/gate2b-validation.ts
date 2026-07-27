@@ -1,4 +1,4 @@
-import type { LKSurfacePolicy } from "@vcc/core";
+import { metersSmootherDrift, type LKSurfacePolicy } from "@vcc/core";
 import type { RelaxationReport, SurfaceReport } from "@vcc/solver-cpu";
 
 export const GATE2B_NODE = "v24.13.1";
@@ -204,7 +204,7 @@ export function validateGate2bDriftSummary(
   maxAbsSmootherDrift: number | null,
   smootherDriftAbsLimit: number | null,
 ): void {
-  if (surfacePolicy === "aggregate-hv-g1h1-v5") {
+  if (metersSmootherDrift(surfacePolicy)) {
     if (
       maxAbsSmootherDrift === null ||
       !Number.isFinite(maxAbsSmootherDrift) ||
@@ -214,20 +214,20 @@ export function validateGate2bDriftSummary(
       !(smootherDriftAbsLimit > 0)
     ) {
       throw new Error(
-        `invalid aggregate-v5 smoother drift summary ` +
+        `invalid ${surfacePolicy} smoother drift summary ` +
           `(maxAbs=${String(maxAbsSmootherDrift)}, bound=${String(smootherDriftAbsLimit)})`,
       );
     }
     if (maxAbsSmootherDrift > smootherDriftAbsLimit) {
       throw new Error(
-        `aggregate-v5 maximum smoother drift ${maxAbsSmootherDrift} exceeds bound ` +
+        `${surfacePolicy} maximum smoother drift ${maxAbsSmootherDrift} exceeds bound ` +
           `${smootherDriftAbsLimit}`,
       );
     }
     return;
   }
   if (maxAbsSmootherDrift !== null || smootherDriftAbsLimit !== null) {
-    throw new Error(`policy ${surfacePolicy} must not carry aggregate-v5 drift summary fields`);
+    throw new Error(`policy ${surfacePolicy} must not carry smoother drift summary fields`);
   }
 }
 
@@ -268,9 +268,9 @@ export function validateLKStepEvidence(
     throw new Error(`gate2b invalid signed net surface exchange: ${String(exchange)}`);
   }
   const drift = relaxation.smootherDriftDiagnostic;
-  if (surfacePolicy === "aggregate-hv-g1h1-v5") {
+  if (metersSmootherDrift(surfacePolicy)) {
     if (drift === null || !Number.isFinite(drift)) {
-      throw new Error(`gate2b invalid aggregate-v5 smoother drift: ${String(drift)}`);
+      throw new Error(`gate2b invalid ${surfacePolicy} smoother drift: ${String(drift)}`);
     }
     if (
       smootherDriftAbsLimit === null ||
@@ -289,11 +289,11 @@ export function validateLKStepEvidence(
     }
   } else if (drift !== null) {
     throw new Error(
-      `gate2b policy ${surfacePolicy} must not report aggregate-v5 smoother drift`,
+      `gate2b policy ${surfacePolicy} must not report a smoother drift term`,
     );
   } else if (smootherDriftAbsLimit !== null) {
     throw new Error(
-      `gate2b policy ${surfacePolicy} must not use an aggregate-v5 smoother drift bound`,
+      `gate2b policy ${surfacePolicy} must not use a smoother drift bound`,
     );
   }
   const reportedDivergence = relaxation.divergenceResidual;

@@ -164,15 +164,35 @@ export function pecletUpperBound(
 export type LKSurfacePolicy =
   | "legacy-v3"
   | "aggregate-hv-g1h1-v4"
-  | "aggregate-hv-g1h1-v5";
+  | "aggregate-hv-g1h1-v5"
+  | "aggregate-hv-g1h1-v6";
 
 /** Runtime guard for parsed CLI/checkpoint values, where TypeScript's union is not binding. */
 export function isLKSurfacePolicy(value: unknown): value is LKSurfacePolicy {
   return (
     value === "legacy-v3" ||
     value === "aggregate-hv-g1h1-v4" ||
-    value === "aggregate-hv-g1h1-v5"
+    value === "aggregate-hv-g1h1-v5" ||
+    value === "aggregate-hv-g1h1-v6"
   );
+}
+
+/**
+ * V5 and v6 share ADR 0013's float64 smoother-drift term in the divergence identity; v4 does
+ * not. Named once so a later policy cannot be added at one branch site and missed at another —
+ * the shape of omission ADR 0023 was written about.
+ */
+export function metersSmootherDrift(policy: LKSurfacePolicy): boolean {
+  return policy === "aggregate-hv-g1h1-v5" || policy === "aggregate-hv-g1h1-v6";
+}
+
+/**
+ * V6 alone sums the Eq. 5.35 opposing-vapor operands in ascending value order (ADR 0023).
+ * V4/v5 accumulate them in lattice-direction order, which rot60 and mirror permute
+ * non-monotonically, so their boundary value is not D6h-equivariant in floating point.
+ */
+export function usesCanonicalOpposingOrder(policy: LKSurfacePolicy): boolean {
+  return policy === "aggregate-hv-g1h1-v6";
 }
 
 export type FacetClass = "basal" | "prism" | "inhibited" | "rough";

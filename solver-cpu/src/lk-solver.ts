@@ -1,7 +1,7 @@
 // LibbrechtKinetics — the surface operator of attachment-kinetics §4.4, implemented.
 //
 // One growth step (§4.4, decision 0009): the named surfacePolicy selects the immutable
-// legacy-v3 per-contact operator or a forward aggregate-hv-g1h1-v4/v5 boundary-pixel operator.
+// legacy-v3 per-contact operator or a forward aggregate-hv-g1h1-v4/v5/v6 boundary-pixel operator.
 // Aggregate v4/v5 apply the Phase 2a reflecting smoother, replace each boundary pixel by the
 // nonlinear Eq. 5.34 value solved from opposing vapor pixels, and clamp the Dirichlet shell. Fixed-sigma
 // physics runs require BOTH the iterate residual and the signed global exchange divergence
@@ -34,7 +34,9 @@ import {
   isLKSurfacePolicy,
   kineticLength,
   mIce,
+  metersSmootherDrift,
   randomBit,
+  usesCanonicalOpposingOrder,
   validateTimelineSchedule,
   vKin,
   DOMAIN_CONTACT_FRACTION,
@@ -193,7 +195,7 @@ class BlockCompensatedSum {
 /** Decision 0014: conservative operation-count factor for the split stencil + block meter. */
 export const FLOAT64_SMOOTHER_DRIFT_BOUND_FACTOR = 1024;
 
-/** Absolute aggregate-v5 roundoff bound for one reflecting-smoother sweep. */
+/** Absolute aggregate-v5/v6 roundoff bound for one reflecting-smoother sweep. */
 export function float64SmootherDriftAbsLimit(
   activeCellCount: number,
   maxAbsSweepInput: number,
@@ -325,9 +327,16 @@ export class LKSolver implements SurfaceOperator {
   private readonly blocked: Uint8Array;
   private readonly scratch1: Float64Array;
   private readonly scratch2: Float64Array;
+  /** V6 opposing-operand buffer: at most the 6 T-neighbors plus the 2 Z-neighbors. */
+  private readonly opposingOperands = new Float64Array(8);
+  /**
+   * ADR 0023's operand-order flag, resolved once. `opposingSigma` runs per boundary cell per
+   * sweep — millions of calls in a sustained run — so the policy is not re-tested per call.
+   */
+  private readonly canonicalOpposingOrder: boolean;
   /** Legacy-v3 Robin absorption factor per boundary cell. */
   private readonly sEff: Float64Array;
-  /** Aggregate-v4/v5 boundary pair cached from the last accepted relaxation sweep. */
+  /** Aggregate-v4/v5/v6 boundary pair cached from the last accepted relaxation sweep. */
   private readonly boundaryAlphaHK: Float64Array;
   private readonly boundarySigma: Float64Array;
   private readonly boundarySigmaOpp: Float64Array;
@@ -374,6 +383,7 @@ export class LKSolver implements SurfaceOperator {
 
   constructor(options: LKSolverOptions) {
     this.surfacePolicy = options.surfacePolicy;
+    this.canonicalOpposingOrder = usesCanonicalOpposingOrder(options.surfacePolicy);
     this.dims = options.dims;
     this._tempC = options.tempC;
     this._sigmaInfinity = options.sigmaInfinity;
@@ -967,9 +977,17 @@ export class LKSolver implements SurfaceOperator {
   }
 
   /**
-   * Eq. 5.35 opposing-vapor mean for aggregate-hv-g1h1-v4/v5. Each attached direction
+   * Eq. 5.35 opposing-vapor mean for aggregate-hv-g1h1-v4/v5/v6. Each attached direction
    * nominates the cell in the opposite direction; only active unattached vapor cells enter
    * the mask. The primary [01]/[20] facets therefore have exactly H+V samples.
+   *
+   * The operands are gathered in a fixed lattice-direction order (+i, -i, +j, -j, +i-j,
+   * -i+j, +k, -k), and rot60 permutes those positions by the cycle (1 3 6 2 4 5), which is
+   * not order-preserving. Float64 addition is not associative, so summing in gather order
+   * makes this value differ by ~1 ulp between symmetry-equivalent cells once three or more
+   * operands are present — the D6h defect ADR 0023 records. V6 sums in ascending value order
+   * instead, which depends only on the operand multiset and is therefore equivariant; v4/v5
+   * keep the gather-order sum verbatim so their executed evidence stays reproducible.
    */
   private opposingSigma(index: number, input: Float64Array): number {
     const { nx, ny, nz } = this.dims;
@@ -978,11 +996,13 @@ export class LKSolver implements SurfaceOperator {
     const inPlane = index % plane;
     const j = (inPlane - i) / nx;
     const k = (index - inPlane) / plane;
+    const operands = this.canonicalOpposingOrder ? this.opposingOperands : null;
     let sum = 0;
     let count = 0;
     const include = (attached: number, opposite: number): void => {
       if (this.a[attached] === 1 && this.blocked[opposite] === 0) {
-        sum += input[opposite];
+        if (operands !== null) operands[count] = input[opposite];
+        else sum += input[opposite];
         count++;
       }
     };
@@ -998,10 +1018,26 @@ export class LKSolver implements SurfaceOperator {
     }
     if (k + 1 < nz && k - 1 >= 0) include(index + plane, index - plane);
     if (k - 1 >= 0 && k + 1 < nz) include(index - plane, index + plane);
-    return count === 0 ? 0 : sum / count;
+    if (count === 0) return 0;
+    if (operands !== null) {
+      // Insertion sort over at most 8 operands: the same multiset always sums in the same
+      // order, so the result is a function of the multiset alone. Matches the ascending-order
+      // rule the in-plane smoother already applies to its three pair sums.
+      for (let m = 1; m < count; m++) {
+        const value = operands[m];
+        let n = m - 1;
+        while (n >= 0 && operands[n] > value) {
+          operands[n + 1] = operands[n];
+          n--;
+        }
+        operands[n + 1] = value;
+      }
+      for (let m = 0; m < count; m++) sum += operands[m];
+    }
+    return sum / count;
   }
 
-  /** Self-consistent monograph Eq. 5.34 boundary value, with aggregate-v4/v5 G_b = 1. */
+  /** Self-consistent monograph Eq. 5.34 boundary value, with aggregate-v4/v5/v6 G_b = 1. */
   private solveAggregateBoundary(index: number, input: Float64Array): {
     alphaHKBoundary: number;
     sigmaBoundary: number;
@@ -1024,7 +1060,7 @@ export class LKSolver implements SurfaceOperator {
         sigmaOpp,
       };
     }
-    const ratio = this.dxM / this.x0M; // G_b = 1 under aggregate-hv-g1h1-v4/v5
+    const ratio = this.dxM / this.x0M; // G_b = 1 under aggregate-hv-g1h1-v4/v5/v6
     let sigmaBoundary = sigmaOpp;
     for (let iteration = 0; iteration < 60; iteration++) {
       const coefficient = this.cellAlphaHK(index, sigmaBoundary);
@@ -1212,7 +1248,7 @@ export class LKSolver implements SurfaceOperator {
     const attached = this.a;
     const out1 = this.scratch1;
     const smootherDrift =
-      this.surfacePolicy === "aggregate-hv-g1h1-v5" ? new BlockCompensatedSum() : null;
+      metersSmootherDrift(this.surfacePolicy) ? new BlockCompensatedSum() : null;
     let maxAbsSweepInput = 0;
 
     // In-plane reflecting pass, with the exact canonical pair summation used by the oracle.
@@ -1403,7 +1439,7 @@ export class LKSolver implements SurfaceOperator {
         minLocalSurfaceExchange = minLocal;
         smootherDrift = drift;
         if (
-          this.surfacePolicy === "aggregate-hv-g1h1-v5" &&
+          metersSmootherDrift(this.surfacePolicy) &&
           (drift === null ||
             !Number.isFinite(drift) ||
             driftLimit === null ||
@@ -1411,21 +1447,21 @@ export class LKSolver implements SurfaceOperator {
             driftLimit < 0)
         ) {
           throw new Error(
-            `aggregate-v5 smoother drift/bound must be finite: ` +
+            `${this.surfacePolicy} smoother drift/bound must be finite: ` +
               `drift=${String(drift)}, bound=${String(driftLimit)}`,
           );
         }
         if (
-          this.surfacePolicy === "aggregate-hv-g1h1-v5" &&
+          metersSmootherDrift(this.surfacePolicy) &&
           Math.abs(drift as number) > (driftLimit as number)
         ) {
           throw new Error(
-            `aggregate-v5 smoother drift ${String(drift)} exceeds float64 roundoff bound ` +
+            `${this.surfacePolicy} smoother drift ${String(drift)} exceeds float64 roundoff bound ` +
               `${String(driftLimit)}`,
           );
         }
         const divergenceDifference =
-          this.surfacePolicy === "aggregate-hv-g1h1-v5"
+          metersSmootherDrift(this.surfacePolicy)
             ? inj + (drift as number) - exchange
             : inj - exchange;
         divergence =
@@ -1461,7 +1497,7 @@ export class LKSolver implements SurfaceOperator {
         shellClampDiagnostic: this.farField === "dirichlet" ? injection : null,
         surfaceExchangeDiagnostic: surfaceExchange,
         smootherDriftDiagnostic:
-          this.surfacePolicy === "aggregate-hv-g1h1-v5" ? smootherDrift : null,
+          metersSmootherDrift(this.surfacePolicy) ? smootherDrift : null,
         minLocalSurfaceExchangeDiagnostic: minLocalSurfaceExchange,
       };
       this.lastRelaxation = report;
@@ -1515,7 +1551,7 @@ export class LKSolver implements SurfaceOperator {
         rate = (faceFactor * velocity) / this.dxM;
       } else {
         const velocity = this.boundaryAlphaHK[x] * this.vKinMS * this.boundarySigma[x];
-        rate = velocity / this.dxM; // H_b = 1 under aggregate-hv-g1h1-v4/v5
+        rate = velocity / this.dxM; // H_b = 1 under aggregate-hv-g1h1-v4/v5/v6
       }
       rateArr[bi] = rate;
       if (rate > maxRate) maxRate = rate;

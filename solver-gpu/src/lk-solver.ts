@@ -1510,7 +1510,9 @@ export class GpuLkSolver {
     try {
     const record = input as unknown as Record<string, unknown>;
     if (record.surfacePolicy !== AGGREGATE_V5) {
-      throw new Error("GPU LK supports only aggregate-hv-g1h1-v5");
+      throw new Error("GPU LK supports only aggregate-hv-g1h1-v5: the WGSL boundary kernel still sums " +
+          "the Eq. 5.35 opposing operands in gather order, so it does not implement the v6 " +
+          "canonical order (ADR 0023)");
     }
     const layout = createGpuGridLayout(arena.plan.layout.dims);
     const sigma = copyFloat32(record.initialSigma, "initialSigma");

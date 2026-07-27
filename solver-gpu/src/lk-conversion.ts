@@ -91,7 +91,8 @@ function metadataFromDecoded(
     header.surfacePolicy !== AGGREGATE_V5 ||
     state.surfacePolicy !== AGGREGATE_V5
   ) {
-    throw new Error("GPU LK conversion supports only aggregate-hv-g1h1-v5");
+    throw new Error("GPU LK conversion supports only aggregate-hv-g1h1-v5; v6 has no WGSL " +
+        "implementation of the canonical opposing-operand order (ADR 0023)");
   }
   const keys = [
     "dims",
@@ -224,7 +225,8 @@ export function gpuLkSnapshotToCpuRunState(
     throw new Error("GPU LK conversion snapshot must be an object");
   }
   if (snapshot.metadata.surfacePolicy !== AGGREGATE_V5) {
-    throw new Error("GPU LK conversion supports only aggregate-hv-g1h1-v5");
+    throw new Error("GPU LK conversion supports only aggregate-hv-g1h1-v5; v6 has no WGSL " +
+        "implementation of the canonical opposing-operand order (ADR 0023)");
   }
   const state = metadataToRunState(
     snapshot.metadata,

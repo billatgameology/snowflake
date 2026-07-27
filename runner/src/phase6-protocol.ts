@@ -109,12 +109,16 @@ export const PHASE6_FAR_FIELD = "fixed-sigma-dirichlet";
 /**
  * The coupled policy the forward LK operator runs. ADR 0009 introduced
  * `aggregate-hv-g1h1-v4`; ADRs 0013/0014 added the metered float64 smoother-drift term to the
- * divergence identity, which is `-v5`, and that is what the solver actually runs today (a
- * calibration probe printed `surfacePolicy=aggregate-hv-g1h1-v5`). Registering the ADR 0009
- * name alone would have frozen a policy no run uses — exactly the drift the freeze list exists
- * to catch. `runner/test/phase6-protocol.test.ts` pins this against the solver's own default.
+ * divergence identity, which is `-v5`, and that was the runner's default. WP0b then found that
+ * v4/v5 sum the Eq. 5.35 opposing-vapor operands in lattice-gather order, which rot60 permutes
+ * non-monotonically, so their boundary value is not D6h-equivariant in float64 and the
+ * noise-off symmetry check cannot be enforced against them. ADR 0023 adds `-v6`, identical to
+ * v5 except that those operands are summed in ascending value order.
+ *
+ * Phase 6 registers v6 and must pass it explicitly: the runner's default stays v5 so Phase 2b's
+ * executed evidence keeps replaying under the policy that produced it.
  */
-export const PHASE6_SURFACE_POLICY = "aggregate-hv-g1h1-v5";
+export const PHASE6_SURFACE_POLICY = "aggregate-hv-g1h1-v6";
 
 // ── Registered: how the supersaturation ladder is defined ───────────────────────────────────
 //
@@ -186,8 +190,13 @@ export const PHASE6_ENGINE_CONTROL = {
    * The GPU is a labelled diagnostic cross-check, never the primary and never a gate criterion:
    * it cannot satisfy the frozen absolute `divTol` in sustained runs, so any GPU comparison
    * runs at a relaxed, separately-labelled tolerance and is reported as a diagnostic.
+   *
+   * It also runs a DIFFERENT SURFACE OPERATOR. The WGSL boundary kernel was not ported to ADR
+   * 0023's canonical opposing-operand order and the GPU LK entry points refuse any policy but
+   * v5, so the diagnostic differs from the sweep in arithmetic width, in divergence tolerance,
+   * AND in operand order. It can corroborate a trend; it cannot be compared value-for-value.
    */
-  diagnosticEngine: "gpu-float32-at-relaxed-divergence-tolerance",
+  diagnosticEngine: "gpu-float32-v5-at-relaxed-divergence-tolerance",
   /** What the cross-check compares. Habit is the comparison's only consumed output. */
   comparedQuantity: "habit-classification-at-the-registered-measurement-size",
   /** Chosen in WP0c alongside the grid: which points get a GPU diagnostic re-run. */
@@ -315,7 +324,7 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
     status: "registered",
     requirement: "the named surface policy",
     value: PHASE6_SURFACE_POLICY,
-    source: "ADR 0009",
+    source: "ADR 0009, amended by ADR 0023 (D6h-equivariant opposing-vapor mean)",
   },
   { id: "fill-cfl", group: "numerics", status: "pending", requirement: "the fill-CFL bound", value: null, source: "WP0" },
   {

@@ -6,11 +6,14 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import {
   isLKSurfacePolicy,
+  metersSmootherDrift,
   nucleationABasal,
   nucleationAPrism,
   sigma0Basal,
   sigma0Prism,
   sigmaWater,
+  usesCanonicalOpposingOrder,
+  type LKSurfacePolicy,
 } from "../../core/src/index.ts";
 import {
   phase6FreezeComplete,
@@ -83,18 +86,31 @@ describe("the Phase 6 freeze list", () => {
     expect(byId.get("far-field")?.value).toBe(PHASE6_FAR_FIELD);
     expect(PHASE6_FAR_FIELD).toBe("fixed-sigma-dirichlet");
     expect(byId.get("surface-policy")?.status).toBe("registered");
-    expect(PHASE6_SURFACE_POLICY).toBe("aggregate-hv-g1h1-v5");
+    expect(PHASE6_SURFACE_POLICY).toBe("aggregate-hv-g1h1-v6");
   });
 
-  it("registers the surface policy the runner actually defaults to, not the ADR 0009 name", () => {
-    // A calibration probe printed `surfacePolicy=aggregate-hv-g1h1-v5` while the freeze list
-    // had registered ADR 0009's `-v4`, which no run uses since ADRs 0013/0014 added the
-    // metered smoother-drift term. Freezing a policy nothing runs is precisely the drift this
-    // list exists to catch, so the registered value is pinned against the runner's own default.
+  it("registers the D6h-equivariant policy and departs from the runner default deliberately", () => {
+    // Two separate hazards, pinned together.
+    //
+    // The first is the one this test originally caught: a calibration probe printed
+    // `surfacePolicy=aggregate-hv-g1h1-v5` while the freeze list had registered ADR 0009's
+    // `-v4`, which no run uses since ADRs 0013/0014 added the metered smoother-drift term.
+    // Freezing a policy nothing runs is precisely the drift this list exists to catch.
+    //
+    // The second is WP0b's: v4 and v5 sum the Eq. 5.35 opposing-vapor operands in gather order,
+    // which is not D6h-equivariant in float64, so a noise-off `symErr = 0` under them means
+    // "did not stop mid-split" rather than "was symmetric". Phase 6 therefore registers ADR
+    // 0023's v6 and must NAME it: the runner default stays v5 so Phase 2b replays unchanged.
+    // Pinning both values keeps that difference deliberate instead of letting either drift.
     const runnerSource = readFileSync(new URL("../src/main.ts", import.meta.url), "utf8");
-    const declared = /surfacePolicy:\s*"([a-z0-9-]+)"/.exec(runnerSource)?.[1];
-    expect(declared).toBe(PHASE6_SURFACE_POLICY);
+    const runnerDefault = /surfacePolicy:\s*"([a-z0-9-]+)"/.exec(runnerSource)?.[1];
+    expect(runnerDefault).toBe("aggregate-hv-g1h1-v5");
+    expect(PHASE6_SURFACE_POLICY).not.toBe(runnerDefault);
     expect(isLKSurfacePolicy(PHASE6_SURFACE_POLICY)).toBe(true);
+    expect(usesCanonicalOpposingOrder(PHASE6_SURFACE_POLICY)).toBe(true);
+    expect(usesCanonicalOpposingOrder(runnerDefault as LKSurfacePolicy)).toBe(false);
+    // v6 keeps v5's divergence identity, so the drift evidence Phase 6 collects is the same.
+    expect(metersSmootherDrift(PHASE6_SURFACE_POLICY)).toBe(true);
   });
 });
 

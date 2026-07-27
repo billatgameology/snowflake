@@ -63,6 +63,7 @@ import {
   isLKSurfacePolicy,
   isD6hInvariantSet,
   latticeExtents,
+  metersSmootherDrift,
   pecletUpperBound,
   symmetryError,
   totalMass,
@@ -635,10 +636,9 @@ function growLK(options: GrowLKOptions): LKRunResult {
     center: domainCenter(options.dims), // explicit — no constructor defaults in gate paths
   });
   const seedSites = solver.attachedCount;
-  const smootherDriftAbsLimit =
-    solver.surfacePolicy === "aggregate-hv-g1h1-v5"
-      ? float64SmootherDriftAbsLimit(solver.activeCellCount, options.sigmaInf as number)
-      : null;
+  const smootherDriftAbsLimit = metersSmootherDrift(solver.surfacePolicy)
+    ? float64SmootherDriftAbsLimit(solver.activeCellCount, options.sigmaInf as number)
+    : null;
   const pecletBound = pecletUpperBound(
     options.tempC as number,
     options.sigmaInf as number,
@@ -664,8 +664,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
   let minShellInjection = Infinity;
   let minSurfaceExchange = Infinity;
   let worstDivergence = 0;
-  let maxAbsSmootherDrift: number | null =
-    solver.surfacePolicy === "aggregate-hv-g1h1-v5" ? 0 : null;
+  let maxAbsSmootherDrift: number | null = metersSmootherDrift(solver.surfacePolicy) ? 0 : null;
   let maxKineticFillEver = 0;
   let stopReason: LKRunResult["stopReason"] = "step-cap";
   const started = Date.now();

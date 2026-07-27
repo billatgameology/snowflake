@@ -112,12 +112,26 @@ describe("digitized sigma_0 / A anchors (monograph Fig. 4.5; P2, ±25%)", () => 
 });
 
 describe("alphaHK and versioned surface classification (ADR 0009)", () => {
-  it("recognizes exactly the three coupled LK surface policies", () => {
+  it("recognizes exactly the four coupled LK surface policies", () => {
     expect(isLKSurfacePolicy("legacy-v3")).toBe(true);
     expect(isLKSurfacePolicy("aggregate-hv-g1h1-v4")).toBe(true);
     expect(isLKSurfacePolicy("aggregate-hv-g1h1-v5")).toBe(true);
-    for (const value of [undefined, null, "", "v4", 1, {}]) {
+    // ADR 0023: v5 with the Eq. 5.35 opposing-vapor operands summed in ascending value order,
+    // which is what makes the boundary operator D6h-equivariant in float64.
+    expect(isLKSurfacePolicy("aggregate-hv-g1h1-v6")).toBe(true);
+    for (const value of [undefined, null, "", "v4", "aggregate-hv-g1h1-v7", 1, {}]) {
       expect(isLKSurfacePolicy(value), String(value)).toBe(false);
+    }
+  });
+
+  it("classifies v6 exactly as v4/v5 do: ADR 0023 changed summation order, not the table", () => {
+    for (let rawNT = 0; rawNT <= 6; rawNT++) {
+      for (let rawNZ = 0; rawNZ <= 2; rawNZ++) {
+        if (rawNT === 0 && rawNZ === 0) continue;
+        expect(classifyFacet(rawNT, rawNZ, "aggregate-hv-g1h1-v6")).toBe(
+          classifyFacet(rawNT, rawNZ, "aggregate-hv-g1h1-v5"),
+        );
+      }
     }
   });
 

@@ -7,13 +7,22 @@ import {
   alphaHK,
   cellCount,
   classifyFacet,
+  coordsOf,
+  domainCenter,
   hexDistance,
   isD6hInvariantSet,
+  isLKSurfacePolicy,
+  metersSmootherDrift,
+  mirror,
   randomBit,
   randomUnit,
+  rot60,
   symmetryError,
+  usesCanonicalOpposingOrder,
+  zmirror,
   GG_PRESETS,
   STREAM_NOISE_ALPHA_HK,
+  type LKSurfacePolicy,
 } from "@vcc/core";
 import { GGSolver, LKSolver, float64SmootherDriftAbsLimit } from "@vcc/solver-cpu";
 
@@ -1055,4 +1064,143 @@ describe("LKSolver — growth, determinism, symmetry", () => {
     expect(solver.attachedCount).toBeGreaterThan(19);
   });
 
+});
+
+// ── ADR 0023: D6h equivariance of the Eq. 5.35 opposing-vapor mean ──────────────────────────
+//
+// V4/v5 accumulate the opposing operands in lattice-direction gather order. rot60 permutes
+// those positions by the cycle (1 3 6 2 4 5), which is not order-preserving, so from three
+// operands up the same multiset is summed in a different order at a cell and at its image —
+// and float64 addition is not associative. V6 sums in ascending value order, which is a
+// function of the multiset alone.
+
+describe("opposing-vapor mean, D6h equivariance", () => {
+  const dims = { nx: 16, ny: 16, nz: 16 } as const;
+  const center = domainCenter(dims);
+  const [ic, jc, kc] = center;
+
+  const equivariantOptions = {
+    dims,
+    center,
+    tempC: -5,
+    sigmaInfinity: 0.025,
+    dxUm: 0.35,
+    pressurePa: 101325,
+    paramSet: "CAK_A1",
+    cflFill: 0.1,
+    relaxTol: 1e-8,
+    divTol: 1e-6,
+    relaxMaxSweeps: 200000,
+    rngSeed: 1,
+    noiseEpsilon: 0,
+    domain: "hexPrism",
+    farField: "dirichlet",
+    seedRadius: 2,
+    seedThickness: 1,
+  } as const;
+
+  /** Generator images of `index` that stay inside the domain. */
+  function images(index: number): number[] {
+    const [i, j, k] = coordsOf(dims, index);
+    const inside = (a: number, b: number, c: number): boolean =>
+      a >= 0 && a < dims.nx && b >= 0 && b < dims.ny && c >= 0 && c < dims.nz;
+    const out: number[] = [];
+    const [ri, rj] = rot60(i, j, ic, jc);
+    const [mi, mj] = mirror(i, j, ic, jc);
+    const zk = zmirror(k, kc);
+    if (inside(ri, rj, k)) out.push(indexOf(ri, rj, k, dims));
+    if (inside(mi, mj, k)) out.push(indexOf(mi, mj, k, dims));
+    if (inside(i, j, zk)) out.push(indexOf(i, j, zk, dims));
+    return out;
+  }
+
+  interface OpposingInternals {
+    readonly boundaryList: readonly number[];
+    readonly boundarySigmaOpp: Float64Array;
+  }
+
+  /** Number of boundary cells whose cached opposing mean differs from a generator image. */
+  function opposingBreaks(solver: LKSolver): number {
+    const internals = solver as unknown as OpposingInternals;
+    let broken = 0;
+    for (const x of internals.boundaryList) {
+      for (const y of images(x)) {
+        if (internals.boundarySigmaOpp[y] !== internals.boundarySigmaOpp[x]) {
+          broken++;
+          break;
+        }
+      }
+    }
+    return broken;
+  }
+
+  /** Cells whose field value differs from a generator image. */
+  function fieldBreaks(field: Float64Array | Uint8Array): number {
+    let broken = 0;
+    for (let x = 0; x < cellCount(dims); x++) {
+      for (const y of images(x)) {
+        if (field[y] !== field[x]) {
+          broken++;
+          break;
+        }
+      }
+    }
+    return broken;
+  }
+
+  it("v5 breaks equivariance in the cached opposing mean while its smoother stays exact", () => {
+    const solver = new LKSolver({ ...equivariantOptions, surfacePolicy: "aggregate-hv-g1h1-v5" });
+    let firstBreak = -1;
+    for (let t = 1; t <= 20 && firstBreak < 0; t++) {
+      solver.relaxField();
+      if (opposingBreaks(solver) > 0) firstBreak = t;
+      else solver.advanceSurface();
+    }
+    // Pins the registered defect: v5 must keep breaking exactly as its executed evidence did.
+    expect(firstBreak).toBe(14);
+    // The in-plane smoother's sorted pair summation is already equivariant, so the break is
+    // attributable to the boundary operator alone and not to the diffusion kernel.
+    const smootherOutput = (solver as unknown as { readonly scratch1: Float64Array }).scratch1;
+    expect(fieldBreaks(smootherOutput)).toBe(0);
+  });
+
+  it("v6 holds the opposing mean, the field and the attached set exactly D6h-invariant", () => {
+    const solver = new LKSolver({ ...equivariantOptions, surfacePolicy: "aggregate-hv-g1h1-v6" });
+    for (let t = 1; t <= 40; t++) {
+      solver.relaxField();
+      expect(opposingBreaks(solver)).toBe(0);
+      solver.advanceSurface();
+      expect(isD6hInvariantSet(solver.lastAttached, dims, center)).toBe(true);
+    }
+    expect(fieldBreaks(solver.sigma)).toBe(0);
+    expect(fieldBreaks(solver.f)).toBe(0);
+    expect(fieldBreaks(solver.a)).toBe(0);
+    expect(symmetryError(solver.a, dims, center)).toBe(0);
+    expect(solver.attachedCount).toBeGreaterThan(19);
+  });
+
+  it("v6 is an ordering change only: it reaches the same state v5 does at this scale", () => {
+    const grow = (surfacePolicy: LKSurfacePolicy): LKSolver => {
+      const solver = new LKSolver({ ...equivariantOptions, surfacePolicy });
+      for (let t = 1; t <= 40; t++) solver.step();
+      return solver;
+    };
+    const v5 = grow("aggregate-hv-g1h1-v5");
+    const v6 = grow("aggregate-hv-g1h1-v6");
+    expect(v5.attachedCount).toBe(165);
+    expect(v6.attachedCount).toBe(165);
+    expect(Array.from(v6.a)).toEqual(Array.from(v5.a));
+  });
+
+  it("v6 inherits the v5 drift identity and v4/legacy-v3 still do not meter drift", () => {
+    expect(metersSmootherDrift("aggregate-hv-g1h1-v6")).toBe(true);
+    expect(metersSmootherDrift("aggregate-hv-g1h1-v5")).toBe(true);
+    expect(metersSmootherDrift("aggregate-hv-g1h1-v4")).toBe(false);
+    expect(metersSmootherDrift("legacy-v3")).toBe(false);
+    expect(usesCanonicalOpposingOrder("aggregate-hv-g1h1-v6")).toBe(true);
+    expect(usesCanonicalOpposingOrder("aggregate-hv-g1h1-v5")).toBe(false);
+    expect(usesCanonicalOpposingOrder("aggregate-hv-g1h1-v4")).toBe(false);
+    expect(isLKSurfacePolicy("aggregate-hv-g1h1-v6")).toBe(true);
+    expect(isLKSurfacePolicy("aggregate-hv-g1h1-v7")).toBe(false);
+  });
 });

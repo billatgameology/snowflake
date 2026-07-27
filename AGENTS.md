@@ -121,25 +121,38 @@ The concise contract below is a navigation aid. The equations and rationale live
 - Fixed-σ Dirichlet physics runs converge only when **both** the iterate residual and discrete
   divergence identity pass their stated tolerances. Reflecting LK is residual-only,
   diagnostic-only, and cannot support a physical gate claim.
-- Under `aggregate-hv-g1h1-v5`, the divergence numerator is shell injection plus the directly
-  metered signed float64 reflecting-smoother drift minus signed boundary exchange. The drift is
-  measured before boundary replacement/clamp, is zero in exact arithmetic, and is never inferred
-  from the other terms or called vapor. Legacy-v3 and aggregate-v4 keep their executed two-term
-  identity (decision 0013).
-- Aggregate-v5 drift must also satisfy decision 0014's absolute roundoff bound. For a nonzero
+- Under `aggregate-hv-g1h1-v5` and `-v6`, the divergence numerator is shell injection plus the
+  directly metered signed float64 reflecting-smoother drift minus signed boundary exchange. The
+  drift is measured before boundary replacement/clamp, is zero in exact arithmetic, and is never
+  inferred from the other terms or called vapor. Legacy-v3 and aggregate-v4 keep their executed
+  two-term identity (decision 0013). Ask `metersSmootherDrift(policy)`; never re-spell the
+  comparison, because a fifth policy added to one site and missed at another is the failure mode.
+- **Any reduction over a neighborhood that a D6h generator permutes must be a function of the
+  multiset, not of the enumeration order** (gg-solver determinism decision 2; ADR 0023). Float
+  addition is not associative, so a fixed direction order makes a cell and its image round
+  differently, and growth amplifies that ulp until an orbit splits. The in-plane smoother
+  discharges this by summing opposite-direction pairs then adding the three pair sums sorted.
+  ADR 0009's aggregate boundary operator did **not** inherit the rule: v4 and v5 sum the Eq. 5.35
+  opposing-vapor operands in gather order and are therefore not D6h-equivariant, so a noise-off
+  `symErr = 0` under them means only "did not stop mid-split". `aggregate-hv-g1h1-v6` is v5 with
+  those operands summed in ascending value order and is the policy Phase 6 registers; v4 and v5
+  stay bit-unchanged because Phase 4b and Phase 2b evidence was produced under them, and the
+  runner's default stays v5. The WGSL kernel is still gather-order and the GPU LK entry points
+  refuse any policy but v5 — do not relax that refusal without porting the shader.
+- Aggregate-v5/v6 drift must also satisfy decision 0014's absolute roundoff bound. For a nonzero
   field it is `1024 * activeCellCount * max(Number.EPSILON * maxAbsSweepInput,
   Number.MIN_VALUE)`; an exact zero field has a zero bound. The minimum-subnormal ULP floor keeps
   accepted subnormal fields covered. The positive fixed-temperature gate derives its independent
   bound with `sigmaInfinity`; a finite or coherently canceling term outside the bound is a solver
   failure, never accepted convergence.
-- Every forward run names the coupled `surfacePolicy`. Under aggregate v4 and v5, `[01]`
+- Every forward run names the coupled `surfacePolicy`. Under aggregate v4, v5 and v6, `[01]`
   is basal, `[20]` is prism, `[10]` is inhibited, and other valid raw configurations follow the
   explicit P4 closure in §4.4. Do not restore v3's `[10]`-prism / `[20]`-rough mapping.
 - The same self-consistent aggregate `sigma_b` solution defines the surface boundary condition
   and Hertz–Knudsen kinetic demand. Signed local relaxation exchange may be negative and is a
   numerical potential diagnostic, never uptake or fill. Never restore cell-value or inward-ghost
   growth sampling as a second, inconsistent path.
-- V4 fill is accumulated once per boundary pixel:
+- Aggregate fill (v4, v5, v6) is accumulated once per boundary pixel:
   `alphaHK * vKin * sigmaB * dt / (hB * dx)`, with source-cited `G_b = H_b = 1` on `[01]`
   and `[20]` and a labeled P4 unit extension elsewhere. The fill-CFL binds the per-cell kinetic
   increment; hole-fill events are outside that bound and reported separately. The per-contact

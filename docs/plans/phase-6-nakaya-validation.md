@@ -215,23 +215,39 @@ as a gate result.
 ### Calibration results so far (2026-07-26, CPU, coordinator-only — not evidence)
 
 A 3 × 3 matrix at 48³, measurement extent 16, water-relative σ fractions 0.15/0.50/0.90,
-temperatures −5/−10/−15 °C. Two results change the plan.
+temperatures −5/−10/−15 °C. Run first under v5, then **re-run in full under v6** after WP0b
+(below) found the v5 boundary operator was not D6h-equivariant. The v6 matrix is the citable
+one; the v5 numbers are kept only where the two differ, because the differences are themselves
+informative.
 
-**1. The habit metric does not resolve at a small measurement size.** `AR = 0.740` came back
-from **five** different runs — (−5, 0.90), (−10, 0.50), (−10, 0.90), (−15, 0.50) and more —
-whose attached counts ranged from 761 to 1,099. Five physically different crystals cannot share
-an aspect ratio to three decimals: at extent 17 the integer bounding box is quantized so
-coarsely that the metric is degenerate. Only the two warmest, lowest-σ points separated at all
-(`0.471` and `0.606`, both plate, matching the σ₀-ordering prediction and Phase 2b's plate at
-−5 °C). Phase 2b measured at extent 61 and got `0.119` versus `12.2` — enormous separation.
-**Consequence: the registered measurement size must be large enough for the metric to
+**0. The v6 re-run (2026-07-26).** Seven of nine points completed; all seven reported
+`symErr = 0` **and** `deltaSymClean = true`. Six of the seven reproduce their v5 attached count
+and aspect ratio exactly — the operand-order fix changes nothing at those points. The exception
+is the point that opened WP0b, (−5 °C, f = 0.50), where attached moves 765 → 749 at the same
+stop step, extent and `AR = 0.606`. Two points were over budget under both policies
+((−10, 0.15) and (−15, 0.15)); a third, (−15, f = 0.50), completed in 289 s under v5 and
+exceeded the 300 s budget under v6 — see the cost note in point 2.
+
+**1. The habit metric does not resolve at a small measurement size — and this survives v6.**
+`AR = 0.740421` came back from **four** of the seven completed v6 runs — (−5, 0.90), (−10, 0.50),
+(−10, 0.90) and (−15, 0.90) — whose attached counts are 761, 929, 843 and 929. Physically
+different crystals cannot share an aspect ratio to six digits: at extent 17 the integer bounding
+box is quantized so coarsely that the metric is degenerate. Only the two warmest, lowest-σ points
+separated at all (`0.471` and `0.606`, both plate, matching the σ₀-ordering prediction and Phase
+2b's plate at −5 °C). Phase 2b measured at extent 61 and got `0.119` versus `12.2` — enormous
+separation. **Consequence: the registered measurement size must be large enough for the metric to
 discriminate, and that size has to be established by probe, not assumed.** A grid frozen at a
 degenerate measurement size would produce a diagram of one value.
 
 **2. CPU cost is high — but the claim that "the GPU is therefore a prerequisite" was WRONG, and
-is retracted here.** At 48³/extent 17 CPU runs cost 191–289 s, and the two lowest-σ cold points
+is retracted here.** At 48³/extent 17 CPU runs cost 191–298 s, and the two lowest-σ cold points
 (−10 and −15 at f = 0.15) exceeded a 300 s budget without finishing — slow growth means many
-steps, so the *low*-σ end is the expensive end at cold temperatures. From that alone this plan
+steps, so the *low*-σ end is the expensive end at cold temperatures. ADR 0023's operand sort adds
+about **5%** to that (measured properly: fixed step count, alternating policies back to back,
++4.8% on the minimum of three repeats), which is smaller than this machine's ~14% run-to-run
+variance and is not what moved (−15, f = 0.50) past the budget — that point simply sits on the
+line. Differencing the two matrices row by row suggested overheads up to +32%; that comparison is
+invalid and the number to carry is ~5%. From the cost figures alone this plan
 asserted the GPU was a prerequisite. **A GPU calibration probe then measured the opposite**: at
 28³ to the same target the GPU took 32.9 s against the CPU oracle's ≈5 s, roughly **6× slower**,
 because the CPU warm-starts and converges many steps in a single sweep while the GPU always
@@ -254,13 +270,28 @@ the GPU would first require an ADR replacing the absolute `divTol` with a magnit
 cell-count-relative bound — the shape decision 0014 already uses for smoother drift. That is a
 protocol decision, not something a probe or a work package may substitute quietly.
 
-**3. One symmetry observation to resolve before the freeze.** The (−5, f = 0.50) run reported
-`symErr = 0.020915` with noise off, where every other run in the matrix reported exactly 0.
-Noise-off runs are supposed to retain exact D6h symmetry (charter §3.1; the Phase 2b gate
-enforced `symErr = 0` at 96³). This is either a tie-break/ordering degeneracy that appears at
-particular conditions, a small-domain artefact, or a defect. It is **not** dismissed: symmetry
-is a registered validity check for every Phase 6 run, so a condition that breaks it would
-invalidate that grid point. Reproducing and explaining it is WP0 work.
+**3. A symmetry observation that turned out to be a solver defect — RESOLVED in WP0b.** The
+(−5, f = 0.50) run reported `symErr = 0.020915` with noise off, where every other run in the
+matrix reported exactly 0. It was neither a tie-break degeneracy nor a small-domain artefact:
+the v4/v5 boundary operator sums the Eq. 5.35 opposing-vapor operands in lattice-gather order,
+which rot60 permutes non-monotonically, so in float64 it is not D6h-equivariant from three
+operands up. [ADR 0023](../decisions/0023-d6h-equivariant-opposing-vapor-mean.md) adds policy
+`aggregate-hv-g1h1-v6`, which sums those operands in ascending value order. See WP0b below for
+the mechanism and the evidence.
+
+**Two things in this section are therefore superseded.** First, the sibling runs' `symErr = 0`
+did **not** establish that they were symmetric — `symErr` is a snapshot at the stop instant,
+and only `deltaSymClean` covers the whole run. That said, **two of them were then measured and
+were clean**: re-running (−5 °C, f = 0.90) and (−10 °C, f = 0.50) under v5 with the dropped
+field captured returned `deltaSymClean=true` for both. So of three v5 grid points examined one
+broke and two did not — the field asymmetry is chronic (at 32³ it appears at growth step 14
+while the attached set stays invariant through step 40) but reaching the attached set is
+condition-dependent. Second, **every
+number above was measured under v5 and has to be re-measured under v6** before it can inform a
+freeze; the v6 re-run is in flight. Finding 1 (metric degeneracy at small measurement size) and
+finding 2/2b (engine cost and the float32 `divTol` floor) rest on comparisons across runs that
+all shared the defect, so their *direction* is expected to survive but their *values* are not
+citable.
 
 **The pre-freeze corrections are done (2026-07-26).** Four source-verified corrections landed
 in `docs/libbrecht-parameters.md` while they were still free to make; after the freeze each
@@ -304,17 +335,58 @@ coarser one, and a grid frozen against that would be wrong at every point.
 - [ ] **WP0a — decisions that need no probe.** **DONE** (`7382df4`, `b5a35b5`, `f9e335b`,
       `5c5537f`, `cbe0f7a`): pre-freeze source corrections to `docs/libbrecht-parameters.md`;
       the parameter interpolation scheme, with its justification corrected by measurement; the
-      latent-heating treatment; the surface policy (`v5`, not ADR 0009's `v4` — caught by
-      probe); the water-relative σ ladder from printed Table 2.1 (the `sigmaWater()` difference
-      form is unusable warm); and the freeze list itself as a fail-closed module that refuses to
+      latent-heating treatment; the surface policy (`v5`, not ADR 0009's `v4` — caught by probe;
+      superseded by `v6` in WP0b); the water-relative σ ladder from printed Table 2.1 (the
+      `sigmaWater()` difference form is unusable warm); and the freeze list itself as a
+      fail-closed module that refuses to
       emit a protocol manifest while any required item is pending.
-- [ ] **WP0b — resolve the symmetry anomaly.** One calibration run (−5 °C, f = 0.50, 48³)
-      reported `symErr = 0.020915` with noise off where every sibling reported exactly 0.
-      Noise-off runs must retain exact D6h symmetry and the Phase 2b gate enforced zero.
-      Reproduce it, determine whether it is a tie-break/ordering degeneracy, a small-domain
-      artefact, or a defect, and fix or register it. **Blocking**: symmetry is a validity check
-      on every Phase 6 run, so a condition that silently breaks it would invalidate grid points
-      without announcing itself.
+- [x] **WP0b — resolve the symmetry anomaly.** **DONE 2026-07-26** — it was a solver defect, and
+      it is fixed as [ADR 0023](../decisions/0023-d6h-equivariant-opposing-vapor-mean.md).
+
+      One calibration run (−5 °C, f = 0.50, 48³) reported `symErr = 0.020915` with noise off
+      where every sibling reported exactly 0. Two things came out of reproducing it.
+
+      **The premise that it was silent was wrong.** The same run line already published
+      `deltaSymClean=false`, and the heartbeat printed `deltaSym=false` from step 78. The solver
+      announced the break through the incremental check built for exactly this; the WP0
+      calibration harness parsed only `symErr=` and dropped it. The defect was in the solver,
+      the silence was in a coordinator-only probe, and the probe now records both.
+
+      **The cause is float64 addition order in the boundary operator.** Stage-by-stage
+      instrumentation showed the in-plane smoother staying bitwise D6h-invariant — it already
+      sorts its pair sums — while the first array to break is the Eq. 5.35 opposing-vapor mean.
+      `opposingSigma` accumulates its operands in lattice-gather order, and rot60 permutes those
+      enumeration positions by the cycle (1 3 6 2 4 5), which is not order-preserving; from
+      three operands up, a cell and its image sum the same multiset in a different order, and
+      float64 addition is not associative. The captured instance differs by one ulp, and
+      re-summing the image's operands in the source cell's direction order reproduces the source
+      value bit-for-bit. That ulp propagates through σ_b → α_HK → fill rate → accumulated fill
+      until one orbit member crosses the attachment threshold a step early; the metric shows it
+      only when the size target fires mid-split, which is why siblings read 0.
+
+      **Fix**: surface policy `aggregate-hv-g1h1-v6` — v5 in every respect except that the
+      opposing operands are summed in ascending value order, which makes the mean a function of
+      the operand multiset alone and therefore exactly equivariant. v4 and v5 are bit-unchanged
+      because Phase 4b and Phase 2b evidence was produced under them. On the configuration that
+      opened WP0b, v6 gives `symErr = 0` and `deltaSymClean = true` at the same stop step (88),
+      extent (17) and aspect ratio (0.605799); attached count moves 765 → 749.
+
+      **Consequence for every calibration number so far**: they were measured under v5 and must
+      be re-measured under v6 rather than carried forward. (The σ ladder is unaffected — it is
+      transcribed from printed Table 2.1, not measured.) The v6 re-run of the 3 × 3 matrix is
+      recorded in the calibration section above.
+
+      **Scope note**: equivariance under v6 is structural, not statistical — smoother
+      equivariant, boundary operator equivariant, clamp constant, attachment threshold
+      deterministic, so invariance follows by induction from a symmetric seed and does not decay
+      with run length. The longest confirmation so far is 88 growth steps at 48³. A run at the
+      Phase 2b scale (96³, extent 61) belongs to WP3's convergence work, not here.
+
+      **Not fixed**: the WGSL kernel has the same defect, in f32 where one ulp is ~1.2e-7 rather
+      than ~2.2e-16. It is registered, not repaired — the GPU LK entry points already refuse any
+      policy but v5, so the diagnostic lane now differs from the sweep in arithmetic width, in
+      divergence tolerance, and in operand order. It can corroborate a trend and cannot be
+      compared value-for-value.
 - [ ] **WP0c — the remaining freeze values, after WP3.** The T/σ grid, habit measurement size,
       metric thresholds, domain budgets, Δx, pressure, seed size, noise amplitude, fill-CFL,
       residual tolerance and norm, `divTol`, `relaxMaxSweeps`, seed-ensemble size, uncertainty
