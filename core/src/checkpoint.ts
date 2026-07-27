@@ -603,7 +603,11 @@ function validateLKMetadata(value: unknown): number {
   if (!Number.isSafeInteger(metadata.relaxMaxSweeps) || (metadata.relaxMaxSweeps as number) <= 0) {
     throw new Error("LK checkpoint relaxMaxSweeps must be a positive safe integer");
   }
-  if (metadata.farField !== "dirichlet" && metadata.farField !== "reflecting") {
+  if (
+    metadata.farField !== "dirichlet" &&
+    metadata.farField !== "reflecting" &&
+    metadata.farField !== "monopole-matched"
+  ) {
     throw new Error(`LK checkpoint farField is invalid: ${String(metadata.farField)}`);
   }
   return n;

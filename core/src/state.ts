@@ -9,8 +9,14 @@ import type { GGParams } from "./params.ts";
  * the G-G-fidelity condition and what makes mass conservation exact. "dirichlet" is declared
  * so the checkpoint format carries the condition from day one (results are never compared
  * across conditions silently, charter §3.3); the solver implements it in Phase 2b.
+ *
+ * "monopole-matched" (ADR 0024, Phase 6) holds each shell pixel at the monopole-matched value
+ * of monograph Eq. 5.30 instead of at a flat `sigma_infinity`. Fixed-σ Dirichlet at a finite
+ * radius over-supplies vapor, by a factor the spherical solution gives in closed form, and at
+ * the domain sizes this project can afford that factor is large rather than negligible. The
+ * three conditions are never mixed within a result set.
  */
-export type FarFieldCondition = "reflecting" | "dirichlet";
+export type FarFieldCondition = "reflecting" | "dirichlet" | "monopole-matched";
 
 /**
  * Active-domain shape (finding, 2026-07-14, recorded in the Phase 2 plan): a rectangular

@@ -72,6 +72,7 @@ import {
   type Dims,
   type DomainShape,
   type GGPresetName,
+  type FarFieldCondition,
   type LKSurfacePolicy,
   type Metrics,
 } from "@vcc/core";
@@ -486,6 +487,7 @@ function grow(options: GrowOptions): void {
 
 interface GrowLKOptions {
   surfacePolicy: LKSurfacePolicy;
+  farField: FarFieldCondition;
   tempC: number | null;
   sigmaInf: number | null;
   dims: Dims;
@@ -511,6 +513,8 @@ interface GrowLKOptions {
 function parseLKArgs(argv: string[]): GrowLKOptions {
   const options: GrowLKOptions = {
     surfacePolicy: "aggregate-hv-g1h1-v5",
+    // Default unchanged so every executed Phase 2b/4/5 command replays byte for byte.
+    farField: "dirichlet",
     tempC: null,
     sigmaInf: null,
     dims: { nx: 96, ny: 96, nz: 96 },
@@ -544,6 +548,20 @@ function parseLKArgs(argv: string[]): GrowLKOptions {
           throw new Error(`--surface-policy is invalid: ${policy}`);
         }
         options.surfacePolicy = policy;
+        break;
+      }
+      case "--far-field": {
+        // Only the two clamped-shell lanes. `reflecting` has no source against which the
+        // divergence identity could be stated, so it cannot support a physics run here
+        // (attachment-kinetics §4.4); offering it would invite a diagnostic-only field to be
+        // mistaken for evidence.
+        const condition = value();
+        if (condition !== "dirichlet" && condition !== "monopole-matched") {
+          throw new Error(
+            `--far-field wants dirichlet or monopole-matched, got ${condition}`,
+          );
+        }
+        options.farField = condition;
         break;
       }
       case "--div-tol":
@@ -630,7 +648,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
     rngSeed: options.seed,
     noiseEpsilon: options.noise,
     domain: "hexPrism",
-    farField: "dirichlet",
+    farField: options.farField,
     seedRadius: options.seedRadius,
     seedThickness: options.seedThickness,
     center: domainCenter(options.dims), // explicit — no constructor defaults in gate paths
@@ -650,7 +668,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
     `grow-lk T=${options.tempC}C sigmaInf=${options.sigmaInf} dims=${dims.nx},${dims.ny},${dims.nz}` +
       ` (hexRadius=${solver.hexRadius}, zHalfExtent=${solver.zHalfExtent}, active=${solver.activeCellCount})` +
       ` dx=${options.dxUm}um P=${options.pressurePa}Pa paramSet=${options.paramSet}` +
-      ` surfacePolicy=${solver.surfacePolicy}` +
+      ` surfacePolicy=${solver.surfacePolicy} farField=${solver.farField}` +
       ` cfl=${options.cfl} tol=${options.tol} divTol=${options.divTol} maxSweeps=${options.relaxMaxSweeps}` +
       ` targetExtent=${options.targetExtent} seed=${options.seed} noise=${options.noise}` +
       ` seedRadius=${options.seedRadius} seedSites=${seedSites}` +
@@ -877,6 +895,9 @@ function growLK(options: GrowLKOptions): LKRunResult {
 function gate2bOptions(spec: Gate2bWorkerSpec): GrowLKOptions {
   return {
     surfacePolicy: "aggregate-hv-g1h1-v5",
+    // Gate 2b's executed protocol, pinned: the accepted v5p evidence ran fixed-σ Dirichlet, and
+    // ADR 0024's monopole shell must never be retrofitted onto a completed gate.
+    farField: "dirichlet",
     tempC: spec.tempC,
     sigmaInf: 0.002,
     dims: { nx: 96, ny: 96, nz: 96 }, // SAME domain for both jobs — temperature only

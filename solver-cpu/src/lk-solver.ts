@@ -26,8 +26,10 @@
 import {
   alphaHK,
   cSat,
+  cartesian,
   cellCount,
   classifyFacet,
+  coordsOf,
   domainCenter,
   hexDistance,
   hexSeedSites,
@@ -330,6 +332,23 @@ export class LKSolver implements SurfaceOperator {
   /** V6 opposing-operand buffer: at most the 6 T-neighbors plus the 2 Z-neighbors. */
   private readonly opposingOperands = new Float64Array(8);
   /**
+   * Both Dirichlet lanes clamp and meter an outer shell identically; only the clamped VALUE
+   * differs. Reflecting has no shell, so no injection and no divergence identity.
+   */
+  private readonly hasClampedShell: boolean;
+  /**
+   * ADR 0024: per-shell-cell `rho_far`, the distance in metres from the domain's physical
+   * centre to that shell cell (monograph Eq. 5.30 defines it per boundary pixel, not once for
+   * the shell). Indexed like `dirichletCells`. Empty unless the lane is monopole-matched.
+   */
+  private readonly shellRadiusM: Float64Array;
+  /**
+   * ADR 0024: dV/dt in m³/s from the most recently completed interface update (Eq. 5.31).
+   * Zero before the first update, which makes the first relaxation's shell exactly
+   * `sigmaInfinity` — the monopole correction cannot be known before any growth is measured.
+   */
+  private volumeRateM3PerS = 0;
+  /**
    * ADR 0023's operand-order flag, resolved once. `opposingSigma` runs per boundary cell per
    * sweep — millions of calls in a sustained run — so the policy is not re-tested per call.
    */
@@ -446,7 +465,11 @@ export class LKSolver implements SurfaceOperator {
     if (this.domain !== "box" && this.domain !== "hexPrism") {
       throw new Error(`domain is invalid: ${String(this.domain)}`);
     }
-    if (this.farField !== "dirichlet" && this.farField !== "reflecting") {
+    if (
+      this.farField !== "dirichlet" &&
+      this.farField !== "reflecting" &&
+      this.farField !== "monopole-matched"
+    ) {
       throw new Error(`farField is invalid: ${String(this.farField)}`);
     }
     if (
@@ -557,6 +580,30 @@ export class LKSolver implements SurfaceOperator {
       }
     }
     this.dirichletCells = Int32Array.from(shell);
+    this.hasClampedShell =
+      this.farField === "dirichlet" || this.farField === "monopole-matched";
+    // Eq. 5.30's rho_far is measured from the model's physical centre to each shell pixel, so
+    // it is computed through the registered cartesian embedding (x = i + j/2, y = j*sqrt(3)/2,
+    // z = k) rather than from lattice index differences, which are not distances on this
+    // lattice. Only the monopole lane needs it; the others keep an empty array.
+    if (this.farField === "monopole-matched") {
+      const [cx, cy, cz] = cartesian(this.center[0], this.center[1], this.center[2]);
+      this.shellRadiusM = new Float64Array(this.dirichletCells.length);
+      for (let position = 0; position < this.dirichletCells.length; position++) {
+        const [i, j, k] = coordsOf(this.dims, this.dirichletCells[position]);
+        const [px, py, pz] = cartesian(i, j, k);
+        const dx = px - cx;
+        const dy = py - cy;
+        const dz = pz - cz;
+        const distance = Math.sqrt(dx * dx + dy * dy + dz * dz) * this.dxM;
+        if (!(distance > 0)) {
+          throw new Error("monopole-matched far field requires every shell cell off-centre");
+        }
+        this.shellRadiusM[position] = distance;
+      }
+    } else {
+      this.shellRadiusM = new Float64Array(0);
+    }
 
     const seedRadius = options.seedRadius === undefined ? 2 : options.seedRadius;
     if (seedRadius !== null) {
@@ -769,7 +816,7 @@ export class LKSolver implements SurfaceOperator {
 
       const transformedCellCount = temperatureChanged ? activeUnattachedCellCount : 0;
       const transformedDirichletShellCellCount =
-        temperatureChanged && this.farField === "dirichlet"
+        temperatureChanged && this.hasClampedShell
           ? activeUnattachedShellCellCount
           : 0;
       const report: LKEnvironmentTransitionReport = {
@@ -801,7 +848,7 @@ export class LKSolver implements SurfaceOperator {
         reservoir: {
           farField: this.farField,
           activeUnattachedShellCellCount,
-          shellReclampPending: this.farField === "dirichlet",
+          shellReclampPending: this.hasClampedShell,
           shellClampTargetBefore: this.sigmaInfinity,
           shellClampTargetAfter: target.sigmaInfinity,
         },
@@ -1212,7 +1259,7 @@ export class LKSolver implements SurfaceOperator {
 
     // Dirichlet clamp at the far-field shell (skipped in the reflecting diagnostic mode).
     let injection = 0;
-    if (this.farField === "dirichlet") {
+    if (this.hasClampedShell) {
       const target = this.sigmaInfinity;
       for (let c = 0; c < this.dirichletCells.length; c++) {
         const x = this.dirichletCells[c];
@@ -1363,11 +1410,21 @@ export class LKSolver implements SurfaceOperator {
     if (minLocalSurfaceExchange === Infinity) minLocalSurfaceExchange = 0;
 
     let injection = 0;
-    if (this.farField === "dirichlet") {
-      const target = this.sigmaInfinity;
+    if (this.hasClampedShell) {
+      // Monograph Eq. 5.30: sigma_B(rho_far) -> sigma_inf − (dV/dt)/(4*pi*rho_far*X_0*v_kin).
+      // The correction uses the LAST completed interface update's dV/dt, because the shell has
+      // to be set before the relaxation whose surface solution determines the current one. The
+      // lag is one growth step and is registered rather than hidden (ADR 0024).
+      const monopole = this.farField === "monopole-matched";
+      const scale = monopole
+        ? this.volumeRateM3PerS / (4 * Math.PI * this.x0M * this.vKinMS)
+        : 0;
       for (let cell = 0; cell < this.dirichletCells.length; cell++) {
         const x = this.dirichletCells[cell];
         if (blocked[x] === 1) continue;
+        const target = monopole
+          ? this.sigmaInfinity - scale / this.shellRadiusM[cell]
+          : this.sigmaInfinity;
         injection += target - dst[x];
         dst[x] = target;
       }
@@ -1465,18 +1522,18 @@ export class LKSolver implements SurfaceOperator {
             ? inj + (drift as number) - exchange
             : inj - exchange;
         divergence =
-          this.farField === "dirichlet"
+          this.hasClampedShell
             ? Math.abs(divergenceDifference) / Math.max(Math.abs(exchange), 1e-300)
             : 0;
         const tmp = src;
         src = dst;
         dst = tmp;
-        const divergenceSatisfied = this.farField !== "dirichlet" || divergence < this.divTol;
+        const divergenceSatisfied = !this.hasClampedShell || divergence < this.divTol;
         if (onProgress !== undefined && (sweeps === 1 || sweeps % 1024 === 0)) {
           onProgress({
             sweeps,
             residual,
-            divergenceResidual: this.farField === "dirichlet" ? divergence : null,
+            divergenceResidual: this.hasClampedShell ? divergence : null,
           });
         }
         // Fixed-sigma Dirichlet requires BOTH criteria. Reflecting is diagnostic-only and has
@@ -1486,15 +1543,15 @@ export class LKSolver implements SurfaceOperator {
       if (src !== this.sigma) this.sigma.set(src);
       const converged =
         residual < this.relaxTol &&
-        (this.farField !== "dirichlet" || divergence < this.divTol);
+        (!this.hasClampedShell || divergence < this.divTol);
       const report: RelaxationReport = {
         sweeps,
         residual,
         converged,
         // The divergence identity is only defined against the Dirichlet source; in the
         // reflecting diagnostic mode there is no source and the identity is not a claim.
-        divergenceResidual: this.farField === "dirichlet" ? divergence : null,
-        shellClampDiagnostic: this.farField === "dirichlet" ? injection : null,
+        divergenceResidual: this.hasClampedShell ? divergence : null,
+        shellClampDiagnostic: this.hasClampedShell ? injection : null,
         surfaceExchangeDiagnostic: surfaceExchange,
         smootherDriftDiagnostic:
           metersSmootherDrift(this.surfacePolicy) ? smootherDrift : null,
@@ -1558,6 +1615,23 @@ export class LKSolver implements SurfaceOperator {
     }
     const stagedMaxFillVelocityMS = maxRate * this.dxM;
 
+    // ADR 0024 / monograph Eq. 5.31: dV/dt summed over surface boundary pixels. Each `rate` is
+    // already a fill FRACTION per second for one cell, so the sum times the per-site volume is
+    // a volume rate directly, with no dependence on the timestep the fill-CFL happens to pick.
+    //
+    // The per-site volume is derived from this project's own embedding, not transcribed: sites
+    // sit on a triangular lattice of unit nearest-neighbour spacing, whose Voronoi cell has
+    // area sqrt(3)/2, with unit layer spacing. The monograph's G_1 = 2/sqrt(3) is the same
+    // volume under its own convention, where Delta-x is the ROW spacing rather than the
+    // nearest-neighbour distance; the two differ by that convention alone.
+    let stagedVolumeRate = 0;
+    if (this.farField === "monopole-matched") {
+      let rateSum = 0;
+      for (let bi = 0; bi < nBoundary; bi++) rateSum += rateArr[bi];
+      const siteVolumeM3 = (Math.sqrt(3) / 2) * this.dxM * this.dxM * this.dxM;
+      stagedVolumeRate = rateSum * siteVolumeM3;
+    }
+
     const toAttach: number[] = [];
     let maxKineticFillIncrement = 0;
     let deltaTime = 0;
@@ -1604,6 +1678,7 @@ export class LKSolver implements SurfaceOperator {
     // Publish the diagnostic only after the complete interface update succeeds. A failed
     // update must continue to report the most recent completed update, never a staged value.
     this.lastMaxFillVelocityMS = stagedMaxFillVelocityMS;
+    this.volumeRateM3PerS = stagedVolumeRate;
 
     return {
       attachedNow: toAttach.length,

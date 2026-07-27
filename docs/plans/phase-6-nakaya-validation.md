@@ -474,7 +474,15 @@ coarser one, and a grid frozen against that would be wrong at every point.
       48³ and ~19% at 96³, and Phase 2b's own extent-61-in-96³ configuration sits near **160%**.
 
       So the domain ladder is load-bearing, the bias falls only as ~1/N, and the monopole-matched
-      far field becomes a substantive candidate rather than a refinement. It also revives the
+      far field becomes a substantive candidate rather than a refinement. **It has since been
+      implemented and measured** ([ADR 0024](../decisions/0024-monopole-matched-far-field.md)):
+      growing the same crystal for 60 steps, the fixed-σ shell gives 291 attached cells at 28³
+      against 279 at 40³ — a 4.1% swing from domain size alone — while the monopole shell gives
+      231 at both, with an identical aspect ratio. It is not a free lunch: it moves the habit
+      metric (AR 0.500 → 0.300 on that comparison), so **no threshold measured under the
+      Dirichlet shell transfers**, and it has its own validity limit — 28³/32³/48³ agree but 20³
+      does not, because Eq. 5.30 treats the crystal as a point source. The ladder still sets the
+      minimum domain; monopole matching moves that minimum outward rather than removing it. It also revives the
       explanation for 28³-needle versus 96³-plate that the first version of this note had ruled
       out on the strength of the printed formula. The estimate stays an order-of-magnitude tool —
       it is isotropic, identifies R with extent/2, and cannot express the **differential**
