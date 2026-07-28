@@ -337,6 +337,53 @@ so their physical measurement size is 7.70 µm against the registered 7.35 — 4
 cold trajectory rises about 0.01 per extent unit in that range, so the effect on the cold value
 is of order +0.01 and does not move any conclusion above.
 
+## 5. Seed shape — a systematic, not a convergence axis
+
+Every run in this project starts from the same seed: the canonical 19-site hexagon, radius 2,
+**thickness 1** — which is itself plate-like, aspect ratio 1/5 by construction. Since the cold
+call sits nearest a class threshold, "does the plate-like seed bias the result toward plate?" is
+a question the sweep should not leave unasked. Seed thickness must be **odd** (the seed is
+symmetric about the centre plane), so the alternative is thickness 3, not 2.
+
+Registered configuration otherwise unchanged; both points `symErr = 0`, clean, converged.
+
+| condition | seed thickness | steps | attached | `AR` | class |
+|---|---|---|---|---|---|
+| warm | 1 (registered) | 145 | 1513 | 0.3821 | plate |
+| warm | 3 | 160 | 2423 | **0.6004** | plate |
+| cold | 1 (registered) | 316 | 5161 | 1.1053 | neutral |
+| cold | 3 | 267 | 4135 | **1.2353** | neutral |
+
+**The habit class is invariant to seed shape at both conditions.** That is the result the sweep
+needs, and it is the reassuring one.
+
+**The value is not, and warm's shift is the largest single systematic measured in this phase** —
+`AR` +0.218, or **+57%**, against the grid systematic's +10.6% cold. It is directional in the
+expected way: a thicker seed starts less plate-like and stays less plate-like. Warm's margin to
+the 0.667 plate ceiling goes from comfortable to thin (0.6004 is inside the extent-fragile band),
+while cold moves +0.130, almost exactly the registered extent-drift bound.
+
+Note also that cold at thickness 3 reaches the measurement size in **fewer** steps with **fewer**
+attached cells (267/4135 against 316/5161): the thicker seed spends less growth becoming
+three-dimensional, so it arrives at extent 21 sooner and less dense.
+
+**What must not be done with these numbers.** Cold's registered value is 1.1053; the grid limit
+is 1.42–1.46; seed shape adds +0.13; extent drift adds up to +0.135. Stacking those gives ~1.7,
+above the 1.5 column floor — and that is **not a result**. It is an extrapolation of
+extrapolations, the exact error §4.1 was retracted for. The systematics are not established to be
+independent or additive, and each one *individually* leaves cold neutral. The honest statement is
+that cold is neutral under every single-axis perturbation measured, and that no combined estimate
+is available.
+
+> **Why this is recorded here and NOT added to the frozen protocol.** The 204-point sweep was
+> running when these numbers landed. Charter §3.2 Phase 6 item 1 says a post-freeze protocol edit
+> invalidates prior sweep results and the sweep re-runs in full, so amending the protocol
+> mid-sweep would have thrown away the run to record a caveat. It does not need to be in the
+> protocol: the registered seed is unchanged, this changes nothing about what executes, and it is
+> a *reported systematic* rather than a value. The asymmetry that makes that safe is worth being
+> explicit about — **adding a caveat after seeing data can only weaken a claim, never strengthen
+> it**, so it does not need pre-registration the way a threshold does.
+
 ---
 
 ## Validity, and what is not established here
