@@ -1273,9 +1273,46 @@ byte-identical) and the original directory renamed to `out/phase5-wp5-0a611e7-or
 before the WP7 run created a fresh `out/phase5/`. Both copies are the accepted `0a611e7` WP5
 evidence; neither may be relabelled as WP7's.
 
-**Next action: close Phase 6 WP0c — Δx and the σ axis are the last two freeze rows.** Both wait on
-a cost measurement of the finer grid that is running now; everything else in the freeze list is
-registered and the parameter table is frozen and hash-enforced. Phase 5 is closed and pushed (`d8a8a39`); the
+**Next action: Phase 6 section-B items, then WP2's sweep harness. The three pre-sweep BLOCKERS
+are closed (2026-07-27) and no sweep has run.** An independent review on 2026-07-27 found three
+gaps that gated the first sweep; every checkable claim in it was verified against HEAD before
+acting, and all held.
+
+- **A1 — the agreement-scoring rule was never registered** ([ADR 0025](decisions/0025-phase6-agreement-scoring-rule.md), `1287447`).
+  Nothing mapped `{plate, column, neutral, invalid}` onto the reference's four regimes, and
+  `neutral` — which is what WP3's cold discriminating point actually measures — had no score at
+  all. Registered: `neutral` = **disagree** with the neutral count published separately,
+  `invalid` = excluded by name, flips reported as **bracketed intervals** rather than midpoints,
+  and the headline restricted to **15** counting temperatures because the mixed cold regime
+  accepts *both* pure classes and holds 13 of the 28. Two defects of mine surfaced while
+  implementing it: a regime-boundary convention that contradicted its own comment, and — worse —
+  the scoring rule was registered but **absent from the hashed manifest**, so the protocol hash
+  did not move when the accepted-class matrix was added.
+- **A2 — the grid-extrapolation operator was unregistered, and the ladder behind it was wrong twice**
+  ([ADR 0026](decisions/0026-phase6-grid-extrapolation-operator.md), `3148d62`). The ladder was
+  measured at 5.25 µm rather than the registered 7.35 µm, and the "approximately first order"
+  that justified extrapolating both conditions was computed from the **cold pair alone** — warm's
+  own differences *grew* 26× under refinement. Re-run at the registered extent: **"Δx = 0.7
+  changes the habit class" is withdrawn** (class stable across the full 3× range), the operator
+  is Richardson admitted only for fitted order in [0.7, 1.5], **cold p = 1.142 admitted → 1.456,
+  warm p = 0.207 refused**, and the headline is now the conservative intersection.
+- **A3 — the charter forbade what the protocol registered** ([ADR 0027](decisions/0027-charter-far-field-amendment.md), `f12b4a5`).
+  §2.4 mandated fixed-σ Dirichlet "for every Phase 6 validation run" while the protocol registers
+  monopole-matched, ADR 0024 wrongly claimed "charter impact: none", and the freeze row cited the
+  clause that forbade it as its own authority. **Charter amended to v1.17 in-session per Rule 5**:
+  §2.4 now fixes the *obligation* (name it, freeze it, never compare across conditions silently)
+  and leaves the choice to the per-sweep protocol.
+
+**The most consequential open question in Phase 6 is now closed by measurement.** WP3 §4.1 put a
+converged cold `AR` near 1.47 and called neutral-vs-column a numerics decision. At the registered
+measurement size cold is 1.2222 at the finest spacing and extrapolates to **1.42–1.46, below the
+1.5 column floor on both estimates** — it does not reach column at f = 0.15 even in the grid
+limit. This is the **third** WP3 study to reverse when re-measured at the registered crystal size,
+and the pattern is now recorded once at the top of the convergence report.
+
+`PHASE6_PROTOCOL_SHA256` ran `9e49c2a8` → `0050040e` → `a9f0ad21` → `f5350b85` across the three
+amendments, with `PHASE6_PROTOCOL_REVISIONS` keeping the history. The freeze is amended, never
+unwound, and all of it was free because no sweep has run. Phase 5 is closed and pushed (`d8a8a39`); the
 Phase 6 plan is registered at [phase-6-nakaya-validation.md](plans/phase-6-nakaya-validation.md)
 and **no validation sweep may run until WP0's freeze lands**. WP1 is done (`research/nakaya-morphology-diagram.md`: boundaries −3.3/−9.9/−21.5 °C ±0.5, a non-uniform temperature axis, and a water-saturation cross-check that passes on position and fails on scale).
 
