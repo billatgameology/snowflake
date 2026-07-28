@@ -362,6 +362,8 @@ export async function phase6RunSweep(options: {
   readonly repoRoot: string;
   readonly onPoint?: (progress: Phase6SweepProgress) => void;
   readonly points?: readonly Phase6GridPoint[];
+  /** Per-point wall budget; default 3 h. Over-budget points are excluded by name. */
+  readonly pointBudgetMs?: number;
 }): Promise<readonly Phase6ScoredPoint[]> {
   const { execFile } = await import("node:child_process");
   const queue = options.points ?? phase6SweepPlan();
@@ -372,12 +374,37 @@ export async function phase6RunSweep(options: {
   const runOne = (point: Phase6GridPoint): Promise<Phase6ScoredPoint> =>
     new Promise((resolve) => {
       const started = Date.now();
-      execFile(
+      // A per-point wall budget, because this runs unattended overnight and one pathological
+      // point must not hold a worker forever. A point that exceeds it is killed and lands with
+      // no parseable summary, which the path below already excludes BY NAME — so an over-budget
+      // point is reported as excluded rather than silently missing from the denominator.
+      let overBudget = false;
+      const child = execFile(
         process.execPath,
         [...phase6PointCommand(point)],
         { cwd: options.repoRoot, encoding: "utf8", maxBuffer: 128 * 1024 * 1024 },
         (error, stdout) => {
+          clearTimeout(timer);
           const seconds = (Date.now() - started) / 1000;
+          if (overBudget) {
+            resolve(
+              phase6ScorePoint(point, {
+                tempC: point.tempC,
+                fraction: point.fraction,
+                sigmaInf: point.sigmaInf,
+                steps: Number.NaN,
+                attached: Number.NaN,
+                aspectRatio: Number.NaN,
+                largestExtent: Number.NaN,
+                symmetryError: Number.NaN,
+                deltaSymClean: false,
+                allConverged: false,
+                domainContact: false,
+                seconds,
+              }),
+            );
+            return;
+          }
           const parsed = phase6ParseRun(point, String(stdout ?? ""), seconds, domainN);
           if (parsed === null) {
             // A point that produced no summary is EXCLUDED BY NAME, never silently skipped and
@@ -407,7 +434,12 @@ export async function phase6RunSweep(options: {
           }
           resolve(phase6ScorePoint(point, parsed));
         },
-      ).on("error", () => {
+      );
+      const timer = setTimeout(() => {
+        overBudget = true;
+        child.kill();
+      }, options.pointBudgetMs ?? 3 * 60 * 60 * 1000);
+      child.on("error", () => {
         /* the callback above already resolves this point */
       });
     });
