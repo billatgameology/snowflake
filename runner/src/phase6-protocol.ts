@@ -217,6 +217,86 @@ export function phase6TemperatureGrid(): readonly number[] {
 /** Registered as a number, now that the T grid is fixed: 0.5 + 1/2 = 1.0 °C. */
 export const PHASE6_AMBIGUITY_HALF_WIDTH_C = phase6AmbiguityHalfWidthC(PHASE6_T_GRID.spacingC);
 
+// ── Registered: the grid-extrapolation operator (ADR 0026) ──────────────────────────────────
+//
+// The uncertainty scheme consumes a per-point "grid-extrapolated class". WP0c registered that
+// consumption without registering how the extrapolation is COMPUTED — an operator chosen after
+// seeing results would be exactly the freedom the freeze exists to remove. The 2026-07-27
+// independent review found the gap.
+//
+// The operator is first-order Richardson on the two finest spacings, ADMITTED ONLY where the
+// fitted convergence order is credible. That admission test is the substance: WP3 §4.2 measured
+// a fitted order of 1.142 cold (Richardson 1.42-1.46, class stable either way) and 0.207 warm,
+// where the extrapolated CLASS changes with the assumed order — neutral at the fitted order,
+// plate at first order. An extrapolation that sensitive to a fitted exponent carries no
+// information about the class, so warm must be refused rather than reported.
+
+/** Fitted order must lie in this window for an extrapolation to be admitted. */
+export const PHASE6_EXTRAPOLATION_ORDER_WINDOW = { lowest: 0.7, highest: 1.5 } as const;
+
+export interface Phase6GridExtrapolation {
+  readonly fittedOrder: number;
+  readonly admitted: boolean;
+  /** First-order Richardson limit; null when the fit is refused. */
+  readonly extrapolatedAR: number | null;
+  readonly reason: string;
+}
+
+/**
+ * Fit the convergence order from three spacings and, if it is credible, extrapolate.
+ *
+ * Spacings need not refine by a constant ratio (WP3's are ×0.5 then ×2/3), so the order is
+ * FITTED from the ratio of successive differences rather than assumed — assuming first order is
+ * what produced the withdrawn warm limit in §4.1.
+ *
+ * `spacings` and `values` are ordered coarsest to finest.
+ */
+export function phase6FitGridExtrapolation(
+  spacings: readonly [number, number, number],
+  values: readonly [number, number, number],
+): Phase6GridExtrapolation {
+  const [h0, h1, h2] = spacings;
+  if (!(h0 > h1 && h1 > h2 && h2 > 0)) {
+    throw new Error("grid extrapolation needs three spacings ordered coarsest to finest");
+  }
+  const d1 = values[1] - values[0];
+  const d2 = values[2] - values[1];
+  const observed = d2 / d1;
+  const ratioOfOrder = (p: number): number =>
+    (Math.pow(h1, p) - Math.pow(h2, p)) / (Math.pow(h0, p) - Math.pow(h1, p));
+  // Monotone in p over the admissible range, so bisection is exact enough and has no local
+  // minima to fall into.
+  let low = 0.01;
+  let high = 4;
+  for (let i = 0; i < 200; i++) {
+    const mid = (low + high) / 2;
+    if (ratioOfOrder(mid) > observed) low = mid;
+    else high = mid;
+  }
+  const fittedOrder = (low + high) / 2;
+  const admitted =
+    Number.isFinite(fittedOrder) &&
+    fittedOrder >= PHASE6_EXTRAPOLATION_ORDER_WINDOW.lowest &&
+    fittedOrder <= PHASE6_EXTRAPOLATION_ORDER_WINDOW.highest;
+  if (!admitted) {
+    return {
+      fittedOrder,
+      admitted: false,
+      extrapolatedAR: null,
+      reason:
+        `fitted order ${fittedOrder.toFixed(3)} is outside the admitted window ` +
+        `[${PHASE6_EXTRAPOLATION_ORDER_WINDOW.lowest}, ${PHASE6_EXTRAPOLATION_ORDER_WINDOW.highest}] ` +
+        "— reported not-extrapolatable, measured class only",
+    };
+  }
+  return {
+    fittedOrder,
+    admitted: true,
+    extrapolatedAR: values[2] + (values[2] - values[1]) / (h1 / h2 - 1),
+    reason: "first-order Richardson on the two finest spacings",
+  };
+}
+
 // ── Registered: how a model habit is scored against the reference (ADR 0025) ────────────────
 //
 // Registered BEFORE any sweep, because without it the mapping from model class onto reference
@@ -749,6 +829,29 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
       "honest answer is that the model produced neither habit",
   },
   {
+    id: "grid-extrapolation-operator",
+    group: "comparison-design",
+    status: "registered",
+    requirement:
+      "how the grid-extrapolated aspect ratio the uncertainty scheme consumes is computed, and " +
+      "when it is refused",
+    value:
+      "First-order Richardson on the two finest spacings, AR0 = AR(h2) + (AR(h2) − AR(h1)) / " +
+      "((h1/h2) − 1), admitted ONLY where the order fitted from three spacings lies in " +
+      "[0.7, 1.5]. Outside that window the point is reported not-extrapolatable and carries its " +
+      "measured class alone. Measured at the registered conditions: cold p = 1.142 (admitted, " +
+      "AR0 = 1.456), warm p = 0.207 (refused)",
+    source:
+      "ADR 0026, from the grid ladder re-run at the REGISTERED measurement extent " +
+      "(research/phase6-convergence.md §4.2). The order is fitted rather than assumed because " +
+      "the refinement ratios are non-uniform and because assuming first order is precisely what " +
+      "produced §4.1's withdrawn warm limit — a number computed from the cold pair and applied " +
+      "to warm, whose own successive differences GREW 26x under refinement. The admission " +
+      "window exists because at warm the extrapolated CLASS changes with the assumed order " +
+      "(neutral at the fitted order, plate at first order), and an extrapolation that sensitive " +
+      "to a fitted exponent carries no information about the class",
+  },
+  {
     id: "agreement-scoring",
     group: "comparison-design",
     status: "registered",
@@ -774,24 +877,28 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
     status: "registered",
     requirement: "the uncertainty-reporting scheme",
     value:
-      "Per point: the measured AR and class at the registered grid; the first-order " +
-      "grid-extrapolated AR and ITS class; a classSurvivesGridExtrapolation flag when the two " +
-      "agree; the distance to the nearest reference boundary; and whether the point falls in " +
-      "the ambiguity band. Headline agreement counts are reported over the 28 band-excluded " +
-      "points and are reported TWICE — once on measured class, once on extrapolated class. " +
-      "Global qualifiers travel with every table: volume-like quantities are not converged at " +
-      "the registered fill-CFL (+8.7%) or domain (+0.04%); latent heating is carried and not " +
-      "applied; cross-platform reproducibility is unestablished until the arm64 control runs; " +
-      "quantitative AR at extent 21 carries residual drift toward its extent-31 value",
+      "Per point: the measured AR and class; the grid-extrapolated AR and ITS class where the " +
+      "registered operator admits one, otherwise the point is marked not-extrapolatable; a " +
+      "classSurvivesGridExtrapolation flag; the distance to the nearest reference boundary; and " +
+      "ambiguity-band membership. THE HEADLINE IS THE CONSERVATIVE INTERSECTION — points whose " +
+      "measured class agrees AND whose admitted extrapolation does not contradict it — over the " +
+      "15 headline-scope counting temperatures. The two component counts (measured-only, " +
+      "extrapolated-only) and the not-extrapolatable tally are reported BENEATH it, never as " +
+      "the top line. Global qualifiers travel with every table: volume-like quantities are not " +
+      "converged at the registered fill-CFL (+8.7%) or domain (+0.04%); latent heating is " +
+      "carried and not applied; cross-platform reproducibility is unestablished until the arm64 " +
+      "control runs; quantitative AR at extent 21 carries residual drift toward its extent-31 " +
+      "value",
     source:
       "WP0c, from the systematics WP3 actually measured rather than a generic error budget. " +
       "The scheme is about CLASS ROBUSTNESS, not error bars on a ratio, because the class is " +
       "the only quantity the comparison consumes — an interval on AR would imply a precision " +
       "the unconverged grid cannot support, and would invite reading a habit boundary off the " +
       "third decimal of a number whose own convergence study says it still moves 10.6%. " +
-      "Reporting agreement on BOTH the measured and the extrapolated class is what keeps the " +
-      "unconverged Δx honest: where the two disagree, the point is reported as grid-fragile " +
-      "and is excluded from neither count but flagged in both. The ±25% σ_0 digitization band " +
+      "The conservative intersection is the headline because counting agreement twice and " +
+      "quoting the friendlier number is the failure mode a dual report invites; where measured " +
+      "and extrapolated class disagree the point is reported grid-fragile, excluded from " +
+      "neither count but flagged in both. The ±25% σ_0 digitization band " +
       "and the 10.7%/9.0% interpolation error are NOT folded in here — they move the physics " +
       "inputs rather than the measurement, so they are swept explicitly at their edges by WP4 " +
       "and reported as separate runs, never as a widened bar on a single run",
@@ -1104,6 +1211,7 @@ export function phase6ProtocolManifest(
     // the thing that turns runs into a verdict free to be edited.
     referenceRegimes: PHASE6_REFERENCE_REGIMES,
     headlineScopeC: PHASE6_HEADLINE_SCOPE_C,
+    extrapolationOrderWindow: PHASE6_EXTRAPOLATION_ORDER_WINDOW,
     engineControl: PHASE6_ENGINE_CONTROL,
     freezeList: items,
   };
@@ -1119,7 +1227,7 @@ export function phase6ProtocolManifest(
  * sweep evidence under a protocol nobody agreed to.
  */
 export const PHASE6_PROTOCOL_SHA256 =
-  "0050040e961c0e08cbfb2f7fc035ded860308552630bf51240db2df4222c89ca";
+  "a9f0ad210e4dc3f700270c7fd840384eb04b9bcc9d76a9907f269dccb06ebb07";
 
 /**
  * Protocol revisions, newest last. The freeze is AMENDED through ADRs, never edited in place,
@@ -1133,6 +1241,7 @@ export const PHASE6_PROTOCOL_SHA256 =
 export const PHASE6_PROTOCOL_REVISIONS = [
   { sha256: "9e49c2a8a811e9d62d383730878d125bad50c5e86b71a95d1aff64277e434547", note: "WP0c initial freeze" },
   { sha256: "0050040e961c0e08cbfb2f7fc035ded860308552630bf51240db2df4222c89ca", note: "ADR 0025 agreement-scoring rule" },
+  { sha256: "a9f0ad210e4dc3f700270c7fd840384eb04b9bcc9d76a9907f269dccb06ebb07", note: "ADR 0026 grid-extrapolation operator; conservative-intersection headline" },
 ] as const;
 
 /**

@@ -24,20 +24,27 @@ eight physical cores, so every second is contended by construction.
 
 ## The one result that matters most
 
-**Three of the four axes show the same split: the habit CLASS converges early, the value
-underneath converges late or not at all. Domain is the exception — and only once it is measured
-at the size actually registered.**
+**The habit CLASS is robust on every axis. The value underneath converges late or not at all on
+three of the four — and on the fourth, grid spacing, it does not converge in any usable sense at
+the warm condition.**
 
 | axis | class converged at | value converged at |
 |---|---|---|
 | domain N, at extent 21 | 40 | 48 to 0.04%, exact from 64 |
 | timestep `cflFill` | every value tested (8× range) | 0.05 |
 | measurement extent | 9 warm / 11 cold | 9 warm / 31 cold |
-| grid Δx | 0.35 (0.7 flips it) | **not converged at 0.2333** |
+| grid Δx, at extent 21 | **every spacing tested (3× range)** | cold extrapolates; **warm does not** |
 
 This is what the sweep may and may not claim. Habit classifications are robust and the sweep is
 viable on them. Any statement about *how far* a point sits from a classification threshold
 inherits an unconverged systematic and must carry it.
+
+**Two of these rows read the opposite way when the studies were first run**, because both were
+measured at a convenient crystal size rather than the registered one. Re-running the domain and
+grid ladders at the registered measurement extent reversed both conclusions — see §1.1 and §4.1.
+The recurring lesson is recorded once here: **a convergence study measured at a size other than
+the one being registered does not compose with the registration, and in this project it has
+twice produced the wrong answer rather than merely a less precise one.**
 
 ---
 
@@ -240,10 +247,12 @@ systematic below.
 > artefact of measuring mid-development, not a domain effect. Getting the order wrong did not
 > cost confidence, it cost correctness.
 
-## 4. Grid spacing — the axis that does not converge
+## 4. Grid spacing
 
 Fixed physical box 16.8 µm and fixed physical measurement size; N and target extent scale with
 Δx so the physics compared is identical.
+
+### 4.1 At extent 9/15/23 — superseded, and wrong about the class flip
 
 | Δx (µm) | N | extent | warm attached / AR | cold attached / AR |
 |---|---|---|---|---|
@@ -251,39 +260,82 @@ Fixed physical box 16.8 µm and fixed physical measurement size; N and target ex
 | 0.350 | 48 | 15 | 521 / 0.3810 plate | 1505 / **0.9905 neutral** |
 | 0.2333 | 72 | 23 | 2325 / 0.4488 plate | 6951 / **1.0952 neutral** |
 
-**Δx = 0.7 changes the habit class.** Cold reads plate there and neutral at both finer spacings.
-A coarse grid is therefore not a cheaper version of the answer; it is a different one.
+This ladder was run at a physical measurement size of **5.25 µm** (extent 15 at Δx = 0.35), not
+the registered **7.35 µm** (extent 21) — the same test/experiment composition error that reversed
+§1. Its two headline claims were **"Δx = 0.7 changes the habit class"** and an extrapolation to
+*warm ≈ 0.584, cold ≈ 1.305* assuming first order. §4.2 re-ran it at the registered size.
+**Both claims are withdrawn**, and the reasons differ:
 
-**Δx = 0.35 — the value every result in this project has used — is not converged either.** `AR`
-still moves +10.6% cold and +18% warm going finer, and moves *toward* column. Successive changes
-fall by a factor 0.291 against the 0.333 expected for first order, so the convergence is
-approximately first order and extrapolates to
+- The class flip was an artefact of the measurement size, not of the grid.
+- The single order 0.291 quoted as "approximately first order" was computed from the **cold**
+  pair alone and then applied to warm as well. Warm's own successive differences at those extents
+  were 0.0026 then 0.0678 — they **grew by 26×** under refinement, which no positive convergence
+  order permits. The warm limit 0.584 was therefore never supported by warm data, and its whole
+  signal (0.070) was smaller than the ±0.07 lattice-discreteness band §3 reports for warm.
 
-> **h → 0: warm `AR` ≈ 0.584, cold `AR` ≈ 1.305** (extrapolated from three points assuming
-> first order — not a measurement).
+Found by the 2026-07-27 independent review.
 
-Both then sit substantially closer to their thresholds than the Δx = 0.35 numbers suggest — warm
-0.584 against a plate ceiling of 0.667, cold 1.305 against a column floor of 1.5. Neither class
-flips under the extrapolation, but the margins are thin and **both move in the direction that
-would flip them**.
+### 4.2 At the registered measurement size — extent 21
+
+Same fixed physical box and the registered 7.35 µm measurement size; `cflFill` = 0.1, v6,
+monopole-matched. Every point `symErr = 0`, `deltaSymClean = true`, all relaxations converged.
+
+| Δx (µm) | N | extent | warm attached / AR | cold attached / AR |
+|---|---|---|---|---|
+| 0.7000 | 24 | 11 | 183 / 0.3106 plate | 427 / **0.7246 neutral** |
+| 0.3500 | 48 | 21 | 1513 / 0.3821 plate | 5161 / **1.1053 neutral** |
+| 0.2333 | 72 | 33 | 8425 / 0.4194 plate | 16871 / **1.2222 neutral** |
+
+**Δx = 0.7 does NOT change the habit class.** Cold reads neutral at all three spacings and warm
+reads plate at all three. **The habit class is stable across the full 3× range of grid spacings
+tested**, which is the opposite of §4.1's conclusion and the third WP3 study to reverse when
+re-measured at the registered crystal size.
+
+**The convergence order is fitted, not assumed.** The refinement ratios are non-uniform
+(0.7 → 0.35 is ×0.5, 0.35 → 0.2333 is ×⅔), so for `AR(h) = AR₀ + C·h^p` the expected ratio of
+successive differences is itself a function of `p`; first order would give 0.3333.
+
+| | differences | ratio | fitted `p` | Richardson at fitted `p` | at `p` = 1 |
+|---|---|---|---|---|---|
+| warm | +0.0715, +0.0373 | 0.5217 | **0.207** | 0.8445 → *neutral* | 0.4940 → *plate* |
+| cold | +0.3807, +0.1169 | 0.3071 | **1.142** | 1.4207 → neutral | 1.4560 → neutral |
+
+**Cold is approximately first order and its limit is robust.** Both estimates land at 1.42–1.46,
+comfortably inside neutral and **below the 1.5 column floor**. The cold condition therefore does
+not reach column at f = 0.15 *even in the grid limit* — that is a measurement, not an assumption.
+
+**Warm is NOT extrapolatable, and this is registered as a limit rather than papered over.** Its
+fitted order is 0.207, far below first, and the extrapolated **class changes with the assumed
+order** — neutral at the fitted order, plate at first order. An extrapolation whose answer depends
+that strongly on a fitted exponent carries no information about the class. Warm's measured class
+is plate at every spacing tested and that is what may be reported; no warm grid-extrapolated
+class may be.
+
+> **Registered extrapolation operator.** First-order Richardson on the two finest spacings,
+> `AR₀ = AR(h₂) + (AR(h₂) − AR(h₁)) / ((h₁/h₂) − 1)`, applied **only** where the fitted order
+> lies in [0.7, 1.5]. Outside that window the point is reported `not-extrapolatable` and carries
+> its measured class alone. At the registered conditions cold qualifies (p = 1.142) and warm does
+> not (p = 0.207).
 
 ### What this does to the cold reading
 
-Extent and grid push cold the same way. Extent-converged at Δx = 0.35 the cold value is 1.258;
-the grid extrapolation measured at extent 23 was worth about +0.21. Naively combining them puts
-a fully converged cold `AR` near **1.47, essentially on the 1.5 column boundary**.
+§4.1 combined an extent extrapolation with a grid extrapolation to put a fully converged cold
+`AR` near 1.47 — "essentially on the 1.5 column boundary" — and called the neutral/column
+question the most consequential open measurement in Phase 6. **That is now measured directly and
+the answer is neutral.** At the registered measurement size the cold value is 1.2222 at the
+finest spacing and extrapolates to 1.42–1.46, still short of 1.5 on both estimates. The margin is
+not large, but it no longer rests on an extrapolation of an extrapolation.
 
-That combination is an extrapolation of an extrapolation and is **not** a result. It is recorded
-because it identifies the single most consequential open measurement in Phase 6: whether the
-cold condition is neutral or column is not robustly decided by the physics at f = 0.15 — it is
-decided by grid convergence and by where the threshold sits. Settling it needs a converged-grid
-run at extent ≥ 31, which at Δx = 0.2333 costs hours per point.
+**The disagreement with Nakaya survives either way**, which is why this does not change the
+registered expectation: if cold is neutral, the model produces no reversal at f = 0.15; if it
+were column, it would produce a reversal in the **opposite sense** to the diagram, whose −9.9 °C
+boundary separates columns on the warm side from plates on the cold side. The model's single σ₀
+crossing at −10.1 °C runs plate-warm → column-cold.
 
-**Either way the disagreement with Nakaya survives**, which is why this does not change the
-registered expectation: if cold is neutral, the model produces no reversal at f = 0.15; if cold
-is column, it produces a reversal in the **opposite sense** to the diagram, whose −9.9 °C
-boundary separates columns on the warm side from plates on the cold side. The model's single
-σ₀ crossing at −10 °C runs plate-warm → column-cold.
+**Caveat carried on the finest points.** They stopped at extent 33 rather than the targeted 32,
+so their physical measurement size is 7.70 µm against the registered 7.35 — 4.7% large. §3's
+cold trajectory rises about 0.01 per extent unit in that range, so the effect on the cold value
+is of order +0.01 and does not move any conclusion above.
 
 ---
 
@@ -291,10 +343,15 @@ boundary separates columns on the warm side from plates on the cold side. The mo
 
 - **The ρ_far equivariance fix is verified inert on 18 points**, bit-identical across the
   extent-15 domain ladder (10) and the timestep ladder (8, but for the one broken flag it
-  corrected). That is an A/B result and the count is not inflated by later runs. The grid ladder
-  (6), the extent-21 ladder (10) and the clearance probe (4) were not re-run against the
-  pre-fix code; they each reported `symErr = 0` with clean incremental deltas and stand on the
-  verified argument rather than on their own A/B.
+  corrected). That is an A/B result and the count is not inflated by later runs. The two grid
+  ladders (6 + 6), the extent-21 domain ladder (10) and the clearance probe (4) were not re-run
+  against the pre-fix code; they each reported `symErr = 0` with clean incremental deltas and
+  stand on the verified argument rather than on their own A/B.
+- **The registered grid-extrapolation operator is validated at exactly two conditions, and it
+  refuses one of them.** Nothing here establishes that the fitted order stays inside the
+  [0.7, 1.5] admission window elsewhere on the sweep grid, so every point must have its own order
+  fitted and may come back `not-extrapolatable`. The operator is not a licence to extrapolate
+  everywhere; it is a test each point has to pass.
 - **No cross-platform control has been run.** `Math.exp`/`log`/`pow` are not specified to be
   correctly rounded, so nothing here claims bitwise reproducibility off this host. The arm64
   control remains outstanding and every claim above is scoped to the registered x64 host.

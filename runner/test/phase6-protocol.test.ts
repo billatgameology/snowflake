@@ -38,6 +38,8 @@ import {
   PHASE6_SURFACE_POLICY,
   PHASE6_AMBIGUITY_HALF_WIDTH_C,
   PHASE6_NAKAYA_BOUNDARIES_C,
+  PHASE6_EXTRAPOLATION_ORDER_WINDOW,
+  phase6FitGridExtrapolation,
   PHASE6_HEADLINE_SCOPE_C,
   PHASE6_REFERENCE_REGIMES,
   phase6DetectFlips,
@@ -234,8 +236,15 @@ describe("the Phase 6 freeze list", () => {
     expect(scheme?.status).toBe("registered");
     // The unconverged grid is carried by reporting BOTH classes, not by widening a bar.
     expect(scheme?.value).toContain("classSurvivesGridExtrapolation");
-    expect(scheme?.value).toContain("TWICE");
     expect(scheme?.source).toContain("CLASS ROBUSTNESS");
+    // The headline must be the CONSERVATIVE INTERSECTION. Counting agreement twice and quoting
+    // the friendlier number is the failure mode a dual report invites.
+    expect(scheme?.value).toContain("CONSERVATIVE INTERSECTION");
+    expect(scheme?.value).toContain("BENEATH it, never as the top line");
+    expect(scheme?.value).toContain("not-extrapolatable");
+    const operator = PHASE6_FREEZE_LIST.find((i) => i.id === "grid-extrapolation-operator");
+    expect(operator?.status).toBe("registered");
+    expect(operator?.value).toContain(String(PHASE6_EXTRAPOLATION_ORDER_WINDOW.lowest));
     // The parameter-side uncertainties are swept, not folded in — they move the inputs, not
     // the measurement, so averaging them into one bar would hide a structural question.
     expect(scheme?.source).toContain("NOT folded in");
@@ -313,6 +322,49 @@ describe("the registered temperature axis", () => {
     expect(phase6DistanceToNearestBoundaryC(-15)).toBeCloseTo(5.1, 12);
     // Exactly on the band edge counts as ambiguous — the inclusive side is the cautious one.
     expect(phase6IsInAmbiguityBand(-9.9 - PHASE6_AMBIGUITY_HALF_WIDTH_C)).toBe(true);
+  });
+});
+
+describe("the grid-extrapolation operator (ADR 0026)", () => {
+  // The spacings and values WP3 §4.2 measured at the REGISTERED measurement extent.
+  const H = [0.7, 0.35, 0.2333333] as const;
+
+  it("reproduces the measured cold fit and admits it", () => {
+    const cold = phase6FitGridExtrapolation(H, [0.7246, 1.1053, 1.2222]);
+    expect(cold.fittedOrder).toBeCloseTo(1.142, 2);
+    expect(cold.admitted).toBe(true);
+    expect(cold.extrapolatedAR).toBeCloseTo(1.456, 3);
+    // The whole point of the cold result: it stays neutral in the grid limit.
+    expect(cold.extrapolatedAR as number).toBeLessThan(1.5);
+  });
+
+  it("REFUSES warm, because its extrapolated class depends on the assumed order", () => {
+    const warm = phase6FitGridExtrapolation(H, [0.3106, 0.3821, 0.4194]);
+    expect(warm.fittedOrder).toBeCloseTo(0.207, 2);
+    expect(warm.admitted).toBe(false);
+    expect(warm.extrapolatedAR).toBeNull();
+    expect(warm.reason).toContain("not-extrapolatable");
+    // Why refusing matters: at the fitted order the limit is 0.84 (neutral), at first order
+    // 0.49 (plate). Reporting either as "the extrapolated class" would be inventing a result.
+    const atFirstOrder = 0.4194 + (0.4194 - 0.3821) / (0.35 / 0.2333333 - 1);
+    expect(atFirstOrder).toBeLessThan(1 / 1.5); // plate
+    const atFitted = 0.4194 + (0.4194 - 0.3821) / (Math.pow(0.35 / 0.2333333, 0.207) - 1);
+    expect(atFitted).toBeGreaterThan(1 / 1.5); // neutral — a different class
+  });
+
+  it("fits the order rather than assuming it, which is what §4.1 got wrong", () => {
+    // A synthetic exactly-first-order sequence must fit p = 1 on these non-uniform ratios.
+    const exact = H.map((h) => 2 + 3 * h) as unknown as [number, number, number];
+    const fit = phase6FitGridExtrapolation(H, exact);
+    expect(fit.fittedOrder).toBeCloseTo(1, 2);
+    expect(fit.admitted).toBe(true);
+    expect(fit.extrapolatedAR as number).toBeCloseTo(2, 3); // recovers the true limit
+  });
+
+  it("rejects spacings that are not ordered coarsest to finest", () => {
+    expect(() => phase6FitGridExtrapolation([0.2333, 0.35, 0.7], [1, 2, 3])).toThrow(
+      /coarsest to finest/,
+    );
   });
 });
 
