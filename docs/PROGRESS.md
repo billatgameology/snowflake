@@ -1456,6 +1456,16 @@ Metal or claim general WebGPU portability. Preserve accepted evidence under `out
 raycast picking is deferred with named-probe `pickCell` as the floor; `growthPropensity` is
 refused by name in GPU pick readouts.
 
+**Maker-directed stretch register (2026-07-27):**
+[stretch-sharing-and-investigation.md](stretch-sharing-and-investigation.md) records the four
+candidate external-sharing items with literature-sweep novelty verdicts and the post-sweep
+own-investigation agenda. Non-binding; grants no evidence claims; all external contact is
+maker-gated. It surfaces one pre-sweep maker decision: three uncited Libbrecht papers
+(arXiv:2009.08404, 2306.13087, 2306.04042) print closed forms for curves the frozen parameter
+table records as figure-only digitizations — adopting them is an ADR-level table edit that is
+only cheap **before** the first sweep (§2.1 of that file; sweep-reported, not yet
+independently verified in-repo).
+
 **Phase 3 is COMPLETE — maker-asserted 2026-07-23 (ADRs 0007/0008), orchestrated per
 [phase-3-dev-visualization.md](plans/phase-3-dev-visualization.md)** — all work packages
 built, adversarially reviewed (R1: 2 rounds to CLEAN incl. one blocker; R2 and R3: CLEAN with
