@@ -38,9 +38,16 @@ import {
   PHASE6_SURFACE_POLICY,
   PHASE6_AMBIGUITY_HALF_WIDTH_C,
   PHASE6_NAKAYA_BOUNDARIES_C,
+  PHASE6_HEADLINE_SCOPE_C,
+  PHASE6_REFERENCE_REGIMES,
+  phase6DetectFlips,
+  phase6ReferenceRegime,
+  phase6RegimeBudget,
+  phase6ScoreHabit,
   PHASE6_PARAMETER_TABLE_SHA256,
   PHASE6_PROTOCOL_FREEZE_COMMIT,
   PHASE6_PROTOCOL_SHA256,
+  PHASE6_PROTOCOL_REVISIONS,
   phase6ProtocolProvenance,
   type Phase6FreezeItem,
   PHASE6_T_GRID,
@@ -78,6 +85,7 @@ describe("the Phase 6 freeze list", () => {
       "float-precision",
       "seed-ensemble-size",
       "code-version",
+      "agreement-scoring",
     ];
     const registered = PHASE6_FREEZE_LIST.map((item) => item.id);
     for (const id of required) expect(registered).toContain(id);
@@ -99,6 +107,25 @@ describe("the Phase 6 freeze list", () => {
     expect(canonicalJsonSha256(phase6ProtocolManifest())).toBe(PHASE6_PROTOCOL_SHA256);
     // The hash must not be inside the thing it hashes.
     expect(JSON.stringify(phase6ProtocolManifest())).not.toContain(PHASE6_PROTOCOL_SHA256);
+    // The current hash must be the newest registered revision, and the history must be kept:
+    // the freeze is amended through ADRs, never edited in place.
+    const revisions = PHASE6_PROTOCOL_REVISIONS;
+    expect(revisions[revisions.length - 1]?.sha256).toBe(PHASE6_PROTOCOL_SHA256);
+    expect(new Set(revisions.map((r) => r.sha256)).size).toBe(revisions.length);
+  });
+
+  it("hashes the SCORING rule, not only the grid", () => {
+    // Caught while amending: the ADR 0025 content was registered but absent from the manifest,
+    // so the protocol hash did not move when the accepted-class matrix was added. A hash that
+    // pins the grid while leaving the rule that turns runs into a verdict editable is worse
+    // than no hash, because it looks like protection.
+    const manifest = JSON.stringify(phase6ProtocolManifest());
+    expect(manifest).toContain("columns-and-plates");
+    expect(manifest).toContain("headlineScopeC");
+    const scoring = PHASE6_FREEZE_LIST.find((item) => item.id === "agreement-scoring");
+    expect(scoring?.status).toBe("registered");
+    expect(scoring?.value).toContain("neutral = DISAGREE");
+    expect(scoring?.value).toContain("EXCLUDED from the headline");
   });
 
   it("still refuses to produce a manifest if anything is pending", () => {
@@ -286,6 +313,118 @@ describe("the registered temperature axis", () => {
     expect(phase6DistanceToNearestBoundaryC(-15)).toBeCloseTo(5.1, 12);
     // Exactly on the band edge counts as ambiguous — the inclusive side is the cautious one.
     expect(phase6IsInAmbiguityBand(-9.9 - PHASE6_AMBIGUITY_HALF_WIDTH_C)).toBe(true);
+  });
+});
+
+describe("the agreement-scoring rule (ADR 0025)", () => {
+  it("maps every counting temperature onto exactly one reference regime", () => {
+    const budget = phase6RegimeBudget();
+    expect(budget.map((b) => b.regime)).toEqual([
+      "plates-warm",
+      "columns",
+      "plates-cold",
+      "columns-and-plates",
+    ]);
+    // The per-regime split must reconstruct the published 28/6 partition exactly, or the two
+    // registrations disagree about what the evidence budget is.
+    expect(budget.reduce((sum, b) => sum + b.counting.length, 0)).toBe(28);
+    expect(budget.reduce((sum, b) => sum + b.ambiguous.length, 0)).toBe(6);
+    expect(budget.map((b) => b.counting.length)).toEqual([1, 4, 10, 13]);
+  });
+
+  it("states the warmest regime's one-point limitation rather than hiding it", () => {
+    // Registered as a known weakness: with a single counting temperature this regime can only
+    // score 0% or 100%. Discovering that in the report would be far worse than declaring it.
+    const warm = phase6RegimeBudget().find((b) => b.regime === "plates-warm");
+    expect(warm?.counting).toEqual([-2]);
+  });
+
+  it("keeps the mixed cold regime OUT of the headline", () => {
+    // 'Columns and Plates' accepts both pure classes, so a model producing anything but neutral
+    // scores agreement almost for free — and those points are 46% of the counting budget.
+    const cold = phase6RegimeBudget().find((b) => b.regime === "columns-and-plates");
+    expect(cold?.inHeadline).toBe(false);
+    expect(cold?.counting.length).toBe(13);
+    expect(phase6ScoreHabit(-30, "plate")).toBe("agree");
+    expect(phase6ScoreHabit(-30, "column")).toBe("agree");
+    // Headline scope covers the three single-habit regimes only.
+    const headline = phase6RegimeBudget().filter((b) => b.inHeadline);
+    expect(headline.reduce((sum, b) => sum + b.counting.length, 0)).toBe(15);
+    expect(PHASE6_HEADLINE_SCOPE_C.coldestC).toBe(-21.5);
+  });
+
+  it("scores neutral as disagreement and invalid as a named exclusion", () => {
+    // The distinction that matters: the reference names a habit in every regime, so producing
+    // neither is a failure to reproduce, not an abstention. A model that never commits must not
+    // be able to report perfect agreement.
+    expect(phase6ScoreHabit(-15, "plate")).toBe("agree");
+    expect(phase6ScoreHabit(-15, "column")).toBe("disagree");
+    expect(phase6ScoreHabit(-15, "neutral")).toBe("disagree");
+    expect(phase6ScoreHabit(-6, "column")).toBe("agree");
+    expect(phase6ScoreHabit(-6, "plate")).toBe("disagree");
+    // Even in the permissive mixed regime, neutral is still a disagreement.
+    expect(phase6ScoreHabit(-30, "neutral")).toBe("disagree");
+    // A run that did not happen properly is not a statement about the model.
+    for (const tempC of [-2, -15, -30]) {
+      expect(phase6ScoreHabit(tempC, "invalid")).toBe("excluded");
+    }
+  });
+
+  it("puts the regime edges on the reference's own boundaries", () => {
+    expect(phase6ReferenceRegime(-2)).toBe("plates-warm");
+    expect(phase6ReferenceRegime(-3.3)).toBe("columns"); // cold edge is inclusive
+    expect(phase6ReferenceRegime(-9)).toBe("columns");
+    expect(phase6ReferenceRegime(-9.9)).toBe("plates-cold");
+    expect(phase6ReferenceRegime(-21.5)).toBe("columns-and-plates");
+    // The edges must BE the digitized boundaries, not copies that could drift from them.
+    for (const boundary of PHASE6_NAKAYA_BOUNDARIES_C) {
+      expect(PHASE6_REFERENCE_REGIMES.some((spec) => spec.colderBoundC === boundary)).toBe(true);
+    }
+    // Total and single-valued over the whole registered axis, with no gaps or overlaps.
+    for (const tempC of phase6TemperatureGrid()) {
+      const matches = PHASE6_REFERENCE_REGIMES.filter((spec) => {
+        const warmOk = spec.warmerBoundC === null || tempC <= spec.warmerBoundC;
+        const coldOk = spec.colderBoundC === null || tempC > spec.colderBoundC;
+        return warmOk && coldOk;
+      });
+      expect(matches, `T=${tempC}`).toHaveLength(1);
+    }
+  });
+
+  it("brackets a flip instead of pinpointing it, and neutrals widen the bracket", () => {
+    // Collapsing a flip to a midpoint would manufacture precision the grid does not have.
+    const flips = phase6DetectFlips([
+      { tempC: -5, modelClass: "plate" },
+      { tempC: -10, modelClass: "neutral" },
+      { tempC: -15, modelClass: "column" },
+    ]);
+    expect(flips).toHaveLength(1);
+    expect(flips[0]).toMatchObject({ warmerC: -5, colderC: -15, from: "plate", to: "column" });
+    expect(flips[0]?.widthC).toBe(10); // the neutral point widened it, as it should
+
+    // Adjacent pure classes give a tight bracket.
+    const tight = phase6DetectFlips([
+      { tempC: -9, modelClass: "plate" },
+      { tempC: -10, modelClass: "column" },
+    ]);
+    expect(tight[0]?.widthC).toBe(1);
+
+    // Order of the input must not matter — the scan is defined warm to cold.
+    expect(
+      phase6DetectFlips([
+        { tempC: -15, modelClass: "column" },
+        { tempC: -5, modelClass: "plate" },
+      ]),
+    ).toEqual(tight.length ? flips.slice(0, 1) : flips.slice(0, 1));
+
+    // No pure class change means no flip, however many neutrals are present.
+    expect(
+      phase6DetectFlips([
+        { tempC: -5, modelClass: "plate" },
+        { tempC: -15, modelClass: "neutral" },
+        { tempC: -25, modelClass: "plate" },
+      ]),
+    ).toHaveLength(0);
   });
 });
 

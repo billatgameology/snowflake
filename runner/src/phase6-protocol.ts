@@ -217,6 +217,190 @@ export function phase6TemperatureGrid(): readonly number[] {
 /** Registered as a number, now that the T grid is fixed: 0.5 + 1/2 = 1.0 °C. */
 export const PHASE6_AMBIGUITY_HALF_WIDTH_C = phase6AmbiguityHalfWidthC(PHASE6_T_GRID.spacingC);
 
+// ── Registered: how a model habit is scored against the reference (ADR 0025) ────────────────
+//
+// Registered BEFORE any sweep, because without it the mapping from model class onto reference
+// regime is an open degree of freedom that could be settled after seeing results — the exact
+// thing the freeze exists to prevent. The 2026-07-27 independent review found this gap.
+//
+// The reference's own top-row labels are already on the plate/column axis
+// ("Plates | Columns | Plates | Columns and Plates"), so collapsing morphology types onto that
+// axis is the figure's own framing rather than a reduction we impose: its dendrites and
+// sectored plates are plates by aspect ratio, its needles are columns.
+
+export type Phase6ReferenceRegime =
+  | "plates-warm"
+  | "columns"
+  | "plates-cold"
+  | "columns-and-plates";
+
+/** What the solver reports at a grid point. `invalid` is a run that did not happen properly. */
+export type Phase6ModelClass = "plate" | "column" | "neutral" | "invalid";
+
+/** `excluded` is named and published, never a silent drop. */
+export type Phase6Score = "agree" | "disagree" | "excluded";
+
+export interface Phase6RegimeSpec {
+  readonly regime: Phase6ReferenceRegime;
+  /** Regime holds `tempC <= warmerBoundC` (null = unbounded on the warm side). */
+  readonly warmerBoundC: number | null;
+  /** Regime holds `tempC > colderBoundC` (null = unbounded on the cold side). */
+  readonly colderBoundC: number | null;
+  /** Model classes the reference accepts here. */
+  readonly accepts: readonly Phase6ModelClass[];
+  /** Whether this regime contributes to the headline agreement claim. */
+  readonly inHeadline: boolean;
+}
+
+/**
+ * Half-open intervals `(colderBoundC, warmerBoundC]`, so a temperature exactly ON a digitized
+ * boundary belongs to the regime on its COLD side and every temperature lands in exactly one
+ * regime. The convention is arbitrary but must be fixed and stated: a boundary temperature is
+ * always inside the ambiguity band and so never scores either way, but a total function cannot
+ * be left ambiguous about it.
+ */
+export const PHASE6_REFERENCE_REGIMES: readonly Phase6RegimeSpec[] = [
+  { regime: "plates-warm", warmerBoundC: null, colderBoundC: -3.3, accepts: ["plate"], inHeadline: true },
+  { regime: "columns", warmerBoundC: -3.3, colderBoundC: -9.9, accepts: ["column"], inHeadline: true },
+  { regime: "plates-cold", warmerBoundC: -9.9, colderBoundC: -21.5, accepts: ["plate"], inHeadline: true },
+  {
+    regime: "columns-and-plates",
+    warmerBoundC: -21.5,
+    colderBoundC: null,
+    // The reference accepts BOTH pure classes here, which is why this regime is excluded from
+    // the headline — see PHASE6_HEADLINE_SCOPE_C.
+    accepts: ["plate", "column"],
+    inHeadline: false,
+  },
+];
+
+/** The reference regime containing a temperature. */
+export function phase6ReferenceRegime(tempC: number): Phase6ReferenceRegime {
+  for (const spec of PHASE6_REFERENCE_REGIMES) {
+    const warmOk = spec.warmerBoundC === null || tempC <= spec.warmerBoundC;
+    const coldOk = spec.colderBoundC === null || tempC > spec.colderBoundC;
+    if (warmOk && coldOk) return spec.regime;
+  }
+  throw new Error(`no reference regime contains T = ${String(tempC)} C`);
+}
+
+/**
+ * The headline falsification claim is restricted to −2…−21.5 °C, i.e. the three regimes that
+ * name a single habit. Two independent reasons, and the first is sufficient on its own:
+ *
+ * 1. **"Columns and Plates" accepts both pure classes**, so a model producing anything except
+ *    neutral scores agreement there almost for free. Those 13 temperatures are 46% of the
+ *    counting budget; folding them into one percentage would inflate it with near-free points.
+ *    Worse, that regime describes a POPULATION of natural free-falling crystals, while a grid
+ *    point here is one deterministic crystal — matching a mixed population with a single run is
+ *    ill-posed however the score is defined.
+ * 2. The coldest regime is reportedly disputed observationally (Bailey & Hallett 2009, via
+ *    `docs/stretch-sharing-and-investigation.md`). That source is SWEEP-REPORTED and NOT yet
+ *    verified in-repo, so it is recorded as corroboration only and carries no weight on its own.
+ *
+ * The cold regime is still swept and still reported — separately, with its own count.
+ */
+export const PHASE6_HEADLINE_SCOPE_C = { warmestC: -2, coldestC: -21.5 } as const;
+
+/**
+ * Score one grid point against the reference.
+ *
+ * **`neutral` scores DISAGREE, not abstention.** The reference names a habit in every regime;
+ * our 0.667–1.5 neutral band spans a factor 2.25 in aspect ratio and is ours, not the
+ * reference's. A model that produces neither habit has failed to reproduce the reference, and
+ * calling that an abstention would let a model that never commits report perfect agreement on a
+ * handful of points. The neutral count is published separately so a reader can always tell
+ * "wrong habit" from "no habit" — which is the distinction that matters scientifically.
+ *
+ * **`invalid` scores EXCLUDED and is named.** A run that tripped the domain-contact guard, broke
+ * symmetry, or failed to converge is not a statement about the model at all; it is a run that
+ * did not happen. The plan already requires such runs be excluded by name rather than dropped.
+ */
+export function phase6ScoreHabit(tempC: number, modelClass: Phase6ModelClass): Phase6Score {
+  if (modelClass === "invalid") return "excluded";
+  const regime = phase6ReferenceRegime(tempC);
+  const spec = PHASE6_REFERENCE_REGIMES.find((candidate) => candidate.regime === regime);
+  if (spec === undefined) throw new Error(`no spec for regime ${regime}`);
+  return spec.accepts.includes(modelClass) ? "agree" : "disagree";
+}
+
+export interface Phase6RegimeBudget {
+  readonly regime: Phase6ReferenceRegime;
+  readonly inHeadline: boolean;
+  readonly counting: readonly number[];
+  readonly ambiguous: readonly number[];
+}
+
+/**
+ * The per-regime evidence budget, published pre-sweep alongside the 28/6 split.
+ *
+ * It exposes a real limitation that must be stated here rather than discovered in the report:
+ * **the warmest Plates regime contains exactly ONE counting temperature (−2 °C)**, so that
+ * regime can only ever score 0% or 100% and carries essentially no statistical weight. It is not
+ * padded by extending the grid warmer: −1 °C is the only candidate, it sits where the unapplied
+ * latent-heating systematic is largest (chi_0 ~ 0.8, a ~1.8x correction to the driving
+ * supersaturation), and importing the worst systematic to buy one point is a bad trade.
+ */
+export function phase6RegimeBudget(): readonly Phase6RegimeBudget[] {
+  return PHASE6_REFERENCE_REGIMES.map((spec) => {
+    const inRegime = phase6TemperatureGrid().filter(
+      (tempC) => phase6ReferenceRegime(tempC) === spec.regime,
+    );
+    return {
+      regime: spec.regime,
+      inHeadline: spec.inHeadline,
+      counting: inRegime.filter((tempC) => !phase6IsInAmbiguityBand(tempC)),
+      ambiguous: inRegime.filter((tempC) => phase6IsInAmbiguityBand(tempC)),
+    };
+  });
+}
+
+export interface Phase6Flip {
+  /** Warm side of the bracketing interval. */
+  readonly warmerC: number;
+  /** Cold side of the bracketing interval. */
+  readonly colderC: number;
+  readonly from: "plate" | "column";
+  readonly to: "plate" | "column";
+  /** Width of the bracket in °C — the flip's location uncertainty. */
+  readonly widthC: number;
+}
+
+/**
+ * Where the MODEL changes habit, scanning warm to cold.
+ *
+ * A flip is BRACKETED, never pinpointed: it is reported as the interval between the last
+ * temperature of one pure class and the first temperature of the other, and `widthC` is that
+ * interval. Neutral and invalid points do not terminate a scan — they widen the bracket, which
+ * is the honest representation: a wide neutral span means the flip location is poorly located,
+ * and collapsing it to a midpoint would manufacture precision the data does not have.
+ *
+ * The count of flips is itself a first-class result. The reference has three; a single monotone
+ * sigma_0 crossing can produce at most one.
+ */
+export function phase6DetectFlips(
+  observations: readonly { readonly tempC: number; readonly modelClass: Phase6ModelClass }[],
+): readonly Phase6Flip[] {
+  const ordered = [...observations].sort((left, right) => right.tempC - left.tempC);
+  const flips: Phase6Flip[] = [];
+  let lastPure: { tempC: number; modelClass: "plate" | "column" } | null = null;
+  for (const observation of ordered) {
+    if (observation.modelClass !== "plate" && observation.modelClass !== "column") continue;
+    const pure = { tempC: observation.tempC, modelClass: observation.modelClass };
+    if (lastPure !== null && lastPure.modelClass !== pure.modelClass) {
+      flips.push({
+        warmerC: lastPure.tempC,
+        colderC: pure.tempC,
+        from: lastPure.modelClass,
+        to: pure.modelClass,
+        widthC: Math.abs(lastPure.tempC - pure.tempC),
+      });
+    }
+    lastPure = pure;
+  }
+  return flips;
+}
+
 // ── Registered: the supersaturation axis ────────────────────────────────────────────────────
 //
 // Water-relative fractions, not absolute sigma values, for the reason recorded above the Table
@@ -565,6 +749,26 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
       "honest answer is that the model produced neither habit",
   },
   {
+    id: "agreement-scoring",
+    group: "comparison-design",
+    status: "registered",
+    requirement:
+      "how a model habit class is scored against the reference regimes — the accepted-class " +
+      "matrix, the treatment of neutral and invalid, the flip predicate, and the headline scope",
+    value:
+      "Regimes (colderBound, warmerBound]: plates-warm accepts {plate}; columns accepts " +
+      "{column}; plates-cold accepts {plate}; columns-and-plates accepts {plate, column} and is " +
+      "EXCLUDED from the headline. neutral = DISAGREE (count published separately); invalid = " +
+      "EXCLUDED by name. Headline scope −2…−21.5 °C = 15 counting temperatures; the 13 colder " +
+      "counting temperatures are reported separately. Flips are bracketed intervals, never " +
+      "midpoints, and the flip COUNT is a first-class result. Per-regime budget 1/4/10/13",
+    source:
+      "ADR 0025, registered pre-sweep after the 2026-07-27 independent review found this hole " +
+      "in the WP0c freeze. Without it the mapping from model class onto reference regime was an " +
+      "open degree of freedom that could have been settled after seeing results — neutral in " +
+      "particular had no score at all, and WP3's cold discriminating point measures neutral",
+  },
+  {
     id: "uncertainty-reporting",
     group: "comparison-design",
     status: "registered",
@@ -895,6 +1099,11 @@ export function phase6ProtocolManifest(
     sigmaWaterAnchors: PHASE6_SIGMA_WATER_ANCHORS,
     nakayaBoundariesC: PHASE6_NAKAYA_BOUNDARIES_C,
     ambiguityHalfWidthC: PHASE6_AMBIGUITY_HALF_WIDTH_C,
+    // ADR 0025. These MUST be hashed: the accepted-class matrix is the scoring rule, and a
+    // protocol hash that did not move when it changed would be pinning the grid while leaving
+    // the thing that turns runs into a verdict free to be edited.
+    referenceRegimes: PHASE6_REFERENCE_REGIMES,
+    headlineScopeC: PHASE6_HEADLINE_SCOPE_C,
     engineControl: PHASE6_ENGINE_CONTROL,
     freezeList: items,
   };
@@ -910,7 +1119,21 @@ export function phase6ProtocolManifest(
  * sweep evidence under a protocol nobody agreed to.
  */
 export const PHASE6_PROTOCOL_SHA256 =
-  "9e49c2a8a811e9d62d383730878d125bad50c5e86b71a95d1aff64277e434547";
+  "0050040e961c0e08cbfb2f7fc035ded860308552630bf51240db2df4222c89ca";
+
+/**
+ * Protocol revisions, newest last. The freeze is AMENDED through ADRs, never edited in place,
+ * and every amendment before the first sweep is free — after it, the same change costs a full
+ * re-sweep.
+ *
+ * - `9e49c2a8…` — WP0c initial freeze at commit e2f1bfc (21 rows).
+ * - `0050040e…` — ADR 0025 adds the agreement-scoring rule (23 rows). Registered pre-sweep after
+ *   the 2026-07-27 independent review found the class-to-regime mapping unregistered.
+ */
+export const PHASE6_PROTOCOL_REVISIONS = [
+  { sha256: "9e49c2a8a811e9d62d383730878d125bad50c5e86b71a95d1aff64277e434547", note: "WP0c initial freeze" },
+  { sha256: "0050040e961c0e08cbfb2f7fc035ded860308552630bf51240db2df4222c89ca", note: "ADR 0025 agreement-scoring rule" },
+] as const;
 
 /**
  * Recompute the registered leave-one-out interpolation error from the LIVE solver, so the
