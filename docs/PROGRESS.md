@@ -1304,8 +1304,37 @@ evidence; neither may be relabelled as WP7's.
 > adopting a better target costs an ADR now and a full re-sweep later. This is the cheap moment.
 > Not acted on unilaterally — it changes the comparison target, which is a maker call.
 
-**Next action: WP2's sweep harness. The three pre-sweep BLOCKERS are closed (2026-07-27), the
-section-B/C items are closed, and no sweep has run.** An independent review on 2026-07-27 found three
+**Next action: the 204-point validation sweep is RUNNING (launched 2026-07-27 22:47 at
+`1366403`, protocol `9aa2e7c1`, concurrency 6, ~14 h). When it lands: read
+`out/phase6-sweep/report.json` and `diagram.svg`, then WP4's remaining solver work and WP5.**
+
+Everything gating it is closed. Sections B and C landed at `9a727db`: the stale comment claiming
+the sweep runs on the GPU, [ADR 0028](decisions/0028-parameter-table-erratum-exponent.md)'s
+exponent erratum in the frozen table (`3.7e−6 at alphaHK = 1e−8` → 3.7539e−8, verified against
+the live spherical reference), the over-claimed water-saturation cross-check, the
+measurement-extent systematic now carried **per point** as an `extent-fragile` flag at ±0.135,
+a real **pass criterion** for the domain spot-check, and the three code corners — one of which
+(`volumeRateM3PerS` surviving a timeline commit) was fixed rather than merely documented.
+
+**N3 checked and CONFORMS.** Libbrecht's correction to Kelly & Boyer requires relaxing the
+external field and the surface boundary values simultaneously and never inverting the attachment
+coefficient. Both hold: `solveAggregateBoundary` runs *inside* `sweep()` per boundary cell on
+every sweep, and the fixed point is forward — `sigma_b <- sigma_opp / (1 + alphaHK(sigma_b)·Δx/X_0)`,
+with `alphaHK` only ever *evaluated at* a supersaturation.
+
+**WP2 is built and running** (`7420701`, `ad5e8c0`, `7b99ab3`): a harness that decides nothing of
+its own, a preflight that refuses to produce evidence unless the freeze is complete, the manifest
+hashes to the pin, the freeze commit is an ancestor of HEAD and the tree is clean, and a
+self-contained SVG diagram carrying its own provenance.
+
+**WP4's cheap half is already done, and it is the sharpest result of the phase so far**
+(`aff4ca7`). At the edges of the ±25% digitization band the σ₀ crossing moves between **−6.90 °C
+and −22.89 °C** — a 16 °C span covering nearly the whole region between Nakaya's −3.3 and −21.5
+boundaries — so the crossing's **location carries no evidential weight at all**, and the nominal
+"within 0.1 °C of −9.9 °C" is a coincidence inside an uncertainty that spans the diagram. But the
+basal/prism ratio is **monotone** (12.50 at −2 °C → 0.52 at −40 °C), and scaling either curve by a
+constant cannot reorder a monotone function — so **the sense and the count are invariant across
+the entire band**. The falsifiable claim is therefore the sense and the count, never the location. An independent review on 2026-07-27 found three
 gaps that gated the first sweep; every checkable claim in it was verified against HEAD before
 acting, and all held.
 
