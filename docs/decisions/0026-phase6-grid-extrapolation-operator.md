@@ -2,8 +2,18 @@
 
 - **Date:** 2026-07-27
 - **Status:** accepted
-- **Charter impact:** none. Amends the WP0c protocol pre-sweep; `PHASE6_PROTOCOL_SHA256` moves
-  `0050040e` → `a9f0ad21`. No sweep has run, so nothing is invalidated.
+- **Charter impact:** none, and per Rule 5 here are the clauses that make it none. §3.2 Phase 6
+  item 1's freeze list ends with "…and the **uncertainty-reporting scheme**", and that scheme —
+  registered in WP0c — consumes a per-point grid-extrapolated class. This ADR supplies the
+  computation the scheme already depended on; it adds no obligation the charter did not already
+  impose. The cost clause is the same one:
+
+  > "Any post-freeze edit to parameters or protocol requires a logged ADR and invalidates prior
+  > sweep results — the full sweep re-runs."
+
+  This is that logged ADR; `PHASE6_PROTOCOL_SHA256` moves `0050040e` → `a9f0ad21`. **No sweep had
+  run at the time of writing**, so no results were invalidated. (Charter v1.17 subsequently added
+  this row to the §3.2 freeze list by name, via ADR 0027.)
 
 ## Context
 

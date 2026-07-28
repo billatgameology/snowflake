@@ -2,9 +2,16 @@
 
 - **Date:** 2026-07-27
 - **Status:** accepted
-- **Charter impact:** none. §3.2 Phase 6 item 1 requires that any post-freeze edit to the
-  parameter table go through a logged ADR and invalidate prior sweep results. This is that ADR.
-  **No sweep has run**, so nothing is invalidated and the edit is free.
+- **Charter impact:** none, and per Rule 5 here is the clause that makes it none. §3.2 Phase 6
+  item 1 says:
+
+  > "Any post-freeze edit to parameters or protocol requires a logged ADR and invalidates prior
+  > sweep results — the full sweep re-runs."
+
+  This is that logged ADR. The clause is satisfied rather than amended: it does not forbid the
+  edit, it prices it. **No sweep had run at the time of writing**, so the price was zero and no
+  results were invalidated. The same clause is why this correction could not be a silent edit,
+  however small — it is the mechanism, not an obstacle to route around.
 
 ## Context
 

@@ -2,10 +2,24 @@
 
 - **Date:** 2026-07-27
 - **Status:** accepted
-- **Charter impact:** none. Charter §3.2 Phase 6 item 1 requires the comparison design to be
-  frozen before the sweep; this fills a hole in that freeze rather than changing what it
-  requires. It amends the WP0c protocol (`8e48025`) pre-sweep, so `PHASE6_PROTOCOL_SHA256`
-  moves. No sweep has run, so nothing is invalidated.
+- **Charter impact:** none, and per Rule 5 here are the clauses that make it none. §3.2 Phase 6
+  item 1 requires:
+
+  > "Before the first validation sweep runs, freeze `docs/libbrecht-parameters.md` and a written
+  > validation protocol: the T/σ grid; … metric thresholds; … and the uncertainty-reporting
+  > scheme."
+
+  This ADR *fills* an omission in that list rather than changing what it demands — the list
+  already requires the comparison design be frozen pre-sweep, and the class-to-regime mapping was
+  simply missing from the protocol that claimed to implement it. The same clause governs the cost:
+
+  > "Any post-freeze edit to parameters or protocol requires a logged ADR and invalidates prior
+  > sweep results — the full sweep re-runs."
+
+  This is that logged ADR. It amends the WP0c protocol (`8e48025`) pre-sweep, so
+  `PHASE6_PROTOCOL_SHA256` moves. **No sweep had run at the time of writing**, so no results were
+  invalidated. (Charter v1.17 subsequently added this row to the §3.2 freeze list by name, via
+  ADR 0027.)
 
 ## Context
 
