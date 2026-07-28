@@ -902,6 +902,16 @@ immutable.
 ## Next step
 
 **Phases 2b, 3, 4, and 5 are complete. Phase 6 is next.**
+
+**Phase 7 scope is pre-solidified (2026-07-28, maker-directed): decision 0029 + charter
+v1.18.** Four view profiles (Realistic / Scientific / Designer / Developer) replace the
+Explore / Lab / Sculpt sketch; the snowcrystals.com footage (canonical example `J0521r2p`) is
+the named Realistic/Designer visual target; timeline ramps compile to staircases of
+decision-0011 events conditional on a step-halving convergence check; the Designer profile is
+an intent compiler over the Phase 6-produced morphology diagram (full inverse design rejected
+for v1). This changes no Phase 6 protocol, freeze row, or evidence claim, and Phase 7 still
+begins after Phase 6.
+
 **Phase 5 is COMPLETE — maker-asserted 2026-07-26.** All seven work packages closed with
 zero-finding independent review, the last of them on the canonical Windows/Chromium/D3D12
 evidence at `out/phase5/`: both frozen flagless commands exit 0 at exact clean commit
