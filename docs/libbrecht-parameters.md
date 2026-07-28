@@ -180,7 +180,11 @@ the printed form fails:
    the amplification is 1.18947162. The corrected bracket gives 1.18947162; the printed bracket
    gives 1.01965991.
 3. **A crystal that is not growing cannot be biased by the far boundary.** As `alphaHK → 0` the
-   corrected bias vanishes (3.7e−6 at `alphaHK = 1e−8`); the printed form instead tends to
+   corrected bias vanishes **linearly in `alphaHK`** — 3.7539e−6, 3.7539e−7 and 3.7539e−8 at
+   `alphaHK` = 1e−6, 1e−7 and 1e−8 respectively (ADR 0028 corrected an exponent mismatch here:
+   this line previously read "3.7e−6 at `alphaHK = 1e−8`", pairing the 1e−6 value with the 1e−8
+   argument. The linear vanishing, which is the whole argument, was and is unaffected); the
+   printed form instead tends to
    `[1 − R/R_far]^(−1) − 1`, about 22% at the test point, for a crystal with no flux at all.
 
 **What 3.36 buys, with the correction applied.** The bracket is the finite-shell bias in closed

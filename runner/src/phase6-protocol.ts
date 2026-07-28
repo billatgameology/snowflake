@@ -234,6 +234,62 @@ export const PHASE6_AMBIGUITY_HALF_WIDTH_C = phase6AmbiguityHalfWidthC(PHASE6_T_
 /** Fitted order must lie in this window for an extrapolation to be admitted. */
 export const PHASE6_EXTRAPOLATION_ORDER_WINDOW = { lowest: 0.7, highest: 1.5 } as const;
 
+/**
+ * The measurement-extent systematic, carried as a NAMED bound rather than folded away.
+ *
+ * WP3 §3 measured how far `AR` still drifts between the registered extent 21 and the
+ * value-converged extent 31: **cold +0.135** (1.1053 → 1.240) and warm about +0.04. The larger is
+ * registered as the bound. The drift is one-directional — a developing habit grows *more*
+ * extreme with size, never less — so it can only push a point UP across a class threshold.
+ *
+ * Carried this way because a per-point extent trajectory is unaffordable: it needs a run to
+ * extent 39 at every grid point, several times the cost of the sweep itself. What is affordable,
+ * and what is registered, is to flag every point sitting within the bound BELOW a threshold as
+ * `extent-fragile` — it might cross with further development, and the sweep cannot say whether
+ * it does.
+ */
+export const PHASE6_EXTENT_DRIFT_BOUND_AR = 0.135;
+
+/**
+ * True when a measured `AR` sits close enough below a class threshold that the registered
+ * extent drift could carry it across. Directional on purpose: drift raises `AR`, so a point just
+ * ABOVE a threshold is not at risk from it.
+ */
+export function phase6IsExtentFragile(aspectRatioValue: number): boolean {
+  for (const threshold of [1 / 1.5, 1.5]) {
+    if (aspectRatioValue < threshold && aspectRatioValue >= threshold - PHASE6_EXTENT_DRIFT_BOUND_AR) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * The domain spot-check the `domain-budgets` row requires at the sweep's fastest-growing point,
+ * with a PASS CRITERION rather than an unfalsifiable instruction to "spot-check".
+ *
+ * Two parts, both required:
+ *   - the habit CLASS must be identical at N = 48 and N = 64, and
+ *   - the attached count must agree within 0.5%.
+ *
+ * 0.5% is not arbitrary: it is the residual WP3 §1.2 measured at N = 40 — one full ladder step
+ * BELOW the registered domain — at the discriminating condition. A fastest-growing point that
+ * exceeds it at N = 48 is behaving worse than the calibration point did a step coarser, which is
+ * exactly the signal that the budget does not transfer across growth rate.
+ */
+export const PHASE6_DOMAIN_SPOT_CHECK = {
+  coarseN: 48,
+  fineN: 64,
+  requireIdenticalClass: true,
+  attachedCountTolerance: 0.005,
+  /**
+   * On failure the domain budget rises to N = 64 for the ENTIRE grid, not just the failing
+   * point. A per-point domain would make points incomparable with each other, which is the one
+   * thing a morphology diagram cannot survive.
+   */
+  onFailure: "raise the registered domain to N = 64 for the entire grid and re-run it",
+} as const;
+
 export interface Phase6GridExtrapolation {
   readonly fittedOrder: number;
   readonly admitted: boolean;
@@ -655,10 +711,15 @@ export function phase6SigmaWaterFromTable(tempC: number): number {
 // Phase 5 certified the float32 GPU port against the float64 CPU oracle under frozen
 // tolerances — but it certified it ON THE PHASE 5 FIXTURES, at their exact dims and
 // conditions. Phase 6 sweeps different temperatures, supersaturations and domains, so quoting
-// that certificate here would extend a measurement past where it was made. The sweep therefore
-// runs on the GPU (which is what makes hundreds of runs affordable at all) and carries its own
-// differential control: registered grid points re-run on the CPU oracle and must agree on the
-// habit classification, which is the only quantity the comparison actually consumes.
+// that certificate here would extend a measurement past where it was made.
+//
+// **The sweep runs on the float64 CPU oracle.** An earlier version of this comment said it runs
+// on the GPU "which is what makes hundreds of runs affordable at all" — that was written before
+// the GPU was measured, contradicted `sweepEngine` three lines below it, and is corrected here.
+// Measurement reversed it twice over: the GPU is ~6x SLOWER than the oracle at 28³, and it
+// cannot satisfy the frozen relative `divTol` at all in sustained runs because 1e-7 is below one
+// float32 epsilon. The GPU is a labelled diagnostic cross-check on registered points only, and
+// the quantity compared is the habit classification — the only thing the comparison consumes.
 //
 // A disagreement at a control point is a finding about float32 at sweep conditions, reported as
 // one — not a reason to quietly prefer whichever engine produced the nicer diagram.
@@ -708,7 +769,21 @@ export const PHASE6_ENGINE_CONTROL = {
  * run on. Normalizing makes the hash a statement about the physics, which is what it is for.
  */
 export const PHASE6_PARAMETER_TABLE_SHA256 =
-  "e572da78f9fe1b1178ef0fd83cf0d6de3ac698a7413342b1e1bb4e235f0d2ed3";
+  "276494f69682adb2b071c2e2683a98281aef17b3558b4efa6301ceaf11dfa741";
+
+/**
+ * Parameter-table revisions, newest last. Post-freeze edits go through an ADR and, once a sweep
+ * has run, cost a full re-sweep — so this list should stay very short.
+ *
+ * - `e572da78…` — WP0c initial freeze (commit 6d28623).
+ * - `276494f6…` — ADR 0028: exponent mismatch in the §1.1 Eq. 3.35 erratum check corrected
+ *   ("3.7e−6 at alphaHK = 1e−8" paired the 1e−6 value with the 1e−8 argument). Prose only; no
+ *   parameter value changed, and the erratum's argument is unaffected.
+ */
+export const PHASE6_PARAMETER_TABLE_REVISIONS = [
+  { sha256: "e572da78f9fe1b1178ef0fd83cf0d6de3ac698a7413342b1e1bb4e235f0d2ed3", note: "WP0c initial freeze" },
+  { sha256: "276494f69682adb2b071c2e2683a98281aef17b3558b4efa6301ceaf11dfa741", note: "ADR 0028 erratum-check exponent fix" },
+] as const;
 
 // ── Registered: the freeze commit ───────────────────────────────────────────────────────────
 
@@ -887,8 +962,10 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
       "the top line. Global qualifiers travel with every table: volume-like quantities are not " +
       "converged at the registered fill-CFL (+8.7%) or domain (+0.04%); latent heating is " +
       "carried and not applied; cross-platform reproducibility is unestablished until the arm64 " +
-      "control runs; quantitative AR at extent 21 carries residual drift toward its extent-31 " +
-      "value",
+      "control runs. The MEASUREMENT-EXTENT systematic is carried per point as well: any point " +
+      "whose measured AR sits within 0.135 BELOW a class threshold is flagged extent-fragile, " +
+      "because WP3 §3 measured that much residual upward drift between the registered extent 21 " +
+      "and the value-converged extent 31 and the drift is one-directional",
     source:
       "WP0c, from the systematics WP3 actually measured rather than a generic error budget. " +
       "The scheme is about CLASS ROBUSTNESS, not error bars on a ratio, because the class is " +
@@ -1029,9 +1106,13 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
       "criterion bounds the crystal in every direction (see habit-measurement-size). It does " +
       "NOT generalise across growth RATE: Eq. 5.30's correction scales with dV/dt, so the " +
       "sweep's fastest-growing point must be spot-checked against N = 64 rather than assumed " +
-      "covered. WP3 §1.3 also disproved ADR 0024's ratio-based validity limit, so this number " +
-      "may not be extrapolated to any other configuration — it must be re-measured if Δx, the " +
-      "measurement extent, or the far field changes",
+      "covered — and that spot-check now has a PASS CRITERION (PHASE6_DOMAIN_SPOT_CHECK): " +
+      "identical habit class at N = 48 and N = 64 AND attached counts within 0.5%, that 0.5% " +
+      "being the residual measured at N = 40, one ladder step below the registered domain. On " +
+      "failure the domain rises to N = 64 for the ENTIRE grid, because a per-point domain would " +
+      "make points incomparable. WP3 §1.3 also disproved ADR 0024's ratio-based validity limit, " +
+      "so this number may not be extrapolated to any other configuration — it must be " +
+      "re-measured if Δx, the measurement extent, or the far field changes",
   },
   {
     id: "dx",
@@ -1220,6 +1301,8 @@ export function phase6ProtocolManifest(
     referenceRegimes: PHASE6_REFERENCE_REGIMES,
     headlineScopeC: PHASE6_HEADLINE_SCOPE_C,
     extrapolationOrderWindow: PHASE6_EXTRAPOLATION_ORDER_WINDOW,
+    extentDriftBoundAR: PHASE6_EXTENT_DRIFT_BOUND_AR,
+    domainSpotCheck: PHASE6_DOMAIN_SPOT_CHECK,
     engineControl: PHASE6_ENGINE_CONTROL,
     freezeList: items,
   };
@@ -1235,7 +1318,7 @@ export function phase6ProtocolManifest(
  * sweep evidence under a protocol nobody agreed to.
  */
 export const PHASE6_PROTOCOL_SHA256 =
-  "f5350b85feb0ecefd5efc5bbe2cfc3ccaad3059c4c85c97e724adfe987485615";
+  "9aa2e7c148aad117ba9ab7313bb36c55d4de3fccc3fbda4c2e43cc2af4974983";
 
 /**
  * Protocol revisions, newest last. The freeze is AMENDED through ADRs, never edited in place,
@@ -1251,6 +1334,8 @@ export const PHASE6_PROTOCOL_REVISIONS = [
   { sha256: "0050040e961c0e08cbfb2f7fc035ded860308552630bf51240db2df4222c89ca", note: "ADR 0025 agreement-scoring rule" },
   { sha256: "a9f0ad210e4dc3f700270c7fd840384eb04b9bcc9d76a9907f269dccb06ebb07", note: "ADR 0026 grid-extrapolation operator; conservative-intersection headline" },
   { sha256: "f5350b85feb0ecefd5efc5bbe2cfc3ccaad3059c4c85c97e724adfe987485615", note: "ADR 0027 far-field row cites the amended charter v1.17, not the clause it replaced" },
+  { sha256: "df799560df21a12d3ec184942eee65f4b34f50c897f7ad73f259f572ebc8e6f0", note: "ADR 0028 parameter-table erratum; the manifest carries the table hash, so this hash moves with it" },
+  { sha256: "9aa2e7c148aad117ba9ab7313bb36c55d4de3fccc3fbda4c2e43cc2af4974983", note: "section-B systematics: extent-drift bound and the domain spot-check pass criterion" },
 ] as const;
 
 /**

@@ -91,9 +91,30 @@ tests our own reading of the axes against the source's own ink. Comparison quant
 `core/src/libbrecht.ts` (`sigmaWater`, `cSat`, `M_MOL`), converted to the figure's units by
 `excess [g/m³] = σ_water(T) · c_sat(T) · m_molecule · 1000`.
 
-**Peak position — agreement.** The digitized curve peaks at **T = −14.09 °C**; our computed
-curve peaks at **T = −14.35 °C**. Agreement to **0.26 °C** on a quantity the calibration never
-saw. This is what licenses using the boundary temperatures above.
+**Peak position — agreement, but it establishes less than it looks.** The digitized curve peaks
+at **T = −14.09 °C**; our computed curve peaks at **T = −14.35 °C**, agreeing to **0.26 °C** on a
+quantity the calibration never saw.
+
+> **Corrected 2026-07-27 (independent review).** This was originally read as validating the
+> temperature axis against physics. It does not, for two reasons measured since:
+>
+> 1. **The agreement is largely automatic.** The next subsection establishes that the figure is
+>    our curve times a *flat* 0.724 ± 0.030. A constant scale factor does not move a peak, so
+>    once the amplitude ratio is known to be flat, close peak positions follow arithmetically
+>    and carry almost no independent information. The residual 0.26 °C is what the ±0.030
+>    non-flatness buys, not an independent physical check.
+> 2. **Both curves are ~2 °C off the physical peak.** Murphy & Koop (2005) — the standard the
+>    solver does not use — puts the excess-vapour-density maximum at **−12.31 °C**, against our
+>    −14.35 °C and the figure's −14.09 °C. The figure and our function agree with *each other*
+>    while sharing a bias against the reference standard.
+>
+> **What the cross-check does establish** is transcription fidelity: the digitized curve is a
+> faithful, uniformly-scaled copy of the same functional form our code computes, so the axis
+> READING and the σ conversion are not garbled. That is a real and necessary result — it is what
+> rules out a digitization error being reported later as a disagreement about the model — and it
+> is what licenses using the boundary temperatures. It is not a validation of either curve
+> against physics, and the temperature axis's own independent check is the tick-spacing
+> measurement above, not this one.
 
 **Peak amplitude and scale — disagreement, and a constant one.** The digitized curve peaks at
 **0.142 g/m³** against our computed **0.192 g/m³**. Across −10 to −30 °C the ratio

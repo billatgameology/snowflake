@@ -39,6 +39,9 @@ import {
   PHASE6_AMBIGUITY_HALF_WIDTH_C,
   PHASE6_NAKAYA_BOUNDARIES_C,
   PHASE6_EXTRAPOLATION_ORDER_WINDOW,
+  PHASE6_EXTENT_DRIFT_BOUND_AR,
+  PHASE6_DOMAIN_SPOT_CHECK,
+  phase6IsExtentFragile,
   phase6FitGridExtrapolation,
   PHASE6_HEADLINE_SCOPE_C,
   PHASE6_REFERENCE_REGIMES,
@@ -250,9 +253,14 @@ describe("the Phase 6 freeze list", () => {
     expect(scheme?.source).toContain("NOT folded in");
     expect(scheme?.source).toContain("WP4");
     // The global qualifiers that must travel with every table.
-    for (const qualifier of ["8.7%", "latent heating", "arm64", "extent-31"]) {
+    for (const qualifier of ["8.7%", "latent heating", "arm64"]) {
       expect(scheme?.value, qualifier).toContain(qualifier);
     }
+    // The measurement-extent systematic is now carried PER POINT as a fragility flag, not only
+    // named as a global caveat — that is the section-B upgrade and it must not regress.
+    expect(scheme?.value).toContain("MEASUREMENT-EXTENT");
+    expect(scheme?.value).toContain("extent-fragile");
+    expect(scheme?.value).toContain(String(PHASE6_EXTENT_DRIFT_BOUND_AR));
   });
 
   it("registers the D6h-equivariant policy and departs from the runner default deliberately", () => {
@@ -365,6 +373,35 @@ describe("the grid-extrapolation operator (ADR 0026)", () => {
     expect(() => phase6FitGridExtrapolation([0.2333, 0.35, 0.7], [1, 2, 3])).toThrow(
       /coarsest to finest/,
     );
+  });
+});
+
+describe("the carried systematics", () => {
+  it("flags extent-fragile points below a threshold, and only below", () => {
+    // The drift is one-directional — a developing habit grows MORE extreme with size — so a
+    // point just above a threshold is not at risk from it and must not be flagged.
+    expect(PHASE6_EXTENT_DRIFT_BOUND_AR).toBe(0.135);
+    expect(phase6IsExtentFragile(0.6)).toBe(true); // 0.6 -> could reach 0.735, past 0.667
+    expect(phase6IsExtentFragile(0.5)).toBe(false); // too far below to reach it
+    expect(phase6IsExtentFragile(0.7)).toBe(false); // already above the plate ceiling
+    expect(phase6IsExtentFragile(1.4)).toBe(true); // could reach 1.535, past the column floor
+    expect(phase6IsExtentFragile(1.2)).toBe(false);
+    // WP3's own cold point at the registered extent must be measurably clear of the column
+    // floor under this bound, or the registered neutral call would itself be extent-fragile.
+    expect(phase6IsExtentFragile(1.1053)).toBe(false);
+  });
+
+  it("gives the domain spot-check a pass criterion instead of an instruction", () => {
+    // "Spot-check the fastest-growing point" is unfalsifiable without one.
+    expect(PHASE6_DOMAIN_SPOT_CHECK.coarseN).toBe(48);
+    expect(PHASE6_DOMAIN_SPOT_CHECK.fineN).toBe(64);
+    expect(PHASE6_DOMAIN_SPOT_CHECK.requireIdenticalClass).toBe(true);
+    // 0.5% is the residual measured one ladder step BELOW the registered domain, so exceeding
+    // it means the point behaves worse at N = 48 than the calibration did at N = 40.
+    expect(PHASE6_DOMAIN_SPOT_CHECK.attachedCountTolerance).toBe(0.005);
+    // Failure must raise the domain for the WHOLE grid; a per-point domain makes points
+    // incomparable, which a morphology diagram cannot survive.
+    expect(PHASE6_DOMAIN_SPOT_CHECK.onFailure).toContain("entire grid");
   });
 });
 

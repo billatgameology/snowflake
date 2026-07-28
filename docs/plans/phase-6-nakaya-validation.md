@@ -206,6 +206,27 @@ studies establish only that the solver agrees *with itself* under refinement. Th
 **absolute** accuracy anchor — the one control that can say the numbers are right rather than
 merely self-consistent. Under the operator's accuracy-first priority that is worth its cost.
 
+**Solver conformance to Libbrecht's correction of Kelly & Boyer — CHECKED 2026-07-27, conforms.**
+`docs/stretch-sharing-and-investigation.md` reports (sweep-reported, arXiv:2306.13087) that
+Libbrecht's technical correction requires two things: **relax the external field and the surface
+boundary values simultaneously**, and **never invert the attachment coefficient as a function of
+surface supersaturation**. Both were verified against `solver-cpu/src/lk-solver.ts` at HEAD:
+
+- **Simultaneous.** `solveAggregateBoundary` is called from inside `sweep()`, per boundary cell,
+  on *every* relaxation sweep — the surface values are re-solved together with the interior field
+  rather than computed once after the field has converged.
+- **Forward, never inverted.** The self-consistent pair is found by damped fixed-point iteration
+  in the forward direction, `sigma_b <- sigma_opp / (1 + alphaHK(sigma_b)·Δx/X_0)`. `alphaHK` is
+  always *evaluated at* a supersaturation; it is never solved backwards for the supersaturation
+  that would yield a target coefficient. The iteration is damped by 0.5, converges to 1e-13
+  relative, and is re-verified afterwards to 1e-9 with a throw on failure.
+
+Incidentally confirmed in the same read: the boundary replacement is deferred to a second pass
+over the boundary list, so an opposing pixel that is itself a boundary pixel cannot make the
+result depend on boundary-list order — a D6h-safety property in the same family as ADR 0023.
+
+No escalation needed; the aggregate `sigma_b` solve was simultaneous by design.
+
 **Cross-platform reproducibility is a registered control.** IEEE 754 makes `+ − × ÷ √`
 correctly rounded everywhere, but `Math.exp`, `Math.log` and `Math.pow` are not specified to be,
 and this solver depends on them throughout (`pSatIce`, the attachment coefficients, `v_kin`).

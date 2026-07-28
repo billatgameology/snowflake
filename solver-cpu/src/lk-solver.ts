@@ -889,6 +889,19 @@ export class LKSolver implements SurfaceOperator {
       this.boundarySigmaOpp.fill(0);
       this.lastRelaxation = null;
       this.lastMaxFillVelocityMS = 0;
+      // ADR 0024's monopole shell is set from the LAST completed interface update's dV/dt. Every
+      // other per-step quantity derived from that update is cleared above, and leaving this one
+      // behind would carry a growth rate measured under the OLD environment into the first
+      // relaxation under the new one — a stale correction at exactly the step where the
+      // environment changed. Zeroing it reproduces the run-start behaviour ADR 0024 already
+      // registers as correct: the shell sits at exactly `sigma_infinity` until growth has been
+      // measured, because the monopole correction cannot be known before any growth exists.
+      //
+      // No registered run reaches this line: timeline events are Phase 4, which ran reflecting
+      // and fixed-σ Dirichlet, and Phase 6 registers monopole-matched with no timeline events.
+      // The combination is unexercised rather than impossible, which is why it is fixed here
+      // rather than left to be discovered by the first run that combines them.
+      this.volumeRateM3PerS = 0;
       this.cycleState = "boundary";
       return report;
     } catch (error) {
@@ -1052,6 +1065,22 @@ export class LKSolver implements SurfaceOperator {
     const operands = this.canonicalOpposingOrder ? this.opposingOperands : null;
     let sum = 0;
     let count = 0;
+    // DOCUMENTED BEHAVIOUR, deliberately not changed: a direction contributes only when BOTH
+    // the attached neighbour and the cell opposite it are usable — in-domain (the index guards
+    // below) and not blocked (outside the hexPrism active domain). An attached direction whose
+    // opposite is unusable is therefore DROPPED from the mean rather than substituted, which
+    // lowers `count` and reweights the remaining operands.
+    //
+    // Reaching it requires a boundary cell adjacent to the domain wall or the hexPrism margin,
+    // i.e. a crystal that has grown into the boundary — which the 65% domain-contact guard
+    // already flags invalid, and charter §3.1 keeps out of validation results. So it is
+    // unreachable in any run whose evidence counts, and every registered Phase 6 run measures at
+    // extent 21 in a 48³ domain, far inside it.
+    //
+    // It is documented rather than repaired because any substitution rule (mirror the near
+    // value, use `sigma_infinity`, skip the cell entirely) would change the boundary operator
+    // and therefore every executed Phase 2b/4/5 checkpoint. That is ADR-level, and it would be
+    // spending a re-derivation of accepted evidence on a branch no valid run takes.
     const include = (attached: number, opposite: number): void => {
       if (this.a[attached] === 1 && this.blocked[opposite] === 0) {
         if (operands !== null) operands[count] = input[opposite];
@@ -1630,6 +1659,22 @@ export class LKSolver implements SurfaceOperator {
     // area sqrt(3)/2, with unit layer spacing. The monograph's G_1 = 2/sqrt(3) is the same
     // volume under its own convention, where Delta-x is the ROW spacing rather than the
     // nearest-neighbour distance; the two differ by that convention alone.
+    // REGISTERED APPROXIMATION: this is the Hertz-Knudsen KINETIC DEMAND summed over boundary
+    // pixels, which is not identical to the volume the crystal actually gains this step. Two
+    // known differences, both bounded and both in the same direction:
+    //
+    //   - Fill that would exceed a cell is clipped, and the excess is recorded as unapplied
+    //     saturation rather than deposited, so demand >= applied fill wherever clipping bites.
+    //   - Hole filling adds volume that no boundary pixel's kinetic rate accounts for, so the
+    //     applied volume can exceed demand where holes close.
+    //
+    // Eq. 5.31 defines dV/dt as the sum over surface boundary pixels of single-pixel volume per
+    // attachment time, i.e. the kinetic demand — so using demand is the transcription, not a
+    // shortcut. It is recorded here because the monopole shell's correction is proportional to
+    // it: a systematic error in dV/dt is a systematic error in the far-field value, and the
+    // reader should not have to derive that from the loop. The correction itself is small (the
+    // shell sits within ~1% of sigma_infinity at the registered domain), so a few percent on
+    // dV/dt is a few percent of that.
     let stagedVolumeRate = 0;
     if (this.farField === "monopole-matched") {
       let rateSum = 0;
