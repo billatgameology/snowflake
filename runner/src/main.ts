@@ -110,6 +110,7 @@ import {
   phase6LibmDigest,
   phase6LibmFingerprint,
 } from "./phase6-crossplatform.ts";
+import { phase6RenderDiagram } from "./phase6-diagram.ts";
 import {
   phase6Aggregate,
   phase6RunSweep,
@@ -1395,6 +1396,14 @@ if (command === "__gate2b-worker") {
   });
   const report = phase6Aggregate(scored, preflight.protocolSha256, preflight.head);
   writeFileSync(join(outDir, "report.json"), JSON.stringify(report, null, 1));
+  writeFileSync(
+    join(outDir, "diagram.svg"),
+    phase6RenderDiagram(
+      scored,
+      `protocol ${preflight.protocolSha256.slice(0, 12)} · head ${preflight.head.slice(0, 12)} · ` +
+        `node ${preflight.node} · ${plan.length} registered points`,
+    ),
+  );
   console.log("");
   console.log(
     `HEADLINE (measured class, ${report.headlineTotal} headline-scope points): ` +
