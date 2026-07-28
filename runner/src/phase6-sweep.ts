@@ -303,3 +303,126 @@ export function phase6DomainSpotCheckPasses(
 export function phase6GitHead(repoRoot: string = process.cwd()): string {
   return execFileSync("git", ["rev-parse", "HEAD"], { cwd: repoRoot, encoding: "utf8" }).trim();
 }
+
+/** Registered domain-contact guard: charter §3.1, 65% of any domain extent. */
+export const PHASE6_DOMAIN_CONTACT_FRACTION = 0.65;
+
+/**
+ * Parse one `grow-lk` stdout into a measured point. Returns null when the run produced no
+ * parseable summary at all, which the caller records as an excluded point rather than a zero.
+ */
+export function phase6ParseRun(
+  point: Phase6GridPoint,
+  stdout: string,
+  seconds: number,
+  domainN: number,
+): Phase6PointResult | null {
+  const tail = stdout.split("stop reason")[1];
+  if (tail === undefined) return null;
+  const num = (re: RegExp): number => {
+    const hit = re.exec(tail);
+    return hit === null ? Number.NaN : Number(hit[1]);
+  };
+  const largestExtent = num(/extent=(\d+)/);
+  const aspectRatioValue = num(/AR=([0-9.e+-]+)/);
+  if (!Number.isFinite(largestExtent) || !Number.isFinite(aspectRatioValue)) return null;
+  return {
+    tempC: point.tempC,
+    fraction: point.fraction,
+    sigmaInf: point.sigmaInf,
+    steps: num(/step=(\d+)/),
+    attached: num(/attached=(\d+)/),
+    aspectRatio: aspectRatioValue,
+    largestExtent,
+    symmetryError: num(/symErr=([0-9.e+-]+)/),
+    deltaSymClean: /deltaSymClean=true/.test(tail),
+    allConverged: /allConverged=true/.test(tail),
+    // Computed rather than parsed: the guard is a property of the geometry, and a run that
+    // reached it must be excluded whether or not the runner happened to print it.
+    domainContact: largestExtent / domainN > PHASE6_DOMAIN_CONTACT_FRACTION,
+    seconds,
+  };
+}
+
+export interface Phase6SweepProgress {
+  readonly done: number;
+  readonly total: number;
+  readonly scored: Phase6ScoredPoint;
+}
+
+/**
+ * Execute the registered grid, one child process per point, `concurrency` at a time.
+ *
+ * Independent processes rather than threads, the Phase 2b v5p pattern: a point that throws
+ * cannot corrupt another, and each carries its own memory. Wall seconds are recorded per point
+ * but are contended by construction and are NOT a cost measurement.
+ */
+export async function phase6RunSweep(options: {
+  readonly concurrency: number;
+  readonly repoRoot: string;
+  readonly onPoint?: (progress: Phase6SweepProgress) => void;
+  readonly points?: readonly Phase6GridPoint[];
+}): Promise<readonly Phase6ScoredPoint[]> {
+  const { execFile } = await import("node:child_process");
+  const queue = options.points ?? phase6SweepPlan();
+  const domainN = PHASE6_CROSSPLATFORM_FIXTURE.dims.nx;
+  const scored: Phase6ScoredPoint[] = [];
+  let next = 0;
+
+  const runOne = (point: Phase6GridPoint): Promise<Phase6ScoredPoint> =>
+    new Promise((resolve) => {
+      const started = Date.now();
+      execFile(
+        process.execPath,
+        [...phase6PointCommand(point)],
+        { cwd: options.repoRoot, encoding: "utf8", maxBuffer: 128 * 1024 * 1024 },
+        (error, stdout) => {
+          const seconds = (Date.now() - started) / 1000;
+          const parsed = phase6ParseRun(point, String(stdout ?? ""), seconds, domainN);
+          if (parsed === null) {
+            // A point that produced no summary is EXCLUDED BY NAME, never silently skipped and
+            // never scored as a habit. Encoded as an unconverged result so the single scoring
+            // path in phase6ScorePoint handles it.
+            resolve(
+              phase6ScorePoint(point, {
+                tempC: point.tempC,
+                fraction: point.fraction,
+                sigmaInf: point.sigmaInf,
+                steps: Number.NaN,
+                attached: Number.NaN,
+                aspectRatio: Number.NaN,
+                largestExtent: Number.NaN,
+                symmetryError: Number.NaN,
+                deltaSymClean: false,
+                allConverged: false,
+                domainContact: false,
+                seconds,
+              }),
+            );
+            return;
+          }
+          if (error !== null && error !== undefined) {
+            resolve(phase6ScorePoint(point, { ...parsed, allConverged: false }));
+            return;
+          }
+          resolve(phase6ScorePoint(point, parsed));
+        },
+      ).on("error", () => {
+        /* the callback above already resolves this point */
+      });
+    });
+
+  async function worker(): Promise<void> {
+    while (next < queue.length) {
+      const point = queue[next++] as Phase6GridPoint;
+      const result = await runOne(point);
+      scored.push(result);
+      options.onPoint?.({ done: scored.length, total: queue.length, scored: result });
+    }
+  }
+
+  await Promise.all(
+    Array.from({ length: Math.min(options.concurrency, queue.length) }, () => worker()),
+  );
+  return scored;
+}

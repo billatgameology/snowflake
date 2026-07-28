@@ -110,6 +110,12 @@ import {
   phase6LibmDigest,
   phase6LibmFingerprint,
 } from "./phase6-crossplatform.ts";
+import {
+  phase6Aggregate,
+  phase6RunSweep,
+  phase6SweepPlan,
+  phase6SweepPreflight,
+} from "./phase6-sweep.ts";
 
 interface GrowOptions {
   preset: GGPresetName;
@@ -1352,6 +1358,61 @@ if (command === "__gate2b-worker") {
     console.error("GATE5 EXIT STATUS: 1");
     process.exitCode = 1;
   }
+} else if (command === "phase6-sweep") {
+  const concurrency = rest.length === 0 ? 7 : Number(rest[0]);
+  if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 64) {
+    console.error("usage: node runner/src/main.ts phase6-sweep [concurrency]");
+    process.exit(2);
+  }
+  const preflight = phase6SweepPreflight(process.cwd());
+  console.log(`PHASE 6 SWEEP — protocol ${preflight.protocolSha256}`);
+  console.log(`head=${preflight.head} node=${preflight.node} v8=${preflight.v8}`);
+  if (!preflight.ok) {
+    console.error("PREFLIGHT FAILED — no sweep evidence may be produced:");
+    for (const failure of preflight.failures) console.error(`  - ${failure}`);
+    console.error("PHASE6 SWEEP EXIT STATUS: 2");
+    process.exit(2);
+  }
+  const plan = phase6SweepPlan();
+  console.log(`preflight OK; ${plan.length} registered grid points, concurrency ${concurrency}`);
+  const outDir = join(process.cwd(), "out", "phase6-sweep");
+  mkdirSync(outDir, { recursive: true });
+  const scored = await phase6RunSweep({
+    concurrency,
+    repoRoot: process.cwd(),
+    onPoint: ({ done, total, scored: point }) => {
+      console.log(
+        `[${String(done).padStart(3)}/${total}] T=${String(point.point.tempC).padStart(4)} ` +
+          `f=${point.point.fraction.toFixed(2)} ${point.modelClass.padEnd(8)} ` +
+          `${point.score.padEnd(9)} AR=${Number.isFinite(point.result.aspectRatio) ? point.result.aspectRatio.toFixed(4) : "n/a"} ` +
+          `${point.inHeadlineScope ? "headline" : "        "} ` +
+          `${point.extentFragile ? "extent-fragile" : ""}` +
+          `${point.exclusionReason === null ? "" : `EXCLUDED: ${point.exclusionReason}`} ` +
+          `| ${point.result.seconds.toFixed(1)}s`,
+      );
+      writeFileSync(join(outDir, "points.json"), JSON.stringify(scored, null, 1));
+    },
+  });
+  const report = phase6Aggregate(scored, preflight.protocolSha256, preflight.head);
+  writeFileSync(join(outDir, "report.json"), JSON.stringify(report, null, 1));
+  console.log("");
+  console.log(
+    `HEADLINE (measured class, ${report.headlineTotal} headline-scope points): ` +
+      `${report.headlineAgree} agree`,
+  );
+  console.log(
+    `beneath it — neutral ${report.neutralCount}, excluded ${report.excludedCount}, ` +
+      `extent-fragile ${report.extentFragileCount}`,
+  );
+  for (const tally of report.perRegime) {
+    console.log(
+      `  ${tally.regime.padEnd(20)} ${tally.inHeadline ? "headline" : "reported"} ` +
+        `agree=${tally.agree} disagree=${tally.disagree} excluded=${tally.excluded} ` +
+        `neutral=${tally.neutralCount}`,
+    );
+  }
+  console.log(`artifacts: ${outDir}`);
+  console.log("PHASE6 SWEEP EXIT STATUS: 0");
 } else if (command === "phase6-fixture") {
   if (rest.length > 0) {
     console.error(
@@ -1373,7 +1434,8 @@ if (command === "__gate2b-worker") {
       "       node runner/src/main.ts gate4\n" +
       "       node runner/src/main.ts gate5-lane\n" +
       "       node runner/src/main.ts gate5\n" +
-      "       node runner/src/main.ts phase6-fixture",
+      "       node runner/src/main.ts phase6-fixture\n" +
+      "       node runner/src/main.ts phase6-sweep [concurrency]",
   );
   process.exit(2);
 }
