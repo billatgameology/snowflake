@@ -2,9 +2,14 @@
 
 - **Date:** 2026-07-26
 - **Status:** accepted
-- **Charter impact:** none. §2.4 already requires every run to name its far-field condition and
-  forbids comparing results across conditions silently; this adds a third named condition and
-  changes no existing one. Phase 2b, 4 and 5 evidence keeps the condition that produced it.
+- **Charter impact:** ~~none.~~ **This assessment was WRONG and is corrected by
+  [ADR 0027](0027-charter-far-field-amendment.md), which amended the charter to v1.17.** It is
+  left visible rather than rewritten, because the error is part of the record and its shape is
+  instructive: §2.4 does require every run to name its far-field condition — but the *same
+  sentence* also mandated fixed-σ Dirichlet "for every Phase 6 validation run", so registering
+  monopole-matched contradicted the charter as written. The test for "charter impact" is whether
+  the charter as written would FORBID the change, not whether the ADR's author intended to touch
+  it. Phase 2b, 4 and 5 evidence keeps the condition that produced it.
 
 ## Context
 

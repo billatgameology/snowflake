@@ -55,8 +55,9 @@ Governing sources, in authority order:
 - **Charter** §1.5 (Evidence labels — only Phase 6 can grant "quantitatively validated over a
   named domain", and only where the comparison holds), §2.3 (the Nakaya diagram; "this diagram
   is v1's report card: the model does not need to reproduce it quantitatively, but it must be
-  able to move across it qualitatively"), §2.4 (fixed-σ Dirichlet far field **required for every
-  Phase 6 validation run**), §2.5 and §2.7 (provenance classes P1–P4; the in-sample/held-out
+  able to move across it qualitatively"), §2.4 (the far-field condition must be **named in the
+  frozen protocol**, and as of charter v1.17 the registered one is **monopole-matched** — the
+  v1.2 mandate of fixed-σ Dirichlet was superseded on measurement by ADRs 0024/0027), §2.5 and §2.7 (provenance classes P1–P4; the in-sample/held-out
   split), §3.1 (host; the 65% domain-contact guard is a collision heuristic, and flagged runs
   never enter validation results), §3.2 Phase 6 (items 1–7), §3.3 (standing guardrails).
 - **Decisions.** 0003 (Libbrecht kinetics make temperature a physical input, so Phase 6 is
@@ -225,7 +226,7 @@ and the freeze commit is an ancestor of every execution commit that follows.
 |---|---|
 | Comparison design | The T/σ grid; the crystal size at which habit is measured (habit is size-dependent, so a stated maximum dimension is what keeps comparisons apples-to-apples); metric thresholds; the uncertainty-reporting scheme |
 | Physics inputs | `docs/libbrecht-parameters.md` in full; pressure; the parameter interpolation scheme (an open P4 choice today — see Open questions); noise amplitude; physical seed size |
-| Boundary and domain | Fixed-σ Dirichlet far field (charter §2.4); domain budgets; Δx |
+| Boundary and domain | The named far-field condition — monopole-matched (charter §2.4 as amended v1.17, ADRs 0024/0027); domain budgets; Δx |
 | Surface operator | The named coupled `surfacePolicy` `aggregate-hv-g1h1-v4` (ADR 0009) |
 | Numerics | Fill-CFL bound; diffusion residual tolerance **and its norm**; the divergence-identity tolerance `divTol`; the relaxation-sweep cap `relaxMaxSweeps` (ADR 0006); float precision |
 | Statistics | Seed-ensemble size |

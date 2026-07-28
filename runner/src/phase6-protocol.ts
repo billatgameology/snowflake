@@ -1000,9 +1000,17 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
     id: "far-field",
     group: "boundary-and-domain",
     status: "registered",
-    requirement: "the far-field boundary condition (monopole-matched, per §2.4 and ADR 0024)",
+    requirement: "the far-field boundary condition (named per charter §2.4 as amended in v1.17)",
     value: PHASE6_FAR_FIELD,
-    source: "charter §2.4 — required for every Phase 6 validation run",
+    source:
+      "ADR 0024 on the measurement — a fixed-σ Dirichlet shell over-supplies vapor by an amount " +
+      "that GROWS with the crystal (~46% at 48³, ~160% at Phase 2b's own configuration), while " +
+      "monopole matching turns a measured 4.1% attached-count swing from domain size into 0.0% " +
+      "— and ADR 0027 for the authority, which amended charter §2.4 to v1.17. This row " +
+      "previously cited '§2.4 — required for every Phase 6 validation run', which was the clause " +
+      "MANDATING fixed-σ Dirichlet: it named the rule that forbade this condition as the " +
+      "authority for registering it. §2.4 now fixes the obligation (name it, freeze it, never " +
+      "compare across conditions silently) and leaves the choice to the per-sweep protocol",
   },
   {
     id: "domain-budgets",
@@ -1227,7 +1235,7 @@ export function phase6ProtocolManifest(
  * sweep evidence under a protocol nobody agreed to.
  */
 export const PHASE6_PROTOCOL_SHA256 =
-  "a9f0ad210e4dc3f700270c7fd840384eb04b9bcc9d76a9907f269dccb06ebb07";
+  "f5350b85feb0ecefd5efc5bbe2cfc3ccaad3059c4c85c97e724adfe987485615";
 
 /**
  * Protocol revisions, newest last. The freeze is AMENDED through ADRs, never edited in place,
@@ -1242,6 +1250,7 @@ export const PHASE6_PROTOCOL_REVISIONS = [
   { sha256: "9e49c2a8a811e9d62d383730878d125bad50c5e86b71a95d1aff64277e434547", note: "WP0c initial freeze" },
   { sha256: "0050040e961c0e08cbfb2f7fc035ded860308552630bf51240db2df4222c89ca", note: "ADR 0025 agreement-scoring rule" },
   { sha256: "a9f0ad210e4dc3f700270c7fd840384eb04b9bcc9d76a9907f269dccb06ebb07", note: "ADR 0026 grid-extrapolation operator; conservative-intersection headline" },
+  { sha256: "f5350b85feb0ecefd5efc5bbe2cfc3ccaad3059c4c85c97e724adfe987485615", note: "ADR 0027 far-field row cites the amended charter v1.17, not the clause it replaced" },
 ] as const;
 
 /**
