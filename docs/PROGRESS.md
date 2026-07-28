@@ -1273,8 +1273,39 @@ byte-identical) and the original directory renamed to `out/phase5-wp5-0a611e7-or
 before the WP7 run created a fresh `out/phase5/`. Both copies are the accepted `0a611e7` WP5
 evidence; neither may be relabelled as WP7's.
 
-**Next action: Phase 6 section-B items, then WP2's sweep harness. The three pre-sweep BLOCKERS
-are closed (2026-07-27) and no sweep has run.** An independent review on 2026-07-27 found three
+> ### MAKER DECISION, time-sensitive — a quantitative Nakaya diagram may exist
+>
+> Chasing the stretch register's N1 item (three uncited Libbrecht papers said to print closed
+> forms for our digitized curves) turned up something larger. **Verified directly against the
+> arXiv listing pages** — titles and abstracts only:
+>
+> | arXiv | title | bearing |
+> |---|---|---|
+> | **2306.13087** | *A Taxonomy of Snow Crystal Growth Behaviors: 2. **Quantifying the Nakaya Diagram*** | abstract states **206 growth observations as a function of temperature and supersaturation**, "to enable quantitative evaluation of computational models" |
+> | 2009.08404 | *…Comprehensive Model of Snow Crystal Growth: 8. Characterizing SDAK near −14 °C* | SDAK, P3 territory |
+> | 2306.04042 | *A Comprehensive Model of Snow Crystal Faceting* (Libbrecht & Walkling) | faceting at low σ, −15…0 °C |
+>
+> **What this means.** Phase 6 currently compares against a **redrawn 1954 schematic** whose
+> supersaturation axis WP1 measured as failing an independent check (a flat 0.724 of ours, 30–42%
+> below Murphy-Koop), which is why the σ values are not used as targets at all and only the three
+> boundary temperatures are. If 2306.13087 really is 206 measured (T, σ) → habit observations,
+> it is a **strictly better comparison target**: real data with real coordinates, and plausibly a
+> held-out one, rather than a schematic. That would touch WP1, the scoring rule (ADR 0025), and
+> the whole comparison design.
+>
+> **What I did NOT verify:** whether any of the three prints closed forms or tables for σ₀(T) and
+> A(T) — the abstracts do not say, and it needs the PDFs. The stretch register also attributes the
+> Kelly & Boyer relaxation correction to 2306.13087, whose abstract is about the quantitative
+> diagram; that attribution may be to a different paper in the series and is **unconfirmed**. The
+> N3 conformance check was done against the *stated requirement*, not against a verified citation,
+> and the solver conforms either way.
+>
+> **Why it is time-sensitive:** the protocol froze at `8e48025` and **no sweep has run**, so
+> adopting a better target costs an ADR now and a full re-sweep later. This is the cheap moment.
+> Not acted on unilaterally — it changes the comparison target, which is a maker call.
+
+**Next action: WP2's sweep harness. The three pre-sweep BLOCKERS are closed (2026-07-27), the
+section-B/C items are closed, and no sweep has run.** An independent review on 2026-07-27 found three
 gaps that gated the first sweep; every checkable claim in it was verified against HEAD before
 acting, and all held.
 
