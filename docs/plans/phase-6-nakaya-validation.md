@@ -467,6 +467,41 @@ The model's single crossing lands within 0.1 °C of a measured Nakaya boundary a
 2. **The sense at that one crossing is inverted.** This is the sharp claim WP4 must test, and
    it is registered here before the sweep so it cannot be discovered after the fact.
 
+**WP4 partial result (2026-07-27), and it separates the two claims sharply — no solver runs
+required.** The σ₀ crossing is where the two curves are equal, so scaling BOTH by the same factor
+cannot move it; only a differential can. Evaluating the registered curves at the ±25%
+digitization band's edges:
+
+| perturbation | basal/prism ratio at crossing | crossing |
+|---|---|---|
+| basal −25%, prism +25% | 1.667 | **−6.90 °C** |
+| basal nominal, prism +25% | 1.250 | −8.50 °C |
+| nominal | 1.000 | −10.00 °C |
+| basal +25%, prism nominal | 0.800 | −13.70 °C |
+| basal +25%, prism −25% | 0.600 | **−22.89 °C** |
+
+**The crossing LOCATION is not constrained by the data.** Within the band already registered on
+these anchors it can sit anywhere across a **16 °C span**, which covers essentially the whole
+region between Nakaya's −3.3 °C and −21.5 °C boundaries. So the observation that the nominal
+crossing lands within 0.1 °C of the −9.9 °C boundary is doubly worthless as evidence: it is
+in-sample (the plan already forbids presenting it as a prediction) **and** it is a coincidence
+inside an uncertainty that spans the diagram. Note too that the warm edge, −6.90 °C, sits right
+where 1910.09067's Fig. 4 independently puts the raw-measurement crossing (≈ −6 °C) — the two
+source estimates the plan requires probing separately are both *inside* the band.
+
+**The crossing SENSE is completely robust to the same band.** The basal/prism σ₀ ratio is
+monotone decreasing in temperature — 12.50 at −2 °C, 1.00 at −10 °C, 0.52 at −40 °C — so there is
+exactly one crossing at any scaling, and warmer of it prism always advances faster (plate) while
+colder basal always does (column). **Multiplying either curve by a constant cannot change a
+monotone function's ordering**, so no point in the ±25% band produces more than one crossing, and
+none produces plate-cold → column-warm.
+
+**Consequence for the report, registered here:** the falsifiable claim is the **sense and the
+count**, never the location. One monotone crossing cannot produce Nakaya's three transitions, and
+its sense is the reverse of the diagram's −9.9 °C boundary, at *every* point in the parameter
+band. That is what WP4 must test with runs; the location is not a testable quantity at this
+uncertainty and must not be reported as agreement or disagreement.
+
 Three things must be ruled out before this is asserted as a finding rather than an expectation,
 and WP4 owns all three. The digitization is **not** one of the loose ends: σ₀_prism at −15 °C
 carries an independent text-cited anchor ("σ₀ = 3 percent for a prism facet at −15 °C", printed
