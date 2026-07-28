@@ -348,6 +348,16 @@ export interface Phase6SweepProgress {
   readonly done: number;
   readonly total: number;
   readonly scored: Phase6ScoredPoint;
+  /**
+   * Every point finished so far, including this one.
+   *
+   * Passed in rather than left for the caller to accumulate, because the obvious way to
+   * accumulate — reading the binding that `await phase6RunSweep(...)` assigns — is a temporal
+   * dead zone error: the callback fires while that await is still pending. It threw on the first
+   * completed point of the first real sweep, after 814 seconds of compute. Handing the array to
+   * the callback removes the mistake rather than documenting it.
+   */
+  readonly accumulated: readonly Phase6ScoredPoint[];
 }
 
 /**
@@ -449,7 +459,12 @@ export async function phase6RunSweep(options: {
       const point = queue[next++] as Phase6GridPoint;
       const result = await runOne(point);
       scored.push(result);
-      options.onPoint?.({ done: scored.length, total: queue.length, scored: result });
+      options.onPoint?.({
+        done: scored.length,
+        total: queue.length,
+        scored: result,
+        accumulated: scored,
+      });
     }
   }
 

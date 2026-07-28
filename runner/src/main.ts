@@ -1381,7 +1381,9 @@ if (command === "__gate2b-worker") {
   const scored = await phase6RunSweep({
     concurrency,
     repoRoot: process.cwd(),
-    onPoint: ({ done, total, scored: point }) => {
+    // `accumulated` comes FROM the harness. Reading the binding this await assigns would be a
+    // temporal dead zone error, because the callback fires while the await is still pending.
+    onPoint: ({ done, total, scored: point, accumulated }) => {
       console.log(
         `[${String(done).padStart(3)}/${total}] T=${String(point.point.tempC).padStart(4)} ` +
           `f=${point.point.fraction.toFixed(2)} ${point.modelClass.padEnd(8)} ` +
@@ -1391,7 +1393,7 @@ if (command === "__gate2b-worker") {
           `${point.exclusionReason === null ? "" : `EXCLUDED: ${point.exclusionReason}`} ` +
           `| ${point.result.seconds.toFixed(1)}s`,
       );
-      writeFileSync(join(outDir, "points.json"), JSON.stringify(scored, null, 1));
+      writeFileSync(join(outDir, "points.json"), JSON.stringify(accumulated, null, 1));
     },
   });
   const report = phase6Aggregate(scored, preflight.protocolSha256, preflight.head);
