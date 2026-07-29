@@ -1,0 +1,1965 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where the Numbers Came From — Snow Crystals</title>
+<meta name="description" content="Every number in the model carries a stamp saying where it came from — and one of the stamps means &lsquo;read off a graph, plus or minus twenty-five percent&rsquo;.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 16 &middot; Where the numbers came from</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#four-stamps">Four kinds of number</a></li>
+      <li><a href="#tracer">Follow one number back to its page</a></li>
+      <li><a href="#digitize">Read it off the graph yourself</a></li>
+      <li><a href="#the-edge">A temperature the table cannot answer</a></li>
+      <li><a href="#empty-cell">The cell that stays empty</a></li>
+      <li><a href="#hundred">A factor of a hundred, hiding in an exponent</a></li>
+      <li><a href="#forbidden">The word you are not allowed to type</a></li>
+      <li><a href="#what-it-buys">What a stamp buys, and what it does not</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 16</p>
+        <h1>Where the numbers came from</h1>
+        <p class="chapter-header__question">
+          The model needs hundreds of numbers before it can grow anything. Where did each one
+          actually come from &mdash; and what happens to the ones nobody has ever measured?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~15 min read</span>
+          <span>5 interactive figures</span>
+          <span>Part VI &middot; What we tried to build</span>
+        </div>
+      </header>
+
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Sort a mixed pile of model inputs into <em>measured</em>, <em>fitted</em>,
+            <em>diagram&#8209;informed</em> and <em>numerical</em>.</li>
+          <li>Explain why a missing number has to stay missing rather than be estimated.</li>
+          <li>Tell an <em>independent</em> check apart from a <em>self&#8209;consistency</em> check &mdash;
+            and say why only the first one is worth much.</li>
+          <li>Say why a rule about <em>naming</em> can be a scientific safeguard, when the worst
+            failure mode is a believable wrong answer.</li>
+        </ul>
+      </section>
+
+      <!-- ================================================================ 1 -->
+      <h2 id="four-stamps">Four kinds of number</h2>
+
+      <p>
+        Chapter 15 gave you two labels for a number <em>on screen</em>: what it is, and what it has
+        earned. This chapter gives you four for a number <em>going in</em>. The two jobs are
+        different. Chapter 15 governed what the program is allowed to say about a quantity it has
+        computed. This one governs where a quantity came from before any of it ran.
+      </p>
+
+      <p>
+        Here is the awkward fact that makes this necessary. Open the file that carries the
+        model&rsquo;s physical inputs and you will find, in one table: the number of water molecules
+        in a cubic metre of ice, which is instrument data; a curve somebody fitted through a scatter
+        of measurements; a curve somebody drew <em>specifically so that the model would agree with
+        the Nakaya diagram</em>; and the rule for joining up dots on a graph, which is not physics at
+        all. Printed as digits they look identical. They are not the same kind of thing.
+      </p>
+
+      <p>
+        So the project&rsquo;s charter gives every solver input a <strong>provenance class</strong>,
+        and the class travels with the number permanently &mdash; into the parameter file, into the
+        code, into the test that checks the code, into the report at the end. The four classes are
+        quoted here exactly as <code>docs/libbrecht-parameters.md</code> states them, in the section
+        headed &ldquo;Provenance classes (decision 0005; charter &sect;2.7) &mdash; every entry
+        carries one&rdquo;.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The four provenance classes, quoted from <code>docs/libbrecht-parameters.md</code>,
+            with a real example of each from the same file.
+          </caption>
+          <thead>
+            <tr><th>Class</th><th>The project&rsquo;s own words</th><th>A real example from the table</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>P1</strong></td>
+              <td>&ldquo;measured broad&#8209;facet kinetics. Instrument data; record the stated uncertainty.&rdquo;</td>
+              <td>Ice number density, <em>c</em><sub>ice</sub> &asymp; 3.1 &times; 10<sup>28</sup> m<sup>&minus;3</sup></td>
+            </tr>
+            <tr>
+              <td><strong>P2</strong></td>
+              <td>&ldquo;fitted or inferred. Record the functional form and its stated domain of validity &mdash; extrapolating a fit outside its range silently manufactures a fake result. Figure digitizations land here, with the digitization uncertainty recorded.&rdquo;</td>
+              <td>The nucleation curves &sigma;<sub>0</sub>(<em>T</em>) and <em>A</em>(<em>T</em>) &mdash; read off a printed plot</td>
+            </tr>
+            <tr>
+              <td><strong>P3</strong></td>
+              <td>&ldquo;Nakaya&#8209;informed SDAK hypotheses. The narrow&#8209;facet dip locations/depths were chosen to impose agreement with the morphology diagram.&rdquo;</td>
+              <td>The two narrow&#8209;facet dips in &sigma;<sub>0</sub> &mdash; extracted, classified, and then deliberately left unwired</td>
+            </tr>
+            <tr>
+              <td><strong>P4</strong></td>
+              <td>&ldquo;numerical/discretization choices (interpolation schemes, resolutions, tolerances).&rdquo;</td>
+              <td>How the code joins up the dots between anchors &mdash; &ldquo;a P4 decision, not physics&rdquo;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Read the P2 line again, because it contains a sentence doing real work:
+        <em>extrapolating a fit outside its range silently manufactures a fake result</em>. That is
+        not a style preference. Later in this chapter you will make the model do exactly that, on
+        purpose, and watch what it produces.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          A model input is not a number. It is a number <em>plus a claim about where it came
+          from</em>, and it is the second half that decides what the model&rsquo;s output may be
+          used for.
+        </p>
+      </aside>
+
+      <!-- ================================================================ 2 -->
+      <h2 id="tracer">Follow one number back to its page</h2>
+
+      <p>
+        A class letter is cheap. What stops it being decoration is a rule at the top of the
+        parameter file, which reads, verbatim:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          <strong>No number enters this file without a citation</strong> &mdash; paper, section or
+          figure or table, and page. A parameter with no provenance is indistinguishable from a
+          parameter someone tuned until the picture looked right, and that is the exact failure
+          this project exists to avoid.
+        </p>
+      </blockquote>
+
+      <p>
+        That last clause is the whole argument. Handed a simulation and told it produces snow
+        crystals, you cannot tell from the output whether its constants were measured in a cold
+        chamber or nudged until the pictures looked convincing. Both make pretty crystals; only one
+        is evidence. A citation is not politeness towards the original author. It is the only thing
+        that makes the difference visible from outside.
+      </p>
+
+      <p>
+        Below, every quantity is a real entry from that file. Pick one and the panel unrolls its
+        chain. One of them is going to surprise you.
+      </p>
+
+      <figure class="anim" id="anim-tracer">
+        <div class="anim__head">
+          <p class="anim__title">Provenance tracer</p>
+          <p class="anim__sub">Eight real inputs. Choose one and follow it back to a page number.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Every entry is transcribed from
+          <code>docs/libbrecht-parameters.md</code> (sections 2, 3, 4.1 and 6) and
+          <code>core/src/libbrecht.ts</code>; page numbers are the ones that file records.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The surprise, if you found it, is <strong>&sigma;<sub>0</sub></strong> &mdash; the nucleation
+        parameter, which chapter 11 introduced as the reason a flat facet is reluctant to grow. It is
+        one of the two most important numbers in the whole model. And it was
+        <strong>read off a graph</strong>.
+      </p>
+
+      <p>
+        Not out of carelessness. Out of necessity. The parameter file states the situation plainly:
+        &ldquo;Neither the paper nor the monograph prints the fit formulas or a numeric table &mdash;
+        the curves exist only as plots. Documented gap.&rdquo; The values in the model are therefore
+        digitizations of monograph Figure 4.5 (printed p. 144 / pdf 145), taken from a 300&nbsp;dpi
+        render of the plot, with a declared uncertainty of <strong>&plusmn;25% relative on
+        &sigma;<sub>0</sub></strong> and <strong>&plusmn;0.03 absolute on <em>A</em></strong>. Class
+        P2, and the file adds: &ldquo;The figure is the authority; anyone can re-read it from
+        <code>research/1910.06389v2.pdf</code>.&rdquo;
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          The parameter file describes exactly how it read the plot: a 300&nbsp;dpi page render,
+          log&ndash;log axes, and &ldquo;gridline&#8209;anchored abscissae only&rdquo; &mdash; meaning
+          the horizontal positions were taken at printed gridlines rather than estimated between
+          them. (A <em>log&ndash;log</em> plot is one where both axes are stretched so each step
+          along them is a multiplication rather than an addition &mdash; 1, 10, 100 evenly spaced
+          instead of 1, 2, 3. It is the shape that turns curves spanning many powers of ten into
+          something you can actually read.) It also records what the source itself says about those
+          curves: they are
+          &ldquo;little more than parameterized fits to experimental data&rdquo; (monograph printed
+          p.&nbsp;145 / pdf 146). Even the original is a fit, not a measurement.
+        </p>
+      </aside>
+
+      <p>
+        Declaring this costs the project something. &ldquo;Read off a graph, &plusmn;25%&rdquo; is a
+        worse-sounding provenance than most published parameter tables admit to. It is also the
+        truth, and the alternative &mdash; printing 0.032 with no note attached &mdash; would make an
+        estimate look like a measurement.
+      </p>
+
+      <p>
+        The citation rule is enforced by more than good intentions. That parameter file is now
+        <strong>hash-frozen</strong>. A <em>hash</em> is a short fingerprint computed from every
+        character in a file &mdash; change one digit anywhere and the fingerprint comes out
+        completely different &mdash; and this file&rsquo;s is registered in
+        <code>runner/src/phase6-protocol.ts</code> and checked by a test, so &ldquo;an edit here
+        fails the suite rather than silently changing the physics under a completed sweep.&rdquo;
+        Corrections are still allowed, at a price the file prints: any change &ldquo;invalidates
+        every Phase 6 sweep result produced under the current protocol; the sweep re-runs in
+        full.&rdquo; The price is the point &mdash; &ldquo;it is what stops a parameter from being
+        adjusted after a disagreeing result is seen.&rdquo; Phase 6, the comparison that freeze
+        protects, is still in flight as this is written.
+      </p>
+
+      <!-- ================================================================ 3 -->
+      <h2 id="digitize">Read it off the graph yourself</h2>
+
+      <p>
+        &ldquo;Read off a graph&rdquo; probably sounds sloppy. Before you decide, try it.
+      </p>
+
+      <p>
+        Below is a blurred curve, deliberately degraded to feel like a printed plot at the wrong
+        zoom level. Your job is the one the project did: read nine values off it, at nine fixed
+        temperatures. The quantity is <em>A</em><sub>prism</sub> &mdash; a multiplier between 0 and
+        1 that caps how sticky a prism facet can ever be, no matter how much vapour is available.
+        It sits in front of the exponential in the attachment rule, which you will see in full under
+        &ldquo;A factor of a hundred, hiding in an exponent&rdquo;. Set the slider (or click the
+        plot), record, repeat. Then press <strong>Compare</strong>.
+      </p>
+
+      <p>
+        One difference from the project&rsquo;s own reading, and it matters three paragraphs from
+        now. The project read monograph Figure 4.5. The curve below is <em>not</em> that plot &mdash;
+        it is a closed-form equation for the same quantity, printed in a later Libbrecht paper that
+        nobody on the project had seen. You are digitizing the source the project was afterwards
+        checked against.
+      </p>
+
+      <figure class="anim" id="anim-digitize">
+        <div class="anim__head">
+          <p class="anim__title">Digitize it yourself</p>
+          <p class="anim__sub">Nine readings off a blurry curve. Then we reveal the equation nobody on the project had seen.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The hidden curve is
+          <code>A_prism = (0.4 + 0.04&middot;|T*&minus;4|&sup3;) / (2.2 + 0.04&middot;|T*&minus;4|&sup3;)</code>,
+          printed as Eq.&nbsp;(5) of arXiv:2009.08404v2 p.&nbsp;3 and quoted in
+          <code>research/libbrecht-figure-findings.md</code> &sect;2. The nine project anchors are
+          <code>A_PRISM_CAK</code> in <code>core/src/libbrecht.ts</code>.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Now the part that matters, and it is not about who scored better.
+      </p>
+
+      <p>
+        The nine anchors in the model were digitized on 2026&#8209;07&#8209;15. Nobody on the project
+        had the paper that prints the closed form. It turned up much later, and at the worst
+        possible moment: the rule file records that three uncited Libbrecht papers printing closed
+        forms for figure-digitized curves &ldquo;surfaced the day <em>after</em> the table&rsquo;s
+        hash-freeze, converting a free upgrade into an ADR-plus-re-freeze decision.&rdquo; That is
+        why <code>AGENTS.md</code> now carries a Rule 12 reading &ldquo;Check source currency before
+        any freeze&rdquo; &mdash; a rule written by getting it wrong first.
+      </p>
+
+      <p>
+        When the comparison was finally run, the digitized anchors reproduced the printed equation to
+        <strong>8.4% at worst and under 2% typically</strong>. The findings ledger states why that
+        is worth more than it sounds:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          An extraction that agrees with sources it had no access to is independently confirmed, not
+          merely self-consistent.
+        </p>
+      </blockquote>
+
+      <p>
+        That sentence is the distinction this chapter most wants you to keep. <strong>Self-consistent
+        </strong> means your two methods agree with each other &mdash; which they will, if they share
+        an assumption, a spreadsheet, or an author. <strong>Independently confirmed</strong> means
+        your method agrees with something it could not have peeked at. The digitizer could not have
+        peeked at Eq.&nbsp;(5), because nobody in the project had seen it. That is the entire
+        strength of the check, and it would have been destroyed had the papers arrived first.
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          This checks the <em>reading</em>, not the <em>physics</em>. It says the pixels were
+          converted into numbers faithfully. It says nothing whatever about whether the curve is
+          right about ice. Those are different claims, and the difference is exactly the
+          type&nbsp;&times;&nbsp;evidence split from chapter 15: the model was given a faithfully
+          transcribed fit, which is not the same as being given a correct description of nature.
+        </p>
+      </aside>
+
+      <!-- ================================================================ 4 -->
+      <h2 id="the-edge">A temperature the table cannot answer</h2>
+
+      <p>
+        Class P2 comes with an obligation attached: <em>record the functional form and its stated
+        domain of validity</em>. The digitized curve exists between (<em>T</em><sub>m</sub>&nbsp;&minus;&nbsp;<em>T</em>)
+        of 1 and 50&nbsp;&deg;C &mdash; that is, from &minus;1&nbsp;&deg;C to &minus;50&nbsp;&deg;C.
+        Outside that window there is no curve, because there is nothing on the plot to read.
+      </p>
+
+      <p>
+        Most code, asked for a value outside its data, quietly continues the line and hands back a
+        number. This code does not. Here is the guard from <code>core/src/libbrecht.ts</code>,
+        with the two array-bound expressions replaced by the values they hold and the split
+        message joined back up:
+      </p>
+
+      <div class="equation">
+        <p class="equation__math" style="font-family: var(--font-mono); font-size: 0.9rem; line-height: 1.6;">
+          throw new Error(<br>
+          &nbsp;&nbsp;`(Tm - T) = ${x} C is outside the digitized domain [1, 50]<br>
+          &nbsp;&nbsp;&mdash; extrapolation is banned (libbrecht-parameters.md)`<br>
+          );
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>throw</dt><dd>the program stops here. It does not return a value, it does not warn and continue, and no crystal is produced.</dd>
+            <dt>(Tm &minus; T)</dt><dd>how far below freezing the run asked for, in &deg;C &mdash; the horizontal axis of the digitized figure.</dd>
+            <dt>[1, 50]</dt><dd>the only interval the printed plot actually covers. In the file itself these two bounds are read out of the anchor list rather than typed as digits, so that the message can never disagree with the data.</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">core/src/libbrecht.ts, <code>interpIndex</code>; pinned by core/test/libbrecht.test.ts &mdash; &ldquo;throws outside the digitized domain instead of extrapolating&rdquo;</p>
+      </div>
+
+      <p>
+        Try to break it. The dial below runs past both ends of the digitized window. Inside, you get
+        numbers and a run. Outside, you get the message above and nothing else &mdash; unless you
+        switch the safeguard off, in which case the code will happily extrapolate and hand you a
+        confident, entirely manufactured answer.
+      </p>
+
+      <figure class="anim" id="anim-domain">
+        <div class="anim__head">
+          <p class="anim__title">Ask for a temperature the table cannot answer</p>
+          <p class="anim__sub">Drag past &minus;1&nbsp;&deg;C or past &minus;50&nbsp;&deg;C. Then turn the safeguard off and see what the alternative looks like.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The curves, anchors and interpolation are a
+          direct re-implementation of <code>X_ANCHORS</code>, <code>SIGMA0_BASAL</code>,
+          <code>SIGMA0_PRISM</code> and <code>interpLogLog</code> in
+          <code>core/src/libbrecht.ts</code>; the error text is that file&rsquo;s own.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Notice what the naive answer looks like. It is not obviously wrong. It has the right number
+        of digits, it sits on a smooth continuation of a real curve, and it would flow into the
+        solver and produce a perfectly presentable crystal. That is the danger: an extrapolated
+        parameter does not announce itself downstream.
+      </p>
+
+      <p>
+        The ban costs the project a result it would have liked. The Nakaya diagram runs all the way
+        to 0&nbsp;&deg;C. The parameter file therefore records a hard consequence: &ldquo;the warmest
+        temperature Phase 6 may sweep is <strong>&minus;1&nbsp;&deg;C</strong>, and the coldest is
+        <strong>&minus;50&nbsp;&deg;C</strong>. Any comparison against the diagram&rsquo;s 0 to
+        &minus;1&nbsp;&deg;C strip is outside the digitized domain and is not made.&rdquo; The model
+        declines to sit an exam question it cannot honestly answer.
+      </p>
+
+      <p>
+        The <em>inside</em> of that window is where class P4 earns its keep. The file registers the
+        exact rule for joining up the nine dots: log&ndash;log linear for &sigma;<sub>0</sub>, plain
+        linear for <em>A</em><sub>prism</sub> (which dips and touches 1, so a log scheme would be
+        wrong for it), and extrapolation banned.
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          The justification for that scheme was wrong once, and the file says so in its own margin.
+          It used to claim the curves are &ldquo;near-straight on the log&ndash;log plot above
+          (T<sub>m</sub>&minus;T) &asymp; 3&rdquo;. They are not. Measure the steepness in small
+          pieces along the curve and it keeps changing &mdash; 0.22 at one end to 1.62 at the other
+          on basal, 2.26 to 1.76 on prism &mdash; and forcing one straight line through everything
+          from (T<sub>m</sub>&minus;T) = 3 outwards leaves a leftover error of 21% (basal) and 23.8%
+          (prism). The replacement justification is measured rather than asserted: drop each interior
+          anchor, rebuild it from its two neighbours, and see how far off you land. The worst case
+          sits comfortably inside the &plusmn;25% band the anchors already carry &mdash; the
+          interpolation entry in the tracer above carries the two figures &mdash; and
+          <code>runner/test/phase6-protocol.test.ts</code> recomputes them from the live solver every
+          time the suite runs, &ldquo;so this justification cannot drift away from the code it
+          describes.&rdquo;
+        </p>
+      </aside>
+
+      <!-- ================================================================ 5 -->
+      <h2 id="empty-cell">The cell that stays empty</h2>
+
+      <p>
+        That guard refuses to invent a number past the edge of a plot. Here is the same refusal one
+        step earlier: what do you do about a number that nobody has published <em>at all</em>?
+      </p>
+
+      <p>
+        The model needs <em>D</em>, the diffusivity of water vapour in air &mdash; how fast vapour
+        spreads out. Part One&rsquo;s whole story about the runaway bump depends on it. The sources
+        give a value at one atmosphere (&asymp;&nbsp;2&nbsp;&times;&nbsp;10<sup>&minus;5</sup>
+        m<sup>2</sup>/s, monograph Appendix A) and they give how it changes with pressure
+        (<em>D</em>&nbsp;&sim;&nbsp;<em>P</em><sup>&minus;1</sup>, printed p.&nbsp;65 / pdf 66). How
+        it changes with <strong>temperature</strong> &mdash; which is the axis this entire project is
+        built to sweep &mdash; is not printed anywhere in either source.
+      </p>
+
+      <p>
+        There is a standard-looking formula in the wider atmospheric literature. It would have been
+        easy to type it in. The row in the parameter table instead reads, in full:
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            Section 6 of <code>docs/libbrecht-parameters.md</code>, reproduced. The third row is the
+            point.
+          </caption>
+          <thead>
+            <tr><th>What the source states</th><th>Value</th><th>Citation</th><th>Class</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Diffusivity in air</td><td><code>D_air &asymp; 2 &times; 10<sup>&minus;5</sup> m&sup2;/s</code></td><td>monograph Appendix A, printed p. 500 / pdf 501</td><td>P1</td></tr>
+            <tr><td>Pressure dependence</td><td><code>D &sim; P<sup>&minus;1</sup></code></td><td>monograph printed p. 65 / pdf 66</td><td>P1</td></tr>
+            <tr><td>Temperature dependence</td><td><strong>NOT GIVEN &mdash; GAP.</strong></td><td>&mdash;</td><td>&mdash;</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        The rule that produced that row is the second half of the file&rsquo;s opening rule, and it
+        is worth reading slowly: &ldquo;<strong>No number is guessed, interpolated, or recalled from
+        memory.</strong> If a value is not in the source, the cell stays empty and the gap is stated.
+        An empty cell is a research task; a wrong cell is a physics bug that will be discovered three
+        phases later, if ever.&rdquo;
+      </p>
+
+      <p>
+        What happened next is the part worth copying. Rather than fill the gap, the project went
+        looking for what the source&rsquo;s <em>own</em> numbers implied. The monograph prints a
+        working table (Table 2.1) that includes a length called <em>X</em><sub>0</sub>, from which
+        <em>D</em> can be back-computed. Doing that at two very different temperatures gives
+        <em>D</em> &asymp; 2.02 &times; 10<sup>&minus;5</sup> m<sup>2</sup>/s at
+        <strong>both</strong> &minus;15&nbsp;&deg;C and &minus;40&nbsp;&deg;C. In other words, the
+        monograph&rsquo;s own working table treats <em>D</em> as temperature-independent at one
+        atmosphere. So the solver does the same, and says so &mdash; and the file adds a standing
+        instruction: &ldquo;anyone tempted to import a <code>T^1.94</code>-style law from other
+        literature must cite it and log the change here.&rdquo;
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          This is a gap, not a solution. The file says where it bites and where it does not:
+          &ldquo;This matters most for Phase 6 temperature sweeps; at fixed <em>T</em> &hellip; it
+          does not bite at all.&rdquo; A sweep across temperature is precisely the thing the project
+          is building towards, so this empty cell is a live weakness sitting in plain sight rather
+          than a closed question.
+        </p>
+      </aside>
+
+      <!-- ================================================================ 6 -->
+      <h2 id="hundred">A factor of a hundred, hiding in an exponent</h2>
+
+      <p>
+        Here is the single easiest way to destroy this model while every number on screen still looks
+        reasonable.
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          &alpha;<sub>HK</sub> = <em>A</em> &middot; exp(&minus;&sigma;<sub>0</sub> / &sigma;<sub>surf</sub>)
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>&alpha;<sub>HK</sub></dt><dd>the attachment coefficient &mdash; Part One&rsquo;s &ldquo;stickiness&rdquo;. The fraction of vapour molecules that arrive at the surface and actually stay. Between 0 and 1.</dd>
+            <dt><em>A</em></dt><dd>a prefactor for that facet, read off the same figure; between 0 and 1.</dd>
+            <dt>&sigma;<sub>0</sub></dt><dd>the nucleation parameter &mdash; how much spare vapour a flat facet needs before a new layer can get started.</dd>
+            <dt>&sigma;<sub>surf</sub></dt><dd>the supersaturation right at the crystal surface, as the solver computes it there and then.</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">Libbrecht, arXiv:1910.09067 Eq. 3, p. 4 &mdash; as recorded in docs/libbrecht-parameters.md &sect;1</p>
+      </div>
+
+      <p>
+        Both &sigma;<sub>0</sub> and &sigma;<sub>surf</sub> are ratios. You may write a ratio as a
+        fraction (0.032) or as a percentage (3.2%). Libbrecht&rsquo;s plots and text mostly use
+        percent. The code uses fractions. And the two quantities sit on top of each other inside an
+        exponential, so getting one of them in the wrong unit does not shift an answer by a bit
+        &mdash; it multiplies the exponent by a hundred.
+      </p>
+
+      <p>
+        Put numbers on it. At &minus;15&nbsp;&deg;C the model&rsquo;s prism &sigma;<sub>0</sub> is
+        0.032. With &sigma;<sub>surf</sub> = 0.01, the exponential is exp(&minus;3.2)
+        &asymp;&nbsp;0.041 &mdash; a slow but real growth rate. Read &ldquo;3.2 percent&rdquo; as if
+        it were the fraction 3.2, and you get exp(&minus;320), which is about
+        1&nbsp;&times;&nbsp;10<sup>&minus;139</sup>. The prism facet simply stops existing as a
+        growing surface. Neither 3.2
+        nor 0.032 looks wrong on its own. The parameter file calls this out in its canonical-units
+        section as &ldquo;the single easiest way to destroy the model while every individual number
+        &lsquo;looks right.&rsquo;&rdquo;
+      </p>
+
+      <p>
+        So the file adopts one canonical unit &mdash; every supersaturation is a dimensionless
+        fraction &mdash; and then does something slightly obsessive: <strong>every entry records the
+        raw cited value in its raw units <em>and</em> the converted fraction</strong>, side by side.
+        The conversion happens once, in public, at the point of extraction, where a reader with the
+        paper open can check it.
+      </p>
+
+      <p>
+        That is the theory. In practice somebody still has to copy several hundred numbers out of a
+        book without slipping. Try being that somebody.
+      </p>
+
+      <figure class="anim" id="anim-transcribe">
+        <div class="anim__head">
+          <p class="anim__title">Spot the transcription error</p>
+          <p class="anim__sub">One of the typed cells is wrong. Find it by eye. Then run the checks.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The values are the Branch&nbsp;1 anchor table
+          of <code>docs/libbrecht-parameters.md</code> &sect;3, re-typeset here (Part Two carries no
+          page images). One of the three planted errors &mdash; <em>A</em><sub>prism</sub> = 0.95 at
+          (T<sub>m</sub>&minus;T) = 10 &mdash; is the project&rsquo;s own, corrected in round&#8209;2
+          review; see the comment above <code>A_PRISM_CAK</code> in
+          <code>core/src/libbrecht.ts</code>.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The lesson is not &ldquo;look harder&rdquo;. It is that careful reading is a poor instrument
+        and a written check is a good one, and that the check keeps working after the person who
+        wrote it has stopped paying attention.
+      </p>
+
+      <p>
+        Checks of exactly this shape are real, and two of them are recorded in the findings ledger as
+        entry <strong>A4</strong>, the &ldquo;transcription-fidelity floor&rdquo;. The first: the
+        monograph&rsquo;s Table 2.1 &mdash; which is an embedded <em>image</em> in the PDF, so it
+        cannot be copied and must be typed &mdash; was verified cell by cell against the page render.
+        The second is better. The table&rsquo;s water-saturation column was checked against Murphy
+        &amp; Koop (2005), a completely separate published formula that
+        <em>the solver does not use anywhere</em>.
+        The test that pins it records the outcome in its own comment: &ldquo;Measured worst deviation
+        is 1.78%, at the -1 C anchor; every anchor from -5 C to -40 C agrees to within 0.5%.&rdquo;
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          None of this is the model reproducing nature, and the ledger refuses to let it be read that
+          way. Entry A4 ends: &ldquo;Not lab-data reproduction &mdash; recorded here as the fidelity
+          baseline the A-class entries stand on.&rdquo; Copying a table correctly is the floor, not
+          the achievement. It is worth stating only because every later claim would be worthless
+          without it.
+        </p>
+      </aside>
+
+      <!-- ================================================================ 7 -->
+      <h2 id="forbidden">The word you are not allowed to type</h2>
+
+      <p>
+        There is one more way for a number to go wrong, and it is the strangest safeguard in the
+        project.
+      </p>
+
+      <p>
+        This solver has two ancestors. From Libbrecht it takes the <strong>attachment
+        coefficient</strong> &mdash; the stickiness &alpha;<sub>HK</sub> in the equation above,
+        dimensionless, between 0 and 1. From Gravner and Griffeath it takes an <strong>attachment
+        threshold</strong> &mdash; a completely unrelated quantity, a cutoff on how much vapour must
+        be sitting next to a site before it freezes, indexed by how many neighbours it has. The two
+        have nothing to do with each other. They are measured in different things. They mean
+        different things.
+      </p>
+
+      <p>
+        By convention, both are written &alpha;.
+      </p>
+
+      <p>
+        Chapter 15 showed one collision of this kind in the display layer, where two different
+        quantities were both about to be drawn as blue cells. This one is worse, because it is not
+        in the display layer. It is in the arithmetic.
+      </p>
+
+      <p>
+        The two quantities appear <em>in the same update step of the same solver</em>. The project&rsquo;s rule
+        file states the consequence in a sentence that could stand as the thesis of this whole
+        section:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          A model that conflates them will produce plausible-looking crystals for the wrong reasons
+          &mdash; which is the worst available outcome for a project whose stated identity is
+          epistemic honesty.
+        </p>
+      </blockquote>
+
+      <p>
+        Read that carefully. The bad outcome is not a crash. A crash is a gift; you notice it. The
+        bad outcome is a <em>beautiful crystal</em> that means nothing, because two different
+        quantities got swapped somewhere inside a loop and the picture came out pretty anyway.
+      </p>
+
+      <p>
+        So the bare word is banned from the entire repository. Not discouraged &mdash; banned, and
+        checked by a program. Every use has to say which one it is:
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>The substitution table, from <code>AGENTS.md</code> Rule 7.</caption>
+          <thead>
+            <tr><th>Write this</th><th>Never this</th><th>Meaning</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>alphaHK</code>, <code>alphaHKBasal</code>, <code>alphaHKPrism</code></td><td><code>alpha</code>, &alpha;</td><td>Hertz&ndash;Knudsen attachment coefficient</td></tr>
+            <tr><td><code>ggThreshAlpha</code>, <code>ggThreshBeta</code>, <code>ggThreshTheta</code></td><td><code>alpha</code>, <code>beta</code></td><td>Gravner&ndash;Griffeath boundary-mass thresholds</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        The reason it is a scanner rather than a note in a style guide is given in one line, and it
+        is the most transferable idea in this chapter: <strong>&ldquo;Vigilance does not survive a
+        model handoff; a failing build does.&rdquo;</strong> Whoever picks this project up next
+        &mdash; a different person, a different model, six months later &mdash; inherits none of
+        today&rsquo;s carefulness. They inherit the tests.
+      </p>
+
+      <p>
+        But be precise about how far the program reaches, because the rule itself is. The scanner
+        reads identifiers &mdash; the names in the code &mdash; and inline code inside
+        documentation. It does not judge ordinary sentences. Rule 7 says so in its closing line:
+        &ldquo;Reviewers enforce the qualified-prose rule because the scanner mechanically covers
+        identifier cases only.&rdquo; So half of Rule 7 is a failing build, and the other half is
+        still a reviewer paying attention &mdash; which is exactly the vigilance the rule&rsquo;s
+        own best line says does not survive a handoff. The honest version is the more interesting
+        one: the file names which half is which, rather than letting you assume the machine has
+        both.
+      </p>
+
+      <p>
+        The editor below holds one real line from <code>core/src/libbrecht.ts</code> &mdash; its
+        <code>return</code> turned into a named binding, so that there is something to rename.
+        Type into it. Try the presets. Then turn the scanner off and see what you get.
+      </p>
+
+      <figure class="anim" id="anim-rule7">
+        <div class="anim__head">
+          <p class="anim__title">Type the forbidden word</p>
+          <p class="anim__sub">Edit the line. The build panel underneath runs the project&rsquo;s scanner rule on every keystroke.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The scanner is a faithful re-implementation
+          of <code>violationsInLine</code> in <code>scripts/lint-rule7.mjs</code> &mdash; same
+          patterns, same allowlist, same waiver rule &mdash; and the pass and fail messages are that
+          script&rsquo;s own output text. The edited line is <code>core/src/libbrecht.ts</code>
+          line&nbsp;257 with its <code>return</code> rewritten as a named binding, so the reader has
+          a name to rename. The crystal is <em>drawn, not simulated</em>: it stands in
+          for a run, and the point is only that a conflated model would still produce something that
+          looks like this.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Notice the escape hatch. A line carrying <code>rule7-waive:</code> plus a written reason is
+        skipped &mdash; because the rule that bans the word has to be able to quote the word, and
+        tests need fixtures that fail on purpose. The waiver is not a loophole so much as a
+        confession: it demands a reason in writing, and it shows up in every future reading of that
+        line.
+      </p>
+
+      <p>
+        The discipline reaches into prose too. Transcribing the monograph&rsquo;s spherical-growth
+        equations, the project hit a quantity the book writes as a bare Greek letter, and recorded
+        in the parameter file: &ldquo;Its diffusive counterpart, Eq. 3.18, is the ratio
+        <code>X_0/R</code>, and is written out here rather than given a name, because a name built on
+        the bare stem is what Rule 7 bans.&rdquo; A quantity was left deliberately un-named. That is
+        what enforcement looks like when it is real: inconvenient.
+      </p>
+
+      <!-- ================================================================ 8 -->
+      <h2 id="what-it-buys">What a stamp buys, and what it does not</h2>
+
+      <p>
+        Provenance does not make a number correct. Nothing in this chapter has made a single value
+        more accurate than it was. A &plusmn;25% digitization is still &plusmn;25% after you write
+        &ldquo;&plusmn;25%&rdquo; beside it.
+      </p>
+
+      <p>
+        What it buys is that the number&rsquo;s status is <em>legible</em> &mdash; to a reviewer, to
+        a future maintainer, and to you, reading a result three chapters from now. When a comparison
+        against the real world finally returns a verdict &mdash; agreement or disagreement &mdash;
+        the argument about why is only possible if the
+        inputs are already sorted. Was it the code? The numbers? Or the theory? You cannot even ask
+        that question of a parameter table where measurements and guesses are printed in the same
+        typeface.
+      </p>
+
+      <p>
+        And there is one class we have named but not spent. <strong>P3</strong> &mdash;
+        &ldquo;Nakaya-informed SDAK hypotheses&rdquo;. The parameter file explains the label by
+        quoting the source&rsquo;s own words about how those curves were chosen (monograph printed
+        p.&nbsp;152 / pdf 153):
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          I have chosen different values of T<sub>onset</sub> for the basal and prism facets
+          <strong>to impose agreement with the known ice-growth behaviors from the Nakaya
+          diagram</strong>
+        </p>
+      </blockquote>
+
+      <p>
+        Sit with that. Some of this model&rsquo;s <em>available</em> inputs were set, by their
+        original author, openly and for a stated reason, so that a model using them would agree with
+        the Nakaya diagram. Available, and not used: nothing in the solver implements them. The
+        parameter file records that &ldquo;<code>SDAK</code> appears in no source file &mdash; so
+        every run to date is a no-SDAK run.&rdquo; They were extracted, classified, cited, and then
+        deliberately left unwired, which is what makes chapter 28&rsquo;s comparison a real test
+        rather than a rehearsal.
+      </p>
+
+      <p>
+        Why that decision was forced, and what it cost, is chapter 17 &mdash; along with the reason
+        the parameter file keeps &ldquo;<strong>two separate branches</strong>&hellip; never
+        merged.&rdquo;
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled &mdash; and who checked all this
+        </p>
+        <p>
+          Almost everything in this chapter has been checked, and almost none of it by a human
+          expert. The project&rsquo;s own process file states the position without softening it:
+          &ldquo;All reviews to date, internal and external-facing, are LLM reviews; for publication
+          that is a disclosed limitation, not a substitute.&rdquo; The same file requires that at
+          least one human domain scientist read any manuscript before submission. That reading has
+          not happened. The same limit applies to this page, which was checked by two reviewers, both
+          of them language models. Carefully checked, and not yet expert-checked, are different
+          things &mdash; which is, in the end, the argument of this whole chapter applied to the
+          chapter itself.
+        </p>
+      </aside>
+
+      <p class="handoff">
+        Every number in the model now carries a stamp, and one of those stamps says that the value
+        was chosen to make the model agree with the very diagram the project intends to test it
+        against. Chapter 17 asks the uncomfortable question that follows: what would it even mean for
+        this model to be <em>wrong</em>?
+      </p>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./15-two-labels-on-every-number.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">Two Labels on Every Number</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./17-a-model-that-can-be-wrong.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">A Model That Can Be Wrong</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Part Two describes a software project and quotes its repository; every
+      figure in Part Two is original.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+
+<script>
+/* ===========================================================================
+   1. PROVENANCE TRACER
+   Eight real entries from docs/libbrecht-parameters.md and core/src/libbrecht.ts.
+   ======================================================================== */
+(function () {
+  "use strict";
+  var root = document.getElementById("anim-tracer");
+  if (!root || !window.Viz) return;
+  var body = root.querySelector(".anim__body");
+  var bar = root.querySelector(".anim__controls");
+
+  var ENTRIES = [
+    {
+      short: "c_ice",
+      name: "c_ice",
+      what: "The number of water molecules packed into a cubic metre of ice. Everything that converts &lsquo;vapour arrived&rsquo; into &lsquo;ice grew&rsquo; runs through it.",
+      value: "≈ 3.1 × 10²⁸ m⁻³",
+      cls: "P1",
+      clsName: "measured broad-facet kinetics",
+      source: "Snow Crystals monograph (arXiv:1910.06389v2), Appendix A",
+      page: "printed p. 500 / pdf 501",
+      method: "Quoted directly from the printed appendix. Textbook instrument data.",
+      unc: "None stated by the source.",
+      code: "core/src/libbrecht.ts — C_ICE",
+      note: "The easy case. A printed number, in a printed appendix, on a stated page."
+    },
+    {
+      short: "surface energy",
+      name: "gamma_sv",
+      what: "The energy cost of ice/vapour surface — the quantity behind Part One&rsquo;s story about why sharp corners are expensive.",
+      value: "≈ 106 ± 15 mJ/m²",
+      cls: "P1",
+      clsName: "measured broad-facet kinetics",
+      source: "Snow Crystals monograph, Appendix A",
+      page: "printed pp. 500–501",
+      method: "Quoted directly.",
+      unc: "± 15 mJ/m² — the source&rsquo;s own stated uncertainty, carried through verbatim.",
+      code: "docs/libbrecht-parameters.md §2 (not yet consumed by the solver)",
+      note: "P1 entries record the stated uncertainty. This one came with a ± already attached, so the ± travels with it."
+    },
+    {
+      short: "v_kin(−15)",
+      name: "v_kin(−15 °C)",
+      what: "The kinetic velocity — how fast the surface would grow if every arriving molecule stuck.",
+      value: "2.079 × 10⁻⁴ m/s (table) · 2.053 × 10⁻⁴ m/s (closed form)",
+      cls: "P2",
+      clsName: "fitted or inferred",
+      source: "monograph Table 2.1, plus Eq. 2 of arXiv:1910.09067",
+      page: "Table 2.1: printed p. 57 / pdf 58 · Eq. 2: p. 3",
+      method: "The solver computes the printed closed form; the table anchors are used to validate it. The two agree to ≈ 1.2%, which is the accuracy of the Arrhenius fit inside the closed form.",
+      unc: "≈ 1–2% between form and table, recorded rather than smoothed away.",
+      code: "core/src/libbrecht.ts — vKin(), validated in core/test/libbrecht.test.ts",
+      note: "P2, not P1, because the closed form rests on a fit the source itself describes as “slightly modified to better fit the data”."
+    },
+    {
+      short: "σ₀ prism(−15)",
+      name: "sigma_0_prism(−15 °C)",
+      what: "The nucleation parameter on a prism facet — how much spare vapour that face needs before a new molecular layer can start. One of the two numbers the whole model turns on.",
+      value: "0.032 (fraction) · the plot prints it as 3.2%",
+      cls: "P2",
+      clsName: "fitted or inferred — by figure digitization",
+      source: "monograph Figure 4.5, “best-estimate CAK model functions”",
+      page: "printed p. 144 / pdf 145",
+      method: "READ OFF THE PLOT. A 300 dpi page render, log–log axes (both axes stretched so that each step along them is a multiplication rather than an addition), gridline-anchored abscissae only. No closed form or numeric table is printed in either source — recorded as a documented gap.",
+      unc: "± 25% relative on sigma_0 · ± 0.03 absolute on A.",
+      code: "core/src/libbrecht.ts — SIGMA0_PRISM",
+      note: "Cross-check the file records: the monograph&rsquo;s text separately states sigma_0 = 3 percent for a prism facet at −15 °C (printed p. 144 / pdf 145), which agrees with the digitized 3.2% inside the ±25% band."
+    },
+    {
+      short: "A_prism(−10)",
+      name: "A_prism(−10 °C)",
+      what: "The prefactor multiplying the exponential in the attachment rule, on prism facets.",
+      value: "0.83",
+      cls: "P2",
+      clsName: "fitted or inferred — by figure digitization",
+      source: "monograph Figure 4.5, lower panel",
+      page: "printed p. 144 / pdf 145",
+      method: "Digitized from the same render. CORRECTED IN REVIEW: first digitized as 0.95, which sat outside the stated ±0.03 band; the rendered figure reads 0.83–0.84.",
+      unc: "± 0.03 absolute.",
+      code: "core/src/libbrecht.ts — A_PRISM_CAK",
+      note: "The stated band is what caught the error. An uncertainty you write down is also a test you can run."
+    },
+    {
+      short: "D(T)",
+      name: "D(T) — temperature law",
+      what: "How the diffusivity of water vapour in air changes with temperature. The solver sweeps temperature, so this is not an academic question.",
+      value: "NOT GIVEN — GAP",
+      cls: null,
+      clsName: "no class: there is no number",
+      source: "— no printed law exists in either source",
+      page: "—",
+      method: "The cell stays empty. The solver holds D constant at fixed pressure and says so, after back-computation from the monograph&rsquo;s own Table 2.1 showed that table treats D as temperature-independent at 1 atm.",
+      unc: "Unknown, and recorded as unknown.",
+      code: "core/src/libbrecht.ts — D_AIR_1ATM, with the gap named in the comment above it",
+      note: "“An empty cell is a research task; a wrong cell is a physics bug that will be discovered three phases later, if ever.”"
+    },
+    {
+      short: "SDAK dip",
+      name: "narrow-facet sigma_0 dip (basal)",
+      what: "A proposed reduction in the nucleation barrier on very narrow facets — the mechanism Part One&rsquo;s chapter 13 left as an open frontier.",
+      value: "minimum sigma_0 ≈ 0.07–0.08% at (Tm−T) ≈ 4–4.5 °C",
+      cls: "P3",
+      clsName: "Nakaya-informed hypothesis — IN-SAMPLE for any Nakaya comparison",
+      source: "monograph Figure 4.12",
+      page: "printed p. 152 / pdf 153",
+      method: "Digitized from a curve the source draws DOTTED, “to signify their substantial uncertainties”. The source also states the dip positions were chosen “to impose agreement with the known ice-growth behaviors from the Nakaya diagram”.",
+      unc: "The source states the width and depth are “not well constrained by measurements”.",
+      code: "Nothing. The parameter file records that SDAK “appears in no source file”, so every run to date is a no-SDAK run.",
+      note: "This is chapter 17&rsquo;s subject. Note that it is extracted, classified and then deliberately NOT wired in."
+    },
+    {
+      short: "interpolation",
+      name: "the rule between anchors",
+      what: "Nine dots is not a curve. Something has to decide what happens between them.",
+      value: "piecewise log–log linear for sigma_0; piecewise linear in (Tm−T) for A_prism; A_basal ≡ 1",
+      cls: "P4",
+      clsName: "numerical / discretization choice — no physical content",
+      source: "the project itself, registered in runner/src/phase6-protocol.ts as PHASE6_INTERPOLATION",
+      page: "—",
+      method: "Chosen, declared, hashed into a frozen protocol before the comparison sweep ran.",
+      unc: "Measured, not assumed: worst error when an anchor is deleted and rebuilt from its neighbours is 10.7% (basal) and 9.0% (prism), against the ±25% band the anchors already carry.",
+      code: "core/src/libbrecht.ts — interpLogLog / interpLinear",
+      note: "The only entry here with no physical content at all. It still gets a class, a citation and a test — because a choice with no physics in it can still change the answer."
+    }
+  ];
+
+  var current = 0;
+  var buttons = [];
+
+  function el(tag, css, text) {
+    var n = document.createElement(tag);
+    if (css) n.setAttribute("style", css);
+    if (text != null) n.innerHTML = text;
+    return n;
+  }
+
+  function renderPanel() {
+    var c = Viz.colors();
+    var e = ENTRIES[current];
+    var ink = e.cls === "P1" ? c.series[0]
+            : e.cls === "P2" ? c.series[1]
+            : e.cls === "P3" ? c.series[2]
+            : e.cls === "P4" ? c.inkSecondary
+            : c.critical;
+
+    body.textContent = "";
+
+    var wrap = el("div", "display:grid;gap:0.85rem;max-width:70ch;");
+
+    var head = el("div", "display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;");
+    head.appendChild(el("code",
+      "font-size:1.02rem;font-weight:700;color:" + c.ink + ";", e.name));
+    var badge = el("span",
+      "display:inline-block;padding:0.18rem 0.6rem;border-radius:999px;font-size:0.72rem;" +
+      "font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:" + c.ink +
+      ";background:" + ink + "1a;box-shadow:inset 0 0 0 1px " + ink +
+      (e.cls === "P3" ? ", 0 0 0 3px " + ink + "33" : "") + ";",
+      (e.cls || "GAP") + " · " + e.clsName);
+    head.appendChild(badge);
+    wrap.appendChild(head);
+
+    wrap.appendChild(el("p",
+      "margin:0;font-size:0.95rem;color:" + c.inkSecondary + ";line-height:1.55;", e.what));
+
+    var grid = el("div",
+      "display:grid;grid-template-columns:minmax(6.5rem,auto) 1fr;gap:0.4rem 1rem;" +
+      "font-size:0.86rem;line-height:1.5;border-top:1px solid " + c.rule + ";padding-top:0.75rem;");
+
+    var rows = [
+      ["value", e.value],
+      ["source", e.source],
+      ["page", e.page],
+      ["method", e.method],
+      ["stated uncertainty", e.unc],
+      ["in the code", e.code]
+    ];
+    rows.forEach(function (r) {
+      grid.appendChild(el("span",
+        "color:" + c.muted + ";font-size:0.72rem;font-weight:700;letter-spacing:0.05em;" +
+        "text-transform:uppercase;padding-top:0.15rem;", r[0]));
+      grid.appendChild(el("span", "color:" + c.ink + ";", r[1]));
+    });
+    wrap.appendChild(grid);
+
+    wrap.appendChild(el("p",
+      "margin:0;padding:0.6rem 0.8rem;border-left:3px solid " + ink + ";background:" + c.sunken +
+      ";font-size:0.85rem;color:" + c.inkSecondary + ";line-height:1.5;", e.note));
+
+    body.appendChild(wrap);
+  }
+
+  ENTRIES.forEach(function (e, i) {
+    var b = Viz.button(bar, e.short, function () {
+      current = i;
+      buttons.forEach(function (bb, j) { bb.setAttribute("aria-pressed", String(j === i)); });
+      renderPanel();
+    }, { pressed: i === 0 });
+    buttons.push(b);
+  });
+
+  renderPanel();
+  Viz.onThemeChange(renderPanel);
+})();
+</script>
+
+<script>
+/* ===========================================================================
+   2. DIGITIZE IT YOURSELF
+   Hidden curve: arXiv:2009.08404v2 p.3 Eq. (5). Project anchors: A_PRISM_CAK.
+   ======================================================================== */
+(function () {
+  "use strict";
+  var root = document.getElementById("anim-digitize");
+  if (!root || !window.Viz) return;
+  var body = root.querySelector(".anim__body");
+  var bar = root.querySelector(".anim__controls");
+
+  var XS = [1, 2, 3, 5, 10, 15, 20, 30, 50];
+  var OURS = [0.45, 0.28, 0.21, 0.18, 0.83, 1, 1, 1, 1];
+
+  function eq5(t) {
+    var k = 0.04 * Math.pow(Math.abs(t - 4), 3);
+    return (0.4 + k) / (2.2 + k);
+  }
+
+  var reading = [null, null, null, null, null, null, null, null, null];
+  var guess = 0.5;
+  var revealed = false;
+  var svg = null;
+  var readout = null;
+  var guessSlider = null;
+
+  var W = 700, H = 360;
+  var M = { top: 26, right: 118, bottom: 52, left: 58 };
+
+  function nextIndex() {
+    for (var i = 0; i < XS.length; i++) if (reading[i] === null) return i;
+    return -1;
+  }
+
+  function devs(values) {
+    var out = [];
+    for (var i = 0; i < XS.length; i++) {
+      if (values[i] === null) { out.push(null); continue; }
+      out.push(Math.abs(values[i] / eq5(XS[i]) - 1));
+    }
+    return out;
+  }
+
+  function summarise(values) {
+    var d = devs(values).filter(function (v) { return v !== null; });
+    if (!d.length) return null;
+    var worst = Math.max.apply(null, d);
+    var sorted = d.slice().sort(function (a, b) { return a - b; });
+    var med = sorted[Math.floor(sorted.length / 2)];
+    return { worst: worst, median: med, n: d.length };
+  }
+
+  function render() {
+    var c = Viz.colors();
+    if (svg) svg.remove();
+    svg = Viz.createSvg(body, W, H, {
+      label: "A blurred curve of the prism prefactor against temperature, with nine reading " +
+             "positions you fill in yourself.",
+      desc: "Once nine readings are recorded, the printed equation is revealed for comparison."
+    });
+
+    var xs = Viz.scaleLog([0.85, 62], [M.left, W - M.right]);
+    var ys = Viz.scaleLinear([0, 1.15], [H - M.bottom, M.top]);
+
+    var defs = Viz.svgEl("defs");
+    var filt = Viz.svgEl("filter", {
+      id: "dgz-blur", x: "-25%", y: "-25%", width: "150%", height: "150%"
+    });
+    filt.appendChild(Viz.svgEl("feGaussianBlur", { stdDeviation: 3.4 }));
+    defs.appendChild(filt);
+    svg.appendChild(defs);
+
+    Viz.axisLeft(svg, ys, {
+      x: M.left, ticks: 5, title: "A_prism", grid: true, gridTo: W - M.right,
+      format: function (v) { return v.toFixed(1); }
+    });
+    Viz.axisBottom(svg, xs, {
+      y: H - M.bottom, values: XS, title: "(Tm − T),  °C below melting",
+      format: function (v) { return String(v); }
+    });
+
+    /* the "printed figure": blurred unless revealed */
+    var pts = [];
+    for (var i = 0; i <= 240; i++) {
+      var t = Math.pow(10, Math.log10(0.9) + (Math.log10(60) - Math.log10(0.9)) * i / 240);
+      pts.push([t, eq5(t)]);
+    }
+    var blurred = Viz.svgEl("path", {
+      d: Viz.linePath(pts, xs, ys), fill: "none", stroke: c.series[1],
+      "stroke-width": 7, "stroke-opacity": revealed ? 0.18 : 0.5,
+      filter: "url(#dgz-blur)"
+    });
+    svg.appendChild(blurred);
+
+    if (revealed) {
+      Viz.series(svg, pts, xs, ys, {
+        color: c.series[1], width: 2.2,
+        label: "printed Eq. (5)", labelAt: [60, eq5(60)], labelDx: 8, labelDy: -6
+      });
+      /* the project's nine anchors, as hollow squares */
+      XS.forEach(function (x, i) {
+        svg.appendChild(Viz.svgEl("rect", {
+          x: xs(x) - 4.5, y: ys(OURS[i]) - 4.5, width: 9, height: 9,
+          fill: "none", stroke: c.series[1], "stroke-width": 2
+        }));
+      });
+      var lbl = Viz.svgEl("text", {
+        x: W - M.right + 8, y: ys(OURS[8]) + 16, fill: c.series[1],
+        "font-size": 12, "font-weight": 620, "font-family": "var(--font-sans)"
+      });
+      lbl.textContent = "the project's nine";
+      svg.appendChild(lbl);
+    }
+
+    /* the reader's readings */
+    var idx = nextIndex();
+    XS.forEach(function (x, i) {
+      if (reading[i] === null) return;
+      if (revealed) {
+        svg.appendChild(Viz.svgEl("line", {
+          x1: xs(x), x2: xs(x), y1: ys(reading[i]), y2: ys(eq5(x)),
+          stroke: c.ink, "stroke-width": 1.4, "stroke-opacity": 0.55
+        }));
+      }
+      svg.appendChild(Viz.svgEl("circle", {
+        cx: xs(x), cy: ys(reading[i]), r: 4.6, fill: c.ink
+      }));
+    });
+    if (reading.some(function (v) { return v !== null; })) {
+      var firstSet = reading.findIndex(function (v) { return v !== null; });
+      var yt = Viz.svgEl("text", {
+        x: xs(XS[firstSet]), y: ys(reading[firstSet]) - 12, "text-anchor": "middle",
+        fill: c.ink, "font-size": 12, "font-weight": 620, "font-family": "var(--font-sans)"
+      });
+      yt.textContent = "your reading";
+      svg.appendChild(yt);
+    }
+
+    /* the active guide */
+    if (!revealed && idx >= 0) {
+      svg.appendChild(Viz.svgEl("line", {
+        x1: xs(XS[idx]), x2: xs(XS[idx]), y1: M.top, y2: H - M.bottom,
+        stroke: c.ink, "stroke-width": 1.5, "stroke-dasharray": "4 4", "stroke-opacity": 0.75
+      }));
+      svg.appendChild(Viz.svgEl("circle", {
+        cx: xs(XS[idx]), cy: ys(guess), r: 6, fill: "none",
+        stroke: c.ink, "stroke-width": 2, "stroke-dasharray": "3 3"
+      }));
+      var g = Viz.svgEl("text", {
+        x: xs(XS[idx]), y: M.top - 8, "text-anchor": "middle", fill: c.inkSecondary,
+        "font-size": 11, "font-weight": 620, "font-family": "var(--font-sans)"
+      });
+      g.textContent = "read here → " + guess.toFixed(2);
+      svg.appendChild(g);
+    }
+
+    /* readout */
+    if (!readout) {
+      readout = document.createElement("p");
+      readout.className = "anim__sub";
+      readout.setAttribute("role", "status");
+      readout.style.marginTop = "0.6rem";
+      readout.style.fontWeight = "600";
+      body.appendChild(readout);
+    } else {
+      body.appendChild(readout);
+    }
+
+    var ourSum = summarise(OURS);
+    if (!revealed) {
+      var done = reading.filter(function (v) { return v !== null; }).length;
+      readout.textContent = done < XS.length
+        ? "Reading " + (done + 1) + " of 9, at −" + XS[idx] + " °C. " +
+          "Set the slider or click the plot, then press Record."
+        : "Nine readings in. Press Compare.";
+      readout.style.color = "";
+    } else {
+      var you = summarise(reading);
+      readout.textContent =
+        "Your worst deviation from the printed equation: " + (you.worst * 100).toFixed(1) +
+        "%, typical " + (you.median * 100).toFixed(1) + "%.  " +
+        "The project's nine anchors: " + (ourSum.worst * 100).toFixed(1) +
+        "% worst, typical " + (ourSum.median * 100).toFixed(1) + "%.";
+      readout.style.color = "";
+    }
+
+    svg.style.cursor = revealed ? "default" : "crosshair";
+    svg.addEventListener("click", function (ev) {
+      if (revealed) return;
+      var i2 = nextIndex();
+      if (i2 < 0) return;
+      var r = svg.getBoundingClientRect();
+      if (!r.width) return;
+      var py = (ev.clientY - r.top) * (H / r.height);
+      var v = ys.invert(py);
+      v = Math.max(0, Math.min(1.15, v));
+      reading[i2] = Math.round(v * 100) / 100;
+      guess = reading[i2];
+      if (guessSlider) {
+        /* set the thumb AND fire the event the helper listens for, so its readout
+           cannot fall out of step with the plot. That event re-enters render(). */
+        guessSlider.input.value = guess;
+        guessSlider.input.dispatchEvent(new Event("input"));
+      } else {
+        render();
+      }
+    });
+  }
+
+  function buildControls() {
+    bar.textContent = "";
+    if (!revealed) {
+      guessSlider = Viz.slider(bar, {
+        label: "Your reading", id: "dgz-y", min: 0, max: 1.15, step: 0.01, value: guess,
+        format: function (v) { return v.toFixed(2); },
+        onInput: function (v) { guess = v; render(); }
+      });
+      Viz.button(bar, "Record", function () {
+        var i = nextIndex();
+        if (i < 0) return;
+        reading[i] = guess;
+        render();
+      });
+      Viz.button(bar, "Undo", function () {
+        for (var i = XS.length - 1; i >= 0; i--) {
+          if (reading[i] !== null) { reading[i] = null; break; }
+        }
+        render();
+      });
+      Viz.button(bar, "Compare", function () {
+        if (nextIndex() >= 0) {
+          if (readout) {
+            readout.textContent = "Record all nine first — the project read all nine too.";
+          }
+          return;
+        }
+        revealed = true;
+        buildControls();
+        render();
+      });
+    } else {
+      Viz.button(bar, "Start over", function () {
+        reading = [null, null, null, null, null, null, null, null, null];
+        guess = 0.5;
+        revealed = false;
+        buildControls();
+        render();
+      });
+      var note = document.createElement("span");
+      note.className = "control";
+      note.style.color = "var(--ink-muted)";
+      note.textContent =
+        "The nine anchors were digitized before this equation was found, so the agreement is a " +
+        "check the project could not have gamed.";
+      bar.appendChild(note);
+    }
+  }
+
+  buildControls();
+  render();
+  Viz.onThemeChange(render);
+})();
+</script>
+
+<script>
+/* ===========================================================================
+   3. ASK FOR A TEMPERATURE THE TABLE CANNOT ANSWER
+   Re-implements X_ANCHORS / SIGMA0_* / interpLogLog from core/src/libbrecht.ts,
+   including the real throw, plus an opt-in "naive" extrapolating mode.
+   ======================================================================== */
+(function () {
+  "use strict";
+  var root = document.getElementById("anim-domain");
+  if (!root || !window.Viz) return;
+  var body = root.querySelector(".anim__body");
+  var bar = root.querySelector(".anim__controls");
+
+  var X_ANCHORS = [1, 2, 3, 5, 10, 15, 20, 30, 50];
+  var SIGMA0_BASAL = [0.0030, 0.0035, 0.0045, 0.0070, 0.014, 0.024, 0.038, 0.07, 0.16];
+  var SIGMA0_PRISM = [0.00006, 0.00028, 0.0007, 0.0027, 0.014, 0.032, 0.06, 0.13, 0.32];
+
+  var LO = X_ANCHORS[0], HI = X_ANCHORS[X_ANCHORS.length - 1];
+
+  function indexFor(x, allowOutside) {
+    if (!allowOutside && !(x >= LO && x <= HI)) return -1;
+    if (x <= LO) return 0;
+    if (x >= HI) return X_ANCHORS.length - 2;
+    var i = 0;
+    while (i < X_ANCHORS.length - 2 && X_ANCHORS[i + 1] < x) i++;
+    return i;
+  }
+
+  function logLog(x, ys, allowOutside) {
+    var i = indexFor(x, allowOutside);
+    if (i < 0) return null;
+    var t = (Math.log(x) - Math.log(X_ANCHORS[i])) /
+            (Math.log(X_ANCHORS[i + 1]) - Math.log(X_ANCHORS[i]));
+    return Math.exp(Math.log(ys[i]) + t * (Math.log(ys[i + 1]) - Math.log(ys[i])));
+  }
+
+  var tempC = -15;
+  var safeguard = true;
+  var svg = null;
+  var panel = null;
+
+  var W = 700, H = 330;
+  var M = { top: 22, right: 108, bottom: 52, left: 66 };
+
+  function fmt(v) {
+    if (v === null) return "—";
+    if (v >= 0.001) return v.toFixed(6);
+    return v.toExponential(3);
+  }
+
+  function armGlyph(svgRoot, cx, cy, ok, c) {
+    var ink = ok ? c.good : c.critical;
+    svgRoot.appendChild(Viz.svgEl("path", {
+      d: Viz.hexPath(cx, cy, 20, 0), fill: ok ? ink : "none", "fill-opacity": ok ? 0.18 : 0,
+      stroke: ink, "stroke-width": 2, "stroke-dasharray": ok ? null : "4 3"
+    }));
+  }
+
+  function render() {
+    var c = Viz.colors();
+    if (svg) svg.remove();
+    svg = Viz.createSvg(body, W, H, {
+      label: "The two digitized nucleation curves, drawn only where the printed figure has data, " +
+             "with a shaded region either side where the table has nothing."
+    });
+
+    var xs = Viz.scaleLinear([-60, 0], [M.left, W - M.right]);
+    var ys = Viz.scaleLog([1e-5, 1], [H - M.bottom, M.top]);
+
+    /* no-data bands */
+    [[-60, -50], [-1, 0]].forEach(function (band) {
+      svg.appendChild(Viz.svgEl("rect", {
+        x: xs(band[0]), y: M.top, width: xs(band[1]) - xs(band[0]), height: H - M.bottom - M.top,
+        fill: c.critical, "fill-opacity": 0.09
+      }));
+    });
+    /* Both bands are labelled. The warm one is only ~9 px wide, so its label is
+       rotated to run up the band rather than spilling across the plot. */
+    [[-55.5, "no data", 0, M.top + 16], [-0.5, "no data", -90, M.top + 62]].forEach(function (l) {
+      var t = Viz.svgEl("text", {
+        x: xs(l[0]), y: l[3], "text-anchor": "middle", fill: c.critical,
+        "font-size": 11, "font-weight": 700, "font-family": "var(--font-sans)",
+        transform: l[2] ? "rotate(" + l[2] + " " + xs(l[0]) + " " + l[3] + ")" : null
+      });
+      t.textContent = l[1];
+      svg.appendChild(t);
+    });
+
+    Viz.axisLeft(svg, ys, {
+      x: M.left, title: "sigma_0 (fraction)", grid: true, gridTo: W - M.right,
+      format: function (v) { return v >= 0.01 ? String(v) : v.toExponential(0); }
+    });
+    Viz.axisBottom(svg, xs, {
+      y: H - M.bottom, values: [-60, -50, -40, -30, -20, -10, 0],
+      title: "Temperature (°C)"
+    });
+
+    function curve(arr, colour, label, dy) {
+      var inside = [];
+      for (var T = -50; T <= -1 + 1e-9; T += 0.25) {
+        var v = logLog(-T, arr, false);
+        if (v !== null) inside.push([T, v]);
+      }
+      Viz.series(svg, inside, xs, ys, {
+        color: colour, width: 2.2, label: label,
+        labelAt: inside[inside.length - 1], labelDx: 8, labelDy: dy
+      });
+      if (!safeguard) {
+        var lowOut = [], highOut = [];
+        var keep = function (v) { return v !== null && v >= 1e-5 && v <= 1; };
+        for (var a = -60; a <= -50 + 1e-9; a += 0.25) {
+          var va = logLog(-a, arr, true);
+          if (keep(va)) lowOut.push([a, va]);
+        }
+        for (var b = -1; b <= -0.05; b += 0.05) {
+          var vb = logLog(-b, arr, true);
+          if (keep(vb)) highOut.push([b, vb]);
+        }
+        [lowOut, highOut].forEach(function (seg) {
+          if (seg.length < 2) return;
+          svg.appendChild(Viz.svgEl("path", {
+            d: Viz.linePath(seg, xs, ys), fill: "none", stroke: colour,
+            "stroke-width": 2, "stroke-dasharray": "5 4", "stroke-opacity": 0.85
+          }));
+        });
+      }
+    }
+    curve(SIGMA0_BASAL, c.series[0], "basal", -4);
+    curve(SIGMA0_PRISM, c.series[1], "prism", 12);
+
+    /* the dial marker */
+    svg.appendChild(Viz.svgEl("line", {
+      x1: xs(tempC), x2: xs(tempC), y1: M.top, y2: H - M.bottom,
+      stroke: c.ink, "stroke-width": 1.6, "stroke-dasharray": "4 4"
+    }));
+
+    var outside = !(-tempC >= LO && -tempC <= HI);
+    var allowed = !outside || !safeguard;
+    armGlyph(svg, W - M.right + 44, M.top + 40, allowed, c);
+    var gl = Viz.svgEl("text", {
+      x: W - M.right + 44, y: M.top + 76, "text-anchor": "middle",
+      fill: allowed ? c.good : c.critical,
+      "font-size": 10.5, "font-weight": 700, "font-family": "var(--font-sans)"
+    });
+    gl.textContent = allowed ? (outside ? "fictitious" : "run ok") : "no crystal";
+    svg.appendChild(gl);
+
+    /* console panel */
+    if (!panel) {
+      panel = document.createElement("div");
+      body.appendChild(panel);
+    } else {
+      body.appendChild(panel);
+    }
+    panel.setAttribute("style",
+      "margin-top:0.8rem;padding:0.8rem 0.95rem;border-radius:8px;white-space:pre-wrap;" +
+      "font-family:var(--font-mono);font-size:0.8rem;line-height:1.55;overflow-x:auto;" +
+      "background:" + c.sunken + ";border-left:3px solid " +
+      (outside && safeguard ? c.critical : outside ? c.critical : c.good) + ";color:" + c.ink + ";");
+
+    var x = Math.round(-tempC * 10) / 10;
+    var lines;
+    if (!outside) {
+      lines =
+        "$ grow-lk --temp " + tempC.toFixed(1) + "\n" +
+        "sigma0_basal = " + fmt(logLog(x, SIGMA0_BASAL, false)) + "\n" +
+        "sigma0_prism = " + fmt(logLog(x, SIGMA0_PRISM, false)) + "\n" +
+        "run: ok";
+    } else if (safeguard) {
+      lines =
+        "$ grow-lk --temp " + tempC.toFixed(1) + "\n" +
+        "Error: (Tm - T) = " + x + " C is outside the digitized domain [1, 50]" +
+        " — extrapolation is banned (libbrecht-parameters.md)\n" +
+        "run: refused. no crystal.";
+    } else {
+      lines =
+        "$ grow-lk --temp " + tempC.toFixed(1) + "   [safeguard off: extrapolating]\n" +
+        "sigma0_basal = " + fmt(logLog(x, SIGMA0_BASAL, true)) + "\n" +
+        "sigma0_prism = " + fmt(logLog(x, SIGMA0_PRISM, true)) + "\n" +
+        "run: ok\n" +
+        "# nobody has measured either of these numbers. They were manufactured\n" +
+        "# by continuing a line past the last thing anyone plotted.";
+    }
+    panel.textContent = lines;
+  }
+
+  Viz.slider(bar, {
+    label: "Temperature", id: "dom-t", min: -60, max: -0.5, step: 0.5, value: tempC,
+    format: function (v) { return v.toFixed(1) + " °C"; },
+    onInput: function (v) { tempC = v; render(); }
+  });
+  Viz.button(bar, "Safeguard: ON", function (b) {
+    safeguard = !safeguard;
+    b.textContent = safeguard ? "Safeguard: ON" : "Safeguard: OFF (naive mode)";
+    b.setAttribute("aria-pressed", String(!safeguard));
+    render();
+  }, { pressed: false });
+  Viz.button(bar, "Jump to −0.5 °C", function () {
+    tempC = -0.5;
+    render();
+  });
+
+  render();
+  Viz.onThemeChange(render);
+})();
+</script>
+
+<script>
+/* ===========================================================================
+   4. SPOT THE TRANSCRIPTION ERROR
+   Branch 1 anchors of docs/libbrecht-parameters.md section 3, with one planted slip.
+   ======================================================================== */
+(function () {
+  "use strict";
+  var root = document.getElementById("anim-transcribe");
+  if (!root || !window.Viz) return;
+  var body = root.querySelector(".anim__body");
+  var bar = root.querySelector(".anim__controls");
+
+  var X = [1, 2, 3, 5, 10, 15, 20, 30, 50];
+  var BASAL_PCT = [0.30, 0.35, 0.45, 0.70, 1.4, 2.4, 3.8, 7, 16];
+  var PRISM_PCT = [0.006, 0.028, 0.07, 0.27, 1.4, 3.2, 6, 13, 32];
+  var A_PRISM = [0.45, 0.28, 0.21, 0.18, 0.83, 1, 1, 1, 1];
+
+  var PLANTS = [
+    { row: 6, col: "prism", value: 0.6,
+      why: "6% became 0.6 instead of 0.06 — divided by ten, not a hundred." },
+    { row: 4, col: "a", value: 0.95,
+      why: "A_prism read as 0.95. This one is real: it is what the project first recorded, " +
+           "and round-2 review caught it because 0.95 sits outside the stated ±0.03 band " +
+           "of the figure reading (0.83–0.84)." },
+    { row: 5, col: "basal", value: 2.4,
+      why: "2.4% copied straight across as 2.4 — the percent-as-fraction slip, a clean " +
+           "factor of a hundred." }
+  ];
+
+  var plantIdx = 0;
+  var clicked = null;
+  var checksRun = false;
+
+  /* percent -> fraction, without float dust like 1.4/100 = 0.013999999999999999 */
+  function frac(pct) { return Number((pct / 100).toPrecision(6)); }
+
+  function cells() {
+    var out = [];
+    for (var i = 0; i < X.length; i++) {
+      out.push({
+        x: X[i],
+        basal: frac(BASAL_PCT[i]),
+        prism: frac(PRISM_PCT[i]),
+        a: A_PRISM[i]
+      });
+    }
+    var p = PLANTS[plantIdx];
+    out[p.row][p.col] = p.value;
+    return out;
+  }
+
+  function num(v) {
+    if (v === 0) return "0";
+    if (Math.abs(v) >= 0.01) return String(v);
+    return v.toFixed(5).replace(/0+$/, "");
+  }
+
+  function runChecks(rows) {
+    var res = [];
+
+    var bad1 = [];
+    rows.forEach(function (r, i) {
+      if (Math.abs(r.basal * 100 - BASAL_PCT[i]) > 1e-6) bad1.push("basal @ " + X[i]);
+      if (Math.abs(r.prism * 100 - PRISM_PCT[i]) > 1e-6) bad1.push("prism @ " + X[i]);
+    });
+    res.push({
+      name: "C1  every fraction equals the printed percent ÷ 100",
+      pass: bad1.length === 0,
+      detail: bad1.length ? "FAIL at " + bad1.join(", ") : "9 rows × 2 columns checked"
+    });
+
+    var bad2 = [];
+    ["basal", "prism"].forEach(function (col) {
+      for (var i = 1; i < rows.length; i++) {
+        if (!(rows[i][col] > rows[i - 1][col])) bad2.push(col + " @ " + X[i]);
+      }
+    });
+    res.push({
+      name: "C2  sigma_0 increases as it gets colder",
+      pass: bad2.length === 0,
+      detail: bad2.length ? "FAIL at " + bad2.join(", ") : "both columns monotone"
+    });
+
+    var a10 = rows[4].a;
+    var ok3 = a10 >= 0.80 && a10 <= 0.87;
+    res.push({
+      name: "C3  A_prism at (Tm−T)=10 within ±0.03 of the figure reading 0.83–0.84",
+      pass: ok3,
+      detail: ok3 ? "recorded " + a10 + ", inside [0.80, 0.87]"
+                  : "FAIL — recorded " + a10 + ", outside [0.80, 0.87]"
+    });
+
+    return res;
+  }
+
+  function render() {
+    var c = Viz.colors();
+    var rows = cells();
+    var p = PLANTS[plantIdx];
+    body.textContent = "";
+
+    var intro = document.createElement("p");
+    intro.className = "anim__sub";
+    intro.style.marginBottom = "0.7rem";
+    intro.textContent = clicked
+      ? (clicked.row === p.row && clicked.col === p.col
+          ? "Found it. " + p.why
+          : "That cell is correct. Keep looking — or give up and run the checks.")
+      : "Each facet gets two columns: what the figure prints, in percent, and what got typed into " +
+        "the model, as a fraction. The last column, A_prism, has no printed twin here — the only " +
+        "handle on it is the figure's stated ±0.03 reading band. Click the cell you think is wrong.";
+    body.appendChild(intro);
+
+    var wrap = document.createElement("div");
+    wrap.setAttribute("style", "overflow-x:auto;");
+    var table = document.createElement("table");
+    table.setAttribute("style",
+      "border-collapse:collapse;font-size:0.83rem;font-variant-numeric:tabular-nums;" +
+      "font-family:var(--font-mono);min-width:34rem;");
+
+    var thead = document.createElement("thead");
+    var hr = document.createElement("tr");
+    ["(Tm−T)", "basal, printed %", "basal, typed", "prism, printed %", "prism, typed", "A_prism, typed"]
+      .forEach(function (h) {
+        var th = document.createElement("th");
+        th.textContent = h;
+        th.setAttribute("style",
+          "text-align:right;padding:0.35rem 0.65rem;border-bottom:1px solid " + c.ruleStrong +
+          ";color:" + c.inkSecondary + ";font-family:var(--font-sans);font-size:0.72rem;" +
+          "font-weight:700;letter-spacing:0.03em;text-transform:uppercase;white-space:nowrap;");
+        hr.appendChild(th);
+      });
+    thead.appendChild(hr);
+    table.appendChild(thead);
+
+    var tbody = document.createElement("tbody");
+    rows.forEach(function (r, i) {
+      var tr = document.createElement("tr");
+      var defs = [
+        { text: String(X[i]), col: null },
+        { text: String(BASAL_PCT[i]), col: null, dim: true },
+        { text: num(r.basal), col: "basal" },
+        { text: String(PRISM_PCT[i]), col: null, dim: true },
+        { text: num(r.prism), col: "prism" },
+        { text: String(r.a), col: "a" }
+      ];
+      defs.forEach(function (d) {
+        var td = document.createElement("td");
+        td.textContent = d.text;
+        var isPlant = checksRun && d.col === p.col && i === p.row;
+        var isClicked = clicked && clicked.row === i && clicked.col === d.col;
+        var style =
+          "text-align:right;padding:0.3rem 0.65rem;border-bottom:1px solid " + c.rule +
+          ";white-space:nowrap;color:" + (d.dim ? c.muted : c.ink) + ";";
+        if (d.col) style += "cursor:pointer;";
+        if (isPlant) {
+          style += "background:" + c.critical + "22;color:" + c.critical + ";font-weight:700;";
+        } else if (isClicked) {
+          style += "outline:2px solid " + c.inkSecondary + ";outline-offset:-2px;";
+        }
+        td.setAttribute("style", style);
+        if (d.col) {
+          td.setAttribute("tabindex", "0");
+          td.setAttribute("role", "button");
+          var pick = function () {
+            clicked = { row: i, col: d.col };
+            render();
+          };
+          td.addEventListener("click", pick);
+          td.addEventListener("keydown", function (ev) {
+            if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); pick(); }
+          });
+        }
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    wrap.appendChild(table);
+    body.appendChild(wrap);
+
+    if (checksRun) {
+      var box = document.createElement("div");
+      box.setAttribute("style",
+        "margin-top:0.9rem;padding:0.75rem 0.95rem;border-radius:8px;background:" + c.sunken +
+        ";font-family:var(--font-mono);font-size:0.78rem;line-height:1.7;overflow-x:auto;");
+      var res = runChecks(rows);
+      res.forEach(function (r) {
+        var line = document.createElement("div");
+        line.setAttribute("style",
+          "color:" + (r.pass ? c.good : c.critical) + ";font-weight:" + (r.pass ? 500 : 700) + ";");
+        line.textContent = (r.pass ? "✓ " : "✗ ") + r.name + "   — " + r.detail;
+        box.appendChild(line);
+      });
+      var foot = document.createElement("div");
+      foot.setAttribute("style", "margin-top:0.5rem;color:" + c.inkSecondary + ";");
+      foot.textContent = "Elapsed: about a millisecond. It will run again tomorrow, and the day after.";
+      box.appendChild(foot);
+      body.appendChild(box);
+    }
+  }
+
+  Viz.button(bar, "Run the checks", function () {
+    checksRun = true;
+    render();
+  });
+  Viz.button(bar, "New table", function () {
+    plantIdx = (plantIdx + 1) % PLANTS.length;
+    clicked = null;
+    checksRun = false;
+    render();
+  });
+
+  render();
+  Viz.onThemeChange(render);
+})();
+</script>
+
+<script>
+/* ===========================================================================
+   5. TYPE THE FORBIDDEN WORD
+   Faithful re-implementation of violationsInLine() from scripts/lint-rule7.mjs.
+   ======================================================================== */
+(function () {
+  "use strict";
+  var root = document.getElementById("anim-rule7");
+  if (!root || !window.Viz) return;
+  var body = root.querySelector(".anim__body");
+  var bar = root.querySelector(".anim__controls");
+
+  /* ---- the scanner, transcribed from scripts/lint-rule7.mjs ---- */
+  var BARE_STEM = /^(alpha|beta)$/i;
+  var QUALIFIED_STEM = /^(alpha|beta)[0-9_$A-Z]|^(ALPHA|BETA)[0-9_$]/;
+  var ALLOWLIST_PREFIX = /^(alphaHK|ggThresh)/;
+  var ALLOWLIST_EXACT = { reiterAlpha: 1, reiterBeta: 1, reiterGamma: 1 };
+  var IDENTIFIER = /[A-Za-z_$][A-Za-z0-9_$]*/g;
+  var GREEK_BARE = /[αβ](?![₀-₉])/g;
+  var WAIVER = /rule7-waive:\s*\S/;
+
+  function violationsInLine(line) {
+    var found = [];
+    if (WAIVER.test(line)) return found;
+    var m;
+    IDENTIFIER.lastIndex = 0;
+    while ((m = IDENTIFIER.exec(line)) !== null) {
+      var token = m[0];
+      if (ALLOWLIST_PREFIX.test(token) || ALLOWLIST_EXACT[token]) continue;
+      if (BARE_STEM.test(token) || QUALIFIED_STEM.test(token)) found.push(token);
+    }
+    GREEK_BARE.lastIndex = 0;
+    while ((m = GREEK_BARE.exec(line)) !== null) found.push(m[0]);
+    return found;
+  }
+
+  var GOOD_LINE =
+    "const alphaHK = nucleationAPrism(tempC, set) * Math.exp(-sigma0Prism(tempC) / sigmaSurf);";
+  var BARE_LINE =
+    "const alpha = nucleationAPrism(tempC, set) * Math.exp(-sigma0Prism(tempC) / sigmaSurf);";
+  var GREEK_LINE =
+    "const α = nucleationAPrism(tempC, set) * Math.exp(-sigma0Prism(tempC) / sigmaSurf);";
+  var WAIVED_LINE = BARE_LINE + "  // rule7-waive: quoted in a teaching example";
+
+  var scannerOn = true;
+  var input = null;
+  var buildBox = null;
+  var previewBox = null;
+
+  function dendrite(container, c, meaningless) {
+    container.textContent = "";
+    var W = 240, H = 200;
+    var svg = Viz.createSvg(container, W, H, {
+      label: meaningless
+        ? "A six-fold crystal drawing, standing in for a run that produced a plausible but " +
+          "meaningless result."
+        : "A six-fold crystal drawing, standing in for a run that passed the scanner."
+    });
+    var cx = W / 2, cy = H / 2 - 6, L = 74;
+    var ink = meaningless ? c.series[2] : c.series[0];
+
+    for (var k = 0; k < 6; k++) {
+      var g = Viz.svgEl("g", { transform: "translate(" + cx + "," + cy + ") rotate(" + (k * 60) + ")" });
+      g.appendChild(Viz.svgEl("line", {
+        x1: 0, y1: 0, x2: L, y2: 0, stroke: ink, "stroke-width": 3, "stroke-linecap": "round"
+      }));
+      [[0.32, 0.34], [0.52, 0.26], [0.72, 0.17], [0.88, 0.10]].forEach(function (br) {
+        var x0 = L * br[0], len = L * br[1];
+        [-58, 58].forEach(function (ang) {
+          var rad = ang * Math.PI / 180;
+          g.appendChild(Viz.svgEl("line", {
+            x1: x0, y1: 0,
+            x2: x0 + len * Math.cos(rad), y2: len * Math.sin(rad),
+            stroke: ink, "stroke-width": 2, "stroke-linecap": "round"
+          }));
+        });
+      });
+      svg.appendChild(g);
+    }
+    svg.appendChild(Viz.svgEl("path", {
+      d: Viz.hexPath(cx, cy, 15, 0), fill: ink, "fill-opacity": 0.3,
+      stroke: ink, "stroke-width": 2
+    }));
+
+    var t = Viz.svgEl("text", {
+      x: cx, y: H - 6, "text-anchor": "middle",
+      fill: meaningless ? c.critical : c.inkSecondary,
+      "font-size": 12, "font-weight": 700, "font-family": "var(--font-sans)"
+    });
+    t.textContent = meaningless ? "beautiful, and meaningless." : "runs — and the name says which one.";
+    svg.appendChild(t);
+  }
+
+  function update() {
+    var c = Viz.colors();
+    var line = input.value;
+    var v = violationsInLine(line);
+    var blocked = scannerOn && v.length > 0;
+
+    input.setAttribute("style",
+      "width:100%;box-sizing:border-box;font-family:var(--font-mono);font-size:0.82rem;" +
+      "padding:0.6rem 0.7rem;border-radius:8px;background:" + c.sunken + ";color:" + c.ink +
+      ";border:1px solid " + (blocked ? c.critical : c.ruleStrong) + ";");
+
+    var text;
+    if (!scannerOn) {
+      text = "$ npm test   [Rule 7 scan disabled]\n" +
+        (v.length
+          ? "rule7: skipped (" + v.length + " bare stem(s) present and ignored)"
+          : "rule7: skipped");
+    } else if (v.length) {
+      text = "$ npm test\n" +
+        "Rule 7 violations (bare alpha/beta — see AGENTS.md Rule 7):\n" +
+        v.map(function (t) {
+          return "  core/src/libbrecht.ts:257: `" + t + "`";
+        }).join("\n") + "\n" +
+        v.length + " violation(s). Use alphaHK* for the Hertz-Knudsen coefficient, " +
+        "ggThresh* for G-G thresholds.";
+    } else {
+      text = "$ npm test\nrule7: clean (1 files scanned)";
+    }
+
+    buildBox.setAttribute("style",
+      "margin-top:0.7rem;padding:0.7rem 0.85rem;border-radius:8px;white-space:pre-wrap;" +
+      "font-family:var(--font-mono);font-size:0.78rem;line-height:1.6;overflow-x:auto;" +
+      "background:" + c.sunken + ";border-left:3px solid " +
+      (blocked ? c.critical : (v.length && !scannerOn) ? c.critical : c.good) +
+      ";color:" + (blocked ? c.critical : c.ink) + ";");
+    buildBox.textContent = text;
+
+    previewBox.setAttribute("style",
+      "margin-top:0.8rem;padding:0.7rem;border-radius:8px;background:" + c.surface +
+      ";border:1px dashed " + c.ruleStrong + ";text-align:center;");
+
+    if (blocked) {
+      previewBox.textContent = "";
+      var msg = document.createElement("p");
+      msg.setAttribute("style",
+        "margin:2.6rem 0;color:" + c.critical + ";font-weight:700;font-size:0.9rem;");
+      msg.textContent = "Build failed. The preview never ran.";
+      previewBox.appendChild(msg);
+    } else {
+      dendrite(previewBox, c, v.length > 0);
+    }
+  }
+
+  var hint = document.createElement("p");
+  hint.className = "anim__sub";
+  hint.style.marginBottom = "0.5rem";
+  hint.textContent = "core/src/libbrecht.ts line 257, with its return turned into a named " +
+    "binding. Rename alphaHK to the bare word and watch the build.";
+  body.appendChild(hint);
+
+  input = document.createElement("input");
+  input.type = "text";
+  input.value = GOOD_LINE;
+  input.setAttribute("spellcheck", "false");
+  input.setAttribute("aria-label", "One line of solver code, editable");
+  body.appendChild(input);
+
+  buildBox = document.createElement("div");
+  buildBox.setAttribute("role", "status");
+  body.appendChild(buildBox);
+
+  previewBox = document.createElement("div");
+  body.appendChild(previewBox);
+
+  input.addEventListener("input", update);
+
+  Viz.button(bar, "Scanner: ON", function (b) {
+    scannerOn = !scannerOn;
+    b.textContent = scannerOn ? "Scanner: ON" : "Scanner: OFF";
+    b.setAttribute("aria-pressed", String(!scannerOn));
+    update();
+  }, { pressed: false });
+  Viz.button(bar, "Use the bare word", function () { input.value = BARE_LINE; update(); });
+  Viz.button(bar, "Use the Greek letter", function () { input.value = GREEK_LINE; update(); });
+  Viz.button(bar, "Add a waiver", function () { input.value = WAIVED_LINE; update(); });
+  Viz.button(bar, "Put it back", function () { input.value = GOOD_LINE; update(); });
+
+  update();
+  Viz.onThemeChange(update);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1934 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Exam Result — Snow Crystals</title>
+<meta name="description" content="Two hundred and four crystals, seventeen hours, five agreements out of ninety — and not one invalid run. What a flawless failure is evidence of, and what it is not.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 28 &middot; The Exam Result</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#two-numbers">Two numbers came back</a></li>
+      <li><a href="#the-grid">The measured diagram</a></li>
+      <li><a href="#the-five">All five wins at one temperature</a></li>
+      <li><a href="#minus-five">The half that agrees with the laboratory</a></li>
+      <li><a href="#three-explanations">Three explanations, two eliminated</a></li>
+      <li><a href="#counting">One crossing, three boundaries</a></li>
+      <li><a href="#the-lever">The knob that helps nothing</a></li>
+      <li><a href="#the-gap">The shape of the failure</a></li>
+      <li><a href="#not-established">What this does not show</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 28</p>
+        <h1>The Exam Result</h1>
+        <p class="chapter-header__question">
+          Two hundred and four crystals, seventeen hours, five agreements out of ninety &mdash;
+          and not one invalid run. Which of those numbers is the result?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~16 min read</span>
+          <span>7 interactives</span>
+          <span>2 equations</span>
+        </div>
+      </header>
+
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Hold two true statements about the same run at once: it reproduced the laboratory
+            measurements it was built from, <em>and</em> it failed the map.</li>
+          <li>Explain why flawless numerics are the thing that lets a disagreement be blamed on a
+            theory instead of on the code.</li>
+          <li>Follow a counting argument from curve crossings to habit boundaries, and say why
+            counting is a stronger result than scoring.</li>
+          <li>Recognise a project aiming its honesty machinery at its own good news.</li>
+        </ul>
+      </section>
+
+      <h2 id="two-numbers">Two numbers came back</h2>
+
+      <p>
+        The exam was one command. <code>node runner/src/main.ts phase6-sweep 6</code>. It ran for
+        about seventeen hours on six worker processes and exited with status 0, having completed
+        204 of 204 points on the float64 CPU engine &mdash; the slow, exact one, for the reason
+        chapter 26 gave. Those lines are printed in the provenance table at the top of
+        <code>research/phase6-sweep-report.md</code>, next to the fingerprint of the protocol it
+        was run against and the two commit hashes that prove the protocol was sealed first.
+      </p>
+
+      <p>
+        Two numbers came out, and they point in opposite directions.
+      </p>
+
+      <p>The first is the score:</p>
+
+      <blockquote>
+        <p>&ldquo;<strong>Headline: 5 of 90 headline-scope points agree.</strong>&rdquo;</p>
+        <p><cite><code>research/phase6-sweep-report.md</code>, &ldquo;Scored result&rdquo;</cite></p>
+      </blockquote>
+
+      <p>
+        Five out of ninety. In the temperature band where the reference diagram demands columns,
+        the model produced agreement on 0 of 24 points. In the band where it demands cold plates,
+        0 of 60. That is not a near miss. That is a miss so total that you would normally suspect
+        the machine was broken.
+      </p>
+
+      <p>The second number is the reason you cannot suspect that:</p>
+
+      <blockquote>
+        <p>
+          &ldquo;<strong>Zero invalid runs in 204.</strong> Every point converged under the dual
+          criterion, held <code>symErr = 0</code> with noise off, kept every per-tick attachment
+          delta D6h-invariant, and cleared the 65% domain-contact guard. Nothing was excluded, so
+          nothing had to be argued about.&rdquo;
+        </p>
+        <p><cite><code>research/phase6-sweep-report.md</code>, &ldquo;Four findings&rdquo; &sect;2</cite></p>
+      </blockquote>
+
+      <p>
+        Four checks, decided before the sweep, applied automatically to every run. They live in
+        one function in <code>runner/src/phase6-sweep.ts</code> called
+        <code>phase6ScorePoint</code>, and they are four lines long:
+        <code>allConverged</code>, <code>deltaSymClean</code>, <code>symmetryError !== 0</code>,
+        <code>domainContact</code>. Fail any one and the run is stamped <code>invalid</code> and,
+        in the file&rsquo;s own words, &ldquo;EXCLUDED BY NAME, never dropped &mdash; &hellip;
+        Those are runs that did not happen properly, not statements about the model.&rdquo;
+      </p>
+
+      <p>
+        None of them fired. Not once, across 204 crystals grown at 34 temperatures and six
+        humidities. In plain English: every crystal converged on both of the two independent
+        convergence tests chapter 22 described, not just the easy one; every crystal came out with
+        a symmetry error of exactly zero; every single growth step stayed perfectly six-fold
+        symmetric, which is what &ldquo;D<sub>6h</sub>-invariant&rdquo; means &mdash;
+        D<sub>6h</sub> is the crystallographer&rsquo;s name for the symmetry of a hexagonal prism;
+        and no crystal ever grew far enough to touch the wall of its own box.
+      </p>
+
+      <p>
+        This is what makes the failure usable. The ordinary escape hatch from a bad comparison is
+        <em>some of the runs were no good, so the comparison is unfair</em>. Here there are no bad
+        runs to point at. Nothing was excluded, so nothing could be argued about afterwards.
+      </p>
+
+      <figure class="anim is-wide" id="c28-verdicts">
+        <div class="anim__head">
+          <p class="anim__title">Two scoreboards, one run</p>
+          <p class="anim__sub">
+            The same 204 dots, marked twice. Grade the machinery and every dot is green. Grade the
+            physics and the same dots go mostly red. Both scoreboards are published.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Validity checks from
+          <code>runner/src/phase6-sweep.ts</code>, <code>phase6ScorePoint</code>; agreement scored
+          by the rule in <code>docs/decisions/0025-phase6-agreement-scoring-rule.md</code>; grid and
+          totals transcribed from <code>research/phase6-sweep-report.md</code>.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Chapter 15 taught you to separate two claims that sound alike, and the project&rsquo;s own
+        charter is blunt about why:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;Hold the distinction precisely, because it is the one this project exists to be
+          honest about: giving a model real physics is not the same as showing the model reproduces
+          reality.&rdquo;
+        </p>
+        <p><cite><code>project charter.md</code>, &sect;1.5</cite></p>
+      </blockquote>
+
+      <p>
+        So say it in the split form. <em>The model was given real, measured physics</em> &mdash;
+        that claim is about where the numbers came from, and it is the claim chapter 16 spent its
+        whole length supporting. <em>The model reproduces the Nakaya diagram</em> &mdash; that claim
+        is about outcome, and it has now been tested and has failed. Both sentences are true of the
+        same 204 runs. Neither is allowed to stand in for the other.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          A wrong answer about nature is a measurement. A wrong answer about your own rules is a
+          defect. The 204 runs produced the first and tripped none of the four numeric validity
+          rules &mdash; which is what lets the disagreement be attributed to the physics rather
+          than to the program. A different rule <em>was</em> broken, and the very next paragraph
+          says so: the runs used a parameter set the frozen protocol had not registered. That one
+          was caught by review, not by the runs, and it cost the sweep.
+        </p>
+      </aside>
+
+      <p>
+        One warning before you read the number anywhere else on this page. The score of 5 of 90 is
+        <strong>measured, and it has since been superseded</strong>. After the sweep finished, an
+        internal review found that the runs had used a parameter set the frozen protocol had not
+        registered, which by the project&rsquo;s own rule invalidates the sweep and forces a re-run.
+        That story, including the fact that the corrected headline was predicted <em>in advance</em>
+        to be worse, is chapter 29&rsquo;s. Everywhere below, every swept number &mdash; the score,
+        the aspect ratios, the class totals, the row-by-row grid &mdash; is a measurement from a run
+        since superseded by the project&rsquo;s own protocol rule. Read each of them as &ldquo;as
+        measured in the sweep of commit <code>6995868</code>, which the project has since
+        invalidated&rdquo;.
+      </p>
+
+      <h2 id="the-grid">The measured diagram</h2>
+
+      <p>
+        The sweep is a grid: 34 temperatures from &minus;2 to &minus;35&nbsp;&deg;C one degree
+        apart, crossed with six humidity levels expressed as a fraction <em>f</em> of water
+        saturation &mdash; 0.10, 0.15, 0.25, 0.40, 0.60 and 0.90. Thirty-four times six is 204.
+        Each cell is one crystal, grown from a 19-site hexagonal seed until it reached a registered
+        measurement size, then measured for its <strong>aspect ratio</strong> &mdash; thickness
+        divided by width, so a <em>low</em> number is a flat plate and a <em>high</em> number is a
+        stubby column &mdash; and sorted into one of three classes: <strong>plate</strong> (aspect
+        ratio at or below 0.6667, which is 1/1.5), <strong>column</strong> (1.5 or above), or
+        <strong>neutral</strong> &mdash; the model declining to commit to either. Those two numbers
+        are the registered ones, spelled out in <code>runner/src/phase6-protocol.ts</code> as
+        &ldquo;AR = z-extent / T-extent; plate AR &le; 1/1.5 (0.6667), column AR &ge; 1.5,
+        otherwise neutral&rdquo;.
+      </p>
+
+      <p>
+        Chapter 27 sealed the marking scheme before any of this ran. Three of its clauses do all
+        the work here. <em>Neutral counts as disagreement</em>, because the reference names a habit
+        in every regime and the neutral band is the model&rsquo;s invention, not the
+        reference&rsquo;s. <em>Points within 1&nbsp;&deg;C of a reference boundary do not count</em>,
+        in either direction. And <em>the coldest regime, which accepts both plates and columns, is
+        reported but kept out of the headline</em>, because a band that accepts both answers cannot
+        discriminate between them. Ninety points survive those rules. Five of them agree.
+      </p>
+
+      <figure class="anim is-wide" id="c28-sweep">
+        <div class="anim__head">
+          <p class="anim__title">The 204-point sweep, walkable</p>
+          <p class="anim__sub">
+            Four views of the same measurement. Click any square to read what the model grew there,
+            what nature grows there, and whether the registered rule counts it.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The grid is transcribed from the measured
+          diagram printed in <code>research/phase6-sweep-report.md</code>; scoring re-implements
+          <code>docs/decisions/0025-phase6-agreement-scoring-rule.md</code>. The 5 of 90 headline it
+          reproduces is measured, and since superseded &mdash; see chapter 29.</span>
+        </figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The scored result, by regime. Transcribed from the table in
+            <code>research/phase6-sweep-report.md</code>, &ldquo;Scored result&rdquo;. The
+            &ldquo;neutral&rdquo; column is published separately so that &ldquo;wrong habit&rdquo;
+            can always be told apart from &ldquo;no habit&rdquo;.
+          </caption>
+          <thead>
+            <tr>
+              <th>Regime</th><th>In the headline?</th><th class="num">n</th>
+              <th class="num">agree</th><th class="num">disagree</th><th class="num">of which neutral</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>plates-warm (T &gt; &minus;3.3&nbsp;&deg;C)</td><td>yes</td><td class="num">6</td><td class="num">5</td><td class="num">1</td><td class="num">1</td></tr>
+            <tr><td>columns (&minus;3.3 &hellip; &minus;9.9&nbsp;&deg;C)</td><td>yes</td><td class="num">24</td><td class="num">0</td><td class="num">24</td><td class="num">8</td></tr>
+            <tr><td>plates-cold (&minus;9.9 &hellip; &minus;21.5&nbsp;&deg;C)</td><td>yes</td><td class="num">60</td><td class="num">0</td><td class="num">60</td><td class="num">58</td></tr>
+            <tr><td>columns-and-plates (&lt; &minus;21.5&nbsp;&deg;C)</td><td>no</td><td class="num">78</td><td class="num">26</td><td class="num">52</td><td class="num">52</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Across all 204 points the class totals are <strong>31 plate, 143 neutral, 30 column, 0
+        invalid</strong>, with 25 points flagged as sitting close enough to a class threshold that
+        a small change in measurement size could move them. You can check the first three of those
+        numbers yourself off the grid above, because the grid in the interactive is the report&rsquo;s
+        own character grid transcribed cell for cell: count the plates and you get 31, count the
+        columns and you get 30, and everything else &mdash; 143 cells &mdash; is the model refusing
+        to pick a side.
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          The measured grid is published as 34&times;6 characters of plain text in the sweep report.
+          That is a deliberate choice: it means any reader can re-run the scoring rule by hand and
+          arrive at 5 of 90 without trusting the program that produced it. Every interactive on this
+          page that uses model results reads from that transcription, and reproduces the published
+          per-band totals &mdash; 5/6, 0/24, 0/60, and 26/78 in the excluded mixed band.
+        </p>
+      </aside>
+
+      <h2 id="the-five">All five wins at one temperature</h2>
+
+      <p>
+        Now the part where the honesty machinery turns on the project&rsquo;s own good news. All
+        five agreements are at the same temperature. The report does not bury that; it prints it in
+        bold, immediately under the headline:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;<strong>Every one of the five agreements is at &minus;2&nbsp;&deg;C</strong>, the
+          single counting temperature in the warmest regime &mdash; which ADR 0025 registered
+          <em>pre-sweep</em> as carrying essentially no statistical weight, precisely so this could
+          not be presented as a result. The model agrees with the reference nowhere else inside the
+          headline scope.&rdquo;
+        </p>
+        <p><cite><code>research/phase6-sweep-report.md</code>, &ldquo;Scored result&rdquo;</cite></p>
+      </blockquote>
+
+      <p>
+        Read the timing carefully, because it is the whole point. The warm plate band spans
+        temperatures warmer than &minus;3.3&nbsp;&deg;C. On a one-degree grid starting at
+        &minus;2&nbsp;&deg;C, and with the &plusmn;1&nbsp;&deg;C ambiguity band removing
+        &minus;3&nbsp;&deg;C, exactly one temperature in that band can ever count. The scoring
+        decision therefore wrote this down before the sweep, while the outcome was still unknown:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;<strong>A stated limitation rather than a discovered one: the warmest Plates regime
+          has exactly ONE counting temperature (&minus;2&nbsp;&deg;C).</strong> It can therefore
+          only ever score 0% or 100% and carries essentially no statistical weight&hellip; Any
+          conclusion about the warm plate regime is a one-point conclusion and must say so.&rdquo;
+        </p>
+        <p><cite><code>docs/decisions/0025-phase6-agreement-scoring-rule.md</code>, Consequences</cite></p>
+      </blockquote>
+
+      <p>
+        A band that can only score 0% or 100% scored 100%. Five of the six cells at
+        &minus;2&nbsp;&deg;C came out plate, which is what the reference asks for; the sixth, at the
+        wettest humidity, came out neutral, which the rule counts as a miss. That is the entire
+        positive half of the headline: one temperature, five humidities.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The five agreements, with the aspect ratios behind them. Values from
+            <code>research/libbrecht-figure-findings.md</code> &sect;9, where they are listed as the
+            swept values at &minus;2&nbsp;&deg;C. &sigma;<sub>&infin;</sub> is the supersaturation
+            far from the crystal &mdash; the same humidity as <em>f</em>, written as the raw excess
+            of vapour rather than as a fraction of water saturation. The plate ceiling is 0.6667; a
+            point that rose above it would become neutral, which the registered rule scores as
+            disagreement.
+          </caption>
+          <thead>
+            <tr><th class="num">f</th><th class="num">&sigma;<sub>&infin;</sub></th><th class="num">aspect ratio</th><th class="num">rise needed to lose the agreement</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="num">0.10</td><td class="num">0.002</td><td class="num">0.1638</td><td class="num">4.07&times;</td></tr>
+            <tr><td class="num">0.15</td><td class="num">0.003</td><td class="num">0.2729</td><td class="num">2.44&times;</td></tr>
+            <tr><td class="num">0.25</td><td class="num">0.005</td><td class="num">0.3821</td><td class="num">1.74&times;</td></tr>
+            <tr><td class="num">0.40</td><td class="num">0.008</td><td class="num">0.4913</td><td class="num">1.36&times;</td></tr>
+            <tr><td class="num">0.60</td><td class="num">0.012</td><td class="num">0.6004</td><td class="num">1.11&times;</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        And then the project undercuts its own five wins a second time. The warm end of the model
+        rests on one digitized curve &mdash; the prism facet&rsquo;s <em>&sigma;<sub>0</sub></em>
+        &mdash; that the project has since found suspect. Libbrecht&rsquo;s own printed closed form
+        puts those digitized anchors low by a factor of 1.6 to 3.2 at &minus;2 to
+        &minus;5&nbsp;&deg;C, far outside the &plusmn;25% uncertainty the project had claimed for
+        them. The report states the consequence in the same breath: &ldquo;and &minus;2&nbsp;&deg;C
+        is where all five agreements sit.&rdquo;
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          Anyone can be honest about their bad news. The test of an honesty system is whether it
+          fires on the good news too &mdash; and here the same document that reports five
+          agreements is the document that says, in bold, that those five carry essentially no
+          weight and rest on a parameter it now doubts.
+        </p>
+      </aside>
+
+      <h2 id="minus-five">The half that agrees with the laboratory</h2>
+
+      <p>
+        There is a second result in the same sweep, and it points the other way.
+      </p>
+
+      <p>
+        At &minus;5&nbsp;&deg;C the Nakaya diagram demands a column. The model grew a plate, and
+        scored zero. But &minus;5&nbsp;&deg;C is also the subject of a dedicated laboratory paper by
+        Libbrecht himself, and that paper reports the opposite of the diagram. His substrate
+        experiments there found aspect ratios &ldquo;throughout the range 0.1 &lt;
+        &rho;<sub>aspect</sub> &lt; 1. Columnar crystals (with &rho;<sub>aspect</sub> &gt; 1) were
+        absent&rdquo;, with many crystals &ldquo;blockier, nearly isometric&rdquo; and thick plates
+        &ldquo;the norm&rdquo; at a typical &rho; of about 0.5. His &rho;<sub>aspect</sub> is
+        thickness over width &mdash; the same quantity the model calls AR.
+      </p>
+
+      <p>
+        The model&rsquo;s &minus;5&nbsp;&deg;C points land at AR 0.3821 to 1.0000: inside his
+        measured range, columns absent. So the model agrees with the laboratory measurements and
+        disagrees with the diagram &mdash; which is precisely what the source says a broad-facet
+        model should do. He writes it out on the same page: &ldquo;<strong>Producing columnar
+        crystals at &minus;5&nbsp;C then requires the SDAK effect</strong>.&rdquo;
+      </p>
+
+      <figure class="anim" id="c28-minus5">
+        <div class="anim__head">
+          <p class="anim__title">The &minus;5&nbsp;&deg;C bench</p>
+          <p class="anim__sub">
+            One aspect-ratio axis, three marks and a threshold. The lab and the diagram disagree
+            with each other at this temperature. The model sides with the lab.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original diagram. Laboratory band and typical value quoted from
+          arXiv:1912.03230v1 pp. 10 and 13 as verified verbatim in
+          <code>research/libbrecht-figure-findings.md</code> &sect;10.1; model values from the same
+          document &sect;9; thresholds from
+          <code>docs/decisions/0025-phase6-agreement-scoring-rule.md</code>.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Two things must be said about that agreement, and the project says both about itself.
+      </p>
+
+      <p>
+        First, the &minus;5&nbsp;&deg;C laboratory data is <strong>upstream of the model&rsquo;s own
+        inputs</strong>. The attachment-kinetics curves the model runs on were built from
+        Libbrecht&rsquo;s measurement programme, and this paper is part of that programme. Agreement
+        here is therefore a strong consistency check &mdash; it says the pipeline from his printed
+        measurements to a grown 3-D crystal did not mangle anything &mdash; but it is not
+        independent validation. The findings ledger records it in exactly those words: &ldquo;The
+        model agrees with the lab data its inputs came from.&rdquo;
+      </p>
+
+      <p>
+        Second, the upper end of that range, AR 1.0000, comes from a <strong>calibration
+        probe</strong>: a run made to help choose settings, not a run made under the frozen
+        protocol. The project maintains a two-tier truth system for exactly this reason, and the
+        document that prints the number prints the restriction beside it: &ldquo;These are
+        CALIBRATION PROBES and are never citable as gate evidence.&rdquo; The swept, citable value
+        at &minus;5&nbsp;&deg;C is 0.3821.
+      </p>
+
+      <h2 id="three-explanations">Three explanations, two eliminated</h2>
+
+      <p>
+        A model disagrees with a measurement. There are exactly three places to put the blame.
+        <strong>The code is wrong.</strong> <strong>The numbers fed into it are wrong.</strong>
+        <strong>The theory those numbers encode is insufficient.</strong> Everything in Part Two
+        before this chapter exists to let you eliminate the first two &mdash; not by assertion, but
+        with specific measurements that would look different if either were the culprit.
+      </p>
+
+      <p>
+        Try it yourself. Pick a culprit and see what comes back.
+      </p>
+
+      <figure class="anim is-wide" id="c28-blame">
+        <div class="anim__head">
+          <p class="anim__title">Blame assignment</p>
+          <p class="anim__sub">
+            One disagreement, three suspects. Two of them have alibis that were measured before
+            anyone went looking for an alibi.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Evidence drawn from
+          <code>research/phase6-sweep-report.md</code> &sect;2 of &ldquo;Four findings&rdquo;;
+          <code>docs/plans/phase-6-nakaya-validation.md</code> (gate separation);
+          <code>docs/findings-ledger.md</code> entries A1 and A2.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The alibi for the code is not just &ldquo;zero invalid runs&rdquo;. It is also that the
+        program which certifies the phase is <em>forbidden</em> to fail on a morphology miss. The
+        plan writes the separation as executable behaviour, not as a promise:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;A <em>morphology miss is not a gate failure</em>: the gate fails on invalid
+          numerics, provenance, artifacts, incomplete runs, or a protocol violation &mdash; never on
+          the model disagreeing with the diagram. That separation is what makes &lsquo;a negative
+          result is a result&rsquo; executable rather than aspirational.&rdquo;
+        </p>
+        <p><cite><code>docs/plans/phase-6-nakaya-validation.md</code></cite></p>
+      </blockquote>
+
+      <p>
+        The alibi for the numbers has two parts, and only one of them is blind. The
+        &minus;5&nbsp;&deg;C reproduction is the loud one, and you have just seen why it is a
+        consistency check rather than a proof. The quiet one is better evidence, and it is about
+        one specific quantity: the prefactor curve <em>A</em><sub>prism</sub> was digitized off a
+        printed <em>figure</em>, pixel by pixel, before anyone found the later paper that prints
+        the same curve as an <em>equation</em> &mdash; arXiv:2009.08404v2, Eq. (5). Compared
+        afterwards, the digitized
+        <em>A</em><sub>prism</sub> anchors reproduce the printed formula to 8.4% at worst and under
+        2% typically. An extraction that agrees with a source it could not have peeked at is
+        independently confirmed, not merely self-consistent. The
+        <em>&sigma;<sub>0</sub></em> curves got no such clean bill &mdash; that is the discrepancy
+        the previous section reported, and it is why the alibi for the numbers is stamped
+        &ldquo;with scope&rdquo; rather than clean.
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          &ldquo;Zero invalid runs&rdquo; does <em>not</em> mean &ldquo;zero errors&rdquo;. It means
+          zero runs tripped four named validity conditions. A different kind of error &mdash; an
+          unregistered command-line default quietly overriding a frozen parameter row &mdash; was
+          found afterwards, by review, and cost the entire sweep. Both facts belong in the same
+          chapter, and the second one is the more impressive.
+        </p>
+      </aside>
+
+      <h2 id="counting">One crossing, three boundaries</h2>
+
+      <p>
+        Eliminating two suspects leaves the third by default, which is a weak kind of argument. The
+        strongest result in the whole sweep is not the score at all. It is a counting argument that
+        says the model could not have passed, whatever the code and whatever the grid.
+      </p>
+
+      <p>
+        Here is the chain. A habit boundary &mdash; the temperature where a crystal stops growing
+        plates and starts growing columns &mdash; requires the basal and prism facets to swap which
+        one is stickier. Stickiness in this model is set by a critical supersaturation
+        <em>&sigma;<sub>0</sub></em>, one curve per facet: the lower the curve, the stickier the
+        facet, so a swap in stickiness is exactly a <strong>crossing</strong> of the two curves. So
+        the number of crossings is a hard ceiling on the number of habit boundaries a model can
+        produce &mdash; and that ceiling does not care about the diffusion solver, the grid
+        spacing, the seed shape, the far-field condition or the domain size.
+      </p>
+
+      <p>
+        Three independent parameterizations of those curves have been evaluated &mdash; the
+        project&rsquo;s own digitized anchors and two printed closed forms from separate papers.
+        Each has exactly one crossing, all in the same direction, all landing between &minus;8.4 and
+        &minus;10.9&nbsp;&deg;C. The Nakaya diagram has three boundaries. One is less than three,
+        and no amount of engineering closes that gap.
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          &sigma;<sub>0,basal</sub>(T*) = 0.02&middot;T*<sup>1.75</sup> + 0.3
+          <br>
+          &sigma;<sub>0,prism</sub>(T*) = 0.02&middot;T*<sup>1.9</sup> &minus; 0.025(T* &minus; 0.3)
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>T*</dt><dd>how far below freezing, in degrees C, written as a positive number &mdash; so T* = 15 means &minus;15&nbsp;&deg;C</dd>
+            <dt>&sigma;<sub>0</sub></dt><dd>the critical supersaturation of a facet, in percent: how much spare vapour the air must carry before that face grows readily. Low means sticky.</dd>
+            <dt>basal / prism</dt><dd>the flat top-and-bottom faces, and the six side faces, of a hexagonal ice prism</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">
+          Printed closed forms, arXiv:2009.08404v2 p. 3, Eqs. (2) and (3), transcribed verbatim in
+          <code>research/libbrecht-figure-findings.md</code> &sect;2
+        </p>
+      </div>
+
+      <p>
+        Those two printed formulas are what the next interactive draws. Nothing is fitted; they are
+        typed in as printed. Your job is to make three habit boundaries out of them.
+      </p>
+
+      <figure class="anim is-wide" id="c28-crossings">
+        <div class="anim__head">
+          <p class="anim__title">Count the crossings</p>
+          <p class="anim__sub">
+            Two published curves and a habit ribbon that redraws live. Try to produce three
+            boundaries. Then switch on the dip tools and read the banner.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Curves are arXiv:2009.08404v2 Eqs. (2) and
+          (3) as printed; dip centres &minus;4.5&nbsp;&deg;C (basal) and &minus;14.4&nbsp;&deg;C
+          (prism) are the published values recorded in
+          <code>research/libbrecht-figure-findings.md</code> &sect;1. The dip <em>shape</em> here is
+          this page&rsquo;s own smooth notch, not the source&rsquo;s &mdash; his own paper calls its
+          dip shapes &ldquo;completely ad hoc&rdquo;.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Switch both dips on at the depth the page starts with and the count goes to five. That
+        number is not this page&rsquo;s invention: evaluating Libbrecht&rsquo;s own printed
+        dip-bearing parameterization gives five crossings too, at &minus;3.70, &minus;6.25,
+        &minus;8.46, &minus;9.93 and &minus;18.62&nbsp;&deg;C, against reference boundaries at
+        &minus;3.3, &minus;9.9 and &minus;21.5&nbsp;&deg;C. Two of those land within
+        0.4&nbsp;&deg;C of a real boundary. And notice what the mapping does to the sweep&rsquo;s
+        failures: the columns band that scored 0 of 24 contains the basal dip at
+        &minus;4.5&nbsp;&deg;C; the cold plates band that scored 0 of 60 contains the prism dip at
+        &minus;14.4&nbsp;&deg;C; the one band where the model scored at all contains no dip.
+      </p>
+
+      <p>
+        Which is also the banner&rsquo;s point. Once you drag a dip into place to make a boundary
+        appear, you have put the answer in by hand &mdash; and the dips were originally positioned
+        against the very diagram in question. That is why the project fixed the ceiling on its own
+        future experiment before running it: a dip-bearing run that reproduces the diagram can only
+        ever be called <em>in-sample reproduction</em>, never independent validation.
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          The crossing is robust in <em>sense</em> and <em>count</em>, and worthless in
+          <em>location</em>. Within the &plusmn;25% uncertainty the project had already registered
+          on its digitized curves, the single crossing can sit anywhere from &minus;6.90 to
+          &minus;22.89&nbsp;&deg;C &mdash; a 16&nbsp;&deg;C span that swallows most of the diagram.
+          The nominal crossing happens to land within 0.1&nbsp;&deg;C of Nakaya&rsquo;s real
+          &minus;9.9&nbsp;&deg;C boundary, and the project killed that coincidence itself, calling it
+          &ldquo;doubly worthless as evidence&rdquo;. The falsifiable claim was restated to be the
+          sense and the count only.
+        </p>
+      </aside>
+
+      <h2 id="the-lever">The knob that helps nothing</h2>
+
+      <p>
+        The obvious objection to all of this is: you just did not tune it well enough. The most
+        plausible knob is the starting seed &mdash; every run in the project starts from the same
+        little 19-site hexagon, radius 2, thickness 1, which is itself plate-shaped. Does the model
+        grow plates because the physics says so, or because it started as one?
+      </p>
+
+      <p>
+        That was measured, not argued. Five seed geometries were run at the two temperatures that
+        discriminate: &minus;5&nbsp;&deg;C, where the reference demands a column (AR at or above
+        1.5), and &minus;15&nbsp;&deg;C, where it demands a plate (AR at or below 0.6667). The
+        answer is more interesting than a flat &ldquo;no&rdquo;.
+      </p>
+
+      <figure class="anim is-wide" id="c28-lever">
+        <div class="anim__head">
+          <p class="anim__title">Two targets, one lever</p>
+          <p class="anim__sub">
+            Five real seed shapes, two real scoreboards. Try to satisfy both at once.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. All ten aspect ratios are measured runs,
+          transcribed from the five-seed table in
+          <code>research/libbrecht-figure-findings.md</code> &sect;9.2. Those runs are calibration
+          probes, not gate evidence, and the document says so in place.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Seed shape is not a small knob. It moves the aspect ratio by +0.41 at &minus;5&nbsp;&deg;C
+        and +0.51 at &minus;15&nbsp;&deg;C between the registered seed and a needle-like one, and
+        the needle-like seed <em>does</em> produce a genuine column &mdash; at &minus;15&nbsp;&deg;C,
+        where a plate is required. That is the honest, awkward version of the result, and the
+        project states it plainly rather than claiming the knob is weak.
+      </p>
+
+      <p>
+        The reason it still cannot rescue anything is that a seed is the same at every temperature.
+        It slides every point in the same direction, and the two failing bands need opposite moves.
+        The seed that comes closest at &minus;15&nbsp;&deg;C is the worst one at
+        &minus;5&nbsp;&deg;C; the seed that comes closest at &minus;5&nbsp;&deg;C manufactures the
+        wrong habit at &minus;15&nbsp;&deg;C. Not one of the five agrees at either temperature.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          Diffusion, grid spacing, seed shape, far field and domain size can all move the aspect
+          ratio, some of them a lot. None of them can <em>reverse</em> the plate/column ordering as
+          a function of temperature &mdash; and the diagram requires that three times. The bound is
+          about direction, not size.
+        </p>
+      </aside>
+
+      <h2 id="the-gap">The shape of the failure</h2>
+
+      <p>
+        A score tells you the model missed. It does not tell you <em>how</em>. Two facts about the
+        shape of the miss came out of the sweep that, as far as a literature check in July 2026
+        found, nobody had reported before &mdash; because nobody had run a full 3-D broad-facet
+        model across this grid.
+      </p>
+
+      <p>
+        The first is that the crossing marks where plate <strong>stops</strong>, not where column
+        <strong>starts</strong>. Everyone, this project included, had assumed the crossing
+        temperature <em>is</em> the habit-switch temperature. It is not. The last plate cell in
+        every row from <em>f</em> = 0.10 to 0.40 sits at &minus;8&nbsp;&deg;C, with the first
+        neutral cell at &minus;9&nbsp;&deg;C &mdash; which is why the report brackets the plate
+        boundary as &ldquo;&minus;8/&minus;9&nbsp;&deg;C&rdquo;, and it is what the strip
+        interactive below prints when you read it off the grid. Either way it lands essentially at
+        the registered &minus;10&nbsp;&deg;C crossing &mdash; and then columns do not
+        begin until &minus;19&nbsp;&deg;C or, at the next humidity up, &minus;23&nbsp;&deg;C. The
+        roughly 10&nbsp;&deg;C band in between is the model declining to commit to either habit, and
+        it is the single largest feature of the measured diagram. On Nakaya&rsquo;s side of the
+        comparison there is no gap at all: a knife-edge boundary at &minus;9.9&nbsp;&deg;C.
+      </p>
+
+      <p>
+        The second is that turning up the humidity destroys habit outright. Columns appear only in
+        the two driest rows. From the third row upward there is not one column anywhere across all
+        34 temperatures, and at the wettest row the model produces nothing but neutral, everywhere.
+        The direction was predicted before the sweep, from the attachment formula itself &mdash; but
+        predicted as a <em>bias</em>, and measured as <em>total</em>.
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          &alpha;<sub>HK</sub> = A &middot; exp(&minus;&sigma;<sub>0</sub> / &sigma;<sub>surf</sub>)
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>&alpha;<sub>HK</sub></dt><dd>the attachment coefficient: the fraction of molecules striking this facet that actually stick</dd>
+            <dt>A</dt><dd>the facet&rsquo;s prefactor, its stickiness ceiling</dd>
+            <dt>&sigma;<sub>0</sub></dt><dd>the facet&rsquo;s critical supersaturation &mdash; low means sticky</dd>
+            <dt>&sigma;<sub>surf</sub></dt><dd>the supersaturation actually present at the surface, which rises as you make the air wetter</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">
+          As printed in <code>research/phase6-sweep-report.md</code>, &ldquo;Four findings&rdquo;
+          &sect;4, explaining the measured contrast collapse
+        </p>
+      </div>
+
+      <p>
+        Read the formula and the collapse is obvious in hindsight. As
+        &sigma;<sub>surf</sub> grows, the exponential term goes to 1 and every facet&rsquo;s
+        &alpha; saturates toward its own ceiling A. The basal/prism contrast, which spans 0.34 to
+        3.76 across the temperature axis at f = 0.15, compresses to 0.84&ndash;1.25 at f = 0.90. The
+        facets stop being able to tell each other apart, so the crystal stops being able to choose a
+        habit. The uncomfortable part is where that happens: the real diagram is at its most
+        structured exactly there, full of dendrites, sectored plates and needles.
+      </p>
+
+      <figure class="anim is-wide" id="c28-gap">
+        <div class="anim__head">
+          <p class="anim__title">Where plate stops, and where the signal drowns</p>
+          <p class="anim__sub">
+            One humidity row at a time, straight from the measured grid. Watch the gap between the
+            two habits, and watch the columns disappear as you make the air wetter.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Every strip is a row of the measured
+          diagram transcribed from <code>research/phase6-sweep-report.md</code>; the reference band
+          edges &minus;3.3, &minus;9.9 and &minus;21.5&nbsp;&deg;C are the digitized Nakaya
+          boundaries registered in <code>runner/src/phase6-protocol.ts</code>.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Both facts sharpen the same lesson: crossing location and habit-transition location are
+        different observables, and only the second is what a morphology diagram records. A model can
+        get the crossing right and still record nothing recognisable as a habit boundary.
+      </p>
+
+      <h2 id="not-established">What this does not show</h2>
+
+      <p>
+        The sweep report ends with a list of what its own result does not establish, and any honest
+        retelling has to carry that list rather than the headline alone.
+      </p>
+
+      <p>
+        <strong>It is not a test of SDAK.</strong> Every run is a no-SDAK run; in the report&rsquo;s
+        own words, &ldquo;<code>SDAK</code> appears in no source file&rdquo;. The dip mechanism has
+        never been tested here, and if it were switched on and the diagram appeared, the rules
+        already written would label that in-sample reproduction rather than validation.
+      </p>
+
+      <p>
+        <strong>The comparison target is a redrawn 1954 schematic.</strong> Its supersaturation axis
+        failed an independent check when the project digitized it, which is why only its three
+        boundary <em>temperatures</em> are used and its humidity values never are. No published
+        habit boundary anywhere carries a numerical uncertainty; the &plusmn;0.5&nbsp;&deg;C the
+        project uses is its own construction.
+      </p>
+
+      <p>
+        <strong>The habit class is what the sweep may claim; the aspect ratio underneath is not.</strong>
+        Four convergence studies found the class robust on every axis tested, while the value beneath
+        it converges late or, at the warm condition under grid refinement, not in any usable sense.
+        The zone is the claim; the dot is not.
+      </p>
+
+      <p>
+        <strong>It ran on one computer.</strong> No cross-platform control has been run, so the
+        result is scoped to the registered x64 host. Habit is also measured at one crystal size, and
+        habit is size-dependent: 25 of the 204 points sit close enough to a class threshold to be
+        flagged fragile.
+      </p>
+
+      <p>
+        <strong>The score has already been superseded.</strong> Chapter 29 opens with that, so it
+        stays there &mdash; but the number on this page must never be quoted bare. It is 5 of 90 as
+        measured in a run the project has since invalidated under its own rule, with a re-sweep
+        pending and a worse corrected headline registered in advance.
+      </p>
+
+      <p>
+        <strong>And no human expert has read any of it.</strong> Every review this project has had
+        &mdash; internal and external-facing, including the two-reviewer process that checked this
+        page &mdash; has been an LLM review. The project&rsquo;s own sharing rules require that at
+        least one human domain scientist read any manuscript before submission, and record the
+        current position without softening it: all reviews to date are LLM reviews, and for
+        publication that is a disclosed limitation, not a substitute. Phase 6 is in flight as this
+        is written. Phase 7, the product layer that would turn any of this into something a person
+        could use, has not started.
+      </p>
+
+      <p>
+        What is left, after all of those are subtracted, is small and durable. A model built from
+        one physicist&rsquo;s published measurements was pointed at the most famous picture in his
+        field, under a marking scheme sealed in advance, and it missed &mdash; in the specific shape
+        he had predicted in prose and nobody had ever tested in three dimensions. It missed while
+        agreeing with his own laboratory data at a temperature where that laboratory data and the
+        diagram contradict each other. And it missed with 204 numerically clean runs out of 204, so
+        there is nothing left to blame but the physics that was fed in.
+      </p>
+
+      <p>
+        The findings ledger has a phrase for that combination, and it is the most exact sentence in
+        the whole repository: <strong>the signature of a correct implementation of an insufficient
+        theory</strong>.
+      </p>
+
+      <p class="handoff">
+        Which leaves the bill. Seventeen hours of compute, every phase of machinery that came
+        before it, and a headline the project threw away on its own initiative almost as soon as it
+        had measured it &mdash; that is the next chapter, along with the list of things this project
+        still does not know.
+      </p>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./27-sealing-the-envelope.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">Sealing the Envelope</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./29-what-it-cost-and-what-is-open.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">What It Cost, and What Is Still Open</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
+      from a local research cache under citation; they are not redistributed with this repository.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<style>
+/* Scoped helpers for this chapter's original interactives. */
+.c28-cards { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+.c28-card {
+  border: 1px solid var(--rule); border-radius: 10px; padding: 0.75rem 0.85rem;
+  background: var(--surface-1); display: flex; flex-direction: column; gap: 0.5rem;
+}
+.c28-card h4 { margin: 0; font-size: var(--step-0); line-height: 1.25; }
+.c28-card p { margin: 0; font-size: var(--step--1); line-height: 1.5; color: var(--ink-secondary); }
+.c28-card .c28-ev { color: var(--ink-primary); }
+.c28-card .button { align-self: flex-start; margin-top: auto; }
+.c28-card .button[disabled] { opacity: 0.6; cursor: default; }
+.c28-card.is-out { background: var(--surface-sunken); }
+.c28-card.is-out h4 { text-decoration: line-through; color: var(--ink-muted); }
+.c28-card.is-live { border-color: var(--accent-key); border-width: 2px; padding: calc(0.75rem - 1px) calc(0.85rem - 1px); }
+.c28-stamp {
+  align-self: flex-start; font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase;
+  font-weight: 700; border: 1.5px solid currentColor; border-radius: 4px; padding: 0.12rem 0.4rem;
+}
+.c28-banner {
+  border: 1px solid currentColor; border-radius: 8px; padding: 0.6rem 0.8rem;
+  font-size: var(--step--1); line-height: 1.5; margin-top: 0.6rem;
+}
+.c28-readout {
+  font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.6;
+  color: var(--ink-primary); margin-top: 0.5rem;
+}
+.c28-readout b { font-size: 1.05rem; }
+.c28-seedbar { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+</style>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script src="../assets/anim-sweep.js"></script>
+<script>
+/* ===========================================================================
+   Chapter 28 — original interactives.
+
+   Every model number below is transcribed from a file in the snowflake
+   repository and is named in the figure's "built from" line. Nothing here is
+   illustrative data: the 204-cell grid comes from research/phase6-sweep-report.md,
+   the seed aspect ratios from research/libbrecht-figure-findings.md §9.2, and
+   the sigma-0 curves are two printed closed forms typed in as published.
+   ======================================================================== */
+(function () {
+  "use strict";
+
+  /* ---- shared: the registered reference geometry (ADR 0025) -------------- */
+  var BOUNDS = [3.3, 9.9, 21.5];        // digitized Nakaya boundaries, in |T| °C
+  var AMBIG = 1.0;                      // ±1.0 °C band excluded from counting
+
+  function regimeOf(t) {
+    if (t <= 3.3) return { key: "plates-warm", habit: "P", headline: true };
+    if (t <= 9.9) return { key: "columns", habit: "C", headline: true };
+    if (t <= 21.5) return { key: "plates-cold", habit: "P", headline: true };
+    return { key: "columns-and-plates", habit: "*", headline: false };
+  }
+  function counted(t) {
+    for (var i = 0; i < BOUNDS.length; i++) {
+      if (Math.abs(t - BOUNDS[i]) <= AMBIG) return false;
+    }
+    return true;
+  }
+
+  /* ======================================================================
+     1. TWO SCOREBOARDS — grade the machinery / grade the physics
+     ==================================================================== */
+  (function () {
+    var root = document.getElementById("c28-verdicts");
+    if (!root || !window.Sweep) return;
+    var body = root.querySelector(".anim__body");
+    var bar = root.querySelector(".anim__controls");
+    var head = root.querySelector(".anim__head");
+
+    var TEMPS = window.Sweep.TEMPS;
+    var FR = window.Sweep.FRACTIONS;
+    var GRID = window.Sweep.GRID;
+    var SC = window.Sweep.score();
+
+    var status = document.createElement("p");
+    status.className = "anim__sub";
+    status.setAttribute("role", "status");
+    status.style.fontWeight = "600";
+    status.style.marginTop = "0.35rem";
+    head.appendChild(status);
+
+    var view = "machinery";
+    var svg = null;
+    /* H and M.bottom leave a dedicated row under the axis title for the legend, so the
+       two never share the same band of pixels. Cell geometry is unchanged. */
+    var W = 760, H = 258;
+    var M = { top: 30, right: 14, bottom: 68, left: 78 };
+    var cw = (W - M.left - M.right) / TEMPS.length;
+    var chh = (H - M.top - M.bottom) / FR.length;
+
+    function render() {
+      if (svg) svg.remove();
+      var c = Viz.colors();
+      svg = Viz.createSvg(body, W, H, {
+        label: "Two hundred and four dots, one per run, coloured either by whether the run was " +
+               "numerically valid or by whether its habit agreed with the reference diagram."
+      });
+
+      FR.forEach(function (f, ri) {
+        TEMPS.forEach(function (t, ci) {
+          var m = GRID[f][t - 2];
+          var r = regimeOf(t);
+          var isC = counted(t);
+          var agrees = m !== "." && (r.habit === "*" || m === r.habit);
+          var fill, op = 0.9;
+          if (view === "machinery") {
+            fill = c.good;
+          } else {
+            if (!isC || !r.headline) { fill = c.rule; op = 0.55; }
+            else { fill = agrees ? c.good : c.critical; }
+          }
+          svg.appendChild(Viz.svgEl("circle", {
+            cx: M.left + ci * cw + cw / 2,
+            cy: M.top + ri * chh + chh / 2,
+            r: Math.min(cw, chh) / 2 - 1.6,
+            fill: fill, "fill-opacity": op
+          }));
+        });
+      });
+
+      /* axes: sparse temperature ticks, humidity rows */
+      TEMPS.forEach(function (t, ci) {
+        if (t % 5 !== 0 && t !== 2) return;
+        var tx = Viz.svgEl("text", {
+          x: M.left + ci * cw + cw / 2, y: H - M.bottom + 16, "text-anchor": "middle",
+          fill: c.muted, "font-size": 10, "font-family": "var(--font-sans)"
+        });
+        tx.textContent = "−" + t;
+        svg.appendChild(tx);
+      });
+      var xt = Viz.svgEl("text", {
+        x: M.left + (W - M.left - M.right) / 2, y: H - M.bottom + 34, "text-anchor": "middle",
+        fill: c.inkSecondary, "font-size": 12, "font-weight": 600, "font-family": "var(--font-sans)"
+      });
+      xt.textContent = "Temperature (°C)";
+      svg.appendChild(xt);
+
+      FR.forEach(function (f, ri) {
+        var ty = Viz.svgEl("text", {
+          x: M.left - 8, y: M.top + ri * chh + chh / 2 + 3.5, "text-anchor": "end",
+          fill: c.muted, "font-size": 10, "font-family": "var(--font-mono)"
+        });
+        ty.textContent = "f = " + f.toFixed(2);
+        svg.appendChild(ty);
+      });
+
+      var hd = Viz.svgEl("text", {
+        x: M.left, y: 18, fill: c.inkSecondary, "font-size": 12, "font-weight": 700,
+        "font-family": "var(--font-sans)"
+      });
+      hd.textContent = view === "machinery"
+        ? "Grading the machinery: did the run happen properly?"
+        : "Grading the physics: did the habit match the reference?";
+      svg.appendChild(hd);
+
+      /* legend */
+      var items = view === "machinery"
+        ? [{ c: c.good, l: "valid — all four checks passed" }]
+        : [{ c: c.good, l: "agrees" }, { c: c.critical, l: "disagrees" },
+           { c: c.rule, l: "not counted by the rule" }];
+      items.forEach(function (it, i) {
+        var x = M.left + i * 170;
+        svg.appendChild(Viz.svgEl("circle", {
+          cx: x + 5, cy: H - 11, r: 5, fill: it.c, "fill-opacity": 0.9
+        }));
+        var tx = Viz.svgEl("text", {
+          x: x + 15, y: H - 7, fill: c.inkSecondary, "font-size": 11,
+          "font-family": "var(--font-sans)"
+        });
+        tx.textContent = it.l;
+        svg.appendChild(tx);
+      });
+
+      status.textContent = view === "machinery"
+        ? "204 of 204 runs valid. Failed to converge: 0. Symmetry error non-zero with noise off: 0. "
+          + "A per-tick attachment delta not sixfold-clean: 0. Tripped the 65% domain-contact guard: 0."
+        : SC.headlineAgree + " of " + SC.headlineN + " counted points agree. Warm plates "
+          + SC.tally["plates-warm"].agree + "/" + SC.tally["plates-warm"].n + ". Columns "
+          + SC.tally.columns.agree + "/" + SC.tally.columns.n + ". Cold plates "
+          + SC.tally["plates-cold"].agree + "/" + SC.tally["plates-cold"].n
+          + ". Measured, and since superseded — see chapter 29.";
+    }
+
+    if (bar) {
+      var buttons = [];
+      [["machinery", "Grade the machinery"], ["physics", "Grade the physics"]].forEach(function (v) {
+        var b = Viz.button(bar, v[1], function () {
+          view = v[0];
+          buttons.forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+          render();
+        }, { pressed: v[0] === view });
+        buttons.push(b);
+      });
+      var note = document.createElement("span");
+      note.className = "control";
+      note.style.color = "var(--ink-muted)";
+      note.textContent = "Same run. Same 204 dots.";
+      bar.appendChild(note);
+    }
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+  /* ======================================================================
+     2. THE READY-MADE SWEEP GRID
+     ==================================================================== */
+  (function () {
+    var root = document.getElementById("c28-sweep");
+    if (!root || !window.Sweep) return;
+    window.Sweep.mount(root, { view: "model" });
+  })();
+
+  /* ======================================================================
+     3. THE −5 °C BENCH
+     ==================================================================== */
+  (function () {
+    var root = document.getElementById("c28-minus5");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var bar = root.querySelector(".anim__controls");
+
+    var mode = "project";      // "project" = AR ≥ 1.5, "lib" = rho > 1
+    var svg = null;
+    var W = 720, H = 320;
+    var L = 56, R = 660, AX = 250;
+
+    function render() {
+      if (svg) svg.remove();
+      var c = Viz.colors();
+      svg = Viz.createSvg(body, W, H, {
+        label: "An aspect-ratio axis from 0 to 2 showing Libbrecht's measured laboratory band at " +
+               "minus 5 degrees, the model's two values inside it, and the column threshold " +
+               "outside it."
+      });
+      var x = Viz.scaleLinear([0, 2], [L, R]);
+
+      /* the measured laboratory band */
+      svg.appendChild(Viz.svgEl("rect", {
+        x: x(0.1), y: 78, width: x(1.0) - x(0.1), height: 56,
+        fill: c.seq[1], "fill-opacity": 0.5, rx: 4
+      }));
+      var bl = Viz.svgEl("text", {
+        x: (x(0.1) + x(1.0)) / 2, y: 70, "text-anchor": "middle",
+        fill: c.inkSecondary, "font-size": 11.5, "font-weight": 700,
+        "font-family": "var(--font-sans)"
+      });
+      bl.textContent = "Libbrecht's measured −5 °C laboratory range";
+      svg.appendChild(bl);
+      var bl2 = Viz.svgEl("text", {
+        x: (x(0.1) + x(1.0)) / 2, y: 112, "text-anchor": "middle",
+        fill: c.inkSecondary, "font-size": 10.5, "font-family": "var(--font-sans)"
+      });
+      bl2.textContent = "0.1 < ρ < 1  ·  columns absent  ·  ρ ≈ 0.5 typical";
+      svg.appendChild(bl2);
+
+      /* the marks lane */
+      svg.appendChild(Viz.svgEl("line", {
+        x1: L, x2: R, y1: 186, y2: 186, stroke: c.rule, "stroke-width": 1
+      }));
+      function mark(v, label, sub, colour, dashed) {
+        svg.appendChild(Viz.svgEl("line", {
+          x1: x(v), x2: x(v), y1: 134, y2: 179, stroke: colour,
+          "stroke-width": 1.2, "stroke-dasharray": "3 3", "stroke-opacity": 0.7
+        }));
+        svg.appendChild(Viz.svgEl("circle", {
+          cx: x(v), cy: 186, r: 7, fill: dashed ? c.surface : colour,
+          stroke: colour, "stroke-width": 2.2,
+          "stroke-dasharray": dashed ? "3 2.5" : null
+        }));
+        var t1 = Viz.svgEl("text", {
+          x: x(v), y: 172, "text-anchor": "middle", fill: colour,
+          "font-size": 12, "font-weight": 700, "font-family": "var(--font-mono)"
+        });
+        t1.textContent = label;
+        svg.appendChild(t1);
+        var t2 = Viz.svgEl("text", {
+          x: x(v), y: 208, "text-anchor": "middle", fill: c.muted,
+          "font-size": 10.5, "font-family": "var(--font-sans)"
+        });
+        t2.textContent = sub;
+        svg.appendChild(t2);
+      }
+      mark(0.3821, "0.3821", "the swept run — gate evidence", c.series[0], false);
+      mark(1.0000, "1.0000", "calibration probe — not citable", c.muted, true);
+
+      Viz.axisBottom(svg, x, {
+        y: AX, values: [0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
+        format: function (v) { return v.toFixed(2); },
+        title: "aspect ratio  (thickness ÷ width)", titleOffset: 40
+      });
+
+      /* the threshold */
+      var th = mode === "project" ? 1.5 : 1.0;
+      svg.appendChild(Viz.svgEl("line", {
+        x1: x(th), x2: x(th), y1: 34, y2: AX, stroke: c.series[1], "stroke-width": 2.5
+      }));
+      var thl = Viz.svgEl("text", {
+        x: x(th) + 8, y: 42, fill: c.series[1], "font-size": 11.5, "font-weight": 700,
+        "font-family": "var(--font-sans)"
+      });
+      thl.textContent = mode === "project"
+        ? "column floor, AR ≥ 1.5"
+        : "column floor, ρ > 1";
+      svg.appendChild(thl);
+      var thl2 = Viz.svgEl("text", {
+        x: x(th) + 8, y: 56, fill: c.muted, "font-size": 10.5, "font-family": "var(--font-sans)"
+      });
+      thl2.textContent = mode === "project" ? "the registered one" : "Libbrecht's own";
+      svg.appendChild(thl2);
+
+      var foot = Viz.svgEl("text", {
+        x: L, y: H - 8, fill: c.inkSecondary, "font-size": 11.5,
+        "font-family": "var(--font-sans)"
+      });
+      foot.textContent = mode === "project"
+        ? "Nakaya demands a column at −5 °C. Neither the swept run nor the probe comes near the column floor."
+        : "Under Libbrecht's own threshold the probe sits exactly on the boundary — and it is still not citable.";
+      svg.appendChild(foot);
+    }
+
+    if (bar) {
+      var bs = [];
+      [["project", "Registered threshold (AR ≥ 1.5)"], ["lib", "Libbrecht's threshold (ρ > 1)"]]
+        .forEach(function (v) {
+          var b = Viz.button(bar, v[1], function () {
+            mode = v[0];
+            bs.forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+            render();
+          }, { pressed: v[0] === mode });
+          bs.push(b);
+        });
+    }
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+  /* ======================================================================
+     4. BLAME ASSIGNMENT
+     ==================================================================== */
+  (function () {
+    var root = document.getElementById("c28-blame");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var bar = root.querySelector(".anim__controls");
+
+    var CASES = [
+      {
+        id: "code",
+        title: "The code is wrong.",
+        ask: "What would have to be true: at least one of the 204 runs failed a validity check, or the gate failed on something it is allowed to fail on.",
+        verdict: "ELIMINATED",
+        out: true,
+        evidence: "Measured: 0 of 204 runs invalid. Every point converged under the dual criterion, held symErr = 0 with noise off, kept every per-tick attachment delta sixfold-clean, and cleared the 65% domain-contact guard. And the gate that certifies the phase is forbidden to fail on a morphology miss — it fails on invalid numerics, provenance, artifacts, incomplete runs or a protocol violation, never on the model disagreeing with the diagram. Nothing in that list fired."
+      },
+      {
+        id: "numbers",
+        title: "The numbers fed in are wrong.",
+        ask: "What would have to be true: the measured physics was misread off the source on the way in.",
+        verdict: "ELIMINATED, with scope",
+        out: true,
+        evidence: "Measured twice. A_prism was digitized off a printed figure before the paper that prints it as an equation was found; compared afterwards, the digitized anchors reproduce the printed formula to 8.4% at worst and under 2% typically — agreement with a source they could not peek at. And at −5 °C the model lands inside Libbrecht's own laboratory range, columns absent. Scope: that lab data is upstream of the model's inputs, so it is a consistency check rather than independent validation, and one input — the warm prism σ₀ — is under active suspicion, which touches only the warm end. And a second scope, found after the sweep: the runs executed A_prism ≡ 1, which the frozen protocol did not register — a throttle of 3.6× at −2 °C and 5.6× at −5 °C, the two temperatures this card's own evidence leans on. The project's own estimate is that the registered parameterization scores WORSE: roughly 2 of 90 (ADR 0031; figure-findings §9). That is a defect in the inputs, disclosed, and it does not rescue the model."
+      },
+      {
+        id: "theory",
+        title: "The theory is insufficient.",
+        ask: "What would have to be true: broad-facet attachment kinetics alone cannot produce the diagram.",
+        verdict: "SURVIVES",
+        out: false,
+        evidence: "This is the source's own published position: SDAK \"provides the only viable option currently available that can adequately explain the Nakaya diagram\". It is a claim about what a model without SDAK will do, and nobody had run it in 3-D. Scope, and it matters: this sweep is the first independent test of a claim that already existed in prose. It is never a discovery of this project."
+      }
+    ];
+
+    var open = {};
+    var status = document.createElement("span");
+    status.className = "control";
+    status.style.color = "var(--ink-muted)";
+
+    var wrap = document.createElement("div");
+    wrap.className = "c28-cards";
+    body.appendChild(wrap);
+
+    function paint() {
+      var n = 0;
+      CASES.forEach(function (k) { if (open[k.id] && k.out) n++; });
+      status.textContent = "Explanations eliminated: " + n + " of 2 · surviving: "
+        + (open.theory ? "the theory" : "—");
+    }
+
+    CASES.forEach(function (k) {
+      var card = document.createElement("div");
+      card.className = "c28-card";
+
+      var h = document.createElement("h4");
+      h.textContent = k.title;
+      card.appendChild(h);
+
+      var ask = document.createElement("p");
+      ask.textContent = k.ask;
+      card.appendChild(ask);
+
+      var out = document.createElement("p");
+      out.className = "c28-ev";
+      out.hidden = true;
+      card.appendChild(out);
+
+      var stamp = document.createElement("span");
+      stamp.className = "c28-stamp";
+      stamp.hidden = true;
+      card.appendChild(stamp);
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "button";
+      btn.textContent = "Test this explanation";
+      btn.addEventListener("click", function () {
+        open[k.id] = true;
+        out.textContent = k.evidence;
+        out.hidden = false;
+        stamp.textContent = k.verdict;
+        stamp.style.color = k.out ? "var(--ink-muted)" : "var(--accent-key)";
+        stamp.hidden = false;
+        card.classList.add(k.out ? "is-out" : "is-live");
+        btn.disabled = true;
+        btn.textContent = k.out ? "ruled out" : "still standing";
+        paint();
+      });
+      card.appendChild(btn);
+      wrap.appendChild(card);
+    });
+
+    if (bar) {
+      bar.appendChild(status);
+      Viz.button(bar, "Reset", function () {
+        open = {};
+        wrap.querySelectorAll(".c28-card").forEach(function (card, i) {
+          card.className = "c28-card";
+          var ps = card.querySelectorAll("p");
+          ps[1].hidden = true;
+          card.querySelector(".c28-stamp").hidden = true;
+          var b = card.querySelector("button");
+          b.disabled = false;
+          b.textContent = "Test this explanation";
+        });
+        paint();
+      });
+    }
+    paint();
+  })();
+
+  /* ======================================================================
+     5. COUNT THE CROSSINGS
+     ==================================================================== */
+  (function () {
+    var root = document.getElementById("c28-crossings");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var bar = root.querySelector(".anim__controls");
+
+    /* arXiv:2009.08404v2 p3, Eqs. (2) and (3), typed in as printed.
+       T is |Tm - T| in °C; sigma-0 in percent. */
+    function baseBasal(T) { return 0.02 * Math.pow(T, 1.75) + 0.3; }
+    function basePrism(T) { return 0.02 * Math.pow(T, 1.9) - 0.025 * (T - 0.3); }
+
+    var st = { bOn: false, pOn: false, bC: 4.5, pC: 14.4, depth: 0.7 };
+    var WIDTH = 1.6;   // this page's own notch width, not the source's
+
+    function notch(T, on, centre) {
+      if (!on) return 1;
+      var z = (T - centre) / WIDTH;
+      return 1 - st.depth * Math.exp(-z * z);
+    }
+    function sBasal(T) { return baseBasal(T) * notch(T, st.bOn, st.bC); }
+    function sPrism(T) { return basePrism(T) * notch(T, st.pOn, st.pC); }
+
+    /** Every crossing of the two curves, found by fine sampling. */
+    function crossings() {
+      var out = [];
+      var prev = null, prevT = null;
+      for (var i = 0; i <= 660; i++) {
+        var T = 2 + i * 0.05;
+        var d = sBasal(T) - sPrism(T);
+        if (prev !== null && ((prev > 0) !== (d > 0))) {
+          out.push(prevT + (T - prevT) * (Math.abs(prev) / (Math.abs(prev) + Math.abs(d))));
+        }
+        prev = d; prevT = T;
+      }
+      return out;
+    }
+
+    /** The habit sequence is constant between crossings, so it is a handful of bands. */
+    function habitBands(cross) {
+      var edges = [2].concat(cross, [35]);
+      var out = [];
+      for (var i = 0; i < edges.length - 1; i++) {
+        var mid = (edges[i] + edges[i + 1]) / 2;
+        // basal is the HIGHER sigma-0 here → prism is stickier → the crystal spreads → plate
+        out.push([edges[i], edges[i + 1], sBasal(mid) - sPrism(mid) > 0 ? "P" : "C"]);
+      }
+      return out;
+    }
+
+    var svg = null;
+    var W = 760, H = 392;
+    var PL = 66, PR = 700, PT = 30, PB = 268;
+
+    function render() {
+      if (svg) svg.remove();
+      var c = Viz.colors();
+      var cross = crossings();
+      var bands = habitBands(cross);
+
+      svg = Viz.createSvg(plot, W, H, {
+        label: "Two critical-supersaturation curves against temperature, with the habit sequence " +
+               "they imply drawn underneath and the reference diagram's bands below that."
+      });
+
+      var x = Viz.scaleLinear([2, 35], [PL, PR]);
+      var y = Viz.scaleLog([0.002, 25], [PB, PT]);
+
+      Viz.axisLeft(svg, y, {
+        x: PL, values: [0.01, 0.1, 1, 10],
+        format: function (v) { return v < 0.1 ? "0.01" : v < 1 ? "0.1" : String(v); },
+        title: "σ₀ (percent)", grid: true, gridTo: PR, titleOffset: 40
+      });
+      Viz.axisBottom(svg, x, {
+        y: PB, values: [2, 5, 10, 15, 20, 25, 30, 35],
+        format: function (v) { return "−" + v; }
+      });
+
+      var bas = [], pri = [];
+      for (var T = 2; T <= 35.0001; T += 0.1) {
+        bas.push([T, Math.min(25, Math.max(0.002, sBasal(T)))]);
+        pri.push([T, Math.min(25, Math.max(0.002, sPrism(T)))]);
+      }
+      Viz.series(svg, bas, x, y, {
+        color: c.series[0], label: "basal", labelDx: 6, labelDy: 15
+      });
+      Viz.series(svg, pri, x, y, {
+        color: c.series[1], label: "prism", labelDx: 6, labelDy: -7
+      });
+
+      /* crossing markers */
+      cross.forEach(function (T) {
+        svg.appendChild(Viz.svgEl("line", {
+          x1: x(T), x2: x(T), y1: PT, y2: 356, stroke: c.ink,
+          "stroke-width": 1.2, "stroke-dasharray": "3 3", "stroke-opacity": 0.65
+        }));
+      });
+
+      /* the model's habit ribbon */
+      var RY = 292, RH = 22;
+      bands.forEach(function (b) {
+        svg.appendChild(Viz.svgEl("rect", {
+          x: x(b[0]), y: RY, width: Math.max(1, x(b[1]) - x(b[0])),
+          height: RH, fill: b[2] === "P" ? c.series[0] : c.series[1], "fill-opacity": 0.55
+        }));
+        if (x(b[1]) - x(b[0]) > 48) {
+          var bt = Viz.svgEl("text", {
+            x: (x(b[0]) + x(b[1])) / 2, y: RY + 15, "text-anchor": "middle",
+            fill: c.inkSecondary, "font-size": 10.5, "font-weight": 660,
+            "font-family": "var(--font-sans)"
+          });
+          bt.textContent = b[2] === "P" ? "plates" : "columns";
+          svg.appendChild(bt);
+        }
+      });
+      var rl = Viz.svgEl("text", {
+        x: PL - 8, y: RY + 15, "text-anchor": "end", fill: c.inkSecondary,
+        "font-size": 11, "font-weight": 660, "font-family": "var(--font-sans)"
+      });
+      rl.textContent = "these curves:";
+      svg.appendChild(rl);
+
+      /* the reference ribbon */
+      var FY = 326;
+      var refBands = [
+        [2, 3.3, c.series[0], "plates"],
+        [3.3, 9.9, c.series[1], "columns"],
+        [9.9, 21.5, c.series[0], "plates"],
+        [21.5, 35, c.series[2], "both"]
+      ];
+      refBands.forEach(function (b) {
+        svg.appendChild(Viz.svgEl("rect", {
+          x: x(b[0]), y: FY, width: x(b[1]) - x(b[0]), height: RH,
+          fill: b[2], "fill-opacity": 0.45, stroke: c.surface, "stroke-width": 1.5
+        }));
+        if (x(b[1]) - x(b[0]) > 54) {
+          var tt = Viz.svgEl("text", {
+            x: (x(b[0]) + x(b[1])) / 2, y: FY + 15, "text-anchor": "middle",
+            fill: c.inkSecondary, "font-size": 10.5, "font-weight": 660,
+            "font-family": "var(--font-sans)"
+          });
+          tt.textContent = b[3];
+          svg.appendChild(tt);
+        }
+      });
+      var fl = Viz.svgEl("text", {
+        x: PL - 8, y: FY + 15, "text-anchor": "end", fill: c.inkSecondary,
+        "font-size": 11, "font-weight": 660, "font-family": "var(--font-sans)"
+      });
+      fl.textContent = "the reference:";
+      svg.appendChild(fl);
+
+      var xt = Viz.svgEl("text", {
+        x: (PL + PR) / 2, y: FY + 44, "text-anchor": "middle", fill: c.inkSecondary,
+        "font-size": 12, "font-weight": 600, "font-family": "var(--font-sans)"
+      });
+      xt.textContent = "Temperature (°C)";
+      svg.appendChild(xt);
+
+      /* counter */
+      var n = cross.length;
+      var cnt = Viz.svgEl("text", {
+        x: PL, y: 18, fill: c.ink, "font-size": 13, "font-weight": 700,
+        "font-family": "var(--font-mono)"
+      });
+      cnt.textContent = "crossings: " + n + "   ·   habit boundaries possible: " + n
+        + "   ·   the reference needs 3";
+      svg.appendChild(cnt);
+
+      var msg;
+      var tone;
+      if (n === 0) {
+        msg = "No crossing at all — one habit across the whole axis, and zero boundaries.";
+        tone = "var(--ink-secondary)";
+      } else if (n === 1) {
+        msg = "Two smooth curves, one crossing, one boundary. Scale either curve by any constant "
+            + "you like and it stays one — you cannot reorder a monotone function by scaling it.";
+        tone = "var(--ink-secondary)";
+      } else if (n === 2) {
+        msg = "Two crossings. Better — and you got there by carving a hole in a published curve.";
+        tone = "var(--ink-secondary)";
+      } else {
+        msg = "Three or more. You have just put the answer in by hand: the dip centres came from "
+            + "this diagram in the first place. That is why a dip-bearing run can only ever be "
+            + "called in-sample reproduction, never validation.";
+        tone = "var(--accent-key)";
+      }
+      banner.textContent = msg;
+      banner.style.color = tone;
+    }
+
+    var plot = document.createElement("div");
+    body.appendChild(plot);
+    var banner = document.createElement("p");
+    banner.className = "c28-banner";
+    body.appendChild(banner);
+
+    if (bar) {
+      Viz.button(bar, "Basal dip: off", function (b) {
+        st.bOn = !st.bOn;
+        b.textContent = "Basal dip: " + (st.bOn ? "on" : "off");
+        b.setAttribute("aria-pressed", String(st.bOn));
+        render();
+      }, { pressed: false });
+      Viz.slider(bar, {
+        label: "basal dip centre", id: "c28x-bc", min: 2, max: 35, step: 0.1, value: 4.5,
+        format: function (v) { return "−" + v.toFixed(1) + " °C"; },
+        onInput: function (v) { st.bC = v; render(); }
+      });
+      Viz.button(bar, "Prism dip: off", function (b) {
+        st.pOn = !st.pOn;
+        b.textContent = "Prism dip: " + (st.pOn ? "on" : "off");
+        b.setAttribute("aria-pressed", String(st.pOn));
+        render();
+      }, { pressed: false });
+      Viz.slider(bar, {
+        label: "prism dip centre", id: "c28x-pc", min: 2, max: 35, step: 0.1, value: 14.4,
+        format: function (v) { return "−" + v.toFixed(1) + " °C"; },
+        onInput: function (v) { st.pC = v; render(); }
+      });
+      Viz.slider(bar, {
+        label: "dip depth", id: "c28x-d", min: 0, max: 0.9, step: 0.05, value: 0.7,
+        format: function (v) { return Math.round(v * 100) + "%"; },
+        onInput: function (v) { st.depth = v; render(); }
+      });
+    }
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+  /* ======================================================================
+     6. TWO TARGETS, ONE LEVER — the five measured seeds
+     ==================================================================== */
+  (function () {
+    var root = document.getElementById("c28-lever");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var bar = root.querySelector(".anim__controls");
+
+    /* research/libbrecht-figure-findings.md §9.2 — five seed geometries,
+       both discriminating conditions, all runs clean. */
+    var SEEDS = [
+      { name: "4 / 1 wide plate", seedAR: 0.111, warm: 0.2729, cold: 0.7895 },
+      { name: "1 / 1 small plate", seedAR: 0.333, warm: 0.4913, cold: 1.2353 },
+      { name: "2 / 1 registered", seedAR: 0.500, warm: 0.3821, cold: 1.1053 },
+      { name: "2 / 5 thick", seedAR: 1.000, warm: 0.6842, cold: 1.4000 },
+      { name: "1 / 5 needle-like", seedAR: 1.667, warm: 0.7895, cold: 1.6154 }
+    ];
+    var pick = 2;                       // the registered seed
+    var tried = { 2: true };
+    var svg = null;
+    var W = 740, H = 300;
+    var L = 84, R = 640;
+
+    function classOf(ar) { return ar <= 0.6667 ? "plate" : ar >= 1.5 ? "column" : "neutral"; }
+
+    function render() {
+      if (svg) svg.remove();
+      var c = Viz.colors();
+      var s = SEEDS[pick];
+      svg = Viz.createSvg(body, W, H, {
+        label: "Two aspect-ratio number lines, one per test temperature, each with the habit the " +
+               "reference demands shaded, and the chosen seed's measured result marked on both."
+      });
+      var x = Viz.scaleLinear([0, 2], [L, R]);
+
+      function line(cy, title, need, lo, hi, value, colour) {
+        var t = Viz.svgEl("text", {
+          x: L, y: cy - 46, fill: c.inkSecondary, "font-size": 12, "font-weight": 700,
+          "font-family": "var(--font-sans)"
+        });
+        t.textContent = title;
+        svg.appendChild(t);
+
+        svg.appendChild(Viz.svgEl("rect", {
+          x: x(lo), y: cy - 24, width: x(hi) - x(lo), height: 48,
+          fill: colour, "fill-opacity": 0.22, rx: 4
+        }));
+        var nt = Viz.svgEl("text", {
+          x: (x(lo) + x(hi)) / 2, y: cy - 29, "text-anchor": "middle", fill: colour,
+          "font-size": 11, "font-weight": 700, "font-family": "var(--font-sans)"
+        });
+        nt.textContent = need;
+        svg.appendChild(nt);
+
+        Viz.axisBottom(svg, x, {
+          y: cy + 24, values: [0, 0.5, 1, 1.5, 2],
+          format: function (v) { return v.toFixed(1); }
+        });
+
+        var hit = value >= lo && value <= hi;
+        svg.appendChild(Viz.svgEl("circle", {
+          cx: x(value), cy: cy, r: 8, fill: hit ? c.good : c.critical, "fill-opacity": 0.9
+        }));
+        var vt = Viz.svgEl("text", {
+          x: x(value), y: cy - 14, "text-anchor": "middle", fill: c.ink,
+          "font-size": 11.5, "font-weight": 700, "font-family": "var(--font-mono)"
+        });
+        vt.textContent = value.toFixed(4);
+        svg.appendChild(vt);
+        var ct = Viz.svgEl("text", {
+          x: x(value), y: cy + 17, "text-anchor": "middle", fill: hit ? c.good : c.critical,
+          "font-size": 10.5, "font-weight": 700, "font-family": "var(--font-sans)"
+        });
+        ct.textContent = classOf(value) + (hit ? " — agrees" : " — misses");
+        svg.appendChild(ct);
+      }
+
+      line(80, "−5 °C · the reference demands a column",
+           "target: AR ≥ 1.5", 1.5, 2, s.warm, c.series[1]);
+      line(202, "−15 °C · the reference demands a plate",
+           "target: AR ≤ 0.6667", 0, 0.6667, s.cold, c.series[0]);
+
+      var got = (s.warm >= 1.5 ? 1 : 0) + (s.cold <= 0.6667 ? 1 : 0);
+      var n = Object.keys(tried).length;
+      var st = Viz.svgEl("text", {
+        x: L, y: H - 26, fill: c.inkSecondary, "font-size": 11.5,
+        "font-family": "var(--font-sans)"
+      });
+      st.textContent = "seed: " + s.name + " (seed AR " + s.seedAR.toFixed(3) + ")"
+        + "   ·   agreements: " + got + " of 2"
+        + "   ·   seeds tried: " + n + " of 5";
+      svg.appendChild(st);
+      if (n === 5) {
+        var st2 = Viz.svgEl("text", {
+          x: L, y: H - 8, fill: c.ink, "font-size": 11.5, "font-weight": 700,
+          "font-family": "var(--font-sans)"
+        });
+        st2.textContent = "All five tested. Not one agrees at either temperature.";
+        svg.appendChild(st2);
+      }
+    }
+
+    if (bar) {
+      var bs = [];
+      SEEDS.forEach(function (s, i) {
+        var b = Viz.button(bar, s.name, function () {
+          pick = i; tried[i] = true;
+          bs.forEach(function (x, j) { x.setAttribute("aria-pressed", String(j === i)); });
+          render();
+        }, { pressed: i === pick });
+        bs.push(b);
+      });
+      var note = document.createElement("span");
+      note.className = "control";
+      note.style.color = "var(--ink-muted)";
+      note.textContent = "Satisfy both.";
+      bar.appendChild(note);
+    }
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+  /* ======================================================================
+     7. WHERE PLATE STOPS, AND WHERE THE SIGNAL DROWNS
+     ==================================================================== */
+  (function () {
+    var root = document.getElementById("c28-gap");
+    if (!root || !window.Sweep) return;
+    var body = root.querySelector(".anim__body");
+    var bar = root.querySelector(".anim__controls");
+    var head = root.querySelector(".anim__head");
+
+    var TEMPS = window.Sweep.TEMPS;
+    var FR = window.Sweep.FRACTIONS;
+    var GRID = window.Sweep.GRID;
+
+    /* the two published contrast figures, at the two rows they were measured on */
+    var CONTRAST = { 0.15: "0.34–3.76", 0.90: "0.84–1.25" };
+
+    var status = document.createElement("p");
+    status.className = "anim__sub";
+    status.setAttribute("role", "status");
+    status.style.fontWeight = "600";
+    status.style.marginTop = "0.35rem";
+    head.appendChild(status);
+
+    var row = 0;
+    var svg = null;
+    var W = 760, H = 274;
+    var L = 92, R = 716;
+    var cw = (R - L) / TEMPS.length;
+
+    function render() {
+      if (svg) svg.remove();
+      var c = Viz.colors();
+      var f = FR[row];
+      var s = GRID[f];
+      svg = Viz.createSvg(body, W, H, {
+        label: "One humidity row of the measured diagram drawn as a strip of 34 cells, with the " +
+               "temperature where plates stop and columns begin marked, above the reference " +
+               "diagram's knife-edge boundaries."
+      });
+
+      var lastP = -1, firstC = -1, nC = 0, nP = 0;
+      for (var i = 0; i < 34; i++) {
+        if (s[i] === "P") { lastP = i; nP++; }
+        if (s[i] === "C") { if (firstC < 0) firstC = i; nC++; }
+      }
+
+      /* the model's strip */
+      var SY = 84, SH = 34;
+      for (var j = 0; j < 34; j++) {
+        var m = s[j];
+        svg.appendChild(Viz.svgEl("rect", {
+          x: L + j * cw + 0.5, y: SY, width: cw - 1, height: SH, rx: 2,
+          fill: m === "P" ? c.series[0] : m === "C" ? c.series[1] : c.muted,
+          "fill-opacity": m === "." ? 0.32 : 0.85
+        }));
+      }
+      var sl = Viz.svgEl("text", {
+        x: L - 8, y: SY + 21, "text-anchor": "end", fill: c.inkSecondary, "font-size": 11.5,
+        "font-weight": 660, "font-family": "var(--font-sans)"
+      });
+      sl.textContent = "the model:";
+      svg.appendChild(sl);
+
+      /* markers */
+      function pin(idx, label, colour, up) {
+        if (idx < 0) return;
+        var px = L + idx * cw + cw / 2;
+        svg.appendChild(Viz.svgEl("line", {
+          x1: px, x2: px, y1: up ? SY - 24 : SY + SH, y2: up ? SY : SY + SH + 16,
+          stroke: colour, "stroke-width": 2
+        }));
+        var tt = Viz.svgEl("text", {
+          x: px, y: up ? SY - 29 : SY + SH + 28, "text-anchor": "middle", fill: colour,
+          "font-size": 11, "font-weight": 700, "font-family": "var(--font-sans)"
+        });
+        tt.textContent = label;
+        svg.appendChild(tt);
+      }
+      pin(lastP, "plate stops −" + (lastP + 2), c.series[0], true);
+      pin(firstC, "column starts −" + (firstC + 2), c.series[1], true);
+
+      /* the gap */
+      if (lastP >= 0 && firstC > lastP + 1) {
+        var gx0 = L + (lastP + 1) * cw, gx1 = L + firstC * cw;
+        svg.appendChild(Viz.svgEl("rect", {
+          x: gx0, y: SY, width: gx1 - gx0, height: SH, fill: "none",
+          stroke: c.ink, "stroke-width": 1.6, "stroke-dasharray": "4 3"
+        }));
+        var gt = Viz.svgEl("text", {
+          x: (gx0 + gx1) / 2, y: SY + SH + 28, "text-anchor": "middle", fill: c.ink,
+          "font-size": 11, "font-weight": 700, "font-family": "var(--font-sans)"
+        });
+        gt.textContent = (firstC - lastP - 1) + " °C of neither";
+        svg.appendChild(gt);
+      }
+
+      /* reference strip — the same axis as the cells above it, so that a cell
+         centred on T sits directly over the reference's value at T */
+      var FY = 172;
+      var refBands = [
+        [1.5, 3.3, c.series[0], "plates"],
+        [3.3, 9.9, c.series[1], "columns"],
+        [9.9, 21.5, c.series[0], "plates"],
+        [21.5, 35.5, c.series[2], "both"]
+      ];
+      var xs = Viz.scaleLinear([1.5, 35.5], [L, R]);
+      refBands.forEach(function (b) {
+        svg.appendChild(Viz.svgEl("rect", {
+          x: xs(b[0]), y: FY, width: xs(b[1]) - xs(b[0]), height: 22,
+          fill: b[2], "fill-opacity": 0.45, stroke: c.surface, "stroke-width": 1.5
+        }));
+        if (xs(b[1]) - xs(b[0]) > 54) {
+          var tt2 = Viz.svgEl("text", {
+            x: (xs(b[0]) + xs(b[1])) / 2, y: FY + 15, "text-anchor": "middle",
+            fill: c.inkSecondary, "font-size": 10.5, "font-weight": 660,
+            "font-family": "var(--font-sans)"
+          });
+          tt2.textContent = b[3];
+          svg.appendChild(tt2);
+        }
+      });
+      var fl = Viz.svgEl("text", {
+        x: L - 8, y: FY + 15, "text-anchor": "end", fill: c.inkSecondary, "font-size": 11.5,
+        "font-weight": 660, "font-family": "var(--font-sans)"
+      });
+      fl.textContent = "the reference:";
+      svg.appendChild(fl);
+
+      /* temperature ticks */
+      TEMPS.forEach(function (t, ci) {
+        if (t % 5 !== 0 && t !== 2) return;
+        var tx = Viz.svgEl("text", {
+          x: L + ci * cw + cw / 2, y: 214, "text-anchor": "middle", fill: c.muted,
+          "font-size": 10, "font-family": "var(--font-sans)"
+        });
+        tx.textContent = "−" + t;
+        svg.appendChild(tx);
+      });
+      var xt = Viz.svgEl("text", {
+        x: (L + R) / 2, y: 234, "text-anchor": "middle", fill: c.inkSecondary,
+        "font-size": 12, "font-weight": 600, "font-family": "var(--font-sans)"
+      });
+      xt.textContent = "Temperature (°C)";
+      svg.appendChild(xt);
+
+      /* legend — colour never carries meaning on its own */
+      [[c.series[0], "plate", 0.85], [c.muted, "neither", 0.32], [c.series[1], "column", 0.85]]
+        .forEach(function (it, i) {
+          var lx = L + i * 110;
+          svg.appendChild(Viz.svgEl("rect", {
+            x: lx, y: 254, width: 11, height: 11, rx: 2, fill: it[0], "fill-opacity": it[2]
+          }));
+          var lt = Viz.svgEl("text", {
+            x: lx + 16, y: 263.5, fill: c.inkSecondary, "font-size": 11,
+            "font-family": "var(--font-sans)"
+          });
+          lt.textContent = it[1];
+          svg.appendChild(lt);
+        });
+
+      var hd = Viz.svgEl("text", {
+        x: L, y: 26, fill: c.ink, "font-size": 13, "font-weight": 700,
+        "font-family": "var(--font-mono)"
+      });
+      hd.textContent = "f = " + f.toFixed(2) + "   ·   columns in this row: " + nC
+        + "   ·   plates: " + nP + "   ·   neither: " + (34 - nC - nP);
+      svg.appendChild(hd);
+
+      if (CONTRAST[f]) {
+        var ct2 = Viz.svgEl("text", {
+          x: L, y: 44, fill: c.inkSecondary, "font-size": 11,
+          "font-family": "var(--font-sans)"
+        });
+        ct2.textContent = "measured basal/prism attachment contrast across the temperature axis "
+          + "at this row: " + CONTRAST[f];
+        svg.appendChild(ct2);
+      }
+
+      status.textContent = nC === 0
+        ? "At f = " + f.toFixed(2) + " the model produces no column anywhere across all 34 temperatures."
+        : "At f = " + f.toFixed(2) + ": plate stops at −" + (lastP + 2)
+          + " °C, column does not start until −" + (firstC + 2)
+          + " °C. The reference has a knife-edge boundary at −9.9 °C and no gap at all.";
+    }
+
+    if (bar) {
+      Viz.slider(bar, {
+        label: "how wet the air is", id: "c28-gap-f", min: 0, max: 5, step: 1, value: 0,
+        format: function (v) { return "f = " + FR[v].toFixed(2); },
+        onInput: function (v) { row = v; render(); }
+      });
+      var note = document.createElement("span");
+      note.className = "control";
+      note.style.color = "var(--ink-muted)";
+      note.textContent = "Drag from dry to wet and watch the columns go.";
+      bar.appendChild(note);
+    }
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+})();
+</script>
+</body>
+</html>

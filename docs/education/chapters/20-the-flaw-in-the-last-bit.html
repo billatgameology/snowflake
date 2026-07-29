@@ -1,0 +1,1907 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Flaw in the Last Bit — Snow Crystals</title>
+<meta name="description" content="Six arms should be identical. They were not — because a computer adds the same six numbers in a different order depending on which arm you are standing on, and a threshold turns that last digit into a visible defect.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 20 &middot; The Flaw in the Last Bit</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#exactly-zero">A word you should not have let past</a></li>
+      <li><a href="#adding-is-not-adding">Adding is not adding</a></li>
+      <li><a href="#rotation-reorders">Why a rotation reorders a sum</a></li>
+      <li><a href="#break-the-sixfold">Break it yourself</a></li>
+      <li><a href="#same-mistake-twice">The same mistake in a different disguise</a></li>
+      <li><a href="#randomness">Randomness that does not care who goes first</a></li>
+      <li><a href="#what-is-claimed">What &ldquo;exactly zero&rdquo; buys, and what it does not</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 20</p>
+        <h1>The Flaw in the Last Bit</h1>
+        <p class="chapter-header__question">
+          Six arms should be identical. Why did one of them end up a cell longer than its
+          siblings &mdash; and what does the sixteenth digit of a number have to do with it?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~18 min read</span>
+          <span>6 original graphics</span>
+          <span>all of them interactive</span>
+        </div>
+      </header>
+
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Explain why a symmetry that holds in exact arithmetic still has to be made to
+            survive <em>evaluation</em>.</li>
+          <li>Say why &ldquo;negligible rounding error&rdquo; is never negligible in a system
+            that contains a threshold.</li>
+          <li>Describe reproducibility as a design constraint chosen for a comparison that had
+            not happened yet, rather than as tidiness.</li>
+          <li>Choose test conditions that amplify a defect instead of conditions that flatter
+            the code.</li>
+        </ul>
+      </section>
+
+      <h2 id="exactly-zero">A word you should not have let past</h2>
+
+      <p>
+        The last chapter finished on a claim: on the hexagonal-prism domain, the simulated
+        crystal&rsquo;s <strong>symmetry error is exactly zero</strong>. Not small. Zero.
+      </p>
+
+      <p>
+        You should be suspicious of that. Computers are famously bad at &ldquo;exactly&rdquo;.
+        Ask one for 0.1&nbsp;+&nbsp;0.2 and it will hand back 0.30000000000000004. So what is
+        being measured, and how can the answer be a flat zero?
+      </p>
+
+      <p>
+        Here is the measurement, written down in <code>core/src/metrics.ts</code> just above the
+        function that computes it:
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          symmetry error = max<sub>g</sub> |A &Delta; g(A)| / |A| = max<sub>g</sub> 2(|A| &minus; |A &cap; g(A)|) / |A|
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>A</dt><dd>the set of lattice cells that are currently ice</dd>
+            <dt>g</dt><dd>one of the three symmetry moves the crystal is supposed to survive: a 60&deg; turn (<code>rot60</code>), a reflection (<code>mirror</code>), and a top-to-bottom flip (<code>zmirror</code>)</dd>
+            <dt>g(A)</dt><dd>the ice set after that move is applied</dd>
+            <dt>&Delta;</dt><dd>symmetric difference &mdash; the cells that are in one set but not the other</dd>
+            <dt>|&nbsp;|</dt><dd>how many cells</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">core/src/metrics.ts, lines 43&ndash;48 (the D6h symmetry error block)</p>
+      </div>
+
+      <p>
+        Those three moves are the D6h group from the last chapter, turned into a measurement. Now
+        read the shape of it. The numerator counts <em>cells</em>. You cannot be out by half a
+        cell. So the metric&rsquo;s own comment can say something that most error measures
+        cannot:
+      </p>
+
+      <blockquote style="border-left: 3px solid var(--rule-strong); padding-left: 1.15rem; margin: 0 0 1.4em; color: var(--ink-secondary);">
+        <p>
+          &ldquo;Exactly 0 iff A is invariant under the full group; the smallest nonzero value is
+          2/|A|, so there is no meaningful &lsquo;small but nonzero&rsquo;.&rdquo;
+          <br><em>&mdash; core/src/metrics.ts:47&ndash;48</em>
+        </p>
+      </blockquote>
+
+      <p>
+        For a crystal of five thousand cells the smallest non-zero reading is 0.0004. Between
+        that and zero there is nothing. The metric either says <em>perfect</em> or it says
+        <em>one cell of your crystal is in the wrong place</em>. That removes the option of
+        shrugging at a small number.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          A measurement that can only return zero or &ldquo;at least one whole cell wrong&rdquo;
+          is a measurement you cannot negotiate with. Everything in this chapter is what it took
+          to keep it at zero honestly.
+        </p>
+      </aside>
+
+      <h2 id="adding-is-not-adding">Adding is not adding</h2>
+
+      <p>
+        A <strong>float64</strong> &mdash; the number format this solver runs on &mdash; stores
+        about sixteen decimal digits. When you add two of them, the true answer usually needs
+        more digits than that, so the machine rounds to the nearest storable value. The gap
+        between two neighbouring storable values has a name: one <strong>ulp</strong>, for
+        &ldquo;unit in the last place&rdquo;. It is the smallest difference a number of that size
+        can have.
+      </p>
+
+      <p>
+        Now the consequence that matters. Because every addition rounds,
+        <strong>(a&nbsp;+&nbsp;b)&nbsp;+&nbsp;c and a&nbsp;+&nbsp;(b&nbsp;+&nbsp;c) can land on
+        different values</strong>. Addition in floating point is not associative. The order you
+        add in is part of the answer.
+      </p>
+
+      <p>
+        That sounds like a curiosity. Here is what it looked like in this project. A calibration
+        run at &minus;5&nbsp;&deg;C, with the random noise switched off, reported a symmetry error
+        of 0.020915 &mdash; where every neighbouring grid point reported exactly 0. Instrumenting
+        the solver stage by stage produced this, captured at growth step 14 of a 32&sup3; run
+        &mdash; a cell, and the cell you get by rotating it 60&deg;:
+      </p>
+
+      <figure class="anim" id="demo-order">
+        <div class="anim__head">
+          <p class="anim__title">Two cells. The same three numbers. Two different answers.</p>
+          <p class="anim__sub">
+            These are the real operand values recorded in the project&rsquo;s decision log. Your
+            browser is adding them now. Turn sorting on and watch the disagreement disappear.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Operand values transcribed verbatim from
+          docs/decisions/0023-d6h-equivariant-opposing-vapor-mean.md, &ldquo;Context&rdquo;. Both
+          means are recomputed live in float64 by this page &mdash; and reproduce, digit for digit,
+          the two values the record prints.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The decision record states it in one line: <em>&ldquo;Same operands bitwise;
+        (a&nbsp;+&nbsp;b)&nbsp;+&nbsp;a against (a&nbsp;+&nbsp;a)&nbsp;+&nbsp;b; the results
+        differ by one ulp.&rdquo;</em> Nothing about the two cells was different. Not the
+        physics, not the inputs, not the code. Only the order in which three numbers were added.
+      </p>
+
+      <p>
+        And the way that was confirmed is worth copying: <em>&ldquo;Re-summing the image&rsquo;s
+        operands in the source cell&rsquo;s direction order reproduces the source value
+        bit-for-bit, which is the decisive check &mdash; nothing else about the two cells
+        differs.&rdquo;</em> That is what closing an investigation looks like: not &ldquo;this
+        seems to be about rounding&rdquo;, but a manipulation that makes the difference vanish and
+        come back on demand.
+      </p>
+
+      <h2 id="rotation-reorders">Why a rotation reorders a sum</h2>
+
+      <p>
+        Why would two cells ever add the same numbers in different orders? Because the code walks
+        the neighbours in a fixed order &mdash; and a rotation moves the numbers between slots.
+      </p>
+
+      <p>
+        The routine at fault gathers its inputs in this fixed sequence of lattice directions:
+        <code>+i, &minus;i, +j, &minus;j, +i&minus;j, &minus;i+j, +k, &minus;k</code>. A 60&deg;
+        rotation about the centre sends <code>+i&nbsp;&rarr;&nbsp;+j&nbsp;&rarr;&nbsp;&minus;i+j&nbsp;&rarr;&nbsp;&minus;i&nbsp;&rarr;&nbsp;&minus;j&nbsp;&rarr;&nbsp;+i&minus;j&nbsp;&rarr;&nbsp;+i</code>.
+        In terms of <em>positions in the list</em>, that is the cycle (1&nbsp;3&nbsp;6&nbsp;2&nbsp;4&nbsp;5)
+        &mdash; and, as the decision record puts it, <em>&ldquo;that cycle is not
+        order-preserving&rdquo;</em>. Slot 1&rsquo;s number moves to slot 3. The multiset of
+        values is identical; the sequence is not.
+      </p>
+
+      <p>
+        So the fix cannot be &ldquo;use more digits&rdquo;. More digits still gives you an order.
+        The fix has to make the answer <strong>a function of which numbers are being added, never
+        of their order</strong>. There are two cheap ways to do that, and this codebase uses both.
+      </p>
+
+      <figure class="anim" id="demo-pairs">
+        <div class="anim__head">
+          <p class="anim__title">Rotation shuffles the pairs. It never splits one.</p>
+          <p class="anim__sub">
+            Six in-plane directions, drawn as three opposite-facing pairs. Watch what a 60&deg;
+            turn does to the colours, and what it does to the numbered slots underneath.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original diagram. Pairing built from solver-cpu/src/gg-solver.ts
+          lines 815&ndash;837 (determinism decision 2); the slot cycle (1&nbsp;3&nbsp;6&nbsp;2&nbsp;4&nbsp;5)
+          from docs/decisions/0023-d6h-equivariant-opposing-vapor-mean.md.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The first way is <strong>pairing</strong>. In the plane, the six neighbours come in three
+        opposite-facing pairs, and every symmetry move of a hexagon sends a pair to a pair &mdash;
+        it can swap the two members, and it can send a pair somewhere else, but it can never split
+        one. Adding two numbers is commutative: a&nbsp;+&nbsp;b and b&nbsp;+&nbsp;a are bit-for-bit
+        identical, because there is only one rounding and it does not know which number came first.
+        That leaves three pair-sums, and the second way handles those: <strong>sort them</strong>,
+        because a sorted list depends only on the set of values, not on where they came from. The
+        whole thing is about twenty lines of the diffusion step &mdash; three pair sums, a
+        hand-written three-way sort, and one divide:
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          d&prime;(x) = ( ( ( own + lo ) + mid ) + hi ) / 7
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>own</dt><dd>the cell&rsquo;s own vapour value</dd>
+            <dt>lo, mid, hi</dt><dd>the three opposite-pair sums <code>east+west</code>, <code>ne+sw</code>, <code>se+nw</code>, sorted smallest to largest</dd>
+            <dt>/ 7</dt><dd>the cell plus its six in-plane neighbours</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">solver-cpu/src/gg-solver.ts:837, verbatim: <code>out1[x] = (((own + lo) + mid) + hi) / 7;</code></p>
+      </div>
+
+      <p>
+        That file&rsquo;s header states the reasoning before the code, and its last sentence is the
+        whole point of this chapter:
+      </p>
+
+      <blockquote style="border-left: 3px solid var(--rule-strong); padding-left: 1.15rem; margin: 0 0 1.4em; color: var(--ink-secondary);">
+        <p>
+          &ldquo;Step (1a) therefore sums opposite-direction PAIRS (e+w, ne+sw, se+nw &mdash;
+          pairs map to pairs under every D6h generator, and within-pair order is commutative hence
+          exact), then adds the three pair-sums in sorted order. <strong>Symmetric cells round
+          identically, so the gate&rsquo;s &lsquo;exactly 0&rsquo; is structural, not
+          luck.</strong>&rdquo;
+          <br><em>&mdash; solver-cpu/src/gg-solver.ts:28&ndash;34, determinism decision 2</em>
+        </p>
+      </blockquote>
+
+      <p>
+        Here is the sting. That comment was written in Phase&nbsp;2. The routine that broke was
+        added two phases later, by a different piece of work, and it never inherited the rule. The
+        decision record says so in one flat sentence: <em>&ldquo;So the rule was already written
+        down; the boundary operator simply never inherited it.&rdquo;</em> Knowing about a hazard,
+        and having defended against it once, is not the same as being protected from it.
+      </p>
+
+      <p>
+        The repair could not reuse the pairing trick: that second routine sums a variable subset of
+        eight directions with no pairing structure to exploit. So it uses the other guarantee,
+        sorting its operands into ascending order &mdash; by insertion sort, over at most eight
+        values &mdash; before adding them. Same principle, different mechanism. Then the record adds
+        the sentence that is the reason it exists:
+        <em>&ldquo;<strong>Any future neighborhood reduction inherits this rule.</strong> A
+        reduction over a set that a D6h generator permutes must be a function of the multiset
+        &mdash; by pairing, by sorting, or by an equivariant construction &mdash; and stating that
+        here is the point of the ADR, because the same omission has now happened once.&rdquo;</em>
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          The obvious fix is to add more carefully &mdash; compensated summation, which tracks the
+          rounding you threw away and adds it back. The project uses exactly that elsewhere, for
+          measuring total mass. It was <strong>rejected here</strong>, by name: &ldquo;A compensated
+          sum is more accurate but still order-dependent, so it would shrink the asymmetry without
+          eliminating it, and &lsquo;small but nonzero&rsquo; is precisely the state the symmetry
+          metric was designed to refuse&rdquo; (ADR&nbsp;0023, Alternatives considered). More
+          accuracy was not the goal. Order-independence was.
+        </p>
+      </aside>
+
+      <h2 id="break-the-sixfold">Break it yourself</h2>
+
+      <p>
+        Arguments about rounding are easy to nod along to and hard to believe. So: break it.
+      </p>
+
+      <p>
+        Below is a small grower running in your browser. It is <em>not</em> the project&rsquo;s
+        solver &mdash; it is a two-dimensional toy on the same hexagonal lattice, with a relaxation
+        step and a threshold. The first dropdown changes one thing: the order in which each cell
+        adds up its six neighbours. Geometry, seed, threshold and step count are identical across
+        all four settings.
+      </p>
+
+      <figure class="anim" id="demo-break">
+        <div class="anim__head">
+          <p class="anim__title">Break the sixfold</p>
+          <p class="anim__sub">
+            Watch the middle two readouts. One counts cells whose rotated <em>or mirrored</em> twin
+            holds a bit-for-bit different number; the other is the crystal&rsquo;s symmetry error.
+            They do not agree, and that is the lesson. The real solver&rsquo;s smoother has been
+            protected this way since Phase&nbsp;2 &mdash; this toy strips that protection out so you
+            can watch what it was protecting against.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. A 2-D toy, not the project&rsquo;s solver.
+          The canonical option is the pair-then-sort formula of solver-cpu/src/gg-solver.ts:815&ndash;837;
+          the symmetry error uses the formula in core/src/metrics.ts:43&ndash;48. All numbers shown
+          are measured live by this page.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Two things should have happened. First, on <em>canonical pairs</em> the disagreement count
+        sits at zero for all fifty steps &mdash; not a small number, no number. Second, on any of
+        the other three orders it leaves zero at step&nbsp;2 and climbs into the hundreds within a
+        dozen steps, while the crystal&rsquo;s symmetry error still reads&nbsp;0. All four settings
+        finish with the same number of cells attached.
+      </p>
+
+      <p>
+        That second observation is the thing worth taking away. The field underneath the crystal
+        was already asymmetric; the crystal had not noticed yet. The project measured the same
+        gap on the real solver:
+      </p>
+
+      <blockquote style="border-left: 3px solid var(--rule-strong); padding-left: 1.15rem; margin: 0 0 1.4em; color: var(--ink-secondary);">
+        <p>
+          &ldquo;The field asymmetry is chronic: at 32&sup3; the field loses exact D6h invariance
+          at growth step 14, while the attached set stays invariant through step 40. […] Of three
+          v5 grid points examined, one broke and two did not.&rdquo;
+          <br><em>&mdash; ADR&nbsp;0023, &ldquo;How often the field defect reaches the attached
+          set was measured, not assumed&rdquo;</em>
+        </p>
+      </blockquote>
+
+      <p>
+        Eventually the rounding does surface, and the record traces the whole route in the
+        solver&rsquo;s own variable names &mdash; read <code>sigma_b</code> as how hungry the
+        surface is, <code>alphaHK</code> as how readily a molecule sticks, <code>f</code> as how
+        full a cell is, and <code>raw&nbsp;&gt;=&nbsp;room</code> as &ldquo;this cell now has more
+        ice arriving than it has space for&rdquo;:
+        <em>&ldquo;That ulp enters <code>sigma_b</code>, then <code>alphaHK</code>, then the fill
+        rate, then the accumulating fill fraction <code>f</code>. Growth amplifies it. Eventually
+        one member of a symmetry orbit crosses <code>raw &gt;= room</code> a step before its
+        images, the attached set loses D6h invariance&rdquo;</em>. One arm attaches a cell ahead
+        of its five siblings. The sixteenth digit has become a whole cell of ice.
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          Now switch the demo&rsquo;s second control from &ldquo;every step&rdquo; to &ldquo;only
+          the final crystal&rdquo;. The broken run reports clean &mdash; because what is being
+          reported then is the end-of-run <em>crystal</em> metric, and in this toy the crystal never
+          does break. What broke, at step&nbsp;2, was the field underneath it.
+        </p>
+        <p>
+          Do not read the demo&rsquo;s counter as the project&rsquo;s per-step check, though: they
+          ask different questions. The counter above compares the entire vapour field bit-for-bit
+          against its own rotated and mirrored copies, which is stricter than anything a real run
+          prints. What the solver prints beside <code>symErr=</code> is <code>deltaSymClean</code>,
+          and that asks something narrower &mdash; is the set of cells that attached <em>on this
+          tick</em> itself D6h-invariant? The reasoning is written above the function: if the
+          crystal is invariant and every increment to it is invariant, the crystal stays invariant,
+          and checking the increment costs work proportional to the increment rather than to the
+          whole crystal, <em>&ldquo;which makes &lsquo;symmetry error exactly 0 across the entire
+          run&rsquo; affordable&rdquo;</em>. The full metric of this chapter&rsquo;s opening equation
+          is still run too, <em>&ldquo;periodically and at the end as belt and braces&rdquo;</em>
+          (core/src/metrics.ts:84&ndash;90).
+        </p>
+        <p>
+          That distinction is what lets the decision record say two things that sound
+          contradictory. The field asymmetry is &ldquo;chronic&rdquo; &mdash; and yet the two
+          re-run v5 grid points <em>&ldquo;returned <code>deltaSymClean=true</code> for both. They
+          were genuinely clean runs, not lucky stops.&rdquo;</em> A field check would have called
+          those runs broken. The attachment-delta check called them clean, and it was right to.
+          The rule that comes out of it is stated flatly: a v4/v5 <code>symErr = 0</code>
+          <em>&ldquo;is a snapshot at the stop instant and does not establish that the run stayed
+          symmetric, whereas <code>deltaSymClean</code> does&rdquo;</em>. So both checks are kept,
+          and the per-tick one is reported on every line the run prints.
+        </p>
+      </aside>
+
+      <p>
+        One more detail, and it is the most transferable thing in the investigation.
+        The bad run was <strong>not silent</strong>. The solver printed <code>deltaSymClean=false</code>
+        on the same line, and a heartbeat had been printing <code>deltaSym=false</code> from step
+        78. What went wrong was downstream: the calibration harness parsed only <code>symErr=</code>
+        out of that line and threw the rest away. In the record&rsquo;s own words, <em>&ldquo;The
+        defect is in the solver; the silence was in a coordinator-only probe.&rdquo;</em> An alarm
+        nobody reads is not an alarm.
+      </p>
+
+      <h2 id="same-mistake-twice">The same mistake in a different disguise</h2>
+
+      <p>
+        Here is the part that makes this a chapter and not an anecdote. The same mistake was made
+        again, the same day, <strong>by the decision record that cites the first one</strong>.
+      </p>
+
+      <p>
+        A different piece of work needed the distance from the crystal&rsquo;s centre to each cell
+        on the outer boundary. Distance is obviously the same for every cell in a symmetric ring.
+        So it was computed the obvious way: turn the cell into x, y, z coordinates and take the
+        square root of x&sup2;&nbsp;+&nbsp;y&sup2;&nbsp;+&nbsp;z&sup2;. Exactly right in exact
+        arithmetic. Not right once evaluated.
+      </p>
+
+      <figure class="anim" id="demo-distance">
+        <div class="anim__head">
+          <p class="anim__title">The same distance, computed two ways</p>
+          <p class="anim__sub">
+            Pick a cell. The six rows are its own 60&deg;-rotation family &mdash; six cells that
+            are the same distance from the centre. Compare the two columns digit by digit.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Embedding (x = i + j/2, y = j&middot;&radic;3/2,
+          z = k) and the integer quadratic form di&sup2; + di&middot;dj + dj&sup2; + dk&sup2; from
+          docs/decisions/0024-monopole-matched-far-field.md; every value is computed live in float64
+          by this page.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        On the cell it opens with, four of the six rotated copies come out holding a different
+        number in the left-hand column. Run the scan and the page sweeps 84,035 rotated pairs and
+        reports the worst gap it finds: about 7&nbsp;&times;&nbsp;10<sup>&minus;15</sup> &mdash;
+        one ulp, at those distances &mdash; between two values that are supposed to be the same
+        value. The repository records the identical magnitude:
+        <em>&ldquo;symmetry-equivalent shell cells came out differing by up to ~7e-15&rdquo;</em>.
+        The right-hand column never disagrees at all, because the squared distance can be written
+        as a whole number, <code>di&sup2; + di&middot;dj + dj&sup2; + dk&sup2;</code>, and the
+        rotation and the reflection turn whole numbers into whole numbers with nothing to round.
+      </p>
+
+      <p>
+        Two instances, two different disguises, and so the rule got promoted out of both and
+        written in general form at the top of the contributor guide:
+      </p>
+
+      <blockquote style="border-left: 3px solid var(--rule-strong); padding-left: 1.15rem; margin: 0 0 1.4em; color: var(--ink-secondary);">
+        <p>
+          &ldquo;<strong>Anything a D6h generator maps onto itself must be computed so that the
+          invariance survives evaluation, not merely so that it holds in exact arithmetic</strong>
+          (gg-solver determinism decision 2; ADRs 0023 and 0024).
+          This has now been got wrong twice, in two different ways, so it is stated in the general
+          form and both instances are named below. The cheapest guarantee is to key the value to
+          something the group preserves <em>exactly</em> &mdash; a multiset, or an integer.&rdquo;
+          <br><em>&mdash; AGENTS.md:130&ndash;134</em>
+        </p>
+      </blockquote>
+
+      <h3>Choosing the test that fails</h3>
+
+      <p>
+        How was the second one caught? Not by the test suite as it stood. It was caught because
+        somebody ran the code at an uncomfortable setting.
+      </p>
+
+      <p>
+        The <strong>fill-CFL</strong> is how big a bite of time each growth step takes. The working
+        value is 0.1. Nothing in the code caps it at any particular number &mdash; the solver only
+        insists that it be <em>&ldquo;finite and in (0, 1)&rdquo;</em>
+        (solver-cpu/src/lk-solver.ts:452) &mdash; but 0.2 is the top rung of the registered timestep
+        ladder, the largest step the project tests at (research/phase6-convergence.md &sect;2, which
+        runs 0.2, 0.1, 0.05 and 0.025). The erratum gives the mechanism in a
+        sentence: <em>&ldquo;A larger step lets many cells cross the attachment threshold together,
+        which is what turns a ulp into a split orbit.&rdquo;</em> More cells at the threshold at
+        once, more chances one of them lands on the wrong side of it by a single bit.
+        AGENTS.md draws the moral: <em>&ldquo;a symmetry regression test that does not
+        run at the largest admissible step is not testing much.&rdquo;</em>
+      </p>
+
+      <p>
+        The other axis is the <strong>far-field condition</strong> &mdash; how the model decides
+        what the vapour is doing out at the edge of the box, far from the crystal.
+        <code>dirichlet</code> pins every edge cell to one fixed value.
+        <code>monopole-matched</code> gives each edge cell its own value based on how far it sits
+        from the centre &mdash; and it is that distance, computed the obvious way, that carried the
+        bug. Chapter&nbsp;23 comes back to why the choice matters at all; here it only matters that
+        one of the two settings runs the defective line and the other does not.
+      </p>
+
+      <figure class="anim" id="demo-matrix">
+        <div class="anim__head">
+          <p class="anim__title">Four ways to run the test. One of them finds the bug.</p>
+          <p class="anim__sub">
+            These four outcomes are recorded in the erratum, not simulated here. Pick a setting
+            and see what that test run would have told you.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original diagram. All four outcomes transcribed from the erratum
+          block of docs/decisions/0024-monopole-matched-far-field.md: &ldquo;the break appears only
+          under monopole-matched at cfl = 0.2, never under dirichlet and never at cfl = 0.1.&rdquo;</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Three of the four choices are green, and the sensible-looking one &mdash; the setting the
+        solver actually runs at &mdash; is among them. So the regression test was deliberately
+        written at the wrong setting. Its name says so:
+      </p>
+
+      <blockquote style="border-left: 3px solid var(--rule-strong); padding-left: 1.15rem; margin: 0 0 1.4em; color: var(--ink-secondary);">
+        <p>
+          <code>it("holds symmetry at the LARGEST fill-CFL, which is what amplifies a ulp shell error", …)</code>
+          <br>&ldquo;Testing only at the working cfl of 0.1 missed it for exactly that reason, so
+          the regression test runs at the amplifying setting deliberately.&rdquo;
+          <br><em>&mdash; solver-cpu/test/monopole-far-field.test.ts:130&ndash;134</em>
+        </p>
+      </blockquote>
+
+      <p>
+        And then a second test was added that does not grow a crystal at all. It builds the outer
+        shell, walks every shell cell&rsquo;s rotated and mirrored partners, and asserts that they
+        hold <em>bit-identical</em> distances &mdash;
+        <em>&ldquo;which catches the regression with no growth at all, where the
+        end-to-end symmetry test only catches it once a timestep amplifies it&rdquo;</em>. It even
+        checks that it did some work: the final assertion is that more than 100 pairs were compared,
+        so the test cannot pass by having examined nothing.
+      </p>
+
+      <p>
+        Two nets over the same falling bug, with different mesh. The project keeps both.
+      </p>
+
+      <h2 id="randomness">Randomness that does not care who goes first</h2>
+
+      <p>
+        There is one more place order could sneak into the answer, and it was closed before it was
+        ever a problem.
+      </p>
+
+      <p>
+        The model has an optional noise term &mdash; a tiny random nudge per cell per step. The
+        obvious way to build that is a random-number generator you call over and over, each call
+        advancing a hidden internal state. That is what almost every language ships. This project
+        refuses it, and the file says why in its first ten lines:
+      </p>
+
+      <blockquote style="border-left: 3px solid var(--rule-strong); padding-left: 1.15rem; margin: 0 0 1.4em; color: var(--ink-secondary);">
+        <p>
+          &ldquo;The output is a PURE FUNCTION of the tuple (seed, cellIndex, tick, streamId) &mdash;
+          a murmur3-style integer hash, never a sequential stream. A stream PRNG makes a noise
+          realization depend on iteration order, which GPU threads do not have; a sequential choice
+          here <strong>would quietly foreclose Phase 5&rsquo;s oracle-vs-GPU comparison</strong> on
+          every noise-on run.&rdquo;
+          <br><em>&mdash; core/src/prng.ts:1&ndash;10</em>
+        </p>
+      </blockquote>
+
+      <p>
+        Read the timing of that. Phase 5 is where the fast graphics-card engine gets checked
+        against the slow readable one, and thousands of card threads run in no particular order. A
+        generator that depended on call order would hand the two machines different noise, so the
+        two crystals would differ and no one could tell a real disagreement from an artefact of
+        scheduling. The choice was made in the scaffolding, several phases before the comparison it
+        protects.
+      </p>
+
+      <figure class="anim" id="demo-prng">
+        <div class="anim__head">
+          <p class="anim__title">Break determinism</p>
+          <p class="anim__sub">
+            Forty-eight cells, each asking for its own noise value. Shuffle the order they ask in.
+            Then switch generators and shuffle again.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The counter hash is the murmur3-style
+          <code>hashCounter</code> of core/src/prng.ts, ported line for line; the three pinned values
+          are the golden tests of core/test/prng.test.ts:10&ndash;16 and are checked live in your
+          browser.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The three integers in that panel are not decoration. They sit in the test suite with a
+        blunt comment above them: <em>&ldquo;These pin the algorithm. If they change, every
+        recorded noise-on run is invalidated.&rdquo;</em> A run&rsquo;s randomness is completely
+        described by two numbers &mdash; the seed and the noise amplitude &mdash; both of which are
+        written into every saved checkpoint. Same seed, same noise, in any order, on any engine:
+        the hash uses only integer operations, and those <em>&ldquo;are exactly specified by
+        ECMA-262, so this is bit-identical across engines&rdquo;</em> (core/src/prng.ts:8&ndash;10).
+      </p>
+
+      <p>
+        Note the size of that claim. It is about the <em>noise</em>, not about the crystal &mdash;
+        the crystal is decided by a great deal of arithmetic that is not integer-only. The prng file
+        makes the distinction itself, calling its own guarantee <em>&ldquo;stronger than the
+        pinned-oracle determinism scope the charter requires&rdquo;</em>, which only makes sense if
+        the charter&rsquo;s scope is narrower. The next section says how much narrower.
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          Where does a real snow crystal&rsquo;s asymmetry come from? Nobody in this project claims
+          to know, and the model does not settle it. What <em>is</em> settled is how the model is
+          allowed to be asked. Noise deliberately <em>destroys</em> sixfold symmetry &mdash; it is
+          drawn independently per site, so of course it does &mdash; and that is not a bug to be
+          reconciled with the symmetry gate, because the rule was written down in advance: the
+          Phase&nbsp;2a symmetry gate runs noise <strong>off</strong>, and studies specifically
+          targeting natural asymmetric branching <em>may</em> run it <strong>on</strong>. The
+          machinery documentation ends that part in three words &mdash; <em>&ldquo;Two different
+          experiments&rdquo;</em> (docs/gg-machinery.md:341&ndash;343). Which experiment the real
+          world is running is the part still open.
+        </p>
+      </aside>
+
+      <h2 id="what-is-claimed">What &ldquo;exactly zero&rdquo; buys, and what it does not</h2>
+
+      <p>
+        Be precise about the size of the claim, because this is exactly the kind of engineering
+        that invites overstatement.
+      </p>
+
+      <p>
+        <strong>Bitwise reproducibility is not claimed everywhere.</strong> The charter scopes it
+        narrowly: <em>&ldquo;Bitwise reproducibility is claimed only for the oracle pinned to one
+        engine (Node/V8): the JS spec does not guarantee bit-identical Math.exp/Math.pow across
+        engines, and LibbrechtKinetics leans on exp().&rdquo;</em> Comparisons against the graphics
+        card, or across engines, use stated tolerances instead. The fix in this chapter did not
+        extend that scope by one inch. It made the symmetry claim inside that scope true.
+      </p>
+
+      <p>
+        <strong>The fix changed arithmetic, not physics.</strong> That was checked rather than
+        asserted: the new summation order and the old one reach the same state at the same scale,
+        and the test that says so is in the suite &mdash; <em>&ldquo;v6 is an ordering change only:
+        it reaches the same state v5 does at this scale&rdquo;</em>
+        (solver-cpu/test/lk-solver.test.ts:1182). That is one scale, not a guarantee. On the
+        configuration that opened the investigation the attached count moved 765 to 749, and the
+        record refuses to let that pass as noise: <em>&ldquo;v6 will differ from v5 wherever the
+        split orbits fall differently, and any v5 calibration number carried forward has to be
+        re-measured rather than assumed.&rdquo;</em> What was changed was the order of an addition.
+        What that does to any particular crystal still has to be measured.
+      </p>
+
+      <p>
+        It also cost about 5% in runtime, measured properly, with the honest note that the
+        run-to-run spread on that machine was about 14% &mdash; larger than the effect &mdash; so
+        <em>&ldquo;~5% is the right order and the third digit is not available from this
+        machine&rdquo;</em>.
+      </p>
+
+      <p>
+        <strong>And it was fixed in one lane only.</strong> The same defect sits in the
+        graphics-card version of that routine, and it was deliberately left there:
+        <em>&ldquo;The WGSL lane is not ported. […] So the shader defect described above is
+        registered, not repaired&rdquo;</em> (ADR&nbsp;0023, Decision). In the 32-bit arithmetic
+        the card uses, one ulp there is about 1.2&times;10<sup>&minus;7</sup> relative rather than
+        2.2&times;10<sup>&minus;16</sup> &mdash; a much bigger last bit, and this chapter has just
+        spent four sections on how a single ulp gets amplified into a whole cell of ice, so nobody
+        should read that size as a bound on the damage. The record does not offer one. It states a
+        consequence instead: the card is Phase&nbsp;6&rsquo;s labelled diagnostic rather than its
+        sweep engine, and the untouched operator is <em>&ldquo;a second declared difference beside
+        f32 arithmetic and the relaxed divergence tolerance: the GPU lane can corroborate a trend,
+        and cannot be compared value-for-value against a v6 sweep.&rdquo;</em>
+      </p>
+
+      <p>
+        <strong>And none of this says the physics is right.</strong> A symmetry error of exactly
+        zero says that the arithmetic did not decide the answer. It says nothing whatever about
+        whether the equations being evaluated are nature&rsquo;s equations. Those are two different
+        claims and they are supported by two different kinds of evidence. When the validation sweep
+        later reports that every one of its 204 runs held <code>symErr = 0</code> with noise off,
+        that is a statement about the instrument, not about the world. Keep the two apart; the rest
+        of this section depends on it.
+      </p>
+
+      <p>
+        For orientation: that sweep is Phase&nbsp;6, the validation phase, and it is
+        <strong>in flight</strong>. Phase&nbsp;7, the product layer, has <strong>not
+        started</strong> &mdash; the progress ledger records it as one unticked box. Nothing on
+        this page describes a finished thing.
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know &mdash; and who checked
+        </p>
+        <p>
+          Every finding in this chapter was produced and reviewed inside the project&rsquo;s own
+          process, which requires every review round to record the reviewing agent&rsquo;s model,
+          what it independently re-executed, and <em>&ldquo;what it did <strong>not</strong> check,
+          stated as a limit of the evidence rather than left implicit&rdquo;</em>, and which
+          <em>prefers</em> a different model from the one that wrote the code on any review that
+          carries a gate (AGENTS.md:389&ndash;394, Rule&nbsp;10). That
+          process has a limit the project states plainly and this page will not soften: <strong>every
+          review this project has had, internal or external-facing, is an LLM review</strong>,
+          including the two-reviewer pass over this page. The project&rsquo;s own words:
+          <em>&ldquo;At least one human domain scientist reads any manuscript before submission. All
+          reviews to date, internal and external-facing, are LLM reviews; for publication that is a
+          disclosed limitation, not a substitute&rdquo;</em>
+          (docs/stretch-sharing-and-investigation.md:217&ndash;219). No human domain scientist has
+          read this work. That is a disclosed limitation, not a defence.
+        </p>
+      </aside>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The two summation orders, side by side. Numbers from
+            docs/decisions/0023-d6h-equivariant-opposing-vapor-mean.md; policy names are the
+            repository&rsquo;s own.
+          </caption>
+          <thead>
+            <tr>
+              <th>&nbsp;</th>
+              <th>gather order (v4, v5)</th>
+              <th>ascending value order (v6)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Depends on</td>
+              <td>which numbers, <em>and their order</em></td>
+              <td>which numbers only</td>
+            </tr>
+            <tr>
+              <td>Symmetric cells</td>
+              <td>can differ by 1 ulp from three operands up</td>
+              <td>bit-for-bit identical</td>
+            </tr>
+            <tr>
+              <td>What <code>symErr = 0</code> means</td>
+              <td>&ldquo;did not stop mid-split&rdquo;</td>
+              <td>&ldquo;stayed symmetric&rdquo;</td>
+            </tr>
+            <tr>
+              <td>Measured cost</td>
+              <td class="num">&mdash;</td>
+              <td>about +5% runtime</td>
+            </tr>
+            <tr>
+              <td>Kept because</td>
+              <td>Phase 2b and Phase 4b evidence was produced under them</td>
+              <td>it is the policy the validation sweep registers</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        That last row is not housekeeping. The old policies were left bit-unchanged on purpose:
+        accepted results from earlier phases ran under them, and quietly &ldquo;fixing&rdquo; the
+        code underneath an old result would make a stored file claim a policy it never ran. Fixing
+        a bug and preserving the record of the buggy runs are separate obligations.
+      </p>
+
+      <p class="handoff">
+        Everything so far has been about the machine&rsquo;s arithmetic &mdash; the grid it counts
+        on, the order it adds in, the randomness it refuses to let drift. None of that decides what
+        a physical growth <em>rate</em> is supposed to mean once you have chopped space into cells
+        and time into steps. The next chapter is about that seam, and about the move that happens
+        there: temperature stops being a label written on the outside of a run and becomes an input
+        to the rate of every boundary cell, recomputed every step. That is the move that makes the
+        whole project capable of being wrong.
+      </p>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./19-why-the-grid-is-hexagonal.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">Why the Grid Is Hexagonal</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./21-the-seam.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">The Seam</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
+      from a local research cache under citation; they are not redistributed with this repository.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script>
+/* ===========================================================================
+   Chapter 20 — shared helpers
+   ======================================================================== */
+(function () {
+  "use strict";
+
+  /** A native <select> dressed as a Viz control. */
+  window.ChapterSelect = function (container, opts) {
+    const wrap = document.createElement("div");
+    wrap.className = "control";
+    const id = "sel-" + Math.random().toString(36).slice(2, 8);
+    const label = document.createElement("label");
+    label.setAttribute("for", id);
+    label.textContent = opts.label;
+    const sel = document.createElement("select");
+    sel.id = id;
+    sel.style.font = "inherit";
+    sel.style.padding = "0.35rem 0.5rem";
+    sel.style.borderRadius = "6px";
+    sel.style.border = "1px solid var(--rule-strong)";
+    sel.style.background = "var(--surface-1)";
+    sel.style.color = "var(--ink-primary)";
+    opts.options.forEach(function (o) {
+      const opt = document.createElement("option");
+      opt.value = o.value;
+      opt.textContent = o.label;
+      sel.appendChild(opt);
+    });
+    sel.value = opts.value;
+    sel.addEventListener("change", function () { opts.onChange(sel.value); });
+    wrap.appendChild(label);
+    wrap.appendChild(sel);
+    container.appendChild(wrap);
+    return sel;
+  };
+
+  /** A labelled numeric readout tile. */
+  window.ChapterReadout = function (row, name, hint) {
+    const box = document.createElement("div");
+    box.style.flex = "1 1 8rem";
+    box.style.minWidth = "8rem";
+    box.style.padding = "0.5rem 0.7rem";
+    box.style.border = "1px solid var(--rule)";
+    box.style.borderRadius = "8px";
+    box.style.background = "var(--surface-sunken)";
+    const k = document.createElement("div");
+    k.textContent = name;
+    k.style.fontSize = "0.72rem";
+    k.style.letterSpacing = "0.04em";
+    k.style.textTransform = "uppercase";
+    k.style.color = "var(--ink-muted)";
+    const v = document.createElement("div");
+    v.style.fontFamily = "var(--font-mono)";
+    v.style.fontSize = "1.15rem";
+    v.style.fontWeight = "650";
+    v.textContent = "—";
+    box.appendChild(k);
+    box.appendChild(v);
+    if (hint) {
+      const h = document.createElement("div");
+      h.textContent = hint;
+      h.style.fontSize = "0.72rem";
+      h.style.color = "var(--ink-muted)";
+      box.appendChild(h);
+    }
+    row.appendChild(box);
+    return v;
+  };
+
+  window.ChapterRow = function (parent) {
+    const row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.flexWrap = "wrap";
+    row.style.gap = "0.6rem";
+    row.style.margin = "0 0 0.9rem";
+    parent.appendChild(row);
+    return row;
+  };
+})();
+</script>
+
+<script>
+/* ===========================================================================
+   DEMO 1 — Order of operations, on the real captured operands (ADR 0023).
+   ======================================================================== */
+(function () {
+  "use strict";
+  const root = document.getElementById("demo-order");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  // Verbatim from docs/decisions/0023 — the two cells' operands, in gather order.
+  const A = 1.33997599709070429330e-2;   // the value seen three times over the two cells
+  const B = 1.52741366166647529051e-2;
+  const CELL = { name: "cell (16,13,16)", dirs: ["+i", "+j", "−i+j"], vals: [A, B, A] };
+  const IMAGE = { name: "image (19,13,16) = rot60(16,13,16)", dirs: ["−i", "+j", "−i+j"], vals: [A, A, B] };
+
+  let sorted = false;
+
+  function sumInOrder(vals) {
+    const v = sorted ? vals.slice().sort(function (a, b) { return a - b; }) : vals.slice();
+    let s = v[0];
+    for (let i = 1; i < v.length; i++) s = s + v[i];
+    return s;
+  }
+
+  function exp20(x) { return x.toExponential(20); }
+
+  /** Wrap the tail of `s` that differs from `other` in a highlight span. */
+  function markDiff(s, other, colour, onColour) {
+    let i = 0;
+    while (i < s.length && i < other.length && s[i] === other[i]) i++;
+    if (i >= s.length) return document.createTextNode(s);
+    const frag = document.createDocumentFragment();
+    frag.appendChild(document.createTextNode(s.slice(0, i)));
+    const hot = document.createElement("span");
+    hot.textContent = s.slice(i);
+    hot.style.background = colour;
+    hot.style.color = onColour;
+    hot.style.padding = "0 2px";
+    hot.style.borderRadius = "3px";
+    frag.appendChild(hot);
+    return frag;
+  }
+
+  function card(dir, val, colour) {
+    const d = document.createElement("div");
+    d.style.border = "1px solid " + colour;
+    d.style.borderRadius = "8px";
+    d.style.padding = "0.4rem 0.6rem";
+    d.style.background = "var(--surface-sunken)";
+    d.style.minWidth = "0";
+    const t = document.createElement("div");
+    t.textContent = dir;
+    t.style.fontSize = "0.72rem";
+    t.style.fontWeight = "700";
+    t.style.color = colour;
+    const n = document.createElement("div");
+    n.textContent = val.toExponential(12);
+    n.style.fontFamily = "var(--font-mono)";
+    n.style.fontSize = "0.72rem";
+    n.style.whiteSpace = "nowrap";
+    n.style.overflowX = "auto";
+    d.appendChild(t);
+    d.appendChild(n);
+    return d;
+  }
+
+  function panel(which, other, c) {
+    const wrap = document.createElement("div");
+    wrap.style.flex = "1 1 18rem";
+    wrap.style.minWidth = "0";
+    wrap.style.padding = "0.7rem";
+    wrap.style.border = "1px solid var(--rule)";
+    wrap.style.borderRadius = "10px";
+
+    const h = document.createElement("p");
+    h.textContent = which.name;
+    h.style.margin = "0 0 0.5rem";
+    h.style.fontWeight = "660";
+    h.style.fontSize = "0.85rem";
+    wrap.appendChild(h);
+
+    const cards = document.createElement("div");
+    cards.style.display = "grid";
+    cards.style.gridTemplateColumns = "repeat(3, minmax(0, 1fr))";
+    cards.style.gap = "0.35rem";
+    const vals = sorted ? which.vals.slice().sort(function (a, b) { return a - b; }) : which.vals.slice();
+    const dirs = sorted ? ["smallest", "middle", "largest"] : which.dirs;
+    for (let i = 0; i < 3; i++) cards.appendChild(card(dirs[i], vals[i], c.series[i]));
+    wrap.appendChild(cards);
+
+    const arrow = document.createElement("p");
+    arrow.textContent = sorted
+      ? "sorted, then added left to right"
+      : "added left to right, in gather order";
+    arrow.style.margin = "0.5rem 0 0.2rem";
+    arrow.style.fontSize = "0.78rem";
+    arrow.style.color = "var(--ink-muted)";
+    wrap.appendChild(arrow);
+
+    const mineSum = sumInOrder(which.vals);
+    const otherSum = sumInOrder(other.vals);
+
+    const rowLabel = document.createElement("p");
+    rowLabel.textContent = "mean of the three (sum / 3):";
+    rowLabel.style.margin = "0.4rem 0 0.15rem";
+    rowLabel.style.fontSize = "0.78rem";
+    wrap.appendChild(rowLabel);
+
+    const out = document.createElement("p");
+    out.style.margin = "0";
+    out.style.fontFamily = "var(--font-mono)";
+    out.style.fontSize = "0.78rem";
+    out.style.overflowX = "auto";
+    out.style.whiteSpace = "nowrap";
+    out.appendChild(markDiff(exp20(mineSum / 3), exp20(otherSum / 3), c.critical, c.surface));
+    wrap.appendChild(out);
+    return wrap;
+  }
+
+  function render() {
+    const c = Viz.colors();
+    body.textContent = "";
+
+    const grid = document.createElement("div");
+    grid.style.display = "flex";
+    grid.style.flexWrap = "wrap";
+    grid.style.gap = "0.8rem";
+    grid.appendChild(panel(CELL, IMAGE, c));
+    grid.appendChild(panel(IMAGE, CELL, c));
+    body.appendChild(grid);
+
+    const same = sumInOrder(CELL.vals) === sumInOrder(IMAGE.vals);
+    const verdict = document.createElement("p");
+    verdict.style.margin = "0.9rem 0 0";
+    verdict.style.padding = "0.55rem 0.75rem";
+    verdict.style.borderRadius = "8px";
+    verdict.style.fontWeight = "620";
+    verdict.style.background = "var(--surface-sunken)";
+    verdict.style.borderLeft = "4px solid " + (same ? c.good : c.critical);
+    verdict.textContent = same
+      ? "Bit-for-bit identical. Sorting made the sum depend on which numbers, not on their order."
+      : "Different in the last place. Same three numbers, same physics, different order of addition.";
+    body.appendChild(verdict);
+
+    // exhaustive check over all six orderings
+    const perms = [[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]];
+    const totals = new Set();
+    perms.forEach(function (p) {
+      const v = [CELL.vals[p[0]], CELL.vals[p[1]], CELL.vals[p[2]]];
+      totals.add(sumInOrder(v));
+    });
+    const tally = document.createElement("p");
+    tally.style.margin = "0.6rem 0 0";
+    tally.style.fontSize = "0.85rem";
+    tally.style.color = "var(--ink-secondary)";
+    tally.textContent = "All six orderings of the left-hand cell's three operands were just tried. "
+      + "Distinct totals: " + totals.size + (sorted ? " — sorting removed the choice." : ".");
+    body.appendChild(tally);
+  }
+
+  Viz.button(controls, "Sort ascending before adding", function (b) {
+    sorted = !sorted;
+    b.setAttribute("aria-pressed", String(sorted));
+    b.textContent = sorted ? "Sorting is ON — turn it off" : "Sort ascending before adding";
+    render();
+  }, { pressed: false });
+
+  render();
+  Viz.onThemeChange(render);
+})();
+</script>
+
+<script>
+/* ===========================================================================
+   DEMO 2 — Pairs survive rotation.
+   ======================================================================== */
+(function () {
+  "use strict";
+  const root = document.getElementById("demo-pairs");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const W = 540, H = 340;
+  // in-plane directions in draw order, index 0..5 = "slot 1".."slot 6"
+  const NAMES = ["+i", "−i", "+j", "−j", "+i−j", "−i+j"];
+  const ANGLE = [0, 180, 60, 240, -60, 120];   // degrees, screen coords
+  const PAIR = [0, 0, 1, 1, 2, 2];             // which opposite-pair each slot belongs to
+  // rot60 permutes slot positions by the cycle (1 3 6 2 4 5) — 1-indexed, from ADR 0023.
+  // 1→3, 3→6, 6→2, 2→4, 4→5, 5→1, written 0-indexed as "slot i's content moves to CYCLE[i]".
+  const CYCLE = [2, 3, 5, 4, 0, 1];
+
+  let turns = 0;
+
+  function render() {
+    const c = Viz.colors();
+    body.textContent = "";
+    const svg = Viz.createSvg(body, W, H, {
+      label: "Six lattice directions grouped into three opposite pairs, and the slot order a "
+        + "60-degree rotation produces.",
+      desc: "Rotating the wheel moves each pair to another pair's position but never separates "
+        + "the two members of a pair. The numbered slots below are reordered by the cycle "
+        + "1 3 6 2 4 5.",
+    });
+
+    const cx = 150, cy = 150, r = 96;
+    svg.appendChild(Viz.svgEl("path", {
+      d: Viz.hexPath(cx, cy, r + 16, 30), fill: "none",
+      stroke: c.rule, "stroke-width": 1.2,
+    }));
+    svg.appendChild(Viz.svgEl("circle", { cx: cx, cy: cy, r: 4, fill: c.muted }));
+
+    // current occupant of each slot after `turns` applications of the cycle
+    const occupant = [0, 1, 2, 3, 4, 5];
+    for (let t = 0; t < turns; t++) {
+      const next = [0, 0, 0, 0, 0, 0];
+      for (let i = 0; i < 6; i++) next[CYCLE[i]] = occupant[i];
+      for (let i = 0; i < 6; i++) occupant[i] = next[i];
+    }
+
+    for (let slot = 0; slot < 6; slot++) {
+      const who = occupant[slot];
+      const a = (ANGLE[slot] * Math.PI) / 180;
+      const x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+      const col = c.series[PAIR[who]];
+      svg.appendChild(Viz.svgEl("line", {
+        x1: cx + 10 * Math.cos(a), y1: cy + 10 * Math.sin(a),
+        x2: x, y2: y, stroke: col, "stroke-width": 3.2, "stroke-linecap": "round",
+      }));
+      svg.appendChild(Viz.svgEl("circle", { cx: x, cy: y, r: 15, fill: col }));
+      const lab = Viz.svgEl("text", {
+        x: x, y: y + 4, "text-anchor": "middle", fill: c.surface,
+        class: "series-label", "font-size": 11,
+      });
+      lab.textContent = NAMES[who];
+      svg.appendChild(lab);
+    }
+
+    // the slot tape
+    const tx = 306, ty0 = 66, dy = 34;
+    const head = Viz.svgEl("text", { x: tx, y: ty0 - 22, class: "axis-title", fill: c.inkSecondary });
+    head.textContent = "the list the code walks";
+    svg.appendChild(head);
+
+    for (let slot = 0; slot < 6; slot++) {
+      const who = occupant[slot];
+      const y = ty0 + slot * dy;
+      svg.appendChild(Viz.svgEl("rect", {
+        x: tx, y: y - 13, width: 190, height: 26, rx: 5,
+        fill: c.sunken, stroke: c.series[PAIR[who]], "stroke-width": 1.6,
+      }));
+      const n = Viz.svgEl("text", { x: tx + 12, y: y + 5, class: "tick-text", fill: c.muted });
+      n.textContent = "slot " + (slot + 1);
+      svg.appendChild(n);
+      const v = Viz.svgEl("text", {
+        x: tx + 74, y: y + 5, class: "series-label", fill: c.series[PAIR[who]], "font-size": 12,
+      });
+      v.textContent = NAMES[who];
+      svg.appendChild(v);
+      const p = Viz.svgEl("text", { x: tx + 130, y: y + 5, class: "tick-text", fill: c.inkSecondary });
+      p.textContent = "pair " + (PAIR[who] + 1);
+      svg.appendChild(p);
+    }
+
+    const foot = Viz.svgEl("text", { x: 150, y: 300, class: "annotation", "text-anchor": "middle", fill: c.inkSecondary });
+    foot.textContent = "rotated " + (turns * 60) + "°";
+    svg.appendChild(foot);
+    const foot2 = Viz.svgEl("text", { x: 150, y: 320, class: "annotation", "text-anchor": "middle", fill: c.muted });
+    foot2.textContent = "three colours in, three colours out — never a split pair";
+    svg.appendChild(foot2);
+
+    Viz.legend(body, [
+      { color: c.series[0], label: "pair 1  (+i, −i)" },
+      { color: c.series[1], label: "pair 2  (+j, −j)" },
+      { color: c.series[2], label: "pair 3  (+i−j, −i+j)" },
+    ]);
+  }
+
+  Viz.button(controls, "Rotate 60°", function () {
+    turns = (turns + 1) % 6;
+    render();
+  });
+  Viz.button(controls, "Reset", function () { turns = 0; render(); });
+
+  render();
+  Viz.onThemeChange(render);
+})();
+</script>
+
+<script>
+/* ===========================================================================
+   DEMO 3 — Break the sixfold.  A 2-D toy grower on the hexagonal lattice,
+   identical in every respect except the neighbour summation order.
+   ======================================================================== */
+(function () {
+  "use strict";
+  const root = document.getElementById("demo-break");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const R = 15, DT = 0.40, MAX_STEP = 50;
+  const W = 470, H = 420, HEX = 8.4;
+
+  /* ---- lattice ---- */
+  const cells = [], index = new Map();
+  for (let q = -R; q <= R; q++) {
+    for (let r = -R; r <= R; r++) {
+      if (Math.abs(q) <= R && Math.abs(r) <= R && Math.abs(q + r) <= R) {
+        index.set(q + "," + r, cells.length);
+        cells.push([q, r]);
+      }
+    }
+  }
+  const N = cells.length;
+  const DIRS = [[1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]];  // E, NE, NW, W, SW, SE
+  const nbr = new Int32Array(N * 6);
+  const rotOf = new Int32Array(N), mirOf = new Int32Array(N);
+  for (let x = 0; x < N; x++) {
+    const q = cells[x][0], r = cells[x][1];
+    for (let d = 0; d < 6; d++) {
+      const k = index.get((q + DIRS[d][0]) + "," + (r + DIRS[d][1]));
+      nbr[x * 6 + d] = k === undefined ? -1 : k;
+    }
+    rotOf[x] = index.get((-r) + "," + (q + r));   // rot60: (q,r) -> (-r, q+r)
+    mirOf[x] = index.get(r + "," + q);            // mirror: (q,r) -> (r,q)
+  }
+  // pixel positions, centred
+  const px = new Float64Array(N), py = new Float64Array(N);
+  for (let x = 0; x < N; x++) {
+    const p = Viz.hexToPixel(cells[x][0], cells[x][1], HEX);
+    px[x] = W / 2 + p[0];
+    py[x] = H / 2 + p[1];
+  }
+
+  /* ---- state ---- */
+  let order = "canonical", cadence = "every";
+  let s, f, a, scratch, step, firstDelta, firstSym, history;
+
+  function reset() {
+    s = new Float64Array(N).fill(1);
+    f = new Float64Array(N);
+    a = new Uint8Array(N);
+    scratch = new Float64Array(N);
+    const o = index.get("0,0");
+    a[o] = 1; s[o] = 0;
+    step = 0; firstDelta = -1; firstSym = -1;
+    history = { disagree: 0, sym: 0, attached: 1 };
+  }
+
+  function permFor(x) {
+    // "a different order in every cell": a cheap per-cell choice among the six rotations
+    return ((Math.imul(x + 1, 2654435761) >>> 8) % 6);
+  }
+
+  function sweep() {
+    for (let x = 0; x < N; x++) {
+      if (a[x] === 1) { scratch[x] = 0; continue; }
+      const own = s[x];
+      let v0, v1, v2, v3, v4, v5;
+      const b = x * 6;
+      let k;
+      k = nbr[b];     v0 = k < 0 ? 1 : (a[k] === 1 ? 0 : s[k]);
+      k = nbr[b + 1]; v1 = k < 0 ? 1 : (a[k] === 1 ? 0 : s[k]);
+      k = nbr[b + 2]; v2 = k < 0 ? 1 : (a[k] === 1 ? 0 : s[k]);
+      k = nbr[b + 3]; v3 = k < 0 ? 1 : (a[k] === 1 ? 0 : s[k]);
+      k = nbr[b + 4]; v4 = k < 0 ? 1 : (a[k] === 1 ? 0 : s[k]);
+      k = nbr[b + 5]; v5 = k < 0 ? 1 : (a[k] === 1 ? 0 : s[k]);
+
+      let out;
+      if (order === "canonical") {
+        // opposite pairs first (commutative, hence exact), then the three pair-sums sorted
+        const p1 = v0 + v3, p2 = v1 + v4, p3 = v2 + v5;
+        let lo, mid, hi;
+        if (p1 <= p2) {
+          if (p2 <= p3) { lo = p1; mid = p2; hi = p3; }
+          else if (p1 <= p3) { lo = p1; mid = p3; hi = p2; }
+          else { lo = p3; mid = p1; hi = p2; }
+        } else if (p1 <= p3) { lo = p2; mid = p1; hi = p3; }
+        else if (p2 <= p3) { lo = p2; mid = p3; hi = p1; }
+        else { lo = p3; mid = p2; hi = p1; }
+        out = (((own + lo) + mid) + hi) / 7;
+      } else if (order === "gather") {
+        out = (((((own + v0) + v1) + v2) + v3) + v4 + v5) / 7;
+      } else if (order === "reverse") {
+        out = (((((own + v5) + v4) + v3) + v2) + v1 + v0) / 7;
+      } else {
+        const rot = permFor(x);
+        const arr = [v0, v1, v2, v3, v4, v5];
+        let sum = own;
+        for (let i = 0; i < 6; i++) sum += arr[(i + rot) % 6];
+        out = sum / 7;
+      }
+      scratch[x] = out;
+    }
+    const t = s; s = scratch; scratch = t;
+  }
+
+  function advance() {
+    sweep();
+    const newly = [];
+    for (let x = 0; x < N; x++) {
+      if (a[x] === 1) continue;
+      let touching = false;
+      for (let d = 0; d < 6; d++) { const k = nbr[x * 6 + d]; if (k >= 0 && a[k] === 1) { touching = true; break; } }
+      if (!touching) continue;
+      f[x] += DT * s[x];
+      if (f[x] >= 1) newly.push(x);
+    }
+    for (let i = 0; i < newly.length; i++) { a[newly[i]] = 1; f[newly[i]] = 0; s[newly[i]] = 0; }
+    step++;
+
+    // A per-step BITWISE FIELD check. Deliberately stricter than the project's own per-step
+    // check: runner/src/main.ts prints deltaSym from isD6hInvariantSet(solver.lastAttached, …),
+    // which asks whether each tick's newly-attached SET is D6h-invariant, not whether the
+    // vapour field is bit-identical to its own images. See core/src/metrics.ts:84-90.
+    let disagree = 0;
+    for (let x = 0; x < N; x++) {
+      if (s[x] !== s[rotOf[x]] || s[x] !== s[mirOf[x]]) disagree++;
+    }
+    if (disagree > 0 && firstDelta < 0) firstDelta = step;
+
+    // the crystal metric, exactly as core/src/metrics.ts defines it
+    let attached = 0, inRot = 0, inMir = 0;
+    for (let x = 0; x < N; x++) {
+      if (a[x] === 0) continue;
+      attached++;
+      if (a[rotOf[x]] === 1) inRot++;
+      if (a[mirOf[x]] === 1) inMir++;
+    }
+    const worst = Math.min(inRot, inMir);
+    const sym = attached === 0 ? 0 : (2 * (attached - worst)) / attached;
+    if (sym > 0 && firstSym < 0) firstSym = step;
+    history = { disagree: disagree, sym: sym, attached: attached };
+  }
+
+  /* ---- drawing ---- */
+  const view = Viz.createCanvas(body, W, H, {
+    label: "A toy hexagonal crystal growing, with the count of cells whose rotated or mirrored "
+      + "twin holds a bit-for-bit different number.",
+  });
+  const ctx = view.ctx;
+  let palette = Viz.colors();   // cached; refreshed on themechange, not every frame
+
+  function draw() {
+    const c = palette;
+    ctx.clearRect(0, 0, W, H);
+    for (let x = 0; x < N; x++) {
+      let fill;
+      if (a[x] === 1) fill = c.series[0];
+      else fill = Viz.seqColor(1 - Math.max(0, Math.min(1, s[x])), c);
+      ctx.beginPath();
+      const pts = Viz.hexPoints(px[x], py[x], HEX * 0.92, 30);
+      ctx.moveTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < 6; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+      ctx.closePath();
+      ctx.fillStyle = fill;
+      ctx.fill();
+      // mark cells that disagree bitwise with their own rotated twin
+      if (a[x] === 0 && s[x] !== s[rotOf[x]]) {
+        ctx.strokeStyle = c.critical;
+        ctx.lineWidth = 1.1;
+        ctx.stroke();
+      }
+    }
+  }
+
+  /* ---- readouts ---- */
+  const row = ChapterRow(body);
+  body.insertBefore(row, view.canvas);
+  const outStep = ChapterReadout(row, "growth step", "of " + MAX_STEP);
+  const outDis = ChapterReadout(row, "cells ≠ a twin", "rotated or mirrored, in the field");
+  const outSym = ChapterReadout(row, "symErr", "the crystal metric");
+  const outVerdict = ChapterReadout(row, "reported", "at your chosen cadence");
+
+  function refresh() {
+    const c = palette;
+    outStep.textContent = String(step);
+    outDis.textContent = String(history.disagree);
+    outDis.style.color = history.disagree > 0 ? c.critical : c.good;
+    outSym.textContent = history.sym === 0 ? "0" : history.sym.toExponential(2);
+    outSym.style.color = history.sym > 0 ? c.critical : c.good;
+
+    let verdict, ok;
+    if (cadence === "every") {
+      ok = firstDelta < 0;
+      verdict = ok ? "clean" : "BREAK @ " + firstDelta;
+    } else {
+      ok = history.sym === 0;
+      verdict = ok ? "clean" : "BREAK";
+    }
+    outVerdict.textContent = verdict;
+    outVerdict.style.color = ok ? c.good : c.critical;
+  }
+
+  /* ---- controls ---- */
+  ChapterSelect(controls, {
+    label: "Summation order",
+    value: "canonical",
+    options: [
+      { value: "canonical", label: "canonical pairs, then sorted" },
+      { value: "gather", label: "gather order" },
+      { value: "reverse", label: "reverse gather order" },
+      { value: "random", label: "a different order in every cell" },
+    ],
+    onChange: function (v) { order = v; reset(); anim.reset(); draw(); refresh(); },
+  });
+  ChapterSelect(controls, {
+    label: "When do you check?",
+    value: "every",
+    options: [
+      { value: "every", label: "every step" },
+      { value: "end", label: "only the final crystal" },
+    ],
+    onChange: function (v) { cadence = v; refresh(); },
+  });
+  Viz.button(controls, "Restart", function () { reset(); anim.reset(); draw(); refresh(); });
+
+  reset();
+  const anim = Viz.animate(root, function (t) {
+    const target = Math.min(MAX_STEP, Math.floor(t / 0.18));
+    if (target < step) { reset(); }
+    while (step < target) advance();
+    draw();
+    refresh();
+  }, { staticAt: MAX_STEP * 0.18, stepBy: 1.8 });
+
+  Viz.onThemeChange(function () { palette = Viz.colors(); draw(); refresh(); });
+})();
+</script>
+
+<script>
+/* ===========================================================================
+   DEMO 4 — the same distance, computed two ways (ADR 0024 erratum).
+   ======================================================================== */
+(function () {
+  "use strict";
+  const root = document.getElementById("demo-distance");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  let di = 20, dj = 0, dk = 1;
+
+  // the registered embedding: x = i + j/2, y = j*sqrt(3)/2, z = k
+  function cartesian(i, j, k) {
+    const x = i + j / 2, y = j * Math.sqrt(3) / 2, z = k;
+    return Math.sqrt(x * x + y * y + z * z);
+  }
+  // the integer quadratic form the group preserves exactly
+  function integerForm(i, j, k) {
+    return Math.sqrt(i * i + i * j + j * j + k * k);
+  }
+  function rot60(i, j) { return [-j, i + j]; }
+
+  function orbit() {
+    const out = [];
+    let p = [di, dj];
+    for (let t = 0; t < 6; t++) {
+      out.push([p[0], p[1]]);
+      p = rot60(p[0], p[1]);
+    }
+    return out;
+  }
+
+  function render() {
+    const c = Viz.colors();
+    body.textContent = "";
+    const orb = orbit();
+    const baseC = cartesian(orb[0][0], orb[0][1], dk);
+    const baseI = integerForm(orb[0][0], orb[0][1], dk);
+
+    const wrap = document.createElement("div");
+    wrap.style.overflowX = "auto";
+    const table = document.createElement("table");
+    table.style.width = "100%";
+    table.style.fontSize = "0.78rem";
+    table.innerHTML =
+      "<thead><tr><th>cell (di, dj, dk)</th>"
+      + "<th>&radic;(dx&sup2;+dy&sup2;+dz&sup2;) in float64</th>"
+      + "<th>from di&sup2;+di&middot;dj+dj&sup2;+dk&sup2;</th></tr></thead>";
+    const tb = document.createElement("tbody");
+    let cartBreaks = 0, intBreaks = 0;
+    orb.forEach(function (p, n) {
+      const vc = cartesian(p[0], p[1], dk);
+      const vi = integerForm(p[0], p[1], dk);
+      if (vc !== baseC) cartBreaks++;
+      if (vi !== baseI) intBreaks++;
+      const tr = document.createElement("tr");
+      const td0 = document.createElement("td");
+      td0.textContent = (n === 0 ? "start  " : "rot×" + n + "  ")
+        + "(" + p[0] + ", " + p[1] + ", " + dk + ")";
+      td0.style.fontFamily = "var(--font-mono)";
+      const td1 = document.createElement("td");
+      td1.textContent = vc.toPrecision(17);
+      td1.style.fontFamily = "var(--font-mono)";
+      td1.style.color = vc === baseC ? "var(--ink-primary)" : c.critical;
+      td1.style.fontWeight = vc === baseC ? "400" : "700";
+      const td2 = document.createElement("td");
+      td2.textContent = vi.toPrecision(17);
+      td2.style.fontFamily = "var(--font-mono)";
+      td2.style.color = vi === baseI ? c.good : c.critical;
+      tr.appendChild(td0); tr.appendChild(td1); tr.appendChild(td2);
+      tb.appendChild(tr);
+    });
+    table.appendChild(tb);
+    wrap.appendChild(table);
+    body.appendChild(wrap);
+
+    const row = ChapterRow(body);
+    const a1 = ChapterReadout(row, "cartesian: cells ≠ the first", "out of 6");
+    a1.textContent = String(cartBreaks);
+    a1.style.color = cartBreaks > 0 ? c.critical : c.good;
+    const a2 = ChapterReadout(row, "integer form: cells ≠ the first", "out of 6");
+    a2.textContent = String(intBreaks);
+    a2.style.color = intBreaks > 0 ? c.critical : c.good;
+    const a3 = ChapterReadout(row, "scan result", "worst gap found");
+    a3.id = "scan-out";
+    a3.textContent = "not run";
+  }
+
+  function scan() {
+    let worstCart = 0, worstInt = 0, checked = 0;
+    for (let i = -24; i <= 24; i++) {
+      for (let j = -24; j <= 24; j++) {
+        for (let k = -3; k <= 3; k++) {
+          const bc = cartesian(i, j, k), bi = integerForm(i, j, k);
+          let p = [i, j];
+          for (let t = 0; t < 5; t++) {
+            p = rot60(p[0], p[1]);
+            const vc = cartesian(p[0], p[1], k), vi = integerForm(p[0], p[1], k);
+            const dc = Math.abs(vc - bc), dii = Math.abs(vi - bi);
+            if (dc > worstCart) worstCart = dc;
+            if (dii > worstInt) worstInt = dii;
+            checked++;
+          }
+        }
+      }
+    }
+    const c = Viz.colors();
+    const out = document.getElementById("scan-out");
+    if (out) {
+      out.textContent = worstCart.toExponential(3);
+      out.style.color = c.critical;
+      out.nextSibling.textContent = "over " + checked.toLocaleString()
+        + " pairs · integer form: " + worstInt;
+    }
+  }
+
+  Viz.slider(controls, { label: "di", id: "d-di", min: -24, max: 24, step: 1, value: di,
+    onInput: function (v) { di = v; render(); } });
+  Viz.slider(controls, { label: "dj", id: "d-dj", min: -24, max: 24, step: 1, value: dj,
+    onInput: function (v) { dj = v; render(); } });
+  Viz.slider(controls, { label: "dk", id: "d-dk", min: -6, max: 6, step: 1, value: dk,
+    onInput: function (v) { dk = v; render(); } });
+  Viz.button(controls, "Scan 84,035 rotated pairs", function () { scan(); });
+
+  render();
+  Viz.onThemeChange(render);
+})();
+</script>
+
+<script>
+/* ===========================================================================
+   DEMO 5 — the 2x2 of recorded test outcomes (ADR 0024 erratum).
+   ======================================================================== */
+(function () {
+  "use strict";
+  const root = document.getElementById("demo-matrix");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  let far = "dirichlet", cfl = "0.1";
+
+  const RECORDED = {
+    "dirichlet|0.1": { broke: false,
+      note: "Green. This is the working configuration, and it is the one a comfortable "
+        + "regression test would have used." },
+    "dirichlet|0.2": { broke: false,
+      note: "Green. The amplifying timestep alone is not enough — the defect lives in the "
+        + "far-field code, which this condition does not use." },
+    "monopole-matched|0.1": { broke: false,
+      note: "Green. The defective code runs here, and the test still passes. This is the "
+        + "dangerous cell: a real bug, and a clean report." },
+    "monopole-matched|0.2": { broke: true,
+      note: "Red. deltaSymClean = false. The only one of the four that finds it — and it was "
+        + "found first on a warm 48³ run in the WP3 timestep ladder." },
+  };
+
+  function render() {
+    const c = Viz.colors();
+    body.textContent = "";
+
+    const grid = document.createElement("div");
+    grid.style.display = "grid";
+    grid.style.gridTemplateColumns = "auto 1fr 1fr";
+    grid.style.gap = "0.4rem";
+    grid.style.alignItems = "stretch";
+
+    function head(text) {
+      const d = document.createElement("div");
+      d.textContent = text;
+      d.style.fontSize = "0.78rem";
+      d.style.fontWeight = "660";
+      d.style.color = "var(--ink-secondary)";
+      d.style.alignSelf = "end";
+      d.style.padding = "0 0 0.2rem";
+      return d;
+    }
+    grid.appendChild(head(""));
+    grid.appendChild(head("fill-CFL 0.1  (the working setting)"));
+    grid.appendChild(head("fill-CFL 0.2  (the top of the tested ladder)"));
+
+    ["dirichlet", "monopole-matched"].forEach(function (ff) {
+      const lab = document.createElement("div");
+      lab.textContent = ff;
+      lab.style.fontSize = "0.78rem";
+      lab.style.fontWeight = "660";
+      lab.style.alignSelf = "center";
+      lab.style.paddingRight = "0.5rem";
+      grid.appendChild(lab);
+      ["0.1", "0.2"].forEach(function (cc) {
+        const rec = RECORDED[ff + "|" + cc];
+        const cell = document.createElement("button");
+        cell.type = "button";
+        cell.style.border = "2px solid " + (rec.broke ? c.critical : c.good);
+        cell.style.borderRadius = "10px";
+        cell.style.padding = "0.9rem 0.6rem";
+        cell.style.cursor = "pointer";
+        cell.style.font = "inherit";
+        cell.style.fontWeight = "660";
+        cell.style.color = rec.broke ? c.critical : c.good;
+        const selected = (ff === far && cc === cfl);
+        cell.style.background = selected ? "var(--surface-sunken)" : "transparent";
+        cell.style.outline = selected ? "2px solid var(--accent-key)" : "none";
+        cell.style.outlineOffset = "2px";
+        cell.setAttribute("aria-pressed", String(selected));
+        cell.textContent = rec.broke ? "test FAILS — bug found" : "test passes";
+        cell.addEventListener("click", function () { far = ff; cfl = cc; render(); });
+        grid.appendChild(cell);
+      });
+    });
+    body.appendChild(grid);
+
+    const rec = RECORDED[far + "|" + cfl];
+    const p = document.createElement("p");
+    p.style.margin = "0.9rem 0 0";
+    p.style.padding = "0.6rem 0.8rem";
+    p.style.borderRadius = "8px";
+    p.style.background = "var(--surface-sunken)";
+    p.style.borderLeft = "4px solid " + (rec.broke ? c.critical : c.good);
+    p.textContent = rec.note;
+    body.appendChild(p);
+
+    const q = document.createElement("p");
+    q.style.margin = "0.7rem 0 0";
+    q.style.fontSize = "0.82rem";
+    q.style.color = "var(--ink-secondary)";
+    q.textContent = "The bug is present in all four runs. Three of them say nothing about it.";
+    body.appendChild(q);
+  }
+
+  const note = document.createElement("span");
+  note.className = "control";
+  note.style.color = "var(--ink-muted)";
+  note.textContent = "Click a square to read what that run reported.";
+  controls.appendChild(note);
+
+  render();
+  Viz.onThemeChange(render);
+})();
+</script>
+
+<script>
+/* ===========================================================================
+   DEMO 6 — break determinism.  Real hashCounter, ported from core/src/prng.ts.
+   ======================================================================== */
+(function () {
+  "use strict";
+  const root = document.getElementById("demo-prng");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  /* --- core/src/prng.ts, line for line --- */
+  function rotl32(x, r) { return ((x << r) | (x >>> (32 - r))) | 0; }
+  function mixK(k) {
+    k = Math.imul(k, 0xcc9e2d51);
+    k = rotl32(k, 15);
+    k = Math.imul(k, 0x1b873593);
+    return k;
+  }
+  function mixH(h, k) {
+    h ^= mixK(k);
+    h = rotl32(h, 13);
+    h = (Math.imul(h, 5) + 0xe6546b64) | 0;
+    return h;
+  }
+  function hashCounter(seed, cellIndex, tick, streamId) {
+    let h = seed | 0;
+    h = mixH(h, cellIndex | 0);
+    h = mixH(h, tick | 0);
+    h = mixH(h, streamId | 0);
+    h ^= 12;
+    h ^= h >>> 16;
+    h = Math.imul(h, 0x85ebca6b);
+    h ^= h >>> 13;
+    h = Math.imul(h, 0xc2b2ae35);
+    h ^= h >>> 16;
+    return h >>> 0;
+  }
+
+  const GOLDEN = [
+    { args: [0, 0, 0, 0], pinned: 3644920907 },
+    { args: [42, 123456, 9999, 1], pinned: 3970711487 },
+    { args: [1, 2, 3, 4], pinned: 3568513587 },
+  ];
+
+  const COLS = 8, ROWS = 6, COUNT = COLS * ROWS;
+  const SEED = 1234, TICK = 7, STREAM = 1;
+
+  let mode = "counter";
+  let visit = [];
+  for (let i = 0; i < COUNT; i++) visit.push(i);
+  let previous = null, changed = null, shuffles = 0;
+
+  function lcgShuffle() {
+    // a deterministic shuffle, so the demo itself is reproducible
+    shuffles++;
+    let x = (shuffles * 2654435761) >>> 0;
+    const arr = visit.slice();
+    for (let i = arr.length - 1; i > 0; i--) {
+      x = (Math.imul(x, 1664525) + 1013904223) >>> 0;
+      const j = x % (i + 1);
+      const t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    visit = arr;
+  }
+
+  function compute() {
+    const out = new Array(COUNT);
+    if (mode === "counter") {
+      // pure function of the tuple — the visiting order is irrelevant
+      for (let n = 0; n < COUNT; n++) {
+        const cell = visit[n];
+        out[cell] = hashCounter(SEED, cell, TICK, STREAM);
+      }
+    } else {
+      // a sequential stream: value depends on WHEN you asked, not on who you are
+      let state = (SEED * 2654435761) >>> 0;
+      for (let n = 0; n < COUNT; n++) {
+        state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+        out[visit[n]] = state;
+      }
+    }
+    return out;
+  }
+
+  function render() {
+    const c = Viz.colors();
+    body.textContent = "";
+
+    const values = compute();
+    if (previous) {
+      changed = 0;
+      for (let i = 0; i < COUNT; i++) if (values[i] !== previous[i]) changed++;
+    }
+
+    const row = ChapterRow(body);
+    const rGen = ChapterReadout(row, "generator", mode === "counter" ? "pure function of the tuple" : "hidden internal state");
+    rGen.textContent = mode === "counter" ? "counter hash" : "sequential";
+    rGen.style.fontSize = "1rem";
+    const rShuf = ChapterReadout(row, "shuffles", "of the visiting order");
+    rShuf.textContent = String(shuffles);
+    const rChg = ChapterReadout(row, "values changed", "since the last render");
+    rChg.textContent = changed == null ? "—" : String(changed);
+    if (changed != null) rChg.style.color = changed === 0 ? c.good : c.critical;
+
+    const grid = document.createElement("div");
+    grid.style.display = "grid";
+    grid.style.gridTemplateColumns = "repeat(" + COLS + ", minmax(0, 1fr))";
+    grid.style.gap = "3px";
+    for (let i = 0; i < COUNT; i++) {
+      const d = document.createElement("div");
+      const shade = (values[i] >>> 24) / 255;
+      d.style.background = Viz.seqColor(shade, c);
+      d.style.color = shade > 0.55 ? c.surface : c.ink;
+      d.style.borderRadius = "5px";
+      d.style.padding = "0.35rem 0.1rem";
+      d.style.textAlign = "center";
+      d.style.fontFamily = "var(--font-mono)";
+      d.style.fontSize = "0.68rem";
+      if (previous && values[i] !== previous[i]) {
+        d.style.outline = "2px solid " + c.critical;
+      }
+      d.textContent = String(values[i] % 1000);
+      d.title = "cell " + i + " = " + values[i];
+      grid.appendChild(d);
+    }
+    body.appendChild(grid);
+
+    const cap = document.createElement("p");
+    cap.style.margin = "0.6rem 0 0";
+    cap.style.fontSize = "0.82rem";
+    cap.style.color = "var(--ink-secondary)";
+    cap.textContent = mode === "counter"
+      ? "Each cell asks for hashCounter(seed = 1234, its own index, tick = 7, stream = 1). "
+        + "Shuffling changes who asks first, and nothing else."
+      : "Each cell takes the next value off a running stream. Who asks first now decides "
+        + "what everyone gets.";
+    body.appendChild(cap);
+
+    // golden values, checked live
+    const gold = document.createElement("div");
+    gold.style.marginTop = "0.9rem";
+    gold.style.padding = "0.6rem 0.8rem";
+    gold.style.border = "1px solid var(--rule)";
+    gold.style.borderRadius = "8px";
+    const gh = document.createElement("p");
+    gh.textContent = "The three pinned values from core/test/prng.test.ts, recomputed here:";
+    gh.style.margin = "0 0 0.4rem";
+    gh.style.fontSize = "0.8rem";
+    gh.style.fontWeight = "660";
+    gold.appendChild(gh);
+    GOLDEN.forEach(function (g) {
+      const got = hashCounter(g.args[0], g.args[1], g.args[2], g.args[3]);
+      const line = document.createElement("p");
+      line.style.margin = "0";
+      line.style.fontFamily = "var(--font-mono)";
+      line.style.fontSize = "0.74rem";
+      line.style.color = got === g.pinned ? c.good : c.critical;
+      line.textContent = "hashCounter(" + g.args.join(", ") + ") = " + got
+        + (got === g.pinned ? "  ✓ matches the pinned value" : "  ✗ MISMATCH");
+      gold.appendChild(line);
+    });
+    body.appendChild(gold);
+
+    previous = values;
+  }
+
+  Viz.button(controls, "Shuffle the visiting order", function () { lcgShuffle(); render(); });
+  ChapterSelect(controls, {
+    label: "Generator",
+    value: "counter",
+    options: [
+      { value: "counter", label: "counter hash (what the project uses)" },
+      { value: "stream", label: "sequential stream (what it refuses)" },
+    ],
+    onChange: function (v) { mode = v; previous = null; changed = null; render(); },
+  });
+
+  render();
+  Viz.onThemeChange(render);
+})();
+</script>
+</body>
+</html>

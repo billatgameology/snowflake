@@ -1,0 +1,1963 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Watching It Starve — Snow Crystals</title>
+<meta name="description" content="Phase 3 built the microscope, and then refused to let anyone close a gate with it. How a project full of beautiful pictures demoted the eyeball from evidence to illustration — and certified its rulers before pointing them at the physics.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 24 &middot; Watching It Starve</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#the-microscope">The microscope came first</a></li>
+      <li><a href="#drag-the-slice">Watching a facet centre starve</a></li>
+      <li><a href="#the-demotion">The eyeball stops being the evidence</a></li>
+      <li><a href="#refuses-to-say">What the readout refuses to say</a></li>
+      <li><a href="#definition">A metric is a definition, not an opinion</a></li>
+      <li><a href="#certify">Certify the ruler first</a></li>
+      <li><a href="#blocking-diagnostic">One gate must pass; one only reports</a></li>
+      <li><a href="#no-hollow-rule">Hollowing, with no hollowing rule</a></li>
+      <li><a href="#pictures">The picture still has a job</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 24</p>
+        <h1>Watching It Starve</h1>
+        <p class="chapter-header__question">
+          Phase 3 is the phase where the project finally gets to <em>look</em> at what it built.
+          So why is a picture the one thing the gate will not accept?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~16 min read</span>
+          <span>1 chart</span>
+          <span>8 interactives</span>
+        </div>
+      </header>
+
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Explain why a visualisation can be completely indispensable and still not be
+            evidence.</li>
+          <li>Read a metric definition and see that it is a <em>definition</em> — a rule anyone can
+            re-run — rather than an opinion with digits attached.</li>
+          <li>Say why you certify your measuring instruments <em>before</em> you point them at the
+            thing you actually care about.</li>
+          <li>Tell a blocking gate from a diagnostic gate, and say what each one is for.</li>
+        </ul>
+      </section>
+
+      <h2 id="the-microscope">The microscope came first</h2>
+
+      <p>
+        What do you build when the important part of your simulation is invisible?
+      </p>
+
+      <p>
+        The crystal is the easy half. It is a set of cells marked <em>ice</em>, and you can draw it.
+        The half that decides what the crystal becomes is the vapour around it, and vapour has no
+        surface to draw. If the model grows something wrong, the wrongness is almost always in that
+        field — and you cannot see a field by looking at the crystal it produced. A malformed
+        crystal can look plausibly organic. A malformed field is obvious immediately, if you can
+        see it at all.
+      </p>
+
+      <p>
+        So Phase 3 built the instrument. The charter lists what goes in it: the crystal drawn as
+        <strong>instanced hexagonal prisms</strong> of the boundary cells with an orbit camera; a
+        surface overlay you can switch between quantities; a <strong>draggable slice plane through
+        the vapour field</strong> with freeze-and-inspect and an adjustable value range; and
+        <strong>cell picking with a hover readout using model-honest labels</strong>
+        (<code>project charter.md</code>, &sect;3.2, Phase 3). "Instanced" just means the renderer
+        is handed one hexagonal prism and a list of places to put it, which is how you draw tens of
+        thousands of cells without the page dying.
+      </p>
+
+      <p>
+        Freeze-and-inspect is the piece that turns a movie into a microscope. The solver runs on
+        its own thread; the display never touches it. Every view refresh reads the latest snapshot
+        object, "so pausing the solver freezes a fully inspectable state: slice, overlays, picking,
+        and HUD keep working on it" (<code>app/src/main.ts</code>, lines 4&ndash;5). You hit pause,
+        the crystal stops, and you can still drag the slice through it and click individual cells.
+        Nothing you inspect changes what you inspected.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          Most projects ship a product and bolt on debugging tools afterwards. This one built the
+          debugging tool at Phase 3 and scheduled the product last — Phase 7 is still marked
+          <strong>not started</strong> in <code>docs/PROGRESS.md</code>. The charter's own comment
+          on that: "These views are debugging instruments first and product features second — that
+          they are the same artifact is the project's luckiest property."
+        </p>
+      </aside>
+
+      <h2 id="drag-the-slice">Watching a facet centre starve</h2>
+
+      <p>
+        You already know the mechanism from Part One. A growing flat face eats the vapour directly
+        in front of it. The middle of a wide face is further from any fresh supply than the edges
+        are, so the middle runs hungry first. Widen the face and the middle gets hungrier. Keep
+        widening it and the middle stops keeping up with the rim altogether: the face goes concave,
+        then it opens into a cavity. That is where hollow columns come from — and notice that no
+        step in that story is a rule about hollowness.
+      </p>
+
+      <p>
+        The slice plane is how you look at it. It cuts through the vapour field and paints what it
+        finds. Below is that view, rebuilt from scratch: a vertical cut through a growing plate,
+        with the vapour relaxed to a steady state by <strong>repeated averaging</strong>. Replace
+        every empty cell with the average of its four neighbours; then do it again, and again,
+        until a whole pass changes nothing. That method is called <em>Jacobi iteration</em>, and it
+        comes with one rule. Each pass writes its answers into a second copy of the grid rather
+        than overwriting the one it is reading — that is what "two buffers, never in place" means.
+        It is not a style preference. The reference solver's own header says why: "Jacobi over
+        ping-pong buffers, NEVER in place (in-place Gauss-Seidel is a silent physics bug)"
+        (<code>solver-cpu/src/gg-solver.ts</code>, line 7). Overwrite as you go and half your
+        neighbours are from this pass and half from the last one, which is a different physics
+        problem that still produces a smooth, convincing picture. Drag the plane. Widen the plate.
+        Watch the number in the readout, not the picture.
+      </p>
+
+      <figure class="anim is-wide" id="slice-demo">
+        <div class="anim__head">
+          <p class="anim__title">Drag the slice through a starving facet</p>
+          <p class="anim__sub">
+            The blue marks where vapour has been eaten away, so the darkest ink hugs the ice. Park
+            the plane one cell above the top face &mdash; where the registered metric samples
+            &mdash; then widen the plate and watch the ratio fall.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The sampling rule — centre cell at
+          (i<sub>c</sub>,&nbsp;j<sub>c</sub>,&nbsp;k<sub>top</sub>&nbsp;+&nbsp;1), rim ring = the
+          cells above the top-layer cells that still have a free in-plane neighbour, ratio =
+          centre&nbsp;/&nbsp;rim — is the convention documented at
+          <code>core/src/metrics.ts</code>, <code>centerRimDepletion</code>. The 65&nbsp;% wall
+          guard is <code>DOMAIN_CONTACT_FRACTION</code> in the same file. The field here is that
+          same repeated averaging, run on a 41&nbsp;&times;&nbsp;23 grid with a perfectly absorbing
+          crystal: a teaching simplification of the 3-D solver, not a run of it. It relaxes to a steady state,
+          which is what the physics rule does between growth steps &mdash; the threshold rule that
+          closed this particular gate takes exactly one averaging pass per tick instead.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        That is Phase 3's "done when", as written in the charter before the phase started:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;Done when you can watch a facet center starve in the slice view while the plate
+          grows &mdash; and the automated center-vs-rim depletion metric (facet-center &sigma; vs
+          rim &sigma;, tracked over the run) confirms it (added v1.3: &sect;3.3's automated-metric
+          rule applies to this gate like any other; the visualization stays,
+          <strong>the eyeball stops being the evidence</strong>).&rdquo;
+          <br><span class="figure__source">snowflake repository, project charter.md &mdash;
+          &sect;3.2, Phase 3, &ldquo;Done when&rdquo;. Emphasis added.</span>
+        </p>
+      </blockquote>
+
+      <p>
+        Read that parenthesis again. It is an amendment. An earlier version of this gate stopped at
+        the slice view — you could see it, so it was true. Version 1.3 added the metric clause and
+        applied the project's standing rule to its own most photogenic milestone. The gate row in
+        <code>docs/PROGRESS.md</code> carries the same "(v1.3)" tag on the same clause.
+      </p>
+
+      <h2 id="the-demotion">The eyeball stops being the evidence</h2>
+
+      <p>
+        So what did close the gate?
+      </p>
+
+      <p>
+        A number, and a command that reproduces it. The metric is called
+        <code>centerRimDepletion</code>, it lives in <code>core/src/metrics.ts</code>, and its
+        convention is written out in the file above the code, in full, including the awkward cases.
+        Here it is, compressed:
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          depletionRatio = depletionCenter / depletionRim
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>k<sub>top</sub></dt><dd>the highest layer holding any ice — the crystal's top basal face</dd>
+            <dt>depletionCenter</dt><dd>the field value in the single cell directly above the middle of that face. Undefined (NaN) if that cell is off the grid, a wall, or ice</dd>
+            <dt>rim set</dt><dd>the ice cells in layer k<sub>top</sub> that still have at least one free neighbour beside them in the same layer — the face's edge ring</dd>
+            <dt>depletionRim</dt><dd>the mean field value in the cells directly above the rim set. NaN if there are none</dd>
+            <dt>ratio &lt; 1</dt><dd>the centre is starved relative to the rim</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">core/src/metrics.ts, &ldquo;Center-vs-rim depletion&rdquo;; definition restated in docs/plans/phase-3-dev-visualization.md, &ldquo;The metric (WP1) — precise definition&rdquo;</p>
+      </div>
+
+      <p>
+        Two things about that definition are worth more than they look. First, it is a
+        <strong>ratio of two samples of the same field</strong>, which means it is meaningful
+        without anybody claiming to know what the field's units are — and under the borrowed
+        threshold rule nobody does. Second, every failure mode has a name in advance. A missing
+        crystal gives NaN. A zero rim mean gives infinity. The file says what happens next:
+        "non-finite either way, which downstream gate criteria must treat as a named failure, not a
+        pass."
+      </p>
+
+      <p>
+        The run itself was registered before it was run. The command is
+        <code>node runner/src/main.ts gate3</code> — <em>flagless</em>, meaning there are no options
+        to fiddle with, because the whole protocol is pinned in the code and in the plan: the
+        <code>plate</code> preset, dimensions 128&times;128&times;64, a hexagonal-prism domain,
+        reflecting walls, seed 1, noise off. The metric is sampled every 100 ticks. The
+        <strong>registered window</strong> is the 41 samples at ticks 400 to 4400. The run keeps
+        going past the window to its natural stop and the file records every sample, "so nothing is
+        hidden by the window."
+      </p>
+
+      <p>
+        Then the thresholds, registered on 2026-07-15 from a calibration probe that the plan labels
+        in the same sentence as "observational, not citable as the gate result". Then the run.
+      </p>
+
+      <figure class="chart" id="gate3-chart">
+        <div class="chart__head">
+          <p class="chart__title">Phase 3's gate, as three numbers against three lines drawn first</p>
+          <p class="chart__sub">
+            Each bar is what the run measured. Each marker is the threshold registered before it
+            ran. Nothing here is a picture.
+          </p>
+        </div>
+        <div class="chart__body"></div>
+        <figcaption class="chart__foot">
+          <span class="built-from">Original chart. Values and registered thresholds transcribed
+          from <code>docs/PROGRESS.md</code>, Phase 3 gate row, and
+          <code>docs/plans/phase-3-dev-visualization.md</code>, &ldquo;Gate protocol&rdquo;.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Median depletion ratio over the window: <strong>0.531454</strong>, against a registered
+        ceiling of 0.75. Fraction of window samples below 1: <strong>90.2&nbsp;%</strong>, against a
+        registered floor of 80&nbsp;%. Final bounding radius 38, against a floor of 30. Symmetry
+        error 0 on every tick. Far-field stop at tick 4800, no domain contact. Exit code 0.
+      </p>
+
+      <p>
+        And one criterion that exists purely to stop a certain kind of cheating: <strong>G3-WINDOW
+        </strong> requires all 41 samples to be present. An incomplete window is a named failure —
+        "never a rescaled or partial statistic." You cannot lose three awkward samples and quietly
+        take the median of the remaining thirty-eight.
+      </p>
+
+      <p>
+        The last thing that makes a metric evidence is that it is <em>able to fail</em>. Phase 3
+        committed <strong>five</strong> negative controls as tests. Three of them are fake fields,
+        and you can run those here: a state with no crystal, a hand-built uniform field, and a
+        hand-built inverted field where the rim is starved instead of the centre. A fourth
+        recomputes the centre and rim by brute force on a small hand-built lattice with known
+        values and requires an exact match against the library function. The fifth is the one that
+        closes the loop: a test proving each named G3 criterion individually trips, so that no
+        criterion is dead code. A criterion that can never fire would sit in the gate looking like
+        a check and passing everything.
+      </p>
+
+      <figure class="anim" id="break-metric">
+        <div class="anim__head">
+          <p class="anim__title">Break the metric</p>
+          <p class="anim__sub">
+            Feed the same function a field it should reject. The gate criterion has to fail, by
+            name, or passing it would have meant nothing.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The three fake fields are the first three
+          of the five committed negative controls listed in
+          <code>docs/plans/phase-3-dev-visualization.md</code>,
+          &ldquo;Negative controls&rdquo;; the criterion names <code>G3-DEPLETION</code> and
+          <code>G3-DEFINED</code> and their registered thresholds come from the same
+          section.</span>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          There is one more check, and it is the cleanest in the chapter. Building a viewer should
+          not change the science — but "should not" is a hope. The Phase 3 checkpoint is
+          <strong>byte-identical to the accepted Phase 2a artifact</strong>, the same SHA-256
+          <code>f1796b5015&hellip;a389</code>. Not "looks the same". Not "within tolerance". The
+          same bytes. Whatever else the viewer did, it did not touch the crystal.
+        </p>
+      </aside>
+
+      <h2 id="refuses-to-say">What the readout refuses to say</h2>
+
+      <p>
+        Click a cell in the app and it tells you about that cell. The interesting question is what
+        it is allowed to tell you.
+      </p>
+
+      <p>
+        The charter's rule, from &sect;1.5: 'A hover readout says "high relative attachment
+        tendency," not "attachment rate: 91%." A designer tool can be honest about being a model; a
+        fake physics readout is worse than none — and a real-looking number resting on an untested
+        model is the most convincing fake of all.'
+      </p>
+
+      <figure class="anim" id="fake-readout">
+        <div class="anim__head">
+          <p class="anim__title">Two readouts for the same cell</p>
+          <p class="anim__sub">Flip between them. One of these is banned, and it is not the vague one.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The banned wording and its replacement are
+          quoted from <code>project charter.md</code> &sect;1.5. The live slice caption text is
+          quoted from <code>app/src/main.ts</code>, the operator-honest slice caption.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        This is not fussiness about wording. The project runs two different surface rules through
+        the same machinery, and they store different things that look identical on screen. The
+        borrowed threshold rule tracks a made-up diffusive vapour mass <code>d</code> in
+        phenomenological model units. The physics rule tracks a real dimensionless supersaturation
+        <code>sigma</code>. Both are one number per cell that you can colour blue. So the code
+        carries a tag with every display snapshot and a function whose entire job is to
+        <em>reject</em> any combination that would show one rule's state under the other's name:
+        "<code>f</code> is NOT a reuse of G-G boundary mass <code>b</code>, and <code>sigma</code>
+        is NOT <code>d</code> in different clothes" (<code>app/src/display.ts</code>).
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          It is tempting to read a vague label as a weaker claim than a precise one. It is the other
+          way round. "High relative attachment tendency" claims exactly what has been earned:
+          a computed quantity, unvalidated. "Attachment rate: 91&nbsp;%" claims a measured physical
+          rate that nothing in the project has established. The precise-looking number is the
+          dishonest one, and it is dishonest <em>because</em> it looks precise.
+        </p>
+      </aside>
+
+      <h2 id="definition">A metric is a definition, not an opinion</h2>
+
+      <p>
+        How do you write down "branchy" so that two people who disagree cannot argue about it?
+      </p>
+
+      <p>
+        You cannot, unless you say what you mean in a way that can be re-run. The header of
+        <code>core/src/metrics.ts</code> is one sentence long on this point: "Conventions are
+        documented at each metric — <strong>a metric with an undocumented convention is a feeling
+        with digits</strong>."
+      </p>
+
+      <p>
+        The file holds a small set of instruments, each with its convention spelled out beside it.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The measuring instruments, with the convention each one commits to. Read from
+            <code>core/src/metrics.ts</code>.
+          </caption>
+          <thead>
+            <tr><th>Instrument</th><th>Convention</th><th>Why it is written down</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>symmetry error</td>
+              <td>fraction of the crystal that fails to map onto itself under a rotation or mirror</td>
+              <td>"the smallest nonzero value is 2/|A|, so there is no meaningful 'small but nonzero'" — it is exactly 0 or it is broken</td>
+            </tr>
+            <tr>
+              <td>aspect ratio</td>
+              <td>z-extent divided by the wider of the two in-plane extents, each measured in whole cells</td>
+              <td>plate &lt; 1, column &gt; 1 — but only if everyone measures the same two lengths</td>
+            </tr>
+            <tr>
+              <td>cross-section hollowness</td>
+              <td>per-layer flood fill inward from the border; free cells enclosed <em>within a layer</em> are cavity</td>
+              <td>a real hollow column is an open-ended tube, and scores above zero here</td>
+            </tr>
+            <tr>
+              <td>sealed void fraction</td>
+              <td>one 3-D flood fill from the outside; free cells never reached are sealed voids</td>
+              <td>the same tube scores exactly 0 here — two numbers, deliberately, because "hollow" means two different things</td>
+            </tr>
+            <tr>
+              <td>branch count</td>
+              <td>angular bins around the mid-plane; if relative depth &le; 0.2 the answer is 0, otherwise count the runs of bins above the half-depth level</td>
+              <td>"A PLAIN HEXAGON SCORES 0 BY CONSTRUCTION — its continuum depth is 1&nbsp;&minus;&nbsp;cos(30&deg;)&nbsp;&asymp;&nbsp;0.134, below the 0.2 threshold"</td>
+            </tr>
+            <tr>
+              <td>domain-contact guard</td>
+              <td>true — meaning INVALID — when the crystal's bounding box passes 65&nbsp;% of any domain extent</td>
+              <td>"A crystal near the wall interacts with its own mirror image while still looking plausible; flagged runs never enter validation results"</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        The branch counter is the one to play with, because it is the one where a definition most
+        obviously replaces an argument. Try to make a hexagon score above zero. Try to make a
+        six-armed star score five.
+      </p>
+
+      <figure class="anim" id="branch-demo">
+        <div class="anim__head">
+          <p class="anim__title">Beat the branch counter</p>
+          <p class="anim__sub">
+            The counter has no opinion about snowflakes. It has a threshold, a binning rule and a
+            level, and it applies them.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive, re-implementing
+          <code>branchCount</code> from <code>core/src/metrics.ts</code>: bins =
+          floor(&pi;&middot;R<sub>max</sub>) clamped to [12,&nbsp;90];
+          <code>BRANCH_DEPTH_THRESHOLD</code> = 0.2; the level is
+          R<sub>min</sub>&nbsp;+&nbsp;(R<sub>max</sub>&nbsp;&minus;&nbsp;R<sub>min</sub>)/2. The
+          shapes are drawn as smooth polar profiles rather than lattice cells, so the bin readout
+          is illustrative of the rule, not of a particular run.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        It is worth naming what this replaced. The model this project's machinery is built on —
+        Gravner and Griffeath's three-dimensional snowflake automaton — is admirably honest about
+        its own method, and the sentence is quoted in the project's own notes on the paper:
+        <strong>"visual comparison with snow crystal photographs is the only method we use to decide
+        whether a snowfake is a failure or a success."</strong> Replacing that sentence with a file
+        full of conventions is the project's first upgrade over its own source. It is also what
+        makes any later score possible at all: you cannot count how many points agreed until
+        "agreed" is a rule rather than a judgement.
+      </p>
+
+      <h2 id="certify">Certify the ruler first</h2>
+
+      <p>
+        Suppose your instruments are all defined. How do you know they can detect the thing you are
+        about to go looking for?
+      </p>
+
+      <p>
+        This is the question Phase 4 answers, and it answers it with a structural trick.
+        Phase 4 is a list of shapes the model has to be able to produce: a plate, a
+        solid column, a continuous transition between them, visible facet-centre starvation,
+        hollowing, a capped column made by changing conditions mid-growth, and branching. The
+        gauntlet is <strong>run twice</strong> — once with the borrowed threshold rule, once with
+        the real physics. The charter says why:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;Pass A, under GGThreshold, certifies the machinery and the metrics: it proves the
+          lattice, diffusion, and measurement pipeline can express and detect every target
+          morphology, <strong>independent of any physics</strong>. Pass B, under LibbrechtKinetics,
+          re-runs the gates with temperature as the swept axis &mdash; the project's first
+          single-point Nakaya probes, and a cheap early warning, months before Phase 6, about
+          whether the habit flip is in reach.&rdquo;
+          <br><span class="figure__source">snowflake repository, project charter.md &mdash;
+          &sect;3.2, Phase 4. Emphasis added.</span>
+        </p>
+      </blockquote>
+
+      <p>
+        Pass A contains no physics claim at all. Its habit sweep moves one abstract knob — a single
+        threshold slot, <code>ggThreshBeta(0,1) = 3 &minus; 2u</code> for <code>u</code> at five
+        evenly spaced values — with "every other scalar and vector slot byte-identical across the
+        five runs". If the plate that comes out at one end and the column at the other are correctly
+        measured as a plate and a column, and the three steps in between move the right way, then
+        those rulers work. Its other scenarios do the same job for the depletion metric, the two
+        hollowness numbers, the cap score and the branch counter. That is all Pass A is for.
+      </p>
+
+      <p>
+        Below are six of its checks, with the real recorded values. One of them you should refuse.
+      </p>
+
+      <figure class="anim is-wide" id="certify-demo">
+        <div class="anim__head">
+          <p class="anim__title">Certify your ruler</p>
+          <p class="anim__sub">
+            Six instrument checks. Certify the ones that meet their registered requirement, reject
+            the one that does not — then the physics run unlocks.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Criterion names and requirements are quoted
+          from <code>docs/plans/phase-4-morphology-gauntlet.md</code>, &ldquo;Pass A — blocking
+          GGThreshold protocol&rdquo;; measured values from the Phase 4 gate row of
+          <code>docs/PROGRESS.md</code>. The rejected card's value is the hollow target-36 endpoint
+          the same plan records under &ldquo;Calibration only, not gate evidence&rdquo;.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        That fourth card is a true story, and a small one, which is why it is worth telling. Before
+        the Pass A protocol was frozen, a review checked the intended column endpoint and the
+        hollowness metric reported <code>0.1260</code> — the "solid column" was a tube. The
+        instrument said no. The target was changed <em>before</em> registration, with the reasoning
+        written into the plan, and when the gate finally ran, the column endpoint passed
+        <code>A-HABIT-SOLID</code> as one of the 24 green records. A ruler that cannot report a
+        failure is not a ruler.
+      </p>
+
+      <h2 id="blocking-diagnostic">One gate must pass; one only has to report</h2>
+
+      <p>
+        Pass A is <strong>blocking</strong>. Pass B is <strong>diagnostic</strong>. Those are
+        different objects with different jobs, and the charter wires the difference into the exit
+        code: "a failed pass B is a reportable finding and does not block Phase 6 — Phase 6 is
+        precisely the phase whose job is to report that failure properly."
+      </p>
+
+      <p>
+        Pass B is not, however, unconstrained. Its <em>execution</em> criteria are every bit as
+        blocking as Pass A's. In plain terms, each run has to clear five bars before its shape is
+        even looked at:
+      </p>
+
+      <ul>
+        <li>It records the exact build of the program that ran it, down to the version of the
+          JavaScript engine underneath.</li>
+        <li>It compares every input setting byte for byte against what was registered, so the only
+          thing allowed to differ from run to run is the one knob the scenario names — temperature,
+          seed, noise, or the far-away vapour level.</li>
+        <li>Every vapour solve has to have actually <em>settled</em>, not merely stopped: the
+          repeated averaging must have reached the point where another pass would change nothing
+          measurable, and the runner recomputes that for itself rather than believing the report.</li>
+        <li>The runner adds up the vapour bookkeeping independently — how much vapour the surface
+          should have consumed this step — instead of trusting the solver's own total.</li>
+        <li>The saved state has to reload to exactly the bits it was written from.</li>
+      </ul>
+
+      <p>
+        What Pass B is allowed to do is come out the wrong shape.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The Phase 4 gate, as recorded in <code>docs/PROGRESS.md</code>, with criterion wordings
+            from <code>docs/plans/phase-4-morphology-gauntlet.md</code>. One command,
+            <code>node runner/src/main.ts gate4</code>, exit 0 in 7,178.8 seconds. Every entry in
+            the Pass B column is diagnostic: a result there is an early warning, not a validation
+            result, whichever way it went.
+          </caption>
+          <thead>
+            <tr><th>&nbsp;</th><th>Pass A — blocking</th><th>Pass B — diagnostic</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>surface rule</td><td>GGThreshold (borrowed, no temperature)</td><td>LibbrechtKinetics (temperature is the swept axis)</td></tr>
+            <tr><td>runs</td><td class="num">13</td><td class="num">11</td></tr>
+            <tr><td>records</td><td class="num">24 / 24 green</td><td class="num">12 / 12 execution records green</td></tr>
+            <tr><td>plate / column aspect ratio</td><td class="num">0.0666667 / 1.66667</td><td>habit endpoints invert</td></tr>
+            <tr><td>five-point sweep</td><td>strictly increasing</td><td>non-decreasing</td></tr>
+            <tr><td>column endpoint solid</td><td>hollowness 0 and sealed void 0 at the <code>u = 1</code> endpoint</td><td>cold endpoint solid</td></tr>
+            <tr><td>depletion median</td><td class="num">0.770238, 7/7 samples below one</td><td>miss</td></tr>
+            <tr><td>transverse widening</td><td class="num">width 7 &rarr; 13</td><td>miss</td></tr>
+            <tr><td>hollowing</td><td>three distinct reproducible open-hollow occupancies</td><td>miss</td></tr>
+            <tr><td>capped column</td><td class="num">cap score 1.3</td><td>miss</td></tr>
+            <tr><td>branching (dendrite / compact control)</td><td class="num">6 / 0</td><td>miss</td></tr>
+            <tr><td>report flags</td><td colspan="2"><code>gatePass=true</code>, <code>passBDiagnosticPass=false</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Three of Pass B's eight morphology diagnostics passed. Five missed. The gate still exited 0,
+        because that is what "diagnostic" means, and the plan lists under things tried and rejected:
+        "<strong>Treating a Pass B morphology miss as a bug to tune away.</strong>"
+      </p>
+
+      <figure class="anim is-wide" id="passb-demo">
+        <div class="anim__head">
+          <p class="anim__title">Pass B's honest misses</p>
+          <p class="anim__sub">
+            Eight diagnostics, three green and five amber. Click any of them to read the condition
+            it was measured against.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Criterion names and diagnostic-success
+          conditions are quoted from <code>docs/plans/phase-4-morphology-gauntlet.md</code>,
+          &ldquo;Pass B — diagnostic LibbrechtKinetics protocol&rdquo;; the pass/miss split is the
+          one recorded in <code>docs/PROGRESS.md</code> and
+          <code>docs/plans/phase-4-v2-reservoir-matched-branch-control.md</code>.</span>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          Five misses <em>and three passes</em>, on execution-valid runs, months before the
+          validation sweep. This chapter spends neither. The three passes are habit readings from a
+          five-point temperature sweep on a 48&times;48&times;48 dev-scale grid, under a pass whose
+          result cannot block anything: an aspect ratio that inverts between &minus;5&nbsp;&deg;C
+          and &minus;15&nbsp;&deg;C is not the Nakaya diagram, and an early warning that says
+          &ldquo;in reach&rdquo; is not evidence that it was reached. What the five misses mean —
+          whether the physics is insufficient, or the dev-scale grid is too small, or the
+          early-warning thresholds were set too tight — is not something a diagnostic pass is
+          entitled to say either. Phase 6 is <strong>in progress</strong>; Phase 7 has not started.
+          Chapter 28 is where all eight get an answer, and the answer is not the comfortable one.
+        </p>
+      </aside>
+
+      <h2 id="no-hollow-rule">Hollowing, with no hollowing rule</h2>
+
+      <p>
+        Where in the program does it say "when the face gets wide, make it hollow"?
+      </p>
+
+      <p>
+        Nowhere. That is the second scientific gate of the whole project: "hollowing emerges with no
+        explicit hollow rule&hellip; Done when the hollowness metric rises from field dynamics
+        alone, reproducibly across seeds." Search the rule for yourself. Below is the attachment and
+        melting step of the reference solver, copied out of the file.
+      </p>
+
+      <figure class="anim is-wide" id="search-demo">
+        <div class="anim__head">
+          <p class="anim__title">Search the source</p>
+          <p class="anim__sub">
+            This is the entire decision about which cells become ice this tick. Look for the part
+            that makes cavities.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The listing is
+          <code>solver-cpu/src/gg-solver.ts</code>, steps (iii) and (iv) of the update cycle,
+          reproduced verbatim. Match counts are whole-word and case-insensitive over that listing.
+          The disabled checkbox quotes criterion <code>A-HOLLOW-STRUCTURAL</code> from
+          <code>docs/plans/phase-4-morphology-gauntlet.md</code>.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The absence is not left as an assurance. <code>A-HOLLOW-STRUCTURAL</code> makes it a checked
+        criterion: "Phase 4 introduces no center-, radius-, cavity-, or hollowness-driven branch in
+        either solver." A reviewer reads the solver diff as part of the criterion, the runtime
+        evidence byte-hashes the exact reviewed sources against pinned SHA-256 values, and — the
+        detail that shows somebody had thought about how this could be faked — "the runner may not
+        self-attest with a hard-coded <code>true</code>."
+      </p>
+
+      <p>
+        The capped column carries a smaller lesson about specifications. A capped column is a shaft
+        with a plate stuck on each end, made by changing the conditions partway through the growth.
+        The charter originally asked for a plate&rarr;column history. That is backwards: Gravner and
+        Griffeath grow the axial shaft first and then grow plates at its ends, and a plate cannot
+        retroactively become that shaft. Decision 0011 corrected the milestone to
+        <strong>column&rarr;plate</strong>, on the record, with the reason written down — and Pass A
+        then produced a cap score of 1.3. The specification was wrong, it was fixed by a numbered
+        decision rather than a quiet edit, and both versions are still readable.
+      </p>
+
+      <h2 id="pictures">The picture still has a job</h2>
+
+      <p>
+        If screenshots are never evidence, why did Phase 4 take twenty of them?
+      </p>
+
+      <p>
+        Because pictures are how a person catches the thing a metric was not asked about. The
+        Phase 4 plan lists under out of scope: "Treating screenshots as gate evidence. They are
+        required visual QA and explanatory diagnostics; automated metrics and exit semantics carry
+        the scientific claims." Two lanes, one gate. Only one lane is wired to the exit code.
+      </p>
+
+      <p>
+        But the lanes are cross-checked, and this is the part people usually skip. Criterion V4-4:
+        "Column captures show a visibly darker/lower-value band above the basal center than the rim
+        whenever the metric says ratio <code>&lt; 1</code>; <strong>a mismatched picture and number
+        is a blocker</strong>." Not a rounding quibble, not a note for later — a blocker. If the
+        image and the number disagree, at least one of them is lying and you do not yet know which.
+      </p>
+
+      <figure class="anim" id="mismatch-demo">
+        <div class="anim__head">
+          <p class="anim__title">Spot the mismatch</p>
+          <p class="anim__sub">
+            Four slice-and-metric pairs, drawn with the same key as the demos above &mdash; the
+            stronger the blue, the more vapour has been eaten away. Three agree. Find the one
+            that does not.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. <strong>The four pairs below are invented
+          for this exercise</strong> — they are not captures from any run. The rule they illustrate
+          is real: criterion <code>V4-4</code> in
+          <code>docs/plans/phase-4-morphology-gauntlet.md</code>.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The real set was 20 captures out of 20 registered views, inspected at original resolution by
+        two parties, with zero absent, error, clipped or hash-mismatched views, published under a
+        manifest hashed to <code>19e0fcfe&hellip;573b</code>.
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know — and who checked
+        </p>
+        <p>
+          "Two parties" needs saying out loud. Every review in this project to date has been an
+          <strong>LLM review</strong>: the adversarial review agents that looped over each Phase 3
+          work package, the coordinator and reviewer who inspected all twenty Phase 4 captures, and
+          the two-reviewer process that checked this page. The project's own Rule 10 requires every
+          review round to record "the reviewing agent's model and whether it shared context with the
+          developer; what it independently re-executed; and what it did <strong>not</strong> check,
+          stated as a limit of the evidence rather than left implicit." That is a serious discipline
+          and it is not the same thing as human expert review. The project treats it as a disclosed
+          limitation. So does this page.
+        </p>
+      </aside>
+
+      <p class="handoff">
+        Everything in this chapter leans on the same trick: there was a right answer to compare
+        against — a plate is not a column, a starved centre is not a fed one, a hexagon has no
+        branches. The next chapter takes that away. When you write a program to compute something
+        nobody has ever computed, there is no correct answer to test it against — so what, exactly,
+        do you test?
+      </p>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./23-walls-that-pretend-to-be-sky.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">Walls That Pretend to Be Sky</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./25-testing-what-nobody-knows.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">Testing What Nobody Knows the Answer To</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Part Two describes a software project and cites its repository files
+      directly; every figure in Part Two is original.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script>
+/* ===========================================================================
+   Chapter 24 — Watching It Starve
+   All interactives are original. Shared at the top: a tiny 2-D vapour-field
+   relaxation and a faithful re-implementation of the centre-vs-rim sampling
+   convention documented in core/src/metrics.ts.
+   ======================================================================== */
+(function () {
+  "use strict";
+  if (!window.Viz) return;
+
+  /* ---------------------------------------------------- shared mini-field -- */
+
+  var NX = 41, NZ = 23;          // grid columns (x) and rows (z)
+  var CX = 20, CZ = 11;          // centre column, plate mid-row
+  var HALF_T = 1;                // plate half-thickness -> 3 rows of ice
+  var KTOP = CZ + HALF_T;        // top ice layer
+  var SWEEPS = 3000;
+  var CONTACT = 0.65;            // DOMAIN_CONTACT_FRACTION
+
+  function makeMask(w) {
+    var a = new Uint8Array(NX * NZ);
+    if (w < 0) return a;
+    for (var k = CZ - HALF_T; k <= CZ + HALF_T; k++) {
+      for (var i = CX - w; i <= CX + w; i++) a[k * NX + i] = 1;
+    }
+    return a;
+  }
+
+  /* Jacobi relaxation over two buffers, never in place: sigma = 1 on the outer
+     shell, sigma = 0 on ice, Laplace in between. */
+  function solveField(a) {
+    var n = NX * NZ, p, i, k;
+    var cur = new Float64Array(n), nxt = new Float64Array(n);
+    for (p = 0; p < n; p++) cur[p] = a[p] ? 0 : 1;
+    var maxChange = 0;
+    for (var s = 0; s < SWEEPS; s++) {
+      maxChange = 0;
+      for (i = 0; i < NX; i++) { nxt[i] = 1; nxt[(NZ - 1) * NX + i] = 1; }
+      for (k = 0; k < NZ; k++) { nxt[k * NX] = 1; nxt[k * NX + NX - 1] = 1; }
+      for (k = 1; k < NZ - 1; k++) {
+        for (i = 1; i < NX - 1; i++) {
+          p = k * NX + i;
+          if (a[p]) { nxt[p] = 0; continue; }
+          var v = 0.25 * (cur[p - 1] + cur[p + 1] + cur[p - NX] + cur[p + NX]);
+          var d = Math.abs(v - cur[p]);
+          if (d > maxChange) maxChange = d;
+          nxt[p] = v;
+        }
+      }
+      var t = cur; cur = nxt; nxt = t;
+    }
+    return { field: cur, residual: maxChange };
+  }
+
+  var fieldCache = {};
+  function fieldFor(w) {
+    if (!fieldCache[w]) fieldCache[w] = solveField(makeMask(w));
+    return fieldCache[w];
+  }
+
+  /* The sampling convention of core/src/metrics.ts centerRimDepletion, reduced
+     to this 2-D cut: centre column above the top face, rim = the two end cells
+     of that face (the only top-layer cells with a free in-plane neighbour). */
+  function sample(field, w, row) {
+    if (w < 0) return { c: NaN, r: NaN, ratio: NaN };
+    var c = field[row * NX + CX];
+    var r = 0.5 * (field[row * NX + (CX - w)] + field[row * NX + (CX + w)]);
+    return { c: c, r: r, ratio: c / r };
+  }
+
+  function contactInvalid(w) { return (2 * w + 1) > CONTACT * NX; }
+
+  function fmt(v, dp) {
+    if (!isFinite(v)) return Number.isNaN(v) ? "undefined (NaN)" : "infinite";
+    return v.toFixed(dp == null ? 3 : dp);
+  }
+
+  /* Colour helpers — same convention Part One's diffusion animation uses: the
+     quantity mapped to ink is DEPLETION, so the far field fades to the page and
+     the ink collects where the vapour has been eaten. */
+  function hexToRgb(hex) {
+    var h = String(hex).replace("#", "").trim();
+    return h.length === 3
+      ? h.split("").map(function (ch) { return parseInt(ch + ch, 16); })
+      : [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+  }
+
+  function depletionInk(rampRgb, surfaceRgb, depletion) {
+    var d = Math.max(0, Math.min(1, depletion));
+    var x = d * (rampRgb.length - 1);
+    var lo = rampRgb[Math.floor(x)];
+    var hi = rampRgb[Math.min(rampRgb.length - 1, Math.ceil(x))];
+    var f = x - Math.floor(x);
+    var alpha = 0.85 * d;
+    var out = [0, 0, 0];
+    for (var n = 0; n < 3; n++) {
+      var mix = lo[n] + (hi[n] - lo[n]) * f;
+      out[n] = Math.round(surfaceRgb[n] + (mix - surfaceRgb[n]) * alpha);
+    }
+    return "rgb(" + out[0] + "," + out[1] + "," + out[2] + ")";
+  }
+
+  /* Paint one field on a canvas context in CSS pixels. */
+  function paintField(ctx, field, a, w, cell, ox, oy, planeRow, c) {
+    var i, k, p;
+    var ramp = c.seq.map(hexToRgb);
+    var surf = hexToRgb(c.surface);
+    ctx.fillStyle = c.surface;
+    ctx.fillRect(ox, oy, NX * cell, NZ * cell);
+    for (k = 0; k < NZ; k++) {
+      for (i = 0; i < NX; i++) {
+        p = k * NX + i;
+        if (a[p]) continue;
+        var dep = 1 - Math.max(0, Math.min(1, field[p]));
+        if (dep <= 0.015) continue;
+        ctx.fillStyle = depletionInk(ramp, surf, dep);
+        ctx.fillRect(ox + i * cell, oy + (NZ - 1 - k) * cell, cell + 0.6, cell + 0.6);
+      }
+    }
+    if (w >= 0) {
+      ctx.fillStyle = c.surface;
+      ctx.strokeStyle = c.ink;
+      ctx.lineWidth = 2;
+      var x0 = ox + (CX - w) * cell;
+      var y0 = oy + (NZ - 1 - (CZ + HALF_T)) * cell;
+      var ww = (2 * w + 1) * cell, hh = (2 * HALF_T + 1) * cell;
+      ctx.fillRect(x0, y0, ww, hh);
+      ctx.strokeRect(x0, y0, ww, hh);
+    }
+    if (planeRow != null) {
+      var py = oy + (NZ - 1 - planeRow) * cell + cell / 2;
+      ctx.save();
+      ctx.strokeStyle = c.ink;
+      ctx.setLineDash([5, 4]);
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(ox, py); ctx.lineTo(ox + NX * cell, py); ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  function dot(ctx, x, y, color, ink) {
+    ctx.beginPath(); ctx.arc(x, y, 4.5, 0, Math.PI * 2);
+    ctx.fillStyle = color; ctx.fill();
+    ctx.strokeStyle = ink; ctx.lineWidth = 1.2; ctx.stroke();
+  }
+
+  function makeReadout(root, beforeNode) {
+    var p = document.createElement("p");
+    p.className = "anim__sub";
+    p.style.margin = "0.7rem 0 0";
+    p.setAttribute("role", "status");
+    p.setAttribute("aria-live", "polite");
+    if (beforeNode && beforeNode.parentNode) {
+      beforeNode.parentNode.insertBefore(p, beforeNode);
+    } else {
+      root.appendChild(p);
+    }
+    return p;
+  }
+
+  function panel(parent, tone) {
+    var d = document.createElement("div");
+    d.style.border = "1px solid var(--rule)";
+    d.style.borderLeft = "3px solid " + (tone || "var(--rule-strong)");
+    d.style.borderRadius = "8px";
+    d.style.padding = "0.6rem 0.8rem";
+    d.style.background = "var(--surface-sunken)";
+    d.style.fontSize = "0.88rem";
+    d.style.lineHeight = "1.5";
+    parent.appendChild(d);
+    return d;
+  }
+
+  /* ============================================================ DEMO 1 ====
+     Drag the slice.
+     ===================================================================== */
+  (function () {
+    var root = document.getElementById("slice-demo");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var controls = root.querySelector(".anim__controls");
+
+    var CELL = 12, OX = 34, OY = 8;
+    var W = OX * 2 + NX * CELL, H = OY + NZ * CELL + 96;
+    var cv = Viz.createCanvas(body, W, H, {
+      label: "A vertical cut through a growing plate. The vapour field is painted behind it, " +
+             "and a dashed sampling plane can be moved up and down."
+    });
+    var readout = makeReadout(root, controls);
+
+    var halfWidth = 5, planeRow = KTOP + 1;
+
+    function draw() {
+      var c = Viz.colors();
+      var ctx = cv.ctx;
+      ctx.clearRect(0, 0, W, H);
+      var res = fieldFor(halfWidth);
+      var a = makeMask(halfWidth);
+      paintField(ctx, res.field, a, halfWidth, CELL, OX, OY, planeRow, c);
+
+      var s = sample(res.field, halfWidth, planeRow);
+      var py = OY + (NZ - 1 - planeRow) * CELL + CELL / 2;
+      dot(ctx, OX + (CX + 0.5) * CELL, py, c.series[0], c.ink);
+      dot(ctx, OX + (CX - halfWidth + 0.5) * CELL, py, c.series[1], c.ink);
+      dot(ctx, OX + (CX + halfWidth + 0.5) * CELL, py, c.series[1], c.ink);
+
+      ctx.font = "600 11px system-ui, sans-serif";
+      ctx.textAlign = "center";
+      ctx.lineWidth = 3;
+      ctx.lineJoin = "round";
+      ctx.strokeStyle = c.surface;
+      ctx.strokeText("centre", OX + (CX + 0.5) * CELL, py - 9);
+      ctx.fillStyle = c.series[0];
+      ctx.fillText("centre", OX + (CX + 0.5) * CELL, py - 9);
+      ctx.strokeStyle = c.surface;
+      ctx.strokeText("rim", OX + (CX - halfWidth + 0.5) * CELL, py - 9);
+      ctx.fillStyle = c.series[1];
+      ctx.fillText("rim", OX + (CX - halfWidth + 0.5) * CELL, py - 9);
+      ctx.fillStyle = c.inkSecondary;
+      ctx.textAlign = "center";
+      ctx.fillText("ice", OX + (CX + 0.5) * CELL, OY + (NZ - 1 - CZ) * CELL + 4);
+
+      // profile along the plane
+      var py0 = OY + NZ * CELL + 22, ph = 58;
+      ctx.strokeStyle = c.rule; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(OX, py0 + ph); ctx.lineTo(OX + NX * CELL, py0 + ph); ctx.stroke();
+      ctx.beginPath();
+      for (var i = 0; i < NX; i++) {
+        var v = Math.max(0, Math.min(1, res.field[planeRow * NX + i]));
+        var x = OX + (i + 0.5) * CELL, y = py0 + ph - v * ph;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = c.inkSecondary; ctx.lineWidth = 2; ctx.stroke();
+      dot(ctx, OX + (CX + 0.5) * CELL, py0 + ph - Math.max(0, Math.min(1, s.c)) * ph, c.series[0], c.ink);
+      dot(ctx, OX + (CX - halfWidth + 0.5) * CELL,
+          py0 + ph - Math.max(0, Math.min(1, res.field[planeRow * NX + (CX - halfWidth)])) * ph,
+          c.series[1], c.ink);
+      dot(ctx, OX + (CX + halfWidth + 0.5) * CELL,
+          py0 + ph - Math.max(0, Math.min(1, res.field[planeRow * NX + (CX + halfWidth)])) * ph,
+          c.series[1], c.ink);
+      ctx.fillStyle = c.muted;
+      ctx.font = "11px system-ui, sans-serif";
+      ctx.textAlign = "left";
+      ctx.fillText(
+        "vapour along the plane — the ink above marks where vapour has been eaten away",
+        OX, py0 - 6);
+
+      var invalid = contactInvalid(halfWidth);
+      var at = planeRow === KTOP + 1
+        ? "the plane is parked where the registered metric samples (k_top + 1)"
+        : "the plane is " + (planeRow - KTOP) + " cells above the top face";
+      readout.innerHTML =
+        "<strong>centre " + fmt(s.c) + " · rim " + fmt(s.r) +
+        " · ratio " + fmt(s.ratio) + "</strong> " +
+        (s.ratio < 1 ? "(&lt; 1: centre starved)" : "(centre not starved)") +
+        "<br>" + at + ". Plate width " + (2 * halfWidth + 1) + " cells of " + NX +
+        ". The field is re-solved from scratch for every width — " + SWEEPS +
+        " averaging passes over two buffers, after which the last pass moves no cell at float64 " +
+        "precision. (Which, as chapter 22 argues, is not on its own proof that it is right.)" +
+        (invalid
+          ? "<br><span style=\"color:var(--status-critical);font-weight:600\">" +
+            "domainContact = true — the bounding box passes 65&nbsp;% of a domain extent. " +
+            "This run is INVALID and would never enter validation results, however good the " +
+            "picture looks.</span>"
+          : "");
+    }
+
+    Viz.slider(controls, {
+      label: "plate half-width", id: "s24-w", min: 3, max: 13, step: 1, value: halfWidth,
+      format: function (v) { return (2 * v + 1) + " cells"; },
+      onInput: function (v) { halfWidth = v; draw(); },
+    });
+    Viz.slider(controls, {
+      label: "slice plane (layer)", id: "s24-k", min: KTOP + 1, max: NZ - 3, step: 1, value: planeRow,
+      format: function (v) { return "k = " + v; },
+      onInput: function (v) { planeRow = v; draw(); },
+    });
+    Viz.button(controls, "Park at k_top + 1", function () {
+      planeRow = KTOP + 1;
+      var inp = controls.querySelectorAll("input[type=range]")[1];
+      if (inp) { inp.value = String(planeRow); inp.dispatchEvent(new Event("input")); }
+      else draw();
+    });
+
+    draw();
+    Viz.onThemeChange(draw);
+  })();
+
+  /* ============================================================ CHART ====
+     Phase 3's three measured numbers against their registered thresholds.
+     ===================================================================== */
+  (function () {
+    var root = document.getElementById("gate3-chart");
+    if (!root) return;
+    var body = root.querySelector(".chart__body");
+
+    var rows = [
+      { label: "median depletion ratio", measured: 0.531454, reg: 0.75, max: 1.0,
+        sense: "ceiling", text: "0.531454 ≤ 0.75" },
+      { label: "share of samples below 1", measured: 0.902, reg: 0.80, max: 1.0,
+        sense: "floor", text: "90.2 % ≥ 80 %" },
+      { label: "final bounding radius", measured: 38, reg: 30, max: 45,
+        sense: "floor", text: "38 ≥ 30" },
+    ];
+
+    function draw() {
+      body.innerHTML = "";
+      var c = Viz.colors();
+      var W = 560, H = 230, L = 176, R = 470;
+      var svg = Viz.createSvg(body, W, H, {
+        label: "Three measured Phase 3 gate values, each drawn against the threshold registered " +
+               "before the run.",
+      });
+      rows.forEach(function (row, n) {
+        var y = 40 + n * 58;
+        var xs = Viz.scaleLinear([0, row.max], [L, R]);
+        svg.appendChild(Viz.svgEl("line", {
+          x1: L, x2: R, y1: y, y2: y, stroke: c.rule, "stroke-width": 10,
+          "stroke-linecap": "round",
+        }));
+        svg.appendChild(Viz.svgEl("line", {
+          x1: L, x2: xs(row.measured), y1: y, y2: y, stroke: c.series[0], "stroke-width": 10,
+          "stroke-linecap": "round",
+        }));
+        var tx = Viz.svgEl("text", {
+          class: "series-label", x: L - 12, y: y + 4, "text-anchor": "end", fill: c.ink,
+        });
+        tx.textContent = row.label;
+        svg.appendChild(tx);
+
+        var mx = xs(row.reg);
+        svg.appendChild(Viz.svgEl("line", {
+          x1: mx, x2: mx, y1: y - 14, y2: y + 14, stroke: c.ink, "stroke-width": 2,
+        }));
+        var rl = Viz.svgEl("text", {
+          class: "annotation", x: mx, y: y - 19, "text-anchor": "middle", fill: c.inkSecondary,
+        });
+        rl.textContent = "registered " + row.sense;
+        svg.appendChild(rl);
+
+        var vl = Viz.svgEl("text", {
+          class: "annotation", x: R + 8, y: y + 4, "text-anchor": "start", fill: c.good,
+        });
+        vl.textContent = row.text;
+        svg.appendChild(vl);
+      });
+      var foot = Viz.svgEl("text", {
+        class: "annotation", x: 8, y: 212, "text-anchor": "start", fill: c.muted,
+      });
+      foot.textContent =
+        "exit 0 · reproduce with: node runner/src/main.ts gate3 (flagless — the protocol is pinned)";
+      svg.appendChild(foot);
+    }
+    draw();
+    Viz.onThemeChange(draw);
+  })();
+
+  /* ============================================================ DEMO 2 ====
+     Break the metric.
+     ===================================================================== */
+  (function () {
+    var root = document.getElementById("break-metric");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var controls = root.querySelector(".anim__controls");
+
+    var W_HALF = 8;
+    var CELL = 8, OX = 16, OY = 8;
+    var W = OX * 2 + NX * CELL, H = OY * 2 + NZ * CELL;
+
+    var wrap = document.createElement("div");
+    wrap.style.display = "grid";
+    wrap.style.gap = "1rem";
+    wrap.style.gridTemplateColumns = "repeat(auto-fit, minmax(240px, 1fr))";
+    wrap.style.alignItems = "start";
+    body.appendChild(wrap);
+    var left = document.createElement("div");
+    var right = document.createElement("div");
+    wrap.appendChild(left); wrap.appendChild(right);
+
+    var cv = Viz.createCanvas(left, W, H, {
+      label: "The same vertical cut, painted with whichever field the reader has selected."
+    });
+    var out = panel(right);
+
+    var mode = "solver";
+
+    function buildField() {
+      var a = makeMask(mode === "none" ? -1 : W_HALF);
+      var f = new Float64Array(NX * NZ), i, k, p;
+      if (mode === "solver") {
+        f = fieldFor(W_HALF).field;   // read-only: never written to below
+      } else if (mode === "uniform") {
+        for (p = 0; p < f.length; p++) f[p] = a[p] ? 0 : 1;
+      } else if (mode === "inverted") {
+        for (k = 0; k < NZ; k++) for (i = 0; i < NX; i++) {
+          p = k * NX + i;
+          var t = (i - CX) / 7;
+          f[p] = a[p] ? 0 : 0.30 + 0.60 * Math.exp(-t * t);
+        }
+      } else {
+        for (p = 0; p < f.length; p++) f[p] = 1;   // empty domain, nothing absorbing
+      }
+      return { a: a, f: f };
+    }
+
+    function draw() {
+      var c = Viz.colors();
+      var ctx = cv.ctx;
+      ctx.clearRect(0, 0, W, H);
+      var st = buildField();
+      var hw = mode === "none" ? -1 : W_HALF;
+      paintField(ctx, st.f, st.a, hw, CELL, OX, OY, mode === "none" ? null : KTOP + 1, c);
+
+      var s = sample(st.f, hw, KTOP + 1);
+      if (mode !== "none") {
+        var py = OY + (NZ - 1 - (KTOP + 1)) * CELL + CELL / 2;
+        dot(ctx, OX + (CX + 0.5) * CELL, py, c.series[0], c.ink);
+        dot(ctx, OX + (CX - hw + 0.5) * CELL, py, c.series[1], c.ink);
+        dot(ctx, OX + (CX + hw + 0.5) * CELL, py, c.series[1], c.ink);
+      }
+
+      var defined = isFinite(s.ratio);
+      var below = defined && s.ratio < 1;
+      var names = {
+        solver: "a relaxed field (this page's own 2-D solve)",
+        uniform: "hand-built uniform field",
+        inverted: "hand-built inverted field — rim starved instead of centre",
+        none: "no crystal at all",
+      };
+      var rows = [
+        {
+          name: "G3-DEFINED",
+          rule: "depletionRatio is finite at every window sample",
+          ok: defined,
+          note: defined ? "ratio = " + fmt(s.ratio) : "ratio = undefined (NaN) — no k_top exists",
+        },
+        {
+          name: "G3-DEPLETION",
+          rule: "window median ≤ 0.75 and ≥ 80 % of samples below 1",
+          ok: defined && below,
+          note: !defined
+            ? "cannot be evaluated: the input is not a number"
+            : below
+              ? "this sample reads " + fmt(s.ratio) + ", which enters the window below 1"
+              : "this sample reads " + fmt(s.ratio) +
+                ", so no window built from it can reach 80 % below 1",
+        },
+      ];
+
+      var html = "<p style=\"margin:0 0 0.5rem;font-weight:640\">Field: " + names[mode] + "</p>";
+      rows.forEach(function (r) {
+        var col = r.ok ? "var(--status-good)" : "var(--status-critical)";
+        html += "<p style=\"margin:0 0 0.55rem\">" +
+          "<code style=\"font-weight:640\">" + r.name + "</code> " +
+          "<span style=\"color:" + col + ";font-weight:700\">" +
+          (r.ok ? "PASS" : "FAILS BY NAME") + "</span><br>" +
+          "<span style=\"color:var(--ink-muted)\">" + r.rule + "</span><br>" +
+          r.note + "</p>";
+      });
+      html += "<p style=\"margin:0;color:var(--ink-muted)\">" +
+        (mode === "solver"
+          ? "This is the only one of the four that a gate would accept — and only because " +
+            "the other three are able to be rejected."
+          : "This is one of the fake fields committed as a negative control test. If it did not " +
+            "fail here, passing it on the real run would carry no information.") + "</p>";
+      out.innerHTML = html;
+      out.style.borderLeftColor = mode === "solver" ? "var(--status-good)" : "var(--status-critical)";
+    }
+
+    [["solver", "relaxed field"], ["uniform", "uniform field"],
+     ["inverted", "inverted field"], ["none", "no crystal"]].forEach(function (m) {
+      Viz.button(controls, m[1], function () {
+        mode = m[0];
+        Array.prototype.forEach.call(controls.querySelectorAll("button"), function (b) {
+          b.setAttribute("aria-pressed", String(b.textContent === m[1]));
+        });
+        draw();
+      }, { pressed: m[0] === "solver" });
+    });
+
+    draw();
+    Viz.onThemeChange(draw);
+  })();
+
+  /* ============================================================ DEMO 3 ====
+     Fake-readout switch.
+     ===================================================================== */
+  (function () {
+    var root = document.getElementById("fake-readout");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var controls = root.querySelector(".anim__controls");
+
+    var box = panel(body);
+    box.style.fontFamily = "var(--font-mono)";
+    box.style.fontSize = "0.84rem";
+    var note = document.createElement("p");
+    note.className = "anim__sub";
+    note.style.margin = "0.7rem 0 0";
+    note.setAttribute("role", "status");
+    note.setAttribute("aria-live", "polite");
+    body.appendChild(note);
+
+    var honest = true;
+
+    function draw() {
+      if (honest) {
+        box.style.borderLeftColor = "var(--status-good)";
+        box.innerHTML =
+          "picked cell · boundary<br>" +
+          "growth propensity: <strong>high relative attachment tendency</strong><br>" +
+          "&nbsp;&nbsp;(phenomenological, unitless threshold fraction, unvalidated)<br><br>" +
+          "slice: vapor d, vertical (Berg view)<br>" +
+          "&nbsp;&nbsp;(computed state, model units, unvalidated;<br>" +
+          "&nbsp;&nbsp;crystal/wall cells read d = 0)";
+        note.innerHTML = "This is the app's own wording. Every line names what kind of quantity " +
+          "it is and what it has earned. Nothing on screen claims to be measured.";
+      } else {
+        box.style.borderLeftColor = "var(--status-critical)";
+        box.innerHTML =
+          "picked cell · boundary<br>" +
+          "<strong>attachment rate: 91%</strong><br>" +
+          "supersaturation: 2.4%<br>" +
+          "growth velocity: 0.38 µm/s";
+        note.innerHTML = "<strong>Banned.</strong> Those numbers are invented for this panel — " +
+          "that is exactly the point. Each one is computable, and each one lies about its own " +
+          "status: they read as measurements of ice and they are outputs of a model nothing has " +
+          "yet tested. The charter: “a real-looking number resting on an untested model is the " +
+          "most convincing fake of all.”";
+      }
+    }
+
+    Viz.button(controls, "Show the honest readout", function () { honest = true; sync(); }, { pressed: true });
+    Viz.button(controls, "Show the fake readout", function () { honest = false; sync(); }, { pressed: false });
+    function sync() {
+      var bs = controls.querySelectorAll("button");
+      bs[0].setAttribute("aria-pressed", String(honest));
+      bs[1].setAttribute("aria-pressed", String(!honest));
+      draw();
+    }
+    draw();
+  })();
+
+  /* ============================================================ DEMO 4 ====
+     Beat the branch counter.
+     ===================================================================== */
+  (function () {
+    var root = document.getElementById("branch-demo");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var controls = root.querySelector(".anim__controls");
+
+    var THRESH = 0.2, MINB = 12, MAXB = 90, RBASE = 20;
+    var arms = 6, depth = 0.25, hexMode = false;
+    var readout;
+
+    function radiusAt(theta) {
+      if (hexMode) {
+        var t = ((theta % (Math.PI / 3)) + Math.PI / 3) % (Math.PI / 3);
+        return RBASE / Math.cos(t - Math.PI / 6) * Math.cos(Math.PI / 6);
+      }
+      if (arms === 0) return RBASE;
+      return RBASE * (1 + depth * Math.cos(arms * theta));
+    }
+
+    function measure() {
+      var N = 3600, i, th, r;
+      var rMax = 0;
+      for (i = 0; i < N; i++) { r = radiusAt((i / N) * 2 * Math.PI); if (r > rMax) rMax = r; }
+      var bins = Math.min(MAXB, Math.max(MINB, Math.floor(Math.PI * rMax)));
+      var byBin = new Float64Array(bins);
+      for (i = 0; i < N; i++) {
+        th = (i / N) * 2 * Math.PI;
+        r = radiusAt(th);
+        var b = Math.floor((th / (2 * Math.PI)) * bins);
+        if (b >= bins) b = bins - 1;
+        if (r > byBin[b]) byBin[b] = r;
+      }
+      var rMin = Infinity;
+      for (i = 0; i < bins; i++) if (byBin[i] < rMin) rMin = byBin[i];
+      var rel = (rMax - rMin) / rMax;
+      if (rel <= THRESH) return { bins: bins, rMax: rMax, rMin: rMin, rel: rel, count: 0, level: null };
+      var level = rMin + (rMax - rMin) / 2, runs = 0;
+      for (i = 0; i < bins; i++) {
+        var here = byBin[i] >= level;
+        var prev = byBin[(i + bins - 1) % bins] >= level;
+        if (here && !prev) runs++;
+      }
+      return { bins: bins, rMax: rMax, rMin: rMin, rel: rel, count: runs === 0 ? 1 : runs, level: level };
+    }
+
+    function draw() {
+      body.innerHTML = "";
+      var c = Viz.colors();
+      var W = 600, H = 320, cx = 152, cy = 160, k = 4.6;
+      var svg = Viz.createSvg(body, W, H, {
+        label: "A polar shape with a branch-counting rule applied to it: the counted level is " +
+               "drawn as a dashed circle."
+      });
+      var m = measure();
+
+      var d = "";
+      for (var i = 0; i <= 240; i++) {
+        var th = (i / 240) * 2 * Math.PI;
+        var r = radiusAt(th) * k;
+        var x = cx + r * Math.cos(th), y = cy - r * Math.sin(th);
+        d += (i ? "L" : "M") + x.toFixed(2) + " " + y.toFixed(2) + " ";
+      }
+      d += "Z";
+      svg.appendChild(Viz.svgEl("path", {
+        d: d, fill: c.seq[2], "fill-opacity": 0.55, stroke: c.series[0], "stroke-width": 2,
+      }));
+
+      if (m.level != null) {
+        svg.appendChild(Viz.svgEl("circle", {
+          cx: cx, cy: cy, r: m.level * k, fill: "none", stroke: c.ink,
+          "stroke-width": 1.4, "stroke-dasharray": "4 4",
+        }));
+        var ll = Viz.svgEl("text", {
+          class: "annotation", x: cx, y: cy - m.level * k - 6, "text-anchor": "middle", fill: c.inkSecondary,
+        });
+        ll.textContent = "counting level";
+        svg.appendChild(ll);
+      }
+
+      var PX = 306;
+      var lines = [
+        ["bin count", m.bins + "   — floor(π·R_max), clamped to [12, 90]"],
+        ["R_max / R_min", m.rMax.toFixed(2) + " / " + m.rMin.toFixed(2)],
+        ["relative depth", m.rel.toFixed(4)],
+        ["against threshold 0.20",
+          m.rel <= THRESH ? "compact — the answer is 0" : "deep enough — count the runs"],
+      ];
+      lines.forEach(function (ln, n) {
+        var t1 = Viz.svgEl("text", { class: "annotation", x: PX, y: 46 + n * 32, fill: c.muted });
+        t1.textContent = ln[0];
+        svg.appendChild(t1);
+        var t2 = Viz.svgEl("text", {
+          class: "annotation", x: PX, y: 62 + n * 32, fill: c.ink, "font-size": "12",
+        });
+        t2.textContent = ln[1];
+        svg.appendChild(t2);
+      });
+      var big = Viz.svgEl("text", {
+        x: PX, y: 210, fill: m.count === 0 ? c.inkSecondary : c.series[0],
+        "font-size": "26", "font-weight": "700", "font-family": "var(--font-sans)",
+      });
+      big.textContent = "branchCount = " + m.count;
+      svg.appendChild(big);
+      var sub = Viz.svgEl("text", { class: "annotation", x: PX, y: 232, fill: c.muted });
+      sub.textContent = hexMode
+        ? "a plain hexagon: 1 − cos(30°) = 0.134 < 0.2"
+        : (m.count === 0 ? "too shallow to be a branch, by definition" : "circular runs above the level");
+      svg.appendChild(sub);
+
+      if (readout) {
+        readout.textContent = hexMode
+          ? "Hexagon mode. Its own corners make a ripple of 1 − cos(30°) = 0.134 in the " +
+            "continuum, and the rule calls that compact. The reading here is a hair under 0.134 " +
+            "because each bin reports the largest radius inside it, which nudges R_min up — the " +
+            "binning is part of the definition too."
+          : "Relative depth crosses the 0.2 threshold at a lobe depth of about 0.11, and the " +
+            "answer flips from 0 straight to the number of arms. Nothing about the shape changes " +
+            "much across that point. The definition has an edge, and the edge is written down " +
+            "where anyone can check it.";
+      }
+    }
+
+    Viz.slider(controls, {
+      label: "arms", id: "s24-arms", min: 0, max: 8, step: 1, value: arms,
+      format: function (v) { return String(v); },
+      onInput: function (v) { arms = v; hexMode = false; syncButtons(); draw(); },
+    });
+    Viz.slider(controls, {
+      label: "lobe depth", id: "s24-depth", min: 0, max: 0.35, step: 0.005, value: depth,
+      format: function (v) { return v.toFixed(3); },
+      onInput: function (v) { depth = v; hexMode = false; syncButtons(); draw(); },
+    });
+    var hexBtn = Viz.button(controls, "Use a plain hexagon", function () {
+      hexMode = !hexMode; syncButtons(); draw();
+    }, { pressed: false });
+    function syncButtons() { hexBtn.setAttribute("aria-pressed", String(hexMode)); }
+
+    readout = makeReadout(root, controls);
+    draw();
+    Viz.onThemeChange(draw);
+  })();
+
+  /* ============================================================ DEMO 5 ====
+     Certify your ruler.
+     ===================================================================== */
+  (function () {
+    var root = document.getElementById("certify-demo");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var controls = root.querySelector(".anim__controls");
+
+    var cards = [
+      { tool: "aspectRatio", crit: "A-HABIT-ENDPOINTS",
+        req: "aspect ratio at u = 0 must be ≤ 0.3",
+        val: "measured 0.0666667", certify: true,
+        why: "A plate. The instrument reads well under the bar, so it can tell a plate when it sees one." },
+      { tool: "aspectRatio", crit: "A-HABIT-ENDPOINTS",
+        req: "aspect ratio at u = 1 must be ≥ 1.5",
+        val: "measured 1.66667", certify: true,
+        why: "A column, from the same solver with one threshold slot changed. Same ruler, opposite verdict." },
+      { tool: "aspectRatio", crit: "A-HABIT-MONOTONE",
+        req: "AR strictly increasing at every consecutive u — “Equal adjacent values fail; no post-hoc tolerance or isotonic fit is allowed”",
+        val: "measured: a strictly increasing five-point sweep", certify: true,
+        why: "The instrument tracks a continuous change, not just the two ends. And note what is banned: no smoothing after the fact." },
+      { tool: "crossSectionHollowness", crit: "A-HABIT-SOLID",
+        req: "the column endpoint must have crossSectionHollowness = 0 and sealedVoidFraction = 0",
+        val: "target-36 endpoint: crossSectionHollowness = 0.1260 (calibration probe, WP0 review — not gate evidence)",
+        certify: false,
+        why: "Reject it. The “solid column” was a tube, and the hollowness metric said so. The target was changed before registration and the reasoning written into the plan. This is the card that proves the instruments can return a no." },
+      { tool: "branchCount", crit: "A-BRANCH",
+        req: "the dendrite must score ≥ 6 and its compact control must score 0",
+        val: "measured 6 / 0, at each run's own first reservoir crossing (cycles 4,775 and 5,450, extents 99 and 83)",
+        certify: true,
+        why: "A counter that scored 6 on everything would be useless — the control is the point. Note what is not claimed: the two runs stopped at their own first crossings, and the protocol reports their extents separately rather than asserting they were the same size." },
+      { tool: "domainContact", crit: "A-EXEC-DOMAIN",
+        req: "domainContact must be false on every tick and at termination",
+        val: "measured: 24 / 24 records green, no contact", certify: true,
+        why: "The guard that invalidates a run whose crystal is close enough to the wall to feel its own mirror image." },
+    ];
+
+    var state = cards.map(function () { return null; });
+
+    var grid = document.createElement("div");
+    grid.style.display = "grid";
+    grid.style.gap = "0.7rem";
+    grid.style.gridTemplateColumns = "repeat(auto-fit, minmax(255px, 1fr))";
+    body.appendChild(grid);
+
+    var status = makeReadout(root, controls);
+    var runBtn = null, revealed = false;
+
+    function render() {
+      grid.innerHTML = "";
+      cards.forEach(function (card, n) {
+        var d = panel(grid);
+        var done = state[n] !== null;
+        var right = state[n] === card.certify;
+        d.style.borderLeftColor = !done ? "var(--rule-strong)"
+          : right ? "var(--status-good)" : "var(--status-critical)";
+        var head = "<p style=\"margin:0 0 0.35rem\"><code style=\"font-weight:640\">" + card.tool +
+          "</code> <span style=\"color:var(--ink-muted)\">· " + card.crit + "</span></p>";
+        var reqp = "<p style=\"margin:0 0 0.3rem\">" + card.req + "</p>";
+        var valp = "<p style=\"margin:0 0 0.5rem;font-weight:640\">" + card.val + "</p>";
+        d.innerHTML = head + reqp + valp;
+        if (done) {
+          var verdict = document.createElement("p");
+          verdict.style.margin = "0";
+          verdict.innerHTML = "<strong style=\"color:" +
+            (right ? "var(--status-good)" : "var(--status-critical)") + "\">" +
+            (right ? "correct — " : "not quite — ") + "</strong>" + card.why;
+          d.appendChild(verdict);
+        } else {
+          var bar = document.createElement("div");
+          bar.style.display = "flex";
+          bar.style.gap = "0.5rem";
+          d.appendChild(bar);
+          Viz.button(bar, "Certifies", function () { state[n] = true; render(); });
+          Viz.button(bar, "Rejects", function () { state[n] = false; render(); });
+        }
+      });
+      var solved = state.every(function (s, n) { return s === cards[n].certify; });
+      var done = state.filter(function (s) { return s !== null; }).length;
+      if (solved) {
+        status.innerHTML = "<strong style=\"color:var(--status-good)\">All six instruments " +
+          "certified.</strong> Pass A is blocking and it closed. Only now is it meaningful to " +
+          "point the same measuring pipeline at the physics.";
+        if (runBtn) { runBtn.disabled = false; runBtn.style.opacity = "1"; }
+      } else {
+        status.innerHTML = done + " of 6 dispositioned. Pass A is blocking: until every " +
+          "instrument is shown to report correctly on a shape whose answer is already known, a " +
+          "reading from it about the physics means nothing.";
+        if (runBtn) { runBtn.disabled = true; runBtn.style.opacity = "0.5"; }
+      }
+      if (revealed) status.innerHTML +=
+        "<br><br><strong>Pass B ran.</strong> 11 runs, 12 of 12 execution records green. Three " +
+        "morphology diagnostics passed and five honestly missed. The gate exited 0.";
+    }
+
+    runBtn = Viz.button(controls, "Point them at the physics (run Pass B)", function () {
+      revealed = true; render();
+    });
+    runBtn.disabled = true;
+    render();
+  })();
+
+  /* ============================================================ DEMO 6 ====
+     Pass B's honest misses.
+     ===================================================================== */
+  (function () {
+    var root = document.getElementById("passb-demo");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+
+    var items = [
+      { id: "B-HABIT-ENDPOINTS", pass: true, short: "habit endpoints invert",
+        rule: "AR at −5 °C is ≤ 1/1.5 and AR at −15 °C is ≥ 1.5." },
+      { id: "B-HABIT-SOLID", pass: true, short: "cold endpoint solid",
+        rule: "the noise-off −15 °C endpoint has crossSectionHollowness = 0 and sealedVoidFraction = 0." },
+      { id: "B-HABIT-MONOTONE", pass: true, short: "five-point sweep non-decreasing",
+        rule: "the five AR values are non-decreasing as temperature falls, and the categorical sequence crosses from plate to column at most once." },
+      { id: "B-DEPLETION", pass: false, short: "depletion",
+        rule: "endpoint AR ≥ 1.5, all ratios finite, median ≤ 0.9, and at least 80 % are < 1." },
+      { id: "B-DEPLETION-WIDENING", pass: false, short: "widening",
+        rule: "transverse extent non-decreasing across the samples, and the last sample at least the first plus 2 lattice units." },
+      { id: "B-HOLLOW", pass: false, short: "hollowing",
+        rule: "every seed reaches AR ≥ 1.5, hollowness rise ≥ 0.03, final hollowness ≥ 0.03, sealed void 0, at least two occupancy hashes differ, and seed 1 replays bitwise." },
+      { id: "B-TIMELINE", pass: false, short: "capped history",
+        rule: "the pre-event state is column-like (AR ≥ 1.5), final capScore ≥ 1.15, both caps exceed the trunk by at least 1, and the top and bottom cap radii differ by at most 1." },
+      { id: "B-BRANCH", pass: false, short: "branch",
+        rule: "at −5 °C with only sigmaInfinity changed to 0.01: branchCount ≥ 6 and AR < 0.3." },
+    ];
+
+    var row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.flexWrap = "wrap";
+    row.style.gap = "0.45rem";
+    body.appendChild(row);
+    var detail = panel(body);
+    detail.style.marginTop = "0.8rem";
+    detail.setAttribute("role", "status");
+    detail.setAttribute("aria-live", "polite");
+
+    var sel = 3;
+
+    function show() {
+      var it = items[sel];
+      detail.style.borderLeftColor = it.pass ? "var(--status-good)" : "var(--status-warning)";
+      detail.innerHTML =
+        "<p style=\"margin:0 0 0.4rem\"><code style=\"font-weight:640\">" + it.id + "</code> — " +
+        "<strong>" + (it.pass ? "✓ diagnostic pass" : "△ honest miss") + "</strong></p>" +
+        "<p style=\"margin:0 0 0.4rem\"><span style=\"color:var(--ink-muted)\">registered " +
+        "diagnostic-success condition:</span> " + it.rule + "</p>" +
+        "<p style=\"margin:0;color:var(--ink-muted)\">" +
+        (it.pass
+          ? "Recorded as a pass on a 48×48×48 dev-scale grid, under a pass whose result cannot " +
+            "block anything. It is an early warning that the habit flip may be in reach — not " +
+            "evidence that it was reached, and this chapter does not spend it either."
+          : "Recorded as a miss. The Pass B report is the run artifact (SHA-256 22c8a92c…fa2d); " +
+            "what docs/PROGRESS.md publishes is the criterion name, not the clause-level values. " +
+            "It did not change the exit code, and this chapter does not spend it.") +
+        "</p>";
+      Array.prototype.forEach.call(row.children, function (b, n) {
+        var on = n === sel;
+        b.setAttribute("aria-pressed", String(on));
+        b.style.borderColor = on ? "var(--accent-key)"
+          : (items[n].pass ? "var(--status-good)" : "var(--status-warning)");
+      });
+    }
+
+    items.forEach(function (it, n) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "button";
+      b.textContent = (it.pass ? "✓ " : "△ ") + it.short;
+      b.style.borderWidth = "2px";
+      b.addEventListener("click", function () { sel = n; show(); });
+      row.appendChild(b);
+    });
+    show();
+  })();
+
+  /* ============================================================ DEMO 7 ====
+     Search the source.
+     ===================================================================== */
+  (function () {
+    var root = document.getElementById("search-demo");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var controls = root.querySelector(".anim__controls");
+
+    var LISTING = [
+      "// (iii) attachment — GGThreshold, THE SEAM. Decide for every boundary cell from",
+      "// start-of-tick counts, apply after (iv): deciding-all-then-applying-all makes",
+      "// attachment simultaneous, and keeps (iv)'s kappa/mu lookups on start-of-tick counts",
+      "// exactly as the spec requires.",
+      "const toAttach: number[] = [];",
+      "let holeFillCount = 0;",
+      "for (let bi = 0; bi < nBoundary; bi++) {",
+      "  const x = boundary[bi];",
+      "  const rawNT = this.nTAtt[x];",
+      "  const rawNZ = this.nZAtt[x];",
+      "  if (rawNT >= 4 && rawNZ >= 1) {",
+      "    toAttach.push(x); // hole-filling rule, UNCAPPED n_T (gg-machinery §4.iii)",
+      "    holeFillCount++;",
+      "    continue;",
+      "  }",
+      "  const nT = rawNT < 3 ? rawNT : 3;",
+      "  const nZ = rawNZ > 0 ? 1 : 0;",
+      "  if (this.b[x] >= ggThreshBeta[paramSlot(nT, nZ)]) {",
+      "    toAttach.push(x);",
+      "  }",
+      "}",
+      "",
+      "// (iv) melting — boundary cells that did NOT just attach (gg-machinery §4.iv:",
+      "// freshly-attached cells are excluded; attached is a terminal state).",
+      "const attachSet = new Set<number>(toAttach);",
+      "for (let bi = 0; bi < nBoundary; bi++) {",
+      "  const x = boundary[bi];",
+      "  if (attachSet.has(x)) continue;",
+      "  const nT = this.nTAtt[x] < 3 ? this.nTAtt[x] : 3;",
+      "  const nZ = this.nZAtt[x] > 0 ? 1 : 0;",
+      "  const s = paramSlot(nT, nZ);",
+      "  const boundaryMass = this.b[x];",
+      "  this.b[x] = (1 - mu[s]) * boundaryMass;",
+      "  this.d[x] += mu[s] * boundaryMass;",
+      "}",
+    ];
+
+    var pre = document.createElement("pre");
+    pre.style.margin = "0";
+    pre.style.padding = "0.8rem";
+    pre.style.overflowX = "auto";
+    pre.style.background = "var(--surface-sunken)";
+    pre.style.border = "1px solid var(--rule)";
+    pre.style.borderRadius = "8px";
+    pre.style.fontFamily = "var(--font-mono)";
+    pre.style.fontSize = "0.78rem";
+    pre.style.lineHeight = "1.55";
+    body.appendChild(pre);
+
+    var result = makeReadout(root, controls);
+
+    function render(term) {
+      pre.innerHTML = "";
+      var re = term ? new RegExp("\\b" + term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "gi") : null;
+      var hits = 0;
+      LISTING.forEach(function (line) {
+        var div = document.createElement("div");
+        if (!re) { div.textContent = line; pre.appendChild(div); return; }
+        var last = 0, m;
+        re.lastIndex = 0;
+        while ((m = re.exec(line)) !== null) {
+          hits++;
+          div.appendChild(document.createTextNode(line.slice(last, m.index)));
+          var mark = document.createElement("mark");
+          mark.textContent = m[0];
+          mark.style.background = "var(--status-warning)";
+          // --status-warning is the same amber in both themes, so the contrast ink must be too;
+          // this literal is deliberate rather than a palette value that flips with the theme.
+          mark.style.color = "#0b0b0b";
+          mark.style.borderRadius = "3px";
+          div.appendChild(mark);
+          last = m.index + m[0].length;
+          if (m[0].length === 0) re.lastIndex++;
+        }
+        div.appendChild(document.createTextNode(line.slice(last)));
+        pre.appendChild(div);
+      });
+      if (!term) {
+        result.textContent = LISTING.length + " lines. This is every decision about which cells " +
+          "become ice this tick, plus the melting step that follows it.";
+      } else if (hits === 0) {
+        result.innerHTML = "<strong>0 matches for “" + term + "”.</strong> Not hidden " +
+          "in a helper, not renamed: the concept is not in the growth rule at all.";
+      } else {
+        result.innerHTML = "<strong>" + hits + " match" + (hits === 1 ? "" : "es") +
+          " for “" + term + "”.</strong>";
+      }
+    }
+
+    var input = document.createElement("input");
+    input.type = "search";
+    input.placeholder = "search the rule…";
+    input.setAttribute("aria-label", "Search the growth rule listing");
+    input.style.padding = "0.45rem 0.7rem";
+    input.style.borderRadius = "999px";
+    input.style.border = "1px solid var(--rule-strong)";
+    input.style.background = "var(--surface-1)";
+    input.style.color = "var(--ink-primary)";
+    input.style.font = "inherit";
+    input.addEventListener("input", function () { render(input.value.trim()); });
+    var wrap = document.createElement("div");
+    wrap.className = "control";
+    wrap.appendChild(input);
+    controls.appendChild(wrap);
+
+    /* The criterion's own words: A-HOLLOW-STRUCTURAL forbids any "center-, radius-, cavity-, or
+       hollowness-driven branch in either solver". Every chip returns zero matches. */
+    ["hollow", "center", "radius", "cavity", "branch", "dendrite"].forEach(function (t) {
+      Viz.button(controls, t, function () { input.value = t; render(t); });
+    });
+
+    var lock = document.createElement("label");
+    lock.className = "control";
+    lock.style.opacity = "0.65";
+    lock.style.cursor = "not-allowed";
+    var cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.disabled = true;
+    cb.style.cursor = "not-allowed";
+    lock.appendChild(cb);
+    var lockText = document.createElement("span");
+    lockText.innerHTML = " add an explicit hollow rule <span style=\"color:var(--ink-muted)\">" +
+      "(permanently disabled — <code>A-HOLLOW-STRUCTURAL</code>)</span>";
+    lock.appendChild(lockText);
+    lock.title = "A-HOLLOW-STRUCTURAL: “Phase 4 introduces no center-, radius-, cavity-, " +
+      "or hollowness-driven branch in either solver.” The reviewed solver sources are " +
+      "byte-hashed, and the runner may not self-attest with a hard-coded true.";
+    controls.appendChild(lock);
+
+    render("");
+  })();
+
+  /* ============================================================ DEMO 8 ====
+     Spot the mismatch.
+     ===================================================================== */
+  (function () {
+    var root = document.getElementById("mismatch-demo");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+
+    /* Four INVENTED pairs. starved = does the picture show a thinned pocket
+       above the facet centre; ratio = what the metric says. */
+    var pairs = [
+      { starved: true, ratio: 0.62, bad: false },
+      { starved: false, ratio: 0.99, bad: false },
+      { starved: true, ratio: 0.77, bad: false },
+      { starved: true, ratio: 1.04, bad: true },
+    ];
+
+    var grid = document.createElement("div");
+    grid.style.display = "grid";
+    grid.style.gap = "0.7rem";
+    grid.style.gridTemplateColumns = "repeat(auto-fit, minmax(150px, 1fr))";
+    body.appendChild(grid);
+    var out = panel(body);
+    out.style.marginTop = "0.8rem";
+    out.setAttribute("role", "status");
+    out.setAttribute("aria-live", "polite");
+    out.innerHTML = "Click the pair where the picture and the number disagree.";
+
+    var picked = -1;
+
+    function thumb(p) {
+      var c = Viz.colors();
+      var W = 150, H = 88;
+      var svg = Viz.createSvg(null, W, H, {
+        label: p.starved
+          ? "A slice showing a thinned pocket of vapour above the centre of the top face."
+          : "A slice showing an even band of vapour above the top face.",
+      });
+      svg.appendChild(Viz.svgEl("rect", { x: 0, y: 0, width: W, height: H, fill: c.surface }));
+      var ramp = c.seq.map(hexToRgb), surf = hexToRgb(c.surface);
+      var steps = 15;
+      for (var i = 0; i < steps; i++) {
+        var t = (i + 0.5) / steps;
+        var dep = p.starved
+          ? 0.35 + 0.60 * Math.exp(-Math.pow((t - 0.5) / 0.26, 2))
+          : 0.42;
+        svg.appendChild(Viz.svgEl("rect", {
+          x: 12 + i * 8.4, y: 20, width: 8.9, height: 26,
+          fill: depletionInk(ramp, surf, dep),
+        }));
+      }
+      svg.appendChild(Viz.svgEl("rect", {
+        x: 12, y: 48, width: 126, height: 24, fill: c.surface, stroke: c.ink, "stroke-width": 2,
+      }));
+      var lab = Viz.svgEl("text", {
+        class: "annotation", x: 75, y: 64, "text-anchor": "middle", fill: c.inkSecondary,
+      });
+      lab.textContent = "ice";
+      svg.appendChild(lab);
+      var lab2 = Viz.svgEl("text", { class: "annotation", x: 12, y: 14, fill: c.muted });
+      lab2.textContent = "vapour above the face";
+      svg.appendChild(lab2);
+      var lab3 = Viz.svgEl("text", { class: "annotation", x: 12, y: 84, fill: c.muted });
+      lab3.textContent = p.starved ? "deeper at the centre" : "even across";
+      svg.appendChild(lab3);
+      return svg;
+    }
+
+    function render() {
+      grid.innerHTML = "";
+      pairs.forEach(function (p, n) {
+        var card = document.createElement("button");
+        card.type = "button";
+        card.style.all = "unset";
+        card.style.cursor = "pointer";
+        card.style.display = "block";
+        card.style.border = "1px solid var(--rule)";
+        card.style.borderRadius = "10px";
+        card.style.padding = "0.5rem";
+        card.style.background = "var(--surface-sunken)";
+        if (picked === n) {
+          card.style.borderColor = p.bad ? "var(--status-good)" : "var(--status-critical)";
+          card.style.borderWidth = "2px";
+        }
+        card.appendChild(thumb(p));
+        var cap = document.createElement("p");
+        cap.style.margin = "0.4rem 0 0";
+        cap.style.fontFamily = "var(--font-mono)";
+        cap.style.fontSize = "0.78rem";
+        cap.textContent = "depletionRatio " + p.ratio.toFixed(2);
+        card.appendChild(cap);
+        card.addEventListener("click", function () { picked = n; render(); update(); });
+        grid.appendChild(card);
+      });
+    }
+
+    function update() {
+      var p = pairs[picked];
+      if (!p) return;
+      if (p.bad) {
+        out.style.borderLeftColor = "var(--status-good)";
+        out.innerHTML = "<strong>That is the one.</strong> The picture shows a starved centre and " +
+          "the number says the centre has more vapour than the rim. One of them is wrong and you " +
+          "cannot yet tell which — which is precisely why criterion V4-4 calls a mismatched " +
+          "picture and number a <strong>blocker</strong>, not a rounding quibble. It stops the " +
+          "phase until somebody finds out whether the renderer, the sampler or the metric is at " +
+          "fault.";
+      } else {
+        out.style.borderLeftColor = "var(--status-critical)";
+        out.innerHTML = "Not that one — here the picture and the number tell the same story " +
+          (p.starved
+            ? "(a thinned pocket above the centre, ratio below 1)."
+            : "(an even band, ratio essentially 1).") + " Keep looking.";
+      }
+    }
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+})();
+</script>
+</body>
+</html>

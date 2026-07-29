@@ -1,0 +1,1688 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>When the Numbers Stop Changing — Snow Crystals</title>
+<meta name="description" content="The solver printed CONVERGED over a field that was wrong, and the error grew with the size of the problem. This is how a second, independent check was added — and what it cost.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 22 &middot; When the Numbers Stop Changing</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#two-clocks">Thousands of sweeps, one growth step</a></li>
+      <li><a href="#residual">What &ldquo;converged&rdquo; means in the code</a></li>
+      <li><a href="#the-lie">The lie, with numbers attached</a></li>
+      <li><a href="#second-gate">A second gate, made of bookkeeping</a></li>
+      <li><a href="#check-on-the-check">The check on the check</a></li>
+      <li><a href="#invalid-there">Invalid <em>there</em> &mdash; and saying so</a></li>
+      <li><a href="#graded-severity">Errors, warnings, and a rule that would reject its own source</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 22</p>
+        <h1>When the Numbers Stop Changing</h1>
+        <p class="chapter-header__question">
+          Chapter 21 left a run that had stopped moving and still did not balance. Long before
+          that, this program printed <em>converged</em> over a field that was wrong &mdash; and the
+          error was worse on the bigger runs. How do you catch a bug that only shows up when the
+          job gets expensive?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~17 min read</span>
+          <span>7 figures</span>
+          <span>5 interactive, 1 animation</span>
+        </div>
+      </header>
+
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Explain why &ldquo;the numbers stopped changing&rdquo; is not proof that the numbers
+            are right.</li>
+          <li>Recognise the nastiest class of bug &mdash; one that gets <em>worse</em> as the problem
+            gets bigger, so the cheap tests are exactly the ones that look fine.</li>
+          <li>Say why an independent physical check beats a tighter tolerance.</li>
+          <li>Explain how a model can test whether its own core assumption still holds, and why
+            the answer gets reported rather than tuned away.</li>
+          <li>Describe graded validation severity, and why a rule that rejects your own source's
+            published data is the wrong rule.</li>
+        </ul>
+      </section>
+
+      <!-- ================================================================= -->
+      <h2 id="two-clocks">Thousands of sweeps, one growth step</h2>
+
+      <p>
+        Why does this program solve the same vapour field thousands of times before the crystal
+        moves at all?
+      </p>
+
+      <p>
+        Because water vapour rearranges itself enormously faster than ice advances. So the solver
+        does not push the vapour forward in time. Between growth steps it freezes the crystal's
+        shape, and then iterates the vapour field until it stops changing &mdash; the
+        <strong>steady state</strong> for that shape. Only then does the surface advance a little,
+        and the whole field is re-solved for the new shape. That is what
+        <strong>quasi-static</strong> means: a fast thing treated as always sitting at its
+        equilibrium relative to a slow thing.
+      </p>
+
+      <p>
+        One pass of &ldquo;replace every cell by a weighted average of itself and its
+        neighbours&rdquo; is called a <strong>sweep</strong>. It takes a lot of them. The project's
+        own specification once got this wrong in an interesting way. An earlier version of
+        <code>docs/attachment-kinetics.md</code> assigned a physical time increment to each sweep
+        and derived an iteration count from it. Section 4.3 now opens by killing that idea and
+        saying why:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;That mixed two different models &mdash; <strong>transient diffusion</strong>
+          (stability timesteps, physical substeps) and <strong>quasi-static diffusion</strong> (an
+          elliptic solve to a residual tolerance) &mdash; and produced a wrong test: relaxation
+          counts scale like <code>(L/&Delta;x)&sup2;</code>, so <em>thousands of Jacobi iterations
+          per growth step are entirely expected</em> and prove nothing about units.
+          <strong>Retracted.</strong>&rdquo;
+          <br><span class="figure__source">docs/attachment-kinetics.md, lines 197&ndash;204
+          (&sect;4.3, rewritten under decision 0005)</span>
+        </p>
+      </blockquote>
+
+      <p>
+        <em>Elliptic</em> is the key word. An elliptic equation has no &ldquo;next&rdquo; in it. It
+        is not a statement about what happens after this moment; it is a statement about balance
+        everywhere at once. So the sweep count is not a physical duration and never was. The same
+        section states the consequence outright: <strong>&ldquo;The iteration count is an
+        <em>output</em>, not a target.&rdquo;</strong> (<code>docs/attachment-kinetics.md</code>,
+        lines 223&ndash;224.) The code agrees &mdash; the default budget is 200&nbsp;000 sweeps per
+        growth step, and it is one of the values a registered run must freeze
+        (<code>solver-cpu/src/lk-solver.ts:414</code>; ADR 0005 as amended by ADR 0006, which adds
+        <code>divTol</code> and <code>relaxMaxSweeps</code> to the frozen protocol,
+        <code>docs/decisions/0006-audited-surface-operator-numerics.md:84&ndash;87</code>).
+      </p>
+
+      <figure class="anim" id="fig-two-clocks">
+        <div class="anim__head">
+          <p class="anim__title">Two clocks, one timeline</p>
+          <p class="anim__sub">Watch the vapour hand complete whole revolutions between two ticks
+            of the ice hand. Every wide block on the timeline is one relaxation; every thin mark
+            is one growth step.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. The two-timescale structure is the
+          quasi-static formulation in <code>docs/attachment-kinetics.md</code> &sect;4.3; the sweep
+          cadence drawn here is schematic, and the solver's default sweep budget is 200&nbsp;000
+          per growth step (<code>solver-cpu/src/lk-solver.ts:414</code>).</span>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>A slow-looking program is not automatically a broken one. Thousands of sweeps per
+          growth step is the correct behaviour of this model, not a symptom.</p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="residual">What &ldquo;converged&rdquo; means in the code</h2>
+
+      <p>
+        So what number does the loop actually watch?
+      </p>
+
+      <p>
+        It watches the biggest change any single cell made during a whole sweep, divided by the
+        far-field supersaturation so the answer is a fraction rather than a size. The code is one
+        line: <code>residual = maxAbs / this.sigmaInfinity;</code>
+        (<code>solver-cpu/src/lk-solver.ts:1528</code>). The default cut-off is written into the
+        options type as <code>relaxTol</code>, with the comment &ldquo;per-sweep max |change| /
+        sigmaInfinity below this = converged&rdquo; and a default of
+        1&times;10<sup>&minus;9</sup> (<code>solver-cpu/src/lk-solver.ts:70&ndash;71</code>).
+      </p>
+
+      <p>
+        Read that definition again and the trap is already visible. The residual measures how much
+        the field <strong>changed</strong>. It does not measure how <strong>wrong</strong> the
+        field is. Those are different quantities, and a field can be uniformly, calmly, quietly
+        wrong &mdash; wrong in a way that barely moves from one sweep to the next.
+      </p>
+
+      <figure class="anim" id="fig-tolerance">
+        <div class="anim__head">
+          <p class="anim__title">Loosen the tolerance and watch it still say converged</p>
+          <p class="anim__sub">Drag the dial. The orange curve is what the solver accepted; the
+            blue curve is the answer it was supposed to find. At every setting, the stopping rule
+            is satisfied.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. A live spherically-symmetric relaxation
+          built here in the browser, using the stopping rule of
+          <code>solver-cpu/src/lk-solver.ts:1528</code> and the surface condition
+          <code>sigma_b = sigma_opp/(1 + alphaHK&middot;G_b&middot;&Delta;x/X_0)</code> from
+          <code>docs/attachment-kinetics.md</code> &sect;4.4. It is a teaching model of the
+          stopping rule, not the project's 3-D solver.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        At the loosest setting the accepted field is visibly the wrong shape, and the value at the
+        crystal surface &mdash; the one number the growth step actually uses &mdash; is off by
+        tens of per cent. Nothing complains. The stopping rule was obeyed exactly as written.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="the-lie">The lie, with numbers attached</h2>
+
+      <p>
+        Was that ever a real problem in this project, or only a worry?
+      </p>
+
+      <p>
+        It was real, it was measured, and the measurement is written into an architecture decision
+        record. ADR 0006 lists three things an audit found wrong with the numerics the charter had
+        committed to. The first one is this chapter:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;<strong>Historical audit finding &mdash; residual-only convergence.</strong>
+          Iterate-change alone reported &lsquo;converged&rsquo; fields whose Dirichlet-shell vs
+          Robin-sink imbalance <em>grew with domain size</em> (2.46e-6 at 32&sup3; &rarr; 8.85e-6
+          at 48&sup3; at tol 1e-9), on course to fail the habit gate's own <code>&lt; 1e-6</code>
+          criterion at 96&sup3; while printing &lsquo;converged&rsquo; (round-3 audit).&rdquo;
+          <br><span class="figure__source">docs/decisions/0006-audited-surface-operator-numerics.md,
+          lines 32&ndash;35</span>
+        </p>
+      </blockquote>
+
+      <p>
+        Unpack it. &ldquo;Dirichlet-shell&rdquo; is the outer wall of the box, held at a fixed
+        supersaturation, where vapour is injected. &ldquo;Robin-sink&rdquo; is the crystal surface,
+        where vapour is absorbed. In a steady state those two must be equal. They were not. The
+        mismatch was 2.46&times;10<sup>&minus;6</sup> on a 32&sup3; grid and
+        8.85&times;10<sup>&minus;6</sup> on a 48&sup3; grid &mdash; about 3.6 times larger &mdash;
+        and all the while the residual test was being satisfied at a tolerance of
+        10<sup>&minus;9</sup>. That number looks reassuringly small. It was measuring something
+        else.
+      </p>
+
+      <figure class="chart" id="fig-audit">
+        <div class="chart__head">
+          <p class="chart__title">The error that grows with the grid</p>
+          <p class="chart__sub">Two measured points, one criterion line, and the size the real runs
+            actually use.</p>
+        </div>
+        <div class="chart__body"></div>
+        <figcaption class="chart__foot">
+          <span class="built-from">Original chart. Both points are transcribed from
+          <code>docs/decisions/0006-audited-surface-operator-numerics.md:32&ndash;35</code>. The
+          96&sup3; marker carries no measured value because none was recorded &mdash; the ADR
+          states only that the trend was &ldquo;on course to fail&rdquo; there.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The ADR's phrasing and its own numbers sit slightly awkwardly together. Both measured
+        points are already above 1e&minus;6, so &ldquo;on course to fail &hellip; at 96&sup3;&rdquo;
+        reads as a statement about the trend rather than about the first crossing. The numbers are
+        quoted here as written. The direction is the finding.
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          The ADR itself limits how far these two numbers may be pushed. Under a heading
+          &ldquo;Evidence status for the numbers below&rdquo; it records that they are
+          &ldquo;explicitly <strong>historical audit findings</strong>, not accepted gate
+          results&rdquo;, that &ldquo;the ad-hoc round-3 probe scripts were not retained, so the
+          quoted probe measurements are not independently reproducible commands and must not be
+          promoted as such&rdquo;, and that what <em>is</em> reproducible is the regression test
+          that closes each one, in <code>solver-cpu/test/lk-solver.test.ts</code>
+          (<code>docs/decisions/0006-audited-surface-operator-numerics.md:25&ndash;30</code>). So:
+          the failure is documented, the fix is executable, and the original probe is not. That
+          distinction is stated by the project rather than discovered by a reader.
+        </p>
+      </aside>
+
+      <p>
+        Why does a bigger grid make it worse? A Jacobi sweep only smooths error locally, so error
+        drains out of the domain the way heat does &mdash; slowly, and more slowly the further it
+        has to travel. The specification quoted at the top of this chapter states the law:
+        <strong>relaxation counts scale like <code>(L/&Delta;x)&sup2;</code></strong>
+        (<code>docs/attachment-kinetics.md:202</code>). Widen the box and the sweeps needed to
+        reach the same real accuracy go up roughly as the square. Give every size the same budget,
+        then, and the largest grid buys the least real convergence.
+      </p>
+
+      <p>
+        The other half of the argument is the one not to take on trust, so here it is as a demo
+        rather than an assertion. Hold the sweep budget fixed, widen the domain, and watch the two
+        meters disagree: the residual goes quiet anyway, while the conservation check climbs past
+        99&nbsp;%. Nearly all the vapour the field claims to inject is unaccounted for at the
+        surface.
+      </p>
+
+      <figure class="anim" id="fig-convergence">
+        <div class="anim__head">
+          <p class="anim__title">Same budget, bigger box</p>
+          <p class="anim__sub">Every domain size gets the same number of sweeps. Only one of the
+            two meters notices what that costs.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive (shared site module
+          <code>assets/anim-convergence.js</code>). A live Gauss&ndash;Seidel relaxation of
+          Laplace's equation with an absorbing disc, re-creating the failure shape recorded in
+          <code>docs/decisions/0006-audited-surface-operator-numerics.md</code>. The absolute
+          numbers are this model's, not the project's.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        This is the worst shape a bug can have. It hides in the small, fast, cheap test runs and
+        only bites in the expensive ones &mdash; the ones whose results you were planning to
+        publish.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="second-gate">A second gate, made of bookkeeping</h2>
+
+      <p>
+        What check would have caught it?
+      </p>
+
+      <p>
+        Not a tighter tolerance. Tightening <code>relaxTol</code> makes the same test stricter; it
+        does not make it a different test. What was needed was a second question, asked of a
+        different quantity, with a physical reason behind it. Here is that reason, in one sentence:
+        <strong>in a steady state nothing accumulates in the middle, so whatever the boundary
+        injects must equal what the surface takes.</strong>
+      </p>
+
+      <p>
+        That is the <strong>divergence identity</strong>. It is not a smaller version of the
+        residual check &mdash; it is bookkeeping. It compares two totals that were computed
+        independently of each other, and demands they agree.
+      </p>
+
+      <p>
+        One thing to notice before you read it, because this chapter is partly about which rule
+        judged which evidence. As ADR 0006 wrote it the identity had <strong>two</strong> terms:
+        injection minus exchange. The form below has three. The third term was added four days
+        later by ADR 0013, and it applies to exactly one new policy,
+        <code>aggregate-hv-g1h1-v5</code>. Results that had already been run keep the rule they ran
+        under: &ldquo;<code>legacy-v3</code> and <code>aggregate-hv-g1h1-v4</code> retain the
+        original two-term identity and report no smoother-drift term. Phase 4's completed v4
+        artifacts and checkpoint meanings remain frozen&rdquo; (ADR 0013, Decision&nbsp;5).
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          divergenceResidual =
+          |&thinsp;shellInjection + smootherDrift &minus; surfaceExchange&thinsp;|
+          &nbsp;/&nbsp; max(|&thinsp;surfaceExchange&thinsp;|, 1e&minus;300)
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>shellInjection</dt><dd>the vapour pushed in across the outer wall, which is held at
+              a fixed supersaturation</dd>
+            <dt>surfaceExchange</dt><dd>the vapour the crystal's surface actually absorbed, summed
+              over the boundary cells</dd>
+            <dt>smootherDrift</dt><dd>a third term that is exactly zero in mathematics and not
+              quite zero in a computer &mdash; the next section is entirely about it</dd>
+            <dt>1e&minus;300</dt><dd>a floor on the divider, so that an exchange of almost nothing
+              cannot turn the fraction into infinity</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">Verbatim from <code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md</code>, Decision&nbsp;2; implemented at <code>solver-cpu/src/lk-solver.ts:1555&ndash;1562</code></p>
+      </div>
+
+      <p>
+        ADR 0006, the decision that introduced the identity, is blunt about what it means for the
+        word &ldquo;converged&rdquo;. Convergence became <em>dual</em>: a relaxation counts as converged
+        only when the residual is under <code>relaxTol</code> <strong>and</strong> the divergence
+        identity is under its own tolerance, <code>divTol</code>, default
+        10<sup>&minus;6</sup>. Both are run inputs, both are written into the checkpoint header,
+        and both are pinned by the gate protocols. ADR 0006 then closes the door:
+        <strong>&ldquo;A Dirichlet solve failing the identity is not converged, whatever its
+        residual says.&rdquo;</strong>
+      </p>
+
+      <p>
+        In the loop this is three lines, two of them a comment explaining why the other boundary
+        condition is exempt:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          <code>// Fixed-sigma Dirichlet requires BOTH criteria. Reflecting is diagnostic-only and
+          has<br>// no source against which a divergence identity could be stated.<br>if (residual
+          &lt; this.relaxTol &amp;&amp; divergenceSatisfied) break;</code>
+          <br><span class="figure__source">solver-cpu/src/lk-solver.ts, lines 1574&ndash;1576</span>
+        </p>
+      </blockquote>
+
+      <p>
+        Notice what that comment is doing. A reflecting wall bounces vapour back instead of
+        supplying it, so there is no injection term and the identity has nothing to say. The code
+        does not quietly skip the check in that mode; it states that the check is
+        <em>undefined</em> there and why. Skipping a test and having no test to skip are different
+        situations, and only one of them is honest to write down.
+      </p>
+
+      <figure class="anim" id="fig-gate">
+        <div class="anim__head">
+          <p class="anim__title">Turn off the second gate</p>
+          <p class="anim__sub">Three grid resolutions &mdash; 32, 48 and 96 cells across, mirroring
+            the sizes in the audit record &mdash; one sweep budget, and one switch. Turn the gate
+            off and every run reports CONVERGED while the imbalance column climbs. Turn it on and
+            the biggest run has to pay for the truth.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The dual stopping rule and the refusal to
+          advance are transcribed from <code>solver-cpu/src/lk-solver.ts:1574&ndash;1576</code> and
+          <code>:1612&ndash;1617</code>; the run is a live spherically-symmetric relaxation built
+          here, so its numbers are this model's, not the project's.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The last button in that demo is the part that matters most. Reporting
+        &ldquo;not converged&rdquo; would be worth very little if the program then carried on
+        growing the crystal anyway. It does not. The comment on <code>step()</code> says
+        &ldquo;growing on an unconverged field is a silent physics error&rdquo;, and the public
+        method refuses by name:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          <code>"advanceSurface requires exactly one accepted converged relaxField; an unconverged
+          field or unmatched call cannot advance (state=" + this.cycleState + ")"</code>
+          <br><span class="figure__source">solver-cpu/src/lk-solver.ts, lines 1614&ndash;1616</span>
+        </p>
+      </blockquote>
+
+      <p>
+        And there is a test whose name is the whole claim:
+        <code>it("an unconverged relaxation NEVER advances the surface &mdash; including via the
+        public interface", &hellip;)</code>. It builds a solver deliberately rigged to fail &mdash;
+        an impossible tolerance of 10<sup>&minus;30</sup> and a cap of two sweeps &mdash; and then
+        asserts that the attached-cell count did not move, that the tick did not move, that the
+        fill ledger is still zero, and finally that calling <code>advanceSurface()</code> directly
+        throws (<code>solver-cpu/test/lk-solver.test.ts:928&ndash;941</code>). The safeguard is
+        tested by being triggered.
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          Both gates together prove one thing only: that the field the program solved is the field
+          its own equations describe. That is a claim about arithmetic. Whether those equations
+          describe an actual snow crystal is a completely separate claim, decided by completely
+          separate evidence, and nothing in this chapter touches it. Keeping those two apart is the
+          entire reason this machinery is worth building.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="check-on-the-check">The check on the check</h2>
+
+      <p>
+        What happens when the safeguard itself turns out to be slightly wrong?
+      </p>
+
+      <p>
+        First, one fact about computer arithmetic, because the rest of this section turns on it. A
+        computer does not store a number exactly. It stores about sixteen significant digits and
+        rounds the rest away. The format this project uses is called <strong>float64</strong>
+        &mdash; sixty-four bits per number. Now look again at what a sweep does: replace every cell
+        by a weighted average of itself and its neighbours. On paper that only moves vapour around
+        and creates none, so the totals are untouched. In a computer, <em>each individual average
+        rounds its own result</em>, and those per-cell roundings do not cancel. The smoother is
+        conservative in real arithmetic and not conservative bit-for-bit.
+      </p>
+
+      <p>
+        It matters that this is a local effect and not a bookkeeping one, because it decides what
+        the fix can be. The project checked: &ldquo;Na&iuml;ve,
+        Neumaier-compensated, and exact binary-rational sums agree on every value. This is not a
+        global-summation defect. It is local IEEE-754 rounding in a mathematically conservative
+        split stencil&rdquo;
+        (<code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md:31&ndash;33</code>).
+        Adding the totals up more carefully is listed among the alternatives and rejected in one
+        clause &mdash; &ldquo;Rejected by evidence: na&iuml;ve, compensated, and exact sums
+        reproduce the same mismatch&rdquo; (same file). A more careful sum returns the same number,
+        because the number was never a summation error.
+      </p>
+
+      <p>
+        This is the run chapter 21 ended on: protocol v4's cold job, stopped while attempting
+        growth step 12 with a residual of exactly zero and a divergence ratio of
+        3.097032516200489&times;10<sup>&minus;7</sup> against a registered <code>divTol</code> of
+        10<sup>&minus;7</sup>. Nothing was moving, and the books still did not balance. Under the
+        dual rule that is not converged, so the run stopped, which is exactly what it should have
+        done. What chapter 21 did not show is the measurement that explained it.
+      </p>
+
+      <p>
+        Rather than loosening the tolerance, a separate program &mdash;
+        <code>scripts/diagnose-gate2b-v4.ts</code> &mdash; decoded the saved checkpoint and rebuilt
+        the diffusion stencil <em>outside</em> the solver. One reconstructed sweep measured 643,055
+        active cells, a shell injection of 3.679402302324622&times;10<sup>&minus;7</sup>, a boundary
+        exchange of 3.679401162802118&times;10<sup>&minus;7</sup>, and a difference between them of
+        1.1395225041344048&times;10<sup>&minus;13</sup>. Then it measured one more thing, which is
+        the whole point: the signed change the smoothing step itself had created, before any
+        boundary values were substituted in. That number came out as
+        &minus;1.1395225041344048&times;10<sup>&minus;13</sup> &mdash; the same digits, opposite
+        sign (<code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md:20&ndash;29</code>).
+      </p>
+
+      <p>
+        So about 10<sup>&minus;13</sup> of vapour was neither injected at the wall nor absorbed at
+        the surface. It was created and destroyed by the rounding of the averaging itself, and the
+        two-term identity had no place to put it. When the crystal is growing very slowly, as it is
+        in the cold, that harmless absolute crumb is divided by a very small exchange and comes out
+        as a relative error above tolerance. The identity was not detecting a physics problem. It
+        was detecting itself.
+      </p>
+
+      <p>
+        The drift therefore became a third term in the identity, with two rules attached. First, it must
+        be <strong>metered</strong> &mdash; measured directly from the two field states in the same
+        sweep. It may not be worked out from the other numbers, because
+        &ldquo;such an inferred correction would make the identity tautological&rdquo;
+        (ADR 0013, Decision&nbsp;3); the rejected alternative spells out the damage: inferring
+        drift as exchange minus injection &ldquo;would force every reported divergence to zero by
+        construction and destroy the guard.&rdquo;
+      </p>
+
+      <p>
+        Second &mdash; and this is where the project checks its own check &mdash; the first
+        implementation of Decision 0013 required the drift to be <em>finite</em> but did not bound
+        its magnitude, and an adversarial review worked out what that permits. A report claiming a
+        shell injection of 1, a
+        surface exchange of 10<sup>&minus;6</sup>, and a drift of &minus;0.999999 would satisfy the
+        corrected identity. Any real loss could be relabelled &ldquo;roundoff&rdquo; and
+        cancelled by the new term
+        (<code>docs/decisions/0014-bound-float64-smoother-drift.md:11&ndash;15</code>). ADR 0014's
+        answer is a bound derived from the arithmetic itself &mdash; a conservative allowance of
+        1024 rounded operations per active cell &mdash; and a rule that the solver
+        &ldquo;must reject a non-finite drift or any <code>abs(smootherDrift) &gt;
+        smootherDriftAbsLimit</code>; such a sweep is not convergence evidence.&rdquo; Try it below.
+      </p>
+
+      <figure class="anim" id="fig-drift">
+        <div class="anim__head">
+          <p class="anim__title">Forge the drift</p>
+          <p class="anim__sub">Two real reports and one dial. Find a drift that makes the identity
+            balance &mdash; then find out that balancing the identity is not enough.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Every number in the &ldquo;registered cold
+          checkpoint&rdquo; scenario is transcribed from
+          <code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md:20&ndash;29</code>;
+          the forged scenario is the exploit described at
+          <code>docs/decisions/0014-bound-float64-smoother-drift.md:11&ndash;15</code>; the bound is
+          computed live with the formula in that ADR's Decision&nbsp;1, implemented at
+          <code>solver-cpu/src/lk-solver.ts:197&ndash;225</code>.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        That makes three separate things a v5 sweep has to satisfy, and ADR 0014 names the two new
+        ones exactly rather than lumping them together: &ldquo;Both the three-term divergence
+        tolerance and this absolute roundoff bound are load-bearing. Passing one does not excuse
+        failing the other&rdquo; (Decision&nbsp;4). And ADR 0006 forecloses the retreat, listing
+        residual-only convergence among the &ldquo;simplifications&rdquo; that may not return
+        &ldquo;without overturning <em>measured</em> audit findings &mdash; that requires its own
+        ADR citing new evidence.&rdquo;
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          Every review named in this chapter &mdash; the round-3 audit that found the residual
+          lying, the adversarial review that found the forgeable drift term &mdash; was a large
+          language model reviewing a large language model's work. So was the two-reviewer process
+          that checked this page. The project records that as a disclosed limitation rather than a
+          substitute: &ldquo;All reviews to date, internal and external-facing, are LLM reviews; for
+          publication that is a disclosed limitation, not a substitute&rdquo;
+          (<code>docs/stretch-sharing-and-investigation.md</code>, &sect;4 item 3). The same item
+          requires that at least one human domain scientist read any manuscript before submission.
+          That has not happened yet. The findings above are reproducible by anyone who runs the
+          tests; the <em>judgement</em> that they were the right things to look for has not yet been
+          checked by someone qualified to check it.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="invalid-there">Invalid <em>there</em> &mdash; and saying so</h2>
+
+      <p>
+        The whole quasi-static idea rests on an assumption: that the vapour settles far faster than
+        the surface moves. What if, somewhere in the parameter space, it does not?
+      </p>
+
+      <p>
+        Then the model is wrong in that place, and the project's job is to say so. Section 4.3
+        keeps a test for exactly this. Settling takes a time of about L&sup2;/D; growing takes a
+        time of about L/v<sub>n</sub>; divide one by the other and you get a single number that has
+        to be small.
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          v<sub>n</sub>&thinsp;&middot;&thinsp;L&nbsp;/&nbsp;D &nbsp;&#8810;&nbsp; 1
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>L</dt><dd>the size of the crystal, in metres &mdash; how far vapour has to travel
+              to matter</dd>
+            <dt>D</dt><dd>the diffusion coefficient of water vapour in air at this pressure, in
+              square metres per second: roughly, how much ground vapour covers in a second
+              (<code>core/src/libbrecht.ts:59&ndash;62</code>)</dd>
+            <dt>v<sub>n</sub></dt><dd>the speed at which the ice surface advances along its own
+              normal, in metres per second</dd>
+            <dt>&#8810;</dt><dd>&ldquo;much less than&rdquo;. The Phase&nbsp;4 gate makes that
+              concrete and demands below 10<sup>&minus;2</sup></dd>
+          </dl>
+        </div>
+        <p class="equation__cite"><code>docs/attachment-kinetics.md</code>, lines 234&ndash;240 (&sect;4.3, &ldquo;Quasi-static validity check&rdquo;), which states it verbatim as: &ldquo;Relaxation <code>~L&sup2;/D</code> against growth <code>~L/v_n</code> gives the P&eacute;clet-like condition <code>v_n&middot;L/D &#8810; 1</code>.&rdquo; Implemented as <code>pecletUpperBound</code>, <code>core/src/libbrecht.ts:146&ndash;157</code></p>
+      </div>
+
+      <p>
+        In plain English: the crystal's own size, divided by the area vapour covers in a second,
+        times how fast the ice front moves. If that comes out large, the vapour has not finished
+        settling before the surface moves again, and the whole quasi-static picture stops being a
+        description of anything. What the specification does with such a failure is the point:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;where it fails, the quasi-static model is invalid <em>there</em>, and that is a
+          finding to report, not a nuisance to tune away.&rdquo;
+          <br><span class="figure__source">docs/attachment-kinetics.md, lines 234&ndash;240</span>
+        </p>
+      </blockquote>
+
+      <p>
+        In code this is <code>pecletUpperBound(tempC, sigmaInfinity, lengthM, pressurePa)</code>, a
+        deliberately pessimistic version that assumes every arriving molecule sticks
+        (<code>core/src/libbrecht.ts:146&ndash;157</code>). The Phase&nbsp;4 gate then evaluates it
+        over every environment a run visits and passes only if &ldquo;every registered conservative
+        Peclet bound is finite and below 1e-2&rdquo; (<code>runner/src/gate4b.ts:3124</code>). A
+        run that fails does not get quietly re-tuned until it passes. It gets named in the failure
+        list.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="graded-severity">Errors, warnings, and a rule that would reject its own source</h2>
+
+      <p>
+        One last question, and it is about taste rather than arithmetic: when a check fails, how
+        loudly should the program complain?
+      </p>
+
+      <p>
+        Before the example, a switch to flag: it is not in the solver you have been reading about.
+        Everything so far &mdash; the dual gate, the drift
+        bound, the P&eacute;clet check &mdash; belongs to <code>LibbrechtKinetics</code>, the
+        physics rule. What follows belongs to <code>GGThreshold</code>: the borrowed
+        Gravner&ndash;Griffeath machinery rule from chapter 18, validated in a different file and
+        enforced by a different solver. The repository is explicit that the two do not share
+        guardrails &mdash; &ldquo;These constrain <code>GGThreshold</code>.
+        <code>LibbrechtKinetics</code> does not inherit them; its separate fill-CFL and P&eacute;clet
+        checks are specified in attachment-kinetics.md &sect;4.3&ndash;&sect;4.4&rdquo;
+        (<code>docs/gg-machinery.md:355&ndash;357</code>). So in this section, &ldquo;the source
+        paper&rdquo; means Gravner and Griffeath's, and &rho;, &kappa;, &mu; and &beta; are not
+        knobs on the vapour field you just watched converge.
+      </p>
+
+      <p>
+        Not every failed check deserves the same answer, and that validator &mdash;
+        <code>core/src/params.ts</code> &mdash; is the clearest case of it here. Past the plain
+        range checks it runs three more, and grades them differently. Two are hard errors. The
+        <strong>Packard regime</strong> is runaway: the crystal expands as fast as information can
+        travel across the grid, which is an artefact of discrete averaging rather than physics.
+        <strong>Growth stall</strong> is the opposite: melting drains the surface faster than
+        freezing fills it, and nothing ever attaches. Either one and the solver refuses to
+        construct at all &mdash; <code>throw new Error(`invalid GG parameters: &hellip;`)</code>
+        (<code>solver-cpu/src/gg-solver.ts:240&ndash;243</code>).
+      </p>
+
+      <p>
+        The third check needs one piece of vocabulary first. <code>GGThreshold</code> does not carry
+        a single attachment threshold; it carries one for each way a cell can be surrounded. A
+        <strong>slot</strong> is written (n<sub>T</sub>,&nbsp;n<sub>Z</sub>): how many neighbours
+        the cell already has in its own plane, capped at three, and how many above or below, capped
+        at one. Four choices times two is eight, minus the case where the cell has no attached
+        neighbours at all &mdash; which is not a boundary site and never gets asked &mdash; so
+        seven: &ldquo;excluding <code>(0,0)</code> &mdash; that's <code>4&middot;2 &minus; 1 = 7</code>
+        slots&rdquo; (<code>docs/gg-machinery.md:113</code>). The arrays are still eight long, and
+        the missing slot is not left empty &mdash; it is &ldquo;poisoned with NaN so accidental
+        reads are loud&rdquo; (<code>core/src/params.ts:4&ndash;5</code>). <strong>&beta;</strong>
+        is the threshold
+        at that slot, the boundary mass a cell needs before it joins the crystal;
+        <strong>&rho;</strong> is the vapour supply, <strong>&kappa;</strong> the fraction of vapour
+        that stays vapour at a boundary site, and <strong>&mu;</strong> the melting rate that hands
+        mass back (<code>core/src/params.ts:10&ndash;20</code>).
+      </p>
+
+      <p>
+        The third check is <strong>monotonicity</strong>: the source paper assumes that a more
+        enclosed corner should always attach at least as readily as a more exposed one, so each
+        parameter should decrease as neighbours are added &mdash; one step at a time, either
+        &ldquo;+1 in n<sub>T</sub> at fixed n<sub>Z</sub>&rdquo; or &ldquo;+1 in n<sub>Z</sub> at
+        fixed n<sub>T</sub>&rdquo; (<code>core/src/params.ts:157</code> and <code>:163</code>).
+        That is a perfectly reasonable assumption. It is also violated by the paper's own published
+        hollow-column preset &mdash; &ldquo;twice, both into slot (3,1)&rdquo;, because
+        &beta;<sub>31</sub> = 1 while both of its less-enclosed neighbours,
+        &beta;<sub>30</sub> and &beta;<sub>21</sub>, are 0.5
+        (<code>core/src/params.ts:144&ndash;146</code>;
+        <code>docs/gg-machinery.md:385&ndash;393</code>). The comment in <code>params.ts</code>
+        says what to do about that in one clause &mdash; &ldquo;a hard error would reject published
+        parameters&rdquo; &mdash; and <code>docs/gg-machinery.md:391&ndash;393</code> makes it an
+        instruction: <strong>&ldquo;Warn; do not reject.&rdquo;</strong>
+      </p>
+
+      <figure class="anim" id="fig-validator">
+        <div class="anim__head">
+          <p class="anim__title">Break the validator</p>
+          <p class="anim__sub">Drive the parameters into the runaway regime and the solver will not
+            build. Trip monotonicity and it builds anyway, with a warning. Load the published
+            hollow column to see why.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The three checks, their severities and
+          their message wording are transcribed from <code>core/src/params.ts:143&ndash;231</code>;
+          the two presets are the published parameter sets at
+          <code>core/src/params.ts:80&ndash;141</code>; the construction refusal is
+          <code>solver-cpu/src/gg-solver.ts:240&ndash;243</code>.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        A validator strict enough to reject its own source material is not strict, it is useless
+        &mdash; because the first thing anyone does with it is switch it off, and then the two
+        checks that <em>were</em> right go off with it. Severity is a design decision, and this
+        project writes down which of its rules it is prepared to be overruled on.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          A tighter tolerance makes the same test harder to pass. A second, independent test asks a
+          question the first one could not ask at all. When a check is failing to catch things, the
+          useful move is almost never to turn the dial &mdash; it is to find a quantity the bug
+          cannot fake.
+        </p>
+      </aside>
+
+      <p class="handoff">
+        Both gates now agree, the identity closes inside its registered tolerance, and the field is
+        as converged as the machine can make it. It is still a field solved inside a box, and the
+        wall of that box is a number somebody chose. The next chapter is about how you find out
+        whether that choice mattered: vary something that should not matter, and see exactly which
+        answers move &mdash; and which do not.
+      </p>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./21-the-seam.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">The Seam</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./23-walls-that-pretend-to-be-sky.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">Walls That Pretend to Be Sky</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Part Two describes a software project; every figure in it is original,
+      and every quoted line names the repository file it came from.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script src="../assets/anim-convergence.js"></script>
+
+<script>
+/* ==========================================================================
+   Figure 1 — Two clocks, one timeline
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("fig-two-clocks");
+  if (!root || typeof Viz === "undefined") return;
+  const body = root.querySelector(".anim__body");
+
+  const W = 620, H = 236;
+  const T0 = 300, T1 = 596;       // timeline extent
+  const PERIOD = 8;               // seconds per loop
+  const BLOCKS = 4;
+  const SLOT = PERIOD / BLOCKS;   // 2 s per growth step
+  const RELAX = SLOT * 0.86;      // relaxation occupies most of the slot
+
+  let svg = null, vaporHand = null, iceHand = null, playhead = null,
+      readout = null, phase = null;
+
+  function dial(parent, cx, cy, r, label, c) {
+    parent.appendChild(Viz.svgEl("circle", {
+      cx: cx, cy: cy, r: r, fill: c.sunken, stroke: c.ruleStrong, "stroke-width": 1.5,
+    }));
+    for (let i = 0; i < 12; i++) {
+      const a = (Math.PI / 6) * i;
+      parent.appendChild(Viz.svgEl("line", {
+        x1: cx + Math.cos(a) * (r - 6), y1: cy + Math.sin(a) * (r - 6),
+        x2: cx + Math.cos(a) * (r - 2), y2: cy + Math.sin(a) * (r - 2),
+        stroke: c.muted, "stroke-width": 1,
+      }));
+    }
+    const hand = Viz.svgEl("line", {
+      x1: cx, y1: cy, x2: cx, y2: cy - (r - 10),
+      stroke: c.ink, "stroke-width": 2.6, "stroke-linecap": "round",
+    });
+    parent.appendChild(hand);
+    parent.appendChild(Viz.svgEl("circle", { cx: cx, cy: cy, r: 3, fill: c.ink }));
+    const t = Viz.svgEl("text", {
+      class: "series-label", x: cx, y: cy + r + 20, "text-anchor": "middle", fill: c.inkSecondary,
+    });
+    t.textContent = label;
+    parent.appendChild(t);
+    return { hand: hand, cx: cx, cy: cy };
+  }
+
+  function build() {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+    svg = Viz.createSvg(body, W, H, {
+      label: "A fast vapour clock beside a slow ice clock, and a timeline of relaxation blocks " +
+             "separated by single growth steps.",
+      desc: "The vapour hand turns many times for each small movement of the ice hand.",
+    });
+
+    const v = dial(svg, 78, 96, 46, "vapour field", c);
+    const i = dial(svg, 196, 96, 46, "ice surface", c);
+    vaporHand = v.hand; iceHand = i.hand;
+
+    const bracket = Viz.svgEl("path", {
+      d: "M46 176 L46 184 L228 184 L228 176", fill: "none",
+      stroke: c.rule, "stroke-width": 1.4,
+    });
+    svg.appendChild(bracket);
+    const bl = Viz.svgEl("text", {
+      class: "annotation", x: 137, y: 202, "text-anchor": "middle", fill: c.inkSecondary,
+    });
+    bl.textContent = "one hand finishes while the other barely moves";
+    svg.appendChild(bl);
+
+    // timeline
+    const yTop = 74, yBot = 118;
+    for (let b = 0; b < BLOCKS; b++) {
+      const x0 = T0 + ((T1 - T0) * (b * SLOT)) / PERIOD;
+      const x1 = T0 + ((T1 - T0) * (b * SLOT + RELAX)) / PERIOD;
+      svg.appendChild(Viz.svgEl("rect", {
+        x: x0, y: yTop, width: x1 - x0, height: yBot - yTop, rx: 3,
+        fill: c.seq[1], "fill-opacity": 0.55, stroke: c.series[0], "stroke-width": 1,
+      }));
+      const gx = T0 + ((T1 - T0) * (b * SLOT + RELAX + 0.06)) / PERIOD;
+      svg.appendChild(Viz.svgEl("line", {
+        x1: gx, y1: yTop - 8, x2: gx, y2: yBot + 8,
+        stroke: c.series[1], "stroke-width": 2.4,
+      }));
+    }
+    const lab1 = Viz.svgEl("text", {
+      class: "series-label", x: T0, y: yTop - 16, fill: c.series[0],
+    });
+    lab1.textContent = "relax the vapour to steady state";
+    svg.appendChild(lab1);
+    const lab2 = Viz.svgEl("text", {
+      class: "series-label", x: T1, y: yBot + 30, fill: c.series[1], "text-anchor": "end",
+    });
+    lab2.textContent = "advance the surface (once)";
+    svg.appendChild(lab2);
+
+    playhead = Viz.svgEl("line", {
+      x1: T0, y1: yTop - 12, x2: T0, y2: yBot + 12,
+      stroke: c.ink, "stroke-width": 1.4, "stroke-dasharray": "3 3",
+    });
+    svg.appendChild(playhead);
+
+    readout = Viz.svgEl("text", {
+      x: T0, y: 176, fill: c.inkSecondary, "font-size": 13, "font-weight": 640,
+      "font-family": "var(--font-mono)",
+    });
+    svg.appendChild(readout);
+    phase = Viz.svgEl("text", {
+      class: "annotation", x: T0, y: 196, fill: c.muted,
+    });
+    svg.appendChild(phase);
+  }
+
+  function frame(t) {
+    if (!svg) return;
+    const cycle = t % PERIOD;
+    const b = Math.min(BLOCKS - 1, Math.floor(cycle / SLOT));
+    const within = cycle - b * SLOT;
+    const growing = within > RELAX;
+
+    vaporHand.setAttribute("transform",
+      "rotate(" + ((t * 150) % 360).toFixed(1) + " " + 78 + " " + 96 + ")");
+    iceHand.setAttribute("transform",
+      "rotate(" + ((t * 6.25) % 360).toFixed(1) + " " + 196 + " " + 96 + ")");
+
+    const x = T0 + ((T1 - T0) * cycle) / PERIOD;
+    playhead.setAttribute("x1", x.toFixed(1));
+    playhead.setAttribute("x2", x.toFixed(1));
+
+    const sweeps = growing ? 4200 : Math.round((within / RELAX) * 4200);
+    readout.textContent = "sweeps this growth step: " + sweeps;
+    phase.textContent = growing
+      ? "field accepted — surface advances by less than one cell"
+      : "field still moving — the surface is not allowed to move";
+  }
+
+  build();
+  const anim = Viz.animate(root, frame, { staticAt: 1.2, stepBy: 0.4 });
+  Viz.onThemeChange(function () { build(); frame(anim.time); });
+})();
+</script>
+
+<script>
+/* ==========================================================================
+   A small spherically-symmetric relaxation, shared by figures 2 and 5.
+
+   Steady diffusion around an absorbing sphere: the field is relaxed by Jacobi
+   sweeps between a Dirichlet outer shell held at sigma-infinity and a surface
+   condition of the form used by the project's aggregate boundary rule,
+   sigma_b = sigma_opp / (1 + k).  Two numbers come out of every sweep:
+
+     residual   = max |change| over the sweep, divided by sigma-infinity
+                  (solver-cpu/src/lk-solver.ts:1528)
+     divergence = |injection - absorption| / |absorption|
+                  (the two-term identity of decision 0006)
+
+   This is a teaching model of the STOPPING RULE, not the project's 3-D solver.
+   ======================================================================== */
+(function () {
+  "use strict";
+  const R = 1, RFAR = 8, SINF = 1, K = 0.8;
+
+  function solveRadial(n, tol, cap, requireDiv, divTol) {
+    const h = (RFAR - R) / n;
+    const rAt = function (i) { return R + i * h; };
+    const am = new Float64Array(n + 1), ap = new Float64Array(n + 1);
+    for (let i = 1; i < n; i++) {
+      const a = (rAt(i) + rAt(i - 1)) / 2, b = (rAt(i) + rAt(i + 1)) / 2;
+      am[i] = a * a; ap[i] = b * b;
+    }
+    const aIn = Math.pow((rAt(1) + rAt(0)) / 2, 2);
+    const aOut = Math.pow((rAt(n) + rAt(n - 1)) / 2, 2);
+    let src = new Float64Array(n + 1).fill(SINF);
+    let dst = new Float64Array(n + 1);
+    src[0] = src[1] / (1 + K);
+    let sweeps = 0, residual = Infinity, divergence = Infinity;
+    while (sweeps < cap) {
+      let maxAbs = 0;
+      for (let i = 1; i < n; i++) {
+        const v = (am[i] * src[i - 1] + ap[i] * src[i + 1]) / (am[i] + ap[i]);
+        const d = Math.abs(v - src[i]);
+        if (d > maxAbs) maxAbs = d;
+        dst[i] = v;
+      }
+      dst[n] = SINF;
+      dst[0] = dst[1] / (1 + K);
+      const swap = src; src = dst; dst = swap;
+      sweeps++;
+      residual = maxAbs / SINF;
+      const injection = (aOut * (src[n] - src[n - 1])) / h;
+      const absorbed = (aIn * (src[1] - src[0])) / h;
+      divergence = Math.abs(injection - absorbed) / Math.max(Math.abs(absorbed), 1e-300);
+      if (residual < tol && (!requireDiv || divergence < divTol)) break;
+    }
+    return {
+      n: n, sweeps: sweeps, residual: residual, divergence: divergence,
+      converged: residual < tol && (!requireDiv || divergence < divTol),
+      field: src, rAt: rAt,
+    };
+  }
+
+  window.__radialSolve = solveRadial;
+
+  /* ---------------------------------------------------- figure 2: dial -- */
+  (function () {
+    const root = document.getElementById("fig-tolerance");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const bar = root.querySelector(".anim__controls");
+
+    const N = 64;
+    const REF = solveRadial(N, 1e-13, 400000, false, 0);
+    let exponent = 3;
+    let run = null, svg = null;
+
+    const panel = document.createElement("div");
+    panel.style.margin = "0.75rem auto 0";
+    panel.style.maxWidth = "560px";
+    panel.style.fontFamily = "var(--font-mono)";
+    panel.style.fontSize = "0.86rem";
+    panel.style.lineHeight = "1.7";
+
+    function draw() {
+      if (svg) svg.remove();
+      const c = Viz.colors();
+      const W = 560, H = 280;
+      svg = Viz.createSvg(body, W, H, {
+        label: "Supersaturation plotted against distance from the crystal surface, showing the " +
+               "field the solver accepted against the fully converged field.",
+      });
+      // keep the SVG first inside the body, panel second
+      body.insertBefore(svg, body.firstChild);
+
+      const xs = Viz.scaleLinear([R, RFAR], [58, W - 26]);
+      const ys = Viz.scaleLinear([0, 1.08], [H - 44, 18]);
+
+      Viz.axisLeft(svg, ys, {
+        x: 58, values: [0, 0.25, 0.5, 0.75, 1], grid: true, gridTo: W - 26,
+        title: "supersaturation / far-field value", titleOffset: 40,
+        format: function (v) { return v.toFixed(2); },
+      });
+      Viz.axisBottom(svg, xs, {
+        y: H - 44, values: [1, 2, 4, 6, 8],
+        title: "distance from the centre, in crystal radii",
+        format: function (v) { return String(v); },
+      });
+
+      const refPts = [], runPts = [];
+      for (let i = 0; i <= N; i++) {
+        refPts.push([REF.rAt(i), REF.field[i]]);
+        runPts.push([run.rAt(i), run.field[i]]);
+      }
+      Viz.series(svg, refPts, xs, ys, {
+        color: c.series[0], label: "the true steady field",
+        labelAt: refPts[Math.round(N * 0.55)], labelDy: 18, labelAnchor: "middle",
+      });
+      Viz.series(svg, runPts, xs, ys, {
+        color: c.series[1], dashed: true, label: "what the solver accepted",
+        labelAt: runPts[Math.round(N * 0.28)], labelDy: -12, labelAnchor: "middle",
+      });
+
+      const s = Viz.svgEl("text", { class: "annotation", x: 62, y: H - 54, fill: c.muted });
+      s.textContent = "crystal surface";
+      svg.appendChild(s);
+    }
+
+    function panelHtml() {
+      let maxErr = 0;
+      for (let i = 0; i <= N; i++) {
+        maxErr = Math.max(maxErr, Math.abs(run.field[i] - REF.field[i]));
+      }
+      const surfErr = Math.abs(run.field[0] - REF.field[0]) / REF.field[0];
+      panel.innerHTML =
+        '<div style="color:var(--status-good);font-weight:700;letter-spacing:0.04em">' +
+        'THE SOLVER REPORTS: CONVERGED</div>' +
+        '<div>sweeps used &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + run.sweeps + "</div>" +
+        "<div>residual &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+        run.residual.toExponential(2) + " &lt; tolerance</div>" +
+        '<div style="color:' + (maxErr > 1e-3 ? "var(--status-critical)" : "var(--ink-secondary)") +
+        '">worst error vs truth &nbsp;' + maxErr.toExponential(2) + "</div>" +
+        '<div style="color:' + (surfErr > 1e-3 ? "var(--status-critical)" : "var(--ink-secondary)") +
+        '">surface value is off by ' + (100 * surfErr).toFixed(2) + "%</div>";
+    }
+
+    function recompute() {
+      run = solveRadial(N, Math.pow(10, -exponent), 400000, false, 0);
+      draw();
+      panelHtml();
+    }
+
+    body.appendChild(panel);
+    Viz.slider(bar, {
+      label: "Convergence tolerance", id: "tol-dial",
+      min: 3, max: 9, step: 1, value: exponent,
+      format: function (v) { return "1e-" + v; },
+      onInput: function (v) { exponent = v; recompute(); },
+    });
+    const note = document.createElement("span");
+    note.className = "control";
+    note.style.color = "var(--ink-muted)";
+    note.textContent = "The project's registered default is 1e-9.";
+    bar.appendChild(note);
+
+    recompute();
+    Viz.onThemeChange(function () { draw(); });
+  })();
+
+  /* ------------------------------------------- figure 5: the two gates -- */
+  (function () {
+    const root = document.getElementById("fig-gate");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const bar = root.querySelector(".anim__controls");
+
+    const SIZES = [32, 48, 96];
+    const TOL = 1e-6, DIVTOL = 1e-3;
+    const BUDGETS = [2000, 5000, 10000, 20000];
+    let gateOn = false, budget = 10000, results = [];
+
+    const table = document.createElement("div");
+    table.style.maxWidth = "600px";
+    table.style.margin = "0 auto";
+    table.style.fontFamily = "var(--font-mono)";
+    table.style.fontSize = "0.82rem";
+    body.appendChild(table);
+
+    const status = document.createElement("p");
+    status.setAttribute("role", "status");
+    status.style.maxWidth = "600px";
+    status.style.margin = "0.9rem auto 0";
+    status.style.fontFamily = "var(--font-mono)";
+    status.style.fontSize = "0.8rem";
+    status.style.lineHeight = "1.6";
+    body.appendChild(status);
+
+    function cell(text, color, weight, width) {
+      return '<span style="display:inline-block;width:' + width + ";color:" + color +
+        ";font-weight:" + weight + '">' + text + "</span>";
+    }
+
+    function render() {
+      const head =
+        '<div style="border-bottom:1px solid var(--rule-strong);padding-bottom:0.3rem;' +
+        'margin-bottom:0.35rem;color:var(--ink-muted)">' +
+        cell("cells", "inherit", 500, "20%") +
+        cell("sweeps", "inherit", 500, "20%") +
+        cell("residual", "inherit", 500, "22%") +
+        cell("imbalance", "inherit", 500, "20%") +
+        cell("verdict", "inherit", 500, "18%") +
+        "</div>";
+      let rows = "";
+      results.forEach(function (r) {
+        const good = "var(--status-good)", bad = "var(--status-critical)";
+        rows +=
+          '<div style="padding:0.22rem 0">' +
+          cell(String(r.n), "var(--ink-primary)", 600, "20%") +
+          cell(String(r.sweeps), "var(--ink-secondary)", 400, "20%") +
+          cell(r.residual.toExponential(1), "var(--ink-secondary)", 400, "22%") +
+          cell((100 * r.divergence).toFixed(2) + "%",
+               r.divergence < DIVTOL ? "var(--ink-secondary)" : bad, 600, "20%") +
+          cell(r.converged ? "CONVERGED" : "NOT CONV.", r.converged ? good : bad, 700, "18%") +
+          "</div>";
+      });
+      table.innerHTML = head + rows;
+    }
+
+    function recompute() {
+      results = SIZES.map(function (n) {
+        return solveRadial(n, TOL, budget, gateOn, DIVTOL);
+      });
+      render();
+      const allConverged = results.every(function (r) { return r.converged; });
+      let text;
+      if (!gateOn && allConverged) {
+        text = '<span style="color:var(--status-critical)">Residual only. All three report ' +
+          "CONVERGED &mdash; and the imbalance column grows down the table, from " +
+          (100 * results[0].divergence).toFixed(2) + "% to " +
+          (100 * results[2].divergence).toFixed(2) + "%. That is the shape of the failure " +
+          "ADR 0006 recorded.</span>";
+      } else if (!gateOn) {
+        text = '<span style="color:var(--ink-secondary)">Residual only &mdash; but at this budget ' +
+          "the residual itself has not settled on the larger grids, so they say so. Raise the " +
+          "budget until all three go green, then read the imbalance column.</span>";
+      } else if (allConverged) {
+        text = '<span style="color:var(--status-good)">Both criteria required. Every run that ' +
+          "calls itself converged now balances its books to better than 0.10% &mdash; and the " +
+          "largest grid spent " + (results[2].sweeps - results[1].sweeps) +
+          " more sweeps than the middle one to earn it.</span>";
+      } else {
+        text = '<span style="color:var(--status-critical)">Both criteria required. The largest ' +
+          "grid cannot satisfy the identity inside this sweep budget, so it reports NOT CONVERGED " +
+          "rather than guessing. Raise the budget &mdash; or accept the honest answer.</span>";
+      }
+      status.innerHTML = text;
+    }
+
+    Viz.button(bar, "Require the divergence identity", function (b) {
+      gateOn = !gateOn;
+      b.setAttribute("aria-pressed", String(gateOn));
+      b.textContent = gateOn
+        ? "Divergence identity: REQUIRED"
+        : "Require the divergence identity";
+      recompute();
+    }, { pressed: false });
+
+    Viz.slider(bar, {
+      label: "Sweep budget", id: "gate-budget",
+      min: 0, max: 3, step: 1, value: 2,
+      format: function (v) { return String(BUDGETS[v]); },
+      onInput: function (v) { budget = BUDGETS[v]; recompute(); },
+    });
+
+    Viz.button(bar, "Advance the surface (largest grid)", function () {
+      const big = results[results.length - 1];
+      if (big.converged) {
+        status.innerHTML =
+          '<span style="color:var(--status-good)">surface advanced &mdash; one growth step, on a ' +
+          "field that satisfied " + (gateOn ? "both criteria" : "the residual criterion alone") +
+          ".</span>" +
+          (gateOn ? "" :
+            '<br><span style="color:var(--status-critical)">…and the crystal has just been grown ' +
+            "on a field whose books are out by " + (100 * big.divergence).toFixed(2) +
+            "%. Nothing in the program noticed.</span>");
+      } else {
+        status.innerHTML =
+          '<span style="color:var(--status-critical)">Error: advanceSurface requires exactly one ' +
+          "accepted converged relaxField; an unconverged field or unmatched call cannot advance " +
+          "(state=incomplete)</span>" +
+          '<br><span style="color:var(--ink-muted)">— solver-cpu/src/lk-solver.ts:1614–1616. ' +
+          "The crystal did not move.</span>";
+      }
+    });
+
+    recompute();
+  })();
+})();
+</script>
+
+<script>
+/* ==========================================================================
+   Figure 4 — the two measured audit points
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("fig-audit");
+  if (!root || typeof Viz === "undefined") return;
+  const body = root.querySelector(".chart__body");
+
+  const MEASURED = [[32, 2.46e-6], [48, 8.85e-6]];
+  const CRITERION = 1e-6;
+  let svg = null;
+
+  function draw() {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+    const W = 560, H = 300;
+    svg = Viz.createSvg(body, W, H, {
+      label: "Imbalance against grid size: two measured points rising from 2.46e-6 at 32 cubed " +
+             "to 8.85e-6 at 48 cubed, above a criterion line at 1e-6.",
+    });
+
+    const xs = Viz.scaleLinear([24, 104], [64, W - 30]);
+    const ys = Viz.scaleLog([3e-7, 3e-5], [H - 50, 24]);
+
+    Viz.axisLeft(svg, ys, {
+      x: 64, values: [1e-6, 1e-5], grid: true, gridTo: W - 30,
+      title: "shell-vs-sink imbalance", titleOffset: 44,
+      format: function (v) { return "1e" + Math.round(Math.log10(v)); },
+    });
+    Viz.axisBottom(svg, xs, {
+      y: H - 50, values: [32, 48, 96],
+      title: "grid size (cells per side)",
+      format: function (v) { return String(v) + "³"; },
+    });
+
+    // criterion line
+    svg.appendChild(Viz.svgEl("line", {
+      x1: 64, x2: W - 30, y1: ys(CRITERION), y2: ys(CRITERION),
+      stroke: c.critical, "stroke-width": 1.8, "stroke-dasharray": "6 4",
+    }));
+    const cl = Viz.svgEl("text", {
+      class: "series-label", x: 70, y: ys(CRITERION) + 18, fill: c.critical,
+    });
+    cl.textContent = "gate criterion < 1e-6";
+    svg.appendChild(cl);
+
+    // measured points
+    Viz.series(svg, MEASURED, xs, ys, { color: c.series[0], width: 2.4 });
+    MEASURED.forEach(function (p) {
+      svg.appendChild(Viz.svgEl("circle", {
+        cx: xs(p[0]), cy: ys(p[1]), r: 5, fill: c.series[0],
+      }));
+      const t = Viz.svgEl("text", {
+        class: "series-label", x: xs(p[0]) + 10, y: ys(p[1]) - 8, fill: c.series[0],
+      });
+      t.textContent = p[1].toExponential(2);
+      svg.appendChild(t);
+    });
+    const ml = Viz.svgEl("text", {
+      class: "series-label", x: xs(32) - 6, y: ys(2.46e-6) + 22,
+      fill: c.series[0], "text-anchor": "middle",
+    });
+    ml.textContent = "measured, residual-only";
+    svg.appendChild(ml);
+
+    // the unmeasured size
+    svg.appendChild(Viz.svgEl("line", {
+      x1: xs(96), x2: xs(96), y1: 24, y2: H - 50,
+      stroke: c.muted, "stroke-width": 1.4, "stroke-dasharray": "3 4",
+    }));
+    const a1 = Viz.svgEl("text", {
+      class: "annotation", x: xs(96) - 8, y: 40, fill: c.inkSecondary, "text-anchor": "end",
+    });
+    a1.textContent = "96³ — the size the real runs use.";
+    svg.appendChild(a1);
+    const a2 = Viz.svgEl("text", {
+      class: "annotation", x: xs(96) - 8, y: 56, fill: c.muted, "text-anchor": "end",
+    });
+    a2.textContent = "No value was recorded here; the ADR says only";
+    svg.appendChild(a2);
+    const a3 = Viz.svgEl("text", {
+      class: "annotation", x: xs(96) - 8, y: 72, fill: c.muted, "text-anchor": "end",
+    });
+    a3.textContent = "“on course to fail”.";
+    svg.appendChild(a3);
+  }
+
+  draw();
+  Viz.onThemeChange(draw);
+})();
+</script>
+
+<script>
+/* ==========================================================================
+   Figure 6 — Forge the drift
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("fig-drift");
+  if (!root || typeof Viz === "undefined") return;
+  const body = root.querySelector(".anim__body");
+  const bar = root.querySelector(".anim__controls");
+
+  // decision 0013, the reconstructed cold sweep
+  const COLD = {
+    name: "registered cold checkpoint",
+    injection: 3.679402302324622e-7,
+    exchange: 3.679401162802118e-7,
+    activeCells: 643055,
+  };
+  // decision 0014, the coherent forgery an adversarial review constructed
+  const FORGED = {
+    name: "ADR 0014 forged report",
+    injection: 1,
+    exchange: 1e-6,
+    activeCells: 643055,
+  };
+  const DIVTOL = 1e-7;          // the registered tolerance for that run
+  const SIGMA_INF = 0.002;      // the registered gate condition (ADR 0014)
+  const METERED = 1.1395225041344048e-13;
+
+  // decision 0014, Decision 1 — implemented at solver-cpu/src/lk-solver.ts:197-225
+  function driftLimit(activeCells, maxAbsSweepInput) {
+    const perCell = Math.max(Number.EPSILON * maxAbsSweepInput, Number.MIN_VALUE);
+    return 1024 * activeCells * perCell;
+  }
+
+  const MAGNITUDES = [
+    1e-16, 1e-15, 1e-14, METERED, 1e-12, 1e-11, 1e-10, 1e-9, 1e-7, 1e-5, 1e-3, 0.999999,
+  ];
+  let scenario = COLD, index = 3;
+
+  const panel = document.createElement("div");
+  panel.style.maxWidth = "600px";
+  panel.style.margin = "0 auto";
+  panel.style.fontFamily = "var(--font-mono)";
+  panel.style.fontSize = "0.82rem";
+  panel.style.lineHeight = "1.75";
+  body.appendChild(panel);
+
+  const strip = document.createElement("div");
+  body.appendChild(strip);
+  let svg = null;
+
+  function fmt(v) { return v === 0 ? "0" : v.toExponential(3); }
+
+  function state() {
+    const drift = -MAGNITUDES[index];
+    const bound = driftLimit(scenario.activeCells, SIGMA_INF);
+    const twoTerm = Math.abs(scenario.injection - scenario.exchange) /
+      Math.max(Math.abs(scenario.exchange), 1e-300);
+    const threeTerm = Math.abs(scenario.injection + drift - scenario.exchange) /
+      Math.max(Math.abs(scenario.exchange), 1e-300);
+    return { drift: drift, bound: bound, twoTerm: twoTerm, threeTerm: threeTerm };
+  }
+
+  function drawStrip(s) {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+    const W = 560, H = 104;
+    svg = Viz.createSvg(strip, W, H, {
+      label: "The claimed drift on a logarithmic scale, against the derived roundoff bound.",
+    });
+    const xs = Viz.scaleLog([1e-17, 1e1], [56, W - 24]);
+    Viz.axisBottom(svg, xs, {
+      y: 60, values: [1e-16, 1e-13, 1e-10, 1e-7, 1e-4, 1e-1],
+      format: function (v) { return "1e" + Math.round(Math.log10(v)); },
+      title: "|smoother drift| claimed by the report", titleOffset: 32,
+    });
+    // the allowed region
+    svg.appendChild(Viz.svgEl("rect", {
+      x: 56, y: 26, width: Math.max(1, xs(s.bound) - 56), height: 26,
+      fill: c.good, "fill-opacity": 0.16, stroke: c.good, "stroke-width": 1,
+    }));
+    svg.appendChild(Viz.svgEl("line", {
+      x1: xs(s.bound), x2: xs(s.bound), y1: 20, y2: 58,
+      stroke: c.good, "stroke-width": 2,
+    }));
+    const bl = Viz.svgEl("text", {
+      class: "series-label", x: xs(s.bound) + 6, y: 16, fill: c.good,
+    });
+    bl.textContent = "bound " + s.bound.toExponential(1);
+    svg.appendChild(bl);
+
+    svg.appendChild(Viz.svgEl("line", {
+      x1: xs(METERED), x2: xs(METERED), y1: 26, y2: 52,
+      stroke: c.muted, "stroke-width": 1.4, "stroke-dasharray": "3 3",
+    }));
+    const ml = Viz.svgEl("text", {
+      class: "annotation", x: xs(METERED), y: 16, fill: c.muted, "text-anchor": "middle",
+    });
+    ml.textContent = "metered";
+    svg.appendChild(ml);
+
+    const inside = Math.abs(s.drift) <= s.bound;
+    svg.appendChild(Viz.svgEl("circle", {
+      cx: xs(Math.abs(s.drift)), cy: 39, r: 6,
+      fill: inside ? c.good : c.critical,
+    }));
+  }
+
+  function render() {
+    const s = state();
+    const rejected = Math.abs(s.drift) > s.bound;
+    const identityOk = s.threeTerm < DIVTOL;
+    const good = "var(--status-good)", bad = "var(--status-critical)";
+
+    let verdict, why;
+    if (rejected) {
+      verdict = '<span style="color:' + bad + ';font-weight:700">SWEEP REJECTED — the run throws' +
+        "</span>";
+      why = '<span style="color:var(--ink-muted)">aggregate-hv-g1h1-v5 smoother drift ' +
+        fmt(s.drift) + " exceeds float64 roundoff bound " + s.bound.toExponential(3) +
+        "<br>— solver-cpu/src/lk-solver.ts:1546–1553" +
+        (identityOk
+          ? "<br><strong>Note what just happened: the identity balanced. The bound is what " +
+            "caught it.</strong>"
+          : "") + "</span>";
+    } else if (!identityOk) {
+      verdict = '<span style="color:' + bad + ';font-weight:700">NOT CONVERGED — identity above ' +
+        "tolerance</span>";
+      why = '<span style="color:var(--ink-muted)">The drift is small enough to be roundoff, but ' +
+        "the three-term identity does not close. More sweeps cannot move a floating-point fixed " +
+        "point.</span>";
+    } else {
+      verdict = '<span style="color:' + good + ';font-weight:700">ACCEPTED — identity closes, ' +
+        "drift inside the bound</span>";
+      why = '<span style="color:var(--ink-muted)">The drift is inside the derived bound and the ' +
+        "three-term identity closes.</span>";
+    }
+
+    panel.innerHTML =
+      '<div style="color:var(--ink-muted);letter-spacing:0.04em">' +
+      scenario.name.toUpperCase() + "</div>" +
+      "<div>shell injection &nbsp;&nbsp;" + fmt(scenario.injection) + "</div>" +
+      "<div>surface exchange &nbsp;" + fmt(scenario.exchange) + "</div>" +
+      "<div>claimed drift &nbsp;&nbsp;&nbsp;&nbsp;" + fmt(s.drift) + "</div>" +
+      '<div style="border-top:1px solid var(--rule);margin-top:0.4rem;padding-top:0.4rem">' +
+      "two-term identity &nbsp;" +
+      '<span style="color:' + (s.twoTerm < DIVTOL ? good : bad) + '">' +
+      s.twoTerm.toExponential(3) + (s.twoTerm < DIVTOL ? " (under" : " (over") +
+      " divTol 1e-7)</span></div>" +
+      "<div>three-term &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+      '<span style="color:' + (identityOk ? good : bad) + '">' +
+      s.threeTerm.toExponential(3) + "</span></div>" +
+      '<div style="margin-top:0.5rem">' + verdict + "</div>" +
+      '<div style="font-size:0.94em">' + why + "</div>";
+
+    drawStrip(s);
+  }
+
+  const slider = Viz.slider(bar, {
+    label: "Claimed |drift|", id: "drift-mag",
+    min: 0, max: MAGNITUDES.length - 1, step: 1, value: index,
+    format: function (v) {
+      const m = MAGNITUDES[v];
+      return m === METERED ? "metered value" : m.toExponential(0);
+    },
+    onInput: function (v) { index = v; render(); },
+  });
+
+  Viz.button(bar, "Load the cold checkpoint", function () {
+    scenario = COLD;
+    slider.value = 3;
+  });
+  Viz.button(bar, "Load the ADR 0014 forgery", function () {
+    scenario = FORGED;
+    slider.value = MAGNITUDES.length - 1;
+  });
+
+  render();
+  Viz.onThemeChange(render);
+})();
+</script>
+
+<script>
+/* ==========================================================================
+   Figure 7 — Break the validator
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("fig-validator");
+  if (!root || typeof Viz === "undefined") return;
+  const body = root.querySelector(".anim__body");
+  const bar = root.querySelector(".anim__controls");
+
+  // The published presets at core/src/params.ts:80-141. kappa and mu are uniform across all
+  // seven slots there, so they are carried here as single numbers.
+  const PRESETS = {
+    plate: { rho: 0.1, kappa: 0.1, mu: 0.001, b01: 2.5, b10: 2, b20: 2, b11: 2, b21: 1, b30: 1, b31: 1 },
+    hollowColumn: { rho: 0.1, kappa: 0.1, mu: 0.01, b01: 1, b10: 2, b20: 2, b11: 0.5, b21: 0.5, b30: 0.5, b31: 1 },
+  };
+  let p = Object.assign({}, PRESETS.plate);
+  const sliders = {};
+
+  const panel = document.createElement("div");
+  panel.style.maxWidth = "620px";
+  panel.style.margin = "0 auto";
+  panel.style.fontSize = "0.84rem";
+  panel.style.lineHeight = "1.7";
+  body.appendChild(panel);
+
+  // core/src/params.ts:156-167 — the eight adjacent comparisons, on ggThreshBeta
+  const STEPS = [
+    ["1,0", "2,0", "b10", "b20"], ["2,0", "3,0", "b20", "b30"],
+    ["0,1", "1,1", "b01", "b11"], ["1,1", "2,1", "b11", "b21"],
+    ["2,1", "3,1", "b21", "b31"], ["1,0", "1,1", "b10", "b11"],
+    ["2,0", "2,1", "b20", "b21"], ["3,0", "3,1", "b30", "b31"],
+  ];
+
+  function validate() {
+    const errors = [], warnings = [];
+    const supply = (1 - p.kappa) * p.rho;
+    [["0,1", p.b01], ["1,0", p.b10]].forEach(function (s) {
+      if (!(supply < s[1])) {
+        errors.push("Packard bound violated at slot (" + s[0] + "): (1-kappa)*rho = " +
+          supply.toPrecision(4) + " >= ggThreshBeta = " + s[1]);
+      }
+    });
+    [["0,1", p.b01], ["1,0", p.b10]].forEach(function (s) {
+      const drain = p.mu * s[1];
+      if (!(drain < supply)) {
+        errors.push("growth-stall bound violated at slot (" + s[0] + "): mu*ggThreshBeta = " +
+          drain.toPrecision(4) + " >= (1-kappa)*rho = " + supply.toPrecision(4));
+      }
+    });
+    STEPS.forEach(function (s) {
+      const from = p[s[2]], to = p[s[3]];
+      if (to > from) {
+        warnings.push("ggThreshBeta increases from (" + s[0] + ")=" + from + " to (" + s[1] +
+          ")=" + to + "; the paper assumes it decreases in each coordinate");
+      }
+    });
+    return { errors: errors, warnings: warnings };
+  }
+
+  function row(label, severity, ok, lines) {
+    const colour = ok ? "var(--status-good)"
+      : (severity === "ERROR" ? "var(--status-critical)" : "var(--status-warning)");
+    let html = '<div style="padding:0.35rem 0;border-top:1px solid var(--rule)">' +
+      '<span style="font-weight:680;color:' + colour + '">' +
+      (ok ? "PASS" : severity) + "</span> &nbsp;" +
+      '<span style="font-weight:620">' + label + "</span>";
+    lines.forEach(function (t) {
+      html += '<div style="font-family:var(--font-mono);font-size:0.86em;color:' + colour +
+        ';margin-left:1.1rem">' + t + "</div>";
+    });
+    return html + "</div>";
+  }
+
+  function render() {
+    const v = validate();
+    const packard = v.errors.filter(function (e) { return e.indexOf("Packard") === 0; });
+    const stall = v.errors.filter(function (e) { return e.indexOf("growth-stall") === 0; });
+
+    panel.innerHTML =
+      row("Packard regime &mdash; runaway growth", "ERROR", packard.length === 0, packard) +
+      row("Growth stall &mdash; nothing ever attaches", "ERROR", stall.length === 0, stall) +
+      row("Monotonicity &mdash; the paper's assumption", "WARNING", v.warnings.length === 0,
+          v.warnings) +
+      '<div style="border-top:2px solid var(--rule-strong);margin-top:0.5rem;padding-top:0.5rem;' +
+      'font-family:var(--font-mono);font-size:0.86em">' +
+      (v.errors.length > 0
+        ? '<span style="color:var(--status-critical);font-weight:700">GGSolver throws: ' +
+          "invalid GG parameters: " + v.errors.join("; ") + "</span>" +
+          '<br><span style="color:var(--ink-muted)">— solver-cpu/src/gg-solver.ts:240–243</span>'
+        : '<span style="color:var(--status-good);font-weight:700">GGSolver constructs. ' +
+          (v.warnings.length > 0
+            ? v.warnings.length + " warning(s) printed; the run proceeds."
+            : "No warnings.") + "</span>" +
+          (v.warnings.length > 0
+            ? '<br><span style="color:var(--ink-muted)">— runner/src/main.ts:296 prints each ' +
+              "warning and carries on.</span>"
+            : "")) +
+      "</div>";
+  }
+
+  function setPreset(name) {
+    p = Object.assign({}, PRESETS[name]);
+    ["rho", "kappa", "mu", "b01", "b31"].forEach(function (key) {
+      const s = sliders[key];
+      if (s) { s.input.value = String(p[key]); }
+    });
+    // re-sync the visible outputs without clobbering the preset values
+    ["rho", "kappa", "mu", "b01", "b31"].forEach(function (key) {
+      const s = sliders[key];
+      if (s) { s.input.dispatchEvent(new Event("input")); }
+    });
+    render();
+  }
+
+  function mk(key, label, min, max, step) {
+    sliders[key] = Viz.slider(bar, {
+      label: label, id: "val-" + key,
+      min: min, max: max, step: step, value: p[key],
+      format: function (v) { return String(v); },
+      onInput: function (v) { p[key] = v; render(); },
+    });
+  }
+
+  mk("rho", "ρ (vapour supply)", 0.01, 1, 0.01);
+  mk("kappa", "κ (fraction staying vapour)", 0, 0.95, 0.05);
+  mk("mu", "μ (melting rate)", 0, 0.2, 0.001);
+  mk("b01", "β at slot (0,1)", 0.05, 3, 0.05);
+  mk("b31", "β at slot (3,1)", 0.1, 3, 0.1);
+
+  Viz.button(bar, "Published plate", function () { setPreset("plate"); });
+  Viz.button(bar, "Published hollow column", function () { setPreset("hollowColumn"); });
+
+  render();
+})();
+</script>
+
+<script>
+/* ==========================================================================
+   Figure 3 — the shared convergence module
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("fig-convergence");
+  if (!root || typeof Convergence === "undefined") return;
+  Convergence.mount(root, { sweeps: 300, size: 300 });
+})();
+</script>
+</body>
+</html>

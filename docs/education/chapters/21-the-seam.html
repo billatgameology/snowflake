@@ -1,0 +1,1612 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Seam — Snow Crystals</title>
+<meta name="description" content="The physics gives a surface speed in metres per second. The grid knows only ice and not-ice. Joining those two is the substance of the phase, and it is where temperature stops being a label.">
+<link rel="stylesheet" href="../assets/education.css">
+<style>
+/* Panels used by this chapter's interactives. Scoped with a c21- prefix so
+   nothing here can leak into another page's components. */
+.c21-panel { display: grid; gap: 0.9rem; }
+.c21-cards { display: grid; gap: 0.9rem; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .c21-cards { grid-template-columns: 1fr 1fr; } }
+.c21-card {
+  border: 1px solid var(--border); border-radius: var(--radius-md, 10px);
+  background: var(--surface-sunken); padding: 0.9rem 1rem;
+}
+.c21-card h4 { margin: 0 0 0.45rem; font-size: var(--step--1); font-weight: 660; }
+.c21-rows { display: grid; grid-template-columns: 1fr auto; gap: 0.25rem 0.8rem; font-size: var(--step--1); }
+.c21-rows span:nth-child(even) { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; color: var(--ink-primary); }
+.c21-rows span:nth-child(odd) { color: var(--ink-secondary); }
+.c21-badge {
+  font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.06em;
+  padding: 0.1rem 0.42rem; border-radius: 4px; font-weight: 700; white-space: nowrap;
+}
+.c21-badge.is-locked { background: rgba(12, 163, 12, 0.14); color: var(--status-good); }
+.c21-badge.is-open { background: rgba(208, 59, 59, 0.14); color: var(--status-critical); }
+.c21-lockrow { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 0.22rem 0; font-size: var(--step--1); border-bottom: 1px dotted var(--rule); }
+.c21-lockrow:last-child { border-bottom: none; }
+.c21-lockrow.is-unlocked span:first-child { text-decoration: line-through; color: var(--ink-muted); }
+.c21-verdict { border-radius: var(--radius-md, 10px); padding: 0.75rem 0.95rem; font-size: var(--step--1); border: 1px solid var(--border); }
+.c21-verdict.is-good { background: rgba(12, 163, 12, 0.10); border-color: rgba(12, 163, 12, 0.35); }
+.c21-verdict.is-bad { background: rgba(208, 59, 59, 0.10); border-color: rgba(208, 59, 59, 0.35); }
+.c21-verdict.is-neutral { background: var(--surface-sunken); }
+.c21-verdict strong { color: var(--ink-primary); }
+.c21-throw {
+  font-family: var(--font-mono); font-size: var(--step--1); line-height: 1.5;
+  background: rgba(208, 59, 59, 0.09); border: 1px solid rgba(208, 59, 59, 0.4);
+  border-radius: var(--radius-md, 10px); padding: 1rem 1.1rem; color: var(--ink-primary);
+}
+.c21-throw em { display: block; margin-top: 0.55rem; font-family: var(--font-sans); font-style: normal; color: var(--ink-secondary); }
+.c21-num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.c21-gone { text-decoration: line-through; color: var(--ink-muted); }
+.c21-claims { display: grid; gap: 0.9rem; grid-template-columns: 1fr; }
+@media (min-width: 680px) { .c21-claims { grid-template-columns: 1fr 1fr; } }
+.c21-claims blockquote { margin: 0; font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.55; color: var(--ink-primary); }
+.c21-claims p.c21-rule { margin: 0 0 0.5rem; font-weight: 700; font-size: var(--step--1); }
+</style>
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 21 &middot; The Seam</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#two-languages">Two languages, nothing in between</a></li>
+      <li><a href="#fill-fraction">A cell is a measuring cylinder</a></li>
+      <li><a href="#who-sets-the-clock">Who sets the clock?</a></li>
+      <li><a href="#temperature">Where temperature stops being a label</a></li>
+      <li><a href="#change-one-thing">Change one thing</a></li>
+      <li><a href="#the-ledger">A conservation law and an audit trail</a></li>
+      <li><a href="#registered">What the code refuses to do</a></li>
+      <li><a href="#three-protocols">Three protocols on the record</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 21</p>
+        <h1>The Seam</h1>
+        <p class="chapter-header__question">
+          The physics says the surface is moving at so many metres per second. The grid knows
+          only &ldquo;ice&rdquo; and &ldquo;not ice&rdquo;. Which cell freezes, and when?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~18 min read</span>
+          <span>6 figures</span>
+          <span>5 interactives</span>
+        </div>
+      </header>
+
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Describe what a computational scientist actually does: decide, defensibly, what a
+            physical law means on a grid.</li>
+          <li>Explain why a timestep <em>derived</em> from the state is a stronger claim than a
+            timestep somebody chose.</li>
+          <li>Say what a control group is for, having used one.</li>
+          <li>Tell a conservation law apart from an audit trail, and say why the second is
+            sometimes the more honest promise.</li>
+          <li>State what this phase's gate demanded, what it got, and why the answer is recorded
+            as a finding rather than as a bug.</li>
+        </ul>
+      </section>
+
+      <h2 id="two-languages">Two languages, nothing in between</h2>
+
+      <p>
+        Chapter 19 built the lattice. Chapter 20 showed why its last bit had to be defended. Both
+        of those were preparation. This chapter is where the physics finally arrives &mdash; and
+        the hard part is not the physics.
+      </p>
+
+      <p>
+        The published cellular automaton this project started from does attachment in one move. A
+        cell is not ice; then the rule fires; then the cell is ice. One whole cell, one tick, no
+        in-between. The physical law the project wants to install says something of a completely
+        different shape. It gives a <strong>surface velocity</strong>: the ice front is advancing at
+        so many metres per second, right here, right now, and it will keep doing that until
+        something changes.
+      </p>
+
+      <p>
+        Those two statements do not translate into each other. A velocity is continuous and has
+        units; a cell flip is discrete and has none. Somebody has to decide what the velocity
+        <em>means</em> on the grid. The project's charter gives that job a name and refuses to file
+        it under housekeeping:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;The seam, which is the real work of this phase: G&ndash;G's attachment is a binary
+          cell flip; Libbrecht's <code>v_n = alphaHK&middot;v_kin&middot;sigma_surf</code> is a
+          continuous velocity. Converting a surface velocity into lattice attachment events is the
+          substance of <code>LibbrechtKinetics</code>, not an implementation detail of it.&rdquo;
+          <br><span class="figure__source">project charter.md, line 265 (&sect;3.2, Phase 2b)</span>
+        </p>
+      </blockquote>
+
+      <div class="equation">
+        <p class="equation__math">
+          v<sub>n</sub> = &alpha;<sub>HK</sub> &middot; v<sub>kin</sub> &middot; &sigma;<sub>surf</sub>
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>v<sub>n</sub></dt><dd>the speed the ice surface advances, perpendicular to itself, in metres per second</dd>
+            <dt>&alpha;<sub>HK</sub></dt><dd>the attachment coefficient &mdash; the fraction of molecules that hit the surface and actually stay (Part One, chapter 11)</dd>
+            <dt>v<sub>kin</sub></dt><dd>the kinetic velocity &mdash; how fast the surface would advance if every molecule that hit it stuck</dd>
+            <dt>&sigma;<sub>surf</sub></dt><dd>the supersaturation right at the surface, which the diffusion field decides, not you</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">project charter.md, line 265 (&sect;3.2, Phase 2b)</p>
+      </div>
+
+      <p>
+        Notice what the charter is doing there. It is refusing an excuse in advance. If the join is
+        &ldquo;an implementation detail&rdquo;, then a bad join is a coding slip and the physics
+        stays innocent. By calling the join <em>the substance</em>, the charter makes it something
+        that has to be specified, reviewed and defended like any other scientific choice. That is
+        the whole job description of a computational scientist, in one sentence: not
+        <em>write down the physics</em>, but <em>decide, defensibly, what the physics means on a
+        grid</em>.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          The equation was copied from a book. The seam &mdash; how a continuous speed becomes a
+          discrete cell flip &mdash; was invented here, and is therefore the part that can be
+          wrong. So it gets written down first, before any code, and reviewed as physics.
+        </p>
+      </aside>
+
+      <h2 id="fill-fraction">A cell is a measuring cylinder</h2>
+
+      <p>
+        Here is the answer, and it is almost embarrassingly simple once you see it. If the surface
+        is moving at v<sub>n</sub> and you let it move for a time &Delta;t, it has travelled
+        v<sub>n</sub>&middot;&Delta;t. A cell is &Delta;x across. So do not ask &ldquo;does this
+        cell freeze this step?&rdquo;. Ask &ldquo;how <em>full</em> is this cell now?&rdquo;, keep
+        the answer, and freeze the cell when it runs out of room.
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;A surface advancing at <code>v_n</code> for time <code>&Delta;t</code> moves
+          forward <code>v_n &middot; &Delta;t</code>. A lattice cell of size <code>&Delta;x</code>
+          is filled when that accumulated advance reaches <code>&Delta;x</code>. So accumulate a
+          <strong>filled fraction</strong> on each boundary cell and attach when it
+          saturates&rdquo;
+          <br><span class="figure__source">docs/attachment-kinetics.md, lines 134&ndash;136 (&sect;4.2)</span>
+        </p>
+      </blockquote>
+
+      <div class="equation">
+        <p class="equation__math">
+          f(x) &nbsp;+=&nbsp; &alpha;<sub>HK</sub> &middot; v<sub>kin</sub> &middot; &sigma;<sub>b</sub> &middot; &Delta;t / (H<sub>b</sub> &middot; &Delta;x)
+          &nbsp;&nbsp;&nbsp; &mdash; attach when f(x) &ge; 1
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>f(x)</dt><dd>the fill fraction of boundary cell x &mdash; 0 is empty, 1 is full, and full means ice</dd>
+            <dt>&sigma;<sub>b</sub></dt><dd>the supersaturation the surface actually sees, solved so that the rate the surface demands and the rate the vapour can deliver agree</dd>
+            <dt>&Delta;t</dt><dd>the length of this growth step, in seconds &mdash; and it is not a setting; see the next section</dd>
+            <dt>&Delta;x</dt><dd>the lattice spacing (0.35&nbsp;&micro;m in this phase's runs)</dd>
+            <dt>H<sub>b</sub></dt><dd>a geometry factor for the boundary patch; the cited value 1 is used on the basal <code>[01]</code> and prism <code>[20]</code> configurations</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">docs/attachment-kinetics.md &sect;4.2; forward policy in project charter.md, line 265</p>
+      </div>
+
+      <p>
+        That accumulator is the seam. It is one extra number per boundary cell, and it is
+        <em>memory</em>. Without it the program can only ever say &ldquo;ice&rdquo; or &ldquo;not
+        ice&rdquo;, so a surface creeping forward at three-tenths of a cell per step and one
+        charging forward at nine-tenths produce exactly the same output &mdash; nothing &mdash;
+        until suddenly they don't. The fraction is where the physics goes while it is too small to
+        show up. Drag the speed slider below and watch the two rows disagree.
+      </p>
+
+      <figure class="anim" id="anim-fill">
+        <div class="anim__head">
+          <p class="anim__title">Fill the cell</p>
+          <p class="anim__sub">
+            The dashed line is where the physics says the surface is. The top row keeps a fill
+            fraction; the bottom row is only allowed to be ice or not-ice. Watch which one keeps up.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. Built from the conversion in
+          docs/attachment-kinetics.md &sect;4.2 &mdash; advance = v<sub>n</sub>&middot;&Delta;t,
+          attach at f&nbsp;&ge;&nbsp;1. The advancing surface here is a uniform demonstration
+          speed, not a solved vapour field; what is being shown is the bookkeeping, not a
+          crystal.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The bottom row is not <em>wrong</em>, exactly. It is the published automaton, doing what it
+        was designed to do, and the project keeps it forever &mdash; we will come back to that. But
+        it cannot carry a velocity, and a model whose whole claim rests on temperature changing a
+        velocity needs somewhere for that velocity to live. The fill fraction is that somewhere.
+      </p>
+
+      <h2 id="who-sets-the-clock">Who sets the clock?</h2>
+
+      <p>
+        The fill equation has a &Delta;t in it. How long is one growth step allowed to be?
+      </p>
+
+      <p>
+        You can feel the danger immediately. Make &Delta;t big and a fast cell will not just fill
+        &mdash; it will fill several times over in one step, and the crystal will lurch forward in
+        chunks that no physics chose. There is a standard idea for this in numerical work, usually
+        written CFL after the three mathematicians who wrote it down: <strong>never let anything
+        cross more than a fraction of a cell in one step</strong>. This project applies it to
+        filling rather than to moving, and calls it the <em>fill-CFL</em>.
+      </p>
+
+      <p>
+        The obvious way to obey a rule like that is to pick a small &Delta;t and hope. This project
+        does the opposite. It computes the fill rate of every boundary cell, finds the largest one,
+        and then <em>solves for</em> the timestep that makes that fastest cell fill by exactly the
+        allowed fraction:
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          &Delta;t = cfl / max(rate)
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>cfl</dt><dd>the fill-CFL bound &mdash; the most any cell is allowed to fill in one step. Default 0.1, meaning 10% of a cell</dd>
+            <dt>rate</dt><dd>a cell's fill rate, &alpha;<sub>HK</sub>&middot;v<sub>kin</sub>&middot;&sigma;<sub>b</sub>&nbsp;/&nbsp;(H<sub>b</sub>&middot;&Delta;x), in cells per second</dd>
+            <dt>max(rate)</dt><dd>the largest of those, over every boundary cell, recomputed every step</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">docs/attachment-kinetics.md, lines 682&ndash;683; implemented at solver-cpu/src/lk-solver.ts:1690 &mdash; <code>deltaTime = this.cflFill / maxRate;</code></p>
+      </div>
+
+      <p>
+        Read what that buys. If the timestep were a setting, then &ldquo;no cell filled by more
+        than 10%&rdquo; would be a claim you check afterwards and hope holds. Because the timestep
+        is computed from the state, the claim is the definition. The specification says so in
+        exactly those words &mdash; &Delta;t is
+        &ldquo;a deterministic function of the state, so slow-kinetics regimes advance in
+        wall-clock-feasible step counts while the bound holds exactly by construction&rdquo;
+        (docs/attachment-kinetics.md, lines 685&ndash;687). It is also the only place in the whole
+        physics rule where physical time enters at all.
+      </p>
+
+      <figure class="anim" id="anim-clock">
+        <div class="anim__head">
+          <p class="anim__title">Who set the clock?</p>
+          <p class="anim__sub">
+            One cell on the whole surface decides how long the step is &mdash; for everybody. Sharpen
+            a tip and watch the clock collapse. Then push the bound past 1 and see what the solver
+            does about it.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. The fill rates are illustrative values on an
+          illustrative surface; the arithmetic on them is the real thing &mdash;
+          &Delta;t&nbsp;=&nbsp;cfl&nbsp;/&nbsp;max(rate) from solver-cpu/src/lk-solver.ts:1690, and the
+          refusal message is the constructor's own, quoted from
+          solver-cpu/src/lk-solver.ts:451&ndash;452.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        There is a detail here that is easy to miss and is worth more than it looks. The crystal
+        also gains cells a second way: a purely geometric hygiene rule closes interior voids left
+        by the discretization &mdash; it is &ldquo;geometric hygiene, not physics&rdquo;
+        (docs/gg-machinery.md, lines 245&ndash;246) &mdash; and it snaps a fill fraction from
+        wherever it was straight to 1. That is a jump far bigger than the CFL bound. It would have
+        been very easy to fold those jumps into the maximum, or to quietly leave them out. The code
+        does neither, on the record:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;hole-filling jumps <code>f &rarr; 1</code> are geometric events OUTSIDE the CFL
+          claim and must never be absorbed into &mdash; or censored out of &mdash; the kinetic
+          maximum; they are counted and deficit-ledgered separately, and the gate reads both.&rdquo;
+          <br><span class="figure__source">docs/attachment-kinetics.md, lines 688&ndash;690 &mdash; recorded as a correction made the same day the adaptive timestep was implemented, in response to a review blocker</span>
+        </p>
+      </blockquote>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          The bound is not measured after the run and reported. It is the definition of the
+          timestep, so it cannot fail without the arithmetic failing. And the one number it depends
+          on is itself defended: the solver's constructor rejects any fill-CFL outside
+          (0,&nbsp;1) before a single step executes &mdash; <code>throw new Error("cflFill must be
+          finite and in (0, 1)")</code>, solver-cpu/src/lk-solver.ts:451&ndash;452. You cannot ask
+          this program for a step that advances the surface by a whole cell. It will not start.
+        </p>
+      </aside>
+
+      <h2 id="temperature">Where temperature stops being a label</h2>
+
+      <p>
+        Now the payoff, and it is the reason this chapter cannot come any later in the book.
+      </p>
+
+      <p>
+        Look back at the fill equation. &alpha;<sub>HK</sub> is the attachment coefficient, and
+        Part One's chapter 11 already told you what it depends on: which facet you are on, how
+        supersaturated the air is right there, and <em>the temperature</em>. So temperature is
+        inside the rate. It is inside the rate of every single boundary cell, recomputed every
+        step, from the local supersaturation the diffusion field happens to deliver to that cell.
+        Nobody types in a shape.
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;temperature is an input to the physics, not a label applied afterward.
+          &alpha;_basal(T, &sigma;_surf) and &alpha;_prism(T, &sigma;_surf) are computed each step
+          from the local supersaturation the diffusion field delivers, and the plate&harr;column
+          habit is an output of their competition rather than a knob. This is what allows the model
+          to be wrong &mdash; and therefore worth testing&rdquo;
+          <br><span class="figure__source">project charter.md, line 165 (&sect;2.5)</span>
+        </p>
+      </blockquote>
+
+      <p>
+        Compare that with the rule it replaced. Under the borrowed threshold rule, whether a cell
+        attaches depends on a set of numbers &mdash; the project writes two of them
+        &beta;<sub>01</sub> and &beta;<sub>20</sub> &mdash; that you choose before the run. The
+        project's own notes are blunt about what those numbers are: &ldquo;<strong>&beta;&#8320;&#8321;
+        / &beta;&#8322;&#8320; is the plate&harr;column axis under <code>GGThreshold</code>.</strong>
+        High &beta;&#8320;&#8321; &rArr; basal faces attach reluctantly &rArr; growth goes sideways
+        &rArr; <strong>plate</strong>&rdquo; &mdash; and then, four lines later,
+        &ldquo;Under <code>LibbrechtKinetics</code> the habit is not a knob at all &mdash; it is an
+        <em>output</em> of the &alpha;_basal/&alpha;_prism competition at a given temperature&rdquo;
+        (docs/gg-machinery.md, lines 143&ndash;149).
+      </p>
+
+      <p>
+        The two rules live behind one shared interface, and the project keeps <em>both</em>,
+        permanently. Swap the head on the panel below and watch what happens to the controls.
+      </p>
+
+      <figure class="anim" id="anim-head">
+        <div class="anim__head">
+          <p class="anim__title">Swap the head</p>
+          <p class="anim__sub">
+            Same lattice, same seed, same domain &mdash; one surface rule swapped for the other. The
+            interesting part is not the crystal. It is which controls exist.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original diagram. The threshold-rule crystal is a schematic
+          drawn from the direction stated in docs/gg-machinery.md, lines 143&ndash;146 (high
+          &beta;&#8320;&#8321; &rarr; plate, low &beta;&#8320;&#8321; &rarr; column); no aspect ratio is
+          computed from it. The kinetics-rule crystal is drawn from the two aspect ratios actually
+          recorded by the Phase 2b run in docs/PROGRESS.md, line 611, on a compressed scale so both
+          fit the frame.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        That duplication is deliberate, and it costs real work: the two solvers share the lattice
+        and the stencil but do <em>not</em> share their mutable machinery code. The interface file
+        says why in one clause &mdash; &ldquo;the control-group differential (charter &sect;3.3) is
+        worth the duplication &mdash; but they speak the same operator language&rdquo;
+        (solver-cpu/src/operator.ts:1&ndash;9).
+      </p>
+
+      <p>
+        A <strong>control group</strong> is the thing you did not change, kept around so you can
+        tell what the change did. Here is what it is for, in the project's own words:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;When <code>LibbrechtKinetics</code> produces something strange, the first question
+          is always: does <code>GGThreshold</code> still produce these four, on this same
+          machinery, from this same seed? If yes, the bug is in the physics. If no, the bug is
+          underneath it and the physics is innocent. That differential is the entire reason both
+          rules are kept forever.&rdquo;
+          <br><span class="figure__source">docs/gg-machinery.md, lines 420&ndash;424</span>
+        </p>
+      </blockquote>
+
+      <h2 id="change-one-thing">Change one thing</h2>
+
+      <p>
+        So what did this phase have to prove? One sentence, written before the work started:
+        <strong>habit changes with temperature alone</strong>. Two temperatures, nothing else
+        different, two different shapes. If temperature is genuinely inside the physics, that
+        should be possible. If temperature is secretly still a label on a knob, it will not be.
+      </p>
+
+      <p>
+        &ldquo;Nothing else different&rdquo; is doing an enormous amount of work in that sentence,
+        and it is where the discipline lives. The panel below is the comparison the gate demanded.
+        Every control except one is locked. Try to break it.
+      </p>
+
+      <figure class="anim" id="anim-locked">
+        <div class="anim__head">
+          <p class="anim__title">Change one thing</p>
+          <p class="anim__sub">
+            Two runs. One unlocked control. Set the temperatures, read the recorded result &mdash;
+            then unlock everything else and watch what happens to the claim.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The locked settings and both results are
+          transcribed from the Phase 2b gate row in docs/PROGRESS.md, line 611. No result is
+          computed here: the two temperatures shown are the only two that were run, and unlocking a
+          control does not invent a new one &mdash; it removes the reader's right to attribute the
+          difference.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The run happened once, flagless, from a tracked-clean commit, and it exited 0. Same
+        96&times;96&times;96 hexagonal-prism domain, same extent target, same far field &mdash; the
+        outer wall of the box, held at a fixed supersaturation &mdash; held at the same
+        &sigma;<sub>&infin;</sub> = 0.002, same pressure, spacing, mapping, seed 1, noise 0,
+        fill-CFL and convergence controls. Temperature alone differed.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>The Phase 2b result, transcribed from docs/PROGRESS.md, line 611. Aspect ratio
+            here is measured at a pre-registered crystal size; below 1 is a plate, above 1 is a
+            column.</caption>
+          <thead>
+            <tr><th>Temperature</th><th class="num">Growth step</th><th class="num">Extent</th><th class="num">Cells attached</th><th class="num">Aspect ratio</th><th>Habit</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>&minus;5&nbsp;&deg;C</td><td class="num">814</td><td class="num">61</td><td class="num">18,193</td><td class="num">0.118644</td><td>plate</td></tr>
+            <tr><td>&minus;15&nbsp;&deg;C</td><td class="num">330</td><td class="num">61</td><td class="num">1,159</td><td class="num">12.2000</td><td>column</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Both runs hit the size target, both reported symmetry error 0, every relaxation converged,
+        and both checkpoints round-tripped identically. The gate closed on 2026-07-20.
+      </p>
+
+      <p>
+        Now read that table again, carefully, next to what Part One's chapter 7 told you about the
+        real world. Around &minus;5&nbsp;&deg;C nature makes columns and needles. Around
+        &minus;15&nbsp;&deg;C nature makes plates. The model produced a plate at
+        &minus;5&nbsp;&deg;C and a column at &minus;15&nbsp;&deg;C. The habit changed with
+        temperature alone &mdash; and it changed in the opposite sense from the published diagram.
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          It is tempting to call that either a triumph or a bug. It is neither, and the difference
+          matters. This gate asked whether habit responds to temperature <em>at all</em> when
+          nothing else moves. It did not ask whether it responds correctly, it had no authority to
+          ask that, and the answer to the question it did ask is yes. What the run shows is that
+          <strong>the model was given temperature as a real physical input</strong>. It does not
+          show that the model reproduces reality &mdash; that is a different claim, it needs a
+          different experiment, and later chapters are entirely about how that experiment was set
+          up and marked. Hold the wrong-sense flip as an early warning. It is not explained here.
+        </p>
+      </aside>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          Two temperatures is not a diagram. All this phase established is that habit moves when
+          temperature moves, at two points, with everything else nailed down. Whether the model
+          reproduces the pattern nature shows across the whole temperature range is the question
+          the validation phase exists to answer &mdash; and that phase is not finished. In the
+          project's own gate table, Phase 6 is marked <em>in progress</em> and Phase 7, the product
+          layer, is marked <em>not started</em> (docs/PROGRESS.md, lines 615&ndash;616). The chapters
+          ahead report what the validation sweep found so far. They do not report a finished
+          project.
+        </p>
+      </aside>
+
+      <h2 id="the-ledger">A conservation law and an audit trail</h2>
+
+      <p>
+        The reference rule makes a beautiful promise. Vapour spreads by local averaging, walls
+        reflect, nothing is created and nothing escapes, so the total of everything on the grid is
+        an exact invariant &mdash; and Phase 2a tested it as one. It is the cleanest kind of
+        test there is: not &ldquo;does the picture look right&rdquo; but &ldquo;does this number
+        stay where arithmetic says it must&rdquo;.
+      </p>
+
+      <p>
+        The physics rule cannot make that promise, and the honest move is to say so rather than to
+        find a form of words that sounds like it. The field under this rule is not a stock of
+        stuff at all. It is a <em>potential</em> &mdash; a description of the balance the vapour has
+        already settled into, with a boundary far away that supplies as much as the crystal can
+        take. Asking it to conserve mass is a category error, and the specification says so
+        flatly: &ldquo;Anyone expecting the Phase 2a mass invariant here has mixed up the rules:
+        G&ndash;G's invariant is a reflecting-boundary property of a mass field; this rule's field
+        is a quasi-static potential&rdquo; (docs/attachment-kinetics.md, lines 605&ndash;606).
+      </p>
+
+      <p>
+        So it makes a different promise, and the promise is still <em>exact</em>. Not &ldquo;nothing
+        left the system&rdquo;, but &ldquo;everything that left was written down&rdquo;:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;the bookkeeping identity is <strong><code>placed fill ledger +
+          saturation-clipped fill = that demand</code>, exact</strong> &mdash; when a cell
+          saturates (<code>f</code> hits 1 mid-increment) the excess demand is <em>recorded</em> in
+          <code>saturationClippedFill</code>, never silently dropped&rdquo;
+          <br><span class="figure__source">docs/attachment-kinetics.md, lines 561&ndash;564 (&sect;4.4, component 4)</span>
+        </p>
+      </blockquote>
+
+      <p>
+        The situation it describes is ordinary. A cell has 0.04 of a cell of room left; this step's
+        physics demands 0.09; the cell takes the 0.04 it can hold and becomes ice. Where does the
+        other 0.05 go? The first version of the code let it go nowhere. It simply did not appear in
+        the books. An audit round measured the size of that hole at 35% of the demand on an
+        ordinary saturating step. (The audit's own probe script was not kept &mdash; the
+        specification labels it a historical audit finding for exactly that reason &mdash; but the
+        regression test that closed it is in the suite.) The repair is two lines, and the comment on
+        the second one is the whole lesson:
+      </p>
+
+      <div class="equation">
+        <p class="equation__math" style="font-size: var(--step--1); text-align: left;">
+          this.fillLedger += room;<br>
+          this.saturationClippedFill += raw - room; <span style="color: var(--ink-muted);">// round-3 blocker 2: never silently drop</span>
+        </p>
+        <p class="equation__cite">solver-cpu/src/lk-solver.ts:1696&ndash;1697</p>
+      </div>
+
+      <figure class="anim" id="anim-ledger">
+        <div class="anim__head">
+          <p class="anim__title">The disappearing percentage</p>
+          <p class="anim__sub">
+            Turn off the clipping record and watch the books stop balancing. Then check the answer
+            from outside the solver, which is what the project's own test does.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. A toy run of nine boundary cells using the
+          real arithmetic shape from solver-cpu/src/lk-solver.ts:1690&ndash;1703 &mdash;
+          &Delta;t&nbsp;=&nbsp;cfl/max(rate), placed fill capped at the room available, remainder
+          recorded as clipping. The percentages here are this toy's, not the project's: the audit's
+          measured 35% was on one real saturating step and is cited above, not reproduced
+          here.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Two things about that demo are load-bearing. First, the size of the hole depends on how
+        often cells saturate, which depends on the timestep &mdash; so a numerical choice made for
+        stability quietly changes how much a bookkeeping bug costs you. Second, the
+        &ldquo;recompute from outside&rdquo; button is not decoration. The project's real test does
+        exactly that: it &ldquo;recomputes the integral outside the solver&mdash;from the converged
+        public field, public neighbor topology, core's <code>alphaHK</code>, and the recorded
+        aggregate geometry&mdash;across many steps <em>including saturating ones</em>, and asserts
+        it equals ledger-delta + clipped-delta&rdquo; (docs/attachment-kinetics.md, lines
+        570&ndash;573). A solver that grades its own homework has proved nothing.
+      </p>
+
+      <p>
+        The same treatment is given to the growth the hole-filling rule hands out for free, which
+        no vapour paid for. It is not netted away against anything. It gets its own line:
+        <code>holeFillDeficit</code>, documented in the interface as &ldquo;fill granted by
+        hole-filling without vapor withdrawal &mdash; reported, never hidden&rdquo;
+        (solver-cpu/src/operator.ts:83&ndash;84).
+      </p>
+
+      <p>
+        Both rules are required to state, in code, exactly what they are promising. The strings
+        below are what each one returns when asked.
+      </p>
+
+      <figure class="chart" id="chart-claims">
+        <div class="chart__head">
+          <p class="chart__title">Two rules, two different promises</p>
+          <p class="chart__sub">
+            Each surface rule returns a one-sentence claim describing the exact thing it can be held
+            to. They are not the same sentence, and neither one is a hedge.
+          </p>
+        </div>
+        <div class="chart__body">
+          <div class="c21-claims">
+            <div class="c21-card">
+              <p class="c21-rule">GGThreshold &mdash; the reference rule</p>
+              <blockquote>&ldquo;Sigma(b+d) is exact under the reflecting far field
+                (gg-machinery &sect;4); under Dirichlet the shell is a metered source/sink by design
+                and the meter accounts for the difference&rdquo;</blockquote>
+            </div>
+            <div class="c21-card">
+              <p class="c21-rule">LibbrechtKinetics &mdash; the physics rule</p>
+              <blockquote>&ldquo;the fill ledger plus recorded saturation clipping integrates
+                exactly the [computed demand] &hellip; clipping is unapplied numerical excess, not
+                deposited ice &hellip; no Sigma(b+d) claim exists under this rule&rdquo;</blockquote>
+            </div>
+          </div>
+        </div>
+        <figcaption class="chart__foot">
+          <span class="built-from">Original figure. Both quotations are the literal
+          <code>claim</code> strings returned by the two solvers' <code>ledger()</code> methods:
+          solver-cpu/src/gg-solver.ts:735&ndash;738 and solver-cpu/src/lk-solver.ts:1752&ndash;1758.
+          The second is abridged where marked; the phrase in brackets stands in for a description
+          the code assembles at run time from the run's own surface policy.</span>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          A conservation law says nothing left the system. An audit trail says everything that left
+          was written down. When you cannot honestly promise the first, the second is not a weaker
+          substitute &mdash; it is the promise that happens to be true, and it can be tested just as
+          exactly.
+        </p>
+      </aside>
+
+      <h2 id="registered">What the code refuses to do</h2>
+
+      <p>
+        There is a habit in this codebase that is worth naming, because it is the thing that makes
+        a later negative result believable. Wherever a shortcut was taken, the shortcut is labelled
+        in place, its direction of error is stated, and the reason it was not fixed is given.
+      </p>
+
+      <p>
+        Here is one, sitting in the middle of the growth loop. The solver needs the rate at which
+        the crystal is gaining volume. What it actually computes is the volume the physics
+        <em>demanded</em>, not the volume the crystal <em>got</em>. Those differ, and the comment
+        does not leave the reader to discover it:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;REGISTERED APPROXIMATION: this is the Hertz-Knudsen KINETIC DEMAND summed over
+          boundary pixels, which is not identical to the volume the crystal actually gains this
+          step. Two known differences, both bounded and both in the same direction&rdquo;
+          <br><span class="figure__source">solver-cpu/src/lk-solver.ts:1662&ndash;1664 &mdash; the two differences are then listed: clipped fill, and hole-filling</span>
+        </p>
+      </blockquote>
+
+      <p>
+        Elsewhere a genuine edge case in the boundary rule is documented rather than repaired. The
+        stated reason is not &ldquo;it's fine&rdquo;. It is a cost argument, made in public:
+        any repair &ldquo;would change the boundary operator and therefore every executed Phase
+        2b/4/5 checkpoint. That is ADR-level, and it would be spending a re-derivation of accepted
+        evidence on a branch no valid run takes&rdquo; (solver-cpu/src/lk-solver.ts:1080&ndash;1083).
+        &ldquo;ADR-level&rdquo; means it would need a numbered Architecture Decision Record &mdash;
+        the machinery chapter 18 described &mdash; rather than a code change. Repairing it would
+        change results already recorded and accepted, in order to improve a path that a separate
+        guard already stops any valid run from reaching.
+      </p>
+
+      <p>
+        And in several places the program's answer to a question is simply to stop. Ask the
+        nucleation parameters for a temperature outside the range the published data covers and
+        the module throws instead of extrapolating &mdash; &ldquo;extrapolating a fit outside its
+        range silently manufactures a fake result&rdquo;, core/src/libbrecht.ts:80&ndash;81, with
+        the error message naming the banned operation outright:
+        <code>extrapolation is banned</code> (core/src/libbrecht.ts:106&ndash;108). The solver's own
+        constructor carries the same wall: <code>throw new Error("tempC must stay in the digitized
+        domain [-50, -1]")</code> (solver-cpu/src/lk-solver.ts:442&ndash;443).
+      </p>
+
+      <p>
+        The most useful way to read code like this is not line by line. It is to ask what each
+        piece <em>refuses</em> to do. This one refuses to invent a number outside its evidence,
+        refuses to start with a timestep that could jump a whole cell, refuses to drop a remainder
+        it could not place, and refuses to improve itself in a way that would quietly rewrite
+        results already published.
+      </p>
+
+      <h2 id="three-protocols">Three protocols on the record</h2>
+
+      <p>
+        None of this worked the first time. Three protocols were written, frozen and run for this
+        one gate, and all three are still in the repository.
+      </p>
+
+      <p>
+        <strong>Protocol v3 ran, and failed.</strong> It &ldquo;completed according to its
+        registered controls and FAILED its habit gate: both registered temperatures reached the
+        same one-layer plate at the measurement size&rdquo; (docs/PROGRESS.md, lines 524&ndash;526).
+        Both temperatures produced an aspect ratio of 0.01888163179957996 &mdash; identical to the
+        last digit. The &minus;5&nbsp;&deg;C plate criterion passed; the &minus;15&nbsp;&deg;C
+        column criterion, which needed at least 1.5, failed on the same number. Every other
+        criterion passed: exact symmetry, all relaxations converged, maximum kinetic fill 0.1
+        exactly as the CFL says it must be.
+      </p>
+
+      <p>
+        A source audit afterwards found why the seam had been blunt. The monograph names one
+        boundary configuration as basal and another as the prism facet; the executed rule had
+        classified them differently, so a temperature-independent path controlled twelve of the
+        seed's own starting sites. The record does not treat that as a licence to delete the run:
+        &ldquo;This source contradiction is a seam defect discovered after the run, not a reason to
+        rewrite or discard the negative result; it limits interpretation of the failure as a test
+        of the intended physical model&rdquo; (docs/PROGRESS.md, lines 1643&ndash;1646).
+      </p>
+
+      <p>
+        <strong>Protocol v4 did not fail. It terminated.</strong> The warm run finished normally.
+        The cold run stopped at growth step 12. Solving the vapour field means sweeping over the
+        grid again and again until the numbers settle; this attempt used all 200,000 sweeps it was
+        allowed. Two separate tests ask whether it has settled. The first &mdash; how much the
+        numbers still change from one sweep to the next &mdash; read exactly zero: nothing was
+        moving. The second &mdash; whether the vapour flowing in at the far wall balances the
+        vapour the crystal surface is taking out &mdash; stuck at 3.10e-7, against a registered
+        limit of 1e-7. Nothing was changing and the books still did not balance. Exit status 1.
+        And then this line, which is the whole discipline in one clause: its aspect ratio of
+        0.6 &ldquo;is below the registered measurement size and has no habit meaning&rdquo;
+        (docs/plans/phase-2b-v4-convergence-failure-and-v5.md, lines 38&ndash;42). The run produced
+        a number. The protocol refused to let the number mean anything.
+      </p>
+
+      <p>
+        Diagnosing it meant decoding the immutable checkpoint with a separate script and rebuilding
+        the whole step from the raw arrays, independently of the solver. The answer had stopped
+        changing while the books still did not balance because of floating-point roundoff in the
+        smoothing stencil &mdash; chapter 20's problem again. &ldquo;The plateau is therefore local
+        float64 stencil roundoff, not na&iuml;ve total accumulation, incomplete relaxation, or a
+        physical imbalance&rdquo; (same file, line 94). Because the governing identity had only two
+        terms and this was a third, the fix could not be a patch &mdash; it needed a numbered
+        decision record and a new protocol version. v4's bytes stay immutable.
+      </p>
+
+      <p>
+        <strong>Protocol v5 passed</strong> &mdash; run once, flagless, with the two temperatures
+        executed as two concurrent processes rather than one after the other (the &ldquo;v5p&rdquo;
+        retry, after the sequential attempt was interrupted by a host shutdown mid-run;
+        docs/PROGRESS.md, lines 247&ndash;255) &mdash; and produced the table you read two sections
+        ago.
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know &mdash; and who checked
+        </p>
+        <p>
+          This phase went through six audit rounds, and the repaired code was signed off by an
+          independent adversarial review with zero unresolved findings before the final run was
+          allowed to execute. One disclosure belongs here rather than in a footnote: every review
+          in this project to date &mdash; those audit rounds, the adversarial review, and the
+          two-reviewer process that checked this page &mdash; has been a review by a language
+          model. The project treats that as a stated limitation of its evidence, not as a
+          substitute for review by a human domain scientist, of which there has been none.
+        </p>
+      </aside>
+
+      <p>
+        Three protocols, three outcomes: a recorded negative result, an execution-invalid
+        termination, and a pass. All three are still readable, with their hashes, in the same
+        repository. That is not tidiness. It is what makes the third one worth anything &mdash;
+        anybody can check that the pass was not just the version whose question had been softened
+        until the answer flattered it.
+      </p>
+
+      <p class="handoff">
+        Notice what actually stopped protocol v4. Not a crash, and not a wrong-looking crystal: a
+        vapour field whose numbers had completely stopped changing while its books still did not
+        balance. Chapter 22 is about why those two tests are not the same question &mdash; how does
+        anyone know when a computer has finished solving something? &mdash; and shows what happened
+        the first time this project trusted the obvious answer.
+      </p>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./20-the-flaw-in-the-last-bit.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">The Flaw in the Last Bit</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./22-when-the-numbers-stop-changing.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">When the Numbers Stop Changing</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
+      from a local research cache under citation; they are not redistributed with this repository.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script>
+/* ===========================================================================
+   1. FILL THE CELL
+   A uniform demonstration surface speed advances across a row of cells.
+   Top row keeps a fill fraction; bottom row can only be ice or not-ice.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("anim-fill");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const W = 660, H = 332;
+  const N = 8, X0 = 54, CW = 68, CH = 46;
+  const ROW_A = 60, ROW_B = 158;
+
+  let speed = 1;      // multiplier on the demonstration surface speed
+  let adv = 0;        // advance, in cells
+  let lastT = 0;
+  let svg = null;
+
+  function rate() { return 0.5 * speed; }   // cells per second
+
+  function cellRect(x, y, w, h, fill, opacity, stroke) {
+    return Viz.svgEl("rect", {
+      x: x, y: y, width: Math.max(0, w), height: h, rx: 3,
+      fill: fill || "none", "fill-opacity": opacity == null ? 1 : opacity,
+      stroke: stroke || "none", "stroke-width": stroke ? 1.4 : null,
+    });
+  }
+
+  /* NOTE: education.css gives `.annotation` a `fill`, and a stylesheet rule always
+     beats an SVG presentation attribute — so the colour has to go on the element's
+     own style, or it is silently discarded. */
+  function label(x, y, text, cls, anchor, fill) {
+    const t = Viz.svgEl("text", {
+      class: cls || "annotation", x: x, y: y,
+      "text-anchor": anchor || "start",
+    });
+    if (fill) t.style.fill = fill;
+    t.textContent = text;
+    return t;
+  }
+
+  function draw() {
+    if (svg) svg.remove();
+    svg = Viz.createSvg(body, W, H, {
+      label: "A row of grid cells filling as a surface advances, compared with the same row " +
+             "allowed only to be ice or not-ice.",
+    });
+    const c = Viz.colors();
+    const frozenCount = Math.floor(adv);
+    const surfaceX = X0 + adv * CW;
+
+    svg.appendChild(label(X0, ROW_A - 8, "with a fill fraction  —  f(x) accumulates, attach at f ≥ 1",
+      "annotation", "start", c.inkSecondary));
+    svg.appendChild(label(X0, ROW_B - 8, "binary flip only  —  a cell is ice, or it is not",
+      "annotation", "start", c.inkSecondary));
+
+    for (let k = 0; k < N; k++) {
+      const x = X0 + k * CW;
+      const f = Math.max(0, Math.min(1, adv - k));
+
+      // --- row A: partial fill, value printed BELOW the cell so it stays legible
+      svg.appendChild(cellRect(x, ROW_A, CW - 4, CH, c.sunken, 1, c.rule));
+      if (f > 0) {
+        svg.appendChild(cellRect(x, ROW_A, (CW - 4) * f, CH, c.series[0], f >= 1 ? 0.9 : 0.4));
+      }
+      svg.appendChild(cellRect(x, ROW_A, CW - 4, CH, null, 1, c.ruleStrong));
+      svg.appendChild(label(x + (CW - 4) / 2, ROW_A + CH + 16,
+        f >= 1 ? "ice" : f.toFixed(2), "annotation", "middle",
+        f >= 1 ? c.series[0] : c.inkSecondary));
+
+      // --- row B: all or nothing
+      const solid = k < frozenCount;
+      svg.appendChild(cellRect(x, ROW_B, CW - 4, CH, solid ? c.series[0] : c.sunken, solid ? 0.9 : 1, c.rule));
+      svg.appendChild(cellRect(x, ROW_B, CW - 4, CH, null, 1, c.ruleStrong));
+      svg.appendChild(label(x + (CW - 4) / 2, ROW_B + CH + 16,
+        solid ? "ice" : "not ice", "annotation", "middle",
+        solid ? c.series[0] : c.muted));
+    }
+
+    // the true surface, as the physics has it
+    svg.appendChild(Viz.svgEl("line", {
+      x1: surfaceX, x2: surfaceX, y1: ROW_A - 24, y2: ROW_B + CH + 2,
+      stroke: c.series[1], "stroke-width": 2.2, "stroke-dasharray": "6 4",
+    }));
+    svg.appendChild(label(Math.min(surfaceX + 8, W - 8), ROW_A - 30,
+      "true surface: vₙ·t", "series-label",
+      surfaceX > W - 150 ? "end" : "start", c.series[1]));
+
+    // the staircase the binary row is able to represent
+    const stairX = X0 + frozenCount * CW;
+    svg.appendChild(Viz.svgEl("line", {
+      x1: stairX, x2: stairX, y1: ROW_B - 4, y2: ROW_B + CH + 2,
+      stroke: c.ink, "stroke-width": 2,
+    }));
+    const stairAnchor = stairX < 220 ? "start" : "end";
+    svg.appendChild(label(stairX + (stairAnchor === "start" ? 8 : -8),
+      ROW_B + CH + 34, "represented surface", "annotation", stairAnchor, c.ink));
+
+    const lost = adv - frozenCount;
+    const y = 300;
+    svg.appendChild(label(X0, y,
+      "advance the fill row carries: " + adv.toFixed(2) + " cells", "annotation", "start", c.series[0]));
+    svg.appendChild(label(X0, y + 18,
+      "advance the binary row can express: " + frozenCount.toFixed(2) +
+      " cells  —  discarded this instant: " + lost.toFixed(2), "annotation", "start", c.inkSecondary));
+  }
+
+  Viz.animate(root, function (t, dt) {
+    // A backwards seek is the reduced-motion "Restart" button rewinding the clock;
+    // the surface has to rewind with it, or that button would do nothing visible.
+    if (t < lastT) adv = 0;
+    const d = dt > 0 ? dt : Math.max(0, t - lastT);
+    lastT = t;
+    adv += rate() * d;
+    if (adv > N + 0.35) adv = 0;
+    draw();
+  }, { staticAt: 5.5, stepBy: 0.6 });
+
+  Viz.slider(controls, {
+    label: "surface speed",
+    id: "fill-speed",
+    min: 0.3, max: 2.6, step: 0.1, value: 1,
+    format: function (v) { return v.toFixed(1) + "×"; },
+    onInput: function (v) { speed = v; draw(); },
+  });
+  // Named distinctly from the "Restart" that Viz.animate injects under
+  // prefers-reduced-motion, so two buttons never sit side by side with one label.
+  Viz.button(controls, "Reset the surface", function () { adv = 0; draw(); });
+  Viz.onThemeChange(draw);
+})();
+
+/* ===========================================================================
+   2. WHO SET THE CLOCK?
+   Fill rates over a surface; the largest one sets dt for the whole run.
+   Push the CFL bound to 1 and the constructor refuses.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("anim-clock");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const BASE = [0.31, 0.44, 0.52, 0.61, 0.58, 0.49, 0.66, 0.72, 0.55, 0.47, 0.38, 0.29];
+  const TIP = 1.95;
+  const W = 660, H = 300;
+
+  let cfl = 0.10;
+  let tip = false;
+
+  function rates() { return tip ? BASE.concat([TIP]) : BASE.slice(); }
+
+  function render() {
+    body.innerHTML = "";
+    const c = Viz.colors();
+
+    if (cfl >= 1) {
+      const box = document.createElement("div");
+      box.className = "c21-throw";
+      box.innerHTML =
+        "Error: cflFill must be finite and in (0, 1)" +
+        "<em>The solver constructor throws before a single growth step runs " +
+        "(solver-cpu/src/lk-solver.ts:451&ndash;452). A fill-CFL of 1 or more would let a cell " +
+        "fill completely in one step, which means the surface could cross a whole cell without " +
+        "the program ever representing where it was &mdash; the exact information the fill " +
+        "fraction exists to keep. There is no run to inspect, because there is no solver.</em>";
+      body.appendChild(box);
+      return;
+    }
+
+    const r = rates();
+    let maxRate = 0, maxIdx = 0;
+    for (let i = 0; i < r.length; i++) if (r[i] > maxRate) { maxRate = r[i]; maxIdx = i; }
+    const dt = cfl / maxRate;
+
+    const svg = Viz.createSvg(body, W, H, {
+      label: "A bar chart of the fill rate of every boundary cell, with the largest one marked " +
+             "as the cell that sets the timestep.",
+    });
+
+    const padL = 56, padR = 18, padB = 56, padT = 18;
+    const xs = Viz.scaleLinear([0, 13], [padL, W - padR]);
+    const ys = Viz.scaleLinear([0, 2.1], [H - padB, padT]);
+    Viz.axisLeft(svg, ys, {
+      x: padL, ticks: 5, grid: true, gridTo: W - padR,
+      title: "fill rate (cells per second)", titleOffset: 40,
+      format: function (v) { return v.toFixed(1); },
+    });
+
+    const bw = (xs(1) - xs(0)) * 0.66;
+    for (let i = 0; i < r.length; i++) {
+      const isMax = i === maxIdx;
+      const x = xs(i + 0.5) - bw / 2;
+      svg.appendChild(Viz.svgEl("rect", {
+        x: x, y: ys(r[i]), width: bw, height: (H - padB) - ys(r[i]), rx: 2,
+        fill: isMax ? c.series[0] : c.seq[2],
+        stroke: isMax ? c.ink : "none", "stroke-width": isMax ? 1.6 : null,
+      }));
+    }
+    const lx = xs(maxIdx + 0.5);
+    const tag = Viz.svgEl("text", {
+      class: "series-label", x: Math.min(lx, W - padR - 6), y: ys(maxRate) - 10,
+      "text-anchor": lx > W - 140 ? "end" : "middle", fill: c.series[0],
+    });
+    tag.textContent = "this cell sets Δt — for everybody";
+    svg.appendChild(tag);
+
+    const foot = Viz.svgEl("text", { class: "annotation", x: padL, y: H - 18 });
+    foot.style.fill = c.muted;   // style, not attribute: `.annotation` sets fill in the stylesheet
+    foot.textContent = "one bar per boundary cell on the growth front";
+    svg.appendChild(foot);
+
+    const panel = document.createElement("div");
+    panel.className = "c21-card";
+    panel.style.marginTop = "0.8rem";
+    let rows =
+      "<span>largest fill rate on the surface</span><span>" + maxRate.toFixed(2) + " cells/s</span>" +
+      "<span>fill-CFL bound (cfl)</span><span>" + cfl.toFixed(2) + "</span>" +
+      "<span>&Delta;t = cfl / max(rate)</span><span>" + dt.toFixed(4) + " s</span>" +
+      "<span>largest &Delta;f any cell takes this step</span><span>" + cfl.toFixed(2) + "</span>";
+    panel.innerHTML =
+      "<h4>What the solver computes, this step</h4><div class=\"c21-rows\">" + rows + "</div>" +
+      "<p style=\"margin:0.7rem 0 0;font-size:var(--step--1);color:var(--ink-secondary);\">" +
+      (tip
+        ? "The sharpened tip is now the fastest cell on the surface, so it owns the clock. " +
+          "&Delta;t fell from " + (cfl / 0.72).toFixed(4) + "&nbsp;s to " + dt.toFixed(4) +
+          "&nbsp;s &mdash; the run now needs " + (TIP / 0.72).toFixed(1) +
+          "× as many steps to cover the same amount of physical time, and nothing else about the " +
+          "crystal changed. One cell did that."
+        : "The last row is not a measurement. It equals cfl because &Delta;t was solved to make " +
+          "it equal cfl. That is what &ldquo;the bound holds by construction&rdquo; means.") +
+      "</p>";
+    body.appendChild(panel);
+  }
+
+  Viz.slider(controls, {
+    label: "fill-CFL bound",
+    id: "clock-cfl",
+    min: 0.02, max: 1.20, step: 0.02, value: 0.10,
+    format: function (v) { return v.toFixed(2); },
+    onInput: function (v) { cfl = v; render(); },
+  });
+  const tipBtn = Viz.button(controls, "Sharpen a tip", function (b) {
+    tip = !tip;
+    b.setAttribute("aria-pressed", String(tip));
+    b.textContent = tip ? "Blunt the tip again" : "Sharpen a tip";
+    render();
+  }, { pressed: false });
+  if (tipBtn) tipBtn.setAttribute("aria-pressed", "false");
+
+  render();
+  Viz.onThemeChange(render);
+})();
+
+/* ===========================================================================
+   3. CHANGE ONE THING
+   Two runs, every control locked except temperature. Unlocking does not
+   invent a result: it withdraws the reader's right to attribute one.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("anim-locked");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+
+  const RESULT = {
+    "-5": { step: "814", extent: "61", attached: "18,193", ar: "0.118644", habit: "plate" },
+    "-15": { step: "330", extent: "61", attached: "1,159", ar: "12.2000", habit: "column" },
+  };
+  const LOCKS = [
+    "domain 96×96×96, hexagonal prism",
+    "far field: supersaturation held fixed at the domain edge (a “Dirichlet” boundary)",
+    "σ<sub>∞</sub> = 0.002 — the supersaturation held at that far edge",
+    "seed 1",
+    "noise 0",
+    "fill-CFL 0.1",
+    "convergence tolerances",
+    "measurement size (extent target 60)",
+  ];
+
+  let locked = true;
+  let tA = "-5";
+  let tB = "-15";
+
+  function runCard(title, temp) {
+    const r = RESULT[temp];
+    const pick = function (v) {
+      return "<button type=\"button\" class=\"button\" data-act=\"temp\" data-run=\"" + title +
+        "\" data-val=\"" + v + "\" aria-pressed=\"" + (temp === v ? "true" : "false") + "\">" +
+        "−" + v.replace("-", "") + " °C</button>";
+    };
+    const results = locked
+      ? "<span>growth step</span><span>" + r.step + "</span>" +
+        "<span>extent</span><span>" + r.extent + "</span>" +
+        "<span>cells attached</span><span>" + r.attached + "</span>" +
+        "<span>aspect ratio</span><span>" + r.ar + "</span>" +
+        "<span>habit</span><span>" + r.habit + "</span>"
+      : "<span>growth step</span><span>&mdash;</span>" +
+        "<span>extent</span><span>&mdash;</span>" +
+        "<span>cells attached</span><span>&mdash;</span>" +
+        "<span>aspect ratio</span><span>&mdash;</span>" +
+        "<span>habit</span><span>&mdash;</span>";
+    return "<div class=\"c21-card\"><h4>Run " + title + "</h4>" +
+      "<div style=\"display:flex;gap:0.5rem;margin-bottom:0.6rem;\">" + pick("-5") + pick("-15") + "</div>" +
+      "<div class=\"c21-rows\">" + results + "</div></div>";
+  }
+
+  function verdict() {
+    if (!locked) {
+      return "<div class=\"c21-verdict is-bad\"><strong>This run can no longer support the " +
+        "claim.</strong> More than one thing differs between the two runs, so a difference in the " +
+        "result cannot be attributed to any single cause. The results are withheld rather than " +
+        "shown, because a number you cannot attribute is worse than no number: it looks like " +
+        "evidence.</div>";
+    }
+    if (tA === tB) {
+      return "<div class=\"c21-verdict is-neutral\"><strong>Both runs are at the same " +
+        "temperature.</strong> Everything is properly controlled and the comparison is still " +
+        "worthless &mdash; there is no contrast here to attribute to anything. A control group " +
+        "you did not vary against is just a run.</div>";
+    }
+    return "<div class=\"c21-verdict is-good\"><strong>Temperature alone differed.</strong> " +
+      "Every other input is byte-for-byte identical between the two runs, so any difference in " +
+      "the result is attributable to temperature and to nothing else. This is the comparison the " +
+      "phase gate demanded, and it is the comparison that was run.</div>";
+  }
+
+  function render() {
+    const lockRows = LOCKS.map(function (l) {
+      return "<div class=\"c21-lockrow" + (locked ? "" : " is-unlocked") + "\"><span>" + l +
+        "</span><span class=\"c21-badge " + (locked ? "is-locked\">LOCKED" : "is-open\">UNLOCKED") +
+        "</span></div>";
+    }).join("");
+
+    body.innerHTML =
+      "<div class=\"c21-panel\">" +
+        "<div class=\"c21-cards\">" + runCard("A", tA) + runCard("B", tB) + "</div>" +
+        "<div class=\"c21-card\"><h4>Everything else</h4>" + lockRows + "</div>" +
+        verdict() +
+        "<div style=\"display:flex;gap:0.6rem;flex-wrap:wrap;\">" +
+          "<button type=\"button\" class=\"button\" data-act=\"toggle\">" +
+            (locked ? "Unlock everything" : "Re-lock and restore") + "</button>" +
+        "</div>" +
+      "</div>";
+  }
+
+  body.addEventListener("click", function (e) {
+    const t = e.target;
+    const b = t && t.closest ? t.closest("button[data-act]") : null;
+    if (!b) return;
+    if (b.dataset.act === "toggle") { locked = !locked; render(); return; }
+    if (b.dataset.act === "temp") {
+      if (b.dataset.run === "A") tA = b.dataset.val; else tB = b.dataset.val;
+      render();
+    }
+  });
+
+  render();
+})();
+
+/* ===========================================================================
+   4. SWAP THE HEAD
+   The same machinery under two surface rules. The punchline is which
+   controls exist at all.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("anim-head");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  let rule = "GGThreshold";
+  let beta01 = 1.25;
+  let temp = "-5";
+
+  const AR_TEXT = { "-5": "0.118644", "-15": "12.2000" };
+  const AR_NUM = { "-5": 0.118644, "-15": 12.2 };
+  const HABIT = { "-5": "plate", "-15": "column" };
+
+  /* Schematic side view of a hexagonal prism. `s` > 1 draws a column,
+     s < 1 draws a plate. Facets are direct-labelled, never colour alone. */
+  function crystal(s) {
+    const W = 300, H = 200;
+    const holder = document.createElement("div");
+    const svg = Viz.createSvg(holder, W, H, {
+      label: "A schematic side view of a snow crystal, drawn " +
+             (s > 1 ? "tall like a column." : "wide and flat like a plate."),
+    });
+    const c = Viz.colors();
+    const w = Math.max(12, Math.min(110, 46 / s));   // half-width
+    const h = Math.max(10, Math.min(130, 46 * s));
+    const cx = W / 2, cy = H / 2 + 8;
+
+    svg.appendChild(Viz.svgEl("rect", {
+      x: cx - w, y: cy - h / 2, width: w * 2, height: h, rx: 2,
+      fill: c.series[0], "fill-opacity": 0.16, stroke: "none",
+    }));
+    // basal faces: top and bottom
+    [cy - h / 2, cy + h / 2].forEach(function (y) {
+      svg.appendChild(Viz.svgEl("line", {
+        x1: cx - w, x2: cx + w, y1: y, y2: y, stroke: c.series[0], "stroke-width": 3.5,
+      }));
+    });
+    // prism faces: the sides
+    [cx - w, cx + w].forEach(function (x) {
+      svg.appendChild(Viz.svgEl("line", {
+        x1: x, x2: x, y1: cy - h / 2, y2: cy + h / 2, stroke: c.series[1], "stroke-width": 3.5,
+      }));
+    });
+
+    const l1 = Viz.svgEl("text", { class: "series-label", x: 10, y: 16, fill: c.series[0] });
+    l1.textContent = "— basal faces (top, bottom)";
+    svg.appendChild(l1);
+    const l2 = Viz.svgEl("text", { class: "series-label", x: 10, y: 32, fill: c.series[1] });
+    l2.textContent = "— prism faces (the sides)";
+    svg.appendChild(l2);
+    const l3 = Viz.svgEl("text", { class: "annotation", x: cx, y: H - 4, "text-anchor": "middle" });
+    l3.style.fill = c.muted;     // style, not attribute: `.annotation` sets fill in the stylesheet
+    l3.textContent = "schematic, drawn on a compressed scale";
+    svg.appendChild(l3);
+    return holder.innerHTML;
+  }
+
+  function render() {
+    const isGG = rule === "GGThreshold";
+    const s = isGG
+      ? 2.4 * Math.pow(0.22, (beta01 - 0.3) / 1.7)
+      : Math.pow(AR_NUM[temp], 0.35);
+    const verdictWord = isGG
+      ? (beta01 > 1.05 ? "plate" : beta01 < 0.75 ? "column" : "blocky prism")
+      : HABIT[temp];
+
+    if (betaSlider) betaSlider.element.style.display = isGG ? "" : "none";
+
+    const controlList = isGG
+      ? "<p style=\"font-size:var(--step--1);margin:0 0 0.5rem;\">β₀₁ / β₂₀ &mdash; " +
+        "the basal and prism attachment thresholds. The slider below the panel is live.</p>" +
+        "<p class=\"c21-gone\" style=\"font-size:var(--step--1);margin:0;\">" +
+        "temperature &mdash; this rule contains no temperature at all</p>"
+      : "<p class=\"c21-gone\" style=\"font-size:var(--step--1);margin:0 0 0.6rem;\">" +
+        "β₀₁ / β₂₀ &mdash; this control does not exist under this rule</p>" +
+        "<p style=\"font-size:var(--step--1);margin:0 0 0.5rem;\">temperature &mdash; " +
+        "the only two values this phase actually ran:</p>" +
+        "<div style=\"display:flex;gap:0.5rem;\">" +
+          "<button type=\"button\" class=\"button\" data-act=\"temp\" data-val=\"-5\" aria-pressed=\"" +
+            (temp === "-5") + "\">−5 °C</button>" +
+          "<button type=\"button\" class=\"button\" data-act=\"temp\" data-val=\"-15\" aria-pressed=\"" +
+            (temp === "-15") + "\">−15 °C</button></div>";
+
+    const readout = isGG
+      ? "<div class=\"c21-rows\"><span>habit</span><span>" + verdictWord + "</span>" +
+        "<span>where it came from</span><span>a knob you set</span></div>" +
+        "<p style=\"margin:0.6rem 0 0;font-size:var(--step--1);color:var(--ink-secondary);\">" +
+        "You did not discover this shape. You chose it, before the run, and the run delivered " +
+        "it. That is legitimate &mdash; it is a working, beautiful crystal, and it is kept forever " +
+        "as the control group &mdash; but it cannot be evidence about temperature, because there " +
+        "is no temperature anywhere in this rule.</p>"
+      : "<div class=\"c21-rows\"><span>habit</span><span>" + verdictWord + "</span>" +
+        "<span>aspect ratio</span><span>" + AR_TEXT[temp] + "</span>" +
+        "<span>where it came from</span><span>measured from the run</span></div>" +
+        "<p style=\"margin:0.6rem 0 0;font-size:var(--step--1);color:var(--ink-secondary);\">" +
+        "There is no control on this panel that sets the habit. You set a temperature; the " +
+        "attachment coefficients follow from it at every boundary cell, every step; the shape is " +
+        "whatever comes out. Those two aspect ratios are the ones the run actually recorded.</p>";
+
+    body.innerHTML =
+      "<div class=\"c21-panel\">" +
+        "<div style=\"display:flex;gap:0.6rem;flex-wrap:wrap;\">" +
+          "<button type=\"button\" class=\"button\" data-act=\"rule\" data-val=\"GGThreshold\" aria-pressed=\"" + isGG + "\">GGThreshold</button>" +
+          "<button type=\"button\" class=\"button\" data-act=\"rule\" data-val=\"LibbrechtKinetics\" aria-pressed=\"" + !isGG + "\">LibbrechtKinetics</button>" +
+        "</div>" +
+        "<div class=\"c21-cards\">" +
+          "<div class=\"c21-card\"><h4>Controls under this rule</h4>" + controlList + "</div>" +
+          "<div class=\"c21-card\"><h4>What comes out</h4>" + readout + "</div>" +
+        "</div>" +
+        "<div style=\"max-width:320px;margin:0 auto;\">" + crystal(s) + "</div>" +
+      "</div>";
+  }
+
+  body.addEventListener("click", function (e) {
+    const t = e.target;
+    const b = t && t.closest ? t.closest("button[data-act]") : null;
+    if (!b) return;
+    if (b.dataset.act === "rule") { rule = b.dataset.val; render(); }
+    if (b.dataset.act === "temp") { temp = b.dataset.val; render(); }
+  });
+
+  const betaSlider = Viz.slider(controls, {
+    label: "β₀₁ (basal threshold)",
+    id: "head-beta",
+    min: 0.3, max: 2.0, step: 0.05, value: 1.25,
+    format: function (v) { return v.toFixed(2); },
+    onInput: function (v) { beta01 = v; render(); },
+  });
+
+  render();
+  Viz.onThemeChange(render);
+})();
+
+/* ===========================================================================
+   5. THE DISAPPEARING PERCENTAGE
+   A toy run using the real ledger arithmetic. Discard the clipping record
+   and the books stop balancing; recompute from outside to find out which
+   version is telling the truth.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("anim-ledger");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const RATES = [0.90, 0.75, 0.62, 0.50, 0.41, 0.33, 0.27, 0.22, 0.18];
+  let cfl = 0.30;
+  let steps = 40;
+  let record = true;
+  let outside = null;
+
+  function run() {
+    const f = new Array(RATES.length).fill(0);
+    let maxRate = 0;
+    for (const r of RATES) if (r > maxRate) maxRate = r;
+    const dt = cfl / maxRate;
+    let demand = 0, placed = 0, clipped = 0, attaches = 0;
+    for (let s = 0; s < steps; s++) {
+      for (let i = 0; i < RATES.length; i++) {
+        const raw = RATES[i] * dt;
+        demand += raw;
+        const room = 1 - f[i];
+        if (raw >= room) {
+          placed += room;
+          if (record) clipped += raw - room;
+          f[i] = 0;              // the cell is ice; a fresh boundary cell takes its place
+          attaches++;
+        } else {
+          placed += raw;
+          f[i] += raw;
+        }
+      }
+    }
+    return { demand: demand, placed: placed, clipped: clipped, attaches: attaches, dt: dt };
+  }
+
+  function bars(r) {
+    const W = 620, H = 168;
+    const holder = document.createElement("div");
+    const svg = Viz.createSvg(holder, W, H, {
+      label: "Two bars comparing the demand the physics computed with the fill actually " +
+             "accounted for.",
+    });
+    const c = Viz.colors();
+    const padL = 180, padR = 30;
+    const xs = Viz.scaleLinear([0, r.demand * 1.02], [padL, W - padR]);
+    const bh = 30;
+    const gap = r.demand - (r.placed + r.clipped);
+
+    /* `.annotation` carries a fill in education.css and a stylesheet rule beats a
+       presentation attribute, so colours are set as style on these labels. */
+    function rowLabel(y, text, fill) {
+      const t = Viz.svgEl("text", { class: "annotation", x: padL - 10, y: y + bh / 2 + 4, "text-anchor": "end" });
+      t.style.fill = fill || c.inkSecondary;
+      t.textContent = text;
+      svg.appendChild(t);
+    }
+    function segLabel(x, text, fill, anchor) {
+      const t = Viz.svgEl("text", {
+        class: "series-label", x: x, y: 84 + bh + 18, "text-anchor": anchor || "start", fill: fill,
+      });
+      t.textContent = text;
+      svg.appendChild(t);
+    }
+
+    svg.appendChild(Viz.svgEl("rect", {
+      x: padL, y: 28, width: xs(r.demand) - padL, height: bh, rx: 3,
+      fill: "none", stroke: c.ink, "stroke-width": 1.8, "stroke-dasharray": "5 3",
+    }));
+    rowLabel(28, "computed demand", c.ink);
+
+    svg.appendChild(Viz.svgEl("rect", {
+      x: padL, y: 84, width: Math.max(0, xs(r.placed) - padL), height: bh, rx: 3,
+      fill: c.seq[3],
+    }));
+    rowLabel(84, "what the books account for");
+    segLabel(padL, "placed fill", c.inkSecondary);
+
+    /* The shortfall marker is keyed off the SWITCH and the actual gap, never off
+       `clipped` alone. Clipping is legitimately zero while it is being recorded if
+       no cell has saturated yet — calling that "missing" would be a false alarm in
+       the one demo whose whole job is to tell balanced books from unaccounted-for
+       ones. */
+    if (r.attaches === 0) {
+      const note = Viz.svgEl("text", { class: "annotation", x: padL, y: 84 + bh + 38 });
+      note.style.fill = c.muted;
+      note.textContent = "no cell saturated at this setting, so there was nothing to clip";
+      svg.appendChild(note);
+    } else if (record) {
+      // Draw the segment only when it is wide enough to see; a clipping total of a
+      // few float ulps is reported in the numeric card, not labelled on the bar.
+      const wClip = xs(r.placed + r.clipped) - xs(r.placed);
+      if (wClip >= 1) {
+        svg.appendChild(Viz.svgEl("rect", {
+          x: xs(r.placed), y: 84, width: wClip, height: bh, rx: 3, fill: c.series[1],
+        }));
+        segLabel(xs(r.placed + r.clipped), "recorded clipping", c.series[1], "end");
+      }
+    } else if (gap > 1e-12) {
+      svg.appendChild(Viz.svgEl("rect", {
+        x: xs(r.placed), y: 84, width: Math.max(1, xs(r.demand) - xs(r.placed)), height: bh, rx: 3,
+        fill: c.critical, "fill-opacity": 0.16,
+        stroke: c.critical, "stroke-width": 1.4, "stroke-dasharray": "4 3",
+      }));
+      const mid = Math.min(W - padR - 4, Math.max(padL + 4, (xs(r.placed) + xs(r.demand)) / 2));
+      segLabel(mid, "missing", c.critical, "middle");
+    }
+    return holder.innerHTML;
+  }
+
+  function render() {
+    const r = run();
+    const total = r.placed + r.clipped;
+    const gap = r.demand - total;
+    const gapPct = r.demand > 0 ? (gap / r.demand) * 100 : 0;
+    const balances = Math.abs(gap) < 1e-9 * Math.max(1, r.demand);
+
+    const verdictHtml = r.attaches === 0
+      ? "<div class=\"c21-verdict is-neutral\"><strong>No cell saturated at this setting.</strong> " +
+        "Nothing reached f = 1, so no demand had to be clipped and none could be dropped. The " +
+        "books balance for a trivial reason and the clipping switch makes no difference yet. " +
+        "Raise the fill-CFL bound or the step count until cells start saturating, and it will.</div>"
+      : balances
+      ? "<div class=\"c21-verdict is-good\"><strong>placed fill + recorded clipping = computed " +
+        "demand.</strong> The books balance down to the float64 floor &mdash; the difference above " +
+        "is rounding dust, not a missing quantity. Nothing was <em>conserved</em> here: ice was " +
+        "made out of a supply this rule does not model as a stock. But nothing left the account " +
+        "unrecorded either.</div>"
+      : "<div class=\"c21-verdict is-bad\"><strong>" + gapPct.toFixed(1) + "% of the computed " +
+        "demand is unaccounted for.</strong> Nothing crashed. No test failed. The crystal looks " +
+        "exactly the same. The only symptom is that a number the code computed does not appear " +
+        "anywhere in the books.</div>";
+
+    const outsideHtml = outside === null ? "" :
+      "<div class=\"c21-verdict is-neutral\"><strong>Recomputed from outside the solver:</strong> " +
+      "the run's total demand, worked out in closed form &mdash; (the rates added up) &times; " +
+      "&Delta;t &times; steps, touching none of the loop's running totals &mdash; is " +
+      "<span class=\"c21-num\">" + outside.toFixed(4) + "</span> cells. What the books account " +
+      "for is <span class=\"c21-num\">" + total.toFixed(4) + "</span>. " +
+      (balances
+        ? "They agree, by a route that shares no arithmetic with the one being checked. This is " +
+          "the shape of the project's own non-tautological test: the check is computed from " +
+          "published state, not asked of the thing being checked."
+        : "They do not. An independent recomputation is the only way to notice, because the " +
+          "solver's internal totals agree with each other perfectly &mdash; they are just " +
+          "agreeing about the wrong quantity.") +
+      "</div>";
+
+    body.innerHTML =
+      "<div class=\"c21-panel\">" +
+        "<div class=\"c21-cards\">" +
+          "<div class=\"c21-card\"><h4>This toy run</h4><div class=\"c21-rows\">" +
+            "<span>boundary cells</span><span>" + RATES.length + "</span>" +
+            "<span>growth steps</span><span>" + steps + "</span>" +
+            "<span>&Delta;t = cfl / max(rate)</span><span>" + r.dt.toFixed(4) + "</span>" +
+            "<span>cells that saturated</span><span>" + r.attaches + "</span>" +
+          "</div></div>" +
+          "<div class=\"c21-card\"><h4>The books</h4><div class=\"c21-rows\">" +
+            "<span>computed demand</span><span>" + r.demand.toFixed(4) + "</span>" +
+            "<span>placed fill</span><span>" + r.placed.toFixed(4) + "</span>" +
+            "<span>recorded clipping</span><span>" + (record ? r.clipped.toFixed(4) : "not recorded") + "</span>" +
+            "<span>difference</span><span>" +
+              (balances ? (gap === 0 ? "0" : gap.toExponential(1)) : gap.toFixed(4)) + "</span>" +
+          "</div></div>" +
+        "</div>" +
+        "<div>" + bars(r) + "</div>" +
+        verdictHtml + outsideHtml +
+      "</div>";
+  }
+
+  Viz.slider(controls, {
+    label: "fill-CFL bound",
+    id: "ledger-cfl",
+    min: 0.05, max: 0.90, step: 0.05, value: 0.30,
+    format: function (v) { return v.toFixed(2); },
+    onInput: function (v) { cfl = v; outside = null; render(); },
+  });
+  Viz.slider(controls, {
+    label: "growth steps",
+    id: "ledger-steps",
+    min: 5, max: 90, step: 5, value: 40,
+    format: function (v) { return String(v); },
+    onInput: function (v) { steps = v; outside = null; render(); },
+  });
+  const recBtn = Viz.button(controls, "Discard the clipping", function (b) {
+    record = !record;
+    outside = null;
+    b.textContent = record ? "Discard the clipping" : "Record the clipping";
+    b.setAttribute("aria-pressed", String(!record));
+    render();
+  }, { pressed: false });
+  if (recBtn) recBtn.setAttribute("aria-pressed", "false");
+  Viz.button(controls, "Recompute from outside the solver", function () {
+    /* Deliberately NOT the run loop's own running total — that would only ever
+       agree with itself. Every cell's rate is constant here, so the whole run's
+       demand is (sum of rates) x dt x steps, in closed form, touching nothing the
+       loop touched. Agreeing to float dust by a different route is the point. */
+    let sum = 0, mx = 0;
+    for (const x of RATES) { sum += x; if (x > mx) mx = x; }
+    outside = sum * (cfl / mx) * steps;
+    render();
+  });
+
+  render();
+  Viz.onThemeChange(render);
+})();
+</script>
+</body>
+</html>
