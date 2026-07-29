@@ -42,6 +42,7 @@ import {
 import {
   PHASE6_FAR_FIELD,
   PHASE6_NAKAYA_BOUNDARIES_C,
+  PHASE6_PARAM_SET,
   PHASE6_SURFACE_POLICY,
   phase6SigmaWaterFromTable,
 } from "./phase6-protocol.ts";
@@ -69,7 +70,10 @@ export const PHASE6_CROSSPLATFORM_FIXTURE = {
   cflFill: 0.1,
   targetExtent: 21,
   pressurePa: 101325,
-  paramSet: "CAK_A1",
+  // ADR 0031: sourced from the protocol so the determinism control and the sweep cannot diverge.
+  // It previously read "CAK_A1" as a literal while `phase6PointCommand` emitted no --param-set at
+  // all, so the fixture documented a value it never passed.
+  paramSet: PHASE6_PARAM_SET,
   surfacePolicy: PHASE6_SURFACE_POLICY,
   farField: PHASE6_FAR_FIELD,
   relaxTol: 1e-9,
@@ -134,14 +138,14 @@ export function phase6LibmFingerprint(): readonly Phase6LibmEntry[] {
     push("kineticLength", t, kineticLength(tempC, PHASE6_CROSSPLATFORM_FIXTURE.pressurePa));
     push("sigma0Basal", t, sigma0Basal(tempC));
     push("sigma0Prism", t, sigma0Prism(tempC));
-    push("nucleationAPrism", t, nucleationAPrism(tempC, "CAK_A1"));
+    push("nucleationAPrism", t, nucleationAPrism(tempC, PHASE6_PARAM_SET));
     // The driving supersaturation this temperature is actually swept at, and two neighbours,
     // so the exponential is probed across the range the surface field explores.
     const sigmaInf = phase6FixtureSigmaInf(tempC);
     for (const scale of [0.25, 1, 4]) {
       const sigmaSurf = sigmaInf * scale;
-      push("alphaHK.basal", `${t}@${scale}`, alphaHK("basal", tempC, sigmaSurf, "CAK_A1"));
-      push("alphaHK.prism", `${t}@${scale}`, alphaHK("prism", tempC, sigmaSurf, "CAK_A1"));
+      push("alphaHK.basal", `${t}@${scale}`, alphaHK("basal", tempC, sigmaSurf, PHASE6_PARAM_SET));
+      push("alphaHK.prism", `${t}@${scale}`, alphaHK("prism", tempC, sigmaSurf, PHASE6_PARAM_SET));
     }
   }
   return out;
@@ -164,8 +168,18 @@ export function phase6LibmDigest(entries: readonly Phase6LibmEntry[]): string {
  * one short string to compare instead of 448 lines.
  *
  * Host: win32 x64, Node v24.13.1, V8 13.6.233.17-node.40.
+ *
+ * **Re-issued 2026-07-28 by ADR 0031**, `560aeaf7` → `2a9f64b3`. The fingerprint previously
+ * sampled `nucleationAPrism` and `alphaHK` at the literal `"CAK_A1"`, under which
+ * `nucleationAPrism` returns a constant 1 at every temperature — so the tier-1 control was
+ * fingerprinting a code path the sweep was not going to ship, and exercised nothing of the
+ * A_prism interpolation. It now samples `PHASE6_PARAM_SET`.
+ *
+ * **MAC RUN NEEDED.** The arm64 side of this control has not been run and is not attempted here;
+ * see the runbook. Re-issuing the digest resets that comparison — any previously recorded arm64
+ * digest is against `560aeaf7` and is not comparable to this one.
  */
-export const PHASE6_LIBM_DIGEST_X64_BASELINE = "560aeaf7";
+export const PHASE6_LIBM_DIGEST_X64_BASELINE = "2a9f64b3";
 
 /**
  * The tier-2 baseline, likewise x64-only. These are not fresh runs: they are the N = 48 rows of
@@ -173,10 +187,29 @@ export const PHASE6_LIBM_DIGEST_X64_BASELINE = "560aeaf7";
  * fixture reproduces exactly. The registered comparison is the HABIT CLASS; the counts and
  * ratios are recorded so a difference can be located, not so it can be required to match.
  */
-export const PHASE6_FIXTURE_X64_BASELINE = [
+/**
+ * STALE — these values were produced under `CAK_A1`, and ADR 0031 changed the registered parameter
+ * set to `CAK`. They are retained rather than deleted so the comparison has a history, but they
+ * MUST NOT be used as the arm64 comparison baseline until repopulated.
+ *
+ * A measured calibration probe already shows how far the warm row moves: at −5 °C, f = 0.15, the
+ * same configuration under `CAK` gives step 300, attached 4883, AR 1.0000 (neutral) against the
+ * 0.3821 plate below. The cold row should barely move — `A_prism` ≈ 0.968 at (Tm−T) = 15, and
+ * `2009.08404v2` Fig. 2's caption states A ≈ 1 for both facets between −10 and −30 °C.
+ *
+ * Repopulate from the ADR 0031 re-sweep's own −5 °C and −15 °C f = 0.15 rows rather than from
+ * separate runs, so the control and the sweep are the same arithmetic.
+ *
+ * **Re-issuing this baseline resets the cross-platform control: MAC RUN NEEDED.** See the runbook.
+ * The Mac/arm64 run is not attempted here.
+ */
+export const PHASE6_FIXTURE_X64_BASELINE_STALE_CAK_A1 = [
   { label: "warm", tempC: -5, steps: 145, attached: 1513, aspectRatio: 0.3821, habit: "plate" },
   { label: "cold", tempC: -15, steps: 316, attached: 5161, aspectRatio: 1.1053, habit: "neutral" },
 ] as const;
+
+/** Pending repopulation under `CAK` — see the stale table above. */
+export const PHASE6_FIXTURE_X64_BASELINE = [] as const;
 
 function fnv1a(entries: readonly Phase6LibmEntry[]): string {
   let hash = 0x811c9dc5;

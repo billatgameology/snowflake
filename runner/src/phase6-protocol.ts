@@ -77,6 +77,23 @@ export const PHASE6_INTERPOLATION = {
   extrapolation: "banned",
 } as const;
 
+/**
+ * The registered parameter set (ADR 0031).
+ *
+ * `PHASE6_INTERPOLATION.aPrism` above registers A_prism as a piecewise-linear interpolation,
+ * DISTINCT from `aBasal: "constant-1"` — there is no reading of that row on which A_prism ≡ 1.
+ * The 204-point sweep of `6995868` nonetheless ran `CAK_A1`, in which `nucleationAPrism` returns
+ * 1 at every temperature, because `runner/src/phase6-sweep.ts` never passed `--param-set` and
+ * `runner/src/main.ts` defaults it to `CAK_A1`.
+ *
+ * So this is NOT a missing freeze row of the kind ADR 0025 corrected — the scheme was registered
+ * and the runs violated it, through an unregistered CLI default. Registering the selector itself
+ * is what closes that path: a frozen row a default can override is not frozen.
+ *
+ * The harness MUST pass this explicitly to every child process. `phase6SweepPreflight` asserts it.
+ */
+export const PHASE6_PARAM_SET = "CAK" as const;
+
 // ── Registered: latent heating is carried, not applied ──────────────────────────────────────
 //
 // The source prints two anchors and a trend — `chi_0 ≈ 0.8` at −1 °C, `≈ 0.4` at −10 °C,
@@ -1026,6 +1043,24 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
       "asserted — leave-one-out worst error 10.7% basal / 9.0% prism against a ±25% band",
   },
   {
+    id: "param-set",
+    group: "physics-inputs",
+    status: "registered",
+    requirement:
+      "the parameter set selecting which A_prism the interpolation scheme above actually applies",
+    value: "CAK — A_basal ≡ 1, A_prism interpolated through the digitized A_PRISM_CAK anchors",
+    source:
+      "ADR 0031. Registered because the sweep of 6995868 ran CAK_A1 (A_prism ≡ 1), violating the " +
+      "parameter-interpolation row above, via an unregistered --param-set default in " +
+      "runner/src/main.ts. CAK is registered on provenance and on conformance to that row, NOT " +
+      "on score: 2009.08404v2 p3 Eq. (5) prints A_prism = (0.4+0.04|T*−4|³)/(2.2+0.04|T*−4|³), " +
+      "which the digitized anchors reproduce to 8.4% worst and <2% typically, and 2306.04042v1 " +
+      "Table 1 p9 prints A1 = 0.25 at −2 °C and 0.2 at −5 °C, matching the dedicated measurement " +
+      "papers exactly. CAK_A1's justification is M1's documented simplification, defensible for " +
+      "a starter model and not for a run whose protocol registered the opposite. ADR 0031 " +
+      "records IN ADVANCE that this is expected to LOWER the headline from 5/90 to about 2/90",
+  },
+  {
     id: "latent-heating",
     group: "physics-inputs",
     status: "registered",
@@ -1283,6 +1318,10 @@ export function phase6ProtocolManifest(
   }
   return {
     interpolation: PHASE6_INTERPOLATION,
+    // ADR 0031. Hashed for the same reason the scoring rule is: the interpolation row above is
+    // inert unless the parameter set that selects it is pinned too, and the sweep of 6995868
+    // proved a CLI default can override a registered row without moving any hash.
+    paramSet: PHASE6_PARAM_SET,
     latentHeating: PHASE6_LATENT_HEATING,
     farField: PHASE6_FAR_FIELD,
     surfacePolicy: PHASE6_SURFACE_POLICY,
@@ -1318,7 +1357,7 @@ export function phase6ProtocolManifest(
  * sweep evidence under a protocol nobody agreed to.
  */
 export const PHASE6_PROTOCOL_SHA256 =
-  "9aa2e7c148aad117ba9ab7313bb36c55d4de3fccc3fbda4c2e43cc2af4974983";
+  "8aeb2b80a5d85357bca1ddbf7301e63ea7b53e714e4bc5ce290ac22e1b16698e";
 
 /**
  * Protocol revisions, newest last. The freeze is AMENDED through ADRs, never edited in place,
@@ -1336,6 +1375,10 @@ export const PHASE6_PROTOCOL_REVISIONS = [
   { sha256: "f5350b85feb0ecefd5efc5bbe2cfc3ccaad3059c4c85c97e724adfe987485615", note: "ADR 0027 far-field row cites the amended charter v1.17, not the clause it replaced" },
   { sha256: "df799560df21a12d3ec184942eee65f4b34f50c897f7ad73f259f572ebc8e6f0", note: "ADR 0028 parameter-table erratum; the manifest carries the table hash, so this hash moves with it" },
   { sha256: "9aa2e7c148aad117ba9ab7313bb36c55d4de3fccc3fbda4c2e43cc2af4974983", note: "section-B systematics: extent-drift bound and the domain spot-check pass criterion" },
+  // THE FIRST AMENDMENT THAT IS NOT FREE. Every revision above was registered before any sweep
+  // ran, so each cost nothing. This one invalidates the 204-point sweep of 6995868 and re-runs it,
+  // which is what §3.2 Phase 6 item 1 prices and is the reason the clause exists.
+  { sha256: "8aeb2b80a5d85357bca1ddbf7301e63ea7b53e714e4bc5ce290ac22e1b16698e", note: "ADR 0031 registers paramSet = CAK as a freeze row (25 rows); the sweep of 6995868 ran CAK_A1 in violation of the parameter-interpolation row and is invalidated" },
 ] as const;
 
 /**

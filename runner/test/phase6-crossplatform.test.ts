@@ -11,6 +11,7 @@ import { describe, expect, it } from "vitest";
 import {
   PHASE6_CROSSPLATFORM_FIXTURE,
   PHASE6_FIXTURE_X64_BASELINE,
+  PHASE6_FIXTURE_X64_BASELINE_STALE_CAK_A1,
   PHASE6_LIBM_DIGEST_X64_BASELINE,
   float64Bits,
   phase6FixtureSigmaInf,
@@ -99,8 +100,25 @@ describe("the registered fixture", () => {
     expect(phase6FixtureSigmaInf(-15)).toBeCloseTo(0.023550, 12);
   });
 
-  it("records a baseline that separates the two habit classes", () => {
-    // A control whose two points classify the same way could not detect a flip in either.
+  it("records a baseline that separates the two habit classes, or is explicitly pending", () => {
+    // A control whose two points classify the same way could not detect a flip in either. That
+    // requirement is UNCHANGED and is the whole value of the tier-2 control.
+    //
+    // ADR 0031 put the baseline into a pending state rather than weakening the requirement. The
+    // old rows were measured under `CAK_A1` and the registered set is now `CAK`; a measured probe
+    // gives −5 °C AR 1.0000 (neutral) against the 0.3821 plate recorded before, while −15 °C
+    // barely moves from 1.1053 (neutral) because A_prism ≈ 0.968 there. So under `CAK` BOTH
+    // fixture points classify neutral and the fixture stops separating anything — a real
+    // consequence of the parameter-set change, not a test artifact.
+    //
+    // The empty state is therefore an honest "not yet measured, and the old points are known to
+    // be inadequate", and this test accepts it only while it is explicitly empty. As soon as rows
+    // are populated the original two-class requirement binds again, so nothing can be filled in
+    // that does not separate the classes.
+    if (PHASE6_FIXTURE_X64_BASELINE.length === 0) {
+      expect(PHASE6_FIXTURE_X64_BASELINE_STALE_CAK_A1.length).toBe(2);
+      return;
+    }
     const habits = PHASE6_FIXTURE_X64_BASELINE.map((row) => row.habit);
     expect(new Set(habits).size).toBe(2);
     const warm = PHASE6_FIXTURE_X64_BASELINE.find((row) => row.label === "warm");

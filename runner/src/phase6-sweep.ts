@@ -18,6 +18,7 @@ import {
 } from "./phase6-crossplatform.ts";
 import {
   PHASE6_DOMAIN_SPOT_CHECK,
+  PHASE6_PARAM_SET,
   PHASE6_PROTOCOL_SHA256,
   phase6FreezeComplete,
   phase6IsExtentFragile,
@@ -272,6 +273,12 @@ export function phase6PointCommand(point: Phase6GridPoint): readonly string[] {
     "--target-extent", String(fixture.targetExtent),
     "--surface-policy", fixture.surfacePolicy,
     "--far-field", fixture.farField,
+    // ADR 0031. Passed EXPLICITLY from the protocol constant, never inherited from a CLI default.
+    // The sweep of 6995868 omitted this flag; `runner/src/main.ts` defaults `paramSet` to
+    // "CAK_A1", so every one of its 204 runs used A_prism ≡ 1 while the registered interpolation
+    // row said A_prism is interpolated. The fixture even declared `paramSet` — it was simply
+    // never emitted, and the default happened to match, so nothing failed loudly.
+    "--param-set", PHASE6_PARAM_SET,
     "--metrics-every", "100000",
   ];
 }
