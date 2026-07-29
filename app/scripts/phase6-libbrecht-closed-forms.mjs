@@ -183,7 +183,7 @@ console.log(`
 
   carries A as well as sigma0. So the habit-relevant order swap is a zero of
 
-        ln(alpha_prism / alpha_basal) = ln A_prism(t) - (sigma0_prism(t) - sigma0_basal(t)) / sigma_surf
+        ln(alphaHKPrism / alphaHKBasal) = ln A_prism(t) - (sigma0_prism(t) - sigma0_basal(t)) / sigma_surf
 
   which (i) is NOT the same as a sigma0 crossing whenever A_prism != 1, and (ii) depends on
   sigma_surf, which diffusion sets. There is therefore no sigma_surf-independent bound at all.
@@ -203,7 +203,7 @@ for (const [name, fb, fp] of sigma0Models) {
 }
 
 // alphaHK order-swap count, as a function of sigma_surf (percent, same units as sigma0 here).
-function alphaSwaps(fb, fp, fA, sigmaSurf, lo = 1, hi = 50, step = 0.0005) {
+function alphaHKSwaps(fb, fp, fA, sigmaSurf, lo = 1, hi = 50, step = 0.0005) {
   const g = (t) => Math.log(fA(t)) - (fp(t) - fb(t)) / sigmaSurf;
   const out = [];
   let prev = g(lo);
@@ -219,7 +219,7 @@ console.log("\n  (b) alphaHK order swaps — the actual habit criterion — vs s
 for (const [name, fb, fp, fA] of sigma0Models) {
   console.log(`\n      ${name}`);
   for (const ss of [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 1.0, 2.0]) {
-    const s = alphaSwaps(fb, fp, fA, ss);
+    const s = alphaHKSwaps(fb, fp, fA, ss);
     const flag = s.length >= 3 ? "   <-- THREE OR MORE" : "";
     console.log(
       `        sigma_surf = ${ss.toFixed(2)}%   swaps = ${String(s.length).padStart(2)}` +
