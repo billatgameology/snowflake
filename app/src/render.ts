@@ -21,6 +21,13 @@ export type BackendName = "WebGPU" | "WebGL2";
 export interface ViewOptions {
   /** Force the WebGL2 backend (verifies the fallback path; A2-6 records what actually ran). */
   readonly forceWebGL?: boolean;
+  /**
+   * Externally acquired shared GPUDevice (WP6 frozen design D2): passed to Three's
+   * first-class `device` constructor parameter so the renderer and the production solver
+   * share one device. Omitted = today's path, byte-identical (WebGPU auto or the WebGL2
+   * fallback); this class never acquires a device of its own.
+   */
+  readonly device?: GPUDevice;
 }
 
 /**
@@ -87,6 +94,10 @@ export class CrystalView {
   private sliceTexture: THREE.DataTexture | null = null;
   private sliceMaterial: THREE.MeshBasicMaterial | null = null;
 
+  /** WP6 S4 camera sharing: per-frame listeners run AFTER controls.update() + render, so
+   * the GPU view reads this frame's exact camera matrices (D2: one camera, two canvases). */
+  private readonly frameListeners: (() => void)[] = [];
+
   private constructor(renderer: THREE.WebGPURenderer, backend: BackendName, container: HTMLElement) {
     this.renderer = renderer;
     this.backend = backend;
@@ -127,16 +138,26 @@ export class CrystalView {
     this.renderer.setAnimationLoop(() => {
       this.controls.update();
       this.renderer.render(this.scene, this.camera);
+      for (const listener of this.frameListeners) listener();
     });
 
     window.addEventListener("resize", () => this.resize(container));
   }
 
+  /** Register a per-frame callback (WP6 S4: the second-canvas GPU view renders here). */
+  onFrame(listener: () => void): void {
+    this.frameListeners.push(listener);
+  }
+
   /** Awaited construction: WebGPURenderer.init() decides WebGPU vs its WebGL2 fallback. */
   static async create(container: HTMLElement, options?: ViewOptions): Promise<CrystalView> {
+    // The conditional spread keeps the no-device parameter object EXACTLY today's shape
+    // (S2 behavior preservation); with a device, three 0.185's WebGPUBackend adopts it
+    // instead of requesting its own (the `parameters.device === undefined` branch).
     const renderer = new THREE.WebGPURenderer({
       antialias: true,
       forceWebGL: options?.forceWebGL === true,
+      ...(options?.device !== undefined ? { device: options.device } : {}),
     });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(container.clientWidth, container.clientHeight);

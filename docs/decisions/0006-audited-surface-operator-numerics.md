@@ -7,6 +7,9 @@
   geometry and per-face demand terminology are retained as the executed `legacy-v3` contract;
   `aggregate-hv-g1h1-v4` uses the source-constrained aggregate boundary-pixel rule. The dual
   convergence, auditability, and noise decisions remain in force.
+  **Amended for the new aggregate v5 numerical policy by 0013** (2026-07-19): v5 includes the
+  independently metered float64 reflecting-smoother drift in the divergence identity. The
+  executed legacy-v3 and aggregate-v4 two-term identities remain immutable.
 - **Charter impact:** §2.4 ("How quasi-static is enforced") and §3.2 Phase 2b (units bullet,
   the Dirichlet gate text strengthened from the uniform-start "long crystal-free run holds
   σ" check to the depleted-start differential, and the seam bullet), plus Phase 6's
@@ -57,6 +60,9 @@ Under `LibbrechtKinetics`:
    A Dirichlet solve failing the identity is not converged, whatever its residual says.
    Reflecting LK mode is diagnostic-only: it has no far-field injection, reports no divergence
    identity, and converges by residual alone.
+   Decision 0013 retains both criteria and both tolerances for aggregate v5, while correcting the
+   identity for the actual float64 split operator to include its independently metered smoother
+   drift. It does not reinterpret executed legacy-v3 or aggregate-v4 results.
 2. **Fill is per attached face, with the hexagonal-prism geometry factors.**
    `Δf = [(2/3)·n_T + n_Z] · alphaHK·v_kin·sigma_face·Δt/Δx`. The fill-CFL binds the
    per-cell summed *kinetic* increment; `Δt = cfl / max(rate)` adaptively. Hole-fill events

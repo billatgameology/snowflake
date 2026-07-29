@@ -46,9 +46,11 @@ export function vKin(tempC: number): number {
 
 /** Supersaturation of supercooled water relative to ice (fraction) — monograph Eq. 2.9.
     KNOWN LIMIT (recorded in the table): computed from the difference of two Arrhenius fits,
-    this deviates from Table 2.1's measured column by up to ~10% at -15 C and becomes negative
-    near -1 C. It is a source-side plausibility reference, NOT an enforced runtime ceiling and
-    never part of the dynamics (attachment-kinetics §4.4 component 1). */
+    this deviates from Table 2.1's measured column by up to ~10% at -15 C and crosses zero at
+    T = -1.969 C, so it is negative over the whole range warmer than that. It is a source-side
+    plausibility reference, NOT an enforced runtime ceiling and never part of the dynamics
+    (attachment-kinetics §4.4 component 1). Phase 6's supersaturation ladder therefore uses the
+    printed Table 2.1 anchors instead — see runner/src/phase6-protocol.ts. */
 export function sigmaWater(tempC: number): number {
   const pi = pSatIce(tempC);
   return (pSatWater(tempC) - pi) / pi;
@@ -161,11 +163,38 @@ export function pecletUpperBound(
  * The coupled LK surface policy is checkpointed as one value because classification, Robin
  * geometry, and fill geometry must never be mixed across versions (ADR 0009).
  */
-export type LKSurfacePolicy = "legacy-v3" | "aggregate-hv-g1h1-v4";
+export type LKSurfacePolicy =
+  | "legacy-v3"
+  | "aggregate-hv-g1h1-v4"
+  | "aggregate-hv-g1h1-v5"
+  | "aggregate-hv-g1h1-v6";
 
 /** Runtime guard for parsed CLI/checkpoint values, where TypeScript's union is not binding. */
 export function isLKSurfacePolicy(value: unknown): value is LKSurfacePolicy {
-  return value === "legacy-v3" || value === "aggregate-hv-g1h1-v4";
+  return (
+    value === "legacy-v3" ||
+    value === "aggregate-hv-g1h1-v4" ||
+    value === "aggregate-hv-g1h1-v5" ||
+    value === "aggregate-hv-g1h1-v6"
+  );
+}
+
+/**
+ * V5 and v6 share ADR 0013's float64 smoother-drift term in the divergence identity; v4 does
+ * not. Named once so a later policy cannot be added at one branch site and missed at another —
+ * the shape of omission ADR 0023 was written about.
+ */
+export function metersSmootherDrift(policy: LKSurfacePolicy): boolean {
+  return policy === "aggregate-hv-g1h1-v5" || policy === "aggregate-hv-g1h1-v6";
+}
+
+/**
+ * V6 alone sums the Eq. 5.35 opposing-vapor operands in ascending value order (ADR 0023).
+ * V4/v5 accumulate them in lattice-direction order, which rot60 and mirror permute
+ * non-monotonically, so their boundary value is not D6h-equivariant in floating point.
+ */
+export function usesCanonicalOpposingOrder(policy: LKSurfacePolicy): boolean {
+  return policy === "aggregate-hv-g1h1-v6";
 }
 
 export type FacetClass = "basal" | "prism" | "inhibited" | "rough";
@@ -176,10 +205,11 @@ export type FacetClass = "basal" | "prism" | "inhibited" | "rough";
  * in [0, 2]. [00] is not a boundary configuration and reaching this function with it is a
  * topology error, never a rough-site fallback.
  *
- * `legacy-v3` preserves the executed protocol-v3 classifier. `aggregate-hv-g1h1-v4` is ADR
+ * `legacy-v3` preserves the executed protocol-v3 classifier. Aggregate v4 and v5 share ADR
  * 0009's source-constrained nearest-neighbor table: [01]/[02] basal, [10] inhibited, [20]
- * prism, and every other valid boundary configuration rough. Hole filling remains a separate
- * attachment mode in the solver and does not alter the kinetic class returned here.
+ * prism, and every other valid boundary configuration rough. V5 differs only in its float64
+ * divergence identity (ADR 0013). Hole filling remains a separate attachment mode in the
+ * solver and does not alter the kinetic class returned here.
  */
 export function classifyFacet(
   rawNT: number,

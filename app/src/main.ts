@@ -1,11 +1,13 @@
 // Main thread: rendering, controls, overlays, slice, picking, HUD, and status. The solver
-// runs in the worker — nothing here ever constructs or steps a GGSolver (charter §3.1).
+// runs behind the Engine seam (engine.ts, WP6 D1) — in S1 always the CPU worker — and
+// nothing here ever constructs or steps a GGSolver (charter §3.1).
 // Every view refresh reads the LATEST snapshot object, so pausing the solver freezes a fully
 // inspectable state: slice, overlays, picking, and HUD keep working on it (freeze-and-inspect).
 
 import { Pane } from "tweakpane";
 import {
   ggParamsFromTimelineEnvironment,
+  ggTimelineEnvironmentFromParams,
   latticeBBox,
   paramSlot,
   type Dims,
@@ -19,11 +21,32 @@ import {
   DEFAULT_INIT,
   presetRho,
   validateInitConfig,
+  type EngineSnapshot,
+  type GpuSnapshot,
   type InitConfig,
   type SnapshotMessage,
   type StopReason,
-  type WorkerToMain,
 } from "./protocol.ts";
+import { WorkerEngine, type Engine, type EngineMessage } from "./engine.ts";
+import {
+  GPU_ENGINE_PROVENANCE,
+  GpuEngine,
+  gpuBudgetById,
+  gpuBudgetIds,
+  validatedEnvironmentEdit,
+  type GpuAuditSummary,
+  type GpuControllerReport,
+  type GpuDebugFieldReadback,
+} from "./gpuengine.ts";
+import {
+  acquireProductionGpuDevice,
+  decideGpuBoot,
+  gpuDeviceStatusReport,
+  gpuStatusLine,
+  type GpuAcquisition,
+  type GpuDeviceStatusReport,
+} from "./gpudevice.ts";
+import { GpuView, type GpuViewControls } from "./gpuview.ts";
 import { surfaceCellIndices } from "./surface.ts";
 import { CrystalView, type CameraPose } from "./render.ts";
 import { normalizeToUnit, srgbToLinear, viridis } from "./colormap.ts";
@@ -142,6 +165,88 @@ interface VccDebug {
   /** Apply a registered Phase 4 live-GG scenario config (same path as pane + reset). */
   applyScenario: (id: string) => boolean;
   scenarioIds: () => string[];
+  // ── Phase 5 (WP6 S2): production GPU device state — engine-neutral addition only ───────
+  /**
+   * Observed production GPU device state (D4): the acquisition outcome and fallback
+   * reason, the frozen Phase 5 requirements the request was checked against, the observed
+   * device capability, and by-value copies of the live uncaptured-error / device-loss
+   * observation lists at call time. Null until boot decides. Reports device state only,
+   * never engine identity (that is `engine()` below).
+   */
+  gpuDeviceStatus: () => GpuDeviceStatusReport | null;
+  // ── Phase 5 (WP6 S3): engine-neutral engine/budget controls. Existing fields above keep
+  // identical semantics; tick/attached/running/stopReason/snapshotCount reflect whichever
+  // engine is ACTIVE. ─────────────────────────────────────────────────────────────────────
+  /** The active solver engine ("cpu" = float64 oracle worker; "gpu" = float32 GPU port). */
+  engine: () => "cpu" | "gpu";
+  /** Switch engines live (same path as the pane row); false when refused, with the reason
+   * shown in the status panel — never a silent downgrade. */
+  setEngine: (kind: string) => boolean;
+  /** The selected frozen Phase 5 GPU budget id. */
+  gpuBudget: () => string;
+  /** Select a frozen budget by id (re-inits when the GPU engine is active); false on an
+   * unknown id or when no GPU engine exists. */
+  setBudget: (id: string) => boolean;
+  /** Production readback-audit summary of the GPU engine (null when it does not exist). */
+  gpuAuditSummary: () => GpuAuditSummary | null;
+  /** Both submission controllers' records and generations (null when no GPU engine). */
+  gpuSubmissionRecords: () => GpuControllerReport | null;
+  // ── Phase 5 (WP6 S4): the GPU-resident second-canvas view ──────────────────────────────
+  /** Display-state summary of the S4 GPU view (null when it has no generation yet). */
+  gpuViewInfo: () => Record<string, unknown> | null;
+  /**
+   * Compact audited sample of the GPU view's extracted surface list + overlay colors
+   * (first N entries; parity checks on the registered host). Never a full-field read.
+   */
+  gpuViewSample: (maxEntries?: number) => Promise<Record<string, unknown> | null>;
+  // ── Phase 5 (WP6 S5): differential-probe TEST seams — read-only observation ────────────
+  /**
+   * The latest CPU-worker snapshot exactly as posted (full fields) plus the live run's
+   * wall mask. The worker already posts this state to the page; the hook only exposes what
+   * the page holds — no new solver work, no readback. IN-PAGE consumption only: the typed
+   * arrays are megabytes and must never be serialized across an automation boundary.
+   */
+  cpuSnapshotFields: () => {
+    snapshot: SnapshotMessage;
+    wall: Uint8Array | null;
+  } | null;
+  /**
+   * TEST-purpose audited full-state readback of the live GPU solver (occupancy, wall,
+   * boundary mass b, active vapor d, display attach ticks, topology) through the
+   * production GpuReadbackAudit under purpose "test" — never a display frame, so
+   * gpuAuditSummary().fullFieldDisplayFrameReadCount stays zero. Null when no usable GPU
+   * solver exists. IN-PAGE consumption only (same serialization caution as above).
+   */
+  gpuFieldReadback: () => Promise<GpuDebugFieldReadback | null>;
+  // ── Phase 5 (WP6 S6): reconciled performance-probe seams. The registered probe now
+  // drives the app's OWN GPU engine, so it needs read access to the latest compact GPU
+  // snapshot and the production audit, plus a route that acknowledges registered edits on
+  // the app's production EDIT controller for editScript entries whose app handlers do
+  // solver work (step) or audited probe reads (named probes) rather than environment or
+  // display-control edits. ─────────────────────────────────────────────────────────────
+  /** The latest compact GPU snapshot exactly as posted (D6 counters/probes only; the
+   * object is a fresh copy built by buildGpuSnapshot — treat it as read-only). */
+  gpuSnapshot: () => GpuSnapshot | null;
+  /**
+   * Register one probe-driven UI edit generation on the production edit controller (D3).
+   * `acceptedAtMs` is sampled immediately AFTER the controller acknowledged, so it is an
+   * at-or-after observation of acceptance — a conservative bound, never an earlier claim.
+   * Null when no GPU engine exists.
+   */
+  gpuRegisterProbeEdit: () => { generation: number; acceptedAtMs: number } | null;
+  /**
+   * Queue one environment edit through the production decision-0011 queue (acknowledged
+   * NOW by the edit controller, applied at the next completed-cycle boundary). The
+   * environment is validated and deep-copied AT THIS SEAM (validatedEnvironmentEdit), so
+   * an invalid object throws here by name instead of poisoning the engine's op queue.
+   * Null when no GPU engine exists.
+   */
+  gpuQueueEnvironmentEdit: (
+    environment: GGTimelineEnvironment,
+  ) => { generation: number; acceptedAtMs: number } | null;
+  /** By-value copies of the app's production GpuReadbackAudit records (null when no
+   * usable GPU solver state exists). */
+  gpuAuditRecords: () => Record<string, unknown>[] | null;
 }
 
 const debugHook: VccDebug = {
@@ -180,6 +285,21 @@ const debugHook: VccDebug = {
   lastInspectError: null,
   applyScenario: () => false,
   scenarioIds: () => [],
+  gpuDeviceStatus: () => null,
+  engine: () => "cpu",
+  setEngine: () => false,
+  gpuBudget: () => "dev-plate",
+  setBudget: () => false,
+  gpuAuditSummary: () => null,
+  gpuSubmissionRecords: () => null,
+  gpuViewInfo: () => null,
+  gpuViewSample: () => Promise.resolve(null),
+  cpuSnapshotFields: () => null,
+  gpuFieldReadback: () => Promise.resolve(null),
+  gpuSnapshot: () => null,
+  gpuRegisterProbeEdit: () => null,
+  gpuQueueEnvironmentEdit: () => null,
+  gpuAuditRecords: () => null,
 };
 (window as unknown as { __vccDebug: VccDebug }).__vccDebug = debugHook;
 
@@ -205,10 +325,75 @@ function byId<T extends HTMLElement>(id: string): T {
 async function boot(): Promise<void> {
   const container = byId<HTMLDivElement>("scene");
   const params = new URLSearchParams(window.location.search);
-  const view = await CrystalView.create(container, { forceWebGL: params.get("webgl2") === "1" });
+  // WP6 S2 boot order (frozen design D4): attempt the checked production device acquisition
+  // BEFORE the renderer exists. On success the device is handed to CrystalView (D2: one
+  // device, first-class three parameter) and its capability recorded; on any skip or
+  // failure (?webgl2=1, ?engine=cpu, missing navigator.gpu, a thrown feature/limit request)
+  // the app boots today's path unchanged and the status panel names the reason — an honest
+  // fallback, never a silent downgrade (charter §1.5).
+  const decision = decideGpuBoot(params, navigator.gpu !== undefined);
+  const acquisition: GpuAcquisition = decision.attempt
+    ? await acquireProductionGpuDevice(navigator.gpu)
+    : { state: "fallback", reason: decision.skipReason, detail: null };
+  debugHook.gpuDeviceStatus = () => gpuDeviceStatusReport(acquisition);
+  const gpuLine = gpuStatusLine(acquisition);
+  const view = await CrystalView.create(container, {
+    forceWebGL: params.get("webgl2") === "1",
+    ...(acquisition.state === "acquired" ? { device: acquisition.device } : {}),
+  });
   debugHook.backend = view.backend;
 
-  const worker = new Worker(new URL("./worker.ts", import.meta.url), { type: "module" });
+  // The engine seam (WP6 S1/S3): main drives ONE active Engine at a time. The CPU worker
+  // engine always exists (the float64 oracle/debug path is permanent, charter §3.1); the
+  // GPU engine exists exactly when the checked production device was acquired. D4 default:
+  // GPU at dev budget when acquisition succeeded, otherwise the honestly-labeled CPU path
+  // (the ?engine=cpu and ?webgl2=1 pins already forced acquisition into fallback; a
+  // ?engine=gpu request without a device falls back to CPU with the reason on screen).
+  const workerEngine = new WorkerEngine();
+  const gpuEngine: GpuEngine | null =
+    acquisition.state === "acquired" ? new GpuEngine(acquisition.device) : null;
+  let activeEngineKind: "cpu" | "gpu" = gpuEngine !== null ? "gpu" : "cpu";
+  function activeEngine(): Engine<EngineSnapshot> {
+    return activeEngineKind === "gpu" && gpuEngine !== null ? gpuEngine : workerEngine;
+  }
+
+  // WP6 S4 (D2): the GPU-resident crystal/overlay/slice view on a second full-size
+  // pointer-events:none canvas appended AFTER Three's canvas, sharing the ONE device. It
+  // exists exactly when the GPU engine does; CPU mode and inspect mode hide it and keep
+  // today's Three path byte-identical.
+  const gpuView: GpuView | null =
+    acquisition.state === "acquired" && gpuEngine !== null
+      ? GpuView.create(acquisition.device, container)
+      : null;
+  gpuView?.onError((message) => {
+    debugHook.errors.push(`gpu view: ${message}`);
+    console.error(`gpu view: ${message}`);
+    uiHint = `GPU VIEW FAULT: ${message}`;
+    renderStatus();
+  });
+  // Camera sharing (D2): every Three frame, the second canvas redraws with the SAME
+  // OrbitControls camera matrices — orbiting moves both canvases in lockstep.
+  view.onFrame(() => {
+    gpuView?.renderFrame(view.camera);
+  });
+
+  /**
+   * The status panel's device line. Fallbacks keep the exact S2 wording (gpuStatusLine);
+   * the acquired case is composed HERE because the honest solver clause now depends on
+   * which engine is active — S2's static "(GPU engine not landed)" stopped being true the
+   * moment S3 landed the engine.
+   */
+  function deviceStatusLine(): string {
+    if (acquisition.state !== "acquired") return gpuLine;
+    const solverText =
+      activeEngineKind === "gpu"
+        ? "solver: float32 GPU engine (CPU oracle worker selectable)"
+        : "solver: CPU worker (float32 GPU engine selectable)";
+    return (
+      "gpu: production device acquired (checked against frozen Phase 5 features/limits) — " +
+      `shared with the renderer; ${solverText}`
+    );
+  }
 
   // ── Mutable UI state (Tweakpane binds to these objects) ──────────────────────────────────
   const ui = {
@@ -267,9 +452,16 @@ async function boot(): Promise<void> {
   let wall: Uint8Array | null = null;
   let activeDims: Dims = DEFAULT_INIT.dims;
   let latest: SnapshotMessage | null = null;
+  /** Latest compact GPU snapshot (S3): counters/probes only, never full fields. */
+  let latestGpu: GpuSnapshot | null = null;
+  /** Engine/budget selector state (NEW pane rows; no existing control is touched). */
+  const engineUi = { engine: activeEngineKind as string, budget: "dev-plate" };
   /** The exact surface list last handed to the renderer — instanceId indexes into it. */
   let currentSurface: Uint32Array = new Uint32Array(0);
   let uiHint: string | null = null;
+  /** Signature of the overlay/slice controls last pushed to the GPU view (S4): a change
+   * is a registered display edit (D3 edit controller) followed by a bounded repaint. */
+  let lastGpuViewControlsKey: string | null = null;
 
   // ── Phase 4 inspect mode (V4-2): a loaded artifact replaces the LIVE view (view-only);
   // the worker keeps its own state untouched and resumes when the artifact is cleared. ──────
@@ -290,7 +482,13 @@ async function boot(): Promise<void> {
 
   /** The ACTIVE G-G environment of the live run (from the snapshot, never the preset table). */
   function activeEnvironment(): GGTimelineEnvironment | null {
+    if (activeEngineKind === "gpu") return latestGpu !== null ? latestGpu.environment : null;
     return latest !== null ? latest.environment : null;
+  }
+
+  /** Stop reason of the ACTIVE engine's latest snapshot (start/step guard input). */
+  function activeStopReason(): StopReason {
+    return activeEngineKind === "gpu" ? (latestGpu?.stopReason ?? null) : (latest?.stopReason ?? null);
   }
 
   function activeRho(): number {
@@ -325,9 +523,15 @@ async function boot(): Promise<void> {
   let ratePrevTime: number | null = null;
 
   function configFromUI(): InitConfig {
+    // GPU mode takes its dims from the SELECTED FROZEN BUDGET (WP6 S3), never the nx/ny/nz
+    // rows — those keep governing the CPU worker exactly as before.
+    const dims =
+      activeEngineKind === "gpu"
+        ? { ...gpuBudgetById(engineUi.budget).dims }
+        : { nx: ui.nx, ny: ui.ny, nz: ui.nz };
     return validateInitConfig({
       preset: ui.preset,
-      dims: { nx: ui.nx, ny: ui.ny, nz: ui.nz },
+      dims,
       seed: ui.seed,
       noiseEpsilon: ui.noiseEpsilon,
       domain: ui.domain,
@@ -346,11 +550,11 @@ async function boot(): Promise<void> {
       statusElement.textContent = `config rejected: ${err instanceof Error ? err.message : String(err)}`;
       return;
     }
-    // A (re)init returns the views to the live worker run; inspect mode ends here.
+    // A (re)init returns the views to the live run; inspect mode ends here.
     inspected = null;
     rateEma = null;
     ratePrevTime = null;
-    worker.postMessage({ kind: "init", config });
+    activeEngine().init(config);
   }
 
   function renderStatus(): void {
@@ -370,8 +574,71 @@ async function boot(): Promise<void> {
       statusElement.textContent = lines.join("\n");
       return;
     }
+    if (activeEngineKind === "gpu") {
+      // WP6 S3, D6 status honesty: compact GPU counters/probes with their provenance line;
+      // full-field-only metrics say so instead of showing fake values.
+      const g = latestGpu;
+      lines.push(
+        `backend: ${view.backend} — GGThreshold float32 GPU engine (solver work on the GPU; ` +
+          `JS encodes bounded submissions)`,
+      );
+      lines.push(deviceStatusLine());
+      const budget = gpuBudgetById(engineUi.budget);
+      lines.push(
+        `gpu budget: ${budget.id} (${budget.dims.nx}x${budget.dims.ny}x${budget.dims.nz}, ` +
+          `${budget.disposition})`,
+      );
+      if (g === null) {
+        lines.push("waiting for first snapshot…");
+      } else {
+        const rate = rateEma === null ? "—" : rateEma.toFixed(1);
+        const state = g.running ? "running" : g.stopReason === null ? "paused" : `stopped: ${g.stopReason}`;
+        lines.push(
+          `tick ${g.tick} · attached ${g.attachedCount} · boundary ${g.boundarySize} (computed state) · ${state}`,
+        );
+        lines.push(`${rate} ticks/s (instrument performance, not a model quantity)`);
+        lines.push(
+          `far-field vapor d ${g.farFieldMean.toFixed(4)} (instrument shell-mean reduction, ` +
+            `computed state, model units) · domain contact: ${g.domainContact} (computed state)`,
+        );
+        lines.push(
+          "aspect ratio: not computed in GPU mode (full-field metric) · " +
+            "symmetry error: not computed in GPU mode (full-field metric)",
+        );
+        if (currentScenario !== null) lines.push(`phase-4 scenario: ${currentScenario}`);
+        if (appliedConfig.ggThreshBeta01Override !== null) {
+          lines.push(
+            `override: ggThreshBeta(0,1) = ${appliedConfig.ggThreshBeta01Override} ` +
+              `(abstract columnarity control, model units, unvalidated)`,
+          );
+        }
+        if (appliedConfig.rhoOverride !== null) {
+          lines.push(`override: rho = ${appliedConfig.rhoOverride} (model units, unvalidated)`);
+        }
+        if (appliedConfig.schedule !== null) {
+          lines.push(
+            "timeline: abrupt G-G schedule active — events apply at completed-cycle " +
+              "boundaries (decision 0011)",
+          );
+        }
+        const pendingEdits = gpuEngine?.pendingEnvironmentEdits() ?? 0;
+        if (pendingEdits > 0) {
+          lines.push(
+            `queued environment edits: ${pendingEdits} (apply at the next completed-cycle boundary)`,
+          );
+        }
+      }
+      lines.push(g !== null ? g.provenance : GPU_ENGINE_PROVENANCE);
+      if (uiHint !== null) lines.push(uiHint);
+      lines.push("all model quantities: Evidence = unvalidated (§1.5)");
+      statusElement.textContent = lines.join("\n");
+      return;
+    }
     const s = latest;
     lines.push(`backend: ${view.backend} — GGThreshold oracle in a Web Worker`);
+    // S2 device honesty (D4): the acquisition outcome — or the named fallback reason — is
+    // always visible, on success and on failure alike.
+    lines.push(deviceStatusLine());
     if (s === null) {
       lines.push("waiting for first snapshot…");
     } else {
@@ -499,11 +766,18 @@ async function boot(): Promise<void> {
   }
 
   function updateLegends(): void {
+    // S4 honesty: with the GPU engine live, overlays and the slice ARE computed — by
+    // GPU-resident display passes over the solver's float32 buffers — and the legend says
+    // exactly that instead of S3's "not computed". Inspect and CPU modes keep their exact
+    // captions.
+    const gpuLive = inspected === null && activeEngineKind === "gpu";
+    const gpuNote = "\nGPU-resident display pass over float32 solver state (computed state, unvalidated)";
     const o = activeOverlayLegend();
     updateLegend(
       "legend-overlay",
       o.name !== "none",
-      `surface overlay: ${o.title}\n${o.definition}\nundefined (NaN) renders as gray, outside the ramp`,
+      `surface overlay: ${o.title}\n${o.definition}\nundefined (NaN) renders as gray, outside the ramp` +
+        (gpuLive ? gpuNote : ""),
       o.min,
       o.max,
     );
@@ -517,7 +791,8 @@ async function boot(): Promise<void> {
     // inspected LK artifact shows dimensionless supersaturation sigma — never relabeled.
     const sliceCaption =
       inspected === null
-        ? `slice: vapor d, ${orientationText}\n(computed state, model units, unvalidated; crystal/wall cells read d = 0)`
+        ? `slice: vapor d, ${orientationText}\n(computed state, model units, unvalidated; crystal/wall cells read d = 0)` +
+          (gpuLive ? gpuNote : "")
         : `slice: ${inspected.semantics.fieldTitle}, ${orientationText}\n(${inspected.semantics.fieldUnits}; crystal/wall cells read 0)`;
     updateLegend("legend-slice", sl.enabled, sliceCaption, sl.min, sl.max);
   }
@@ -548,6 +823,21 @@ async function boot(): Promise<void> {
       inkCtx.fillStyle = "#5a6376";
       inkCtx.font = "10px ui-monospace, monospace";
       inkCtx.fillText("single-state artifact — no time series", 8, hudCanvas.height / 2);
+      return;
+    }
+    if (activeEngineKind === "gpu") {
+      // D6 status honesty: the depletion HUD needs the full vapor field, and GPU snapshots
+      // carry compact counters/probes only — the panel says so instead of faking values.
+      hudText.textContent =
+        "depletion — vapor d above facet center vs rim (@vcc/core centerRimDepletion)\n" +
+        "not computed in GPU mode (full-field metric)";
+      const gpuCtx = hudCanvas.getContext("2d") as CanvasRenderingContext2D;
+      gpuCtx.clearRect(0, 0, hudCanvas.width, hudCanvas.height);
+      gpuCtx.fillStyle = "#0c0f14";
+      gpuCtx.fillRect(0, 0, hudCanvas.width, hudCanvas.height);
+      gpuCtx.fillStyle = "#5a6376";
+      gpuCtx.font = "10px ui-monospace, monospace";
+      gpuCtx.fillText("not computed in GPU mode (full-field metric)", 8, hudCanvas.height / 2);
       return;
     }
     if (s === null) return;
@@ -590,12 +880,84 @@ async function boot(): Promise<void> {
     ctx2d.stroke();
   }
 
+  // ── WP6 S4: the GPU view's control push (display edits + bounded repaints) ───────────────
+  /** The overlay/slice control state the GPU view renders — the SAME values the legends
+   * print (renderedSliceIndex is the clamped legend index; ggThreshBeta is the ACTIVE
+   * environment's thresholds, never the preset table). */
+  function currentGpuViewControls(): GpuViewControls {
+    const dims = activeDims;
+    const index = renderedSliceIndex();
+    return {
+      overlayName: overlayState.name,
+      overlayMin: overlayState.min,
+      overlayMax: overlayState.max,
+      recencyWindowTicks: overlayState.recencyWindow,
+      sliceEnabled: sliceState.enabled,
+      sliceOrientation: sliceState.orientation,
+      sliceIndex: index,
+      sliceMin: sliceState.min,
+      sliceMax: sliceState.max,
+      // The EXISTING slice.ts world-placement math, reused verbatim (S4).
+      sliceModelRowMajor: sliceWorldMatrix(sliceState.orientation, index, dims, view.offset),
+      ggThreshBeta: activeGGThreshBeta(),
+    };
+  }
+
+  /**
+   * Push state/controls into the GPU view. afterState=true reruns the full bounded
+   * pipeline (extraction + overlay + slice) after a completed step/reset/env change;
+   * afterState=false is the control path — an ACTUAL control change registers one display
+   * edit on the D3 edit controller and repaints overlay/slice over the current surface
+   * list, an unchanged control state is a no-op.
+   */
+  function syncGpuView(afterState: boolean): void {
+    if (gpuView === null || gpuEngine === null) return;
+    if (inspected !== null || activeEngineKind !== "gpu") return;
+    const source = gpuEngine.viewSource();
+    if (source === null) return;
+    const controls = currentGpuViewControls();
+    const key = JSON.stringify([
+      controls.overlayName,
+      controls.overlayMin,
+      controls.overlayMax,
+      controls.recencyWindowTicks,
+      controls.sliceEnabled,
+      controls.sliceOrientation,
+      controls.sliceIndex,
+      controls.sliceMin,
+      controls.sliceMax,
+    ]);
+    if (afterState) {
+      lastGpuViewControlsKey = key;
+      gpuView.syncState(source, controls);
+      return;
+    }
+    if (key === lastGpuViewControlsKey) return;
+    lastGpuViewControlsKey = key;
+    gpuEngine.registerViewEdit();
+    gpuView.repaintControls(source, controls);
+  }
+
   // ── The one refresh path: everything below reads `latest` OR the inspected artifact
   // (freeze-and-inspect; V4-2 inspect mode is a frozen state by construction) ──────────────
   function refreshView(): void {
     renderStatus();
     updateLegends();
     const dims = viewDims();
+    // S4: the second canvas shows exactly when the LIVE GPU engine is displayed; CPU mode
+    // and inspect mode fall back to the Three path with the GPU canvas hidden.
+    gpuView?.setVisible(inspected === null && activeEngineKind === "gpu");
+
+    if (inspected === null && activeEngineKind === "gpu") {
+      // S4: the crystal/overlay/slice render GPU-resident on the second canvas; Three's
+      // own crystal instances stay cleared and its slice plane hidden (they would show
+      // stale CPU state). The HUD's depletion metric still needs the full field and
+      // honestly says so.
+      view.hideSlice();
+      updateHud(null);
+      syncGpuView(false);
+      return;
+    }
 
     // The volumetric field and overlay values of whatever is displayed, operator-honest.
     let sliceField: Float32Array | null = null;
@@ -712,6 +1074,49 @@ async function boot(): Promise<void> {
     debugHook.lastPick = null;
   }
 
+  /**
+   * WP6 S4 picking floor: in live GPU mode, pickCell reads EXACTLY the probed cells via
+   * small audited named-probe readbacks (never a full field) and fills the readout when
+   * they land. Free-running is refused (pause first) so the probe reads one frozen state,
+   * not a torn mid-cycle mix; mouse raycast picking over the GPU surface is explicitly
+   * deferred. Returns true when the probe was accepted.
+   */
+  function gpuPickCell(i: number, j: number, k: number): boolean {
+    if (gpuView === null || gpuEngine === null) return false;
+    const dims = activeDims;
+    if (
+      !Number.isSafeInteger(i) || i < 0 || i >= dims.nx ||
+      !Number.isSafeInteger(j) || j < 0 || j >= dims.ny ||
+      !Number.isSafeInteger(k) || k < 0 || k >= dims.nz
+    ) {
+      return false;
+    }
+    if (debugHook.running) {
+      uiHint = "pause to pick in GPU mode (the named probe reads one frozen state)";
+      renderStatus();
+      return false;
+    }
+    const source = gpuEngine.viewSource();
+    if (source === null) return false;
+    debugHook.lastPick = { i, j, k };
+    readoutElement.textContent =
+      `cell (${i}, ${j}, ${k}) — reading GPU-resident state (audited named probe)…`;
+    readoutElement.hidden = !chrome.readout;
+    void gpuView
+      .pickCell(source, wall, overlayState.name, overlayState.recencyWindow, i, j, k)
+      .then((lines) => {
+        const pick = debugHook.lastPick;
+        if (pick === null || pick.i !== i || pick.j !== j || pick.k !== k) return;
+        readoutElement.textContent = lines.join("\n");
+        readoutElement.hidden = !chrome.readout;
+      })
+      .catch((err: unknown) => {
+        uiHint = `GPU pick failed: ${err instanceof Error ? err.message : String(err)}`;
+        renderStatus();
+      });
+    return true;
+  }
+
   let lastRaycastAt = 0;
   view.renderer.domElement.addEventListener("pointermove", (event: PointerEvent) => {
     const now = performance.now();
@@ -733,9 +1138,11 @@ async function boot(): Promise<void> {
   });
   view.renderer.domElement.addEventListener("pointerleave", hideReadout);
 
-  // ── Worker messages ──────────────────────────────────────────────────────────────────────
-  worker.addEventListener("message", (event: MessageEvent) => {
-    const msg = event.data as WorkerToMain;
+  // ── Engine messages (ready/snapshot/fault — the worker protocol behind the seam). Both
+  // engines are wired at boot with a source tag; messages from the INACTIVE engine are
+  // dropped so a paused engine's final forced snapshot can never clobber the active view. ──
+  function handleEngineMessage(source: "cpu" | "gpu", msg: EngineMessage<EngineSnapshot>): void {
+    if (source !== activeEngineKind) return;
     switch (msg.kind) {
       case "ready": {
         appliedPreset = msg.config.preset;
@@ -744,6 +1151,7 @@ async function boot(): Promise<void> {
         liveCenter = [msg.center[0], msg.center[1], msg.center[2]];
         wall = msg.wall;
         latest = null;
+        latestGpu = null;
         currentSurface = new Uint32Array(0);
         ratioSeries.length = 0;
         uiHint = null;
@@ -756,11 +1164,62 @@ async function boot(): Promise<void> {
         rebuildSliceIndexBindings();
         pane.refresh();
         view.frameDomain(activeDims, msg.center);
+        if (source === "gpu") {
+          // S4: the crystal renders GPU-resident on the second canvas — Three's instances
+          // stay cleared (stale CPU state must never pose as live GPU state) and the GPU
+          // view allocates fresh display buffers for the new solver generation.
+          view.updateCrystal(new Uint32Array(0), activeDims, new Float32Array(0));
+          view.hideSlice();
+          lastGpuViewControlsKey = null;
+          if (gpuView !== null && gpuEngine !== null) {
+            const viewSource = gpuEngine.viewSource();
+            if (viewSource !== null) {
+              try {
+                gpuView.beginGeneration(viewSource, view.offset);
+                syncGpuView(true);
+              } catch (err) {
+                // Fail-closed display allocation: the fault names the violated limit; the
+                // solver keeps running (status shows the crystal cannot be displayed).
+                uiHint = `GPU VIEW FAULT: ${err instanceof Error ? err.message : String(err)}`;
+                debugHook.errors.push(`gpu view: ${String(uiHint)}`);
+              }
+            }
+          }
+        }
         renderStatus();
         updateLegends();
         break;
       }
       case "snapshot": {
+        if (msg.engine === "gpu") {
+          // Compact D6 snapshot: counters/probes only. The engine-neutral debug fields
+          // reflect the ACTIVE engine; depletion is a full-field metric and stays null.
+          latestGpu = msg;
+          const nowGpu = performance.now();
+          if (ratePrevTime !== null && msg.tick > ratePrevTick) {
+            const instantaneous = ((msg.tick - ratePrevTick) * 1000) / (nowGpu - ratePrevTime);
+            rateEma = rateEma === null ? instantaneous : 0.35 * instantaneous + 0.65 * rateEma;
+          }
+          ratePrevTick = msg.tick;
+          ratePrevTime = nowGpu;
+          if (msg.running) uiHint = null;
+          debugHook.tick = msg.tick;
+          debugHook.attached = msg.attachedCount;
+          debugHook.ticksPerSec = rateEma;
+          debugHook.running = msg.running;
+          debugHook.stopReason = msg.stopReason;
+          debugHook.depletion = null;
+          debugHook.snapshotCount++;
+          if (inspected === null) {
+            refreshView();
+            // S4: a posted GPU snapshot marks advanced/changed resident state (step, reset,
+            // pause boundary, applied environment edit) — rerun the bounded extraction +
+            // overlay + slice pipeline. Snapshot cadence bounds this at the worker's own
+            // 100 ms throttle while free-running.
+            syncGpuView(true);
+          }
+          break;
+        }
         latest = msg;
         const now = performance.now();
         if (ratePrevTime !== null && msg.tick > ratePrevTick) {
@@ -793,24 +1252,56 @@ async function boot(): Promise<void> {
         break;
       }
       case "fault": {
+        if (source === "gpu") {
+          // A GPU fault (refused budget, poisoned cycle, device failure) is recorded AND
+          // kept visible as a status hint, because later snapshots redraw the panel — a
+          // one-shot FAULT line would vanish while the prior state keeps running.
+          debugHook.errors.push(`gpu engine: ${msg.message}`);
+          debugHook.running = false;
+          console.error(`gpu engine: ${msg.message}`);
+          uiHint = `GPU ENGINE FAULT: ${msg.message}`;
+          renderStatus();
+          break;
+        }
         fail(`solver worker: ${msg.message}`);
         break;
       }
     }
-  });
+  }
+  workerEngine.onMessage((msg) => handleEngineMessage("cpu", msg));
+  gpuEngine?.onMessage((msg) => handleEngineMessage("gpu", msg));
 
-  worker.addEventListener("error", (event: ErrorEvent) => {
-    fail(`worker error: ${event.message}`);
+  // Transport-level failures (the engine labels them; WorkerEngine keeps the exact
+  // "worker error: …" string the old inline listener produced).
+  workerEngine.onError((message) => {
+    fail(message);
+  });
+  gpuEngine?.onError((message) => {
+    fail(message);
   });
 
   // ── Controls (Tweakpane). Labels carry §1.5 Type; values are model units, unvalidated. ───
   const pane = new Pane({ title: "GGThreshold dev instrument (model, unvalidated)" });
 
   const config = pane.addFolder({ title: "run config (applies via reset)", expanded: false });
-  config.addBinding(ui, "preset", {
-    label: "preset (phenomenological params, unvalidated)",
-    options: { plate: "plate", dendrite: "dendrite", needle: "needle", hollowColumn: "hollowColumn" },
-  });
+  config
+    .addBinding(ui, "preset", {
+      label: "preset (phenomenological params, unvalidated)",
+      options: { plate: "plate", dendrite: "dendrite", needle: "needle", hollowColumn: "hollowColumn" },
+    })
+    .on("change", () => {
+      // WP6 S3 (D6, decision 0011): with the GPU engine active, a preset edit ALSO routes
+      // live as a queued environment event applying at the next completed-cycle boundary —
+      // the same preset→environment translation the accepted performance probe registers.
+      // CPU mode is untouched: there the preset still applies only via reset.
+      if (activeEngineKind !== "gpu" || gpuEngine === null) return;
+      const environment = ggTimelineEnvironmentFromParams(GG_PRESETS[ui.preset]);
+      const generation = gpuEngine.queueEnvironmentEdit(environment);
+      uiHint =
+        `environment edit ${generation} queued: preset ${ui.preset} applies at the next ` +
+        `completed-cycle boundary (decision 0011); reset still applies the full config`;
+      renderStatus();
+    });
   config.addBinding(ui, "seed", { label: "PRNG seed (input)", min: 0, max: 0xffff_ffff, step: 1 });
   config.addBinding(ui, "noiseEpsilon", {
     label: "noise epsilon (phenomenological parameter, unvalidated)",
@@ -837,26 +1328,28 @@ async function boot(): Promise<void> {
       renderStatus();
       return;
     }
-    if (latest !== null && latest.stopReason !== null) {
-      uiHint = `run is stopped (${latest.stopReason}) — start/step are ignored; reset to grow again`;
+    const stopped = activeStopReason();
+    if (stopped !== null) {
+      uiHint = `run is stopped (${stopped}) — start/step are ignored; reset to grow again`;
       renderStatus();
       return;
     }
-    worker.postMessage({ kind: "run" });
+    activeEngine().run();
   };
-  const pause = (): void => worker.postMessage({ kind: "pause" });
+  const pause = (): void => activeEngine().pause();
   const step = (): void => {
     if (inspected !== null) {
       uiHint = "inspecting an artifact (view-only) — clear it to control the live run";
       renderStatus();
       return;
     }
-    if (latest !== null && latest.stopReason !== null) {
-      uiHint = `run is stopped (${latest.stopReason}) — start/step are ignored; reset to grow again`;
+    const stopped = activeStopReason();
+    if (stopped !== null) {
+      uiHint = `run is stopped (${stopped}) — start/step are ignored; reset to grow again`;
       renderStatus();
       return;
     }
-    worker.postMessage({ kind: "step" });
+    activeEngine().step();
   };
   const reset = (): void => sendInit();
   runFolder.addButton({ title: "start" }).on("click", start);
@@ -1028,7 +1521,7 @@ async function boot(): Promise<void> {
 
   function enterInspectMode(artifact: InspectedArtifact): void {
     inspected = artifact;
-    worker.postMessage({ kind: "pause" });
+    activeEngine().pause();
     inspectOverlayState.name = "none";
     inspectOverlayState.min = 0;
     inspectOverlayState.max = 1;
@@ -1199,6 +1692,103 @@ async function boot(): Promise<void> {
       }
     });
 
+  // ── Phase 5 (WP6 S3): engine + budget selection — NEW pane rows only; every
+  // pre-existing control keeps its exact label/folder/DOM position (frozen probes match
+  // by text), and the CPU worker remains permanently selectable (charter §3.1). ────────────
+  function setEngineKind(kind: "cpu" | "gpu"): boolean {
+    if (kind === activeEngineKind) return true;
+    if (kind === "gpu" && gpuEngine === null) {
+      uiHint =
+        "gpu engine unavailable — the gpu: status line names the reason; CPU worker stays active";
+      engineUi.engine = activeEngineKind;
+      pane.refresh();
+      renderStatus();
+      return false;
+    }
+    // The outgoing engine is paused, never destroyed: the CPU worker keeps its state as
+    // the oracle/debug path, and the GPU engine re-inits fresh on the next activation.
+    activeEngine().pause();
+    activeEngineKind = kind;
+    engineUi.engine = kind;
+    latest = null;
+    latestGpu = null;
+    currentSurface = new Uint32Array(0);
+    rateEma = null;
+    ratePrevTime = null;
+    uiHint = null;
+    // S4: the second canvas belongs to the LIVE GPU engine only — hide it immediately on a
+    // switch to CPU rather than waiting for the first CPU snapshot's refresh.
+    lastGpuViewControlsKey = null;
+    gpuView?.setVisible(kind === "gpu");
+    pane.refresh();
+    sendInit();
+    return true;
+  }
+
+  // Reentrancy guard: setBudgetById updates engineUi.budget and refreshes the pane, and the
+  // pane's own change handler calls back into setBudgetById with the same id. Without the
+  // guard one selection re-inits twice, and a refused budget posts its fault twice.
+  let settingBudget = false;
+
+  function setBudgetById(id: string): boolean {
+    if (settingBudget) return true;
+    if (gpuEngine === null) {
+      uiHint =
+        "gpu budget selection needs the GPU engine (device unavailable — see the gpu: status line)";
+      renderStatus();
+      return false;
+    }
+    settingBudget = true;
+    try {
+      try {
+        gpuEngine.setBudget(id);
+      } catch (err) {
+        uiHint = err instanceof Error ? err.message : String(err);
+        engineUi.budget = gpuEngine.budget();
+        pane.refresh();
+        renderStatus();
+        return false;
+      }
+      engineUi.budget = id;
+      pane.refresh();
+      // A budget takes effect through (re)construction: re-init now when the GPU engine is
+      // active. A refused allocation faults BY NAME and leaves the prior state live.
+      if (activeEngineKind === "gpu") sendInit();
+      else renderStatus();
+      return true;
+    } finally {
+      settingBudget = false;
+    }
+  }
+
+  const engineFolder = pane.addFolder({
+    title: "phase 5 — engine (float32 GPU port, unvalidated)",
+  });
+  engineFolder
+    .addBinding(engineUi, "engine", {
+      label: "solver engine (float64 CPU / float32 GPU)",
+      options: {
+        "cpu worker (float64 oracle)": "cpu",
+        "gpu (float32, unvalidated)": "gpu",
+      },
+    })
+    .on("change", () => {
+      setEngineKind(engineUi.engine === "gpu" ? "gpu" : "cpu");
+    });
+  engineFolder
+    .addBinding(engineUi, "budget", {
+      label: "gpu budget (frozen Phase 5 dims)",
+      options: Object.fromEntries(
+        gpuBudgetIds().map((id) => {
+          const b = gpuBudgetById(id);
+          return [`${id} (${b.dims.nx}x${b.dims.ny}x${b.dims.nz})`, id];
+        }),
+      ),
+    })
+    .on("change", () => {
+      setBudgetById(engineUi.budget);
+    });
+
   // ── Debug hooks (screenshot harness; same code paths as the UI) ──────────────────────────
   debugHook.start = start;
   debugHook.pause = pause;
@@ -1238,7 +1828,10 @@ async function boot(): Promise<void> {
     pane.refresh();
     refreshView();
   };
-  debugHook.pickCell = (i: number, j: number, k: number): boolean => showReadout(i, j, k);
+  debugHook.pickCell = (i: number, j: number, k: number): boolean =>
+    inspected === null && activeEngineKind === "gpu"
+      ? gpuPickCell(i, j, k)
+      : showReadout(i, j, k);
   debugHook.pickRimCell = (): { i: number; j: number; k: number } | null => {
     // Reads whatever is DISPLAYED: the inspected artifact's occupancy, else the live one.
     const a = inspected !== null ? inspected.a : latest?.a;
@@ -1275,7 +1868,10 @@ async function boot(): Promise<void> {
     if (!chrome.readout) hideReadout();
     refreshView();
   };
-  debugHook.setCrystalVisible = (visible: boolean): void => view.setCrystalVisible(visible);
+  debugHook.setCrystalVisible = (visible: boolean): void => {
+    view.setCrystalVisible(visible);
+    gpuView?.setCrystalVisible(visible);
+  };
   debugHook.applyConfig = (partial): void => {
     Object.assign(ui, partial);
     pane.refresh();
@@ -1354,6 +1950,52 @@ async function boot(): Promise<void> {
   };
   debugHook.applyScenario = applyScenarioById;
   debugHook.scenarioIds = (): string[] => PHASE4_SCENARIOS.map((s) => s.id);
+  // ── Phase 5 hooks (WP6 S3): engine-neutral engine/budget controls + GPU observability ──
+  debugHook.engine = (): "cpu" | "gpu" => activeEngineKind;
+  debugHook.setEngine = (kind: string): boolean =>
+    kind === "cpu" || kind === "gpu" ? setEngineKind(kind) : false;
+  debugHook.gpuBudget = (): string => engineUi.budget;
+  debugHook.setBudget = setBudgetById;
+  debugHook.gpuAuditSummary = (): GpuAuditSummary | null => gpuEngine?.auditSummary() ?? null;
+  debugHook.gpuSubmissionRecords = (): GpuControllerReport | null =>
+    gpuEngine?.controllerReport() ?? null;
+  // ── Phase 5 hooks (WP6 S4): GPU view state + compact parity sampling ───────────────────
+  debugHook.gpuViewInfo = (): Record<string, unknown> | null => gpuView?.info() ?? null;
+  debugHook.gpuViewSample = async (maxEntries = 256): Promise<Record<string, unknown> | null> => {
+    if (gpuView === null || gpuEngine === null) return null;
+    const source = gpuEngine.viewSource();
+    if (source === null) return null;
+    const sample = await gpuView.sampleInstances(source, maxEntries);
+    return { tick: source.tick, ...sample };
+  };
+  // ── Phase 5 hooks (WP6 S5): differential-probe TEST seams (read-only observation) ─────
+  debugHook.cpuSnapshotFields = () => (latest === null ? null : { snapshot: latest, wall });
+  debugHook.gpuFieldReadback = () =>
+    gpuEngine !== null ? gpuEngine.debugFieldReadback() : Promise.resolve(null);
+  // ── Phase 5 hooks (WP6 S6): reconciled performance-probe seams ─────────────────────────
+  debugHook.gpuSnapshot = (): GpuSnapshot | null => latestGpu;
+  debugHook.gpuRegisterProbeEdit = (): { generation: number; acceptedAtMs: number } | null => {
+    if (gpuEngine === null) return null;
+    const generation = gpuEngine.registerViewEdit();
+    // Sampled AFTER acknowledgeEdit returned: an at-or-after observation of acceptance.
+    return { generation, acceptedAtMs: performance.now() };
+  };
+  debugHook.gpuQueueEnvironmentEdit = (
+    environment: GGTimelineEnvironment,
+  ): { generation: number; acceptedAtMs: number } | null => {
+    if (gpuEngine === null) return null;
+    // Fail-closed at the seam: validatedEnvironmentEdit throws by name on an invalid
+    // environment BEFORE anything reaches the production queue (a bad object applied on
+    // the op queue would poison the engine).
+    const generation = gpuEngine.queueEnvironmentEdit(validatedEnvironmentEdit(environment));
+    renderStatus();
+    return { generation, acceptedAtMs: performance.now() };
+  };
+  debugHook.gpuAuditRecords = (): Record<string, unknown>[] | null => {
+    const source = gpuEngine?.viewSource() ?? null;
+    if (source === null) return null;
+    return source.audit.records().map((record) => ({ ...record }));
+  };
 
   renderStatus();
   sendInit();

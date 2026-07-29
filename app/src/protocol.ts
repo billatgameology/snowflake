@@ -7,6 +7,11 @@
 // Provenance note (charter §1.5): every numeric field crossing this boundary is COMPUTED
 // STATE of the GGThreshold model in model units, Evidence = unvalidated. The protocol carries
 // no physical units because the model has none to offer.
+//
+// WP6 S1 splits the snapshot type into the operator/engine-tagged union EngineSnapshot: the
+// worker's wire shape is the frozen CPU variant (byte-for-byte unchanged — the tag is the
+// ABSENCE of the engine field), and the compact GpuSnapshot variant exists ahead of the S3
+// GPU engine. The Engine seam that carries these messages lives in engine.ts.
 
 import {
   GG_PRESETS,
@@ -20,6 +25,7 @@ import {
   type GGPresetName,
   type GGTimelineEnvironment,
   type GGTimelineSchedule,
+  type LatticeBBox,
   type Metrics,
 } from "@vcc/core";
 
@@ -86,6 +92,12 @@ export interface SnapshotMessage {
   readonly kind: "snapshot";
   /** Operator identity of this snapshot (V4-1). Live worker stepping is GG-only. */
   readonly operator: "GGThreshold";
+  /**
+   * Engine tag of the EngineSnapshot union — NEVER present on this CPU variant. The
+   * worker's wire shape is frozen byte-for-byte (WP6 S1), so the CPU tag is the field's
+   * absence rather than a serialized literal; GpuSnapshot carries engine: "gpu".
+   */
+  readonly engine?: never;
   readonly tick: number;
   readonly attachedCount: number;
   readonly boundarySize: number;
@@ -118,11 +130,49 @@ export interface SnapshotMessage {
   readonly timeline: TimelineSummary | null;
 }
 
+/**
+ * GPU-engine snapshot variant (WP6 frozen design D6): counters and compact probes ONLY —
+ * no full-field arrays and no core Metrics bundle. Quantities that need the full field
+ * display "not computed in GPU mode (full-field metric)" rather than fake values. This
+ * type exists from S1 so the EngineSnapshot union is real; nothing produces or consumes
+ * it until the GPU engine lands (S3).
+ */
+export interface GpuSnapshot {
+  readonly kind: "snapshot";
+  /** Same operator honesty tag as the CPU variant — the GPU port is still GGThreshold. */
+  readonly operator: "GGThreshold";
+  /** Engine tag of the EngineSnapshot union: present, and "gpu", ONLY on GPU snapshots. */
+  readonly engine: "gpu";
+  readonly tick: number;
+  readonly attachedCount: number;
+  readonly boundarySize: number;
+  /** Instrument shell-mean far-field vapor (GPU reduction; model units, unvalidated). */
+  readonly farFieldMean: number;
+  /** Host-side occupancy bbox from the compact attachment reads (null before the first). */
+  readonly bbox: LatticeBBox | null;
+  readonly domainContact: boolean;
+  /** Run/stop state, same semantics as the CPU variant (stopReason is D6's stop reason). */
+  readonly running: boolean;
+  readonly stopReason: StopReason;
+  /** The engine's ACTIVE environment — the same honesty contract as the CPU variant. */
+  readonly environment: GGTimelineEnvironment;
+  /** Honest engine/backend provenance line for the status panel (D6). */
+  readonly provenance: string;
+}
+
+/**
+ * The operator/engine-tagged snapshot union (WP6 S1). Discriminate on `engine`: undefined
+ * means the CPU worker's frozen wire shape; "gpu" means the compact GPU variant. Both
+ * variants carry their operator tag, so cross-operator honesty checks work unchanged.
+ */
+export type EngineSnapshot = SnapshotMessage | GpuSnapshot;
+
 export interface FaultMessage {
   readonly kind: "fault";
   readonly message: string;
 }
 
+/** The CPU worker's exact wire union — unchanged by the S1 seam; GpuSnapshot never rides it. */
 export type WorkerToMain = ReadyMessage | SnapshotMessage | FaultMessage;
 
 export const PRESET_NAMES: readonly GGPresetName[] = [

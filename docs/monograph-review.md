@@ -65,6 +65,9 @@ Ordered by priority. Each carries: the finding, the citation, and where it lands
   and notes the details matter less than having `sigma_0 → 0` as `w → 0` (printed p. 157).
   This is a substantial head start for the eventual SDAK work package.
 - **Lands in:** `libbrecht-parameters.md` §4 correction (file is not frozen; no ADR needed).
+  **LANDED 2026-07-26**, before the Phase 6 freeze: SDAK-2 is now `libbrecht-parameters.md`
+  §4.2 (Figure 4.14's caption quoted verbatim) and the printed width form is §4.3. Both were
+  re-verified against the page renders rather than taken from this note.
 
 ### 2.2 The in-air pressure systematic the table records as settled
 
@@ -83,6 +86,11 @@ The digitized CAK curves come mostly from low-pressure VIG measurements; the sol
 crystals at 1 atm. **Lands in:** a stated Phase 6 systematic ("CAK-in-air vs CAK-in-vacuum")
 recorded in `libbrecht-parameters.md` alongside the existing crossing discrepancy; see also
 exploration item 4.6 (a pressure sweep that *tests* this rather than merely stating it).
+**LANDED 2026-07-26**: the pressure-dependence entry in `libbrecht-parameters.md`'s Open
+questions no longer reads "answered at the model level" unqualified — it now carries the
+monograph's own "somewhat sketchy assumption" and the WBB finding that substantial
+`sigma_0,prism(T)` pressure changes are required in any future model. The pressure sweep
+remains an exploration candidate, not a Phase 6 deliverable.
 
 ### 2.3 Latent heating has a cited magnitude and a one-line correction
 
@@ -95,6 +103,10 @@ fix *inside the existing model*: rescale `sigma_inf → sigma_inf/(1 + chi_0)`. 
 runs (the current low-supersaturation gates) are essentially unaffected.
 **Lands in:** `chi_0(T)` anchors in `libbrecht-parameters.md`; a labeled-correction decision on
 the Phase 6 protocol-freeze list; a sentence upgrade in attachment-kinetics §5.
+**LANDED 2026-07-26**: anchors, the `sigma_inf/(1 + chi_0)` correction and the `chi_0 ~ P^-1`
+scaling are `libbrecht-parameters.md` §7; the honest-limits entry in `attachment-kinetics.md`
+§5 now carries the magnitude instead of only the omission. The labelled-correction decision
+remains open and belongs to the Phase 6 WP0 freeze.
 
 ### 2.4 Far field: monopole matching, and an exact formula for the finite-shell bias
 

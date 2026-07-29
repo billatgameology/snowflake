@@ -1,10 +1,13 @@
 # Plan — Phase 4 v2: reservoir-matched branch control and gate completion
 
 - **Phase:** Phase 4 — The morphology gauntlet
-- **Status:** in progress — criteria frozen; implementation pending
+- **Status:** complete — blocking Pass A accepted; Pass B execution-valid with a recorded
+  diagnostic morphology failure
 - **Started:** 2026-07-18
 - **Last touched:** 2026-07-18 by Codex, coordinating session
 - **V2 criteria freeze:** `9c9dd5a45eafb80f3e547298494f005a73d19086`
+- **V2 implementation candidate:** `90f19a786d113f673815d4cf75459e3177806c94`
+- **V2 reviewed implementation:** `bbb14740642488c92720888d3887806b49c42e15`
 
 ## Goal
 
@@ -249,20 +252,102 @@ The coordinator alone edits authority documents and commits. After the criteria 
       `9c9dd5a45eafb80f3e547298494f005a73d19086` defines the v2 authority and provenance hash.
 - [x] In this metadata-only follow-up, record the full freeze hash here and in PROGRESS, verify
       that no protocol criterion changed from the freeze, and only then permit implementation.
-- [ ] Delegate the bounded v2 implementation; run targeted tests, exact root `npm test`, app
-      build, Rule 7, both typechecks, and `git diff --check`.
-- [ ] Complete separate adversarial implementation review/fix cycles to CLEAN.
-- [ ] Reconcile Phase 2b and verify its live process/artifacts were not mutated or duplicated.
-- [ ] On a tracked-clean execution commit, rerun the exact Phase 2a enforcing byte control,
-      flagless `gate3`, full regressions, app build, and synthetic visual harnesses.
-- [ ] Run `node runner/src/main.ts gate4` exactly once. Record exit status, runtime, engine,
-      commit, both manifest hashes, every criterion value, stop, checkpoint, and artifact hash.
-- [ ] If Pass A succeeds and Pass B is execution-valid, run the real Phase 4 visual harness;
-      coordinator and independent reviewer inspect every capture at full resolution.
-- [ ] Obtain a final independent whole-phase adversarial review with zero blockers and zero
-      unaddressed should-fixes.
-- [ ] Update this plan and PROGRESS with exact evidence. Mark Phase 4 complete only if blocking
-      Pass A and all execution/visual integrity requirements are actually earned.
+- [x] Delegate the bounded v2 implementation; candidate
+      `90f19a786d113f673815d4cf75459e3177806c94` implements the exact Pass-A v2 raw witness,
+      independent branch stops, compact non-vacuity, Pass-B seven-key projection, aggregate v2,
+      and app identity split. Developer verification passed exact root `npm test` at 42/42 files
+      and 770/770 tests in 383.5 seconds, both typechecks, Rule 7 over 524 files, the 33-module app
+      production build, and `git diff --check`.
+- [x] Complete separate adversarial implementation review/fix cycles to CLEAN. Review round 1
+      found three blockers and two should-fixes: Pass B had promoted two informational ancestry
+      fields into new v1 blockers; aggregate injection accepted an outer relabel without binding
+      inner payload/report/index facts; the written visual manifest omitted its version and source
+      protocols; support completeness was not independently enumerated; and raw compact
+      non-vacuity lacked a baseline-true derivation test. Repair
+      `bbb14740642488c92720888d3887806b49c42e15` restores B semantics, exact-crosslinks both pass
+      publications, records visual schema v1 with A-v2/B-v1 sources, and adds non-vacuous raw
+      controls. Developer verification passed 779/779 tests, both typechecks, Rule 7, app build,
+      and diff check. Same-reviewer replay passed 16/16 selected exploit tests and reported CLEAN
+      with zero blockers and zero should-fixes.
+- [x] Reconcile Phase 2b and verify its live process/artifacts were not mutated or duplicated.
+      On 2026-07-18 immediately after implementation review, exactly one `gate2b` process existed
+      (PID 36792), its isolated worktree was tracked-clean at
+      `dce70816e34a6eee8ed15edff3c254d6da7fa7d8`, stderr remained zero bytes, and the log had
+      advanced to growth step 600. Main was tracked-clean at `f340c79`; no `out/phase4`, Pass-A,
+      Pass-B, or aggregate canonical path existed.
+- [x] On tracked-clean `c96f4d6e2deac668bb65ae2ae67411ec7c52c619`, rerun the exact
+      Phase 2a enforcing byte control, flagless `gate3`, full regressions, app build, and
+      synthetic visual harnesses. Exact root `npm test` passed Rule 7 over 524 files, both
+      typechecks, and 779/779 tests in 388.7 seconds; the app build transformed 33 modules.
+      `node runner/src/main.ts grow --preset plate --dims 128,128,64 --ticks 10000 --seed 1
+      --out .tmp-phase4-v2-controls-c96f4d6/plate-control.ckpt --enforce-gate` exited 0 at
+      far-field tick 4800, symmetry error 0, mass drift `2.056e-13`; its 17,826,573-byte
+      checkpoint exactly matched accepted SHA-256
+      `f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389`. Detached clean
+      worktree `.tmp-phase4-v2-gate3-c96f4d6` ran flagless `node runner/src/main.ts gate3`:
+      exit 0, median ratio `0.531454`, fraction below one `0.902439`, radius 38, aspect ratio
+      `0.168831`, exact symmetry, far-field tick 4800, and the same byte-identical checkpoint.
+      Fresh explicit synthetic NOT-GATE-EVIDENCE Phase 4 visual control produced 20/20 captures
+      across primary/forced-WebGL2 with zero console/page/in-app errors; manifest schema version 1
+      recorded A `phase4-pass-a-v2` and B `phase4-pass-b-v1`, SHA-256
+      `6e23c6831a36a4c66a8d06601cae6dcafc3f5f9d9d257811b0ae70129672ff4a`. Fresh Phase 3 visual
+      control produced 9/9 captures with zero errors, manifest SHA-256
+      `d71f3546acc4b9e6062eaa85f8d3bcc4d0d5cbd18c8fecbd67521a4986f58d74`.
+- [x] Run `node runner/src/main.ts gate4` exactly once. The canonical command ran on tracked-clean
+      execution commit `70a24960dbb8f0631cb2284df854d23e4e8871c4` under Node `v24.13.1` /
+      V8 `13.6.233.17-node.40`, exited 0 in 7,178.8 seconds, and was not rerun. Pass A used
+      manifest v2/protocol `phase4-pass-a-v2`, SHA-256
+      `e5e85c70d377e90dcca2974579122e67417c60fd2c11683276f528615e608644`; all 24 records
+      passed across 13 runs. Its report SHA-256 is
+      `bcb29e05daebb43e9338a1de64bb93bb804fe6576f953be59c7414ed04347188` and its complete
+      artifact-index SHA-256 is
+      `92346e3eb5df9ad25ecf8d1452003dd0814617dac9008a5ceb951a371c419917`. The report and index
+      are the exact enumeration of every criterion value, run stop, checkpoint, raw field,
+      delta, far-field witness, byte length, and artifact hash. Load-bearing results include:
+      plate/column aspect ratios `0.0666667` / `1.66667`; a strictly increasing five-point habit
+      sweep; depletion median `0.770238` with 7/7 samples below one and transverse widening
+      7→13; three independently different open-hollow occupancies with bitwise replay; capped
+      history cap score `1.3`; and A-BRANCH dendrite/compact branch counts 6/0. The branch runs
+      independently reached their first cadence-25 normalized-reservoir crossings at cycles
+      4,775 and 5,450, with outcome extents 99 and 83 and no same-size claim.
+
+      Pass B retained exact manifest v1/protocol `phase4-pass-b-v1`, SHA-256
+      `c0ceed5b0ebb68defee85b1d78d52c9563f5edd35ed415b8cfdad57dd7c3e812`; all 12 execution
+      records passed across 11 runs. Its report SHA-256 is
+      `22c8a92c5f22af054bb181da1170437e15740c9e0898f0891b4481f95875fa2d` and complete
+      artifact-index SHA-256 is
+      `5644f8380efe75eb9adc6ff6aefd2ebe32dc9de61924a3bd3306d44a1f425cb0`. Three diagnostic
+      morphology records passed (habit endpoints invert, cold endpoint solid, five-point sweep
+      non-decreasing); five honestly failed: depletion, widening, hollowing, capped history, and
+      branch. Aggregate v2/protocol `phase4-aggregate-v2` therefore correctly reports
+      `gatePass: true`, `passBDiagnosticPass: false`, exit 0; report SHA-256
+      `194f837dc3f57939fa38efb7e4ff67a9c0d8d28d669e0239eefaa1b0c3d8d8e2`.
+- [x] Because Pass A succeeded and Pass B was execution-valid, run the real Phase 4 visual
+      harness exactly as `node app/scripts/visual.mjs --phase4`. It exited 0 in 31.3 seconds and
+      atomically published 20/20 real-data captures: five registered views for each pass across
+      primary and forced-WebGL2 attempts. Both actual backends were truthfully WebGL2 after the
+      recorded Windows WebGPU attempt; there were zero absent views, console errors, page errors,
+      in-app errors, clipped frames, or PNG hash/length mismatches. Visual schema v1 records
+      source protocols A-v2/B-v1; manifest SHA-256
+      `19e0fcfea22f8f8d53f303511fe3a286e7ff10564480f653b72c10b00488573b`. The coordinator and
+      independent reviewer each inspected all 20 PNGs at original resolution and found the
+      framing, labels, source facts, and positive/negative verdicts consistent.
+- [x] Obtain a final independent whole-phase adversarial review with zero blockers and zero
+      unaddressed should-fixes. The first final replay authenticated all evidence but found one
+      post-publication test-isolation blocker: seven tests failed because direct `runGate4A/B`
+      fixtures defaulted to the now-present canonical directories before their injected seams;
+      one symmetric Pass-B case was latent. Test-only repair
+      `b7153ccc4cf9b8e8ae7f4e69c55aa7db85523361` gives every non-intentional direct fixture a
+      unique temporary canonical directory and leaves the explicit preexisting-output controls
+      unchanged. Targeted A/B replay passed 167/167; exact root `npm test` passed Rule 7 over 613
+      files, both typechecks, and 779/779 tests in 386.4 seconds; the 33-module app build and diff
+      check passed. Same-reviewer replay on the immutable repair independently passed 167/167,
+      verified cleanup, all eight canonical evidence hashes, production/evidence immutability,
+      and Phase 2b isolation, then reported **CLEAN: zero blockers, zero should-fixes**.
+- [x] Update this plan and PROGRESS with exact evidence. Blocking Pass A and every execution,
+      artifact, visual, regression, and independent-review integrity requirement are earned;
+      Phase 4 is complete. Pass B's five morphology misses remain a named diagnostic result for
+      Phase 6, not a hidden success and not a Phase 4 blocker.
 
 ## Out of scope
 

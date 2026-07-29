@@ -8,6 +8,7 @@ import { dirname, resolve } from "node:path";
 import {
   canonicalJson,
   canonicalJsonBytes,
+  canonicalJsonSha256,
   sha256Bytes,
   strictJsonSnapshot,
   type StrictJson,
@@ -19,16 +20,24 @@ import {
 } from "./gate4-protocol.ts";
 import {
   GATE4A_MANIFEST_SHA256,
+  GATE4A_PROTOCOL,
+  GATE4A_REPORT_PATH,
+  gate4AResultSummary,
   runGate4A,
+  validateGate4AProvenance,
   type Gate4ARunOutcome,
 } from "./gate4a.ts";
 import {
   GATE4B_MANIFEST_SHA256,
+  GATE4B_PROTOCOL,
+  GATE4B_REPORT_PATH,
+  gate4BResultSummary,
   runGate4B,
+  validateGate4BProvenance,
   type Gate4BRunOutcome,
 } from "./gate4b.ts";
 
-export const GATE4_PROTOCOL = "phase4-gate4-v1";
+export const GATE4_PROTOCOL = "phase4-aggregate-v2";
 export const GATE4_REPORT_PATH = "out/phase4/gate4-report.json";
 
 export interface Gate4AggregateOutcome {
@@ -71,6 +80,84 @@ function passPublicationFacts(
   );
 }
 
+function exactPassIdentity(
+  label: "A" | "B",
+  outcome: Gate4ARunOutcome | Gate4BRunOutcome,
+): void {
+  const isA = label === "A";
+  const expectedProtocol = isA ? GATE4A_PROTOCOL : GATE4B_PROTOCOL;
+  const expectedManifestVersion = isA ? 2 : 1;
+  const expectedPayloadVersion = isA ? 2 : 1;
+  const expectedManifestHash = isA ? GATE4A_MANIFEST_SHA256 : GATE4B_MANIFEST_SHA256;
+  const expectedOperator = isA ? "GGThreshold" : "LibbrechtKinetics";
+  if (
+    outcome.manifest.version !== expectedManifestVersion ||
+    outcome.manifest.protocol !== expectedProtocol ||
+    canonicalJsonSha256(outcome.manifest) !== expectedManifestHash
+  ) {
+    throw new Error(`GATE4: Pass ${label} manifest identity differs from the frozen protocol`);
+  }
+  const provenanceFailures = isA
+    ? validateGate4AProvenance((outcome as Gate4ARunOutcome).provenance)
+    : validateGate4BProvenance((outcome as Gate4BRunOutcome).provenance);
+  if (provenanceFailures.length > 0) {
+    throw new Error(`GATE4: Pass ${label} provenance identity failed: ${provenanceFailures.join("; ")}`);
+  }
+  const publication = outcome.publication;
+  if (publication === null) return;
+  const expectedArtifacts = outcome.artifacts.map((artifact) => ({
+    path: artifact.path,
+    kind: artifact.kind,
+    byteLength: artifact.bytes.byteLength,
+    sha256: sha256Bytes(artifact.bytes),
+  })).sort((left, right) => left.path < right.path ? -1 : left.path > right.path ? 1 : 0);
+  const expectedPayload = strictJsonSnapshot(isA
+    ? {
+        version: expectedPayloadVersion,
+        manifestSha256: expectedManifestHash,
+        provenance: outcome.provenance,
+        sourceHashes: (outcome as Gate4ARunOutcome).sourceHashes,
+        records: outcome.records,
+        verdict: outcome.verdict,
+        runs: (outcome as Gate4ARunOutcome).results.map(gate4AResultSummary),
+      }
+    : {
+        version: expectedPayloadVersion,
+        manifestSha256: expectedManifestHash,
+        provenance: outcome.provenance,
+        records: outcome.records,
+        verdict: outcome.verdict,
+        runs: (outcome as Gate4BRunOutcome).results.map(gate4BResultSummary),
+      });
+  const expectedReport = strictJsonSnapshot({
+    version: 1,
+    protocol: expectedProtocol,
+    pass: label,
+    operator: expectedOperator,
+    artifacts: expectedArtifacts,
+    payload: expectedPayload,
+  });
+  if (canonicalJson(publication.report) !== canonicalJson(expectedReport)) {
+    throw new Error(`GATE4: Pass ${label} publication identity differs from the frozen protocol`);
+  }
+  const reportBytes = canonicalJsonBytes(expectedReport);
+  const expectedReportDescriptor = {
+    path: isA ? GATE4A_REPORT_PATH : GATE4B_REPORT_PATH,
+    kind: "phase4-evidence-report+json",
+    byteLength: reportBytes.byteLength,
+    sha256: sha256Bytes(reportBytes),
+  };
+  const expectedIndex = strictJsonSnapshot({
+    version: 1,
+    publication: "complete",
+    report: expectedReportDescriptor,
+    artifacts: [expectedReportDescriptor, ...expectedArtifacts],
+  });
+  if (canonicalJson(publication.index) !== canonicalJson(expectedIndex)) {
+    throw new Error(`GATE4: Pass ${label} publication descriptor graph is not cross-linked`);
+  }
+}
+
 /**
  * Serial aggregate orchestration. Existing canonical aggregate evidence fails closed before
  * any pass executes; a failed Pass A fails closed before Pass B starts.
@@ -83,6 +170,7 @@ export function runGate4(options: RunGate4Options = {}): Gate4AggregateOutcome {
   }
   const passA = options.runPassA?.() ??
     runGate4A({ repoRoot, canonicalDirectory: options.canonicalDirectoryA });
+  exactPassIdentity("A", passA);
   // Recompute the aggregate semantics from records; a forged outcome verdict cannot stand in.
   if (canonicalJson(passA.verdict) !== canonicalJson(evaluateGate4A(passA.records))) {
     throw new Error("GATE4: Pass A outcome verdict does not match its own records");
@@ -99,6 +187,7 @@ export function runGate4(options: RunGate4Options = {}): Gate4AggregateOutcome {
   }
   const passB = options.runPassB?.() ??
     runGate4B({ repoRoot, canonicalDirectory: options.canonicalDirectoryB });
+  exactPassIdentity("B", passB);
   const verdict = evaluateGate4Aggregate(passA.records, passB.records);
   if (canonicalJson(passB.verdict) !== canonicalJson(verdict.passB)) {
     throw new Error("GATE4: Pass B outcome verdict does not match its own records");
@@ -110,9 +199,11 @@ export function runGate4(options: RunGate4Options = {}): Gate4AggregateOutcome {
   let reportSha256: string | null = null;
   if (verdict.gatePass) {
     const report = strictJsonSnapshot({
-      version: 1,
+      version: 2,
       protocol: GATE4_PROTOCOL,
       passA: {
+        protocol: GATE4A_PROTOCOL,
+        manifestVersion: 2,
         manifestSha256: GATE4A_MANIFEST_SHA256,
         provenance: passA.provenance,
         publication: passPublicationFacts(passA.publication),
@@ -120,6 +211,8 @@ export function runGate4(options: RunGate4Options = {}): Gate4AggregateOutcome {
         records: passA.records,
       },
       passB: {
+        protocol: GATE4B_PROTOCOL,
+        manifestVersion: 1,
         manifestSha256: GATE4B_MANIFEST_SHA256,
         provenance: passB.provenance,
         publication: passPublicationFacts(passB.publication),

@@ -1,10 +1,9 @@
 # Plan — Phase 3: Development visualization (Three.js) + center-vs-rim depletion gate
 
 - **Phase:** Phase 3 — Development visualization (Three.js)
-- **Status:** done — evidence-complete 2026-07-16, gate3 exit 0; **READY FOR EXTERNAL
-  REVIEW** (maker-marked 2026-07-16); gate assertion pending that review
+- **Status:** complete — maker-asserted 2026-07-23; gate3 exit 0 and visual evidence accepted
 - **Started:** 2026-07-15
-- **Last touched:** 2026-07-16 by Claude (Fable 5), coordinating session
+- **Last touched:** 2026-07-23 by Codex, recording the maker assertion
 
 ## Goal
 
@@ -267,8 +266,8 @@ screenshots at R2/R3 and before the gate claim.
       **byte-identical to the accepted 2a artifact** — SHA-256 f1796b5015…, `cmp` exit 0).
       Window statistics reproduce the registered probe exactly (deterministic pinned-engine
       trajectory).
-- [x] Final: PROGRESS updated, gate marked evidence-complete pending maker assertion
-      (2026-07-16). Both Done-when halves hold: the automated metric via gate3 exit 0, and
+- [x] Final evidence handoff (2026-07-16): PROGRESS updated with the evidence-complete state.
+      Both Done-when halves hold: the automated metric via gate3 exit 0, and
       the watch-it half via the app's slice view (accepted captures in `out/phase3-visual/`,
       reproducible via `node app/scripts/visual.mjs`).
 - [x] External review round 1 (2026-07-16, via maker) → both findings fixed and verified.
@@ -286,6 +285,8 @@ screenshots at R2/R3 and before the gate claim.
       propensity = unitless threshold fraction; recency window in model ticks; neighbor
       counts labeled) with a truthful Evidence blanket. Suite 258/258; harness regenerated,
       zero console errors on both backends; coordinator re-inspected the relabeled captures.
+- [x] Maker assertion (2026-07-23): accepted the evidence-complete Phase 3 gate without
+      changing its protocol or evidence.
 
 ## Out of scope
 
@@ -341,6 +342,5 @@ screenshots at R2/R3 and before the gate claim.
 
 ## Open questions
 
-- Whether headless chromium on this machine exposes WebGPU to the screenshot harness, or the
-  harness records the WebGL2 fallback. Either is acceptable for A2-6/A2-9 as long as the
-  backend is recorded honestly; the maker sees the WebGPU path in a real browser.
+- None. The screenshot harness recorded its actual backend honestly, and the maker accepted
+  the resulting visual evidence.

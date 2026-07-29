@@ -16,6 +16,11 @@ research/*
 # Workspace tooling (Phase 2 scaffold)
 node_modules/
 
+# In-repository scratch worktrees, isolated evidence repositories, and local debug logs.
+# Load-bearing evidence must be reconciled into the stable ignored out/ tree before cleanup.
+/.tmp-*/
+/debug.log
+
 # Run outputs: checkpoints and PGM field dumps land in out/ by convention.
 # They are reproducible from the seed/dims/command recorded with each gate (Rule 6).
 out/

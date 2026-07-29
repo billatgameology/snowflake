@@ -1,13 +1,15 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "types": ["node"]
+    "types": ["node", "@webgpu/types"]
   },
   "include": [
     "core/src/**/*.ts",
     "core/test/**/*.ts",
     "solver-cpu/src/**/*.ts",
     "solver-cpu/test/**/*.ts",
+    "solver-gpu/src/**/*.ts",
+    "solver-gpu/test/**/*.ts",
     "runner/src/**/*.ts",
     "runner/test/**/*.ts",
     "vitest.config.ts"

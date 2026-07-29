@@ -55,6 +55,7 @@ import {
   GATE4B_V8,
   buildGate4BArtifacts,
   buildGate4BManifest,
+  collectGate4BProvenance,
   deriveGate4BExecutionRecords,
   deriveGate4BMorphologyRecords,
   executeGate4BRun,
@@ -69,6 +70,7 @@ import {
   validateGate4BArtifacts,
   validateGate4BDeltaChain,
   validateGate4BNoiseWitness,
+  validateGate4BProvenance,
   validateGate4BSeriesCsv,
   verifyGate4BCheckpoint,
   type Gate4BManifest,
@@ -678,6 +680,38 @@ describe("gate4b frozen registration", () => {
     expect(canonicalJsonSha256(manifest)).toBe(GATE4B_MANIFEST_SHA256);
     expect(GATE4B_MANIFEST_SHA256)
       .toBe("c0ceed5b0ebb68defee85b1d78d52c9563f5edd35ed415b8cfdad57dd7c3e812");
+  });
+
+  it("keeps Pass-B provenance at the exact owned seven-key v1 shape", () => {
+    expect(validateGate4BProvenance(passingProvenance())).toEqual([]);
+    expect(validateGate4BProvenance({
+      ...passingProvenance(),
+      runnerFreezeIsAncestor: false,
+      cadenceFreezeIsAncestor: false,
+    })).toEqual([]);
+    expect(validateGate4BProvenance({
+      ...passingProvenance(),
+      v2CriteriaFreezeIsAncestor: true,
+    } as unknown as Gate4BProvenance)).toContain(
+      "provenance keys differ from the exact Pass-B v1 shape",
+    );
+  });
+
+  it("projects the shared git probe into a fresh Pass-B-owned object", () => {
+    const head = "b".repeat(40);
+    const fakeExec = ((_file: string, args: readonly string[]) => {
+      if (args[0] === "rev-parse") return `${head}\n`;
+      if (args[0] === "status") return "";
+      if (args[0] === "merge-base") return "";
+      throw new Error(`unexpected git probe ${args.join(" ")}`);
+    }) as never;
+    const provenance = collectGate4BProvenance(repoRoot, fakeExec);
+    expect(Object.keys(provenance).sort()).toEqual([
+      "node", "v8", "head", "trackedStatus", "criteriaFreezeIsAncestor",
+      "runnerFreezeIsAncestor", "cadenceFreezeIsAncestor",
+    ].sort());
+    expect(provenance.head).toBe(head);
+    expect(Object.hasOwn(provenance, "v2CriteriaFreezeIsAncestor")).toBe(false);
   });
 });
 
@@ -1543,6 +1577,7 @@ describe("gate4b serial orchestration seams", () => {
       canonicalSeedSites: 20,
     } as unknown as Gate4BManifest;
     expect(() => runGate4B({
+      canonicalDirectory: join(temporaryDirectory(), "shifted-manifest"),
       buildManifest: () => shifted,
       collectProvenance: () => {
         provenanceCollections++;
@@ -1585,6 +1620,7 @@ describe("gate4b serial orchestration seams", () => {
   it("fails provenance preflight before invoking an execution", () => {
     let executions = 0;
     expect(() => runGate4B({
+      canonicalDirectory: join(temporaryDirectory(), "provenance-preflight"),
       collectProvenance: () => ({ ...passingProvenance(), trackedStatus: " M tracked" }),
       executeRun: () => {
         executions++;

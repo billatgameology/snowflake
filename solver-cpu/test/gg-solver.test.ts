@@ -224,3 +224,62 @@ describe("GGSolver — boundary bookkeeping invariants", () => {
     }
   });
 });
+
+// The oracle must be able to STATE its own cycle phase, so a cross-lane comparison can put
+// each operator's own phase beside the other's instead of a self-attested witness. The
+// accessor is observational: reading it neither advances the cycle nor relaxes the guards.
+describe("GGSolver — observable cycle phase", () => {
+  it("names every phase the two-method cycle actually passes through", () => {
+    const dims: Dims = { nx: 12, ny: 12, nz: 8 };
+    const solver = new GGSolver({ dims, params: GG_PRESETS.plate, rngSeed: 1 });
+    expect(solver.cyclePhase()).toBe("boundary");
+
+    solver.relaxField();
+    expect(solver.cyclePhase()).toBe("relaxed");
+    solver.advanceSurface();
+    expect(solver.cyclePhase()).toBe("boundary");
+    expect(solver.tick).toBe(1);
+
+    solver.step();
+    expect(solver.cyclePhase()).toBe("boundary");
+    expect(solver.tick).toBe(2);
+
+    // A second unmatched relaxation is the diagnostic path, and it stays refused as a cycle.
+    solver.relaxField();
+    solver.relaxField();
+    expect(solver.cyclePhase()).toBe("diagnosticRelaxed");
+    expect(() => solver.advanceSurface()).toThrow(/diagnosticRelaxed/);
+    expect(solver.cyclePhase()).toBe("diagnosticRelaxed");
+    expect(() => solver.step()).toThrow(/diagnosticRelaxed/);
+  });
+
+  it("reads the phase without advancing the cycle or moving state", () => {
+    const dims: Dims = { nx: 12, ny: 12, nz: 8 };
+    const solver = new GGSolver({ dims, params: GG_PRESETS.plate, rngSeed: 1 });
+    for (let t = 0; t < 6; t++) solver.step();
+    const tick = solver.tick;
+    const attached = solver.attachedCount;
+    const mass = totalMass(solver.b, solver.d);
+    for (let read = 0; read < 3; read++) {
+      expect(solver.cyclePhase()).toBe("boundary");
+    }
+    expect(solver.tick).toBe(tick);
+    expect(solver.attachedCount).toBe(attached);
+    expect(totalMass(solver.b, solver.d)).toBe(mass);
+  });
+
+  it("returns to a completed-cycle boundary after a rejected environment event", () => {
+    const dims: Dims = { nx: 12, ny: 12, nz: 8 };
+    const solver = new GGSolver({ dims, params: GG_PRESETS.plate, rngSeed: 1 });
+    solver.step();
+    expect(() =>
+      solver.applyTimelineEnvironment({
+        ...solver.timelineEnvironment(),
+        rho: Number.NaN,
+      }),
+    ).toThrow();
+    expect(solver.cyclePhase()).toBe("boundary");
+    solver.step();
+    expect(solver.tick).toBe(2);
+  });
+});

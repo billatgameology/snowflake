@@ -17,9 +17,10 @@ export interface RelaxationReport {
   readonly converged: boolean;
   /** Relative per-sweep max change at exit; null under GGThreshold (no residual concept). */
   readonly residual: number | null;
-  /** |shell clamp − net surface exchange| / |net surface exchange|; null under GGThreshold
-      and reflecting LK. Under aggregate v4, local exchange is signed numerical potential
-      redistribution, not physical uptake. */
+  /** Policy-versioned global balance divided by |net surface exchange|; null under GGThreshold
+      and reflecting LK. Legacy-v3 and aggregate-v4 use |shell clamp − exchange|. Aggregate-v5
+      uses |shell clamp + directly metered float64 smoother drift − exchange| (ADR 0013).
+      Local exchange and smoother drift are numerical potential diagnostics, not uptake. */
   readonly divergenceResidual: number | null;
   /**
    * Shell-clamp total for the LAST sweep (LK) or this tick's Dirichlet meter delta (GG).
@@ -33,7 +34,12 @@ export interface RelaxationReport {
       GGThreshold. Legacy-v3's value is its nonnegative Robin absorption total. This is a
       relaxation diagnostic, never deposited fill or physical uptake. */
   readonly surfaceExchangeDiagnostic: number | null;
-  /** Minimum local boundary-replacement exchange in the last aggregate-v4 sweep. It may be
+  /** Aggregate-v5 only: signed active-field change produced by the reflecting smoother before
+      boundary replacement and Dirichlet clamp. Directly metered in the same sweep; never
+      inferred from other report terms, and rejected if it exceeds decision 0014's independent
+      float64 roundoff bound. Null for GG, legacy-v3, and aggregate-v4. */
+  readonly smootherDriftDiagnostic: number | null;
+  /** Minimum local boundary-replacement exchange in the last aggregate-v4/v5/v6 sweep. It may be
       negative because tangential potential redistribution is signed. Null under GGThreshold
       and policies without an aggregate boundary replacement. */
   readonly minLocalSurfaceExchangeDiagnostic: number | null;

@@ -46,9 +46,11 @@
 //                   past the guard by construction, so the run is flagged NOT VALID EVIDENCE
 //   tick-cap        --ticks reached without either rule firing (recorded honestly)
 
-import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { execFileSync } from "node:child_process";
+import { execFileSync, fork } from "node:child_process";
+import { createInterface } from "node:readline";
+import { fileURLToPath } from "node:url";
 import {
   aspectRatio,
   centerRimDepletion,
@@ -58,7 +60,10 @@ import {
   domainCenter,
   encodeCheckpoint,
   encodeLKCheckpoint,
+  isLKSurfacePolicy,
   isD6hInvariantSet,
+  latticeExtents,
+  metersSmootherDrift,
   pecletUpperBound,
   symmetryError,
   totalMass,
@@ -67,21 +72,51 @@ import {
   type Dims,
   type DomainShape,
   type GGPresetName,
+  type FarFieldCondition,
   type LKSurfacePolicy,
   type Metrics,
 } from "@vcc/core";
-import { GGSolver, LKSolver, FAR_FIELD_STOP_FRACTION } from "@vcc/solver-cpu";
+import {
+  GGSolver,
+  LKSolver,
+  FAR_FIELD_STOP_FRACTION,
+  float64SmootherDriftAbsLimit,
+} from "@vcc/solver-cpu";
 import { gate3 } from "./gate3.ts";
 import { gate4a } from "./gate4a.ts";
 import { gate4b } from "./gate4b.ts";
 import { gate4 } from "./gate4-aggregate.ts";
+import { gate5Lane } from "./gate5-lane.ts";
+import { gate5 } from "./gate5-aggregate.ts";
 import {
   GATE2B_NODE,
+  GATE2B_PREREGISTRATION,
+  GATE2B_WORKER_SPECS,
   GATE2B_V8,
+  type Gate2bRole,
+  type Gate2bWorkerEnvelope,
+  type Gate2bWorkerSpec,
+  type LKRunResult,
+  validateGate2bDriftSummary,
+  validateGate2bOutputAbsence,
   validateGate2bProvenance,
+  validateGate2bWorkerCompletion,
   validateLKStepEvidence,
 } from "./gate2b-validation.ts";
 import { occupancyTopDownPGM, propensitySlicePGM, vaporSlicePGM } from "./pgm.ts";
+import {
+  PHASE6_CROSSPLATFORM_FIXTURE,
+  phase6FixtureSigmaInf,
+  phase6LibmDigest,
+  phase6LibmFingerprint,
+} from "./phase6-crossplatform.ts";
+import { phase6RenderDiagram } from "./phase6-diagram.ts";
+import {
+  phase6Aggregate,
+  phase6RunSweep,
+  phase6SweepPlan,
+  phase6SweepPreflight,
+} from "./phase6-sweep.ts";
 
 interface GrowOptions {
   preset: GGPresetName;
@@ -465,6 +500,7 @@ function grow(options: GrowOptions): void {
 
 interface GrowLKOptions {
   surfacePolicy: LKSurfacePolicy;
+  farField: FarFieldCondition;
   tempC: number | null;
   sigmaInf: number | null;
   dims: Dims;
@@ -489,7 +525,9 @@ interface GrowLKOptions {
 
 function parseLKArgs(argv: string[]): GrowLKOptions {
   const options: GrowLKOptions = {
-    surfacePolicy: "aggregate-hv-g1h1-v4",
+    surfacePolicy: "aggregate-hv-g1h1-v5",
+    // Default unchanged so every executed Phase 2b/4/5 command replays byte for byte.
+    farField: "dirichlet",
     tempC: null,
     sigmaInf: null,
     dims: { nx: 96, ny: 96, nz: 96 },
@@ -519,10 +557,24 @@ function parseLKArgs(argv: string[]): GrowLKOptions {
     switch (flag) {
       case "--surface-policy": {
         const policy = value();
-        if (policy !== "legacy-v3" && policy !== "aggregate-hv-g1h1-v4") {
+        if (!isLKSurfacePolicy(policy)) {
           throw new Error(`--surface-policy is invalid: ${policy}`);
         }
         options.surfacePolicy = policy;
+        break;
+      }
+      case "--far-field": {
+        // Only the two clamped-shell lanes. `reflecting` has no source against which the
+        // divergence identity could be stated, so it cannot support a physics run here
+        // (attachment-kinetics §4.4); offering it would invite a diagnostic-only field to be
+        // mistaken for evidence.
+        const condition = value();
+        if (condition !== "dirichlet" && condition !== "monopole-matched") {
+          throw new Error(
+            `--far-field wants dirichlet or monopole-matched, got ${condition}`,
+          );
+        }
+        options.farField = condition;
         break;
       }
       case "--div-tol":
@@ -593,26 +645,6 @@ function parseLKArgs(argv: string[]): GrowLKOptions {
   return options;
 }
 
-interface LKRunResult {
-  surfacePolicy: LKSurfacePolicy;
-  stopReason: "size-target" | "domain-contact" | "step-cap" | "stalled" | "unconverged";
-  aspectRatio: number;
-  attached: number;
-  seedSites: number;
-  tick: number;
-  extent: number;
-  symmetryClean: boolean;
-  finalSymErr: number;
-  allConverged: boolean;
-  minShellInjection: number;
-  minSurfaceExchange: number;
-  worstDivergence: number;
-  maxKineticFillEver: number;
-  holeFillCountTotal: number;
-  pecletBound: number;
-  simTimeSeconds: number;
-}
-
 function growLK(options: GrowLKOptions): LKRunResult {
   const solver = new LKSolver({
     surfacePolicy: options.surfacePolicy,
@@ -629,12 +661,15 @@ function growLK(options: GrowLKOptions): LKRunResult {
     rngSeed: options.seed,
     noiseEpsilon: options.noise,
     domain: "hexPrism",
-    farField: "dirichlet",
+    farField: options.farField,
     seedRadius: options.seedRadius,
     seedThickness: options.seedThickness,
     center: domainCenter(options.dims), // explicit — no constructor defaults in gate paths
   });
   const seedSites = solver.attachedCount;
+  const smootherDriftAbsLimit = metersSmootherDrift(solver.surfacePolicy)
+    ? float64SmootherDriftAbsLimit(solver.activeCellCount, options.sigmaInf as number)
+    : null;
   const pecletBound = pecletUpperBound(
     options.tempC as number,
     options.sigmaInf as number,
@@ -646,12 +681,13 @@ function growLK(options: GrowLKOptions): LKRunResult {
     `grow-lk T=${options.tempC}C sigmaInf=${options.sigmaInf} dims=${dims.nx},${dims.ny},${dims.nz}` +
       ` (hexRadius=${solver.hexRadius}, zHalfExtent=${solver.zHalfExtent}, active=${solver.activeCellCount})` +
       ` dx=${options.dxUm}um P=${options.pressurePa}Pa paramSet=${options.paramSet}` +
-      ` surfacePolicy=${solver.surfacePolicy}` +
+      ` surfacePolicy=${solver.surfacePolicy} farField=${solver.farField}` +
       ` cfl=${options.cfl} tol=${options.tol} divTol=${options.divTol} maxSweeps=${options.relaxMaxSweeps}` +
       ` targetExtent=${options.targetExtent} seed=${options.seed} noise=${options.noise}` +
       ` seedRadius=${options.seedRadius} seedSites=${seedSites}` +
       ` vKin=${solver.vKinMS.toExponential(4)}m/s X0=${(solver.x0M * 1e6).toFixed(4)}um` +
       ` peclet<=${pecletBound.toExponential(2)} seedSymErr=${symmetryError(solver.a, dims, center)}`,
+      ` smootherDriftLimit=${smootherDriftAbsLimit?.toExponential(3) ?? "n/a"}`,
   );
 
   let symmetryClean = true;
@@ -659,6 +695,7 @@ function growLK(options: GrowLKOptions): LKRunResult {
   let minShellInjection = Infinity;
   let minSurfaceExchange = Infinity;
   let worstDivergence = 0;
+  let maxAbsSmootherDrift: number | null = metersSmootherDrift(solver.surfacePolicy) ? 0 : null;
   let maxKineticFillEver = 0;
   let stopReason: LKRunResult["stopReason"] = "step-cap";
   const started = Date.now();
@@ -693,9 +730,17 @@ function growLK(options: GrowLKOptions): LKRunResult {
       surface,
       options.tol,
       options.divTol,
+      options.surfacePolicy,
+      smootherDriftAbsLimit,
     );
     const divergence = evidence.divergenceResidual;
     if (divergence > worstDivergence) worstDivergence = divergence;
+    if (
+      evidence.smootherDrift !== null &&
+      (maxAbsSmootherDrift === null || Math.abs(evidence.smootherDrift) > maxAbsSmootherDrift)
+    ) {
+      maxAbsSmootherDrift = Math.abs(evidence.smootherDrift);
+    }
     if (evidence.shellInjection < minShellInjection) {
       minShellInjection = evidence.shellInjection;
     }
@@ -756,6 +801,8 @@ function growLK(options: GrowLKOptions): LKRunResult {
     minShellInjection,
     minSurfaceExchange,
     worstDivergence,
+    maxAbsSmootherDrift,
+    smootherDriftAbsLimit,
     maxKineticFillEver,
     holeFillCountTotal: solver.holeFillCountTotal,
     pecletBound,
@@ -768,6 +815,8 @@ function growLK(options: GrowLKOptions): LKRunResult {
       ` minShell=${minShellInjection.toExponential(3)}` +
       ` minExchange=${minSurfaceExchange.toExponential(3)}` +
       ` worstDiv=${worstDivergence.toExponential(3)} maxKineticFill=${maxKineticFillEver.toFixed(4)}` +
+      ` maxAbsSmootherDrift=${maxAbsSmootherDrift?.toExponential(3) ?? "n/a"}` +
+      ` smootherDriftLimit=${smootherDriftAbsLimit?.toExponential(3) ?? "n/a"}` +
       ` holeFills=${solver.holeFillCountTotal}` +
       ` simTime=${solver.simTimeSeconds.toFixed(2)}s fillLedger=${solver.fillLedger.toFixed(3)}` +
       ` holeFillDeficit=${solver.holeFillDeficit.toFixed(3)}` +
@@ -856,8 +905,163 @@ function growLK(options: GrowLKOptions): LKRunResult {
   return result;
 }
 
-/** The flagless Phase 2b protocol v4, frozen in the plan at preregistration commit 8e0017a. */
-function gate2b(): void {
+function gate2bOptions(spec: Gate2bWorkerSpec): GrowLKOptions {
+  return {
+    surfacePolicy: "aggregate-hv-g1h1-v5",
+    // Gate 2b's executed protocol, pinned: the accepted v5p evidence ran fixed-σ Dirichlet, and
+    // ADR 0024's monopole shell must never be retrofitted onto a completed gate.
+    farField: "dirichlet",
+    tempC: spec.tempC,
+    sigmaInf: 0.002,
+    dims: { nx: 96, ny: 96, nz: 96 }, // SAME domain for both jobs — temperature only
+    dxUm: 0.35,
+    paramSet: "CAK_A1",
+    cfl: 0.1,
+    tol: 1e-9,
+    steps: 200_000,
+    targetExtent: 60,
+    seed: 1,
+    noise: 0,
+    out: spec.checkpointPath,
+    metricsEvery: 200,
+    pressurePa: 101325,
+    seedRadius: 2,
+    seedThickness: 1,
+    relaxMaxSweeps: 200_000,
+    divTol: 1e-7,
+  };
+}
+
+function prefixGate2bWorkerStream(
+  stream: NodeJS.ReadableStream,
+  label: string,
+  toError: boolean,
+): void {
+  const lines = createInterface({ input: stream });
+  lines.on("line", (line) => {
+    const message = `[${label}] ${line}`;
+    if (toError) console.error(message);
+    else console.log(message);
+  });
+}
+
+function validateGate2bWorkerCheckpoint(spec: Gate2bWorkerSpec, result: LKRunResult): void {
+  const decoded = decodeLKCheckpoint(new Uint8Array(readFileSync(spec.checkpointPath)));
+  const { header, state } = decoded;
+  const expectedDims = { nx: 96, ny: 96, nz: 96 } as const;
+  const expectedCenter = domainCenter(expectedDims);
+  if (
+    header.version !== 2 ||
+    header.rule !== "LibbrechtKinetics" ||
+    header.surfacePolicy !== "aggregate-hv-g1h1-v5" ||
+    state.surfacePolicy !== "aggregate-hv-g1h1-v5" ||
+    header.tempC !== spec.tempC ||
+    header.sigmaInfinity !== 0.002 ||
+    header.dims.nx !== expectedDims.nx ||
+    header.dims.ny !== expectedDims.ny ||
+    header.dims.nz !== expectedDims.nz ||
+    header.domain !== "hexPrism" ||
+    header.farField !== "dirichlet" ||
+    header.center[0] !== expectedCenter[0] ||
+    header.center[1] !== expectedCenter[1] ||
+    header.center[2] !== expectedCenter[2] ||
+    header.dxUm !== 0.35 ||
+    header.pressurePa !== 101325 ||
+    header.paramSet !== "CAK_A1" ||
+    header.cflFill !== 0.1 ||
+    header.relaxTol !== 1e-9 ||
+    header.divTol !== 1e-7 ||
+    header.relaxMaxSweeps !== 200_000 ||
+    header.rngSeed !== 1 ||
+    header.noiseEpsilon !== 0 ||
+    state.tick !== result.tick ||
+    header.simTimeSeconds !== result.simTimeSeconds
+  ) {
+    throw new Error(`${spec.label} parent checkpoint control/result authentication failed`);
+  }
+  let attached = 0;
+  for (const value of state.a) attached += value;
+  const extents = latticeExtents(state.a, expectedDims);
+  if (extents === null) throw new Error(`${spec.label} parent checkpoint contains no crystal`);
+  const extent = extents.largestExtent;
+  const checkpointAspectRatio = aspectRatio(state.a, expectedDims);
+  const checkpointSymmetry = symmetryError(state.a, expectedDims, expectedCenter);
+  if (
+    attached !== result.attached ||
+    extent !== result.extent ||
+    checkpointAspectRatio !== result.aspectRatio ||
+    checkpointSymmetry !== result.finalSymErr
+  ) {
+    throw new Error(
+      `${spec.label} parent checkpoint morphology/result authentication failed: ` +
+        `attached=${attached}/${result.attached}, extent=${extent}/${result.extent}, ` +
+        `AR=${checkpointAspectRatio}/${result.aspectRatio}, ` +
+        `symmetry=${checkpointSymmetry}/${result.finalSymErr}`,
+    );
+  }
+}
+
+function launchGate2bWorker(spec: Gate2bWorkerSpec): Promise<LKRunResult> {
+  const child = fork(fileURLToPath(import.meta.url), ["__gate2b-worker", spec.role], {
+    cwd: process.cwd(),
+    silent: true,
+  });
+  console.log(
+    `gate2b v5p launched role=${spec.role} tempC=${spec.tempC}` +
+      ` checkpoint=${spec.checkpointPath} pid=${String(child.pid)}`,
+  );
+  if (child.stdout !== null) prefixGate2bWorkerStream(child.stdout, spec.label, false);
+  if (child.stderr !== null) prefixGate2bWorkerStream(child.stderr, spec.label, true);
+  const messages: unknown[] = [];
+  child.on("message", (message) => messages.push(message));
+  return new Promise<LKRunResult>((resolve, reject) => {
+    let settled = false;
+    child.once("error", (error) => {
+      if (settled) return;
+      settled = true;
+      reject(new Error(`${spec.label} worker process error: ${error.message}`, { cause: error }));
+    });
+    child.once("close", (exitCode, signal) => {
+      if (settled) return;
+      settled = true;
+      try {
+        const envelope = validateGate2bWorkerCompletion(spec, messages, exitCode, signal);
+        validateGate2bWorkerCheckpoint(spec, envelope.result);
+        resolve(envelope.result);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  });
+}
+
+async function runGate2bWorker(role: Gate2bRole): Promise<void> {
+  const spec = GATE2B_WORKER_SPECS[role];
+  const result = growLK(gate2bOptions(spec));
+  if (typeof process.send !== "function" || !process.connected) {
+    throw new Error(`${spec.label} gate worker requires a connected parent IPC channel`);
+  }
+  const envelope: Gate2bWorkerEnvelope = {
+    kind: "gate2b-v5p-result",
+    role: spec.role,
+    tempC: spec.tempC,
+    checkpointPath: spec.checkpointPath,
+    result,
+  };
+  await new Promise<void>((resolve, reject) => {
+    process.send?.(envelope, (error) => {
+      if (error !== null) {
+        reject(error);
+        return;
+      }
+      process.disconnect?.();
+      resolve();
+    });
+  });
+}
+
+/** The flagless Phase 2b protocol v5p, frozen at the pinned concurrent pre-registration. */
+async function gate2b(): Promise<void> {
   const failures: string[] = [];
   const executionCommit = execFileSync("git", ["rev-parse", "HEAD"], {
     encoding: "utf8",
@@ -869,7 +1073,12 @@ function gate2b(): void {
   ).trim();
   let preregistrationIsAncestor = false;
   try {
-    execFileSync("git", ["merge-base", "--is-ancestor", "8e0017a", executionCommit]);
+    execFileSync("git", [
+      "merge-base",
+      "--is-ancestor",
+      GATE2B_PREREGISTRATION,
+      executionCommit,
+    ]);
     preregistrationIsAncestor = true;
   } catch {
     preregistrationIsAncestor = false;
@@ -882,34 +1091,37 @@ function gate2b(): void {
     preregistrationIsAncestor,
   });
   console.log(
-    `gate2b protocol=v4 preregistration=8e0017a executionCommit=${executionCommit}` +
+    `gate2b protocol=v5p surfacePolicy=aggregate-hv-g1h1-v5` +
+      ` preregistration=${GATE2B_PREREGISTRATION}` +
+      ` executionCommit=${executionCommit}` +
       ` node=${GATE2B_NODE} v8=${GATE2B_V8}`,
   );
-  const common: GrowLKOptions = {
-    surfacePolicy: "aggregate-hv-g1h1-v4",
-    tempC: null,
-    sigmaInf: 0.002,
-    dims: { nx: 96, ny: 96, nz: 96 }, // SAME domain for both runs — temperature only
-    dxUm: 0.35,
-    paramSet: "CAK_A1",
-    cfl: 0.1,
-    tol: 1e-9,
-    steps: 200_000,
-    targetExtent: 60,
-    seed: 1,
-    noise: 0,
-    out: null,
-    metricsEvery: 200,
-    pressurePa: 101325,
-    seedRadius: 2,
-    seedThickness: 1,
-    relaxMaxSweeps: 200_000,
-    divTol: 1e-7,
-  };
-  console.log("=== 2b GATE run 1/2: plate expectation, T = -5 C ===");
-  const plate = growLK({ ...common, tempC: -5, out: "out/gate2b-v4-plate.ckpt" });
-  console.log("=== 2b GATE run 2/2: column expectation, T = -15 C ===");
-  const column = growLK({ ...common, tempC: -15, out: "out/gate2b-v4-column.ckpt" });
+  const common = gate2bOptions(GATE2B_WORKER_SPECS.plate);
+  validateGate2bOutputAbsence(
+    Object.values(GATE2B_WORKER_SPECS)
+      .map((spec) => spec.checkpointPath)
+      .filter((path) => existsSync(path)),
+  );
+  console.log("=== 2b GATE concurrent pair: -5 C plate + -15 C column ===");
+  // Both calls synchronously fork before either returned promise is awaited.
+  const platePromise = launchGate2bWorker(GATE2B_WORKER_SPECS.plate);
+  const columnPromise = launchGate2bWorker(GATE2B_WORKER_SPECS.column);
+  const [plateSettlement, columnSettlement] = await Promise.allSettled([
+    platePromise,
+    columnPromise,
+  ]);
+  const plate = plateSettlement.status === "fulfilled" ? plateSettlement.value : null;
+  const column = columnSettlement.status === "fulfilled" ? columnSettlement.value : null;
+  if (plateSettlement.status === "rejected") {
+    failures.push(
+      `plate(-5C): worker failed: ${plateSettlement.reason instanceof Error ? plateSettlement.reason.message : String(plateSettlement.reason)}`,
+    );
+  }
+  if (columnSettlement.status === "rejected") {
+    failures.push(
+      `column(-15C): worker failed: ${columnSettlement.reason instanceof Error ? columnSettlement.reason.message : String(columnSettlement.reason)}`,
+    );
+  }
 
   const checkRun = (label: string, r: LKRunResult): void => {
     if (r.seedSites !== 19) {
@@ -939,8 +1151,17 @@ function gate2b(): void {
           `(shell=${r.minShellInjection}, exchange=${r.minSurfaceExchange})`,
       );
     }
-    if (!(r.worstDivergence < 1e3 * common.tol)) {
-      failures.push(`${label}: divergence identity ${r.worstDivergence} not < ${1e3 * common.tol}`);
+    if (!(r.worstDivergence < common.divTol)) {
+      failures.push(`${label}: divergence identity ${r.worstDivergence} not < ${common.divTol}`);
+    }
+    try {
+      validateGate2bDriftSummary(
+        r.surfacePolicy,
+        r.maxAbsSmootherDrift,
+        r.smootherDriftAbsLimit,
+      );
+    } catch (error) {
+      failures.push(`${label}: ${error instanceof Error ? error.message : String(error)}`);
     }
     if (!(r.maxKineticFillEver <= common.cfl + 1e-12)) {
       failures.push(`${label}: kinetic fill-CFL bound violated (${r.maxKineticFillEver})`);
@@ -949,12 +1170,12 @@ function gate2b(): void {
       failures.push(`${label}: quasi-static validity bound Pe ${r.pecletBound} not < 1e-2`);
     }
   };
-  checkRun("plate(-5C)", plate);
-  checkRun("column(-15C)", column);
-  if (!(plate.aspectRatio <= 1 / 1.5)) {
+  if (plate !== null) checkRun("plate(-5C)", plate);
+  if (column !== null) checkRun("column(-15C)", column);
+  if (plate !== null && !(plate.aspectRatio <= 1 / 1.5)) {
     failures.push(`plate(-5C): AR ${plate.aspectRatio} not <= ${1 / 1.5} — not a plate`);
   }
-  if (!(column.aspectRatio >= 1.5)) {
+  if (column !== null && !(column.aspectRatio >= 1.5)) {
     failures.push(`column(-15C): AR ${column.aspectRatio} not >= 1.5 — not a column`);
   }
 
@@ -964,6 +1185,9 @@ function gate2b(): void {
     console.error("2B GATE EXIT STATUS: 1");
     process.exit(1);
   }
+  if (plate === null || column === null) {
+    throw new Error("gate2b v5p reached an impossible empty-result success path");
+  }
   console.log(
     `2B GATE PASSED: habit is an output of temperature alone (same domain, same everything,` +
       ` T only) — AR(-5C)=${fmt(plate.aspectRatio)} (plate), AR(-15C)=${fmt(column.aspectRatio)}` +
@@ -972,8 +1196,57 @@ function gate2b(): void {
   console.log("2B GATE EXIT STATUS: 0");
 }
 
+/**
+ * Phase 6 cross-platform reproducibility control, tier 1 — the libm fingerprint.
+ *
+ * Prints the exact float64 bits of every transcendental-dependent physics quantity the solver
+ * consumes, plus a one-line digest, plus the host identity that scopes the result. Tier 2 (the
+ * end-to-end habit runs) is a `grow-lk` invocation and is printed here as the exact command
+ * rather than executed, because it costs a full growth run per point and the operator running
+ * this on a second machine should decide when to spend that.
+ *
+ * See docs/runbooks/phase6-cross-platform-control.md.
+ */
+function phase6Fixture(): void {
+  const entries = phase6LibmFingerprint();
+  console.log("PHASE 6 CROSS-PLATFORM CONTROL — tier 1, libm fingerprint");
+  console.log(
+    `host platform=${process.platform} arch=${process.arch} node=${process.version} ` +
+      `v8=${process.versions.v8}`,
+  );
+  console.log(`entries=${entries.length}`);
+  for (const entry of entries) {
+    console.log(`  ${entry.name}\t${entry.argument}\t${entry.bits}`);
+  }
+  console.log(`PHASE6 LIBM DIGEST: ${phase6LibmDigest(entries)}`);
+  console.log("");
+  console.log("tier 2 — run each of these and compare the habit class, not the digits:");
+  const f = PHASE6_CROSSPLATFORM_FIXTURE;
+  for (const point of f.points) {
+    console.log(
+      `  node runner/src/main.ts grow-lk --temp-c ${point.tempC} ` +
+        `--sigma-inf ${phase6FixtureSigmaInf(point.tempC).toFixed(6)} ` +
+        `--dims ${f.dims.nx},${f.dims.ny},${f.dims.nz} --dx-um ${f.dxUm} --cfl ${f.cflFill} ` +
+        `--target-extent ${f.targetExtent} --surface-policy ${f.surfacePolicy} ` +
+        `--far-field ${f.farField} --metrics-every 100000`,
+    );
+  }
+}
+
 const [command, ...rest] = process.argv.slice(2);
-if (command === "grow") {
+if (command === "__gate2b-worker") {
+  const role = rest.length === 1 ? rest[0] : null;
+  if (role !== "plate" && role !== "column") {
+    console.error("internal gate2b worker requires exactly one recognized fixed role");
+    process.exit(2);
+  }
+  try {
+    await runGate2bWorker(role);
+  } catch (error) {
+    console.error(error instanceof Error ? (error.stack ?? error.message) : String(error));
+    process.exitCode = 1;
+  }
+} else if (command === "grow") {
   grow(parseArgs(rest));
 } else if (command === "grow-lk") {
   growLK(parseLKArgs(rest));
@@ -984,7 +1257,7 @@ if (command === "grow") {
     process.exit(2);
   }
   try {
-    gate2b();
+    await gate2b();
   } catch (error) {
     console.error(error instanceof Error ? (error.stack ?? error.message) : String(error));
     console.error("2B GATE EXIT STATUS: 1");
@@ -1054,6 +1327,113 @@ if (command === "grow") {
     console.error("GATE4 EXIT STATUS: 1");
     process.exitCode = 1;
   }
+} else if (command === "gate5-lane") {
+  if (rest.length > 0) {
+    console.error(
+      "gate5-lane takes no flags: the Windows/D3D12 protocol is pinned in " +
+        "docs/plans/phase-5-gpu-port.md",
+    );
+    console.error("GATE5-LANE EXIT STATUS: 2");
+    process.exit(2);
+  }
+  try {
+    process.exitCode = gate5Lane();
+  } catch (error) {
+    console.error(error instanceof Error ? (error.stack ?? error.message) : String(error));
+    console.error("GATE5-LANE EXIT STATUS: 1");
+    process.exitCode = 1;
+  }
+} else if (command === "gate5") {
+  if (rest.length > 0) {
+    console.error(
+      "gate5 takes no flags: the Phase 5 aggregate protocol is pinned in " +
+        "docs/plans/phase-5-gpu-port.md",
+    );
+    console.error("GATE5 EXIT STATUS: 2");
+    process.exit(2);
+  }
+  try {
+    process.exitCode = gate5();
+  } catch (error) {
+    console.error(error instanceof Error ? (error.stack ?? error.message) : String(error));
+    console.error("GATE5 EXIT STATUS: 1");
+    process.exitCode = 1;
+  }
+} else if (command === "phase6-sweep") {
+  const concurrency = rest.length === 0 ? 7 : Number(rest[0]);
+  if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 64) {
+    console.error("usage: node runner/src/main.ts phase6-sweep [concurrency]");
+    process.exit(2);
+  }
+  const preflight = phase6SweepPreflight(process.cwd());
+  console.log(`PHASE 6 SWEEP — protocol ${preflight.protocolSha256}`);
+  console.log(`head=${preflight.head} node=${preflight.node} v8=${preflight.v8}`);
+  if (!preflight.ok) {
+    console.error("PREFLIGHT FAILED — no sweep evidence may be produced:");
+    for (const failure of preflight.failures) console.error(`  - ${failure}`);
+    console.error("PHASE6 SWEEP EXIT STATUS: 2");
+    process.exit(2);
+  }
+  const plan = phase6SweepPlan();
+  console.log(`preflight OK; ${plan.length} registered grid points, concurrency ${concurrency}`);
+  const outDir = join(process.cwd(), "out", "phase6-sweep");
+  mkdirSync(outDir, { recursive: true });
+  const scored = await phase6RunSweep({
+    concurrency,
+    repoRoot: process.cwd(),
+    // `accumulated` comes FROM the harness. Reading the binding this await assigns would be a
+    // temporal dead zone error, because the callback fires while the await is still pending.
+    onPoint: ({ done, total, scored: point, accumulated }) => {
+      console.log(
+        `[${String(done).padStart(3)}/${total}] T=${String(point.point.tempC).padStart(4)} ` +
+          `f=${point.point.fraction.toFixed(2)} ${point.modelClass.padEnd(8)} ` +
+          `${point.score.padEnd(9)} AR=${Number.isFinite(point.result.aspectRatio) ? point.result.aspectRatio.toFixed(4) : "n/a"} ` +
+          `${point.inHeadlineScope ? "headline" : "        "} ` +
+          `${point.extentFragile ? "extent-fragile" : ""}` +
+          `${point.exclusionReason === null ? "" : `EXCLUDED: ${point.exclusionReason}`} ` +
+          `| ${point.result.seconds.toFixed(1)}s`,
+      );
+      writeFileSync(join(outDir, "points.json"), JSON.stringify(accumulated, null, 1));
+    },
+  });
+  const report = phase6Aggregate(scored, preflight.protocolSha256, preflight.head);
+  writeFileSync(join(outDir, "report.json"), JSON.stringify(report, null, 1));
+  writeFileSync(
+    join(outDir, "diagram.svg"),
+    phase6RenderDiagram(
+      scored,
+      `protocol ${preflight.protocolSha256.slice(0, 12)} · head ${preflight.head.slice(0, 12)} · ` +
+        `node ${preflight.node} · ${plan.length} registered points`,
+    ),
+  );
+  console.log("");
+  console.log(
+    `HEADLINE (measured class, ${report.headlineTotal} headline-scope points): ` +
+      `${report.headlineAgree} agree`,
+  );
+  console.log(
+    `beneath it — neutral ${report.neutralCount}, excluded ${report.excludedCount}, ` +
+      `extent-fragile ${report.extentFragileCount}`,
+  );
+  for (const tally of report.perRegime) {
+    console.log(
+      `  ${tally.regime.padEnd(20)} ${tally.inHeadline ? "headline" : "reported"} ` +
+        `agree=${tally.agree} disagree=${tally.disagree} excluded=${tally.excluded} ` +
+        `neutral=${tally.neutralCount}`,
+    );
+  }
+  console.log(`artifacts: ${outDir}`);
+  console.log("PHASE6 SWEEP EXIT STATUS: 0");
+} else if (command === "phase6-fixture") {
+  if (rest.length > 0) {
+    console.error(
+      "phase6-fixture takes no flags: the fixture is registered in " +
+        "runner/src/phase6-crossplatform.ts and a comparison across machines is only " +
+        "meaningful if both ran exactly the same thing",
+    );
+    process.exit(2);
+  }
+  phase6Fixture();
 } else {
   console.error(
     "usage: node runner/src/main.ts grow --preset <name> [options]\n" +
@@ -1062,7 +1442,11 @@ if (command === "grow") {
       "       node runner/src/main.ts gate3\n" +
       "       node runner/src/main.ts gate4a\n" +
       "       node runner/src/main.ts gate4b\n" +
-      "       node runner/src/main.ts gate4",
+      "       node runner/src/main.ts gate4\n" +
+      "       node runner/src/main.ts gate5-lane\n" +
+      "       node runner/src/main.ts gate5\n" +
+      "       node runner/src/main.ts phase6-fixture\n" +
+      "       node runner/src/main.ts phase6-sweep [concurrency]",
   );
   process.exit(2);
 }

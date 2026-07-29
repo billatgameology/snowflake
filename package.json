@@ -7,6 +7,7 @@
   "workspaces": [
     "core",
     "solver-cpu",
+    "solver-gpu",
     "runner",
     "app"
   ],
@@ -18,6 +19,7 @@
     "dev": "npm run dev --workspace app"
   },
   "devDependencies": {
+    "@webgpu/types": "0.1.71",
     "@types/node": "^24.0.0",
     "typescript": "^5.8.0",
     "vitest": "^3.0.0"

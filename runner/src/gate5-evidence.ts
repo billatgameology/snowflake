@@ -1,0 +1,2429 @@
+// Phase 5 canonical lane publication and reopening.
+//
+// The index is the commit marker. Payloads are written into a private sibling directory,
+// reopened and verified against an immutable in-memory root, and published by one directory
+// rename. The aggregate gate uses the same verifier and never trusts a lane report's booleans.
+
+import { Buffer } from "node:buffer";
+import { randomUUID } from "node:crypto";
+import {
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  renameSync,
+  realpathSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} from "node:fs";
+import { basename, dirname, join, relative, resolve, sep } from "node:path";
+import {
+  GG_PRESETS,
+  decodeCheckpoint,
+  decodeLKCheckpoint,
+} from "@vcc/core";
+import {
+  canonicalJson,
+  canonicalJsonBytes,
+  parseCanonicalJson,
+  sha256Bytes,
+  strictJsonSnapshot,
+  type StrictJson,
+} from "./gate4-evidence.ts";
+import {
+  evaluatePhase5Lane,
+  validatePhase5RawEvidence,
+  type Phase5CheckpointMeasurement,
+  type Phase5LaneRawEvidence,
+  type Phase5LaneVerdict,
+} from "./gate5-protocol.ts";
+import {
+  PHASE5_EVIDENCE_SCHEMA,
+  PHASE5_FIXTURES,
+  PHASE5_FIXTURES_SHA256,
+  PHASE5_FIELD_TOLERANCES,
+  PHASE5_GG_DIRICHLET_LEDGER_POLICY,
+  PHASE5_GG_DIRICHLET_LEDGER_WITNESS,
+  PHASE5_PROTOCOL,
+  PHASE5_PROTOCOL_SHA256,
+  PHASE5_SCALAR_TOLERANCES,
+  PHASE5_TOLERANCES_SHA256,
+} from "./phase5-protocol.ts";
+import { comparePhase5Arrays } from "./phase5-shadow.ts";
+import {
+  exactComparisonFailures,
+  exactInventory,
+  exactKeys,
+  fieldComparisonFailures,
+  fixturePath,
+  phase5CaptureArtifactInputs,
+  plainObject,
+  scalarComparisonFailures,
+  PHASE5_SCIENCE_INVENTORY,
+  type Phase5CaptureArtifactInput,
+} from "./gate5-comparison.ts";
+// Runtime edge is acyclic: gate5-negative-controls and gate5-comparison import only TYPES
+// from this module.
+import { derivePhase5NegativeControlOutcomes } from "./gate5-negative-controls.ts";
+
+// The shared comparison contract stays importable from this module: the gate script and the
+// tests read the frozen inventory and rationales from the evidence boundary.
+export {
+  PHASE5_GG_DIRECT_CLAMP_DIAGNOSTIC_RATIONALE,
+  PHASE5_LK_SWEEP_DIAGNOSTIC_RATIONALE,
+  PHASE5_SCIENCE_INVENTORY,
+} from "./gate5-comparison.ts";
+
+export const PHASE5_LANE_MANIFEST_PATH = "lane-manifest.json";
+export const PHASE5_LANE_REPORT_PATH = "lane-report.json";
+export const PHASE5_LANE_INDEX_PATH = "artifact-index.json";
+
+const SAFE_PATH = /^[A-Za-z0-9][A-Za-z0-9._/-]*$/;
+const SHA256 = /^[0-9a-f]{64}$/;
+
+export interface Phase5ArtifactDescriptor {
+  readonly path: string;
+  readonly kind: string;
+  readonly byteLength: number;
+  readonly sha256: string;
+}
+
+export interface Phase5SourceHash {
+  readonly path: string;
+  readonly byteLength: number;
+  readonly sha256: string;
+}
+
+export interface Phase5FixtureCapture {
+  readonly id: string;
+  readonly config: unknown;
+  readonly cpuReferenceCheckpoint: Uint8Array;
+  readonly gpuExportCheckpoint: Uint8Array;
+  readonly comparison: unknown;
+  readonly events: unknown;
+  readonly timing: unknown;
+  readonly readback: unknown;
+}
+
+export interface Phase5LaneCapture {
+  readonly startedAtUtc: string;
+  readonly completedAtUtc: string;
+  readonly raw: Phase5LaneRawEvidence;
+  readonly fixtures: readonly Phase5FixtureCapture[];
+  readonly stdout: Uint8Array;
+  readonly stderr: Uint8Array;
+  readonly exitStatus: 0;
+}
+
+export interface Phase5LaneManifest {
+  readonly schema: typeof PHASE5_EVIDENCE_SCHEMA.laneManifest;
+  readonly lane: "windows-d3d12";
+  readonly protocol: typeof PHASE5_PROTOCOL;
+  readonly protocolSha256: typeof PHASE5_PROTOCOL_SHA256;
+  readonly fixtureSha256: typeof PHASE5_FIXTURES_SHA256;
+  readonly toleranceSha256: typeof PHASE5_TOLERANCES_SHA256;
+  readonly repository: Phase5LaneRawEvidence["repository"];
+  readonly host: Phase5LaneRawEvidence["host"];
+  readonly runtime: Phase5LaneRawEvidence["runtime"];
+  readonly adapter: Phase5LaneRawEvidence["adapter"];
+  readonly startedAtUtc: string;
+  readonly completedAtUtc: string;
+  readonly sourceHashes: readonly Phase5SourceHash[];
+  readonly artifacts: readonly Phase5ArtifactDescriptor[];
+}
+
+export interface Phase5LaneReport {
+  readonly schema: typeof PHASE5_EVIDENCE_SCHEMA.laneReport;
+  readonly lane: "windows-d3d12";
+  readonly manifestSha256: string;
+  readonly raw: Phase5LaneRawEvidence;
+  readonly criteria: Phase5LaneVerdict["criteria"];
+  readonly gatePass: boolean;
+  readonly exitCode: 0 | 1;
+}
+
+export interface Phase5LaneArtifactIndex {
+  readonly schema: typeof PHASE5_EVIDENCE_SCHEMA.artifactIndex;
+  readonly publication: "complete";
+  readonly manifest: Phase5ArtifactDescriptor;
+  readonly report: Phase5ArtifactDescriptor;
+  readonly artifacts: readonly Phase5ArtifactDescriptor[];
+}
+
+export interface VerifiedPhase5LaneBundle {
+  readonly directory: string;
+  readonly manifest: Phase5LaneManifest;
+  readonly report: Phase5LaneReport;
+  readonly index: Phase5LaneArtifactIndex;
+}
+
+export interface Phase5LanePublicationHooks {
+  readonly afterArtifactWrite?: (path: string, stagingDirectory: string) => void;
+  readonly beforeRename?: (stagingDirectory: string) => void;
+  readonly afterRename?: (canonicalDirectory: string) => void;
+}
+
+export interface Phase5LaneVerificationHooks {
+  /**
+   * Test-only size seam. Production callers omit it and decode both existing checkpoint
+   * codecs with @vcc/core before a bundle can verify.
+   */
+  readonly verifyCheckpointPair?: (
+    fixture: (typeof PHASE5_FIXTURES)[number],
+    cpuBytes: Uint8Array,
+    gpuBytes: Uint8Array,
+  ) => Phase5CheckpointVerification;
+}
+
+export interface Phase5FieldComparisonEvidence {
+  readonly name: "d" | "b" | "sigma" | "f";
+  readonly tolerance:
+    | "diffusionD"
+    | "ggBoundaryMass"
+    | "ggVapor"
+    | "lkSigma"
+    | "lkFill";
+  readonly length: number;
+  readonly maxAbs: number;
+  readonly rms: number;
+  readonly maxRelative: number;
+  readonly relativeComparedCount: number;
+}
+
+export interface Phase5CheckpointVerification {
+  readonly checkpoint: Phase5CheckpointMeasurement;
+  readonly fields: readonly Phase5FieldComparisonEvidence[];
+}
+
+export interface PublishPhase5LaneOptions {
+  readonly canonicalDirectory: string;
+  readonly capture: Phase5LaneCapture;
+  readonly sourceHashes: readonly Phase5SourceHash[];
+  readonly attemptId?: string;
+  readonly hooks?: Phase5LanePublicationHooks;
+  readonly verificationHooks?: Phase5LaneVerificationHooks;
+}
+
+interface ExpectedFile {
+  readonly path: string;
+  readonly bytes: Uint8Array;
+}
+
+interface OwnedDirectoryIdentity {
+  readonly dev: bigint;
+  readonly ino: bigint;
+  readonly realPath: string;
+}
+
+function lexical(left: string, right: string): number {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+
+function directoryIdentity(path: string, label: string): OwnedDirectoryIdentity {
+  const metadata = lstatSync(path, { bigint: true });
+  if (!metadata.isDirectory() || metadata.isSymbolicLink()) {
+    throw new Error(`${label} is not an independent directory`);
+  }
+  const realPath = realpathSync.native(path);
+  if (resolve(realPath) !== resolve(path)) {
+    throw new Error(`${label} resolves through an alias or junction`);
+  }
+  return { dev: metadata.dev, ino: metadata.ino, realPath };
+}
+
+function assertDirectoryIdentity(
+  path: string,
+  identity: OwnedDirectoryIdentity,
+  label: string,
+): void {
+  const current = directoryIdentity(path, label);
+  if (
+    current.dev !== identity.dev ||
+    current.ino !== identity.ino ||
+    current.realPath !== identity.realPath
+  ) {
+    throw new Error(`${label} identity changed`);
+  }
+}
+
+/**
+ * Quarantine before recursing. Checking a directory's identity and then recursively deleting
+ * the same public path leaves a window in which the path can be replaced between the two, so
+ * the delete lands on someone else's tree. The tree is renamed to a private sibling only this
+ * process can name, re-authenticated THERE, and only then removed. A post-move identity
+ * mismatch throws and leaves the tree in quarantine rather than deleting it.
+ */
+function removeOwnedDirectory(
+  path: string,
+  identity: OwnedDirectoryIdentity,
+): void {
+  if (!existsSync(path)) return;
+  assertDirectoryIdentity(path, identity, "Phase 5 owned publication directory");
+  const quarantine = join(
+    dirname(path),
+    `.discard-${process.pid}-${randomUUID()}`,
+  );
+  renameSync(path, quarantine);
+  // A rename changes the path but not the inode, so the quarantined tree is re-authenticated
+  // on dev/ino rather than on `realPath`, which necessarily differs now.
+  const moved = directoryIdentity(
+    quarantine,
+    "Phase 5 quarantined publication directory",
+  );
+  if (moved.dev !== identity.dev || moved.ino !== identity.ino) {
+    throw new Error("Phase 5 quarantined publication directory identity changed");
+  }
+  rmSync(quarantine, { recursive: true, force: true });
+}
+
+function safePath(path: string): void {
+  if (
+    !SAFE_PATH.test(path) ||
+    path.includes("\\") ||
+    path.startsWith("/") ||
+    path.endsWith("/") ||
+    path.split("/").some((part) => part === "" || part === "." || part === "..")
+  ) {
+    throw new Error(`unsafe Phase 5 artifact path: ${path}`);
+  }
+}
+
+function descriptor(input: Phase5CaptureArtifactInput): Phase5ArtifactDescriptor {
+  safePath(input.path);
+  if (input.kind.trim().length === 0) throw new Error(`${input.path} kind is empty`);
+  return {
+    path: input.path,
+    kind: input.kind,
+    byteLength: input.bytes.byteLength,
+    sha256: sha256Bytes(input.bytes),
+  };
+}
+
+function assertDescriptor(value: unknown, label: string): Phase5ArtifactDescriptor {
+  const object = plainObject(value, label);
+  exactKeys(object, ["path", "kind", "byteLength", "sha256"], label);
+  const path = object.path;
+  const kind = object.kind;
+  const byteLength = object.byteLength;
+  const sha256 = object.sha256;
+  if (typeof path !== "string") throw new Error(`${label}.path must be a string`);
+  safePath(path);
+  if (typeof kind !== "string" || kind.trim().length === 0) {
+    throw new Error(`${label}.kind is invalid`);
+  }
+  if (!Number.isSafeInteger(byteLength) || (byteLength as number) < 0) {
+    throw new Error(`${label}.byteLength is invalid`);
+  }
+  if (typeof sha256 !== "string" || !SHA256.test(sha256)) {
+    throw new Error(`${label}.sha256 is invalid`);
+  }
+  return { path, kind, byteLength: byteLength as number, sha256 };
+}
+
+function decodeUtf8WithoutBom(bytes: Uint8Array, label: string): string {
+  if (
+    bytes.byteLength >= 3 &&
+    bytes[0] === 0xef &&
+    bytes[1] === 0xbb &&
+    bytes[2] === 0xbf
+  ) {
+    throw new Error(`${label} must not contain a UTF-8 BOM`);
+  }
+  return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+}
+
+function expectedLaneArtifactContracts(): readonly {
+  readonly path: string;
+  readonly kind: string;
+}[] {
+  const payload = [
+    { path: "exit-status.txt", kind: "utf8-exit-status" },
+    { path: "stderr.log", kind: "utf8-log" },
+    { path: "stdout.log", kind: "utf8-log" },
+    ...PHASE5_FIXTURES.flatMap((fixture) =>
+      !fixture.blocking ? [] : [
+        {
+          path: fixturePath(fixture.id, "config.json"),
+          kind: "phase5-fixture-config+json",
+        },
+        {
+          path: fixturePath(fixture.id, "cpu-reference.ckpt"),
+          kind:
+            fixture.kind === "lk"
+              ? "vcc-lk-v2-checkpoint"
+              : "vcc-gg-v1-checkpoint",
+        },
+        {
+          path: fixturePath(fixture.id, "gpu-export.ckpt"),
+          kind:
+            fixture.kind === "lk"
+              ? "vcc-lk-v2-checkpoint"
+              : "vcc-gg-v1-checkpoint",
+        },
+        {
+          path: fixturePath(fixture.id, "comparison.json"),
+          kind: "phase5-comparison+json",
+        },
+        {
+          path: fixturePath(fixture.id, "events.json"),
+          kind: "phase5-events+json",
+        },
+        {
+          path: fixturePath(fixture.id, "timing.json"),
+          kind: "phase5-timing+json",
+        },
+        {
+          path: fixturePath(fixture.id, "readback.json"),
+          kind: "phase5-readback+json",
+        },
+      ],
+    ),
+  ].sort((left, right) => lexical(left.path, right.path));
+  return [
+    {
+      path: PHASE5_LANE_MANIFEST_PATH,
+      kind: "phase5-lane-manifest+json",
+    },
+    {
+      path: PHASE5_LANE_REPORT_PATH,
+      kind: "phase5-lane-report+json",
+    },
+    ...payload,
+  ];
+}
+
+function strictArray(value: StrictJson, label: string): readonly StrictJson[] {
+  if (!Array.isArray(value)) throw new Error(`${label} must be an array`);
+  return value;
+}
+
+export const PHASE5_GG_DIRICHLET_LEDGER_FIXTURE_ID =
+  PHASE5_GG_DIRICHLET_LEDGER_WITNESS.meterReduction.fixtureId;
+
+const GG_CYCLE_REPORT_KEYS = [
+  "boundaryCount",
+  "attachedTotal",
+  "attachedNow",
+  "holeFillNow",
+  "lastClampDelta",
+  "dirichletMeter",
+  "oldBoundaryCount",
+  "errorFlags",
+] as const;
+
+const GG_CYCLE_REPORT_COUNT_KEYS = [
+  "boundaryCount",
+  "attachedTotal",
+  "attachedNow",
+  "holeFillNow",
+  "oldBoundaryCount",
+  "errorFlags",
+] as const;
+
+const GG_RELAXATION_REPORT_KEYS = [
+  "sweeps",
+  "converged",
+  "residual",
+  "divergenceResidual",
+  "shellClampDiagnostic",
+  "surfaceExchangeDiagnostic",
+  "smootherDriftDiagnostic",
+  "minLocalSurfaceExchangeDiagnostic",
+] as const;
+
+const GG_SURFACE_REPORT_KEYS = [
+  "attachedNow",
+  "maxKineticFillIncrement",
+  "holeFillCount",
+  "deltaTimeSeconds",
+  "stalled",
+  "skippedUnconverged",
+] as const;
+
+function strictNumber(value: StrictJson, label: string): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    throw new Error(`${label} must be a finite number`);
+  }
+  return value;
+}
+
+function strictCount(value: StrictJson, label: string): number {
+  if (!Number.isSafeInteger(value) || (value as number) < 0) {
+    throw new Error(`${label} must be an unsigned integer`);
+  }
+  return value as number;
+}
+
+function strictBinary32(value: StrictJson, label: string): number {
+  const scalar = strictNumber(value, label);
+  if (Math.fround(scalar) !== scalar) {
+    throw new Error(`${label} is not an exact binary32 value`);
+  }
+  return scalar;
+}
+
+function withinMixedScalarBound(reference: number, candidate: number): boolean {
+  return (
+    Math.abs(candidate - reference) <=
+    PHASE5_SCALAR_TOLERANCES.maxAbs +
+      PHASE5_SCALAR_TOLERANCES.maxRelative * Math.abs(reference)
+  );
+}
+
+/**
+ * Independent reference for the shipped clamp reduction. Each level loads `laneCount` binary32
+ * lanes per workgroup (zero-padded past the input), halves them with binary32 adds, and emits
+ * one partial per workgroup. Written from the published `reduceClamp` semantics so a probe
+ * helper that drifts from the device cannot certify itself.
+ */
+function binary32ClampReduction(values: Float32Array): number {
+  const lanes = PHASE5_GG_DIRICHLET_LEDGER_WITNESS.reduction.laneCount;
+  let level = Float32Array.from(values);
+  while (level.length > 1) {
+    const next = new Float32Array(Math.ceil(level.length / lanes));
+    for (let group = 0; group < next.length; group++) {
+      const window = new Float32Array(lanes);
+      const base = group * lanes;
+      for (let lane = 0; lane < lanes && base + lane < level.length; lane++) {
+        window[lane] = level[base + lane];
+      }
+      for (let stride = lanes / 2; stride >= 1; stride /= 2) {
+        for (let lane = 0; lane < stride; lane++) {
+          window[lane] = Math.fround(window[lane] + window[lane + stride]);
+        }
+      }
+      next[group] = window[0];
+    }
+    level = next;
+  }
+  return level.length === 0 ? 0 : level[0];
+}
+
+/** Independent reference for the shipped clamp reduction dispatch inventory. */
+function plannedClampReductionDispatches(cellCount: number): number {
+  const { laneCount, maxWorkgroupsPerDispatch } =
+    PHASE5_GG_DIRICHLET_LEDGER_WITNESS.reduction;
+  const maxCells = laneCount * maxWorkgroupsPerDispatch;
+  let count = cellCount;
+  let dispatches = 0;
+  while (count > 1) {
+    let workgroups = 0;
+    for (let base = 0; base < count; base += maxCells) {
+      workgroups += Math.ceil(Math.min(maxCells, count - base) / laneCount);
+      dispatches++;
+    }
+    count = workgroups;
+  }
+  return dispatches;
+}
+
+function decodeBinary32Field(
+  value: StrictJson,
+  cellCount: number,
+  label: string,
+): Float32Array {
+  if (typeof value !== "string" || !/^[A-Za-z0-9+/]+={0,2}$/.test(value)) {
+    throw new Error(`${label} must be a base64 binary32 field`);
+  }
+  const bytes = Buffer.from(value, "base64");
+  if (bytes.toString("base64") !== value) {
+    throw new Error(`${label} is not canonically encoded`);
+  }
+  if (bytes.byteLength !== cellCount * 4) {
+    throw new Error(`${label} does not carry exactly ${cellCount} cells`);
+  }
+  const aligned = new Uint8Array(bytes.byteLength);
+  aligned.set(bytes);
+  return new Float32Array(aligned.buffer);
+}
+
+function binary32BitMismatchCount(
+  expected: Float32Array,
+  actual: Float32Array,
+): number {
+  const left = new Uint32Array(expected.buffer, expected.byteOffset, expected.length);
+  const right = new Uint32Array(actual.buffer, actual.byteOffset, actual.length);
+  let mismatches = 0;
+  for (let index = 0; index < left.length; index++) {
+    if (left[index] !== right[index]) mismatches++;
+  }
+  return mismatches;
+}
+
+function ggCycleReport(
+  value: StrictJson,
+  label: string,
+): Readonly<Record<string, StrictJson>> {
+  const report = plainObject(value, label);
+  exactKeys(report, [...GG_CYCLE_REPORT_KEYS], label);
+  for (const key of GG_CYCLE_REPORT_COUNT_KEYS) {
+    strictCount(report[key], `${label} ${key}`);
+  }
+  strictBinary32(report.lastClampDelta, `${label} lastClampDelta`);
+  strictBinary32(report.dirichletMeter, `${label} dirichletMeter`);
+  if (report.errorFlags !== 0) {
+    throw new Error(`${label} reports device error flags`);
+  }
+  return report;
+}
+
+interface RegisteredMeterField {
+  readonly modulus: number;
+  readonly offset: number;
+  readonly scale: number;
+  readonly bias: number;
+}
+
+interface GgDirichletChronology {
+  readonly cpuFinalMeter: number;
+  readonly gpuFinalMeter: number;
+  readonly cpuFinalClampDelta: number;
+  readonly gpuFinalClampDelta: number;
+}
+
+/**
+ * Reconstructs the complete signed clamp/meter chronology. Both accumulators are replayed here
+ * from the per-cycle signed deltas — the binary64 CPU meter exactly, the persistent binary32
+ * GPU meter under single-rounded addition — so a published cumulative value that was not
+ * actually produced by its own lane's arithmetic is rejected.
+ */
+function validateGgDirichletCycles(
+  value: StrictJson,
+  cycleCap: number,
+): GgDirichletChronology {
+  const cycles = strictArray(value, "G-G Dirichlet ledger cycles");
+  if (cycles.length !== cycleCap) {
+    throw new Error(
+      `G-G Dirichlet ledger must carry all ${cycleCap} signed cycles, not ${cycles.length}`,
+    );
+  }
+  let cpuMeter = 0;
+  let gpuMeter = 0;
+  let cpuClampDelta = 0;
+  let gpuClampDelta = 0;
+  for (const [index, entry] of cycles.entries()) {
+    const label = `G-G Dirichlet ledger cycle ${index + 1}`;
+    const cycle = plainObject(entry, label);
+    exactKeys(cycle, ["cycle", "cpu", "gpu"], label);
+    if (cycle.cycle !== index + 1) {
+      throw new Error(`${label} is not a contiguous cycle chronology`);
+    }
+    const cpu = plainObject(cycle.cpu, `${label} cpu`);
+    exactKeys(
+      cpu,
+      [
+        "clampDelta",
+        "cumulativeMeter",
+        "tick",
+        "oldBoundaryCount",
+        "boundaryCount",
+        "attachedTotal",
+        "relaxation",
+        "surface",
+      ],
+      `${label} cpu`,
+    );
+    const gpu = plainObject(cycle.gpu, `${label} gpu`);
+    exactKeys(
+      gpu,
+      ["clampDelta", "cumulativeMeter", "tick", "report"],
+      `${label} gpu`,
+    );
+    const relaxation = plainObject(cpu.relaxation, `${label} cpu relaxation`);
+    exactKeys(relaxation, [...GG_RELAXATION_REPORT_KEYS], `${label} cpu relaxation`);
+    const surface = plainObject(cpu.surface, `${label} cpu surface`);
+    exactKeys(surface, [...GG_SURFACE_REPORT_KEYS], `${label} cpu surface`);
+    const report = ggCycleReport(gpu.report, `${label} gpu report`);
+
+    cpuClampDelta = strictNumber(cpu.clampDelta, `${label} cpu clampDelta`);
+    gpuClampDelta = strictBinary32(gpu.clampDelta, `${label} gpu clampDelta`);
+    const cpuCumulative = strictNumber(
+      cpu.cumulativeMeter,
+      `${label} cpu cumulativeMeter`,
+    );
+    const gpuCumulative = strictBinary32(
+      gpu.cumulativeMeter,
+      `${label} gpu cumulativeMeter`,
+    );
+    if (cpuCumulative !== cpuMeter + cpuClampDelta) {
+      throw new Error(`${label} breaks the binary64 CPU meter recurrence`);
+    }
+    if (gpuCumulative !== Math.fround(gpuMeter + gpuClampDelta)) {
+      throw new Error(`${label} breaks the persistent binary32 GPU meter recurrence`);
+    }
+    cpuMeter = cpuCumulative;
+    gpuMeter = gpuCumulative;
+
+    if (relaxation.shellClampDiagnostic !== cpuClampDelta) {
+      throw new Error(`${label} CPU clamp delta differs from its relaxation report`);
+    }
+    if (relaxation.sweeps !== 1 || relaxation.converged !== true) {
+      throw new Error(`${label} is not the published single-pass G-G relaxation`);
+    }
+    for (
+      const key of [
+        "residual",
+        "divergenceResidual",
+        "surfaceExchangeDiagnostic",
+        "smootherDriftDiagnostic",
+        "minLocalSurfaceExchangeDiagnostic",
+      ] as const
+    ) {
+      if (relaxation[key] !== null) {
+        throw new Error(`${label} relaxation ${key} is not a GGThreshold report`);
+      }
+    }
+    if (
+      surface.maxKineticFillIncrement !== null ||
+      surface.deltaTimeSeconds !== null ||
+      surface.stalled !== false ||
+      surface.skippedUnconverged !== false
+    ) {
+      throw new Error(`${label} surface report is not a GGThreshold report`);
+    }
+    if (
+      report.lastClampDelta !== gpuClampDelta ||
+      report.dirichletMeter !== gpuCumulative
+    ) {
+      throw new Error(`${label} GPU meter differs from its own device report`);
+    }
+    if (cpu.tick !== index + 1 || gpu.tick !== index + 1) {
+      throw new Error(`${label} tick identity is not the completed cycle`);
+    }
+    if (
+      report.oldBoundaryCount !==
+        strictCount(cpu.oldBoundaryCount, `${label} cpu oldBoundaryCount`) ||
+      report.boundaryCount !==
+        strictCount(cpu.boundaryCount, `${label} cpu boundaryCount`) ||
+      report.attachedTotal !==
+        strictCount(cpu.attachedTotal, `${label} cpu attachedTotal`) ||
+      report.attachedNow !==
+        strictCount(surface.attachedNow, `${label} cpu surface attachedNow`) ||
+      report.holeFillNow !==
+        strictCount(surface.holeFillCount, `${label} cpu surface holeFillCount`)
+    ) {
+      throw new Error(`${label} CPU and GPU cycle bookkeeping disagree`);
+    }
+  }
+  return {
+    cpuFinalMeter: cpuMeter,
+    gpuFinalMeter: gpuMeter,
+    cpuFinalClampDelta: cpuClampDelta,
+    gpuFinalClampDelta: gpuClampDelta,
+  };
+}
+
+/**
+ * Rebuilds each registered clamp-path case from the frozen witness construction: the expected
+ * delta field is `rho - destination` on exactly the registered topology set and zero elsewhere,
+ * the reduction is replayed here, and every mutation named by the policy is required to change
+ * the reduced value. Only raw device bytes and the device report are read from the payload.
+ */
+function validateGgClampPathWitness(value: StrictJson): void {
+  const witness = plainObject(value, "G-G clamp-path witness");
+  exactKeys(witness, ["policy", "cases"], "G-G clamp-path witness");
+  if (
+    canonicalJson(witness.policy) !==
+      canonicalJson(PHASE5_GG_DIRICHLET_LEDGER_POLICY)
+  ) {
+    throw new Error("G-G clamp-path witness does not carry the frozen ADR-0019 policy");
+  }
+  const registered = PHASE5_GG_DIRICHLET_LEDGER_WITNESS.clampPath;
+  const cases = strictArray(witness.cases, "G-G clamp-path witness cases");
+  if (cases.length !== registered.cases.length) {
+    throw new Error(
+      `G-G clamp-path witness must carry ${registered.cases.length} registered cases`,
+    );
+  }
+  const observedSigns: string[] = [];
+  for (const [index, entry] of cases.entries()) {
+    const expected = registered.cases[index];
+    const label = `G-G clamp-path case ${expected.id}`;
+    const observed = plainObject(entry, label);
+    exactKeys(
+      observed,
+      [
+        "id",
+        "dims",
+        "cellCount",
+        "shellCellCount",
+        "initialValue",
+        "rho",
+        "observedDeltasBase64",
+        "observedVaporBase64",
+        "report",
+      ],
+      label,
+    );
+    if (
+      observed.id !== expected.id ||
+      canonicalJson(observed.dims) !== canonicalJson(registered.dims) ||
+      observed.initialValue !== Math.fround(expected.initialValue) ||
+      observed.rho !== Math.fround(expected.rho)
+    ) {
+      throw new Error(`${label} does not match its registered construction`);
+    }
+    const cellCount =
+      registered.dims.nx * registered.dims.ny * registered.dims.nz;
+    if (observed.cellCount !== cellCount) {
+      throw new Error(`${label} cell count differs from the registered grid`);
+    }
+    const initialValue = Math.fround(expected.initialValue);
+    const rho = Math.fround(expected.rho);
+    const delta = Math.fround(rho - initialValue);
+    const sign = delta > 0 ? "positive" : delta < 0 ? "negative" : "zero";
+    if (sign !== expected.sign) {
+      throw new Error(`${label} does not exercise its registered clamp sign`);
+    }
+    observedSigns.push(sign);
+
+    const expectedDeltas = new Float32Array(cellCount);
+    const expectedVapor = new Float32Array(cellCount);
+    expectedVapor.fill(initialValue);
+    let shellCellCount = 0;
+    let firstShellIndex = -1;
+    for (let index2 = 0; index2 < cellCount; index2++) {
+      if (index2 % registered.shellModulus !== registered.shellResidue) continue;
+      expectedDeltas[index2] = delta;
+      expectedVapor[index2] = rho;
+      if (firstShellIndex < 0) firstShellIndex = index2;
+      shellCellCount++;
+    }
+    if (shellCellCount === 0 || observed.shellCellCount !== shellCellCount) {
+      throw new Error(`${label} shell membership differs from the registered set`);
+    }
+    const observedDeltas = decodeBinary32Field(
+      observed.observedDeltasBase64,
+      cellCount,
+      `${label} delta field`,
+    );
+    const observedVapor = decodeBinary32Field(
+      observed.observedVaporBase64,
+      cellCount,
+      `${label} clamped vapor field`,
+    );
+    if (binary32BitMismatchCount(expectedDeltas, observedDeltas) !== 0) {
+      throw new Error(`${label} device delta field is not rho minus destination on the shell`);
+    }
+    if (binary32BitMismatchCount(expectedVapor, observedVapor) !== 0) {
+      throw new Error(`${label} device clamped vapor field is not the registered clamp`);
+    }
+    const report = ggCycleReport(observed.report, `${label} report`);
+    const expectedSum = binary32ClampReduction(expectedDeltas);
+    if (
+      report.lastClampDelta !== expectedSum ||
+      report.dirichletMeter !== expectedSum
+    ) {
+      throw new Error(`${label} reduction or first accumulation is not exact`);
+    }
+    if (report.boundaryCount !== 0 || report.attachedNow !== 0) {
+      throw new Error(`${label} did not run on an inert surface configuration`);
+    }
+    const mutations: Record<string, () => Float32Array> = {
+      "wrong-sign": () =>
+        Float32Array.from(expectedDeltas, (cell) => Math.fround(-cell)),
+      "wrong-shell-mask": () => {
+        const mutated = new Float32Array(cellCount);
+        mutated.fill(delta);
+        return mutated;
+      },
+      "omit-one-delta": () => {
+        const mutated = Float32Array.from(expectedDeltas);
+        mutated[firstShellIndex] = 0;
+        return mutated;
+      },
+      "scale-deltas": () =>
+        Float32Array.from(expectedDeltas, (cell) => Math.fround(cell * 0.5)),
+    };
+    for (const name of PHASE5_GG_DIRICHLET_LEDGER_POLICY.rejectedMutations) {
+      const mutate = mutations[name];
+      if (mutate === undefined) {
+        throw new Error(`${label} has no reconstruction for the ${name} mutation`);
+      }
+      if (binary32ClampReduction(mutate()) === expectedSum) {
+        throw new Error(`${label} does not reject the ${name} mutation`);
+      }
+    }
+  }
+  for (const sign of PHASE5_GG_DIRICHLET_LEDGER_POLICY.clampPathSigns) {
+    if (!observedSigns.includes(sign)) {
+      throw new Error(`G-G clamp-path witness omits the ${sign} clamp sign`);
+    }
+  }
+}
+
+/**
+ * Replays the persistent-accumulator witness: both registered fields are regenerated here,
+ * reduced here, and required to match the device's per-advance reduction and its single
+ * binary32 accumulation across two advances.
+ */
+function validateGgMeterReductionWitness(
+  value: StrictJson,
+  cellCount: number,
+): void {
+  const witness = plainObject(value, "G-G meter reduction witness");
+  exactKeys(
+    witness,
+    ["cellCount", "reductionDispatches", "firstReport", "secondReport"],
+    "G-G meter reduction witness",
+  );
+  if (witness.cellCount !== cellCount) {
+    throw new Error(
+      "G-G meter reduction witness did not run on the registered fixture grid",
+    );
+  }
+  if (witness.reductionDispatches !== plannedClampReductionDispatches(cellCount)) {
+    throw new Error(
+      "G-G meter reduction witness dispatch inventory differs from the planned reduction",
+    );
+  }
+  const [firstSpec, secondSpec] =
+    PHASE5_GG_DIRICHLET_LEDGER_WITNESS.meterReduction.fields;
+  const registeredField = (spec: RegisteredMeterField): Float32Array => {
+    const values = new Float32Array(cellCount);
+    for (let index = 0; index < cellCount; index++) {
+      values[index] = Math.fround(
+        (index % spec.modulus - spec.offset) * spec.scale + spec.bias,
+      );
+    }
+    return values;
+  };
+  const firstExpected = binary32ClampReduction(registeredField(firstSpec));
+  const secondExpected = binary32ClampReduction(registeredField(secondSpec));
+  const first = ggCycleReport(witness.firstReport, "G-G meter reduction first report");
+  const second = ggCycleReport(witness.secondReport, "G-G meter reduction second report");
+  if (
+    first.lastClampDelta !== firstExpected ||
+    first.dirichletMeter !== firstExpected
+  ) {
+    throw new Error("G-G meter reduction witness first advance is not exact");
+  }
+  if (second.lastClampDelta !== secondExpected) {
+    throw new Error("G-G meter reduction witness second reduction is not exact");
+  }
+  if (second.dirichletMeter !== Math.fround(firstExpected + secondExpected)) {
+    throw new Error(
+      "G-G meter reduction witness does not accumulate persistently in binary32",
+    );
+  }
+}
+
+function scalarPairByName(
+  values: readonly StrictJson[],
+  name: string,
+  label: string,
+): { readonly cpu: number; readonly gpu: number } {
+  for (const value of values) {
+    const scalar = plainObject(value, `${label} ${name}`);
+    if (scalar.name !== name) continue;
+    return {
+      cpu: strictNumber(scalar.cpu, `${label} ${name} cpu`),
+      gpu: strictNumber(scalar.gpu, `${label} ${name} gpu`),
+    };
+  }
+  throw new Error(`${label} omits ${name}`);
+}
+
+/**
+ * ADR-0019's blocking corrected-mass criterion. Nothing here reads a producer verdict: the
+ * chronology, both witnesses, and all three safeguards are recomputed from raw values, and the
+ * ledger's own operands are cross-linked to the fixture's published science scalars so an
+ * internally consistent but unrelated ledger cannot satisfy it.
+ */
+function validateGgDirichletLedger(
+  value: StrictJson,
+  scalars: readonly StrictJson[],
+  cycleCap: number,
+  cellCount: number,
+): void {
+  const ledger = plainObject(value, "G-G Dirichlet ledger");
+  exactKeys(
+    ledger,
+    [
+      "policy",
+      "cycles",
+      "clampPathWitness",
+      "meterReductionWitness",
+      "correctedMassOperands",
+    ],
+    "G-G Dirichlet ledger",
+  );
+  if (
+    canonicalJson(ledger.policy) !==
+      canonicalJson(PHASE5_GG_DIRICHLET_LEDGER_POLICY)
+  ) {
+    throw new Error("G-G Dirichlet ledger does not carry the frozen ADR-0019 policy");
+  }
+  const chronology = validateGgDirichletCycles(ledger.cycles, cycleCap);
+  validateGgClampPathWitness(ledger.clampPathWitness);
+  validateGgMeterReductionWitness(ledger.meterReductionWitness, cellCount);
+
+  const operands = plainObject(
+    ledger.correctedMassOperands,
+    "G-G corrected-mass operands",
+  );
+  exactKeys(
+    operands,
+    [
+      "cpuInitialMass",
+      "gpuInitialMass",
+      "cpuFinalMass",
+      "gpuFinalMass",
+      "cpuFinalMeter",
+      "gpuFinalMeter",
+    ],
+    "G-G corrected-mass operands",
+  );
+  const cpuInitialMass = strictNumber(
+    operands.cpuInitialMass,
+    "G-G corrected-mass cpuInitialMass",
+  );
+  const gpuInitialMass = strictNumber(
+    operands.gpuInitialMass,
+    "G-G corrected-mass gpuInitialMass",
+  );
+  const cpuFinalMass = strictNumber(
+    operands.cpuFinalMass,
+    "G-G corrected-mass cpuFinalMass",
+  );
+  const gpuFinalMass = strictNumber(
+    operands.gpuFinalMass,
+    "G-G corrected-mass gpuFinalMass",
+  );
+  const cpuFinalMeter = strictNumber(
+    operands.cpuFinalMeter,
+    "G-G corrected-mass cpuFinalMeter",
+  );
+  const gpuFinalMeter = strictBinary32(
+    operands.gpuFinalMeter,
+    "G-G corrected-mass gpuFinalMeter",
+  );
+  if (
+    cpuFinalMeter !== chronology.cpuFinalMeter ||
+    gpuFinalMeter !== chronology.gpuFinalMeter
+  ) {
+    throw new Error(
+      "G-G corrected-mass meters differ from the reconstructed cycle chronology",
+    );
+  }
+  const label = `${PHASE5_GG_DIRICHLET_LEDGER_FIXTURE_ID} scalars`;
+  const publishedMass = scalarPairByName(scalars, "ledger.total-mass-bd", label);
+  const publishedMeter = scalarPairByName(scalars, "ledger.dirichlet-meter", label);
+  const publishedClamp = scalarPairByName(scalars, "relaxation.shell-clamp", label);
+  if (
+    publishedMass.cpu !== cpuFinalMass ||
+    publishedMass.gpu !== gpuFinalMass ||
+    publishedMeter.cpu !== cpuFinalMeter ||
+    publishedMeter.gpu !== gpuFinalMeter ||
+    publishedClamp.cpu !== chronology.cpuFinalClampDelta ||
+    publishedClamp.gpu !== chronology.gpuFinalClampDelta
+  ) {
+    throw new Error(
+      "G-G Dirichlet ledger operands differ from the fixture's published science scalars",
+    );
+  }
+
+  const cpuCorrectedMass = cpuFinalMass - cpuFinalMeter;
+  const gpuCorrectedMass = gpuFinalMass - gpuFinalMeter;
+  if (!withinMixedScalarBound(cpuInitialMass, cpuCorrectedMass)) {
+    throw new Error("the CPU corrected-mass invariant exceeds the frozen mixed-scalar bound");
+  }
+  if (!withinMixedScalarBound(gpuInitialMass, gpuCorrectedMass)) {
+    throw new Error("the GPU corrected-mass invariant exceeds the frozen mixed-scalar bound");
+  }
+  if (!withinMixedScalarBound(cpuCorrectedMass, gpuCorrectedMass)) {
+    throw new Error(
+      "the cross-lane corrected-mass invariant exceeds the frozen mixed-scalar bound",
+    );
+  }
+}
+
+function validateFixturePayloadGraph(
+  fixtures: readonly Phase5FixtureCapture[],
+  raw: Phase5LaneRawEvidence,
+): void {
+  const submissionSamples: StrictJson[] = [];
+  const interactions: StrictJson[] = [];
+  const negativeControls: StrictJson[] = [];
+  let deviceLossCount = 0;
+  let uncapturedErrorCount = 0;
+  let hiddenRetryCount = 0;
+  let fullFieldDisplayFrameCount = 0;
+  let readbackTotalBytes = 0;
+  const readbackRecords: StrictJson[] = [];
+  let toleranceBypassCount = 0;
+  for (const frozen of PHASE5_FIXTURES) {
+    if (!frozen.blocking) continue;
+    const fixture = fixtures.find((candidate) => candidate.id === frozen.id);
+    const measurement = raw.fixtures.find((entry) => entry.id === frozen.id);
+    const checkpoint = raw.checkpoints.find(
+      (entry) => entry.fixtureId === frozen.id,
+    );
+    if (fixture === undefined || measurement === undefined || checkpoint === undefined) {
+      throw new Error(`${frozen.id} payload cross-link is incomplete`);
+    }
+    const comparison = plainObject(
+      fixture.comparison,
+      `${frozen.id} comparison`,
+    );
+    const carriesGgDirichletLedger =
+      frozen.id === PHASE5_GG_DIRICHLET_LEDGER_FIXTURE_ID;
+    exactKeys(
+      comparison,
+      [
+        "schema",
+        "fixtureId",
+        "fields",
+        "scalars",
+        "decisions",
+        "invariants",
+        "checkpoint",
+        ...(carriesGgDirichletLedger ? ["ggDirichletLedger"] : []),
+      ],
+      `${frozen.id} comparison`,
+    );
+    if (
+      comparison.schema !== PHASE5_EVIDENCE_SCHEMA.comparison ||
+      comparison.fixtureId !== frozen.id ||
+      canonicalJson(comparison.checkpoint) !== canonicalJson(checkpoint)
+    ) {
+      throw new Error(`${frozen.id} comparison differs from raw evidence`);
+    }
+    const fields = strictArray(comparison.fields, `${frozen.id} fields`);
+    const scalars = strictArray(comparison.scalars, `${frozen.id} scalars`);
+    const decisions = strictArray(
+      comparison.decisions,
+      `${frozen.id} decisions`,
+    );
+    const invariants = strictArray(
+      comparison.invariants,
+      `${frozen.id} invariants`,
+    );
+    const scienceInventory = PHASE5_SCIENCE_INVENTORY[frozen.kind];
+    const fieldFailures = fieldComparisonFailures(fields, frozen.id);
+    const scalarFailures = scalarComparisonFailures(
+      scalars,
+      frozen.id,
+      scienceInventory.scalars,
+    );
+    const decisionFailures = exactComparisonFailures(
+      decisions,
+      frozen.id,
+      "decisions",
+      scienceInventory.decisions,
+    );
+    const invariantFailures = exactComparisonFailures(
+      invariants,
+      frozen.id,
+      "invariants",
+      scienceInventory.invariants,
+    );
+    const expectedFieldNames =
+      frozen.kind === "lk"
+        ? ["sigma:lkSigma", "f:lkFill"]
+        : frozen.kind === "gg"
+          ? ["b:ggBoundaryMass", "d:ggVapor"]
+          : ["d:diffusionD"];
+    const actualFieldNames = fields.map((value) => {
+      const field = plainObject(value, `${frozen.id} field contract`);
+      return `${String(field.name)}:${String(field.tolerance)}`;
+    });
+    if (
+      canonicalJson(actualFieldNames) !== canonicalJson(expectedFieldNames)
+    ) {
+      throw new Error(`${frozen.id} comparison inventory is incomplete`);
+    }
+    if (carriesGgDirichletLedger) {
+      const cycleCap = frozen.stop.value;
+      if (
+        frozen.kind !== "gg" ||
+        frozen.farField !== "dirichlet" ||
+        frozen.stop.kind !== "completed-cycle-cap" ||
+        typeof cycleCap !== "number"
+      ) {
+        throw new Error(
+          `${frozen.id} is not the frozen Dirichlet completed-cycle-cap fixture`,
+        );
+      }
+      validateGgDirichletLedger(
+        comparison.ggDirichletLedger,
+        scalars,
+        cycleCap,
+        frozen.dims.nx * frozen.dims.ny * frozen.dims.nz,
+      );
+    }
+    // Derive the symmetry and domain-contact measurements from the frozen fixture and the
+    // published invariant operands instead of trusting the declared raw fields. Before this,
+    // a capture whose declared flags contradicted its own invariants still published.
+    {
+      const operand = (name: string): { left: StrictJson; right: StrictJson } => {
+        for (const value of invariants) {
+          const invariant = plainObject(value, `${frozen.id} invariant`);
+          if (invariant.name === name) {
+            return { left: invariant.left, right: invariant.right };
+          }
+        }
+        return { left: null, right: null };
+      };
+      const expectedChecked =
+        (frozen.kind === "gg" || frozen.kind === "lk") &&
+        frozen.noiseEpsilon === 0;
+      if (measurement.symmetryChecked !== expectedChecked) {
+        throw new Error(
+          `${frozen.id} symmetryChecked contradicts the frozen fixture`,
+        );
+      }
+      const symmetry = operand("symmetry.exact");
+      const expectedMismatch = !expectedChecked
+        ? 0
+        : typeof symmetry.right === "number" && Number.isFinite(symmetry.right)
+          ? symmetry.right
+          : 1;
+      if (measurement.symmetryMismatchCount !== expectedMismatch) {
+        throw new Error(
+          `${frozen.id} symmetryMismatchCount contradicts its own invariant operands`,
+        );
+      }
+      const contact = operand("domain.no-contact");
+      if (measurement.domainContact !== (contact.left === true)) {
+        throw new Error(
+          `${frozen.id} domainContact contradicts its own invariant operands`,
+        );
+      }
+    }
+    if (
+      measurement.fieldFailureCount !== fieldFailures ||
+      measurement.scalarFailureCount !== scalarFailures ||
+      measurement.decisionFailureCount !== decisionFailures ||
+      measurement.invariantFailureCount !== invariantFailures ||
+      measurement.comparisonFailureCount !==
+        fieldFailures + scalarFailures + decisionFailures + invariantFailures
+    ) {
+      throw new Error(
+        `${frozen.id} raw failure counts differ from measured comparisons: ` +
+          `field ${measurement.fieldFailureCount}/${fieldFailures}, ` +
+          `scalar ${measurement.scalarFailureCount}/${scalarFailures}, ` +
+          `decision ${measurement.decisionFailureCount}/${decisionFailures}, ` +
+          `invariant ${measurement.invariantFailureCount}/${invariantFailures}`,
+      );
+    }
+
+    const timing = plainObject(fixture.timing, `${frozen.id} timing`);
+    exactKeys(
+      timing,
+      [
+        "schema",
+        "fixtureId",
+        "submissionSamples",
+        "interactions",
+        "deviceLossCount",
+        "uncapturedErrorCount",
+        "hiddenRetryCount",
+      ],
+      `${frozen.id} timing`,
+    );
+    if (
+      timing.schema !== "phase5-timing-v1" ||
+      timing.fixtureId !== frozen.id
+    ) {
+      throw new Error(`${frozen.id} timing identity differs`);
+    }
+    submissionSamples.push(
+      ...strictArray(timing.submissionSamples, `${frozen.id} submissionSamples`),
+    );
+    interactions.push(
+      ...strictArray(timing.interactions, `${frozen.id} interactions`),
+    );
+    for (const key of [
+      "deviceLossCount",
+      "uncapturedErrorCount",
+      "hiddenRetryCount",
+    ] as const) {
+      if (!Number.isSafeInteger(timing[key]) || (timing[key] as number) < 0) {
+        throw new Error(`${frozen.id} timing ${key} is invalid`);
+      }
+    }
+    deviceLossCount += timing.deviceLossCount as number;
+    uncapturedErrorCount += timing.uncapturedErrorCount as number;
+    hiddenRetryCount += timing.hiddenRetryCount as number;
+
+    const readback = plainObject(fixture.readback, `${frozen.id} readback`);
+    exactKeys(
+      readback,
+      [
+        "schema",
+        "fixtureId",
+        "records",
+        "fullFieldDisplayFrameCount",
+        "totalBytes",
+      ],
+      `${frozen.id} readback`,
+    );
+    if (
+      readback.schema !== "phase5-readback-v1" ||
+      readback.fixtureId !== frozen.id ||
+      !Number.isSafeInteger(readback.fullFieldDisplayFrameCount) ||
+      (readback.fullFieldDisplayFrameCount as number) < 0 ||
+      !Number.isSafeInteger(readback.totalBytes) ||
+      (readback.totalBytes as number) < 0
+    ) {
+      throw new Error(`${frozen.id} readback identity is invalid`);
+    }
+    readbackRecords.push(
+      ...strictArray(readback.records, `${frozen.id} readback records`),
+    );
+    fullFieldDisplayFrameCount += readback.fullFieldDisplayFrameCount as number;
+    readbackTotalBytes += readback.totalBytes as number;
+
+    const events = plainObject(fixture.events, `${frozen.id} events`);
+    exactKeys(
+      events,
+      [
+        "schema",
+        "fixtureId",
+        "records",
+        "toleranceBypassCount",
+        "negativeControls",
+      ],
+      `${frozen.id} events`,
+    );
+    if (
+      events.schema !== "phase5-events-v1" ||
+      events.fixtureId !== frozen.id ||
+      !Number.isSafeInteger(events.toleranceBypassCount) ||
+      (events.toleranceBypassCount as number) < 0
+    ) {
+      throw new Error(`${frozen.id} events identity is invalid`);
+    }
+    const eventRecords = strictArray(
+      events.records,
+      `${frozen.id} event records`,
+    );
+    const eventKinds: string[] = [];
+    for (const [sequence, value] of eventRecords.entries()) {
+      const record = plainObject(
+        value,
+        `${frozen.id} event records[${sequence}]`,
+      );
+      exactKeys(
+        record,
+        ["kind", "sequence", "cpu", "gpu"],
+        `${frozen.id} event records[${sequence}]`,
+      );
+      if (
+        typeof record.kind !== "string" ||
+        record.sequence !== sequence ||
+        canonicalJson(record.cpu) !== canonicalJson(record.gpu)
+      ) {
+        throw new Error(
+          `${frozen.id} event record ${sequence} is invalid or disagrees`,
+        );
+      }
+      eventKinds.push(record.kind);
+    }
+    const expectedEventKinds = [
+      ...scienceInventory.events,
+      ...("timeline" in frozen && frozen.timeline !== null
+        ? ["timeline-transition-log"]
+        : []),
+    ];
+    exactInventory(
+      eventKinds,
+      expectedEventKinds,
+      `${frozen.id} event record`,
+    );
+    toleranceBypassCount += events.toleranceBypassCount as number;
+    negativeControls.push(
+      ...strictArray(events.negativeControls, `${frozen.id} negative controls`),
+    );
+  }
+  if (
+    canonicalJson(submissionSamples) !== canonicalJson(raw.submissions.samples) ||
+    canonicalJson(interactions) !== canonicalJson(raw.interactions) ||
+    deviceLossCount !== raw.submissions.deviceLossCount ||
+    uncapturedErrorCount !== raw.submissions.uncapturedErrorCount ||
+    hiddenRetryCount !== raw.submissions.hiddenRetryCount
+  ) {
+    throw new Error("Phase 5 timing artifacts differ from raw evidence");
+  }
+  if (
+    canonicalJson(
+      [...readbackRecords].sort((left, right) => {
+        const leftSequence = plainObject(
+          left,
+          "reconstructed readback record",
+        ).sequence;
+        const rightSequence = plainObject(
+          right,
+          "reconstructed readback record",
+        ).sequence;
+        if (
+          !Number.isSafeInteger(leftSequence) ||
+          !Number.isSafeInteger(rightSequence)
+        ) {
+          throw new Error(
+            "reconstructed readback record sequence is invalid",
+          );
+        }
+        return (leftSequence as number) - (rightSequence as number);
+      }),
+    ) !== canonicalJson(raw.readback.records) ||
+    fullFieldDisplayFrameCount !== raw.readback.fullFieldDisplayFrameCount ||
+    readbackTotalBytes !== raw.readback.totalBytes
+  ) {
+    throw new Error("Phase 5 readback artifacts differ from raw evidence");
+  }
+  if (
+    toleranceBypassCount !== raw.toleranceBypassCount ||
+    canonicalJson(negativeControls) !== canonicalJson(raw.negativeControls)
+  ) {
+    throw new Error("Phase 5 event artifacts differ from raw evidence");
+  }
+}
+
+/**
+ * Validate a capture's fixture payload graph and return every payload artifact the lane
+ * publishes. The byte set itself comes from the shared `phase5CaptureArtifactInputs`, the
+ * same statement the negative controls digest, so publication and control scoring can never
+ * cover different bytes.
+ */
+function verifiedCaptureArtifactInputs(
+  capture: Phase5LaneCapture,
+): readonly Phase5CaptureArtifactInput[] {
+  const expectedFixtures = PHASE5_FIXTURES.filter((fixture) => fixture.blocking);
+  const expectedIds = expectedFixtures.map((fixture) => fixture.id).sort(lexical);
+  const actualIds = capture.fixtures.map((fixture) => fixture.id).sort(lexical);
+  if (
+    actualIds.length !== expectedIds.length ||
+    actualIds.some((id, index) => id !== expectedIds[index])
+  ) {
+    throw new Error("Phase 5 fixture capture inventory differs from the freeze");
+  }
+  validateFixturePayloadGraph(capture.fixtures, capture.raw);
+  assertObservedNegativeControls(capture, capture.raw.negativeControls);
+  for (const frozen of expectedFixtures) {
+    const fixture = capture.fixtures.find((candidate) => candidate.id === frozen.id);
+    if (fixture === undefined) throw new Error(`missing fixture capture: ${frozen.id}`);
+    const config = plainObject(fixture.config, `${fixture.id} config`);
+    if (
+      canonicalJson(config) !==
+      canonicalJson({ schema: "phase5-fixture-config-v1", fixture: frozen })
+    ) {
+      throw new Error(`${fixture.id} config differs from the frozen fixture`);
+    }
+    if (
+      fixture.cpuReferenceCheckpoint.byteLength === 0 ||
+      fixture.gpuExportCheckpoint.byteLength === 0
+    ) {
+      throw new Error(`${fixture.id} checkpoints must be nonempty`);
+    }
+  }
+  return phase5CaptureArtifactInputs(capture);
+}
+
+function validateIso(value: string, label: string): void {
+  if (
+    typeof value !== "string" ||
+    !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(value) ||
+    new Date(value).toISOString() !== value
+  ) {
+    throw new Error(`${label} must be a canonical UTC timestamp`);
+  }
+}
+
+function validateSourceHashes(sourceHashes: readonly Phase5SourceHash[]): void {
+  const paths = sourceHashes.map((entry) => entry.path);
+  if (
+    paths.length === 0 ||
+    new Set(paths).size !== paths.length ||
+    paths.some((path, index) => index > 0 && lexical(path, paths[index - 1]) <= 0)
+  ) {
+    throw new Error("Phase 5 source hashes must be unique and canonically ordered");
+  }
+  for (const entry of sourceHashes) {
+    safePath(entry.path);
+    if (
+      !Number.isSafeInteger(entry.byteLength) ||
+      entry.byteLength < 0 ||
+      !SHA256.test(entry.sha256)
+    ) {
+      throw new Error(`invalid Phase 5 source hash: ${entry.path}`);
+    }
+  }
+}
+
+function makeLaneRoot(
+  capture: Phase5LaneCapture,
+  sourceHashes: readonly Phase5SourceHash[],
+): {
+  readonly manifest: Phase5LaneManifest;
+  readonly report: Phase5LaneReport;
+  readonly index: Phase5LaneArtifactIndex;
+  readonly files: readonly ExpectedFile[];
+} {
+  validateIso(capture.startedAtUtc, "startedAtUtc");
+  validateIso(capture.completedAtUtc, "completedAtUtc");
+  if (capture.completedAtUtc < capture.startedAtUtc) {
+    throw new Error("Phase 5 lane completion precedes its start");
+  }
+  validateSourceHashes(sourceHashes);
+  if (capture.exitStatus !== 0) throw new Error("passing lane capture must have exit status 0");
+  const capturedRaw = validatePhase5RawEvidence(capture.raw);
+  if (capturedRaw.publicationVerified) {
+    throw new Error(
+      "Phase 5 browser capture cannot preclaim publisher-owned verification",
+    );
+  }
+  const raw = validatePhase5RawEvidence({
+    ...capturedRaw,
+    publicationVerified: true,
+  });
+  const verdict = evaluatePhase5Lane(raw);
+  if (!verdict.gatePass) {
+    throw new Error(
+      "Phase 5 lane capture is not eligible: " +
+        verdict.criteria
+          .filter((criterion) => !criterion.pass)
+          .map((criterion) => criterion.id)
+          .join(", "),
+    );
+  }
+  const payloadInputs = [...verifiedCaptureArtifactInputs(capture)].sort(
+    (left, right) => lexical(left.path, right.path),
+  );
+  const payloadDescriptors = payloadInputs.map(descriptor);
+  const adapter = {
+    vendor: raw.adapter.vendor,
+    architecture: raw.adapter.architecture,
+    device: raw.adapter.device,
+    description: raw.adapter.description,
+    backend: raw.adapter.backend,
+    type: raw.adapter.type,
+    driver: raw.adapter.driver,
+    features: [...raw.adapter.features],
+    requestedFeatures: [...raw.adapter.requestedFeatures],
+    limits: { ...raw.adapter.limits },
+    requestedLimits: { ...raw.adapter.requestedLimits },
+    deviceLimits: { ...raw.adapter.deviceLimits },
+    budgets: raw.adapter.budgets.map((budget) => ({ ...budget })),
+  };
+  const manifest: Phase5LaneManifest = {
+    schema: PHASE5_EVIDENCE_SCHEMA.laneManifest,
+    lane: "windows-d3d12",
+    protocol: PHASE5_PROTOCOL,
+    protocolSha256: PHASE5_PROTOCOL_SHA256,
+    fixtureSha256: PHASE5_FIXTURES_SHA256,
+    toleranceSha256: PHASE5_TOLERANCES_SHA256,
+    repository: raw.repository,
+    host: raw.host,
+    runtime: raw.runtime,
+    adapter,
+    startedAtUtc: capture.startedAtUtc,
+    completedAtUtc: capture.completedAtUtc,
+    sourceHashes: sourceHashes.map((entry) => ({ ...entry })),
+    artifacts: payloadDescriptors,
+  };
+  const manifestBytes = canonicalJsonBytes(manifest);
+  const manifestDescriptor = descriptor({
+    path: PHASE5_LANE_MANIFEST_PATH,
+    kind: "phase5-lane-manifest+json",
+    bytes: manifestBytes,
+  });
+  const report: Phase5LaneReport = {
+    schema: PHASE5_EVIDENCE_SCHEMA.laneReport,
+    lane: "windows-d3d12",
+    manifestSha256: manifestDescriptor.sha256,
+    raw,
+    criteria: verdict.criteria,
+    gatePass: verdict.gatePass,
+    exitCode: verdict.exitCode,
+  };
+  const reportBytes = canonicalJsonBytes(report);
+  const reportDescriptor = descriptor({
+    path: PHASE5_LANE_REPORT_PATH,
+    kind: "phase5-lane-report+json",
+    bytes: reportBytes,
+  });
+  const index: Phase5LaneArtifactIndex = {
+    schema: PHASE5_EVIDENCE_SCHEMA.artifactIndex,
+    publication: "complete",
+    manifest: manifestDescriptor,
+    report: reportDescriptor,
+    artifacts: [
+      manifestDescriptor,
+      reportDescriptor,
+      ...payloadDescriptors,
+    ],
+  };
+  const indexBytes = canonicalJsonBytes(index);
+  return {
+    manifest,
+    report,
+    index,
+    files: [
+      { path: PHASE5_LANE_MANIFEST_PATH, bytes: manifestBytes },
+      { path: PHASE5_LANE_REPORT_PATH, bytes: reportBytes },
+      ...payloadInputs.map((input) => ({
+        path: input.path,
+        bytes: input.bytes,
+      })),
+      { path: PHASE5_LANE_INDEX_PATH, bytes: indexBytes },
+    ],
+  };
+}
+
+function writeExclusive(path: string, bytes: Uint8Array): void {
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, bytes, { flag: "wx" });
+  const reopened = new Uint8Array(readFileSync(path));
+  if (
+    reopened.byteLength !== bytes.byteLength ||
+    sha256Bytes(reopened) !== sha256Bytes(bytes)
+  ) {
+    throw new Error(`Phase 5 artifact changed during write: ${path}`);
+  }
+}
+
+function listFiles(root: string, current = root): readonly string[] {
+  const files: string[] = [];
+  for (const entry of readdirSync(current, { withFileTypes: true })) {
+    const absolute = join(current, entry.name);
+    const metadata = lstatSync(absolute);
+    if (metadata.isSymbolicLink()) {
+      throw new Error(`Phase 5 evidence contains a symlink: ${absolute}`);
+    }
+    if (metadata.isDirectory()) files.push(...listFiles(root, absolute));
+    else if (metadata.isFile()) {
+      if (metadata.nlink !== 1) {
+        throw new Error(`Phase 5 evidence contains a hard-linked file: ${absolute}`);
+      }
+      files.push(relative(root, absolute).split(sep).join("/"));
+    } else {
+      throw new Error(`Phase 5 evidence contains a non-file entry: ${absolute}`);
+    }
+  }
+  return files.sort(lexical);
+}
+
+function verifyDescriptor(root: string, entry: Phase5ArtifactDescriptor): void {
+  const absolute = join(root, entry.path);
+  const stats = statSync(absolute);
+  if (!stats.isFile() || stats.nlink !== 1 || stats.size !== entry.byteLength) {
+    throw new Error(`Phase 5 artifact metadata mismatch: ${entry.path}`);
+  }
+  const bytes = new Uint8Array(readFileSync(absolute));
+  if (sha256Bytes(bytes) !== entry.sha256) {
+    throw new Error(`Phase 5 artifact hash mismatch: ${entry.path}`);
+  }
+}
+
+function assertIndex(value: unknown): Phase5LaneArtifactIndex {
+  const object = plainObject(value, "Phase 5 artifact index");
+  exactKeys(
+    object,
+    ["schema", "publication", "manifest", "report", "artifacts"],
+    "Phase 5 artifact index",
+  );
+  if (
+    object.schema !== PHASE5_EVIDENCE_SCHEMA.artifactIndex ||
+    object.publication !== "complete"
+  ) {
+    throw new Error("Phase 5 artifact index identity differs");
+  }
+  const manifest = assertDescriptor(object.manifest, "Phase 5 index manifest");
+  const report = assertDescriptor(object.report, "Phase 5 index report");
+  if (!Array.isArray(object.artifacts)) {
+    throw new Error("Phase 5 artifact index artifacts must be an array");
+  }
+  const artifacts = object.artifacts.map((entry, index) =>
+    assertDescriptor(entry, `Phase 5 index artifacts[${index}]`),
+  );
+  if (
+    manifest.path !== PHASE5_LANE_MANIFEST_PATH ||
+    report.path !== PHASE5_LANE_REPORT_PATH ||
+    canonicalJson(artifacts[0]) !== canonicalJson(manifest) ||
+    canonicalJson(artifacts[1]) !== canonicalJson(report)
+  ) {
+    throw new Error("Phase 5 artifact index roots differ");
+  }
+  const payloadPaths = artifacts.slice(2).map((entry) => entry.path);
+  if (
+    new Set(artifacts.map((entry) => entry.path)).size !== artifacts.length ||
+    payloadPaths.some(
+      (path, index) => index > 0 && lexical(path, payloadPaths[index - 1]) <= 0,
+    )
+  ) {
+    throw new Error("Phase 5 artifact index paths are duplicated or unordered");
+  }
+  const contracts = expectedLaneArtifactContracts();
+  if (
+    artifacts.length !== contracts.length ||
+    artifacts.some(
+      (entry, index) =>
+        entry.path !== contracts[index].path ||
+        entry.kind !== contracts[index].kind,
+    )
+  ) {
+    throw new Error(
+      "Phase 5 artifact index paths or kinds differ from the frozen graph",
+    );
+  }
+  return {
+    schema: PHASE5_EVIDENCE_SCHEMA.artifactIndex,
+    publication: "complete",
+    manifest,
+    report,
+    artifacts,
+  };
+}
+
+function assertManifest(value: unknown): Phase5LaneManifest {
+  const object = plainObject(value, "Phase 5 lane manifest");
+  exactKeys(
+    object,
+    [
+      "schema",
+      "lane",
+      "protocol",
+      "protocolSha256",
+      "fixtureSha256",
+      "toleranceSha256",
+      "repository",
+      "host",
+      "runtime",
+      "adapter",
+      "startedAtUtc",
+      "completedAtUtc",
+      "sourceHashes",
+      "artifacts",
+    ],
+    "Phase 5 lane manifest",
+  );
+  if (
+    object.schema !== PHASE5_EVIDENCE_SCHEMA.laneManifest ||
+    object.lane !== "windows-d3d12" ||
+    object.protocol !== PHASE5_PROTOCOL ||
+    object.protocolSha256 !== PHASE5_PROTOCOL_SHA256 ||
+    object.fixtureSha256 !== PHASE5_FIXTURES_SHA256 ||
+    object.toleranceSha256 !== PHASE5_TOLERANCES_SHA256
+  ) {
+    throw new Error("Phase 5 lane manifest identity differs");
+  }
+  const sourceHashes = object.sourceHashes;
+  const artifacts = object.artifacts;
+  if (!Array.isArray(sourceHashes) || !Array.isArray(artifacts)) {
+    throw new Error("Phase 5 lane manifest arrays are invalid");
+  }
+  const parsedSourceHashes = sourceHashes.map((entry, index) => {
+    const source = plainObject(entry, `sourceHashes[${index}]`);
+    exactKeys(source, ["path", "byteLength", "sha256"], `sourceHashes[${index}]`);
+    const path = source.path;
+    const byteLength = source.byteLength;
+    const sha256 = source.sha256;
+    if (
+      typeof path !== "string" ||
+      !Number.isSafeInteger(byteLength) ||
+      (byteLength as number) < 0 ||
+      typeof sha256 !== "string" ||
+      !SHA256.test(sha256)
+    ) {
+      throw new Error(`sourceHashes[${index}] is invalid`);
+    }
+    safePath(path);
+    return { path, byteLength: byteLength as number, sha256 };
+  });
+  validateSourceHashes(parsedSourceHashes);
+  const parsedArtifacts = artifacts.map((entry, index) =>
+    assertDescriptor(entry, `manifest artifacts[${index}]`),
+  );
+  const repository = object.repository as unknown as Phase5LaneRawEvidence["repository"];
+  const host = object.host as unknown as Phase5LaneRawEvidence["host"];
+  const runtime = object.runtime as unknown as Phase5LaneRawEvidence["runtime"];
+  const adapter = object.adapter as unknown as Phase5LaneManifest["adapter"];
+  const startedAtUtc = object.startedAtUtc;
+  const completedAtUtc = object.completedAtUtc;
+  if (typeof startedAtUtc !== "string" || typeof completedAtUtc !== "string") {
+    throw new Error("Phase 5 lane timestamps are invalid");
+  }
+  validateIso(startedAtUtc, "manifest.startedAtUtc");
+  validateIso(completedAtUtc, "manifest.completedAtUtc");
+  if (completedAtUtc < startedAtUtc) {
+    throw new Error("Phase 5 manifest completion precedes its start");
+  }
+  return {
+    schema: PHASE5_EVIDENCE_SCHEMA.laneManifest,
+    lane: "windows-d3d12",
+    protocol: PHASE5_PROTOCOL,
+    protocolSha256: PHASE5_PROTOCOL_SHA256,
+    fixtureSha256: PHASE5_FIXTURES_SHA256,
+    toleranceSha256: PHASE5_TOLERANCES_SHA256,
+    repository,
+    host,
+    runtime,
+    adapter,
+    startedAtUtc,
+    completedAtUtc,
+    sourceHashes: parsedSourceHashes,
+    artifacts: parsedArtifacts,
+  };
+}
+
+function assertReport(value: unknown): Phase5LaneReport {
+  const object = plainObject(value, "Phase 5 lane report");
+  exactKeys(
+    object,
+    ["schema", "lane", "manifestSha256", "raw", "criteria", "gatePass", "exitCode"],
+    "Phase 5 lane report",
+  );
+  if (
+    object.schema !== PHASE5_EVIDENCE_SCHEMA.laneReport ||
+    object.lane !== "windows-d3d12" ||
+    typeof object.manifestSha256 !== "string" ||
+    !SHA256.test(object.manifestSha256) ||
+    typeof object.gatePass !== "boolean" ||
+    (object.exitCode !== 0 && object.exitCode !== 1) ||
+    !Array.isArray(object.criteria)
+  ) {
+    throw new Error("Phase 5 lane report identity is invalid");
+  }
+  const raw = object.raw as unknown as Phase5LaneRawEvidence;
+  const verdict = evaluatePhase5Lane(raw);
+  if (
+    canonicalJson(object.criteria) !== canonicalJson(verdict.criteria) ||
+    object.gatePass !== verdict.gatePass ||
+    object.exitCode !== verdict.exitCode
+  ) {
+    throw new Error("Phase 5 lane report disagrees with raw evidence");
+  }
+  return {
+    schema: PHASE5_EVIDENCE_SCHEMA.laneReport,
+    lane: "windows-d3d12",
+    manifestSha256: object.manifestSha256,
+    raw,
+    criteria: verdict.criteria,
+    gatePass: verdict.gatePass,
+    exitCode: verdict.exitCode,
+  };
+}
+
+function exactFileSet(root: string, expected: readonly string[]): void {
+  const actual = listFiles(root);
+  const wanted = [...expected].sort(lexical);
+  if (
+    actual.length !== wanted.length ||
+    actual.some((path, index) => path !== wanted[index])
+  ) {
+    throw new Error("Phase 5 evidence file set differs from its index");
+  }
+}
+
+function artifactObject(
+  root: string,
+  path: string,
+  label: string,
+): Readonly<Record<string, StrictJson>> {
+  return plainObject(
+    parseCanonicalJson(
+      new Uint8Array(readFileSync(join(root, path))),
+      label,
+    ),
+    label,
+  );
+}
+
+function ggMetadata(decoded: ReturnType<typeof decodeCheckpoint>): StrictJson {
+  const { header } = decoded;
+  return strictJsonSnapshot({
+    version: header.version,
+    endianness: header.endianness,
+    dims: header.dims,
+    tick: header.tick,
+    rngSeed: header.rngSeed,
+    noiseEpsilon: header.noiseEpsilon,
+    farField: header.farField,
+    domain: header.domain,
+    center: header.center,
+    params: header.params,
+    fields: header.fields,
+  });
+}
+
+function lkControlMetadata(
+  decoded: ReturnType<typeof decodeLKCheckpoint>,
+): StrictJson {
+  const { header } = decoded;
+  return strictJsonSnapshot({
+    version: header.version,
+    rule: header.rule,
+    endianness: header.endianness,
+    dims: header.dims,
+    tick: header.tick,
+    rngSeed: header.rngSeed,
+    noiseEpsilon: header.noiseEpsilon,
+    domain: header.domain,
+    center: header.center,
+    tempC: header.tempC,
+    sigmaInfinity: header.sigmaInfinity,
+    dxUm: header.dxUm,
+    pressurePa: header.pressurePa,
+    paramSet: header.paramSet,
+    cflFill: header.cflFill,
+    relaxTol: header.relaxTol,
+    divTol: header.divTol,
+    relaxMaxSweeps: header.relaxMaxSweeps,
+    surfacePolicy: header.version === 2 ? header.surfacePolicy : "legacy-v3",
+    farField: header.farField,
+    fields: header.fields,
+  });
+}
+
+function serializableParameterVector(values: Float64Array): (number | null)[] {
+  return Array.from(values, (value) => Number.isFinite(value) ? value : null);
+}
+
+function expectedGgCheckpointMetadata(
+  fixture: Exclude<
+    (typeof PHASE5_FIXTURES)[number],
+    { readonly kind: "lk" | "stress" }
+  >,
+): StrictJson {
+  const presetName =
+    fixture.kind === "layout"
+      ? "plate"
+      : fixture.kind === "gg" && fixture.timeline !== null
+        ? fixture.timeline.nextPreset
+        : fixture.preset;
+  const params = GG_PRESETS[presetName];
+  const farField = fixture.kind === "layout" ? "reflecting" : fixture.farField;
+  const tick = fixture.kind === "gg" ? Number(fixture.stop.value) : 0;
+  const length = fixture.dims.nx * fixture.dims.ny * fixture.dims.nz;
+  return strictJsonSnapshot({
+    version: 1,
+    endianness: "LE",
+    dims: fixture.dims,
+    tick,
+    rngSeed: fixture.rngSeed,
+    noiseEpsilon: fixture.noiseEpsilon,
+    farField,
+    domain: fixture.domain,
+    center: [
+      fixture.dims.nx >> 1,
+      fixture.dims.ny >> 1,
+      fixture.dims.nz >> 1,
+    ],
+    params: {
+      rho: params.rho,
+      phi: fixture.kind === "layout" ? params.phi : fixture.phi,
+      kappa: serializableParameterVector(params.kappa),
+      mu: serializableParameterVector(params.mu),
+      ggThreshBeta: serializableParameterVector(params.ggThreshBeta),
+    },
+    fields: [
+      { name: "a", dtype: "u8", length },
+      { name: "b", dtype: "f64", length },
+      { name: "d", dtype: "f64", length },
+    ],
+  });
+}
+
+function expectedLkCheckpointMetadata(
+  fixture: Extract<
+    (typeof PHASE5_FIXTURES)[number],
+    { readonly kind: "lk" }
+  >,
+): StrictJson {
+  const length = fixture.dims.nx * fixture.dims.ny * fixture.dims.nz;
+  return strictJsonSnapshot({
+    version: 2,
+    rule: "LibbrechtKinetics",
+    endianness: "LE",
+    dims: fixture.dims,
+    tick: Number(fixture.stop.value),
+    rngSeed: fixture.rngSeed,
+    noiseEpsilon: fixture.noiseEpsilon,
+    domain: fixture.domain,
+    center: [
+      fixture.dims.nx >> 1,
+      fixture.dims.ny >> 1,
+      fixture.dims.nz >> 1,
+    ],
+    tempC: fixture.timeline?.tempC ?? fixture.tempC,
+    sigmaInfinity: fixture.timeline?.sigmaInfinity ?? fixture.sigmaInfinity,
+    dxUm: fixture.dxUm,
+    pressurePa: fixture.pressurePa,
+    paramSet: fixture.paramSet,
+    cflFill: fixture.cflFill,
+    relaxTol: fixture.relaxTol,
+    divTol: fixture.divTol,
+    relaxMaxSweeps: fixture.relaxMaxSweeps,
+    surfacePolicy: fixture.surfacePolicy,
+    farField: fixture.farField,
+    fields: [
+      { name: "a", dtype: "u8", length },
+      { name: "f", dtype: "f64", length },
+      { name: "sigma", dtype: "f64", length },
+    ],
+  });
+}
+
+function mismatchCount(
+  left: ArrayLike<number>,
+  right: ArrayLike<number>,
+): number {
+  if (left.length !== right.length) return Math.max(left.length, right.length);
+  let failures = 0;
+  for (let index = 0; index < left.length; index++) {
+    if (!Object.is(left[index], right[index])) failures++;
+  }
+  return failures;
+}
+
+function f32WideningMismatchCount(fields: readonly ArrayLike<number>[]): number {
+  let failures = 0;
+  for (const field of fields) {
+    for (let index = 0; index < field.length; index++) {
+      const value = field[index];
+      if (!Number.isFinite(value) || !Object.is(Math.fround(value), value)) {
+        failures++;
+      }
+    }
+  }
+  return failures;
+}
+
+function fieldEvidence(
+  name: Phase5FieldComparisonEvidence["name"],
+  tolerance: Phase5FieldComparisonEvidence["tolerance"],
+  cpu: ArrayLike<number>,
+  gpu: ArrayLike<number>,
+): Phase5FieldComparisonEvidence {
+  const comparison = comparePhase5Arrays(
+    cpu,
+    gpu,
+    PHASE5_FIELD_TOLERANCES[tolerance].relativeDenominatorFloor,
+  );
+  return { name, tolerance, ...comparison };
+}
+
+export function derivePhase5CheckpointVerification(
+  fixture: (typeof PHASE5_FIXTURES)[number],
+  cpuBytes: Uint8Array,
+  gpuBytes: Uint8Array,
+): Phase5CheckpointVerification {
+  if (!fixture.blocking) {
+    throw new Error(`${fixture.id} is not a checkpoint-bearing fixture`);
+  }
+  if (fixture.kind === "lk") {
+    const cpu = decodeLKCheckpoint(cpuBytes);
+    const gpu = decodeLKCheckpoint(gpuBytes);
+    for (const state of [cpu.state, gpu.state]) {
+      if (
+        state.dims.nx !== fixture.dims.nx ||
+        state.dims.ny !== fixture.dims.ny ||
+        state.dims.nz !== fixture.dims.nz
+      ) {
+        throw new Error(`${fixture.id} checkpoint dimensions differ`);
+      }
+    }
+    if (cpu.header.version !== 2 || gpu.header.version !== 2) {
+      throw new Error(`${fixture.id} LK checkpoint is not v2`);
+    }
+    if (
+      !Number.isFinite(cpu.state.simTimeSeconds) ||
+      cpu.state.simTimeSeconds < 0 ||
+      !Number.isFinite(gpu.state.simTimeSeconds) ||
+      gpu.state.simTimeSeconds < 0
+    ) {
+      throw new Error(`${fixture.id} LK checkpoint physical time is invalid`);
+    }
+    // Physical time is accumulated from binary64 CPU versus binary32 GPU interface
+    // increments and is compared as a frozen scalar, not counterfeited as exact metadata.
+    // Every identity/control field on both checkpoints remains exact to the fixture here.
+    const cpuMetadata = lkControlMetadata(cpu);
+    const gpuMetadata = lkControlMetadata(gpu);
+    const expectedMetadata = expectedLkCheckpointMetadata(fixture);
+    return {
+      checkpoint: {
+        fixtureId: fixture.id,
+        codec: "lk-v2",
+        cpuDecodePass: true,
+        gpuDecodePass: true,
+        occupancyMismatchCount: mismatchCount(cpu.state.a, gpu.state.a),
+        metadataMismatchCount:
+          canonicalJson(cpuMetadata) === canonicalJson(gpuMetadata) &&
+          canonicalJson(cpuMetadata) === canonicalJson(expectedMetadata)
+            ? 0
+            : 1,
+        float32RoundTripMismatchCount: f32WideningMismatchCount([
+          gpu.state.f,
+          gpu.state.sigma,
+        ]),
+        scalarType: "float32",
+        endianness: "little-endian",
+      },
+      fields: [
+        fieldEvidence("sigma", "lkSigma", cpu.state.sigma, gpu.state.sigma),
+        fieldEvidence("f", "lkFill", cpu.state.f, gpu.state.f),
+      ],
+    };
+  }
+  const cpu = decodeCheckpoint(cpuBytes);
+  const gpu = decodeCheckpoint(gpuBytes);
+  for (const state of [cpu.state, gpu.state]) {
+    if (
+      state.dims.nx !== fixture.dims.nx ||
+      state.dims.ny !== fixture.dims.ny ||
+      state.dims.nz !== fixture.dims.nz
+    ) {
+      throw new Error(`${fixture.id} checkpoint dimensions differ`);
+    }
+  }
+  const expectedMetadata = expectedGgCheckpointMetadata(fixture);
+  const cpuMetadata = ggMetadata(cpu);
+  const gpuMetadata = ggMetadata(gpu);
+  return {
+    checkpoint: {
+      fixtureId: fixture.id,
+      codec: "gg-v1",
+      cpuDecodePass: true,
+      gpuDecodePass: true,
+      occupancyMismatchCount: mismatchCount(cpu.state.a, gpu.state.a),
+      metadataMismatchCount:
+        canonicalJson(cpuMetadata) === canonicalJson(gpuMetadata) &&
+        canonicalJson(cpuMetadata) === canonicalJson(expectedMetadata)
+          ? 0
+          : 1,
+      float32RoundTripMismatchCount: f32WideningMismatchCount([
+        gpu.state.b,
+        gpu.state.d,
+      ]),
+      scalarType: "float32",
+      endianness: "little-endian",
+    },
+    fields:
+      fixture.kind === "gg"
+        ? [
+            fieldEvidence(
+              "b",
+              "ggBoundaryMass",
+              cpu.state.b,
+              gpu.state.b,
+            ),
+            fieldEvidence("d", "ggVapor", cpu.state.d, gpu.state.d),
+          ]
+        : [
+            fieldEvidence(
+              "d",
+              "diffusionD",
+              cpu.state.d,
+              gpu.state.d,
+            ),
+          ],
+  };
+}
+
+function verifyFixtureGraph(
+  root: string,
+  report: Phase5LaneReport,
+  hooks?: Phase5LaneVerificationHooks,
+): void {
+  const captures: Phase5FixtureCapture[] = [];
+  for (const fixture of PHASE5_FIXTURES) {
+    if (!fixture.blocking) continue;
+    const config = artifactObject(
+      root,
+      fixturePath(fixture.id, "config.json"),
+      `${fixture.id} config`,
+    );
+    if (
+      canonicalJson(config) !==
+      canonicalJson({ schema: "phase5-fixture-config-v1", fixture })
+    ) {
+      throw new Error(`${fixture.id} reopened config differs`);
+    }
+    const comparison = artifactObject(
+      root,
+      fixturePath(fixture.id, "comparison.json"),
+      `${fixture.id} comparison`,
+    );
+    const events = artifactObject(
+      root,
+      fixturePath(fixture.id, "events.json"),
+      `${fixture.id} events`,
+    );
+    const timing = artifactObject(
+      root,
+      fixturePath(fixture.id, "timing.json"),
+      `${fixture.id} timing`,
+    );
+    const readback = artifactObject(
+      root,
+      fixturePath(fixture.id, "readback.json"),
+      `${fixture.id} readback`,
+    );
+    const cpuBytes = new Uint8Array(
+      readFileSync(join(root, fixturePath(fixture.id, "cpu-reference.ckpt"))),
+    );
+    const gpuBytes = new Uint8Array(
+      readFileSync(join(root, fixturePath(fixture.id, "gpu-export.ckpt"))),
+    );
+    const derived =
+      hooks?.verifyCheckpointPair !== undefined
+        ? hooks.verifyCheckpointPair(fixture, cpuBytes, gpuBytes)
+        : derivePhase5CheckpointVerification(fixture, cpuBytes, gpuBytes);
+    const reportedCheckpoint = report.raw.checkpoints.find(
+      (entry) => entry.fixtureId === fixture.id,
+    );
+    if (
+      reportedCheckpoint === undefined ||
+      canonicalJson(derived.checkpoint) !== canonicalJson(reportedCheckpoint)
+    ) {
+      throw new Error(
+        `${fixture.id} checkpoint measurements differ from decoded bytes`,
+      );
+    }
+    const comparisonFields = comparison.fields;
+    if (
+      !Array.isArray(comparisonFields) ||
+      canonicalJson(derived.fields) !== canonicalJson(comparisonFields)
+    ) {
+      throw new Error(
+        `${fixture.id} field measurements differ from decoded checkpoints`,
+      );
+    }
+    if (
+      report.raw.checkpoints.filter((entry) => entry.fixtureId === fixture.id)
+        .length !== 1
+    ) {
+      throw new Error(`${fixture.id} checkpoint report cross-link differs`);
+    }
+    captures.push({
+      id: fixture.id,
+      config,
+      cpuReferenceCheckpoint: cpuBytes,
+      gpuExportCheckpoint: gpuBytes,
+      comparison,
+      events,
+      timing,
+      readback,
+    });
+  }
+  validateFixturePayloadGraph(captures, report.raw);
+  assertObservedNegativeControls(
+    {
+      startedAtUtc: PHASE5_REPLAY_CAPTURE_INSTANT,
+      completedAtUtc: PHASE5_REPLAY_CAPTURE_INSTANT,
+      raw: report.raw,
+      fixtures: captures,
+      stdout: new Uint8Array(readFileSync(join(root, "stdout.log"))),
+      stderr: new Uint8Array(readFileSync(join(root, "stderr.log"))),
+      exitStatus: 0,
+    },
+    report.raw.negativeControls,
+  );
+}
+
+// ADR 0022: the runner re-executes every registered mutation against the published payloads
+// and requires the producer's roster to equal the outcomes it observed itself. A roster the
+// producer asserted but did not measure — the previous bundle's `failedCriteria:
+// [control.owner]` — cannot survive this, because the observed sets come from the runner's own
+// replay of the mutated evidence through the production evaluator.
+const PHASE5_REPLAY_CAPTURE_INSTANT = "1970-01-01T00:00:00.000Z";
+
+function assertObservedNegativeControls(
+  capture: Phase5LaneCapture,
+  declared: Phase5LaneRawEvidence["negativeControls"],
+): void {
+  const observed = derivePhase5NegativeControlOutcomes(capture);
+  if (canonicalJson(observed as unknown as StrictJson) !==
+      canonicalJson(declared as unknown as StrictJson)) {
+    throw new Error(
+      "Phase 5 negative-control roster differs from the runner's own replay of the " +
+        "published evidence",
+    );
+  }
+}
+
+export function verifyPhase5LaneBundle(
+  directory: string,
+  expectedSourceHashes?: readonly Phase5SourceHash[],
+  hooks?: Phase5LaneVerificationHooks,
+): VerifiedPhase5LaneBundle {
+  const root = resolve(directory);
+  const index = assertIndex(
+    parseCanonicalJson(
+      new Uint8Array(readFileSync(join(root, PHASE5_LANE_INDEX_PATH))),
+      "Phase 5 artifact index",
+    ),
+  );
+  exactFileSet(root, [
+    PHASE5_LANE_INDEX_PATH,
+    ...index.artifacts.map((entry) => entry.path),
+  ]);
+  for (const entry of index.artifacts) verifyDescriptor(root, entry);
+  const manifest = assertManifest(
+    parseCanonicalJson(
+      new Uint8Array(readFileSync(join(root, PHASE5_LANE_MANIFEST_PATH))),
+      "Phase 5 lane manifest",
+    ),
+  );
+  const report = assertReport(
+    parseCanonicalJson(
+      new Uint8Array(readFileSync(join(root, PHASE5_LANE_REPORT_PATH))),
+      "Phase 5 lane report",
+    ),
+  );
+  if (
+    report.manifestSha256 !== index.manifest.sha256 ||
+    sha256Bytes(canonicalJsonBytes(manifest)) !== index.manifest.sha256
+  ) {
+    throw new Error("Phase 5 report/manifest hash cross-link differs");
+  }
+  if (
+    canonicalJson(manifest.artifacts) !==
+    canonicalJson(index.artifacts.slice(2))
+  ) {
+    throw new Error("Phase 5 manifest payload graph differs from the index");
+  }
+  if (
+    canonicalJson(manifest.repository) !== canonicalJson(report.raw.repository) ||
+    canonicalJson(manifest.host) !== canonicalJson(report.raw.host) ||
+    canonicalJson(manifest.runtime) !== canonicalJson(report.raw.runtime) ||
+    canonicalJson(manifest.adapter) !== canonicalJson(report.raw.adapter)
+  ) {
+    throw new Error("Phase 5 manifest provenance differs from the lane report");
+  }
+  if (
+    expectedSourceHashes !== undefined &&
+    canonicalJson(manifest.sourceHashes) !== canonicalJson(expectedSourceHashes)
+  ) {
+    throw new Error("Phase 5 source hashes differ from the current repository");
+  }
+  const exitStatus = decodeUtf8WithoutBom(
+    new Uint8Array(readFileSync(join(root, "exit-status.txt"))),
+    "Phase 5 exit status",
+  );
+  if (exitStatus !== "0\n") throw new Error("Phase 5 lane exit status is not exact");
+  for (const log of ["stdout.log", "stderr.log"]) {
+    decodeUtf8WithoutBom(
+      new Uint8Array(readFileSync(join(root, log))),
+      `Phase 5 ${log}`,
+    );
+  }
+  verifyFixtureGraph(root, report, hooks);
+  if (!report.gatePass || report.exitCode !== 0) {
+    throw new Error("Phase 5 published lane report is not passing");
+  }
+  return { directory: root, manifest, report, index };
+}
+
+function verifyImmutableRoot(
+  root: string,
+  files: readonly ExpectedFile[],
+): void {
+  exactFileSet(root, files.map((file) => file.path));
+  for (const file of files) {
+    const reopened = new Uint8Array(readFileSync(join(root, file.path)));
+    if (
+      reopened.byteLength !== file.bytes.byteLength ||
+      sha256Bytes(reopened) !== sha256Bytes(file.bytes)
+    ) {
+      throw new Error(`Phase 5 immutable root changed: ${file.path}`);
+    }
+  }
+}
+
+export function publishPhase5Lane(
+  options: PublishPhase5LaneOptions,
+): VerifiedPhase5LaneBundle {
+  const canonicalDirectory = resolve(options.canonicalDirectory);
+  if (existsSync(canonicalDirectory)) {
+    throw new Error(`Phase 5 canonical lane already exists: ${canonicalDirectory}`);
+  }
+  if (basename(canonicalDirectory).startsWith(".")) {
+    throw new Error("Phase 5 canonical lane cannot be an attempt directory");
+  }
+  const attemptId = options.attemptId ?? `${process.pid}-${randomUUID()}`;
+  if (!/^[A-Za-z0-9-]+$/.test(attemptId)) {
+    throw new Error("Phase 5 attempt id is invalid");
+  }
+  const root = makeLaneRoot(options.capture, options.sourceHashes);
+  const parent = dirname(canonicalDirectory);
+  mkdirSync(parent, { recursive: true });
+  const parentIdentity = directoryIdentity(
+    parent,
+    "Phase 5 publication parent",
+  );
+  const staging = join(
+    parent,
+    `.${basename(canonicalDirectory)}.attempt-${attemptId}`,
+  );
+  if (existsSync(staging)) throw new Error(`Phase 5 staging lane exists: ${staging}`);
+  mkdirSync(staging, { recursive: false });
+  const ownedIdentity = directoryIdentity(staging, "Phase 5 staging lane");
+  let renamed = false;
+  try {
+    for (const file of root.files) {
+      writeExclusive(join(staging, file.path), file.bytes);
+      options.hooks?.afterArtifactWrite?.(file.path, staging);
+    }
+    verifyImmutableRoot(staging, root.files);
+    verifyPhase5LaneBundle(
+      staging,
+      options.sourceHashes,
+      options.verificationHooks,
+    );
+    options.hooks?.beforeRename?.(staging);
+    assertDirectoryIdentity(parent, parentIdentity, "Phase 5 publication parent");
+    assertDirectoryIdentity(staging, ownedIdentity, "Phase 5 staging lane");
+    verifyImmutableRoot(staging, root.files);
+    verifyPhase5LaneBundle(
+      staging,
+      options.sourceHashes,
+      options.verificationHooks,
+    );
+    if (existsSync(canonicalDirectory)) {
+      throw new Error("Phase 5 canonical lane appeared before rename");
+    }
+    renameSync(staging, canonicalDirectory);
+    renamed = true;
+    const renamedIdentity = {
+      ...ownedIdentity,
+      realPath: realpathSync.native(canonicalDirectory),
+    };
+    assertDirectoryIdentity(
+      canonicalDirectory,
+      renamedIdentity,
+      "Phase 5 canonical lane",
+    );
+    options.hooks?.afterRename?.(canonicalDirectory);
+    assertDirectoryIdentity(parent, parentIdentity, "Phase 5 publication parent");
+    assertDirectoryIdentity(
+      canonicalDirectory,
+      renamedIdentity,
+      "Phase 5 canonical lane",
+    );
+    verifyImmutableRoot(canonicalDirectory, root.files);
+    return verifyPhase5LaneBundle(
+      canonicalDirectory,
+      options.sourceHashes,
+      options.verificationHooks,
+    );
+  } catch (error) {
+    const owned = renamed ? canonicalDirectory : staging;
+    const cleanupIdentity = renamed
+      ? { ...ownedIdentity, realPath: resolve(canonicalDirectory) }
+      : ownedIdentity;
+    try {
+      removeOwnedDirectory(owned, cleanupIdentity);
+    } catch (cleanupError) {
+      throw new AggregateError(
+        [error, cleanupError],
+        "Phase 5 publication failed and safe cleanup refused a replaced path",
+      );
+    }
+    throw error;
+  }
+}

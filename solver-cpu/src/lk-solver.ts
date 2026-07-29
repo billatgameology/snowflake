@@ -1,12 +1,14 @@
 // LibbrechtKinetics — the surface operator of attachment-kinetics §4.4, implemented.
 //
 // One growth step (§4.4, decision 0009): the named surfacePolicy selects the immutable
-// legacy-v3 per-contact operator or the forward aggregate-hv-g1h1-v4 boundary-pixel operator.
-// V4 applies the Phase 2a reflecting smoother, replaces each boundary pixel by the nonlinear
-// Eq. 5.34 value solved from opposing vapor pixels, and clamps the Dirichlet shell. Fixed-sigma
+// legacy-v3 per-contact operator or a forward aggregate-hv-g1h1-v4/v5/v6 boundary-pixel operator.
+// Aggregate v4/v5 apply the Phase 2a reflecting smoother, replace each boundary pixel by the
+// nonlinear Eq. 5.34 value solved from opposing vapor pixels, and clamp the Dirichlet shell. Fixed-sigma
 // physics runs require BOTH the iterate residual and the signed global exchange divergence
-// identity. The cached self-consistent (alphaHK, sigma_b) pair then fills once per boundary
-// pixel with H_b=1; the adaptive fill-CFL and explicit saturation-clipping ledger are unchanged.
+// identity. V5 directly meters float64 reflecting-smoother drift in that identity (ADR 0013)
+// without changing any field value. The cached self-consistent (alphaHK, sigma_b) pair then fills
+// once per boundary pixel with H_b=1; the adaptive fill-CFL and explicit saturation-clipping
+// ledger are unchanged.
 //
 // Dispositions (§4.4 component 5): no kappa freezing (the selected boundary condition is the
 // only exchange path), no melting, hole-filling kept, noise is a per-cell multiplicative
@@ -24,15 +26,19 @@
 import {
   alphaHK,
   cSat,
+
   cellCount,
   classifyFacet,
+  coordsOf,
   domainCenter,
   hexDistance,
   hexSeedSites,
   isLKSurfacePolicy,
   kineticLength,
   mIce,
+  metersSmootherDrift,
   randomBit,
+  usesCanonicalOpposingOrder,
   validateTimelineSchedule,
   vKin,
   DOMAIN_CONTACT_FRACTION,
@@ -155,6 +161,69 @@ function requirePositiveFinite(value: number, name: string): void {
   }
 }
 
+/** Low-overhead deterministic block-Neumaier accumulator for one full-field sweep diagnostic. */
+class BlockCompensatedSum {
+  private block = 0;
+  private blockCount = 0;
+  private sum = 0;
+  private correction = 0;
+
+  add(value: number): void {
+    this.block += value;
+    this.blockCount++;
+    if (this.blockCount === 256) this.flush();
+  }
+
+  value(): number {
+    this.flush();
+    return this.sum + this.correction;
+  }
+
+  private flush(): void {
+    if (this.blockCount === 0) return;
+    const value = this.block;
+    const next = this.sum + value;
+    if (Math.abs(this.sum) >= Math.abs(value)) {
+      this.correction += this.sum - next + value;
+    } else {
+      this.correction += value - next + this.sum;
+    }
+    this.sum = next;
+    this.block = 0;
+    this.blockCount = 0;
+  }
+}
+
+/** Decision 0014: conservative operation-count factor for the split stencil + block meter. */
+export const FLOAT64_SMOOTHER_DRIFT_BOUND_FACTOR = 1024;
+
+/** Absolute aggregate-v5/v6 roundoff bound for one reflecting-smoother sweep. */
+export function float64SmootherDriftAbsLimit(
+  activeCellCount: number,
+  maxAbsSweepInput: number,
+): number {
+  if (!Number.isSafeInteger(activeCellCount) || activeCellCount <= 0) {
+    throw new Error(`activeCellCount must be a positive safe integer, got ${activeCellCount}`);
+  }
+  if (!Number.isFinite(maxAbsSweepInput) || maxAbsSweepInput < 0) {
+    throw new Error(`maxAbsSweepInput must be finite and nonnegative, got ${maxAbsSweepInput}`);
+  }
+  if (maxAbsSweepInput === 0) return 0;
+  // `EPSILON * maxAbsSweepInput` underflows for an all-subnormal field even though each
+  // rounded stencil operation can still move one minimum subnormal. Decision 0014 therefore
+  // keeps the same operation-count factor and floors the per-cell scale at one binary64 ULP.
+  const perCellRoundoffScale = Math.max(
+    Number.EPSILON * maxAbsSweepInput,
+    Number.MIN_VALUE,
+  );
+  const limit =
+    FLOAT64_SMOOTHER_DRIFT_BOUND_FACTOR * activeCellCount * perCellRoundoffScale;
+  if (!Number.isFinite(limit)) {
+    throw new Error(`float64 smoother drift bound overflowed: ${limit}`);
+  }
+  return limit;
+}
+
 function deriveEnvironmentScales(
   tempC: number,
   sigmaInfinity: number,
@@ -208,7 +277,11 @@ function snapshotTimelineEnvironment(value: unknown): LKTimelineEnvironment {
   return { tempC: tempC as number, sigmaInfinity: sigmaInfinity as number };
 }
 
-type LKCycleState =
+/**
+ * The explicit interface-cycle phase. Exported so an evidence probe can pair this operator's
+ * own phase against another implementation's, instead of publishing one lane's value twice.
+ */
+export type LKCycleState =
   | "boundary"
   | "relaxing"
   | "ready"
@@ -256,9 +329,33 @@ export class LKSolver implements SurfaceOperator {
   private readonly blocked: Uint8Array;
   private readonly scratch1: Float64Array;
   private readonly scratch2: Float64Array;
+  /** V6 opposing-operand buffer: at most the 6 T-neighbors plus the 2 Z-neighbors. */
+  private readonly opposingOperands = new Float64Array(8);
+  /**
+   * Both Dirichlet lanes clamp and meter an outer shell identically; only the clamped VALUE
+   * differs. Reflecting has no shell, so no injection and no divergence identity.
+   */
+  private readonly hasClampedShell: boolean;
+  /**
+   * ADR 0024: per-shell-cell `rho_far`, the distance in metres from the domain's physical
+   * centre to that shell cell (monograph Eq. 5.30 defines it per boundary pixel, not once for
+   * the shell). Indexed like `dirichletCells`. Empty unless the lane is monopole-matched.
+   */
+  private readonly shellRadiusM: Float64Array;
+  /**
+   * ADR 0024: dV/dt in m³/s from the most recently completed interface update (Eq. 5.31).
+   * Zero before the first update, which makes the first relaxation's shell exactly
+   * `sigmaInfinity` — the monopole correction cannot be known before any growth is measured.
+   */
+  private volumeRateM3PerS = 0;
+  /**
+   * ADR 0023's operand-order flag, resolved once. `opposingSigma` runs per boundary cell per
+   * sweep — millions of calls in a sustained run — so the policy is not re-tested per call.
+   */
+  private readonly canonicalOpposingOrder: boolean;
   /** Legacy-v3 Robin absorption factor per boundary cell. */
   private readonly sEff: Float64Array;
-  /** Aggregate-v4 boundary pair cached from the last accepted relaxation sweep. */
+  /** Aggregate-v4/v5/v6 boundary pair cached from the last accepted relaxation sweep. */
   private readonly boundaryAlphaHK: Float64Array;
   private readonly boundarySigma: Float64Array;
   private readonly boundarySigmaOpp: Float64Array;
@@ -305,6 +402,7 @@ export class LKSolver implements SurfaceOperator {
 
   constructor(options: LKSolverOptions) {
     this.surfacePolicy = options.surfacePolicy;
+    this.canonicalOpposingOrder = usesCanonicalOpposingOrder(options.surfacePolicy);
     this.dims = options.dims;
     this._tempC = options.tempC;
     this._sigmaInfinity = options.sigmaInfinity;
@@ -367,7 +465,11 @@ export class LKSolver implements SurfaceOperator {
     if (this.domain !== "box" && this.domain !== "hexPrism") {
       throw new Error(`domain is invalid: ${String(this.domain)}`);
     }
-    if (this.farField !== "dirichlet" && this.farField !== "reflecting") {
+    if (
+      this.farField !== "dirichlet" &&
+      this.farField !== "reflecting" &&
+      this.farField !== "monopole-matched"
+    ) {
       throw new Error(`farField is invalid: ${String(this.farField)}`);
     }
     if (
@@ -478,6 +580,36 @@ export class LKSolver implements SurfaceOperator {
       }
     }
     this.dirichletCells = Int32Array.from(shell);
+    this.hasClampedShell =
+      this.farField === "dirichlet" || this.farField === "monopole-matched";
+    // Eq. 5.30's rho_far is measured from the model's physical centre to each shell pixel.
+    //
+    // It is computed from the INTEGER quadratic form, not from cartesian floats. Under the
+    // registered embedding (x = i + j/2, y = j*sqrt(3)/2, z = k) the squared in-plane distance
+    // is exactly (di + dj/2)^2 + 3*dj^2/4 = di^2 + di*dj + dj^2, an integer that rot60
+    // (di,dj) -> (-dj, di+dj) and mirror (di,dj) -> (dj,di) preserve EXACTLY. Evaluating the
+    // cartesian form in float64 instead gives symmetry-equivalent shell cells radii that differ
+    // by up to ~7e-15, which propagates into the clamped shell value and breaks D6h — measured,
+    // and the reason this is not written the obvious way (ADR 0024, erratum). Same hazard as
+    // ADR 0023: a quantity that is invariant in exact arithmetic is not automatically invariant
+    // once evaluated.
+    if (this.farField === "monopole-matched") {
+      this.shellRadiusM = new Float64Array(this.dirichletCells.length);
+      for (let position = 0; position < this.dirichletCells.length; position++) {
+        const [i, j, k] = coordsOf(this.dims, this.dirichletCells[position]);
+        const di = i - this.center[0];
+        const dj = j - this.center[1];
+        const dk = k - this.center[2];
+        const squared = di * di + di * dj + dj * dj + dk * dk;
+        const distance = Math.sqrt(squared) * this.dxM;
+        if (!(distance > 0)) {
+          throw new Error("monopole-matched far field requires every shell cell off-centre");
+        }
+        this.shellRadiusM[position] = distance;
+      }
+    } else {
+      this.shellRadiusM = new Float64Array(0);
+    }
 
     const seedRadius = options.seedRadius === undefined ? 2 : options.seedRadius;
     if (seedRadius !== null) {
@@ -534,6 +666,22 @@ export class LKSolver implements SurfaceOperator {
 
   timelineEnvironment(): LKTimelineEnvironment {
     return { tempC: this.tempC, sigmaInfinity: this.sigmaInfinity };
+  }
+
+  /**
+   * This operator's own interface-cycle phase. Read-only: it reports the guard state that
+   * relaxField()/advanceSurface()/applyTimelineEnvironment() already enforce and never sets it.
+   */
+  cyclePhase(): LKCycleState {
+    return this.cycleState;
+  }
+
+  /**
+   * Ice-cell fill-ledger value at the start of the current constant-temperature segment. It is
+   * the ledger's own segment origin, not a re-derivation from the vapor-unit total.
+   */
+  currentTemperatureSegmentStartFillIceCells(): number {
+    return this.currentTemperatureSegmentStartFill;
   }
 
   private currentDerivedScales(): LKEnvironmentDerivedScales {
@@ -674,7 +822,7 @@ export class LKSolver implements SurfaceOperator {
 
       const transformedCellCount = temperatureChanged ? activeUnattachedCellCount : 0;
       const transformedDirichletShellCellCount =
-        temperatureChanged && this.farField === "dirichlet"
+        temperatureChanged && this.hasClampedShell
           ? activeUnattachedShellCellCount
           : 0;
       const report: LKEnvironmentTransitionReport = {
@@ -706,7 +854,7 @@ export class LKSolver implements SurfaceOperator {
         reservoir: {
           farField: this.farField,
           activeUnattachedShellCellCount,
-          shellReclampPending: this.farField === "dirichlet",
+          shellReclampPending: this.hasClampedShell,
           shellClampTargetBefore: this.sigmaInfinity,
           shellClampTargetAfter: target.sigmaInfinity,
         },
@@ -741,6 +889,19 @@ export class LKSolver implements SurfaceOperator {
       this.boundarySigmaOpp.fill(0);
       this.lastRelaxation = null;
       this.lastMaxFillVelocityMS = 0;
+      // ADR 0024's monopole shell is set from the LAST completed interface update's dV/dt. Every
+      // other per-step quantity derived from that update is cleared above, and leaving this one
+      // behind would carry a growth rate measured under the OLD environment into the first
+      // relaxation under the new one — a stale correction at exactly the step where the
+      // environment changed. Zeroing it reproduces the run-start behaviour ADR 0024 already
+      // registers as correct: the shell sits at exactly `sigma_infinity` until growth has been
+      // measured, because the monopole correction cannot be known before any growth exists.
+      //
+      // No registered run reaches this line: timeline events are Phase 4, which ran reflecting
+      // and fixed-σ Dirichlet, and Phase 6 registers monopole-matched with no timeline events.
+      // The combination is unexercised rather than impossible, which is why it is fixed here
+      // rather than left to be discovered by the first run that combines them.
+      this.volumeRateM3PerS = 0;
       this.cycleState = "boundary";
       return report;
     } catch (error) {
@@ -882,9 +1043,17 @@ export class LKSolver implements SurfaceOperator {
   }
 
   /**
-   * Eq. 5.35 opposing-vapor mean for aggregate-hv-g1h1-v4. Each attached direction
+   * Eq. 5.35 opposing-vapor mean for aggregate-hv-g1h1-v4/v5/v6. Each attached direction
    * nominates the cell in the opposite direction; only active unattached vapor cells enter
    * the mask. The primary [01]/[20] facets therefore have exactly H+V samples.
+   *
+   * The operands are gathered in a fixed lattice-direction order (+i, -i, +j, -j, +i-j,
+   * -i+j, +k, -k), and rot60 permutes those positions by the cycle (1 3 6 2 4 5), which is
+   * not order-preserving. Float64 addition is not associative, so summing in gather order
+   * makes this value differ by ~1 ulp between symmetry-equivalent cells once three or more
+   * operands are present — the D6h defect ADR 0023 records. V6 sums in ascending value order
+   * instead, which depends only on the operand multiset and is therefore equivariant; v4/v5
+   * keep the gather-order sum verbatim so their executed evidence stays reproducible.
    */
   private opposingSigma(index: number, input: Float64Array): number {
     const { nx, ny, nz } = this.dims;
@@ -893,11 +1062,29 @@ export class LKSolver implements SurfaceOperator {
     const inPlane = index % plane;
     const j = (inPlane - i) / nx;
     const k = (index - inPlane) / plane;
+    const operands = this.canonicalOpposingOrder ? this.opposingOperands : null;
     let sum = 0;
     let count = 0;
+    // DOCUMENTED BEHAVIOUR, deliberately not changed: a direction contributes only when BOTH
+    // the attached neighbour and the cell opposite it are usable — in-domain (the index guards
+    // below) and not blocked (outside the hexPrism active domain). An attached direction whose
+    // opposite is unusable is therefore DROPPED from the mean rather than substituted, which
+    // lowers `count` and reweights the remaining operands.
+    //
+    // Reaching it requires a boundary cell adjacent to the domain wall or the hexPrism margin,
+    // i.e. a crystal that has grown into the boundary — which the 65% domain-contact guard
+    // already flags invalid, and charter §3.1 keeps out of validation results. So it is
+    // unreachable in any run whose evidence counts, and every registered Phase 6 run measures at
+    // extent 21 in a 48³ domain, far inside it.
+    //
+    // It is documented rather than repaired because any substitution rule (mirror the near
+    // value, use `sigma_infinity`, skip the cell entirely) would change the boundary operator
+    // and therefore every executed Phase 2b/4/5 checkpoint. That is ADR-level, and it would be
+    // spending a re-derivation of accepted evidence on a branch no valid run takes.
     const include = (attached: number, opposite: number): void => {
       if (this.a[attached] === 1 && this.blocked[opposite] === 0) {
-        sum += input[opposite];
+        if (operands !== null) operands[count] = input[opposite];
+        else sum += input[opposite];
         count++;
       }
     };
@@ -913,10 +1100,26 @@ export class LKSolver implements SurfaceOperator {
     }
     if (k + 1 < nz && k - 1 >= 0) include(index + plane, index - plane);
     if (k - 1 >= 0 && k + 1 < nz) include(index - plane, index + plane);
-    return count === 0 ? 0 : sum / count;
+    if (count === 0) return 0;
+    if (operands !== null) {
+      // Insertion sort over at most 8 operands: the same multiset always sums in the same
+      // order, so the result is a function of the multiset alone. Matches the ascending-order
+      // rule the in-plane smoother already applies to its three pair sums.
+      for (let m = 1; m < count; m++) {
+        const value = operands[m];
+        let n = m - 1;
+        while (n >= 0 && operands[n] > value) {
+          operands[n + 1] = operands[n];
+          n--;
+        }
+        operands[n + 1] = value;
+      }
+      for (let m = 0; m < count; m++) sum += operands[m];
+    }
+    return sum / count;
   }
 
-  /** Self-consistent monograph Eq. 5.34 boundary value, with policy-v4 G_b = 1. */
+  /** Self-consistent monograph Eq. 5.34 boundary value, with aggregate-v4/v5/v6 G_b = 1. */
   private solveAggregateBoundary(index: number, input: Float64Array): {
     alphaHKBoundary: number;
     sigmaBoundary: number;
@@ -939,7 +1142,7 @@ export class LKSolver implements SurfaceOperator {
         sigmaOpp,
       };
     }
-    const ratio = this.dxM / this.x0M; // G_b = 1 under aggregate-hv-g1h1-v4
+    const ratio = this.dxM / this.x0M; // G_b = 1 under aggregate-hv-g1h1-v4/v5/v6
     let sigmaBoundary = sigmaOpp;
     for (let iteration = 0; iteration < 60; iteration++) {
       const coefficient = this.cellAlphaHK(index, sigmaBoundary);
@@ -1091,7 +1294,7 @@ export class LKSolver implements SurfaceOperator {
 
     // Dirichlet clamp at the far-field shell (skipped in the reflecting diagnostic mode).
     let injection = 0;
-    if (this.farField === "dirichlet") {
+    if (this.hasClampedShell) {
       const target = this.sigmaInfinity;
       for (let c = 0; c < this.dirichletCells.length; c++) {
         const x = this.dirichletCells[c];
@@ -1112,20 +1315,23 @@ export class LKSolver implements SurfaceOperator {
   }
 
   /**
-   * Aggregate-v4 sweep. The interior pass is the Phase 2a reflecting kernel. Boundary pixels
+   * Aggregate-v4/v5 sweep. The interior pass is the Phase 2a reflecting kernel. Boundary pixels
    * are then replaced by Eq. 5.34, and the signed replacement total is the numerical surface
    * exchange used only by the divergence diagnostic. Local exchange may be negative.
    */
   private sweepAggregate(
     src: Float64Array,
     dst: Float64Array,
-  ): [number, number, number, number] {
+  ): [number, number, number, number, number | null, number | null] {
     const { nx, ny, nz } = this.dims;
     const plane = nx * ny;
     const blocked = this.blocked;
     const wall = this.wall;
     const attached = this.a;
     const out1 = this.scratch1;
+    const smootherDrift =
+      metersSmootherDrift(this.surfacePolicy) ? new BlockCompensatedSum() : null;
+    let maxAbsSweepInput = 0;
 
     // In-plane reflecting pass, with the exact canonical pair summation used by the oracle.
     for (let k = 0; k < nz; k++) {
@@ -1206,10 +1412,16 @@ export class LKSolver implements SurfaceOperator {
           dst[x] = 0;
           continue;
         }
+        if (smootherDrift !== null) {
+          const magnitude = Math.abs(src[x]);
+          if (magnitude > maxAbsSweepInput) maxAbsSweepInput = magnitude;
+        }
         const own = out1[x];
         const up = hasUp && blocked[x + plane] === 0 ? out1[x + plane] : own;
         const down = hasDown && blocked[x - plane] === 0 ? out1[x - plane] : own;
-        dst[x] = (4 / 7) * own + (3 / 14) * (up + down);
+        const candidate = (4 / 7) * own + (3 / 14) * (up + down);
+        dst[x] = candidate;
+        if (smootherDrift !== null) smootherDrift.add(candidate - src[x]);
       }
     }
 
@@ -1233,11 +1445,21 @@ export class LKSolver implements SurfaceOperator {
     if (minLocalSurfaceExchange === Infinity) minLocalSurfaceExchange = 0;
 
     let injection = 0;
-    if (this.farField === "dirichlet") {
-      const target = this.sigmaInfinity;
+    if (this.hasClampedShell) {
+      // Monograph Eq. 5.30: sigma_B(rho_far) -> sigma_inf − (dV/dt)/(4*pi*rho_far*X_0*v_kin).
+      // The correction uses the LAST completed interface update's dV/dt, because the shell has
+      // to be set before the relaxation whose surface solution determines the current one. The
+      // lag is one growth step and is registered rather than hidden (ADR 0024).
+      const monopole = this.farField === "monopole-matched";
+      const scale = monopole
+        ? this.volumeRateM3PerS / (4 * Math.PI * this.x0M * this.vKinMS)
+        : 0;
       for (let cell = 0; cell < this.dirichletCells.length; cell++) {
         const x = this.dirichletCells[cell];
         if (blocked[x] === 1) continue;
+        const target = monopole
+          ? this.sigmaInfinity - scale / this.shellRadiusM[cell]
+          : this.sigmaInfinity;
         injection += target - dst[x];
         dst[x] = target;
       }
@@ -1251,16 +1473,30 @@ export class LKSolver implements SurfaceOperator {
         if (change > maxAbs) maxAbs = change;
       }
     }
-    return [maxAbs, injection, surfaceExchange, minLocalSurfaceExchange];
+    const smootherDriftValue = smootherDrift?.value() ?? null;
+    const smootherDriftLimit =
+      smootherDrift === null
+        ? null
+        : float64SmootherDriftAbsLimit(this.activeCellCount, maxAbsSweepInput);
+    return [
+      maxAbs,
+      injection,
+      surfaceExchange,
+      minLocalSurfaceExchange,
+      smootherDriftValue,
+      smootherDriftLimit,
+    ];
   }
 
   private sweep(
     src: Float64Array,
     dst: Float64Array,
-  ): [number, number, number, number | null] {
-    return this.surfacePolicy === "legacy-v3"
-      ? this.sweepLegacy(src, dst)
-      : this.sweepAggregate(src, dst);
+  ): [number, number, number, number | null, number | null, number | null] {
+    if (this.surfacePolicy === "legacy-v3") {
+      const [maxAbs, injection, exchange, minimum] = this.sweepLegacy(src, dst);
+      return [maxAbs, injection, exchange, minimum, null, null];
+    }
+    return this.sweepAggregate(src, dst);
   }
 
   /** §4.4 step 1: relax to tolerance; for Dirichlet, require the divergence identity too. */
@@ -1284,27 +1520,55 @@ export class LKSolver implements SurfaceOperator {
       let injection = 0;
       let surfaceExchange = 0;
       let minLocalSurfaceExchange: number | null = null;
+      let smootherDrift: number | null = null;
       let divergence = Infinity;
       while (sweeps < this.relaxMaxSweeps) {
-        const [maxAbs, inj, exchange, minLocal] = this.sweep(src, dst);
+        const [maxAbs, inj, exchange, minLocal, drift, driftLimit] = this.sweep(src, dst);
         sweeps++;
         residual = maxAbs / this.sigmaInfinity;
         injection = inj;
         surfaceExchange = exchange;
         minLocalSurfaceExchange = minLocal;
+        smootherDrift = drift;
+        if (
+          metersSmootherDrift(this.surfacePolicy) &&
+          (drift === null ||
+            !Number.isFinite(drift) ||
+            driftLimit === null ||
+            !Number.isFinite(driftLimit) ||
+            driftLimit < 0)
+        ) {
+          throw new Error(
+            `${this.surfacePolicy} smoother drift/bound must be finite: ` +
+              `drift=${String(drift)}, bound=${String(driftLimit)}`,
+          );
+        }
+        if (
+          metersSmootherDrift(this.surfacePolicy) &&
+          Math.abs(drift as number) > (driftLimit as number)
+        ) {
+          throw new Error(
+            `${this.surfacePolicy} smoother drift ${String(drift)} exceeds float64 roundoff bound ` +
+              `${String(driftLimit)}`,
+          );
+        }
+        const divergenceDifference =
+          metersSmootherDrift(this.surfacePolicy)
+            ? inj + (drift as number) - exchange
+            : inj - exchange;
         divergence =
-          this.farField === "dirichlet"
-            ? Math.abs(inj - exchange) / Math.max(Math.abs(exchange), 1e-300)
+          this.hasClampedShell
+            ? Math.abs(divergenceDifference) / Math.max(Math.abs(exchange), 1e-300)
             : 0;
         const tmp = src;
         src = dst;
         dst = tmp;
-        const divergenceSatisfied = this.farField !== "dirichlet" || divergence < this.divTol;
+        const divergenceSatisfied = !this.hasClampedShell || divergence < this.divTol;
         if (onProgress !== undefined && (sweeps === 1 || sweeps % 1024 === 0)) {
           onProgress({
             sweeps,
             residual,
-            divergenceResidual: this.farField === "dirichlet" ? divergence : null,
+            divergenceResidual: this.hasClampedShell ? divergence : null,
           });
         }
         // Fixed-sigma Dirichlet requires BOTH criteria. Reflecting is diagnostic-only and has
@@ -1314,18 +1578,18 @@ export class LKSolver implements SurfaceOperator {
       if (src !== this.sigma) this.sigma.set(src);
       const converged =
         residual < this.relaxTol &&
-        (this.farField !== "dirichlet" || divergence < this.divTol);
-      const scale = Math.max(Math.abs(surfaceExchange), 1e-300);
+        (!this.hasClampedShell || divergence < this.divTol);
       const report: RelaxationReport = {
         sweeps,
         residual,
         converged,
         // The divergence identity is only defined against the Dirichlet source; in the
         // reflecting diagnostic mode there is no source and the identity is not a claim.
-        divergenceResidual:
-          this.farField === "dirichlet" ? Math.abs(injection - surfaceExchange) / scale : null,
-        shellClampDiagnostic: this.farField === "dirichlet" ? injection : null,
+        divergenceResidual: this.hasClampedShell ? divergence : null,
+        shellClampDiagnostic: this.hasClampedShell ? injection : null,
         surfaceExchangeDiagnostic: surfaceExchange,
+        smootherDriftDiagnostic:
+          metersSmootherDrift(this.surfacePolicy) ? smootherDrift : null,
         minLocalSurfaceExchangeDiagnostic: minLocalSurfaceExchange,
       };
       this.lastRelaxation = report;
@@ -1341,7 +1605,7 @@ export class LKSolver implements SurfaceOperator {
   }
 
   /**
-   * §4.4 interface update. Aggregate v4 uses the cached Eq. 5.34 `(alphaHK,sigma_b)` pair
+   * §4.4 interface update. Aggregate v4/v5 use the cached Eq. 5.34 `(alphaHK,sigma_b)` pair
    * and H_b=1 once per boundary pixel. Legacy v3 retains its named per-contact formula.
    * The adaptive fill-CFL bounds the selected policy's per-cell kinetic increment.
    */
@@ -1379,12 +1643,45 @@ export class LKSolver implements SurfaceOperator {
         rate = (faceFactor * velocity) / this.dxM;
       } else {
         const velocity = this.boundaryAlphaHK[x] * this.vKinMS * this.boundarySigma[x];
-        rate = velocity / this.dxM; // H_b = 1 under aggregate-hv-g1h1-v4
+        rate = velocity / this.dxM; // H_b = 1 under aggregate-hv-g1h1-v4/v5/v6
       }
       rateArr[bi] = rate;
       if (rate > maxRate) maxRate = rate;
     }
     const stagedMaxFillVelocityMS = maxRate * this.dxM;
+
+    // ADR 0024 / monograph Eq. 5.31: dV/dt summed over surface boundary pixels. Each `rate` is
+    // already a fill FRACTION per second for one cell, so the sum times the per-site volume is
+    // a volume rate directly, with no dependence on the timestep the fill-CFL happens to pick.
+    //
+    // The per-site volume is derived from this project's own embedding, not transcribed: sites
+    // sit on a triangular lattice of unit nearest-neighbour spacing, whose Voronoi cell has
+    // area sqrt(3)/2, with unit layer spacing. The monograph's G_1 = 2/sqrt(3) is the same
+    // volume under its own convention, where Delta-x is the ROW spacing rather than the
+    // nearest-neighbour distance; the two differ by that convention alone.
+    // REGISTERED APPROXIMATION: this is the Hertz-Knudsen KINETIC DEMAND summed over boundary
+    // pixels, which is not identical to the volume the crystal actually gains this step. Two
+    // known differences, both bounded and both in the same direction:
+    //
+    //   - Fill that would exceed a cell is clipped, and the excess is recorded as unapplied
+    //     saturation rather than deposited, so demand >= applied fill wherever clipping bites.
+    //   - Hole filling adds volume that no boundary pixel's kinetic rate accounts for, so the
+    //     applied volume can exceed demand where holes close.
+    //
+    // Eq. 5.31 defines dV/dt as the sum over surface boundary pixels of single-pixel volume per
+    // attachment time, i.e. the kinetic demand — so using demand is the transcription, not a
+    // shortcut. It is recorded here because the monopole shell's correction is proportional to
+    // it: a systematic error in dV/dt is a systematic error in the far-field value, and the
+    // reader should not have to derive that from the loop. The correction itself is small (the
+    // shell sits within ~1% of sigma_infinity at the registered domain), so a few percent on
+    // dV/dt is a few percent of that.
+    let stagedVolumeRate = 0;
+    if (this.farField === "monopole-matched") {
+      let rateSum = 0;
+      for (let bi = 0; bi < nBoundary; bi++) rateSum += rateArr[bi];
+      const siteVolumeM3 = (Math.sqrt(3) / 2) * this.dxM * this.dxM * this.dxM;
+      stagedVolumeRate = rateSum * siteVolumeM3;
+    }
 
     const toAttach: number[] = [];
     let maxKineticFillIncrement = 0;
@@ -1432,6 +1729,7 @@ export class LKSolver implements SurfaceOperator {
     // Publish the diagnostic only after the complete interface update succeeds. A failed
     // update must continue to report the most recent completed update, never a staged value.
     this.lastMaxFillVelocityMS = stagedMaxFillVelocityMS;
+    this.volumeRateM3PerS = stagedVolumeRate;
 
     return {
       attachedNow: toAttach.length,
@@ -1536,8 +1834,8 @@ export class LKSolver implements SurfaceOperator {
     readonly robinGeometry: number;
     readonly fillGeometry: number;
   } {
-    if (this.surfacePolicy !== "aggregate-hv-g1h1-v4") {
-      throw new Error("boundaryState is defined only for aggregate-hv-g1h1-v4");
+    if (this.surfacePolicy === "legacy-v3") {
+      throw new Error("boundaryState is defined only for aggregate surface policies");
     }
     if (this.cycleState !== "ready") {
       throw new Error("boundaryState requires a currently accepted converged relaxation");

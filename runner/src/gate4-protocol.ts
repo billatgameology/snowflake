@@ -1169,50 +1169,87 @@ export function evaluateBTimeline(value: BTimelineMeasurements): Phase4Criterion
 }
 
 export interface ABranchMeasurements {
-  readonly branchCount: number;
-  readonly aspectRatio: number;
-  readonly finalTExtent: number;
-  readonly comparatorTargetTExtent: number;
-  readonly comparatorPreviousTExtent: number;
-  readonly comparatorFinalTExtent: number;
-  readonly comparatorStopReason: string;
-  readonly comparatorBranchCount: number;
-  readonly comparatorExecutionValid: boolean;
-  /** Hash of only the registered shared dims/domain/seed/noise/far-field configuration. */
-  readonly dendriteSharedConfigHash: string;
-  readonly comparatorSharedConfigHash: string;
+  readonly dendrite: ABranchRunMeasurements;
+  readonly comparator: ABranchRunMeasurements & {
+    readonly finalAttachedCount: number;
+    readonly nonemptyAttachmentDeltaCycles: number;
+  };
 }
 
-export const A_BRANCH_COMPARATOR_STOP_REASON = "t-extent-target";
+export interface ABranchRunMeasurements {
+  readonly rho: number;
+  readonly threshold: number;
+  readonly previousObservedCycle: number;
+  readonly previousMean: number;
+  readonly crossingObservedCycle: number;
+  readonly crossingMean: number;
+  readonly stopReason: string;
+  readonly finalTExtent: number;
+  readonly branchCount: number;
+  readonly aspectRatio: number;
+  readonly executionValid: boolean;
+  /** Hash of only the registered shared dims/domain/seed/noise/far-field configuration. */
+  readonly sharedConfigHash: string;
+}
 
 export function evaluateABranch(value: ABranchMeasurements): Phase4CriterionRecord<"A-BRANCH"> {
+  const runValid = (run: ABranchRunMeasurements): boolean =>
+    Number.isFinite(run.rho) && run.rho > 0 &&
+    Object.is(run.threshold, (2 * run.rho) / 3) &&
+    Number.isSafeInteger(run.previousObservedCycle) && run.previousObservedCycle >= 0 &&
+    Number.isFinite(run.previousMean) && run.previousMean >= run.threshold &&
+    Number.isSafeInteger(run.crossingObservedCycle) &&
+    run.crossingObservedCycle === run.previousObservedCycle + 25 &&
+    Number.isFinite(run.crossingMean) && run.crossingMean < run.threshold &&
+    run.stopReason === "far-field" &&
+    Number.isSafeInteger(run.finalTExtent) && run.finalTExtent > 0 &&
+    Number.isSafeInteger(run.branchCount) && !Object.is(run.branchCount, -0) &&
+    Number.isFinite(run.aspectRatio) && run.aspectRatio > 0 &&
+    run.executionValid === true &&
+    /^[0-9a-f]{64}$/.test(run.sharedConfigHash);
   const sharedConfigMatches =
-    /^[0-9a-f]{64}$/.test(value.dendriteSharedConfigHash) &&
-    value.dendriteSharedConfigHash === value.comparatorSharedConfigHash;
-  const firstCrossing =
-    Number.isSafeInteger(value.comparatorTargetTExtent) &&
-    value.comparatorTargetTExtent === value.finalTExtent &&
-    Number.isSafeInteger(value.comparatorPreviousTExtent) &&
-    value.comparatorPreviousTExtent > 0 &&
-    value.comparatorPreviousTExtent < value.finalTExtent &&
-    Number.isSafeInteger(value.comparatorFinalTExtent) &&
-    value.comparatorFinalTExtent >= value.finalTExtent &&
-    value.comparatorStopReason === A_BRANCH_COMPARATOR_STOP_REASON;
+    value.dendrite.sharedConfigHash === value.comparator.sharedConfigHash;
   const passed =
-    Number.isSafeInteger(value.branchCount) &&
-    value.branchCount >= 6 &&
-    Number.isFinite(value.aspectRatio) &&
-    value.aspectRatio > 0 &&
-    value.aspectRatio < 0.3 &&
-    Number.isSafeInteger(value.finalTExtent) &&
-    value.finalTExtent > 0 &&
-    firstCrossing &&
-    Number.isSafeInteger(value.comparatorBranchCount) &&
-    !Object.is(value.comparatorBranchCount, -0) &&
-    value.comparatorBranchCount === 0 &&
-    value.comparatorExecutionValid === true &&
+    runValid(value.dendrite) &&
+    runValid(value.comparator) &&
+    value.dendrite.branchCount >= 6 &&
+    value.dendrite.aspectRatio < 0.3 &&
+    value.comparator.branchCount === 0 &&
+    Number.isSafeInteger(value.comparator.finalAttachedCount) &&
+    value.comparator.finalAttachedCount > 19 &&
+    Number.isSafeInteger(value.comparator.nonemptyAttachmentDeltaCycles) &&
+    value.comparator.nonemptyAttachmentDeltaCycles >= 1 &&
     sharedConfigMatches;
-  return record("A-BRANCH", passed, passed ? "dendrite and live compact comparator pass" : "branch shape or raw same-size first-crossing comparator evidence fails", { branchCount: finiteOrNull(value.branchCount), aspectRatio: finiteOrNull(value.aspectRatio), finalTExtent: finiteOrNull(value.finalTExtent), comparatorTargetTExtent: finiteOrNull(value.comparatorTargetTExtent), comparatorPreviousTExtent: finiteOrNull(value.comparatorPreviousTExtent), comparatorFinalTExtent: finiteOrNull(value.comparatorFinalTExtent), comparatorStopReason: value.comparatorStopReason, comparatorBranchCount: finiteOrNull(value.comparatorBranchCount), firstCrossing, sharedConfigMatches });
+  return record("A-BRANCH", passed, passed ? "dendrite and independently reservoir-stopped compact comparator pass; extents are outcomes, not size matched" : "branch shape, independent reservoir crossing, compact growth, or shared execution evidence fails", {
+    dendriteRho: finiteOrNull(value.dendrite.rho),
+    dendriteThreshold: finiteOrNull(value.dendrite.threshold),
+    dendritePreviousObservedCycle: finiteOrNull(value.dendrite.previousObservedCycle),
+    dendritePreviousMean: finiteOrNull(value.dendrite.previousMean),
+    dendriteCrossingObservedCycle: finiteOrNull(value.dendrite.crossingObservedCycle),
+    dendriteCrossingMean: finiteOrNull(value.dendrite.crossingMean),
+    dendriteStopReason: value.dendrite.stopReason,
+    dendriteFinalTExtent: finiteOrNull(value.dendrite.finalTExtent),
+    dendriteBranchCount: finiteOrNull(value.dendrite.branchCount),
+    dendriteAspectRatio: finiteOrNull(value.dendrite.aspectRatio),
+    dendriteExecutionValid: value.dendrite.executionValid,
+    dendriteSharedConfigHash: value.dendrite.sharedConfigHash,
+    comparatorRho: finiteOrNull(value.comparator.rho),
+    comparatorThreshold: finiteOrNull(value.comparator.threshold),
+    comparatorPreviousObservedCycle: finiteOrNull(value.comparator.previousObservedCycle),
+    comparatorPreviousMean: finiteOrNull(value.comparator.previousMean),
+    comparatorCrossingObservedCycle: finiteOrNull(value.comparator.crossingObservedCycle),
+    comparatorCrossingMean: finiteOrNull(value.comparator.crossingMean),
+    comparatorStopReason: value.comparator.stopReason,
+    comparatorFinalTExtent: finiteOrNull(value.comparator.finalTExtent),
+    comparatorBranchCount: finiteOrNull(value.comparator.branchCount),
+    comparatorAspectRatio: finiteOrNull(value.comparator.aspectRatio),
+    comparatorExecutionValid: value.comparator.executionValid,
+    comparatorSharedConfigHash: value.comparator.sharedConfigHash,
+    comparatorFinalAttachedCount: finiteOrNull(value.comparator.finalAttachedCount),
+    comparatorNonemptyAttachmentDeltaCycles: finiteOrNull(value.comparator.nonemptyAttachmentDeltaCycles),
+    sharedConfigMatches,
+    sizeMatched: false,
+  });
 }
 
 export function evaluateBBranch(

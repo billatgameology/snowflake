@@ -7,15 +7,24 @@ import {
   alphaHK,
   cellCount,
   classifyFacet,
+  coordsOf,
+  domainCenter,
   hexDistance,
   isD6hInvariantSet,
+  isLKSurfacePolicy,
+  metersSmootherDrift,
+  mirror,
   randomBit,
   randomUnit,
+  rot60,
   symmetryError,
+  usesCanonicalOpposingOrder,
+  zmirror,
   GG_PRESETS,
   STREAM_NOISE_ALPHA_HK,
+  type LKSurfacePolicy,
 } from "@vcc/core";
-import { GGSolver, LKSolver } from "@vcc/solver-cpu";
+import { GGSolver, LKSolver, float64SmootherDriftAbsLimit } from "@vcc/solver-cpu";
 
 const devOptions = {
   surfacePolicy: "aggregate-hv-g1h1-v4",
@@ -151,6 +160,32 @@ function independentReflectingCandidate(
     }
   }
   return candidate;
+}
+
+function independentBlockCompensatedDifference(
+  candidate: Float64Array,
+  source: Float64Array,
+): number {
+  let block = 0;
+  let blockCount = 0;
+  let sum = 0;
+  let correction = 0;
+  const flush = (): void => {
+    if (blockCount === 0) return;
+    const next = sum + block;
+    if (Math.abs(sum) >= Math.abs(block)) correction += sum - next + block;
+    else correction += block - next + sum;
+    sum = next;
+    block = 0;
+    blockCount = 0;
+  };
+  for (let index = 0; index < source.length; index++) {
+    block += candidate[index] - source[index];
+    blockCount++;
+    if (blockCount === 256) flush();
+  }
+  flush();
+  return sum + correction;
 }
 
 describe("LKSolver — aggregate-hv-g1h1-v4 topology and boundary law (ADR 0009)", () => {
@@ -561,6 +596,127 @@ describe("LKSolver — Robin limits (§4.4 test 2)", () => {
 });
 
 describe("LKSolver — divergence identity (§4.4 test 3)", () => {
+  it("v5 closes a real float64 fixed-point floor and independently meters the drift", () => {
+    const controls = {
+      surfacePolicy: "aggregate-hv-g1h1-v5",
+      dims: { nx: 16, ny: 16, nz: 12 },
+      tempC: -15,
+      sigmaInfinity: 0.002,
+      dxUm: 0.35,
+      rngSeed: 1,
+      relaxTol: 1e-15,
+      divTol: 1e-12,
+      relaxMaxSweeps: 2_000,
+    } as const;
+    const v5 = new LKSolver(controls);
+    const v5Report = v5.relaxField();
+    expect(v5Report.converged).toBe(true);
+    expect(v5Report.residual).toBe(0);
+    expect(v5Report.smootherDriftDiagnostic).not.toBeNull();
+    expect(v5Report.smootherDriftDiagnostic).not.toBe(0);
+    expect(v5Report.divergenceResidual).toBe(0);
+    const rawV4Ratio = Math.abs(
+      (v5Report.shellClampDiagnostic as number) -
+        (v5Report.surfaceExchangeDiagnostic as number),
+    ) / Math.abs(v5Report.surfaceExchangeDiagnostic as number);
+    expect(rawV4Ratio).toBeGreaterThan(controls.divTol);
+
+    const fixedPoint = v5.sigma.slice();
+    const candidate = independentReflectingCandidate(v5, fixedPoint);
+    const independentDrift = independentBlockCompensatedDifference(candidate, fixedPoint);
+    expect(v5Report.smootherDriftDiagnostic).toBe(independentDrift);
+    const maxAbsFixedPoint = fixedPoint.reduce(
+      (maximum, value) => Math.max(maximum, Math.abs(value)),
+      0,
+    );
+    expect(Math.abs(independentDrift)).toBeLessThanOrEqual(
+      float64SmootherDriftAbsLimit(v5.activeCellCount, maxAbsFixedPoint),
+    );
+    expect(
+      Math.abs(
+        (v5Report.shellClampDiagnostic as number) + independentDrift -
+          (v5Report.surfaceExchangeDiagnostic as number),
+      ),
+    ).toBe(0);
+  });
+
+  it("rejects a coherently identity-canceling drift outside the float64 bound", () => {
+    const solver = new LKSolver({
+      ...devOptions,
+      surfacePolicy: "aggregate-hv-g1h1-v5",
+      relaxMaxSweeps: 1,
+    });
+    const internals = solver as unknown as {
+      sweepAggregate(
+        source: Float64Array,
+        destination: Float64Array,
+      ): [number, number, number, number, number | null, number | null];
+    };
+    internals.sweepAggregate = () => [0, 1, 1e-6, 0, -0.999999, 1e-9];
+
+    expect(() => solver.relaxField()).toThrow(/exceeds float64 roundoff bound/);
+  });
+
+  it("keeps the operation-count bound nonzero for an accepted subnormal field", () => {
+    const dims = { nx: 8, ny: 8, nz: 8 } as const;
+    const center = [4, 4, 4] as const;
+    const solver = new LKSolver({
+      surfacePolicy: "aggregate-hv-g1h1-v5",
+      dims,
+      center,
+      tempC: -15,
+      sigmaInfinity: 1e-320,
+      dxUm: 0.35,
+      rngSeed: 1,
+      relaxTol: 1,
+      divTol: 1,
+      relaxMaxSweeps: 1,
+      seedRadius: null,
+      testExtraSeedSites: [
+        indexOf(4, 4, 4, dims),
+        indexOf(5, 4, 4, dims),
+        indexOf(4, 5, 4, dims),
+      ],
+    });
+
+    const bound = float64SmootherDriftAbsLimit(solver.activeCellCount, 1e-320);
+    expect(bound).toBeGreaterThan(0);
+    const report = solver.relaxField();
+    expect(report.smootherDriftDiagnostic).not.toBeNull();
+    expect(Math.abs(report.smootherDriftDiagnostic as number)).toBeLessThanOrEqual(bound);
+  });
+
+  it("v5 leaves the v4 one-sweep field arithmetic bit-identical", () => {
+    const controls = {
+      dims: { nx: 16, ny: 16, nz: 12 },
+      tempC: -15,
+      sigmaInfinity: 0.002,
+      dxUm: 0.35,
+      rngSeed: 1,
+      relaxTol: 1,
+      divTol: 1,
+      relaxMaxSweeps: 1,
+    } as const;
+    const v4 = new LKSolver({ ...controls, surfacePolicy: "aggregate-hv-g1h1-v4" });
+    const v5 = new LKSolver({ ...controls, surfacePolicy: "aggregate-hv-g1h1-v5" });
+    for (let index = 0; index < v4.sigma.length; index++) {
+      if (v4.a[index] === 0 && v4.wall[index] === 0) {
+        const value = 0.0002 + ((index * 37) % 101) * 0.000015;
+        v4.sigma[index] = value;
+        v5.sigma[index] = value;
+      }
+    }
+
+    const v4Report = v4.relaxField();
+    const v5Report = v5.relaxField();
+
+    expect(v4Report.sweeps).toBe(1);
+    expect(v5Report.sweeps).toBe(1);
+    expect(v4Report.smootherDriftDiagnostic).toBeNull();
+    expect(v5Report.smootherDriftDiagnostic).not.toBeNull();
+    expect(v5.sigma).toEqual(v4.sigma);
+  });
+
   it("at convergence, Dirichlet injection equals signed net boundary exchange", () => {
     // The identity is exact at the true fixed point; at a field converged to relaxTol it
     // holds to ~1e3 x relaxTol (the per-sweep-change criterion under-reports distance to
@@ -908,4 +1064,143 @@ describe("LKSolver — growth, determinism, symmetry", () => {
     expect(solver.attachedCount).toBeGreaterThan(19);
   });
 
+});
+
+// ── ADR 0023: D6h equivariance of the Eq. 5.35 opposing-vapor mean ──────────────────────────
+//
+// V4/v5 accumulate the opposing operands in lattice-direction gather order. rot60 permutes
+// those positions by the cycle (1 3 6 2 4 5), which is not order-preserving, so from three
+// operands up the same multiset is summed in a different order at a cell and at its image —
+// and float64 addition is not associative. V6 sums in ascending value order, which is a
+// function of the multiset alone.
+
+describe("opposing-vapor mean, D6h equivariance", () => {
+  const dims = { nx: 16, ny: 16, nz: 16 } as const;
+  const center = domainCenter(dims);
+  const [ic, jc, kc] = center;
+
+  const equivariantOptions = {
+    dims,
+    center,
+    tempC: -5,
+    sigmaInfinity: 0.025,
+    dxUm: 0.35,
+    pressurePa: 101325,
+    paramSet: "CAK_A1",
+    cflFill: 0.1,
+    relaxTol: 1e-8,
+    divTol: 1e-6,
+    relaxMaxSweeps: 200000,
+    rngSeed: 1,
+    noiseEpsilon: 0,
+    domain: "hexPrism",
+    farField: "dirichlet",
+    seedRadius: 2,
+    seedThickness: 1,
+  } as const;
+
+  /** Generator images of `index` that stay inside the domain. */
+  function images(index: number): number[] {
+    const [i, j, k] = coordsOf(dims, index);
+    const inside = (a: number, b: number, c: number): boolean =>
+      a >= 0 && a < dims.nx && b >= 0 && b < dims.ny && c >= 0 && c < dims.nz;
+    const out: number[] = [];
+    const [ri, rj] = rot60(i, j, ic, jc);
+    const [mi, mj] = mirror(i, j, ic, jc);
+    const zk = zmirror(k, kc);
+    if (inside(ri, rj, k)) out.push(indexOf(ri, rj, k, dims));
+    if (inside(mi, mj, k)) out.push(indexOf(mi, mj, k, dims));
+    if (inside(i, j, zk)) out.push(indexOf(i, j, zk, dims));
+    return out;
+  }
+
+  interface OpposingInternals {
+    readonly boundaryList: readonly number[];
+    readonly boundarySigmaOpp: Float64Array;
+  }
+
+  /** Number of boundary cells whose cached opposing mean differs from a generator image. */
+  function opposingBreaks(solver: LKSolver): number {
+    const internals = solver as unknown as OpposingInternals;
+    let broken = 0;
+    for (const x of internals.boundaryList) {
+      for (const y of images(x)) {
+        if (internals.boundarySigmaOpp[y] !== internals.boundarySigmaOpp[x]) {
+          broken++;
+          break;
+        }
+      }
+    }
+    return broken;
+  }
+
+  /** Cells whose field value differs from a generator image. */
+  function fieldBreaks(field: Float64Array | Uint8Array): number {
+    let broken = 0;
+    for (let x = 0; x < cellCount(dims); x++) {
+      for (const y of images(x)) {
+        if (field[y] !== field[x]) {
+          broken++;
+          break;
+        }
+      }
+    }
+    return broken;
+  }
+
+  it("v5 breaks equivariance in the cached opposing mean while its smoother stays exact", () => {
+    const solver = new LKSolver({ ...equivariantOptions, surfacePolicy: "aggregate-hv-g1h1-v5" });
+    let firstBreak = -1;
+    for (let t = 1; t <= 20 && firstBreak < 0; t++) {
+      solver.relaxField();
+      if (opposingBreaks(solver) > 0) firstBreak = t;
+      else solver.advanceSurface();
+    }
+    // Pins the registered defect: v5 must keep breaking exactly as its executed evidence did.
+    expect(firstBreak).toBe(14);
+    // The in-plane smoother's sorted pair summation is already equivariant, so the break is
+    // attributable to the boundary operator alone and not to the diffusion kernel.
+    const smootherOutput = (solver as unknown as { readonly scratch1: Float64Array }).scratch1;
+    expect(fieldBreaks(smootherOutput)).toBe(0);
+  });
+
+  it("v6 holds the opposing mean, the field and the attached set exactly D6h-invariant", () => {
+    const solver = new LKSolver({ ...equivariantOptions, surfacePolicy: "aggregate-hv-g1h1-v6" });
+    for (let t = 1; t <= 40; t++) {
+      solver.relaxField();
+      expect(opposingBreaks(solver)).toBe(0);
+      solver.advanceSurface();
+      expect(isD6hInvariantSet(solver.lastAttached, dims, center)).toBe(true);
+    }
+    expect(fieldBreaks(solver.sigma)).toBe(0);
+    expect(fieldBreaks(solver.f)).toBe(0);
+    expect(fieldBreaks(solver.a)).toBe(0);
+    expect(symmetryError(solver.a, dims, center)).toBe(0);
+    expect(solver.attachedCount).toBeGreaterThan(19);
+  });
+
+  it("v6 is an ordering change only: it reaches the same state v5 does at this scale", () => {
+    const grow = (surfacePolicy: LKSurfacePolicy): LKSolver => {
+      const solver = new LKSolver({ ...equivariantOptions, surfacePolicy });
+      for (let t = 1; t <= 40; t++) solver.step();
+      return solver;
+    };
+    const v5 = grow("aggregate-hv-g1h1-v5");
+    const v6 = grow("aggregate-hv-g1h1-v6");
+    expect(v5.attachedCount).toBe(165);
+    expect(v6.attachedCount).toBe(165);
+    expect(Array.from(v6.a)).toEqual(Array.from(v5.a));
+  });
+
+  it("v6 inherits the v5 drift identity and v4/legacy-v3 still do not meter drift", () => {
+    expect(metersSmootherDrift("aggregate-hv-g1h1-v6")).toBe(true);
+    expect(metersSmootherDrift("aggregate-hv-g1h1-v5")).toBe(true);
+    expect(metersSmootherDrift("aggregate-hv-g1h1-v4")).toBe(false);
+    expect(metersSmootherDrift("legacy-v3")).toBe(false);
+    expect(usesCanonicalOpposingOrder("aggregate-hv-g1h1-v6")).toBe(true);
+    expect(usesCanonicalOpposingOrder("aggregate-hv-g1h1-v5")).toBe(false);
+    expect(usesCanonicalOpposingOrder("aggregate-hv-g1h1-v4")).toBe(false);
+    expect(isLKSurfacePolicy("aggregate-hv-g1h1-v6")).toBe(true);
+    expect(isLKSurfacePolicy("aggregate-hv-g1h1-v7")).toBe(false);
+  });
 });

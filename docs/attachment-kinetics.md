@@ -141,7 +141,7 @@ attach when f(x) ≥ 1
 ```
 
 *(Forward formula corrected by decision 0009 after the v3 source audit. The selected surface
-policy supplies the aggregate boundary value and geometry; `aggregate-hv-g1h1-v4` uses the
+policy supplies the aggregate boundary value and geometry; aggregate v4 and v5 use the
 cited `G_b = H_b = 1` on `[01]` and `[20]` and a labeled P4 unit extension elsewhere.
 Decision 0006's per-contact expression remains the executed `legacy-v3` formula. §4.4
 components 3–4 are governing; this section is the pedagogical intro.)*
@@ -211,11 +211,15 @@ The formulation, per rule:
   between growth steps iterate the smoother
   (Jacobi is the baseline; accelerated elliptic solvers are permitted later) until a stated
   **residual norm** (e.g. relative max-residual of the discrete Laplacian with the surface
-  condition applied) falls below a stated **tolerance** AND the **divergence identity** of the
+  condition applied) falls below a stated **tolerance** AND the **policy-versioned divergence identity** of the
   solve is under its own stated tolerance — convergence is DUAL *(decision 0006, synced here
   round-5: this bullet previously stated the residual alone, which was measured passing
   fields whose shell-vs-sink imbalance grew with domain size)* — with convergence tests in
-  the suite. The reflecting mode is diagnostic-only: it has no far-field injection and therefore
+  the suite. Under aggregate v5, the identity is
+  `|shell injection + float64 smoother drift − boundary exchange| / |boundary exchange|`;
+  the drift is independently metered before boundary replacement and clamp, and is zero in exact
+  arithmetic (decision 0013). Legacy-v3 and aggregate-v4 retain their executed two-term identity.
+  The reflecting mode is diagnostic-only: it has no far-field injection and therefore
   makes no divergence-identity claim; there convergence is residual-only. The iteration count is
   an *output*, not a target.
 
@@ -250,8 +254,8 @@ reflecting smoother and replace each boundary-pixel value with the self-consiste
 condition `sigma_b = sigma_opp/(1 + alphaHK·G_b·Δx/X_0)`, iterating until BOTH the field
 residual and the divergence identity are under their stated tolerances, then hold the far shell
 at fixed σ; (2) classify the boundary pixel from raw `(n_T,n_Z)` under the checkpointed surface
-policy—`[01]` basal, `[20]` prism, `[10]` inhibited in
-`aggregate-hv-g1h1-v4`; (3) use the same converged `(alphaHK,sigma_b)` pair to advance the
+policy—`[01]` basal, `[20]` prism, `[10]` inhibited in aggregate v4 and v5; (3) use the same
+converged `(alphaHK,sigma_b)` pair to advance the
 pixel's fill by `alphaHK·v_kin·sigma_b·Δt/(H_b·Δx)`, with the source's `G_b = H_b = 1` on
 both primary facets and a labeled P4 unit extension elsewhere; (4) attach cells reaching
 `f ≥ 1` simultaneously from start-of-step state and record any saturation-clipped excess;
@@ -340,7 +344,7 @@ temperature-independent `alphaHK = 1` to all 12 straight prism-facet cells from 
 the maximum at `[30]` was 0.645. This diagnostic supports rough-path domination, while the
 gate result itself establishes only identical final attached morphology for the pinned v3 run.
 
-**Forward policy adopted 2026-07-16 by decision 0009.** `aggregate-hv-g1h1-v4` validates raw
+**Aggregate surface policy adopted 2026-07-16 by decision 0009.** Aggregate v4 and v5 validate raw
 integer `n_T in [0,6]`, `n_Z in [0,2]`, rejects non-boundary `[00]`, and applies this exhaustive
 nearest-neighbor closure:
 
@@ -384,7 +388,7 @@ Continuous statement (monograph Eqs. 3.7–3.10): diffusive resupply equals kine
 the kinetic length (Table 2.1: `X_0 ≈ 0.145 µm` in air at −15 °C, 1 atm). Growth then follows
 `v_n = alphaHK · v_kin · sigma_surf` — the same equation system, never two mechanisms.
 
-**Forward discrete scheme (`aggregate-hv-g1h1-v4`, decision 0009).** For each attached-neighbor
+**Aggregate discrete scheme (v4/v5, decisions 0009 and 0013).** For each attached-neighbor
 direction `d` of boundary pixel `x`, the cell at `x-d` is nominated as an opposing pixel.
 Eq. 5.35's mask retains unique active unattached vapor pixels; `sigma_opp` is their arithmetic
 mean, or zero when the mask is empty. A primary `[01]` or `[20]` pixel has exactly `H+V`
@@ -405,7 +409,10 @@ have either sign: low tangential neighbors can make the reflecting candidate sma
 `sigma_b`. Because σ is a potential, that signed local delta is relaxation redistribution, not
 physical uptake, and is never clamped or deposited. The globally summed
 `surfaceExchangeDiagnostic` is the net numerical boundary exchange; the convergence identity
-compares that signed total with the far-shell injection, and the gate requires both totals
+for aggregate v5 compares that signed total with far-shell injection plus the independently
+metered signed float64 reflecting-smoother drift. Exact arithmetic makes the drift zero; it is a
+numerical diagnostic, not uptake, and may not be inferred from the other terms (decision 0013).
+Executed aggregate v4 compares the two original terms. The gate requires source and exchange
 positive on its positive-demand runs. The nonnegative physical kinetic demand remains the
 separate `alphaHK·v_kin·sigma_b/(H_b·Δx)` ledger quantity; no equality with the relaxation
 diagnostic is promised. An unequal-neighbor negative control pins this distinction. The last
@@ -486,9 +493,19 @@ only surface exchange path, which makes a second uptake mechanism structurally i
 (ADR 0005's disease).
 The converged field determines Hertz–Knudsen kinetic demand; only the part placed into `f`
 advances ice, while saturation excess remains recorded and unapplied (component 4). The
-**solve-consistency test** is the divergence identity of the converged Dirichlet solve: the final sweep's shell-clamp
-injection must equal that same sweep's **signed net numerical surface-boundary exchange** to a
-stated relative tolerance. Local replacement deltas may have either sign and are not uptake.
+**solve-consistency test** is the policy-versioned divergence identity of the converged Dirichlet
+solve. Under aggregate v5, the final sweep's shell-clamp injection plus the independently metered
+signed float64 reflecting-smoother drift must equal that sweep's **signed net numerical
+surface-boundary exchange** to a stated relative tolerance. Under exact arithmetic the drift is
+zero, recovering the executed legacy-v3/aggregate-v4 two-term identity. Local replacement deltas
+may have either sign and are not uptake.
+The drift must separately satisfy decision 0014's absolute float64 bound
+`1024 * activeCellCount * max(Number.EPSILON * maxAbsSweepInput, Number.MIN_VALUE)` for a
+nonzero field; an exact zero field has a zero bound. The minimum-subnormal floor prevents the
+relative product itself from underflowing while rounded stencil operations remain nonzero. The registered positive,
+fixed-temperature gate independently substitutes `sigma_infinity` for `maxAbsSweepInput` by the
+discrete maximum principle. A finite or identity-canceling term outside that bound is a smoother
+failure, not convergence.
 Comparing
 that numerical exchange with reconstructed kinetic demand is a separate discretization diagnostic; it
 is not the divergence identity. A Dirichlet solve that fails the identity is not converged,
@@ -520,7 +537,7 @@ folded into the *measured* `sigma_0(T)`/`A(T)` (§5), not into a simulated mass 
 Forward update rule, per growth step, simultaneous across the boundary (start-of-step
 `(n_T,n_Z)` and field):
 `Δf = min(alphaHK·v_kin·sigma_b·Δt/(H_b·Δx), 1 − f)`, with `H_b = 1` under
-`aggregate-hv-g1h1-v4` (source-explicit on `[01]`/`[20]`, P4 elsewhere). The executed
+aggregate v4/v5 (source-explicit on `[01]`/`[20]`, P4 elsewhere). The executed
 legacy-v3 rule was
 `min([(2/3)·n_T+n_Z]·alphaHK·v_kin·sigma_face·Δt/Δx, 1−f)` and is retained only for decoding
 and reproducing its named policy. The active rule is truncated at saturation so the ledger
@@ -572,9 +589,12 @@ The corrected claims, each measurable:
   (3.50%); the cold run recorded 151.133 out of 2145.874 + 151.133 (6.58%). Those nonzero fractions justify a controlled event-limited
   differential, but they do not identify clipping as the cause of the habit failure. Do not
   bundle this change with the classifier/geometry correction merely to force a pass.
-- **Solve self-consistency = the divergence identity** (component 3): at convergence,
-  per-sweep shell clamp equals the signed net numerical surface-boundary exchange (the
-  reflecting interior kernel conserves), to
+- **Solve self-consistency = the divergence identity** (component 3): at aggregate-v5
+  convergence, per-sweep shell clamp plus the independently metered signed float64 smoother drift
+  equals the signed net numerical surface-boundary exchange. The reflecting interior kernel
+  conserves in exact arithmetic, where the added term is zero; metering its actual float64 drift
+  prevents an absolute `~1e-13` stencil floor from being magnified at weak exchange (decision
+  0013). Executed legacy-v3 and aggregate-v4 retain the two-term identity, to
   a tolerance that scales with the relaxation tolerance. This is the quasi-static statement
   that the global numerical boundary updates balance. Local signed exchange is not uptake;
   per-sweep clamp totals are
@@ -639,7 +659,7 @@ habit claim:
 
 1. **Bit-identity:** `GGThreshold` behind `SurfaceOperator` reproduces every Phase 2a gate
    bit-identically (pinned engine). This is the refactor gate — no physics lands before it.
-2. **Boundary-law limits:** under `aggregate-hv-g1h1-v4`, independently enumerate opposing
+2. **Boundary-law limits:** under aggregate v4/v5, independently enumerate opposing
    pixels (including unequal `[20]` values), verify the nonlinear Eq. 5.34 residual, and show
    planar `[01]` and `[20]` recover the same `G_b=H_b=1` normal law. With `alphaHK ≡ 0`,
    `sigma_b = sigma_opp`, kinetic demand and growth are zero (signed numerical exchange may
@@ -685,7 +705,14 @@ habit claim:
 State these plainly; they are the honest limits of the v1 physics, and they belong in any writeup:
 
 - **Latent heat transport.** Deposition warms the surface; the model ignores it. Inherited from
-  G-G, accepted (charter §2.6).
+  G-G, accepted (charter §2.6). **Magnitude, recorded 2026-07-26 rather than left qualitative:**
+  the monograph puts the heating parameter at `chi_0 ≈ 0.8` at −1 °C and `≈ 0.4` at −10 °C,
+  falling with colder temperatures, and prints the first-order fix inside our existing model —
+  in the diffusion-limited regime `v_n ∝ sigma_inf/(1 + chi_0)`, so ignoring heating
+  overestimates diffusion-limited growth by roughly 40–80% on the warm side. Kinetics-limited
+  growth (where every gate run so far sits) is essentially unaffected; the source says so
+  directly. Anchors and citation: `libbrecht-parameters.md` §7. Whether Phase 6 applies this as
+  a labelled correction or carries it as a stated systematic is a protocol-freeze decision.
 - **The Gibbs–Thomson effect** (added 2026-07-15 with §4.4). Curvature raises the equilibrium
   vapor pressure; the monograph calls it minor and calculable (`d_sv ≈ 1 nm`, Appendix A) and
   uses it in the SDAK edge argument. v1 omits the curvature correction to `sigma_surf` —

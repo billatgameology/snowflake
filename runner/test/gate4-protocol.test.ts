@@ -1061,29 +1061,53 @@ describe("Phase 4 cap/timeline validators", () => {
 });
 
 describe("Phase 4 branch validators", () => {
-  it("requires raw first-crossing evidence and permits a simultaneous-batch overshoot", () => {
-    const passing = {
+  it("binds independent reservoir crossings, compact growth, and permits unequal outcome extents", () => {
+    const run = {
+      rho: 0.105,
+      threshold: (2 * 0.105) / 3,
+      previousObservedCycle: 100,
+      previousMean: 0.08,
+      crossingObservedCycle: 125,
+      crossingMean: 0.06,
+      stopReason: "far-field",
+      finalTExtent: 40,
       branchCount: 6,
       aspectRatio: 0.2,
-      finalTExtent: 40,
-      comparatorTargetTExtent: 40,
-      comparatorPreviousTExtent: 39,
-      comparatorFinalTExtent: 42,
-      comparatorStopReason: "t-extent-target",
-      comparatorBranchCount: 0,
-      comparatorExecutionValid: true,
-      dendriteSharedConfigHash: "c".repeat(64),
-      comparatorSharedConfigHash: "c".repeat(64),
+      executionValid: true,
+      sharedConfigHash: "c".repeat(64),
+    };
+    const passing = {
+      dendrite: run,
+      comparator: {
+        ...run,
+        rho: 0.1,
+        threshold: (2 * 0.1) / 3,
+        previousMean: 0.07,
+        crossingMean: 0.05,
+        finalTExtent: 31,
+        branchCount: 0,
+        aspectRatio: 0.5,
+        finalAttachedCount: 20,
+        nonemptyAttachmentDeltaCycles: 1,
+      },
     };
     expect(evaluateABranch(passing).passed).toBe(true);
-    expect(evaluateABranch({ ...passing, comparatorPreviousTExtent: 40 }).passed).toBe(false);
-    expect(evaluateABranch({ ...passing, comparatorFinalTExtent: 39 }).passed).toBe(false);
-    expect(evaluateABranch({ ...passing, comparatorTargetTExtent: 41 }).passed).toBe(false);
-    expect(evaluateABranch({ ...passing, comparatorStopReason: "far-field" }).passed).toBe(false);
+    expect(evaluateABranch({ ...passing, dendrite: { ...run, branchCount: 5 } }).passed).toBe(false);
+    expect(evaluateABranch({ ...passing, dendrite: { ...run, aspectRatio: 0.3 } }).passed).toBe(false);
+    expect(evaluateABranch({ ...passing, comparator: { ...passing.comparator, branchCount: 1 } }).passed).toBe(false);
+    expect(evaluateABranch({ ...passing, comparator: { ...passing.comparator, finalAttachedCount: 19 } }).passed).toBe(false);
+    expect(evaluateABranch({ ...passing, comparator: { ...passing.comparator, nonemptyAttachmentDeltaCycles: 0 } }).passed).toBe(false);
+    expect(evaluateABranch({ ...passing, comparator: { ...passing.comparator, stopReason: "step-cap" } }).passed).toBe(false);
+    expect(evaluateABranch({ ...passing, comparator: { ...passing.comparator, stopReason: "t-extent-target" } }).passed).toBe(false);
+    expect(evaluateABranch({ ...passing, comparator: { ...passing.comparator, threshold: 0.07 } }).passed).toBe(false);
+    expect(evaluateABranch({ ...passing, comparator: { ...passing.comparator, rho: 0.11 } }).passed).toBe(false);
+    expect(evaluateABranch({ ...passing, comparator: { ...passing.comparator, previousObservedCycle: 99 } }).passed).toBe(false);
+    expect(evaluateABranch({ ...passing, comparator: { ...passing.comparator, previousMean: 0.05 } }).passed).toBe(false);
+    expect(evaluateABranch({ ...passing, comparator: { ...passing.comparator, crossingObservedCycle: 150 } }).passed).toBe(false);
+    expect(evaluateABranch({ ...passing, comparator: { ...passing.comparator, crossingMean: 0.08 } }).passed).toBe(false);
     expect(
-      evaluateABranch({ ...passing, comparatorSharedConfigHash: "d".repeat(64) }).passed,
+      evaluateABranch({ ...passing, comparator: { ...passing.comparator, sharedConfigHash: "d".repeat(64) } }).passed,
     ).toBe(false);
-    expect(evaluateABranch({ ...passing, comparatorBranchCount: 1 }).passed).toBe(false);
   });
 
   it("keeps the B branch miss diagnostic", () => {

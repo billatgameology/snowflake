@@ -116,19 +116,61 @@ dimensionless field rather than a reuse of G-G boundary mass `b`.
 ## Phase 2b numerical contract — do not regress
 
 The concise contract below is a navigation aid. The equations and rationale live in
-`docs/attachment-kinetics.md` §4.4 and ADRs 0005–0006 and 0009.
+`docs/attachment-kinetics.md` §4.4 and ADRs 0005–0006, 0009, and 0013.
 
 - Fixed-σ Dirichlet physics runs converge only when **both** the iterate residual and discrete
   divergence identity pass their stated tolerances. Reflecting LK is residual-only,
   diagnostic-only, and cannot support a physical gate claim.
-- Every forward run names the coupled `surfacePolicy`. Under `aggregate-hv-g1h1-v4`, `[01]`
+- Under `aggregate-hv-g1h1-v5` and `-v6`, the divergence numerator is shell injection plus the
+  directly metered signed float64 reflecting-smoother drift minus signed boundary exchange. The
+  drift is measured before boundary replacement/clamp, is zero in exact arithmetic, and is never
+  inferred from the other terms or called vapor. Legacy-v3 and aggregate-v4 keep their executed
+  two-term identity (decision 0013). Ask `metersSmootherDrift(policy)`; never re-spell the
+  comparison, because a fifth policy added to one site and missed at another is the failure mode.
+- **Anything a D6h generator maps onto itself must be computed so that the invariance survives
+  evaluation, not merely so that it holds in exact arithmetic** (gg-solver determinism decision
+  2; ADRs 0023 and 0024). This has now been got wrong twice, in two different ways, so it is
+  stated in the general form and both instances are named below. The cheapest guarantee is to
+  key the value to something the group preserves *exactly* — a multiset, or an integer.
+  - **Reductions over a permuted neighborhood** must be a function of the multiset, not of the
+    enumeration order (ADR 0023). Float addition is not associative, so a fixed direction order
+    makes a cell and its image round differently.
+  - **Geometric quantities must be keyed to an integer invariant, not to evaluated cartesian
+    floats** (ADR 0024). The distance from the centre is equal across an orbit in exact
+    arithmetic, but `sqrt(dx² + dy² + dz²)` on the embedded coordinates differs by up to ~7e-15
+    between equivalent cells. Use the integer form `di² + di·dj + dj² + dk²`, which rot60 and
+    mirror preserve exactly.
+
+  Either way, growth amplifies the ulp until an orbit splits, and a larger fill-CFL amplifies it
+  faster — the ADR 0024 break was invisible at `cfl = 0.1` and obvious at `0.2`, so a symmetry
+  regression test that does not run at the largest admissible step is not testing much.
+
+  Audited 2026-07-26: the remaining float-geometry sites (`Math.hypot` in `core/src/metrics.ts`,
+  for `centerRimDepletion` and `boundingRadius`) are REPORTED DIAGNOSTICS that never feed back
+  into the evolution, so they cannot break the crystal's symmetry. If any of them is ever wired
+  into the solver's own decisions, it inherits this rule. The in-plane smoother
+  discharges this by summing opposite-direction pairs then adding the three pair sums sorted.
+  ADR 0009's aggregate boundary operator did **not** inherit the rule: v4 and v5 sum the Eq. 5.35
+  opposing-vapor operands in gather order and are therefore not D6h-equivariant, so a noise-off
+  `symErr = 0` under them means only "did not stop mid-split". `aggregate-hv-g1h1-v6` is v5 with
+  those operands summed in ascending value order and is the policy Phase 6 registers; v4 and v5
+  stay bit-unchanged because Phase 4b and Phase 2b evidence was produced under them, and the
+  runner's default stays v5. The WGSL kernel is still gather-order and the GPU LK entry points
+  refuse any policy but v5 — do not relax that refusal without porting the shader.
+- Aggregate-v5/v6 drift must also satisfy decision 0014's absolute roundoff bound. For a nonzero
+  field it is `1024 * activeCellCount * max(Number.EPSILON * maxAbsSweepInput,
+  Number.MIN_VALUE)`; an exact zero field has a zero bound. The minimum-subnormal ULP floor keeps
+  accepted subnormal fields covered. The positive fixed-temperature gate derives its independent
+  bound with `sigmaInfinity`; a finite or coherently canceling term outside the bound is a solver
+  failure, never accepted convergence.
+- Every forward run names the coupled `surfacePolicy`. Under aggregate v4, v5 and v6, `[01]`
   is basal, `[20]` is prism, `[10]` is inhibited, and other valid raw configurations follow the
   explicit P4 closure in §4.4. Do not restore v3's `[10]`-prism / `[20]`-rough mapping.
 - The same self-consistent aggregate `sigma_b` solution defines the surface boundary condition
   and Hertz–Knudsen kinetic demand. Signed local relaxation exchange may be negative and is a
   numerical potential diagnostic, never uptake or fill. Never restore cell-value or inward-ghost
   growth sampling as a second, inconsistent path.
-- V4 fill is accumulated once per boundary pixel:
+- Aggregate fill (v4, v5, v6) is accumulated once per boundary pixel:
   `alphaHK * vKin * sigmaB * dt / (hB * dx)`, with source-cited `G_b = H_b = 1` on `[01]`
   and `[20]` and a labeled P4 unit extension elsewhere. The fill-CFL binds the per-cell kinetic
   increment; hole-fill events are outside that bound and reported separately. The per-contact
@@ -173,6 +215,22 @@ Decision 0011 resolves the timeline seam left open by decision 0005 D5:
   Resumable mid-history checkpoints require a new version and decision.
 
 ## Commands and evidence semantics
+
+### Local execution host and operator preference
+
+- The primary Windows execution host has an AMD Ryzen 7 5700G (8 physical cores / 16 logical
+  processors), 64 GB RAM (63.8 GB usable), an NVIDIA GeForce RTX 3080 with 10 GB dedicated VRAM,
+  and multiple NVMe SSDs. Prefer an NVMe-backed workspace for long evidence runs.
+- Run independent cases, temperature points, sweeps, and other scientifically separable jobs in
+  parallel processes whenever the registered protocol and available memory allow it. Preserve
+  deterministic per-case semantics and never alter a pre-registered protocol merely to increase
+  concurrency.
+- The current float64 CPU oracle is effectively single-threaded per process, so exploit the host
+  primarily by running independent cases as separate Node processes. Do not route solver work to
+  the GPU before its charter phase and comparison gate authorize that implementation.
+- For parallel background runs, write clearly labeled live logs plus separate error and exit-status
+  files. Unless the operator asks for narration, report only those paths so they can inspect the
+  run directly.
 
 ```text
 npm test
@@ -260,6 +318,11 @@ numbered decision record (context, decision, consequences, alternatives), and up
 charter itself in the same session so the two never drift. Never let a decision live only in a
 chat transcript or a code comment.
 
+An ADR must quote verbatim every charter clause it touches — and a "charter impact: none"
+claim must quote the clauses that make it none. Paid for once: ADR 0024 declared no charter
+impact while §2.4 literally mandated the far-field condition it replaced; the contradiction
+sat unnoticed until an outside review and cost ADR 0027 plus charter v1.17 to repair.
+
 ## Rule 6 — Claims are cheap; evidence is the deliverable
 
 This project's identity is epistemic honesty (charter §1.5), and it applies to the docs too.
@@ -270,6 +333,11 @@ Scientific milestones are **automated metrics, not screenshots** (§3.3). So:
 - Never write a physical claim the model hasn't earned. The confidence-level discipline in
   §1.5 governs prose in the docs exactly as it governs UI labels.
 - "Looks right" is not a result. If you eyeballed it, write that you eyeballed it.
+- Every number written into `PROGRESS.md` or a plan is copied from a named artifact **at
+  write time**, with that artifact's path or hash beside it — never quoted from memory or an
+  earlier prose mention. When a bundle is superseded, correct its quoted numbers in the same
+  session; at least three review rounds have been spent entirely on stale prose quotes (a
+  recomputed p99, superseded bundle measurements, a wrong file count).
 
 ## Rule 7 — A bare `alpha` is banned from this repository
 
@@ -304,6 +372,45 @@ act on cold: the next concrete action, the file to open, the command to run, and
 already know about. Write it for someone with no memory of today — because that is exactly who
 reads it.
 
+## Rule 9 — A verdict is computed from the artifact, never inherited from its producer
+
+Any gate, evaluator, or report derives pass/fail by re-deriving from the published bytes. No
+component may supply both sides of a comparison it participates in. Every negative control
+must execute its named mutation, verified by something other than its author. A harness that
+silently ignores an unrecognized field in a status line is fail-open and invalid evidence.
+
+Paid for twice: the rejected Phase 5 WP5 gate candidate (`eb5c5fb` — self-attested duplicate
+witnesses; ten of sixteen negative controls never executing their named mutation) and the
+Phase 6 WP0b calibration probe that parsed only `symErr=` and dropped the
+`deltaSymClean=false` that was reporting a real solver defect.
+
+## Rule 10 — Reviews carry provenance and state their limits
+
+Every review round records three things: the reviewing agent's model and whether it shared
+context with the developer; what it independently re-executed; and what it did **not** check,
+stated as a limit of the evidence rather than left implicit (Phase 5 WP7's closing review is
+the template). Gate-bearing reviews prefer a different model than the one that wrote the
+code — this history shows each model catching seams the other's author missed, and none of
+that is recoverable afterward from git, because reviewers do not commit.
+
+## Rule 11 — Probes transfer only from the registered configuration
+
+A calibration, convergence, or cost measurement supports a decision only if it ran at exactly
+the configuration the decision governs. Anything else is stamped **non-transferable** in the
+record that reports it, at creation time — not discovered later. Paid for twice in one work
+package: the extent-15 domain ladder whose conclusion *reversed* when re-run at the
+registered extent 21, and the grid-spacing ladder that repeated the identical composition
+error at extents 9/15/23.
+
+## Rule 12 — Check source currency before any freeze
+
+Before a parameter table or protocol freezes: confirm every cited source is its latest
+version, and sweep the cited authors' later output for anything superseding the extraction.
+Record the check as part of the freeze. Paid for at exactly the wrong moment: three uncited
+Libbrecht papers printing closed forms for figure-digitized curves (arXiv:2009.08404,
+2306.13087, 2306.04042) surfaced the day *after* the table's hash-freeze, converting a free
+upgrade into an ADR-plus-re-freeze decision.
+
 ---
 
 ## Anti-rules
@@ -313,3 +420,9 @@ reads it.
 - Don't keep a per-session diary. `PROGRESS.md` describes *state*, not chronology; prune it as
   work lands. Detail belongs in the plan file for that work.
 - Don't create documents these rules don't call for. More files is not more clarity.
+- Don't split a freeze from its provenance record. They are one commit, not two a minute
+  apart.
+- Don't build new adversarial evidence machinery per work package. Reuse the existing
+  verifier seams; a new seam is justified only by a new attack surface. Integrity has a
+  budget: ceremony ran ~15% of all commits and evidence-hardening ~45% of all rework through
+  Phase 5, with visibly declining yield after WP5.
