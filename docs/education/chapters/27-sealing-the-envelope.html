@@ -1,0 +1,2008 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sealing the Envelope — Snow Crystals</title>
+<meta name="description" content="Before the validation sweep ran, every choice the project could identify as able to flatter the answer was written down, hashed, and wired to a program that refuses to run if a single byte moves.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 27 &middot; Sealing the Envelope</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#timing">The same decision, twice</a></li>
+      <li><a href="#freeze-list">The list</a></li>
+      <li><a href="#the-seal">The seal</a></li>
+      <li><a href="#preflight">The four refusals</a></li>
+      <li><a href="#marking-scheme">The marking scheme</a></li>
+      <li><a href="#what-it-cost">What the harsh rule cost</a></li>
+      <li><a href="#try-to-cheat">Try to cheat</a></li>
+      <li><a href="#exit-codes">Three exit codes</a></li>
+      <li><a href="#limits">What the seal cannot do</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 27</p>
+        <h1>Sealing the Envelope</h1>
+        <p class="chapter-header__question">
+          When the result comes back disappointing, what stops you from quietly adjusting the
+          rules until it looks better?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~18 min read</span>
+          <span>5 figures</span>
+          <span>4 interactives</span>
+        </div>
+      </header>
+
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Explain why the <em>timing</em> of a decision changes its meaning, even when the decision itself is word-for-word identical.</li>
+          <li>Recognise a partial safeguard that is worse than no safeguard, because it looks like protection.</li>
+          <li>Tell &ldquo;wrong about the world&rdquo; apart from &ldquo;wrong about the evidence&rdquo;, and find the two wired to different exit codes.</li>
+          <li>Say why making cheating <em>expensive and visible</em> is a stronger design than making it forbidden.</li>
+        </ul>
+      </section>
+
+      <h2 id="timing">The same decision, twice</h2>
+
+      <p>
+        Here is a rule. <em>A model point that lands within 1&nbsp;&deg;C of a reference boundary
+        does not count, in either direction.</em>
+      </p>
+
+      <p>
+        Read it once as a rule written before any run happened. It is careful: the reference
+        diagram&rsquo;s own boundaries are known only to about half a degree, so demanding that the
+        model locate a habit <strong>flip</strong> &mdash; a temperature where the crystal stops
+        growing plates and starts growing columns, or the reverse &mdash; more precisely than the
+        reference does would be unfair.
+      </p>
+
+      <p>
+        Now read the same sentence as something written after 204 runs came back, with the
+        disagreements sitting near the boundaries. It is an excuse. Not a different sentence &mdash;
+        the <em>same</em> sentence. Only the order of events changed.
+      </p>
+
+      <p>
+        The Phase 6 plan says this out loud, before the sweep it governs:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;The band must be registered <strong>before</strong> any sweep runs, because
+          applied afterwards the same rule becomes &lsquo;the points that disagreed happened to be
+          near a boundary&rsquo; &mdash; exactly the post-hoc rationalisation the &sect;3.2 freeze
+          exists to make impossible.&rdquo;
+        </p>
+        <p><cite>
+          <code>docs/plans/phase-6-nakaya-validation.md</code>, &ldquo;Reporting rules that hold for
+          every protocol&rdquo;</cite>
+        </p>
+      </blockquote>
+
+      <p>
+        This is the whole chapter in one idea. A scientific claim is not just a number; it is a
+        number plus the order in which the choices were made. So before the validation sweep ran, the
+        project wrote down every choice it could identify that could move the answer, turned the list
+        into a single 64-character string, and pointed a program at that string with instructions to
+        refuse to produce evidence if one byte of it moved. Whether the list was <em>complete</em> is
+        a different question, and the last third of this chapter is the day the answer was no.
+      </p>
+
+      <p>
+        Two words first, because the rest of the chapter leans on them. The project&rsquo;s files
+        live in <strong>git</strong>, which stores the history as a chain of snapshots. Each snapshot
+        is a <strong>commit</strong>, named by a fingerprint of everything in it <em>plus</em> the
+        fingerprint of the one before &mdash; so a commit&rsquo;s name depends on its entire past.
+        <strong>HEAD</strong> is git&rsquo;s name for the snapshot you are standing on now.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          Deciding how you will mark the exam is not cheating. Deciding it after you have seen the
+          answers is. Since nobody can prove from the outside which order it happened in, the
+          project made the order <em>checkable</em>: the marking scheme is hashed, and the hash is
+          recorded in a commit that must sit upstream of the commit that ran the exam.
+        </p>
+      </aside>
+
+      <p>
+        Deliberately, there is no result in this chapter. You will finish it knowing exactly how the
+        exam is marked and not knowing the mark. That wait is the point: when the number arrives in
+        chapter 28, you will have watched the rules being picked, so &ldquo;they probably picked the
+        ones that suited them&rdquo; is not available to anybody.
+      </p>
+
+      <h2 id="freeze-list">The list</h2>
+
+      <p>
+        The charter names what has to be frozen. It is not a vague instruction to &ldquo;be
+        careful&rdquo;; it is a shopping list, and it ends with a price tag:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;Before the first validation sweep runs, freeze <code>docs/libbrecht-parameters.md</code>
+          and a written validation protocol: the T/&sigma; grid; the far-field boundary condition
+          &hellip; how a model habit class is scored against the reference regimes &hellip; the
+          crystal size at which habit is measured &mdash; habit is size-dependent, so measuring at
+          a stated maximum dimension is what keeps comparisons apples-to-apples; metric thresholds;
+          domain budgets; and pressure, physical seed size, &Delta;x, the named surface policy, the
+          fill-CFL bound, the diffusion residual tolerance and its norm, the divergence-identity
+          tolerance, the relaxation-sweep cap, float precision, the parameter interpolation scheme,
+          noise amplitude, seed-ensemble size, the model/code version (commit hash), and the
+          uncertainty-reporting scheme. Any post-freeze edit to parameters or protocol requires a
+          logged ADR and invalidates prior sweep results &mdash; the full sweep re-runs. This is
+          what makes &lsquo;a negative result is a result&rsquo; survive contact with a
+          disappointing plot.&rdquo;
+        </p>
+        <p><cite>
+          <code>project charter.md</code>, &sect;3.2, Phase&nbsp;6 item&nbsp;1</cite>
+        </p>
+      </blockquote>
+
+      <p>
+        Most of those are the numerical settings from chapters 20 to 26. You are not expected to
+        follow each one. What matters is that there are twenty-five of them, that each has a
+        written-down value, and that the price of changing one afterwards is the whole sweep again.
+        (<strong>ADR</strong> is the project&rsquo;s name for a numbered decision record &mdash; an
+        <em>architecture decision record</em>. Decision 0025, below, is one.)
+      </p>
+
+      <p>
+        In the repository the list is not prose. It is an array called
+        <code>PHASE6_FREEZE_LIST</code> in <code>runner/src/phase6-protocol.ts</code>, each entry
+        carrying an id, a group, a status of <code>registered</code> or <code>pending</code>, the
+        <em>requirement</em> in the words of whichever document demands it, the <em>value</em>
+        chosen, and the <em>source</em> that produced it. Twenty-five registered rows today; the
+        revision log records the first seal as twenty-one.
+      </p>
+
+      <p>
+        Read a few. The interesting column is the last one.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            Seven of the twenty-five rows of <code>PHASE6_FREEZE_LIST</code> in
+            <code>runner/src/phase6-protocol.ts</code>. The registered values are the file&rsquo;s
+            own, glossed into plain English where it uses the repository&rsquo;s shorthand. The
+            right-hand column is not in the file; it is what each row takes away from you afterwards.
+          </caption>
+          <thead>
+            <tr><th>Row</th><th>Registered value</th><th>What it stops you doing later</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>t-sigma-grid</code></td>
+              <td>34 temperatures &times; 6 supersaturation levels, set as fractions of water saturation, = 204 points; T uniform 1&nbsp;&deg;C from &minus;2 to &minus;35&nbsp;&deg;C</td>
+              <td>Adding or removing temperatures once you can see which ones disagree</td>
+            </tr>
+            <tr>
+              <td><code>metric-thresholds</code></td>
+              <td>
+                AR (<em>aspect ratio</em>) = height along the six-fold axis &divide; width across the
+                flats. At or below 0.6667 it is a plate, at or above 1.5 a column, strictly between
+                them neutral
+              </td>
+              <td>Nudging the plate ceiling until a near-miss becomes a plate</td>
+            </tr>
+            <tr>
+              <td><code>habit-measurement-size</code></td>
+              <td>Largest extent 21 lattice cells &mdash; 7.35&nbsp;&micro;m at the registered &Delta;x</td>
+              <td>Measuring the shape a bit later, when it looks more like the answer you wanted</td>
+            </tr>
+            <tr>
+              <td><code>boundary-ambiguity-band</code></td>
+              <td>&plusmn;1.0&nbsp;&deg;C around each of &minus;3.3, &minus;9.9 and &minus;21.5&nbsp;&deg;C</td>
+              <td>Discovering afterwards that the failures were &ldquo;near a boundary anyway&rdquo;</td>
+            </tr>
+            <tr>
+              <td><code>noise-amplitude</code></td>
+              <td>0 &mdash; noise off at every sweep point</td>
+              <td>Blaming a disagreement on randomness that was never switched on</td>
+            </tr>
+            <tr>
+              <td><code>seed-ensemble-size</code></td>
+              <td>1 &mdash; a single deterministic run per grid point</td>
+              <td>Running a point again and reporting the friendlier of the two</td>
+            </tr>
+            <tr>
+              <td><code>code-version</code></td>
+              <td>Commit <code>e2f1bfcab4cf605f5c9c44ad096d8b1bcc0fe967</code></td>
+              <td>Claiming a protocol was frozen before a sweep that in fact came first</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        One property matters more than any single row. The function that assembles the list into a
+        hashable document <strong>throws an error if any row is still <code>pending</code></strong>.
+        It &ldquo;refuses to exist while any required item is pending, so a sweep cannot quote a
+        protocol hash the freeze has not actually earned.&rdquo;
+      </p>
+
+      <h2 id="the-seal">The seal</h2>
+
+      <p>
+        A list anybody can edit is a promise. To turn it into a fact, the list is written out as one
+        long piece of text, always in exactly the same way &mdash; programmers call that
+        <em>serialising</em> &mdash; and run through SHA-256: a function that turns any text into a
+        fixed 64-character fingerprint, where changing anything at all scrambles the output
+        unpredictably.
+      </p>
+
+      <p>
+        &ldquo;One fixed way&rdquo; is doing real work there. The list is written as
+        <strong>JSON</strong>, a plain-text format where every value sits under a named label called
+        a <strong>key</strong> &mdash; <code>"noiseAmplitude": 0</code>. Two people can write the
+        same JSON in a different order, with different spacing, and mean exactly the same thing, so a
+        fingerprint taken naively would differ for no reason. The repository&rsquo;s serialiser
+        removes that freedom: <em>&ldquo;Canonical UTF-8 JSON: recursively sorted keys and no
+        insignificant whitespace&rdquo;</em> (<code>runner/src/gate4-evidence.ts</code>).
+      </p>
+
+      <p>
+        Its <em>reader</em> is stricter. Turning text back into values is called
+        <strong>parsing</strong>; this one parses the file, writes the result out again in canonical
+        form, and demands the two be identical character for character. That one comparison
+        &ldquo;rejects duplicate keys, alternate number spellings, reordered keys, trailing data, and
+        whitespace changes.&rdquo; Two files that mean the same thing hash the same; two that mean
+        different things cannot be made to match by tidying the formatting.
+      </p>
+
+      <p>
+        Type into the list below and watch the seal break.
+      </p>
+
+      <figure class="anim" id="c27-seal">
+        <div class="anim__head">
+          <p class="anim__title">Break the seal</p>
+          <p class="anim__sub">
+            Five real registered values. Edit any character &mdash; a decimal place, one letter of a
+            commit name &mdash; and the fingerprint changes completely, and the sweep refuses to
+            start.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">
+            Original interactive. SHA-256 is implemented in this page and computed live in your
+            browser. The five field names are five of the real top-level keys of the manifest built
+            by <code>phase6ProtocolManifest()</code>, their values are the registered ones, and the
+            freeze-list row that registers each is named beside it &mdash; all from
+            <code>runner/src/phase6-protocol.ts</code>. <code>farField</code> names what the box edge
+            pretends the distant sky is doing (chapter 23); <code>paramSet</code> is the
+            twenty-fifth row, added by decision record 0031 <em>after</em> the sweep &mdash; it is in
+            the envelope now precisely because it was not before, which is what &sect;&thinsp;Try to
+            cheat is about. The four-line success transcript is a
+            simulation of the preflight&rsquo;s reasoning, not the output of a real run &mdash; the
+            four checks and their order are the real ones
+            (<code>phase6SweepPreflight</code>), but the real function collects failures and prints
+            no per-check &ldquo;ok&rdquo; line. The refusal text is verbatim, the real message from
+            <code>runner/src/phase6-sweep.ts</code>. The pin shown is a fingerprint of these five
+            fields only, computed when the page loaded &mdash; it is <strong>not</strong> the
+            project&rsquo;s protocol hash, which covers the whole manifest, the twenty-five-row
+            freeze list and all. Note that the canonical form sorts the keys and normalises number
+            spelling, so <code>0.135</code> and <code>0.1350</code> seal identically: hashing
+            serialises the <em>value</em>, so those are the same number. It is the strict
+            <em>reader</em> described just above that refuses a <em>file</em> spelling it the second
+            way &mdash; two different operations, one over meaning and one over bytes.
+          </span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The real seal covers the manifest built by <code>phase6ProtocolManifest()</code>, and its
+        fingerprint is stored as a constant &mdash; today <code>8aeb2b80&hellip;</code> &mdash; with a
+        comment explaining what it is for:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;Pinned in <code>runner/test/phase6-protocol.test.ts</code>, so changing any
+          registered value &mdash; a temperature, a fraction, a tolerance, a justification string
+          &mdash; fails there rather than silently producing sweep evidence under a protocol nobody
+          agreed to.&rdquo;
+        </p>
+        <p><cite>
+          <code>runner/src/phase6-protocol.ts</code>, above <code>PHASE6_PROTOCOL_SHA256</code></cite>
+        </p>
+      </blockquote>
+
+      <p>
+        The pin is enforced by a test that recomputes the fingerprint from the live code every time
+        the suite runs. Three details in that test matter more than the rest of the machinery,
+        because each is a way the seal could have looked convincing while being useless.
+      </p>
+
+      <p>
+        <strong>First: the grid goes in by value, not by size.</strong> The manifest embeds the
+        actual temperatures and humidity fractions, not the count of them, because &ldquo;a manifest
+        hash that moved only when a count changed would not notice a temperature or a fraction being
+        swapped for another.&rdquo; A seal that counts the pages does not notice a rewritten page.
+      </p>
+
+      <p>
+        <strong>Second: the hash must not be inside the thing it hashes.</strong> That is a literal
+        line in the test file, and it is not pedantry: writing the fingerprint in changes the
+        document, which changes the fingerprint, which makes the one you just wrote wrong. The freeze
+        commit is named by the commit that <em>follows</em> it for the same reason &mdash; &ldquo;a
+        commit cannot contain its own hash.&rdquo;
+      </p>
+
+      <p>
+        <strong>Third, and this is the one to remember: a partial seal is worse than none.</strong>
+        While the freeze was being amended, someone noticed that the newly written scoring rule had
+        been registered as text but never included in the hashed manifest. The grid was sealed. The
+        rule that turned runs into a verdict was not.
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          &ldquo;A hash that pins the grid while leaving the rule that turns runs into a verdict
+          editable is <strong>worse than no hash, because it looks like protection</strong>.&rdquo;
+          (<code>runner/test/phase6-protocol.test.ts</code>.) An unsealed protocol is honestly
+          unsealed &mdash; a reader knows to be sceptical. A protocol with an impressive fingerprint
+          on the front and an editable marking scheme in the back invites trust it has not earned.
+          When you audit a safeguard, the question is never &ldquo;is there one?&rdquo; It is
+          &ldquo;what exactly is inside it?&rdquo;
+        </p>
+      </aside>
+
+      <p>
+        One last piece of engineering that sounds trivial and is not. The parameter table is hashed
+        <strong>with its line endings normalised to LF</strong>, because Windows and Linux store the
+        invisible end-of-line character differently. Without that step the fingerprint would depend
+        on which machine checked the file out &mdash; and would fail on exactly the second computer
+        the project needs to reproduce itself on. Normalising &ldquo;makes the hash a statement about
+        the physics, which is what it is for.&rdquo;
+      </p>
+
+      <h2 id="preflight">The four refusals</h2>
+
+      <p>
+        A seal is only useful if something checks it before the work starts. In this project that
+        something is a function called <code>phase6SweepPreflight</code>, and the file it lives in
+        introduces itself like this:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;<strong>It fails closed.</strong> &hellip; A sweep that cannot prove which protocol
+          produced it is not evidence, and the charter&rsquo;s whole pre-registration argument rests
+          on that being checkable rather than asserted.&rdquo;
+        </p>
+        <p><cite><code>runner/src/phase6-sweep.ts</code>, file header</cite></p>
+      </blockquote>
+
+      <p>
+        The sentence the ellipsis swallows lists four checks, each closing a different door.
+        <strong>Freeze complete</strong> stops you pre-registering a protocol with blanks in it.
+        <strong>Hash matches the pin</strong> stops you editing a registered value.
+        <strong>Freeze commit is an ancestor of HEAD</strong> stops you writing the protocol after
+        the runs and backdating it &mdash; git&rsquo;s history is a chain, and a commit cannot be an
+        ancestor of one that already existed. <strong>Tracked tree is clean</strong> stops you
+        running with uncommitted edits: source you have not committed is source nobody else can
+        inspect, and without this check it would defeat the other three.
+      </p>
+
+      <figure class="chart" id="c27-ancestor">
+        <div class="chart__head">
+          <p class="chart__title">Why &ldquo;is an ancestor of&rdquo; is not the same as &ldquo;is dated before&rdquo;</p>
+          <p class="chart__sub">
+            A date can be typed. Ancestry is structural: the execution commit contains the freeze
+            commit&rsquo;s fingerprint in its own history, and that cannot be added afterwards
+            without changing every commit downstream.
+          </p>
+        </div>
+        <div class="chart__body"></div>
+        <figcaption class="chart__foot">
+          <span class="built-from">
+            Original diagram, built from <code>phase6ProtocolProvenance()</code> in
+            <code>runner/src/phase6-protocol.ts</code>, which shells out to
+            <code>git merge-base --is-ancestor</code>, and from the provenance table of
+            <code>research/phase6-sweep-report.md</code>.
+          </span>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          The sweep report records the four checks as facts about the run that produced it:
+          &ldquo;The preflight refused to produce any of it until the freeze was complete, the
+          manifest hashed to the registered pin, the freeze commit was an ancestor of HEAD, and the
+          tracked tree was clean&rdquo; (<code>research/phase6-sweep-report.md</code>). Its
+          provenance table names the protocol fingerprint
+          <code>9aa2e7c1&hellip;</code> &mdash; the protocol that sweep ran under &mdash; the
+          execution commit <code>3e3f75ce&hellip;</code>, and the freeze commit
+          <code>e2f1bfca&hellip;</code>, &ldquo;<strong>verified an ancestor of the execution
+          commit</strong>&rdquo;. That is not the pin you saw in the last section. The list has since
+          gained a row and the pin has moved; decision record 0031 records the move as
+          &ldquo;<code>9aa2e7c1&hellip;</code> &rarr; <code>8aeb2b80&hellip;</code> (24 freeze rows
+          &rarr; 25)&rdquo;. Hold on to that difference.
+        </p>
+      </aside>
+
+      <h2 id="marking-scheme">The marking scheme</h2>
+
+      <p>
+        The hardest thing to freeze is not a number. It is the rule that turns runs into a verdict.
+        On 2026-07-27, an independent review &mdash; an LLM review, like every review this project
+        has had; the last section says what that is worth &mdash; found that the freeze had
+        registered the grid, the band, the thresholds and the uncertainty scheme, and had never
+        registered how a model habit class is scored at all. Decision record 0025 filled the hole,
+        written while the answer was still unknown: <strong>no sweep had run at the time of
+        writing.</strong> Its freeze row covers four items &mdash; &ldquo;the accepted-class matrix,
+        the treatment of <code>neutral</code> and <code>invalid</code>, the flip predicate, and the
+        headline scope&rdquo; (the <code>agreement-scoring</code> row). Take them in turn.
+      </p>
+
+      <p>
+        <strong>1. Each reference regime accepts a named class.</strong> The reference diagram
+        divides temperature into four bands at &minus;3.3, &minus;9.9 and &minus;21.5&nbsp;&deg;C:
+        plates, then columns, then plates again, then a mixed cold band that the source labels
+        &ldquo;Columns and Plates&rdquo;. The first three accept exactly one model class. The fourth
+        accepts both.
+      </p>
+
+      <p>
+        <strong>2. <code>neutral</code> counts as disagreement.</strong> The model has a third
+        outcome: the aspect ratio defined in the table above landing strictly between 0.6667 and 1.5,
+        meaning neither a plate nor a column. It would be very convenient to call that an abstention
+        and leave it out of the score. The record refuses, and gives the reason:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;The reference names a habit in every regime. The neutral band is <em>ours</em>, not
+          the reference&rsquo;s, and a model producing neither habit has failed to reproduce the
+          reference. Scoring it as abstention would let a model that never commits report perfect
+          agreement on whatever few points it did commit on.&rdquo;
+        </p>
+        <p><cite><code>docs/decisions/0025-phase6-agreement-scoring-rule.md</code></cite></p>
+      </blockquote>
+
+      <p>
+        The neutral count is nevertheless published separately, so a reader can always tell
+        &ldquo;wrong habit&rdquo; from &ldquo;no habit&rdquo; &mdash; which, as the record puts it,
+        &ldquo;is the distinction that carries the science.&rdquo;
+      </p>
+
+      <p>
+        <strong>3. <code>invalid</code> is excluded &mdash; by name.</strong> A run that tripped the
+        65% domain-contact guard &mdash; the chapter-23 rule that throws out a run whose crystal has
+        grown too close to the wall of its box &mdash; or broke the six-fold symmetry check, or
+        failed to converge, is thrown
+        out: &ldquo;it is not a statement about the model; it is a run that did not happen.&rdquo; But
+        0025 is explicit that such runs are &ldquo;excluded by name rather than dropped
+        silently&rdquo;, and that difference is the whole difference between a safeguard and a
+        laundry chute.
+      </p>
+
+      <p>
+        <strong>4. Flips are bracketed, and how many there are is itself a result.</strong> This
+        matters most in the next chapter. A flip is reported not as a temperature but as an
+        <em>interval</em>: the span between the last temperature at which the model produced one pure
+        habit and the first at which it produced the other, its width carried as the location
+        uncertainty. Neutral and invalid points do not end the search &mdash; they widen the bracket,
+        &ldquo;which is the honest representation: a wide neutral span means the flip location is
+        poorly located, and collapsing it to a midpoint would manufacture precision the data does not
+        have&rdquo; (<code>phase6DetectFlips</code>, <code>runner/src/phase6-protocol.ts</code>). Then
+        the sentence that pre-registers chapter 28&rsquo;s whole counting argument:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;<strong>The number of flips is itself a first-class result</strong>: the reference
+          has three, and a single monotone &sigma;<sub>0</sub> crossing can produce at most one.&rdquo;
+        </p>
+        <p><cite><code>docs/decisions/0025-phase6-agreement-scoring-rule.md</code></cite></p>
+      </blockquote>
+
+      <p>
+        That is a claim about what the model <em>can</em> do, written down before anybody looked at
+        what it <em>did</em>. If the count comes back at one, nobody gets to call that a surprise, an
+        artefact, or a matter of tuning: the number that would have to appear was named in advance,
+        and so was the reason. Whether it did is chapter 28&rsquo;s business.
+      </p>
+
+      <p>
+        Those four are 0025&rsquo;s. Two older rows do the remaining work, and the first of them
+        registers something the four do not: what &ldquo;agrees&rdquo; means.
+      </p>
+
+      <p>
+        <strong>5. A point counts as agreeing only if it agrees twice.</strong> Every point is
+        measured at the registered crystal size, and every point is also <em>grid-extrapolated</em>
+        &mdash; the aspect ratio the run would have reached at infinitely fine spacing, estimated
+        from the two finest spacings in the convergence ladder. That estimate is refused where it
+        cannot be trusted: decision 0026 admits it only where the convergence order fitted from
+        three spacings lands in the window 0.7 to 1.5, and outside it &ldquo;the point is reported
+        not-extrapolatable and carries its measured class alone&rdquo;. The registered rule then
+        takes the harsh reading of the two, in capitals:
+        <em>&ldquo;THE HEADLINE IS THE CONSERVATIVE INTERSECTION &mdash; points whose measured class
+        agrees AND whose admitted extrapolation does not contradict it&rdquo;</em>, with the two
+        component counts and the not-extrapolatable tally &ldquo;reported BENEATH it, never as the
+        top line&rdquo; (<code>uncertainty-reporting</code> row of <code>PHASE6_FREEZE_LIST</code>).
+        The reason is one sentence in the same row, and it is this chapter&rsquo;s subject exactly:
+        &ldquo;counting agreement twice and quoting the friendlier number is the failure mode a dual
+        report invites.&rdquo;
+      </p>
+
+      <p>
+        The last row is the oldest. The <strong>ambiguity
+        band</strong> was already in the first twenty-one-row seal, and 0025 published its budget
+        &ldquo;alongside the existing 28/6 split&rdquo; rather than inventing it. Its half-width was
+        fixed by formula:
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          <em>w</em> = <em>u</em><sub>ref</sub> + &Delta;<em>T</em>/2 = 0.5&nbsp;&deg;C + 1.0&nbsp;&deg;C&thinsp;/&thinsp;2 = 1.0&nbsp;&deg;C
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt><em>w</em></dt><dd>the half-width of the band around each reference boundary inside which neither agreement nor disagreement is counted</dd>
+            <dt><em>u</em><sub>ref</sub></dt><dd>the measured uncertainty on the reference boundary temperatures, &plusmn;0.5&nbsp;&deg;C as digitized from the published figure</dd>
+            <dt>&Delta;<em>T</em></dt><dd>the frozen spacing of the model&rsquo;s temperature grid, 1&nbsp;&deg;C</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">
+          <code>docs/plans/phase-6-nakaya-validation.md</code>, &ldquo;ambiguity half-width = 0.5&nbsp;&deg;C
+          (WP1&rsquo;s measured boundary uncertainty) + half the frozen T-grid spacing&rdquo; &mdash;
+          WP1 is the work package that digitized the reference figure, so that 0.5&nbsp;&deg;C is the
+          project&rsquo;s own measurement of how well it can read the published boundaries.
+          Evaluated at the frozen grid in the <code>boundary-ambiguity-band</code> row of
+          <code>PHASE6_FREEZE_LIST</code>.
+        </p>
+      </div>
+
+      <p>
+        The freeze row spells out the part that makes it a rule rather than a shield: &ldquo;It cuts
+        BOTH ways: agreement inside the band earns nothing either, because a model agreeing with the
+        diagram only near boundaries has demonstrated nothing.&rdquo;
+      </p>
+
+      <p>
+        Put those together and you can count, in advance and without seeing a single result, exactly
+        which points the headline number is computed over. Do that now, and remember to multiply at
+        the end: the strip below is the temperature axis alone, and each temperature is swept at all
+        six supersaturation levels, so <strong>15 counting temperatures &times; 6 = 90 headline
+        points</strong> &mdash; chapter 28&rsquo;s denominator.
+      </p>
+
+      <figure class="anim" id="c27-budget">
+        <div class="anim__head">
+          <p class="anim__title">Which points count</p>
+          <p class="anim__sub">
+            Thirty-four temperatures. Six are hatched out by the ambiguity band, and the fourteen
+            coldest are shaded because the mixed cold regime accepts both answers &mdash; one of
+            them, &minus;22, is both. Count the plain cells that are left, then multiply by the six
+            supersaturation levels each of them is swept at.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">
+            Original diagram. The grid, the band and the regime edges are the registered values from
+            <code>PHASE6_FREEZE_LIST</code>; the regime spans and the headline scope are decision
+            0025&rsquo;s. Every tally is recomputed from those rules in your browser rather than
+            typed in, and reproduces the per-regime evidence budget the decision record published
+            before the sweep: 1&thinsp;/&thinsp;4&thinsp;/&thinsp;10&thinsp;/&thinsp;13 counting and
+            1&thinsp;/&thinsp;2&thinsp;/&thinsp;2&thinsp;/&thinsp;1 ambiguous, both printed in the
+            readout. The strip is the temperature axis only; the &times;&thinsp;6 line converts it to
+            points, because each temperature is swept at all six registered supersaturation levels.
+          </span>
+        </figcaption>
+      </figure>
+
+      <h2 id="what-it-cost">What the harsh rule cost, stated in advance</h2>
+
+      <p>
+        Every one of those choices makes the model&rsquo;s job harder, which is suspicious in its own
+        way: it is easy to look rigorous by being gratuitously strict. So the record prices its own
+        strictness, in the same document, before the result. Dropping the mixed cold regime removes
+        13 of the 28 counting temperatures, and it does not pretend this is free:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;<strong>The headline denominator drops from 28 to 15.</strong> That is a real loss
+          of apparent statistical power and it is the correct trade: the 13 discarded points were
+          never going to discriminate.&rdquo;
+        </p>
+        <p><cite><code>docs/decisions/0025-phase6-agreement-scoring-rule.md</code>, Consequences</cite></p>
+      </blockquote>
+
+      <p>
+        The reason those 13 could never discriminate generalises far beyond snowflakes. The cold band
+        accepts both plates and columns, so almost any non-neutral answer scores a point there, and a
+        test you pass whatever you do is not a test. There is a deeper mismatch too: that band
+        describes a <em>population</em> of natural falling crystals, while one grid point here is
+        <em>one</em> deterministic crystal. Matching a mixed population with a single run is, in the
+        record&rsquo;s word, ill-posed. Then comes the sentence hardest to write before a result.
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          &ldquo;<strong>A stated limitation rather than a discovered one: the warmest Plates regime
+          has exactly ONE counting temperature (&minus;2&nbsp;&deg;C).</strong> It can therefore only
+          ever score 0% or 100% and carries essentially no statistical weight&hellip; Any conclusion
+          about the warm plate regime is a one-point conclusion and must say so.&rdquo; The obvious
+          fix &mdash; extend the grid to &minus;1&nbsp;&deg;C for one more point &mdash; is rejected
+          by name in the same paragraph, because &minus;1&nbsp;&deg;C sits where the latent-heating
+          correction &mdash; which this protocol registers as &ldquo;carried as a stated systematic;
+          not applied&rdquo; &mdash; is at its largest. Buying one point with the worst systematic in
+          the phase is called &ldquo;a bad trade&rdquo;.
+        </p>
+      </aside>
+
+      <p>
+        Notice what that warning label does to the future. Whatever the warm regime scores, nobody
+        &mdash; including the project &mdash; can present it as evidence in either direction. It was
+        disarmed before it was fired. The record closes by listing what else it forecloses:
+        &ldquo;Deciding after results whether <code>neutral</code> counts. Reporting a single
+        agreement percentage across all four regimes. Quoting a flip temperature to a precision the
+        grid spacing does not support. Dropping an invalid run without naming it.&rdquo; Four escape
+        routes, welded shut in advance.
+      </p>
+
+      <h2 id="try-to-cheat">Try to cheat</h2>
+
+      <p>
+        Reading about a safeguard is not the same as pushing on one. Below is a scoring panel with
+        four buttons. Each makes a change a real researcher would be tempted by, each edits a row
+        genuinely on the frozen list &mdash; printed under the button &mdash; and each makes the score
+        jump.
+      </p>
+
+      <p>
+        The fourth needs a word of explanation, because it uses a term the freeze list invented. A
+        point is <strong>extent-fragile</strong> when its shape is close enough to a class boundary
+        that measuring it at a larger crystal might tip it over. Between the registered measurement
+        size of 21 lattice cells and 31, where the value has actually converged, the aspect ratio
+        drifts upward by 0.135, and only ever upward &mdash; so the registered rule flags &ldquo;any
+        point whose measured AR sits within 0.135 <em>below</em> a class threshold&rdquo;
+        (<code>uncertainty-reporting</code> row of <code>PHASE6_FREEZE_LIST</code>). Flagging costs
+        nothing. Deleting the flagged points would quietly remove the ones most likely to misbehave,
+        which is what the fourth button does. Press them, then read the banner.
+      </p>
+
+      <figure class="anim" id="c27-cheat">
+        <div class="anim__head">
+          <p class="anim__title">Try to cheat</p>
+          <p class="anim__sub">
+            Four tempting edits, a live score, and the bill each one comes with. Then the harder
+            question the panel cannot answer for you: how would you know if there were a fifth knob
+            that nobody had put a button on?
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">
+            Original interactive. <strong>The model row in this panel is invented, and so is the set
+            of points it marks extent-fragile</strong> &mdash; both are stamped as such on screen.
+            Phase 6&rsquo;s actual result is chapter 28, and this chapter deliberately does not
+            contain it. The fragile set in particular was chosen so the fourth button has something
+            to bite on. Everything the panel does <em>to</em> those invented rows is real:
+            the temperature grid, the &plusmn;1.0&nbsp;&deg;C band, the regime edges and the headline
+            scope are the registered values in <code>runner/src/phase6-protocol.ts</code>; the
+            scoring follows <code>docs/decisions/0025-phase6-agreement-scoring-rule.md</code>; the
+            re-sweep cost is the wall-clock time the registered sweep actually took, &ldquo;~17&nbsp;h
+            wall on 6 workers&rdquo; (<code>research/phase6-sweep-report.md</code>).
+          </span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The lesson is not that those four edits are forbidden; several are things a careful person
+        could argue for in good faith. The lesson is about <em>when</em>. The protocol&rsquo;s
+        revision log carries six entries registered before any sweep had run, alongside the rule that
+        &ldquo;every amendment before the first sweep is free &mdash; after it, the same change costs
+        a full re-sweep.&rdquo;
+      </p>
+
+      <p>
+        Now the fifth-button question, because the revision log answers it and the answer is not
+        comfortable. There is a seventh entry, labelled in capitals: <em>THE FIRST AMENDMENT THAT IS
+        NOT FREE</em>. Somebody found a knob that was <strong>not on the list at all</strong> &mdash;
+        a default buried in the command-line handling that silently chose a different set of physics
+        parameters from the one the protocol had registered. Nobody pressed that button on purpose. A
+        default pressed it. In decision record 0031&rsquo;s words, &ldquo;an <strong>unregistered CLI
+        default silently overrode a registered freeze row</strong>, through a path the freeze did not
+        cover because <code>paramSet</code> was not itself a registered row&rdquo; &mdash; and the
+        bill was &ldquo;the 204-point sweep of <code>6995868</code> is invalidated and
+        re-runs.&rdquo; It is a registered row now. It is the third field you typed into in the seal
+        demo, the twenty-fifth of twenty-five, and it is in the envelope only because it was left out
+        of it. Chapter 29 is that bill in full.
+      </p>
+
+      <p>
+        So the accurate claim is narrower than &ldquo;every knob is on the list&rdquo;, and stronger
+        than it sounds. Nobody can prove a list of this kind complete; completeness is exactly what
+        gets discovered the hard way. What the machinery guarantees is two things. Anything
+        <em>on</em> the list cannot move without the fingerprint moving. And anything found to be
+        <em>off</em> the list gets added at a published price: a numbered record, a revision-log
+        entry, and the whole sweep again. That does not rely on anybody&rsquo;s honesty holding under
+        pressure; it makes the move expensive, slow, and &mdash; because the fingerprint and the git
+        history both move &mdash; permanently visible. The charter states the goal in one line:
+        <em>&ldquo;Quiet tuning is not a discipline failure that review catches &mdash; it is
+        structurally impossible to hide.&rdquo;</em>
+      </p>
+
+      <h2 id="exit-codes">Three exit codes</h2>
+
+      <p>
+        Everything so far protects the marking scheme. One thing still needs protecting: the
+        difference between two very different sentences that both start &ldquo;it failed&rdquo;. A
+        program that finishes hands the operating system a small number, its <em>exit code</em>; by
+        convention 0 means success and anything else means failure. The Phase 6 gate uses three, and
+        the assignment is the moral argument of the whole project compiled into a return value:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;A morphology miss does not change exit 0. Invalid numerics, provenance, artifacts,
+          incomplete runs, or protocol violations exit 1. Any flag exits 2.&rdquo;
+        </p>
+        <p><cite><code>docs/plans/phase-6-nakaya-validation.md</code>, Gate contract</cite></p>
+      </blockquote>
+
+      <p>
+        The model can disagree with the reference diagram at every single point and the gate still
+        returns 0, because the gate is not asking &ldquo;was the model right?&rdquo; It is asking
+        &ldquo;is this evidence?&rdquo; Exit 2 is subtler: the registered gate command takes no flags
+        at all, so any flag means the thing that ran was not the thing that was registered &mdash; not
+        a science failure and not an evidence failure, but its own category of wrong. Almost every
+        project says &ldquo;a negative result is a result&rdquo;. This one has to mean it, because a
+        program must return a number and there is nothing between 0 and 1. Try the scenarios.
+      </p>
+
+      <figure class="anim" id="c27-gate">
+        <div class="anim__head">
+          <p class="anim__title">Run the gate</p>
+          <p class="anim__sub">
+            Six situations. Exactly one of them returns 0, and it is the one where the science is
+            disappointing.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">
+            Original interactive, and a simulation of the gate&rsquo;s reasoning rather than a
+            transcript of a real run. The nine check areas are the rows of the gate-contract table in
+            <code>docs/plans/phase-6-nakaya-validation.md</code>; the exit-code assignment and the six
+            named negative controls are quoted from the same file; the hash-mismatch wording is the
+            real message in <code>runner/src/phase6-sweep.ts</code>. The last button is labelled
+            <em>hypothetical</em> on purpose: it shows a weaker gate than the registered one, which
+            counts 204 points because the grid is hashed into the manifest by value and its
+            Execution-validity row demands that every point completed.
+          </span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The last row of that gate contract is the one most projects skip. It is not enough for the
+        gate to pass on good evidence; it has to be shown failing on bad evidence, on demand, for
+        each specific kind of bad. Six sabotages are registered:
+      </p>
+
+      <ul>
+        <li>forged provenance</li>
+        <li>a post-freeze parameter edit</li>
+        <li>a merged no-SDAK / SDAK report</li>
+        <li>a domain-contacted run entering results</li>
+        <li>a mismatched far-field condition</li>
+        <li>a habit classification taken at the wrong measurement size</li>
+      </ul>
+
+      <p>
+        Each must &ldquo;fail <strong>by name</strong>&rdquo;, not merely make the gate refuse. A
+        refusal saying only &ldquo;something is wrong&rdquo; is nearly useless: you cannot tell a
+        caught sabotage from an unrelated bug, or whether the control you thought you were testing is
+        the one that fired. It is the difference between a lock that resists a key and a lock that
+        tells you which key was tried.
+      </p>
+
+      <p>
+        The same instinct governs how results reach disk. The Phase 4 and Phase 5 gates each publish
+        through their own staging function (<code>publishEvidenceBundle</code> in
+        <code>runner/src/gate4-evidence.ts</code>; <code>publishPhase5Lane</code> in
+        <code>runner/src/gate5-evidence.ts</code>): the bundle is built in a hidden folder, every
+        artifact is written and immediately re-read and re-hashed, and only then is it made real by a
+        single <code>renameSync</code> onto its published name. Evidence either appears complete or
+        does not appear.
+      </p>
+
+      <h2 id="limits">What the seal cannot do</h2>
+
+      <p>
+        It would be easy to finish this chapter feeling that the machinery settles everything. It
+        settles exactly one thing: <strong>that the rules were chosen before the answers were
+        known.</strong> Four it does not settle are worth naming.
+      </p>
+
+      <p>
+        <strong>It does not make the physics right.</strong> Freezing a parameter table only makes
+        the parameters <em>fixed</em>. A sealed protocol built on a wrong number produces a
+        beautifully provenanced wrong answer.
+      </p>
+
+      <p>
+        <strong>It does not improve the reference.</strong> The comparison target is
+        Libbrecht&rsquo;s Figure 1 in arXiv:1211.5555v1, which
+        <code>research/nakaya-morphology-diagram.md</code> describes as &ldquo;a <strong>redrawn
+        schematic</strong> of natural, free-falling crystals&rdquo; rather than a controlled
+        measurement; the project&rsquo;s own digitisation found its supersaturation axis failing an
+        independent check, which is why only its three boundary temperatures are used and its printed
+        humidity values never are.
+      </p>
+
+      <p>
+        <strong>It cannot be undone, and that is the intended discomfort.</strong> A frozen protocol
+        that turns out to have a flaw costs a full re-sweep to fix; there is no setting for &ldquo;this
+        time we were right to change it&rdquo;. The project has already paid that bill once, on its
+        own initiative.
+      </p>
+
+      <p>
+        <strong>And no human expert has checked any of it.</strong> Every review this project has
+        had &mdash; internal and external-facing, including the two-reviewer process that checked
+        this page &mdash; has been an LLM review. The project&rsquo;s own sharing rules require that
+        &ldquo;at least one human domain scientist reads any manuscript before submission&rdquo; and
+        state the current position without softening it: &ldquo;All reviews to date, internal and
+        external-facing, are LLM reviews; for publication that is a disclosed limitation, not a
+        substitute.&rdquo; That limitation is disclosed here for the same reason the freeze list is
+        published: a weakness you have named is one a reader can price.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          A safeguard is not a promise not to cheat. It is an arrangement in which cheating costs
+          something specific, leaves a mark, and has to be signed for. Twenty-five rows, one
+          fingerprint, four preflight refusals, three exit codes, six named sabotages &mdash; and a
+          price of roughly seventeen hours of compute for changing your mind after the fact.
+        </p>
+      </aside>
+
+      <p>
+        Phase 6 is still in flight as this is written; Phase 7, the product layer, has not started.
+        What exists is a sealed envelope and a machine that will open it exactly once, in public,
+        under rules nobody can now revise without saying so.
+      </p>
+
+      <p class="handoff">
+        The grid is 204 points and the headline is computed over 90 of them. One caution to carry
+        across first, this chapter&rsquo;s thesis turned on itself: the envelope you just watched
+        being sealed is the twenty-five-row <code>8aeb2b80&hellip;</code>, while the exam chapter 28
+        reports was sat under the earlier <code>9aa2e7c1&hellip;</code>. A protocol is identified by
+        its hash, and those are two different hashes; chapter 29 owns what that cost. Now the number
+        gets read.
+      </p>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./26-fast-without-being-wrong.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">Fast Without Being Wrong</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./28-the-exam-result.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">The Exam Result</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Part Two describes a software project; every figure in it is original,
+      and every number in it is transcribed from a named file in that project's repository.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<style>
+/* Scoped helpers for this chapter's four interactives. */
+#c27-seal .c27-rows { display: grid; gap: 0.45rem; }
+.c27-row { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 0.6rem; align-items: center; }
+.c27-row label { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-secondary); overflow-wrap: anywhere; }
+.c27-input {
+  font: inherit; font-family: var(--font-mono); font-size: 0.82rem;
+  padding: 0.3rem 0.5rem; width: 100%;
+  border: 1px solid var(--rule-strong); border-radius: 6px;
+  background: var(--surface-1); color: var(--ink-primary);
+}
+.c27-input:focus { outline: 2px solid var(--accent-key); outline-offset: 1px; }
+.c27-mono {
+  font-family: var(--font-mono); font-size: 0.74rem; line-height: 1.55;
+  overflow-wrap: anywhere; color: var(--ink-primary);
+}
+.c27-panel {
+  border: 1px solid var(--rule); border-radius: 8px;
+  padding: 0.7rem 0.85rem; background: var(--surface-sunken);
+}
+.c27-label {
+  font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase;
+  font-weight: 700; color: var(--ink-muted); margin-bottom: 0.3rem;
+}
+.c27-banner {
+  border-radius: 8px; padding: 0.65rem 0.85rem; font-size: var(--step--1);
+  line-height: 1.5; border: 1px solid currentColor;
+}
+.c27-stack { display: grid; gap: 0.8rem; }
+.c27-term {
+  font-family: var(--font-mono); font-size: 0.76rem; line-height: 1.7;
+  white-space: pre-wrap; overflow-wrap: anywhere; margin: 0;
+  padding: 0.8rem 0.9rem; border-radius: 8px;
+  background: var(--surface-sunken); border: 1px solid var(--rule);
+  min-height: 17.5rem; color: var(--ink-primary);
+}
+.c27-lamps { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.c27-lamp {
+  flex: 1 1 9rem; border: 1px solid var(--rule); border-radius: 8px;
+  padding: 0.5rem 0.6rem; font-size: var(--step--1); line-height: 1.35;
+  background: var(--surface-1);
+}
+.c27-lamp b { display: block; font-family: var(--font-mono); font-size: 1.05rem; }
+.c27-score { display: flex; flex-wrap: wrap; gap: 1.2rem; align-items: baseline; }
+.c27-big { font-family: var(--font-mono); font-size: 2rem; font-weight: 700; line-height: 1; }
+.c27-note { font-size: var(--step--1); color: var(--ink-secondary); line-height: 1.5; }
+.c27-stamp {
+  display: inline-block; font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase;
+  font-weight: 700; border: 1.5px solid currentColor; border-radius: 4px;
+  padding: 0.12rem 0.4rem; transform: rotate(-1.5deg);
+}
+@media (max-width: 640px) {
+  .c27-row { grid-template-columns: 1fr; gap: 0.2rem; }
+}
+</style>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script>
+/* ===========================================================================
+   Chapter 27 — Sealing the Envelope
+   Four original interactives. Nothing here invents a registered value: every
+   temperature, tolerance, band and regime edge is transcribed from
+   runner/src/phase6-protocol.ts or docs/decisions/0025-*.md. The one invented
+   object is the model habit row in "Try to cheat", which is stamped FICTIONAL
+   on screen because Phase 6's real result belongs to chapter 28.
+   ======================================================================== */
+(function () {
+  "use strict";
+
+  /* ---------------------------------------------------------------- sha256 --
+     A self-contained SHA-256 so the seal demo works offline and without a
+     secure context. Verified against Node's crypto.createHash for the empty
+     string, "abc", multi-block inputs, block-boundary lengths and non-ASCII. */
+
+  var K = [
+    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+    0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+    0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+  ];
+
+  function rotr(x, n) { return ((x >>> n) | (x << (32 - n))) >>> 0; }
+
+  function sha256Hex(text) {
+    var bytes = new TextEncoder().encode(text);
+    var len = bytes.length;
+    var padded = new Uint8Array((((len + 8) >> 6) + 1) << 6);
+    padded.set(bytes);
+    padded[len] = 0x80;
+    var view = new DataView(padded.buffer);
+    var bits = len * 8;
+    view.setUint32(padded.length - 8, Math.floor(bits / 4294967296));
+    view.setUint32(padded.length - 4, bits >>> 0);
+
+    var h0 = 0x6a09e667, h1 = 0xbb67ae85, h2 = 0x3c6ef372, h3 = 0xa54ff53a;
+    var h4 = 0x510e527f, h5 = 0x9b05688c, h6 = 0x1f83d9ab, h7 = 0x5be0cd19;
+    var w = new Uint32Array(64);
+
+    for (var i = 0; i < padded.length; i += 64) {
+      var t;
+      for (t = 0; t < 16; t++) w[t] = view.getUint32(i + t * 4);
+      for (t = 16; t < 64; t++) {
+        var x = w[t - 15], y = w[t - 2];
+        var s0 = (rotr(x, 7) ^ rotr(x, 18) ^ (x >>> 3)) >>> 0;
+        var s1 = (rotr(y, 17) ^ rotr(y, 19) ^ (y >>> 10)) >>> 0;
+        w[t] = (w[t - 16] + s0 + w[t - 7] + s1) >>> 0;
+      }
+      var a = h0, b = h1, c = h2, d = h3, e = h4, f = h5, g = h6, h = h7;
+      for (t = 0; t < 64; t++) {
+        var S1 = (rotr(e, 6) ^ rotr(e, 11) ^ rotr(e, 25)) >>> 0;
+        var ch = ((e & f) ^ (~e & g)) >>> 0;
+        var t1 = (h + S1 + ch + K[t] + w[t]) >>> 0;
+        var S0 = (rotr(a, 2) ^ rotr(a, 13) ^ rotr(a, 22)) >>> 0;
+        var maj = ((a & b) ^ (a & c) ^ (b & c)) >>> 0;
+        var t2 = (S0 + maj) >>> 0;
+        h = g; g = f; f = e; e = (d + t1) >>> 0;
+        d = c; c = b; b = a; a = (t1 + t2) >>> 0;
+      }
+      h0 = (h0 + a) >>> 0; h1 = (h1 + b) >>> 0; h2 = (h2 + c) >>> 0; h3 = (h3 + d) >>> 0;
+      h4 = (h4 + e) >>> 0; h5 = (h5 + f) >>> 0; h6 = (h6 + g) >>> 0; h7 = (h7 + h) >>> 0;
+    }
+    var out = "";
+    [h0, h1, h2, h3, h4, h5, h6, h7].forEach(function (v) {
+      out += ("00000000" + v.toString(16)).slice(-8);
+    });
+    return out;
+  }
+
+  /* ------------------------------------------------------- registered facts --
+     Transcribed, not chosen. See runner/src/phase6-protocol.ts. */
+
+  var TEMPS = [];                                  // -2 .. -35, uniform 1 C
+  for (var ti = 0; ti < 34; ti++) TEMPS.push(-(ti + 2));
+  var BOUNDS = [3.3, 9.9, 21.5];                   // reference boundaries, magnitudes
+  var BAND = 1.0;                                  // registered ambiguity half-width, C
+  var HEADLINE_MAG = 21.5;                         // headline scope: -2 ... -21.5 C
+  var FRACTIONS = 6;                               // PHASE6_SIGMA_FRACTIONS: 0.10 .. 0.90, six of them
+
+  var REGIMES = [
+    { key: "plates-warm", label: "Plates", to: 3.3, accepts: ["P"], headline: true },
+    { key: "columns", label: "Columns", to: 9.9, accepts: ["C"], headline: true },
+    { key: "plates-cold", label: "Plates", to: 21.5, accepts: ["P"], headline: true },
+    { key: "columns-and-plates", label: "Columns and plates", to: 1e9, accepts: ["P", "C"], headline: false }
+  ];
+
+  function regimeOf(T) {
+    var m = Math.abs(T);
+    for (var i = 0; i < REGIMES.length; i++) if (m < REGIMES[i].to) return REGIMES[i];
+    return REGIMES[REGIMES.length - 1];
+  }
+  function counted(T, band) {
+    var m = Math.abs(T);
+    for (var i = 0; i < BOUNDS.length; i++) if (Math.abs(m - BOUNDS[i]) <= band) return false;
+    return true;
+  }
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  /* ======================================================================= */
+  /* 1. BREAK THE SEAL                                                       */
+  /* ======================================================================= */
+  (function () {
+    var root = document.getElementById("c27-seal");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var controls = root.querySelector(".anim__controls");
+
+    /* Five real top-level keys of the manifest phase6ProtocolManifest() builds, with their
+       real registered values and the freeze-list row that registers each one.
+         ambiguityHalfWidthC  PHASE6_AMBIGUITY_HALF_WIDTH_C = 0.5 + 1.0/2 = 1
+         extentDriftBoundAR   PHASE6_EXTENT_DRIFT_BOUND_AR  = 0.135
+         paramSet             PHASE6_PARAM_SET              = "CAK"        (ADR 0031)
+         farField             PHASE6_FAR_FIELD              = "monopole-matched"
+         freezeCommit         PHASE6_PROTOCOL_FREEZE_COMMIT = e2f1bfca…            */
+    var ROWS = [
+      { key: "ambiguityHalfWidthC", pristine: "1", row: "boundary-ambiguity-band" },
+      { key: "extentDriftBoundAR", pristine: "0.135", row: "uncertainty-reporting" },
+      { key: "paramSet", pristine: "CAK", row: "param-set" },
+      { key: "farField", pristine: "monopole-matched", row: "far-field" },
+      { key: "freezeCommit", pristine: "e2f1bfcab4cf605f5c9c44ad096d8b1bcc0fe967", row: "code-version" }
+    ];
+
+    var wrap = el("div", "c27-stack");
+    var rowBox = el("div", "c27-rows");
+    var inputs = {};
+
+    ROWS.forEach(function (r) {
+      var line = el("div", "c27-row");
+      var lab = el("label", null, r.key + "  (row " + r.row + ")");
+      var inp = el("input", "c27-input");
+      inp.type = "text";
+      inp.value = r.pristine;
+      inp.setAttribute("spellcheck", "false");
+      inp.id = "c27-seal-" + r.key;
+      lab.setAttribute("for", inp.id);
+      // Clear any earlier transcript: a successful run's output must never sit under a
+      // "SEAL BROKEN" banner, which is the one screen state this demo exists to prevent.
+      inp.addEventListener("input", function () { runOut = ""; render(); });
+      inputs[r.key] = inp;
+      line.appendChild(lab);
+      line.appendChild(inp);
+      rowBox.appendChild(line);
+    });
+
+    var jsonBox = el("div", "c27-panel");
+    var jsonLab = el("p", "c27-label",
+      "canonical JSON bytes — keys in one fixed order, no needless spacing");
+    var jsonOut = el("div", "c27-mono");
+    jsonBox.appendChild(jsonLab); jsonBox.appendChild(jsonOut);
+
+    var hashBox = el("div", "c27-panel");
+    var hashLab = el("p", "c27-label", "sha-256 of those bytes  ·  registered pin");
+    var hashOut = el("div", "c27-mono");
+    hashBox.appendChild(hashLab); hashBox.appendChild(hashOut);
+
+    var banner = el("div", "c27-banner");
+    var termOut = el("p", "c27-mono");
+    termOut.style.margin = "0";
+    termOut.style.whiteSpace = "pre-wrap";
+
+    wrap.appendChild(rowBox);
+    wrap.appendChild(jsonBox);
+    wrap.appendChild(hashBox);
+    wrap.appendChild(banner);
+    wrap.appendChild(termOut);
+    body.appendChild(wrap);
+
+    function canonical() {
+      var keys = ROWS.map(function (r) { return r.key; }).slice().sort();
+      var parts = keys.map(function (k) {
+        var raw = inputs[k].value;
+        var num = raw.trim() === "" ? NaN : Number(raw);
+        var val = isFinite(num) && raw.trim() !== "" ? JSON.stringify(num) : JSON.stringify(raw);
+        return JSON.stringify(k) + ":" + val;
+      });
+      return "{" + parts.join(",") + "}";
+    }
+
+    var pin = null;          // computed from the pristine rows at load
+    var pinEdited = false;
+    var runOut = "";
+
+    function render() {
+      var text = canonical();
+      var hash = sha256Hex(text);
+      if (pin === null) pin = hash;
+      var match = hash === pin;
+
+      jsonOut.textContent = text;
+      hashOut.innerHTML = "";
+      var c = Viz.colors();
+      var l1 = el("div", null, "live  " + hash);
+      l1.style.color = match ? c.good : c.critical;
+      var l2 = el("div", null, "pin   " + pin);
+      l2.style.color = c.inkSecondary;
+      hashOut.appendChild(l1);
+      hashOut.appendChild(l2);
+
+      banner.style.color = match ? c.good : c.critical;
+      banner.textContent = match
+        ? (pinEdited
+            ? "SEAL MATCHES — but you moved the pin, not the protocol. See the note below."
+            : "SEAL INTACT — the live fingerprint equals the registered pin.")
+        : "SEAL BROKEN — a registered value was edited. The preflight will refuse.";
+
+      runBtn.disabled = !match;
+      runBtn.style.opacity = match ? "1" : "0.5";
+      runBtn.style.cursor = match ? "pointer" : "not-allowed";
+      pinBtn.disabled = match;
+      pinBtn.style.opacity = match ? "0.5" : "1";
+
+      termOut.style.color = c.inkSecondary;
+      termOut.textContent = runOut;
+    }
+
+    var runBtn = Viz.button(controls, "Run the sweep", function () {
+      var hash = sha256Hex(canonical());
+      if (hash === pin) {
+        runOut = "$ node runner/src/main.ts phase6-sweep 6\n"
+          + "  preflight: freeze complete ...................... ok\n"
+          + "  preflight: manifest hashes to the registered pin  ok\n"
+          + "  preflight: freeze commit is an ancestor of HEAD .. ok\n"
+          + "  preflight: tracked tree is clean ................. ok\n"
+          + "  queued 204 points"
+          + (pinEdited
+              ? "\n\n  ...in this panel. In the repository it would not get this far.\n"
+              + "  You edited the pin but have not committed it, so the tracked tree is\n"
+              + "  dirty and the fourth check refuses. Commit it and the checks do pass —\n"
+              + "  and that is the design, not a hole in it: the pin has moved and the git\n"
+              + "  history has moved, so the edit is now a permanent, signed public record.\n"
+              + "  By charter §3.2 it is also a logged decision record that invalidates\n"
+              + "  prior sweep results — the full sweep re-runs."
+              : "");
+      }
+      render();
+    });
+
+    var pinBtn = Viz.button(controls, "Update the pin to match", function () {
+      pin = sha256Hex(canonical());
+      pinEdited = true;
+      runOut = "";
+      render();
+    });
+
+    Viz.button(controls, "Reset", function () {
+      ROWS.forEach(function (r) { inputs[r.key].value = r.pristine; });
+      pin = sha256Hex(canonical());
+      pinEdited = false;
+      runOut = "";
+      render();
+    });
+
+    render();
+    // Show the real refusal text once, verbatim in shape, beneath the panel.
+    var note = el("p", "c27-note");
+    note.style.marginTop = "0.6rem";
+    note.textContent =
+      'The real refusal, from runner/src/phase6-sweep.ts: "protocol hash <live> does not match '
+      + 'the registered <pin> — a registered value was edited without updating the pin".';
+    body.appendChild(note);
+    Viz.onThemeChange(render);
+  })();
+
+  /* ======================================================================= */
+  /* 2. WHICH POINTS COUNT                                                   */
+  /* ======================================================================= */
+  (function () {
+    var root = document.getElementById("c27-budget");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var controls = root.querySelector(".anim__controls");
+
+    var show = { band: true, headline: true, cold: true };
+    var svg = null;
+
+    function render() {
+      if (svg) svg.remove();
+      var c = Viz.colors();
+      var W = 900, H = 284;
+      svg = Viz.createSvg(body, W, H, {
+        label: "The 34 registered temperatures, showing which ones the headline score is counted over.",
+        desc: "Six temperatures are excluded by the ambiguity band around the reference boundaries; "
+            + "thirteen more sit in the mixed cold regime, which is reported but kept out of the headline. "
+            + "Each remaining temperature is swept at six supersaturation levels, so the 15 counting "
+            + "temperatures become 90 headline points."
+      });
+
+      var x0 = 46, cw = 24, top = 96, ch = 40;
+      var xOf = function (i) { return x0 + i * cw; };
+
+      // regime strip. Index i holds temperature magnitude m = i + 2, so the cells
+      // belonging to a regime [lo, hi) are ceil(lo - 2) .. ceil(hi - 2) - 1.
+      REGIMES.forEach(function (r, ri) {
+        var lo = ri === 0 ? 2 : REGIMES[ri - 1].to;
+        var hi = ri === REGIMES.length - 1 ? 36 : r.to;
+        var iLo = Math.max(0, Math.ceil(lo - 2));
+        var iHi = Math.min(33, Math.ceil(hi - 2) - 1);
+        if (iHi < iLo) return;
+        var xa = xOf(iLo), xb = xOf(iHi) + cw;
+        svg.appendChild(Viz.svgEl("rect", {
+          x: xa, y: 44, width: Math.max(2, xb - xa), height: 22,
+          fill: r.headline ? c.sunken : c.rule, stroke: c.ruleStrong, "stroke-width": 1, rx: 3
+        }));
+        var t = Viz.svgEl("text", {
+          x: (xa + xb) / 2, y: 59, "text-anchor": "middle", fill: c.inkSecondary,
+          "font-size": 11, "font-weight": 650, "font-family": "var(--font-sans)"
+        });
+        t.textContent = r.label;
+        svg.appendChild(t);
+      });
+      var hdr = Viz.svgEl("text", {
+        x: x0, y: 30, fill: c.inkSecondary, "font-size": 12, "font-weight": 650,
+        "font-family": "var(--font-sans)"
+      });
+      hdr.textContent = "reference regimes, boundaries at −3.3, −9.9 and −21.5 °C";
+      svg.appendChild(hdr);
+
+      // the 34 cells
+      var tally = { counting: 0, ambiguous: 0, headline: 0, cold: 0 };
+      var perRegime = {};
+      REGIMES.forEach(function (r) { perRegime[r.key] = { counting: 0, ambiguous: 0 }; });
+
+      TEMPS.forEach(function (T, i) {
+        var isCounted = counted(T, BAND);
+        var inHeadline = Math.abs(T) <= HEADLINE_MAG;
+        var r = regimeOf(T);
+        if (isCounted) { tally.counting++; perRegime[r.key].counting++; }
+        else { tally.ambiguous++; perRegime[r.key].ambiguous++; }
+        if (isCounted && inHeadline) tally.headline++;
+        if (isCounted && !inHeadline) tally.cold++;
+
+        var x = xOf(i);
+        var fill = c.surface;
+        // c.rule, not c.sunken: sunken-on-surface is a couple of percent of luminance in either
+        // theme, and the caption asks the reader to count the plain cells by eye. This also
+        // matches the regime strip, which already uses c.rule for "outside the headline".
+        if (show.cold && !inHeadline) fill = c.rule;
+        svg.appendChild(Viz.svgEl("rect", {
+          x: x + 1.5, y: top, width: cw - 3, height: ch,
+          fill: fill, stroke: c.ruleStrong, "stroke-width": 1, rx: 3
+        }));
+
+        if (show.band && !isCounted) {
+          for (var k = -1; k <= 2; k++) {
+            svg.appendChild(Viz.svgEl("line", {
+              x1: x + 1.5, y1: top + k * 12 + 12, x2: x + cw - 1.5, y2: top + k * 12,
+              stroke: c.muted, "stroke-width": 1.4, opacity: 0.85
+            }));
+          }
+        }
+
+        // temperature label under every other cell
+        if (i % 2 === 0) {
+          var lab = Viz.svgEl("text", {
+            x: x + cw / 2, y: top + ch + 15, "text-anchor": "middle",
+            fill: c.muted, "font-size": 10, "font-family": "var(--font-mono)"
+          });
+          lab.textContent = "−" + Math.abs(T);
+          svg.appendChild(lab);
+        }
+      });
+
+      // headline bracket
+      if (show.headline) {
+        var lastHeadline = 0;
+        TEMPS.forEach(function (T, i) { if (Math.abs(T) <= HEADLINE_MAG) lastHeadline = i; });
+        var bx0 = xOf(0) + 1.5, bx1 = xOf(lastHeadline) + cw - 1.5, by = top + ch + 26;
+        svg.appendChild(Viz.svgEl("path", {
+          d: "M" + bx0 + " " + (by + 8) + " L" + bx0 + " " + by + " L" + bx1 + " " + by + " L" + bx1 + " " + (by + 8),
+          fill: "none", stroke: c.ink, "stroke-width": 1.4
+        }));
+        var bt = Viz.svgEl("text", {
+          x: (bx0 + bx1) / 2, y: by + 24, "text-anchor": "middle", fill: c.ink,
+          "font-size": 11.5, "font-weight": 650, "font-family": "var(--font-sans)"
+        });
+        bt.textContent = "headline scope — −2 to −21.5 °C";
+        svg.appendChild(bt);
+      }
+
+      if (show.cold) {
+        var cx0 = xOf(20) + 1.5, cx1 = xOf(33) + cw - 1.5;
+        var st = Viz.svgEl("text", {
+          x: (cx0 + cx1) / 2, y: top + ch + 42, "text-anchor": "middle", fill: c.muted,
+          "font-size": 11, "font-weight": 650, "font-family": "var(--font-sans)"
+        });
+        st.textContent = "excluded from the headline";
+        svg.appendChild(st);
+      }
+
+      // readout
+      var lines = [
+        "temperatures:  counting " + tally.counting + "   ·   ambiguous " + tally.ambiguous
+          + "   ·   headline counting " + tally.headline + "   ·   cold counting " + tally.cold,
+        "per regime, counting / ambiguous: " + REGIMES.map(function (r) {
+          return r.key + " " + perRegime[r.key].counting + "/" + perRegime[r.key].ambiguous;
+        }).join("   "),
+        "× 6 supersaturation levels  →  headline points " + (tally.headline * FRACTIONS)
+          + "   ·   cold-regime points " + (tally.cold * FRACTIONS)
+          + "   ·   grid " + (TEMPS.length * FRACTIONS)
+      ];
+      lines.forEach(function (line, li) {
+        var t = Viz.svgEl("text", {
+          x: x0, y: [230, 249, 268][li],
+          fill: li === 1 ? c.inkSecondary : c.ink,
+          "font-size": li === 1 ? 11 : 13,
+          "font-weight": li === 1 ? 500 : 700,
+          "font-family": "var(--font-mono)"
+        });
+        t.textContent = line;
+        svg.appendChild(t);
+      });
+    }
+
+    var btns = {};
+    function toggle(name, label) {
+      btns[name] = Viz.button(controls, label, function (b) {
+        show[name] = !show[name];
+        b.setAttribute("aria-pressed", String(show[name]));
+        render();
+      }, { pressed: true });
+    }
+    toggle("band", "Ambiguity band");
+    toggle("headline", "Headline scope");
+    toggle("cold", "Mixed cold regime");
+
+    var key = el("span", "c27-note",
+      "plain cell = counts · hatched = inside the ambiguity band · shaded = reported, "
+      + "kept out of the headline");
+    controls.appendChild(key);
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+  /* ======================================================================= */
+  /* 3. TRY TO CHEAT                                                         */
+  /* ======================================================================= */
+  (function () {
+    var root = document.getElementById("c27-cheat");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var controls = root.querySelector(".anim__controls");
+
+    /* INVENTED. A stand-in model row so the real one stays sealed until
+       chapter 28. Index i is temperature -(i+2) C. */
+    var FICTION = [
+      "P", "P", "P", ".", "C", "C", ".", ".", ".", ".",
+      ".", "P", ".", ".", ".", ".", ".", ".", ".", ".",
+      "C", "C", "C", "C", "C", "C", "C", "C", "C", "C",
+      "C", "C", "C", "C"
+    ];
+    /* Points the uncertainty scheme would flag extent-fragile. Also invented,
+       and chosen so the fourth button has something to bite on. */
+    var FRAGILE = { "-5": 1, "-8": 1, "-11": 1, "-12": 1, "-15": 1, "-16": 1 };
+
+    var CHEATS = [
+      { id: "band", label: "Widen the ambiguity band to ±2.5 °C",
+        row: "boundary-ambiguity-band" },
+      { id: "abstain", label: "Score neutral as abstention, not disagreement",
+        row: "agreement-scoring" },
+      { id: "cold", label: "Fold the mixed cold regime into the headline",
+        row: "agreement-scoring (headline scope)" },
+      { id: "fragile", label: "Drop the extent-fragile points instead of flagging them",
+        row: "uncertainty-reporting" }
+    ];
+    var on = { band: false, abstain: false, cold: false, fragile: false };
+    var edits = 0;
+
+    function score() {
+      var band = on.band ? 2.5 : BAND;
+      var n = 0, agree = 0, kept = [];
+      TEMPS.forEach(function (T, i) {
+        var cls = FICTION[i];
+        if (!counted(T, band)) { kept.push(null); return; }
+        if (!on.cold && Math.abs(T) > HEADLINE_MAG) { kept.push(null); return; }
+        if (on.fragile && FRAGILE[String(T)]) { kept.push(null); return; }
+        if (on.abstain && cls === ".") { kept.push(null); return; }
+        var r = regimeOf(T);
+        var ok = r.accepts.indexOf(cls) >= 0;
+        n++; if (ok) agree++;
+        kept.push(ok);
+      });
+      return { n: n, agree: agree, kept: kept };
+    }
+
+    var stack = el("div", "c27-stack");
+    var stampLine = el("div");
+    var gridBox = el("div");
+    var scoreBox = el("div", "c27-panel");
+    var banner = el("div", "c27-banner");
+    var costNote = el("p", "c27-note");
+    stack.appendChild(stampLine);
+    stack.appendChild(gridBox);
+    stack.appendChild(scoreBox);
+    stack.appendChild(banner);
+    stack.appendChild(costNote);
+    body.appendChild(stack);
+
+    var svg = null;
+
+    function render() {
+      var c = Viz.colors();
+      var s = score();
+
+      stampLine.innerHTML = "";
+      var stamp = el("span", "c27-stamp", "fictional model output · the real one is chapter 28");
+      stamp.style.color = c.critical;
+      stampLine.appendChild(stamp);
+
+      if (svg) svg.remove();
+      var W = 900, H = 132, x0 = 46, cw = 24, top = 30, chh = 40;
+      svg = Viz.createSvg(gridBox, W, H, {
+        label: "A fictional row of model habit classes across the 34 registered temperatures, "
+             + "coloured by whether each point agrees with the reference regime under the current rules."
+      });
+      TEMPS.forEach(function (T, i) {
+        var x = x0 + i * cw;
+        var ok = s.kept[i];
+        var fill = ok === null ? c.rule : ok ? c.good : c.critical;
+        svg.appendChild(Viz.svgEl("rect", {
+          x: x + 1.5, y: top, width: cw - 3, height: chh,
+          fill: fill, opacity: ok === null ? 0.35 : 0.9,
+          stroke: c.ruleStrong, "stroke-width": 1, rx: 3
+        }));
+        var letter = Viz.svgEl("text", {
+          x: x + cw / 2, y: top + 26, "text-anchor": "middle",
+          fill: ok === null ? c.inkSecondary : c.surface,
+          "font-size": 14, "font-weight": 700, "font-family": "var(--font-mono)"
+        });
+        letter.textContent = FICTION[i];
+        svg.appendChild(letter);
+        if (i % 2 === 0) {
+          var lab = Viz.svgEl("text", {
+            x: x + cw / 2, y: top + chh + 15, "text-anchor": "middle",
+            fill: c.muted, "font-size": 10, "font-family": "var(--font-mono)"
+          });
+          lab.textContent = "−" + Math.abs(T);
+          svg.appendChild(lab);
+        }
+      });
+      var key = Viz.svgEl("text", {
+        x: x0, y: 18, fill: c.inkSecondary, "font-size": 11.5, "font-family": "var(--font-sans)"
+      });
+      key.textContent = "P = plate    C = column    . = neutral (the model declining to commit)";
+      svg.appendChild(key);
+
+      scoreBox.innerHTML = "";
+      var sc = el("div", "c27-score");
+      var pct = s.n ? Math.round((100 * s.agree) / s.n) : 0;
+      var big = el("span", "c27-big", pct + "%");
+      big.style.color = edits ? c.critical : c.ink;
+      var frac = el("span", "c27-note",
+        s.agree + " of " + s.n + " counted temperatures agree  ·  × 6 supersaturation levels = "
+        + (s.n * FRACTIONS) + " headline points");
+      sc.appendChild(big);
+      sc.appendChild(frac);
+      scoreBox.appendChild(sc);
+
+      var lg = el("div", "c27-note");
+      lg.style.marginTop = "0.4rem";
+      lg.innerHTML = "";
+      var mk = function (col, txt) {
+        var sp = el("span");
+        sp.style.marginRight = "1rem";
+        var sw = el("span");
+        sw.style.display = "inline-block";
+        sw.style.width = "10px"; sw.style.height = "10px";
+        sw.style.marginRight = "0.35rem"; sw.style.borderRadius = "2px";
+        sw.style.background = col;
+        sp.appendChild(sw);
+        sp.appendChild(document.createTextNode(txt));
+        return sp;
+      };
+      lg.appendChild(mk(c.good, "agrees"));
+      lg.appendChild(mk(c.critical, "disagrees"));
+      lg.appendChild(mk(c.rule, "not counted"));
+      scoreBox.appendChild(lg);
+
+      if (edits === 0) {
+        banner.style.color = c.inkSecondary;
+        banner.textContent = "PROTOCOL INTACT · scored under the rules registered before the sweep.";
+        costNote.textContent =
+          "Every button below edits a row that is on the frozen list, so every button moves the "
+          + "protocol fingerprint. Now the harder question: is there a fifth button — a knob nobody "
+          + "put on the list? Keep reading. The revision log answers that, and the answer cost "
+          + "seventeen hours.";
+      } else {
+        banner.style.color = c.critical;
+        banner.textContent =
+          "PROTOCOL HASH MISMATCH · ALL 204 RESULTS INVALIDATED · RE-SWEEP REQUIRED (~17 h)";
+        costNote.textContent =
+          "Cost: one full re-sweep, ~17 h of compute, plus ONE numbered public decision record and "
+          + "ONE permanent revision-log entry — naming "
+          + (edits === 1 ? "the row" : "all " + edits + " rows") + " you changed, and why. The "
+          + "re-sweep bill is the same whether you press one button or four — what grows is the "
+          + "list of rows the public record has to name.";
+      }
+    }
+
+    CHEATS.forEach(function (ch) {
+      Viz.button(controls, ch.label, function (b) {
+        on[ch.id] = !on[ch.id];
+        b.setAttribute("aria-pressed", String(on[ch.id]));
+        b.title = "edits the frozen row: " + ch.row;
+        edits = CHEATS.reduce(function (a, x) { return a + (on[x.id] ? 1 : 0); }, 0);
+        render();
+      }, { pressed: false });
+    });
+    Viz.button(controls, "Put it back", function () {
+      CHEATS.forEach(function (ch) { on[ch.id] = false; });
+      edits = 0;
+      Array.prototype.forEach.call(controls.querySelectorAll("button"), function (b) {
+        if (b.getAttribute("aria-pressed") !== null) b.setAttribute("aria-pressed", "false");
+      });
+      render();
+    });
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+  /* ======================================================================= */
+  /* 4. RUN THE GATE                                                         */
+  /* ======================================================================= */
+  (function () {
+    var root = document.getElementById("c27-gate");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var controls = root.querySelector(".anim__controls");
+
+    var AREAS = [
+      "pre-registration", "provenance", "reference data", "execution validity",
+      "numerical verification", "habit classification", "diagram artifact",
+      "comparison honesty", "negative controls"
+    ];
+
+    function pad(name) { return (name + " ...........................").slice(0, 26); }
+
+    function base() {
+      return AREAS.map(function (a) { return { text: pad(a) + " PASS", ok: true }; });
+    }
+    function fail(lines, area, why) {
+      var idx = AREAS.indexOf(area);
+      lines[idx] = { text: pad(area) + " FAIL", ok: false };
+      lines[idx].why = why;
+      return lines;
+    }
+    // Annotate a row that PASSED. A registered negative control firing by name is this gate
+    // row succeeding, not failing — the contract's blocking claim is "each control fails by
+    // name", so the control going off is the evidence that the row holds.
+    function note(lines, area, why) {
+      lines[AREAS.indexOf(area)].why = why;
+      return lines;
+    }
+
+    var SCENARIOS = [
+      {
+        id: "miss",
+        label: "The model disagrees with the diagram",
+        build: function () {
+          var l = base();
+          return {
+            lines: l,
+            tail: [
+              { text: "", ok: true },
+              { text: "morphology comparison: agreements and disagreements both recorded.", ok: true },
+              { text: "a morphology miss does not change exit 0.", ok: true }
+            ],
+            code: 0,
+            verdict: "Valid evidence. The model may be wrong about the world; the run is not wrong about itself."
+          };
+        }
+      },
+      {
+        id: "domain",
+        label: "A run touched the wall of its box, and stayed in the results",
+        build: function () {
+          var l = fail(base(), "execution validity",
+            "a sweep point tripped the 65% domain-contact guard — the chapter-23 rule that "
+            + "invalidates a run whose crystal grows too close to the wall of its box — and "
+            + "entered the results");
+          return {
+            lines: l, tail: [], code: 1,
+            verdict: "Broken evidence. Near the wall the vapour field is quietly wrong while the shape still looks plausible."
+          };
+        }
+      },
+      {
+        id: "edit",
+        label: "Someone edited a frozen parameter after the freeze",
+        build: function () {
+          var l = fail(base(), "pre-registration",
+            "protocol hash <live> does not match the registered <pin> — a registered value "
+            + "was edited without updating the pin");
+          l[1] = { text: pad("provenance") + " SKIP", ok: false };
+          return {
+            lines: l, tail: [], code: 1,
+            verdict: "Broken protocol. Fixing it means a logged decision record and a full re-sweep."
+          };
+        }
+      },
+      {
+        id: "silent",
+        label: "A run that did not converge was quietly removed",
+        build: function () {
+          var l = fail(base(), "execution validity",
+            "the report has 203 rows and the grid has 204; the missing point is not named. "
+            + "invalid runs are excluded BY NAME, never silently dropped");
+          return {
+            lines: l, tail: [], code: 1,
+            verdict: "Broken evidence. A tidy report with a hole in it is the most dangerous shape a result can take."
+          };
+        }
+      },
+      {
+        id: "farfield",
+        label: "A run used a different far-field boundary condition",
+        build: function () {
+          var l = fail(base(), "provenance",
+            "recorded far-field condition differs from the registered monopole-matched value "
+            + "— what the box edge pretends the distant sky is doing. results are never "
+            + "compared across far-field conditions silently");
+          note(l, "negative controls",
+            "the registered mismatched-far-field control fired BY NAME — which is this row "
+            + "PASSING. the contract asks each control to fail by name; it did");
+          return {
+            lines: l, tail: [], code: 1,
+            verdict: "Broken evidence. Two runs under different boundary conditions are not two measurements of one thing. Note which row failed: provenance. The negative-controls row passed, because a control going off by name is that row doing its job."
+          };
+        }
+      },
+      {
+        id: "flag",
+        label: "Someone added a flag to the gate command",
+        build: function () {
+          return {
+            lines: [{ text: "the registered gate command is flagless. a flag was supplied.", ok: false }],
+            tail: [], code: 2,
+            verdict: "Not a science failure and not an evidence failure — the thing that ran was not the thing that was registered."
+          };
+        }
+      }
+    ];
+
+    var lampBox = el("div", "c27-lamps");
+    var term = el("pre", "c27-term");
+    term.setAttribute("aria-live", "polite");
+    var stack = el("div", "c27-stack");
+    stack.appendChild(lampBox);
+    stack.appendChild(term);
+    body.appendChild(stack);
+
+    var LAMPS = [
+      { code: 0, txt: "a valid run, whatever nature says" },
+      { code: 1, txt: "the evidence is broken" },
+      { code: 2, txt: "somebody deviated from the frozen command" }
+    ];
+    var lampEls = [];
+    LAMPS.forEach(function (L) {
+      var n = el("div", "c27-lamp");
+      var b = el("b", null, "exit " + L.code);
+      n.appendChild(b);
+      n.appendChild(document.createTextNode(L.txt));
+      lampBox.appendChild(n);
+      lampEls.push({ node: n, bold: b, code: L.code });
+    });
+
+    var timer = null, silentMode = false, lastCode = null;
+
+    function setLamps(code) {
+      var c = Viz.colors();
+      lampEls.forEach(function (L) {
+        var lit = code === L.code;
+        L.node.style.borderColor = lit ? (L.code === 0 ? c.good : c.critical) : c.rule;
+        L.node.style.background = lit ? c.sunken : c.surface;
+        L.bold.style.color = lit ? (L.code === 0 ? c.good : c.critical) : c.muted;
+        L.node.style.color = lit ? c.ink : c.inkSecondary;
+      });
+    }
+
+    function run(sc) {
+      if (timer) { clearTimeout(timer); timer = null; }
+      var built = sc.build();
+      var hypothetical = sc.id === "silent" && silentMode;
+      var out = [
+        "$ node runner/src/main.ts phase6-gate"
+          + (hypothetical ? "   [HYPOTHETICAL: no completeness check]" : ""),
+        ""
+      ];
+
+      if (hypothetical) {
+        built = {
+          lines: base(),
+          tail: [
+            { text: "", ok: true },
+            { text: "203 points reported. tidy. nothing looks missing.", ok: true }
+          ],
+          code: 0,
+          verdict: "This is NOT what the registered gate does — it counts 204, because the grid "
+                 + "goes into the hashed manifest by value, and its Execution-validity row "
+                 + "requires that every sweep point completed. This is what a gate that only "
+                 + "checked the rows it was handed would do: return 0, because the missing run "
+                 + "left no trace. That is why the rule is 'excluded BY NAME' rather than "
+                 + "'excluded'. A safeguard you can satisfy by deleting the evidence is not a "
+                 + "safeguard."
+        };
+      }
+
+      var lines = built.lines.slice();
+      built.lines.forEach(function (l) {
+        if (l.why) lines.splice(lines.indexOf(l) + 1, 0, { text: "      └─ " + l.why, ok: l.ok });
+      });
+      lines = lines.concat(built.tail);
+      lines.push({ text: "", ok: true });
+      lines.push({ text: "exit " + built.code, ok: built.code === 0 });
+
+      lastCode = built.code;
+      setLamps(built.code);
+      var i = 0;
+      term.textContent = out.join("\n") + "\n";
+
+      function step() {
+        if (i >= lines.length) {
+          term.textContent += "\n" + built.verdict;
+          styleTerm(built.code);
+          return;
+        }
+        term.textContent += lines[i].text + "\n";
+        i++;
+        timer = setTimeout(step, 90);
+      }
+      if (Viz.reduceMotion.matches) {
+        lines.forEach(function (l) { term.textContent += l.text + "\n"; });
+        term.textContent += "\n" + built.verdict;
+        styleTerm(built.code);
+      } else {
+        step();
+      }
+    }
+
+    function styleTerm(code) {
+      var c = Viz.colors();
+      term.style.borderColor = code == null ? c.rule : code === 0 ? c.good : c.critical;
+    }
+
+    SCENARIOS.forEach(function (sc) {
+      Viz.button(controls, sc.label, function () { run(sc); });
+    });
+    Viz.button(controls, "Hypothetical: a gate with no completeness check", function (b) {
+      silentMode = !silentMode;
+      b.setAttribute("aria-pressed", String(silentMode));
+      run(SCENARIOS[3]);
+    }, { pressed: false });
+
+    setLamps(null);
+    term.textContent = "$ node runner/src/main.ts phase6-gate\n\n"
+      + "  pick a scenario below.\n\n"
+      + "  this is a simulation of the gate's reasoning, not a transcript of a real run.\n"
+      + "  the nine check areas, the exit codes and the six negative controls are the\n"
+      + "  registered ones; the situations are hypothetical.";
+    Viz.onThemeChange(function () { setLamps(lastCode); styleTerm(lastCode); });
+  })();
+
+  /* ======================================================================= */
+  /* 5. ANCESTOR CHECK (static diagram)                                      */
+  /* ======================================================================= */
+  (function () {
+    var root = document.getElementById("c27-ancestor");
+    if (!root) return;
+    var box = root.querySelector(".chart__body");
+    var svg = null;
+
+    function render() {
+      if (svg) svg.remove();
+      var c = Viz.colors();
+      var W = 860, H = 250;
+      svg = Viz.createSvg(box, W, H, {
+        label: "Two commit chains. In the first the freeze commit is an ancestor of the execution "
+             + "commit and the sweep runs; in the second it is not, and the preflight refuses."
+      });
+
+      function chain(y, label, dots, ok, verdict) {
+        var x0 = 130, gap = 108;
+        var t = Viz.svgEl("text", {
+          x: 14, y: y + 5, fill: c.inkSecondary, "font-size": 12, "font-weight": 650,
+          "font-family": "var(--font-sans)"
+        });
+        t.textContent = label;
+        svg.appendChild(t);
+
+        dots.forEach(function (d, i) {
+          var x = x0 + i * gap;
+          if (i > 0) {
+            svg.appendChild(Viz.svgEl("line", {
+              x1: x - gap + 13, y1: y, x2: x - 13, y2: y,
+              stroke: d.branch ? c.critical : c.ruleStrong, "stroke-width": 1.6,
+              "stroke-dasharray": d.branch ? "5 4" : null
+            }));
+          }
+          svg.appendChild(Viz.svgEl("circle", {
+            cx: x, cy: y, r: 11,
+            fill: d.mark ? (ok ? c.good : c.critical) : c.surface,
+            stroke: d.mark ? (ok ? c.good : c.critical) : c.ruleStrong, "stroke-width": 2
+          }));
+          var lb = Viz.svgEl("text", {
+            x: x, y: y + 30, "text-anchor": "middle",
+            fill: d.mark ? (ok ? c.good : c.critical) : c.muted,
+            "font-size": 10.5, "font-family": "var(--font-mono)"
+          });
+          lb.textContent = d.id;
+          svg.appendChild(lb);
+          if (d.note) {
+            var nn = Viz.svgEl("text", {
+              x: x, y: y - 21, "text-anchor": "middle",
+              fill: c.inkSecondary, "font-size": 10.5, "font-family": "var(--font-sans)"
+            });
+            nn.textContent = d.note;
+            svg.appendChild(nn);
+          }
+        });
+
+        var v = Viz.svgEl("text", {
+          x: x0 + (dots.length - 1) * gap + 34, y: y + 5,
+          fill: ok ? c.good : c.critical, "font-size": 12, "font-weight": 700,
+          "font-family": "var(--font-sans)"
+        });
+        v.textContent = verdict;
+        svg.appendChild(v);
+      }
+
+      chain(62, "as it happened", [
+        { id: "…", note: "" },
+        { id: "e2f1bfc", note: "protocol frozen", mark: true },
+        { id: "…", note: "" },
+        { id: "3e3f75c", note: "sweep executed", mark: true }
+      ], true, "RUNS");
+
+      chain(178, "the backdated version", [
+        { id: "…", note: "" },
+        { id: "?", note: "sweep executed", mark: false },
+        { id: "?", note: "protocol written", branch: true, mark: true }
+      ], false, "REFUSED");
+
+      var foot = Viz.svgEl("text", {
+        x: 14, y: 232, fill: c.inkSecondary, "font-size": 11.5, "font-family": "var(--font-sans)"
+      });
+      foot.textContent = "git merge-base --is-ancestor <freeze commit> HEAD  —  "
+        + "the answer is a property of the chain, not of a timestamp anyone typed.";
+      svg.appendChild(foot);
+    }
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,2094 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why the Grid Is Hexagonal — Snow Crystals</title>
+<meta name="description" content="Before any physics goes into a simulation, the grid itself has to earn a symmetry error of exactly zero — and a rectangular one never can. The data structure is a physics decision.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 19 &middot; Why the Grid Is Hexagonal</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#the-container-leaks">The container leaks into the answer</a></li>
+      <li><a href="#eight-neighbours">Eight neighbours, all the same length</a></li>
+      <li><a href="#three-numbers">Three numbers, never one</a></li>
+      <li><a href="#one-long-list">One long list, and the bug that doesn&rsquo;t crash</a></li>
+      <li><a href="#one-rule-everywhere">One rule, everywhere, at once</a></li>
+      <li><a href="#the-ledger">Nothing is created, nothing escapes &mdash; if the walls reflect</a></li>
+      <li><a href="#the-box-that-isnt">The box that isn&rsquo;t a hexagon</a></li>
+      <li><a href="#nineteen-not-twenty">Nineteen, not twenty</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <!-- ===== header ===== -->
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 19</p>
+        <h1>Why the Grid Is Hexagonal</h1>
+        <p class="chapter-header__question">
+          Before a single equation goes in, a simulation has to decide what a &ldquo;place&rdquo; is.
+          Get that wrong and the shape of the container turns up inside the answer &mdash; wearing
+          the costume of a result.
+        </p>
+        <div class="chapter-header__meta">
+          <span>~16 min read</span>
+          <span>6 animations</span>
+          <span>1 table</span>
+        </div>
+      </header>
+
+      <!-- ===== learning goals ===== -->
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Explain why choosing a data structure can be a physics decision.</li>
+          <li>Describe a cellular automaton, and say why updating every cell <em>simultaneously</em>
+              is part of the model rather than a coding style.</li>
+          <li>Read a conservation test as a proof-shaped assertion rather than a sanity check.</li>
+          <li>Say why a rectangular domain can never be relied on to score exactly zero on a
+              sixfold-symmetry test once the depletion field reaches a wall, no matter how correct
+              the code inside it is &mdash; and why the metric reading zero at the end of such a run
+              is not a reprieve.</li>
+        </ul>
+      </section>
+
+      <!-- ================================================================= -->
+      <h2 id="the-container-leaks">The container leaks into the answer</h2>
+
+      <p>
+        The last chapter left the grid sitting at the bottom of the ladder with a question hanging
+        over it: why does every cell get eight neighbours, all exactly the same distance away?
+        Answering that starts somewhere that looks unrelated &mdash; with a rule that has nothing
+        sixfold in it.
+      </p>
+
+      <p>
+        Lay out a block of cells. Mark the one in the middle as ice. Then, over and over, apply a
+        single sentence: <strong>a cell becomes ice if any one of its neighbours is already
+        ice.</strong> That is the whole rule. It contains no hexagon, no angle, no crystal, no
+        physics.
+      </p>
+
+      <p>
+        Run it on two different grids and watch what comes out.
+      </p>
+
+      <figure class="anim" id="demo-two-grids">
+        <div class="anim__head">
+          <p class="anim__title">The same rule on two grids</p>
+          <p class="anim__sub">
+            Identical rule, identical seed, identical number of steps. The only difference is what
+            counts as a neighbour.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The triangular grid uses the six axial
+          neighbour offsets of <code>core/src/lattice.ts</code> lines 31&ndash;38 &mdash;
+          <code>(+1,0) (&minus;1,0) (0,+1) (0,&minus;1) (+1,&minus;1) (&minus;1,+1)</code> &mdash;
+          and the real-space embedding <code>x = i + j/2, y = j&middot;&radic;3/2</code> from line 76.
+          The sixfold score rotates every ice cell by 60&deg; in real space and asks whether it lands
+          on another ice cell. On the triangular lattice that landing is exact; on the square lattice
+          a 60&deg; turn lands between cells, so the score has to round to the nearest one before it
+          can ask &mdash; see the note below the panels.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The triangular grid grows a hexagon. The square grid grows a diamond. Both panels are drawn
+        on the same 17&nbsp;&times;&nbsp;17 block of indices &mdash; 289 cells each &mdash; and the
+        only difference between them is which cells count as neighbours. Nowhere in the rule did
+        anyone write the word &ldquo;six&rdquo;. The grid supplied it. And on the square grid, the
+        grid supplied &ldquo;four&rdquo; just as confidently.
+      </p>
+
+      <p>
+        That is the problem in one picture. If you built a snow-crystal simulator on a cube of little
+        cubes and it grew something sixfold, you would have no way of telling whether the physics did
+        that or the arithmetic did. Worse: you would probably never grow a clean hexagon at all,
+        because a fourfold container would be fighting you. Either way the output is uninterpretable,
+        and an uninterpretable output is not a result.
+      </p>
+
+      <p>
+        Notice one more thing about the left-hand panel: it is not hexagon-shaped. A rectangular block
+        of indices on a triangular lattice <em>leans</em> when you draw it in real space. Keep that
+        leaning shape in mind &mdash; it comes back at the end of this chapter as a measured defect.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          The symmetry of the grid is not a rendering detail. It is an assumption baked into the
+          model before any equation is written &mdash; and it comes out in the results looking exactly
+          like a discovery. Choosing the lattice <em>is</em> doing physics.
+        </p>
+      </aside>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          Picking a hexagonal grid does <em>not</em> make the model right, and it is not evidence
+          about nature. It removes exactly one specific way of being wrong: the way where a sixfold
+          result would only have been the container talking. Everything in this chapter buys
+          interpretability, not correctness. Whether the physics laid on top of the grid matches
+          reality is a separate question that only the validation sweep can ask &mdash; and that
+          sweep, Phase&nbsp;6, is still in progress.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="eight-neighbours">Eight neighbours, all the same length</h2>
+
+      <p>
+        So what does the project use instead of a cube? The very first lines of
+        <code>core/src/lattice.ts</code> answer it.
+      </p>
+
+      <div class="equation equation--quote">
+        <p class="equation__math">
+          &ldquo;The stacked triangular lattice T&nbsp;x&nbsp;Z. […] 8 neighbors: 6 in-plane (T) + 2
+          vertical (Z). The fundamental cell is a hexagonal prism with across-flats = 1 and
+          height = 1, so all 8 bonds have unit length.&rdquo;
+        </p>
+        <p class="equation__cite">core/src/lattice.ts, lines 1&ndash;5</p>
+      </div>
+
+      <p>
+        Read that slowly, because it is three decisions stacked on top of each other.
+      </p>
+
+      <p>
+        <strong>A triangular plane, repeated in flat layers.</strong> Not a cube of cubes &mdash; a
+        sheet of hexagonal tiles, then another sheet directly above it, then another. The
+        specification calls the arrangement <code>T &times; Z</code>: the planar triangular lattice
+        <code>T</code>, stacked along the vertical axis <code>Z</code>
+        (<code>docs/gg-machinery.md</code> §1).
+      </p>
+
+      <p>
+        <strong>Eight neighbours per cell.</strong> Six around you in your own sheet, one directly
+        above, one directly below. A cube grid would give you six neighbours meeting at right angles.
+        This gives you six meeting at 60&deg;, plus two vertical.
+      </p>
+
+      <p>
+        <strong>All eight bonds the same length.</strong> This is the part that is easy to skim and is
+        doing the most work. The cell is a hexagonal prism whose across-flats width is 1 and whose
+        height is also 1, so every one of your eight neighbours is exactly distance 1 away, and vapour
+        hopping to one travels the same distance in every direction. If the vertical bond were 1.4
+        times the in-plane one, the simulation would grow crystals stretched along an axis for reasons
+        that had nothing to do with ice.
+      </p>
+
+      <figure class="anim" id="demo-eight-bonds">
+        <div class="anim__head">
+          <p class="anim__title">One cell, eight bonds, every one of them length 1</p>
+          <p class="anim__sub">
+            Six neighbours in the plane at 60&deg;, two straight up and down. Turn the lattice a
+            sixth of the way round and watch where the tracked direction lands.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original diagram. The six in-plane offsets and the rotation
+          <code>rot60(i,&nbsp;j) = (&minus;j,&nbsp;i+j)</code> are taken verbatim from
+          <code>core/src/lattice.ts</code> lines 31&ndash;38 and 81&ndash;94; the drawn positions use
+          the real-space embedding <code>x = i + j/2</code>, <code>y = j&middot;&radic;3/2</code>
+          from line 76.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Cells are addressed by <em>axial coordinates</em> <code>(i, j, k)</code> &mdash; a skewed pair
+        of in-plane axes plus a layer number. Where a cell actually sits in space is then a one-line
+        conversion: <code>x = i + j/2</code>, <code>y = j&middot;&radic;3/2</code>, <code>z = k</code>
+        (<code>core/src/lattice.ts</code> line 76). Skewed coordinates look like an inconvenience.
+        They buy something enormous: the symmetry operations become integer arithmetic.
+      </p>
+
+      <p>
+        Rotating the whole lattice by 60&deg; is <code>rot60(i, j) = (&minus;j, i + j)</code>.
+        Mirroring it is <code>mirror(i, j) = (j, i)</code>. Reflecting it top-to-bottom about the seed
+        plane is <code>zmirror(k) = 2&middot;k_c &minus; k</code>. The file's own comment is the point:
+        &ldquo;All are exact on the integer lattice&rdquo; (<code>core/src/lattice.ts</code> lines
+        81&ndash;83). No sines, no cosines, no rounding.
+      </p>
+
+      <p>
+        Those three operations together &mdash; the sixth-turn, the mirror and the top-to-bottom flip
+        &mdash; generate the full symmetry group of a hexagonal prism. Crystallographers call that
+        group <strong>D6h</strong>, and the repository uses the name throughout: the comment heading
+        those three functions is literally &ldquo;D6h symmetry operators&rdquo;
+        (<code>core/src/lattice.ts</code> line 81). When a file in this project says &ldquo;exact D6h
+        symmetry&rdquo;, it means: every one of those operations leaves the crystal looking identical,
+        cell for cell.
+      </p>
+
+      <p>
+        When chapter 18's ladder demands a symmetry
+        test that can return the value <em>zero</em> rather than <em>small</em>, this is where that
+        becomes possible at all: you can ask whether cell (4,&nbsp;7) and its rotated partner hold
+        identical values, because &ldquo;its rotated partner&rdquo; is an exact integer address rather
+        than a nearby float.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="three-numbers">Three numbers, never one</h2>
+
+      <p>
+        How big is the grid? The obvious answer &mdash; one number, a &ldquo;resolution&rdquo; setting
+        &mdash; is banned. The project's first architecture decision record says so explicitly.
+      </p>
+
+      <div class="equation equation--quote">
+        <p class="equation__math">
+          &ldquo;Domain size is <strong>three independent integers <code>(nx, ny, nz)</code></strong>
+          everywhere: in <code>core</code>, in the checkpoint header, in the CLI, in the WGSL
+          dispatch, and in the resolution presets. There is no scalar &lsquo;resolution&rsquo;
+          parameter anywhere in the codebase.&rdquo;
+        </p>
+        <p class="equation__cite">docs/decisions/0001-non-cubic-grid-dimensions.md, lines 35&ndash;38</p>
+      </div>
+
+      <p>
+        The reason is that snow crystals are not cube-shaped and are not close. The ADR works it out
+        from published case studies: a plate &ldquo;reaches a radius of about 350 lattice units while
+        remaining a <em>plate</em> &mdash; a handful of cells thick. That wants a domain around
+        800&nbsp;&times;&nbsp;800&nbsp;&times;&nbsp;80. Their needles and columns are the transpose:
+        narrow in the T-plane, long in Z. A cube large enough to contain the plate is ~10&times; the
+        cells actually needed, and a cube sized for a column is the same waste rotated.&rdquo;
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The cost of insisting on a cube, worked from the sizes in
+            docs/decisions/0001-non-cubic-grid-dimensions.md lines 18&ndash;21. Cell counts are the
+            product of the three dimensions.
+          </caption>
+          <thead>
+            <tr><th>Domain</th><th class="num">Cells</th><th>Fits a plate?</th><th>Fits a column?</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>800 &times; 800 &times; 80</td><td class="num">51,200,000</td><td>yes, snugly</td><td>no &mdash; too short</td></tr>
+            <tr><td>80 &times; 80 &times; 800</td><td class="num">5,120,000</td><td>no &mdash; too narrow</td><td>yes, snugly</td></tr>
+            <tr><td>800 &times; 800 &times; 800 (a cube)</td><td class="num">512,000,000</td><td>yes, with ~10&times; waste</td><td>yes, with waste</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        That is ten times the memory and ten times the work, spent on empty air. So the domain is
+        three numbers, and the code has to carry three numbers everywhere.
+      </p>
+
+      <p>
+        The ADR then does something worth copying. Under a heading called <strong>Live trap</strong>
+        it writes down, in advance, the bug this decision will cause: &ldquo;the triangular lattice's
+        axial coordinates are skewed, so a domain with <code>nx = ny</code> is a rhombus in real
+        space, not a hexagon, and its corners are not equidistant from the seed. […] Flagged here so
+        it is not rediscovered as a mysterious symmetry-metric failure.&rdquo;
+      </p>
+
+      <p>
+        The ADR's own verdict on that was mild: &ldquo;This does not break the physics &mdash; the
+        crystal simply must not reach the domain edge, which the 80% stopping rule already enforces
+        &mdash; but any metric that assumes &lsquo;distance to domain edge&rsquo; is isotropic is
+        wrong&rdquo; (lines 59&ndash;61). A separate rule already keeps runs away from the wall. What
+        the ADR did not anticipate is what happens to a symmetry gate that has to read
+        <em>exactly</em> zero &mdash; which is where this chapter ends, after two more pieces of
+        machinery have to be in place first.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="one-long-list">One long list, and the bug that doesn't crash</h2>
+
+      <p>
+        The three-dimensional grid is not stored as a three-dimensional anything. It is one long flat
+        list of numbers, and a cell's coordinates are turned into a position in that list by
+        arithmetic.
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">index = k&middot;(nx&middot;ny) + j&middot;nx + i</p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>i, j</dt><dd>the two skewed in-plane coordinates of the cell</dd>
+            <dt>k</dt><dd>which flat layer the cell is in</dd>
+            <dt>nx, ny</dt><dd>how many cells wide the domain is in each in-plane direction</dd>
+            <dt>index</dt><dd>the slot number in the single flat array holding the whole grid</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">core/src/lattice.ts, lines 17&ndash;19</p>
+      </div>
+
+      <p>
+        Once you have that, finding neighbours is just adding constants: <code>+1</code> and
+        <code>&minus;1</code> for east and west, then <code>+nx</code>, <code>&minus;nx</code>,
+        <code>+1&minus;nx</code>, <code>&minus;1+nx</code> for the rest of the plane, and
+        <code>&plusmn;(nx&middot;ny)</code> for straight up and straight down. Eight additions and you
+        have visited the whole neighbourhood, which is what makes tens of millions of cells feasible
+        at all.
+      </p>
+
+      <p>
+        And here is the trap, stated in the specification: &ldquo;The flat offsets are only valid away
+        from the domain faces &mdash; <code>i&plusmn;1</code> wraps across rows&rdquo;
+        (<code>docs/gg-machinery.md</code> lines 53&ndash;54). If a cell sits at the eastern edge of
+        its row, <code>+1</code> does not fall off the end of the world. It lands on the first cell of
+        the <em>next row</em>. Nothing crashes. You have quietly added a wormhole to your universe, and
+        the crystal that grows through it will look perfectly plausible.
+      </p>
+
+      <p>
+        The defence is best explained by what the code refuses to do. There are two neighbour lookups
+        in <code>lattice.ts</code>, and the slow one is not an oversight.
+        <code>neighborIndices</code> checks bounds in every direction and returns
+        <code>&minus;1</code> for anything outside the domain &mdash; &ldquo;For the domain shell; use
+        flat offsets in the interior.&rdquo; The fast one, <code>tNeighborFlatOffsets</code>, is
+        labelled &ldquo;valid in the interior only&rdquo;. The specification even prices the split:
+        the bounds-checked gather runs only on the boundary shell, which is &ldquo;O(N^&#8532;), so
+        the cost is noise&rdquo; (<code>docs/gg-machinery.md</code> lines 53&ndash;55). A shell is a
+        skin, and a skin grows far more slowly than the volume inside it: at the runner's default
+        domain of 128&nbsp;&times;&nbsp;128&nbsp;&times;&nbsp;64 (<code>runner/src/main.ts</code>
+        line 158) about six cells in every hundred are on a face. The border between the fast path
+        and the careful one is written down instead of assumed.
+      </p>
+
+      <p>
+        ADR 0001 gives the reason this is treated as a physics problem rather than a tidiness problem,
+        quoting the project's own charter: <strong>&ldquo;a swapped coordinate is a silent physics
+        bug.&rdquo;</strong> Silent is the operative word. A crash is a gift; it tells you exactly
+        where and when. An index bug hands you a beautiful, wrong snowflake and says nothing at all.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="one-rule-everywhere">One rule, everywhere, at once</h2>
+
+      <p>
+        With the grid settled, what actually runs on it? A <strong>cellular automaton</strong>: a grid
+        where every cell holds a small amount of state, and where one simple rule is applied to
+        <em>every</em> cell at <em>every</em> tick, using only what that cell and its neighbours looked
+        like at the <em>start</em> of the tick.
+      </p>
+
+      <p>
+        Each cell here holds three things (<code>core/src/state.ts</code> lines 44&ndash;49): a flag
+        <code>a</code> that is 1 if the site is part of the crystal; a number <code>b</code> called
+        boundary mass &mdash; &ldquo;quasi-liquid when <code>a = 0</code>, frozen ice when
+        <code>a = 1</code>&rdquo; &mdash; and a number <code>d</code> for water vapour, which is
+        &ldquo;0 forever on attached sites&rdquo;. That is everything the rule is allowed to see.
+        Nobody tells the crystal to grow six arms. Six arms are what a local rule produces after a few
+        thousand ticks on a sixfold grid.
+      </p>
+
+      <p>
+        Under <code>GGThreshold</code> &mdash; the code's name for Gravner and Griffeath's threshold
+        rule, the known-good stand-in of chapters 15 and 18, and the rule Phase 2a certified &mdash;
+        each tick runs four steps in a fixed order
+        (<code>solver-cpu/src/gg-solver.ts</code> lines 6&ndash;15): <strong>diffusion</strong>,
+        which spreads vapour by local averaging; <strong>freezing</strong>, where &ldquo;boundary cells
+        trade vapor for boundary mass&rdquo;; <strong>attachment</strong>, which turns a cell into ice
+        once its boundary mass passes a threshold; and <strong>melting</strong>, where &ldquo;boundary
+        cells that did NOT just attach leak <code>b</code> back to <code>d</code>&rdquo;.
+      </p>
+
+      <p>
+        The averaging in step one is where the unit-length bonds pay off. In-plane, a cell becomes the
+        average of itself and its six in-plane neighbours &mdash; a weight of <code>1/7</code> each.
+        Vertically, it becomes <code>4/7</code> of its own new value plus <code>3/14</code> from each
+        of the layers above and below. Those weights look arbitrary and are not: the specification says
+        they &ldquo;make diffusion isotropic once the lattice is scaled so all 8 bonds have unit
+        length&rdquo;, and adds the check <code>4/7 + 2&middot;(3/14) = 1</code>
+        (<code>docs/gg-machinery.md</code> lines 191&ndash;192).
+      </p>
+
+      <p>
+        Now the discipline point, and it is the reason this section exists. Because the rule is local
+        and simultaneous, <strong>the order you visit cells in must not matter</strong>. So diffusion
+        reads from one copy of the vapour field and writes into a second, then swaps them &mdash; two
+        buffers, ping-ponging. Numerical people call that a <strong>Jacobi</strong> update: every cell
+        is computed from the old field only, so no cell can ever see a value that was changed this
+        tick. The alternative, overwriting the field as you go, is cheaper and uses half the memory.
+        The solver header rejects it in three words.
+      </p>
+
+      <div class="equation equation--quote">
+        <p class="equation__math">
+          &ldquo;(i)&nbsp;&nbsp;&nbsp;diffusion&nbsp;&nbsp;&mdash; Jacobi over ping-pong buffers,
+          NEVER in place (in-place Gauss-Seidel is a silent physics bug)&rdquo;
+        </p>
+        <p class="equation__cite">solver-cpu/src/gg-solver.ts, lines 7&ndash;8</p>
+      </div>
+
+      <p>
+        Gauss&ndash;Seidel &mdash; updating in place, so cells later in the sweep see values already
+        changed this tick &mdash; is a perfectly respectable numerical method, and often converges
+        faster. It is simply not the model this project says it is running. And the difference is not a
+        rounding detail. Try it.
+      </p>
+
+      <figure class="anim" id="demo-in-place">
+        <div class="anim__head">
+          <p class="anim__title">Break it: update the field in place</p>
+          <p class="anim__sub">
+            One unit of vapour released at the centre, spreading by the <code>1/7</code> in-plane
+            average. Watch the symmetry readout and the centre-of-mass crosshair.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Implements step (1a) of
+          <code>docs/gg-machinery.md</code> §4 &mdash;
+          <code>d&prime;(x) = (1/7)&nbsp;&middot;&nbsp;&Sigma; d&deg;(y)</code> over the cell and its
+          six in-plane neighbours &mdash; with the reflecting rule of lines 194&ndash;197 and the
+          opposite-pair summation order of <code>solver-cpu/src/gg-solver.ts</code> lines
+          815&ndash;837. Vertical diffusion and the other three steps of the tick are omitted; this is
+          one slice, not the solver. The readout is the worst difference between a cell and its
+          <code>rot60</code> partner in the continuous vapour field &mdash; in the spirit of the
+          repository's set-based symmetry metric (<code>core/src/metrics.ts</code> lines
+          43&ndash;48), not that metric, which counts whole cells and cannot return a fraction.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        With two buffers, flipping the sweep direction changes nothing whatsoever &mdash; that is what
+        &ldquo;the order must not matter&rdquo; looks like when it is true. Update in place and the
+        sweep direction becomes an input to the physics: the rotated-partner difference leaves zero on
+        the click,
+        and the vapour's centre of mass &mdash; which has nowhere legitimate to go, given one source
+        cell in a symmetric room &mdash; drifts off in whichever direction you happened to loop.
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          The same discipline is enforced on the physics rule, in a different file and for a different
+          reason: <code>solver-cpu/src/lk-solver.ts</code> lines 1428&ndash;1432 warn against replacing
+          values in place there too, because &ldquo;an opposing pixel may itself be a boundary pixel,
+          so in-place replacement would make the answer boundary-list-order dependent (a hidden
+          Gauss-Seidel/D6h defect)&rdquo;. Two buffers cost a full extra copy of the domain in memory.
+          That is the price of not letting an implementation shortcut become a physics claim.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="the-ledger">Nothing is created, nothing escapes &mdash; if the walls reflect</h2>
+
+      <p>
+        What stops vapour leaking out of the edges of the world, or being quietly manufactured at the
+        crystal's surface? A rule short enough to fit in one sentence: any averaging term that would
+        point into ice, or out of the domain, is replaced by the cell's <em>own</em> value.
+      </p>
+
+      <p>
+        The specification spells out the consequence: &ldquo;This is what makes mass conservation
+        exact: a cell retains <code>(1 + n_attached)/7</code> of its mass and hands <code>1/7</code> to
+        each free neighbor, and the books balance&rdquo; (<code>docs/gg-machinery.md</code> lines
+        194&ndash;197). Nothing is thrown away at a wall; it is handed back to the cell that offered
+        it. So the total of vapour plus boundary mass across the whole grid is a quantity that
+        arithmetic says cannot change &mdash; &ldquo;an exact invariant, not an approximate one&rdquo;
+        (lines 163&ndash;165) &mdash; provided the far field is <em>reflecting</em>, which is the
+        condition just described, the one where a term pointing out of the domain is handed back to
+        the cell that offered it.
+      </p>
+
+      <p>
+        That upgrades a test from a sanity check into something proof-shaped: not &ldquo;does the
+        picture look right&rdquo; but &ldquo;here is a number the rule guarantees, and here is the run
+        reporting it&rdquo;. A bug that leaks or manufactures mass trips it long before it produces a
+        wrong-looking crystal.
+      </p>
+
+      <figure class="anim" id="demo-mass-ledger">
+        <div class="anim__head">
+          <p class="anim__title">The ledger, and the ruler you measure it with</p>
+          <p class="anim__sub">
+            Vapour turns into boundary mass at the crystal's surface. The two columns move; the total
+            does not. Then press the cheat button.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Diffusion and the freezing step follow
+          <code>docs/gg-machinery.md</code> §4 (i) and (ii); the total is summed with the
+          Kahan&ndash;Babu&scaron;ka&ndash;Neumaier compensation of <code>core/src/metrics.ts</code>
+          lines 26&ndash;41. The ill-conditioned sum in the lower panel is the exact input from
+          <code>core/test/metrics.test.ts</code> lines 33&ndash;42, computed live in your
+          browser.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Three things to notice. First, run it long enough and the drift stops reading exactly zero: it
+        settles at a couple of parts in 10<sup>16</sup>, which is the floating-point noise floor of
+        the machine rather than a physics error. The invariant is exact in arithmetic; a computer
+        reports it plus rounding dust. The project therefore writes its tests
+        against measured floors rather than against hope. One asserts &ldquo;conserves total mass to &lt; 1e-10 relative over 10&nbsp;000
+        ticks GROWN, noise OFF, reflecting&rdquo;; a companion &ldquo;crystal-free control run
+        characterizes the float floor&rdquo; and demands drift below 1e-13
+        (<code>solver-cpu/test/gg-solver.test.ts</code> lines 37 and 52). The maker-asserted Phase 2a
+        gate run records drift of 2.056e-13 against a measured float floor of 3.8e-16
+        (<code>docs/PROGRESS.md</code>, Phase 2a gate row) &mdash; asserted by the project about
+        itself, on the strength of a run that exits zero or fails.
+      </p>
+
+      <p>
+        The same row records the other number this chapter has been circling. On a
+        128&nbsp;&times;&nbsp;128&nbsp;&times;&nbsp;64 hexagonal-prism domain, plate preset, seed 1,
+        that run reports &ldquo;delta check clean all 4800 ticks, full metric 0 everywhere
+        sampled&rdquo; (<code>docs/PROGRESS.md</code>, Phase 2a gate row). Not small. Zero &mdash;
+        checked every tick, for the whole run. That is the claim the rest of this chapter is
+        protecting, and it is a stranger claim than it looks.
+      </p>
+
+      <p>
+        Second &mdash; and this generalises far beyond snowflakes &mdash; the measuring instrument has
+        to be finer than the thing being measured. Adding a million floating-point numbers the obvious
+        way accumulates its own error, and <code>core/src/metrics.ts</code> does that arithmetic out
+        loud: &ldquo;Naive summation over ~1e6 f64 cells has worst-case relative error of order n*eps
+        &asymp; 1e-10 &mdash; at the mass-gate tolerance itself.&rdquo; A ruler whose own error is the
+        size of the tolerance cannot decide anything. So the total is accumulated with compensated
+        summation, which keeps track of the crumbs ordinary addition throws away &mdash; the lower
+        panel of the demo runs the exact case the test suite uses.
+      </p>
+
+      <p>
+        Third, and this is a condition rather than a decoration: read the last word of that test name
+        again. &ldquo;Noise OFF, <strong>reflecting</strong>.&rdquo; The closed ledger belongs to that
+        far field and no other. Reflecting is the <strong>Phase 2a</strong> condition and the one
+        faithful to the Gravner&ndash;Griffeath paper: vapour is never replenished, so the crystal eats
+        a finite reservoir and the supersaturation falls over the run
+        (<code>docs/gg-machinery.md</code> lines 199&ndash;201).
+      </p>
+
+      <p>
+        Phase 2b added a second: <strong>fixed-&sigma; Dirichlet</strong>, which holds the domain faces
+        at the set supersaturation, so vapour is replenished at the far field. The motive is that
+        &ldquo;Nakaya coordinates and Libbrecht's measurements assume a <em>maintained</em> far-field
+        &sigma;&rdquo;. The cost is the theorem. Under Dirichlet the boundary is &ldquo;a source/sink
+        <em>by design</em>&rdquo;, so those runs do not come with a closed ledger; they come with a
+        metered one, a check that &ldquo;starts depleted and verifies that Dirichlet returns to the set
+        value with injected field change metered and balancing&rdquo; (lines 203&ndash;210). Same
+        discipline, different theorem.
+      </p>
+
+      <p>
+        And Phase 6 registered a third. Its condition is <strong>monopole-matched</strong>:
+        &ldquo;Every Phase 6 validation run uses the <strong>monopole-matched</strong> shell&rdquo;
+        (<code>docs/plans/phase-6-nakaya-validation.md</code> line 158, citing ADR 0024). Fixed-&sigma;
+        Dirichlet was measured and found wanting &mdash; a fixed-value wall at a finite radius
+        &ldquo;over-supplies vapor, by a factor the spherical solution gives in closed form, and at the
+        domain sizes this project can afford that factor is large rather than negligible&rdquo;
+        (<code>core/src/state.ts</code> lines 13&ndash;17). Chapter 23 takes that apart.
+      </p>
+
+      <p>
+        Three conditions, then, and three different ledgers, and the specification refuses to let them
+        blur: which condition a run used is recorded in its checkpoint metadata, and results are
+        &ldquo;never compared across conditions silently &mdash; the two record different
+        experiments&rdquo; (<code>docs/gg-machinery.md</code> lines 211&ndash;212). One more thing has
+        to be said about those Phase 6 runs, because it is easy to picture them as this chapter's tick
+        with a different wall bolted on. They are not. They run the other surface rule, and under
+        <code>LibbrechtKinetics</code> &ldquo;diffusion becomes an iterated surface-boundary
+        relaxation, freezing is replaced by that sole sink, threshold attachment is replaced by
+        policy-versioned boundary-pixel fill, and melting is disabled&rdquo; (lines 172&ndash;177).
+        Three of the four steps in the last section are replaced or switched off. What carries through
+        unchanged into Phase 6 is the lattice underneath them &mdash; which is the point of this
+        chapter.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="the-box-that-isnt">The box that isn't a hexagon</h2>
+
+      <p>
+        Now the trap ADR 0001 flagged &mdash; arriving on schedule, with a number attached, and worse
+        than the ADR expected.
+      </p>
+
+      <p>
+        The array of cells is a rectangle of <em>indices</em>. It is not a rectangle in space. Because
+        the axes are skewed by 60&deg;, a block of indices running <code>&minus;R</code> to
+        <code>+R</code> in both <code>i</code> and <code>j</code> is a <strong>rhombus</strong> when you
+        draw it &mdash; long in one diagonal, short in the other. Its walls therefore sit at unequal
+        distances from the seed in the middle. The comment in <code>core/src/state.ts</code> states the
+        consequence as geometry, not as a bug.
+      </p>
+
+      <div class="equation equation--quote">
+        <p class="equation__math">
+          &ldquo;a rectangular axial box is a RHOMBUS in cartesian space &mdash; its walls sit at
+          unequal hex distances from the center (C2 symmetry, not C6), and an even nz puts unequal
+          z-reservoirs above and below the seed plane. Under the reflecting
+          condition the walls therefore feed the crystal anisotropically, and exact D6h symmetry is
+          geometrically impossible once the depletion field reaches a wall (measured: a systematic
+          &Delta;b &asymp; 0.03 between zmirror partners by tick 269 on nz=16).&rdquo;
+        </p>
+        <p class="equation__cite">core/src/state.ts, lines 22&ndash;30</p>
+      </div>
+
+      <p>
+        Two shorthands in there. <strong>C6</strong> means a shape that comes back to itself every
+        60&deg; &mdash; six positions, all identical. <strong>C2</strong> means it only comes back
+        after a half turn: two positions, not six. A rhombus is a C2 shape wearing a C6 grid, and that
+        mismatch is the whole defect. (D6h, from earlier, is C6 plus the mirrors and the top-to-bottom
+        flip &mdash; the full symmetry of a hexagonal prism.)
+      </p>
+
+      <p>
+        Note which axis breaks. A box is asymmetric in two independent ways &mdash; sideways, because
+        the skewed index box is a rhombus, and vertically, because an even number of layers leaves no
+        exact centre plane (at <code>nz=16</code> the seed plane sits 8 layers from one z-wall and 7
+        from the other, <code>solver-cpu/test/gg-solver.test.ts</code> lines 154&ndash;155). The
+        measured break came through the vertical one: the &Delta;b of about 0.03 above is between
+        <code>zmirror</code> partners, cells reflected top-to-bottom about the seed plane.
+      </p>
+
+      <p>
+        Now read the mechanism as a sequence. The crystal eats vapour, so a shadow of depleted air spreads outward
+        from it. While the shadow is small, the walls are irrelevant and everything is perfectly
+        symmetric. The moment the shadow touches a wall, the wall starts handing vapour back &mdash;
+        and an unequal wall hands back unequally. From that tick onward, exact sixfold symmetry is not
+        difficult. It is impossible. No amount of correct code can pass a test the room forbids.
+      </p>
+
+      <figure class="anim" id="demo-symmetry-stopwatch">
+        <div class="anim__head">
+          <p class="anim__title">Symmetry stopwatch: the same run in two rooms</p>
+          <p class="anim__sub">
+            Identical seed, identical rule, identical number of ticks. Watch the pale shadow spread,
+            and predict the tick at which the right-hand readout leaves zero.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The <code>hexPrism</code> mask is the one
+          built in <code>solver-cpu/src/gg-solver.ts</code> lines 366&ndash;388
+          (<code>dist &lt;= radius</code> on <code>hexDistance</code>); the symmetry readout is the
+          worst mismatch between a cell and its <code>rot60</code> partner, in the spirit of the
+          set-based metric in <code>core/src/metrics.ts</code> lines 43&ndash;48. The departure ticks
+          shown are measured by this demo, not quoted from the repository. This demo isolates the
+          in-plane rhombus only; the repository's measured 32&times;32&times;16 break came through the
+          vertical <code>zmirror</code> axis, which a 2-D slice cannot show.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The fix is a mask, and it has to cut in both directions at once, because the box was
+        asymmetric in both. Sideways, the active region is cut down to a hexagonal prism inscribed in
+        the index box, and everything outside it becomes an inert wall cell: &ldquo;wall cells are
+        inert and reflect exactly like attached cells&rdquo;
+        (<code>solver-cpu/src/gg-solver.ts</code> lines 24&ndash;25). Vertically, the same mask trims
+        the layer stack: <code>hexPrism</code> &ldquo;masks the active region to an inscribed
+        hexagonal prism with a <code>zmirror</code>-symmetric z-range&rdquo;
+        (<code>core/src/state.ts</code> lines 29&ndash;30), so the reservoir above the seed plane holds
+        exactly as many layers as the one below &mdash; which is the axis that actually broke. The
+        half-extent it keeps is the smaller of the two gaps, <code>Math.min(kc, nz &minus; 1 &minus;
+        kc)</code> (<code>solver-cpu/src/gg-solver.ts</code> line 368), so at <code>nz=16</code> a
+        layer is simply given up. It costs you the corners of the array you allocated, and it buys the
+        only thing that matters here: every wall is now the same lattice distance from the seed.
+        The project also notes it was not first. The machinery is transcribed from
+        J.&nbsp;Gravner and D.&nbsp;Griffeath, &ldquo;Modeling snow crystal growth III:
+        three-dimensional snowfakes&rdquo;, <em>Phys. Rev. E</em> <strong>79</strong>, 011601 (2009)
+        &mdash; the repository calls them &ldquo;G-G&rdquo; and transcribes the model in
+        <code>docs/gg-machinery.md</code> (lines 11&ndash;12). And &ldquo;G-G themselves ran &lsquo;a
+        finite lattice in the shape of hexagonal prism&rsquo; (paper §III)&rdquo;
+        (<code>core/src/state.ts</code> line 28).
+      </p>
+
+      <p>
+        ADR 0001 predicted that the rhombus would confuse a distance metric. It did not predict that
+        exact sixfold symmetry would become geometrically impossible, and nobody reasoned that out in
+        advance either &mdash; <code>core/src/state.ts</code> dates it as a finding, 2026-07-14. It was
+        measured, and the failure is pinned in a test that exists purely to keep failing.
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          <code>solver-cpu/test/gg-solver.test.ts</code> line 152 runs a <em>negative control</em>
+          named &ldquo;the box domain breaks symmetry once the field feels the walls&rdquo;. At
+          32&times;32&times;16 it records that &ldquo;the first asymmetric attachment lands at tick 270
+          via zmirror, with a boundary-mass split of ~0.03 between mirror partners: mesoscopic wall physics,
+          three orders above ulp scale, NOT index arithmetic&rdquo;, and asserts that tick number
+          exactly (line 181). Its stated job is that &ldquo;if this test ever fails, the box has
+          silently become symmetric and the domain machinery changed underneath the gate.&rdquo;
+        </p>
+        <p>
+          Two things in that quotation. Tick 270 is one tick later than the 269 in the
+          <code>state.ts</code> comment above, and that is not a transcription slip: the two files
+          record different events. <code>state.ts</code> notes the boundary-mass split as present
+          <em>by</em> tick 269 &mdash; an observation, not an onset &mdash; and the test pins the
+          first asymmetric <em>attachment</em> at 270. The mass has to go unequal before an
+          attachment can, so the two numbers are consistent rather than in conflict.
+        </p>
+        <p>
+          And a <em>ulp</em> is the gap between one number a computer can store and the next one up
+          &mdash; the subject of the next chapter. Calling the split &ldquo;above ulp scale&rdquo; is
+          ruling out a suspect: 0.03 is enormously larger than anything floating-point rounding on
+          this lattice can produce, so whatever caused it, it is not the arithmetic slipping in the
+          last bit and it is not index arithmetic. The comment names what is left: &ldquo;mesoscopic
+          wall physics&rdquo;. It is the walls.
+        </p>
+        <p>
+          And a sting in the tail, also asserted (line 189): by tick 400 the overall symmetry number is
+          back to exactly 0, because the lagging mirror partners catch up. So the full metric at the
+          end of a run that demonstrably broke at 270 reads clean. That is why the gate does not rely
+          on sampling it &mdash; the runner's default is one full symmetry metric every 1000 ticks
+          (<code>runner/src/main.ts</code> line 167), and a run like this one could slip between two of
+          them. The comment says so: &ldquo;the per-tick delta check is load-bearing, not
+          belt-and-braces.&rdquo;
+        </p>
+      </aside>
+
+      <p>
+        Two lessons, and neither is about snowflakes. First, &ldquo;the test failed&rdquo; does not
+        mean &ldquo;the code is wrong&rdquo;; sometimes the experiment is impossible, and the obvious
+        diagnosis &mdash; index arithmetic, where everyone's suspicion goes first &mdash; was the wrong
+        one. Second, an automated metric caught something an eyeball would have waved straight
+        through: a boundary-mass difference of 0.03 between two cells does not look like anything at
+        all. There is nowhere to
+        hide inside the number either: the symmetry metric moves in whole cells, so its smallest
+        possible nonzero value is 2 divided by the number of cells in the crystal &mdash; because a
+        mismatch costs you a whole cell and its partner, never a fraction of one &mdash; and
+        &ldquo;there is no meaningful &lsquo;small but nonzero&rsquo;&rdquo;
+        (<code>core/src/metrics.ts</code> lines 47&ndash;48). It is zero, or it is a failure.
+      </p>
+
+      <p>
+        The rule that fell out of it is now written where the next person will trip over it:
+        &ldquo;Exact D6h symmetry gates require <code>hexPrism</code>. A box footprint and its walls are
+        not a sixfold-symmetric environment&rdquo; (<code>AGENTS.md</code> lines 263&ndash;265). The
+        runner defaults to <code>hexPrism</code>; the solver class itself still defaults to
+        <code>box</code>, &ldquo;so tests must choose intentionally&rdquo;.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="nineteen-not-twenty">Nineteen, not twenty</h2>
+
+      <p>
+        One last thing has to be sixfold before any of the machinery can be trusted: what you start
+        with. A run begins from a seed &mdash; a small patch of cells declared to be ice before tick
+        zero. If the seed is lopsided, the symmetry test is measuring your typing rather than your
+        physics.
+      </p>
+
+      <figure class="anim" id="demo-seed">
+        <div class="anim__head">
+          <p class="anim__title">Build the seed yourself</p>
+          <p class="anim__sub">
+            Click cells to add or remove them. The verdict updates live. Try to build a sixfold
+            symmetric seed with exactly 20 sites.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The canonical seed, the site formula
+          <code>3r&sup2; + 3r + 1</code> and the modular argument all come from the comment on
+          <code>hexSeedSites</code>, <code>core/src/lattice.ts</code> lines 121&ndash;129; the symmetry
+          check applies <code>rot60</code> from line 85 of the same file.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The canonical seed is a flat hexagonal plate of radius 2 and thickness 1. Count its cells and
+        you get 19, following <code>3r&sup2; + 3r + 1</code> &mdash; 1, 7, 19, 37 for radii 0 to 3. The
+        G-G paper says 20. The project's notes record that as an
+        erratum, in one line in the house rules: &ldquo;The canonical radius-2, thickness-1 seed has
+        <strong>19 sites</strong>. The paper's &lsquo;20&rsquo; is an erratum&rdquo;
+        (<code>AGENTS.md</code> line 262).
+      </p>
+
+      <p>
+        What makes that an erratum rather than a disagreement is that it can be settled without running
+        anything. A 60&deg; rotation moves every cell except the one at the very centre. So the cells of
+        any sixfold-symmetric set fall into groups of six, plus possibly the lone centre &mdash; which
+        means the number of sites is always a multiple of 6, or one more than a multiple of 6. The code
+        comment states it exactly: &ldquo;any C6-symmetric set has <code>|S| = 0 or 1 mod 6</code>&rdquo;.
+        Nineteen is 18 + 1. Twenty is neither, so no arrangement of 20 cells anywhere on this lattice can
+        be sixfold symmetric.
+      </p>
+
+      <p>
+        The response was not to hard-code 19 and move on. The same comment continues: &ldquo;Seed size
+        stays a parameter so the 20-site variant can be run deliberately; the symmetry metric rejects
+        it.&rdquo; The unusable configuration stays reachable, and the instrument that catches it stays
+        pointed at it.
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          &ldquo;Sources are checked, not trusted&rdquo; has to include this page and the project it
+          describes. Every review in this project to date has been an LLM review &mdash; including the
+          two-reviewer process that checked this chapter. The project treats that as a disclosed
+          limitation, not as a substitute for review by a human domain scientist, and no human domain
+          scientist has yet read any of it. Phase 6, the validation sweep, is in progress; Phase 7, the
+          product, has not started. Nothing in this chapter is evidence about nature. It is evidence
+          about whether the apparatus can be blamed.
+        </p>
+      </aside>
+
+      <p class="handoff">
+        All of this rests on a word used repeatedly here and never examined: that the symmetry error is
+        <em>exactly</em> zero. A grid can be perfectly hexagonal, a room perfectly symmetric and a seed
+        perfectly balanced &mdash; and two mirror-image cells can still disagree, because adding the
+        same six numbers in a different order does not always give the same answer. The next chapter is
+        about the last bit of a floating-point number.
+      </p>
+
+      <!-- ===== prev / next ===== -->
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./18-never-physics-ahead-of-the-machinery.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">Never Physics Ahead of the Machinery</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./20-the-flaw-in-the-last-bit.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">The Flaw in the Last Bit</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Part Two describes a software project; every figure in it is original and
+      is built from the repository files named beneath it.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script>
+/* ===========================================================================
+   Chapter 19 originals.
+
+   Everything below re-implements a small, honest slice of the repository: the
+   axial triangular lattice of core/src/lattice.ts, the 1/7 in-plane averaging
+   stencil of docs/gg-machinery.md §4(i), the reflecting boundary rule, and the
+   opposite-pair summation order of solver-cpu/src/gg-solver.ts. These are 2-D
+   slices running one step of the tick, not the solver.
+   ======================================================================== */
+(function () {
+  "use strict";
+  if (!window.Viz) return;
+
+  var SQ3 = Math.sqrt(3);
+
+  /* ---------------------------------------------------------- lattice --- */
+
+  function hexDist(i, j) {
+    return (Math.abs(i) + Math.abs(j) + Math.abs(i + j)) / 2;
+  }
+  /** core/src/lattice.ts:85 — rot60(i, j) = (-j, i + j), exact on integers. */
+  function rot60(i, j) { return [-j, i + j]; }
+  /** core/src/lattice.ts:76 — x = i + j/2, y = j*sqrt(3)/2. */
+  function cartX(i, j) { return i + j / 2; }
+  function cartY(i, j) { return (j * SQ3) / 2; }
+
+  /** The repo's three-way sort of the pair sums (gg-solver.ts:820-836). */
+  function sorted3(a, b, c) {
+    var lo, mid, hi;
+    if (a <= b) {
+      if (b <= c) { lo = a; mid = b; hi = c; }
+      else if (a <= c) { lo = a; mid = c; hi = b; }
+      else { lo = c; mid = a; hi = b; }
+    } else if (a <= c) { lo = b; mid = a; hi = c; }
+    else if (b <= c) { lo = b; mid = c; hi = a; }
+    else { lo = c; mid = b; hi = a; }
+    return [lo, mid, hi];
+  }
+
+  /* --------------------------------------------------------- furniture -- */
+
+  function stageIn(parent) {
+    var d = document.createElement("div");
+    parent.appendChild(d);
+    return d;
+  }
+
+  function readoutBox(parent) {
+    var box = document.createElement("div");
+    box.style.cssText =
+      "margin:0.8rem auto 0;max-width:34rem;border-top:1px solid var(--rule);";
+    parent.appendChild(box);
+    return box;
+  }
+
+  function readout(box, label) {
+    var row = document.createElement("div");
+    row.style.cssText =
+      "display:flex;justify-content:space-between;align-items:baseline;gap:1rem;" +
+      "padding:0.3rem 0;border-bottom:1px solid var(--rule);font-size:0.86rem;";
+    var l = document.createElement("span");
+    l.textContent = label;
+    l.style.color = "var(--ink-secondary)";
+    var v = document.createElement("span");
+    v.style.cssText =
+      "font-family:var(--font-mono);font-variant-numeric:tabular-nums;" +
+      "color:var(--ink-primary);text-align:right;";
+    row.appendChild(l);
+    row.appendChild(v);
+    box.appendChild(row);
+    return v;
+  }
+
+  function note(parent, text) {
+    var p = document.createElement("p");
+    p.style.cssText =
+      "margin:0.75rem auto 0;max-width:34rem;font-size:0.84rem;line-height:1.55;" +
+      "color:var(--ink-secondary);";
+    p.textContent = text;
+    parent.appendChild(p);
+    return p;
+  }
+
+  /* ======================================================================
+     1. The same rule on two grids
+     ================================================================== */
+  (function () {
+    var root = document.getElementById("demo-two-grids");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var bar = root.querySelector(".anim__controls");
+    var stage = stageIn(body);
+
+    /* Both panels are drawn on the SAME rectangular block of indices, so the shape
+       that emerges cannot be blamed on the drawn region. */
+    var R = 8, MAXT = 6;
+    var shownTick = 5;
+
+    var TRI_NB = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, -1], [-1, 1]];
+    var SQ_NB = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+
+    function key(i, j) { return (i + 24) * 64 + (j + 24); }
+
+    function inGrid(i, j) {
+      return i >= -R && i <= R && j >= -R && j <= R;
+    }
+
+    function snap(kind, x, y) {
+      if (kind === "tri") {
+        var j = Math.round((2 * y) / SQ3);
+        return [Math.round(x - j / 2), j];
+      }
+      return [Math.round(x), Math.round(y)];
+    }
+
+    function copySet(src) {
+      var out = {};
+      for (var k in src) if (src[k]) out[k] = 1;
+      return out;
+    }
+
+    function grow(kind) {
+      var nb = kind === "tri" ? TRI_NB : SQ_NB;
+      var ice = {};
+      ice[key(0, 0)] = 1;
+      var gens = [copySet(ice)];
+      for (var t = 1; t <= MAXT; t++) {
+        var add = [];
+        for (var j = -R; j <= R; j++) {
+          for (var i = -R; i <= R; i++) {
+            if (!inGrid(i, j)) continue;
+            if (ice[key(i, j)]) continue;
+            var c = 0;
+            for (var m = 0; m < nb.length; m++) {
+              if (ice[key(i + nb[m][0], j + nb[m][1])]) c++;
+            }
+            if (c >= 1) add.push(key(i, j));
+          }
+        }
+        for (var q = 0; q < add.length; q++) ice[add[q]] = 1;
+        gens.push(copySet(ice));
+      }
+      return gens;
+    }
+
+    function countOf(set) {
+      var n = 0;
+      for (var k in set) if (set[k]) n++;
+      return n;
+    }
+
+    function score60(kind, ice) {
+      var hit = 0, total = 0;
+      for (var j = -R; j <= R; j++) {
+        for (var i = -R; i <= R; i++) {
+          if (!ice[key(i, j)]) continue;
+          total++;
+          var x = kind === "tri" ? cartX(i, j) : i;
+          var y = kind === "tri" ? cartY(i, j) : j;
+          var rx = x * 0.5 - y * (SQ3 / 2);
+          var ry = x * (SQ3 / 2) + y * 0.5;
+          var p = snap(kind, rx, ry);
+          if (ice[key(p[0], p[1])]) hit++;
+        }
+      }
+      return total ? hit / total : 0;
+    }
+
+    var gensTri = null, gensSq = null;
+    var W = 600, H = 275;
+    var svg = null, cellsTri = null, cellsSq = null, vTri = null, vSq = null;
+
+    function buildCells(kind, cx, cy, s) {
+      var out = [];
+      for (var j = -R; j <= R; j++) {
+        for (var i = -R; i <= R; i++) {
+          var px, py, el;
+          if (kind === "tri") {
+            px = cx + s * cartX(i, j);
+            py = cy - s * cartY(i, j);
+            el = Viz.svgEl("path", { d: Viz.hexPath(px, py, (s / SQ3) * 0.96, 30) });
+          } else {
+            px = cx + s * i;
+            py = cy - s * j;
+            el = Viz.svgEl("rect", {
+              x: px - s * 0.46, y: py - s * 0.46, width: s * 0.92, height: s * 0.92, rx: 1.5,
+            });
+          }
+          el.setAttribute("stroke-width", "0.6");
+          svg.appendChild(el);
+          out.push({ el: el, k: key(i, j) });
+        }
+      }
+      return out;
+    }
+
+    function build() {
+      if (svg) svg.remove();
+      svg = Viz.createSvg(stage, W, H, {
+        label: "Two grids growing under the same rule from the same single cell: the triangular " +
+               "grid produces a hexagon, the square grid produces a diamond.",
+      });
+      var c = Viz.colors();
+      var t1 = Viz.svgEl("text", { x: 150, y: 22, "text-anchor": "middle", class: "series-label", fill: c.ink });
+      t1.textContent = "triangular grid — 6 neighbours";
+      svg.appendChild(t1);
+      var t2 = Viz.svgEl("text", { x: 450, y: 22, "text-anchor": "middle", class: "series-label", fill: c.ink });
+      t2.textContent = "square grid — 4 neighbours";
+      svg.appendChild(t2);
+      cellsTri = buildCells("tri", 150, 155, 9);
+      cellsSq = buildCells("sq", 450, 155, 11);
+    }
+
+    function paint() {
+      if (!gensTri || !gensSq) return;
+      var c = Viz.colors();
+      var iceTri = gensTri[shownTick], iceSq = gensSq[shownTick];
+      var m;
+      for (m = 0; m < cellsTri.length; m++) {
+        cellsTri[m].el.setAttribute("fill", iceTri[cellsTri[m].k] ? c.seq[5] : c.surface);
+        cellsTri[m].el.setAttribute("stroke", c.rule);
+      }
+      for (m = 0; m < cellsSq.length; m++) {
+        cellsSq[m].el.setAttribute("fill", iceSq[cellsSq[m].k] ? c.seq[5] : c.surface);
+        cellsSq[m].el.setAttribute("stroke", c.rule);
+      }
+      var show = function (target, kind, set) {
+        var n = countOf(set);
+        var sc = score60(kind, set);
+        target.textContent =
+          n + (n === 1 ? " ice cell · sixfold score " : " ice cells · sixfold score ") +
+          (sc * 100).toFixed(0) + "%";
+        target.style.color = sc === 1 ? "var(--status-good)" : "var(--status-critical)";
+      };
+      show(vTri, "tri", iceTri);
+      show(vSq, "sq", iceSq);
+    }
+
+    build();
+    var box = readoutBox(body);
+    vTri = readout(box, "triangular grid");
+    vSq = readout(box, "square grid");
+    note(body,
+      "The sixfold score turns every ice cell 60 degrees about the centre, in real space, and asks " +
+      "whether it lands on another ice cell. On the triangular lattice that rotation is exact " +
+      "integer arithmetic — rot60(i, j) = (−j, i + j) — so the score is 100% at every single tick. " +
+      "On the square grid a 60-degree turn does not land on a cell at all, so the score has to round " +
+      "to the nearest one before it can ask. Read the square number with that in mind: the rounding " +
+      "is doing the work, which is why a diamond with no sixfold symmetry whatsoever still scores in " +
+      "the eighties — and why, once the rule has actually run, it never reaches 100% again. Only the " +
+      "triangular lattice can answer this question without rounding. Both panels hold 289 cells; at " +
+      "tick 0 both hold a single cell, which is trivially sixfold on any grid — the difference only " +
+      "appears once the rule has run.");
+
+    Viz.slider(bar, {
+      label: "growth ticks", id: "c19-tg-t", min: 0, max: MAXT, step: 1, value: shownTick,
+      format: function (v) { return String(v); },
+      onInput: function (v) { shownTick = v; paint(); },
+    });
+
+    gensTri = grow("tri");
+    gensSq = grow("sq");
+    paint();
+    Viz.onThemeChange(function () { build(); paint(); });
+  })();
+
+  /* ======================================================================
+     2. One cell, eight bonds
+     ================================================================== */
+  (function () {
+    var root = document.getElementById("demo-eight-bonds");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var bar = root.querySelector(".anim__controls");
+    var stage = stageIn(body);
+    var legendStage = stageIn(body);
+
+    /* canonical order of core/src/lattice.ts:31 */
+    var DIRS = [
+      { d: [1, 0], name: "(+1, 0)" },
+      { d: [-1, 0], name: "(−1, 0)" },
+      { d: [0, 1], name: "(0, +1)" },
+      { d: [0, -1], name: "(0, −1)" },
+      { d: [1, -1], name: "(+1, −1)" },
+      { d: [-1, 1], name: "(−1, +1)" }
+    ];
+    /* The tracked direction: rot60 applied `turns` times to (+1, 0), exactly, on integers. */
+    var TRACKED = [1, 0];
+
+    var turns = 0;
+    var W = 600, H = 320;
+    var svg = null;
+
+    function keyOf(d) { return d[0] + "," + d[1]; }
+    function nameOf(k) {
+      for (var m = 0; m < DIRS.length; m++) {
+        if (keyOf(DIRS[m].d) === k) return DIRS[m].name;
+      }
+      return k;
+    }
+
+    function render() {
+      if (svg) svg.remove();
+      svg = Viz.createSvg(stage, W, H, {
+        label: "A single lattice cell with its six in-plane neighbours and two vertical " +
+               "neighbours, every bond of length one. One in-plane direction is outlined; a " +
+               "60-degree rotation moves the outline onto the next neighbouring cell.",
+      });
+      var c = Viz.colors();
+      var cx = 190, cy = 168, s = 60;
+
+      var hdr = Viz.svgEl("text", { x: 190, y: 24, "text-anchor": "middle", class: "series-label", fill: c.ink });
+      hdr.textContent = "6 in-plane neighbours (T)";
+      svg.appendChild(hdr);
+      var hdr2 = Viz.svgEl("text", { x: 462, y: 24, "text-anchor": "middle", class: "series-label", fill: c.ink });
+      hdr2.textContent = "2 vertical neighbours (Z)";
+      svg.appendChild(hdr2);
+
+      /* rot60 applied `turns` times to (+1, 0) — integer arithmetic throughout, no rounding. */
+      var tracked = [TRACKED[0], TRACKED[1]], t;
+      for (t = 0; t < turns % 6; t++) tracked = rot60(tracked[0], tracked[1]);
+      var trackedKey = keyOf(tracked);
+
+      svg.appendChild(Viz.svgEl("path", {
+        d: Viz.hexPath(cx, cy, (s / SQ3) * 0.96, 30),
+        fill: c.sunken, stroke: c.ruleStrong, "stroke-width": 1.4,
+      }));
+      var ct = Viz.svgEl("text", { x: cx, y: cy + 4, "text-anchor": "middle", class: "annotation", fill: c.inkSecondary });
+      ct.textContent = "(0, 0)";
+      svg.appendChild(ct);
+
+      for (var n = 0; n < DIRS.length; n++) {
+        var dir = DIRS[n];
+        var px = cx + s * cartX(dir.d[0], dir.d[1]);
+        var py = cy - s * cartY(dir.d[0], dir.d[1]);
+        var isTracked = keyOf(dir.d) === trackedKey;
+        svg.appendChild(Viz.svgEl("line", {
+          x1: cx, y1: cy, x2: px, y2: py, stroke: c.ruleStrong, "stroke-width": 1,
+        }));
+        svg.appendChild(Viz.svgEl("path", {
+          d: Viz.hexPath(px, py, (s / SQ3) * 0.96, 30),
+          fill: c.series[1], stroke: isTracked ? c.ink : c.surface,
+          "stroke-width": isTracked ? 2.6 : 1.4,
+          "fill-opacity": isTracked ? 0.95 : 0.32,
+        }));
+        var lb = Viz.svgEl("text", {
+          x: px, y: py + 4, "text-anchor": "middle", class: "annotation",
+          fill: isTracked ? c.surface : c.ink, "font-weight": isTracked ? 700 : 400,
+        });
+        lb.textContent = dir.name;
+        svg.appendChild(lb);
+      }
+
+      var bl = Viz.svgEl("text", {
+        x: cx, y: 46, "text-anchor": "middle", class: "annotation", fill: c.inkSecondary,
+      });
+      bl.textContent = "every bond length = 1";
+      svg.appendChild(bl);
+
+      var vx = 462, vy = 168, gap = 62;
+      var levels = [
+        { dy: -gap, label: "k + 1", solid: true },
+        { dy: 0, label: "k", solid: false },
+        { dy: gap, label: "k − 1", solid: true }
+      ];
+      for (var v = 0; v < levels.length; v++) {
+        var L = levels[v];
+        svg.appendChild(Viz.svgEl("path", {
+          d: Viz.hexPath(vx, vy + L.dy, (s / SQ3) * 0.96, 30),
+          fill: L.solid ? c.series[0] : c.sunken,
+          "fill-opacity": L.solid ? 0.9 : 1,
+          stroke: L.solid ? c.surface : c.ruleStrong, "stroke-width": 1.4,
+        }));
+        var vt = Viz.svgEl("text", {
+          x: vx, y: vy + L.dy + 4, "text-anchor": "middle", class: "annotation",
+          fill: L.solid ? c.surface : c.inkSecondary, "font-weight": L.solid ? 700 : 400,
+        });
+        vt.textContent = L.label;
+        svg.appendChild(vt);
+        if (L.dy !== 0) {
+          svg.appendChild(Viz.svgEl("line", {
+            x1: vx + 48, y1: vy, x2: vx + 48, y2: vy + L.dy,
+            stroke: c.ruleStrong, "stroke-width": 1, "stroke-dasharray": "3 3",
+          }));
+          var vl = Viz.svgEl("text", {
+            x: vx + 56, y: vy + L.dy / 2 + 4, class: "annotation", fill: c.inkSecondary,
+          });
+          vl.textContent = "1";
+          svg.appendChild(vl);
+        }
+      }
+
+      var tl = Viz.svgEl("text", { x: 190, y: 304, "text-anchor": "middle", class: "annotation", fill: c.inkSecondary });
+      tl.textContent =
+        turns === 0
+          ? "tracking (+1, 0) — rot60 applied 0 times"
+          : "rot60 applied " + turns + " time" + (turns === 1 ? "" : "s") + ": (+1, 0) → " +
+            nameOf(trackedKey) +
+            (turns % 6 === 0 ? " — back where it started, exactly" : "");
+      svg.appendChild(tl);
+    }
+
+    function renderLegend() {
+      legendStage.textContent = "";
+      var c = Viz.colors();
+      Viz.legend(legendStage, [
+        { color: c.series[1], label: "in-plane neighbour (T) — outlined one is tracked" },
+        { color: c.series[0], label: "vertical neighbour (Z)" }
+      ]);
+    }
+
+    render();
+    renderLegend();
+    note(body,
+      "All eight bonds have length 1, which is what makes the diffusion weights — 1/7 in plane, " +
+      "and 4/7 + 3/14 + 3/14 vertically — come out isotropic. Press the button and the tracked " +
+      "direction lands on a neighbouring cell every single time, because rot60(i, j) = (−j, i + j) " +
+      "is integer arithmetic: no sine, no cosine, no rounding, and after six turns it is back on " +
+      "(+1, 0) exactly rather than approximately.");
+
+    Viz.button(bar, "Rotate 60°", function () { turns += 1; render(); });
+    Viz.button(bar, "Reset", function () { turns = 0; render(); });
+    Viz.onThemeChange(function () { render(); renderLegend(); });
+  })();
+
+  /* ======================================================================
+     A tiny in-plane field engine, shared by demos 3, 4 and 5.
+     ================================================================== */
+  function makeField(cfg) {
+    var R = cfg.radius, shape = cfg.shape;
+    var Wd = 2 * R + 1;
+    var N = Wd * Wd;
+    var rho = cfg.rho == null ? 1 : cfg.rho;
+
+    function at(i, j) { return (j + R) * Wd + (i + R); }
+    function inRange(i, j) { return i >= -R && i <= R && j >= -R && j <= R; }
+    function inDomain(i, j) {
+      if (!inRange(i, j)) return false;
+      return shape === "hex" ? hexDist(i, j) <= R : true;
+    }
+
+    var cells = [];
+    var wall = new Uint8Array(N);
+    for (var j = -R; j <= R; j++) {
+      for (var i = -R; i <= R; i++) {
+        if (inDomain(i, j)) cells.push({ i: i, j: j, x: at(i, j) });
+        else wall[at(i, j)] = 1;
+      }
+    }
+
+    var ice = new Uint8Array(N);
+    var blocked = new Uint8Array(N);
+    var nextToIce = new Uint8Array(N);
+    var d = new Float64Array(N);
+    var b = new Float64Array(N);
+    var scratch = new Float64Array(N);
+
+    var NB = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, -1], [-1, 1]];
+
+    function refreshBlocked() {
+      var m, k;
+      for (m = 0; m < N; m++) blocked[m] = (wall[m] || ice[m]) ? 1 : 0;
+      for (m = 0; m < N; m++) nextToIce[m] = 0;
+      for (m = 0; m < cells.length; m++) {
+        var cl = cells[m];
+        if (ice[cl.x]) continue;
+        for (k = 0; k < 6; k++) {
+          var ni = cl.i + NB[k][0], nj = cl.j + NB[k][1];
+          if (inRange(ni, nj) && ice[at(ni, nj)]) { nextToIce[cl.x] = 1; break; }
+        }
+      }
+    }
+
+    var api = {
+      R: R, cells: cells, ice: ice, d: d, b: b, rho: rho, at: at,
+
+      setIceDisc: function (r) {
+        for (var m = 0; m < cells.length; m++) {
+          var cl = cells[m];
+          if (hexDist(cl.i, cl.j) <= r) { ice[cl.x] = 1; d[cl.x] = 0; }
+        }
+        refreshBlocked();
+      },
+
+      fillUniform: function () {
+        for (var m = 0; m < cells.length; m++) {
+          var cl = cells[m];
+          d[cl.x] = ice[cl.x] ? 0 : rho;
+        }
+      },
+
+      clearB: function () {
+        for (var m = 0; m < N; m++) b[m] = 0;
+      },
+
+      impulseAtCentre: function () {
+        for (var m = 0; m < cells.length; m++) d[cells[m].x] = 0;
+        d[at(0, 0)] = 1;
+      },
+
+      /** One in-plane 1/7 averaging pass (gg-machinery §4, step 1a). */
+      diffuse: function (inPlace, reverse) {
+        var src = d;
+        var dst = inPlace ? d : scratch;
+        var m, start, stop, step;
+        if (reverse) { start = cells.length - 1; stop = -1; step = -1; }
+        else { start = 0; stop = cells.length; step = 1; }
+        for (m = start; m !== stop; m += step) {
+          var cl = cells[m];
+          var x = cl.x;
+          if (ice[x]) { dst[x] = 0; continue; }
+          var own = src[x];
+          var g = function (a2, b2) {
+            if (!inRange(a2, b2)) return own;
+            var y = at(a2, b2);
+            return blocked[y] ? own : src[y];
+          };
+          var east = g(cl.i + 1, cl.j), west = g(cl.i - 1, cl.j);
+          var ne = g(cl.i, cl.j + 1), sw = g(cl.i, cl.j - 1);
+          var se = g(cl.i + 1, cl.j - 1), nw = g(cl.i - 1, cl.j + 1);
+          var s3 = sorted3(east + west, ne + sw, se + nw);
+          dst[x] = (((own + s3[0]) + s3[1]) + s3[2]) / 7;
+        }
+        if (!inPlace) {
+          for (m = 0; m < cells.length; m++) {
+            var xx = cells[m].x;
+            d[xx] = dst[xx];
+          }
+        }
+      },
+
+      /** Step (ii): boundary cells trade vapour for boundary mass. */
+      freeze: function (kappa) {
+        for (var m = 0; m < cells.length; m++) {
+          var x = cells[m].x;
+          if (ice[x] || !nextToIce[x]) continue;
+          var take = d[x] * (1 - kappa);
+          b[x] += take;
+          d[x] -= take;
+        }
+      },
+
+      roundField: function (places) {
+        var f = Math.pow(10, places);
+        for (var m = 0; m < cells.length; m++) {
+          var x = cells[m].x;
+          if (ice[x]) continue;
+          d[x] = Math.round(d[x] * f) / f;
+        }
+      },
+
+      /** Worst mismatch between a cell and its rot60 partner. */
+      symErr: function (measureR) {
+        var worst = 0;
+        for (var m = 0; m < cells.length; m++) {
+          var cl = cells[m];
+          if (measureR != null && hexDist(cl.i, cl.j) > measureR) continue;
+          var p = rot60(cl.i, cl.j);
+          if (!inRange(p[0], p[1])) continue;
+          var y = at(p[0], p[1]);
+          var e = Math.abs(d[cl.x] - d[y]);
+          if (e > worst) worst = e;
+          e = Math.abs(b[cl.x] - b[y]);
+          if (e > worst) worst = e;
+        }
+        return worst;
+      },
+
+      centroid: function () {
+        var sx = 0, sy = 0, sw = 0;
+        for (var m = 0; m < cells.length; m++) {
+          var cl = cells[m];
+          var v = d[cl.x];
+          sx += v * cartX(cl.i, cl.j);
+          sy += v * cartY(cl.i, cl.j);
+          sw += v;
+        }
+        if (sw === 0) return [0, 0];
+        return [sx / sw, sy / sw];
+      },
+
+      /** Neumaier-compensated Sigma(b + d) — core/src/metrics.ts:26-41. */
+      totalMass: function () {
+        var sum = 0, comp = 0;
+        for (var m = 0; m < cells.length; m++) {
+          var x = cells[m].x;
+          var value = b[x] + d[x];
+          var t = sum + value;
+          if (Math.abs(sum) >= Math.abs(value)) comp += sum - t + value;
+          else comp += value - t + sum;
+          sum = t;
+        }
+        return sum + comp;
+      },
+
+      sums: function () {
+        var sd = 0, sb = 0;
+        for (var m = 0; m < cells.length; m++) {
+          sd += d[cells[m].x];
+          sb += b[cells[m].x];
+        }
+        return [sd, sb];
+      },
+
+      snapshot: function () {
+        var out = new Float64Array(N);
+        out.set(d);
+        return out;
+      },
+    };
+    refreshBlocked();
+    return api;
+  }
+
+  /** Build the hexagon elements for a field, once. */
+  function paintable(svg, field, cx, cy, s) {
+    var nodes = [];
+    for (var m = 0; m < field.cells.length; m++) {
+      var cl = field.cells[m];
+      var px = cx + s * cartX(cl.i, cl.j);
+      var py = cy - s * cartY(cl.i, cl.j);
+      var el = Viz.svgEl("path", {
+        d: Viz.hexPath(px, py, (s / SQ3) * 0.96, 30), "stroke-width": 0.4,
+      });
+      svg.appendChild(el);
+      nodes.push({ cell: cl, el: el });
+    }
+    return nodes;
+  }
+
+  /** Draw the inert wall cells, so the room's shape is visible. */
+  function paintWalls(svg, R, shape, cx, cy, s, colour) {
+    for (var j = -R; j <= R; j++) {
+      for (var i = -R; i <= R; i++) {
+        if (shape === "hex" ? hexDist(i, j) <= R : true) continue;
+        var px = cx + s * cartX(i, j);
+        var py = cy - s * cartY(i, j);
+        svg.appendChild(Viz.svgEl("path", {
+          d: Viz.hexPath(px, py, (s / SQ3) * 0.96, 30),
+          fill: colour, stroke: "none", "fill-opacity": 0.55,
+        }));
+      }
+    }
+  }
+
+  /* ======================================================================
+     3. Break it: update the field in place
+     ================================================================== */
+  (function () {
+    var root = document.getElementById("demo-in-place");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var bar = root.querySelector(".anim__controls");
+    var stage = stageIn(body);
+
+    var R = 10, MAXT = 36;
+    var ticks = 22, inPlace = false, reverse = false;
+    var W = 440, H = 262, cx = 220, cy = 128, s = 13;
+
+    var field = makeField({ radius: R, shape: "hex" });
+    var svg = null, nodes = null, cross = null;
+    var vSym = null, vCent = null, vMode = null;
+
+    function build() {
+      if (svg) svg.remove();
+      svg = Viz.createSvg(stage, W, H, {
+        label: "Vapour spreading from a single centre cell on a hexagonal domain.",
+      });
+      var c = Viz.colors();
+      paintWalls(svg, R, "hex", cx, cy, s, c.rule);
+      nodes = paintable(svg, field, cx, cy, s);
+      cross = Viz.svgEl("g");
+      cross.appendChild(Viz.svgEl("line", { x1: -8, y1: 0, x2: 8, y2: 0, stroke: c.critical, "stroke-width": 2.2 }));
+      cross.appendChild(Viz.svgEl("line", { x1: 0, y1: -8, x2: 0, y2: 8, stroke: c.critical, "stroke-width": 2.2 }));
+      svg.appendChild(cross);
+    }
+
+    function run() {
+      field.impulseAtCentre();
+      for (var t = 0; t < ticks; t++) field.diffuse(inPlace, reverse);
+    }
+
+    function paint() {
+      var c = Viz.colors();
+      var maxV = 0, m;
+      for (m = 0; m < nodes.length; m++) {
+        var v = field.d[nodes[m].cell.x];
+        if (v > maxV) maxV = v;
+      }
+      for (m = 0; m < nodes.length; m++) {
+        var val = field.d[nodes[m].cell.x];
+        var tt = maxV > 0 ? Math.pow(val / maxV, 0.42) : 0;
+        nodes[m].el.setAttribute("fill", Viz.seqColor(tt, c));
+        nodes[m].el.setAttribute("stroke", c.surface);
+      }
+      var cen = field.centroid();
+      cross.setAttribute("transform",
+        "translate(" + (cx + s * cen[0]).toFixed(2) + " " + (cy - s * cen[1]).toFixed(2) + ")");
+
+      var e = field.symErr(null);
+      vSym.textContent = e === 0 ? "0 — exactly" : e.toExponential(3);
+      vSym.style.color = e === 0 ? "var(--status-good)" : "var(--status-critical)";
+      var off = Math.sqrt(cen[0] * cen[0] + cen[1] * cen[1]);
+      var sgn = function (v) { return (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(4); };
+      vCent.textContent = sgn(cen[0]) + ", " + sgn(cen[1]) + "  (" + off.toFixed(4) + " cells)";
+      vCent.style.color = off < 1e-9 ? "var(--status-good)" : "var(--status-critical)";
+      vMode.textContent =
+        (inPlace ? "in place (Gauss–Seidel)" : "two buffers (Jacobi)") +
+        " · sweep " + (reverse ? "reverse" : "forward");
+    }
+
+    function refresh() { run(); paint(); }
+
+    build();
+    var box = readoutBox(body);
+    vMode = readout(box, "update scheme");
+    vSym = readout(box, "worst rotated-partner difference");
+    vCent = readout(box, "vapour centre of mass (x, y)");
+    note(body,
+      "The red crosshair is the centre of mass of the vapour. The source is one cell in the middle " +
+      "of a room with sixfold symmetry, so it has nowhere legitimate to go. Any offset at all is " +
+      "the loop order leaking into the physics — and reversing the sweep flips the sign of both " +
+      "coordinates, which is the loop order signing its work.");
+
+    Viz.slider(bar, {
+      label: "ticks", id: "c19-ip-t", min: 0, max: MAXT, step: 1, value: ticks,
+      format: function (v) { return String(v); },
+      onInput: function (v) { ticks = v; refresh(); },
+    });
+    Viz.button(bar, "Update in place", function (btn) {
+      inPlace = !inPlace;
+      btn.setAttribute("aria-pressed", String(inPlace));
+      btn.textContent = inPlace ? "Back to two buffers" : "Update in place";
+      refresh();
+    }, { pressed: false });
+    Viz.button(bar, "Sweep: forward", function (btn) {
+      reverse = !reverse;
+      btn.setAttribute("aria-pressed", String(reverse));
+      btn.textContent = reverse ? "Sweep: reverse" : "Sweep: forward";
+      refresh();
+    }, { pressed: false });
+
+    refresh();
+    Viz.onThemeChange(function () { build(); paint(); });
+  })();
+
+  /* ======================================================================
+     4. The ledger, and the ruler
+     ================================================================== */
+  (function () {
+    var root = document.getElementById("demo-mass-ledger");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var bar = root.querySelector(".anim__controls");
+    var stage = stageIn(body);
+
+    var R = 9, MAXT = 90, KAPPA = 0.9;
+    var ticks = 40, cheat = false;
+    var W = 380, H = 230, cx = 190, cy = 114, s = 12;
+
+    var field = makeField({ radius: R, shape: "hex" });
+    field.setIceDisc(1);
+    var svg = null, nodes = null, m0 = 0;
+    var vVap = null, vBound = null, vTotal = null, vDrift = null;
+
+    function build() {
+      if (svg) svg.remove();
+      svg = Viz.createSvg(stage, W, H, {
+        label: "A fixed seven-cell seed absorbing vapour on a hexagonal domain.",
+      });
+      var c = Viz.colors();
+      paintWalls(svg, R, "hex", cx, cy, s, c.rule);
+      nodes = paintable(svg, field, cx, cy, s);
+    }
+
+    function run() {
+      field.fillUniform();
+      field.clearB();
+      m0 = field.totalMass();
+      for (var t = 0; t < ticks; t++) {
+        field.diffuse(false, false);
+        if (cheat) field.roundField(4);
+        field.freeze(KAPPA);
+      }
+    }
+
+    function paint() {
+      var c = Viz.colors();
+      var lo = Infinity, hi = -Infinity, m;
+      for (m = 0; m < nodes.length; m++) {
+        var cl = nodes[m].cell;
+        if (field.ice[cl.x]) continue;
+        var v = field.d[cl.x];
+        if (v < lo) lo = v;
+        if (v > hi) hi = v;
+      }
+      if (!isFinite(lo)) { lo = 0; hi = 1; }
+      var span = hi - lo;
+      for (m = 0; m < nodes.length; m++) {
+        var c2 = nodes[m].cell;
+        if (field.ice[c2.x]) {
+          nodes[m].el.setAttribute("fill", c.ink);
+        } else {
+          var tt = span > 1e-15 ? (field.d[c2.x] - lo) / span : 1;
+          nodes[m].el.setAttribute("fill", Viz.seqColor(tt, c));
+        }
+        nodes[m].el.setAttribute("stroke", c.surface);
+      }
+
+      var sums = field.sums();
+      var total = field.totalMass();
+      var drift = m0 === 0 ? 0 : Math.abs(total - m0) / m0;
+      vVap.textContent = sums[0].toFixed(9);
+      vBound.textContent = sums[1].toFixed(9);
+      vTotal.textContent = total.toPrecision(17);
+      vDrift.textContent = drift === 0 ? "0" : drift.toExponential(2);
+      vDrift.style.color = drift < 1e-12 ? "var(--status-good)" : "var(--status-critical)";
+    }
+
+    function refresh() { run(); paint(); }
+
+    build();
+    var box = readoutBox(body);
+    vVap = readout(box, "Σ vapour  (d)");
+    vBound = readout(box, "Σ boundary mass  (b)");
+    vTotal = readout(box, "Σ (b + d), compensated");
+    vDrift = readout(box, "relative drift from tick 0");
+
+    var rHead = document.createElement("p");
+    rHead.style.cssText =
+      "margin:1.1rem auto 0;max-width:34rem;font-size:0.86rem;font-weight:640;" +
+      "color:var(--ink-primary);";
+    rHead.textContent = "The ruler itself: 1e16 + 1,000,000 × 0.001";
+    body.appendChild(rHead);
+    var rbox = readoutBox(body);
+    var vExact = readout(rbox, "exact answer");
+    var vNaive = readout(rbox, "ordinary +=, one at a time");
+    var vComp = readout(rbox, "Kahan–Babuška–Neumaier");
+
+    (function () {
+      var n = 1000000, i, t;
+      var naive = 1e16;
+      for (i = 0; i < n; i++) naive += 0.001;
+      var sum = 1e16, comp = 0;
+      for (i = 0; i < n; i++) {
+        var value = 0.001;
+        t = sum + value;
+        if (Math.abs(sum) >= Math.abs(value)) comp += sum - t + value;
+        else comp += value - t + sum;
+        sum = t;
+      }
+      vExact.textContent = (1e16 + 1000).toFixed(0);
+      vNaive.textContent = naive.toFixed(0);
+      vNaive.style.color = "var(--status-critical)";
+      vComp.textContent = (sum + comp).toFixed(0);
+      vComp.style.color = "var(--status-good)";
+    })();
+
+    note(body,
+      "Ordinary addition drops every one of the million small values, because each is far below the " +
+      "spacing between representable numbers near 1e16. core/test/metrics.test.ts requires the " +
+      "compensated sum to land within 1e-15 relative of the exact answer.");
+
+    Viz.slider(bar, {
+      label: "ticks", id: "c19-ml-t", min: 0, max: MAXT, step: 1, value: ticks,
+      format: function (v) { return String(v); },
+      onInput: function (v) { ticks = v; refresh(); },
+    });
+    Viz.button(bar, "Let the solver round however it likes", function (btn) {
+      cheat = !cheat;
+      btn.setAttribute("aria-pressed", String(cheat));
+      btn.textContent = cheat ? "Stop rounding" : "Let the solver round however it likes";
+      refresh();
+    }, { pressed: false });
+
+    refresh();
+    Viz.onThemeChange(function () { build(); paint(); });
+  })();
+
+  /* ======================================================================
+     5. Symmetry stopwatch: box vs hexPrism
+     ================================================================== */
+  (function () {
+    var root = document.getElementById("demo-symmetry-stopwatch");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var bar = root.querySelector(".anim__controls");
+    var stage = stageIn(body);
+
+    var R = 11, MAXT = 48, KAPPA = 0.9;
+    var ticks = 8;
+    var W = 620, H = 235, cy = 130, s = 7.6;
+
+    function simulate(shape) {
+      var f = makeField({ radius: R, shape: shape });
+      f.setIceDisc(1);
+      f.fillUniform();
+      var snaps = [f.snapshot()];
+      var errs = [f.symErr(R)];
+      for (var t = 1; t <= MAXT; t++) {
+        f.diffuse(false, false);
+        f.freeze(KAPPA);
+        snaps.push(f.snapshot());
+        errs.push(f.symErr(R));
+      }
+      var first = -1;
+      for (var q = 0; q < errs.length; q++) {
+        if (errs[q] !== 0) { first = q; break; }
+      }
+      return { field: f, snaps: snaps, errs: errs, first: first };
+    }
+
+    var runs = [
+      { shape: "hex", cx: 158, title: "hexPrism — every wall the same distance away" },
+      { shape: "box", cx: 462, title: "box — a rhombus in real space" }
+    ];
+    var r;
+    for (r = 0; r < runs.length; r++) runs[r].data = simulate(runs[r].shape);
+
+    var svg = null, vErr = [], vFirst = [], slider = null;
+
+    function build() {
+      if (svg) svg.remove();
+      svg = Viz.createSvg(stage, W, H, {
+        label: "The same depletion shadow in a hexagonal domain and in a rhombic box domain, " +
+               "with live sixfold symmetry readouts.",
+      });
+      var c = Viz.colors();
+      for (var q = 0; q < runs.length; q++) {
+        var Rn = runs[q];
+        var t = Viz.svgEl("text", {
+          x: Rn.cx, y: 20, "text-anchor": "middle", class: "annotation", fill: c.inkSecondary,
+        });
+        t.textContent = Rn.title;
+        svg.appendChild(t);
+        paintWalls(svg, R, Rn.shape, Rn.cx, cy, s, c.rule);
+        Rn.nodes = paintable(svg, Rn.data.field, Rn.cx, cy, s);
+      }
+    }
+
+    function paint() {
+      var c = Viz.colors();
+      for (var q = 0; q < runs.length; q++) {
+        var Rn = runs[q];
+        var snap = Rn.data.snaps[ticks];
+        var lo = Infinity, hi = -Infinity, m;
+        for (m = 0; m < Rn.nodes.length; m++) {
+          var cl = Rn.nodes[m].cell;
+          if (Rn.data.field.ice[cl.x]) continue;
+          var v = snap[cl.x];
+          if (v < lo) lo = v;
+          if (v > hi) hi = v;
+        }
+        if (!isFinite(lo)) { lo = 0; hi = 1; }
+        var span = hi - lo;
+        for (m = 0; m < Rn.nodes.length; m++) {
+          var c2 = Rn.nodes[m].cell;
+          if (Rn.data.field.ice[c2.x]) {
+            Rn.nodes[m].el.setAttribute("fill", c.ink);
+          } else {
+            var tt = span > 1e-15 ? (snap[c2.x] - lo) / span : 1;
+            Rn.nodes[m].el.setAttribute("fill", Viz.seqColor(tt, c));
+          }
+          Rn.nodes[m].el.setAttribute("stroke", c.surface);
+        }
+
+        var e = Rn.data.errs[ticks];
+        vErr[q].textContent = e === 0 ? "0 — exactly" : e.toExponential(3);
+        vErr[q].style.color = e === 0 ? "var(--status-good)" : "var(--status-critical)";
+        var f = Rn.data.first;
+        if (f < 0) {
+          /* "never" is only sayable once the run has actually finished. */
+          vFirst[q].textContent = ticks >= MAXT ? "none in " + MAXT + " ticks" : "— not yet —";
+          vFirst[q].style.color =
+            ticks >= MAXT ? "var(--status-good)" : "var(--ink-muted)";
+        } else if (ticks >= f) {
+          vFirst[q].textContent = "tick " + f;
+          vFirst[q].style.color = "var(--status-critical)";
+        } else {
+          vFirst[q].textContent = "— not yet —";
+          vFirst[q].style.color = "var(--ink-muted)";
+        }
+      }
+    }
+
+    build();
+    var box = readoutBox(body);
+    vErr[0] = readout(box, "hexPrism · worst rotated-partner difference");
+    vFirst[0] = readout(box, "hexPrism · first departure from zero");
+    vErr[1] = readout(box, "box · worst rotated-partner difference");
+    vFirst[1] = readout(box, "box · first departure from zero");
+    note(body,
+      "Both readouts compare each cell with its 60-degree partner over the same inscribed hexagon, " +
+      "so the two panels are marked by identical rules. The crystal here is a fixed seven-cell seed " +
+      "that absorbs vapour and never grows: this demo isolates the room, not the growth.");
+
+    slider = Viz.slider(bar, {
+      label: "ticks", id: "c19-ss-t", min: 0, max: MAXT, step: 1, value: ticks,
+      format: function (v) { return String(v); },
+      onInput: function (v) { ticks = v; paint(); },
+    });
+    Viz.button(bar, "Run to the end", function () { slider.value = MAXT; });
+    Viz.button(bar, "Back to the start", function () { slider.value = 0; });
+
+    paint();
+    Viz.onThemeChange(function () { build(); paint(); });
+  })();
+
+  /* ======================================================================
+     6. Build the seed yourself
+     ================================================================== */
+  (function () {
+    var root = document.getElementById("demo-seed");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var bar = root.querySelector(".anim__controls");
+    var stage = stageIn(body);
+
+    var R = 4;
+    var W = 440, H = 212, cx = 220, cy = 105, s = 24;
+    var chosen = {};
+    var svg = null, nodes = [];
+    var vCount = null, vMod = null, vSym = null, reveal = null;
+
+    function key(i, j) { return i + "," + j; }
+
+    function count() {
+      var n = 0;
+      for (var k in chosen) if (chosen[k]) n++;
+      return n;
+    }
+
+    function isSixfold() {
+      for (var k in chosen) {
+        if (!chosen[k]) continue;
+        var parts = k.split(",");
+        var p = rot60(parseInt(parts[0], 10), parseInt(parts[1], 10));
+        if (!chosen[key(p[0], p[1])]) return false;
+      }
+      return true;
+    }
+
+    function toggle(i, j) {
+      var k = key(i, j);
+      chosen[k] = chosen[k] ? 0 : 1;
+      paint();
+    }
+
+    function build() {
+      if (svg) svg.remove();
+      nodes = [];
+      svg = Viz.createSvg(stage, W, H, {
+        label: "A clickable hexagonal grid for building a crystal seed.",
+      });
+      /* Viz.createSvg marks the svg role="img", which makes it a leaf to assistive
+         technology and hides the 61 site buttons inside it. This is the one demo on the
+         page that needs pointer/keyboard input per cell, so the container becomes a group. */
+      svg.setAttribute("role", "group");
+      for (var j = -R; j <= R; j++) {
+        for (var i = -R; i <= R; i++) {
+          if (hexDist(i, j) > R) continue;
+          var px = cx + s * cartX(i, j);
+          var py = cy - s * cartY(i, j);
+          var el = Viz.svgEl("path", {
+            d: Viz.hexPath(px, py, (s / SQ3) * 0.94, 30),
+            "stroke-width": 1,
+            role: "button",
+            tabindex: "0",
+            "aria-label": "site " + i + ", " + j,
+          });
+          el.style.cursor = "pointer";
+          (function (ii, jj, node) {
+            node.addEventListener("click", function () { toggle(ii, jj); });
+            node.addEventListener("keydown", function (ev) {
+              if (ev.key === "Enter" || ev.key === " ") {
+                ev.preventDefault();
+                toggle(ii, jj);
+              }
+            });
+          })(i, j, el);
+          svg.appendChild(el);
+          nodes.push({ i: i, j: j, el: el });
+        }
+      }
+    }
+
+    function paint() {
+      var c = Viz.colors();
+      var m;
+      for (m = 0; m < nodes.length; m++) {
+        var n = nodes[m];
+        var on = chosen[key(n.i, n.j)];
+        n.el.setAttribute("fill", on ? c.seq[5] : c.surface);
+        n.el.setAttribute("stroke", on ? c.surface : c.rule);
+        n.el.setAttribute("aria-pressed", on ? "true" : "false");
+      }
+      var k = count();
+      vCount.textContent = String(k);
+      if (k === 0) {
+        vMod.textContent = "—";
+        vMod.style.color = "var(--ink-muted)";
+        vSym.textContent = "—";
+        vSym.style.color = "var(--ink-muted)";
+        reveal.style.display = "none";
+        return;
+      }
+      var possible = k % 6 === 0 || k % 6 === 1;
+      vMod.textContent = k + " mod 6 = " + (k % 6);
+      vMod.style.color = possible ? "var(--ink-primary)" : "var(--status-critical)";
+      if (!possible) {
+        vSym.textContent = "impossible at this size";
+        vSym.style.color = "var(--status-critical)";
+      } else {
+        var six = isSixfold();
+        vSym.textContent = six ? "yes" : "not yet";
+        vSym.style.color = six ? "var(--status-good)" : "var(--ink-muted)";
+      }
+      reveal.style.display = (k === 19 && isSixfold()) ? "block" : "none";
+    }
+
+    build();
+    var box = readoutBox(body);
+    vCount = readout(box, "sites chosen");
+    vMod = readout(box, "size modulo 6");
+    vSym = readout(box, "invariant under a 60° turn?");
+
+    reveal = document.createElement("div");
+    reveal.style.cssText =
+      "display:none;margin:0.9rem auto 0;max-width:34rem;padding:0.8rem 1rem;" +
+      "border-left:3px solid var(--status-good);background:var(--surface-sunken);" +
+      "font-size:0.86rem;line-height:1.55;color:var(--ink-secondary);border-radius:0 6px 6px 0;";
+    reveal.innerHTML =
+      "<strong style=\"color:var(--ink-primary)\">19 sites, and sixfold symmetric.</strong> " +
+      "That is the size of the canonical seed — a flat hexagonal plate of radius 2. The G-G " +
+      "paper says 20. " +
+      "<code>core/src/lattice.ts</code> lines 123–124 record it: &ldquo;radius=2, thickness=1 gives 19 " +
+      "sites (3r^2+3r+1) — NOT 20; the paper&rsquo;s &lsquo;20 sites&rsquo; is a documented erratum " +
+      "(any C6-symmetric set has |S| = 0 or 1 mod 6).&rdquo;";
+    body.appendChild(reveal);
+
+    note(body,
+      "The site count of a full hexagonal disc is 3r² + 3r + 1: radii 0, 1, 2 and 3 give 1, 7, 19 " +
+      "and 37. Any size that is neither a multiple of 6 nor one more than a multiple of 6 cannot be " +
+      "made sixfold symmetric at all, whatever shape you arrange it in.");
+
+    Viz.button(bar, "Build the canonical seed", function () {
+      chosen = {};
+      for (var j = -2; j <= 2; j++) {
+        for (var i = -2; i <= 2; i++) {
+          if (hexDist(i, j) <= 2) chosen[key(i, j)] = 1;
+        }
+      }
+      paint();
+    });
+    Viz.button(bar, "Clear", function () { chosen = {}; paint(); });
+
+    paint();
+    Viz.onThemeChange(function () { build(); paint(); });
+  })();
+})();
+</script>
+</body>
+</html>

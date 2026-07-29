@@ -1,0 +1,2275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Testing What Nobody Knows — Snow Crystals</title>
+<meta name="description" content="How you test a program whose output nobody knows in advance: assert the properties the answer must obey, then prove the assertions are capable of failing.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 25 &middot; Testing What Nobody Knows</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#no-oracle">What is the 4?</a></li>
+      <li><a href="#must-obey">Things the answer must obey</a></li>
+      <li><a href="#could-it-fail">Could this test have failed?</a></li>
+      <li><a href="#saboteurs">Sixteen saboteurs</a></li>
+      <li><a href="#own-homework">Grading your own homework</a></li>
+      <li><a href="#fail-open">The harness that agreed with nothing</a></li>
+      <li><a href="#pinned">Pinning the flaws, refusing to guess</a></li>
+      <li><a href="#enforcement">Testing the enforcement, not the metric</a></li>
+      <li><a href="#what-it-proves">What green proves, and who checked</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <!-- ===== header ===== -->
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 25</p>
+        <h1>Testing What Nobody Knows</h1>
+        <p class="chapter-header__question">
+          You can test <code>add(2, 2)</code> because you already know the answer is 4. What do you
+          test when the output is a snow crystal and nobody on Earth knows what it should look like?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~18 min read</span>
+          <span>7 interactives</span>
+          <span>Part VIII &middot; Proving the machine</span>
+        </div>
+      </header>
+
+      <!-- ===== learning goals ===== -->
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Write an assertion that is <strong>insensitive to what you do not know</strong> and
+            <strong>sensitive to what would be a bug</strong>.</li>
+          <li>Ask of any test you meet: <em>what deletion would this catch?</em></li>
+          <li>Explain why a green test suite can mean either &ldquo;the code works&rdquo; or
+            &ldquo;the checks are asleep&rdquo; &mdash; and name the one thing that tells them apart.</li>
+          <li>Say why a program that refuses to answer can be more trustworthy than one that answers.</li>
+        </ul>
+      </section>
+
+      <!-- ================================================================= -->
+      <h2 id="no-oracle">What is the 4?</h2>
+
+      <p>
+        Every test you have ever written has the same shape. Call something with a known input,
+        compare what comes back against a known correct answer, go green or red. That known correct
+        answer has a name: the <strong>oracle</strong>. In <code>add(2, 2)</code> the oracle is 4,
+        and it costs nothing, because you knew it before you wrote the function.
+      </p>
+
+      <p>
+        Now call the previous chapter's program instead. <code>grow(&minus;15&nbsp;&deg;C,
+        &sigma;&nbsp;=&nbsp;2&nbsp;%)</code>. Out comes a crystal. What is the 4?
+      </p>
+
+      <p>
+        There isn't one. If anybody already knew the shape those equations produce at
+        &minus;15&nbsp;&deg;C, nobody would need to run them. This is the <strong>oracle
+        problem</strong>, and it is the normal condition of simulation science. Worse, the output is
+        a picture, and plenty of generative-art toys make gorgeous six-armed snowflakes from rules
+        with no physics in them. Beautiful is exactly what a <em>wrong</em> snowflake program looks
+        like. The charter says the quiet part out loud:
+      </p>
+
+      <div class="equation">
+        <p class="equation__math" style="font-size: var(--step-0); font-style: italic; font-family: var(--font-sans);">
+          &ldquo;a designer tool can be honest about being a model; a fake physics readout is worse
+          than none &mdash; and a real-looking number resting on an untested model is the most
+          convincing fake of all.&rdquo;
+        </p>
+        <p class="equation__cite">project charter.md &sect;1.5, line 87</p>
+      </div>
+
+      <p>
+        So the tests here never assert the answer. They assert what the answer
+        <strong>must obey</strong> whatever it turns out to be. Water cannot appear from nowhere. A
+        sixfold-symmetric setup cannot grow a lopsided crystal. Shrink the problem until algebra can
+        solve it and the code has to hit the algebra. And &mdash; the part that does the real work
+        &mdash; break the code deliberately and the test has to scream.
+      </p>
+
+      <p>
+        Those properties are not equally good, and which is good is not obvious. Before reading on,
+        go and find out for yourself.
+      </p>
+
+      <!-- ---------------------------------------------------------------- -->
+      <figure class="anim" id="anim-be-the-tester">
+        <div class="anim__head">
+          <p class="anim__title">Be the tester</p>
+          <p class="anim__sub">
+            Four builds of the same toy solver. One is correct, one differs only in its random seed,
+            and two are broken. Choose which assertions go in your suite, then read the scoreboard:
+            how many broken builds did you catch, and how many alarms did you raise on builds that
+            are fine?
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. A 2-D toy of the Gravner&ndash;Griffeath
+          machinery in <code>solver-cpu/src/gg-solver.ts</code> &mdash; reflecting boundary,
+          boundary-mass absorption, threshold attachment &mdash; summing each cell's seven values in
+          ascending order the way the v6 surface operator does
+          (<code>solver-cpu/test/lk-solver.test.ts</code> lines 1071&ndash;1075). The assertions are
+          the repository's: mass drift from <code>solver-cpu/test/gg-solver.test.ts</code> lines
+          37 and 52&ndash;55, exact symmetry from <code>solver-cpu/test/diffusion.test.ts</code>
+          line 178. Every number in the table is computed in your browser when the page loads. All
+          four builds run the same noise, so A and B really do differ by nothing but the seed &mdash;
+          A, C and D at seed&nbsp;1, B at seed&nbsp;7. One deliberate difference from the project:
+          that noise is drawn once per six-fold orbit and is much larger than the project's, so that
+          changing the seed changes the crystal <em>without</em> breaking its symmetry. The project's
+          own noise is per cell, which is exactly why its symmetry gate is defined
+          noise-off.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Your own eye does better than the written-down version of it: build C is visibly lopsided
+        and you can see that for yourself. Your eye has no chance at all with build D, which draws
+        exactly the same crystal as the correct build, cell for cell, while its books are out by 109
+        times the mass that started in the box. That is what &ldquo;the picture proves nothing&rdquo;
+        means &mdash; not that pictures are always wrong, but that you cannot tell which kind of
+        wrong you are looking at.
+      </p>
+
+      <p>
+        The bigger surprise is the assertion that feels most rigorous.
+        <code>attachedCount&nbsp;===&nbsp;115</code> does two bad things at once: it goes red on the
+        build whose only difference is a random seed &mdash; a false alarm &mdash; and
+        <em>green</em> on build D, where the count is identical. An exact snapshot of an output you
+        do not understand is not a strong test; it tests only whether anything changed.
+      </p>
+
+      <p>
+        Where the project does compare one whole crystal against another, it compares deliberately
+        loosely, and only on the two quantities that carry meaning. Its <strong>domain
+        spot-check</strong> takes the sweep's fastest-growing point, computes it on a coarse grid and
+        again on a finer one &mdash; N&nbsp;=&nbsp;48 against N&nbsp;=&nbsp;64 &mdash; and requires
+        the habit class to be identical and the attached counts to agree within 0.5&nbsp;%
+        (<code>runner/src/phase6-protocol.ts</code>, lines 297&ndash;301). The residual it measured
+        between the two domains was 5,161 against 5,159
+        (<code>runner/test/phase6-sweep.test.ts</code>, lines 178&ndash;204). Note what that is and
+        is not: a check that the answer does not depend on the size of the box &mdash; chapter 24's
+        subject &mdash; not a check that today's answer equals yesterday's.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          A good assertion is <strong>insensitive to what you do not know</strong> &mdash; the shape,
+          the count, the seed &mdash; and <strong>sensitive to what would be a bug</strong>. That is
+          the whole design rule, and it is why the repository asserts conservation and symmetry
+          rather than crystals.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="must-obey">Things the answer must obey</h2>
+
+      <p>
+        With the answer off the table, here is what is left. Five families, all of them in this
+        repository, roughly in order of how much they cost to write.
+      </p>
+
+      <p>
+        <strong>Conservation.</strong> Water molecules do not appear or vanish. In a sealed box the
+        total &mdash; vapour still drifting, vapour clinging to the surface, ice &mdash; must be the
+        same after ten thousand ticks as before, to better than one part in ten billion, while you
+        know nothing at all about what grew. In the code that budget is written <code>1e-10</code>,
+        which is how programs spell 10<sup>&minus;10</sup>. Every word of the test's title was
+        fought for: <code>&ldquo;conserves total mass to &lt; 1e-10 relative over 10&nbsp;000 ticks
+        GROWN, noise OFF, reflecting&rdquo;</code>. An earlier version split that into a
+        crystal-free ten-thousand-tick run and a 4,800-tick grown one; the audit that caught it is
+        in the comment: &ldquo;a 10k crystal-free control plus a 4800-tick grown run is not the
+        declared 10k grown experiment&rdquo;
+        (<code>solver-cpu/test/gg-solver.test.ts</code>, lines 53&ndash;55). A crystal-free control
+        survives as its own test &mdash; 2,000 ticks, characterising the pure floating-point floor
+        below <code>1e-13</code> (lines 37&ndash;49) &mdash; which is what tells you the
+        <code>1e-10</code> above it is a budget rather than noise.
+      </p>
+
+      <p>
+        <strong>Symmetry, exactly.</strong> Most simulations settle for
+        &ldquo;approximately&rdquo;. This one asserts <code>toBe(0)</code>, not
+        <code>toBeCloseTo</code> &mdash; possible only because the solver adds neighbouring cells in
+        a fixed, symmetry-respecting order. Floating-point addition is not associative, so that
+        order matters. The solver's header
+        states the consequence flatly: &ldquo;Symmetric cells round identically, so the gate's
+        &lsquo;exactly 0&rsquo; is structural, not luck&rdquo;
+        (<code>solver-cpu/src/gg-solver.ts</code>, lines 33&ndash;34). Chapter 20 told that story;
+        here the point is that an expected value of exactly zero leaves no tolerance to argue about.
+      </p>
+
+      <p>
+        <strong>An analytic reference.</strong> You cannot solve a branched 3-D crystal by hand. You
+        <em>can</em> solve one sphere sitting in vapour, in one dimension, with a pencil. The steady
+        field around it is
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">&sigma;(r) = A + B / r</p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>&sigma;(r)</dt><dd>supersaturation at distance <em>r</em> from the sphere's centre &mdash; the spare vapour the air is carrying there</dd>
+            <dt>r</dt><dd>distance from the centre of the sphere</dd>
+            <dt>A, B</dt><dd>two unknown constants, fixed by two boundary conditions: the outer shell holds <em>A</em>&nbsp;+&nbsp;<em>B</em>/<em>R</em><sub>far</sub>&nbsp;=&nbsp;&sigma;<sub>&infin;</sub>, and the ice surface imposes X<sub>0</sub>&nbsp;&sigma;&prime;(<em>R</em>)&nbsp;=&nbsp;<em>a</em>&nbsp;&sigma;(<em>R</em>)</dd>
+            <dt>X<sub>0</sub></dt><dd>the kinetic length &mdash; the distance scale at which attachment and diffusion trade places</dd>
+            <dt>a</dt><dd>the attachment coefficient at the surface (0.393 in this test problem)</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">solver-cpu/test/spherical-reference.test.ts, lines 26&ndash;30</p>
+      </div>
+
+      <p>
+        The discretised solver must reproduce that to a relative error below <code>1e-9</code>, at
+        four grid spacings. This is the project's only <em>absolute</em> accuracy anchor: everywhere
+        else the tests check consistency; here they check the discretisation against the exact
+        answer to the same equations. Notice what the test file refuses to do. Rather than
+        transcribe the monograph's printed solution it re-solves the problem from scratch, and says
+        why: &ldquo;Nothing in this function comes from Eqs. 3.33-3.36, so agreeing with it is real
+        evidence.&rdquo; Copying a formula out of a book and confirming your code agrees with the
+        book proves nothing.
+      </p>
+
+      <p>
+        <strong>Properties instead of examples.</strong> An example test says
+        <code>add(2,&nbsp;2)&nbsp;===&nbsp;4</code>. A property test says <em>for every</em> input
+        this rule holds, checked over the whole input space when it is small enough to enumerate.
+        <code>core/test/lattice.test.ts</code> is almost entirely properties: index to coordinates
+        and back is the identity, over <em>every</em> index; the neighbour relation is mutual in all
+        eight directions; mirroring twice returns you to the start. The nicest is
+        <code>it("rot60 has order 6 exactly")</code>, which turns the hexagon six times, demands you
+        land back where you started, and demands you have <em>not</em> landed there after any of the
+        first five turns. Without that second half, a function that did nothing would pass.
+      </p>
+
+      <p>
+        <strong>A second implementation.</strong> The slow, readable version is treated as the
+        definition of correct and the fast one has to match it inside a declared envelope &mdash;
+        chapter 26's whole subject.
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          The repository has 69 test files holding roughly 1,040 individual cases, counted by
+          matching <code>it(</code> and <code>test(</code> across every <code>*.test.ts</code>. A
+          startling fraction of them exist for one reason only: to prove that <em>other</em> tests
+          are capable of failing. The next four sections are about those.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="could-it-fail">Could this test have failed?</h2>
+
+      <p>
+        The most dangerous test in any codebase is not the one that fails. It is the one that passes
+        for the wrong reason.
+      </p>
+
+      <p>
+        Here is a real example, from the project's own specification. The charter asked for a check
+        phrased like this: <em>a crystal-free run holds &sigma; at the set value.</em> That sounds
+        like a genuine test of the boundary condition &mdash; the rule deciding whether the box's
+        outer wall is sealed (vapour bounces back) or replenished (topped up from outside). Fill the
+        box uniformly at the set value, run it, check the value is still there.
+      </p>
+
+      <p>
+        It is worthless. A uniform field is a <strong>fixed point</strong> of both boundary
+        conditions &mdash; a state that either rule hands straight back unchanged. Feed it to the
+        sealed wall or the replenished wall and both do the same thing to it: nothing. So the
+        test passes whether the boundary code exists, works, is broken, or was deleted an hour
+        ago. The repository files this under traps already paid for: &ldquo;A uniform field
+        initialized at the Dirichlet set value is a fixed point under reflecting and fixed-&sigma;
+        boundaries alike. Use the documented depleted-start differential test.&rdquo;
+        (<code>AGENTS.md</code> lines 266&ndash;267.) <em>Dirichlet</em> is just the
+        mathematician's name for the replenished wall &mdash; a boundary held at a fixed value.
+        The falsifiable version starts at <em>half</em>
+        the target and demands the two arms <em>disagree</em>: the replenished one climbs back to the
+        set value everywhere, the sealed one conserves its mass and settles at the depleted mean.
+        Only a test whose arms come out different proves the code paths are different.
+      </p>
+
+      <!-- ---------------------------------------------------------------- -->
+      <figure class="anim" id="anim-vacuity">
+        <div class="anim__head">
+          <p class="anim__title">Vacuity detector &mdash; what deletion would this catch?</p>
+          <p class="anim__sub">
+            Four candidate tests for the replenished boundary, run against two builds: one with the
+            boundary code, one with that line deleted. Two of the four cannot tell the difference.
+            Then drag the starting fill to 100&nbsp;% and watch a good test go vacuous in front of you.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. A 1-D version of the depleted-start
+          differential test in <code>solver-cpu/test/dirichlet.test.ts</code> (header, lines
+          1&ndash;8), using that file's set value &rho;&nbsp;=&nbsp;0.1 and its two assertions:
+          <code>max|d &minus; rho| &lt; 1e-6</code> for the replenished arm, and
+          <code>|dirichletMeter &minus; gained| / gained &lt; 1e-9</code> for the metered-injection
+          check. Verdicts are computed live from a 4,000-step relaxation in your browser.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Test&nbsp;3 &mdash; &ldquo;the source file still mentions <code>dirichlet</code>&rdquo; &mdash;
+        is a joke, but only just. Tests that check that code <em>exists</em> rather than that it
+        <em>does</em> something are common, and they are exactly this useless.
+      </p>
+
+      <p>
+        Test&nbsp;4 is the interesting one. It compares the boundary's injection meter against the
+        mass the field actually gained. Delete the clamp and the meter reads zero &mdash; but so
+        does the gain, because nothing was injected. Written as an absolute difference that would be
+        <code>0&nbsp;===&nbsp;0</code> and would print PASS: measuring nothing scores the same as
+        agreeing. The repository's version divides by the gain, so the deleted build fails closed.
+        Push the fill slider to 100&nbsp;% and the same collapse hits the good build, which is why
+        the registered test starts at half.
+      </p>
+
+      <p>
+        One habit follows directly. Where a check runs inside a loop, it counts its own iterations
+        and asserts the count. After comparing shell cells against their rotated images bit for bit,
+        the far-field symmetry test's last line reads
+        <code>expect(compared).toBeGreaterThan(100);</code> &mdash; <em>&ldquo;the check must
+        actually have had work to do&rdquo;</em>
+        (<code>solver-cpu/test/monopole-far-field.test.ts</code>, line 223). A loop that never
+        executes passes every assertion inside it.
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          &ldquo;More tests means more trustworthy&rdquo; is false, and this project's own rule says
+          so: <em>&ldquo;a green self-test is not sufficient evidence for a scientific gate&rdquo;</em>
+          (<code>AGENTS.md</code> line 243). A thousand tests that cannot fail are worth less than one
+          that can. The question to ask of any test is never &ldquo;does it pass?&rdquo; but
+          <strong>&ldquo;what deletion would this catch?&rdquo;</strong>
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="saboteurs">Sixteen saboteurs</h2>
+
+      <p>
+        If the only way to know a test can fail is to make it fail, somebody has to break the code
+        on purpose. Laboratory science has a name for this: the <strong>negative control</strong>
+        &mdash; the same experiment with the crucial ingredient left out. If it still produces a
+        result, your instrument is measuring something other than what you think.
+      </p>
+
+      <p>
+        The repository's rule for gates: &ldquo;For a gate, derive every precondition from the
+        charter/spec and make the process fail by name when one is violated. Pin each bypass with an
+        adversarial negative-control test.&rdquo; (<code>AGENTS.md</code> lines 249&ndash;250.) In
+        Phase 5 that comes out unusually tidy. Sixteen pass/fail criteria; sixteen registered
+        sabotages; each sabotage <em>owned</em> by exactly one criterion, with a test asserting that
+        the ownership list matches the criteria list in order and that the sixteen sabotage names are
+        distinct (<code>runner/test/gate5-protocol.test.ts</code>, lines 126&ndash;133).
+        Rule&nbsp;9 &mdash; titled <strong>&ldquo;A verdict is computed from the artifact, never
+        inherited from its producer&rdquo;</strong> &mdash; adds the requirement that makes the
+        apparatus mean anything: &ldquo;Every negative control must execute its named mutation,
+        verified by something other than its author&rdquo; (<code>AGENTS.md</code> lines
+        375&ndash;379).
+      </p>
+
+      <p>
+        What a sabotage has to demonstrate is then written down in three parts. Its mutation must
+        have been applied to the real evidence <em>at the boundary the mutation names</em>, &ldquo;not
+        to a summary counter that merely reports on that boundary&rdquo;. The mutated evidence must
+        actually be <strong>rejected</strong>. And the set of criteria observed to fail must be
+        non-empty and must <strong>contain</strong> the sabotage's registered owner
+        (<code>docs/decisions/0022-phase5-observed-negative-control-ownership.md</code>, Decision).
+        Read that last word carefully. It says <em>contain</em>, not <em>equal</em> &mdash; and the
+        project arrived there by retreating from the stronger rule.
+      </p>
+
+      <!-- ---------------------------------------------------------------- -->
+      <figure class="anim" id="anim-sabotage">
+        <div class="anim__head">
+          <p class="anim__title">Sabotage console</p>
+          <p class="anim__sub">
+            Sixteen real registered mutations. Apply one and watch which criteria notice. Your
+            unstated goal: find a mutation that nothing rejects. You cannot &mdash; until you loosen
+            a threshold, at which point you can, which is the entire lesson.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The sixteen criteria and the sixteen
+          negative controls are transcribed verbatim from
+          <code>runner/src/phase5-protocol.ts</code> lines 854&ndash;963
+          (<code>PHASE5_CRITERIA</code> and <code>PHASE5_NEGATIVE_CONTROLS</code>). The marks are
+          the failing sets the repository records as <em>observed</em>, not as owned:
+          <code>runner/test/gate5-protocol.test.ts</code> lines 276&ndash;295
+          (<code>OBSERVED_FAILING_CRITERIA</code>), checked control by control at lines
+          704&ndash;741, where the ownership assertion is
+          <code>expect(outcome.failedCriteria).toContain(control.owner)</code>. That is why
+          <code>NC-TOLERANCE-BYPASS</code> carries two marks here: those are its real two, recorded
+          at line 293. The refusal messages are the real ones from
+          <code>runner/src/gate5-negative-controls.ts</code> lines 646 and 1006.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        One column in that grid carries two marks, and it is the reason the rule reads
+        <em>contain</em>. The earlier version demanded that the observed failing set be exactly
+        <code>[that criterion]</code> &mdash; not &ldquo;includes&rdquo;, not &ldquo;at least&rdquo;.
+        That sounds stronger. It was the defect. An independent review rejected the gate candidate
+        because &ldquo;ten of sixteen negative controls do not execute their named mutation and
+        hardcode criterion ownership&rdquo;, and the ADR reproduces the two published lines that did
+        it: <code>rejected: productionNegativeRejected(control, reports)</code>, which returned
+        <code>true</code> for ten of them, and <code>failedCriteria: [control.owner]</code>, annotated
+        in the ADR with the words <em>&ldquo;never observed&rdquo;</em>.
+      </p>
+
+      <p>
+        Then, repairing it, the project discovered that its own rule could not be obeyed honestly.
+        <code>NC-TOLERANCE-BYPASS</code> means &ldquo;report pass while one blocking comparison
+        exceeds its frozen tolerance&rdquo; &mdash; and a comparison that exceeds tolerance also
+        raises its fixture's failure counts, which the evaluator routes to the criterion for that
+        kind of fixture. Two criteria notice, necessarily. The verdict the project passed on its own former
+        rule: &ldquo;The sole-criterion rule is satisfiable only by <em>asserting</em> a singleton,
+        which is the defect the reviewer found: the rule incentivised the hardcoding.&rdquo; And, more
+        generally: &ldquo;real evidence is cross-linked; demanding that exactly one criterion notice
+        is demanding that the evidence graph be less connected than it is.&rdquo; So a mark off the
+        diagonal is not a bug. It is two pieces of evidence being visibly wired together.
+      </p>
+
+      <p>
+        The rule was therefore weakened to what could actually be measured, and the retreat written
+        down in the open: &ldquo;The gate no longer asserts that each mutation is caught by exactly
+        one criterion, so it no longer proves criterion <em>isolation</em>. It proves detection and
+        correct attribution. Isolation was never actually measured &mdash; it was hardcoded &mdash; so
+        no real claim is lost, but the weaker written claim must be stated plainly in the evidence
+        prose.&rdquo; (ADR&nbsp;0022, accepted 2026-07-25, Consequences.) Nothing about the machinery
+        got worse that day. What changed is that the sentence the machinery was allowed to print
+        became true.
+      </p>
+
+      <p>
+        And the only way to make a column empty is to disable a check. Loosen the symmetry threshold
+        and <code>NC-SYMMETRY-BIT</code> still flips its attachment bit, but now nothing rejects the
+        result &mdash; so the second requirement is unmet and the control itself fails. That is the
+        whole purpose of the apparatus, because without it a loosened threshold is invisible: the
+        criterion quietly stops testing anything. The list of saboteurs is closed for the same reason.
+        Ask the runner to apply a control nobody registered and it throws <code>unregistered Phase 5
+        negative control</code> rather than doing nothing; and a mutation that leaves the captured
+        evidence byte-identical is an error, not a pass &mdash; <code>did not change any captured
+        evidence: its mutation did not execute</code>.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          Two dashboards, both entirely green. One means <em>the code works</em>. The other means
+          <em>the checks are asleep</em>. Nothing on the screen distinguishes them. The only way to
+          tell them apart is to break something on purpose and see whether anyone notices.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="own-homework">Grading your own homework</h2>
+
+      <p>
+        Breaking something on purpose only helps if the thing that notices is not the thing that
+        broke. Which raises the next question: who is allowed to check whom?
+      </p>
+
+      <p>
+        Suppose a solver keeps a ledger: a running total of the vapour it has turned into ice. How
+        do you test the ledger? The tempting answer is to ask the solver what it thinks it did. That
+        comparison always passes and means nothing, because the same code produced both sides of it.
+      </p>
+
+      <p>
+        Rule&nbsp;9, from the previous section, has a sentence for exactly this: &ldquo;No component
+        may supply both sides of a comparison it participates in&rdquo; (<code>AGENTS.md</code> lines
+        377&ndash;378). The slogan version is shorter: <em>&ldquo;a report agreeing with itself does
+        not prove its ledger&rdquo;</em> (lines 254&ndash;256).
+      </p>
+
+      <p>
+        So the strong tests compute the expected answer a second time, by a different route, using
+        none of the production code's internals. One is titled in capitals:
+        <code>it("NON-TAUTOLOGICAL: the ledger delta equals independently recomputed kinetic demand")</code>.
+        It rebuilds the expected growth from public fields and raw physics functions, and draws the
+        line: &ldquo;Neither solver rate cache nor ledger internals enter the expected value.&rdquo;
+        It also insists on being run somewhere difficult: it fails if the run never hits a step
+        where demand has to be <strong>clipped</strong> &mdash; cut back, because a cell was asked
+        to freeze more vapour than was actually there. Clipping is where the historical bug lived.
+        In an early audit, recomputed demand exceeded the ledger by 35&nbsp;% while the clipping
+        happened silently &mdash; and that 35&nbsp;% is a figure the project itself labels
+        non-reproducible history, because the ad-hoc probe script was never retained
+        (<code>solver-cpu/test/lk-solver.test.ts</code>, lines 814&ndash;816; ADR&nbsp;0006, lines
+        25&ndash;28). The fix is reproducible; the measurement of how bad the bug was is not.
+      </p>
+
+      <!-- ---------------------------------------------------------------- -->
+      <figure class="anim" id="anim-two-ledgers">
+        <div class="anim__head">
+          <p class="anim__title">Two ledgers</p>
+          <p class="anim__sub">
+            The solver keeps its own running total of ice. The test recomputes it a second way, from
+            public fields only. Introduce an unmetered 3&nbsp;% clipping bug and the two separate.
+            Then let the test read the solver's cache instead, and watch the difference become
+            permanently, unfalsifiably zero.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive, on the same 2-D toy as the first figure. The
+          independent route is conservation &mdash; ice must equal the starting total minus the vapour
+          and boundary mass still on the grid &mdash; and touches no internal counter. Encodes the
+          contract in <code>AGENTS.md</code> lines 254&ndash;256 and Rule&nbsp;9 (lines
+          377&ndash;378), and the shape of
+          <code>solver-cpu/test/lk-solver.test.ts</code> line 780. One difference from the real
+          solver, stated because it matters: this toy has no separate demand ledger, so it can only
+          expose an unmetered clip by letting the clipped mass leave the box, which is what the
+          conservation route then sees. The real solver meters the clipped amount into
+          <code>saturationClippedFill</code> and the test adds it back before comparing against
+          recomputed demand (<code>solver-cpu/test/lk-solver.test.ts</code> lines 805&ndash;810), so
+          clipped mass is accounted for rather than lost. The historical bug was that the clipping was
+          unmetered, not that water vanished.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The peek switch is the point of the demo. Nothing about the test <em>looks</em> different
+        afterwards. It still runs, it still compares two numbers, it is still green. It has simply
+        stopped being able to be red, and there is no way to see that from the outside except by
+        reading what it compares.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="fail-open">The harness that agreed with nothing</h2>
+
+      <p>
+        There is a failure mode one level up from a bad test: a bad <em>reader</em> of tests. A
+        program that collects results and decides pass or fail can be wrong in a specific, quiet way,
+        and the name for it is <strong>fail-open</strong>. When it meets something it does not
+        understand, it lets it through.
+      </p>
+
+      <p>
+        Rule&nbsp;9 states it &mdash; &ldquo;A harness that silently ignores an unrecognized field in
+        a status line is fail-open and invalid evidence&rdquo; &mdash; and then names the incident
+        that bought it. A calibration probe read the solver's status lines looking for
+        <code>symErr=</code>. It found it, it was zero, the probe was satisfied. Sitting in the same
+        line, unread, was <code>deltaSymClean=false</code>: a flag reporting a real solver defect.
+        The probe was not lying. It had no opinion about a field it was never told to look for, and
+        no opinion reads exactly like approval.
+      </p>
+
+      <!-- ---------------------------------------------------------------- -->
+      <figure class="anim" id="anim-harness">
+        <div class="anim__head">
+          <p class="anim__title">Break the harness</p>
+          <p class="anim__sub">
+            Feed a status line to two parsers. The fail-open one reports on the field it knows about.
+            The fail-closed one refuses anything it was not told to expect. Try the second preset:
+            it reconstructs the two fields the record actually names. Then register
+            <code>deltaSymClean</code> and watch the fail-closed verdict change from <em>I do not
+            recognise this field</em> to <em>this field is reporting a defect</em>.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Encodes Rule&nbsp;9
+          (<code>AGENTS.md</code> lines 377&ndash;385): the fail-open definition and the recorded
+          incident &mdash; &ldquo;the Phase 6 WP0b calibration probe that parsed only
+          <code>symErr=</code> and dropped the <code>deltaSymClean=false</code> that was reporting a
+          real solver defect.&rdquo; The surrounding <code>tick</code> and <code>attached</code>
+          values are illustrative, and so is the four-row schema table with its per-field rules;
+          <code>AGENTS.md</code> records only the <code>symErr=</code> and
+          <code>deltaSymClean=false</code> fields. The unknown-key refusal mirrors
+          <code>runner/test/gate5-protocol.test.ts</code> line 161, which rejects unknown raw and
+          nested keys &ldquo;instead of silently ignoring schema drift&rdquo;.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The fail-closed stance costs something. Refusing every unrecognised field means adding a new
+        field breaks the harness until somebody registers it: a small, loud, immediate cost, in
+        exchange for never having a check silently stop applying. Being friendly about unknown keys
+        sounds harmless until a field is <em>renamed</em>, at which point the criterion that read it
+        quietly stops being evaluated and everything stays green.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="pinned">Pinning the flaws, refusing to guess</h2>
+
+      <p>
+        Everything so far assumes the wrongness is in the code, where it can be fixed. Sometimes it is
+        in the source material, where it cannot. The usual response is to leave it alone and hope
+        nobody trips over it. This repository does two opposite things instead. It writes the
+        weakness into the alarm &mdash; a test asserting the broken thing stays <em>exactly as broken
+        as it currently is</em> &mdash; and, where a number is simply not available, it refuses to
+        produce one.
+      </p>
+
+      <p>
+        The clearest case is <code>sigmaWater</code> &mdash; how much supersaturation a supercooled
+        water droplet presents to ice. The monograph gives it as the difference between two
+        approximate curves, saturation over water minus saturation over ice, each fit good to about
+        a percent. Near 0&nbsp;&deg;C the curves converge, so their difference shrinks toward
+        nothing while their errors do not. At &minus;1&nbsp;&deg;C the formula returns
+        <strong>&minus;0.009146</strong>: a <em>negative</em> supersaturation, which is impossible.
+        The published table says +0.010. The implementation's own comment records the crossing at
+        &minus;1.969&nbsp;&deg;C, negative everywhere warmer
+        (<code>core/src/libbrecht.ts</code>, lines 47&ndash;53).
+      </p>
+
+      <p>
+        And so, in the test file, pinned to five decimal places:
+      </p>
+
+      <div class="equation">
+        <p class="equation__math" style="font-family: var(--font-mono); font-size: var(--step--1); line-height: 1.7;">
+          expect(sigmaWater(-1)).toBeCloseTo(-0.009146, 5); <span style="opacity:.65">// the near-melting breakdown, pinned</span><br>
+          expect(relErr(sigmaWater(-10), 0.102)).toBeGreaterThan(0.15); <span style="opacity:.65">// ~20% off at -10, pinned</span>
+        </p>
+        <p class="equation__cite">core/test/libbrecht.test.ts, lines 73&ndash;74</p>
+      </div>
+
+      <p>
+        Read the second line again. It asserts the code is <em>at least</em> 15&nbsp;% wrong, so
+        improving the formula would turn it red. That is deliberate: it is pinned
+        &ldquo;so the limitation cannot silently un-happen&rdquo;. The quantity is a plausibility
+        reference against the source, explicitly &ldquo;not an enforced runtime ceiling or a
+        dynamical input&rdquo; &mdash; so the honest move is to keep it exactly as the source has
+        it, and make any change an event somebody has to argue for out loud.
+      </p>
+
+      <!-- ---------------------------------------------------------------- -->
+      <figure class="anim" id="anim-fix-the-bug">
+        <div class="anim__head">
+          <p class="anim__title">Fix the bug</p>
+          <p class="anim__sub">
+            There is an obvious improvement available: clamp the impossible negative value to zero.
+            Press it. Then decide what to do about the test that just went red &mdash; the project
+            offers exactly three options, and only one of them is silent.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original chart. The curve is
+          <code>sigmaWater</code> from <code>core/src/libbrecht.ts</code> lines 24&ndash;57 evaluated
+          live &mdash; p<sub>ice</sub>&nbsp;=&nbsp;3.7&times;10<sup>10</sup>&nbsp;e<sup>&minus;6150/T</sup>
+          and p<sub>water</sub>&nbsp;=&nbsp;(2.8&times;10<sup>9</sup>&nbsp;+&nbsp;1700&nbsp;T<sub>C</sub><sup>3</sup>)&nbsp;e<sup>&minus;5450/T</sup>,
+          monograph Eq.&nbsp;2.8. The circles are the monograph's Table&nbsp;2.1 anchors as
+          transcribed in <code>core/test/libbrecht.test.ts</code> lines 25&ndash;35. The assertion
+          text is that file's, lines 73&ndash;74.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        That is the alarm half, pointed backwards at a flaw already known. Pointed forwards, the same
+        instinct produces a stranger habit: functions that refuse to answer. Ask for a
+        parameter outside the range actually digitised from the source figure and the code throws
+        rather than extrapolating &mdash;
+        <code>expect(() =&gt; sigma0Basal(-0.5)).toThrow(/outside the digitized domain/)</code>.
+        There is a family of these: a solver that refuses to advance the surface on an unconverged
+        field, even through its public interface; a grid-limit extrapolation
+        <em>published</em> for the cold case and <em>refused</em> for the warm one, where two
+        defensible assumptions give 0.84 and 0.49 &mdash; different habit classes &mdash; so that
+        &ldquo;Reporting either as &lsquo;the extrapolated class&rsquo; would be inventing a
+        result&rdquo; (<code>runner/test/phase6-protocol.test.ts</code>, lines 349&ndash;360).
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          Not every red test means &ldquo;fix the code&rdquo;. One control in this project pins a
+          fingerprint of the machine's own <code>exp</code> and <code>log</code> only when it is
+          running on the architecture the baseline was recorded on, and deliberately declines to
+          assert anywhere else &mdash; because a different value on a different chip is a
+          <em>finding</em> about that chip, and &ldquo;turning a legitimate finding into a red test
+          would train everyone to ignore it&rdquo;
+          (<code>runner/test/phase6-crossplatform.test.ts</code>, lines 3&ndash;9). Designing around
+          alarm fatigue is a judgement call, and reasonable people would draw that line elsewhere.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="enforcement">Testing the enforcement, not the metric</h2>
+
+      <p>
+        Everything so far tests functions. There is one more layer, and it is the one people forget: a
+        program can compute a perfect diagnostic and still be worthless, if nothing acts on it.
+      </p>
+
+      <p>
+        This project found that out by doing it. A run in the box-shaped domain &mdash; known to break
+        symmetry, and known to break it at tick 270 &mdash; printed
+        <code>deltaCheckCleanAllTicks=false</code> and exited with status&nbsp;0. Success. The number
+        was right there in the output. Nobody had to read it. The test file that fixed this opens with
+        the sentence that ought to be on a poster:
+      </p>
+
+      <div class="equation">
+        <p class="equation__math" style="font-size: var(--step-0); font-style: italic; font-family: var(--font-sans);">
+          &ldquo;gate metrics nobody has to read are not a gate.&rdquo;
+        </p>
+        <p class="equation__cite">runner/test/gate-enforce.test.ts, lines 1&ndash;4</p>
+      </div>
+
+      <p>
+        So a set of tests now launches the real command-line program as a separate process and
+        asserts on its <strong>exit code</strong> and its printed reason. One test title states the
+        design goal: <em>exit 0 must be the whole claim by itself</em>. A slip of paper reading
+        <code>GATE PASSED</code> has to mean something without the command line beside it, because
+        the command line is what nobody keeps.
+      </p>
+
+      <!-- ---------------------------------------------------------------- -->
+      <figure class="anim" id="anim-run-the-gate">
+        <div class="anim__head">
+          <p class="anim__title">Run the gate</p>
+          <p class="anim__sub">
+            Assemble a command and run it. Challenge: find a combination that grows a
+            perfectly symmetric crystal and is <em>still</em> rejected. There is more than one.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The printed lines and exit codes replay
+          outcomes the repository's own tests assert &mdash;
+          <code>runner/test/gate-enforce.test.ts</code>, lines 23&ndash;150. Combinations the suite
+          does not pin are reported as not pinned rather than guessed at, except unpinned
+          <code>box</code> runs, where a documented categorical rule already settles the outcome
+          (<code>AGENTS.md</code> lines 263&ndash;264) and the demo says so on screen. The
+          observational case
+          encodes <code>AGENTS.md</code> lines 244&ndash;245: &ldquo;Printed metrics do not turn exit
+          0 into a gate result.&rdquo;</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The best entry is the 18&times;18&times;12 box run. It grew from 19 sites to 37, never broke
+        symmetry once, stopped for a legitimate reason and exited&nbsp;0. It is rejected anyway: the
+        gate is defined on the hexagonal-prism domain, and a box footprint is not a sixfold-symmetric
+        environment &mdash; this run had simply stopped before the walls began to bite. The comment
+        calls it what it is: &ldquo;a lucky-short box run must not pass.&rdquo; A gate that accepts
+        runs which happen to look fine will accept the wrong thing on the day it matters.
+      </p>
+
+      <p>
+        Note how much of that file is about arguments rather than physics. A <code>--noise</code>
+        value of <code>NaN</code> or <code>-1</code> used to run as a silent noise-off while writing
+        false metadata into the record; now the parser rejects it for every run, gate or not. A
+        <code>--stop-check-every</code> of <code>0</code> is rejected too, along with a fractional
+        <code>--metrics-every</code> and a <code>NaN</code> <code>--symmetry-every</code>, under a
+        title that names the reason: <em>&ldquo;rejects invalid cadence &hellip; instead of silently
+        disabling a check&rdquo;</em> (<code>runner/test/gate-enforce.test.ts</code>, lines
+        124&ndash;134). Note that <code>--metrics-every 0</code> is legal, and every gate command in
+        that file uses it: it means &ldquo;never print&rdquo;, which disables no check at all.
+        Half of enforcement is refusing inputs that would make the output a lie about itself.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="what-it-proves">What green proves, and who checked</h2>
+
+      <p>
+        Put it all together and it is worth being extremely precise about what has been established,
+        because this is the sentence the rest of Part Two depends on.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The two columns of the claim. Left: what the test suite establishes. Right: what it
+            cannot, by construction. Sources: <code>AGENTS.md</code> lines 242&ndash;256 and
+            <code>project charter.md</code> &sect;1.5.
+          </caption>
+          <thead>
+            <tr><th>What the tests establish</th><th>What the tests do not establish</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mass is conserved to better than 1&times;10<sup>&minus;10</sup> over 10,000 ticks with a crystal growing</td>
+              <td>That these equations are nature's equations</td>
+            </tr>
+            <tr>
+              <td>The symmetry error is exactly 0, structurally rather than by luck</td>
+              <td>That a crystal grown here at &minus;15&nbsp;&deg;C is what a cloud grows at &minus;15&nbsp;&deg;C</td>
+            </tr>
+            <tr>
+              <td>The one case algebra can solve is reproduced to better than 1&times;10<sup>&minus;9</sup></td>
+              <td>That the physics the code was told to compute is sufficient</td>
+            </tr>
+            <tr>
+              <td>Every registered criterion has a saboteur that trips it, with the failing set observed rather than declared</td>
+              <td>Anything at all about the real world</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        The left column says one thing four ways: <strong>the code computes what it was told to
+        compute</strong>. Whether that is what nature does is a different question, answered only by
+        comparison with measurement, and no amount of green anywhere in this chapter contributes a
+        word to it. Keeping the two apart is this project's stated reason for existing &mdash;
+        &ldquo;giving a model real physics is not the same as showing the model reproduces
+        reality&rdquo; (<code>project charter.md</code> &sect;1.5) &mdash; and it is why
+        chapter&nbsp;28 reads as a result rather than a disappointment.
+      </p>
+
+      <p>
+        One more thing has to be said, because a chapter about verification that does not say who
+        did the verifying is doing the exact thing it warns against. Every review this project has
+        had &mdash; every gate review, every code review, and the two-reviewer process that checked
+        this page &mdash; has been an <strong>LLM review</strong>. No human domain scientist has read
+        any of it. The project's own standard says so: &ldquo;At least one human domain scientist
+        reads any manuscript before submission. All reviews to date, internal and external-facing,
+        are LLM reviews; for publication that is a disclosed limitation, not a substitute.&rdquo;
+        (<code>docs/stretch-sharing-and-investigation.md</code>, lines 217&ndash;219.)
+      </p>
+
+      <p>
+        That is a real limit, and it is why the machinery in this chapter is shaped as it is.
+        Rule&nbsp;9 is a countermeasure for reviewers who cannot be assumed independent.
+        Rule&nbsp;10 requires every review to record which model did it, whether it shared context
+        with the developer, what it independently re-ran, and <em>what it did not check</em> as a
+        stated limit; gate-bearing reviews prefer a different model from
+        the one that wrote the code. None of that adds up to expert review. It adds up to a system
+        where a stranger can recompute the verdict from the published bytes without trusting anybody
+        in the loop, and it should be judged as exactly that.
+      </p>
+
+      <p>
+        And to be plain about status: Phase&nbsp;6, the comparison with measurement, is
+        <strong>in flight</strong>. Phase&nbsp;7 has <strong>not started</strong>. Nothing in this
+        chapter is a claim that the product exists.
+      </p>
+
+      <!-- ===== handoff ===== -->
+      <p class="handoff">
+        Everything here compared a program against a property. The hardest case is comparing a program
+        against <em>another program</em>: a fast engine on the graphics card, working in about seven
+        decimal digits instead of sixteen and adding numbers up in whatever order its thousands of
+        threads happen to finish, which must nonetheless be shown to agree with the slow, readable one.
+        How wide should that envelope be &mdash; and who decides, and when?
+      </p>
+
+      <!-- ===== prev / next ===== -->
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./24-watching-it-starve.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">Watching It Starve</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./26-fast-without-being-wrong.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">Fast Without Being Wrong</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
+      from a local research cache under citation; they are not redistributed with this repository.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script>
+/* ===========================================================================
+   Shared helpers for this chapter's seven interactives.
+   ======================================================================== */
+(function () {
+  "use strict";
+
+  const MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+
+  function text(parent, x, y, str, opts) {
+    const o = opts || {};
+    const t = Viz.svgEl("text", {
+      x: x, y: y,
+      "text-anchor": o.anchor || "start",
+      "font-size": o.size || 11,
+      "font-weight": o.weight || null,
+      "font-family": o.mono ? MONO : "var(--font-sans)",
+      fill: o.fill || "currentColor",
+      opacity: o.opacity == null ? null : o.opacity,
+    });
+    t.textContent = str;
+    if (parent) parent.appendChild(t);
+    return t;
+  }
+
+  function rect(parent, x, y, w, h, attrs) {
+    const r = Viz.svgEl("rect", Object.assign({ x: x, y: y, width: w, height: h }, attrs || {}));
+    if (parent) parent.appendChild(r);
+    return r;
+  }
+
+  function selectControl(container, label, options, onChange) {
+    const wrap = document.createElement("div");
+    wrap.className = "control";
+    const id = "sel-" + Math.random().toString(36).slice(2, 8);
+    const lab = document.createElement("label");
+    lab.setAttribute("for", id);
+    lab.textContent = label;
+    const sel = document.createElement("select");
+    sel.id = id;
+    sel.style.font = "inherit";
+    sel.style.fontSize = "var(--step--1)";
+    sel.style.padding = "0.3rem 0.5rem";
+    sel.style.borderRadius = "8px";
+    sel.style.border = "1px solid var(--rule-strong)";
+    sel.style.background = "var(--surface-1)";
+    sel.style.color = "var(--ink-primary)";
+    sel.style.maxWidth = "min(46ch, 70vw)";
+    options.forEach(function (opt) {
+      const o = document.createElement("option");
+      o.value = opt.value;
+      o.textContent = opt.label;
+      sel.appendChild(o);
+    });
+    sel.addEventListener("change", function () { onChange(sel.value); });
+    wrap.appendChild(lab);
+    wrap.appendChild(sel);
+    container.appendChild(wrap);
+    return sel;
+  }
+
+  function toggle(container, label, initial, onChange) {
+    let on = !!initial;
+    const b = Viz.button(container, label, function (btn) {
+      on = !on;
+      btn.setAttribute("aria-pressed", String(on));
+      onChange(on);
+    }, { pressed: on });
+    return { get value() { return on; }, element: b };
+  }
+
+  function note(container, str) {
+    const s = document.createElement("span");
+    s.className = "control";
+    s.style.color = "var(--ink-muted)";
+    s.textContent = str;
+    container.appendChild(s);
+    return s;
+  }
+
+  /* =========================================================================
+     THE TOY SOLVER
+     -------------------------------------------------------------------------
+     A 2-D reduction of the Gravner-Griffeath machinery in solver-cpu/src/
+     gg-solver.ts. Hexagonal lattice in axial coordinates, radius 13.
+
+       1. diffusion   each open cell becomes the mean of itself and its six
+                      neighbours; a missing or attached neighbour contributes
+                      the cell's OWN value (reflecting). The seven values are
+                      sorted ascending before summing, which is what makes a
+                      cell and its rotated twin round identically -- the same
+                      device as the v6 surface operator, lk-solver.test.ts
+                      lines 1071-1075.
+       2. absorption  every open cell touching ice moves its vapour into a
+                      boundary-mass store.
+       3. attachment  boundary mass at or above the threshold freezes; the
+                      mass is credited to the ice ledger and the store cleared.
+
+     Total = vapour + boundary mass + ice is conserved exactly, by construction.
+
+     NOISE is a separate switch from the bug mode, so two builds can differ by
+     their seed AND NOTHING ELSE: one factor per six-fold orbit, globally
+     renormalised so no mass is created.
+
+     BUG MODES
+       correct  as above
+       leak     ONE wall stops reflecting: an off-grid neighbour in direction 0
+                contributes 0 instead of the cell's own value. Vapour drains.
+       wild     attached cells keep absorbing vapour and the ledger is credited
+                with their whole store every step without ever clearing it.
+     ====================================================================== */
+
+  const TOY = { R: 13, RHO: 0.35, THETA: 1.0, STEPS: 260 };
+  const DIRS = [[1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]];
+  let GRID = null;
+
+  function grid() {
+    if (GRID) return GRID;
+    const R = TOY.R, cells = [], index = new Map();
+    for (let q = -R; q <= R; q++) {
+      for (let r = -R; r <= R; r++) {
+        if (Math.abs(q + r) > R) continue;
+        index.set(q + "," + r, cells.length);
+        cells.push([q, r]);
+      }
+    }
+    const nb = cells.map(function (c) {
+      return DIRS.map(function (d) {
+        const k = index.get((c[0] + d[0]) + "," + (c[1] + d[1]));
+        return k === undefined ? -1 : k;
+      });
+    });
+    const rot = cells.map(function (c) {
+      const k = index.get((-c[1]) + "," + (c[0] + c[1]));
+      return k === undefined ? -1 : k;
+    });
+    const orbit = cells.map(function (_, i) {
+      let x = i, m = i;
+      for (let n = 0; n < 5; n++) { x = rot[x]; if (x < 0) { m = -1; break; } if (x < m) m = x; }
+      return m;
+    });
+    GRID = { cells: cells, index: index, nb: nb, rot: rot, orbit: orbit, n: cells.length };
+    return GRID;
+  }
+
+  function hash3(a, b, c) {
+    let h = (a * 374761393 + b * 668265263 + c * 2246822519) >>> 0;
+    h = Math.imul(h ^ (h >>> 13), 1274126177) >>> 0;
+    return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+  }
+
+  function newSim(mode, seed, clipFraction, noise) {
+    const g = grid(), n = g.n;
+    const sim = {
+      g: g, mode: mode, seed: seed || 1, clip: clipFraction || 0, noise: !!noise,
+      d: new Float64Array(n).fill(TOY.RHO),
+      b: new Float64Array(n),
+      a: new Uint8Array(n),
+      buf: new Float64Array(n),
+      seven: new Float64Array(7),
+      ice: 0, step: 0, m0: TOY.RHO * n,
+    };
+    const centre = g.index.get("0,0");
+    sim.ice = sim.d[centre];
+    sim.a[centre] = 1;
+    sim.d[centre] = 0;
+    return sim;
+  }
+
+  function stepSim(s) {
+    const g = s.g, n = g.n, d = s.d, b = s.b, a = s.a, buf = s.buf, sv = s.seven;
+    if (s.noise) {
+      let before = 0;
+      for (let x = 0; x < n; x++) before += d[x];
+      for (let x = 0; x < n; x++) {
+        const o = g.orbit[x];
+        d[x] *= 1 + 0.5 * (hash3(o < 0 ? 0 : o, s.step, s.seed) - 0.5);
+      }
+      let after = 0;
+      for (let x = 0; x < n; x++) after += d[x];
+      if (after > 0) { const k = before / after; for (let x = 0; x < n; x++) d[x] *= k; }
+    }
+    for (let x = 0; x < n; x++) {
+      if (a[x] === 1 && s.mode !== "wild") { buf[x] = 0; continue; }
+      const nbs = g.nb[x];
+      sv[0] = d[x];
+      for (let k = 0; k < 6; k++) {
+        const y = nbs[k];
+        const blocked = y < 0 || (a[y] === 1 && s.mode !== "wild");
+        if (blocked) sv[k + 1] = (s.mode === "leak" && y < 0 && k === 0) ? 0 : d[x];
+        else sv[k + 1] = d[y];
+      }
+      for (let i = 1; i < 7; i++) {
+        const v = sv[i];
+        let j = i - 1;
+        while (j >= 0 && sv[j] > v) { sv[j + 1] = sv[j]; j--; }
+        sv[j + 1] = v;
+      }
+      let sum = 0;
+      for (let k = 0; k < 7; k++) sum += sv[k];
+      buf[x] = sum / 7;
+    }
+    d.set(buf);
+    for (let x = 0; x < n; x++) {
+      if (a[x] === 1) { if (s.mode === "wild") { b[x] += d[x]; d[x] = 0; } continue; }
+      let touches = false;
+      const nbs = g.nb[x];
+      for (let k = 0; k < 6; k++) { const y = nbs[k]; if (y >= 0 && a[y] === 1) { touches = true; break; } }
+      if (touches) { b[x] += d[x]; d[x] = 0; }
+    }
+    if (s.mode === "wild") { for (let x = 0; x < n; x++) if (a[x] === 1) s.ice += b[x]; }
+    for (let x = 0; x < n; x++) {
+      if (a[x] === 1 || b[x] < TOY.THETA) continue;
+      a[x] = 1;
+      if (s.mode !== "wild") { s.ice += b[x] * (1 - s.clip); b[x] = 0; }
+    }
+    s.step++;
+  }
+
+  function measure(s) {
+    const g = s.g, n = g.n;
+    let sd = 0, sb = 0, count = 0, sym = 0, minCell = Infinity;
+    for (let x = 0; x < n; x++) {
+      sd += s.d[x]; sb += s.b[x];
+      if (s.a[x] === 1) count++;
+      const held = s.d[x] + s.b[x];
+      if (held < minCell) minCell = held;
+    }
+    for (let x = 0; x < n; x++) { const y = g.rot[x]; if (y < 0) continue; if (s.a[x] !== s.a[y]) sym++; }
+    const total = sd + sb + s.ice;
+    return {
+      count: count, sym: sym, vapour: sd, boundary: sb, ice: s.ice,
+      minCell: minCell,
+      drift: Math.abs(total - s.m0) / s.m0,
+    };
+  }
+
+  function runBuild(mode, seed, noise) {
+    const s = newSim(mode, seed, 0, noise);
+    for (let t = 0; t < TOY.STEPS; t++) stepSim(s);
+    const m = measure(s);
+    m.a = s.a;
+    return m;
+  }
+
+  function drawCrystal(svg, a, box, color) {
+    const g = grid();
+    let minx = Infinity, maxx = -Infinity, miny = Infinity, maxy = -Infinity;
+    const pts = [];
+    for (let i = 0; i < g.n; i++) {
+      if (a[i] !== 1) continue;
+      const q = g.cells[i][0], r = g.cells[i][1];
+      const px = 1.5 * q, py = Math.sqrt(3) * (r + q / 2);
+      pts.push([px, py]);
+      if (px < minx) minx = px; if (px > maxx) maxx = px;
+      if (py < miny) miny = py; if (py > maxy) maxy = py;
+    }
+    if (!pts.length) return;
+    const spanx = Math.max(maxx - minx, 1), spany = Math.max(maxy - miny, 1);
+    const size = Math.min(box.w / (spanx + 2.4), box.h / (spany + 2.4));
+    const cx = box.x + box.w / 2, cy = box.y + box.h / 2;
+    const mx = (minx + maxx) / 2, my = (miny + maxy) / 2;
+    for (let i = 0; i < pts.length; i++) {
+      svg.appendChild(Viz.svgEl("path", {
+        d: Viz.hexPath(cx + (pts[i][0] - mx) * size, cy + (pts[i][1] - my) * size, size * 0.92, 0),
+        fill: color, stroke: "none",
+      }));
+    }
+  }
+
+  function fmt(x) {
+    if (x === 0) return "0";
+    if (x < 1e-3 || x >= 1e4) return x.toExponential(1).replace("e+", "e");
+    return x.toPrecision(3);
+  }
+
+  /* =========================================================================
+     1 — BE THE TESTER
+     ====================================================================== */
+  (function () {
+    const root = document.getElementById("anim-be-the-tester");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const controls = root.querySelector(".anim__controls");
+    const W = 720, H = 400;
+
+    /* Every build runs the same noise. A and B differ by the seed alone. */
+    const BUILDS = [
+      { key: "correct", mode: "correct", seed: 1, name: "A · correct", sub: "the reference build, seed 1", broken: false },
+      { key: "seed", mode: "correct", seed: 7, name: "B · seed only", sub: "same code, seed 7", broken: false },
+      { key: "leak", mode: "leak", seed: 1, name: "C · one wall leaks", sub: "a missing reflection", broken: true },
+      { key: "wild", mode: "wild", seed: 1, name: "D · ice counted twice", sub: "ledger never cleared", broken: true },
+    ];
+
+    let results = null, refCount = 0;
+    const chosen = { pretty: true, count: false, mass: false, sym: false, nonneg: false };
+
+    const ASSERTS = [
+      { id: "pretty", label: "it looks like a snowflake", sub: "grew, and every cell touches another",
+        run: function (m) { return { ok: m.count > 1, val: m.count + " cells" }; } },
+      { id: "count", label: "attachedCount === 115", sub: "build A's exact final count",
+        run: function (m) { return { ok: m.count === refCount, val: String(m.count) }; } },
+      { id: "mass", label: "mass drift < 1e-10", sub: "vapour + boundary + ice, start vs end",
+        run: function (m) { return { ok: m.drift < 1e-10, val: fmt(m.drift) }; } },
+      { id: "sym", label: "symmetryError === 0", sub: "rotate 60°, compare cell by cell",
+        run: function (m) { return { ok: m.sym === 0, val: String(m.sym) }; } },
+      { id: "nonneg", label: "no cell holds negative vapour", sub: "true here, and useless here",
+        run: function (m) { return { ok: m.minCell >= 0, val: "min " + fmt(m.minCell) }; } },
+    ];
+
+    function compute() {
+      if (results) return;
+      results = {};
+      BUILDS.forEach(function (b) {
+        results[b.key] = runBuild(b.mode, b.seed, true);
+      });
+      refCount = results.correct.count;
+      ASSERTS[1].label = "attachedCount === " + refCount;
+    }
+
+    let svg = null;
+    function render() {
+      if (svg) svg.remove();
+      svg = Viz.createSvg(body, W, H, {
+        label: "Four builds of a toy snow-crystal solver and how five candidate assertions score against them.",
+        desc: "A scoreboard showing which assertions catch which broken builds.",
+      });
+      const c = Viz.colors();
+      svg.setAttribute("fill", c.ink);
+
+      const colX = [300, 405, 510, 615];
+      // one colour for all four: the pictures are the thing being compared, so colour
+      // must not pre-announce which of them is broken.
+      const buildColor = [c.series[0], c.series[0], c.series[0], c.series[0]];
+
+      // thumbnails
+      BUILDS.forEach(function (b, i) {
+        const box = { x: colX[i] - 47, y: 10, w: 94, h: 94 };
+        rect(svg, box.x, box.y, box.w, box.h, {
+          fill: c.sunken, stroke: c.rule, rx: 8,
+        });
+        drawCrystal(svg, results[b.key].a, box, buildColor[i]);
+        text(svg, colX[i], 122, b.name, { anchor: "middle", size: 11.5, weight: 650, fill: c.ink });
+        text(svg, colX[i], 136, b.sub, { anchor: "middle", size: 10, fill: c.muted });
+        text(svg, colX[i], 152, b.broken ? "BROKEN" : "not broken", {
+          anchor: "middle", size: 9.5, weight: 700,
+          fill: b.broken ? c.critical : c.good,
+        });
+      });
+
+      text(svg, 0, 122, "the four builds →", { size: 11.5, weight: 650, fill: c.inkSecondary });
+      text(svg, 0, 138, "one is correct, one differs only", { size: 10, fill: c.muted });
+      text(svg, 0, 151, "by its random seed, two are bugs", { size: 10, fill: c.muted });
+
+      // separator
+      svg.appendChild(Viz.svgEl("line", {
+        x1: 0, x2: W, y1: 166, y2: 166, stroke: c.rule, "stroke-width": 1,
+      }));
+      text(svg, 0, 182, "candidate assertions — tap to add to your suite", {
+        size: 10.5, weight: 650, fill: c.inkSecondary,
+      });
+
+      // table
+      let caught = 0, falseAlarms = 0, used = 0;
+      ASSERTS.forEach(function (as, r) {
+        const y = 206 + r * 32;
+        const on = chosen[as.id];
+        if (on) used++;
+        if (on) {
+          rect(svg, -2, y - 14, W + 4, 28, { fill: c.sunken, rx: 6 });
+        }
+        text(svg, 4, y - 1, as.label, {
+          size: 11.5, weight: on ? 650 : 500, mono: true,
+          fill: on ? c.ink : c.muted,
+        });
+        text(svg, 4, y + 12, as.sub, { size: 9.5, fill: c.muted });
+        BUILDS.forEach(function (b, i) {
+          const out = as.run(results[b.key]);
+          const bad = !out.ok;
+          if (on && bad && b.broken) caught++;
+          if (on && bad && !b.broken) falseAlarms++;
+          text(svg, colX[i], y - 1, out.ok ? "pass" : "FAIL", {
+            anchor: "middle", size: 11.5, weight: 700,
+            fill: on ? (out.ok ? c.good : c.critical) : c.muted,
+            opacity: on ? 1 : 0.4,
+          });
+          text(svg, colX[i], y + 12, out.val, {
+            anchor: "middle", size: 9.5, mono: true, fill: c.muted, opacity: on ? 1 : 0.4,
+          });
+        });
+      });
+
+      // scoreboard
+      const brokenCaught = new Set();
+      ASSERTS.forEach(function (as) {
+        if (!chosen[as.id]) return;
+        BUILDS.forEach(function (b) {
+          if (b.broken && !as.run(results[b.key]).ok) brokenCaught.add(b.key);
+        });
+      });
+      const y0 = 378;
+      svg.appendChild(Viz.svgEl("line", { x1: 0, x2: W, y1: 358, y2: 358, stroke: c.rule }));
+      const msg = used === 0
+        ? "Your suite is empty. Every build passes."
+        : "Your suite catches " + brokenCaught.size + " of the 2 broken builds, with "
+          + falseAlarms + " false alarm" + (falseAlarms === 1 ? "" : "s") + " on builds that are fine.";
+      text(svg, 4, y0, msg, {
+        size: 12, weight: 650,
+        fill: used && brokenCaught.size === 2 && falseAlarms === 0 ? c.good : c.ink,
+      });
+      if (chosen.count) {
+        text(svg, 4, 394, "Note build D: an exact-count assertion passes it, and its books are out by "
+          + Math.round(results.wild.drift) + " times the mass that started in the box.",
+          { size: 10, fill: c.critical });
+      }
+    }
+
+    function boot() {
+      compute();
+      ASSERTS.forEach(function (as) {
+        Viz.button(controls, as.label, function (btn) {
+          chosen[as.id] = !chosen[as.id];
+          btn.setAttribute("aria-pressed", String(chosen[as.id]));
+          render();
+        }, { pressed: chosen[as.id] });
+      });
+      note(controls, "Every build grew for 260 steps on the same grid.");
+      render();
+      Viz.onThemeChange(render);
+    }
+
+    body.textContent = "Running four builds…";
+    window.setTimeout(function () { body.textContent = ""; boot(); }, 0);
+  })();
+
+  /* =========================================================================
+     2 — VACUITY DETECTOR
+     ====================================================================== */
+  (function () {
+    const root = document.getElementById("anim-vacuity");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const controls = root.querySelector(".anim__controls");
+    const W = 700, H = 322;
+    const N = 24, RHO = 0.1, STEPS = 4000;
+
+    function relax(fill, clamp) {
+      const d = new Float64Array(N).fill(RHO * fill);
+      let m0 = 0;
+      for (let i = 0; i < N; i++) m0 += d[i];
+      let meter = 0;
+      const buf = new Float64Array(N);
+      for (let t = 0; t < STEPS; t++) {
+        for (let i = 0; i < N; i++) {
+          const l = i > 0 ? d[i - 1] : d[i];
+          const r = i < N - 1 ? d[i + 1] : d[i];
+          buf[i] = (l + d[i] + r) / 3;
+        }
+        d.set(buf);
+        if (clamp) { meter += (RHO - d[0]) + (RHO - d[N - 1]); d[0] = RHO; d[N - 1] = RHO; }
+      }
+      let maxDev = 0, m1 = 0;
+      for (let i = 0; i < N; i++) { maxDev = Math.max(maxDev, Math.abs(d[i] - RHO)); m1 += d[i]; }
+      return { d: d, maxDev: maxDev, gain: m1 - m0, meter: meter };
+    }
+
+    let fill = 0.5, svg = null;
+
+    function verdicts(clamp) {
+      const uniform = relax(1, clamp);
+      const dep = relax(fill, clamp);
+      const rel = Math.abs(dep.meter - dep.gain) / dep.gain;
+      return [
+        { ok: uniform.maxDev < 1e-6, why: "max|d − ρ| = " + fmt(uniform.maxDev) },
+        { ok: dep.maxDev < 1e-6, why: "max|d − ρ| = " + fmt(dep.maxDev) },
+        { ok: true, why: "found in a comment" },
+        {
+          ok: rel < 1e-9,
+          why: Math.abs(dep.gain) < 1e-12
+            ? "gain ≈ 0 — nothing to measure, so it cannot pass"
+            : "|meter − gain| / gain = " + fmt(rel),
+        },
+      ];
+    }
+
+    const TESTS = [
+      ["1. uniform start holds σ at the set value", "the charter's literal phrasing"],
+      ["2. depleted start climbs back to the set value", "the registered differential test"],
+      ["3. the source file still mentions `dirichlet`", "a test that the code exists"],
+      ["4. injected mass equals the field's gain", "the boundary's own meter, checked"],
+    ];
+
+    function strip(svg, x, y, w, h, d, c, colour) {
+      rect(svg, x, y, w, h, { fill: c.sunken, stroke: c.rule, rx: 4 });
+      const bw = w / N;
+      for (let i = 0; i < N; i++) {
+        const frac = Math.max(0, Math.min(1, d[i] / RHO));
+        rect(svg, x + i * bw + 0.6, y + h - frac * (h - 4) - 2, bw - 1.2, frac * (h - 4), {
+          fill: colour, rx: 1,
+        });
+      }
+      svg.appendChild(Viz.svgEl("line", {
+        x1: x, x2: x + w, y1: y + 2, y2: y + 2,
+        stroke: c.muted, "stroke-width": 1, "stroke-dasharray": "3 3",
+      }));
+    }
+
+    function render() {
+      if (svg) svg.remove();
+      svg = Viz.createSvg(body, W, H, {
+        label: "Four candidate boundary-condition tests scored against a build with the boundary code and a build with it deleted.",
+        desc: "Two of the four tests pass in both builds, so they could not have caught the deletion.",
+      });
+      const c = Viz.colors();
+      svg.setAttribute("fill", c.ink);
+
+      const colA = 250, colB = 480, colW = 205;
+      text(svg, colA + colW / 2, 16, "boundary code present", {
+        anchor: "middle", size: 11.5, weight: 650, fill: c.series[0],
+      });
+      text(svg, colB + colW / 2, 16, "the clamp line deleted", {
+        anchor: "middle", size: 11.5, weight: 650, fill: c.series[1],
+      });
+
+      const withCode = relax(fill, true), without = relax(fill, false);
+      strip(svg, colA, 26, colW, 48, withCode.d, c, c.series[0]);
+      strip(svg, colB, 26, colW, 48, without.d, c, c.series[1]);
+      text(svg, colA, 88, "settled field after 4,000 steps", { size: 9.5, fill: c.muted });
+      text(svg, colB, 88, "settled field after 4,000 steps", { size: 9.5, fill: c.muted });
+
+      text(svg, 0, 40, "start: every cell at", { size: 11, fill: c.inkSecondary });
+      text(svg, 0, 56, Math.round(fill * 100) + " % of the set value", {
+        size: 13, weight: 700, fill: c.ink, mono: true,
+      });
+      text(svg, 0, 74, "dashed line = the set value ρ", { size: 9.5, fill: c.muted });
+
+      const va = verdicts(true), vb = verdicts(false);
+      let blind = 0;
+      TESTS.forEach(function (t, i) {
+        const y = 122 + i * 46;
+        if (i % 2 === 1) rect(svg, -2, y - 16, W + 4, 40, { fill: c.sunken, rx: 6 });
+        text(svg, 4, y, t[0], { size: 11.5, weight: 620, fill: c.ink });
+        text(svg, 4, y + 14, t[1], { size: 9.5, fill: c.muted });
+        [[va[i], colA], [vb[i], colB]].forEach(function (pair) {
+          const v = pair[0], x = pair[1];
+          text(svg, x + colW / 2, y, v.ok ? "PASS" : "FAIL", {
+            anchor: "middle", size: 12, weight: 700, fill: v.ok ? c.good : c.critical,
+          });
+          text(svg, x + colW / 2, y + 14, v.why, {
+            anchor: "middle", size: 9, mono: true, fill: c.muted,
+          });
+        });
+        if (va[i].ok === vb[i].ok) blind++;
+      });
+
+      svg.appendChild(Viz.svgEl("line", { x1: 0, x2: W, y1: 300, y2: 300, stroke: c.rule }));
+      text(svg, 4, 316, blind + " of the 4 tests cannot tell the two builds apart at this starting fill.", {
+        size: 12, weight: 650, fill: blind >= 3 ? c.critical : c.ink,
+      });
+    }
+
+    Viz.slider(controls, {
+      label: "starting fill", id: "vac-fill", min: 0, max: 100, step: 5, value: 50,
+      format: function (v) { return v + " %"; },
+      onInput: function (v) { fill = v / 100; render(); },
+    });
+    note(controls, "The registered test uses 50 %.");
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+  /* =========================================================================
+     3 — SABOTAGE CONSOLE
+     ====================================================================== */
+  (function () {
+    const root = document.getElementById("anim-sabotage");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const controls = root.querySelector(".anim__controls");
+
+    /* Verbatim from runner/src/phase5-protocol.ts lines 854-963. */
+    const CRITERIA = [
+      "P5-WINDOWS-PROVENANCE", "P5-PROTOCOL-MATCH", "P5-ADAPTER-LIMITS", "P5-LAYOUT-INDEXING",
+      "P5-DIFFUSION", "P5-GG-THRESHOLD", "P5-LIBBRECHT-KINETICS", "P5-SYMMETRY",
+      "P5-DOMAIN-SAFETY", "P5-DISPATCH-SAFETY", "P5-EDIT-ACK", "P5-FIRST-VALID-FRAME",
+      "P5-RESIDENCY", "P5-CHECKPOINTS", "P5-NEGATIVE-CONTROLS", "P5-PUBLICATION",
+    ];
+    const CONTROLS = [
+      ["NC-WINDOWS-BACKEND-RELABEL", "relabel the observed Windows backend or adapter"],
+      ["NC-PROTOCOL-HASH-SHIFT", "shift one fixture or tolerance while retaining the recorded protocol hash"],
+      ["NC-REQUIRED-LIMIT-DOWNGRADE", "omit one required limit or silently lower an unsupported budget"],
+      ["NC-AXIS-SWAP", "swap j and k in the non-cubic index mapping"],
+      ["NC-WRONG-BOUNDARY-CLAMP", "skip or move the Dirichlet clamp"],
+      ["NC-STALE-PING-PONG", "reuse the stale diffusion source for a full G-G cycle"],
+      ["NC-LK-RESIDUAL-ONLY", "accept fixed-sigma LK convergence from residual alone"],
+      ["NC-SYMMETRY-BIT", "flip one attachment bit in a registered noise-off orbit"],
+      ["NC-DOMAIN-CONTACT", "mark a contacting fixture as eligible comparison evidence"],
+      ["NC-EXCESSIVE-DISPATCH", "inject one submission segment above the registered maximum"],
+      ["NC-LATE-EDIT-ACK", "inject one edit acknowledgement above the registered limit"],
+      ["NC-LATE-FIRST-FRAME", "inject one first-valid frame above the registered limit"],
+      ["NC-FULL-FIELD-PER-FRAME", "perform one full-field display-frame readback"],
+      ["NC-CHECKPOINT-DTYPE-SHIFT", "shift one field dtype, length, or endianness declaration"],
+      ["NC-TOLERANCE-BYPASS", "report pass while one blocking raw field, scalar, decision, or invariant comparison exceeds its frozen tolerance"],
+      ["NC-ARTIFACT-BYTE-MUTATION", "mutate one indexed artifact byte after publication"],
+    ];
+
+    /* The failing set each mutation is OBSERVED to produce, transcribed from
+       runner/test/gate5-protocol.test.ts lines 276-295 (OBSERVED_FAILING_CRITERIA).
+       Fifteen are singletons; NC-TOLERANCE-BYPASS (index 14) really does fail two.
+       Values are indices into CRITERIA above. */
+    const OBSERVED = [
+      [0], [1], [2], [3], [4], [5], [6], [7],
+      [8], [9], [10], [11], [12], [13], [3, 14], [15],
+    ];
+
+    const W = 700, H = 492;
+    const executed = new Array(16).fill(false);
+    let loosened = false, message = null, messageBad = false, selected = 0, svg = null;
+
+    function observedFor(j) {
+      if (loosened && CONTROLS[j][0] === "NC-SYMMETRY-BIT") return [];
+      return OBSERVED[j];
+    }
+
+    function render() {
+      if (svg) svg.remove();
+      svg = Viz.createSvg(body, W, H, {
+        label: "A sixteen by sixteen grid of registered sabotages against the criteria observed to reject them.",
+        desc: "Each executed mutation marks the criteria that actually failed; one mutation marks two.",
+      });
+      const c = Viz.colors();
+      svg.setAttribute("fill", c.ink);
+
+      const x0 = 300, y0 = 62, cell = 22;
+      text(svg, x0, 22, "mutation applied →", { size: 10, weight: 650, fill: c.inkSecondary });
+      text(svg, 4, 22, "criterion observed to fail ↓", { size: 10, weight: 650, fill: c.inkSecondary });
+      text(svg, 4, 40, "(the sixteen Phase 5 pass/fail criteria)", { size: 9.5, fill: c.muted });
+
+      const litRow = new Array(16).fill(false);
+      for (let j = 0; j < 16; j++) {
+        if (!executed[j]) continue;
+        observedFor(j).forEach(function (i) { litRow[i] = true; });
+      }
+
+      for (let j = 0; j < 16; j++) {
+        const t = text(svg, x0 + j * cell + cell / 2, y0 - 6, String(j + 1), {
+          anchor: "middle", size: 8.5, mono: true, fill: c.muted,
+        });
+        if (j === selected) t.setAttribute("fill", c.ink);
+      }
+
+      for (let i = 0; i < 16; i++) {
+        const y = y0 + i * cell;
+        text(svg, x0 - 8, y + 15, CRITERIA[i], {
+          anchor: "end", size: 9.5, mono: true,
+          fill: litRow[i] ? c.ink : c.muted,
+        });
+        for (let j = 0; j < 16; j++) {
+          const x = x0 + j * cell;
+          const done = executed[j];
+          const lit = done && observedFor(j).indexOf(i) >= 0;
+          const owned = i === j;
+          rect(svg, x + 2, y + 2, cell - 4, cell - 4, {
+            fill: lit ? c.critical : (done ? c.sunken : "none"),
+            stroke: lit ? c.critical : c.rule,
+            "stroke-width": 1, rx: 3,
+          });
+          if (lit) {
+            text(svg, x + cell / 2, y + cell / 2 + 4, owned ? "✕" : "+", {
+              anchor: "middle", size: owned ? 11 : 13, weight: 700, fill: c.surface,
+            });
+          }
+        }
+      }
+
+      let ran = 0, unrejected = 0;
+      for (let j = 0; j < 16; j++) {
+        if (!executed[j]) continue;
+        ran++;
+        if (observedFor(j).length === 0) unrejected++;
+      }
+      const yb = y0 + 16 * cell + 22;
+      svg.appendChild(Viz.svgEl("line", { x1: 0, x2: W, y1: yb - 16, y2: yb - 16, stroke: c.rule }));
+      text(svg, 4, yb, "mutations executed: " + ran + " of 16", { size: 11.5, weight: 650, fill: c.ink });
+      text(svg, 230, yb, "mutations nothing rejected: " + unrejected, {
+        size: 11.5, weight: 700, fill: unrejected ? c.critical : c.good,
+      });
+      if (unrejected) {
+        text(svg, 4, yb + 18,
+          "A mutation the evaluator does not reject is a FAILED control: the criterion that owns it has stopped checking anything.",
+          { size: 10.5, fill: c.critical });
+      } else if (message) {
+        text(svg, 4, yb + 18, message, { size: 10.5, mono: messageBad, fill: messageBad ? c.critical : c.inkSecondary });
+      } else {
+        text(svg, 4, yb + 18, "Apply a mutation and read the criteria observed to reject it.", {
+          size: 10.5, fill: c.muted,
+        });
+      }
+      text(svg, 4, yb + 38,
+        "✕ = the mutation's registered owner.  + = another criterion that also caught it.", {
+        size: 10, fill: c.inkSecondary,
+      });
+      text(svg, 4, yb + 52,
+        "The rule is that the observed set CONTAINS the owner — a + is evidence being cross-linked, not a bug.", {
+        size: 10, fill: c.muted,
+      });
+    }
+
+    selectControl(controls, "mutation",
+      CONTROLS.map(function (m, j) { return { value: String(j), label: (j + 1) + ". " + m[0] + " — " + m[1] }; }),
+      function (v) { selected = parseInt(v, 10); render(); });
+
+    Viz.button(controls, "Apply mutation", function () {
+      executed[selected] = true;
+      const seen = observedFor(selected);
+      const owner = CRITERIA[selected];
+      message = seen.length === 0
+        ? CONTROLS[selected][0] + " changed the evidence and nothing rejected it — the control FAILS."
+        : CONTROLS[selected][0] + " → failedCriteria: ["
+          + seen.map(function (i) { return CRITERIA[i]; }).join(", ")
+          + "]  ·  contains its owner " + owner + " ✓";
+      messageBad = false;
+      render();
+    });
+    Viz.button(controls, "Run all sixteen", function () {
+      for (let j = 0; j < 16; j++) executed[j] = true;
+      message = loosened
+        ? "Sixteen executed. One was rejected by nothing, so that control fails."
+        : "Sixteen executed, sixteen rejected, and every observed set contains its owner. One contains two.";
+      messageBad = false;
+      render();
+    });
+    toggle(controls, "Loosen the P5-SYMMETRY threshold", false, function (on) {
+      loosened = on;
+      message = on
+        ? "P5-SYMMETRY now tolerates a flipped attachment bit."
+        : "P5-SYMMETRY restored to its registered threshold.";
+      messageBad = false;
+      render();
+    });
+    Viz.button(controls, "Try a mutation nobody registered", function () {
+      message = "Error: unregistered Phase 5 negative control: NC-NOT-REGISTERED";
+      messageBad = true;
+      render();
+    });
+    Viz.button(controls, "Try a mutation that changes nothing", function () {
+      message = "Error: NC-AXIS-SWAP did not change any captured evidence: its mutation did not execute";
+      messageBad = true;
+      render();
+    });
+    Viz.button(controls, "Reset", function () {
+      for (let j = 0; j < 16; j++) executed[j] = false;
+      message = null; messageBad = false;
+      render();
+    });
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+  /* =========================================================================
+     4 — TWO LEDGERS
+     ====================================================================== */
+  (function () {
+    const root = document.getElementById("anim-two-ledgers");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const controls = root.querySelector(".anim__controls");
+    const W = 680, H = 300;
+
+    let peek = false, clip = false;
+    let sim = newSim("correct", 1, 0);
+    let svg = null;
+
+    function reset() {
+      sim = newSim("correct", 1, clip ? 0.03 : 0);
+    }
+
+    function draw() {
+      if (svg) svg.remove();
+      svg = Viz.createSvg(body, W, H, {
+        label: "A growing crystal with the solver's own ice ledger beside an independently recomputed one.",
+        desc: "A difference bar between the solver's ledger and a recomputation from public fields.",
+      });
+      const c = Viz.colors();
+      svg.setAttribute("fill", c.ink);
+
+      const m = measure(sim);
+      drawCrystal(svg, sim.a, { x: 8, y: 20, w: 150, h: 150 }, c.series[0]);
+      text(svg, 83, 190, "step " + sim.step + " of " + TOY.STEPS, {
+        anchor: "middle", size: 10.5, mono: true, fill: c.muted,
+      });
+
+      const solver = sim.ice;
+      const independent = peek ? sim.ice : (sim.m0 - m.vapour - m.boundary);
+      const diff = Math.abs(solver - independent);
+
+      const boxes = [
+        ["the solver's own ledger", solver, c.series[0], "a counter inside the solver"],
+        [peek ? "the test, reading the cache" : "recomputed in the test", independent, c.series[1],
+          peek ? "solver.iceLedger" : "start total − vapour − boundary mass"],
+      ];
+      boxes.forEach(function (b, i) {
+        const x = 190, y = 24 + i * 78;
+        rect(svg, x, y, 470, 62, { fill: c.sunken, stroke: c.rule, rx: 8 });
+        text(svg, x + 14, y + 22, b[0], { size: 11.5, weight: 650, fill: b[2] });
+        text(svg, x + 14, y + 38, b[3], { size: 9.5, fill: c.muted });
+        text(svg, x + 456, y + 40, b[1].toFixed(6), {
+          anchor: "end", size: 20, weight: 700, mono: true, fill: c.ink,
+        });
+      });
+
+      const y = 196;
+      text(svg, 190, y, "difference", { size: 11.5, weight: 650, fill: c.inkSecondary });
+      rect(svg, 190, y + 8, 470, 16, { fill: c.sunken, stroke: c.rule, rx: 4 });
+      const scale = Math.min(1, diff / 4);
+      if (scale > 0) {
+        rect(svg, 191, y + 9, Math.max(2, scale * 468), 14, {
+          fill: diff > 1e-9 ? c.critical : c.good, rx: 3,
+        });
+      }
+      text(svg, 190, y + 42, "|solver − independent| = " + fmt(diff), {
+        size: 12, weight: 700, mono: true, fill: diff > 1e-9 ? c.critical : c.good,
+      });
+
+      if (peek) {
+        text(svg, 190, y + 62,
+          "The recomputation now reads the number it is meant to be checking.", {
+          size: 11, weight: 650, fill: c.critical,
+        });
+        text(svg, 190, y + 76,
+          "This test can never fail again — and it still looks exactly like a test.", {
+          size: 11, fill: c.critical,
+        });
+      } else if (clip) {
+        text(svg, 190, y + 62,
+          "3 % of every freeze is cut back and recorded nowhere, so only the second route can see it.", {
+          size: 11, fill: c.inkSecondary,
+        });
+      } else {
+        text(svg, 190, y + 62,
+          "Two routes to the same number, neither using the other's working.", {
+          size: 11, fill: c.muted,
+        });
+      }
+    }
+
+    let drawnAt = -1;
+    const anim = Viz.animate(root, function (t) {
+      const target = Math.min(TOY.STEPS, Math.floor(t * 24));
+      if (target < sim.step) reset();
+      while (sim.step < target) stepSim(sim);
+      if (sim.step !== drawnAt) { drawnAt = sim.step; draw(); }
+    }, { duration: 12, staticAt: 8, stepBy: 1 });
+
+    toggle(controls, "Introduce an unmetered 3 % clip", false, function (on) {
+      clip = on; reset(); anim.reset();
+    });
+    toggle(controls, "Let the test read the solver's cache", false, function (on) {
+      peek = on; draw();
+    });
+    Viz.button(controls, "Pause", function (b) {
+      const playing = anim.isPlaying;
+      if (playing) anim.pause(); else anim.play();
+      b.textContent = playing ? "Play" : "Pause";
+    });
+    Viz.onThemeChange(draw);
+  })();
+
+  /* =========================================================================
+     5 — BREAK THE HARNESS
+     ====================================================================== */
+  (function () {
+    const root = document.getElementById("anim-harness");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const controls = root.querySelector(".anim__controls");
+    const W = 680, H = 262;
+
+    /* The registered schema is a table of field names AND the rule each one is read by.
+       `on` is what the reader can change: an unregistered field is refused outright, and a
+       registered one is checked against its own predicate. Nothing is merely listed. */
+    const FIELDS = [
+      { name: "tick", required: true, on: true, rule: "a non-negative integer",
+        ok: function (v) { return /^\d+$/.test(v); } },
+      { name: "symErr", required: true, on: true, rule: "exactly zero",
+        ok: function (v) { return parseFloat(v) === 0; } },
+      { name: "attached", required: true, on: true, rule: "a non-negative integer",
+        ok: function (v) { return /^\d+$/.test(v); } },
+      { name: "deltaSymClean", required: false, on: false,
+        rule: "true; false is reporting a solver defect",
+        ok: function (v) { return v === "true"; } },
+    ];
+    function registered() { return FIELDS.filter(function (f) { return f.on; }); }
+
+    const PRESETS = [
+      ["a clean line", "tick=4000 symErr=0 attached=163"],
+      ["the WP0b fields", "tick=4000 symErr=0 deltaSymClean=false attached=163"],
+      ["a typo in a field name", "tick=4000 symErrr=0 deltaSymClean=false attached=163"],
+      ["an honest failure", "tick=4000 symErr=0.02 attached=163"],
+    ];
+    let line = PRESETS[0][1], svg = null;
+
+    function parseLine(str) {
+      const fields = [];
+      str.trim().split(/\s+/).forEach(function (tok) {
+        const eq = tok.indexOf("=");
+        if (eq <= 0) return;
+        fields.push([tok.slice(0, eq), tok.slice(eq + 1)]);
+      });
+      return fields;
+    }
+
+    function failOpen(fields) {
+      for (let i = 0; i < fields.length; i++) {
+        if (fields[i][0] !== "symErr") continue;
+        const v = parseFloat(fields[i][1]);
+        if (!(v === 0)) return { pass: false, why: "symErr=" + fields[i][1] + " is not zero" };
+        return { pass: true, why: "symErr=0 — nothing else was looked at" };
+      }
+      return { pass: true, why: "no symErr field found, so nothing failed" };
+    }
+
+    function failClosed(fields) {
+      const reg = registered();
+      const names = reg.map(function (f) { return f.name; });
+      for (let i = 0; i < fields.length; i++) {
+        if (names.indexOf(fields[i][0]) < 0) {
+          return { pass: false, why: "unrecognised field '" + fields[i][0] + "' — not in the schema" };
+        }
+      }
+      const present = fields.map(function (f) { return f[0]; });
+      for (let i = 0; i < reg.length; i++) {
+        if (reg[i].required && present.indexOf(reg[i].name) < 0) {
+          return { pass: false, why: "required field '" + reg[i].name + "' is missing" };
+        }
+      }
+      for (let i = 0; i < fields.length; i++) {
+        const f = reg[names.indexOf(fields[i][0])];
+        if (!f.ok(fields[i][1])) {
+          return {
+            pass: false,
+            why: fields[i][0] + "=" + fields[i][1] + " — registered rule: " + f.rule,
+          };
+        }
+      }
+      return {
+        pass: true,
+        why: "all " + fields.length + " fields registered, and each read by its own rule",
+      };
+    }
+
+    function render() {
+      if (svg) svg.remove();
+      svg = Viz.createSvg(body, W, H, {
+        label: "One status line read by a fail-open parser and a fail-closed parser, with their verdicts.",
+        desc: "The fail-open parser passes a line carrying a failure flag it was never told to read.",
+      });
+      const c = Viz.colors();
+      svg.setAttribute("fill", c.ink);
+
+      const fields = parseLine(line);
+      text(svg, 4, 16, "the status line the solver printed", { size: 10.5, weight: 650, fill: c.inkSecondary });
+      rect(svg, 0, 24, W, 34, { fill: c.sunken, stroke: c.rule, rx: 6 });
+      const regNames = registered().map(function (f) { return f.name; });
+      let x = 12;
+      fields.forEach(function (f) {
+        const known = regNames.indexOf(f[0]) >= 0;
+        const label = f[0] + "=" + f[1];
+        const w = label.length * 7.1 + 12;
+        rect(svg, x, 30, w, 22, {
+          fill: known ? "none" : c.critical, opacity: known ? 1 : 0.14,
+          stroke: known ? c.rule : c.critical, rx: 4,
+        });
+        text(svg, x + 6, 45, label, {
+          size: 11.5, mono: true, fill: known ? c.ink : c.critical, weight: known ? 500 : 700,
+        });
+        x += w + 8;
+      });
+      text(svg, 4, 74, "grey = in the registered schema · red = not in it — schema: "
+        + regNames.join(", "), { size: 9.5, fill: c.muted });
+
+      const results = [
+        ["FAIL-OPEN parser", "reads symErr=; ignores anything it was not told about", failOpen(fields), c.series[1]],
+        ["FAIL-CLOSED parser", "no unregistered field may pass, and every registered field is read by its own rule", failClosed(fields), c.series[0]],
+      ];
+      results.forEach(function (r, i) {
+        const y = 92 + i * 82;
+        rect(svg, 0, y, W, 70, { fill: c.sunken, stroke: c.rule, rx: 8 });
+        text(svg, 14, y + 24, r[0], { size: 12.5, weight: 700, fill: r[3] });
+        text(svg, 14, y + 42, r[1], { size: 10, fill: c.muted });
+        text(svg, 14, y + 60, r[2].why, { size: 10.5, mono: true, fill: c.inkSecondary });
+        text(svg, W - 16, y + 42, r[2].pass ? "PASS" : "REJECTED", {
+          anchor: "end", size: 20, weight: 700, fill: r[2].pass ? c.good : c.critical,
+        });
+      });
+    }
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = line;
+    input.setAttribute("aria-label", "status line to parse");
+    input.style.font = "inherit";
+    input.style.fontFamily = MONO;
+    input.style.fontSize = "0.8rem";
+    input.style.padding = "0.35rem 0.55rem";
+    input.style.borderRadius = "8px";
+    input.style.border = "1px solid var(--rule-strong)";
+    input.style.background = "var(--surface-1)";
+    input.style.color = "var(--ink-primary)";
+    input.style.width = "min(42ch, 70vw)";
+    input.addEventListener("input", function () { line = input.value; render(); });
+
+    selectControl(controls, "preset",
+      PRESETS.map(function (p, i) { return { value: String(i), label: p[0] }; }),
+      function (v) { line = PRESETS[parseInt(v, 10)][1]; input.value = line; render(); });
+
+    toggle(controls, "Register deltaSymClean (rule: must be true)", false, function (on) {
+      FIELDS[3].on = on;
+      render();
+    });
+
+    const wrap = document.createElement("div");
+    wrap.className = "control";
+    const lab = document.createElement("label");
+    lab.textContent = "line";
+    wrap.appendChild(lab);
+    wrap.appendChild(input);
+    controls.appendChild(wrap);
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+  /* =========================================================================
+     6 — FIX THE BUG
+     ====================================================================== */
+  (function () {
+    const root = document.getElementById("anim-fix-the-bug");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const controls = root.querySelector(".anim__controls");
+    const W = 680, H = 380;
+
+    const pSatIce = function (t) { return 3.7e10 * Math.exp(-6150 / (t + 273.15)) * 100; };
+    const pSatWater = function (t) { return (2.8e9 + 1700 * t * t * t) * Math.exp(-5450 / (t + 273.15)) * 100; };
+    const raw = function (t) { return (pSatWater(t) - pSatIce(t)) / pSatIce(t); };
+
+    /* Monograph Table 2.1 anchors, as transcribed in core/test/libbrecht.test.ts:25-35 */
+    const ANCHORS = [[0, 0.0], [-1, 0.01], [-2, 0.02], [-5, 0.05], [-10, 0.102],
+      [-15, 0.157], [-20, 0.215], [-30, 0.34], [-40, 0.474]];
+
+    let clamped = false, choice = null, svg = null;
+
+    function value(t) { return clamped ? Math.max(0, raw(t)) : raw(t); }
+
+    function render() {
+      if (svg) svg.remove();
+      svg = Viz.createSvg(body, W, H, {
+        label: "The difference-of-two-fits supersaturation curve, which goes negative near the melting point.",
+        desc: "A plot from minus 40 to 0 degrees Celsius, with the monograph table anchors and the pinned negative value.",
+      });
+      const c = Viz.colors();
+      svg.setAttribute("fill", c.ink);
+
+      const L = 52, Rr = W - 18, T = 16, B = 200;
+      const LO = -0.03, HI = 0.23;
+      const xs = Viz.scaleLinear([-20, 0], [L, Rr]);
+      const ys = Viz.scaleLinear([LO, HI], [B, T]);
+      const clip = function (v) { return Math.max(LO, Math.min(HI, v)); };
+
+      Viz.axisLeft(svg, ys, {
+        x: L, values: [-0.03, 0, 0.05, 0.1, 0.15, 0.2],
+        format: function (v) { return v.toFixed(2); },
+        title: "σ_water (fraction)", grid: true, gridTo: Rr,
+      });
+      Viz.axisBottom(svg, xs, {
+        y: B, values: [-20, -15, -10, -5, 0],
+        format: function (v) { return v + " °C"; },
+        title: "temperature", titleOffset: 34,
+      });
+
+      // the region where the form returns a physically impossible value
+      rect(svg, xs(-1.969), ys(0), xs(0) - xs(-1.969), B - ys(0), {
+        fill: c.critical, opacity: 0.12,
+      });
+      svg.appendChild(Viz.svgEl("line", {
+        x1: L, x2: Rr, y1: ys(0), y2: ys(0), stroke: c.muted, "stroke-width": 1.2,
+      }));
+
+      const pts = [];
+      for (let i = 0; i <= 1000; i++) {
+        const t = -20 + i * 0.02;
+        if (t > -0.02) break;
+        pts.push([t, clip(value(t))]);
+      }
+      Viz.series(svg, pts, xs, ys, {
+        color: clamped ? c.series[1] : c.series[0],
+        label: clamped ? "clamped to ≥ 0" : "computed from the two fits",
+        labelAt: [-13, clip(value(-13))],
+        labelDx: 0, labelDy: -11, labelAnchor: "middle",
+      });
+
+      ANCHORS.forEach(function (a) {
+        if (a[0] < -20) return;
+        svg.appendChild(Viz.svgEl("circle", {
+          cx: xs(a[0]), cy: ys(clip(a[1])), r: 3.6,
+          fill: "none", stroke: c.series[2], "stroke-width": 1.8,
+        }));
+      });
+
+      // marker at -1
+      const v1 = value(-1);
+      svg.appendChild(Viz.svgEl("line", {
+        x1: xs(-1), x2: xs(-1), y1: ys(clip(v1)), y2: ys(0.085),
+        stroke: c.critical, "stroke-width": 1, "stroke-dasharray": "3 3",
+      }));
+      text(svg, xs(-1) - 8, ys(0.09), "at −1 °C: " + v1.toFixed(6), {
+        anchor: "end", size: 10.5, mono: true, weight: 650, fill: c.critical,
+      });
+      text(svg, xs(-1) - 8, ys(0.09) + 13, "the table says +0.010", {
+        anchor: "end", size: 9.5, fill: c.muted,
+      });
+      text(svg, xs(-1) - 8, ys(0.09) + 26, "shaded: σ_water < 0 — impossible", {
+        anchor: "end", size: 9.5, fill: c.critical,
+      });
+      text(svg, L + 8, ys(0.012), "○  monograph Table 2.1 anchors — the curve sits below every one of them", {
+        size: 10, fill: c.series[2],
+      });
+
+      // test panel
+      const y0 = 248;
+      const green = Math.abs(v1 - (-0.009146)) < 0.5e-5;
+      rect(svg, 0, y0, W, 60, {
+        fill: c.sunken, stroke: green ? c.good : c.critical,
+        "stroke-width": 1.5, rx: 8,
+      });
+      text(svg, 14, y0 + 20, green ? "PASS" : "FAIL", {
+        size: 13, weight: 700, fill: green ? c.good : c.critical,
+      });
+      text(svg, 62, y0 + 20,
+        "core/test/libbrecht.test.ts › sigma_water: the fit-difference form works only away from melting",
+        { size: 10, fill: c.inkSecondary });
+      text(svg, 14, y0 + 40, "expect(sigmaWater(-1)).toBeCloseTo(-0.009146, 5)", {
+        size: 11.5, mono: true, fill: c.ink,
+      });
+      text(svg, 14, y0 + 54, green ? "received -0.009146" : "received " + v1.toFixed(6), {
+        size: 10.5, mono: true, fill: green ? c.muted : c.critical,
+      });
+
+      const msgs = {
+        revert: "Revert. The formula goes back to the source's, the test goes green, and the limitation stays visible where the source put it.",
+        rewrite: "Change the test, and write down why. Allowed — but the change is now an argued, reviewable event, not a silent one.",
+        leave: "Leave it red. Forbidden in practice: a suite with one permanently red test trains everyone to ignore red.",
+      };
+      text(svg, 4, y0 + 82, choice ? msgs[choice] : "", { size: 10.5, fill: c.inkSecondary });
+      if (!choice && clamped) {
+        text(svg, 4, y0 + 82,
+          "Making a red test green is not the same as making the physics right. Now choose.", {
+          size: 10.5, weight: 650, fill: c.critical,
+        });
+      }
+    }
+
+    toggle(controls, "Clamp the result to ≥ 0", false, function (on) {
+      clamped = on; choice = null; render();
+    });
+    Viz.button(controls, "Revert", function () { clamped = false; choice = "revert"; render(); });
+    Viz.button(controls, "Change the test, and say why", function () { choice = "rewrite"; render(); });
+    Viz.button(controls, "Leave it red", function () { choice = "leave"; render(); });
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+  /* =========================================================================
+     7 — RUN THE GATE
+     ====================================================================== */
+  (function () {
+    const root = document.getElementById("anim-run-the-gate");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const controls = root.querySelector(".anim__controls");
+    const W = 700, H = 306;
+
+    const state = { preset: "plate", dims: "24,24,12", domain: "hexPrism", noise: "0", seedRadius: "2", enforce: true };
+
+    /* Every outcome below is asserted in runner/test/gate-enforce.test.ts. */
+    function outcome(s) {
+      if (s.noise === "NaN") {
+        return { exit: 1, lines: ["--noise wants a finite epsilon in [0, 1]"],
+          note: "Rejected at the parser, for every run — gate or not. Negative and NaN epsilons used to run as a silent noise-off while poisoning the recorded metadata." };
+      }
+      if (!s.enforce) {
+        if (s.dims === "32,32,16" && s.domain === "box") {
+          return { exit: 0, lines: ["deltaCheckCleanAllTicks=false", "maxFullSymErr=0"],
+            note: "This is the run that motivated the flag: it printed its own failure and exited 0. Printed metrics do not turn exit 0 into a gate result." };
+        }
+        return { exit: 0, lines: ["(metrics printed)"],
+          note: "Observational. grow is observational unless the enforcement flag is present, so exit 0 here claims nothing." };
+      }
+      if (s.noise !== "0") {
+        return { exit: 1, lines: ["GATE FAILED", "noise is ON"], note: "The symmetry gate is defined noise-off." };
+      }
+      if (s.preset !== "plate") {
+        return { exit: 1, lines: ["GATE FAILED", "the 2a gate is defined on the plate preset"],
+          note: "Before this criterion, a dendrite run printed GATE PASSED and the claim was only valid jointly with the command line that nobody re-reads." };
+      }
+      if (s.domain === "box" && s.dims === "32,32,16") {
+        return { exit: 1, lines: ["GATE FAILED", "broke at tick 270", "maxFullSymErr=0"],
+          note: "The end-state metric reads 0 — the break healed. Enforcement keys on the per-tick delta, which is why it is caught at all." };
+      }
+      if (s.domain === "box" && s.dims === "18,18,12") {
+        return { exit: 1, lines: ["GATE FAILED", "requires the hexPrism domain"],
+          note: "The lucky-short box run: 19 → 37 sites, symmetry never broke, stopped legitimately, and exited 0 before enforcement existed. It looks perfect and is rejected anyway." };
+      }
+      if (s.domain === "box") {
+        return { exit: 1, lines: ["GATE FAILED", "requires the hexPrism domain"],
+          note: "Not one of the pinned box runs — the suite pins 32,32,16 and 18,18,12. The refusal itself is categorical, from AGENTS.md: “Exact D6h symmetry gates require hexPrism. A box footprint and its walls are not a sixfold-symmetric environment.”" };
+      }
+      if (s.seedRadius !== "2") {
+        return { exit: 1, lines: ["GATE FAILED", "the 2a gate requires the canonical radius-2 seed"],
+          note: "Radius 1 and 3 used to exit 0, so “exit 0 is the whole claim” was still false." };
+      }
+      if (s.dims === "8,8,8") {
+        return { exit: 1, lines: ["GATE FAILED", "no growth"],
+          note: "The tiny reservoir hit the far-field rule with exactly the 19 seed sites attached. A seed-only run is not a crystal." };
+      }
+      if (s.dims === "24,24,12") {
+        return { exit: 0, lines: ["GATE PASSED", "stop reason=far-field", "deltaCheckCleanAllTicks=true", "seedSites=19"],
+          note: "Every one of those tokens is asserted. seedSites=19 means a future “fix” back to the source paper's erroneous 20 fails the gate itself." };
+      }
+      return { exit: null, lines: ["(not pinned)"],
+        note: "This demo replays only runs that runner/test/gate-enforce.test.ts asserts. It will not guess at an outcome nobody measured." };
+    }
+
+    function command(s) {
+      const parts = ["node runner/src/main.ts grow", "--preset " + s.preset, "--dims " + s.dims];
+      if (s.domain === "box") parts.push("--domain box");
+      parts.push("--metrics-every 0");
+      if (s.noise !== "0") parts.push("--noise " + s.noise);
+      if (s.seedRadius !== "2") parts.push("--seed-radius " + s.seedRadius);
+      if (s.enforce) parts.push("--enforce-gate");
+      return parts;
+    }
+
+    let svg = null;
+    function render() {
+      if (svg) svg.remove();
+      svg = Viz.createSvg(body, W, H, {
+        label: "A terminal replaying real gate runs, their printed reasons and their exit codes.",
+        desc: "Assembling a command from the options and showing the outcome the test suite pins for it.",
+      });
+      const c = Viz.colors();
+      svg.setAttribute("fill", c.ink);
+      const out = outcome(state);
+
+      rect(svg, 0, 8, W, H - 16, { fill: c.sunken, stroke: c.rule, rx: 10 });
+
+      const parts = command(state);
+      text(svg, 18, 34, "$ " + parts[0] + " \\", { size: 11.5, mono: true, fill: c.inkSecondary });
+      let y = 50;
+      for (let i = 1; i < parts.length; i++) {
+        text(svg, 34, y, parts[i] + (i < parts.length - 1 ? " \\" : ""), {
+          size: 11.5, mono: true, fill: c.ink,
+        });
+        y += 16;
+      }
+
+      y += 10;
+      out.lines.forEach(function (l) {
+        const bad = l.indexOf("FAILED") >= 0 || l.indexOf("wants") >= 0 || l === "deltaCheckCleanAllTicks=false";
+        const good = l.indexOf("PASSED") >= 0;
+        text(svg, 18, y, l, {
+          size: 12.5, mono: true, weight: bad || good ? 700 : 500,
+          fill: bad ? c.critical : (good ? c.good : c.ink),
+        });
+        y += 18;
+      });
+
+      y += 6;
+      const exitLabel = out.exit === null ? "—" : String(out.exit);
+      text(svg, 18, y, "exit " + exitLabel, {
+        size: 15, weight: 700, mono: true,
+        fill: out.exit === 0 ? c.good : (out.exit === 1 ? c.critical : c.muted),
+      });
+      if (out.exit === 0 && !state.enforce) {
+        text(svg, 90, y, "— and claims nothing", { size: 11.5, fill: c.muted });
+      }
+
+      const words = out.note.split(" ");
+      let lineStr = "", ly = H - 56;
+      words.forEach(function (w) {
+        if ((lineStr + " " + w).length > 92) { text(svg, 18, ly, lineStr, { size: 10.5, fill: c.inkSecondary }); ly += 14; lineStr = w; }
+        else lineStr = lineStr ? lineStr + " " + w : w;
+      });
+      if (lineStr) text(svg, 18, ly, lineStr, { size: 10.5, fill: c.inkSecondary });
+    }
+
+    selectControl(controls, "preset", [
+      { value: "plate", label: "plate" }, { value: "dendrite", label: "dendrite" },
+    ], function (v) { state.preset = v; render(); });
+    selectControl(controls, "dims", [
+      { value: "24,24,12", label: "24,24,12" }, { value: "18,18,12", label: "18,18,12" },
+      { value: "32,32,16", label: "32,32,16" }, { value: "8,8,8", label: "8,8,8" },
+    ], function (v) { state.dims = v; render(); });
+    selectControl(controls, "domain", [
+      { value: "hexPrism", label: "hexPrism" }, { value: "box", label: "box" },
+    ], function (v) { state.domain = v; render(); });
+    selectControl(controls, "noise", [
+      { value: "0", label: "off" }, { value: "1e-5", label: "1e-5" }, { value: "NaN", label: "NaN" },
+    ], function (v) { state.noise = v; render(); });
+    selectControl(controls, "seed radius", [
+      { value: "2", label: "2 (canonical)" }, { value: "1", label: "1" },
+      { value: "3", label: "3" }, { value: "none", label: "none" },
+    ], function (v) { state.seedRadius = v; render(); });
+    toggle(controls, "--enforce-gate", true, function (on) { state.enforce = on; render(); });
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+})();
+</script>
+</body>
+</html>

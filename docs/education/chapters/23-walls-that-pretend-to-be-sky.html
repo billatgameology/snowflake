@@ -1,0 +1,1985 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walls That Pretend to Be Sky — Snow Crystals</title>
+<meta name="description" content="A real crystal grows under an effectively infinite sky. A simulated one grows in a box — and the box was quietly feeding it. How the project measured that, removed it, and wrote down what the fix does not prove.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 23 · Walls that pretend to be sky</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#a-box-with-walls">A box with walls</a></li>
+      <li><a href="#three-edges">Three edges, three experiments</a></li>
+      <li><a href="#vary-what-should-not-matter">Vary what should not matter</a></li>
+      <li><a href="#whose-idea-was-it">Whose idea was it</a></li>
+      <li><a href="#the-guard-that-says-invalid">The guard that says INVALID</a></li>
+      <li><a href="#what-the-guard-cannot-prove">What the guard cannot prove</a></li>
+      <li><a href="#consistency-is-not-accuracy">Consistency is not accuracy</a></li>
+      <li><a href="#one-wrong-symbol">One wrong symbol</a></li>
+      <li><a href="#still-open">What is still open</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 23</p>
+        <h1>Walls That Pretend to Be Sky</h1>
+        <p class="chapter-header__question">
+          A real snow crystal grows under a sky that goes on forever. A simulated one grows inside
+          a box 48 cells across. What is the box doing to the answer?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~14 min read</span>
+          <span>6 figures</span>
+          <span>3 interactives</span>
+        </div>
+      </header>
+
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Tell <strong>consistency</strong> (the answer stops moving as you refine) apart from
+            <strong>accuracy</strong> (the answer agrees with a known truth).</li>
+          <li>Design an invariance test: vary something that should not matter, and check whether it does.</li>
+          <li>Explain why a safeguard with an honestly stated limit is stronger than one advertised as total.</li>
+          <li>Say what it means to correct an expert's printed work without claiming to have beaten one.</li>
+        </ul>
+      </section>
+
+      <!-- ============================================================ 1 -->
+      <h2 id="a-box-with-walls">A box with walls</h2>
+
+      <p>
+        Chapter 22 ended with a program that could tell you honestly when its vapour field had
+        finished settling. This chapter asks a harder question about the same field: settled
+        <em>to what</em>?
+      </p>
+
+      <p>
+        The simulation is a finite grid — in the runs that matter, a hexagonal prism carved out of a
+        cube about 48 cells on a side, with a cell 0.35&nbsp;µm across. The crystal sits in the
+        middle and eats vapour. Vapour has to come from somewhere, and in a finite grid "somewhere"
+        is the outermost layer of cells: the <strong>shell</strong>. Whatever rule you write for
+        those cells is not a plumbing detail. It is a statement about what kind of world the crystal
+        is growing in.
+      </p>
+
+      <p>
+        A real snow crystal, drifting in a cloud, is surrounded by an effectively infinite supply.
+        It depletes the air near it, but a metre away nothing has noticed. A simulated crystal is
+        surrounded by a wall roughly twenty cells away. If you tell that wall "hold the full cloud
+        value here, always", you have not modelled an infinite sky. You have modelled a crystal
+        sitting at the centre of a very small sphere of unlimited vapour — which is a different
+        experiment, and a more generous one.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          The edge of the box is physics, not plumbing. Every rule you can write there is a
+          different experiment, and the crystal can tell the difference.
+        </p>
+      </aside>
+
+      <!-- ============================================================ 2 -->
+      <h2 id="three-edges">Three edges, three experiments</h2>
+
+      <p>
+        The solver supports three far-field conditions — three rules for what the shell does — and
+        it will not let you confuse them. The type that names them lives in
+        <code>core/src/state.ts</code>, and its comment ends with the sentence that governs the
+        whole chapter: <em>"The three conditions are never mixed within a result set."</em>
+      </p>
+
+      <p>
+        <strong>Reflecting.</strong> When the solver averages a cell against its neighbours, any
+        neighbour that would sit outside the box is replaced by the cell itself, so nothing crosses
+        the wall in either direction. Vapour
+        is exactly conserved; the crystal is eating a sealed reservoir, and the supersaturation
+        falls over the run. This is the Gravner&ndash;Griffeath rule — what the project calls the
+        G&ndash;G-fidelity condition — and it makes total mass an exact invariant rather than an
+        approximate one. Under the Libbrecht attachment rule it is also
+        useless for physics, and the project says so outright:
+        <code>docs/attachment-kinetics.md</code> — <em>"A quasi-static solve with reflecting outer
+        walls and an absorbing crystal has only the fully-depleted steady state
+        (<code>sigma&nbsp;&rarr;&nbsp;0</code> everywhere): no physical growth claim can be made
+        from it. It remains available for machinery tests (symmetry of the operator, determinism),
+        never for physics."</em>
+      </p>
+
+      <p>
+        <strong>Fixed value.</strong> The shell cells are pinned at the set supersaturation, so
+        vapour is replenished as fast as the crystal drinks it. Mathematicians call this a
+        Dirichlet condition — a boundary where you dictate the value rather than the flow. This is
+        much closer to a laboratory, where an experimenter maintains the chamber conditions, and it
+        is what the project used until Phase&nbsp;6. It also breaks the exact conservation invariant on
+        purpose, so the code <em>meters</em> the breakage: it counts every unit of vapour it
+        injects at the wall, and requires that count to balance against what the crystal absorbed.
+      </p>
+
+      <p>
+        <strong>Monopole-matched.</strong> Same shell, same meter, same convergence checks — one
+        thing different, the <em>value</em> each shell cell is held at. Instead of the full sky
+        value, each cell is held at the value an infinite sky would actually have <em>at that
+        distance</em>, given how fast the crystal is currently drinking.
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          &sigma;<sub>B</sub>(&rho;<sub>far</sub>) &rarr; &sigma;<sub>&infin;</sub> &minus;
+          (dV/dt) / (4&pi; &middot; &rho;<sub>far</sub> &middot; X<sub>0</sub> &middot; v<sub>kin</sub>)
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>&rarr;</dt><dd>here means "is held at", not "tends to" — ADR 0024 writes the rule this way</dd>
+            <dt>&sigma;<sub>B</sub></dt><dd>the supersaturation one outer-shell cell is clamped to</dd>
+            <dt>&rho;<sub>far</sub></dt><dd>the distance from the model's physical centre to <em>that</em> cell — per cell, not one number for the whole wall</dd>
+            <dt>&sigma;<sub>&infin;</sub></dt><dd>the supersaturation an infinitely distant sky would carry</dd>
+            <dt>dV/dt</dt><dd>how fast the crystal is gaining volume right now, summed over its surface (Eq. 5.31)</dd>
+            <dt>X<sub>0</sub></dt><dd>the kinetic length — the distance scale at which attachment and diffusion trade places</dd>
+            <dt>v<sub>kin</sub></dt><dd>the kinetic velocity, the speed scale set by how fast molecules hit the surface</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">Libbrecht, Snow Crystals, Eqs. 5.30–5.31, printed p. 207 / PDF p. 208; transcribed in <code>docs/decisions/0024-monopole-matched-far-field.md</code></p>
+      </div>
+
+      <p>
+        Read the minus sign. The correction is proportional to how fast the crystal is growing, and
+        inversely proportional to distance — so a bigger, hungrier crystal pulls the wall value
+        further down, and a more distant wall is pulled down less. That is what a real sky does.
+      </p>
+
+      <figure class="chart" id="fig-three-edges">
+        <div class="chart__head">
+          <p class="chart__title">Three edges, three experiments</p>
+          <p class="chart__sub">Same crystal, same grid, three different rules for the outermost ring of cells. The bar at the right of each panel is the vapour level the wall holds.</p>
+        </div>
+        <div class="chart__body"></div>
+        <figcaption class="chart__foot">
+          <span class="built-from">Original diagram. Built from the three
+          <code>FarFieldCondition</code> values defined in <code>core/src/state.ts</code>, the
+          reflecting steady-state statement in <code>docs/attachment-kinetics.md</code>, and the
+          measured monopole shell value in
+          <code>docs/decisions/0024-monopole-matched-far-field.md</code> (Consequences).</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Because the three are different experiments, the project treats them as different
+        experiments. Every run records which condition it used in its checkpoint metadata — the
+        JSON header written beside the binary field snapshot — and neither the charter nor the type
+        that names them will let two conditions share a result set. The sentence quoted above is
+        <code>core/src/state.ts</code>'s; the charter backs it at §3.3 with <em>"Results are never
+        compared across far-field boundary conditions silently."</em> The internal handbook states
+        it as a trap already paid for:
+        <code>AGENTS.md</code> — <em>"Never compare results across far-field conditions silently.
+        The checkpoint records the condition because reflecting is a finite reservoir and fixed-&sigma;
+        Dirichlet is replenished."</em>
+      </p>
+
+      <!-- ============================================================ 3 -->
+      <h2 id="vary-what-should-not-matter">Vary what should not matter</h2>
+
+      <p>
+        Here is the test that broke the fixed-value wall, and it is the single most transferable
+        idea in this half of the site. <strong>Take something that is not supposed to affect the
+        answer, change it, and see whether the answer changes.</strong> The box size is not
+        physics. It is a budget decision — how much empty air you can afford to simulate. If the
+        crystal comes out different in a bigger box, the box is in your result.
+      </p>
+
+      <p>
+        Start with the idealised version, because it can be computed exactly. Chapter 22's solver
+        has no closed-form answer, but a <em>sphere</em> growing in still air does: Libbrecht solves
+        it in the monograph, and the project transcribed that solution into
+        <code>solver-cpu/src/spherical-reference.ts</code>. Drag the wall in and out below and watch
+        what a fixed-value wall does to a growth rate it is not supposed to touch.
+      </p>
+
+      <figure class="anim" id="fig-move-wall">
+        <div class="anim__head">
+          <p class="anim__title">Move the wall</p>
+          <p class="anim__sub">Nothing here changes except where the wall is. Watch the growth-rate readout.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The curves are the exact steady radial
+          solution &sigma;(r) = A + B/r with the Eq. 3.9 Robin surface condition, as implemented in
+          <code>solver-cpu/src/spherical-reference.ts</code>; the growth-rate excess is Eq. 3.36's
+          bracket with the corrected Eq. 3.35 &gamma;. Physical constants (X<sub>0</sub> at
+          &minus;5&nbsp;°C and 101325&nbsp;Pa) recomputed from <code>core/src/libbrecht.ts</code>.
+          At 5.6 crystal radii this reproduces the repository's own test value,
+          <code>solver-cpu/test/spherical-reference.test.ts</code>: a bias between 0.18 and 0.20.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        A wall at 5.6 crystal radii inflates the growth rate by 19%. That is not a numerical error
+        and refining the grid will not reduce it — the file says so in the comment on the field that
+        reports it: <em>"This is a property of the CONTINUUM problem — it is not a discretization
+        error and refining the grid does not reduce it."</em> It is the wrong problem, solved
+        accurately.
+      </p>
+
+      <p>
+        Now the real thing. The same experiment was run on the actual 3-D solver: one crystal,
+        &minus;5&nbsp;°C, &sigma;<sub>&infin;</sub>&nbsp;=&nbsp;0.0075, grown for exactly 60 steps,
+        in two different boxes.
+      </p>
+
+      <figure class="chart" id="fig-measured">
+        <div class="chart__head">
+          <p class="chart__title">The box was in the answer</p>
+          <p class="chart__sub">Same crystal, same 60 growth steps, same everything except the size of the box it grew in.</p>
+        </div>
+        <div class="chart__body"></div>
+        <figcaption class="chart__foot">
+          <span class="built-from">Original chart. Measured values from
+          <code>docs/PROGRESS.md</code> (Phase 6 WP3b / ADR 0024 entry) and
+          <code>docs/findings-ledger.md</code> entry B5; the comparison is the one pinned in
+          <code>solver-cpu/test/monopole-far-field.test.ts</code>, which grows all four runs at
+          NEAR&nbsp;=&nbsp;28 and FAR&nbsp;=&nbsp;40.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        291 cells in the small box, 279 in the bigger one. A 4.1% swing produced by nothing but the
+        wall. Under monopole matching: <strong>231 in both</strong>, with an identical aspect ratio
+        and a symmetry error of exactly zero. The test that pins this does not check that the code
+        runs; it checks the claim. Its own header says so:
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption><code>solver-cpu/test/monopole-far-field.test.ts</code>, the assertion at the
+          heart of the file. Comments are verbatim.</caption>
+          <thead>
+            <tr><th>What is asserted</th><th>Why</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>expect(Math.abs(df.attached&nbsp;&minus;&nbsp;dn.attached)&nbsp;/&nbsp;dn.attached).toBeGreaterThan(0.03)</code></td>
+              <td>"Fixed-sigma Dirichlet: the same crystal, grown the same way, comes out a different size purely because the boundary moved."</td>
+            </tr>
+            <tr>
+              <td><code>expect(mn.attached).toBe(mf.attached)</code></td>
+              <td>"Monopole-matched: it does not." Exact equality, not a tolerance.</td>
+            </tr>
+            <tr>
+              <td><code>expect(mn.ar).not.toBe(dn.ar)</code></td>
+              <td>"the correction is not cosmetic — it moves the habit metric, which is why no Dirichlet-measured threshold transfers to a monopole-matched sweep"</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        That third line is the expensive one. ADR 0024 records the aspect ratio — the number the
+        whole validation rests on — moving from 0.5000 under fixed-&sigma; Dirichlet to 0.3000
+        under monopole matching. A materially thinner plate. The ADR spells out what that costs —
+        WP0c, in the quotation below, is the work package that freezes the sweep's settings before
+        the sweep is allowed to run:
+        <em>"it means no calibration number, threshold or habit classification measured under the
+        Dirichlet shell transfers to a monopole-matched sweep. Everything WP0c freezes has to be
+        measured under the condition the sweep will actually run."</em> Fixing the wall invalidated
+        a pile of already-measured settings and forced them to be measured again.
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          Nobody's code was broken. The fixed-value wall did exactly what it was written to do, and
+          did it correctly, at every grid spacing, passing every convergence check in chapter 22.
+          It was measuring the wrong problem. The only reason anyone found out is that somebody
+          varied a knob that was not supposed to matter and looked at the number afterwards.
+        </p>
+      </aside>
+
+      <!-- ============================================================ 4 -->
+      <h2 id="whose-idea-was-it">Whose idea was it</h2>
+
+      <p>
+        It would be easy to write the last section as though the project invented monopole matching.
+        It did not, and its own records are careful to say so. Monopole matching is Libbrecht's own
+        published proposal — it is in the monograph, in a section called "Monopole Matching", with
+        the 3-D equations printed. What the project's own literature sweep could not find was
+        anyone doing it on a full 3-D lattice, or a number for what the common fixed-value wall
+        costs.
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          The project's own claim boundary, written before any of this was shown to anyone.
+          <code>docs/stretch-sharing-and-investigation.md</code> §S2 records the verdict as
+          <em>"method preempted, measurement novel"</em>, and then states the claim it will and
+          will not make: <em>"first quantitative measurement and removal of far-field domain-size
+          bias in a 3D snow-crystal lattice model … A methods section or short note, framed as
+          verifying Libbrecht's proposal; presenting the boundary condition itself as novel would
+          be badly received and rightly so."</em> The same file notes that the technique is also
+          the <em>l</em>&nbsp;=&nbsp;0 truncation of a classical artificial-boundary method from
+          1989. The physics is borrowed. The 3-D implementation and the measured number are the
+          project's.
+        </p>
+      </aside>
+
+      <p>
+        There is a second piece of honesty attached to the same change, and it is about paperwork
+        rather than physics. ADR 0024 — the decision record that introduced the new wall — declared
+        "Charter impact: none." That was wrong. The charter at the time did not merely require every
+        run to <em>name</em> its wall condition; the same sentence also <em>mandated</em> the
+        fixed-value wall for every Phase&nbsp;6 validation run. Registering monopole-matched
+        therefore contradicted the governing document. A later review caught it, and ADR 0027
+        amended the charter rather than quietly editing the ADR. The original mistake is still
+        printed at the top of ADR 0024, struck through, with a note explaining why it is left
+        visible: <em>"the error is part of the record and its shape is instructive: … The test for
+        'charter impact' is whether the charter as written would FORBID the change, not whether the
+        ADR's author intended to touch it."</em>
+      </p>
+
+      <!-- ============================================================ 5 -->
+      <h2 id="the-guard-that-says-invalid">The guard that says INVALID</h2>
+
+      <p>
+        Long before any of this, the project had a cruder defence against the wall: don't let the
+        crystal get near it.
+      </p>
+
+      <p>
+        The rule is a single number. If the crystal's bounding box — the smallest box that contains
+        it — exceeds 65% of any domain extent, the run is automatically flagged invalid. The charter
+        gives the reason: <em>"a crystal near the wall interacts with its own mirror image
+        (reflecting boundary) or with a clamped edge (Dirichlet), corrupting the field silently
+        while the shape still looks plausible. Flagged runs never enter validation results."</em>
+      </p>
+
+      <p>
+        <em>Silently</em> is the operative word, and it is why this guard exists at all. A crystal
+        that has grown into its own wall does not produce a garbled picture. It produces a
+        perfectly pretty, perfectly symmetric, completely untrustworthy one. There is no visual
+        symptom to notice, so the check has to be arithmetic and automatic.
+      </p>
+
+      <figure class="anim" id="fig-guard">
+        <div class="anim__head">
+          <p class="anim__title">Grow it too big</p>
+          <p class="anim__sub">Set the box and let the crystal grow. The picture stays beautiful long after the evidence stops being usable.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The guard is
+          <code>PHASE6_DOMAIN_CONTACT_FRACTION = 0.65</code> and the test
+          <code>largestExtent / domainN &gt; PHASE6_DOMAIN_CONTACT_FRACTION</code>, both from
+          <code>runner/src/phase6-sweep.ts</code>; the refusal text is that file's own exclusion
+          string. Domain geometry is the inscribed hexagonal prism described in
+          <code>core/src/state.ts</code>.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Two details in that demo are not decoration. First, the guard is <em>computed</em>, not
+        trusted. The sweep harness re-derives it from the geometry rather than reading whatever the
+        run happened to print, with the reason in the comment: <em>"the guard is a property of the
+        geometry, and a run that reached it must be excluded whether or not the runner happened to
+        print it."</em> Second, a failing run is not deleted. It is excluded <em>by name</em>. The
+        function that scores a sweep point carries this in its own documentation:
+        <em>"A run is <code>invalid</code> — and therefore EXCLUDED BY NAME, never dropped — if it
+        failed to converge, broke D6h symmetry with noise off, or tripped the domain-contact guard.
+        Those are runs that did not happen properly, not statements about the model."</em>
+      </p>
+
+      <p>
+        The difference matters more than it looks. A pipeline that silently drops runs it dislikes
+        can be tuned by choosing what to dislike. A pipeline that must print a reason for every
+        exclusion cannot.
+      </p>
+
+      <!-- ============================================================ 6 -->
+      <h2 id="what-the-guard-cannot-prove">What the guard cannot prove</h2>
+
+      <p>
+        Now the part that makes the guard trustworthy: the project keeps writing down what it does
+        <em>not</em> establish. The charter says it in one sentence, in the section that introduces
+        the numerical-verification controls: <em>"The 65% domain-contact guard is a collision
+        heuristic; it does not prove the far boundary is irrelevant — only a domain-convergence
+        study does."</em> The internal handbook repeats it in the list of traps:
+        <em>"The 65% domain-contact guard detects collision; it does not prove boundary
+        independence."</em>
+      </p>
+
+      <p>
+        That is a claim you can check, and the project checked it. The Phase&nbsp;6 convergence
+        study grew the same two crystals — a warm plate at &minus;5&nbsp;°C and a cold one at
+        &minus;15&nbsp;°C — to the same registered size in five different boxes, all under the
+        monopole-matched wall, and compared the results. Every point converged, every point reported
+        a symmetry error of exactly zero.
+      </p>
+
+      <figure class="chart" id="fig-ladder">
+        <div class="chart__head">
+          <p class="chart__title">Where the guard sits, and where the answer settles</p>
+          <p class="chart__sub">Attached-cell count at each domain size, as a percentage above the largest-box value. Zero means "same answer as the roomiest box tested".</p>
+        </div>
+        <div class="chart__body"></div>
+        <figcaption class="chart__foot">
+          <span class="built-from">Original chart. Every number is from
+          <code>research/phase6-convergence.md</code> §1.2 (ten points, &Delta;x&nbsp;=&nbsp;0.35&nbsp;µm,
+          <code>cflFill</code>&nbsp;=&nbsp;0.1, measured at extent 21): warm attached 1513 at all five
+          domains; cold 5185, 5161, 5161, 5159, 5159. The guard line is 21&nbsp;/&nbsp;0.65,
+          rounded up to the first integer domain the guard admits.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The smallest box the guard allows at this crystal size is 33 cells across. The smallest box
+        that actually gives the right answer is 64. In between sits N&nbsp;=&nbsp;40 — a domain the
+        guard is perfectly happy with, which still reports 0.50% too many cells. The convergence
+        report states it plainly: <em>"The 65% domain-contact guard does not imply domain
+        convergence. At extent 21 it requires N&nbsp;&ge;&nbsp;33, which happens to exclude the one
+        warm configuration that breaks — but it admits cold at N&nbsp;=&nbsp;40, which still carries
+        a +0.50% attached-count error. The guard is a collision heuristic and cannot be read as a
+        convergence criterion."</em>
+      </p>
+
+      <p>
+        Look at what the chart <em>does</em> show, though. The aspect ratio — the quantity that
+        decides whether the model calls a crystal a plate or a column — is identical at all five
+        domains, to four decimal places, at both temperatures. The classification is rock solid; the
+        cell count underneath it is not. That split runs through the whole convergence report, and
+        it is what licenses the sweep to make claims about habit and forbids it from making claims
+        about volume. The registered domain is 48, chosen with its residual attached to it rather
+        than rounded away: N&nbsp;=&nbsp;64 is the exact answer and costs roughly three times as much
+        per point.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          A safeguard that advertises what it catches <em>and</em> what it misses is stronger than
+          one advertised as total, because the second kind quietly invites you to stop checking.
+          "The crystal did not touch the wall" and "the wall did not affect the answer" are
+          different sentences, and only one of them was tested.
+        </p>
+      </aside>
+
+      <!-- ============================================================ 7 -->
+      <h2 id="consistency-is-not-accuracy">Consistency is not accuracy</h2>
+
+      <p>
+        Notice what the convergence study actually proved. It compared the solver to <em>itself</em>
+        at five box sizes and found that the answer stopped moving. That is real evidence, and it is
+        not evidence of correctness. A program with a wrong constant in it will happily converge —
+        smoothly, monotonically, beautifully — onto the wrong number.
+      </p>
+
+      <p>
+        The file that fixes this is the most quietly important one in the repository, and its
+        opening comment is worth reading as written:
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption><code>solver-cpu/src/spherical-reference.ts</code>, lines 3–8 and 17–18, verbatim.</caption>
+          <tbody>
+            <tr><td>
+              "Every other numerical control in this project measures the solver against ITSELF: a
+              convergence study shows the answer stops moving under refinement, which is
+              consistency, not accuracy. The spherical problem is the one case Libbrecht solves
+              exactly …, so a solver of the same equations in spherical symmetry can be checked
+              against TRUTH. That is what this file is for, and it is the only absolute accuracy
+              anchor the project has."
+            </td></tr>
+            <tr><td>
+              "SCOPE. This is a reference for the numerics, not a model of a snow crystal. A sphere
+              has no facets, so nothing here speaks to habit."
+            </td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Both halves matter. The first is the only place in the project where the machinery meets an
+        answer that exists independently of it. The second gives that anchor away again: a sphere is
+        round, snow crystals are not, and nothing this file certifies says a word about plates and
+        columns. It is a ruler for the numerics, and it refuses to be used as anything else.
+      </p>
+
+      <p>
+        The reference is also careful not to check itself with itself. Alongside the transcribed
+        closed form there is a small independent solver of the same boundary-value problem, and its
+        comment explains why the independence is the point: <em>"This exists to confirm the closed
+        form through an INDEPENDENT code path — it is not a discretization-error probe, and saying
+        so matters, because a reference that shares a derivation with the thing it checks is not a
+        check."</em>
+      </p>
+
+      <!-- ============================================================ 8 -->
+      <h2 id="one-wrong-symbol">One wrong symbol</h2>
+
+      <p>
+        Transcribing those equations from the printed monograph is exactly the kind of task that
+        looks like clerical work and is not. One of them did not behave.
+      </p>
+
+      <p>
+        Equation 3.36 says how much a wall at a finite distance inflates the growth rate. It uses a
+        quantity called &gamma;, defined one line earlier in Eq. 3.35. Printed, that definition puts
+        the diffusive coefficient in the denominator. Every other equation in the same section is
+        consistent with the attachment coefficient being there instead.
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          amplification = [ 1 &minus; R / (&gamma; &middot; R<sub>far</sub>) ]<sup>&minus;1</sup>
+          <br><br>
+          printed: &gamma; = (a + X<sub>0</sub>/R) / (X<sub>0</sub>/R)
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          corrected: &gamma; = (a + X<sub>0</sub>/R) / a
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>R</dt><dd>the crystal's radius</dd>
+            <dt>R<sub>far</sub></dt><dd>the distance to the wall</dd>
+            <dt>a</dt><dd>the attachment coefficient — the fraction of arriving molecules that stick</dd>
+            <dt>X<sub>0</sub>/R</dt><dd>the diffusive coefficient of Eq. 3.18; large when diffusion is easy compared with attachment</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">Both forms as recorded in <code>solver-cpu/src/spherical-reference.ts</code>, the ERRATUM comment at lines 98–124</p>
+      </div>
+
+      <p>
+        One symbol. The difference is not cosmetic: under the printed form the wall's influence is a
+        couple of percent and barely depends on crystal size, while under the corrected form it
+        grows with the crystal, reaching roughly 160% at one of the project's own earlier
+        configurations. Which is precisely why the wall had to be rebuilt.
+      </p>
+
+      <p>
+        Here is the part worth learning. There is a natural check for a formula like this — send the
+        wall to infinity and confirm the correction goes away — and the monograph states it. It
+        passes for both forms. The bracket tends to 1 for <em>any</em> &gamma;, so the one check the
+        source gives you cannot tell the two apart. Somebody had to design checks that could.
+      </p>
+
+      <figure class="anim" id="fig-erratum">
+        <div class="anim__head">
+          <p class="anim__title">Four checks, and only three of them work</p>
+          <p class="anim__sub">Drag the attachment coefficient toward zero — toward a crystal that has stopped growing — and watch what each formula claims a wall it never reaches is doing to it.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. All four checks are the ones pinned in
+          <code>solver-cpu/test/spherical-reference.test.ts</code>, recomputed live at that file's
+          own test problem (R&nbsp;=&nbsp;3&nbsp;µm, wall at 16.8&nbsp;µm,
+          &sigma;<sub>&infin;</sub>&nbsp;=&nbsp;0.0075, &minus;5&nbsp;°C, 101325&nbsp;Pa,
+          a&nbsp;=&nbsp;0.393). The independent exact solve is that file's own
+          <code>exactSurfaceValue</code>, derived rather than transcribed.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Check&nbsp;3 is the one a teenager can hold in their head, and it is the last of the three
+        the erratum note lists: if a crystal is not growing, it is not drawing vapour, so a distant boundary cannot
+        possibly be biasing it. The corrected form agrees — the bias falls to nothing. The printed
+        form insists on about 22% for a crystal that is doing nothing at all.
+      </p>
+
+      <p>
+        Three independent checks, each failed by the printed form and passed by the corrected one.
+        Then the project went looking for who was right, and found that Libbrecht already was.
+        <code>docs/findings-ledger.md</code> entry B6 records it: <em>"The corrected form is
+        Libbrecht's own — printed correctly in JCMP 2013 Eq. (29), the very source the book cites —
+        so the physics is his; the misprint report is ours."</em>
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          This is not "an AI project beat a physicist". A one-symbol transcription slip between a
+          researcher's own 2013 paper and his own 2019 book is a proofreading failure, not a
+          physics failure, and the correct version was in print the whole time under the same
+          author's name. The project's register files it as <em>"a courtesy erratum, not
+          research"</em>, and the recommended action is a friendly email framed as "the book's Eq.
+          3.35 contradicts its own cited source" — maker-gated, still unsent, with one more place a
+          published correction could be hiding still to be checked.
+        </p>
+      </aside>
+
+      <p>
+        Two things about that erratum are worth keeping. It was found because somebody needed the
+        equation to <em>work</em>, not because somebody was proofreading — you find printed mistakes
+        by depending on them. And it survived years in print because the check its own author
+        supplied could not detect it. When a source hands you a sanity check, that is one check.
+        It is not verification.
+      </p>
+
+      <!-- ============================================================ 9 -->
+      <h2 id="still-open">What is still open</h2>
+
+      <p>
+        Monopole matching does not make box size irrelevant. It moves the point where box size
+        starts to matter further out, and — this is the useful part — it makes the residual
+        measurable. At the crystal size used for that probe, boxes of 24 cells and up all return
+        81 attached cells; a 20-cell box returns 105. Something changes below a threshold.
+      </p>
+
+      <p>
+        ADR 0024 first blamed the <strong>point-source approximation</strong> — treating the whole
+        crystal as a single point when you work out what the sky value should be at the wall. If
+        that were the cause, the thing that decided whether a box was big enough would be a
+        <em>ratio</em>: how far the nearest wall sits from the centre, divided by the crystal's
+        half-width. The convergence study tested that and destroyed it. One configuration breaks at
+        a ratio of 1.74; a different one is bit-for-bit identical all the way down to a ratio of
+        1.24 — a <em>tighter</em> squeeze that does not break. Absolute clearance in cells does not
+        sort them either, and the first correction you would add to a point source predicts the
+        wrong one to be the fragile one. The report's verdict — a <em>multipole argument</em> being
+        that same point-source picture with its corrections added back on — is blunt:
+        <em>"Both metrics say the smaller crystal is the more
+        sensitive one, which is the opposite of what a multipole argument predicts, so the residual
+        is probably not a multipole-truncation effect at all. It is not resolved here what the
+        governing quantity is."</em>
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          Nobody knows what sets the limit. Rather than invent a scaling rule, the project wrote
+          down the operative consequence — the minimum box has to be <em>measured at the
+          configuration that will actually be run</em>, because there is no rule available to
+          extrapolate one configuration's limit to another — and left the mechanism on the open
+          list. The correction also lags one growth step behind, because the wall has to be set
+          before the calculation that would tell you what to set it to. That lag is registered as a
+          real approximation, not a bookkeeping convenience, and it is untested at large steps.
+        </p>
+      </aside>
+
+      <p>
+        And one limitation covers everything on this page. Every review this project has had —
+        including the two-reviewer process that checked this chapter — has been a review by a large
+        language model. No human domain scientist has read any of it. The project's process
+        requirements — <code>docs/stretch-sharing-and-investigation.md</code> §4, item 3 — state the
+        standard it is holding itself to and admit it has not met it yet:
+        <em>"At least one human domain scientist reads any manuscript before submission. All reviews
+        to date, internal and external-facing, are LLM reviews; for publication that is a disclosed
+        limitation, not a substitute."</em> The right way to read the last three chapters is
+        therefore: here is machinery that has survived every test its builders could devise, and
+        that is a strictly weaker statement than "here is machinery that is right".
+      </p>
+
+      <p>
+        That is Part VII finished. The ladder of gates that forbids physics before machinery, the
+        grid, the arithmetic, the seam where temperature enters, the
+        two convergence tests, and now the wall. Every one arrived because something measurable went
+        wrong first, and every one has its known weaknesses written down next to it. Phase&nbsp;6 —
+        the validation itself — is in flight as this is written; Phase&nbsp;7, the product, has not
+        started.
+      </p>
+
+      <p class="handoff">
+        The machinery is now trustworthy enough to be pointed at something. In chapter 24 it gets
+        pointed at a crystal that is supposed to starve in its own middle and hollow out — and the
+        first thing that happens is that the most obvious instrument in the project, the human eye
+        looking at a picture, gets demoted.
+      </p>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./22-when-the-numbers-stop-changing.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">When the Numbers Stop Changing</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./24-watching-it-starve.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">Watching It Starve</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Part Two describes a software project; every figure in it is original,
+      and every number is cited to a file in that project's repository.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script>
+/* ===========================================================================
+   Chapter 23 — shared physics.
+
+   A faithful re-implementation, in the browser, of two files:
+
+     core/src/libbrecht.ts            — the physical constants and X_0(T, P)
+     solver-cpu/src/spherical-reference.ts
+                                      — the monograph's exact spherical solution,
+                                        with the corrected Eq. 3.35 gamma, plus
+                                        the independent exact solve that lives in
+                                        that file's test.
+
+   Colour convention used across this chapter, held fixed:
+     series[0]  the right answer / the true infinite sky
+     series[1]  the wall that gets it wrong (fixed value, or the printed formula)
+     series[2]  the sky-matched wall
+   ======================================================================== */
+(function () {
+  "use strict";
+
+  /* --- core/src/libbrecht.ts, transcribed ------------------------------- */
+  var K_BOLTZMANN = 1.380649e-23;   // J/K
+  var M_MOL = 3.0e-26;              // kg
+  var C_ICE = 3.1e28;               // 1/m^3
+  var D_AIR_1ATM = 2.0e-5;          // m^2/s
+  var P_ATM = 101325;               // Pa
+
+  function pSatIce(t) { return 3.7e10 * Math.exp(-6150 / (t + 273.15)) * 100; }
+  function cSat(t) { return pSatIce(t) / (K_BOLTZMANN * (t + 273.15)); }
+  function vKin(t) {
+    var tK = t + 273.15;
+    return (cSat(t) / C_ICE) * Math.sqrt((K_BOLTZMANN * tK) / (2 * Math.PI * M_MOL));
+  }
+  function diffusivity(p) { return D_AIR_1ATM * (P_ATM / p); }
+  function kineticLength(t, p) { return (cSat(t) / C_ICE) * (diffusivity(p) / vKin(t)); }
+
+  /* --- the repository test problem -------------------------------------- */
+  var P = {
+    R: 3e-6,            // crystal radius, m
+    RFAR: 16.8e-6,      // shell radius, m  (5.6 crystal radii)
+    SIGMA_INF: 0.0075,
+    TEMP_C: -5,
+    PRESSURE: 101325,
+    A: 0.393,           // attachment coefficient used by the test
+  };
+  P.X0 = kineticLength(P.TEMP_C, P.PRESSURE);   // 1.42708...e-7 m
+  P.D = P.X0 / P.R;                             // the Eq. 3.18 diffusive coefficient
+
+  /** Corrected Eq. 3.35 — denominator is the attachment coefficient. */
+  function gammaCorrected(a) { return a === 0 ? Infinity : (a + P.D) / a; }
+  /** Eq. 3.35 exactly as printed in the monograph. */
+  function gammaPrinted(a) { return (a + P.D) / P.D; }
+
+  /** Eq. 3.36's bracket: how much a wall at rFar inflates the growth rate. */
+  function amplification(gamma, rFar) {
+    if (!isFinite(rFar)) return 1;
+    var excess = P.R / (gamma * rFar);
+    if (!(excess < 1)) return Infinity;    // the closed form's own domain guard
+    return 1 / (1 - excess);
+  }
+
+  /** Eq. 3.17: surface value under a truly infinite sky. */
+  function sigmaSurfaceInfinite(a) { return (P.D / (a + P.D)) * P.SIGMA_INF; }
+
+  /**
+   * The exact steady radial field sigma(r) = A + B/r under a FIXED-VALUE wall at rFar,
+   * with the Eq. 3.9 Robin condition at the crystal surface. This is the independent
+   * exact solve from solver-cpu/test/spherical-reference.test.ts, rearranged to give
+   * the whole profile rather than only its surface value.
+   */
+  function fixedWallField(a, rFar) {
+    var b = (a * P.SIGMA_INF) / (-P.X0 / (P.R * P.R) - a / P.R + a / rFar);
+    var A = P.SIGMA_INF - b / rFar;
+    return { at: function (r) { return A + b / r; }, surface: A + b / P.R };
+  }
+
+  /** The true infinite-sky field: sigma(r) = sigma_inf - Binf/r. */
+  function skyField(a) {
+    var bInf = P.R * (P.SIGMA_INF - sigmaSurfaceInfinite(a));
+    return {
+      at: function (r) { return P.SIGMA_INF - bInf / r; },
+      surface: sigmaSurfaceInfinite(a),
+    };
+  }
+
+  window.Ch23 = {
+    P: P,
+    vKin: vKin,
+    kineticLength: kineticLength,
+    gammaCorrected: gammaCorrected,
+    gammaPrinted: gammaPrinted,
+    amplification: amplification,
+    sigmaSurfaceInfinite: sigmaSurfaceInfinite,
+    fixedWallField: fixedWallField,
+    skyField: skyField,
+  };
+})();
+</script>
+
+<script>
+/* =========================================================================
+   FIGURE 1 — Three edges, three experiments.
+   A static diagram: three domains, three shell rules, three wall levels.
+   ====================================================================== */
+(function () {
+  "use strict";
+  var root = document.getElementById("fig-three-edges");
+  if (!root || !window.Viz) return;
+  var body = root.querySelector(".chart__body");
+
+  var W = 620, H = 316;
+  var svg = null;
+
+  var PANELS = [
+    {
+      name: "Reflecting",
+      rule: "nothing crosses the wall",
+      level: 0.03,
+      levelLabel: "→ 0",
+      note: "Vapour is exactly conserved, so the crystal eats a sealed reservoir. The only steady state is fully depleted — machinery tests only, never physics.",
+      arrows: "bounce",
+    },
+    {
+      name: "Fixed value",
+      rule: "held at σ∞, always",
+      level: 1.0,
+      levelLabel: "σ∞ exactly",
+      note: "Vapour is replenished, which is closer to a laboratory. It also over-supplies: the true sky value at that distance is lower.",
+      arrows: "in",
+    },
+    {
+      name: "Monopole-matched",
+      rule: "held at the local sky value",
+      level: 0.836,
+      levelLabel: "6.27×10⁻³",
+      note: "Every shell cell gets its own value, corrected for its own distance and for how fast the crystal is drinking.",
+      arrows: "in-short",
+    },
+  ];
+
+  function hexAt(cx, cy, r) { return Viz.hexPath(cx, cy, r, 30); }
+
+  function draw() {
+    if (svg) svg.remove();
+    var c = Viz.colors();
+    svg = Viz.createSvg(body, W, H, {
+      label: "Three panels showing reflecting, fixed-value and monopole-matched walls around the same crystal.",
+      desc: "Each panel shows a hexagonal domain with a small crystal at its centre and a vertical bar giving the vapour level the wall holds.",
+    });
+
+    PANELS.forEach(function (p, i) {
+      var x0 = 10 + i * 203;
+      var cx = x0 + 78, cy = 108, rDom = 64;
+
+      // panel title
+      var t = Viz.svgEl("text", {
+        x: x0, y: 16, fill: c.ink, "font-size": 13, "font-weight": 680,
+        "font-family": "var(--font-sans)",
+      });
+      t.textContent = p.name;
+      svg.appendChild(t);
+
+      var sub = Viz.svgEl("text", {
+        x: x0, y: 31, fill: c.inkSecondary, "font-size": 11,
+        "font-family": "var(--font-sans)",
+      });
+      sub.textContent = p.rule;
+      svg.appendChild(sub);
+
+      // depletion halo: concentric hexagons. Schematic radial profile — depleted at the
+      // crystal, rising to whatever level this panel's wall rule holds.
+      for (var k = 5; k >= 1; k--) {
+        var frac = k / 5;
+        var val = p.level * Math.pow(frac, 0.55);
+        svg.appendChild(Viz.svgEl("path", {
+          d: hexAt(cx, cy, 16 + (rDom - 16) * frac),
+          fill: Viz.seqColor(0.15 + 0.75 * val, c),
+          "fill-opacity": 0.9,
+          stroke: "none",
+        }));
+      }
+
+      // domain wall — keyed to which condition this panel is, not to its level, so the
+      // sky-matched panel keeps series[2] even though its level is high.
+      svg.appendChild(Viz.svgEl("path", {
+        d: hexAt(cx, cy, rDom),
+        fill: "none",
+        stroke: i === 0 ? c.inkSecondary : i === 1 ? c.series[1] : c.series[2],
+        "stroke-width": 2.2,
+      }));
+
+      // the crystal
+      svg.appendChild(Viz.svgEl("path", {
+        d: hexAt(cx, cy, 15),
+        fill: c.series[0], stroke: c.surface, "stroke-width": 1.2,
+      }));
+
+      // wall arrows, placed against the flat faces (apothem), not the circumradius
+      var apo = rDom * Math.cos(Math.PI / 6);
+      [0, 60, 120, 180, 240, 300].forEach(function (deg) {
+        var ang = (deg * Math.PI) / 180;
+        var ux = Math.cos(ang), uy = Math.sin(ang);
+        var inner = apo - 3;
+        if (p.arrows === "bounce") {
+          // arrow reaches the wall and turns back
+          svg.appendChild(Viz.svgEl("path", {
+            d: "M" + (cx + ux * (apo - 22)) + " " + (cy + uy * (apo - 22)) +
+               "L" + (cx + ux * (apo - 3)) + " " + (cy + uy * (apo - 3)) +
+               "L" + (cx + ux * (apo - 19) - uy * 8) + " " + (cy + uy * (apo - 19) + ux * 8),
+            fill: "none", stroke: c.inkSecondary, "stroke-width": 1.4,
+            "stroke-linejoin": "round",
+          }));
+        } else {
+          var start = apo + (p.arrows === "in-short" ? 10 : 18);
+          var stroke = p.arrows === "in-short" ? c.series[2] : c.series[1];
+          svg.appendChild(Viz.svgEl("path", {
+            d: "M" + (cx + ux * start) + " " + (cy + uy * start) +
+               "L" + (cx + ux * inner) + " " + (cy + uy * inner),
+            stroke: stroke, "stroke-width": 1.6, "stroke-linecap": "round",
+          }));
+          svg.appendChild(Viz.svgEl("path", {
+            d: "M" + (cx + ux * (inner + 6) - uy * 4) + " " + (cy + uy * (inner + 6) + ux * 4) +
+               "L" + (cx + ux * inner) + " " + (cy + uy * inner) +
+               "L" + (cx + ux * (inner + 6) + uy * 4) + " " + (cy + uy * (inner + 6) - ux * 4),
+            fill: "none", stroke: stroke, "stroke-width": 1.6, "stroke-linejoin": "round",
+          }));
+        }
+      });
+
+      // the wall-level bar
+      var bx = x0 + 166, bTop = 40, bH = 112;
+      svg.appendChild(Viz.svgEl("rect", {
+        x: bx, y: bTop, width: 13, height: bH, rx: 3,
+        fill: c.sunken, stroke: c.rule, "stroke-width": 1,
+      }));
+      var fillH = Math.max(2, bH * p.level);
+      svg.appendChild(Viz.svgEl("rect", {
+        x: bx, y: bTop + bH - fillH, width: 13, height: fillH, rx: 3,
+        fill: i === 0 ? c.inkSecondary : i === 1 ? c.series[1] : c.series[2],
+        "fill-opacity": 0.85,
+      }));
+      var lbl = Viz.svgEl("text", {
+        x: bx + 6.5, y: bTop - 6, fill: c.inkSecondary, "font-size": 10,
+        "text-anchor": "middle", "font-family": "var(--font-sans)",
+      });
+      lbl.textContent = "wall";
+      svg.appendChild(lbl);
+      var lvl = Viz.svgEl("text", {
+        x: bx + 6.5, y: bTop + bH + 14, fill: c.inkSecondary, "font-size": 10.5,
+        "text-anchor": "middle", "font-family": "var(--font-mono)",
+      });
+      lvl.textContent = p.levelLabel;
+      svg.appendChild(lvl);
+
+      // note text, wrapped by hand
+      var words = p.note.split(" ");
+      var lines = [""], max = 32;
+      words.forEach(function (w) {
+        var cur = lines[lines.length - 1];
+        if ((cur + " " + w).trim().length > max) lines.push(w);
+        else lines[lines.length - 1] = (cur + " " + w).trim();
+      });
+      lines.slice(0, 6).forEach(function (line, li) {
+        var n = Viz.svgEl("text", {
+          x: x0, y: 188 + li * 14, fill: c.inkSecondary, "font-size": 10.5,
+          "font-family": "var(--font-sans)",
+        });
+        n.textContent = line;
+        svg.appendChild(n);
+      });
+    });
+
+    [
+      "Shading is schematic. The monopole bar is a measured value: the shell fell to",
+      "6.27×10⁻³ against σ∞ = 7.5×10⁻³ in a 32³ box (ADR 0024).",
+    ].forEach(function (line, li) {
+      var foot = Viz.svgEl("text", {
+        x: 10, y: H - 22 + li * 13, fill: c.muted, "font-size": 10.5,
+        "font-family": "var(--font-sans)",
+      });
+      foot.textContent = line;
+      svg.appendChild(foot);
+    });
+  }
+
+  draw();
+  Viz.onThemeChange(draw);
+})();
+</script>
+
+<script>
+/* =========================================================================
+   FIGURE 2 — Move the wall.
+   Slider: wall distance in crystal radii. Toggle: fixed value / sky-matched.
+   Everything drawn is the exact steady radial solution.
+   ====================================================================== */
+(function () {
+  "use strict";
+  var root = document.getElementById("fig-move-wall");
+  if (!root || !window.Viz || !window.Ch23) return;
+  var body = root.querySelector(".anim__body");
+  var bar = root.querySelector(".anim__controls");
+  var C = window.Ch23, P = C.P;
+
+  var W = 620, H = 330;
+  var ML = 62, MR = 152, MT = 20, MB = 52;
+  var ratio = 5.6;
+  var mode = "fixed";
+  var svg = null;
+  var fixedBtn, skyBtn;
+
+  var status = document.createElement("p");
+  status.className = "anim__sub";
+  status.setAttribute("role", "status");
+  status.style.fontWeight = "600";
+  status.style.marginTop = "0.35rem";
+  root.querySelector(".anim__head").appendChild(status);
+
+  var plotHost = document.createElement("div");
+  var legendHost = document.createElement("div");
+  body.appendChild(plotHost);
+  body.appendChild(legendHost);
+
+  function draw() {
+    if (svg) svg.remove();
+    legendHost.textContent = "";
+    var c = Viz.colors();
+    svg = Viz.createSvg(plotHost, W, H, {
+      label: "Supersaturation against distance from the crystal, with a movable wall.",
+      desc: "A dashed reference curve shows the true infinite-sky field. A solid curve shows the field the simulated box actually produces.",
+    });
+
+    var xs = Viz.scaleLinear([1, 12], [ML, W - MR]);
+    var ys = Viz.scaleLinear([0, 1.02], [H - MB, MT]);
+
+    Viz.axisLeft(svg, ys, {
+      x: ML, values: [0, 0.25, 0.5, 0.75, 1], grid: true, gridTo: W - MR,
+      format: function (v) { return v.toFixed(2); },
+      title: "σ / σ∞", titleOffset: 42,
+    });
+    Viz.axisBottom(svg, xs, {
+      y: H - MB, values: [1, 2, 4, 6, 8, 10, 12],
+      title: "distance from the crystal centre, in crystal radii",
+    });
+
+    var sky = C.skyField(P.A);
+    var wall = C.fixedWallField(P.A, ratio * P.R);
+
+    // the truth: an infinite sky, over the whole range
+    var skyPts = [];
+    for (var i = 0; i <= 220; i++) {
+      var r = 1 + (12 - 1) * (i / 220);
+      skyPts.push([r, sky.at(r * P.R) / P.SIGMA_INF]);
+    }
+    Viz.series(svg, skyPts, xs, ys, {
+      color: c.series[0], dashed: true, width: 2,
+    });
+
+    // the wall itself
+    var wx = xs(ratio);
+    svg.appendChild(Viz.svgEl("line", {
+      x1: wx, x2: wx, y1: MT, y2: H - MB,
+      stroke: c.inkSecondary, "stroke-width": 1.6, "stroke-dasharray": "4 4",
+    }));
+    var wlab = Viz.svgEl("text", {
+      x: wx, y: MT - 6, fill: c.inkSecondary, "font-size": 11,
+      "text-anchor": "middle", "font-family": "var(--font-sans)",
+    });
+    wlab.textContent = "the wall";
+    svg.appendChild(wlab);
+
+    // the field the box actually produces, out to the wall
+    var pts = [];
+    for (var j = 0; j <= 220; j++) {
+      var rr = 1 + (ratio - 1) * (j / 220);
+      pts.push([rr, (mode === "fixed" ? wall.at(rr * P.R) : sky.at(rr * P.R)) / P.SIGMA_INF]);
+    }
+    var lineColor = mode === "fixed" ? c.series[1] : c.series[2];
+    Viz.series(svg, pts, xs, ys, { color: lineColor, width: 2.6 });
+
+    Viz.legend(legendHost, [
+      { color: c.series[0], label: "true infinite sky (dashed)" },
+      mode === "fixed"
+        ? { color: c.series[1], label: "fixed-value wall" }
+        : { color: c.series[2], label: "sky-matched wall" },
+    ]);
+
+    // the gap the fixed wall opens at the boundary
+    if (mode === "fixed") {
+      var yTop = ys(1), yTrue = ys(sky.at(ratio * P.R) / P.SIGMA_INF);
+      svg.appendChild(Viz.svgEl("line", {
+        x1: wx, x2: wx, y1: yTop, y2: yTrue,
+        stroke: c.critical, "stroke-width": 4, "stroke-opacity": 0.55,
+      }));
+      var nearLeft = wx < 210;
+      var g = Viz.svgEl("text", {
+        x: wx + (nearLeft ? 9 : -9), y: (yTop + yTrue) / 2 + 4, fill: c.critical,
+        "font-size": 11, "text-anchor": nearLeft ? "start" : "end",
+        "font-weight": 640, "font-family": "var(--font-sans)",
+      });
+      g.textContent = "over-supply";
+      svg.appendChild(g);
+    }
+
+    // surface markers
+    var surf = (mode === "fixed" ? wall.surface : sky.surface) / P.SIGMA_INF;
+    svg.appendChild(Viz.svgEl("circle", {
+      cx: xs(1), cy: ys(surf), r: 4.5, fill: lineColor,
+      stroke: c.surface, "stroke-width": 1.4,
+    }));
+    svg.appendChild(Viz.svgEl("circle", {
+      cx: xs(1), cy: ys(sky.surface / P.SIGMA_INF), r: 4, fill: "none",
+      stroke: c.series[0], "stroke-width": 1.6,
+    }));
+
+    // readout panel
+    var bias = mode === "fixed" ? wall.surface / sky.surface - 1 : 0;
+    var px = W - MR + 10, py = MT + 8;
+    var head = Viz.svgEl("text", {
+      x: px, y: py, fill: c.inkSecondary, "font-size": 10.5,
+      "font-family": "var(--font-sans)",
+    });
+    head.textContent = "growth rate,";
+    svg.appendChild(head);
+    var head2 = Viz.svgEl("text", {
+      x: px, y: py + 13, fill: c.inkSecondary, "font-size": 10.5,
+      "font-family": "var(--font-sans)",
+    });
+    head2.textContent = "vs infinite sky";
+    svg.appendChild(head2);
+
+    var big = Viz.svgEl("text", {
+      x: px, y: py + 42, fill: bias > 0.005 ? c.critical : c.good,
+      "font-size": 24, "font-weight": 700, "font-family": "var(--font-mono)",
+    });
+    big.textContent = (bias >= 0 ? "+" : "") + (100 * bias).toFixed(1) + "%";
+    svg.appendChild(big);
+
+    var verdict = Viz.svgEl("text", {
+      x: px, y: py + 62, fill: bias > 0.005 ? c.critical : c.good,
+      "font-size": 11, "font-weight": 640, "font-family": "var(--font-sans)",
+    });
+    verdict.textContent = bias > 0.005 ? "the box is in the answer" : "invariant";
+    svg.appendChild(verdict);
+
+    var note = [
+      "Wall at " + ratio.toFixed(1) + " crystal radii.",
+      mode === "fixed"
+        ? "Drag it: the answer moves."
+        : "Drag it: the answer does not.",
+    ];
+    note.forEach(function (line, i) {
+      var n = Viz.svgEl("text", {
+        x: px, y: py + 92 + i * 14, fill: c.muted, "font-size": 10.5,
+        "font-family": "var(--font-sans)",
+      });
+      n.textContent = line;
+      svg.appendChild(n);
+    });
+
+    status.textContent = mode === "fixed"
+      ? "Fixed-value wall at " + ratio.toFixed(1) + " crystal radii: the growth rate is "
+        + (100 * bias).toFixed(1) + "% higher than an infinite sky would give."
+      : "Sky-matched wall: the profile lies exactly on the infinite-sky curve at every wall "
+        + "distance. In the sphere the correction is exact; in the 3-D solver it lags one growth step.";
+  }
+
+  function setMode(m) {
+    mode = m;
+    if (fixedBtn) fixedBtn.setAttribute("aria-pressed", String(m === "fixed"));
+    if (skyBtn) skyBtn.setAttribute("aria-pressed", String(m === "sky"));
+    draw();
+  }
+
+  if (bar) {
+    Viz.slider(bar, {
+      label: "Wall distance", id: "ch23-wall",
+      min: 1.5, max: 12, step: 0.1, value: ratio,
+      format: function (v) { return v.toFixed(1) + " crystal radii"; },
+      onInput: function (v) { ratio = v; draw(); },
+    });
+    fixedBtn = Viz.button(bar, "Fixed value", function () { setMode("fixed"); }, { pressed: true });
+    skyBtn = Viz.button(bar, "Sky-matched", function () { setMode("sky"); }, { pressed: false });
+  }
+
+  draw();
+  Viz.onThemeChange(draw);
+})();
+</script>
+
+<script>
+/* =========================================================================
+   FIGURE 3 — The measured 3-D result: 291 / 279 against 231 / 231.
+   ====================================================================== */
+(function () {
+  "use strict";
+  var root = document.getElementById("fig-measured");
+  if (!root || !window.Viz) return;
+  var body = root.querySelector(".chart__body");
+  var svg = null;
+
+  var GROUPS = [
+    {
+      name: "Fixed-value wall", key: "fixed",
+      bars: [{ n: "28³", v: 291 }, { n: "40³", v: 279 }],
+      swing: "4.1% swing",
+    },
+    {
+      name: "Sky-matched wall", key: "sky",
+      bars: [{ n: "28³", v: 231 }, { n: "40³", v: 231 }],
+      swing: "0.0% — identical",
+    },
+  ];
+
+  var W = 620, H = 320, ML = 58, MR = 20, MT = 34, MB = 74;
+
+  function draw() {
+    if (svg) svg.remove();
+    var c = Viz.colors();
+    svg = Viz.createSvg(body, W, H, {
+      label: "Bar chart of attached cell counts in two box sizes under two wall conditions.",
+      desc: "Under a fixed-value wall the counts are 291 and 279; under a sky-matched wall both are 231.",
+    });
+
+    var ys = Viz.scaleLinear([0, 320], [H - MB, MT]);
+    Viz.axisLeft(svg, ys, {
+      x: ML, values: [0, 100, 200, 300], grid: true, gridTo: W - MR,
+      title: "attached cells after 60 growth steps", titleOffset: 42,
+    });
+
+    var plotW = (W - MR) - ML;
+    var groupW = plotW / 2;
+    var barW = 74;
+
+    GROUPS.forEach(function (g, gi) {
+      var gx = ML + gi * groupW;
+      var color = g.key === "fixed" ? c.series[1] : c.series[2];
+
+      g.bars.forEach(function (b, bi) {
+        var x = gx + groupW / 2 - barW - 14 + bi * (barW + 28);
+        var y = ys(b.v);
+        svg.appendChild(Viz.svgEl("rect", {
+          x: x, y: y, width: barW, height: (H - MB) - y, rx: 3,
+          fill: color, "fill-opacity": 0.88,
+        }));
+        var val = Viz.svgEl("text", {
+          x: x + barW / 2, y: y - 8, fill: c.ink, "font-size": 15, "font-weight": 700,
+          "text-anchor": "middle", "font-family": "var(--font-mono)",
+        });
+        val.textContent = String(b.v);
+        svg.appendChild(val);
+        var nm = Viz.svgEl("text", {
+          x: x + barW / 2, y: H - MB + 18, fill: c.inkSecondary, "font-size": 12,
+          "text-anchor": "middle", "font-family": "var(--font-mono)",
+        });
+        nm.textContent = b.n;
+        svg.appendChild(nm);
+      });
+
+      var title = Viz.svgEl("text", {
+        x: gx + groupW / 2, y: 20, fill: color, "font-size": 13, "font-weight": 680,
+        "text-anchor": "middle", "font-family": "var(--font-sans)",
+      });
+      title.textContent = g.name;
+      svg.appendChild(title);
+
+      var sw = Viz.svgEl("text", {
+        x: gx + groupW / 2, y: H - MB + 40, fill: g.key === "fixed" ? c.critical : c.good,
+        "font-size": 12.5, "font-weight": 660,
+        "text-anchor": "middle", "font-family": "var(--font-sans)",
+      });
+      sw.textContent = g.swing;
+      svg.appendChild(sw);
+    });
+
+    var foot = Viz.svgEl("text", {
+      x: ML, y: H - 10, fill: c.muted, "font-size": 10.5,
+      "font-family": "var(--font-sans)",
+    });
+    foot.textContent =
+      "−5 °C, σ∞ = 0.0075, 60 steps, seed and every parameter identical. Only the box changed.";
+    svg.appendChild(foot);
+  }
+
+  draw();
+  Viz.onThemeChange(draw);
+})();
+</script>
+
+<script>
+/* =========================================================================
+   FIGURE 4 — Grow it too big: the 65% domain-contact guard.
+   Two sliders, a live gauge, an INVALID stamp, and a refusal.
+   ====================================================================== */
+(function () {
+  "use strict";
+  var root = document.getElementById("fig-guard");
+  if (!root || !window.Viz) return;
+  var body = root.querySelector(".anim__body");
+  var bar = root.querySelector(".anim__controls");
+
+  var FRACTION = 0.65;               // runner/src/phase6-sweep.ts
+  var N = 48, extent = 21;
+  var W = 620, H = 330;
+  var svg = null;
+  var refused = false;
+
+  var status = document.createElement("p");
+  status.className = "anim__sub";
+  status.setAttribute("role", "status");
+  status.style.fontWeight = "600";
+  status.style.marginTop = "0.35rem";
+  root.querySelector(".anim__head").appendChild(status);
+
+  function contact() { return extent / N > FRACTION; }
+
+  /* The guard is a STRICT ">", so extent/N exactly equal to 0.65 is admitted. The smallest
+     admissible domain is therefore ceil(extent / 0.65), with a tolerance so that the exact
+     multiples of 13 — where extent/0.65 lands on an integer — are not pushed one cell out. */
+  function minDomainFor(e) { return Math.ceil(e / FRACTION - 1e-9); }
+
+  function draw() {
+    if (svg) svg.remove();
+    var c = Viz.colors();
+    svg = Viz.createSvg(body, W, H, {
+      label: "A hexagonal simulation box with a crystal growing inside it, and a gauge showing the crystal's size as a percentage of the box.",
+      desc: "When the crystal's bounding box passes 65% of the domain extent the run is stamped invalid.",
+    });
+
+    var px = 2.5;                        // pixels per lattice cell
+    var cx = 158, cy = 158;
+    var rDom = (N / 2) * px * 1.1547;    // circumradius from across-flats
+    var rCry = (extent / 2) * px * 1.1547;
+    var ratio = extent / N;
+    var bad = contact();
+
+    // ghost images of the crystal, reflected across each of the six walls.
+    // Clipped to the left-hand picture: at large N a ghost is wide enough to reach the
+    // gauge panel at x = 320, and a dashed hexagon behind the INVALID stamp is just noise.
+    var ghostOpacity = Math.max(0, Math.min(0.55, (ratio - 0.5) * 2.2));
+    if (ghostOpacity > 0.01) {
+      var defs = Viz.svgEl("defs");
+      var clip = Viz.svgEl("clipPath", { id: "ch23-guard-ghost-clip" });
+      clip.appendChild(Viz.svgEl("rect", { x: 0, y: 0, width: 300, height: H }));
+      defs.appendChild(clip);
+      svg.appendChild(defs);
+
+      var ghosts = Viz.svgEl("g", { "clip-path": "url(#ch23-guard-ghost-clip)" });
+      for (var g = 0; g < 6; g++) {
+        var ang = (g * 60) * Math.PI / 180;
+        var gx = cx + Math.cos(ang) * N * px;
+        var gy = cy + Math.sin(ang) * N * px;
+        ghosts.appendChild(Viz.svgEl("path", {
+          d: Viz.hexPath(gx, gy, rCry, 30),
+          fill: c.critical, "fill-opacity": ghostOpacity * 0.55,
+          stroke: c.critical, "stroke-opacity": ghostOpacity,
+          "stroke-width": 1, "stroke-dasharray": "3 3",
+        }));
+      }
+      svg.appendChild(ghosts);
+    }
+
+    // depletion contours: how far the crystal's shadow reaches into the vapour
+    var apo = rDom * Math.cos(Math.PI / 6);
+    for (var k = 1; k <= 4; k++) {
+      var rr = rCry * (1 + k * 0.3);
+      svg.appendChild(Viz.svgEl("path", {
+        d: Viz.hexPath(cx, cy, rr, 30),
+        fill: "none",
+        stroke: rr * Math.cos(Math.PI / 6) > apo ? c.critical : c.series[0],
+        "stroke-opacity": 0.55 - 0.09 * k,
+        "stroke-width": 1.2,
+        "stroke-dasharray": "2 4",
+      }));
+    }
+
+    // domain wall
+    svg.appendChild(Viz.svgEl("path", {
+      d: Viz.hexPath(cx, cy, rDom, 30),
+      fill: "none", stroke: bad ? c.critical : c.ruleStrong,
+      "stroke-width": bad ? 3 : 2,
+    }));
+
+    // the crystal
+    svg.appendChild(Viz.svgEl("path", {
+      d: Viz.hexPath(cx, cy, rCry, 30),
+      fill: c.series[0], stroke: c.surface, "stroke-width": 1.2,
+    }));
+
+    var cap = Viz.svgEl("text", {
+      x: cx, y: 306, fill: c.muted, "font-size": 10.5, "text-anchor": "middle",
+      "font-family": "var(--font-sans)",
+    });
+    cap.textContent = ghostOpacity > 0.05
+      ? "dotted rings: the depletion shadow · dashed: its own mirror images"
+      : "dotted rings: how far the depletion shadow reaches";
+    svg.appendChild(cap);
+
+    // ---- right-hand panel: the gauge -----------------------------------
+    var gx0 = 320, gw = W - gx0 - 20;
+
+    var t1 = Viz.svgEl("text", {
+      x: gx0, y: 30, fill: c.inkSecondary, "font-size": 12, "font-weight": 620,
+      "font-family": "var(--font-sans)",
+    });
+    t1.textContent = "bounding box as a fraction of domain extent";
+    svg.appendChild(t1);
+
+    svg.appendChild(Viz.svgEl("rect", {
+      x: gx0, y: 42, width: gw, height: 22, rx: 4,
+      fill: c.sunken, stroke: c.rule, "stroke-width": 1,
+    }));
+    svg.appendChild(Viz.svgEl("rect", {
+      x: gx0, y: 42, width: Math.max(3, gw * Math.min(1, ratio)), height: 22, rx: 4,
+      fill: bad ? c.critical : c.good, "fill-opacity": 0.85,
+    }));
+    var tx = gx0 + gw * FRACTION;
+    svg.appendChild(Viz.svgEl("line", {
+      x1: tx, x2: tx, y1: 36, y2: 70, stroke: c.ink, "stroke-width": 2,
+    }));
+    var tl = Viz.svgEl("text", {
+      x: tx, y: 84, fill: c.ink, "font-size": 11, "text-anchor": "middle",
+      "font-weight": 640, "font-family": "var(--font-sans)",
+    });
+    tl.textContent = "65%";
+    svg.appendChild(tl);
+
+    var pct = Viz.svgEl("text", {
+      x: gx0, y: 118, fill: bad ? c.critical : c.good,
+      "font-size": 26, "font-weight": 700, "font-family": "var(--font-mono)",
+    });
+    pct.textContent = (100 * ratio).toFixed(1) + "%";
+    svg.appendChild(pct);
+
+    var stamp = Viz.svgEl("text", {
+      x: gx0, y: 146, fill: bad ? c.critical : c.good,
+      "font-size": 15, "font-weight": 720, "font-family": "var(--font-sans)",
+    });
+    stamp.textContent = bad ? "INVALID" : "valid evidence";
+    svg.appendChild(stamp);
+
+    var lines = bad
+      ? [
+          "extent " + extent + " in a " + N + "³ domain",
+          "→ " + extent + " / " + N + " = " + ratio.toFixed(3) + " > 0.65",
+          "excluded by name:",
+          "“tripped the 65% domain-contact guard”",
+        ]
+      : [
+          "extent " + extent + " in a " + N + "³ domain",
+          "→ " + extent + " / " + N + " = " + ratio.toFixed(3) + " ≤ 0.65",
+          "this extent needs N ≥ " + minDomainFor(extent) + ",",
+          "which says nothing about whether the",
+          "wall changed the answer.",
+        ];
+    lines.forEach(function (line, i) {
+      var n = Viz.svgEl("text", {
+        x: gx0, y: 174 + i * 15, fill: c.inkSecondary, "font-size": 11.5,
+        "font-family": i === 3 && bad ? "var(--font-mono)" : "var(--font-sans)",
+      });
+      n.textContent = line;
+      svg.appendChild(n);
+    });
+
+    if (refused) {
+      var r1 = Viz.svgEl("text", {
+        x: gx0, y: 252, fill: c.critical, "font-size": 11.5, "font-weight": 660,
+        "font-family": "var(--font-sans)",
+      });
+      r1.textContent = "Refused.";
+      svg.appendChild(r1);
+      [
+        "A flagged run never enters validation",
+        "results. It is not deleted either — it is",
+        "printed with its reason attached.",
+      ].forEach(function (line, i) {
+        var n = Viz.svgEl("text", {
+          x: gx0, y: 268 + i * 14, fill: c.critical, "font-size": 11,
+          "font-family": "var(--font-sans)",
+        });
+        n.textContent = line;
+        svg.appendChild(n);
+      });
+    }
+
+    status.textContent = bad
+      ? "The picture still looks like a snow crystal. The run is not evidence."
+      : "Valid so far — which means the crystal has not touched the wall, and nothing more.";
+  }
+
+  var eSlider = null;
+  if (bar) {
+    Viz.slider(bar, {
+      label: "Domain size", id: "ch23-guard-n",
+      min: 24, max: 96, step: 4, value: N,
+      format: function (v) { return v + "³"; },
+      onInput: function (v) {
+        N = v;
+        refused = false;
+        // a crystal cannot be wider than the box it is in
+        if (eSlider) {
+          eSlider.input.max = String(N);
+          if (extent > N) { eSlider.value = N; return; }
+        }
+        draw();
+      },
+    });
+    eSlider = Viz.slider(bar, {
+      label: "Grow the crystal", id: "ch23-guard-e",
+      min: 5, max: 80, step: 1, value: extent,
+      format: function (v) { return "extent " + v + " cells"; },
+      onInput: function (v) { extent = v; refused = false; draw(); },
+    });
+    eSlider.input.max = String(N);
+    Viz.button(bar, "Keep it anyway", function () {
+      refused = contact();
+      if (!refused) {
+        draw();
+        status.textContent = "Nothing to override — this run is inside the guard.";
+        return;
+      }
+      draw();
+    });
+  }
+
+  draw();
+  Viz.onThemeChange(draw);
+})();
+</script>
+
+<script>
+/* =========================================================================
+   FIGURE 5 — Where the guard sits, and where the answer settles.
+   The real extent-21 domain ladder, plotted as deviation from the N=80 value.
+   ====================================================================== */
+(function () {
+  "use strict";
+  var root = document.getElementById("fig-ladder");
+  if (!root || !window.Viz) return;
+  var body = root.querySelector(".chart__body");
+  var svg = null;
+
+  // research/phase6-convergence.md §1.2, attached counts at extent 21
+  var NS = [40, 48, 56, 64, 80];
+  var WARM = [1513, 1513, 1513, 1513, 1513];
+  var COLD = [5185, 5161, 5161, 5159, 5159];
+  var GUARD_N = 33;   // 21 / 0.65 = 32.3 -> the first integer domain the guard admits
+
+  function dev(arr) {
+    var base = arr[arr.length - 1];
+    return arr.map(function (v, i) { return [NS[i], 100 * (v - base) / base]; });
+  }
+
+  var W = 620, H = 352, ML = 66, MR = 116, MT = 24, MB = 76;
+
+  function draw() {
+    if (svg) svg.remove();
+    var c = Viz.colors();
+    svg = Viz.createSvg(body, W, H, {
+      label: "Attached-cell count against domain size, as a percentage above the largest-box value.",
+      desc: "The warm run is identical at all five domains. The cold run is 0.50% high at N = 40 and exact from N = 64.",
+    });
+
+    var xs = Viz.scaleLinear([28, 84], [ML, W - MR]);
+    var ys = Viz.scaleLinear([-0.08, 0.62], [H - MB, MT]);
+
+    Viz.axisLeft(svg, ys, {
+      x: ML, values: [0, 0.2, 0.4, 0.6], grid: true, gridTo: W - MR,
+      format: function (v) { return "+" + v.toFixed(1) + "%"; },
+      title: "attached cells, above the N = 80 value", titleOffset: 48,
+    });
+    Viz.axisBottom(svg, xs, {
+      y: H - MB, values: [30, 40, 48, 56, 64, 80],
+      title: "domain size N (cells across)",
+    });
+
+    // the region the 65% guard rejects outright
+    svg.appendChild(Viz.svgEl("rect", {
+      x: ML, y: MT, width: Math.max(0, xs(GUARD_N) - ML), height: (H - MB) - MT,
+      fill: c.critical, "fill-opacity": 0.09,
+    }));
+    svg.appendChild(Viz.svgEl("line", {
+      x1: xs(GUARD_N), x2: xs(GUARD_N), y1: MT, y2: H - MB,
+      stroke: c.critical, "stroke-width": 1.8, "stroke-dasharray": "5 4",
+    }));
+    var gl = Viz.svgEl("text", {
+      x: xs(GUARD_N) + 5, y: MT + 12, fill: c.critical, "font-size": 11,
+      "font-weight": 640, "font-family": "var(--font-sans)",
+    });
+    gl.textContent = "the guard's line: N ≥ 33";
+    svg.appendChild(gl);
+
+    // zero
+    svg.appendChild(Viz.svgEl("line", {
+      x1: ML, x2: W - MR, y1: ys(0), y2: ys(0),
+      stroke: c.ruleStrong, "stroke-width": 1,
+    }));
+
+    var cold = dev(COLD), warm = dev(WARM);
+
+    Viz.series(svg, cold, xs, ys, {
+      color: c.series[1], width: 2.4,
+      label: "cold, −15 °C", labelAt: cold[cold.length - 1],
+      labelDx: 8, labelDy: -4,
+    });
+    Viz.series(svg, warm, xs, ys, {
+      color: c.series[0], width: 2.4, dashed: true,
+      label: "warm, −5 °C (dashed)", labelAt: warm[warm.length - 1],
+      labelDx: 8, labelDy: 16,
+    });
+
+    [[cold, c.series[1]], [warm, c.series[0]]].forEach(function (pair) {
+      pair[0].forEach(function (p) {
+        svg.appendChild(Viz.svgEl("circle", {
+          cx: xs(p[0]), cy: ys(p[1]), r: 4, fill: pair[1],
+          stroke: c.surface, "stroke-width": 1.3,
+        }));
+      });
+    });
+
+    // annotate the point the guard is happy with and the answer is not
+    var bad = cold[0];
+    svg.appendChild(Viz.svgEl("line", {
+      class: "annotation-rule",
+      x1: xs(bad[0]) + 6, x2: xs(bad[0]) + 74, y1: ys(bad[1]), y2: ys(bad[1]) - 16,
+    }));
+    var an = Viz.svgEl("text", {
+      x: xs(bad[0]) + 78, y: ys(bad[1]) - 14, fill: c.inkSecondary, "font-size": 11,
+      "font-family": "var(--font-sans)",
+    });
+    an.textContent = "+0.50% — and the guard allows it";
+    svg.appendChild(an);
+
+    var an2 = Viz.svgEl("text", {
+      x: xs(64), y: ys(0) + 18, fill: c.inkSecondary, "font-size": 11,
+      "text-anchor": "middle", "font-family": "var(--font-sans)",
+    });
+    an2.textContent = "exact from N = 64";
+    svg.appendChild(an2);
+
+    var foot = Viz.svgEl("text", {
+      x: ML, y: H - 10, fill: c.muted, "font-size": 10.5,
+      "font-family": "var(--font-sans)",
+    });
+    foot.textContent =
+      "Aspect ratio is identical at all five domains — 0.3821 warm, 1.1053 cold. Only the count under it moved.";
+    svg.appendChild(foot);
+  }
+
+  draw();
+  Viz.onThemeChange(draw);
+})();
+</script>
+
+<script>
+/* =========================================================================
+   FIGURE 6 — Four checks on the Eq. 3.35 erratum, three of which work.
+   ====================================================================== */
+(function () {
+  "use strict";
+  var root = document.getElementById("fig-erratum");
+  if (!root || !window.Viz || !window.Ch23) return;
+  var body = root.querySelector(".anim__body");
+  var bar = root.querySelector(".anim__controls");
+  var C = window.Ch23, P = C.P;
+
+  var expo = Math.log10(P.A);     // slider works in log10 of the attachment coefficient
+  var svg = null, cards = null;
+
+  var wrap = document.createElement("div");
+  wrap.style.display = "flex";
+  wrap.style.flexWrap = "wrap";
+  wrap.style.gap = "1.25rem";
+  wrap.style.alignItems = "flex-start";
+  body.appendChild(wrap);
+
+  var left = document.createElement("div");
+  left.style.flex = "1 1 330px";
+  left.style.minWidth = "300px";
+  var right = document.createElement("div");
+  right.style.flex = "1 1 260px";
+  right.style.minWidth = "250px";
+  wrap.appendChild(left);
+  wrap.appendChild(right);
+
+  function biasCorrected(a) { return C.amplification(C.gammaCorrected(a), P.RFAR) - 1; }
+  function biasPrinted(a) { return C.amplification(C.gammaPrinted(a), P.RFAR) - 1; }
+
+  /* the independent exact solve, straight from the test file */
+  function exactSurface(a) { return C.fixedWallField(a, P.RFAR).surface; }
+  function closedSurface(gamma, a) {
+    return C.sigmaSurfaceInfinite(a) * C.amplification(gamma, P.RFAR);
+  }
+
+  var W = 420, H = 300, ML = 58, MR = 20, MT = 22, MB = 58;
+
+  function drawChart(a) {
+    if (svg) svg.remove();
+    var c = Viz.colors();
+    svg = Viz.createSvg(left, W, H, {
+      fixed: true,
+      label: "Finite-shell bias against attachment coefficient, for the corrected and the printed formula.",
+      desc: "As the attachment coefficient falls to zero the corrected bias goes to zero and the printed bias rises to about 22%.",
+    });
+
+    var xs = Viz.scaleLog([1e-8, 1], [ML, W - MR]);
+    var ys = Viz.scaleLinear([0, 25], [H - MB, MT]);
+
+    Viz.axisLeft(svg, ys, {
+      x: ML, values: [0, 5, 10, 15, 20, 25], grid: true, gridTo: W - MR,
+      format: function (v) { return v + "%"; },
+      title: "claimed bias from the wall", titleOffset: 40,
+    });
+    Viz.axisBottom(svg, xs, {
+      y: H - MB, values: [1e-8, 1e-6, 1e-4, 1e-2, 1],
+      format: function (v) { return v === 1 ? "1" : "10" + supers(Math.round(Math.log10(v))); },
+      title: "attachment coefficient  ← crystal stops growing",
+    });
+
+    var corr = [], prin = [];
+    for (var e = -8; e <= 0.0001; e += 0.05) {
+      var av = Math.pow(10, e);
+      corr.push([av, 100 * biasCorrected(av)]);
+      prin.push([av, 100 * biasPrinted(av)]);
+    }
+    Viz.series(svg, prin, xs, ys, {
+      color: c.series[1], width: 2.4,
+      label: "as printed", labelAt: prin[0], labelDx: 8, labelDy: -8,
+    });
+    Viz.series(svg, corr, xs, ys, {
+      color: c.series[0], width: 2.4,
+      label: "corrected", labelAt: corr[corr.length - 1], labelDx: -8, labelDy: -10,
+      labelAnchor: "end",
+    });
+
+    // live marker
+    [[biasCorrected(a), c.series[0]], [biasPrinted(a), c.series[1]]].forEach(function (m) {
+      svg.appendChild(Viz.svgEl("circle", {
+        cx: xs(a), cy: ys(Math.min(25, 100 * m[0])), r: 5, fill: m[1],
+        stroke: c.surface, "stroke-width": 1.5,
+      }));
+    });
+    svg.appendChild(Viz.svgEl("line", {
+      x1: xs(a), x2: xs(a), y1: MT, y2: H - MB,
+      stroke: c.inkSecondary, "stroke-width": 1, "stroke-dasharray": "3 3",
+    }));
+
+    // where the repository's own test sits
+    svg.appendChild(Viz.svgEl("line", {
+      class: "annotation-rule", x1: xs(0.393), x2: xs(0.393), y1: MT, y2: H - MB,
+    }));
+    var tn = Viz.svgEl("text", {
+      x: xs(0.393) - 6, y: MT + 12, fill: c.muted, "font-size": 10.5,
+      "text-anchor": "end", "font-family": "var(--font-sans)",
+    });
+    tn.textContent = "a = 0.393, the test's own value";
+    svg.appendChild(tn);
+  }
+
+  function supers(n) {
+    var map = { "-": "⁻", 0: "⁰", 1: "¹", 2: "²", 3: "³", 4: "⁴",
+                5: "⁵", 6: "⁶", 7: "⁷", 8: "⁸", 9: "⁹" };
+    return String(n).split("").map(function (ch) { return map[ch] || ch; }).join("");
+  }
+
+  function row(label, correctedText, correctedPass, printedText, printedPass, note) {
+    var box = document.createElement("div");
+    box.style.border = "1px solid var(--rule)";
+    box.style.borderRadius = "8px";
+    box.style.padding = "0.6rem 0.7rem";
+    box.style.marginBottom = "0.55rem";
+    box.style.background = "var(--surface-sunken)";
+
+    var h = document.createElement("p");
+    h.style.margin = "0 0 0.35rem";
+    h.style.fontWeight = "660";
+    h.style.fontSize = "0.86rem";
+    h.style.lineHeight = "1.3";
+    h.textContent = label;
+    box.appendChild(h);
+
+    [[ "corrected", correctedText, correctedPass ], [ "as printed", printedText, printedPass ]]
+      .forEach(function (r) {
+        var line = document.createElement("p");
+        line.style.margin = "0.15rem 0";
+        line.style.fontSize = "0.8rem";
+        line.style.display = "flex";
+        line.style.gap = "0.4rem";
+        line.style.alignItems = "baseline";
+
+        var tick = document.createElement("span");
+        tick.textContent = r[2] ? "✓" : "✗";
+        tick.style.fontWeight = "800";
+        tick.style.color = r[2] ? "var(--status-good)" : "var(--status-critical)";
+        line.appendChild(tick);
+
+        var name = document.createElement("span");
+        name.textContent = r[0];
+        name.style.color = "var(--ink-secondary)";
+        name.style.minWidth = "5.6em";
+        line.appendChild(name);
+
+        var val = document.createElement("span");
+        val.textContent = r[1];
+        val.style.fontFamily = "var(--font-mono)";
+        val.style.color = "var(--ink-primary)";
+        line.appendChild(val);
+
+        box.appendChild(line);
+      });
+
+    if (note) {
+      var n = document.createElement("p");
+      n.style.margin = "0.35rem 0 0";
+      n.style.fontSize = "0.76rem";
+      n.style.color = "var(--ink-muted)";
+      n.textContent = note;
+      box.appendChild(n);
+    }
+    return box;
+  }
+
+  function drawCards(a) {
+    if (cards) cards.remove();
+    cards = document.createElement("div");
+    right.appendChild(cards);
+
+    /* Check 0 — the check the source itself states. Both forms pass. */
+    var farAway = 168000e-6;   // the last rung of the test's ladder
+    var c0corr = Math.abs(C.amplification(C.gammaCorrected(a), farAway) - 1);
+    var c0prin = Math.abs(C.amplification(C.gammaPrinted(a), farAway) - 1);
+    cards.appendChild(row(
+      "The check the source states: send the wall to infinity and the correction must vanish.",
+      c0corr.toExponential(1), c0corr < 1e-4,
+      c0prin.toExponential(1), c0prin < 1e-4,
+      "Passes for both, at every attachment coefficient. It cannot tell them apart — the bracket tends to 1 for any γ."
+    ));
+
+    /* Check 1 — Eq. 3.33's limit must reproduce Eq. 3.17. */
+    var target = P.D / (a + P.D);
+    var l1 = 1 - 1 / C.gammaCorrected(a);
+    var l2 = 1 - 1 / C.gammaPrinted(a);
+    cards.appendChild(row(
+      "Check 1: the limit of Eq. 3.33 must reproduce Eq. 3.17, which is " + target.toFixed(8) + ".",
+      l1.toFixed(8), Math.abs(l1 - target) < 1e-12,
+      l2.toFixed(8), Math.abs(l2 - target) < 1e-12,
+      "The printed form returns the complement — one minus the right answer."
+    ));
+
+    /* Check 2 — an independent exact solve of the same problem. */
+    var exact = exactSurface(a);
+    var sc = closedSurface(C.gammaCorrected(a), a);
+    var sp = closedSurface(C.gammaPrinted(a), a);
+    var rc = Math.abs(sc - exact) / exact, rp = Math.abs(sp - exact) / exact;
+    /* A fixed one-decimal percentage reads "off by 0.0%" near the balance point, where the
+       printed form's signed error crosses zero — which would look like a pass beside a ✗.
+       Below 0.1% the readout goes exponential so a small error still reads as an error. */
+    function offBy(r) {
+      return "off by " + (r < 1e-3 ? (100 * r).toExponential(1) : (100 * r).toFixed(1)) + "%";
+    }
+    cards.appendChild(row(
+      "Check 2: agree with an independent exact solve of the same boundary-value problem.",
+      rc < 1e-12 ? "matches to every digit" : offBy(rc), rc < 1e-9,
+      offBy(rp), rp < 1e-9,
+      "Nothing in the independent solve comes from Eqs. 3.33–3.36, so agreeing with it is real "
+      + "evidence. The two forms cross near the kinetics/diffusion balance point, which is why the "
+      + "printed error dips there without ever matching."
+    ));
+
+    /* Check 3 — a crystal that is not growing carries no bias. */
+    var tiny = 1e-8;
+    var b3c = biasCorrected(tiny), b3p = biasPrinted(tiny);
+    cards.appendChild(row(
+      "Check 3: a crystal that has stopped growing cannot be biased by a wall it never reaches.",
+      (100 * b3c).toExponential(1) + "%", b3c < 1e-6,
+      (100 * b3p).toFixed(1) + "%", b3p < 1e-6,
+      "Evaluated at an attachment coefficient of 10⁻⁸ — a crystal doing essentially nothing."
+    ));
+  }
+
+  function render() {
+    var a = Math.pow(10, expo);
+    drawChart(a);
+    drawCards(a);
+  }
+
+  if (bar) {
+    var aSlider = Viz.slider(bar, {
+      label: "Attachment coefficient", id: "ch23-alpha",
+      min: -8, max: 0, step: "any", value: expo,
+      format: function (v) {
+        var a = Math.pow(10, v);
+        return a >= 0.01 ? a.toFixed(3) : a.toExponential(1);
+      },
+      onInput: function (v) { expo = v; render(); },
+    });
+    Viz.button(bar, "Back to the test's value", function () {
+      aSlider.value = Math.log10(P.A);
+    });
+  }
+
+  render();
+  Viz.onThemeChange(render);
+})();
+</script>
+</body>
+</html>

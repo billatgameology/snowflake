@@ -1,0 +1,1554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Model That Can Be Wrong — Snow Crystals</title>
+<meta name="description" content="Some of the model's inputs were chosen so that the answer would come out right. That makes agreement worthless as evidence — and it is why the project rebuilt the experiment so it could lose.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 17 &middot; A Model That Can Be Wrong</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#in-sample">The answer was already in the question</a></li>
+      <li><a href="#how-big">How big is the borrowed piece</a></li>
+      <li><a href="#two-experiments">Two experiments, one of which cannot fail</a></li>
+      <li><a href="#held-out">What a real test looks like</a></li>
+      <li><a href="#refutable">What would have proved it wrong?</a></li>
+      <li><a href="#safety-net">Why a fallback made the risk affordable</a></li>
+      <li><a href="#your-turn">Your turn, before the result</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 17</p>
+        <h1>A Model That Can Be Wrong</h1>
+        <p class="chapter-header__question">
+          If some of your numbers were chosen so the answer would come out right, then getting
+          the right answer proves nothing. So how do you build a model that is allowed to lose?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~16 min read</span>
+          <span>5 interactives</span>
+          <span>1 table</span>
+        </div>
+      </header>
+
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Explain why matching a target that your inputs were fitted to is not evidence about
+            nature.</li>
+          <li>Say what a <em>held-out</em> observable is, and why this project's honest list of
+            them is short.</li>
+          <li>Take any claim and name the result that would have refuted it &mdash; and spot the
+            claims where no such result exists.</li>
+          <li>Explain why building a fallback first is what made it safe to run an experiment the
+            project might lose.</li>
+        </ul>
+      </section>
+
+      <!-- =============================================================== 1 -->
+      <h2 id="in-sample">The answer was already in the question</h2>
+
+      <p>
+        Chapter 16 sorted every number that goes into the solver by where it came from. Four bins:
+        measured, fitted, numerical, and one more. The project calls that fourth one
+        <strong>P3</strong>, and it is the subject of this chapter. The project's parameter file
+        defines it like this:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;<strong>P3 &mdash; Nakaya-informed SDAK hypotheses.</strong> The narrow-facet dip
+          locations/depths were chosen to impose agreement with the morphology diagram (monograph
+          printed p.&nbsp;152 / pdf 153: &lsquo;I have chosen different values of T_onset for the
+          basal and prism facets <strong>to impose agreement with the known ice-growth behaviors
+          from the Nakaya diagram</strong>&rsquo;). Any Nakaya comparison using P3 inputs is
+          <strong>in-sample reproduction</strong>, never independent validation.&rdquo;
+          <br><span class="figure__source">snowflake repository,
+          docs/libbrecht-parameters.md &mdash; &ldquo;Provenance classes&rdquo;</span>
+        </p>
+      </blockquote>
+
+      <p>
+        <strong>SDAK</strong> stands for <em>structure-dependent attachment kinetics</em>:
+        Libbrecht's proposal that how easily a face grows depends not only on temperature but on
+        how wide that face is. Narrow faces grow more easily, which makes them narrower still
+        &mdash; a feedback the charter describes as producing &ldquo;thin plates, sharpening edges,
+        and hollow columns&rdquo; (<code>project charter.md</code>, &sect;2.5). It is a hypothesis,
+        not a measurement, and the &ldquo;narrow-facet dips&rdquo; in the quotation above are how
+        it would enter the model.
+      </p>
+
+      <p>
+        Now read that quoted sentence slowly, because it is doing something unusual. It is the author
+        of the physics telling you, in print, that he picked those values <em>so that the model
+        would agree with the diagram</em>. That is not cheating and it is not hidden. It is a
+        completely normal way to build a model when the measurements you would need do not exist
+        yet. But it has a consequence that is easy to miss and impossible to undo.
+      </p>
+
+      <p>
+        If a number was chosen to make the model agree with the Nakaya diagram, and you then run
+        the model and it agrees with the Nakaya diagram, you have learned nothing about snow. You
+        have learned that the choosing worked. The answer was inside the question. Statisticians
+        call this an <strong>in-sample</strong> result: the thing you are testing against is part
+        of what you built with. The opposite is <strong>held-out</strong> &mdash; you test against
+        something nobody consulted while building.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          Agreement is only evidence if disagreement was possible. A target your inputs were
+          fitted to cannot supply that possibility, no matter how carefully you run the test.
+        </p>
+      </aside>
+
+      <p>
+        The project's charter states the consequence as a rule rather than as an opinion:
+        &ldquo;SDAK-bearing inputs are provenance class P3 (&sect;2.7), and any Nakaya comparison
+        that uses them is in-sample reproduction, not independent validation&rdquo;
+        (<code>project charter.md</code>, &sect;2.5). And in the standing guardrails:
+        &ldquo;Results from Nakaya-informed (P3) inputs are never labeled independent validation,
+        and no-SDAK and SDAK results are never merged in a report&rdquo; (&sect;3.3).
+      </p>
+
+      <p>
+        The next demo hands you the two knobs the quotation is about. They are real &mdash; the
+        centres of the two dips in the published attachment model &mdash; and moving them changes
+        which face of the crystal is easier to grow. Try to make the model match nature. It is not
+        hard.
+      </p>
+
+      <figure class="anim" id="fig-dartboard">
+        <div class="anim__head">
+          <p class="anim__title">The rigged dartboard</p>
+          <p class="anim__sub">
+            Drag the two dip centres and watch the score climb. Then ask what the score measured.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive, mounted from
+          <code>../assets/anim-preregister.js</code>. The two knobs are the dip centres the module
+          transcribes from Libbrecht's published closed forms &mdash; the citations are in the
+          module's own header &mdash; and <code>docs/libbrecht-parameters.md</code> &sect;4.1
+          records the same dips as provenance class P3. The scoring re-implements the project's
+          registered rule (ADR&nbsp;0025). This strip is a
+          <strong>simplified predictor</strong>, not the project's 3-D solver: it asks only which
+          face has the lower nucleation barrier at each temperature, and it sweeps one humidity
+          level rather than six, so its score out of 15 is not comparable with the registered
+          sweep's score out of 90.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Tuning felt like discovery, and it produced a number that looks exactly like a result. It
+        is not one. Notice, too, what you could see the whole time you were dragging: the score.
+        Chapter 27 is about what changes when you cannot.
+      </p>
+
+      <p>
+        There is an obvious-looking escape from all this, and the project considered it and wrote
+        down why it does not work. If the problem is that someone might tune the knobs to fit,
+        why not simply promise not to touch them, in advance, in public?
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;<strong>Keep Phase 6 as-is and rely on pre-registration.</strong> Rejected:
+          freezing a leaked input freezes the leak. Pre-registration binds future hands; it cannot
+          unknow what the SDAK curves were built from.&rdquo;
+          <br><span class="figure__source">snowflake repository,
+          docs/decisions/0005-validation-scope-surface-operator-numerics.md &mdash;
+          &ldquo;Alternatives considered&rdquo;</span>
+        </p>
+      </blockquote>
+
+      <p>
+        That is the sharpest sentence in the whole decision record. Promising not to cheat from
+        now on does nothing about information that is already inside your inputs. The leak
+        happened before you arrived. Read the rejection narrowly, though: it says
+        pre-registration cannot fix <em>this</em>. It remains the right tool for the other half of
+        the problem &mdash; the half where someone might tune afterwards &mdash; which is why
+        chapter 27 is about it, and why this chapter ends by asking you to seal an envelope of
+        your own.
+      </p>
+
+      <!-- =============================================================== 2 -->
+      <h2 id="how-big">How big is the borrowed piece</h2>
+
+      <p>
+        A fair objection: maybe the diagram-informed part is a tiny correction, and the rest of
+        the model is doing the real work. So how big is it?
+      </p>
+
+      <p>
+        The parameter file records the two dips as digitized readings off a printed figure, sized
+        relative to the broad-facet curve at the same temperature. A &ldquo;broad facet&rdquo; is
+        an ordinary wide flat face; the dips describe what the model does differently on a very
+        narrow one.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The two &sigma;<sub>0</sub> dips &mdash; the mechanism the parameter file labels
+            <strong>SDAK-1</strong> &mdash; transcribed from
+            <code>docs/libbrecht-parameters.md</code> &sect;4.1, where each row is recorded as a
+            digitization of the monograph's Figure&nbsp;4.12. Every row is provenance class P3.
+          </caption>
+          <thead>
+            <tr>
+              <th>Facet</th>
+              <th class="num">Dip minimum, &sigma;<sub>0</sub><br>
+                <span class="figure__source">how much spare vapour a facet needs before a new
+                layer can start &mdash; smaller means easier</span></th>
+              <th class="num">At</th>
+              <th class="num">Size of the dip</th>
+              <th>What the source says it explains</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>narrow <strong>basal</strong></td>
+              <td class="num">0.07&ndash;0.08%</td>
+              <td class="num">&minus;4 to &minus;4.5&nbsp;&deg;C</td>
+              <td class="num">&times;6&ndash;7 lower</td>
+              <td>rapid basal growth of hollow-column edges near &minus;5&nbsp;&deg;C</td>
+            </tr>
+            <tr>
+              <td>narrow <strong>prism</strong></td>
+              <td class="num">0.18&ndash;0.20%</td>
+              <td class="num">&minus;14 to &minus;16&nbsp;&deg;C</td>
+              <td class="num">&times;15 lower</td>
+              <td>thin-plate edges near &minus;15&nbsp;&deg;C</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        A factor of fifteen is not a correction. At the bottom of the prism dip the model is being
+        told that a narrow prism face needs fifteen times less spare vapour before a new layer can
+        start than the measured broad-facet curve says. And &sigma;<sub>0</sub> is not itself a
+        speed: it enters the growth law inside an exponential &mdash; the attachment coefficient is
+        <code>A&nbsp;&middot;&nbsp;exp(&minus;&sigma;<sub>0</sub>&nbsp;/&nbsp;&sigma;<sub>surf</sub>)</code>,
+        with &sigma;<sub>surf</sub> the spare vapour actually reaching the surface
+        (<code>docs/libbrecht-parameters.md</code> &sect;1, citing 1910.09067 Eq.&nbsp;3) &mdash; so
+        dividing it by fifteen does not make the face grow fifteen times faster. The effect is
+        exponential in that ratio, and wherever the surface is starved enough for nucleation to be
+        the bottleneck at all, it is far larger than fifteenfold.
+      </p>
+
+      <p>
+        The source is also explicit that the dips are a proposal rather than a measurement. They
+        are drawn <em>dotted</em> in the original figure &ldquo;to signify their substantial
+        uncertainties&rdquo;, and a companion paper says plainly that &ldquo;Neither the width nor
+        depth of the dip structure &hellip; is well constrained by measurements&rdquo;
+        (both recorded at <code>docs/libbrecht-parameters.md</code> &sect;4.1).
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          The parameter file records <em>two</em> SDAK hypotheses, not one. SDAK-1 is the pair of
+          &sigma;<sub>0</sub> dips in the table above. SDAK-2 changes a different quantity on
+          narrow prism facets above about &minus;10&nbsp;&deg;C and is aimed at sharp-tipped
+          dendrites rather than at the habit flip; it is written down but not digitized, because
+          nothing in the solver consumes it. Of both, &sect;4 says: &ldquo;Nothing in the solver
+          implements either one &mdash; <code>SDAK</code> appears in no source file &mdash; so
+          every run to date is a no-SDAK run.&rdquo; That is a claim you can check by searching
+          the repository, which is the point of writing it that way.
+        </p>
+      </aside>
+
+      <p>
+        So the project has a clean option most modelling projects do not: run the comparison with
+        the diagram-informed pieces removed entirely. Then a Nakaya comparison is a real test,
+        because the inputs no longer contain the answer &mdash; though the project still refuses
+        to call it independent validation. Decision 0005 reserves that phrase for the held-out
+        observables in the next section, and gives this run a different name instead: the no-SDAK
+        probe &ldquo;becomes a first-class scientific result in its own right: does the measured
+        large-facet crossing alone produce <em>any</em> habit reversal? Either answer is
+        publishable within the project's own terms.&rdquo; That is the run chapter 28 reports, and
+        decision 0005 registered it in advance, both outcomes included.
+      </p>
+
+      <!-- =============================================================== 3 -->
+      <h2 id="two-experiments">Two experiments, one of which cannot fail</h2>
+
+      <p>
+        The in-sample trap is not only about borrowed parameters. You can build a whole experiment
+        that cannot fail, out of entirely honest parts, and this project nearly did.
+      </p>
+
+      <p>
+        The original plan was to sweep the inherited lattice model's abstract knobs and label the
+        resulting atlas of shapes afterwards. The charter's verdict on it is one sentence:
+        <strong>&ldquo;That fits a curve; it does not close a loop.&rdquo;</strong>
+        (<code>project charter.md</code>, &sect;2.7.)
+      </p>
+
+      <p>
+        The reason is worth being precise about, because &ldquo;it fits a curve&rdquo; sounds like
+        a complaint about accuracy and is not. The inherited lattice model contains no
+        temperature anywhere. The decision record spells out what follows:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;<strong>With G&ndash;G's knobs, Phase 6 is curve-fitting.</strong> Sweep the
+          parameter space, measure the morphologies, paste a temperature axis onto the resulting
+          atlas. G&ndash;G's solver contains no temperature at all. You can reproduce the shapes on
+          both sides of the Nakaya flip without reproducing the reason for it, and when asked
+          &lsquo;why does it return to plates at &minus;15&nbsp;&deg;C,&rsquo; the only honest
+          answer is &lsquo;because a knob was tuned until it did.&rsquo;&rdquo;
+          <br><span class="figure__source">snowflake repository,
+          docs/decisions/0003-libbrecht-attachment-kinetics.md &mdash; Context</span>
+        </p>
+      </blockquote>
+
+      <p>
+        The next demo is that argument with the handles left on. Two modes, one screen. In the
+        first, the model has three knobs with no physical meaning, and you also decide afterwards
+        which temperature each column stands for. Match the real diagram. Then match the diagram
+        this page invented, by the same method.
+      </p>
+
+      <figure class="anim" id="fig-designs">
+        <div class="anim__head">
+          <p class="anim__title">Fit anything &mdash; then run the other version</p>
+          <p class="anim__sub">Two experiment designs, one screen. Count the possible outcomes.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. <em>Calibration</em> mode encodes the
+          plan the charter rejected in &sect;2.7 &mdash; abstract knobs, temperature axis assigned
+          afterwards; its three knobs are deliberately meaningless. <em>Validation</em> mode holds
+          the axis fixed and reads the habit from the broad-facet nucleation parameters via
+          <code>Prereg.habitAt</code> in <code>../assets/anim-preregister.js</code>, with the dips
+          off. Reference regimes and the near-boundary exclusion are transcribed from the same
+          module (its <code>BOUNDS</code> and <code>AMBIGUITY</code>). Like that module, this is a
+          <strong>simplified predictor</strong> and not the project's 3-D solver: it sweeps one
+          humidity level rather than six, so its score out of 15 is not comparable with the
+          registered sweep's score out of 90. It also forces a habit at every temperature, plate
+          or column. The registered scoring rule keeps a third class &mdash; ADR&nbsp;0025 maps
+          results onto &ldquo;<code>{plate, column, neutral, invalid}</code>&rdquo; &mdash; and in
+          the real sweep that neutral class turned out to be the largest single feature of the
+          model's own output (<code>research/phase6-sweep-report.md</code>, finding 3). That is
+          chapter 28's.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        In calibration mode the counter goes up for a diagram that does not exist. A method that
+        matches an invented reference as readily as the real one has told you nothing about
+        either. That is what &ldquo;cannot fail&rdquo; means in practice: there is no arrangement
+        of the world that the method would have reported as a miss.
+      </p>
+
+      <p>
+        Validation mode is the same screen with the axis frozen and the knobs gone, because
+        temperature now enters the equations rather than being written on them afterwards. Most
+        columns disagree, and there is nothing to slide. Do not carry that count away as the
+        project's answer &mdash; the caption says what it is and is not. Chapter 28 has the real
+        number.
+      </p>
+
+      <p>
+        On 2026-07-14, before any physics code was written, the project renamed the phase that
+        does this comparison. &ldquo;Calibration atlas&rdquo; became &ldquo;Validation against the
+        Nakaya diagram&rdquo;, because the old framing &ldquo;could not have failed, and therefore
+        could not have taught anything&rdquo; (<code>project charter.md</code>, &sect;3.2,
+        Phase&nbsp;6).
+      </p>
+
+      <p>
+        The decision record that forced the rename lists what the change bought and what it cost.
+        The last item on the cost list is one line: <em>The model can now be wrong.
+        Deliberately.</em> The project filed its own falsifiability under expenses, which is
+        exactly right &mdash; it is a price, and it was paid on purpose.
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          The rename is not relabelling. Under the old plan the model produced shapes and a human
+          decided afterwards which conditions those shapes belonged to. Under the new one you set
+          &minus;5&nbsp;&deg;C, the number travels into the attachment equations, and whatever
+          comes out is the answer. The charter puts the test as two questions with answers the
+          builders did not control: &ldquo;Set &minus;5&nbsp;&deg;C &mdash; does a column grow?
+          Set &minus;15&nbsp;&deg;C &mdash; does the habit flip back to plates? A model that
+          cannot be wrong is not attempting this problem.&rdquo;
+        </p>
+      </aside>
+
+      <!-- =============================================================== 4 -->
+      <h2 id="held-out">What a real test looks like</h2>
+
+      <p>
+        Ruling things out is easy. The harder question is what this project would <em>accept</em>
+        as evidence. The charter names four families of held-out observable &mdash; measurements
+        the inputs were not tuned toward:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;Independent validation runs against held-out observables the inputs were not
+          tuned to: growth rates vs (T, &sigma;), size-dependent habit, pressure dependence, and
+          growth-history responses.&rdquo;
+          <br><span class="figure__source">snowflake repository, project charter.md &mdash;
+          &sect;2.7</span>
+        </p>
+      </blockquote>
+
+      <p>
+        Pressure is the cleanest of the four, because it shows what makes a target genuinely held
+        out. How fast water vapour spreads through air is inversely proportional to pressure; that
+        relationship is exact, it was used at one reference pressure, and nothing in the model was
+        ever adjusted to make anything match at any other. The project's own register puts it in
+        one line: &ldquo;D &prop; 1/P is exact at reference pressure and nothing was tuned to it
+        &mdash; a cheap, genuinely held-out axis&rdquo;
+        (<code>docs/stretch-sharing-and-investigation.md</code> &sect;3, item I4).
+      </p>
+
+      <p>
+        The same register is equally plain about how many such tests are within reach today:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;practically reachable held-out set today is ~5 entries, not 122 &mdash; most sit
+          behind the column-seed ADR&rdquo;
+          <br><span class="figure__source">snowflake repository,
+          docs/stretch-sharing-and-investigation.md &mdash; &sect;3, item I1</span>
+        </p>
+      </blockquote>
+
+      <p>
+        An <strong>ADR</strong> is one of the numbered decision records this chapter keeps quoting
+        &mdash; the project writes them as &ldquo;ADR 0003&rdquo; and &ldquo;decision 0005&rdquo;
+        interchangeably. The column-seed one has not been written yet. It is the pending decision
+        about whether a run may be started from a column-shaped seed crystal and still count as
+        evidence, and until it lands, the Phase 6 plan puts &ldquo;an elongated/column seed
+        class&rdquo; on its out-of-scope list
+        (<code>docs/plans/phase-6-nakaya-validation.md</code>). Most of the remaining held-out
+        tests are waiting behind it.
+      </p>
+
+      <p>
+        Five. Written down by the project about itself, in the same paragraph where it identifies
+        its best falsification target: a set of free-falling-crystal growth measurements whose
+        &ldquo;reported sense opposes the model's expectation &mdash; the single strongest
+        falsification target available&rdquo; &mdash; that is, the measured effect points the
+        opposite way to what the model predicts. The strongest available test is one the project
+        expects to lose, and it is at the top of its own to-do list. That combination is what an
+        honest evidence ledger looks like: short, and pointed at the places that hurt.
+      </p>
+
+      <p>
+        Holding data back sounds obvious until you have to do it.
+      </p>
+
+      <figure class="anim" id="fig-split">
+        <div class="anim__head">
+          <p class="anim__title">Split your data</p>
+          <p class="anim__sub">
+            Twelve measurements. Decide which ones the model may learn from, and which you keep
+            sealed to test it with.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The twelve measurements are
+          <strong>invented for this page</strong> and are not snow-crystal data. The labels follow
+          a plain pattern &mdash; plates at the low end, columns at the high end &mdash; with
+          exactly two planted exceptions, #5 and #9. The &ldquo;model&rdquo; is a
+          nearest-neighbour rule, chosen because it makes the in-sample trap visible in its purest
+          form: it scores perfectly on anything it was shown. The lesson it teaches is the one in
+          <code>project charter.md</code> &sect;2.7 on held-out observables.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Hold nothing back and the score is perfect and meaningless. Hold back the two awkward
+        points and the model gets them wrong, which is not a disaster &mdash; it is the first true
+        thing the exercise has told you. A test you might fail is the only kind that reports
+        anything.
+      </p>
+
+      <!-- =============================================================== 5 -->
+      <h2 id="refutable">What would have proved it wrong?</h2>
+
+      <p>
+        Everything in this chapter reduces to one portable question you can ask of any claim, in
+        any subject: <strong>what result would have shown this to be false?</strong> If you cannot
+        answer, the sentence is not a claim about the world. It might still be beautiful,
+        interesting, or true. It just is not evidence.
+      </p>
+
+      <p>
+        The project answered that question for itself in advance and in public. Its Phase 6 entry
+        lists what the model is expected to produce, in the charter, before the sweep existed:
+        &ldquo;Plates near &minus;2&nbsp;&deg;C, columns near &minus;5&nbsp;&deg;C, plates again
+        near &minus;15&nbsp;&deg;C, columns below &minus;30&nbsp;&deg;C.&rdquo; Four statements,
+        each of which a run could contradict.
+      </p>
+
+      <figure class="anim" id="fig-refute">
+        <div class="anim__head">
+          <p class="anim__title">What would have proved it wrong?</p>
+          <p class="anim__sub">
+            Five claims. For each, decide whether some result could have refuted it &mdash; then
+            see the actual result, or the absence of one.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Every claim and every verdict is quoted
+          or paraphrased from a named file in the project repository: <code>project charter.md</code>
+          &sect;2.7 and &sect;3.2, <code>docs/decisions/0003-libbrecht-attachment-kinetics.md</code>,
+          <code>docs/libbrecht-parameters.md</code>, <code>AGENTS.md</code> Rule 6, and
+          <code>docs/findings-ledger.md</code> entry A1.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Two of those five have no possible refutation attached, and the seductive one is
+        &ldquo;the crystal looks like a real snowflake&rdquo;. It feels like the strongest claim
+        on the list. It is the emptiest, because nobody has said what would count as not looking
+        like one &mdash; which is why the project's working rules ban the move outright
+        (<code>AGENTS.md</code>, Rule 6).
+      </p>
+
+      <p>
+        The same discipline has a quieter version, and it constrains numbers the project genuinely
+        produced. Before you can score a model you have to choose settings &mdash; where a
+        threshold sits, how big the domain is &mdash; and those come from exploratory runs. The
+        Phase 6 plan puts such runs in a separate tier of truth:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;<strong>Threshold values land from calibration probes, and those probes are not
+          evidence.</strong> &hellip; A probe's printed metrics are never citable as a gate
+          result.&rdquo;
+          <br><span class="figure__source">snowflake repository,
+          docs/plans/phase-6-nakaya-validation.md</span>
+        </p>
+      </blockquote>
+
+      <p>
+        A run used to <em>choose</em> a setting cannot later be quoted as proof the setting was
+        right. So the project keeps two classes of run, and prints the label on the probe when it
+        is created rather than when someone needs a supporting number.
+      </p>
+
+      <!-- =============================================================== 6 -->
+      <h2 id="safety-net">Why a fallback made the risk affordable</h2>
+
+      <p>
+        Here is the part that is about people rather than logic. Designing an experiment you
+        might lose is easy on paper. Running it is hard when losing means you have nothing to show
+        for a year of work. Under that pressure, honest people start finding reasons why the
+        awkward points do not really count.
+      </p>
+
+      <p>
+        The project removed the pressure before it started, by building a working crystal first
+        and refusing to delete it. The inherited threshold rule &mdash; the one with no temperature
+        in it &mdash; stayed in the codebase permanently as a second implementation behind the same
+        interface. It grows a beautiful crystal. It always will, whatever the physics does. The
+        charter is explicit that this is a scientific decision and not a nostalgic one:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;That floor matters: the hybrid genuinely might not reproduce the Nakaya flip, and
+          this project is meant to produce a delightful artifact regardless of whether it also
+          produces a scientific result.&rdquo;
+          <br><span class="figure__source">snowflake repository, project charter.md &mdash;
+          &sect;3.2, Phase 2a</span>
+        </p>
+      </blockquote>
+
+      <p>
+        Read alongside the decision that introduced the risk, the pairing is deliberate. Under
+        &ldquo;What it forecloses&rdquo;, ADR 0003 answers: &ldquo;Nothing, because
+        <code>GGThreshold</code> survives. If <code>LibbrechtKinetics</code> fails to reproduce the
+        Nakaya flip, the project still has a working, beautiful crystal to ship &hellip;&rdquo; The risky
+        experiment was made affordable by building the consolation prize first.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          If a project can only survive one outcome, it will find a way to report that outcome.
+          Guaranteeing a decent result whichever way the science lands is not a comfort blanket;
+          it is what keeps the science reportable.
+        </p>
+      </aside>
+
+      <p>
+        With the floor in place, the charter can afford to state the losing case as a normal
+        outcome rather than a catastrophe: &ldquo;A negative result is a result: if the model does
+        not reproduce the flip, that is a finding about the model, it is reported as one, and
+        GGThreshold still ships a beautiful crystal (Phase 2a). What is not permitted is quietly
+        tuning until the diagram matches and calling it validation&rdquo; (&sect;3.2, Phase 6).
+      </p>
+
+      <!-- =============================================================== 7 -->
+      <h2 id="your-turn">Your turn, before the result</h2>
+
+      <p>
+        Nothing here is finished, and the status is on the record rather than in anyone's head.
+        Phase 6 &mdash; the comparison against the diagram &mdash; is marked <strong>in
+        progress</strong> in <code>docs/PROGRESS.md</code>. Phase 7, the product layer this whole
+        thing is supposed to become, is marked <strong>not started</strong>. And the run that
+        would switch the diagram-informed dips back on has its own plan file whose status line
+        reads &ldquo;not started &mdash; blocked on ADR 0030 acceptance &hellip;&rdquo;, with the outcome
+        stated as unknown in advance: &ldquo;The arm is decisive in either direction, and the
+        direction it lands is a first either way&rdquo;
+        (<code>docs/plans/phase-6-sdak-arm.md</code>).
+      </p>
+
+      <p>
+        So commit. A prediction written after the result is not a prediction. Mind the asymmetry
+        between the two questions below, because this page has to obey its own rules: chapter 14
+        already told you how the first one turned out, so answering it tests your memory rather
+        than your judgement. The second one nobody can answer &mdash; not you, not the reviewers,
+        not the project.
+      </p>
+
+      <figure class="anim" id="fig-envelope">
+        <div class="anim__head">
+          <p class="anim__title">Seal your own envelope</p>
+          <p class="anim__sub">
+            Two questions. Answer both and seal them here, then come back and check yourself when
+            you reach chapter 28.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Question 1 restates the charter's Phase 6
+          test (&sect;3.2). Question 2 restates the goal of
+          <code>docs/plans/phase-6-sdak-arm.md</code>, whose status line reads &ldquo;not started
+          &mdash; blocked on ADR 0030 acceptance &hellip;&rdquo; &mdash; nobody knows that answer,
+          including the project. Your choices are stored in this browser and nothing is sent
+          anywhere, which also means nothing else can read them: the seal is for you to check
+          against chapter 28, not something chapter 28 will open for you.</span>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          One limitation belongs on this page rather than in a footnote. Every review this project
+          has had &mdash; including the two-reviewer process that checked this chapter &mdash; has
+          been a review by a language model. The project's own sharing rules say so in advance of
+          any publication: &ldquo;All reviews to date, internal and external-facing, are LLM
+          reviews; for publication that is a disclosed limitation, not a substitute&rdquo;
+          (<code>docs/stretch-sharing-and-investigation.md</code> &sect;4). The requirement they
+          set for themselves is that at least one human domain scientist reads any manuscript
+          before it is submitted anywhere. That has not happened yet. Nothing in this chapter
+          should be read as having passed expert human review, because it has not.
+        </p>
+      </aside>
+
+      <p>
+        The vocabulary is now complete. You can hold &ldquo;the model was given real physics&rdquo;
+        and &ldquo;the model was shown to reproduce reality&rdquo; apart; you can say where a
+        number came from; and you can tell a test from a fit. What remains is the machine that
+        makes a failure attributable &mdash; because a model that is allowed to be wrong is only
+        useful if, when it comes out wrong, you can tell whether the physics failed or the code
+        did.
+      </p>
+
+      <p class="handoff">
+        Which is why the project refused to write a single line of physics until the lattice
+        underneath it had been proved on its own: a physics bug on top of an unproven lattice is
+        two bugs wearing one coat.
+      </p>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./16-where-the-numbers-came-from.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">Where the Numbers Came From</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./18-never-physics-ahead-of-the-machinery.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">Never Physics Ahead of the Machinery</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Part Two describes a software project; every figure in it is original,
+      and every quotation is taken from a named file in that project's repository.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script src="../assets/anim-preregister.js"></script>
+
+<script>
+/* ==========================================================================
+   1. The rigged dartboard — the ready-made pre-registration strip.
+   ======================================================================= */
+(function () {
+  "use strict";
+  var root = document.getElementById("fig-dartboard");
+  if (!root || !window.Prereg || !window.Viz) return;
+  window.Prereg.mount(root);
+})();
+</script>
+
+<script>
+/* ==========================================================================
+   2. Fit anything — then run the other version.
+
+   Calibration mode reproduces the plan the charter rejected in section 2.7:
+   three knobs with no physical meaning, and a temperature axis assigned to
+   the results afterwards. Validation mode freezes the axis and reads the
+   habit out of the broad-facet nucleation parameters (via Prereg.habitAt
+   with the dips off), so nothing on screen can be slid.
+   ======================================================================= */
+(function () {
+  "use strict";
+
+  var root = document.getElementById("fig-designs");
+  if (!root || !window.Viz || !window.Prereg) return;
+
+  var body = root.querySelector(".anim__body");
+  var bar = root.querySelector(".anim__controls");
+  var head = root.querySelector(".anim__head");
+
+  var status = document.createElement("p");
+  status.className = "anim__sub";
+  status.setAttribute("role", "status");
+  status.style.fontWeight = "600";
+  status.style.marginTop = "0.35rem";
+  head.appendChild(status);
+
+  var N = 34;
+  var W = 720, H = 212;
+  var M = { top: 62, right: 20, bottom: 60, left: 104 };
+  var plotW = W - M.left - M.right;
+
+  /* Reference regimes, as encoded in ../assets/anim-preregister.js. Values
+     are depths below melting, so 3.3 means -3.3 C. */
+  var REAL = {
+    name: "the real diagram",
+    bands: [
+      { from: 0, to: 3.3, habit: "P" },
+      { from: 3.3, to: 9.9, habit: "C" },
+      { from: 9.9, to: 21.5, habit: "P" }
+    ],
+    bounds: [3.3, 9.9, 21.5]
+  };
+  /* Invented for this page, and labelled as invented everywhere it appears. */
+  var FAKE = {
+    name: "the invented diagram",
+    bands: [
+      { from: 0, to: 6, habit: "C" },
+      { from: 6, to: 17, habit: "P" },
+      { from: 17, to: 40, habit: "C" }
+    ],
+    bounds: [6, 17]
+  };
+  var AMBIG = 1.0;
+
+  function refHabit(target, t) {
+    for (var i = 0; i < target.bands.length; i++) {
+      var b = target.bands[i];
+      if (t > b.from && t <= b.to) return b.habit;
+    }
+    return null;
+  }
+  function counted(target, t) {
+    for (var i = 0; i < target.bounds.length; i++) {
+      if (Math.abs(t - target.bounds[i]) <= AMBIG) return false;
+    }
+    return true;
+  }
+
+  var mode = "cal";              // "cal" | "val"
+  var targetKey = "real";
+  var k1 = 1.35, k2 = 0.18, k3 = 0.0;
+  var start = 2.0, span = 30.0;
+  var matched = {};
+  var svg = null;
+  var legendBox = null;
+
+  function target() { return targetKey === "real" ? REAL : FAKE; }
+  function axStart() { return mode === "val" ? 1.5 : start; }
+  function axSpan() { return mode === "val" ? 34.0 : span; }
+  function tOf(i) { return axStart() + axSpan() * (i + 0.5) / N; }
+  function xOf(t) { return M.left + ((t - axStart()) / axSpan()) * plotW; }
+
+  function atlasHabit(i) {
+    var u = i / (N - 1);
+    return Math.sin(2 * Math.PI * (k1 * u + k2)) > k3 ? "P" : "C";
+  }
+  function modelHabit(i) {
+    if (mode === "val") return window.Prereg.habitAt(tOf(i), 4.5, 14.4, false);
+    return atlasHabit(i);
+  }
+
+  function score() {
+    var tg = mode === "val" ? REAL : target();
+    var n = 0, agree = 0;
+    for (var i = 0; i < N; i++) {
+      var t = tOf(i);
+      if (!counted(tg, t)) continue;
+      var r = refHabit(tg, t);
+      if (!r) continue;
+      n++;
+      if (modelHabit(i) === r) agree++;
+    }
+    return { n: n, agree: agree };
+  }
+
+  function matchCount() {
+    var c = 0;
+    if (matched.real) c++;
+    if (matched.fake) c++;
+    return c;
+  }
+
+  function label(x, y, text, fill, size, weight, anchor) {
+    var el = Viz.svgEl("text", {
+      x: x, y: y, fill: fill, "font-size": size || 11,
+      "font-weight": weight || 600, "text-anchor": anchor || "start",
+      "font-family": "var(--font-sans)"
+    });
+    el.textContent = text;
+    return el;
+  }
+
+  function render() {
+    if (svg) svg.remove();
+    if (legendBox) legendBox.remove();
+    var c = Viz.colors();
+    var tg = mode === "val" ? REAL : target();
+    var s = score();
+
+    /* record a completed match before anything that reads the counter draws */
+    if (mode === "cal" && s.n >= 8 && s.agree === s.n) matched[targetKey] = true;
+
+    svg = Viz.createSvg(body, W, H, {
+      label: "A strip of predicted crystal habits compared against a reference diagram of " +
+        "plate and column regions.",
+      desc: mode === "cal"
+        ? "Three abstract knobs set the model's pattern; two further controls decide which " +
+          "temperature each column stands for."
+        : "The temperature axis is fixed and the habit is computed from the broad-facet " +
+          "nucleation parameters, so nothing can be adjusted."
+    });
+
+    /* ---- reference bands ---- */
+    for (var bi = 0; bi < tg.bands.length; bi++) {
+      var b = tg.bands[bi];
+      var x0 = Math.max(M.left, xOf(b.from));
+      var x1 = Math.min(M.left + plotW, xOf(b.to));
+      if (x1 <= x0) continue;
+      var ink = b.habit === "P" ? c.series[0] : c.series[1];
+      svg.appendChild(Viz.svgEl("rect", {
+        x: x0, y: M.top, width: x1 - x0, height: 30,
+        fill: ink, "fill-opacity": 0.3, stroke: c.surface, "stroke-width": 1.5
+      }));
+      if (x1 - x0 > 46) {
+        svg.appendChild(label((x0 + x1) / 2, M.top + 19,
+          b.habit === "P" ? "plates" : "columns", c.inkSecondary, 11, 620, "middle"));
+      }
+    }
+
+    /* ---- model row ---- */
+    /* Habit is carried by a letter as well as by colour, so the row does not depend
+       on colour alone; the legend below the figure glosses P and C. */
+    var cw = plotW / N;
+    for (var i = 0; i < N; i++) {
+      var h = modelHabit(i);
+      svg.appendChild(Viz.svgEl("rect", {
+        x: M.left + i * cw + 0.4, y: M.top + 46, width: cw - 0.8, height: 30,
+        fill: h === "P" ? c.series[0] : c.series[1], "fill-opacity": 0.85
+      }));
+      if (cw >= 11) {
+        svg.appendChild(label(M.left + i * cw + cw / 2, M.top + 65, h,
+          c.surface, 10, 700, "middle"));
+      }
+      var t = tOf(i);
+      if (counted(tg, t) && refHabit(tg, t)) {
+        var ok = h === refHabit(tg, t);
+        svg.appendChild(Viz.svgEl("rect", {
+          x: M.left + i * cw + 0.4, y: M.top + 82, width: cw - 0.8, height: 8, rx: 2,
+          fill: ok ? c.good : c.critical, "fill-opacity": 0.9
+        }));
+      }
+    }
+
+    /* ---- row labels ---- */
+    svg.appendChild(label(M.left - 12, M.top + 19,
+      mode === "val" ? "nature" : tg.name, c.inkSecondary, 11, 660, "end"));
+    svg.appendChild(label(M.left - 12, M.top + 65, "model", c.inkSecondary, 11, 660, "end"));
+    svg.appendChild(label(M.left - 12, M.top + 90, "scored", c.muted, 10, 600, "end"));
+
+    /* ---- painted axis ---- */
+    var ticks = [2, 5, 10, 15, 20, 25, 30, 35];
+    for (var ti = 0; ti < ticks.length; ti++) {
+      var tv = ticks[ti];
+      var x = xOf(tv);
+      if (x < M.left - 1 || x > M.left + plotW + 1) continue;
+      svg.appendChild(Viz.svgEl("line", {
+        x1: x, x2: x, y1: M.top + 96, y2: M.top + 102,
+        stroke: c.rule, "stroke-width": 1.5
+      }));
+      svg.appendChild(label(x, M.top + 118, "−" + tv, c.muted, 10, 500, "middle"));
+    }
+    svg.appendChild(label(M.left + plotW / 2, H - 8,
+      mode === "val"
+        ? "Temperature (°C) — frozen before the run"
+        : "Temperature (°C) — you decide this afterwards",
+      c.inkSecondary, 12, 620, "middle"));
+
+    /* ---- headline ---- */
+    svg.appendChild(label(M.left, 28,
+      s.agree + " of " + s.n + " agree",
+      s.n > 0 && s.agree === s.n ? c.good : c.ink, 19, 700, "start"));
+
+    var badge = mode === "cal"
+      ? "reference diagrams matched: " + matchCount() + " of 2"
+      : "possible outcomes: agree, or disagree";
+    svg.appendChild(label(M.left + plotW, 28, badge, c.inkSecondary, 12, 620, "end"));
+
+    svg.appendChild(label(M.left, 48,
+      mode === "cal" ? "DESIGN A · calibration · cannot fail"
+                     : "DESIGN B · validation · can fail",
+      mode === "cal" ? c.critical : c.good, 11, 700, "start"));
+
+    /* ---- legend: colour never carries meaning on its own ---- */
+    legendBox = Viz.legend(body, [
+      { color: c.series[0], label: "P — plates" },
+      { color: c.series[1], label: "C — columns" }
+    ]);
+
+    /* ---- narration ---- */
+    if (mode === "cal") {
+      if (matchCount() === 2) {
+        status.textContent =
+          "You have now matched a real diagram and a diagram this page made up, with the same " +
+          "three meaningless knobs and the same movable axis. A method that fits both has told " +
+          "you nothing about either.";
+      } else if (matched[targetKey]) {
+        status.textContent =
+          "Matched. Now switch the reference to " +
+          (targetKey === "real" ? "the invented diagram" : "the real diagram") +
+          " and do it again — the method does not care which one is real.";
+      } else {
+        status.textContent =
+          "Three knobs with no physical meaning, plus a temperature axis you assign afterwards. " +
+          "Slide until the two rows line up; you are allowed to move the axis, not just the model.";
+      }
+    } else {
+      status.textContent =
+        "Same screen, two things removed: the axis is frozen and the knobs are gone, because " +
+        "temperature now enters the equations. " + s.agree + " of " + s.n +
+        " agree, and there is nothing you can slide.";
+    }
+  }
+
+  function buildControls() {
+    bar.textContent = "";
+
+    var modeCal = Viz.button(bar, "Design A: calibration", function () {
+      mode = "cal"; buildControls(); render();
+    }, { pressed: mode === "cal" });
+    var modeVal = Viz.button(bar, "Design B: validation", function () {
+      mode = "val"; buildControls(); render();
+    }, { pressed: mode === "val" });
+    modeCal.setAttribute("aria-pressed", String(mode === "cal"));
+    modeVal.setAttribute("aria-pressed", String(mode === "val"));
+
+    if (mode === "cal") {
+      Viz.button(bar, "Reference: " + (targetKey === "real" ? "real" : "invented"), function (b) {
+        targetKey = targetKey === "real" ? "fake" : "real";
+        b.textContent = "Reference: " + (targetKey === "real" ? "real" : "invented");
+        render();
+      });
+      Viz.slider(bar, {
+        label: "Knob 1", id: "fitk1", min: 0.5, max: 3, step: 0.05, value: k1,
+        format: function (v) { return v.toFixed(2); },
+        onInput: function (v) { k1 = v; render(); }
+      });
+      Viz.slider(bar, {
+        label: "Knob 2", id: "fitk2", min: 0, max: 1, step: 0.01, value: k2,
+        format: function (v) { return v.toFixed(2); },
+        onInput: function (v) { k2 = v; render(); }
+      });
+      Viz.slider(bar, {
+        label: "Knob 3", id: "fitk3", min: -0.8, max: 0.8, step: 0.02, value: k3,
+        format: function (v) { return v.toFixed(2); },
+        onInput: function (v) { k3 = v; render(); }
+      });
+      Viz.slider(bar, {
+        label: "Axis starts at", id: "fitstart", min: 0, max: 12, step: 0.5, value: start,
+        format: function (v) { return "−" + v.toFixed(1) + " °C"; },
+        onInput: function (v) { start = v; render(); }
+      });
+      Viz.slider(bar, {
+        label: "Axis spans", id: "fitspan", min: 8, max: 44, step: 0.5, value: span,
+        format: function (v) { return v.toFixed(1) + " °C"; },
+        onInput: function (v) { span = v; render(); }
+      });
+    } else {
+      var note = document.createElement("span");
+      note.className = "control";
+      note.style.color = "var(--ink-muted)";
+      note.textContent =
+        "No controls. The axis was registered before the run and the habit comes from the " +
+        "measured broad-facet nucleation parameters with the diagram-informed dips off.";
+      bar.appendChild(note);
+    }
+  }
+
+  buildControls();
+  render();
+  Viz.onThemeChange(render);
+})();
+</script>
+
+<script>
+/* ==========================================================================
+   3. Split your data. Twelve invented measurements; the reader chooses the
+   build/hold-back split and watches what each split can and cannot show.
+   ======================================================================= */
+(function () {
+  "use strict";
+
+  var root = document.getElementById("fig-split");
+  if (!root || !window.Viz) return;
+
+  var body = root.querySelector(".anim__body");
+  var bar = root.querySelector(".anim__controls");
+
+  /* Invented data. The pattern is plates below the middle, columns above it —
+     with exactly two exceptions, #5 and #9, which are flipped. Any single
+     threshold therefore misses those two points and only those two. */
+  var DATA = [
+    { x: 1, label: "P" }, { x: 2, label: "P" }, { x: 3, label: "P" },
+    { x: 4, label: "P" }, { x: 5, label: "C" }, { x: 6, label: "P" },
+    { x: 7, label: "C" }, { x: 8, label: "C" }, { x: 9, label: "P" },
+    { x: 10, label: "C" }, { x: 11, label: "C" }, { x: 12, label: "C" }
+  ];
+  var held = {};
+
+  var grid = document.createElement("div");
+  grid.style.display = "flex";
+  grid.style.flexWrap = "wrap";
+  grid.style.gap = "0.4rem";
+  grid.style.justifyContent = "center";
+  grid.style.margin = "0.25rem 0 0.9rem";
+  body.appendChild(grid);
+
+  var out = document.createElement("div");
+  out.setAttribute("role", "status");
+  out.style.maxWidth = "44rem";
+  out.style.margin = "0 auto";
+  body.appendChild(out);
+
+  /* Nearest build point wins; ties go to the lower x. */
+  function predict(x) {
+    var best = null, bestD = Infinity;
+    for (var i = 0; i < DATA.length; i++) {
+      if (held[DATA[i].x]) continue;
+      var d = Math.abs(DATA[i].x - x);
+      if (d < bestD) { bestD = d; best = DATA[i]; }
+    }
+    return best ? best.label : null;
+  }
+
+  function chipMarkup(d) {
+    var isHeld = !!held[d.x];
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "button";
+    btn.setAttribute("aria-pressed", String(isHeld));
+    btn.style.display = "flex";
+    btn.style.flexDirection = "column";
+    btn.style.alignItems = "center";
+    btn.style.gap = "0.15rem";
+    btn.style.minWidth = "4.6rem";
+    btn.style.padding = "0.4rem 0.35rem";
+    btn.style.borderStyle = isHeld ? "dashed" : "solid";
+    btn.style.opacity = isHeld ? "0.72" : "1";
+
+    var swatch = document.createElement("span");
+    swatch.style.display = "block";
+    swatch.style.width = "1.6rem";
+    swatch.style.height = "0.5rem";
+    swatch.style.borderRadius = "2px";
+    swatch.style.background = d.label === "P" ? "var(--series-1)" : "var(--series-2)";
+    btn.appendChild(swatch);
+
+    var name = document.createElement("span");
+    name.style.fontSize = "0.72rem";
+    name.style.fontWeight = "660";
+    name.textContent = "#" + d.x + " " + (d.label === "P" ? "plate" : "column");
+    btn.appendChild(name);
+
+    var state = document.createElement("span");
+    state.style.fontSize = "0.66rem";
+    state.style.color = "var(--ink-muted)";
+    state.textContent = isHeld ? "held back" : "build";
+    btn.appendChild(state);
+
+    btn.addEventListener("click", function () {
+      if (held[d.x]) delete held[d.x]; else held[d.x] = true;
+      draw();
+    });
+    return btn;
+  }
+
+  function draw() {
+    grid.textContent = "";
+    for (var i = 0; i < DATA.length; i++) grid.appendChild(chipMarkup(DATA[i]));
+
+    var buildN = 0, heldList = [];
+    for (var j = 0; j < DATA.length; j++) {
+      if (held[DATA[j].x]) heldList.push(DATA[j]); else buildN++;
+    }
+
+    out.textContent = "";
+    var p1 = document.createElement("p");
+    p1.style.margin = "0 0 0.5rem";
+    p1.style.fontWeight = "660";
+
+    var p2 = document.createElement("p");
+    p2.style.margin = "0";
+    p2.style.color = "var(--ink-secondary)";
+    p2.style.fontSize = "var(--step--1)";
+
+    if (buildN === 0) {
+      p1.textContent = "Nothing left to build on.";
+      p2.textContent = "A model needs at least one measurement to learn from. Put one back.";
+    } else if (heldList.length === 0) {
+      p1.textContent = "Fitted: 12 of 12 correct. Tested: no test was run.";
+      p1.style.color = "var(--status-critical)";
+      p2.textContent =
+        "The model reproduces every measurement it was shown, including the two that break " +
+        "the pattern — because it memorised them. A perfect score on your own build set " +
+        "is not a result about anything. This is the in-sample trap, made with your own hands.";
+    } else {
+      var right = 0, wrongIds = [];
+      for (var k = 0; k < heldList.length; k++) {
+        if (predict(heldList[k].x) === heldList[k].label) right++;
+        else wrongIds.push("#" + heldList[k].x);
+      }
+      p1.textContent = "Fitted: " + buildN + " of " + buildN + " correct. " +
+        "Held back: " + right + " of " + heldList.length + " correct.";
+      p1.style.color = right === heldList.length ? "var(--status-good)" : "var(--ink-primary)";
+      p2.textContent =
+        "The first number is always perfect, so it carries no information. The second is the " +
+        "only one that could have come out badly, so it is the only one worth reporting" +
+        (wrongIds.length
+          ? " — and it missed " + wrongIds.join(", ") + "."
+          : ". Try holding back #5 and #9, the two points that break the pattern.");
+    }
+    out.appendChild(p1);
+    out.appendChild(p2);
+  }
+
+  Viz.button(bar, "Hold back nothing", function () { held = {}; draw(); });
+  Viz.button(bar, "Hold back the two awkward points", function () {
+    held = {}; held[5] = true; held[9] = true; draw();
+  });
+  Viz.button(bar, "Hold back four", function () {
+    held = {}; held[2] = true; held[5] = true; held[9] = true; held[11] = true; draw();
+  });
+
+  draw();
+})();
+</script>
+
+<script>
+/* ==========================================================================
+   4. What would have proved it wrong? Five claims, sorted by the reader.
+   Every verdict is sourced to a named repository file.
+   ======================================================================= */
+(function () {
+  "use strict";
+
+  var root = document.getElementById("fig-refute");
+  if (!root || !window.Viz) return;
+
+  var body = root.querySelector(".anim__body");
+  var bar = root.querySelector(".anim__controls");
+
+  var CLAIMS = [
+    {
+      text: "Set the solver to −5 °C and a column grows.",
+      refutable: true,
+      why: "Refutable, and refuted: run it and measure the aspect ratio. The charter poses " +
+        "exactly this as the test — “Set −5 °C — does a column grow?” " +
+        "(project charter.md §2.7)."
+    },
+    {
+      text: "Sweep the abstract knobs, catalogue the shapes, then label the temperature axis " +
+        "so the catalogue matches the diagram.",
+      refutable: false,
+      why: "Not refutable. The axis is assigned after the shapes are known, so no arrangement " +
+        "of the world produces a mismatch — which is why the charter threw this design out " +
+        "as its own earlier plan (project charter.md §2.7)."
+    },
+    {
+      text: "The model's crystals at −5 °C sit inside the aspect-ratio range Libbrecht " +
+        "measured in the laboratory.",
+      refutable: true,
+      why: "Refutable: measure the model's aspect ratios and compare with his published range. " +
+        "That comparison was run, and is entry A1 of docs/findings-ledger.md — chapter 28 " +
+        "reports what it found."
+    },
+    {
+      text: "The crystal looks like a real snowflake.",
+      refutable: false,
+      why: "Not refutable as written, because nobody has said what would count as not looking " +
+        "like one. The project's working rules ban the move: “‘Looks right’ is " +
+        "not a result. If you eyeballed it, write that you eyeballed it” (AGENTS.md Rule 6)."
+    },
+    {
+      text: "Every number fed into the solver came from an instrument.",
+      refutable: true,
+      why: "Refutable, and false — though not because of the P3 dips, which the solver never " +
+        "loads. The curves it does run on are class P2: Libbrecht published σ₀(T) and A(T) " +
+        "only as plots, so docs/libbrecht-parameters.md §3 records them as readings digitized " +
+        "off Figure 4.5 at ±25%. The rule for interpolating between those readings is class " +
+        "P4 — “a P4 decision, not physics.” Provenance labels exist so this claim can be " +
+        "checked rather than assumed."
+    }
+  ];
+
+  var answered = {};
+
+  var list = document.createElement("div");
+  list.style.display = "grid";
+  list.style.gap = "0.7rem";
+  list.style.maxWidth = "46rem";
+  list.style.margin = "0 auto";
+  body.appendChild(list);
+
+  var tally = document.createElement("p");
+  tally.setAttribute("role", "status");
+  tally.style.textAlign = "center";
+  tally.style.fontWeight = "660";
+  tally.style.margin = "0.9rem 0 0";
+  body.appendChild(tally);
+
+  function updateTally() {
+    var n = 0, right = 0;
+    for (var k in answered) {
+      if (Object.prototype.hasOwnProperty.call(answered, k)) {
+        n++; if (answered[k]) right++;
+      }
+    }
+    tally.textContent = n === 0
+      ? "Five claims. Two of them cannot be refuted by any result at all."
+      : right + " of " + n + " sorted correctly.";
+  }
+
+  function card(claim, idx) {
+    var wrap = document.createElement("div");
+    wrap.style.border = "1px solid var(--border)";
+    wrap.style.borderRadius = "var(--radius)";
+    wrap.style.padding = "0.8rem 0.9rem";
+    wrap.style.background = "var(--surface-1)";
+
+    var q = document.createElement("p");
+    q.style.margin = "0 0 0.55rem";
+    q.style.fontWeight = "620";
+    q.textContent = "“" + claim.text + "”";
+    wrap.appendChild(q);
+
+    var row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.flexWrap = "wrap";
+    row.style.gap = "0.4rem";
+    wrap.appendChild(row);
+
+    var verdict = document.createElement("p");
+    verdict.style.margin = "0.6rem 0 0";
+    verdict.style.fontSize = "var(--step--1)";
+    verdict.style.color = "var(--ink-secondary)";
+    verdict.hidden = true;
+    wrap.appendChild(verdict);
+
+    function choose(said) {
+      answered[idx] = said === claim.refutable;
+      verdict.hidden = false;
+      verdict.textContent = (said === claim.refutable ? "✓ " : "✗ ") + claim.why;
+      verdict.style.borderLeft = "3px solid " +
+        (said === claim.refutable ? "var(--status-good)" : "var(--status-critical)");
+      verdict.style.paddingLeft = "0.6rem";
+      row.querySelectorAll("button").forEach(function (b) { b.disabled = true; });
+      updateTally();
+    }
+
+    Viz.button(row, "A result could refute this", function () { choose(true); });
+    Viz.button(row, "Nothing could refute this", function () { choose(false); });
+    return wrap;
+  }
+
+  for (var i = 0; i < CLAIMS.length; i++) list.appendChild(card(CLAIMS[i], i));
+  updateTally();
+
+  Viz.button(bar, "Start over", function () {
+    answered = {};
+    list.textContent = "";
+    for (var i = 0; i < CLAIMS.length; i++) list.appendChild(card(CLAIMS[i], i));
+    updateTally();
+  });
+})();
+</script>
+
+<script>
+/* ==========================================================================
+   5. Seal your own envelope. Stored in this browser only, under a key
+   nothing else on the site reads. The page therefore promises the reader
+   only what it can keep on its own: the answers stay locked here for the
+   reader to check against chapter 28 themselves.
+   ======================================================================= */
+(function () {
+  "use strict";
+
+  var root = document.getElementById("fig-envelope");
+  if (!root || !window.Viz) return;
+
+  var body = root.querySelector(".anim__body");
+  var bar = root.querySelector(".anim__controls");
+  var KEY = "snowcrystals:ch17-prediction";
+
+  var QUESTIONS = [
+    {
+      id: "q1",
+      text: "With the diagram-informed dips switched OFF, will the model reproduce the " +
+        "Nakaya diagram's habit reversals?",
+      note: "The charter's registered expectation: plates near −2 °C, columns near " +
+        "−5 °C, plates again near −15 °C, columns below −30 °C.",
+      options: ["It will reproduce them", "It will not"]
+    },
+    {
+      id: "q2",
+      text: "When the dips are switched ON, will they right the flip — will the model " +
+        "then produce columns near −5 °C?",
+      note: "This run has not happened. docs/plans/phase-6-sdak-arm.md is marked " +
+        "“not started”, and the project says the arm “is decisive in either " +
+        "direction, and the direction it lands is a first either way.”",
+      options: ["Yes, the flip is righted", "No, it still does not"]
+    }
+  ];
+
+  var picks = {};
+  var sealed = null;
+  var first = null;
+
+  function load() {
+    try {
+      var raw = window.localStorage.getItem(KEY);
+      if (!raw) return;
+      var parsed = JSON.parse(raw);
+      if (parsed && parsed.answers) {
+        sealed = parsed;
+        first = parsed.first || parsed;
+        picks = Object.assign({}, parsed.answers);
+      }
+    } catch (e) { /* storage unavailable: the widget still works, it just forgets */ }
+  }
+  function save() {
+    try { window.localStorage.setItem(KEY, JSON.stringify(sealed)); }
+    catch (e) { /* ignore */ }
+  }
+
+  function draw() {
+    body.textContent = "";
+    bar.textContent = "";
+
+    var box = document.createElement("div");
+    box.style.maxWidth = "44rem";
+    box.style.margin = "0 auto";
+    box.style.display = "grid";
+    box.style.gap = "0.8rem";
+    body.appendChild(box);
+
+    QUESTIONS.forEach(function (q) {
+      var card = document.createElement("div");
+      card.style.border = "1px solid var(--border)";
+      card.style.borderRadius = "var(--radius)";
+      card.style.padding = "0.8rem 0.9rem";
+      card.style.background = sealed ? "var(--surface-sunken)" : "var(--surface-1)";
+
+      var p = document.createElement("p");
+      p.style.margin = "0 0 0.35rem";
+      p.style.fontWeight = "620";
+      p.textContent = q.text;
+      card.appendChild(p);
+
+      var n = document.createElement("p");
+      n.style.margin = "0 0 0.55rem";
+      n.style.fontSize = "var(--step--1)";
+      n.style.color = "var(--ink-muted)";
+      n.textContent = q.note;
+      card.appendChild(n);
+
+      var row = document.createElement("div");
+      row.style.display = "flex";
+      row.style.flexWrap = "wrap";
+      row.style.gap = "0.4rem";
+      card.appendChild(row);
+
+      q.options.forEach(function (opt, oi) {
+        var b = Viz.button(row, opt, function () {
+          if (sealed) return;
+          picks[q.id] = oi;
+          draw();
+        }, { pressed: picks[q.id] === oi });
+        b.setAttribute("aria-pressed", String(picks[q.id] === oi));
+        if (sealed) b.disabled = true;
+      });
+      box.appendChild(card);
+    });
+
+    var st = document.createElement("p");
+    st.setAttribute("role", "status");
+    st.style.margin = "0";
+    st.style.fontSize = "var(--step--1)";
+    st.style.color = "var(--ink-secondary)";
+    box.appendChild(st);
+
+    if (sealed) {
+      st.textContent = "";
+      var strong = document.createElement("strong");
+      strong.textContent = "Sealed " + sealed.at + ".";
+      st.appendChild(strong);
+      st.appendChild(document.createTextNode(
+        " Your answers are locked and stored in this browser only — nothing is sent anywhere " +
+        "and no other page reads them. Check them yourself against chapter 28. Question 2 has " +
+        "no answer anywhere yet: the SDAK arm has not run."));
+      var changed = first && QUESTIONS.some(function (q) {
+        return first.answers[q.id] !== sealed.answers[q.id];
+      });
+      if (changed) {
+        var amend = document.createElement("span");
+        amend.style.display = "block";
+        amend.style.marginTop = "0.4rem";
+        amend.style.color = "var(--ink-muted)";
+        amend.textContent =
+          "Amended. Your first answers, sealed " + first.at + ", are kept on the record: " +
+          QUESTIONS.map(function (q) {
+            return q.options[first.answers[q.id]] || "no answer";
+          }).join("; ") + ".";
+        st.appendChild(amend);
+      }
+      Viz.button(bar, "Amend (your first answer stays on record)", function () {
+        sealed = null;
+        draw();
+      });
+      Viz.button(bar, "Clear", function () {
+        sealed = null; first = null; picks = {};
+        try { window.localStorage.removeItem(KEY); } catch (e) { /* ignore */ }
+        draw();
+      });
+    } else {
+      var done = QUESTIONS.every(function (q) { return picks[q.id] != null; });
+      st.textContent = done
+        ? "Both answered. Sealing writes them down; after that they cannot be quietly edited."
+        : "Answer both questions, then seal them.";
+      var seal = Viz.button(bar, "Seal my answers", function () {
+        if (!QUESTIONS.every(function (q) { return picks[q.id] != null; })) return;
+        var stamp = new Date().toISOString().slice(0, 10);
+        sealed = { at: stamp, answers: Object.assign({}, picks) };
+        if (!first) first = { at: stamp, answers: Object.assign({}, picks) };
+        sealed.first = first;
+        save();
+        draw();
+      });
+      seal.disabled = !done;
+    }
+  }
+
+  load();
+  draw();
+})();
+</script>
+
+</body>
+</html>

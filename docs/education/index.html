@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Snow Crystals — the science of how a snowflake is made</title>
-<meta name="description" content="A complete, fully cited course on snowflake science: why ice has six sides, where the arms come from, why the shape flips between plates and columns, and what nobody has worked out yet.">
+<title>Snow Crystals — the science of a snowflake, and an attempt to build one</title>
+<meta name="description" content="A fully cited course in two halves: the science of how a snowflake is made, and an attempt to grow one in software and test it against reality — including how that test was set up so it could fail, and what happened when it did.">
 <link rel="stylesheet" href="./assets/education.css">
 </head>
 <body data-depth="0">
@@ -35,7 +35,7 @@
     <p class="hero__lead">
       A snow crystal is built entirely out of water vapour, by nothing but physics, with no plan
       and no template anywhere in the process. This is the whole story of how that works &mdash;
-      from the shape of a single water molecule to the questions nobody has answered yet.
+      and then the story of somebody trying to build one in software and prove it wrong.
       Every claim is cited. Every diagram you can check.
     </p>
     <div class="hero__actions">
@@ -71,9 +71,8 @@
         <p class="toc-card__q">
           The chapters are in strict dependency order. Nothing is used before it is explained, so
           if you start at Chapter&nbsp;1 and keep going you will never hit a word you have not
-          already met. Close to four hours of reading end to end &mdash; longer if you stop to play
-          with the animations, which you should. Parts&nbsp;I&ndash;III make a natural first sitting
-          and IV&ndash;V a second.
+          already met. Longer if you stop to play with the interactives, which you should.
+          Part&nbsp;One (1&ndash;13) and Part&nbsp;Two (14&ndash;29) are each a natural sitting.
         </p>
       </div>
       <div class="toc-card" style="cursor:default">
@@ -119,9 +118,18 @@
   <section id="contents">
     <h2>Contents</h2>
     <p style="max-width:var(--measure);color:var(--ink-secondary)">
-      Thirteen chapters. The first three say what the object is; the next three build the two
-      forces that shape it; then you meet the shapes themselves, and the puzzle they pose. The
-      answer arrives only after you have seen how the measurements behind it were actually made.
+      Twenty-nine chapters in two halves. <strong>Part One</strong> (1&ndash;13) is the science:
+      what the object is, the two forces that shape it, the shapes themselves, and the puzzle
+      they pose &mdash; with the answer arriving only after you have seen how the measurements
+      behind it were made.
+    </p>
+    <p style="max-width:var(--measure);color:var(--ink-secondary)">
+      <strong>Part Two</strong> (14&ndash;29) is about an attempt to build one. Somebody wrote a
+      program to grow a snow crystal from that physics and then spent a year trying to prove it
+      wrong. It answers three questions: what the machine is meant to do, whether there is real
+      science in it and how you could possibly check, and what computer science makes both
+      possible. It ends with the result &mdash; which is a failure, and is the most useful thing
+      in it.
     </p>
 
     <div class="part-heading">
@@ -224,6 +232,129 @@
         <p class="toc-card__title">The Frontier</p>
         <p class="toc-card__q">What is still unknown about the thing landing on your sleeve &mdash; and why has so little of it been worked out?</p>
       </a></li>
+    </ul>
+
+    <h3 style="margin-top:3.5rem">Part Two &mdash; Building one, and trying to prove it wrong</h3>
+    <p style="max-width:var(--measure);color:var(--ink-secondary)">
+      From here on the subject changes. Part One was about snowflakes; Part Two is about an
+      attempt to grow one in software and hold it to the standard of an experiment. You do not
+      need to be able to program.
+    </p>
+
+    <div class="part-heading">
+      <span class="part-heading__num">Part VI &middot; What we tried to build</span>
+      <span class="part-heading__rule"></span>
+    </div>
+    <ul class="toc-grid">
+      <li><a class="toc-card" href="./chapters/14-what-we-are-building.html">
+        <span class="toc-card__num">Chapter 14</span>
+        <p class="toc-card__title">What We Are Building</p>
+        <p class="toc-card__q">Somebody built a machine to grow a snow crystal from real physics &mdash; and then spent a year trying to prove it wrong. What is the machine?</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/15-two-labels-on-every-number.html">
+        <span class="toc-card__num">Chapter 15</span>
+        <p class="toc-card__title">Two Labels on Every Number</p>
+        <p class="toc-card__q">How can a program honestly print &rsquo;&minus;15&nbsp;&deg;C&rsquo; and still refuse to say that this is what snowflakes do at &minus;15&nbsp;&deg;C?</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/16-where-the-numbers-came-from.html">
+        <span class="toc-card__num">Chapter 16</span>
+        <p class="toc-card__title">Where the Numbers Came From</p>
+        <p class="toc-card__q">Every number in the model carries a stamp saying where it came from &mdash; and one of the stamps means &rsquo;read off a graph, plus or minus twenty-five percent&rsquo;.</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/17-a-model-that-can-be-wrong.html">
+        <span class="toc-card__num">Chapter 17</span>
+        <p class="toc-card__title">A Model That Can Be Wrong</p>
+        <p class="toc-card__q">If some of your inputs were chosen so the answer would come out right, then getting the right answer proves nothing. So how do you build a model that is allowed to lose?</p>
+      </a></li>
+    </ul>
+
+    <div class="part-heading">
+      <span class="part-heading__num">Part VII &middot; Building a machine you could blame</span>
+      <span class="part-heading__rule"></span>
+    </div>
+    <ul class="toc-grid">
+      <li><a class="toc-card" href="./chapters/18-never-physics-ahead-of-the-machinery.html">
+        <span class="toc-card__num">Chapter 18</span>
+        <p class="toc-card__title">Never Physics Ahead of the Machinery</p>
+        <p class="toc-card__q">Eight rungs, and you may not skip one &mdash; because a physics bug sitting on an unproven lattice is two bugs wearing one coat.</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/19-why-the-grid-is-hexagonal.html">
+        <span class="toc-card__num">Chapter 19</span>
+        <p class="toc-card__title">Why the Grid Is Hexagonal</p>
+        <p class="toc-card__q">Before you can put physics on a grid, the grid itself has to earn a symmetry error of exactly zero &mdash; and a rectangular one never can.</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/20-the-flaw-in-the-last-bit.html">
+        <span class="toc-card__num">Chapter 20</span>
+        <p class="toc-card__title">The Flaw in the Last Bit</p>
+        <p class="toc-card__q">Six arms should be identical. They were not &mdash; because a computer adds the same six numbers in a different order depending on which arm you are standing on.</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/21-the-seam.html">
+        <span class="toc-card__num">Chapter 21</span>
+        <p class="toc-card__title">The Seam</p>
+        <p class="toc-card__q">Physics says the surface moves at so many metres per second. The grid only knows &rsquo;ice&rsquo; and &rsquo;not ice&rsquo;. Bridging those two is the whole job &mdash; and it is where temperature stops being a label.</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/22-when-the-numbers-stop-changing.html">
+        <span class="toc-card__num">Chapter 22</span>
+        <p class="toc-card__title">When the Numbers Stop Changing</p>
+        <p class="toc-card__q">The solver printed &rsquo;converged&rsquo;. It had converged on the wrong answer &mdash; and the error got worse the bigger the problem got, which is the worst way for a bug to behave.</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/23-walls-that-pretend-to-be-sky.html">
+        <span class="toc-card__num">Chapter 23</span>
+        <p class="toc-card__title">Walls That Pretend to Be Sky</p>
+        <p class="toc-card__q">A real crystal grows under an effectively infinite sky. A simulated one grows in a box &mdash; and the box was quietly feeding it.</p>
+      </a></li>
+    </ul>
+
+    <div class="part-heading">
+      <span class="part-heading__num">Part VIII &middot; Proving the machine, not the picture</span>
+      <span class="part-heading__rule"></span>
+    </div>
+    <ul class="toc-grid">
+      <li><a class="toc-card" href="./chapters/24-watching-it-starve.html">
+        <span class="toc-card__num">Chapter 24</span>
+        <p class="toc-card__title">Watching It Starve</p>
+        <p class="toc-card__q">The most beautiful phase of the project is the one where the eyeball is officially demoted from evidence to illustration.</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/25-testing-what-nobody-knows.html">
+        <span class="toc-card__num">Chapter 25</span>
+        <p class="toc-card__title">Testing What Nobody Knows the Answer To</p>
+        <p class="toc-card__q">You cannot check the answer when nobody knows the answer. So you check everything the answer must obey &mdash; and then you check that your checks are capable of failing.</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/26-fast-without-being-wrong.html">
+        <span class="toc-card__num">Chapter 26</span>
+        <p class="toc-card__title">Fast Without Being Wrong</p>
+        <p class="toc-card__q">A graphics card can update eight million cells at once. It also does arithmetic with nine fewer digits &mdash; so how do you know the fast answer is the same answer?</p>
+      </a></li>
+    </ul>
+
+    <div class="part-heading">
+      <span class="part-heading__num">Part IX &middot; The exam, and what it cost</span>
+      <span class="part-heading__rule"></span>
+    </div>
+    <ul class="toc-grid">
+      <li><a class="toc-card" href="./chapters/27-sealing-the-envelope.html">
+        <span class="toc-card__num">Chapter 27</span>
+        <p class="toc-card__title">Sealing the Envelope</p>
+        <p class="toc-card__q">Before the exam, they wrote down the marking scheme, hashed it, and arranged for changing it to cost seventeen hours of compute.</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/28-the-exam-result.html">
+        <span class="toc-card__num">Chapter 28</span>
+        <p class="toc-card__title">The Exam Result</p>
+        <p class="toc-card__q">Two hundred and four runs, twenty hours, three points out of ninety &mdash; and not one invalid run.</p>
+        <span class="toc-card__part">The result</span>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/29-what-it-cost-and-what-is-open.html">
+        <span class="toc-card__num">Chapter 29</span>
+        <p class="toc-card__title">What It Cost, and What Is Still Open</p>
+        <p class="toc-card__q">Then they found the runs had disobeyed their own protocol, threw the whole sweep away, and wrote down in advance that the corrected score would be worse.</p>
+      </a></li>
+    </ul>
+
+    <div class="part-heading">
+      <span class="part-heading__num">Reference</span>
+      <span class="part-heading__rule"></span>
+    </div>
+    <ul class="toc-grid">
       <li><a class="toc-card" href="./references.html">
         <span class="toc-card__num">Sources</span>
         <p class="toc-card__title">References</p>
@@ -233,6 +364,11 @@
         <span class="toc-card__num">Reference</span>
         <p class="toc-card__title">Glossary</p>
         <p class="toc-card__q">Every technical term on the site, defined in one line, with the chapter that introduces it.</p>
+      </a></li>
+      <li><a class="toc-card" href="./figures.html">
+        <span class="toc-card__num">Provenance</span>
+        <p class="toc-card__title">Figure list</p>
+        <p class="toc-card__q">Every source figure Part One cites, with the paper, figure number and page it came from.</p>
       </a></li>
     </ul>
   </section>
