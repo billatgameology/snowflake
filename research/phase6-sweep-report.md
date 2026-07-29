@@ -1,5 +1,34 @@
 # Phase 6 — the no-SDAK validation sweep (arm 1 of 2)
 
+> ## ⚠ RETRACTION — Finding 1's structural bound is WRONG (2026-07-29)
+>
+> **Finding 1 below, and the crossing counts it cites, are retracted.** An adversarial audit refuted
+> them and I reproduced the refutation independently. The measured results in this report — the
+> 3/90 headline, the per-regime table, the class totals, the diagram, the artifact hashes — are
+> **unaffected**. What is retracted is the *interpretation*.
+>
+> - The bound was computed on **σ₀** crossings. Habit depends on the ordering of
+>   `alphaHK = A·exp(−σ₀/σ_surf)`, which carries `A_prism`. With `A_prism` included, the printed
+>   broad-facet set has **three** αHK crossings (σ_surf ≈ 0.199–0.399 %) and the registered `CAK`
+>   set has three for σ_surf ∈ [0.00247, 0.00366] — a band containing **2 of these 204 points**.
+> - The count depends on σ_surf, so it is **not** "independent of diffusion, grid, seed, far field".
+> - The M1 count of five crossings is wrong: `log` in the printed dip formulas is base-10, giving
+>   **three** at 3.08 / 8.07 / 24.73.
+> - Three σ₀ crossings are also reachable **inside** the registered ±25 % per-anchor digitization
+>   band (6561 of 19683 corner combinations), so "the count is invariant under the band" is false.
+>   `docs/plans/phase-6-nakaya-validation.md:914-916` already recorded this while lines 495-497
+>   claimed the opposite — a self-contradiction that predates this work.
+>
+> **What survives.** Along this sweep's own constant-`f` ladders the αHK reversal count is 1 at
+> f = 0.10 and 0 at every larger `f`, never 3 — so the model as run still produces at most one
+> transition, and *this parameterization does not reproduce the Nakaya diagram* stands. The claim
+> that **no** broad-facet parameterization *could* does not.
+>
+> Other surviving audit findings against this document: §"What this is a test OF"'s −5 °C reframing
+> is cherry-picked (3 of 6 points in this sweep's own −5 °C row exceed ρ > 1 and none is a plate);
+> the claim that `CAK` and `CAK_A1` are "the same model" in `plates-cold` is falsified by the two
+> `points.json` files; and Finding 5's σ-contrast figures are `CAK_A1` values.
+
 The registered 204-point sweep, run to completion against the frozen protocol under the registered
 parameter set `CAK`.
 

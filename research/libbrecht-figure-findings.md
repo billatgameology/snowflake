@@ -1,5 +1,35 @@
 # What the figures say — reading the ten Libbrecht papers as images
 
+> # ⚠ RETRACTION — §1's structural claim is WRONG (2026-07-29)
+>
+> An adversarial audit refuted the central claim of §1, and I have reproduced the refutation
+> independently. **Do not cite §1's "structural bound" or the phrase "no broad-facet
+> parameterization can express three habit boundaries."** Two separate errors:
+>
+> **1. The bound was computed on the wrong quantity.** Habit depends on the ordering of
+> `alphaHK = A·exp(−σ₀/σ_surf)`, which carries `A_prism`. §1 counted crossings of **σ₀ alone**, and
+> `app/scripts/phase6-libbrecht-closed-forms.mjs` fed its crossing finder only the σ₀ pair, silently
+> discarding `A_prism`. Recomputed with `A_prism` included, the printed `2009.08404v2` broad-facet
+> set has **THREE** αHK crossings for σ_surf ≈ 0.199–0.399 %, alternating plate/column/plate/column.
+> The registered `CAK` set likewise has three for σ_surf ∈ [0.00247, 0.00366] — **and 2 of the 204
+> sweep points sit inside that band.** So there is no bound of one, and it is not "independent of
+> diffusion": the count is a function of σ_surf, which diffusion sets.
+>
+> **2. `log` in the M1 dip formulas is base-10, not natural.** Using `Math.log` gave five crossings
+> at 3.70/6.25/8.46/9.93/18.62. With `log10` as printed there are **three**, at
+> **3.08 / 8.07 / 24.73** — much closer to the reference boundaries 3.3 / 9.9 / 21.5 than the number
+> I published.
+>
+> **What still stands.** The sweep's measured numbers are unaffected. Along the sweep's own
+> constant-`f` ladders the αHK reversal count is 1 at f = 0.10 and 0 at every larger `f` — never 3 —
+> so the model *as actually run* still produces at most one transition, and "this parameterization
+> does not reproduce the Nakaya diagram" survives. What is refuted is the **necessity** argument:
+> that no broad-facet model *could*. That was the strongest thing I claimed and it is not true.
+>
+> §9's probes and §10's source quotes are separately qualified below; see also the audit's finding
+> that §10.1's ρ_aspect comparison is cherry-picked (the sweep's −5 °C row has 3 of 6 points above
+> ρ > 1 and none a plate, while §10.1 shows only the isometric point).
+
 `research/libbrecht-later-papers.md` obtained ten papers and stated plainly that their "contents
 are unread except where noted". This document is the reading. It is separate from that index
 because the index records *what was obtained* and this records *what it says*.
