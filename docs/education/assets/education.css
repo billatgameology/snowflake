@@ -528,15 +528,22 @@ img { max-width: 100%; height: auto; display: block; }
   text-align: center;
 }
 .figure__missing h4 {
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.6rem;
   font-size: var(--step-0);
   color: var(--ink-primary);
 }
+/* The heading stays centred; the body reads as prose, so it is left-aligned. */
 .figure__missing p {
   margin: 0 auto 0.6rem;
-  max-width: 46ch;
+  max-width: 52ch;
+  text-align: left;
   font-size: var(--step--1);
   color: var(--ink-secondary);
+}
+.figure__missing p:last-child {
+  margin-bottom: 0;
+  font-size: 0.78rem;
+  color: var(--ink-muted);
 }
 .figure__missing code {
   font-size: 0.78rem;

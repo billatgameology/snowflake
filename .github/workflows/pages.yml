@@ -1,0 +1,66 @@
+# Publish the education site to GitHub Pages.
+#
+# SCOPE — this deliberately uploads ONLY docs/education, not docs/ and not the
+# repository. The rest of docs/ is internal project material (PROGRESS, plans,
+# decision records, parameter notes) that is not written for a public audience,
+# and research/ is third-party copyrighted source material. Widening the upload
+# path would publish both.
+#
+# WHAT DOES NOT GET PUBLISHED, BY DESIGN
+# The figures the site cites are Kenneth G. Libbrecht's copyrighted work. They
+# live in the gitignored research/ cache, so they are not in the repository and
+# cannot reach Pages. Each one renders as a cited card pointing at the paper
+# instead. See docs/decisions/0004-research-media-not-versioned.md.
+
+name: Deploy education site to Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/education/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; let a newer commit supersede an in-flight run.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fail if any research media slipped into the site
+        run: |
+          # Decision 0004: no third-party media is ever committed. If an image
+          # ever appears under docs/education, stop rather than publish it.
+          found=$(find docs/education \
+            \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' \
+               -o -iname '*.gif' -o -iname '*.webp' -o -iname '*.pdf' \
+               -o -iname '*.mp4' \) -print)
+          if [ -n "$found" ]; then
+            echo "::error::Binary media found under docs/education — refusing to publish:"
+            echo "$found"
+            exit 1
+          fi
+          echo "No media files under docs/education. Safe to publish."
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/education
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

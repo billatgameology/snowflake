@@ -20,11 +20,28 @@
   const $ = (sel, root) => (root || document).querySelector(sel);
   const $$ = (sel, root) => Array.prototype.slice.call((root || document).querySelectorAll(sel));
 
-  /** Path prefix from this page back to the repository root. */
+  function depth() {
+    return parseInt(document.body.getAttribute("data-depth") || "0", 10);
+  }
+
+  /**
+   * Path prefix from this page back to the SITE root (docs/education/).
+   * Always valid, including on GitHub Pages where docs/education is published
+   * as the site root and nothing above it exists.
+   */
+  function siteRoot() {
+    return "../".repeat(depth());
+  }
+
+  /**
+   * Path prefix from this page back to the REPOSITORY root.
+   * Only meaningful when the site is opened from a checkout — docs/education/
+   * is two levels below the repo root. On a deployed site this walks above the
+   * document root, which is exactly why figure requests 404 there and fall back
+   * to the cited placeholder.
+   */
   function repoRoot() {
-    const depth = parseInt(document.body.getAttribute("data-depth") || "0", 10);
-    // docs/education/ is itself two levels below the repo root.
-    return "../".repeat(2 + depth);
+    return "../".repeat(2 + depth());
   }
 
   function el(tag, className, text) {
@@ -111,11 +128,15 @@
     const img = el("img");
     img.src = url;
     img.alt = alt;
-    img.loading = "lazy";
     img.decoding = "async";
+    // NOT loading="lazy". A lazy image below the fold is never fetched, so it
+    // never fires "error", so the citation card never replaces it — on the
+    // published site, where no figure resolves, that leaves blank frames where
+    // the citations should be. Eager loading costs nothing there (every request
+    // 404s immediately) and a chapter holds at most ~17 figures locally.
 
     img.addEventListener("error", function () {
-      frame.replaceWith(missingCard(src, figureId, source));
+      frame.replaceWith(missingCard(src, figureId, source, page));
     });
 
     frame.appendChild(img);
@@ -133,27 +154,54 @@
     fig.appendChild(cite);
   }
 
-  function missingCard(src, figureId, source) {
+  /**
+   * Shown in place of a source figure that is not available.
+   *
+   * This is the normal state on the published site: the figures are Kenneth
+   * Libbrecht's copyrighted work and are deliberately not redistributed, so the
+   * card's job is not to apologise but to send the reader to the real thing —
+   * the exact paper, figure number and page, one click away.
+   */
+  function missingCard(src, figureId, source, page) {
     const box = el("div", "figure__missing");
-    box.appendChild(el("h4", null, (figureId || "This figure") + " is not in your local cache"));
+    box.appendChild(el("h4", null, (figureId || "This figure") + " is in the source paper"));
 
     const p = el("p");
     p.appendChild(document.createTextNode(
-      "The source figure is third-party copyrighted material and is deliberately not " +
-      "committed to this repository. Everything else on this page — the explanation, the " +
-      "original diagrams, and the animation — works without it."
+      "We cite this figure but do not reproduce it here — it is the author's copyrighted work. " +
+      "Everything else on the page is ours and works without it: the explanation, the original " +
+      "diagrams, and every animation."
     ));
     box.appendChild(p);
 
-    const p2 = el("p");
-    p2.appendChild(document.createTextNode("Expected at "));
-    p2.appendChild(el("code", null, src));
-    p2.appendChild(document.createTextNode(". See "));
-    const link = el("a", null, "docs/education/FIGURES.md");
-    link.href = repoRoot() + "docs/education/FIGURES.md";
-    p2.appendChild(link);
-    p2.appendChild(document.createTextNode(" to regenerate it, or read it in the source: " + source + "."));
-    box.appendChild(p2);
+    const where = el("p");
+    const strong = el("strong", null, "Find it at: ");
+    where.appendChild(strong);
+    where.appendChild(document.createTextNode(
+      source + (figureId ? ", " + figureId : "") + (page ? ", " + page : "")
+    ));
+    box.appendChild(where);
+
+    // arXiv id lives inside the citation string, e.g. "…(arXiv:1910.06389v2)"
+    const arxiv = /arXiv:\s*([0-9]{4}\.[0-9]{4,5})(v[0-9]+)?/i.exec(source || "");
+    if (arxiv) {
+      const open = el("p");
+      const a = el("a", null, "Open the paper on arXiv →");
+      a.href = "https://arxiv.org/abs/" + arxiv[1];
+      a.rel = "noopener";
+      open.appendChild(a);
+      box.appendChild(open);
+    }
+
+    const note = el("p");
+    note.appendChild(document.createTextNode("Reading from a checkout? The image belongs at "));
+    note.appendChild(el("code", null, src));
+    note.appendChild(document.createTextNode(" — see "));
+    const link = el("a", null, "FIGURES.md");
+    link.href = siteRoot() + "FIGURES.md";
+    note.appendChild(link);
+    note.appendChild(document.createTextNode(" for how to restore it."));
+    box.appendChild(note);
 
     return box;
   }
@@ -281,5 +329,8 @@
   }
 
   // expose for animation modules
-  window.SnowSite = { repoRoot: repoRoot, currentTheme: currentTheme, $: $, $$: $$, el: el };
+  window.SnowSite = {
+    repoRoot: repoRoot, siteRoot: siteRoot,
+    currentTheme: currentTheme, $: $, $$: $$, el: el,
+  };
 })();

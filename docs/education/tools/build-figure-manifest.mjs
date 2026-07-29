@@ -28,6 +28,9 @@ import { join, resolve } from "node:path";
 const REPO = resolve(import.meta.dirname, "../../..");
 const CHAPTERS = join(REPO, "docs/education/chapters");
 const OUT = join(REPO, "docs/education/FIGURES.md");
+// A rendered twin of the manifest, so the provenance record is readable on the
+// published site — GitHub Pages serves .md as plain text.
+const OUT_HTML = join(REPO, "docs/education/figures.html");
 
 /** Pull every <figure class="figure" data-…> block out of a chapter file. */
 function extractFigures(html, chapterFile) {
@@ -161,6 +164,132 @@ lines.push("");
 
 writeFileSync(OUT, lines.join("\n"), "utf8");
 
+/* ---------------------------------------------------------------- the page -- */
+
+const esc = (s) =>
+  String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+const arxivLink = (source) => {
+  const m = /arXiv:\s*([0-9]{4}\.[0-9]{4,5})(v[0-9]+)?/i.exec(source || "");
+  return m ? `<a href="https://arxiv.org/abs/${m[1]}" rel="noopener">arXiv:${m[1]}${m[2] || ""}</a>` : "";
+};
+
+const tableRows = figures
+  .map((f) => {
+    const link = arxivLink(f.source);
+    const chapters = f.chapters
+      .map((c) => `<a href="./chapters/${esc(c)}">${esc(c.replace(/^\d+-/, "").replace(/\.html$/, ""))}</a>`)
+      .join(", ");
+    return `            <tr>
+              <td><strong>${esc(f.figure || "—")}</strong></td>
+              <td>${esc(f.source || "—")}${link ? `<br>${link}` : ""}</td>
+              <td>${esc(f.page || "—")}</td>
+              <td>${chapters}</td>
+            </tr>`;
+  })
+  .join("\n");
+
+const page = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figure provenance — Snow Crystals</title>
+<meta name="description" content="Every source figure this site cites, with the paper, figure number and page it came from — and why the images themselves are not published here.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="./assets/education.css">
+</head>
+<body data-depth="0">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="./index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Figure provenance</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+  <main id="main">
+    <div class="prose">
+
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Generated</p>
+        <h1>Figure provenance</h1>
+        <p class="chapter-header__question">
+          Every source figure this site cites, and where to find it.
+        </p>
+      </header>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          Why the images are not here
+        </p>
+        <p>
+          These ${figures.length} figures are Kenneth&nbsp;G.&nbsp;Libbrecht&rsquo;s copyrighted work.
+          This site cites them but does not republish them, so on the published site each one
+          appears as a card naming the paper, figure and page rather than as an image. Every
+          explanation, diagram and animation on the site is ours and does not depend on them.
+        </p>
+      </aside>
+
+      <p>
+        If you are reading from a repository checkout with the local research cache present, the
+        figures render inline instead. The canonical record is
+        <a href="./FIGURES.md">FIGURES.md</a>, which also carries each file&rsquo;s size and SHA-256
+        so a local copy can be verified byte for byte.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>${figures.length} figures cited across ${chapterFiles.length} chapters.</caption>
+          <thead>
+            <tr><th>Figure</th><th>Source</th><th>Page</th><th>Cited in</th></tr>
+          </thead>
+          <tbody>
+${tableRows}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="./index.html">Snow Crystals</a>. Source figures are
+      &copy; Kenneth&nbsp;G.&nbsp;Libbrecht and are cited, not redistributed.
+    </p>
+    <p><a href="./index.html">Contents</a> &middot; <a href="./references.html">References</a> &middot; <a href="./glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="./assets/site.js"></script>
+</body>
+</html>
+`;
+
+writeFileSync(OUT_HTML, page, "utf8");
+
 console.log(`Wrote ${OUT}`);
+console.log(`Wrote ${OUT_HTML}`);
 console.log(`  ${figures.length} figures referenced across ${chapterFiles.length} chapters`);
 console.log(`  ${present} present locally, ${figures.length - present} absent`);
