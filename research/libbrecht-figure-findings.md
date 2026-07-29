@@ -430,6 +430,43 @@ behind them (§2) while `CAK_A1` has M1's documented simplification behind it (�
 record the expected score change *in advance*, precisely so that no later reader can select the
 parameterization by its score.
 
+### 9.2 The seed probe: a knob that moves AR a great deal and still cannot help
+
+**Also a calibration probe, not gate evidence.** Five seed geometries at the two registered
+discriminating conditions — warm −5 °C σ∞ 0.0075 (Nakaya `columns`, needs AR ≥ 1.5) and cold −15 °C
+σ∞ 0.02355 (Nakaya `plates-cold`, needs AR ≤ 0.6667) — all `CAK_A1`, N = 48, extent 21, Δx 0.35,
+v6, monopole-matched. Every run clean: `symErr = 0`, `deltaSymClean = true`.
+
+| seed r/t | seed AR | −5 °C AR (needs ≥ 1.5) | −15 °C AR (needs ≤ 0.6667) |
+|---|---|---|---|
+| 4 / 1 wide plate | 0.111 | 0.2729 plate | **0.7895** neutral ← closest to agreeing |
+| 2 / 1 **registered** | 0.500 | 0.3821 plate | 1.1053 neutral |
+| 1 / 1 small plate | 0.333 | 0.4913 plate | 1.2353 neutral |
+| 2 / 5 thick | 1.000 | 0.6842 neutral | 1.4000 neutral |
+| 1 / 5 needle-like | 1.667 | **0.7895** neutral ← closest | 1.6154 **column** |
+
+**The needle-like seed does produce a genuine column — at −15 °C, where a plate is required.**
+That is worth stating plainly because it refutes the loose form of the structural claim: seed
+geometry is not a small knob. It moves AR by **+0.41 at −5 °C and +0.51 at −15 °C** between the
+registered seed and the needle.
+
+**But it moves both ends the same way, and the two bands demand opposite moves.** −5 °C needs AR
+raised past 1.5; −15 °C needs it lowered below 0.667. A seed is temperature-independent, so it
+slides every point together. The consequence is visible in the table: the seed that comes closest
+at −15 °C (wide plate, 0.7895) is the **worst** at −5 °C (0.2729), and the seed that comes closest
+at −5 °C manufactures the **wrong habit** at −15 °C. **Not one of the five agrees at either
+temperature.**
+
+**So the structural bound of §1 is about SENSE, not magnitude, and should always be stated that
+way.** Diffusion, grid, seed, far field and domain can all move the aspect ratio, some of them a
+lot. What none of them can do is **reverse the plate/column ordering as a function of
+temperature** — and the diagram requires that three times. Only a temperature-dependent change in
+the *relative* basal/prism kinetics can, which is what the SDAK dips are.
+
+This also sharpens the seed systematic already recorded in `phase6-convergence.md` §5: it is the
+largest single systematic measured in Phase 6, and it is now measured to be **incapable of
+producing agreement at either discriminating condition, in either direction**.
+
 ---
 
 ## 10. What the full text sweep added — three findings that change the framing
