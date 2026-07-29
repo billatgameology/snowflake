@@ -20,6 +20,11 @@ discoveries. The sweep also surfaced three uncited Libbrecht papers that bear di
 Phase 6 parameter table (§2.1 below) — that finding outranks everything else in this file in
 practical value.
 
+**Running ledger (added 2026-07-28):** [findings-ledger.md](findings-ledger.md) accumulates
+the share-worthy findings and their evidence as they land — reproductions of measured
+reality, firsts with supporting evidence, and queued items. This file remains the
+strategy-and-gates register; the ledger is the growing inventory it gates.
+
 ---
 
 ## 1. The four candidate sharing items, after the novelty sweep
