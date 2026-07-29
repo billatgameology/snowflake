@@ -82,6 +82,7 @@ import {
   FAR_FIELD_STOP_FRACTION,
   float64SmootherDriftAbsLimit,
 } from "@vcc/solver-cpu";
+import { GROW_LK_DEFAULTS } from "./grow-lk-defaults.ts";
 import { gate3 } from "./gate3.ts";
 import { gate4a } from "./gate4a.ts";
 import { gate4b } from "./gate4b.ts";
@@ -524,28 +525,14 @@ interface GrowLKOptions {
 }
 
 function parseLKArgs(argv: string[]): GrowLKOptions {
+  // Sourced from GROW_LK_DEFAULTS so the Phase 6 preflight can CHECK these against the frozen
+  // protocol. Seven of them reach a sweep run through this object rather than the command line —
+  // see the header of runner/src/grow-lk-defaults.ts and ADR 0031.
   const options: GrowLKOptions = {
-    surfacePolicy: "aggregate-hv-g1h1-v5",
-    // Default unchanged so every executed Phase 2b/4/5 command replays byte for byte.
-    farField: "dirichlet",
+    ...GROW_LK_DEFAULTS,
     tempC: null,
     sigmaInf: null,
-    dims: { nx: 96, ny: 96, nz: 96 },
-    dxUm: 0.35,
-    paramSet: "CAK_A1",
-    cfl: 0.1,
-    tol: 1e-9,
-    steps: 100_000,
-    targetExtent: 60,
-    seed: 1,
-    noise: 0,
     out: null,
-    metricsEvery: 100,
-    pressurePa: 101325,
-    seedRadius: 2,
-    seedThickness: 1,
-    relaxMaxSweeps: 200_000,
-    divTol: 1e-7,
   };
   for (let i = 0; i < argv.length; i++) {
     const flag = argv[i];

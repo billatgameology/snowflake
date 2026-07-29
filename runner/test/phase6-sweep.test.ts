@@ -6,6 +6,8 @@ import { describe, expect, it } from "vitest";
 import {
   phase6Aggregate,
   phase6ClassifyHabit,
+  phase6CommandFlagFailures,
+  phase6DefaultBackedParameters,
   phase6DomainSpotCheckPasses,
   phase6PointCommand,
   phase6ScorePoint,
@@ -15,9 +17,11 @@ import {
 } from "../src/phase6-sweep.ts";
 import {
   PHASE6_FAR_FIELD,
+  PHASE6_PARAM_SET,
   PHASE6_PROTOCOL_SHA256,
   PHASE6_SURFACE_POLICY,
   phase6SweepGrid,
+  type Phase6GridPoint,
 } from "../src/phase6-protocol.ts";
 
 const cleanResult = (aspectRatio: number): Phase6PointResult => ({
@@ -201,5 +205,47 @@ describe("the domain spot-check", () => {
       { attached: 5159, modelClass: "neutral" },
     );
     expect(verdict.passed).toBe(true);
+  });
+});
+
+describe("the ADR 0031 defect class is checked, not assumed", () => {
+  it("every registered value reaching a run via a CLI default equals the registered value", () => {
+    // ADR 0031: paramSet was registered, was not passed, and the default disagreed -- so 204 runs
+    // violated a freeze row while every hash and test stayed green. Seven more parameters sit in
+    // that same position today and all happen to agree. This test is what makes that a checked
+    // invariant instead of luck: change either side and it fails here rather than in the evidence.
+    const checked = phase6DefaultBackedParameters();
+    for (const p of checked) {
+      expect(p.fromDefault, `${p.name} default vs registered`).toBe(p.registered);
+    }
+    // Coverage guard: four of these have NO CLI flag, so the default is the only path a run can
+    // take. If a flag is ever added for one, this count changes and the table must be revisited.
+    expect(checked.filter((p) => !p.hasFlag).map((p) => p.name)).toEqual([
+      "pressurePa",
+      "seedRadius",
+      "seedThickness",
+      "relaxMaxSweeps",
+    ]);
+    expect(checked.length).toBe(8);
+  });
+
+  it("the built child command carries every flag the protocol requires", () => {
+    const command = phase6PointCommand(phase6SweepGrid()[0] as Phase6GridPoint);
+    expect(phase6CommandFlagFailures(command)).toEqual([]);
+    // Checked by value, not just presence -- presence alone is what let CAK_A1 through.
+    const at = command.indexOf("--param-set");
+    expect(at).toBeGreaterThan(0);
+    expect(command[at + 1]).toBe(PHASE6_PARAM_SET);
+  });
+
+  it("actually FAILS when a required flag is missing or carries the wrong value", () => {
+    // A check that cannot fail is not a check. Both mutations are the real historical defect.
+    const good = phase6PointCommand(phase6SweepGrid()[0] as Phase6GridPoint);
+    const at = good.indexOf("--param-set");
+    const dropped = [...good.slice(0, at), ...good.slice(at + 2)];
+    expect(phase6CommandFlagFailures(dropped).length).toBeGreaterThan(0);
+    const wrong = [...good];
+    wrong[at + 1] = "CAK_A1";
+    expect(phase6CommandFlagFailures(wrong).some((f) => f.includes("CAK_A1"))).toBe(true);
   });
 });

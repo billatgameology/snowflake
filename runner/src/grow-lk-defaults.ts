@@ -1,0 +1,94 @@
+// The `grow-lk` CLI defaults, factored out so a frozen-protocol preflight can CHECK them.
+//
+// Why this module exists. ADR 0031 found that the Phase 6 sweep ran `CAK_A1` while the protocol
+// registered an interpolated `A_prism`, because `phase6PointCommand` emitted no `--param-set` and
+// the CLI default supplied one. The audit of 2026-07-29 then found the same shape of hole is still
+// open in seven more places: `relaxTol`, `divTol`, `noiseEpsilon`, `rngSeed`, `pressurePa`,
+// `seedRadius`, `seedThickness` and `relaxMaxSweeps` all reach a sweep run through this defaults
+// object, and four of them have no CLI flag at all so they CANNOT be passed explicitly.
+//
+// Every one of them currently MATCHES its registered value — the sweep was lucky, not correct by
+// construction. `phase6AssertDefaultsMatchProtocol` in phase6-sweep.ts turns that luck into a
+// checked invariant: if anyone edits a default here, or edits a registered value there, preflight
+// fails and no evidence is produced.
+//
+// It lives in its own module because `main.ts` imports `phase6-sweep.ts`, so `phase6-sweep.ts`
+// cannot import `main.ts` back without a cycle.
+//
+// **Changing any value here is a protocol-affecting change** even though this file is not hashed:
+// a value that reaches a run is a value the protocol registers. Route it through an ADR.
+
+import type { FarFieldCondition, LKSurfacePolicy } from "@vcc/core";
+
+export interface GrowLKDefaults {
+  readonly surfacePolicy: LKSurfacePolicy;
+  readonly farField: FarFieldCondition;
+  readonly dims: { readonly nx: number; readonly ny: number; readonly nz: number };
+  readonly dxUm: number;
+  readonly paramSet: "CAK_A1" | "CAK";
+  readonly cfl: number;
+  readonly tol: number;
+  readonly steps: number;
+  readonly targetExtent: number;
+  readonly seed: number;
+  readonly noise: number;
+  readonly metricsEvery: number;
+  readonly pressurePa: number;
+  readonly seedRadius: number;
+  readonly seedThickness: number;
+  readonly relaxMaxSweeps: number;
+  readonly divTol: number;
+}
+
+/**
+ * The parser's starting point. `surfacePolicy` and `farField` are deliberately the PRE-Phase-6
+ * values so every executed Phase 2b/4/5 command still replays byte for byte; Phase 6 overrides
+ * both explicitly on the command line, which is why the mismatch is safe here and checked there.
+ */
+export const GROW_LK_DEFAULTS: GrowLKDefaults = {
+  surfacePolicy: "aggregate-hv-g1h1-v5",
+  farField: "dirichlet",
+  dims: { nx: 96, ny: 96, nz: 96 },
+  dxUm: 0.35,
+  paramSet: "CAK_A1",
+  cfl: 0.1,
+  tol: 1e-9,
+  steps: 100_000,
+  targetExtent: 60,
+  seed: 1,
+  noise: 0,
+  metricsEvery: 100,
+  pressurePa: 101_325,
+  seedRadius: 2,
+  seedThickness: 1,
+  relaxMaxSweeps: 200_000,
+  divTol: 1e-7,
+} as const;
+
+/**
+ * Parameters the Phase 6 sweep passes EXPLICITLY on every child command line. Anything registered
+ * by the protocol and absent from this list reaches the run through `GROW_LK_DEFAULTS` and must be
+ * checked against the registered value instead.
+ */
+export const PHASE6_EXPLICIT_FLAGS = [
+  "--temp-c",
+  "--sigma-inf",
+  "--dims",
+  "--dx-um",
+  "--cfl",
+  "--target-extent",
+  "--surface-policy",
+  "--far-field",
+  "--param-set",
+] as const;
+
+/**
+ * Registered parameters that have NO CLI flag, so they can only ever arrive as a default. Listed
+ * by name so the preflight check cannot silently stop covering one.
+ */
+export const PHASE6_UNFLAGGED_PARAMETERS = [
+  "pressurePa",
+  "seedRadius",
+  "seedThickness",
+  "relaxMaxSweeps",
+] as const;
