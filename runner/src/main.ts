@@ -106,7 +106,7 @@ import {
 import { occupancyTopDownPGM, propensitySlicePGM, vaporSlicePGM } from "./pgm.ts";
 import {
   PHASE6_CROSSPLATFORM_FIXTURE,
-  phase6FixtureSigmaInf,
+  phase6FixturePointSigmaInf,
   phase6LibmDigest,
   phase6LibmFingerprint,
 } from "./phase6-crossplatform.ts";
@@ -1222,15 +1222,25 @@ function phase6Fixture(): void {
   console.log("");
   console.log("tier 2 — run each of these and compare the habit class, not the digits:");
   const f = PHASE6_CROSSPLATFORM_FIXTURE;
+  // Two bugs fixed here 2026-07-29, both found by audit. (1) sigma_inf came from
+  // phase6FixtureSigmaInf, which uses the TIER-1 sampling fraction 0.15 for every temperature —
+  // wrong for 3 of the 4 tier-2 points, which sit at f = 0.10/0.10/0.25/0.15. It must come from
+  // each point's own registered fraction. (2) --param-set was omitted, so an operator pasting
+  // these would silently get the CLI default CAK_A1 — the exact defect ADR 0031 exists to fix —
+  // and produce a run not comparable to the baseline.
   for (const point of f.points) {
     console.log(
-      `  node runner/src/main.ts grow-lk --temp-c ${point.tempC} ` +
-        `--sigma-inf ${phase6FixtureSigmaInf(point.tempC).toFixed(6)} ` +
+      `  # ${point.label}` +
+        `\n  node runner/src/main.ts grow-lk --temp-c ${point.tempC} ` +
+        `--sigma-inf ${phase6FixturePointSigmaInf(point.label).toFixed(6)} ` +
         `--dims ${f.dims.nx},${f.dims.ny},${f.dims.nz} --dx-um ${f.dxUm} --cfl ${f.cflFill} ` +
         `--target-extent ${f.targetExtent} --surface-policy ${f.surfacePolicy} ` +
-        `--far-field ${f.farField} --metrics-every 100000`,
+        `--far-field ${f.farField} --param-set ${f.paramSet} --metrics-every 100000`,
     );
   }
+  console.log("");
+  console.log("--param-set is MANDATORY: omitting it falls back to CAK_A1 and the run is not");
+  console.log("comparable to the registered baseline. See docs/phase6-cross-platform-control.md.");
 }
 
 const [command, ...rest] = process.argv.slice(2);

@@ -102,9 +102,19 @@ there:
 > compared to its value on broad basal facets."
 
 His own −5 °C substrate experiments found `0.1 < ρ_aspect < 1` with "Columnar crystals (with
-ρ_aspect > 1) **were absent**" and "many blockier, nearly isometric" (p13). `ρ_aspect = H/R` is
-thickness/width — the same quantity as our `AR`. So this arm is expected to reproduce his
-broad-facet *measurements* while disagreeing with the *diagram*.
+ρ_aspect > 1) **were absent**" and "many blockier, nearly isometric" (p13).
+
+> **CORRECTED 2026-07-29.** Two things were wrong here. (i) `ρ_aspect = H/R` equals our `AR` only if
+> his `R` is the circumradius; our `tExtent` is the corner-to-corner diameter, so an equal-area
+> radius would make ρ ~10% larger. He does not define it, so the equivalence is **unverified**.
+> (ii) The claim that "this arm is expected to reproduce his broad-facet measurements" is
+> **WITHDRAWN**: this sweep's own −5 °C row is AR 0.7895 / 1.0000 / 1.0000 / 1.1053 / 1.2353 /
+> 1.3125 — **all six neutral, three above his ρ > 1 threshold, not one plate.** He found plates and
+> no columns; the model produces neither. The honest statement is that at −5 °C the model produces
+> **no habit at all**, disagreeing with the diagram *and* with his measurements. Note also that the
+> same paper reports columns at −5 °C in free fall and on a substrate started at high σ∞ (p16), so
+> his position is conditional on growth history rather than a flat "no columns". See
+> `libbrecht-figure-findings.md` §10.1.
 
 ## The measured diagram
 
@@ -180,7 +190,7 @@ cannot produce three transitions — and it is measured, not argued. It now hold
 parameter sets, which is stronger than holding under one: `research/libbrecht-figure-findings.md`
 §1 computes that *every* printed broad-facet parameterization has exactly one crossing (ours at
 −10.00 °C, `2306.13087v1` M2 at −8.39, `2009.08404v2` Eq. 3 at −10.92), while M1 with both SDAK
-dips has five.
+dips has ~~five~~ **three, at 3.08 / 8.07 / 24.73** (`log` is base-10 — see the retraction above).
 
 **2. Zero invalid runs in 204, in both sweeps.** Every point converged under the dual criterion,
 held `symErr = 0` with noise off, kept every per-tick attachment delta D6h-invariant, and cleared
@@ -198,7 +208,10 @@ same point from the source side.
 plate held to −8/−9 °C across f = 0.10–0.40; under `CAK` it reaches only −4/−3/−2 °C and vanishes
 entirely at f ≥ 0.40. The cold end is unchanged — column onset stays at −19/−23 °C — exactly as
 expected, since `2009.08404v2` Fig. 2's caption states `A_basal ≈ A_prism ≈ 1` between −10 and
-−30 °C, so the two parameter sets are the same model there.
+−30 °C, so the two parameter sets ~~are the same model there~~ **nearly coincide from about −15 °C
+colder**. Measured: 11 of the 72 points in −10…−21 °C differ, max |ΔAR| = 0.1092, and `A_prism` is
+0.830 at −10 °C rising to 1 only at −15 °C. **No `plates-cold` point changed class**, which is what
+the 0/60 result rests on.
 
 **5. Rising supersaturation destroys habit outright, and more completely than before.** Columns
 occur only at f = 0.10 and 0.15. **At f = 0.40, 0.60 and 0.90 the model produces nothing but

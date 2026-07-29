@@ -556,10 +556,19 @@ export function phase6DetectFlips(
 
 // ── Registered: the supersaturation axis ────────────────────────────────────────────────────
 //
-// Water-relative fractions, not absolute sigma values, for the reason recorded above the Table
-// 2.1 ladder: the diagram's upper region is bounded by water saturation, so at -2 C an absolute
-// sigma = 0.05 would be 2.5x water saturation (which no cloud produces) while the same number at
-// -15 C sits comfortably below it.
+// Water-relative fractions, not absolute sigma values: at -2 C an absolute sigma = 0.05 would be
+// 2.5x water saturation while the same number at -15 C sits comfortably below it, so a fixed
+// absolute ladder would not mean the same thing at both ends of the T axis.
+//
+// CORRECTED 2026-07-29 (audit). This comment previously justified the cap by saying "the diagram's
+// upper region is bounded by water saturation". That is false about the reference FIGURE — the
+// water-saturation line is drawn ON it, with structure above. The cap is defensible on a different
+// ground: sustained supersaturation above sigma_water nucleates water droplets, which changes the
+// boundary condition around the crystal. 2109.00098v1 p9: "rapid nucleation of water droplets
+// whenever the near-surface supersaturation exceeds sigma_water ... making it quite difficult to
+// examine ice growth behaviors on substrates with sigma > sigma_water". That is why Libbrecht's own
+// high-sigma observations use free-standing needles, and why a cloud-conditions grid stops there.
+// See docs/phase6-protocol-errata.md E2.
 //
 // The usable window is bounded at BOTH ends, and WP0c measured where rather than asserting it.
 // Both bounds are properties of alphaHK = A*exp(-sigma_0/sigma_surf) evaluated on the registered
@@ -572,9 +581,14 @@ export function phase6DetectFlips(
 //   sigma_inf = 0.002 sat. f = 0.10 keeps the smaller coefficient at 1.5e-2 or above everywhere
 //   on the registered T axis, which is the low bound registered here.
 //
-//   TOO HIGH — contrast collapse. alphaHK saturates toward A as sigma_surf grows, so the
-//   basal/prism ratio compresses toward 1: it spans 0.34–3.76 across the T axis at f = 0.15 but
-//   only 0.84–1.25 at f = 0.90.
+//   TOO HIGH — ~~contrast collapse~~ RETRACTED, see docs/phase6-protocol-errata.md E1. The figures
+//   below (0.34–3.76 at f = 0.15 compressing to 0.84–1.25 at f = 0.90) are `CAK_A1` values, and the
+//   registered set is `CAK`. Under `CAK` the basal/prism ratio spans 1.20–3.75 at f = 0.15 and
+//   1.06–5.05 at f = 0.90 — WIDER at the top, not compressed, so the contrast-collapse argument
+//   REVERSES for the registered set. The identical wording appears inside the hashed `t-sigma-grid`
+//   freeze row, where it cannot be edited without invalidating the sweep; it is carried as erratum
+//   E1 instead. The upper bound stands on the OTHER ground given below (weak facet contrast is not
+//   weak habit variation), which does not depend on the compression figure.
 //
 // The top of the range is kept ANYWAY, and deliberately. Weak facet contrast is not the same as
 // weak habit variation — at high supersaturation growth is increasingly diffusion-limited and
