@@ -432,7 +432,114 @@ parameterization by its score.
 
 ---
 
-## 10. What this reading did NOT cover
+## 10. What the full text sweep added — three findings that change the framing
+
+The figure reading above was followed by an exhaustive ten-paper text extraction, recorded in
+[`libbrecht-papers-extracts.md`](libbrecht-papers-extracts.md). Three of its findings bear directly
+on Phase 6, and the quotes below were **verified personally against the source PDFs**, not taken
+from the extraction pass.
+
+### 10.1 A plate at −5 °C is the CORRECT output of a broad-facet model — the source says so
+
+`1912.03230v1` (the dedicated −5 °C measurement paper), p10, verified verbatim:
+
+> "the new data directly confirm the growth of plate-like simple prisms at -5 C when 𝜎_surf is low,
+> as this morphological behavior is unambiguously observed in the imaging data. This direct
+> observation of plate-like prismatic crystals at -5 C provides an important confirmation of our
+> attachment-kinetics model. **Producing columnar crystals at -5 C then requires the SDAK effect**
+> to increase 𝛼_basal compared to its value on broad basal facets. **Thick plates were found to be
+> the norm** when 𝜎_surf ≈ 0.15%, with prism aspect ratios of roughly **𝜌_aspect = 𝐻/𝑅 ≈ 0.5**,
+> where 𝐻 is the half-thickness and 𝑅 is the effective radius of the hexagonal prism."
+
+And p13, verified verbatim:
+
+> "producing a diversity of prismatic crystals with aspect ratios throughout the range **0.1 <
+> 𝜌_aspect < 1. Columnar crystals (with 𝜌_aspect > 1) were absent** … many blockier, nearly
+> isometric"
+
+He also states the conflict explicitly (p11): the broad-facet model's plate prediction at −5 °C
+"contradicts a well-established rule from the morphology diagram, suggesting that only columnar
+crystals are produced at -5 C."
+
+**𝜌_aspect = H/R is thickness/width — the same quantity as our AR.** So his measurements are
+directly comparable to the probes in §9:
+
+| | ρ_aspect / AR |
+|---|---|
+| Libbrecht, −5 °C substrate, low σ_surf | 0.1–1.0; ρ ≈ 0.5 typical; **columns absent**; "blockier, nearly isometric" common |
+| our `CAK_A1` at −5 °C | 0.3821 |
+| our `CAK` at −5 °C | **1.0000** — isometric |
+
+**The sweep is not failing to reproduce reality. It is reproducing Libbrecht's own broad-facet
+measurements while disagreeing with the Nakaya diagram — which is exactly what he says a
+broad-facet model does.** Note also that his columnar threshold is ρ > 1 where the registered
+criterion is AR ≥ 1.5; under *his* threshold our `CAK` −5 °C result sits exactly on the boundary.
+
+### 10.2 Producing columns needs three things, and two are hard for this architecture
+
+From §7C of the extraction (these quotes are from the extraction pass, not personally verified):
+
+1. **A width-dependent nucleation barrier** — "a full theory of the SDAK phenomenon would provide a
+   reduction of the nucleation barrier that depends on T, sigma_surf, and the mesoscopic structure
+   of the crystal, especially the width of the uppermost terrace surfaces" (CM9 p4). **The width
+   scale is ~50 nm**: "For a typical thin-plate snow crystal growing near -14 C, we might have
+   R_edge ~ 1 um and w ~ 50 nm" (CM8 p6). The registered grid is **Δx = 0.35 µm = 350 nm**, so the
+   controlling width is 7× *below one cell*. SDAK cannot be resolved on this lattice and must enter
+   as a sub-grid closure keyed to something the grid does represent.
+2. **A fast-growth transient — i.e. history dependence.** "a brief interval of fast growth followed
+   by a longer period of slower growth is the usual recipe for growing slender columnar snow
+   crystals in air" (CM6 Fig. 12 caption). Worse for a (T, σ) scoring design: "both platelike and
+   needlelike crystals can grow under essentially identical conditions at this temperature" (TAX1
+   p8). **At −5 °C the habit is not single-valued in (T, σ)**, so no deterministic per-point score
+   can be right there in principle.
+3. **A background gas** — "it only operates when the growth is substantially limited by particle
+   diffusion through an inert background gas. The ESI does not occur at low pressures, so thin
+   plates do not appear in near-vacuum conditions" (CM10 p11). The project runs at 1 atm, so this
+   one is satisfied.
+
+### 10.3 The 206-observation grid does not overlap ours where it matters
+
+The supersaturation convention is now settled. `1211.5555v1` p2, a source this project already
+cites, verified verbatim:
+
+> "as a function of temperature and water vapour supersaturation **relative to ice**. The water
+> saturation line gives the supersaturation of supercooled water"
+
+and the monograph p59 defines σ_water = [c_water(T) − c_sat(T)]/c_sat(T) on that same axis. So
+Libbrecht's percentages are ice-relative and σ_water is a *level* on the axis, not the normaliser —
+directly comparable to the sweep's `sigmaInf`.
+
+Comparing the sweep's **executed** σ∞ values from `out/phase6-sweep/points.json` against the
+206-observation rows (7, 10, 15, 20, 30, 45, 70, 100, 150 %):
+
+| T (°C) | our executed span | Libbrecht rows inside it |
+|---|---|---|
+| −2 | 0.20 – 1.80 % | **none** |
+| −5 | 0.50 – 4.50 % | **none** |
+| −7 | 0.71 – 6.37 % | **none** |
+| −8 | 0.81 – 7.31 % | 7% |
+| −14 | 1.46 – 13.14 % | 7, 10% |
+| −24 | 2.65 – 23.85 % | 7, 10, 15, 20% |
+
+**There is no overlap at all warmer than −8 °C.** The whole `plates-warm` regime and most of the
+`columns` regime — the bands the sweep fails — have zero σ overlap with that data set, and even at
+−8/−9 only its single lowest row is in range. Whole-sweep span is 0.20–36.63 %; the observation
+grid is 7–150 %.
+
+This is a hard blocker on adopting the 206 observations as a scoring target, independent of the
+needle-seed and digitization problems already recorded in §7. It also has a physical reading:
+`2109.00098v1` p9 notes that above σ_water "rapid nucleation of water droplets" makes substrate
+growth impractical, which is why the needle method exists — Libbrecht's grid deliberately explores
+far above water saturation, while the registered grid deliberately caps at 0.9 σ_water.
+
+**A caution on `sigmaWater()`.** `core/src/libbrecht.ts` carries a function of that name whose own
+docstring records that it "crosses zero at T = −1.969 C" and is "NOT an enforced runtime ceiling";
+Phase 6 uses the printed Table 2.1 anchors instead. Using it to reconstruct the σ axis gives wrong
+answers at the warm end. The table above is built from executed `sigmaInf` values, not from it.
+
+---
+
+## 11. What this reading did NOT cover
 
 - **Only figures and the pages carrying them were read by image** — `2306.13087v1` pp. 4–9 and the
   Figure 2 plates pp. 11–14, `2009.08404v2` pp. 3 and 15, `2011.02353v1` pp. 2 and 7, and
