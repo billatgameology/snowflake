@@ -57,12 +57,15 @@ export function float64Bits(value: number): string {
 }
 
 /**
- * The registered end-to-end fixture. Two points, one per habit class the sweep must separate,
- * at the configuration WP3 registered (N = 48, measurement extent 21, Δx = 0.35, cfl = 0.1).
+ * The registered end-to-end fixture. **Four points in two pairs** (ADR 0032), at the configuration
+ * WP3 registered (N = 48, measurement extent 21, Δx = 0.35, cfl = 0.1).
  *
  * They are the SWEEP's configuration on purpose. A cheaper, smaller fixture would test the
  * arithmetic just as well but would not test it where a habit class is actually being decided,
  * and the registered failure mode is a class that flips.
+ *
+ * It was two points until ADR 0031: `CAK` collapsed the old −5/−15 °C pair into the same class
+ * (both `neutral`), leaving a control that could not detect the flip it exists to detect.
  */
 export const PHASE6_CROSSPLATFORM_FIXTURE = {
   dims: { nx: 48, ny: 48, nz: 48 },
@@ -252,7 +255,7 @@ export const PHASE6_FIXTURE_X64_BASELINE_STALE_CAK_A1 = [
  * column floor by an exact integer tie.
  *
  * **MAC RUN NEEDED** — the arm64 side is four growth runs plus the tier-1 fingerprint, roughly
- * 30 minutes each. Not attempted here; see docs/runbooks/phase6-cross-platform-control.md.
+ * 30 minutes each. Not attempted here; see docs/phase6-cross-platform-control.md.
  */
 export const PHASE6_FIXTURE_X64_BASELINE = [
   { label: "robust-plate", tempC: -2, fraction: 0.1, sigmaInf: 0.002, steps: 175, attached: 1313, aspectRatio: 0.263158, habit: "plate" },

@@ -1205,7 +1205,7 @@ async function gate2b(): Promise<void> {
  * rather than executed, because it costs a full growth run per point and the operator running
  * this on a second machine should decide when to spend that.
  *
- * See docs/runbooks/phase6-cross-platform-control.md.
+ * See docs/phase6-cross-platform-control.md.
  */
 function phase6Fixture(): void {
   const entries = phase6LibmFingerprint();

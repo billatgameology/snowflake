@@ -5,7 +5,7 @@
 // not asserted, because a different digest there is the control's expected-possible OUTCOME — a
 // reportable finding about non-correctly-rounded transcendentals — and turning a legitimate
 // finding into a red test would train everyone to ignore it. The comparison that decides the
-// control is run by hand, per docs/runbooks/phase6-cross-platform-control.md.
+// control is run by hand, per docs/phase6-cross-platform-control.md.
 
 import { describe, expect, it } from "vitest";
 import {
