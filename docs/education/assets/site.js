@@ -44,6 +44,19 @@
     return "../".repeat(2 + depth());
   }
 
+  /**
+   * Where figure images live, relative to this page.
+   *
+   * Defaults to the repository root, which is what makes figures resolve from a
+   * checkout and 404 on the published site. A self-contained local build (see
+   * tools/build-local.mjs) overrides it by putting data-figure-base on <body>,
+   * so the images can sit beside the pages instead of two levels above them.
+   */
+  function figureBase() {
+    const explicit = document.body.getAttribute("data-figure-base");
+    return explicit === null ? repoRoot() : explicit;
+  }
+
   function el(tag, className, text) {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -122,7 +135,7 @@
     const figureId = fig.getAttribute("data-figure") || "";
     const page = fig.getAttribute("data-page") || "";
     const alt = fig.getAttribute("data-alt") || figureId || "Figure from the source paper";
-    const url = repoRoot() + src;
+    const url = figureBase() + src;
 
     const frame = el("div", "figure__frame");
     const img = el("img");
