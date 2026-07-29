@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>What It Cost, and What Is Still Open — Snow Crystals</title>
-<meta name="description" content="The score from the last chapter has been withdrawn — by the project, on its own initiative, with the corrected number predicted in writing to be worse. What that cost, and what nobody knows yet.">
+<meta name="description" content="A score of 5 of 90 was withdrawn by the project itself, the corrected number was predicted in writing to be worse before it existed, and the re-run came in at 3 of 90. What that cost, and what nobody knows yet.">
 <link rel="stylesheet" href="../assets/education.css">
 </head>
 
@@ -39,6 +39,7 @@
       <li><a href="#free-way-out">The free way out</a></li>
       <li><a href="#worse-on-purpose">Worse, on purpose, in writing</a></li>
       <li><a href="#not-a-repair">What the re-run is forbidden to be</a></li>
+      <li><a href="#rerun-came-in">The re-run came in</a></li>
       <li><a href="#turn-on-the-caveats">Turn on the caveats</a></li>
       <li><a href="#permanent-limits">Limits no re-run removes</a></li>
       <li><a href="#who-checked">Who has actually checked this</a></li>
@@ -58,10 +59,10 @@
         <p class="chapter-header__question">
           Then they found the runs had disobeyed their own protocol, threw the whole sweep away,
           and wrote down in advance that the corrected score would be worse. Why would anyone do
-          that?
+          that &mdash; and what happened when the corrected score came back?
         </p>
         <div class="chapter-header__meta">
-          <span>~16 min read</span>
+          <span>~18 min read</span>
           <span>6 figures</span>
           <span>5 interactives</span>
         </div>
@@ -71,6 +72,7 @@
         <h2>By the end you will be able to</h2>
         <ul>
           <li>Explain why a pre-registration only proves itself the first time obeying it <em>costs</em> something.</li>
+          <li>Read a prediction against its own outcome &mdash; and say what &ldquo;nearly right&rdquo; earns and what it does not.</li>
           <li>Read a limitations list written by the claimant as the most informative thing on the page &mdash; and write one.</li>
           <li>Tell what a result <em>licenses</em> apart from what it merely suggests.</li>
           <li>Say which of Part One&rsquo;s open questions now carries a number, and which do not.</li>
@@ -80,10 +82,13 @@
       <h2 id="withdrawn">The number has been withdrawn</h2>
 
       <p>
-        The last chapter ended on 5 of 90, with columns 0 of 24, cold plates 0 of 60, and zero
-        invalid runs in 204. That headline no longer stands. It was withdrawn by the project itself,
-        on the same date the finding was first written into the ledger, and the reason it was
-        withdrawn is the most useful thing in this whole section.
+        The first time this sweep ran it scored 5 of 90, with columns 0 of 24, cold plates 0 of 60,
+        and zero invalid runs in 204. That headline no longer stands. It was withdrawn by the
+        project itself, on the same date the finding was first written into the ledger; all 204
+        points were then run again; and the corrected run came in at <strong>3 of 90</strong>, which
+        is the number that stands now. Before the re-run existed, somebody wrote down what it would
+        return. The withdrawal and that written-down prediction are the two most useful things in
+        this section, and they arrive in that order.
       </p>
 
       <p>
@@ -122,9 +127,10 @@
         which climbs toward <code>A</code> as the air gets wetter. Two of those symbols were
         digitized off the same printed figure and they are <em>not</em> the same quantity:
         <code>A</code> is the prefactor out front, and &sigma;<sub>0</sub> is the term inside the
-        exponent. Hold on to that difference &mdash; later in this chapter the project&rsquo;s own
-        checks come back in opposite directions on the two, and the pair is easy to confuse because
-        both go by &ldquo;the digitized prism anchors&rdquo;. The registration says
+        exponent. Hold on to that difference &mdash; later in this chapter the project checks both
+        against printed sources, and one of those two verdicts gets <em>reversed</em> against an
+        earlier version of itself. The pair is easy to confuse because both go by
+        &ldquo;the digitized prism anchors&rdquo;. The registration says
         <code>A_basal</code> is pinned at 1 and <code>A_prism</code> is <em>not</em>: it is
         interpolated through nine measured anchors. The decision record is blunt about it:
         <em>&ldquo;There is no reading of that row on which <code>A_prism &equiv; 1</code>.&rdquo;</em>
@@ -270,8 +276,8 @@
 
       <p>
         So the correction was going to hurt, and the project worked out roughly how much
-        <em>before</em> running it. Drag the slider and watch the wins go &mdash; then press the
-        last button, which is the one point that has since been re-measured and published.
+        <em>before</em> running it. Drag the slider and watch the wins go &mdash; then press the last
+        button, which loads what the re-run actually measured at all five points.
       </p>
 
       <figure class="anim" id="c29-throttle">
@@ -279,7 +285,8 @@
           <p class="anim__title">Predict, then measure</p>
           <p class="anim__sub">
             The five agreeing points at &minus;2&nbsp;&deg;C, with the plate ceiling drawn in.
-            Two of the buttons are rises that were actually measured at other temperatures.
+            Two of the buttons are rises measured at other temperatures; the last one is the
+            re-run itself, point by point.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -290,12 +297,13 @@
             the plate ceiling 0.6667, the two measured bracket rises and the registered prediction
             are transcribed from the table and the block quote in
             <code>docs/decisions/0031-phase6-paramset-freeze-row.md</code>, &ldquo;Decision&rdquo;
-            item 4. The 1.61&times; button is arithmetic on two published numbers: the re-sweep row
-            for &minus;2&nbsp;&deg;C at &sigma;<sub>&infin;</sub>&nbsp;=&nbsp;0.002000 published in
-            <code>docs/phase6-cross-platform-control.md</code>, &ldquo;The x64 baseline&rdquo;
-            (AR&nbsp;0.263158), divided by the same point&rsquo;s swept value 0.1638. The slider
-            applies one uniform multiplier to all five; it is not a solver, and the real rise is
-            not uniform.
+            item 4. The five measured re-run values (0.2632, 0.3684, 0.6004, 0.7096, 0.8188), their
+            rises (1.607&times;, 1.350&times;, 1.571&times;, 1.444&times;, 1.364&times;), which three
+            held, which one of those is flagged extent-fragile, and the phrase
+            &ldquo;direction correct, magnitude one point pessimistic&rdquo; are the table and text
+            of <code>research/phase6-sweep-report.md</code>, &ldquo;The registered prediction, and
+            how it did&rdquo;. The slider applies one uniform multiplier to all five; it is not a
+            solver, and the measured rise turned out not to be uniform in f.
           </span>
         </figcaption>
       </figure>
@@ -314,11 +322,14 @@
           raised it by 2.62&times; (0.3821 &rarr; 1.0000). Interpolating between them puts
           &minus;2&nbsp;&deg;C near a 1.9&ndash;2.2&times; rise. The record labels this honestly:
           <em>&ldquo;This is an ESTIMATE from two probe points, not a measurement; only the
-          re-sweep settles it.&rdquo;</em> One of the five has since been settled and published:
-          the &minus;2&nbsp;&deg;C, f&nbsp;=&nbsp;0.10 point rose 0.1638&nbsp;&rarr;&nbsp;0.263158,
-          a 1.61&times; rise &mdash; outside the estimated band, on the low side &mdash; and stayed
-          a plate. That row needed 4.07&times; to lose its agreement, so it was the safest of the
-          five either way; what the estimate got wrong is the size of the move, not the class.
+          re-sweep settles it.&rdquo;</em> All five have since been settled. The measured rises came
+          in at <strong>1.35&ndash;1.61&times;, against the 1.9&ndash;2.2&times; predicted</strong>
+          &mdash; the two-point interpolation ran hot, <em>&ldquo;which is why three agreements
+          survived instead of two&rdquo;</em>. And the rise is not monotone in f, so a single
+          throttle-to-rise factor was the wrong model for it in the first place; the two probes
+          happened to sample the two ends. Read that as the estimate working: it got the direction
+          right, the order of magnitude right, and the mechanism right, while getting the size wrong
+          in a way its own record now names.
         </p>
       </aside>
 
@@ -352,6 +363,12 @@
         <p><cite>ADR 0031, <em>Consequences</em></cite></p>
       </blockquote>
 
+      <p>
+        Keep those two numbers where you can see them: 5 of 90 measured and withdrawn, about 2 of 90
+        forecast in writing. One more rule had to be nailed down before the re-run was allowed to
+        start, and then the re-run reported.
+      </p>
+
       <h2 id="not-a-repair">What the re-run is forbidden to be</h2>
 
       <p>
@@ -381,52 +398,200 @@
       </blockquote>
 
       <p>
-        So where does the number actually stand? Two things are true at once, and keeping them
-        apart is the whole exercise.
+        With that fixed in advance, the re-run was allowed to start.
+      </p>
+
+      <h2 id="rerun-came-in">The re-run came in</h2>
+
+      <p>
+        All 204 points ran again under the registered parameter set, and the report of them carries
+        the provenance a reader is meant to check: protocol
+        <code>8aeb2b80&hellip;</code> with its 25 freeze rows, parameter set <code>CAK</code>,
+        execution commit <code>390fe35</code>, the freeze commit
+        <em>&ldquo;verified an ancestor of the execution commit&rdquo;</em>, exit 0, 204 of 204
+        points, about 20 hours of wall time on six workers, and a sha256 printed for each of the
+        three output files. The raw output still lives in an evidence tree the repository does not
+        track; the hashes of it are the tracked record, which is the project&rsquo;s standing
+        convention for research artifacts.
+      </p>
+
+      <blockquote class="c29-quote">
+        <p><strong>&ldquo;Headline: 3 of 90 headline-scope points agree.&rdquo;</strong></p>
+        <p><cite><code>research/phase6-sweep-report.md</code></cite></p>
+      </blockquote>
+
+      <p>
+        Predicted in writing, before the run: <strong>about 2 of 90</strong>. Measured:
+        <strong>3 of 90</strong>. The report&rsquo;s verdict on its own forecast is one line, and it
+        marks itself down rather than up:
+      </p>
+
+      <blockquote class="c29-quote">
+        <p><strong>&ldquo;Outcome: 3/90. Direction correct, magnitude one point
+        pessimistic.&rdquo;</strong></p>
+        <p><cite><code>research/phase6-sweep-report.md</code>, <em>The registered prediction, and how
+        it did</em></cite></p>
+      </blockquote>
+
+      <p>
+        Scored by the same rule, frozen before either run, the four regimes came out like this.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The corrected sweep, per regime. Transcribed from the scored-result table in
+            <code>research/phase6-sweep-report.md</code>. <em>In headline</em> is how many of that
+            regime&rsquo;s points are actually counted &mdash; the &plusmn;1.0&nbsp;&deg;C ambiguity
+            band around each boundary is excluded by the frozen scoring rule.
+          </caption>
+          <thead>
+            <tr>
+              <th>Regime</th><th>Points</th><th>In headline</th><th>Agree</th><th>Neutral</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>plates-warm (T &gt; &minus;3.3&nbsp;&deg;C)</td>
+              <td>12</td><td>6</td><td><strong>3</strong></td><td>7</td>
+            </tr>
+            <tr>
+              <td>columns (&minus;3.3 to &minus;9.9&nbsp;&deg;C)</td>
+              <td>36</td><td>24</td><td><strong>0</strong></td><td>35</td>
+            </tr>
+            <tr>
+              <td>plates-cold (&minus;9.9 to &minus;21.5&nbsp;&deg;C)</td>
+              <td>72</td><td>60</td><td><strong>0</strong></td><td>69</td>
+            </tr>
+            <tr>
+              <td>columns-and-plates (&lt; &minus;21.5&nbsp;&deg;C)</td>
+              <td>84</td><td>0 &mdash; not in the headline</td><td>27 reported</td><td>57</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Over all 204 points the classes total <strong>6 plate, 168 neutral, 30 column, 0
+        invalid</strong>, and 16 points are flagged extent-fragile &mdash; close enough to a class
+        boundary that the registered size-drift bound could move them across it. The cold mixed
+        regime is reported rather than counted, because it accepts both pure shapes and so cannot
+        discriminate; that exclusion was registered before either run, not chosen after seeing that
+        27 points landed there.
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          Three is not a small success. It is three points at one temperature.
+          <strong>All three agreements are at &minus;2&nbsp;&deg;C</strong>, the single counting
+          temperature in the warmest regime &mdash; and the scoring rule registered that temperature
+          <em>pre-sweep</em> as carrying essentially no statistical weight,
+          <em>&ldquo;precisely so this could not be presented as a result&rdquo;</em>. The report
+          says the rest plainly: <em>&ldquo;The model agrees with the reference nowhere else inside
+          the headline scope.&rdquo;</em> So the honest reading of 3 of 90 is not &ldquo;the model
+          got a few right&rdquo;. It is a negative result with a rounding error attached to it, and
+          the project built the rule that says so before it knew which way the rounding would go.
+        </p>
+      </aside>
+
+      <p>
+        The <em>shape</em> of the change is the shape ADR 0031 said to expect, which is its own kind
+        of check. Correcting the prism prefactor shrank the plate region and widened the neutral
+        band at the warm end: plate now ends at &minus;4, &minus;3 and &minus;2&nbsp;&deg;C in the
+        three driest rows and vanishes entirely in the wetter ones, while column onset stays exactly
+        where it was, at &minus;19 and &minus;23&nbsp;&deg;C. The cold end did not move, because in
+        that band the two parameter sets are the same model. Nothing was fixed. The warm end got
+        worse and the rest stayed as bad as it was, on the record, in advance.
       </p>
 
       <p>
-        <strong>The runs have happened.</strong> The cross-platform runbook publishes four rows
-        which it says are <em>&ldquo;not fresh runs&rdquo;</em> but
-        <em>&ldquo;rows taken verbatim from the ADR 0031 re-sweep&rsquo;s own
-        <code>out/phase6-sweep/points.json</code> (protocol <code>8aeb2b80&hellip;</code>, commit
-        <code>390fe35</code>, 204/204 with zero exclusions)&rdquo;</em>. That is the corrected
-        protocol, all 204 points, nothing thrown out.
+        And one finding got <em>stronger</em> for having survived both runs. Wherever the model
+        commits to a habit at all, the sequence is plate, then neutral, then column, once, with no
+        return &mdash; one transition where the reference diagram has three. That now holds under
+        both parameter sets, <em>&ldquo;which is stronger than holding under one&rdquo;</em>. The
+        counting argument behind it was registered before either sweep, and it is indifferent to
+        which broad-facet parameterization you feed it.
       </p>
 
-      <p>
-        <strong>The corrected headline has not been published.</strong>
-        <code>research/phase6-sweep-report.md</code> still carries the superseded protocol hash
-        <code>9aa2e7c1&hellip;</code> and still reads <em>&ldquo;Headline: 5 of 90 headline-scope
-        points agree&rdquo;</em>; the findings ledger still records the entry as
-        <em>&ldquo;measured; re-sweep pending under ADR 0031&rdquo;</em>; Phase 6 is still marked
-        <strong>in progress</strong>. The raw output sits in an evidence tree the repository does
-        not track, so nothing in it is checkable by a reader &mdash; which is why this page prints
-        no corrected score. A number you cannot go and verify is not yet a published number, and
-        the project&rsquo;s own convention says so: sweep artifacts live outside the repository and
-        <em>&ldquo;their hashes are the tracked record&rdquo;</em>.
-      </p>
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          Two things stop 3 of 90 from being a finished result, and the report puts both in its own
+          opening. First, <em>&ldquo;these numbers are not yet gate evidence&rdquo;</em>: the
+          verification work package has not run, no independent verifier has re-derived the summary
+          from the raw per-point file, and the six negative controls &mdash; the tests designed to
+          fail on purpose, to prove the checker can detect a fault &mdash; have not executed.
+          <em>&ldquo;Until then this is a measured result with verified provenance, which is not the
+          same thing.&rdquo;</em> Second, this is <strong>one arm of a two-arm comparison</strong>.
+          On maker direction the phase reports the model without the missing mechanism as the control
+          and the model with it as the treatment, together, rather than publishing this arm alone.
+          The numbers above are final for this arm; what they mean for the phase waits.
+        </p>
+      </aside>
 
       <p>
-        One of the four published rows does fall inside the headline scope, and it is one of the
-        five withdrawn agreements: <code>robust-plate</code>, &minus;2&nbsp;&deg;C,
-        &sigma;<sub>&infin;</sub>&nbsp;=&nbsp;0.002000 &mdash; the f&nbsp;=&nbsp;0.10 point &mdash;
-        re-measured at AR&nbsp;<strong>0.263158</strong>, habit <strong>plate</strong>. Under the
-        scoring rule frozen before either run, that is still an agreement. So at least one of the
-        five survived; the registered prediction has been neither contradicted nor confirmed by
-        anything a reader can open. Every number in the previous chapter should be read with that
-        attached.
+        There is a third thing, and it is the most uncomfortable entry in the whole report, because
+        it is about whether the provenance block above says what it appears to say.
+      </p>
+
+      <blockquote class="c29-quote">
+        <p>
+          &ldquo;<strong>A verification hazard found while this sweep ran, and recorded because it
+          is not yet fixed.</strong> The harness captures provenance once at preflight, but each of
+          the 204 children spawns <code>runner/src/main.ts</code> from the <strong>working
+          tree</strong>. An edit to <code>runner/src/</code> or <code>core/src/</code> mid-run would
+          change the physics for later points while the report still named the launch
+          commit.&rdquo;
+        </p>
+        <p><cite><code>research/phase6-sweep-report.md</code></cite></p>
+      </blockquote>
+
+      <p>
+        A commit hash pins the code at the moment the run <em>started</em>. It does not pin the
+        files the run keeps reading for the next twenty hours. And this was not hypothetical: nine
+        commits from a parallel session landed while the sweep was running. The project then checked
+        the one thing that mattered &mdash; whether any of them touched the physics directories
+        &mdash; found the difference <strong>empty</strong>, and said so, along with the sentence
+        that makes it a finding rather than a reassurance: <em>&ldquo;That was luck, not
+        design.&rdquo;</em> The fix &mdash; a preflight assertion that the spawned command line
+        carries every frozen parameter, plus a re-check when the run finishes &mdash; is written
+        down as outstanding. Until it lands, the provenance of this sweep rests on a diff somebody
+        remembered to run.
       </p>
 
       <h2 id="turn-on-the-caveats">Turn on the caveats</h2>
 
       <p>
         The Phase 6 sweep report ends with a section headed <strong>&ldquo;What this does NOT
-        establish&rdquo;</strong>. It is six bullets long, it was written by the people who
+        establish&rdquo;</strong>. It is eight bullets long, it was written by the people who
         produced the result, and it is sharper than anything a hostile reader would have thought
         of. When you are learning to judge a claim, a limitations list written by the claimant is
         the single most informative artifact available &mdash; both for what it contains and for
         whether it exists at all.
+      </p>
+
+      <p>
+        Two of those eight bullets now begin with the word <strong>CORRECTED</strong>, and they move
+        in opposite directions, which is the detail worth stopping on. One <em>withdraws</em> a
+        limitation: an earlier entry said the project&rsquo;s digitized &sigma;<sub>0</sub> curve for
+        the prism faces was too low by 1.6&ndash;3.2&times; exactly where the agreements sit, and
+        that claim is now marked <em>&ldquo;REVERSED&rdquo;</em> &mdash; the dedicated measurement
+        papers give 0.03% at &minus;2&nbsp;&deg;C and about 0.2% at &minus;5&nbsp;&deg;C, the
+        project&rsquo;s curve matches them to roughly 7%, and the closed form it had been judging
+        itself against turned out to be the outlier. The other bullet <em>sharpens</em> a
+        limitation, and that one is discussed below. A limitations list that only ever grows is a
+        ritual; one that corrects itself in both directions is being read.
       </p>
 
       <p>
@@ -438,21 +603,25 @@
         <div class="anim__head">
           <p class="anim__title">Turn on the caveats</p>
           <p class="anim__sub">
-            Five claims from the measured-and-superseded sweep, and eight stated limits. A claim
-            stops counting as unqualified the moment any limit attaches to it.
+            Five claims from the corrected sweep &mdash; the current standing evidence &mdash; and
+            nine stated limits. A claim stops counting as unqualified the moment any limit attaches
+            to it.
           </p>
         </div>
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">
-            Original interactive. Six of the eight limits are transcribed from
-            <code>research/phase6-sweep-report.md</code>, &ldquo;What this does NOT
-            establish&rdquo;; one is from
-            <code>docs/decisions/0031-phase6-paramset-freeze-row.md</code>; one is from
-            <code>docs/stretch-sharing-and-investigation.md</code> &sect;1 (S4). Which limit
-            attaches to which claim is this page&rsquo;s reading of the report&rsquo;s own scoping
-            sentences, not a quotation.
+            Original interactive. The five claims are the corrected sweep&rsquo;s own headline,
+            per-regime and class-total numbers from <code>research/phase6-sweep-report.md</code>.
+            Eight of the nine limits are transcribed from that file &mdash; from
+            &ldquo;What this does NOT establish&rdquo;, from its scored-result section and from the
+            recorded verification hazard; the ninth is from
+            <code>docs/stretch-sharing-and-investigation.md</code> &sect;1 (S4), and the
+            cross-platform entry carries two further clauses from
+            <code>docs/decisions/0031-phase6-paramset-freeze-row.md</code>. Which limit attaches to
+            which claim is this page&rsquo;s reading of the report&rsquo;s own scoping sentences,
+            not a quotation.
           </span>
         </figcaption>
       </figure>
@@ -469,12 +638,12 @@
           nothing being known. A result is a number <em>plus the domain over which it holds</em>.
           The switches are not doubts about whether the sweep happened; they are the boundaries of
           the sentence you are allowed to build from it. Notice also which way the limits point.
-          Fixing the suspect warm parameter would move only the warm end, and the registered
-          prediction says it moves it <em>the wrong way</em>. The two zeroes are not equally
-          settled: the cold-plates 0 of 60 is bit-identical under either parameter set, while every
-          counted point in the columns band sits inside the window the violation touched, so 0 of
-          24 is a number the re-run still has to re-measure. But nothing on the list would make
-          either band agree.
+          Both zeroes have now been arrived at twice, under two different parameter sets, and neither
+          moved: the 60 counted cold-plates points are bit-identical under either set, and every
+          counted point in the columns band sits inside the window the violation touched, so those
+          24 were genuinely re-measured rather than inherited. Nothing on the list would make either
+          band agree &mdash; and the one limit that used to point at the warm end, the suspect
+          &sigma;<sub>0</sub> curve, has since been withdrawn by the project against itself.
         </p>
       </aside>
 
@@ -522,7 +691,8 @@
         </p>
         <p>
           The obvious next experiment &mdash; switch the missing narrow-facet mechanism on and see
-          whether the diagram appears &mdash; is planned, and its ceiling is already fixed. Because
+          whether the diagram appears &mdash; is the second arm of this phase, not yet run, and its
+          ceiling is already fixed. Because
           the mechanism&rsquo;s parameters were chosen against the Nakaya diagram in the first
           place, matching it can only ever be labelled <em>in-sample reproduction</em>, never
           independent validation. There is a harder problem underneath: the width scale the
@@ -734,9 +904,9 @@
           Careful
         </p>
         <p>
-          None of those four profiles exists as software. Phases 0 through 5 are complete, Phase 6
-          is in flight with its first sweep withdrawn and owed a re-run that has not reported, and
-          Phase 7 &mdash; the whole
+          None of those four profiles exists as software. Phases 0 through 5 are complete, Phase 6 is
+          in flight &mdash; first sweep withdrawn, corrected sweep reported at 3 of 90, not yet
+          gated, second arm not run &mdash; and Phase 7 &mdash; the whole
           product layer &mdash; is marked <strong>not started</strong>; there is no Phase 7 plan
           file. What exists is one accepted decision record describing what it will be. Read a
           confident specification as a promise that is binding on its authors, not as a description
@@ -795,9 +965,10 @@
       <p>
         <strong>Two.</strong> It does not reproduce the Nakaya diagram, and the <em>shape</em> of
         that failure is now measured rather than argued: one habit transition where the reference
-        needs three, and a roughly 10&nbsp;&deg;C-wide band in which the model declines to commit
-        to either shape. That is the sweep report&rsquo;s own finding, and the counting argument
-        behind it was registered before the run.
+        needs three, and a band 14 to 19&nbsp;&deg;C wide in which the model declines to commit to
+        either shape &mdash; the single largest feature of the measured diagram. That is the sweep
+        report&rsquo;s own finding, it now holds under both parameter sets, and the counting argument
+        behind it was registered before either run.
       </p>
 
       <p>
@@ -839,22 +1010,26 @@
       <p>
         But it has changed, in one specific way. Before this, &ldquo;broad-facet kinetics alone
         cannot explain the diagram&rdquo; was a sentence in a paper. Now it has a number attached:
-        5 of 90 in a run since withdrawn, columns 0 of 24, cold plates 0 of 60, with zero invalid
-        runs in 204 &mdash; and a structural argument that says no amount of tuning the grid, the
-        seed, the box or the diffusion can fix it, because none of those things reorders the two
-        curves. The missing mechanism is now measurably not optional. That is one open question
-        carrying a measurement it did not carry before. The other questions on that clock carry
-        exactly what they carried.
+        3 of 90, with all three of those agreements sitting at the single temperature the scoring
+        rule had already declared weightless before anyone ran anything; columns 0 of 24; cold
+        plates 0 of 60; zero invalid runs in 204, twice over &mdash; and a structural argument that
+        says no amount of tuning the grid, the seed, the box or the diffusion can fix it, because
+        none of those things reorders the two curves. The missing mechanism is now measurably not
+        optional. That is one open question carrying a measurement it did not carry before. The other
+        questions on that clock carry exactly what they carried.
       </p>
 
       <p>
-        And the honest close is a list of things nobody knows. The re-run is pending, and its
-        headline is predicted &mdash; in writing, by the people who will publish it &mdash; to be
-        worse. The mechanism that would supply the missing transitions has never itself been run in
-        a full three-dimensional model by anyone, and when it is, the best it can earn is
-        <em>in-sample reproduction</em>, because its parameters were chosen against the very diagram
-        it would be reproducing. And no human domain scientist has read any of this: not the sweep,
-        not the code, not the charter, and not this page.
+        And the honest close is a list of things nobody knows. The 3 of 90 is
+        <em>not yet gate evidence</em>: no independent verifier has re-derived it from the raw
+        per-point file, and the six negative controls have not run. It is one arm of two, and the
+        arm with the missing mechanism switched on has not been run at all &mdash; when it is, the
+        best it can earn is <em>in-sample reproduction</em>, because its parameters were chosen
+        against the very diagram it would be reproducing, and the width scale it depends on is seven
+        times smaller than this grid can see. The provenance hazard is recorded and unfixed, so the
+        commit hash on that report is trustworthy because of a diff somebody ran, not because of a
+        mechanism that would have caught it. And no human domain scientist has read any of this: not
+        the sweep, not the code, not the charter, and not this page.
       </p>
 
       <aside class="callout callout--key">
@@ -872,6 +1047,28 @@
           separation is the achievement. The score is just where it happened to land.
         </p>
       </aside>
+
+      <p>
+        And if you keep one thing from this whole section, keep the sequence, in the order the dates
+        run. A sweep measured 5 of 90. A review found the runs had violated a row of their own frozen
+        protocol, so the project threw the result away under a rule it had written before there was
+        anything to lose by it. Then, in a dated file, <em>before</em> the corrected sweep existed, it
+        wrote down where the corrected number would land &mdash; about 2 of 90, worse than the one it
+        was giving up &mdash; and explained why it was writing it down: so that
+        <em>&ldquo;the parameterization cannot later be chosen by its score&rdquo;</em>. About twenty
+        hours of machine time later, the corrected sweep returned <strong>3 of 90</strong>.
+        Direction correct. Magnitude one point pessimistic.
+      </p>
+
+      <p>
+        The impressive part is not that the forecast was nearly right. Forecasts are nearly right by
+        accident all the time. The impressive part is that being nearly right was
+        <em>checkable</em> &mdash; because the forecast was on the record, with a date on it, before
+        the number existed, and it forecast a <em>loss</em>. That is the whole difference between an
+        experiment and a search, and it is the one thing on this site you can apply tomorrow to a
+        claim that has nothing to do with snow: ask what the claimant wrote down before they looked,
+        and whether it cost them anything when they did.
+      </p>
 
       <p class="handoff">
         That is the end of the story so far, which is a strange place to stop and exactly the right
@@ -1140,18 +1337,26 @@
       /* rerun */
       var p2 = el("div", "c29-cards");
       var d1 = el("div", "c29-card");
-      d1.appendChild(el("p", "c29-label", "Headline"));
+      d1.appendChild(el("p", "c29-label", "Headline, predicted"));
       var g1 = el("p", "c29-big", "≈2 of 90");
-      g1.style.color = c.ink;
+      g1.style.color = c.muted;
       d1.appendChild(g1);
-      d1.appendChild(el("p", "c29-note", "registered prediction, written before the re-run"));
+      d1.appendChild(el("p", "c29-note", "registered in writing, before the re-run existed"));
+      var d3 = el("div", "c29-card");
+      d3.appendChild(el("p", "c29-label", "Headline, measured"));
+      var g3 = el("p", "c29-big", "3 of 90");
+      g3.style.color = c.ink;
+      d3.appendChild(g3);
+      d3.appendChild(el("p", "c29-note",
+        "“Direction correct, magnitude one point pessimistic.”"));
       var d2 = el("div", "c29-card");
       d2.appendChild(el("p", "c29-label", "Cost"));
-      var g2 = el("p", "c29-big", "~17 h");
+      var g2 = el("p", "c29-big", "~20 h");
       g2.style.color = c.ink;
       d2.appendChild(g2);
-      d2.appendChild(el("p", "c29-note", "of compute, plus the better headline"));
-      p2.appendChild(d1); p2.appendChild(d2);
+      d2.appendChild(el("p", "c29-note",
+        "of wall time on 6 workers, 204/204 points — plus the better headline, given up"));
+      p2.appendChild(d1); p2.appendChild(d3); p2.appendChild(d2);
       b.chart.appendChild(p2);
 
       b.text.appendChild(badgeRow(c.good, "✓"));
@@ -1161,7 +1366,9 @@
       ok.appendChild(el("span", null,
         "Nothing registered before a run was edited after one. The protocol gains a row " +
         "(24 → 25), the hash moves, and the sweep re-runs — which is the clause " +
-        "working as designed, at the first moment it ever cost anything."));
+        "working as designed, at the first moment it ever cost anything. The reviewer’s question " +
+        "now has an answer a reader can check: the forecast is in a dated file that predates the " +
+        "run, and it forecast a loss."));
       b.text.appendChild(ok);
       Viz.button(b.controls, "Start over", function () { state = "choose"; render(); });
     }
@@ -1173,32 +1380,40 @@
   /* ==========================================================================
      2 — PREDICT, THEN MEASURE
      Five aspect ratios, the plate ceiling, and the registered prediction:
-     ADR 0031, "Decision" item 4.
+     ADR 0031, "Decision" item 4. The measured re-run values, their per-point
+     rises, which three held and which one is extent-fragile:
+     research/phase6-sweep-report.md, "The registered prediction, and how it did".
      ====================================================================== */
   (function () {
     var root = document.getElementById("c29-throttle");
     if (!root) return;
     var b = boxes(root);
 
+    /* ar  = as swept under CAK_A1, the withdrawn run (ADR 0031, "Decision" item 4)
+       cak = as re-measured under CAK, the corrected run, and the per-point rise
+             (research/phase6-sweep-report.md, "The registered prediction, and how it did") */
     var ROWS = [
-      { f: "0.10", ar: 0.1638 },
-      { f: "0.15", ar: 0.2729 },
-      { f: "0.25", ar: 0.3821 },
-      { f: "0.40", ar: 0.4913 },
-      { f: "0.60", ar: 0.6004 }
+      { f: "0.10", ar: 0.1638, cak: 0.2632, rise: "1.607×" },
+      { f: "0.15", ar: 0.2729, cak: 0.3684, rise: "1.350×" },
+      { f: "0.25", ar: 0.3821, cak: 0.6004, rise: "1.571×", fragile: true },
+      { f: "0.40", ar: 0.4913, cak: 0.7096, rise: "1.444×" },
+      { f: "0.60", ar: 0.6004, cak: 0.8188, rise: "1.364×" }
     ];
     var CEIL = 0.6667;
     var W = 690, H = 336;
     var M = { top: 18, right: 148, bottom: 68, left: 60 };
 
     var rise = 1;
+    var measured = false;
     var revealed = false;
     var svg = null;
+    var measuredBtn = null;
 
     var readout = el("p", "c29-note");
     var reveal = el("div", "c29-panel");
     reveal.hidden = true;
-    var rl = el("p", "c29-label", "Written down 2026-07-28, before the re-run existed");
+    var rl = el("p", "c29-label",
+      "Written down 2026-07-28, before the re-run existed — and what came back");
     var rq = el("p");
     rq.style.margin = "0";
     rq.style.fontSize = "var(--step--1)";
@@ -1207,32 +1422,63 @@
       "approximately 2/90.&rdquo;</strong><br>" +
       "<span style=\"color: var(--ink-muted)\">docs/decisions/0031-phase6-paramset-freeze-row.md" +
       "</span>";
+    var ro = el("p");
+    ro.style.margin = "0.5rem 0 0";
+    ro.style.fontSize = "var(--step--1)";
+    ro.style.lineHeight = "1.5";
+    ro.innerHTML = "<strong>&ldquo;Outcome: 3/90. Direction correct, magnitude one point " +
+      "pessimistic.&rdquo;</strong><br>" +
+      "<span style=\"color: var(--ink-muted)\">research/phase6-sweep-report.md, written after the " +
+      "corrected sweep</span>";
     reveal.appendChild(rl);
     reveal.appendChild(rq);
+    reveal.appendChild(ro);
+
+    function arOf(r) {
+      return measured ? r.cak : r.ar * rise;
+    }
 
     function kept() {
       var n = 0;
-      for (var i = 0; i < ROWS.length; i++) if (ROWS[i].ar * rise <= CEIL) n++;
+      for (var i = 0; i < ROWS.length; i++) if (arOf(ROWS[i]) <= CEIL) n++;
       return n;
     }
 
     function sync() {
       var n = kept();
+      if (measured) {
+        readout.textContent =
+          "The corrected sweep, as measured: " + n + " of these 5 points still score AGREE — " +
+          "f = 0.10, 0.15 and 0.25, and that last one is flagged extent-fragile, which is drawn " +
+          "as a dashed ring. The rises came in at 1.35–1.61× against the 1.9–2.2× predicted, " +
+          "which is why three agreements survived instead of two; they are also not monotone in f, " +
+          "so one uniform multiplier was never the right model for them. The other two headline " +
+          "bands re-scored 0 of 24 and 0 of 60, exactly as the decision record said to expect.";
+        return;
+      }
       readout.textContent =
         "Rise " + rise.toFixed(2) + "× — " + n + " of these 5 points still score AGREE. " +
         "The warm band has one more counted point, at f = 0.90, which was already neutral and " +
         "already scored as a disagreement. The other two headline bands scored 0 of 24 and " +
-        "0 of 60, and the decision record expects them to score exactly as badly after the re-run.";
+        "0 of 60, and the decision record expected them to score exactly as badly after the " +
+        "re-run — which is how they did score.";
     }
 
     function render() {
       var c = Viz.colors();
       if (svg) svg.remove();
       svg = Viz.createSvg(b.chart, W, H, {
-        label: "Five aspect ratios at minus two degrees Celsius plotted against a plate ceiling " +
-          "of 0.6667. A slider multiplies all five; as it rises they cross the ceiling one by one " +
-          "and change from agreeing to disagreeing.",
-        desc: "Values 0.1638, 0.2729, 0.3821, 0.4913 and 0.6004 multiplied by the chosen rise."
+        label: measured
+          ? "The same five points at minus two degrees Celsius as the corrected sweep actually " +
+            "measured them, against a plate ceiling of 0.6667. Three still sit below the ceiling " +
+            "and agree; two have crossed it and disagree."
+          : "Five aspect ratios at minus two degrees Celsius plotted against a plate ceiling " +
+            "of 0.6667. A slider multiplies all five; as it rises they cross the ceiling one by " +
+            "one and change from agreeing to disagreeing.",
+        desc: measured
+          ? "Measured values 0.2632, 0.3684, 0.6004, 0.7096 and 0.8188, risen from 0.1638, " +
+            "0.2729, 0.3821, 0.4913 and 0.6004."
+          : "Values 0.1638, 0.2729, 0.3821, 0.4913 and 0.6004 multiplied by the chosen rise."
       });
 
       var ys = Viz.scaleLinear([0, 1.5], [H - M.bottom, M.top]);
@@ -1273,10 +1519,10 @@
       var span = (W - M.right) - M.left;
       ROWS.forEach(function (r, i) {
         var x = M.left + span * (i + 0.5) / ROWS.length;
-        var v = r.ar * rise;
+        var v = arOf(r);
         var ok = v <= CEIL;
 
-        if (rise > 1.005) {
+        if (measured || rise > 1.005) {
           svg.appendChild(Viz.svgEl("line", {
             x1: x, x2: x, y1: ys(r.ar), y2: ys(v),
             stroke: c.muted, "stroke-width": 1.2, "stroke-dasharray": "3 3"
@@ -1286,9 +1532,29 @@
           }));
         }
 
+        /* in measured mode each point carries its own rise, because the real one
+           is not uniform in f — that is a finding of the corrected sweep */
+        if (measured) {
+          var rt = Viz.svgEl("text", {
+            "class": "annotation", x: x + 10, y: (ys(r.ar) + ys(v)) / 2 + 4
+          });
+          rt.textContent = r.rise;
+          rt.setAttribute("fill", c.muted);
+          svg.appendChild(rt);
+        }
+
         svg.appendChild(Viz.svgEl("circle", {
           cx: x, cy: ys(v), r: 7, fill: ok ? c.good : c.critical
         }));
+
+        /* the one surviving agreement that sits within the registered extent-drift
+           bound of the class threshold */
+        if (measured && r.fragile) {
+          svg.appendChild(Viz.svgEl("circle", {
+            cx: x, cy: ys(v), r: 12, fill: "none", stroke: c.muted,
+            "stroke-width": 1.4, "stroke-dasharray": "3 3"
+          }));
+        }
 
         var vt = Viz.svgEl("text", {
           "class": "annotation", x: x, y: ys(v) - 13, "text-anchor": "middle"
@@ -1314,15 +1580,30 @@
       var at = Viz.svgEl("text", {
         "class": "axis-title", x: (M.left + W - M.right) / 2, y: H - 12, "text-anchor": "middle"
       });
-      at.textContent = "the five agreeing points, by supersaturation fraction — all at −2 °C";
+      at.textContent = measured
+        ? "the same five points as the corrected sweep measured them — all at −2 °C"
+        : "the five agreeing points, by supersaturation fraction — all at −2 °C";
       svg.appendChild(at);
+    }
+
+    function syncMeasuredBtn() {
+      if (!measuredBtn) return;
+      measuredBtn.setAttribute("aria-pressed", String(measured));
+      measuredBtn.textContent = measured
+        ? "Back to the slider" : "Load the measured re-run";
     }
 
     var slider = Viz.slider(b.controls, {
       label: "rise in aspect ratio", id: "c29-rise",
       min: 1, max: 2.8, step: 0.01, value: 1,
       format: function (v) { return v.toFixed(2) + "×"; },
-      onInput: function (v) { rise = v; render(); sync(); }
+      onInput: function (v) {
+        rise = v;
+        /* moving the slider leaves measured mode: the two are different claims */
+        if (measured) { measured = false; syncMeasuredBtn(); }
+        render();
+        sync();
+      }
     });
 
     Viz.button(b.controls, "1.36× · measured at −8 °C", function () {
@@ -1334,11 +1615,17 @@
     Viz.button(b.controls, "1.9× · the estimate at −2 °C", function () {
       slider.value = 1.9;
     });
-    Viz.button(b.controls, "Show what they wrote down", function (btn) {
+    measuredBtn = Viz.button(b.controls, "Load the measured re-run", function () {
+      measured = !measured;
+      syncMeasuredBtn();
+      render();
+      sync();
+    }, { pressed: false });
+    Viz.button(b.controls, "Show the prediction and the outcome", function (btn) {
       revealed = !revealed;
       reveal.hidden = !revealed;
       btn.setAttribute("aria-pressed", String(revealed));
-      btn.textContent = revealed ? "Hide it again" : "Show what they wrote down";
+      btn.textContent = revealed ? "Hide them again" : "Show the prediction and the outcome";
     }, { pressed: false });
 
     b.text.appendChild(readout);
@@ -1351,8 +1638,11 @@
 
   /* ==========================================================================
      3 — TURN ON THE CAVEATS
-     Six limits from the sweep report's "What this does NOT establish", one
-     from ADR 0031, one from the stretch register.
+     The five claims are the corrected sweep's own numbers. Eight of the nine
+     limits come from research/phase6-sweep-report.md — its "What this does NOT
+     establish" list, its scored-result section, and the recorded verification
+     hazard; the ninth comes from the stretch register §1 (S4), and the
+     cross-platform entry carries two clauses from ADR 0031.
      ====================================================================== */
   (function () {
     var root = document.getElementById("c29-caveats");
@@ -1360,37 +1650,49 @@
     var b = boxes(root);
 
     var CLAIMS = [
-      { id: "k1", text: "5 of 90 headline-scope points agree." },
+      { id: "k1", text: "3 of 90 headline-scope points agree." },
       { id: "k2a", text: "In the columns band the model produced 0 of 24." },
       { id: "k2b", text: "In the cold-plates band, 0 of 60." },
-      { id: "k3", text: "204 runs, zero invalid." },
+      { id: "k3", text: "204 runs, zero invalid — in both sweeps." },
       { id: "k4", text: "One habit transition, where the reference has three." }
     ];
 
     var LIMITS = [
-      { on: false, hits: ["k1", "k2a"],
-        head: "The runs violated the frozen protocol.",
-        body: "An unregistered command-line default overrode a registered row, so the headline " +
-              "is superseded; the registered prediction for the corrected run is ≈2 of 90. " +
-              "Every counted point in the columns band sits inside the affected −2 to −9 °C " +
-              "window; ADR 0031 expects those points to re-score “exactly as badly”, but that " +
-              "is a registered prediction, not yet a measurement. The cold rows are " +
-              "bit-identical under either parameter set. (ADR 0031)" },
       { on: false, hits: ["k1"],
-        head: "The warm end rests on an input since found suspect.",
-        body: "“Libbrecht’s printed closed form (M2) puts our digitized prism anchors " +
-              "low by a factor of 1.6–3.2 at −2…−5 °C, far outside their " +
-              "±25% band — and −2 °C is where all five agreements sit.”" },
+        head: "All three agreements sit at one temperature.",
+        body: "All three are at −2 °C, the single counting temperature in the warmest regime — " +
+              "which the scoring rule registered pre-sweep as carrying essentially no " +
+              "statistical weight, “precisely so this could not be presented as a result”. " +
+              "“The model agrees with the reference nowhere else inside the headline scope.”" },
+      { on: false, hits: ["k1", "k2a", "k2b", "k3", "k4"],
+        head: "It is not gate evidence yet.",
+        body: "“WP5 has not run: no independent verifier has re-derived report.json from " +
+              "points.json, and the six negative controls have not executed. Until then this is " +
+              "a measured result with verified provenance, which is not the same thing.” It is " +
+              "also one arm of two: the arm with the missing mechanism switched on has not run, " +
+              "and the phase conclusion is deliberately not drawn from this arm alone." },
+      { on: false, hits: ["k1", "k2a", "k2b", "k3", "k4"],
+        head: "A provenance hazard is recorded and unfixed.",
+        body: "The harness captures provenance once at preflight, but each of the 204 children " +
+              "spawns runner/src/main.ts from the working tree, so a mid-run edit “would change " +
+              "the physics for later points while the report still named the launch commit”. " +
+              "Nine commits landed during this run; the diff over the physics directories was " +
+              "verified empty, so this sweep is unaffected — “That was luck, not design.” The " +
+              "fix is outstanding." },
       { on: false, hits: ["k1", "k2a", "k2b"],
         head: "Habit was measured at one crystal size.",
-        body: "“Habit is measured at extent 21, and habit is size-dependent. 25 points sit " +
+        body: "“Habit is measured at extent 21, and habit is size-dependent. 16 points sit " +
               "within the registered ±0.135 extent-drift bound of a class threshold and are " +
-              "flagged extent-fragile.”" },
+              "flagged extent-fragile.” One of the three surviving agreements is one of them." },
       { on: false, hits: ["k1", "k2a", "k2b"],
-        head: "Seed shape is a large systematic.",
-        body: "“Seed shape is a large systematic, though not a class-changing one at the two " +
-              "conditions tested: warm AR moves +57% between seed thicknesses while the class " +
-              "holds.”" },
+        head: "Seed shape can change the class — and this entry was corrected against itself.",
+        body: "The earlier version called seed shape “a large systematic, though not a " +
+              "class-changing one”, on two seed thicknesses. The corrected entry says the " +
+              "opposite: a five-seed probe found a needle-like seed produces “a genuine column " +
+              "(AR 1.6154) at −15 °C, where the reference requires a plate”. Seed geometry moves " +
+              "the aspect ratio by +0.41 at −5 °C and +0.51 at −15 °C — the same direction at " +
+              "both, while the two bands demand opposite moves, so no temperature-independent " +
+              "seed can agree at both. None of the five agreed at either condition." },
       { on: false, hits: ["k1", "k2a", "k2b"],
         head: "The comparison target is a redrawn 1954 schematic.",
         body: "“…whose supersaturation axis WP1 measured as failing an independent " +
@@ -1408,7 +1710,10 @@
       { on: false, hits: ["k1", "k2a", "k2b", "k3", "k4"],
         head: "No cross-platform control has been run.",
         body: "“No cross-platform control has been run. Scoped to the registered x64 host " +
-              "until the arm64 fixture runs.”" }
+              "until the arm64 fixture runs.” Correcting the parameter set knocked that control " +
+              "further down: the fingerprint had to be re-issued because it sampled the wrong " +
+              "code path, and the two-point fixture was emptied because under the registered " +
+              "parameter set its points no longer land in two different habit classes." }
     ];
 
     var counter = el("p", "c29-note");
@@ -1656,12 +1961,14 @@
             "−5 °C points land at 0.3821–1.0000, columns absent. Those endpoints bracket both " +
             "parameter sets — 0.3821 is the withdrawn run’s −5 °C value, 1.0000 the registered " +
             "one’s (ADR 0031 records the move, at the table’s largest throttle) — so this claim " +
-            "survives the re-run in a way the headline does not. The limit the " +
+            "survived the re-run in a way the headline did not. The limit the " +
             "ledger attaches in the same entry: that lab data is upstream of the model’s own " +
             "inputs, so this is a consistency check, not independent validation." },
-        { v: OVER, t: "Measured false. 5 of 90 in the sweep, columns 0 of 24, cold plates 0 of 60 " +
-            "— and that headline has since been withdrawn, with a registered prediction of " +
-            "≈2 of 90 for the corrected run." },
+        { v: OVER, t: "Measured false. The corrected sweep scores 3 of 90, columns 0 of 24, cold " +
+            "plates 0 of 60 — and all three of those agreements sit at −2 °C, the one counting " +
+            "temperature the scoring rule had already registered as carrying essentially no " +
+            "weight. An earlier run of the same sweep measured 5 of 90 and was withdrawn; the " +
+            "corrected number was predicted in advance at about 2 of 90." },
         { v: OVER, t: "The charter forbids this sentence in advance: giving a model real physics " +
             "is not the same as showing the model reproduces reality. No quantity in this project " +
             "currently carries the top evidence tier." }
@@ -1672,7 +1979,10 @@
             "These measurements are upstream of the model’s inputs, so agreement here cannot " +
             "be a prediction however well it lands." },
         { v: OVER, t: "Over-reaching and measured false in the same sentence. The sweep is the " +
-            "test of this claim, and it came back negative in every band the headline counts." },
+            "test of this claim, and it came back negative: one habit transition where the " +
+            "reference needs three, 0 of 24 in the columns band, 0 of 60 in the cold-plates band, " +
+            "and agreement nowhere in the headline scope except at the single temperature the " +
+            "scoring rule had already declared weightless." },
         { v: OVER, t: "This is the rung drawn dashed and grey. What would have to exist: a test " +
             "on data the model was not built from. The stretch register lists four — " +
             "free-fall growth data, facet-rate curves, size-dependent habit, a pressure ladder " +

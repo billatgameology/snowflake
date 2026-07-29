@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Exam Result — Snow Crystals</title>
-<meta name="description" content="Two hundred and four crystals, seventeen hours, five agreements out of ninety — and not one invalid run. What a flawless failure is evidence of, and what it is not.">
+<meta name="description" content="Two hundred and four crystals, twenty hours, three agreements out of ninety — and not one invalid run. What a flawless failure is evidence of, what it is not, and how the headline got corrected.">
 <link rel="stylesheet" href="../assets/education.css">
 </head>
 
@@ -36,8 +36,9 @@
     <p class="sidenav__title">On this page</p>
     <ol>
       <li><a href="#two-numbers">Two numbers came back</a></li>
+      <li><a href="#corrected">How the headline got corrected</a></li>
       <li><a href="#the-grid">The measured diagram</a></li>
-      <li><a href="#the-five">All five wins at one temperature</a></li>
+      <li><a href="#the-three">All three wins at one temperature</a></li>
       <li><a href="#minus-five">The one temperature that agrees with the laboratory</a></li>
       <li><a href="#three-explanations">Three explanations, two eliminated</a></li>
       <li><a href="#counting">One crossing, three boundaries</a></li>
@@ -54,11 +55,11 @@
         <p class="chapter-header__eyebrow">Chapter 28</p>
         <h1>The Exam Result</h1>
         <p class="chapter-header__question">
-          Two hundred and four crystals, seventeen hours, five agreements out of ninety &mdash;
+          Two hundred and four crystals, twenty hours, three agreements out of ninety &mdash;
           and not one invalid run. Which of those numbers is the result?
         </p>
         <div class="chapter-header__meta">
-          <span>~16 min read</span>
+          <span>~18 min read</span>
           <span>7 interactives</span>
           <span>2 equations</span>
         </div>
@@ -67,8 +68,12 @@
       <section class="goals">
         <h2>By the end you will be able to</h2>
         <ul>
-          <li>Hold two true statements about the same run at once: it reproduced the laboratory
-            measurements it was built from, <em>and</em> it failed the map.</li>
+          <li>Hold two true statements about the same run at once: it reproduced the
+            &minus;5&nbsp;&deg;C laboratory measurements its own inputs came from, <em>and</em> it
+            failed the map.</li>
+          <li>Say why the headline is <strong>3 of 90</strong> and not the 5 of 90 the same
+            experiment measured first &mdash; and why the fall was written down before it
+            happened.</li>
           <li>Explain why flawless numerics are the thing that lets a disagreement be blamed on a
             theory instead of on the code.</li>
           <li>Follow a counting argument from curve crossings to habit boundaries, and say why
@@ -81,11 +86,15 @@
 
       <p>
         The exam was one command. <code>node runner/src/main.ts phase6-sweep 6</code>. It ran for
-        about seventeen hours on six worker processes and exited with status 0, having completed
+        about twenty hours on six worker processes and exited with status 0, having completed
         204 of 204 points on the float64 CPU oracle &mdash; the slow reference engine, for the
         reason chapter 26 gave. Those lines are printed in the provenance table at the top of
         <code>research/phase6-sweep-report.md</code>, next to the fingerprint of the protocol it
-        was run against and the two commit hashes that prove the protocol was sealed first.
+        was run against &mdash; the twenty-five-row <code>8aeb2b80&hellip;</code> that chapter 27
+        watched being sealed &mdash; the parameter set it ran, <code>CAK</code>, and two commit
+        hashes with a verified relationship between them: the freeze commit is an <em>ancestor</em>
+        of the commit that executed, which is the machine-checkable form of &ldquo;the rules were
+        written first&rdquo;.
       </p>
 
       <p>
@@ -95,12 +104,12 @@
       <p>The first is the score:</p>
 
       <blockquote>
-        <p>&ldquo;<strong>Headline: 5 of 90 headline-scope points agree.</strong>&rdquo;</p>
+        <p>&ldquo;<strong>Headline: 3 of 90 headline-scope points agree.</strong>&rdquo;</p>
         <p><cite><code>research/phase6-sweep-report.md</code>, &ldquo;Scored result&rdquo;</cite></p>
       </blockquote>
 
       <p>
-        Five out of ninety &mdash; ninety being the counting points chapter 27 derived in advance,
+        Three out of ninety &mdash; ninety being the counting points chapter 27 derived in advance,
         before anyone knew what would land on them. That is not a near miss. That is a miss so
         total that you would normally suspect the machine was broken.
       </p>
@@ -109,16 +118,22 @@
 
       <blockquote>
         <p>
-          &ldquo;<strong>Zero invalid runs in 204.</strong> Every point converged under the dual
-          criterion, held <code>symErr = 0</code> with noise off, kept every per-tick attachment
-          delta D6h-invariant, and cleared the 65% domain-contact guard. Nothing was excluded, so
-          nothing had to be argued about.&rdquo;
+          &ldquo;<strong>Zero invalid runs in 204, in both sweeps.</strong> Every point converged
+          under the dual criterion, held <code>symErr = 0</code> with noise off, kept every
+          per-tick attachment delta D6h-invariant, and cleared the 65% domain-contact guard.
+          Nothing was excluded, so nothing had to be argued about.&rdquo;
         </p>
-        <p><cite><code>research/phase6-sweep-report.md</code>, &ldquo;Four findings&rdquo; &sect;2</cite></p>
+        <p><cite><code>research/phase6-sweep-report.md</code>, &ldquo;Findings&rdquo; &sect;2</cite></p>
       </blockquote>
 
       <p>
-        Four checks, decided before the sweep, applied automatically to every run. They live in
+        Hold on to the phrase <em>in both sweeps</em>. There were two, the first of which this
+        project threw away; the next section is that story. The numerics were spotless in both,
+        which is why the story is about bookkeeping rather than about broken code.
+      </p>
+
+      <p>
+        Four checks, decided before either sweep, applied automatically to every run. They live in
         one function in <code>runner/src/phase6-sweep.ts</code> called
         <code>phase6ScorePoint</code>, and they are four lines long:
         <code>allConverged</code>, <code>deltaSymClean</code>, <code>symmetryError !== 0</code>,
@@ -199,16 +214,173 @@
       </aside>
 
       <p>
-        One warning before you read the number anywhere else on this page. The score of 5 of 90 is
-        <strong>measured, and it has since been superseded</strong>. After the sweep finished, an
-        internal review found that the runs had used a parameter set the frozen protocol had not
-        registered, which by the project&rsquo;s own rule invalidates the sweep and forces a re-run.
-        That story, including the fact that the corrected headline was predicted <em>in advance</em>
-        to be worse, is chapter 29&rsquo;s. Everywhere below, every swept number &mdash; the score,
-        the aspect ratios, the class totals, the row-by-row grid &mdash; is a measurement from a run
-        since superseded by the project&rsquo;s own protocol rule. Read each of them as &ldquo;as
-        measured in the sweep of commit <code>6995868</code>, which the project has since
-        invalidated&rdquo;.
+        Two things about the standing of that 3, before you read it anywhere else. Neither is a
+        hedge added here; both are printed above the number in the report itself.
+      </p>
+
+      <p>
+        <strong>It is not gate evidence yet.</strong> The report says so in bold before it prints a
+        single number, and names the step that has not happened &mdash; WP5, the project&rsquo;s
+        verification-and-closure work package:
+        &ldquo;<strong>These numbers are not yet gate evidence.</strong> WP5 has not run: no
+        independent verifier has re-derived <code>report.json</code> from <code>points.json</code>,
+        and the six negative controls have not executed.&rdquo; What it is instead, in the
+        report&rsquo;s own phrase, is &ldquo;a measured result with verified provenance, which is
+        not the same thing&rdquo;. Chapter 27 built the distinction; this is it being applied to the
+        project&rsquo;s own headline.
+      </p>
+
+      <p>
+        <strong>And it is one arm of two.</strong> This sweep is the <em>control</em> &mdash; the
+        model with no SDAK in it at all. The treatment arm, the one with the dip mechanism switched
+        on, has not been run, and the report refuses to draw the Phase 6 conclusion until it has:
+        &ldquo;The numbers below are complete and final for this arm; what they <em>mean</em> for
+        the phase waits.&rdquo; So this chapter is reading a result, not a verdict.
+      </p>
+
+      <h2 id="corrected">How the headline got corrected</h2>
+
+      <p>
+        The 3 replaced a 5, and how that happened is the most instructive thing on this page.
+      </p>
+
+      <p>
+        The first run of this same 204-point sweep finished, scored, and produced a headline of
+        <strong>5 of 90</strong>. Then an internal review compared the runs against the protocol
+        they were supposedly run under, and found that they disagreed. The frozen protocol
+        registered how one parameter should be built &mdash; <code>aPrism</code>, the prefactor
+        curve for the prism faces, registered as
+        <code>&quot;piecewise-linear-in-(Tm-T)&quot;</code>, deliberately <em>different</em> from
+        <code>aBasal: &quot;constant-1&quot;</code>. Every one of the 204 runs had instead used
+        <em>A</em><sub>prism</sub> &equiv; 1 at every temperature, because the sweep harness never
+        passed a parameter set to the child processes and a command-line default quietly supplied
+        one. The decision that records it puts the mechanism in a single sentence:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;So an <strong>unregistered CLI default silently overrode a registered freeze
+          row</strong>, through a path the freeze did not cover because <code>paramSet</code> was
+          not itself a registered row.&rdquo;
+        </p>
+        <p><cite><code>docs/decisions/0031-phase6-paramset-freeze-row.md</code></cite></p>
+      </blockquote>
+
+      <p>
+        The charter clause that priced this was written long before anyone needed it: any
+        post-freeze edit to parameters or protocol &ldquo;invalidates prior sweep results &mdash;
+        <strong>the full sweep re-runs</strong>&rdquo;. So the 5 of 90 was not softened, annotated
+        or kept as a secondary figure. It was <strong>invalidated</strong> &mdash; the decision
+        insists on that word rather than &ldquo;superseded&rdquo; &mdash; and its artifacts were
+        moved, unmodified, to a directory whose name carries its own obituary:
+        <code>out/phase6-sweep-6995868-cak-a1-superseded/</code>. A full 204-point sweep&rsquo;s
+        worth of compute, thrown away by the project&rsquo;s own rule, over a defect nobody outside
+        the project would ever have found.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          A missing rule and a broken rule are different failures. Chapter 27&rsquo;s earlier
+          amendments added rows nobody had thought to write down, and cost nothing because no
+          experiment had run yet. This one was worse: the rule <em>was</em> written down, and the
+          runs contradicted it &mdash; &ldquo;a materially worse failure than an unregistered degree
+          of freedom, because the artifact and the evidence disagree while both look complete&rdquo;.
+        </p>
+      </aside>
+
+      <p>
+        Now the part that makes this an experiment rather than a search. Before the re-run, the
+        project worked out which way the headline would move, and wrote it down:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;<strong>Registered prediction: the headline falls from 5/90 to approximately
+          2/90.</strong>&rdquo;
+          &hellip; &ldquo;<strong>The corrected result is expected to be worse, and that is the
+          point.</strong> A validation whose headline improves when you fix a defect is pleasant;
+          one whose headline degrades is the case that tests whether the pre-registration is
+          real.&rdquo;
+        </p>
+        <p><cite><code>docs/decisions/0031-phase6-paramset-freeze-row.md</code>, Decision &sect;4
+          and Consequences</cite></p>
+      </blockquote>
+
+      <p>
+        Read why that sentence had to exist. Two parameter sets were available, one of which scored
+        better. If the choice is made after seeing both scores, the pre-registration is worthless
+        &mdash; it has become a post-registration. So the decision fixed the choice on provenance
+        (the registered curve has a printed closed form behind it; the flat
+        <em>A</em><sub>prism</sub> &equiv; 1 has only a documented modelling convenience), fixed the
+        expected direction in writing, and added the clause that closes the escape hatch: if the
+        re-sweep returns a worse number, &ldquo;that is the predicted outcome of adopting the
+        better-provenanced inputs and is not grounds for revisiting this decision&rdquo;.
+      </p>
+
+      <p>
+        The re-sweep came in at <strong>3 of 90</strong>. The report grades its own forecast in one
+        line: &ldquo;Direction correct, magnitude one point pessimistic.&rdquo; Here is the
+        whole correction, row by row &mdash; all five of the original agreements sat at
+        &minus;2&nbsp;&deg;C, where the registered curve throttles the prism prefactor by 3.6&times;,
+        and you can watch three survive it and two fail.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The correction, measured. Both aspect-ratio columns are computed from the two
+            <code>points.json</code> files and printed in
+            <code>research/phase6-sweep-report.md</code>, &ldquo;The registered prediction, and how
+            it did&rdquo;. All rows are at &minus;2&nbsp;&deg;C, the only counting temperature in
+            the warm plate band. The plate ceiling is 0.6667: a point that rises above it becomes
+            neutral, which the registered rule scores as disagreement.
+          </caption>
+          <thead>
+            <tr>
+              <th class="num">f</th>
+              <th class="num">AR, withdrawn run</th>
+              <th class="num">AR, corrected run</th>
+              <th class="num">rise</th>
+              <th>agreement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="num">0.10</td><td class="num">0.1638</td><td class="num">0.2632</td><td class="num">1.607&times;</td><td>held</td></tr>
+            <tr><td class="num">0.15</td><td class="num">0.2729</td><td class="num">0.3684</td><td class="num">1.350&times;</td><td>held</td></tr>
+            <tr><td class="num">0.25</td><td class="num">0.3821</td><td class="num">0.6004</td><td class="num">1.571&times;</td><td>held, <strong>extent-fragile</strong></td></tr>
+            <tr><td class="num">0.40</td><td class="num">0.4913</td><td class="num">0.7096</td><td class="num">1.444&times;</td><td><strong>lost</strong></td></tr>
+            <tr><td class="num">0.60</td><td class="num">0.6004</td><td class="num">0.8188</td><td class="num">1.364&times;</td><td><strong>lost</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        The forecast had been built by interpolating between two calibration probes and predicted a
+        rise near 1.9&ndash;2.2&times;; the measured rises are 1.35&ndash;1.61&times;. The
+        two-point interpolation ran hot, which is exactly why three agreements survived instead of
+        two. The report also names what that says about the method rather than only about the
+        answer: the rise is not monotone in <em>f</em>, so &ldquo;a single throttle-to-rise factor
+        was the wrong model for it; the probes happened to sample the two ends&rdquo;. A prediction
+        that lands one point off, for a reason you can state afterwards, is worth more than one that
+        lands exactly and cannot say why.
+      </p>
+
+      <p>
+        One more thing the correction taught, and it is a physics result rather than a bookkeeping
+        one. Restoring the registered curve made the prism faces harder to grow on, which is a push
+        <em>away</em> from plates &mdash; and at the temperatures where that push is hardest the
+        model did not become a column. It became nothing in particular. A probe at
+        &minus;5&nbsp;&deg;C, where the correction bites hardest of all, moved the aspect ratio from
+        0.3821 to exactly 1.0000: an equant crystal, as thick as it is wide. The findings document
+        states the lesson in one line &mdash; &ldquo;<strong>The broad-facet correction moves the
+        model from one habit to <em>no</em> habit, not to the other habit</strong>&rdquo; &mdash;
+        and you will meet that same shape again twice on this page.
       </p>
 
       <h2 id="the-grid">The measured diagram</h2>
@@ -229,13 +401,14 @@
       </p>
 
       <p>
-        Chapter 27 sealed the marking scheme before any of this ran. Three of its clauses do all
+        Chapter 27 sealed the marking scheme before any of this ran &mdash; before <em>either</em>
+        run of it, which is worth saying now that there have been two. Three of its clauses do all
         the work here. <em>Neutral counts as disagreement</em>, because the reference names a habit
         in every regime and the neutral band is the model&rsquo;s invention, not the
         reference&rsquo;s. <em>Points within 1&nbsp;&deg;C of a reference boundary do not count</em>,
         in either direction. And <em>the coldest regime, which accepts both plates and columns, is
         reported but kept out of the headline</em>, because a band that accepts both answers cannot
-        discriminate between them. Ninety points survive those rules. Five of them agree.
+        discriminate between them. Ninety points survive those rules. Three of them agree.
       </p>
 
       <figure class="anim is-wide" id="c28-sweep">
@@ -243,21 +416,27 @@
           <p class="anim__title">The 204-point sweep, walkable</p>
           <p class="anim__sub">
             Four views of the same measurement. Click any square to read what the model grew there,
-            what nature grows there, and whether the registered rule counts it.
+            what nature grows there, and whether the registered rule counts it. It opens on the
+            corrected run; the last button swaps in the withdrawn one, so you can see the correction
+            as a change of picture rather than a change of number.
           </p>
         </div>
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
-          <span class="built-from">Original interactive. The grid is transcribed from the measured
-          diagram printed in <code>research/phase6-sweep-report.md</code>; scoring re-implements
-          <code>docs/decisions/0025-phase6-agreement-scoring-rule.md</code>. The 5 of 90 headline it
-          reproduces is measured, and since superseded &mdash; see chapter 29.</span>
+          <span class="built-from">Original interactive. The corrected grid is transcribed from the
+          measured diagram printed in <code>research/phase6-sweep-report.md</code>; the withdrawn
+          grid is transcribed from the same file at its superseded revision, commit
+          <code>6995868</code>, whose artifacts are preserved unmodified at
+          <code>out/phase6-sweep-6995868-cak-a1-superseded/</code>. Scoring re-implements
+          <code>docs/decisions/0025-phase6-agreement-scoring-rule.md</code> and reproduces both
+          published headlines &mdash; 3 of 90 for the corrected run, 5 of 90 for the withdrawn
+          one.</span>
         </figcaption>
       </figure>
 
       <p>
-        Where those five sit matters more than the fact that there are five. In the temperature
+        Where those three sit matters more than the fact that there are three. In the temperature
         band where the reference demands columns, the model agreed on 0 of 24 counting points; in
         the band where it demands cold plates, 0 of 60. The denominators differ because the bands
         are different widths on the temperature axis, and each surviving temperature carries six
@@ -267,32 +446,46 @@
       <div class="table-wrap">
         <table>
           <caption>
-            The scored result, by regime. Transcribed from the table in
-            <code>research/phase6-sweep-report.md</code>, &ldquo;Scored result&rdquo;. The
-            &ldquo;neutral&rdquo; column is published separately so that &ldquo;wrong habit&rdquo;
-            can always be told apart from &ldquo;no habit&rdquo;.
+            The scored result, by regime, for the corrected run. Transcribed from the table in
+            <code>research/phase6-sweep-report.md</code>, &ldquo;Scored result&rdquo;.
+            <em>n</em> counts every point in the band; <em>in headline</em> counts the ones that
+            survive the &plusmn;1&nbsp;&deg;C ambiguity rule. The &ldquo;neutral&rdquo; column is
+            published separately so that &ldquo;wrong habit&rdquo; can always be told apart from
+            &ldquo;no habit&rdquo;.
           </caption>
           <thead>
             <tr>
               <th>Regime</th><th>In the headline?</th><th class="num">n</th>
-              <th class="num">agree</th><th class="num">disagree</th><th class="num">of which neutral</th>
+              <th class="num">in headline</th><th class="num">agree (headline)</th><th class="num">neutral</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>plates-warm (T &gt; &minus;3.3&nbsp;&deg;C)</td><td>yes</td><td class="num">6</td><td class="num">5</td><td class="num">1</td><td class="num">1</td></tr>
-            <tr><td>columns (&minus;3.3 &hellip; &minus;9.9&nbsp;&deg;C)</td><td>yes</td><td class="num">24</td><td class="num">0</td><td class="num">24</td><td class="num">8</td></tr>
-            <tr><td>plates-cold (&minus;9.9 &hellip; &minus;21.5&nbsp;&deg;C)</td><td>yes</td><td class="num">60</td><td class="num">0</td><td class="num">60</td><td class="num">58</td></tr>
-            <tr><td>columns-and-plates (&lt; &minus;21.5&nbsp;&deg;C)</td><td>no</td><td class="num">78</td><td class="num">26</td><td class="num">52</td><td class="num">52</td></tr>
+            <tr><td>plates-warm (T &gt; &minus;3.3&nbsp;&deg;C)</td><td>yes</td><td class="num">12</td><td class="num">6</td><td class="num">3</td><td class="num">7</td></tr>
+            <tr><td>columns (&minus;3.3 &hellip; &minus;9.9&nbsp;&deg;C)</td><td>yes</td><td class="num">36</td><td class="num">24</td><td class="num">0</td><td class="num">35</td></tr>
+            <tr><td>plates-cold (&minus;9.9 &hellip; &minus;21.5&nbsp;&deg;C)</td><td>yes</td><td class="num">72</td><td class="num">60</td><td class="num">0</td><td class="num">69</td></tr>
+            <tr><td>columns-and-plates (&lt; &minus;21.5&nbsp;&deg;C)</td><td>no</td><td class="num">84</td><td class="num">0</td><td class="num">27 reported</td><td class="num">57</td></tr>
           </tbody>
         </table>
       </div>
 
       <p>
-        Across all 204 points the class totals are <strong>31 plate, 143 neutral, 30 column, 0
-        invalid</strong>, with 25 points flagged as sitting close enough to a class threshold that
+        Across all 204 points the class totals are <strong>6 plate, 168 neutral, 30 column, 0
+        invalid</strong>, with 16 points flagged as sitting close enough to a class threshold that
         a small change in measurement size could move them. You can check those totals off the grid
         above by hand, because it is the report&rsquo;s own character grid transcribed cell for
-        cell &mdash; and the 143 is the model refusing to pick a side.
+        cell &mdash; and the 168 is the model refusing to pick a side, on more than four points in
+        every five.
+      </p>
+
+      <p>
+        Do the same count on the withdrawn run &mdash; switch the interactive across and read it off
+        the grid &mdash; and it was 31 plate, 143 neutral, 30 column. Restoring one registered curve
+        cost the model twenty-five of its plates and
+        bought it no columns at all: the column count is identical, because below
+        &minus;10&nbsp;&deg;C the two parameter sets are the <em>same model</em> &mdash; the
+        source&rsquo;s own figure caption says both prefactors are about 1 between &minus;10 and
+        &minus;30&nbsp;&deg;C, so there was nothing there for the correction to change. That is the
+        second sighting of it: away from one habit, not toward the other.
       </p>
 
       <aside class="callout callout--method">
@@ -303,25 +496,33 @@
           How we know
         </p>
         <p>
-          The measured grid is published as 34&times;6 characters of plain text in the sweep report.
-          That is a deliberate choice: it means any reader can re-run the scoring rule by hand and
-          arrive at 5 of 90 without trusting the program that produced it. Every interactive on this
-          page that uses model results reads from that transcription, and reproduces the published
-          per-band totals &mdash; 5/6, 0/24, 0/60, and 26/78 in the excluded mixed band.
+          Each measured grid is published as 34&times;6 characters of plain text, small enough to
+          print in a report and read with your eyes. That is a deliberate choice: it means any
+          reader can re-run the scoring rule by hand and arrive at 3 of 90 without trusting the
+          program that produced it. The corrected grid is the one in
+          <code>research/phase6-sweep-report.md</code> today; the withdrawn grid is in the same file
+          at the revision it was withdrawn from, commit <code>6995868</code> in the project&rsquo;s
+          history, with its raw artifacts preserved unmodified at
+          <code>out/phase6-sweep-6995868-cak-a1-superseded/</code> &mdash; so a withdrawn result
+          stays checkable instead of vanishing. Every interactive on this page that uses model
+          results reads from those transcriptions, and re-implementing the registered rule over them
+          reproduces the published per-band totals &mdash; 3/6 warm plates, 0/24 columns, 0/60 cold
+          plates &mdash; and, over the withdrawn grid, 5/6, 0/24, 0/60. Both headlines come out
+          exactly as published.
         </p>
       </aside>
 
-      <h2 id="the-five">All five wins at one temperature</h2>
+      <h2 id="the-three">All three wins at one temperature</h2>
 
       <p>
         Now the part where the honesty machinery turns on the project&rsquo;s own good news. All
-        five agreements are at the same temperature. The report does not bury that; it prints it in
+        three agreements are at the same temperature. The report does not bury that; it prints it in
         bold, immediately under the headline:
       </p>
 
       <blockquote>
         <p>
-          &ldquo;<strong>Every one of the five agreements is at &minus;2&nbsp;&deg;C</strong>, the
+          &ldquo;<strong>All three agreements are at &minus;2&nbsp;&deg;C</strong>, the
           single counting temperature in the warmest regime &mdash; which ADR 0025 registered
           <em>pre-sweep</em> as carrying essentially no statistical weight, precisely so this could
           not be presented as a result. The model agrees with the reference nowhere else inside the
@@ -335,7 +536,7 @@
         temperatures warmer than &minus;3.3&nbsp;&deg;C. On a one-degree grid starting at
         &minus;2&nbsp;&deg;C, and with the &plusmn;1&nbsp;&deg;C ambiguity band removing
         &minus;3&nbsp;&deg;C, exactly one temperature in that band can ever count. The scoring
-        decision therefore wrote this down before the sweep, while the outcome was still unknown:
+        decision therefore wrote this down before either sweep, while the outcome was still unknown:
       </p>
 
       <blockquote>
@@ -349,44 +550,46 @@
       </blockquote>
 
       <p>
-        A band that can only score 0% or 100% scored 100%. Five of the six cells at
-        &minus;2&nbsp;&deg;C came out plate, which is what the reference asks for; the sixth, at the
-        wettest humidity, came out neutral, which the rule counts as a miss. That is the entire
-        positive half of the headline: one temperature, five humidities.
+        The &ldquo;0% or 100%&rdquo; in that clause is loose, and worth correcting in passing rather
+        than repeating: the single counting temperature carries six humidity cells, which can and do
+        disagree with each other, so the band can land anywhere from 0 to 6. It scored 5 of 6 in the
+        withdrawn run and 3 of 6 in this one. What the clause was actually protecting is untouched by
+        that, and it is the part to keep: <em>any</em> conclusion about the warm plate band is a
+        one-temperature conclusion and must say so.
       </p>
 
-      <div class="table-wrap">
-        <table>
-          <caption>
-            The five agreements, with the aspect ratios behind them. Values from
-            <code>research/libbrecht-figure-findings.md</code> &sect;9, where they are listed as the
-            swept values at &minus;2&nbsp;&deg;C. &sigma;<sub>&infin;</sub> is the supersaturation
-            far from the crystal &mdash; the same humidity as <em>f</em>, written as the raw excess
-            of vapour rather than as a fraction of water saturation. The plate ceiling is 0.6667; a
-            point that rose above it would become neutral, which the registered rule scores as
-            disagreement.
-          </caption>
-          <thead>
-            <tr><th class="num">f</th><th class="num">&sigma;<sub>&infin;</sub></th><th class="num">aspect ratio</th><th class="num">rise needed to lose the agreement</th></tr>
-          </thead>
-          <tbody>
-            <tr><td class="num">0.10</td><td class="num">0.002</td><td class="num">0.1638</td><td class="num">4.07&times;</td></tr>
-            <tr><td class="num">0.15</td><td class="num">0.003</td><td class="num">0.2729</td><td class="num">2.44&times;</td></tr>
-            <tr><td class="num">0.25</td><td class="num">0.005</td><td class="num">0.3821</td><td class="num">1.74&times;</td></tr>
-            <tr><td class="num">0.40</td><td class="num">0.008</td><td class="num">0.4913</td><td class="num">1.36&times;</td></tr>
-            <tr><td class="num">0.60</td><td class="num">0.012</td><td class="num">0.6004</td><td class="num">1.11&times;</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <p>
+        So every agreement the model has is a one-temperature conclusion, and the rule that says so
+        was sealed before either sweep. At that one temperature, three of the six humidity cells came
+        out plate, which is what the reference asks for; the other three came out neutral, which the
+        rule counts as a miss. That is the entire positive half of the
+        headline: one temperature, three humidities &mdash; and one of those three is flagged
+        extent-fragile, meaning it sits close enough to the plate ceiling that measuring the crystal
+        at a slightly different size could move it out of the class. In the withdrawn run the same
+        band had five of six. Nothing else in the headline scope has ever agreed, in either run.
+      </p>
 
       <p>
-        And then the project undercuts its own five wins a second time. The warm end of the model
-        rests on one digitized curve &mdash; the prism facet&rsquo;s <em>&sigma;<sub>0</sub></em>
-        &mdash; that the project has since found suspect. Libbrecht&rsquo;s own printed closed form
-        puts those digitized anchors low by a factor of 1.6 to 3.2 at &minus;2 to
-        &minus;5&nbsp;&deg;C, far outside the &plusmn;25% uncertainty the project had claimed for
-        them. The report states the consequence in the same breath: &ldquo;and &minus;2&nbsp;&deg;C
-        is where all five agreements sit.&rdquo;
+        And then the honesty machinery does something less expected: it fires in the other
+        direction, and takes back an accusation the project had made against itself. Earlier
+        versions of this record put the warm end under suspicion, on the grounds that the digitized
+        prism <em>&sigma;<sub>0</sub></em> curve &mdash; the one the whole warm end rests on &mdash;
+        sat low by a factor of 1.6 to 3.2 against a closed form Libbrecht had printed. A closer
+        reading reversed it. The current report labels the paragraph
+        <strong>CORRECTED</strong> and explains that the dedicated measurement papers give
+        &sigma;<sub>0,prism</sub> = 0.03% at &minus;2&nbsp;&deg;C and about 0.2% at
+        &minus;5&nbsp;&deg;C, that the project&rsquo;s digitized curve matches those to roughly 7%,
+        and that the closed form it had been judging itself against is the outlier of the three, high
+        by 3.01&times;. Its conclusion: &ldquo;The warm end does <strong>not</strong> rest on a
+        suspect &sigma;<sub>0,prism</sub>.&rdquo;
+      </p>
+
+      <p>
+        Notice that this is a <em>withdrawn criticism</em>, not a withdrawn result, and it is
+        reported with the same machinery and the same bold labels as the withdrawn headline was. A
+        record that only ever corrects downward is not a record, it is a mood. The undercut that
+        survives is the one that was registered before the sweep: one counting temperature, no
+        statistical weight, and it says so itself.
       </p>
 
       <aside class="callout callout--key">
@@ -398,9 +601,10 @@
         </p>
         <p>
           Anyone can be honest about their bad news. The test of an honesty system is whether it
-          fires on the good news too &mdash; and here the same document that reports five
-          agreements is the document that says, in bold, that those five carry essentially no
-          weight and rest on a parameter it now doubts.
+          fires on the good news too &mdash; and here the same document that reports three
+          agreements is the document that says, in bold, that all three sit at one temperature it
+          had already registered as carrying essentially no weight, and that one of the three is
+          fragile to how big the crystal was when it was measured.
         </p>
       </aside>
 
@@ -411,8 +615,9 @@
       </p>
 
       <p>
-        At &minus;5&nbsp;&deg;C the Nakaya diagram demands a column. The model grew a plate, and
-        scored zero. But &minus;5&nbsp;&deg;C is also the subject of a dedicated laboratory paper by
+        At &minus;5&nbsp;&deg;C the Nakaya diagram demands a column. The corrected run grew neither
+        habit there and scored zero; the withdrawn run grew a plate and also scored zero. But
+        &minus;5&nbsp;&deg;C is also the subject of a dedicated laboratory paper by
         Libbrecht himself, and that paper reports the opposite of the diagram. His substrate
         experiments there found aspect ratios &ldquo;throughout the range 0.1 &lt;
         &rho;<sub>aspect</sub> &lt; 1. Columnar crystals (with &rho;<sub>aspect</sub> &gt; 1) were
@@ -423,19 +628,31 @@
 
       <p>
         The model&rsquo;s two &minus;5&nbsp;&deg;C measurements bracket AR 0.3821 to 1.0000 &mdash;
-        one under the parameters the sweep actually ran, one under the corrected set &mdash; and
-        both sit at or inside his measured range, columns absent. So the model agrees with the laboratory
-        measurements and disagrees with the diagram, which is precisely what the source says a
-        broad-facet model should do. On p. 10 he writes it out: &ldquo;<strong>Producing columnar
-        crystals at &minus;5&nbsp;C then requires the SDAK effect</strong>.&rdquo;
+        the first is what the withdrawn run measured there, the second what the registered
+        parameter set produces at the same conditions &mdash; and both sit at or inside his measured
+        range, columns absent. The corrected sweep classes that cell as neutral, which is the same
+        statement in the coarser language of habit classes: not a column. So the model agrees with
+        the laboratory measurements and disagrees with the diagram, which is precisely what the
+        source says a broad-facet model should do. On p. 10 he writes it out:
+        &ldquo;<strong>Producing columnar crystals at &minus;5&nbsp;C then requires the SDAK
+        effect</strong>.&rdquo;
+      </p>
+
+      <p>
+        This is the one place where the correction that cost the project its headline
+        <em>improved</em> the physics comparison, and it is worth being exact about how little that
+        buys. The registered curve moved the model from a thin plate to an equant crystal, which is
+        closer to the &ldquo;blockier, nearly isometric&rdquo; crystals he describes. It still did
+        not produce a column, because the diagram is not what his bench found here either.
       </p>
 
       <figure class="anim" id="c28-minus5">
         <div class="anim__head">
           <p class="anim__title">The &minus;5&nbsp;&deg;C bench</p>
           <p class="anim__sub">
-            One aspect-ratio axis, three marks and a threshold. The lab and the diagram disagree
-            with each other at this temperature. The model sides with the lab.
+            One aspect-ratio axis, two marks and a threshold. The lab and the diagram disagree
+            with each other at this temperature. The model sides with the lab, under either
+            parameter set.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -464,12 +681,16 @@
       </p>
 
       <p>
-        Second, the upper end of that range, AR 1.0000, comes from a <strong>calibration
-        probe</strong>: a run made to help choose settings, not a run made under the frozen
-        protocol. The project maintains a two-tier truth system for exactly this reason, and the
-        document that prints the number prints the restriction beside it: &ldquo;These are
-        CALIBRATION PROBES and are never citable as gate evidence.&rdquo; The swept, citable value
-        at &minus;5&nbsp;&deg;C is 0.3821.
+        Second, neither of those two numbers is gate evidence, and for two different reasons. AR
+        1.0000 comes from a <strong>calibration probe</strong>: a run made to help choose settings,
+        not a run made under the frozen protocol. The project maintains a two-tier truth system for
+        exactly this reason, and the document that prints the number prints the restriction beside
+        it: &ldquo;These are CALIBRATION PROBES and are never citable as gate evidence.&rdquo; AR
+        0.3821 <em>was</em> a swept value &mdash; from the run that has since been invalidated. And
+        the corrected sweep, which is a frozen-protocol run and does have verified provenance, is
+        still waiting on the verifier and the negative controls before anything in it can be called
+        gate evidence at all. Two numbers, two separate reasons, and the run behind them not yet
+        gated either &mdash; all three facts stated rather than left for a reader to discover.
       </p>
 
       <h2 id="three-explanations">Three explanations, two eliminated</h2>
@@ -498,7 +719,8 @@
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. Evidence drawn from
-          <code>research/phase6-sweep-report.md</code> &sect;2 of &ldquo;Four findings&rdquo;;
+          <code>research/phase6-sweep-report.md</code> &sect;2 of &ldquo;Findings&rdquo; and its
+          verification-hazard note; <code>docs/decisions/0031-phase6-paramset-freeze-row.md</code>;
           <code>docs/plans/phase-6-nakaya-validation.md</code> (gate separation);
           <code>docs/findings-ledger.md</code> entries A1 and A2.</span>
         </figcaption>
@@ -531,14 +753,19 @@
         afterwards, the digitized
         <em>A</em><sub>prism</sub> anchors reproduce the printed formula to 8.4% at worst and under
         2% typically. An extraction that agrees with a source it could not have peeked at is
-        independently confirmed, not merely self-consistent. But read carefully what that alibi
-        covers: it clears the <em>registered</em> curve, and the 204 runs did not use it. They ran
-        with <em>A</em><sub>prism</sub> fixed at 1 at every temperature, which is the substitution
-        the review later caught. So this piece of evidence attaches to the corrected re-sweep, not
-        to the 5 of 90. The
-        <em>&sigma;<sub>0</sub></em> curves got no such clean bill either &mdash; that is the
-        discrepancy the previous section reported, and between them they are why the alibi for the
-        numbers is stamped &ldquo;with scope&rdquo; rather than clean.
+        independently confirmed, not merely self-consistent. And note which run that alibi covers:
+        it clears the <em>registered</em> curve, and the withdrawn 204 runs did not use it &mdash;
+        they used <em>A</em><sub>prism</sub> &equiv; 1 at every temperature. The evidence and the
+        evidence&rsquo;s subject only lined up once the sweep was re-run, which is one more way of
+        saying why the re-run had to happen.
+      </p>
+
+      <p>
+        So the alibi is stamped &ldquo;with scope&rdquo; rather than clean, and the scope is now
+        smaller than it was: the suspicion over the warm prism
+        <em>&sigma;<sub>0</sub></em> has itself been withdrawn, as the previous section described.
+        What remains is the honest limitation that will not go away &mdash; the laboratory data these
+        inputs reproduce is the laboratory data these inputs came from.
       </p>
 
       <aside class="callout callout--myth">
@@ -553,8 +780,21 @@
           zero runs tripped four named validity conditions. The
           <em>A</em><sub>prism</sub> substitution tripped none of them, because no automatic check
           was watching that row: an unregistered command-line default quietly overrode a frozen
-          parameter, and every affected run still came out numerically spotless. A machine can only
-          catch the mistakes somebody thought to name.
+          parameter, and all 204 affected runs still came out numerically spotless. A machine can
+          only catch the mistakes somebody thought to name &mdash; and this one was caught by a
+          reader comparing the runs against the protocol, not by the machine.
+        </p>
+        <p>
+          The corrected run carries a second example, found while it was running and recorded
+          because it is <strong>not yet fixed</strong>. The harness stamps the provenance once at
+          the start, but each of the 204 child processes launches the model from the
+          <em>working tree</em> &mdash; so an edit to the solver mid-run would change the physics for
+          the later points while the report still named the commit it started from. Nine commits from
+          a parallel session did land during the twenty hours; the project checked afterwards that
+          none of them touched the solver, so this sweep is unaffected. Its own verdict on that:
+          &ldquo;That was luck, not design.&rdquo; The fix &mdash; a preflight check that the child
+          command line carries every frozen parameter, plus a re-check at the end &mdash; is
+          outstanding.
         </p>
       </aside>
 
@@ -582,10 +822,19 @@
 
       <p>
         Three independent parameterizations of those curves have been evaluated &mdash; the
-        project&rsquo;s own digitized anchors and two printed closed forms from separate papers.
-        Each has exactly one crossing, all in the same direction, all landing between &minus;8.4 and
-        &minus;10.9&nbsp;&deg;C. The Nakaya diagram has three boundaries. One is less than three,
-        and no amount of engineering closes that gap.
+        project&rsquo;s own digitized anchors at &minus;10.00&nbsp;&deg;C and two printed closed
+        forms from separate papers at &minus;8.39 and &minus;10.92&nbsp;&deg;C. Each has exactly one
+        crossing, and all three cross in the same direction. The Nakaya diagram has three
+        boundaries. One is less than three, and no amount of engineering closes that gap.
+      </p>
+
+      <p>
+        This is the part of the sweep the correction did not touch, and the report says the
+        withdrawal actually strengthened it: the plate&nbsp;&rarr;&nbsp;neutral&nbsp;&rarr;&nbsp;column
+        sequence, monotone in temperature with no return, &ldquo;now holds under <strong>both</strong>
+        parameter sets, which is stronger than holding under one&rdquo;. A structural claim that
+        survives its own experiment being re-run under different inputs is doing better than a score
+        that does not.
       </p>
 
       <div class="equation">
@@ -697,6 +946,16 @@
         answer is more interesting than a flat &ldquo;no&rdquo;.
       </p>
 
+      <p>
+        One disclosure first, because these ten runs predate the correction: all of them were run
+        under the parameter set that was later withdrawn. At &minus;15&nbsp;&deg;C that changes
+        nothing at all &mdash; below &minus;10&nbsp;&deg;C the two sets are the same model, so those
+        five numbers stand as they are. At &minus;5&nbsp;&deg;C the registered curve would shift the
+        whole column of five upward, as it shifted everything else at that temperature. The
+        conclusion below survives that shift because it turns on <em>direction</em>, not on the
+        values: a seed pushes both temperatures the same way, and the two bands need opposite pushes.
+      </p>
+
       <figure class="anim is-wide" id="c28-lever">
         <div class="anim__head">
           <p class="anim__title">Two targets, one lever</p>
@@ -709,8 +968,9 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. All ten aspect ratios are measured runs,
           transcribed from the five-seed table in
-          <code>research/libbrecht-figure-findings.md</code> &sect;9.2. Those runs are calibration
-          probes, not gate evidence, and the document says so in place.</span>
+          <code>research/libbrecht-figure-findings.md</code> &sect;9.2, which records them as run
+          under <code>CAK_A1</code> &mdash; the parameter set later withdrawn. Those runs are
+          calibration probes, not gate evidence, and the document says so in place.</span>
         </figcaption>
       </figure>
 
@@ -757,25 +1017,35 @@
       <p>
         The first is that the crossing marks where plate <strong>stops</strong>, not where column
         <strong>starts</strong>. This project had assumed the crossing temperature <em>is</em> the
-        habit-switch temperature, and nothing in the literature says otherwise. It is not. The last
-        plate cell in
-        every row from <em>f</em> = 0.10 to 0.40 sits at &minus;8&nbsp;&deg;C, with the first
-        neutral cell at &minus;9&nbsp;&deg;C &mdash; which is why the report brackets the plate
-        boundary as &ldquo;&minus;8/&minus;9&nbsp;&deg;C&rdquo;, and it is what the strip
-        interactive below prints when you read it off the grid. Either way it lands essentially at
-        the registered &minus;10&nbsp;&deg;C crossing &mdash; and then columns do not
-        begin until &minus;19&nbsp;&deg;C or, at the next humidity up, &minus;23&nbsp;&deg;C. The
-        roughly 10&nbsp;&deg;C band in between is the model declining to commit to either habit, and
-        it is the single largest feature of the measured diagram. On Nakaya&rsquo;s side of the
-        comparison there is no gap at all: a knife-edge boundary at &minus;9.9&nbsp;&deg;C.
+        habit-switch temperature, and nothing in the literature says otherwise. It is not. Plate
+        growth ends at &minus;4&nbsp;&deg;C in the driest row, &minus;3&nbsp;&deg;C in the next and
+        &minus;2&nbsp;&deg;C in the one after that &mdash; nowhere near the registered
+        &minus;10&nbsp;&deg;C crossing &mdash; and then columns do not begin until
+        &minus;19&nbsp;&deg;C or, at the next humidity up, &minus;23&nbsp;&deg;C. The band in
+        between, 14 to 19&nbsp;&deg;C wide depending on the row, is the model declining to commit to
+        either habit, and it is the single largest feature of the measured diagram. On
+        Nakaya&rsquo;s side of the comparison there is no gap at all: a knife-edge boundary at
+        &minus;9.9&nbsp;&deg;C.
+      </p>
+
+      <p>
+        The correction widened that gap rather than closing it, which is the third sighting of the
+        same shape. In the withdrawn run plate growth had persisted to &minus;8 or
+        &minus;9&nbsp;&deg;C across four humidity rows and the neutral band was roughly
+        10&nbsp;&deg;C wide. Restoring the registered curve pulled the plate edge back to
+        &minus;4/&minus;3/&minus;2&nbsp;&deg;C, left the column edge exactly where it was, and so
+        made the region of no habit at all bigger. Drag the humidity slider below and you are
+        reading the corrected run; the grid interactive higher up will show you the other one.
       </p>
 
       <p>
         The second is that turning up the humidity destroys habit outright. Columns appear only in
-        the two driest rows. From the third row upward there is not one column anywhere across all
-        34 temperatures, and at the wettest row the model produces nothing but neutral, everywhere.
-        The direction was predicted before the sweep, from the attachment formula itself &mdash; but
-        predicted as a <em>bias</em>, and measured as <em>total</em>.
+        the two driest rows &mdash; and at <em>f</em> = 0.40, 0.60 and 0.90 the model produces
+        nothing but neutral across all 34 temperatures. Not a plate, not a column, at any
+        temperature from &minus;2 to &minus;35&nbsp;&deg;C, in half the humidity range. The
+        direction was predicted before the sweep, from the attachment formula itself &mdash; but
+        predicted as a <em>bias</em>, and measured as <em>total</em>. In the withdrawn run only the
+        wettest row had been that empty; the corrected run empties three.
       </p>
 
       <div class="equation">
@@ -792,19 +1062,24 @@
           </dl>
         </div>
         <p class="equation__cite">
-          As printed in <code>research/phase6-sweep-report.md</code>, &ldquo;Four findings&rdquo;
-          &sect;4, explaining the measured contrast collapse
+          As printed in <code>research/phase6-sweep-report.md</code>, &ldquo;Findings&rdquo;
+          &sect;5, explaining the measured contrast collapse
         </p>
       </div>
 
       <p>
         Read the formula and the collapse is obvious in hindsight. As
         &sigma;<sub>surf</sub> grows, the exponential term goes to 1 and every facet&rsquo;s
-        &alpha; saturates toward its own ceiling A. The basal/prism contrast, which spans 0.34 to
-        3.76 across the temperature axis at f = 0.15, compresses to 0.84&ndash;1.25 at f = 0.90. The
-        facets stop being able to tell each other apart, so the crystal stops being able to choose a
-        habit. The uncomfortable part is where that happens: the real diagram is at its most
-        structured exactly there, full of dendrites, sectored plates and needles.
+        &alpha; saturates toward its own ceiling A. The facets stop being able to tell each other
+        apart, so the crystal stops being able to choose a habit. That much was computed on the
+        registered curves before either sweep ran, and written into the protocol as the reason the
+        humidity axis stops where it does: the basal/prism contrast spans 0.34 to 3.76 across the
+        temperature axis at <em>f</em> = 0.15 and only 0.84&ndash;1.25 at <em>f</em> = 0.90. The top
+        row was kept anyway, deliberately, because weak facet contrast is not the same as weak habit
+        variation &mdash; at high supersaturation shape is set by branching rather than by facets, so
+        what the model does there was registered as a real question rather than a foregone one. The
+        uncomfortable part is the answer: the real diagram is at its most structured exactly there,
+        full of dendrites, sectored plates and needles, and the model produces a blank.
       </p>
 
       <figure class="anim is-wide" id="c28-gap">
@@ -818,10 +1093,11 @@
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
-          <span class="built-from">Original interactive. Every strip is a row of the measured
-          diagram transcribed from <code>research/phase6-sweep-report.md</code>; the reference band
-          edges &minus;3.3, &minus;9.9 and &minus;21.5&nbsp;&deg;C are the digitized Nakaya
-          boundaries registered in <code>runner/src/phase6-protocol.ts</code>.</span>
+          <span class="built-from">Original interactive. Every strip is a row of the corrected
+          run&rsquo;s measured diagram, transcribed from
+          <code>research/phase6-sweep-report.md</code>; the reference band edges &minus;3.3,
+          &minus;9.9 and &minus;21.5&nbsp;&deg;C and the pre-sweep facet-contrast figures are the
+          registered values in <code>runner/src/phase6-protocol.ts</code>.</span>
         </figcaption>
       </figure>
 
@@ -839,9 +1115,30 @@
       </p>
 
       <p>
+        <strong>It is not gate evidence, and it is not a phase conclusion.</strong> The verifier has
+        not re-derived the report from the raw points, the six negative controls have not run, and
+        the SDAK arm this one is the control for does not exist yet. Everything on this page is a
+        measured result with verified provenance, which the report is careful to say is not the same
+        thing as gated evidence.
+      </p>
+
+      <p>
         <strong>It is not a test of SDAK.</strong> Every run is a no-SDAK run; in the report&rsquo;s
         own words, &ldquo;<code>SDAK</code> appears in no source file&rdquo;. The dip mechanism has
         never been tested here.
+      </p>
+
+      <p>
+        <strong>Around &minus;5&nbsp;&deg;C, no deterministic per-point score can be right even in
+        principle.</strong> The source reports that there &ldquo;both platelike and needlelike
+        crystals can grow under essentially identical conditions&rdquo;. If two habits grow at the
+        same temperature and humidity, then habit is not a single-valued function of the two axes the
+        diagram is drawn on, and a scheme that awards one mark per grid point is asking a question
+        with no unique answer in that band.
+        The report lists this among the things producing columns would require: a fast-growth
+        transient the model has no representation of, alongside a nucleation barrier whose
+        controlling terrace width is about 50 nanometres against this grid&rsquo;s 350-nanometre
+        cells.
       </p>
 
       <p>
@@ -861,16 +1158,47 @@
 
       <p>
         <strong>It ran on one computer.</strong> No cross-platform control has been run, so the
-        result is scoped to the registered x64 host. Habit is also measured at one crystal size, and
-        habit is size-dependent: 25 of the 204 points sit close enough to a class threshold to be
-        flagged fragile.
+        result is scoped to the registered x64 host. The correction did void the old control: the
+        two-point fixture meant to catch a habit class flipping between machines was built around
+        &minus;5 and &minus;15&nbsp;&deg;C, and under the registered parameter set both of those come
+        out neutral &mdash; the calibration probe&rsquo;s AR 1.0000 and about 1.1053 &mdash; and a
+        two-point test whose two points share a class cannot detect a class flip.
       </p>
 
       <p>
-        <strong>The score has already been superseded.</strong> Chapter 29 opens with that, so it
-        stays there &mdash; but the number on this page must never be quoted bare. It is 5 of 90 as
-        measured in a run the project has since invalidated under its own rule, with a re-sweep
-        pending and a worse corrected headline registered in advance.
+        It has since been rebuilt, in the order that keeps it a test. The decision that replaces it
+        registered the <em>rule</em> for picking new points while the re-sweep was still running and
+        its results did not exist yet &mdash; because choosing fixture points after seeing which ones
+        happened to land near a class boundary would be selecting the test from the answers, which is
+        the same freedom the parameter-set correction was written to remove. Applied afterwards, the
+        rule returns four points in two pairs. The <strong>robust pair</strong> is the smallest and
+        largest aspect ratio in the whole sweep &mdash; &minus;2&nbsp;&deg;C at AR 0.263158, a clear
+        plate, and &minus;28&nbsp;&deg;C at 2.33333, a clear column &mdash; and it asks whether the
+        pipeline agrees across architectures at all. The <strong>fragile pair</strong> sits as close
+        to the class thresholds as anything in the sweep &mdash; &minus;3&nbsp;&deg;C at 0.684211,
+        just over the plate ceiling, and &minus;23&nbsp;&deg;C at <em>exactly</em> 1.5, one lattice
+        site from changing class &mdash; and it asks whether any habit class here was decided by a
+        coin toss in the last bit. The two pairs are reported separately and never pooled, and a
+        difference in either is registered in advance as a finding rather than a bug to be tuned
+        away. Their x64 baseline is already published, lifted verbatim from the corrected
+        sweep&rsquo;s own raw points rather than re-run on the side. What is outstanding is the other
+        machine: those four runs plus a seconds-long arithmetic fingerprint on an Apple-silicon host,
+        still labelled <strong>MAC RUN NEEDED</strong> at the top of its own runbook. That is why the
+        scope sentence stays as written.
+      </p>
+
+      <p>
+        <strong>And habit is measured at one crystal size, and habit is size-dependent.</strong>
+        Sixteen of the 204 points sit close enough to a class threshold that the registered drift
+        allowance on measurement size could move them, and they are flagged fragile &mdash; including
+        one of the three agreements.
+      </p>
+
+      <p>
+        <strong>One number on this page was already withdrawn once.</strong> The 3 of 90 is what
+        stands; the 5 of 90 is what the same experiment measured before the project invalidated it,
+        and it is quoted here only as the thing that got corrected. Neither number should ever be
+        quoted bare. What the withdrawal cost, and what is still owed, is chapter 29&rsquo;s.
       </p>
 
       <p>
@@ -890,12 +1218,13 @@
         field, under a marking scheme sealed in advance, and it missed &mdash; in the way he had
         predicted in prose and nobody had ever tested in three dimensions. Keep the two halves
         apart: <em>that</em> it would miss is his claim, published years earlier. What the miss
-        <em>looks like</em> &mdash; the ten-degree gap, the habit destroyed by humidity &mdash; is
-        this project&rsquo;s, and it is the smaller of the two. It missed while agreeing with his
-        own laboratory data at a temperature where that laboratory data and the diagram contradict
-        each other. And it missed structurally, not narrowly: one crossing cannot make three
-        boundaries, so no broad-facet parameterization could have passed. What is left to blame is
-        the physics, not the arithmetic.
+        <em>looks like</em> &mdash; the fourteen-to-nineteen-degree gap where the model has no habit
+        at all, the habit destroyed by humidity &mdash; is this project&rsquo;s, and it is the
+        smaller of the two. It missed while agreeing with his own laboratory data at a temperature
+        where that laboratory data and the diagram contradict each other. And it missed structurally,
+        not narrowly: one crossing cannot make three boundaries, so no broad-facet parameterization
+        could have passed &mdash; a claim that now survives the same experiment being run twice under
+        different inputs. What is left to blame is the physics, not the arithmetic.
       </p>
 
       <p>
@@ -905,10 +1234,11 @@
       </p>
 
       <p class="handoff">
-        Which leaves the bill. Seventeen hours of compute, every phase of machinery that came
-        before it, and a headline the project threw away on its own initiative almost as soon as it
-        had measured it &mdash; that is the next chapter, along with the list of things this project
-        still does not know.
+        Which leaves the bill. Twenty hours of compute for the run that stands, an entire earlier
+        sweep of the same size thrown away to get it, every phase of machinery that came before
+        both, and a verifier, a set of negative controls, a second machine and a whole second arm
+        still owed &mdash; that is the next chapter, along with the list of things this project still
+        does not know.
       </p>
 
       <nav class="chapter-nav" aria-label="Chapter navigation">
@@ -978,9 +1308,18 @@
 
    Every model number below is transcribed from a file in the snowflake
    repository and is named in the figure's "built from" line. Nothing here is
-   illustrative data: the 204-cell grid comes from research/phase6-sweep-report.md,
-   the seed aspect ratios from research/libbrecht-figure-findings.md §9.2, and
-   the sigma-0 curves are two printed closed forms typed in as published.
+   illustrative data: the corrected 204-cell grid comes from
+   research/phase6-sweep-report.md, the withdrawn one from that same file at its
+   superseded revision (commit 6995868), the seed aspect ratios from
+   research/libbrecht-figure-findings.md §9.2, and the sigma-0 curves are two
+   printed closed forms typed in as published.
+
+   TWO SWEEPS EXIST. anim-sweep.js carries both arms and defaults to the
+   corrected one (CAK, headline 3/90, the standing evidence); the withdrawn run
+   (CAK_A1, 5/90, invalidated by ADR 0031) is reachable from the scorecard's own
+   switch. The two figures here that read the grid directly — the two-scoreboard
+   figure and the humidity-strip figure — pin the CORRECTED arm by name, so the
+   scorecard's switch cannot silently change what they are showing.
    ======================================================================== */
 (function () {
   "use strict";
@@ -1014,8 +1353,18 @@
 
     var TEMPS = window.Sweep.TEMPS;
     var FR = window.Sweep.FRACTIONS;
-    var GRID = window.Sweep.GRID;
-    var SC = window.Sweep.score();
+    /* This figure always shows the CORRECTED run, whatever the scorecard below is
+       switched to, so it reads the cak arm by name rather than the shared module's
+       current selection. Its score is taken with that arm selected, for the same
+       reason. */
+    var GRID = window.Sweep.ARMS.cak.grid;
+    var SC = (function () {
+      var was = window.Sweep.getArm();
+      window.Sweep.setArm("cak");
+      var s = window.Sweep.score();
+      window.Sweep.setArm(was);
+      return s;
+    })();
 
     var status = document.createElement("p");
     status.className = "anim__sub";
@@ -1117,13 +1466,14 @@
       });
 
       status.textContent = view === "machinery"
-        ? "204 of 204 runs valid. Failed to converge: 0. Symmetry error non-zero with noise off: 0. "
-          + "A per-tick attachment delta not sixfold-clean: 0. Tripped the 65% domain-contact guard: 0."
+        ? "204 of 204 runs valid — in this run and in the withdrawn one. Failed to converge: 0. "
+          + "Symmetry error non-zero with noise off: 0. A per-tick attachment delta not "
+          + "sixfold-clean: 0. Tripped the 65% domain-contact guard: 0."
         : SC.headlineAgree + " of " + SC.headlineN + " counted points agree. Warm plates "
           + SC.tally["plates-warm"].agree + "/" + SC.tally["plates-warm"].n + ". Columns "
           + SC.tally.columns.agree + "/" + SC.tally.columns.n + ". Cold plates "
           + SC.tally["plates-cold"].agree + "/" + SC.tally["plates-cold"].n
-          + ". Measured, and since superseded — see chapter 29.";
+          + ". This is the corrected run — the standing evidence.";
     }
 
     if (bar) {
@@ -1153,6 +1503,10 @@
   (function () {
     var root = document.getElementById("c28-sweep");
     if (!root || !window.Sweep) return;
+    /* The corrected run is the standing evidence, so it is what opens. The mount's own
+       last control switches to the withdrawn run and back, and its provenance line names
+       which one is on screen. */
+    window.Sweep.setArm("cak");
     window.Sweep.mount(root, { view: "model" });
   })();
 
@@ -1175,8 +1529,8 @@
       var c = Viz.colors();
       svg = Viz.createSvg(body, W, H, {
         label: "An aspect-ratio axis from 0 to 2 showing Libbrecht's measured laboratory band at " +
-               "minus 5 degrees, the model's two values inside it, and the column threshold " +
-               "outside it."
+               "minus 5 degrees, the model's two values — one per parameter set — inside it, and " +
+               "the column threshold outside it."
       });
       var x = Viz.scaleLinear([0, 2], [L, R]);
 
@@ -1226,8 +1580,8 @@
         t2.textContent = sub;
         svg.appendChild(t2);
       }
-      mark(0.3821, "0.3821", "the swept run — gate evidence", c.series[0], false);
-      mark(1.0000, "1.0000", "calibration probe — not citable", c.muted, true);
+      mark(0.3821, "0.3821", "the withdrawn run measured this", c.series[0], true);
+      mark(1.0000, "1.0000", "registered set, calibration probe", c.muted, true);
 
       Viz.axisBottom(svg, x, {
         y: AX, values: [0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
@@ -1259,8 +1613,10 @@
         "font-family": "var(--font-sans)"
       });
       foot.textContent = mode === "project"
-        ? "Nakaya demands a column at −5 °C. Neither the swept run nor the probe comes near the column floor."
-        : "Under Libbrecht's own threshold the probe sits exactly on the boundary — and it is still not citable.";
+        ? "Nakaya demands a column at −5 °C. Neither parameter set comes near the column floor; the "
+          + "corrected sweep classes this cell as neither habit."
+        : "Under Libbrecht's own threshold the registered set sits exactly on the boundary — and "
+          + "neither of these two numbers is gate evidence.";
       svg.appendChild(foot);
     }
 
@@ -1295,9 +1651,9 @@
         id: "code",
         title: "The code is wrong.",
         ask: "What would have to be true: at least one of the 204 runs failed a validity check, or the gate failed on something it is allowed to fail on.",
-        verdict: "ELIMINATED",
+        verdict: "ELIMINATED, with a disclosed hazard",
         out: true,
-        evidence: "Measured: 0 of 204 runs invalid. Every point converged under the dual criterion, held symErr = 0 with noise off, kept every per-tick attachment delta sixfold-clean, and cleared the 65% domain-contact guard. And the gate that certifies the phase is forbidden to fail on a morphology miss — it fails on invalid numerics, provenance, artifacts, incomplete runs or a protocol violation, never on the model disagreeing with the diagram. Nothing in that list fired."
+        evidence: "Measured: 0 of 204 runs invalid, in this run and in the withdrawn one. Every point converged under the dual criterion, held symErr = 0 with noise off, kept every per-tick attachment delta sixfold-clean, and cleared the 65% domain-contact guard. And the gate that certifies the phase is forbidden to fail on a morphology miss — it fails on invalid numerics, provenance, artifacts, incomplete runs or a protocol violation, never on the model disagreeing with the diagram. Nothing in that list fired. Hazard, recorded and not yet fixed: the harness stamps provenance once at preflight, but each of the 204 children launches the model from the working tree, so a mid-run edit to the solver would change the physics for later points while the report still named the launch commit. Nine commits landed during this run; a diff confirmed none touched the solver. The report's own verdict: \"That was luck, not design.\""
       },
       {
         id: "numbers",
@@ -1305,7 +1661,7 @@
         ask: "What would have to be true: the measured physics was misread off the source on the way in.",
         verdict: "ELIMINATED, with scope",
         out: true,
-        evidence: "Measured twice. A_prism was digitized off a printed figure before the paper that prints it as an equation was found; compared afterwards, the digitized anchors reproduce the printed formula to 8.4% at worst and under 2% typically — agreement with a source they could not peek at. And at −5 °C the model lands inside Libbrecht's own laboratory range, columns absent. Scope: that lab data is upstream of the model's inputs, so it is a consistency check rather than independent validation, and one input — the warm prism σ₀ — is under active suspicion, which touches only the warm end. And a second scope, found after the sweep: the runs executed A_prism ≡ 1, which the frozen protocol did not register — a throttle of 3.6× at −2 °C and 5.6× at −5 °C, the two temperatures this card's own evidence leans on. The project's own estimate is that the registered parameterization scores WORSE: roughly 2 of 90 (ADR 0031; figure-findings §9). That is a defect in the inputs, disclosed, and it does not rescue the model."
+        evidence: "Measured twice. A_prism was digitized off a printed figure before the paper that prints it as an equation was found; compared afterwards, the digitized anchors reproduce the printed formula to 8.4% at worst and under 2% typically — agreement with a source they could not peek at. And at −5 °C the model lands inside Libbrecht's own laboratory range, columns absent. This is the one suspect that was actually caught: the first sweep executed A_prism ≡ 1, which the frozen protocol had never registered — a throttle of 3.6× at −2 °C and 5.6× at −5 °C. It was found, logged as ADR 0031, and paid for by re-running all 204 points under the registered curve, with the expected fall in the headline registered in advance (≈2 of 90; measured 3 of 90). A separate suspicion, that the warm prism σ₀ was low by 1.6–3.2×, was itself later withdrawn: the dedicated measurement papers put the digitized curve within about 7%. Remaining scope: the lab data at −5 °C is upstream of the model's inputs, so it is a consistency check rather than independent validation."
       },
       {
         id: "theory",
@@ -1790,9 +2146,12 @@
 
     var TEMPS = window.Sweep.TEMPS;
     var FR = window.Sweep.FRACTIONS;
-    var GRID = window.Sweep.GRID;
+    /* Always the CORRECTED run, by name, whatever the scorecard above is switched to. */
+    var GRID = window.Sweep.ARMS.cak.grid;
 
-    /* the two published contrast figures, at the two rows they were measured on */
+    /* The two facet-contrast figures registered PRE-SWEEP in runner/src/phase6-protocol.ts
+       as the reason the humidity axis stops where it does — computed on the registered
+       sigma-0 curves, not measured from either sweep. */
     var CONTRAST = { 0.15: "0.34–3.76", 0.90: "0.84–1.25" };
 
     var status = document.createElement("p");
@@ -1952,13 +2311,17 @@
           x: L, y: 44, fill: c.inkSecondary, "font-size": 11,
           "font-family": "var(--font-sans)"
         });
-        ct2.textContent = "measured basal/prism attachment contrast across the temperature axis "
-          + "at this row: " + CONTRAST[f];
+        ct2.textContent = "basal/prism attachment contrast across the temperature axis at this "
+          + "row, computed on the registered curves before either sweep ran: " + CONTRAST[f];
         svg.appendChild(ct2);
       }
 
       status.textContent = nC === 0
-        ? "At f = " + f.toFixed(2) + " the model produces no column anywhere across all 34 temperatures."
+        ? (nP === 0
+            ? "At f = " + f.toFixed(2) + " the model commits to no habit at all — not one plate and "
+              + "not one column, across all 34 temperatures."
+            : "At f = " + f.toFixed(2) + " the model produces no column anywhere across all 34 "
+              + "temperatures; plate growth stops at −" + (lastP + 2) + " °C and nothing replaces it.")
         : "At f = " + f.toFixed(2) + ": plate stops at −" + (lastP + 2)
           + " °C, column does not start until −" + (firstC + 2)
           + " °C. The reference has a knife-edge boundary at −9.9 °C and no gap at all.";
