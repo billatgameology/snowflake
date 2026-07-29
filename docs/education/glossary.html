@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Glossary — Snow Crystals</title>
-<meta name="description" content="Every technical term used on this site, defined in one line, listed under the chapter that introduces it.">
+<meta name="description" content="Every technical term and symbol this site uses, each defined in one plain sentence, grouped by subject and linked to the chapter that explains it.">
 <link rel="stylesheet" href="./assets/education.css">
 </head>
 <body data-depth="0">
@@ -32,21 +32,16 @@
 <div class="chapter-layout">
 
   <nav class="sidenav" aria-label="On this page">
-    <p class="sidenav__title">By chapter</p>
+    <p class="sidenav__title">On this page</p>
     <ol>
-      <li><a href="#ch1">1 · Not a Frozen Raindrop</a></li>
-      <li><a href="#ch2">2 · Four Hundred Years of Looking</a></li>
-      <li><a href="#ch3">3 · Why Six Sides</a></li>
-      <li><a href="#ch4">4 · The Fuel Supply</a></li>
-      <li><a href="#ch5">5 · The Restless Surface</a></li>
-      <li><a href="#ch6">6 · The Runaway Bump</a></li>
-      <li><a href="#ch7">7 · Plates, Columns, Plates, Columns</a></li>
-      <li><a href="#ch8">8 · A Snowflake Is a Record</a></li>
-      <li><a href="#ch9">9 · The Menagerie</a></li>
-      <li><a href="#ch10">10 · How We Know</a></li>
-      <li><a href="#ch11">11 · The Stickiness of Ice</a></li>
-      <li><a href="#ch12">12 · Why the Shape Flips</a></li>
-      <li><a href="#ch13">13 · The Frontier</a></li>
+      <li><a href="#object">The object: what falls out of the sky</a></li>
+      <li><a href="#crystal">The ice crystal: lattice, axes and facets</a></li>
+      <li><a href="#vapour">The vapour: supply, saturation and diffusion</a></li>
+      <li><a href="#surface">The growing surface: steps, sticking and barriers</a></li>
+      <li><a href="#instability">Instability and branching</a></li>
+      <li><a href="#habits">Shapes and habits</a></li>
+      <li><a href="#measurement">Measurement and evidence</a></li>
+      <li><a href="#symbols">The symbols, in one place</a></li>
     </ol>
   </nav>
 
@@ -57,595 +52,1078 @@
         <p class="chapter-header__eyebrow">Reference</p>
         <h1>Glossary</h1>
         <p class="chapter-header__question">
-          Every technical term this site uses, defined in one line, under the chapter that
-          introduces it.
+          Every technical word and symbol this site uses, each in one plain sentence, with a link
+          to the chapter that explains it properly.
         </p>
       </header>
 
       <p>
-        The terms are grouped by chapter rather than alphabetically, and the chapters are in
-        reading order. That is deliberate: the site is built so that nothing is used before it is
-        explained, and an A&ndash;Z list would break that by putting Chapter&nbsp;12&rsquo;s
-        vocabulary in front of a reader who is still on Chapter&nbsp;3. If you know the word you
-        want, your browser&rsquo;s find-in-page will get you there in one keystroke.
+        The entries are grouped by what they are <em>about</em> rather than by chapter, and they run
+        alphabetically inside each group. The link on every entry points at the place the term is
+        <strong>explained</strong>, which is not always the first place it appears &mdash; several
+        words are used in passing early on and unpacked properly much later, and the link takes you
+        to the unpacking.
       </p>
 
-      <aside class="callout callout--method">
+      <aside class="callout callout--key">
         <p class="callout__label">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
           </svg>
-          One line is not the whole story
+          If you only came here for one thing
         </p>
         <p>
-          These definitions are reminders, not substitutes. Each one is a compressed version of an
-          argument the chapter makes properly, usually with a figure and a citation attached. Where
-          a term names something genuinely unsettled &mdash; SDAK is the clearest case &mdash; the
-          one-line version says so rather than presenting a hypothesis as a fact.
+          It is probably a symbol. &sigma; is spare vapour, &alpha; is stickiness,
+          &sigma;<sub>0</sub> is how hard a face is to start growing on, <em>A</em> is the ceiling
+          that &alpha; climbs to, and <em>v</em><sub>kin</sub> is the reference speed the other two
+          get multiplied by. They are set out with the rest under
+          <a href="#symbols">the symbols, in one place</a>.
         </p>
       </aside>
 
-      <h2 id="ch1"><a href="./chapters/01-not-a-frozen-raindrop.html">Chapter 1 · Not a Frozen Raindrop</a></h2>
+      <p>
+        One sentence is not the whole story and is not meant to be. Each definition is a compression
+        of an argument a chapter makes at length, written so that a word you have half forgotten
+        becomes usable again in about ten seconds. Where a definition rests on a number, the number
+        is the one the site quotes from its sources; the
+        <a href="./references.html">references page</a> says where every one of them came from.
+      </p>
 
-      <ul class="refs">
-        <li>
-          <span class="ref__title">snow crystal</span>
-          <p>A single crystal of ice grown directly out of water vapour. This is the six-sided object the whole site is about.</p>
-        </li>
-        <li>
-          <span class="ref__title">snowflake</span>
-          <p>Loosely, anything white falling out of the sky; strictly, a clump of snow crystals stuck together on the way down. One snowflake can be many crystals.</p>
-        </li>
-        <li>
-          <span class="ref__title">sleet</span>
-          <p>A raindrop that froze while falling. It was liquid first, so it is not a snow crystal &mdash; it never grew from vapour.</p>
-        </li>
-        <li>
-          <span class="ref__title">deposition</span>
-          <p>Water vapour turning straight into ice without ever passing through liquid. Every snow crystal is built this way.</p>
-        </li>
-        <li>
-          <span class="ref__title">cloud droplet</span>
-          <p>One of the tiny liquid water drops a cloud is actually made of &mdash; a few microns across, far too small to fall out.</p>
-        </li>
-        <li>
-          <span class="ref__title">supercooled</span>
-          <p>Liquid water that is still liquid below 0&nbsp;&deg;C. Most cloud droplets are supercooled; freezing needs something to start on.</p>
-        </li>
-        <li>
-          <span class="ref__title">metastable</span>
-          <p>Stable against small disturbances but not in the lowest-energy state available &mdash; it will stay put until something nudges it hard enough.</p>
-        </li>
-        <li>
-          <span class="ref__title">nucleation</span>
-          <p>The first act of getting a new phase started: assembling a clump big enough that it grows rather than falls apart again.</p>
-        </li>
-        <li>
-          <span class="ref__title">micron</span>
-          <p>A millionth of a metre. Cloud droplets are a few microns; a large snow crystal is a few thousand.</p>
-        </li>
-        <li>
-          <span class="ref__title">supersaturation (&sigma;)</span>
-          <p>How much more water vapour the air is carrying than it could hold in balance with ice, as a fraction of that balance value. This is the fuel supply.</p>
-        </li>
-        <li>
-          <span class="ref__title">dew point</span>
-          <p>The temperature at which air, cooled without changing its water content, becomes saturated and starts condensing.</p>
-        </li>
-        <li>
-          <span class="ref__title">hexagonal prism</span>
-          <p>The basic shape every snow crystal is built on: two hexagonal caps joined by six rectangular sides.</p>
-        </li>
-        <li>
-          <span class="ref__title">facet</span>
-          <p>A flat face that appears on a crystal by itself as it grows, because that plane of the lattice grows more slowly than its neighbours.</p>
-        </li>
-        <li>
-          <span class="ref__title">basal facet</span>
-          <p>Either of the two flat hexagonal caps of the prism &mdash; the top and the bottom.</p>
-        </li>
-        <li>
-          <span class="ref__title">prism facet</span>
-          <p>Any of the six rectangular side faces of the prism.</p>
-        </li>
-        <li>
-          <span class="ref__title">attachment kinetics</span>
-          <p>The rules deciding whether a water molecule that arrives at the surface actually sticks. One of the two forces that set a crystal's shape.</p>
-        </li>
-        <li>
-          <span class="ref__title">diffusion</span>
-          <p>The drift of water vapour from where there is more of it to where there is less. The other of the two shaping forces.</p>
-        </li>
-        <li>
-          <span class="ref__title">anisotropic / anisotropy</span>
-          <p>Direction-dependent. Ice grows at different rates in different lattice directions, and that difference is where all the structure comes from.</p>
-        </li>
-        <li>
-          <span class="ref__title">rime / riming</span>
-          <p>Supercooled cloud droplets colliding with a falling crystal and freezing on contact, leaving a crust of frozen blobs.</p>
-        </li>
-        <li>
-          <span class="ref__title">graupel</span>
-          <p>A crystal so heavily rimed that the original shape is buried and what lands is a soft white pellet.</p>
-        </li>
-      </ul>
+      <!-- ================================================================= -->
+      <h2 id="object">The object: what falls out of the sky</h2>
 
-      <h2 id="ch2"><a href="./chapters/02-four-hundred-years-of-looking.html">Chapter 2 · Four Hundred Years of Looking</a></h2>
+      <div class="table-wrap">
+        <table>
+          <caption>What the words for snow, ice and cloud actually pick out.</caption>
+          <thead>
+            <tr><th>Term</th><th>In one sentence</th><th>Explained in</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>artificial snow</strong></td>
+              <td>Ski-resort snow &mdash; water blasted through nozzles and frozen in mid-air &mdash; which comes down as small featureless globules of ice rather than as anything grown from vapour.</td>
+              <td><a href="./chapters/10-how-we-know.html">10 &middot; How We Know</a></td>
+            </tr>
+            <tr>
+              <td><strong>cloud droplet</strong></td>
+              <td>A microscopic drop of liquid water, about 10 to 20 microns across, condensed onto a speck of dust; a cloud is an enormous number of these, not vapour.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>clumping</strong> (aggregation)</td>
+              <td>Crystals colliding and sticking to each other on the way down, which is what makes the grey puffballs of mild weather; it happens after the shape is decided, so it records how crowded the fall was and nothing about growth.</td>
+              <td><a href="./chapters/09-the-menagerie.html">9 &middot; The Menagerie</a></td>
+            </tr>
+            <tr>
+              <td><strong>deposition</strong></td>
+              <td>Water going straight from gas to solid with no liquid stage in between &mdash; the only way the body of a snow crystal is ever built.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>dew point</strong></td>
+              <td>The temperature at which cooling air starts carrying more water vapour than it can hold on to, so the surplus condenses out &mdash; as dew on the grass, or as cloud droplets high up.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>graupel</strong> (soft hail)</td>
+              <td>A crystal so completely buried under frozen droplets that whatever shape was underneath has disappeared.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>irregulars</strong></td>
+              <td>Small, somewhat malformed plate-like crystals, usually stuck to each other &mdash; &ldquo;icy grains of sand&rdquo; &mdash; and far more common than every photogenic type put together.</td>
+              <td><a href="./chapters/09-the-menagerie.html">9 &middot; The Menagerie</a></td>
+            </tr>
+            <tr>
+              <td><strong>metastable</strong></td>
+              <td>Stuck in a state that is not the one it would settle into if it could, with no way to get there; a supercooled droplet is metastable liquid.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>nucleation</strong></td>
+              <td>Getting the very first patch of something new started &mdash; the hard first step that makes a droplet freeze, and later the hard first step that begins a new molecular layer on a flat face.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>rime</strong> (riming)</td>
+              <td>Supercooled cloud droplets that hit a falling crystal and froze where they landed &mdash; weight without pattern, a crystal wearing a coat rather than a bigger crystal.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>sleet</strong></td>
+              <td>A raindrop that froze solid on the way down: a bead of ice, and precisely the thing a snow crystal is not.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>snow crystal</strong></td>
+              <td>A single crystal of ice &mdash; one continuous hexagonal array of water molecules with no seams and no joins &mdash; and the only object here that has six-fold symmetry to explain.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>snowflake</strong></td>
+              <td>A weather word rather than a physics word: it can mean one snow crystal, or a clump of hundreds of them, which is why a snowflake need have no symmetry at all.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>sublimation</strong></td>
+              <td>Solid going straight to vapour, the exact reverse of deposition; it attacks sharp features first, which is what rounds off a crystal that has travelled through dry air.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>supercooled</strong></td>
+              <td>Liquid, below its own freezing point, and staying that way because freezing has to start somewhere &mdash; the ordinary condition of a winter cloud, not a laboratory curiosity.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>synthetic</strong> (snow crystal)</td>
+              <td>A real snow crystal grown from vapour indoors under conditions somebody chose &mdash; &ldquo;synthetic&rdquo; meaning made on purpose, not fake.</td>
+              <td><a href="./chapters/10-how-we-know.html">10 &middot; How We Know</a></td>
+            </tr>
+            <tr>
+              <td><strong>travel-worn</strong></td>
+              <td>The softened, rounded look of a crystal that has spent time in air drier than it needed and lost molecules back to the air.</td>
+              <td><a href="./chapters/09-the-menagerie.html">9 &middot; The Menagerie</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <ul class="refs">
-        <li>
-          <span class="ref__title">selection bias</span>
-          <p>Choosing what to record by how good it looks, then treating the result as representative. The reason old photograph collections are full of perfect stars and short on lumps.</p>
-        </li>
-        <li>
-          <span class="ref__title">interference</span>
-          <p>Two waves arriving at the same place and adding up &mdash; reinforcing where they are in step, cancelling where they are not.</p>
-        </li>
-        <li>
-          <span class="ref__title">diffraction</span>
-          <p>Waves bending and spreading around obstacles or through regular gaps. Fire X-rays at a lattice and the pattern that comes back encodes the spacing.</p>
-        </li>
-        <li>
-          <span class="ref__title">crystallography</span>
-          <p>Working out the internal arrangement of atoms in a solid from the diffraction pattern it produces.</p>
-        </li>
-        <li>
-          <span class="ref__title">capped column</span>
-          <p>A column with a plate grown on each end &mdash; a crystal that was making a column, then changed conditions and started making plates.</p>
-        </li>
-      </ul>
+      <!-- ================================================================= -->
+      <h2 id="crystal">The ice crystal: lattice, axes and facets</h2>
 
-      <h2 id="ch3"><a href="./chapters/03-why-six-sides.html">Chapter 3 · Why Six Sides</a></h2>
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The stack of water molecules that fixes the six, and the vocabulary for its faces,
+            directions and defects.
+          </caption>
+          <thead>
+            <tr><th>Term</th><th>In one sentence</th><th>Explained in</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>a-axes</strong></td>
+              <td>The six directions lying in the flat hexagonal face and pointing out at its corners &mdash; where the six arms of a stellar crystal eventually grow.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>arrowhead twin</strong></td>
+              <td>Two crystals meeting at a mirror plane and growing into a flat pointed blade whose apex angle &mdash; 78, 57 or 89 degrees for the three known variants &mdash; is fixed by the lattice and is an angle no hexagon can make.</td>
+              <td><a href="./chapters/09-the-menagerie.html">9 &middot; The Menagerie</a></td>
+            </tr>
+            <tr>
+              <td><strong>basal facet</strong></td>
+              <td>Either of the two flat ends of a hexagonal prism, written {0001} &mdash; the top and bottom of a plate.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>Bernal&ndash;Fowler rules</strong></td>
+              <td>The 1933 rule that exactly one hydrogen atom sits between each adjacent pair of oxygen atoms in ice &mdash; never none, never two.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>c-axis</strong></td>
+              <td>The single direction running through the two flat ends, perpendicular to the basal face, the way the lead runs in a pencil &mdash; and the only direction from which the hexagonal rings are visible.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>columnar twin</strong></td>
+              <td>Two ordinary hexagonal columns fused end to end across a shared twin plane, betrayed from the outside only by a groove round the waist.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>covalent bond</strong></td>
+              <td>One of the two tight bonds holding a water molecule&rsquo;s own two hydrogens onto its oxygen.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>crossed-plate twin</strong></td>
+              <td>Two plate-like crystals joined so that they pass through each other at an angle the lattice fixes in advance.</td>
+              <td><a href="./chapters/09-the-menagerie.html">9 &middot; The Menagerie</a></td>
+            </tr>
+            <tr>
+              <td><strong>crystallography</strong></td>
+              <td>The study of how molecules stack in a solid &mdash; the lattice, its symmetry, its spacings &mdash; which has been settled for ice since the 1920s and is <em>not</em> the same subject as crystal growth.</td>
+              <td><a href="./chapters/02-four-hundred-years-of-looking.html">2 &middot; Four Hundred Years of Looking</a></td>
+            </tr>
+            <tr>
+              <td><strong>deuterium and oxygen-18</strong></td>
+              <td>Heavier-than-usual versions of hydrogen and oxygen, scattered at random through ordinary water &mdash; about one molecule in 5,000 and one in 500 &mdash; which is why no two crystals match molecule for molecule.</td>
+              <td><a href="./chapters/08-a-snowflake-is-a-record.html">8 &middot; A Snowflake Is a Record</a></td>
+            </tr>
+            <tr>
+              <td><strong>dislocation</strong></td>
+              <td>A place where the molecules did not stack together with perfect regularity, scattered at random through a crystal.</td>
+              <td><a href="./chapters/08-a-snowflake-is-a-record.html">8 &middot; A Snowflake Is a Record</a></td>
+            </tr>
+            <tr>
+              <td><strong>evaporation groove</strong></td>
+              <td>The pinched line round a twinned column&rsquo;s waist, where the weaker twin plane gives up molecules faster than the ordinary ice on either side of it.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>facet</strong></td>
+              <td>A flat face, the sort of surface you see on a cut gemstone.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>hexagonal prism</strong></td>
+              <td>The simplest solid ice can take &mdash; two flat ends and six flat sides &mdash; and the block every snow crystal, star or column, is built on.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>hydrogen bond</strong></td>
+              <td>One of the two weaker bonds reaching from an oxygen atom across to a hydrogen belonging to a neighbouring molecule.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>ice I<sub>c</sub></strong></td>
+              <td>The cubic alternative to ordinary ice &mdash; the same tetrahedral bonding with one connecting bond twisted, giving diamond&rsquo;s arrangement instead of a hexagon; nobody has ever definitively observed it pure.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>ice I<sub>h</sub></strong></td>
+              <td>Ordinary hexagonal ice, the only form commonly found on the Earth&rsquo;s surface and the one every snow crystal is made of; the &ldquo;h&rdquo; is for hexagonal.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>lattice</strong></td>
+              <td>The repeating three-dimensional pattern molecules settle into when every one of them bonds to its neighbours the same way, at the same angle, over and over.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>lattice constants</strong></td>
+              <td>The two measured lengths from which every angle in ice follows: <em>a</em><sub>0</sub>&nbsp;=&nbsp;0.452&nbsp;nm across one repeat of the honeycomb, and <em>c</em><sub>0</sub>&nbsp;=&nbsp;0.736&nbsp;nm along the c-axis.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>layer spacing</strong></td>
+              <td>How much thicker or wider a crystal gets each time it completes one molecular layer: 0.37&nbsp;nm on a flat end, 0.39&nbsp;nm on a side wall.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>Miller&ndash;Bravais indices</strong></td>
+              <td>The four-digit addresses crystallographers give to planes and directions, where curly brackets name a family of faces, square brackets name a direction, and a bar over a digit means minus.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>phase diagram</strong></td>
+              <td>A map you read by picking a temperature and a pressure and looking up which state of matter wins there; every snow crystal ever made occupies one short arc of the ice/vapour line.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>prism facet</strong></td>
+              <td>Any of the six flat side walls running round the waist of a hexagonal prism, written {1&#772;010}.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>pyramidal facet</strong></td>
+              <td>A rare third kind of flat face, slanting across the corner between an end and a side wall at an angle the lattice fixes at exactly 28.0 degrees from the prism facet.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>secondary prism surface</strong></td>
+              <td>The {112&#772;0} planes, each perpendicular to an a-axis, on which growing ice has never been observed to form facets at all.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>stacking disordered</strong></td>
+              <td>A crystal that changes its mind between hexagonal and cubic stacking from layer to layer &mdash; every bond perfectly satisfied, so it is locally fine and globally undecided.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>tetrahedral angle</strong></td>
+              <td>109.5 degrees, the angle four directions make when they spread as evenly as four directions can in three dimensions; water&rsquo;s own bond angle of 104.5 degrees misses it by five, and that near miss is what forces the hexagon.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>triple point</strong></td>
+              <td>The single temperature and pressure &mdash; 273.16&nbsp;K and 611.657&nbsp;Pa &mdash; at which ice, liquid water and vapour can all coexist; snow crystals grow on the ice/vapour line below it.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>twinning</strong> (twin plane)</td>
+              <td>Two single crystals grown together in a fixed orientation across one shared internal plane, where the usual hexagonal bonds have been replaced by a plane of cubic ones.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>unit cell</strong></td>
+              <td>The smallest block of the lattice that repeats over and over to build the whole crystal.</td>
+              <td><a href="./chapters/09-the-menagerie.html">9 &middot; The Menagerie</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <ul class="refs">
-        <li>
-          <span class="ref__title">phase diagram</span>
-          <p>A map of which phase &mdash; solid, liquid, vapour &mdash; a substance settles into at each temperature and pressure.</p>
-        </li>
-        <li>
-          <span class="ref__title">triple point</span>
-          <p>The single temperature and pressure at which solid, liquid and vapour can all coexist.</p>
-        </li>
-        <li>
-          <span class="ref__title">sublimation</span>
-          <p>Ice going straight back to vapour without melting first &mdash; the reverse of deposition.</p>
-        </li>
-        <li>
-          <span class="ref__title">covalent bond</span>
-          <p>The strong bond holding each water molecule together: two hydrogens sharing electrons with one oxygen.</p>
-        </li>
-        <li>
-          <span class="ref__title">tetrahedral angle</span>
-          <p>The roughly 109&deg; angle of a four-way corner. Water's two bonds sit at about 104.5&deg;, close enough that each molecule ends up with four tetrahedral neighbours in ice.</p>
-        </li>
-        <li>
-          <span class="ref__title">hydrogen bond</span>
-          <p>The weaker attraction between one molecule's hydrogen and a neighbour's oxygen. These are the bonds that build the ice lattice, and they are why the six is there.</p>
-        </li>
-        <li>
-          <span class="ref__title">Bernal&ndash;Fowler rules</span>
-          <p>The bookkeeping every hydrogen bond in ice obeys: one hydrogen per bond, two close to each oxygen and two further off.</p>
-        </li>
-        <li>
-          <span class="ref__title">lattice</span>
-          <p>The repeating three-dimensional arrangement of molecules in a crystal. Everything about a snow crystal's shape traces back to this.</p>
-        </li>
-        <li>
-          <span class="ref__title">ice Ih</span>
-          <p>Ordinary hexagonal ice &mdash; the only form that occurs naturally on Earth's surface, and the one every snow crystal is made of.</p>
-        </li>
-        <li>
-          <span class="ref__title">ice Ic</span>
-          <p>A cubic stacking of the same molecular layers. Long proposed as an explanation for oddly shaped crystals; never definitively observed in pure form.</p>
-        </li>
-        <li>
-          <span class="ref__title">stacking disordered</span>
-          <p>Ice in which hexagonal and cubic stacking sequences are mixed, rather than either one being clean throughout.</p>
-        </li>
-        <li>
-          <span class="ref__title">twin / twin plane</span>
-          <p>Two crystal grains sharing a boundary plane in a fixed mirrored relationship, so the pair behaves as one crystal with a seam through it.</p>
-        </li>
-        <li>
-          <span class="ref__title">c-axis</span>
-          <p>The one special direction in the ice lattice: the axis running straight through both basal caps.</p>
-        </li>
-        <li>
-          <span class="ref__title">a-axis</span>
-          <p>Any of the three equivalent axes lying in the basal plane, running across the hexagon.</p>
-        </li>
-        <li>
-          <span class="ref__title">Miller&ndash;Bravais indices</span>
-          <p>The four-number notation, like {0001} or {101&#772;0}, that names a plane in a hexagonal lattice unambiguously.</p>
-        </li>
-        <li>
-          <span class="ref__title">secondary prism {112&#772;0}</span>
-          <p>A plane sitting between the ordinary prism faces. Ice is not observed to facet on it &mdash; a candidate face that loses.</p>
-        </li>
-        <li>
-          <span class="ref__title">pyramidal facet</span>
-          <p>A face angled between basal and prism. Real, but rare enough that it plays no part in ordinary snow crystal habit.</p>
-        </li>
-        <li>
-          <span class="ref__title">a<sub>0</sub>, c<sub>0</sub></span>
-          <p>The lattice constants of ice Ih: the repeat distances across the hexagon and along the c-axis.</p>
-        </li>
-        <li>
-          <span class="ref__title">terrace step</span>
-          <p>The one-molecule-high edge where a flat molecular layer ends and the layer below is exposed.</p>
-        </li>
-      </ul>
+      <!-- ================================================================= -->
+      <h2 id="vapour">The vapour: supply, saturation and diffusion</h2>
 
-      <h2 id="ch4"><a href="./chapters/04-the-fuel-supply.html">Chapter 4 · The Fuel Supply</a></h2>
+      <div class="table-wrap">
+        <table>
+          <caption>The fuel, how much of it there is, and how it gets to the crystal.</caption>
+          <thead>
+            <tr><th>Term</th><th>In one sentence</th><th>Explained in</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Arrhenius form</strong></td>
+              <td>The standard way of writing a process that carries an energy price tag, so its rate falls away exponentially as the temperature drops.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong>Berg effect</strong></td>
+              <td>The fact that the corners of a blocky crystal, sticking furthest out into air that has not been picked over, sit at a higher supersaturation than the middles of its faces do.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong>Boltzmann&rsquo;s constant</strong></td>
+              <td>The conversion factor between temperature and energy per molecule, written <em>k</em>.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong>depleted halo</strong></td>
+              <td>The permanent shell of dried-out air a growing crystal has eaten out of its own surroundings &mdash; a few times wider than the crystal, and re-formed around every new bump the instant that bump appears.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong>diffusion</strong></td>
+              <td>Random jostling that, purely by statistics, moves molecules from crowded regions towards empty ones; nothing steers them and no wind is required.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong>diffusion constant</strong></td>
+              <td>How quickly diffusion shifts material &mdash; about 10<sup>&minus;5</sup>&nbsp;m<sup>2</sup>/s for water molecules in air, which makes short journeys quick and long ones very slow indeed.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong>diffusion-limited growth</strong></td>
+              <td>Growth held back by how fast the air can deliver vapour rather than by how willing the ice is to take it.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong>excess water vapour</strong></td>
+              <td>The surplus counted in grams per cubic metre instead of as a percentage &mdash; the quantity a crystal actually eats, and, unlike the percentage, one that peaks near &minus;12&nbsp;&deg;C and falls away on both sides.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong>latent heat</strong></td>
+              <td>The energy bill for freeing one molecule from the ice &mdash; and the same energy handed back as warmth every time a molecule joins.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong>relative humidity</strong></td>
+              <td>Spare vapour measured against <em>liquid water</em>, which is why air at 100 per cent humidity already carries a 15.7 per cent surplus as far as ice is concerned at &minus;15&nbsp;&deg;C.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong>saturated vapour pressure</strong></td>
+              <td>The amount of vapour at which molecules leave a surface exactly as fast as they land on it &mdash; a standoff, not a lid and not a full tank.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong>saturation</strong></td>
+              <td>The balance point at which a surface neither grows nor shrinks; below freezing the first question is always &ldquo;saturated with respect to <em>what</em>?&rdquo;, because ice and liquid water give different answers.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong>supersaturation</strong></td>
+              <td>How much spare water vapour the air is carrying, as a fraction of what ice can hold &mdash; written &sigma;, and always measured against ice on this site.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong>water saturation line</strong></td>
+              <td>The ceiling drawn across the morphology diagram: push the humidity past it and droplets condense out and take up the surplus, so the supersaturation stops climbing.</td>
+              <td><a href="./chapters/07-plates-columns-plates-columns.html">7 &middot; Plates, Columns, Plates, Columns</a></td>
+            </tr>
+            <tr>
+              <td><strong>water vapour</strong></td>
+              <td>Individual water molecules flying around loose in the air, invisible and mixed in among the nitrogen and oxygen &mdash; the entire raw material of a snow crystal, and about one part in six hundred of the air.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <ul class="refs">
-        <li>
-          <span class="ref__title">saturated vapour pressure</span>
-          <p>The amount of water vapour air holds when it is exactly in balance with a surface &mdash; no net gain, no net loss.</p>
-        </li>
-        <li>
-          <span class="ref__title">c<sub>sat</sub></span>
-          <p>The saturated vapour concentration over ice: the benchmark that supersaturation is measured against.</p>
-        </li>
-        <li>
-          <span class="ref__title">latent heat</span>
-          <p>The energy released when vapour turns to ice. It has to go somewhere, and where it goes is one of the loose ends in Chapter&nbsp;13.</p>
-        </li>
-        <li>
-          <span class="ref__title">&sigma;<sub>water</sub></span>
-          <p>The supersaturation over ice that air sitting in equilibrium with liquid water would have. It sets a practical ceiling inside a cloud.</p>
-        </li>
-        <li>
-          <span class="ref__title">Berg effect</span>
-          <p>The geometric fact that on a growing crystal the corners and tips sit closest to fresh vapour and the middles of flat faces sit deepest in the crystal's own shadow.</p>
-        </li>
-        <li>
-          <span class="ref__title">diffusion-limited</span>
-          <p>Growth whose speed is set by how fast vapour can get to the crystal, rather than by what happens once it arrives.</p>
-        </li>
-        <li>
-          <span class="ref__title">depleted halo</span>
-          <p>The shell of dried-out air a crystal eats around itself &mdash; a few times wider than the crystal, and shaped like it.</p>
-        </li>
-      </ul>
+      <!-- ================================================================= -->
+      <h2 id="surface">The growing surface: steps, sticking and barriers</h2>
 
-      <h2 id="ch5"><a href="./chapters/05-the-restless-surface.html">Chapter 5 · The Restless Surface</a></h2>
+      <div class="table-wrap">
+        <table>
+          <caption>
+            What happens in the top one or two molecular layers, where every arriving molecule is
+            either kept or lost.
+          </caption>
+          <thead>
+            <tr><th>Term</th><th>In one sentence</th><th>Explained in</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>admolecule</strong></td>
+              <td>A molecule that has landed on the surface but has not yet locked into the lattice &mdash; skating about until it finds a step, or until heat throws it back into the air.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>anisotropy</strong></td>
+              <td>Being not the same in all directions; ice&rsquo;s exceptionally strong directional preference about where molecules attach is what stops a dendrite tip from splitting.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>attachment coefficient</strong></td>
+              <td>The probability that a molecule striking this patch of surface actually joins the lattice and stays &mdash; written &alpha;, running from 0 to 1, and a property of the patch rather than of ice.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>attachment kinetics</strong></td>
+              <td>The whole collection of surface processes that decide whether a passing molecule sticks or bounces off.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>CAK model</strong></td>
+              <td>Comprehensive Attachment Kinetics &mdash; the agreed set of fitted &sigma;<sub>0</sub>(T) and <em>A</em>(T) curves; bookkeeping for the measurements rather than a rival theory.</td>
+              <td><a href="./chapters/11-the-stickiness-of-ice.html">11 &middot; The Stickiness of Ice</a></td>
+            </tr>
+            <tr>
+              <td><strong>critical radius</strong></td>
+              <td>The size a newly formed island of ice on a facet must exceed to spread rather than fall apart &mdash; about ten molecular widths, some 300 molecules, at a surface supersaturation of one per cent.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>Ehrlich&ndash;Schwoebel barrier</strong></td>
+              <td>The energy penalty that makes it hard for an admolecule to hop <em>down</em> over the lip of the terrace it landed on, because for an instant it would be hanging off the crystal with almost nothing underneath it.</td>
+              <td><a href="./chapters/11-the-stickiness-of-ice.html">11 &middot; The Stickiness of Ice</a></td>
+            </tr>
+            <tr>
+              <td><strong>equilibrium crystal shape (ECS)</strong></td>
+              <td>The lowest-energy shape a crystal would settle into given unlimited time; for ice it has never been definitively measured, and a crystal a tenth of a millimetre across would need about eight days to reach it.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>faceting</strong></td>
+              <td>The survival of flat faces because they are the <em>worst</em> at growing: rough surfaces race outward until they collide with their neighbours and vanish from the outline, and the slow faces are what is left.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>frustrated QLL kinetics</strong></td>
+              <td>The proposed &mdash; and openly cartoon-level &mdash; explanation of why the prism ceiling sags below 1 near the melting point: that arriving molecules have to work down through a quasi-liquid film far more viscous than ordinary water.</td>
+              <td><a href="./chapters/11-the-stickiness-of-ice.html">11 &middot; The Stickiness of Ice</a></td>
+            </tr>
+            <tr>
+              <td><strong>Gibbs&ndash;Thomson effect</strong></td>
+              <td>The small correction that makes a strongly curved surface hold its molecules slightly less well &mdash; negligible almost everywhere, and decisive at the razor rim of a very thin plate.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>Hertz&ndash;Knudsen relation</strong></td>
+              <td>The growth law <em>v</em>&nbsp;=&nbsp;&alpha;&nbsp;<em>v</em><sub>kin</sub>&nbsp;&sigma;<sub>surf</sub>: speed equals stickiness, times a fixed conversion factor, times how much spare vapour is there.</td>
+              <td><a href="./chapters/11-the-stickiness-of-ice.html">11 &middot; The Stickiness of Ice</a></td>
+            </tr>
+            <tr>
+              <td><strong>molecularly rough / smooth</strong></td>
+              <td>A rough patch is jagged and full of half-finished bonding sites, so it catches nearly everything that hits it (&alpha;&nbsp;&asymp;&nbsp;1); a smooth facet is aligned with the lattice and catches very little.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>nucleation barrier</strong></td>
+              <td>The obstacle a flat face has to clear before it can grow at all: it must assemble a brand-new molecular island out of nothing, with every molecule in that island poorly held until the island is big enough to hold itself together.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>quasi-liquid layer (QLL)</strong></td>
+              <td>The disordered film that premelting leaves on an ice surface &mdash; not quite water and not quite ice &mdash; roughly one molecule deep near &minus;10&nbsp;&deg;C and thickening without limit towards 0&nbsp;&deg;C.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>roughening transition</strong></td>
+              <td>The sharp switch from smooth to rough that the prism face was long expected to make near the melting point &mdash; and which the measurements do not show, since what they show is a gradual slide.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>screw dislocation</strong></td>
+              <td>A lattice flaw carrying a permanent spiral step that winds on for ever, so that face can keep advancing without ever having to start a new island.</td>
+              <td><a href="./chapters/11-the-stickiness-of-ice.html">11 &middot; The Stickiness of Ice</a></td>
+            </tr>
+            <tr>
+              <td><strong>statics and dynamics</strong></td>
+              <td>Statics is finding the lowest-energy arrangement of things sitting still, which science is good at and which is solved for ice; dynamics is enormous numbers of molecules arriving and leaving far from equilibrium, which is neither.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>step</strong> (terrace step)</td>
+              <td>The ledge where one molecular terrace ends and the layer beneath it is exposed, exactly one layer high &mdash; and the only place a molecule reliably sticks, because there it is gripped from two sides instead of one.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>step energy</strong></td>
+              <td>The energy cost of creating one metre of terrace edge, written &beta;; about 10<sup>&minus;12</sup>&nbsp;joules per metre for ice growing from vapour, far below the rigid-lattice prediction because real surface molecules relax into the gap.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>surface diffusion length</strong></td>
+              <td>How far an admolecule typically travels across a terrace before evaporating, written <em>x</em><sub>diff</sub>; if the steps sit closer together than this, nearly everything gets caught.</td>
+              <td><a href="./chapters/11-the-stickiness-of-ice.html">11 &middot; The Stickiness of Ice</a></td>
+            </tr>
+            <tr>
+              <td><strong>surface energy</strong></td>
+              <td>The cost of having a surface at all, per square metre, because every molecule on the boundary has unfulfilled bonds &mdash; real for ice, and far too even-handed between directions to explain faceting.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>surface premelting</strong></td>
+              <td>The loss of order in the topmost molecular layers of ice near the melting point while the crystal underneath stays perfectly solid &mdash; predicted by Faraday in 1859.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>terrace</strong></td>
+              <td>One flat molecular layer of the crystal, stacked on the ones below like a tread on a staircase.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>terrace nucleation</strong></td>
+              <td>The birth of a new molecular island on a bare facet &mdash; a lottery the face mostly loses, and the bottleneck that makes facets slow.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>vicinal surface</strong></td>
+              <td>A facet cut at a slight angle, so a regular staircase of steps crosses it; tilting a face by a degree or two can make it a hundred times stickier.</td>
+              <td><a href="./chapters/11-the-stickiness-of-ice.html">11 &middot; The Stickiness of Ice</a></td>
+            </tr>
+            <tr>
+              <td><strong>Wilson&ndash;Frenkel description</strong></td>
+              <td>The account of a solid growing from a liquid in which the sticking probability runs inversely to the liquid&rsquo;s viscosity &mdash; the physics the frustrated-QLL story leans on.</td>
+              <td><a href="./chapters/11-the-stickiness-of-ice.html">11 &middot; The Stickiness of Ice</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <ul class="refs">
-        <li>
-          <span class="ref__title">terrace</span>
-          <p>One flat molecular tread on the crystal surface &mdash; the top of a single completed layer.</p>
-        </li>
-        <li>
-          <span class="ref__title">step</span>
-          <p>The one-molecule drop from one terrace to the next. Steps are where arriving molecules can lock in properly.</p>
-        </li>
-        <li>
-          <span class="ref__title">nucleation barrier</span>
-          <p>The difficulty of starting a brand-new layer on an otherwise flat face. This is the bottleneck that makes facets slow, and therefore makes them exist.</p>
-        </li>
-        <li>
-          <span class="ref__title">critical radius (R<sub>crit</sub>)</span>
-          <p>The make-or-break size for a new island of ice: smaller and it evaporates away, larger and it takes over the face. About ten molecules across in realistic conditions.</p>
-        </li>
-        <li>
-          <span class="ref__title">step energy (&beta;)</span>
-          <p>The energy cost of a unit length of island edge. Nearly the only property of the surface that materially affects the nucleation barrier.</p>
-        </li>
-        <li>
-          <span class="ref__title">attachment coefficient (&alpha;)</span>
-          <p>The probability that a water molecule striking a particular face actually sticks. Runs from 0 (dead face) to 1 (every arrival sticks).</p>
-        </li>
-        <li>
-          <span class="ref__title">v<sub>kin</sub></span>
-          <p>The speed a face would grow at if every arriving molecule stuck &mdash; the ceiling that &alpha; is a fraction of.</p>
-        </li>
-        <li>
-          <span class="ref__title">&sigma;<sub>surf</sub></span>
-          <p>The spare vapour immediately above the surface, as opposed to far away. This, not the distant supply, is what the surface responds to.</p>
-        </li>
-        <li>
-          <span class="ref__title">&alpha;<sub>basal</sub>, &alpha;<sub>prism</sub>, &alpha;<sub>rough</sub></span>
-          <p>The attachment coefficients of the two facet families, and of a surface disordered enough that nucleation has stopped mattering.</p>
-        </li>
-        <li>
-          <span class="ref__title">surface premelting</span>
-          <p>The outermost molecular layers of ice becoming disordered below the bulk melting point, because a molecule at the surface has fewer neighbours holding it in place.</p>
-        </li>
-        <li>
-          <span class="ref__title">quasi-liquid layer (QLL)</span>
-          <p>The thin, neither-quite-solid-nor-quite-liquid film that premelting leaves on the surface. It thickens as the temperature rises towards 0&nbsp;&deg;C.</p>
-        </li>
-        <li>
-          <span class="ref__title">surface energy</span>
-          <p>The energy cost of having surface at all. It drives shape change in a crystal left alone at equilibrium &mdash; which is not the situation a growing snow crystal is in.</p>
-        </li>
-        <li>
-          <span class="ref__title">equilibrium crystal shape (ECS)</span>
-          <p>The shape a crystal would settle into if surface energy alone decided, given unlimited time. For ice it has never been measured, and reaching it would take about eight days.</p>
-        </li>
-        <li>
-          <span class="ref__title">Gibbs&ndash;Thomson effect</span>
-          <p>The way sharp curvature raises the vapour pressure of a surface, so very small or very sharply curved features are harder to keep.</p>
-        </li>
-        <li>
-          <span class="ref__title">roughening transition</span>
-          <p>The temperature above which a facet loses its flatness altogether because steps become free to appear anywhere.</p>
-        </li>
-      </ul>
+      <!-- ================================================================= -->
+      <h2 id="instability">Instability and branching: where the pattern comes from</h2>
 
-      <h2 id="ch6"><a href="./chapters/06-the-runaway-bump.html">Chapter 6 · The Runaway Bump</a></h2>
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The runaways that turn a plain hexagon into a star, and the ideas used to describe them.
+          </caption>
+          <thead>
+            <tr><th>Term</th><th>In one sentence</th><th>Explained in</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>branching instability</strong> (Mullins&ndash;Sekerka instability)</td>
+              <td>The runaway in which any bump on a growing surface pokes into richer air, therefore grows faster, therefore pokes out further still &mdash; which is why a perfectly flat growing surface is a legal answer to the physics but not a stable one.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong>dendrite</strong></td>
+              <td>A branch growing outward like a tree, from the Greek for tree: a smooth travelling tip with sidebranches trailing behind it.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong>Edge-Sharpening Instability (ESI)</strong></td>
+              <td>The loop in which a sharpening edge lowers its own nucleation barrier, which sharpens it further, until the edge is one or two microns thick &mdash; proposed as what makes thin plates near &minus;15&nbsp;&deg;C and hollow columns near &minus;5&nbsp;&deg;C.</td>
+              <td><a href="./chapters/12-why-the-shape-flips.html">12 &middot; Why the Shape Flips</a></td>
+            </tr>
+            <tr>
+              <td><strong>fractal</strong></td>
+              <td>A shape that repeats at every scale for ever; a snow crystal nests only three or four levels deep, so calling one a fractal is a description with a floor rather than an explanation.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong>free dendrite</strong></td>
+              <td>A dendrite growing into open air, &ldquo;free&rdquo; meaning unconstrained by container walls or by competing crystals.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong>Ivantsov solution</strong></td>
+              <td>The 1947 solution of the diffusion equation describing a parabolic needle that advances at constant speed while its shape never changes &mdash; ride along with the tip and nothing in front of you appears to move at all.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong>Koch snowflake</strong></td>
+              <td>The mathematical curve drawn in 1904 with a finite area and an infinitely long perimeter, which looks like a snowflake and explains nothing about one.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong>Matthew effect</strong></td>
+              <td>Winners taking resources from losers and therefore winning harder &mdash; the name sometimes given to one sidebranch shooting ahead while its immediate neighbours are stunted.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong>mesoscopic</strong></td>
+              <td>The in-between scale: far bigger than one molecule, far smaller than the whole crystal.</td>
+              <td><a href="./chapters/12-why-the-shape-flips.html">12 &middot; Why the Shape Flips</a></td>
+            </tr>
+            <tr>
+              <td><strong>positive feedback</strong></td>
+              <td>Any loop whose output feeds back into its own input, so that a small advantage grows instead of evening out.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong>SDAK</strong> (structure-dependent attachment kinetics)</td>
+              <td>The proposal that a facet only about 50 nanometres wide has a much lower effective nucleation barrier than a broad facet of the very same crystal plane, because molecules spilling in from its over-sharp corners crowd it &mdash; a working hypothesis, not a settled result.</td>
+              <td><a href="./chapters/12-why-the-shape-flips.html">12 &middot; Why the Shape Flips</a></td>
+            </tr>
+            <tr>
+              <td><strong>SDAK dip</strong></td>
+              <td>The band of temperatures over which a narrow facet&rsquo;s barrier drops below the broad-facet curve &mdash; measured near &minus;4&nbsp;&deg;C on the basal face and near &minus;14&nbsp;&deg;C on the prism face, and the reason the shape can flip three times rather than once.</td>
+              <td><a href="./chapters/12-why-the-shape-flips.html">12 &middot; Why the Shape Flips</a></td>
+            </tr>
+            <tr>
+              <td><strong>seaweed</strong></td>
+              <td>The branched-but-shapeless structure you get when a growing crystal has no directional preference at all, so its tips split endlessly &mdash; just as intricate as a snowflake, and with no shape.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong>selection problem</strong></td>
+              <td>The fact that diffusion on its own fixes only the pairing of tip speed with tip radius, leaving a whole family of possible parabolas, so some extra physics has to pick one.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong>self-similarity</strong></td>
+              <td>Structure that looks the same at different magnifications; real in snow crystals but &ldquo;relatively minor&rdquo;, and not an explanation of how the structure got there.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong>sidebranch</strong></td>
+              <td>A branch sprouting from the flank of a larger branch, seeded by a chance bump &mdash; which is why the two sides of a single arm never match each other, and neither do any two arms.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong>tip radius</strong></td>
+              <td>The size of the roundest circle that fits inside a dendrite tip &mdash; about one micron, and essentially unchanged by how humid the air is.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong>tip splitting</strong></td>
+              <td>A dendrite tip dividing in two, which ice normally resists; when it does happen the tip divides sideways, staying inside the flat plane of the plate.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <ul class="refs">
-        <li>
-          <span class="ref__title">Mullins&ndash;Sekerka instability</span>
-          <p>The feedback that makes a smooth growing front impossible: a bump reaches slightly fresher vapour, so it grows faster, so it sticks out further still.</p>
-        </li>
-        <li>
-          <span class="ref__title">branching instability</span>
-          <p>The same runaway seen in its result &mdash; the reason arms appear on a crystal that nothing ever told to have arms.</p>
-        </li>
-        <li>
-          <span class="ref__title">dendrite</span>
-          <p>A branched, tree-like growth form, produced when the branching instability is allowed to run.</p>
-        </li>
-        <li>
-          <span class="ref__title">free dendrite</span>
-          <p>A dendrite growing into open, undisturbed vapour, unconstrained by a substrate or by neighbouring arms.</p>
-        </li>
-        <li>
-          <span class="ref__title">Ivantsov solution</span>
-          <p>The classical result that a parabolic tip advancing into a diffusion field fixes the product of its tip radius and its speed &mdash; but not either one on its own.</p>
-        </li>
-        <li>
-          <span class="ref__title">R<sub>tip</sub>, v<sub>tip</sub></span>
-          <p>The radius of curvature of a growing tip, and the speed at which it advances.</p>
-        </li>
-        <li>
-          <span class="ref__title">selection problem</span>
-          <p>The unresolved question of what picks one particular tip radius and speed out of the family the Ivantsov solution permits.</p>
-        </li>
-        <li>
-          <span class="ref__title">sidebranch</span>
-          <p>A secondary arm growing off the side of a main arm, from the same instability acting on a smaller scale.</p>
-        </li>
-        <li>
-          <span class="ref__title">&sigma;<sub>far</sub> / &sigma;<sub>&infin;</sub></span>
-          <p>The supersaturation far from the crystal, out beyond the depleted halo &mdash; the undisturbed supply.</p>
-        </li>
-        <li>
-          <span class="ref__title">seaweed</span>
-          <p>A branched growth form with no consistent directions in it, produced when branching runs without enough anisotropy to steer it.</p>
-        </li>
-        <li>
-          <span class="ref__title">fractal</span>
-          <p>A structure that keeps showing similar detail as you look closer. Snow crystals are often called fractal; they are only roughly and over a limited range.</p>
-        </li>
-      </ul>
+      <!-- ================================================================= -->
+      <h2 id="habits">Shapes and habits: reading the map</h2>
 
-      <h2 id="ch7"><a href="./chapters/07-plates-columns-plates-columns.html">Chapter 7 · Plates, Columns, Plates, Columns</a></h2>
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The named forms, the one number that separates them, and the chart that says which grows
+            where.
+          </caption>
+          <thead>
+            <tr><th>Term</th><th>In one sentence</th><th>Explained in</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>aspect ratio</strong></td>
+              <td>The whole shape in one number: how far the crystal reaches cap to cap divided by how far it reaches across &mdash; about 0.01 for a large thin plate, 20 or more for an especially slender needle.</td>
+              <td><a href="./chapters/07-plates-columns-plates-columns.html">7 &middot; Plates, Columns, Plates, Columns</a></td>
+            </tr>
+            <tr>
+              <td><strong>aspect-ratio rule</strong></td>
+              <td>Thin plates require &alpha;<sub>basal</sub>&nbsp;&#8810;&nbsp;&alpha;<sub>prism</sub> and slender columns require &alpha;<sub>basal</sub>&nbsp;&#8811;&nbsp;&alpha;<sub>prism</sub> &mdash; which turns a photograph of any crystal into a statement about its two families of face.</td>
+              <td><a href="./chapters/07-plates-columns-plates-columns.html">7 &middot; Plates, Columns, Plates, Columns</a></td>
+            </tr>
+            <tr>
+              <td><strong>capped column</strong></td>
+              <td>A stubby column with a flat plate grown on each end, like a cotton reel: the column grew near &minus;5&nbsp;&deg;C and the plates later, after the crystal drifted somewhere colder.</td>
+              <td><a href="./chapters/02-four-hundred-years-of-looking.html">2 &middot; Four Hundred Years of Looking</a></td>
+            </tr>
+            <tr>
+              <td><strong>column</strong></td>
+              <td>A crystal taller than it is wide, shaped like a hexagonal pencil, which is what grows when the two flat ends are the easy faces.</td>
+              <td><a href="./chapters/07-plates-columns-plates-columns.html">7 &middot; Plates, Columns, Plates, Columns</a></td>
+            </tr>
+            <tr>
+              <td><strong>fernlike stellar dendrite</strong></td>
+              <td>A stellar dendrite that has gone further still, carrying sidebranches on its sidebranches at 60 degrees &mdash; the largest snow crystals there are, and about a hundred times wider than they are thick.</td>
+              <td><a href="./chapters/09-the-menagerie.html">9 &middot; The Menagerie</a></td>
+            </tr>
+            <tr>
+              <td><strong>fishbone dendrite</strong></td>
+              <td>A three-dimensional herringbone form needing supersaturations that do not occur in the sky, so it is entirely a laboratory creation and nobody has ever caught one outdoors.</td>
+              <td><a href="./chapters/07-plates-columns-plates-columns.html">7 &middot; Plates, Columns, Plates, Columns</a></td>
+            </tr>
+            <tr>
+              <td><strong>habit</strong></td>
+              <td>A crystal&rsquo;s overall shape ignoring the decoration &mdash; plate, block, column or needle &mdash; so two crystals with wildly different ornament can share one.</td>
+              <td><a href="./chapters/07-plates-columns-plates-columns.html">7 &middot; Plates, Columns, Plates, Columns</a></td>
+            </tr>
+            <tr>
+              <td><strong>habit boundary</strong> (crossing)</td>
+              <td>The temperature at which the basal and prism barrier curves swap order, so the faster face becomes the slower one and the crystal switches between plate and column.</td>
+              <td><a href="./chapters/12-why-the-shape-flips.html">12 &middot; Why the Shape Flips</a></td>
+            </tr>
+            <tr>
+              <td><strong>hollow column</strong></td>
+              <td>A column with a conical void driven into each end, formed when the rim of each flat cap outruns its own middle; the two pits match almost wiggle for wiggle, because both ends lived through the same weather.</td>
+              <td><a href="./chapters/07-plates-columns-plates-columns.html">7 &middot; Plates, Columns, Plates, Columns</a></td>
+            </tr>
+            <tr>
+              <td><strong>identical twins</strong></td>
+              <td>Two crystals grown side by side through one shared schedule of conditions, which come out nearly the same &mdash; the experiment showing that shape is set by environment rather than luck.</td>
+              <td><a href="./chapters/08-a-snowflake-is-a-record.html">8 &middot; A Snowflake Is a Record</a></td>
+            </tr>
+            <tr>
+              <td><strong>morphology</strong></td>
+              <td>A crystal&rsquo;s overall shape &mdash; star, plate, column, needle.</td>
+              <td><a href="./chapters/01-not-a-frozen-raindrop.html">1 &middot; Not a Frozen Raindrop</a></td>
+            </tr>
+            <tr>
+              <td><strong>morphology diagram</strong> (Nakaya diagram)</td>
+              <td>The map with temperature along the bottom and spare vapour up the side, showing which habit grows where; a superb description of what falls, and still not an explanation of why.</td>
+              <td><a href="./chapters/07-plates-columns-plates-columns.html">7 &middot; Plates, Columns, Plates, Columns</a></td>
+            </tr>
+            <tr>
+              <td><strong>needle</strong></td>
+              <td>A long slender column from warm, wet snowfalls near &minus;5&nbsp;&deg;C; on a dark sleeve fresh ones look like short bits of white hair, which makes them the one type you can name without a lens.</td>
+              <td><a href="./chapters/07-plates-columns-plates-columns.html">7 &middot; Plates, Columns, Plates, Columns</a></td>
+            </tr>
+            <tr>
+              <td><strong>plate</strong></td>
+              <td>A crystal far wider than it is thick, which is what grows when the six side faces are the easy ones.</td>
+              <td><a href="./chapters/07-plates-columns-plates-columns.html">7 &middot; Plates, Columns, Plates, Columns</a></td>
+            </tr>
+            <tr>
+              <td><strong>ribs</strong></td>
+              <td>Hexagonal rings of slightly thicker ice on a plate, each one an old rim stranded behind by a single dip in humidity &mdash; which is why ribs cannot form under steady conditions at all.</td>
+              <td><a href="./chapters/08-a-snowflake-is-a-record.html">8 &middot; A Snowflake Is a Record</a></td>
+            </tr>
+            <tr>
+              <td><strong>ridges</strong></td>
+              <td>Raised lines running outwards from each of the six corners of a plate, marking where each corner used to be as the crystal grew &mdash; quite literally a graph of corner position against time.</td>
+              <td><a href="./chapters/08-a-snowflake-is-a-record.html">8 &middot; A Snowflake Is a Record</a></td>
+            </tr>
+            <tr>
+              <td><strong>sectored plate</strong></td>
+              <td>A stellar plate with ridges pronounced enough to look as though they divide it into slices; there is no sharp dividing line between the two names.</td>
+              <td><a href="./chapters/09-the-menagerie.html">9 &middot; The Menagerie</a></td>
+            </tr>
+            <tr>
+              <td><strong>sheath</strong></td>
+              <td>A hollow column whose walls have been drawn out into a remarkably thin open tube.</td>
+              <td><a href="./chapters/09-the-menagerie.html">9 &middot; The Menagerie</a></td>
+            </tr>
+            <tr>
+              <td><strong>simple prism</strong></td>
+              <td>A small, plain, faceted crystal with no branches, about the size of a full stop &mdash; which is to say simply a young snow crystal, since branching does not begin until about half a millimetre.</td>
+              <td><a href="./chapters/09-the-menagerie.html">9 &middot; The Menagerie</a></td>
+            </tr>
+            <tr>
+              <td><strong>stellar dendrite</strong></td>
+              <td>The branched, tree-like star: narrow branches carrying numerous sidebranches, formed near &minus;15&nbsp;&deg;C when the humidity is high.</td>
+              <td><a href="./chapters/09-the-menagerie.html">9 &middot; The Menagerie</a></td>
+            </tr>
+            <tr>
+              <td><strong>stellar plate</strong></td>
+              <td>A thin, flat, six-fold crystal with broad branches, little sidebranching and a profusion of complex markings on its faces &mdash; the sparkle in falling snow is often these.</td>
+              <td><a href="./chapters/09-the-menagerie.html">9 &middot; The Menagerie</a></td>
+            </tr>
+            <tr>
+              <td><strong>triangular crystal</strong></td>
+              <td>A small truncated triangular plate with a perfectly ordinary hexagonal lattice, made when three of the six prism faces ran slightly ahead of the other three and diffusion amplified the difference.</td>
+              <td><a href="./chapters/09-the-menagerie.html">9 &middot; The Menagerie</a></td>
+            </tr>
+            <tr>
+              <td><strong>twelve-branched snowflake</strong></td>
+              <td>Not a twelve-fold crystal at all, but two ordinary six-branched ones that collided while small and stuck together about 30 degrees apart.</td>
+              <td><a href="./chapters/09-the-menagerie.html">9 &middot; The Menagerie</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <ul class="refs">
-        <li>
-          <span class="ref__title">habit</span>
-          <p>A crystal's overall shape ignoring the decoration &mdash; plate, block, column, needle. Two crystals with quite different ornament can share a habit.</p>
-        </li>
-        <li>
-          <span class="ref__title">aspect ratio</span>
-          <p>The size along the c-axis divided by the size across an a-axis. Below&nbsp;1 is flatter than wide; above&nbsp;1 is taller than wide. Real crystals span about 0.01 to 20.</p>
-        </li>
-        <li>
-          <span class="ref__title">morphology diagram / Nakaya diagram</span>
-          <p>The map of which habit appears at which temperature and supersaturation. It is a summary of observations, not an explanation of them.</p>
-        </li>
-        <li>
-          <span class="ref__title">water saturation line</span>
-          <p>The line across the morphology diagram marking the supersaturation of air in balance with liquid water &mdash; roughly the ceiling available inside a cloud.</p>
-        </li>
-        <li>
-          <span class="ref__title">hollow column</span>
-          <p>A column whose basal ends have grown faster at the rim than in the middle, leaving conical hollows sunk into each end.</p>
-        </li>
-        <li>
-          <span class="ref__title">needle</span>
-          <p>An extremely slender column, with an aspect ratio that can reach 20 or more.</p>
-        </li>
-        <li>
-          <span class="ref__title">fishbone dendrite</span>
-          <p>A distinctive branched form found in a narrow band of conditions, with sidebranches arranged like the ribs of a fish.</p>
-        </li>
-      </ul>
+      <!-- ================================================================= -->
+      <h2 id="measurement">Measurement and evidence: how anyone knows</h2>
 
-      <h2 id="ch8"><a href="./chapters/08-a-snowflake-is-a-record.html">Chapter 8 · A Snowflake Is a Record</a></h2>
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The instruments, the tricks that turn an easy measurement into a hard quantity, and the
+            vocabulary for judging what a published line actually claims.
+          </caption>
+          <thead>
+            <tr><th>Term</th><th>In one sentence</th><th>Explained in</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>convenient shape</strong></td>
+              <td>A formula picked because it is easy to write down and happens to look right, with its numbers tuned until the curve lands near the data &mdash; the weakest of the four kinds of line on a graph.</td>
+              <td><a href="./chapters/13-the-frontier.html">13 &middot; The Frontier</a></td>
+            </tr>
+            <tr>
+              <td><strong>diffraction</strong></td>
+              <td>The splitting of a wave into a few sharp directions when it meets a regularly spaced set of obstacles, so the outgoing beam carries information about a spacing you never had to see.</td>
+              <td><a href="./chapters/02-four-hundred-years-of-looking.html">2 &middot; Four Hundred Years of Looking</a></td>
+            </tr>
+            <tr>
+              <td><strong>diffraction grating</strong></td>
+              <td>Any regularly spaced set of obstacles that does that &mdash; and a crystal, as von Laue found in 1912, is one.</td>
+              <td><a href="./chapters/02-four-hundred-years-of-looking.html">2 &middot; Four Hundred Years of Looking</a></td>
+            </tr>
+            <tr>
+              <td><strong>electric ice needles</strong> (e-needles)</td>
+              <td>Slender single crystals grown in seconds by putting about 2,000 volts on a frost-covered wire in humid air near &minus;6&nbsp;&deg;C, then used as clean isolated perches for the crystal you actually want to watch.</td>
+              <td><a href="./chapters/10-how-we-know.html">10 &middot; How We Know</a></td>
+            </tr>
+            <tr>
+              <td><strong>emulsion</strong></td>
+              <td>The thin light-sensitive coating that carries a photographic image; Bentley scraped it off the background of his copied negatives so that his crystals would print white on black.</td>
+              <td><a href="./chapters/02-four-hundred-years-of-looking.html">2 &middot; Four Hundred Years of Looking</a></td>
+            </tr>
+            <tr>
+              <td><strong>error bar</strong></td>
+              <td>The whiskers on a data point saying how large the uncertainty is, because every measurement is a range rather than a value.</td>
+              <td><a href="./chapters/13-the-frontier.html">13 &middot; The Frontier</a></td>
+            </tr>
+            <tr>
+              <td><strong>eye guide</strong></td>
+              <td>A line drawn through data with no equation behind it at all, there so your eye can follow the trend and claiming nothing beyond that.</td>
+              <td><a href="./chapters/13-the-frontier.html">13 &middot; The Frontier</a></td>
+            </tr>
+            <tr>
+              <td><strong>factorial</strong></td>
+              <td>Written <em>n</em>!, the number of ways <em>n</em> things can be put in order &mdash; the arithmetic behind &ldquo;no two <em>complex</em> snow crystals alike&rdquo;.</td>
+              <td><a href="./chapters/08-a-snowflake-is-a-record.html">8 &middot; A Snowflake Is a Record</a></td>
+            </tr>
+            <tr>
+              <td><strong>filling factor</strong></td>
+              <td>The fraction of a growth chamber&rsquo;s floor covered by stray ice crystals; a coverage of one per cent, which looks through a microscope like an empty slide, can pull the real supersaturation down by a factor of twenty.</td>
+              <td><a href="./chapters/10-how-we-know.html">10 &middot; How We Know</a></td>
+            </tr>
+            <tr>
+              <td><strong>fit</strong></td>
+              <td>A smooth curve pushed through measured points: a summary whose shape was chosen by a person, and not itself a measurement.</td>
+              <td><a href="./chapters/13-the-frontier.html">13 &middot; The Frontier</a></td>
+            </tr>
+            <tr>
+              <td><strong>free-fall growth chamber</strong></td>
+              <td>Apparatus in which crystals grow while falling freely, touching nothing &mdash; one of the independent checks that the attachment measurements are not an artefact of whatever a crystal was resting on.</td>
+              <td><a href="./chapters/10-how-we-know.html">10 &middot; How We Know</a></td>
+            </tr>
+            <tr>
+              <td><strong>interference</strong></td>
+              <td>Waves adding where they arrive in step and cancelling where crest lands on trough, decided by nothing but how much further one of them travelled.</td>
+              <td><a href="./chapters/02-four-hundred-years-of-looking.html">2 &middot; Four Hundred Years of Looking</a></td>
+            </tr>
+            <tr>
+              <td><strong>interferometry</strong> (fringes)</td>
+              <td>Using the two reflections from the top and bottom of a crystal as a ruler: every full dim&ndash;bright&ndash;dim cycle means exactly the same fixed thickness of new ice, so counting flickers is measuring growth.</td>
+              <td><a href="./chapters/10-how-we-know.html">10 &middot; How We Know</a></td>
+            </tr>
+            <tr>
+              <td><strong>micron</strong></td>
+              <td>A thousandth of a millimetre.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong>nanometre</strong></td>
+              <td>A billionth of a metre, or a millionth of a millimetre.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>plate-on-pedestal (PoP)</strong></td>
+              <td>A method in which a thin plate grows sideways out of the top edge of a small ice prism resting on a glass slide, so it hangs free under a microscope &mdash; superb for photographs, and by its own author&rsquo;s account not well suited to measurements.</td>
+              <td><a href="./chapters/10-how-we-know.html">10 &middot; How We Know</a></td>
+            </tr>
+            <tr>
+              <td><strong>reciprocal lattice</strong></td>
+              <td>The set of spots a diffraction pattern produces, whose spacings run inversely to the spacings of the rows of atoms that made them.</td>
+              <td><a href="./chapters/02-four-hundred-years-of-looking.html">2 &middot; Four Hundred Years of Looking</a></td>
+            </tr>
+            <tr>
+              <td><strong>refractive index</strong></td>
+              <td>How much a material slows light down compared with empty space &mdash; the number that converts a fringe spacing into a thickness.</td>
+              <td><a href="./chapters/10-how-we-know.html">10 &middot; How We Know</a></td>
+            </tr>
+            <tr>
+              <td><strong>selection bias</strong></td>
+              <td>A distortion produced entirely by which honest measurements get kept; Bentley&rsquo;s five thousand photographs are all real, and his album is still not a picture of the sky.</td>
+              <td><a href="./chapters/02-four-hundred-years-of-looking.html">2 &middot; Four Hundred Years of Looking</a></td>
+            </tr>
+            <tr>
+              <td><strong>thermistor</strong></td>
+              <td>A bead-sized resistor whose resistance climbs about 4.5 per cent for every degree of cooling &mdash; good to 0.1&nbsp;&deg;C, costing about ten dollars, and the reason temperature is the easy half of a growth experiment.</td>
+              <td><a href="./chapters/10-how-we-know.html">10 &middot; How We Know</a></td>
+            </tr>
+            <tr>
+              <td><strong>VIG and VPG</strong></td>
+              <td>Two of the vacuum growth machines behind the sharpest numbers in the field; the first is the Vacuum Ice Growth apparatus.</td>
+              <td><a href="./chapters/10-how-we-know.html">10 &middot; How We Know</a></td>
+            </tr>
+            <tr>
+              <td><strong>witness-surface method</strong></td>
+              <td>Inferring a supersaturation you cannot measure directly by using a face whose behaviour is already known as a witness to it.</td>
+              <td><a href="./chapters/10-how-we-know.html">10 &middot; How We Know</a></td>
+            </tr>
+            <tr>
+              <td><strong>working hypothesis</strong></td>
+              <td>An account kept because nothing better exists rather than because it has been shown to be correct &mdash; the status its own authors give SDAK.</td>
+              <td><a href="./chapters/13-the-frontier.html">13 &middot; The Frontier</a></td>
+            </tr>
+            <tr>
+              <td><strong>X-ray diffraction</strong></td>
+              <td>Shining X-rays through a crystal and reading the pattern of spots back into an arrangement of atoms &mdash; how the hexagonal lattice of ice was found in 1929, 318 years after Kepler asked why six.</td>
+              <td><a href="./chapters/02-four-hundred-years-of-looking.html">2 &middot; Four Hundred Years of Looking</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <ul class="refs">
-        <li>
-          <span class="ref__title">ridge</span>
-          <p>A raised line running along an arm, left where the growing surface changed thickness. Part of the record of the crystal's path.</p>
-        </li>
-        <li>
-          <span class="ref__title">rib</span>
-          <p>A finer raised marking across an arm, recording a smaller or shorter-lived change in conditions.</p>
-        </li>
-        <li>
-          <span class="ref__title">plate-on-pedestal (PoP)</span>
-          <p>A laboratory technique in which a plate is grown on a raised support, so it grows clear of the substrate and can be watched and measured cleanly.</p>
-        </li>
-        <li>
-          <span class="ref__title">dislocation</span>
-          <p>A line defect in the lattice &mdash; a place where the regular stacking is interrupted.</p>
-        </li>
-        <li>
-          <span class="ref__title">deuterium</span>
-          <p>The heavy isotope of hydrogen. Its abundance differs slightly between water molecules, which is part of why no two crystals are identical at molecular resolution.</p>
-        </li>
-      </ul>
-
-      <h2 id="ch9"><a href="./chapters/09-the-menagerie.html">Chapter 9 · The Menagerie</a></h2>
-
-      <ul class="refs">
-        <li>
-          <span class="ref__title">simple prism</span>
-          <p>A plain hexagonal prism with no branching or ornament &mdash; the commonest thing actually falling, and the least photographed.</p>
-        </li>
-        <li>
-          <span class="ref__title">stellar plate</span>
-          <p>A flat crystal with six broad arms and little further branching.</p>
-        </li>
-        <li>
-          <span class="ref__title">sectored plate</span>
-          <p>A plate whose arms are divided into flat panels by prominent ridges radiating from the centre.</p>
-        </li>
-        <li>
-          <span class="ref__title">stellar dendrite</span>
-          <p>A flat six-armed crystal whose arms carry clear sidebranches.</p>
-        </li>
-        <li>
-          <span class="ref__title">fernlike stellar dendrite</span>
-          <p>The most heavily branched form, with sidebranches dense enough to look like a fern. The largest snow crystals are these.</p>
-        </li>
-        <li>
-          <span class="ref__title">irregular</span>
-          <p>A crystal with no clean classification &mdash; broken, clumped, or grown through too many changes of condition. Most real snow is this.</p>
-        </li>
-        <li>
-          <span class="ref__title">arrowhead twin</span>
-          <p>A pair of crystals joined across a twin plane, giving a form with a sharp angled point that a single crystal cannot make.</p>
-        </li>
-        <li>
-          <span class="ref__title">crossed plates</span>
-          <p>Two plates grown at an angle to one another from a shared origin, rather than in a single plane.</p>
-        </li>
-        <li>
-          <span class="ref__title">triangular crystal</span>
-          <p>A crystal that comes out three-sided even though the lattice underneath is six-fold &mdash; three of the six prism faces having grown at the expense of the others.</p>
-        </li>
-      </ul>
-
-      <h2 id="ch10"><a href="./chapters/10-how-we-know.html">Chapter 10 · How We Know</a></h2>
-
-      <ul class="refs">
-        <li>
-          <span class="ref__title">synthetic snow</span>
-          <p>Snow crystals grown from vapour in a laboratory, by the same physics as natural ones. Not to be confused with the next entry.</p>
-        </li>
-        <li>
-          <span class="ref__title">artificial snow</span>
-          <p>Sprayed and frozen water droplets, as made for ski slopes. Frozen liquid, so not snow crystals at all.</p>
-        </li>
-        <li>
-          <span class="ref__title">thermistor</span>
-          <p>A resistor whose resistance changes sharply and predictably with temperature, used to measure a growth chamber to a small fraction of a degree.</p>
-        </li>
-        <li>
-          <span class="ref__title">interference fringe</span>
-          <p>One of the light and dark bands produced when light reflected from the top and bottom of a crystal recombines. The closer the fringes, the thicker the crystal.</p>
-        </li>
-        <li>
-          <span class="ref__title">e-needle</span>
-          <p>An electric ice needle: a slender c-axis needle grown on a charged wire, used as a clean, reproducible seed to grow a test crystal on.</p>
-        </li>
-        <li>
-          <span class="ref__title">witness surface</span>
-          <p>A surface whose growth is measured indirectly, by the record it leaves, when it cannot be watched head-on.</p>
-        </li>
-      </ul>
-
-      <h2 id="ch11"><a href="./chapters/11-the-stickiness-of-ice.html">Chapter 11 · The Stickiness of Ice</a></h2>
-
-      <ul class="refs">
-        <li>
-          <span class="ref__title">Hertz&ndash;Knudsen relation</span>
-          <p>The formula for how many vapour molecules strike a surface per second, which sets the ceiling that the attachment coefficient is a fraction of.</p>
-        </li>
-        <li>
-          <span class="ref__title">vicinal surface</span>
-          <p>A surface tilted slightly off a facet plane, so it is made of flat terraces separated by a regular train of steps.</p>
-        </li>
-        <li>
-          <span class="ref__title">admolecule</span>
-          <p>A molecule that has landed on the surface and is loosely held there, skating about, not yet locked into the lattice.</p>
-        </li>
-        <li>
-          <span class="ref__title">diffusion length</span>
-          <p>How far an admolecule typically travels across a terrace before it either finds a step or is thrown back into the vapour.</p>
-        </li>
-        <li>
-          <span class="ref__title">Ehrlich&ndash;Schwoebel barrier</span>
-          <p>The extra energy penalty an admolecule pays to hop down off the terrace it is on, because for an instant it hangs off the crystal with almost nothing beneath it.</p>
-        </li>
-        <li>
-          <span class="ref__title">screw dislocation</span>
-          <p>A defect that puts a permanent step on a face, letting it grow in a spiral without ever having to nucleate a new layer.</p>
-        </li>
-        <li>
-          <span class="ref__title">&sigma;<sub>0</sub></span>
-          <p>The nucleation barrier of a face, in the same units as supersaturation: roughly, how much spare vapour that face needs before new layers start with any regularity. <strong>Lower &sigma;<sub>0</sub> means the face grows more easily.</strong></p>
-        </li>
-        <li>
-          <span class="ref__title">A</span>
-          <p>The ceiling in &alpha;&nbsp;=&nbsp;A&nbsp;e<sup>&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub></sup> &mdash; the value the attachment coefficient climbs towards once the barrier has stopped mattering. You would expect 1, and for the basal face it is.</p>
-        </li>
-        <li>
-          <span class="ref__title">CAK model</span>
-          <p>The comprehensive attachment kinetics model: Libbrecht's name for the measured &sigma;<sub>0</sub> and A curves for large facets, plus everything later built on them.</p>
-        </li>
-        <li>
-          <span class="ref__title">VIG / VPG</span>
-          <p>Two of the growth machines behind the measurements &mdash; the vacuum and the higher-pressure apparatus, whose agreement is what makes the numbers trustworthy.</p>
-        </li>
-        <li>
-          <span class="ref__title">frustrated QLL kinetics</span>
-          <p>The proposal that the quasi-liquid layer near the melting point makes it <em>harder</em>, not easier, for molecules to find their lattice positions &mdash; a candidate explanation for the shape of the barrier curves.</p>
-        </li>
-      </ul>
-
-      <h2 id="ch12"><a href="./chapters/12-why-the-shape-flips.html">Chapter 12 · Why the Shape Flips</a></h2>
-
-      <ul class="refs">
-        <li>
-          <span class="ref__title">mesoscopic</span>
-          <p>The in-between scale: far bigger than one molecule, far smaller than the whole crystal.</p>
-        </li>
-        <li>
-          <span class="ref__title">SDAK</span>
-          <p>Structure-Dependent Attachment Kinetics: the proposal that a facet only tens of nanometres wide has a substantially lower nucleation barrier than a broad facet of the same plane at the same temperature. A hypothesis, not a settled result.</p>
-        </li>
-        <li>
-          <span class="ref__title">SDAK dip</span>
-          <p>The downward notch this puts into a &sigma;<sub>0</sub> curve over a narrow range of temperature &mdash; one in the basal barrier near &minus;4&nbsp;&deg;C, one in the prism barrier near &minus;14&nbsp;&deg;C. The two dips are what supply the extra habit boundaries a single crossing cannot.</p>
-        </li>
-        <li>
-          <span class="ref__title">Edge-Sharpening Instability (ESI)</span>
-          <p>The runaway SDAK implies: a narrow edge grows faster, which packs its terrace steps closer, which narrows it further. Proposed as the origin of very thin plates and of the sheath-like edges on hollow columns.</p>
-        </li>
-        <li>
-          <span class="ref__title">habit boundary</span>
-          <p>A temperature at which the basal and prism barrier curves cross, so the faster face becomes the slower one and the crystal switches between plate and column.</p>
-        </li>
-      </ul>
-
-      <h2 id="ch13"><a href="./chapters/13-the-frontier.html">Chapter 13 · The Frontier</a></h2>
-
-      <ul class="refs">
-        <li>
-          <span class="ref__title">fit</span>
-          <p>A curve chosen to pass through measured points. It carries the data's authority only where there are data; between and beyond them it is an assumption.</p>
-        </li>
-        <li>
-          <span class="ref__title">eye guide</span>
-          <p>A line drawn on a plot to help the reader follow it, carrying no claim at all. Telling these three apart is most of what Chapter&nbsp;13 asks you to do.</p>
-        </li>
-      </ul>
-
-      <h2 id="missing">Where a term is not defined here</h2>
+      <!-- ================================================================= -->
+      <h2 id="symbols">The symbols, in one place</h2>
 
       <p>
-        If you meet a word on this site that is not in this list, that is a bug in the site rather
-        than something you were meant to already know. The chapters are written so that every
-        technical term is defined at its first use, in the sentence that introduces it; this page
-        only collects those definitions in one place. The full sources for all of it are on the
-        <a href="./references.html">references page</a>.
+        Every symbol the site uses, collected, because remembering which sigma is which is the
+        commonest reason to come back to a page like this. Greek letters are filed under their
+        English names.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>Symbols, what they stand for, and where they are introduced.</caption>
+          <thead>
+            <tr><th>Symbol</th><th>In one sentence</th><th>Explained in</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong><em>A</em></strong></td>
+              <td>The ceiling on &alpha;: the value the attachment coefficient climbs to once the nucleation barrier has stopped mattering &mdash; you would expect 1, it is 1 on the basal face, and on the prism face above about &minus;10&nbsp;&deg;C it stubbornly is not.</td>
+              <td><a href="./chapters/11-the-stickiness-of-ice.html">11 &middot; The Stickiness of Ice</a></td>
+            </tr>
+            <tr>
+              <td><strong><em>a</em><sub>0</sub>, <em>c</em><sub>0</sub></strong></td>
+              <td>The two measured lattice constants of ice: 0.452&nbsp;nm across one repeat of the honeycomb and 0.736&nbsp;nm along the c-axis.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong>&alpha;</strong> (alpha)</td>
+              <td>The attachment coefficient, the fraction of arriving molecules that stick, between 0 and 1; &alpha;<sub>basal</sub> and &alpha;<sub>prism</sub> are its values on the two facet families, and &alpha;<sub>rough</sub>&nbsp;&asymp;&nbsp;1 is its value on everything else.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>&beta;</strong> (beta)</td>
+              <td>The step energy: the energy cost of one metre of terrace edge. (Chapter 10 borrows the same letter for a chamber&rsquo;s filling factor; the two are unrelated.)</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong><em>c</em><sub>sat</sub></strong></td>
+              <td>The saturated vapour density: how many water molecules per cubic metre the air holds when arrivals and departures exactly balance over ice.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong><em>d</em><sub>sv</sub></strong></td>
+              <td>The length that sets the size of the Gibbs&ndash;Thomson correction for ice against vapour, about one nanometre.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong><em>n</em>!</strong></td>
+              <td>&ldquo;<em>n</em> factorial&rdquo;: <em>n</em>&nbsp;&times;&nbsp;(<em>n</em>&nbsp;&minus;&nbsp;1)&nbsp;&times;&nbsp;&hellip;&nbsp;&times;&nbsp;2&nbsp;&times;&nbsp;1, the number of ways <em>n</em> things can be ordered.</td>
+              <td><a href="./chapters/08-a-snowflake-is-a-record.html">8 &middot; A Snowflake Is a Record</a></td>
+            </tr>
+            <tr>
+              <td><strong><em>R</em><sub>crit</sub></strong></td>
+              <td>The critical radius: the size a new island on a facet has to exceed before keeping it pays.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong><em>R</em><sub>tip</sub></strong></td>
+              <td>The radius of curvature of a dendrite tip, about one micron.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong>&sigma;</strong> (sigma)</td>
+              <td>Supersaturation: how much spare water vapour the air carries, as a fraction of what ice can hold, always measured against ice.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong>&sigma;<sub>0</sub></strong> (sigma-zero)</td>
+              <td>The nucleation barrier for one facet, in the same units as &sigma;: roughly how much spare vapour that face needs before new layers start with any regularity &mdash; and because it sits in a negative exponent, a <em>lower</em> &sigma;<sub>0</sub> means a faster face.</td>
+              <td><a href="./chapters/11-the-stickiness-of-ice.html">11 &middot; The Stickiness of Ice</a></td>
+            </tr>
+            <tr>
+              <td><strong>&sigma;<sub>far</sub>, &sigma;<sub>&infin;</sub></strong></td>
+              <td>Two names for the same thing: the supersaturation far away from the crystal, out in the surrounding air &mdash; the quantity an experimenter actually sets.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong>&sigma;<sub>surf</sub></strong></td>
+              <td>The supersaturation right at a patch of surface, after diffusion has taken its cut &mdash; always smaller than &sigma;<sub>far</sub>, and the one the ice actually responds to.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong>&sigma;<sub>water</sub></strong></td>
+              <td>The supersaturation, measured against ice, of air in balance with supercooled water droplets: 15.7 per cent at &minus;15&nbsp;&deg;C, and the ceiling a cloud cannot climb past.</td>
+              <td><a href="./chapters/04-the-fuel-supply.html">4 &middot; The Fuel Supply</a></td>
+            </tr>
+            <tr>
+              <td><strong><em>T</em><sub>onset</sub></strong></td>
+              <td>The temperature at which surface disorder makes the step lip leaky enough for the SDAK effect to switch on.</td>
+              <td><a href="./chapters/12-why-the-shape-flips.html">12 &middot; Why the Shape Flips</a></td>
+            </tr>
+            <tr>
+              <td><strong><em>v</em>, <em>v</em><sub>n</sub></strong></td>
+              <td>How fast a patch of surface moves outward, the subscript n meaning &ldquo;measured straight out from the patch itself&rdquo;.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong><em>v</em><sub>kin</sub></strong></td>
+              <td>A reference speed fixed by temperature and by the mass of a water molecule: how fast a surface would advance if every arriving molecule stuck <em>and</em> the air carried 100 per cent spare vapour &mdash; real speeds are that figure multiplied by both &alpha; and &sigma;<sub>surf</sub>, so always very much smaller.</td>
+              <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
+            </tr>
+            <tr>
+              <td><strong><em>v</em><sub>tip</sub></strong></td>
+              <td>The forward speed of a dendrite tip, a few microns a second, and roughly proportional to &sigma;<sub>far</sub>.</td>
+              <td><a href="./chapters/06-the-runaway-bump.html">6 &middot; The Runaway Bump</a></td>
+            </tr>
+            <tr>
+              <td><strong><em>w</em></strong></td>
+              <td>The width of the last flat strip at a crystal&rsquo;s rim, roughly &radic;(8<em>Ra</em>), which comes out as small as 50 nanometres &mdash; fewer than 200 molecules across.</td>
+              <td><a href="./chapters/12-why-the-shape-flips.html">12 &middot; Why the Shape Flips</a></td>
+            </tr>
+            <tr>
+              <td><strong><em>x</em><sub>basal</sub>, <em>x</em><sub>prism</sub></strong></td>
+              <td>The two layer spacings: 0.37&nbsp;nm added each time a layer completes on a flat end, 0.39&nbsp;nm on a side wall.</td>
+              <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
+            </tr>
+            <tr>
+              <td><strong><em>x</em><sub>diff</sub></strong></td>
+              <td>The diffusion length: how far an admolecule typically travels across a terrace before evaporating.</td>
+              <td><a href="./chapters/11-the-stickiness-of-ice.html">11 &middot; The Stickiness of Ice</a></td>
+            </tr>
+            <tr>
+              <td><strong>&#8810; and &#8811;</strong></td>
+              <td>&ldquo;Very much less than&rdquo; and &ldquo;very much greater than&rdquo; &mdash; not merely smaller or larger but by a large factor, which is exactly the difference between a slightly squat prism and a wafer.</td>
+              <td><a href="./chapters/07-plates-columns-plates-columns.html">7 &middot; Plates, Columns, Plates, Columns</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Some of these words name things nobody has measured
+        </p>
+        <p>
+          A definition is not a guarantee that the thing defined is settled. The pyramidal step
+          energy has never been measured, the equilibrium crystal shape of ice has never been
+          observed, and the SDAK dips are real measurements with hand-drawn curves through them.
+          Where each term sits on that spectrum is the business of
+          <a href="./chapters/13-the-frontier.html">Chapter 13</a>, and it is worth knowing before
+          you quote any of them.
+        </p>
+      </aside>
+
+      <p>
+        If you meet a word on this site that is not in this list, treat that as a fault in the list
+        rather than something you were meant to know already. The chapters are written so that every
+        technical term is defined at its first use; this page only gathers those definitions into
+        one place, and the <a href="./references.html">references page</a> holds the sources behind
+        all of them.
       </p>
 
     </div>
@@ -657,9 +1135,8 @@
   <div class="shell">
     <p>
       Part of <a href="./index.html">Snow Crystals</a>, an educational site about the science of
-      snowflake formation. The science is Kenneth&nbsp;G.&nbsp;Libbrecht&rsquo;s, drawn from his
-      monograph <em>Snow Crystals</em> (arXiv:1910.06389) and the measurement papers that followed
-      it; the definitions here are our compressions of the explanations in the chapters.
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
+      from a local research cache under citation; they are not redistributed with this repository.
     </p>
     <p><a href="./index.html">Contents</a> &middot; <a href="./references.html">References</a></p>
   </div>
