@@ -1,0 +1,1608 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plates, Columns, Plates, Columns — Snow Crystals</title>
+<meta name="description" content="Cooling the air flips a snow crystal between flat and tall — three times. This chapter maps where each shape lives, and shows exactly what the map fails to explain.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 7 · Plates, Columns, Plates, Columns</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#habit">One number for the whole shape</a></li>
+      <li><a href="#the-rule">The aspect-ratio rule</a></li>
+      <li><a href="#not-diffusion">Why diffusion can never make a plate</a></li>
+      <li><a href="#second-axis">The second axis: how wet the air is</a></li>
+      <li><a href="#the-map">The map from weather to shape</a></li>
+      <li><a href="#alternation">Plates, columns, plates, columns</a></li>
+      <li><a href="#hollow">Hollow columns and needles</a></li>
+      <li><a href="#mystery">What the map does not explain</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 7</p>
+        <h1>Plates, Columns, Plates, Columns</h1>
+        <p class="chapter-header__question">
+          Why does cooling the air flip a snow crystal between flat and tall — three times?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~15 min read</span>
+          <span>13 figures</span>
+          <span>4 animations</span>
+        </div>
+      </header>
+
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Say what a crystal's <strong>habit</strong> is, and reduce it to a single number.</li>
+          <li>State the aspect-ratio rule, and use it to read the physics of an ice surface off a photograph.</li>
+          <li>Explain why diffusion on its own can never build a thin plate or a slender needle.</li>
+          <li>Read the morphology diagram in both directions — conditions to shape, and shape back to conditions.</li>
+          <li>Locate the four shape bands and the temperatures where the shape flips.</li>
+          <li>Explain a hollow column and a needle as the same branching instability, turned sideways.</li>
+          <li>State precisely what the diagram does <em>not</em> explain, and why that has stayed open since the 1930s.</li>
+        </ul>
+      </section>
+
+      <p>
+        So far this site has built one engine with two parts. Water vapour has to reach the crystal,
+        and diffusion decides how much arrives where — that is the fuel. Molecules then have to
+        attach, and the ice surface decides how readily they do — that is the throttle. Between them
+        they gave us faceting, and then branching.
+      </p>
+      <p>
+        That engine is enough to explain a great deal. It is not enough to explain the single most
+        obvious thing about snow crystals: some of them are flat as paper, and some of them are
+        shaped like pencils. This chapter is where that becomes a problem.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="habit">One number for the whole shape</h2>
+
+      <p>
+        A crystal's <strong>habit</strong> is its overall shape, ignoring the decoration — plate,
+        block, column, needle. Two snow crystals can carry wildly different ornament and still share
+        a habit, and habit is what the rest of this chapter is about.
+      </p>
+      <p>
+        Habit sounds like a vague, hand-waving word. It is not. Every snow crystal is built on a
+        hexagonal prism, and a hexagonal prism carries just the two families of facet you named back
+        in Chapter 1: the two <strong>basal</strong> caps and the six <strong>prism</strong> sides.
+        Chapter 3 already showed you the losing candidates — the {112&#772;0} secondary prism planes,
+        on which ice is not observed to facet at all, and the pyramidal facets, which turn up only
+        very rarely. For habit, these two families are the whole story. So the whole shape collapses
+        to one number — how far the crystal reaches from cap to cap, divided by how far it reaches
+        across.
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">aspect ratio = <em>c</em> &divide; <em>a</em></p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt><em>c</em></dt><dd>the crystal's overall size along the c-axis — cap to cap, straight through the two basal facets</dd>
+            <dt><em>a</em></dt><dd>the crystal's overall size along an a-axis — straight across the hexagon, corner to corner</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">Definition as given in Libbrecht, <em>Snow Crystals</em>, printed p. 111</p>
+      </div>
+
+      <p>
+        An aspect ratio below 1 means flatter than it is wide. Above 1 means taller than it is wide.
+        And the range that real snow crystals cover is startling. A large thin plate can get down to
+        about <strong>0.01</strong> — a hundred times wider than it is thick. Libbrecht's phrasing is
+        hard to improve on: that extreme aspect ratio &ldquo;is what puts the &lsquo;flake&rsquo; in
+        &lsquo;snowflake.&rsquo;&rdquo; At the other end, an especially slender needle can reach
+        <strong>20 or more</strong>.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.1/visual.png"
+              data-figure="Figure 1.1"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 18 &middot; printed p. 17"
+              data-alt="A six-armed stellar dendrite snow crystal with fern-like side branches, photographed against a dark background.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> not the branches — the thickness. This crystal is a
+          sheet. Everything it built, it built sideways. Its aspect ratio is somewhere down near the
+          bottom of the range, and that fact alone will turn out to be a statement about molecules.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.1: Large stellar dendrites like this one are
+          perennial holiday favorites, but these are only one type of snow crystal. Stellar
+          dendrites are thin and flat in overall shape, and they only appear when the temperature in
+          the clouds is near -15 C. The full menagerie of natural snow crystals is discussed in
+          Chapter 10.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.2/visual.png"
+              data-figure="Figure 1.2"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 18 &middot; printed p. 17"
+              data-alt="Several columnar snow crystals shaped like short hexagonal pencils, each showing a dark conical cavity inside the ends.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the same lattice, the same six-fold symmetry, the same
+          two families of facet — and the opposite shape. These grew about ten degrees warmer than
+          the crystal above. Hold on to the dark cones inside the ends; the last section of this
+          chapter is about them.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.2: At temperatures near -5 C, columnar snow crystals
+          like these often appear. Their basic shape is a hexagonal column, like that of a standard
+          wooden pencil. These particular examples are &lsquo;hollow&rsquo; columns that exhibit
+          roughly conical hollow regions in each end.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          Every snow crystal habit — plate, block, column, needle — is one number: how tall it is
+          divided by how wide it is. Real crystals span that number from about 0.01 to about 20.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="the-rule">The aspect-ratio rule</h2>
+
+      <p>
+        Here is the step that turns a photograph into physics. A growing crystal ends up bounded by
+        its <em>slowest</em> faces. A fast face runs outward until it meets its neighbours and
+        vanishes from the outline; a slow face just sits there, getting wider. So a crystal that
+        ended up thin must have had lazy caps, and a crystal that ended up tall must have had lazy
+        sides.
+      </p>
+      <p>
+        Chapter 5 gave a name to how readily molecules stick to a given facet: the attachment
+        coefficient, written &alpha; (0 to 1). Small &alpha; means a stubborn facet.
+        Put the two ideas together and you get a rule that Libbrecht says &ldquo;applies throughout
+        the menagerie of different snow-crystal types&rdquo;:
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          thin plates &rArr; &alpha;<sub>basal</sub> &#8810; &alpha;<sub>prism</sub><br>
+          slender columns &rArr; &alpha;<sub>basal</sub> &#8811; &alpha;<sub>prism</sub>
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>&alpha;<sub>basal</sub></dt><dd>how readily a molecule sticks to the flat top or bottom cap</dd>
+            <dt>&alpha;<sub>prism</sub></dt><dd>how readily a molecule sticks to one of the six sides</dd>
+            <dt>&#8810;</dt><dd>&ldquo;very much less than&rdquo; — not merely smaller, but smaller by a lot</dd>
+            <dt>&#8811;</dt><dd>&ldquo;very much greater than&rdquo;</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">
+          Libbrecht, <em>Snow Crystals</em>, printed p. 111: &ldquo;the formation of thin plates
+          invariably requires &alpha;<sub>basal</sub> &#8810; &alpha;<sub>prism</sub>, while the
+          formation of slender columns requires &alpha;<sub>basal</sub> &#8811; &alpha;<sub>prism</sub>.&rdquo;
+        </p>
+      </div>
+
+      <p>
+        Read that backwards and it becomes a measuring instrument. You do not need a laboratory to
+        find out that the caps of a stellar dendrite are far harder to grow on than its edges. You
+        need a photograph of one. Libbrecht runs exactly that argument on a stellar dendrite: the
+        rounded branch tips say &alpha;<sub>prism</sub> is close to 1 there, and the extreme
+        flatness says &alpha;<sub>basal</sub> is below 0.01. As he puts it, &ldquo;just looking at a
+        large stellar dendrite with rounded branch tips reveals that &alpha;<sub>prism</sub>
+        &asymp; 1 at the tips and &alpha;<sub>basal</sub> &lt; 0.01.&rdquo;
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.30/visual.png"
+              data-figure="Figure 3.30"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 114 &middot; printed p. 113"
+              data-alt="A simple six-armed star snow crystal whose branch tips are smoothly rounded while the long sides of each branch stay straight and faceted.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> two different readings, off one photograph. Look at the
+          very end of a branch: it is <em>rounded</em>, curved rather than cut flat. A rounded surface
+          is one that molecules stick to almost every time they arrive — &alpha;<sub>prism</sub> near
+          1. Now slide your eye back along the same branch to its long side: that edge is
+          <em>straight</em>, a proper flat facet, which means molecules there are being turned away —
+          &alpha;<sub>prism</sub> below 1. Same crystal, same six-fold lattice, two different values
+          of the same quantity in two places a fraction of a millimetre apart. That is the
+          aspect-ratio rule being used as an instrument.
+          <br><br>
+          <span style="color: var(--ink-muted);">One phrase in the published caption below is a
+          forward reference. The <em>Edge-Sharpening Instability</em> is a second runaway &mdash; one
+          that sharpens a crystal&rsquo;s rim rather than its corners, the one Chapter 6 promised you
+          was still to come &mdash; and it is Chapter 12&rsquo;s subject. Note also that the
+          &ldquo;Chapter 3&rdquo; the caption points at is the monograph&rsquo;s own chapter 3, not
+          this site&rsquo;s.</span>
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.30: Simple stars present a case where large-scale
+          morphology is directed by an unusual characteristic of anisotropic attachment kinetics.
+          Rounding near the branch tips indicates &alpha;<sub>prism</sub> &asymp; 1 on the outermost
+          prism surfaces, but faceting on the branch sides indicates &alpha;<sub>prism</sub> &lt; 1
+          on those prism surfaces. This difference explains why sidebranching is suppressed on this
+          crystal. The Edge-Sharpening Instability (see Chapter 3) may be present at the branch tips,
+          although high-fidelity 3D numerical simulations will likely be needed to fully understand
+          this seemingly simple morphology.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <figure class="anim" id="anim-aspect">
+        <div class="anim__head">
+          <p class="anim__title">The aspect-ratio dial</p>
+          <p class="anim__sub">
+            Drag from a wafer to a pencil. Watch the sentence underneath the crystal: the shape is
+            telling you which family of facets has to be the stubborn one.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. The prism is drawn from the hexagonal
+          geometry of ice; the labelled waypoints use the printed values &mdash; aspect ratio about
+          0.01 for a large thin plate (Libbrecht, <em>Snow Crystals</em>, printed p. 113) and 20 or
+          more for an especially slender needle (printed p. 114). The face-hardness sentence encodes
+          the aspect-ratio rule from printed p. 111.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        One more thing the rule is careful about. It says &alpha;<sub>basal</sub> &#8810;
+        &alpha;<sub>prism</sub>, with the &ldquo;very much less than&rdquo; symbol, not simply
+        &ldquo;less than&rdquo;. A small imbalance gives you a slightly squat or slightly stretched
+        prism. An aspect ratio of 0.01 needs a whopping imbalance. Extreme shapes are evidence of
+        extreme differences between the two faces.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.29/visual.png"
+              data-figure="Figure 3.29"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 113 &middot; printed p. 112"
+              data-alt="Two calculated contour maps of water-vapour supersaturation around growing ice crystals: a blocky prism on the left and a thin plate on the right.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the contour lines are lines of equal spare water vapour,
+          like height lines on a map. On the left, around a blocky crystal, the vapour piles up at
+          the corners — they stick out furthest into the moist air. On the right, around a thin
+          plate, the pattern inverts. Crowded lines at the rim mean a steep slope, and a steep slope
+          means vapour is pouring into the edge fast, because the rim is drinking fast. Over the
+          middle of the cap the lines are far apart. That does <em>not</em> mean the vapour is thin
+          there — the published caption below says the opposite, that the supersaturation is
+          <em>highest</em> at the centre of the basal facets. It means the vapour is barely moving:
+          the cap is absorbing so little that no steep slope is needed to feed it. Amount and flow
+          are two different things, and here they point opposite ways. Same air, same physics,
+          opposite pictures — the only difference is the balance between the two faces.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.29: Calculated contour plots of supersaturation
+          levels around two growing ice crystals, shown here in (r,z) coordinates. Around a blocky
+          crystal (left), the supersaturation is highest near the corners of the faceted prism, a
+          phenomenon called the Berg effect. Around a thin-plate crystal, the contour lines are
+          tightly bunched at the plate edge, and the supersaturation is highest at the center of the
+          basal facets. The model on the left assumed &alpha;<sub>basal</sub> &asymp;
+          &alpha;<sub>prism</sub> &lt; 1, while the model on the right assumed &alpha;<sub>basal</sub>
+          &#8810; &alpha;<sub>prism</sub>.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <!-- ================================================================= -->
+      <h2 id="not-diffusion">Why diffusion can never make a plate</h2>
+
+      <p>
+        You might reasonably object that we already have a mechanism for making dramatic shapes.
+        Chapter 6 built the branching instability: a bump that sticks further into the moist air
+        collects more vapour, so it grows faster, so it sticks out further. That runaway is what
+        turns a plain hexagon into a six-armed star. Why can it not also flatten a crystal, or
+        stretch it?
+      </p>
+      <p>
+        Because branching and stretching are different jobs, and diffusion is only good at one of
+        them. Diffusion makes structures <em>intricate</em>. Left to itself it does not make them
+        <em>lopsided</em>. Take a thin plate and remove the imbalance between its two faces — set
+        &alpha;<sub>basal</sub> and &alpha;<sub>prism</sub> equal — and the plate does not stay thin.
+        Its edges thicken, and the whole thing drifts back toward being as tall as it is wide, even
+        while it keeps sprouting elaborate branches.
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          This is not a hunch; it is what happens when you actually solve the growth equations with
+          the two faces made equal. Libbrecht runs exactly that experiment on paper, on printed
+          p. 112: &ldquo;If, for example, one begins with a thin plate crystal and then changes
+          parameters so that &alpha;<sub>basal</sub> &asymp; &alpha;<sub>prism</sub>, then the
+          subsequent growth will not maintain the thin-plate structure. Instead the edges of the
+          plate would thicken over time and the overall aspect ratio would tend toward unity.&rdquo;
+          Take away the imbalance and the plate un-flattens itself. The general statement is on
+          p. 111: &ldquo;diffusion effects alone cannot yield structures with extreme aspect ratios,
+          like thin plates or slender columns.&rdquo;
+        </p>
+      </aside>
+
+      <p>
+        The other candidate explanation gets ruled out in the same breath. Surface energy — the
+        tendency of a surface to minimise its own area — can favour some facets over others in
+        principle. In ice it is far too even-handed to matter here. Highly lopsided surface energies,
+        Libbrecht writes, &ldquo;are mostly a theoretical fiction (except perhaps in exotic
+        materials).&rdquo; A more recent paper of his (arXiv:2306.13087v1, p. 4) puts both
+        eliminations in a single sentence: &ldquo;Neither diffusion-limited growth nor
+        surface-energy effects produce growing snow crystals with high overall aspect ratios.&rdquo;
+      </p>
+      <p>
+        So there is exactly one place left for an extreme shape to come from: a large difference
+        between how easily molecules attach to the caps and how easily they attach to the sides.
+        <strong>The habit of a snow crystal is a report on its own surface chemistry.</strong>
+      </p>
+      <p>
+        Which raises the obvious question: what does the cloud do to that surface? The answer, and it
+        is the whole reason this chapter exists, is that a cloud has only two knobs to turn. The
+        first is <strong>temperature</strong>.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="second-axis">The second axis: how wet the air is</h2>
+
+      <p>
+        The second knob is <strong>supersaturation</strong> — how much spare water vapour the air is
+        carrying beyond what it can hold in balance with ice. The two knobs do different jobs, and
+        keeping them separate is the key to reading everything that follows.
+      </p>
+      <p>
+        <strong>Temperature decides plate or column. Supersaturation decides simple or
+        complicated.</strong> At low supersaturation, crystals are blocky and fully faceted — plain
+        hexagonal columns, stubby plates, nothing dramatic. Turn the supply up and you cross into
+        branching: first six primary branches with little decoration, and only at the highest
+        levels, side branches sprouting off the branches. Libbrecht describes exactly that
+        progression from his own laboratory series on printed p. 301: &ldquo;As the supersaturation
+        increases, branching often begins with six primary branches with little or no sidebranching.
+        Sidebranching eventually develops at the highest supersaturations shown in Figure 8.16,
+        although some temperatures are more prone to copious sidebranching than others.&rdquo;
+      </p>
+      <p>
+        The Figure 8.16 named in that quotation is worth knowing about. It is the same two-knob map
+        we are building, made entirely out of photographs of real laboratory crystals rather than
+        drawings. No single page can hold it: its caption, on printed p. 301, opens by warning you
+        that the figure is &ldquo;(Following five pages) The snow crystal morphology diagram depicted
+        by crystals growing on the ends of slender ice needles, as a function of temperature and
+        supersaturation.&rdquo; Read one of its columns upward and the crystals get more elaborate;
+        read one of its rows across and they change kind. Those are the two sentences this chapter is
+        arguing about.
+      </p>
+      <p>
+        The upward reading is the one you can watch happen. Below is a single crystal, photographed
+        three times while the applied supersaturation was raised. You met it in Chapter 6, where it
+        was evidence about branching. Here it is evidence about an axis.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.5/visual.png"
+              data-figure="Figure 3.5"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 82 &middot; printed p. 81"
+              data-alt="Three stacked photographs of the same hexagonal ice crystal: first a plain hexagon with straight edges, then with its edges bowing inward and its corners extending, then with six sharp points.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> one crystal, three moisture levels. Follow the outline
+          down the panels. At the top it is a clean six-sided hexagon with no branches at all — that
+          is what low supersaturation gives you. Below it the edges have bowed inward and the corners
+          have begun to run out; at the bottom they are points. The published caption names the one
+          thing that was changed to make that happen: the applied supersaturation. This is a single
+          column of the two-knob map, read from the bottom up, in photographs rather than argument.
+          Note also what did <em>not</em> change:
+          it is the same flat hexagon seen face-on every time. Elaboration moved; habit did not.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.5: This series of photographs shows branches sprouting
+          from the six corners of a hexagonal snow crystal when the applied supersaturation was
+          increased. Branching like this becomes more likely when a hexagonal crystal is large and/or
+          its growth rate is fast.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          &ldquo;Colder weather makes fancier snowflakes&rdquo; is a natural guess and it is wrong.
+          Elaboration tracks the moisture supply, not the thermometer. In dry air you get plain
+          blocky crystals — squat prisms, stubby plates or short columns depending on the
+          temperature — however far below freezing you go; in a wet cloud near &minus;15 °C you get
+          ferns. Temperature mainly changes <em>which</em> shape you get; supersaturation is what
+          decides how ornate it becomes. Not entirely, though: as Libbrecht says of his own
+          laboratory series, &ldquo;some temperatures are more prone to copious sidebranching than
+          others.&rdquo;
+        </p>
+      </aside>
+
+      <p>
+        There is a ceiling on that second axis, and it is a real physical one rather than a
+        drafting choice. Push the humidity up inside a cloud and eventually the air becomes
+        saturated with respect to liquid water, and droplets start condensing out of it. From then
+        on the droplets take up the surplus, so the supersaturation around the crystal does not
+        climb much further. That ceiling is drawn on every version of the diagram as the
+        <strong>water saturation line</strong>. Above it you are no longer describing weather; you
+        are describing a laboratory.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.10/visual.png"
+              data-figure="Figure 3.10"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 86 &middot; printed p. 85"
+              data-alt="Several fishbone-shaped ice dendrites growing outward from a frost-covered wire, each with side branches angling out of the plane.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> these are &ldquo;fishbone&rdquo; dendrites, and no matter
+          how long you stand outside you will never catch one. They need supersaturations that do
+          not occur in the sky — Libbrecht writes on printed p. 86 that &ldquo;the formation of
+          fishbone dendrites requires high supersaturation levels that do not occur in nature, so
+          they are entirely a laboratory creation.&rdquo; This is what lives above the water
+          saturation line: real physics, unreal weather.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.10: Several &lsquo;fishbone&rsquo; dendrites growing
+          out from a frost-covered wire at a temperature of -5 C. Note the overall similarities
+          between the different dendritic branches.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <!-- ================================================================= -->
+      <h2 id="the-map">The map from weather to shape</h2>
+
+      <p>
+        Two knobs, two axes. Put temperature along the bottom and spare water vapour up the side,
+        and every kind of snow crystal turns out to occupy its own territory. That chart is the
+        <strong>snow crystal morphology diagram</strong>, universally called the
+        <strong>Nakaya diagram</strong>.
+      </p>
+      <p>
+        Ukichiro Nakaya built it in the 1930s in a walk-in freezer laboratory at Hokkaido, by
+        growing snow crystals in a chamber and varying the conditions on purpose. It took years.
+        The monograph's account is deadpan (printed p. 31): Nakaya &ldquo;spent years examining how
+        his synthetic snow crystals grew and developed as he varied the temperature and
+        supersaturation within his growth chamber, soon combining all his observations into what is
+        now called the snow crystal morphology diagram, or the Nakaya diagram.&rdquo;
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.24/visual.png"
+              data-figure="Figure 1.24"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 32 &middot; printed p. 31"
+              data-alt="Nakaya's original hand-drawn morphology diagram: scattered data points on temperature and supersaturation axes with hand-drawn region boundaries and small crystal sketches.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the original, and it looks like what it is — hand-plotted
+          points with boundaries drawn through them by eye. This is a real experimental result being
+          born, not a textbook illustration. Notice that the interesting bands are narrow: the big
+          stellar plates own only a few degrees.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.24: Nakaya&rsquo;s Snow Crystal Morphology Diagram
+          [1954Nak, 1958Nak] illustrates the different types of snow crystals that grow under
+          different environmental conditions. For example, large stellar plates only form in a
+          narrow temperature range around -15 C, while slender needle crystals only appear near
+          -5 C.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        The diagram was recognised immediately for what it was. In Libbrecht's words (printed
+        p. 31) it &ldquo;was
+        immediately recognized as being like a Rosetta Stone for snowflakes. With it, one can
+        translate the shape of a falling snow crystal into a description of its growth history. Upon
+        seeing a slender needle crystal, for example, one can deduce that it must have grown in high
+        humidity at a temperature near -5 C.&rdquo; Nakaya himself, on printed p. 32, liked to say
+        that snowflakes are &ldquo;hieroglyphs from the sky.&rdquo;
+      </p>
+      <p>
+        Below is our own redrawing of it. Drag the dot anywhere on the field, or use the sliders. The
+        panel on the right names the crystal you would expect and draws it.
+      </p>
+
+      <figure class="anim is-wide" id="anim-nakaya">
+        <div class="anim__head">
+          <p class="anim__title">Drag the weather, watch the crystal</p>
+          <p class="anim__sub">
+            Try this first: hold the vapour slider still and sweep the temperature slowly from 0 to
+            &minus;35 °C. Count how many times the crystal changes its mind.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original drawing, not a scan. The three band boundaries at
+          &minus;3.3, &minus;9.9 and &minus;21.5 °C are measured from Libbrecht,
+          &ldquo;Toward a Comprehensive Model of Snow Crystal Growth Dynamics: 1&rdquo;
+          (arXiv:1211.5555v1), Figure 1, printed p. 2, with &plusmn;0.5 °C read uncertainty; the band
+          names are that figure's own printed labels. The dashed cloud line is computed from the
+          Murphy &amp; Koop (2005) saturation-vapour-pressure formulas rather than traced off the
+          published curve.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.12/visual.png"
+              data-figure="Figure 1.12"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 24 &middot; printed p. 23"
+              data-alt="A modern redrawn Nakaya diagram with temperature along the bottom, supersaturation up the side, small crystal drawings placed in their zones, and a water saturation curve.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the top edge, before anything else. Printed along it, in
+          order, are the labels <em>Plates | Columns | Plates | Columns and Plates</em>, with dotted
+          lines dropped where each band ends. Check them against the four-band table you just read:
+          the labels and the order are the published ones, and this is where the table's fourth
+          entry comes from. Then look at where the crystal drawings sit — in that last band both a
+          column and a plate are drawn, side by side. Finally, note the shape of the water saturation
+          curve. It is not flat; it arches to a maximum near &minus;12 °C — the crest Chapter 4
+          computed from the vapour-pressure formulas and put at &minus;12.3 °C — which means the
+          wettest air a cloud can offer sits in the warm half of the plate band, not at its cold end.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.12: The Nakaya diagram illustrates the morphologies
+          of snow crystals that develop at different temperatures and supersaturations. The water
+          saturation line shows the supersaturation that is typically found in a dense winter cloud
+          made of liquid water droplets.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          The diagram's own fine print — the caption Libbrecht gives this same chart when it is
+          reprinted later in the book, on printed p. 383 — is worth reading before anyone
+          over-trusts it: &ldquo;this chart provides just a rough approximation of the
+          different morphologies, plus it applies only if the growth conditions are constant in
+          time.&rdquo; Real crystals fall through changing air. The map tells you what grows in a
+          <em>steady</em> environment; a crystal that visited two environments will carry two
+          answers at once.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="alternation">Plates, columns, plates, columns</h2>
+
+      <p>
+        Now do the thing the animation asked you to do. Pick a moisture level, hold it, and cool the
+        air steadily from freezing point downward. Here is what nature does.
+      </p>
+      <p>
+        Just below 0 °C: <strong>plates</strong>. Cool a couple of degrees further and the crystals
+        flip to <strong>columns</strong> — pencils and needles. Keep cooling and around ten degrees
+        below freezing they flip back to <strong>plates</strong>, and this is the band that produces
+        the great flat stars of the holiday cards. Keep going, past twenty degrees below, and they
+        turn back toward <strong>columns</strong> again — though this last band is the untidy one.
+        Its printed label is <em>Columns and Plates</em>. Both habits turn up in it, and the
+        published caption of the diagram those boundaries come from does not end the sequence at the
+        boundary; it ends it at &ldquo;predominantly columns (T &lt; -30 C)&rdquo;. Columns only
+        clearly take over about nine degrees further down.
+      </p>
+      <p>
+        Flat, tall, flat, tall. Four bands, three switch points, from monotonously turning one knob
+        in one direction.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The four bands. Boundary temperatures measured from the redrawn diagram in
+            arXiv:1211.5555v1, Figure 1, printed p. 2, with &plusmn;0.5 °C read uncertainty; the band
+            names are that figure's own printed labels. The right-hand column is what the
+            aspect-ratio rule (printed p. 111) forces each band to mean about the two faces.
+          </caption>
+          <thead>
+            <tr><th>Band</th><th class="num">Temperature</th><th>Printed label</th><th>Which face must be the harder one</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td class="num">0 to &minus;3.3&nbsp;&deg;C</td><td>Plates</td><td>the two basal caps</td></tr>
+            <tr><td>2</td><td class="num">&minus;3.3 to &minus;9.9&nbsp;&deg;C</td><td>Columns</td><td>the six prism sides</td></tr>
+            <tr><td>3</td><td class="num">&minus;9.9 to &minus;21.5&nbsp;&deg;C</td><td>Plates</td><td>the two basal caps</td></tr>
+            <tr><td>4</td><td class="num">below &minus;21.5&nbsp;&deg;C</td><td>Columns and Plates</td><td>mixed — both habits occur</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          The three temperatures in that table are not quoted from a sentence; they were read off a
+          published figure. A 300 dpi render of arXiv:1211.5555v1 Figure 1 was measured, the three
+          dashed boundary lines located, and the temperature axis calibrated tick by tick — which
+          mattered, because that axis is drawn non-uniformly and shrinks by a factor of 1.77 from the
+          warm end to the cold end. Calibrating it with a single straight fit misplaces every
+          boundary. The stated read uncertainty is &plusmn;0.5 °C. That covers the width of the
+          printed lines and the calibration; it does <em>not</em> cover the fact that the real
+          transitions are fuzzy bands rather than lines. Other sources put the two warm boundaries a
+          degree or two elsewhere; the coldest one is barely pinned at all, as you will see a few
+          paragraphs below.
+        </p>
+      </aside>
+
+      <p>
+        The switches are sharp. Libbrecht, on printed p. 32: &ldquo;Even a change of a few degrees
+        can dramatically alter its growth behavior.&rdquo; Two degrees can be the difference between
+        a pencil and a wafer.
+      </p>
+
+      <figure class="anim" id="anim-alternation">
+        <div class="anim__head">
+          <p class="anim__title">One slider, three flips</p>
+          <p class="anim__sub">
+            Drag the temperature down from 0 °C. The crystal below follows the band it is in, and the
+            two bars on the right show which family of facets the aspect-ratio rule says must be the
+            stubborn one. Watch them trade places three times.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. Band boundaries &minus;3.3, &minus;9.9,
+          &minus;21.5 °C measured from arXiv:1211.5555v1, Figure 1, printed p. 2 (&plusmn;0.5 °C);
+          band names are that figure's printed labels; the &ldquo;which face is harder&rdquo; readout
+          applies the aspect-ratio rule from Libbrecht, <em>Snow Crystals</em>, printed p. 111.
+          The readout's &ldquo;columns predominating by &minus;30 °C&rdquo; comes from that same
+          arXiv:1211.5555v1 Figure 1 caption, which describes the sequence as running &ldquo;to
+          predominantly columns (T &lt; -30 C)&rdquo;, not from the measured boundaries.
+          The drawn crystal is schematic: it encodes which habit each band produces, not a measured
+          aspect ratio.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Two obvious worries. Did Nakaya simply mis-draw his own boundaries? And is this an artefact
+        of one freezer in one building in Hokkaido?
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.25/visual.png"
+              data-figure="Figure 1.25"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 33 &middot; printed p. 32"
+              data-alt="Three stacked versions of the Nakaya morphology diagram published by different research groups, each with its own boundary lines drawn on the same axes.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> three independent redeterminations spanning more than
+          thirty years, in
+          different laboratories, drawn by people with no reason to agree on the details. They
+          disagree about plenty — the axes, the units, even the vocabulary. Reading left to right,
+          every panel runs plate, then a columnar band (labelled variously <em>needle</em>,
+          <em>sheath</em> or <em>hollow prism</em>), then plate again, then a columnar band again.
+          The vertical boundary lines land in the same three neighbourhoods each time. That is what
+          a real effect looks like.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.25: Several published versions of the Nakaya diagram
+          observed by different investigators: [1958Hal] (top), [1961Kob] (middle), and [1990Yok]
+          (bottom).&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-6.22/visual.png"
+              data-figure="Figure 6.22"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 235 &middot; printed p. 234"
+              data-alt="A plot in millimetres against temperature in Celsius, showing measured snow crystal diameters and thicknesses, with a tall narrow peak near minus 15 degrees and a much smaller bump near minus 5; a small inset sketch of a squat cylinder marks the two measured lengths.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the only place in this chapter where somebody put a ruler
+          on the crystals. The little cylinder sketched in the upper right defines the two plotted
+          lengths — across the crystal, and cap to cap. Every crystal here grew for the same 200
+          seconds, so the two can be compared directly, and their ratio is the aspect ratio from the
+          first equation of this chapter, measured rather than argued. The tall narrow spike near
+          &minus;15 °C is the plate band made visible: one length shoots up while the other sits near
+          its minimum at exactly the same temperature. Elsewhere the curves close up and trade
+          places. Everything else in this chapter is a redrawing or a photograph; this is the
+          measurement.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 6.22: Measurements of the diameters and thicknesses of
+          snow crystals after growing in air for 200 seconds in a free-fall cloud chamber [1987Kob].
+          Note that the variation in crystal aspect ratio as a function of temperature matches
+          expectations from the snow crystal morphology diagram.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        The later research literature states the sequence more precisely than the original chart
+        does — and in doing so, admits how loose the cold end really is. Libbrecht, opening a 2020
+        paper: the diagram &ldquo;illustrates a complex series of morphological transitions between
+        thin platelike structures (appearing in air at temperatures near -14 C and again above
+        -3 C) and slender columnar forms (near -4 C and again below -30 C).&rdquo; Elsewhere he sets
+        the sequence out as ranges rather than lines: growth in air is &ldquo;platelike above -3 C,
+        columnar from -4 C to -6 C, platelike again from -11 C to -18 C, and columnar again below
+        -30 C&rdquo; (arXiv:2012.12916v1, p. 1). Count what is missing there. The stretch from about
+        &minus;18 to &minus;30 °C — twelve degrees, straddling the boundary our table prints at
+        &minus;21.5 — is simply left unassigned. That is a more honest picture of the coldest switch
+        than any single number. And the cold end of the map has since been pushed much further out —
+        Bailey and Hallett &ldquo;extended these results with additional observations exploring
+        temperatures down to -70 C.&rdquo;
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="hollow">Hollow columns and needles: the same instability, sideways</h2>
+
+      <p>
+        Before the mystery, one loose end worth tying, because it shows that the machinery from the
+        last chapter did not stop working when the crystal turned tall.
+      </p>
+      <p>
+        Take the column band near &minus;5 °C and run the moisture axis upward. At low supersaturation
+        you get exactly what you would expect: solid, fully faceted hexagonal prisms. Raise the
+        supply to intermediate levels and something happens to the ends. The rim of each flat cap
+        starts to outrun the middle of it, because the rim has better access to the incoming vapour —
+        and once it is ahead, its access improves further. Libbrecht names the mechanism directly:
+        &ldquo;hollow columns form near -5 C as the supersaturation increases to intermediate values.
+        The basic hollowing mechanism is a form of the Mullins-Sekerka instability.&rdquo; That is the
+        Mullins&ndash;Sekerka instability of Chapter 6, pointed at a different face. He draws the
+        parallel to a picture you have already studied in this chapter — the three-panel hexagon of
+        Figure 3.5, higher up the page. The hollowing
+        &ldquo;is analogous to the formation of branches shown in Figure 3.5, except now the edges of
+        the basal surface remain faceted, or nearly so, as the hollows develop&rdquo; (printed
+        p. 114). Same runaway, same figure — only now the runaway edge stays flat while it wins.
+      </p>
+      <p>
+        The rims climb, the centres get left behind, and the crystal ends up with a conical pit sunk
+        into each end.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.31/visual.png"
+              data-figure="Figure 3.31"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 115 &middot; printed p. 114"
+              data-alt="Three side-view outline sketches of a column left to right: first a plain rectangle with flat ends, then the same column with both ends scooped into shallow bowls, then with both bowls deepened; at the right, a three-dimensional drawing of a hexagonal column containing two tapering hollows.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the author's own sketch of the sequence, three outlines
+          left to right, each one a column seen from the side. First: a plain rectangle — a solid
+          column, both ends cut off square and flat. Second: both ends have been scooped into shallow
+          bowls, because the rim of each end has crept ahead of its own middle. Third: the rims have
+          kept their lead and both bowls have deepened into long hollows driven back into the ice.
+          Nothing is removed at any stage — the middle is simply outgrown. Note that the two ends
+          change together in every frame; the photograph further down this section is about exactly
+          that. The drawing on the right shows the same thing worked out in three dimensions.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.31: A schematic diagram illustrating the transition
+          from solid columnar growth (first sketch, showing a side view of a solid column) to the
+          formation of a hollow columnar snow crystal (third sketch) via the Mullins-Sekerka
+          instability. The image on the right shows a 3D numerical simulation of hollow-column
+          growth, from [2009Gra].&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <figure class="anim" id="anim-hollow">
+        <div class="anim__head">
+          <p class="anim__title">Hollow it out</p>
+          <p class="anim__sub">
+            A column in cutaway, sliced down its length. One humidity slider drives both ends —
+            which is exactly why the two pits come out as mirror images.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. Encodes the solid &rarr; hollow &rarr;
+          needle-branched sequence described in Libbrecht, <em>Snow Crystals</em>, printed pp.
+          114&ndash;115, including the mirror symmetry of the two ends and the statement that the
+          very centre of a hollow column can never itself be hollow. The pit shapes are schematic,
+          not measured profiles.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Now the detail that makes this a piece of evidence rather than a curiosity: <strong>the two
+        pits match</strong> — not perfectly, but very nearly, wiggle for wiggle. If the conditions
+        wobbled while the crystal grew, both hollows record the same wobble at the same depth.
+        Libbrecht spells out why: &ldquo;Because both ends of the column experienced the same growth
+        conditions as a function of time, the shape variations on the two ends of the column are
+        nearly symmetrical.&rdquo; The two ends are two independent recordings of one history.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.32/visual.png"
+              data-figure="Figure 3.32"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 116 &middot; printed p. 115"
+              data-alt="Photograph of a hollow columnar snow crystal, showing two dark cone-shaped voids inside the ice, one at each end, mirroring each other.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the two dark cones. Compare their outlines against each
+          other rather than looking at either one alone — the match is the point. And look at the
+          middle: it is solid ice. It has to be. A crystal starts as a small seed and grows outward,
+          so there is never a moment at which the very centre could have been hollowed. As Libbrecht
+          puts it on this page, &ldquo;the very center of a hollow column can never itself be hollow,
+          as there would be no mechanism that would yield such a structure from a small seed
+          crystal.&rdquo;
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.32: This hollow column snow crystal shows a
+          characteristic matched pair of conical hollow voids in the ice.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        Push the moisture higher still and the rims themselves give up. A rim can only stay flat and
+        faceted for so long; eventually it succumbs to the same instability that hollowed the cap in
+        the first place, and it splits. What sprouts from the corners are needles — which is why
+        needle crystals live at the top of the column band, in the wettest air.
+      </p>
+      <p>
+        Be careful about what has and has not just happened, because it looks for a moment like a
+        contradiction. This chapter spent a whole section arguing that diffusion on its own can never
+        build a slender needle, and here is a purely diffusion-driven instability apparently building
+        one. It is not. The instability decided <em>where</em> the ice would break out — at the
+        corners of the basal edges, and nowhere else. It did not make the result slender. That is
+        still the column band's own kinetic imbalance doing its work. Printed p. 114 states the
+        requirement plainly — &ldquo;an overall columnar shape indicates &alpha;<sub>prism</sub>
+        &#8810; 1 for moderate supersaturations near -5 C&rdquo; — and the aspect-ratio rule from
+        p. 111 supplies the comparison, that slender columns need &alpha;<sub>basal</sub> &#8811;
+        &alpha;<sub>prism</sub>. Take that imbalance away and the
+        corners would still break out; what came out of them would simply not be slender, because
+        &ldquo;diffusion effects alone cannot yield structures with extreme aspect ratios&rdquo;
+        (printed p. 111). Diffusion picks the place; the surface decides the shape.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.33/visual.png"
+              data-figure="Figure 3.33"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 116 &middot; printed p. 115"
+              data-alt="Photograph of a snow crystal carrying three growth stages at once: a solid core, conical voids further out, and slender needles sprouting from the corners of the ends.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> one crystal wearing its entire life story. Read it from
+          the middle outward: solid ice where it began, then the conical voids from when the rims
+          pulled ahead, then the needles from when the rims themselves broke up. Nothing here is
+          three separate crystals — it is one object that grew through three regimes, in order,
+          without ever leaving the &minus;5 °C column band.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.33: This crystal began as a solid column when it was
+          small, but soon transformed into a hollow column, leaving behind central conical voids in
+          the ice as it grew. Later, the corners of the basal edges sprouted branches, here taking
+          the form of slender ice needles.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <!-- ================================================================= -->
+      <h2 id="mystery">What the map does not explain</h2>
+
+      <p>
+        Here is where the chapter has been going.
+      </p>
+      <p>
+        Everything the last few chapters built is still working. Diffusion explains why crystals get
+        more elaborate as the air gets wetter — that whole vertical axis is accounted for. Attachment
+        kinetics explains why facets stay flat. The branching instability explains stars, ferns,
+        hollow ends and needles. All of it holds.
+      </p>
+      <p>
+        <strong>None of it explains the horizontal axis.</strong>
+      </p>
+      <p>
+        Work through what we now know. The alternation is real: three laboratories reproduced it.
+        The aspect-ratio rule says an extreme shape can only come from a large imbalance between the
+        two faces. Diffusion is ruled out as a source of that imbalance, and so is surface energy. So
+        the flat–tall–flat–tall sequence can only mean one thing: as the air cools steadily in one
+        direction, the basal and prism faces <em>swap which of them is harder to grow on</em> — and
+        they do it three separate times.
+      </p>
+      <p>
+        Nothing in this site so far gives the slightest reason why a surface would behave like that.
+        Cooling is one smooth change in one direction. Why should it produce three reversals rather
+        than none, or one? Why at those particular temperatures? Sit with how strange that is: the
+        two faces are made of the same substance, in the same lattice, in the same air, and yet the
+        pecking order between them keeps flipping as the thermometer falls.
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          This is not a gap in the teaching — it is a gap in the field. Opening a 2020 research
+          paper, Libbrecht writes that the Nakaya diagram &ldquo;has long presented an essential
+          scientific puzzle in snow-crystal growth&rdquo;, and that ever since it was
+          &ldquo;discovered empirically in the 1930s by Ukichiro Nakaya and collaborators&rdquo; it
+          has been hard to build a physical model that convincingly explains these changes in ice
+          growth behaviour with temperature. In the monograph he is blunt about how the field got
+          here: the observational side &ldquo;was quickly well established. But the quest for a
+          comprehensive physical model continues to this day.&rdquo; Ninety years on,
+          plates–columns–plates–columns is still the central open problem of the subject.
+          <br><br>
+          <em>Quotations from K. Libbrecht, arXiv:2011.02353v1, p. 1, and Snow Crystals
+          (arXiv:1910.06389v2), printed p. 157.</em>
+        </p>
+      </aside>
+
+      <p>
+        So be precise about what the diagram is and is not. It is a superb <em>description</em>.
+        Handed a crystal, it tells you where the crystal grew; handed a cloud, it tells you what will
+        fall out of it. That is a genuine scientific achievement and it is why the Rosetta Stone
+        comparison stuck. But a Rosetta Stone lets you read the writing; it does not tell you why the
+        language works the way it does. There is a candidate answer and this site will get to it, but
+        it arrives as a curve fitted to real measurements, and it will only convince someone who has
+        watched how those measurements are made. So do the better thing with the tension in the
+        meantime: use it. A crystal that fell through changing air did not pick one square on this
+        map. It visited several, and it wrote down the order.
+      </p>
+
+      <p class="handoff">
+        Hold that question — and know in advance that the next two chapters will not answer it.
+        They are not a prerequisite; they are the rest of Part III, which is about what actually
+        comes out of the sky. The real prerequisites are Chapter 10, where you watch the rates being
+        measured, and Chapter 11, where the surface finally gives up a number. Before we go and
+        watch that happen: two chapters on what this map is already good for — reading a single
+        crystal's journey off its own arms — and on what is really falling out there, most of which
+        looks nothing like a holiday card.
+      </p>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./06-the-runaway-bump.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">The Runaway Bump</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./08-a-snowflake-is-a-record.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">A Snowflake Is a Record</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
+      from a local research cache under citation; they are not redistributed with this repository.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script src="../assets/anim-nakaya.js"></script>
+<script>
+/* ===========================================================================
+   Chapter 7 originals.
+
+   Shared colour contract for the whole site, obeyed everywhere below:
+     series[0] = BASAL  — the two flat caps
+     series[1] = PRISM  — the six side faces
+   Every series is direct-labelled as well as coloured.
+   ======================================================================== */
+(function () {
+  "use strict";
+
+  /* --------------------------------------------------- shared prism drawer */
+
+  /**
+   * Draw a hexagonal prism seen from slightly above.
+   *   w = corner-to-corner width across the hexagon
+   *   h = height from cap to cap
+   * Basal caps take series[0]; the prism sides take series[1].
+   */
+  function drawPrism(svg, cx, cy, w, h, c, opts) {
+    const o = opts || {};
+    const r = w / 2;
+    const k = 0.40;                       // foreshortening of the caps
+    const topY = cy - h / 2, botY = cy + h / 2;
+
+    function ring(yc) {
+      const pts = [];
+      for (let i = 0; i < 6; i++) {
+        const a = (Math.PI / 3) * i;
+        pts.push([cx + r * Math.cos(a), yc + r * k * Math.sin(a)]);
+      }
+      return pts;
+    }
+    function poly(pts) {
+      return pts.map(function (p, i) {
+        return (i ? "L" : "M") + p[0].toFixed(2) + " " + p[1].toFixed(2);
+      }).join(" ") + " Z";
+    }
+
+    const top = ring(topY), bot = ring(botY);
+    const g = Viz.svgEl("g");
+
+    // hidden back rim of the lower cap
+    g.appendChild(Viz.svgEl("path", {
+      d: poly(bot), fill: "none", stroke: c.series[0],
+      "stroke-width": 1, "stroke-dasharray": "3 3", opacity: 0.45,
+    }));
+
+    // three front-facing prism walls
+    for (const i of [0, 1, 2]) {
+      const a = top[i], b = top[i + 1], d = bot[i + 1], e = bot[i];
+      g.appendChild(Viz.svgEl("path", {
+        d: poly([a, b, d, e]),
+        fill: c.series[1], "fill-opacity": 0.17,
+        stroke: c.series[1], "stroke-width": 1.6, "stroke-linejoin": "round",
+      }));
+    }
+
+    // upper basal cap, drawn last so it sits on top
+    g.appendChild(Viz.svgEl("path", {
+      d: poly(top),
+      fill: c.series[0], "fill-opacity": 0.22,
+      stroke: c.series[0], "stroke-width": 1.8, "stroke-linejoin": "round",
+    }));
+
+    svg.appendChild(g);
+
+    if (o.labels !== false) {
+      // Labels sit above and below the crystal so they can never be pushed off
+      // the frame by a very wide plate or a very tall needle.
+      const capY = topY - r * k - 14;
+      const sideY = botY + r * k + 22;
+
+      svg.appendChild(Viz.svgEl("line", {
+        x1: cx, x2: cx, y1: capY + 5, y2: topY - r * k - 2,
+        stroke: c.series[0], "stroke-width": 1, opacity: 0.7,
+      }));
+      const capLabel = Viz.svgEl("text", {
+        class: "series-label", x: cx, y: capY, "text-anchor": "middle", fill: c.series[0],
+      });
+      capLabel.textContent = "basal — the two flat caps";
+      svg.appendChild(capLabel);
+
+      svg.appendChild(Viz.svgEl("line", {
+        x1: cx - r * 0.5, x2: cx - r * 0.5, y1: botY + r * k * 0.9, y2: sideY - 11,
+        stroke: c.series[1], "stroke-width": 1, opacity: 0.7,
+      }));
+      const sideLabel = Viz.svgEl("text", {
+        class: "series-label", x: cx, y: sideY, "text-anchor": "middle", fill: c.series[1],
+      });
+      sideLabel.textContent = "prism — the six sides";
+      svg.appendChild(sideLabel);
+    }
+    return { top: topY - r * k, bottom: botY + r * k, halfWidth: r };
+  }
+
+  /* =======================================================================
+     1. The aspect-ratio dial
+     ==================================================================== */
+  (function () {
+    const root = document.getElementById("anim-aspect");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const bar = root.querySelector(".anim__controls");
+
+    const W = 580, H = 360;
+    let ar = 1;
+    let svg = null;
+
+    const status = document.createElement("p");
+    status.className = "anim__sub";
+    status.setAttribute("role", "status");
+    status.style.fontWeight = "600";
+    root.querySelector(".anim__head").appendChild(status);
+
+    // constant "volume" so a change of aspect ratio is a change of SHAPE,
+    // not of size; then scaled down to fit the frame.
+    function dims(a) {
+      const base = 120;
+      let w = base / Math.cbrt(a);
+      let h = a * w;
+      const s = Math.min(330 / w, 250 / h, 1);
+      return { w: Math.max(w * s, 2.2), h: Math.max(h * s, 2.2) };
+    }
+
+    function describe(a) {
+      if (a < 0.06) return "thin plate";
+      if (a < 0.75) return "plate";
+      if (a <= 1.3) return "blocky prism";
+      if (a < 6) return "column";
+      return "slender needle";
+    }
+
+    function render() {
+      if (svg) svg.remove();
+      const c = Viz.colors();
+      svg = Viz.createSvg(body, W, H, {
+        label: "A hexagonal ice prism whose height-to-width ratio can be dialled from a thin " +
+               "wafer to a slender needle.",
+        desc: "At an aspect ratio of 0.01 the prism is a wide flat sheet; at 1 it is blocky; " +
+              "at 20 it is a long thin needle.",
+      });
+
+      const d = dims(ar);
+      drawPrism(svg, W / 2, H / 2 - 6, d.w, d.h, c);
+
+      const note = Viz.svgEl("text", {
+        class: "annotation", x: W / 2, y: H - 14, "text-anchor": "middle",
+      });
+      note.textContent = "aspect ratio " + (ar < 0.1 ? ar.toFixed(3) : ar.toFixed(2)) +
+                         "  ·  " + describe(ar);
+      svg.appendChild(note);
+    }
+
+    // The printed rule uses ≪ and ≫, not merely < and >, so the strong wording is
+    // reserved for the extremes. In between, the honest reading is a modest
+    // imbalance — which is what the prose under this figure insists on.
+    function verdict() {
+      if (ar < 0.3) {
+        return "Much flatter than it is wide. The two basal caps must be the HARDER faces to grow " +
+               "on — α_basal much less than α_prism.";
+      }
+      if (ar < 0.9) {
+        return "Slightly flatter than it is wide. The two basal caps are the harder faces to grow " +
+               "on, but only modestly so — α_basal a little below α_prism.";
+      }
+      if (ar > 3) {
+        return "Much taller than it is wide. The six prism sides must be the HARDER faces to grow " +
+               "on — α_prism much less than α_basal.";
+      }
+      if (ar > 1.15) {
+        return "Slightly taller than it is wide. The six prism sides are the harder faces to grow " +
+               "on, but only modestly so — α_prism a little below α_basal.";
+      }
+      return "About as tall as it is wide. The two families of facet are growing at roughly the " +
+             "same rate — no strong imbalance either way.";
+    }
+
+    function set(a) {
+      ar = a;
+      status.textContent = verdict();
+      render();
+    }
+
+    let slider = null;
+    if (bar) {
+      slider = Viz.slider(bar, {
+        label: "Aspect ratio", id: "ch7-ar",
+        min: -2, max: 1.301, step: 0.01, value: 0,
+        format: function (v) {
+          const a = Math.pow(10, v);
+          return a < 0.1 ? a.toFixed(3) : a.toFixed(2);
+        },
+        onInput: function (v) { set(Math.pow(10, v)); },
+      });
+
+      const jump = function (label, a) {
+        Viz.button(bar, label, function () {
+          if (slider) slider.input.value = Math.log10(a);
+          if (slider) slider.input.dispatchEvent(new Event("input"));
+        });
+      };
+      jump("Thin plate (0.01)", 0.01);
+      jump("Blocky (1)", 1);
+      jump("Needle (20)", 20);
+    }
+
+    set(1);
+    Viz.onThemeChange(render);
+  })();
+
+  /* =======================================================================
+     2. The flagship — the interactive morphology diagram
+     ==================================================================== */
+  (function () {
+    const root = document.getElementById("anim-nakaya");
+    if (!root || !window.Nakaya) return;
+    Nakaya.mount(root, {
+      interactive: true,
+      showBands: true,
+      showWaterLine: true,
+      showGlyphs: true,
+    });
+  })();
+
+  /* =======================================================================
+     3. One slider, three flips
+     ==================================================================== */
+  (function () {
+    const root = document.getElementById("anim-alternation");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const bar = root.querySelector(".anim__controls");
+
+    // Boundaries and band names come from the Nakaya module, which measured
+    // them off arXiv:1211.5555v1 Fig. 1. Fallbacks keep this standalone.
+    const B = (window.Nakaya && Nakaya.BOUNDARIES) || [-3.3, -9.9, -21.5];
+    const BANDS = (window.Nakaya && Nakaya.BANDS) || [
+      { from: 0, to: -3.3, key: "plates", label: "Plates" },
+      { from: -3.3, to: -9.9, key: "columns", label: "Columns" },
+      { from: -9.9, to: -21.5, key: "plates", label: "Plates" },
+      { from: -21.5, to: -35, key: "mixed", label: "Columns and plates" },
+    ];
+
+    // Schematic aspect ratios: they encode WHICH habit each band makes.
+    // They are not measurements of any crystal.
+    const TARGET = [0.35, 2.6, 0.12, 1.5];
+
+    const W = 700, H = 400;
+    const T_MIN = -35, T_MAX = 0;
+    const strip = { x0: 62, x1: W - 210, y: 46, h: 26 };
+    let temp = 0;
+    let svg = null;
+
+    const status = document.createElement("p");
+    status.className = "anim__sub";
+    status.setAttribute("role", "status");
+    status.style.fontWeight = "600";
+    root.querySelector(".anim__head").appendChild(status);
+
+    const xs = Viz.scaleLinear([T_MAX, T_MIN], [strip.x0, strip.x1]);
+
+    function smooth(x) {
+      x = Math.max(0, Math.min(1, x));
+      return x * x * (3 - 2 * x);
+    }
+    function arAt(t) {
+      let v = Math.log(TARGET[0]);
+      for (let i = 0; i < B.length; i++) {
+        const f = smooth((B[i] - t) / 1.4 + 0.5);
+        v += (Math.log(TARGET[i + 1]) - v) * f;
+      }
+      return Math.exp(v);
+    }
+    function bandAt(t) {
+      for (const b of BANDS) if (t <= b.from && t > b.to) return b;
+      return BANDS[BANDS.length - 1];
+    }
+    function inkFor(b, c) {
+      if (b.key === "columns") return c.series[1];
+      if (b.key === "mixed") return c.series[2];
+      return c.series[0];
+    }
+
+    function dims(a) {
+      let w = 96 / Math.cbrt(a);
+      let h = a * w;
+      const s = Math.min(200 / w, 180 / h, 1);
+      return { w: Math.max(w * s, 3), h: Math.max(h * s, 3) };
+    }
+
+    function render() {
+      if (svg) svg.remove();
+      const c = Viz.colors();
+      svg = Viz.createSvg(body, W, H, {
+        label: "A temperature slider driving one ice prism through the four habit bands of the " +
+               "morphology diagram.",
+        desc: "Cooling from 0 to minus 35 degrees Celsius the prism flattens, then stretches, " +
+              "then flattens again, then stretches again.",
+      });
+
+      /* ---- the band ribbon ---- */
+      BANDS.forEach(function (b, i) {
+        const xa = xs(b.from), xb = xs(Math.max(b.to, T_MIN));
+        const ink = inkFor(b, c);
+        svg.appendChild(Viz.svgEl("rect", {
+          x: Math.min(xa, xb), y: strip.y, width: Math.abs(xb - xa), height: strip.h,
+          fill: ink, "fill-opacity": 0.20, stroke: c.surface, "stroke-width": 2,
+        }));
+        // 36 px is just wider than the narrowest label ("Plates" is about 34 px at
+        // font-size 11), so even the 0 to -3.3 C sliver gets its name. Colour must
+        // never be the only carrier of meaning.
+        if (Math.abs(xb - xa) > 36) {
+          const lab = Viz.svgEl("text", {
+            x: (xa + xb) / 2, y: strip.y + 17, "text-anchor": "middle",
+            fill: ink, "font-size": 11, "font-weight": 640,
+          });
+          lab.textContent = b.label;
+          svg.appendChild(lab);
+        }
+      });
+
+      // ticks under the ribbon
+      [0, -5, -10, -15, -20, -25, -30, -35].forEach(function (t) {
+        svg.appendChild(Viz.svgEl("line", {
+          class: "axis-line", x1: xs(t), x2: xs(t),
+          y1: strip.y + strip.h, y2: strip.y + strip.h + 5,
+        }));
+        const tx = Viz.svgEl("text", {
+          class: "tick-text", x: xs(t), y: strip.y + strip.h + 18, "text-anchor": "middle",
+        });
+        tx.textContent = t + "°";
+        svg.appendChild(tx);
+      });
+      B.forEach(function (t) {
+        svg.appendChild(Viz.svgEl("line", {
+          x1: xs(t), x2: xs(t), y1: strip.y - 6, y2: strip.y + strip.h + 2,
+          stroke: c.inkSecondary, "stroke-width": 1.2, "stroke-dasharray": "4 3",
+        }));
+      });
+
+      const band = bandAt(temp);
+      const ink = inkFor(band, c);
+
+      // the moving marker
+      svg.appendChild(Viz.svgEl("path", {
+        d: "M " + (xs(temp) - 7) + " " + (strip.y - 20) +
+           " L " + (xs(temp) + 7) + " " + (strip.y - 20) +
+           " L " + xs(temp) + " " + (strip.y - 7) + " Z",
+        fill: ink,
+      }));
+      const readT = Viz.svgEl("text", {
+        class: "series-label", x: xs(temp), y: strip.y - 26, "text-anchor": "middle", fill: ink,
+      });
+      readT.textContent = temp.toFixed(1) + " °C";
+      svg.appendChild(readT);
+
+      /* ---- the crystal ---- */
+      const a = arAt(temp);
+      const d = dims(a);
+      drawPrism(svg, strip.x0 + 150, 250, d.w, d.h, c, { labels: false });
+
+      const arText = Viz.svgEl("text", {
+        class: "annotation", x: strip.x0 + 150, y: 372, "text-anchor": "middle",
+      });
+      arText.textContent = "drawn shape: " + (a < 0.1 ? a.toFixed(2) : a.toFixed(1)) +
+                           " tall for every 1 wide (schematic)";
+      svg.appendChild(arText);
+
+      /* ---- the two face bars ---- */
+      const bx = W - 196, bw = 176;
+      const rows = [
+        { label: "Basal — top & bottom", color: c.series[0], hard: band.key !== "columns" },
+        { label: "Prism — the six sides", color: c.series[1], hard: band.key === "columns" },
+      ];
+      const title = Viz.svgEl("text", {
+        class: "axis-title", x: bx, y: 168, "text-anchor": "start",
+      });
+      title.textContent = "Which face must be harder?";
+      svg.appendChild(title);
+
+      rows.forEach(function (r, i) {
+        const y = 186 + i * 58;
+        const mixed = band.key === "mixed";
+        svg.appendChild(Viz.svgEl("rect", {
+          x: bx, y: y, width: bw, height: 40, rx: 7,
+          fill: r.color, "fill-opacity": (!mixed && r.hard) ? 0.26 : 0.07,
+          stroke: (!mixed && r.hard) ? r.color : c.rule,
+          "stroke-width": (!mixed && r.hard) ? 2 : 1,
+        }));
+        const t1 = Viz.svgEl("text", {
+          class: "series-label", x: bx + 11, y: y + 17, fill: r.color,
+        });
+        t1.textContent = r.label;
+        svg.appendChild(t1);
+        const t2 = Viz.svgEl("text", {
+          class: "tick-text", x: bx + 11, y: y + 32,
+        });
+        t2.textContent = mixed ? "both habits occur here"
+                               : (r.hard ? "harder — this face is the slow one"
+                                         : "easier — this face grows away");
+        svg.appendChild(t2);
+      });
+    }
+
+    function verdict() {
+      const band = bandAt(temp);
+      if (band.key === "columns") {
+        return "Columns. By the aspect-ratio rule the six prism sides must be the harder faces " +
+               "here — and nothing so far explains why cooling would do that.";
+      }
+      if (band.key === "mixed") {
+        return "Below about −21.5 °C the diagram's own label is “Columns and Plates”: " +
+               "both habits turn up, with columns predominating by −30 °C.";
+      }
+      return "Plates. By the aspect-ratio rule the two basal caps must be the harder faces here.";
+    }
+
+    function set(t) {
+      temp = t;
+      status.textContent = verdict();
+      render();
+    }
+
+    if (bar) {
+      Viz.slider(bar, {
+        label: "Temperature", id: "ch7-alt-t",
+        min: -35, max: 0, step: 0.1, value: 0,
+        format: function (v) { return v.toFixed(1) + " °C"; },
+        onInput: function (v) { set(v); },
+      });
+    }
+
+    set(0);
+    Viz.onThemeChange(render);
+  })();
+
+  /* =======================================================================
+     4. Hollow it out
+     ==================================================================== */
+  (function () {
+    const root = document.getElementById("anim-hollow");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const bar = root.querySelector(".anim__controls");
+
+    const W = 580, H = 380;
+    let wet = 0;
+    let svg = null;
+
+    const status = document.createElement("p");
+    status.className = "anim__sub";
+    status.setAttribute("role", "status");
+    status.style.fontWeight = "600";
+    root.querySelector(".anim__head").appendChild(status);
+
+    const cx = 250, cy = 190, colW = 118, colL = 232;
+    const rim = 13;
+    const MAX_DEPTH = 0.36;   // capped so the two cones never meet at the centre
+
+    function depth() {
+      const ramp = Math.max(0, Math.min(1, (wet - 0.14) / 0.52));
+      return MAX_DEPTH * colL * ramp;
+    }
+    function needleLen() {
+      return Math.max(0, (wet - 0.74) / 0.26) * 74;
+    }
+
+    function render() {
+      if (svg) svg.remove();
+      const c = Viz.colors();
+      svg = Viz.createSvg(body, W, H, {
+        label: "A hexagonal ice column sliced down its length, with a cone-shaped hollow " +
+               "developing in each end as the humidity rises.",
+        desc: "At low humidity the column is solid. Raising the humidity sinks a matching " +
+              "conical pit into each end; raising it further sprouts needles from the corners.",
+      });
+
+      const L = cx - colW / 2, R = cx + colW / 2;
+      const T = cy - colL / 2, Bt = cy + colL / 2;
+      const d = depth();
+      const bl = L + rim, br = R - rim;
+
+      // ice body: rectangle with a cone carved into each end
+      const path =
+        "M " + L + " " + T +
+        " L " + bl + " " + T + " L " + cx + " " + (T + d) + " L " + br + " " + T +
+        " L " + R + " " + T +
+        " L " + R + " " + Bt +
+        " L " + br + " " + Bt + " L " + cx + " " + (Bt - d) + " L " + bl + " " + Bt +
+        " L " + L + " " + Bt + " Z";
+
+      svg.appendChild(Viz.svgEl("path", {
+        d: path, fill: c.muted, "fill-opacity": 0.16,
+        stroke: "none",
+      }));
+
+      // needles, drawn under the outlines
+      const nl = needleLen();
+      if (nl > 1) {
+        for (const sx of [-1, 1]) {
+          for (const sy of [-1, 1]) {
+            const x0 = cx + sx * (colW / 2), y0 = cy + sy * (colL / 2);
+            const ux = sx * 0.50, uy = sy * 0.87;
+            svg.appendChild(Viz.svgEl("path", {
+              d: "M " + (x0 - sx * 5) + " " + y0 +
+                 " L " + (x0 + ux * nl) + " " + (y0 + uy * nl) +
+                 " L " + x0 + " " + (y0 + sy * 5) + " Z",
+              fill: c.series[1], "fill-opacity": 0.32,
+              stroke: c.series[1], "stroke-width": 1.4, "stroke-linejoin": "round",
+            }));
+          }
+        }
+      }
+
+      // basal boundary (top and bottom, including the carved cone walls)
+      const capStroke = {
+        fill: "none", stroke: c.series[0], "stroke-width": 2.4,
+        "stroke-linejoin": "round", "stroke-linecap": "round",
+      };
+      svg.appendChild(Viz.svgEl("path", Object.assign({
+        d: "M " + L + " " + T + " L " + bl + " " + T + " L " + cx + " " + (T + d) +
+           " L " + br + " " + T + " L " + R + " " + T,
+      }, capStroke)));
+      svg.appendChild(Viz.svgEl("path", Object.assign({
+        d: "M " + L + " " + Bt + " L " + bl + " " + Bt + " L " + cx + " " + (Bt - d) +
+           " L " + br + " " + Bt + " L " + R + " " + Bt,
+      }, capStroke)));
+
+      // prism sides
+      const sideStroke = { fill: "none", stroke: c.series[1], "stroke-width": 2.4 };
+      svg.appendChild(Viz.svgEl("line", Object.assign({ x1: L, y1: T, x2: L, y2: Bt }, sideStroke)));
+      svg.appendChild(Viz.svgEl("line", Object.assign({ x1: R, y1: T, x2: R, y2: Bt }, sideStroke)));
+
+      // the never-hollow core
+      if (d > 8) {
+        svg.appendChild(Viz.svgEl("line", {
+          x1: cx, x2: cx, y1: T + d, y2: Bt - d,
+          stroke: c.inkSecondary, "stroke-width": 1, "stroke-dasharray": "3 3", opacity: 0.7,
+        }));
+        const core = Viz.svgEl("text", {
+          class: "annotation", x: cx, y: cy + 18, "text-anchor": "middle",
+        });
+        core.textContent = "solid — never hollow";
+        svg.appendChild(core);
+      }
+
+      // direct labels
+      const capLab = Viz.svgEl("text", {
+        class: "series-label", x: L - 8, y: T - 12, "text-anchor": "start", fill: c.series[0],
+      });
+      capLab.textContent = "basal ends";
+      svg.appendChild(capLab);
+
+      const sideLab = Viz.svgEl("text", {
+        class: "series-label", x: R + 12, y: cy - 40, "text-anchor": "start", fill: c.series[1],
+      });
+      sideLab.textContent = "prism sides";
+      svg.appendChild(sideLab);
+
+      const mirror = Viz.svgEl("text", {
+        class: "annotation", x: R + 12, y: cy + 74, "text-anchor": "start",
+      });
+      mirror.textContent = "one slider, both ends";
+      svg.appendChild(mirror);
+    }
+
+    function verdict() {
+      if (wet < 0.16) return "Dry air: a solid, fully faceted hexagonal prism.";
+      if (wet < 0.74) {
+        return "The rim of each end is outrunning its centre, sinking a matching conical pit " +
+               "into both ends — a hollow column.";
+      }
+      return "The rims themselves have given way: slender needles are sprouting from the " +
+             "corners of the basal edges.";
+    }
+
+    function set(v) {
+      wet = v;
+      status.textContent = verdict();
+      render();
+    }
+
+    if (bar) {
+      Viz.slider(bar, {
+        label: "Spare water vapour", id: "ch7-hollow",
+        min: 0, max: 1, step: 0.01, value: 0,
+        format: function (v) { return v < 0.16 ? "low" : v < 0.74 ? "medium" : "high"; },
+        onInput: function (v) { set(v); },
+      });
+    }
+
+    set(0);
+    Viz.onThemeChange(render);
+  })();
+})();
+</script>
+</body>
+</html>

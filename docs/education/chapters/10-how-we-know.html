@@ -1,0 +1,1880 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How We Know — Snow Crystals</title>
+<meta name="description" content="How snow-crystal growth is actually measured: growth chambers, two-thermometer humidity, interference fringes for thickness, electric ice needles, and the honest limits of each.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 10 &middot; How We Know</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#bad-laboratory">The sky is a terrible laboratory</a></li>
+      <li><a href="#real-snow">Made in a machine, still real snow</a></li>
+      <li><a href="#two-thermometers">Temperature is easy. Humidity is the monster.</a></li>
+      <li><a href="#empty-substrate">The mistake that looks like nothing</a></li>
+      <li><a href="#counting-fringes">Counting flickers of laser light</a></li>
+      <li><a href="#holding-still">Two ways to hold a snowflake still</a></li>
+      <li><a href="#cannot-reach">The edge of the reachable</a></li>
+      <li><a href="#go-and-look">You can start this winter</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <!-- ===== header ===== -->
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 10</p>
+        <h1>How We Know</h1>
+        <p class="chapter-header__question">
+          How do you measure a crystal smaller than a grain of salt, that grows to its final shape
+          in a few minutes and disappears if you breathe on it?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~22 min read</span>
+          <span>17 figures</span>
+          <span>4 originals</span>
+        </div>
+      </header>
+
+      <!-- ===== learning goals ===== -->
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Say why a snowflake that fell out of a cloud is a poor experiment, and a chamber-grown one is a good one.</li>
+          <li>Explain how two thermometers can set a humidity that no humidity sensor could ever measure.</li>
+          <li>Describe how interference fringes turn a colour, or a flicker, into a thickness &mdash; and why the white-light version is the precise one and the laser version the robust one.</li>
+          <li>Say what electric ice needles and plate-on-pedestal are each good for.</li>
+          <li>State honestly what these machines <em>cannot</em> reach, and why that is not a failure.</li>
+          <li>Tell laboratory snow crystals apart from ski-resort artificial snow, and from travel-worn natural ones.</li>
+        </ul>
+      </section>
+
+      <!-- ================================================================== -->
+      <h2 id="bad-laboratory">The sky is a terrible laboratory</h2>
+
+      <p>
+        Everything in the last nine chapters was a claim about numbers. Facets win when the surface
+        is slow to accept molecules. Branches take over when it stops being slow. The pattern flips
+        from plate to column and back again at particular temperatures. Every one of those
+        statements is a statement about a measured rate &mdash; and rates have to be measured
+        somewhere.
+      </p>
+
+      <p>
+        Not in the sky. A crystal drifting through a winter cloud is carried by air that is always
+        moving, through pockets that are always changing. Its temperature and its water supply
+        change from second to second along a path nobody chose and nobody recorded. Two crystals
+        that fall together will have taken two different routes. So a natural snowflake is a
+        beautiful object and a <strong>hopeless experiment</strong>: you can see the answer written
+        in its shape, but you never learn the question.
+      </p>
+
+      <p>
+        Ukichiro Nakaya, who produced &ldquo;the first photographic documentation of the broader
+        menagerie of falling snow&rdquo; (printed p. 31), hit this wall almost at once. As the
+        monograph puts it, &ldquo;Nakaya quickly realized that laboratory experiments would be
+        essential for better understanding the origin of what he saw falling from the clouds.&rdquo;
+        (Printed p. 31.) So he constructed a walk-in freezer laboratory at Hokkaido and grew his own.
+        On 12 March 1936 he got one.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.22/visual.png"
+              data-figure="Figure 1.22"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 31 &middot; printed p. 30"
+              data-alt="An early black-and-white photograph of a small six-branched ice crystal grown in Nakaya's laboratory in 1936.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> a modest, slightly lopsided little crystal &mdash; and the
+          first snowflake anybody ever grew on purpose. It is worth pausing on how recent that date
+          is. People had been drawing snow crystals for three centuries before anyone could make one
+          under conditions they had chosen themselves.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.22: The world&rsquo;s first synthetic snow crystal,
+          grown by Ukichiro Nakaya on March 12, 1936 [1954Nak].&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.23/visual.png"
+              data-figure="Figure 1.23"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 32 &middot; printed p. 31"
+              data-alt="Two side-by-side photographs of six-armed stellar snow crystals, one grown in a laboratory and one collected from a snowfall, looking closely alike.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> cover the caption and try to decide which one fell out of
+          the sky. That difficulty is the whole point. A crystal grown on a fibre in a cold box is
+          not an imitation of a snowflake; it is a snowflake, made where somebody was writing down
+          the conditions.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.23: A comparison between a synthetic snow crystal
+          grown on a thin fiber near -15 C (left) with a natural snow crystal (right)
+          [1954Nak].&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        Once conditions are under your control, something becomes possible that the sky can never
+        offer: you can run the same experiment twice. Put two seed crystals side by side on one
+        substrate, drive them through <em>one</em> shared schedule of temperature and humidity
+        changes, and they respond in step &mdash; not identically, but recognisably as a matched
+        pair. That is the single most convincing demonstration that snow-crystal growth obeys rules
+        rather than luck.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.29/visual.png"
+              data-figure="Figure 1.29"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 45 &middot; printed p. 44"
+              data-alt="Two laboratory-grown six-armed snow crystals side by side on a substrate, surrounded by small water droplets, with closely matching but not perfectly equal branch patterns.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> compare the two crystals arm by arm. The big features
+          &mdash; where the plate stops and the branches start, where the sidebranches appear &mdash;
+          match, because both crystals felt the same changes at the same moments. The fine detail
+          does not match, because that detail is set by accidents too small to control. Both halves
+          of that sentence matter.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.29: A pair of laboratory-grown
+          &lsquo;identical-twin&rsquo; snow crystals, surrounded by a field of water droplets. These
+          grew side-by-side on a fixed transparent substrate using the Plate-on-Pedestal technique
+          described in Chapter 10. Because both crystals experienced the same growth conditions as a
+          function of time, they grew into nearly identical shapes. Analogous to identical-twin
+          people, these similar snowflakes are clearly related somehow, but they are not precisely
+          equal in every detail.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          A snowflake is not an experiment until somebody holds its surroundings still and changes
+          one thing at a time. Most of what the rest of this site treats as a <em>measured</em> fact
+          came out of an aluminium cylinder 7.5&nbsp;cm across (printed p. 254).
+        </p>
+      </aside>
+
+      <!-- ================================================================== -->
+      <h2 id="real-snow">Made in a machine, still real snow</h2>
+
+      <p>
+        Before the machine, one word. Nothing in Figure 1.23 is in doubt any more &mdash; but the
+        word people reach for, <em>artificial</em>, is already taken, and it belongs to something
+        genuinely different. Ski resorts make <strong>artificial snow</strong>: water blasted
+        through atomising nozzles with compressed air, which cools as it expands until the droplets
+        freeze. The result is what you would expect from freezing raindrops in mid-air &mdash; small
+        globules of ice with no facets and no branches.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-6.3/visual.png"
+              data-figure="Figure 6.3"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 217 &middot; printed p. 216"
+              data-alt="Close-up photograph of ski-resort artificial snow: rounded, lumpy ice globules with no facets or branches.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> lumps. No flat faces, no six-fold anything. These
+          particles were liquid a moment earlier and froze from the outside in, so their shape was
+          set by surface tension, not by a crystal lattice deciding where the next molecule goes.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 6.3: Artificial snow, the kind made at ski resorts, is
+          not real snow at all, but frozen water droplets. Because these do not grow from water
+          vapor, they do not have the ornate structures seen in snow crystals.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        Laboratory crystals are made the other way round, grown from <em>water vapour</em>:
+        molecules arriving one at a time out of the gas and attaching to a lattice, which is
+        precisely how a snowflake grows inside a cloud. Same process, same object. The word for them
+        is <strong>synthetic</strong>, and it means only &ldquo;grown indoors&rdquo;. Libbrecht's own
+        analogy is that a Disneyland animatronic dinosaur is artificial, whereas a Jurassic-Park
+        dinosaur would be synthetic: &ldquo;It was created by unnatural means, but it is still a real
+        skin-and-bones dinosaur.&rdquo; (Printed p. 216.)
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          &ldquo;Lab snowflakes are second-rate copies.&rdquo; It is usually the reverse. Snow that
+          reaches the ground has spent many minutes in transit: &ldquo;even the best specimens are
+          inevitably a bit travel-worn, with rounded, partially sublimated features.&rdquo; In a
+          growth chamber you catch the crystal at its peak. The monograph puts it flatly &mdash; a
+          laboratory nursery yields &ldquo;razor-sharp facets, highly symmetrical branching, and a
+          degree of morphological perfection that is rarely, if ever, found in nature.&rdquo;
+          (Printed p. 215.)
+        </p>
+      </aside>
+
+      <!-- ================================================================== -->
+      <h2 id="two-thermometers">Temperature is easy. Humidity is the monster.</h2>
+
+      <p>
+        A growth experiment needs two numbers held steady: how cold it is, and how much spare water
+        vapour the air is carrying &mdash; the quantity we have been calling
+        <strong>supersaturation</strong>, written &sigma;. One of those is easy to the point of
+        being boring. The other is close to impossible.
+      </p>
+
+      <p>
+        Temperature is easy because it is an <em>equilibrium</em> quantity. A thermometer dropped
+        into a box drifts to the local value and then sits there, without changing what it is
+        reading. A precision bead thermistor &mdash; a tiny resistor whose resistance climbs about
+        4.5&nbsp;% for every degree of cooling &mdash; costs around ten dollars, is good to
+        &plusmn;0.1&nbsp;&deg;C, and works down to &minus;40&nbsp;&deg;C. (Printed p. 221.)
+      </p>
+
+      <p>
+        Supersaturation is not an equilibrium quantity. It exists only because vapour is flowing
+        somewhere, and anything you put in the flow becomes part of it. In the monograph's words:
+        &ldquo;In contrast to temperature, supersaturation is an intrinsically nonequilibrium
+        quantity, so even the presence of the measuring device can greatly affect the outcome
+        &hellip; if a hygrometer sensor is placed inside a cold chamber, then ice will eventually
+        condense and grow on the sensor, removing water vapor from the nearby air, and thus
+        influencing the measurement.&rdquo; (Printed p. 221.) <strong>The humidity sensor turns into
+        a snowflake and eats the reading.</strong>
+      </p>
+
+      <p>
+        So you do not measure it. You <em>construct</em> it, out of two temperatures.
+      </p>
+
+      <p>
+        Here is the trick, and it is simple enough to draw on a napkin. Build a small sealed
+        chamber. Coat the ceiling with frost and hold that ceiling at one controlled temperature.
+        Put a single test crystal on the floor and hold the floor at a second controlled
+        temperature. Ice sitting in air fixes the vapour density right above itself at the saturated
+        value for its own temperature &mdash; so the frost ceiling <em>is</em> the vapour source, and
+        its temperature sets the supply. The floor temperature sets what the test crystal considers
+        &ldquo;enough&rdquo;. The gap between the two temperatures fixes how much spare vapour the
+        crystal sees &mdash; the equation below turns one into the other &mdash; and it followed
+        from two thermistor readings and no humidity sensor at all.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-7.1/visual.png"
+              data-figure="Figure 7.1"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 251 &middot; printed p. 250"
+              data-alt="Schematic cross-section of a growth chamber: a frost-covered ceiling labelled T-reservoir, insulating side walls, and a single small test crystal on a flat substrate labelled T-substrate, with the gap height L marked.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> three design decisions, all of them deliberate. The frost
+          is only on the ceiling, so there is exactly one vapour source. The walls are poor heat
+          conductors, so they do not smear the two temperatures into each other. And there is exactly
+          <em>one</em> crystal on the floor &mdash; the reason for that is the next section, and it is
+          the most expensive lesson in this field.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 7.1: A schematic layout of a basic ice-growth
+          experiment. The single test crystal being measured rests on a isothermal substrate at
+          temperature T<sub>substrate</sub>, and no other ice crystals are present on the substrate.
+          Water vapor is supplied by a large collection of frost crystals on the top of the chamber
+          at temperature T<sub>reservoir</sub>. The walls are free of ice crystals and have a
+          relatively low thermal conductivity.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <div class="equation">
+        <p class="equation__math">
+          &sigma;<sub>1</sub> = [ c<sub>sat</sub>(T<sub>reservoir</sub>) &minus;
+          c<sub>sat</sub>(T<sub>substrate</sub>) ] / c<sub>sat</sub>(T<sub>substrate</sub>)
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>&sigma;<sub>1</sub></dt><dd>the supersaturation a small crystal on the floor feels &mdash; the spare vapour, as a fraction of the amount that would sit in balance with ice</dd>
+            <dt>c<sub>sat</sub>(T)</dt><dd>how much water vapour air holds when it is exactly in balance with an ice surface at temperature T; it climbs steeply as T rises</dd>
+            <dt>T<sub>reservoir</sub></dt><dd>temperature of the frost layer on the ceiling &mdash; the vapour supply</dd>
+            <dt>T<sub>substrate</sub></dt><dd>temperature of the floor the test crystal sits on</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">Libbrecht, Snow Crystals, Equation 6.1, printed p. 222. It is
+        greater than zero whenever the reservoir is warmer than the substrate.</p>
+      </div>
+
+      <p>
+        Make the two temperatures equal and &sigma;<sub>1</sub> is exactly zero &mdash; not
+        approximately zero, exactly zero, because the two terms on the top of that fraction are the
+        same number. That built-in zero point is the reason the method is so precise. In the real
+        apparatus the operator finds it by hand for every single crystal, nudging the reservoir
+        temperature until the crystal is caught between growing and sublimating (sublimation is ice
+        going straight to vapour without melting first, so a sublimating crystal is quietly
+        evaporating away). Write &Delta;T for the temperature gap between ceiling and floor, and
+        &delta;&sigma; for the leftover uncertainty in the supersaturation once that hunt is done.
+        The hunt locates &sigma;&nbsp;=&nbsp;0 &ldquo;with an absolute uncertainty of about
+        &delta;&sigma;&nbsp;&asymp;&nbsp;0.001&hellip; equivalent [to] a temperature accuracy for
+        &Delta;T of about 0.01&nbsp;C.&rdquo; (Printed p. 255.)
+      </p>
+
+      <!-- ---------------- ANIMATION 1 ---------------- -->
+      <figure class="anim" id="anim-two-thermometers">
+        <div class="anim__head">
+          <p class="anim__title">Dial a humidity with two thermometers</p>
+          <p class="anim__sub">
+            Set the floor temperature, then set how much warmer the frost ceiling is. The
+            supersaturation at the crystal is computed from those two numbers alone. Push the
+            ceiling <em>below</em> the floor and watch the crystal run backwards.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. &sigma;<sub>1</sub> is computed from
+          Equation 6.1 (Libbrecht, Snow Crystals, printed p. 222) using the saturated vapour pressure
+          curve p<sub>ice</sub> &asymp; 3.7&times;10<sup>10</sup> &middot; exp(&minus;6150/T<sub>K</sub>) mbar
+          of Equation 2.8 (printed p. 58), converted to a number density by
+          c<sub>sat</sub> = p<sub>ice</sub>/kT.</span>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          How do you check that a supersaturation you never measured is right? With droplets. Empty
+          the chamber of crystals and widen the temperature gap until liquid water droplets condense
+          on the substrate, then back off until the droplets neither grow nor shrink. At that
+          setting the supersaturation <em>must</em> equal the value at which liquid water and vapour
+          balance &mdash; a number theory hands you for free. Comparing the two gives a test with
+          nothing to tune: as the monograph notes of the resulting plot, &ldquo;the line is not a fit
+          to the data, but shows the theoretical expectation with no adjustable parameters.&rdquo;
+          (Printed p. 255.)
+        </p>
+      </aside>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-7.6/visual.png"
+              data-figure="Figure 7.6"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 256 &middot; printed p. 255"
+              data-alt="A plot of the measured supersaturation at which water droplets are stable against temperature, with scattered data points falling along a single smooth theoretical line.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the line, and the fact that nobody moved it. Each dot is
+          one droplet-stability measurement, converted into a supersaturation using nothing but the
+          two thermometer readings. The line is what theory says the answer has to be. If the
+          two-thermometer construction were wrong the dots would sit somewhere else, and there is no
+          knob available to drag them back.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 7.6: Measurements of &sigma;<sub>water</sub> at the
+          substrate, as determined by the temperature difference &Delta;T<sub>stable</sub> at which
+          water droplets are stable. The line is not a fit to the data, but shows the theoretical
+          expectation with no adjustable parameters.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <!-- ================================================================== -->
+      <h2 id="empty-substrate">The mistake that looks like nothing</h2>
+
+      <p>
+        Now the expensive lesson. Suppose the floor of your chamber is not perfectly clean. Suppose
+        a scattering of tiny ice crystals came down with the seed &mdash; each about 10 microns in
+        radius, so 20 microns across, spaced roughly 180 microns apart, covering just
+        <strong>one per cent</strong> of the floor area. Look down through the microscope and the floor appears empty. Ninety-nine per
+        cent of it <em>is</em> empty.
+      </p>
+
+      <p>
+        Every one of those specks is drinking vapour. Collectively they pull the supersaturation
+        near the floor down to about one twentieth of the value your two thermometers say you set.
+        The monograph is blunt about it: &ldquo;one might naively think that
+        &sigma;<sub>bottom</sub>&nbsp;&asymp;&nbsp;&sigma;<sub>1</sub> would be reasonably accurate.
+        But this na&iuml;ve assumption would overestimate &sigma;<sub>bottom</sub> by a factor of
+        twenty!&rdquo;
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-7.2/visual.png"
+              data-figure="Figure 7.2"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 252 &middot; printed p. 251"
+              data-alt="Schematic of a growth chamber with a row of small hemispherical crystals of radius R evenly spaced across the substrate, and the chamber height L marked from substrate to frost ceiling.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> how sparse this drawing is. That sparseness is the trap.
+          The crystals are tiny, well separated, and obviously occupying almost none of the surface
+          &mdash; and they still dominate the vapour budget, because what matters is not how much
+          area they cover but how much vapour they intercept on its way down.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 7.2: If several test crystals are present at the
+          bottom of the growth chamber, they collectively reduce the supersaturation
+          &sigma;<sub>bottom</sub> near the bottom of the chamber. As described in the text, even a
+          small number of ice crystals, covering just a tiny fraction of the substrate area, can have
+          a sizable effect on &sigma;<sub>bottom</sub>.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <div class="equation">
+        <p class="equation__math">
+          &sigma;<sub>bottom</sub> &asymp; (1 + 2&epsilon;&beta;L / R)<sup>&minus;1</sup>
+          &sigma;<sub>1</sub> &nbsp;&nbsp;&nbsp; with &nbsp; &beta; = &pi;R&sup2; / &#8467;&sup2;
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>&sigma;<sub>bottom</sub></dt><dd>the supersaturation the crystals actually feel</dd>
+            <dt>&sigma;<sub>1</sub></dt><dd>the supersaturation you set with the two temperatures</dd>
+            <dt>&beta;</dt><dd>the filling factor &mdash; the fraction of the floor covered by ice.
+              <em>(This &beta; is <strong>not</strong> the step energy &beta; of Chapter 5 &mdash; the
+              monograph reuses the letter. Here it is a bare area fraction, a pure number between 0
+              and 1, with no units.)</em></dd>
+            <dt>L</dt><dd>the height of the chamber, from floor to frost ceiling</dd>
+            <dt>R</dt><dd>the radius of one of the small crystals</dd>
+            <dt>&#8467;</dt><dd>the spacing between neighbouring crystals</dd>
+            <dt>&epsilon;</dt><dd>a factor between 0 and 1 saying how close the crystals are to drinking as fast as diffusion can deliver; &epsilon; = 1 is the greediest case</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">Libbrecht, Snow Crystals, Equations 7.6 and 7.7, printed p. 251.</p>
+      </div>
+
+      <p>
+        Read the bracket. The correction depends on the ratio <em>L/R</em> &mdash; the chamber height
+        divided by the crystal size. That is a ratio of a centimetre to ten microns: a thousand. It
+        is multiplied by a coverage of one per cent, and one per cent of a thousand is ten, doubled
+        to twenty. The factor of twenty is not a subtle effect hiding in a decimal place; it is the
+        first thing that falls out of the arithmetic, as soon as you do the arithmetic at all.
+      </p>
+
+      <!-- ---------------- ANIMATION 2 ---------------- -->
+      <figure class="anim" id="anim-crowding">
+        <div class="anim__head">
+          <p class="anim__title">The empty-looking substrate</p>
+          <p class="anim__sub">
+            Left: the floor as you would see it down a microscope. Right: what fraction of the
+            supersaturation you set actually survives to reach the crystals. Nudge the coverage from
+            0 to 1&nbsp;% and watch the left panel barely change while the right one collapses.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original chart. Computes Equations 7.6 and 7.7 (Libbrecht, Snow
+          Crystals, printed p. 251) with R = 10 &micro;m and &epsilon; = 1, the worked example given
+          in the text.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The fix is visible in the same bracket: shrink <em>L</em>. Bring the frost ceiling down close
+        to the crystal and the correction shrinks with it. In the apparatus behind &ldquo;some of the
+        most accurate snow-crystal growth-rate measurements to date&rdquo; (printed p. 222), the gap
+        between reservoir and test crystal is <strong>L&nbsp;=&nbsp;1&nbsp;mm</strong> &mdash;
+        &ldquo;as small as practical&rdquo;, chosen for exactly this reason (printed p. 254). Combine
+        that with a rule of only ever putting one crystal on the substrate, and the trap closes.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-7.5/visual.png"
+              data-figure="Figure 7.5"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 255 &middot; printed p. 254"
+              data-alt="Close-up photograph and drawing of the small sub-chamber inside the apparatus, showing the ice reservoir a short distance above the substrate carrying the test crystal.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> how little room there is. The whole argument of this
+          section &mdash; make L small &mdash; is here as a piece of hardware: reservoir and test
+          crystal a single millimetre apart. Compare it with the schematic of Figure 7.1 a few
+          paragraphs back; the published caption asks you to do exactly that.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 7.5: (Left) A close-up view of the ice-growth region
+          of the apparatus in Figure 7.4, showing the ice reservoir and test crystal. Note the
+          similarities to the ideal growth-chamber geometry shown in Figure 7.1.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        One more feature of that chamber, because it changes how far its numbers travel. It is a
+        <strong>vacuum chamber</strong>. Once a good test crystal has been found and centred, a
+        needle valve to a pump is eased open and most of the air is drawn out, down to a pressure of
+        about <strong>20 mbar</strong> &mdash; roughly a fiftieth of the air pressure at sea level
+        (printed p. 257). That is done for the sake of the zero point. With the background air gone,
+        water vapour crosses the one-millimetre gap almost unimpeded, so the crystal answers a change
+        in &Delta;T immediately instead of easing towards the new state over minutes. In the
+        monograph's words, locating &sigma;&nbsp;=&nbsp;0 &ldquo;can be accomplished with especially
+        high accuracy at low pressures, when the response to temperature changes is swift&rdquo;
+        (printed p. 255). That is where the &delta;&sigma;&nbsp;&asymp;&nbsp;0.001 comes from.
+      </p>
+
+      <p>
+        The price is on the label, and it is worth carrying forward. This is ice growing in near
+        vacuum, not ice growing in a cloud. Everything about snowfall you have read so far happens in
+        air at roughly a thousand millibars, where vapour has to shoulder its way through nitrogen
+        and oxygen to reach the crystal. So the sharpest numbers in this field &mdash; the ones the
+        next two chapters lean on &mdash; were taken in conditions no snowflake has ever experienced.
+        That does not make them wrong. It means they describe the ice surface itself, stripped of the
+        air, and carrying them back out into weather is a separate step that has to be done on
+        purpose.
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          It would be comfortable to treat this as a historical curiosity. It is not. Libbrecht's
+          assessment of the older literature is that &ldquo;it is possible to overestimate
+          &sigma;<sub>bottom</sub> by even a factor of 100 if one is not careful&hellip; For this
+          reason, I have found that most of the earlier growth measurements are generally unreliable
+          for determining attachment coefficients.&rdquo; (Printed p. 252.) Decades of published
+          numbers were thrown out over a mistake that looked like a clean microscope slide. When you
+          meet disagreeing measurements anywhere in science, this is the shape the explanation
+          usually has.
+        </p>
+      </aside>
+
+      <!-- ================================================================== -->
+      <h2 id="counting-fringes">Counting flickers of laser light</h2>
+
+      <p>
+        You now have a crystal in a known environment. How do you watch it thicken, when the whole
+        crystal is a few tens of microns tall and the growth you care about is a fraction of a
+        micron?
+      </p>
+
+      <p>
+        You use the light itself as the ruler. Shine a beam straight down at a crystal sitting on a
+        transparent substrate. Part of the beam bounces straight off the top surface of the ice; the
+        rest carries on down through the crystal and reflects off the boundary where the ice meets
+        the substrate. Two reflections come back, one having travelled a little further than the
+        other &mdash; twice the crystal's thickness further. Where the two waves arrive in step they
+        reinforce each other and the spot looks bright; add half a wavelength to the separation and
+        they cancel, and it looks dim.
+      </p>
+
+      <p>
+        Now let the crystal grow. The extra distance creeps upward, and the reflected spot cycles
+        dim &rarr; bright &rarr; dim, over and over. It is the cycling that carries the information,
+        not any one brightness: <strong>every full cycle means the crystal thickened by exactly the
+        same amount</strong> &mdash; an amount set by the wavelength of the light and by how much ice
+        slows light down, both known. Counting flickers is measuring growth.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-7.10/visual.png"
+              data-figure="Figure 7.10"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 260 &middot; printed p. 259"
+              data-alt="A row of microscope images of a small columnar ice crystal, each with a laser spot on it; the spot is dim in the first image, bright in the middle image, and dim again in the last.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> ignore the crystal and watch the bright dot. Dim, bright,
+          dim, left to right. That is one complete cycle, and it corresponds to one fixed step in
+          thickness. This is not a picture of an idea; it is the raw data.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 7.10: (a) Several images of a columnar ice crystal
+          showing the interference of two reflections from an incident Helium-Neon laser beam, one
+          from the substrate/ice interface and one from the ice/vacuum interface. As the crystal grew
+          (left to right) the spot brightness oscillates from dim (first image) to bright (middle
+          image) and back to dim (last image). (b) Snapshots from several other example
+          crystals.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <!-- ---------------- ANIMATION 3 ---------------- -->
+      <figure class="anim" id="anim-fringes">
+        <div class="anim__head">
+          <p class="anim__title">Count the fringes</p>
+          <p class="anim__sub">
+            The crystal thickens at a steady rate on the left; the brightness of the reflected spot
+            is traced on the right. Each time the trace completes a full cycle, the counter ticks
+            over &mdash; and one tick always means the same thickness.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. Encodes the two-reflection interference
+          scheme described in Libbrecht, Snow Crystals, printed pp. 228&ndash;229, and photographed
+          in Figure 7.10 (printed p. 259). Thickness is shown in fringe counts, not microns, because
+          the conversion depends on the wavelength used; the zero of the axis is where counting
+          began, not where the crystal began.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        There are two versions of this in practice. With a plain white lamp and a grating, the
+        reflected light is first spread out into a spectrum &mdash; a rainbow band, red at one end
+        and blue at the other. Different colours have different wavelengths, so each colour hits the
+        in-step or out-of-step condition at a different thickness, and the rainbow comes out crossed
+        by dark bands. <strong>The closer those dark fringes sit, the thicker the crystal.</strong>
+        That relationship can be turned round: measure the spacing, get the thickness &mdash; not a
+        change in thickness, the <em>absolute</em> thickness, from a single snapshot.
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          h = &lambda;&sup2; / (2n&Delta;&lambda;)
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>h</dt><dd>the thickness of the ice crystal &mdash; the number you want</dd>
+            <dt>&lambda;</dt><dd>the wavelength of the light, its colour expressed as a length; visible light runs from about 400 to 700 nanometres</dd>
+            <dt>&Delta;&lambda;</dt><dd>the fringe spacing &mdash; how far apart, measured along that rainbow, neighbouring dark bands sit</dd>
+            <dt>n</dt><dd>the refractive index of ice: how much ice slows light down compared with empty space</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">Libbrecht, Snow Crystals, Equation 6.3, printed p. 229. Because
+        &Delta;&lambda; sits underneath, closely spaced fringes mean a thick crystal.</p>
+      </div>
+
+      <p>
+        This is the precise version: sub-micron accuracy on the thickness, and growth velocities
+        readable &ldquo;down to 1 nm/sec in ideal cases&rdquo; (printed p. 229). A nanometre is a
+        millionth of a millimetre; that is the resolution of the ruler. With a Helium-Neon laser
+        instead, you lose the absolute thickness, and the growth-speed numbers come out far less
+        precise than the white-light version (printed p. 229) &mdash; but you keep the cycling, and
+        it still works on tall columnar crystals, where the white-light fringes have crowded together
+        into a blur.
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          The data stream is less glamorous than the physics. Three images &mdash; a direct view of
+          the crystal, the interference fringes, and a close-up of a voltmeter reading that encodes
+          the temperature difference &mdash; are projected side by side onto a single camera sensor,
+          so one video recording carries all three in sync. The operator narrates into the audio
+          track while the crystal grows. Finding a specimen worth recording takes, in the
+          monograph's words, &ldquo;sometimes&hellip; 10-20 minutes.&rdquo; (Printed p. 257.)
+        </p>
+      </aside>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-7.8/visual.png"
+              data-figure="Figure 7.8"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 259 &middot; printed p. 258"
+              data-alt="Two stacked video frames, each divided into a band of coloured interference fringes at the top, a direct image of the growing crystal below, and a strip of numerals giving a voltage reading.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> one video frame carrying three separate measurements. The
+          coloured bands at the top are the fringes; the picture below is the crystal itself; the
+          digits are a voltage that converts into &Delta;T, and so into the supersaturation. Because
+          they share a sensor they share a clock, so the thickness reading and the humidity reading
+          cannot drift apart. Compare the upper frame with the lower one: the fringes crowd together
+          as the crystal thickens.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 7.8: (Left) Two still images from a video showing the
+          growth of a test crystal. The top parts of both images show interferometer fringes in true
+          colors, while the bottom parts of the images show a direct image of the crystal including
+          illumination from the slit. The numerical section in the images show a voltage from which
+          &Delta;T can be determined. The upper image was taken near the beginning of the growth
+          cycle. The lower image shows the same crystal after it had grown larger and thicker. The
+          bright slit light is periodically blocked to provide a better direct image of the
+          crystal.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        And that is the whole apparatus, so here is what falls out of it. Transcribe one video: the
+        fringe pattern becomes a thickness, the direct image becomes a width, the voltmeter becomes a
+        &Delta;T and so a supersaturation. Plot thickness and width against time, take the slope of
+        each, and you have the speed at which the flat top face is advancing and the speed at which
+        the six side faces are advancing &mdash; two numbers, from one crystal, under conditions
+        somebody chose.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-7.11/visual.png"
+              data-figure="Figure 7.11"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 261 &middot; printed p. 260"
+              data-alt="A two-panel plot: the upper panel shows a crystal's thickness and radius rising with time as the temperature difference is increased; the lower panel shows the basal and prism facet growth velocities derived from those curves.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the lower panel. That is the output of everything in this
+          chapter &mdash; two growth speeds, one for the flat top-and-bottom faces and one for the six
+          side faces, measured on the same crystal at the same moment. Notice how much cleaner the
+          basal trace is than the prism trace: thickness comes from counted fringes, width comes from
+          looking at the picture, and the interferometer is the better ruler. Notice too that the
+          horizontal axis is <em>time</em>, not temperature. One run like this is one crystal at one
+          temperature; the curves the next chapters are built from come from doing it again, and
+          again, at other temperatures.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 7.11: (Top) A typical growth sequence for a single
+          thin-plate crystal at -12 C, like the one shown in Figure 7.8. As the supersaturation is
+          slowly increased by increasing &Delta;T, the plate thickness H is measured using white-light
+          interferometry while the plate &ldquo;radius&rdquo; R (here defined as half the distance
+          between opposing prism facets) is measured from direct imaging. Note R&gt;H, indicating a
+          thin, plate-like crystal. (Bottom) Growth velocities of the basal and prism facets derived
+          from the size data above. The higher accuracy of the interferometric measurements yields a
+          lower noise in the basal radius and velocity data.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <!-- ================================================================== -->
+      <h2 id="holding-still">Two ways to hold a snowflake still</h2>
+
+      <p>
+        Everything so far has been one machine, and that machine has a shape. It buys its precision
+        by working small and working thin: one prism a few tens of microns across, a millimetre under
+        a frost ceiling, in near vacuum. What it cannot do is grow you a stellar crystal a
+        millimetre wide, with branches and sidebranches, in ordinary air, and let you photograph the
+        whole performance.
+      </p>
+
+      <p>
+        So put it down and pick up two different instruments. Both are built for that other job
+        &mdash; large, complicated crystals, growing in air at normal pressure, in front of a camera
+        &mdash; and both have to solve the same problem first: how do you hold a growing snowflake
+        still, isolated, and in view? They answer it in opposite directions.
+      </p>
+
+      <p>
+        The first is startling the first time you see it. Take a wire, coat it in frost, put it in
+        very humid air near &minus;6&nbsp;&deg;C, and apply about two thousand volts. Slender ice
+        needles spring out of the frost in a few seconds, growing tip-first along the crystal's
+        c&nbsp;axis &mdash; the axis running through the two flat hexagonal ends, so the needle grows
+        end-on &mdash; at 100&ndash;150 microns per second, so a three-millimetre needle takes under a
+        minute. (The recipe is fussier than it sounds: the effect wants the temperature near
+        &minus;6&nbsp;&deg;C, a supersaturation near 100&nbsp;per cent &mdash; twice as much vapour as
+        would sit in balance with ice &mdash; and trace amounts of acetic acid vapour in the air.)
+        Switch the voltage off and ordinary growth resumes on the needle tip. You are left with a
+        clean single-crystal spike sticking out into open air, with a known orientation and nothing
+        else nearby &mdash; an ideal perch on which to grow the crystal you actually want to watch.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-8.1/visual.png"
+              data-figure="Figure 8.1"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 280 &middot; printed p. 279"
+              data-alt="Photograph of several long slender ice needles growing upward from the frosted end of a wire, the central one a few millimetres long.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the central needle is about 3&nbsp;mm long &mdash; big
+          enough to see without a microscope &mdash; and it grew in under a minute. Note that the
+          needles are separate and cleanly spaced, not a frost mat. That separation is the whole
+          value of the technique.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 8.1. A set of slender &lsquo;electric&rsquo; ice
+          needles (e-needles) growing on the end of a frost-covered wire. The e-needle centered in
+          the image is about 3 mm in length. The needles formed when +2000 volts was applied to the
+          frost-covered wire at the bottom of the photo, which was simultaneously exposed to highly
+          supersaturated air at a temperature near -6 C. The e-needle phenomenon is the result of an
+          electrically induced growth instability.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-8.2/visual.png"
+              data-figure="Figure 8.2"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 280 &middot; printed p. 279"
+              data-alt="Thin flat plate-like snow crystals each perched on the tip of a slender ice needle, standing clear of one another in open air.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> what the needles are <em>for</em> &mdash; the perch in
+          use. Each plate is balanced on a spike, out in open air, touching nothing but its own
+          stalk. Nothing crowds it, nothing shadows it, nothing else nearby is drinking its vapour
+          &mdash; which, after the last section, you now know is the failure that matters most.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 8.2. Thin, plate-like snow crystals growing on the
+          ends of c-axis electric ice needles. This example illustrates how e-needles can be used to
+          cleanly support isolated snow crystals as they growth and develop.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        The second technique goes the other way and pins the crystal to a window. Let small ice
+        prisms rain gently onto a transparent plate held near &minus;12&nbsp;&deg;C; some land flat,
+        one hexagonal face down. Expose them to a decent supersaturation and a thin plate begins
+        growing sideways out of the <em>top</em> edge of that little prism, spreading out over the
+        substrate without touching it. The crystal ends up balanced on its own pedestal, held
+        perfectly still, perfectly flat, and directly beneath a microscope objective. That is the
+        <strong>plate-on-pedestal</strong> geometry, and it is what makes those long time-lapse
+        sequences of a snowflake growing possible at all.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-9.1/visual.png"
+              data-figure="Figure 9.1"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 330 &middot; printed p. 329"
+              data-alt="Side-view diagram of a thin flat ice plate spreading outward from the top edge of a small hexagonal prism, which rests on a flat transparent substrate.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the gap. The wide plate is not lying on the glass; it is
+          held above it by the stub underneath. That gap is why the plate grows like a free crystal
+          instead of a crystal glued to a slide, and it is why the pictures come out clean.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 9.1: A side view of the basic Plate-on-Pedestal (PoP)
+          snow-crystal geometry. A thin plate-like crystal grows outward from the top edge of a small
+          hexagonal prism, while one basal face of the prism rests on a transparent
+          substrate.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        In practice the operator keeps the crystal within a few degrees of &minus;15&nbsp;&deg;C,
+        because that is where the big stellar plates grow (printed p. 334). And because temperature
+        and supersaturation can be changed on cue while the crystal is growing, the shape becomes
+        something you steer. That is how &ldquo;designer&rdquo; snowflakes are made &mdash; and how
+        the identical twins at the top of this chapter were made, by steering two of them with the
+        same hand.
+      </p>
+
+      <!-- ================================================================== -->
+      <h2 id="cannot-reach">The edge of the reachable</h2>
+
+      <p>
+        Every apparatus has a boundary, and saying where it is out loud is part of doing the science
+        properly rather than just doing it.
+      </p>
+
+      <p>
+        Plate-on-pedestal has a hard ceiling on humidity, and the ceiling is made of fog. Push the
+        supersaturation high enough and water droplets condense all over the substrate. Once they
+        are there, they hold the air around them at the value where liquid water and vapour balance:
+        &ldquo;The supersaturation near the droplets is essentially clamped at
+        &sigma;<sub>water</sub>, making it nearly impossible to achieve supersaturations
+        substantially above this level using the PoP method.&rdquo; (Printed p. 345.)
+      </p>
+
+      <p>
+        You have met that ceiling before. &sigma;<sub>water</sub> is the water saturation line from
+        Chapter 7 &mdash; the same curve, wearing per cent instead of grams per cubic metre. And
+        here is the part that has to be said carefully, because it is easy to get backwards: the sky
+        has the same ceiling. A cloud thick with droplets is clamped at &sigma;<sub>water</sub> too.
+        The laboratory is not being beaten by a supersaturation the atmosphere can supply and the
+        apparatus cannot.
+      </p>
+
+      <p>
+        What differs is <em>where the fog is</em>. In the apparatus it condenses on the substrate,
+        immediately around the crystal, and the crystal drinks from that same patch of air &mdash;
+        &ldquo;The growing crystal absorbs water vapor in its vicinity, keeping the supersaturation
+        below &sigma;<sub>water</sub> nearby&rdquo; (printed p. 345). So a plate on a pedestal never
+        gets to work <em>at</em> the ceiling, only somewhere under it. A crystal falling free through
+        a cloud has no substrate beside it for droplets to nucleate on, and it moves, which helps a
+        little more: for a fernlike dendrite at terminal velocity the airflow past the tips is
+        estimated to add &ldquo;roughly a 25 percent increase in tip growth velocity&rdquo; (printed
+        p. 110). The upshot is a limit of geometry, not of altitude on a graph. As the monograph puts
+        it, &ldquo;the condensation of water droplets on the substrate prevents the supersaturation
+        from attaining values much above &sigma;<sub>water</sub>, and this is too low for the type of
+        dendritic sidebranching seen in fernlike stellar dendrites&rdquo; (printed p. 349) &mdash;
+        and so &ldquo;one cannot grow true fernlike stellar dendrites using this apparatus.&rdquo;
+        (Printed p. 345.) The prettiest crystal in the book falls out of the sky perfectly happily,
+        and is out of reach of the machine that takes the prettiest pictures.
+      </p>
+
+      <p>
+        Libbrecht is equally direct that the method he uses for his most beautiful images is not the
+        one he trusts for numbers: the plate-on-pedestal technique, he writes, &ldquo;is not
+        especially well suited for scientific measurements&rdquo;, and he developed it &ldquo;as a
+        means to grow snow crystals in a more artistic realm&rdquo; (printed p. 330). Different
+        instruments for different jobs; the honest move is to say which is which.
+      </p>
+
+      <p>
+        The opposite limit is stranger. Some shapes need supersaturations so high that the atmosphere
+        never supplies them &mdash; so those shapes have never fallen on anybody. Fishbone dendrites
+        are the example: &ldquo;the formation of fishbone dendrites requires high supersaturation
+        levels that do not occur in nature, so they are entirely a laboratory creation.&rdquo;
+        (Printed p. 86.)
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.10/visual.png"
+              data-figure="Figure 3.10"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 86 &middot; printed p. 85"
+              data-alt="Photograph of several ice dendrites with sidebranches arranged in a three-dimensional fishbone pattern, growing outward from a frost-covered wire.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the sidebranches do not lie flat. They come off the main
+          spine in a three-dimensional herringbone, which is why the shape looks unfamiliar &mdash;
+          you have never seen one, and neither has anyone else outside a laboratory. Snow like this
+          does not fall.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.10: Several &lsquo;fishbone&rsquo; dendrites growing
+          out from a frost-covered wire at a temperature of -5 C. Note the overall similarities
+          between the different dendritic branches.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <!-- ---------------- CHART 4 ---------------- -->
+      <figure class="chart" id="chart-reachable">
+        <div class="anim__head">
+          <p class="anim__title">The ceiling made of fog</p>
+          <p class="anim__sub">
+            One curve does most of the work here: the supersaturation at which liquid water and
+            vapour balance. This is the water saturation line from Chapter 7, drawn in per cent spare
+            vapour rather than grams per cubic metre. Plate-on-pedestal works below it, and only in a
+            band around &minus;15&nbsp;&deg;C. Fernlike stellar dendrites sit right on it. Only the
+            fishbone dendrite lives above.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original chart. &sigma;<sub>water</sub> computed from the ice and
+          water vapour-pressure curves of Equation 2.8 (Libbrecht, Snow Crystals, printed p. 58) as
+          p<sub>water</sub>/p<sub>ice</sub> &minus; 1; the plate-on-pedestal ceiling is the clamp
+          described on printed p. 345 and p. 349; the temperature band follows printed p. 330; the
+          fishbone placement follows printed p. 86. The marker positions along the temperature axis
+          are the temperatures the monograph names; no height above the curve is implied for the
+          fernlike dendrite, and none is given in the source.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Put those two facts side by side and you get an honest map, with two limits that are not the
+        same kind of limit. The sky and the pedestal share a ceiling &mdash; the same
+        &sigma;<sub>water</sub> curve, for the same reason. What separates them is delivery: the sky
+        hands vapour to a crystal in free fall, while the pedestal hands it across a substrate that
+        fogs first and takes its cut. That is why one of them grows fernlike dendrites and the other
+        does not, and it is a difference in arrangement rather than in numbers. The genuinely
+        asymmetric case is the other one: fishbone dendrites need more than the atmosphere ever
+        supplies, so there is a band the laboratory reaches that the sky never does. Neither gap is a
+        failure. They are the shape of the territory, and knowing the shape is what stops you from
+        over-claiming.
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          Precision and coverage pull against each other, and no instrument yet has both. The
+          two-temperature vacuum chamber pins its zero point to &delta;&sigma;&nbsp;&asymp;&nbsp;0.001
+          but works on one tiny crystal at a time. The chambers that sweep whole ranges of
+          temperature and humidity carry supersaturation uncertainties &ldquo;probably not better
+          than 20-40 percent&rdquo; (printed p. 222) &mdash; and yet their results &ldquo;[remain]
+          some of the best quantitative data covering a broad range of temperatures and
+          supersaturations in air&rdquo; (printed p. 235). Holding both of those judgements at once is the actual
+          skill. Libbrecht's own summary is worth keeping: &ldquo;If there is one thing I have learned
+          with great certainty in this field, it is that ice growth exhibits a mystifying variety of
+          complex growth behaviors that will require much additional work to appreciate.&rdquo;
+          (Printed p. 280.)
+        </p>
+      </aside>
+
+      <!-- ================================================================== -->
+      <h2 id="go-and-look">You can start this winter</h2>
+
+      <p>
+        None of this needs a laboratory to begin. The equipment for real observation is a folding
+        magnifier and a piece of card.
+      </p>
+
+      <p>
+        Get a cheap fold-up loupe &mdash; &ldquo;A magnification of 4X or 5X is about right, as this
+        provides a reasonable amount of detail with a fairly wide field of view&rdquo; (printed
+        p. 445) &mdash; and a
+        sheet of dark-blue foam-core board. Let the board get properly cold outside before you use
+        it, then catch crystals on it in mid-fall and look at once. Catching them matters: once
+        flakes have landed on the ground &ldquo;they will stick together and soon metamorphose into
+        clumps of crystals with much changed morphologies.&rdquo; (Printed p. 445.) The matte dark
+        surface makes individual crystals easy to pick out, and the loupe tells you in a second
+        whether one is worth a closer look.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-11.1/visual.png"
+              data-figure="Figure 11.1"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 446 &middot; printed p. 445"
+              data-alt="A small inexpensive fold-up magnifying loupe, shown closed and opened.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the entire instrument. It folds into a pocket and costs
+          less than lunch. Resist the temptation to buy more magnification: at 20&times; you will spend
+          the snowfall hunting for the crystal instead of looking at it.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 11.1: An inexpensive fold-up magnifier, or loupe, is a
+          convenient tool for appraising the overall quality of falling snow crystals. A
+          magnification of 4X or 5X is about right, as this provides a reasonable amount of detail
+          with a fairly wide field of view.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-11.4/visual.png"
+              data-figure="Figure 11.4"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 450 &middot; printed p. 449"
+              data-alt="Freshly fallen snow crystals scattered on a dark-blue foam-core board, with a bright glare in the upper right where lamplight reflects off flat crystal faces.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the glare in the corner. Those bright points are single
+          flat facets catching the lamp and throwing it straight back at the camera, the way a small
+          mirror would. Rounded, rimed and battered crystals do not do that. Sparkle under a single
+          bright light is a fast, free test for facets &mdash; it is the same optical fact used to
+          measure growth two sections above, applied with your eyes.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 11.4: A collection of freshly fallen snowflakes on a
+          dark-blue foam-core collection board. The glow in the upper right comes from a bright lamp
+          shining down on the crystals, producing strong reflections from smooth faceted
+          surfaces.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        Then use what you already know to decide when to go out. If you want the big six-armed
+        stellar crystals, you want a snowfall coming from cloud near &minus;15&nbsp;&deg;C &mdash;
+        &ldquo;such crystals can only be found when the cloud temperatures are around -15 C.&rdquo;
+        (Printed p. 383.) Most of what falls, most of the time, will be irregular, or rimed &mdash;
+        crystals that collided with supercooled cloud droplets on the way down and froze them on as a
+        crust of bumps. That is not bad luck; that is the honest population. Reading the sky before you go out, and then checking the
+        prediction on a piece of card, is exactly the same activity as everything else in this
+        chapter, scaled down to one person and one snowfall.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          Almost nothing in this chapter was measured directly. The width of the crystal you can
+          just look at. The thickness and the humidity you cannot &mdash; and those are the two that
+          mattered. Both came instead from something easy: a count of flickers, two thermometer
+          readings, whether a droplet was growing. Then physics converted the easy measurement into
+          the hard quantity. That substitution is what experimental science mostly consists of.
+        </p>
+      </aside>
+
+      <!-- ===== handoff ===== -->
+      <p class="handoff">
+        The isolated crystal, the two thermometers, the counted fringes: put them together and out
+        come growth speeds, one for each kind of face, of the sort plotted in Figure 7.11. But a
+        growth speed is not yet an answer, because it mixes two things together &mdash; how much
+        vapour arrived at the surface, and how much of what arrived actually stayed. Separating them
+        takes one short equation and one number: the odds that a molecule which hits the ice sticks
+        to it.
+      </p>
+
+      <!-- ===== prev / next ===== -->
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./09-the-menagerie.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">The Menagerie</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./11-the-stickiness-of-ice.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">The Stickiness of Ice</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
+      from a local research cache under citation; they are not redistributed with this repository.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script>
+/* ===========================================================================
+   ANIMATION 1 — Dial a humidity with two thermometers.
+
+   sigma_1 = [c_sat(T_res) - c_sat(T_sub)] / c_sat(T_sub)     (Eq. 6.1, p. 222)
+   c_sat(T) = p_ice(T) / kT , with
+   p_ice(T) = 3.7e10 * exp(-6150 / T_K)  mbar                 (Eq. 2.8, p. 58)
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("anim-two-thermometers");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const W = 600, H = 340;
+
+  /* saturated vapour pressure of ice, mbar — monograph Equation 2.8 */
+  function pIce(tC) { return 3.7e10 * Math.exp(-6150 / (tC + 273.15)); }
+  /* number density is proportional to p / T */
+  function cSat(tC) { return pIce(tC) / (tC + 273.15); }
+  function sigma1(tSub, dT) { return cSat(tSub + dT) / cSat(tSub) - 1; }
+
+  let tSub = -15, dT = 0.60;
+
+  // drifting vapour markers, held in [0,1] chamber coordinates
+  const CEIL = 78, FLOOR = 262, LEFT = 74, RIGHT = 400;
+  const dots = [];
+  for (let i = 0; i < 46; i++) dots.push({ x: Math.random(), y: Math.random(), s: 0.6 + Math.random() * 0.8 });
+
+  let radius = 16;   // drawn half-width of the test crystal
+  const R_MIN = 7, R_MAX = 30;
+
+  /* The <svg>, its <title> and its <desc> are built once. Each frame clears only
+     the drawing beneath them, so the accessible region is never torn down. */
+  const svg = Viz.createSvg(body, W, H, {
+    label: "Cross-section of a two-temperature growth chamber. A frost layer on the ceiling " +
+           "supplies water vapour; a single test crystal sits on the floor. The supersaturation " +
+           "is computed from the two temperatures.",
+    desc: "The substrate and reservoir temperatures are set with the sliders below.",
+  });
+  const KEEP = svg.childNodes.length;          // <title> and <desc>
+  const descNode = svg.querySelector("desc");
+  let descAt = 0;
+
+  function updateDesc(s) {
+    const now = Date.now();
+    if (now - descAt < 400) return;            // a few times a second, not 60
+    descAt = now;
+    descNode.textContent =
+      "The substrate is at " + tSub.toFixed(1) + " degrees Celsius and the reservoir is " +
+      dT.toFixed(2) + " degrees warmer, giving a supersaturation of " +
+      (s * 100).toFixed(1) + " percent.";
+  }
+
+  function render(t) {
+    const c = Viz.colors();
+    const s = sigma1(tSub, dT);
+
+    while (svg.childNodes.length > KEEP) svg.removeChild(svg.lastChild);
+    updateDesc(s);
+
+    /* ---- chamber shell ---- */
+    svg.appendChild(Viz.svgEl("rect", {
+      x: LEFT, y: CEIL, width: RIGHT - LEFT, height: FLOOR - CEIL,
+      fill: c.sunken, stroke: c.rule, "stroke-width": 1,
+    }));
+
+    /* ---- vapour density shown as drifting markers ---- */
+    const flow = Math.max(-1, Math.min(1, s / 0.10));
+    dots.forEach(function (d) {
+      const x = LEFT + 10 + d.x * (RIGHT - LEFT - 20);
+      const y = CEIL + 14 + d.y * (FLOOR - CEIL - 26);
+      svg.appendChild(Viz.svgEl("circle", {
+        cx: x.toFixed(1), cy: y.toFixed(1), r: (1.5 + 1.1 * d.s).toFixed(2),
+        fill: c.seq[2], opacity: (0.25 + 0.45 * Math.abs(flow)).toFixed(2),
+      }));
+    });
+
+    /* ---- frost reservoir on the ceiling ---- */
+    let frost = "M " + LEFT + " " + CEIL + " ";
+    const teeth = 26, step = (RIGHT - LEFT) / teeth;
+    for (let i = 0; i < teeth; i++) {
+      frost += "L " + (LEFT + (i + 0.5) * step).toFixed(1) + " " + (CEIL + 11) + " ";
+      frost += "L " + (LEFT + (i + 1) * step).toFixed(1) + " " + CEIL + " ";
+    }
+    frost += "L " + RIGHT + " " + (CEIL - 16) + " L " + LEFT + " " + (CEIL - 16) + " Z";
+    svg.appendChild(Viz.svgEl("path", { d: frost, fill: c.series[0], opacity: 0.85 }));
+
+    let lab = Viz.svgEl("text", { class: "series-label", x: LEFT, y: CEIL - 24, fill: c.series[0] });
+    lab.textContent = "frost reservoir  T = " + (tSub + dT).toFixed(2) + " °C";
+    svg.appendChild(lab);
+
+    /* ---- substrate ---- */
+    svg.appendChild(Viz.svgEl("rect", {
+      x: LEFT - 8, y: FLOOR, width: RIGHT - LEFT + 16, height: 13,
+      fill: c.series[1], opacity: 0.85,
+    }));
+    lab = Viz.svgEl("text", { class: "series-label", x: LEFT - 8, y: FLOOR + 30, fill: c.series[1] });
+    lab.textContent = "substrate  T = " + tSub.toFixed(1) + " °C";
+    svg.appendChild(lab);
+
+    /* ---- the single test crystal ---- */
+    const cx = (LEFT + RIGHT) / 2;
+    svg.appendChild(Viz.svgEl("path", {
+      d: Viz.hexPath(cx, FLOOR - radius * 0.8, radius, 0),
+      fill: c.series[1], opacity: 0.55, stroke: c.series[1], "stroke-width": 2,
+      "stroke-linejoin": "round",
+    }));
+    const tag = Viz.svgEl("text", { class: "annotation", x: cx + radius + 10, y: FLOOR - 8 });
+    tag.textContent = "one test crystal";
+    tag.setAttribute("fill", c.inkSecondary);
+    svg.appendChild(tag);
+
+    /* ---- net flux arrow ---- */
+    const ax = RIGHT - 34;
+    const up = s < 0;
+    const y0 = up ? FLOOR - 40 : CEIL + 34, y1 = up ? CEIL + 34 : FLOOR - 40;
+    if (Math.abs(s) > 0.0015) {
+      svg.appendChild(Viz.svgEl("line", {
+        x1: ax, y1: y0, x2: ax, y2: y1, stroke: c.inkSecondary, "stroke-width": 2,
+      }));
+      const dir = up ? 1 : -1;
+      svg.appendChild(Viz.svgEl("path", {
+        d: "M " + (ax - 5) + " " + (y1 + dir * 9) + " L " + ax + " " + y1 + " L " + (ax + 5) + " " + (y1 + dir * 9),
+        fill: "none", stroke: c.inkSecondary, "stroke-width": 2, "stroke-linejoin": "round",
+      }));
+    }
+
+    /* ---- readout panel ---- */
+    const px = RIGHT + 26;
+    let txt = Viz.svgEl("text", { x: px, y: CEIL + 6, class: "axis-title" });
+    txt.setAttribute("fill", c.inkSecondary);
+    txt.textContent = "supersaturation";
+    svg.appendChild(txt);
+
+    txt = Viz.svgEl("text", { x: px, y: CEIL + 46, fill: c.ink });
+    txt.setAttribute("style", "font-size:30px;font-weight:700;font-variant-numeric:tabular-nums");
+    txt.textContent = (s >= 0 ? "" : "−") + Math.abs(s * 100).toFixed(1) + "%";
+    svg.appendChild(txt);
+
+    const verdict = Math.abs(s) < 0.0015 ? "crystal holds steady"
+      : s > 0 ? "crystal grows" : "crystal shrinks";
+    txt = Viz.svgEl("text", { x: px, y: CEIL + 70, class: "annotation" });
+    txt.setAttribute("fill", c.inkSecondary);
+    txt.textContent = verdict;
+    svg.appendChild(txt);
+
+    const nudge = (sigma1(tSub, dT + 0.01) - s) * 100;
+    const lines = [
+      "ΔT = " + dT.toFixed(2) + " °C",
+      "add 0.01 °C here",
+      "and σ moves by",
+      nudge.toFixed(2) + " percentage",
+      "points — which is",
+      "why ΔT is set by",
+      "hand, per crystal",
+    ];
+    lines.forEach(function (line, i) {
+      const n = Viz.svgEl("text", { x: px, y: FLOOR - 70 + i * 16, class: "annotation" });
+      n.setAttribute("fill", i === 0 ? c.ink : c.muted);
+      n.textContent = line;
+      svg.appendChild(n);
+    });
+  }
+
+  function tick(t, dt) {
+    const s = sigma1(tSub, dT);
+    const flow = Math.max(-1, Math.min(1, s / 0.10));
+    dots.forEach(function (d) {
+      d.y += flow * d.s * dt * 0.22;
+      if (d.y > 1) { d.y -= 1; d.x = Math.random(); }
+      if (d.y < 0) { d.y += 1; d.x = Math.random(); }
+    });
+    radius = Math.max(R_MIN, Math.min(R_MAX, radius + flow * dt * 3.2));
+    render(t);
+  }
+
+  const anim = Viz.animate(root, tick, { staticAt: 2, stepBy: 0.4 });
+  Viz.onThemeChange(function () { render(anim.time); });
+
+  Viz.slider(controls, {
+    label: "Substrate temperature", id: "tsub", min: -30, max: -2, step: 0.5, value: tSub,
+    format: function (v) { return v.toFixed(1) + " °C"; },
+    onInput: function (v) { tSub = v; render(anim.time); },
+  });
+  Viz.slider(controls, {
+    label: "Reservoir warmer by", id: "dt", min: -0.2, max: 1.5, step: 0.01, value: dT,
+    format: function (v) { return v.toFixed(2) + " °C"; },
+    onInput: function (v) { dT = v; render(anim.time); },
+  });
+  Viz.button(controls, "Reset crystal", function () { radius = 16; render(anim.time); });
+})();
+
+
+/* ===========================================================================
+   ANIMATION 2 — The empty-looking substrate.
+
+   sigma_bottom / sigma_1 = (1 + 2 e b L / R)^-1     (Eq. 7.6, printed p. 251)
+   b = pi R^2 / l^2                                  (Eq. 7.7, printed p. 251)
+   Worked example in the text: b = 0.01, L = 1 cm, R = 10 um, e = 1 -> 0.05
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("anim-crowding");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const W = 620, H = 346;
+  const R_UM = 10;          // crystal radius, microns — the text's worked example
+  const EPS = 1;            // greediest case, as in the text
+
+  let beta = 0.01;          // filling factor
+  let Lmm = 10;             // chamber height, millimetres
+
+  function survives(b, L_mm) {
+    const L_um = L_mm * 1000;
+    return 1 / (1 + (2 * EPS * b * L_um) / R_UM);
+  }
+  function spacing(b) { return R_UM * Math.sqrt(Math.PI / Math.max(b, 1e-6)); }
+
+  let svg = null;
+
+  function render() {
+    const c = Viz.colors();
+    if (svg) svg.remove();
+
+    const frac = survives(beta, Lmm);
+    const over = 1 / frac;
+
+    svg = Viz.createSvg(body, W, H, {
+      label: "Left: a top-down view of a substrate sparsely covered with tiny ice crystals. " +
+             "Right: the fraction of the set supersaturation that survives to reach them.",
+      desc: "At a filling factor of " + (beta * 100).toFixed(1) + " percent and a chamber height " +
+            "of " + Lmm + " millimetres, only " + (frac * 100).toFixed(1) + " percent of the " +
+            "supersaturation you set is left at the substrate.",
+    });
+
+    /* ---------- LEFT: the substrate as you would see it ---------- */
+    const PX = 26, PY = 56, PW = 250, PH = 250;
+    svg.appendChild(Viz.svgEl("rect", {
+      x: PX, y: PY, width: PW, height: PH, fill: c.sunken, stroke: c.rule, "stroke-width": 1,
+    }));
+
+    // draw the real square array: spacing l set by beta, R fixed at 10 um
+    const ell = spacing(beta);                 // microns
+    const viewUm = 1400;                       // the panel shows a 1.4 mm square of substrate
+    const scale = PW / viewUm;
+    const n = Math.floor(viewUm / ell);
+    for (let i = 0; i <= n; i++) {
+      for (let j = 0; j <= n; j++) {
+        const x = PX + (i + 0.5) * ell * scale;
+        const y = PY + (j + 0.5) * ell * scale;
+        if (x > PX + PW - 2 || y > PY + PH - 2) continue;
+        svg.appendChild(Viz.svgEl("circle", {
+          cx: x.toFixed(1), cy: y.toFixed(1), r: Math.max(0.9, R_UM * scale).toFixed(2),
+          fill: c.series[0], opacity: 0.9,
+        }));
+      }
+    }
+
+    let t = Viz.svgEl("text", { x: PX, y: PY - 24, class: "axis-title" });
+    t.setAttribute("fill", c.inkSecondary);
+    t.textContent = "the floor, seen from above";
+    svg.appendChild(t);
+
+    t = Viz.svgEl("text", { x: PX, y: PY - 8, class: "annotation" });
+    t.setAttribute("fill", c.muted);
+    t.textContent = "1.4 mm across · crystals 10 µm in radius, spaced " +
+                    (beta > 0.0002 ? Math.round(ell) + " µm" : "far apart");
+    svg.appendChild(t);
+
+    t = Viz.svgEl("text", { x: PX, y: PY + PH + 20, class: "annotation" });
+    t.setAttribute("fill", c.inkSecondary);
+    t.textContent = "coverage: " + (beta * 100).toFixed(1) + "% of the area — looks empty";
+    svg.appendChild(t);
+
+    /* ---------- RIGHT: how much supersaturation survives ---------- */
+    const BX = 330, BY = 56, BW = 250;
+
+    t = Viz.svgEl("text", { x: BX, y: BY - 24, class: "axis-title" });
+    t.setAttribute("fill", c.inkSecondary);
+    t.textContent = "what the crystals actually feel";
+    svg.appendChild(t);
+
+    // "you set" bar
+    const barTop = BY + 34, barH = 34, gap = 26;
+    svg.appendChild(Viz.svgEl("rect", {
+      x: BX, y: barTop, width: BW, height: barH, fill: c.series[0], opacity: 0.85, rx: 3,
+    }));
+    t = Viz.svgEl("text", { x: BX, y: barTop - 8, class: "series-label" });
+    t.setAttribute("fill", c.series[0]);
+    t.textContent = "σ₁  you set this with two thermometers";
+    svg.appendChild(t);
+
+    // "actually there" bar
+    const y2 = barTop + barH + gap + 14;
+    svg.appendChild(Viz.svgEl("rect", {
+      x: BX, y: y2, width: BW, height: barH, fill: c.rule, opacity: 0.55, rx: 3,
+    }));
+    svg.appendChild(Viz.svgEl("rect", {
+      x: BX, y: y2, width: Math.max(1.5, BW * frac), height: barH,
+      fill: c.series[1], opacity: 0.9, rx: 3,
+    }));
+    t = Viz.svgEl("text", { x: BX, y: y2 - 8, class: "series-label" });
+    t.setAttribute("fill", c.series[1]);
+    t.textContent = "σ at the floor  what is actually left";
+    svg.appendChild(t);
+
+    // the number
+    t = Viz.svgEl("text", { x: BX, y: y2 + barH + 56, fill: c.ink });
+    t.setAttribute("style", "font-size:30px;font-weight:700;font-variant-numeric:tabular-nums");
+    t.textContent = over < 1.05 ? "no correction" : over.toFixed(1) + "× too high";
+    svg.appendChild(t);
+
+    t = Viz.svgEl("text", { x: BX, y: y2 + barH + 78, class: "annotation" });
+    t.setAttribute("fill", c.inkSecondary);
+    t.textContent = over < 1.05 ? "a genuinely bare floor"
+                                : "if you assume the floor is empty";
+    svg.appendChild(t);
+
+    t = Viz.svgEl("text", { x: BX, y: y2 + barH + 98, class: "annotation" });
+    t.setAttribute("fill", c.muted);
+    t.textContent = "only " + (frac * 100).toFixed(1) + "% of σ₁ survives";
+    svg.appendChild(t);
+
+    // the monograph quotes the worked example rounded; say so rather than
+    // leaving the reader to wonder why the printed number differs
+    if (over > 18 && over < 22) {
+      t = Viz.svgEl("text", { x: BX, y: y2 + barH + 116, class: "annotation" });
+      t.setAttribute("fill", c.muted);
+      t.textContent = "the monograph rounds this to a factor";
+      svg.appendChild(t);
+      t = Viz.svgEl("text", { x: BX, y: y2 + barH + 132, class: "annotation" });
+      t.setAttribute("fill", c.muted);
+      t.textContent = "of twenty (printed p. 251)";
+      svg.appendChild(t);
+    }
+  }
+
+  render();
+  Viz.onThemeChange(render);
+
+  const sBeta = Viz.slider(controls, {
+    label: "Fraction of floor covered", id: "beta", min: 0, max: 0.05, step: 0.0005, value: beta,
+    format: function (v) { return (v * 100).toFixed(2) + "%"; },
+    onInput: function (v) { beta = v; render(); },
+  });
+  const sL = Viz.slider(controls, {
+    label: "Chamber height L", id: "L", min: 1, max: 30, step: 1, value: Lmm,
+    format: function (v) { return v + " mm"; },
+    onInput: function (v) { Lmm = v; render(); },
+  });
+  Viz.button(controls, "The worked example", function () { sBeta.value = 0.01; sL.value = 10; });
+  Viz.button(controls, "The real apparatus (L = 1 mm)", function () { sL.value = 1; });
+})();
+
+
+/* ===========================================================================
+   ANIMATION 3 — Count the fringes.
+
+   A downward beam reflects first from the ice/vacuum top surface, then again
+   from the ice/substrate boundary underneath, and the two interfere.  One full
+   dim-bright-dim cycle corresponds to a fixed thickness step set by the
+   wavelength and by the refractive index of ice.  Libbrecht, Snow Crystals,
+   printed pp. 228-229 and Figure 7.10 (printed p. 259).
+
+   The horizontal axis is thickness GAINED since counting began, not absolute
+   thickness: the monograph states no brightness for a crystal of zero
+   thickness, and the laser method "does not yield absolute thickness
+   measurements" (printed p. 229), so none is asserted here.  The trace simply
+   starts at a dim minimum, which is where an operator would start counting.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("anim-fringes");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const W = 620, H = 300;
+  let rate = 0.45;          // fringes per second
+  let h = 0;                // thickness, in fringes
+  const H_MAX = 6;
+
+  /* Counting starts at a dim minimum, so each counted fringe runs
+     dim -> bright -> dim, matching the photographs of Figure 7.10. */
+  function brightness(hh) { const p = Math.sin(Math.PI * hh); return p * p; }
+
+  /* Built once; each frame clears only the drawing, not the accessible nodes. */
+  const svg = Viz.createSvg(body, W, H, {
+    label: "Left: a crystal thickening on a transparent substrate with a laser beam reflecting " +
+           "from its top surface and from the substrate underneath it. Right: the brightness of " +
+           "the reflected spot plotted against the thickness gained since counting began.",
+    desc: "A crystal thickens steadily and the reflected spot cycles from dim to bright and back.",
+  });
+  const KEEP = svg.childNodes.length;          // <title> and <desc>
+  const descNode = svg.querySelector("desc");
+  let descAt = 0;
+
+  function updateDesc() {
+    const now = Date.now();
+    if (now - descAt < 400) return;            // a few times a second, not 60
+    descAt = now;
+    descNode.textContent =
+      "The crystal has gained " + h.toFixed(2) + " fringes of thickness since counting began, and " +
+      Math.floor(h) + " full dim-bright-dim cycles have been counted.";
+  }
+
+  function render() {
+    const c = Viz.colors();
+    while (svg.childNodes.length > KEEP) svg.removeChild(svg.lastChild);
+    updateDesc();
+
+    /* ---------------- LEFT: the crystal and the spot ---------------- */
+    const SUB_Y = 214, CX = 108, HALF = 38;
+    const px = 8 + (h / H_MAX) * 118;   // drawn crystal height
+
+    // substrate
+    svg.appendChild(Viz.svgEl("rect", {
+      x: 30, y: SUB_Y, width: 170, height: 16, fill: c.rule, opacity: 0.8,
+    }));
+    let t = Viz.svgEl("text", { x: 30, y: SUB_Y + 34, class: "annotation" });
+    t.setAttribute("fill", c.muted);
+    t.textContent = "transparent substrate";
+    svg.appendChild(t);
+
+    // the ice column
+    svg.appendChild(Viz.svgEl("rect", {
+      x: CX - HALF, y: SUB_Y - px, width: HALF * 2, height: px,
+      fill: c.series[0], opacity: 0.28, stroke: c.series[0], "stroke-width": 2,
+    }));
+    t = Viz.svgEl("text", {
+      class: "series-label", x: CX - HALF + 6, y: SUB_Y - 8, fill: c.series[0],
+    });
+    t.textContent = "ice";
+    svg.appendChild(t);
+
+    // incoming beam
+    svg.appendChild(Viz.svgEl("line", {
+      x1: CX - 18, y1: 34, x2: CX - 18, y2: SUB_Y - px, stroke: c.inkSecondary,
+      "stroke-width": 1.6, "stroke-dasharray": "4 3",
+    }));
+    t = Viz.svgEl("text", { x: 22, y: 40, class: "annotation" });
+    t.setAttribute("fill", c.inkSecondary);
+    t.textContent = "laser in";
+    svg.appendChild(t);
+
+    // the two reflections, drawn side by side so the extra path length is visible
+    svg.appendChild(Viz.svgEl("line", {
+      x1: CX + 8, y1: SUB_Y - px, x2: CX + 8, y2: 56, stroke: c.series[1], "stroke-width": 1.6,
+    }));
+    svg.appendChild(Viz.svgEl("line", {
+      x1: CX + 24, y1: SUB_Y, x2: CX + 24, y2: 56, stroke: c.series[1], "stroke-width": 1.6,
+      "stroke-dasharray": "3 3",
+    }));
+    const AX = CX + HALF + 14;
+    t = Viz.svgEl("text", { class: "series-label", x: AX, y: 100, fill: c.series[1] });
+    t.textContent = "two reflections";
+    svg.appendChild(t);
+    t = Viz.svgEl("text", { x: AX, y: 116, class: "annotation" });
+    t.setAttribute("fill", c.muted);
+    t.textContent = "one goes 2× the";
+    svg.appendChild(t);
+    t = Viz.svgEl("text", { x: AX, y: 130, class: "annotation" });
+    t.setAttribute("fill", c.muted);
+    t.textContent = "thickness further";
+    svg.appendChild(t);
+
+    // the spot
+    const b = brightness(h);
+    svg.appendChild(Viz.svgEl("circle", {
+      cx: CX + 8, cy: 44, r: 15, fill: c.sunken, stroke: c.rule, "stroke-width": 1,
+    }));
+    svg.appendChild(Viz.svgEl("circle", {
+      cx: CX + 8, cy: 44, r: 13, fill: c.series[1], opacity: (0.05 + 0.95 * b).toFixed(3),
+    }));
+
+    /* ---------------- RIGHT: the brightness trace ---------------- */
+    const PX0 = 300, PX1 = 588, PY0 = 200, PY1 = 60;
+    const xs = Viz.scaleLinear([0, H_MAX], [PX0, PX1]);
+    const ys = Viz.scaleLinear([0, 1], [PY0, PY1]);
+
+    Viz.axisLeft(svg, ys, {
+      x: PX0, values: [0, 1], format: function (v) { return v ? "bright" : "dim"; },
+      grid: true, gridTo: PX1,
+    });
+    Viz.axisBottom(svg, xs, {
+      y: PY0, values: [0, 1, 2, 3, 4, 5, 6],
+      title: "thickness gained since counting began, in fringes",
+    });
+
+    const pts = [];
+    for (let x = 0; x <= H_MAX; x += 0.02) pts.push([x, brightness(x)]);
+    Viz.series(svg, pts, xs, ys, { color: c.series[1], width: 1.6 });
+
+    // completed cycles
+    for (let k = 1; k <= Math.floor(h); k++) {
+      svg.appendChild(Viz.svgEl("line", {
+        x1: xs(k), y1: PY0, x2: xs(k), y2: PY1, stroke: c.series[1],
+        "stroke-width": 1, "stroke-dasharray": "2 4", opacity: 0.7,
+      }));
+    }
+
+    // where we are now
+    svg.appendChild(Viz.svgEl("circle", {
+      cx: xs(h), cy: ys(b), r: 5, fill: c.series[1],
+    }));
+
+    t = Viz.svgEl("text", { x: PX0, y: 40, fill: c.ink });
+    t.setAttribute("style", "font-size:26px;font-weight:700;font-variant-numeric:tabular-nums");
+    t.textContent = Math.floor(h) + " fringes counted";
+    svg.appendChild(t);
+
+    t = Viz.svgEl("text", { x: PX0, y: PY0 + 52, class: "annotation" });
+    t.setAttribute("fill", c.inkSecondary);
+    t.textContent = "each fringe is the same fixed step in thickness —";
+    svg.appendChild(t);
+    t = Viz.svgEl("text", { x: PX0, y: PY0 + 68, class: "annotation" });
+    t.setAttribute("fill", c.inkSecondary);
+    t.textContent = "so counting them measures growth";
+    svg.appendChild(t);
+  }
+
+  let t0 = 0;
+  function tick(time) {
+    h = Math.max(0, (time - t0) * rate) % H_MAX;
+    render();
+  }
+
+  const anim = Viz.animate(root, tick, { staticAt: 4, stepBy: 0.5 });
+  Viz.onThemeChange(render);
+
+  Viz.slider(controls, {
+    label: "Growth rate", id: "rate", min: 0.08, max: 1.2, step: 0.02, value: rate,
+    format: function (v) { return v.toFixed(2) + " fringes/s"; },
+    onInput: function (v) { t0 = anim.time - (h / v); rate = v; anim.seek(anim.time); },
+  });
+  Viz.button(controls, "Restart", function () { t0 = anim.time; anim.seek(anim.time); });
+})();
+
+
+/* ===========================================================================
+   CHART 4 — The ceiling made of fog.
+
+   sigma_water(T) = [c_water - c_ice] / c_ice = p_water/p_ice - 1, since both
+   densities are taken at the same temperature and c = p/kT.  With
+     p_ice   ~ 3.7e10 * exp(-6150 / T_K)                    (Eq. 2.8, p. 58)
+     p_water ~ (2.8e9 + 1700 T_C^3) * exp(-5450 / T_K)      (Eq. 2.8, p. 58)
+
+   The clamp at sigma_water is described on printed p. 345 and p. 349.  It is
+   the ceiling for the atmosphere as well as for the apparatus, so fernlike
+   stellar dendrites are marked ON the curve, never above it: printed p. 349
+   says only that the substrate fog keeps the local supersaturation too low,
+   and no number for "how much higher" is given anywhere in the source.
+   The -10 C to -20 C band in which the plate-on-pedestal geometry survives
+   follows printed p. 330 ("within several degrees of -15 C") together with
+   printed p. 345 (transitioning to -10 C).  Fishbone: printed p. 86.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("chart-reachable");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  function pIce(tC) { return 3.7e10 * Math.exp(-6150 / (tC + 273.15)); }
+  function pWater(tC) {
+    return (2.8e9 + 1700 * tC * tC * tC) * Math.exp(-5450 / (tC + 273.15));
+  }
+  /* as a percentage. The two Arrhenius fits cross each other a couple of
+     degrees below zero, so clamp rather than draw a negative supersaturation. */
+  function sigmaWater(tC) { return Math.max(0, (pWater(tC) / pIce(tC) - 1) * 100); }
+
+  const W = 690, H = 512;
+  const M = { top: 34, right: 158, bottom: 118, left: 68 };
+  const x0 = M.left, x1 = W - M.right, y0 = H - M.bottom, y1 = M.top;
+
+  const T_WARM = -10, T_COLD = -20;      // the plate-on-pedestal working band
+
+  const xs = Viz.scaleLinear([0, -30], [x0, x1]);      // 0 °C left, colder right
+  const ys = Viz.scaleLinear([0, 40], [y0, y1]);
+
+  const curve = [];
+  for (let t = 0; t >= -30.0001; t -= 0.2) curve.push([t, sigmaWater(t)]);
+
+  const svg = Viz.createSvg(body, W, H, {
+    label: "The supersaturation at which liquid water and vapour balance, plotted against " +
+           "temperature. It is the ceiling for the plate-on-pedestal method and for the sky alike.",
+    desc: "The curve rises from zero near 0 degrees Celsius to about 30 per cent at minus 30. " +
+          "Water droplets become stable on this line, so neither a cloud nor the plate-on-pedestal " +
+          "apparatus can push much past it. A shaded band from minus 10 to minus 20 degrees, below " +
+          "the curve, marks where the plate-on-pedestal geometry survives. Fernlike stellar " +
+          "dendrites are marked on the curve at minus 15, not above it. Fishbone dendrites are " +
+          "marked above the curve near minus 5, in the only region a laboratory reaches and the " +
+          "sky does not.",
+  });
+  const KEEP = svg.childNodes.length;
+
+  function alongCurve(tFrom, tTo) {
+    return curve.filter(function (p) {
+      return p[0] <= tFrom + 1e-9 && p[0] >= tTo - 1e-9;
+    });
+  }
+  function curvePath(pts) {
+    return pts.map(function (p, i) {
+      return (i ? "L " : "M ") + xs(p[0]).toFixed(1) + " " + ys(p[1]).toFixed(1);
+    }).join(" ");
+  }
+  /* the strip between the curve and the zero line, over a temperature range */
+  function belowPath(tFrom, tTo) {
+    return "M " + xs(tFrom).toFixed(1) + " " + ys(0).toFixed(1) + " " +
+           curvePath(alongCurve(tFrom, tTo)).replace(/^M/, "L") +
+           " L " + xs(tTo).toFixed(1) + " " + ys(0).toFixed(1) + " Z";
+  }
+
+  function label(x, y, lines, fill, anchor) {
+    lines.forEach(function (line, i) {
+      const n = Viz.svgEl("text", {
+        x: x, y: y + i * 15, class: "annotation", "text-anchor": anchor || "start",
+      });
+      n.setAttribute("fill", fill);
+      n.textContent = line;
+      svg.appendChild(n);
+    });
+  }
+
+  /* A marker sitting ON the curve: a thickened stretch of the line plus a dot,
+     with the text hung below it. Nothing is drawn above the curve, because the
+     monograph gives no supersaturation requirement for fernlike dendrites —
+     only the statement that the substrate fog holds the local value too low. */
+  function onCurve(tC, textTop, lines, colour) {
+    const x = xs(tC), yc = ys(sigmaWater(tC));
+    svg.appendChild(Viz.svgEl("path", {
+      d: curvePath(alongCurve(tC + 1.6, tC - 1.6)),
+      fill: "none", stroke: colour, "stroke-width": 5.5, "stroke-linecap": "round",
+    }));
+    svg.appendChild(Viz.svgEl("circle", { cx: x, cy: yc, r: 4.5, fill: colour }));
+    svg.appendChild(Viz.svgEl("line", {
+      x1: x, y1: yc + 9, x2: x, y2: textTop - 12, stroke: colour,
+      "stroke-width": 1.5, "stroke-dasharray": "4 3",
+    }));
+    label(x + 8, textTop, lines, colour, "start");
+  }
+
+  /* A dot on the curve plus a dashed leader pointing up into the closed-off
+     region. The leader is a direction cue only — its length says nothing about
+     how much extra supersaturation the crystal needs, which is not a number the
+     monograph gives. */
+  function casualty(tC, textTop, lines, c) {
+    const x = xs(tC), yc = ys(sigmaWater(tC));
+    const yTip = textTop + (lines.length - 1) * 15 + 12;
+    svg.appendChild(Viz.svgEl("line", {
+      x1: x, y1: yc - 7, x2: x, y2: yTip, stroke: c.series[1],
+      "stroke-width": 1.5, "stroke-dasharray": "4 3",
+    }));
+    svg.appendChild(Viz.svgEl("path", {
+      d: "M " + (x - 4) + " " + (yTip + 7) + " L " + x + " " + yTip +
+         " L " + (x + 4) + " " + (yTip + 7),
+      fill: "none", stroke: c.series[1], "stroke-width": 1.8, "stroke-linejoin": "round",
+    }));
+    svg.appendChild(Viz.svgEl("circle", { cx: x, cy: yc, r: 4.5, fill: c.series[1] }));
+    label(x, textTop, lines, c.ink, "middle");
+  }
+
+  function render() {
+    const c = Viz.colors();
+    while (svg.childNodes.length > KEEP) svg.removeChild(svg.lastChild);
+
+    /* ---- three regions, each shaded and each labelled in words ---- */
+    // everything under the curve: no fog forms here
+    svg.appendChild(Viz.svgEl("path", {
+      d: belowPath(0, -30), fill: c.series[0], "fill-opacity": 0.07,
+    }));
+    // the slice of it the plate-on-pedestal geometry actually survives in
+    svg.appendChild(Viz.svgEl("path", {
+      d: belowPath(T_WARM, T_COLD), fill: c.series[0], "fill-opacity": 0.2,
+    }));
+    // above the curve: droplets condense and clamp the supersaturation
+    svg.appendChild(Viz.svgEl("path", {
+      d: curvePath(curve) + " L " + xs(-30).toFixed(1) + " " + ys(40) +
+         " L " + xs(0).toFixed(1) + " " + ys(40) + " Z",
+      fill: c.series[1], "fill-opacity": 0.08,
+    }));
+
+    // the two band edges, drawn only where the band is
+    [T_WARM, T_COLD].forEach(function (t) {
+      svg.appendChild(Viz.svgEl("line", {
+        x1: xs(t), y1: y0, x2: xs(t), y2: ys(sigmaWater(t)), stroke: c.series[0],
+        "stroke-width": 1.2, "stroke-dasharray": "3 4", opacity: 0.75,
+      }));
+    });
+
+    /* ---- axes ---- */
+    Viz.axisLeft(svg, ys, {
+      x: x0, values: [0, 10, 20, 30, 40], grid: true, gridTo: x1,
+      format: function (v) { return v + "%"; },
+      title: "Spare vapour, over ice balance",
+    });
+    Viz.axisBottom(svg, xs, {
+      y: y0, values: [0, -5, -10, -15, -20, -25, -30],
+      title: "Temperature (°C)", titleOffset: 46,
+    });
+
+    /* ---- the temperature bracket, under the axis ---- */
+    const yB = y0 + 68;
+    svg.appendChild(Viz.svgEl("path", {
+      d: "M " + xs(T_WARM).toFixed(1) + " " + (yB - 7) + " L " + xs(T_WARM).toFixed(1) + " " + yB +
+         " L " + xs(T_COLD).toFixed(1) + " " + yB + " L " + xs(T_COLD).toFixed(1) + " " + (yB - 7),
+      fill: "none", stroke: c.series[0], "stroke-width": 1.4,
+    }));
+    label(xs(-15), yB + 16, [
+      "The plate-on-pedestal structure only holds together",
+      "within several degrees of −15 °C (printed p. 330)",
+    ], c.series[0], "middle");
+
+    /* ---- the curve itself, directly labelled ---- */
+    Viz.series(svg, curve, xs, ys, { color: c.series[0], width: 2.4 });
+    const key = Viz.svgEl("text", {
+      class: "series-label", x: x1 + 10, y: ys(sigmaWater(-30)) + 4, fill: c.series[0],
+    });
+    key.appendChild(document.createTextNode("σ"));
+    const sub = Viz.svgEl("tspan", { dy: 4, "font-size": "9" });
+    sub.textContent = "water";
+    key.appendChild(sub);
+    svg.appendChild(key);
+    label(x1 + 10, ys(sigmaWater(-30)) + 22, [
+      "droplets become", "stable on this line —", "in a cloud and on", "a substrate alike",
+    ], c.muted);
+
+    /* ---- region wording ---- */
+    label(x0 + 14, y1 + 22, [
+      "Above: droplets condense and hold the air at water saturation.",
+      "Neither the sky nor the apparatus gets much past this line.",
+    ], c.series[1]);
+
+    /* ---- the crystal that sits at the ceiling, and the one above it ---- */
+    onCurve(-15, 300, [
+      "fernlike stellar dendrites sit right on",
+      "this ceiling (printed p. 349): a crystal",
+      "falling free through a cloud can work at",
+      "it, one on a fogging substrate cannot",
+    ], c.series[2]);
+
+    casualty(-5, 205, [
+      "fishbone dendrites need",
+      "more than nature ever",
+      "supplies (printed p. 86):",
+      "a laboratory creation only",
+    ], c);
+  }
+
+  render();
+  Viz.onThemeChange(render);
+  Viz.legend(controls, [
+    { color: Viz.colors().series[0], label: "Where plate-on-pedestal works" },
+    { color: Viz.colors().series[1], label: "Clamped out by the droplet fog" },
+    { color: Viz.colors().series[2], label: "At the ceiling: fernlike stellar dendrites" },
+  ]);
+})();
+</script>
+</body>
+</html>

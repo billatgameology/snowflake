@@ -1,509 +1,261 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Snowflake Growth 101 - Mini-Course</title>
-    <link rel="stylesheet" href="./education.css" />
-  </head>
-  <body>
-    <div class="aurora"></div>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snow Crystals — the science of how a snowflake is made</title>
+<meta name="description" content="A complete, fully cited course on snowflake science: why ice has six sides, where the arms come from, why the shape flips between plates and columns, and what nobody has worked out yet.">
+<link rel="stylesheet" href="./assets/education.css">
+</head>
+<body data-depth="0">
 
-    <header class="hero">
-      <p class="eyebrow">Educational site</p>
-      <h1>Snowflake Growth 101</h1>
-      <p class="lead">
-        A 10- to 15-minute mini-course for curious students and scientifically trained readers.
-        Part 1 explains snow physics; part 2 explains this project&rsquo;s simulator architecture.
+<a class="skip-link" href="#contents">Skip to the contents</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="./index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__spacer"></span>
+  <span class="topbar__crumb"><a href="./glossary.html">Glossary</a> &middot; <a href="./references.html">References</a></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+
+  <section class="hero">
+    <h1 class="hero__title">How a snowflake is made</h1>
+    <p class="hero__lead">
+      A snow crystal is built entirely out of water vapour, by nothing but physics, with no plan
+      and no template anywhere in the process. This is the whole story of how that works &mdash;
+      from the shape of a single water molecule to the questions nobody has answered yet.
+      Every claim is cited. Every diagram you can check.
+    </p>
+    <div class="hero__actions">
+      <a class="button button--primary" href="./chapters/01-not-a-frozen-raindrop.html">Start reading</a>
+      <a class="button button--ghost" href="#contents">See the contents</a>
+    </div>
+  </section>
+
+  <figure class="anim is-wide" id="hero-anim">
+    <div class="anim__head">
+      <p class="anim__title">This is not a video</p>
+      <p class="anim__sub">
+        It is the physics from Chapter&nbsp;6 running in your browser right now: a crystal eating
+        the water vapour around it, on a hexagonal lattice. The six arms are not drawn in &mdash;
+        they emerge, because the parts that stick out reach fresher air.
       </p>
-      <div class="hero-actions">
-        <a href="#part1">Start with physics</a>
-        <a href="#part2">Then the simulator model</a>
-        <a href="#mini-lab">Try the mini-lab</a>
+    </div>
+    <div class="anim__body"></div>
+    <div class="anim__controls"></div>
+    <figcaption class="anim__foot">
+      <span class="built-from">Original simulation. The growth rule and the quasi-static vapour
+      field follow the diffusion-limited growth described in Libbrecht,
+      <em>Snow Crystals</em> (arXiv:1910.06389v2), chapter&nbsp;3.</span>
+    </figcaption>
+  </figure>
+
+  <section id="how-to-read">
+    <h2>How to read this site</h2>
+
+    <div class="toc-grid" style="margin-bottom:1rem">
+      <div class="toc-card" style="cursor:default">
+        <span class="toc-card__num">Read it straight through</span>
+        <p class="toc-card__q">
+          The chapters are in strict dependency order. Nothing is used before it is explained, so
+          if you start at Chapter&nbsp;1 and keep going you will never hit a word you have not
+          already met. Close to four hours of reading end to end &mdash; longer if you stop to play
+          with the animations, which you should. Parts&nbsp;I&ndash;III make a natural first sitting
+          and IV&ndash;V a second.
+        </p>
       </div>
-    </header>
-
-    <main>
-      <section class="card course-map">
-        <h2>How long this lesson is designed to take</h2>
-        <ol class="compact-list">
-          <li><strong>Part 1:</strong> physics and equations (about 5 minutes)</li>
-          <li><strong>Part 2:</strong> how this project computes steps (about 4 minutes)</li>
-          <li><strong>Mini-lab:</strong> interact and map knobs to outcomes (about 4 minutes)</li>
-          <li><strong>Rigor:</strong> reproducibility and gates (about 2 minutes)</li>
-        </ol>
-      </section>
-
-      <nav class="toc card">
-        <a href="#part1">Part 1: Physics</a>
-        <a href="#part2">Part 2: Simulation</a>
-        <a href="#mini-lab">Mini-lab</a>
-        <a href="#rigor">Reproducibility</a>
-        <a href="#references">References</a>
-      </nav>
-
-      <section id="part1" class="lesson card">
-        <p class="kicker">Part 1 of 2</p>
-        <h2>Snowflake physics first</h2>
-        <p>
-          Snowflake growth is mostly a story about a gas, an interface, and a balance condition.
-          This section teaches the ideas first; Part 2 shows how this repository turns them into
-          update steps.
+      <div class="toc-card" style="cursor:default">
+        <span class="toc-card__num">Or jump to what you want</span>
+        <p class="toc-card__q">
+          Each chapter opens with the question it answers and closes by handing you to the next
+          one. If you only want to know why snowflakes have six sides, Chapter&nbsp;3 is
+          self-contained enough to read alone.
         </p>
-
-        <div class="split-layout">
-          <div>
-            <h3>1) Thermodynamic framing: vapor <-> solid water</h3>
-            <p>
-              Start from the process statement:
-            </p>
-            <pre><code>H2O(s) &lt;-&gt; H2O(g)</code></pre>
-            <p>
-              Libbrecht's framework keeps this as a single coupled process: transport sets the local supersaturation,
-              the interface law converts that into a growth flux, and the growing boundary changes the transport field.
-              The one-way behavior you see in this repo is an implementation policy for this educational path;
-              the paper model keeps the coupled equilibrium logic explicit in both transport and surface terms.
-            </p>
-
-            <h3>2) What are <code>rho</code> and <code>sigma</code>? (do not skip this)</h3>
-            <p>
-              Think of one small grid cell as a tiny room.
-            </p>
-            <ul class="compact-list">
-              <li>
-                <code>rho</code> = local vapor number density in the field (what is actually present in that room).
-              </li>
-              <li>
-                <code>rhoSat(T)</code> = balanced vapor density at temperature <code>T</code>:
-                the density where local net flux can be zero if geometry and history are exactly balanced.
-              </li>
-            </ul>
-            <p>
-              Their relationship is the local growth driving term:
-            </p>
-            <pre><code>sigma = rho / rhoSat(T) - 1</code></pre>
-            <p>Equivalent form:</p>
-            <pre><code>sigma = (rho - rhoSat(T)) / rhoSat(T)</code></pre>
-            <p>
-              A small-σ approximation used in thermodynamic derivations is:
-            </p>
-            <pre><code>Δμ / (kT) ≈ ln(1+sigma) ≈ sigma</code></pre>
-            <p>
-              This is the same normalization used in both `attachment-kinetics.md` and the papers:
-            </p>
-            <ul class="compact-list">
-              <li><code>sigma > 0</code>: supersaturation, attachment-favorable.</li>
-              <li><code>sigma = 0</code>: equilibrium.</li>
-              <li><code>sigma < 0</code>: undersaturation in this formulation.</li>
-            </ul>
-            <p>Numerical examples:</p>
-            <ul class="compact-list">
-              <li><code>rhoSat(T)=100</code>, <code>rho=110</code> <span>→</span> <code>sigma=0.10</code>.</li>
-              <li><code>rhoSat(T)=100</code>, <code>rho=97</code> <span>→</span> <code>sigma=-0.03</code>.</li>
-              <li><code>rho=100</code> (same as <code>rhoSat</code>) <span>→</span> <code>sigma=0</code>.</li>
-            </ul>
-            <p>
-              In this project, positive <code>sigma</code> contributes to attachment demand through the interface law.
-            </p>
-
-            <h3>3) Why diffusion sits in the pre-step</h3>
-            <p>
-              In continuum form:
-            </p>
-            <pre><code>d(rho)/dt = D * laplacian(rho)</code></pre>
-            <p>
-              In this simulator, each cycle treats diffusion as quasi-static:
-            </p>
-            <pre><code>laplacian(rho) = 0</code></pre>
-            <p>
-              The boundary condition is not imposed by hand as a fixed formula. It is solved from:
-            </p>
-            <ul class="compact-list">
-              <li>far field condition (Dirichlet or reflecting), and</li>
-              <li>the surface exchange law derived from kinetics.</li>
-            </ul>
-            <p>Libbrecht calls this link by the kinetic-length form:</p>
-            <pre><code>X0(T,P) * (∂sigma/∂n)_surf = alphaHK * sigma_b</code></pre>
-            <p>
-              where <code>X0 = (cSat/cIce) * D / v_kin</code> and <code>sigma_b</code> is the boundary supersaturation from
-              the neighboring vapor sample.
-            </p>
-
-            <div class="equation-card mini-note">
-              <h3>In plain language</h3>
-              <p>
-                Imagine every cell trying to average with neighbors. The solver asks for the fixed point of that diffusion
-                interaction, then asks whether the interface coupling says how much ice should be added there.
-              </p>
-            </div>
-
-            <h3>4) Why kinetics is the hard part (and where habits come from)</h3>
-            <p>
-              The attachment law that connects supersaturation to shape change is:
-            </p>
-            <pre><code>v_n = alphaHK * v_kin(T) * sigma_surf</code></pre>
-            <p>
-              with the exponential nucleation form:
-            </p>
-            <pre><code>alphaHK(T, sigma_surf) = A(T) * exp(-sigma0(T) / sigma_surf)</code></pre>
-            <p>
-              This is the central nonlinearity: small changes in local supersaturation can produce large changes in growth
-              speed. On broad basal and prism facets this is where temperature-dependent habit switching enters:
-              where basal has much smaller <code>alphaHK</code>, prism wins and you get plates, and vice versa for columns.
-              The monograph and phase-paper both identify this as the bridge between measured kinetics and morphology.
-            </p>
-
-            <h3>5) What this model keeps and what it omits</h3>
-            <p>
-              Kept from source-backed equations: quasi-static vapor solve, Kelvin-like interface coupling, the kinetic law,
-              geometry-dependent facet classification, and deterministic fill accumulation. Deliberately limited here:
-              full stochastic terrace nucleation, full latent-heat coupling, and full signed-terrace width dynamics are
-              not treated in the baseline path.
-            </p>
-            <p>
-              That design choice is not a retreat; it is an explicit "what is in scope now" choice. Every missing term is
-              called out and can become a future operator phase with its own ADR and protocol.
-            </p>
-          </div>
-
-          <div class="diagram-card">
-            <div class="diagram-label">Animated microphysics sketch</div>
-            <svg class="diagram" viewBox="0 0 540 320" role="img" aria-label="Animated vapor and seed sketch">
-              <defs>
-                <linearGradient id="airCore" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#eaf8ff" />
-                  <stop offset="100%" stop-color="#bde8ff" />
-                </linearGradient>
-                <radialGradient id="seedGlow" cx="50%" cy="50%" r="55%">
-                  <stop offset="0%" stop-color="#eef9ff" />
-                  <stop offset="100%" stop-color="#8ad4ff" stop-opacity="0.3" />
-                </radialGradient>
-              </defs>
-              <rect x="0" y="0" width="540" height="320" fill="url(#airCore)" />
-              <g class="molecules">
-                <circle class="molecule" cx="120" cy="70" r="4" />
-                <circle class="molecule" cx="200" cy="40" r="3.4" />
-                <circle class="molecule" cx="300" cy="60" r="3.9" />
-              </g>
-              <line class="field-arrow" x1="270" y1="165" x2="270" y2="250" />
-              <line class="field-arrow" x1="420" y1="90" x2="480" y2="150" />
-              <text x="270" y="276" text-anchor="middle" class="label">vapor cloud and concentration gradient</text>
-              <g class="seed-layer">
-                <circle cx="270" cy="165" r="58" fill="url(#seedGlow)" />
-                <circle cx="270" cy="165" r="14" fill="#0d678a" />
-                <g class="seed-arms">
-                  <line x1="270" y1="165" x2="270" y2="90" />
-                  <line x1="270" y1="165" x2="335" y2="126" />
-                  <line x1="270" y1="165" x2="335" y2="204" />
-                  <line x1="270" y1="165" x2="205" y2="204" />
-                  <line x1="270" y1="165" x2="205" y2="126" />
-                </g>
-                <g class="seed-arms">
-                  <line x1="270" y1="165" x2="270" y2="210" />
-                  <line x1="270" y1="165" x2="314" y2="178" />
-                  <line x1="270" y1="165" x2="226" y2="178" />
-                </g>
-              </g>
-            </svg>
-          </div>
-        </div>
-
-        <p class="bridge-note">
-          Part 1 introduces the full equations from the papers in conceptual form; Part 2 shows how these are implemented
-          in the discrete update cycle, including field solve convergence and checkpointed ledger semantics.
+      </div>
+      <div class="toc-card" style="cursor:default">
+        <span class="toc-card__num">Two kinds of picture</span>
+        <p class="toc-card__q">
+          <strong>Source figures</strong> come from the published papers and carry a strip naming
+          the paper, figure and page. <strong>Original diagrams and animations</strong> are ours
+          and carry a &ldquo;built from&rdquo; line naming the equation or measurement behind
+          them. You can always tell which is which.
         </p>
+      </div>
+    </div>
 
-        <div class="equation-grid">
-          <article class="equation-card">
-            <h3>Hertz-Knudsen interface law (teaching form)</h3>
-            <pre><code>J_HK = alphaHK * v_kin(T) * cSat(T) * sigma_b</code></pre>
-            <p>
-              In this form, <code>J_HK</code> is flux into the surface: `alphaHK` is the attachment coefficient,
-              `v_kin(T)` is the kinetic speed scale, `cSat(T)` is equilibrium vapor scaling, and `sigma_b` is
-              boundary supersaturation.
-            </p>
-          </article>
-          <article class="equation-card">
-            <h3>Boundary fill proxy (concept shape only)</h3>
-            <pre><code>delta_fill = alphaHK * v_kin * sigma_b * dt / (hB * dx)</code></pre>
-            <p>
-              The interface state stores this as a dimensionless accumulator update. Each pixel is treated deterministically:
-              fill increases, and the pixel becomes ice when accumulated fill reaches one. Physical uptake is measured as
-              geometry-adjusted fill demand; relaxation exchange terms are explicitly tracked as diagnostics.
-            </p>
-          </article>
-        </div>
+    <aside class="callout callout--method">
+      <p class="callout__label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+        </svg>
+        If a figure is missing, that is on purpose
+      </p>
+      <p>
+        The photographs and plots on this site belong to Kenneth&nbsp;G.&nbsp;Libbrecht, whose work
+        is the source for nearly everything here. They are shown under citation and are
+        deliberately <strong>not stored in this repository</strong>, because committing them would
+        republish someone else&rsquo;s copyrighted work. If you are reading a fresh copy without the
+        local research cache, those figures appear as a labelled placeholder with the full citation
+        intact &mdash; and everything else, including every animation, still works.
+        <a href="./FIGURES.md">FIGURES.md</a> explains how to restore them.
+      </p>
+    </aside>
+  </section>
 
-        <p class="mini-note">
-          Local references for deeper study:
-          <a href="../attachment-kinetics.md">attachment-kinetics.md</a>,
-          <a href="../gg-machinery.md">gg-machinery.md</a>,
-          <a href="../libbrecht-parameters.md">libbrecht-parameters.md</a>,
-          <a href="../monograph-review.md">monograph-review.md</a>,
-          <a href="https://arxiv.org/abs/1910.09067">K. Libbrecht 1910.09067</a>,
-          <a href="https://arxiv.org/abs/1910.06389">Snow Crystals monograph 1910.06389</a>.
-        </p>
-      </section>
+  <section id="contents">
+    <h2>Contents</h2>
+    <p style="max-width:var(--measure);color:var(--ink-secondary)">
+      Thirteen chapters. The first three say what the object is; the next three build the two
+      forces that shape it; then you meet the shapes themselves, and the puzzle they pose. The
+      answer arrives only after you have seen how the measurements behind it were actually made.
+    </p>
 
-      <section id="part2" class="lesson card">
-        <p class="kicker">Part 2 of 2</p>
-        <h2>How this simulator works</h2>
-        <p>
-          The simulator follows one explicit loop each step:
-          <strong>compute field &rarr; quality checks &rarr; boundary growth &rarr; ledger and checkpoint</strong>.
-        </p>
+    <div class="part-heading">
+      <span class="part-heading__num">Part I &middot; What a snowflake is</span>
+      <span class="part-heading__rule"></span>
+    </div>
+    <ul class="toc-grid">
+      <li><a class="toc-card" href="./chapters/01-not-a-frozen-raindrop.html">
+        <span class="toc-card__num">Chapter 1</span>
+        <p class="toc-card__title">Not a Frozen Raindrop</p>
+        <p class="toc-card__q">What is actually landing on your sleeve, and where did it come from?</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/02-four-hundred-years-of-looking.html">
+        <span class="toc-card__num">Chapter 2</span>
+        <p class="toc-card__title">Four Hundred Years of Looking</p>
+        <p class="toc-card__q">Who first asked why snowflakes have six sides &mdash; and how did anyone ever find out?</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/03-why-six-sides.html">
+        <span class="toc-card__num">Chapter 3</span>
+        <p class="toc-card__title">Why Six Sides</p>
+        <p class="toc-card__q">What is ice actually made of, and where does the six come from?</p>
+      </a></li>
+    </ul>
 
-        <div class="split-layout">
-          <div>
-            <h3>One run step: what changes and what does not</h3>
-            <ol class="flow-steps">
-              <li>
-                <strong>Build state:</strong> seed, active cells, walls, far-field, temperature, and controls.
-              </li>
-              <li>
-                <strong>Solve vapor field:</strong> quasi-static Laplace-like solve on active lattice cells.
-              </li>
-              <li>
-                <strong>Quality gates:</strong> residual and divergence are checked.
-              </li>
-              <li>
-                <strong>Growth operator:</strong> either G-G machinery or LibbrechtKinetics boundary policy runs.
-              </li>
-              <li>
-                <strong>Ledger + checkpoint:</strong> exact bytes are written for replay and evidence.
-              </li>
-            </ol>
+    <div class="part-heading">
+      <span class="part-heading__num">Part II &middot; The two forces that shape it</span>
+      <span class="part-heading__rule"></span>
+    </div>
+    <ul class="toc-grid">
+      <li><a class="toc-card" href="./chapters/04-the-fuel-supply.html">
+        <span class="toc-card__num">Chapter 4</span>
+        <p class="toc-card__title">The Fuel Supply</p>
+        <p class="toc-card__q">Where does a growing snowflake get its water, and how does it arrive?</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/05-the-restless-surface.html">
+        <span class="toc-card__num">Chapter 5</span>
+        <p class="toc-card__title">The Restless Surface</p>
+        <p class="toc-card__q">Why does ice bother to be flat-sided &mdash; and why is that the opposite of what most people are told?</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/06-the-runaway-bump.html">
+        <span class="toc-card__num">Chapter 6</span>
+        <p class="toc-card__title">The Runaway Bump</p>
+        <p class="toc-card__q">Where do the arms come from, and why is a perfectly smooth crystal impossible?</p>
+      </a></li>
+    </ul>
 
-            <div class="equation-grid dense">
-              <article class="equation-card">
-                <h3>Residual</h3>
-                <pre><code>R = ||A*x - b||_inf</code></pre>
-                <p>
-                  Residual is the largest mismatch in the solve equations. Smaller values mean the
-                  field changed to something close to equilibrium consistency.
-                </p>
-              </article>
-              <article class="equation-card">
-                <h3>Divergence</h3>
-                <pre><code>div = max abs(cellwise flux balance error)</code></pre>
-                <p>
-                  Divergence checks whether the discrete flow is numerically budget-safe. For fixed-σ Dirichlet
-                  runs it is part of convergence policy; for reflecting LK runs it is a strict numerical
-                  diagnostic only.
-                </p>
-              </article>
-            </div>
+    <div class="part-heading">
+      <span class="part-heading__num">Part III &middot; What actually comes out</span>
+      <span class="part-heading__rule"></span>
+    </div>
+    <ul class="toc-grid">
+      <li><a class="toc-card" href="./chapters/07-plates-columns-plates-columns.html">
+        <span class="toc-card__num">Chapter 7</span>
+        <p class="toc-card__title">Plates, Columns, Plates, Columns</p>
+        <p class="toc-card__q">Why does cooling the air flip a snow crystal between flat and tall &mdash; three times?</p>
+        <span class="toc-card__part">The puzzle</span>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/08-a-snowflake-is-a-record.html">
+        <span class="toc-card__num">Chapter 8</span>
+        <p class="toc-card__title">A Snowflake Is a Record</p>
+        <p class="toc-card__q">What does a crystal that fell through changing weather look like?</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/09-the-menagerie.html">
+        <span class="toc-card__num">Chapter 9</span>
+        <p class="toc-card__title">The Menagerie</p>
+        <p class="toc-card__q">What is actually falling out there &mdash; including the crystals that refuse to be six-fold?</p>
+      </a></li>
+    </ul>
 
-            <div class="equation-card note-card">
-              <h3>Boundary mode truth table</h3>
-              <ul class="compact-list">
-                <li><strong>fixed-σ Dirichlet:</strong> residual pass and divergence pass required to proceed.</li>
-                <li><strong>Reflecting LK:</strong> residual must pass; divergence is recorded and flagged as diagnostic.</li>
-              </ul>
-            </div>
-          </div>
+    <div class="part-heading">
+      <span class="part-heading__num">Part IV &middot; The answer</span>
+      <span class="part-heading__rule"></span>
+    </div>
+    <ul class="toc-grid">
+      <li><a class="toc-card" href="./chapters/10-how-we-know.html">
+        <span class="toc-card__num">Chapter 10</span>
+        <p class="toc-card__title">How We Know</p>
+        <p class="toc-card__q">How do you measure a crystal smaller than a grain of salt that melts if you look at it?</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/11-the-stickiness-of-ice.html">
+        <span class="toc-card__num">Chapter 11</span>
+        <p class="toc-card__title">The Stickiness of Ice</p>
+        <p class="toc-card__q">What actually decides whether an arriving water molecule sticks?</p>
+      </a></li>
+      <li><a class="toc-card" href="./chapters/12-why-the-shape-flips.html">
+        <span class="toc-card__num">Chapter 12</span>
+        <p class="toc-card__title">Why the Shape Flips</p>
+        <p class="toc-card__q">Whichever barrier is lower wins &mdash; so what happens when the two curves cross?</p>
+        <span class="toc-card__part">The payoff</span>
+      </a></li>
+    </ul>
 
-          <figure class="diagram-card">
-            <div class="diagram-label">Solver pipeline</div>
-            <svg class="diagram pipeline-diagram" viewBox="0 0 640 280" role="img" aria-label="Solver pipeline animation">
-              <defs>
-                <marker id="arrowHead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-                  <polygon points="0,0 8,3 0,6" fill="#0b5e88" />
-                </marker>
-              </defs>
-              <rect x="12" y="22" width="616" height="236" rx="12" fill="rgba(236, 249, 255, 0.72)" />
+    <div class="part-heading">
+      <span class="part-heading__num">Part V &middot; What is left</span>
+      <span class="part-heading__rule"></span>
+    </div>
+    <ul class="toc-grid">
+      <li><a class="toc-card" href="./chapters/13-the-frontier.html">
+        <span class="toc-card__num">Chapter 13</span>
+        <p class="toc-card__title">The Frontier</p>
+        <p class="toc-card__q">What is still unknown about the thing landing on your sleeve &mdash; and why has so little of it been worked out?</p>
+      </a></li>
+      <li><a class="toc-card" href="./references.html">
+        <span class="toc-card__num">Sources</span>
+        <p class="toc-card__title">References</p>
+        <p class="toc-card__q">Every paper behind this site, all of it free to read, with what each one contributes.</p>
+      </a></li>
+      <li><a class="toc-card" href="./glossary.html">
+        <span class="toc-card__num">Reference</span>
+        <p class="toc-card__title">Glossary</p>
+        <p class="toc-card__q">Every technical term on the site, defined in one line, with the chapter that introduces it.</p>
+      </a></li>
+    </ul>
+  </section>
 
-              <g class="pipeline-node" style="--delay:0s">
-                <circle cx="92" cy="140" r="34" />
-                <text x="92" y="135" text-anchor="middle">state</text>
-                <text x="92" y="152" text-anchor="middle">seed+operator</text>
-              </g>
-              <line class="pipeline-edge" x1="126" y1="140" x2="208" y2="140" />
-              <polygon class="arrow-head" points="208,140 198,134 198,146" />
+</div>
 
-              <g class="pipeline-node" style="--delay:1.5s">
-                <circle cx="248" cy="140" r="34" />
-                <text x="248" y="135" text-anchor="middle">vapor</text>
-                <text x="248" y="152" text-anchor="middle">relax</text>
-              </g>
-              <line class="pipeline-edge" x1="282" y1="140" x2="364" y2="140" />
-              <polygon class="arrow-head" points="364,140 354,134 354,146" />
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      An educational site about the science of snowflake formation. The science is
+      Kenneth&nbsp;G.&nbsp;Libbrecht&rsquo;s, drawn from his monograph <em>Snow Crystals</em>
+      (arXiv:1910.06389) and the measurement papers that followed it; the explanations, diagrams
+      and animations here are ours. Source figures are &copy; Kenneth&nbsp;G.&nbsp;Libbrecht,
+      reproduced under citation from a local research cache and not redistributed with this
+      repository.
+    </p>
+    <p><a href="./references.html">References</a> &middot; <a href="./glossary.html">Glossary</a> &middot; <a href="./FIGURES.md">Figure provenance</a></p>
+  </div>
+</footer>
 
-              <g class="pipeline-node" style="--delay:3s">
-                <circle cx="404" cy="140" r="34" />
-                <text x="404" y="135" text-anchor="middle">surface</text>
-                <text x="404" y="152" text-anchor="middle">operator</text>
-              </g>
-              <line class="pipeline-edge" x1="438" y1="140" x2="520" y2="140" />
-              <polygon class="arrow-head" points="520,140 510,134 510,146" />
-
-              <g class="pipeline-node" style="--delay:4.5s">
-                <circle cx="560" cy="140" r="34" />
-                <text x="560" y="135" text-anchor="middle">checkpoint</text>
-                <text x="560" y="152" text-anchor="middle">and metadata</text>
-              </g>
-
-              <circle class="flow-packet packet-1" cx="92" cy="140" r="6" />
-              <circle class="flow-packet packet-2" cx="248" cy="140" r="6" />
-              <circle class="flow-packet packet-3" cx="404" cy="140" r="6" />
-            </svg>
-          </figure>
-        </div>
-      </section>
-
-      <section id="mini-lab" class="lesson card">
-        <p class="kicker">Interactive mini-lab</p>
-        <h2>Run one full simulation cycle</h2>
-        <p>
-          This is an instructional proxy, not production physics. It mirrors the phase order and
-          naming used by the project and is designed for classroom exploration.
-        </p>
-        <p class="caption">
-          Tip: begin with defaults, press run once, then change one control at a time. Compare residual
-          and divergence behavior for the same shape settings.
-        </p>
-
-        <div class="lab-layout">
-          <aside class="lab-controls">
-            <label for="sigma-slider">Far-field supersaturation (sigma_inf)
-              <span id="sigma-output" class="range-value">0.050</span>
-            </label>
-            <input id="sigma-slider" type="range" min="0.001" max="0.120" step="0.001" value="0.050" />
-
-            <label for="temp-slider">Temperature (C)
-              <span id="temp-output" class="range-value">-10</span>
-            </label>
-            <input id="temp-slider" type="range" min="-25" max="-1" step="1" value="-10" />
-
-            <label for="alpha-slider">Attachment efficiency alphaHK
-              <span id="alpha-output" class="range-value">78%</span>
-            </label>
-            <input id="alpha-slider" type="range" min="30" max="100" step="1" value="78" />
-
-            <label for="noise-slider">Numerical roughness (noise)
-              <span id="noise-output" class="range-value">1</span>
-            </label>
-            <input id="noise-slider" type="range" min="0" max="5" step="1" value="1" />
-
-            <label for="mode-select">Boundary mode
-              <span id="mode-output" class="range-value">Fixed-σ Dirichlet</span>
-            </label>
-            <select id="mode-select" class="mode-select">
-              <option value="dirichlet">Fixed-σ Dirichlet (strict divergence)</option>
-              <option value="reflecting">Reflecting (LK diagnostic divergence)</option>
-            </select>
-
-            <div class="lab-buttons">
-              <button id="run-step">Run one cycle</button>
-              <button id="reset-step">Reset mini-lab</button>
-            </div>
-
-            <p id="step-caption" class="caption">Set controls, then run one cycle.</p>
-          </aside>
-
-          <div class="lab-view">
-            <div class="quality-bars" role="status">
-              <div class="bar-row">
-                <span>Residual</span>
-                <span id="residual-value">--</span>
-                <span id="residual-status" class="status-chip">--</span>
-              </div>
-              <progress id="residual-bar" value="0" max="1"></progress>
-
-              <div class="bar-row">
-                <span>Divergence</span>
-                <span id="divergence-value">--</span>
-                <span id="divergence-status" class="status-chip">--</span>
-              </div>
-              <progress id="divergence-bar" value="0" max="1"></progress>
-            </div>
-
-            <div class="slice-grid" id="slice-grid" aria-label="Simulation slice"></div>
-
-            <div class="mini-readouts">
-              <div><strong>Boundary sigma_b:</strong> <span id="sigma-b-output">0.000</span></div>
-              <div><strong>Kinetic growth speed:</strong> <span id="vkin-output">0.000</span></div>
-              <div><strong>Predicted one-step growth:</strong> <span id="fill-output">0.000</span></div>
-              <div><strong>Gate decision:</strong> <span id="gate-output">--</span></div>
-            </div>
-
-            <div class="equation-card mini-note">
-              <h3>Mini-lab caveat</h3>
-              <p>
-                This panel is a teaching slice. It is not the production solver.
-                It shows the order of operations and signal flow using simplified formulas.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="equation-grid">
-          <article class="equation-card">
-            <h3>Live outcomes</h3>
-            <p><strong>Shape tendency:</strong> <span id="shape-output">plate with weak side branches</span></p>
-            <p><strong>Growth style:</strong> <span id="speed-output">stable medium pace</span></p>
-            <p><strong>Branch detail:</strong> <span id="branch-output">low-to-moderate branches</span></p>
-          </article>
-          <article class="equation-card">
-            <h3>What to watch</h3>
-            <ul class="compact-list">
-              <li>Lower <code>sigma_inf</code> usually slows spread and can stall growth.</li>
-              <li>Higher <code>alphaHK</code> boosts attachment and fill rate.</li>
-              <li>Higher noise increases asymmetry and branch noise.</li>
-              <li>Fixed-σ mode is stricter to proceed than reflecting mode.</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section id="rigor" class="lesson card">
-        <h2>Why strict gates + checkpoints are required</h2>
-        <div class="equation-grid">
-          <article class="equation-card">
-            <h3>Reproducibility first</h3>
-            <p>
-              Every accepted step stores exact state, operator tag, far field, temperature,
-              and metadata. This enables deterministic replay and prevents accidental
-              interpretation drift between runs.
-            </p>
-          </article>
-          <article class="equation-card">
-            <h3>Gate logic</h3>
-            <p>
-              Gates are not decorative. They formalize what is accepted as valid.
-              Visual beauty and speed are never proof by themselves; they must be paired with
-              numeric and metadata checks.
-            </p>
-          </article>
-          <article class="equation-card">
-            <h3>Reality check points</h3>
-            <p>
-              See active progress and protocol status in
-              <a href="../PROGRESS.md">docs/PROGRESS.md</a>, operator details in
-              <a href="../gg-machinery.md">gg-machinery.md</a>, kinetics in
-              <a href="../attachment-kinetics.md">attachment-kinetics.md</a>, and parameter tables in
-              <a href="../libbrecht-parameters.md">libbrecht-parameters.md</a>.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section id="references" class="lesson card">
-        <h2>10-minute recap checklist</h2>
-        <ol class="compact-list">
-          <li>Explain why vapor field and supersaturation control deposition tendency.</li>
-          <li>Write the diffusion-to-quasistatic reduction and connect it to the solve.</li>
-          <li>Describe residual and divergence in terms of field trust.</li>
-          <li>Describe the order of operations per growth step.</li>
-          <li>State what a checkpoint preserves and why strict gates exist.</li>
-        </ol>
-      </section>
-    </main>
-
-    <footer class="footer">
-      Educational static content only. No solver or gate evidence code is modified in this branch.
-    </footer>
-
-    <script src="./education.js"></script>
-  </body>
+<script src="./assets/site.js"></script>
+<script src="./assets/viz.js"></script>
+<script src="./assets/anim-diffusion.js"></script>
+<script>
+  Diffusion.mount(document.getElementById("hero-anim"), { stick: 0.42, showField: true, size: 460 });
+</script>
+</body>
 </html>

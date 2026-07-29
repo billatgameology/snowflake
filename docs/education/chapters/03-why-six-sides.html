@@ -1,0 +1,1894 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Six Sides — Snow Crystals</title>
+<meta name="description" content="What ice is actually made of, and how one bent molecule with a 104.5-degree bond angle ends up dictating that every snow crystal has six of everything.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 3 &middot; Why Six Sides</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#the-map">Where, exactly, is a snowflake made?</a></li>
+      <li><a href="#the-bent-molecule">It starts with one awkward angle</a></li>
+      <li><a href="#the-honeycomb">Stack tetrahedra, get a honeycomb</a></li>
+      <li><a href="#two-ways-to-stack">Why not cubic?</a></li>
+      <li><a href="#naming-the-faces">Basal, prism, c and a</a></li>
+      <li><a href="#how-big">Two lengths, and the model starts predicting</a></li>
+      <li><a href="#what-it-does-not-say">What the lattice does not explain</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <!-- ===== header ===== -->
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 3</p>
+        <h1>Why Six Sides</h1>
+        <p class="chapter-header__question">
+          A snow crystal has six of everything &mdash; six corners, six arms, six flat walls. Six is
+          not decoration and it is not a coincidence. So where does the six come from?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~18 min read</span>
+          <span>12 figures</span>
+          <span>6 interactives</span>
+        </div>
+      </header>
+
+      <!-- ===== learning goals ===== -->
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Point to the exact stretch of water&rsquo;s phase diagram where every snow crystal is built.</li>
+          <li>Follow the chain from one bent molecule, with a bond angle of 104.5 degrees, to a ring
+            of six &mdash; and show for yourself why a ring of three, four or five cannot close.</li>
+          <li>Say what actually separates hexagonal ice from cubic ice &mdash; it is one twist.</li>
+          <li>Add the two families of axes to the two families of facet you already know, and use the
+            names correctly.</li>
+          <li>Take two measured lengths and compute a real angle that the crystal has to obey.</li>
+        </ul>
+      </section>
+
+      <!-- ================================================================= -->
+      <h2 id="the-map">Where, exactly, is a snowflake made?</h2>
+
+      <p>
+        Kepler guessed in 1611 that the snowflake&rsquo;s six corners were a stack showing through,
+        and he guessed the wrong stack: cannonballs, crowded as tightly as they will go. Three
+        hundred and eighteen years later Barnes&rsquo;s X-ray spots showed the right one. This
+        chapter is that stack &mdash; the arrangement water molecules actually take up in ice, and
+        why it ends up with six of everything.
+      </p>
+
+      <p>
+        One short detour first, because it settles which stack we are even discussing. Water is not a
+        substance with one solid form; it has about fifteen known ones, and before you can ask how ice
+        stacks you have to know <em>which</em> ice snow is made of. The answer is one short arc of one
+        line on one chart, so this takes a page, and then we are at the lattice for good.
+      </p>
+
+      <p>
+        The chart is called a <strong>phase diagram</strong> &mdash; a map you read by picking a
+        temperature and a pressure and looking up which state of matter wins there.
+      </p>
+
+      <p>
+        Water&rsquo;s map is enormous. The version below runs from absolute zero to 650&nbsp;kelvin
+        along the top edge &mdash; the same axis appears in Celsius along the bottom &mdash; and from
+        one pascal to one terapascal up the side, twelve powers of
+        ten of pressure. Libbrecht calls it &ldquo;a complicated beast&hellip; including some 15 known
+        forms of ice&rdquo; (printed p.&nbsp;47), and almost all of those forms need crushing pressures
+        you would only ever meet inside a laboratory press or the interior of an icy moon.
+      </p>
+
+      <p>
+        Snow crystals occupy one short arc of one line on that map. Find the
+        <strong>triple point</strong>, the single temperature and pressure where solid, liquid and
+        vapour can all coexist &mdash; on this chart it is labelled 273.16&nbsp;K and 611.657&nbsp;Pa.
+        Now follow the boundary between ice and vapour down and to the left from there. That line,
+        from 0&nbsp;&deg;C down to about &minus;40&nbsp;&deg;C, is where every snow crystal that has
+        ever fallen was assembled. It is circled in red.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.1/visual.png"
+              data-figure="Figure 2.1"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 48 &middot; printed p. 47"
+              data-alt="Log-scale phase diagram of water showing many high-pressure ice phases, the triple point and critical point, with a hand-drawn red oval labelled Snow Crystal Growth on the ice/vapour line just below the triple point.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> ignore the Roman numerals for a moment and just find the
+          red oval near the bottom, marked <em>Snow Crystal Growth</em>. Everything else on this chart
+          &mdash; ice VII, ice X, the whole liquid region, the critical point at 647&nbsp;K &mdash; is
+          territory a snowflake never visits. Then notice which region the oval sits <em>between</em>:
+          solid on the left, vapour on the right, with the liquid region ending above it at the triple
+          point. On that arc, water vapour turns straight into ice. There is no liquid step at all.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.1: The phase diagram of water as a function of
+          temperature and pressure. Snow crystal growth occurs on the ice/vapor boundary below the
+          triple point, mostly at temperatures between 0 C and -40 C. Note that most of the known
+          phases of ice exist only at extremely high pressures. Image from
+          https://en.wikipedia.org/wiki/Ice.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        Vapour turning directly into solid is called <strong>deposition</strong>. It is the reverse of
+        the frost that vanishes off a freezer shelf without ever getting wet. This one fact removes a
+        great deal of physics from the rest of this site: once it is growing, a snow crystal never has
+        to freeze anything, because every molecule it adds arrives out of the air as vapour and lands
+        straight onto solid ice. Only the very first speck was ever liquid &mdash; a cloud droplet
+        that froze, as Chapter&nbsp;1 describes &mdash; and that one brief liquid moment comes back to
+        matter later in this chapter. After it, growth is catching molecules, nothing else.
+      </p>
+
+      <p>
+        There is a limit to what the map can tell you, and it is worth stating plainly, because it is
+        the reason the rest of this site exists. A phase diagram shows the lowest-energy state at each
+        temperature and pressure &mdash; it shows where a system ends up if you leave it alone
+        forever. In the monograph&rsquo;s words, &ldquo;Each line in Figure 2.1 tells us under what
+        conditions water will change phase, but it says nothing about the nonequilibrium physical
+        processes that define the character of that phase transition&rdquo; (printed p.&nbsp;48). The
+        map says ice wins. It does not say what the ice looks like when it arrives. Libbrecht is
+        candid about why he spends a whole book on this one line and not the others: &ldquo;We
+        restrict our attention to one particular phase transition because it has proven itself worthy
+        of study, plus the others remain almost completely unexplored&rdquo; (printed p.&nbsp;48).
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          Every snow crystal is built on the ice/vapour line below the triple point, between about
+          0&nbsp;&deg;C and &minus;40&nbsp;&deg;C. Water vapour becomes ice directly, with no liquid
+          stage in between.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="the-bent-molecule">It starts with one awkward angle</h2>
+
+      <p>
+        A water molecule is one oxygen atom with two hydrogens attached. It is not straight. The two
+        oxygen&ndash;hydrogen bonds meet at an angle of <strong>104.5 degrees</strong>. That number is
+        the seed of everything in this chapter, for one reason: it is close to 109.5 degrees.
+      </p>
+
+      <p>
+        109.5 degrees is the <strong>tetrahedral angle</strong>. Put a point at the centre of a
+        regular tetrahedron &mdash; a pyramid with four triangular faces &mdash; and draw lines out to
+        its four corners. Any two of those lines meet at 109.5 degrees. It is the angle you get when
+        four directions spread out as evenly as four directions possibly can in three dimensions.
+      </p>
+
+      <p>
+        Water&rsquo;s 104.5 misses it by five degrees. Five degrees is nothing. And in ice, that near
+        miss decides the architecture. Each oxygen atom in the lattice ends up with four
+        oxygen&ndash;hydrogen bonds radiating from it: two <strong>covalent</strong> bonds, the tight
+        ones holding its own two hydrogens, and two <strong>hydrogen bonds</strong>, the weaker ones
+        reaching across to hydrogens belonging to neighbouring molecules. The monograph puts the
+        consequence in one sentence: &ldquo;Because of this near match, the four O-H bonds emanating
+        from each oxygen atom in the ice crystal (two tight bonds, two weaker bonds) are essentially
+        in a tetrahedral arrangement&rdquo; (printed p.&nbsp;49).
+      </p>
+
+      <p>
+        So every oxygen in ice sits at the centre of its own little tetrahedron of bonds. That is the
+        single building block, and the rest of the chapter is about what happens when you stack it.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.4/visual.png"
+              data-figure="Figure 2.4"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 50 &middot; printed p. 49"
+              data-alt="Two nearly identical ball-and-stick sketches, each showing a pair of stacked tetrahedral units; an arrow marks the c-axis on the left sketch and a different direction on the right.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> for now, look only at the left-hand sketch, and only at
+          the shape. Each large ball is an oxygen atom, and four sticks splay out from it towards the
+          corners of a tetrahedron. Two such units are joined top to bottom. That is the unit of ice.
+          Come back to the right-hand sketch when you reach &ldquo;Why not cubic?&rdquo; &mdash; it is the same thing with
+          one bond twisted, and it builds a different crystal.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.4: The essential lattice difference between hexagonal
+          ice Ih (left) and cubic ice Ic (right) is a twist in some of the bonds, specifically those
+          between the basal layers in ice Ih. Here the balls and sticks represent oxygen and hydrogen
+          atoms, respectively.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        There is a rule keeping the hydrogens tidy, first written down by John Bernal and Ralph Fowler
+        in 1933: <strong>exactly one hydrogen atom sits between each adjacent pair of oxygen
+        atoms</strong>. Never zero, never two. This is why ice can be thought of as a stack of whole
+        water molecules rather than a soup of loose atoms &mdash; as the monograph notes, &ldquo;two
+        hydrogen atoms closely flank each oxygen atom, so the trio forms an essentially intact H2O
+        molecule&rdquo; (printed p.&nbsp;48).
+      </p>
+
+      <p>
+        The rule is looser than it sounds, and the looseness is worth knowing about. The oxygen
+        skeleton of ice is rigidly fixed. The hydrogens are not. You can rotate individual water
+        molecules into an enormous number of different arrangements and still satisfy Bernal and
+        Fowler on every bond. Libbrecht records that this ambiguity &ldquo;appears to play no
+        important role in snow crystal growth, but it is a basic feature of the ice Ih lattice&rdquo;
+        (printed p.&nbsp;49). Remember it as a general lesson: the thing that fixes a crystal&rsquo;s shape is where the
+        heavy atoms sit, not where every last atom sits.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.3/visual.png"
+              data-figure="Figure 2.3"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 50 &middot; printed p. 49"
+              data-alt="A flat cartoon of large blue oxygen atoms in a honeycomb arrangement with small red hydrogen atoms between them, each pair of oxygens separated by exactly one hydrogen, but the molecules pointing in many different directions.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> trace the line between any two big blue oxygen atoms and
+          count the small red hydrogens on it. You will always find exactly one. Now look at which way
+          the little molecules are facing: they point every which way. Both things are true at once,
+          and that is the whole point of the picture &mdash; the oxygen positions are fixed, the
+          hydrogen orientations are not.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.3: A 2D toy-model example of the Bernal&ndash;Fowler
+          rules in ice Ih (although the full 3D rules do not visualize especially well in 2D). The
+          basic idea sketched here is that there are many possible ways to orient the individual H2O
+          molecules in the crystal while keeping exactly one hydrogen atom between each adjacent pair
+          of oxygen atoms, with each hydrogen forming one strong and one weak bond.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          You will sometimes read that snowflakes are six-sided &ldquo;because water molecules are
+          hexagonal&rdquo;. A water molecule is not hexagonal. It has three atoms and one angle in it.
+          Nothing about a single molecule is six-fold. The hexagon is a property of how molecules
+          <em>pack together</em>, and it only appears once molecules start bonding to each other
+          &mdash; which is exactly what makes it worth explaining rather than asserting.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="the-honeycomb">Stack tetrahedra, get a honeycomb</h2>
+
+      <p>
+        Here is the step that answers the chapter&rsquo;s question. Take that
+        four-bonds-in-a-tetrahedron unit and let it repeat: every molecule bonds to its neighbours the
+        same way, at the same angle, over and over. Nobody imposes a shape from outside. What comes
+        out is a repeating three-dimensional pattern &mdash; a <strong>lattice</strong> &mdash; and
+        the one nature builds on Earth is called <strong>ice Ih</strong>. The <em>h</em> stands for
+        hexagonal, and it is the only form of ice commonly found on the Earth&rsquo;s surface,
+        including in snow crystals. Be careful with the word <em>the</em> in that sentence, though:
+        the tetrahedral angle permits exactly two lattices, not one, and the second one is the subject
+        of the next section. That is what keeps &ldquo;why six&rdquo; a real question rather than a
+        formality.
+      </p>
+
+      <p>
+        So where does the six come from, in the lattice we actually get? Count hops. Start on one
+        oxygen atom, step along a bond to the next oxygen, and keep stepping, always leaving by a bond
+        that points at another corner of the tetrahedron. The question is how many steps it takes to
+        arrive back where you started &mdash; and the honest way to answer it is to try to build the
+        loop and watch it fail.
+      </p>
+
+      <p>
+        Two facts settle it, and you can check both without taking anything on trust. The first is
+        plane geometry. A flat ring made of equal bonds has a corner angle fixed by how many bonds are
+        in it: three bonds give corners of 60 degrees, four give 90, five give 108, six give 120. (The
+        rule is (n&nbsp;&minus;&nbsp;2)&nbsp;&times;&nbsp;180, divided by n &mdash; the same rule that
+        makes the three angles of a triangle add to 180.) The second fact is about what folding does.
+        Lift some atoms of a closed loop and drop others, and its corners can only get
+        <em>sharper</em>. Never wider. A flat loop is the most open a loop of that many bonds will
+        ever be.
+      </p>
+
+      <p>
+        Put those two together and the answer falls out. A loop can only sit at the tetrahedral 109.5
+        degrees if its flat version already reaches that far, because folding can only bring the
+        corners down from there. Three falls short by nearly fifty degrees. Four falls short by
+        nineteen and a half. Five is the near miss of the whole story &mdash; 108 degrees, short by
+        one and a half, close enough to be irritating and still not close enough. Six is the first
+        loop that clears the tetrahedral angle, and it clears it by overshooting, at 120 &mdash; and
+        an overshoot is something you can give back. Buckle the ring so that three oxygens ride
+        slightly high and three slightly low, and the corners close from 120 down to 109.5 exactly,
+        with every bond still the same length as every other and not one of them bent. That buckled
+        ring is the thing the rest of this chapter is built on, so build one.
+      </p>
+
+      <figure class="anim is-wide" id="why-six-anim">
+        <div class="anim__head">
+          <p class="anim__title">Try to close the loop without bending a bond</p>
+          <p class="anim__sub">
+            Choose how many oxygens are in the loop, then fold it. Drag the viewpoint round to
+            edge-on to see the fold itself &mdash; three riding high, three riding low.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Every loop drawn has all its bonds the same
+          length and all its corners the same angle; the fold is the only freedom. Two exact results
+          drive it: a flat loop of n equal bonds has corners of
+          (n&nbsp;&minus;&nbsp;2)&nbsp;&times;&nbsp;180/n degrees, and folding a closed loop can only
+          sharpen its corners, never widen them, because the exterior angles of any closed loop in
+          space must add to at least one full turn. The folded loop is the &ldquo;chair&rdquo;
+          &mdash; alternate atoms lifted, the rest dropped &mdash; whose corner angle is exactly
+          arccos(u&sup2;(1&nbsp;+&nbsp;cos&nbsp;360&deg;/n)&nbsp;&minus;&nbsp;cos&nbsp;360&deg;/n),
+          with u the fold height measured in bond lengths. The tetrahedral angle it is all measured
+          against is the near-tetrahedral bonding of ice in Libbrecht, <em>Snow Crystals</em>,
+          printed p.&nbsp;49. Nothing here is a measurement, but it can be checked against one: take
+          the ice oxygen&ndash;oxygen separation of about 0.276&nbsp;nm as the bond, and the six-loop
+          this returns projects onto a honeycomb 0.451&nbsp;nm across, against the measured
+          a<sub>0</sub>&nbsp;=&nbsp;0.452&nbsp;nm of Eq.&nbsp;2.1, printed p.&nbsp;52. A loop with an
+          odd number of atoms has no up-down-up-down fold at all, so the fold control is inactive for
+          those &mdash; which costs the argument nothing, since folding could only take them further
+          from tetrahedral.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Longer loops close too. Eight will do it, and ten, and twelve: each overshoots when flat and
+        each buckles back down. But six is the <em>shortest</em> loop this geometry permits, and in
+        the finished lattice every longer one turns out to be several six-loops sharing edges, the way
+        a patch of honeycomb has a big outline made entirely of small cells. The shortest loop is the
+        one you see when you look at the lattice.
+      </p>
+
+      <p>
+        So here is what a whole plane of those rings tiles into. Molecules drift, lock on at their
+        fixed angle, and the arrangement they settle into &mdash; nobody chose it for them &mdash; is
+        a honeycomb of six-membered rings. One thing to hold on to as you watch: this is the view
+        straight down onto the plane, the same view as the first panel of Figure 2.2, so the buckle
+        you just built points straight at you and flattens to nothing. It is still there. Every ring
+        in this honeycomb has three oxygens riding a little above the page and three a little below.
+      </p>
+
+      <figure class="anim is-wide" id="lattice-anim">
+        <div class="anim__head">
+          <p class="anim__title">From one molecule&rsquo;s bond angle to a six-sided crystal</p>
+          <p class="anim__sub">
+            Watch what happens when every molecule insists on the same angle. Use the scrubber to stop
+            at the moment the rings appear.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. The geometry is the basal plane of the ice Ih
+          lattice viewed along the c-axis &mdash; the honeycomb of oxygen atoms described in
+          Libbrecht, <em>Snow Crystals</em>, chapter 2 and shown in Figures 2.2 and 2.7. Positions are
+          drawn from an ideal honeycomb, so this is a diagram of the symmetry, not a structure
+          determination: no distance on it is a measurement.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Now for the part that is easy to miss and impossible to unsee. The hexagons are not visible
+        from everywhere. They appear along <strong>one specific direction</strong> through the
+        crystal, called the <strong>c-axis</strong>. Look down the c-axis and the six-membered rings
+        are unmistakable. Rotate the same lattice by ninety degrees and they vanish into rows. The
+        figure below is that experiment, run four times on one crystal.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.2/visual.png"
+              data-figure="Figure 2.2"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 49 &middot; printed p. 48"
+              data-alt="Four rendered views of the same ice Ih molecular model at increasing rotation; the leftmost shows clear six-membered rings of large blue oxygen spheres, the rightmost shows the same atoms collapsed into rows.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the leftmost panel first. Those open six-sided rings of
+          large blue spheres are rings of oxygen atoms, and this is the view straight down the c-axis.
+          Then move right: 18 degrees of rotation blurs the rings, 72 degrees destroys them, and by 90
+          degrees you are looking at the crystal edge-on and the hexagons are gone entirely. Same
+          crystal, same atoms, four camera angles. The hexagon is real, but it lives along one axis.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.2: A molecular model of the ice Ih crystal rotated by
+          0, 18, 72, and 90 degrees about the [011&#772;0] axis. The large blue spheres represent
+          oxygen atoms, and the smaller spheres represent hydrogen atoms. The first image is looking
+          down the c-axis, revealing the hexagonal lattice structure.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        Four frames is not the same as watching it happen, and this is the one claim on the page that
+        a still picture cannot really carry: the hexagon is not a property of the crystal, it is a
+        property of where you stand. So turn it yourself. The slider below rotates an ideal ice Ih
+        lattice about a horizontal line lying in the flat hexagonal face, exactly the experiment
+        Figure 2.2 samples four times. The four buttons jump to those four samples; the slider fills in
+        everything between them.
+      </p>
+
+      <figure class="anim is-wide" id="rotate-anim">
+        <div class="anim__head">
+          <p class="anim__title">The hexagon lives along one axis. Turn the crystal and watch it go.</p>
+          <p class="anim__sub">
+            At 0 degrees you are looking straight down the c-axis. Drag towards 90 and the open rings
+            close up, then flatten into stacked rows.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original diagram. Each dot is one oxygen atom of an ideal ice Ih
+          lattice, built from the four-atom hexagonal basis and projected orthographically; the
+          proportions use the ratio c<sub>0</sub>/a<sub>0</sub> of the lattice constants in Libbrecht,
+          <em>Snow Crystals</em>, printed p.&nbsp;52, Eq.&nbsp;2.1. The rotation axis lies in the basal
+          plane and the four preset angles &mdash; 0, 18, 72 and 90 degrees &mdash; are the four
+          rotations shown in Figure 2.2, printed p.&nbsp;48. Nothing drawn here is a measurement; it is
+          the ideal lattice seen from a moving viewpoint.</span>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          The six comes from the lattice, not from the molecule. In the ice Ih lattice the shortest
+          closed loop of oxygen atoms is a ring of six, and those rings give the crystal six
+          equivalent directions to grow in. A snowflake&rsquo;s symmetry is that ring, scaled up by a
+          factor of several million. Note that it is the Ih lattice specifically that does this
+          &mdash; near-tetrahedral bonding on its own is not enough, because it also allows a second
+          lattice that is not hexagonal at all.
+        </p>
+      </aside>
+
+      <p>
+        One precision point, because it gets garbled everywhere. The lattice makes the six directions
+        <em>equivalent</em>. It guarantees that a molecule arriving on one arm faces exactly the same
+        molecular landscape as a molecule arriving on any of the other five. It does <em>not</em>
+        guarantee that the six arms come out looking the same &mdash; that depends on whether all six
+        experienced the same conditions on the way down, which is a separate question and a much later
+        chapter.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="two-ways-to-stack">Why not cubic?</h2>
+
+      <p>
+        Here is the promised second option, and it is the reason &ldquo;why six&rdquo; is worth a
+        chapter. Tetrahedral bonding does not <em>force</em> a hexagon. It leaves exactly two ways to
+        build a lattice, and nature on Earth picks one of them. Had it picked the other, everything
+        above would still be true about the bonds and none of it would be true about the six.
+      </p>
+
+      <p>
+        The monograph is direct about it: &ldquo;Given this bond structure, there are two ways to form
+        a crystal lattice: the hexagonal (ice-like) structure and a cubic (diamond-like) structure&hellip;
+        The difference between these two structures comes down to a twist in the bonding of adjacent
+        tetrahedra separating the basal planes&rdquo; (printed p.&nbsp;49). Go back to Figure 2.4 above and compare the two
+        sketches properly this time. Same atoms, same four-bond tetrahedra, same bond lengths. One
+        connecting bond is rotated. Choose the left version everywhere and you get ordinary hexagonal
+        ice, <strong>ice Ih</strong>. Choose the right version everywhere and you get
+        <strong>ice Ic</strong>, which has cubic symmetry &mdash; the same arrangement carbon uses in
+        diamond.
+      </p>
+
+      <p>
+        There is a second way to see the same choice, and it needs no chemistry at all. It does need
+        one warning first, because Chapter&nbsp;2 spent a page killing sphere-stacking as an
+        explanation of the hexagon: Kepler had the right idea and the wrong stack, water molecules are
+        not free to crowd like cannonballs, and it is the bond angle rather than tight packing that
+        forces the six. That verdict stands, and nothing below reopens it. The spheres here are not
+        molecules. Each one is a stand-in for a whole layer of the lattice, and every one of those
+        layers is already hexagonal for the reasons you have just read. The only question left is
+        which of two landing positions each layer takes as it goes down.
+      </p>
+
+      <p>
+        So: stack spheres. Lay down a first layer packed as tightly as it will go. The second layer
+        has only one sensible home: the dimples in the first. But the third layer has a genuine
+        choice, because a close-packed layer offers two different sets of dimples. Put the third layer
+        directly above the first and keep doing that, and you build the Ih pattern. Put it in the
+        other set of dimples and keep doing that, and you build Ic. Mix your choices and you get
+        something with a name of its own.
+      </p>
+
+      <figure class="anim" id="stack-anim">
+        <div class="anim__head">
+          <p class="anim__title">Stack the spheres: hexagonal, cubic, or neither</p>
+          <p class="anim__sub">
+            Layers 1 and 2 have no choice. From layer 3 on, every layer picks a landing site &mdash;
+            and the pattern of picks is what makes the crystal hexagonal or cubic.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original diagram. It encodes the sphere-stacking description of the
+          ice Ih / ice Ic difference given in Libbrecht, <em>Snow Crystals</em>, printed p.&nbsp;50:
+          the third layer either sits directly over the first (Ih) or is shifted (Ic), and mixing the
+          two gives a &ldquo;stacking disordered&rdquo; structure. The spheres are a schematic stand-in
+          for whole layers of the lattice, not a scale model of ice; no distance here is a
+          measurement.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        A crystal that changes its mind from layer to layer is <strong>stacking disordered</strong>.
+        It is not a defect in the usual sense of a missing atom or a crack &mdash; every bond is
+        perfectly satisfied. It is a crystal that is locally fine and globally undecided.
+      </p>
+
+      <p>
+        And it leaves fingerprints. Some snow crystals are <strong>twins</strong>: two crystals fused
+        along a shared internal plane. Some twins give themselves away only by a groove, and otherwise
+        pass for perfectly ordinary crystals; others &mdash; arrowheads and crossed plates, which this
+        chapter does not show &mdash; do not look six-fold at all. The example below is the first kind:
+        a twin column, two ordinary columns that fit together perfectly at the shared plane, because
+        the usual hexagonal bonds along it have been replaced by a plane of cubic ones.
+      </p>
+
+      <p>
+        Where does such a plane come from? This is where the crystal&rsquo;s one liquid moment comes
+        back. Two words first. The moment a droplet first turns to ice is called
+        <strong>nucleation</strong>. Just before it happens the water is <strong>supercooled</strong>
+        &mdash; still liquid, but already below its freezing point &mdash; and the colder it is, the
+        more abruptly the freezing runs. Libbrecht&rsquo;s answer is that a twin plane &ldquo;likely
+        originates when the initial crystal nucleation (typically from a liquid water droplet)
+        produces some stacking disorder and at least one plane of cubic bonds. Nucleation can be a
+        somewhat violent event, as the supercooling just prior to nucleation is often quite
+        high&rdquo; (printed p.&nbsp;66). Ice makes its stacking choice in a hurry, and occasionally
+        gets one layer wrong. That is what is meant by the remark that cubic ice bonding
+        &ldquo;appears to play a small role in normal snow crystal structures&rdquo;
+        (printed p.&nbsp;50).
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.21/visual.png"
+              data-figure="Figure 2.21"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 67 &middot; printed p. 66"
+              data-alt="Left: a line sketch of a hexagonal ice column with a horizontal seam pinching its waist. Right: a photograph of a real transparent ice column with the same waist groove running around its middle.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the waist. In both the sketch and the photograph the
+          column is pinched by a groove running right round its middle, as though two pencils had
+          been stood end to end. That groove is the twin plane showing itself. The structure is
+          relatively weaker along that plane, so when the crystal starts losing molecules back to the
+          air &mdash; <strong>sublimation</strong>, solid going straight to vapour, the exact reverse
+          of the deposition that built it &mdash; it loses them fastest along that line. Without the
+          groove this object would be indistinguishable from an ordinary single column.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.21: Columnar Twins. A sketch (left) and photograph
+          (right) of a columnar twin snow crystal. These are essentially two ordinary columnar
+          crystals connected by a twin plane between them. The crystal structure is relatively weaker
+          in the twin plane, so sublimation often produces an evaporation groove between the two
+          columns. The presence of the evaporation groove identifies this as a twinned column, which
+          otherwise looks just like a normal single-crystal column.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        And here is the loop closing. The next figure draws the same twin at molecular scale, and if
+        you compare it with Figure 2.4 you will find nothing new in it at all. Every row above the
+        twin plane is the left-hand sketch of Figure 2.4, repeated. Every row below it is the same.
+        The twin plane itself is the right-hand sketch of Figure 2.4 &mdash; the cubic twist &mdash;
+        inserted, in this drawing, exactly once into the stack.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.22/visual.png"
+              data-figure="Figure 2.22"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 68 &middot; printed p. 67"
+              data-alt="A side-on grid of blue oxygen atoms paired by small red hydrogens, labelled basal facet top and bottom and prism facet down both sides, with a horizontal line across the middle labelled Twin Plane; the molecules above the line lean one way and those below lean the other, and the two halves are slightly offset sideways.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the line marked <em>Twin Plane</em>, and then the way the
+          little molecules lean. Above the line they all tilt one way; below it they all tilt the
+          other. Cover the line with a finger and each half is just ordinary ice Ih. Now look along
+          the left and right edges and notice that the upper block is nudged sideways relative to the
+          lower one &mdash; that small offset is the price of fitting a cubic layer into a hexagonal
+          stack. The published caption is careful to say the twin plane <em>could</em> be more than
+          one layer thick, and nobody is claiming to have counted them.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.22: Columnar Twins. The crystal-lattice structure of
+          a columnar twin crystal. Comparing this with Figure 2.4, it becomes apparent that the twin
+          plane consists of a layer &lsquo;cubic&rsquo; bonds between water molecules, whereas the rest
+          of the structure is made from the typical &lsquo;hexagonal&rsquo; bonds. Note also the small
+          offset between the columns, necessary to accommodate the cubic bond structure. The twin
+          plane could consist of multiple, randomly arranged layers of cubic/hexagonal bonds (i.e., a
+          stacking-disordered region), rather than the single cubic layer shown here.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          Nobody has ever definitively observed pure ice Ic &mdash; not in a laboratory and not in
+          nature. Samples made in the lab are &ldquo;generally stacking-disordered to a substantial
+          degree and are thus essentially mixtures of ice Ic and Ih&rdquo; (printed p.&nbsp;51). No
+          faceted &ldquo;cubic&rdquo; snow crystal has ever been made, &ldquo;although this would
+          certainly be an interesting sight&rdquo; (printed p.&nbsp;50). There is even evidence that
+          ice Ic exists as tiny grains in high-altitude clouds, &ldquo;although this is not known with
+          certainty&rdquo; (printed p.&nbsp;51). That uncertainty is why the Ih/Ic line on the phase
+          diagram at the top of this page is drawn <em>dotted</em>: it is not a proper phase boundary,
+          and it is not well understood.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="naming-the-faces">Basal, prism, c and a</h2>
+
+      <p>
+        Set the cubic exceptions aside. The crystal this site is about is ice Ih. You met its simplest
+        shape in Chapter&nbsp;1 &mdash; the <strong>hexagonal prism</strong>, a six-sided pencil, with
+        two <strong>basal facets</strong> at the ends and six <strong>prism facets</strong> running
+        round the waist. What that vocabulary is missing is directions, and the lattice has just
+        handed us two families of those. So here they are, to go with the two families of face.
+      </p>
+
+      <ul>
+        <li>The <strong>c-axis</strong> runs through the two ends, perpendicular to the basal face
+          &mdash; the way a pencil lead runs. It is the axis you were looking straight down in the
+          first panel of Figure 2.2.</li>
+        <li>The six <strong>a-axes</strong> lie in the basal plane and point out at the six
+          <em>corners</em> of the hexagon &mdash; which is where the six arms of a stellar crystal
+          will eventually grow out.</li>
+      </ul>
+
+      <p>
+        Crystallographers write all of this with Miller&ndash;Bravais indices. You will never have to
+        decode a set of digits on this site, but the strings themselves recur for the rest of it, so
+        it is worth knowing what kind of thing each one names. Curly brackets name a family of flat
+        faces; square brackets name a direction; and the bar over a digit is a minus sign, written on
+        top to save space, so 1&#772; reads as minus one. Three strings do nearly all the work here:
+        {0001} is the flat ends, {1&#772;010} is the six side walls, and {112&#772;0} is a third
+        family you meet in a moment, which never facets at all. The four digits are counted against
+        the four axes drawn in Figure 2.5 &mdash; three of them lying in the flat hexagonal face, the
+        fourth running up the c-axis.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.5/visual.png"
+              data-figure="Figure 2.5"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 51 &middot; printed p. 50"
+              data-alt="A printable cut-and-fold paper net of a hexagonal ice prism, two hexagonal ends and six rectangular walls, every face and axis labelled in Miller and Miller-Bravais notation, with a small solid prism inset labelled basal facet and prism facet.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> start with the little solid prism in the bottom left, where
+          the two words you actually need are printed on the object itself. Then look at the big
+          unfolded net: the two hexagons are the basal facets, the six rectangles between them are the
+          prism facets, and the coloured arrows radiating from the centre of the upper hexagon are the
+          a-axes &mdash; notice that they point at the <em>corners</em>, not at the middles of the
+          sides. This is a real paper model: cut, fold, glue, and you have an ice crystal on your desk.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.5: The Miller and Miller-Bravais indices displayed on
+          an unfolded hexagonal prism of ice Ih. Image by Maurine Montagnat and Thomas Chauve,
+          www.hidaskaroly.eu/insidestrain/ice/ice.html&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        Use the diagram below until the names stick. It is the same object as the paper model, drawn
+        so you can switch the labels on and off and stretch it.
+      </p>
+
+      <figure class="anim" id="prism-anim">
+        <div class="anim__head">
+          <p class="anim__title">Label the pencil</p>
+          <p class="anim__sub">
+            Turn each family on and off. Then drag the height slider &mdash; a plate, a stubby block
+            and a long column are all the same crystal, with the same six-fold symmetry.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original diagram. Facet and axis naming follows Libbrecht,
+          <em>Snow Crystals</em>, printed p.&nbsp;51: the {0001} basal facets, the {1&#772;010} prism
+          facets, the c-axis [0001] perpendicular to the basal face, and six a-axes pointing at the
+          corners of the hexagonal prism. Proportions are illustrative; the drawing carries no
+          measurement.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Now the detail that should nag at you. There is a third family of planes in the ice lattice,
+        the {112&#772;0} planes, each one perpendicular to an a-axis. They are sometimes called the
+        <em>secondary prism</em> faces. And growing ice crystals are not observed to form facets on
+        them &mdash; the monograph&rsquo;s own caption for the figure below says the {112&#772;0}
+        surface &ldquo;does not exhibit any known faceting&rdquo; (printed p.&nbsp;52). The figure cuts
+        one honeycomb two different ways so you can see why anyone would expect that. Against a prism
+        plane the lattice ends on a short, even beat; against a {112&#772;0} plane it ends raggedly,
+        with atoms standing proud of the line and gaps between them. The monograph&rsquo;s summary of
+        the difference is deliberately mild: the prism surfaces have &ldquo;a somewhat simpler lattice
+        structure&rdquo; than the {112&#772;0} surfaces (printed p.&nbsp;52). That is a difference of
+        degree, not a difference between neat and chaotic. Hold on to it anyway &mdash; it is the
+        first sign that ice grows flat walls in some directions and not others.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.7/visual.png"
+              data-figure="Figure 2.7"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 53 &middot; printed p. 52"
+              data-alt="Two schematic top-down views of the ice lattice as a honeycomb of blue oxygen atoms with small red hydrogens between them; a straight rule below the upper lattice is labelled prism facet, a straight rule above the lower lattice is labelled 1120 surface, and an arrow across one hexagon is labelled a-zero.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> both panels show the same honeycomb, seen straight down
+          the c-axis; the only difference is the line the lattice has been cut along. Follow the edge
+          of the upper honeycomb where it meets the rule marked <em>prism facet</em>, then do the same
+          for the lower one at the rule marked <em>112&#772;0 surface</em>, and compare how tidily
+          each edge repeats. Then find the arrow marked a<sub>0</sub> in the upper panel. It measures
+          one repeat of the honeycomb, and it is the length we put a number on in the next section
+          &mdash; a number that ends up fixing every angle in the crystal.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.7: Two projections of the ice Ih lattice looking down
+          along the [0001] direction (perpendicular to a basal facet). A prism {1&#772;010} facet and a
+          {112&#772;0} surface are labeled. (The latter is sometimes called a secondary prism surface,
+          although it does not exhibit any known faceting.)&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        Which means flat faces are not simply &ldquo;where the lattice happens to
+        end&rdquo;. The lattice offers plenty of planes. Ice facets readily on only two of them
+        &mdash; and, far more rarely, on a third we will meet shortly. Something must be choosing, and
+        the lattice alone is not enough to say what. The figure below is as far as the lattice can
+        take you, and it is worth seeing exactly how far that is.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.10/visual.png"
+              data-figure="Figure 2.10"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 54 &middot; printed p. 53"
+              data-alt="Two schematic top-down honeycomb lattices of blue oxygen atoms joined by small red hydrogens. The upper one is labelled Prism Facet on the left and right with Terrace Step marked where the lattice drops by one row midway across; the lower one is labelled 1120 Surface twice and its lattice is broken into a more open, less regular pattern.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the middle of each panel, where the lattice steps down by
+          one row. In the top panel that step is a clean ledge with a distinct inside corner &mdash; a
+          molecule landing in that corner has more of the lattice to hold on to. In the bottom panel
+          the step is smeared out; the published caption says a molecule landing at that edge is
+          &ldquo;likely not much stronger&rdquo; bound than one landing anywhere else on the surface.
+          So the two surfaces differ in one specific, visible way: on a prism face a step is a real
+          feature of the lattice, and on a {112&#772;0} face it barely is &mdash; and those are
+          precisely the planes that do and do not facet. That is the lattice&rsquo;s last word on the
+          subject. It is a suggestive coincidence, not an explanation, and notice the hedging in the
+          published caption: <em>likely</em>, <em>suggests</em>. Turning this into an actual account
+          of faceting needs three things the lattice cannot supply &mdash; what a step costs to make,
+          why a face with no step on it is stuck, and a measured number for how readily each face
+          accepts arriving molecules. All three arrive in Chapter&nbsp;5, which is where this figure
+          gets read properly.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.10 (left): Terrace steps on a prism {1&#772;010} facet
+          and a {112&#772;0} surface, as seen looking along the [0001] direction. Note that the prism
+          step is more distinct, and admolecules would likely bind much more strongly at a terrace
+          step than on the prism facet. In contrast, the {112&#772;0} step is less distinct, and binding
+          at the step edge is likely not much stronger than elsewhere on the surface. The larger
+          terrace step in the top sketch suggests stronger faceting on the prism surface, as is
+          observed.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          Matching the {1&#772;010} planes to the flat walls you see on a real snow crystal sounds like
+          bookkeeping, but it was an assumption for a long time. From the early days of X-ray
+          crystallography it was <em>thought</em> that {1&#772;010} were the prism facets, on the
+          lattice-cutting grounds described above. Nobody had seen it. The guess turned out to be
+          right, but as the monograph records, it &ldquo;was only definitively confirmed by direct
+          observation rather recently&rdquo; (printed p.&nbsp;52) &mdash; in work published in 2017,
+          roughly a century after the argument was first made. That is worth sitting with: a
+          structural argument this reasonable is still only a hypothesis until somebody manages to
+          look, and the looking took a hundred years to become possible.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="how-big">Two lengths, and the model starts predicting</h2>
+
+      <p>
+        So far this chapter has been shapes and arguments. Here is where it becomes arithmetic you can
+        check. The ice Ih lattice has two measured dimensions, and everything else about its geometry
+        follows from them.
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          a<sub>0</sub> = 0.452&nbsp;nm &nbsp;&nbsp;&nbsp; c<sub>0</sub> = 0.736&nbsp;nm
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>a<sub>0</sub></dt><dd>the width of one repeat of the honeycomb, measured across the
+              basal plane &mdash; the arrow labelled a<sub>0</sub> in Figure 2.7</dd>
+            <dt>c<sub>0</sub></dt><dd>the height of one repeat along the c-axis, the direction the
+              hexagons stack in</dd>
+            <dt>nm</dt><dd>nanometre, a billionth of a metre</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">Libbrecht, Snow Crystals, printed p. 52, Eq. 2.1 &mdash; measurements near 0&nbsp;&deg;C</p>
+      </div>
+
+      <p>
+        From those two lengths come the two numbers that will matter most later: the thickness of the
+        layers a crystal actually grows, one at a time. A snow crystal does not swell smoothly. It
+        adds molecular layers, and the layers have fixed thicknesses.
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          x<sub>basal</sub> = c<sub>0</sub>/2 = 0.37&nbsp;nm &nbsp;&nbsp;&nbsp;
+          x<sub>prism</sub> = (&radic;3/2)&nbsp;a<sub>0</sub> = 0.39&nbsp;nm
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>x<sub>basal</sub></dt><dd>the spacing between basal layers &mdash; how much thicker a
+              crystal gets each time it completes one layer on a flat end</dd>
+            <dt>x<sub>prism</sub></dt><dd>the spacing between prism layers &mdash; how much wider it
+              gets each time it completes one layer on a side wall</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">Libbrecht, Snow Crystals, printed p. 53, Eq. 2.2</p>
+      </div>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.9/visual.png"
+              data-figure="Figure 2.9"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 54 &middot; printed p. 53"
+              data-alt="A side-on schematic of the ice lattice drawn as a regular grid of paired blue oxygen atoms, with the basal facet running across the top and the prism facet down the right-hand side, and the top and right edges showing single-layer steps.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> this is the crystal seen from the side, so the honeycomb
+          is edge-on and the atoms fall into neat rows and columns. Those rows and columns
+          <em>are</em> the two numbers above: the vertical spacing between rows is the 0.37&nbsp;nm
+          basal layer spacing, and the horizontal spacing between columns is the 0.39&nbsp;nm prism
+          layer spacing. Now look at the top edge and the right edge and notice they are not perfectly
+          flush &mdash; there are single-layer steps. Those steps are where growth happens, and they
+          are the subject of Chapter&nbsp;5.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.9: A projection of the ice Ih lattice looking along
+          the [112&#772;0] direction, showing basal and prism facets and terrace steps. The spacing
+          between basal layers is c<sub>0</sub>/2 = 0.37 nm, while the spacing between prism layers is
+          (&radic;3/2)a<sub>0</sub> = 0.39 nm.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        Put a nanometre in perspective. A synthetic snow crystal photographed for the monograph
+        measured 2.3&nbsp;mm from tip to tip (printed p.&nbsp;46). Divide that by a<sub>0</sub> and you get about five
+        million lattice repeats across a single crystal &mdash; five million rings of six, all sharing
+        one orientation. That is what &ldquo;a snowflake is a magnified molecular ring&rdquo; actually
+        means as a number.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>The ice Ih lattice in numbers. From Libbrecht, <em>Snow Crystals</em>, printed
+            p.&nbsp;52 (Eq. 2.1), p.&nbsp;53 (Eq. 2.2) and the caption of Figure 2.8.</caption>
+          <thead>
+            <tr><th>Quantity</th><th>Expression</th><th class="num">Value</th><th>What it is</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>a-axis lattice constant</td><td>a<sub>0</sub></td><td class="num">0.452 nm</td><td>one repeat across the honeycomb, near 0&nbsp;&deg;C</td></tr>
+            <tr><td>c-axis lattice constant</td><td>c<sub>0</sub></td><td class="num">0.736 nm</td><td>one repeat along the c-axis, near 0&nbsp;&deg;C</td></tr>
+            <tr><td>Basal layer spacing</td><td>c<sub>0</sub>/2</td><td class="num">0.37 nm</td><td>thickness of one layer grown on a flat end</td></tr>
+            <tr><td>Prism layer spacing</td><td>(&radic;3/2) a<sub>0</sub></td><td class="num">0.39 nm</td><td>thickness of one layer grown on a side wall</td></tr>
+            <tr><td>Prism-to-pyramidal angle</td><td>tan<sup>&minus;1</sup>(&radic;3 a<sub>0</sub>/2c<sub>0</sub>)</td><td class="num">28.0&deg;</td><td>fixed entirely by the two lengths above</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        One piece of notation in that last row. The inverse tangent, written tan<sup>&minus;1</sup>,
+        is the operation that turns a ratio of two lengths back into the angle they make &mdash; the
+        calculator button you would use to get a slope&rsquo;s angle from its rise over its run. And
+        this one is literally a rise over a run, so it is worth seeing where the ratio comes from
+        rather than accepting it. A pyramidal facet is not a smooth ramp. It is a staircase of lattice
+        sites, and that staircase moves sideways by exactly one prism column for every two basal
+        layers it drops. One prism column is (&radic;3/2)&nbsp;a<sub>0</sub> wide. Two basal layers
+        are 2&nbsp;&times;&nbsp;c<sub>0</sub>/2, which is just c<sub>0</sub>, tall. So the run is
+        (&radic;3/2)&nbsp;a<sub>0</sub>, the rise is c<sub>0</sub>, and the angle the staircase makes
+        with the vertical prism wall is tan<sup>&minus;1</sup>(run&nbsp;/&nbsp;rise)
+        &mdash; which is tan<sup>&minus;1</sup>(&radic;3&nbsp;a<sub>0</sub>&nbsp;/&nbsp;2c<sub>0</sub>),
+        exactly the expression in the table. Put the two measured lengths in and it comes out at 28.0
+        degrees. That is a phone-calculator&rsquo;s worth of work, and you should do it.
+      </p>
+
+      <p>
+        That last row is the payoff, and it is worth dwelling on. Nothing about it was measured on a
+        crystal. It is what you get by dividing one lattice constant by another and taking an inverse
+        tangent. If the lattice model of ice is right, then wherever ice grows a
+        <strong>pyramidal facet</strong> &mdash; a slanted face cutting the corner between an end and
+        a side wall &mdash; that face has no freedom about its angle. It must sit 28.0 degrees from
+        the prism facet. Drag the two lengths below and watch the angle obey.
+      </p>
+
+      <figure class="anim is-wide" id="angle-anim">
+        <div class="anim__head">
+          <p class="anim__title">Two lengths decide every angle in the crystal</p>
+          <p class="anim__sub">
+            Change a<sub>0</sub> and c<sub>0</sub> and the pyramidal facet swings. Press
+            &ldquo;Measured ice Ih&rdquo; to snap both back to the real values.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original chart. Built from the lattice constants of Eq.&nbsp;2.1,
+          the layer spacings of Eq.&nbsp;2.2, and the facet-angle relation
+          tan<sup>&minus;1</sup>(&radic;3a<sub>0</sub>/2c<sub>0</sub>) = 28.0 degrees printed in the
+          caption of Figure 2.8, all in Libbrecht, <em>Snow Crystals</em>, printed pp.&nbsp;52&ndash;53.
+          The lattice dots follow the projection in Figures 2.8 and 2.9: rows spaced by
+          c<sub>0</sub>/2, columns spaced by (&radic;3/2)a<sub>0</sub>.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.8/visual.png"
+              data-figure="Figure 2.8"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 53 &middot; printed p. 52"
+              data-alt="A side-on schematic of the ice lattice as a grid of paired oxygen atoms, labelled basal facet along the top, prism facet down the right, and pyramidal facet along a diagonal staircase that cuts off the top-right corner, with c-zero marked as the vertical repeat.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the top-right corner, where the lattice does not come to a
+          sharp point but is cut off along a diagonal. That diagonal is the pyramidal facet, and it
+          runs along a staircase of lattice sites &mdash; which is exactly why its angle is arithmetic
+          rather than an observation. Count one tread of that staircase and you have done the
+          calculation: it steps one column across for every two rows down, which is a run of
+          (&radic;3/2)&nbsp;a<sub>0</sub> against a rise of c<sub>0</sub>, and that ratio is what sits
+          inside the inverse tangent. The arrow marked c<sub>0</sub> is the same c<sub>0</sub> as in
+          the table above; nothing else was needed.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.8: A projection of the ice Ih lattice looking along
+          the [112&#772;0] direction, showing the basal, prism, and pyramidal facets. The angle between
+          the prism and pyramidal facets is tan<sup>&minus;1</sup>(&radic;3a<sub>0</sub>/2c<sub>0</sub>)
+          = 28.0 degrees. (The 31.5-degree angle seen in Figure 2.6 is from looking along the
+          [1&#772;010] direction, which is not parallel to a pyramidal facet.)&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        And pyramidal facets are real. They have been photographed on snow crystals collected at the
+        South Pole. They are rare: the evidence suggests they form only at quite low temperatures,
+        below &minus;20&nbsp;&deg;C, and perhaps only in air rather than in a near-vacuum. Little is
+        known about how they grow.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.6/visual.png"
+              data-figure="Figure 2.6"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 52 &middot; printed p. 51"
+              data-alt="A line sketch of a hexagonal crystal with basal, pyramid and prism faces labelled, above two grey microscope photographs of small ice crystals about a hundred microns across, the lower one annotated with four 31.5-degree angles along its slanted edges.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the sketch at the top tells you what to hunt for &mdash; a
+          crystal that is not a plain pencil but has extra slanted faces bevelling the corners between
+          the ends and the walls. Then find those bevels in the photographs below. The scale bar reads
+          100 microns &mdash; a tenth of a millimetre &mdash; so the whole crystal is a fraction of a
+          millimetre wide. One honest note on the numbers: the 31.5-degree angles marked on the lower photograph are <em>not</em> the 28.0
+          degrees computed above. They are measured along a different line of sight, one that is not
+          parallel to a pyramidal facet, and the caption of Figure 2.8 says so explicitly. Angles
+          depend on where you stand.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.6: South-pole snow crystals displaying pyramidal
+          facets. Image from [2006Tap].&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <!-- ================================================================= -->
+      <h2 id="what-it-does-not-say">What the lattice does not explain</h2>
+
+      <p>
+        It is tempting to stop here and declare the mystery solved. Ice is hexagonal, therefore
+        snowflakes are hexagonal, the end. That inference is doing far more work than it can carry,
+        and the most common version of it is wrong in an interesting way.
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          The usual popular explanation is that a snow crystal grows flat faces because flat faces are
+          the lowest-energy faces, so the crystal settles into the shape that costs least. It is true
+          that the basal and prism planes cut the lattice in a particularly smooth way, and true that
+          this gives them a lower-than-average surface energy. But that is not what makes the facets.
+          The same smoothness also makes it hard for an arriving molecule to attach at all &mdash; and,
+          in Libbrecht&rsquo;s words, &ldquo;The latter property, more than the former, controls the
+          formation of snow crystal facets&rdquo; (printed p.&nbsp;46). Facets are a story about
+          <em>rates</em>, not about energy minimisation. Chapter&nbsp;5 unpacks it properly.
+        </p>
+      </aside>
+
+      <p>
+        So take from this chapter what it genuinely earns. The lattice explains the <em>six</em>. It
+        tells you why the shortest ring in ice is six atoms round rather than five or eight, why the
+        six directions that ring opens up are 60 degrees apart, why the two flat ends behave as one
+        family and the six side walls as another, and why every angle in a faceted ice crystal is
+        arithmetic rather than an accident. That is a great deal for two measured lengths and one bond
+        angle.
+      </p>
+
+      <p>
+        It also tells you what it cannot do. Essentially every ice crystal you will ever meet &mdash;
+        the frost on a window, a hailstone, a snowflake &mdash; is built on the same ice Ih lattice,
+        with the same
+        a<sub>0</sub> and the same c<sub>0</sub>. Yet on a single winter afternoon the same cloud can
+        produce thin plates, stubby blocks and long slender columns. The lattice is identical in all
+        of them. So whatever decides between a plate and a column is not in the lattice at all. It is
+        in what happens at the crystal&rsquo;s surface, molecule by molecule, as it grows.
+      </p>
+
+      <p class="handoff">
+        The lattice explains why six. It says nothing about whether the crystal becomes a plate, a
+        column or a star &mdash; that is decided at the surface, one arriving molecule at a time. And
+        before we can look at the surface, we have to know what is being delivered to it: how much
+        water vapour the surrounding air is carrying, and how it gets there.
+      </p>
+
+      <!-- ===== prev / next ===== -->
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./02-four-hundred-years-of-looking.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">Four Hundred Years of Looking</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./04-the-fuel-supply.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">The Fuel Supply</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
+      from a local research cache under citation; they are not redistributed with this repository.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script src="../assets/anim-lattice.js"></script>
+<script src="../assets/anim-why-six.js"></script>
+<script>
+/* ===========================================================================
+   0. THE ARGUMENT — can a loop of oxygens close at the tetrahedral angle?
+
+   This one comes BEFORE the honeycomb animation on the page, because it is the
+   argument and the honeycomb is the payoff. See assets/anim-why-six.js for the
+   geometry and for what is and is not a measurement.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("why-six-anim");
+  if (root && window.WhySix) WhySix.mount(root);
+})();
+
+/* ===========================================================================
+   1. FLAGSHIP — molecules to honeycomb to hexagon (shared module).
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("lattice-anim");
+  if (root && window.Lattice) Lattice.mount(root);
+})();
+
+/* ===========================================================================
+   2. Turn the crystal — the hexagon exists along one axis only.
+
+   The dots are the oxygen sublattice of an ideal ice Ih crystal: the hexagonal
+   cell with a0 in the basal plane and c0 along the c-axis, and the four-atom
+   oxygen basis at (1/3, 2/3, 1/16), (1/3, 2/3, 7/16), (2/3, 1/3, 9/16) and
+   (2/3, 1/3, 15/16). Lengths are carried in units of a0, and the only number
+   taken from the monograph is the RATIO c0/a0 = 0.736/0.452 from Eq. 2.1
+   (printed p. 52) — nothing on the drawing is itself a measurement.
+
+   The patch is a thin slab — a disc a few hexagons wide and exactly two
+   complete molecular bilayers deep — because that is roughly the size of the
+   model rendered in Figure 2.2, and a much thicker block would smear the rings
+   shut long before 18 degrees. Rotation is about the screen-horizontal axis,
+   which lies in the basal plane at 0 degrees; that is the experiment sampled
+   four times in Figure 2.2 (printed p. 48), and the presets are its four panels.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("rotate-anim");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const bar = root.querySelector(".anim__controls");
+
+  const W = 700, H = 400;
+  const CX = 270, CY = 196;
+  const RATIO = 0.736 / 0.452;        // c0 / a0, Eq. 2.1, printed p. 52
+  const PX = 52;                      // pixels per a0
+  const RXY = 2.6;                    // in-plane radius of the patch, in a0
+  const ZC = 0.75 * RATIO;            // centre of the slab, in a0
+  const ZH = 0.55;                    // half-thickness: two bilayers, in a0
+  const PRESETS = [0, 18, 72, 90];    // the four panels of Figure 2.2
+
+  /* the ideal ice Ih oxygen positions, in units of a0, centred on the slab */
+  const atoms = (function () {
+    const basis = [
+      [1 / 3, 2 / 3, 1 / 16], [1 / 3, 2 / 3, 7 / 16],
+      [2 / 3, 1 / 3, 9 / 16], [2 / 3, 1 / 3, 15 / 16],
+    ];
+    const out = [];
+    for (let i = -4; i <= 4; i++) {
+      for (let j = -4; j <= 4; j++) {
+        for (let k = -1; k <= 1; k++) {
+          basis.forEach(function (b) {
+            const u = i + b[0], v = j + b[1];
+            const x = u - v * 0.5;                 // a1 = (1, 0), a2 = (-1/2, √3/2)
+            const y = v * Math.sqrt(3) / 2;
+            const z = (k + b[2]) * RATIO - ZC;
+            if (x * x + y * y <= RXY * RXY && Math.abs(z) <= ZH) out.push([x, y, z]);
+          });
+        }
+      }
+    }
+    return out;
+  })();
+
+  /* Bonds are every oxygen-oxygen pair at the shortest separation that exists
+     in the generated lattice. That separation is measured off the positions
+     just built, not asserted, so the bond drawing cannot drift from the
+     geometry above. */
+  const bonds = (function () {
+    let best = Infinity;
+    for (let i = 0; i < atoms.length; i++) {
+      for (let j = i + 1; j < atoms.length; j++) {
+        const d = Math.hypot(atoms[i][0] - atoms[j][0],
+                             atoms[i][1] - atoms[j][1],
+                             atoms[i][2] - atoms[j][2]);
+        if (d < best) best = d;
+      }
+    }
+    const out = [];
+    for (let i = 0; i < atoms.length; i++) {
+      for (let j = i + 1; j < atoms.length; j++) {
+        const d = Math.hypot(atoms[i][0] - atoms[j][0],
+                             atoms[i][1] - atoms[j][1],
+                             atoms[i][2] - atoms[j][2]);
+        if (d < best * 1.02) out.push([i, j]);
+      }
+    }
+    return out;
+  })();
+
+  let angle = 0;
+  let svg = null, slider = null;
+  const presetButtons = [];
+
+  function verdict(a) {
+    if (a <= 2) return "Straight down the c-axis: the six-membered rings are wide open.";
+    if (a < 40) return "Tilted off the c-axis: the rings are narrowing into ellipses.";
+    if (a < 80) return "Well off the c-axis: the rings have closed and the atoms are crowding.";
+    return "Edge-on to the basal planes: no hexagons left, only stacked rows.";
+  }
+
+  function render() {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+    const th = angle * Math.PI / 180;
+    const ct = Math.cos(th), st = Math.sin(th);
+
+    svg = Viz.createSvg(body, W, H, {
+      label:
+        "A round patch of ice Ih oxygen atoms drawn as circles joined by their bonds, seen from " +
+        "a viewpoint the reader tilts away from the c-axis, beside a small gauge showing which " +
+        "way the c-axis is then pointing.",
+      desc: "Rotated " + angle + " degrees away from the c-axis. " + verdict(angle),
+    });
+
+    /* rotate about the screen-horizontal axis */
+    const pts = atoms.map(function (p) {
+      return [p[0], p[1] * ct + p[2] * st, -p[1] * st + p[2] * ct];
+    });
+
+    /* bonds first, so the spheres sit on top of them. At 0 degrees the
+       vertical bonds project to nothing and what is left is the honeycomb. */
+    const bg = Viz.svgEl("g", { stroke: c.ruleStrong, "stroke-width": 2.2, "stroke-linecap": "round" });
+    bonds.forEach(function (b) {
+      const p = pts[b[0]], q = pts[b[1]];
+      bg.appendChild(Viz.svgEl("line", {
+        x1: (CX + p[0] * PX).toFixed(1), y1: (CY - p[1] * PX).toFixed(1),
+        x2: (CX + q[0] * PX).toFixed(1), y2: (CY - q[1] * PX).toFixed(1),
+      }));
+    });
+    svg.appendChild(bg);
+
+    /* then the atoms, painted back to front */
+    const span = Math.max(ZH, RXY * st + ZH * ct);      // current depth half-range
+    pts.slice().sort(function (a, b) { return a[2] - b[2]; }).forEach(function (p) {
+      const t = Math.max(0, Math.min(1, (p[2] + span) / (2 * span)));   // 0 far, 1 near
+      const idx = Math.max(2, Math.min(6, 2 + Math.round(t * 4)));
+      svg.appendChild(Viz.svgEl("circle", {
+        cx: (CX + p[0] * PX).toFixed(1),
+        cy: (CY - p[1] * PX).toFixed(1),
+        r: (8.4 + 2.2 * t).toFixed(1),
+        fill: c.seq[idx], stroke: c.surface, "stroke-width": 1.1,
+      }));
+    });
+
+    /* ---- the gauge: where the c-axis is pointing right now --------------- */
+    const GX = 570, GY = 158, GL = 62;
+    const gh = Viz.svgEl("text", { x: GX, y: GY - GL - 22, "text-anchor": "middle", class: "axis-title" });
+    gh.textContent = "Where the c-axis points";
+    svg.appendChild(gh);
+
+    svg.appendChild(Viz.svgEl("circle", {
+      cx: GX, cy: GY, r: 5.5, fill: "none", stroke: c.inkSecondary, "stroke-width": 1.6,
+    }));
+    if (st > 0.1) {
+      const ty = GY - GL * st;
+      svg.appendChild(Viz.svgEl("line", {
+        x1: GX, y1: GY, x2: GX, y2: ty + 8,
+        stroke: c.inkSecondary, "stroke-width": 2,
+      }));
+      svg.appendChild(Viz.svgEl("path", {
+        d: "M" + GX + " " + ty.toFixed(1) +
+           " L" + (GX - 5) + " " + (ty + 10).toFixed(1) +
+           " L" + (GX + 5) + " " + (ty + 10).toFixed(1) + " Z",
+        fill: c.inkSecondary,
+      }));
+    } else {
+      svg.appendChild(Viz.svgEl("circle", { cx: GX, cy: GY, r: 2, fill: c.inkSecondary }));
+    }
+    const gl = Viz.svgEl("text", { x: GX, y: GY + 28, "text-anchor": "middle", class: "annotation" });
+    gl.textContent = st > 0.1 ? "tilted " + angle + "° towards the top of the page"
+                              : "aimed straight at you";
+    svg.appendChild(gl);
+
+    /* ---- readouts -------------------------------------------------------- */
+    const panel = PRESETS.indexOf(angle);
+    const note = Viz.svgEl("text", { x: 350, y: 356, "text-anchor": "middle", class: "series-label", fill: c.ink });
+    note.textContent = verdict(angle);
+    svg.appendChild(note);
+
+    const sub = Viz.svgEl("text", { x: 350, y: 378, "text-anchor": "middle", class: "annotation" });
+    sub.textContent = panel === -1
+      ? "rotated " + angle + "° from the c-axis"
+      : "rotated " + angle + "° — this is panel " + (panel + 1) + " of Figure 2.2";
+    svg.appendChild(sub);
+  }
+
+  function setAngle(v) {
+    angle = v;
+    presetButtons.forEach(function (b) {
+      b.el.setAttribute("aria-pressed", String(b.deg === angle));
+    });
+    render();
+  }
+
+  slider = Viz.slider(bar, {
+    label: "Rotation from the c-axis", id: "rotate-angle",
+    min: 0, max: 90, step: 1, value: 0,
+    format: function (v) { return v + "°"; },
+    onInput: function (v) { setAngle(v); },
+  });
+
+  PRESETS.forEach(function (deg, i) {
+    const el = Viz.button(bar, deg + "°", function () { slider.value = deg; }, {
+      pressed: deg === angle,
+    });
+    el.setAttribute("aria-label",
+      deg + " degrees — panel " + (i + 1) + " of Figure 2.2");
+    presetButtons.push({ deg: deg, el: el });
+  });
+
+  setAngle(0);
+  Viz.onThemeChange(render);
+})();
+
+/* ===========================================================================
+   3. Stack the spheres — ice Ih vs ice Ic vs stacking disorder.
+
+   Encodes the sphere-stacking account on printed p. 50: layer 3 either sits
+   directly over layer 1 (Ih) or is shifted (Ic); mixing gives stacking
+   disorder. Purely schematic — the three landing sites A, B, C are drawn with
+   the sequential ramp and are labelled by letter, never by colour alone.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("stack-anim");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const bar = root.querySelector(".anim__controls");
+
+  const W = 660, H = 420;
+  const D = 44;                       // sphere-centre spacing in the plan view
+  const OFF = {                       // landing-site offsets within one layer
+    A: [0, 0],
+    B: [D * 0.5, D * 0.2887],
+    C: [0, D * 0.5774],
+  };
+  const MIXED = ["A", "B", "A", "B", "C", "B", "C", "A"];
+
+  let mode = "ih";
+  let nLayers = 6;
+  let svg = null;
+  const modeButtons = [];
+
+  function sequence(n) {
+    const out = [];
+    for (let i = 0; i < n; i++) {
+      if (mode === "ih") out.push(i % 2 === 0 ? "A" : "B");
+      else if (mode === "ic") out.push(["A", "B", "C"][i % 3]);
+      else out.push(MIXED[i % MIXED.length]);
+    }
+    return out;
+  }
+
+  function verdict() {
+    if (mode === "ih") return "A B A B A B …  →  ice Ih, hexagonal";
+    if (mode === "ic") return "A B C A B C …  →  ice Ic, cubic";
+    return "no repeating pattern  →  stacking disordered";
+  }
+
+  function planSites(cx, cy, radius) {
+    const out = [];
+    for (let m = -4; m <= 4; m++) {
+      for (let n = -4; n <= 4; n++) {
+        const x = cx + D * m + D * 0.5 * n;
+        const y = cy + D * 0.866 * n;
+        if (Math.hypot(x - cx, y - cy) <= radius) out.push([x, y]);
+      }
+    }
+    return out;
+  }
+
+  function render() {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+    const seq = sequence(nLayers);
+
+    svg = Viz.createSvg(body, W, H, {
+      label:
+        "Left: three layers of close-packed spheres seen from above, showing whether the third " +
+        "layer sits over the first. Right: a side view of the whole stack. In both panels each " +
+        "layer is labelled A, B or C by its landing site, and colour marks the same three sites.",
+      desc: verdict(),
+    });
+
+    /* ---------------- plan view: layers 1, 2 and 3 seen from above -------- */
+    const CX = 178, CY = 190, R = 128;
+    const base = planSites(CX, CY, R);
+    /* Colour encodes the LANDING SITE (A, B or C), and only that, in BOTH
+       panels. Which layer is which is carried by the circle radius in the plan
+       view and by the row position in the side view, and is stated in words. */
+    const SITE_TINT = { A: c.seq[1], B: c.seq[3], C: c.seq[6] };
+    const near = base.reduce(function (a, b) {
+      return Math.hypot(a[0] - CX, a[1] - CY) <= Math.hypot(b[0] - CX, b[1] - CY) ? a : b;
+    });
+
+    [0, 1, 2].forEach(function (layer) {
+      const site = seq[layer] || "A";
+      const off = OFF[site];
+      const g = Viz.svgEl("g", { opacity: layer === 2 ? 1 : 0.55 });
+      base.forEach(function (p) {
+        g.appendChild(Viz.svgEl("circle", {
+          cx: p[0] + off[0], cy: p[1] + off[1],
+          r: 19 - layer * 2.5,
+          fill: SITE_TINT[site], stroke: c.surface, "stroke-width": 1.6,
+        }));
+      });
+      svg.appendChild(g);
+    });
+
+    /* One direct letter per DISTINCT site among the first three layers. When
+       two layers share a site — which is the whole point in Ih mode — their
+       labels would otherwise be drawn on exactly the same pixel. */
+    const labelled = [];
+    [0, 1, 2].forEach(function (layer) {
+      const site = seq[layer] || "A";
+      if (labelled.indexOf(site) !== -1) return;
+      labelled.push(site);
+      const off = OFF[site];
+      const t = Viz.svgEl("text", {
+        x: near[0] + off[0], y: near[1] + off[1] + 4,
+        "text-anchor": "middle", class: "series-label",
+        /* halo, so the letter stays legible whichever tint is underneath */
+        fill: c.ink, stroke: c.surface,
+        "paint-order": "stroke", "stroke-width": 4, "stroke-linejoin": "round",
+      });
+      t.textContent = site;
+      svg.appendChild(t);
+    });
+
+    const planTitle = Viz.svgEl("text", { x: CX, y: 34, "text-anchor": "middle", class: "axis-title" });
+    planTitle.textContent = "Looking down on layers 1, 2, 3";
+    svg.appendChild(planTitle);
+
+    const planNote = Viz.svgEl("text", { x: CX, y: 350, "text-anchor": "middle", class: "annotation" });
+    planNote.textContent = seq[2] === "A"
+      ? "layer 3 sits directly over layer 1"
+      : "layer 3 is shifted off layer 1";
+    svg.appendChild(planNote);
+
+    const planNote2 = Viz.svgEl("text", { x: CX, y: 368, "text-anchor": "middle", class: "annotation" });
+    planNote2.textContent =
+      "(smallest circles = layer 3, largest = layer 1; colour = landing site)";
+    svg.appendChild(planNote2);
+
+    /* ---------------- side elevation: the whole stack --------------------- */
+    const SX = 400, SY = 330, ROW = 33, SPACING = 38;
+    const sideOff = { A: 0, B: 13, C: 26 };
+
+    const sideTitle = Viz.svgEl("text", { x: 520, y: 34, "text-anchor": "middle", class: "axis-title" });
+    sideTitle.textContent = "The stack from the side";
+    svg.appendChild(sideTitle);
+
+    seq.forEach(function (site, i) {
+      const y = SY - i * ROW;
+      const dx = sideOff[site];
+      for (let k = 0; k < 5; k++) {
+        svg.appendChild(Viz.svgEl("circle", {
+          cx: SX + dx + k * SPACING, cy: y, r: 14,
+          fill: SITE_TINT[site],
+          stroke: c.surface, "stroke-width": 1.6,
+        }));
+      }
+      const t = Viz.svgEl("text", {
+        x: SX - 22, y: y + 4, "text-anchor": "middle", class: "series-label", fill: c.inkSecondary,
+      });
+      t.textContent = site;
+      svg.appendChild(t);
+      const n = Viz.svgEl("text", {
+        x: SX + 4 * SPACING + 44, y: y + 4, "text-anchor": "start", class: "annotation",
+      });
+      n.textContent = "layer " + (i + 1);
+      svg.appendChild(n);
+    });
+
+    const v = Viz.svgEl("text", {
+      x: 520, y: 386, "text-anchor": "middle", class: "series-label", fill: c.ink,
+    });
+    v.textContent = verdict();
+    svg.appendChild(v);
+  }
+
+  function setMode(next) {
+    mode = next;
+    modeButtons.forEach(function (b) {
+      b.el.setAttribute("aria-pressed", String(b.mode === mode));
+    });
+    render();
+  }
+
+  [
+    ["ih", "Always over layer 1"],
+    ["ic", "Always shifted"],
+    ["mixed", "Mix the choices"],
+  ].forEach(function (pair) {
+    const el = Viz.button(bar, pair[1], function () { setMode(pair[0]); }, {
+      pressed: pair[0] === mode,
+    });
+    modeButtons.push({ mode: pair[0], el: el });
+  });
+
+  Viz.slider(bar, {
+    label: "Layers", id: "stack-layers",
+    min: 3, max: 8, step: 1, value: nLayers,
+    format: function (v) { return String(v); },
+    onInput: function (v) { nLayers = v; render(); },
+  });
+
+  render();
+  Viz.onThemeChange(render);
+})();
+
+/* ===========================================================================
+   4. Label the pencil — the hexagonal prism, its facets and its axes.
+
+   Colour contract: basal facet is always series[0], prism facet always
+   series[1]. Axes are drawn as neutral construction lines so they never read
+   as a third data series.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("prism-anim");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const bar = root.querySelector(".anim__controls");
+
+  const W = 620, H = 420;
+  const CX = 300, CY = 215, R = 130, SQUASH = 0.40;
+
+  const H_MAX = 190;
+  let height = 90;
+  const show = { basal: true, prism: true, cAxis: false, aAxes: false };
+  let svg = null;
+
+  /* a halo behind label text, so labels stay legible over lattice and axes */
+  const HALO = { "paint-order": "stroke", "stroke-width": 4, "stroke-linejoin": "round" };
+
+  function corners(h) {
+    const top = [], bot = [];
+    for (let i = 0; i < 6; i++) {
+      const a = (Math.PI / 3) * i;
+      const x = CX + R * Math.cos(a);
+      const y = CY + R * SQUASH * Math.sin(a);
+      top.push([x, y - h / 2]);
+      bot.push([x, y + h / 2]);
+    }
+    return { top: top, bot: bot };
+  }
+
+  const path = function (pts) {
+    return pts.map(function (p, i) {
+      return (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1);
+    }).join(" ") + " Z";
+  };
+
+  function shapeWord(h) {
+    if (h < 0.32 * R) return "plate";
+    if (h < 1.15 * R) return "block";
+    return "column";
+  }
+
+  function render() {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+    const g = corners(height);
+
+    svg = Viz.createSvg(body, W, H, {
+      label:
+        "A hexagonal ice prism drawn in oblique view, with its two basal facets, its six prism " +
+        "facets, its c-axis and its six a-axes labelled.",
+      desc: "The prism is currently shaped like a " + shapeWord(height) + ".",
+    });
+
+    /* hidden back edges, dashed */
+    svg.appendChild(Viz.svgEl("path", {
+      d: path(g.bot), fill: "none", stroke: c.rule, "stroke-width": 1.4,
+      "stroke-dasharray": "4 4",
+    }));
+
+    /* the top basal facet, drawn before the walls so the walls occlude it */
+    svg.appendChild(Viz.svgEl("path", {
+      d: path(g.top),
+      fill: show.basal ? c.series[0] : c.sunken,
+      "fill-opacity": show.basal ? 0.3 : 1,
+      stroke: show.basal ? c.series[0] : c.ruleStrong,
+      "stroke-width": show.basal ? 2.4 : 1.4,
+      "stroke-linejoin": "round",
+    }));
+
+    /* the three front prism facets */
+    [[0, 1], [1, 2], [2, 3]].forEach(function (e) {
+      const quad = [g.top[e[0]], g.top[e[1]], g.bot[e[1]], g.bot[e[0]]];
+      svg.appendChild(Viz.svgEl("path", {
+        d: path(quad),
+        fill: show.prism ? c.series[1] : c.sunken,
+        "fill-opacity": show.prism ? 0.3 : 1,
+        stroke: show.prism ? c.series[1] : c.ruleStrong,
+        "stroke-width": show.prism ? 2.4 : 1.4,
+        "stroke-linejoin": "round",
+      }));
+    });
+
+    /* the bottom basal facet's visible front rim */
+    if (show.basal) {
+      svg.appendChild(Viz.svgEl("path", {
+        d: "M" + g.bot[0][0] + " " + g.bot[0][1] +
+           " L" + g.bot[1][0] + " " + g.bot[1][1] +
+           " L" + g.bot[2][0] + " " + g.bot[2][1] +
+           " L" + g.bot[3][0] + " " + g.bot[3][1],
+        fill: "none", stroke: c.series[0], "stroke-width": 2.4, "stroke-linejoin": "round",
+      }));
+    }
+
+    /* the c-axis: one arrow straight through the two ends */
+    if (show.cAxis) {
+      const yTop = CY - height / 2 - R * SQUASH - 40;
+      const yBot = CY + height / 2 + R * SQUASH + 28;
+      svg.appendChild(Viz.svgEl("line", {
+        x1: CX, y1: yBot, x2: CX, y2: yTop,
+        stroke: c.ink, "stroke-width": 2, "stroke-dasharray": "7 4",
+      }));
+      svg.appendChild(Viz.svgEl("path", {
+        d: "M" + CX + " " + (yTop - 9) + " L" + (CX - 6) + " " + (yTop + 5) +
+           " L" + (CX + 6) + " " + (yTop + 5) + " Z",
+        fill: c.ink,
+      }));
+      const t = Viz.svgEl("text", Object.assign({
+        x: CX + 12, y: yTop + 6, class: "series-label", fill: c.ink, stroke: c.surface,
+      }, HALO));
+      t.textContent = "c-axis [0001]";
+      svg.appendChild(t);
+    }
+
+    /* the six a-axes: they point at the CORNERS of the hexagon */
+    if (show.aAxes) {
+      const cy0 = CY - height / 2;
+      for (let i = 0; i < 6; i++) {
+        const a = (Math.PI / 3) * i;
+        const x = CX + (R + 30) * Math.cos(a);
+        const y = cy0 + (R + 30) * SQUASH * Math.sin(a);
+        svg.appendChild(Viz.svgEl("line", {
+          x1: CX, y1: cy0, x2: x, y2: y,
+          stroke: c.inkSecondary, "stroke-width": 1.8, "stroke-dasharray": "5 3",
+        }));
+        svg.appendChild(Viz.svgEl("circle", { cx: x, cy: y, r: 3.2, fill: c.inkSecondary }));
+      }
+      const t = Viz.svgEl("text", Object.assign({
+        x: CX + (R + 34), y: cy0 - 10, "text-anchor": "middle",
+        class: "series-label", fill: c.inkSecondary, stroke: c.surface,
+      }, HALO));
+      t.textContent = "a-axes point at the corners";
+      svg.appendChild(t);
+    }
+
+    /* direct labels — colour never carries meaning on its own */
+    if (show.basal) {
+      const t = Viz.svgEl("text", Object.assign({
+        x: CX, y: CY - height / 2 + 5, "text-anchor": "middle",
+        class: "series-label", fill: c.series[0], stroke: c.surface,
+      }, HALO));
+      t.textContent = "basal facet {0001}";
+      svg.appendChild(t);
+    }
+    if (show.prism) {
+      const t = Viz.svgEl("text", Object.assign({
+        x: CX, y: CY + height / 2 + R * SQUASH * 0.866 + 20, "text-anchor": "middle",
+        class: "series-label", fill: c.series[1], stroke: c.surface,
+      }, HALO));
+      t.textContent = "prism facet {1̄010}";
+      svg.appendChild(t);
+    }
+
+    const note = Viz.svgEl("text", { x: CX, y: H - 12, "text-anchor": "middle", class: "annotation" });
+    note.textContent =
+      "Same lattice, same six-fold symmetry — right now the shape is a " + shapeWord(height) + ".";
+    svg.appendChild(note);
+  }
+
+  [
+    ["basal", "Basal facets"],
+    ["prism", "Prism facets"],
+    ["cAxis", "c-axis"],
+    ["aAxes", "a-axes"],
+  ].forEach(function (pair) {
+    const el = Viz.button(bar, pair[1], function () {
+      show[pair[0]] = !show[pair[0]];
+      el.setAttribute("aria-pressed", String(show[pair[0]]));
+      render();
+    }, { pressed: show[pair[0]] });
+  });
+
+  Viz.slider(bar, {
+    label: "Height along c", id: "prism-height",
+    min: 20, max: H_MAX, step: 2, value: height,
+    format: function (v) { return shapeWord(v); },
+    onInput: function (v) { height = v; render(); },
+  });
+
+  render();
+  Viz.onThemeChange(render);
+})();
+
+/* ===========================================================================
+   5. Two lengths decide every angle.
+
+   The dot lattice is the [11-20] projection of Figures 2.8 and 2.9: rows
+   spaced by c0/2, columns spaced by (sqrt3/2)a0. The pyramidal facet is the
+   staircase that advances one column across for every c0 down, so the angle
+   it makes with the prism facet is exactly arctan(sqrt3 a0 / 2 c0). At the
+   measured values a0 = 0.452 nm and c0 = 0.736 nm this returns 28.0 degrees,
+   the value printed in the caption of Figure 2.8.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("angle-anim");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const bar = root.querySelector(".anim__controls");
+
+  const W = 700, H = 420;
+  const A0 = 0.452, C0 = 0.736;        // measured, printed p. 52, Eq. 2.1
+  const P = 95;                        // pixels per nanometre
+  const L = 70, Rt = 400, T = 56, B = 348;
+
+  let a0 = A0, c0 = C0;
+  let svg = null, sa = null, sc = null;
+
+  function render() {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+
+    const xPrism = (Math.sqrt(3) / 2) * a0;          // nm, Eq. 2.2
+    const xBasal = c0 / 2;                           // nm, Eq. 2.2
+    const theta = Math.atan((Math.sqrt(3) * a0) / (2 * c0)) * 180 / Math.PI;
+    const sx = xPrism * P, sy = xBasal * P;
+
+    svg = Viz.createSvg(body, W, H, {
+      label:
+        "A side-on lattice of dots with a basal facet across the top, a prism facet down the " +
+        "right, and a pyramidal facet cutting the corner between them at an angle set by the " +
+        "two lattice constants.",
+      desc: "With a0 = " + a0.toFixed(3) + " nm and c0 = " + c0.toFixed(3) +
+            " nm the prism-to-pyramidal angle is " + theta.toFixed(1) + " degrees.",
+    });
+
+    const Ax = Rt - 2 * sx, Ay = T;                  // where the cut meets the basal facet
+    const Bx = Rt, By = T + 4 * sy;                  // where the cut meets the prism facet
+
+    /* the lattice, with the corner trimmed off along the pyramidal cut */
+    const dots = Viz.svgEl("g");
+    for (let j = 0; Rt - j * sx >= L; j++) {
+      for (let i = 0; T + i * sy <= B; i++) {
+        const x = Rt - j * sx, y = T + i * sy;
+        const cross = (Bx - Ax) * (y - Ay) - (By - Ay) * (x - Ax);
+        if (cross < -0.5) continue;
+        dots.appendChild(Viz.svgEl("circle", { cx: x, cy: y, r: 4.2, fill: c.seq[4] }));
+      }
+    }
+    svg.appendChild(dots);
+
+    /* basal facet — always series[0], everywhere on this site */
+    svg.appendChild(Viz.svgEl("line", {
+      x1: L - 12, y1: T - 13, x2: Ax, y2: T - 13,
+      stroke: c.series[0], "stroke-width": 3, "stroke-linecap": "round",
+    }));
+    const lb = Viz.svgEl("text", { x: L - 12, y: T - 22, class: "series-label", fill: c.series[0] });
+    lb.textContent = "basal facet";
+    svg.appendChild(lb);
+
+    /* prism facet — always series[1] */
+    svg.appendChild(Viz.svgEl("line", {
+      x1: Rt + 13, y1: By, x2: Rt + 13, y2: B + 12,
+      stroke: c.series[1], "stroke-width": 3, "stroke-linecap": "round",
+    }));
+    const lp = Viz.svgEl("text", { x: Rt + 20, y: B + 10, class: "series-label", fill: c.series[1] });
+    lp.textContent = "prism facet";
+    svg.appendChild(lp);
+
+    /* pyramidal facet, offset just outside the trimmed corner */
+    const dx = Bx - Ax, dy = By - Ay, len = Math.hypot(dx, dy);
+    const nx = (dy / len) * 13, ny = (-dx / len) * 13;
+    svg.appendChild(Viz.svgEl("line", {
+      x1: Ax + nx - dx * 0.12, y1: Ay + ny - dy * 0.12,
+      x2: Bx + nx + dx * 0.12, y2: By + ny + dy * 0.12,
+      stroke: c.series[2], "stroke-width": 3, "stroke-linecap": "round",
+    }));
+    /* the label rides along the cut, on the crystal side, so it does not sit
+       in the wedge where the angle arc is drawn */
+    const deg = Math.atan2(dy, dx) * 180 / Math.PI;
+    const mx = (Ax + Bx) / 2 - nx * 2.4, my = (Ay + By) / 2 - ny * 2.4;
+    const ly = Viz.svgEl("text", {
+      x: mx, y: my, "text-anchor": "middle",
+      transform: "rotate(" + deg.toFixed(1) + " " + mx.toFixed(1) + " " + my.toFixed(1) + ")",
+      class: "series-label", fill: c.series[2],
+      stroke: c.surface, "paint-order": "stroke", "stroke-width": 4, "stroke-linejoin": "round",
+    });
+    ly.textContent = "pyramidal facet";
+    svg.appendChild(ly);
+
+    /* the angle itself, drawn between the prism direction and the cut */
+    const arcR = 52;
+    let d = "";
+    for (let k = 0; k <= 24; k++) {
+      const ang = (-90 - theta * (k / 24)) * Math.PI / 180;
+      const px = Bx + arcR * Math.cos(ang), py = By + arcR * Math.sin(ang);
+      d += (k ? "L" : "M") + px.toFixed(1) + " " + py.toFixed(1) + " ";
+    }
+    svg.appendChild(Viz.svgEl("path", {
+      d: d.trim(), fill: "none", stroke: c.ink, "stroke-width": 1.6,
+    }));
+    svg.appendChild(Viz.svgEl("line", {
+      x1: Bx, y1: By, x2: Bx, y2: By - arcR - 14,
+      stroke: c.ink, "stroke-width": 1, "stroke-dasharray": "3 3",
+    }));
+    const mid = (-90 - theta / 2) * Math.PI / 180;
+    const at = Viz.svgEl("text", {
+      x: Bx + (arcR + 26) * Math.cos(mid), y: By + (arcR + 26) * Math.sin(mid) + 4,
+      "text-anchor": "middle", class: "series-label", fill: c.ink,
+      stroke: c.surface, "paint-order": "stroke", "stroke-width": 4, "stroke-linejoin": "round",
+    });
+    at.textContent = theta.toFixed(1) + "°";
+    svg.appendChild(at);
+
+    /* the readout — the same arithmetic, in words */
+    const RX = 440;
+    const lines = [
+      "a₀ = " + a0.toFixed(3) + " nm",
+      "c₀ = " + c0.toFixed(3) + " nm",
+      "",
+      "basal layer  c₀/2 = " + xBasal.toFixed(3) + " nm",
+      "prism layer  (√3/2)a₀ = " + xPrism.toFixed(3) + " nm",
+      "",
+      "tan⁻¹(√3 a₀ / 2c₀)",
+      "= " + theta.toFixed(1) + " degrees",
+    ];
+    lines.forEach(function (line, i) {
+      const t = Viz.svgEl("text", {
+        x: RX, y: 96 + i * 24,
+        class: i >= 6 ? "series-label" : "annotation",
+        fill: i >= 6 ? c.ink : c.inkSecondary,
+      });
+      t.textContent = line;
+      svg.appendChild(t);
+    });
+
+    if (Math.abs(a0 - A0) < 1e-3 && Math.abs(c0 - C0) < 1e-3) {
+      const badge = Viz.svgEl("text", { x: RX, y: 302, class: "series-label", fill: c.good });
+      badge.textContent = "✓ measured ice Ih";
+      svg.appendChild(badge);
+      const sub = Viz.svgEl("text", { x: RX, y: 324, class: "annotation" });
+      sub.textContent = "matches the printed 28.0 degrees";
+      svg.appendChild(sub);
+    }
+  }
+
+  sa = Viz.slider(bar, {
+    label: "a₀ (nm)", id: "angle-a0",
+    min: 0.30, max: 0.60, step: 0.002, value: A0,
+    format: function (v) { return v.toFixed(3); },
+    onInput: function (v) { a0 = v; render(); },
+  });
+  sc = Viz.slider(bar, {
+    label: "c₀ (nm)", id: "angle-c0",
+    min: 0.50, max: 1.00, step: 0.002, value: C0,
+    format: function (v) { return v.toFixed(3); },
+    onInput: function (v) { c0 = v; render(); },
+  });
+  Viz.button(bar, "Measured ice Ih", function () {
+    sa.value = A0;
+    sc.value = C0;
+  });
+
+  render();
+  Viz.onThemeChange(render);
+})();
+</script>
+</body>
+</html>
