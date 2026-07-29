@@ -4,11 +4,23 @@
 // research/libbrecht-later-papers.md, with the page cited beside it. Nothing here is digitized
 // off a curve. Run it with:  node app/scripts/phase6-libbrecht-closed-forms.mjs
 //
-// The question it answers: can ANY broad-facet attachment-kinetics parameterization reproduce the
-// three habit boundaries of the Nakaya diagram? A habit boundary requires the basal and prism
+// The question it answers: how many habit transitions can each printed parameterization express,
+// and how does that compare with the Nakaya diagram's three boundaries?
+//
+// CORRECTED 2026-07-29. This header previously read: "A habit boundary requires the basal and prism
 // alphaHK curves to swap order, i.e. a sigma0 crossing. So the crossing count is a hard structural
-// bound on how many habit transitions a model can produce, independent of diffusion, geometry,
-// grid, seed, or far field.
+// bound ... independent of diffusion, geometry, grid, seed, or far field."
+//
+// The first clause is right and the "i.e." is WRONG. A habit boundary is an alphaHK order swap, and
+//
+//       alphaHK = A * exp(-sigma0 / sigma_surf)
+//
+// so the swap condition is  ln A_prism(t) = (sigma0_prism(t) - sigma0_basal(t)) / sigma_surf,
+// which coincides with a sigma0 crossing ONLY when A_prism == 1. For the registered CAK set
+// A_prism runs 0.18-0.45 at the warm end, and the swap count is then a function of sigma_surf —
+// so there is no sigma_surf-independent bound, and nothing here is independent of diffusion.
+// Section 3 prints both counts side by side. See the retraction at the head of
+// research/libbrecht-figure-findings.md.
 
 // ---------------------------------------------------------------------------------------------
 // The project's own digitized anchors — core/src/libbrecht.ts, A_PRISM_CAK
@@ -56,8 +68,9 @@ const MEASURED = [
 ];
 
 // ---------------------------------------------------------------------------------------------
-// Crossing finder. A crossing of sigma0_basal and sigma0_prism is where the anisotropy sense
-// flips, and therefore an upper bound on the number of habit transitions a model can express.
+// sigma0 crossing finder. This is NOT the habit criterion and NOT a bound on habit transitions —
+// see the corrected header. It is retained only so section 3 can print it beside the alphaHK swap
+// count and show that the two differ. Use alphaHKSwaps() for anything about habit.
 // ---------------------------------------------------------------------------------------------
 function crossings(fBasal, fPrism, lo = 1, hi = 50, step = 0.001) {
   const out = [];
