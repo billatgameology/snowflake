@@ -100,18 +100,37 @@
           <strong>where</strong>
           <dl>
             <dt>own</dt><dd>the vapour value this cell currently holds</dd>
-            <dt>low, middle, high</dt><dd>the neighbour values, summed row by row across the hexagonal plane</dd>
+            <dt>low, middle, high</dt><dd>the three <em>opposing-neighbour pairs</em> &mdash;
+              east+west, north-east+south-west, south-east+north-west &mdash; placed in
+              <strong>ascending order</strong>, so the seven values are always accumulated
+              smallest-first</dd>
             <dt>/ 7.0</dt><dd>the cell plus its six in-plane neighbours &mdash; seven values, one average</dd>
             <dt>index</dt><dd>this worker's own cell, and no other</dd>
           </dl>
         </div>
-        <p class="equation__cite">solver-gpu/src/diffusion-shaders.ts:186</p>
+        <p class="equation__cite">solver-gpu/src/diffusion-shaders.ts:186 &middot; the pairing and the sort at lines&nbsp;153&ndash;185</p>
       </div>
 
       <p>
         Notice what no cell needs: it never asks what any other cell has <em>decided</em>, only what
         that cell currently <em>holds</em>. That is the whole reason the work can be split a million
         ways at once.
+      </p>
+
+      <p>
+        The sorting deserves a second look, because it is the one thing in that line that is not
+        obvious &mdash; and two sections from here summation order comes back as one of the reasons
+        two correct programs disagree. Adding the same seven numbers in a different order gives a
+        different 32-bit answer, so the shader fixes the order by value rather than leaving it to
+        whatever the compiler felt like. The project has a whole decision record for the identical
+        technique on the surface operator &mdash; ADR&nbsp;0023, <em>&ldquo;Sum the opposing-vapor
+        operands in ascending order (surface policy v6)&rdquo;</em> &mdash; and the shadow program
+        implements it a second time, independently, as <code>sortedTriple()</code>
+        (<code>runner/src/phase5-shadow.ts</code>, lines&nbsp;108&ndash;121). It is also the one
+        place in this pass where the workers do not literally do the identical thing: the branch
+        ladder means neighbouring cells can take different routes through the sort. They still all
+        run the same program, which is what the hardware demands. They just do not all take the same
+        turning.
       </p>
 
       <p>
@@ -163,20 +182,12 @@
         workers read 256 neighbouring numbers, the hardware fetches them in one gulp; when they read
         numbers scattered far apart, it makes 256 separate trips. So each physical quantity gets its
         own flat array &mdash; all the vapour values together, all the occupancy flags together
-        &mdash; rather than one array of little bundles. Every entry is exactly four bytes, and the
-        totals are declared as data and checked: <code>GPU_GG_BYTES_PER_CELL = 48</code>,
-        <code>GPU_LK_BYTES_PER_CELL = 64</code>, <code>GPU_CELL_BYTES_CEILING = 64</code>
-        (<code>solver-gpu/src/layout.ts</code>, lines&nbsp;56&ndash;58). If a layout ever disagrees
-        with its declared size, construction throws
-        <code>GPU &lt;operator&gt; schema has unexpected bytes/cell</code>
-        (same file, lines&nbsp;177&ndash;179). That ceiling was written down at the phase's planning
-        stage &mdash; &ldquo;WP0 reserves a conservative planning ceiling of 64 GPU bytes per
-        cell&hellip; It is an allocation guard, not a promised WP1 layout&rdquo;
-        (<code>docs/plans/phase-5-gpu-port.md:262</code>) &mdash; <em>before</em> the layout existed,
-        rather than measured afterwards from whatever the code happened to use. When a later
-        decision gave the attachment-kinetics solver one extra buffer, its allocation rose from 60
-        to 64 bytes per cell: up to the already-frozen ceiling, not through it
-        (<code>docs/decisions/0021-bound-phase5-float32-two-cycles.md:74&ndash;75</code>).
+        &mdash; rather than one array of little bundles. That is exactly how the buffers are
+        declared: one named, four-byte-per-cell array per quantity, <code>occupancy</code>,
+        <code>wall</code>, <code>noise</code> and the rest listed one to a line
+        (<code>solver-gpu/src/layout.ts</code>, lines&nbsp;13&ndash;54). Sameness again, one level
+        down: not just the same instruction, but the same instruction reaching for numbers that
+        happen to sit side by side.
       </p>
 
       <aside class="callout callout--key">
@@ -307,8 +318,9 @@
       <p>
         Now the harder problem. Computers store fractions in a fixed number of bits. The careful
         reference solver on the processor uses 64-bit floating point &mdash; about 15 or 16
-        significant decimal digits. The graphics card uses 32-bit &mdash; about 7. Every single
-        arithmetic result on the card is rounded to the nearest representable 32-bit value. Do that
+        significant decimal digits. The graphics card uses 32-bit &mdash; about 7. Every arithmetic
+        result on the card is rounded to the nearest representable 32-bit value &mdash; with one
+        exception we come back to. Do that
         a few hundred million times and the two machines' answers drift apart. Not because either is
         broken. Because they are <strong>different arithmetics</strong>.
       </p>
@@ -498,9 +510,12 @@
       </p>
 
       <p>
-        The easy fix was sitting right there. Nudge the bound to 2.1e-7 and everything passes. Here
-        is the entry in the plan's <em>Tried and rejected</em> section, which is where this project
-        records the roads it did not take:
+        The easy fix was sitting right there. Nudge the bound to 2.1e-7 and everything passes.
+        What happened instead is recorded in the plan's <em>Tried and rejected</em> section, which
+        is where this project lists the roads it did not take. The bullet's heading is about a
+        different road &mdash; &ldquo;Force every WGSL intermediate through the operation-rounded
+        shadow sequence&rdquo; &mdash; but it is where the decision about the bound is written
+        down:
       </p>
 
       <blockquote>
@@ -538,9 +553,30 @@
           9.6978718e-8 (docs/plans/phase-5-gpu-port.md:349), frozen bound 2e-7
           (runner/src/phase5-protocol.ts:461), first D3D12 result 2.0899141975678157e-7 and
           post-FMA result 1.8798277887340792e-7 (docs/plans/phase-5-gpu-port.md:1535&ndash;1540).
-          The consequence text is quoted from lines 79&ndash;81 of the same plan.</span>
+          The consequence text is quoted from lines 80&ndash;81 of the same plan.</span>
         </figcaption>
       </figure>
+
+      <p>
+        Freeze the number, then write code up to it. That sequence turns up again in a place with
+        nothing to do with rounding, which is how you can tell it is a habit rather than a one-off.
+        Every buffer entry on the card is exactly four
+        bytes, and the per-cell totals are declared as data and checked:
+        <code>GPU_GG_BYTES_PER_CELL = 48</code>, <code>GPU_LK_BYTES_PER_CELL = 64</code>,
+        <code>GPU_CELL_BYTES_CEILING = 64</code> (<code>solver-gpu/src/layout.ts</code>,
+        lines&nbsp;56&ndash;58). If a layout ever disagrees with its declared size, construction
+        throws <code>GPU &lt;operator&gt; schema has unexpected bytes/cell</code> (same file,
+        lines&nbsp;177&ndash;179). And that ceiling was written down at the phase's planning stage
+        &mdash; &ldquo;WP0 reserves a conservative planning ceiling of 64 GPU bytes per cell&hellip;
+        It is an allocation guard, not a promised WP1 layout&rdquo;
+        (<code>docs/plans/phase-5-gpu-port.md:262</code>) &mdash; <em>before</em> the layout existed,
+        rather than measured afterwards from whatever the code happened to use. When a later
+        decision gave the attachment-kinetics solver one extra buffer, its allocation rose from 60
+        to 64 bytes per cell: up to the already-frozen ceiling, not through it
+        (<code>docs/decisions/0021-bound-phase5-float32-two-cycles.md:74&ndash;75</code>). Same
+        shape as the tolerance. The number was fixed first, and the code came up to the line instead
+        of pushing it.
+      </p>
 
       <!-- ============================================================ 5 -->
       <h2 id="never-vote">A tolerance may never vote on a yes-or-no</h2>
@@ -592,7 +628,7 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. Threshold <code>0.02</code> and the stress
           fixture's post-freeze masses <code>0.019975 / 0.020025</code> from
-          docs/plans/phase-5-gpu-port.md:291&ndash;294; required margin <code>4e-4</code> from
+          docs/plans/phase-5-gpu-port.md:292&ndash;293; required margin <code>4e-4</code> from
           runner/src/phase5-protocol.ts:526&ndash;529; observed minimum margin
           <code>0.002877725076560811</code> from docs/plans/phase-5-gpu-port.md:1289&ndash;1291.
           The two verdicts are computed live, in float64 and through
@@ -648,10 +684,18 @@
             <tr><td>Segment p99, column</td><td class="num">&le; 250 ms</td><td class="num">34.40 ms</td></tr>
             <tr><td>Edit acknowledged, plate</td><td class="num">&le; 100 ms</td><td class="num">9.90 ms max</td></tr>
             <tr><td>First valid frame, plate</td><td class="num">&le; 2,000 ms</td><td class="num">308.0 ms max</td></tr>
-            <tr><td>Windows watchdog reset</td><td class="num">&asymp; 2,000 ms</td><td class="num">never approached</td></tr>
           </tbody>
         </table>
       </div>
+
+      <p>
+        Windows is deliberately not a row in that table. Its watchdog is operating-system
+        behaviour rather than one of the project's registered bounds, and &ldquo;never
+        fired&rdquo; would be an inference, not a measured quantity &mdash; every other cell above
+        is a registered number beside a measured one. The comparison belongs here instead: the
+        tightest registered bound, 500&nbsp;ms per submission segment, sits four times below where
+        Windows would intervene, and all 560 measured segments came in under that bound.
+      </p>
 
       <p>
         There is a registered saboteur for this too: <code>NC-EXCESSIVE-DISPATCH</code>, owned by
@@ -668,7 +712,7 @@
         that only ever passes proves nothing. So the protocol registers sixteen named pass/fail
         criteria &mdash; <code>P5-WINDOWS-PROVENANCE</code> through <code>P5-PUBLICATION</code>
         (<code>runner/src/phase5-protocol.ts</code>, lines&nbsp;854&ndash;871) &mdash; and, for each,
-        a specific mutation designed to break exactly that one. Every mutation is executed against
+        a specific mutation aimed at that one criterion. Every mutation is executed against
         the published evidence, and the observed set of failures must contain its registered owner.
       </p>
 
@@ -747,6 +791,18 @@
         <p class="figure__source"><code>docs/plans/phase-6-nakaya-validation.md:296&ndash;302</code></p>
       </blockquote>
 
+      <p>
+        Two words in there need unpacking. The bare word <em>steps</em> means
+        <strong>interface steps</strong> &mdash; the plan spells it out where it repeats the finding
+        later, &ldquo;converges many interface steps in a single relaxation sweep&rdquo; (same file,
+        line&nbsp;856) &mdash; and an interface step is one advance of the
+        crystal's surface: work out the vapour field, move the ice a little, repeat. And
+        <strong>warm-starting</strong> means beginning each of those from the answer you had last
+        time rather than from scratch &mdash; which is most of why the processor gets there in five
+        seconds. The card cannot do either cheaply. It commits to a fixed block of sweeps and then
+        waits for the whole queue to drain before anyone is allowed to look.
+      </p>
+
       <figure class="chart" id="fig-bakeoff">
         <div class="chart__head">
           <p class="chart__title">Where the time went, at 28&sup3;</p>
@@ -772,10 +828,16 @@
         under <code>relaxTol</code>. <strong>And</strong> the divergence identity &mdash;
         |injection + drift &minus; exchange| / |exchange|, the bookkeeping check that what the outer
         wall pushes in equals what the crystal's surface takes out &mdash; must be under
-        <code>divTol</code>. They are two separate entries in the frozen manifest,
-        <code>relaxationResidualMaxAbs: 2e-7</code> and <code>divergenceResidualLimit: 1e-7</code>
-        (<code>runner/src/phase5-protocol.ts</code>, lines&nbsp;495&ndash;496), and the second is not
-        a smaller version of the first. Chapter 22 is the story of why
+        <code>divTol</code>. They are two separate controls, registered on the fixture itself on
+        consecutive lines: <code>relaxTol: 1e-9</code> and <code>divTol: 1e-7</code>
+        (<code>runner/src/phase5-protocol.ts</code>, lines&nbsp;345&ndash;346; the same pair is
+        registered again for the Phase&nbsp;6 runs at
+        <code>runner/src/phase6-crossplatform.ts</code>, lines&nbsp;82&ndash;83).
+        Now look at the two numbers, because they are the wrong way round for the obvious story.
+        The divergence bound is a hundred times <em>looser</em> &mdash; and it is still the one the
+        card cannot reach. If the second check were merely a stricter version of the first, the
+        looser number would be the easy one. It is not. It is a different question.
+        Chapter 22 is the story of why
         (<code>docs/decisions/0006-audited-surface-operator-numerics.md</code>, Decision&nbsp;1).
       </p>
 
@@ -809,8 +871,8 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. The float32 epsilon is computed live as
           <code>2**-23</code>, matching <code>FLOAT32_EPSILON</code> at
-          runner/src/phase5-protocol.ts:501&ndash;502; frozen <code>divTol = 1e-7</code> from
-          <code>PHASE5_SCALAR_TOLERANCES.divergenceResidualLimit</code>, line&nbsp;496; the observed
+          runner/src/phase5-protocol.ts:501&ndash;502; frozen <code>divTol = 1e-7</code> as
+          registered on the blocking LK fixture, runner/src/phase5-protocol.ts:346; the observed
           residual cluster 1.0&ndash;1.6e-7 and the bit-stationary readout from
           docs/plans/phase-6-nakaya-validation.md:304&ndash;312 and 314&ndash;324.</span>
         </figcaption>
@@ -858,8 +920,13 @@
         (<code>docs/plans/phase-5-gpu-port.md:1449</code>), under protocol
         <code>phase5-gpu-conformance-windows-v6</code> (<code>runner/src/phase5-protocol.ts</code>,
         line&nbsp;15). Alongside it: zero device losses, zero uncaptured GPU errors, zero
-        hidden retries, zero stale-generation frames, and zero full-field readbacks across 2,715
-        audited ones (docs/plans/phase-5-gpu-port.md:1453&ndash;1455).
+        hidden retries, zero stale generations, and zero full-field <em>display-frame</em> reads
+        across 2,715 audited readbacks (docs/plans/phase-5-gpu-port.md:1453&ndash;1455). Those
+        middle words carry weight. Copying a whole field back out of the card is allowed &mdash;
+        for a checkpoint, for a test, for the evidence bundle. What is forbidden is doing it in
+        order to draw a picture: the app &ldquo;may not copy a full field to JavaScript every
+        display frame&rdquo; (<code>docs/plans/phase-5-gpu-port.md:113&ndash;115</code>). All 2,715
+        readbacks were audited against that rule, and none of them broke it.
       </p>
 
       <p>
@@ -877,8 +944,12 @@
         it as a standing rule: <strong>&ldquo;&lsquo;The model was given real physics&rsquo; and
         &lsquo;the model was shown to reproduce reality&rsquo; are different claims; only Phase 6
         can promote the first to the second&rdquo;</strong> (<code>project charter.md</code>,
-        &sect;3.3, &ldquo;Standing guardrails&rdquo;). It does not say the code runs correctly on a Mac &mdash; when the Mac was
-        unavailable, that backend was recorded as <em>unobserved</em> rather than guessed. And it
+        &sect;3.3, &ldquo;Standing guardrails&rdquo;). It does not say the code runs correctly on a Mac:
+        when the Mac was unreachable, &ldquo;every Metal capability remained unobserved rather than
+        guessed&rdquo; and decision 0018 moved that work off this gate
+        (<code>docs/plans/phase-5-gpu-port.md:245&ndash;247</code>), which the charter turns into a
+        flat rule &mdash; <strong>&ldquo;Untested backends carry no Phase 5 claim&rdquo;</strong>
+        (<code>project charter.md</code>, &sect;3.1, line&nbsp;223). And it
         does not even say the fast path is fit for a workload longer than the one it was certified
         on; the previous section is what that turned out to cost.
       </p>
@@ -1177,6 +1248,9 @@
 
   const N = 81, MAXP = 64;
   let rounding = true, passes = MAXP, factor = 2, frozen = false, frozenBound = 0;
+  /* A control that refuses silently reads as a broken page. Every refusal in this
+     demo says why, because the refusal is the lesson.                            */
+  let notice = "";
 
   /* One-dimensional analogue of solver-gpu/src/diffusion-shaders.ts:186 —
      accumulate left to right, then divide by an odd number. In the rounded arm
@@ -1273,22 +1347,29 @@
       (rounding ? window.Ch26.exp(at.maxAbs, 4) : "0") +
       " &nbsp;&middot;&nbsp; RMS " + (rounding ? window.Ch26.exp(at.rms, 4) : "0") + "</p>" +
       (frozen
-        ? "<p style='margin:0 0 .35rem'><strong style=\"color:" + c.critical + "\">FROZEN</strong> at " +
-          window.Ch26.exp(frozenBound, 4) + ". The control is locked. Changing it now would " +
-          "require a decision record, would invalidate the comparison evidence, and would rerun " +
-          "the whole lane.</p>" +
-          "<p style='margin:0;font-family:var(--font-mono);font-size:.72rem;word-break:break-all;color:" +
-          c.inkSecondary + "'>tolerance manifest SHA-256 " +
-          "d38ec0f7a0096dc297d651cd1b89fb80275edb4098c16545c44274e585c2a09b</p>"
+        ? "<p style='margin:0;'><strong style=\"color:" + c.critical + "\">FROZEN</strong> at " +
+          window.Ch26.exp(frozenBound, 4) + ". The control is locked; what moving it would cost is " +
+          "on the next figure.</p>"
         : "<p style='margin:0;color:" + c.inkSecondary + "'>Proposed bound = " + factor +
           " &times; measured RMS = <strong>" +
           (rounding ? window.Ch26.exp(proposed, 4) : "0 — turn the rounding on first") +
           "</strong>. Freeze it before you are allowed to see any real result. For scale: the " +
-          "project measured 9.6978718e-8 on its own 64-pass fixture and froze 2e-7.</p>");
+          "project measured 9.6978718e-8 on its own 64-pass fixture and froze 2e-7.</p>") +
+      (notice
+        ? "<p style='margin:.6rem 0 0;color:" + c.critical + "'><strong>Refused.</strong> " +
+          notice + "</p>"
+        : "");
   }
 
   Viz.button(controls, "Rounding to 32 bits: ON", function (b) {
-    if (frozen) return;
+    if (frozen) {
+      notice = "The tolerance is frozen. Changing the arithmetic now would invalidate the " +
+        "comparison evidence &mdash; the bound would no longer be a bound on <em>this</em> " +
+        "calculation. Unfreeze and start the measurement over.";
+      draw();
+      return;
+    }
+    notice = "";
     rounding = !rounding;
     b.textContent = "Rounding to 32 bits: " + (rounding ? "ON" : "OFF");
     b.setAttribute("aria-pressed", String(rounding));
@@ -1298,27 +1379,33 @@
   Viz.slider(controls, {
     label: "passes", id: "c26-sh-p", min: 2, max: MAXP, step: 1, value: MAXP,
     format: function (v) { return String(v); },
-    onInput: function (v) { passes = v; draw(); },
+    onInput: function (v) { notice = ""; passes = v; draw(); },
   });
 
   const factorSlider = Viz.slider(controls, {
     label: "safety factor", id: "c26-sh-f", min: 1, max: 20, step: 1, value: 2,
     format: function (v) { return v + "×"; },
-    onInput: function (v) { if (!frozen) { factor = v; draw(); } },
+    onInput: function (v) { if (!frozen) { notice = ""; factor = v; draw(); } },
   });
 
   Viz.button(controls, "Freeze the tolerance", function (b) {
     if (frozen) {
-      frozen = false; frozenBound = 0;
+      frozen = false; frozenBound = 0; notice = "";
       b.textContent = "Freeze the tolerance";
       factorSlider.input.disabled = false;
       draw();
       return;
     }
-    if (!rounding) return;
     const hist = simulate();
     const bound = hist[passes - 1].rms * factor;
-    if (!(bound > 0)) return;
+    if (!rounding || !(bound > 0)) {
+      notice = "There is nothing to freeze. With the rounding off, the two runs agree to the " +
+        "last bit and the measured error is 0 &mdash; and a bound of zero is not a bound. " +
+        "Turn the rounding on, measure, then freeze.";
+      draw();
+      return;
+    }
+    notice = "";
     frozen = true;
     frozenBound = bound;
     b.textContent = "Unfreeze (start over)";
@@ -1448,7 +1535,7 @@
   const controls = root.querySelector(".anim__controls");
   const frame = window.Ch26.frame(body);
 
-  const THRESHOLD = 0.02;                  /* docs/plans/phase-5-gpu-port.md:290-291 */
+  const THRESHOLD = 0.02;                  /* docs/plans/phase-5-gpu-port.md:292-293 */
   const MARGIN = 4e-4;                     /* runner/src/phase5-protocol.ts:526-529  */
   const OBSERVED = 0.002877725076560811;   /* docs/plans/phase-5-gpu-port.md:1289-1291 */
   let mass = 0.0225;
@@ -1621,7 +1708,8 @@
   const frame = window.Ch26.frame(body);
 
   const EPS = Math.pow(2, -23);         /* runner/src/phase5-protocol.ts:501-502 */
-  const FROZEN = 1e-7;                  /* PHASE5_SCALAR_TOLERANCES.divergenceResidualLimit */
+  const FROZEN = 1e-7;                  /* divTol, registered on the blocking LK fixture:
+                                           runner/src/phase5-protocol.ts:346                */
   const LO = 1.0e-7, HI = 1.6e-7;       /* observed cluster, phase-6 plan lines 304-312 */
   let tol = FROZEN;
   let relaxed = false;
@@ -1669,7 +1757,7 @@
       class: "annotation", x: (L + xs(EPS)) / 2, y: H - B - 10,
       "text-anchor": "middle", fill: c.critical,
     });
-    shade.textContent = "no residual here";
+    shade.textContent = "below one rounding step";
     svg.appendChild(shade);
 
     const reachable = tol > EPS;

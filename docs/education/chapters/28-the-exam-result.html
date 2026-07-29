@@ -38,7 +38,7 @@
       <li><a href="#two-numbers">Two numbers came back</a></li>
       <li><a href="#the-grid">The measured diagram</a></li>
       <li><a href="#the-five">All five wins at one temperature</a></li>
-      <li><a href="#minus-five">The half that agrees with the laboratory</a></li>
+      <li><a href="#minus-five">The one temperature that agrees with the laboratory</a></li>
       <li><a href="#three-explanations">Three explanations, two eliminated</a></li>
       <li><a href="#counting">One crossing, three boundaries</a></li>
       <li><a href="#the-lever">The knob that helps nothing</a></li>
@@ -82,8 +82,8 @@
       <p>
         The exam was one command. <code>node runner/src/main.ts phase6-sweep 6</code>. It ran for
         about seventeen hours on six worker processes and exited with status 0, having completed
-        204 of 204 points on the float64 CPU engine &mdash; the slow, exact one, for the reason
-        chapter 26 gave. Those lines are printed in the provenance table at the top of
+        204 of 204 points on the float64 CPU oracle &mdash; the slow reference engine, for the
+        reason chapter 26 gave. Those lines are printed in the provenance table at the top of
         <code>research/phase6-sweep-report.md</code>, next to the fingerprint of the protocol it
         was run against and the two commit hashes that prove the protocol was sealed first.
       </p>
@@ -100,10 +100,9 @@
       </blockquote>
 
       <p>
-        Five out of ninety. In the temperature band where the reference diagram demands columns,
-        the model produced agreement on 0 of 24 points. In the band where it demands cold plates,
-        0 of 60. That is not a near miss. That is a miss so total that you would normally suspect
-        the machine was broken.
+        Five out of ninety &mdash; ninety being the counting points chapter 27 derived in advance,
+        before anyone knew what would land on them. That is not a near miss. That is a miss so
+        total that you would normally suspect the machine was broken.
       </p>
 
       <p>The second number is the reason you cannot suspect that:</p>
@@ -141,7 +140,7 @@
       <p>
         This is what makes the failure usable. The ordinary escape hatch from a bad comparison is
         <em>some of the runs were no good, so the comparison is unfair</em>. Here there are no bad
-        runs to point at. Nothing was excluded, so nothing could be argued about afterwards.
+        runs to point at.
       </p>
 
       <figure class="anim is-wide" id="c28-verdicts">
@@ -195,9 +194,7 @@
           A wrong answer about nature is a measurement. A wrong answer about your own rules is a
           defect. The 204 runs produced the first and tripped none of the four numeric validity
           rules &mdash; which is what lets the disagreement be attributed to the physics rather
-          than to the program. A different rule <em>was</em> broken, and the very next paragraph
-          says so: the runs used a parameter set the frozen protocol had not registered. That one
-          was caught by review, not by the runs, and it cost the sweep.
+          than to the program.
         </p>
       </aside>
 
@@ -259,6 +256,14 @@
         </figcaption>
       </figure>
 
+      <p>
+        Where those five sit matters more than the fact that there are five. In the temperature
+        band where the reference demands columns, the model agreed on 0 of 24 counting points; in
+        the band where it demands cold plates, 0 of 60. The denominators differ because the bands
+        are different widths on the temperature axis, and each surviving temperature carries six
+        humidities with it.
+      </p>
+
       <div class="table-wrap">
         <table>
           <caption>
@@ -285,11 +290,9 @@
       <p>
         Across all 204 points the class totals are <strong>31 plate, 143 neutral, 30 column, 0
         invalid</strong>, with 25 points flagged as sitting close enough to a class threshold that
-        a small change in measurement size could move them. You can check the first three of those
-        numbers yourself off the grid above, because the grid in the interactive is the report&rsquo;s
-        own character grid transcribed cell for cell: count the plates and you get 31, count the
-        columns and you get 30, and everything else &mdash; 143 cells &mdash; is the model refusing
-        to pick a side.
+        a small change in measurement size could move them. You can check those totals off the grid
+        above by hand, because it is the report&rsquo;s own character grid transcribed cell for
+        cell &mdash; and the 143 is the model refusing to pick a side.
       </p>
 
       <aside class="callout callout--method">
@@ -401,7 +404,7 @@
         </p>
       </aside>
 
-      <h2 id="minus-five">The half that agrees with the laboratory</h2>
+      <h2 id="minus-five">The one temperature that agrees with the laboratory</h2>
 
       <p>
         There is a second result in the same sweep, and it points the other way.
@@ -419,10 +422,11 @@
       </p>
 
       <p>
-        The model&rsquo;s &minus;5&nbsp;&deg;C points land at AR 0.3821 to 1.0000: inside his
-        measured range, columns absent. So the model agrees with the laboratory measurements and
-        disagrees with the diagram &mdash; which is precisely what the source says a broad-facet
-        model should do. He writes it out on the same page: &ldquo;<strong>Producing columnar
+        The model&rsquo;s two &minus;5&nbsp;&deg;C measurements bracket AR 0.3821 to 1.0000 &mdash;
+        one under the parameters the sweep actually ran, one under the corrected set &mdash; and
+        both sit at or inside his measured range, columns absent. So the model agrees with the laboratory
+        measurements and disagrees with the diagram, which is precisely what the source says a
+        broad-facet model should do. On p. 10 he writes it out: &ldquo;<strong>Producing columnar
         crystals at &minus;5&nbsp;C then requires the SDAK effect</strong>.&rdquo;
       </p>
 
@@ -520,16 +524,21 @@
         The alibi for the numbers has two parts, and only one of them is blind. The
         &minus;5&nbsp;&deg;C reproduction is the loud one, and you have just seen why it is a
         consistency check rather than a proof. The quiet one is better evidence, and it is about
-        one specific quantity: the prefactor curve <em>A</em><sub>prism</sub> was digitized off a
+        one specific quantity: the prefactor curve <em>A</em><sub>prism</sub> &mdash; the ceiling on
+        how sticky a prism face can ever get &mdash; was digitized off a
         printed <em>figure</em>, pixel by pixel, before anyone found the later paper that prints
         the same curve as an <em>equation</em> &mdash; arXiv:2009.08404v2, Eq. (5). Compared
         afterwards, the digitized
         <em>A</em><sub>prism</sub> anchors reproduce the printed formula to 8.4% at worst and under
         2% typically. An extraction that agrees with a source it could not have peeked at is
-        independently confirmed, not merely self-consistent. The
-        <em>&sigma;<sub>0</sub></em> curves got no such clean bill &mdash; that is the discrepancy
-        the previous section reported, and it is why the alibi for the numbers is stamped
-        &ldquo;with scope&rdquo; rather than clean.
+        independently confirmed, not merely self-consistent. But read carefully what that alibi
+        covers: it clears the <em>registered</em> curve, and the 204 runs did not use it. They ran
+        with <em>A</em><sub>prism</sub> fixed at 1 at every temperature, which is the substitution
+        the review later caught. So this piece of evidence attaches to the corrected re-sweep, not
+        to the 5 of 90. The
+        <em>&sigma;<sub>0</sub></em> curves got no such clean bill either &mdash; that is the
+        discrepancy the previous section reported, and between them they are why the alibi for the
+        numbers is stamped &ldquo;with scope&rdquo; rather than clean.
       </p>
 
       <aside class="callout callout--myth">
@@ -541,10 +550,11 @@
         </p>
         <p>
           &ldquo;Zero invalid runs&rdquo; does <em>not</em> mean &ldquo;zero errors&rdquo;. It means
-          zero runs tripped four named validity conditions. A different kind of error &mdash; an
-          unregistered command-line default quietly overriding a frozen parameter row &mdash; was
-          found afterwards, by review, and cost the entire sweep. Both facts belong in the same
-          chapter, and the second one is the more impressive.
+          zero runs tripped four named validity conditions. The
+          <em>A</em><sub>prism</sub> substitution tripped none of them, because no automatic check
+          was watching that row: an unregistered command-line default quietly overrode a frozen
+          parameter, and every affected run still came out numerically spotless. A machine can only
+          catch the mistakes somebody thought to name.
         </p>
       </aside>
 
@@ -561,7 +571,10 @@
         plates and starts growing columns &mdash; requires the basal and prism facets to swap which
         one is stickier. Stickiness in this model is set by a critical supersaturation
         <em>&sigma;<sub>0</sub></em>, one curve per facet: the lower the curve, the stickier the
-        facet, so a swap in stickiness is exactly a <strong>crossing</strong> of the two curves. So
+        facet, so a swap in stickiness is exactly a <strong>crossing</strong> of the two curves.
+        Which way round matters. When the prism faces are the stickier pair they advance faster, the
+        crystal spreads sideways, and you get a plate; when the basal faces win, it grows tall and
+        you get a column. So
         the number of crossings is a hard ceiling on the number of habit boundaries a model can
         produce &mdash; and that ceiling does not care about the diffusion solver, the grid
         spacing, the seed shape, the far-field condition or the domain size.
@@ -604,8 +617,17 @@
         <div class="anim__head">
           <p class="anim__title">Count the crossings</p>
           <p class="anim__sub">
-            Two published curves and a habit ribbon that redraws live. Try to produce three
-            boundaries. Then switch on the dip tools and read the banner.
+            Two published curves and a habit ribbon that redraws live. The ribbon just reads the
+            curves: wherever the prism curve is the lower one the prism faces are stickier, so they
+            advance faster and the crystal spreads into a <em>plate</em>; wherever basal is lower it
+            grows tall into a <em>column</em>. Try to produce three boundaries. Then switch on the
+            dip tools &mdash; the two SDAK dips chapter 13 took apart &mdash; and read the banner.
+          </p>
+          <p class="anim__sub">
+            Read the ribbon for <em>how many</em> boundaries these curves could support, and for
+            nothing else. It says nothing about where the model actually changes habit, or whether
+            it changes at all. That is a different observable, and it is measured further down in
+            &ldquo;The shape of the failure&rdquo;.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -734,8 +756,9 @@
 
       <p>
         The first is that the crossing marks where plate <strong>stops</strong>, not where column
-        <strong>starts</strong>. Everyone, this project included, had assumed the crossing
-        temperature <em>is</em> the habit-switch temperature. It is not. The last plate cell in
+        <strong>starts</strong>. This project had assumed the crossing temperature <em>is</em> the
+        habit-switch temperature, and nothing in the literature says otherwise. It is not. The last
+        plate cell in
         every row from <em>f</em> = 0.10 to 0.40 sits at &minus;8&nbsp;&deg;C, with the first
         neutral cell at &minus;9&nbsp;&deg;C &mdash; which is why the report brackets the plate
         boundary as &ldquo;&minus;8/&minus;9&nbsp;&deg;C&rdquo;, and it is what the strip
@@ -818,14 +841,13 @@
       <p>
         <strong>It is not a test of SDAK.</strong> Every run is a no-SDAK run; in the report&rsquo;s
         own words, &ldquo;<code>SDAK</code> appears in no source file&rdquo;. The dip mechanism has
-        never been tested here, and if it were switched on and the diagram appeared, the rules
-        already written would label that in-sample reproduction rather than validation.
+        never been tested here.
       </p>
 
       <p>
         <strong>The comparison target is a redrawn 1954 schematic.</strong> Its supersaturation axis
         failed an independent check when the project digitized it, which is why only its three
-        boundary <em>temperatures</em> are used and its humidity values never are. No published
+        boundary <em>temperatures</em> are used and its humidity values never are. No observational
         habit boundary anywhere carries a numerical uncertainty; the &plusmn;0.5&nbsp;&deg;C the
         project uses is its own construction.
       </p>
@@ -865,11 +887,15 @@
       <p>
         What is left, after all of those are subtracted, is small and durable. A model built from
         one physicist&rsquo;s published measurements was pointed at the most famous picture in his
-        field, under a marking scheme sealed in advance, and it missed &mdash; in the specific shape
-        he had predicted in prose and nobody had ever tested in three dimensions. It missed while
-        agreeing with his own laboratory data at a temperature where that laboratory data and the
-        diagram contradict each other. And it missed with 204 numerically clean runs out of 204, so
-        there is nothing left to blame but the physics that was fed in.
+        field, under a marking scheme sealed in advance, and it missed &mdash; in the way he had
+        predicted in prose and nobody had ever tested in three dimensions. Keep the two halves
+        apart: <em>that</em> it would miss is his claim, published years earlier. What the miss
+        <em>looks like</em> &mdash; the ten-degree gap, the habit destroyed by humidity &mdash; is
+        this project&rsquo;s, and it is the smaller of the two. It missed while agreeing with his
+        own laboratory data at a temperature where that laboratory data and the diagram contradict
+        each other. And it missed structurally, not narrowly: one crossing cannot make three
+        boundaries, so no broad-facet parameterization could have passed. What is left to blame is
+        the physics, not the arithmetic.
       </p>
 
       <p>
@@ -1076,7 +1102,7 @@
       var items = view === "machinery"
         ? [{ c: c.good, l: "valid — all four checks passed" }]
         : [{ c: c.good, l: "agrees" }, { c: c.critical, l: "disagrees" },
-           { c: c.rule, l: "not counted by the rule" }];
+           { c: c.rule, l: "outside the headline scope" }];
       items.forEach(function (it, i) {
         var x = M.left + i * 170;
         svg.appendChild(Viz.svgEl("circle", {
@@ -1287,7 +1313,7 @@
         ask: "What would have to be true: broad-facet attachment kinetics alone cannot produce the diagram.",
         verdict: "SURVIVES",
         out: false,
-        evidence: "This is the source's own published position: SDAK \"provides the only viable option currently available that can adequately explain the Nakaya diagram\". It is a claim about what a model without SDAK will do, and nobody had run it in 3-D. Scope, and it matters: this sweep is the first independent test of a claim that already existed in prose. It is never a discovery of this project."
+        evidence: "This is the source's own published position: SDAK \"provides the only viable option currently available that can adequately explain the Nakaya diagram together with a plethora of other ice-growth data\". It is a claim about what a model without SDAK will do, and nobody had run it in 3-D. Scope, and it matters: this sweep is the first independent test of a claim that already existed in prose. It is never a discovery of this project."
       }
     ];
 
@@ -1545,8 +1571,12 @@
         msg = "No crossing at all — one habit across the whole axis, and zero boundaries.";
         tone = "var(--ink-secondary)";
       } else if (n === 1) {
-        msg = "Two smooth curves, one crossing, one boundary. Scale either curve by any constant "
-            + "you like and it stays one — you cannot reorder a monotone function by scaling it.";
+        msg = "Two smooth curves, one crossing, one boundary. Scale either of these curves up or "
+            + "down by any constant and it stays one crossing — because what falls steadily with "
+            + "cold is the basal/prism RATIO, and multiplying one curve by a constant cannot make "
+            + "a steadily falling ratio cross 1 twice. The project registered that argument on its "
+            + "own digitized curves before the sweep: ratio 12.50 at −2 °C, 1.00 at −10 °C, 0.52 "
+            + "at −40 °C.";
         tone = "var(--ink-secondary)";
       } else if (n === 2) {
         msg = "Two crossings. Better — and you got there by carving a hole in a published curve.";
@@ -1568,13 +1598,29 @@
     body.appendChild(banner);
 
     if (bar) {
+      /* A knob that is live but has nothing to act on reads as a broken knob. The dip
+         sliders stay disabled until the dip they steer is switched on. */
+      var bSlider = null, pSlider = null, dSlider = null;
+      function armSliders() {
+        function arm(h, live) {
+          if (!h) return;
+          h.input.disabled = !live;
+          h.element.style.opacity = live ? "" : "0.45";
+          h.element.title = live ? "" : "switch the dip on first";
+        }
+        arm(bSlider, st.bOn);
+        arm(pSlider, st.pOn);
+        arm(dSlider, st.bOn || st.pOn);
+      }
+
       Viz.button(bar, "Basal dip: off", function (b) {
         st.bOn = !st.bOn;
         b.textContent = "Basal dip: " + (st.bOn ? "on" : "off");
         b.setAttribute("aria-pressed", String(st.bOn));
+        armSliders();
         render();
       }, { pressed: false });
-      Viz.slider(bar, {
+      bSlider = Viz.slider(bar, {
         label: "basal dip centre", id: "c28x-bc", min: 2, max: 35, step: 0.1, value: 4.5,
         format: function (v) { return "−" + v.toFixed(1) + " °C"; },
         onInput: function (v) { st.bC = v; render(); }
@@ -1583,18 +1629,20 @@
         st.pOn = !st.pOn;
         b.textContent = "Prism dip: " + (st.pOn ? "on" : "off");
         b.setAttribute("aria-pressed", String(st.pOn));
+        armSliders();
         render();
       }, { pressed: false });
-      Viz.slider(bar, {
+      pSlider = Viz.slider(bar, {
         label: "prism dip centre", id: "c28x-pc", min: 2, max: 35, step: 0.1, value: 14.4,
         format: function (v) { return "−" + v.toFixed(1) + " °C"; },
         onInput: function (v) { st.pC = v; render(); }
       });
-      Viz.slider(bar, {
+      dSlider = Viz.slider(bar, {
         label: "dip depth", id: "c28x-d", min: 0, max: 0.9, step: 0.05, value: 0.7,
         format: function (v) { return Math.round(v * 100) + "%"; },
         onInput: function (v) { st.depth = v; render(); }
       });
+      armSliders();
     }
 
     render();
@@ -1611,16 +1659,21 @@
     var bar = root.querySelector(".anim__controls");
 
     /* research/libbrecht-figure-findings.md §9.2 — five seed geometries,
-       both discriminating conditions, all runs clean. */
+       both discriminating conditions, all runs clean. Rows are in the source
+       table's own order. The source's "seed AR" column is deliberately not
+       reproduced: the registered definition of AR (z-extent / T-extent, per
+       runner/src/phase6-protocol.ts) does not reconcile with its value for the
+       registered 2/1 seed, and this interactive's argument runs entirely on the
+       two MEASURED aspect ratios, which are not in doubt. */
     var SEEDS = [
-      { name: "4 / 1 wide plate", seedAR: 0.111, warm: 0.2729, cold: 0.7895 },
-      { name: "1 / 1 small plate", seedAR: 0.333, warm: 0.4913, cold: 1.2353 },
-      { name: "2 / 1 registered", seedAR: 0.500, warm: 0.3821, cold: 1.1053 },
-      { name: "2 / 5 thick", seedAR: 1.000, warm: 0.6842, cold: 1.4000 },
-      { name: "1 / 5 needle-like", seedAR: 1.667, warm: 0.7895, cold: 1.6154 }
+      { name: "4 / 1 wide plate", warm: 0.2729, cold: 0.7895 },
+      { name: "2 / 1 registered", warm: 0.3821, cold: 1.1053 },
+      { name: "1 / 1 small plate", warm: 0.4913, cold: 1.2353 },
+      { name: "2 / 5 thick", warm: 0.6842, cold: 1.4000 },
+      { name: "1 / 5 needle-like", warm: 0.7895, cold: 1.6154 }
     ];
-    var pick = 2;                       // the registered seed
-    var tried = { 2: true };
+    var pick = 1;                       // the registered seed
+    var tried = { 1: true };
     var svg = null;
     var W = 740, H = 300;
     var L = 84, R = 640;
@@ -1690,7 +1743,7 @@
         x: L, y: H - 26, fill: c.inkSecondary, "font-size": 11.5,
         "font-family": "var(--font-sans)"
       });
-      st.textContent = "seed: " + s.name + " (seed AR " + s.seedAR.toFixed(3) + ")"
+      st.textContent = "seed: " + s.name + " (radius / thickness)"
         + "   ·   agreements: " + got + " of 2"
         + "   ·   seeds tried: " + n + " of 5";
       svg.appendChild(st);

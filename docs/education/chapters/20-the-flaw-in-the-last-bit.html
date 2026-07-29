@@ -84,14 +84,10 @@
       </p>
 
       <p>
-        You should be suspicious of that. Computers are famously bad at &ldquo;exactly&rdquo;.
-        Ask one for 0.1&nbsp;+&nbsp;0.2 and it will hand back 0.30000000000000004. So what is
-        being measured, and how can the answer be a flat zero?
-      </p>
-
-      <p>
-        Here is the measurement, written down in <code>core/src/metrics.ts</code> just above the
-        function that computes it:
+        You should be suspicious of that. Computers are famously bad at &ldquo;exactly&rdquo;: ask
+        one for 0.1&nbsp;+&nbsp;0.2 and it hands back 0.30000000000000004. So what is being
+        measured, and how can the answer be a flat zero? Here is the measurement, written down in
+        <code>core/src/metrics.ts</code> just above the function that computes it:
       </p>
 
       <div class="equation">
@@ -105,32 +101,21 @@
             <dt>g</dt><dd>one of the three symmetry moves the crystal is supposed to survive: a 60&deg; turn (<code>rot60</code>), a reflection (<code>mirror</code>), and a top-to-bottom flip (<code>zmirror</code>)</dd>
             <dt>g(A)</dt><dd>the ice set after that move is applied</dd>
             <dt>&Delta;</dt><dd>symmetric difference &mdash; the cells that are in one set but not the other</dd>
+            <dt>&cap;</dt><dd>intersection &mdash; the cells that are in <em>both</em> sets</dd>
             <dt>|&nbsp;|</dt><dd>how many cells</dd>
+            <dt>max<sub>g</sub></dt><dd>run the whole calculation once for each of the three moves and report the worst answer</dd>
           </dl>
         </div>
         <p class="equation__cite">core/src/metrics.ts, lines 43&ndash;48 (the D6h symmetry error block)</p>
       </div>
 
       <p>
-        Those three moves are the D6h group from the last chapter, turned into a measurement. Now
-        read the shape of it. The numerator counts <em>cells</em>. You cannot be out by half a
-        cell. So the metric&rsquo;s own comment can say something that most error measures
-        cannot:
-      </p>
-
-      <blockquote style="border-left: 3px solid var(--rule-strong); padding-left: 1.15rem; margin: 0 0 1.4em; color: var(--ink-secondary);">
-        <p>
-          &ldquo;Exactly 0 iff A is invariant under the full group; the smallest nonzero value is
-          2/|A|, so there is no meaningful &lsquo;small but nonzero&rsquo;.&rdquo;
-          <br><em>&mdash; core/src/metrics.ts:47&ndash;48</em>
-        </p>
-      </blockquote>
-
-      <p>
-        For a crystal of five thousand cells the smallest non-zero reading is 0.0004. Between
-        that and zero there is nothing. The metric either says <em>perfect</em> or it says
-        <em>one cell of your crystal is in the wrong place</em>. That removes the option of
-        shrugging at a small number.
+        Those three moves are the D6h group from the last chapter, turned into a measurement.
+        Chapter&nbsp;19 already leaned on what falls out of its shape &mdash; the numerator counts
+        <em>cells</em>, so the reading moves in whole cells and its smallest non-zero value is
+        2/|A|, with &ldquo;no meaningful &lsquo;small but nonzero&rsquo;&rdquo;. This is the formula
+        behind that sentence. The metric either says <em>invariant</em> or it says <em>one cell of
+        your crystal is in the wrong place</em>. There is no third reading to shrug at.
       </p>
 
       <aside class="callout callout--key">
@@ -152,10 +137,10 @@
       <p>
         A <strong>float64</strong> &mdash; the number format this solver runs on &mdash; stores
         about sixteen decimal digits. When you add two of them, the true answer usually needs
-        more digits than that, so the machine rounds to the nearest storable value. The gap
-        between two neighbouring storable values has a name: one <strong>ulp</strong>, for
-        &ldquo;unit in the last place&rdquo;. It is the smallest difference a number of that size
-        can have.
+        more digits than that, so the machine rounds to the nearest storable value. The gap it
+        rounds across is the <strong>ulp</strong> the last chapter named in passing &mdash;
+        &ldquo;unit in the last place&rdquo;, the smallest difference a number of that size can
+        have.
       </p>
 
       <p>
@@ -168,7 +153,9 @@
       <p>
         That sounds like a curiosity. Here is what it looked like in this project. A calibration
         run at &minus;5&nbsp;&deg;C, with the random noise switched off, reported a symmetry error
-        of 0.020915 &mdash; where every neighbouring grid point reported exactly 0. Instrumenting
+        of 0.020915 &mdash; where every sibling <em>grid point</em>, meaning every other
+        temperature-and-supersaturation setting in the same calibration table, reported
+        exactly 0. Instrumenting
         the solver stage by stage produced this, captured at growth step 14 of a 32&sup3; run
         &mdash; a cell, and the cell you get by rotating it 60&deg;:
       </p>
@@ -215,7 +202,19 @@
       </p>
 
       <p>
-        The routine at fault gathers its inputs in this fixed sequence of lattice directions:
+        Start with what the broken routine is <em>for</em>. It works out how much vapour a surface
+        cell actually sees: for each direction in which that cell touches ice, it takes the vapour
+        value in the <em>opposite</em> direction, and averages the ones it collected. That is the
+        opposing-vapour mean &mdash; <code>opposingSigma</code> in
+        <code>solver-cpu/src/lk-solver.ts</code> lines 1058&ndash;1120, the project&rsquo;s
+        implementation of Libbrecht&rsquo;s Eq.&nbsp;5.35 &mdash; and its answer is the number that
+        becomes the supersaturation at that boundary cell.
+      </p>
+
+      <p>
+        It gathers those inputs in a fixed sequence of lattice directions, and that sequence has a
+        name in this chapter and in the table at the end of it: the <strong>gather order</strong>.
+        Here it is:
         <code>+i, &minus;i, +j, &minus;j, +i&minus;j, &minus;i+j, +k, &minus;k</code>. A 60&deg;
         rotation about the centre sends <code>+i&nbsp;&rarr;&nbsp;+j&nbsp;&rarr;&nbsp;&minus;i+j&nbsp;&rarr;&nbsp;&minus;i&nbsp;&rarr;&nbsp;&minus;j&nbsp;&rarr;&nbsp;+i&minus;j&nbsp;&rarr;&nbsp;+i</code>.
         In terms of <em>positions in the list</em>, that is the cycle (1&nbsp;3&nbsp;6&nbsp;2&nbsp;4&nbsp;5)
@@ -225,9 +224,12 @@
       </p>
 
       <p>
-        So the fix cannot be &ldquo;use more digits&rdquo;. More digits still gives you an order.
-        The fix has to make the answer <strong>a function of which numbers are being added, never
-        of their order</strong>. There are two cheap ways to do that, and this codebase uses both.
+        So the repair cannot be &ldquo;use more digits&rdquo;. More digits still gives you an order.
+        It has to make the answer <strong>a function of which numbers are being added, never of
+        their order</strong>. There are two cheap ways to do that, and this codebase already used
+        both &mdash; in a <em>different</em> operator. What follows is not yet the repair to
+        <code>opposingSigma</code>; it is the protection that other operator had been carrying for
+        two phases.
       </p>
 
       <figure class="anim" id="demo-pairs">
@@ -241,22 +243,24 @@
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
-          <span class="built-from">Original diagram. Pairing built from solver-cpu/src/gg-solver.ts
-          lines 815&ndash;837 (determinism decision 2); the slot cycle (1&nbsp;3&nbsp;6&nbsp;2&nbsp;4&nbsp;5)
+          <span class="built-from">Original diagram. Pairing built from
+          solver-cpu/src/gg-solver.ts:815&ndash;837, implementing determinism decision 2
+          (gg-solver.ts:28&ndash;34); the slot cycle (1&nbsp;3&nbsp;6&nbsp;2&nbsp;4&nbsp;5)
           from docs/decisions/0023-d6h-equivariant-opposing-vapor-mean.md.</span>
         </figcaption>
       </figure>
 
       <p>
-        The first way is <strong>pairing</strong>. In the plane, the six neighbours come in three
+        The first way is <strong>pairing</strong>. In the plane the six neighbours come in three
         opposite-facing pairs, and every symmetry move of a hexagon sends a pair to a pair &mdash;
-        it can swap the two members, and it can send a pair somewhere else, but it can never split
-        one. Adding two numbers is commutative: a&nbsp;+&nbsp;b and b&nbsp;+&nbsp;a are bit-for-bit
-        identical, because there is only one rounding and it does not know which number came first.
+        it can swap the two members, or send the pair elsewhere, but it can never split one. Adding
+        two numbers is commutative: a&nbsp;+&nbsp;b and b&nbsp;+&nbsp;a are bit-for-bit identical,
+        because there is one rounding and it does not know which number came first.
         That leaves three pair-sums, and the second way handles those: <strong>sort them</strong>,
-        because a sorted list depends only on the set of values, not on where they came from. The
-        whole thing is about twenty lines of the diffusion step &mdash; three pair sums, a
-        hand-written three-way sort, and one divide:
+        because a sorted list depends only on the set of values. Both live in the
+        <strong>smoother</strong> &mdash; the diffusion step that replaces each cell&rsquo;s vapour
+        value with an average of itself and its six in-plane neighbours. About twenty lines: three
+        pair sums, a hand-written three-way sort, one divide.
       </p>
 
       <div class="equation">
@@ -299,8 +303,8 @@
       </p>
 
       <p>
-        The repair could not reuse the pairing trick: that second routine sums a variable subset of
-        eight directions with no pairing structure to exploit. So it uses the other guarantee,
+        The repair could not reuse the pairing trick: <code>opposingSigma</code> sums a variable
+        subset of eight directions with no pairing structure to exploit. So it uses the other guarantee,
         sorting its operands into ascending order &mdash; by insertion sort, over at most eight
         values &mdash; before adding them. Same principle, different mechanism. Then the record adds
         the sentence that is the reason it exists:
@@ -308,6 +312,16 @@
         reduction over a set that a D6h generator permutes must be a function of the multiset
         &mdash; by pairing, by sorting, or by an equivariant construction &mdash; and stating that
         here is the point of the ADR, because the same omission has now happened once.&rdquo;</em>
+      </p>
+
+      <p>
+        One piece of vocabulary before the evidence. The repository version-numbers this arithmetic
+        the way software gets a version, calls it a <strong>surface policy</strong>, and writes it
+        into every saved run <em>&ldquo;precisely so numerics cannot be mixed across
+        versions&rdquo;</em> (ADR&nbsp;0023, Context). Gather order is policy
+        <code>aggregate-hv-g1h1-v5</code> &mdash; <em>v5</em>, with <em>v4</em> before it; the sorted
+        one is <em>v6</em>. Read &ldquo;a v5 grid point&rdquo; as &ldquo;a run made under the old
+        summation order&rdquo;.
       </p>
 
       <aside class="callout callout--myth">
@@ -331,15 +345,12 @@
       <h2 id="break-the-sixfold">Break it yourself</h2>
 
       <p>
-        Arguments about rounding are easy to nod along to and hard to believe. So: break it.
-      </p>
-
-      <p>
-        Below is a small grower running in your browser. It is <em>not</em> the project&rsquo;s
-        solver &mdash; it is a two-dimensional toy on the same hexagonal lattice, with a relaxation
-        step and a threshold. The first dropdown changes one thing: the order in which each cell
-        adds up its six neighbours. Geometry, seed, threshold and step count are identical across
-        all four settings.
+        Arguments about rounding are easy to nod along to and hard to believe. So: break it. Below
+        is a small grower running in your browser &mdash; <em>not</em> the project&rsquo;s solver,
+        but a two-dimensional toy on the same hexagonal lattice, with a relaxation step and a
+        threshold. The first dropdown changes one thing: the order in which each cell adds up its
+        six neighbours. Geometry, starting cell, threshold and step count are identical across all
+        four settings, and there is no randomness anywhere in it.
       </p>
 
       <figure class="anim" id="demo-break">
@@ -348,7 +359,8 @@
           <p class="anim__sub">
             Watch the middle two readouts. One counts cells whose rotated <em>or mirrored</em> twin
             holds a bit-for-bit different number; the other is the crystal&rsquo;s symmetry error.
-            They do not agree, and that is the lesson. The real solver&rsquo;s smoother has been
+            They do not agree, and that is the lesson. The key under the picture says what its
+            colours and outlines mean. The real solver&rsquo;s smoother has been
             protected this way since Phase&nbsp;2 &mdash; this toy strips that protection out so you
             can watch what it was protecting against.
           </p>
@@ -358,23 +370,20 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. A 2-D toy, not the project&rsquo;s solver.
           The canonical option is the pair-then-sort formula of solver-cpu/src/gg-solver.ts:815&ndash;837;
-          the symmetry error uses the formula in core/src/metrics.ts:43&ndash;48. All numbers shown
-          are measured live by this page.</span>
+          the symmetry error uses the formula in core/src/metrics.ts:43&ndash;48, restricted to the
+          two in-plane moves &mdash; a flat toy has no top-to-bottom flip to check. All numbers
+          shown are measured live by this page.</span>
         </figcaption>
       </figure>
 
       <p>
-        Two things should have happened. First, on <em>canonical pairs</em> the disagreement count
-        sits at zero for all fifty steps &mdash; not a small number, no number. Second, on any of
-        the other three orders it leaves zero at step&nbsp;2 and climbs into the hundreds within a
-        dozen steps, while the crystal&rsquo;s symmetry error still reads&nbsp;0. All four settings
-        finish with the same number of cells attached.
-      </p>
-
-      <p>
-        That second observation is the thing worth taking away. The field underneath the crystal
-        was already asymmetric; the crystal had not noticed yet. The project measured the same
-        gap on the real solver:
+        Two things should have happened. On <em>canonical pairs</em> the disagreement count sits at
+        zero for all fifty steps &mdash; not a small number, no number. On any of the other three
+        orders it leaves zero at step&nbsp;2 and climbs into the hundreds within a dozen steps,
+        while the crystal&rsquo;s symmetry error still reads&nbsp;0 and all four settings finish
+        with the same number of cells attached. That second reading is the one to take away: the
+        field underneath the crystal was already asymmetric, and the crystal had not noticed yet.
+        The project measured the same gap on the real solver:
       </p>
 
       <blockquote style="border-left: 3px solid var(--rule-strong); padding-left: 1.15rem; margin: 0 0 1.4em; color: var(--ink-secondary);">
@@ -389,8 +398,9 @@
 
       <p>
         Eventually the rounding does surface, and the record traces the whole route in the
-        solver&rsquo;s own variable names &mdash; read <code>sigma_b</code> as how hungry the
-        surface is, <code>alphaHK</code> as how readily a molecule sticks, <code>f</code> as how
+        solver&rsquo;s own variable names &mdash; read <code>sigma_b</code> as how much spare
+        vapour that surface cell sees, which is what the opposing-vapour mean was computing,
+        <code>alphaHK</code> as how readily a molecule sticks, <code>f</code> as how
         full a cell is, and <code>raw&nbsp;&gt;=&nbsp;room</code> as &ldquo;this cell now has more
         ice arriving than it has space for&rdquo;:
         <em>&ldquo;That ulp enters <code>sigma_b</code>, then <code>alphaHK</code>, then the fill
@@ -414,15 +424,15 @@
           does break. What broke, at step&nbsp;2, was the field underneath it.
         </p>
         <p>
-          Do not read the demo&rsquo;s counter as the project&rsquo;s per-step check, though: they
-          ask different questions. The counter above compares the entire vapour field bit-for-bit
-          against its own rotated and mirrored copies, which is stricter than anything a real run
-          prints. What the solver prints beside <code>symErr=</code> is <code>deltaSymClean</code>,
-          and that asks something narrower &mdash; is the set of cells that attached <em>on this
-          tick</em> itself D6h-invariant? The reasoning is written above the function: if the
-          crystal is invariant and every increment to it is invariant, the crystal stays invariant,
-          and checking the increment costs work proportional to the increment rather than to the
-          whole crystal, <em>&ldquo;which makes &lsquo;symmetry error exactly 0 across the entire
+          Do not read the demo&rsquo;s counter as the project&rsquo;s per-step check, though. The
+          counter compares the entire vapour field bit-for-bit against its own rotated and mirrored
+          copies, which is stricter than anything a real run prints. What the solver prints beside
+          <code>symErr=</code> is <code>deltaSymClean</code>, and that asks something narrower: is
+          the set of cells that attached <em>on this tick</em> itself D6h-invariant? The reasoning
+          sits above the function &mdash; if the crystal is invariant and every increment to it is
+          invariant, the crystal stays invariant, and checking the increment costs work
+          proportional to the increment rather than to the whole crystal,
+          <em>&ldquo;which makes &lsquo;symmetry error exactly 0 across the entire
           run&rsquo; affordable&rdquo;</em>. The full metric of this chapter&rsquo;s opening equation
           is still run too, <em>&ldquo;periodically and at the end as belt and braces&rdquo;</em>
           (core/src/metrics.ts:84&ndash;90).
@@ -431,8 +441,10 @@
           That distinction is what lets the decision record say two things that sound
           contradictory. The field asymmetry is &ldquo;chronic&rdquo; &mdash; and yet the two
           re-run v5 grid points <em>&ldquo;returned <code>deltaSymClean=true</code> for both. They
-          were genuinely clean runs, not lucky stops.&rdquo;</em> A field check would have called
-          those runs broken. The attachment-delta check called them clean, and it was right to.
+          were genuinely clean runs, not lucky stops.&rdquo;</em> On the evidence that the field
+          defect is chronic, a field check would very likely have called those two runs broken
+          &mdash; the record does not say, because it did not check their field.
+          The attachment-delta check called them clean, and it was right to.
           The rule that comes out of it is stated flatly: a v4/v5 <code>symErr = 0</code>
           <em>&ldquo;is a snapshot at the stop instant and does not establish that the run stayed
           symmetric, whereas <code>deltaSymClean</code> does&rdquo;</em>. So both checks are kept,
@@ -441,11 +453,12 @@
       </aside>
 
       <p>
-        One more detail, and it is the most transferable thing in the investigation.
-        The bad run was <strong>not silent</strong>. The solver printed <code>deltaSymClean=false</code>
-        on the same line, and a heartbeat had been printing <code>deltaSym=false</code> from step
-        78. What went wrong was downstream: the calibration harness parsed only <code>symErr=</code>
-        out of that line and threw the rest away. In the record&rsquo;s own words, <em>&ldquo;The
+        One more detail, and it is the most transferable thing in the investigation. The bad run
+        was <strong>not silent</strong>. The solver printed <code>deltaSymClean=false</code> on the
+        same line, and a <em>heartbeat</em> &mdash; the status line a long run prints every so often
+        &mdash; had been printing <code>deltaSym=false</code> from step 78. The failure was
+        downstream: the calibration harness that runs the solver and reads its output parsed only
+        <code>symErr=</code> and threw the rest away. In the record&rsquo;s own words, <em>&ldquo;The
         defect is in the solver; the silence was in a coordinator-only probe.&rdquo;</em> An alarm
         nobody reads is not an alarm.
       </p>
@@ -515,8 +528,8 @@
       <h3>Choosing the test that fails</h3>
 
       <p>
-        How was the second one caught? Not by the test suite as it stood. It was caught because
-        somebody ran the code at an uncomfortable setting.
+        How was the second one caught? Not by the test suite as it stood, but because somebody ran
+        the code at an uncomfortable setting.
       </p>
 
       <p>
@@ -525,10 +538,10 @@
         insists that it be <em>&ldquo;finite and in (0, 1)&rdquo;</em>
         (solver-cpu/src/lk-solver.ts:452) &mdash; but 0.2 is the top rung of the registered timestep
         ladder, the largest step the project tests at (research/phase6-convergence.md &sect;2, which
-        runs 0.2, 0.1, 0.05 and 0.025). The erratum gives the mechanism in a
+        runs 0.2, 0.1, 0.05 and 0.025). The <em>erratum</em> &mdash; the correction the record&rsquo;s
+        authors appended to their own ADR the same day &mdash; gives the mechanism in a
         sentence: <em>&ldquo;A larger step lets many cells cross the attachment threshold together,
-        which is what turns a ulp into a split orbit.&rdquo;</em> More cells at the threshold at
-        once, more chances one of them lands on the wrong side of it by a single bit.
+        which is what turns a ulp into a split orbit.&rdquo;</em>
         AGENTS.md draws the moral: <em>&ldquo;a symmetry regression test that does not
         run at the largest admissible step is not testing much.&rdquo;</em>
       </p>
@@ -561,9 +574,12 @@
       </figure>
 
       <p>
-        Three of the four choices are green, and the sensible-looking one &mdash; the setting the
-        solver actually runs at &mdash; is among them. So the regression test was deliberately
-        written at the wrong setting. Its name says so:
+        Three of the four choices are green &mdash; and one of the green ones is the configuration
+        the validation sweep itself runs at. Phase&nbsp;6 is registered at <code>monopole-matched</code>
+        with <code>cflFill</code>&nbsp;=&nbsp;0.1 (research/phase6-convergence.md, run conditions;
+        docs/PROGRESS.md:1465). That is the bottom-left cell of the grid above: the defective line
+        ran there, and the test still passed. So the regression test was deliberately written at
+        the setting nobody would pick. Its name says so:
       </p>
 
       <blockquote style="border-left: 3px solid var(--rule-strong); padding-left: 1.15rem; margin: 0 0 1.4em; color: var(--ink-secondary);">
@@ -593,14 +609,13 @@
 
       <p>
         There is one more place order could sneak into the answer, and it was closed before it was
-        ever a problem.
-      </p>
-
-      <p>
-        The model has an optional noise term &mdash; a tiny random nudge per cell per step. The
-        obvious way to build that is a random-number generator you call over and over, each call
-        advancing a hidden internal state. That is what almost every language ships. This project
-        refuses it, and the file says why in its first ten lines:
+        ever a problem. The model has an optional noise term &mdash; a tiny random nudge per cell
+        per step. The obvious way to build one is a random-number generator you call over and over,
+        each call advancing a hidden internal state; that is what almost every language ships. This
+        project refuses it, and says why in the first ten lines of the file. One phrase there
+        carries the whole idea: a <em>pure function</em> means what it means in maths &mdash; the
+        answer depends on the inputs you hand it and on nothing else. No memory, no history, no
+        notion of who asked first.
       </p>
 
       <blockquote style="border-left: 3px solid var(--rule-strong); padding-left: 1.15rem; margin: 0 0 1.4em; color: var(--ink-secondary);">
@@ -615,7 +630,7 @@
       </blockquote>
 
       <p>
-        Read the timing of that. Phase 5 is where the fast graphics-card engine gets checked
+        Read the timing of that. Phase 5 is where the fast graphics-card solver gets checked
         against the slow readable one, and thousands of card threads run in no particular order. A
         generator that depended on call order would hand the two machines different noise, so the
         two crystals would differ and no one could tell a real disagreement from an artefact of
@@ -646,17 +661,19 @@
         blunt comment above them: <em>&ldquo;These pin the algorithm. If they change, every
         recorded noise-on run is invalidated.&rdquo;</em> A run&rsquo;s randomness is completely
         described by two numbers &mdash; the seed and the noise amplitude &mdash; both of which are
-        written into every saved checkpoint. Same seed, same noise, in any order, on any engine:
-        the hash uses only integer operations, and those <em>&ldquo;are exactly specified by
-        ECMA-262, so this is bit-identical across engines&rdquo;</em> (core/src/prng.ts:8&ndash;10).
+        written into every saved checkpoint. Same seed, same noise, in any order, and on any
+        JavaScript <em>engine</em> &mdash; the program that actually runs the code, of which this
+        project pins one, Node/V8: the hash uses only integer operations, and those
+        <em>&ldquo;are exactly specified by ECMA-262, so this is bit-identical across
+        engines&rdquo;</em> (core/src/prng.ts:8&ndash;10).
       </p>
 
       <p>
-        Note the size of that claim. It is about the <em>noise</em>, not about the crystal &mdash;
-        the crystal is decided by a great deal of arithmetic that is not integer-only. The prng file
-        makes the distinction itself, calling its own guarantee <em>&ldquo;stronger than the
-        pinned-oracle determinism scope the charter requires&rdquo;</em>, which only makes sense if
-        the charter&rsquo;s scope is narrower. The next section says how much narrower.
+        Note the size of that claim. It covers the <em>noise</em>, not the crystal, which is decided
+        by a great deal of arithmetic that is not integer-only. The file makes the distinction
+        itself, calling its own guarantee <em>&ldquo;stronger than the pinned-oracle determinism
+        scope the charter requires&rdquo;</em>. The next section says how much narrower that scope
+        is.
       </p>
 
       <aside class="callout callout--open">
@@ -683,8 +700,8 @@
       <h2 id="what-is-claimed">What &ldquo;exactly zero&rdquo; buys, and what it does not</h2>
 
       <p>
-        Be precise about the size of the claim, because this is exactly the kind of engineering
-        that invites overstatement.
+        Be precise about the size of the claim, because this is the kind of engineering that
+        invites overstatement.
       </p>
 
       <p>
@@ -692,8 +709,8 @@
         narrowly: <em>&ldquo;Bitwise reproducibility is claimed only for the oracle pinned to one
         engine (Node/V8): the JS spec does not guarantee bit-identical Math.exp/Math.pow across
         engines, and LibbrechtKinetics leans on exp().&rdquo;</em> Comparisons against the graphics
-        card, or across engines, use stated tolerances instead. The fix in this chapter did not
-        extend that scope by one inch. It made the symmetry claim inside that scope true.
+        card, or against a different JavaScript engine, use stated tolerances instead. The fix in
+        this chapter did not extend that scope by one inch. It made the symmetry claim inside that scope true.
       </p>
 
       <p>
@@ -706,27 +723,26 @@
         record refuses to let that pass as noise: <em>&ldquo;v6 will differ from v5 wherever the
         split orbits fall differently, and any v5 calibration number carried forward has to be
         re-measured rather than assumed.&rdquo;</em> What was changed was the order of an addition.
-        What that does to any particular crystal still has to be measured.
-      </p>
-
-      <p>
-        It also cost about 5% in runtime, measured properly, with the honest note that the
-        run-to-run spread on that machine was about 14% &mdash; larger than the effect &mdash; so
-        <em>&ldquo;~5% is the right order and the third digit is not available from this
-        machine&rdquo;</em>.
+        What that does to any particular crystal still has to be measured. It also cost about 5% in
+        runtime, reported with the note that the run-to-run spread on that machine was about 14%
+        &mdash; larger than the effect &mdash; so <em>&ldquo;~5% is the right order and the third
+        digit is not available from this machine&rdquo;</em>.
       </p>
 
       <p>
         <strong>And it was fixed in one lane only.</strong> The same defect sits in the
-        graphics-card version of that routine, and it was deliberately left there:
+        graphics-card version of that routine and was deliberately left there:
         <em>&ldquo;The WGSL lane is not ported. […] So the shader defect described above is
-        registered, not repaired&rdquo;</em> (ADR&nbsp;0023, Decision). In the 32-bit arithmetic
-        the card uses, one ulp there is about 1.2&times;10<sup>&minus;7</sup> relative rather than
-        2.2&times;10<sup>&minus;16</sup> &mdash; a much bigger last bit, and this chapter has just
+        registered, not repaired&rdquo;</em> (ADR&nbsp;0023, Decision) &mdash; WGSL being the
+        language the graphics card&rsquo;s own little programs, its <em>shaders</em>, are written
+        in. In the 32-bit arithmetic the card uses, one ulp is about
+        1.2&times;10<sup>&minus;7</sup> relative rather than
+        2.2&times;10<sup>&minus;16</sup>. That is a much bigger last bit, and this chapter has just
         spent four sections on how a single ulp gets amplified into a whole cell of ice, so nobody
-        should read that size as a bound on the damage. The record does not offer one. It states a
-        consequence instead: the card is Phase&nbsp;6&rsquo;s labelled diagnostic rather than its
-        sweep engine, and the untouched operator is <em>&ldquo;a second declared difference beside
+        should read that size as a bound on the damage. The record offers no bound. It states a
+        consequence instead: the card is Phase&nbsp;6&rsquo;s labelled diagnostic rather than the
+        machine its sweep runs on, and the untouched operator is <em>&ldquo;a second declared
+        difference beside
         f32 arithmetic and the relaxed divergence tolerance: the GPU lane can corroborate a trend,
         and cannot be compared value-for-value against a v6 sweep.&rdquo;</em>
       </p>
@@ -761,15 +777,22 @@
           what it independently re-executed, and <em>&ldquo;what it did <strong>not</strong> check,
           stated as a limit of the evidence rather than left implicit&rdquo;</em>, and which
           <em>prefers</em> a different model from the one that wrote the code on any review that
-          carries a gate (AGENTS.md:389&ndash;394, Rule&nbsp;10). That
-          process has a limit the project states plainly and this page will not soften: <strong>every
-          review this project has had, internal or external-facing, is an LLM review</strong>,
-          including the two-reviewer pass over this page. The project&rsquo;s own words:
+          carries a gate (AGENTS.md:388&ndash;393, Rule&nbsp;10). That
+          process has a limit the project states plainly and this page will not soften:
+          <strong>every review round in this project that was not the maker&rsquo;s own has been an
+          LLM review</strong> &mdash; including the two-reviewer pass over this page. The maker is a
+          human, and has audited work directly at several gates: Phase&nbsp;2a was
+          <em>&ldquo;closed after six adversarial review rounds
+          (three subagent, three maker&hellip;)&rdquo;</em> and <em>&ldquo;the maker independently
+          recomputed the plate result from raw checkpoint bytes and found no core solver
+          defect&rdquo;</em> (docs/PROGRESS.md:7&ndash;11). But the maker is not a domain scientist,
+          and no human domain scientist has reviewed any of this work. The project&rsquo;s own
+          words:
           <em>&ldquo;At least one human domain scientist reads any manuscript before submission. All
           reviews to date, internal and external-facing, are LLM reviews; for publication that is a
           disclosed limitation, not a substitute&rdquo;</em>
-          (docs/stretch-sharing-and-investigation.md:217&ndash;219). No human domain scientist has
-          read this work. That is a disclosed limitation, not a defence.
+          (docs/stretch-sharing-and-investigation.md:217&ndash;219). That is a disclosed
+          limitation, not a defence.
         </p>
       </aside>
 
@@ -1040,7 +1063,7 @@
     const arrow = document.createElement("p");
     arrow.textContent = sorted
       ? "sorted, then added left to right"
-      : "added left to right, in gather order";
+      : "added left to right, in the order the code walks the neighbours";
     arrow.style.margin = "0.5rem 0 0.2rem";
     arrow.style.fontSize = "0.78rem";
     arrow.style.color = "var(--ink-muted)";
@@ -1187,7 +1210,9 @@
 
     // the slot tape
     const tx = 306, ty0 = 66, dy = 34;
-    const head = Viz.svgEl("text", { x: tx, y: ty0 - 22, class: "axis-title", fill: c.inkSecondary });
+    // NOTE: .axis-title / .tick-text / .annotation set `fill` in education.css, and a CSS rule
+    // beats a presentation attribute — so per-element colours here go through `style`.
+    const head = Viz.svgEl("text", { x: tx, y: ty0 - 22, class: "axis-title" });
     head.textContent = "the list the code walks";
     svg.appendChild(head);
 
@@ -1198,7 +1223,7 @@
         x: tx, y: y - 13, width: 190, height: 26, rx: 5,
         fill: c.sunken, stroke: c.series[PAIR[who]], "stroke-width": 1.6,
       }));
-      const n = Viz.svgEl("text", { x: tx + 12, y: y + 5, class: "tick-text", fill: c.muted });
+      const n = Viz.svgEl("text", { x: tx + 12, y: y + 5, class: "tick-text" });
       n.textContent = "slot " + (slot + 1);
       svg.appendChild(n);
       const v = Viz.svgEl("text", {
@@ -1206,15 +1231,19 @@
       });
       v.textContent = NAMES[who];
       svg.appendChild(v);
-      const p = Viz.svgEl("text", { x: tx + 130, y: y + 5, class: "tick-text", fill: c.inkSecondary });
+      const p = Viz.svgEl("text", {
+        x: tx + 130, y: y + 5, class: "tick-text", style: "fill:" + c.inkSecondary,
+      });
       p.textContent = "pair " + (PAIR[who] + 1);
       svg.appendChild(p);
     }
 
-    const foot = Viz.svgEl("text", { x: 150, y: 300, class: "annotation", "text-anchor": "middle", fill: c.inkSecondary });
+    const foot = Viz.svgEl("text", { x: 150, y: 300, class: "annotation", "text-anchor": "middle" });
     foot.textContent = "rotated " + (turns * 60) + "°";
     svg.appendChild(foot);
-    const foot2 = Viz.svgEl("text", { x: 150, y: 320, class: "annotation", "text-anchor": "middle", fill: c.muted });
+    const foot2 = Viz.svgEl("text", {
+      x: 150, y: 320, class: "annotation", "text-anchor": "middle", style: "fill:" + c.muted,
+    });
     foot2.textContent = "three colours in, three colours out — never a split pair";
     svg.appendChild(foot2);
 
@@ -1391,6 +1420,26 @@
   const ctx = view.ctx;
   let palette = Viz.colors();   // cached; refreshed on themechange, not every frame
 
+  /* ---- key to the picture: three meanings ride on colour, so all three are named ---- */
+  let keyBox = null;
+  function mountKey() {
+    const c = palette;
+    if (keyBox && keyBox.parentNode) keyBox.parentNode.removeChild(keyBox);
+    keyBox = Viz.legend(body, [
+      { color: c.series[0], label: "attached ice" },
+      { color: Viz.seqColor(0, c), label: "vapour at full supply" },
+      { color: Viz.seqColor(1, c), label: "vapour drawn down" },
+      { color: c.critical, label: "outlined: differs bitwise from its rotated twin" },
+    ]);
+    // draw the last swatch as an outline, because that is what it marks on the canvas
+    const swatches = keyBox.querySelectorAll(".legend__swatch");
+    const last = swatches[swatches.length - 1];
+    if (last) {
+      last.style.background = "transparent";
+      last.style.boxShadow = "inset 0 0 0 2px " + c.critical;
+    }
+  }
+
   function draw() {
     const c = palette;
     ctx.clearRect(0, 0, W, H);
@@ -1405,6 +1454,13 @@
       ctx.closePath();
       ctx.fillStyle = fill;
       ctx.fill();
+      // a hairline rim so attached ice reads as ice and not as heavily depleted vapour,
+      // which sits next to it on the same blue ramp
+      if (a[x] === 1) {
+        ctx.strokeStyle = c.surface;
+        ctx.lineWidth = 0.9;
+        ctx.stroke();
+      }
       // mark cells that disagree bitwise with their own rotated twin
       if (a[x] === 0 && s[x] !== s[rotOf[x]]) {
         ctx.strokeStyle = c.critical;
@@ -1466,6 +1522,7 @@
   Viz.button(controls, "Restart", function () { reset(); anim.reset(); draw(); refresh(); });
 
   reset();
+  mountKey();
   const anim = Viz.animate(root, function (t) {
     const target = Math.min(MAX_STEP, Math.floor(t / 0.18));
     if (target < step) { reset(); }
@@ -1474,7 +1531,7 @@
     refresh();
   }, { staticAt: MAX_STEP * 0.18, stepBy: 1.8 });
 
-  Viz.onThemeChange(function () { palette = Viz.colors(); draw(); refresh(); });
+  Viz.onThemeChange(function () { palette = Viz.colors(); mountKey(); draw(); refresh(); });
 })();
 </script>
 
@@ -1634,7 +1691,8 @@
         + "dangerous cell: a real bug, and a clean report." },
     "monopole-matched|0.2": { broke: true,
       note: "Red. deltaSymClean = false. The only one of the four that finds it — and it was "
-        + "found first on a warm 48³ run in the WP3 timestep ladder." },
+        + "found first at 48³ on the timestep ladder, the check that runs the same condition "
+        + "at four different step sizes." },
   };
 
   function render() {

@@ -21,6 +21,22 @@
    Reconstructing the published totals from this grid is a check anyone can
    repeat: it yields 5/6 warm plates, 0/24 columns (8 neutral), 0/60 cold plates
    (58 neutral) and 26/78 in the excluded mixed regime — matching the report.
+
+   *** THIS RESULT HAS SINCE BEEN INVALIDATED BY THE PROJECT ITSELF. ***
+   Decision 0031 (2026-07-28) found that an unregistered command-line default,
+   `paramSet: "CAK_A1"` at runner/src/main.ts:535, had silently overridden a
+   registered freeze row: the protocol registers the prism prefactor A as a
+   piecewise interpolation, and all 204 runs used A_prism identically 1. The
+   charter's own clause — "any post-freeze edit to parameters or protocol
+   requires a logged ADR and invalidates prior sweep results — the full sweep
+   re-runs" — therefore voided this sweep. Decision 0031 also registers, before
+   the re-run, the expected new headline: "the headline falls from 5/90 to
+   approximately 2/90", and states "the corrected result is expected to be
+   worse, and that is the point."
+
+   So this grid is shown as WHAT WAS MEASURED AND THEN WITHDRAWN, never as a
+   standing result. The mount() call renders that status on screen; do not
+   remove it.
    ========================================================================= */
 
 (function () {
@@ -109,6 +125,21 @@
     status.style.fontWeight = "600";
     status.style.marginTop = "0.35rem";
     head.appendChild(status);
+
+    // Non-removable provenance: this result was withdrawn by the project.
+    // Rendered on every mount so the grid can never read as standing evidence.
+    const withdrawn = document.createElement("p");
+    withdrawn.className = "anim__sub";
+    withdrawn.style.marginTop = "0.5rem";
+    withdrawn.style.borderLeft = "3px solid var(--status-critical)";
+    withdrawn.style.paddingLeft = "0.7rem";
+    withdrawn.style.color = "var(--ink-secondary)";
+    withdrawn.innerHTML =
+      "<strong>Withdrawn evidence.</strong> The project invalidated this sweep itself in " +
+      "decision&nbsp;0031: an unregistered command-line default had overridden a registered " +
+      "parameter, so its own freeze rule voided all 204 runs. It registered the expected " +
+      "corrected headline in advance &mdash; about 2 of 90, worse than this.";
+    head.appendChild(withdrawn);
 
     const W = 760, H = 320;
     const M = { top: 46, right: 16, bottom: 58, left: 74 };

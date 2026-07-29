@@ -41,7 +41,7 @@
       <li><a href="#refuses-to-say">What the readout refuses to say</a></li>
       <li><a href="#definition">A metric is a definition, not an opinion</a></li>
       <li><a href="#certify">Certify the ruler first</a></li>
-      <li><a href="#blocking-diagnostic">One gate must pass; one only reports</a></li>
+      <li><a href="#blocking-diagnostic">One gate must pass; one only has to report</a></li>
       <li><a href="#no-hollow-rule">Hollowing, with no hollowing rule</a></li>
       <li><a href="#pictures">The picture still has a job</a></li>
     </ol>
@@ -237,7 +237,8 @@
         Two things about that definition are worth more than they look. First, it is a
         <strong>ratio of two samples of the same field</strong>, which means it is meaningful
         without anybody claiming to know what the field's units are — and under the borrowed
-        threshold rule nobody does. Second, every failure mode has a name in advance. A missing
+        threshold rule (<code>GGThreshold</code>, Gravner and Griffeath's rule from chapter 18)
+        nobody does. Second, every failure mode has a name in advance. A missing
         crystal gives NaN. A zero rim mean gives infinity. The file says what happens next:
         "non-finite either way, which downstream gate criteria must treat as a named failure, not a
         pass."
@@ -259,12 +260,27 @@
         in the same sentence as "observational, not citable as the gate result". Then the run.
       </p>
 
+      <p>
+        Be precise about what that buys, because it is less than it first looks. The probe ran the
+        <em>same</em> deterministic protocol the gate would run — same preset, same
+        128&times;128&times;64 domain, same seed, same 100-tick sampling cadence — so the thresholds
+        are the probe's own numbers with a margin cut into them: 0.75 against a probe median of
+        0.5315, 80&nbsp;% against a probe 37/41 = 0.902, radius 30 against a probe 38. The plan is
+        the one that says what that margin is testing: "The run is deterministic (noise 0, pinned
+        engine), so these margins cover protocol drift, not run-to-run noise." Registering a
+        threshold you have already seen a probe clear is a legitimate move — it is disclosed, and
+        it fixes the number so it cannot be nudged afterwards — but it is a weaker kind of
+        prediction than a gate whose outcome nobody has seen. Pass A below, and the
+        pre-registration in chapter 27, are the stronger kind.
+      </p>
+
       <figure class="chart" id="gate3-chart">
         <div class="chart__head">
           <p class="chart__title">Phase 3's gate, as three numbers against three lines drawn first</p>
           <p class="chart__sub">
             Each bar is what the run measured. Each marker is the threshold registered before it
-            ran. Nothing here is a picture.
+            ran. Nothing here is a picture. Each row has its own scale, printed under its track —
+            read a bar against its own marker, never against the row above.
           </p>
         </div>
         <div class="chart__body"></div>
@@ -278,8 +294,12 @@
       <p>
         Median depletion ratio over the window: <strong>0.531454</strong>, against a registered
         ceiling of 0.75. Fraction of window samples below 1: <strong>90.2&nbsp;%</strong>, against a
-        registered floor of 80&nbsp;%. Final bounding radius 38, against a floor of 30. Symmetry
-        error 0 on every tick. Far-field stop at tick 4800, no domain contact. Exit code 0.
+        registered floor of 80&nbsp;%. Final bounding radius 38, against a floor of 30. Every
+        per-tick attachment delta exactly symmetric under the hexagonal lattice's rotations and
+        mirrors (D<sub>6h</sub>), and — a separate, belt-and-braces clause — the final symmetry
+        error exactly 0. Far-field stop at tick 4800, no domain contact. Exit code 0 — the
+        single number a finished program hands back when it stops, where 0 means every enforced
+        criterion held and anything else means at least one did not.
       </p>
 
       <p>
@@ -359,9 +379,11 @@
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
-          <span class="built-from">Original interactive. The banned wording and its replacement are
-          quoted from <code>project charter.md</code> &sect;1.5. The live slice caption text is
-          quoted from <code>app/src/main.ts</code>, the operator-honest slice caption.</span>
+          <span class="built-from">Original interactive. The banned wording and the phrase that
+          replaces it are quoted from <code>project charter.md</code> &sect;1.5. In the honest
+          panel, the picked-cell overlay title and its parenthetical are quoted from
+          <code>app/src/overlays.ts</code> (<code>growthPropensity</code>), and the slice lines
+          from <code>app/src/main.ts</code>, the operator-honest slice caption.</span>
         </figcaption>
       </figure>
 
@@ -427,8 +449,12 @@
             </tr>
             <tr>
               <td>aspect ratio</td>
-              <td>z-extent divided by the wider of the two in-plane extents, each measured in whole cells</td>
-              <td>plate &lt; 1, column &gt; 1 — but only if everyone measures the same two lengths</td>
+              <td>z-extent in whole lattice layers, divided by the wider of the two in-plane
+                Cartesian across-flats extents of the attached cells</td>
+              <td>plate &lt; 1, column &gt; 1 — but only if everyone measures the same two lengths.
+                The file keeps a second, all-integer span metric right beside it, described as
+                "deliberately distinct from <code>aspectRatio</code>'s Cartesian across-flats
+                denominator", so the two can never be swapped by accident</td>
             </tr>
             <tr>
               <td>cross-section hollowness</td>
@@ -448,7 +474,9 @@
             <tr>
               <td>domain-contact guard</td>
               <td>true — meaning INVALID — when the crystal's bounding box passes 65&nbsp;% of any domain extent</td>
-              <td>"A crystal near the wall interacts with its own mirror image while still looking plausible; flagged runs never enter validation results"</td>
+              <td>"A crystal near the wall interacts with its own mirror image while still looking
+                plausible; flagged runs never enter validation results" — that mirror image is
+                chapter 23's reflecting wall, seen from the crystal's side</td>
             </tr>
           </tbody>
         </table>
@@ -484,7 +512,8 @@
       <p>
         It is worth naming what this replaced. The model this project's machinery is built on —
         Gravner and Griffeath's three-dimensional snowflake automaton — is admirably honest about
-        its own method, and the sentence is quoted in the project's own notes on the paper:
+        its own method, and the sentence is quoted in the project's notes on the paper
+        (<code>docs/gg-machinery.md</code>):
         <strong>"visual comparison with snow crystal photographs is the only method we use to decide
         whether a snowfake is a failure or a success."</strong> Replacing that sentence with a file
         full of conventions is the project's first upgrade over its own source. It is also what
@@ -558,10 +587,10 @@
         That fourth card is a true story, and a small one, which is why it is worth telling. Before
         the Pass A protocol was frozen, a review checked the intended column endpoint and the
         hollowness metric reported <code>0.1260</code> — the "solid column" was a tube. The
-        instrument said no. The target was changed <em>before</em> registration, with the reasoning
-        written into the plan, and when the gate finally ran, the column endpoint passed
-        <code>A-HABIT-SOLID</code> as one of the 24 green records. A ruler that cannot report a
-        failure is not a ruler.
+        instrument said no. The target was corrected <em>on the record</em> — the reasoning is
+        written into the plan's own &ldquo;Tried and rejected&rdquo; list — before the gate ran,
+        and when it did run, the column endpoint passed <code>A-HABIT-SOLID</code> as one of the
+        24 green records. A ruler that cannot report a failure is not a ruler.
       </p>
 
       <h2 id="blocking-diagnostic">One gate must pass; one only has to report</h2>
@@ -575,8 +604,8 @@
 
       <p>
         Pass B is not, however, unconstrained. Its <em>execution</em> criteria are every bit as
-        blocking as Pass A's. In plain terms, each run has to clear five bars before its shape is
-        even looked at:
+        blocking as Pass A's. In plain terms, each run has to clear five execution criteria before
+        its shape is even looked at:
       </p>
 
       <ul>
@@ -585,11 +614,19 @@
         <li>It compares every input setting byte for byte against what was registered, so the only
           thing allowed to differ from run to run is the one knob the scenario names — temperature,
           seed, noise, or the far-away vapour level.</li>
-        <li>Every vapour solve has to have actually <em>settled</em>, not merely stopped: the
-          repeated averaging must have reached the point where another pass would change nothing
-          measurable, and the runner recomputes that for itself rather than believing the report.</li>
-        <li>The runner adds up the vapour bookkeeping independently — how much vapour the surface
-          should have consumed this step — instead of trusting the solver's own total.</li>
+        <li>Every vapour solve has to pass two <em>different</em> tests, not one twice. First, the
+          repeated averaging must report itself settled: a finite residual below the registered
+          <code>relaxTol</code>&nbsp;=&nbsp;1e-9, on a whole number of sweeps inside the registered
+          range. Second, and separately, the runner recomputes chapter 22's divergence identity
+          from the run's own totals — the fraction by which the vapour injected at the outer shell
+          and the net exchange at the surface fail to match — and requires that fraction to come
+          out below <code>divTol</code>&nbsp;=&nbsp;1e-7. Two tolerances, two registered constants,
+          two bars. It is the second meter from chapter 22, not a second opinion about the first
+          (<code>B-EXEC-CONVERGENCE</code>,
+          <code>docs/plans/phase-4-morphology-gauntlet.md</code>).</li>
+        <li>The runner adds up the vapour bookkeeping independently, step by step — how much
+          vapour the surface should have consumed this step — instead of trusting the solver's
+          own total.</li>
         <li>The saved state has to reload to exactly the bits it was written from.</li>
       </ul>
 
@@ -604,7 +641,8 @@
             from <code>docs/plans/phase-4-morphology-gauntlet.md</code>. One command,
             <code>node runner/src/main.ts gate4</code>, exit 0 in 7,178.8 seconds. Every entry in
             the Pass B column is diagnostic: a result there is an early warning, not a validation
-            result, whichever way it went.
+            result, whichever way it went. &#10003; marks a diagnostic pass and &#9651; an honest
+            miss, the same two marks the interactive below uses.
           </caption>
           <thead>
             <tr><th>&nbsp;</th><th>Pass A — blocking</th><th>Pass B — diagnostic</th></tr>
@@ -613,14 +651,14 @@
             <tr><td>surface rule</td><td>GGThreshold (borrowed, no temperature)</td><td>LibbrechtKinetics (temperature is the swept axis)</td></tr>
             <tr><td>runs</td><td class="num">13</td><td class="num">11</td></tr>
             <tr><td>records</td><td class="num">24 / 24 green</td><td class="num">12 / 12 execution records green</td></tr>
-            <tr><td>plate / column aspect ratio</td><td class="num">0.0666667 / 1.66667</td><td>habit endpoints invert</td></tr>
-            <tr><td>five-point sweep</td><td>strictly increasing</td><td>non-decreasing</td></tr>
-            <tr><td>column endpoint solid</td><td>hollowness 0 and sealed void 0 at the <code>u = 1</code> endpoint</td><td>cold endpoint solid</td></tr>
-            <tr><td>depletion median</td><td class="num">0.770238, 7/7 samples below one</td><td>miss</td></tr>
-            <tr><td>transverse widening</td><td class="num">width 7 &rarr; 13</td><td>miss</td></tr>
-            <tr><td>hollowing</td><td>three distinct reproducible open-hollow occupancies</td><td>miss</td></tr>
-            <tr><td>capped column</td><td class="num">cap score 1.3</td><td>miss</td></tr>
-            <tr><td>branching (dendrite / compact control)</td><td class="num">6 / 0</td><td>miss</td></tr>
+            <tr><td>plate / column aspect ratio</td><td class="num">0.0666667 / 1.66667</td><td>&#10003; diagnostic pass — habit endpoints invert</td></tr>
+            <tr><td>five-point sweep</td><td>strictly increasing</td><td>&#10003; diagnostic pass — non-decreasing</td></tr>
+            <tr><td>column endpoint solid</td><td>hollowness 0 and sealed void 0 at the <code>u = 1</code> endpoint</td><td>&#10003; diagnostic pass — cold endpoint solid</td></tr>
+            <tr><td>depletion median</td><td class="num">0.770238, 7/7 samples below one</td><td>&#9651; honest miss</td></tr>
+            <tr><td>transverse widening</td><td class="num">width 7 &rarr; 13</td><td>&#9651; honest miss</td></tr>
+            <tr><td>hollowing</td><td>three distinct reproducible open-hollow occupancies</td><td>&#9651; honest miss</td></tr>
+            <tr><td>capped column</td><td class="num">cap score 1.3</td><td>&#9651; honest miss</td></tr>
+            <tr><td>branching (dendrite / compact control)</td><td class="num">6 / 0</td><td>&#9651; honest miss</td></tr>
             <tr><td>report flags</td><td colspan="2"><code>gatePass=true</code>, <code>passBDiagnosticPass=false</code></td></tr>
           </tbody>
         </table>
@@ -658,12 +696,20 @@
           Still unsettled
         </p>
         <p>
-          Five misses <em>and three passes</em>, on execution-valid runs, months before the
-          validation sweep. This chapter spends neither. The three passes are habit readings from a
+          Five misses <em>and three passes</em>, on execution-valid runs, before the validation
+          sweep. (The charter expected Pass B to be an early warning &ldquo;months before Phase
+          6&rdquo;; in the event <code>docs/PROGRESS.md</code> records Phase 4 complete on
+          2026-07-18 and Phase 6 in progress from 2026-07-26.)
+          This chapter spends neither. The three passes are habit readings from a
           five-point temperature sweep on a 48&times;48&times;48 dev-scale grid, under a pass whose
           result cannot block anything: an aspect ratio that inverts between &minus;5&nbsp;&deg;C
           and &minus;15&nbsp;&deg;C is not the Nakaya diagram, and an early warning that says
-          &ldquo;in reach&rdquo; is not evidence that it was reached. What the five misses mean —
+          &ldquo;in reach&rdquo; is not evidence that it was reached. Note also <em>which way</em>
+          the registered criterion asks it to invert — a plate at &minus;5&nbsp;&deg;C and a column
+          at &minus;15&nbsp;&deg;C, which is the direction the model's own measured facet
+          parameters imply and the opposite of the order the Nakaya diagram puts at those two
+          temperatures. That gap is deliberate, disclosed, and the thing chapter 28 turns on. What
+          the five misses mean —
           whether the physics is insufficient, or the dev-scale grid is too small, or the
           early-warning thresholds were set too tight — is not something a diagnostic pass is
           entitled to say either. Phase 6 is <strong>in progress</strong>; Phase 7 has not started.
@@ -1123,13 +1169,16 @@
     if (!root) return;
     var body = root.querySelector(".chart__body");
 
+    /* Each row carries its OWN domain — two ratios in [0,1] and a radius in [0,45] — so bar
+       length is not comparable between rows. The endpoint labels drawn under each track say so
+       on the chart itself, and the chart__sub repeats it in words. */
     var rows = [
       { label: "median depletion ratio", measured: 0.531454, reg: 0.75, max: 1.0,
-        sense: "ceiling", text: "0.531454 ≤ 0.75" },
+        maxLabel: "1.0", sense: "ceiling", text: "0.531454 ≤ 0.75" },
       { label: "share of samples below 1", measured: 0.902, reg: 0.80, max: 1.0,
-        sense: "floor", text: "90.2 % ≥ 80 %" },
+        maxLabel: "1.0", sense: "floor", text: "90.2 % ≥ 80 %" },
       { label: "final bounding radius", measured: 38, reg: 30, max: 45,
-        sense: "floor", text: "38 ≥ 30" },
+        maxLabel: "45 cells", sense: "floor", text: "38 ≥ 30" },
     ];
 
     function draw() {
@@ -1172,6 +1221,18 @@
         });
         vl.textContent = row.text;
         svg.appendChild(vl);
+
+        /* This row's own scale endpoints, so the reader can see the domains differ. */
+        var s0 = Viz.svgEl("text", {
+          class: "annotation", x: L, y: y + 21, "text-anchor": "middle", fill: c.muted,
+        });
+        s0.textContent = "0";
+        svg.appendChild(s0);
+        var s1 = Viz.svgEl("text", {
+          class: "annotation", x: R, y: y + 21, "text-anchor": "end", fill: c.muted,
+        });
+        s1.textContent = row.maxLabel;
+        svg.appendChild(s1);
       });
       var foot = Viz.svgEl("text", {
         class: "annotation", x: 8, y: 212, "text-anchor": "start", fill: c.muted,
@@ -1339,12 +1400,14 @@
         box.innerHTML =
           "picked cell · boundary<br>" +
           "growth propensity: <strong>high relative attachment tendency</strong><br>" +
-          "&nbsp;&nbsp;(phenomenological, unitless threshold fraction, unvalidated)<br><br>" +
+          "&nbsp;&nbsp;(phenomenological, unitless fraction of the threshold, unvalidated)<br><br>" +
           "slice: vapor d, vertical (Berg view)<br>" +
           "&nbsp;&nbsp;(computed state, model units, unvalidated;<br>" +
           "&nbsp;&nbsp;crystal/wall cells read d = 0)";
-        note.innerHTML = "This is the app's own wording. Every line names what kind of quantity " +
-          "it is and what it has earned. Nothing on screen claims to be measured.";
+        note.innerHTML = "Every line is the project's own wording — the overlay definition and " +
+          "the slice caption straight out of the app, the phrasing rule out of the charter. Each " +
+          "one names what kind of quantity it is and what it has earned. Nothing on screen " +
+          "claims to be measured.";
       } else {
         box.style.borderLeftColor = "var(--status-critical)";
         box.innerHTML =
@@ -1542,7 +1605,7 @@
         req: "the column endpoint must have crossSectionHollowness = 0 and sealedVoidFraction = 0",
         val: "target-36 endpoint: crossSectionHollowness = 0.1260 (calibration probe, WP0 review — not gate evidence)",
         certify: false,
-        why: "Reject it. The “solid column” was a tube, and the hollowness metric said so. The target was changed before registration and the reasoning written into the plan. This is the card that proves the instruments can return a no." },
+        why: "Reject it. The “solid column” was a tube, and the hollowness metric said so. The target was corrected on the record — the reasoning is in the plan's “Tried and rejected” list — before the gate ran. This is the card that proves the instruments can return a no." },
       { tool: "branchCount", crit: "A-BRANCH",
         req: "the dendrite must score ≥ 6 and its compact control must score 0",
         val: "measured 6 / 0, at each run's own first reservoir crossing (cycles 4,775 and 5,450, extents 99 and 83)",
@@ -1551,7 +1614,7 @@
       { tool: "domainContact", crit: "A-EXEC-DOMAIN",
         req: "domainContact must be false on every tick and at termination",
         val: "measured: 24 / 24 records green, no contact", certify: true,
-        why: "The guard that invalidates a run whose crystal is close enough to the wall to feel its own mirror image." },
+        why: "This is the guard from the instruments table above, reporting that it never fired. A run where it does fire is invalid and never enters validation results." },
     ];
 
     var state = cards.map(function () { return null; });
@@ -1651,6 +1714,30 @@
     row.style.flexWrap = "wrap";
     row.style.gap = "0.45rem";
     body.appendChild(row);
+
+    /* The registered conditions below are verbatim, and four of their terms are not everyday
+       words. Gloss them once, before the reader meets them. */
+    var key = document.createElement("p");
+    key.className = "anim__sub";
+    key.style.margin = "0.7rem 0 0";
+    key.innerHTML =
+      "<strong>AR</strong> = aspect ratio, the same one as in the table above (under 1 is a " +
+      "plate, over 1 a column). So <code>B-HABIT-ENDPOINTS</code> asks for a <em>plate</em> at " +
+      "−5 °C and a <em>column</em> at −15 °C. Read that twice: it is not the order Part One's " +
+      "Nakaya diagram puts there — the project's own notes give the diagram as “plates at −2 °C, " +
+      "columns at −5 °C, plates again at −15 °C” (<code>docs/attachment-kinetics.md</code>). The " +
+      "registered endpoints follow the crossing in the model's <em>measured facet parameters</em> " +
+      "instead, which puts plates on the warm side of the crossing and columns on the cold side " +
+      "(<code>docs/libbrecht-parameters.md</code>, “Source discrepancy, recorded rather than " +
+      "smoothed over”). A pass here therefore says the model did what the model's own inputs " +
+      "imply — not what the diagram shows. Hold on to that; chapter 28 is where it matters. " +
+      "<strong>sigmaInfinity</strong> = the vapour level held far from " +
+      "the crystal. <strong>capScore</strong> = how far the end plates stick out past the shaft, " +
+      "as the smaller cap radius divided by the trunk radius. An <strong>occupancy hash</strong> " +
+      "is a fingerprint of exactly which cells are ice, so “two hashes differ” means two seeds " +
+      "really grew different crystals.";
+    body.appendChild(key);
+
     var detail = panel(body);
     detail.style.marginTop = "0.8rem";
     detail.setAttribute("role", "status");
@@ -1658,6 +1745,12 @@
 
     var sel = 3;
 
+    /* Three states here — diagnostic pass, honest miss, and not-selected — and the Viz palette
+       carries only two (good/critical). The amber is --status-warning, a design-system token
+       defined once at :root in education.css and never overridden per theme, so it is the same
+       colour in light and dark. It is never the only signal: every miss also carries the "△"
+       glyph and the words "honest miss". Documented deviation from the palette rule, not an
+       accident. */
     function show() {
       var it = items[sel];
       detail.style.borderLeftColor = it.pass ? "var(--status-good)" : "var(--status-warning)";
@@ -1669,8 +1762,10 @@
         "<p style=\"margin:0;color:var(--ink-muted)\">" +
         (it.pass
           ? "Recorded as a pass on a 48×48×48 dev-scale grid, under a pass whose result cannot " +
-            "block anything. It is an early warning that the habit flip may be in reach — not " +
-            "evidence that it was reached, and this chapter does not spend it either."
+            "block anything. It is an early warning that a temperature-driven habit change is in " +
+            "reach in the direction the model's own parameters imply — which, as the key above " +
+            "says, is not the Nakaya diagram's order at these two temperatures. Not evidence " +
+            "that the diagram was reproduced, and this chapter does not spend it either."
           : "Recorded as a miss. The Pass B report is the run artifact (SHA-256 22c8a92c…fa2d); " +
             "what docs/PROGRESS.md publishes is the criterion name, not the clause-level values. " +
             "It did not change the exit code, and this chapter does not spend it.") +
@@ -1770,9 +1865,12 @@
           div.appendChild(document.createTextNode(line.slice(last, m.index)));
           var mark = document.createElement("mark");
           mark.textContent = m[0];
+          // --status-warning is a design-system token the Viz palette does not carry; it is
+          // defined once at :root in education.css and never overridden per theme, so it is the
+          // same amber in light and dark. That is why the contrast ink is a deliberate literal
+          // rather than a palette value that would flip with the theme. It marks search hits —
+          // never a data series, and never the only signal (the match count says it in words).
           mark.style.background = "var(--status-warning)";
-          // --status-warning is the same amber in both themes, so the contrast ink must be too;
-          // this literal is deliberate rather than a palette value that flips with the theme.
           mark.style.color = "#0b0b0b";
           mark.style.borderRadius = "3px";
           div.appendChild(mark);
@@ -1786,8 +1884,10 @@
         result.textContent = LISTING.length + " lines. This is every decision about which cells " +
           "become ice this tick, plus the melting step that follows it.";
       } else if (hits === 0) {
-        result.innerHTML = "<strong>0 matches for “" + term + "”.</strong> Not hidden " +
-          "in a helper, not renamed: the concept is not in the growth rule at all.";
+        result.innerHTML = "<strong>0 matches for “" + term + "”</strong> in the whole " +
+          "attachment decision. Whether it is hidden in a helper, renamed, or sitting in the " +
+          "other solver is not something a search of " + LISTING.length + " lines can settle — " +
+          "that is what <code>A-HOLLOW-STRUCTURAL</code> and the pinned source hashes are for.";
       } else {
         result.innerHTML = "<strong>" + hits + " match" + (hits === 1 ? "" : "es") +
           " for “" + term + "”.</strong>";

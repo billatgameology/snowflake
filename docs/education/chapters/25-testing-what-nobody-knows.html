@@ -41,7 +41,7 @@
       <li><a href="#saboteurs">Sixteen saboteurs</a></li>
       <li><a href="#own-homework">Grading your own homework</a></li>
       <li><a href="#fail-open">The harness that agreed with nothing</a></li>
-      <li><a href="#pinned">Writing your weaknesses into the alarm</a></li>
+      <li><a href="#pinned">Pinning the flaws, refusing to guess</a></li>
       <li><a href="#enforcement">Testing the enforcement, not the metric</a></li>
       <li><a href="#what-it-proves">What green proves, and who checked</a></li>
     </ol>
@@ -82,11 +82,10 @@
       <h2 id="no-oracle">What is the 4?</h2>
 
       <p>
-        Every test you have ever written has the same shape. You call something with a known input,
-        you compare what comes back against a known correct answer, and you go green or red. The
-        known correct answer has a name in software engineering: the <strong>oracle</strong>. In
-        <code>add(2, 2)</code> the oracle is 4, and it costs nothing, because you knew it before you
-        wrote the function.
+        Every test you have ever written has the same shape. Call something with a known input,
+        compare what comes back against a known correct answer, go green or red. That known correct
+        answer has a name: the <strong>oracle</strong>. In <code>add(2, 2)</code> the oracle is 4,
+        and it costs nothing, because you knew it before you wrote the function.
       </p>
 
       <p>
@@ -98,9 +97,9 @@
         There isn't one. If anybody already knew the shape those equations produce at
         &minus;15&nbsp;&deg;C, nobody would need to run them. This is the <strong>oracle
         problem</strong>, and it is the normal condition of simulation science. Worse, the output is
-        a picture, and plenty of generative-art toys make gorgeous six-armed snowflakes out of rules
-        with no physics in them at all. Beautiful is exactly what a <em>wrong</em> snowflake program
-        looks like. The charter says the quiet part out loud:
+        a picture, and plenty of generative-art toys make gorgeous six-armed snowflakes from rules
+        with no physics in them. Beautiful is exactly what a <em>wrong</em> snowflake program looks
+        like. The charter says the quiet part out loud:
       </p>
 
       <div class="equation">
@@ -121,8 +120,8 @@
       </p>
 
       <p>
-        That last one matters, because those properties are not equally good and which is good is
-        not obvious. Before reading on, go and find out for yourself.
+        Those properties are not equally good, and which is good is not obvious. Before reading on,
+        go and find out for yourself.
       </p>
 
       <!-- ---------------------------------------------------------------- -->
@@ -157,8 +156,8 @@
       </figure>
 
       <p>
-        Your own eye does better than the written-down version of it. Build C is visibly lopsided and
-        you can see that for yourself. But your eye has no chance at all with build D, which draws
+        Your own eye does better than the written-down version of it: build C is visibly lopsided
+        and you can see that for yourself. Your eye has no chance at all with build D, which draws
         exactly the same crystal as the correct build, cell for cell, while its books are out by 109
         times the mass that started in the box. That is what &ldquo;the picture proves nothing&rdquo;
         means &mdash; not that pictures are always wrong, but that you cannot tell which kind of
@@ -170,10 +169,20 @@
         <code>attachedCount&nbsp;===&nbsp;115</code> does two bad things at once: it goes red on the
         build whose only difference is a random seed &mdash; a false alarm &mdash; and
         <em>green</em> on build D, where the count is identical. An exact snapshot of an output you
-        do not understand is not a strong test; it tests only whether anything changed. The
-        project's own version of that comparison is deliberately looser: it requires the same habit
-        class and attached counts within 0.5&nbsp;%, and the measured drift was 5,161 to 5,159
-        (<code>runner/test/phase6-sweep.test.ts</code>, lines 178&ndash;204).
+        do not understand is not a strong test; it tests only whether anything changed.
+      </p>
+
+      <p>
+        Where the project does compare one whole crystal against another, it compares deliberately
+        loosely, and only on the two quantities that carry meaning. Its <strong>domain
+        spot-check</strong> takes the sweep's fastest-growing point, computes it on a coarse grid and
+        again on a finer one &mdash; N&nbsp;=&nbsp;48 against N&nbsp;=&nbsp;64 &mdash; and requires
+        the habit class to be identical and the attached counts to agree within 0.5&nbsp;%
+        (<code>runner/src/phase6-protocol.ts</code>, lines 297&ndash;301). The residual it measured
+        between the two domains was 5,161 against 5,159
+        (<code>runner/test/phase6-sweep.test.ts</code>, lines 178&ndash;204). Note what that is and
+        is not: a check that the answer does not depend on the size of the box &mdash; chapter 24's
+        subject &mdash; not a check that today's answer equals yesterday's.
       </p>
 
       <aside class="callout callout--key">
@@ -202,15 +211,17 @@
       <p>
         <strong>Conservation.</strong> Water molecules do not appear or vanish. In a sealed box the
         total &mdash; vapour still drifting, vapour clinging to the surface, ice &mdash; must be the
-        same after ten thousand ticks as before, checkable to about fifteen digits while knowing
-        nothing about what grew. Every word of the test's title was fought for:
-        <code>&ldquo;conserves total mass to &lt; 1e-10 relative over 10&nbsp;000 ticks GROWN, noise
-        OFF, reflecting&rdquo;</code>. An earlier version ran ten thousand ticks with <em>no
-        crystal</em> plus a separate 4,800-tick run with one, and the audit that caught it is
-        recorded in the comment: &ldquo;a 10k crystal-free control plus a 4800-tick grown run is not
-        the declared 10k grown experiment&rdquo; (<code>solver-cpu/test/gg-solver.test.ts</code>,
-        lines 53&ndash;55). The crystal-free run survives as its own test, characterising the pure
-        floating-point floor below <code>1e-13</code> &mdash; which is what tells you the
+        same after ten thousand ticks as before, to better than one part in ten billion, while you
+        know nothing at all about what grew. In the code that budget is written <code>1e-10</code>,
+        which is how programs spell 10<sup>&minus;10</sup>. Every word of the test's title was
+        fought for: <code>&ldquo;conserves total mass to &lt; 1e-10 relative over 10&nbsp;000 ticks
+        GROWN, noise OFF, reflecting&rdquo;</code>. An earlier version split that into a
+        crystal-free ten-thousand-tick run and a 4,800-tick grown one; the audit that caught it is
+        in the comment: &ldquo;a 10k crystal-free control plus a 4800-tick grown run is not the
+        declared 10k grown experiment&rdquo;
+        (<code>solver-cpu/test/gg-solver.test.ts</code>, lines 53&ndash;55). A crystal-free control
+        survives as its own test &mdash; 2,000 ticks, characterising the pure floating-point floor
+        below <code>1e-13</code> (lines 37&ndash;49) &mdash; which is what tells you the
         <code>1e-10</code> above it is a budget rather than noise.
       </p>
 
@@ -218,8 +229,8 @@
         <strong>Symmetry, exactly.</strong> Most simulations settle for
         &ldquo;approximately&rdquo;. This one asserts <code>toBe(0)</code>, not
         <code>toBeCloseTo</code> &mdash; possible only because the solver adds neighbouring cells in
-        a fixed, symmetry-respecting order. Floating-point addition is not associative, and a cell
-        and its rotated twin see the same six values in a different order. The solver's header
+        a fixed, symmetry-respecting order. Floating-point addition is not associative, so that
+        order matters. The solver's header
         states the consequence flatly: &ldquo;Symmetric cells round identically, so the gate's
         &lsquo;exactly 0&rsquo; is structural, not luck&rdquo;
         (<code>solver-cpu/src/gg-solver.ts</code>, lines 33&ndash;34). Chapter 20 told that story;
@@ -250,29 +261,30 @@
       <p>
         The discretised solver must reproduce that to a relative error below <code>1e-9</code>, at
         four grid spacings. This is the project's only <em>absolute</em> accuracy anchor: everywhere
-        else the tests check consistency, here they check correctness. Notice what the test file
-        refuses to do. Rather than transcribe the monograph's printed solution it re-solves the
-        problem from scratch, and says why: &ldquo;Nothing in this function comes from Eqs. 3.33-3.36,
-        so agreeing with it is real evidence.&rdquo; Copying a formula out of a book and confirming
-        your code agrees with the book proves nothing.
+        else the tests check consistency; here they check the discretisation against the exact
+        answer to the same equations. Notice what the test file refuses to do. Rather than
+        transcribe the monograph's printed solution it re-solves the problem from scratch, and says
+        why: &ldquo;Nothing in this function comes from Eqs. 3.33-3.36, so agreeing with it is real
+        evidence.&rdquo; Copying a formula out of a book and confirming your code agrees with the
+        book proves nothing.
       </p>
 
       <p>
         <strong>Properties instead of examples.</strong> An example test says
         <code>add(2,&nbsp;2)&nbsp;===&nbsp;4</code>. A property test says <em>for every</em> input
-        this rule holds, and checks the whole input space when it is small enough to enumerate.
+        this rule holds, checked over the whole input space when it is small enough to enumerate.
         <code>core/test/lattice.test.ts</code> is almost entirely properties: index to coordinates
         and back is the identity, over <em>every</em> index; the neighbour relation is mutual in all
         eight directions; mirroring twice returns you to the start. The nicest is
         <code>it("rot60 has order 6 exactly")</code>, which turns the hexagon six times, demands you
-        land back where you started, and demands you have <em>not</em> landed there after one, two,
-        three, four or five turns. Without that second half, a function that did nothing would pass.
+        land back where you started, and demands you have <em>not</em> landed there after any of the
+        first five turns. Without that second half, a function that did nothing would pass.
       </p>
 
       <p>
-        <strong>A second implementation.</strong> The slow, readable version on the processor is
-        treated as the definition of correct; the fast one on the graphics card has to reproduce it
-        inside a declared envelope. That is chapter 26's whole subject.
+        <strong>A second implementation.</strong> The slow, readable version is treated as the
+        definition of correct and the fast one has to match it inside a declared envelope &mdash;
+        chapter 26's whole subject.
       </p>
 
       <aside class="callout callout--method">
@@ -307,12 +319,16 @@
       </p>
 
       <p>
-        It is worthless. A uniform field is a <strong>fixed point of both boundary conditions</strong>,
-        so the test passes whether the boundary code exists, works, is broken, or was deleted an hour
+        It is worthless. A uniform field is a <strong>fixed point</strong> of both boundary
+        conditions &mdash; a state that either rule hands straight back unchanged. Feed it to the
+        sealed wall or the replenished wall and both do the same thing to it: nothing. So the
+        test passes whether the boundary code exists, works, is broken, or was deleted an hour
         ago. The repository files this under traps already paid for: &ldquo;A uniform field
         initialized at the Dirichlet set value is a fixed point under reflecting and fixed-&sigma;
         boundaries alike. Use the documented depleted-start differential test.&rdquo;
-        (<code>AGENTS.md</code> lines 266&ndash;267.) The falsifiable version starts at <em>half</em>
+        (<code>AGENTS.md</code> lines 266&ndash;267.) <em>Dirichlet</em> is just the
+        mathematician's name for the replenished wall &mdash; a boundary held at a fixed value.
+        The falsifiable version starts at <em>half</em>
         the target and demands the two arms <em>disagree</em>: the replenished one climbs back to the
         set value everywhere, the sealed one conserves its mass and settles at the depleted mean.
         Only a test whose arms come out different proves the code paths are different.
@@ -397,11 +413,25 @@
         charter/spec and make the process fail by name when one is violated. Pin each bypass with an
         adversarial negative-control test.&rdquo; (<code>AGENTS.md</code> lines 249&ndash;250.) In
         Phase 5 that comes out unusually tidy. Sixteen pass/fail criteria; sixteen registered
-        sabotages; each sabotage <em>owned</em> by exactly one criterion, with a test asserting the
-        ownership list matches the criteria list, in order, with no duplicates. Then a test is
-        generated per criterion, which applies that criterion's sabotage and asserts the set of
-        things that failed is <code>[that criterion]</code> &mdash; not &ldquo;includes&rdquo;, not
-        &ldquo;at least&rdquo;. Exactly it.
+        sabotages; each sabotage <em>owned</em> by exactly one criterion, with a test asserting that
+        the ownership list matches the criteria list in order and that the sixteen sabotage names are
+        distinct (<code>runner/test/gate5-protocol.test.ts</code>, lines 126&ndash;133).
+        Rule&nbsp;9 &mdash; titled <strong>&ldquo;A verdict is computed from the artifact, never
+        inherited from its producer&rdquo;</strong> &mdash; adds the requirement that makes the
+        apparatus mean anything: &ldquo;Every negative control must execute its named mutation,
+        verified by something other than its author&rdquo; (<code>AGENTS.md</code> lines
+        375&ndash;379).
+      </p>
+
+      <p>
+        What a sabotage has to demonstrate is then written down in three parts. Its mutation must
+        have been applied to the real evidence <em>at the boundary the mutation names</em>, &ldquo;not
+        to a summary counter that merely reports on that boundary&rdquo;. The mutated evidence must
+        actually be <strong>rejected</strong>. And the set of criteria observed to fail must be
+        non-empty and must <strong>contain</strong> the sabotage's registered owner
+        (<code>docs/decisions/0022-phase5-observed-negative-control-ownership.md</code>, Decision).
+        Read that last word carefully. It says <em>contain</em>, not <em>equal</em> &mdash; and the
+        project arrived there by retreating from the stronger rule.
       </p>
 
       <!-- ---------------------------------------------------------------- -->
@@ -409,9 +439,9 @@
         <div class="anim__head">
           <p class="anim__title">Sabotage console</p>
           <p class="anim__sub">
-            Sixteen real registered mutations. Apply one and watch which criterion notices. Your
-            unstated goal: find a mutation that lights up <em>nothing</em>. You cannot &mdash; until
-            you loosen a threshold, at which point you can, which is the entire lesson.
+            Sixteen real registered mutations. Apply one and watch which criteria notice. Your
+            unstated goal: find a mutation that nothing rejects. You cannot &mdash; until you loosen
+            a threshold, at which point you can, which is the entire lesson.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -419,31 +449,65 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. The sixteen criteria and the sixteen
           negative controls are transcribed verbatim from
-          <code>runner/src/phase5-protocol.ts</code> lines 855&ndash;960
-          (<code>PHASE5_CRITERIA</code> and <code>PHASE5_NEGATIVE_CONTROLS</code>). The one-mutation
-          &rarr; one-owner behaviour is what
-          <code>runner/test/gate5-protocol.test.ts</code> lines 126&ndash;145 assert; the refusal
-          message is the real one from <code>runner/src/gate5-negative-controls.ts</code> line
-          646.</span>
+          <code>runner/src/phase5-protocol.ts</code> lines 854&ndash;963
+          (<code>PHASE5_CRITERIA</code> and <code>PHASE5_NEGATIVE_CONTROLS</code>). The marks are
+          the failing sets the repository records as <em>observed</em>, not as owned:
+          <code>runner/test/gate5-protocol.test.ts</code> lines 276&ndash;295
+          (<code>OBSERVED_FAILING_CRITERIA</code>), checked control by control at lines
+          704&ndash;741, where the ownership assertion is
+          <code>expect(outcome.failedCriteria).toContain(control.owner)</code>. That is why
+          <code>NC-TOLERANCE-BYPASS</code> carries two marks here: those are its real two, recorded
+          at line 293. The refusal messages are the real ones from
+          <code>runner/src/gate5-negative-controls.ts</code> lines 646 and 1006.</span>
         </figcaption>
       </figure>
 
       <p>
-        Two things about that grid. The diagonal <em>is</em> the assertion &mdash; a mark off it
-        would mean a criterion failing for a reason that is not its own. And the only way to get an
-        empty column is to disable a check: loosen the symmetry threshold and
-        <code>NC-SYMMETRY-BIT</code> flips its attachment bit, the evaluator shrugs, everything stays
-        green. That is what a broken safeguard looks like from outside. It looks like success.
+        One column in that grid carries two marks, and it is the reason the rule reads
+        <em>contain</em>. The earlier version demanded that the observed failing set be exactly
+        <code>[that criterion]</code> &mdash; not &ldquo;includes&rdquo;, not &ldquo;at least&rdquo;.
+        That sounds stronger. It was the defect. An independent review rejected the gate candidate
+        because &ldquo;ten of sixteen negative controls do not execute their named mutation and
+        hardcode criterion ownership&rdquo;, and the ADR reproduces the two published lines that did
+        it: <code>rejected: productionNegativeRejected(control, reports)</code>, which returned
+        <code>true</code> for ten of them, and <code>failedCriteria: [control.owner]</code>, annotated
+        in the ADR with the words <em>&ldquo;never observed&rdquo;</em>.
       </p>
 
       <p>
-        Even the saboteur list is closed: ask the runner to apply a control nobody registered and it
-        throws <code>unregistered Phase 5 negative control</code> rather than quietly doing nothing.
-        Rule&nbsp;9 adds the requirement that makes the apparatus mean anything &mdash; &ldquo;Every
-        negative control must execute its named mutation, verified by something other than its
-        author&rdquo; &mdash; and records why: a gate candidate was rejected because ten of its
-        sixteen negative controls never executed the mutation they were named after. They reported
-        that they had.
+        Then, repairing it, the project discovered that its own rule could not be obeyed honestly.
+        <code>NC-TOLERANCE-BYPASS</code> means &ldquo;report pass while one blocking comparison
+        exceeds its frozen tolerance&rdquo; &mdash; and a comparison that exceeds tolerance also
+        raises its fixture's failure counts, which the evaluator routes to the criterion for that
+        kind of fixture. Two criteria notice, necessarily. The verdict the project passed on its own former
+        rule: &ldquo;The sole-criterion rule is satisfiable only by <em>asserting</em> a singleton,
+        which is the defect the reviewer found: the rule incentivised the hardcoding.&rdquo; And, more
+        generally: &ldquo;real evidence is cross-linked; demanding that exactly one criterion notice
+        is demanding that the evidence graph be less connected than it is.&rdquo; So a mark off the
+        diagonal is not a bug. It is two pieces of evidence being visibly wired together.
+      </p>
+
+      <p>
+        The rule was therefore weakened to what could actually be measured, and the retreat written
+        down in the open: &ldquo;The gate no longer asserts that each mutation is caught by exactly
+        one criterion, so it no longer proves criterion <em>isolation</em>. It proves detection and
+        correct attribution. Isolation was never actually measured &mdash; it was hardcoded &mdash; so
+        no real claim is lost, but the weaker written claim must be stated plainly in the evidence
+        prose.&rdquo; (ADR&nbsp;0022, accepted 2026-07-25, Consequences.) Nothing about the machinery
+        got worse that day. What changed is that the sentence the machinery was allowed to print
+        became true.
+      </p>
+
+      <p>
+        And the only way to make a column empty is to disable a check. Loosen the symmetry threshold
+        and <code>NC-SYMMETRY-BIT</code> still flips its attachment bit, but now nothing rejects the
+        result &mdash; so the second requirement is unmet and the control itself fails. That is the
+        whole purpose of the apparatus, because without it a loosened threshold is invisible: the
+        criterion quietly stops testing anything. The list of saboteurs is closed for the same reason.
+        Ask the runner to apply a control nobody registered and it throws <code>unregistered Phase 5
+        negative control</code> rather than doing nothing; and a mutation that leaves the captured
+        evidence byte-identical is an error, not a pass &mdash; <code>did not change any captured
+        evidence: its mutation did not execute</code>.
       </p>
 
       <aside class="callout callout--key">
@@ -464,17 +528,21 @@
       <h2 id="own-homework">Grading your own homework</h2>
 
       <p>
+        Breaking something on purpose only helps if the thing that notices is not the thing that
+        broke. Which raises the next question: who is allowed to check whom?
+      </p>
+
+      <p>
         Suppose a solver keeps a ledger: a running total of the vapour it has turned into ice. How
         do you test the ledger? The tempting answer is to ask the solver what it thinks it did. That
         comparison always passes and means nothing, because the same code produced both sides of it.
       </p>
 
       <p>
-        The repository states this as a rule and then a slogan. Rule&nbsp;9 is titled <strong>&ldquo;A
-        verdict is computed from the artifact, never inherited from its producer&rdquo;</strong>, and
-        its operative sentence is &ldquo;No component may supply both sides of a comparison it
-        participates in.&rdquo; The slogan version is shorter: <em>&ldquo;a report agreeing with
-        itself does not prove its ledger&rdquo;</em> (<code>AGENTS.md</code> lines 254&ndash;256).
+        Rule&nbsp;9, from the previous section, has a sentence for exactly this: &ldquo;No component
+        may supply both sides of a comparison it participates in&rdquo; (<code>AGENTS.md</code> lines
+        377&ndash;378). The slogan version is shorter: <em>&ldquo;a report agreeing with itself does
+        not prove its ledger&rdquo;</em> (lines 254&ndash;256).
       </p>
 
       <p>
@@ -482,12 +550,15 @@
         none of the production code's internals. One is titled in capitals:
         <code>it("NON-TAUTOLOGICAL: the ledger delta equals independently recomputed kinetic demand")</code>.
         It rebuilds the expected growth from public fields and raw physics functions, and draws the
-        line explicitly: &ldquo;Neither solver rate cache nor ledger internals enter the expected
-        value.&rdquo; It also insists on being run somewhere difficult &mdash; it fails if the run
-        never hits a step where demand has to be clipped, because clipping is where the historical
-        bug lived. In an early audit, recomputed demand exceeded the ledger by 35&nbsp;% while the
-        clipping happened silently (<code>solver-cpu/test/lk-solver.test.ts</code>, lines
-        780&ndash;817).
+        line: &ldquo;Neither solver rate cache nor ledger internals enter the expected value.&rdquo;
+        It also insists on being run somewhere difficult: it fails if the run never hits a step
+        where demand has to be <strong>clipped</strong> &mdash; cut back, because a cell was asked
+        to freeze more vapour than was actually there. Clipping is where the historical bug lived.
+        In an early audit, recomputed demand exceeded the ledger by 35&nbsp;% while the clipping
+        happened silently &mdash; and that 35&nbsp;% is a figure the project itself labels
+        non-reproducible history, because the ad-hoc probe script was never retained
+        (<code>solver-cpu/test/lk-solver.test.ts</code>, lines 814&ndash;816; ADR&nbsp;0006, lines
+        25&ndash;28). The fix is reproducible; the measurement of how bad the bug was is not.
       </p>
 
       <!-- ---------------------------------------------------------------- -->
@@ -496,8 +567,8 @@
           <p class="anim__title">Two ledgers</p>
           <p class="anim__sub">
             The solver keeps its own running total of ice. The test recomputes it a second way, from
-            public fields only. Introduce a silent 3&nbsp;% clipping bug and the two separate. Then
-            let the test read the solver's cache instead, and watch the difference become
+            public fields only. Introduce an unmetered 3&nbsp;% clipping bug and the two separate.
+            Then let the test read the solver's cache instead, and watch the difference become
             permanently, unfalsifiably zero.
           </p>
         </div>
@@ -509,7 +580,14 @@
           and boundary mass still on the grid &mdash; and touches no internal counter. Encodes the
           contract in <code>AGENTS.md</code> lines 254&ndash;256 and Rule&nbsp;9 (lines
           377&ndash;378), and the shape of
-          <code>solver-cpu/test/lk-solver.test.ts</code> line 780.</span>
+          <code>solver-cpu/test/lk-solver.test.ts</code> line 780. One difference from the real
+          solver, stated because it matters: this toy has no separate demand ledger, so it can only
+          expose an unmetered clip by letting the clipped mass leave the box, which is what the
+          conservation route then sees. The real solver meters the clipped amount into
+          <code>saturationClippedFill</code> and the test adds it back before comparing against
+          recomputed demand (<code>solver-cpu/test/lk-solver.test.ts</code> lines 805&ndash;810), so
+          clipped mass is accounted for rather than lost. The historical bug was that the clipping was
+          unmetered, not that water vanished.</span>
         </figcaption>
       </figure>
 
@@ -547,7 +625,9 @@
           <p class="anim__sub">
             Feed a status line to two parsers. The fail-open one reports on the field it knows about.
             The fail-closed one refuses anything it was not told to expect. Try the second preset:
-            that line is from this project's history.
+            it reconstructs the two fields the record actually names. Then register
+            <code>deltaSymClean</code> and watch the fail-closed verdict change from <em>I do not
+            recognise this field</em> to <em>this field is reporting a defect</em>.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -557,7 +637,10 @@
           (<code>AGENTS.md</code> lines 377&ndash;385): the fail-open definition and the recorded
           incident &mdash; &ldquo;the Phase 6 WP0b calibration probe that parsed only
           <code>symErr=</code> and dropped the <code>deltaSymClean=false</code> that was reporting a
-          real solver defect.&rdquo; The unknown-key refusal mirrors
+          real solver defect.&rdquo; The surrounding <code>tick</code> and <code>attached</code>
+          values are illustrative, and so is the four-row schema table with its per-field rules;
+          <code>AGENTS.md</code> records only the <code>symErr=</code> and
+          <code>deltaSymClean=false</code> fields. The unknown-key refusal mirrors
           <code>runner/test/gate5-protocol.test.ts</code> line 161, which rejects unknown raw and
           nested keys &ldquo;instead of silently ignoring schema drift&rdquo;.</span>
         </figcaption>
@@ -567,30 +650,31 @@
         The fail-closed stance costs something. Refusing every unrecognised field means adding a new
         field breaks the harness until somebody registers it: a small, loud, immediate cost, in
         exchange for never having a check silently stop applying. Being friendly about unknown keys
-        sounds harmless right up until a field is <em>renamed</em>, at which point the criterion that
-        read it quietly stops being evaluated and everything stays green.
+        sounds harmless until a field is <em>renamed</em>, at which point the criterion that read it
+        quietly stops being evaluated and everything stays green.
       </p>
 
       <!-- ================================================================= -->
-      <h2 id="pinned">Writing your weaknesses into the alarm</h2>
+      <h2 id="pinned">Pinning the flaws, refusing to guess</h2>
 
       <p>
-        Some things here are known to be wrong and cannot be fixed, because the wrongness lives in
-        the source material rather than the code. The usual response is to leave them alone and hope
-        nobody trips. This repository does the opposite: it writes a test asserting the broken thing
-        stays <em>exactly as broken as it currently is</em>.
+        Everything so far assumes the wrongness is in the code, where it can be fixed. Sometimes it is
+        in the source material, where it cannot. The usual response is to leave it alone and hope
+        nobody trips over it. This repository does two opposite things instead. It writes the
+        weakness into the alarm &mdash; a test asserting the broken thing stays <em>exactly as broken
+        as it currently is</em> &mdash; and, where a number is simply not available, it refuses to
+        produce one.
       </p>
 
       <p>
         The clearest case is <code>sigmaWater</code> &mdash; how much supersaturation a supercooled
         water droplet presents to ice. The monograph gives it as the difference between two
-        approximate curves, saturation over water minus saturation over ice, each fit good to about a
-        percent. Near 0&nbsp;&deg;C the curves converge, so their difference shrinks toward nothing
-        while their errors do not, and the percentage error blows up without bound. At
-        &minus;1&nbsp;&deg;C the formula returns <strong>&minus;0.009146</strong>: a
-        <em>negative</em> supersaturation, which is physically impossible. The published table says
-        +0.010. The implementation's own comment records that it crosses zero at
-        &minus;1.969&nbsp;&deg;C and is negative everywhere warmer than that
+        approximate curves, saturation over water minus saturation over ice, each fit good to about
+        a percent. Near 0&nbsp;&deg;C the curves converge, so their difference shrinks toward
+        nothing while their errors do not. At &minus;1&nbsp;&deg;C the formula returns
+        <strong>&minus;0.009146</strong>: a <em>negative</em> supersaturation, which is impossible.
+        The published table says +0.010. The implementation's own comment records the crossing at
+        &minus;1.969&nbsp;&deg;C, negative everywhere warmer
         (<code>core/src/libbrecht.ts</code>, lines 47&ndash;53).
       </p>
 
@@ -608,11 +692,11 @@
 
       <p>
         Read the second line again. It asserts the code is <em>at least</em> 15&nbsp;% wrong, so
-        improving the formula would turn it red. That is deliberate: the limitation is pinned
+        improving the formula would turn it red. That is deliberate: it is pinned
         &ldquo;so the limitation cannot silently un-happen&rdquo;. The quantity is a plausibility
-        reference against the source and is explicitly &ldquo;not an enforced runtime ceiling or a
-        dynamical input&rdquo; &mdash; so the honest move is to keep it exactly as the source has it,
-        and make any change to that an event somebody has to argue for out loud.
+        reference against the source, explicitly &ldquo;not an enforced runtime ceiling or a
+        dynamical input&rdquo; &mdash; so the honest move is to keep it exactly as the source has
+        it, and make any change an event somebody has to argue for out loud.
       </p>
 
       <!-- ---------------------------------------------------------------- -->
@@ -639,13 +723,13 @@
       </figure>
 
       <p>
-        The same instinct produces a stranger habit: functions that refuse to answer. Ask for a
+        That is the alarm half, pointed backwards at a flaw already known. Pointed forwards, the same
+        instinct produces a stranger habit: functions that refuse to answer. Ask for a
         parameter outside the range actually digitised from the source figure and the code throws
         rather than extrapolating &mdash;
         <code>expect(() =&gt; sigma0Basal(-0.5)).toThrow(/outside the digitized domain/)</code>.
-        There is a family of these: a protocol that will not hand out its frozen hash before every
-        item is settled, and names the missing item; a solver that refuses to advance the surface on
-        an unconverged field, even through its public interface; a grid-limit extrapolation
+        There is a family of these: a solver that refuses to advance the surface on an unconverged
+        field, even through its public interface; a grid-limit extrapolation
         <em>published</em> for the cold case and <em>refused</em> for the warm one, where two
         defensible assumptions give 0.84 and 0.49 &mdash; different habit classes &mdash; so that
         &ldquo;Reporting either as &lsquo;the extrapolated class&rsquo; would be inventing a
@@ -714,10 +798,13 @@
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
-          <span class="built-from">Original interactive. Every command, printed line and exit code
-          here is one the repository's own tests assert &mdash;
-          <code>runner/test/gate-enforce.test.ts</code>, lines 23&ndash;151. Combinations the suite
-          does not pin are reported as not pinned rather than guessed at. The observational case
+          <span class="built-from">Original interactive. The printed lines and exit codes replay
+          outcomes the repository's own tests assert &mdash;
+          <code>runner/test/gate-enforce.test.ts</code>, lines 23&ndash;150. Combinations the suite
+          does not pin are reported as not pinned rather than guessed at, except unpinned
+          <code>box</code> runs, where a documented categorical rule already settles the outcome
+          (<code>AGENTS.md</code> lines 263&ndash;264) and the demo says so on screen. The
+          observational case
           encodes <code>AGENTS.md</code> lines 244&ndash;245: &ldquo;Printed metrics do not turn exit
           0 into a gate result.&rdquo;</span>
         </figcaption>
@@ -725,19 +812,23 @@
 
       <p>
         The best entry is the 18&times;18&times;12 box run. It grew from 19 sites to 37, never broke
-        symmetry once, stopped for a legitimate reason and exited&nbsp;0. It is rejected anyway,
-        because the gate is defined on the hexagonal-prism domain and a box footprint is not a
-        sixfold-symmetric environment &mdash; this run had simply stopped before the walls began to
-        bite. The comment calls it what it is: &ldquo;a lucky-short box run must not pass.&rdquo; A
-        gate that accepts runs which happen to look fine will accept the wrong thing on the day it
-        matters.
+        symmetry once, stopped for a legitimate reason and exited&nbsp;0. It is rejected anyway: the
+        gate is defined on the hexagonal-prism domain, and a box footprint is not a sixfold-symmetric
+        environment &mdash; this run had simply stopped before the walls began to bite. The comment
+        calls it what it is: &ldquo;a lucky-short box run must not pass.&rdquo; A gate that accepts
+        runs which happen to look fine will accept the wrong thing on the day it matters.
       </p>
 
       <p>
         Note how much of that file is about arguments rather than physics. A <code>--noise</code>
         value of <code>NaN</code> or <code>-1</code> used to run as a silent noise-off while writing
         false metadata into the record; now the parser rejects it for every run, gate or not. A
-        cadence of <code>0</code> is rejected &ldquo;instead of silently disabling a check&rdquo;.
+        <code>--stop-check-every</code> of <code>0</code> is rejected too, along with a fractional
+        <code>--metrics-every</code> and a <code>NaN</code> <code>--symmetry-every</code>, under a
+        title that names the reason: <em>&ldquo;rejects invalid cadence &hellip; instead of silently
+        disabling a check&rdquo;</em> (<code>runner/test/gate-enforce.test.ts</code>, lines
+        124&ndash;134). Note that <code>--metrics-every 0</code> is legal, and every gate command in
+        that file uses it: it means &ldquo;never print&rdquo;, which disables no check at all.
         Half of enforcement is refusing inputs that would make the output a lie about itself.
       </p>
 
@@ -773,7 +864,7 @@
               <td>That the physics the code was told to compute is sufficient</td>
             </tr>
             <tr>
-              <td>Every registered criterion has a saboteur that trips it, and only it</td>
+              <td>Every registered criterion has a saboteur that trips it, with the failing set observed rather than declared</td>
               <td>Anything at all about the real world</td>
             </tr>
           </tbody>
@@ -805,8 +896,8 @@
         That is a real limit, and it is why the machinery in this chapter is shaped as it is.
         Rule&nbsp;9 is a countermeasure for reviewers who cannot be assumed independent.
         Rule&nbsp;10 requires every review to record which model did it, whether it shared context
-        with the developer, what it independently re-ran, and <em>what it did not check</em>, as a
-        stated limit rather than an implicit one; gate-bearing reviews prefer a different model from
+        with the developer, what it independently re-ran, and <em>what it did not check</em> as a
+        stated limit; gate-bearing reviews prefer a different model from
         the one that wrote the code. None of that adds up to expert review. It adds up to a system
         where a stranger can recompute the verdict from the published bytes without trusting anybody
         in the loop, and it should be judged as exactly that.
@@ -1078,12 +1169,18 @@
 
   function measure(s) {
     const g = s.g, n = g.n;
-    let sd = 0, sb = 0, count = 0, sym = 0;
-    for (let x = 0; x < n; x++) { sd += s.d[x]; sb += s.b[x]; if (s.a[x] === 1) count++; }
+    let sd = 0, sb = 0, count = 0, sym = 0, minCell = Infinity;
+    for (let x = 0; x < n; x++) {
+      sd += s.d[x]; sb += s.b[x];
+      if (s.a[x] === 1) count++;
+      const held = s.d[x] + s.b[x];
+      if (held < minCell) minCell = held;
+    }
     for (let x = 0; x < n; x++) { const y = g.rot[x]; if (y < 0) continue; if (s.a[x] !== s.a[y]) sym++; }
     const total = sd + sb + s.ice;
     return {
       count: count, sym: sym, vapour: sd, boundary: sb, ice: s.ice,
+      minCell: minCell,
       drift: Math.abs(total - s.m0) / s.m0,
     };
   }
@@ -1158,7 +1255,7 @@
       { id: "sym", label: "symmetryError === 0", sub: "rotate 60°, compare cell by cell",
         run: function (m) { return { ok: m.sym === 0, val: String(m.sym) }; } },
       { id: "nonneg", label: "no cell holds negative vapour", sub: "true here, and useless here",
-        run: function (m) { return { ok: true, val: "true" }; } },
+        run: function (m) { return { ok: m.minCell >= 0, val: "min " + fmt(m.minCell) }; } },
     ];
 
     function compute() {
@@ -1431,7 +1528,7 @@
     const body = root.querySelector(".anim__body");
     const controls = root.querySelector(".anim__controls");
 
-    /* Verbatim from runner/src/phase5-protocol.ts lines 855-960. */
+    /* Verbatim from runner/src/phase5-protocol.ts lines 854-963. */
     const CRITERIA = [
       "P5-WINDOWS-PROVENANCE", "P5-PROTOCOL-MATCH", "P5-ADAPTER-LIMITS", "P5-LAYOUT-INDEXING",
       "P5-DIFFUSION", "P5-GG-THRESHOLD", "P5-LIBBRECHT-KINETICS", "P5-SYMMETRY",
@@ -1453,32 +1550,47 @@
       ["NC-LATE-FIRST-FRAME", "inject one first-valid frame above the registered limit"],
       ["NC-FULL-FIELD-PER-FRAME", "perform one full-field display-frame readback"],
       ["NC-CHECKPOINT-DTYPE-SHIFT", "shift one field dtype, length, or endianness declaration"],
-      ["NC-TOLERANCE-BYPASS", "report pass while one blocking comparison exceeds its frozen tolerance"],
+      ["NC-TOLERANCE-BYPASS", "report pass while one blocking raw field, scalar, decision, or invariant comparison exceeds its frozen tolerance"],
       ["NC-ARTIFACT-BYTE-MUTATION", "mutate one indexed artifact byte after publication"],
     ];
 
-    const W = 700, H = 470;
+    /* The failing set each mutation is OBSERVED to produce, transcribed from
+       runner/test/gate5-protocol.test.ts lines 276-295 (OBSERVED_FAILING_CRITERIA).
+       Fifteen are singletons; NC-TOLERANCE-BYPASS (index 14) really does fail two.
+       Values are indices into CRITERIA above. */
+    const OBSERVED = [
+      [0], [1], [2], [3], [4], [5], [6], [7],
+      [8], [9], [10], [11], [12], [13], [3, 14], [15],
+    ];
+
+    const W = 700, H = 492;
     const executed = new Array(16).fill(false);
     let loosened = false, message = null, messageBad = false, selected = 0, svg = null;
 
-    function failedFor(j) {
-      if (loosened && CONTROLS[j][0] === "NC-SYMMETRY-BIT") return -1;
-      return j;
+    function observedFor(j) {
+      if (loosened && CONTROLS[j][0] === "NC-SYMMETRY-BIT") return [];
+      return OBSERVED[j];
     }
 
     function render() {
       if (svg) svg.remove();
       svg = Viz.createSvg(body, W, H, {
-        label: "A sixteen by sixteen grid of registered sabotages against the criteria they make fail.",
-        desc: "Each executed mutation marks exactly one criterion, forming a diagonal.",
+        label: "A sixteen by sixteen grid of registered sabotages against the criteria observed to reject them.",
+        desc: "Each executed mutation marks the criteria that actually failed; one mutation marks two.",
       });
       const c = Viz.colors();
       svg.setAttribute("fill", c.ink);
 
       const x0 = 300, y0 = 62, cell = 22;
       text(svg, x0, 22, "mutation applied →", { size: 10, weight: 650, fill: c.inkSecondary });
-      text(svg, 4, 22, "criterion that failed ↓", { size: 10, weight: 650, fill: c.inkSecondary });
+      text(svg, 4, 22, "criterion observed to fail ↓", { size: 10, weight: 650, fill: c.inkSecondary });
       text(svg, 4, 40, "(the sixteen Phase 5 pass/fail criteria)", { size: 9.5, fill: c.muted });
+
+      const litRow = new Array(16).fill(false);
+      for (let j = 0; j < 16; j++) {
+        if (!executed[j]) continue;
+        observedFor(j).forEach(function (i) { litRow[i] = true; });
+      }
 
       for (let j = 0; j < 16; j++) {
         const t = text(svg, x0 + j * cell + cell / 2, y0 - 6, String(j + 1), {
@@ -1491,62 +1603,80 @@
         const y = y0 + i * cell;
         text(svg, x0 - 8, y + 15, CRITERIA[i], {
           anchor: "end", size: 9.5, mono: true,
-          fill: executed[i] && failedFor(i) === i ? c.ink : c.muted,
+          fill: litRow[i] ? c.ink : c.muted,
         });
         for (let j = 0; j < 16; j++) {
           const x = x0 + j * cell;
           const done = executed[j];
-          const lit = done && failedFor(j) === i;
+          const lit = done && observedFor(j).indexOf(i) >= 0;
+          const owned = i === j;
           rect(svg, x + 2, y + 2, cell - 4, cell - 4, {
             fill: lit ? c.critical : (done ? c.sunken : "none"),
             stroke: lit ? c.critical : c.rule,
             "stroke-width": 1, rx: 3,
           });
           if (lit) {
-            text(svg, x + cell / 2, y + cell / 2 + 4, "✕", {
-              anchor: "middle", size: 11, weight: 700, fill: c.surface,
+            text(svg, x + cell / 2, y + cell / 2 + 4, owned ? "✕" : "+", {
+              anchor: "middle", size: owned ? 11 : 13, weight: 700, fill: c.surface,
             });
           }
         }
       }
 
-      let ran = 0, silent = 0;
-      for (let j = 0; j < 16; j++) { if (executed[j]) { ran++; if (failedFor(j) < 0) silent++; } }
+      let ran = 0, unrejected = 0;
+      for (let j = 0; j < 16; j++) {
+        if (!executed[j]) continue;
+        ran++;
+        if (observedFor(j).length === 0) unrejected++;
+      }
       const yb = y0 + 16 * cell + 22;
       svg.appendChild(Viz.svgEl("line", { x1: 0, x2: W, y1: yb - 16, y2: yb - 16, stroke: c.rule }));
       text(svg, 4, yb, "mutations executed: " + ran + " of 16", { size: 11.5, weight: 650, fill: c.ink });
-      text(svg, 210, yb, "mutations that lit nothing: " + silent, {
-        size: 11.5, weight: 700, fill: silent ? c.critical : c.good,
+      text(svg, 230, yb, "mutations nothing rejected: " + unrejected, {
+        size: 11.5, weight: 700, fill: unrejected ? c.critical : c.good,
       });
-      if (silent) {
+      if (unrejected) {
         text(svg, 4, yb + 18,
-          "A control that changes nothing is a failure. The criterion it owns is no longer being checked.",
+          "A mutation the evaluator does not reject is a FAILED control: the criterion that owns it has stopped checking anything.",
           { size: 10.5, fill: c.critical });
       } else if (message) {
         text(svg, 4, yb + 18, message, { size: 10.5, mono: messageBad, fill: messageBad ? c.critical : c.inkSecondary });
       } else {
-        text(svg, 4, yb + 18, "Apply a mutation and watch exactly one criterion notice.", {
+        text(svg, 4, yb + 18, "Apply a mutation and read the criteria observed to reject it.", {
           size: 10.5, fill: c.muted,
         });
       }
+      text(svg, 4, yb + 38,
+        "✕ = the mutation's registered owner.  + = another criterion that also caught it.", {
+        size: 10, fill: c.inkSecondary,
+      });
+      text(svg, 4, yb + 52,
+        "The rule is that the observed set CONTAINS the owner — a + is evidence being cross-linked, not a bug.", {
+        size: 10, fill: c.muted,
+      });
     }
 
     selectControl(controls, "mutation",
       CONTROLS.map(function (m, j) { return { value: String(j), label: (j + 1) + ". " + m[0] + " — " + m[1] }; }),
-      function (v) { selected = parseInt(v, 10); });
+      function (v) { selected = parseInt(v, 10); render(); });
 
     Viz.button(controls, "Apply mutation", function () {
       executed[selected] = true;
+      const seen = observedFor(selected);
       const owner = CRITERIA[selected];
-      message = failedFor(selected) < 0
-        ? CONTROLS[selected][0] + " ran and nothing failed."
-        : CONTROLS[selected][0] + " → failed criteria: [" + owner + "]";
+      message = seen.length === 0
+        ? CONTROLS[selected][0] + " changed the evidence and nothing rejected it — the control FAILS."
+        : CONTROLS[selected][0] + " → failedCriteria: ["
+          + seen.map(function (i) { return CRITERIA[i]; }).join(", ")
+          + "]  ·  contains its owner " + owner + " ✓";
       messageBad = false;
       render();
     });
     Viz.button(controls, "Run all sixteen", function () {
       for (let j = 0; j < 16; j++) executed[j] = true;
-      message = "Every registered mutation executed. Each failed exactly its own owner.";
+      message = loosened
+        ? "Sixteen executed. One was rejected by nothing, so that control fails."
+        : "Sixteen executed, sixteen rejected, and every observed set contains its owner. One contains two.";
       messageBad = false;
       render();
     });
@@ -1560,6 +1690,11 @@
     });
     Viz.button(controls, "Try a mutation nobody registered", function () {
       message = "Error: unregistered Phase 5 negative control: NC-NOT-REGISTERED";
+      messageBad = true;
+      render();
+    });
+    Viz.button(controls, "Try a mutation that changes nothing", function () {
+      message = "Error: NC-AXIS-SWAP did not change any captured evidence: its mutation did not execute";
       messageBad = true;
       render();
     });
@@ -1649,7 +1784,7 @@
         });
       } else if (clip) {
         text(svg, 190, y + 62,
-          "3 % of every freeze is being silently dropped, and only the second route can see it.", {
+          "3 % of every freeze is cut back and recorded nowhere, so only the second route can see it.", {
           size: 11, fill: c.inkSecondary,
         });
       } else {
@@ -1668,7 +1803,7 @@
       if (sim.step !== drawnAt) { drawnAt = sim.step; draw(); }
     }, { duration: 12, staticAt: 8, stepBy: 1 });
 
-    toggle(controls, "Introduce a silent 3 % clip", false, function (on) {
+    toggle(controls, "Introduce an unmetered 3 % clip", false, function (on) {
       clip = on; reset(); anim.reset();
     });
     toggle(controls, "Let the test read the solver's cache", false, function (on) {
@@ -1692,11 +1827,26 @@
     const controls = root.querySelector(".anim__controls");
     const W = 680, H = 262;
 
-    const SCHEMA = ["tick", "symErr", "attached"];
+    /* The registered schema is a table of field names AND the rule each one is read by.
+       `on` is what the reader can change: an unregistered field is refused outright, and a
+       registered one is checked against its own predicate. Nothing is merely listed. */
+    const FIELDS = [
+      { name: "tick", required: true, on: true, rule: "a non-negative integer",
+        ok: function (v) { return /^\d+$/.test(v); } },
+      { name: "symErr", required: true, on: true, rule: "exactly zero",
+        ok: function (v) { return parseFloat(v) === 0; } },
+      { name: "attached", required: true, on: true, rule: "a non-negative integer",
+        ok: function (v) { return /^\d+$/.test(v); } },
+      { name: "deltaSymClean", required: false, on: false,
+        rule: "true; false is reporting a solver defect",
+        ok: function (v) { return v === "true"; } },
+    ];
+    function registered() { return FIELDS.filter(function (f) { return f.on; }); }
+
     const PRESETS = [
       ["a clean line", "tick=4000 symErr=0 attached=163"],
-      ["the WP0b line", "tick=270 symErr=0 deltaSymClean=false attached=163"],
-      ["a typo in a field name", "tick=270 symErrr=0 deltaSymClean=false attached=163"],
+      ["the WP0b fields", "tick=4000 symErr=0 deltaSymClean=false attached=163"],
+      ["a typo in a field name", "tick=4000 symErrr=0 deltaSymClean=false attached=163"],
       ["an honest failure", "tick=4000 symErr=0.02 attached=163"],
     ];
     let line = PRESETS[0][1], svg = null;
@@ -1722,23 +1872,32 @@
     }
 
     function failClosed(fields) {
+      const reg = registered();
+      const names = reg.map(function (f) { return f.name; });
       for (let i = 0; i < fields.length; i++) {
-        if (SCHEMA.indexOf(fields[i][0]) < 0) {
-          return { pass: false, why: "unrecognised field '" + fields[i][0] + "'" };
+        if (names.indexOf(fields[i][0]) < 0) {
+          return { pass: false, why: "unrecognised field '" + fields[i][0] + "' — not in the schema" };
         }
       }
-      const names = fields.map(function (f) { return f[0]; });
-      for (let i = 0; i < SCHEMA.length; i++) {
-        if (names.indexOf(SCHEMA[i]) < 0) {
-          return { pass: false, why: "required field '" + SCHEMA[i] + "' is missing" };
+      const present = fields.map(function (f) { return f[0]; });
+      for (let i = 0; i < reg.length; i++) {
+        if (reg[i].required && present.indexOf(reg[i].name) < 0) {
+          return { pass: false, why: "required field '" + reg[i].name + "' is missing" };
         }
       }
       for (let i = 0; i < fields.length; i++) {
-        if (fields[i][0] === "symErr" && parseFloat(fields[i][1]) !== 0) {
-          return { pass: false, why: "symErr=" + fields[i][1] + " is not zero" };
+        const f = reg[names.indexOf(fields[i][0])];
+        if (!f.ok(fields[i][1])) {
+          return {
+            pass: false,
+            why: fields[i][0] + "=" + fields[i][1] + " — registered rule: " + f.rule,
+          };
         }
       }
-      return { pass: true, why: "every field registered, every registered field checked" };
+      return {
+        pass: true,
+        why: "all " + fields.length + " fields registered, and each read by its own rule",
+      };
     }
 
     function render() {
@@ -1753,9 +1912,10 @@
       const fields = parseLine(line);
       text(svg, 4, 16, "the status line the solver printed", { size: 10.5, weight: 650, fill: c.inkSecondary });
       rect(svg, 0, 24, W, 34, { fill: c.sunken, stroke: c.rule, rx: 6 });
+      const regNames = registered().map(function (f) { return f.name; });
       let x = 12;
       fields.forEach(function (f) {
-        const known = SCHEMA.indexOf(f[0]) >= 0;
+        const known = regNames.indexOf(f[0]) >= 0;
         const label = f[0] + "=" + f[1];
         const w = label.length * 7.1 + 12;
         rect(svg, x, 30, w, 22, {
@@ -1767,11 +1927,12 @@
         });
         x += w + 8;
       });
-      text(svg, 4, 74, "grey = in the registered schema · red = not in it", { size: 9.5, fill: c.muted });
+      text(svg, 4, 74, "grey = in the registered schema · red = not in it — schema: "
+        + regNames.join(", "), { size: 9.5, fill: c.muted });
 
       const results = [
         ["FAIL-OPEN parser", "reads symErr=; ignores anything it was not told about", failOpen(fields), c.series[1]],
-        ["FAIL-CLOSED parser", "every field must be registered, and every registered field checked", failClosed(fields), c.series[0]],
+        ["FAIL-CLOSED parser", "no unregistered field may pass, and every registered field is read by its own rule", failClosed(fields), c.series[0]],
       ];
       results.forEach(function (r, i) {
         const y = 92 + i * 82;
@@ -1803,6 +1964,11 @@
     selectControl(controls, "preset",
       PRESETS.map(function (p, i) { return { value: String(i), label: p[0] }; }),
       function (v) { line = PRESETS[parseInt(v, 10)][1]; input.value = line; render(); });
+
+    toggle(controls, "Register deltaSymClean (rule: must be true)", false, function (on) {
+      FIELDS[3].on = on;
+      render();
+    });
 
     const wrap = document.createElement("div");
     wrap.className = "control";
@@ -1993,9 +2159,13 @@
         return { exit: 1, lines: ["GATE FAILED", "broke at tick 270", "maxFullSymErr=0"],
           note: "The end-state metric reads 0 — the break healed. Enforcement keys on the per-tick delta, which is why it is caught at all." };
       }
-      if (s.domain === "box") {
+      if (s.domain === "box" && s.dims === "18,18,12") {
         return { exit: 1, lines: ["GATE FAILED", "requires the hexPrism domain"],
           note: "The lucky-short box run: 19 → 37 sites, symmetry never broke, stopped legitimately, and exited 0 before enforcement existed. It looks perfect and is rejected anyway." };
+      }
+      if (s.domain === "box") {
+        return { exit: 1, lines: ["GATE FAILED", "requires the hexPrism domain"],
+          note: "Not one of the pinned box runs — the suite pins 32,32,16 and 18,18,12. The refusal itself is categorical, from AGENTS.md: “Exact D6h symmetry gates require hexPrism. A box footprint and its walls are not a sixfold-symmetric environment.”" };
       }
       if (s.seedRadius !== "2") {
         return { exit: 1, lines: ["GATE FAILED", "the 2a gate requires the canonical radius-2 seed"],

@@ -40,7 +40,7 @@
       <li><a href="#three-numbers">Three numbers, never one</a></li>
       <li><a href="#one-long-list">One long list, and the bug that doesn&rsquo;t crash</a></li>
       <li><a href="#one-rule-everywhere">One rule, everywhere, at once</a></li>
-      <li><a href="#the-ledger">Nothing is created, nothing escapes</a></li>
+      <li><a href="#the-ledger">Nothing is created, nothing escapes &mdash; if the walls reflect</a></li>
       <li><a href="#the-box-that-isnt">The box that isn&rsquo;t a hexagon</a></li>
       <li><a href="#nineteen-not-twenty">Nineteen, not twenty</a></li>
     </ol>
@@ -73,8 +73,10 @@
           <li>Describe a cellular automaton, and say why updating every cell <em>simultaneously</em>
               is part of the model rather than a coding style.</li>
           <li>Read a conservation test as a proof-shaped assertion rather than a sanity check.</li>
-          <li>Say why a rectangular domain can never score exactly zero on a sixfold-symmetry test,
-              no matter how correct the code inside it is.</li>
+          <li>Say why a rectangular domain can never be relied on to score exactly zero on a
+              sixfold-symmetry test once the depletion field reaches a wall, no matter how correct
+              the code inside it is &mdash; and why the metric reading zero at the end of such a run
+              is not a reprieve.</li>
         </ul>
       </section>
 
@@ -82,10 +84,17 @@
       <h2 id="the-container-leaks">The container leaks into the answer</h2>
 
       <p>
-        Start with a rule that has nothing sixfold in it. Lay out a block of cells. Mark the one in
-        the middle as ice. Then, over and over, apply a single sentence: <strong>a cell becomes ice
-        if any one of its neighbours is already ice.</strong> That is the whole rule. It contains no
-        hexagon, no angle, no crystal, no physics.
+        The last chapter left the grid sitting at the bottom of the ladder with a question hanging
+        over it: why does every cell get eight neighbours, all exactly the same distance away?
+        Answering that starts somewhere that looks unrelated &mdash; with a rule that has nothing
+        sixfold in it.
+      </p>
+
+      <p>
+        Lay out a block of cells. Mark the one in the middle as ice. Then, over and over, apply a
+        single sentence: <strong>a cell becomes ice if any one of its neighbours is already
+        ice.</strong> That is the whole rule. It contains no hexagon, no angle, no crystal, no
+        physics.
       </p>
 
       <p>
@@ -108,7 +117,9 @@
           <code>(+1,0) (&minus;1,0) (0,+1) (0,&minus;1) (+1,&minus;1) (&minus;1,+1)</code> &mdash;
           and the real-space embedding <code>x = i + j/2, y = j&middot;&radic;3/2</code> from line 76.
           The sixfold score rotates every ice cell by 60&deg; in real space and asks whether it lands
-          on another ice cell.</span>
+          on another ice cell. On the triangular lattice that landing is exact; on the square lattice
+          a 60&deg; turn lands between cells, so the score has to round to the nearest one before it
+          can ask &mdash; see the note below the panels.</span>
         </figcaption>
       </figure>
 
@@ -173,8 +184,8 @@
         <code>core/src/lattice.ts</code> answer it.
       </p>
 
-      <div class="equation">
-        <p class="equation__math" style="white-space:normal;text-align:left;font-size:0.94rem;line-height:1.7;">
+      <div class="equation equation--quote">
+        <p class="equation__math">
           &ldquo;The stacked triangular lattice T&nbsp;x&nbsp;Z. […] 8 neighbors: 6 in-plane (T) + 2
           vertical (Z). The fundamental cell is a hexagonal prism with across-flats = 1 and
           height = 1, so all 8 bonds have unit length.&rdquo;
@@ -211,20 +222,20 @@
 
       <figure class="anim" id="demo-eight-bonds">
         <div class="anim__head">
-          <p class="anim__title">One cell, eight bonds &mdash; and what a 60&deg; turn does to them</p>
+          <p class="anim__title">One cell, eight bonds, every one of them length 1</p>
           <p class="anim__sub">
-            The six in-plane neighbours form three opposite pairs. Rotate the lattice and the pairs
-            move, but no pair is ever split.
+            Six neighbours in the plane at 60&deg;, two straight up and down. Turn the lattice a
+            sixth of the way round and watch where the tracked direction lands.
           </p>
         </div>
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
-          <span class="built-from">Original diagram. Offsets and the rotation
+          <span class="built-from">Original diagram. The six in-plane offsets and the rotation
           <code>rot60(i,&nbsp;j) = (&minus;j,&nbsp;i+j)</code> are taken verbatim from
-          <code>core/src/lattice.ts</code> lines 31&ndash;38 and 81&ndash;94; the grouping into the
-          pairs <code>e+w</code>, <code>ne+sw</code>, <code>se+nw</code> is the one named in the
-          solver header, <code>solver-cpu/src/gg-solver.ts</code> lines 28&ndash;34.</span>
+          <code>core/src/lattice.ts</code> lines 31&ndash;38 and 81&ndash;94; the drawn positions use
+          the real-space embedding <code>x = i + j/2</code>, <code>y = j&middot;&radic;3/2</code>
+          from line 76.</span>
         </figcaption>
       </figure>
 
@@ -270,8 +281,8 @@
         &mdash; is banned. The project's first architecture decision record says so explicitly.
       </p>
 
-      <div class="equation">
-        <p class="equation__math" style="white-space:normal;text-align:left;font-size:0.94rem;line-height:1.7;">
+      <div class="equation equation--quote">
+        <p class="equation__math">
           &ldquo;Domain size is <strong>three independent integers <code>(nx, ny, nz)</code></strong>
           everywhere: in <code>core</code>, in the checkpoint header, in the CLI, in the WGSL
           dispatch, and in the resolution presets. There is no scalar &lsquo;resolution&rsquo;
@@ -326,7 +337,8 @@
         &mdash; but any metric that assumes &lsquo;distance to domain edge&rsquo; is isotropic is
         wrong&rdquo; (lines 59&ndash;61). A separate rule already keeps runs away from the wall. What
         the ADR did not anticipate is what happens to a symmetry gate that has to read
-        <em>exactly</em> zero &mdash; which is where this goes next.
+        <em>exactly</em> zero &mdash; which is where this chapter ends, after two more pieces of
+        machinery have to be in place first.
       </p>
 
       <!-- ================================================================= -->
@@ -377,9 +389,12 @@
         <code>&minus;1</code> for anything outside the domain &mdash; &ldquo;For the domain shell; use
         flat offsets in the interior.&rdquo; The fast one, <code>tNeighborFlatOffsets</code>, is
         labelled &ldquo;valid in the interior only&rdquo;. The specification even prices the split:
-        the shell is only the outer skin of the block &mdash; for a million cells, about ten thousand
-        of them &mdash; &ldquo;so the cost is noise&rdquo;. The border between the fast path and the
-        careful one is written down instead of assumed.
+        the bounds-checked gather runs only on the boundary shell, which is &ldquo;O(N^&#8532;), so
+        the cost is noise&rdquo; (<code>docs/gg-machinery.md</code> lines 53&ndash;55). A shell is a
+        skin, and a skin grows far more slowly than the volume inside it: at the runner's default
+        domain of 128&nbsp;&times;&nbsp;128&nbsp;&times;&nbsp;64 (<code>runner/src/main.ts</code>
+        line 158) about six cells in every hundred are on a face. The border between the fast path
+        and the careful one is written down instead of assumed.
       </p>
 
       <p>
@@ -410,7 +425,9 @@
       </p>
 
       <p>
-        Under the reference rule, each tick runs four steps in a fixed order
+        Under <code>GGThreshold</code> &mdash; the code's name for Gravner and Griffeath's threshold
+        rule, the known-good stand-in of chapters 15 and 18, and the rule Phase 2a certified &mdash;
+        each tick runs four steps in a fixed order
         (<code>solver-cpu/src/gg-solver.ts</code> lines 6&ndash;15): <strong>diffusion</strong>,
         which spreads vapour by local averaging; <strong>freezing</strong>, where &ldquo;boundary cells
         trade vapor for boundary mass&rdquo;; <strong>attachment</strong>, which turns a cell into ice
@@ -435,11 +452,11 @@
         buffers, ping-ponging. Numerical people call that a <strong>Jacobi</strong> update: every cell
         is computed from the old field only, so no cell can ever see a value that was changed this
         tick. The alternative, overwriting the field as you go, is cheaper and uses half the memory.
-        The solver header rejects it in five words.
+        The solver header rejects it in three words.
       </p>
 
-      <div class="equation">
-        <p class="equation__math" style="white-space:normal;text-align:left;font-size:0.94rem;line-height:1.7;">
+      <div class="equation equation--quote">
+        <p class="equation__math">
           &ldquo;(i)&nbsp;&nbsp;&nbsp;diffusion&nbsp;&nbsp;&mdash; Jacobi over ping-pong buffers,
           NEVER in place (in-place Gauss-Seidel is a silent physics bug)&rdquo;
         </p>
@@ -470,14 +487,18 @@
           six in-plane neighbours &mdash; with the reflecting rule of lines 194&ndash;197 and the
           opposite-pair summation order of <code>solver-cpu/src/gg-solver.ts</code> lines
           815&ndash;837. Vertical diffusion and the other three steps of the tick are omitted; this is
-          one slice, not the solver.</span>
+          one slice, not the solver. The readout is the worst difference between a cell and its
+          <code>rot60</code> partner in the continuous vapour field &mdash; in the spirit of the
+          repository's set-based symmetry metric (<code>core/src/metrics.ts</code> lines
+          43&ndash;48), not that metric, which counts whole cells and cannot return a fraction.</span>
         </figcaption>
       </figure>
 
       <p>
         With two buffers, flipping the sweep direction changes nothing whatsoever &mdash; that is what
         &ldquo;the order must not matter&rdquo; looks like when it is true. Update in place and the
-        sweep direction becomes an input to the physics: the symmetry error leaves zero on the click,
+        sweep direction becomes an input to the physics: the rotated-partner difference leaves zero on
+        the click,
         and the vapour's centre of mass &mdash; which has nowhere legitimate to go, given one source
         cell in a symmetric room &mdash; drifts off in whichever direction you happened to loop.
       </p>
@@ -500,7 +521,7 @@
       </aside>
 
       <!-- ================================================================= -->
-      <h2 id="the-ledger">Nothing is created, nothing escapes</h2>
+      <h2 id="the-ledger">Nothing is created, nothing escapes &mdash; if the walls reflect</h2>
 
       <p>
         What stops vapour leaking out of the edges of the world, or being quietly manufactured at the
@@ -515,7 +536,9 @@
         194&ndash;197). Nothing is thrown away at a wall; it is handed back to the cell that offered
         it. So the total of vapour plus boundary mass across the whole grid is a quantity that
         arithmetic says cannot change &mdash; &ldquo;an exact invariant, not an approximate one&rdquo;
-        (lines 163&ndash;165).
+        (lines 163&ndash;165) &mdash; provided the far field is <em>reflecting</em>, which is the
+        condition just described, the one where a term pointing out of the domain is handed back to
+        the cell that offered it.
       </p>
 
       <p>
@@ -546,7 +569,7 @@
       </figure>
 
       <p>
-        Two things to notice. First, run it long enough and the drift stops reading exactly zero: it
+        Three things to notice. First, run it long enough and the drift stops reading exactly zero: it
         settles at a couple of parts in 10<sup>16</sup>, which is the floating-point noise floor of
         the machine rather than a physics error. The invariant is exact in arithmetic; a computer
         reports it plus rounding dust. The project therefore writes its tests
@@ -560,6 +583,15 @@
       </p>
 
       <p>
+        The same row records the other number this chapter has been circling. On a
+        128&nbsp;&times;&nbsp;128&nbsp;&times;&nbsp;64 hexagonal-prism domain, plate preset, seed 1,
+        that run reports &ldquo;delta check clean all 4800 ticks, full metric 0 everywhere
+        sampled&rdquo; (<code>docs/PROGRESS.md</code>, Phase 2a gate row). Not small. Zero &mdash;
+        checked every tick, for the whole run. That is the claim the rest of this chapter is
+        protecting, and it is a stranger claim than it looks.
+      </p>
+
+      <p>
         Second &mdash; and this generalises far beyond snowflakes &mdash; the measuring instrument has
         to be finer than the thing being measured. Adding a million floating-point numbers the obvious
         way accumulates its own error, and <code>core/src/metrics.ts</code> does that arithmetic out
@@ -568,6 +600,51 @@
         size of the tolerance cannot decide anything. So the total is accumulated with compensated
         summation, which keeps track of the crumbs ordinary addition throws away &mdash; the lower
         panel of the demo runs the exact case the test suite uses.
+      </p>
+
+      <p>
+        Third, and this is a condition rather than a decoration: read the last word of that test name
+        again. &ldquo;Noise OFF, <strong>reflecting</strong>.&rdquo; The closed ledger belongs to that
+        far field and no other. Reflecting is the <strong>Phase 2a</strong> condition and the one
+        faithful to the Gravner&ndash;Griffeath paper: vapour is never replenished, so the crystal eats
+        a finite reservoir and the supersaturation falls over the run
+        (<code>docs/gg-machinery.md</code> lines 199&ndash;201).
+      </p>
+
+      <p>
+        Phase 2b added a second: <strong>fixed-&sigma; Dirichlet</strong>, which holds the domain faces
+        at the set supersaturation, so vapour is replenished at the far field. The motive is that
+        &ldquo;Nakaya coordinates and Libbrecht's measurements assume a <em>maintained</em> far-field
+        &sigma;&rdquo;. The cost is the theorem. Under Dirichlet the boundary is &ldquo;a source/sink
+        <em>by design</em>&rdquo;, so those runs do not come with a closed ledger; they come with a
+        metered one, a check that &ldquo;starts depleted and verifies that Dirichlet returns to the set
+        value with injected field change metered and balancing&rdquo; (lines 203&ndash;210). Same
+        discipline, different theorem.
+      </p>
+
+      <p>
+        And Phase 6 registered a third. Its condition is <strong>monopole-matched</strong>:
+        &ldquo;Every Phase 6 validation run uses the <strong>monopole-matched</strong> shell&rdquo;
+        (<code>docs/plans/phase-6-nakaya-validation.md</code> line 158, citing ADR 0024). Fixed-&sigma;
+        Dirichlet was measured and found wanting &mdash; a fixed-value wall at a finite radius
+        &ldquo;over-supplies vapor, by a factor the spherical solution gives in closed form, and at the
+        domain sizes this project can afford that factor is large rather than negligible&rdquo;
+        (<code>core/src/state.ts</code> lines 13&ndash;17). Chapter 23 takes that apart.
+      </p>
+
+      <p>
+        Three conditions, then, and three different ledgers, and the specification refuses to let them
+        blur: which condition a run used is recorded in its checkpoint metadata, and results are
+        &ldquo;never compared across conditions silently &mdash; the two record different
+        experiments&rdquo; (<code>docs/gg-machinery.md</code> lines 211&ndash;212). One more thing has
+        to be said about those Phase 6 runs, because it is easy to picture them as this chapter's tick
+        with a different wall bolted on. They are not. They run the other surface rule, and under
+        <code>LibbrechtKinetics</code> &ldquo;diffusion becomes an iterated surface-boundary
+        relaxation, freezing is replaced by that sole sink, threshold attachment is replaced by
+        policy-versioned boundary-pixel fill, and melting is disabled&rdquo; (lines 172&ndash;177).
+        Three of the four steps in the last section are replaced or switched off. What carries through
+        unchanged into Phase 6 is the lattice underneath them &mdash; which is the point of this
+        chapter.
       </p>
 
       <!-- ================================================================= -->
@@ -587,8 +664,8 @@
         consequence as geometry, not as a bug.
       </p>
 
-      <div class="equation">
-        <p class="equation__math" style="white-space:normal;text-align:left;font-size:0.94rem;line-height:1.7;">
+      <div class="equation equation--quote">
+        <p class="equation__math">
           &ldquo;a rectangular axial box is a RHOMBUS in cartesian space &mdash; its walls sit at
           unequal hex distances from the center (C2 symmetry, not C6), and an even nz puts unequal
           z-reservoirs above and below the seed plane. Under the reflecting
@@ -598,6 +675,14 @@
         </p>
         <p class="equation__cite">core/src/state.ts, lines 22&ndash;30</p>
       </div>
+
+      <p>
+        Two shorthands in there. <strong>C6</strong> means a shape that comes back to itself every
+        60&deg; &mdash; six positions, all identical. <strong>C2</strong> means it only comes back
+        after a half turn: two positions, not six. A rhombus is a C2 shape wearing a C6 grid, and that
+        mismatch is the whole defect. (D6h, from earlier, is C6 plus the mirrors and the top-to-bottom
+        flip &mdash; the full symmetry of a hexagonal prism.)
+      </p>
 
       <p>
         Note which axis breaks. A box is asymmetric in two independent ways &mdash; sideways, because
@@ -639,12 +724,20 @@
       </figure>
 
       <p>
-        The fix is a mask. The active region is cut down to a hexagonal prism inscribed in the index
-        box, and everything outside it becomes an inert wall cell: &ldquo;wall cells are inert and
-        reflect exactly like attached cells&rdquo; (<code>solver-cpu/src/gg-solver.ts</code> lines
-        24&ndash;25). It costs you the corners of the array you allocated, and it buys the only thing
-        that matters here: every wall is now the same distance from the
-        seed. The project also notes it was not first. The machinery is transcribed from
+        The fix is a mask, and it has to cut in both directions at once, because the box was
+        asymmetric in both. Sideways, the active region is cut down to a hexagonal prism inscribed in
+        the index box, and everything outside it becomes an inert wall cell: &ldquo;wall cells are
+        inert and reflect exactly like attached cells&rdquo;
+        (<code>solver-cpu/src/gg-solver.ts</code> lines 24&ndash;25). Vertically, the same mask trims
+        the layer stack: <code>hexPrism</code> &ldquo;masks the active region to an inscribed
+        hexagonal prism with a <code>zmirror</code>-symmetric z-range&rdquo;
+        (<code>core/src/state.ts</code> lines 29&ndash;30), so the reservoir above the seed plane holds
+        exactly as many layers as the one below &mdash; which is the axis that actually broke. The
+        half-extent it keeps is the smaller of the two gaps, <code>Math.min(kc, nz &minus; 1 &minus;
+        kc)</code> (<code>solver-cpu/src/gg-solver.ts</code> line 368), so at <code>nz=16</code> a
+        layer is simply given up. It costs you the corners of the array you allocated, and it buys the
+        only thing that matters here: every wall is now the same lattice distance from the seed.
+        The project also notes it was not first. The machinery is transcribed from
         J.&nbsp;Gravner and D.&nbsp;Griffeath, &ldquo;Modeling snow crystal growth III:
         three-dimensional snowfakes&rdquo;, <em>Phys. Rev. E</em> <strong>79</strong>, 011601 (2009)
         &mdash; the repository calls them &ldquo;G-G&rdquo; and transcribes the model in
@@ -673,14 +766,33 @@
           32&times;32&times;16 it records that &ldquo;the first asymmetric attachment lands at tick 270
           via zmirror, with a boundary-mass split of ~0.03 between mirror partners: mesoscopic wall physics,
           three orders above ulp scale, NOT index arithmetic&rdquo;, and asserts that tick number
-          exactly. Its stated job is that &ldquo;if this test ever fails, the box has silently become
-          symmetric and the domain machinery changed underneath the gate.&rdquo;
+          exactly (line 181). Its stated job is that &ldquo;if this test ever fails, the box has
+          silently become symmetric and the domain machinery changed underneath the gate.&rdquo;
         </p>
         <p>
-          And a sting in the tail, also asserted: by tick 400 the overall symmetry number is back to
-          exactly 0, because the lagging mirror partners catch up. A check run every fifty ticks would
-          have reported that run as clean. The comment says so &mdash; &ldquo;the per-tick delta check
-          is load-bearing, not belt-and-braces.&rdquo;
+          Two things in that quotation. Tick 270 is one tick later than the 269 in the
+          <code>state.ts</code> comment above, and that is not a transcription slip: the two files
+          record different events. <code>state.ts</code> notes the boundary-mass split as present
+          <em>by</em> tick 269 &mdash; an observation, not an onset &mdash; and the test pins the
+          first asymmetric <em>attachment</em> at 270. The mass has to go unequal before an
+          attachment can, so the two numbers are consistent rather than in conflict.
+        </p>
+        <p>
+          And a <em>ulp</em> is the gap between one number a computer can store and the next one up
+          &mdash; the subject of the next chapter. Calling the split &ldquo;above ulp scale&rdquo; is
+          ruling out a suspect: 0.03 is enormously larger than anything floating-point rounding on
+          this lattice can produce, so whatever caused it, it is not the arithmetic slipping in the
+          last bit and it is not index arithmetic. The comment names what is left: &ldquo;mesoscopic
+          wall physics&rdquo;. It is the walls.
+        </p>
+        <p>
+          And a sting in the tail, also asserted (line 189): by tick 400 the overall symmetry number is
+          back to exactly 0, because the lagging mirror partners catch up. So the full metric at the
+          end of a run that demonstrably broke at 270 reads clean. That is why the gate does not rely
+          on sampling it &mdash; the runner's default is one full symmetry metric every 1000 ticks
+          (<code>runner/src/main.ts</code> line 167), and a run like this one could slip between two of
+          them. The comment says so: &ldquo;the per-tick delta check is load-bearing, not
+          belt-and-braces.&rdquo;
         </p>
       </aside>
 
@@ -1062,8 +1174,13 @@
     note(body,
       "The sixfold score turns every ice cell 60 degrees about the centre, in real space, and asks " +
       "whether it lands on another ice cell. On the triangular lattice that rotation is exact " +
-      "integer arithmetic, so the score is 100% at every single tick. Both panels hold 289 cells. " +
-      "At tick 0 both grids hold one cell, which is trivially sixfold — the difference only " +
+      "integer arithmetic — rot60(i, j) = (−j, i + j) — so the score is 100% at every single tick. " +
+      "On the square grid a 60-degree turn does not land on a cell at all, so the score has to round " +
+      "to the nearest one before it can ask. Read the square number with that in mind: the rounding " +
+      "is doing the work, which is why a diamond with no sixfold symmetry whatsoever still scores in " +
+      "the eighties — and why, once the rule has actually run, it never reaches 100% again. Only the " +
+      "triangular lattice can answer this question without rounding. Both panels hold 289 cells; at " +
+      "tick 0 both hold a single cell, which is trivially sixfold on any grid — the difference only " +
       "appears once the rule has run.");
 
     Viz.slider(bar, {
@@ -1089,30 +1206,38 @@
     var stage = stageIn(body);
     var legendStage = stageIn(body);
 
-    /* canonical order of core/src/lattice.ts:31, grouped into opposite pairs */
+    /* canonical order of core/src/lattice.ts:31 */
     var DIRS = [
-      { d: [1, 0], name: "(+1, 0)", pair: 0 },
-      { d: [-1, 0], name: "(−1, 0)", pair: 0 },
-      { d: [0, 1], name: "(0, +1)", pair: 1 },
-      { d: [0, -1], name: "(0, −1)", pair: 1 },
-      { d: [1, -1], name: "(+1, −1)", pair: 2 },
-      { d: [-1, 1], name: "(−1, +1)", pair: 2 }
+      { d: [1, 0], name: "(+1, 0)" },
+      { d: [-1, 0], name: "(−1, 0)" },
+      { d: [0, 1], name: "(0, +1)" },
+      { d: [0, -1], name: "(0, −1)" },
+      { d: [1, -1], name: "(+1, −1)" },
+      { d: [-1, 1], name: "(−1, +1)" }
     ];
+    /* The tracked direction: rot60 applied `turns` times to (+1, 0), exactly, on integers. */
+    var TRACKED = [1, 0];
 
     var turns = 0;
     var W = 600, H = 320;
     var svg = null;
 
     function keyOf(d) { return d[0] + "," + d[1]; }
+    function nameOf(k) {
+      for (var m = 0; m < DIRS.length; m++) {
+        if (keyOf(DIRS[m].d) === k) return DIRS[m].name;
+      }
+      return k;
+    }
 
     function render() {
       if (svg) svg.remove();
       svg = Viz.createSvg(stage, W, H, {
         label: "A single lattice cell with its six in-plane neighbours and two vertical " +
-               "neighbours, every bond of length one.",
+               "neighbours, every bond of length one. One in-plane direction is outlined; a " +
+               "60-degree rotation moves the outline onto the next neighbouring cell.",
       });
       var c = Viz.colors();
-      var pairColor = [c.series[0], c.series[1], c.series[2]];
       var cx = 190, cy = 168, s = 60;
 
       var hdr = Viz.svgEl("text", { x: 190, y: 24, "text-anchor": "middle", class: "series-label", fill: c.ink });
@@ -1122,13 +1247,10 @@
       hdr2.textContent = "2 vertical neighbours (Z)";
       svg.appendChild(hdr2);
 
-      /* which pair currently occupies each fixed position */
-      var occupant = {}, m, t;
-      for (m = 0; m < DIRS.length; m++) {
-        var dv = DIRS[m].d;
-        for (t = 0; t < turns % 6; t++) dv = rot60(dv[0], dv[1]);
-        occupant[keyOf(dv)] = DIRS[m].pair;
-      }
+      /* rot60 applied `turns` times to (+1, 0) — integer arithmetic throughout, no rounding. */
+      var tracked = [TRACKED[0], TRACKED[1]], t;
+      for (t = 0; t < turns % 6; t++) tracked = rot60(tracked[0], tracked[1]);
+      var trackedKey = keyOf(tracked);
 
       svg.appendChild(Viz.svgEl("path", {
         d: Viz.hexPath(cx, cy, (s / SQ3) * 0.96, 30),
@@ -1142,17 +1264,19 @@
         var dir = DIRS[n];
         var px = cx + s * cartX(dir.d[0], dir.d[1]);
         var py = cy - s * cartY(dir.d[0], dir.d[1]);
-        var col = pairColor[occupant[keyOf(dir.d)]];
+        var isTracked = keyOf(dir.d) === trackedKey;
         svg.appendChild(Viz.svgEl("line", {
           x1: cx, y1: cy, x2: px, y2: py, stroke: c.ruleStrong, "stroke-width": 1,
         }));
         svg.appendChild(Viz.svgEl("path", {
           d: Viz.hexPath(px, py, (s / SQ3) * 0.96, 30),
-          fill: col, stroke: c.surface, "stroke-width": 1.4, "fill-opacity": 0.9,
+          fill: c.series[1], stroke: isTracked ? c.ink : c.surface,
+          "stroke-width": isTracked ? 2.6 : 1.4,
+          "fill-opacity": isTracked ? 0.95 : 0.32,
         }));
         var lb = Viz.svgEl("text", {
           x: px, y: py + 4, "text-anchor": "middle", class: "annotation",
-          fill: c.surface, "font-weight": 700,
+          fill: isTracked ? c.surface : c.ink, "font-weight": isTracked ? 700 : 400,
         });
         lb.textContent = dir.name;
         svg.appendChild(lb);
@@ -1174,7 +1298,7 @@
         var L = levels[v];
         svg.appendChild(Viz.svgEl("path", {
           d: Viz.hexPath(vx, vy + L.dy, (s / SQ3) * 0.96, 30),
-          fill: L.solid ? c.series[3] : c.sunken,
+          fill: L.solid ? c.series[0] : c.sunken,
           "fill-opacity": L.solid ? 0.9 : 1,
           stroke: L.solid ? c.surface : c.ruleStrong, "stroke-width": 1.4,
         }));
@@ -1200,8 +1324,9 @@
       var tl = Viz.svgEl("text", { x: 190, y: 304, "text-anchor": "middle", class: "annotation", fill: c.inkSecondary });
       tl.textContent =
         turns === 0
-          ? "rot60 applied 0 times"
-          : "rot60 applied " + turns + " time" + (turns === 1 ? "" : "s") +
+          ? "tracking (+1, 0) — rot60 applied 0 times"
+          : "rot60 applied " + turns + " time" + (turns === 1 ? "" : "s") + ": (+1, 0) → " +
+            nameOf(trackedKey) +
             (turns % 6 === 0 ? " — back where it started, exactly" : "");
       svg.appendChild(tl);
     }
@@ -1210,10 +1335,8 @@
       legendStage.textContent = "";
       var c = Viz.colors();
       Viz.legend(legendStage, [
-        { color: c.series[0], label: "east + west pair" },
-        { color: c.series[1], label: "ne + sw pair" },
-        { color: c.series[2], label: "se + nw pair" },
-        { color: c.series[3], label: "above + below pair" }
+        { color: c.series[1], label: "in-plane neighbour (T) — outlined one is tracked" },
+        { color: c.series[0], label: "vertical neighbour (Z)" }
       ]);
     }
 
@@ -1221,9 +1344,10 @@
     renderLegend();
     note(body,
       "All eight bonds have length 1, which is what makes the diffusion weights — 1/7 in plane, " +
-      "and 4/7 + 3/14 + 3/14 vertically — come out isotropic. A rotation shuffles the three " +
-      "in-plane pairs and never splits one. That is the fact chapter 20 turns into an " +
-      "exactly-zero symmetry claim.");
+      "and 4/7 + 3/14 + 3/14 vertically — come out isotropic. Press the button and the tracked " +
+      "direction lands on a neighbouring cell every single time, because rot60(i, j) = (−j, i + j) " +
+      "is integer arithmetic: no sine, no cosine, no rounding, and after six turns it is back on " +
+      "(+1, 0) exactly rather than approximately.");
 
     Viz.button(bar, "Rotate 60°", function () { turns += 1; render(); });
     Viz.button(bar, "Reset", function () { turns = 0; render(); });
@@ -1521,7 +1645,7 @@
     build();
     var box = readoutBox(body);
     vMode = readout(box, "update scheme");
-    vSym = readout(box, "sixfold symmetry error");
+    vSym = readout(box, "worst rotated-partner difference");
     vCent = readout(box, "vapour centre of mass (x, y)");
     note(body,
       "The red crosshair is the centre of mass of the vapour. The source is one cell in the middle " +
@@ -1792,9 +1916,9 @@
 
     build();
     var box = readoutBox(body);
-    vErr[0] = readout(box, "hexPrism · symmetry error");
+    vErr[0] = readout(box, "hexPrism · worst rotated-partner difference");
     vFirst[0] = readout(box, "hexPrism · first departure from zero");
-    vErr[1] = readout(box, "box · symmetry error");
+    vErr[1] = readout(box, "box · worst rotated-partner difference");
     vFirst[1] = readout(box, "box · first departure from zero");
     note(body,
       "Both readouts compare each cell with its 60-degree partner over the same inscribed hexagon, " +

@@ -104,12 +104,27 @@
       </blockquote>
 
       <p>
+        Read the strings as recipes. <code>Tm</code> is the melting temperature, so
+        <code>(Tm&nbsp;&minus;&nbsp;T)</code> is just <em>how many degrees below freezing</em>;
+        &ldquo;piecewise-linear&rdquo; means <em>join the measured points with straight lines</em>
+        (the &sigma;<sub>0</sub> row does the same joining on logarithmic axes); and
+        &ldquo;constant-1&rdquo; means <em>do not interpolate at all &mdash; the answer is always
+        1</em>. The basal row says one thing, the prism row says another, and that difference is
+        the whole story.
+      </p>
+
+      <p>
         <code>A_prism</code> is the ceiling on how sticky the six side faces are allowed to get.
         In the model&rsquo;s attachment rule &mdash; Libbrecht&rsquo;s attachment coefficient,
         written <code>alphaHK</code> in the source to keep it apart from the lattice
         rule&rsquo;s unrelated threshold &mdash; the value is
         <code>alphaHK = A&middot;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>)</code>,
-        which climbs toward <code>A</code> as the air gets wetter. The registration says
+        which climbs toward <code>A</code> as the air gets wetter. Two of those symbols were
+        digitized off the same printed figure and they are <em>not</em> the same quantity:
+        <code>A</code> is the prefactor out front, and &sigma;<sub>0</sub> is the term inside the
+        exponent. Hold on to that difference &mdash; later in this chapter the project&rsquo;s own
+        checks come back in opposite directions on the two, and the pair is easy to confuse because
+        both go by &ldquo;the digitized prism anchors&rdquo;. The registration says
         <code>A_basal</code> is pinned at 1 and <code>A_prism</code> is <em>not</em>: it is
         interpolated through nine measured anchors. The decision record is blunt about it:
         <em>&ldquo;There is no reading of that row on which <code>A_prism &equiv; 1</code>.&rdquo;</em>
@@ -255,7 +270,8 @@
 
       <p>
         So the correction was going to hurt, and the project worked out roughly how much
-        <em>before</em> running it. Drag the slider and watch the five wins go.
+        <em>before</em> running it. Drag the slider and watch the wins go &mdash; then press the
+        last button, which is the one point that has since been re-measured and published.
       </p>
 
       <figure class="anim" id="c29-throttle">
@@ -274,8 +290,12 @@
             the plate ceiling 0.6667, the two measured bracket rises and the registered prediction
             are transcribed from the table and the block quote in
             <code>docs/decisions/0031-phase6-paramset-freeze-row.md</code>, &ldquo;Decision&rdquo;
-            item 4. The slider applies a uniform multiplier to the measured aspect ratios; it is
-            not a solver.
+            item 4. The 1.61&times; button is arithmetic on two published numbers: the re-sweep row
+            for &minus;2&nbsp;&deg;C at &sigma;<sub>&infin;</sub>&nbsp;=&nbsp;0.002000 published in
+            <code>docs/phase6-cross-platform-control.md</code>, &ldquo;The x64 baseline&rdquo;
+            (AR&nbsp;0.263158), divided by the same point&rsquo;s swept value 0.1638. The slider
+            applies one uniform multiplier to all five; it is not a solver, and the real rise is
+            not uniform.
           </span>
         </figcaption>
       </figure>
@@ -294,7 +314,11 @@
           raised it by 2.62&times; (0.3821 &rarr; 1.0000). Interpolating between them puts
           &minus;2&nbsp;&deg;C near a 1.9&ndash;2.2&times; rise. The record labels this honestly:
           <em>&ldquo;This is an ESTIMATE from two probe points, not a measurement; only the
-          re-sweep settles it.&rdquo;</em>
+          re-sweep settles it.&rdquo;</em> One of the five has since been settled and published:
+          the &minus;2&nbsp;&deg;C, f&nbsp;=&nbsp;0.10 point rose 0.1638&nbsp;&rarr;&nbsp;0.263158,
+          a 1.61&times; rise &mdash; outside the estimated band, on the low side &mdash; and stayed
+          a plate. That row needed 4.07&times; to lose its agreement, so it was the safest of the
+          five either way; what the estimate got wrong is the size of the move, not the class.
         </p>
       </aside>
 
@@ -357,11 +381,41 @@
       </blockquote>
 
       <p>
-        As of this writing the re-sweep has not reported. Phase 6 is marked
-        <strong>in progress</strong> in the project&rsquo;s own status table; the findings ledger
-        records the entry as <em>&ldquo;measured; re-sweep pending under ADR 0031 (registered
-        prediction: headline falls to &asymp;2/90; structure unchanged)&rdquo;</em>. Every number
-        in the previous chapter should be read with that sentence attached.
+        So where does the number actually stand? Two things are true at once, and keeping them
+        apart is the whole exercise.
+      </p>
+
+      <p>
+        <strong>The runs have happened.</strong> The cross-platform runbook publishes four rows
+        which it says are <em>&ldquo;not fresh runs&rdquo;</em> but
+        <em>&ldquo;rows taken verbatim from the ADR 0031 re-sweep&rsquo;s own
+        <code>out/phase6-sweep/points.json</code> (protocol <code>8aeb2b80&hellip;</code>, commit
+        <code>390fe35</code>, 204/204 with zero exclusions)&rdquo;</em>. That is the corrected
+        protocol, all 204 points, nothing thrown out.
+      </p>
+
+      <p>
+        <strong>The corrected headline has not been published.</strong>
+        <code>research/phase6-sweep-report.md</code> still carries the superseded protocol hash
+        <code>9aa2e7c1&hellip;</code> and still reads <em>&ldquo;Headline: 5 of 90 headline-scope
+        points agree&rdquo;</em>; the findings ledger still records the entry as
+        <em>&ldquo;measured; re-sweep pending under ADR 0031&rdquo;</em>; Phase 6 is still marked
+        <strong>in progress</strong>. The raw output sits in an evidence tree the repository does
+        not track, so nothing in it is checkable by a reader &mdash; which is why this page prints
+        no corrected score. A number you cannot go and verify is not yet a published number, and
+        the project&rsquo;s own convention says so: sweep artifacts live outside the repository and
+        <em>&ldquo;their hashes are the tracked record&rdquo;</em>.
+      </p>
+
+      <p>
+        One of the four published rows does fall inside the headline scope, and it is one of the
+        five withdrawn agreements: <code>robust-plate</code>, &minus;2&nbsp;&deg;C,
+        &sigma;<sub>&infin;</sub>&nbsp;=&nbsp;0.002000 &mdash; the f&nbsp;=&nbsp;0.10 point &mdash;
+        re-measured at AR&nbsp;<strong>0.263158</strong>, habit <strong>plate</strong>. Under the
+        scoring rule frozen before either run, that is still an agreement. So at least one of the
+        five survived; the registered prediction has been neither contradicted nor confirmed by
+        anything a reader can open. Every number in the previous chapter should be read with that
+        attached.
       </p>
 
       <h2 id="turn-on-the-caveats">Turn on the caveats</h2>
@@ -376,7 +430,7 @@
       </p>
 
       <p>
-        Below, four claims from that result are printed as rows, and each stated limit is a switch.
+        Below, five claims from that result are printed as rows, and each stated limit is a switch.
         Turn them on one at a time and watch the counter.
       </p>
 
@@ -384,7 +438,7 @@
         <div class="anim__head">
           <p class="anim__title">Turn on the caveats</p>
           <p class="anim__sub">
-            Four claims from the measured-and-superseded sweep, and eight stated limits. A claim
+            Five claims from the measured-and-superseded sweep, and eight stated limits. A claim
             stops counting as unqualified the moment any limit attaches to it.
           </p>
         </div>
@@ -416,8 +470,11 @@
           The switches are not doubts about whether the sweep happened; they are the boundaries of
           the sentence you are allowed to build from it. Notice also which way the limits point.
           Fixing the suspect warm parameter would move only the warm end, and the registered
-          prediction says it moves it <em>the wrong way</em>. Not one item on the list is an escape
-          hatch for 0 of 24 and 0 of 60.
+          prediction says it moves it <em>the wrong way</em>. The two zeroes are not equally
+          settled: the cold-plates 0 of 60 is bit-identical under either parameter set, while every
+          counted point in the columns band sits inside the window the violation touched, so 0 of
+          24 is a number the re-run still has to re-measure. But nothing on the list would make
+          either band agree.
         </p>
       </aside>
 
@@ -504,9 +561,11 @@
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">
-            Original interactive. The inherited files and their one-line jobs are the cold-start
-            read order table in <code>AGENTS.md</code>; the five quoted lines are Rules 3, 4, 10
-            and 11 and the decision-record row of that same table, all from
+            Original interactive. Three of the six files and their one-line jobs are the cold-start
+            read order table in <code>AGENTS.md</code>; the other three are described in that
+            file&rsquo;s opening lines and in
+            <code>docs/stretch-sharing-and-investigation.md</code>. The five quoted lines are
+            Rules 3, 4, 10 and 11 and the decision-record row of that table, all from
             <code>AGENTS.md</code>.
           </span>
         </figcaption>
@@ -577,9 +636,11 @@
       <h2 id="rigour-budget">What the carefulness cost</h2>
 
       <p>
-        There is one place in the whole record where the project turns its scepticism on its own
-        method, and it is a single bullet in a section called <em>Anti-rules</em> &mdash; a list of
-        things not to do, written by people who had done them.
+        The project turns its scepticism on its own method in several places &mdash; three of the
+        working rules carry a line headed <em>Paid for twice</em>, naming the exact work that had
+        to be done again. But the one place it puts a <em>number</em> on what its own carefulness
+        cost is a single bullet in a section called <em>Anti-rules</em> &mdash; a list of things
+        not to do, written by people who had done them.
       </p>
 
       <figure class="chart" id="c29-budget">
@@ -587,6 +648,8 @@
           <p class="chart__title">Integrity has a budget</p>
           <p class="chart__sub">
             Two measurements the project made of its own process, through the end of Phase 5.
+            Different denominators &mdash; the two bars are not slices of one whole, and adding
+            them means nothing.
           </p>
         </div>
         <div class="chart__body"></div>
@@ -672,7 +735,8 @@
         </p>
         <p>
           None of those four profiles exists as software. Phases 0 through 5 are complete, Phase 6
-          is in flight with its first sweep withdrawn and re-running, and Phase 7 &mdash; the whole
+          is in flight with its first sweep withdrawn and owed a re-run that has not reported, and
+          Phase 7 &mdash; the whole
           product layer &mdash; is marked <strong>not started</strong>; there is no Phase 7 plan
           file. What exists is one accepted decision record describing what it will be. Read a
           confident specification as a promise that is binding on its authors, not as a description
@@ -719,8 +783,11 @@
         Libbrecht&rsquo;s substrate experiments at that temperature found aspect ratios between
         0.1 and 1, with
         columnar crystals absent; the ledger records the sweep&rsquo;s &minus;5&nbsp;&deg;C points
-        at 0.3821 to 1.0000 &mdash; inside that range, columns absent. And the ledger attaches the
-        limit in the same entry:
+        at 0.3821 to 1.0000 &mdash; inside that range, columns absent. Those two endpoints happen
+        to bracket both parameter sets: 0.3821 is what the withdrawn run measured at
+        &minus;5&nbsp;&deg;C, and 1.0000 is what the registered one measures &mdash; ADR 0031
+        records the move, at the largest throttle in the whole table. So this claim survives the
+        re-run in a way the headline does not. And the ledger attaches the limit in the same entry:
         that lab data is upstream of the model&rsquo;s own inputs, so this is a strong consistency
         check, not independent validation.
       </p>
@@ -1294,47 +1361,51 @@
 
     var CLAIMS = [
       { id: "k1", text: "5 of 90 headline-scope points agree." },
-      { id: "k2", text: "In the columns band the model produced 0 of 24; in the cold-plates band, 0 of 60." },
+      { id: "k2a", text: "In the columns band the model produced 0 of 24." },
+      { id: "k2b", text: "In the cold-plates band, 0 of 60." },
       { id: "k3", text: "204 runs, zero invalid." },
       { id: "k4", text: "One habit transition, where the reference has three." }
     ];
 
     var LIMITS = [
-      { on: false, hits: ["k1"],
+      { on: false, hits: ["k1", "k2a"],
         head: "The runs violated the frozen protocol.",
         body: "An unregistered command-line default overrode a registered row, so the headline " +
               "is superseded; the registered prediction for the corrected run is ≈2 of 90. " +
-              "(ADR 0031)" },
+              "Every counted point in the columns band sits inside the affected −2 to −9 °C " +
+              "window; ADR 0031 expects those points to re-score “exactly as badly”, but that " +
+              "is a registered prediction, not yet a measurement. The cold rows are " +
+              "bit-identical under either parameter set. (ADR 0031)" },
       { on: false, hits: ["k1"],
         head: "The warm end rests on an input since found suspect.",
         body: "“Libbrecht’s printed closed form (M2) puts our digitized prism anchors " +
               "low by a factor of 1.6–3.2 at −2…−5 °C, far outside their " +
               "±25% band — and −2 °C is where all five agreements sit.”" },
-      { on: false, hits: ["k1", "k2"],
+      { on: false, hits: ["k1", "k2a", "k2b"],
         head: "Habit was measured at one crystal size.",
         body: "“Habit is measured at extent 21, and habit is size-dependent. 25 points sit " +
               "within the registered ±0.135 extent-drift bound of a class threshold and are " +
               "flagged extent-fragile.”" },
-      { on: false, hits: ["k1", "k2"],
+      { on: false, hits: ["k1", "k2a", "k2b"],
         head: "Seed shape is a large systematic.",
         body: "“Seed shape is a large systematic, though not a class-changing one at the two " +
               "conditions tested: warm AR moves +57% between seed thicknesses while the class " +
               "holds.”" },
-      { on: false, hits: ["k1", "k2"],
+      { on: false, hits: ["k1", "k2a", "k2b"],
         head: "The comparison target is a redrawn 1954 schematic.",
         body: "“…whose supersaturation axis WP1 measured as failing an independent " +
               "check, which is why only its three boundary temperatures are used.”" },
-      { on: false, hits: ["k2", "k4"],
+      { on: false, hits: ["k2a", "k2b", "k4"],
         head: "The reference is disputed at the cold end.",
         body: "The classic diagram is known-wrong below about −20 °C in the atmospheric " +
               "sense, so any falsification claim is worded for roughly −2 to −20 °C " +
               "and the cold end is reported separately." },
-      { on: false, hits: ["k2", "k4"],
+      { on: false, hits: ["k2a", "k2b", "k4"],
         head: "It is not a test of the missing mechanism.",
         body: "“It is not a test of SDAK. Every run is no-SDAK; SDAK appears in no source " +
               "file.” And if it were switched on, agreement would be in-sample by " +
               "construction, because the dip locations were chosen against this diagram." },
-      { on: false, hits: ["k1", "k2", "k3", "k4"],
+      { on: false, hits: ["k1", "k2a", "k2b", "k3", "k4"],
         head: "No cross-platform control has been run.",
         body: "“No cross-platform control has been run. Scoped to the registered x64 host " +
               "until the arm64 fixture runs.”" }
@@ -1377,7 +1448,8 @@
 
       var n = 0;
       CLAIMS.forEach(function (k) { if (!attached(k.id).length) n++; });
-      counter.textContent = "Claims still standing with no stated limit attached: " + n + " of 4.";
+      counter.textContent = "Claims still standing with no stated limit attached: " + n +
+        " of " + CLAIMS.length + ".";
       counter.style.color = n === 0 ? c.ink : "var(--ink-secondary)";
     }
 
@@ -1502,7 +1574,14 @@
       var s = SESSIONS[picked];
       var dead = deleted && picked > 0;
       detail.appendChild(el("p", "c29-label", "Session " + s.n));
-      if (dead) {
+      if (deleted && picked === 0) {
+        var first = el("p", "c29-note",
+          "Session 1 is the only one that loses nothing — there was nothing upstream of it to " +
+          "inherit. It still does the work; it just writes none of it down. Every session to " +
+          "its right is where the cost lands, and it lands again at every gap.");
+        first.style.color = c.muted;
+        detail.appendChild(first);
+      } else if (dead) {
         var warn = el("p", "c29-note",
           "Nothing was handed over. This session re-derives what it can, re-runs a protocol " +
           "somebody already killed, and rediscovers a dead end at full price. The record is not " +
@@ -1574,7 +1653,10 @@
             "— that is the check the project calls self-consistency and refuses to count." },
         { v: SUPPORTED, t: "Ledger entry A1. His substrate experiments at −5 °C found " +
             "aspect ratios between 0.1 and 1 with columnar crystals absent; the sweep’s " +
-            "−5 °C points land at 0.3821–1.0000, columns absent. The limit the " +
+            "−5 °C points land at 0.3821–1.0000, columns absent. Those endpoints bracket both " +
+            "parameter sets — 0.3821 is the withdrawn run’s −5 °C value, 1.0000 the registered " +
+            "one’s (ADR 0031 records the move, at the table’s largest throttle) — so this claim " +
+            "survives the re-run in a way the headline does not. The limit the " +
             "ledger attaches in the same entry: that lab data is upstream of the model’s own " +
             "inputs, so this is a consistency check, not independent validation." },
         { v: OVER, t: "Measured false. 5 of 90 in the sweep, columns 0 of 24, cold plates 0 of 60 " +
@@ -1658,12 +1740,12 @@
     var body = root.querySelector(".chart__body");
 
     var DATA = [
-      { v: 15, label: "of all commits were ceremony" },
-      { v: 45, label: "of all rework was evidence-hardening" }
+      { v: 15, of: "of all commits", label: "was ceremony" },
+      { v: 45, of: "of all rework", label: "was evidence-hardening" }
     ];
 
     var W = 640, H = 190;
-    var M = { top: 22, right: 24, bottom: 46, left: 24 };
+    var M = { top: 22, right: 24, bottom: 46, left: 116 };
     var svg = null;
 
     function render() {
@@ -1681,13 +1763,21 @@
         y: H - M.bottom + 4,
         values: [0, 25, 50, 75, 100],
         format: function (v) { return v + "%"; },
-        title: "percent — of all commits (top bar) and of all rework (bottom bar)",
+        title: "percent",
         titleOffset: 36
       });
 
       DATA.forEach(function (d, i) {
         var y = M.top + i * rowH + 6;
         var h = rowH - 20;
+
+        /* each bar carries its own denominator, because the two are different wholes */
+        var dl = Viz.svgEl("text", {
+          "class": "tick-text", x: M.left - 12, y: y + h / 2 + 4, "text-anchor": "end"
+        });
+        dl.textContent = d.of;
+        svg.appendChild(dl);
+
         svg.appendChild(Viz.svgEl("rect", {
           x: xs(0), y: y, width: xs(100) - xs(0), height: h, rx: 4,
           fill: "none", stroke: c.rule, "stroke-width": 1

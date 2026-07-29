@@ -120,6 +120,15 @@
       </blockquote>
 
       <p>
+        Three of those words are unpacked below. A <strong>residual</strong> is a measure of how
+        much the field still moves each sweep &mdash; the next section is entirely about it. A
+        <strong>Jacobi</strong> iteration is the sweep just described, carrying its inventor's
+        name. And <code>L/&Delta;x</code> is just the width of the box counted in cells: <em>L</em>
+        is the box, <em>&Delta;x</em> is one cell. So the rule says: double the number of cells
+        across, and you need about four times the sweeps.
+      </p>
+
+      <p>
         <em>Elliptic</em> is the key word. An elliptic equation has no &ldquo;next&rdquo; in it. It
         is not a statement about what happens after this moment; it is a statement about balance
         everywhere at once. So the sweep count is not a physical duration and never was. The same
@@ -196,9 +205,9 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. A live spherically-symmetric relaxation
           built here in the browser, using the stopping rule of
-          <code>solver-cpu/src/lk-solver.ts:1528</code> and the surface condition
-          <code>sigma_b = sigma_opp/(1 + alphaHK&middot;G_b&middot;&Delta;x/X_0)</code> from
-          <code>docs/attachment-kinetics.md</code> &sect;4.4. It is a teaching model of the
+          <code>solver-cpu/src/lk-solver.ts:1528</code> and, at the surface, a condition of the
+          same shape as the project's self-consistent aggregate boundary value
+          (<code>docs/attachment-kinetics.md</code> &sect;4.4). It is a teaching model of the
           stopping rule, not the project's 3-D solver.</span>
         </figcaption>
       </figure>
@@ -237,7 +246,11 @@
       <p>
         Unpack it. &ldquo;Dirichlet-shell&rdquo; is the outer wall of the box, held at a fixed
         supersaturation, where vapour is injected. &ldquo;Robin-sink&rdquo; is the crystal surface,
-        where vapour is absorbed. In a steady state those two must be equal. They were not. The
+        where vapour is absorbed. A <strong>gate</strong> is a pass/fail check a phase has to clear
+        before its results count; the <strong>habit gate</strong> is the one that decides whether
+        the crystal grew into the right shape. <strong>Round 3</strong> is the third pass of
+        internal review over the same code. In a steady state those two totals must be equal. They
+        were not. The
         mismatch was 2.46&times;10<sup>&minus;6</sup> on a 32&sup3; grid and
         8.85&times;10<sup>&minus;6</sup> on a 48&sup3; grid &mdash; about 3.6 times larger &mdash;
         and all the while the residual test was being satisfied at a tolerance of
@@ -248,15 +261,18 @@
       <figure class="chart" id="fig-audit">
         <div class="chart__head">
           <p class="chart__title">The error that grows with the grid</p>
-          <p class="chart__sub">Two measured points, one criterion line, and the size the real runs
-            actually use.</p>
+          <p class="chart__sub">Two measured points, one criterion line, and the size the Phase 2b
+            physics runs actually use.</p>
         </div>
         <div class="chart__body"></div>
         <figcaption class="chart__foot">
           <span class="built-from">Original chart. Both points are transcribed from
-          <code>docs/decisions/0006-audited-surface-operator-numerics.md:32&ndash;35</code>. The
+          <code>docs/decisions/0006-audited-surface-operator-numerics.md:32&ndash;35</code>, which
+          records them as historical audit findings rather than accepted gate results. The
           96&sup3; marker carries no measured value because none was recorded &mdash; the ADR
-          states only that the trend was &ldquo;on course to fail&rdquo; there.</span>
+          states only that the trend was &ldquo;on course to fail&rdquo; there. 96&sup3; is the
+          Phase&nbsp;2b physics domain (<code>runner/src/main.ts:916</code>); later gates run in
+          smaller boxes.</span>
         </figcaption>
       </figure>
 
@@ -299,11 +315,10 @@
       </p>
 
       <p>
-        The other half of the argument is the one not to take on trust, so here it is as a demo
-        rather than an assertion. Hold the sweep budget fixed, widen the domain, and watch the two
-        meters disagree: the residual goes quiet anyway, while the conservation check climbs past
-        99&nbsp;%. Nearly all the vapour the field claims to inject is unaccounted for at the
-        surface.
+        That half of the argument is worth watching rather than taking on trust. Hold the sweep
+        budget fixed, widen the domain, and the two meters disagree: the residual goes quiet
+        anyway, while the conservation check climbs past 99&nbsp;%. Nearly all the vapour the field
+        claims to inject is unaccounted for at the surface.
       </p>
 
       <figure class="anim" id="fig-convergence">
@@ -354,8 +369,11 @@
         One thing to notice before you read it, because this chapter is partly about which rule
         judged which evidence. As ADR 0006 wrote it the identity had <strong>two</strong> terms:
         injection minus exchange. The form below has three. The third term was added four days
-        later by ADR 0013, and it applies to exactly one new policy,
-        <code>aggregate-hv-g1h1-v5</code>. Results that had already been run keep the rule they ran
+        later by ADR 0013, and it applies only to the newer aggregate policies &mdash;
+        <code>aggregate-hv-g1h1-v5</code> when ADR 0013 was written, and its successor
+        <code>aggregate-hv-g1h1-v6</code> since. One function decides, so a later policy cannot be
+        added at one branch and missed at another (<code>core/src/libbrecht.ts:187&ndash;188</code>).
+        Results that had already been run keep the rule they ran
         under: &ldquo;<code>legacy-v3</code> and <code>aggregate-hv-g1h1-v4</code> retain the
         original two-term identity and report no smoother-drift term. Phase 4's completed v4
         artifacts and checkpoint meanings remain frozen&rdquo; (ADR 0013, Decision&nbsp;5).
@@ -380,7 +398,7 @@
               cannot turn the fraction into infinity</dd>
           </dl>
         </div>
-        <p class="equation__cite">Verbatim from <code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md</code>, Decision&nbsp;2; implemented at <code>solver-cpu/src/lk-solver.ts:1555&ndash;1562</code></p>
+        <p class="equation__cite">As written in <code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md</code>, Decision&nbsp;2 (which spells the bars as <code>abs(&hellip;)</code>); implemented at <code>solver-cpu/src/lk-solver.ts:1555&ndash;1562</code></p>
       </div>
 
       <p>
@@ -389,7 +407,9 @@
         only when the residual is under <code>relaxTol</code> <strong>and</strong> the divergence
         identity is under its own tolerance, <code>divTol</code>, default
         10<sup>&minus;6</sup>. Both are run inputs, both are written into the checkpoint header,
-        and both are pinned by the gate protocols. ADR 0006 then closes the door:
+        and both are pinned by the gate protocols &mdash; which may pin something stricter than the
+        default, and gate 2b pinned <code>divTol: 1e-7</code>
+        (<code>runner/src/main.ts:931</code>). ADR 0006 then closes the door:
         <strong>&ldquo;A Dirichlet solve failing the identity is not converged, whatever its
         residual says.&rdquo;</strong>
       </p>
@@ -496,47 +516,47 @@
       </p>
 
       <p>
-        It matters that this is a local effect and not a bookkeeping one, because it decides what
-        the fix can be. The project checked: &ldquo;Na&iuml;ve,
-        Neumaier-compensated, and exact binary-rational sums agree on every value. This is not a
-        global-summation defect. It is local IEEE-754 rounding in a mathematically conservative
-        split stencil&rdquo;
-        (<code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md:31&ndash;33</code>).
-        Adding the totals up more carefully is listed among the alternatives and rejected in one
-        clause &mdash; &ldquo;Rejected by evidence: na&iuml;ve, compensated, and exact sums
-        reproduce the same mismatch&rdquo; (same file). A more careful sum returns the same number,
-        because the number was never a summation error.
-      </p>
-
-      <p>
-        This is the run chapter 21 ended on: protocol v4's cold job, stopped while attempting
-        growth step 12 with a residual of exactly zero and a divergence ratio of
+        Chapter 21 left protocol v4's cold job stopped while attempting growth step 12, the
+        residual at exactly zero, the divergence ratio stuck at
         3.097032516200489&times;10<sup>&minus;7</sup> against a registered <code>divTol</code> of
-        10<sup>&minus;7</sup>. Nothing was moving, and the books still did not balance. Under the
-        dual rule that is not converged, so the run stopped, which is exactly what it should have
-        done. What chapter 21 did not show is the measurement that explained it.
+        10<sup>&minus;7</sup>, and the cause named as roundoff in the smoothing stencil. Here are
+        the two numbers that named it.
       </p>
 
       <p>
         Rather than loosening the tolerance, a separate program &mdash;
         <code>scripts/diagnose-gate2b-v4.ts</code> &mdash; decoded the saved checkpoint and rebuilt
         the diffusion stencil <em>outside</em> the solver. One reconstructed sweep measured 643,055
-        active cells, a shell injection of 3.679402302324622&times;10<sup>&minus;7</sup>, a boundary
-        exchange of 3.679401162802118&times;10<sup>&minus;7</sup>, and a difference between them of
+        active cells, a shell injection of 3.679402302324622&times;10<sup>&minus;7</sup> and a
+        boundary exchange of 3.679401162802118&times;10<sup>&minus;7</sup> &mdash; a difference of
         1.1395225041344048&times;10<sup>&minus;13</sup>. Then it measured one more thing, which is
-        the whole point: the signed change the smoothing step itself had created, before any
-        boundary values were substituted in. That number came out as
-        &minus;1.1395225041344048&times;10<sup>&minus;13</sup> &mdash; the same digits, opposite
-        sign (<code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md:20&ndash;29</code>).
+        the whole point: the signed change the smoothing step itself had made, before any boundary
+        values were substituted in. That came out as
+        &minus;1.1395225041344048&times;10<sup>&minus;13</sup>. The same digits, opposite sign
+        (<code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md:20&ndash;29</code>).
       </p>
 
       <p>
-        So about 10<sup>&minus;13</sup> of vapour was neither injected at the wall nor absorbed at
-        the surface. It was created and destroyed by the rounding of the averaging itself, and the
-        two-term identity had no place to put it. When the crystal is growing very slowly, as it is
-        in the cold, that harmless absolute crumb is divided by a very small exchange and comes out
-        as a relative error above tolerance. The identity was not detecting a physics problem. It
-        was detecting itself.
+        So about 10<sup>&minus;13</sup> more vapour crossed the outer wall than the surface ever
+        absorbed, and the smoother is where it went: the averaging lost that much on that sweep,
+        which is exactly what the opposite-sign measurement establishes. The two-term identity had
+        nowhere to put it. When the crystal is growing very slowly, as it is in the cold, that
+        harmless absolute crumb is divided by a very small exchange and comes out as a relative
+        error above tolerance. The identity was not detecting a physics problem. It was detecting
+        itself.
+      </p>
+
+      <p>
+        It matters that this is a local effect and not a bookkeeping one, because it decides what
+        the fix can be. The obvious move is to add the totals up more carefully, and the project
+        checked: &ldquo;Na&iuml;ve, Neumaier-compensated, and exact binary-rational sums agree on
+        every value. This is not a global-summation defect. It is local IEEE-754 rounding in a
+        mathematically conservative split stencil&rdquo;
+        (<code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md:31&ndash;33</code>).
+        Careful summation is listed among the alternatives and rejected in one clause &mdash;
+        &ldquo;Rejected by evidence: na&iuml;ve, compensated, and exact sums reproduce the same
+        mismatch&rdquo; (same file). A more careful sum returns the same number, because the number
+        was never a summation error.
       </p>
 
       <p>
@@ -579,12 +599,14 @@
           the forged scenario is the exploit described at
           <code>docs/decisions/0014-bound-float64-smoother-drift.md:11&ndash;15</code>; the bound is
           computed live with the formula in that ADR's Decision&nbsp;1, implemented at
-          <code>solver-cpu/src/lk-solver.ts:197&ndash;225</code>.</span>
+          <code>solver-cpu/src/lk-solver.ts:197&ndash;225</code>. The forged report's active-cell
+          count is carried over from the cold checkpoint so both scenarios share one bound; ADR 0014
+          states only the injection, exchange and drift.</span>
         </figcaption>
       </figure>
 
       <p>
-        That makes three separate things a v5 sweep has to satisfy, and ADR 0014 names the two new
+        That makes three separate things a v5 or v6 sweep has to satisfy, and ADR 0014 names the two new
         ones exactly rather than lumping them together: &ldquo;Both the three-term divergence
         tolerance and this absolute roundoff bound are load-bearing. Passing one does not excuse
         failing the other&rdquo; (Decision&nbsp;4). And ADR 0006 forecloses the retreat, listing
@@ -637,8 +659,9 @@
         <div class="equation__where">
           <strong>where</strong>
           <dl>
-            <dt>L</dt><dd>the size of the crystal, in metres &mdash; how far vapour has to travel
-              to matter</dd>
+            <dt>L</dt><dd>the width of the simulated box, in metres &mdash; the longest grid
+              dimension times the cell size, which is how every caller in the repository computes
+              it (<code>runner/src/gate4b.ts:430</code>, <code>runner/src/main.ts:676</code>)</dd>
             <dt>D</dt><dd>the diffusion coefficient of water vapour in air at this pressure, in
               square metres per second: roughly, how much ground vapour covers in a second
               (<code>core/src/libbrecht.ts:59&ndash;62</code>)</dd>
@@ -652,7 +675,7 @@
       </div>
 
       <p>
-        In plain English: the crystal's own size, divided by the area vapour covers in a second,
+        In plain English: the width of the box, divided by the area vapour covers in a second,
         times how fast the ice front moves. If that comes out large, the vapour has not finished
         settling before the surface moves again, and the whole quasi-static picture stops being a
         description of anything. What the specification does with such a failure is the point:
@@ -667,9 +690,12 @@
       </blockquote>
 
       <p>
-        In code this is <code>pecletUpperBound(tempC, sigmaInfinity, lengthM, pressurePa)</code>, a
-        deliberately pessimistic version that assumes every arriving molecule sticks
-        (<code>core/src/libbrecht.ts:146&ndash;157</code>). The Phase&nbsp;4 gate then evaluates it
+        In code this is <code>pecletUpperBound(tempC, sigmaInfinity, lengthM, pressurePa)</code>,
+        and it is deliberately pessimistic twice over. It assumes every arriving molecule sticks
+        (<code>core/src/libbrecht.ts:146&ndash;157</code>), which is the fastest the surface could
+        possibly move; and the length it is handed is the whole box, which is wider than the
+        crystal sitting inside it. Both choices push the reported number up, so a run that passes
+        this check passes it with room to spare. The Phase&nbsp;4 gate then evaluates it
         over every environment a run visits and passes only if &ldquo;every registered conservative
         Peclet bound is finite and below 1e-2&rdquo; (<code>runner/src/gate4b.ts:3124</code>). A
         run that fails does not get quietly re-tuned until it passes. It gets named in the failure
@@ -685,13 +711,12 @@
       </p>
 
       <p>
-        Before the example, a switch to flag: it is not in the solver you have been reading about.
-        Everything so far &mdash; the dual gate, the drift
-        bound, the P&eacute;clet check &mdash; belongs to <code>LibbrechtKinetics</code>, the
-        physics rule. What follows belongs to <code>GGThreshold</code>: the borrowed
-        Gravner&ndash;Griffeath machinery rule from chapter 18, validated in a different file and
-        enforced by a different solver. The repository is explicit that the two do not share
-        guardrails &mdash; &ldquo;These constrain <code>GGThreshold</code>.
+        Before the example, a switch to flag. Everything so far &mdash; the dual gate, the drift
+        bound, the P&eacute;clet check &mdash; belongs to <code>LibbrechtKinetics</code>. What
+        follows belongs to <code>GGThreshold</code>, the borrowed Gravner&ndash;Griffeath machinery
+        rule from chapter 18, validated in a different file and enforced by a different solver. The
+        repository is explicit that the two do not share guardrails &mdash; &ldquo;These constrain
+        <code>GGThreshold</code>.
         <code>LibbrechtKinetics</code> does not inherit them; its separate fill-CFL and P&eacute;clet
         checks are specified in attachment-kinetics.md &sect;4.3&ndash;&sect;4.4&rdquo;
         (<code>docs/gg-machinery.md:355&ndash;357</code>). So in this section, &ldquo;the source
@@ -758,6 +783,9 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. The three checks, their severities and
           their message wording are transcribed from <code>core/src/params.ts:143&ndash;231</code>;
+          the demo runs the monotonicity comparison on &beta; only, while the real validator runs
+          the same comparison on &kappa; and &mu; as well
+          (<code>core/src/params.ts:153</code> and <code>:217</code>);
           the two presets are the published parameter sets at
           <code>core/src/params.ts:80&ndash;141</code>; the construction refusal is
           <code>solver-cpu/src/gg-solver.ts:240&ndash;243</code>.</span>
@@ -787,8 +815,12 @@
       </aside>
 
       <p class="handoff">
-        Both gates now agree, the identity closes inside its registered tolerance, and the field is
-        as converged as the machine can make it. It is still a field solved inside a box, and the
+        Deciding in advance which of your own rules you are prepared to be overruled on is also
+        what makes the next chapter's test a fair one: a project that has not settled that question
+        can always discover, after seeing the answer, that the rule it just broke was only ever a
+        warning. Both gates now agree, the identity closes inside its registered tolerance, and the
+        field is as converged as the machine can make it. It is still a field solved inside a box,
+        and the
         wall of that box is a number somebody chose. The next chapter is about how you find out
         whether that choice mattered: vary something that should not matter, and see exactly which
         answers move &mdash; and which do not.
@@ -953,8 +985,11 @@
     playhead.setAttribute("x1", x.toFixed(1));
     playhead.setAttribute("x2", x.toFixed(1));
 
+    // Illustrative only: no sweep count for a single growth step is recorded anywhere in the
+    // repository, so the readout is labelled schematic on the face of the figure. The real
+    // registered quantity is the 200,000-sweep budget, which the caption gives.
     const sweeps = growing ? 4200 : Math.round((within / RELAX) * 4200);
-    readout.textContent = "sweeps this growth step: " + sweeps;
+    readout.textContent = "sweeps this step (schematic): " + sweeps;
     phase.textContent = growing
       ? "field accepted — surface advances by less than one cell"
       : "field still moving — the surface is not allowed to move";
@@ -1209,13 +1244,23 @@
           "budget until all three go green, then read the imbalance column.</span>";
       } else if (allConverged) {
         text = '<span style="color:var(--status-good)">Both criteria required. Every run that ' +
-          "calls itself converged now balances its books to better than 0.10% &mdash; and the " +
-          "largest grid spent " + (results[2].sweeps - results[1].sweeps) +
+          "calls itself converged now balances its books inside the 0.10% tolerance &mdash; and " +
+          "the largest grid spent " + (results[2].sweeps - results[1].sweeps) +
           " more sweeps than the middle one to earn it.</span>";
       } else {
-        text = '<span style="color:var(--status-critical)">Both criteria required. The largest ' +
-          "grid cannot satisfy the identity inside this sweep budget, so it reports NOT CONVERGED " +
-          "rather than guessing. Raise the budget &mdash; or accept the honest answer.</span>";
+        // Name the runs that actually failed, and say which criterion they failed on. At the
+        // lowest budget more than one grid falls over, and on the smaller budgets the residual
+        // has not settled either — so neither the count nor the reason may be hard-coded.
+        const failed = results.filter(function (r) { return !r.converged; });
+        const names = failed.map(function (r) { return r.n; }).join("- and ");
+        const many = failed.length > 1;
+        const identityOnly = failed.every(function (r) { return r.residual < TOL; });
+        text = '<span style="color:var(--status-critical)">Both criteria required. The ' +
+          names + "-cell run" + (many ? "s" : "") + " cannot satisfy " +
+          (identityOnly ? "the identity" : "both criteria") +
+          " inside this sweep budget, so " + (many ? "they report" : "it reports") +
+          " NOT CONVERGED rather than guessing. Raise the budget &mdash; or accept the honest " +
+          "answer.</span>";
       }
       status.innerHTML = text;
     }
@@ -1336,7 +1381,7 @@
     const a1 = Viz.svgEl("text", {
       class: "annotation", x: xs(96) - 8, y: 40, fill: c.inkSecondary, "text-anchor": "end",
     });
-    a1.textContent = "96³ — the size the real runs use.";
+    a1.textContent = "96³ — the size of the Phase 2b physics runs.";
     svg.appendChild(a1);
     const a2 = Viz.svgEl("text", {
       class: "annotation", x: xs(96) - 8, y: 56, fill: c.muted, "text-anchor": "end",
@@ -1483,9 +1528,15 @@
     } else if (!identityOk) {
       verdict = '<span style="color:' + bad + ';font-weight:700">NOT CONVERGED — identity above ' +
         "tolerance</span>";
-      why = '<span style="color:var(--ink-muted)">The drift is small enough to be roundoff, but ' +
-        "the three-term identity does not close. More sweeps cannot move a floating-point fixed " +
-        "point.</span>";
+      // The forged report reaches this branch too, and there is no fixed point and no sweep
+      // budget in play there — the gap is fabricated, not converged-to. Keep ADR 0013's
+      // fixed-point sentence for the checkpoint it was measured on.
+      why = '<span style="color:var(--ink-muted)">' + (scenario === COLD
+        ? "The drift is small enough to be roundoff, but the three-term identity does not close. " +
+          "More sweeps cannot move a floating-point fixed point."
+        : "The drift is small enough to be roundoff, so the bound lets it through — but it is " +
+          "nowhere near big enough to cover the gap this report claims between injection and " +
+          "exchange, so the identity does not close.") + "</span>";
     } else {
       verdict = '<span style="color:' + good + ';font-weight:700">ACCEPTED — identity closes, ' +
         "drift inside the bound</span>";

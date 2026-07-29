@@ -57,8 +57,8 @@
           that this is what snowflakes do at &minus;15&nbsp;&deg;C?
         </p>
         <div class="chapter-header__meta">
-          <span>~16 min read</span>
-          <span>6 original interactives</span>
+          <span>~15 min read</span>
+          <span>7 original interactives</span>
           <span>0 borrowed figures</span>
         </div>
       </header>
@@ -71,18 +71,21 @@
           <li>Explain why a single confidence score cannot answer three questions at once &mdash;
             and show that it cannot, rather than assert it.</li>
           <li>Find the verb doing the smuggling in a sentence like &ldquo;our physics-based
-            simulator shows that&hellip;&rdquo;</li>
+            simulator shows that&hellip;&rdquo; &mdash; and say when a sentence has none.</li>
           <li>Argue that a blank space with a stated reason is a stronger interface than a
             plausible number.</li>
         </ul>
       </section>
 
       <p>
-        The application at the centre of this project has a temperature control. You set it to
-        &minus;15&nbsp;&deg;C and a crystal grows. Nothing about that is dishonest: temperature is a
-        real input to the equations the solver runs, in real degrees, and chapter&nbsp;21 is about
-        the machinery that made it one &mdash; its section &ldquo;Where temperature stops being a
-        label&rdquo; is exactly that story. But there is a second sentence lurking right behind the
+        The project&rsquo;s solver takes a temperature in real degrees. Ask it for
+        &minus;15&nbsp;&deg;C and a crystal grows. Nothing about that is dishonest: the temperature
+        enters the equations as a physical quantity &mdash; saturation pressure over ice, kinetic
+        velocity and supersaturation are all functions of it
+        (<code>core/src/libbrecht.ts</code>: <code>pSatIce</code>,
+        <code>vKin</code>, <code>sigmaWater</code>), and the growth command takes
+        it on the command line (<code>runner/src/main.ts:643</code>, <code>grow-lk
+        --temp-c</code>). But a second sentence lurks right behind the
         first, and it is a completely different claim &mdash; <strong>that the crystal which comes
         out at &minus;15&nbsp;&deg;C is what nature actually grows at &minus;15&nbsp;&deg;C</strong>.
       </p>
@@ -90,26 +93,25 @@
       <p>
         Every honest thing this project can say, and every dishonest thing it could have said,
         lives in the gap between those two sentences. This chapter is about the vocabulary built
-        to keep them apart, and about the code that enforces the vocabulary when a person forgets.
-        It is a short chapter with a lot of machinery in it, because the words are only worth
-        anything if something checks them.
+        to keep them apart, and the code that enforces it when a person forgets. (How temperature
+        became a real input rather than a caption is chapter&nbsp;21&rsquo;s story, in its section
+        &ldquo;Where temperature stops being a label.&rdquo;)
       </p>
 
       <h2 id="the-ladder-that-broke">The ladder that broke</h2>
 
       <p>
         The project&rsquo;s charter &mdash; the design document the rest of Part&nbsp;Two keeps
-        quoting, written first and amended ever since &mdash; originally had a simpler idea. Every
-        quantity on screen
-        would carry a <strong>confidence level</strong>: a number from 1 to 4. Low numbers meant
-        &ldquo;don&rsquo;t trust this much&rdquo;; high numbers meant &ldquo;this one is solid.&rdquo;
-        It is the design almost everybody reaches for first, and it lasted until somebody tried to
-        use it on real readouts.
+        quoting &mdash; originally had a simpler idea. Every quantity on screen
+        would carry a <strong>confidence level</strong>: a number from 1 to 4. Low meant
+        &ldquo;don&rsquo;t trust this much&rdquo;; high meant &ldquo;solid.&rdquo;
+        It is the design almost everybody reaches for first, and it lasted until somebody tried it
+        on real readouts.
       </p>
 
       <p>
-        On 2026-07-14 it was thrown out. The reason is recorded in one sentence in the charter and
-        again in the decision record that removed it. The four levels
+        On 2026-07-14 it was thrown out. The reason is one sentence in the decision record that
+        removed it, and in the charter besides: the four levels
         <em>&ldquo;conflated provenance, validation, and units (temperature <strong>input</strong>
         is not computed state; units do not imply validation)&rdquo;</em>
         (<code>docs/decisions/0005-validation-scope-surface-operator-numerics.md:157&ndash;158</code>).
@@ -124,15 +126,13 @@
       </ul>
 
       <p>
-        A single rung cannot answer all three, and you can prove that to yourself in about a minute.
+        A single rung cannot answer all three, and you can prove it to yourself in about a minute.
         The demo below has five readouts from the real application, named as the application names
-        them, with <code>&lt;live&gt;</code> wherever a live number would sit &mdash; a chapter
-        about unearned digits has no business inventing any. One mentions <code>d</code>: a made-up
-        bookkeeping quantity that the project&rsquo;s older, simpler surface rule tracks instead of
-        real supersaturation, and a section further down is about why the two must never be
-        confused. Assign each readout a level from 1 to 4 so that the ladder means something. Three
-        lamps score you, one for each of the three questions the old design was trying to answer at
-        once.
+        them. One mentions <code>d</code>: a made-up
+        bookkeeping quantity tracked by the project&rsquo;s older, simpler <strong>surface
+        rule</strong> &mdash; the code that decides, cell by cell, how fast vapour sticks to the ice
+        &mdash; instead of real supersaturation. Assign each readout a level from 1 to 4. Three
+        lamps score you, one per question.
       </p>
 
       <figure class="anim" id="fig-ladder">
@@ -146,27 +146,33 @@
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
-          <span class="built-from">Original interactive. Four of the readout names are the ones the
-          application prints &mdash; <code>app/src/main.ts:599</code>, <code>:652</code>,
-          <code>:655</code>, <code>:1307</code> &mdash; and the fifth is the temperature slider&rsquo;s
-          own setting. <code>&lt;live&gt;</code> marks where the running application substitutes a
-          value; no numeral has been invented to stand in for one. The contradiction is the one
+          <span class="built-from">Original interactive. Three of the readout names are printed by
+          the application (<code>app/src/main.ts:599</code>, <code>:652</code>,
+          <code>:655</code>), a fourth is the shipped control&rsquo;s own label
+          (<code>:1307</code>), and the fifth is the line the charter
+          specifies for a temperature input (<code>project charter.md:87</code>); the shipped
+          control pane has no temperature binding, because it drives the older
+          <code>GGThreshold</code> rule, which has no temperature in it.
+          <code>&lt;live&gt;</code> marks where the running application substitutes a
+          value; no numeral has been invented to stand in for one. The Type shown for
+          <code>ticks/s</code> is the application&rsquo;s own fifth tag, recorded at
+          <code>docs/plans/phase-3-dev-visualization.md:284</code>. The contradiction is the one
           recorded in
           <code>docs/decisions/0005-validation-scope-surface-operator-numerics.md:156&ndash;163</code>.</span>
         </figcaption>
       </figure>
 
       <p>
-        The best any assignment can do is <strong>one lamp out of three</strong>, and one of the
-        three can never be lit at all. That last failure is the interesting one. There are five
-        genuinely different origins in that list and only four rungs, so two readouts must share a
-        level &mdash; at which point the level has stopped saying where anything came from.
+        The best any assignment can do is <strong>one lamp out of three</strong>, and one lamp can
+        never be lit at all. That failure is the interesting one: five genuinely different origins,
+        four rungs, so two readouts must share a level &mdash; at which point the level has stopped
+        saying where anything came from.
       </p>
 
       <p>
-        This is not a hypothetical. The fifth origin is <code>ticks/s</code>, the solver&rsquo;s
-        speed. It is a real measurement in real units, and it is not a statement about snowflakes at
-        all; it is a statement about the computer. The shipped application prints the live rate
+        The fifth origin is <code>ticks/s</code>, the solver&rsquo;s
+        speed: a real measurement in real units, and not a statement about snowflakes at all. The
+        shipped application prints the live rate
         followed by <code>ticks/s (instrument performance, not a model quantity)</code>
         (<code>app/src/main.ts:599</code>). A ladder has no rung for &ldquo;this is not the kind of
         thing you are asking about.&rdquo; Two independent labels do.
@@ -197,9 +203,8 @@
         <strong>Type</strong> &mdash; <em>&ldquo;what the quantity is: input (the temperature
         slider), computed state (a vapor field value), derived metric (a hollowness index), or
         phenomenological parameter (a G&ndash;G threshold, a noise amplitude)&rdquo;</em>
-        (<code>project charter.md:81</code>). &ldquo;Phenomenological&rdquo; is the honest word for a
-        knob that changes the picture and means nothing physically &mdash; you tune it, and there is
-        no quantity in nature it corresponds to.
+        (<code>project charter.md:81</code>). &ldquo;Phenomenological&rdquo; is the honest word for
+        a knob that changes the picture and corresponds to no quantity in nature.
       </p>
 
       <p>
@@ -214,16 +219,18 @@
 
       <p>
         The whole force of the design is in the word <strong>independent</strong>. Knowing what a
-        number is tells you nothing about whether anyone checked it. A temperature you typed in has
-        never been checked against anything, and it is still a perfectly honest number. A
-        dimensionless supersaturation computed by real physics has also never been checked, and it
-        is <em>also</em> a perfectly honest number &mdash; it just must not be described as a
+        number is tells you nothing about whether anyone checked it. A temperature you typed has
+        never been checked and is still perfectly honest. A
+        supersaturation computed by real physics has also never been checked, and is
+        <em>also</em> perfectly honest &mdash; it just must not be described as a
         result about the world.
       </p>
 
       <p>
-        Six readouts follow, all copied out of the running application. Give each one a Type and an
-        Evidence. There is a trap in here, and it is worth naming in advance so you can watch
+        Six readouts follow. Five are the application&rsquo;s own wording; the sixth, the
+        temperature line, is what the charter specifies for that input
+        (<code>project charter.md:87</code>). Give each a Type and an
+        Evidence. There is a trap, worth naming in advance so you can watch
         yourself fall into it anyway: <strong>carrying a real physical unit is not evidence of
         anything.</strong>
       </p>
@@ -241,9 +248,9 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. The label text of each readout is
           transcribed from <code>app/src/main.ts:599</code>, <code>:652</code>, <code>:655</code>
-          and <code>:1307</code>, and the temperature line from <code>project charter.md:87</code>;
-          <code>&lt;live&gt;</code> marks where the running application substitutes a value, and no
-          numeral has been invented to stand in for one. The <code>sigma</code> line is composed
+          and &mdash; for the control rather than a readout &mdash; <code>:1307</code>, and the
+          temperature line from <code>project charter.md:87</code>;
+          <code>&lt;live&gt;</code> as above. The <code>sigma</code> line is composed
           from the frozen <code>fieldTitle</code> and <code>fieldUnits</code> pair at
           <code>app/src/display.ts:42&ndash;43</code>, not printed as a single string anywhere. The
           label definitions are <code>project charter.md:81&ndash;82</code>.</span>
@@ -252,15 +259,14 @@
 
       <p>
         Notice where everything landed. All four rows filled; two of the three columns stayed
-        completely empty. Nothing this project displays sits in <em>quantitatively validated</em>,
-        and the reason is not modesty &mdash; it is that the column has a precondition attached to
-        it and the precondition has not been met.
-        The application&rsquo;s status panel ends, on every one of its three code paths, with the
+        empty. Nothing this project displays sits in <em>quantitatively validated</em>,
+        and the reason is not modesty &mdash; the column has a precondition, and the precondition
+        has not been met.
+        The application&rsquo;s status panel ends, on all three of its code paths, with the
         same line: <code>all model quantities: Evidence = unvalidated (&sect;1.5)</code>
-        (<code>app/src/main.ts:573</code>, <code>:633</code>, <code>:678</code>). The control pane it
-        sits next to is titled
-        <code>GGThreshold dev instrument (model, unvalidated)</code> (<code>:1284</code>) &mdash;
-        <code>GGThreshold</code> being the name of that older, simpler surface rule.
+        (<code>app/src/main.ts:573</code>, <code>:633</code>, <code>:678</code>). The control pane
+        beside it is titled
+        <code>GGThreshold dev instrument (model, unvalidated)</code> (<code>:1284</code>).
       </p>
 
       <h2 id="two-sentences">The two sentences that must never merge</h2>
@@ -287,20 +293,53 @@
       </aside>
 
       <p>
-        The first sentence is about what went <em>in</em>: measured equations, a real temperature
-        entering real mathematics. The second is about what came <em>out</em>: a comparison with the
-        world that the model could have lost. Only a test can turn the first into the second, and
-        only for the exact comparison that was tested.
+        The first sentence is about what went <em>in</em>. The second is about what came
+        <em>out</em>: a comparison the model could have lost. Only a test turns the first into the
+        second, and only for the comparison that was tested.
       </p>
 
       <p>
-        Watch how easily they weld together. &ldquo;Our physics-based simulator shows that at
-        &minus;15&nbsp;&deg;C snowflakes grow as plates.&rdquo; The verb doing the smuggling is
-        <strong>shows</strong>, and the adjective helping it is <strong>physics-based</strong>: the
-        sentence uses a fact about the inputs to license a claim about the output. The honest
+        In practice the weld happens on a single word. Four sentences follow. Three are the kind
+        this guardrail forbids, and each hides the whole move in one
+        word &mdash; the word that spends a fact about the inputs on a claim about the output. Find
+        it. The fourth is already honest, and that one is the point of the exercise.
+      </p>
+
+      <figure class="anim" id="fig-smuggle">
+        <div class="anim__head">
+          <p class="anim__title">Find the word doing the smuggling</p>
+          <p class="anim__sub">
+            Click the word in each sentence that claims more than the inputs can pay for. One
+            sentence has no such word.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The rule being applied is the guardrail at
+          <code>project charter.md:340</code>, and the honest split is that guardrail&rsquo;s own
+          two sentences. The four example sentences were written for this exercise; none is a
+          quotation, and none of the three forbidden ones is a claim this project makes
+          anywhere.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        In the first sentence the word is <strong>shows</strong>, with <strong>physics-based</strong>
+        holding the door open for it. The honest
         rewrite splits it in two. <em>The solver is given measured attachment kinetics and a real
-        temperature. At &minus;15&nbsp;&deg;C in the model, a plate grows. Whether that matches
-        nature is a separate question, and this sentence does not answer it.</em>
+        temperature. Run it at &minus;15&nbsp;&deg;C and it produces some habit. Whether that habit
+        is the one nature grows at &minus;15&nbsp;&deg;C is a separate question, this sentence does
+        not answer it, and only Phase&nbsp;6 can.</em>
+      </p>
+
+      <p>
+        Notice what the rewrite refuses to do: it does not say which habit came out. That is
+        deliberate. Naming the habit in the same breath as
+        &ldquo;measured attachment kinetics&rdquo; is the weld again &mdash; it invites you
+        to read the outcome as confirmed because the inputs were real. The outcome is a written-down
+        result of this project, and chapter&nbsp;28 is where it belongs, with its comparison
+        attached.
       </p>
 
       <p>
@@ -321,7 +360,9 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. The rule is <code>project
           charter.md:82</code> and <code>:340</code>; the last three rows are three of the four
-          held-out observables named at <code>project charter.md:183</code>. The loadable report is a
+          <strong>held-out</strong> observables named at <code>project charter.md:183</code> &mdash;
+          measurements deliberately not used to pick any of the model&rsquo;s inputs, so they can
+          serve as a fair test. The loadable report is a
           <strong>stand-in</strong> &mdash; a shape, not a real artifact.</span>
         </figcaption>
       </figure>
@@ -330,10 +371,20 @@
         Two things in that refusal are worth pulling out. First, an upgrade needs a
         <strong>named domain</strong>, not a general endorsement: a report about growth rates says
         nothing about pressure dependence, so five of the six rows stay grey even after it loads.
-        Second, some rows can never be upgraded by a Nakaya comparison at all, no matter how well it
-        goes, because some of the model&rsquo;s inputs were chosen to make it agree with that
-        diagram in the first place. That is the subject of chapter&nbsp;17; here it is enough to see
-        the refusal has more than one reason in it.
+        Second, some rows carry a refusal held in reserve, against a class of input that is not
+        switched on yet. Where inputs chosen to impose agreement with the
+        Nakaya diagram are active &mdash; the project&rsquo;s P3 class &mdash;
+        <em>&ldquo;matching Nakaya is in-sample reproduction&rdquo;</em> rather than validation
+        (<code>project charter.md:183</code>). Be exact about the tense: that arm
+        has not run &mdash; <em>&ldquo;Every run is no-SDAK; <code>SDAK</code> appears in no source
+        file&rdquo;</em> (<code>research/phase6-sweep-report.md:112</code>) &mdash; and the record
+        that would add the SDAK arm is still marked <code>Status: proposed</code>
+        (<code>docs/decisions/0030-phase6-sdak-arm.md:4</code>). Bolting that door in advance is
+        what keeps the arm that <em>has</em> run a real test &mdash; the charter&rsquo;s own version
+        of one: <em>&ldquo;Set &minus;5&nbsp;&deg;C &mdash; does a column grow? Set &minus;15&nbsp;&deg;C
+        &mdash; does the habit flip back to plates? A model that cannot be wrong is not attempting
+        this problem&rdquo;</em> (<code>project charter.md:185</code>). Chapter&nbsp;17 is about
+        that distinction.
       </p>
 
       <h2 id="the-convincing-fake">The most convincing fake available</h2>
@@ -346,7 +397,8 @@
       <div class="table-wrap">
         <table>
           <caption>
-            The charter&rsquo;s own worked example, verbatim from <code>project charter.md:87</code>.
+            The charter&rsquo;s own worked example. The two readouts are verbatim from
+            <code>project charter.md:87</code>; the status and the right-hand column are ours.
           </caption>
           <thead>
             <tr><th>Readout</th><th>Status</th><th>What a reader concludes</th></tr>
@@ -367,14 +419,13 @@
       </div>
 
       <p>
-        The instinct is that the first one is more scientific, because it is more specific. The
-        charter says the opposite, and says why in a clause worth memorising:
+        The instinct is that the first is more scientific, because it is more specific. The
+        charter says the opposite, in a clause worth memorising:
         <em>&ldquo;a fake physics readout is worse than none &mdash; and a real-looking number
         resting on an untested model is the most convincing fake of all&rdquo;</em>
-        (<code>project charter.md:87</code>). Precision is not a property of a number. It is a
+        (<code>project charter.md:87</code>). Precision is not a property of a number but a
         <strong>claim about how well the quantity is known</strong>, and every digit you print is
-        another unit of that claim. Print digits you have not earned and you have lied in a format
-        that is very hard to argue with.
+        another unit of that claim.
       </p>
 
       <div class="equation">
@@ -396,15 +447,13 @@
       </div>
 
       <p>
-        The demo below uses a genuine number from the project&rsquo;s frozen parameter table:
+        The demo below uses a genuine number from the frozen parameter table:
         &sigma;<sub>0</sub> for the basal facet at &minus;2&nbsp;&deg;C, recorded as
-        <code>0.0035</code> (<code>docs/libbrecht-parameters.md:255</code>). That value was
-        <em>read off a plot</em>, because neither of the source documents prints the formula or a
-        table &mdash; a gap the project wrote down rather than papered over. Its stated uncertainty
-        is <em>&ldquo;&plusmn;25% relative on &sigma;<sub>0</sub> (log-scale reading)&rdquo;</em>
-        (<code>docs/libbrecht-parameters.md:246</code>). Where that number came from, and why
-        reading it off a graph is legitimate when you say so, is chapter&nbsp;16&rsquo;s subject.
-        Here we only care what happens when you print it.
+        <code>0.0035</code> (<code>docs/libbrecht-parameters.md:255</code>). It was
+        <em>read off a plot</em>, because neither source document prints a formula or a table, and
+        its stated uncertainty is <em>&ldquo;&plusmn;25% relative on &sigma;<sub>0</sub> (log-scale
+        reading)&rdquo;</em> (<code>:246</code>). Where it came from is
+        chapter&nbsp;16&rsquo;s subject; here, only what happens when you print it.
       </p>
 
       <figure class="anim" id="fig-precision">
@@ -445,18 +494,17 @@
       <h2 id="refuses-to-say">What the interface refuses to say</h2>
 
       <p>
-        Disclaimers are cheap. The convincing evidence that a labelling rule is real is what the
-        program <em>declines to print</em> &mdash; because a blank space is the single hardest thing
-        to ship and the single easiest thing to fill with something plausible.
+        Same argument, one step further. Disclaimers are cheap; the convincing evidence that a
+        labelling rule is real is what the program <em>declines to print</em>, because a blank space
+        is the hardest thing to ship and the easiest thing to fill with something plausible.
       </p>
 
       <p>
-        The application can run its solver on the CPU or on the graphics card. Two of its readouts,
+        The application can run its solver on the CPU or on the graphics card. Two readouts,
         the aspect ratio and the symmetry error, are <em>full-field</em> metrics: computing them
-        means looking at every cell in the grid. The GPU deliberately keeps the field on the GPU, so
-        those numbers are not available without dragging millions of cells back across the link
-        between the graphics card and the rest of the computer, every frame. The panel does not
-        estimate them. It prints, in place of the numbers:
+        means visiting every cell. In GPU mode the field stays on the card, so the panel
+        would have to drag millions of cells back across the link every frame. It does not estimate
+        them. It prints, instead:
       </p>
 
       <p>
@@ -465,8 +513,8 @@
       </p>
 
       <p>
-        The same refusal appears in the depletion readout, with its reason spelled out in a code
-        comment rather than left to be inferred: <em>&ldquo;the depletion HUD needs the full vapor
+        The same refusal appears in the depletion readout, its reason spelled out in a code
+        comment: <em>&ldquo;the depletion HUD needs the full vapor
         field, and GPU snapshots carry compact counters/probes only &mdash; the panel says so instead
         of faking values&rdquo;</em> (<code>app/src/main.ts:829&ndash;831</code>). Three more
         refusals sit alongside it:
@@ -476,9 +524,9 @@
         <li>Speed is tagged as belonging to the machine, not the model:
           <code>(instrument performance, not a model quantity)</code>
           (<code>app/src/main.ts:599</code>, <code>:650</code>).</li>
-        <li>A missing measurement is written out loud. The number formatter renders any non-finite
-          value as the literal string <code>undefined (NaN)</code>
-          (<code>app/src/main.ts:807</code>) &mdash; not as a dash, not as zero, not as the last
+        <li>A missing measurement is written out loud: the depletion panel&rsquo;s number formatter
+          renders any non-finite value as the literal string <code>undefined (NaN)</code>
+          (<code>app/src/main.ts:807</code>) &mdash; not a dash, not zero, not the last
           good value.</li>
         <li>Even the renderer disowns itself: <code>rendering backend: &hellip; (this page; not the
           evidence backend)</code> (<code>app/src/main.ts:566</code>), so nobody mistakes what drew
@@ -497,16 +545,17 @@
       </p>
 
       <p>
-        The project carries two different surface rules through the same machinery, on purpose and
-        permanently &mdash; <em>&ldquo;GGThreshold &mdash; the working floor is never
-        deleted&rdquo;</em> (<code>project charter.md:336</code>) &mdash; so that a problem in the
-        physics can be told apart from a problem in the machinery. One of them, the
-        Gravner&ndash;Griffeath threshold rule, tracks an invented quantity called
+        The project carries two surface rules &mdash; the repository calls them <em>surface
+        operators</em> &mdash; through the same machinery, permanently:
+        <em>&ldquo;GGThreshold &mdash; the working floor is never
+        deleted&rdquo;</em> (<code>project charter.md:336</code>), so that a problem in the
+        physics can be told apart from a problem in the machinery. The
+        Gravner&ndash;Griffeath threshold rule tracks an invented quantity called
         <em>vapor mass</em>, written <code>d</code>,
-        in units that exist only inside the model. The other, the Libbrecht kinetics rule, tracks
+        in units that exist only inside the model. The Libbrecht kinetics rule tracks
         real dimensionless <em>supersaturation</em> relative to ice, written <code>sigma</code> &mdash;
-        the quantity Part One spent a chapter on. On screen they are indistinguishable: both are one
-        number per cell that you can colour blue.
+        the quantity Part One spent a chapter on. On screen they are indistinguishable: one number
+        per cell, coloured blue.
       </p>
 
       <p>
@@ -532,18 +581,18 @@
       </aside>
 
       <p>
-        Think about what a mislabel would buy you. A phenomenological number &mdash; a made-up
-        quantity in made-up units &mdash; would appear on screen wearing a physical name. Nothing
-        would look wrong. The picture would be identical. That is exactly the failure mode the
-        project exists to refuse, so it is not left to whoever is editing the file that afternoon.
-        Try it.
+        Think about what a mislabel would buy you. A made-up quantity in made-up units would appear
+        wearing a physical name, and nothing would look wrong: the picture is
+        identical. That is the failure mode the project exists to refuse, so it is not left to
+        vigilance. Try it.
       </p>
 
       <figure class="anim" id="fig-mislabel">
         <div class="anim__head">
           <p class="anim__title">Try to mislabel it</p>
           <p class="anim__sub">
-            Pick a rule, then pick what to call its field and its surface state. Six of the eight
+            Pick a surface rule &mdash; the code that decides how fast vapour sticks &mdash; then
+            pick what to call its field and its surface state. Six of the eight
             combinations throw, with the error text the real function produces.
           </p>
         </div>
@@ -557,14 +606,14 @@
       </figure>
 
       <p>
-        Look at what the honest labels contain when you find one. Neither of them is just a name.
+        Look at what an honest label contains. Neither is just a name.
         The G&ndash;G field reads <code>model units (computed state, unvalidated)</code>; the
         Libbrecht field reads
         <code>dimensionless, relative to ice (computed state, unvalidated)</code>
-        (<code>app/src/display.ts:33</code>, <code>:43</code>). The Type and the Evidence are baked
-        into the string, and the function checks the wording too &mdash; changing the text at all
-        produces <code>display labels drifted from the honest fixed wording</code>. You cannot soften
-        the label without failing the check.
+        (<code>app/src/display.ts:33</code>, <code>:43</code>). Type and Evidence are baked
+        into the string, and the function checks the wording too: change the text at all and you get
+        <code>display labels drifted from the honest fixed wording</code>. You cannot soften
+        a label without failing the check.
       </p>
 
       <h2 id="the-badge">A badge you cannot take off</h2>
@@ -575,9 +624,9 @@
       </p>
 
       <p>
-        The application can load a saved crystal and inspect it. Those saved files come in two kinds:
-        real published evidence produced by a gate run, and <strong>synthetic fixtures</strong> &mdash;
-        made-up files that exist so the tests have something to chew on. A review round found the
+        The application can load a saved crystal and inspect it. Those files come in two kinds:
+        real published evidence produced by a gate run, and <strong>synthetic fixtures</strong>
+        &mdash; made-up files the tests chew on. A review round found the
         harness cheerfully treating the second as the first:
         <em>&ldquo;the repository&rsquo;s explicit synthetic NOT-gate-evidence fixtures passed the
         visual verifier, which then displayed and recorded them as published Pass A/B
@@ -587,13 +636,26 @@
       </p>
 
       <p>
-        Two words are about to do a lot of work, so here they are first. A <strong>hash</strong> is
-        a short fingerprint computed from the exact bytes of a file &mdash; change one byte anywhere
-        and the fingerprint changes completely, so a fingerprint written down earlier is a way of
-        naming one specific file and no other. The ones below are 64 hexadecimal characters long and
-        are usually shown truncated. A <strong>manifest</strong> is the list of those fingerprints
-        for everything a run produced, so that &ldquo;the manifest hash&rdquo; names a whole run&rsquo;s
-        output the way a hash names a single file.
+        Two words are about to do a lot of work. A <strong>hash</strong> is
+        a short fingerprint computed from the exact bytes of a file &mdash; change one byte and the
+        fingerprint changes completely, so a fingerprint written down earlier names one specific
+        file and no other. The ones below are 64 hexadecimal characters, usually shown truncated.
+      </p>
+
+      <p>
+        A <strong>manifest</strong>, in this project, is not a list of results. It is the frozen
+        registry of the runs that were <em>supposed</em> to execute: for each one its grid,
+        parameters, random seed and stopping rule, plus the operator, the backend,
+        the numeric precision, the hashes of the solver source and the commit hashes of the frozen
+        pass criteria (the
+        <code>Gate4AManifest</code> type, <code>runner/src/gate4a.ts:133&ndash;146</code>; the file
+        is <code>out/phase4/pass-a/manifest.json</code>). Nothing a run produced is inside it. Hash
+        that registry and &ldquo;the manifest hash&rdquo; pins what
+        was <em>pre-registered</em>, not what came out &mdash; and before
+        any run starts, the runner rebuilds it and stops dead unless it hashes to the reviewed
+        freeze: <code>A-EXEC-CONFIG: rebuilt Pass-A manifest differs from the
+        reviewed freeze</code> (<code>runner/src/gate4a.ts:2539&ndash;2540</code>). Chapter&nbsp;27
+        is about why it is frozen first.
       </p>
 
       <p>
@@ -639,16 +701,20 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. The branches and error strings are
           transcribed from <code>app/src/inspect.ts:283&ndash;298</code>, which is the last of
-          several checks in <code>verifyContext</code>; the earlier ones are not modelled here. The
-          frozen Pass&nbsp;A manifest hash is the constant at
+          several checks in <code>verifyContext</code>; the earlier ones &mdash; including the
+          self-hash check at <code>:243&ndash;247</code> &mdash; are described rather than modelled
+          here. The frozen Pass&nbsp;A manifest hash is the constant at
           <code>app/src/inspect.ts:214&ndash;215</code>, and the same value is recorded at
-          <code>passA.manifestSha256</code> in <code>out/phase4/gate4-report.json</code>.</span>
+          <code>passA.manifestSha256</code> in <code>out/phase4/gate4-report.json</code>. The
+          thirteen published run checkpoint hashes are at
+          <code>payload.runs[].final.checkpointSha256</code> in
+          <code>out/phase4/pass-a/gate4a-report.json</code>.</span>
         </figcaption>
       </figure>
 
       <p>
-        The shape of that is the lesson, and it is worth being exact about what each half buys,
-        because they are not the same kind of safeguard. <strong>Removing the badge is closed
+        The two halves are not the same kind of safeguard, and it is worth being exact about what
+        each buys. <strong>Removing the badge is closed
         outright.</strong> The class is a <em>separate field</em>, and a context that classifies
         itself as synthetic without carrying the exact string
         <code>SYNTHETIC FIXTURE - NOT GATE EVIDENCE</code> is rejected
@@ -658,16 +724,29 @@
       <p>
         <strong>Lying about the class is closed differently, and more weakly.</strong> A context
         claiming <code>published-gate-evidence</code> must pin the frozen Pass&nbsp;A manifest hash
-        and must carry no synthetic notice at all (<code>:283&ndash;287</code>). But that hash is a
-        constant sitting in the source, and the field is supplied by the file being loaded, so a
-        hand-written context can simply contain it. This check cannot make the lie impossible, and
-        it would be exactly the wrong chapter in which to pretend otherwise. What it does is force
-        the lie to be <em>explicit</em>: the forger has to write down a specific manifest hash and a
-        specific run identifier, in named fields, which then travel with the artifact into the
-        screenshot manifest, and which anyone can compare against the manifest hash actually
-        recorded in the published gate report (<code>out/phase4/gate4-report.json</code>, field
-        <code>passA.manifestSha256</code>). A vague badge cannot be contradicted by evidence. A
-        pinned hash can.
+        and carry no synthetic notice at all (<code>:283&ndash;287</code>). On its own, that pin
+        buys nothing. The frozen hash is a constant in
+        the source at <code>app/src/inspect.ts:214&ndash;215</code>, published besides in
+        <code>out/phase4/gate4-report.json</code> under <code>passA.manifestSha256</code>, and the
+        field is supplied by the file being loaded &mdash; so a forger copies it and the comparison
+        matches <em>by construction</em>, for the forgery exactly as for the real thing. The
+        run identifier is no better: <code>verifyContext</code> never checks it against the frozen
+        run set, and the real identifiers are published to be read.
+      </p>
+
+      <p>
+        The check that bites is an earlier one. A context must record its own
+        <code>checkpointSha256</code>, and that value must equal the hash of the bytes just loaded,
+        or the load throws <code>artifact hash mismatch</code>
+        (<code>:243&ndash;247</code>). A forger can satisfy it &mdash; by writing
+        down the true hash of their own file. That is the trap.
+        <code>out/phase4/pass-a/gate4a-report.json</code> publishes the
+        <code>checkpointSha256</code> of every real Pass&nbsp;A run: thirteen records, at
+        <code>payload.runs[].final.checkpointSha256</code>. A forged checkpoint is a different file,
+        so it hashes to a value in none of the thirteen &mdash; and it cannot lie about
+        that hash, because the loader recomputes it from the bytes. The manifest hash matches
+        happily; the file is contradicted anyway. A vague badge cannot be contradicted by evidence.
+        A hash a file is forced to compute about itself can be.
       </p>
 
       <aside class="callout callout--key">
@@ -692,23 +771,23 @@
 
       <p>
         This project has been reviewed constantly &mdash; the evidence-class failure above was found
-        by a review round, not by a test &mdash; and <strong>every one of those reviews has been
-        conducted by a language model.</strong> So has the two-reviewer process that checked this
-        page. The project&rsquo;s own sharing rules say so in writing, and treat it as a limitation
-        to declare rather than a box that has been ticked:
+        by a review round, not by a test &mdash; and <strong>every one of those reviews was
+        conducted by a language model.</strong> So was the two-reviewer process that checked this
+        page. The project&rsquo;s own sharing rules say so, and treat it as a limitation
+        to declare rather than a box ticked:
         <em>&ldquo;All reviews to date, internal and external-facing, are LLM reviews; for
         publication that is a disclosed limitation, not a substitute&rdquo;</em>
         (<code>docs/stretch-sharing-and-investigation.md:217&ndash;219</code>). The same passage
-        requires that at least one human domain scientist read any manuscript before submission. No
+        requires at least one human domain scientist to read any manuscript before submission. No
         human snow-crystal scientist has reviewed any of it.
       </p>
 
       <p>
-        That matters more here than almost anywhere, because the failure mode of a machine reviewer
-        is the failure mode this whole chapter is about: fluent, plausible, internally consistent
-        output that nobody has compared against the world. The vocabulary in this chapter does not
-        fix that. It does something narrower and still useful &mdash; it makes the gap
-        <em>sayable</em>, so it can be stated in the same sentence as the result rather than
+        That matters here more than almost anywhere, because the failure mode of a machine reviewer
+        is the failure mode this chapter is about: fluent, plausible, internally consistent
+        output nobody has compared against the world. This vocabulary does not
+        fix that. It does something narrower &mdash; it makes the gap
+        <em>sayable</em>, so it can be stated alongside the result rather than
         discovered afterwards.
       </p>
 
@@ -720,22 +799,22 @@
           Still unsettled
         </p>
         <p>
-          Nothing in this system can force a label to be <em>true</em>. It can force a label to be
-          <em>consistent</em>, and it can refuse an upgrade that has no artifact behind it. Whether
+          Nothing here can force a label to be <em>true</em>. It can force a label to be
+          <em>consistent</em>, and refuse an upgrade with no artifact behind it. Whether
           the four Types are the right four, and whether three Evidence tiers are enough for a
           project that will eventually have partial agreements, are both open. The set was fixed in
-          a single decision record on a single day, and two of the three Evidence tiers have never
+          one decision record on one day, and two of the three tiers have never
           been used: the strings <code>qualitatively supported</code> and
           <code>quantitatively validated</code> appear nowhere in the application&rsquo;s source.
         </p>
       </aside>
 
       <p>
-        There is one more thing the labels cannot do on their own. &ldquo;Evidence: unvalidated&rdquo;
-        tells you nobody has checked a number against nature. It does not tell you whether the number
+        One more thing the labels cannot do alone. &ldquo;Evidence: unvalidated&rdquo;
+        tells you nobody has checked a number against nature. It does not say whether it
         was measured in a laboratory, fitted through a curve, chosen to make a picture come out
-        right, or invented because the grid needed a spacing. Those are wildly different situations
-        wearing one label, and the project needed a second vocabulary for them.
+        right, or invented because the grid needed a spacing. Wildly different situations, one
+        label &mdash; so the project needed a second vocabulary.
       </p>
 
       <p class="handoff">
@@ -908,11 +987,11 @@
         cx: 6, cy: y - 4, r: 5, fill: v.ok ? c.good : c.critical, "fill-opacity": 0.9,
       }));
       svg.appendChild(text({
-        x: 18, y: y, fill: c.ink, "font-size": 11.5, "font-weight": 620,
+        x: 18, y: y, fill: c.ink, "font-size": 11, "font-weight": 620,
         "font-family": "var(--font-sans)",
       }, v.q));
       svg.appendChild(text({
-        x: 232, y: y, fill: c.inkSecondary, "font-size": 11, "font-family": "var(--font-sans)",
+        x: 250, y: y, fill: c.inkSecondary, "font-size": 11, "font-family": "var(--font-sans)",
       }, v.why));
     });
   }
@@ -963,7 +1042,7 @@
       "font-family": "var(--font-sans)",
     }, "no contradiction — because nothing is being compressed"));
     [
-      "Type answers “where did it come from” and has a value for the readout that is not a model quantity at all.",
+      "Type answers “where did it come from,” and the app adds a fifth value for the row that is none of the charter’s four.",
       "Evidence answers “has anyone checked it” and is the same for all of them, which is the honest answer.",
       "Units answer neither question, so they stopped being a level and went back to being formatting.",
     ].forEach(function (line, i) {
@@ -1028,9 +1107,11 @@
       chip: "−15 °C",
       readout: "−15 °C (model input; morphology not yet validated against measurement)",
       type: "input", ev: "unval",
-      why: "You typed it. The charter is explicit: “a real temperature slider is honest: " +
-        "Type = input, Evidence = unvalidated until Phase 6 reports” (project charter.md:85). " +
-        "Real degrees Celsius, and nobody has checked what the crystal does in them.",
+      why: "You supplied it — today on the runner’s command line (grow-lk --temp-c, " +
+        "runner/src/main.ts:643). The charter is explicit about the interface it specifies: " +
+        "“a real temperature slider is honest: Type = input, Evidence = unvalidated until " +
+        "Phase 6 reports” (project charter.md:85). Real degrees Celsius, and nobody has checked " +
+        "what the crystal does in them.",
     },
     {
       chip: "vapor d",
@@ -1072,8 +1153,9 @@
       readout: "<live> ticks/s (instrument performance, not a model quantity)",
       type: "notmodel", ev: null, evSkip: true,
       why: "The trap. Real units, real measurement — of the computer. It is not a claim about " +
-        "snow at all, so it sits outside the four Types and outside the footer’s promise that " +
-        "“all model quantities” are unvalidated (app/src/main.ts:599).",
+        "snow at all, so it sits outside the charter’s four Types — the app tags it with a " +
+        "fifth (docs/plans/phase-3-dev-visualization.md:284) — and outside the footer’s promise " +
+        "that “all model quantities” are unvalidated (app/src/main.ts:599).",
     },
   ];
 
@@ -1289,7 +1371,229 @@
 })();
 
 /* =========================================================================
-   3. Mark this as quantitatively validated — the upgrade that refuses.
+   3. Find the word doing the smuggling.
+   Four sentences written for this exercise. Three are forbidden by the
+   guardrail at project charter.md:340; one is already honest.
+   ====================================================================== */
+(function () {
+  const root = document.getElementById("fig-smuggle");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const bar = root.querySelector(".anim__controls");
+
+  const ITEMS = [
+    {
+      text: "Our physics-based simulator shows that at −15 °C snowflakes grow as plates.",
+      answer: "shows",
+      helpers: {
+        "physics-based": "That is the adjective holding the door open, and on its own it is true — " +
+          "the equations really are physical. The word that spends it on the output is a verb.",
+      },
+      went: "The solver was given measured attachment kinetics and a real temperature of −15 °C.",
+      claimed: "That the habit it produced is the habit nature grows at −15 °C. Nothing has earned that.",
+      verdict: "“shows” is the whole illegitimate move. It uses a fact about the inputs to " +
+        "license a claim about the output.",
+    },
+    {
+      text: "Running real Libbrecht physics confirms that columns grow near −5 °C.",
+      answer: "confirms",
+      helpers: {
+        "real": "“real” is a true statement about the inputs. It is the load the verb picks up, " +
+          "not the verb.",
+      },
+      went: "The solver was run with Libbrecht’s measured kinetics at −5 °C.",
+      claimed: "That the world has now agreed. “Confirms” needs a comparison, and names none.",
+      verdict: "“confirms” is a word about evidence, not about inputs. Only a test the model could " +
+        "have failed can put it in a sentence.",
+    },
+    {
+      text: "The model uses measured attachment coefficients, so it explains the Nakaya diagram.",
+      answer: "explains",
+      helpers: {
+        "measured": "“measured” is the true half. The sentence then charges the untested half to it.",
+        "so": "You are close — “so” is the join. But the join is only doing damage because of the " +
+          "verb it leads to.",
+      },
+      went: "The solver was given attachment coefficients taken from measurements.",
+      claimed: "That the model accounts for the plate–column alternation. That is a result, and a " +
+        "result needs a comparison behind it.",
+      verdict: "“explains” is the strongest of the three: it claims the output matches the world " +
+        "AND that the model’s reason is the world’s reason.",
+    },
+    {
+      text: "The solver was given measured kinetics and run at −15 °C; whether the habit it produced is the one nature grows there is a separate question.",
+      answer: null,
+      helpers: {},
+      went: "The solver was given measured kinetics and run at −15 °C.",
+      claimed: "Nothing. The second question is named and left open, which is the honest shape.",
+      verdict: "Correct — nothing is smuggled here. The sentence says what went in, stops, and " +
+        "then says out loud that the other question is unanswered.",
+    },
+  ];
+
+  const norm = function (w) { return w.replace(/^[“"(]+|[.,;:”")]+$/g, "").toLowerCase(); };
+
+  let idx = 0;
+  const solved = [];
+
+  const banner = document.createElement("p");
+  banner.style.fontSize = "0.78rem";
+  banner.style.margin = "0 0 0.55rem";
+  body.appendChild(banner);
+
+  const card = document.createElement("p");
+  card.style.fontSize = "1rem";
+  card.style.lineHeight = "1.9";
+  card.style.margin = "0 0 0.55rem";
+  body.appendChild(card);
+
+  const noneWrap = document.createElement("div");
+  noneWrap.style.margin = "0 0 0.6rem";
+  body.appendChild(noneWrap);
+
+  const status = document.createElement("p");
+  status.setAttribute("role", "status");
+  status.style.fontSize = "0.88rem";
+  status.style.lineHeight = "1.55";
+  status.style.margin = "0 0 0.6rem";
+  status.style.minHeight = "3.1em";
+  body.appendChild(status);
+
+  const split = document.createElement("div");
+  body.appendChild(split);
+
+  function splitRow(label, textStr, colour) {
+    const wrap = document.createElement("p");
+    wrap.style.margin = "0 0 0.45rem";
+    wrap.style.paddingLeft = "0.7rem";
+    wrap.style.borderLeft = "3px solid " + colour;
+    wrap.style.fontSize = "0.86rem";
+    wrap.style.lineHeight = "1.5";
+    const tag = document.createElement("strong");
+    tag.textContent = label + " ";
+    tag.style.color = colour;
+    wrap.appendChild(tag);
+    wrap.appendChild(document.createTextNode(textStr));
+    split.appendChild(wrap);
+  }
+
+  function reveal() {
+    const c = Viz.colors();
+    const it = ITEMS[idx];
+    split.textContent = "";
+    splitRow("What went in —", it.went, c.series[0]);
+    splitRow("What the sentence claims —", it.claimed, c.series[1]);
+    if (solved.indexOf(idx) === -1) solved.push(idx);
+  }
+
+  function guess(word) {
+    const c = Viz.colors();
+    const it = ITEMS[idx];
+    if (it.answer === null) {
+      status.style.color = c.critical;
+      status.textContent = "No — that word is doing honest work. Read the sentence again and " +
+        "consider that it may already be clean.";
+      render(true);
+      return;
+    }
+    if (norm(word) === it.answer) {
+      status.style.color = c.good;
+      status.textContent = it.verdict;
+      reveal();
+      render(true);
+      return;
+    }
+    if (it.helpers[norm(word)]) {
+      status.style.color = c.inkSecondary;
+      status.textContent = it.helpers[norm(word)];
+      render(true);
+      return;
+    }
+    status.style.color = c.critical;
+    status.textContent = "Not that one. Look for the word that turns a fact about the inputs into " +
+      "a claim about the output — or decide the sentence is already honest.";
+    render(true);
+  }
+
+  function guessNone() {
+    const c = Viz.colors();
+    const it = ITEMS[idx];
+    if (it.answer === null) {
+      status.style.color = c.good;
+      status.textContent = it.verdict;
+      reveal();
+    } else {
+      status.style.color = c.critical;
+      status.textContent = "It is not clean. One word in it claims something no test has granted.";
+    }
+    render(true);
+  }
+
+  function render(keepStatus) {
+    const c = Viz.colors();
+    const it = ITEMS[idx];
+
+    banner.style.color = c.muted;
+    banner.textContent = "sentence " + (idx + 1) + " of " + ITEMS.length + " · " +
+      solved.length + " solved · none of these is a quotation, and the first three are sentences " +
+      "this project is not allowed to write";
+
+    card.textContent = "";
+    const done = solved.indexOf(idx) !== -1;
+    it.text.split(" ").forEach(function (word, i) {
+      if (i > 0) card.appendChild(document.createTextNode(" "));
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = word;
+      b.style.font = "inherit";
+      b.style.background = "none";
+      b.style.padding = "0.05rem 0.15rem";
+      b.style.borderRadius = "4px";
+      b.style.cursor = "pointer";
+      const hit = done && it.answer !== null && norm(word) === it.answer;
+      b.style.color = hit ? c.surface : c.ink;
+      b.style.background = hit ? c.critical : "none";
+      b.style.border = hit ? "1px solid " + c.critical : "1px dotted " + c.rule;
+      b.setAttribute("aria-label", "the word " + word);
+      b.addEventListener("click", function () { guess(word); });
+      card.appendChild(b);
+    });
+
+    noneWrap.textContent = "";
+    const nb = Viz.button(noneWrap, "no word does it — this one is already honest",
+      guessNone, { pressed: false });
+    nb.style.fontSize = "0.78rem";
+
+    if (!keepStatus) {
+      status.style.color = c.inkSecondary;
+      status.textContent = "Click the word that claims more than the inputs can pay for.";
+      split.textContent = "";
+    }
+  }
+
+  Viz.button(bar, "Next sentence", function () {
+    idx = (idx + 1) % ITEMS.length;
+    render(false);
+  });
+  Viz.button(bar, "Show the answer", function () {
+    const c = Viz.colors();
+    const it = ITEMS[idx];
+    status.style.color = c.good;
+    status.textContent = it.verdict;
+    reveal();
+    render(true);
+  });
+  Viz.button(bar, "Start over", function () {
+    idx = 0; solved.length = 0;
+    render(false);
+  });
+
+  render(false);
+  Viz.onThemeChange(function () { render(true); });
+})();
+
+/* =========================================================================
+   4. Mark this as quantitatively validated — the upgrade that refuses.
    ====================================================================== */
 (function () {
   const root = document.getElementById("fig-upgrade");
@@ -1351,12 +1655,17 @@
         "This row is outside it. An upgrade is granted per comparison, never wholesale — that " +
         "is the whole force of the phrase “over a named domain”." +
         (row.nakaya
-          ? "  And this row carries a second refusal: some of the model’s inputs were chosen " +
-            "to impose agreement with the Nakaya diagram, so “results from Nakaya-informed " +
-            "(P3) inputs are never labeled independent validation” (project charter.md:341). " +
-            "P3 is the project’s tag for an input whose value was picked so the model would " +
-            "agree with that diagram — chapter 16 is about those tags, and chapter 17 is about " +
-            "why they close this door."
+          ? "  This row also carries a second refusal, held in reserve against a class of input " +
+            "that is not switched on yet. Where inputs chosen to impose agreement with the Nakaya " +
+            "diagram are active — the project’s P3 class — “matching Nakaya is in-sample " +
+            "reproduction” (project charter.md:183), and “results from Nakaya-informed (P3) " +
+            "inputs are never labeled independent validation” (project charter.md:341). That arm " +
+            "has not run: every executed sweep point so far is no-SDAK " +
+            "(research/phase6-sweep-report.md:112), and the SDAK arm is a proposed decision " +
+            "record, not an accepted one (docs/decisions/0030-phase6-sdak-arm.md:4). So with no " +
+            "P3 input anywhere, this comparison IS a fair test today — it is just a test whose " +
+            "report does not exist yet. Chapter 16 is about those tags, chapter 17 about why " +
+            "they would close this door."
           : "") };
     } else {
       upgraded = row.id;
@@ -1421,7 +1730,8 @@
       ? "loaded: stand-in report · named domain: growth rates vs (T, σ) · " +
         "this artifact does not exist — Phase 6 is in flight."
       : "no Phase 6 report loaded · the last three rows are three of the four held-out " +
-        "observables named at project charter.md:183.";
+        "observables named at project charter.md:183 — measurements deliberately not used to " +
+        "pick any of the model’s inputs, so they can serve as a fair test.";
     list.appendChild(note);
 
     msg.style.color = message === null ? c.inkSecondary
@@ -1440,7 +1750,7 @@
 })();
 
 /* =========================================================================
-   4. The precision dial — printed digits against a real uncertainty band.
+   5. The precision dial — printed digits against a real uncertainty band.
    sigma_0 basal at -2 C = 0.0035, +/-25% (docs/libbrecht-parameters.md:246,:255)
    ====================================================================== */
 (function () {
@@ -1607,7 +1917,7 @@
 })();
 
 /* =========================================================================
-   5. Try to mislabel it — assertFieldSemanticsHonest, reimplemented exactly.
+   6. Try to mislabel it — assertFieldSemanticsHonest, reimplemented exactly.
    ====================================================================== */
 (function () {
   const root = document.getElementById("fig-mislabel");
@@ -1729,7 +2039,7 @@
 })();
 
 /* =========================================================================
-   6. Strip the badge — the evidence-class check from app/src/inspect.ts.
+   7. Strip the badge — the evidence-class check from app/src/inspect.ts.
    ====================================================================== */
 (function () {
   const root = document.getElementById("fig-badge");
@@ -1774,13 +2084,13 @@
       }
       return { ok: true, text:
         "status: published Pass A gate evidence (gate4a-report.json)\n\n" +
-        "Accepted — because both hashes in this context are values the file supplies about\n" +
-        "itself. The earlier check (app/src/inspect.ts:243–247) compares the context's\n" +
-        "checkpointSha256 against the hash of the loaded bytes, and a forger simply writes the\n" +
-        "true hash of their own file. What this check buys is not impossibility. It is that the\n" +
-        "lie is now explicit, sits in a named field, travels with the artifact into the capture\n" +
-        "manifest, and is comparable against the manifest hash recorded in the published gate\n" +
-        "report (out/phase4/gate4-report.json, passA.manifestSha256)." };
+        "Accepted — and this is exactly where this check runs out. The frozen manifest hash is a\n" +
+        "constant at app/src/inspect.ts:214–215, published as well in out/phase4/gate4-report.json\n" +
+        "(passA.manifestSha256), and the field is supplied by the file being loaded. Copy it and the\n" +
+        "comparison matches by construction. The check a forgery cannot square is the earlier one at\n" +
+        "inspect.ts:243–247: checkpointSha256 must equal the hash of the loaded bytes — and\n" +
+        "out/phase4/pass-a/gate4a-report.json publishes that hash for all thirteen real Pass A runs.\n" +
+        "A forged file hashes to none of them." };
     }
     if (evidenceClass === "synthetic-fixture-not-gate-evidence") {
       if (nv !== NOTICE) {

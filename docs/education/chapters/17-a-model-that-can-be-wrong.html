@@ -100,7 +100,17 @@
       </blockquote>
 
       <p>
-        Read the quoted sentence slowly, because it is doing something unusual. It is the author
+        <strong>SDAK</strong> stands for <em>structure-dependent attachment kinetics</em>:
+        Libbrecht's proposal that how easily a face grows depends not only on temperature but on
+        how wide that face is. Narrow faces grow more easily, which makes them narrower still
+        &mdash; a feedback the charter describes as producing &ldquo;thin plates, sharpening edges,
+        and hollow columns&rdquo; (<code>project charter.md</code>, &sect;2.5). It is a hypothesis,
+        not a measurement, and the &ldquo;narrow-facet dips&rdquo; in the quotation above are how
+        it would enter the model.
+      </p>
+
+      <p>
+        Now read that quoted sentence slowly, because it is doing something unusual. It is the author
         of the physics telling you, in print, that he picked those values <em>so that the model
         would agree with the diagram</em>. That is not cheating and it is not hidden. It is a
         completely normal way to build a model when the measurements you would need do not exist
@@ -194,7 +204,11 @@
       <p>
         That is the sharpest sentence in the whole decision record. Promising not to cheat from
         now on does nothing about information that is already inside your inputs. The leak
-        happened before you arrived.
+        happened before you arrived. Read the rejection narrowly, though: it says
+        pre-registration cannot fix <em>this</em>. It remains the right tool for the other half of
+        the problem &mdash; the half where someone might tune afterwards &mdash; which is why
+        chapter 27 is about it, and why this chapter ends by asking you to seal an envelope of
+        your own.
       </p>
 
       <!-- =============================================================== 2 -->
@@ -215,9 +229,10 @@
       <div class="table-wrap">
         <table>
           <caption>
-            The two SDAK-1 dips, transcribed from <code>docs/libbrecht-parameters.md</code>
-            &sect;4.1, where each row is recorded as a digitization of the monograph's
-            Figure&nbsp;4.12. Every row is provenance class P3.
+            The two &sigma;<sub>0</sub> dips &mdash; the mechanism the parameter file labels
+            <strong>SDAK-1</strong> &mdash; transcribed from
+            <code>docs/libbrecht-parameters.md</code> &sect;4.1, where each row is recorded as a
+            digitization of the monograph's Figure&nbsp;4.12. Every row is provenance class P3.
           </caption>
           <thead>
             <tr>
@@ -251,9 +266,20 @@
 
       <p>
         A factor of fifteen is not a correction. At the bottom of the prism dip the model is being
-        told that starting a new layer is fifteen times easier than the measured broad-facet curve
-        says. And the source is explicit that this is a proposal rather than a measurement: the
-        dips are drawn <em>dotted</em> in the original figure &ldquo;to signify their substantial
+        told that a narrow prism face needs fifteen times less spare vapour before a new layer can
+        start than the measured broad-facet curve says. And &sigma;<sub>0</sub> is not itself a
+        speed: it enters the growth law inside an exponential &mdash; the attachment coefficient is
+        <code>A&nbsp;&middot;&nbsp;exp(&minus;&sigma;<sub>0</sub>&nbsp;/&nbsp;&sigma;<sub>surf</sub>)</code>,
+        with &sigma;<sub>surf</sub> the spare vapour actually reaching the surface
+        (<code>docs/libbrecht-parameters.md</code> &sect;1, citing 1910.09067 Eq.&nbsp;3) &mdash; so
+        dividing it by fifteen does not make the face grow fifteen times faster. The effect is
+        exponential in that ratio, and wherever the surface is starved enough for nucleation to be
+        the bottleneck at all, it is far larger than fifteenfold.
+      </p>
+
+      <p>
+        The source is also explicit that the dips are a proposal rather than a measurement. They
+        are drawn <em>dotted</em> in the original figure &ldquo;to signify their substantial
         uncertainties&rdquo;, and a companion paper says plainly that &ldquo;Neither the width nor
         depth of the dip structure &hellip; is well constrained by measurements&rdquo;
         (both recorded at <code>docs/libbrecht-parameters.md</code> &sect;4.1).
@@ -267,10 +293,14 @@
           How we know
         </p>
         <p>
-          Neither dip is switched on in the solver. The parameter file states it directly:
-          &ldquo;Nothing in the solver implements either one &mdash; <code>SDAK</code> appears in
-          no source file &mdash; so every run to date is a no-SDAK run.&rdquo; That is a claim you
-          can check by searching the repository, which is the point of writing it that way.
+          The parameter file records <em>two</em> SDAK hypotheses, not one. SDAK-1 is the pair of
+          &sigma;<sub>0</sub> dips in the table above. SDAK-2 changes a different quantity on
+          narrow prism facets above about &minus;10&nbsp;&deg;C and is aimed at sharp-tipped
+          dendrites rather than at the habit flip; it is written down but not digitized, because
+          nothing in the solver consumes it. Of both, &sect;4 says: &ldquo;Nothing in the solver
+          implements either one &mdash; <code>SDAK</code> appears in no source file &mdash; so
+          every run to date is a no-SDAK run.&rdquo; That is a claim you can check by searching
+          the repository, which is the point of writing it that way.
         </p>
       </aside>
 
@@ -295,11 +325,10 @@
       </p>
 
       <p>
-        The original plan was to take the lattice model the project inherited, sweep its abstract
-        knobs, catalogue which shapes came out, build an atlas of them &mdash; and then, at the
-        end, decide which temperature each entry in the atlas corresponds to. The charter's
-        verdict on its own earlier plan is one sentence: <strong>&ldquo;That fits a curve; it
-        does not close a loop.&rdquo;</strong> (<code>project charter.md</code>, &sect;2.7.)
+        The original plan was to sweep the inherited lattice model's abstract knobs and label the
+        resulting atlas of shapes afterwards. The charter's verdict on it is one sentence:
+        <strong>&ldquo;That fits a curve; it does not close a loop.&rdquo;</strong>
+        (<code>project charter.md</code>, &sect;2.7.)
       </p>
 
       <p>
@@ -341,8 +370,16 @@
           afterwards; its three knobs are deliberately meaningless. <em>Validation</em> mode holds
           the axis fixed and reads the habit from the broad-facet nucleation parameters via
           <code>Prereg.habitAt</code> in <code>../assets/anim-preregister.js</code>, with the dips
-          off. Reference regimes and the near-boundary exclusion come from the same module. Like
-          that module, this is a simplified predictor and not the project's 3-D solver.</span>
+          off. Reference regimes and the near-boundary exclusion are transcribed from the same
+          module (its <code>BOUNDS</code> and <code>AMBIGUITY</code>). Like that module, this is a
+          <strong>simplified predictor</strong> and not the project's 3-D solver: it sweeps one
+          humidity level rather than six, so its score out of 15 is not comparable with the
+          registered sweep's score out of 90. It also forces a habit at every temperature, plate
+          or column. The registered scoring rule keeps a third class &mdash; ADR&nbsp;0025 maps
+          results onto &ldquo;<code>{plate, column, neutral, invalid}</code>&rdquo; &mdash; and in
+          the real sweep that neutral class turned out to be the largest single feature of the
+          model's own output (<code>research/phase6-sweep-report.md</code>, finding 3). That is
+          chapter 28's.</span>
         </figcaption>
       </figure>
 
@@ -356,23 +393,18 @@
       <p>
         Validation mode is the same screen with the axis frozen and the knobs gone, because
         temperature now enters the equations rather than being written on them afterwards. Most
-        columns disagree, and there is nothing to slide.
+        columns disagree, and there is nothing to slide. Do not carry that count away as the
+        project's answer &mdash; the caption says what it is and is not. Chapter 28 has the real
+        number.
       </p>
 
       <p>
         On 2026-07-14, before any physics code was written, the project renamed the phase that
         does this comparison. &ldquo;Calibration atlas&rdquo; became &ldquo;Validation against the
-        Nakaya diagram&rdquo;. The charter records why in one sentence:
+        Nakaya diagram&rdquo;, because the old framing &ldquo;could not have failed, and therefore
+        could not have taught anything&rdquo; (<code>project charter.md</code>, &sect;3.2,
+        Phase&nbsp;6).
       </p>
-
-      <blockquote class="callout">
-        <p>
-          &ldquo;The old framing &mdash; sweep knobs, build an atlas, fit a temperature axis onto
-          it &mdash; could not have failed, and therefore could not have taught anything.&rdquo;
-          <br><span class="figure__source">snowflake repository, project charter.md &mdash;
-          &sect;3.2, Phase 6</span>
-        </p>
-      </blockquote>
 
       <p>
         The decision record that forced the rename lists what the change bought and what it cost.
@@ -456,7 +488,8 @@
         Five. Written down by the project about itself, in the same paragraph where it identifies
         its best falsification target: a set of free-falling-crystal growth measurements whose
         &ldquo;reported sense opposes the model's expectation &mdash; the single strongest
-        falsification target available.&rdquo; The strongest available test is one the project
+        falsification target available&rdquo; &mdash; that is, the measured effect points the
+        opposite way to what the model predicts. The strongest available test is one the project
         expects to lose, and it is at the top of its own to-do list. That combination is what an
         honest evidence ledger looks like: short, and pointed at the places that hurt.
       </p>
@@ -477,8 +510,9 @@
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. The twelve measurements are
-          <strong>invented for this page</strong> and are not snow-crystal data; the labels
-          deliberately include two points that break the pattern. The &ldquo;model&rdquo; is a
+          <strong>invented for this page</strong> and are not snow-crystal data. The labels follow
+          a plain pattern &mdash; plates at the low end, columns at the high end &mdash; with
+          exactly two planted exceptions, #5 and #9. The &ldquo;model&rdquo; is a
           nearest-neighbour rule, chosen because it makes the in-sample trap visible in its purest
           form: it scores perfectly on anything it was shown. The lesson it teaches is the one in
           <code>project charter.md</code> &sect;2.7 on held-out observables.</span>
@@ -564,7 +598,7 @@
       <h2 id="safety-net">Why a fallback made the risk affordable</h2>
 
       <p>
-        Here is the part that is about people rather than epistemology. Designing an experiment you
+        Here is the part that is about people rather than logic. Designing an experiment you
         might lose is easy on paper. Running it is hard when losing means you have nothing to show
         for a year of work. Under that pressure, honest people start finding reasons why the
         awkward points do not really count.
@@ -592,7 +626,7 @@
         Read alongside the decision that introduced the risk, the pairing is deliberate. Under
         &ldquo;What it forecloses&rdquo;, ADR 0003 answers: &ldquo;Nothing, because
         <code>GGThreshold</code> survives. If <code>LibbrechtKinetics</code> fails to reproduce the
-        Nakaya flip, the project still has a working, beautiful crystal to ship.&rdquo; The risky
+        Nakaya flip, the project still has a working, beautiful crystal to ship &hellip;&rdquo; The risky
         experiment was made affordable by building the consolation prize first.
       </p>
 
@@ -627,7 +661,7 @@
         progress</strong> in <code>docs/PROGRESS.md</code>. Phase 7, the product layer this whole
         thing is supposed to become, is marked <strong>not started</strong>. And the run that
         would switch the diagram-informed dips back on has its own plan file whose status line
-        reads &ldquo;not started &mdash; blocked on ADR 0030 acceptance&rdquo;, with the outcome
+        reads &ldquo;not started &mdash; blocked on ADR 0030 acceptance &hellip;&rdquo;, with the outcome
         stated as unknown in advance: &ldquo;The arm is decisive in either direction, and the
         direction it lands is a first either way&rdquo;
         (<code>docs/plans/phase-6-sdak-arm.md</code>).
@@ -655,10 +689,10 @@
           <span class="built-from">Original interactive. Question 1 restates the charter's Phase 6
           test (&sect;3.2). Question 2 restates the goal of
           <code>docs/plans/phase-6-sdak-arm.md</code>, whose status line reads &ldquo;not started
-          &mdash; blocked on ADR 0030 acceptance&rdquo; &mdash; nobody knows that answer, including
-          the project. Your choices are stored in this browser and nothing is sent anywhere, which
-          also means nothing else can read them: the seal is for you to check against chapter 28,
-          not something chapter 28 will open for you.</span>
+          &mdash; blocked on ADR 0030 acceptance &hellip;&rdquo; &mdash; nobody knows that answer,
+          including the project. Your choices are stored in this browser and nothing is sent
+          anywhere, which also means nothing else can read them: the seal is for you to check
+          against chapter 28, not something chapter 28 will open for you.</span>
         </figcaption>
       </figure>
 
@@ -815,6 +849,7 @@
   var start = 2.0, span = 30.0;
   var matched = {};
   var svg = null;
+  var legendBox = null;
 
   function target() { return targetKey === "real" ? REAL : FAKE; }
   function axStart() { return mode === "val" ? 1.5 : start; }
@@ -864,6 +899,7 @@
 
   function render() {
     if (svg) svg.remove();
+    if (legendBox) legendBox.remove();
     var c = Viz.colors();
     var tg = mode === "val" ? REAL : target();
     var s = score();
@@ -899,6 +935,8 @@
     }
 
     /* ---- model row ---- */
+    /* Habit is carried by a letter as well as by colour, so the row does not depend
+       on colour alone; the legend below the figure glosses P and C. */
     var cw = plotW / N;
     for (var i = 0; i < N; i++) {
       var h = modelHabit(i);
@@ -906,6 +944,10 @@
         x: M.left + i * cw + 0.4, y: M.top + 46, width: cw - 0.8, height: 30,
         fill: h === "P" ? c.series[0] : c.series[1], "fill-opacity": 0.85
       }));
+      if (cw >= 11) {
+        svg.appendChild(label(M.left + i * cw + cw / 2, M.top + 65, h,
+          c.surface, 10, 700, "middle"));
+      }
       var t = tOf(i);
       if (counted(tg, t) && refHabit(tg, t)) {
         var ok = h === refHabit(tg, t);
@@ -955,6 +997,12 @@
                      : "DESIGN B · validation · can fail",
       mode === "cal" ? c.critical : c.good, 11, 700, "start"));
 
+    /* ---- legend: colour never carries meaning on its own ---- */
+    legendBox = Viz.legend(body, [
+      { color: c.series[0], label: "P — plates" },
+      { color: c.series[1], label: "C — columns" }
+    ]);
+
     /* ---- narration ---- */
     if (mode === "cal") {
       if (matchCount() === 2) {
@@ -976,7 +1024,7 @@
       status.textContent =
         "Same screen, two things removed: the axis is frozen and the knobs are gone, because " +
         "temperature now enters the equations. " + s.agree + " of " + s.n +
-        " agree and there is nothing you can slide.";
+        " agree, and there is nothing you can slide.";
     }
   }
 
@@ -1054,12 +1102,14 @@
   var body = root.querySelector(".anim__body");
   var bar = root.querySelector(".anim__controls");
 
-  /* Invented data. Two points (5 and 9) deliberately break the pattern. */
+  /* Invented data. The pattern is plates below the middle, columns above it —
+     with exactly two exceptions, #5 and #9, which are flipped. Any single
+     threshold therefore misses those two points and only those two. */
   var DATA = [
     { x: 1, label: "P" }, { x: 2, label: "P" }, { x: 3, label: "P" },
-    { x: 4, label: "C" }, { x: 5, label: "P" }, { x: 6, label: "C" },
-    { x: 7, label: "C" }, { x: 8, label: "P" }, { x: 9, label: "C" },
-    { x: 10, label: "P" }, { x: 11, label: "C" }, { x: 12, label: "C" }
+    { x: 4, label: "P" }, { x: 5, label: "C" }, { x: 6, label: "P" },
+    { x: 7, label: "C" }, { x: 8, label: "C" }, { x: 9, label: "P" },
+    { x: 10, label: "C" }, { x: 11, label: "C" }, { x: 12, label: "C" }
   ];
   var held = {};
 
@@ -1218,8 +1268,8 @@
         "so the catalogue matches the diagram.",
       refutable: false,
       why: "Not refutable. The axis is assigned after the shapes are known, so no arrangement " +
-        "of the world produces a mismatch. The charter's verdict on its own earlier plan: " +
-        "“That fits a curve; it does not close a loop” (§2.7)."
+        "of the world produces a mismatch — which is why the charter threw this design out " +
+        "as its own earlier plan (project charter.md §2.7)."
     },
     {
       text: "The model's crystals at −5 °C sit inside the aspect-ratio range Libbrecht " +
@@ -1239,9 +1289,12 @@
     {
       text: "Every number fed into the solver came from an instrument.",
       refutable: true,
-      why: "Refutable, and false: open docs/libbrecht-parameters.md and find a class P3 entry — " +
-        "a value chosen to impose agreement with the diagram rather than measured. Provenance " +
-        "labels exist so this claim can be checked rather than assumed."
+      why: "Refutable, and false — though not because of the P3 dips, which the solver never " +
+        "loads. The curves it does run on are class P2: Libbrecht published σ₀(T) and A(T) " +
+        "only as plots, so docs/libbrecht-parameters.md §3 records them as readings digitized " +
+        "off Figure 4.5 at ±25%. The rule for interpolating between those readings is class " +
+        "P4 — “a P4 decision, not physics.” Provenance labels exist so this claim can be " +
+        "checked rather than assumed."
     }
   ];
 
@@ -1447,7 +1500,9 @@
       strong.textContent = "Sealed " + sealed.at + ".";
       st.appendChild(strong);
       st.appendChild(document.createTextNode(
-        " Your answers are locked and stored in this browser only. Chapter 28 opens them."));
+        " Your answers are locked and stored in this browser only — nothing is sent anywhere " +
+        "and no other page reads them. Check them yourself against chapter 28. Question 2 has " +
+        "no answer anywhere yet: the SDAK arm has not run."));
       var changed = first && QUESTIONS.some(function (q) {
         return first.answers[q.id] !== sealed.answers[q.id];
       });

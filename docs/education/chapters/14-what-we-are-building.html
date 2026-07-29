@@ -40,7 +40,7 @@
       <li><a href="#step-three">Three steps, and the third is the point</a></li>
       <li><a href="#the-gap">The gap between two papers</a></li>
       <li><a href="#four-refusals">Four things it refuses to be</a></li>
-      <li><a href="#seven-things">Seven things, each decided by a machine</a></li>
+      <li><a href="#success-criteria">Eight criteria, and the one no machine can settle</a></li>
       <li><a href="#where-it-stands">Where it actually stands</a></li>
     </ol>
   </nav>
@@ -57,7 +57,7 @@
         </p>
         <div class="chapter-header__meta">
           <span>~14 min read</span>
-          <span>4 original interactives</span>
+          <span>2 original interactives, 2 diagrams</span>
           <span>Part VI &middot; What we tried to build</span>
         </div>
       </header>
@@ -78,9 +78,9 @@
 
       <p>
         Chapter 13 left you holding a working hypothesis. Two curves, one for the flat top and
-        bottom faces of an ice crystal and one for the six sides, crossing each other as the air
-        gets colder, and the crossings deciding whether the crystal grows tall or wide. Real
-        measurements underneath it. Ill-defined curves on top of it. Nobody had put that
+        bottom faces of an ice crystal and one for the six sides, crossing as the air
+        gets colder, the crossings deciding whether the crystal grows tall or wide. Real
+        measurements underneath it. Ill-defined curves on top. Nobody had put that
         explanation into a full three-dimensional crystal and checked.
       </p>
       <p>
@@ -97,9 +97,21 @@
         Not knowing, you would read them as boasting. Knowing, you read them as forensics.
       </p>
       <p>
-        The finished model was run 204 times across a grid of temperatures and humidities, and its
+        The completed solver was run 204 times across a grid of temperatures and humidities, and its
         results were scored against the Nakaya diagram by a rule written down before the run. It
-        agreed with the diagram at <strong>5 of the 90 points that counted</strong>. In the band
+        agreed with the diagram at <strong>5 of the 90 points that counted</strong>. Ninety, not
+        204, because that same rule set two groups aside before the run. Thirty-six points sit in a
+        band of &plusmn;1&nbsp;&deg;C either side of each of the three boundaries, where the diagram
+        itself is ambiguous about which habit belongs there. Seventy-eight sit in the very cold
+        regime, where the diagram accepts either pure habit &mdash; so producing one of them cannot
+        be scored wrong, and the regime is &ldquo;reported but kept out of the headline because it
+        accepts both pure classes&rdquo;. Those 78 are worth having anyway: 26 agreed, and 52 did
+        not, every one of the 52 a run that came out neither plate nor column
+        (<code>research/phase6-sweep-report.md</code>, lines 60&ndash;63 and 72). Ninety plus 78 plus
+        36 is 204: nothing was quietly dropped, and you can do the subtraction yourself.
+      </p>
+      <p>
+        Now the 90. In the band
         where the diagram says columns, it produced columns <strong>0 times out of 24</strong>. In
         the cold band where the diagram says plates, <strong>0 out of 60</strong>. And across all
         204 runs, the number that failed a numerical check was <strong>zero</strong>
@@ -117,12 +129,30 @@
         Read those numbers in that order, or you will read them wrong. &ldquo;5 out of 90&rdquo; on
         its own sounds like broken code. &ldquo;5 out of 90 with zero invalid runs&rdquo; is a
         different kind of statement: the machinery did everything it was asked to do, and the
-        physics it was given still did not produce the diagram. And the same sweep's
-        &minus;5&nbsp;&deg;C points land inside the range of aspect ratios Libbrecht measured on his
-        own bench at &minus;5&nbsp;&deg;C, with columns absent there exactly as he reported them
-        absent &mdash; but those are the same measurements the model's stickiness curves were read
-        off in the first place. The ledger says so in as many words: the model &ldquo;agrees with the
-        lab data its inputs came from&rdquo; (<code>docs/findings-ledger.md</code>, entry A1).
+        physics it was given still did not produce the diagram.
+      </p>
+      <p>
+        Be exact about which physics that was. The machine is Libbrecht's measured stickiness
+        curves installed in a three-dimensional lattice &mdash; a later section quotes the sentence
+        it was built from &mdash; and these 204 runs carried the <em>broad-facet</em> curves alone.
+        The extra mechanism chapter 13 ended on, the SDAK dips on narrow facets, was deliberately
+        left switched off. That is the design, not an oversight. The dips are the part of the theory
+        whose positions were chosen rather than measured, so the charter reports runs with them and
+        runs without them separately: &ldquo;wherever P3 inputs are active, matching Nakaya is
+        in-sample reproduction&rdquo;, P3 being its label for &ldquo;Nakaya-informed SDAK hypotheses
+        (dip locations chosen to impose agreement with the diagram)&rdquo;
+        (<code>project charter.md</code>, line 183). Switching them on and then matching the diagram
+        would prove nothing. What ran instead is what the charter calls &ldquo;the no-SDAK probe
+        &hellip; a first-class result in its own right&rdquo; (line 313). Chapter 28 works through
+        why the other half could not have been a fair test.
+      </p>
+      <p>
+        Inside that scope, one thing did match. The same sweep's &minus;5&nbsp;&deg;C points land
+        inside the range of aspect ratios &mdash; height divided by width &mdash; that Libbrecht
+        measured on his own bench, with columns absent exactly as he reported. The project's
+        findings ledger, a running file of results it thinks are worth sharing outside the
+        repository, states the catch in the same breath: the model &ldquo;agrees with the lab data
+        its inputs came from&rdquo; (<code>docs/findings-ledger.md</code>, entry A1).
         Agreeing with the data you were built from is a check that the wiring is right, not
         independent validation. The disagreement with the diagram is the half nobody could have
         arranged.
@@ -136,17 +166,37 @@
           Key idea
         </p>
         <p>
-          The interesting result is not that a model failed. It is that a model failed while every
-          safeguard held. That combination is only worth anything if the safeguards were built
-          first, in public, and hard enough to be trusted &mdash; which is what the next fifteen
-          chapters are about.
+          The interesting result is not that a model failed. It is that a model failed while the
+          safeguards did their job. Every numerical check held inside all 204 runs &mdash; and where
+          something did slip past, a mismatch between the written protocol and what the runs
+          actually did, a different safeguard caught it afterwards and made it expensive. That
+          combination is only worth anything if the safeguards were built first, in public, and hard
+          enough to be trusted &mdash; which is what the next fifteen chapters are about.
         </p>
       </aside>
 
       <p>
-        That headline is itself now waiting on a re-run, for a reason that costs the project
-        something and that chapter 29 is entirely about. Everything between here and chapter 28 is
-        the work that has to exist before those two lines are allowed to mean anything at all.
+        Because here is the twist. Those numbers are <em>already invalidated</em>. The way the
+        model's parameters were supposed to be worked out between measured temperatures was
+        written into the frozen protocol before the sweep; the way the 204 runs actually worked
+        them out was different, and nobody noticed until afterwards. The project's own rule is that
+        any change to a frozen protocol voids the sweep that ran under it, so all 204 points are
+        being run again: &ldquo;the 204-point sweep of <code>6995868</code> is invalidated and
+        re-runs&rdquo; (<code>docs/decisions/0031-phase6-paramset-freeze-row.md</code>).
+      </p>
+      <p>
+        That is not a technicality being observed politely. The decision record considers the cheap
+        alternative &mdash; keep the result, write the mismatch down as a limitation &mdash; and
+        rejects it by name:
+        &ldquo;The mismatch is not a limitation of the evidence, it is a contradiction between the
+        evidence and the protocol that certifies it.&rdquo; And it doubts the published numbers
+        explicitly, in writing: the class matrix and the per-regime counts &ldquo;are all per-point
+        quantities, and none of them is currently correct&rdquo; (same file, &ldquo;Alternatives
+        considered&rdquo;). What the re-run is expected to produce is written down in advance
+        &mdash; a headline of about 2 of 90, with the structure of the failure unchanged
+        (<code>docs/findings-ledger.md</code>, entry B1). Chapter 29 is entirely about what that
+        cost. Everything between here and chapter 28 is the work that has to exist before any of
+        these numbers are allowed to mean anything at all.
       </p>
 
       <h2 id="the-instrument">The instrument</h2>
@@ -169,10 +219,10 @@
       <p>
         Notice what you are <em>not</em> given: a shape tool. You cannot drag a branch where you
         want one. The only thing you can edit is the weather, and the crystal is whatever that
-        weather writes. This is a direct consequence of chapter 8: a snow crystal is a record of
+        weather writes. That follows from chapter 8: a snow crystal is a record of
         the conditions it passed through, so the honest input to a snow-crystal instrument is a
         journey, not a drawing. Give the reader a shape tool and you have built an ice-sculpture
-        app that happens to have hexagons in it.
+        app with hexagons in it.
       </p>
 
       <figure class="anim" id="anim-timeline">
@@ -220,18 +270,18 @@
       </p>
       <p>
         A slot machine and an instrument can produce the same picture. What separates them is
-        whether you can see the mechanism in between. If you cannot, the only thing on offer is
-        trust &mdash; and a program that asks for trust and shows you nothing has taught you
-        nothing, however pretty its output. That is why so much of this project's budget goes to
-        looking at things rather than to resolution. One of its standing rules reads
+        whether you can see the mechanism in between. A program that asks for trust and shows you
+        nothing has taught you nothing, however pretty its output. That is why so much of this
+        project's budget goes to looking at things rather than to resolution &mdash; how fine the
+        grid of cells is. One of its standing rules reads
         &ldquo;Model validity outranks compute. Spend surplus GPU budget on diffusion iterations,
         observability, determinism, and sweeps before resolution&rdquo;
         (<code>project charter.md</code>, line 335).
       </p>
       <p>
         There is a happy accident buried in this. The views that let a user see why a branch
-        appeared are the same views the developers need to find out why the solver is wrong.
-        The charter says so directly: &ldquo;These views are debugging instruments first and product
+        appeared are the same views the developers need to find out why the solver is wrong:
+        &ldquo;These views are debugging instruments first and product
         features second &mdash; that they are the same artifact is the project's luckiest
         property&rdquo; (line 281).
       </p>
@@ -261,16 +311,22 @@
           added when the vapour at a surface cell passes a fixed threshold, in the spirit of the
           Gravner&ndash;Griffeath &ldquo;attach&rdquo; rule described in
           <code>docs/video-explainer.md</code> lines 199&ndash;201. It is
-          <strong>two-dimensional, coarse, deliberately under-relaxed so that it runs in a
-          browser, and not the project's solver</strong>; the numbers it prints are its own.
-          &ldquo;Under-relaxed&rdquo; means the smoothing is stopped after a couple of dozen passes
-          where honest convergence would need thousands &mdash; the charter notes that the count
-          &ldquo;scale[s] like (L/&Delta;x)&sup2;&rdquo; (&sect;2.4, line 139) &mdash; so the picture
-          is qualitatively right and quantitatively short. Chapter 22 is entirely about what
-          stopping early costs when it matters. Growth is capped well short of the box walls,
-          because a crystal that can feel its own container is partly measuring the container
-          &mdash; which is why the real sweep carries a domain-contact guard
-          (<code>research/phase6-sweep-report.md</code>, lines 91&ndash;93).</span>
+          <strong>two-dimensional, coarse, deliberately stopped short of convergence so that it
+          runs in a browser, and not the project's solver</strong>; the numbers it prints are its
+          own. The word for that is <em>under-converged</em>: the smoothing is halted after a couple
+          of dozen passes where honest convergence would need thousands &mdash; the charter notes
+          that the count &ldquo;scale[s] like (L/&Delta;x)&sup2;&rdquo; (&sect;2.4, line 139) &mdash;
+          so the picture is qualitatively right and quantitatively short. Chapter 22 is entirely
+          about what stopping early costs when it matters. Keep pressing &ldquo;Grow 6 steps&rdquo;
+          and the demo will eventually refuse to grow: a crystal that can feel its own container is
+          partly measuring the container, so this page carries a working miniature of the project's
+          own domain-contact guard &mdash; &ldquo;any run in which the crystal's bounding box
+          exceeds ~65% of any domain extent is automatically flagged invalid&rdquo;
+          (<code>project charter.md</code>, line 231). The real guard is a verdict, not a brake: the
+          run is allowed to finish and its results are then refused, which is what makes &ldquo;zero
+          invalid runs&rdquo; a statement worth making. This miniature stops the growth instead, so
+          that you can watch the moment it fires. All 204 runs of the real sweep cleared that
+          guard (<code>research/phase6-sweep-report.md</code>, lines 91&ndash;93).</span>
         </figcaption>
       </figure>
 
@@ -283,9 +339,9 @@
         </p>
         <p>
           Nothing in that demo was told that corners grow faster. The corners win because the
-          vapour field says so, and the vapour field is a consequence of one equation plus the
+          vapour field says so, and the field is a consequence of one equation plus the
           shape the crystal happens to have. Watching the reason is the point; the shape alone would
-          have let you believe any story you liked about it.
+          let you believe any story you liked.
         </p>
       </aside>
 
@@ -339,9 +395,8 @@
 
       <p>
         Putting degrees on the dial sounds cosmetic. It is the opposite. Once temperature enters the
-        equations rather than the label on a knob, the model has an opinion about the world that its
-        builders did not choose &mdash; and an opinion you did not choose is an opinion that can be
-        wrong. The explainer states the consequence plainly: &ldquo;A model that cannot fail can't
+        equations rather than the label on a knob, the model has an opinion its
+        builders did not choose &mdash; and an opinion you did not choose can be wrong. The explainer states the consequence plainly: &ldquo;A model that cannot fail can't
         teach you anything; this one can fail, and that is deliberately the point&rdquo;
         (<code>docs/video-explainer.md</code>, lines 250&ndash;251).
       </p>
@@ -356,9 +411,8 @@
         <p>
           Installing measured physics in a model is not the same as showing that the model
           reproduces reality. Those are two different claims about two different things &mdash; what
-          went in, and what came out &mdash; and the whole of the next chapter is about keeping them
-          apart. For now, hold on to the fact that the project treats them as different sentences
-          and never lets one stand in for the other.
+          went in, and what came out. The project treats them as different sentences and never lets
+          one stand in for the other.
         </p>
       </aside>
 
@@ -408,9 +462,9 @@
         A trillion-to-one approximation would be indefensible if the physics being modelled lived at
         the molecular scale. It does not. Vapour diffusion and surface attachment rates are already
         written as continuum quantities &mdash; densities and rates over patches of surface &mdash;
-        so coarsening to cells is not a fudge, it is the scale those equations were stated at in the
-        first place. Note the second half of the charter's sentence, which refuses a bad
-        justification as firmly as it accepts the good one.
+        so coarsening to cells is the scale those equations were stated at in the first place. Note
+        the second half of the charter's sentence, which refuses a bad justification as firmly as it
+        accepts the good one.
       </p>
       <p>
         The other three denials: <strong>not a validated physical simulator</strong>
@@ -421,35 +475,34 @@
         works&rdquo; (line 57).
       </p>
       <p>
-        <em>Phenomenological</em> is the load-bearing word there, so it is worth stopping on.
-        It means the model copies the <em>behaviour</em> without claiming to have derived it: it
-        reproduces what the measurements do, and does not claim to know why at the level of
-        molecules. A phenomenological model can be extremely useful and still be wrong about the
-        mechanism, and it has no right to be believed about a case nobody measured.
+        <em>Phenomenological</em> is the load-bearing word there. It means the model copies the
+        <em>behaviour</em> without claiming to have derived it: it reproduces what the measurements
+        do, and does not claim to know why at the level of molecules. Such a model can be extremely
+        useful and still be wrong about the mechanism, and it has no right to be believed about a
+        case nobody measured.
       </p>
       <p>
         Read the validation denial again. It is a product whose <em>identity includes</em> a
-        disclaimer.
-        That is a strange thing to write on day one, and it is the single most useful sentence in
-        the document, because of what it does to every later argument. When somebody eventually
-        wants to say &ldquo;this shows what snowflakes do at &minus;15&nbsp;&deg;C&rdquo;, there is
-        already a line in the founding document saying they may not. Writing down what you are not
-        building is a design technique: it stops a project drifting into a claim it cannot support,
-        months later, when everybody has forgotten the original scope and the demo looks amazing.
+        disclaimer &mdash; a strange thing to write on day one, and the most useful sentence in the
+        document. When somebody eventually wants to say &ldquo;this shows what snowflakes do at
+        &minus;15&nbsp;&deg;C&rdquo;, there is already a line in the founding document saying they
+        may not. That is what stops a project drifting into a claim it cannot support, months later,
+        when everybody has forgotten the original scope and the demo looks amazing.
       </p>
 
-      <h2 id="seven-things">Seven things, each decided by a machine</h2>
+      <h2 id="success-criteria">Eight criteria, and the one no machine can settle</h2>
 
       <p>
-        Version 1 of this project is called a success if one solver, on one hexagonal-prism lattice,
-        can do seven specific things (<code>project charter.md</code> &sect;1.4, lines
-        62&ndash;71). Quoted exactly:
+        Version 1 of this project is called a success on eight counts. Seven of them are things one
+        solver, on one hexagonal-prism lattice, has to be able to do
+        (<code>project charter.md</code> &sect;1.4, lines 62&ndash;71). Quoted exactly:
       </p>
 
       <div class="table-wrap">
         <table>
-          <caption>The seven v1 success criteria, verbatim from <code>project charter.md</code>
-            &sect;1.4, lines 65&ndash;71. Note what is missing from the list.</caption>
+          <caption>Seven of the eight v1 success criteria, verbatim from
+            <code>project charter.md</code> &sect;1.4, lines 65&ndash;71. Note what is not among
+            them.</caption>
           <thead>
             <tr><th class="num">#</th><th>&ldquo;One solver, on a hexagonal-prism lattice, that&hellip;&rdquo;</th></tr>
           </thead>
@@ -467,14 +520,28 @@
 
       <p>
         &ldquo;Looks like a real snowflake&rdquo; is not on the list. It could not be: two people
-        can look at the same crystal and disagree about that forever, and neither of them can be
-        shown to be wrong. Every item that <em>is</em> on the list ends in a number somebody can
+        can look at the same crystal and disagree about that forever, and neither can be shown to be
+        wrong. Every one of those seven ends in a number somebody can
         recompute &mdash; how far from sixfold, how tall against how wide, how much lower the vapour
         is at a facet centre than at its rim. The project states the rule for itself in one line:
         &ldquo;Every scientific milestone is an automated metric, not a screenshot&rdquo;
         (<code>project charter.md</code>, line 342). Its working rules put the same thing less
         politely: &ldquo;&lsquo;Looks right&rsquo; is not a result. If you eyeballed it, write that
         you eyeballed it&rdquo; (<code>AGENTS.md</code>, line 335).
+      </p>
+      <p>
+        Then there is the eighth, which the list is careful to keep separate from the other seven:
+        &ldquo;Plus one independent finding from a cheap 2D prototype: that &lsquo;designing a cloud
+        journey&rsquo; is understandable and enjoyable as an interaction&rdquo;
+        (<code>project charter.md</code>, line 74). Nothing in that ends in a number. Whether an
+        interaction is enjoyable is a judgement a person makes, and no metric settles it. That is
+        not a hole in the argument; it is the argument's edge, drawn on purpose. The rule is not
+        &ldquo;never accept a human judgement&rdquo; &mdash; it is that <em>the science</em> is
+        never allowed to rest on one. A criterion about how a person feels using a tool has to be
+        judged by people; a criterion about whether a crystal grew hollow does not, so it is not
+        allowed to be. Notice also where the eighth is meant to be settled: on a cheap
+        two-dimensional prototype, off to the side, deliberately not on the solver whose output is
+        the evidence.
       </p>
       <p>
         Criterion 5 is the one to stare at. Hollow columns are a real thing that real crystals do
@@ -489,9 +556,10 @@
         <div class="anim__head">
           <p class="anim__title">Cheat detector: add a &ldquo;make it hollow&rdquo; rule</p>
           <p class="anim__sub">
-            Run three different seeds and watch the middles of the faces fall behind. Then flip the
-            switch, which forbids the face centres from growing at all, and run it again. Watch what
-            happens to the scorecard.
+            Run three different starting crystals and watch the middles of the faces fall behind.
+            Then flip the switch, which forbids the face centres from growing at all, and run it
+            again. The hollowing test passes both times &mdash; watch what happens to the scorecard
+            anyway.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -501,6 +569,11 @@
           X-ray demo above and with the same caveats: it is a miniature, not the project's solver,
           and the numbers in the table are computed live by this page. The criterion text is
           verbatim from <code>project charter.md</code> &sect;1.4, lines 65&ndash;71. The
+          &ldquo;hollowing test&rdquo; row is this page's own crude stand-in for a hollowness
+          metric, not the project's. The real gate asks for hollowing that repeats
+          &ldquo;reproducibly across seeds&rdquo; (<code>project charter.md</code>, line 289), and
+          in that repository a seed is a random-number seed; this miniature has no randomness in it
+          at all, so what it varies instead is the size of the crystal it starts from. The
           unfalsifiability note is this chapter's argument, not a quotation.</span>
         </figcaption>
       </figure>
@@ -513,10 +586,10 @@
           Key idea
         </p>
         <p>
-          A shortcut that guarantees the result destroys the evidence rather than producing it. With
-          the rule switched on, the hollowing test still passes &mdash; and passing it no longer
-          tells you anything, because the metric is now measuring the rule instead of the physics.
-          A criterion that cannot fail is not a criterion.
+          A shortcut that guarantees the result destroys the evidence rather than producing it. You
+          just watched the hollowing test read PASS with the rule switched on &mdash; and passing it
+          no longer tells you anything, because the metric is now measuring the rule instead of the
+          physics. A criterion that cannot fail is not a criterion.
         </p>
       </aside>
 
@@ -529,19 +602,19 @@
       </p>
       <p>
         What exists is the engine and its evidence: a solver that runs on a graphics card in a
-        browser, a headless runner that can execute hundreds of automated runs without a human
-        watching, the metrics, the gates &mdash; automatic pass/fail checks that block a phase from
-        starting until the previous one has met them &mdash; and the 204-run sweep. The validation
-        work &mdash; the project calls it Phase 6 &mdash; is <strong>in flight, not
-        finished</strong>: the sweep ran, and a re-run is pending
-        (<code>docs/findings-ledger.md</code>, entry B1). The product layer &mdash; Phase 7, the four
-        view profiles (four different ways of presenting the same one engine, changing what the
-        screen shows and nothing about the physics), the polished timeline editor a person would
-        actually enjoy using &mdash; has <strong>not started</strong>. Its scope was written down in
-        July 2026 and it still begins after Phase 6 (<code>docs/PROGRESS.md</code>, &ldquo;Next
-        step&rdquo;). The charter's own long-term sketch &mdash; two engines, one interactive and one
-        slow and high-fidelity &mdash; is labelled &ldquo;post-v1, non-binding&rdquo; in its heading
-        (&sect;1.6, lines 89&ndash;94), which is the same honesty device applied to the future.
+        browser, a headless runner that executes hundreds of runs without a human watching, the
+        metrics, the gates &mdash; automatic pass/fail checks that block a phase from starting until
+        the previous one has met them &mdash; and the 204-run sweep. The validation work &mdash; the
+        project calls it Phase 6 &mdash; is <strong>in flight, not finished</strong>: the sweep ran,
+        and the re-run described above is pending (<code>docs/findings-ledger.md</code>, entry B1).
+        The product layer &mdash; Phase 7, the four view profiles (four ways of presenting the same
+        engine, changing what the screen shows and nothing about the physics), the polished timeline
+        editor a person would actually enjoy using &mdash; has <strong>not started</strong>. Its
+        scope was written down in July 2026; it still begins after Phase 6
+        (<code>docs/PROGRESS.md</code>, &ldquo;Next step&rdquo;). The charter's own long-term sketch
+        &mdash; two engines, one interactive and one slow and high-fidelity &mdash; is labelled
+        &ldquo;post-v1, non-binding&rdquo; in its heading (&sect;1.6, lines 89&ndash;94), which is
+        the same honesty device applied to the future.
       </p>
 
       <aside class="callout callout--open">
@@ -569,8 +642,11 @@
         You now know what the machine is for and what it refuses to claim. What you do not yet have
         is the vocabulary that makes those refusals precise &mdash; because &ldquo;we gave the model
         real physics&rdquo; and &ldquo;the model reproduces reality&rdquo; sound like the same
-        sentence, and the next chapter is about why treating them as one sentence is the fastest way
-        to fool yourself.
+        sentence, and treating them as one is the fastest way to fool yourself. The project's answer
+        is not a confidence score. Every quantity it puts on the screen carries <em>two</em> labels,
+        held apart on purpose: one for what the number <em>is</em>, and one for what it has
+        <em>earned</em> (<code>project charter.md</code>, &sect;1.5, line 78). The next chapter is
+        about why one label was never enough.
       </p>
 
       <nav class="chapter-nav" aria-label="Chapter navigation">
@@ -701,22 +777,36 @@
       return out;
     }
 
-    function touchesEdge() {
-      for (var c = 0; c < cols; c++) {
-        if (ice[c] || ice[(rows - 1) * cols + c]) return true;
-      }
+    /* The domain-contact guard, in miniature. The project's own rule: "any run
+       in which the crystal's bounding box exceeds ~65% of any domain extent is
+       automatically flagged invalid" (project charter.md line 231). Here it is
+       enforced rather than reported: past 65% the lattice simply refuses to
+       grow, so a reader who keeps pressing "Grow" can watch a safeguard fire. */
+    var GUARD = 0.65;
+
+    function extentFraction() {
+      var minR = rows, maxR = -1, minC = cols, maxC = -1;
       for (var r = 0; r < rows; r++) {
-        if (ice[r * cols] || ice[r * cols + cols - 1]) return true;
+        for (var c = 0; c < cols; c++) {
+          if (!ice[r * cols + c]) continue;
+          if (r < minR) minR = r;
+          if (r > maxR) maxR = r;
+          if (c < minC) minC = c;
+          if (c > maxC) maxC = c;
+        }
       }
-      return false;
+      if (maxR < 0) return 0;
+      return Math.max((maxR - minR + 1) / rows, (maxC - minC + 1) / cols);
     }
+
+    function domainContact() { return extentFraction() > GUARD; }
 
     /* One growth step. A boundary cell attaches when the vapour it sits in
        passes a fixed threshold `beta` — the same shape of rule as the
        Gravner–Griffeath "attach" step. `allow` may veto a cell, which is how
        the cheat demo hard-codes its answer. */
     function step(beta, allow, sweeps) {
-      if (touchesEdge()) return null;
+      if (domainContact()) return null;
       var b = boundary();
       if (!b.length) return null;
       var added = [];
@@ -737,10 +827,11 @@
     }
 
     /* What the vapour looks like on the crystal's surface, as a fraction of
-       the far-field value: the hungriest point, where it is, and the median
-       — half the surface sits below that. The median rather than the minimum,
-       because a crevice sealed off by its own walls reads as zero and says
-       more about the crevice than about the surface. */
+       the far-field value: the BEST-FED point (the surface maximum), how far
+       out it sits, and the median — half the surface sits below that. The
+       median rather than the minimum, because a crevice sealed off by its own
+       walls reads as zero and says more about the crevice than about the
+       surface. */
     function surfaceStats() {
       var b = boundary();
       var vals = [];
@@ -819,7 +910,8 @@
     return {
       width: width, height: height,
       seed: seed, step: step, draw: draw,
-      surfaceStats: surfaceStats, compactness: compactness, touchesEdge: touchesEdge,
+      surfaceStats: surfaceStats, compactness: compactness,
+      domainContact: domainContact, extentFraction: extentFraction,
     };
   }
 
@@ -843,6 +935,14 @@
 
     var W = 640, H = 360;
     var svg = null;
+
+    // Viz.colors() reads twenty CSS custom properties off the document root,
+    // which forces a style recalculation. It is cached here and refreshed only
+    // when the theme actually changes, rather than run once per frame.
+    var pal = Viz.colors();
+    // The picture only changes four times in eight seconds plus one slow fade,
+    // so frames that would draw the same thing are skipped outright.
+    var lastKey = null;
 
     function ringRadius(k) { return 34 + k * 24; }
 
@@ -894,8 +994,13 @@
       }
     }
 
-    function render(t) {
-      var c = Viz.colors();
+    function render(t, force) {
+      var head = (t % 8) / 8 * 5;          // 0 -> 5; rings appear as it passes 1,2,3,4
+      var key = slots.join(",") + "|" + Math.round(head * 20);
+      if (!force && key === lastKey) return;
+      lastKey = key;
+
+      var c = pal;
       if (svg) svg.remove();
       svg = Viz.createSvg(body, W, H, {
         label: "A four-segment weather timeline on the left, and a crystal on the right whose " +
@@ -904,7 +1009,6 @@
               "of the crystal carries the feature that weather writes."
       });
 
-      var head = (t % 8) / 8 * 5;          // 0 -> 5; rings appear as it passes 1,2,3,4
       var activeSlot = Math.max(0, Math.min(3, Math.floor(head)));
 
       var bandX = 18, bandW = 182, bandH = 58, bandTop = 52;
@@ -968,15 +1072,21 @@
       return node;
     }
 
-    var anim = Viz.animate(root, render, { duration: 8, staticAt: 7.4, stepBy: 1.6 });
-    Viz.onThemeChange(function () { render(anim.time); });
+    // Wrapped rather than passed directly: Viz.animate calls tick(elapsed, dt),
+    // and dt must not arrive here as the `force` argument.
+    var anim = Viz.animate(root, function (t) { render(t); },
+      { duration: 8, staticAt: 7.4, stepBy: 1.6 });
+    Viz.onThemeChange(function () {
+      pal = Viz.colors();
+      render(anim.time, true);
+    });
 
     for (var k = 0; k < 4; k++) {
       (function (slot) {
         Viz.button(controls, "Segment " + (slot + 1) + ": " + ENVS[slots[slot]].name, function (b) {
           slots[slot] = (slots[slot] + 1) % ENVS.length;
           b.textContent = "Segment " + (slot + 1) + ": " + ENVS[slots[slot]].name;
-          render(anim.time);
+          render(anim.time, true);
         });
       })(k);
     }
@@ -985,7 +1095,7 @@
     // Restart would sit on the far side of the four segment toggles from the
     // first, identically labelled, which reads as a bug.
     if (!Viz.reduceMotion.matches) {
-      Viz.button(controls, "Restart", function () { anim.reset(); });
+      Viz.button(controls, "Restart", function () { lastKey = null; anim.reset(); });
     }
   })();
 
@@ -1015,14 +1125,14 @@
     var legendBox = document.createElement("div");
     body.appendChild(legendBox);
 
-    var state = { showField: false, fresh: new Set(), guess: null, grown: 0 };
+    var state = { showField: false, fresh: new Set(), guess: null, refused: false };
 
     function reset() {
       field.seed(2, 360);
       state.fresh = new Set();
-      state.grown = 0;
+      state.refused = false;
       for (var s = 0; s < 24; s++) {
-        if (field.compactness().radius >= 8) break;
+        if (field.compactness().radius >= 7) break;
         if (!field.step(BETA, null, 24)) break;
       }
       draw();
@@ -1053,8 +1163,9 @@
       if (state.guess) lines.push("You predicted: " + state.guess + ".");
       if (state.showField) {
         lines.push(
-          "Measured on the surface right now: the hungriest point sits in " + fmt2(ex.hi) +
-          " of the far-field vapour, " + Math.round(ex.hiR) + " cells out from the centre. " +
+          "Measured on the surface right now: the best-fed point on the surface sits in " +
+          fmt2(ex.hi) + " of the far-field vapour, " + Math.round(ex.hiR) +
+          " cells out from the centre. " +
           (ex.med < 0.005
             ? "Half the surface is sitting in almost no vapour at all."
             : "Half the surface sits in less than " + fmt2(ex.med) + ".")
@@ -1062,8 +1173,13 @@
       } else {
         lines.push("The vapour is hidden. This is all a snowflake toy would ever show you.");
       }
-      if (field.compactness().radius >= 17) {
-        lines.push("Growth is capped here, well short of the box walls.");
+      if (field.domainContact()) {
+        lines.push(
+          "The domain-contact guard has fired: the crystal now spans " +
+          Math.round(field.extentFraction() * 100) + "% of the box, past the 65% limit, and " +
+          "growth refuses to continue" +
+          (state.refused ? " — pressing Grow does nothing now." : ".")
+        );
       }
       readout.textContent = lines.join(" ");
     }
@@ -1089,12 +1205,12 @@
 
     Viz.button(controls, "Grow 6 steps", function () {
       state.fresh = new Set();
+      state.refused = true;
       for (var s = 0; s < 6; s++) {
-        if (field.compactness().radius >= 17) break;
         var added = field.step(BETA, null, 24);
         if (!added) break;
+        state.refused = false;
         for (var j = 0; j < added.length; j++) state.fresh.add(added[j]);
-        state.grown++;
       }
       draw();
     });
@@ -1188,12 +1304,14 @@
       // (inkSecondary rather than muted for the un-askable panel: the verdict
       // is 11px and muted does not clear contrast on a tinted band.)
       var col = askable ? palette.series[0] : palette.inkSecondary;
+      // The band has to clear three 11px lines with their descenders: baselines
+      // at y+89/103/117, so it runs to y+126 and still sits inside the y+128 box.
       g.appendChild(Viz.svgEl("rect", {
-        x: x + 10, y: y + 76, width: w - 20, height: 44, rx: 7,
+        x: x + 10, y: y + 76, width: w - 20, height: 50, rx: 7,
         fill: col, opacity: 0.12
       }));
       verdict.forEach(function (line, i) {
-        text(g, x + w / 2, y + 93 + i * 14, line, {
+        text(g, x + w / 2, y + 89 + i * 14, line, {
           fill: i === 0 ? col : palette.inkSecondary,
           weight: i === 0 ? 700 : 400
         });
@@ -1274,7 +1392,15 @@
       "supports conditions changing mid-growth (the timeline, in embryo)",
       "exposes its vapor field and surface growth propensity visually the whole time"
     ];
-    var SEEDS = [1, 2, 3];
+    /* Starting crystal radii, in cells. NOT random-number seeds: this miniature
+       has no randomness in it, so there is nothing for a seed to seed. The real
+       gate varies the RNG seed (project charter.md line 289); this varies size,
+       which is the only thing here that can be varied. */
+    var STARTS = [1, 2, 3];
+    /* This page's own crude hollowing test: the face centres count as "left
+       behind" when the shape fills less than this much of the disc it reaches
+       into. It is a stand-in for a hollowness metric, not the project's. */
+    var HOLLOW_MAX = 0.90;
     var cheat = false;
     var results = null;
 
@@ -1307,7 +1433,7 @@
     var BETA = 0.14;          // the same attachment threshold as the X-ray demo
 
     function run() {
-      results = SEEDS.map(function (rad) {
+      results = STARTS.map(function (rad) {
         var f = makeField(51, 43, 4.2);
         f.seed(rad, 340);
         var steps = 0, last = f.compactness();
@@ -1316,9 +1442,11 @@
           if (!added) break;
           steps = s;
           last = f.compactness();
-          if (last.radius >= 15) break;      // every seed is stopped at one size
+          // Every start is stopped at one size, short of the 65% domain-contact
+          // guard, so that this demo is about the rule and not about the guard.
+          if (last.radius >= 12) break;
         }
-        return { seed: rad, field: f, steps: steps, m: last };
+        return { start: rad, field: f, steps: steps, m: last };
       });
       draw();
     }
@@ -1335,14 +1463,14 @@
           wrap.style.flex = "0 0 auto";
           wrap.style.textAlign = "center";
           var cv = Viz.createCanvas(wrap, Math.round(r.field.width), Math.round(r.field.height), {
-            label: "Crystal grown from a seed of radius " + r.seed + " cells."
+            label: "Crystal grown from a starting crystal of radius " + r.start + " cells."
           });
           cv.canvas.style.maxWidth = "176px";
           r.field.draw(cv, { palette: c, field: false, iceColor: c.ink, background: c.sunken });
           var cap = document.createElement("figcaption");
           cap.style.fontSize = "var(--step--1)";
           cap.style.color = "var(--ink-secondary)";
-          cap.textContent = "seed radius " + r.seed;
+          cap.textContent = "starting radius " + r.start;
           wrap.appendChild(cap);
           strip.appendChild(wrap);
         });
@@ -1350,14 +1478,14 @@
         var hint = document.createElement("p");
         hint.style.color = "var(--ink-secondary)";
         hint.style.fontSize = "var(--step--1)";
-        hint.textContent = "Press Run to grow three crystals from three different seeds.";
+        hint.textContent = "Press Run to grow three crystals from three different starting sizes.";
         strip.appendChild(hint);
       }
 
-      var rows, spread = "";
+      var rows, spread = "", foot = "";
       if (results) {
         rows = results.map(function (r) {
-          return "<tr><td>radius&nbsp;" + r.seed + "</td>" +
+          return "<tr><td>radius&nbsp;" + r.start + "</td>" +
             "<td class=\"num\">" + r.steps + "</td>" +
             "<td class=\"num\">" + r.m.cells + "</td>" +
             "<td class=\"num\">" + fmt2(r.m.fill) + "</td></tr>";
@@ -1366,7 +1494,14 @@
         spread = " The three shapes ended " + fmt2(Math.min.apply(null, fills)) + "&ndash;" +
           fmt2(Math.max.apply(null, fills)) + " full" + (cheat
             ? ": the rule, not the vapour, put them there."
-            : ": earned slowly, and different for every seed.");
+            : ": earned slowly, and different for every start.");
+        // The derived verdict. This is the row to watch: it reads PASS whether or
+        // not the answer was hard-coded, which is the whole point of the demo.
+        var pass = results.every(function (r) { return r.m.fill < HOLLOW_MAX; });
+        foot = "<tfoot><tr><th scope=\"row\" colspan=\"3\">hollowing test &mdash; " +
+          "fullness under " + HOLLOW_MAX.toFixed(2) + " for every start</th>" +
+          "<td class=\"num\" style=\"font-weight:700;color:" +
+          (pass ? c.good : c.critical) + "\">" + (pass ? "PASS" : "FAIL") + "</td></tr></tfoot>";
       } else {
         rows = "<tr><td colspan=\"4\">not run yet</td></tr>";
       }
@@ -1376,19 +1511,20 @@
           ? "Rule ON &mdash; the face centres are forbidden to grow."
           : "Rule OFF &mdash; the face centres fall behind only where the vapour starves them.") +
         spread +
-        "</caption><thead><tr><th>seed</th><th class=\"num\">steps</th>" +
+        "</caption><thead><tr><th>start</th><th class=\"num\">steps</th>" +
         "<th class=\"num\">cells</th>" +
         "<th class=\"num\">fullness</th>" +
-        "</tr></thead><tbody>" + rows + "</tbody></table>" +
+        "</tr></thead><tbody>" + rows + "</tbody>" + foot + "</table>" +
         "<p style=\"font-size:var(--step--1);color:var(--ink-muted);margin:0.4rem 0 0\">" +
-        "fullness 1.00 = a solid hexagon; lower means the face centres have been left behind." +
+        "fullness 1.00 = a solid hexagon; lower means the face centres have been left behind. " +
+        "The test at the foot of the table is the metric criterion 5 would be scored on." +
         "</p>";
 
       card.innerHTML = "";
       var h = document.createElement("p");
       h.style.fontWeight = "650";
       h.style.margin = "0 0 0.5rem";
-      h.textContent = "The v1 scorecard";
+      h.textContent = "The v1 scorecard — the seven a machine settles";
       card.appendChild(h);
       var ol = document.createElement("ol");
       ol.style.fontSize = "var(--step--1)";
@@ -1424,7 +1560,22 @@
       draw();
     }, { pressed: false });
 
-    Viz.button(controls, "Run three seeds", run);
+    // A run is a few million relaxation sweeps and blocks the main thread for a
+    // noticeable moment. Paint the label first, then work, so the page never
+    // looks frozen without saying why.
+    Viz.button(controls, "Run three starting sizes", function (b) {
+      var label = b.textContent;
+      b.textContent = "Working…";
+      b.disabled = true;
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          try { run(); } finally {
+            b.textContent = label;
+            b.disabled = false;
+          }
+        });
+      });
+    });
 
     draw();
     Viz.onThemeChange(draw);

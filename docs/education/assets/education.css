@@ -399,6 +399,27 @@ img { max-width: 100%; height: auto; display: block; }
   .prose > .chart.is-wide { max-width: 62rem; }
 }
 
+/* Verbatim quotation from a source file or paper. Part Two quotes the project's
+   own documents constantly, and the reader has to be able to tell the chapter's
+   voice from the repository's at a glance. */
+.prose blockquote {
+  margin: 1.75rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--rule-strong);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--surface-sunken);
+  color: var(--ink-secondary);
+}
+.prose blockquote > p { margin: 0 0 0.7rem; }
+.prose blockquote > p:last-child { margin-bottom: 0; }
+/* the sunken quote plane is the same colour code normally sits on */
+.prose blockquote code { background: var(--surface-1); }
+.prose blockquote .figure__source {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.74rem;
+}
+
 /* ----------------------------------------------------------- chapter hd -- */
 
 .chapter-header {
@@ -789,6 +810,15 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: 0.78rem;
   color: var(--ink-muted);
   font-family: var(--font-mono);
+}
+
+/* Verbatim quotation of a source file, carried in the .equation frame for its
+   citation line. Not an equation: prose wraps, sets left, and has no <dl> gloss. */
+.equation--quote .equation__math {
+  white-space: normal;
+  text-align: left;
+  font-size: 0.94rem;
+  line-height: 1.7;
 }
 
 /* ---------------------------------------------------------------- tables -- */

@@ -20,12 +20,17 @@
 .c21-rows { display: grid; grid-template-columns: 1fr auto; gap: 0.25rem 0.8rem; font-size: var(--step--1); }
 .c21-rows span:nth-child(even) { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; color: var(--ink-primary); }
 .c21-rows span:nth-child(odd) { color: var(--ink-secondary); }
+/* The badge text is --ink-primary in both themes, not the status hue: at badge size
+   the status colours sit near 3:1 on a light surface, under the 4.5:1 the text needs.
+   The tint carries the colour cue; the word and the strikethrough carry the meaning,
+   so nothing here depends on colour alone. */
 .c21-badge {
-  font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.06em;
+  font-family: var(--font-mono); font-size: var(--step--1); letter-spacing: 0.02em;
   padding: 0.1rem 0.42rem; border-radius: 4px; font-weight: 700; white-space: nowrap;
+  color: var(--ink-primary);
 }
-.c21-badge.is-locked { background: rgba(12, 163, 12, 0.14); color: var(--status-good); }
-.c21-badge.is-open { background: rgba(208, 59, 59, 0.14); color: var(--status-critical); }
+.c21-badge.is-locked { background: rgba(12, 163, 12, 0.18); }
+.c21-badge.is-open { background: rgba(208, 59, 59, 0.18); }
 .c21-lockrow { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 0.22rem 0; font-size: var(--step--1); border-bottom: 1px dotted var(--rule); }
 .c21-lockrow:last-child { border-bottom: none; }
 .c21-lockrow.is-unlocked span:first-child { text-decoration: line-through; color: var(--ink-muted); }
@@ -77,7 +82,7 @@
     <p class="sidenav__title">On this page</p>
     <ol>
       <li><a href="#two-languages">Two languages, nothing in between</a></li>
-      <li><a href="#fill-fraction">A cell is a measuring cylinder</a></li>
+      <li><a href="#fill-fraction">How full is this cell?</a></li>
       <li><a href="#who-sets-the-clock">Who sets the clock?</a></li>
       <li><a href="#temperature">Where temperature stops being a label</a></li>
       <li><a href="#change-one-thing">Change one thing</a></li>
@@ -128,9 +133,16 @@
       </p>
 
       <p>
-        The published cellular automaton this project started from does attachment in one move. A
-        cell is not ice; then the rule fires; then the cell is ice. One whole cell, one tick, no
-        in-between. The physical law the project wants to install says something of a completely
+        The published cellular automaton this project started from attaches a cell in one move. A
+        cell is not ice; then the rule fires; then the cell is ice &mdash; one whole cell, one tick.
+        That is not the same as saying the rule has no memory. Chapter 19 showed you the number it
+        keeps: every boundary cell carries a running quantity <code>b</code>, its boundary mass, and
+        the cell flips the moment <code>b</code> passes an <em>attachment threshold</em>
+        &mdash; &ldquo;boundary mass needed to join the crystal&rdquo;, written
+        <code>ggThreshBeta</code> (docs/gg-machinery.md, line 123; the rule itself at line 237).
+        The memory is real. What it is <em>made of</em> is a model-internal ledger of stuff,
+        counting toward a threshold somebody chose. The physical law the project wants to install
+        says something of a completely
         different shape. It gives a <strong>surface velocity</strong>: the ice front is advancing at
         so many metres per second, right here, right now, and it will keep doing that until
         something changes.
@@ -193,7 +205,7 @@
         </p>
       </aside>
 
-      <h2 id="fill-fraction">A cell is a measuring cylinder</h2>
+      <h2 id="fill-fraction">How full is this cell?</h2>
 
       <p>
         Here is the answer, and it is almost embarrassingly simple once you see it. If the surface
@@ -226,19 +238,33 @@
             <dt>&sigma;<sub>b</sub></dt><dd>the supersaturation the surface actually sees, solved so that the rate the surface demands and the rate the vapour can deliver agree</dd>
             <dt>&Delta;t</dt><dd>the length of this growth step, in seconds &mdash; and it is not a setting; see the next section</dd>
             <dt>&Delta;x</dt><dd>the lattice spacing (0.35&nbsp;&micro;m in this phase's runs)</dd>
-            <dt>H<sub>b</sub></dt><dd>a geometry factor for the boundary patch; the cited value 1 is used on the basal <code>[01]</code> and prism <code>[20]</code> configurations</dd>
+            <dt>H<sub>b</sub></dt><dd>a shape correction for the patch of surface one boundary cell stands for. Every boundary cell is labelled by how many ice neighbours it has &mdash; first the count in the crystal's plane, then the count above and below &mdash; and the two labels this project treats as flat facets, the basal one and the prism one, are written <code>[01]</code> and <code>[20]</code>. Both take the value 1, cited straight from the monograph</dd>
           </dl>
         </div>
         <p class="equation__cite">docs/attachment-kinetics.md &sect;4.2; forward policy in project charter.md, line 265</p>
       </div>
 
       <p>
-        That accumulator is the seam. It is one extra number per boundary cell, and it is
-        <em>memory</em>. Without it the program can only ever say &ldquo;ice&rdquo; or &ldquo;not
-        ice&rdquo;, so a surface creeping forward at three-tenths of a cell per step and one
-        charging forward at nine-tenths produce exactly the same output &mdash; nothing &mdash;
-        until suddenly they don't. The fraction is where the physics goes while it is too small to
-        show up. Drag the speed slider below and watch the two rows disagree.
+        That accumulator is the seam &mdash; and the seam is not that one rule keeps a number and
+        the other does not. Both keep one, and the specification went out of its way to keep the two
+        apart: f is &ldquo;a separate dimensionless Float64 field&rdquo; and &ldquo;is NOT stored in
+        <code>b</code>&rdquo; (docs/attachment-kinetics.md, line 517). The reason is what the two
+        numbers <em>are</em>. &ldquo;<code>b</code> is a mass ledger with G&ndash;G dynamics
+        (freeze/melt); <code>f</code> is a geometric fraction with Libbrecht dynamics&rdquo; (same
+        file, lines 519&ndash;520). <code>b</code> counts stuff up toward
+        <code>ggThreshBeta</code>, a threshold whose value somebody picked. f counts
+        v<sub>n</sub>&middot;&Delta;t &mdash; a distance in metres &mdash; against
+        H<sub>b</sub>&middot;&Delta;x, a cell width in metres. Being a ratio of two lengths, f is
+        itself just a fraction, and that is the point: its threshold is not a chosen number at all.
+        It is 1, because 1 is what &ldquo;the surface has crossed one cell&rdquo; comes to. Pouring
+        one into the other would not be a shortcut but a physics error &mdash; adding
+        <code>v_n&middot;&Delta;t/&Delta;x</code> to a mass ledger &ldquo;injects mass from
+        nowhere&rdquo; (same file, lines 155&ndash;156). What either accumulator buys is easiest to
+        see against a rule that keeps nothing: with no accumulator, a surface creeping forward at
+        three-tenths of a cell per step and one charging forward at nine-tenths produce exactly the
+        same output &mdash; nothing &mdash; until suddenly they don't. The fraction is where the
+        physics goes while it is too small to show up. Drag the speed slider below and watch the two
+        rows disagree.
       </p>
 
       <figure class="anim" id="anim-fill">
@@ -246,7 +272,8 @@
           <p class="anim__title">Fill the cell</p>
           <p class="anim__sub">
             The dashed line is where the physics says the surface is. The top row keeps a fill
-            fraction; the bottom row is only allowed to be ice or not-ice. Watch which one keeps up.
+            fraction; the bottom row keeps no accumulator at all and can only be ice or not-ice.
+            Watch which one keeps up.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -256,15 +283,21 @@
           docs/attachment-kinetics.md &sect;4.2 &mdash; advance = v<sub>n</sub>&middot;&Delta;t,
           attach at f&nbsp;&ge;&nbsp;1. The advancing surface here is a uniform demonstration
           speed, not a solved vapour field; what is being shown is the bookkeeping, not a
-          crystal.</span>
+          crystal. The bottom row is <em>neither</em> of this project's two rules &mdash; both of
+          those keep a per-cell accumulator. It is a rule with no memory at all, drawn to isolate
+          what an accumulator buys.</span>
         </figcaption>
       </figure>
 
       <p>
-        The bottom row is not <em>wrong</em>, exactly. It is the published automaton, doing what it
-        was designed to do, and the project keeps it forever &mdash; we will come back to that. But
-        it cannot carry a velocity, and a model whose whole claim rests on temperature changing a
-        velocity needs somewhere for that velocity to live. The fill fraction is that somewhere.
+        The bottom row is nobody's real rule. It is a rule with no memory, drawn that way to isolate
+        one thing: something that keeps no number cannot carry a velocity. The published automaton
+        is not that; it keeps <code>b</code>, and it is not <em>wrong</em> &mdash; it is doing what
+        it was designed to do, and the project keeps it forever, which we will come back to. But a
+        mass ledger counting toward a chosen threshold cannot carry a velocity either, and a model
+        whose whole claim rests on temperature changing a velocity needs somewhere for that velocity
+        to live, built out of the velocity itself, cell by cell. The fill fraction is that
+        somewhere.
       </p>
 
       <h2 id="who-sets-the-clock">Who sets the clock?</h2>
@@ -420,7 +453,11 @@
           <p class="anim__title">Swap the head</p>
           <p class="anim__sub">
             Same lattice, same seed, same domain &mdash; one surface rule swapped for the other. The
-            interesting part is not the crystal. It is which controls exist.
+            interesting part is not the crystal. It is which controls exist. The
+            <em>aspect ratio</em> in the readout is the crystal's height divided by its width at the
+            size where the run stopped: below 1 is a plate, above 1 is a column. Under the physics
+            rule there is a second button, which runs the control-group check described just below
+            this figure &mdash; try it after you have read what it is for.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -431,7 +468,11 @@
           &beta;&#8320;&#8321; &rarr; plate, low &beta;&#8320;&#8321; &rarr; column); no aspect ratio is
           computed from it. The kinetics-rule crystal is drawn from the two aspect ratios actually
           recorded by the Phase 2b run in docs/PROGRESS.md, line 611, on a compressed scale so both
-          fit the frame.</span>
+          fit the frame. The control-group check reports the permanent Phase 2a
+          <code>GGThreshold</code> run as recorded in docs/PROGRESS.md, lines 610&ndash;612: aspect
+          ratio 0.168831, symmetry error 0 across all 4,800 ticks, and the checkpoint SHA-256
+          beginning <code>f1796b5015</code>, which Phase 3 re-derived byte-identically and which
+          Phase 2b's own gate row reports the control still returning.</span>
         </figcaption>
       </figure>
 
@@ -458,6 +499,17 @@
           <br><span class="figure__source">docs/gg-machinery.md, lines 420&ndash;424</span>
         </p>
       </blockquote>
+
+      <p>
+        That is a question you can now put to the panel. Switch it to
+        <code>LibbrechtKinetics</code> and press <em>check the control</em>: it reports the
+        permanent <code>GGThreshold</code> run, and what matters is not its shape but that its
+        checkpoint hash has not moved &mdash; the same one Phase 2a accepted, Phase 3 re-derived
+        byte-identically, and Phase 2b's gate row records the control still returning
+        (docs/PROGRESS.md, lines 610&ndash;612). Because the control did not move, anything odd
+        under the physics rule is the physics' problem. That is the entire value of keeping a run
+        you already know the answer to.
+      </p>
 
       <h2 id="change-one-thing">Change one thing</h2>
 
@@ -493,20 +545,43 @@
       </figure>
 
       <p>
-        The run happened once, flagless, from a tracked-clean commit, and it exited 0. Same
-        96&times;96&times;96 hexagonal-prism domain, same extent target, same far field &mdash; the
-        outer wall of the box, held at a fixed supersaturation &mdash; held at the same
-        &sigma;<sub>&infin;</sub> = 0.002, same pressure, spacing, mapping, seed 1, noise 0,
-        fill-CFL and convergence controls. Temperature alone differed.
+        The run happened once, from a commit with no uncommitted tracked changes, with no
+        command-line flags that could steer it, and it finished with status 0 &mdash; the number a
+        program returns when every check it was told to enforce passed. Both runs used the same
+        96&times;96&times;96 hexagonal-prism domain and the same <strong>extent</strong> target.
+        Extent is the crystal's largest span in <em>any</em> direction &mdash; across the plate, or
+        up the column, whichever is bigger &mdash; counted in cells. In code that is literally what
+        it says: <code>largestExtent: Math.max(tExtent, zExtent)</code>, where <code>tExtent</code>
+        is the sideways span and <code>zExtent</code> the vertical one
+        (core/src/metrics.ts:170&ndash;176). The run stops at the first growth step whose extent
+        reaches the registered target of 60, which is why both runs record 61 rather than exactly
+        60. Same far field &mdash; the outer wall of the box, held at a fixed supersaturation
+        &mdash; at the same &sigma;<sub>&infin;</sub> = 0.002; same 101325&nbsp;Pa, same
+        0.35&nbsp;&micro;m lattice spacing, same <code>CAK_A1</code> nucleation parameter set,
+        seed 1, noise 0, fill-CFL 0.1, and the same convergence tolerances
+        (docs/plans/phase-2b-v5p-parallel-retry.md, lines 47&ndash;51). Temperature alone differed.
+      </p>
+
+      <p>
+        That definition earns its keep in the table below, where the two runs record the same
+        extent &mdash; 61 &mdash; and it is not the same measurement twice. At &minus;5&nbsp;&deg;C
+        the aspect ratio is far below 1, so that crystal is very much wider than it is tall, and its
+        61 is a sideways span. At &minus;15&nbsp;&deg;C the aspect ratio is 12.2000, which is 61
+        divided by 5: there the 61 is the <em>height</em>, and 5 is the width it was measured
+        against. One number, two completely different objects &mdash; which is about the clearest
+        illustration available that the two runs made different shapes.
       </p>
 
       <div class="table-wrap">
         <table>
           <caption>The Phase 2b result, transcribed from docs/PROGRESS.md, line 611. Aspect ratio
-            here is measured at a pre-registered crystal size; below 1 is a plate, above 1 is a
-            column.</caption>
+            is height divided by width, measured at that size; below 1 is a plate, above 1 is a
+            column. Its width is measured on a different footing from extent &mdash; a Cartesian
+            across-flats denominator, &ldquo;deliberately distinct&rdquo; from the integer lattice
+            spans extent uses (core/src/metrics.ts, lines 146&ndash;148 and 276&ndash;280) &mdash;
+            so the extent column and the width in the aspect ratio are not the same number.</caption>
           <thead>
-            <tr><th>Temperature</th><th class="num">Growth step</th><th class="num">Extent</th><th class="num">Cells attached</th><th class="num">Aspect ratio</th><th>Habit</th></tr>
+            <tr><th>Temperature</th><th class="num">Growth step</th><th class="num">Extent (largest span, cells)</th><th class="num">Cells attached</th><th class="num">Aspect ratio</th><th>Habit</th></tr>
           </thead>
           <tbody>
             <tr><td>&minus;5&nbsp;&deg;C</td><td class="num">814</td><td class="num">61</td><td class="num">18,193</td><td class="num">0.118644</td><td>plate</td></tr>
@@ -516,8 +591,10 @@
       </div>
 
       <p>
-        Both runs hit the size target, both reported symmetry error 0, every relaxation converged,
-        and both checkpoints round-tripped identically. The gate closed on 2026-07-20.
+        Both runs hit the size target, both reported symmetry error 0, every relaxation converged
+        &mdash; a relaxation is the repeated sweep over the grid that solves the vapour field, and
+        chapter 22 is about how anyone decides when one has finished &mdash; and both checkpoints
+        round-tripped identically. The gate closed on 2026-07-20.
       </p>
 
       <p>
@@ -526,6 +603,18 @@
         &minus;15&nbsp;&deg;C nature makes plates. The model produced a plate at
         &minus;5&nbsp;&deg;C and a column at &minus;15&nbsp;&deg;C. The habit changed with
         temperature alone &mdash; and it changed in the opposite sense from the published diagram.
+      </p>
+
+      <p>
+        Before deciding what that means, notice what was <em>not</em> in the model when it happened.
+        The frozen protocol lists, among the things held fixed, &ldquo;no events, SDAK, or
+        ramps&rdquo; (docs/plans/phase-2b-v5p-parallel-retry.md, line 51), and the project's own
+        record calls this &ldquo;Phase 2b's scoped no-SDAK deliverable&rdquo; (docs/PROGRESS.md,
+        line 523). SDAK &mdash; the narrow-facet mechanism chapter 12 spent itself on, and the
+        disputed one &mdash; is not in this model at all. So the flip is not evidence that
+        attachment kinetics is simply backwards. It is evidence that <em>broad-facet</em> attachment
+        kinetics on its own, with no narrow-facet term anywhere in the rule, flips the wrong way.
+        Those are different claims, and later chapters need the second one.
       </p>
 
       <aside class="callout callout--myth">
@@ -538,12 +627,15 @@
         <p>
           It is tempting to call that either a triumph or a bug. It is neither, and the difference
           matters. This gate asked whether habit responds to temperature <em>at all</em> when
-          nothing else moves. It did not ask whether it responds correctly, it had no authority to
+          nothing else moves, in a model carrying broad-facet attachment kinetics and nothing else.
+          It did not ask whether it responds correctly, it had no authority to
           ask that, and the answer to the question it did ask is yes. What the run shows is that
           <strong>the model was given temperature as a real physical input</strong>. It does not
           show that the model reproduces reality &mdash; that is a different claim, it needs a
           different experiment, and later chapters are entirely about how that experiment was set
-          up and marked. Hold the wrong-sense flip as an early warning. It is not explained here.
+          up and marked. Hold the wrong-sense flip as an early warning about broad-facet kinetics
+          <em>on its own</em>. What a narrow-facet term would have done to it is not tested here,
+          because there was not one in the model.
         </p>
       </aside>
 
@@ -571,7 +663,8 @@
       <p>
         The reference rule makes a beautiful promise. Vapour spreads by local averaging, walls
         reflect, nothing is created and nothing escapes, so the total of everything on the grid is
-        an exact invariant &mdash; and Phase 2a tested it as one. It is the cleanest kind of
+        an invariant &mdash; exact in arithmetic, and, as chapter 19 was careful to say, tested
+        against a measured float floor rather than against zero. It is the cleanest kind of
         test there is: not &ldquo;does the picture look right&rdquo; but &ldquo;does this number
         stay where arithmetic says it must&rdquo;.
       </p>
@@ -671,7 +764,9 @@
           <p class="chart__title">Two rules, two different promises</p>
           <p class="chart__sub">
             Each surface rule returns a one-sentence claim describing the exact thing it can be held
-            to. They are not the same sentence, and neither one is a hedge.
+            to. They are not the same sentence, and neither one is a hedge. (<code>b</code> and
+            <code>d</code> are chapter 19's two columns &mdash; boundary mass and vapour; their sum,
+            written Sigma(b+d), is the total on the grid.)
           </p>
         </div>
         <div class="chart__body">
@@ -801,11 +896,12 @@
         <strong>Protocol v4 did not fail. It terminated.</strong> The warm run finished normally.
         The cold run stopped at growth step 12. Solving the vapour field means sweeping over the
         grid again and again until the numbers settle; this attempt used all 200,000 sweeps it was
-        allowed. Two separate tests ask whether it has settled. The first &mdash; how much the
-        numbers still change from one sweep to the next &mdash; read exactly zero: nothing was
-        moving. The second &mdash; whether the vapour flowing in at the far wall balances the
-        vapour the crystal surface is taking out &mdash; stuck at 3.10e-7, against a registered
-        limit of 1e-7. Nothing was changing and the books still did not balance. Exit status 1.
+        allowed. Two separate tests have to pass before the field counts as solved. The first asks
+        whether it has stopped moving &mdash; how much the numbers still change from one sweep to
+        the next &mdash; and it read exactly zero. The second asks whether the answer it stopped at
+        balances: does the vapour flowing in at the far wall match the vapour the crystal surface is
+        taking out? That one stuck at 3.10e-7, against a registered limit of 1e-7. Nothing was
+        changing and the books still did not balance. Exit status 1.
         And then this line, which is the whole discipline in one clause: its aspect ratio of
         0.6 &ldquo;is below the registered measurement size and has no habit meaning&rdquo;
         (docs/plans/phase-2b-v4-convergence-failure-and-v5.md, lines 38&ndash;42). The run produced
@@ -827,8 +923,8 @@
         <strong>Protocol v5 passed</strong> &mdash; run once, flagless, with the two temperatures
         executed as two concurrent processes rather than one after the other (the &ldquo;v5p&rdquo;
         retry, after the sequential attempt was interrupted by a host shutdown mid-run;
-        docs/PROGRESS.md, lines 247&ndash;255) &mdash; and produced the table you read two sections
-        ago.
+        docs/PROGRESS.md, lines 247&ndash;255) &mdash; and produced the table in &ldquo;Change one
+        thing&rdquo;.
       </p>
 
       <aside class="callout callout--method">
@@ -898,7 +994,10 @@
 /* ===========================================================================
    1. FILL THE CELL
    A uniform demonstration surface speed advances across a row of cells.
-   Top row keeps a fill fraction; bottom row can only be ice or not-ice.
+   Top row keeps a fill fraction; the bottom row keeps NO accumulator at all.
+   The bottom row is deliberately not GGThreshold — that rule keeps its own
+   accumulator (boundary mass b). It is a no-memory strawman, and the caption
+   and prose both say so.
    ======================================================================== */
 (function () {
   const root = document.getElementById("anim-fill");
@@ -942,7 +1041,7 @@
     if (svg) svg.remove();
     svg = Viz.createSvg(body, W, H, {
       label: "A row of grid cells filling as a surface advances, compared with the same row " +
-             "allowed only to be ice or not-ice.",
+             "under a rule that keeps no accumulator and can only be ice or not-ice.",
     });
     const c = Viz.colors();
     const frozenCount = Math.floor(adv);
@@ -950,7 +1049,7 @@
 
     svg.appendChild(label(X0, ROW_A - 8, "with a fill fraction  —  f(x) accumulates, attach at f ≥ 1",
       "annotation", "start", c.inkSecondary));
-    svg.appendChild(label(X0, ROW_B - 8, "binary flip only  —  a cell is ice, or it is not",
+    svg.appendChild(label(X0, ROW_B - 8, "no accumulator at all  —  a cell is ice, or it is not",
       "annotation", "start", c.inkSecondary));
 
     for (let k = 0; k < N; k++) {
@@ -1164,15 +1263,25 @@
     "-5": { step: "814", extent: "61", attached: "18,193", ar: "0.118644", habit: "plate" },
     "-15": { step: "330", extent: "61", attached: "1,159", ar: "12.2000", habit: "column" },
   };
+  /* The panel IS the audit list: every control the verdict claims was held has a row
+     here, so "Unlock everything" strikes through exactly what the verdict enumerates.
+     Values are the v5p freeze, docs/plans/phase-2b-v5p-parallel-retry.md lines 47–51. */
   const LOCKS = [
     "domain 96×96×96, hexagonal prism",
     "far field: supersaturation held fixed at the domain edge (a “Dirichlet” boundary)",
     "σ<sub>∞</sub> = 0.002 — the supersaturation held at that far edge",
+    "pressure 101325 Pa",
+    "lattice spacing dx = 0.35 µm",
+    "nucleation parameter set CAK_A1",
     "seed 1",
     "noise 0",
     "fill-CFL 0.1",
-    "convergence tolerances",
-    "measurement size (extent target 60)",
+    "convergence tolerances (relaxTol 1e-9, divTol 1e-7)",
+    "no events, SDAK, or ramps — the narrow-facet term is not in this model at all",
+    // Self-describing: this panel sits above the paragraph that glosses "extent",
+    // so the row cannot lean on that definition having been read yet. "Largest span in
+    // any direction" is core/src/metrics.ts:170-176, not a sideways measurement.
+    "measurement size — stop at the first step where the crystal's largest span, in any direction, reaches 60 cells",
   ];
 
   let locked = true;
@@ -1188,14 +1297,14 @@
     };
     const results = locked
       ? "<span>growth step</span><span>" + r.step + "</span>" +
-        "<span>extent</span><span>" + r.extent + "</span>" +
+        "<span>extent (largest span, cells)</span><span>" + r.extent + "</span>" +
         "<span>cells attached</span><span>" + r.attached + "</span>" +
-        "<span>aspect ratio</span><span>" + r.ar + "</span>" +
+        "<span>aspect ratio (height ÷ width)</span><span>" + r.ar + "</span>" +
         "<span>habit</span><span>" + r.habit + "</span>"
       : "<span>growth step</span><span>&mdash;</span>" +
-        "<span>extent</span><span>&mdash;</span>" +
+        "<span>extent (largest span, cells)</span><span>&mdash;</span>" +
         "<span>cells attached</span><span>&mdash;</span>" +
-        "<span>aspect ratio</span><span>&mdash;</span>" +
+        "<span>aspect ratio (height ÷ width)</span><span>&mdash;</span>" +
         "<span>habit</span><span>&mdash;</span>";
     return "<div class=\"c21-card\"><h4>Run " + title + "</h4>" +
       "<div style=\"display:flex;gap:0.5rem;margin-bottom:0.6rem;\">" + pick("-5") + pick("-15") + "</div>" +
@@ -1216,10 +1325,16 @@
         "worthless &mdash; there is no contrast here to attribute to anything. A control group " +
         "you did not vary against is just a run.</div>";
     }
+    /* "identical", not "byte-for-byte": the source records identity of VALUES across the
+       control list (PROGRESS.md line 611). This repository reserves "byte-for-byte" for
+       artefact identity — checkpoint hashes, `cmp` results — and the distinction is exactly
+       the kind this chapter refuses to blur. */
     return "<div class=\"c21-verdict is-good\"><strong>Temperature alone differed.</strong> " +
-      "Every other input is byte-for-byte identical between the two runs, so any difference in " +
-      "the result is attributable to temperature and to nothing else. This is the comparison the " +
-      "phase gate demanded, and it is the comparison that was run.</div>";
+      "Every other input is identical between the two runs &mdash; every row in the panel above, " +
+      "all the same values &mdash; so any difference in the result is attributable to temperature " +
+      "and to nothing else. This is the comparison the phase gate demanded, and it is the " +
+      "comparison that was run. Read the SDAK row twice: what is under test here is broad-facet " +
+      "attachment kinetics on its own.</div>";
   }
 
   function render() {
@@ -1269,19 +1384,53 @@
   let rule = "GGThreshold";
   let beta01 = 1.25;
   let temp = "-5";
+  let checkedControl = false;
+
+  /* The control-group differential, with the numbers the record actually carries.
+     The 2a plate is a FIXED registered run (its own preset), not whatever the β
+     slider on this panel is showing. Values: docs/PROGRESS.md lines 610-612. */
+  const CONTROL_CARD =
+    "<div class=\"c21-card\"><h4>The control, checked</h4>" +
+    "<div class=\"c21-rows\">" +
+      "<span>rule</span><span>GGThreshold</span>" +
+      "<span>registered run</span><span>plate, seed 1, 128×128×64 hexPrism</span>" +
+      "<span>symmetry error</span><span>0, all 4800 ticks</span>" +
+      "<span>aspect ratio</span><span>0.168831</span>" +
+      "<span>checkpoint SHA-256</span><span>f1796b5015…a389</span>" +
+    "</div>" +
+    "<p style=\"margin:0.7rem 0 0;font-size:var(--step--1);color:var(--ink-secondary);\">" +
+    "That hash is the one Phase 2a accepted, the one Phase 3 re-derived byte-identically, and " +
+    "the one Phase 2b's own gate row records the permanent control still returning " +
+    "(docs/PROGRESS.md, lines 610&ndash;612). The control did not move. That is what decides " +
+    "which of two things you are looking at. Because <strong>GGThreshold still produces its " +
+    "recorded result, on this machinery, from this seed</strong>, the lattice, the diffusion " +
+    "sweep and the checkpoint code are not the suspects, and anything strange in the kinetics " +
+    "run belongs to the physics. Had the hash moved instead, the fault would be underneath both " +
+    "rules &mdash; and the physics would be innocent, because no claim about it could be made at " +
+    "all. This is a fixed registered run, not the β slider above.</p></div>";
 
   const AR_TEXT = { "-5": "0.118644", "-15": "12.2000" };
   const AR_NUM = { "-5": 0.118644, "-15": 12.2 };
   const HABIT = { "-5": "plate", "-15": "column" };
 
-  /* Schematic side view of a hexagonal prism. `s` > 1 draws a column,
-     s < 1 draws a plate. Facets are direct-labelled, never colour alone. */
-  function crystal(s) {
+  const SHAPE_WORDS = {
+    plate: "wide and flat like a plate",
+    column: "tall like a column",
+    "blocky prism": "roughly as tall as it is wide, a blocky prism",
+  };
+
+  /* Schematic side view of a hexagonal prism. `s` scales the drawing; the
+     description is keyed off the SAME verdict word the readout prints, so the
+     accessible label and the visible readout cannot disagree with each other.
+     (Keying it off `s` alone was wrong: `w` is a half-width and `h` a full
+     height, so the drawn ratio is s²/2, not s.)
+     Facets are direct-labelled, never colour alone. */
+  function crystal(s, verdictWord) {
     const W = 300, H = 200;
     const holder = document.createElement("div");
     const svg = Viz.createSvg(holder, W, H, {
       label: "A schematic side view of a snow crystal, drawn " +
-             (s > 1 ? "tall like a column." : "wide and flat like a plate."),
+             (SHAPE_WORDS[verdictWord] || "to scale with the readout") + ".",
     });
     const c = Viz.colors();
     const w = Math.max(12, Math.min(110, 46 / s));   // half-width
@@ -1353,12 +1502,23 @@
         "as the control group &mdash; but it cannot be evidence about temperature, because there " +
         "is no temperature anywhere in this rule.</p>"
       : "<div class=\"c21-rows\"><span>habit</span><span>" + verdictWord + "</span>" +
-        "<span>aspect ratio</span><span>" + AR_TEXT[temp] + "</span>" +
+        "<span>aspect ratio (height ÷ width)</span><span>" + AR_TEXT[temp] + "</span>" +
         "<span>where it came from</span><span>measured from the run</span></div>" +
         "<p style=\"margin:0.6rem 0 0;font-size:var(--step--1);color:var(--ink-secondary);\">" +
         "There is no control on this panel that sets the habit. You set a temperature; the " +
         "attachment coefficients follow from it at every boundary cell, every step; the shape is " +
         "whatever comes out. Those two aspect ratios are the ones the run actually recorded.</p>";
+
+    /* The differential is only ever posed about LibbrechtKinetics — that is the rule
+       under suspicion (docs/gg-machinery.md, lines 420-424) — so the button lives on
+       that side and nowhere else. */
+    const controlHtml = isGG ? "" :
+      "<div style=\"display:flex;gap:0.6rem;flex-wrap:wrap;\">" +
+        "<button type=\"button\" class=\"button\" data-act=\"control\" aria-pressed=\"" +
+        checkedControl + "\">" +
+        (checkedControl ? "Hide the control" : "This looks strange — check the control") +
+        "</button></div>" +
+      (checkedControl ? CONTROL_CARD : "");
 
     body.innerHTML =
       "<div class=\"c21-panel\">" +
@@ -1370,7 +1530,8 @@
           "<div class=\"c21-card\"><h4>Controls under this rule</h4>" + controlList + "</div>" +
           "<div class=\"c21-card\"><h4>What comes out</h4>" + readout + "</div>" +
         "</div>" +
-        "<div style=\"max-width:320px;margin:0 auto;\">" + crystal(s) + "</div>" +
+        "<div style=\"max-width:320px;margin:0 auto;\">" + crystal(s, verdictWord) + "</div>" +
+        controlHtml +
       "</div>";
   }
 
@@ -1378,8 +1539,9 @@
     const t = e.target;
     const b = t && t.closest ? t.closest("button[data-act]") : null;
     if (!b) return;
-    if (b.dataset.act === "rule") { rule = b.dataset.val; render(); }
+    if (b.dataset.act === "rule") { rule = b.dataset.val; checkedControl = false; render(); }
     if (b.dataset.act === "temp") { temp = b.dataset.val; render(); }
+    if (b.dataset.act === "control") { checkedControl = !checkedControl; render(); }
   });
 
   const betaSlider = Viz.slider(controls, {

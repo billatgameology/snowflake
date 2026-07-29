@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sealing the Envelope — Snow Crystals</title>
-<meta name="description" content="Before the validation sweep ran, every choice that could flatter the answer was written down, hashed, and wired to a program that refuses to run if a single byte moves.">
+<meta name="description" content="Before the validation sweep ran, every choice the project could identify as able to flatter the answer was written down, hashed, and wired to a program that refuses to run if a single byte moves.">
 <link rel="stylesheet" href="../assets/education.css">
 </head>
 
@@ -58,7 +58,7 @@
           rules until it looks better?
         </p>
         <div class="chapter-header__meta">
-          <span>~14 min read</span>
+          <span>~18 min read</span>
           <span>5 figures</span>
           <span>4 interactives</span>
         </div>
@@ -82,17 +82,17 @@
       </p>
 
       <p>
-        Read it once as a rule written before any run happened. It is careful. The reference
-        diagram&rsquo;s own boundaries are only known to about half a degree, so demanding the
-        model place a habit <strong>flip</strong> &mdash; a temperature where the crystal stops
+        Read it once as a rule written before any run happened. It is careful: the reference
+        diagram&rsquo;s own boundaries are known only to about half a degree, so demanding that the
+        model locate a habit <strong>flip</strong> &mdash; a temperature where the crystal stops
         growing plates and starts growing columns, or the reverse &mdash; more precisely than the
-        reference locates it would be unfair, and the rule says so in advance.
+        reference does would be unfair.
       </p>
 
       <p>
         Now read the same sentence as something written after 204 runs came back, with the
         disagreements sitting near the boundaries. It is an excuse. Not a different sentence &mdash;
-        the <em>same</em> sentence. The words did not change. Only the order of events did.
+        the <em>same</em> sentence. Only the order of events changed.
       </p>
 
       <p>
@@ -114,19 +114,19 @@
 
       <p>
         This is the whole chapter in one idea. A scientific claim is not just a number; it is a
-        number plus the order in which the choices were made. So before the validation sweep ran,
-        the project wrote down every choice that could move the answer, turned the whole list into
-        a single 64-character string, and pointed a program at that string with instructions to
-        refuse to produce evidence if one byte of it moved.
+        number plus the order in which the choices were made. So before the validation sweep ran, the
+        project wrote down every choice it could identify that could move the answer, turned the list
+        into a single 64-character string, and pointed a program at that string with instructions to
+        refuse to produce evidence if one byte of it moved. Whether the list was <em>complete</em> is
+        a different question, and the last third of this chapter is the day the answer was no.
       </p>
 
       <p>
         Two words first, because the rest of the chapter leans on them. The project&rsquo;s files
-        live in <strong>git</strong>, which stores the whole history as a chain of snapshots. Each
-        snapshot is a <strong>commit</strong>, named by a fingerprint of everything in it
-        <em>plus</em> the fingerprint of the snapshot before it &mdash; so a commit&rsquo;s name
-        depends on its entire past. <strong>HEAD</strong> is git&rsquo;s name for the snapshot you
-        are standing on right now.
+        live in <strong>git</strong>, which stores the history as a chain of snapshots. Each snapshot
+        is a <strong>commit</strong>, named by a fingerprint of everything in it <em>plus</em> the
+        fingerprint of the one before &mdash; so a commit&rsquo;s name depends on its entire past.
+        <strong>HEAD</strong> is git&rsquo;s name for the snapshot you are standing on now.
       </p>
 
       <aside class="callout callout--key">
@@ -145,11 +145,10 @@
       </aside>
 
       <p>
-        Deliberately, there is no result in this chapter. You will finish it knowing exactly how
-        the exam is marked, and not knowing the mark. That wait is the point. When the number
-        arrives in chapter 28, you will already be unable to say &ldquo;well, they probably picked
-        the rules that suited them&rdquo; &mdash; because you will have watched the rules being
-        picked.
+        Deliberately, there is no result in this chapter. You will finish it knowing exactly how the
+        exam is marked and not knowing the mark. That wait is the point: when the number arrives in
+        chapter 28, you will have watched the rules being picked, so &ldquo;they probably picked the
+        ones that suited them&rdquo; is not available to anybody.
       </p>
 
       <h2 id="freeze-list">The list</h2>
@@ -181,19 +180,20 @@
       </blockquote>
 
       <p>
-        (<strong>ADR</strong> is the project&rsquo;s name for one of those numbered decision records
-        &mdash; an <em>architecture decision record</em>. Decision 0025, below, is one of them.)
+        Most of those are the numerical settings from chapters 20 to 26. You are not expected to
+        follow each one. What matters is that there are twenty-five of them, that each has a
+        written-down value, and that the price of changing one afterwards is the whole sweep again.
+        (<strong>ADR</strong> is the project&rsquo;s name for a numbered decision record &mdash; an
+        <em>architecture decision record</em>. Decision 0025, below, is one.)
       </p>
 
       <p>
-        In the repository that list is not prose. It is an array called
-        <code>PHASE6_FREEZE_LIST</code> in <code>runner/src/phase6-protocol.ts</code>. Each entry
-        carries six fields: an id, a group, a status of <code>registered</code> or
-        <code>pending</code>, the <em>requirement</em> &mdash; in the words of whichever document
-        demands it, which the source file calls &ldquo;what the charter/ADR requires, in its own
-        terms&rdquo; &mdash; the <em>value</em> chosen, and the <em>source</em>, which study or
-        decision record produced that value. The list runs to twenty-five registered rows today;
-        the code&rsquo;s own revision log records the first seal as twenty-one.
+        In the repository the list is not prose. It is an array called
+        <code>PHASE6_FREEZE_LIST</code> in <code>runner/src/phase6-protocol.ts</code>, each entry
+        carrying an id, a group, a status of <code>registered</code> or <code>pending</code>, the
+        <em>requirement</em> in the words of whichever document demands it, the <em>value</em>
+        chosen, and the <em>source</em> that produced it. Twenty-five registered rows today; the
+        revision log records the first seal as twenty-one.
       </p>
 
       <p>
@@ -256,33 +256,39 @@
       </div>
 
       <p>
-        One more property matters more than any single row. The function that assembles the list
-        into a hashable document <strong>throws an error if any row is still
-        <code>pending</code></strong>. You cannot hash a half-finished protocol and call yourself
-        pre-registered. In the source&rsquo;s own words, it &ldquo;refuses to exist while any
-        required item is pending, so a sweep cannot quote a protocol hash the freeze has not
-        actually earned.&rdquo;
+        One property matters more than any single row. The function that assembles the list into a
+        hashable document <strong>throws an error if any row is still <code>pending</code></strong>.
+        It &ldquo;refuses to exist while any required item is pending, so a sweep cannot quote a
+        protocol hash the freeze has not actually earned.&rdquo;
       </p>
 
       <h2 id="the-seal">The seal</h2>
 
       <p>
-        A list that anybody can edit is a promise. To turn it into a fact, the whole list is written
-        out as one long piece of text, always in exactly the same way &mdash; programmers call that
-        <em>serialising</em> &mdash; and run through SHA-256: a function that takes any text
-        and produces a fixed 64-character fingerprint, where changing anything at all in the input
-        scrambles the output completely and unpredictably.
+        A list anybody can edit is a promise. To turn it into a fact, the list is written out as one
+        long piece of text, always in exactly the same way &mdash; programmers call that
+        <em>serialising</em> &mdash; and run through SHA-256: a function that turns any text into a
+        fixed 64-character fingerprint, where changing anything at all scrambles the output
+        unpredictably.
       </p>
 
       <p>
-        &ldquo;One fixed way&rdquo; is doing real work there. The repository&rsquo;s serialiser is
-        described in one line: <em>&ldquo;Canonical UTF-8 JSON: recursively sorted keys and no
-        insignificant whitespace&rdquo;</em> (<code>runner/src/gate4-evidence.ts</code>). Its
-        reader is stricter still &mdash; it re-serialises whatever it parsed and compares the bytes,
-        so that byte equality &ldquo;rejects duplicate keys, alternate number spellings, reordered
-        keys, trailing data, and whitespace changes.&rdquo; Two files that mean the same thing hash
-        the same; two files that mean different things cannot be made to hash the same by tidying
-        the formatting.
+        &ldquo;One fixed way&rdquo; is doing real work there. The list is written as
+        <strong>JSON</strong>, a plain-text format where every value sits under a named label called
+        a <strong>key</strong> &mdash; <code>"noiseAmplitude": 0</code>. Two people can write the
+        same JSON in a different order, with different spacing, and mean exactly the same thing, so a
+        fingerprint taken naively would differ for no reason. The repository&rsquo;s serialiser
+        removes that freedom: <em>&ldquo;Canonical UTF-8 JSON: recursively sorted keys and no
+        insignificant whitespace&rdquo;</em> (<code>runner/src/gate4-evidence.ts</code>).
+      </p>
+
+      <p>
+        Its <em>reader</em> is stricter. Turning text back into values is called
+        <strong>parsing</strong>; this one parses the file, writes the result out again in canonical
+        form, and demands the two be identical character for character. That one comparison
+        &ldquo;rejects duplicate keys, alternate number spellings, reordered keys, trailing data, and
+        whitespace changes.&rdquo; Two files that mean the same thing hash the same; two that mean
+        different things cannot be made to match by tidying the formatting.
       </p>
 
       <p>
@@ -306,20 +312,31 @@
             browser. The five field names are five of the real top-level keys of the manifest built
             by <code>phase6ProtocolManifest()</code>, their values are the registered ones, and the
             freeze-list row that registers each is named beside it &mdash; all from
-            <code>runner/src/phase6-protocol.ts</code>. The refusal text is the real message from
+            <code>runner/src/phase6-protocol.ts</code>. <code>farField</code> names what the box edge
+            pretends the distant sky is doing (chapter 23); <code>paramSet</code> is the
+            twenty-fifth row, added by decision record 0031 <em>after</em> the sweep &mdash; it is in
+            the envelope now precisely because it was not before, which is what &sect;&thinsp;Try to
+            cheat is about. The four-line success transcript is a
+            simulation of the preflight&rsquo;s reasoning, not the output of a real run &mdash; the
+            four checks and their order are the real ones
+            (<code>phase6SweepPreflight</code>), but the real function collects failures and prints
+            no per-check &ldquo;ok&rdquo; line. The refusal text is verbatim, the real message from
             <code>runner/src/phase6-sweep.ts</code>. The pin shown is a fingerprint of these five
             fields only, computed when the page loaded &mdash; it is <strong>not</strong> the
             project&rsquo;s protocol hash, which covers the whole manifest, the twenty-five-row
             freeze list and all. Note that the canonical form sorts the keys and normalises number
-            spelling, so <code>0.135</code> and <code>0.1350</code> seal identically: the fingerprint
-            is over what the values <em>mean</em>, not over how you typed them.
+            spelling, so <code>0.135</code> and <code>0.1350</code> seal identically: hashing
+            serialises the <em>value</em>, so those are the same number. It is the strict
+            <em>reader</em> described just above that refuses a <em>file</em> spelling it the second
+            way &mdash; two different operations, one over meaning and one over bytes.
           </span>
         </figcaption>
       </figure>
 
       <p>
         The real seal covers the manifest built by <code>phase6ProtocolManifest()</code>, and its
-        fingerprint is stored as a constant with a comment explaining what it is for:
+        fingerprint is stored as a constant &mdash; today <code>8aeb2b80&hellip;</code> &mdash; with a
+        comment explaining what it is for:
       </p>
 
       <blockquote>
@@ -335,36 +352,31 @@
       </blockquote>
 
       <p>
-        <strong>A freeze nothing checks is a comment.</strong> The pin is enforced by a test that
-        recomputes the fingerprint from the live code every time the suite runs. Three details in
-        that test are worth more than the rest of the machinery put together, because each one is a
-        way the seal could have looked convincing while being useless.
+        The pin is enforced by a test that recomputes the fingerprint from the live code every time
+        the suite runs. Three details in that test matter more than the rest of the machinery,
+        because each is a way the seal could have looked convincing while being useless.
       </p>
 
       <p>
         <strong>First: the grid goes in by value, not by size.</strong> The manifest embeds the
-        actual list of temperatures and humidity fractions, not the count of them. The comment
-        explains why: &ldquo;A manifest hash that moved only when a count changed would not notice a
-        temperature or a fraction being swapped for another.&rdquo; A seal that only counts the
-        pages does not notice a rewritten page.
+        actual temperatures and humidity fractions, not the count of them, because &ldquo;a manifest
+        hash that moved only when a count changed would not notice a temperature or a fraction being
+        swapped for another.&rdquo; A seal that counts the pages does not notice a rewritten page.
       </p>
 
       <p>
         <strong>Second: the hash must not be inside the thing it hashes.</strong> That is a literal
-        line in the test file. It sounds pedantic and it is not: a document that contains its own
-        fingerprint cannot be built at all. Writing the fingerprint in changes the document, which
-        changes the fingerprint, which means the one you just wrote in is now wrong. The same
-        problem shows up one level up, with commits. The freeze commit is named by the
-        commit that <em>follows</em> it, because &mdash; again in the source&rsquo;s own words
-        &mdash; &ldquo;a commit cannot contain its own hash.&rdquo;
+        line in the test file, and it is not pedantry: writing the fingerprint in changes the
+        document, which changes the fingerprint, which makes the one you just wrote wrong. The freeze
+        commit is named by the commit that <em>follows</em> it for the same reason &mdash; &ldquo;a
+        commit cannot contain its own hash.&rdquo;
       </p>
 
       <p>
         <strong>Third, and this is the one to remember: a partial seal is worse than none.</strong>
         While the freeze was being amended, someone noticed that the newly written scoring rule had
-        been registered as text but never actually included in the hashed manifest. The grid was
-        sealed. The rule that turned runs into a verdict was not. The test that now prevents this
-        carries the reason as a comment:
+        been registered as text but never included in the hashed manifest. The grid was sealed. The
+        rule that turned runs into a verdict was not.
       </p>
 
       <aside class="callout callout--myth">
@@ -386,13 +398,12 @@
       </aside>
 
       <p>
-        One more piece of engineering that sounds trivial and is not. The parameter table is hashed
+        One last piece of engineering that sounds trivial and is not. The parameter table is hashed
         <strong>with its line endings normalised to LF</strong>, because Windows and Linux store the
         invisible end-of-line character differently. Without that step the fingerprint would depend
-        on which machine checked the file out rather than on what the file says &mdash; and it would
-        fail on exactly the second computer the project needs to reproduce itself on. The comment
-        states the goal plainly: normalising &ldquo;makes the hash a statement about the physics,
-        which is what it is for.&rdquo;
+        on which machine checked the file out &mdash; and would fail on exactly the second computer
+        the project needs to reproduce itself on. Normalising &ldquo;makes the hash a statement about
+        the physics, which is what it is for.&rdquo;
       </p>
 
       <h2 id="preflight">The four refusals</h2>
@@ -413,15 +424,14 @@
       </blockquote>
 
       <p>
-        The sentence the ellipsis swallows is the list of what it requires: four checks, and each
-        closes a different door.
+        The sentence the ellipsis swallows lists four checks, each closing a different door.
         <strong>Freeze complete</strong> stops you pre-registering a protocol with blanks in it.
         <strong>Hash matches the pin</strong> stops you editing a registered value.
         <strong>Freeze commit is an ancestor of HEAD</strong> stops you writing the protocol after
-        the runs and backdating it &mdash; git&rsquo;s history is a chain, and a commit cannot be
-        an ancestor of one that already existed. <strong>Tracked tree is clean</strong> stops you
-        running with uncommitted edits, which is the loophole that would otherwise defeat the other
-        three: source you have not committed is source nobody else can inspect.
+        the runs and backdating it &mdash; git&rsquo;s history is a chain, and a commit cannot be an
+        ancestor of one that already existed. <strong>Tracked tree is clean</strong> stops you
+        running with uncommitted edits: source you have not committed is source nobody else can
+        inspect, and without this check it would defeat the other three.
       </p>
 
       <figure class="chart" id="c27-ancestor">
@@ -460,11 +470,10 @@
           <code>9aa2e7c1&hellip;</code> &mdash; the protocol that sweep ran under &mdash; the
           execution commit <code>3e3f75ce&hellip;</code>, and the freeze commit
           <code>e2f1bfca&hellip;</code>, &ldquo;<strong>verified an ancestor of the execution
-          commit</strong>&rdquo;. That is not the fingerprint at the top of this chapter. The list
-          has since gained a row and the pin has moved to <code>8aeb2b80&hellip;</code>; decision
-          record 0031 records the move as &ldquo;<code>9aa2e7c1&hellip;</code> &rarr;
-          <code>8aeb2b80&hellip;</code> (24 freeze rows &rarr; 25)&rdquo;. Hold on to that
-          difference &mdash; chapter 29 is entirely about what it cost.
+          commit</strong>&rdquo;. That is not the pin you saw in the last section. The list has since
+          gained a row and the pin has moved; decision record 0031 records the move as
+          &ldquo;<code>9aa2e7c1&hellip;</code> &rarr; <code>8aeb2b80&hellip;</code> (24 freeze rows
+          &rarr; 25)&rdquo;. Hold on to that difference.
         </p>
       </aside>
 
@@ -472,18 +481,14 @@
 
       <p>
         The hardest thing to freeze is not a number. It is the rule that turns runs into a verdict.
-        On 2026-07-27, an independent review found that the freeze had registered the grid, the
-        band, the thresholds and the uncertainty scheme &mdash; and had never registered how a model
-        habit class is scored against the reference at all. Decision record 0025 filled the hole,
-        and it was written while the answer was still unknown: <strong>no sweep had run at the time
-        of writing.</strong>
-      </p>
-
-      <p>
-        The freeze row it wrote says what it covers, in four items: &ldquo;the accepted-class
-        matrix, the treatment of <code>neutral</code> and <code>invalid</code>, the flip predicate,
-        and the headline scope&rdquo; (the <code>agreement-scoring</code> row of
-        <code>PHASE6_FREEZE_LIST</code>). Take them in turn.
+        On 2026-07-27, an independent review &mdash; an LLM review, like every review this project
+        has had; the last section says what that is worth &mdash; found that the freeze had
+        registered the grid, the band, the thresholds and the uncertainty scheme, and had never
+        registered how a model habit class is scored at all. Decision record 0025 filled the hole,
+        written while the answer was still unknown: <strong>no sweep had run at the time of
+        writing.</strong> Its freeze row covers four items &mdash; &ldquo;the accepted-class matrix,
+        the treatment of <code>neutral</code> and <code>invalid</code>, the flip predicate, and the
+        headline scope&rdquo; (the <code>agreement-scoring</code> row). Take them in turn.
       </p>
 
       <p>
@@ -496,10 +501,9 @@
 
       <p>
         <strong>2. <code>neutral</code> counts as disagreement.</strong> The model has a third
-        outcome: the aspect ratio defined in the table above landing strictly between 0.6667 and
-        1.5, meaning neither a plate nor a column. It
-        would be very convenient to call that an abstention and leave it out of the score. The
-        decision record refuses, and gives the reason:
+        outcome: the aspect ratio defined in the table above landing strictly between 0.6667 and 1.5,
+        meaning neither a plate nor a column. It would be very convenient to call that an abstention
+        and leave it out of the score. The record refuses, and gives the reason:
       </p>
 
       <blockquote>
@@ -520,25 +524,25 @@
 
       <p>
         <strong>3. <code>invalid</code> is excluded &mdash; by name.</strong> A run that tripped the
-        65% domain-contact guard &mdash; the rule from chapter 23 that invalidates a run whose crystal
-        grows too close to the wall of its box &mdash; or broke the six-fold symmetry check, or failed
-        to converge, is thrown out, because &ldquo;it is not a statement about the model; it is a run
-        that did not happen.&rdquo; But decision 0025 is explicit that the plan &ldquo;already
-        requires such runs be excluded by name rather than dropped silently.&rdquo; The difference
-        between those two is the entire difference between a safeguard and a laundry chute.
+        65% domain-contact guard &mdash; the chapter-23 rule that throws out a run whose crystal has
+        grown too close to the wall of its box &mdash; or broke the six-fold symmetry check, or
+        failed to converge, is thrown
+        out: &ldquo;it is not a statement about the model; it is a run that did not happen.&rdquo; But
+        0025 is explicit that such runs are &ldquo;excluded by name rather than dropped
+        silently&rdquo;, and that difference is the whole difference between a safeguard and a
+        laundry chute.
       </p>
 
       <p>
-        <strong>4. Flips are bracketed, and how many there are is itself a result.</strong> This is
-        the part that will matter most in the next chapter, so read it twice. A flip is not reported
-        as a temperature. It is reported as an <em>interval</em>: the span between the last
-        temperature at which the model produced one pure habit and the first at which it produced
-        the other, with the width of that span carried as the location uncertainty. Neutral and
-        invalid points do not end the search &mdash; they widen the bracket, &ldquo;which is the
-        honest representation: a wide neutral span means the flip location is poorly located, and
-        collapsing it to a midpoint would manufacture precision the data does not have&rdquo;
-        (<code>phase6DetectFlips</code>, <code>runner/src/phase6-protocol.ts</code>). And then the
-        sentence that pre-registers the whole of chapter 28&rsquo;s counting argument:
+        <strong>4. Flips are bracketed, and how many there are is itself a result.</strong> This
+        matters most in the next chapter. A flip is reported not as a temperature but as an
+        <em>interval</em>: the span between the last temperature at which the model produced one pure
+        habit and the first at which it produced the other, its width carried as the location
+        uncertainty. Neutral and invalid points do not end the search &mdash; they widen the bracket,
+        &ldquo;which is the honest representation: a wide neutral span means the flip location is
+        poorly located, and collapsing it to a midpoint would manufacture precision the data does not
+        have&rdquo; (<code>phase6DetectFlips</code>, <code>runner/src/phase6-protocol.ts</code>). Then
+        the sentence that pre-registers chapter 28&rsquo;s whole counting argument:
       </p>
 
       <blockquote>
@@ -552,17 +556,38 @@
       <p>
         That is a claim about what the model <em>can</em> do, written down before anybody looked at
         what it <em>did</em>. If the count comes back at one, nobody gets to call that a surprise, an
-        artefact, or a matter of tuning &mdash; the number that would have to appear was named in
-        advance, and so was the reason. Whether it did come back at one is chapter 28&rsquo;s
-        business, not this chapter&rsquo;s.
+        artefact, or a matter of tuning: the number that would have to appear was named in advance,
+        and so was the reason. Whether it did is chapter 28&rsquo;s business.
       </p>
 
       <p>
-        Those four are decision 0025&rsquo;s. One older row does the remaining work, and it is worth
-        being exact about which is which: the <strong>ambiguity band</strong> was already in the
-        first twenty-one-row seal, and 0025 published its own budget &ldquo;alongside the existing
-        28/6 split&rdquo; rather than inventing it. <strong>The band cuts both ways.</strong> Its
-        half-width was fixed by formula before the grid spacing was even chosen:
+        Those four are 0025&rsquo;s. Two older rows do the remaining work, and the first of them
+        registers something the four do not: what &ldquo;agrees&rdquo; means.
+      </p>
+
+      <p>
+        <strong>5. A point counts as agreeing only if it agrees twice.</strong> Every point is
+        measured at the registered crystal size, and every point is also <em>grid-extrapolated</em>
+        &mdash; the aspect ratio the run would have reached at infinitely fine spacing, estimated
+        from the two finest spacings in the convergence ladder. That estimate is refused where it
+        cannot be trusted: decision 0026 admits it only where the convergence order fitted from
+        three spacings lands in the window 0.7 to 1.5, and outside it &ldquo;the point is reported
+        not-extrapolatable and carries its measured class alone&rdquo;. The registered rule then
+        takes the harsh reading of the two, in capitals:
+        <em>&ldquo;THE HEADLINE IS THE CONSERVATIVE INTERSECTION &mdash; points whose measured class
+        agrees AND whose admitted extrapolation does not contradict it&rdquo;</em>, with the two
+        component counts and the not-extrapolatable tally &ldquo;reported BENEATH it, never as the
+        top line&rdquo; (<code>uncertainty-reporting</code> row of <code>PHASE6_FREEZE_LIST</code>).
+        The reason is one sentence in the same row, and it is this chapter&rsquo;s subject exactly:
+        &ldquo;counting agreement twice and quoting the friendlier number is the failure mode a dual
+        report invites.&rdquo;
+      </p>
+
+      <p>
+        The last row is the oldest. The <strong>ambiguity
+        band</strong> was already in the first twenty-one-row seal, and 0025 published its budget
+        &ldquo;alongside the existing 28/6 split&rdquo; rather than inventing it. Its half-width was
+        fixed by formula:
       </p>
 
       <div class="equation">
@@ -579,8 +604,10 @@
         </div>
         <p class="equation__cite">
           <code>docs/plans/phase-6-nakaya-validation.md</code>, &ldquo;ambiguity half-width = 0.5&nbsp;&deg;C
-          (WP1&rsquo;s measured boundary uncertainty) + half the frozen T-grid spacing&rdquo;;
-          evaluated at the frozen grid in the <code>boundary-ambiguity-band</code> row of
+          (WP1&rsquo;s measured boundary uncertainty) + half the frozen T-grid spacing&rdquo; &mdash;
+          WP1 is the work package that digitized the reference figure, so that 0.5&nbsp;&deg;C is the
+          project&rsquo;s own measurement of how well it can read the published boundaries.
+          Evaluated at the frozen grid in the <code>boundary-ambiguity-band</code> row of
           <code>PHASE6_FREEZE_LIST</code>.
         </p>
       </div>
@@ -593,11 +620,10 @@
 
       <p>
         Put those together and you can count, in advance and without seeing a single result, exactly
-        which points the headline number will be computed over. Do that now &mdash; and remember to
-        multiply at the end. The strip below is the temperature axis alone; every temperature on it
-        is swept at all six supersaturation levels, so <strong>15 counting temperatures &times; 6
-        supersaturation levels = 90 headline points</strong>. That 90 is the denominator chapter 28
-        reports against.
+        which points the headline number is computed over. Do that now, and remember to multiply at
+        the end: the strip below is the temperature axis alone, and each temperature is swept at all
+        six supersaturation levels, so <strong>15 counting temperatures &times; 6 = 90 headline
+        points</strong> &mdash; chapter 28&rsquo;s denominator.
       </p>
 
       <figure class="anim" id="c27-budget">
@@ -629,15 +655,10 @@
       <h2 id="what-it-cost">What the harsh rule cost, stated in advance</h2>
 
       <p>
-        Every one of those four choices makes the model&rsquo;s job harder. That is suspicious in
-        its own way &mdash; it is easy to look rigorous by being gratuitously strict. So the decision
-        record does something unusual: it prices its own strictness, in the same document, before
-        the result.
-      </p>
-
-      <p>
-        Dropping the mixed cold regime removes 13 of the 28 counting temperatures. The record does
-        not pretend this is free:
+        Every one of those choices makes the model&rsquo;s job harder, which is suspicious in its own
+        way: it is easy to look rigorous by being gratuitously strict. So the record prices its own
+        strictness, in the same document, before the result. Dropping the mixed cold regime removes
+        13 of the 28 counting temperatures, and it does not pretend this is free:
       </p>
 
       <blockquote>
@@ -650,17 +671,12 @@
       </blockquote>
 
       <p>
-        The reason those 13 could never discriminate is worth holding on to, because it generalises
-        far beyond snowflakes. The cold band accepts both plates and columns, so almost any
-        non-neutral answer scores a point there. A test you pass whatever you do is not a test. And
-        there is a second, deeper mismatch: that band of the reference describes a <em>population</em>
-        of natural falling crystals, while one grid point here is <em>one</em> deterministic crystal.
-        Matching a mixed population with a single run is, in the record&rsquo;s word, ill-posed.
-      </p>
-
-      <p>
-        Then comes the sentence that is hardest to write before a result and worth the most
-        afterwards.
+        The reason those 13 could never discriminate generalises far beyond snowflakes. The cold band
+        accepts both plates and columns, so almost any non-neutral answer scores a point there, and a
+        test you pass whatever you do is not a test. There is a deeper mismatch too: that band
+        describes a <em>population</em> of natural falling crystals, while one grid point here is
+        <em>one</em> deterministic crystal. Matching a mixed population with a single run is, in the
+        record&rsquo;s word, ill-posed. Then comes the sentence hardest to write before a result.
       </p>
 
       <aside class="callout callout--open">
@@ -685,51 +701,42 @@
 
       <p>
         Notice what that warning label does to the future. Whatever the warm regime scores, nobody
-        &mdash; including the project &mdash; can present it as evidence, in either direction. It was
-        disarmed before it was fired.
-      </p>
-
-      <p>
-        The record closes by listing what it forecloses: &ldquo;Deciding after results whether
-        <code>neutral</code> counts. Reporting a single agreement percentage across all four regimes.
-        Quoting a flip temperature to a precision the grid spacing does not support. Dropping an
-        invalid run without naming it.&rdquo; Four escape routes, named and welded shut while they
-        were still tempting in the abstract rather than in the specific.
+        &mdash; including the project &mdash; can present it as evidence in either direction. It was
+        disarmed before it was fired. The record closes by listing what else it forecloses:
+        &ldquo;Deciding after results whether <code>neutral</code> counts. Reporting a single
+        agreement percentage across all four regimes. Quoting a flip temperature to a precision the
+        grid spacing does not support. Dropping an invalid run without naming it.&rdquo; Four escape
+        routes, welded shut in advance.
       </p>
 
       <h2 id="try-to-cheat">Try to cheat</h2>
 
       <p>
         Reading about a safeguard is not the same as pushing on one. Below is a scoring panel with
-        four buttons. Each button makes a change a real researcher would be tempted by, each one
-        edits a row that is genuinely on the frozen list &mdash; the row is printed under the button
-        &mdash; and each one makes the score jump.
+        four buttons. Each makes a change a real researcher would be tempted by, each edits a row
+        genuinely on the frozen list &mdash; printed under the button &mdash; and each makes the score
+        jump.
       </p>
 
       <p>
-        The fourth button needs a word of explanation, because it uses a term the freeze list
-        invented. A point is <strong>extent-fragile</strong> when its shape is close enough to a
-        class boundary that measuring it at a larger crystal might tip it over. The project measured
-        how much drift there is: between the registered measurement size of 21 lattice cells and the
-        size at which the value has actually converged, 31, the aspect ratio drifts upward by 0.135,
-        and the drift only ever goes one way. So the registered rule flags &ldquo;any point whose
-        measured AR sits within 0.135 <em>below</em> a class threshold&rdquo;
+        The fourth needs a word of explanation, because it uses a term the freeze list invented. A
+        point is <strong>extent-fragile</strong> when its shape is close enough to a class boundary
+        that measuring it at a larger crystal might tip it over. Between the registered measurement
+        size of 21 lattice cells and 31, where the value has actually converged, the aspect ratio
+        drifts upward by 0.135, and only ever upward &mdash; so the registered rule flags &ldquo;any
+        point whose measured AR sits within 0.135 <em>below</em> a class threshold&rdquo;
         (<code>uncertainty-reporting</code> row of <code>PHASE6_FREEZE_LIST</code>). Flagging costs
-        you nothing. Deleting the flagged points would quietly remove the ones most likely to
-        misbehave, which is what the fourth button does.
-      </p>
-
-      <p>
-        Then read the banner.
+        nothing. Deleting the flagged points would quietly remove the ones most likely to misbehave,
+        which is what the fourth button does. Press them, then read the banner.
       </p>
 
       <figure class="anim" id="c27-cheat">
         <div class="anim__head">
           <p class="anim__title">Try to cheat</p>
           <p class="anim__sub">
-            Four tempting edits, a live score, and a running bill. Then ask the harder question the
-            panel cannot answer for you: how would you know if there were a fifth knob that nobody
-            had put a button on?
+            Four tempting edits, a live score, and the bill each one comes with. Then the harder
+            question the panel cannot answer for you: how would you know if there were a fifth knob
+            that nobody had put a button on?
           </p>
         </div>
         <div class="anim__body"></div>
@@ -751,55 +758,49 @@
       </figure>
 
       <p>
-        The lesson is not that the four edits are forbidden. Several of them are things a careful
-        person could argue for in good faith. The lesson is about <em>when</em>. Before the sweep,
-        each would have been a free amendment: the protocol&rsquo;s revision log carries six entries
-        registered before any sweep had run, alongside the rule that &ldquo;every amendment before
-        the first sweep is free &mdash; after it, the same change costs a full re-sweep.&rdquo; After
-        the sweep, the identical edit costs seventeen hours of compute and a numbered public decision
-        record explaining why.
+        The lesson is not that those four edits are forbidden; several are things a careful person
+        could argue for in good faith. The lesson is about <em>when</em>. The protocol&rsquo;s
+        revision log carries six entries registered before any sweep had run, alongside the rule that
+        &ldquo;every amendment before the first sweep is free &mdash; after it, the same change costs
+        a full re-sweep.&rdquo;
       </p>
 
       <p>
-        Now the honest version of the fifth-button question, because the revision log answers it and
-        the answer is not comfortable. There is a seventh entry, and the source labels it in
-        capitals: <em>THE FIRST AMENDMENT THAT IS NOT FREE</em>. It is there because somebody found a
-        knob that was <strong>not on the list at all</strong> &mdash; a default buried in the
-        command-line handling that silently chose a different set of physics parameters from the one
-        the protocol had registered. Nobody pressed that button on purpose. A default pressed it. In
-        decision record 0031&rsquo;s words, &ldquo;an <strong>unregistered CLI default silently
-        overrode a registered freeze row</strong>, through a path the freeze did not cover because
-        <code>paramSet</code> was not itself a registered row&rdquo; &mdash; and the bill was the one
-        the panel above prints: &ldquo;the 204-point sweep of <code>6995868</code> is invalidated and
-        re-runs.&rdquo; Chapter 29 is that bill in full.
+        Now the fifth-button question, because the revision log answers it and the answer is not
+        comfortable. There is a seventh entry, labelled in capitals: <em>THE FIRST AMENDMENT THAT IS
+        NOT FREE</em>. Somebody found a knob that was <strong>not on the list at all</strong> &mdash;
+        a default buried in the command-line handling that silently chose a different set of physics
+        parameters from the one the protocol had registered. Nobody pressed that button on purpose. A
+        default pressed it. In decision record 0031&rsquo;s words, &ldquo;an <strong>unregistered CLI
+        default silently overrode a registered freeze row</strong>, through a path the freeze did not
+        cover because <code>paramSet</code> was not itself a registered row&rdquo; &mdash; and the
+        bill was &ldquo;the 204-point sweep of <code>6995868</code> is invalidated and
+        re-runs.&rdquo; It is a registered row now. It is the third field you typed into in the seal
+        demo, the twenty-fifth of twenty-five, and it is in the envelope only because it was left out
+        of it. Chapter 29 is that bill in full.
       </p>
 
       <p>
         So the accurate claim is narrower than &ldquo;every knob is on the list&rdquo;, and stronger
-        than it sounds. Nobody can prove a list of this kind complete; the completeness of a freeze
-        list is exactly the thing that gets discovered the hard way. What the machinery does
-        guarantee is two things. Anything <em>on</em> the list cannot move without the fingerprint
-        moving. And anything found to be <em>off</em> the list gets added at a published price: a
-        numbered record, a new entry in the revision log, and the whole sweep again. That is a
-        different kind of rule from &ldquo;do not do this&rdquo;. It does not rely on anybody&rsquo;s
-        honesty holding under pressure. It makes the move expensive, slow, and &mdash; because the
-        fingerprint and the git history both move &mdash; permanently visible to anyone who looks.
-        The charter states the goal in one line: <em>&ldquo;Quiet tuning is not a discipline failure
-        that review catches &mdash; it is structurally impossible to hide.&rdquo;</em>
+        than it sounds. Nobody can prove a list of this kind complete; completeness is exactly what
+        gets discovered the hard way. What the machinery guarantees is two things. Anything
+        <em>on</em> the list cannot move without the fingerprint moving. And anything found to be
+        <em>off</em> the list gets added at a published price: a numbered record, a revision-log
+        entry, and the whole sweep again. That does not rely on anybody&rsquo;s honesty holding under
+        pressure; it makes the move expensive, slow, and &mdash; because the fingerprint and the git
+        history both move &mdash; permanently visible. The charter states the goal in one line:
+        <em>&ldquo;Quiet tuning is not a discipline failure that review catches &mdash; it is
+        structurally impossible to hide.&rdquo;</em>
       </p>
 
       <h2 id="exit-codes">Three exit codes</h2>
 
       <p>
         Everything so far protects the marking scheme. One thing still needs protecting: the
-        difference between two completely different sentences that both start &ldquo;it
-        failed&rdquo;.
-      </p>
-
-      <p>
-        A program that finishes hands the operating system a small number, its <em>exit code</em>.
-        By convention 0 means success and anything else means failure. The Phase 6 gate uses three,
-        and the assignment is the moral argument of the whole project compiled into a return value:
+        difference between two very different sentences that both start &ldquo;it failed&rdquo;. A
+        program that finishes hands the operating system a small number, its <em>exit code</em>; by
+        convention 0 means success and anything else means failure. The Phase 6 gate uses three, and
+        the assignment is the moral argument of the whole project compiled into a return value:
       </p>
 
       <blockquote>
@@ -811,20 +812,13 @@
       </blockquote>
 
       <p>
-        <strong>Exit 0 &mdash; a valid run, whatever nature says.</strong> The model can disagree
-        with the reference diagram at every single point and the gate still succeeds, because the
-        gate is not asking &ldquo;was the model right?&rdquo; It is asking &ldquo;is this evidence?&rdquo;
-        <strong>Exit 1 &mdash; the evidence is broken.</strong> Bad numerics, unverified provenance,
-        a missing artifact, an incomplete run, a violated protocol. <strong>Exit 2 &mdash; somebody
-        deviated from the frozen command.</strong> The registered gate command takes no flags at all,
-        so any flag means the thing that ran was not the thing that was registered, and that is its
-        own category of wrong.
-      </p>
-
-      <p>
-        Almost every scientific project says &ldquo;a negative result is a result&rdquo;. This one
-        has to mean it, because a program has to return a number and there is no third option
-        between 0 and 1. Try the scenarios.
+        The model can disagree with the reference diagram at every single point and the gate still
+        returns 0, because the gate is not asking &ldquo;was the model right?&rdquo; It is asking
+        &ldquo;is this evidence?&rdquo; Exit 2 is subtler: the registered gate command takes no flags
+        at all, so any flag means the thing that ran was not the thing that was registered &mdash; not
+        a science failure and not an evidence failure, but its own category of wrong. Almost every
+        project says &ldquo;a negative result is a result&rdquo;. This one has to mean it, because a
+        program must return a number and there is nothing between 0 and 1. Try the scenarios.
       </p>
 
       <figure class="anim" id="c27-gate">
@@ -843,7 +837,10 @@
             transcript of a real run. The nine check areas are the rows of the gate-contract table in
             <code>docs/plans/phase-6-nakaya-validation.md</code>; the exit-code assignment and the six
             named negative controls are quoted from the same file; the hash-mismatch wording is the
-            real message in <code>runner/src/phase6-sweep.ts</code>.
+            real message in <code>runner/src/phase6-sweep.ts</code>. The last button is labelled
+            <em>hypothetical</em> on purpose: it shows a weaker gate than the registered one, which
+            counts 204 points because the grid is hashed into the manifest by value and its
+            Execution-validity row demands that every point completed.
           </span>
         </figcaption>
       </figure>
@@ -851,7 +848,7 @@
       <p>
         The last row of that gate contract is the one most projects skip. It is not enough for the
         gate to pass on good evidence; it has to be shown failing on bad evidence, on demand, for
-        each specific kind of bad. Six sabotages are registered by name:
+        each specific kind of bad. Six sabotages are registered:
       </p>
 
       <ul>
@@ -864,67 +861,52 @@
       </ul>
 
       <p>
-        And the requirement is that each &ldquo;fails <strong>by name</strong>&rdquo; &mdash; not
-        merely that the gate refuses. A refusal that says only &ldquo;something is wrong&rdquo; is
-        almost useless: you cannot tell a caught sabotage from an unrelated bug, and you certainly
-        cannot tell whether the control you thought you were testing is the one that fired. It is
-        the difference between a lock that resists a key and a lock that tells you which key was
-        tried.
+        Each must &ldquo;fail <strong>by name</strong>&rdquo;, not merely make the gate refuse. A
+        refusal saying only &ldquo;something is wrong&rdquo; is nearly useless: you cannot tell a
+        caught sabotage from an unrelated bug, or whether the control you thought you were testing is
+        the one that fired. It is the difference between a lock that resists a key and a lock that
+        tells you which key was tried.
       </p>
 
       <p>
-        The same instinct governs how results get written to disk, though the two gates do it
-        differently and the difference is worth knowing. The <strong>Phase 4 and Phase 5</strong>
-        gates publish through <code>publishEvidenceBundle</code>
-        (<code>runner/src/gate4-evidence.ts</code>, imported by <code>gate4a.ts</code> and
-        <code>gate4b.ts</code>): the bundle is built inside a hidden staging folder, every artifact
-        is written and immediately re-read and re-hashed, the whole bundle is verified twice, and
-        only then is it made real by a single <code>renameSync</code> onto its published name.
-        Evidence either appears complete or does not appear. There is no state in which a
-        half-written results folder is sitting there looking finished.
-      </p>
-
-      <p>
-        The Phase 6 sweep does not use that function. It writes <code>points.json</code>,
-        <code>report.json</code> and <code>diagram.svg</code> straight into
-        <code>out/phase6-sweep/</code> as it goes, and its integrity story is a different one:
-        that folder is not tracked by git at all, and &ldquo;their hashes are the tracked
-        record&rdquo; (<code>research/phase6-sweep-report.md</code>). The guarantee there is not
-        atomic publication but a committed fingerprint of each artifact, against which anyone can
-        re-hash the file they were handed. Both designs answer the same question &mdash; can you
-        tell whether what you are looking at is what was produced? &mdash; and it is worth noticing
-        that they answer it with different machinery.
+        The same instinct governs how results reach disk. The Phase 4 and Phase 5 gates each publish
+        through their own staging function (<code>publishEvidenceBundle</code> in
+        <code>runner/src/gate4-evidence.ts</code>; <code>publishPhase5Lane</code> in
+        <code>runner/src/gate5-evidence.ts</code>): the bundle is built in a hidden folder, every
+        artifact is written and immediately re-read and re-hashed, and only then is it made real by a
+        single <code>renameSync</code> onto its published name. Evidence either appears complete or
+        does not appear.
       </p>
 
       <h2 id="limits">What the seal cannot do</h2>
 
       <p>
         It would be easy to finish this chapter feeling that the machinery settles everything. It
-        settles one thing, exactly: <strong>that the rules were chosen before the answers were
-        known.</strong> Four things it does not settle are worth naming.
+        settles exactly one thing: <strong>that the rules were chosen before the answers were
+        known.</strong> Four it does not settle are worth naming.
       </p>
 
       <p>
-        <strong>It does not make the physics right.</strong> Freezing a parameter table does not
-        make the parameters correct; it only makes them <em>fixed</em>. A sealed protocol built on a
-        wrong number produces a beautifully provenanced wrong answer.
+        <strong>It does not make the physics right.</strong> Freezing a parameter table only makes
+        the parameters <em>fixed</em>. A sealed protocol built on a wrong number produces a
+        beautifully provenanced wrong answer.
       </p>
 
       <p>
-        <strong>It does not improve the reference.</strong> The comparison target is a redrawn
-        schematic &mdash; Libbrecht&rsquo;s Figure 1 in arXiv:1211.5555v1, which
+        <strong>It does not improve the reference.</strong> The comparison target is
+        Libbrecht&rsquo;s Figure 1 in arXiv:1211.5555v1, which
         <code>research/nakaya-morphology-diagram.md</code> describes as &ldquo;a <strong>redrawn
         schematic</strong> of natural, free-falling crystals&rdquo; rather than a controlled
-        measurement &mdash; and the project&rsquo;s own digitisation found its supersaturation axis failing an
-        independent check &mdash; which is exactly why only its three boundary temperatures are used
-        and its printed humidity values never are.
+        measurement; the project&rsquo;s own digitisation found its supersaturation axis failing an
+        independent check, which is why only its three boundary temperatures are used and its printed
+        humidity values never are.
       </p>
 
       <p>
         <strong>It cannot be undone, and that is the intended discomfort.</strong> A frozen protocol
-        that turns out to have a flaw in it costs a full re-sweep to fix. The mechanism has no
-        setting for &ldquo;this time we were right to change it&rdquo;. You will see the project pay
-        that bill, on its own initiative, in chapter 29.
+        that turns out to have a flaw costs a full re-sweep to fix; there is no setting for &ldquo;this
+        time we were right to change it&rdquo;. The project has already paid that bill once, on its
+        own initiative.
       </p>
 
       <p>
@@ -960,15 +942,12 @@
       </p>
 
       <p class="handoff">
-        The envelope is sealed, the marking scheme is fixed, the grid is 204 points, and the headline
-        will be computed over 15 counting temperatures at 6 supersaturation levels each &mdash; 90
-        points. All that is left is to run it for seventeen hours and read the number, which is the
-        next chapter and the reason every chapter before it exists. One caution to carry across, and
-        it is the chapter&rsquo;s own thesis turned on itself: the envelope you have just watched
-        being sealed is the twenty-five-row one, <code>8aeb2b80&hellip;</code>. The exam whose result
-        chapter 28 reports was sat under the earlier version of it, <code>9aa2e7c1&hellip;</code>. A
-        protocol is identified by its hash and those are two different hashes &mdash; and chapter 29
-        is about why that distinction turned out to matter enough to throw the run away.
+        The grid is 204 points and the headline is computed over 90 of them. One caution to carry
+        across first, this chapter&rsquo;s thesis turned on itself: the envelope you just watched
+        being sealed is the twenty-five-row <code>8aeb2b80&hellip;</code>, while the exam chapter 28
+        reports was sat under the earlier <code>9aa2e7c1&hellip;</code>. A protocol is identified by
+        its hash, and those are two different hashes; chapter 29 owns what that cost. Now the number
+        gets read.
       </p>
 
       <nav class="chapter-nav" aria-label="Chapter navigation">
@@ -1203,7 +1182,9 @@
       inp.setAttribute("spellcheck", "false");
       inp.id = "c27-seal-" + r.key;
       lab.setAttribute("for", inp.id);
-      inp.addEventListener("input", render);
+      // Clear any earlier transcript: a successful run's output must never sit under a
+      // "SEAL BROKEN" banner, which is the one screen state this demo exists to prevent.
+      inp.addEventListener("input", function () { runOut = ""; render(); });
       inputs[r.key] = inp;
       line.appendChild(lab);
       line.appendChild(inp);
@@ -1211,7 +1192,8 @@
     });
 
     var jsonBox = el("div", "c27-panel");
-    var jsonLab = el("p", "c27-label", "canonical bytes — keys sorted, no insignificant whitespace");
+    var jsonLab = el("p", "c27-label",
+      "canonical JSON bytes — keys in one fixed order, no needless spacing");
     var jsonOut = el("div", "c27-mono");
     jsonBox.appendChild(jsonLab); jsonBox.appendChild(jsonOut);
 
@@ -1290,11 +1272,13 @@
           + "  preflight: tracked tree is clean ................. ok\n"
           + "  queued 204 points"
           + (pinEdited
-              ? "\n\n  ...in this panel. In the repository it would not get this far:\n"
-              + "  you edited the pin, so the tracked tree is dirty and the recorded\n"
-              + "  freeze commit no longer describes this protocol. The preflight checks\n"
-              + "  both. And by charter §3.2 the edit is a logged decision record that\n"
-              + "  invalidates prior sweep results — the full sweep re-runs (~17 h)."
+              ? "\n\n  ...in this panel. In the repository it would not get this far.\n"
+              + "  You edited the pin but have not committed it, so the tracked tree is\n"
+              + "  dirty and the fourth check refuses. Commit it and the checks do pass —\n"
+              + "  and that is the design, not a hole in it: the pin has moved and the git\n"
+              + "  history has moved, so the edit is now a permanent, signed public record.\n"
+              + "  By charter §3.2 it is also a logged decision record that invalidates\n"
+              + "  prior sweep results — the full sweep re-runs."
               : "");
       }
       render();
@@ -1396,7 +1380,10 @@
 
         var x = xOf(i);
         var fill = c.surface;
-        if (show.cold && !inHeadline) fill = c.sunken;
+        // c.rule, not c.sunken: sunken-on-surface is a couple of percent of luminance in either
+        // theme, and the caption asks the reader to count the plain cells by eye. This also
+        // matches the regime strip, which already uses c.rule for "outside the headline".
+        if (show.cold && !inHeadline) fill = c.rule;
         svg.appendChild(Viz.svgEl("rect", {
           x: x + 1.5, y: top, width: cw - 3, height: ch,
           fill: fill, stroke: c.ruleStrong, "stroke-width": 1, rx: 3
@@ -1611,7 +1598,9 @@
       var pct = s.n ? Math.round((100 * s.agree) / s.n) : 0;
       var big = el("span", "c27-big", pct + "%");
       big.style.color = edits ? c.critical : c.ink;
-      var frac = el("span", "c27-note", s.agree + " of " + s.n + " counted points agree");
+      var frac = el("span", "c27-note",
+        s.agree + " of " + s.n + " counted temperatures agree  ·  × 6 supersaturation levels = "
+        + (s.n * FRACTIONS) + " headline points");
       sc.appendChild(big);
       sc.appendChild(frac);
       scoreBox.appendChild(sc);
@@ -1641,17 +1630,19 @@
         banner.textContent = "PROTOCOL INTACT · scored under the rules registered before the sweep.";
         costNote.textContent =
           "Every button below edits a row that is on the frozen list, so every button moves the "
-          + "protocol fingerprint. Look for a fifth button: there isn't one. Every knob that could "
-          + "flatter this number is on the list, and the list is hashed.";
+          + "protocol fingerprint. Now the harder question: is there a fifth button — a knob nobody "
+          + "put on the list? Keep reading. The revision log answers that, and the answer cost "
+          + "seventeen hours.";
       } else {
         banner.style.color = c.critical;
         banner.textContent =
           "PROTOCOL HASH MISMATCH · ALL 204 RESULTS INVALIDATED · RE-SWEEP REQUIRED (~17 h)";
         costNote.textContent =
-          "Cost of this edit: ~17 h of compute, plus a numbered public decision record saying what "
-          + "you changed and why. Running total: " + edits + " edit" + (edits === 1 ? "" : "s")
-          + ", ~" + (edits * 17) + " h — about " + (edits * 17 / 24).toFixed(1) + " days of "
-          + "machine time, and a permanent entry in the revision log next to your name.";
+          "Cost: one full re-sweep, ~17 h of compute, plus ONE numbered public decision record and "
+          + "ONE permanent revision-log entry — naming "
+          + (edits === 1 ? "the row" : "all " + edits + " rows") + " you changed, and why. The "
+          + "re-sweep bill is the same whether you press one button or four — what grows is the "
+          + "list of rows the public record has to name.";
       }
     }
 
@@ -1701,6 +1692,13 @@
       var idx = AREAS.indexOf(area);
       lines[idx] = { text: pad(area) + " FAIL", ok: false };
       lines[idx].why = why;
+      return lines;
+    }
+    // Annotate a row that PASSED. A registered negative control firing by name is this gate
+    // row succeeding, not failing — the contract's blocking claim is "each control fails by
+    // name", so the control going off is the evidence that the row holds.
+    function note(lines, area, why) {
+      lines[AREAS.indexOf(area)].why = why;
       return lines;
     }
 
@@ -1767,15 +1765,16 @@
         id: "farfield",
         label: "A run used a different far-field boundary condition",
         build: function () {
-          var l = fail(base(), "negative controls",
-            "mismatched far-field condition — control fired BY NAME. results are never "
+          var l = fail(base(), "provenance",
+            "recorded far-field condition differs from the registered monopole-matched value "
+            + "— what the box edge pretends the distant sky is doing. results are never "
             + "compared across far-field conditions silently");
-          l[1] = { text: pad("provenance") + " FAIL", ok: false };
-          l[1].why = "recorded far-field condition differs from the registered monopole-matched "
-            + "value — the chapter-23 rule for what the box edge pretends the distant sky is doing";
+          note(l, "negative controls",
+            "the registered mismatched-far-field control fired BY NAME — which is this row "
+            + "PASSING. the contract asks each control to fail by name; it did");
           return {
             lines: l, tail: [], code: 1,
-            verdict: "Broken evidence. Two runs under different boundary conditions are not two measurements of one thing."
+            verdict: "Broken evidence. Two runs under different boundary conditions are not two measurements of one thing. Note which row failed: provenance. The negative-controls row passed, because a control going off by name is that row doing its job."
           };
         }
       },
@@ -1831,9 +1830,14 @@
     function run(sc) {
       if (timer) { clearTimeout(timer); timer = null; }
       var built = sc.build();
-      var out = ["$ node runner/src/main.ts phase6-gate", ""];
+      var hypothetical = sc.id === "silent" && silentMode;
+      var out = [
+        "$ node runner/src/main.ts phase6-gate"
+          + (hypothetical ? "   [HYPOTHETICAL: no completeness check]" : ""),
+        ""
+      ];
 
-      if (sc.id === "silent" && silentMode) {
+      if (hypothetical) {
         built = {
           lines: base(),
           tail: [
@@ -1841,16 +1845,19 @@
             { text: "203 points reported. tidy. nothing looks missing.", ok: true }
           ],
           code: 0,
-          verdict: "THIS IS THE FAILURE MODE, not a pass. The gate returned 0 because the "
-                 + "missing run left no trace. That is exactly why the rule is 'excluded BY NAME' "
-                 + "rather than 'excluded'. A safeguard you can satisfy by deleting the evidence "
-                 + "is not a safeguard."
+          verdict: "This is NOT what the registered gate does — it counts 204, because the grid "
+                 + "goes into the hashed manifest by value, and its Execution-validity row "
+                 + "requires that every sweep point completed. This is what a gate that only "
+                 + "checked the rows it was handed would do: return 0, because the missing run "
+                 + "left no trace. That is why the rule is 'excluded BY NAME' rather than "
+                 + "'excluded'. A safeguard you can satisfy by deleting the evidence is not a "
+                 + "safeguard."
         };
       }
 
       var lines = built.lines.slice();
       built.lines.forEach(function (l) {
-        if (l.why) lines.splice(lines.indexOf(l) + 1, 0, { text: "      └─ " + l.why, ok: false });
+        if (l.why) lines.splice(lines.indexOf(l) + 1, 0, { text: "      └─ " + l.why, ok: l.ok });
       });
       lines = lines.concat(built.tail);
       lines.push({ text: "", ok: true });
@@ -1888,7 +1895,7 @@
     SCENARIOS.forEach(function (sc) {
       Viz.button(controls, sc.label, function () { run(sc); });
     });
-    Viz.button(controls, "Show what a silent drop looks like", function (b) {
+    Viz.button(controls, "Hypothetical: a gate with no completeness check", function (b) {
       silentMode = !silentMode;
       b.setAttribute("aria-pressed", String(silentMode));
       run(SCENARIOS[3]);

@@ -127,22 +127,29 @@
             <tr>
               <td><strong>P3</strong></td>
               <td>&ldquo;Nakaya&#8209;informed SDAK hypotheses. The narrow&#8209;facet dip locations/depths were chosen to impose agreement with the morphology diagram.&rdquo;</td>
-              <td>The two narrow&#8209;facet dips in &sigma;<sub>0</sub> &mdash; extracted, classified, and then deliberately left unwired</td>
+              <td>The two narrow&#8209;facet dips in &sigma;<sub>0</sub></td>
             </tr>
             <tr>
               <td><strong>P4</strong></td>
               <td>&ldquo;numerical/discretization choices (interpolation schemes, resolutions, tolerances).&rdquo;</td>
-              <td>How the code joins up the dots between anchors &mdash; &ldquo;a P4 decision, not physics&rdquo;</td>
+              <td>How the code joins up the dots between <em>anchors</em> &mdash; the points read off the plot &mdash; &ldquo;a P4 decision, not physics&rdquo;</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <p>
+        <strong>SDAK</strong>, in the P3 line, is <em>structure-dependent attachment kinetics</em>
+        &mdash; Part One&rsquo;s chapter 13 left it as the open frontier: the proposal that a very
+        narrow facet is much easier to start a new layer on than a wide one. It comes back at the
+        end of this chapter, and it is the reason chapter 17 exists.
+      </p>
+
+      <p>
         Read the P2 line again, because it contains a sentence doing real work:
         <em>extrapolating a fit outside its range silently manufactures a fake result</em>. That is
-        not a style preference. Later in this chapter you will make the model do exactly that, on
-        purpose, and watch what it produces.
+        not a style preference. Later in this chapter you will make a working copy of the model do
+        exactly that, on purpose, and watch what it produces.
       </p>
 
       <aside class="callout callout--key">
@@ -253,14 +260,20 @@
         The citation rule is enforced by more than good intentions. That parameter file is now
         <strong>hash-frozen</strong>. A <em>hash</em> is a short fingerprint computed from every
         character in a file &mdash; change one digit anywhere and the fingerprint comes out
-        completely different &mdash; and this file&rsquo;s is registered in
+        completely different. (Line endings are normalised first, which is why the file can say the
+        fingerprint &ldquo;survives this repository&rsquo;s CRLF checkout conversion and can be
+        verified on any platform&rdquo;: Windows and Linux write the invisible end-of-line character
+        differently, and without that step the same file would fingerprint differently on the two
+        machines the project wants to compare.) This file&rsquo;s fingerprint is registered in
         <code>runner/src/phase6-protocol.ts</code> and checked by a test, so &ldquo;an edit here
         fails the suite rather than silently changing the physics under a completed sweep.&rdquo;
+        (<em>The suite</em> is the set of automatic checks that runs over the whole repository;
+        one of them failing stops the change.)
         Corrections are still allowed, at a price the file prints: any change &ldquo;invalidates
         every Phase 6 sweep result produced under the current protocol; the sweep re-runs in
         full.&rdquo; The price is the point &mdash; &ldquo;it is what stops a parameter from being
-        adjusted after a disagreeing result is seen.&rdquo; Phase 6, the comparison that freeze
-        protects, is still in flight as this is written.
+        adjusted after a disagreeing result is seen.&rdquo; The sweep that freeze protects has since
+        run &mdash; that is chapter 28 &mdash; and Phase 6 around it has not finished.
       </p>
 
       <!-- ================================================================ 3 -->
@@ -299,8 +312,9 @@
           <span class="built-from">Original interactive. The hidden curve is
           <code>A_prism = (0.4 + 0.04&middot;|T*&minus;4|&sup3;) / (2.2 + 0.04&middot;|T*&minus;4|&sup3;)</code>,
           printed as Eq.&nbsp;(5) of arXiv:2009.08404v2 p.&nbsp;3 and quoted in
-          <code>research/libbrecht-figure-findings.md</code> &sect;2. The nine project anchors are
-          <code>A_PRISM_CAK</code> in <code>core/src/libbrecht.ts</code>.</span>
+          <code>research/libbrecht-figure-findings.md</code> &sect;2. The nine project anchors
+          &mdash; the nine points read off the plot, which is all the model has of this curve
+          &mdash; are <code>A_PRISM_CAK</code> in <code>core/src/libbrecht.ts</code>.</span>
         </figcaption>
       </figure>
 
@@ -313,14 +327,18 @@
         had the paper that prints the closed form. It turned up much later, and at the worst
         possible moment: the rule file records that three uncited Libbrecht papers printing closed
         forms for figure-digitized curves &ldquo;surfaced the day <em>after</em> the table&rsquo;s
-        hash-freeze, converting a free upgrade into an ADR-plus-re-freeze decision.&rdquo; That is
+        hash-freeze, converting a free upgrade into an ADR-plus-re-freeze decision.&rdquo; An
+        <em>ADR</em> is what this project calls a numbered, written decision record &mdash; chapter
+        15&rsquo;s decision records, filed under <code>docs/decisions/</code>. So: a correction that
+        would have been free the day before now costs a written decision and a re-freeze. That is
         why <code>AGENTS.md</code> now carries a Rule 12 reading &ldquo;Check source currency before
         any freeze&rdquo; &mdash; a rule written by getting it wrong first.
       </p>
 
       <p>
         When the comparison was finally run, the digitized anchors reproduced the printed equation to
-        <strong>8.4% at worst and under 2% typically</strong>. The findings ledger states why that
+        <strong>8.4% at worst and under 2% typically</strong>. The findings ledger &mdash;
+        <code>docs/findings-ledger.md</code>, entry <strong>A2</strong> &mdash; states why that
         is worth more than it sounds:
       </p>
 
@@ -332,12 +350,25 @@
       </blockquote>
 
       <p>
-        That sentence is the distinction this chapter most wants you to keep. <strong>Self-consistent
-        </strong> means your two methods agree with each other &mdash; which they will, if they share
-        an assumption, a spreadsheet, or an author. <strong>Independently confirmed</strong> means
-        your method agrees with something it could not have peeked at. The digitizer could not have
-        peeked at Eq.&nbsp;(5), because nobody in the project had seen it. That is the entire
-        strength of the check, and it would have been destroyed had the papers arrived first.
+        That sentence is the distinction this chapter most wants you to keep.
+        <strong>Self-consistent</strong> means your two methods agree with each other &mdash; which
+        they will, if they share an assumption or a spreadsheet.
+        <strong>Independently confirmed</strong> means your method agrees with something it could
+        not have peeked at.
+      </p>
+
+      <p>
+        Now be exact about <em>what</em> was independent here, because it is not the two curves.
+        Figure 4.5 is Libbrecht&rsquo;s and Eq.&nbsp;(5) is Libbrecht&rsquo;s, and both render the
+        same broad-facet model: <code>research/libbrecht-figure-findings.md</code> &sect;2 introduces
+        the equation as &ldquo;the broad-facet model in full&rdquo;, and the figure&rsquo;s own
+        caption calls its curves the &ldquo;best-estimate CAK model functions&rdquo;. One author,
+        one model. The agreement therefore says nothing at all about whether he is right about ice.
+        What was independent is the <em>reading</em>: the digitizer could not have peeked at
+        Eq.&nbsp;(5), because nobody on the project had seen it, so agreement with it cannot have
+        been engineered. The same file calls it exactly that &mdash; &ldquo;an independent check on
+        the digitization <em>method</em>&rdquo;. That is the entire strength of the check, and it
+        would have been destroyed had the papers arrived first.
       </p>
 
       <aside class="callout callout--myth">
@@ -348,11 +379,11 @@
           Careful
         </p>
         <p>
-          This checks the <em>reading</em>, not the <em>physics</em>. It says the pixels were
-          converted into numbers faithfully. It says nothing whatever about whether the curve is
-          right about ice. Those are different claims, and the difference is exactly the
-          type&nbsp;&times;&nbsp;evidence split from chapter 15: the model was given a faithfully
-          transcribed fit, which is not the same as being given a correct description of nature.
+          So the strongest sentence this check licenses is a sentence about pixels: they were turned
+          into numbers faithfully. It licenses nothing about ice. Those are different claims, and the
+          difference is exactly the type&nbsp;&times;&nbsp;evidence split from chapter 15: the model
+          was given a faithfully transcribed fit, which is not the same as being given a correct
+          description of nature.
         </p>
       </aside>
 
@@ -392,10 +423,19 @@
       </div>
 
       <p>
-        Try to break it. The dial below runs past both ends of the digitized window. Inside, you get
-        numbers and a run. Outside, you get the message above and nothing else &mdash; unless you
-        switch the safeguard off, in which case the code will happily extrapolate and hand you a
-        confident, entirely manufactured answer.
+        Try to break it. The dial below drives a working copy of that interpolation code, running in
+        your browser &mdash; same anchors, same joining rule, same error text. One thing differs, and
+        it is the whole point of the demo: the repository&rsquo;s own version has no off switch. The
+        guard above is unconditional, and there is no flag, setting or argument anywhere in the
+        project that turns it off. The copy adds a switch so that you can see what the alternative
+        would look like.
+      </p>
+
+      <p>
+        So: the dial runs past both ends of the digitized window. Inside, you get numbers and a run.
+        Outside, you get the message above and nothing else &mdash; unless you switch the safeguard
+        off, in which case the copy will happily extrapolate and hand you a confident, entirely
+        manufactured answer.
       </p>
 
       <figure class="anim" id="anim-domain">
@@ -409,7 +449,11 @@
           <span class="built-from">Original interactive. The curves, anchors and interpolation are a
           direct re-implementation of <code>X_ANCHORS</code>, <code>SIGMA0_BASAL</code>,
           <code>SIGMA0_PRISM</code> and <code>interpLogLog</code> in
-          <code>core/src/libbrecht.ts</code>; the error text is that file&rsquo;s own.</span>
+          <code>core/src/libbrecht.ts</code>; the error text is that file&rsquo;s own, and the
+          command line is the repository&rsquo;s own invocation form, printed in the usage message of
+          <code>runner/src/main.ts</code>. The &ldquo;safeguard off&rdquo; mode exists only in this
+          copy: <code>interpIndex</code> in the repository throws unconditionally outside [1, 50] and
+          takes no argument that changes that.</span>
         </figcaption>
       </figure>
 
@@ -480,29 +524,41 @@
 
       <p>
         There is a standard-looking formula in the wider atmospheric literature. It would have been
-        easy to type it in. The row in the parameter table instead reads, in full:
+        easy to type it in. The section of the parameter table that covers <em>D</em> instead reads,
+        in full:
       </p>
 
       <div class="table-wrap">
         <table>
           <caption>
-            Section 6 of <code>docs/libbrecht-parameters.md</code>, reproduced. The third row is the
-            point.
+            Section 6 of <code>docs/libbrecht-parameters.md</code>, all four rows. The last row is
+            the point &mdash; but read the second one too.
           </caption>
           <thead>
             <tr><th>What the source states</th><th>Value</th><th>Citation</th><th>Class</th></tr>
           </thead>
           <tbody>
             <tr><td>Diffusivity in air</td><td><code>D_air &asymp; 2 &times; 10<sup>&minus;5</sup> m&sup2;/s</code></td><td>monograph Appendix A, printed p. 500 / pdf 501</td><td>P1</td></tr>
-            <tr><td>Pressure dependence</td><td><code>D &sim; P<sup>&minus;1</sup></code></td><td>monograph printed p. 65 / pdf 66</td><td>P1</td></tr>
+            <tr><td>Same quantity, main text</td><td>&ldquo;<code>D_air &asymp; 10<sup>&minus;5</sup> m&sup2;/s</code>&rdquo; for &ldquo;typical atmospheric conditions&rdquo;</td><td>monograph printed p. 91 / pdf 92</td><td>&mdash; (the source&rsquo;s own factor-2 looseness; Appendix A value adopted)</td></tr>
+            <tr><td>Pressure dependence</td><td><code>D &sim; P<sup>&minus;1</sup></code></td><td>monograph printed p. 65 / pdf 66</td><td>P1 (kinetic theory)</td></tr>
             <tr><td>Temperature dependence</td><td><strong>NOT GIVEN &mdash; GAP.</strong></td><td>&mdash;</td><td>&mdash;</td></tr>
           </tbody>
         </table>
       </div>
 
       <p>
-        The rule that produced that row is the second half of the file&rsquo;s opening rule, and it
-        is worth reading slowly: &ldquo;<strong>No number is guessed, interpolated, or recalled from
+        Notice the second row before you get to the last one. The <em>same book</em> prints
+        <em>D</em> twice, and the two printings differ by a factor of two &mdash; 2&nbsp;&times;&nbsp;10<sup>&minus;5</sup>
+        in the appendix, 10<sup>&minus;5</sup> in the main text. The parameter file does not quietly
+        pick a winner and move on. It records both, names which one the solver adopted, and calls the
+        discrepancy what it is: &ldquo;the source&rsquo;s own factor-2 looseness&rdquo;. That is the
+        state of the published record on a quantity Part One&rsquo;s entire diffusion story runs
+        through &mdash; which makes the empty cell underneath it more striking, not less.
+      </p>
+
+      <p>
+        The rule that produced that empty cell is the second half of the file&rsquo;s opening rule,
+        and it is worth reading slowly: &ldquo;<strong>No number is guessed, interpolated, or recalled from
         memory.</strong> If a value is not in the source, the cell stays empty and the gap is stated.
         An empty cell is a research task; a wrong cell is a physics bug that will be discovered three
         phases later, if ever.&rdquo;
@@ -541,8 +597,10 @@
       <h2 id="hundred">A factor of a hundred, hiding in an exponent</h2>
 
       <p>
-        Here is the single easiest way to destroy this model while every number on screen still looks
-        reasonable.
+        A missing number at least announces itself: the cell is empty, and you can see that it is.
+        Here is the opposite case &mdash; a number that is present, and correct, and in the wrong
+        unit. It is the single easiest way to destroy this model while every number on screen still
+        looks reasonable.
       </p>
 
       <div class="equation">
@@ -572,7 +630,8 @@
       <p>
         Put numbers on it. At &minus;15&nbsp;&deg;C the model&rsquo;s prism &sigma;<sub>0</sub> is
         0.032. With &sigma;<sub>surf</sub> = 0.01, the exponential is exp(&minus;3.2)
-        &asymp;&nbsp;0.041 &mdash; a slow but real growth rate. Read &ldquo;3.2 percent&rdquo; as if
+        &asymp;&nbsp;0.041 &mdash; about four arriving molecules in a hundred stick, which is slow
+        but real. Read &ldquo;3.2 percent&rdquo; as if
         it were the fraction 3.2, and you get exp(&minus;320), which is about
         1&nbsp;&times;&nbsp;10<sup>&minus;139</sup>. The prism facet simply stops existing as a
         growing surface. Neither 3.2
@@ -618,8 +677,9 @@
       </p>
 
       <p>
-        Checks of exactly this shape are real, and two of them are recorded in the findings ledger as
-        entry <strong>A4</strong>, the &ldquo;transcription-fidelity floor&rdquo;. The first: the
+        Checks of exactly this shape are real, and two of them are recorded in
+        <code>docs/findings-ledger.md</code> as entry <strong>A4</strong>, the
+        &ldquo;transcription-fidelity floor&rdquo;. The first: the
         monograph&rsquo;s Table 2.1 &mdash; which is an embedded <em>image</em> in the PDF, so it
         cannot be copied and must be typed &mdash; was verified cell by cell against the page render.
         The second is better. The table&rsquo;s water-saturation column was checked against Murphy
@@ -714,15 +774,20 @@
       <p>
         The reason it is a scanner rather than a note in a style guide is given in one line, and it
         is the most transferable idea in this chapter: <strong>&ldquo;Vigilance does not survive a
-        model handoff; a failing build does.&rdquo;</strong> Whoever picks this project up next
-        &mdash; a different person, a different model, six months later &mdash; inherits none of
-        today&rsquo;s carefulness. They inherit the tests.
+        model handoff; a failing build does.&rdquo;</strong> A <em>failing build</em> is what happens
+        when one of those automatic checks says no: the change is stopped, loudly, in front of
+        whoever made it. Whoever picks this project up next &mdash; a different person, a different
+        model, six months later &mdash; inherits none of today&rsquo;s carefulness. They inherit the
+        tests.
       </p>
 
       <p>
         But be precise about how far the program reaches, because the rule itself is. The scanner
-        reads identifiers &mdash; the names in the code &mdash; and inline code inside
-        documentation. It does not judge ordinary sentences. Rule 7 says so in its closing line:
+        reads <em>identifiers</em> &mdash; the names in the code. In a code file it reads every line,
+        comments included, which is why the scanner&rsquo;s own English comments have to carry
+        waivers to describe the thing they ban. In a documentation file it reads only what sits
+        inside inline code marks. Ordinary prose in a document it does not judge. Rule 7 says so in
+        its closing line:
         &ldquo;Reviewers enforce the qualified-prose rule because the scanner mechanically covers
         identifier cases only.&rdquo; So half of Rule 7 is a failing build, and the other half is
         still a reviewer paying attention &mdash; which is exactly the vigilance the rule&rsquo;s
@@ -732,9 +797,11 @@
       </p>
 
       <p>
-        The editor below holds one real line from <code>core/src/libbrecht.ts</code> &mdash; its
-        <code>return</code> turned into a named binding, so that there is something to rename.
-        Type into it. Try the presets. Then turn the scanner off and see what you get.
+        The editor below holds one real line from <code>core/src/libbrecht.ts</code>, with one
+        change: in the repository that line is a <code>return</code> &mdash; the line that hands the
+        answer straight back to whoever asked. Here it parks the answer in a name first, so that
+        there is a name for you to rename. Type into it. Try the presets. Then turn the scanner off
+        and see what you get.
       </p>
 
       <figure class="anim" id="anim-rule7">
@@ -749,8 +816,8 @@
           of <code>violationsInLine</code> in <code>scripts/lint-rule7.mjs</code> &mdash; same
           patterns, same allowlist, same waiver rule &mdash; and the pass and fail messages are that
           script&rsquo;s own output text. The edited line is <code>core/src/libbrecht.ts</code>
-          line&nbsp;257 with its <code>return</code> rewritten as a named binding, so the reader has
-          a name to rename. The crystal is <em>drawn, not simulated</em>: it stands in
+          line&nbsp;257, with its <code>return</code> rewritten to park the answer in a name first,
+          so the reader has a name to rename. The crystal is <em>drawn, not simulated</em>: it stands in
           for a run, and the point is only that a conflated model would still produce something that
           looks like this.</span>
         </figcaption>
@@ -784,13 +851,33 @@
 
       <p>
         What it buys is that the number&rsquo;s status is <em>legible</em> &mdash; to a reviewer, to
-        a future maintainer, and to you, reading a result three chapters from now. When a comparison
-        against the real world finally returns a verdict &mdash; agreement or disagreement &mdash;
-        the argument about why is only possible if the
+        a future maintainer, and to you, reading a result twelve chapters from now. The comparison in
+        chapter 28 has run; Phase 6 around it has not finished. When the argument about that verdict
+        starts &mdash; why did it come out this way? &mdash; the argument is only possible if the
         inputs are already sorted. Was it the code? The numbers? Or the theory? You cannot even ask
         that question of a parameter table where measurements and guesses are printed in the same
         typeface.
       </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled &mdash; and who checked all this
+        </p>
+        <p>
+          Almost everything in this chapter has been checked, and almost none of it by a human
+          expert. The project&rsquo;s own process file states the position without softening it:
+          &ldquo;All reviews to date, internal and external-facing, are LLM reviews; for publication
+          that is a disclosed limitation, not a substitute.&rdquo; The same file requires that at
+          least one human domain scientist read any manuscript before submission. That reading has
+          not happened. The same limit applies to this page, which was checked by two reviewers, both
+          of them language models. Carefully checked, and not yet expert-checked, are different
+          things &mdash; which is, in the end, the argument of this whole chapter applied to the
+          chapter itself.
+        </p>
+      </aside>
 
       <p>
         And there is one class we have named but not spent. <strong>P3</strong> &mdash;
@@ -817,37 +904,13 @@
         rather than a rehearsal.
       </p>
 
-      <p>
-        Why that decision was forced, and what it cost, is chapter 17 &mdash; along with the reason
-        the parameter file keeps &ldquo;<strong>two separate branches</strong>&hellip; never
-        merged.&rdquo;
-      </p>
-
-      <aside class="callout callout--open">
-        <p class="callout__label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
-          </svg>
-          Still unsettled &mdash; and who checked all this
-        </p>
-        <p>
-          Almost everything in this chapter has been checked, and almost none of it by a human
-          expert. The project&rsquo;s own process file states the position without softening it:
-          &ldquo;All reviews to date, internal and external-facing, are LLM reviews; for publication
-          that is a disclosed limitation, not a substitute.&rdquo; The same file requires that at
-          least one human domain scientist read any manuscript before submission. That reading has
-          not happened. The same limit applies to this page, which was checked by two reviewers, both
-          of them language models. Carefully checked, and not yet expert-checked, are different
-          things &mdash; which is, in the end, the argument of this whole chapter applied to the
-          chapter itself.
-        </p>
-      </aside>
-
       <p class="handoff">
         Every number in the model now carries a stamp, and one of those stamps says that the value
         was chosen to make the model agree with the very diagram the project intends to test it
-        against. Chapter 17 asks the uncomfortable question that follows: what would it even mean for
-        this model to be <em>wrong</em>?
+        against. Why leaving those values unwired was forced, what it cost, and why the parameter
+        file keeps &ldquo;<strong>two separate branches</strong>&hellip; never merged&rdquo; is
+        chapter 17 &mdash; which asks the uncomfortable question underneath all of it: what would it
+        even mean for this model to be <em>wrong</em>?
       </p>
 
       <nav class="chapter-nav" aria-label="Chapter navigation">
@@ -930,7 +993,7 @@
       clsName: "fitted or inferred",
       source: "monograph Table 2.1, plus Eq. 2 of arXiv:1910.09067",
       page: "Table 2.1: printed p. 57 / pdf 58 · Eq. 2: p. 3",
-      method: "The solver computes the printed closed form; the table anchors are used to validate it. The two agree to ≈ 1.2%, which is the accuracy of the Arrhenius fit inside the closed form.",
+      method: "The solver computes the printed closed form; the table anchors are used to validate it. The two agree to ≈ 1.2%, which the parameter file attributes to rounding in the quoted constants.",
       unc: "≈ 1–2% between form and table, recorded rather than smoothed away.",
       code: "core/src/libbrecht.ts — vKin(), validated in core/test/libbrecht.test.ts",
       note: "P2, not P1, because the closed form rests on a fit the source itself describes as “slightly modified to better fit the data”."
@@ -983,13 +1046,13 @@
       what: "A proposed reduction in the nucleation barrier on very narrow facets — the mechanism Part One&rsquo;s chapter 13 left as an open frontier.",
       value: "minimum sigma_0 ≈ 0.07–0.08% at (Tm−T) ≈ 4–4.5 °C",
       cls: "P3",
-      clsName: "Nakaya-informed hypothesis — IN-SAMPLE for any Nakaya comparison",
+      clsName: "Nakaya-informed hypothesis — in-sample for any Nakaya comparison",
       source: "monograph Figure 4.12",
       page: "printed p. 152 / pdf 153",
       method: "Digitized from a curve the source draws DOTTED, “to signify their substantial uncertainties”. The source also states the dip positions were chosen “to impose agreement with the known ice-growth behaviors from the Nakaya diagram”.",
       unc: "The source states the width and depth are “not well constrained by measurements”.",
       code: "Nothing. The parameter file records that SDAK “appears in no source file”, so every run to date is a no-SDAK run.",
-      note: "This is chapter 17&rsquo;s subject. Note that it is extracted, classified and then deliberately NOT wired in."
+      note: "IN-SAMPLE means the answer was already used to draw the question: these values were picked so that a model using them would match the Nakaya diagram, so matching it proves nothing. This is chapter 17&rsquo;s subject."
     },
     {
       short: "interpolation",
@@ -1512,22 +1575,28 @@
       (outside && safeguard ? c.critical : outside ? c.critical : c.good) + ";color:" + c.ink + ";");
 
     var x = Math.round(-tempC * 10) / 10;
+    /* The invocation is the repository's own usage form, printed by runner/src/main.ts:
+       `node runner/src/main.ts grow-lk --temp-c <C> --sigma-inf <frac>`. Both flags are
+       required — main.ts throws "grow-lk requires --temp-c and --sigma-inf" without them —
+       so neither is dropped here for brevity. */
+    var CMD = "$ node runner/src/main.ts grow-lk --temp-c " + tempC.toFixed(1) +
+              " --sigma-inf 0.002";
     var lines;
     if (!outside) {
       lines =
-        "$ grow-lk --temp " + tempC.toFixed(1) + "\n" +
+        CMD + "\n" +
         "sigma0_basal = " + fmt(logLog(x, SIGMA0_BASAL, false)) + "\n" +
         "sigma0_prism = " + fmt(logLog(x, SIGMA0_PRISM, false)) + "\n" +
         "run: ok";
     } else if (safeguard) {
       lines =
-        "$ grow-lk --temp " + tempC.toFixed(1) + "\n" +
+        CMD + "\n" +
         "Error: (Tm - T) = " + x + " C is outside the digitized domain [1, 50]" +
         " — extrapolation is banned (libbrecht-parameters.md)\n" +
         "run: refused. no crystal.";
     } else {
       lines =
-        "$ grow-lk --temp " + tempC.toFixed(1) + "   [safeguard off: extrapolating]\n" +
+        CMD + "   [safeguard off: extrapolating]\n" +
         "sigma0_basal = " + fmt(logLog(x, SIGMA0_BASAL, true)) + "\n" +
         "sigma0_prism = " + fmt(logLog(x, SIGMA0_PRISM, true)) + "\n" +
         "run: ok\n" +
@@ -1537,7 +1606,7 @@
     panel.textContent = lines;
   }
 
-  Viz.slider(bar, {
+  var tSlider = Viz.slider(bar, {
     label: "Temperature", id: "dom-t", min: -60, max: -0.5, step: 0.5, value: tempC,
     format: function (v) { return v.toFixed(1) + " °C"; },
     onInput: function (v) { tempC = v; render(); }
@@ -1549,8 +1618,10 @@
     render();
   }, { pressed: false });
   Viz.button(bar, "Jump to −0.5 °C", function () {
-    tempC = -0.5;
-    render();
+    /* go through the slider's own setter, not tempC directly: it syncs the thumb and
+       its readout and then fires onInput, which sets tempC and re-renders. Setting
+       tempC here would leave the control disagreeing with the figure. */
+    tSlider.value = -0.5;
   });
 
   render();
@@ -1825,14 +1896,17 @@
   var buildBox = null;
   var previewBox = null;
 
-  function dendrite(container, c, meaningless) {
+  function dendrite(container, c, meaningless, waived) {
     container.textContent = "";
-    var W = 240, H = 200;
+    var W = 240, H = 216;
     var svg = Viz.createSvg(container, W, H, {
       label: meaningless
         ? "A six-fold crystal drawing, standing in for a run that produced a plausible but " +
           "meaningless result."
-        : "A six-fold crystal drawing, standing in for a run that passed the scanner."
+        : waived
+          ? "A six-fold crystal drawing, standing in for a run that passed only because the " +
+            "line carries a written waiver."
+          : "A six-fold crystal drawing, standing in for a run that passed the scanner."
     });
     var cx = W / 2, cy = H / 2 - 6, L = 74;
     var ink = meaningless ? c.series[2] : c.series[0];
@@ -1860,12 +1934,21 @@
       stroke: ink, "stroke-width": 2
     }));
 
+    var caption = meaningless
+      ? ["beautiful, and meaningless."]
+      : waived
+        ? ["runs — waived, and the reason is on the", "line for every future reader."]
+        : ["runs — and the name says which one."];
     var t = Viz.svgEl("text", {
-      x: cx, y: H - 6, "text-anchor": "middle",
+      x: cx, y: H - 6 - (caption.length - 1) * 15, "text-anchor": "middle",
       fill: meaningless ? c.critical : c.inkSecondary,
       "font-size": 12, "font-weight": 700, "font-family": "var(--font-sans)"
     });
-    t.textContent = meaningless ? "beautiful, and meaningless." : "runs — and the name says which one.";
+    caption.forEach(function (lineText, i) {
+      var span = Viz.svgEl("tspan", { x: cx, dy: i === 0 ? 0 : 15 });
+      span.textContent = lineText;
+      t.appendChild(span);
+    });
     svg.appendChild(t);
   }
 
@@ -1874,6 +1957,11 @@
     var line = input.value;
     var v = violationsInLine(line);
     var blocked = scannerOn && v.length > 0;
+    /* violationsInLine returns [] on a waived line, so v alone cannot tell "clean"
+       from "would have failed, but the waiver let it through". Re-scan without the
+       waiver comment to find out, because the two deserve different captions. */
+    var waived = WAIVER.test(line) &&
+      violationsInLine(line.replace(/rule7-waive:.*/, "")).length > 0;
 
     input.setAttribute("style",
       "width:100%;box-sizing:border-box;font-family:var(--font-mono);font-size:0.82rem;" +
@@ -1918,15 +2006,15 @@
       msg.textContent = "Build failed. The preview never ran.";
       previewBox.appendChild(msg);
     } else {
-      dendrite(previewBox, c, v.length > 0);
+      dendrite(previewBox, c, v.length > 0, waived);
     }
   }
 
   var hint = document.createElement("p");
   hint.className = "anim__sub";
   hint.style.marginBottom = "0.5rem";
-  hint.textContent = "core/src/libbrecht.ts line 257, with its return turned into a named " +
-    "binding. Rename alphaHK to the bare word and watch the build.";
+  hint.textContent = "core/src/libbrecht.ts line 257, with the answer parked in a name instead " +
+    "of returned straight away. Rename alphaHK to the bare word and watch the build.";
   body.appendChild(hint);
 
   input = document.createElement("input");

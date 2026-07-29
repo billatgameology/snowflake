@@ -86,8 +86,8 @@
       </p>
 
       <p>
-        There are eight numbered phases but nine rungs, because Phase 2 was cut in half partway
-        through. On 2026-07-14, numbered decision 0003 split it into Phase&nbsp;2a &mdash; the
+        There are eight numbered phases but nine rungs, because Phase 2 was cut in half before it
+        was built. On 2026-07-14, numbered decision 0003 split it into Phase&nbsp;2a &mdash; the
         machinery &mdash; and Phase&nbsp;2b &mdash; the physics. Why that particular cut was made
         is the whole subject of this chapter.
       </p>
@@ -139,7 +139,9 @@
           <p class="chart__sub">
             Five rungs closed on an automated metric; two closed on the maker&rsquo;s word, and
             labelled as such. Phase 6 is in flight. Phase 7 has not started. The two brackets on
-            the right mark the only two places one rule is invoked.
+            the right mark the only two places one rule is invoked; they use two terms the next
+            section unpacks &mdash; the <em>CPU oracle</em> is the slow, readable TypeScript
+            solver, and <em>WGSL</em> is the language the graphics-card version is written in.
           </p>
         </div>
         <div class="chart__body"></div>
@@ -149,16 +151,21 @@
           metric-closed / maker-asserted split is that file&rsquo;s own classification at lines
           597&ndash;604, applied here to the table&rsquo;s rows &mdash; three of which that table
           itself records as &ldquo;maker-asserted complete&rdquo;. The two brackets encode the
-          guardrail at <code>project charter.md</code> §3.3.</span>
+          guardrail at <code>project charter.md</code> §3.3; the outer one starts at Phase 2a
+          because the charter names Phase 2 as a whole &mdash; 2a and 2b together &mdash; the
+          &ldquo;CPU reference solver&rdquo; (§3.2, line 245).</span>
         </figcaption>
       </figure>
 
       <p>
         Below is that table&rsquo;s own content: the gate for each rung, and its recorded status.
-        The table header in <code>docs/PROGRESS.md</code> states the standard it enforces:
-        &ldquo;A gate flips to &check; only with a named metric, its value, and the
-        seed/resolution/command to reproduce it.&rdquo; Read the gates and ask, of each one,
-        whether you could talk your way past it.
+        The sentence introducing that table in <code>docs/PROGRESS.md</code> (line 594) states the
+        standard it enforces: &ldquo;A gate flips to &check; only with a named metric, its value,
+        and the seed/resolution/command to reproduce it.&rdquo; A <strong>seed</strong> here is the
+        single number the program&rsquo;s random-number generator starts from. Same seed, same
+        random choices, same run &mdash; it is what lets a stranger get your exact result rather
+        than a similar one. It is not the ice seed of Part One &mdash; same word, different thing.
+        Read the gates and ask, of each one, whether you could talk your way past it.
       </p>
 
       <div class="table-wrap">
@@ -229,7 +236,7 @@
       <p>
         One honest wrinkle in that list. The repository does not classify vapour diffusion the same
         way twice. Numbered decision 0003 files &ldquo;the quasi-static vapor diffusion step and
-        its reflecting boundary&rdquo; under the heading &ldquo;this is infrastructure, not
+        its reflecting boundary&rdquo; in a list introduced as &ldquo;this is infrastructure, not
         physics&rdquo; (<code>docs/decisions/0003-libbrecht-attachment-kinetics.md</code>, lines 40
         and 44). The specification the solver is written against opens by saying the opposite:
         &ldquo;Diffusion is physical transport; G-G&rsquo;s surface knobs are
@@ -272,9 +279,12 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. The dependencies are the charter&rsquo;s
           sequential default and its one parallel pair (<code>project charter.md</code> §3.2, line
-          237). Refusal messages are quoted from §3.3 (line 337), §3.1 (line 221), §3.2&rsquo;s
-          opening paragraph (line 237), and the Phase 4 and Phase 6 entries (lines 283 and
-          305).</span>
+          237); a swap is waived only when a numbered decision names that exact pair, so
+          everything the decisions do not name stays refused. Refusal messages are quoted from
+          §3.3 (line 337), §3.1 (line 221), §3.2&rsquo;s opening paragraph (line 237), and the
+          Phase 4 and Phase 6 entries (lines 283 and 305). The &ldquo;actually closed in&rdquo;
+          order is the gate table&rsquo;s own dates, <code>docs/PROGRESS.md</code> lines
+          606&ndash;616.</span>
         </figcaption>
       </figure>
 
@@ -293,9 +303,10 @@
 
       <p>
         Then &mdash; and this is the part that surprises people &mdash; that borrowed rule is never
-        deleted. §3.3 again: &ldquo;The 2D spike stays throwaway; the CPU oracle stays forever. So
-        does GGThreshold &mdash; the working floor is never deleted, for the same reason the oracle
-        is never deleted.&rdquo; (line 336). <code>GGThreshold</code> is just the code&rsquo;s name
+        deleted. §3.3 promises permanence to the CPU oracle, and then extends the same promise
+        sideways: &ldquo;So does GGThreshold &mdash; the working floor is never deleted, for the
+        same reason the oracle is never deleted.&rdquo; (line 336).
+        <code>GGThreshold</code> is just the code&rsquo;s name
         for that borrowed Gravner&ndash;Griffeath rule, and &ldquo;the working floor&rdquo; is the
         guaranteed-decent crystal it produces &mdash; the thing that still works when the new
         physics does not. The charter names its purpose in Phase 2b&rsquo;s text:
@@ -344,28 +355,46 @@
         </p>
         <p>
           The Phase 2a gate entry in <code>docs/PROGRESS.md</code> (line 610) records: plate, seed
-          1, dims <code>128,128,64</code>; a delta check &mdash; a check that nothing changed where
-          nothing should have &mdash; clean across all 4800 ticks; the full symmetry metric 0
-          everywhere sampled; aspect ratio <code>0.168831</code>; and total mass drifting by
-          <code>2.056e-13</code> over the run. Three numbers are tangled up in that last item, and
-          they measure three different things. <code>2.056e-13</code> is the measurement made on
-          the gate run. The threshold it had to beat is a
-          separate number in the plan file &mdash; &ldquo;total mass conserved to &lt; 1e-10
-          relative over 10 000 ticks&rdquo;
-          (<code>docs/plans/phase-2-cpu-solver.md</code>, lines 403&ndash;404) &mdash; and it beats it
-          comfortably. The &ldquo;float floor&rdquo; of <code>3.8e-16</code> printed beside it is a
-          third thing again: a separate crystal-free control run, measuring how much the arithmetic
-          drifts with no crystal in the box at all. The measured drift sits about five hundred
-          times above that floor, and the plan records why that is expected rather than alarming
-          &mdash; it is &ldquo;consistent with per-tick freeze/melt/attach float shuffling rather
-          than a leak&rdquo; (lines 391&ndash;392). The reproduction is a single
-          command, and the entry says what the claim is: &ldquo;Enforcing repro (exit 0 is the
-          claim, twelve criteria)&rdquo; &mdash; the command tests twelve separate conditions and
-          reports success, by exiting with the status code 0, only if every one of them holds. The
-          accepted checkpoint carries its SHA-256 &mdash; a fingerprint computed from the
+          1, dims <code>128,128,64</code>; a delta check &mdash; the same sixfold-symmetry test,
+          applied every single tick to just the handful of cells that newly froze on that tick
+          &mdash; clean across all 4800 ticks; the full symmetry metric 0 everywhere it was
+          sampled; aspect ratio <code>0.168831</code>; and total mass drifting by
+          <code>2.056e-13</code> over the run.
+        </p>
+        <p>
+          Those first two are one criterion at two granularities, not two unrelated checks, and the
+          cheap one is not decoration. <code>core/src/metrics.ts</code> gives the arithmetic reason
+          it works: if the crystal is sixfold now and every tick&rsquo;s set of new attachments is
+          sixfold, then it is still sixfold next tick &mdash; and checking only the new cells is
+          cheap enough to make &ldquo;symmetry error exactly 0 across the entire run&rdquo;
+          affordable (lines 85&ndash;89). The plan file gives the reason it is
+          <em>load-bearing</em>: a break can heal before the next full sample lands, so &ldquo;a
+          periodic full metric alone can miss a break, which is why the gate also runs the exact
+          per-tick delta check&rdquo; (<code>docs/plans/phase-2-cpu-solver.md</code>, lines
+          903&ndash;904).
+        </p>
+        <p>
+          Three numbers are tangled up in that last item, and they measure three different things.
+          <code>2.056e-13</code> is the measurement made on the gate run. The threshold it had to
+          beat is a separate number in the plan file &mdash; &ldquo;total mass conserved to &lt;
+          1e-10 relative over 10 000 ticks&rdquo;
+          (<code>docs/plans/phase-2-cpu-solver.md</code>, lines 403&ndash;404) &mdash; and it beats
+          it comfortably. The &ldquo;float floor&rdquo; of <code>3.8e-16</code> printed beside it is
+          a third thing again: a separate crystal-free control run, measuring how much the
+          arithmetic drifts with no crystal in the box at all. The measured drift sits about five
+          hundred times above that floor, and the plan records why that is expected rather than
+          alarming &mdash; it is &ldquo;consistent with per-tick freeze/melt/attach float shuffling
+          rather than a leak&rdquo; (lines 391&ndash;392).
+        </p>
+        <p>
+          The reproduction is a single command, and the entry says what the claim is:
+          &ldquo;Enforcing repro (exit 0 is the claim, twelve criteria)&rdquo; &mdash; the command
+          tests twelve separate conditions and reports success, by exiting with the status code 0,
+          only if every one of them holds. And the accepted <strong>checkpoint</strong> &mdash; the
+          saved file holding the crystal and its fields at the end of a run &mdash; carries its
+          SHA-256: <code>f1796b5015&hellip;a389</code>. That is a fingerprint computed from the
           file&rsquo;s bytes, so a changed file gets a different fingerprint, and finding two
-          different files that share one is a problem nobody has ever solved for SHA-256 &mdash;
-          <code>f1796b5015&hellip;a389</code>.
+          different files that share one is a problem nobody has ever solved for SHA-256.
         </p>
       </aside>
 
@@ -497,8 +526,9 @@
       <p>
         Note what the first of those does <em>not</em> say. It does not ban looking at things. Phase
         3 &mdash; the phase whose whole purpose is a 3D viewer &mdash; kept its visual half; the
-        gate entry records that app captures were inspected by an LLM coordinator and an LLM
-        reviewer &mdash; see the note below on what that is and is not worth. What
+        gate entry records that app captures were inspected by a coordinator and a reviewer
+        &mdash; both, like every reviewer on this project, language models; see the note below on
+        what that is and is not worth. What
         the rule bans is looking at something and then calling the looking a measurement. The
         charter amended Phase 3&rsquo;s gate specifically to make this stick: &ldquo;the
         visualization stays, the eyeball stops being the evidence&rdquo; (line 281).
@@ -529,17 +559,25 @@
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
-          <span class="built-from">Original interactive. Verdicts and rule text quoted from
-          <code>AGENTS.md</code> lines 243, 252&ndash;253 and 331&ndash;335,
-          <code>project charter.md</code> line 342, and the Phase 3 gate entry in
-          <code>docs/PROGRESS.md</code> line 612.</span>
+          <span class="built-from">Original interactive. Rule text on the first three claims is
+          quoted verbatim from <code>project charter.md</code> line 342 and <code>AGENTS.md</code>
+          lines 242&ndash;243 and 331&ndash;332, with supporting quotes from <code>AGENTS.md</code> lines
+          252&ndash;253. The fourth claim is quoted from the Phase 3 gate entry in
+          <code>docs/PROGRESS.md</code> line 612; the line beneath it is this chapter&rsquo;s
+          summary of the fields Rule 6 asks for, and is set without quotation marks for that
+          reason.</span>
         </figcaption>
       </figure>
 
       <p>
         The fourth claim is what a passing gate entry looks like in this repository: a named
         metric, its value, the threshold it was registered against, the seed, the grid, the exact
-        flagless command, and the hash of the checkpoint the numbers were read out of. Every field
+        command, and the hash of the checkpoint the numbers were read out of. That command is
+        <strong>flagless</strong> &mdash; it has no options typed after it. A flag is an option you
+        type after a command name to change what it does, so a flagless command is one whose
+        settings are fixed in the code rather than chosen fresh at the prompt each time. The
+        rulebook gives the reason in one clause: <code>gate2b</code> &ldquo;is flagless because it
+        encodes the pre-registered protocol&rdquo; (<code>AGENTS.md</code>, line 246). Every field
         is there so that a stranger &mdash; including a hostile one &mdash; can re-run it and get
         the same answer, or fail to and say so.
       </p>
@@ -635,6 +673,14 @@
         silently.&rdquo; (lines 59&ndash;60).
       </p>
 
+      <p>
+        That is why the wrinkle about vapour diffusion earlier in this chapter was flagged and left
+        standing rather than tidied away. A numbered decision and a solver spec sit at different
+        levels of that table, they classify the same step differently, and picking one silently is
+        the exact move the rule forbids. Saying so out loud costs a paragraph. Choosing quietly
+        would have cost the reader the ability to check.
+      </p>
+
       <!-- ================================================================= -->
       <h2 id="where-it-bends">Where the ladder is allowed to bend</h2>
 
@@ -646,7 +692,7 @@
 
       <p>
         That is not the ladder being ignored; it is the ladder being bent on the record. The
-        opening sentence of §3.2 sets out both the default and every exception granted so far:
+        opening paragraph of §3.2 sets out the default and the ordering exceptions granted so far:
       </p>
 
       <blockquote class="callout">
@@ -657,18 +703,31 @@
           Decision 0010 allows Phase 4 to proceed while Phase 3 awaits external assertion and Phase
           2b&rsquo;s v4 evidence run finishes: external processes and artifacts are immutable, no
           claim is borrowed, relevant upstream corrections must be integrated and rerun before
-          Phase 4 evidence, and the exception ends with Phase 4.&rdquo;
+          Phase 4 evidence, and the exception ends with Phase 4.&hellip;&rdquo;
           <br><span class="figure__source">snowflake repository, project charter.md &mdash;
-          &sect;3.2, opening paragraph (line 237)</span>
+          &sect;3.2, opening paragraph (line 237), first three sentences of five</span>
         </p>
       </blockquote>
 
       <p>
-        Read the shape of that, not the detail. Each exception is <strong>numbered</strong>, so it
-        can be looked up. Each states its <strong>boundaries</strong> &mdash; what may not be
-        borrowed, what must be re-run. And decision 0010 states its <strong>expiry</strong> in five
-        words: <em>the exception ends with Phase 4</em>. An exception with no end date is not an
-        exception; it is a quiet amendment.
+        That ellipsis is doing real work, so here is what it hides. The paragraph has one more
+        exception in it, and it is not about order at all. &ldquo;Phase 4 began in an isolated
+        worktree&rdquo; &mdash; a second working copy of the repository, kept apart from the main
+        one &mdash; and when that copy was folded back in, the charter records that decision 0012
+        &ldquo;permits v2 only on <code>main</code> in the current Windows repository while
+        preserving every isolation constraint on the separate Phase 2b process and evidence&rdquo;
+        (line 237). <code>v2</code> is Phase 4&rsquo;s second, re-run version of its evidence. So
+        that exception moved <em>where</em> the work was allowed to happen, not <em>when</em>.
+        After it, the paragraph ends on the sentence this chapter opened with: &ldquo;Each
+        milestone has a done when.&rdquo;
+      </p>
+
+      <p>
+        Read the shape of those exceptions, not the detail. Each is <strong>numbered</strong>, so
+        it can be looked up. Each states its <strong>boundaries</strong> &mdash; what may not be
+        borrowed, what must be re-run, what stays walled off. And decision 0010 states its
+        <strong>expiry</strong> in six words: <em>the exception ends with Phase 4</em>. An
+        exception with no end date is not an exception; it is a quiet amendment.
       </p>
 
       <p>
@@ -699,9 +758,10 @@
 
       <p class="handoff">
         The bottom of the ladder is a grid, and the very first thing Phase 2a had to prove was that
-        the grid itself was not lying. The next chapter asks why that grid gives every cell eight
-        neighbours all exactly the same distance away, when the obvious cube of cubes gives six
-        that are not &mdash; which turns out to be a physics argument about a data structure.
+        the grid itself was not lying. The next chapter asks why that grid gives every cell six
+        neighbours meeting at 60 degrees, plus one directly above and one directly below &mdash;
+        all eight the same distance away &mdash; when the obvious cube of cubes gives six meeting
+        at right angles, which turns out to be a physics argument about a data structure.
       </p>
 
       <nav class="chapter-nav" aria-label="Chapter navigation">
@@ -724,8 +784,8 @@
   <div class="shell">
     <p>
       Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
-      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
-      from a local research cache under citation; they are not redistributed with this repository.
+      snowflake formation. Part Two describes a software project; every figure in it is original and
+      is built from the repository files named beneath it.
     </p>
     <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
   </div>
@@ -795,7 +855,7 @@
       const c = Viz.colors();
       const svg = Viz.createSvg(body, W, H, {
         label: "A nine-rung ladder from Phase 0 at the bottom to Phase 7 at the top. Phases 2a to 5 are closed on an automated metric; Phases 0 and 1 are closed on the maker's assertion and marked differently; Phase 6 is in flight and Phase 7 has not started.",
-        desc: "Two brackets on the right mark the two boundaries governed by the rule 'never physics ahead of the machinery': Phase 2a before Phase 2b, and the CPU oracle before the GPU port at Phase 5.",
+        desc: "Two nested brackets on the right mark the two boundaries governed by the rule 'never physics ahead of the machinery': Phase 2a before Phase 2b, and the CPU oracle — Phases 2a and 2b together — before the GPU port at Phase 5.",
       });
 
       // vertical rail
@@ -841,23 +901,30 @@
         });
       });
 
-      // brackets: 2a -> 2b, and 2b -> 5
-      function bracket(fromId, toId, lines) {
+      /* Two nested brackets, both anchored at Phase 2a. The inner one is the 2a→2b boundary.
+         The outer one starts at 2a as well, not at 2b: the CPU oracle is the whole Phase 2
+         reference solver — "CPU reference solver: plain TypeScript, float64 … This is the
+         ground truth and the debugging environment" (project charter.md §3.1, line 217), and
+         §3.2 names the whole of Phase 2 "CPU reference solver. Split into 2a and 2b" (line 245)
+         — so a bracket rooted at 2b would silently equate the oracle with 2b alone. Both label
+         columns sit clear of both rails, and the two never share a row. */
+      function bracket(fromId, toId, inset, lines) {
         const ya = yc(idx(fromId)), yb = yc(idx(toId));
         const top = Math.min(ya, yb), bot = Math.max(ya, yb);
+        const x0 = RX + RW + 6 + inset;
         svg.appendChild(Viz.svgEl("path", {
-          d: "M" + (RX + RW + 6) + "," + top + " H" + (RX + RW + 20) +
-             " V" + bot + " H" + (RX + RW + 6),
+          d: "M" + x0 + "," + top + " H" + (x0 + 14) +
+             " V" + bot + " H" + x0,
           fill: "none", stroke: c.inkSecondary, "stroke-width": 1.4,
         }));
         const mid = (top + bot) / 2;
         lines.forEach(function (s, k) {
-          txt(svg, RX + RW + 28, mid - (lines.length - 1) * 7 + k * 14 + 4, s,
+          txt(svg, RX + RW + 58, mid - (lines.length - 1) * 7 + k * 14 + 4, s,
             { size: 11.5, weight: k === 0 ? 640 : 400, fill: k === 0 ? c.ink : c.inkSecondary });
         });
       }
-      bracket("2a", "2b", ["Phase 2a is gated before", "any Libbrecht equation is written"]);
-      bracket("2b", "5", ["the CPU oracle is gated", "before any WGSL is written"]);
+      bracket("2a", "2b", 0, ["Phase 2a is gated before", "any Libbrecht equation is written"]);
+      bracket("2a", "5", 30, ["the CPU oracle is gated", "before any WGSL is written"]);
     }
 
     render();
@@ -945,15 +1012,34 @@
     ];
     /* Sequential by default — charter §3.2, line 237. Phase 1 may float against Phase 2,
        which is the one parallel pair the charter grants, but not past it: "everything else
-       is sequential", so Phase 3 requires Phase 1 to be behind it. */
+       is sequential", so Phase 3 requires Phase 1 to be behind it.
+
+       These lists are the FULL set of ancestors, not just the immediate predecessor. That
+       matters: with only immediate predecessors, a phase could be sunk far down the order
+       and every pair it broke would either be unlisted or happen to be an ADR-waived pair,
+       so the demo would bless an order the charter does not permit. "Everything else is
+       sequential" is a statement about every pair, so every pair is encoded. */
     const REQ = {
-      "1": ["0"], "2a": ["0"], "2b": ["2a"], "3": ["1", "2b"],
-      "4": ["2a", "2b", "3"], "5": ["2a", "2b", "4"], "6": ["2b", "4", "5"], "7": ["6"],
+      "0":  [],
+      "1":  ["0"],
+      "2a": ["0"],
+      "2b": ["0", "2a"],
+      "3":  ["0", "1", "2a", "2b"],
+      "4":  ["0", "1", "2a", "2b", "3"],
+      "5":  ["0", "1", "2a", "2b", "3", "4"],
+      "6":  ["0", "1", "2a", "2b", "3", "4", "5"],
+      "7":  ["0", "1", "2a", "2b", "3", "4", "5", "6"],
     };
-    /* The two orderings the charter's own numbered decisions already permit. */
+    /* The orderings the charter's own numbered decisions already permit — and only those
+       exact pairs. Decision 0010 names both Phase 3 and Phase 2b's v4 evidence run, so it
+       covers 4-above-3 and 4-above-2b; it says nothing about Phase 5, 6 or 7, so those
+       pairs stay hard violations. */
+    const EXC_0708 = "Decisions 0007 and 0008 allowed Phase 3’s development visualization to complete independently of Phase 2b.";
+    const EXC_0010 = "Decision 0010 allows Phase 4 to proceed while Phase 3 awaits external assertion and Phase 2b’s v4 evidence run finishes: external processes and artifacts are immutable, no claim is borrowed, relevant upstream corrections must be integrated and rerun before Phase 4 evidence, and the exception ends with Phase 4.";
     const EXCEPTIONS = {
-      "3|2b": "Decisions 0007 and 0008 allowed Phase 3’s development visualization to complete independently of Phase 2b.",
-      "4|3": "Decision 0010 allows Phase 4 to proceed while Phase 3 awaits external assertion and Phase 2b’s v4 evidence run finishes: external processes and artifacts are immutable, no claim is borrowed, relevant upstream corrections must be integrated and rerun before Phase 4 evidence, and the exception ends with Phase 4.",
+      "3|2b": EXC_0708,
+      "4|3":  EXC_0010,
+      "4|2b": EXC_0010,
     };
     const CANON = PHASES.map(function (p) { return p.id; });
 
@@ -1124,16 +1210,23 @@
       // banner
       banner.textContent = "";
       if (bad.length === 0 && res.waived.length > 0) {
+        const texts = [];
+        res.waived.forEach(function (v) {
+          const t = EXCEPTIONS[v.key];
+          if (texts.indexOf(t) === -1) texts.push(t);
+        });
         banner.style.borderColor = c.inkSecondary;
         banner.appendChild(el("p", { margin: "0 0 0.35rem", fontWeight: "700" },
           "Allowed — but only because somebody wrote it down."));
         banner.appendChild(el("p", { margin: "0 0 0.3rem", fontSize: "0.86rem" },
-          "The charter's default is sequential, so this order is out of order. It is permitted anyway, by a numbered decision that states its own boundaries:"));
-        res.waived.forEach(function (v) {
+          texts.length > 1
+            ? "The charter's default is sequential, so this order is out of order. It is permitted anyway, by numbered decisions that state their own boundaries:"
+            : "The charter's default is sequential, so this order is out of order. It is permitted anyway, by a numbered decision that states its own boundaries:"));
+        texts.forEach(function (t) {
           banner.appendChild(el("p", {
             margin: "0 0 0.3rem", fontSize: "0.84rem", fontStyle: "italic",
             borderLeft: "3px solid " + c.inkSecondary, paddingLeft: "0.6rem",
-          }, "“" + EXCEPTIONS[v.key] + "”"));
+          }, "“" + t + "”"));
         });
         banner.appendChild(el("p", {
           margin: "0", fontSize: "0.76rem", color: "var(--ink-muted)", fontFamily: "var(--font-mono)",
@@ -1199,6 +1292,12 @@
     Viz.button(controls, "Visualisation before the physics", function () {
       order = CANON.filter(function (id) { return id !== "3"; });
       order.splice(3, 0, "3");
+      render();
+    });
+    /* The order the gates actually closed in: 2a 2026-07-15, 4 07-18, 2b 07-20, 3 07-23,
+       5 07-26 — docs/PROGRESS.md, gate table lines 606–616. */
+    Viz.button(controls, "The order it actually closed in", function () {
+      order = ["0", "1", "2a", "4", "2b", "3", "5", "6", "7"];
       render();
     });
     Viz.button(controls, "Reset to the charter order", function () {
@@ -1403,6 +1502,7 @@
         claim: "A rendered image of a six-armed crystal, captioned “the plate gate is closed — look at it”.",
         accept: false,
         rule: "Every scientific milestone is an automated metric, not a screenshot.",
+        verbatim: true,
         cite: "project charter.md §3.3, line 342",
         extra: "The command list adds: “A liveness line, screenshot, test count, or contact-stopped state is not an accepted result.” (AGENTS.md, lines 252–253)",
       },
@@ -1410,13 +1510,15 @@
         claim: "“npm test is green — the exact root suite reports 779/779 and the build is clean. The Phase 4 gate is closed.”",
         accept: false,
         rule: "It is the required local check, but a green self-test is not sufficient evidence for a scientific gate.",
-        cite: "AGENTS.md, line 243",
-        extra: "779/779 is a real number from the Phase 4 record — it just is not the gate. The gate was one flagless command that ran for 7,178.8 seconds and exited 0.",
+        verbatim: true,
+        cite: "AGENTS.md, lines 242–243",
+        extra: "779/779 is a real number from the Phase 4 record — it just is not the gate. The gate was a single command that ran for 7,178.8 seconds and exited 0.",
       },
       {
         claim: "“Symmetry error 0.000000, held across the whole run.” A named metric with its value — and nothing else.",
         accept: false,
         rule: "Never mark a phase gate done in PROGRESS.md without naming the metric, its value, and how to reproduce it (seed, resolution, command).",
+        verbatim: true,
         cite: "AGENTS.md, Rule 6, lines 331–332",
         extra: "A number nobody else can regenerate is a claim, not evidence. Two of the three required fields are missing.",
       },
@@ -1424,7 +1526,8 @@
         claim: "“gate3 exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: node runner/src/main.ts gate3 (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…).”",
         accept: true,
         rule: "Metric, value, the threshold it was registered against, seed, grid, exact command, and the checkpoint hash — every field the rule asks for.",
-        cite: "the Phase 3 gate entry, docs/PROGRESS.md line 612",
+        verbatim: false,
+        cite: "summary — the fields required by AGENTS.md, Rule 6, lines 331–332. The claim above is quoted from the Phase 3 gate entry, docs/PROGRESS.md line 612.",
         extra: "The threshold was registered before the run, so the value cannot have been chosen to clear it. And the checkpoint is byte-identical to Phase 2a's — which is how the project proves the viewer changed nothing about the science.",
       },
     ];
@@ -1501,9 +1604,14 @@
         }, ok ? "You agreed." : "You did not."));
       }
 
+      /* Quotation marks are reserved for repository text. Item 4's rule line is this
+         chapter's own summary of what the entry contains, so it is set plain — the
+         reader is never shown an author sentence dressed as a citation. */
+      const isQuote = item.verbatim !== false;
       card.appendChild(el("p", {
-        margin: "0 0 0.3rem", fontSize: "0.88rem", fontStyle: "italic",
-      }, "“" + item.rule + "”"));
+        margin: "0 0 0.3rem", fontSize: "0.88rem",
+        fontStyle: isQuote ? "italic" : "normal",
+      }, isQuote ? "“" + item.rule + "”" : item.rule));
       card.appendChild(el("p", {
         margin: "0 0 0.55rem", fontSize: "0.76rem", fontFamily: "var(--font-mono)",
         color: "var(--ink-muted)",
