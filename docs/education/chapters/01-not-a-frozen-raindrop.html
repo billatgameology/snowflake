@@ -1,0 +1,1562 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not a Frozen Raindrop — Snow Crystals</title>
+<meta name="description" content="What is actually landing on your sleeve: the difference between a snow crystal and a snowflake, and the route water takes from vapour to ice without ever freezing solid on the way.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 1 &middot; Not a Frozen Raindrop</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#two-words">Two words, one of which means a crystal</a></li>
+      <li><a href="#not-a-raindrop">Not a frozen raindrop</a></li>
+      <li><a href="#into-the-cloud">Where the raw material comes from</a></li>
+      <li><a href="#supercooling">Nothing freezes at zero</a></li>
+      <li><a href="#the-relay">A hundred thousand droplets, one crystal</a></li>
+      <li><a href="#too-cold-to-snow">Too cold to snow</a></li>
+      <li><a href="#no-blueprint">Nobody is designing this</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 1</p>
+        <h1>Not a Frozen Raindrop</h1>
+        <p class="chapter-header__question">
+          What is actually landing on your sleeve, and where did it come from?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~15 min read</span>
+          <span>9 figures</span>
+          <span>3 animations</span>
+        </div>
+      </header>
+
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Tell a <em>snow crystal</em> from a <em>snowflake</em>, and say which of the two has six-fold symmetry.</li>
+          <li>Trace the route water takes &mdash; vapour to cloud droplet to vapour again to ice &mdash; and name the step the crystal skips.</li>
+          <li>Explain why a cloud droplet does not freeze at 0&nbsp;&deg;C, and say what actually decides when it does.</li>
+          <li>Give the real mechanism behind &ldquo;too cold to snow.&rdquo;</li>
+          <li>Say where the design of a snow crystal is stored &mdash; and why the honest answer is <em>nowhere</em>.</li>
+        </ul>
+      </section>
+
+      <!-- ================================================================= -->
+      <h2 id="two-words">Two words, one of which means a crystal</h2>
+
+      <p>
+        Catch one on a dark coat sleeve and hold still. What have you caught? Sometimes it is the
+        six-pointed star from the holiday card. More often it is a stubby splinter of ice, or a
+        little pencil shape, or a grey clump the size of a fingernail that looks like nothing at
+        all. All of that is snow. Only some of it is a <strong>snow crystal</strong>.
+      </p>
+
+      <p>
+        Start with the word that has a hard edge to it. A snow crystal is a <em>single crystal</em>
+        of ice &mdash; one continuous, precisely repeating array of water molecules, with no seams
+        and no joins anywhere in it. Kenneth Libbrecht, who has spent decades measuring how these
+        things grow, puts it plainly: &ldquo;The latter is a single crystal of ice, in which the
+        water molecules are all lined up in a precise hexagonal array. Whenever you see that
+        characteristic six-fold symmetry often associated with snowflakes, you are actually looking
+        at a snow crystal.&rdquo; The six-fold symmetry is not decoration laid on top of the object.
+        It is the internal arrangement of the molecules showing through to the outside.
+      </p>
+
+      <p>
+        That accounts for the <em>six</em>-ness &mdash; why six arms and not five or seven. It does
+        not account for why all six arms carry the same ornament as each other. Hold that question;
+        the last section of this chapter answers it.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.1/visual.png"
+              data-figure="Figure 1.1"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 18 &middot; printed p. 17"
+              data-alt="A large six-armed stellar snow crystal with fern-like side branches on every arm.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> this is the picture almost everyone arrives with. Note
+          what the published caption says about it &mdash; it is <em>one type</em> of snow crystal,
+          and it only turns up in a narrow slice of cloud conditions. Hold on to that; the rest of
+          this chapter is about widening the picture.
+          <br><br>
+          One convention to settle here, since it starts with this very caption and recurs all the
+          way through. Published captions are quoted exactly as printed, so a
+          &ldquo;Chapter&nbsp;N&rdquo; <em>inside</em> a quoted caption always means a chapter of
+          Libbrecht&rsquo;s monograph, never a chapter of this site. The two numberings are
+          unrelated and they collide: the monograph&rsquo;s Chapter 10, promised below, is its
+          menagerie of crystal types, whereas Chapter 10 <em>here</em> is about how the measurements
+          are made. This site&rsquo;s own cross-references appear only in the running prose, where
+          they read &ldquo;Chapter&nbsp;N&rdquo; and mean the chapters listed on the contents page.
+          Where a quoted chapter number would send you somewhere actively wrong, a bracketed
+          redirect follows the caption, like the one just below.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.1: Large stellar dendrites like this one are
+          perennial holiday favorites, but these are only one type of snow crystal. Stellar
+          dendrites are thin and flat in overall shape, and they only appear when the temperature in
+          the clouds is near -15 C. The full menagerie of natural snow crystals is discussed in
+          Chapter 10.&rdquo;</em>
+          <br><br>
+          [The monograph&rsquo;s Chapter 10 is its menagerie. On this site that is
+          <strong>Chapter 9, The Menagerie</strong>.]
+        </figcaption>
+      </figure>
+
+      <p>
+        Six-fold symmetry does not only mean six arms. It can be written into the surface of a flat
+        plate as a pattern of ridges and hollows that repeats six times around, with no arms
+        involved at all.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.3/visual.png"
+              data-figure="Figure 1.3"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 19 &middot; printed p. 18"
+              data-alt="A thin hexagonal plate crystal whose internal ridges and hollows repeat six times around its centre.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> cover five sixths of the plate with your hand and look at
+          the wedge that is left. Now rotate the picture by a sixth of a turn in your head. The wedge
+          repeats. That is what &ldquo;six-fold&rdquo; means, and here it lives entirely in the
+          surface markings.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.3: The overall thin and flat shape of this crystal
+          is what puts the &ldquo;flake&rdquo; in &ldquo;snowflake.&rdquo; This unusual example
+          exhibits an exceptionally striking six-fold symmetry in its complex surface
+          patterns.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        And plenty of snow crystals are not flat and not star-shaped at all. Change the cloud
+        temperature by ten degrees and ice grows into something you would never put on a card.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.2/visual.png"
+              data-figure="Figure 1.2"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 18 &middot; printed p. 17"
+              data-alt="Several stubby hexagonal columns of ice, each with a conical hollow opening at its end.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> these are single snow crystals too &mdash; same ice, same
+          lattice, same six-fold arrangement of molecules inside. The six-fold symmetry is now in the
+          <em>cross-section</em>, exactly like the cross-section of a wooden pencil. The dark cones
+          at the ends are hollows, not dirt.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.2: At temperatures near -5 C, columnar snow crystals
+          like these often appear. Their basic shape is a hexagonal column, like that of a standard
+          wooden pencil. These particular examples are &ldquo;hollow&rdquo; columns that exhibit
+          roughly conical hollow regions in each end.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          &ldquo;All snowflakes are six-pointed stars.&rdquo; They are not. Stars are one shape among
+          many, and the published caption for Figure 1.1 pins them to a narrow temperature band near
+          &minus;15&nbsp;&deg;C. Near &minus;5&nbsp;&deg;C the very same substance &mdash; the same
+          water, the same lattice &mdash; grows into stubby hexagonal columns instead. Ten degrees
+          changes the answer completely.
+        </p>
+      </aside>
+
+      <p>
+        Now the second word. <strong>Snowflake</strong> is a weather word rather than a physics word,
+        and it is much looser. It can mean a single snow crystal. It can mean a small cluster of
+        them. It can also mean one of those grey puffballs that drift down in mild weather:
+        &ldquo;Those large puff-balls you see floating down in warmer snowfalls are called
+        snowflakes, and each is made from hundreds or even thousands of individual snow
+        crystals.&rdquo;
+      </p>
+
+      <p>
+        That matters more than it sounds. A puffball has no symmetry of its own. Every one of the
+        hundreds of crystals inside it may be a flawless hexagon, but the clump is just a clump &mdash;
+        crystals that happened to bump into each other on the way down and stuck. If you try to
+        explain six-fold symmetry by looking at a puffball you will get nowhere, because there is
+        none there to explain. Calling a snow crystal a snowflake is fine, &ldquo;like calling a
+        tulip a flower.&rdquo; Calling a puffball a crystal is not.
+      </p>
+
+      <figure class="anim" id="anim-aggregate">
+        <div class="anim__head">
+          <p class="anim__title">One crystal, or a thousand?</p>
+          <p class="anim__sub">Drag the slider to the cold end and every crystal lands alone. Drag it warm and they fuse on contact.</p>
+          <p class="anim__sub" data-readout>Biggest flake in the air: 1 crystal · biggest to land so far: 1.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. Encodes one sentence from Libbrecht,
+          <em>Snow Crystals</em>, printed p. 17: &ldquo;Those large puff-balls you see floating down
+          in warmer snowfalls are called snowflakes, and each is made from hundreds or even thousands
+          of individual snow crystals.&rdquo; The crystals here are drawn falling at slightly
+          different speeds so that they meet &mdash; the source records only that snow crystals
+          &ldquo;collide and stick together in mid-flight&rdquo; (printed p. 17), not how fast each
+          one falls. The stickiness of those collisions is what the slider controls. Note what the
+          slider does <em>not</em> explain: the source records only that puffballs come down in
+          warmer snowfalls, and why snow crystals should stick to one another more readily when it
+          is mild is not something this chapter can answer. The counter is this animation&rsquo;s
+          own tally, not a measurement, and this small patch of sky only has room for clumps of a
+          dozen or so &mdash; a real puffball holds hundreds.</span>
+        </figcaption>
+      </figure>
+
+      <!-- ================================================================= -->
+      <h2 id="not-a-raindrop">Not a frozen raindrop</h2>
+
+      <p>
+        The single most common idea about snow is that it is rain that froze on the way down. It is
+        worth stating the correction as bluntly as the source does: &ldquo;A snow crystal is not a
+        frozen raindrop; that type of precipitation is called sleet. Rather, a snow crystal forms out
+        of water vapor in the atmosphere, as water molecules transition directly from the gaseous to
+        the solid state.&rdquo;
+      </p>
+
+      <p>
+        Those are two genuinely different manufacturing routes, and they leave different objects. A
+        raindrop that freezes is a bead of ice that was liquid first, and it looks like exactly that:
+        a small lump. A snow crystal is assembled the other way round. Individual water molecules
+        drift through cold air as a gas, arrive at a piece of ice, and lock into place on it, one at
+        a time. There is no liquid stage in that process at all. Gas going straight to solid has a
+        name &mdash; <strong>deposition</strong> &mdash; and it is the only way the crystal itself is
+        built.
+      </p>
+
+      <p>
+        One honest complication, because it is the kind of detail that decides whether you actually
+        understand something. The very first speck of a snow crystal <em>is</em> a frozen droplet:
+        &ldquo;Once a cloud droplet freezes, it becomes an embryonic snow crystal that commences
+        growing by absorbing water vapor from the air around it.&rdquo; So the seed was liquid. But
+        the seed is a droplet ten to twenty microns across &mdash; a hundredth of a millimetre or two
+        &mdash; and everything you admire in Figure 1.1, every arm, plate, ridge and rib, was
+        deposited on it out of the air afterwards. The droplet count later in this chapter puts a
+        figure on that: the seed is roughly one part in a hundred thousand of the finished object.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          A snow crystal is not frozen water. It is <em>deposited</em> water &mdash; built molecule
+          by molecule out of vapour onto a solid surface. Only the seed at its centre was ever
+          liquid. Everything you can see was laid down straight from the gas.
+        </p>
+      </aside>
+
+      <p>
+        There is a third thing that falls, and it is worth being able to name it outdoors. Crystals
+        that are still growing sometimes fly through a patch of cloud full of liquid droplets, and
+        the droplets freeze onto them on contact: &ldquo;growing snow crystals collide with cloud
+        droplets, creating what is called rime &ndash; basically collections of minute, frozen
+        droplets.&rdquo; Rime looks like a coating of tiny beads sitting on top of a crystal, because
+        that is precisely what it is.
+      </p>
+
+      <p>
+        Rime does not break the rule in the paragraph above; it sharpens it. Rime adds mass to a
+        crystal, but not the way the crystal itself was added: each bead arrived as liquid and froze
+        where it landed, on the outside, instead of being laid down molecule by molecule out of the
+        gas. Rime is weight without pattern &mdash; a crystal wearing a coat, not a bigger crystal
+        &mdash; which is exactly why a heavily rimed crystal stops looking like a crystal at all:
+        &ldquo;If the rime coating becomes so thick that the entire structure is mostly an
+        agglomeration of frozen droplets, then it is called graupel, or soft hail.&rdquo;
+        (printed pp. 388&ndash;389)
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            Three different things fall out of a winter cloud as ice, made in three different ways.
+            From Libbrecht, <em>Snow Crystals</em>, printed p. 17 (sleet and snow crystals) and
+            printed p. 388 (rime).
+          </caption>
+          <thead>
+            <tr><th>What falls</th><th>Was it ever liquid?</th><th>How it is made</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sleet</td>
+              <td>Yes, entirely</td>
+              <td>A raindrop freezes solid on the way down. A bead of ice.</td>
+            </tr>
+            <tr>
+              <td>Rime</td>
+              <td>Yes, the beads</td>
+              <td>Liquid cloud droplets collide with a crystal and freeze onto it where they land.</td>
+            </tr>
+            <tr>
+              <td>Snow crystal</td>
+              <td>Only the seed</td>
+              <td>Water molecules arrive as gas and join the ice lattice one at a time.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ================================================================= -->
+      <h2 id="into-the-cloud">Where the raw material comes from</h2>
+
+      <p>
+        If the crystal is built out of vapour, the obvious next question is where a cloud keeps its
+        vapour, and why any of it should end up on a growing piece of ice. The story starts with air
+        being lifted.
+      </p>
+
+      <p>
+        Warm, moist air pushed upwards expands and cools. Cool it far enough and it passes what
+        meteorologists call the <strong>dew point</strong>: the air is now carrying more water vapour
+        than it can hang on to at that temperature. In the source&rsquo;s words, &ldquo;the relative
+        humidity rises above 100 percent and the air becomes <em>supersaturated</em> with water
+        vapor.&rdquo; That word &mdash; supersaturated &mdash; is going to matter enormously later
+        on, so it is worth fixing now in plain terms: <strong>supersaturated air is air carrying
+        spare water vapour, more than it can hold on to.</strong> The spare part is what condenses
+        out.
+      </p>
+
+      <p>
+        One qualification travels with that sentence and is easy to skip: more than it can hold on
+        to <em>on liquid water&rsquo;s terms</em>. Relative humidity is measured against liquid
+        water, and 100 percent means the air and a pool of water are exactly in balance. Ice sets a
+        different bar, and a lower one. Keep that in your pocket for two sections&rsquo; time.
+      </p>
+
+      <p>
+        At ground level the spare water settles on the grass as dew, which is where the dew point
+        gets its name. High up, with no grass to settle on, it condenses onto microscopic specks of
+        dust instead &mdash; and dust is everywhere in the atmosphere. Each speck picks up a coat of
+        liquid water and becomes a <strong>cloud droplet</strong>. That is what a cloud is: not vapour,
+        but an enormous number of tiny liquid drops.
+      </p>
+
+      <p>
+        How tiny? &ldquo;Cloud droplets are so small &ndash; about 10-20 microns in diameter &ndash;
+        that they can remain suspended in the air almost indefinitely.&rdquo; A micron is a thousandth
+        of a millimetre. For scale, the exceptional stellar crystal the author photographed in Kiruna,
+        Sweden, measures &ldquo;about four millimeters from tip to tip&rdquo; (printed p. 16) &mdash;
+        a couple of hundred droplet-widths across. Droplets that small barely fall at all; air
+        resistance holds them up. A cloud is not really floating so much as failing to sink.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.6/visual.png"
+              data-figure="Figure 1.6"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 20 &middot; printed p. 19"
+              data-alt="A winter scene over Lake Superior: mist rising from open water, thickening into a cloud deck above.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the whole cycle is visible in one photograph, bottom to
+          top. Vapour leaves the warm lake, condenses into visible mist as it meets colder air,
+          evaporates again as it rises, condenses once more into the cloud deck &mdash; and if that
+          deck cools enough, comes back down as snow. Everything in this chapter is happening
+          somewhere in this frame.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.6: (Left) A winter scene looking out over Lake
+          Superior near Houghton, Michigan. Water vapor evaporating from the warm lake quickly
+          condenses into mist droplets, because the air temperature is substantially colder than the
+          water temperature. But the mist soon evaporates back to water vapor as it rises up from the
+          lake. The vapor condenses once again into droplets at higher altitudes, forming thick
+          clouds. Should the clouds cool down sufficiently, most of the liquid droplets will
+          evaporate to feed the formation of snowflakes that fall back into the lake, completing the
+          water cycle.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <!-- ================================================================= -->
+      <h2 id="supercooling">Nothing freezes at zero</h2>
+
+      <p>
+        Here is the step most people skip straight past. A cloud made of liquid droplets cools below
+        0&nbsp;&deg;C. What happens? The intuitive answer &mdash; it turns to ice &mdash; is wrong,
+        and the way in which it is wrong is the reason snow exists at all.
+      </p>
+
+      <p>
+        &ldquo;Not all the droplets freeze at once, and none will freeze right at 0 C. Instead, the
+        droplets become <em>supercooled</em> as their temperature drops, often remaining in a
+        metastable liquid state for long periods of time.&rdquo; <em>Metastable</em> means the
+        droplet is not in the state it would settle into if it could &mdash; ice &mdash; but it has
+        no way to get there, so it stays liquid and stays put. <strong>Supercooled</strong> means
+        liquid, below its own freezing point, and staying that way. It is not a rare laboratory
+        curiosity. It is the ordinary condition of a winter cloud.
+      </p>
+
+      <p>
+        The droplets do freeze eventually, but they do it one at a time and over an enormous
+        temperature range: &ldquo;Some droplets will freeze when the temperature drops below -5 C,
+        and most will freeze somewhere around -10 C. A hearty few may survive unfrozen at -20 C or
+        below, but all will become solid ice before the temperature reaches -40 C.&rdquo;
+      </p>
+
+      <p>
+        Why the spread? Because freezing has to <em>start</em> somewhere. Ice does not appear
+        everywhere in a droplet at once; a first tiny patch of it has to form, and that is much
+        easier if there is a surface for the water molecules to organise themselves against. Which
+        surface is on offer is decided by whatever speck the droplet condensed on in the first place.
+        Getting that first patch started is called <strong>nucleation</strong>, and a surface that
+        makes it easy is said to <em>nucleate</em> freezing. Water with nothing useful in it &ldquo;can be cooled to nearly -40 C before freezing, while
+        some materials (silver iodide in particular) will nucleate freezing as high as -4 C. Certain
+        bacterial proteins can even promote freezing at temperatures as high as -2 C.&rdquo; Those
+        exotic materials are not much present in the atmosphere, so &ldquo;your average speck of dust
+        will nucleate freezing around -10 C.&rdquo;
+      </p>
+
+      <figure class="anim" id="anim-supercool">
+        <div class="anim__head">
+          <p class="anim__title">Supercooling roulette</p>
+          <p class="anim__sub">Sixty cloud droplets, each carrying a different speck. Cool them and watch which ones give in, and when.</p>
+          <p class="anim__sub" data-readout>At 0 &deg;C: 60 droplets still liquid, 0 frozen.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. The freezing thresholds are placed against the
+          printed anchor points in Libbrecht, <em>Snow Crystals</em>, printed pp. 18&ndash;19: none
+          freeze at 0&nbsp;&deg;C; some below &minus;5&nbsp;&deg;C; most near &minus;10&nbsp;&deg;C; a
+          hearty few survive past &minus;20&nbsp;&deg;C; all are ice before &minus;40&nbsp;&deg;C;
+          pure water reaches nearly &minus;40&nbsp;&deg;C; silver iodide nucleates as high as
+          &minus;4&nbsp;&deg;C; certain bacterial proteins as high as &minus;2&nbsp;&deg;C. The
+          spread between those anchors is illustrative, not measured, and the two silver-iodide and
+          two bacterial droplets are shown to mark the extremes &mdash; the source notes these
+          materials are not much present in the atmosphere.</span>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          &ldquo;Water freezes at 0&nbsp;&deg;C.&rdquo; Ice <em>melts</em> at 0&nbsp;&deg;C, which is
+          a different statement. Freezing is not the reverse of melting run backwards: it needs a
+          starting point, and a clean droplet has nothing to offer one. That is why pure water can be
+          taken to nearly &minus;40&nbsp;&deg;C and still be liquid, and why the dust speck inside a
+          droplet decides <em>when</em> it freezes. Cool it far enough, though, and the liquid
+          eventually manages that first patch unaided, with no surface involved at all &mdash; the
+          source measures the surface energy between ice and water from exactly that process,
+          &ldquo;the homogeneous nucleation of ice from supercooled water droplets&rdquo;, down to
+          temperatures near &minus;40&nbsp;&deg;C (printed p. 59). So nearly &minus;40&nbsp;&deg;C is
+          a floor rather than a coincidence: it is where water stops needing help. The speck does not
+          decide <em>what</em> the crystal will look like
+          &mdash; the speck &ldquo;usually has little effect on the final snow crystal shape, because
+          it is microscopic in size and soon becomes buried within the ice.&rdquo;
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="the-relay">A hundred thousand droplets, one crystal</h2>
+
+      <p>
+        So one droplet in a cloud full of droplets finally freezes. It is now a speck of ice
+        surrounded by neighbours that are still liquid. What happens next is a slow, one-way robbery,
+        and the source lays it out in four sketches.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.5/visual.png"
+              data-figure="Figure 1.5"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 20 &middot; printed p. 19"
+              data-alt="Sketches of a cloud droplet freezing and then growing into a small faceted ice prism among a field of blue droplets.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the first two of the four sketches the published caption
+          describes. On the left, a cloud droplet in the act of freezing &mdash; the rings mark the
+          one that has given in. On the right, the same speck a moment later: no longer a sphere but a
+          small solid hexagon, flat-sided, with one or two of its nearest neighbours already visibly
+          smaller. That is the whole of the story so far &mdash; freeze, then face up.
+          <br><br>
+          The other two sketches are not in this crop. The third has branches sprouting from the
+          corners; the fourth shows the finished branched crystal standing in a field of shrunken
+          droplets, and you can see it as the cartoon at the top of the Figure 1.7 strip just below.
+          Almost every remaining chapter of this site is an unpacking of one of these four steps.
+          <br><br>
+          Three phrases in the caption below are later chapters in disguise.
+          &ldquo;Attachment kinetics&rdquo; is how readily an arriving molecule sticks to a given
+          face of the ice; &ldquo;anisotropic&rdquo; means it sticks more readily to some faces than
+          others. &ldquo;Diffusion&rdquo; is the wandering journey a water molecule makes through
+          still air to reach the crystal at all.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.5: A snowflake is born when a liquid cloud droplet
+          freezes into ice (first sketch). The ice particle initially grows into a faceted prism
+          (second sketch), as the growth is limited by anisotropic attachment kinetics on the ice
+          surface. After the crystal grows larger, the diffusion of water molecules through the air
+          causes branches to sprout from the six corners of the prism (third sketch). The growing
+          crystal removes water vapor from the air, which is replenished by the evaporation of nearby
+          water droplets (fourth sketch). About 100,000 cloud droplets evaporate to provide enough
+          material to make one large stellar snow crystal. The flake continues growing inside the
+          cloud until it becomes so heavy that it falls to earth.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        The shape in the second sketch is worth naming, because the rest of this site turns on it.
+        Strip any snow crystal &mdash; star, plate or column &mdash; back to the simplest form ice
+        can take and you get the same solid: a <strong>hexagonal prism</strong>. Two flat ends, six
+        flat sides. Each kind of face has its own name.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.7/visual.png"
+              data-figure="Figure 1.7"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 21 &middot; printed p. 20"
+              data-alt="A strip of the source page. At the foot of it is a labelled drawing of a hexagonal block of ice: its flat top is marked basal facet, one of its six flat sides is marked prism facet. At the top of the strip is a cartoon of a branched snow crystal surrounded by sparse cloud droplets.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the labelled block at the <em>foot</em> of this strip.
+          The flat top and bottom are the <strong>basal facets</strong>. The six walls running around
+          its waist are the <strong>prism facets</strong>. That is the whole vocabulary. Stretch the
+          prism facets and you get the pencil-shaped columns of Figure 1.2; squash them and you get
+          the thin plate of Figure 1.3. A &ldquo;facet&rdquo;, by the way, just means a flat face
+          &mdash; the sort of surface you see on a cut gemstone.
+          <br><br>
+          The cartoon at the <em>top</em> of the strip is the fourth sketch of Figure 1.5, the one
+          missing from the crop above: the same crystal grown out into branches, with the cloud
+          droplets around it thinned out and shrunken. That is the robbery, finished. The paragraph
+          caught between the two is the source explaining why facets grow more slowly than rough
+          surfaces do, which is a whole chapter of its own later on.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.7: The most basic shape of a snow crystal is a
+          hexagonal prism with two basal facets and six prism facets. This shape arises because of
+          the underlying hexagonal structure of the ice crystal lattice, as described in
+          Chapter 2.&rdquo;</em>
+          <br><br>
+          [The monograph&rsquo;s Chapter 2 is the ice lattice. On this site that is
+          <strong>Chapter 3, Why Six Sides</strong> &mdash; not Chapter 2, which is the history of
+          looking at snow crystals.]
+        </figcaption>
+      </figure>
+
+      <p>
+        Now the part that pays for all of it. Ice and liquid water do not hold on to their molecules
+        equally hard. Liquid water lets them escape into the air more readily than ice does &mdash;
+        &ldquo;the vapor pressure of liquid water is higher than that of solid ice&rdquo; &mdash; and
+        the consequence is that a droplet and a piece of ice sitting in the same parcel of air are
+        not in balance.
+      </p>
+
+      <p>
+        This is the qualification from two sections ago coming due. Air sitting in balance with the
+        droplets around it &mdash; 100 percent relative humidity, nothing spare at all as far as the
+        droplets are concerned &mdash; is <em>already</em> supersaturated as far as ice is concerned.
+        Ice holds its molecules more tightly, so it is satisfied by less vapour, so there is spare
+        vapour in that air the moment a piece of ice turns up in it. The droplet evaporates faster
+        than it collects; the ice collects faster than it evaporates. Put the two side by side in a
+        cold cloud and the droplet loses, every time. That is why supersaturation on the rest of this
+        site is quoted against ice and not against water: it is the ice&rsquo;s surplus that does the
+        work. We will put real numbers on its size later on; for now the direction is what counts.
+      </p>
+
+      <p>
+        So the crystal grows by pulling vapour out of the air immediately around it, and the local
+        air is then topped up by the neighbouring droplets evaporating. Water goes liquid, then gas,
+        then solid, and after that first frozen seed the crystal never touches liquid again. The
+        source calls it a roundabout route, and gives its price: &ldquo;About 100,000 cloud droplets will evaporate
+        away to provide enough material to make one good-sized snowflake. This roundabout route is
+        how most of the liquid water in a cloud freezes into solid ice.&rdquo;
+      </p>
+
+      <figure class="anim" id="anim-budget">
+        <div class="anim__head">
+          <p class="anim__title">The hundred-thousand-droplet budget</p>
+          <p class="anim__sub">A droplet freezes, faces up into a prism, then breaks into branches. Each blue dot stands for 500 cloud droplets; watch the nearest ones go first.</p>
+          <p class="anim__sub" data-readout>Cloud droplets consumed: 0 of 100,000.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. Built from the budget and the growth sequence
+          printed in Libbrecht, <em>Snow Crystals</em>, printed pp. 19&ndash;20: &ldquo;About 100,000
+          cloud droplets will evaporate away to provide enough material to make one good-sized
+          snowflake,&rdquo; and the four-stage sequence of Figure 1.5 &mdash; droplet freezes, ice
+          grows as a faceted prism, branches sprout from the six corners, nearby droplets evaporate
+          to replenish the vapour. The plain prism is held on screen for the first couple of seconds
+          so that the faceting stage is visible before the branching stage; the source gives the
+          order of the two, not their durations. Droplets are consumed nearest-first because the
+          crystal draws down the vapour closest to it. The seed droplet is drawn far larger than it
+          should be relative to the finished crystal, or it would be a single pixel; the timing is
+          illustrative, not measured.</span>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          One good-sized snow crystal costs about 100,000 cloud droplets, and none of that water
+          ever arrives at the crystal as liquid. It goes droplet &rarr; vapour &rarr; ice, every
+          molecule of it. (&ldquo;Snow crystal&rdquo;, not &ldquo;snowflake&rdquo;: the printed
+          sentence quoted above says snowflake, but Figure 1.5&rsquo;s caption prices the same
+          100,000 droplets as &ldquo;one large stellar snow crystal&rdquo;, which is the thing
+          actually being built.)
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="too-cold-to-snow">Too cold to snow</h2>
+
+      <p>
+        The relay in the previous section has a consequence you can check against your own winter. A
+        snowfall is not fed by cold. It is fed by <em>liquid water</em> &mdash; specifically by
+        supercooled droplets standing by to evaporate. Take the droplets away and the growth stops,
+        no matter how much water the sky started with.
+      </p>
+
+      <p>
+        Follow a cloud down the thermometer. Above about &minus;5&nbsp;&deg;C few droplets have
+        frozen, so there is very little ice in the cloud for vapour to build on. As the cloud falls &ldquo;substantially below -5 C,
+        cloud droplets will freeze in large numbers, thus initiating a full-fledged snowfall.&rdquo;
+        This is the productive window: plenty of ice to grow on, plenty of liquid left to feed it.
+        Keep cooling, though, and the supply burns through. &ldquo;By the time the cloud has cooled to
+        around -20 C, most of the liquid droplets will be gone, as some will have frozen and many
+        will have evaporated away.&rdquo; (Both quotations: printed p. 20.)
+      </p>
+
+      <p>
+        And that is the whole of it: &ldquo;At temperatures below -20 C, it is often said to be
+        &ldquo;too cold to snow,&rdquo; because nearly all the liquid cloud droplets will have
+        already disappeared before the cloud cools to that temperature. And when no liquid water
+        remains to feed growing snowflakes, there can be no snowfall.&rdquo; (printed p. 20)
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          &ldquo;Too cold to snow&rdquo; is usually dismissed as an old wives&rsquo; tale. It is not,
+          and it is also not what it sounds like. Cold air does not refuse to make snow. What happens
+          is that the cloud has already spent its liquid droplets on the way down to
+          &minus;20&nbsp;&deg;C &mdash; some froze, many evaporated &mdash; and the relay that feeds
+          growing crystals has nothing left to hand over. The saying is about running out of fuel,
+          not about the cold itself.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="no-blueprint">Nobody is designing this</h2>
+
+      <p>
+        One thing remains, and it is the thing that makes the rest of this site necessary. You now
+        know where the water comes from and how it arrives. You do not know why it lands in a
+        <em>pattern</em>. And the temptation, faced with an object as ordered as Figure 1.1, is to
+        assume that something somewhere is specifying it.
+      </p>
+
+      <p>
+        Nothing is. That is not a poetic flourish; it is a statement about where the information
+        lives, and the answer is that it lives nowhere. There is no plan in the ice, none in the
+        water, and none in the cloud. We are simply not used to that, because it is the opposite of
+        the way we build things ourselves: &ldquo;Humans tend to create intricate objects via a
+        subtractive process, beginning with bulk material and carving it into a final desired form,
+        following a preconceived design.&rdquo; Carving requires knowing the answer in advance. Nature
+        does not work that way. &ldquo;At the opposite end of the fabrication spectrum, living things
+        develop into amazingly sophisticated organisms quite spontaneously, using the additive
+        process of growth.&rdquo; (Both quotations: printed p. 33.)
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.26/visual.png"
+              data-figure="Figure 1.26"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 34 &middot; printed p. 33"
+              data-alt="A cartoon workshop in which several workers lift an enormous six-armed snow crystal out of a tank, with framed drawings of snowflake designs hanging on the wall behind them.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> a joke with a real argument inside it. Look at the wall.
+          Framed designs, drawn before the object was made, hanging where the workers can consult
+          them. That is what making-to-a-plan requires: you have to know the finished shape in
+          advance, and the plan has to be kept somewhere outside the thing itself. Ice has no wall to
+          hang designs on. Nothing anywhere holds a picture of the crystal that is about to be made.
+          <br><br>
+          One word below is worth having in advance, because this literature leans on it constantly:
+          a crystal&rsquo;s <strong>morphology</strong> is simply its overall shape &mdash; star,
+          plate, column, needle.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.26: The wrong way to make a snowflake. While human
+          artisans sculpt by removing material, nature creates complex structures through a process
+          of self-assembly during growth. The design of a snowflake emerges as it grows and develops
+          in the clouds. Its morphology does not follow from any predetermined blueprint, but rather
+          results from the changing external conditions it experiences while it forms. (Adapted from
+          an image at threadless.com/product/688/no_repeats, created by Christopher
+          Buchholz.)&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        A snow crystal is built by addition too, and the only thing that ever varies is the
+        conditions it happens to be passing through at the time. Change those conditions and the
+        growth changes, immediately and visibly. Some crystals record that change so plainly you can
+        read it off with the naked eye.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.4/visual.png"
+              data-figure="Figure 1.4"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 19 &middot; printed p. 18"
+              data-alt="A capped column: a short hexagonal column of ice with a flat plate crystal grown on each end, like a cotton reel.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> a cotton-reel shape &mdash; a stubby column with a plate
+          on each end. That is not one design. It is two, in sequence. The column in the middle is
+          the near-&minus;5&nbsp;&deg;C part of the story, the shape you met in Figure 1.2; the
+          plates on the ends grew later, after the crystal drifted somewhere colder. The join
+          between them is the moment it changed altitude, and you can see it with the naked eye. The
+          published caption confirms the reading.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.4: This snow crystal is called a &ldquo;capped
+          column&rdquo;, consisting of a stout columnar crystal with a pair of plate-like crystals
+          growing out from the two ends of the column. The initial column grew when the temperature
+          was near -5 C, and later the plates formed when the column moved to a colder location.
+          Complex snow crystals often develop in changing growth conditions.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        That is suggestive, but a crystal found on the ground is only circumstantial evidence: you are
+        inferring the history from the object, and you never saw the weather that made it. The
+        decisive test runs the other way round &mdash; impose a history on purpose, in a laboratory,
+        and watch what comes out.
+      </p>
+
+      <!-- Caption note: the catalog and the page text both read "Plate- on-Pedestal", a
+           line-break hyphen preserved by the text extractor. The space is closed up here so the
+           published caption reads as it does in print; no other word is altered. -->
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.11/visual.png"
+              data-figure="Figure 1.11"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 23 &middot; printed p. 22"
+              data-alt="An elaborate laboratory-grown snow crystal with broad plates and repeated symmetric side branches on all six arms.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> every ring of side branches on this crystal marks a
+          moment when someone reached over and changed a dial. The complexity was not designed into
+          the ice; it was written into the schedule of conditions the ice was made to pass through.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.11: (Below) A laboratory snow crystal grown using
+          the Plate-on-Pedestal technique (see Chapter 9). When creating this snowflake, I imposed a
+          series of abrupt changes in temperature and supersaturation in order to produce a complex,
+          yet symmetrical, morphology.&rdquo;</em>
+          <br><br>
+          [The monograph&rsquo;s Chapter 9 is its laboratory hardware. On this site the
+          Plate-on-Pedestal technique is described in <strong>Chapter 10, How We Know</strong> &mdash;
+          not Chapter 9, which is the menagerie of crystal types.]
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          The crystal in Figure 1.11 was grown in the author&rsquo;s own laboratory &mdash;
+          &ldquo;a snow crystal I grew suspended in my lab&rdquo; (printed p. 22) &mdash; where the
+          temperature and the amount of spare vapour in the air could be changed at will and the
+          response watched live. In the author&rsquo;s account: &ldquo;It took about 45 minutes to create this
+          specimen, and I controlled the formation of its sidebranches and faceted features in real
+          time by following the rules of snow-crystal growth.&rdquo; That is the difference between a
+          story about how snowflakes might work and a claim you can test: the environment was the
+          only input, and the pattern came out.
+        </p>
+      </aside>
+
+      <p>
+        That also settles the question left hanging in the first section. The lattice explains why a
+        star has six arms. It does not explain why all six carry the <em>same</em> ornament &mdash;
+        the same side branch in the same place, on every arm of Figure 1.11 and of Figure 1.1.
+        Nothing joins the arms except the block of ice in the middle, and they are not comparing
+        notes: &ldquo;The six branches of a snow crystal develop in near synchrony simply because
+        they all travel together through the cloud. Thus the six branches all experience essentially
+        the same growth conditions at the same times, so all six develop into the same elaborate
+        shape.&rdquo; The source rules out the alternative in as many words: &ldquo;the growth of the
+        six branches is not synchronized by any communication between them, but rather by their
+        common history.&rdquo; (Both quotations: printed p. 21.) One crystal, one path through the
+        cloud, one weather report &mdash; written out six times over by six arms that happened to be
+        along for the same ride.
+      </p>
+
+      <p>
+        The question underneath all of this &mdash; how does complex structure arise with nobody
+        arranging it? &mdash; is much older than snowflake research and much bigger than snow.
+        D&rsquo;Arcy Wentworth Thompson&rsquo;s <em>On Growth and Form</em> put it at the centre of
+        biology, &ldquo;in which he pondered the physical, biological, and mathematical origins of
+        complex structures in Nature&rdquo; &mdash; while admitting that crystal growth was
+        &ldquo;somewhat outside the province of his book.&rdquo; (Both quotations: printed p. 32.)
+        The source draws the obvious moral: &ldquo;An easier approach, therefore, might be to
+        consider something like the snowflake, which exhibits an interesting degree of spontaneous
+        structure formation, but in a far simpler physical system.&rdquo; (printed p. 33)
+      </p>
+
+      <p>
+        That is the bargain this site is built on. A snow crystal is one substance, in one phase, with
+        two dials on it &mdash; how cold it is, and how much spare vapour is around. If complex form
+        can arise from nothing but those two dials being turned, we ought to be able to follow it all
+        the way down.
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          We are not there yet, and it is worth knowing that from the first chapter. Thin plates and
+          stellar crystals appear near &minus;15&nbsp;&deg;C; stubby columns appear near
+          &minus;5&nbsp;&deg;C. Of that plain, century-old observation the source says: &ldquo;Why is
+          this? &hellip; it is a long-standing puzzle&rdquo; and &ldquo;a complete understanding of
+          even this straightforward observation remains elusive.&rdquo; More generally, &ldquo;several
+          rather basic aspects of the surface structure and dynamics of ice at the molecular level
+          remain quite mysterious.&rdquo; (printed pp. 16&ndash;17) This site walks towards that
+          puzzle on purpose.
+        </p>
+      </aside>
+
+      <p class="handoff">
+        Nothing is designing this &mdash; so the design has to come from the ice itself and from the
+        sky it falls through, and you have now seen both halves at work: the lattice that fixes the
+        six-ness, and the path through the cloud that writes everything else. Working out which is
+        which has taken four hundred years and is not finished &mdash; &ldquo;the quest for true
+        scientific understanding continues to this day&rdquo; (printed p. 23). The first person to
+        ask the question properly could not answer it either. Next: what people saw when they
+        finally started looking closely.
+      </p>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="../index.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">Contents</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./02-four-hundred-years-of-looking.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">Four Hundred Years of Looking</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
+      from a local research cache under citation; they are not redistributed with this repository.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script>
+/* =========================================================================
+   Chapter 1 animations.
+   1. anim-aggregate  — single crystals vs. aggregate snowflakes
+   2. anim-supercool  — freezing thresholds across a population of droplets
+   3. anim-budget     — the 100,000-droplet vapour relay
+   ====================================================================== */
+
+/* --- a small seeded PRNG so labelled specimens keep their positions ----- */
+function snowRng(seed) {
+  let s = seed >>> 0;
+  return function () {
+    s = (s * 1664525 + 1013904223) >>> 0;
+    return s / 4294967296;
+  };
+}
+
+/* ======================================================= 1. aggregation == */
+(function () {
+  const root = document.getElementById("anim-aggregate");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+  const readout = root.querySelector("[data-readout]");
+
+  const W = 640, H = 330;
+  const cv = Viz.createCanvas(body, W, H, {
+    label: "Hexagonal snow crystals falling. At mild settings they collide on the way down and fuse into clumps made of many crystals.",
+  });
+  const ctx = cv.ctx;
+
+  let stick = 0.35;       // collision stickiness, 0 (cold) to 1 (mild)
+  let clumps = [];
+  let biggest = 1;
+  let spawnClock = 0;
+
+  const rnd = snowRng(20240128);
+  const between = (a, b) => a + rnd() * (b - a);
+
+  function makeClump(y) {
+    return {
+      x: between(30, W - 30),
+      y: y == null ? -18 : y,
+      vx: between(-24, 24),
+      vy: between(20, 78),          // differing fall speeds are what causes collisions
+      members: [{ dx: 0, dy: 0, r: between(5, 8), rot: between(0, 60) }],
+    };
+  }
+
+  function radiusOf(cl) {
+    let m = 0;
+    for (const p of cl.members) m = Math.max(m, Math.hypot(p.dx, p.dy) + p.r);
+    return m;
+  }
+
+  /* Two clumps only stick if two actual crystals touch — a bounding-circle
+     test would let big clumps swallow everything from a distance. */
+  function touching(a, b) {
+    const ox = b.x - a.x, oy = b.y - a.y;
+    for (const p of a.members) {
+      for (const q of b.members) {
+        const dx = q.dx + ox - p.dx, dy = q.dy + oy - p.dy;
+        if (dx * dx + dy * dy < (p.r + q.r + 1.5) * (p.r + q.r + 1.5)) return true;
+      }
+    }
+    return false;
+  }
+
+  function fuse(a, b) {
+    const ox = b.x - a.x, oy = b.y - a.y;
+    for (const p of b.members) {
+      a.members.push({ dx: p.dx + ox, dy: p.dy + oy, r: p.r, rot: p.rot });
+    }
+    a.vy = a.vy * 0.6 + b.vy * 0.4;
+    a.vx = a.vx * 0.6 + b.vx * 0.4;
+  }
+
+  function reset() {
+    clumps = [];
+    biggest = 1;
+    for (let i = 0; i < 70; i++) clumps.push(makeClump(between(-40, H)));
+  }
+  reset();
+  // warm the opening frame so the first thing a reader sees is already a mix
+  for (let i = 0; i < 26; i++) step(0.12);
+
+  function step(dt) {
+    spawnClock += dt;
+    while (spawnClock > 0.07) { spawnClock -= 0.07; clumps.push(makeClump()); }
+
+    for (const cl of clumps) {
+      cl.y += cl.vy * dt;
+      cl.x += cl.vx * dt;
+      if (cl.x < 24) { cl.x = 24; cl.vx = Math.abs(cl.vx); }
+      if (cl.x > W - 24) { cl.x = W - 24; cl.vx = -Math.abs(cl.vx); }
+    }
+
+    if (stick > 0) {
+      for (let i = 0; i < clumps.length; i++) {
+        const a = clumps[i];
+        let ra = radiusOf(a);
+        for (let j = i + 1; j < clumps.length; j++) {
+          const b = clumps[j];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d > ra + radiusOf(b)) continue;         // cheap reject
+          if (rnd() < stick * 0.5 && touching(a, b)) {
+            fuse(a, b);
+            clumps.splice(j, 1);
+            j--;
+            ra = radiusOf(a);
+          }
+        }
+      }
+    }
+
+    for (let i = clumps.length - 1; i >= 0; i--) {
+      const cl = clumps[i];
+      if (cl.y - radiusOf(cl) > H + 10) {
+        if (cl.members.length > biggest) biggest = cl.members.length;
+        clumps.splice(i, 1);
+      }
+    }
+    if (clumps.length > 220) clumps.splice(0, clumps.length - 220);
+  }
+
+  function hex(cx, cy, r, rotDeg) {
+    ctx.beginPath();
+    const pts = Viz.hexPoints(cx, cy, r, rotDeg);
+    pts.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])));
+    ctx.closePath();
+  }
+
+  function draw() {
+    const c = Viz.colors();
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = c.sunken;
+    ctx.fillRect(0, 0, W, H);
+
+    /* Everything here is ice, so everything here is series[1] — the same colour ice
+       carries in the other two animations in this chapter. Single crystals are drawn
+       as bare outlines; aggregates are filled. Fill, not hue, is the difference. */
+    const ICE = c.series[1];
+    ctx.strokeStyle = ICE;
+    ctx.fillStyle = ICE;
+    for (const cl of clumps) {
+      const many = cl.members.length > 1;
+      if (many) {
+        ctx.globalAlpha = 0.34;
+        for (const p of cl.members) { hex(cl.x + p.dx, cl.y + p.dy, p.r, p.rot); ctx.fill(); }
+      }
+      ctx.globalAlpha = 1;
+      ctx.lineWidth = many ? 2 : 1.4;
+      for (const p of cl.members) { hex(cl.x + p.dx, cl.y + p.dy, p.r, p.rot); ctx.stroke(); }
+    }
+
+    // legend, drawn in place — the shapes are the cue, not the colour
+    ctx.globalAlpha = 0.92;
+    ctx.fillStyle = c.surface;
+    ctx.fillRect(6, 4, 210, 44);
+    ctx.globalAlpha = 1;
+    ctx.font = "600 12px system-ui, -apple-system, Segoe UI, sans-serif";
+    ctx.textBaseline = "middle";
+
+    ctx.strokeStyle = ICE; ctx.lineWidth = 1.4;
+    hex(20, 16, 6, 0); ctx.stroke();
+    ctx.fillStyle = c.ink;
+    ctx.fillText("outline: single snow crystal", 34, 17);
+
+    ctx.strokeStyle = ICE; ctx.fillStyle = ICE; ctx.lineWidth = 2;
+    ctx.globalAlpha = 0.34; hex(20, 36, 6, 0); ctx.fill();
+    ctx.globalAlpha = 1; hex(20, 36, 6, 0); ctx.stroke();
+    ctx.fillStyle = c.ink;
+    ctx.fillText("filled: aggregate snowflake", 34, 37);
+  }
+
+  function report() {
+    let now = 1;
+    for (const cl of clumps) if (cl.members.length > now) now = cl.members.length;
+    readout.textContent = "Biggest flake in the air: " + now +
+      (now === 1 ? " crystal" : " crystals") + " · biggest to land so far: " + biggest + ".";
+  }
+
+  const anim = Viz.animate(root, function (t, dt) {
+    step(dt > 0 ? Math.min(dt, 0.05) : 0.4);
+    draw();
+    report();
+  }, { staticAt: 6, stepBy: 0.5 });
+
+  Viz.onThemeChange(draw);
+
+  Viz.slider(controls, {
+    label: "Snowfall: cold → mild and sticky",
+    id: "aggregate-stick",
+    min: 0, max: 100, step: 1, value: 35,
+    format: (v) => (v === 0 ? "no sticking" : v + "%"),
+    onInput: (v) => { stick = v / 100; },
+  });
+  Viz.button(controls, "Fresh snowfall", function () { reset(); draw(); report(); });
+})();
+
+/* ==================================================== 2. supercooling ==== */
+(function () {
+  const root = document.getElementById("anim-supercool");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+  const readout = root.querySelector("[data-readout]");
+
+  const W = 640, H = 486;
+  const COLS = 10, ROWS = 6, N = COLS * ROWS;
+
+  /* Freezing thresholds, placed against the printed anchor points.
+     2 bacterial protein (-2), 2 silver iodide (-4), 46 ordinary dust
+     (clustered around -10), 8 hardy stragglers (-20 to -33),
+     2 with no useful speck at all (near -40).                            */
+  const rnd = snowRng(19360312);
+  const drops = [];
+  drops.push({ T: -2.0, tag: "bacterial protein" });
+  drops.push({ T: -2.4, tag: null });
+  drops.push({ T: -4.0, tag: "silver iodide" });
+  drops.push({ T: -4.4, tag: null });
+  for (let i = 0; i < 46; i++) {
+    const g = (rnd() + rnd() + rnd() - 1.5) * 4.4;   // roughly bell-shaped
+    drops.push({ T: Math.max(-19, Math.min(-5.2, -10 + g)), tag: null });
+  }
+  for (let i = 0; i < 8; i++) drops.push({ T: -20 - rnd() * 13, tag: null });
+  drops.push({ T: -37.6, tag: null });
+  /* The two labelled specimens above print the printed values (-4, -2). This one must not:
+     the source says only "nearly -40 C", so the label says that and no invented decimal is
+     ever rendered. The T here just places the drop in the illustrative spread. */
+  drops.push({ T: -38.8, tag: "no speck: pure water", label: "no speck: pure water (nearly −40 °C)" });
+  drops.sort((a, b) => b.T - a.T);
+
+  let T = 0;
+  let anim = null;
+  let sweeping = false;
+  let wantPlay = true;
+  let playBtn = null;
+
+  const padL = 60, padR = 22, fieldTop = 56, fieldBot = 208;
+  const plotTop = 300, plotBot = 400;
+  const xs = Viz.scaleLinear([0, -40], [padL, W - padR]);
+
+  /* The four temperatures the source states outright. They are marked on the axis
+     inside the picture, so that the invented spread between them can never be read
+     off this chart as data. */
+  const ANCHORS = [
+    { t: -5,  text: "some freeze below −5 °C",  row: 0, anchor: "start" },
+    { t: -10, text: "most freeze near −10 °C",  row: 1, anchor: "start" },
+    { t: -20, text: "a hearty few past −20 °C", row: 0, anchor: "start" },
+    { t: -40, text: "all are ice by −40 °C",    row: 1, anchor: "end" },
+  ];
+
+  const BIN = 2;
+  const bins = [];
+  for (let b = 0; b < 20; b++) bins.push(0);
+  for (const d of drops) {
+    const idx = Math.min(19, Math.floor(-d.T / BIN));
+    bins[idx]++;
+  }
+  const binMax = Math.max.apply(null, bins);
+  const ys = Viz.scaleLinear([0, binMax], [plotBot, plotTop]);
+
+  function dropPos(i) {
+    const col = i % COLS, row = Math.floor(i / COLS);
+    return [
+      padL + 22 + col * ((W - padR - padL - 44) / (COLS - 1)),
+      fieldTop + 14 + row * ((fieldBot - fieldTop - 28) / (ROWS - 1)),
+    ];
+  }
+
+  function fmtT(v) {
+    const n = Math.abs(v);
+    const s = Math.abs(n - Math.round(n)) < 0.05 ? String(Math.round(n)) : n.toFixed(1);
+    return (v < -0.049 ? "−" : "") + s;
+  }
+
+  let svg = null;
+
+  function render() {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+    svg = Viz.createSvg(body, W, H, {
+      label: "Sixty cloud droplets freezing one by one as the temperature falls, with a histogram of how many froze in each two-degree step.",
+      desc: "None freeze at 0 degrees Celsius. Most freeze near minus 10. A few survive past minus 20, and the last freeze near minus 40. Those marked temperatures come from the source; the spread between them is illustrative, not measured.",
+    });
+
+    const frozen = drops.filter((d) => d.T >= T).length;
+
+    // ---- droplet field ----
+    const fieldLabel = Viz.svgEl("text", { class: "axis-title", x: padL, y: 18 });
+    fieldLabel.textContent = "Sixty cloud droplets";
+    svg.appendChild(fieldLabel);
+
+    drops.forEach(function (d, i) {
+      const p = dropPos(i);
+      const isFrozen = d.T >= T;
+      if (isFrozen) {
+        svg.appendChild(Viz.svgEl("path", {
+          d: Viz.hexPath(p[0], p[1], 9, 0),
+          fill: c.series[1], "fill-opacity": 0.18,
+          stroke: c.series[1], "stroke-width": 1.7, "stroke-linejoin": "round",
+        }));
+      } else {
+        svg.appendChild(Viz.svgEl("circle", {
+          cx: p[0], cy: p[1], r: 8,
+          fill: c.series[0], "fill-opacity": 0.22,
+          stroke: c.series[0], "stroke-width": 1.7,
+        }));
+      }
+      if (d.tag) {
+        /* Two of these tags share the top row. They are staggered in height, and the
+           leftmost is left-anchored, so the labels cannot run into one another. */
+        const above = i < COLS;
+        const high = i === 0;
+        const ty = above ? p[1] - (high ? 34 : 17) : p[1] + 30;
+        const anchor = i >= N - COLS ? "end" : (high ? "start" : "middle");
+        const leadFrom = above ? p[1] - 11 : p[1] + 11;
+        const leadTo = above ? ty + 4 : ty - 10;
+        if (Math.abs(leadFrom - leadTo) > 5) {
+          svg.appendChild(Viz.svgEl("line", {
+            class: "annotation-rule", x1: p[0], x2: p[0], y1: leadFrom, y2: leadTo,
+          }));
+        }
+        const t = Viz.svgEl("text", {
+          class: "annotation",
+          x: anchor === "start" ? p[0] - 6 : p[0],
+          y: ty, "text-anchor": anchor,
+        });
+        t.textContent = d.label || (d.tag + " (" + fmtT(d.T) + " °C)");
+        svg.appendChild(t);
+      }
+    });
+
+    // ---- legend ----
+    const leg = Viz.svgEl("g", {});
+    leg.appendChild(Viz.svgEl("circle", {
+      cx: W - padR - 168, cy: 14, r: 7,
+      fill: c.series[0], "fill-opacity": 0.22, stroke: c.series[0], "stroke-width": 1.6,
+    }));
+    const l1 = Viz.svgEl("text", { class: "annotation", x: W - padR - 156, y: 18 });
+    l1.textContent = "still liquid";
+    leg.appendChild(l1);
+    leg.appendChild(Viz.svgEl("path", {
+      d: Viz.hexPath(W - padR - 82, 14, 8, 0),
+      fill: c.series[1], "fill-opacity": 0.18, stroke: c.series[1], "stroke-width": 1.6,
+    }));
+    const l2 = Viz.svgEl("text", { class: "annotation", x: W - padR - 68, y: 18 });
+    l2.textContent = "frozen";
+    leg.appendChild(l2);
+    svg.appendChild(leg);
+
+    // ---- histogram ----
+    Viz.axisLeft(svg, ys, {
+      x: padL, ticks: 4, grid: true, gridTo: W - padR,
+      title: "droplets frozen", titleOffset: 34,
+    });
+    Viz.axisBottom(svg, xs, {
+      y: plotBot,
+      values: [0, -5, -10, -15, -20, -25, -30, -35, -40],
+      format: fmtT,
+      title: "cloud temperature (°C)",
+      titleOffset: 68,
+    });
+
+    const bw = Math.abs(xs(-BIN) - xs(0)) - 3;
+    bins.forEach(function (n, b) {
+      if (!n) return;
+      const centre = -(b * BIN + BIN / 2);
+      const done = centre >= T;
+      svg.appendChild(Viz.svgEl("rect", {
+        x: xs(-b * BIN) + 1.5, y: ys(n), width: bw, height: plotBot - ys(n),
+        fill: done ? c.series[1] : "none",
+        "fill-opacity": done ? 0.75 : 0,
+        stroke: done ? c.series[1] : c.rule,
+        "stroke-width": 1.2,
+        "stroke-dasharray": done ? null : "3 3",
+      }));
+    });
+
+    /* ---- the printed anchor points, marked on the axis itself ---- */
+    ANCHORS.forEach(function (a) {
+      const x = xs(a.t);
+      svg.appendChild(Viz.svgEl("path", {
+        d: "M" + (x - 4.5).toFixed(1) + " " + (plotBot - 9) +
+           " L" + (x + 4.5).toFixed(1) + " " + (plotBot - 9) +
+           " L" + x.toFixed(1) + " " + (plotBot - 1) + " Z",
+        fill: c.ink,
+      }));
+      const lab = Viz.svgEl("text", {
+        class: "annotation",
+        x: a.anchor === "end" ? x - 4 : x + 6,
+        y: plotBot + (a.row === 0 ? 34 : 48),
+        "text-anchor": a.anchor,
+      });
+      lab.textContent = a.text;
+      svg.appendChild(lab);
+    });
+
+    /* ---- the disclaimer lives inside the picture, not under it ---- */
+    const caveat = Viz.svgEl("text", { class: "annotation", x: padL, y: plotTop - 46 });
+    caveat.textContent =
+      "The spread is illustrative — only the marked and labelled temperatures come from the source.";
+    svg.appendChild(caveat);
+
+    const barLabel = Viz.svgEl("text", {
+      class: "series-label", x: W - padR, y: plotTop - 10,
+      fill: c.series[1], "text-anchor": "end",
+    });
+    barLabel.textContent = "droplets that froze in each 2 °C step";
+    svg.appendChild(barLabel);
+
+    // ---- current temperature marker ----
+    svg.appendChild(Viz.svgEl("line", {
+      class: "annotation-rule", x1: xs(T), x2: xs(T), y1: plotTop - 24, y2: plotBot + 4,
+      stroke: c.ink, "stroke-width": 1.4,
+    }));
+    const now = Viz.svgEl("text", {
+      class: "series-label", x: xs(T) + (T > -32 ? 6 : -6), y: plotTop - 28,
+      fill: c.ink, "text-anchor": T > -32 ? "start" : "end",
+    });
+    now.textContent = "now: " + fmtT(T) + " °C";
+    svg.appendChild(now);
+
+    readout.textContent = "At " + fmtT(T) + " °C: " + (N - frozen) +
+      " droplets still liquid, " + frozen + " frozen.";
+  }
+
+  render();
+  Viz.onThemeChange(render);
+
+  const slider = Viz.slider(controls, {
+    label: "Cool the cloud",
+    id: "supercool-T",
+    min: 0, max: 40, step: 0.5, value: 0,
+    format: (v) => (v === 0 ? "0 °C" : "−" + v.toFixed(1) + " °C"),
+    onInput: function (v) {
+      T = -v;
+      // dragging the slider takes manual control of the sweep
+      if (!sweeping && wantPlay && anim) { wantPlay = false; anim.pause(); syncButton(); }
+      render();
+    },
+  });
+
+  anim = Viz.animate(root, function (t) {
+    const target = 40 * Math.min(1, t / 14);
+    sweeping = true;
+    slider.input.value = String(Math.round(target * 2) / 2);
+    slider.input.dispatchEvent(new Event("input"));
+    sweeping = false;
+  }, { duration: 18, staticAt: 9, stepBy: 1.5 });
+
+  /* Under prefers-reduced-motion nothing ever plays, so a play/pause control would be
+     dead. Viz.animate has already added working step controls; leave them to it. */
+  if (!Viz.reduceMotion.matches) {
+    playBtn = Viz.button(controls, "Pause", function () {
+      wantPlay = !wantPlay;
+      if (wantPlay) anim.play(); else anim.pause();
+      syncButton();
+    });
+  }
+
+  function syncButton() {
+    if (playBtn) playBtn.textContent = wantPlay ? "Pause" : "Run the cooling";
+  }
+  syncButton();
+})();
+
+/* ==================================================== 3. droplet budget == */
+(function () {
+  const root = document.getElementById("anim-budget");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+  const readout = root.querySelector("[data-readout]");
+
+  const W = 640, H = 380;
+  const CX = W / 2, CY = H / 2;
+  const NDROPS = 200, PER_DOT = 500, TOTAL = NDROPS * PER_DOT;
+  /* Three stages, in the causal order Figure 1.5 sets out. FREEZE seconds of liquid seed,
+     then GROW seconds of growth, of which the first F_BRANCH fraction is a plain faceted
+     prism. The source gives the order of the stages, not their durations. */
+  const FREEZE = 1.8, GROW = 16, RUN = FREEZE + GROW;
+  const F_BRANCH = 0.15;
+
+  const rnd = snowRng(11031936);
+  const drops = [];
+  while (drops.length < NDROPS) {
+    const x = rnd() * W, y = rnd() * H;
+    const d = Math.hypot((x - CX) / 1.0, (y - CY) / 0.72);
+    if (d < 26 || d > 300) continue;
+    drops.push({ x: x, y: y, r: 3.6 + rnd() * 2.2, d: d });
+  }
+  drops.sort((a, b) => a.d - b.d);
+
+  let svg = null;
+
+  function crystalPath(r, f) {
+    // Faceting first, branching second. Below F_BRANCH the crystal is a plain faceted
+    // hexagonal prism and nothing else; above it the six corners break out into branches,
+    // which then take over the growth — the second and third sketches of Figure 1.5.
+    if (f <= F_BRANCH) return Viz.hexPath(CX, CY, r, 0);
+    const g = (f - F_BRANCH) / (1 - F_BRANCH);
+    const core = r * (0.5 + 0.5 * Math.pow(1 - g, 2));   // arms emerge from zero length
+    let d = Viz.hexPath(CX, CY, core, 0);
+    const arm = Math.max(0, r - core);
+    if (arm > 2) {
+      // never wider than long: the corners start as bulges and draw out into branches
+      const w0 = Math.min(core * 0.22, arm * 0.9), w1 = w0 * 0.5;
+      for (let k = 0; k < 6; k++) {
+        const a = (Math.PI / 3) * k;
+        const nx = Math.cos(a), ny = Math.sin(a);
+        const px = -ny, py = nx;
+        const bx = CX + nx * core * 0.94, by = CY + ny * core * 0.94;
+        const tx = CX + nx * (core + arm), ty = CY + ny * (core + arm);
+        d += " M" + (bx + px * w0).toFixed(1) + " " + (by + py * w0).toFixed(1) +
+             " L" + (tx + px * w1).toFixed(1) + " " + (ty + py * w1).toFixed(1) +
+             " L" + (tx - px * w1).toFixed(1) + " " + (ty - py * w1).toFixed(1) +
+             " L" + (bx - px * w0).toFixed(1) + " " + (by - py * w0).toFixed(1) + " Z";
+      }
+    }
+    return d;
+  }
+
+  function render(t) {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+    const frozen = t >= FREEZE;
+    const f = Math.max(0, Math.min(1, (t - FREEZE) / GROW));
+    const eaten = f * NDROPS;
+    const whole = Math.floor(eaten);
+    const frac = eaten - whole;
+
+    svg = Viz.createSvg(body, W, H, {
+      label: "A single cloud droplet freezes, grows into a faceted hexagonal prism, then sprouts six branches, while the field of cloud droplets around it evaporates away nearest first.",
+      desc: "Each dot stands for 500 cloud droplets; 200 dots are consumed to build one crystal, standing for 100,000 droplets in all. The crystal holds its plain faceted prism shape for the first stage of growth before the six corners break out into branches.",
+    });
+
+    svg.appendChild(Viz.svgEl("rect", { x: 0, y: 0, width: W, height: H, fill: c.sunken }));
+
+    drops.forEach(function (d, i) {
+      if (i < whole) return;
+      let r = d.r;
+      if (i === whole) r = d.r * (1 - frac);
+      if (r < 0.4) return;
+      svg.appendChild(Viz.svgEl("circle", {
+        cx: d.x, cy: d.y, r: r,
+        fill: c.series[0], "fill-opacity": 0.5, stroke: c.series[0], "stroke-width": 0.9,
+      }));
+    });
+
+    // vapour handed inward from the droplets currently giving up
+    for (let k = 0; frozen && k < 14; k++) {
+      const d = drops[Math.min(NDROPS - 1, whole + k)];
+      if (!d) break;
+      const ang = Math.atan2(CY - d.y, CX - d.x);
+      const pulse = 0.5 + 0.5 * Math.sin(t * 2.4 - k * 0.5);
+      const len = 14 + 10 * pulse;
+      const sx = d.x + Math.cos(ang) * 8, sy = d.y + Math.sin(ang) * 8;
+      svg.appendChild(Viz.svgEl("line", {
+        x1: sx, y1: sy, x2: sx + Math.cos(ang) * len, y2: sy + Math.sin(ang) * len,
+        stroke: c.muted, "stroke-width": 1.1, "stroke-opacity": 0.25 + 0.4 * pulse,
+        "stroke-dasharray": "3 3",
+      }));
+    }
+
+    if (!frozen) {
+      /* Stage one: the seed is still a liquid cloud droplet, drawn in the liquid colour
+         with the rings the source's first sketch uses to mark the freezing event. */
+      for (let k = 3; k >= 1; k--) {
+        svg.appendChild(Viz.svgEl("circle", {
+          cx: CX, cy: CY, r: 9 + k * 5 + 2.5 * Math.sin(t * 3.2 - k * 0.8),
+          fill: "none", stroke: c.ink, "stroke-width": 0.9,
+          "stroke-opacity": 0.5 - k * 0.11,
+        }));
+      }
+      svg.appendChild(Viz.svgEl("circle", {
+        cx: CX, cy: CY, r: 9,
+        fill: c.series[0], "fill-opacity": 0.5, stroke: c.series[0], "stroke-width": 1.4,
+      }));
+    } else {
+      const r = 9 + 102 * Math.sqrt(f);
+      svg.appendChild(Viz.svgEl("path", {
+        d: crystalPath(r, f),
+        fill: c.series[1], "fill-opacity": 0.22,
+        stroke: c.series[1], "stroke-width": 2, "stroke-linejoin": "round",
+      }));
+    }
+
+    /* The stage caption. It is the only thing that makes "faceting before branching"
+       readable as a claim rather than as decoration. */
+    const stage = !frozen ? "1 · a cloud droplet freezes"
+                : f <= F_BRANCH ? "2 · the ice faces up into a hexagonal prism"
+                : "3 · branches break out from the six corners";
+    const sg = Viz.svgEl("g", {});
+    sg.appendChild(Viz.svgEl("rect", {
+      x: 6, y: H - 30, width: 292, height: 24, rx: 5,
+      fill: c.sunken, "fill-opacity": 0.92,
+    }));
+    const stx = Viz.svgEl("text", { class: "series-label", x: 16, y: H - 13, fill: c.ink });
+    stx.textContent = stage;
+    sg.appendChild(stx);
+    svg.appendChild(sg);
+
+    // legend — colour is never the only cue
+    const g = Viz.svgEl("g", {});
+    g.appendChild(Viz.svgEl("rect", {
+      x: 6, y: 4, width: 286, height: 46, rx: 5,
+      fill: c.sunken, "fill-opacity": 0.92,
+    }));
+    g.appendChild(Viz.svgEl("circle", {
+      cx: 20, cy: 16, r: 5, fill: c.series[0], "fill-opacity": 0.5,
+      stroke: c.series[0], "stroke-width": 0.9,
+    }));
+    const t1 = Viz.svgEl("text", { class: "annotation", x: 32, y: 20 });
+    t1.textContent = "cloud droplet (liquid) · 1 dot = 500 droplets";
+    g.appendChild(t1);
+    g.appendChild(Viz.svgEl("path", {
+      d: Viz.hexPath(20, 38, 6, 0), fill: c.series[1], "fill-opacity": 0.22,
+      stroke: c.series[1], "stroke-width": 1.6,
+    }));
+    const t2 = Viz.svgEl("text", { class: "annotation", x: 32, y: 42 });
+    t2.textContent = "the growing snow crystal (ice)";
+    g.appendChild(t2);
+    svg.appendChild(g);
+
+    const used = Math.round(whole * PER_DOT / 100) * 100;
+    readout.textContent = "Cloud droplets consumed: " +
+      used.toLocaleString("en-GB") + " of " + TOTAL.toLocaleString("en-GB") + ".";
+  }
+
+  const anim = Viz.animate(root, function (t) { render(t); },
+    { duration: RUN + 3, staticAt: 11, stepBy: 1.5 });
+
+  Viz.onThemeChange(function () { render(anim.time); });
+
+  let wantPlay = true;
+  let playBtn = null;
+  /* Under prefers-reduced-motion nothing ever plays, so a play/pause control would be
+     dead. Viz.animate has already added working step controls; leave them to it. */
+  if (!Viz.reduceMotion.matches) {
+    playBtn = Viz.button(controls, "Pause", function () {
+      wantPlay = !wantPlay;
+      if (wantPlay) anim.play(); else anim.pause();
+      playBtn.textContent = wantPlay ? "Pause" : "Play";
+    });
+    Viz.button(controls, "Start again", function () {
+      anim.reset();
+      if (!wantPlay) { wantPlay = true; anim.play(); playBtn.textContent = "Pause"; }
+    });
+  }
+})();
+</script>
+</body>
+</html>

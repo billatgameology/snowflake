@@ -1,0 +1,1602 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Runaway Bump — Snow Crystals</title>
+<meta name="description" content="Where a snowflake's six arms come from: the branching instability, the shape of a dendrite tip, and why a perfectly smooth growing crystal is impossible.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 6 · The Runaway Bump</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#the-runaway-bump">The bump that eats the crystal</a></li>
+      <li><a href="#why-the-switch-is-sudden">Why the switch is sudden</a></li>
+      <li><a href="#six-corners-at-once">Six corners, one decision</a></li>
+      <li><a href="#watch-it-happen">Watch it happen</a></li>
+      <li><a href="#the-tip-that-never-changes">The tip that never changes</a></li>
+      <li><a href="#sidebranches-that-do-not-match">Sidebranches that do not match</a></li>
+      <li><a href="#turn-off-the-directions">Turn off the directions</a></li>
+      <li><a href="#order-and-chaos">Order and chaos</a></li>
+      <li><a href="#the-fractal-resemblance">The fractal that is not the answer</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 6</p>
+        <h1>The Runaway Bump</h1>
+        <p class="chapter-header__question">
+          Where do the arms come from &mdash; and why can a growing crystal never just stay smooth?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~18 min read</span>
+          <span>13 figures</span>
+          <span>5 animations</span>
+        </div>
+      </header>
+
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Describe the positive-feedback loop that makes any bump on a growing crystal grow faster still.</li>
+          <li>Explain why a perfectly flat growing surface is a legal answer to the physics but not a stable one.</li>
+          <li>Say why the change from flat-faced to branched happens all at once rather than gradually.</li>
+          <li>Explain why six branches sprout together, and what that tells you about a crystal's past.</li>
+          <li>Describe a dendrite tip as a shape that travels without changing, roughly a micron in radius.</li>
+          <li>Predict, correctly, that the two sides of one arm will not match &mdash; and check it on a real photograph.</li>
+          <li>Explain why a crystal with no preferred directions grows into seaweed instead of a snow crystal.</li>
+          <li>Say precisely what is right and what is wrong about calling a snowflake a fractal.</li>
+        </ul>
+      </section>
+
+      <!-- ================================================================= -->
+      <h2 id="the-runaway-bump">The bump that eats the crystal</h2>
+
+      <p>
+        Chapter 5 left a growing ice crystal with flat faces held flat by a self-correcting loop.
+        Now break it. Take a growing ice surface, make it as flat as you like, and put one tiny bump
+        on it &mdash; a few molecular layers high, thrown up by nothing more than chance.
+      </p>
+
+      <p>
+        The bump sticks out. Not far, but far enough, because <strong>the air right next to a growing
+        crystal is drier than the air further away</strong>: the crystal has been eating the vapour
+        around it, and replacements have to diffuse in from outside. So there is a gradient. Poke out
+        from the surface and you reach richer air, and the top of the bump is poking into it, so
+        slightly more vapour lands there than on the flat surface beside it.
+      </p>
+
+      <p>
+        More vapour means faster growth. Faster growth means the bump sticks out further. Sticking out
+        further means reaching into still richer air, which means more vapour again. The loop feeds
+        itself. Libbrecht traces it one step at a time: the top of the bump &ldquo;grows slightly faster
+        than its surroundings, and so it grows taller. Soon the bump sticks out even farther than it did
+        before, causing it to grow even faster, which makes it stick out still farther, and so
+        on.&rdquo;
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.6/visual.png"
+              data-figure="Figure 3.6"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 83 &middot; printed p. 82"
+              data-alt="Three stacked sketches of an ice surface below a blue field of water vapour, with arrows showing vapour arriving: even arrows on a flat surface, then a taller arrow on a small bump, then a much taller arrow on a large bump.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> two things, in this order. First the blue: that is the
+          water vapour, deepest far from the ice and fading to nothing right at the surface, because
+          the ice has been eating it. Then the arrows, which show how much vapour is arriving at each
+          patch of surface. Top sketch: flat ice, all the arrows the same. Middle: a small bump, and
+          its arrow is already taller than its neighbours. Bottom: the bump has grown, and its arrow
+          dwarfs the rest. Nothing was added between the sketches. The same rule, applied three times,
+          is the whole mechanism. One symbol in the published
+          caption needs a word before the next section puts it back to work: &alpha; is the attachment
+          coefficient from chapter 5, the fraction of arriving molecules that stick, so &alpha;&asymp;1
+          means every one of them does. Setting it to 1 is the author's way of switching faceting off,
+          leaving the runaway as the only thing in the picture.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.6: The diffusion-limited growth of an initially flat
+          surface with &alpha;&asymp;1 (top sketch) is susceptible to the Mullins-Sekerka instability,
+          also known as the branching instability. If a small bump appears on the surface (center), it
+          will stick out farther into the supersaturated medium, so the top of the bump will grow
+          slightly faster than the surrounding flat surface. This initiates a positive feedback effect,
+          causing the bump to become larger, increasing its relative growth rate even more (bottom).
+          This illustration assumes zero anisotropy in the attachment kinetics (&alpha;&asymp;1) to
+          eliminate the possibility of faceting and thus emphasize the Mullins-Sekerka
+          instability.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        This runaway has a name. It is the <strong>Mullins&ndash;Sekerka instability</strong>, after the
+        American physicists William Mullins and Robert Sekerka, who showed in a 1964 paper that
+        &ldquo;many of the simplest solutions to the equations describing diffusion-limited growth were
+        mathematically unstable to perturbations.&rdquo; Libbrecht prefers a plainer name, and so will
+        we: he &ldquo;also like[s] to call it the Branching Instability because this is a more
+        descriptive moniker, and using it avoids unnecessary jargon.&rdquo;
+      </p>
+
+      <p>
+        The word <em>unstable</em> is doing something specific here. A perfectly flat surface, growing
+        evenly, <em>is</em> a correct answer to the diffusion equation. Nothing about it is forbidden.
+        It is simply an answer nature cannot hold on to &mdash; like a pencil balanced on its point.
+        In Libbrecht's words: &ldquo;the uniform surface
+        growth shown in the top panel in Figure 3.6 is a perfectly valid solution to the diffusion
+        equation; it is just not a stable solution. Any deviation from perfect flatness, no matter how
+        small, will grow larger.&rdquo;
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          A growing crystal creates a shortage of vapour around itself. Anything that pokes out of the
+          surface escapes part of that shortage, grows faster, and therefore pokes out further. That is
+          the whole of the branching instability, and it is why &mdash; as Libbrecht puts it &mdash;
+          &ldquo;the simple process of water vapor freezing into ice creates the beautiful, complex snow
+          crystal patterns we observe falling from the winter clouds.&rdquo;
+        </p>
+      </aside>
+
+      <figure class="anim" id="anim-bump">
+        <div class="anim__head">
+          <p class="anim__title">Poke the flat ice</p>
+          <p class="anim__sub">
+            The pale bands are lines of equal spare vapour; the arrows are how fast each patch of
+            surface is advancing. Give the surface a bump, then decide how hard the faceting brake is
+            pressed.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original schematic animation. It encodes two statements and no
+          measurements: the positive-feedback loop described for Figure 3.6 in Libbrecht,
+          <em>Snow Crystals</em>, printed pp. 81&ndash;82, and the countervailing statement on printed
+          p. 82 that &ldquo;anisotropic attachment kinetics provides a negative feedback that reduces
+          perturbations.&rdquo; The bands and arrows are drawn to illustrate those two rules, not
+          computed from a diffusion solver.</span>
+        </figcaption>
+      </figure>
+
+      <!-- ================================================================= -->
+      <h2 id="why-the-switch-is-sudden">Why the switch is sudden</h2>
+
+      <p>
+        If every bump runs away, why is any snow crystal ever flat-faced? Because faceting is a
+        competing loop pulling the other way, and for a while it wins.
+      </p>
+
+      <p>
+        Recall the self-correcting loop from chapter 5. The corners of a hexagon catch more vapour than
+        the middle of a face does &mdash; but the middle of the face is crowded with terrace steps, and
+        steps are far better at <em>using</em> the vapour that reaches them. More fuel and less skill at
+        one end, less fuel and more skill at the other: the two effects cancel, the whole face advances
+        at one speed, and that cancellation is what a flat face <em>is</em>.
+      </p>
+
+      <p>
+        The bookkeeping behind the cancellation is one short equation.
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          <em>v</em><sub>n</sub> = &alpha; &middot; <em>v</em><sub>kin</sub> &middot;
+          &sigma;<sub>surf</sub>
+        </p>
+        <div class="equation__where">
+          <strong>where</strong> the three factors on the right are exactly the ones from chapter 5:
+          &alpha; the attachment coefficient, which can never exceed 1; <em>v</em><sub>kin</sub> the
+          reference speed set by temperature; and &sigma;<sub>surf</sub> the spare vapour right at
+          this patch of surface. Only the subscript on <em>v</em><sub>n</sub> is new, and it just
+          means &ldquo;measured straight out from the patch itself&rdquo;.
+        </div>
+        <p class="equation__cite">Libbrecht, Snow Crystals, printed p. 80</p>
+      </div>
+
+      <p>
+        Two more subscripts turn up in the published captions later in this chapter, so it is worth
+        settling them now. &sigma;<sub>far</sub> and &sigma;<sub>&infin;</sub> mean the same thing:
+        the spare vapour in the air <em>far away</em> from the crystal, again measured against what
+        ice can hold, and it is the quantity an experimenter actually sets. &sigma;<sub>surf</sub> is
+        the smaller value the crystal itself feels, after it has eaten the vapour in its immediate
+        neighbourhood.
+      </p>
+
+      <p>
+        Read the equation as a negotiation. The corners have the higher &sigma;<sub>surf</sub>; the
+        face centre has the higher &alpha;; the products match, so <em>v</em><sub>n</sub> is the same
+        everywhere and the face stays flat. Now push the crystal harder &mdash; raise the humidity, or
+        just let the crystal get bigger, which increases the difference between the corners and the
+        middle. The face centre answers by raising &alpha;. And then it hits the ceiling. <strong>There
+        is no &alpha; above 1</strong>: you cannot capture more than every molecule that arrives.
+      </p>
+
+      <p>
+        Libbrecht states the consequence flatly: &ldquo;the faceting mechanism continues working only
+        until &alpha;&asymp;1 at the facet centers. Once this happens, &alpha; can no longer increase,
+        and this causes the self-regulating process described above to break down&hellip; When this
+        happens, branches sprout from the hexagonal corners.&rdquo;
+      </p>
+
+      <p>
+        And the break is not gentle. &ldquo;This transition from faceted to branched growth tends to be
+        rather abrupt. Once the hexagonal tips sprout branches, they quickly grow outward and leave the
+        regions between the branches far behind.&rdquo; Abruptness is characteristic of instabilities,
+        and Libbrecht offers an analogy you can build on a kitchen table: stand a cylindrical rod
+        upright on one of its flat ends, in a shallow bowl of honey so the motion is heavily damped.
+        Tap it. &ldquo;It will wobble a bit and then go back to its upright, balanced state&hellip; For
+        a sufficiently tall, slender rod, even a small tap will topple it. Moreover, when it topples, it
+        will topple over completely; the transition from upright to not upright will be abrupt and
+        dramatic.&rdquo;
+      </p>
+
+      <figure class="anim" id="anim-rod">
+        <div class="anim__head">
+          <p class="anim__title">The rod in honey, and the crystal beside it</p>
+          <p class="anim__sub">
+            One slider drives both panels. Tap the rod at each setting and watch what changes: not how
+            hard you tapped, but whether the tap survives.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. The left panel is a direct mechanical model of
+          the balancing-rod analogy given in Libbrecht, <em>Snow Crystals</em>, printed p. 82: a rod
+          tips about the edge of its flat base, gravity restores it while its centre of mass stays over
+          that base, and the honey supplies the damping. The right panel is that analogy applied, not a
+          crystal-growth calculation &mdash; it shares the rod's stability threshold to make the point
+          on printed pp. 80&ndash;82 that faceting dominates when crystals are small and gives way
+          abruptly when they are large.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        So the rule of thumb for faceting is about size and speed, not temperature alone. Faceting
+        dominates when crystals are small, when the attachment kinetics differ strongly from one face
+        direction to another, and when growth is slow. Weaken any of those three and branching takes
+        over. A large crystal in humid air is a long rod in a shallow bowl.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.5/visual.png"
+              data-figure="Figure 3.5"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 82 &middot; printed p. 81"
+              data-alt="Three stacked photographs of the same hexagonal ice crystal: first a plain hexagon with straight edges, then with its edges bowing inward and its corners extending, then with six sharp points.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> one crystal, photographed three times as the humidity was
+          raised. Read top to bottom and watch the six straight edges. First panel: ruler-straight.
+          Second: bowed inward, because the corners have begun to pull ahead. Third: the corners have
+          become points and the edges are deeply hollowed. The middle of each face has not stopped
+          growing &mdash; it has simply been left behind.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.5: This series of photographs shows branches sprouting
+          from the six corners of a hexagonal snow crystal when the applied supersaturation was
+          increased. Branching like this becomes more likely when a hexagonal crystal is large and/or
+          its growth rate is fast.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <!-- ================================================================= -->
+      <h2 id="six-corners-at-once">Six corners, one decision</h2>
+
+      <p>
+        Why six branches, and why do they leave together?
+      </p>
+
+      <p>
+        Because the hexagonal cross-section of the crystal has six corners, and they are identical.
+        (The ones that matter are the six vertical edges where two side walls meet &mdash; what you see
+        as corners when you look at a thin plate face-on.) Each sticks out into the humid air by the
+        same amount, sees the same supersaturation, has the same attachment coefficient, and is fed by
+        the same crystal. Whatever number decides when a corner runs away, all six carry the same value
+        of it, so all six cross the threshold at the same moment. The six-fold symmetry of a snow
+        crystal is not imposed by anything the branches do; it is inherited from the small faceted
+        hexagon they started on, and the hexagon got it from the arrangement of water molecules in ice.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.9/visual.png"
+              data-figure="Figure 1.9"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 22 &middot; printed p. 21"
+              data-alt="Two sketches joined by an arrow: a plain hexagonal plate on the left, and on the right the same plate grown larger with a small nub protruding from each of its six corners.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> two sketches and an arrow. On the left, a plain hexagonal
+          plate. On the right, the same plate a little later: larger, and now carrying a small nub at
+          every corner &mdash; six of them, and nowhere else. The corners are the only places on a
+          hexagon that reach out in a direction no other part of the crystal is shielding. Everything
+          else in this chapter follows from that one geometric fact plus the feedback loop above.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.9: The six corners of a thin hexagonal plate stick out
+          into the humid air around it. Water vapor condenses preferentially on the corners as a result,
+          making them stick out even farther. This leads to a branching instability (described in
+          Chapter 3) that causes six branches to sprout from the corners of the hexagon.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        That gives you a piece of forensic evidence you can use on any photograph. If a crystal has six
+        arms arranged symmetrically, then at some point in its past it was a small, plainly faceted
+        hexagonal prism &mdash; because that is the only object whose corners could have launched them
+        in unison. Libbrecht makes the inference explicit: &ldquo;Whenever you see a branched snow
+        crystal with six-fold symmetry, it is almost certain that the primary branches first sprouted
+        in unison from a faceted ice crystal.&rdquo;
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          Branching does not create the six-fold symmetry. It copies it. The symmetry comes from the
+          faceted hexagon that existed before the branches did, which is why a six-armed crystal is
+          proof of a hexagonal past.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="watch-it-happen">Watch it happen</h2>
+
+      <p>
+        Everything above is a chain of words. Here it is as a running process instead. A round seed
+        sits on a hexagonal grid &mdash; hexagonal because ice is &mdash; and eats the vapour it
+        touches, so the air next to it is depleted; that is the darkening halo. No shape is programmed
+        in and no arms are drawn: the only rule is that a surface cell fills at a rate set by how much
+        vapour reaches it.
+      </p>
+
+      <p>
+        Watch what the halo does as the crystal grows. It is not a uniform ring. It is deepest in the
+        notches between the developing arms, which are shielded on both sides, and thinnest at the arm
+        tips, which reach out past it. That difference is the instability, drawn.
+      </p>
+
+      <figure class="anim is-wide" id="anim-diffusion">
+        <div class="anim__head">
+          <p class="anim__title">The branching instability, running</p>
+          <p class="anim__sub">
+            A seed crystal growing in a field of water vapour. Slide &ldquo;Face-seeking&rdquo; to the
+            left to weaken the surface's preference for flatness and watch it go feathery; slide it
+            right and watch the branches thicken into blocks.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original simulation. Vapour is relaxed to the steady state of the
+          diffusion equation on a hexagonal lattice each frame, with the far field held humid and the
+          ice surface held at zero, and surface cells fill at a rate proportional to the vapour reaching
+          them &mdash; the diffusion-limited growth described in Libbrecht, <em>Snow Crystals</em>,
+          chapter 3. The &ldquo;Face-seeking&rdquo; slider is a cartoon of attachment kinetics, not the
+          measured attachment coefficient, and no number in it is a physical measurement.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Play with the slider before you scroll on. All the way left, and molecules stick wherever they
+        land: the shape goes wild and stringy, the instability with nothing opposing it. All the way
+        right, and the arms fatten into compact blocks. Every real snow crystal lives between those two
+        extremes, and the rest of this site is largely about what decides where.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="the-tip-that-never-changes">The tip that never changes</h2>
+
+      <p>
+        Once a branch has escaped, it becomes a thing worth studying on its own. A branch growing
+        outward into open air, far from the walls of any container and far from competing crystals, is
+        called a <strong>free dendrite</strong> &mdash; &ldquo;free&rdquo; meaning unconstrained, and
+        &ldquo;dendrite&rdquo; from the Greek for tree. In the laboratory you can grow one deliberately
+        off the end of a wire and film it.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.9/visual.png"
+              data-figure="Figure 3.9"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 86 &middot; printed p. 85"
+              data-alt="A photograph of fernlike ice dendrites grown from a wire: one sharply focused branch with a straight spine and closely ranked sidebranches leaving at a fixed angle, with more blurred dendrites behind it.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the object the rest of this section is about, grown on
+          purpose in a laboratory. Find the branch in sharp focus. Its spine is dead straight, its
+          sidebranches all leave at the same angle, and they get shorter nearer the point &mdash;
+          because the ones near the point are the youngest. Then notice the blurred shapes behind it:
+          further dendrites, each a flat cut-out lying in its own plane, which is why only one can be
+          in focus at a time. That flatness is the first of the six traits in the table below, and the
+          published caption names its cause: slow growth on the basal faces, the two flat ends of the
+          hexagonal prism.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.9: Several fernlike dendrites growing out from the tip
+          of a wire substrate at a temperature of -15 C (only a single dendrite is in sharp focus in
+          this photo). Although they are oriented randomly with respect to the wire, each complex
+          dendritic structure is mostly confined to a thin plane by slow basal growth.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        What you see is stranger than it sounds. The tip does not sharpen as it grows, and it does not
+        blunt. It advances at a steady speed with an unchanging shape. Photograph the near-tip region
+        at one moment and again a minute later and the two photographs look the same &mdash; different
+        sidebranches in different places, but the same tip, the same curvature, the same everything.
+      </p>
+
+      <p>
+        There is a mathematical object that behaves exactly like this. In 1947 the Russian physicist
+        G. P. Ivantsov found a solution of the diffusion equation shaped like a parabolic needle: a
+        smooth point of fixed radius travelling forward at constant speed while its shape never
+        changes.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.22/visual.png"
+              data-figure="Figure 3.22"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 103 &middot; printed p. 102"
+              data-alt="A diagram of a smooth parabolic crystal point, with a circle drawn inside the point labelled R-tip and an arrow ahead of it labelled v-tip.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> two labels do all the work. The circle nestled inside the
+          point is the tip radius, the size of the roundest circle that fits there; the arrow ahead of
+          it is the forward speed. Neither changes with time, which is the entire content of the
+          solution, and it is why the last sentence of the published caption is worth reading twice.
+          (A <em>paraboloid of revolution</em> is just the solid you get by spinning a parabola about
+          its own axis &mdash; a rounded spike.)
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.22: The Ivantsov solution to the diffusion equation
+          describes a crystalline paraboloid of revolution with a constant parabolic shape and tip
+          radius <strong>R<sub>tip</sub></strong> that grows forward with a constant velocity
+          <strong>v<sub>tip</sub></strong>. If viewed from a frame of reference that moves in the growth
+          direction with velocity <strong>v<sub>tip</sub></strong>, the system would appear completely
+          static.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        &ldquo;Completely static&rdquo; is the sentence to hold on to. If you could ride along with the
+        tip &mdash; a camera moving forward at exactly the tip's speed &mdash; nothing in front of you
+        would appear to move at all. Ice would be flowing through your field of view from front to
+        back, but the <em>pattern</em> would sit perfectly still. Try both viewpoints.
+      </p>
+
+      <figure class="anim" id="anim-tipframe">
+        <div class="anim__head">
+          <p class="anim__title">Ride the tip</p>
+          <p class="anim__sub">
+            The same growing branch, twice. Top: the view from the laboratory. Bottom: the view from a
+            camera moving forward at the tip's own speed.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. The outline is the parabolic tip of the Ivantsov
+          solution and the two viewpoints are the frame change described in the caption to Figure 3.22,
+          Libbrecht, <em>Snow Crystals</em>, printed p. 102. Sidebranch behaviour follows the measured
+          traits listed on printed pp. 84&ndash;85: they appear a few tip radii behind the tip, leave at
+          60 degrees, and are spaced erratically and independently on the two sides. The supersaturation
+          control changes only the forward speed, never the tip radius, which is the pairing reported on
+          printed p. 84.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Real snow crystal tips are not exactly Ivantsov parabolas, and diffusion on its own does not
+        even pick one answer: it fixes only the <em>pairing</em> of tip speed and tip radius, leaving a
+        whole family of parabolas that all obey the equation. That indeterminacy is the
+        <strong>selection problem</strong> (printed pp. 102&ndash;103), and for snow crystals the extra
+        physics that settles it is the attachment kinetics &mdash; the same directional fussiness that
+        turns up two sections from now as the thing that stops a tip splitting in two. What real tips
+        do inherit is the Ivantsov stubbornness, and laboratory measurements near
+        &minus;15&nbsp;&deg;C pin down six specific traits of a fernlike branch.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The six characteristic traits of fernlike dendritic branches, as listed in Libbrecht,
+            <em>Snow Crystals</em>, printed pp. 84&ndash;85. &sigma;<sub>&infin;</sub> is the
+            supersaturation far from the crystal; <em>R</em><sub>tip</sub> is the radius of curvature
+            of the tip.
+          </caption>
+          <thead>
+            <tr><th>Trait</th><th>What it means in practice</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>The branching structure is mainly confined to a flat plane, because of strong basal faceting</td>
+              <td>The arm is a flat cut-out, not a bush. Slow growth on the two flat ends is part of why it stays that thin &mdash; but only part; Chapter 12 supplies the rest.</td>
+            </tr>
+            <tr>
+              <td>The tip advances at a constant velocity <em>v</em><sub>tip</sub> that increases roughly in proportion to &sigma;<sub>&infin;</sub></td>
+              <td>Twice as much spare vapour in the air, roughly twice the forward speed.</td>
+            </tr>
+            <tr>
+              <td><em>R</em><sub>tip</sub> &asymp; 1 micron, roughly independent of supersaturation</td>
+              <td>The tip's sharpness is essentially fixed. Humidity changes the speed, not the shape.</td>
+            </tr>
+            <tr>
+              <td>Each distinct sidebranch leaves at 60 degrees to the primary branch</td>
+              <td>The angle is set by the ice lattice, not by the flow of vapour.</td>
+            </tr>
+            <tr>
+              <td>New sidebranches sprout at a characteristic distance behind the tip, roughly several times <em>R</em><sub>tip</sub></td>
+              <td>Sidebranches are born just behind the point, never on it.</td>
+            </tr>
+            <tr>
+              <td>The spacing between sidebranches is erratic, with little correlation on the two sides of a branch</td>
+              <td>The gaps are not equal, and the pattern of gaps on one flank of an arm tells you almost nothing about the pattern on the other.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        A micron is a thousandth of a millimetre. The whole arm may be several millimetres long, so the
+        point that carves it out is thousands of times smaller than the object it produces &mdash; and
+        it stays that size whether the air is barely humid or drenched. (Humidity is what is being held
+        to account there; lower the <em>air pressure</em> and <em>R</em><sub>tip</sub> does increase,
+        printed p. 85.) Hold on to the last row of the table as well. The next section is where it pays
+        out.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.24/visual.png"
+              data-figure="Figure 3.24"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 106 &middot; printed p. 105"
+              data-alt="A scatter plot with error bars of measured dendrite tip velocity in microns per second against supersaturation, with a straight fitted line rising from the origin.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> a rare thing in this subject &mdash; a clean data graph.
+          Every circle is a measured dendrite, and the whiskers are the uncertainty, which is honestly
+          large in the horizontal direction. Horizontal axis: how much spare vapour the air was
+          carrying. Vertical axis: how fast the tip travelled. The fitted line rises straight from the
+          origin, which is what &ldquo;the speed is proportional to the supersaturation&rdquo; looks
+          like when it is true. One thing to notice before you read the caption: that vertical axis is
+          labelled in <em>microns</em> per second, so the caption's &ldquo;m/sec&rdquo; is a slip for
+          &micro;m/sec. Trust the axis &mdash; a dendrite tip travels a few microns a second, not a few
+          metres.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.24: Measurements of the tip velocity of fernlike free
+          dendrites growing near -15 C as a function of the far-away supersaturation. The data indicate
+          a linear relationship between these variables, and the line shows
+          <strong>v<sub>tip</sub></strong>= <strong>5&sigma;<sub>far</sub></strong> m/sec. This supports
+          the theoretical expectation that attachment kinetics provides the dominant selection
+          perturbation in solvability theory for the case of snow-crystal free dendrite growth. (The
+          data are from [2002Lib] with additional later measurements added to the plot.)&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          The one-micron tip radius is not something anyone read off a photograph. A micron is at the
+          edge of what an optical microscope can resolve, and Libbrecht is careful about this: the
+          low-resolution tip images are &ldquo;at least consistent with <em>R</em><sub>tip</sub> being
+          independent of &sigma;<sub>far</sub>&rdquo; &mdash; consistent with, not a measurement of.
+          The number comes instead from feeding the measured tip speeds in Figure 3.24 into the theory
+          of how a dendrite selects its own tip size, and &ldquo;a fit to the data&hellip; yields
+          <em>R</em><sub>tip</sub>&asymp;1 &micro;m&rdquo; (printed p. 105). Fishbone dendrites &mdash;
+          a laboratory-only form you will meet in chapter 7 &mdash; come out at about 1.5&nbsp;&micro;m
+          by the same route. So treat &ldquo;about a micron&rdquo; as a well-supported inference rather
+          than a reading off a ruler.
+        </p>
+      </aside>
+
+      <p>
+        One more piece of evidence, and it is the kind that should make you trust the whole picture
+        more. Take the water out. In the 1970s the American materials scientist Martin Glicksman and
+        his colleagues studied solidification in an organic compound picked for reasons that have
+        nothing to do with snow: &ldquo;succinonitrile has a simple crystalline structure, it is
+        transparent, and it freezes near room temperature.&rdquo; It froze into this.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.27/visual.png"
+              data-figure="Figure 1.27"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 35 &middot; printed p. 34"
+              data-alt="A photograph of a dendritic succinonitrile crystal: a needle with a smooth point, carrying dense sidebranches at a fixed angle that grow longer further back from the tip, with a one millimetre scale bar.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> there is no water anywhere in this photograph, no cloud and
+          no cold &mdash; an organic liquid freezing near room temperature, a few millimetres across.
+          Now look at what it did anyway: a smooth point at the end, sidebranches at one fixed angle,
+          tiny near the tip and longer further back, some racing ahead while their neighbours stay
+          stunted. Every feature you have been reading about, in a material with nothing to do with
+          snow. The branching instability does not care what the material is; it only cares that growth
+          is limited by diffusion.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.27: This photo shows a dendritic crystal of
+          succinonitrile growing into a supercooled melt of the same material. Under constant
+          conditions, the tip advances at a constant growth velocity while the radius of curvature of
+          the tip remains constant [1981Hua].&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          Theory and the tip-speed measurements agree nicely, and it would be easy to declare the
+          dendrite problem finished. Libbrecht does not, because the theory leans on attachment
+          kinetics that &ldquo;are not well known from independent measurements&rdquo; (printed
+          pp. 105&ndash;106): &ldquo;the theory is somewhat under-constrained due to a poor knowledge
+          of material properties, so we should not read too much into the linear trend seen in Figure
+          3.24.&rdquo; Numerical models cannot settle it either, being &ldquo;not yet sophisticated
+          enough to include the combined effects of diffusion, surface energy, and attachment
+          kinetics&rdquo; (printed p. 107). A line passing through the data is not the same thing as
+          understanding why.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="sidebranches-that-do-not-match">Sidebranches that do not match</h2>
+
+      <p>
+        A branch is a surface, and the instability does not stop being true just because the surface
+        now belongs to an arm. Random bumps on the flanks of a growing branch are amplified exactly as
+        the first bump was: &ldquo;Once a branch sprouts and grows outward, perturbations on its
+        surfaces may again become amplified, thereby sprouting additional sidebranches, as illustrated
+        in Figure 3.7. In principle, this could lead to sidebranches on the sidebranches, and so on,
+        yielding intricate structures.&rdquo;
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.7/visual.png"
+              data-figure="Figure 3.7"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 84 &middot; printed p. 83"
+              data-alt="A schematic of a growing dendrite tip drawn as a nest of successive outlines: the innermost is a smooth parabola, and each outline further out carries larger ripples on its flanks, which by the outermost have become sidebranches leaving along dashed lines at a fixed angle.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> nothing new is happening in this sketch. It is the same
+          runaway as Figure 3.6, applied over and over. The outlines are one tip drawn at successive
+          moments, so read them from the inside out. The innermost is a smooth parabola. The next
+          carries small ripples on its flanks. By the outermost the ripples have become sidebranches,
+          striking out along the dashed lines. Then read the second half of the published caption
+          carefully, because it corrects the obvious guess &mdash; the gaps are not just any old sizes.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.7: A schematic diagram showing the creation of
+          dendritic sidebranches resulting from repeated application of the Mullins-Sekerka instability
+          [1980Lan]. Random perturbations on the sides of the growing tip typically yield somewhat
+          erratically placed sidebranches. However, there is often a characteristic length scale
+          involved in the formation of these perturbations, resulting in a somewhat regular spacing
+          between adjacent sidebranches.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        Sidebranches then fight each other, by the same mechanism again. If one sidebranch happens to
+        get slightly ahead of its neighbours, it reaches into humid air that they are no longer
+        shielded from, takes vapour that would have gone to them, and stunts them. &ldquo;Soon the long
+        branch shoots ahead while its immediate neighbors are greatly stunted&rdquo; (printed p. 90).
+        Winners take resources from losers, which makes them win harder. Libbrecht notes that the same
+        pattern is sometimes called the Matthew Effect in socio-economic circles.
+      </p>
+
+      <p>
+        Now for the consequence that most people get wrong. The bumps that seed sidebranches are
+        random. Random, but not scale-free &mdash; there is a characteristic length involved, so
+        adjacent sidebranches end up somewhat regularly spaced even though no two gaps are equal
+        (Figure 3.7). What is genuinely uncorrelated is which side gets which gap: the left flank of an
+        arm and the right flank of the same arm are seeded independently. So they do not match &mdash;
+        and neither do any two arms of the same crystal.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.8/visual.png"
+              data-figure="Figure 3.8"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 84 &middot; printed p. 83"
+              data-alt="A photograph of a fernlike stellar dendrite with six primary arms carrying dense, irregularly placed sidebranches.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> pick one arm and compare its two sides, sidebranch by
+          sidebranch. Then compare that arm with the one next to it. At a glance the crystal looks
+          perfectly symmetric; in detail it is not, and now you know why it cannot be. Notice too that
+          the crystal is a flat sheet, which needs a separate explanation: basal faceting keeps growth
+          slow on the two flat ends, but a second runaway &mdash; one that works on the rim rather than
+          the corners &mdash; is what drives the plate as thin as it gets. That is Chapter 12.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.8: Both branching and faceting play large roles in
+          fernlike stellar dendrites like this one. The branching instability is clearly responsible for
+          the copious sidebranching, and for the largely random sidebranch placement. However, this
+          crystal began its life as a faceted hexagonal prism, because the six primary branches must
+          have spouted from the small prism&rsquo;s six corners. Moreover, the crystal is thin and flat,
+          indicating strong basal faceting even in the presence of highly developed dendritic
+          branching.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          &ldquo;Every snow crystal is perfectly six-fold symmetric&rdquo; is false, and it is false in
+          a specific, checkable way. (Note that this is about a single crystal. A snowflake is usually
+          a clump of many crystals and has no symmetry to explain in the first place.) The
+          <em>layout</em> of one crystal is six-fold: six arms, evenly spaced and roughly matched in
+          length, because they launched together from six identical corners. The <em>decoration</em> is
+          not, because each sidebranch was seeded by a chance fluctuation. Libbrecht's assessment of the
+          crystal in Figure 3.8 is blunt: the sidebranches &ldquo;are largely uncorrelated among the
+          primary branches, and even the two sides of a single primary branch exhibit quite different
+          sidebranches. Thus, the detailed six-fold symmetry of the crystal in Figure 3.8 is quite
+          poor.&rdquo; He adds that symmetrical sidebranches <em>can</em> be stimulated deliberately,
+          with perturbations that are not random.
+        </p>
+      </aside>
+
+      <figure class="anim" id="anim-mirror">
+        <div class="anim__head">
+          <p class="anim__title">The mirror test</p>
+          <p class="anim__sub">
+            One arm, sidebranches placed by chance on each side. Fold it along its own axis and see how
+            badly the two halves agree &mdash; then switch off the randomness and see what a genuinely
+            symmetric arm would have to look like.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original diagram, redrawn at random on each press. The arm is built
+          from the measured traits on printed pp. 84&ndash;85 of Libbrecht, <em>Snow Crystals</em>:
+          sidebranches leave at 60 degrees, begin a few tip radii behind the tip, and are spaced
+          erratically with little correlation between the two sides. The gaps are drawn from a range
+          rather than freely, following the caption to Figure 3.7 (printed p. 83), which reports
+          &ldquo;a characteristic length scale&hellip; resulting in a somewhat regular spacing between
+          adjacent sidebranches.&rdquo; The match score is a property of this drawing, not a published
+          measurement.</span>
+        </figcaption>
+      </figure>
+
+      <!-- ================================================================= -->
+      <h2 id="turn-off-the-directions">Turn off the directions</h2>
+
+      <p>
+        Here is a question that sounds pedantic and turns out to be the key to the whole subject. Why
+        does a dendrite tip stay a <em>single</em> point at all?
+      </p>
+
+      <p>
+        Nothing in the feedback loop protects it. A tip is the most exposed part of the crystal, so it
+        is the most unstable part of the crystal. A bump on the tip should run away just like any other
+        bump &mdash; splitting the point in two, and then splitting each of those, forever.
+      </p>
+
+      <p>
+        What stops it is that ice cares about direction. The rate at which molecules attach to an ice
+        surface depends strongly on which face of the crystal they are landing on. That directional
+        preference &mdash; <strong>anisotropy</strong>, which means nothing more than &ldquo;not the
+        same in all directions&rdquo; &mdash; gives the tip a favoured direction to point in, and
+        pulls it back when it wanders. Take the anisotropy away and the protection goes with it: &ldquo;With perfect isotropy,
+        the Mullins-Sekerka instability brings about not only sidebranches, but also tip
+        splitting.&rdquo;
+      </p>
+
+      <p>
+        This can be tested by simulation, dialling the anisotropy down and leaving everything else
+        alone. &ldquo;With no anisotropy, the dendritic branches exhibited frequent tip splitting that
+        resulted in a complex &lsquo;seaweed-like&rsquo; structure. Above some threshold anisotropy,
+        dendrites with stable tip structures appeared.&rdquo;
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.26/visual.png"
+              data-figure="Figure 3.26"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 108 &middot; printed p. 107"
+              data-alt="Four simulated crystals in a row: a crisp hexagonal crystal with six straight ribs, then a six-armed star, then a lumpy shape with the arms half dissolved, then a round disc of fine radial branches.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> four panels, read left to right as one knob being turned
+          down &mdash; how strongly the surface prefers certain directions. Nothing else changes. The
+          first panel is a crisp hexagon with six straight ribs; the second is unmistakably a snowflake;
+          by the third the arms are dissolving into the mass; the fourth is a round disc. And here is
+          the thing to sit with: the fourth panel is just as intricately branched as the second, made by
+          exactly the same instability. It simply has no shape. This is the control experiment for the
+          entire subject.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.26: In crystal growth, some kind of surface anisotropy,
+          usually in the attachment kinetics or surface energy, is necessary to prevent tip splitting
+          and create stable free-dendrite growth (far left). For perfectly isotropic systems,
+          seaweed-like structures emerge (far right). This numerical simulation shows a morphological
+          transition between these two states, in this case when the underlying anisotropy possesses
+          six-fold symmetry. (Image from [2006Gra1].)&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        You can run that experiment yourself, on this page. Scroll back to
+        <a href="#anim-diffusion">the live simulation</a> and drag Face-seeking all the way to the
+        left: the six arms dissolve and you get the right-hand panel above &mdash; branched everywhere
+        and shaped nowhere. Drag it back to the right and the arms come home. That slider is the same
+        knob Figure 3.26 is turning.
+      </p>
+
+      <p>
+        Snow crystals sit at the left-hand end of that row. &ldquo;Tip splitting is largely absent in
+        snow-crystal dendrites, owing to the exceptionally large underlying anisotropy in the attachment
+        kinetics.&rdquo; Ice has an unusually strong opinion about direction, which is precisely why it
+        makes such well-behaved stars.
+      </p>
+
+      <p>
+        But you can push ice into the seaweed regime, and this is the satisfying part. The anisotropy
+        that protects the tip comes from the fact that molecules find some faces hard to stick to.
+        Raise the humidity far enough and the prism faces &mdash; the six side walls of the hexagon
+        &mdash; stop being hard: &alpha;<sub>prism</sub> climbs to about 1, so the difference between
+        the six in-plane directions collapses and the protection is gone. Real snow crystal tips then
+        start splitting.
+      </p>
+
+      <p>
+        The basal faces do not follow, and that detail decides <em>which way</em> a tip splits. Making
+        a new step on a basal face costs energy even at 0&nbsp;&deg;C, so &ldquo;the basal anisotropy
+        is relatively high under all growth conditions&rdquo; &mdash; there is no humidity that turns
+        it off. Libbrecht therefore expects &ldquo;a complete absence of basal tip splitting, and this
+        expectation is consistent with observations&rdquo; (printed p. 107). So a splitting tip divides
+        sideways, staying inside the flat plane of the plate. It never divides off the two flat faces
+        and goes three-dimensional.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.27/visual.png"
+              data-figure="Figure 3.27"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 109 &middot; printed p. 108"
+              data-alt="A photograph of a six-armed fernlike ice crystal grown on a slender support, its arms densely sidebranched and their outer ends divided.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> follow each of the six arms out to its far end. A healthy
+          dendrite ends in one travelling point; these do not. The conditions in the published caption
+          are extreme &mdash; a supersaturation of about 1.3, meaning the air held more than twice the
+          water vapour ice was in balance with. At that point even the prism faces are easy to stick to
+          (&ldquo;&alpha;<sub>prism</sub> is close to unity&rdquo;), the difference between the in-plane
+          directions collapses, and the tip loses the thing keeping it single. And note what the
+          previous paragraph predicted: each arm divides sideways, within the plane it already lies in.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.27: An example of tip splitting in rapidly growing
+          fernlike dendrites at <strong>&sigma;<sub>far</sub></strong>&asymp; 1.3 near -15 C. In these
+          conditions, <strong>&alpha;<sub>prism</sub></strong> is close to unity and the anisotropy in
+          the kinetic coefficient becomes quite low. Notably, the tip splitting in this example occurred
+          when the crystal was small, and the surface supersaturation was therefore higher than at later
+          times (as indicated in Equation 3.25).&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          Diffusion supplies the branching. The lattice supplies the directions. Remove the directions
+          and you still get branching &mdash; you just get seaweed instead of a snow crystal. A snow
+          crystal needs both.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="order-and-chaos">Order and chaos</h2>
+
+      <p>
+        You now have the complete engine, and it has exactly two moving parts.
+      </p>
+
+      <p>
+        &ldquo;Attachment kinetics brings about ordered, faceted surfaces with sharp edges and corners,
+        defined precisely by the crystal lattice structure. Diffusion brings about instability, yielding
+        complex structures and the chaotic sidebranching seen in dendritic growth. These are the
+        competing forces of order and chaos that drive the formation of snow crystals.&rdquo;
+      </p>
+
+      <p>
+        This is a tool, not a slogan. Take any snow crystal photograph and sort what you see into two
+        piles. Razor-straight edges, arms exactly 60 degrees apart, a flat sheet rather than a lump:
+        order, all of it traceable to the way molecules attach to particular crystal faces. Feathery
+        decoration, mismatched sidebranches, one sidebranch huge and its neighbour stunted: chaos, all
+        of it traceable to diffusion. Every crystal you will ever see is a particular ratio of those
+        two, and the interplay &ldquo;is what gives snow crystal growth its especially rich
+        phenomenology.&rdquo;
+      </p>
+
+      <p>
+        The ratio has a control. Raise the supersaturation and the surface's attachment coefficient
+        climbs toward 1, faceting's grip weakens, and branching takes more of the crystal &mdash;
+        &ldquo;branching becomes more prevalent at higher &sigma;<sub>&infin;</sub>, thus leading to more
+        complex snow crystal morphologies at higher supersaturations.&rdquo; That is why the most
+        elaborate crystals fall from the wettest clouds, and why a dry cloud produces plain, simply
+        faceted crystals &mdash; bare hexagonal prisms with nothing on them. The three panels of
+        Figure 3.5, near the top of this chapter, are that dial being turned on a single crystal:
+        straight edges, then hollowed edges, then six points.
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="the-fractal-resemblance">The fractal that is not the answer</h2>
+
+      <p>
+        Branches carrying branches carrying branches: that description belongs to a famous piece of
+        mathematics. Start with a triangle, push a smaller triangle out of the middle of each side, and
+        repeat forever. You get the Koch snowflake, drawn in 1904, one of the first fractals ever
+        described &mdash; a shape whose area settles down to a finite value while its edge grows without
+        limit.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.16/visual.png"
+              data-figure="Figure 3.16"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 91 &middot; printed p. 90"
+              data-alt="A construction sequence for the Koch snowflake, starting from a triangle and adding ever smaller triangles to each edge.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> four steps, and by the fourth one you would happily call it
+          a snowflake. The resemblance is real &mdash; which is exactly why the last sentence of the
+          published caption matters: it is the author disowning the analogy in his own figure. Note the
+          two numbers as well. The area settles down, the perimeter does not, and that combination is
+          both what makes the Koch curve famous and precisely the property no physical object can have.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.16: This sketch shows the construction of geometrical
+          curve known as the Koch snowflake, first described by Swedish mathematician Helge von Koch in
+          1904. It is one of the earliest known examples of a fractal structure. As ever-smaller
+          triangular sidebranches are attached ad infinitum, the area of the Koch snowflake converges to
+          8/5 times the area of the original triangle, while its perimeter length diverges to infinity.
+          Consequently, the Koch snowflake has a finite area bounded by an infinitely long perimeter.
+          Although this fractal structure bears some resemblance to a stellar dendrite snow crystal,
+          there is little real connection between fractal mathematics and the physics of snow crystal
+          formation.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        Real crystals do nest. Photograph a large enough fernlike dendrite and you can find
+        sidebranches on sidebranches on sidebranches.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.17/visual.png"
+              data-figure="Figure 3.17"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 92 &middot; printed p. 91"
+              data-alt="A close-up photograph of part of a very large fernlike stellar dendrite showing branches, sidebranches and smaller sidebranches upon those.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> count the levels. There is the primary arm, the sidebranches
+          on it, the sidebranches on those, and &mdash; if you look hard &mdash; a few more. Then stop
+          counting, because the crystal does. Three or four levels is not infinity; it is where a real
+          physical process ran out of room.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.17: This photo shows a close-up of one section of an
+          exceptionally large fernlike stellar dendrite. The crystal exhibits a somewhat self-similar
+          fractal structure with sidebranches begetting side-sidebranches, and even a few
+          side-side-sidebranches.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          &ldquo;A snowflake is a fractal&rdquo; is a description, not an explanation, and it is a
+          description with a floor. The Koch curve repeats at every scale forever; a snow crystal stops
+          after a few levels. It has to: the smallest feature it can carve is set by the tip radius,
+          about a micron (printed p. 105), and the whole arm is only a few millimetres long &mdash;
+          which is why &ldquo;the degree of self-similarity seen in snow crystal structure is relatively
+          minor&rdquo; (printed p. 91). And the resemblance predicts nothing: not when branches appear,
+          not how fast they grow, not why they leave at 60 degrees. Libbrecht's judgement is that
+          &ldquo;the concept of self-similarity does not provide a physics-based explanation of the
+          formation of the dendritic structure in the first place &ndash; that requires the
+          Mullins-Sekerka instability&rdquo; (printed p. 91). Saying a snowflake has fractal
+          characteristics is accurate. It is just not an answer.
+        </p>
+      </aside>
+
+      <p class="handoff">
+        Faceting and branching between them tell you how ornate a crystal will get. They do not tell you
+        the most obvious thing about snow: why some days it falls as flat stars and other days as tiny
+        pencils. To answer that we need a map.
+      </p>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./05-the-restless-surface.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">The Restless Surface</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./07-plates-columns-plates-columns.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">Plates, Columns, Plates, Columns</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
+      from a local research cache under citation; they are not redistributed with this repository.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script src="../assets/anim-diffusion.js"></script>
+<script>
+/* ===========================================================================
+   Chapter 6 originals.
+   Shared conventions:
+     - every animation derives its own dt from the elapsed time handed in by
+       Viz.animate(), so that the reduced-motion "Step forward" button (which
+       seeks the clock forward without a real frame) still advances the physics
+     - colours come only from Viz.colors(); series[0] and series[1] are reserved
+       site-wide for basal and prism facets and so are not used here, where
+       nothing represents a facet
+   ======================================================================== */
+(function () {
+  "use strict";
+
+  /** Turn Viz.animate's absolute clock into a bounded time step. */
+  function stepper() {
+    let prev = null;
+    return function (t) {
+      const dt = (prev == null || t < prev) ? 0 : Math.min(0.25, t - prev);
+      prev = t;
+      return dt;
+    };
+  }
+
+  function text(svg, x, y, str, opts) {
+    const o = opts || {};
+    const node = Viz.svgEl("text", {
+      x: x, y: y, class: o.cls || "annotation",
+      "text-anchor": o.anchor || "start",
+      fill: o.fill || null,
+    });
+    node.textContent = str;
+    svg.appendChild(node);
+    return node;
+  }
+
+  /* ==================================================== 1. poke the ice === */
+  (function () {
+    const root = document.getElementById("anim-bump");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const bar = root.querySelector(".anim__controls");
+
+    const W = 560, H = 302, BASE = 208, CX = 250, WID = 44;
+    const AMIN = 0.7, AMAX = 78;
+    let amp = 5, brake = 0.25;
+    const tick = stepper();
+
+    const bumpAt = (x, a) => a * Math.exp(-Math.pow((x - CX) / WID, 2));
+
+    function draw() {
+      body.textContent = "";
+      const c = Viz.colors();
+      const svg = Viz.createSvg(body, W, H, {
+        label: "A growing ice surface carrying a single bump, with bands of equal spare vapour " +
+               "above it and arrows showing how fast each part of the surface is advancing.",
+        desc: "When the faceting brake is weak the bump grows without limit; when it is strong the " +
+              "bump shrinks back and the surface returns to flat.",
+      });
+
+      /* bands of equal supersaturation: they hug the bump close in, flatten out far away */
+      for (let i = 6; i >= 1; i--) {
+        const decay = Math.exp(-i * 0.42);
+        let d = "";
+        for (let x = 0; x <= W; x += 8) {
+          const y = BASE - bumpAt(x, amp) * decay - i * 21;
+          d += (x ? "L" : "M") + x.toFixed(1) + " " + y.toFixed(1) + " ";
+        }
+        svg.appendChild(Viz.svgEl("path", {
+          d: d.trim(), fill: "none", stroke: c.seq[Math.max(0, 6 - i)],
+          "stroke-width": 1.6, opacity: 0.85,
+        }));
+      }
+      text(svg, W - 10, BASE - 6 * 21 - 12, "air further away — more spare vapour",
+           { anchor: "end", fill: c.muted });
+
+      /* the ice */
+      let solid = "M0 " + H + " L0 " + (BASE - bumpAt(0, amp)).toFixed(1) + " ";
+      for (let x = 0; x <= W; x += 6) solid += "L" + x + " " + (BASE - bumpAt(x, amp)).toFixed(1) + " ";
+      solid += "L" + W + " " + H + " Z";
+      svg.appendChild(Viz.svgEl("path", { d: solid, fill: c.sunken, stroke: "none" }));
+      svg.appendChild(Viz.svgEl("path", {
+        d: solid, fill: "none", stroke: c.ruleStrong, "stroke-width": 2.2,
+      }));
+      text(svg, 12, H - 14, "ice", { fill: c.inkSecondary });
+
+      /* growth-rate arrows, longest where the surface pokes out furthest */
+      const peak = Math.max(amp, 1);
+      for (let x = 40; x <= W - 40; x += 40) {
+        const h = bumpAt(x, amp);
+        const len = 14 + 26 * (h / peak) * Math.min(1, amp / 24);
+        const y0 = BASE - h - 4;
+        svg.appendChild(Viz.svgEl("line", {
+          x1: x, x2: x, y1: y0, y2: y0 - len, stroke: c.inkSecondary, "stroke-width": 1.6,
+        }));
+        svg.appendChild(Viz.svgEl("path", {
+          d: "M" + (x - 4) + " " + (y0 - len + 5) + " L" + x + " " + (y0 - len) +
+             " L" + (x + 4) + " " + (y0 - len + 5),
+          fill: "none", stroke: c.inkSecondary, "stroke-width": 1.6,
+        }));
+      }
+
+      /* two bars: how fast the bump top is going, versus the flat surface */
+      const rate = (x) => 0.55 + 0.45 * (bumpAt(x, amp) / peak) * Math.min(1, amp / 24);
+      const barX = 40, barTop = 240, barW = 190;
+      [["at the bump’s top", rate(CX)], ["on the flat surface", rate(20)]].forEach(function (row, i) {
+        const y = barTop + i * 26;
+        svg.appendChild(Viz.svgEl("rect", {
+          x: barX, y: y, width: barW, height: 12, fill: c.rule, rx: 3,
+        }));
+        svg.appendChild(Viz.svgEl("rect", {
+          x: barX, y: y, width: (barW * row[1]).toFixed(1), height: 12, fill: c.seq[4], rx: 3,
+        }));
+        text(svg, barX + barW + 10, y + 11, row[0], { fill: c.inkSecondary });
+      });
+      text(svg, barX, barTop - 8, "how fast the surface is advancing", { fill: c.muted });
+
+      /* verdict */
+      const verdict = amp <= AMIN + 0.15
+        ? "smoothed away — the surface stays flat"
+        : amp >= AMAX - 0.5
+          ? "runaway — this is now a branch"
+          : (brake * 2.2 > 1 ? "shrinking back" : "running away");
+      text(svg, W - 12, 286, verdict, { anchor: "end", cls: "series-label", fill: c.ink });
+    }
+
+    function frame(t) {
+      const dt = tick(t);
+      if (t === 0) amp = 5;               // Viz.animate's reset() seeks the clock back to zero
+      amp *= Math.exp((1 - brake * 2.2) * dt);
+      amp = Math.max(AMIN, Math.min(AMAX, amp));
+      draw();
+    }
+
+    // the chapter's own controls are registered first, so that the reduced-motion
+    // Step/Restart pair Viz.animate injects lands after them rather than before
+    Viz.slider(bar, {
+      label: "Faceting brake", id: "bump-brake",
+      min: 0, max: 1, step: 0.01, value: brake,
+      format: (v) => v < 0.34 ? "weak — α near 1" : v < 0.55 ? "matched" : "strong — sharp facets",
+      onInput: (v) => { brake = v; },
+    });
+    Viz.button(bar, "Poke it again", function () { amp = 5; draw(); });
+
+    Viz.animate(root, frame, { stepBy: 0.25 });
+    Viz.onThemeChange(draw);
+    draw();
+  })();
+
+  /* ================================================== 2. the rod in honey == */
+  (function () {
+    const root = document.getElementById("anim-rod");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const bar = root.querySelector(".anim__controls");
+
+    const W = 560, H = 340, FLOOR = 268, BASE_R = 16, K = 3000, LCRIT = 156;
+    let size = 3.5, theta = 0, omega = 0, nub = 0;
+    const tick = stepper();
+
+    const rodLength = () => 60 + size * 18;
+
+    function draw() {
+      body.textContent = "";
+      const c = Viz.colors();
+      const svg = Viz.createSvg(body, W, H, {
+        label: "Left: a rod standing on its flat end in a bowl of honey, tipping when tapped. " +
+               "Right: a hexagonal crystal with a small bump on each corner.",
+      });
+      const L = rodLength();
+
+      /* ---------------- left panel: the rod ---------------- */
+      const px = 130;
+      svg.appendChild(Viz.svgEl("line", {
+        x1: 20, x2: 250, y1: FLOOR, y2: FLOOR, stroke: c.ruleStrong, "stroke-width": 2,
+      }));
+      svg.appendChild(Viz.svgEl("path", {
+        d: "M" + (px - 62) + " " + FLOOR + " q62 26 124 0 z",
+        fill: c.seq[1], stroke: c.seq[3], "stroke-width": 1.4,
+      }));
+      const s = Math.sin(theta), co = Math.cos(theta);
+      // rod pivots about its downhill base edge
+      const ox = px + BASE_R, oy = FLOOR;
+      const dirX = s, dirY = -co, perpX = co, perpY = s;
+      const pts = [
+        [ox, oy],
+        [ox - 2 * BASE_R * perpX, oy - 2 * BASE_R * perpY],
+        [ox - 2 * BASE_R * perpX + L * dirX, oy - 2 * BASE_R * perpY + L * dirY],
+        [ox + L * dirX, oy + L * dirY],
+      ];
+      svg.appendChild(Viz.svgEl("polygon", {
+        points: pts.map((p) => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" "),
+        fill: c.surface, stroke: c.inkSecondary, "stroke-width": 2.2, "stroke-linejoin": "round",
+      }));
+      text(svg, 20, 26, "A rod on its flat end, in honey", { cls: "axis-title", fill: c.ink });
+      text(svg, 20, 300,
+           theta > 1.3 ? "toppled — and it went all the way over"
+             : theta > 0.14 ? "going over"
+               : theta > 0.004 ? "wobbling"
+                 : "upright, and it stayed upright",
+           { cls: "series-label", fill: c.ink });
+      text(svg, 20, 320, "rod length " + (L < LCRIT ? "below" : "above") + " the tipping point",
+           { fill: c.muted });
+
+      /* ---------------- right panel: the crystal ---------------- */
+      const hx = 415, hy = 150, R = 26 + size * 5.6;
+      svg.appendChild(Viz.svgEl("line", {
+        x1: 300, x2: 300, y1: 20, y2: H - 20, stroke: c.rule, "stroke-width": 1,
+      }));
+      svg.appendChild(Viz.svgEl("path", {
+        d: Viz.hexPath(hx, hy, R, 90), fill: c.sunken,
+        stroke: c.ruleStrong, "stroke-width": 2.2, "stroke-linejoin": "round",
+      }));
+      Viz.hexPoints(hx, hy, R, 90).forEach(function (p) {
+        const ux = (p[0] - hx) / R, uy = (p[1] - hy) / R;
+        svg.appendChild(Viz.svgEl("line", {
+          x1: p[0], y1: p[1], x2: p[0] + ux * nub, y2: p[1] + uy * nub,
+          stroke: c.inkSecondary, "stroke-width": 3.4, "stroke-linecap": "round",
+        }));
+      });
+      text(svg, 316, 26, "The same tap, on a crystal corner", { cls: "axis-title", fill: c.ink });
+      text(svg, 316, 300,
+           nub > 30 ? "the corners ran away — six branches"
+             : nub <= 1.5 ? "flat faces, no bumps left"
+               : L >= LCRIT ? "the corner bumps are taking off"
+                 : "the corner bumps are shrinking back",
+           { cls: "series-label", fill: c.ink });
+      text(svg, 316, 320, "crystal " + (L < LCRIT ? "small — faceting wins" : "large — branching wins"),
+           { fill: c.muted });
+    }
+
+    function frame(t) {
+      const dt = tick(t);
+      if (t === 0) { theta = 0; omega = 0; nub = 0; }   // reset() seeks the clock back to zero
+      const L = rodLength();
+      // torque about the base edge: positive means gravity is pulling it over
+      const fall = (L / 2) * Math.sin(theta) - BASE_R * Math.cos(theta);
+      omega += (K * fall / (L * L)) * dt;
+      omega -= 2.2 * omega * dt;                    // honey
+      theta += omega * dt;
+      if (theta < 0) { theta = 0; omega = 0; }      // back down flat on its base
+      if (theta > 1.35) { theta = 1.35; omega = 0; }
+
+      const run = L >= LCRIT;
+      if (nub > 0.02) {
+        nub *= Math.exp((run ? 1.5 : -1.6) * dt);
+        nub = Math.min(nub, 42);
+      }
+      draw();
+    }
+
+    Viz.slider(bar, {
+      label: "Size", id: "rod-size",
+      min: 1, max: 10, step: 0.1, value: size,
+      format: (v) => (60 + v * 18) < LCRIT ? "short rod / small crystal" : "long rod / large crystal",
+      onInput: (v) => { size = v; },
+    });
+    Viz.button(bar, "Tap it", function () {
+      theta = 0.001; omega = 0.9; nub = 4;
+      draw();
+    });
+
+    Viz.animate(root, frame, { stepBy: 0.2 });
+    Viz.onThemeChange(draw);
+    draw();
+  })();
+
+  /* ================================================ 3. the flagship sim === */
+  (function () {
+    const root = document.getElementById("anim-diffusion");
+    if (!root || !window.Diffusion) return;
+    Diffusion.mount(root, { stick: 0.5, showField: true, size: 460 });
+  })();
+
+  /* ==================================================== 4. ride the tip === */
+  (function () {
+    const root = document.getElementById("anim-tipframe");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const bar = root.querySelector(".anim__controls");
+
+    const W = 560, H = 352, RTIP = 9, HALF = 9, ORIGIN = 46, LOCK = 430;
+    let sigma = 0.45, tipX = ORIGIN, nextGap = 0, branches = [];
+    const tick = stepper();
+
+    // the first sidebranch only after the arm is long enough to carry one
+    function reseed() { branches = []; tipX = ORIGIN; nextGap = 62 + Math.random() * 28; }
+    reseed();
+
+    /**
+     * A slender needle with a rounded point: half-width follows the Ivantsov
+     * parabola near the tip, then holds constant further back.
+     */
+    function needlePath(ax, x0) {
+      const w = (x) => Math.min(
+        HALF,
+        Math.sqrt(Math.max(0, 2 * RTIP * (ax - x))),      // rounded Ivantsov nose
+        Math.max(0, (x - x0) / 16) * HALF                  // tapered root, where it sprouted
+      );
+      let up = "", down = "";
+      for (let x = x0; x <= ax; x += 2) {
+        up += (up ? "L" : "M") + x.toFixed(1) + " " + (-w(x)).toFixed(1) + " ";
+        down = "L" + x.toFixed(1) + " " + w(x).toFixed(1) + " " + down;
+      }
+      return (up + "L" + ax + " 0 " + down + "Z").trim();
+    }
+
+    function panel(svg, cy, shift, title, note, c) {
+      const g = Viz.svgEl("g", { transform: "translate(0," + cy + ")" });
+      svg.appendChild(g);
+
+      // the growth axis
+      g.appendChild(Viz.svgEl("line", {
+        x1: 10, x2: W - 10, y1: 0, y2: 0, stroke: c.rule, "stroke-width": 1,
+      }));
+
+      const ax = tipX + shift;
+
+      // sidebranches, drawn under the primary arm
+      branches.forEach(function (b) {
+        const x = b.x + shift;
+        if (x < -30 || x > W + 30) return;
+        const a = b.side * Math.PI / 3;
+        g.appendChild(Viz.svgEl("line", {
+          x1: x, y1: 0,
+          x2: x - b.len * Math.cos(a), y2: -b.len * Math.sin(a),
+          stroke: c.inkSecondary, "stroke-width": 3, "stroke-linecap": "round",
+        }));
+      });
+
+      // the primary arm, back as far as the branch has actually grown
+      g.appendChild(Viz.svgEl("path", {
+        d: needlePath(ax, Math.max(-24, ORIGIN + shift)),
+        fill: c.sunken, stroke: c.inkSecondary, "stroke-width": 2, "stroke-linejoin": "round",
+      }));
+
+      const t = Viz.svgEl("text", { x: 14, y: -78, class: "axis-title", fill: c.ink });
+      t.textContent = title;
+      g.appendChild(t);
+      const n = Viz.svgEl("text", { x: 14, y: -61, class: "annotation", fill: c.muted });
+      n.textContent = note;
+      g.appendChild(n);
+      return { g: g, ax: ax };
+    }
+
+    function draw() {
+      body.textContent = "";
+      const c = Viz.colors();
+      const svg = Viz.createSvg(body, W, H, {
+        label: "The same dendrite branch shown twice: once from the laboratory, where the tip " +
+               "travels across the frame, and once from a camera moving with the tip, where the " +
+               "tip is motionless and the sidebranches slide backwards.",
+      });
+
+      const lab = panel(svg, 118, 0, "Seen from the laboratory",
+                        "the tip crosses the frame; sidebranches stay where they were born", c);
+      svg.appendChild(Viz.svgEl("path", {
+        d: "M" + (lab.ax + 12) + " 118 l24 0 m-9 -5 l9 5 l-9 5",
+        fill: "none", stroke: c.ink, "stroke-width": 1.8,
+      }));
+
+      const shift = LOCK - tipX;
+      const rid = panel(svg, 254, shift, "Seen from a camera riding the tip",
+                        "the tip never moves; the pattern near it never changes", c);
+
+      // annotate the tip radius in the riding frame
+      svg.appendChild(Viz.svgEl("circle", {
+        cx: rid.ax - RTIP, cy: 254, r: RTIP, fill: "none",
+        stroke: c.ink, "stroke-width": 1.2, "stroke-dasharray": "3 3",
+      }));
+      svg.appendChild(Viz.svgEl("line", {
+        x1: rid.ax - RTIP, y1: 254 + RTIP, x2: rid.ax - RTIP, y2: 306,
+        class: "annotation-rule",
+      }));
+      text(svg, rid.ax - RTIP - 6, 318,
+           "tip radius — about 1 micron, and raising the humidity does not change it",
+           { anchor: "end", fill: c.ink });
+      text(svg, 14, 342, "Raising the supersaturation changes the speed. It does not change the tip.",
+           { fill: c.muted });
+    }
+
+    function frame(t) {
+      const dt = tick(t);
+      if (t === 0) reseed();              // reset() seeks the clock back to zero
+      const v = 24 + 110 * sigma;
+      tipX += v * dt;
+      nextGap -= v * dt;
+      if (nextGap <= 0) {
+        // a new sidebranch, born a few tip radii behind the point, side chosen at random
+        branches.push({ x: tipX - 4 * RTIP, side: Math.random() < 0.5 ? 1 : -1, len: 0 });
+        nextGap = 30 + Math.random() * 42;
+      }
+      branches.forEach(function (b) { b.len = Math.min(54, b.len + 26 * dt); });
+      if (tipX > W - 34) reseed();
+      draw();
+    }
+
+    Viz.slider(bar, {
+      label: "Spare vapour in the air", id: "tip-sigma",
+      min: 0.1, max: 1, step: 0.01, value: sigma,
+      format: (v) => v < 0.37 ? "low" : v < 0.7 ? "medium" : "high",
+      onInput: (v) => { sigma = v; },
+    });
+    Viz.button(bar, "Start again", function () { reseed(); draw(); });
+
+    Viz.animate(root, frame, { stepBy: 0.2 });
+    Viz.onThemeChange(draw);
+    draw();
+  })();
+
+  /* =================================================== 5. the mirror test = */
+  (function () {
+    const root = document.getElementById("anim-mirror");
+    if (!root) return;
+    const body = root.querySelector(".anim__body");
+    const bar = root.querySelector(".anim__controls");
+
+    const W = 560, H = 262, AXIS = 126, X0 = 70, XT = 500;
+    let folded = false, twinned = false, top = [], bottom = [];
+
+    function build() {
+      function side() {
+        const out = [];
+        let x = X0 + 14 + Math.random() * 18;
+        while (x < XT - 34) {
+          out.push(x);
+          x += 26 + Math.random() * 30;       // erratic spacing
+        }
+        return out;
+      }
+      top = side();
+      bottom = twinned ? top.slice() : side();
+    }
+    build();
+
+    function score() {
+      if (!top.length) return 0;
+      let hit = 0;
+      top.forEach(function (x) {
+        for (let i = 0; i < bottom.length; i++) {
+          if (Math.abs(bottom[i] - x) < 8) { hit++; break; }
+        }
+      });
+      return Math.round((100 * hit) / top.length);
+    }
+
+    function limb(g, x, sign, colour, dash) {
+      const len = Math.min(74, Math.max(10, (XT - x) * 0.62));
+      const a = Math.PI / 3;
+      g.appendChild(Viz.svgEl("line", {
+        x1: x, y1: AXIS,
+        x2: x - len * Math.cos(a), y2: AXIS + sign * len * Math.sin(a),
+        stroke: colour, "stroke-width": 2.6, "stroke-linecap": "round",
+        "stroke-dasharray": dash || null,
+      }));
+    }
+
+    function draw() {
+      body.textContent = "";
+      const c = Viz.colors();
+      const svg = Viz.createSvg(body, W, H, {
+        label: "A single dendrite arm with sidebranches at 60 degrees, placed at random on each " +
+               "side, with an option to fold one half onto the other to compare them.",
+      });
+
+      // the primary branch
+      svg.appendChild(Viz.svgEl("line", {
+        x1: X0, y1: AXIS, x2: XT, y2: AXIS,
+        stroke: c.inkSecondary, "stroke-width": 6, "stroke-linecap": "round",
+      }));
+      svg.appendChild(Viz.svgEl("path", {
+        d: "M" + (XT - 16) + " " + (AXIS - 7) + " Q" + (XT + 6) + " " + AXIS +
+           " " + (XT - 16) + " " + (AXIS + 7),
+        fill: "none", stroke: c.inkSecondary, "stroke-width": 2,
+      }));
+      text(svg, XT + 8, AXIS + 4, "tip", { fill: c.muted });
+
+      const g = Viz.svgEl("g");
+      svg.appendChild(g);
+      top.forEach((x) => limb(g, x, -1, c.inkSecondary));
+      if (folded) {
+        // the lower half is folded up onto the upper half
+        bottom.forEach((x) => limb(g, x, -1, c.series[2], "5 4"));
+        svg.appendChild(Viz.svgEl("line", {
+          x1: X0, y1: AXIS, x2: XT, y2: AXIS, stroke: c.ink,
+          "stroke-width": 1, "stroke-dasharray": "4 4",
+        }));
+        text(svg, X0, AXIS + 34, "match score: " + score() + "%", { cls: "series-label", fill: c.ink });
+        text(svg, X0, AXIS + 54,
+             twinned ? "identical perturbations on both sides — a perfect fold"
+                     : "random perturbations — the two halves do not line up",
+             { fill: c.muted });
+        text(svg, X0, AXIS + 74, "solid = the upper side · dashed = the lower side, folded up",
+             { fill: c.muted });
+      } else {
+        bottom.forEach((x) => limb(g, x, 1, c.inkSecondary));
+        text(svg, X0, AXIS + 96,
+             twinned ? "both sides seeded identically" : "each side seeded independently, at random",
+             { fill: c.muted });
+      }
+      text(svg, X0, 28, "One primary arm of a fernlike dendrite", { cls: "axis-title", fill: c.ink });
+    }
+
+    Viz.button(bar, "Fold along the axis", function (b) {
+      folded = !folded;
+      b.setAttribute("aria-pressed", String(folded));
+      b.textContent = folded ? "Unfold" : "Fold along the axis";
+      draw();
+    }, { pressed: false });
+    Viz.button(bar, "New crystal", function () { build(); draw(); });
+    Viz.button(bar, "Seed both sides identically", function (b) {
+      twinned = !twinned;
+      b.setAttribute("aria-pressed", String(twinned));
+      b.textContent = twinned ? "Back to random seeding" : "Seed both sides identically";
+      build();
+      draw();
+    }, { pressed: false });
+
+    Viz.onThemeChange(draw);
+    draw();
+  })();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1732 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Restless Surface — Snow Crystals</title>
+<meta name="description" content="Why ice grows flat faces: molecular terraces, the attachment coefficient, step energy, the quasi-liquid layer, and why the popular low-surface-energy explanation is wrong.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 5 &middot; The Restless Surface</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#a-staircase-not-a-wall">A staircase, not a wall</a></li>
+      <li><a href="#the-slowest-faces-win">The slowest faces are the ones you see</a></li>
+      <li><a href="#the-attachment-coefficient">Putting a number on stickiness</a></li>
+      <li><a href="#the-price-of-an-edge">The price of an edge</a></li>
+      <li><a href="#a-slushy-skin">A rigid crystal in a slushy coat</a></li>
+      <li><a href="#how-a-facet-stays-flat">How a flat face stays flat</a></li>
+      <li><a href="#the-low-energy-myth">The low-energy myth</a></li>
+      <li><a href="#statics-and-dynamics">Statics is not dynamics</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 5</p>
+        <h1>The Restless Surface</h1>
+        <p class="chapter-header__question">
+          Why does ice bother to be flat-sided at all &mdash; and why is the usual explanation for it
+          the wrong way round?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~20 min read</span>
+          <span>13 figures</span>
+          <span>4 animations &middot; 1 chart</span>
+        </div>
+      </header>
+
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Describe an ice surface as a staircase of molecular terraces separated by one-molecule steps.</li>
+          <li>State the counterintuitive core of faceting: flat faces survive because they are the <em>worst</em> at growing.</li>
+          <li>Define the attachment coefficient &alpha;, and say what nucleation barrier stands behind it.</li>
+          <li>Rule out the &ldquo;lowest surface energy&rdquo; explanation of faceting using three independent checks.</li>
+          <li>Explain why a snow crystal at &minus;5&nbsp;&deg;C is a rigid lattice wearing a slushy skin.</li>
+          <li>Separate crystallography &mdash; solved &mdash; from crystal growth, which is not.</li>
+        </ul>
+      </section>
+
+      <p>
+        The last chapter delivered the fuel. Air that is holding more water vapour than ice can
+        tolerate pushes molecules onto the crystal, and diffusion decides how much arrives where.
+        But arriving is not the same as joining. A water molecule that lands on ice can settle into
+        the lattice, or it can skitter about and leave again. <strong>This chapter is about that
+        decision</strong>, because the decision is made differently on different faces &mdash; and
+        that difference is the entire reason snowflakes have flat sides.
+      </p>
+
+      <h2 id="a-staircase-not-a-wall">A staircase, not a wall</h2>
+
+      <p>
+        Zoom in on a growing ice face far enough and it stops looking like a wall. It looks like a
+        staircase. The crystal is built of flat molecular layers, called <strong>terraces</strong>,
+        stacked on top of one another. Where one terrace ends and the layer beneath it is exposed,
+        there is a <strong>step</strong>, exactly one molecular layer high &mdash; on the basal face
+        that layer is a bilayer, two molecules thick, which is why its spacing is quoted below as
+        c<sub>0</sub>/2 rather than c<sub>0</sub>. The rise of each step is tiny: the spacing between
+        basal layers is 0.37&nbsp;nanometres and the spacing between prism layers is
+        0.39&nbsp;nanometres &mdash; roughly a third of a millionth of a millimetre either way
+        (printed p.&nbsp;53).
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.9/visual.png"
+              data-figure="Figure 2.9"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 54 &middot; printed p. 53"
+              data-alt="A side-on projection of the ice lattice drawn as neat rows and columns of molecules, with the basal facet across the top and the prism facet down one side, and both edges interrupted by single-layer steps.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the crystal seen from the side, so you are looking along
+          the terraces rather than down onto them. The flat top is the basal facet and the flat side
+          is the prism facet. Now trace the outer edges: they are not flush. Each one breaks
+          somewhere into a ledge exactly one layer high. That ledge is a terrace step, and the
+          caption gives you its size &mdash; about a third of a nanometre. Everything in this chapter
+          happens at those breaks.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.9: A projection of the ice Ih lattice looking along
+          the [112&#772;0] direction, showing basal and prism facets and terrace steps. The spacing
+          between basal layers is c<sub>0</sub>/2 = 0.37 nm, while the spacing between prism layers is
+          (&radic;3/2)a<sub>0</sub> = 0.39 nm.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        This matters because of where a newly arrived molecule can find neighbours. Out in the
+        middle of an open terrace, a molecule sits on top of a flat floor. It is touching the layer
+        below and almost nothing else &mdash; a weak grip, easy to break, and off it goes. At the
+        edge of a step, the same molecule is touching the floor <em>and</em> the vertical wall of
+        the terrace above. Two contacts instead of one. It stays.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          Molecules do not stick to surfaces. They stick to <em>steps</em>. A face with no steps on
+          it has almost no way to grow.
+        </p>
+      </aside>
+
+      <p>
+        Now the crucial part: not every plane through the lattice produces a good step. Slice the
+        hexagonal ice lattice along the flat top and bottom of the crystal &mdash; the
+        <strong>basal</strong> planes &mdash; or along the six side walls &mdash; the
+        <strong>prism</strong> planes &mdash; and the steps come out distinct and clean-edged. Slice
+        it instead along a third family of planes, which crystallographers label {112&#772;0} and
+        say aloud as &ldquo;one-one-two-bar-zero&rdquo;. The label is just an address for one
+        particular way of cutting the lattice &mdash; the bar is part of the notation, not a
+        subtraction, and you do not need to decode the digits to follow the argument. Cut there and
+        the steps come out shallow and indistinct. The lattice barely notices.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.10/visual.png"
+              data-figure="Figure 2.10"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 54 &middot; printed p. 53"
+              data-alt="Two honeycomb lattice sketches viewed down the c-axis: on a prism facet the terrace step is a clean break in the pattern, while on the (11-20) surface the step barely interrupts it.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> this pair is drawn looking straight down the crystal's
+          main axis, so you are seeing the honeycomb from above rather than in profile &mdash;
+          compare how sharply each step interrupts the pattern. In the top sketch, a prism facet,
+          the step is a clean break, and a molecule tucked against it is gripped from two sides. In
+          the bottom sketch, a {112&#772;0} surface, the break is faint &mdash; a molecule there is
+          held no better than anywhere else. (An <em>admolecule</em>, in the published caption, is
+          simply a molecule that has landed on the surface but not yet locked into the lattice.)
+          This one picture is the answer to why ice facets on some planes and never on others.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.10 (left): Terrace steps on a prism […] facet and a
+          […] surface, as seen looking along the […] direction. Note that the prism step is more
+          distinct, and admolecules would likely bind much more strongly at a terrace step than on
+          the prism facet. In contrast, the […] step is less distinct, and binding at the step edge
+          is likely not much stronger than elsewhere on the surface. The larger terrace step in the
+          top sketch suggests stronger faceting on the prism surface, as is observed.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        The consequence is stark. On a prism or basal face, growing means starting a brand-new
+        terrace from nothing &mdash; assembling a small island of molecules on a flat floor, with
+        every molecule in that island poorly held until the island is big enough to hold itself
+        together. That is a genuine barrier, and it is called a <strong>nucleation
+        barrier</strong>. On the {112&#772;0} surfaces there is no such barrier, because there is
+        no meaningful step to make. As the monograph puts it, &ldquo;the larger terrace steps on
+        the basal and prism surfaces creates a substantial nucleation barrier that promotes strong
+        faceting on these surfaces&rdquo;, while &ldquo;the fact that the terrace steps are
+        relatively shallow on the {112&#772;0} surfaces&hellip; likely explains the absence of
+        faceting on these surfaces&rdquo; (printed pp.&nbsp;53&ndash;54).
+      </p>
+
+      <p>
+        None of this is a thought experiment. Terrace steps have been photographed directly on real
+        ice, and they behave exactly as the picture demands: new terraces appear, then spread
+        sideways across the face until they run out of room.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-6.20/visual.png"
+              data-figure="Figure 6.20"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 233 &middot; printed p. 232"
+              data-alt="Microscope photographs of a basal ice face showing faint contour-like lines: terrace steps nucleating and spreading.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the faint contour lines crossing the face. Each line is
+          the edge of a terrace one molecule tall, caught in the act of sweeping across. Growth on a
+          facet is not a wall moving forward; it is a sequence of these edges crossing, one after
+          another, each one leaving the face a single molecule thicker.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 6.20: Photomicrographs of terrace steps on the basal
+          face of an ice crystal that display the nucleation and growth of new terraces
+          [2010Saz].&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        Watch one of those lines being born. A few molecules meet by chance on the open floor of the
+        facet and form a tiny island. Almost always it falls apart again, because the molecules round
+        its rim are barely held. But there is a size above which the island is stable &mdash; the
+        <strong>critical radius</strong> &mdash; and the step energy sets it: the more it costs to
+        make an edge, the bigger an island has to be before keeping it pays. That cost is a
+        measurable quantity in its own right, written &beta;; the section &ldquo;The price of an
+        edge&rdquo; puts a number on it, and the note beneath the animation below quotes that number
+        in advance. Crowd more spare vapour
+        onto the surface and the critical size drops. At a surface supersaturation of about
+        1&nbsp;per cent, using the measured ice step energy, a barely-stable island has a radius of
+        about ten molecular widths and contains roughly 300 water molecules in all (printed
+        p.&nbsp;142). Below that it dissolves. Above it, it sweeps the entire face. The same thing
+        happens on a basal face and on a prism face; the drawing below takes a prism facet and looks
+        straight down onto it.
+      </p>
+
+      <figure class="anim" id="anim-nucleation">
+        <div class="anim__head">
+          <p class="anim__title">Islands that make it, and islands that do not</p>
+          <p class="anim__sub">One prism facet seen from above. Turn the fuel down and watch the face stop advancing.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original schematic. Encodes classical terrace-nucleation
+          kinetics: an island whose radius is below the critical size
+          <em>R</em><sub>crit</sub>&nbsp;=&nbsp;<em>a</em><sup>2</sup>&beta;&nbsp;/&nbsp;&sigma;<sub>surf</sub><em>kT</em>
+          shrinks and vanishes, while a larger one spreads across the facet &mdash; Libbrecht, Snow
+          Crystals, printed p.&nbsp;142, anchored at the printed example
+          &sigma;<sub>surf</sub>&nbsp;&asymp;&nbsp;1&nbsp;% and &beta;&nbsp;&asymp;&nbsp;10<sup>&minus;12</sup>&nbsp;J/m,
+          which gives <em>R</em><sub>crit</sub>&nbsp;&asymp;&nbsp;10<em>a</em> and roughly 300
+          molecules. The process itself is the one photographed in Figure 6.20, printed
+          p.&nbsp;232. Island sizes, birth times and sweep rates are illustrative, not to
+          scale.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        That is the whole engine of facet growth, and it is why a facet is slow. When the critical
+        size is large, almost every island that forms is too small to survive, so successful events
+        are rare and the face spends most of its time waiting. Hold on to that stalled picture: two
+        sections from now it turns into a single number.
+      </p>
+
+      <h2 id="the-slowest-faces-win">The slowest faces are the ones you see</h2>
+
+      <p>
+        Here is the sentence that most popular accounts get backwards. <strong>You see the flat
+        faces because they are the worst at growing.</strong>
+      </p>
+
+      <p>
+        Water vapour molecules strike the crystal everywhere, more or less evenly. Whether they
+        stay depends on where they landed. A molecularly rough patch &mdash; jagged, full of
+        half-finished bonding sites &mdash; catches almost everything that hits it. A facet, aligned
+        with the lattice and molecularly smooth, catches very little. So the rough patches race
+        outward. And a surface that races outward runs out of itself: it grows until it collides
+        with its neighbours and disappears from the outline. What remains, once the fast surfaces
+        have eaten themselves, is the slow one. The facet.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.8/visual.png"
+              data-figure="Figure 1.8"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 22 &middot; printed p. 21"
+              data-alt="A schematic sequence: molecules striking a lumpy ice particle, sticking to rough regions, until the particle has become a clean hexagonal prism.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> track where the incoming arrows are being absorbed. They
+          vanish into the rough regions and bounce off the smooth ones. Then look at the final
+          shape: the rough regions have grown themselves out of existence and only the slow, smooth
+          facets are left. Nothing here selected the hexagon on purpose &mdash; it is what survives.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.8: When water vapor molecules strike a molecularly
+          rough ice surface, they tend to stick. But when they strike a molecularly smooth facet
+          surface, they are less likely to stick. As the crystal grows, soon the rough areas fill
+          in, leaving a fully faceted ice prism.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        You can test the logic yourself. In the animation below, a lumpy seed crystal grows. Every
+        direction on its surface advances at its own speed: the six facet directions advance at a
+        speed you control, everything else advances at full speed. Slide the facets up to full
+        speed and the crystal grows into a blob. Slow them down and a hexagon emerges &mdash; not
+        because anything drew a hexagon, but because the slow directions are the last ones standing.
+      </p>
+
+      <figure class="anim" id="anim-slow-wins">
+        <div class="anim__head">
+          <p class="anim__title">Slow faces win</p>
+          <p class="anim__sub">Set how fast the facet directions grow. Anything that grows fast grows itself away.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. Each surface direction advances at its own
+          constant speed and the crystal outline is the envelope of those advancing surfaces &mdash;
+          the standard kinematic picture of growth at speed <em>v</em> = &alpha;&nbsp;<em>v</em><sub>kin</sub>&nbsp;&sigma;<sub>surf</sub>
+          with an anisotropic attachment coefficient, Libbrecht, Snow Crystals, printed p.&nbsp;93.
+          Shape only &mdash; the sizes and times are not to scale.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        This is a general rule about crystals, not a fact about ice. Quartz shows striking flat
+        faces; copper almost never does, even though both are crystalline. The lattices differ, but
+        that is not the reason &mdash; the reason is what happens to a molecule when it lands. As
+        the monograph asks and answers: &ldquo;quartz often exhibits striking faceted features that
+        reveal its lattice structure, while copper rarely does. Why? The answer lies in&hellip; the
+        surface attachment kinetics&rdquo; (printed p.&nbsp;29).
+      </p>
+
+      <h2 id="the-attachment-coefficient">Putting a number on stickiness</h2>
+
+      <p>
+        &ldquo;Sticks more&rdquo; and &ldquo;sticks less&rdquo; are not measurements. The quantity
+        that makes them one is the <strong>attachment coefficient</strong>, written &alpha;
+        (&ldquo;alpha&rdquo;): the probability that a molecule striking the surface actually joins
+        the lattice and stays. It runs from zero &mdash; nothing sticks &mdash; to one, where every
+        arrival is captured. The whole collection of surface processes that set it is called the
+        <strong>attachment kinetics</strong>.
+      </p>
+
+      <p>
+        With &alpha; in hand, the growth of any patch of surface is one short equation.
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          <em>v</em> = &alpha; &middot; <em>v</em><sub>kin</sub> &middot; &sigma;<sub>surf</sub>
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>v</dt><dd>how fast that patch of surface moves outward</dd>
+            <dt>&alpha;</dt><dd>attachment coefficient &mdash; the fraction of arriving molecules that actually join the crystal, between 0 and 1</dd>
+            <dt>v<sub>kin</sub></dt><dd>a reference speed set by temperature and by how heavy a water molecule is &mdash; the speed the surface would advance if every arriving molecule stuck and the air carried 100&nbsp;% spare vapour. The real speed is that figure multiplied by both &alpha; and &sigma;<sub>surf</sub>, so it is always very much smaller</dd>
+            <dt>&sigma;<sub>surf</sub></dt><dd>the supersaturation right at the surface &mdash; how much spare water vapour the air immediately above that patch is carrying, measured against what ice can hold</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">Libbrecht, Snow Crystals, printed p.&nbsp;93 (Eq. 3.8)</p>
+      </div>
+
+      <p>
+        Read it as a product of two things you have now met separately. Chapter 4 supplied
+        &sigma;<sub>surf</sub>: the fuel actually delivered, after diffusion has taken its cut. This
+        chapter supplies &alpha;: the surface's willingness to accept it. Fuel without willingness
+        grows nothing. Willingness without fuel grows nothing. <strong>The shape of a snowflake is
+        decided by the product.</strong> Most of what follows on this site is an argument about one
+        factor or the other.
+      </p>
+
+      <p>
+        A facet is a surface with small &alpha;. A rough surface has &alpha; close to one. And the
+        reason &alpha; is small on a facet is the nucleation barrier you met at the start of this
+        chapter: to move at all, the facet must first build a new terrace out of nothing. That
+        already sorts every surface on a snow crystal into three kinds.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-4.3/visual.png"
+              data-figure="Figure 4.3"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 141 &middot; printed p. 140"
+              data-alt="A branched stellar snow crystal annotated to mark which of its surfaces are top basal terraces, which are top prism terraces, and which are rough.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> a real crystal with the abstract symbol pinned onto it.
+          Every flat top face is a basal terrace with its own &alpha;; every straight side wall is a
+          prism terrace with its own &alpha;; everything else &mdash; the rounded shoulders, the
+          ragged tips &mdash; is rough, and takes &alpha; close to one. Three numbers, not a
+          thousand. And note the claim in the caption: the whole shape of this object is being
+          steered by the two small ones.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 4.3. Facet-Dominated Growth. The attachment kinetics
+          on any snow crystal can be divided into three classes of surfaces: top basil terraces
+          described by &alpha;<sub>basal</sub>, top prism terraces described by &alpha;<sub>prism</sub>,
+          and all other surfaces described by &alpha; &asymp; &alpha;<sub>rough</sub> &asymp; 1. The
+          overall platelike structure of this crystal, as well as much of its dendritic branching, is
+          determined by the first two surface classes. Thus, the attachment kinetics on the topmost
+          facet terraces strongly influences the morphological development of the entire
+          structure.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <h2 id="the-price-of-an-edge">The price of an edge</h2>
+
+      <p>
+        How big is that barrier? Put a number on it, and the number is the <strong>step
+        energy</strong> &mdash; the energy cost of creating one metre of terrace edge.
+      </p>
+
+      <p>
+        The definition is concrete enough to picture. Take a flat island of molecules sitting on a
+        facet and cut it in two. You have to break the bonds along the cut, and the molecules along
+        the two new edges are now exposed. The energy you paid is proportional to the length of new
+        edge you made. Energy divided by length is the step energy, written &beta; (&ldquo;beta&rdquo;):
+        &ldquo;the step energy is the amount of energy needed to create the edge, or step, of a
+        molecular terrace on a crystal facet&rdquo; (printed pp.&nbsp;59&ndash;60).
+      </p>
+
+      <p>
+        The numbers are tiny, as they should be for something measured per metre of a molecular
+        ledge. For ice growing from liquid water, the basal step energy near the triple point is
+        about 5.6&nbsp;&times;&nbsp;10<sup>&minus;13</sup>&nbsp;joules per metre (printed
+        p.&nbsp;60). For ice growing from vapour &mdash; the snowflake case &mdash; the monograph
+        quotes a representative value of roughly 10<sup>&minus;12</sup>&nbsp;joules per metre from
+        the measurements below (printed p.&nbsp;65). Both are far smaller than the roughly
+        3&nbsp;&times;&nbsp;10<sup>&minus;11</sup>&nbsp;joules per metre you would predict by naively
+        snapping bonds in a rigid lattice (printed p.&nbsp;62, Eq. 2.16), because real surface
+        molecules relax: they lean into the gap and soften the edge, and a softened edge is cheaper.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.17/visual.png"
+              data-figure="Figure 2.17"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 63 &middot; printed p. 62"
+              data-alt="A geometrical sketch comparing an abrupt one-molecule terrace step with a gradual step of finite width, showing that widening the step adds less extra surface area.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the two step profiles. The abrupt one is the rigid-lattice
+          fiction &mdash; a clean vertical cliff, and the extra surface it exposes is what you pay
+          for. The gradual one is what real molecules do: they spill outward, the cliff becomes a
+          slope of some width, and the extra area &mdash; and so the price &mdash; shrinks. Widen the
+          step far enough and the cost heads toward nothing. This is the picture behind the gap
+          between 3&nbsp;&times;&nbsp;10<sup>&minus;11</sup> and 10<sup>&minus;12</sup>&nbsp;joules
+          per metre.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.17: A simple geometrical model describing how
+          surface relaxation reduces the terrace step energy. In this picture, the additional surface
+          area added by a terrace step depends on the step width, and this additional surface area is
+          taken to be the step energy.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.15/visual.png"
+              data-figure="Figure 2.15"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 61 &middot; printed p. 60"
+              data-alt="A plot of measured terrace step energy against temperature for the basal and prism facets, with error bars; the prism curve falls steeply toward the melting point.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> two things. First, both curves rise as the ice gets
+          colder &mdash; a colder lattice is stiffer, relaxes less, and charges more for an edge.
+          Second, and more consequentially, the prism curve collapses as the melting point is
+          approached, falling far faster than the basal one. A collapsing step energy means a
+          vanishing nucleation barrier, which means a prism face that no longer bothers to stay
+          flat. That is why prism faceting is greatly diminished above &minus;2&nbsp;&deg;C. Note
+          the error bars: these are measurements, with real uncertainty, not a theory curve.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.15: Measured ice/vapor terrace step energies (in
+          near-vacuum conditions) for the basal and prism facets as a function of temperature
+          [2013Lib].&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          Nobody photographs a step edge and reads off its energy. The ice/vapour step energies were
+          obtained indirectly: measure how fast a facet grows when growth is limited by the need to
+          nucleate new terraces, then invert classical nucleation theory to recover the barrier that
+          would produce that rate. The monograph reports them &ldquo;measured with good accuracy at
+          temperatures ranging from &minus;2&nbsp;C to &minus;40&nbsp;C&rdquo;, while noting in the
+          same breath that &ldquo;the potential for systematic errors is significant&rdquo; and that
+          whether the data survive the test of time remains to be seen (printed p.&nbsp;60). Take
+          the shape of the curves seriously; hold the last decimal place loosely.
+        </p>
+      </aside>
+
+      <p>
+        One more honest caveat before moving on. The prism curve's collapse near the melting point
+        has often been described as a <em>roughening transition</em> &mdash; a sharp switch at which
+        the surface stops being smooth. The measurements do not show a switch. They show a slide:
+        &ldquo;this phenomenon is better interpreted as a gradual reduction, not an abrupt
+        transition&rdquo; (printed p.&nbsp;60). And only the basal and prism step energies have been
+        measured at all. The pyramidal facets, which show up rarely and only in very cold
+        conditions, have never had theirs measured (printed p.&nbsp;54).
+      </p>
+
+      <h2 id="a-slushy-skin">A rigid crystal in a slushy coat</h2>
+
+      <p>
+        Figure 2.15 left a debt: <em>why</em> should a warmer lattice relax more and charge less for
+        an edge? The answer is that near the melting point the ice surface stops being a lattice at
+        all.
+      </p>
+
+      <p>
+        Every lattice sketch so far has drawn the ice surface as a tidy row of molecules parked in
+        their assigned places. At the temperatures where snow actually forms, that is a fiction.
+        Thermal motion distorts the top layers, molecules leave and rejoin at a prodigious rate, and
+        the monograph issues the warning directly: &ldquo;real ice surfaces are neither rigid nor
+        static&rdquo; (printed p.&nbsp;54).
+      </p>
+
+      <p>
+        The most dramatic version of this is <strong>surface premelting</strong>. A molecule deep
+        inside the crystal is surrounded on all sides. A molecule at the surface is not &mdash; it
+        has neighbours below but open space above, so it is less tightly held. Near the melting
+        point that looseness wins, and the top layers give up their ordered arrangement entirely
+        while the crystal underneath stays perfectly solid. The disordered film that results is not
+        quite water and not quite ice. It is called the <strong>quasi-liquid layer</strong>, or QLL.
+      </p>
+
+      <p>
+        Michael Faraday predicted it in 1859, long before anyone had a way to look. Working out
+        what it actually is has occupied a great deal of recent research.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.12/visual.png"
+              data-figure="Figure 2.12"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 55 &middot; printed p. 54"
+              data-alt="Two molecular-dynamics snapshots of an ice surface: cold, with neat rows all the way to the top; and near the melting point, where the top layers are a disordered tangle above an intact lattice.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> compare the two panels from the bottom up, not the top
+          down. The lower halves are identical &mdash; neat rows, perfect crystal, untouched. Only
+          the top of the warm panel has dissolved into a tangle. That is the whole point:
+          premelting is a skin effect. The crystal is not melting; its outermost layers are.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.12: A molecular-dynamics simulation from [2014Lim]
+          demonstrating surface premelting. At temperatures far below the melting point (left), the
+          bulk lattice structure persists all the way up to the surface (here showing an edge-on
+          view of a basal facet). Near the melting point, however, the top molecular layers lose
+          their ordered structure, forming an amorphous premelted layer, also called a quasi-liquid
+          layer (QLL).&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        How thick is it? Around &minus;10&nbsp;&deg;C the disordered film is roughly one molecular
+        layer deep. From there it keeps thickening as the temperature rises, and it never levels off
+        &mdash; but it thickens slowly, needing each further step closer to 0&nbsp;&deg;C to be a
+        smaller and smaller step. Physicists say the thickness <em>diverges logarithmically</em>
+        (printed p.&nbsp;55). It becomes especially pronounced above &minus;1&nbsp;&deg;C. Go the
+        other way and it fades out:
+        at the coldest end of the measured range, &ldquo;surface premelting is essentially
+        absent&rdquo; (printed p.&nbsp;62), and the lattice stiffens until it charges nearly the
+        full rigid-lattice price for a terrace edge.
+      </p>
+
+      <figure class="anim" id="anim-qll">
+        <div class="anim__head">
+          <p class="anim__title">Melt the skin, not the crystal</p>
+          <p class="anim__sub">Drag the temperature up and watch how far down the disorder reaches.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original schematic. The depth of the disordered layer is anchored
+          at roughly one molecular layer near &minus;10&nbsp;&deg;C and made to rise logarithmically
+          toward 0&nbsp;&deg;C, following Libbrecht, Snow Crystals, printed p.&nbsp;55; the drawing
+          is illustrative, not a molecular-dynamics result.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        So the picture to carry is this: a snow crystal growing at &minus;5&nbsp;&deg;C is a rigid,
+        perfectly ordered lattice wearing a thin, slushy, disordered coat. And the terrace steps
+        that control everything in this chapter are not sitting at the outer edge of that coat.
+        They live at the boundary underneath it, where the true ice meets the quasi-liquid layer:
+        &ldquo;the location of the ice/vapor step energy must be at the ice/QLL interface&rdquo;
+        (printed p.&nbsp;61). That has a consequence you can check against Figure 2.15, a few
+        paragraphs above. If the steps
+        really sit against a film that is behaving more and more like liquid water, then as
+        0&nbsp;&deg;C is approached the ice/vapour step energy ought to slide toward the ice/water
+        step energy &mdash; and the measurements &ldquo;do seem to show a good correspondence&rdquo;
+        (printed p.&nbsp;61).
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.16/visual.png"
+              data-figure="Figure 2.16"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 62 &middot; printed p. 61"
+              data-alt="A sketch of an ice surface split into two interfaces, ice-to-quasi-liquid-layer and quasi-liquid-layer-to-vapour, with the terrace step drawn at the lower boundary; below it, a comparison of ice/water and ice/vapour step energies near 0 degrees Celsius.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the top sketch splits the surface into two boundaries
+          instead of one. There is a lower boundary, ice against quasi-liquid layer, and an upper
+          boundary, quasi-liquid layer against vapour. Find the terrace step: it is drawn at the
+          <em>lower</em> boundary. The upper one is essentially a water surface, and water surfaces
+          have no steps and no nucleation barrier. That is the picture the paragraph above is
+          describing, drawn once and exactly.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.16: At temperatures just below the melting point,
+          surface premelting turns the ice/vapor interface into an ice/QLL/vapor interface, where
+          crystal terrace steps are localized essentially at the ice/QLL interface (top). Inasmuch as
+          the QLL resembles bulk water in its properties, the ice/QLL step energy should nearly equal
+          the ice/water step energy (bottom). As discussed in the text, step-energy measurements at
+          the ice/water and ice vapor interfaces do seem to show a good correspondence as the
+          temperature approaches 0 C.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          It has long been suspected that premelting is the hidden hand behind snow crystal
+          behaviour &mdash; perhaps even behind the whole pattern of which shapes form at which
+          temperatures. It is a reasonable suspicion, and it may well be right. But as of the
+          monograph: &ldquo;For the present, there seems to be no concrete, well-established
+          physical connection between surface melting and snow crystal growth, although this
+          situation may change at any time&rdquo; (printed p.&nbsp;55). Different experiments probe
+          different properties of the film and are hard to compare with each other. Keep the QLL in
+          mind as a strong lead, not as an explanation.
+        </p>
+      </aside>
+
+      <h2 id="how-a-facet-stays-flat">How a flat face stays flat</h2>
+
+      <p>
+        A facet has a problem, and if you have been reading carefully you may already have spotted
+        it.
+      </p>
+
+      <p>
+        The six corners of a hexagonal crystal stick out further into the humid air than the middle
+        of a face does. Chapter 4 showed why that matters: the crystal eats the vapour around it,
+        so the air closest to the crystal is the most depleted, and the parts that reach furthest
+        out into the undepleted air see more fuel. That is the <strong>Berg effect</strong>, which
+        Chapter 4 named and drew for you.
+        The corners have the higher &sigma;. So the corners should grow faster, the face should bow
+        outward, and the flat face should be destroyed within moments of forming.
+      </p>
+
+      <p>
+        It is not destroyed. Something holds it flat, and that something is the steps.
+      </p>
+
+      <p>
+        New terraces nucleate preferentially near the corners, because that is where the
+        supersaturation is highest. Once born, each step sweeps inward toward the middle of the
+        face. But it sweeps <em>fastest</em> near the corners, where there is most fuel, and slows
+        as it travels inward. Steps that start fast and finish slow pile up behind one another
+        &mdash; so the step density is highest in the middle of the face. And steps are exactly
+        where molecules stick. So &alpha; is highest in the middle of the face, precisely where
+        &sigma; is lowest.
+      </p>
+
+      <p>
+        High &sigma; and low &alpha; at the corners. Low &sigma; and high &alpha; at the centre. The
+        growth rate is their product, and the product is the same everywhere. The face advances as
+        one flat sheet.
+      </p>
+
+      <figure class="anim" id="anim-facet-balance">
+        <div class="anim__head">
+          <p class="anim__title">The self-flattening face</p>
+          <p class="anim__sub">Break the balance with the slider, then press Release and watch the face repair itself.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original schematic. Encodes the negative feedback described in
+          Libbrecht, Snow Crystals, printed p.&nbsp;80 and Figure 3.4, printed p.&nbsp;79:
+          &sigma;<sub>surf</sub> higher
+          at the corners, &alpha; higher at the facet centre through step bunching, and the growth
+          rate &alpha;&nbsp;&sigma;<sub>surf</sub> held constant across the face. The curves are
+          illustrative shapes, not measured profiles.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        This is a feedback loop, and it self-corrects in both directions. If the face becomes too
+        flat, the corners &mdash; with their fuel advantage and no compensating step density &mdash;
+        pull ahead and re-curve it. If it becomes too concave, the centre's step pile-up
+        overcompensates and the centre catches up. There is a stable curvature, and the surface
+        finds it. In the monograph's words, &ldquo;there is a negative feedback that maintains the
+        precise concave shape needed to keep the growth velocity&hellip; constant across the entire
+        facet surface&rdquo; (printed p.&nbsp;80).
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          A facet is not passively flat. It is actively held flat by a feedback loop that trades
+          fuel against stickiness. The monograph calls this &ldquo;one of the simplest examples of
+          spontaneous structure formation&rdquo; (printed p.&nbsp;80).
+        </p>
+      </aside>
+
+      <p>
+        There is a delightful consequence. Reaching that balance means letting the corners run a
+        little ahead of the centre first &mdash; so a &ldquo;flat&rdquo; facet is in fact very
+        slightly <em>concave</em>, dished inward by an amount measured in molecular layers. You will
+        never see it. The dish is only a few molecular layers deep, and the monograph is explicit
+        that the concave facet shape is &ldquo;normally imperceptible&rdquo; (printed p.&nbsp;80).
+        What reaches your eye is a surface as smooth and flat as a pane of glass.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.4/visual.png"
+              data-figure="Figure 3.4"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 80 &middot; printed p. 79"
+              data-alt="A photograph of a laboratory snow crystal with razor-straight prism facets, above a schematic of the same facet drawn strongly concave with labels for sigma and alpha.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the photograph first &mdash; those prism edges are as
+          straight as a ruler. Then the sketch below it, which is the same face with the concavity
+          exaggerated thousands of times so you can see it at all. Follow the two labels: at the
+          corners, higher &sigma; and lower &alpha;; at the centre, lower &sigma; and higher
+          &alpha;. The two errors cancel, and the face marches outward as one. (POP is a laboratory
+          method for growing single crystals on a flat pedestal.)
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.4: The prism facets on this POP snow crystal (top
+          photo) look straight, but they must be slightly concave at the molecular scale (bottom
+          sketch). The hexagonal corners stick out farther into the humid air, so &sigma; is
+          slightly higher at the corners than at the facet centers. At the same time, the density of
+          molecular terrace steps is higher nearer the facet centers, making &alpha; slightly higher
+          there (the surface lines in the sketch represent molecular layers). Because the growth
+          rate is proportional to &alpha;&sigma;, the entire facet surface grows upward at a
+          constant rate, maintaining its flat appearance.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          &ldquo;Corners always see more vapour&rdquo; is a rule of thumb, not a law. On a very thin
+          plate, where the flat basal faces grow far more reluctantly than the thin edge, the
+          contour lines of supersaturation bunch tightly around the rim and the highest
+          supersaturation ends up in the middle of the basal face instead. The monograph is blunt
+          about it: &ldquo;Even though the prism edge sticks out farther into the supersaturated
+          air, &sigma;<sub>surf</sub> is lowest there&rdquo; (printed p.&nbsp;112). The Berg effect
+          survives only while the attachment kinetics stay reasonably even-handed.
+        </p>
+      </aside>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.29/visual.png"
+              data-figure="Figure 3.29"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 113 &middot; printed p. 112"
+              data-alt="Two contour maps of supersaturation around growing ice crystals: a blocky prism with the highest values at its corners, and a thin plate with contours crowded at the rim.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> this is the picture Chapter 4 left you holding, and you
+          now have the piece it was missing. The contour lines are lines of equal spare vapour, like
+          height lines on a map. On the left, around the blocky crystal, they crowd toward the
+          corners &mdash; the Berg effect, exactly as advertised. On the right, around the thin
+          plate, they jam up against the plate's edge and leave the middle of the flat face sitting
+          in the richest air. Chapter 4 could only tell you that the right-hand panel inverts the
+          rule; the answer it deferred is &alpha;. Same physics, opposite conclusion, purely because
+          the two faces have very different attachment coefficients &mdash; and the published
+          caption says so outright in its last sentence.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.29: Calculated contour plots of supersaturation
+          levels around two growing ice crystals, shown here in (r,z) coordinates. Around a blocky
+          crystal (left), the supersaturation is highest near the corners of the faceted prism, a
+          phenomenon called the Berg effect. Around a thin-plate crystal, the contour lines are
+          tightly bunched at the plate edge, and the supersaturation is highest at the center of the
+          basal facets. The model on the left assumed &alpha;<sub>basal</sub>&nbsp;&asymp;&nbsp;&alpha;<sub>prism</sub>&nbsp;&lt;&nbsp;1,
+          while the model on the right assumed &alpha;<sub>basal</sub>&nbsp;&laquo;&nbsp;&alpha;<sub>prism</sub>.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <h2 id="the-low-energy-myth">The low-energy myth</h2>
+
+      <p>
+        You have already met half the correction this chapter exists to make &mdash; that facets are
+        the slowest surfaces, not the favoured ones. Here is the other half: where the flatness does
+        <em>not</em> come from.
+      </p>
+
+      <p>
+        Almost every popular account of snowflakes explains flat faces like this: nature minimises
+        energy, flat faces have the lowest surface energy, therefore crystals grow flat faces. It is
+        a tidy story. It is also wrong &mdash; and it is wrong in an instructive way, because the
+        premise is basically true and the conclusion still does not follow.
+      </p>
+
+      <p>
+        <strong>Surface energy</strong> is the cost of having a surface at all: every molecule at
+        the boundary has unfulfilled bonds, and that costs energy per square metre of exposed area.
+        For ice near the melting point the measured values are about
+        76&nbsp;mJ/m<sup>2</sup> for the water/vapour surface, about 30&nbsp;&plusmn;&nbsp;5&nbsp;mJ/m<sup>2</sup>
+        for ice against water, and about 106&nbsp;&plusmn;&nbsp;15&nbsp;mJ/m<sup>2</sup> for ice
+        against vapour. And yes, facets do have a slightly lower surface energy than rough
+        surfaces. The premise holds.
+      </p>
+
+      <p>
+        Three independent checks kill the conclusion.
+      </p>
+
+      <p>
+        <strong>One: the anisotropy is far too small.</strong> For surface energy to sculpt a
+        faceted shape, the energy has to depend strongly on which way the surface faces &mdash; a
+        difference between directions that physicists call <strong>anisotropy</strong>. For ice, that
+        difference is far too small. The facet's energy must be enough lower than the rough surfaces'
+        energy to be worth the extra area, and there is a threshold you can derive with high-school
+        geometry:
+        a hexagon beats its inscribed circle only if the facet energy is below
+        0.91 of the unfaceted value, and a square only below 0.79. Extending the argument, a fully
+        faceted equilibrium shape needs the facet energy to be roughly 10&ndash;20&nbsp;% lower.
+        Ice does not come close. For ice against water the difference between orientations is
+        &ldquo;no more than a few percent&rdquo; &mdash; comparable to many ordinary metals &mdash;
+        and the ice/vapour surface energy is judged to be nearly as uniform. A few percent, where
+        ten to twenty are needed.
+      </p>
+
+      <figure class="chart" id="chart-anisotropy">
+        <div class="chart__head">
+          <p class="chart__title">How much anisotropy the myth needs &mdash; and how much ice has</p>
+          <p class="chart__sub">Facet surface energy, expressed as a percentage below the unfaceted value &mdash; how much the two directions must differ.</p>
+        </div>
+        <div class="chart__body"></div>
+        <figcaption class="chart__foot">
+          <span class="built-from">Original chart. Thresholds from the 2D inequalities
+          &gamma;<sub>facet</sub> &lt; 0.91&nbsp;&gamma;<sub>unfaceted</sub> (hexagon) and
+          &gamma;<sub>facet</sub> &lt; 0.79&nbsp;&gamma;<sub>unfaceted</sub> (square), and from the
+          10&ndash;20&nbsp;% requirement for a fully faceted equilibrium shape, Libbrecht, Snow
+          Crystals, printed p.&nbsp;64; ice's anisotropy bound from printed p.&nbsp;59.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.19/visual.png"
+              data-figure="Figure 2.19"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 65 &middot; printed p. 64"
+              data-alt="A square and a hexagon each drawn with their inscribed circles, annotated with the surface-energy inequalities that decide which shape is cheaper.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> each polygon against the circle drawn inside it. The
+          circle has the shorter perimeter, so the polygon can only be the cheaper shape if each
+          metre of its flat sides costs enough less to pay for the extra length. The two
+          inequalities in the caption are simply those perimeter ratios, and you can check them on
+          paper: for a circle of radius <em>r</em>, the square around it has perimeter 8<em>r</em>
+          against the circle's 2&pi;<em>r</em>, giving &pi;/4 = 0.79; the hexagon has 4&radic;3&nbsp;<em>r</em>,
+          giving &pi;&radic;3/6 = 0.91. The whole argument needs no physics beyond geometry.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.19: Basic limits on equilibrium shapes in 2D. The
+          square shape has a lower surface energy than its inscribed circle if
+          &gamma;<sub>facet</sub> &lt; (&pi;/4)&gamma;<sub>unfaceted</sub> = 0.79&nbsp;&gamma;<sub>unfaceted</sub>,
+          and the hexagon has a lower surface energy if &gamma;<sub>facet</sub> &lt;
+          (&pi;&radic;3/6)&gamma;<sub>unfaceted</sub> = 0.91&nbsp;&gamma;<sub>unfaceted</sub>.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        <strong>Two: nobody has ever measured ice's equilibrium shape.</strong> The
+        lowest-energy shape a crystal would settle into, given unlimited time, is called the
+        equilibrium crystal shape. For ice it has never been definitively observed &mdash; not in
+        vapour, not in water. There is circumstantial evidence pointing away from a faceted answer:
+        researchers have examined bubbles trapped in glacial ice for decades, an equilibrated bubble
+        would take the same shape, and nobody has reported a faceted one. That evidence has limits,
+        and the monograph states them itself &mdash; bubbles in natural ice &ldquo;are usually not
+        particularly spherical either, so the conclusions one can draw from bubble observations
+        regarding the ice ECS are limited&rdquo;. Evidence runs the other way too: the sole
+        experimental investigation of the question concluded that the ice/vapour equilibrium shape is
+        fully faceted below &minus;10&nbsp;&deg;C, and the step energies of Figure 2.15
+        &ldquo;suggest, however, that the ice/vapor ECS might become faceted at lower temperatures,
+        at least to some degree&rdquo; (printed p.&nbsp;65). So this check does not prove the
+        equilibrium shape is round. What it establishes is weaker and still fatal: an argument that
+        leans on the equilibrium shape is leaning on a quantity nobody has in hand. The next check
+        needs no such caution.
+      </p>
+
+      <p>
+        <strong>Three: there is nowhere near enough time.</strong> This is the number that
+        finishes the case. Reaching equilibrium means shipping molecules from one part of the
+        crystal surface to another until the shape settles, and that takes time. For a crystal
+        50&nbsp;microns in radius &mdash; about a tenth of a millimetre across &mdash; in ordinary
+        air, that time is about <strong>eight days</strong> (printed p.&nbsp;65). A
+        real snow crystal grows from a frozen droplet to full size in minutes, inside a cloud
+        that will not hold still for eight seconds. Snowflakes are not shapes that settled. They are
+        shapes frozen mid-race.
+      </p>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          The claim is <em>not</em> that facets have ordinary surface energy. They do have
+          lower-than-average surface energy &mdash; that part of the popular story is correct. The
+          error is in which consequence you draw from it. Facet planes are molecularly smooth, and
+          smoothness does two things at once: it lowers the surface energy <em>and</em> it hinders
+          the attachment kinetics. As the monograph says, &ldquo;the latter property, more than the
+          former, controls the formation of snow crystal facets&rdquo; (printed p.&nbsp;46). Both
+          effects are real; one is decisive and the other is a rounding error. &ldquo;It is a common
+          misconception that faceted morphologies appear because faceted surfaces have the lowest
+          surface energies&hellip; anisotropic attachment kinetics are by far the dominant effect
+          causing faceting&rdquo; (printed p.&nbsp;40).
+        </p>
+      </aside>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The three checks that rule out the surface-energy explanation. All values as printed in
+            Libbrecht, Snow Crystals, chapter 2 (printed pp. 59, 64, 65).
+          </caption>
+          <thead>
+            <tr><th>Question</th><th class="num">What the surface-energy story requires</th><th>What is actually the case</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>How much lower must a facet's surface energy be?</td>
+              <td class="num">10&ndash;20&nbsp;%</td>
+              <td>&ldquo;no more than a few percent&rdquo;</td>
+            </tr>
+            <tr>
+              <td>What is ice's equilibrium shape?</td>
+              <td class="num">faceted</td>
+              <td>never definitively measured, in vapour or in water</td>
+            </tr>
+            <tr>
+              <td>How long to reach that shape, for a crystal of radius 50&nbsp;&micro;m in air?</td>
+              <td class="num">&asymp; 8 days</td>
+              <td>a snow crystal grows to full size in minutes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          None of that makes surface energy powerless. It keeps one job, at a scale where nothing
+          else can do it. A molecule sitting on a strongly curved bump has fewer neighbours than one
+          on a flat plain, so it is held more loosely and escapes more easily &mdash; a curved
+          surface holds its molecules slightly less well, and the vapour it can keep in balance above
+          itself is a little higher. That is the <strong>Gibbs&ndash;Thomson effect</strong>. Its
+          size is set by a length <em>d</em><sub>sv</sub>, about one nanometre for ice against
+          vapour: the correction to the effective supersaturation is
+          &Delta;&sigma;&nbsp;&asymp;&nbsp;2<em>d</em><sub>sv</sub>&nbsp;/&nbsp;<em>R</em> for a
+          surface curved through radius <em>R</em> (printed p.&nbsp;63), which comes to roughly
+          0.1&nbsp;% at a radius of one micron (printed p.&nbsp;64) &mdash; nothing at all beside
+          everything else in this chapter. But shrink <em>R</em> and the term grows teeth. At the
+          razor rim of a very thin plate, it is the thing that says no.
+        </p>
+      </aside>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-2.18/visual.png"
+              data-figure="Figure 2.18"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 64 &middot; printed p. 63"
+              data-alt="Side-view growth models of a plate on the end of a column: without the Gibbs-Thomson term an absurdly thin plate extends outward; with it, the plate does not form.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the thickness of the plate sticking out of the column.
+          In the top model the Gibbs&ndash;Thomson term has been switched off, and the result is a
+          plate a tenth of a micron thick &mdash; a structure nature does not make. In the bottom
+          model the term is restored at a realistic value and the runaway plate is simply
+          suppressed. This is what a veto looks like: a small correction that only ever matters at
+          the extremes, and is indispensable there.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 2.18: Three examples modeling the growth of a thin
+          snow-crystal plate on the end of a columnar crystal (here shown in side view) [2013Lib1].
+          Setting d<sub>sv</sub> = 0 (top model) yields an unrealistic 0.1-micron-thick plate
+          growing out from the column when the applied supersaturation is low. Using a realistic
+          value of d<sub>sv</sub> (bottom model), the plate-growth is suppressed. Without including
+          the Gibbs-Thomson effect, snow-crystal models would not give physically realistic results
+          at exceedingly low supersaturations. In many environmental circumstances, however, the
+          Gibbs-Thomson effect is so small that it is essentially negligible.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <h2 id="statics-and-dynamics">Statics is not dynamics</h2>
+
+      <p>
+        The surface-energy myth was one instance of a wider habit of thought &mdash; reasoning about
+        a growing crystal from the arrangement it would settle into if it stopped. Here is the habit
+        itself, and it is worth breaking before you go on.
+      </p>
+
+      <p>
+        <strong>Crystallography</strong> is the study of how molecules stack &mdash; the lattice, its
+        symmetry, its spacings. It is a statics problem: find the lowest-energy arrangement of things
+        sitting still. Modern science is extremely good at that kind of problem, which is why the
+        structure of ice has been settled since the 1920s and Chapter 3 could hand it to you as
+        established fact.
+      </p>
+
+      <p>
+        <strong>Crystal growth</strong> is a different animal. It is a dynamics problem: enormous
+        numbers of molecules interacting, arriving, leaving, far from equilibrium, with the answer
+        depending on the whole history of the process rather than on any minimum. Science is much
+        weaker there. &ldquo;It is a common misconception to think that crystallography explains
+        crystal growth, but this is far from the truth&hellip; Modern science is good at statics
+        problems, but less so with many-body dynamics problems&rdquo; (printed p.&nbsp;30).
+      </p>
+
+      <p>
+        That single distinction explains the strange state of this field. The ice lattice has been
+        known for the better part of a century. The attachment kinetics &mdash; what &alpha; is, on
+        which face, at which temperature, and why &mdash; is still being argued about:
+        &ldquo;the crystallography of ice has been essentially solved for decades, while many
+        important aspects the ice attachment kinetics remain quite puzzling&rdquo; (printed
+        p.&nbsp;30). The theory of terrace nucleation built in the 1930s by Stranski, Kaischew,
+        Becker, D&ouml;ring and Volmer, and extended in 1951 by Burton, Cabrera and Frank, explains a
+        great deal of what you have read here. It does not explain all of it. Even now,
+        &ldquo;snowflake science is very much a work in progress, as several rather basic aspects of
+        the surface structure and dynamics of ice at the molecular level remain quite
+        mysterious&rdquo; (printed p.&nbsp;16).
+      </p>
+
+      <p>
+        You now have both halves of the engine. Chapter 4 gave you &sigma; &mdash; the fuel, and how
+        diffusion rations it. This chapter gave you &alpha; &mdash; the surface's willingness to
+        accept it, the nucleation barrier behind that willingness, and the feedback loop that keeps
+        a face flat while it grows.
+      </p>
+
+      <p class="handoff">
+        But look again at what that feedback loop depends on: the facet centre must always be able
+        to raise its &alpha; enough to make up for its fuel deficit. And &alpha; cannot exceed one.
+        Push a crystal hard enough that molecules stick everywhere they land, and the flatness
+        machine has nothing left to give &mdash; which is where the next chapter is heading: the
+        moment a smooth face gives up and a branch shoots out of the corner.
+      </p>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./04-the-fuel-supply.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">The Fuel Supply</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./06-the-runaway-bump.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">The Runaway Bump</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
+      from a local research cache under citation; they are not redistributed with this repository.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script>
+/* ===========================================================================
+   Chapter 5 — original figures.
+   1. anim-slow-wins       kinematic growth: slow directions survive
+   2. anim-nucleation      terrace nucleation: islands below R_crit dissolve
+   3. anim-facet-balance   the alpha·sigma negative feedback across one facet
+   4. anim-qll             surface premelting depth vs temperature
+   5. chart-anisotropy     surface-energy anisotropy: needed vs available
+   ======================================================================== */
+
+/* ------------------------------------------------------------- 1. slow wins */
+(function () {
+  const root = document.getElementById("anim-slow-wins");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const W = 560, H = 360, CX = W / 2, CY = H / 2;
+  const NTH = 180, NPH = 180, R0 = 24, REACH = 74;
+  let ratio = 0.22;
+  let svg = null;
+
+  // cached direction cosines
+  const th = [], ct = [], st = [], seed = [];
+  for (let i = 0; i < NTH; i++) {
+    const a = (2 * Math.PI * i) / NTH;
+    th.push(a); ct.push(Math.cos(a)); st.push(Math.sin(a));
+    seed.push(R0 * (1 + 0.17 * Math.sin(3 * a + 0.9) + 0.10 * Math.sin(7 * a + 2.1)));
+  }
+  const cp = [], sp = [];
+  for (let j = 0; j < NPH; j++) {
+    const a = (2 * Math.PI * j) / NPH;
+    cp.push(Math.cos(a)); sp.push(Math.sin(a));
+  }
+
+  // speed of each surface direction: `ratio` on the six facet normals, 1 elsewhere
+  function speedAt(a) {
+    const s = Math.max(0, Math.cos(6 * a));
+    return 1 + (ratio - 1) * Math.pow(s, 6);
+  }
+
+  // outline = inner envelope of all the advancing surfaces
+  function outline(g) {
+    const d = new Array(NTH);
+    for (let i = 0; i < NTH; i++) d[i] = seed[i] + REACH * speedAt(th[i]) * g;
+    const pts = new Array(NPH);
+    for (let j = 0; j < NPH; j++) {
+      let r = Infinity;
+      for (let i = 0; i < NTH; i++) {
+        const cos = cp[j] * ct[i] + sp[j] * st[i];
+        if (cos <= 0.06) continue;
+        const rr = d[i] / cos;
+        if (rr < r) r = rr;
+      }
+      pts[j] = [CX + cp[j] * r, CY + sp[j] * r];
+    }
+    return pts;
+  }
+
+  function toPath(pts) {
+    let s = "";
+    for (let i = 0; i < pts.length; i++) {
+      s += (i ? "L" : "M") + pts[i][0].toFixed(1) + " " + pts[i][1].toFixed(1);
+    }
+    return s + " Z";
+  }
+
+  function render(t) {
+    const g = Math.min(1, (t % 7.5) / 5.2);
+    if (svg) svg.remove();
+    const c = Viz.colors();
+    svg = Viz.createSvg(body, W, H, {
+      label: "A lumpy ice seed growing outward. Directions that grow slowly end up as flat facets.",
+      desc: "The six slow directions become straight edges; the fast directions grow themselves out of the outline.",
+    });
+
+    // the seed it started from
+    svg.appendChild(Viz.svgEl("path", {
+      d: toPath(outline(0)), fill: "none", stroke: c.muted,
+      "stroke-width": 1.2, "stroke-dasharray": "3 3",
+    }));
+
+    const pts = outline(g);
+    svg.appendChild(Viz.svgEl("path", {
+      d: toPath(pts), fill: c.series[1], "fill-opacity": 0.16,
+      stroke: c.series[1], "stroke-width": 2.4, "stroke-linejoin": "round",
+    }));
+
+    // labels must describe what is actually on screen: at ratio > 0.9 every
+    // direction grows alike, so nothing is slow and nothing disappears
+    const blob = ratio > 0.9;
+    const rFace = pts[0][0] - CX;
+    const rCorner = CY - pts[Math.round(NPH * 0.75)][1];
+
+    if (blob) {
+      const lab = Viz.svgEl("text", {
+        class: "series-label", x: CX, y: CY + rFace + 26, "text-anchor": "middle", fill: c.series[1],
+      });
+      lab.textContent = "every direction now grows at the same speed";
+      svg.appendChild(lab);
+      const lab2 = Viz.svgEl("text", {
+        class: "tick-text", x: CX, y: CY - rCorner - 12, "text-anchor": "middle", fill: c.inkSecondary,
+      });
+      lab2.textContent = "no direction outruns the others — no facets form";
+      svg.appendChild(lab2);
+    } else {
+      // direct label on a flat face (the +x direction is a facet normal)
+      svg.appendChild(Viz.svgEl("line", {
+        x1: CX + rFace, y1: CY, x2: CX + rFace + 14, y2: CY,
+        stroke: c.series[1], "stroke-width": 1.2,
+      }));
+      const lab = Viz.svgEl("text", {
+        class: "series-label", x: CX + rFace + 18, y: CY + 4, fill: c.series[1],
+      });
+      lab.textContent = "prism facet — slow";
+      svg.appendChild(lab);
+
+      // direct label on a corner (the +y direction sits between two facet normals)
+      const lab2 = Viz.svgEl("text", {
+        class: "tick-text", x: CX, y: CY - rCorner - 12, "text-anchor": "middle", fill: c.inkSecondary,
+      });
+      lab2.textContent = "rough direction — fast, and so it disappears";
+      svg.appendChild(lab2);
+    }
+
+    const lab3 = Viz.svgEl("text", {
+      class: "tick-text", x: 12, y: H - 12, fill: c.muted,
+    });
+    lab3.textContent = "dashed outline = the lumpy seed it started from";
+    svg.appendChild(lab3);
+  }
+
+  const anim = Viz.animate(root, render, { duration: 7.5, staticAt: 5.2, stepBy: 0.6 });
+  Viz.onThemeChange(function () { render(anim.time); });
+
+  Viz.slider(controls, {
+    label: "Facet speed, as a fraction of the rough-surface speed",
+    id: "slowwins",
+    min: 0.05, max: 1, step: 0.05, value: ratio,
+    format: function (v) { return v.toFixed(2) + (v > 0.9 ? " — no difference between directions" : ""); },
+    onInput: function (v) { ratio = v; render(anim.time); },
+  });
+  Viz.button(controls, "Restart growth", function () { anim.reset(); });
+})();
+
+/* --------------------------------------------------- 2. terrace nucleation */
+(function () {
+  const root = document.getElementById("anim-nucleation");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const W = 560, H = 340, CX = 318, CY = 158, RFACE = 118;
+  const APOTHEM = RFACE * Math.cos(Math.PI / 6);
+  const GX = 74;                // where the critical-size gauge is drawn
+  const PX_PER_A = 1.45;        // one molecular size a, drawn this many pixels
+  const SEED_MAX_A = 45;        // largest island chance ever assembles, in units of a
+  const GROW = 95, SHRINK = 11; // pixels per second
+  const NEV = 44, GAP = 0.5;    // nucleation attempts, and their mean spacing in seconds
+  const DURATION = 16;
+
+  let sigma = 1.0;              // sigma_surf, in per cent
+  let svg = null;
+
+  // R_crit = a^2 * beta / (sigma_surf k T), anchored at the printed example
+  // sigma_surf = 1 %, beta = 1e-12 J/m  ->  R_crit = 10a  (printed p. 142)
+  function critA() { return 10 / sigma; }
+
+  // deliberately coarse: this is a schematic count, not a measurement
+  function roughCount(n) {
+    const p = Math.pow(10, Math.max(0, Math.floor(Math.log10(n))));
+    return Math.round(n / p) * p;
+  }
+
+  function inHex(x, y) {
+    for (let k = 0; k < 6; k++) {
+      const a = Math.PI / 6 + (Math.PI / 3) * k;
+      if (x * Math.cos(a) + y * Math.sin(a) > APOTHEM - 6) return false;
+    }
+    return true;
+  }
+
+  // how far an island at (x,y) must spread before it has covered the whole facet
+  function coverRadius(x, y) {
+    let m = 0;
+    Viz.hexPoints(0, 0, RFACE, 0).forEach(function (p) {
+      m = Math.max(m, Math.hypot(p[0] - x, p[1] - y));
+    });
+    return m;
+  }
+
+  // deterministic attempt list, so the drawing is a pure function of time
+  const ev = [];
+  (function () {
+    let s = 20260728;
+    function rnd() { s = (s * 1103515245 + 12345) & 0x7fffffff; return s / 0x7fffffff; }
+    let t = 0.3;
+    for (let i = 0; i < NEV; i++) {
+      t += GAP * (0.4 + 1.2 * rnd());
+      let x = 0, y = 0;
+      for (let g = 0; g < 40; g++) {
+        x = (rnd() * 2 - 1) * RFACE; y = (rnd() * 2 - 1) * RFACE;
+        if (inHex(x, y)) break;
+      }
+      const u = rnd();
+      ev.push({ t: t, x: x, y: y, seedA: SEED_MAX_A * u * u, cover: coverRadius(x, y) });
+    }
+  })();
+
+  function render(t) {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+    const rc = critA();                 // critical radius, in units of a
+    const rcPx = rc * PX_PER_A;
+    svg = Viz.createSvg(body, W, H, {
+      label: "A prism facet seen from above, with islands of new molecules appearing on it.",
+      desc: "Islands smaller than the critical radius shrink away within moments. Islands larger " +
+            "than it spread outward until they have covered the face, adding one molecular layer. " +
+            "Lowering the supersaturation raises the critical radius, so successful islands become " +
+            "rare and the face stops advancing.",
+    });
+
+    const clipId = "ch5-nucleation-clip";
+    const defs = Viz.svgEl("defs", {});
+    const clip = Viz.svgEl("clipPath", { id: clipId });
+    clip.appendChild(Viz.svgEl("path", { d: Viz.hexPath(CX, CY, RFACE, 0) }));
+    defs.appendChild(clip);
+    svg.appendChild(defs);
+
+    // the facet itself: a prism face, so series[1] by the site-wide facet rule
+    svg.appendChild(Viz.svgEl("path", {
+      d: Viz.hexPath(CX, CY, RFACE, 0),
+      fill: c.series[1], "fill-opacity": 0.07,
+      stroke: c.series[1], "stroke-width": 2, "stroke-linejoin": "round",
+    }));
+
+    const g = Viz.svgEl("g", { "clip-path": "url(#" + clipId + ")" });
+    let layers = 0, live = 0, doomed = 0;
+
+    ev.forEach(function (e) {
+      if (t < e.t) return;
+      const age = t - e.t;
+      const survives = e.seedA >= rc;
+      if (survives) {
+        const r = e.seedA * PX_PER_A + GROW * age;
+        if (r >= e.cover) { layers++; return; }
+        live++;
+        g.appendChild(Viz.svgEl("circle", {
+          cx: (CX + e.x).toFixed(1), cy: (CY + e.y).toFixed(1), r: r.toFixed(1),
+          fill: c.series[1], "fill-opacity": 0.16,
+          stroke: c.series[1], "stroke-width": 2,
+        }));
+      } else {
+        const r = e.seedA * PX_PER_A - SHRINK * age;
+        if (r <= 0.6) return;
+        doomed++;
+        g.appendChild(Viz.svgEl("circle", {
+          cx: (CX + e.x).toFixed(1), cy: (CY + e.y).toFixed(1), r: r.toFixed(1),
+          fill: c.muted, "fill-opacity": 0.28,
+          stroke: c.muted, "stroke-width": 1.3, "stroke-dasharray": "3 2",
+        }));
+      }
+    });
+    svg.appendChild(g);
+
+    // the critical size, drawn to the same scale, in the margin beside the facet
+    const gr = Math.max(3, rcPx);
+    svg.appendChild(Viz.svgEl("circle", {
+      cx: GX, cy: CY, r: gr.toFixed(1),
+      fill: "none", stroke: c.ink, "stroke-width": 1.4, "stroke-dasharray": "5 4",
+    }));
+    [
+      { y: CY - gr - 10, t: "critical size", w: 700 },
+      { y: CY + gr + 17, t: "radius ≈ " + rc.toFixed(0) + " molecule widths", w: 400 },
+      { y: CY + gr + 32, t: "≈ " + roughCount(Math.PI * rc * rc) + " molecules", w: 400 },
+    ].forEach(function (l) {
+      const tx = Viz.svgEl("text", {
+        x: GX, y: l.y.toFixed(1), "text-anchor": "middle",
+        fill: c.inkSecondary, "font-size": 11.5, "font-weight": l.w,
+      });
+      tx.textContent = l.t;
+      svg.appendChild(tx);
+    });
+
+    // readouts
+    const tally = Viz.svgEl("text", {
+      x: W - 10, y: 18, "text-anchor": "end", fill: c.series[1],
+      "font-size": 13, "font-weight": 600,
+    });
+    tally.textContent = "new layers completed: " + layers;
+    svg.appendChild(tally);
+
+    const state = Viz.svgEl("text", {
+      x: W / 2, y: 292, "text-anchor": "middle",
+      fill: live ? c.inkSecondary : c.muted, "font-size": 12.5, "font-weight": 600,
+    });
+    state.textContent = live
+      ? live + " island" + (live === 1 ? "" : "s") + " spreading, " + doomed + " dissolving"
+      : (layers
+        ? "between layers — waiting for the next island to take hold"
+        : "nothing is reaching the critical size — the face has stalled");
+    svg.appendChild(state);
+
+    // in-SVG legend, so the swatches follow the theme toggle
+    const key = [
+      { c: c.series[1], t: "big enough — spreading", x: 108, dash: null },
+      { c: c.muted, t: "too small — dissolving", x: 330, dash: "3 2" },
+    ];
+    key.forEach(function (item) {
+      svg.appendChild(Viz.svgEl("circle", {
+        cx: item.x, cy: 322, r: 6, fill: item.c, "fill-opacity": 0.3,
+        stroke: item.c, "stroke-width": 1.4, "stroke-dasharray": item.dash,
+      }));
+      const tx = Viz.svgEl("text", { x: item.x + 12, y: 326, fill: c.inkSecondary, "font-size": 11.5 });
+      tx.textContent = item.t;
+      svg.appendChild(tx);
+    });
+  }
+
+  const anim = Viz.animate(root, render, { duration: DURATION, staticAt: 6.5, stepBy: 0.5 });
+  Viz.onThemeChange(function () { render(anim.time); });
+
+  Viz.slider(controls, {
+    label: "Spare vapour at the surface (σ, per cent)",
+    id: "nucleation",
+    min: 0.25, max: 3, step: 0.05, value: sigma,
+    format: function (v) {
+      return v.toFixed(2) + " %" + (v < 0.45 ? " — barely anything survives" : "");
+    },
+    onInput: function (v) { sigma = v; render(anim.time); },
+  });
+  Viz.button(controls, "Start over", function () { anim.reset(); });
+})();
+
+/* -------------------------------------------------------- 3. facet balance */
+(function () {
+  const root = document.getElementById("anim-facet-balance");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const W = 560, H = 340;
+  const ML = 58, MR = 128, MT = 22, MB = 58;
+  const N = 121, EX = 0.16;      // EX: corner excess in sigma
+  let curv = 1.0, releasing = false, slider = null, svg = null;
+
+  const xs = Viz.scaleLinear([-1, 1], [ML, W - MR]);
+  const ys = Viz.scaleLinear([0.74, 1.26], [H - MB, MT]);
+
+  function sigmaAt(x) { return 1 + EX * (x * x - 1 / 3); }
+
+  function build() {
+    const sig = [], alp = [], pro = [];
+    let sa = 0, sp2 = 0;
+    for (let i = 0; i < N; i++) {
+      const x = -1 + (2 * i) / (N - 1);
+      const s = sigmaAt(x);
+      const a = Math.pow(s, -curv);
+      sig.push([x, s]); alp.push([x, a]); pro.push([x, a * s]);
+      sa += a; sp2 += a * s;
+    }
+    sa /= N; sp2 /= N;
+    for (let i = 0; i < N; i++) { alp[i][1] /= sa; pro[i][1] /= sp2; }
+    return { sig: sig, alp: alp, pro: pro };
+  }
+
+  function render() {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+    const d = build();
+    svg = Viz.createSvg(body, W, H, {
+      label: "Three curves across one facet: spare vapour, stickiness, and their product.",
+      desc: "At the stable curvature the product of supersaturation and attachment coefficient is flat across the whole face.",
+    });
+
+    Viz.axisLeft(svg, ys, {
+      x: ML, values: [0.8, 0.9, 1.0, 1.1, 1.2], grid: true, gridTo: W - MR,
+      format: function (v) { return v.toFixed(1); },
+      title: "relative to the facet average", titleOffset: 40,
+    });
+    Viz.axisBottom(svg, xs, {
+      y: H - MB, values: [-1, -0.5, 0, 0.5, 1],
+      format: function (v) { return v === 0 ? "centre" : (Math.abs(v) === 1 ? "corner" : ""); },
+      title: "position across one facet", titleOffset: 34,
+    });
+
+    Viz.series(svg, d.sig, xs, ys, {
+      color: c.series[0], label: "σ — spare vapour", labelAt: d.sig[N - 1], labelDy: -7,
+    });
+    Viz.series(svg, d.alp, xs, ys, {
+      color: c.series[1], label: "α — stickiness", labelAt: d.alp[N - 1], labelDy: 4,
+    });
+    Viz.series(svg, d.pro, xs, ys, {
+      color: c.series[2], label: "α × σ — speed", labelAt: d.pro[N - 1], labelDy: 17, width: 2.8,
+    });
+
+    const flat = Math.abs(curv - 1) < 0.06;
+    const msg = flat
+      ? "Balanced: every part of the face advances at the same speed, so it stays flat."
+      : (curv < 1
+        ? "Too flat: the corners are growing faster, so the face is curving inward right now."
+        : "Too concave: the centre is growing faster, so the face is flattening back out.");
+    const note = Viz.svgEl("text", {
+      x: W / 2, y: H - 8, "text-anchor": "middle",
+      fill: flat ? c.series[2] : c.inkSecondary, "font-size": 12.5, "font-weight": 600,
+    });
+    note.textContent = msg;
+    svg.appendChild(note);
+  }
+
+  function fmtCurv(v) {
+    return v < 0.94 ? "too flat" : (v > 1.06 ? "too concave" : "stable");
+  }
+
+  function syncSlider() {
+    if (!slider) return;
+    slider.input.value = curv;
+    const out = slider.element.querySelector("output");
+    if (out) out.textContent = fmtCurv(curv);
+  }
+
+  const anim = Viz.animate(root, function (t, dt) {
+    if (!releasing) return;
+    curv += (1 - curv) * Math.min(1, dt * 3.2);
+    if (Math.abs(curv - 1) < 0.004) { curv = 1; releasing = false; }
+    syncSlider();
+    render();
+  }, { controls: false });
+
+  render();
+  Viz.onThemeChange(render);
+
+  slider = Viz.slider(controls, {
+    label: "Curvature of the face",
+    id: "facetbal",
+    min: 0, max: 2, step: 0.05, value: 1,
+    format: fmtCurv,
+    onInput: function (v) { releasing = false; curv = v; render(); },
+  });
+  Viz.button(controls, "Release the surface", function () {
+    if (Viz.reduceMotion.matches) {
+      // no animated relaxation under reduced motion — snap to the stable shape
+      curv = 1; releasing = false; syncSlider(); render();
+      return;
+    }
+    releasing = true;
+    anim.play();
+  });
+})();
+
+/* ------------------------------------------------------------------ 3. QLL */
+(function () {
+  const root = document.getElementById("anim-qll");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const W = 560, H = 320;
+  const COLS = 17, ROWS = 8, DX = 30, DY = 26, TOP = 86, R = 6.4;
+  let temp = -18, svg = null;
+
+  // deterministic per-molecule wobble directions, so nothing flickers
+  const ph = [];
+  for (let r = 0; r < ROWS; r++) {
+    ph.push([]);
+    for (let i = 0; i < COLS; i++) ph[r].push([(i * 2.39 + r * 1.13) % 6.283, (i * 1.77 + r * 3.01) % 6.283]);
+  }
+
+  // one molecular layer of disorder at -10 C, rising logarithmically toward 0 C
+  function depth() {
+    return Math.max(0, Math.log(40 / Math.abs(temp)) / Math.log(4));
+  }
+
+  function render(t) {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+    const d = depth();
+    svg = Viz.createSvg(body, W, H, {
+      label: "An ice lattice in cross-section. The top rows lose their order as the temperature rises.",
+      desc: "At the coldest setting every molecule sits in its lattice position. Near the melting point the top layers are visibly disordered while the rows beneath stay perfectly ordered.",
+    });
+
+    const x0 = (W - (COLS - 1) * DX) / 2;
+    for (let r = ROWS - 1; r >= 0; r--) {
+      const dis = Math.max(0, Math.min(1, d - r));
+      for (let i = 0; i < COLS; i++) {
+        const bx = x0 + i * DX + (r % 2 ? DX / 2 : 0);
+        const by = TOP + r * DY;
+        const amp = dis * 0.62 * DX;
+        const jx = amp * Math.sin(t * 1.6 + ph[r][i][0]);
+        const jy = amp * 0.55 * Math.sin(t * 2.1 + ph[r][i][1]);
+        svg.appendChild(Viz.svgEl("circle", {
+          cx: (bx + jx).toFixed(1), cy: (by + jy - dis * 5).toFixed(1), r: R,
+          fill: dis > 0.08 ? c.series[0] : c.inkSecondary,
+          "fill-opacity": dis > 0.08 ? 0.9 : 0.55,
+        }));
+      }
+    }
+
+    const cap = Viz.svgEl("text", { x: W / 2, y: 20, "text-anchor": "middle", fill: c.muted, "font-size": 11.5 });
+    cap.textContent = "vapour above";
+    svg.appendChild(cap);
+
+    const rd = Viz.svgEl("text", { x: W / 2, y: 42, "text-anchor": "middle", fill: c.series[0], "font-size": 12.5, "font-weight": 600 });
+    rd.textContent = d < 0.08
+      ? "no quasi-liquid layer — the lattice reaches the surface"
+      : "disordered skin: about " + d.toFixed(1) + " molecular layer" +
+        (Math.abs(d - 1) < 0.05 ? "" : "s") + " deep";
+    svg.appendChild(rd);
+
+    // in-SVG legend, so the swatches follow the theme toggle
+    const lg = [
+      { c: c.series[0], t: "disordered (quasi-liquid)", x: 96 },
+      { c: c.inkSecondary, t: "ordered lattice", x: 330 },
+    ];
+    lg.forEach(function (item) {
+      svg.appendChild(Viz.svgEl("circle", { cx: item.x, cy: H - 32, r: 5.5, fill: item.c, "fill-opacity": 0.9 }));
+      const tx = Viz.svgEl("text", { x: item.x + 11, y: H - 28, fill: c.inkSecondary, "font-size": 11.5 });
+      tx.textContent = item.t;
+      svg.appendChild(tx);
+    });
+
+    const foot = Viz.svgEl("text", { x: W / 2, y: H - 8, "text-anchor": "middle", fill: c.muted, "font-size": 11.5 });
+    foot.textContent = "the rows below never lose their order — the crystal itself is not melting";
+    svg.appendChild(foot);
+  }
+
+  const anim = Viz.animate(root, render, { staticAt: 1.4, stepBy: 0.4 });
+  Viz.onThemeChange(function () { render(anim.time); });
+
+  Viz.slider(controls, {
+    label: "Temperature",
+    id: "qlltemp",
+    min: -40, max: -1, step: 1, value: temp,
+    format: function (v) { return v + " °C" + (v === -10 ? " — about one layer" : ""); },
+    onInput: function (v) { temp = v; render(anim.time); },
+  });
+})();
+
+/* ---------------------------------------------------- 4. anisotropy budget */
+(function () {
+  const root = document.getElementById("chart-anisotropy");
+  if (!root) return;
+  const body = root.querySelector(".chart__body");
+
+  const W = 580, H = 260;
+  const AXIS_Y = 196, BAND_TOP = 46, TICK_TOP = 78;
+  let svg = null;
+
+  const xs = Viz.scaleLinear([0, 25], [30, W - 26]);
+
+  function threshold(c, val, text, anchor) {
+    const g = Viz.svgEl("g", {});
+    g.appendChild(Viz.svgEl("line", {
+      x1: xs(val), x2: xs(val), y1: TICK_TOP, y2: AXIS_Y,
+      stroke: c.inkSecondary, "stroke-width": 1.3, "stroke-dasharray": "4 3",
+    }));
+    const t = Viz.svgEl("text", {
+      x: xs(val) + (anchor === "end" ? -7 : 7), y: TICK_TOP + 12,
+      "text-anchor": anchor, fill: c.inkSecondary, "font-size": 11.5, "font-weight": 600,
+    });
+    t.textContent = text;
+    g.appendChild(t);
+    return g;
+  }
+
+  function render() {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+    svg = Viz.createSvg(body, W, H, {
+      label: "How much the facet surface energy must differ from the unfaceted value to force a faceted equilibrium shape, against the upper bound quoted for ice.",
+      desc: "A fully faceted equilibrium shape needs the facet surface energy to be ten to twenty percent below the unfaceted value. For ice the difference between directions is quoted only as an upper bound of a few percent, drawn here as a region that fades out rather than a bar with a fixed end, and it sits far to the left of the band that would be required.",
+    });
+
+    svg.appendChild(Viz.svgEl("rect", {
+      x: xs(10), y: BAND_TOP, width: xs(20) - xs(10), height: AXIS_Y - BAND_TOP,
+      fill: c.ruleStrong, "fill-opacity": 0.35,
+    }));
+    const bandLab = Viz.svgEl("text", {
+      x: (xs(10) + xs(20)) / 2, y: BAND_TOP - 20, "text-anchor": "middle",
+      fill: c.inkSecondary, "font-size": 11.5, "font-weight": 600,
+    });
+    bandLab.textContent = "needed for a fully";
+    svg.appendChild(bandLab);
+    const bandLab2 = Viz.svgEl("text", {
+      x: (xs(10) + xs(20)) / 2, y: BAND_TOP - 6, "text-anchor": "middle",
+      fill: c.inkSecondary, "font-size": 11.5, "font-weight": 600,
+    });
+    bandLab2.textContent = "faceted equilibrium shape";
+    svg.appendChild(bandLab2);
+
+    svg.appendChild(threshold(c, 9, "hexagon beats its circle: 9 %", "end"));
+    svg.appendChild(threshold(c, 21, "square: 21 %", "start"));
+
+    // The source gives only a bound in words — "no more than a few percent" —
+    // so this region has no crisp right-hand end: it fades out instead.
+    const barY = 140, barH = 30, FADE_TO = 5;
+    const gid = "ch5-aniso-fade";
+    const defs = Viz.svgEl("defs", {});
+    const grad = Viz.svgEl("linearGradient", {
+      id: gid, gradientUnits: "userSpaceOnUse",
+      x1: xs(0), y1: 0, x2: xs(FADE_TO), y2: 0,
+    });
+    [
+      { offset: "0%", op: 1 }, { offset: "45%", op: 0.92 },
+      { offset: "72%", op: 0.4 }, { offset: "100%", op: 0 },
+    ].forEach(function (s) {
+      grad.appendChild(Viz.svgEl("stop", {
+        offset: s.offset, "stop-color": c.series[0], "stop-opacity": s.op,
+      }));
+    });
+    defs.appendChild(grad);
+    svg.appendChild(defs);
+
+    svg.appendChild(Viz.svgEl("rect", {
+      x: xs(0), y: barY, width: xs(FADE_TO) - xs(0), height: barH,
+      fill: "url(#" + gid + ")",
+    }));
+
+    const barLab = Viz.svgEl("text", {
+      class: "series-label", x: xs(0), y: barY - 22, fill: c.series[0], "text-anchor": "start",
+    });
+    barLab.textContent = "ice: “no more than a few percent”";
+    svg.appendChild(barLab);
+    const barLab2 = Viz.svgEl("text", {
+      x: xs(0), y: barY - 8, fill: c.inkSecondary, "font-size": 10.5, "text-anchor": "start",
+    });
+    barLab2.textContent = "— an upper bound, not a measurement";
+    svg.appendChild(barLab2);
+
+    Viz.axisBottom(svg, xs, {
+      y: AXIS_Y, values: [0, 5, 10, 15, 20, 25],
+      format: function (v) { return v + " %"; },
+      title: "how much lower the facet surface energy would have to be",
+      titleOffset: 40,
+    });
+  }
+
+  render();
+  Viz.onThemeChange(render);
+})();
+</script>
+</body>
+</html>

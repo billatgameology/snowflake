@@ -1,0 +1,1717 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why the Shape Flips — Snow Crystals</title>
+<meta name="description" content="Whichever face is harder to start growing loses. Plot both barriers against temperature, and every place the two curves cross is a place where a snow crystal changes from a plate into a column.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter 12 &middot; Why the Shape Flips</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#crossing-rule">A habit boundary is a crossing</a></li>
+      <li><a href="#counting">One crossing, three boundaries</a></li>
+      <li><a href="#narrow-facets">A facet 200 molecules wide</a></li>
+      <li><a href="#the-dips">Two dips, then two measurements</a></li>
+      <li><a href="#payoff">Count the crossings again</a></li>
+      <li><a href="#esi">The edge that sharpens itself</a></li>
+      <li><a href="#how-sure">How much of this is settled</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter 12</p>
+        <h1>Why the Shape Flips</h1>
+        <p class="chapter-header__question">
+          Whichever face is harder to start growing loses. So what happens at the temperature
+          where the two faces swap places?
+        </p>
+        <div class="chapter-header__meta">
+          <span>~17 min read</span>
+          <span>11 figures</span>
+          <span>5 animations</span>
+        </div>
+      </header>
+
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>State the crossing rule: a habit boundary happens where the basal and prism barrier
+            curves swap order.</li>
+          <li>Count the crossings a set of curves produces and compare that count with the number
+            of boundaries on the Nakaya diagram.</li>
+          <li>Explain why a model built only from broad, flat faces cannot produce three
+            boundaries, no matter how carefully it is fitted.</li>
+          <li>Describe what SDAK proposes: that a very narrow facet has a much lower effective
+            barrier than a wide one of the same crystal plane.</li>
+          <li>Locate the two measured dips &mdash; basal near &minus;4&nbsp;&deg;C, prism near
+            &minus;14&nbsp;&deg;C &mdash; and connect them to hollow columns and thin plates.</li>
+          <li>Say honestly which part of this answer is measured and which part is still a working
+            hypothesis.</li>
+        </ul>
+      </section>
+
+      <!-- ================================================================= -->
+      <h2 id="crossing-rule">A habit boundary is a crossing</h2>
+
+      <p>
+        Plate, column, plate, column. Over the forty degrees between freezing and
+        &minus;40&nbsp;&deg;C a growing snow crystal changes its mind about its own shape three
+        times, and nothing about the six-sided lattice it is built from predicts that. Chapter&nbsp;7
+        left the alternation standing as a mystery. This chapter takes it apart, using a tool the
+        last chapter handed over.
+      </p>
+
+      <p>
+        That chapter reduced a whole crystal face to a single number. The number is
+        <strong>&sigma;<sub>0</sub></strong>: roughly, how much spare water vapour the air right
+        next to the surface has to be carrying before a new molecular layer will start on that
+        face. A big &sigma;<sub>0</sub> means the face is stubborn. A small &sigma;<sub>0</sub>
+        means layers start easily and the face runs.
+      </p>
+
+      <p>
+        The link from &sigma;<sub>0</sub> to actual growth is one equation, and it is worth
+        looking at closely because everything in this chapter hangs on the shape of it.
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          &alpha;(&sigma;<sub>surf</sub>) = A&nbsp;exp(&minus;&sigma;<sub>0</sub>&thinsp;/&thinsp;&sigma;<sub>surf</sub>)
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>&alpha;</dt><dd>the attachment coefficient &mdash; the fraction of the water molecules
+              arriving at this face that actually stick. &alpha;&nbsp;=&nbsp;1 means everything sticks;
+              &alpha;&nbsp;=&nbsp;0.001 means only one in a thousand does</dd>
+            <dt>&sigma;<sub>surf</sub></dt><dd>the spare water vapour in the air immediately above
+              the face, as a percentage of what ice can hold at that temperature</dd>
+            <dt>&sigma;<sub>0</sub></dt><dd>the barrier for this face &mdash; how much spare vapour it
+              takes before new layers start readily</dd>
+            <dt>A</dt><dd>the number the exponential is multiplied by. It sets the fastest this face
+              could possibly grow, once the barrier has stopped holding it back. It is 1 on the basal
+              facet (arXiv:2009.08404v2, p.&nbsp;3, Eq.&nbsp;4). On the prism facet it drops
+              noticeably below 1 over part of the warm range &mdash; that is the lower panel of
+              Figure 4.5, in the next section &mdash; which the monograph calls &ldquo;a relatively minor
+              issue that mainly affects fast-growing prism surfaces at high temperatures&rdquo;
+              (printed p.&nbsp;148)</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">Libbrecht, Snow Crystals, Figure 4.5 caption, printed p. 144</p>
+      </div>
+
+      <p>
+        The exponential is the important part. Because &sigma;<sub>0</sub> sits inside an
+        exponential, a modest difference in barrier becomes an enormous difference in growth
+        speed. At &sigma;<sub>surf</sub>&nbsp;=&nbsp;0.5&nbsp;%, a face with
+        &sigma;<sub>0</sub>&nbsp;=&nbsp;0.35&nbsp;% has &alpha;&nbsp;&asymp;&nbsp;0.5, while a face
+        with &sigma;<sub>0</sub>&nbsp;=&nbsp;2.6&nbsp;% has &alpha;&nbsp;&asymp;&nbsp;0.005 &mdash; a
+        hundredfold gap from a barrier only seven times larger. So in practice you rarely need to
+        do the arithmetic. You only need to know <strong>which of the two barriers is
+        smaller</strong>. That face wins, and usually it wins by a landslide.
+      </p>
+
+      <p>
+        Chapter&nbsp;7 told you what winning does to the shape. If the six side faces (the
+        <em>prism</em> facets) grow much faster than the flat top and bottom (the <em>basal</em>
+        facets), the crystal spreads sideways and thins into a plate. If the basal facets grow much
+        faster, the crystal stretches along its axis into a column. Libbrecht states the
+        requirement with a double inequality, and the double matters:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;thin snow-crystal plates only form when &alpha;<sub>basal</sub>&nbsp;&#8810;&nbsp;&alpha;<sub>prism</sub>,
+          while slender columns only appear when
+          &alpha;<sub>prism</sub>&nbsp;&#8810;&nbsp;&alpha;<sub>basal</sub>. Neither
+          diffusion-limited growth nor surface-energy
+          effects produce growing snow crystals with high overall aspect ratios.&rdquo;
+          <br><span class="figure__source">Libbrecht, arXiv:2306.13087v1, p. 4</span>
+        </p>
+      </blockquote>
+
+      <p>
+        Two bits of notation in that sentence. &ldquo;&#8810;&rdquo; means <em>much</em> less than
+        &mdash; not merely smaller, but smaller by a large factor. That is the whole point: a face
+        that is slightly slower gives you a slightly squat crystal; only a face that is dramatically
+        slower gives you a wafer or a needle. And <em>aspect ratio</em> is just how many times longer
+        the crystal is one way than the other &mdash; a pencil has a high aspect ratio, a sugar cube
+        has one close to 1.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          Plot &sigma;<sub>0</sub> for the basal face and &sigma;<sub>0</sub> for the prism face
+          against temperature. Everywhere the two curves cross, the lower one becomes the upper
+          one, the faster face becomes the slower face, and the crystal switches between plate and
+          column. A habit boundary <em>is</em> a crossing &mdash; so the number of crossings is a hard
+          ceiling on how many times the shape can flip.
+        </p>
+      </aside>
+
+      <figure class="anim" id="anim-rule">
+        <div class="anim__head">
+          <p class="anim__title">Two barriers, one shape</p>
+          <p class="anim__sub">
+            Set the two barriers by hand. Watch what the crystal does when you make one of them
+            cross the other.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. The two &alpha; values are evaluated from the
+          printed equation &alpha; = A&nbsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>)
+          with A&nbsp;=&nbsp;1 (Libbrecht, Snow Crystals, printed p. 144). The crystal drawing is a
+          schematic: it encodes <em>which</em> facet is favoured and roughly how strongly, not a
+          calculated aspect ratio. The plate / blocky prism / column verdict follows the inequality
+          printed in Libbrecht, arXiv:2306.13087v1, p. 4.</span>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>
+          It is tempting to think the plate-or-column question is settled by how much water is
+          around &mdash; more spare vapour making one shape, less making the other. Extra vapour
+          makes a crystal more <em>elaborate</em>: branches, side branches, a more feathery outline.
+          What it will not do, acting through diffusion alone, is stretch a crystal strongly one way
+          or the other. That is the job of the ratio of the two attachment coefficients, which is
+          why the quoted sentence above says diffusion alone will not produce high aspect ratios at
+          all.
+        </p>
+        <p>
+          Vapour can still change the answer indirectly, by tipping a crystal into a runaway that
+          narrows one set of facets. That is what &ldquo;The edge that sharpens itself&rdquo; below is
+          about, and it is why both hollow columns and thick plates are found at
+          &minus;5&nbsp;&deg;C.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="counting">One crossing, three boundaries</h2>
+
+      <p>
+        So far this is only bookkeeping. The physics arrives when you actually put numbers on the
+        two curves and count.
+      </p>
+
+      <p>
+        The barrier curves for large, flat faces are the best-grounded part of the model, and their
+        author is plain about what they are: &ldquo;little more than parameterized fits to
+        experimental data&rdquo; (printed p.&nbsp;145). The data being fitted are precision
+        growth-rate measurements of the kind you met in Chapter&nbsp;10, and the fits are published
+        as smooth functions of temperature.
+      </p>
+
+      <p>
+        One label to decode before you read the next several captions. They all call the whole
+        package the <strong>CAK model</strong> &mdash; the <em>comprehensive attachment kinetics</em>
+        model, the author's own name for these barrier curves plus everything later bolted onto
+        them. The expansion is spelled out in the caption of Figure 4.15, printed p.&nbsp;155.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-4.5/visual.png"
+              data-figure="Figure 4.5"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 145 &middot; printed p. 144"
+              data-alt="Two graphs against temperature: the upper plots the nucleation barrier sigma-zero for large basal and prism facets, the lower plots the prefactor A for the same two facets.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> start with the upper graph, which carries the counting
+          argument. Two curves, one per facet, both climbing as the air gets colder &mdash; note that
+          the horizontal axis runs <em>colder to the right</em>, as degrees below the melting point.
+          Follow them left to right and ask a single question at every temperature: which one is
+          lower? Notice how few times the answer changes. Then glance down at the lower graph, which
+          plots A. The basal line sits flat at 1 the whole way across; the prism line sags well below
+          it over the warm part of the range and only climbs back to 1 in the cold. That sag is the
+          wrinkle flagged in the equation gloss above &mdash; it is the reason this chapter counts
+          boundaries rather than pinning their temperatures down precisely.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 4.5: The smooth curves in these graphs show
+          best-estimate CAK model functions &sigma;<sub>0</sub>(T) and A(T) on large basal and prism
+          facets as a function of temperature, where T<sub>m</sub> = 0 C is the ice melting point.
+          The respective attachment coefficients are then given by
+          &alpha;(&sigma;<sub>surf</sub>) = A&nbsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>).
+          The underlying experimental data and measurement techniques used to obtain these curves
+          are described in Chapter 7. Because these curves parameterize the large-facet attachment
+          kinetics over a broad range of growth conditions, they provide the foundation for the CAK
+          model of the snow crystal attachment kinetics.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        Two different sets of formulas for these broad-facet curves have been printed, by the same
+        author, fitted to different bodies of data. Evaluate either one across the whole range from
+        just below freezing down to &minus;40&nbsp;&deg;C and solve for where prism equals basal.
+        One set (arXiv:2306.13087v1, p.&nbsp;7) crosses once, at about
+        <strong>&minus;8.4&nbsp;&deg;C</strong>. The other (arXiv:2009.08404v2, p.&nbsp;3,
+        Eqs.&nbsp;2 and 3) crosses once, at about <strong>&minus;10.9&nbsp;&deg;C</strong>. The two
+        sets share the same basal formula &mdash; it is printed identically in both papers &mdash; and
+        differ only in the prism formula. They disagree about where the crossing is. They agree
+        completely about how many there are.
+      </p>
+
+      <figure class="anim" id="anim-sigma0-broad">
+        <div class="anim__head">
+          <p class="anim__title">The broad-facet curves, and their single crossing</p>
+          <p class="anim__sub">
+            The strip beneath the axis reads out the habit you get. Count how many times it
+            changes.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original chart. Both curves are evaluated from printed closed
+          forms &mdash; basal from Libbrecht, arXiv:2009.08404v2, p. 3, Eq. (2); prism from Libbrecht,
+          arXiv:2306.13087v1, p. 7. The crossing temperature is found by bisection on those
+          equations, not read off any plotted line. The button adds the two dips discussed later in
+          this chapter; leave it alone for now.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Now put that beside the diagram it is supposed to explain. Libbrecht lists the bands he
+        needs to account for as &ldquo;platelike forms near -2 C, needle-like crystals near -5 C,
+        especially thin plates near -14 C, and columnar forms around -40 C&rdquo;
+        (arXiv:2009.08404v2, p.&nbsp;6). That is four bands, which means
+        <strong>three boundaries</strong>.
+      </p>
+
+      <p>
+        One crossing cannot make three boundaries. This is not a matter of tuning. Refit the curves
+        to new data and the count stays at one. Humidity does not enter these curves at all; the
+        model also assumes air pressure does not, though that is an assumption rather than a
+        measurement &mdash; the monograph flags &ldquo;an implicit assumption that the attachment
+        kinetics does not depend on background gas pressure or other chemical effects&rdquo;
+        (printed p.&nbsp;145). A crossing depends only on where the two curves sit relative to each
+        other, and both of them are smooth and rise steadily as the air gets colder. Two smooth
+        rising curves like these cross once. The shortfall is structural, not numerical.
+      </p>
+
+      <p>
+        The first line of defence would be to doubt the diagram. Perhaps the three boundaries are
+        an artefact of one experimenter's apparatus. They are not.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.25/visual.png"
+              data-figure="Figure 1.25"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 33 &middot; printed p. 32"
+              data-alt="Three stacked versions of the Nakaya morphology diagram published by three different research groups, each showing the same sequence of habit bands with temperature.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> three independent groups, three sets of apparatus,
+          spanning more than thirty years. Ignore the labels on the individual regions and read only
+          the sequence of bands along the temperature axis. Plate, column, plate, column &mdash; the
+          same alternation every time. Whatever is wrong, it is not the observation.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.25: Several published versions of the Nakaya
+          diagram observed by different investigators: [1958Hal] (top), [1961Kob] (middle), and
+          [1990Yok] (bottom).&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          The barrier curves and the morphology diagram come from completely different kinds of
+          experiment. The curves come from measuring how fast a single simple prism thickens and
+          widens, micron by micron, under controlled temperature and humidity. The diagram comes
+          from growing thousands of crystals and cataloguing what they look like. Neither depends on
+          the other, which is exactly why the mismatch between them is informative rather than
+          circular.
+        </p>
+        <p>
+          They are not measured under the same conditions either. The shapes of the barrier curves
+          come largely from growing crystals in near vacuum (arXiv:2306.13087v1, p.&nbsp;6), while
+          the morphology diagram comes from crystals grown in ordinary air. Hold on to that
+          difference &mdash; in the last-but-one section it turns out to matter.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="narrow-facets">A facet 200 molecules wide</h2>
+
+      <p>
+        Here is the assumption nobody had questioned. All of the above treats a facet as a facet: a
+        flat patch of a particular crystal plane, with one barrier value that depends only on
+        temperature. But look at where the flat patches actually are on a real snow crystal.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-4.9/visual.png"
+              data-figure="Figure 4.9"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 150 &middot; printed p. 149"
+              data-alt="Diagram of a thin hexagonal plate crystal showing its large flat basal top face and the six extremely narrow prism facets around its rim.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the top face of this plate is enormous &mdash; hundreds of
+          microns across. The six side faces are the rim, and the rim is a sliver. Both are proper
+          crystal facets. They are not remotely the same size.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 4.9: The shape of a thin hexagonal platelike crystal
+          is largely defined by the growth of the basal and prism facets. While the basal facets are
+          quite large, the six prism facets have widths w &asymp; &radic;8Ra, where R is the radius
+          of curvature of the edge and a is the molecular size. In many common circumstances, the
+          attachment kinetics on these extremely narrow facets is markedly different from the
+          attachment kinetics on large faceted surfaces.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <div class="equation">
+        <p class="equation__math">w &asymp; &radic;(8Ra)</p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>w</dt><dd>the width of the last flat strip right at the rim &mdash; the actual facet
+              you are growing on</dd>
+            <dt>R</dt><dd>how sharply the edge is curved, measured as the radius of the circle that
+              fits the curve</dd>
+            <dt>a</dt><dd>the size of a water molecule, about 0.3&nbsp;nanometres &mdash; not
+              Chapter&nbsp;7's <em>a</em>, which was the width of the whole crystal</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">Libbrecht, Snow Crystals, Figure 4.9 caption, printed p. 149</p>
+      </div>
+
+      <p>
+        Put real numbers in. Measurements and theory together give edge and tip radii
+        &ldquo;often in the 1-2 &micro;m range for a broad range of snow crystal morphologies
+        growing in normal air&rdquo; (printed p.&nbsp;148). Feed that in and the last terrace comes
+        out at &ldquo;as low as about 50 nanometers on many snow crystal structures, which is less
+        than 200 molecules across&rdquo; (printed p.&nbsp;148). Two hundred molecules. That is the
+        surface on which a plate's entire sideways growth is decided.
+      </p>
+
+      <p>
+        And now the contradiction becomes sharp. Thin plates near &minus;15&nbsp;&deg;C are one of
+        the most common natural forms; their existence demands
+        &alpha;<sub>prism</sub>&nbsp;&#8811;&nbsp;&alpha;<sub>basal</sub>. But the broad-facet curves
+        in Figure 4.5 &ldquo;clearly indicate that &alpha;<sub>prism</sub> &asymp;
+        &alpha;<sub>basal</sub> at -15 C, thereby precluding the formation of thin plates&rdquo;
+        (printed p.&nbsp;148). The monograph puts the choice
+        plainly: &ldquo;Either something is very wrong with the large-facet measurements, or small
+        facets have a different story to tell&rdquo; (printed p.&nbsp;149).
+      </p>
+
+      <p>
+        The proposal is the second option, and it has a name:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;Delving into this discrepancy over some years, I reached the conclusion that the
+          facet attachment kinetics must depend strongly on the local mesoscopic crystal structure,
+          specifically the facet width w, a phenomenon I call Structure-Dependent Attachment
+          Kinetics (SDAK).&rdquo;
+          <br><span class="figure__source">Libbrecht, Snow Crystals, printed p. 149</span>
+        </p>
+      </blockquote>
+
+      <p>
+        <em>Mesoscopic</em> is the in-between scale: far bigger than one molecule, far smaller than
+        the whole crystal. The claim is that at that scale, size itself changes the rules.
+      </p>
+
+      <p>
+        Recall the vocabulary from the last chapter &mdash; a <strong>terrace</strong> is one flat
+        molecular tread, <strong>admolecules</strong> are the molecules skating about on it, and
+        <strong>terrace nucleation</strong> is the birth of a new layer, the difficulty of which
+        &sigma;<sub>0</sub> measures. The captions from here on lean on all three. The sliver of
+        width w in Figure 4.9 is one such terrace &mdash; the topmost one, fewer than 200 molecules
+        across.
+      </p>
+
+      <p>
+        A wide face and a 50-nanometre sliver of the <em>same crystal plane</em>, at the
+        <em>same temperature</em>, do not grow at the same rate. Why would they? The suggested
+        mechanism runs in three steps, drawn in the first three panels below, and the figure is
+        worth reading panel by panel.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-4.10/visual.png"
+              data-figure="Figure 4.10"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 151 &middot; printed p. 150"
+              data-alt="Four-panel cross-section of the edge of a plate crystal: a rounded near-equilibrium edge; the same edge held sharper by a raised supersaturation; arrows showing molecules diffusing from the sharpened corners onto the narrow prism facet; and a fourth panel in which the whole edge is sheathed in a thick quasi-liquid layer labelled QLL.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> in the first panel the edge is rounded, because rounding
+          costs the least surface energy. In the second, a raised supersaturation holds it in a
+          sharpened shape it would not choose on its own. In the third, the arrows are the point:
+          molecules sliding off those over-sharp corners onto the flat strip <em>lower</em> the total
+          surface energy, so there is a genuine push driving them there. The strip becomes crowded,
+          and a crowded strip starts new layers easily. That is the whole mechanism.
+          <br><br>
+          The fourth panel is a different matter. It jumps ahead to temperatures well above the one
+          where this switches on, and shows the edge sheathed in a thick disordered film &mdash;
+          the &ldquo;QLL&rdquo; in the labelling. There the surface has gone so soft that the
+          crowding picture stops applying: the monograph says the &ldquo;concept of an admolecule
+          surface density begins to lose its meaning at the ice/QLL interface&rdquo; and that
+          terrace nucleation on small facets is then &ldquo;little changed from the large-facet
+          model&rdquo; (printed p.&nbsp;152). Hold that thought. It is what closes off the warm side
+          of the dip in the next section.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 4.10: A possible physical model of an SDAK phenomenon
+          on the thin prism edge of a platelike snow crystal [2019Lib1]. As described in detail in
+          the text, a surface-energy-driven surface diffusion can increase the admolecule density on
+          the narrow prism facet, enhancing the normal rate of terrace nucleation. As a result, the
+          attachment kinetics on the narrow prism facet is different from that on a large prism
+          facet, which is the essence of the SDAK phenomenon.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        The subtle part is what has and has not changed. The ice itself is unaltered; the energy
+        cost of a step edge on that crystal plane is exactly what it was. What changed is the local
+        crowd. &ldquo;With a greater admolecule surface density, terrace nucleation is statistically
+        more likely, and this results in a lowering of the effective nucleation barrier&rdquo;
+        (printed p.&nbsp;150). The measured quantity behaves as though &sigma;<sub>0</sub> fell,
+        because layers do start more readily &mdash; and, crucially, &ldquo;This phenomenon cannot
+        occur on large facets, because large facets, by definition, are not influenced by edge
+        effects&rdquo; (printed p.&nbsp;151).
+      </p>
+
+      <p>
+        Two more things follow, and they are what make the idea useful rather than merely
+        plausible. First, narrower is stronger: &ldquo;The narrower the facet surface, the higher
+        the resulting admolecule density&rdquo; (printed p.&nbsp;151). Second, it has an on-switch.
+        Molecules can only reach the strip if they can walk <em>down</em> over a step, and on a
+        rigid lattice they mostly cannot &mdash; at the lip of a step a molecule is briefly almost
+        detached from the surface, which costs energy. That is the Ehrlich&ndash;Schwoebel barrier,
+        a standard effect in crystal growth.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-4.11/visual.png"
+              data-figure="Figure 4.11"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 152 &middot; printed p. 151"
+              data-alt="Two stacked sketches: above, a side view of two crystal terraces meeting at a step, with molecules shown sliding freely along each tread; below, the matching energy landscape, a gentle ripple labelled diffusion barrier along each terrace interrupted by a tall spike labelled Ehrlich-Schwoebel barrier at the step site.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the lower sketch is the whole argument. Running along a
+          terrace, a molecule only has to climb the little ripples &mdash; that is the ordinary
+          diffusion barrier, easy to hop. At the step itself there is a tall spike. To get over the
+          lip and down onto the next tread, the molecule has to spend a moment barely touching the
+          crystal at all, and that costs a lot of energy. So on a rigid, cold surface the traffic in
+          the upper sketch simply does not cross the step. Warm the surface until the top layers go
+          disordered and the spike softens, and the traffic gets through.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 4.11: On a rigid lattice, admolecule diffusion over
+          abrupt terrace steps is suppressed by the Ehrlich- Schwoebel barrier. An admolecule
+          crossing over the step edge will (temporarily) be in a position nearly removed from the
+          surface, which is energetically quite unfavorable. This creates a potential barrier that
+          impedes such crossings. The step structure will become less rigid in the presence of
+          surface premelting, however, which should substantially reduce the Ehrlich-Schwoebel
+          barrier. Image from [2002He].&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        So the mechanism has a temperature switch built into it. As the surface premelts and the top
+        layers go disordered, the lip stops being sharp: &ldquo;When the temperature reaches some critical
+        value T<sub>onset</sub>, when the surface disorder is sufficiently large, it stands to
+        reason that the Ehrlich-Schwoebel barrier will become quite leaky&rdquo; (printed
+        p.&nbsp;151). Below that temperature, narrow facets behave like wide ones. Above it, they
+        do not. That is where the temperature dependence comes from.
+      </p>
+
+      <figure class="anim" id="anim-crowding">
+        <div class="anim__head">
+          <p class="anim__title">Wide prism face, narrow prism edge</p>
+          <p class="anim__sub">
+            Both strips are prism facets, drawn to the same scale and fed the same molecules from
+            their corners. Shrink the lower one and watch how often a layer starts.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. Both lanes are prism facets, as in Figure 4.10,
+          which is about the thin prism edge of a platelike crystal (printed p. 150); the dots are
+          admolecules and are drawn in neutral ink, not in a facet colour. The geometry and the width
+          scale come from
+          w&nbsp;&asymp;&nbsp;&radic;(8Ra) with edge radii of 1&ndash;2&nbsp;&micro;m, giving last
+          terraces down to about 50&nbsp;nm (Libbrecht, Snow Crystals, printed pp. 148&ndash;149).
+          The behaviour it encodes is the printed statement that the same corner supply spread over
+          a narrower strip gives a higher admolecule density, and that a denser strip nucleates more
+          readily (printed pp. 150&ndash;151). The layer rate shown is proportional to how many
+          places on the strip currently hold three molecules together &mdash; a cartoon of terrace
+          nucleation, not a calculated growth rate.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        It is worth saying how long this took. Basil Mason and colleagues attacked the problem from
+        the late 1950s by measuring how far a loose surface molecule wanders before it attaches, and
+        got roughly the right temperature trends &mdash; but, as Libbrecht puts it, &ldquo;The Mason
+        et al. model enjoyed some early popularity, but it has generally not withstood the test of
+        time for several reasons&rdquo; (printed p.&nbsp;158), the technique being prone to
+        systematic errors and the modern consensus being that layer-starting, not surface wandering,
+        is what limits facet growth. Toshio Kuroda and R. Lacmann tried again in the 1980s, and
+        built their model on the same premelting you have just met &mdash; the top layers going
+        disordered as the ice warms &mdash; behaving differently on the two facets. That idea is the
+        one that survived: &ldquo;My selective positioning of the SDAK dips, postulated from
+        facet-dependent premelting, was an idea adopted from the KL model&rdquo; (printed
+        p.&nbsp;158). Standing back from sixty years of this, the monograph's own verdict is blunt
+        &mdash; it is worth &ldquo;examin[ing] just how difficult it has been to understand the
+        enigmatic Nakaya diagram, even at a basic qualitative level&rdquo; (printed p.&nbsp;157).
+      </p>
+
+      <!-- ================================================================= -->
+      <h2 id="the-dips">Two dips, then two measurements</h2>
+
+      <p>
+        Turn the mechanism into a prediction. If narrow facets start layers more easily, then the
+        barrier curve for a <em>narrow</em> facet should sit below the broad-facet curve &mdash; but
+        only over the band of temperatures where the Ehrlich&ndash;Schwoebel barrier is leaky and
+        the surface has not yet gone so disordered that the whole picture changes. Not a shift.
+        A <strong>dip</strong>.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-4.12/visual.png"
+              data-figure="Figure 4.12"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 153 &middot; printed p. 152"
+              data-alt="Two stacked plots of the nucleation barrier against temperature: solid lines for large basal and prism facets, with dotted narrow-facet curves dipping below them near five and fifteen degrees below freezing.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the solid lines are the well-grounded broad-facet curves
+          from Figure 4.5. The dotted lines are the narrow-facet proposal, and the dotting is
+          deliberate &mdash; it is the author's own flag that these portions are uncertain. Note where
+          each dip sits: basal near &minus;5&nbsp;&deg;C, prism near &minus;15&nbsp;&deg;C.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 4.12: The solid lines in these two graphs are
+          reproduced from Figure 4.5, again illustrating the CAK terrace-nucleation model for the
+          attachment kinetics on large basal and prism facets. The dotted lines show the
+          &lsquo;SDAK dips&rsquo; described in the text. Near -5 C, the narrow basal facets on hollow
+          columns exhibit a much reduced effective &sigma;<sub>0,basal</sub>, explaining the rapid
+          growth of these features. Near -15 C, narrow prism facets exhibit a similarly low effective
+          &sigma;<sub>0,prism</sub>, explaining the growth of thin plates at that
+          temperature.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        At this point a fair reader should be suspicious. The dip positions were chosen to make the
+        answer come out right: the monograph says so, in as many words &mdash; &ldquo;Here I have
+        chosen different values of T<sub>onset</sub> for the basal and prism facets to impose
+        agreement with the known ice-growth behaviors from the Nakaya diagram and other growth
+        measurements&rdquo; (printed p.&nbsp;152). Choosing two parameters to fit three boundaries
+        is not, by itself, an explanation. It is a placeholder for one.
+      </p>
+
+      <p>
+        What rescues it is that the placeholder was then checked. Both dips have since been measured
+        directly, by extracting the narrow-facet barrier from growth observations at a series of
+        temperatures.
+      </p>
+
+      <p>
+        One bookkeeping note before you read the two graphs, because the numbers shift by a degree.
+        The postulated dips were placed near &minus;5&nbsp;&deg;C and &minus;15&nbsp;&deg;C. The
+        measured centres came in a degree warmer, near &minus;4&nbsp;&deg;C and
+        &minus;14&nbsp;&deg;C. Same two features. From here on, the round numbers &minus;5 and
+        &minus;15 are simply the model's labels for them.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-4.27/visual.png"
+              data-figure="Figure 4.27"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 173 &middot; printed p. 172"
+              data-alt="Plot of the measured basal narrow-facet nucleation parameter against temperature, with data points and error bars dropping far below the solid broad-facet basal line and bottoming out near four degrees below freezing.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> these are data points with error bars, not a drawn curve.
+          Follow them from left to right and watch them plunge away from the solid line and come
+          back. The bottom of the plunge sits near &minus;4&nbsp;&deg;C &mdash; and near
+          &minus;4&nbsp;&deg;C is where hollow columns come from.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 4.27: Measurements of the basal SDAK parameter
+          &sigma;<sub>0,basal,SDAK</sub> as a function of temperature, revealing a substantial
+          &lsquo;SDAK dip&rsquo; centered near -4 C [2020Lib2]. For comparison, the solid lines show
+          the CAK model parameters &sigma;<sub>0,basal</sub> and &sigma;<sub>0,prism</sub> for
+          broad-facet growth.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-4.26/visual.png"
+              data-figure="Figure 4.26"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 173 &middot; printed p. 172"
+              data-alt="Plot of the measured prism narrow-facet nucleation parameter against temperature, with data points and error bars forming a deep dip below the solid broad-facet prism line, bottoming out near fourteen degrees below freezing.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the same experiment on the other facet, and the dip is
+          somewhere else &mdash; near &minus;14&nbsp;&deg;C, which is exactly where thin plates and
+          big stellar crystals live. Two facets, two dips, two different temperatures. That is the
+          whole answer in two graphs.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 4.26: Measured values of
+          &sigma;<sub>0,prism,SDAK</sub>(T) as a function of temperature (data points), revealing a
+          substantial &lsquo;SDAK dip&rsquo; centered near -14 C [2020Lib1]. For comparison, the
+          solid lines show the CAK model parameters &sigma;<sub>0,basal</sub> and
+          &sigma;<sub>0,prism</sub> for broad-facet growth.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The two dips, as reported. Centre temperatures are quoted from the captions of
+            Figures 4.26 and 4.27 (Libbrecht, Snow Crystals, printed p. 172); the shapes they are
+            credited with come from the caption of Figure 4.12 (printed p. 152).
+          </caption>
+          <thead>
+            <tr><th>Which facet dips</th><th class="num">Centre</th><th>What it makes</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Basal &mdash; the flat top and bottom</td>
+              <td class="num">near &minus;4&nbsp;&deg;C</td>
+              <td>narrow basal rims grow explosively, giving hollow columns and needles</td>
+            </tr>
+            <tr>
+              <td>Prism &mdash; the six side faces</td>
+              <td class="num">near &minus;14&nbsp;&deg;C</td>
+              <td>narrow rims run outward, giving thin plates and stellar crystals</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          These two data sets are narrower in scope than they look. The prism dip was measured at a
+          single supersaturation, so nothing in that data set says how the dip depends on the supply
+          of spare vapour. Near
+          the bottom of the dip the simple functional form stops working: &ldquo;The measurements
+          near the peak at -14 C do not fit the simple exponential functional form, but the fit is
+          reasonable on either side of the peak&rdquo; (arXiv:2009.08404v2, p.&nbsp;15). And the
+          dotted lines drawn through both sets of points are eye guides, not fits: the two papers
+          that report these measurements print no equation for either dip.
+        </p>
+        <p>
+          Formulas for the dips do exist, in a later paper, and the chart in the next section uses
+          them. But their shape was chosen by hand rather than fitted to these points, which is why
+          their own author calls the functional forms &ldquo;completely ad hoc&rdquo;
+          (arXiv:2306.13087v1, p.&nbsp;6). The dips are real. Their exact shape is not pinned down.
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="payoff">Count the crossings again</h2>
+
+      <p>
+        Now put the dips onto the curves and repeat the exercise that failed before. The chart
+        below starts with them in place; the button takes them away again.
+      </p>
+
+      <figure class="anim" id="anim-sigma0-dips">
+        <div class="anim__head">
+          <p class="anim__title">The same two curves, with the dips</p>
+          <p class="anim__sub">
+            The dashed verticals mark every crossing. The strip underneath reads out plate or
+            column. Toggle the dips off and on and watch the strip collapse and reappear.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original chart. Broad-facet curves from Libbrecht,
+          arXiv:2009.08404v2, p. 3, Eq. (2) and arXiv:2306.13087v1, p. 7; the two dip factors from
+          arXiv:2306.13087v1, p. 6. Crossings located by bisection on those printed equations. The
+          author describes the dip factors' functional forms as &ldquo;completely ad hoc&rdquo;
+          while the underlying barrier values derive from measurement (arXiv:2306.13087v1,
+          p. 6).</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Evaluate those curves and the crossings multiply. Read the habit off them and you get: plate at
+        &minus;2&nbsp;&deg;C, column at &minus;5&nbsp;&deg;C, plate at &minus;15&nbsp;&deg;C, column
+        at &minus;30&nbsp;&deg;C. All four Nakaya bands, in the right order, at roughly the right
+        temperatures, from two curves and two dips.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            Crossings found by solving the printed closed forms for the temperature at which the two
+            barrier curves are equal. Every row shares the same basal curve (arXiv:2009.08404v2,
+            p. 3, Eq. 2) and differs only in the prism curve and in whether the dips are applied.
+          </caption>
+          <thead>
+            <tr><th>Curves used</th><th class="num">Crossings</th><th>At</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Broad facets only &mdash; prism from arXiv:2306.13087v1, p. 7</td>
+              <td class="num">1</td>
+              <td>&minus;8.4&nbsp;&deg;C</td>
+            </tr>
+            <tr>
+              <td>Broad facets only &mdash; prism from arXiv:2009.08404v2, p. 3, Eq. 3</td>
+              <td class="num">1</td>
+              <td>&minus;10.9&nbsp;&deg;C</td>
+            </tr>
+            <tr>
+              <td>The first row again, with both SDAK dips applied
+                (arXiv:2306.13087v1, p. 6)</td>
+              <td class="num">5</td>
+              <td>&minus;3.7, &minus;6.3, &minus;8.5, &minus;9.9, &minus;18.6&nbsp;&deg;C</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Five is more than three, and that is worth saying out loud rather than hiding. Three of the
+        five crossings are the diagram's boundaries. The other two, at about &minus;6.3 and
+        &minus;8.5&nbsp;&deg;C, carve a thin sliver out of the middle of the column band &mdash; and
+        they are not meaningful. Across that whole stretch the two curves sit within a few per cent
+        of one another, so which of them is technically underneath flips on almost nothing. The
+        lesson is the one the counting argument gave in the first place: crossings are a ceiling,
+        not a promise. Fewer than three and the pattern is impossible. Five means the physics has
+        the freedom it needs &mdash; not that every wiggle in the curves corresponds to something a
+        snow crystal does.
+      </p>
+
+      <p>
+        Now set those three beside the numbers Chapter&nbsp;7 actually printed. Its table of band
+        boundaries, measured off a published figure with &plusmn;0.5&nbsp;&deg;C read uncertainty,
+        gave &minus;3.3, &minus;9.9 and &minus;21.5&nbsp;&deg;C. The three meaningful crossings here
+        are &minus;3.7, &minus;9.9 and &minus;18.6&nbsp;&deg;C. The warm one agrees to within that
+        read uncertainty. The middle one is an exact hit &mdash; the same number to the tenth of a
+        degree, reached once by cataloguing thousands of photographed crystals and once by solving
+        two barrier curves for where they cross. Be precise about what that does and does not show:
+        the dip onsets were chosen to put the dips near &minus;5 and &minus;15&nbsp;&deg;C, so the
+        <em>bands</em> were fitted. Where the boundary between two fitted bands then falls was not
+        fitted, and it falls on Chapter&nbsp;7's middle boundary.
+      </p>
+
+      <p>
+        The cold one does not match, and Chapter&nbsp;7 warned you in advance that it would not.
+        That chapter printed &minus;21.5&nbsp;&deg;C and then said in the same breath that the
+        coldest boundary is barely pinned at all: the research literature sets the sequence out as
+        &ldquo;platelike again from -11 C to -18 C, and columnar again below -30 C&rdquo;
+        (arXiv:2012.12916v1, p.&nbsp;1), leaving the twelve degrees in between simply unassigned.
+        Our &minus;18.6&nbsp;&deg;C crossing sits inside that gap. The disagreement is genuine, and
+        it is exactly where Chapter&nbsp;7 showed the ground was softest &mdash; which is the least
+        damaging place for a model and a measurement to part company.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-4.13/visual.png"
+              data-figure="Figure 4.13"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 154 &middot; printed p. 153"
+              data-alt="A single plot of the narrow-facet nucleation barriers for basal and prism facets against temperature, annotated with small crystal drawings and the words plates, columns and thin plates in the bands where each facet has the lower barrier.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the author's own version of the chart you have just been
+          driving. The small crystal drawings are placed in the bands where each curve is lower. If
+          you remember one image from this chapter, make it this one: the alternation you met as a
+          mystery in Chapter 7 is here reduced to two lines taking turns being underneath.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 4.13: Plotting the SDAK curves from Figure 4.12
+          together, we can compare the basal and prism nucleation barriers as a function of
+          temperature. A lower nucleation barrier (i.e., a lower &sigma;<sub>0</sub>) means faster
+          attachment kinetics on the corresponding facet surface. This demonstrates that the CAK
+          model exhibits the same transitions between platelike and columnar growth that are seen in
+          the Nakaya diagram (Chapter 1). Beyond this qualitative agreement with morphologies,
+          however, the CAK model also provides good quantitative agreement with many precision
+          ice-growth measurements [2019Lib2, 2020Lib].&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          &ldquo;the various transitions between platelike and columnar growth are caused largely by
+          changes in the effective nucleation barriers on narrow basal and prism facets. If correct,
+          the SDAK phenomenon thus plays a crucial role in defining the long-mysterious temperature
+          transitions observed in snow crystal morphology.&rdquo; (printed p.&nbsp;153)
+        </p>
+      </aside>
+
+      <!-- ================================================================= -->
+      <h2 id="esi">The edge that sharpens itself</h2>
+
+      <p>
+        There is one more consequence, and it is the reason snow crystals are extreme rather than
+        merely lopsided.
+      </p>
+
+      <p>
+        A facet that grows faster piles its terrace steps closer together, which makes the top
+        terrace narrower. A narrower top terrace has a lower effective barrier &mdash; that is the
+        whole SDAK claim. A lower barrier means faster growth. Faster growth narrows the terrace
+        further. That is a loop.
+      </p>
+
+      <p>
+        One symbol you met in Chapter&nbsp;6 and have not needed since.
+        <strong>&sigma;<sub>surf</sub></strong>, the one you have been using all chapter, is the
+        spare water vapour right at the crystal's surface.
+        <strong>&sigma;<sub>&infin;</sub></strong> is the spare water vapour far away, out in the
+        surrounding cloud &mdash; the supply the crystal is drawing on. The real word for both is
+        <strong>supersaturation</strong>, always measured relative to ice.
+      </p>
+
+      <p>
+        With that, here is the loop in one printed sentence: &ldquo;The result is a
+        growth instability brought about by a positive feedback effect &ndash; the prism edge
+        sharpens, &sigma;<sub>0</sub> decreases, the edge sharpens more, &sigma;<sub>0</sub>
+        decreases more, etc. Above some threshold value of &sigma;<sub>&infin;</sub>, the process
+        runs away and a thin plate forms atop the initial blocky crystal&rdquo; (printed
+        p.&nbsp;155). It is called the Edge-Sharpening Instability.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-4.15/visual.png"
+              data-figure="Figure 4.15"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 156 &middot; printed p. 155"
+              data-alt="A sketch in three stages: a blocky crystal sitting on a substrate with one corner circled, a magnified lattice view of that corner labelled growing slowly, and then a forked arrow leading to two outcomes drawn as stepped lattice blocks, one labelled minus 5 C hollow column and one labelled minus 15 C plate on pedestal.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the author's own sketch of the loop you have just read.
+          Start at the circled corner on the left, zoom into it in the middle panel, and notice that
+          the drawing is made of little square blocks &mdash; those are the terraces, seen end-on.
+          Follow the fork on the right. Same mechanism, two outcomes, depending on which facet the
+          runaway happens to be on: sharpen the basal rim near &minus;5&nbsp;&deg;C and the crystal
+          becomes a hollow column; sharpen the prism rim near &minus;15&nbsp;&deg;C and it grows a
+          thin plate on top of the blocky crystal it started as.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 4.15: The Edge-Sharpening Instability (ESI). This
+          sketch illustrates how the SDAK phenomenon can bring about an edge-sharpening growth
+          instability on either the basal or prism facets. As described in detail in the text, as the
+          uppermost terrace becomes narrower, the attachment coefficient on that terrace can increase
+          via the SDAK mechanism, thus increasing the growth and further narrowing the upper terrace.
+          This brings about a positive feedback effect, and thus a growth instability, that promotes
+          the formation of sharp edges, either as hollow columns (upper right sketch) or thin plates
+          (lower right sketch). In the comprehensive attachment kinetics (CAK) model presented in
+          this chapter, the ESI mechanism in air is largely responsible for the formation of thin
+          plates at -15 C and hollow columns at -5 C.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        Runaways need a stopping condition, and this one has a well-defined one: &ldquo;Once the
+        instability kicks in, it often does not stop until the edge thickness reduces to a width of
+        1-2 microns&rdquo; (printed p.&nbsp;156). One to two microns. That is the same tip radius
+        you met in Chapter 6, arrived at from a completely different direction, and it is
+        why that scale keeps turning up across thin plates, thin-walled hollow columns and
+        fast-growing dendrites alike.
+      </p>
+
+      <figure class="anim" id="anim-esi">
+        <div class="anim__head">
+          <p class="anim__title">The loop that will not stop</p>
+          <p class="anim__sub">
+            Raise the spare vapour in the surrounding cloud (&sigma;<sub>&infin;</sub>) past the
+            threshold and the feedback takes over. Watch where the edge thickness settles.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. The four-step loop is transcribed from the
+          printed description of the Edge-Sharpening Instability (Libbrecht, Snow Crystals, printed
+          p. 155), and the two outcomes &mdash; hollow columns near &minus;5&nbsp;&deg;C, thin plates
+          near &minus;15&nbsp;&deg;C &mdash; are the two branches of Figure 4.15 above (printed
+          p. 155). The only quantity in this drawing taken from the source is where it stops: the
+          printed 1&ndash;2&nbsp;&micro;m edge thickness (printed p. 156). That a threshold in
+          &sigma;<sub>&infin;</sub> exists at all is printed (p. 155); its numerical value here, and
+          the starting thickness, are drawn for illustration only. The trajectory of the readout is
+          schematic: only its endpoint carries meaning.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Notice what a runaway buys you that a gradual trend does not. Snow crystals fall through
+        clouds whose temperature changes smoothly, so you would expect their shapes to change
+        smoothly too. They often do not.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-4.16/visual.png"
+              data-figure="Figure 4.16"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 157 &middot; printed p. 156"
+              data-alt="Two photographs: on the left a capped column, a short column with a thin flat plate on each end; on the right hollow columns with strikingly thin sheath-like walls.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> on the left, a capped column &mdash; a stubby column that
+          suddenly sprouted a wafer-thin plate at each end. There is no gentle transition; the crystal
+          changes its mind. On the right, hollow columns whose walls have been drawn out into
+          sheaths. Both of these are shapes, not measurements, and both are evidence: a smooth cause
+          producing a sudden effect is what an instability looks like from the outside.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 4.16: The Edge-Sharpening Instability (ESI) can
+          explain many distinctive morphological features in natural snow crystals. For example, the
+          oft-abrupt transition from columnar to platelike growth seen in many capped columns (left)
+          suggests the ESI operating on the prism surfaces near -15 C. Similarly, the remarkably
+          thin, sheath-like edges on many hollow columns (right) can arise when the ESI operates on
+          basal surfaces near -5 C. It is difficult to explain these commonly observed snow-crystal
+          features without invoking the ESI mechanism.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        This is not the same thing as the branching instability from Chapter 6. That one &mdash;
+        Mullins&ndash;Sekerka &mdash; is pure diffusion, and it makes branches. It does not make
+        <em>thin</em> anything: &ldquo;diffusion-limited growth and the MSI alone will not produce
+        morphologies with extreme aspect ratios, like thin plates&rdquo; (printed p.&nbsp;155). Edge
+        sharpening is what you get when you add SDAK on top of diffusion, and it is what makes the
+        difference between a chunky branched crystal and the paper-thin stellar plates people
+        photograph. The author's own assessment of its importance is not modest:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;I believe that this growth instability is largely responsible for the remarkably
+          robust appearance of thin plates near -15 C and the similarly robust formation of hollow
+          columns near -5 C. If this addition to the CAK model is correct, then the ESI is one of the
+          most important physical processes shaping the growth of atmospheric snow crystals.&rdquo;
+          <br><span class="figure__source">Libbrecht, Snow Crystals, printed p. 154</span>
+        </p>
+      </blockquote>
+
+      <!-- ================================================================= -->
+      <h2 id="how-sure">How much of this is settled</h2>
+
+      <p>
+        Every load-bearing claim in this chapter comes with a different level of confidence, and it
+        is worth separating them.
+      </p>
+
+      <p>
+        <strong>Well established.</strong> The broad-facet barrier curves are measurements. The
+        Nakaya diagram's three boundaries are measurements, reproduced by independent groups. The
+        arithmetic that says one crossing cannot make three boundaries is arithmetic. The two SDAK
+        dips are measurements, with error bars, published as data points.
+      </p>
+
+      <p>
+        <strong>A working hypothesis.</strong> Everything explaining <em>why</em> the dips exist. The
+        corner-to-facet molecular flow, the leaky step barrier, the onset temperature &mdash; all of
+        it is a physical story constructed to account for the data, not derived from first
+        principles. Its author is explicit about that, and about where its authority comes from
+        instead:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;Of course, the critical reader may balk at the speculative nature of this model,
+          along with its complexity and ill-defined curves. Fair enough. What the reader may not
+          immediately see, however, is that the model is largely driven by empirical data from a
+          variety of ice-growth measurements. The large-facet curves are well grounded in
+          experiments, and the SDAK dips, or something similarly complex, are required to explain a
+          substantial body of additional data.&rdquo;
+          <br><span class="figure__source">Libbrecht, Snow Crystals, printed p. 153</span>
+        </p>
+      </blockquote>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          The whole picture rests on the two facets premelting <em>differently</em> from each other.
+          Libbrecht calls this &ldquo;the only reasonable way to explain the observed transitions
+          between platelike and columnar growth as a function of temperature&rdquo; &mdash; and then
+          immediately concedes that computer simulations tracking individual molecules do not see
+          the difference: &ldquo;MD simulations generally see similar premelting behaviors on the two
+          facets, but the calculations may not be accurate enough to see small facet-dependent
+          effects&rdquo; (printed p.&nbsp;159). The load-bearing assumption is not
+          confirmed by the best available molecular calculations. It is not refuted by them either;
+          they may simply not be sharp enough to see it. He adds that &ldquo;no one has suggested a
+          viable alternative that would yield a physically sensible, yet sufficiently complex, model
+          of the attachment kinetics&rdquo; &mdash; which is a reason to keep the idea, not a reason
+          to believe it.
+        </p>
+      </aside>
+
+      <p>
+        The most recent statement of its status is the plainest. SDAK is &ldquo;a working
+        hypothesis&rdquo;, and it survives because it is the only candidate standing: &ldquo;the
+        SDAK phenomenon provides the only viable option currently available that can adequately
+        explain the Nakaya diagram together with a plethora of other ice-growth data&rdquo;
+        (arXiv:2306.13087v1, p.&nbsp;5). The formulas used to draw the dips are described by their
+        own author as &ldquo;completely ad hoc&rdquo; in shape, even though the barrier values
+        underneath them come from experiment (p.&nbsp;6). And the goal is stated without any
+        pretence of finality: &ldquo;My objective with the CAK model presented in this chapter is not
+        to declare a full solution to the attachment kinetics problem, but rather to move the ball
+        forward while stimulating additional progress in this area&rdquo; (printed p.&nbsp;159).
+      </p>
+
+      <p class="handoff">
+        That is the best answer anyone currently has to the question Nakaya's diagram posed in the
+        1930s &mdash; and its own author files it as a working hypothesis rather than a result. Three
+        specific things would move it off that shelf: showing that the two facets really do premelt
+        differently from each other; finding what sets the shape of the dips, instead of drawing
+        them by hand; and computing attachment kinetics from first principles instead of fitting
+        them to growth data. Chapter 13 picks up each of those and asks how far anyone has got.
+      </p>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./11-the-stickiness-of-ice.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">The Stickiness of Ice</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./13-the-frontier.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">The Frontier</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
+      from a local research cache under citation; they are not redistributed with this repository.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script src="../assets/anim-sigma0.js"></script>
+<script>
+/* ===========================================================================
+   1. The two flagship crossing charts.
+      Mounted twice: once without the dips (posing the counting problem) and
+      once with them (the resolution). Every curve inside anim-sigma0.js is
+      evaluated from a printed closed form.
+   ======================================================================== */
+(function () {
+  const broad = document.getElementById("anim-sigma0-broad");
+  if (broad && window.Sigma0) Sigma0.mount(broad, { withDips: false });
+
+  const dipped = document.getElementById("anim-sigma0-dips");
+  if (dipped && window.Sigma0) Sigma0.mount(dipped, { withDips: true });
+})();
+
+/* ===========================================================================
+   2. "Two barriers, one shape"
+      alpha = A exp(-sigma0 / sigma_surf) with A = 1, evaluated live from the
+      two slider values. The crystal beside it is a SCHEMATIC of which facet
+      is favoured — never a calculated aspect ratio.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("anim-rule");
+  if (!root) return;
+  const head = root.querySelector(".anim__head");
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const W = 660, H = 340;
+  let s0Basal = 2.60, s0Prism = 0.35, sSurf = 0.50;
+  let svg = null, sliderB = null, sliderP = null;
+
+  const alphaOf = (s0) => Math.exp(-s0 / sSurf);
+  const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+
+  function fmtAlpha(a) {
+    if (a >= 0.1) return a.toFixed(2);
+    if (a >= 0.001) return a.toFixed(4);
+    return a.toExponential(1);
+  }
+
+  function text(parent, x, y, str, opts) {
+    const o = opts || {};
+    const t = Viz.svgEl("text", {
+      x: x, y: y,
+      "text-anchor": o.anchor || "middle",
+      fill: o.fill,
+      "font-size": o.size || 12,
+      "font-weight": o.weight || 500,
+      "font-family": "var(--font-sans)",
+    });
+    t.textContent = str;
+    parent.appendChild(t);
+    return t;
+  }
+
+  /* legend lives in the head and is repainted on theme change */
+  const legendBox = document.createElement("div");
+  legendBox.className = "legend";
+  head.appendChild(legendBox);
+
+  function paintLegend() {
+    const c = Viz.colors();
+    legendBox.textContent = "";
+    [
+      { color: c.series[0], label: "Basal — the flat top and bottom" },
+      { color: c.series[1], label: "Prism — the six side faces" },
+    ].forEach(function (item) {
+      const wrap = document.createElement("span");
+      wrap.className = "legend__item";
+      const sw = document.createElement("span");
+      sw.className = "legend__swatch";
+      sw.style.background = item.color;
+      wrap.appendChild(sw);
+      wrap.appendChild(document.createTextNode(item.label));
+      legendBox.appendChild(wrap);
+    });
+  }
+
+  function render() {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+    const aB = alphaOf(s0Basal), aP = alphaOf(s0Prism);
+    const ratio = aP / aB;
+
+    const verdict = ratio > 3 ? "thin plate" : ratio < 1 / 3 ? "slender column" : "blocky prism";
+    const winner = ratio > 3 ? "The prism faces win — the crystal spreads."
+      : ratio < 1 / 3 ? "The basal faces win — the crystal stretches."
+      : "Neither face wins clearly — the crystal stays chunky.";
+
+    svg = Viz.createSvg(body, W, H, {
+      label: "Two bars showing how hard each face is to start growing, beside a schematic "
+        + "crystal that becomes a plate when the side faces are easier and a column when the "
+        + "top and bottom faces are easier.",
+      desc: "The crystal is currently a " + verdict + ".",
+    });
+
+    /* ---------------- left panel: the two barriers ---------------- */
+    const base = 248, maxH = 158, sMax = 6;
+    const bars = [
+      { x: 100, s0: s0Basal, a: aB, color: c.series[0], name: "Basal" },
+      { x: 200, s0: s0Prism, a: aP, color: c.series[1], name: "Prism" },
+    ];
+
+    svg.appendChild(Viz.svgEl("line", {
+      x1: 50, x2: 272, y1: base, y2: base, stroke: c.ruleStrong, "stroke-width": 1.4,
+    }));
+
+    bars.forEach(function (b) {
+      const h = Math.max(3, (b.s0 / sMax) * maxH);
+      svg.appendChild(Viz.svgEl("rect", {
+        x: b.x - 27, y: base - h, width: 54, height: h,
+        fill: b.color, "fill-opacity": 0.32, stroke: b.color, "stroke-width": 2, rx: 3,
+      }));
+      text(svg, b.x, base - h - 9, b.s0.toFixed(2) + " %", { fill: b.color, weight: 650 });
+      text(svg, b.x, base + 19, b.name, { fill: b.color, weight: 650 });
+      text(svg, b.x, base + 37, "α = " + fmtAlpha(b.a), { fill: c.inkSecondary, size: 11.5 });
+    });
+
+    text(svg, 161, 40, "How hard the face is to start (σ₀)", { fill: c.inkSecondary, weight: 620 });
+    text(svg, 161, 58, "shorter bar = easier = faster face", { fill: c.muted, size: 11 });
+
+    /* ---------------- right panel: the schematic crystal ---------------- */
+    // Height/width ratio is a bounded, monotone SCHEMATIC map of the alpha
+    // ratio. It says which way and roughly how strongly — nothing more.
+    const lg = clamp(Math.log10(ratio), -1.5, 1.5);
+    const hw = Math.pow(3, -lg);
+    let cw = 148 / Math.sqrt(hw), ch = 148 * Math.sqrt(hw);
+    const shrink = Math.min(1, 216 / cw, 176 / ch);
+    cw *= shrink; ch *= shrink;
+
+    const cx = 482, cy = 158;
+    svg.appendChild(Viz.svgEl("rect", {
+      x: cx - cw / 2, y: cy - ch / 2, width: cw, height: ch,
+      fill: c.seq[1], "fill-opacity": 0.45, stroke: c.ink, "stroke-width": 1.4, rx: 2,
+    }));
+    const edges = [
+      [cx - cw / 2, cy - ch / 2, cx + cw / 2, cy - ch / 2, c.series[0]],
+      [cx - cw / 2, cy + ch / 2, cx + cw / 2, cy + ch / 2, c.series[0]],
+      [cx - cw / 2, cy - ch / 2, cx - cw / 2, cy + ch / 2, c.series[1]],
+      [cx + cw / 2, cy - ch / 2, cx + cw / 2, cy + ch / 2, c.series[1]],
+    ];
+    edges.forEach(function (e) {
+      svg.appendChild(Viz.svgEl("line", {
+        x1: e[0], y1: e[1], x2: e[2], y2: e[3],
+        stroke: e[4], "stroke-width": 4.5, "stroke-linecap": "round",
+      }));
+    });
+
+    text(svg, cx, 40, "the crystal, seen from the side (schematic)",
+      { fill: c.inkSecondary, weight: 620 });
+    text(svg, cx, 58, "blue edges are basal faces, orange edges are prism faces",
+      { fill: c.muted, size: 11 });
+    text(svg, cx, base + 19, "you get: " + verdict, { fill: c.ink, weight: 650, size: 13.5 });
+    text(svg, cx, base + 37, winner, { fill: c.inkSecondary, size: 11.5 });
+
+    text(svg, W / 2, H - 14,
+      "α ratio (prism ÷ basal) = " + (ratio >= 1 ? ratio.toFixed(1) : ratio.toPrecision(2))
+      + "   ·   σ_surf held at " + sSurf.toFixed(2) + " %",
+      { fill: c.muted, size: 11.5 });
+  }
+
+  sliderB = Viz.slider(controls, {
+    label: "Basal barrier σ₀", id: "rule-b", min: 0.05, max: 6, step: 0.05, value: s0Basal,
+    format: (v) => v.toFixed(2) + " %",
+    onInput: (v) => { s0Basal = v; render(); },
+  });
+  sliderP = Viz.slider(controls, {
+    label: "Prism barrier σ₀", id: "rule-p", min: 0.05, max: 6, step: 0.05, value: s0Prism,
+    format: (v) => v.toFixed(2) + " %",
+    onInput: (v) => { s0Prism = v; render(); },
+  });
+  Viz.slider(controls, {
+    label: "Spare vapour σ_surf", id: "rule-s", min: 0.1, max: 2, step: 0.05, value: sSurf,
+    format: (v) => v.toFixed(2) + " %",
+    onInput: (v) => { sSurf = v; render(); },
+  });
+  Viz.button(controls, "Swap the two barriers", function () {
+    const a = s0Basal, b = s0Prism;
+    sliderB.value = b;
+    sliderP.value = a;
+  });
+
+  paintLegend();
+  render();
+  Viz.onThemeChange(function () { paintLegend(); render(); });
+})();
+
+/* ===========================================================================
+   3. "Wide face, narrow edge"
+      Two top terraces drawn on ONE shared nanometre scale. Each holds the same
+      number of loose surface molecules, delivered from its corners. The narrow
+      strip therefore carries them at a higher density — which is the printed
+      claim — and layers start there far more often.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("anim-crowding");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const W = 680, H = 330;
+  const PX_PER_NM = 0.29;          // one shared scale for both lanes
+  const BROAD_NM = 900;
+  const N = 24;                    // molecules held on each strip
+  const MEET_NM = 6;               // three molecules this close = a crowded spot
+  const NUC_RATE = 1.2;            // layers per second per crowded spot
+
+  let narrowNm = 240;
+  let lanes = null;
+  let svg = null, dotNodes = [], flashNodes = [], readouts = [];
+  let lastT = 0;
+
+  function makeLane(widthNm, y, label) {
+    const xs = [], jitter = [];
+    for (let i = 0; i < N; i++) {
+      xs.push(Math.random() * widthNm);
+      jitter.push((Math.random() - 0.5) * 7);
+    }
+    return {
+      widthNm: widthNm, y: y, label: label,
+      xs: xs, jitter: jitter, events: 0, rate: 0, flash: 0, flashAt: null,
+    };
+  }
+
+  function resetLanes() {
+    lanes = [
+      makeLane(BROAD_NM, 78, "A broad prism facet"),
+      makeLane(narrowNm, 210, "A narrow prism edge facet"),
+    ];
+  }
+
+  function step(dt) {
+    const jump = 420 * Math.min(dt, 0.05);
+    const smooth = 1 - Math.exp(-dt / 1.1);
+    lanes.forEach(function (lane) {
+      for (let i = 0; i < lane.xs.length; i++) {
+        let x = lane.xs[i] + (Math.random() - 0.5) * jump;
+        if (x < 0) x = -x;
+        if (x > lane.widthNm) x = 2 * lane.widthNm - x;
+        lane.xs[i] = Math.max(0, Math.min(lane.widthNm, x));
+      }
+      lane.flash = Math.max(0, lane.flash - dt * 3.2);
+
+      // How many places on this strip currently have three molecules together?
+      // Crowding raises that count, and with it the chance a layer starts.
+      const sorted = lane.xs.slice().sort((a, b) => a - b);
+      const spots = [];
+      for (let i = 0; i + 2 < sorted.length; i++) {
+        if (sorted[i + 2] - sorted[i] < MEET_NM) spots.push(sorted[i + 1]);
+      }
+      const instant = spots.length * NUC_RATE;
+      lane.rate += (instant - lane.rate) * smooth;
+
+      if (spots.length && Math.random() < 1 - Math.exp(-instant * dt)) {
+        lane.events++;
+        if (lane.flash < 0.35) {
+          lane.flash = 1;
+          lane.flashAt = spots[Math.floor(Math.random() * spots.length)];
+        }
+      }
+    });
+  }
+
+  function build() {
+    if (svg) svg.remove();
+    dotNodes = []; flashNodes = []; readouts = [];
+    const c = Viz.colors();
+    const cx = W / 2;
+
+    svg = Viz.createSvg(body, W, H, {
+      label: "Two crystal terraces drawn at the same scale, a broad one and a narrow one, each "
+        + "holding the same number of loose water molecules. The narrow one is visibly more "
+        + "crowded and starts new layers far more often.",
+    });
+
+    lanes.forEach(function (lane) {
+      const wpx = lane.widthNm * PX_PER_NM;
+      const x0 = cx - wpx / 2;
+      const y = lane.y;
+
+      // the bulk of the crystal below the terrace
+      svg.appendChild(Viz.svgEl("rect", {
+        x: x0 - 26, y: y + 6, width: wpx + 52, height: 34,
+        fill: c.sunken, stroke: c.rule, "stroke-width": 1,
+      }));
+      // the top terrace itself — this is the facet
+      svg.appendChild(Viz.svgEl("rect", {
+        x: x0, y: y - 8, width: wpx, height: 14,
+        fill: c.series[1], "fill-opacity": 0.14, stroke: c.series[1], "stroke-width": 1.8,
+      }));
+
+      // corner supply arrows
+      [[-1, x0], [1, x0 + wpx]].forEach(function (pair) {
+        const dir = pair[0], xc = pair[1];
+        svg.appendChild(Viz.svgEl("path", {
+          d: "M" + (xc + dir * 24) + " " + (y + 28) + " Q " + (xc + dir * 20) + " " + (y - 2)
+            + " " + (xc + dir * 5) + " " + (y - 4),
+          fill: "none", stroke: c.inkSecondary, "stroke-width": 1.4, "stroke-dasharray": "3 3",
+        }));
+      });
+
+      const t1 = Viz.svgEl("text", {
+        x: cx, y: y - 24, "text-anchor": "middle", fill: c.ink,
+        "font-size": 12.5, "font-weight": 640, "font-family": "var(--font-sans)",
+      });
+      t1.textContent = lane.label + " — " + Math.round(lane.widthNm) + " nm across";
+      svg.appendChild(t1);
+
+      const t2 = Viz.svgEl("text", {
+        x: cx, y: y + 62, "text-anchor": "middle", fill: c.inkSecondary,
+        "font-size": 11.5, "font-family": "var(--font-sans)",
+      });
+      svg.appendChild(t2);
+      readouts.push(t2);
+
+      const flash = Viz.svgEl("circle", {
+        cx: cx, cy: y - 1, r: 0, fill: "none", stroke: c.series[2], "stroke-width": 2.5,
+      });
+      svg.appendChild(flash);
+      flashNodes.push(flash);
+
+      const dots = [];
+      for (let i = 0; i < N; i++) {
+        // neutral ink, NOT series[0] — these are loose admolecules, not a basal facet
+        const d = Viz.svgEl("circle", { cx: cx, cy: y - 1, r: 2.6, fill: c.inkSecondary });
+        svg.appendChild(d);
+        dots.push(d);
+      }
+      dotNodes.push(dots);
+    });
+
+    // shared scale bar
+    const barNm = 200, barPx = barNm * PX_PER_NM;
+    svg.appendChild(Viz.svgEl("line", {
+      x1: 40, x2: 40 + barPx, y1: H - 26, y2: H - 26, stroke: c.inkSecondary, "stroke-width": 2,
+    }));
+    const sb = Viz.svgEl("text", {
+      x: 40 + barPx + 12, y: H - 22, fill: c.muted, "font-size": 11,
+      "font-family": "var(--font-sans)",
+    });
+    sb.textContent = "200 nm — both strips are drawn to the same scale";
+    svg.appendChild(sb);
+  }
+
+  function paint() {
+    const cx = W / 2;
+    lanes.forEach(function (lane, li) {
+      const wpx = lane.widthNm * PX_PER_NM;
+      const x0 = cx - wpx / 2;
+      lane.xs.forEach(function (nm, i) {
+        const node = dotNodes[li][i];
+        if (!node) return;
+        node.setAttribute("cx", (x0 + nm * PX_PER_NM).toFixed(2));
+        node.setAttribute("cy", (lane.y - 1 + lane.jitter[i]).toFixed(2));
+      });
+      const f = flashNodes[li];
+      if (f) {
+        f.setAttribute("r", (2 + lane.flash * 15).toFixed(1));
+        f.setAttribute("opacity", lane.flash.toFixed(2));
+        if (lane.flashAt != null) f.setAttribute("cx", (x0 + lane.flashAt * PX_PER_NM).toFixed(2));
+      }
+      const per100 = (N / lane.widthNm) * 100;
+      readouts[li].textContent =
+        per100.toFixed(1) + " molecules per 100 nm   ·   about "
+        + (lane.rate < 1 ? lane.rate.toFixed(1) : Math.round(lane.rate))
+        + " layers a second   ·   " + lane.events + " so far";
+    });
+  }
+
+  Viz.slider(controls, {
+    label: "Edge facet width w", id: "crowd-w", min: 50, max: 800, step: 10, value: narrowNm,
+    format: (v) => Math.round(v) + " nm",
+    onInput: function (v) { narrowNm = v; resetLanes(); build(); paint(); },
+  });
+  Viz.button(controls, "Reset the tallies", function () { resetLanes(); build(); paint(); });
+
+  resetLanes();
+  build();
+  paint();
+
+  Viz.animate(root, function (t, dt) {
+    const d = dt > 0 ? dt : Math.max(0, Math.min(0.5, t - lastT));
+    lastT = t;
+    if (d > 0) step(d);
+    paint();
+  }, { staticAt: 6, stepBy: 0.4 });
+
+  Viz.onThemeChange(function () { build(); paint(); });
+})();
+
+/* ===========================================================================
+   4. "The loop that will not stop" — the Edge-Sharpening Instability
+      The four-step loop, the threshold behaviour and the 1-2 micron stopping
+      point are all printed. The path between start and stop is schematic.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("anim-esi");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const W = 680, H = 370;
+  const START_UM = 20, FLOOR_UM = 1.5, THRESHOLD = 20;
+
+  let sigmaInf = 12;
+  let mode = "prism";           // "prism" -> thin plate; "basal" -> hollow column
+  let thickness = START_UM;
+  let phase = 0;
+  let svg = null, lastT = 0;
+
+  const STEPS = [
+    "the edge narrows",
+    "σ₀ falls there",
+    "that face grows faster",
+    "its steps crowd closer",
+  ];
+
+  function label(parent, x, y, str, opts) {
+    const o = opts || {};
+    if (!str) return;
+    const el = Viz.svgEl("text", {
+      x: x, y: y, "text-anchor": o.anchor || "middle", fill: o.fill,
+      "font-size": o.size || 12, "font-weight": o.weight || 500,
+      "font-family": "var(--font-sans)",
+    });
+    el.textContent = str;
+    parent.appendChild(el);
+  }
+
+  function advance(d) {
+    const running = sigmaInf > THRESHOLD;
+    if (running) {
+      thickness = Math.max(FLOOR_UM, thickness * Math.exp(-d * 0.55));
+      phase = (phase + d * 1.6) % 4;
+    } else {
+      thickness = Math.min(START_UM, thickness + d * 7);
+      phase = 0;
+    }
+  }
+
+  function render() {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+    const running = sigmaInf > THRESHOLD;
+    const facetColor = mode === "prism" ? c.series[1] : c.series[0];
+
+    svg = Viz.createSvg(body, W, H, {
+      label: "A four-step feedback loop — narrower edge, lower barrier, faster growth, closer "
+        + "steps — beside a crystal whose edge thickness runs away down to one or two microns.",
+      desc: "The edge thickness is currently " + thickness.toFixed(1) + " microns.",
+    });
+
+    /* ---------- the loop, drawn as four nodes on a circle ---------- */
+    const lx = 170, ly = 180, R = 88;
+    svg.appendChild(Viz.svgEl("circle", {
+      cx: lx, cy: ly, r: R, fill: "none", stroke: c.rule, "stroke-width": 1.4,
+      "stroke-dasharray": "6 6",
+    }));
+
+    // clockwise arrowheads, so the direction of the loop is unmistakable
+    for (let k = 0; k < 4; k++) {
+      const a = -Math.PI / 4 + (Math.PI / 2) * k;
+      const ax = lx + R * Math.cos(a), ay = ly + R * Math.sin(a);
+      const tx = -Math.sin(a), ty = Math.cos(a);          // clockwise tangent
+      const nx2 = Math.cos(a), ny2 = Math.sin(a);
+      svg.appendChild(Viz.svgEl("path", {
+        d: "M" + (ax + tx * 7) + " " + (ay + ty * 7)
+          + "L" + (ax - tx * 3 + nx2 * 4.5) + " " + (ay - ty * 3 + ny2 * 4.5)
+          + "L" + (ax - tx * 3 - nx2 * 4.5) + " " + (ay - ty * 3 - ny2 * 4.5) + "Z",
+        fill: running ? facetColor : c.ruleStrong,
+      }));
+    }
+
+    STEPS.forEach(function (s, i) {
+      const ang = -Math.PI / 2 + (Math.PI / 2) * i;
+      const nx = lx + R * Math.cos(ang), ny = ly + R * Math.sin(ang);
+      const live = running && Math.floor(phase) === i;
+      svg.appendChild(Viz.svgEl("circle", {
+        cx: nx, cy: ny, r: live ? 12 : 8,
+        fill: live ? facetColor : c.surface,
+        stroke: live ? facetColor : c.ruleStrong, "stroke-width": 2,
+      }));
+      const dy = i === 0 ? -20 : i === 2 ? 28 : i === 1 ? 28 : -20;
+      label(svg, nx, ny + dy, s, {
+        anchor: "middle", size: 11.5, weight: live ? 660 : 500,
+        fill: live ? c.ink : c.inkSecondary,
+      });
+    });
+
+    label(svg, lx, ly - 2, running ? "running away" : "stable", {
+      fill: running ? facetColor : c.muted, weight: 660, size: 13,
+    });
+    label(svg, lx, ly + 17, running ? "" : "below the threshold", { fill: c.muted, size: 11 });
+
+    /* ---------- the crystal ---------- */
+    const cx = 500, cy = 178;
+    if (mode === "prism") {
+      // a plate seen edge-on: the vertical dimension is what collapses
+      const px = 4 + thickness * 4.2;
+      svg.appendChild(Viz.svgEl("rect", {
+        x: cx - 102, y: cy - px / 2, width: 204, height: px,
+        fill: c.seq[1], "fill-opacity": 0.5, stroke: c.ink, "stroke-width": 1.4, rx: 1.5,
+      }));
+      [cx - 102, cx + 102].forEach(function (ex) {
+        svg.appendChild(Viz.svgEl("line", {
+          x1: ex, x2: ex, y1: cy - px / 2, y2: cy + px / 2,
+          stroke: c.series[1], "stroke-width": 4, "stroke-linecap": "round",
+        }));
+      });
+    } else {
+      // a column seen from the side: its basal rim thins into a sheath
+      const wall = Math.max(3, Math.min(33, 2 + thickness * 1.6));
+      svg.appendChild(Viz.svgEl("rect", {
+        x: cx - 36, y: cy - 100, width: 72, height: 200,
+        fill: c.seq[1], "fill-opacity": 0.5, stroke: c.ink, "stroke-width": 1.4, rx: 1.5,
+      }));
+      svg.appendChild(Viz.svgEl("rect", {
+        x: cx - 36 + wall, y: cy - 100, width: Math.max(2, 72 - 2 * wall), height: 200 - wall,
+        fill: c.surface, stroke: c.series[0], "stroke-width": 3, rx: 1,
+      }));
+    }
+
+    label(svg, cx, 40, mode === "prism"
+      ? "prism edge, near −15 °C → thin plate"
+      : "basal edge, near −5 °C → hollow column",
+      { fill: facetColor, weight: 660, size: 13 });
+
+    label(svg, cx, H - 60, "edge thickness: " + thickness.toFixed(1) + " µm",
+      { fill: c.ink, weight: 660, size: 14 });
+    label(svg, cx, H - 40,
+      thickness <= FLOOR_UM + 0.05
+        ? "settled in the printed 1–2 µm range"
+        : running ? "sharpening" : "holding steady",
+      { fill: c.inkSecondary, size: 11.5 });
+
+    label(svg, W / 2, H - 14,
+      "σ∞ = " + sigmaInf + " %   ·   the threshold drawn here is schematic",
+      { fill: c.muted, size: 11 });
+  }
+
+  Viz.slider(controls, {
+    label: "Spare vapour far away, σ∞ (supersaturation)",
+    id: "esi-s", min: 4, max: 60, step: 1, value: sigmaInf,
+    format: (v) => Math.round(v) + " %",
+    onInput: function (v) { sigmaInf = v; render(); },
+  });
+  Viz.button(controls, "Switch to the basal edge (−5 °C)", function (b) {
+    mode = mode === "prism" ? "basal" : "prism";
+    b.textContent = mode === "prism"
+      ? "Switch to the basal edge (−5 °C)"
+      : "Switch to the prism edge (−15 °C)";
+    render();
+  });
+  Viz.button(controls, "Start over", function () {
+    thickness = START_UM; phase = 0; render();
+  });
+
+  Viz.animate(root, function (t, dt) {
+    const d = dt > 0 ? dt : Math.max(0, Math.min(0.6, t - lastT));
+    lastT = t;
+    if (d > 0) advance(d);
+    render();
+  }, { staticAt: 8, stepBy: 0.5 });
+
+  Viz.onThemeChange(render);
+})();
+</script>
+</body>
+</html>

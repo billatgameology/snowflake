@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CHAPTER TITLE — Snow Crystals</title>
+<meta name="description" content="ONE SENTENCE describing this chapter.">
+<link rel="stylesheet" href="../assets/education.css">
+</head>
+
+<!-- data-depth="1" tells site.js this page sits one folder below docs/education/,
+     so it can resolve figure paths back to the repository root. -->
+<body data-depth="1">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__home" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/>
+    </svg>
+    Snow Crystals
+  </a>
+  <span class="topbar__crumb">Chapter N · SHORT TITLE</span>
+  <span class="topbar__spacer"></span>
+  <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+    </svg>
+  </button>
+  <div class="progress-rail"><div class="progress-rail__fill"></div></div>
+</header>
+
+<div class="shell">
+<div class="chapter-layout">
+
+  <!-- ===== sidebar: one entry per <h2 id> in the chapter ===== -->
+  <nav class="sidenav" aria-label="On this page">
+    <p class="sidenav__title">On this page</p>
+    <ol>
+      <li><a href="#section-one">First section</a></li>
+      <li><a href="#section-two">Second section</a></li>
+      <li><a href="#section-three">Third section</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <div class="prose">
+
+      <!-- ===== header ===== -->
+      <header class="chapter-header">
+        <p class="chapter-header__eyebrow">Chapter N</p>
+        <h1>The chapter title</h1>
+        <p class="chapter-header__question">
+          The question this chapter answers, phrased the way a curious teenager would ask it.
+        </p>
+        <div class="chapter-header__meta">
+          <span>~12 min read</span>
+          <span>N figures</span>
+          <span>N animations</span>
+        </div>
+      </header>
+
+      <!-- ===== learning goals ===== -->
+      <section class="goals">
+        <h2>By the end you will be able to</h2>
+        <ul>
+          <li>Explain X in your own words.</li>
+          <li>Predict what happens to Y when Z changes.</li>
+          <li>Say why the evidence for X is trustworthy.</li>
+        </ul>
+      </section>
+
+      <!-- ===== body ===== -->
+      <h2 id="section-one">First section</h2>
+
+      <p>
+        Body text. Short sentences. Define every term the first time it appears, inline, without
+        making the reader look anything up. Bold the <strong>one idea</strong> a section turns on.
+      </p>
+
+      <!-- ---- a KEY IDEA callout: the thing to remember ---- -->
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>The single sentence a reader should carry out of this section.</p>
+      </aside>
+
+      <!-- ---- a PAPER FIGURE. site.js builds the image frame and the citation
+               strip; it degrades to a cited placeholder if the local research
+               cache is absent. Copy the caption VERBATIM from
+               tools/monograph-figure-catalog.md — never paraphrase it. ---- -->
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-1.5/visual.png"
+              data-figure="Figure 1.5"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 20 &middot; printed p. 19"
+              data-alt="Four sketches showing a cloud droplet freezing, faceting into a prism, then sprouting branches.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> read the four sketches left to right — this is the whole
+          life story of a snowflake in one picture, and the rest of this site is an unpacking of it.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 1.5: A snowflake is born when a liquid cloud droplet
+          freezes into ice (first sketch). The ice particle initially grows into a faceted prism
+          (second sketch), as the growth is limited by anisotropic attachment kinetics on the ice
+          surface. […]&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <h2 id="section-two">Second section</h2>
+
+      <!-- ---- an EQUATION, with every symbol spelled out ---- -->
+      <div class="equation">
+        <p class="equation__math">&sigma; = (&rho; &minus; &rho;<sub>sat</sub>) / &rho;<sub>sat</sub></p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>&sigma;</dt><dd>supersaturation — how much spare water vapour the air is carrying</dd>
+            <dt>&rho;</dt><dd>how much water vapour is actually there</dd>
+            <dt>&rho;<sub>sat</sub></dt><dd>how much the air could hold at that temperature before ice starts winning</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">Libbrecht, Snow Crystals, printed p. NN</p>
+      </div>
+
+      <!-- ---- an ORIGINAL ANIMATION. Built by us, so no copyright strip —
+               but it carries a "built from" line naming the source it encodes. ---- -->
+      <figure class="anim" id="demo-anim">
+        <div class="anim__head">
+          <p class="anim__title">What the animation shows</p>
+          <p class="anim__sub">One line telling the reader what to watch for.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. Geometry built from the hexagonal ice Ih
+          lattice described in Libbrecht, Snow Crystals, chapter 2.</span>
+        </figcaption>
+      </figure>
+
+      <h2 id="section-three">Third section</h2>
+
+      <!-- ---- a HOW WE KNOW callout: the evidence behind a claim ---- -->
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>How this was actually measured, and what the uncertainty on it is.</p>
+      </aside>
+
+      <!-- ---- a MYTH callout: correct a specific popular misconception ---- -->
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Careful
+        </p>
+        <p>The popular claim, then precisely what is and isn't true about it.</p>
+      </aside>
+
+      <!-- ---- an OPEN QUESTION callout: honest frontier ---- -->
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>What nobody has pinned down yet, and why it is hard.</p>
+      </aside>
+
+      <!-- ---- a DATA TABLE ---- -->
+      <div class="table-wrap">
+        <table>
+          <caption>A short caption saying what the table is and where the numbers came from.</caption>
+          <thead>
+            <tr><th>Temperature</th><th class="num">Value</th><th>What it means</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>&minus;2&nbsp;&deg;C</td><td class="num">0.03</td><td>plain-language reading</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ===== handoff sentence: hands the reader to the next chapter ===== -->
+      <p class="handoff">
+        The sentence that closes this chapter by opening the next one — it should name the question
+        chapter N+1 answers.
+      </p>
+
+      <!-- ===== prev / next ===== -->
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a class="chapter-nav__link is-prev" href="./NN-previous.html">
+          <span class="chapter-nav__dir">&larr; Previous</span>
+          <span class="chapter-nav__title">Previous chapter title</span>
+        </a>
+        <a class="chapter-nav__link is-next" href="./NN-next.html">
+          <span class="chapter-nav__dir">Next &rarr;</span>
+          <span class="chapter-nav__title">Next chapter title</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <p>
+      Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
+      from a local research cache under citation; they are not redistributed with this repository.
+    </p>
+    <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script>
+/* ===========================================================================
+   Example animation, showing the Viz API contract every chapter should follow.
+   - build once, draw from a pure state -> DOM function
+   - use Viz.animate() so it pauses offscreen and honours reduced motion
+   - re-render on themechange so colours track the theme toggle
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("demo-anim");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const W = 520, H = 320;
+  let svg, sides = 6;
+
+  function render(t) {
+    if (svg) svg.remove();
+    svg = Viz.createSvg(body, W, H, {
+      label: "A regular hexagon rotating, showing six-fold symmetry.",
+    });
+    const c = Viz.colors();
+    const cx = W / 2, cy = H / 2, r = 110;
+
+    svg.appendChild(Viz.svgEl("path", {
+      d: Viz.hexPath(cx, cy, r, (t * 12) % 360),
+      fill: "none",
+      stroke: c.series[0],
+      "stroke-width": 2.5,
+      "stroke-linejoin": "round",
+    }));
+
+    // direct label — never colour alone
+    const label = Viz.svgEl("text", {
+      class: "series-label", x: cx, y: cy + 5, "text-anchor": "middle", fill: c.series[0],
+    });
+    label.textContent = sides + "-fold";
+    svg.appendChild(label);
+  }
+
+  const anim = Viz.animate(root, render, { staticAt: 2 });
+  Viz.onThemeChange(() => render(anim.time));
+  Viz.button(controls, "Pause", (b) => {
+    const playing = anim.isPlaying;
+    if (playing) anim.pause(); else anim.play();
+    b.textContent = playing ? "Play" : "Pause";
+  });
+})();
+</script>
+</body>
+</html>
