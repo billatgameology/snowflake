@@ -374,7 +374,65 @@ directly transferable, and is recorded as a locator, not as evidence.
 
 ---
 
-## 9. What this reading did NOT cover
+## 9. The structural bound, confirmed by direct measurement
+
+**These are CALIBRATION PROBES and are never citable as gate evidence.** They are recorded here
+because they test §1's structural claim by running the solver rather than by counting crossings.
+
+Two solver runs at the registered conditions (48³, Δx 0.35 µm, extent 21, `cflFill` 0.1,
+`aggregate-hv-g1h1-v6`, `monopole-matched`), differing from the swept points only in `--param-set`:
+
+| T, f = 0.15 | `CAK_A1` (as swept) | full `CAK` | move | reaches column? |
+|---|---|---|---|---|
+| −8 °C | AR 0.5789 plate | AR 0.7895 **neutral** | +36% | no |
+| −5 °C | AR 0.3821 plate | AR **1.0000 neutral** | **+162%** | **no** |
+
+Both `CAK` runs are clean: `symErr = 0`, `deltaSymClean = true`, `allConverged = true`,
+`domainContact` false, stop reason `size-target` at extent 21. The `CAK_A1` values are the sweep's
+own `out/phase6-sweep/points.json` entries for the same grid points.
+
+**−5 °C is the strongest test the grid admits.** `A_PRISM_CAK` reaches its minimum of **0.18 at
+(Tm−T) = 5**, so −5 °C is where the correction throttles α_prism hardest — a 5.6× reduction in the
+prefactor against `CAK_A1`'s A ≡ 1. Nowhere else on the grid does the correction have more room to
+work.
+
+It produces an exactly equant crystal — both the transverse and z extents reach 21 together — and
+goes no further. **The broad-facet correction moves the model from one habit to *no* habit, not to
+the other habit.** That is §1's crossing bound showing up in a solver run, and it is the same
+lesson the σ₀ crossing already taught: the α ratio marks where a habit stops, not where the
+opposite habit starts. Libbrecht's own statement of the requirement is `α_prism ≪ α_basal`, and
+these ratios are nowhere near ≪.
+
+### Consequence for the `paramSet` ADR: the corrected parameterization probably scores WORSE
+
+All five of the sweep's headline agreements sit at −2 °C, and `A_prism` there is **0.28** — a 3.6×
+throttle against `CAK_A1`. Their measured aspect ratios and the rise each would need to cross the
+0.6667 plate ceiling into `neutral` (which ADR 0025 scores DISAGREE):
+
+| f | σ∞ | AR (`CAK_A1`, as swept) | rise needed to lose the agreement |
+|---|---|---|---|
+| 0.10 | 0.002 | 0.1638 | 4.07× |
+| 0.15 | 0.003 | 0.2729 | 2.44× |
+| 0.25 | 0.005 | 0.3821 | **1.74×** |
+| 0.40 | 0.008 | 0.4913 | **1.36×** |
+| 0.60 | 0.012 | 0.6004 | **1.11×** |
+
+The two measured probes bracket what a throttle does to AR: 1.75× → 1.36× rise (−8 °C), and
+5.6× → 2.62× rise (−5 °C). **Interpolating, a 3.6× throttle at −2 °C lands somewhere near a
+1.9–2.2× rise.** That is an ESTIMATE from two points, not a measurement — only a re-sweep settles
+it — but it would put the bottom three rows of that table over the ceiling and take the headline
+from **5/90 to roughly 2/90**.
+
+**So correcting the mismatch makes the reported result worse, and that must not become an argument
+for keeping the unregistered one.** The ADR should register `paramSet` as a freeze row and decide
+the parameterization on **provenance** — noting that `CAK`'s anchors now have a printed closed form
+behind them (§2) while `CAK_A1` has M1's documented simplification behind it (§2) — and should
+record the expected score change *in advance*, precisely so that no later reader can select the
+parameterization by its score.
+
+---
+
+## 10. What this reading did NOT cover
 
 - **Only figures and the pages carrying them were read by image** — `2306.13087v1` pp. 4–9 and the
   Figure 2 plates pp. 11–14, `2009.08404v2` pp. 3 and 15, `2011.02353v1` pp. 2 and 7, and
