@@ -22,6 +22,36 @@ exactly this reason.
 which point the strings are corrected in the same ADR. Anyone quoting a freeze row must read this
 file alongside it.
 
+### The re-sweep would produce identical numbers — measured, not assumed
+
+The argument above rests on a claim worth checking: that correcting a justification changes the hash
+but not any executed result. Verified by re-running the sweep's fastest point (−14 °C, f = 0.90,
+σ∞ = 0.131400) at the same configuration and comparing against its `points.json` row:
+
+| | steps | attached | AR | extent | symErr |
+|---|---|---|---|---|---|
+| recorded in the sweep | 131 | 1793 | 0.818755 | 21 | 0 |
+| independent re-run | **131** | **1793** | **0.818755** | **21** | **0** |
+
+Identical. The solver is deterministic at these settings (`noiseEpsilon = 0`, `rngSeed = 1`), so a
+re-sweep under a corrected justification string would reproduce all 204 rows exactly.
+
+**Cost of doing it anyway**, from the sweep's own per-point timings: **89.4 core-hours** — 14.9 h at
+concurrency 6, ~7.5 h ideal at 12 on this 16-thread host, so roughly 10 h wall-clock in practice.
+That buys a hash matching a corrected sentence and nothing else.
+
+### The underlying clause defect, and the proposed fix
+
+Charter §3.2 Phase 6 item 1 cannot distinguish a changed **parameter** from a typo in a
+**rationale** — both move `PHASE6_PROTOCOL_SHA256` and both therefore invalidate the sweep. That is
+why E1 sits here rather than being fixed, and it will recur.
+
+**Proposed:** split `phase6ProtocolManifest()` into a **values manifest** (everything the solver
+reads) and a **justification manifest** (`requirement` and `source` prose), pinned as two hashes.
+The charter's re-sweep clause then binds only the values hash, so a prose correction provably cannot
+invalidate evidence — the distinction becomes mechanical instead of a judgement call. This needs its
+own ADR and a charter amendment; it is **not** done here and is a maker decision.
+
 Found by the adversarial audit of 2026-07-29
 (`docs/phase6-soundness-audit-2026-07-29.raw.txt`).
 
