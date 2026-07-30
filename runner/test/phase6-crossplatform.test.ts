@@ -139,7 +139,7 @@ describe("the registered fixture", () => {
     // separate from the live baseline: two rows, both neutral-or-plate under the old parameter
     // set, and no label overlap with the four ADR 0032 points that replaced them.
     expect(PHASE6_FIXTURE_X64_BASELINE_STALE_CAK_A1.length).toBe(2);
-    const stale = new Set(PHASE6_FIXTURE_X64_BASELINE_STALE_CAK_A1.map((r) => r.label));
+    const stale = new Set<string>(PHASE6_FIXTURE_X64_BASELINE_STALE_CAK_A1.map((r) => r.label));
     for (const row of PHASE6_FIXTURE_X64_BASELINE) expect(stale.has(row.label)).toBe(false);
   });
 });
