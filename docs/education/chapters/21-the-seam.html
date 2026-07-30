@@ -103,9 +103,9 @@
           only &ldquo;ice&rdquo; and &ldquo;not ice&rdquo;. Which cell freezes, and when?
         </p>
         <div class="chapter-header__meta">
-          <span>~18 min read</span>
-          <span>7 figures</span>
-          <span>5 interactives</span>
+          <span>~19 min read</span>
+          <span>8 figures</span>
+          <span>6 interactives</span>
         </div>
       </header>
 
@@ -868,6 +868,43 @@
         </p>
       </aside>
 
+      <p>
+        Name what you have actually been reading. Everything this chapter has shown you about
+        <code>GGThreshold</code> and <code>LibbrechtKinetics</code> is substance behind one small,
+        literal contract &mdash; not a metaphor, a TypeScript interface both solvers implement:
+      </p>
+
+      <div class="equation">
+        <p class="equation__math" style="font-size: var(--step--1); text-align: left;">
+          export interface SurfaceOperator {<br>
+          &nbsp;&nbsp;readonly tick: number;<br>
+          &nbsp;&nbsp;relaxField(): RelaxationReport;<br>
+          &nbsp;&nbsp;advanceSurface(): SurfaceReport;<br>
+          &nbsp;&nbsp;ledger(): LedgerReport;<br>
+          }
+        </p>
+        <p class="equation__cite">solver-cpu/src/operator.ts:94&ndash;99 &mdash; implemented by
+          <code>GGSolver</code> (solver-cpu/src/gg-solver.ts:286) and <code>LKSolver</code>
+          (solver-cpu/src/lk-solver.ts:292)</p>
+      </div>
+
+      <p>
+        You have now met all three of its methods, by substance rather than by name. The fill
+        fraction that accumulates in &ldquo;How full is this cell?&rdquo; and the CFL-derived clock
+        in &ldquo;Who sets the clock?&rdquo; are both what <code>advanceSurface()</code> computes and
+        returns &mdash; under <code>LKSolver</code> that is solver-cpu/src/lk-solver.ts:1612&ndash;1742,
+        the same method whose refusal you already read at line 1614&ndash;1616. The claim string and
+        the bookkeeping identity you just read in &ldquo;A conservation law and an audit trail&rdquo;
+        &mdash; &ldquo;placed fill + recorded clipping = computed demand&rdquo; &mdash; is the literal
+        <code>claim</code> field <code>ledger()</code> returns, at
+        solver-cpu/src/lk-solver.ts:1745&ndash;1767. The third method, <code>relaxField()</code>, has
+        so far only been named &mdash; solver-cpu/src/lk-solver.ts:1503&ndash;1605, the sweep that
+        <code>advanceSurface()</code> refuses to run without (that is the guard behind the refusal
+        message above). Its substance &mdash; the convergence engine, and the two-part test for when
+        a sweep has actually finished rather than merely stopped moving &mdash; is the whole subject
+        of the next chapter.
+      </p>
+
       <h2 id="registered">What the code refuses to do</h2>
 
       <p>
@@ -951,6 +988,59 @@
         rewrite or discard the negative result; it limits interpretation of the failure as a test
         of the intended physical model&rdquo; (docs/PROGRESS.md, lines 1643&ndash;1646).
       </p>
+
+      <p>
+        The audit did not stop at a description. It counted &mdash; on the run's own canonical
+        seed, cell by cell &mdash; exactly how many boundary sites each wrong reading touched, and
+        it measured how far those sites had drifted from the source's own classification by the
+        time the &minus;15&nbsp;&deg;C checkpoint stopped.
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;An ad hoc canonical-seed audit (probe not retained) counted 38 <code>[01]</code>,
+          12 <code>[20]</code>, and 6 <code>[10]</code> boundary cells. V3 therefore assigned
+          temperature-independent <code>alphaHK = 1</code> to all 12 straight prism-facet cells
+          from step zero, while <code>alphaHKPrism</code> controlled only the six <code>[10]</code>
+          sites. Among final unattached boundary cells in the &minus;15&nbsp;&deg;C checkpoint,
+          maximum partial fill by those classes was 1.079e-4 (<code>[01]</code>), 0.0716
+          (<code>[20]</code>), and 5.90e-11 (<code>[10]</code>); the maximum at <code>[30]</code>
+          was 0.645.&rdquo;
+          <br><span class="figure__source">docs/attachment-kinetics.md, lines 338&ndash;344</span>
+        </p>
+      </blockquote>
+
+      <p>
+        Toggle the classifier on the patch below and watch which groups change colour. Two of the
+        three do. One does not &mdash; and that the basal cells never needed correcting is as much
+        a part of the finding as the twelve that did.
+      </p>
+
+      <figure class="anim" id="anim-classifier">
+        <div class="anim__head">
+          <p class="anim__title">Twelve cells, pinned</p>
+          <p class="anim__sub">
+            Every hexagon below is one boundary cell from the audit's own count on the canonical
+            seed, grouped by its <code>[HV]</code> label. Toggle the classifier and read what
+            <code>alphaHK</code> actually computes for each group &mdash; a function of
+            temperature, recomputed every step, or a constant nobody can move.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original diagram. Schematic only: the audit's own probe script
+          was not retained, so no true cell positions survive to draw &mdash; these 56 hexagons
+          are a count, not a map, packed for legibility rather than lattice adjacency. Cell counts
+          (38/12/6), the pinning sentence and the fill maxima are docs/attachment-kinetics.md,
+          lines 338&ndash;344; the two policy tables being contrasted are the same file's v3
+          reading, rejected for forward use (lines 312&ndash;317), and the adopted aggregate
+          reading (lines 351&ndash;358). That the aggregate scheme is current for v4, v5
+          <em>and</em> v6, not only the v4/v5 wording that file uses, is confirmed at AGENTS.md,
+          lines 166&ndash;168 &mdash; &ldquo;Under aggregate v4, v5 and v6, <code>[01]</code> is
+          basal, <code>[20]</code> is prism, <code>[10]</code> is inhibited &hellip; Do not restore
+          v3's <code>[10]</code>-prism / <code>[20]</code>-rough mapping.&rdquo;</span>
+        </figcaption>
+      </figure>
 
       <p>
         <strong>Protocol v4 did not fail. It terminated.</strong> The warm run finished normally.
@@ -1977,6 +2067,182 @@
       { color: c.ink, label: "the boundary cell being labelled (solid outline)" },
     ]);
   }
+
+  draw();
+  Viz.onThemeChange(draw);
+})();
+
+/* ===========================================================================
+   7. TWELVE CELLS, PINNED
+   The post-v3 source audit's own counts (38 [01], 12 [20], 6 [10]) drawn as a
+   schematic patch of hex icons, not a real seed — the audit's own probe
+   script was not retained, so no true cell positions survive to draw. This
+   is a count, not a map: hexagons are packed for legibility, not adjacency.
+   Toggling the classifier recolors ONLY the [20] and [10] groups; the [01]
+   group is drawn identically either way, because v3 read it correctly.
+   Counts, the pinning sentence and the fill maxima: docs/attachment-kinetics.md,
+   lines 338-344. The two policy tables being contrasted: same file, lines
+   312-317 (v3, rejected for forward use) and 351-358 (adopted aggregate
+   reading). The aggregate scheme's currency for v4, v5 AND v6 specifically:
+   AGENTS.md, lines 166-168.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("anim-classifier");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+
+  // Audited counts on the canonical seed (docs/attachment-kinetics.md:339).
+  const GROUPS = [
+    { type: "01", token: "[01]", name: "basal", count: 38, cols: 19, labelY: 18, rowY: 40 },
+    { type: "20", token: "[20]", name: "prism", count: 12, cols: 12, labelY: 86, rowY: 108 },
+    { type: "10", token: "[10]", name: "isolated tip", count: 6, cols: 12, labelY: 138, rowY: 160 },
+  ];
+
+  let aggregate = true; // true: v4/v5/v6 aggregate policy. false: legacy-v3.
+
+  /* What alphaHK actually computes for one cell of this type, under whichever
+     scheme is active. v3's rejected reading and the adopted aggregate reading
+     are docs/attachment-kinetics.md, lines 312-317 and 351-358. */
+  function classOf(type) {
+    if (type === "01") {
+      return {
+        glyph: "B", colorKey: 0, tracks: true, short: "basal — tracks T",
+        desc: "alphaHKBasal(T) — recomputed every step. Unchanged by the toggle: v3 read " +
+          "this configuration the same way the source does.",
+      };
+    }
+    if (type === "20") {
+      return aggregate
+        ? { glyph: "P", colorKey: 1, tracks: true, short: "prism — tracks T",
+            desc: "alphaHKPrism(T) — recomputed every step, as the source's [20] = prism " +
+              "reading requires." }
+        : { glyph: "R", colorKey: 3, tracks: false, short: "rough — pinned",
+            desc: "alphaHK pinned to 1 — a constant, from step zero. v3 read this flat side " +
+              "wall as a rough step site, not a facet." };
+    }
+    // type === "10"
+    return aggregate
+      ? { glyph: "I", colorKey: 2, tracks: false, short: "inhibited — fixed at 0",
+          desc: "alphaHK fixed at 0 — a constant, but the source's own one: it suggests " +
+            "alphaHK = 0 for an isolated tip." }
+      : { glyph: "P", colorKey: 1, tracks: true, short: "prism (wrong facet) — tracks T",
+          desc: "alphaHKPrism(T) — recomputed every step, but for a facet this site is not: " +
+            "v3's (1,0) row called an isolated tip “prism”." };
+  }
+
+  function paletteColor(c, key) { return key === 3 ? c.critical : c.series[key]; }
+
+  function hexIcon(svg, cx, cy, r, info, c) {
+    const color = paletteColor(c, info.colorKey);
+    svg.appendChild(Viz.svgEl("path", {
+      d: Viz.hexPath(cx, cy, r, 0),
+      fill: color, "fill-opacity": 0.22, stroke: color, "stroke-width": 1.6,
+    }));
+    const t = Viz.svgEl("text", { x: cx, y: cy + 3, "text-anchor": "middle" });
+    t.style.fill = c.ink;
+    t.style.fontFamily = "var(--font-mono)";
+    t.style.fontWeight = "700";
+    t.style.fontSize = "8px";
+    t.textContent = info.glyph;
+    svg.appendChild(t);
+  }
+
+  function draw() {
+    body.innerHTML = "";
+    const c = Viz.colors();
+
+    const toggle = document.createElement("div");
+    toggle.style.cssText = "display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.9rem;";
+    toggle.innerHTML =
+      "<button type=\"button\" class=\"button\" data-act=\"scheme\" data-val=\"v3\" aria-pressed=\"" +
+      (!aggregate) + "\">legacy-v3 classifier</button>" +
+      "<button type=\"button\" class=\"button\" data-act=\"scheme\" data-val=\"agg\" aria-pressed=\"" +
+      aggregate + "\">v4 / v5 / v6 aggregate policy</button>";
+    body.appendChild(toggle);
+
+    const W = 460, H = 195, R = 9;
+    const DX = R * 1.85, DY = R * 1.7;
+    const hexX0 = 16;
+
+    const ariaLabel = "A schematic patch of 56 boundary cells from the post-v3 audit's own " +
+      "count, grouped by bracket label: 38 basal, 12 prism-configuration, and 6 isolated-tip " +
+      "cells. " + (aggregate
+        ? "Under the v4/v5/v6 aggregate policy shown here, all three groups are colored " +
+          "the same way: each computes its attachment coefficient from temperature every step."
+        : "Under the legacy-v3 classifier shown here, the 12 prism cells are colored as a " +
+          "separate, pinned class with no temperature dependence, and the 6 tip cells are " +
+          "colored the same as real prism cells — the wrong facet.");
+    const svg = Viz.createSvg(body, W, H, { label: ariaLabel });
+
+    GROUPS.forEach(function (g) {
+      const info = classOf(g.type);
+      const lbl = Viz.svgEl("text", { class: "annotation", x: hexX0, y: g.labelY });
+      lbl.style.fill = c.inkSecondary;
+      lbl.textContent = g.count + " cells — " + g.token + " (" + g.name + ") — " + info.short;
+      svg.appendChild(lbl);
+
+      for (let i = 0; i < g.count; i++) {
+        const row = Math.floor(i / g.cols);
+        const col = i % g.cols;
+        const offset = row % 2 === 1 ? DX / 2 : 0;
+        const cx = hexX0 + R + col * DX + offset;
+        const cy = g.rowY + row * DY;
+        hexIcon(svg, cx, cy, R, info, c);
+      }
+    });
+
+    const fillCard = document.createElement("div");
+    fillCard.className = "c21-card";
+    fillCard.style.marginTop = "0.9rem";
+    fillCard.innerHTML =
+      "<h4>What was measured, not toggled: partial fill at the &minus;15&nbsp;&deg;C v3 checkpoint</h4>" +
+      "<div class=\"c21-rows\">" +
+        "<span>max partial fill, [01] (n = 38)</span><span>1.079e-4</span>" +
+        "<span>max partial fill, [20] (n = 12)</span><span>0.0716</span>" +
+        "<span>max partial fill, [10] (n = 6)</span><span>5.90e-11</span>" +
+        "<span>max partial fill, [30] (not among the 56 counted)</span><span>0.645</span>" +
+      "</div>" +
+      "<p style=\"margin:0.7rem 0 0;font-size:var(--step--1);color:var(--ink-secondary);\">" +
+      "Among boundary cells of each class still unattached when that run stopped " +
+      "(docs/attachment-kinetics.md, lines 341&ndash;344). These four numbers do not change " +
+      "with the toggle above &mdash; they are a historical measurement from the pinned v3 run, " +
+      "not a live computation.</p>";
+    body.appendChild(fillCard);
+
+    const whatCard = document.createElement("div");
+    whatCard.className = "c21-card";
+    whatCard.style.marginTop = "0.9rem";
+    whatCard.innerHTML = "<h4>What alphaHK computes for each group, right now</h4>" +
+      GROUPS.map(function (g) {
+        const info = classOf(g.type);
+        return "<p style=\"margin:0 0 0.5rem;font-size:var(--step--1);\"><strong>" + g.count +
+          " &times; " + g.token + " (" + g.name + ")</strong> — " + info.desc + "</p>";
+      }).join("");
+    body.appendChild(whatCard);
+
+    const verdict = document.createElement("div");
+    verdict.innerHTML = aggregate
+      ? "<div class=\"c21-verdict is-good\"><strong>All three groups now get the source's own " +
+        "class.</strong> <code>[20]</code> computes alphaHKPrism(T) like every other prism " +
+        "site, and <code>[10]</code> is correctly inhibited. Nothing here is pinned to a " +
+        "constant regardless of temperature.</div>"
+      : "<div class=\"c21-verdict is-bad\"><strong>12 straight prism-facet cells are pinned to " +
+        "alphaHK = 1, from step zero.</strong> Under this classifier <code>[20]</code> reads as " +
+        "a rough step site, not a prism facet, so those 12 cells never see temperature at all. " +
+        "The 6 <code>[10]</code> cells fare no better in the other direction: they get the " +
+        "prism formula &mdash; tracking temperature &mdash; for a site the source calls an " +
+        "isolated tip. Only the 38 <code>[01]</code> cells are read the way the source reads " +
+        "them.</div>";
+    body.appendChild(verdict);
+  }
+
+  body.addEventListener("click", function (e) {
+    const t = e.target;
+    const b = t && t.closest ? t.closest("button[data-act='scheme']") : null;
+    if (!b) return;
+    aggregate = b.dataset.val === "agg";
+    draw();
+  });
 
   draw();
   Viz.onThemeChange(draw);

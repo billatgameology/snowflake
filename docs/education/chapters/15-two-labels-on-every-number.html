@@ -84,7 +84,7 @@
         velocity and supersaturation are all functions of it
         (<code>core/src/libbrecht.ts</code>: <code>pSatIce</code>,
         <code>vKin</code>, <code>sigmaWater</code>), and the growth command takes
-        it on the command line (<code>runner/src/main.ts:643</code>, <code>grow-lk
+        it on the command line (<code>runner/src/main.ts:570&ndash;572</code>, <code>grow-lk
         --temp-c</code>). But a second sentence lurks right behind the
         first, and it is a completely different claim &mdash; <strong>that the crystal which comes
         out at &minus;15&nbsp;&deg;C is what nature actually grows at &minus;15&nbsp;&deg;C</strong>.
@@ -1163,7 +1163,7 @@
       readout: "−15 °C (model input; morphology not yet validated against measurement)",
       type: "input", ev: "unval",
       why: "You supplied it — today on the runner’s command line (grow-lk --temp-c, " +
-        "runner/src/main.ts:643). The charter is explicit about the interface it specifies: " +
+        "runner/src/main.ts:570–572). The charter is explicit about the interface it specifies: " +
         "“a real temperature slider is honest: Type = input, Evidence = unvalidated until " +
         "Phase 6 reports” (project charter.md:85). Real degrees Celsius, and nobody has checked " +
         "what the crystal does in them.",

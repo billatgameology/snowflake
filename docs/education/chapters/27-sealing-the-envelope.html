@@ -42,6 +42,7 @@
       <li><a href="#marking-scheme">The marking scheme</a></li>
       <li><a href="#what-it-cost">What the harsh rule cost</a></li>
       <li><a href="#try-to-cheat">Try to cheat</a></li>
+      <li><a href="#the-real-exploit">A cheat nobody had to invent</a></li>
       <li><a href="#exit-codes">Three exit codes</a></li>
       <li><a href="#limits">What the seal cannot do</a></li>
     </ol>
@@ -58,9 +59,9 @@
           rules until it looks better?
         </p>
         <div class="chapter-header__meta">
-          <span>~18 min read</span>
-          <span>5 figures</span>
-          <span>4 interactives</span>
+          <span>~19 min read</span>
+          <span>6 figures</span>
+          <span>5 interactives</span>
         </div>
       </header>
 
@@ -335,8 +336,9 @@
 
       <p>
         The real seal covers the manifest built by <code>phase6ProtocolManifest()</code>, and its
-        fingerprint is stored as a constant &mdash; today <code>8aeb2b80&hellip;</code> &mdash; with a
-        comment explaining what it is for:
+        fingerprint is stored as a constant. When this chapter was first written that constant read
+        <code>8aeb2b80&hellip;</code> (updated below &mdash; it has since moved), with a comment
+        explaining what it is for:
       </p>
 
       <blockquote>
@@ -350,6 +352,40 @@
           <code>runner/src/phase6-protocol.ts</code>, above <code>PHASE6_PROTOCOL_SHA256</code></cite>
         </p>
       </blockquote>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Updated
+        </p>
+        <p>
+          <code>8aeb2b80&hellip;</code> was the live pin when this chapter was written. It no longer
+          is, and the reason is worth having, because it is this chapter&rsquo;s own mechanism being
+          exercised for real. Decision record 0033 (2026-07-29) split the manifest in two: a
+          <strong>values</strong> hash over the twenty-five rows&rsquo; registered numbers, thresholds
+          and schemes &mdash; the one a re-sweep is priced against &mdash; and a
+          <strong>justification</strong> hash over their prose, correctable by a logged decision
+          record without invalidating anything, &ldquo;provided the values hash is unchanged by
+          it.&rdquo; Decision record 0034 then used exactly that door: one freeze row had justified
+          part of the sigma-axis upper bound with figures computed under a different, superseded
+          parameter set, and under the registered one the argument actually reverses. The corrected
+          sentence sits in the row now. Because the combined manifest still embeds prose by
+          construction, fixing it necessarily moved the combined fingerprint &mdash;
+          <code>8aeb2b80&hellip;</code> &rarr; <code>2b94aa5f&hellip;</code> &mdash; while the values
+          hash, the one that actually gates a re-sweep, did not move at all. <code>8aeb2b80&hellip;</code>
+          is not gone: it is kept as a named historical constant, reproducible by checking out the
+          commit Arm 1&rsquo;s evidence names and recomputing the manifest there, and it is still the
+          correct answer to &ldquo;what fingerprint did Arm 1 run under&rdquo; everywhere the rest of
+          this chapter and chapters 28 and 29 use it that way. It stopped being the correct answer to
+          &ldquo;what is the live pin today.&rdquo; One footnote on the footnote: the decision record
+          that made this split first claimed the combined hash would be &ldquo;preserved, not
+          retired&rdquo; &mdash; an over-strong claim its own successor record corrected less than an
+          hour later, once a real prose fix proved it false. Even the correction mechanism got corrected in the
+          open, which is this chapter&rsquo;s whole argument working on itself.
+        </p>
+      </aside>
 
       <p>
         The pin is enforced by a test that recomputes the fingerprint from the live code every time
@@ -802,6 +838,173 @@
         structurally impossible to hide.&rdquo;</em>
       </p>
 
+      <h2 id="the-real-exploit">A cheat nobody had to invent</h2>
+
+      <p>
+        The panel above is honest about what it is: an invented model row, stamped
+        <strong>FICTIONAL</strong>, built that way on purpose so this chapter could show the marking
+        scheme being pushed on without printing Phase&nbsp;6&rsquo;s actual result early. But the
+        <code>paramSet</code> story that just closed &mdash; the unregistered CLI default that
+        silently overrode a registered freeze row &mdash; was not invented. A real audit found it, and
+        it kept looking. What it found next is worse in kind, not just in degree: not a number nobody
+        registered, but a <em>condition</em> nobody had ever checked at all &mdash; whether a run had
+        actually reached the finish line before its shape was scored.
+      </p>
+
+      <p>
+        <code>docs/phase6-evidence-pin-register.md</code> is that audit: a systematic pass, committed as
+        <code>49a3a81</code>, enumerating &ldquo;every surface that touches a Phase&nbsp;6 evidence
+        artifact and states what pins it.&rdquo; Its method was not just reading code &mdash;
+        &ldquo;roughly seventy of the mutations were <strong>executed</strong> against a working tree or
+        a scratch copy of the artifacts, and where execution contradicted the reading, the executed
+        result is what is recorded.&rdquo; Its first row, marked <strong>critical</strong>, is
+        <code>steps</code> &mdash; the growth loop&rsquo;s step cap. Decision record 0035, the fix,
+        states the finding plainly:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;<code>steps</code> was registered <strong>nowhere</strong>. It reached every run from
+          <code>GROW_LK_DEFAULTS.steps</code>, and mutating that default moved no manifest hash and
+          failed none of the 100 tests then covering the sweep.&rdquo;
+        </p>
+        <p><cite>
+          <code>docs/decisions/0035-phase6-run-outcome-and-input-pins.md</code>, &ldquo;The step cap
+          &mdash; a whole fabricated diagram in about a minute of compute&rdquo;</cite>
+        </p>
+      </blockquote>
+
+      <p>
+        The register found no test standing in the way either &mdash; &ldquo;<code>grep
+        GROW_LK_DEFAULTS runner/test/</code> returns <strong>zero hits</strong> (verified this
+        pass)&rdquo;. So the decision record reproduced the run for real, at the exact registered
+        configuration, changing one flag: <code>--steps 1</code>. Here is that run&rsquo;s own header,
+        quoted character for character.
+      </p>
+
+      <figure class="anim" id="c27-stepcap">
+        <div class="anim__head">
+          <p class="anim__title">A cheat nobody had to invent</p>
+          <p class="anim__sub">
+            A real command against the real harness, from decision record 0035. Toggle the guard it
+            added, and watch the same run go from a headline point to an excluded one.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">
+            Original interactive. The header block is quoted verbatim from
+            <code>docs/decisions/0035-phase6-run-outcome-and-input-pins.md</code>: a real child process,
+            run at the registered configuration with one flag added, <code>--steps 1</code>. The scored
+            verdict and the exclusion reason are the real strings from <code>phase6ScorePoint</code>
+            (<code>runner/src/phase6-sweep.ts</code>), quoted by the same decision record. The 66/90
+            figure is recomputed live in your browser from this page&rsquo;s own registered
+            <code>TEMPS</code>/<code>REGIMES</code> tables &mdash; the identical grid and regime-acceptance
+            rules the &ldquo;Which points count&rdquo; figure above uses &mdash; scoring
+            <code>plate</code> at every counted headline temperature, which is exactly what a
+            step-capped run reports everywhere: the decision record states the same command prints
+            <code>attached=19 extent=5 AR=0.200000</code> unchanged at &minus;2, &minus;6, &minus;15 and
+            &minus;28&nbsp;&deg;C, because at extent 5 the &ldquo;crystal&rdquo; is nothing but the
+            19-site seed. The live computation reproduces the decision record&rsquo;s own published
+            figure, 66 of 90, exactly. Colour here tracks trustworthiness, not agreement with the
+            reference diagram &mdash; unlike the green &ldquo;agrees&rdquo; swatch two figures up, 66/90
+            is the alarming number, not the reassuring one. <strong>What this figure does not show, on
+            purpose: Phase&nbsp;6&rsquo;s real headline.</strong> The decision record states it, for the
+            same comparison; this chapter still doesn&rsquo;t, for the same reason it hasn&rsquo;t stated
+            it anywhere else &mdash; that stays chapter 28&rsquo;s to reveal. One fact is safe to borrow
+            without spoiling it, because it is about a single point, not the aggregate: at &minus;2&nbsp;&deg;C,
+            f&nbsp;=&nbsp;0.10, the honestly measured shape is <em>also</em> a plate (AR&nbsp;=&nbsp;0.263158)
+            &mdash; &ldquo;which is precisely why a spot-check of one point could never have found
+            this.&rdquo; And arm&nbsp;1&rsquo;s 204 published rows are independently confirmed to sit at
+            extent exactly 21, all of them: this exploit was found and closed, not exploited against the
+            standing result.
+          </span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Read the header slowly, because the whole point is that there is nothing to catch by reading it
+        harder. <code>paramSet=CAK</code> is the registered parameter set; <code>dx=0.35um</code>,
+        <code>targetExtent=21</code>, <code>seedSites=19</code> &mdash; every configuration token is the
+        one the freeze list demands. <code>symErr=0</code> and <code>deltaSymClean=true</code>: the
+        shape is exactly D6h-symmetric. <code>allConverged=true</code>: the field relaxed. The only
+        thing wrong is <code>stop reason=step-cap step=1 &hellip; extent=5</code>: the run was told to
+        stop after one step, so what got measured is not a crystal at all. It is the seed itself, one
+        layer thick, five cells across, aspect ratio exactly 0.2 by construction, carrying <strong>no
+        temperature dependence whatsoever</strong>. Score that shape at every one of the 204 grid points
+        and the harness, before this decision record, would have called it <code>plate</code> everywhere
+        &mdash; agreeing in both plate regimes and disagreeing only in the columns regime, which is
+        arithmetic on a fabricated shape, not a measurement of anything.
+      </p>
+
+      <p>
+        Notice what did <em>not</em> fail. Decision 0025&rsquo;s scoring rule &mdash; the one this
+        chapter spent two sections earning your trust in &mdash; did exactly what it was built to do
+        with the input it was handed: agree with a plate, because the shape in front of it really was
+        flatter than a column. The rule was never the problem. Nobody had wired anything to ask the
+        question that has to come before scoring at all: <em>did this run reach the size it claims to
+        have measured?</em>
+      </p>
+
+      <p>
+        The fix needed no new instrumentation. Every token it reads &mdash; <code>largestExtent</code>,
+        <code>stopReason</code> &mdash; was already printed on every run and read by nothing. Decision
+        0035 adds two conditions to <code>phase6ScorePoint</code>&rsquo;s invalid list, both excluding
+        the point <strong>by name</strong>, the same discipline decision 0025 already committed this
+        chapter to:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;<code>largestExtent &lt; 21</code> &rarr; <em>&lsquo;stopped at extent N, short of the
+          registered measurement size 21 &mdash; habit is size-dependent, so this is not a smaller
+          measurement of the same crystal&rsquo;</em>&hellip; <strong>&lt;, not !==.</strong> Extent can
+          rise by two in a step, so a legitimate run can end at 22, and a rule that invalidates that
+          would be a different defect from the one being closed.&rdquo;
+        </p>
+        <p><cite><code>docs/decisions/0035-phase6-run-outcome-and-input-pins.md</code></cite></p>
+      </blockquote>
+
+      <p>
+        Three negative controls were executed against the real source, not described: the step cap
+        (caught, as above); the solver&rsquo;s hard-coded domain swapped from <code>hexPrism</code> to
+        <code>box</code> (caught on the active-cell count, 110&thinsp;592 against a registered
+        77&thinsp;879); and the seed thickness doubled behind the same kind of silent default (caught
+        twice &mdash; once by the new preflight check on the default itself, once again by the run-time
+        site count). The register&rsquo;s own closure log records the first in one line:
+        <em>&ldquo;<code>--steps 1</code> (was plate/AGREE/headline &rarr; now invalid/excluded)&rdquo;</em>,
+        closed at commit <code>b701285</code>, &ldquo;a step-capped run is EXCLUDED, and every run input
+        is pinned.&rdquo;
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          This is not a hypothetical the audit reasoned its way to. It is a real process, spawned with
+          one extra flag against the registered configuration, whose real stdout is what you just read
+          &mdash; and, per decision record 0035&rsquo;s own accounting, both mutated files were restored
+          and reverified by sha256 against pre-mutation copies afterwards, so the demonstration left the
+          working tree exactly as it found it.
+        </p>
+      </aside>
+
+      <p>
+        This is the sequel to this chapter&rsquo;s whole argument, not a footnote to it. &ldquo;Try to
+        cheat&rdquo; showed four edits to rows already on the frozen list, each one caught because the
+        list has a fingerprint to break. This one was never on any list, had no fingerprint to break,
+        passed every hash, every preflight refusal, and the full test suite then covering the sweep
+        &mdash; and it did all of that while fabricating a headline dramatically better than honest
+        measurement. A safeguard that only watches the rows someone thought to write down is watching
+        the wrong thing. The seal was never the whole safeguard; reading, by hand, what the program had
+        been printing the entire time and had never been asked about is what closed this one.
+      </p>
+
       <h2 id="exit-codes">Three exit codes</h2>
 
       <p>
@@ -997,7 +1200,7 @@
 </footer>
 
 <style>
-/* Scoped helpers for this chapter's four interactives. */
+/* Scoped helpers for this chapter's five interactives. */
 #c27-seal .c27-rows { display: grid; gap: 0.45rem; }
 .c27-row { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 0.6rem; align-items: center; }
 .c27-row label { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-secondary); overflow-wrap: anywhere; }
@@ -1057,11 +1260,14 @@
 <script>
 /* ===========================================================================
    Chapter 27 — Sealing the Envelope
-   Four original interactives. Nothing here invents a registered value: every
+   Five original interactives. Nothing here invents a registered value: every
    temperature, tolerance, band and regime edge is transcribed from
-   runner/src/phase6-protocol.ts or docs/decisions/0025-*.md. The one invented
-   object is the model habit row in "Try to cheat", which is stamped FICTIONAL
-   on screen because Phase 6's real result belongs to chapter 28.
+   runner/src/phase6-protocol.ts, docs/decisions/0025-*.md, or
+   docs/decisions/0035-*.md. The one invented object is the model habit row in
+   "Try to cheat", which is stamped FICTIONAL on screen because Phase 6's real
+   result belongs to chapter 28. "A cheat nobody had to invent" is its real
+   counterpart: an executed negative control from the project's own pin
+   register, not a stand-in.
    ======================================================================== */
 (function () {
   "use strict";
@@ -1688,7 +1894,121 @@
   })();
 
   /* ======================================================================= */
-  /* 4. RUN THE GATE                                                         */
+  /* 4. A CHEAT NOBODY HAD TO INVENT — THE STEP CAP                          */
+  /* ======================================================================= */
+  (function () {
+    var root = document.getElementById("c27-stepcap");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var controls = root.querySelector(".anim__controls");
+
+    /* Quoted verbatim from docs/decisions/0035-phase6-run-outcome-and-input-pins.md,
+       "The step cap — a whole fabricated diagram in about a minute of compute": a real
+       child process, run at the registered configuration with one added flag, --steps 1. */
+    var HEADER =
+      "grow-lk T=-2C sigmaInf=0.002 dims=48,48,48 (hexRadius=23, zHalfExtent=23, active=77879) dx=0.35um\n" +
+      "  P=101325Pa paramSet=CAK surfacePolicy=aggregate-hv-g1h1-v6 farField=monopole-matched cfl=0.1\n" +
+      "  tol=1e-9 divTol=1e-7 maxSweeps=200000 targetExtent=21 seed=1 noise=0 seedRadius=2 seedSites=19 …\n" +
+      "stop reason=step-cap step=1 attached=19 extent=5 AR=0.200000 symErr=0 deltaSymClean=true\n" +
+      "  allConverged=true";
+
+    // Live recomputation of decision 0035's published "the same grid, step-capped" figure,
+    // using this page's own registered TEMPS/REGIMES/counted — the same tables "Which points
+    // count" draws with. A step-capped run reports plate everywhere (AR = 0.2 by construction),
+    // so it agrees wherever a regime accepts plate and disagrees only in the columns regime.
+    function forgedHeadline() {
+      var n = 0, agree = 0;
+      TEMPS.forEach(function (T) {
+        if (!counted(T, BAND)) return;
+        var r = regimeOf(T);
+        if (!r.headline) return;
+        n++;
+        if (r.accepts.indexOf("P") >= 0) agree++;
+      });
+      return { n: n * FRACTIONS, agree: agree * FRACTIONS };
+    }
+
+    var wrap = el("div", "c27-stack");
+
+    var termBox = el("div", "c27-panel");
+    termBox.appendChild(el("p", "c27-label", "child stdout, quoted verbatim (decision record 0035)"));
+    var term = el("pre", "c27-mono");
+    term.style.whiteSpace = "pre-wrap";
+    term.style.margin = "0";
+    term.textContent = HEADER;
+    termBox.appendChild(term);
+
+    var pointBox = el("div", "c27-panel");
+    pointBox.appendChild(el("p", "c27-label", "this run, scored"));
+    var pointOut = el("div", "c27-mono");
+    pointBox.appendChild(pointOut);
+
+    var gridBox = el("div", "c27-panel");
+    gridBox.appendChild(el("p", "c27-label", "the same fabrication, applied at all 204 points"));
+    var gridOut = el("div", "c27-score");
+    gridBox.appendChild(gridOut);
+
+    var banner = el("div", "c27-banner");
+
+    wrap.appendChild(termBox);
+    wrap.appendChild(pointBox);
+    wrap.appendChild(gridBox);
+    wrap.appendChild(banner);
+    body.appendChild(wrap);
+
+    var guardOn = false;
+
+    function render() {
+      var c = Viz.colors();
+
+      pointOut.innerHTML = "";
+      var pLines = !guardOn
+        ? ["modelClass = plate", "score      = AGREE", "inHeadline = true"]
+        : ["modelClass = invalid", "score      = EXCLUDED",
+           'reason     = "stopped at extent 5, short of the registered measurement size 21 — '
+             + 'habit is size-dependent, so this is not a smaller measurement of the same crystal"'];
+      pLines.forEach(function (line) {
+        var n = el("div", null, line);
+        n.style.color = guardOn ? c.good : c.critical;
+        pointOut.appendChild(n);
+      });
+
+      var fh = forgedHeadline();
+      gridOut.innerHTML = "";
+      var big = el("span", "c27-big");
+      var note = el("span", "c27-note");
+      if (!guardOn) {
+        big.textContent = fh.agree + " / " + fh.n;
+        big.style.color = c.critical;
+        note.textContent = "headline, if every point stopped this early — computed live from this "
+          + "page's own registered grid and regime table. Matches decision 0035's published figure.";
+      } else {
+        big.textContent = "0 / " + fh.n;
+        big.style.color = c.good;
+        note.textContent = "a step-capped point is excluded before it is ever scored, so none of the "
+          + "204 can reach the headline this way again.";
+      }
+      gridOut.appendChild(big);
+      gridOut.appendChild(note);
+
+      banner.style.color = guardOn ? c.good : c.critical;
+      banner.textContent = guardOn
+        ? "EXCLUDED BY NAME — decision 0035's largestExtent < 21 guard fired. This is the check working."
+        : "SCORED AS EVIDENCE — hash matches, tree clean, converged, symmetric. Nothing here objected.";
+    }
+
+    Viz.button(controls, "Apply the decision 0035 guard", function (b) {
+      guardOn = !guardOn;
+      b.setAttribute("aria-pressed", String(guardOn));
+      render();
+    }, { pressed: false });
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+  /* ======================================================================= */
+  /* 5. RUN THE GATE                                                         */
   /* ======================================================================= */
   (function () {
     var root = document.getElementById("c27-gate");
@@ -1930,7 +2250,7 @@
   })();
 
   /* ======================================================================= */
-  /* 5. ANCESTOR CHECK (static diagram)                                      */
+  /* 6. ANCESTOR CHECK (static diagram)                                      */
   /* ======================================================================= */
   (function () {
     var root = document.getElementById("c27-ancestor");

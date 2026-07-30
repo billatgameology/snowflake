@@ -316,6 +316,30 @@
         </figcaption>
       </figure>
 
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Revised
+        </p>
+        <p>
+          There used to be a third estimate, cruder than either of these two, from the same author.
+          An earlier paper assumed the prefactor A&nbsp;&equiv;&nbsp;1 on both facets &mdash; a
+          simplification it named as such at the time &mdash; and its own Figure 4 put the crossing
+          near <strong>&minus;6&nbsp;&deg;C</strong>: &ldquo;Taken at face value, these data suggest
+          that plate-like crystals should grow at temperatures above T&nbsp;&asymp;&nbsp;&minus;6&nbsp;C,
+          while columnar crystals should grow below this temperature&rdquo; (Libbrecht, &ldquo;A
+          Quantitative Physical Model of the Snow Crystal Morphology Diagram,&rdquo;
+          arXiv:1910.09067v2, p.&nbsp;6). Once A was modelled properly instead of fixed at 1, the
+          crossing moved two to five degrees colder, to the &minus;8.4 and &minus;10.9&nbsp;&deg;C
+          above. That is the same author revising his own earlier estimate as the model improved
+          &mdash; not a sign the &minus;6&nbsp;&deg;C figure was careless, but a reminder that even
+          this plain crossing temperature, not just the speculative SDAK dips later in this chapter,
+          has moved before and is not pinned to the degree.
+        </p>
+      </aside>
+
       <p>
         Now put that beside the diagram it is supposed to explain. Libbrecht lists the bands he
         needs to account for as &ldquo;platelike forms near -2 C, needle-like crystals near -5 C,
@@ -360,9 +384,10 @@
           the result &ldquo;structural, not numerical&rdquo; and independent of diffusion. An
           adversarial review in 2026 found both halves wrong: the habit-relevant quantity is alphaHK,
           not &sigma;<sub>0</sub> alone, and once A is included the swap count is set by
-          &sigma;<sub>surf</sub>, which diffusion supplies (see the correction and the numbers it
-          produced in <code>research/libbrecht-figure-findings.md</code> and
-          <code>app/scripts/phase6-libbrecht-closed-forms.mjs</code>). So a broad-facet model, with no
+          &sigma;<sub>surf</sub>, which diffusion supplies (see the correction in
+          <code>research/libbrecht-figure-findings.md</code>; the swap count itself is a direct
+          evaluation of the basal and prism &sigma;<sub>0</sub> and A forms printed in Libbrecht,
+          arXiv:2009.08404v2, p.&nbsp;3, Eqs.&nbsp;2&ndash;5). So a broad-facet model, with no
           SDAK at all, is <em>not</em> structurally incapable of three habit transitions the way this
           chapter first argued. What survives is weaker, and still real: the three swaps found this
           way sit at different temperatures than the diagram's three boundaries &mdash; at
@@ -374,6 +399,28 @@
           than a settled one, and it is the reason the rest of this chapter exists.
         </p>
       </aside>
+
+      <figure class="anim" id="anim-alphaHK-crossings">
+        <div class="anim__head">
+          <p class="anim__title">The three-crossing claim, made checkable</p>
+          <p class="anim__sub">
+            The callout above asserts three crossings at &sigma;<sub>surf</sub> = 0.20&nbsp;%, once
+            A<sub>prism</sub> is restored. Move the slider yourself and count them.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original chart. alphaHK<sub>basal</sub> and
+          alphaHK<sub>prism</sub> are evaluated live from Libbrecht, arXiv:2009.08404v2, p. 3,
+          Eqs. (1)&ndash;(5): &sigma;<sub>0,basal</sub> and A<sub>basal</sub> from Eqs. (2) and (4),
+          &sigma;<sub>0,prism</sub> and A<sub>prism</sub> from Eqs. (3) and (5). The &ldquo;Hold A
+          &equiv; 1&rdquo; toggle reproduces the older, sigma0-only comparison used earlier in this
+          chapter, for contrast &mdash; it is not a claim that A is really 1. Crossings are found by
+          bisection on alphaHK<sub>prism</sub> &minus; alphaHK<sub>basal</sub> across 0&ndash;30&nbsp;&deg;C
+          below freezing, not read off any plotted line.</span>
+        </figcaption>
+      </figure>
 
       <p>
         The first line of defence would be to doubt the diagram. Perhaps the three boundaries are
@@ -840,8 +887,9 @@
             p. 3, Eq. 2) and differs only in the prism curve and in whether the dips are applied. The
             dip formulas use a base-10 logarithm, as printed (arXiv:2306.13087v1, p.&nbsp;6); an
             earlier version of this table used the natural logarithm by mistake and reported five
-            crossings instead of three &mdash; corrected 2026-07-29, see
-            <code>app/scripts/phase6-libbrecht-closed-forms.mjs</code>.
+            crossings instead of three &mdash; corrected 2026-07-29 by evaluating that printed dip
+            equation directly with the base-10 logarithm it specifies (arXiv:2306.13087v1,
+            p.&nbsp;6).
           </caption>
           <thead>
             <tr><th>Curves used</th><th class="num">Crossings</th><th>At</th></tr>
@@ -1126,6 +1174,48 @@
         </p>
       </blockquote>
 
+      <p>
+        Somebody has tried to turn that story into a number, and it is worth reading what came
+        back. A companion paper works the corner-to-facet diffusion mechanism from &ldquo;A facet
+        200 molecules wide&rdquo; above into an actual estimate of how much it should lower
+        &sigma;<sub>0,prism</sub> near &minus;14&nbsp;&deg;C, and gets &ldquo;a factor-of-two
+        reduction in the effective &sigma;<sub>0,prism</sub>&rdquo; &mdash; the barrier dropping to
+        about half its broad-facet value. But the measured dip from &ldquo;Two dips, then two
+        measurements&rdquo; drops it to &ldquo;about one-tenth of its broad-facet value&rdquo;, and
+        the same sentence calls the factor-of-two prediction &ldquo;perhaps too small to reproduce
+        the actual SDAK dip at -14 C&rdquo; (arXiv:2012.12916v1, p.&nbsp;9). Half versus a tenth is
+        roughly a fivefold shortfall &mdash; that arithmetic is this site's, not the paper's &mdash;
+        between what the proposed physical mechanism predicts on its own and what the two dedicated
+        experiments earlier in this chapter actually measured. The same page draws its own
+        conclusion plainly: &ldquo;this basic picture is too simplistic to explain the observed
+        SDAK phenomenon&rdquo; (arXiv:2012.12916v1, p.&nbsp;9). None of that puts the dip itself in
+        doubt &mdash; the dip is the measured data
+        in Figures 4.26 and 4.27 above &mdash; but it is a sharper, more citable measure of the gap
+        than &ldquo;completely ad hoc&rdquo; curve-fitting alone: even working the mechanism forward
+        from first principles, its own author comes up several times short of the effect he is
+        trying to explain.
+      </p>
+
+      <figure class="anim" id="anim-esi-shortfall">
+        <div class="anim__head">
+          <p class="anim__title">Predicted versus measured: the mechanism falls short</p>
+          <p class="anim__sub">
+            The two numbers from the paragraph above, side by side. Same &sigma;<sub>0,prism</sub>
+            reduction near &minus;14&nbsp;&deg;C, two very different sources.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original chart. Both values are quoted, not re-derived, from
+          Libbrecht, arXiv:2012.12916v1, p.&nbsp;9: the corner-to-facet diffusion mechanism worked
+          forward from first principles gives &ldquo;a factor-of-two reduction in the effective
+          &sigma;<sub>0,prism</sub>&rdquo;; the two dedicated measurements in this chapter give
+          &ldquo;about one-tenth of its broad-facet value&rdquo;. The roughly fivefold gap between
+          them is this site's arithmetic, not the paper's.</span>
+        </figcaption>
+      </figure>
+
       <aside class="callout callout--open">
         <p class="callout__label">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
@@ -1214,6 +1304,14 @@
 
   const dipped = document.getElementById("anim-sigma0-dips");
   if (dipped && window.Sigma0) Sigma0.mount(dipped, { withDips: true });
+
+  // The alphaHK crossing chart that makes the "Corrected" callout's
+  // three-crossing claim checkable — defaults match the callout's own
+  // sigma_surf = 0.20 % example, with A_prism included.
+  const alphaHKRoot = document.getElementById("anim-alphaHK-crossings");
+  if (alphaHKRoot && window.Sigma0 && Sigma0.mountAlphaHK) {
+    Sigma0.mountAlphaHK(alphaHKRoot, { sigmaSurf: 0.20, includeAPrism: true });
+  }
 })();
 
 /* ===========================================================================
@@ -1766,6 +1864,86 @@
     render();
   }, { staticAt: 8, stepBy: 0.5 });
 
+  Viz.onThemeChange(render);
+})();
+
+/* ===========================================================================
+   5. "Predicted versus measured: the mechanism falls short"
+      A minimal, static paired-bar chart. Both numbers are QUOTED, not
+      re-derived, from the paragraph directly above (arXiv:2012.12916v1,
+      p. 9). This widget adds no new claim of its own — it only makes the
+      already-stated ~2x vs ~10x comparison visually immediate.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("anim-esi-shortfall");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  if (!body) return;
+
+  const W = 480, H = 300;
+  const PREDICTED = 2;    // "a factor-of-two reduction" — arXiv:2012.12916v1, p. 9
+  const MEASURED = 10;    // "about one-tenth of its broad-facet value" — same page
+
+  function label(parent, x, y, str, opts) {
+    const o = opts || {};
+    const el = Viz.svgEl("text", {
+      x: x, y: y, "text-anchor": o.anchor || "middle", fill: o.fill,
+      "font-size": o.size || 12, "font-weight": o.weight || 500,
+      "font-family": "var(--font-sans)",
+    });
+    el.textContent = str;
+    parent.appendChild(el);
+    return el;
+  }
+
+  let svg = null;
+
+  function render() {
+    if (svg) svg.remove();
+    const c = Viz.colors();
+
+    svg = Viz.createSvg(body, W, H, {
+      label: "A bar chart comparing two reduction factors for the effective prism barrier near " +
+        "minus fourteen degrees: a predicted reduction of about two-fold, from working the " +
+        "edge-sharpening mechanism forward from first principles, against a measured reduction " +
+        "of about ten-fold, from the two dedicated experiments earlier in this chapter.",
+    });
+
+    const base = 210, maxH = 130, scaleMax = 12;
+    const bars = [
+      { x: 150, v: PREDICTED, color: c.series[0], name: "Predicted" },
+      { x: 330, v: MEASURED, color: c.series[1], name: "Measured" },
+    ];
+
+    svg.appendChild(Viz.svgEl("line", {
+      x1: 50, x2: 430, y1: base, y2: base, stroke: c.ruleStrong, "stroke-width": 1.4,
+    }));
+
+    bars.forEach(function (b) {
+      const h = Math.max(3, (b.v / scaleMax) * maxH);
+      svg.appendChild(Viz.svgEl("rect", {
+        x: b.x - 36, y: base - h, width: 72, height: h,
+        fill: b.color, "fill-opacity": 0.32, stroke: b.color, "stroke-width": 2, rx: 3,
+      }));
+      label(svg, b.x, base - h - 11, "×" + b.v, { fill: b.color, weight: 700, size: 16 });
+      label(svg, b.x, base + 20, b.name, { fill: b.color, weight: 650, size: 13 });
+    });
+
+    label(svg, W / 2, 34,
+      "Reduction in effective σ₀,prism near −14 °C", { fill: c.ink, weight: 650, size: 13.5 });
+    label(svg, W / 2, 52,
+      "(broad-facet value ÷ narrow-facet value — taller bar = bigger reduction)",
+      { fill: c.muted, size: 10.5 });
+
+    label(svg, W / 2, H - 44,
+      "predicted ×2 versus measured ×10 — roughly a ×5 shortfall",
+      { fill: c.inkSecondary, weight: 650, size: 12.5 });
+    label(svg, W / 2, H - 26,
+      "(the ×5 is this site's arithmetic, not the paper's — see the paragraph above)",
+      { fill: c.muted, size: 10.5 });
+  }
+
+  render();
   Viz.onThemeChange(render);
 })();
 </script>

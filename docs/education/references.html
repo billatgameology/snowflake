@@ -423,11 +423,15 @@
             (update the progress log as you go, not at the end), Rule 4 (record what failed, not
             just what worked), Rule 6 (claims are cheap; evidence is the deliverable), Rule 7 (a
             bare <code>alpha</code> is banned from this repository), <!-- rule7-waive: naming what Rule 7 bans, in order to describe the rule -- the same exemption the linter grants its own policy text -->
-            Rule 9 (a verdict is computed
+            Rule 8 (leave the next
+            model a landing spot), Rule 9 (a verdict is computed
             from the artifact, never inherited from its producer), Rule 10 (reviews carry provenance
             and state their limits), Rule 11 (probes transfer only from the registered
-            configuration), Rule 12 (check source currency before any freeze), and Rule 13
-            (interpretation is gated like evidence). It also carries the repository map and a
+            configuration), and Rule 12 (check source currency before any freeze). Rule 13&rsquo;s
+            substance &mdash; an adversarial audit gates any interpretive document before it is
+            published &mdash; appears without being cited by number, most visibly in chapter 29&rsquo;s
+            account of the audit that retracted the Phase 6 structural bound. It also carries the
+            repository map and a
             section called <em>High-value traps already paid for</em> &mdash; a list of mistakes
             that cost real time, kept so they are not made twice.
           </p>
@@ -446,8 +450,8 @@
       </p>
 
       <p>
-        There are <strong>34</strong> of them, <code>docs/decisions/0001-&hellip;</code> through
-        <code>0034-&hellip;</code>, plus a template. The ones Part Two leans on hardest:
+        There are <strong>35</strong> of them, <code>docs/decisions/0001-&hellip;</code> through
+        <code>0035-&hellip;</code>, plus a template. The ones Part Two leans on hardest:
       </p>
 
       <ul class="refs">
@@ -562,7 +566,7 @@
       <ul class="refs">
         <li>
           <span class="ref__title">The progress log</span>
-          <span class="ref__meta"><span class="ref__id">docs/PROGRESS.md</span> &mdash; 1,694 lines.</span>
+          <span class="ref__meta"><span class="ref__id">docs/PROGRESS.md</span> &mdash; 1,725 lines.</span>
           <p>
             The file to open first. It carries the phase table with each gate&rsquo;s status and the
             metric that closed it, a <strong>Next step</strong> section that is the current state of
@@ -680,7 +684,8 @@
       <h3 id="code">The source trees</h3>
 
       <p>
-        Five workspace packages, each with a <code>src/</code> and a <code>test/</code> directory.
+        Five workspace packages, each with a <code>src/</code> and a <code>test/</code> directory,
+        plus one archived prototype kept outside the workspace entirely.
         The chapters quote from these by path, and often by line. Dependency direction is
         <code>core</code> &rarr; <code>solver-cpu</code> &rarr; <code>runner</code>; solver code
         stays free of Node APIs and file I/O so the same oracle can run in a browser worker.
@@ -715,13 +720,17 @@
           <p>
             The Phase 5 WebGPU port: memory layout, diffusion and surface shaders, submission and
             readback auditing. Chapter 26. Certified on one Windows D3D12 lane and nothing wider
-            (ADR 0018), and <em>not</em> used for the Phase 6 sweep &mdash; it was measured slower
-            than the CPU oracle and could not meet the frozen tolerance in float32 at all.
+            (ADR 0018), and <em>not</em> used for the Phase 6 sweep: it passed Phase 5&rsquo;s own
+            frozen field and scalar tolerances (16 of 16 criteria, after an explicit FMA fix), but
+            a later calibration probe measured it roughly 6&times; slower than the CPU oracle at
+            sweep-scale workloads, and the separate, stricter Phase 6 sweep&rsquo;s
+            <code>divTol</code> bound sits below the float32 epsilon &mdash; unreachable by
+            construction, not by misfortune.
           </p>
         </li>
         <li>
           <span class="ref__title">runner/</span>
-          <span class="ref__meta"><span class="ref__id">runner/src</span> · <span class="ref__id">runner/test</span> &mdash; 24 test files</span>
+          <span class="ref__meta"><span class="ref__id">runner/src</span> · <span class="ref__id">runner/test</span> &mdash; 25 test files</span>
           <p>
             The evidence boundary, and where a claim becomes an exit code: the CLI
             (<code>runner/src/main.ts</code>), argument validation, stopping rules, checkpoint
@@ -738,6 +747,19 @@
             The browser instrument: a Web Worker copy of the CPU solver, the overlays and vapour
             slice that let you watch the crystal starve (chapter 24), picking and readouts, and a
             deterministic visual harness so the pictures can be tested too.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">spike/</span>
+          <span class="ref__meta"><span class="ref__id">spike/js</span> · <span class="ref__id">spike/index.html</span> &mdash; frozen, deliberately outside the npm workspace</span>
+          <p>
+            The archived Phase&nbsp;1 UX spike: a 2D Reiter cellular automaton with an editable
+            environmental timeline, closed 2026-07-15 on a maker-asserted gate. AGENTS.md&rsquo;s
+            repository map states the boundary directly &mdash; &ldquo;deliberately outside the
+            npm workspace&rdquo;, kept so nobody &ldquo;evolve[s] it into the product&rdquo;.
+            Nothing in the real solver imports from it, and nothing here imports from the
+            workspace; its own 39-check suite (<code>node spike/check.mjs</code>) runs outside
+            <code>npm test</code>.
           </p>
         </li>
       </ul>

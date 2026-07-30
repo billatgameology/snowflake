@@ -488,7 +488,7 @@
             </tr>
             <tr>
               <td><strong>attachment coefficient</strong></td>
-              <td>The probability that a molecule striking this patch of surface actually joins the lattice and stays &mdash; written alphaHK, running from 0 to 1, and a property of the patch rather than of ice.</td>
+              <td>The probability that a molecule striking this patch of surface actually joins the lattice and stays &mdash; written alphaHK, running from 0 to 1, and a property of the patch rather than of ice. Spelled out rather than left as a bare alpha because cellular-automaton snow-crystal models use their own, unrelated alpha for a boundary-mass freezing threshold, and the two quantities are easy to mix up on the page if neither is labelled.<!-- rule7-waive: deliberate mention of the bare spelling, explaining to a general reader why this site avoids it --></td>
               <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
             </tr>
             <tr>
@@ -1371,6 +1371,11 @@
           </thead>
           <tbody>
             <tr>
+              <td><strong><code>aggregate-hv-g1h1-v6</code></strong></td>
+              <td>The registered name of the D6h-equivariant aggregate boundary-operator policy: v5&rsquo;s opposing-vapour summation (Eq.&nbsp;5.35) with its operands reordered into ascending value, so a cell and its rotated image round identically. It is the policy Phase&nbsp;6 registers; v4 and v5 stay bit-unchanged because earlier phases&rsquo; evidence was produced under them, and the runner&rsquo;s own default stays v5.</td>
+              <td><a href="./chapters/22-when-the-numbers-stop-changing.html">22 &middot; When the Numbers Stop Changing</a> &middot; <a href="./chapters/26-fast-without-being-wrong.html">26 &middot; Fast Without Being Wrong</a></td>
+            </tr>
+            <tr>
               <td><strong>boundary mass</strong> (<em>b</em>)</td>
               <td>The running quantity every boundary cell carries under the borrowed threshold rule; the cell turns to ice the moment <em>b</em> passes <code>ggThreshBeta</code>, a cutoff somebody chose &mdash; as against the physics rule&rsquo;s fill fraction, whose threshold is 1 because 1 is what &ldquo;the surface has crossed one cell&rdquo; comes to.</td>
               <td><a href="./chapters/21-the-seam.html">21 &middot; The Seam</a></td>
@@ -1384,6 +1389,11 @@
               <td><strong>D6h</strong></td>
               <td>The full symmetry group of a hexagonal prism &mdash; sixth-turn, mirror, and top-to-bottom flip; &ldquo;exact D6h symmetry&rdquo; means every one of those operations leaves the crystal identical, cell for cell.</td>
               <td><a href="./chapters/19-why-the-grid-is-hexagonal.html">19 &middot; Why the Grid Is Hexagonal</a></td>
+            </tr>
+            <tr>
+              <td><strong><code>deltaSymClean</code></strong></td>
+              <td>The narrower, per-tick companion the solver prints beside <code>symErr</code>: whether the set of cells that attached on <em>this one tick</em> is itself D6h-invariant, checked at every tick rather than only at the run&rsquo;s end. A gather-order <code>symErr&nbsp;=&nbsp;0</code> is a snapshot at the stop instant and does not by itself establish that the run stayed symmetric throughout &mdash; <code>deltaSymClean</code> does, and it is what caught a chronic field-level symmetry break that a snapshot-only reading of <code>symErr</code> had missed.</td>
+              <td><a href="./chapters/20-the-flaw-in-the-last-bit.html">20 &middot; The Flaw in the Last Bit</a> &middot; <a href="./chapters/25-testing-what-nobody-knows.html">25 &middot; Testing What Nobody Knows</a> &middot; <a href="./chapters/28-the-exam-result.html">28 &middot; The Exam Result</a></td>
             </tr>
             <tr>
               <td><strong>Dirichlet</strong> (boundary)</td>
@@ -1541,8 +1551,8 @@
               <td><a href="./chapters/22-when-the-numbers-stop-changing.html">22 &middot; When the Numbers Stop Changing</a> &middot; <a href="./chapters/28-the-exam-result.html">28 &middot; The Exam Result</a></td>
             </tr>
             <tr>
-              <td><strong>symmetry error</strong></td>
-              <td>The worst mismatch between a cell and its sixth-turn partner. On a hexagonal grid with the noise switched off this can be <em>exactly</em> zero rather than merely small, which is what makes the choice of grid a physics decision rather than a convenience.</td>
+              <td><strong>symmetry error</strong> (<code>symErr</code>)</td>
+              <td>The worst mismatch between a cell and its sixth-turn partner, measured on the crystal&rsquo;s attached set. On a hexagonal grid with the noise switched off this can be <em>exactly</em> zero rather than merely small, which is what makes the choice of grid a physics decision rather than a convenience &mdash; but it is a snapshot taken at one instant, and chapter 20 shows a run whose symmetry error read a clean zero while the vapour field feeding it had already broken symmetry. The narrower, per-tick <code>deltaSymClean</code> check exists to catch exactly that.</td>
               <td><a href="./chapters/19-why-the-grid-is-hexagonal.html">19 &middot; Why the Grid Is Hexagonal</a> &middot; <a href="./chapters/20-the-flaw-in-the-last-bit.html">20 &middot; The Flaw in the Last Bit</a></td>
             </tr>
             <tr>

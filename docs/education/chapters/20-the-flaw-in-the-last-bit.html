@@ -752,6 +752,52 @@
       </p>
 
       <p>
+        That comparison has stayed prose so far. Here it is on the exact three numbers this
+        chapter opened with &mdash; rounded to float32 with <code>Math.fround()</code> and added
+        the way a GPU shader&rsquo;s <code>f32</code> register would add them, computed live by
+        your browser in both formats at once:
+      </p>
+
+      <figure class="anim" id="demo-f32">
+        <div class="anim__head">
+          <p class="anim__title">The same three numbers, one register narrower</p>
+          <p class="anim__sub">
+            <code>A</code>, <code>B</code>, <code>A</code> &mdash; the same ADR&nbsp;0023 operands
+            the first demo in this chapter used &mdash; rounded to float32 and summed the way the
+            untouched WGSL lane would. Then the same small operand, added over and over. Drag the
+            slider.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive, built from live IEEE&nbsp;754 arithmetic
+          rather than a recorded run: every float64 number below is this page&rsquo;s native
+          JavaScript number, and every float32 number is produced with <code>Math.fround()</code>
+          &mdash; single-precision round-to-nearest, the rounding ADR&nbsp;0023 (Decision) says the
+          &ldquo;registered, not repaired&rdquo; WGSL lane uses. The three operand values reused
+          here are the same <code>A</code> and <code>B</code> transcribed verbatim from
+          docs/decisions/0023-d6h-equivariant-opposing-vapor-mean.md, &ldquo;Context&rdquo;, in the
+          demo-order figure above. Both machine epsilons, both three-operand sums, and the
+          accumulation-divergence step are measured live, by stepping each format&rsquo;s
+          IEEE&nbsp;754 bit pattern by one integer &mdash; nothing on this page is a looked-up
+          constant.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        <strong>And two sites were audited and left as diagnostics, not fixed.</strong> The same
+        D6h-invariance rule governs <code>Math.hypot</code> in <code>core/src/metrics.ts</code>,
+        used by <code>centerRimDepletion</code> and <code>boundingRadius</code> &mdash; but an
+        audit recorded that both are &ldquo;REPORTED DIAGNOSTICS that never feed back into the
+        evolution, so they cannot break the crystal&rsquo;s symmetry&rdquo;, on one condition:
+        &ldquo;If any of them is ever wired into the solver&rsquo;s own decisions, it inherits
+        this rule&rdquo; (AGENTS.md:148&ndash;151). The fix was not applied everywhere; it was
+        applied everywhere it currently needs to be, and the two standing exceptions are named
+        rather than left for a reader to assume away.
+      </p>
+
+      <p>
         <strong>And none of this says the physics is right.</strong> A symmetry error of exactly
         zero says that the arithmetic did not decide the answer. It says nothing whatever about
         whether the equations being evaluated are nature&rsquo;s equations. Those are two different
@@ -781,7 +827,7 @@
           what it independently re-executed, and <em>&ldquo;what it did <strong>not</strong> check,
           stated as a limit of the evidence rather than left implicit&rdquo;</em>, and which
           <em>prefers</em> a different model from the one that wrote the code on any review that
-          carries a gate (AGENTS.md:388&ndash;393, Rule&nbsp;10). That
+          carries a gate (AGENTS.md:401&ndash;406, Rule&nbsp;10). That
           process has a limit the project states plainly and this page will not soften:
           <strong>every review round in this project that was not the maker&rsquo;s own has been an
           LLM review</strong> &mdash; including the two-reviewer pass over this page. The maker is a
@@ -1961,6 +2007,240 @@
       { value: "stream", label: "sequential stream (what it refuses)" },
     ],
     onChange: function (v) { mode = v; previous = null; changed = null; render(); },
+  });
+
+  render();
+  Viz.onThemeChange(render);
+})();
+</script>
+
+<script>
+/* ===========================================================================
+   DEMO 7 — float32 vs float64, live, on the same ADR 0023 operands (WGSL lane).
+   ======================================================================== */
+(function () {
+  "use strict";
+  const root = document.getElementById("demo-f32");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  // Verbatim from docs/decisions/0023 — the same two operand values demo-order uses.
+  const A = 1.33997599709070429330e-2;
+  const B = 1.52741366166647529051e-2;
+  const f32A = Math.fround(A);
+  const f32B = Math.fround(B);
+
+  /** The next representable value above x, in float64 — an exact bit-level step. */
+  function nextFloat64(x) {
+    const buf = new ArrayBuffer(8);
+    const f64v = new Float64Array(buf);
+    const i64v = new BigInt64Array(buf);
+    f64v[0] = x;
+    i64v[0] = i64v[0] + (x >= 0 ? 1n : -1n);
+    return f64v[0];
+  }
+  /** The next representable value above x, in float32 — an exact bit-level step. */
+  function nextFloat32(x) {
+    const buf = new ArrayBuffer(4);
+    const f32v = new Float32Array(buf);
+    const i32v = new Int32Array(buf);
+    f32v[0] = x;
+    i32v[0] = i32v[0] + (x >= 0 ? 1 : -1);
+    return f32v[0];
+  }
+  function hexBits32(x) {
+    const buf = new ArrayBuffer(4);
+    new Float32Array(buf)[0] = x;
+    return "0x" + (new Uint32Array(buf)[0] >>> 0).toString(16).padStart(8, "0");
+  }
+
+  // The machine epsilon of each format, measured by stepping 1.0 by one bit —
+  // not looked up, not hardcoded. eps64 will equal Number.EPSILON; eps32 will
+  // equal 2^-23. Nothing here assumes that — both are derived the same way.
+  const eps64 = nextFloat64(1) - 1;
+  const eps32 = nextFloat32(Math.fround(1)) - Math.fround(1);
+
+  // float32-simulated addition: round to float32 after every intermediate step,
+  // exactly what a Float32Array element or a WGSL f32 register does. float64
+  // addition below is plain JS + — this engine's native IEEE-754 binary64.
+  function sum32InOrder(vals) {
+    let s = Math.fround(vals[0]);
+    for (let i = 1; i < vals.length; i++) s = Math.fround(s + vals[i]);
+    return s;
+  }
+  function sum64InOrder(vals) {
+    let s = vals[0];
+    for (let i = 1; i < vals.length; i++) s = s + vals[i];
+    return s;
+  }
+  const cell64 = sum64InOrder([A, B, A]);
+  const image64 = sum64InOrder([A, A, B]);
+  const cell32 = sum32InOrder([f32A, f32B, f32A]);
+  const image32 = sum32InOrder([f32A, f32A, f32B]);
+  const reorderGap64 = Math.abs(cell64 - image64);
+  const roundGap = Math.abs(A - f32A);
+
+  // Accumulation: add the same operand A repeatedly, float64 next to a
+  // float32-simulated running sum, and find the first step at which the
+  // float32 sum first departs from simply rounding the exact float64 sum to
+  // float32 — i.e. the first step where accumulated rounding beats one-shot
+  // rounding.
+  const MAX_STEPS = 2000;
+  const sums64 = new Float64Array(MAX_STEPS + 1);
+  const sums32 = new Float64Array(MAX_STEPS + 1);
+  let firstDiverge = -1;
+  (function accumulate() {
+    let s64 = 0, s32 = 0;
+    for (let n = 1; n <= MAX_STEPS; n++) {
+      s64 += A;
+      s32 = Math.fround(s32 + f32A);
+      sums64[n] = s64;
+      sums32[n] = s32;
+      if (firstDiverge < 0 && Math.fround(s64) !== s32) firstDiverge = n;
+    }
+  })();
+
+  let steps = 100;
+
+  function box(label, valueText, colour) {
+    const d = document.createElement("div");
+    d.style.flex = "1 1 12rem";
+    d.style.minWidth = "0";
+    d.style.padding = "0.5rem 0.7rem";
+    d.style.border = "1px solid var(--rule)";
+    d.style.borderRadius = "8px";
+    d.style.background = "var(--surface-sunken)";
+    const k = document.createElement("div");
+    k.textContent = label;
+    k.style.fontSize = "0.72rem";
+    k.style.letterSpacing = "0.04em";
+    k.style.textTransform = "uppercase";
+    k.style.color = "var(--ink-muted)";
+    const v = document.createElement("div");
+    v.textContent = valueText;
+    v.style.fontFamily = "var(--font-mono)";
+    v.style.fontSize = "0.88rem";
+    v.style.fontWeight = "650";
+    v.style.overflowX = "auto";
+    v.style.whiteSpace = "nowrap";
+    if (colour) v.style.color = colour;
+    d.appendChild(k);
+    d.appendChild(v);
+    return d;
+  }
+
+  function verdictBox(text, colour) {
+    const p = document.createElement("p");
+    p.style.margin = "0.6rem 0 0";
+    p.style.padding = "0.55rem 0.75rem";
+    p.style.borderRadius = "8px";
+    p.style.fontWeight = "600";
+    p.style.fontSize = "0.85rem";
+    p.style.background = "var(--surface-sunken)";
+    p.style.borderLeft = "4px solid " + colour;
+    p.textContent = text;
+    return p;
+  }
+
+  function render() {
+    const c = Viz.colors();
+    body.textContent = "";
+
+    /* ---- 1. the two epsilons, measured live ---- */
+    const epsHead = document.createElement("p");
+    epsHead.textContent = "The last place, in each format:";
+    epsHead.style.margin = "0 0 0.4rem";
+    epsHead.style.fontWeight = "660";
+    epsHead.style.fontSize = "0.85rem";
+    body.appendChild(epsHead);
+
+    const epsRow = document.createElement("div");
+    epsRow.style.display = "flex";
+    epsRow.style.flexWrap = "wrap";
+    epsRow.style.gap = "0.5rem";
+    epsRow.appendChild(box("float64 ulp of 1.0", eps64.toExponential(4)));
+    epsRow.appendChild(box("float32 ulp of 1.0", eps32.toExponential(4), c.critical));
+    const exact = eps32 / eps64 === Math.round(eps32 / eps64);
+    epsRow.appendChild(box("ratio", exact
+      ? Math.round(eps32 / eps64).toLocaleString() + "× = 2^" + Math.round(Math.log2(eps32 / eps64))
+      : (eps32 / eps64).toExponential(3) + "×"));
+    body.appendChild(epsRow);
+
+    const epsNote = document.createElement("p");
+    epsNote.style.margin = "0.5rem 0 1rem";
+    epsNote.style.fontSize = "0.78rem";
+    epsNote.style.color = "var(--ink-secondary)";
+    epsNote.textContent = "Both measured just now by stepping the IEEE-754 bit pattern of 1.0 by "
+      + "a single integer, in each format — this is what the chapter's prose called "
+      + "“about 1.2×10⁻⁷ relative rather than 2.2×10⁻¹⁶.”";
+    body.appendChild(epsNote);
+
+    /* ---- 2. the demo-order split, attempted again in float32 ---- */
+    const head2 = document.createElement("p");
+    head2.textContent = "The demo above's split, attempted again in float32:";
+    head2.style.margin = "0 0 0.4rem";
+    head2.style.fontWeight = "660";
+    head2.style.fontSize = "0.85rem";
+    body.appendChild(head2);
+
+    const cardRow = document.createElement("div");
+    cardRow.style.display = "flex";
+    cardRow.style.flexWrap = "wrap";
+    cardRow.style.gap = "0.5rem";
+    const same32 = cell32 === image32;
+    cardRow.appendChild(box("cell, (a+b)+a, float32", cell32.toPrecision(9)));
+    cardRow.appendChild(box("image, (a+a)+b, float32", image32.toPrecision(9)));
+    cardRow.appendChild(box("bit pattern",
+      hexBits32(cell32) + (same32 ? " = " : " ≠ ") + hexBits32(image32),
+      same32 ? c.good : c.critical));
+    body.appendChild(cardRow);
+
+    body.appendChild(verdictBox(
+      same32
+        ? "Bit-for-bit identical. In float32, this particular pair can't even show the split the "
+          + "demo above found in float64 — and that is not a fix. Rounding A to its nearest "
+          + "float32 value alone moved it by " + roundGap.toExponential(3) + ", about "
+          + Math.round(roundGap / reorderGap64).toLocaleString() + "× the entire float64 "
+          + "reordering gap (" + reorderGap64.toExponential(3) + ") this chapter opened with. "
+          + "Float32 throws away more precision in one rounding step than the float64 bug cost in "
+          + "a whole misordered sum."
+        : "Different in float32 too, by " + Math.abs(cell32 - image32).toExponential(3) + ".",
+      same32 ? c.good : c.critical
+    ));
+
+    /* ---- 3. accumulation: the same operand, added `steps` times ---- */
+    const head3 = document.createElement("p");
+    head3.textContent = "The same operand, added " + steps + " times in a row:";
+    head3.style.margin = "1rem 0 0.4rem";
+    head3.style.fontWeight = "660";
+    head3.style.fontSize = "0.85rem";
+    body.appendChild(head3);
+
+    const relErr = Math.abs(sums32[steps] - sums64[steps]) / sums64[steps];
+    const accRow = document.createElement("div");
+    accRow.style.display = "flex";
+    accRow.style.flexWrap = "wrap";
+    accRow.style.gap = "0.5rem";
+    accRow.appendChild(box("float64 running sum", sums64[steps].toPrecision(17)));
+    accRow.appendChild(box("float32 running sum", sums32[steps].toPrecision(9)));
+    accRow.appendChild(box("relative error", relErr.toExponential(3), relErr > 0 ? c.critical : c.good));
+    body.appendChild(accRow);
+
+    body.appendChild(verdictBox(
+      "The float32 running sum first departs from simply rounding the exact float64 sum to "
+        + "float32 at step " + firstDiverge + " — no rotation, no permutation, nothing but "
+        + "the same addition run " + firstDiverge + " times. The float64 reordering bug above "
+        + "needed a 60° rotation and a specific operand triple to show one ulp of "
+        + "disagreement; float32 shows measurable drift from ordinary repeated addition alone, "
+        + "and the gap keeps growing with every further step.",
+      c.critical
+    ));
+  }
+
+  Viz.slider(controls, {
+    label: "accumulation steps", id: "f32-steps", min: 1, max: MAX_STEPS, step: 1, value: steps,
+    onInput: function (v) { steps = Math.round(v); render(); },
   });
 
   render();

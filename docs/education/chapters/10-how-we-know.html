@@ -474,25 +474,6 @@
         first thing that falls out of the arithmetic, as soon as you do the arithmetic at all.
       </p>
 
-      <!-- ---------------- ANIMATION 2 ---------------- -->
-      <figure class="anim" id="anim-crowding">
-        <div class="anim__head">
-          <p class="anim__title">The empty-looking substrate</p>
-          <p class="anim__sub">
-            Left: the floor as you would see it down a microscope. Right: what fraction of the
-            supersaturation you set actually survives to reach the crystals. Nudge the coverage from
-            0 to 1&nbsp;% and watch the left panel barely change while the right one collapses.
-          </p>
-        </div>
-        <div class="anim__body"></div>
-        <div class="anim__controls"></div>
-        <figcaption class="anim__foot">
-          <span class="built-from">Original chart. Computes Equations 7.6 and 7.7 (Libbrecht, Snow
-          Crystals, printed p. 251) with R = 10 &micro;m and &epsilon; = 1, the worked example given
-          in the text.</span>
-        </figcaption>
-      </figure>
-
       <p>
         The fix is visible in the same bracket: shrink <em>L</em>. Bring the frost ceiling down close
         to the crystal and the correction shrinks with it. In the apparatus behind &ldquo;some of the
@@ -517,6 +498,30 @@
           <em>Published caption: &ldquo;Figure 7.5: (Left) A close-up view of the ice-growth region
           of the apparatus in Figure 7.4, showing the ice reservoir and test crystal. Note the
           similarities to the ideal growth-chamber geometry shown in Figure 7.1.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <!-- ---------------- ANIMATION 2b ---------------- -->
+      <figure class="anim" id="anim-why-l-1mm">
+        <div class="anim__head">
+          <p class="anim__title">Why the gap is one millimetre</p>
+          <p class="anim__sub">
+            Set the two thermometers to fix &sigma;<sub>1</sub> &mdash; the supersaturation you are
+            asking for. Then drag the chamber gap L and watch how much of it survives the trip down
+            to the crystal, &sigma;<sub>bottom</sub>, once its sparse neighbours have taken their
+            cut. Shrink L toward the real apparatus's 1&nbsp;mm mark and the two numbers converge;
+            stretch the chamber out and they pull apart.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation, unifying the two demonstrations above.
+          &sigma;<sub>1</sub> from Equation 6.1 (Libbrecht, Snow Crystals, printed p. 222), using the
+          same p<sub>ice</sub>(T) and c<sub>sat</sub> conversion as the humidity animation earlier in
+          this chapter (Equation 2.8, printed p. 58). &sigma;<sub>bottom</sub> from Equations 7.6 and
+          7.7 (printed p. 251), with R&nbsp;=&nbsp;10&nbsp;&micro;m and &epsilon;&nbsp;=&nbsp;1, the
+          worked example given in the text.</span>
         </figcaption>
       </figure>
 
@@ -562,6 +567,27 @@
           usually has.
         </p>
       </aside>
+
+      <p>
+        Vapour crowding is not the only way a substrate can distort a measurement it is supposed to
+        stay out of. The instrument paper behind these techniques is candid about two more, and
+        neither is fixed by better bookkeeping. First, that hard-won zero point is not actually
+        measured independently for the crystal in front of you: the monitor voltage marking
+        &sigma;&nbsp;=&nbsp;0 &ldquo;can be measured from independent measurements, but not to high
+        accuracy&rdquo;, so in practice it &ldquo;is usually treated as an adjustable parameter
+        determined mainly from the onset of sublimation in the image data, for the specific test
+        crystal being analyzed&rdquo; &mdash; a fit, chosen crystal by crystal, not a reading off a
+        gauge. The author's own verdict on the whole extraction: &ldquo;this overall analysis process
+        is necessarily somewhat subjective&rdquo; (arXiv:1912.09440v1, pp. 9, 12). Second, the
+        substrate itself is not an inert stage. &ldquo;Whenever ice crystals are grown on a
+        substrate&hellip; substrate interactions must be considered as a possible source of systematic
+        errors in the growth measurements&rdquo;, and the usual fix &mdash; a hydrophobic coating
+        &mdash; trades one unknown for another: &ldquo;while hydrophobic and superhydrophobic coatings
+        can decrease unwanted substrate interactions, they may also increase unwanted thermal effects,
+        so one should proceed with caution when using such coatings&rdquo; (arXiv:1912.09440v1,
+        pp. 3, 8). Neither problem shows up as noise on a plotted curve. Both are folded into a number
+        that looks exactly as clean as any other.
+      </p>
 
       <!-- ================================================================== -->
       <h2 id="counting-fringes">Counting flickers of laser light</h2>
@@ -816,6 +842,17 @@
           cleanly support isolated snow crystals as they growth and develop.&rdquo;</em>
         </figcaption>
       </figure>
+
+      <p>
+        There is a second, more basic reason for the needle, on top of the isolation just described.
+        A seed shaped like a small prism carries two basal faces, and growing a plate from both at
+        once risks what Libbrecht&rsquo;s dedicated paper on the technique calls the
+        &ldquo;double-plate&rdquo; problem: the two sides &ldquo;interfere with one another&rsquo;s
+        growth, often yielding split plates and split stars.&rdquo; A needle tip avoids the problem by
+        construction &mdash; it &ldquo;presents only a single basal facet&rdquo;, so when a plate
+        forms, only one emerges, cleanly, exactly what Figure 8.2 shows (arXiv:2109.00098v1,
+        pp. 9&ndash;10).
+      </p>
 
       <p>
         The second technique goes the other way and pins the crystal to a window. Let small ice
@@ -1313,30 +1350,61 @@
 
 
 /* ===========================================================================
-   ANIMATION 2 — The empty-looking substrate.
+   ANIMATION 2b — Why the gap is one millimetre.
 
-   sigma_bottom / sigma_1 = (1 + 2 e b L / R)^-1     (Eq. 7.6, printed p. 251)
-   b = pi R^2 / l^2                                  (Eq. 7.7, printed p. 251)
-   Worked example in the text: b = 0.01, L = 1 cm, R = 10 um, e = 1 -> 0.05
+   Unifies the two demonstrations above into one causal chain:
+     sigma_1 = [c_sat(T_res) - c_sat(T_sub)] / c_sat(T_sub)   (Eq. 6.1, p. 222)
+     sigma_bottom / sigma_1 = (1 + 2 e b L / R)^-1             (Eq. 7.6, p. 251)
+     b = pi R^2 / l^2                                          (Eq. 7.7, p. 251)
+   The two thermometers set sigma_1; dragging the chamber gap L (with the
+   substrate's own filling factor b) then determines how much of sigma_1
+   survives as sigma_bottom. The real apparatus runs at L = 1 mm, marked on
+   the schematic; sigma_bottom -> sigma_1 as L shrinks toward that mark.
    ======================================================================== */
 (function () {
-  const root = document.getElementById("anim-crowding");
+  const root = document.getElementById("anim-why-l-1mm");
   if (!root) return;
   const body = root.querySelector(".anim__body");
   const controls = root.querySelector(".anim__controls");
 
-  const W = 620, H = 346;
+  const W = 820, H = 420;
   const R_UM = 10;          // crystal radius, microns — the text's worked example
   const EPS = 1;            // greediest case, as in the text
 
-  let fillFrac = 0.01;      // filling factor
-  let Lmm = 10;             // chamber height, millimetres
-
+  /* saturated vapour pressure of ice, mbar — monograph Equation 2.8 */
+  function pIce(tC) { return 3.7e10 * Math.exp(-6150 / (tC + 273.15)); }
+  /* number density is proportional to p / T */
+  function cSat(tC) { return pIce(tC) / (tC + 273.15); }
+  function sigma1(tSub, dT) { return cSat(tSub + dT) / cSat(tSub) - 1; }
   function survives(b, L_mm) {
     const L_um = L_mm * 1000;
     return 1 / (1 + (2 * EPS * b * L_um) / R_UM);
   }
-  function spacing(b) { return R_UM * Math.sqrt(Math.PI / Math.max(b, 1e-6)); }
+
+  let tSub = -15, dT = 0.60;   // the two thermometers — set sigma_1
+  let fillFrac = 0.01;         // filling factor b — the substrate's own coverage
+  let Lmm = 10;                // chamber gap L, millimetres — drag this
+
+  /* ---- side-view chamber geometry, in SVG user units ---- */
+  const SX0 = 24, SX1 = 300;             // schematic column
+  const FLOOR_Y = 330, BUMP_ROOM = 30;   // substrate line, headroom above it
+  const GAP_MIN = 12, GAP_MAX = 230;     // drawn gap at L=1mm and L=30mm
+  function ceilY(L) {
+    const g = GAP_MIN + ((L - 1) / 29) * (GAP_MAX - GAP_MIN);
+    return FLOOR_Y - BUMP_ROOM - g;
+  }
+  const CEIL_1MM = ceilY(1);             // fixed reference row for the marked L = 1 mm line
+
+  function frostPath(ceil) {
+    let d = "M " + SX0 + " " + ceil + " ";
+    const teeth = 14, step = (SX1 - SX0) / teeth;
+    for (let i = 0; i < teeth; i++) {
+      d += "L " + (SX0 + (i + 0.5) * step).toFixed(1) + " " + (ceil + 10) + " ";
+      d += "L " + (SX0 + (i + 1) * step).toFixed(1) + " " + ceil + " ";
+    }
+    d += "L " + SX1 + " " + (ceil - 14) + " L " + SX0 + " " + (ceil - 14) + " Z";
+    return d;
+  }
 
   let svg = null;
 
@@ -1344,134 +1412,195 @@
     const c = Viz.colors();
     if (svg) svg.remove();
 
+    const s1 = sigma1(tSub, dT);
     const frac = survives(fillFrac, Lmm);
-    const over = 1 / frac;
+    const sBottom = s1 * frac;
+    const over = 1 / Math.max(frac, 1e-9);
+    const ceil = ceilY(Lmm);
+    // what the marked L = 1mm point itself achieves at this same coverage — the
+    // status verdict below is judged against that self-relative benchmark, not
+    // a fixed fraction, because how close sigma_bottom gets to sigma_1 in
+    // absolute terms depends on the crowding formula's own coverage exponent
+    // too (Eq. 7.6/7.7): at a given coverage,
+    // "converged" means "close to what the real apparatus's own gap gives you".
+    const fracAt1mm = survives(fillFrac, 1);
 
     svg = Viz.createSvg(body, W, H, {
-      label: "Left: a top-down view of a substrate sparsely covered with tiny ice crystals. " +
-             "Right: the fraction of the set supersaturation that survives to reach them.",
-      desc: "At a filling factor of " + (fillFrac * 100).toFixed(1) + " percent and a chamber height " +
-            "of " + Lmm + " millimetres, only " + (frac * 100).toFixed(1) + " percent of the " +
-            "supersaturation you set is left at the substrate.",
+      label: "Left: a side view of the two-temperature growth chamber, showing the frost " +
+             "reservoir, the gap L, and several small crystals on the substrate. Right: the " +
+             "supersaturation set by the two thermometers, and the supersaturation that survives " +
+             "the crowding correction to reach the crystals.",
+      desc: "At a substrate temperature of " + tSub.toFixed(1) + " degrees Celsius and a reservoir " +
+            dT.toFixed(2) + " degrees warmer, sigma_1 is " + (s1 * 100).toFixed(3) + " percent. " +
+            "At a chamber gap of " + Lmm.toFixed(2) + " millimetres and a floor coverage of " +
+            (fillFrac * 100).toFixed(2) + " percent, sigma_bottom is " + (sBottom * 100).toFixed(3) +
+            " percent, which is " + (frac * 100).toFixed(1) + " percent of sigma_1.",
     });
 
-    /* ---------- LEFT: the substrate as you would see it ---------- */
-    const PX = 26, PY = 56, PW = 250, PH = 250;
+    /* ================= LEFT: the chamber, side view ================= */
     svg.appendChild(Viz.svgEl("rect", {
-      x: PX, y: PY, width: PW, height: PH, fill: c.sunken, stroke: c.rule, "stroke-width": 1,
+      x: SX0, y: ceil, width: SX1 - SX0, height: FLOOR_Y - ceil,
+      fill: c.sunken, stroke: c.rule, "stroke-width": 1,
     }));
 
-    // draw the real square array: spacing l set by the filling factor, R fixed at 10 um
-    const ell = spacing(fillFrac);              // microns
-    const viewUm = 1400;                       // the panel shows a 1.4 mm square of substrate
-    const scale = PW / viewUm;
-    const n = Math.floor(viewUm / ell);
-    for (let i = 0; i <= n; i++) {
-      for (let j = 0; j <= n; j++) {
-        const x = PX + (i + 0.5) * ell * scale;
-        const y = PY + (j + 0.5) * ell * scale;
-        if (x > PX + PW - 2 || y > PY + PH - 2) continue;
-        svg.appendChild(Viz.svgEl("circle", {
-          cx: x.toFixed(1), cy: y.toFixed(1), r: Math.max(0.9, R_UM * scale).toFixed(2),
-          fill: c.series[0], opacity: 0.9,
-        }));
-      }
+    // frost reservoir, at the current L
+    svg.appendChild(Viz.svgEl("path", { d: frostPath(ceil), fill: c.series[0], opacity: 0.85 }));
+    let t = Viz.svgEl("text", { class: "series-label", x: SX0, y: ceil - 24, fill: c.series[0] });
+    t.textContent = "reservoir  T = " + (tSub + dT).toFixed(2) + " °C";
+    svg.appendChild(t);
+
+    // substrate
+    svg.appendChild(Viz.svgEl("rect", {
+      x: SX0 - 8, y: FLOOR_Y, width: SX1 - SX0 + 16, height: 13, fill: c.series[1], opacity: 0.85,
+    }));
+    t = Viz.svgEl("text", { class: "series-label", x: SX0 - 8, y: FLOOR_Y + 30, fill: c.series[1] });
+    t.textContent = "substrate  T = " + tSub.toFixed(1) + " °C";
+    svg.appendChild(t);
+
+    // the sparse crystals sitting on it — the empty-looking floor
+    const humps = Math.max(3, Math.min(14, Math.round(3 + (fillFrac / 0.05) * 11)));
+    for (let i = 0; i < humps; i++) {
+      const hx = SX0 + 16 + (i + 0.5) * ((SX1 - SX0 - 32) / humps);
+      svg.appendChild(Viz.svgEl("circle", {
+        cx: hx.toFixed(1), cy: FLOOR_Y - 5, r: 3.6, fill: c.series[1], opacity: 0.9,
+      }));
     }
-
-    let t = Viz.svgEl("text", { x: PX, y: PY - 24, class: "axis-title" });
-    t.setAttribute("fill", c.inkSecondary);
-    t.textContent = "the floor, seen from above";
-    svg.appendChild(t);
-
-    t = Viz.svgEl("text", { x: PX, y: PY - 8, class: "annotation" });
+    t = Viz.svgEl("text", { x: SX0 - 8, y: FLOOR_Y + 48, class: "annotation" });
     t.setAttribute("fill", c.muted);
-    t.textContent = "1.4 mm across · crystals 10 µm in radius, spaced " +
-                    (fillFrac > 0.0002 ? Math.round(ell) + " µm" : "far apart");
+    t.textContent = "covers " + (fillFrac * 100).toFixed(2) + "% of the floor — looks empty";
     svg.appendChild(t);
 
-    t = Viz.svgEl("text", { x: PX, y: PY + PH + 20, class: "annotation" });
-    t.setAttribute("fill", c.inkSecondary);
-    t.textContent = "coverage: " + (fillFrac * 100).toFixed(1) + "% of the area — looks empty";
-    svg.appendChild(t);
-
-    /* ---------- RIGHT: how much supersaturation survives ---------- */
-    const BX = 330, BY = 56, BW = 250;
-
-    t = Viz.svgEl("text", { x: BX, y: BY - 24, class: "axis-title" });
-    t.setAttribute("fill", c.inkSecondary);
-    t.textContent = "what the crystals actually feel";
-    svg.appendChild(t);
-
-    // "you set" bar
-    const barTop = BY + 34, barH = 34, gap = 26;
-    svg.appendChild(Viz.svgEl("rect", {
-      x: BX, y: barTop, width: BW, height: barH, fill: c.series[0], opacity: 0.85, rx: 3,
+    // the gap bracket, showing the current L against the fixed 1 mm mark
+    const bx = SX1 + 24;
+    svg.appendChild(Viz.svgEl("path", {
+      d: "M " + (bx - 6) + " " + ceil.toFixed(1) + " L " + bx + " " + ceil.toFixed(1) +
+         " L " + bx + " " + (FLOOR_Y - BUMP_ROOM).toFixed(1) + " L " + (bx - 6) + " " +
+         (FLOOR_Y - BUMP_ROOM).toFixed(1),
+      fill: "none", stroke: c.ink, "stroke-width": 1.4,
     }));
-    t = Viz.svgEl("text", { x: BX, y: barTop - 8, class: "series-label" });
+    const midY = (ceil + (FLOOR_Y - BUMP_ROOM)) / 2;
+    t = Viz.svgEl("text", { x: bx + 10, y: midY - 6, class: "annotation" });
+    t.setAttribute("fill", c.ink);
+    t.textContent = "L = " + Lmm.toFixed(1) + " mm";
+    svg.appendChild(t);
+    t = Viz.svgEl("text", { x: bx + 10, y: midY + 10, class: "annotation" });
+    t.setAttribute("fill", c.muted);
+    t.textContent = Lmm <= 1.05 ? "the apparatus itself" : Lmm.toFixed(1) + "× that gap";
+    svg.appendChild(t);
+
+    // fixed reference line at the real apparatus's L = 1 mm — drawn last, on
+    // top of the frost and the current-L drawing, so it stays visible even
+    // when the current gap has been shrunk down to coincide with it
+    svg.appendChild(Viz.svgEl("line", {
+      x1: SX0 - 6, y1: CEIL_1MM, x2: SX1 + 6, y2: CEIL_1MM,
+      stroke: c.ink, "stroke-width": 1.5, "stroke-dasharray": "3 4",
+    }));
+    t = Viz.svgEl("text", { x: SX0 + 4, y: CEIL_1MM - 8, class: "annotation" });
+    t.setAttribute("fill", c.ink);
+    t.setAttribute("style", "font-weight:600");
+    t.textContent = "L = 1 mm — the real apparatus";
+    svg.appendChild(t);
+
+    /* ================= RIGHT: sigma_1 -> sigma_bottom ================= */
+    const RX = 470, RW = 320;
+
+    t = Viz.svgEl("text", { x: RX, y: 40, class: "axis-title" });
     t.setAttribute("fill", c.series[0]);
-    t.textContent = "σ₁  you set this with two thermometers";
+    t.textContent = "σ₁ — set by two thermometers";
+    svg.appendChild(t);
+    t = Viz.svgEl("text", { x: RX, y: 76, fill: c.ink });
+    t.setAttribute("style", "font-size:28px;font-weight:700;font-variant-numeric:tabular-nums");
+    t.textContent = (s1 >= 0 ? "" : "−") + Math.abs(s1 * 100).toFixed(2) + "%";
     svg.appendChild(t);
 
-    // "actually there" bar
-    const y2 = barTop + barH + gap + 14;
+    t = Viz.svgEl("text", { x: RX, y: 100, class: "annotation" });
+    t.setAttribute("fill", c.inkSecondary);
+    t.textContent = "crowding correction (Eq. 7.6 / 7.7):";
+    svg.appendChild(t);
+    t = Viz.svgEl("text", { x: RX, y: 116, class: "annotation" });
+    t.setAttribute("fill", c.inkSecondary);
+    t.textContent = "only " + (frac * 100).toFixed(1) + "% survives the " + Lmm.toFixed(1) + " mm gap";
+    svg.appendChild(t);
+
+    t = Viz.svgEl("text", { x: RX, y: 152, class: "axis-title" });
+    t.setAttribute("fill", c.series[1]);
+    t.textContent = "σ_bottom — what the crystal actually feels";
+    svg.appendChild(t);
+    t = Viz.svgEl("text", { x: RX, y: 188, fill: c.ink });
+    t.setAttribute("style", "font-size:28px;font-weight:700;font-variant-numeric:tabular-nums");
+    t.textContent = (sBottom >= 0 ? "" : "−") + Math.abs(sBottom * 100).toFixed(2) + "%";
+    svg.appendChild(t);
+
+    // two comparison bars — sigma_1 as the reference, sigma_bottom as its surviving fraction
+    const barY1 = 222, barH = 28, barY2 = barY1 + barH + 30;
+    t = Viz.svgEl("text", { x: RX, y: barY1 - 8, class: "series-label" });
+    t.setAttribute("fill", c.series[0]);
+    t.textContent = "σ₁";
+    svg.appendChild(t);
     svg.appendChild(Viz.svgEl("rect", {
-      x: BX, y: y2, width: BW, height: barH, fill: c.rule, opacity: 0.55, rx: 3,
+      x: RX, y: barY1, width: RW, height: barH, fill: c.series[0], opacity: 0.85, rx: 3,
+    }));
+
+    t = Viz.svgEl("text", { x: RX, y: barY2 - 8, class: "series-label" });
+    t.setAttribute("fill", c.series[1]);
+    t.textContent = "σ_bottom";
+    svg.appendChild(t);
+    svg.appendChild(Viz.svgEl("rect", {
+      x: RX, y: barY2, width: RW, height: barH, fill: c.rule, opacity: 0.55, rx: 3,
     }));
     svg.appendChild(Viz.svgEl("rect", {
-      x: BX, y: y2, width: Math.max(1.5, BW * frac), height: barH,
+      x: RX, y: barY2, width: Math.max(1.5, RW * frac), height: barH,
       fill: c.series[1], opacity: 0.9, rx: 3,
     }));
-    t = Viz.svgEl("text", { x: BX, y: y2 - 8, class: "series-label" });
-    t.setAttribute("fill", c.series[1]);
-    t.textContent = "σ at the floor  what is actually left";
-    svg.appendChild(t);
 
-    // the number
-    t = Viz.svgEl("text", { x: BX, y: y2 + barH + 56, fill: c.ink });
-    t.setAttribute("style", "font-size:30px;font-weight:700;font-variant-numeric:tabular-nums");
-    t.textContent = over < 1.05 ? "no correction" : over.toFixed(1) + "× too high";
+    // verdict — two short lines, like the two-line readouts elsewhere on this
+    // page, rather than one long line that would run past the frame
+    const vy = barY2 + barH;
+    t = Viz.svgEl("text", { x: RX, y: vy + 32, fill: c.ink });
+    t.setAttribute("style", "font-size:19px;font-weight:700;font-variant-numeric:tabular-nums");
+    t.textContent = over < 1.05 ? "no correction needed" : over.toFixed(1) + "× too high";
     svg.appendChild(t);
-
-    t = Viz.svgEl("text", { x: BX, y: y2 + barH + 78, class: "annotation" });
+    t = Viz.svgEl("text", { x: RX, y: vy + 50, class: "annotation" });
     t.setAttribute("fill", c.inkSecondary);
-    t.textContent = over < 1.05 ? "a genuinely bare floor"
-                                : "if you assume the floor is empty";
+    t.textContent = over < 1.05 ? "a genuinely bare floor" : "if you assume the floor is empty";
     svg.appendChild(t);
 
-    t = Viz.svgEl("text", { x: BX, y: y2 + barH + 98, class: "annotation" });
-    t.setAttribute("fill", c.muted);
-    t.textContent = "only " + (frac * 100).toFixed(1) + "% of σ₁ survives";
+    const status = frac >= 0.8 * fracAt1mm
+      ? { word: "converged — close to the L = 1 mm value", color: c.good }
+      : frac <= 0.3 * fracAt1mm
+      ? { word: "diverged — well below the L = 1 mm value", color: c.critical }
+      : { word: "partway between", color: c.inkSecondary };
+    t = Viz.svgEl("text", { x: RX, y: vy + 74, fill: status.color });
+    t.setAttribute("style", "font-size:13px;font-weight:600");
+    t.textContent = status.word;
     svg.appendChild(t);
-
-    // the monograph quotes the worked example rounded; say so rather than
-    // leaving the reader to wonder why the printed number differs
-    if (over > 18 && over < 22) {
-      t = Viz.svgEl("text", { x: BX, y: y2 + barH + 116, class: "annotation" });
-      t.setAttribute("fill", c.muted);
-      t.textContent = "the monograph rounds this to a factor";
-      svg.appendChild(t);
-      t = Viz.svgEl("text", { x: BX, y: y2 + barH + 132, class: "annotation" });
-      t.setAttribute("fill", c.muted);
-      t.textContent = "of twenty (printed p. 251)";
-      svg.appendChild(t);
-    }
   }
 
   render();
   Viz.onThemeChange(render);
 
-  const sFillFrac = Viz.slider(controls, {
-    label: "Fraction of floor covered", id: "fillfrac", min: 0, max: 0.05, step: 0.0005, value: fillFrac,
+  Viz.slider(controls, {
+    label: "Substrate temperature", id: "tsub-b", min: -30, max: -2, step: 0.5, value: tSub,
+    format: function (v) { return v.toFixed(1) + " °C"; },
+    onInput: function (v) { tSub = v; render(); },
+  });
+  Viz.slider(controls, {
+    label: "Reservoir warmer by", id: "dt-b", min: -0.2, max: 1.5, step: 0.01, value: dT,
+    format: function (v) { return v.toFixed(2) + " °C"; },
+    onInput: function (v) { dT = v; render(); },
+  });
+  const sL = Viz.slider(controls, {
+    label: "Chamber gap L", id: "L-b", min: 1, max: 30, step: 0.5, value: Lmm,
+    format: function (v) { return v.toFixed(1) + " mm"; },
+    onInput: function (v) { Lmm = v; render(); },
+  });
+  const sFill = Viz.slider(controls, {
+    label: "Fraction of floor covered", id: "fillfrac-b", min: 0, max: 0.05, step: 0.0005, value: fillFrac,
     format: function (v) { return (v * 100).toFixed(2) + "%"; },
     onInput: function (v) { fillFrac = v; render(); },
   });
-  const sL = Viz.slider(controls, {
-    label: "Chamber height L", id: "L", min: 1, max: 30, step: 1, value: Lmm,
-    format: function (v) { return v + " mm"; },
-    onInput: function (v) { Lmm = v; render(); },
-  });
-  Viz.button(controls, "The worked example", function () { sFillFrac.value = 0.01; sL.value = 10; });
-  Viz.button(controls, "The real apparatus (L = 1 mm)", function () { sL.value = 1; });
+  Viz.button(controls, "Jump to the real apparatus (L = 1 mm)", function () { sL.value = 1; });
+  Viz.button(controls, "Worked example (1% coverage, L = 10 mm)", function () { sFill.value = 0.01; sL.value = 10; });
 })();
 
 

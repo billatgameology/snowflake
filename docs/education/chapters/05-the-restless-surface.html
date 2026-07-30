@@ -59,7 +59,7 @@
         <div class="chapter-header__meta">
           <span>~20 min read</span>
           <span>13 figures</span>
-          <span>4 animations &middot; 1 chart</span>
+          <span>5 animations &middot; 1 chart</span>
         </div>
       </header>
 
@@ -341,6 +341,21 @@
       </p>
 
       <p>
+        One naming note before you see this quantity written a hundred more times. Other accounts of
+        this subject often just call it alpha, and you may see that plain spelling elsewhere. <!-- rule7-waive: deliberate mention of the bare spelling, explaining to a general reader why this site avoids it -->
+        This site does not, and the reason is not house style for its own sake: snow-crystal science
+        has <em>two</em> different quantities that both get called alpha, for unrelated historical <!-- rule7-waive: deliberate mention of the bare spelling, explaining to a general reader why this site avoids it -->
+        reasons, in the same broad subject. One is this one, Libbrecht's attachment coefficient. The
+        other belongs to a completely different family of models &mdash; the cellular-automaton
+        simulations of snow-crystal growth, one of which this site cites in the next chapter &mdash;
+        where it names a boundary-mass threshold that decides when a surface cell freezes, not a
+        probability that a molecule sticks. The two are not the same number, do not have the same
+        units, and are not even measuring the same kind of thing. Writing <code>alphaHK</code> keeps
+        that distinction visible on the page instead of leaving it for you to reconstruct from
+        context.
+      </p>
+
+      <p>
         With <code>alphaHK</code> in hand, the growth of any patch of surface is one short equation.
       </p>
 
@@ -398,6 +413,55 @@
           determined by the first two surface classes. Thus, the attachment kinetics on the topmost
           facet terraces strongly influences the morphological development of the entire
           structure.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        There is one way to dodge the nucleation barrier completely, and it does not need a rough
+        surface to do it. Cut a facet at a slight angle &mdash; a degree or two off the true
+        crystal plane &mdash; and instead of one flat terrace you get a permanent staircase: a
+        regular train of steps, evenly spaced, crossing what still looks to the eye like a flat
+        face. This is a <strong>vicinal surface</strong>, a third kind of surface alongside faceted
+        and rough, and its step spacing &mdash; written &#8467;<sub>vicinal</sub> &mdash; shrinks as
+        the tilt grows. Because every admolecule that lands now has a nearby step to find, there is
+        nothing left to nucleate: once &#8467;<sub>vicinal</sub> is smaller than the
+        <strong>surface diffusion length</strong> <em>x</em><sub>diff</sub> &mdash; how far an
+        admolecule typically wanders across a terrace before it gives up and evaporates &mdash;
+        nearly every arrival meets a step before it escapes, and <code>alphaHKVicinal</code> climbs
+        to about 1 with no nucleation barrier in the story at all (printed p.&nbsp;140). Libbrecht
+        gives a sense of just how little tilt this takes: a facet running at <code>alphaHKFacet</code>
+        below 0.01 can sit right next to a vicinal surface, at the very same temperature and
+        supersaturation, running at <code>alphaHKVicinal</code> near 1 &mdash; from a tilt of only a
+        degree or two (printed p.&nbsp;141). Tip the same surface back toward zero and
+        &#8467;<sub>vicinal</sub> grows without limit, <code>alphaHKVicinal</code> relaxes back to
+        the ordinary facet value, and the nucleation barrier of the last few pages returns in full.
+        A vicinal surface, in other words, is not a third kind of physics competing with the first
+        two &mdash; it is the same nucleation story with the terrace spacing turned into a dial,
+        running all the way from &ldquo;nucleation-limited facet&rdquo; at one end to &ldquo;sticks
+        like a rough surface&rdquo; at the other.
+      </p>
+
+      <figure class="anim" id="anim-vicinal">
+        <div class="anim__head">
+          <p class="anim__title">Outrunning the nucleation barrier</p>
+          <p class="anim__sub">Tilt the face and watch the terraces close ranks. Once the gap
+          between steps beats the diffusion length, there is nothing left to nucleate.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original schematic. Terrace width is modelled geometrically as
+          step height divided by tan(tilt angle) and compared against a fixed reference standing in
+          for the surface diffusion length x<sub>diff</sub>; <code>alphaHKVicinal</code> is drawn
+          rising from the facet value toward 1 across that crossover, encoding the two limits
+          Libbrecht states directly: <code>alphaHKVicinal</code> &asymp; 1 when
+          &#8467;<sub>vicinal</sub> &lt; x<sub>diff</sub>, and <code>alphaHKVicinal</code> &rarr;
+          <code>alphaHKFacet</code> when &#8467;<sub>vicinal</sub> &rarr; &infin; (printed
+          p.&nbsp;140), calibrated so the crossover falls at a tilt of about 1.5&deg;, inside
+          &ldquo;a vicinal angle of just a degree or two&rdquo; (printed p.&nbsp;141). This is a
+          schematic model of the terrace-vs-diffusion-length race, not a measured curve &mdash; the
+          reference length and the shape of the rise between the two limits are chosen for the
+          demonstration, not extracted from the source.</span>
         </figcaption>
       </figure>
 
@@ -927,6 +991,19 @@
         </p>
       </aside>
 
+      <p>
+        That was a judgement call weighing several lines of older evidence. A later, dedicated study
+        put it to a more direct test: build a model of ice/vapour faceting that assumes from the
+        outset that the surface energy is isotropic, and see whether it can still explain the
+        measurements. It can. Working from that assumption alone, a comprehensive attachment-kinetics
+        model reproduces the available data well enough to also explain a specific puzzle &mdash; why
+        prism faceting disappears on slowly grown crystals above &minus;2&nbsp;&deg;C &mdash; without
+        ever calling on an anisotropic surface energy to do any work, which is about as close as this
+        subject gets to a controlled experiment ruling the low-energy story out (Libbrecht &amp;
+        Walkling, &ldquo;A Comprehensive Model of Snow Crystal Faceting,&rdquo; arXiv:2306.04042v1,
+        p.&nbsp;1).
+      </p>
+
       <div class="table-wrap">
         <table>
           <caption>
@@ -1095,6 +1172,7 @@
    3. anim-facet-balance   the alphaHK·sigma negative feedback across one facet
    4. anim-qll             surface premelting depth vs temperature
    5. chart-anisotropy     surface-energy anisotropy: needed vs available
+   6. anim-vicinal         terrace width vs tilt, and the alphaHKVicinal crossover
    ======================================================================== */
 
 /* ------------------------------------------------------------- 1. slow wins */
@@ -1726,6 +1804,218 @@
   }
 
   render();
+  Viz.onThemeChange(render);
+})();
+
+/* ------------------------------------------------------------- 6. vicinal */
+(function () {
+  const root = document.getElementById("anim-vicinal");
+  if (!root) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  // Terrace width ~ step height / tan(tilt), compared against a fixed schematic
+  // reference standing in for the surface diffusion length x_diff. Calibrated so
+  // the crossover (terrace width == reference) falls at T_CROSS degrees, inside
+  // the printed "vicinal angle of just a degree or two" (printed p.141). Neither
+  // the reference length nor the transition's steepness is a measured quantity.
+  const T_CROSS = 1.5;                 // degrees
+  const X_DIFF_PX = 100;               // fixed reference bar length, schematic px
+  const K_PX = X_DIFF_PX * Math.tan((T_CROSS * Math.PI) / 180); // px . tan(deg)
+  const alphaHKFacet = 0.008;           // < 0.01, per the printed example
+  const STEEPNESS = 3;                 // schematic transition sharpness
+
+  let tilt = 0.4;                      // degrees
+
+  function spacingPx(t) { return K_PX / Math.tan((t * Math.PI) / 180); }
+  function ratioAt(t) { return spacingPx(t) / X_DIFF_PX; }
+  function alphaHKVicinalAt(t) {
+    const r = ratioAt(t);
+    return alphaHKFacet + (1 - alphaHKFacet) / (1 + Math.pow(r, STEEPNESS));
+  }
+
+  const panel1 = document.createElement("div");
+  const panel2 = document.createElement("div");
+  panel2.style.marginTop = "0.4rem";
+  body.appendChild(panel1);
+  body.appendChild(panel2);
+
+  const readout = document.createElement("p");
+  readout.className = "anim__sub";
+  readout.style.margin = "0.6rem 0 0";
+  readout.setAttribute("role", "status");
+  readout.setAttribute("aria-live", "polite");
+  body.parentNode.insertBefore(readout, controls);
+
+  /* --------------------------------------------------- panel 1: the terraces */
+  const W1 = 600, H1 = 178, TOP1 = 58, RISE1 = 5;
+
+  function stepXs(t, W) {
+    const s = spacingPx(t), out = [];
+    for (let k = 0; (k + 0.5) * s < W; k++) out.push((k + 0.5) * s);
+    return out;
+  }
+  function surfaceY(x, t) {
+    return TOP1 + RISE1 * Math.max(0, Math.floor(x / spacingPx(t) + 0.5));
+  }
+
+  function renderTerraces() {
+    const c = Viz.colors();
+    const s = spacingPx(tilt);
+    const edges = stepXs(tilt, W1);
+    const svg = Viz.createSvg(panel1, W1, H1, {
+      label: "A slightly tilted crystal face seen edge-on, drawn as a staircase of terraces.",
+      desc: "The gap between steps shrinks as the tilt increases, drawn against a fixed reference " +
+            "length standing in for the surface diffusion length.",
+    });
+
+    // ---- the two lengths, drawn as comparable bars
+    const bx = 265, barY = 26, barGap = 24;
+    function bar(y, len, color, dash) {
+      const capped = Math.min(len, W1 - bx - 8);
+      svg.appendChild(Viz.svgEl("line", {
+        x1: bx, x2: bx + capped, y1: y, y2: y,
+        stroke: color, "stroke-width": 3, "stroke-dasharray": dash || null,
+      }));
+      [bx, bx + capped].forEach(function (x) {
+        svg.appendChild(Viz.svgEl("line", { x1: x, x2: x, y1: y - 5, y2: y + 5, stroke: color, "stroke-width": 3 }));
+      });
+      return capped;
+    }
+    const lab1 = Viz.svgEl("text", { class: "annotation", x: 8, y: barY + 4 });
+    lab1.textContent = "diffusion length (schematic)";
+    svg.appendChild(lab1);
+    bar(barY, X_DIFF_PX, c.ink, "5 4");
+
+    const lab2 = Viz.svgEl("text", { class: "annotation", x: 8, y: barY + barGap + 4 });
+    lab2.textContent = "gap between steps";
+    svg.appendChild(lab2);
+    const barLen = bar(barY + barGap, s, c.series[1]);
+    if (s > W1 - bx - 8) {
+      const tag = Viz.svgEl("text", { class: "annotation", x: W1 - 4, y: barY + barGap - 9, "text-anchor": "end" });
+      tag.textContent = "far apart — runs off the frame";
+      svg.appendChild(tag);
+    }
+
+    // ---- the staircase itself
+    let d = "M0," + H1 + " L0," + surfaceY(0, tilt).toFixed(1);
+    let px = 0;
+    edges.forEach(function (e) {
+      d += " L" + e.toFixed(1) + "," + surfaceY(px, tilt).toFixed(1);
+      d += " L" + e.toFixed(1) + "," + surfaceY(e + 1, tilt).toFixed(1);
+      px = e + 1;
+    });
+    d += " L" + W1 + "," + surfaceY(W1 - 1, tilt).toFixed(1) + " L" + W1 + "," + H1 + " Z";
+    svg.appendChild(Viz.svgEl("path", { d: d, fill: c.sunken, stroke: c.rule, "stroke-width": 2 }));
+
+    edges.forEach(function (e) {
+      svg.appendChild(Viz.svgEl("line", {
+        x1: e, x2: e, y1: surfaceY(e - 1, tilt) - 1, y2: surfaceY(e + 1, tilt) + 1,
+        stroke: c.series[1], "stroke-width": 3,
+      }));
+    });
+
+    const state = Viz.svgEl("text", {
+      x: W1 / 2, y: H1 - 10, "text-anchor": "middle", "font-size": 12.5, "font-weight": 600,
+      fill: s < X_DIFF_PX ? c.series[1] : c.inkSecondary,
+    });
+    state.textContent = edges.length === 0
+      ? "steps far apart — an admolecule almost never reaches one before it evaporates"
+      : (s < X_DIFF_PX
+        ? "steps closer together than the reference — most arrivals are captured"
+        : "steps farther apart than the reference — most arrivals evaporate first");
+    svg.appendChild(state);
+  }
+
+  /* ------------------------------------------------------ panel 2: the curve */
+  const W2 = 600, H2 = 250;
+  const M2 = { l: 58, r: 34, t: 22, b: 46 };
+  const xs2 = Viz.scaleLinear([0, 5], [M2.l, W2 - M2.r]);
+  const ys2 = Viz.scaleLog([0.006, 1], [H2 - M2.b, M2.t]);
+
+  function renderCurve() {
+    const c = Viz.colors();
+    const svg = Viz.createSvg(panel2, W2, H2, {
+      label: "alphaHKVicinal against tilt angle, on a logarithmic vertical axis.",
+      desc: "The curve stays near the ordinary facet value at low tilt and rises toward 1 once " +
+            "the tilt passes about a degree and a half, where the schematic terrace width crosses " +
+            "the reference diffusion length.",
+    });
+
+    Viz.axisLeft(svg, ys2, {
+      x: M2.l, grid: true, gridTo: W2 - M2.r, values: [0.01, 0.1, 1],
+      format: function (v) { return v >= 0.99 ? "1" : (v >= 0.099 ? "0.1" : "0.01"); },
+      title: "alphaHKVicinal", titleOffset: 42,
+    });
+    Viz.axisBottom(svg, xs2, {
+      y: H2 - M2.b, values: [0, 1, 2, 3, 4, 5],
+      format: function (v) { return v + "°"; },
+      title: "tilt angle away from the facet", titleOffset: 34,
+    });
+
+    svg.appendChild(Viz.svgEl("line", {
+      class: "annotation-rule", x1: M2.l, x2: W2 - M2.r, y1: ys2(1), y2: ys2(1),
+    }));
+    const ceilLab = Viz.svgEl("text", { class: "annotation", x: W2 - M2.r - 4, y: ys2(1) - 6, "text-anchor": "end" });
+    ceilLab.textContent = "alphaHKRough ≈ 1";
+    svg.appendChild(ceilLab);
+
+    svg.appendChild(Viz.svgEl("line", {
+      class: "annotation-rule", x1: M2.l, x2: W2 - M2.r, y1: ys2(alphaHKFacet), y2: ys2(alphaHKFacet),
+    }));
+    const facetLab = Viz.svgEl("text", { class: "annotation", x: M2.l + 4, y: ys2(alphaHKFacet) - 6 });
+    facetLab.textContent = "alphaHKFacet < 0.01";
+    svg.appendChild(facetLab);
+
+    svg.appendChild(Viz.svgEl("line", {
+      class: "annotation-rule", x1: xs2(T_CROSS), x2: xs2(T_CROSS), y1: M2.t, y2: H2 - M2.b,
+    }));
+    const crossLab = Viz.svgEl("text", { class: "annotation", x: xs2(T_CROSS) + 5, y: M2.t + 12 });
+    crossLab.textContent = "steps as close as x_diff (schematic)";
+    svg.appendChild(crossLab);
+
+    const pts = [];
+    for (let i = 0; i <= 300; i++) {
+      const t = 0.08 + (4.92 * i) / 300;
+      pts.push([t, alphaHKVicinalAt(t)]);
+    }
+    Viz.series(svg, pts, xs2, ys2, {
+      color: c.series[1], width: 2.4, label: "alphaHKVicinal",
+      labelAt: [3, alphaHKVicinalAt(3)], labelDx: 8, labelDy: -9,
+    });
+
+    const av = Math.max(alphaHKVicinalAt(tilt), 0.006);
+    svg.appendChild(Viz.svgEl("line", {
+      class: "annotation-rule", x1: xs2(tilt), x2: xs2(tilt), y1: H2 - M2.b, y2: ys2(av),
+    }));
+    svg.appendChild(Viz.svgEl("circle", {
+      cx: xs2(tilt), cy: ys2(av), r: 5.5, fill: c.series[1], stroke: c.surface, "stroke-width": 2,
+    }));
+  }
+
+  function render() {
+    panel1.innerHTML = "";
+    panel2.innerHTML = "";
+    renderTerraces();
+    renderCurve();
+    const r = ratioAt(tilt), a = alphaHKVicinalAt(tilt);
+    readout.textContent =
+      "Tilt " + tilt.toFixed(2) + "° — the gap between steps is about " + r.toFixed(2) +
+      "× the reference diffusion length: alphaHKVicinal ≈ " +
+      (a < 0.02 ? a.toFixed(4) : a.toFixed(3)) +
+      (a < 0.02 ? ", close to the ordinary facet value." : (a > 0.7 ? ", close to a rough surface." : "."));
+  }
+
+  render();
+
+  Viz.slider(controls, {
+    label: "Tilt away from the facet",
+    id: "vicinal-tilt",
+    min: 0.1, max: 5, step: 0.05, value: tilt,
+    format: function (v) { return v.toFixed(2) + "°"; },
+    onInput: function (v) { tilt = v; render(); },
+  });
+
   Viz.onThemeChange(render);
 })();
 </script>

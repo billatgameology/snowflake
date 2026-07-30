@@ -353,9 +353,10 @@
           basal-dip constants are adjustable here, because those are the three the paper describes
           as chosen. This chart previously used the natural logarithm, flagged here as an
           undisclosed choice rather than a printed value; a 2026-07-29 audit settled the question
-          the other way &mdash; the printed log is base 10, and reading it that way moves the count
-          from five crossings to three, closer to the diagram's own boundaries (see
-          <code>app/scripts/phase6-libbrecht-closed-forms.mjs</code>). The chart now uses base 10 at
+          the other way &mdash; the printed log is base 10, confirmed by evaluating the dip equation
+          above directly rather than tracing a plotted line, and reading it that way moves the count
+          from five crossings to three, closer to the diagram's own boundaries. The chart now uses
+          base 10 at
           the printed slider defaults; move any slider away from its printed value and you are
           exploring the same sensitivity the natural-versus-base-10 mistake once did &mdash; small
           changes to an unforced constant move every crossing.</span>
@@ -393,6 +394,17 @@
           anything better, and that is the honest reason to use it.
         </p>
       </aside>
+
+      <p>
+        Chapter 12 has the sharper version of that gap, stated as a number rather than a mood. A
+        first-principles attempt to derive the prism dip's depth from curvature-driven surface
+        diffusion predicts the barrier falling to about half its broad-facet value near
+        &minus;14&nbsp;&deg;C; the measurement instead shows it falling to about a tenth &mdash;
+        &ldquo;perhaps too small to reproduce the actual SDAK dip&rdquo;, in the same paper's own
+        words, and &ldquo;too simplistic to explain the observed SDAK phenomenon&rdquo;
+        (arXiv:2012.12916v1, p.&nbsp;9). That is a concrete, citable shortfall in the mechanism
+        itself, not just an admission that the dip's shape was chosen by hand.
+      </p>
 
       <p>
         The monograph itself anticipates the objection and answers it without flinching:
@@ -1116,7 +1128,7 @@
   const state = { depth: 0.87, centre: 4.5, width: 0.07, dips: true };
 
   // CORRECTED 2026-07-29: the printed log is base 10, not natural — see the disclosure
-  // text below and app/scripts/phase6-libbrecht-closed-forms.mjs.
+  // text below.
   function basalDip(t) {
     return 1 - state.depth *
       Math.exp(-Math.pow(Math.log10(t) - Math.log10(state.centre), 2) / state.width);

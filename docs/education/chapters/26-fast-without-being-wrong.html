@@ -595,7 +595,8 @@
         to 64 bytes per cell: up to the already-frozen ceiling, not through it
         (<code>docs/decisions/0021-bound-phase5-float32-two-cycles.md:74&ndash;75</code>). Same
         shape as the tolerance. The number was fixed first, and the code came up to the line instead
-        of pushing it.
+        of pushing it &mdash; and what that extra buffer is actually <em>for</em> is a substantive
+        piece of this chapter's own subject, told later on.
       </p>
 
       <!-- ============================================================ 5 -->
@@ -899,6 +900,124 @@
           docs/plans/phase-6-nakaya-validation.md:304&ndash;312 and 314&ndash;324.</span>
         </figcaption>
       </figure>
+
+      <h3>Two answers, already on the books</h3>
+
+      <p>
+        The bit-stationary trap above was not this project's first meeting with this shape of
+        problem. Two decisions from earlier in Phase 5 &mdash; both dated <code>2026-07-24</code>,
+        both written before the Phase 6 sweep ever ran &mdash; had already drawn the line for the
+        two different ways a float32 engine can fail to satisfy a criterion the float64 oracle
+        satisfies exactly. They answer two different questions, because <code>relaxTol</code> and
+        <code>divTol</code> fail in two different ways, and each got its own ADR rather than one
+        shared, vaguer fix.
+      </p>
+
+      <p>
+        The first question is about the <em>drift</em> term itself &mdash; the same drift named in
+        the divergence numerator above, <code>injection&nbsp;+&nbsp;drift&nbsp;&minus;&nbsp;exchange</code>.
+        It carries its own independent bound, separate from <code>divTol</code>, and that bound has
+        to hold at whatever magnitude the field legitimately reaches &mdash; including a subnormal
+        one, since the CPU oracle accepts finite supersaturation all the way down to one. Written as
+        a pure fraction of the field's own size, the pre-shader expression was
+        <code>64&nbsp;*&nbsp;activeCellCount&nbsp;*&nbsp;2<sup>&minus;23</sup>&nbsp;*&nbsp;maxAbsSweepInput</code>
+        (<code>docs/decisions/0020-floor-phase5-float32-smoother-drift.md:13</code>). Independent
+        WP4 review found that it underflows conceptually on legal input, before any production
+        shader existed to hit it: &ldquo;For <code>maxAbsSweepInput&nbsp;=&nbsp;2<sup>&minus;149</sup></code>,
+        even 1,000 cells produce a bound below one minimum binary32 ULP&rdquo; (same file,
+        lines&nbsp;19&ndash;20) &mdash; <code>2<sup>&minus;149</sup></code> being the smallest
+        positive value float32 can represent at all, one step above zero. A purely relative bound
+        shrinks exactly as fast as its own input; push the input small enough and the bound shrinks
+        past the arithmetic's own floor, so a genuinely fine one-ULP drift could then read as a
+        violation, or the bound itself could round to zero on the shader. Decision 0020's fix floors
+        the expression instead of loosening it:
+      </p>
+
+      <div class="equation">
+        <p class="equation__math"><code>perCellRoundoffScale = max(2<sup>&minus;23</sup> * maxAbsSweepInput, 2<sup>&minus;149</sup>)</code></p>
+        <p class="equation__math"><code>smootherDriftAbsLimit = 64 * activeCellCount * perCellRoundoffScale</code></p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>2<sup>&minus;149</sup></dt><dd>the smallest positive subnormal float32 value &mdash;
+              the floor beneath which the relative term is not allowed to fall</dd>
+            <dt>exact zero field</dt><dd>special-cased to a zero bound and zero drift (same decision,
+              point&nbsp;2)</dd>
+          </dl>
+        </div>
+        <p class="equation__cite"><code>docs/decisions/0020-floor-phase5-float32-smoother-drift.md:39&ndash;40</code></p>
+      </div>
+
+      <p>
+        The bound is still computed in host float64 from an independently reduced float32
+        <code>maxAbsSweepInput</code>, so the GPU shader itself never evaluates the product that
+        could underflow (same file, lines&nbsp;44&ndash;46). And the ADR says outright why the input
+        domain could not simply be narrowed instead, which was the tempting alternative: &ldquo;This
+        is the same numerical-domain defect closed for the CPU float64 oracle by decision
+        0014&hellip; silently narrowing the GPU input domain would make the port less general than
+        its oracle&rdquo; (lines&nbsp;23&ndash;25). Same habit as the tolerance-and-buffer pattern
+        already seen twice in this chapter: the floor was derived and pinned by an adversarial
+        subnormal test (line&nbsp;47) before any production LK shader existed to need it.
+      </p>
+
+      <p>
+        The second question is about <code>relaxTol</code>, and it is stranger, because it is not
+        about how small a bound can safely go. Decision 0020 assumes the arithmetic can still, in
+        principle, get closer to a fixed point; it only needed a bound that would not underflow
+        first. Decision 0021 is for when the arithmetic provably <em>cannot</em> get closer at all.
+        A pre-WGSL feasibility probe had appeared to clear <code>relaxTol</code> for good: converge
+        the float64 CPU oracle at each interface step, then round that already-converged field down
+        to float32. That probe never carried an evolving float32 field from one interface step to
+        the next &mdash; and the production D3D12 run did. In the frozen cold/noise/timeline
+        fixture, by interface step 3, two interior cells stopped approaching anything at all:
+      </p>
+
+      <blockquote>
+        <p>
+          &ldquo;index 4419: <code>0.0018111496465280652</code> &harr; <code>0.001811149762943387</code><br>
+          index 4743: <code>0.0017357079777866602</code> &harr; <code>0.0017357078613713384</code>&rdquo;
+        </p>
+        <p class="figure__source"><code>docs/decisions/0021-bound-phase5-float32-two-cycles.md:23&ndash;24</code></p>
+      </blockquote>
+
+      <p>
+        Each side of each pair sits exactly one float32 ULP &mdash; one unit in the last place, the
+        smallest possible gap between two representable float32 values &mdash; from the other, and
+        the orbit does not decay: &ldquo;after 4,096 sweeps the active field repeats bit-for-bit
+        every two sweeps&rdquo; (same file, line&nbsp;30). The reduced relative residual sits at
+        <code>5.82076573607537e-8</code> and stays there &mdash; roughly 58&times;
+        <code>relaxTol</code>'s frozen <code>1e-9</code> &mdash; even though, this time, the other
+        check is clean: &ldquo;the divergence residual is exactly zero, shell injection and surface
+        exchange are strictly positive, and the signed smoother drift is within its independent
+        bound&rdquo; (lines&nbsp;27&ndash;29). It is the mirror of the bit-stationary case above:
+        there, <code>relaxTol</code> was trivially satisfied and <code>divTol</code> failed; here,
+        <code>divTol</code> is satisfied and <code>relaxTol</code> is the one that cannot be reached
+        &mdash; both for the same underlying reason, that float32 ran out of representable room
+        before the CPU's own criterion did.
+      </p>
+
+      <p>
+        Decision 0021 does not lower <code>relaxTol</code>. It opens a second, narrowly-shaped door,
+        and every one of five predicates has to hold on the same sweep before it does: &ldquo;at
+        least two sweeps have executed under the current topology, tick, temperature, and far-field
+        controls; every active unattached destination value bit-equals its value two sweeps earlier;
+        every active unattached destination value is at most one ordered finite-f32 ULP from the
+        immediately preceding value; both orbit phases pass the unchanged Dirichlet divergence
+        criterion when fixed-sigma Dirichlet is applicable; reflecting mode makes no divergence
+        claim; and both orbit phases pass the unchanged independently checked smoother-drift
+        bound&rdquo;
+        (<code>docs/decisions/0021-bound-phase5-float32-two-cycles.md:54&ndash;61</code>) &mdash;
+        that last clause is decision 0020's own bound, doing double duty as one of 0021's gates.
+        Clear all five and the run is reported as <code>bounded-two-cycle</code> rather than
+        <code>fixed-point</code>, with its true nonzero residual still printed: &ldquo;it is never
+        rewritten to zero or called a fixed point&rdquo; (lines&nbsp;63&ndash;64). And there is no
+        slack in the substitute criterion either: &ldquo;Exact period two is mandatory; no decimal
+        residual threshold, longer period, multi-ULP cycle, or generic stagnation test is
+        accepted&rdquo; (lines&nbsp;72&ndash;73). The one float32 buffer this needs, to remember the
+        state from two sweeps back, is the buffer this chapter already mentioned: the reason LK's
+        allocation rose from 60 to 64 bytes per cell (lines&nbsp;74&ndash;75) was never just
+        bookkeeping. It exists to hold the other half of the orbit.
+      </p>
 
       <p>
         The plan retracted its own registered claim in the same document that made it, and recorded

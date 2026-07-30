@@ -40,6 +40,7 @@
       <li><a href="#what-falls">What actually falls</a></li>
       <li><a href="#twins">The crystals that are not six-fold</a></li>
       <li><a href="#pyramidal">A third kind of flat face</a></li>
+      <li><a href="#one-rule">One rule, many shapes</a></li>
     </ol>
   </nav>
 
@@ -56,7 +57,7 @@
         <div class="chapter-header__meta">
           <span>~15 min read</span>
           <span>12 figures</span>
-          <span>4 animations</span>
+          <span>7 animations</span>
         </div>
       </header>
 
@@ -725,6 +726,29 @@
         </figcaption>
       </figure>
 
+      <figure class="anim" id="anim-twin-groove">
+        <div class="anim__head">
+          <p class="anim__title">The tell only the twin has</p>
+          <p class="anim__sub">Choose a twinned column or a single crystal, then drag the
+            sublimation slider. Both start out identical. Watch what only one of them does.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation, schematic only. Geometry: a column's
+          half-width is sampled at 70 heights and eroded at a uniform background rate everywhere,
+          plus &mdash; for the twinned case only &mdash; an additional rate that peaks in a narrow
+          band centred on the twin plane at mid-height, standing in for the claim that &ldquo;the
+          crystal structure is relatively weaker in the twin plane, so sublimation often produces
+          an evaporation groove between the two columns. The presence of the evaporation groove
+          identifies this as a twinned column, which otherwise looks just like a normal
+          single-crystal column&rdquo; (Libbrecht, Snow Crystals, printed p.&nbsp;66, Figure 2.21;
+          the molecular-scale reason &mdash; one layer of cubic bonds in an otherwise hexagonal
+          stack &mdash; is Figure 2.22, printed p.&nbsp;67). Chapter 3 draws the same two figures
+          for the underlying lattice argument. No erosion rate here is a measurement.</span>
+        </figcaption>
+      </figure>
+
       <p>
         Rarer twins are more dramatic. In an <strong>arrowhead twin</strong>, two crystals meet at a
         reflection plane and grow into a flat, pointed blade with an apex angle fixed by the lattice
@@ -893,6 +917,51 @@
       </figure>
 
       <p>
+        That growth instability got its own dedicated paper decades after the monograph, and it
+        sharpens the puzzle rather than solving it. The three prism facets that pull ahead and the
+        three that fall behind start out identical: &ldquo;the molecular structures of all three of
+        these top prism terraces are identical&rdquo; (Libbrecht, &ldquo;Triangular Snowflakes:
+        Growing Structures with Three-fold Symmetry using a Hexagonal Ice Crystal Lattice,&rdquo;
+        arXiv:2106.09809v1, printed p.&nbsp;9). Explaining how two patches of the very same surface
+        end up growing at noticeably different rates is, in the paper&rsquo;s own words, &ldquo;the
+        crux of the trigonal-growth problem&rdquo; &mdash; and the paper is candid that a
+        molecular-level answer &ldquo;will likely remain an unsolved problem for many decades&rdquo;
+        (printed p.&nbsp;10). The animation below does not attempt that answer. It only shows the
+        amplification step the monograph already described: give three alternating facets a small
+        head start, let diffusion-limited growth do the rest, and watch the hexagon go triangular.
+      </p>
+
+      <figure class="anim" id="anim-triangular">
+        <div class="anim__head">
+          <p class="anim__title">Three facets take the lead</p>
+          <p class="anim__sub">Drag the slider to make three alternating prism facets grow faster
+            than the other three, and watch what happens to the plate&rsquo;s outline.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation, and schematic only &mdash; not a
+          first-principles reproduction of the still-unexplained molecular mechanism. Geometry: six
+          prism facets, each a straight edge advancing along its own outward normal from a shared
+          point seed, so the ratio between two facets&rsquo; distances from the centre stands in for
+          the ratio of their growth speeds. Three alternating facets are held at a fixed distance;
+          the other three advance at a chosen multiple of that distance. Past twice the fixed
+          facets&rsquo; distance, the faster three are cut off completely by their own neighbours and
+          the outline is an equilateral triangle &mdash; the same &ldquo;a fast face disappears&rdquo;
+          rule used earlier in this chapter for the pyramidal facet, applied here to three of the six
+          prism facets instead of one corner facet. The puzzle this illustrates, without solving it,
+          is from Libbrecht, &ldquo;Triangular Snowflakes: Growing Structures with Three-fold Symmetry
+          using a Hexagonal Ice Crystal Lattice&rdquo; (arXiv:2106.09809v1), printed
+          pp.&nbsp;9&ndash;10: &ldquo;the molecular structures of all three of these top prism
+          terraces are identical,&rdquo; yet a molecular account of why they still grow at different
+          rates &ldquo;will likely remain an unsolved problem for many decades.&rdquo; A secondary
+          finding from the same paper: at a fixed &minus;14&nbsp;&deg;C in air at 1&nbsp;atm, dropping
+          the supersaturation below 6&nbsp;percent stops the plates growing altogether, leaving blocky
+          forms or simple columns instead (printed p.&nbsp;7).</span>
+        </figcaption>
+      </figure>
+
+      <p>
         And a <strong>twelve-branched</strong> snowflake is not a twelve-fold crystal. It is two
         ordinary six-branched crystals that collided while they were small and stuck together with
         close to a 30-degree rotation between them. The near-perfect examples are a selection
@@ -912,7 +981,11 @@
         different circumstances is an extremely challenging task&rdquo; (printed p. 66). And
         &ldquo;no one has ever published examples of any arrowhead twins that were grown in the
         laboratory&rdquo; (printed p. 68). For triangular crystals, exactly how and when the
-        instability is triggered is &ldquo;not yet well understood&rdquo; (printed p. 436).</p>
+        instability is triggered is &ldquo;not yet well understood&rdquo; (printed p. 436). A later,
+        dedicated study of exactly this crystal (Libbrecht, arXiv:2106.09809v1) does not close that
+        gap so much as sharpen it: the three facets involved are molecularly identical, so a
+        first-principles account of why they still race apart &ldquo;will likely remain an unsolved
+        problem for many decades&rdquo; (printed p. 10).</p>
       </aside>
 
       <!-- ================================================================= -->
@@ -1063,6 +1136,65 @@
         what makes it worth carrying is that it is a comparison rather than an assertion.
       </p>
 
+      <!-- ================================================================= -->
+      <h2 id="one-rule">One rule, many shapes</h2>
+
+      <p>
+        Step back from the individual entries and the menagerie asks an obvious question: is there
+        anything under all these names besides a list? Chapter 6 already pointed at an answer that
+        does not come from a photograph at all. Janko Gravner and David Griffeath built a cellular
+        automaton &mdash; a grid of cells updated by one fixed rule, nothing photographed, nothing
+        fitted to a particular crystal &mdash; out of just the ingredients that chapter called order
+        and chaos: vapor diffusing across a hexagonal lattice, and an anisotropic attachment rule
+        that freezes a cell once it has accumulated enough mass from its already-frozen neighbors
+        (Gravner &amp; Griffeath, <em>Physical Review E</em> <strong>79</strong>, 011601 (2009)).
+        Turn the same few numbers and the same rule produces a hexagonal plate in one setting and a
+        branching dendrite in another &mdash; not different rules for different crystals, one rule
+        that happens to have several distinct regimes.
+      </p>
+
+      <p>
+        The interactive below is a small, original, self-contained reimplementation of that published
+        rule &mdash; not this project&rsquo;s own production solver, which is a much larger,
+        differently parameterized instrument built for this project&rsquo;s own validation work.
+        It keeps the paper&rsquo;s two mass fields and its published attachment logic, but it drops
+        the paper&rsquo;s vertical axis and runs on a single flat hexagonal layer, so it can show you
+        a faceted hexagon, a plump stellar plate, thin unbranched needle-like blades, and a branching
+        dendrite &mdash; but not a true hollow column, which needs the missing third dimension to
+        hollow out at all. The four numbers you can drag are the model&rsquo;s own tunable knobs
+        &mdash; a background vapor density and three attachment thresholds, one for each of 1, 2, and
+        3-or-more already-frozen neighbors &mdash; not measured supersaturations or temperatures.
+      </p>
+
+      <figure class="anim is-wide" id="anim-gg-zoo">
+        <div class="anim__head">
+          <p class="anim__title">One rule, tuned four ways</p>
+          <p class="anim__sub">Press a preset to watch the same simple rule grow a different habit,
+            or drag the four sliders yourself and see what else is in there.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">An original, simplified reimplementation of Gravner &amp;
+          Griffeath&rsquo;s published cellular-automaton model, not this project&rsquo;s own
+          production solver (see <code>core/</code>, <code>solver-cpu/</code> and
+          <code>docs/gg-machinery.md</code> for that, differently parameterized instrument).
+          Rule: Gravner &amp; Griffeath,
+          <em>Physical Review E</em> <strong>79</strong>, 011601 (2009), Sec. II &mdash; diffusive
+          mass and boundary mass on a hexagonal lattice, a fixed 1/7 diffusion average each tick
+          (their Eq. 1a), boundary-mass accumulation and attachment once a neighbour-count-dependent
+          threshold is crossed (their Eqs. 2&ndash;3), and their own automatic hole-filling rule at
+          4 or more attached neighbours. This demo runs on the paper&rsquo;s flat triangular layer
+          only and drops its vertical (Z) axis entirely, so true needles and hollow columns &mdash;
+          both fundamentally a Z-axis effect in the published model &mdash; are out of reach here; a
+          &ldquo;needle-like&rdquo; preset instead shows the flat lattice&rsquo;s six thin,
+          unbranched spikes. Melting (their Eq. 4) is omitted, and the freezing fraction at each
+          neighbour count is fixed rather than exposed, so the four knobs kept are the background
+          vapor density and the three attachment thresholds. No number here is a physical
+          measurement.</span>
+        </figcaption>
+      </figure>
+
       <!-- ===== handoff ===== -->
       <p class="handoff">
         Every number in this chapter was taken by somebody: 0.452 nanometres, 88.5 &plusmn; 0.5
@@ -1103,6 +1235,7 @@
 
 <script src="../assets/site.js"></script>
 <script src="../assets/viz.js"></script>
+<script src="../assets/anim-gg-zoo.js"></script>
 <script>
 /* ===========================================================================
    Chapter 9 originals.
@@ -1661,6 +1794,339 @@
       onInput: function (v) { vPyr = v; render(anim.time); }
     });
     Viz.onThemeChange(function () { render(anim.time); });
+  })();
+
+  /* ======================================================================
+     5. Three facets take the lead: a hexagon amplified into a triangle.
+     Schematic amplification model only. WHY three molecularly-identical
+     prism facets end up growing at different rates is unresolved
+     (Libbrecht, arXiv:2106.09809v1, printed pp. 9-10); this animation only
+     draws the geometric consequence once an asymmetry exists, reusing the
+     "a fast face disappears" clipping rule from animation 4 above and
+     applying it to three of the six prism facets instead of one corner
+     facet.
+     ================================================================== */
+  (function () {
+    var root = document.getElementById("anim-triangular");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var controls = root.querySelector(".anim__controls");
+
+    var W = 560, H = 520;
+    var SLOW_D = 64;     // local units: fixed distance of the three unaccelerated facets
+    var S = 1.42;        // pixels per local unit
+    var CX = W / 2, CY = 246;
+    var asym = 0;         // percent: how much faster the other three facets are growing
+    var svg = null;
+
+    function clip(poly, nx, ny, d) {
+      var out = [];
+      for (var i = 0; i < poly.length; i++) {
+        var a = poly[i], b = poly[(i + 1) % poly.length];
+        var da = nx * a[0] + ny * a[1] - d;
+        var db = nx * b[0] + ny * b[1] - d;
+        if (da <= 0) out.push(a);
+        if ((da < 0 && db > 0) || (da > 0 && db < 0)) {
+          var t = da / (da - db);
+          out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
+        }
+      }
+      return out;
+    }
+
+    function shape(ratio) {
+      var BIG = 500;
+      var poly = [[-BIG, -BIG], [BIG, -BIG], [BIG, BIG], [-BIG, BIG]];
+      var cons = [];
+      for (var k = 0; k < 6; k++) {
+        var a = k * 60 * Math.PI / 180;
+        var fast = (k % 2) === 1;
+        cons.push({ nx: Math.cos(a), ny: Math.sin(a), d: fast ? SLOW_D * ratio : SLOW_D, fast: fast, k: k });
+      }
+      cons.forEach(function (cn) { poly = clip(poly, cn.nx, cn.ny, cn.d); });
+      return { poly: poly, cons: cons };
+    }
+
+    // which facet (if any) each edge of the polygon lies on
+    function matchFacet(poly, cons, i) {
+      var a = poly[i], b = poly[(i + 1) % poly.length];
+      var mid = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+      for (var k = 0; k < cons.length; k++) {
+        var cn = cons[k];
+        if (Math.abs(cn.nx * mid[0] + cn.ny * mid[1] - cn.d) < 1e-6) return cn;
+      }
+      return null;
+    }
+
+    function edgeStats(s) {
+      var slow = [], fast = [];
+      for (var i = 0; i < s.poly.length; i++) {
+        var cn = matchFacet(s.poly, s.cons, i);
+        if (!cn) continue;
+        var a = s.poly[i], b = s.poly[(i + 1) % s.poly.length];
+        var len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+        (cn.fast ? fast : slow).push(len);
+      }
+      var avg = function (arr) { return arr.length ? arr.reduce(function (x, y) { return x + y; }, 0) / arr.length : 0; };
+      return { slow: avg(slow), fast: avg(fast) };
+    }
+
+    function px(p) { return [CX + p[0] * S, CY - p[1] * S]; }
+
+    function render() {
+      if (svg) svg.remove();
+      var c = Viz.colors();
+      var ratio = 1 + asym / 100;
+      var s = shape(ratio);
+      var stats = edgeStats(s);
+      var pct = stats.slow > 0 ? Math.round(100 * stats.fast / stats.slow) : 0;
+      var word = asym === 0 ? "a regular hexagon"
+        : asym < 90 ? "a truncated triangular plate"
+        : "close to a sharp triangle";
+
+      svg = Viz.createSvg(body, W, H, {
+        label: "A hexagonal outline built from six prism facets, three of which can be made to " +
+          "grow faster than the other three.",
+        desc: "With the three faster facets growing " + asym + " percent faster than the other " +
+          "three, the outline is " + word + ". The short, fast-growing facets are now about " +
+          pct + " percent the length of the long, slow ones.",
+      });
+      svg.setAttribute("data-asym", String(asym));
+
+      var head = Viz.svgEl("text", { x: W / 2, y: 26, "text-anchor": "middle", class: "axis-title" });
+      head.textContent = "Looking straight down the c-axis at the plate's outline";
+      svg.appendChild(head);
+
+      var pts = s.poly.map(px);
+      svg.appendChild(Viz.svgEl("polygon", {
+        points: pts.map(function (p) { return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" "),
+        "data-role": "crystal-outline",
+        fill: c.seq[0], "fill-opacity": 0.5, stroke: "none",
+      }));
+
+      for (var i = 0; i < s.poly.length; i++) {
+        var cn = matchFacet(s.poly, s.cons, i);
+        if (!cn) continue;
+        var a = s.poly[i], b = s.poly[(i + 1) % s.poly.length];
+        var pa = px(a), pb = px(b);
+        svg.appendChild(Viz.svgEl("line", {
+          x1: pa[0].toFixed(1), y1: pa[1].toFixed(1), x2: pb[0].toFixed(1), y2: pb[1].toFixed(1),
+          stroke: cn.fast ? c.series[1] : c.series[0], "stroke-width": 4.4, "stroke-linecap": "round",
+        }));
+
+        // direct-label the two facets nearest the top of the drawing, one of each kind — always
+        // the same pair (k=1 fast, k=2 slow), pushed outward along that facet's own normal so the
+        // two labels separate from each other instead of colliding when the shape is near-regular
+        var elen = Math.hypot(b[0] - a[0], b[1] - a[1]);
+        if ((cn.k === 1 || cn.k === 2) && elen > 5) {
+          var pm = px([(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]);
+          var lx = pm[0] + cn.nx * 30, ly = pm[1] - cn.ny * 30;
+          var lab = Viz.svgEl("text", {
+            x: lx.toFixed(1), y: ly.toFixed(1), "text-anchor": "middle",
+            class: "series-label", fill: cn.fast ? c.series[1] : c.series[0],
+            stroke: c.surface, "paint-order": "stroke", "stroke-width": 4, "stroke-linejoin": "round",
+          });
+          lab.textContent = cn.fast ? "faster — shrinking" : "slower — growing long";
+          svg.appendChild(lab);
+        }
+      }
+
+      var sub = Viz.svgEl("text", { x: W / 2, y: CY + 192, "text-anchor": "middle", class: "series-label", fill: c.ink });
+      sub.textContent = asym === 0
+        ? "No lead yet — a regular hexagon."
+        : "The 3 faster facets lead by " + asym + "% — " + word + ".";
+      svg.appendChild(sub);
+
+      var note = Viz.svgEl("text", { x: W / 2, y: CY + 214, "text-anchor": "middle", class: "annotation" });
+      note.textContent = "Short facets are now about " + pct + "% the length of the long ones.";
+      svg.appendChild(note);
+    }
+
+    Viz.slider(controls, {
+      label: "How much faster do 3 alternating facets grow?", id: "triangular-asym",
+      min: 0, max: 98, step: 1, value: 0,
+      format: function (v) { return v === 0 ? "no asymmetry" : "+" + v + "% faster"; },
+      onInput: function (v) { asym = v; render(); },
+    });
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+  /* ======================================================================
+     6. The twin-plane sublimation groove.
+     Physics: Libbrecht, Snow Crystals, printed p. 66 (Figure 2.21) and
+     printed p. 67 (Figure 2.22) — a columnar twin's twin plane is one
+     layer of cubic bonds inserted into an otherwise ordinary hexagonal
+     stack, and that layer is "relatively weaker ... so sublimation often
+     produces an evaporation groove between the two columns. The presence
+     of the evaporation groove identifies this as a twinned column, which
+     otherwise looks just like a normal single-crystal column." This
+     animation draws a column's half-width as a function of height and
+     erodes it: uniformly everywhere for a single crystal, and with an
+     added narrow-band rate at the twin plane for a twin. No erosion rate
+     is a measurement; only the qualitative claim — groove vs. no groove
+     — is being illustrated.
+     ================================================================== */
+  (function () {
+    var root = document.getElementById("anim-twin-groove");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var controls = root.querySelector(".anim__controls");
+
+    var W = 380, H = 500;
+    var TOP = 60, BOTTOM = 372;          // column spans this y-range
+    var COL_H = BOTTOM - TOP;
+    var CX = W / 2;
+    var FULL_HALF = 50;                  // pristine half-width, px
+    var MIN_HALF = 6;                    // never erode all the way through
+    var N = 70;                          // row samples along the height
+
+    var UNIFORM_RATE = 0.25;             // px eroded per side, per slider unit, everywhere
+    var TWIN_RATE = 0.50;                // extra px eroded per side, per slider unit, at the twin plane
+    var TWIN_SIGMA = 0.06;               // width of the weakened band, as a fraction of column height
+    var TWIN_FRAC = 0.5;                 // the twin plane sits at the waist
+
+    var twinned = true;
+    var sublimation = 0;                 // 0..100, slider units, not a physical time
+
+    function halfWidthAt(rowFrac) {
+      var e = UNIFORM_RATE * sublimation;
+      if (twinned) {
+        var dz = (rowFrac - TWIN_FRAC) / TWIN_SIGMA;
+        e += TWIN_RATE * sublimation * Math.exp(-0.5 * dz * dz);
+      }
+      return Math.max(MIN_HALF, FULL_HALF - e);
+    }
+
+    var svg = null;
+
+    // wrap on whole words so a long readout never overruns this narrow, portrait viewBox
+    function wrapLines(text, maxChars) {
+      var words = text.split(" ");
+      var lines = [""];
+      words.forEach(function (w) {
+        var j = lines.length - 1;
+        if (lines[j] && (lines[j] + " " + w).length > maxChars) lines.push(w);
+        else lines[j] = lines[j] ? lines[j] + " " + w : w;
+      });
+      return lines;
+    }
+
+    function wrappedText(svgEl, text, x, y0, lineHeight, attrs) {
+      wrapLines(text, attrs.maxChars).forEach(function (line, i) {
+        var t = Viz.svgEl("text", Object.assign({ x: x, y: y0 + i * lineHeight }, attrs.attrs));
+        t.textContent = line;
+        svgEl.appendChild(t);
+      });
+    }
+
+    function render() {
+      if (svg) svg.remove();
+      var c = Viz.colors();
+      var label = twinned
+        ? "A twinned ice column, sublimating. A groove is opening at the twin plane across its waist."
+        : "A single-crystal ice column, sublimating uniformly. No groove forms anywhere.";
+      svg = Viz.createSvg(body, W, H, { label: label });
+
+      var head = Viz.svgEl("text", { x: 12, y: 24, class: "series-label", "font-size": 15, fill: c.series[0] });
+      head.textContent = twinned ? "Twinned column" : "Single crystal column";
+      svg.appendChild(head);
+
+      var sub = Viz.svgEl("text", { x: 12, y: 42, class: "annotation", "font-size": 12 });
+      sub.textContent = sublimation === 0
+        ? "Pristine — before either one has lost a single molecule."
+        : "Sublimating: " + Math.round(sublimation) + "% of the way through this demonstration.";
+      svg.appendChild(sub);
+
+      // build the left and right edges, row by row, and close them into one outline
+      var left = [], right = [];
+      for (var i = 0; i <= N; i++) {
+        var rowFrac = i / N;
+        var y = TOP + rowFrac * COL_H;
+        var hw = halfWidthAt(rowFrac);
+        left.push([CX - hw, y]);
+        right.push([CX + hw, y]);
+      }
+      var d = "M" + left.map(function (p) { return p[0].toFixed(1) + " " + p[1].toFixed(1); }).join(" L");
+      for (var j = right.length - 1; j >= 0; j--) d += " L" + right[j][0].toFixed(1) + " " + right[j][1].toFixed(1);
+      d += " Z";
+      svg.appendChild(Viz.svgEl("path", { d: d, fill: c.seq[0], stroke: c.series[0], "stroke-width": 2 }));
+
+      // Mark the twin plane itself, independent of how much it has eroded. This
+      // is only fair because we are told which column is which; a real observer
+      // has to rely on the groove, which is exactly the point of this figure.
+      if (twinned) {
+        var wy = TOP + TWIN_FRAC * COL_H;
+        var whw = halfWidthAt(TWIN_FRAC);
+        svg.appendChild(Viz.svgEl("line", {
+          x1: CX - whw - 14, x2: CX + whw + 14, y1: wy, y2: wy,
+          stroke: c.series[2], "stroke-width": 1.4, "stroke-dasharray": "4 3"
+        }));
+        var twinLabel = Viz.svgEl("text", {
+          x: CX + whw + 20, y: wy + 4, class: "series-label", "font-size": 12, fill: c.series[2]
+        });
+        twinLabel.textContent = "twin plane";
+        svg.appendChild(twinLabel);
+      }
+
+      // readout: waist half-width against a row well clear of it
+      var waistHw = halfWidthAt(TWIN_FRAC);
+      var bodyHw = halfWidthAt(0.12);
+      var footMsg;
+      if (twinned) {
+        var pct = Math.round(100 * (1 - waistHw / bodyHw));
+        footMsg = sublimation === 0
+          ? "No visible difference yet — the groove has not opened."
+          : "Waist is " + pct + "% thinner than the body — the groove that gives the twin away.";
+      } else {
+        footMsg = "Body and waist erode together — " + Math.round(bodyHw) + "px half-width everywhere, no tell.";
+      }
+      var footLines = wrapLines(footMsg, 40);
+      var footY = H - 78;
+      wrappedText(svg, footMsg, W / 2, footY, 17, {
+        maxChars: 40, attrs: { "text-anchor": "middle", class: "series-label", "font-size": 13, fill: c.ink }
+      });
+
+      var noteY = footY + footLines.length * 17 + 8;
+      wrappedText(svg, "schematic column, side view — width at each height is illustrative, not a measurement",
+        W / 2, noteY, 14, { maxChars: 46, attrs: { "text-anchor": "middle", class: "annotation", "font-size": 11 } });
+    }
+
+    var btnTwin, btnSingle;
+    btnTwin = Viz.button(controls, "Twinned column", function () {
+      twinned = true;
+      btnTwin.setAttribute("aria-pressed", "true");
+      btnSingle.setAttribute("aria-pressed", "false");
+      render();
+    }, { pressed: true });
+    btnSingle = Viz.button(controls, "Single crystal", function () {
+      twinned = false;
+      btnTwin.setAttribute("aria-pressed", "false");
+      btnSingle.setAttribute("aria-pressed", "true");
+      render();
+    }, { pressed: false });
+
+    Viz.slider(controls, {
+      label: "Sublimation", id: "twin-groove-sublimation",
+      min: 0, max: 100, step: 1, value: 0,
+      format: function (v) { return Math.round(v) + "%"; },
+      onInput: function (v) { sublimation = v; render(); }
+    });
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+  /* ======================================================================
+     7. The Gravner-Griffeath zoo — mounted from anim-gg-zoo.js.
+     See that file for the full account of what is kept from the published
+     rule and what this flattened, self-contained demo necessarily drops.
+     ================================================================== */
+  (function () {
+    const root = document.getElementById("anim-gg-zoo");
+    if (!root || !window.GGZoo) return;
+    GGZoo.mount(root, { preset: "hexagon", size: 460 });
   })();
 })();
 </script>

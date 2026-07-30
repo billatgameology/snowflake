@@ -31,6 +31,14 @@
    That changes only how fast the clock runs, never which points win, so the
    instability being demonstrated is untouched.
 
+   The lattice is finite, so growth cannot continue forever: once the crystal
+   is close to filling the frame, the animation pauses on the finished shape,
+   fades it out, restarts from a fresh seed underneath the fade, and fades
+   back in — with a small caption naming the pause so the loop reads as a
+   designed restart rather than a glitch. That restart, and the pace of the
+   clock, are presentation only; neither changes which points the vapour
+   favours.
+
    No number in this file is a physical measurement. The claim it supports is
    qualitative, and that is all it is used for.
    ========================================================================= */
@@ -45,6 +53,15 @@
 
   // the six neighbours of a hexagonal cell, in axial coordinates
   const NB = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, -1], [-1, 1]];
+
+  // Animation-loop timing. Presentation constants only: they govern how fast
+  // the on-screen clock runs and how the finite lattice's unavoidable
+  // "start over" loop reads to a viewer. None of them touch the growth-rate
+  // formula, `stick`, or which cells win the race — see `grow()` for that.
+  const STEP_S = 1 / 60; // seconds of real time per simulated step, fixed so
+                          // the loop period is the same on every display
+  const HOLD_S = 1.1;     // seconds to hold the finished crystal before it fades
+  const FADE_S = 0.7;     // seconds for the fade-out/fade-in around the loop point
 
   /* ------------------------------------------------------------- lattice -- */
 
@@ -175,7 +192,7 @@
    */
   function mount(root, options) {
     const o = Object.assign(
-      { stick: 0.5, showField: true, size: 420, pace: 0.34, sweeps: 4 },
+      { stick: 0.5, showField: true, size: 420, pace: 0.015, sweeps: 4 },
       options || {}
     );
 
@@ -187,7 +204,9 @@
       label:
         "A crystal growing on a hexagonal lattice inside a field of water vapour. The air " +
         "around the crystal darkens as the crystal consumes vapour, and the six corners grow " +
-        "fastest, turning a compact seed into a six-armed branched shape.",
+        "fastest, turning a compact seed into a six-armed branched shape. Once the crystal " +
+        "fills the frame it pauses, fades out, and restarts from a fresh seed so the growth " +
+        "can be watched again.",
     });
 
     const s = makeState();
@@ -195,6 +214,16 @@
 
     let stick = o.stick;
     let showField = o.showField;
+
+    // The lattice is finite, so the crystal must eventually stop growing and
+    // loop back to a fresh seed. A hard jump-cut from a full crystal to a
+    // single dot reads as broken, so the loop instead holds on the finished
+    // frame, fades it out, restarts underneath the fade, and fades the new
+    // seed back in — `draw()` and `step()` below are the two matching halves.
+    let phase = "growing"; // "growing" | "holding" | "fading-out" | "fading-in"
+    let phaseT = 0;         // seconds elapsed in the current phase
+    let fade = 1;           // crystal/vapour opacity; less than 1 only during the pause
+    let acc = 0;            // real seconds banked by the fixed-rate accumulator in step()
 
     /* ---- pixel -> cell lookup, computed once ---- */
     const buffer = document.createElement("canvas");
@@ -238,46 +267,99 @@
         const i = lookup[p];
         const o4 = p * 4;
         data[o4 + 3] = 255;
-        if (i < 0) {
-          data[o4] = surface[0]; data[o4 + 1] = surface[1]; data[o4 + 2] = surface[2];
-          continue;
-        }
-        if (s.solid[i]) {
-          data[o4] = ice[0]; data[o4 + 1] = ice[1]; data[o4 + 2] = ice[2];
-        } else if (showField) {
-          const depletion = 1 - Math.max(0, Math.min(1, s.vapour[i]));
-          const t = depletion * (ramp.length - 1);
-          const lo = ramp[Math.floor(t)];
-          const hi = ramp[Math.min(ramp.length - 1, Math.ceil(t))];
-          const f = t - Math.floor(t);
-          const a = 0.8 * depletion;
-          for (let k = 0; k < 3; k++) {
-            const mix = lo[k] + (hi[k] - lo[k]) * f;
-            data[o4 + k] = surface[k] + (mix - surface[k]) * a;
+
+        // resolve the pixel's "fully visible" color first, then dissolve it
+        // toward the plain surface color by `fade` — 1 outside the loop
+        // pause, ramping to 0 and back as the crystal holds/restarts. This
+        // never runs at fade === 1 except during the brief loop pause, so it
+        // costs nothing to the normal growing state's appearance.
+        let rr = surface[0], gg = surface[1], bb = surface[2];
+        if (i >= 0) {
+          if (s.solid[i]) {
+            rr = ice[0]; gg = ice[1]; bb = ice[2];
+          } else if (showField) {
+            const depletion = 1 - Math.max(0, Math.min(1, s.vapour[i]));
+            const t = depletion * (ramp.length - 1);
+            const lo = ramp[Math.floor(t)];
+            const hi = ramp[Math.min(ramp.length - 1, Math.ceil(t))];
+            const f = t - Math.floor(t);
+            const a = 0.8 * depletion;
+            rr = surface[0] + (lo[0] + (hi[0] - lo[0]) * f - surface[0]) * a;
+            gg = surface[1] + (lo[1] + (hi[1] - lo[1]) * f - surface[1]) * a;
+            bb = surface[2] + (lo[2] + (hi[2] - lo[2]) * f - surface[2]) * a;
           }
-        } else {
-          data[o4] = surface[0]; data[o4 + 1] = surface[1]; data[o4 + 2] = surface[2];
         }
+
+        data[o4] = fade >= 1 ? rr : surface[0] + (rr - surface[0]) * fade;
+        data[o4 + 1] = fade >= 1 ? gg : surface[1] + (gg - surface[1]) * fade;
+        data[o4 + 2] = fade >= 1 ? bb : surface[2] + (bb - surface[2]) * fade;
       }
 
       bufferCtx.putImageData(image, 0, 0);
       view.ctx.clearRect(0, 0, SIZE, SIZE);
       view.ctx.drawImage(buffer, 0, 0);
+
+      // a small, unobtrusive cue that the pause-and-restart is intentional
+      if (phase !== "growing") {
+        let labelAlpha = 0;
+        if (phase === "holding") labelAlpha = Math.min(1, phaseT / HOLD_S);
+        else if (phase === "fading-out") labelAlpha = 1;
+        else if (phase === "fading-in") labelAlpha = Math.max(0, 1 - fade);
+
+        if (labelAlpha > 0.01) {
+          const ctx = view.ctx;
+          ctx.save();
+          ctx.globalAlpha = labelAlpha;
+          ctx.fillStyle = c.inkSecondary;
+          ctx.font = "13px system-ui, -apple-system, 'Segoe UI', sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText("full frame reached — restarting to grow it again", SIZE / 2, SIZE - 14);
+          ctx.restore();
+        }
+      }
     }
 
-    function step() {
+    function simulate() {
       for (let k = 0; k < o.sweeps; k++) relax(s);
       grow(s, o.pace, stick);
       // stop before the crystal reaches the rim, where the fixed far-field
       // condition would stop being a fair stand-in for open air
-      if (s.radius > R - 6) { reset(s); for (let k = 0; k < 40; k++) relax(s); }
+      if (s.radius > R - 6 && phase === "growing") { phase = "holding"; phaseT = 0; }
+    }
+
+    function step(dt) {
+      const delta = dt == null ? STEP_S : dt;
+
+      if (phase === "growing") {
+        // fixed-rate accumulator: simulate STEP_S of real time per tick no
+        // matter the display's actual refresh rate, so how long a viewer
+        // watches before seeing a loop does not shrink on a faster monitor
+        acc += delta;
+        while (acc >= STEP_S) { acc -= STEP_S; simulate(); }
+      } else {
+        phaseT += delta;
+        if (phase === "holding") {
+          if (phaseT >= HOLD_S) { phase = "fading-out"; phaseT = 0; }
+        } else if (phase === "fading-out") {
+          fade = Math.max(0, 1 - phaseT / FADE_S);
+          if (phaseT >= FADE_S) {
+            reset(s);
+            for (let k = 0; k < 60; k++) relax(s);
+            phase = "fading-in"; phaseT = 0; fade = 0;
+          }
+        } else if (phase === "fading-in") {
+          fade = Math.min(1, phaseT / FADE_S);
+          if (phaseT >= FADE_S) { fade = 1; phase = "growing"; acc = 0; }
+        }
+      }
+
       draw();
     }
 
     // settle the vapour field before the first frame
     for (let k = 0; k < 60; k++) relax(s);
 
-    const anim = Viz.animate(root, function () { step(); }, { controls: false });
+    const anim = Viz.animate(root, function (elapsed, dt) { step(dt); }, { controls: false });
 
     if (bar) {
       Viz.slider(bar, {
@@ -295,6 +377,7 @@
       Viz.button(bar, "Start again", function () {
         reset(s);
         for (let k = 0; k < 60; k++) relax(s);
+        phase = "growing"; phaseT = 0; fade = 1; acc = 0;
         draw();
       });
       if (Viz.reduceMotion.matches) {
@@ -304,7 +387,10 @@
 
     draw();
     Viz.onThemeChange(draw);
-    return { step: step, draw: draw, state: s, anim: anim };
+    return {
+      step: step, draw: draw, state: s, anim: anim,
+      get phase() { return phase; }, get fade() { return fade; },
+    };
   }
 
   window.Diffusion = { mount: mount };

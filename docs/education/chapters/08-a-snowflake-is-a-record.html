@@ -618,6 +618,36 @@
       </figure>
 
       <p>
+        You have now seen the recipe stated, sketched and photographed. Try writing one yourself.
+      </p>
+
+      <figure class="anim" id="rib-schedule">
+        <div class="anim__head">
+          <p class="anim__title">Write your own rib</p>
+          <p class="anim__sub">
+            Set a dip: how far you drop the supersaturation, how long you hold it there, and how
+            much thin-plate growth you let run before the next one. The panel is a cutaway of the
+            plate's edge, built up left to right as the plate grows outward from the centre &mdash;
+            the same view as the three sketches above, run continuously and repeated on a timer, the
+            way the spider-web crystal in Figure&nbsp;9.28 was actually grown.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original animation. The three-step mechanism it draws &mdash;
+          thin sharp edge, a thickened rim once &sigma; drops, then thin growth resuming from the
+          rim's top and stranding it behind as a rib &mdash; follows Libbrecht, Snow Crystals,
+          printed pp.&nbsp;125&ndash;126, and the dip-and-restore recipe itself follows
+          Figure&nbsp;9.28's caption, printed p.&nbsp;354. Rib spacing tracking the time between dips
+          follows this chapter's own gloss on that mechanism (&ldquo;a run of ribs is a run of dips,
+          in order, spaced according to how fast the crystal was growing between them&rdquo;, above);
+          the exact mapping from dip depth and duration to rib height is a simple schematic model,
+          not a fitted growth calculation.</span>
+        </figcaption>
+      </figure>
+
+      <p>
         Natural crystals carry the same markings, but the transcript is far harder to read, because
         nobody wrote the schedule down. A crystal that tumbles as it falls can pick up ribs on both
         of its flat faces at once, and the result is a pile-up: one natural specimen is described as
@@ -1560,6 +1590,192 @@
 
   render();
   Viz.onThemeChange(render);
+})();
+
+/* ===========================================================================
+   4. WRITE YOUR OWN RIB
+   A schematic cutaway of a growing plate edge, radius left to right. The top
+   surface stays flat (the source: a POP upper surface "stays flat or
+   slightly concave"). The underside tracks a repeating dip schedule: during
+   a dip, radial growth slows and the edge thickens roughly in place; when
+   sigma is restored, thin growth resumes and strands the thickened rim
+   behind as a rib. Depth and duration set how tall a rib gets (more time or more
+   slowdown at low sigma means more accumulated thickening); the growth time
+   between dips sets how far apart successive ribs land, matching the
+   chapter's own line above: "spaced according to how fast the crystal was
+   growing between them."
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("rib-schedule");
+  if (!root || !window.Viz) return;
+  const body = root.querySelector(".anim__body");
+  const controls = root.querySelector(".anim__controls");
+
+  const W = 700, H = 260;
+  const plot = { x0: 46, x1: W - 24, y0: 180, y1: 20 };
+  const topY = 54;
+  const BASE = 6;      // baseline (thin-edge) thickness, drawing units
+  const G = 1;         // radial units per schedule-second at full sigma
+  const N_DIPS = 4;    // a small, fixed number of segments in the schedule
+
+  let depth = 0.5;      // 0..1 — how far sigma drops during a dip
+  let duration = 30;    // schedule-seconds held low (the recipe: "about thirty seconds")
+  let interval = 50;    // schedule-seconds of restored growth between dips
+
+  const legendBox = document.createElement("div");
+  body.appendChild(legendBox);
+
+  const status = document.createElement("p");
+  status.className = "anim__sub";
+  status.setAttribute("role", "status");
+  status.style.fontWeight = "600";
+  root.querySelector(".anim__head").appendChild(status);
+
+  function buildLegend() {
+    const c = Viz.colors();
+    legendBox.textContent = "";
+    Viz.legend(legendBox, [
+      { color: c.series[0], label: "the plate's edge, in cutaway (underside below the flat top)" },
+      { color: c.series[1], label: "radius grown while σ was lowered" },
+    ]);
+  }
+
+  /* Build the schedule: N_DIPS identical dips, evenly spaced by `interval`
+     seconds of restored (high-sigma) growth, each `duration` seconds long. */
+  function schedule() {
+    const rDip = G * (1 - 0.85 * depth);  // radial creep while sigma is low
+    const vDip = 0.9 * depth;             // thickening rate while sigma is low
+    const peak = vDip * duration;         // rib prominence
+    const dipWidth = rDip * duration;     // rib radial width
+
+    const dips = [];
+    let r = interval; // lead-in growth before the first dip
+    for (let k = 0; k < N_DIPS; k++) {
+      dips.push({ rStart: r, rEnd: r + dipWidth, peak: peak });
+      r = r + dipWidth + interval;
+    }
+    return { dips: dips, totalR: r, peak: peak, dipWidth: dipWidth };
+  }
+
+  /* thickness(R): baseline, humped up within each dip's radial window */
+  function thicknessAt(R, dips) {
+    for (const dip of dips) {
+      if (R >= dip.rStart && R <= dip.rEnd) {
+        const span = Math.max(1e-6, dip.rEnd - dip.rStart);
+        const hump = Math.sin(Math.PI * (R - dip.rStart) / span); // 0 at both edges, 1 at centre
+        return BASE + dip.peak * hump;
+      }
+    }
+    return BASE;
+  }
+
+  let svg = null;
+
+  function render() {
+    const c = Viz.colors();
+    const S = schedule();
+    const xs = Viz.scaleLinear([0, S.totalR * 1.06], [plot.x0, plot.x1]);
+
+    if (svg) svg.remove();
+    svg = Viz.createSvg(body, W, H, {
+      label: "A cutaway of a growing plate edge, radius left to right, showing ribs left behind " +
+             "by a repeating dip in supersaturation.",
+      desc: "The top surface of the plate stays flat. The underside stays thin between dips and " +
+            "bulges into a hexagonal rib wherever the schedule lowered the supersaturation.",
+    });
+
+    /* shade the radial windows where sigma was held low, tying each bump to the schedule */
+    S.dips.forEach(function (dip) {
+      svg.appendChild(Viz.svgEl("rect", {
+        x: xs(dip.rStart), y: plot.y1, width: Math.max(1, xs(dip.rEnd) - xs(dip.rStart)),
+        height: plot.y0 - plot.y1, fill: c.series[1], "fill-opacity": 0.12,
+      }));
+    });
+
+    const STEP_R = Math.max(0.15, S.totalR / 600);
+    const pts = [];
+    for (let R = 0; R < S.totalR; R += STEP_R) pts.push([R, thicknessAt(R, S.dips)]);
+    pts.push([S.totalR, thicknessAt(S.totalR, S.dips)]);
+
+    /* filled cutaway: flat top, walk the bumped underside profile back to the start */
+    let bodyPath = "M " + xs(0).toFixed(1) + " " + topY.toFixed(1) + " " +
+                   "L " + xs(S.totalR).toFixed(1) + " " + topY.toFixed(1) + " ";
+    for (let i = pts.length - 1; i >= 0; i--) {
+      bodyPath += "L " + xs(pts[i][0]).toFixed(1) + " " + (topY + pts[i][1]).toFixed(1) + " ";
+    }
+    bodyPath += "Z";
+    svg.appendChild(Viz.svgEl("path", { d: bodyPath, fill: c.series[0], "fill-opacity": 0.16, stroke: "none" }));
+
+    /* the flat top surface */
+    svg.appendChild(Viz.svgEl("line", {
+      x1: xs(0), x2: xs(S.totalR), y1: topY, y2: topY, stroke: c.series[0], "stroke-width": 2.2,
+    }));
+
+    /* the underside outline, ribs and all */
+    let underside = "M " + xs(pts[0][0]).toFixed(1) + " " + (topY + pts[0][1]).toFixed(1) + " ";
+    for (let i = 1; i < pts.length; i++) {
+      underside += "L " + xs(pts[i][0]).toFixed(1) + " " + (topY + pts[i][1]).toFixed(1) + " ";
+    }
+    svg.appendChild(Viz.svgEl("path", {
+      d: underside, fill: "none", stroke: c.series[0], "stroke-width": 2.2, "stroke-linejoin": "round",
+    }));
+
+    const topLab = Viz.svgEl("text", { class: "series-label", x: xs(0), y: topY - 10, fill: c.series[0] });
+    topLab.textContent = "top surface — stays flat";
+    svg.appendChild(topLab);
+
+    if (S.dips.length) {
+      const mid = S.dips[0];
+      const ribLab = Viz.svgEl("text", {
+        class: "series-label", x: xs((mid.rStart + mid.rEnd) / 2), y: topY + BASE + mid.peak + 18,
+        "text-anchor": "middle", fill: c.series[1],
+      });
+      ribLab.textContent = "rib";
+      svg.appendChild(ribLab);
+    }
+
+    Viz.axisBottom(svg, xs, {
+      y: plot.y0, ticks: 5,
+      title: "Radius grown outward from the centre (schematic units)", titleOffset: 34,
+      format: (v) => Math.round(v),
+    });
+
+    /* expose computed state — for readers via the status line, and for
+       automated checks via these data attributes on the figure itself */
+    const spacing = interval * G; // radius gained during restored growth between dips
+    root.dataset.ribCount = String(S.dips.length);
+    root.dataset.ribProminence = S.peak.toFixed(3);
+    root.dataset.ribSpacing = spacing.toFixed(3);
+    root.dataset.ribWidth = S.dipWidth.toFixed(3);
+    root.dataset.totalRadius = S.totalR.toFixed(3);
+
+    status.textContent =
+      "Each dip crests about " + S.peak.toFixed(1) + " units above the thin edge, and successive " +
+      "ribs sit " + spacing.toFixed(0) + " radius-units apart.";
+  }
+
+  Viz.slider(controls, {
+    label: "How far you drop σ", id: "rib-depth",
+    min: 0.1, max: 1, step: 0.05, value: depth,
+    format: function (v) { return Math.round(v * 100) + "%"; },
+    onInput: function (v) { depth = v; render(); },
+  });
+  Viz.slider(controls, {
+    label: "How long you hold it (s)", id: "rib-duration",
+    min: 10, max: 60, step: 5, value: duration,
+    format: function (v) { return v + " s"; },
+    onInput: function (v) { duration = v; render(); },
+  });
+  Viz.slider(controls, {
+    label: "Growth time between dips (s)", id: "rib-interval",
+    min: 20, max: 100, step: 5, value: interval,
+    format: function (v) { return v + " s"; },
+    onInput: function (v) { interval = v; render(); },
+  });
+
+  buildLegend();
+  render();
+  Viz.onThemeChange(function () { buildLegend(); render(); });
 })();
 </script>
 </body>

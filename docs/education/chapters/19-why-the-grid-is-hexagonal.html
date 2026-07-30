@@ -60,7 +60,7 @@
         </p>
         <div class="chapter-header__meta">
           <span>~16 min read</span>
-          <span>6 animations</span>
+          <span>7 animations</span>
           <span>1 table</span>
         </div>
       </header>
@@ -264,6 +264,38 @@
         symmetry&rdquo;, it means: every one of those operations leaves the crystal looking identical,
         cell for cell.
       </p>
+
+      <p>
+        That claim is checkable directly, not just quotable. Every demo so far in this chapter has
+        exercised one generator at a time &mdash; <code>demo-eight-bonds</code> above turned
+        <code>rot60</code> six times and came back around. Nothing yet has <em>composed</em> two
+        different generators and watched where the result lands. Try it.
+      </p>
+
+      <figure class="anim" id="demo-group-closure">
+        <div class="anim__head">
+          <p class="anim__title">Compose the symmetries yourself</p>
+          <p class="anim__sub">
+            Press <code>rot60</code> and <code>mirror</code> in any order you like, on a shape
+            deliberately picked to have no symmetry of its own. The shape moves &mdash; but never
+            anywhere except one of twelve fixed positions.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. <code>rot60(i, j) = (&minus;j, i + j)</code>
+          and <code>mirror(i, j) = (j, i)</code> are taken verbatim from
+          <code>core/src/lattice.ts</code> lines 81&ndash;83 (the D6h comment), 85&ndash;94
+          (<code>rot60</code>) and 96&ndash;105 (<code>mirror</code>); every composition below is exact
+          2&times;2 integer-matrix arithmetic on those two formulas, never an approximation. Composing
+          only these two generators reaches the 12-element subgroup of D6h that fixes the layer
+          <code>k</code> &mdash; six rotations and six reflections. The file's third generator,
+          <code>zmirror</code> (lines 107&ndash;109), acts on <code>k</code> alone and so commutes with
+          both of these; that is what doubles this 12 to the full 24-element D6h the chapter
+          names.</span>
+        </figcaption>
+      </figure>
 
       <p>
         When chapter 18's ladder demands a symmetry
@@ -1023,6 +1055,8 @@
   }
   /** core/src/lattice.ts:85 — rot60(i, j) = (-j, i + j), exact on integers. */
   function rot60(i, j) { return [-j, i + j]; }
+  /** core/src/lattice.ts:96 — mirror(i, j) = (j, i), exact on integers. */
+  function mirror(i, j) { return [j, i]; }
   /** core/src/lattice.ts:76 — x = i + j/2, y = j*sqrt(3)/2. */
   function cartX(i, j) { return i + j / 2; }
   function cartY(i, j) { return (j * SQ3) / 2; }
@@ -2159,6 +2193,236 @@
 
     paint();
     Viz.onThemeChange(function () { build(); paint(); });
+  })();
+
+  /* ======================================================================
+     7. Compose the symmetries yourself
+     ================================================================== */
+  (function () {
+    var root = document.getElementById("demo-group-closure");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var bar = root.querySelector(".anim__controls");
+    var stage = stageIn(body);
+    var legendStage = stageIn(body);
+
+    /* 2x2 integer matrices acting on (i, j), centred on the pivot (0, 0).
+       rot60(i, j) = (-j, i + j)  →  MAT_R
+       mirror(i, j) = (j, i)      →  MAT_M
+       Composition is exact integer matrix multiplication — no sines, no
+       cosines, no rounding, matching core/src/lattice.ts:81-83. */
+    var MAT_I = [[1, 0], [0, 1]];
+    var MAT_R = [[0, -1], [1, 1]];
+    var MAT_M = [[0, 1], [1, 0]];
+
+    function matMul(A, B) {
+      return [
+        [A[0][0] * B[0][0] + A[0][1] * B[1][0], A[0][0] * B[0][1] + A[0][1] * B[1][1]],
+        [A[1][0] * B[0][0] + A[1][1] * B[1][0], A[1][0] * B[0][1] + A[1][1] * B[1][1]]
+      ];
+    }
+    function matApply(M, p) {
+      return [M[0][0] * p[0] + M[0][1] * p[1], M[1][0] * p[0] + M[1][1] * p[1]];
+    }
+    function matEq(A, B) {
+      return A[0][0] === B[0][0] && A[0][1] === B[0][1] &&
+             A[1][0] === B[1][0] && A[1][1] === B[1][1];
+    }
+    function opMatrix(op) { return op === "R" ? MAT_R : MAT_M; }
+
+    /* The 12 elements reachable from rot60 and mirror alone: six rotations
+       R^0..R^5, then a mirror composed with each of those six. This is the
+       subgroup of D6h that fixes the layer k. The file's third generator,
+       zmirror, acts on k only — a disjoint coordinate from (i, j) — so it
+       commutes with both of these, and is what doubles this 12 to the full
+       24-element D6h the chapter names. */
+    var CANON = (function () {
+      var out = [], cur = MAT_I, k;
+      for (k = 0; k < 6; k++) {
+        out.push({ k: k, refl: false, m: cur });
+        out.push({ k: k, refl: true, m: matMul(MAT_M, cur) });
+        cur = matMul(MAT_R, cur);
+      }
+      return out;
+    })();
+
+    function classify(M) {
+      for (var n = 0; n < CANON.length; n++) {
+        if (matEq(CANON[n].m, M)) return CANON[n];
+      }
+      return null; /* unreachable if the 12-element closure holds */
+    }
+
+    function labelFor(el) {
+      if (!el) return "not one of the twelve — this would be a bug";
+      if (el.k === 0 && !el.refl) return "identity — exactly the starting position";
+      if (!el.refl) {
+        return "rot60 applied " + el.k + " time" + (el.k === 1 ? "" : "s") +
+          " — a " + (el.k * 60) + "° turn";
+      }
+      if (el.k === 0) return "mirror only";
+      return "rot60 applied " + el.k + " time" + (el.k === 1 ? "" : "s") + ", then mirror — " +
+        (el.k * 60) + "° plus a flip";
+    }
+
+    /* Two deliberately asymmetric shapes: every one of their 12 group images
+       is a distinct set of cells (verified offline), so "back at the start"
+       never happens by accident and every button press is visible. */
+    var SHAPES = {
+      wedge: [[3, 1], [4, 1], [3, 2]],
+      hook: [[3, 1], [4, 1], [4, 2]]
+    };
+    var shapeKey = "wedge";
+    var opsArray = [];
+    var showOrbit = false;
+    var R_BG = 6;
+    var W = 620, H = 450, cx = 310, cy = 215, s = 33;
+    var svg = null;
+    var vSeq = null, vElement = null, vBack = null;
+
+    function currentMatrix() {
+      var M = MAT_I;
+      for (var t = 0; t < opsArray.length; t++) M = matMul(opMatrix(opsArray[t]), M);
+      return M;
+    }
+
+    function cellPath(i, j, shrink) {
+      var px = cx + s * cartX(i, j);
+      var py = cy - s * cartY(i, j);
+      return Viz.hexPath(px, py, (s / SQ3) * (shrink == null ? 0.96 : shrink), 30);
+    }
+
+    function opName(op) { return op === "R" ? "rot60" : "mirror"; }
+
+    function sequenceText() {
+      return opsArray.length ? opsArray.map(opName).join(" → ") : "(none yet)";
+    }
+
+    function updateReadouts(el) {
+      vSeq.textContent = sequenceText();
+      vElement.textContent = labelFor(el);
+      var back = !!(el && el.k === 0 && !el.refl);
+      vBack.textContent = back ? "yes, exactly" : "no";
+      vBack.style.color = back ? "var(--status-good)" : "var(--ink-muted)";
+    }
+
+    function render() {
+      if (svg) svg.remove();
+      svg = Viz.createSvg(stage, W, H, {
+        label: "An asymmetric shape on the triangular lattice, moved by composing rot60 and " +
+               "mirror. A faint constellation marks the twelve fixed positions the shape can ever " +
+               "occupy."
+      });
+      var c = Viz.colors();
+      var base = SHAPES[shapeKey];
+      var i, j, n, m;
+
+      /* background lattice, for context */
+      for (j = -R_BG; j <= R_BG; j++) {
+        for (i = -R_BG; i <= R_BG; i++) {
+          if (hexDist(i, j) > R_BG) continue;
+          svg.appendChild(Viz.svgEl("path", {
+            d: cellPath(i, j), fill: c.surface, stroke: c.rule, "stroke-width": 0.6
+          }));
+        }
+      }
+
+      /* the pivot every operation is centred on */
+      svg.appendChild(Viz.svgEl("path", {
+        d: cellPath(0, 0, 0.5), fill: c.ruleStrong, stroke: "none"
+      }));
+
+      /* all 12 positions in the group's orbit, shown as a faint constellation */
+      if (showOrbit) {
+        for (n = 0; n < CANON.length; n++) {
+          for (m = 0; m < base.length; m++) {
+            var op = matApply(CANON[n].m, base[m]);
+            svg.appendChild(Viz.svgEl("path", {
+              d: cellPath(op[0], op[1], 0.8), fill: c.seq[1], stroke: "none", "fill-opacity": 0.45
+            }));
+          }
+        }
+      }
+
+      /* the starting shape, always shown as a dashed ghost */
+      for (n = 0; n < base.length; n++) {
+        svg.appendChild(Viz.svgEl("path", {
+          d: cellPath(base[n][0], base[n][1], 0.88), fill: "none",
+          stroke: c.inkSecondary, "stroke-width": 1.6, "stroke-dasharray": "4 3"
+        }));
+      }
+
+      /* the current shape: the base shape carried through every op pressed so far */
+      var M = currentMatrix();
+      var el = classify(M);
+      for (n = 0; n < base.length; n++) {
+        var p = matApply(M, base[n]);
+        svg.appendChild(Viz.svgEl("path", {
+          d: cellPath(p[0], p[1], 0.88), fill: c.series[1], stroke: c.surface, "stroke-width": 1.6
+        }));
+      }
+
+      var tl = Viz.svgEl("text", {
+        x: cx, y: 22, "text-anchor": "middle", class: "series-label", fill: c.ink
+      });
+      tl.textContent = opsArray.length === 0 ? "no operations applied yet" : sequenceText();
+      svg.appendChild(tl);
+
+      var bl = Viz.svgEl("text", {
+        x: cx, y: H - 14, "text-anchor": "middle", class: "annotation", fill: c.inkSecondary
+      });
+      bl.textContent = labelFor(el);
+      svg.appendChild(bl);
+
+      updateReadouts(el);
+    }
+
+    function renderLegend() {
+      legendStage.textContent = "";
+      var c = Viz.colors();
+      var items = [
+        { color: c.inkSecondary, label: "starting shape (dashed)" },
+        { color: c.series[1], label: "current shape" }
+      ];
+      if (showOrbit) items.push({ color: c.seq[1], label: "all 12 positions in the group" });
+      Viz.legend(legendStage, items);
+    }
+
+    var box = readoutBox(body);
+    vSeq = readout(box, "operations applied, in order");
+    vElement = readout(box, "which of the 12 elements this is");
+    vBack = readout(box, "back at the starting shape?");
+
+    render();
+    renderLegend();
+    note(body,
+      "rot60 and mirror are each exact 2×2 integer matrices, so every composition of them is " +
+      "exact integer arithmetic too — never ‘close to’ one of the twelve positions, " +
+      "always identical to one. Build a couple of sequences and compare: rot60 then mirror lands " +
+      "somewhere different from mirror then rot60, because the group is not commutative — but " +
+      "both landings are still exactly one of the same twelve. That is closure: no sequence of " +
+      "rot60/mirror button presses, however long, ever produces a thirteenth position, and this " +
+      "shape returns to its start only when the accumulated operation is exactly the identity — " +
+      "not approximately, and not at any other point along the way.");
+
+    Viz.button(bar, "Apply rot60", function () { opsArray.push("R"); render(); });
+    Viz.button(bar, "Apply mirror", function () { opsArray.push("M"); render(); });
+    Viz.button(bar, "Undo", function () { opsArray.pop(); render(); });
+    Viz.button(bar, "Reset", function () { opsArray = []; render(); });
+    Viz.button(bar, "Switch shape", function () {
+      shapeKey = shapeKey === "wedge" ? "hook" : "wedge";
+      opsArray = [];
+      render();
+    });
+    Viz.button(bar, "Show all 12 positions", function (btn) {
+      showOrbit = !showOrbit;
+      btn.setAttribute("aria-pressed", String(showOrbit));
+      btn.textContent = showOrbit ? "Hide the other 11" : "Show all 12 positions";
+      render();
+      renderLegend();
+    }, { pressed: false });
+
+    Viz.onThemeChange(function () { render(); renderLegend(); });
   })();
 })();
 </script>

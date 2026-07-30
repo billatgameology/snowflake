@@ -42,6 +42,7 @@
       <li><a href="#empty-cell">The cell that stays empty</a></li>
       <li><a href="#hundred">A factor of a hundred, hiding in an exponent</a></li>
       <li><a href="#forbidden">The word you are not allowed to type</a></li>
+      <li><a href="#browse-everything">Browse the whole table</a></li>
       <li><a href="#what-it-buys">What a stamp buys, and what it does not</a></li>
     </ol>
   </nav>
@@ -57,8 +58,8 @@
           actually come from &mdash; and what happens to the ones nobody has ever measured?
         </p>
         <div class="chapter-header__meta">
-          <span>~15 min read</span>
-          <span>5 interactive figures</span>
+          <span>~17 min read</span>
+          <span>6 interactive figures</span>
           <span>Part VI &middot; What we tried to build</span>
         </div>
       </header>
@@ -854,6 +855,60 @@
       </p>
 
       <!-- ================================================================ 8 -->
+      <h2 id="browse-everything">Browse the whole table</h2>
+
+      <p>
+        Every example so far in this chapter was chosen for you. Eight entries, picked one at a
+        time, each one making a single point &mdash; the easy case, the surprising case, the gap,
+        the planted error. That is a reasonable way to teach a discipline. It is not evidence that
+        the discipline holds up everywhere else in the file, and by this point in the chapter you
+        should not be willing to take that on faith either.
+      </p>
+
+      <p>
+        <code>docs/libbrecht-parameters.md</code> carries more than thirty numbered entries, not
+        eight, and the same rule is supposed to bind all of them: no citation, no entry; no
+        printed source, no number; an empty cell instead of a guess. Below is the file, transcribed
+        in full &mdash; every physical constant in section&nbsp;2, both branches of
+        &sigma;<sub>0</sub>(T) and A(T) in section&nbsp;3 (the digitized anchors <em>and</em> the
+        text-cited ones the project did not have to digitize), the SDAK-1 and SDAK-2 hypotheses and
+        the printed width form of section&nbsp;4, v<sub>kin</sub> in section&nbsp;5, the D(T) gap of
+        section&nbsp;6, &chi;<sub>0</sub> in section&nbsp;7, and the derived quantities of
+        section&nbsp;8. Filter it by class, sort it, search it &mdash; and check any row you like
+        against the source file itself, because the citation is printed right there in the row.
+      </p>
+
+      <figure class="anim" id="anim-full-table">
+        <div class="anim__head">
+          <p class="anim__title">The full provenance table</p>
+          <p class="anim__sub">Every numeric entry in docs/libbrecht-parameters.md, not just the eight curated ones above. Filter by class, sort by name or class, or search.</p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. Every row is transcribed in full from
+          <code>docs/libbrecht-parameters.md</code> &sect;&sect;2&ndash;8 &mdash; physical constants;
+          Branch&nbsp;1 broad-facet &sigma;<sub>0</sub>(T)/A(T), digitized and text-cited alike; the
+          SDAK-1/SDAK-2 hypotheses and the printed width form; v<sub>kin</sub>; D(T,&nbsp;P)
+          including its temperature-dependence gap; &chi;<sub>0</sub>; and the derived quantities of
+          &sect;8 &mdash; the same file <a href="#tracer">the tracer above</a> draws its eight
+          curated entries from. Nothing here is invented: every value, citation and class is copied,
+          not paraphrased.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        Filter to <strong>GAP</strong> and exactly one row survives: D(T)&rsquo;s temperature
+        dependence, the same empty cell from earlier in this chapter, and nothing else in the whole
+        file is left that unfinished. Filter to <strong>P3</strong> and you get three rows &mdash;
+        the two SDAK-1 dips and the SDAK-2 A<sub>prism</sub> recovery &mdash; all Nakaya-informed,
+        all still unwired in the solver. That is the point of building the browser instead of just
+        asserting it: &ldquo;the discipline covers the whole table&rdquo; is now something you can
+        check yourself, one filter click at a time, rather than a claim this chapter is asking you
+        to take on the strength of eight hand-picked examples.
+      </p>
+
+      <!-- ================================================================ 9 -->
       <h2 id="what-it-buys">What a stamp buys, and what it does not</h2>
 
       <p>
@@ -2059,6 +2114,386 @@
 
   update();
   Viz.onThemeChange(update);
+})();
+</script>
+
+<script>
+/* ===========================================================================
+   6. THE FULL PROVENANCE TABLE
+   Every numeric entry transcribed from docs/libbrecht-parameters.md sections
+   2-8 (33 rows): physical constants; Branch 1 broad-facet sigma_0(T)/A(T)
+   (digitized anchors and text-cited anchors); the SDAK-1/SDAK-2 hypotheses
+   and printed width form; v_kin; D(T,P) including its temperature gap;
+   chi_0; and the derived quantities of section 8. Complements anim-tracer's
+   eight curated entries above rather than repeating them.
+   ======================================================================== */
+(function () {
+  "use strict";
+  var root = document.getElementById("anim-full-table");
+  if (!root || !window.Viz) return;
+  var body = root.querySelector(".anim__body");
+  var bar = root.querySelector(".anim__controls");
+
+  var ENTRIES = [
+    /* ---- section 2 : physical constants (monograph Appendix A) ---- */
+    { name: "c_ice", what: "ice number density &mdash; converts &lsquo;vapour arrived&rsquo; into &lsquo;ice grew&rsquo;",
+      value: "&asymp; 3.1 &times; 10&sup2;&#8312; m&#8315;&sup3;", cls: "P1", clsName: "measured broad-facet kinetics",
+      source: "monograph Appendix A", page: "printed p. 500 / pdf 501", unc: "None stated by the source." },
+    { name: "rho_ice", what: "ice mass density",
+      value: "&asymp; 917 kg/m&sup3;", cls: "P1", clsName: "measured broad-facet kinetics",
+      source: "monograph Appendix A", page: "printed p. 500 / pdf 501" },
+    { name: "m_mol", what: "mass of one water molecule",
+      value: "&asymp; 3.0 &times; 10&#8315;&sup2;&#8310; kg", cls: "P1", clsName: "measured broad-facet kinetics",
+      source: "monograph Appendix A", page: "printed p. 500 / pdf 501" },
+    { name: "a", what: "molecule size, c_ice^(&minus;1/3)",
+      value: "&asymp; 0.32 nm (3.2 &times; 10&#8315;&sup1;&#8304; m)", cls: "P1", clsName: "measured broad-facet kinetics",
+      source: "monograph Appendix A", page: "printed p. 500 / pdf 501" },
+    { name: "gamma_sv", what: "ice/vapour surface energy",
+      value: "&asymp; 106 &plusmn; 15 mJ/m&sup2;", cls: "P1", clsName: "measured broad-facet kinetics",
+      source: "monograph Appendix A", page: "printed pp. 500&ndash;501", unc: "&plusmn; 15 mJ/m&sup2; &mdash; the source&rsquo;s own stated uncertainty, carried through verbatim.",
+      note: "Not yet consumed by the solver." },
+    { name: "d_sv", what: "Gibbs&ndash;Thomson length, gamma_sv/(c_ice&middot;kT)",
+      value: "&asymp; 1 nm (1 &times; 10&#8315;&#8313; m)", cls: "P2", clsName: "fitted or inferred &mdash; derived quantity",
+      source: "monograph Appendix A", page: "printed pp. 500&ndash;501", note: "Derived from gamma_sv, not itself printed." },
+    { name: "D_air", what: "water vapour diffusivity in air, at 1 atm",
+      value: "&asymp; 2 &times; 10&#8315;&#8309; m&sup2;/s", cls: "P1", clsName: "measured broad-facet kinetics",
+      source: "monograph Appendix A", page: "printed p. 500 / pdf 501",
+      note: "The same source repeats this quantity in main text as &lsquo;&asymp; 10&#8315;&#8309; m&sup2;/s&rsquo; for &lsquo;typical atmospheric conditions&rsquo; (printed p. 91 / pdf 92) &mdash; a factor of 2 looser, with no class assigned to that repetition. The Appendix A value is the one adopted." },
+
+    /* ---- section 3 : Branch 1 broad-facet sigma_0(T), A(T) &mdash; digitized Fig. 4.5 anchors ---- */
+    { name: "sigma_0, A at (Tm&minus;T)=1&nbsp;&deg;C", what: "basal &amp; prism, at &minus;1&nbsp;&deg;C",
+      value: "&sigma;&#8320;_basal 0.30% (0.0030) &middot; &sigma;&#8320;_prism &asymp;0.006% at plot floor (&asymp;0.00006) &middot; A_basal 1 &middot; A_prism 0.45",
+      cls: "P2", clsName: "fitted or inferred &mdash; figure digitization",
+      source: "monograph Figure 4.5, &lsquo;best-estimate CAK model functions&rsquo;", page: "printed p. 144 / pdf 145",
+      unc: "&plusmn; 25% relative on &sigma;&#8320; &middot; &plusmn; 0.03 absolute on A." },
+    { name: "sigma_0, A at (Tm&minus;T)=2&nbsp;&deg;C", what: "basal &amp; prism, at &minus;2&nbsp;&deg;C",
+      value: "&sigma;&#8320;_basal 0.35% (0.0035) &middot; &sigma;&#8320;_prism 0.028% (0.00028) &middot; A_basal 1 &middot; A_prism 0.28",
+      cls: "P2", clsName: "fitted or inferred &mdash; figure digitization",
+      source: "monograph Figure 4.5", page: "printed p. 144 / pdf 145",
+      unc: "&plusmn; 25% relative on &sigma;&#8320; &middot; &plusmn; 0.03 absolute on A." },
+    { name: "sigma_0, A at (Tm&minus;T)=3&nbsp;&deg;C", what: "basal &amp; prism, at &minus;3&nbsp;&deg;C",
+      value: "&sigma;&#8320;_basal 0.45% (0.0045) &middot; &sigma;&#8320;_prism 0.07% (0.0007) &middot; A_basal 1 &middot; A_prism 0.21",
+      cls: "P2", clsName: "fitted or inferred &mdash; figure digitization",
+      source: "monograph Figure 4.5", page: "printed p. 144 / pdf 145",
+      unc: "&plusmn; 25% relative on &sigma;&#8320; &middot; &plusmn; 0.03 absolute on A." },
+    { name: "sigma_0, A at (Tm&minus;T)=5&nbsp;&deg;C", what: "basal &amp; prism, at &minus;5&nbsp;&deg;C",
+      value: "&sigma;&#8320;_basal 0.70% (0.0070) &middot; &sigma;&#8320;_prism 0.27% (0.0027) &middot; A_basal 1 &middot; A_prism 0.18",
+      cls: "P2", clsName: "fitted or inferred &mdash; figure digitization",
+      source: "monograph Figure 4.5", page: "printed p. 144 / pdf 145",
+      unc: "&plusmn; 25% relative on &sigma;&#8320; &middot; &plusmn; 0.03 absolute on A." },
+    { name: "sigma_0, A at (Tm&minus;T)=10&nbsp;&deg;C", what: "basal &amp; prism, at &minus;10&nbsp;&deg;C",
+      value: "&sigma;&#8320;_basal 1.4% (0.014) &middot; &sigma;&#8320;_prism 1.4% (0.014) &middot; A_basal 1 &middot; A_prism 0.83",
+      cls: "P2", clsName: "fitted or inferred &mdash; figure digitization",
+      source: "monograph Figure 4.5", page: "printed p. 144 / pdf 145",
+      unc: "&plusmn; 25% relative on &sigma;&#8320; &middot; &plusmn; 0.03 absolute on A.",
+      note: "A_prism corrected 2026-07-15, round-2 review: first digitized as 0.95, outside the &plusmn;0.03 band &mdash; the rendered figure reads 0.83&ndash;0.84." },
+    { name: "sigma_0, A at (Tm&minus;T)=15&nbsp;&deg;C", what: "basal &amp; prism, at &minus;15&nbsp;&deg;C",
+      value: "&sigma;&#8320;_basal 2.4% (0.024) &middot; &sigma;&#8320;_prism 3.2% (0.032) &middot; A_basal 1 &middot; A_prism 1",
+      cls: "P2", clsName: "fitted or inferred &mdash; figure digitization",
+      source: "monograph Figure 4.5", page: "printed p. 144 / pdf 145",
+      unc: "&plusmn; 25% relative on &sigma;&#8320; &middot; &plusmn; 0.03 absolute on A." },
+    { name: "sigma_0, A at (Tm&minus;T)=20&nbsp;&deg;C", what: "basal &amp; prism, at &minus;20&nbsp;&deg;C",
+      value: "&sigma;&#8320;_basal 3.8% (0.038) &middot; &sigma;&#8320;_prism 6% (0.06) &middot; A_basal 1 &middot; A_prism 1",
+      cls: "P2", clsName: "fitted or inferred &mdash; figure digitization",
+      source: "monograph Figure 4.5", page: "printed p. 144 / pdf 145",
+      unc: "&plusmn; 25% relative on &sigma;&#8320; &middot; &plusmn; 0.03 absolute on A." },
+    { name: "sigma_0, A at (Tm&minus;T)=30&nbsp;&deg;C", what: "basal &amp; prism, at &minus;30&nbsp;&deg;C",
+      value: "&sigma;&#8320;_basal 7% (0.07) &middot; &sigma;&#8320;_prism 13% (0.13) &middot; A_basal 1 &middot; A_prism 1",
+      cls: "P2", clsName: "fitted or inferred &mdash; figure digitization",
+      source: "monograph Figure 4.5", page: "printed p. 144 / pdf 145",
+      unc: "&plusmn; 25% relative on &sigma;&#8320; &middot; &plusmn; 0.03 absolute on A." },
+    { name: "sigma_0, A at (Tm&minus;T)=50&nbsp;&deg;C", what: "basal &amp; prism, at &minus;50&nbsp;&deg;C",
+      value: "&sigma;&#8320;_basal 16% (0.16) &middot; &sigma;&#8320;_prism 32% (0.32) &middot; A_basal 1 &middot; A_prism 1",
+      cls: "P2", clsName: "fitted or inferred &mdash; figure digitization",
+      source: "monograph Figure 4.5", page: "printed p. 144 / pdf 145",
+      unc: "&plusmn; 25% relative on &sigma;&#8320; &middot; &plusmn; 0.03 absolute on A." },
+
+    /* ---- section 3 : text-cited anchors, not digitized ---- */
+    { name: "sigma_0(prism, &minus;15&nbsp;&deg;C), text-cited", what: "printed directly, not read off the plot",
+      value: "3 percent (fraction 0.03), VIG apparatus, 20 mbar background air",
+      cls: "P1", clsName: "measured &mdash; text-cited (P1/P2 per the source&rsquo;s own framing)",
+      source: "monograph Figure 4.4 discussion", page: "printed p. 144 / pdf 145",
+      note: "Agrees with the digitized 3.2% &plusmn; 25% at the same temperature above." },
+    { name: "A_basal &asymp; 1, text-cited", what: "basal facet, across a wide range",
+      value: "A_basal &asymp; 1 for &minus;2 &gt; T &gt; &minus;40&nbsp;&deg;C",
+      cls: "P1", clsName: "measured &mdash; text-cited (P1/P2 per the source&rsquo;s own framing)",
+      source: "arXiv:1910.09067, citing [2013Lib]", page: "p. 6",
+      note: "&lsquo;Unambiguous evidence for nucleation-limited growth with A &asymp; 1 over the entire temperature range.&rsquo;" },
+    { name: "A_prism &lt; 1, text-cited", what: "prism facet, warm side",
+      value: "A_prism &lt; 1 above &asymp; &minus;10&nbsp;&deg;C",
+      cls: "P1", clsName: "measured &mdash; text-cited (P1/P2 per the source&rsquo;s own framing)",
+      source: "arXiv:1910.09067", page: "p. 4",
+      note: "The paper itself then sets this aside and assumes A &asymp; 1 throughout; the monograph&rsquo;s CAK curves (Figure 4.5 lower panel) include it." },
+
+    /* ---- section 3 : composite parameter set and the P4 interpolation rule ---- */
+    { name: "CAK_A1 parameter set", what: "a labelled simplification, not a separate measurement",
+      value: "Branch 1&rsquo;s digitized &sigma;&#8320;(T), with A &equiv; 1 forced on both facets",
+      cls: "P2", clsName: "fitted or inferred &mdash; whole set classed by its weakest component",
+      source: "arXiv:1910.09067, p. 5", page: "&mdash;",
+      note: "&lsquo;I will proceed by assuming A &asymp; 1 &hellip; throughout the remainder of this paper&rsquo; &mdash; a cited modeling choice, not a measurement. NOT the same as 1910.09067&rsquo;s own un-digitized &sigma;&#8320; fits (a recorded gap)." },
+    { name: "interpolation scheme", what: "the rule for joining up nine dots",
+      value: "piecewise log&ndash;log linear for &sigma;&#8320; (both facets); piecewise linear in (Tm&minus;T) for A_prism; A_basal &equiv; 1; extrapolation banned outside (Tm&minus;T) &isin; [1, 50]",
+      cls: "P4", clsName: "numerical / discretization choice &mdash; no physical content",
+      source: "runner/src/phase6-protocol.ts, PHASE6_INTERPOLATION", page: "registered 2026-07-26",
+      unc: "Worst error when an interior anchor is deleted and rebuilt from its two neighbours: 10.7% (basal), 9.0% (prism) &mdash; against the &plusmn;25% digitization band the anchors already carry." },
+
+    /* ---- section 4 : SDAK-1 / SDAK-2 (P3), and the printed width form ---- */
+    { name: "SDAK-1 dip, basal", what: "narrow-facet reduction in the nucleation barrier",
+      value: "&sigma;&#8320; &asymp; 0.07&ndash;0.08% (fraction &asymp; 0.0007&ndash;0.0008), minimum at (Tm&minus;T) &asymp; 4&ndash;4.5&nbsp;&deg;C",
+      cls: "P3", clsName: "Nakaya-informed SDAK hypothesis &mdash; in-sample for any Nakaya comparison",
+      source: "monograph Figure 4.12", page: "printed p. 152 / pdf 153",
+      unc: "&lsquo;Not well constrained by measurements&rsquo; (1910.09067 p. 13); drawn dotted &lsquo;to signify their substantial uncertainties.&rsquo;",
+      note: "Explains rapid basal growth of hollow-column edges near &minus;5&nbsp;&deg;C, by the source&rsquo;s own claim." },
+    { name: "SDAK-1 dip, prism", what: "narrow-facet reduction in the nucleation barrier",
+      value: "&sigma;&#8320; &asymp; 0.18&ndash;0.20% (fraction &asymp; 0.0018&ndash;0.0020), minimum at (Tm&minus;T) &asymp; 14&ndash;16&nbsp;&deg;C",
+      cls: "P3", clsName: "Nakaya-informed SDAK hypothesis &mdash; in-sample for any Nakaya comparison",
+      source: "monograph Figure 4.12", page: "printed p. 152 / pdf 153",
+      unc: "&lsquo;Not well constrained by measurements&rsquo; (1910.09067 p. 13); drawn dotted &lsquo;to signify their substantial uncertainties.&rsquo;",
+      note: "Explains thin-plate edges near &minus;15&nbsp;&deg;C, by the source&rsquo;s own claim." },
+    { name: "SDAK-2, A_prism recovery", what: "a second, A-side hypothesis on small prism facets",
+      value: "Increases A_prism on small prism facets above &asymp; &minus;10&nbsp;&deg;C; supersaturation-dependent, A_prism &rarr; 1 at high &sigma;_surf",
+      cls: "P3", clsName: "Nakaya-informed SDAK hypothesis &mdash; in-sample for any Nakaya comparison",
+      source: "monograph Figure 4.14 caption", page: "printed p. 154 / pdf 155",
+      note: "Aimed at sharp-tipped dendrites &mdash; a different target from SDAK-1&rsquo;s hollow-column and thin-plate edges. Not digitized: no anchor table extracted, nothing in the solver consumes it." },
+    { name: "width parameterization w_0", what: "the one piece of SDAK with a printed functional form",
+      value: "&sigma;&#8320; = &sigma;&#8320;,&infin;&middot;[1 &minus; exp(&minus;w/w&#8320;)]; w&#8320; is an adjustable model parameter",
+      cls: "P4", clsName: "numerical / discretization choice (the file also flags it P3/P4: an adjustable parameter, not a measurement)",
+      source: "monograph, quoting [2015Lib2]", page: "printed p. 157 / pdf 158",
+      note: "&lsquo;The precise functional form for the SDAK effect may not be essential&rsquo; (same page). Any chosen value is registered in a protocol freeze, never fitted against a comparison this project also uses as evidence." },
+
+    /* ---- section 5 : v_kin ---- */
+    { name: "v_kin(T), closed form", what: "kinetic velocity &mdash; how fast the surface would grow if every arriving molecule stuck",
+      value: "v_kin = (c_sat/c_ice)&middot;sqrt(kT/2&pi;&middot;m_mol)",
+      cls: "P2", clsName: "fitted or inferred &mdash; kinetic theory + Arrhenius fit",
+      source: "arXiv:1910.09067 Eq. 2, p. 3; c_sat from monograph Eq. 2.8", page: "p. 3",
+      note: "The solver computes this closed form; the Table 2.1 anchors below validate it, they do not interpolate it." },
+    { name: "v_kin(T), Table 2.1 anchors", what: "validation data, an embedded image in the PDF",
+      value: "9 temperature points, 0 to &minus;40&nbsp;&deg;C; e.g. v_kin(&minus;15&nbsp;&deg;C) = 2.079 &times; 10&#8315;&#8308; m/s (table) vs 2.053 &times; 10&#8315;&#8308; m/s (closed form), agreement &asymp; 1.2%",
+      cls: "P1", clsName: "measured broad-facet kinetics",
+      source: "monograph Table 2.1", page: "printed p. 57 / pdf 58",
+      note: "Table is an embedded image in the PDF &mdash; transcribed 2026-07-15, cell-by-cell verified against the page render (findings-ledger.md entry A4)." },
+
+    /* ---- section 6 : D(T,P), including the gap ---- */
+    { name: "D_air (Appendix A)", what: "water vapour diffusivity in air, 1 atm",
+      value: "D_air &asymp; 2 &times; 10&#8315;&#8309; m&sup2;/s",
+      cls: "P1", clsName: "measured broad-facet kinetics",
+      source: "monograph Appendix A", page: "printed p. 500 / pdf 501" },
+    { name: "pressure dependence of D", what: "how diffusivity scales with background pressure",
+      value: "D &sim; P&#8315;&sup1;",
+      cls: "P1", clsName: "measured broad-facet kinetics (kinetic theory)",
+      source: "monograph", page: "printed p. 65 / pdf 66" },
+    { name: "D(T), temperature dependence", what: "how diffusivity scales with temperature &mdash; the axis this whole project sweeps",
+      value: "NOT GIVEN &mdash; GAP.",
+      cls: null, clsName: "no class: there is no number",
+      source: "&mdash; no printed law exists in either source", page: "&mdash;",
+      note: "Back-computed from Table 2.1&rsquo;s X_0 column: D &asymp; 2.02 &times; 10&#8315;&#8309; m&sup2;/s at BOTH &minus;15&nbsp;&deg;C and &minus;40&nbsp;&deg;C &mdash; the monograph&rsquo;s own working table treats D as temperature-independent at 1 atm. The solver does the same and states the gap; this matters most for Phase 6 temperature sweeps." },
+
+    /* ---- section 7 : chi_0 ---- */
+    { name: "chi_0(T, P)", what: "latent-heating correction, currently unmodelled",
+      value: "&asymp; 0.8 at &minus;1&nbsp;&deg;C, &asymp; 0.4 at &minus;10&nbsp;&deg;C, continues falling colder; chi_0 &sim; P&#8315;&sup1;",
+      cls: "P1", clsName: "measured broad-facet kinetics",
+      source: "monograph", page: "printed p. 98 / pdf 99",
+      note: "Anchors only &mdash; two values and a trend, not a curve; any interpolation between them is P4 and registered, not assumed. Matters for diffusion-limited Phase 6 sweep points on the warm side." },
+
+    /* ---- section 8 : derived quantities ---- */
+    { name: "X_0(T, P)", what: "kinetic length &mdash; sets the Robin surface-condition scale",
+      value: "X_0 = (c_sat/c_ice)&middot;D/v_kin",
+      cls: "P2", clsName: "fitted or inferred &mdash; form built from P1/P2 components",
+      source: "monograph Eq. 3.10", page: "printed p. 93 / pdf 94",
+      note: "Anchors are the Table 2.1 transcription above (µm, air &asymp; 1 atm)." },
+    { name: "M_ice(T)", what: "ice-cell mass in vapor-ledger units",
+      value: "M_ice = c_ice/c_sat(T); &asymp; 6.7 &times; 10&#8309; at &minus;15&nbsp;&deg;C",
+      cls: "P2", clsName: "fitted or inferred &mdash; form built from P1/P2 components",
+      source: "attachment-kinetics.md &sect;4.4 component 4", page: "&mdash;" }
+  ];
+
+  var CLASS_ORDER = { P1: 0, P2: 1, P3: 2, P4: 3 };
+
+  ENTRIES.forEach(function (e, i) { e._i = i; });
+
+  var filterCls = "ALL";
+  var sortMode = "file";
+  var query = "";
+
+  function el(tag, css, html) {
+    var n = document.createElement(tag);
+    if (css) n.setAttribute("style", css);
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+
+  function matchesQuery(e, q) {
+    if (!q) return true;
+    var hay = (e.name + " " + e.what + " " + e.value + " " + e.source + " " +
+      (e.note || "") + " " + (e.cls || "gap")).toLowerCase();
+    return hay.indexOf(q) >= 0;
+  }
+
+  function visibleEntries() {
+    var q = query.trim().toLowerCase();
+    return ENTRIES.filter(function (e) {
+      if (filterCls !== "ALL") {
+        var bucket = e.cls === null ? "GAP" : e.cls;
+        if (bucket !== filterCls) return false;
+      }
+      return matchesQuery(e, q);
+    }).sort(function (a, b) {
+      if (sortMode === "name") return a.name.localeCompare(b.name);
+      if (sortMode === "class") {
+        var ca = a.cls === null ? 9 : CLASS_ORDER[a.cls];
+        var cb = b.cls === null ? 9 : CLASS_ORDER[b.cls];
+        return ca !== cb ? ca - cb : a._i - b._i;
+      }
+      return a._i - b._i; // "file": the order the source file itself uses
+    });
+  }
+
+  function badge(c, e) {
+    var ink = e.cls === "P1" ? c.series[0]
+            : e.cls === "P2" ? c.series[1]
+            : e.cls === "P3" ? c.series[2]
+            : e.cls === "P4" ? c.inkSecondary
+            : c.critical;
+    var span = el("span",
+      "display:inline-block;padding:0.16rem 0.55rem;border-radius:999px;font-size:0.68rem;" +
+      "font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:" + c.ink +
+      ";background:" + ink + "1a;box-shadow:inset 0 0 0 1px " + ink + ";white-space:nowrap;",
+      e.cls || "GAP");
+    span.title = e.clsName;
+    return span;
+  }
+
+  var countEl = null;
+  var table = null;
+
+  function render() {
+    var c = Viz.colors();
+    var rows = visibleEntries();
+
+    body.textContent = "";
+
+    countEl = el("p", "margin:0 0 0.7rem;font-size:0.85rem;color:" + c.inkSecondary + ";");
+    countEl.setAttribute("role", "status");
+    countEl.textContent = "Showing " + rows.length + " of " + ENTRIES.length + " entries.";
+    body.appendChild(countEl);
+
+    var wrap = el("div", "overflow-x:auto;");
+    table = document.createElement("table");
+    table.setAttribute("style",
+      "border-collapse:collapse;width:100%;min-width:56rem;font-size:0.83rem;");
+
+    var thead = document.createElement("thead");
+    var hr = document.createElement("tr");
+    ["Entry", "Class", "Value", "Provenance"].forEach(function (h) {
+      var th = el("th", "text-align:left;padding:0.5rem 0.8rem;border-bottom:1px solid " +
+        c.ruleStrong + ";color:" + c.inkSecondary + ";font-size:0.72rem;font-weight:700;" +
+        "letter-spacing:0.04em;text-transform:uppercase;white-space:nowrap;background:" + c.sunken + ";", h);
+      hr.appendChild(th);
+    });
+    thead.appendChild(hr);
+    table.appendChild(thead);
+
+    var tbody = document.createElement("tbody");
+    if (!rows.length) {
+      var tr0 = document.createElement("tr");
+      var td0 = el("td",
+        "padding:1rem 0.8rem;color:" + c.muted + ";font-style:italic;", "No entries match that filter and search.");
+      td0.colSpan = 4;
+      tr0.appendChild(td0);
+      tbody.appendChild(tr0);
+    }
+    rows.forEach(function (e, idx) {
+      var tr = document.createElement("tr");
+      tr.style.background = idx % 2 ? "transparent" : c.sunken + "80";
+
+      var tdName = el("td",
+        "padding:0.55rem 0.8rem;border-bottom:1px solid " + c.rule + ";vertical-align:top;max-width:15rem;");
+      tdName.appendChild(el("code", "font-weight:700;color:" + c.ink + ";", e.name));
+      tdName.appendChild(el("div", "margin-top:0.15rem;color:" + c.muted + ";font-size:0.76rem;line-height:1.4;", e.what));
+      tr.appendChild(tdName);
+
+      var tdCls = el("td", "padding:0.55rem 0.8rem;border-bottom:1px solid " + c.rule + ";vertical-align:top;");
+      tdCls.appendChild(badge(c, e));
+      tr.appendChild(tdCls);
+
+      var tdVal = el("td",
+        "padding:0.55rem 0.8rem;border-bottom:1px solid " + c.rule + ";vertical-align:top;" +
+        "font-family:var(--font-mono);font-size:0.79rem;line-height:1.5;max-width:22rem;color:" + c.ink + ";",
+        e.value);
+      tr.appendChild(tdVal);
+
+      var tdProv = el("td",
+        "padding:0.55rem 0.8rem;border-bottom:1px solid " + c.rule + ";vertical-align:top;" +
+        "font-size:0.78rem;line-height:1.5;max-width:24rem;color:" + c.inkSecondary + ";");
+      var srcLine = el("div", "color:" + c.ink + ";", e.source + (e.page && e.page !== "&mdash;" ? " &mdash; " + e.page : ""));
+      tdProv.appendChild(srcLine);
+      if (e.unc) tdProv.appendChild(el("div", "margin-top:0.2rem;", e.unc));
+      if (e.note) tdProv.appendChild(el("div", "margin-top:0.2rem;font-style:italic;color:" + c.muted + ";", e.note));
+      tr.appendChild(tdProv);
+
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    wrap.appendChild(table);
+    body.appendChild(wrap);
+  }
+
+  function buildControls() {
+    bar.textContent = "";
+
+    var searchWrap = el("div", "display:flex;align-items:center;gap:0.5rem;");
+    var searchLabel = document.createElement("label");
+    searchLabel.textContent = "Search";
+    searchLabel.setAttribute("for", "pft-search");
+    searchLabel.setAttribute("style", "font-size:0.82rem;font-weight:600;color:var(--ink-primary);white-space:nowrap;");
+    var searchInput = document.createElement("input");
+    searchInput.type = "search";
+    searchInput.id = "pft-search";
+    searchInput.placeholder = "name, value, source…";
+    searchInput.setAttribute("aria-label", "Search the provenance table");
+    searchInput.setAttribute("style",
+      "font: inherit;font-size:0.82rem;padding:0.35rem 0.6rem;border-radius:6px;" +
+      "border:1px solid var(--rule-strong);background:var(--surface-1);color:var(--ink-primary);" +
+      "min-width:11rem;");
+    searchInput.addEventListener("input", function () { query = searchInput.value; render(); });
+    searchWrap.appendChild(searchLabel);
+    searchWrap.appendChild(searchInput);
+    bar.appendChild(searchWrap);
+
+    var clsLabel = el("span", "font-size:0.82rem;font-weight:600;color:var(--ink-primary);white-space:nowrap;", "Class:");
+    bar.appendChild(clsLabel);
+    var clsButtons = [];
+    [["ALL", "All"], ["P1", "P1"], ["P2", "P2"], ["P3", "P3"], ["P4", "P4"], ["GAP", "GAP"]].forEach(function (pair) {
+      var b = Viz.button(bar, pair[1], function () {
+        filterCls = pair[0];
+        clsButtons.forEach(function (bb) {
+          bb.setAttribute("aria-pressed", String(bb._key === filterCls));
+        });
+        render();
+      }, { pressed: pair[0] === "ALL" });
+      b._key = pair[0];
+      clsButtons.push(b);
+    });
+
+    var sortLabel = el("span", "font-size:0.82rem;font-weight:600;color:var(--ink-primary);white-space:nowrap;", "Sort:");
+    bar.appendChild(sortLabel);
+    var sortButtons = [];
+    [["file", "File order"], ["class", "Class"], ["name", "Name"]].forEach(function (pair) {
+      var b = Viz.button(bar, pair[1], function () {
+        sortMode = pair[0];
+        sortButtons.forEach(function (bb) {
+          bb.setAttribute("aria-pressed", String(bb._key === sortMode));
+        });
+        render();
+      }, { pressed: pair[0] === "file" });
+      b._key = pair[0];
+      sortButtons.push(b);
+    });
+  }
+
+  buildControls();
+  render();
+  Viz.onThemeChange(render);
 })();
 </script>
 

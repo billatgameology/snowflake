@@ -231,6 +231,37 @@
         project&rsquo;s own headline.
       </p>
 
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Updated
+        </p>
+        <p>
+          That quote is the report&rsquo;s wording as this page was first written. As of 2026-07-29,
+          <strong>seven</strong> negative controls have executed, not six
+          (<code>app/scripts/phase6-wp5-negative-controls.mjs</code>), and an independent verifier
+          (<code>app/scripts/phase6-wp5-independent.mjs</code>) now re-derives all 204 points from
+          <code>points.json</code> and reports PASS. That verifier first shipped doing too little
+          &mdash; a follow-up audit found it printed the three artifact hashes without asserting
+          them, checked one of <code>report.json</code>&rsquo;s nine fields, and trusted a published
+          pass/fail flag instead of recomputing it &mdash; and under those gaps it had certified two
+          real forgeries as &ldquo;VERIFIED&hellip;exit 0&rdquo;: a substituted superseded-arm
+          artifact, and a mutation that would have read the headline as 3 of 3 instead of 3 of 90. It
+          has since been hardened and now correctly fails both. The controls&rsquo; own two real gaps
+          &mdash; a splice from a different parameter set that was undetectable, and a run measured
+          at the wrong crystal size that scored identically to a correct one &mdash; are addressed
+          the same way: the first for sweeps run from here on, the second by a registered check
+          (decision record 0035) confirmed on re-check not to move any of the 204 published rows.
+          None of this closes WP5. The project&rsquo;s own plan still requires a flagless canonical
+          gate run and an independent review down to zero blockers, and
+          <code>docs/PROGRESS.md</code> has not recorded either as done &mdash; so &ldquo;not yet
+          gate evidence&rdquo; is still the accurate sentence; only the inventory behind it has
+          moved.
+        </p>
+      </aside>
+
       <p>
         <strong>And it is one arm of two.</strong> This sweep is the <em>control</em> &mdash; the
         model with no SDAK in it at all. The treatment arm, the one with the dip mechanism switched
@@ -907,6 +938,27 @@
         </p>
       </aside>
 
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Updated
+        </p>
+        <p>
+          The outstanding fix named just above has since landed. A commit dated 2026-07-29 (after
+          this page&rsquo;s own text was written) adds a hash of every source file under
+          <code>core/src</code>, <code>solver-cpu/src</code> and <code>runner/src</code>, taken
+          before the first child launches and taken again after the last one finishes; the sweep now
+          throws rather than publishing if the two disagree, which catches a landed commit and an
+          uncommitted edit reverted before the sweep ends alike. It closes the hazard for sweeps run
+          from here on &mdash; it cannot reach backward and re-verify Arm 1, whose provenance still
+          rests on exactly the one-off diff this page just described. The project&rsquo;s own words
+          for that stand unedited: that was luck, not design; what changed is that the next arm does
+          not need luck.
+        </p>
+      </aside>
+
       <h2 id="counting">One crossing, three boundaries</h2>
 
       <p>
@@ -990,7 +1042,10 @@
             curves: wherever the prism curve is the lower one the prism faces are stickier, so they
             advance faster and the crystal spreads into a <em>plate</em>; wherever basal is lower it
             grows tall into a <em>column</em>. Try to produce three boundaries. Then switch on the
-            dip tools &mdash; the two SDAK dips chapter 13 took apart &mdash; and read the banner.
+            dip tools &mdash; the two SDAK dips chapter 13 took apart &mdash; and read the banner. A
+            second pair of buttons chooses which dip <em>shape</em> draws them: this page&rsquo;s own
+            approximate notch (the default this demo has always opened on), or Libbrecht&rsquo;s
+            actual printed base-10-log formula.
           </p>
           <p class="anim__sub">
             Read the ribbon for <em>how many</em> boundaries these curves could support, and for
@@ -1002,21 +1057,29 @@
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
-          <span class="built-from">Original interactive. Curves are arXiv:2009.08404v2 Eqs. (2) and
-          (3) as printed; dip centres &minus;4.5&nbsp;&deg;C (basal) and &minus;14.4&nbsp;&deg;C
-          (prism) are the published values recorded in
-          <code>research/libbrecht-figure-findings.md</code> &sect;1. The dip <em>shape</em> here is
-          this page&rsquo;s own smooth notch, not the source&rsquo;s &mdash; his own paper calls its
-          dip shapes &ldquo;completely ad hoc&rdquo;.</span>
+          <span class="built-from">Original interactive. The &ldquo;approximate notch shape&rdquo;
+          mode's curves are arXiv:2009.08404v2 Eqs. (2) and (3) as printed, shaped by this
+          page&rsquo;s own smooth notch &mdash; his own paper calls its dip shapes &ldquo;completely
+          ad hoc&rdquo;. The &ldquo;corrected log10 dip formula&rdquo; mode instead uses the basal
+          curve both papers share, arXiv:2306.13087v1 p7&rsquo;s own prism curve (its &ldquo;M2&rdquo;
+          form, a different printed curve from Eq. (3)), and that paper&rsquo;s own p6 dip factors
+          with <code>log</code> read as base&nbsp;10, per
+          <code>app/scripts/phase6-libbrecht-closed-forms.mjs</code> and the 2026-07-29 correction in
+          <code>research/libbrecht-figure-findings.md</code> &sect;1. Dip centres
+          &minus;4.5&nbsp;&deg;C (basal) and &minus;14.4&nbsp;&deg;C (prism) are the published values
+          in both modes.</span>
         </figcaption>
       </figure>
 
       <p>
-        Switch both dips on at the depth the page starts with and the count goes to five &mdash; a
+        Switch both dips on at the depth the page starts with, in the demo&rsquo;s default
+        &ldquo;approximate notch shape&rdquo; mode, and the count goes to five &mdash; a
         property of this page&rsquo;s own notch shape, tuned only to sit at the right two centres.
         It does not confirm Libbrecht&rsquo;s own printed dip-bearing parameterization, which a
         2026-07-29 correction found crosses three times, not five: the printed dip formulas use a
-        base-10 logarithm, and an earlier reading of them used the natural logarithm by mistake. Read
+        base-10 logarithm, and an earlier reading of them used the natural logarithm by mistake. Flip
+        the same demo to &ldquo;corrected log10 dip formula&rdquo; with both dips still on and watch
+        the count drop from five to three, live, rather than only reading about it here. Read
         correctly, the crossings sit at &minus;3.08, &minus;8.07 and &minus;24.73&nbsp;&deg;C, against
         reference boundaries at &minus;3.3, &minus;9.9 and &minus;21.5&nbsp;&deg;C. Only the warm one
         lands close &mdash; within the diagram&rsquo;s own read uncertainty; the middle one misses by
@@ -1247,6 +1310,17 @@
         the SDAK arm this one is the control for does not exist yet. Everything on this page is a
         measured result with verified provenance, which the report is careful to say is not the same
         thing as gated evidence.
+      </p>
+
+      <p>
+        <strong>Updated 2026-07-29.</strong> The verifier and negative-control counts in that
+        paragraph are the report&rsquo;s original wording and are no longer current: an independent
+        verifier now runs and passes, and negative controls have grown from six executed to seven,
+        finding two real gaps that have since been addressed. None of that closes WP5 &mdash; a
+        flagless run of the canonical gate command and an independent review to zero blockers are
+        still missing, and <code>docs/PROGRESS.md</code> has not recorded WP5 as complete &mdash; so
+        the sentence this note is attached to is still the accurate one. The fuller account, with
+        file names and what each gap was, is earlier in this chapter.
       </p>
 
       <p>
@@ -1935,11 +2009,37 @@
     var bar = root.querySelector(".anim__controls");
 
     /* arXiv:2009.08404v2 p3, Eqs. (2) and (3), typed in as printed.
-       T is |Tm - T| in °C; sigma-0 in percent. */
+       T is |Tm - T| in °C; sigma-0 in percent. This is the curve pair the
+       "approximate notch shape" mode (the default) draws its base from. */
     function baseBasal(T) { return 0.02 * Math.pow(T, 1.75) + 0.3; }
     function basePrism(T) { return 0.02 * Math.pow(T, 1.9) - 0.025 * (T - 0.3); }
 
-    var st = { bOn: false, pOn: false, bC: 4.5, pC: 14.4, depth: 0.7 };
+    /* arXiv:2306.13087v1 p7, the "M2" broad-facet prism curve — a DIFFERENT
+       printed prism curve from Eq. (3) above, by the same author. The
+       "corrected" mode below uses THIS one, never Eq. (3), because its dip
+       factors (next comment) were fitted against this curve: mixing Eq. (3)
+       with the p6 dip factors does not reproduce the printed crossings.
+       Basal is unaffected — both papers print the same Eq. (2) — so only
+       the prism broad curve differs between the two modes. See
+       app/scripts/phase6-libbrecht-closed-forms.mjs and
+       research/libbrecht-figure-findings.md §1 (2026-07-29 correction). */
+    function basePrismM2(T) { return 0.015 * T * T + 0.02 * Math.pow(T, 0.6); }
+
+    /* arXiv:2306.13087v1 p6, the two SDAK dip factors AS PRINTED — the real
+       formula, not this page's approximate notch. The paper's "log" is base
+       10; an earlier reading of this project's own used the natural log by
+       mistake and got five crossings instead of three. Depth (0.87, 0.95)
+       and width (0.07, 0.06) are fixed constants from the source, not
+       knobs — only the dip centre is adjustable here, same as the
+       approximate mode. */
+    function basalDipReal(T, centre) {
+      return 1 - 0.87 * Math.exp(-Math.pow(Math.log10(T) - Math.log10(centre), 2) / 0.07);
+    }
+    function prismDipReal(T, centre) {
+      return 1 - 0.95 * Math.exp(-Math.pow(Math.log10(T) - Math.log10(centre), 2) / 0.06);
+    }
+
+    var st = { bOn: false, pOn: false, bC: 4.5, pC: 14.4, depth: 0.7, mode: "approx" };
     var WIDTH = 1.6;   // this page's own notch width, not the source's
 
     function notch(T, on, centre) {
@@ -1947,8 +2047,14 @@
       var z = (T - centre) / WIDTH;
       return 1 - st.depth * Math.exp(-z * z);
     }
-    function sBasal(T) { return baseBasal(T) * notch(T, st.bOn, st.bC); }
-    function sPrism(T) { return basePrism(T) * notch(T, st.pOn, st.pC); }
+    function sBasal(T) {
+      if (st.mode === "corrected") return baseBasal(T) * (st.bOn ? basalDipReal(T, st.bC) : 1);
+      return baseBasal(T) * notch(T, st.bOn, st.bC);
+    }
+    function sPrism(T) {
+      if (st.mode === "corrected") return basePrismM2(T) * (st.pOn ? prismDipReal(T, st.pC) : 1);
+      return basePrism(T) * notch(T, st.pOn, st.pC);
+    }
 
     /** Every crossing of the two curves, found by fine sampling. */
     function crossings() {
@@ -2096,6 +2202,10 @@
         + "   ·   the reference needs 3";
       svg.appendChild(cnt);
 
+      readout.innerHTML = "<b>" + n + "</b> crossing" + (n === 1 ? "" : "s")
+        + (n ? " at " + cross.map(function (t) { return "−" + t.toFixed(2) + "°C"; }).join(", ") : "")
+        + " · " + (st.mode === "corrected" ? "corrected log10 dip formula" : "approximate notch shape");
+
       var msg;
       var tone;
       if (n === 0) {
@@ -2112,10 +2222,27 @@
       } else if (n === 2) {
         msg = "Two crossings. Better — and you got there by carving a hole in a published curve.";
         tone = "var(--ink-secondary)";
+      } else if (st.mode === "corrected" && n === 3) {
+        msg = "Three crossings — this is Libbrecht's own printed base-10-log dip formula "
+            + "(arXiv:2306.13087v1 p6), at its published dip centres, not this page's "
+            + "approximate notch. Against the reference boundaries −3.3, −9.9 and "
+            + "−21.5 °C: only the warmest lands close, within the diagram's own read "
+            + "uncertainty; the middle one misses by nearly two degrees — a plainly weaker "
+            + "match than the earlier natural-log mistake's claimed exact hit. Sense and "
+            + "count only, never location.";
+        tone = "var(--accent-key)";
+      } else if (st.mode === "corrected") {
+        msg = n + " crossings — the centre sliders have been moved away from Libbrecht's "
+            + "printed values (−4.5 °C basal, −14.4 °C prism). At the printed centres this "
+            + "formula gives exactly three, at −3.08, −8.07 and −24.73 °C. Reset the centres "
+            + "to see it.";
+        tone = "var(--ink-secondary)";
       } else {
         msg = "Three or more. You have just put the answer in by hand: the dip centres came from "
             + "this diagram in the first place. That is why a dip-bearing run can only ever be "
-            + "called in-sample reproduction, never validation.";
+            + "called in-sample reproduction, never validation. This is still this page's own "
+            + "notch shape — switch to “Corrected log10 dip formula” above to see "
+            + "Libbrecht's actual printed form instead.";
         tone = "var(--accent-key)";
       }
       banner.textContent = msg;
@@ -2124,24 +2251,50 @@
 
     var plot = document.createElement("div");
     body.appendChild(plot);
+    var readout = document.createElement("p");
+    readout.className = "c28-readout";
+    body.appendChild(readout);
     var banner = document.createElement("p");
     banner.className = "c28-banner";
     body.appendChild(banner);
 
     if (bar) {
+      /* Which dip SHAPE draws the two curves — this page's own approximation, the
+         demo's long-standing default, or Libbrecht's real printed formula. */
+      var modeButtons = [];
+      [["approx", "Approximate notch shape"], ["corrected", "Corrected log10 dip formula"]].forEach(function (v) {
+        var b = Viz.button(bar, v[1], function () {
+          st.mode = v[0];
+          modeButtons.forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+          armSliders();
+          render();
+        }, { pressed: v[0] === st.mode });
+        modeButtons.push(b);
+      });
+      var modeNote = document.createElement("span");
+      modeNote.className = "control";
+      modeNote.style.color = "var(--ink-muted)";
+      modeNote.textContent = "Corrected mode fixes both dip shapes to the printed constants — "
+        + "only the two centre sliders below still do anything.";
+      bar.appendChild(modeNote);
+
       /* A knob that is live but has nothing to act on reads as a broken knob. The dip
-         sliders stay disabled until the dip they steer is switched on. */
+         sliders stay disabled until the dip they steer is switched on, and the depth
+         slider stays disabled in corrected mode, whose depth is a fixed printed constant
+         (87% basal, 95% prism), not a knob. */
       var bSlider = null, pSlider = null, dSlider = null;
       function armSliders() {
-        function arm(h, live) {
+        function arm(h, live, offTitle) {
           if (!h) return;
           h.input.disabled = !live;
           h.element.style.opacity = live ? "" : "0.45";
-          h.element.title = live ? "" : "switch the dip on first";
+          h.element.title = live ? "" : offTitle;
         }
-        arm(bSlider, st.bOn);
-        arm(pSlider, st.pOn);
-        arm(dSlider, st.bOn || st.pOn);
+        arm(bSlider, st.bOn, "switch the dip on first");
+        arm(pSlider, st.pOn, "switch the dip on first");
+        arm(dSlider, (st.bOn || st.pOn) && st.mode === "approx",
+          st.mode === "corrected" ? "the printed formula fixes this (87% basal, 95% prism)"
+                                   : "switch a dip on first");
       }
 
       Viz.button(bar, "Basal dip: off", function (b) {

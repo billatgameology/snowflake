@@ -271,7 +271,7 @@
           records them as historical audit findings rather than accepted gate results. The
           96&sup3; marker carries no measured value because none was recorded &mdash; the ADR
           states only that the trend was &ldquo;on course to fail&rdquo; there. 96&sup3; is the
-          Phase&nbsp;2b physics domain (<code>runner/src/main.ts:916</code>); later gates run in
+          Phase&nbsp;2b physics domain (<code>runner/src/main.ts:903</code>); later gates run in
           smaller boxes.</span>
         </figcaption>
       </figure>
@@ -409,7 +409,7 @@
         10<sup>&minus;6</sup>. Both are run inputs, both are written into the checkpoint header,
         and both are pinned by the gate protocols &mdash; which may pin something stricter than the
         default, and gate 2b pinned <code>divTol: 1e-7</code>
-        (<code>runner/src/main.ts:931</code>). ADR 0006 then closes the door:
+        (<code>runner/src/main.ts:918</code>). ADR 0006 then closes the door:
         <strong>&ldquo;A Dirichlet solve failing the identity is not converged, whatever its
         residual says.&rdquo;</strong>
       </p>
@@ -682,7 +682,7 @@
           <dl>
             <dt>L</dt><dd>the width of the simulated box, in metres &mdash; the longest grid
               dimension times the cell size, which is how every caller in the repository computes
-              it (<code>runner/src/gate4b.ts:430</code>, <code>runner/src/main.ts:676</code>)</dd>
+              it (<code>runner/src/gate4b.ts:430</code>, <code>runner/src/main.ts:663</code>)</dd>
             <dt>D</dt><dd>the diffusion coefficient of water vapour in air at this pressure, in
               square metres per second: roughly, how much ground vapour covers in a second
               (<code>core/src/libbrecht.ts:59&ndash;62</code>)</dd>

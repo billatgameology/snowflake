@@ -221,6 +221,42 @@
         </p>
       </aside>
 
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          Updated
+        </p>
+        <p>
+          The passage just quoted is the report&rsquo;s own wording as this chapter was first
+          written, and the live repository has since moved past part of it &mdash; checking that is
+          exactly what this project&rsquo;s own currency rule (<code>AGENTS.md</code> Rule 12) asks
+          of a claim before it is trusted. As of 2026-07-29, <strong>seven</strong> negative controls
+          have executed, not six (<code>app/scripts/phase6-wp5-negative-controls.mjs</code>), and an
+          independent verifier (<code>app/scripts/phase6-wp5-independent.mjs</code>) now re-derives
+          all 204 points from <code>points.json</code> and reports PASS. That verifier was itself
+          first found to be doing too little &mdash; it printed the artifact hashes without asserting
+          them, checked one of <code>report.json</code>&rsquo;s nine fields, and trusted a published
+          pass/fail flag instead of recomputing it &mdash; and has since been hardened to actually
+          reject the two forgeries it had previously certified as &ldquo;VERIFIED&hellip;exit
+          0&rdquo;. The seven controls found two real gaps: a run spliced together from a different,
+          superseded parameter set was undetectable, and a run measured at the wrong crystal size
+          scored identically to a correct one. Both are now addressed &mdash; the first for sweeps
+          run from here on (the already-published run predates the fix and is supported instead by
+          its preflight record and the independent verifier, not provable from the artifact bytes
+          alone), the second by a registered check that was confirmed, on re-check, not to move a
+          single one of the 204 already-published rows. None of this closes WP5: the project&rsquo;s
+          own plan still requires a flagless run of the canonical gate command and an independent
+          review down to zero blockers before any of this becomes gate evidence, and
+          <code>docs/PROGRESS.md</code> has not recorded that as done. So the sentence being
+          corrected here is the one naming six controls and no verifier; the sentence it was
+          supporting &mdash; that these numbers are not yet gate evidence &mdash; still holds, now
+          for a narrower reason. Chapters 27 through 29 carry the rest of the detail, including a
+          specific, sobering example of what one unpinned surface can do to a headline number.
+        </p>
+      </aside>
+
       <p>
         There is one more thing to know about that 3, and it is the reason chapter 29 exists: it is
         the <em>second</em> number this sweep produced. The first time all 204 points ran, they

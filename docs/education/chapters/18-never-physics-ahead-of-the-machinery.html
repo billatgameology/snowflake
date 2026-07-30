@@ -57,7 +57,7 @@
         <div class="chapter-header__meta">
           <span>~16 min read</span>
           <span>2 diagrams</span>
-          <span>3 interactives</span>
+          <span>4 interactives</span>
         </div>
       </header>
 
@@ -503,7 +503,10 @@
         and far more cheaply. Then it dies. &ldquo;The 2D spike stays throwaway&rdquo; is a
         standing guardrail (§3.3, line 336), and the reason is in the phase text: a piece of
         weekend code that survives contact with the real project stops being a prototype and
-        becomes, silently, the foundation.
+        becomes, silently, the foundation. That is not a hypothetical: the archived code still
+        sits in the repository today, as the sixth package in AGENTS.md&rsquo;s own repository
+        map, <code>spike/</code> &mdash; &ldquo;deliberately outside the npm workspace. Do not
+        evolve it into the product&rdquo; (<code>AGENTS.md</code>, line 91).
       </p>
 
       <p>
@@ -726,6 +729,35 @@
         the exact move the rule forbids. Saying so out loud costs a paragraph. Choosing quietly
         would have cost the reader the ability to check.
       </p>
+
+      <p>
+        The table only does its job if it also works in reverse: given two documents and a
+        disagreement, you should be able to name the winner and quote the reason before you go
+        looking it up. Below, pick two of the six kinds yourself.
+      </p>
+
+      <figure class="anim" id="demo-authority">
+        <div class="anim__head">
+          <p class="anim__title">Pick two, see who wins</p>
+          <p class="anim__sub">
+            Choose two of <code>AGENTS.md</code>&rsquo;s six document kinds. An example
+            disagreement appears on its own &mdash; invent a more plausible one if you like, the
+            verdict does not depend on which. Swap the two and check that the answer does not
+            change with them.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The six document kinds and their
+          authority text are quoted verbatim from the &ldquo;When sources disagree&rdquo; table in
+          <code>AGENTS.md</code>, lines 52&ndash;57; the closing rule is quoted from lines
+          59&ndash;60. One curated example reuses this chapter&rsquo;s own citations for the
+          vapour-diffusion wrinkle, <code>docs/decisions/0003-libbrecht-attachment-kinetics.md</code>
+          lines 40 and 44 and <code>docs/gg-machinery.md</code> line 4; the other curated examples
+          are invented for this demo and labelled as such.</span>
+        </figcaption>
+      </figure>
 
       <!-- ================================================================= -->
       <h2 id="where-it-bends">Where the ladder is allowed to bend</h2>
@@ -1715,6 +1747,196 @@
 
     Viz.button(controls, "Start over", function () {
       i = 0; score = 0; answered = false; render();
+    });
+
+    render();
+    Viz.onThemeChange(render);
+  })();
+
+  /* ============================================================ DEMO: pick two, see who wins */
+  (function () {
+    const root = document.getElementById("demo-authority");
+    if (!root || !window.Viz) return;
+    const body = root.querySelector(".anim__body");
+    const controls = root.querySelector(".anim__controls");
+
+    /* The six rows, in the exact order and wording of the "When sources disagree" table,
+       AGENTS.md lines 52–57. Rank is the row's position in this array: 0 is highest authority,
+       5 is lowest. `mid` is a lowercase mid-sentence form used only in this demo's own prose;
+       `authority` and `line` are the verbatim quote and its citation. */
+    const KINDS = [
+      { mid: "the charter", short: "The charter",
+        authority: "Governing product, science, phase, and gate contract. The current charter wins.",
+        line: 52 },
+      { mid: "the ADR", short: "An accepted ADR",
+        authority: "Why the charter changed and which tempting alternative was rejected. An ADR and the charter should already agree.",
+        line: 53 },
+      { mid: "the solver spec", short: "A solver spec",
+        authority: "Delegated technical ground truth for the implemented algorithms.",
+        line: 54 },
+      { mid: "the active plan", short: "The active plan",
+        authority: "Current implementation approach, pre-registered protocols, evidence, and rejected attempts.",
+        line: 55 },
+      { mid: "PROGRESS.md", short: "PROGRESS.md",
+        authority: "Live state: what is complete, what is in flight, and the next concrete action.",
+        line: 56 },
+      { mid: "the code", short: "The code",
+        authority: "Implementation and evidence. They do not silently overrule the written contract.",
+        line: 57 },
+    ];
+
+    /* A few curated, plausible disagreements, keyed "lowRank|highRank". Everything else falls
+       back to a generic prompt built from the two picks — the verdict logic below never reads
+       this object, only the two ranks, so every pair still resolves correctly with no entry. */
+    const EXAMPLES = {
+      "0|1": "Invented: an ADR still argues for a boundary the charter’s current §3.3 text no longer states the same way — the ADR was never revisited when the charter moved on.",
+      "1|2": "Real, from earlier in this chapter: decision 0003 files vapour diffusion under “infrastructure, not physics”; docs/gg-machinery.md opens by calling diffusion “physical transport.”",
+      "4|5": "Invented: PROGRESS.md’s gate entry cites a checkpoint hash; the checkpoint actually sitting on disk hashes to something else.",
+    };
+    function defaultExample(a, b) {
+      return "Invented: " + a.mid + " and " + b.mid + " both speak to the same question, and do not agree.";
+    }
+
+    let pickA = 0, pickB = 5; /* the charter vs the code — the pair this pattern rewards most */
+    let focusKey = null;
+
+    const pickerA = el("div", { display: "flex", flexWrap: "wrap", gap: "0.4rem", margin: "0 0 0.6rem" });
+    const pickerB = el("div", { display: "flex", flexWrap: "wrap", gap: "0.4rem", margin: "0 0 0.7rem" });
+    const example = el("p", {
+      margin: "0 0 0.7rem", fontSize: "0.83rem", fontStyle: "italic", color: "var(--ink-secondary)",
+    });
+    const banner = el("div", {
+      border: "1px solid var(--rule)", borderRadius: "10px",
+      padding: "0.7rem 0.85rem", background: "var(--surface-sunken)",
+    });
+    banner.setAttribute("role", "status");
+    banner.setAttribute("aria-live", "polite");
+
+    function caption(text) {
+      return el("p", {
+        margin: "0 0 0.3rem", fontSize: "0.76rem", fontWeight: "700", color: "var(--ink-muted)",
+        textTransform: "uppercase", letterSpacing: "0.05em",
+      }, text);
+    }
+    body.appendChild(caption("Document A"));
+    body.appendChild(pickerA);
+    body.appendChild(caption("Document B"));
+    body.appendChild(pickerB);
+    body.appendChild(example);
+    body.appendChild(banner);
+
+    function restoreFocus() {
+      if (!focusKey) return;
+      const t = body.querySelector('[data-k="' + focusKey + '"]');
+      if (t) t.focus();
+      focusKey = null;
+    }
+
+    function pickBtn(host, role, i, on) {
+      const k = KINDS[i];
+      const b = el("button", {
+        font: "inherit", fontSize: "0.78rem", padding: "0.32rem 0.6rem",
+        borderRadius: "7px", cursor: "pointer",
+        border: "1px solid " + (on ? "var(--ink-primary)" : "var(--rule-strong)"),
+        background: on ? "var(--surface-1)" : "transparent",
+        color: on ? "var(--ink-primary)" : "var(--ink-secondary)",
+        fontWeight: on ? "700" : "500",
+      }, k.short);
+      b.type = "button";
+      b.setAttribute("aria-pressed", String(on));
+      b.setAttribute("data-k", role + ":" + i);
+      b.setAttribute("aria-label", "Document " + role + ": " + k.short);
+      b.addEventListener("click", function () {
+        if (role === "A") pickA = i; else pickB = i;
+        focusKey = role + ":" + i;
+        render();
+      });
+      host.appendChild(b);
+    }
+
+    function render() {
+      const c = Viz.colors();
+
+      pickerA.textContent = "";
+      pickerB.textContent = "";
+      KINDS.forEach(function (_, i) {
+        pickBtn(pickerA, "A", i, pickA === i);
+        pickBtn(pickerB, "B", i, pickB === i);
+      });
+
+      banner.textContent = "";
+      example.textContent = "";
+
+      if (pickA === pickB) {
+        banner.style.borderColor = "var(--rule)";
+        banner.appendChild(el("p", { margin: "0", fontWeight: "700" },
+          "Pick two different kinds — a document does not outrank itself."));
+        restoreFocus();
+        return;
+      }
+
+      const lo = Math.min(pickA, pickB), hi = Math.max(pickA, pickB);
+      const winner = KINDS[lo], loser = KINDS[hi];
+      example.textContent = EXAMPLES[lo + "|" + hi] || defaultExample(KINDS[pickA], KINDS[pickB]);
+
+      banner.style.borderColor = c.good;
+      banner.appendChild(el("p", { margin: "0 0 0.4rem", fontWeight: "700", color: c.good },
+        winner.short + " wins."));
+
+      banner.appendChild(el("p", {
+        margin: "0 0 0.2rem", fontSize: "0.86rem", fontStyle: "italic",
+        borderLeft: "3px solid " + c.good, paddingLeft: "0.6rem",
+      }, "“" + winner.authority + "”"));
+      banner.appendChild(el("p", {
+        margin: "0 0 0.55rem", fontSize: "0.74rem", color: "var(--ink-muted)", fontFamily: "var(--font-mono)",
+      }, "AGENTS.md, line " + winner.line));
+
+      banner.appendChild(el("p", { margin: "0 0 0.2rem", fontSize: "0.82rem", color: "var(--ink-secondary)" },
+        "For comparison, " + loser.mid + "’s own row in the same table:"));
+      banner.appendChild(el("p", {
+        margin: "0 0 0.2rem", fontSize: "0.84rem", fontStyle: "italic", color: "var(--ink-secondary)",
+        borderLeft: "3px solid " + c.rule, paddingLeft: "0.6rem",
+      }, "“" + loser.authority + "”"));
+      banner.appendChild(el("p", {
+        margin: "0 0 0.55rem", fontSize: "0.74rem", color: "var(--ink-muted)", fontFamily: "var(--font-mono)",
+      }, "AGENTS.md, line " + loser.line));
+
+      if (lo === 0 && hi === 1) {
+        banner.appendChild(el("p", { margin: "0 0 0.55rem", fontSize: "0.85rem" },
+          "This is the one pair that is not supposed to happen. The ADR row says so itself: an ADR and the charter should already agree. If they do not, the mismatch is the finding — a stale ADR, or a charter change nobody wrote a decision for — not a reason to trust the charter’s date over the ADR’s argument without saying why."));
+      }
+      if (hi === 5) {
+        banner.appendChild(el("p", { margin: "0 0 0.55rem", fontSize: "0.85rem" },
+          "The code row states the general case: evidence does not silently overrule " + winner.mid +
+          ". A mismatch here means either the code is wrong, or " + winner.mid +
+          " needs a written update — not that the code quietly wins because it is what actually ran."));
+      }
+
+      banner.appendChild(el("p", { margin: "0.3rem 0 0.2rem", fontSize: "0.85rem", fontWeight: "700" },
+        "The rule that decides it, unconditionally:"));
+      banner.appendChild(el("p", {
+        margin: "0 0 0.2rem", fontSize: "0.85rem", fontStyle: "italic",
+        borderLeft: "3px solid " + c.critical, paddingLeft: "0.6rem",
+      }, "“If any two disagree, state the disagreement explicitly and fix it at the proper authority level; never choose one silently.”"));
+      banner.appendChild(el("p", {
+        margin: "0", fontSize: "0.74rem", color: "var(--ink-muted)", fontFamily: "var(--font-mono)",
+      }, "AGENTS.md, lines 59–60"));
+
+      restoreFocus();
+    }
+
+    Viz.button(controls, "Swap A and B", function () {
+      const t = pickA; pickA = pickB; pickB = t;
+      render();
+    });
+    Viz.button(controls, "The charter vs an ADR", function () {
+      pickA = 0; pickB = 1; render();
+    });
+    Viz.button(controls, "PROGRESS.md vs the code", function () {
+      pickA = 4; pickB = 5; render();
+    });
+    Viz.button(controls, "Reset", function () {
+      pickA = 0; pickB = 5; render();
     });
 
     render();
