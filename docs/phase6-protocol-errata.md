@@ -3,54 +3,37 @@
 Errors found **inside the hashed protocol manifest** after the sweep ran, recorded here rather than
 edited in place.
 
-## Why they are not corrected in the source
+## Status: the mechanism that made these unfixable is gone
 
-`phase6ProtocolManifest()` includes `freezeList: items`, so every freeze row's `requirement`,
-`value` and `source` **string** is hashed. Editing any of them moves `PHASE6_PROTOCOL_SHA256`, and
-charter §3.2 Phase 6 item 1 says:
+These were originally carried here because `phase6ProtocolManifest()` hashed prose and registered
+values together, so correcting a wrong sentence moved `PHASE6_PROTOCOL_SHA256` and — under the
+unamended charter §3.2 Phase 6 item 1 — invalidated the sweep. **ADR 0033 split the manifest** into a
+values hash and a justification hash, and the amended clause binds only the values hash. **ADR 0034
+then used it to fix E1 at zero cost.**
 
-> "Any post-freeze edit to parameters or protocol requires a logged ADR and invalidates prior sweep
-> results — the full sweep re-runs."
+So this file is no longer a parking place. It is for findings inside the frozen manifest that cannot
+*yet* be fixed, and it currently holds none: E1 is closed, E2 was always an unhashed comment and was
+corrected in place.
 
-Every erratum below is in a **justification**, not in a registered value. No number the solver reads
-changes, and no executed result changes. Spending a 20-hour re-sweep to correct a rationale would
-destroy evidence to fix prose. The same reasoning is already applied in
-`research/phase6-source-currency.md`, which records a Rule 12 check outside the frozen artifacts for
-exactly this reason.
+### Determinism, measured on three points
 
-**These errata are carried here until the protocol hash next moves for a substantive reason**, at
-which point the strings are corrected in the same ADR. Anyone quoting a freeze row must read this
-file alongside it.
+The original argument for not re-sweeping rested on the solver being deterministic, so that a
+corrected justification could not change any executed result. Maker-directed after the 2026-07-29
+audit — no universal claim rides on a single sample — that was measured on **three** points spanning
+different classes, run lengths and hole-fill counts rather than one case repeated:
 
-### The re-sweep would produce identical numbers — measured, not assumed
+| point | class | steps | recorded AR | re-run AR |
+|---|---|---|---|---|
+| −14 °C, f = 0.90 — fastest, 11 min | neutral | 131 | 0.818755 | **0.818755** |
+| −2 °C, f = 0.25 — plate branch, 19 min | plate | 158 | 0.600420 | **0.600420** |
+| −12 °C, f = 0.10 — slow cold, 46 min, 146 hole fills | neutral | 310 | 0.950000 | **0.950000** |
 
-The argument above rests on a claim worth checking: that correcting a justification changes the hash
-but not any executed result. Verified by re-running the sweep's fastest point (−14 °C, f = 0.90,
-σ∞ = 0.131400) at the same configuration and comparing against its `points.json` row:
+`steps`, `attached`, `extent` and `symErr` matched exactly on all three as well. The solver is
+deterministic at the registered settings (`noiseEpsilon = 0`, `rngSeed = 1`).
 
-| | steps | attached | AR | extent | symErr |
-|---|---|---|---|---|---|
-| recorded in the sweep | 131 | 1793 | 0.818755 | 21 | 0 |
-| independent re-run | **131** | **1793** | **0.818755** | **21** | **0** |
-
-Identical. The solver is deterministic at these settings (`noiseEpsilon = 0`, `rngSeed = 1`), so a
-re-sweep under a corrected justification string would reproduce all 204 rows exactly.
-
-**Cost of doing it anyway**, from the sweep's own per-point timings: **89.4 core-hours** — 14.9 h at
-concurrency 6, ~7.5 h ideal at 12 on this 16-thread host, so roughly 10 h wall-clock in practice.
-That buys a hash matching a corrected sentence and nothing else.
-
-### The underlying clause defect, and the proposed fix
-
-Charter §3.2 Phase 6 item 1 cannot distinguish a changed **parameter** from a typo in a
-**rationale** — both move `PHASE6_PROTOCOL_SHA256` and both therefore invalidate the sweep. That is
-why E1 sits here rather than being fixed, and it will recur.
-
-**Proposed:** split `phase6ProtocolManifest()` into a **values manifest** (everything the solver
-reads) and a **justification manifest** (`requirement` and `source` prose), pinned as two hashes.
-The charter's re-sweep clause then binds only the values hash, so a prose correction provably cannot
-invalidate evidence — the distinction becomes mechanical instead of a judgement call. This needs its
-own ADR and a charter amendment; it is **not** done here and is a maker decision.
+**Cost of a re-sweep, had one been owed**, from the sweep's own per-point timings: **89.4
+core-hours** — 14.9 h at concurrency 6, ~7.5 h ideal at 12 on this 16-thread host, so roughly 10 h
+wall-clock. Maker decision: NO. It would have reproduced identical numbers.
 
 Found by the adversarial audit of 2026-07-29
 (`docs/phase6-soundness-audit-2026-07-29.raw.txt`).
