@@ -28,6 +28,7 @@ const result = (aspectRatio: number, overrides: Partial<Phase6PointResult> = {})
   deltaSymClean: true,
   allConverged: true,
   domainContact: false,
+  config: null,
   seconds: 100,
   ...overrides,
 });

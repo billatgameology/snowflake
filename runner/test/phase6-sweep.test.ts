@@ -6,9 +6,11 @@ import { describe, expect, it } from "vitest";
 import {
   phase6Aggregate,
   phase6ClassifyHabit,
+  phase6ConfigFailures,
   phase6CommandFlagFailures,
   phase6DefaultBackedParameters,
   phase6DomainSpotCheckPasses,
+  phase6ParseRunConfig,
   phase6PointCommand,
   phase6ScorePoint,
   phase6SweepPlan,
@@ -36,6 +38,7 @@ const cleanResult = (aspectRatio: number): Phase6PointResult => ({
   deltaSymClean: true,
   allConverged: true,
   domainContact: false,
+  config: null,
   seconds: 2341,
 });
 const pointAt = (tempC: number, fraction = 0.15) => {
@@ -247,5 +250,60 @@ describe("the ADR 0031 defect class is checked, not assumed", () => {
     const wrong = [...good];
     wrong[at + 1] = "CAK_A1";
     expect(phase6CommandFlagFailures(wrong).some((f) => f.includes("CAK_A1"))).toBe(true);
+  });
+});
+
+describe("WP5 GAP 3 — a run's configuration is recorded and checked", () => {
+  const HEADER =
+    "grow-lk T=-2C sigmaInf=0.002 dims=48,48,48 (hexRadius=23, zHalfExtent=23, active=1) " +
+    "dx=0.35um P=101325Pa paramSet=CAK surfacePolicy=aggregate-hv-g1h1-v6 " +
+    "farField=monopole-matched cfl=0.1 tol=1e-9 divTol=1e-7 maxSweeps=200000 targetExtent=21 " +
+    "seed=1 noise=0 seedRadius=2 seedSites=19 vKin=1e-4\n" +
+    "stop reason=size-target step=175 attached=1313 extent=21 AR=0.263158 symErr=0 " +
+    "deltaSymClean=true allConverged=true\n";
+
+  it("parses what the CHILD reported, not what the parent intended", () => {
+    const config = phase6ParseRunConfig(HEADER);
+    expect(config).not.toBeNull();
+    expect(config?.paramSet).toBe("CAK");
+    expect(config?.farField).toBe("monopole-matched");
+    expect(config?.relaxTol).toBe(1e-9);
+    expect(config?.divTol).toBe(1e-7);
+    expect(config?.targetExtent).toBe(21);
+    expect(config?.pressurePa).toBe(101325);
+    expect(config?.seedRadius).toBe(2);
+    expect(phase6ConfigFailures(config)).toEqual([]);
+  });
+
+  it("CATCHES the ADR 0031 defect: a run that used CAK_A1 while the protocol registers CAK", () => {
+    // The exact historical failure, now detectable from the run's own output.
+    const failures = phase6ConfigFailures(phase6ParseRunConfig(HEADER.replace("paramSet=CAK ", "paramSet=CAK_A1 ")));
+    expect(failures.some((f) => f.startsWith("paramSet:"))).toBe(true);
+  });
+
+  it("catches every other registered parameter drifting, one at a time", () => {
+    // A check that only covers the parameter that already burned us is not a check.
+    for (const [from, to, name] of [
+      ["farField=monopole-matched", "farField=dirichlet", "farField"],
+      ["surfacePolicy=aggregate-hv-g1h1-v6", "surfacePolicy=aggregate-hv-g1h1-v5", "surfacePolicy"],
+      ["tol=1e-9", "tol=1e-7", "relaxTol"],
+      ["divTol=1e-7", "divTol=1e-5", "divTol"],
+      ["targetExtent=21", "targetExtent=15", "targetExtent"],
+      ["noise=0", "noise=0.01", "noiseEpsilon"],
+      ["seedRadius=2", "seedRadius=4", "seedRadius"],
+      ["P=101325Pa", "P=50000Pa", "pressurePa"],
+      ["cfl=0.1", "cfl=0.2", "cfl"],
+      ["maxSweeps=200000", "maxSweeps=100", "relaxMaxSweeps"],
+      ["seed=1", "seed=7", "rngSeed"],
+      ["dx=0.35um", "dx=0.7um", "dxUm"],
+    ] as const) {
+      const failures = phase6ConfigFailures(phase6ParseRunConfig(HEADER.replace(from, to)));
+      expect(failures.some((f) => f.startsWith(`${name}:`)), `${name} drift undetected`).toBe(true);
+    }
+  });
+
+  it("reports an unparseable header rather than treating it as agreement", () => {
+    expect(phase6ParseRunConfig("no header here\nstop reason=size-target step=1")).toBeNull();
+    expect(phase6ConfigFailures(null).length).toBe(1);
   });
 });

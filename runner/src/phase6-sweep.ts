@@ -217,6 +217,95 @@ export interface Phase6PointResult {
   readonly allConverged: boolean;
   readonly domainContact: boolean;
   readonly seconds: number;
+  /**
+   * The configuration the CHILD reported, parsed from its own echoed header — not what the parent
+   * intended to pass. Recorded because WP5 negative control 3 showed that without it, 56 rows
+   * spliced from a real sweep under a DIFFERENT parameter set are indistinguishable from clean
+   * ones: the artifact could not prove which parameterization produced it. `null` only if the
+   * child's header could not be parsed, which `phase6ConfigFailures` then reports.
+   */
+  readonly config: Phase6RunConfig | null;
+}
+
+/** What a child run reported about itself. Every field is echoed by grow-lk's own header line. */
+export interface Phase6RunConfig {
+  readonly paramSet: string;
+  readonly surfacePolicy: string;
+  readonly farField: string;
+  readonly dxUm: number;
+  readonly pressurePa: number;
+  readonly cfl: number;
+  readonly relaxTol: number;
+  readonly divTol: number;
+  readonly relaxMaxSweeps: number;
+  readonly targetExtent: number;
+  readonly rngSeed: number;
+  readonly noiseEpsilon: number;
+  readonly seedRadius: number;
+}
+
+/**
+ * Compare a run's SELF-REPORTED configuration against the registered protocol. Returns the
+ * disagreements by name.
+ *
+ * This is the check ADR 0031's defect needed and did not have. The harness passing the right flag
+ * and the child using the right value are two different propositions; only the second one produced
+ * the evidence.
+ */
+export function phase6ConfigFailures(config: Phase6RunConfig | null): readonly string[] {
+  if (config === null) return ["the child's configuration header could not be parsed"];
+  const f = PHASE6_CROSSPLATFORM_FIXTURE;
+  const out: string[] = [];
+  const eq = (name: string, got: unknown, want: unknown): void => {
+    if (got !== want) out.push(`${name}: run used ${String(got)}, protocol registers ${String(want)}`);
+  };
+  eq("paramSet", config.paramSet, PHASE6_PARAM_SET);
+  eq("surfacePolicy", config.surfacePolicy, f.surfacePolicy);
+  eq("farField", config.farField, f.farField);
+  eq("dxUm", config.dxUm, f.dxUm);
+  eq("pressurePa", config.pressurePa, f.pressurePa);
+  eq("cfl", config.cfl, f.cflFill);
+  eq("relaxTol", config.relaxTol, f.relaxTol);
+  eq("divTol", config.divTol, f.divTol);
+  eq("relaxMaxSweeps", config.relaxMaxSweeps, f.relaxMaxSweeps);
+  eq("targetExtent", config.targetExtent, f.targetExtent);
+  eq("rngSeed", config.rngSeed, f.rngSeed);
+  eq("noiseEpsilon", config.noiseEpsilon, f.noiseEpsilon);
+  eq("seedRadius", config.seedRadius, f.seedRadius);
+  return out;
+}
+
+/** Parse grow-lk's echoed header — the run describing itself. */
+export function phase6ParseRunConfig(stdout: string): Phase6RunConfig | null {
+  const head = stdout.split("stop reason")[0] ?? "";
+  const str = (re: RegExp): string | null => {
+    const hit = re.exec(head);
+    return hit === null ? null : (hit[1] as string);
+  };
+  const n = (re: RegExp): number => {
+    const raw = str(re);
+    return raw === null ? Number.NaN : Number(raw);
+  };
+  const paramSet = str(/paramSet=(\S+)/);
+  const surfacePolicy = str(/surfacePolicy=(\S+)/);
+  const farField = str(/farField=(\S+)/);
+  if (paramSet === null || surfacePolicy === null || farField === null) return null;
+  const config: Phase6RunConfig = {
+    paramSet,
+    surfacePolicy,
+    farField,
+    dxUm: n(/dx=([0-9.e+-]+)um/),
+    pressurePa: n(/P=([0-9.e+-]+)Pa/),
+    cfl: n(/cfl=([0-9.e+-]+)/),
+    relaxTol: n(/[^v]tol=([0-9.e+-]+)/),
+    divTol: n(/divTol=([0-9.e+-]+)/),
+    relaxMaxSweeps: n(/maxSweeps=([0-9]+)/),
+    targetExtent: n(/targetExtent=([0-9]+)/),
+    rngSeed: n(/seed=([0-9]+)/),
+    noiseEpsilon: n(/noise=([0-9.e+-]+)/),
+    seedRadius: n(/seedRadius=([0-9]+)/),
+  };
+  return Object.values(config).some((v) => typeof v === "number" && !Number.isFinite(v)) ? null : config;
 }
 
 /** One sweep point, scored under the registered rules. */
@@ -438,6 +527,7 @@ export function phase6ParseRun(
     // reached it must be excluded whether or not the runner happened to print it.
     domainContact: largestExtent / domainN > PHASE6_DOMAIN_CONTACT_FRACTION,
     seconds,
+    config: phase6ParseRunConfig(stdout),
   };
 }
 
@@ -479,7 +569,7 @@ export async function phase6RunSweep(options: {
   let next = 0;
 
   const runOne = (point: Phase6GridPoint): Promise<Phase6ScoredPoint> =>
-    new Promise((resolve) => {
+    new Promise((resolve, reject) => {
       const started = Date.now();
       // A per-point wall budget, because this runs unattended overnight and one pathological
       // point must not hold a worker forever. A point that exceeds it is killed and lands with
@@ -507,12 +597,32 @@ export async function phase6RunSweep(options: {
                 deltaSymClean: false,
                 allConverged: false,
                 domainContact: false,
+                config: null,
                 seconds,
               }),
             );
             return;
           }
           const parsed = phase6ParseRun(point, String(stdout ?? ""), seconds, domainN);
+          // WP5 negative control 3. A run whose SELF-REPORTED configuration disagrees with the
+          // registered protocol is not a bad data point — it means the harness is producing evidence
+          // under a configuration nobody registered, which is ADR 0031 happening again. Abort the
+          // whole sweep rather than continue and publish a mixed artifact, which control 3 showed is
+          // indistinguishable from a clean one.
+          if (parsed !== null) {
+            const configFailures = phase6ConfigFailures(parsed.config);
+            if (configFailures.length > 0) {
+              reject(
+                new Error(
+                  `T=${point.tempC} f=${point.fraction} ran under a configuration the protocol does ` +
+                    "not register, so the sweep is aborted rather than producing mixed evidence:" +
+                    configFailures.map((f) => `
+  - ${f}`).join(""),
+                ),
+              );
+              return;
+            }
+          }
           if (parsed === null) {
             // A point that produced no summary is EXCLUDED BY NAME, never silently skipped and
             // never scored as a habit. Encoded as an unconverged result so the single scoring
@@ -530,6 +640,7 @@ export async function phase6RunSweep(options: {
                 deltaSymClean: false,
                 allConverged: false,
                 domainContact: false,
+                config: null,
                 seconds,
               }),
             );
