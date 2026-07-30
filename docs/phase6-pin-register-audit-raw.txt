@@ -1,0 +1,892 @@
+{
+  "summary": "Enumerate every surface that touches an evidence artifact and determine what pins it",
+  "agentCount": 18,
+  "logs": [
+    "Sweeping 8 surfaces of the evidence pipeline for unpinned inputs",
+    "131 surfaces enumerated; 94 confirmed unpinned by execution"
+  ],
+  "result": {
+    "surfaces": 131,
+    "confirmedUnpinned": 94,
+    "bySeverity": [
+      {
+        "severity": "critical",
+        "n": 20
+      },
+      {
+        "severity": "high",
+        "n": 31
+      },
+      {
+        "severity": "medium",
+        "n": 27
+      },
+      {
+        "severity": "low",
+        "n": 16
+      }
+    ],
+    "actuallyPinned": 12,
+    "criticalAndHigh": [
+      {
+        "surface": "`steps` — GROW_LK_DEFAULTS.steps = 100_000 (grow-lk-defaults.ts:56), loop bound at main.ts:691",
+        "mutationExecuted": "(a) Ran the real child at the exact sweep configuration for T=-15/f=0.15 with `--steps 5` and fed its stdout through phase6ParseRun → phase6ConfigFailures → phase6ScorePoint. (b) sed grow-lk-defaults.ts `steps: 100_000` → `steps: 200`, then recomputed all three manifest hashes, ran phase6SweepPreflight, and ran 6 test files (100 tests). (c) Also mutated phase6PointCommand to emit `--steps 200` explicitly and repeated (b).",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Child printed `stop reason=step-cap step=5 attached=19 extent=5 AR=0.200000 symErr=0 deltaSymClean=true allConverged=true`. Harness: `configFailures = []` (the new WP5-GAP-3 self-reported-config check at phase6-sweep.ts:612-625 does NOT cover the step cap — the header echoes no `steps`), then modelClass=plate, score=agree, inHeadlineScope=true, exclusionReason=null. The published row for that same point is AR=1.10526, neutral, DISAGREE, headline — so the truncation converts a headline disagreement into a headline agreement. With the default mutated to 200: values hash still 879e069f612f1c6b4b40074d5cc890419fc17f09545dc27b2c8823d7667938f6, justification still 040b1a44…, combined still 2b94aa5f…, preflight substantive failures = 0, 6/6 test files and 100/100 tests pass. Adding `--steps 200` to phase6PointCommand also leaves phase6CommandFlagFailures() = [] and all 100 tests green (the command test at phase6-sweep.test.ts only asserts `toContain` for 6 flags, never flag absence). The string \"100000\" appears in neither the values manifest nor the justification manifest — the step cap is registered nowhere at all.",
+        "correctedSeverity": "critical",
+        "dimension": "run-inputs"
+      },
+      {
+        "surface": "`stopReason` / `largestExtent` never checked against the registered measurement size (phase6-sweep.ts:506 tail parse; Phase6PointResult has no stopReason)",
+        "mutationExecuted": "(a) The truncated run above, scored end-to-end. (b) Copied out/phase6-sweep to scratch, forged ONE clean row's `result.largestExtent` 21 → 5 (T=-2, f=0.9), and ran the independent verifier: `node app/scripts/phase6-wp5-independent.mjs <dir>`.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Forgery A verifier output: `HEADLINE agree 3` … `PHASE6 WP5 INDEPENDENT VERIFY: PASS` — identical to the control run on the untouched artifacts. Grep of app/scripts/phase6-wp5-independent.mjs for `largestExtent|stopReason|config` returns ZERO hits: the verifier re-derives class from `result.aspectRatio` and the four invalid flags only. Neither phase6ScorePoint's invalidReasons (phase6-sweep.ts:337-341) nor phase6ConfigFailures mentions largestExtent, and `targetExtent` in the config check is the value the parent PASSED (21), not the size at which habit was measured. All 204 published rows are extent 21 (histogram {\"21\":204}), 0 excluded, 0 carry a stopReason field — so the artifact happens to be clean but cannot show that it is.",
+        "correctedSeverity": "critical",
+        "dimension": "run-inputs"
+      },
+      {
+        "surface": "`seedRadius` = 2 and `seedThickness` = 1 (grow-lk-defaults.ts:62-63), freeze row `physical-seed-size`",
+        "mutationExecuted": "Three separate runs: (a) both fields (seedRadius 2→3, seedThickness 1→2) on both sides; (b) seedThickness 1→2 alone on both sides; (c) seedThickness 1→3 alone on both sides — then re-ran the real child at the sweep configuration with (c) applied and pushed its stdout through phase6ParseRun/phase6ConfigFailures/phase6ScorePoint. seedRadius 2→3 alone also run.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "seedRadius is PINNED: 2→3 alone → `FAIL … parses what the CHILD reported` (the header echoes `seedRadius=2` and Phase6RunConfig carries it). seedThickness→2 is caught only incidentally, by a runtime guard: core/src/lattice.ts:137 throws `seed thickness must be odd and >= 1`, which failed 4 grow-lk tests. seedThickness 1→3 (odd, legal) is UNPINNED: values hash 879e069f… unchanged, combined 2b94aa5f… unchanged, preflight substantive failures 0, 6/6 test files and 100/100 tests PASS. The real child then reported `seedSites=57` instead of 19 and `AR=0.600000` instead of 0.200000 at step 1 with `configFailures = []`, modelClass plate / score agree. Phase6RunConfig has no seedThickness field, the header never prints `seedThickness`, and `seedSites` is printed but parsed by nothing — so a 3-layer seed is unobservable from any artifact.",
+        "correctedSeverity": "high",
+        "dimension": "run-inputs"
+      },
+      {
+        "surface": "Node / V8 build and arch — collected by phase6ProtocolProvenance (phase6-protocol.ts:879-880), reported, never enforced",
+        "mutationExecuted": "Wrote a script that overrides process.versions.v8 → \"0.0.0-forged\" and process.arch → \"arm64\" BEFORE importing phase6-sweep.ts, then called phase6SweepPreflight(process.cwd()) and inspected the failure list; contrasted with gate2b's validateGate2bProvenance on the same forged values; enumerated report.json's keys; grepped every use of phase6LibmDigest / PHASE6_LIBM_DIGEST_X64_BASELINE.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Preflight under the forged engine: `preflight substantive failures = 0 []`, `does any failure mention the engine? false`. The same forged values against the Phase 2b analogue: `gate2b REFUSES the forged engine: gate2b engine mismatch: expected Node v24.13.1 / V8 13.6.233.17-node.40`. report.json's keys are exactly protocolSha256, head, headlineAgree, headlineTotal, neutralCount, excludedCount, extentFragileCount, perRegime, excludedPoints — no node, v8, arch, platform or libm digest; the only engine trace in any artifact is free text in diagram.svg's caption (`node v24.13.1`). phase6LibmDigest is called in exactly two places: runner/test/phase6-crossplatform.test.ts:80 (guarded by process.arch === \"x64\") and the standalone `phase6-libm` CLI at main.ts:1198-1208. Sharper than the auditor put it: the GATED values manifest does register `engineControl: {sweepEngine: \"cpu-float64\", reproducibilityControl: \"same registered fixture on arm64 and x64…\"}` — so the protocol registers an engine claim that no evidence-producing path checks or records.",
+        "correctedSeverity": "high",
+        "dimension": "run-inputs"
+      },
+      {
+        "surface": "`domain: \"hexPrism\"` — hard-coded literal at runner/src/main.ts:650",
+        "mutationExecuted": "sed line 650 only (`domain: \"hexPrism\"` → `domain: \"box\"`), then (a) ran the real child at the sweep configuration and pushed stdout through phase6ParseRun/phase6ConfigFailures/phase6ScorePoint, (b) recomputed hashes, ran preflight, ran 6 test files.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "The child ran happily on a different domain: header `(hexRadius=-1, zHalfExtent=-1, active=110592)` versus `active=77879` at hexPrism, and the physics moved — `minShell=7.083e-2 minExchange=7.083e-2` versus `6.836e-2` on the identical point. `configFailures = []` (Phase6RunConfig has no domain field), modelClass plate / score agree / exclusionReason null. Values hash 879e069f…, combined 2b94aa5f… unchanged; preflight substantive failures 0; 6/6 test files, 100/100 tests pass. \"hexPrism\" is absent from the gated values manifest (present only in the ungated justification prose), the header prints hexRadius but never `domain=`, and no artifact field records it.",
+        "correctedSeverity": "high",
+        "dimension": "run-inputs"
+      },
+      {
+        "surface": "No per-run provenance in the published artifact — `--out` is never passed (phase6-sweep.ts:443-463 omits it), and points.json carries no configuration per row",
+        "mutationExecuted": "Copied out/phase6-sweep to scratch, spliced 56 rows from the SUPERSEDED CAK_A1 arm (out/phase6-sweep-6995868-cak-a1-superseded/points.json) into the published CAK artifact by (tempC,fraction) key, re-scored them with phase6ScorePoint and regenerated report.json with phase6Aggregate so the set is internally consistent, then ran app/scripts/phase6-wp5-independent.mjs on the forged directory. Also enumerated config fields across all 204 published rows.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Forgery B: `56 rows spliced from the superseded CAK_A1 arm`, headline moved `3/90 -> 5/90`, verifier output `HEADLINE agree 5` … `PHASE6 WP5 INDEPENDENT VERIFY: PASS`. The rows came from a real sweep run under a DIFFERENT parameter set and the published artifact cannot distinguish them: `rows with a config field: 0` for all 204 published rows (report.json head=390fe35…, protocolSha256=8aeb2b80…, i.e. produced before the config-recording commit), and grep shows the independent verifier never reads `config` at all — so even a future sweep's per-row config would go unchecked post-hoc. `--out` is absent from the emitted command (verified in the printed argv). NOTE on this same theme, observed live: during my session a concurrent process left uncommitted edits to tracked physics source (`core/src/libbrecht.ts`: SIGMA0_PRISM[0] 0.00006→0.000066 and A_PRISM_CAK[0] 1→0.30 at one point, A_PRISM_CAK[8] 1→0.5 at another) and to app/src/protocol.ts. Those are NOT mine — I restored every file I touched and left them alone — but they are exactly WP5 control 7's mid-run-edit hazard, and the only detector is preflight's single launch-time tree-clean check.",
+        "correctedSeverity": "high",
+        "dimension": "run-inputs"
+      },
+      {
+        "surface": "`testAlphaOverride` / `testExtraSeedSites` — LKSolver constructor hooks (solver-cpu/src/lk-solver.ts:96-104) documented \"Never set in runs\"",
+        "mutationExecuted": "Injected `testAlphaOverride: () => 1` into the LKSolver options at runner/src/main.ts:650 (the sweep's own solver construction), then: ran the real child at the sweep configuration through phase6ParseRun/phase6ConfigFailures/phase6ScorePoint, recomputed hashes, ran preflight, ran 6 test files, and ran `npx tsc --noEmit`.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "The kinetics changed wholesale — same point, same seed: `minShell=1.547e-1 minExchange=1.547e-1 simTime=0.05s` versus the unmutated `6.836e-2 … simTime=0.10s` (every facet barrier-free, so vapor is consumed twice as fast per tick). `configFailures = []`, modelClass plate / score agree / exclusionReason null. Values hash 879e069f… and combined 2b94aa5f… unchanged, preflight substantive failures 0, 6/6 test files and 100/100 tests pass, tsc --noEmit clean. There is no runtime guard rejecting the hook on a non-test path, no artifact field, and no header echo. Raised from the auditor's medium: this is a deliberate API affordance sitting on the evidence path whose effect is to replace the entire quantity under test (alphaHK), at the same one-line cost as the domain swap.",
+        "correctedSeverity": "high",
+        "dimension": "run-inputs"
+      },
+      {
+        "surface": "points.json rows carry NO run configuration — no config object, no paramSet, no policy, no tolerances, no seed",
+        "mutationExecuted": "Spliced all 56 rows whose aspectRatio differs from out/phase6-sweep-6995868-cak-a1-superseded/points.json (real CAK_A1 data, produced under a different paramSet) into out/phase6-sweep/points.json, and set report.headlineAgree 3->5. Then ran `node app/scripts/phase6-wp5-independent.mjs` and `node app/scripts/phase6-wp5-negative-controls.mjs` and `npx vitest run runner/test/phase6-{sweep,protocol,diagram,crossplatform}.test.ts`.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Verifier printed 'VERIFIED: 204 points re-derived, every class, regime, score, headline-scope flag, extent-fragile flag and exclusion reason matches the published artifact' and exited 0, with 'HEADLINE agree 5'. points.json went 0ed613bce61e -> 94c407c2966f; nothing compared it to anything. Schema confirmed empty of configuration: result keys are exactly tempC,fraction,sigmaInf,steps,attached,aspectRatio,largestExtent,symmetryError,deltaSymClean,allConverged,domainContact,seconds; point keys tempC,fraction,sigmaInf,inAmbiguityBand,distanceToBoundaryC. `rows with config: 0` and `rows with paramSet anywhere: 0` of 204. The field postdates the artifact: `git show 390fe35:runner/src/phase6-sweep.ts | grep 'readonly config\\|Phase6RunConfig\\|phase6ConfigFailures'` returns nothing, while HEAD has it at phase6-sweep.ts:227 and wires phase6ConfigFailures at :613. No vitest test reads out/phase6-sweep at all — the only two code references to the directory in the whole repo are app/scripts/phase6-wp5-independent.mjs:96 and phase6-wp5-negative-controls.mjs:24.",
+        "correctedSeverity": "critical",
+        "dimension": "artifact-schema"
+      },
+      {
+        "surface": "points.json has no header record — bare JSON array, no protocol hash, commit, engine, timestamp or schema version, so the whole file can be substituted",
+        "mutationExecuted": "Copied the superseded arm's points.json AND report.json over the live arm (`cp out/phase6-sweep-6995868-cak-a1-superseded/{points,report}.json out/phase6-sweep/`), then ran the independent verifier.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Verifier exit 0, 'PHASE6 WP5 INDEPENDENT VERIFY: PASS', 'VERIFIED: 204 points re-derived'. It printed points.json = 330afca8c5990f7cf9225b89f5704f695d5c8d4cce314caa90b1a483e50f807b (the invalidated CAK_A1 arm) instead of 0ed613bce61e..., and re-derived HEADLINE agree 5, classes {plate:31,neutral:143,column:30} — i.e. it cleanly certified the sweep that ADR 0031 invalidated as if it were the re-sweep. The verifier computes all three sha256s at :106-112 and compares them to nothing; grep for 0ed613bc/71ae094c/40458703 across the repo returns ONLY research/phase6-sweep-report.md:58-60, a hand-maintained markdown table. Detection requires a human recomputing sha256 by hand.",
+        "correctedSeverity": "critical",
+        "dimension": "artifact-schema"
+      },
+      {
+        "surface": "No grid-completeness or row-count check anywhere: report.json records no point total and the verifier loops over whatever rows are present",
+        "mutationExecuted": "Four separate executions, each followed by the real verifier: (a) deleted 20 headline-scope rows already scored `disagree`, report.json left byte-identical (71ae094c3877); (b) duplicated one agreeing headline row (T=-2 f=0.25) 30x and set report headlineAgree 33 / headlineTotal 120; (c) deleted the entire T=-21 column, report.json untouched; (d) relabelled all 34 fraction-0.90 rows to the UNREGISTERED fraction 0.95 in both point.fraction and result.fraction.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "All four PASSED with exit 0. (a) 'VERIFIED: 184 points re-derived', headline scope 70, HEADLINE agree still 3, while report.json still claims headlineTotal 90 — unnoticed. (b) 'VERIFIED: 234 points', headline scope 120, HEADLINE agree 33 — the headline decupled and matched the forged report. (c) 'VERIFIED: 198 points', headline scope still 90 and HEADLINE agree still 3, so no published count moved at all (T=-21 is inside the +/-1.0 C band around -21.5). (d) 'VERIFIED: 204 points' with every count unchanged — the artifact-side verifier accepts an unregistered sigma fraction, the very mutation negative control 2 catches protocol-side via the values hash (879e069f -> e18d0f6c). The registered grid lives in phase6ValuesManifest().temperatureGrid/sigmaFractions but no artifact or check compares points.json's key set to it.",
+        "correctedSeverity": "critical",
+        "dimension": "artifact-schema"
+      },
+      {
+        "surface": "Eight of report.json's nine fields are re-derived by the independent verifier and then PRINTED rather than compared — only headlineAgree is checked",
+        "mutationExecuted": "Set report.json headlineTotal 90->6, neutralCount 168->12, extentFragileCount 16->0, and zeroed disagree/neutralCount/extentFragile in all four perRegime entries, leaving headlineAgree at 3 and points.json untouched (0ed613bce61e). Ran the verifier. Separately re-derived all nine fields myself from points.json under the harness's actual convention.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Verifier exit 0, 'VERIFIED', while report.json now reads 3/6 with zero neutrals and zero fragility instead of 3/90 with 168 neutrals and 16 fragile. Confirmed the only comparison is at :184-188 on headlineAgree; grep of the script for protocolSha256/head/headlineTotal/neutralCount finds only line 185 (headlineAgree fallbacks). Mutation A independently proved the same gap from the other direction: after the splice, re-derived neutralCount 143 and extentFragile 25 disagreed with the published 168/16 and the verifier still said VERIFIED. Gap is latent, not exploited: I re-derived all 5 top-level fields plus all 4x5 perRegime tallies plus excludedPoints and every one matches today, once you use the real convention `scored.filter(s => s.regime === spec.regime && !s.inAmbiguityBand)` at phase6-sweep.ts:400-411. Sharpening detail: the verifier's own printed per-regime `neutral=` column (7/35/69/57, all regime points) differs by convention from report.json's perRegime.neutralCount (3/24/58/52, regime minus band), and since neither is compared, a reader eyeballing the two cannot distinguish a convention difference from tampering.",
+        "correctedSeverity": "high",
+        "dimension": "artifact-schema"
+      },
+      {
+        "surface": "report.json's provenance fields (protocolSha256, head) are compared to nothing, and it records the ungated legacy combined hash rather than the gated values hash",
+        "mutationExecuted": "Set report.protocolSha256 to '2b94aa5f' + 56 zeros (claiming a protocol revision postdating the run) and report.head to 40 zeros; ran the verifier. Also grepped both the artifacts and the verifier for the gated hash.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Verifier exit 0, 'VERIFIED', report hash moved 71ae094c3877 -> 076d116692e7, unnoticed. The verifier never reads either field: grep for protocolSha256/head/valuesSha256 in phase6-wp5-independent.mjs matches only line 185, the headlineAgree fallback chain. The gated hash is absent from all evidence: `grep -l 879e069f out/phase6-sweep/*` returns nothing, while `grep -l 8aeb2b80` matches both report.json and diagram.svg. Phase6PreflightReport does carry valuesSha256, justificationSha256, node and v8 (phase6-sweep.ts:113-118, computed at :142-144) and main.ts:1396 drops all four by calling phase6Aggregate(scored, preflight.protocolSha256, preflight.head). Live corroboration this session: a concurrent process edited PHASE6_FREEZE_LIST prose values in runner/src/phase6-protocol.ts (measurement extent 21->9, noiseEpsilon 0->0.05, domain 48->96, pressure 101325->50000 Pa) and the computed values hash stayed 879e069f... == the registered pin, so the gate correctly ignored prose — which is exactly why recording the prose-sensitive combined hash instead of the gated one puts the wrong number in the artifact.",
+        "correctedSeverity": "high",
+        "dimension": "artifact-schema"
+      },
+      {
+        "surface": "largestExtent is recorded but unconstrained, and domain size N is recorded nowhere, so domainContact cannot be recomputed from the artifact",
+        "mutationExecuted": "On a headline-scope AGREEING row (T=-2, f=0.25) set result.largestExtent 21->40 while leaving result.domainContact false; ran the verifier. Also ran the project's own negative control 6 (largestExtent 21->15).",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Verifier exit 0, 'VERIFIED', HEADLINE agree still 3 — the row keeps contributing to the headline even though 40/48 = 83% is far past the registered 65% domain-contact guard, so it should have been excluded BY NAME. points.json moved 0ed613bce61e -> 8892034a0766 with nothing objecting. The project's own control 6 independently reports this as a GAP. Confirmed the scorer never mentions largestExtent and the verifier's invalidReasons() reads only allConverged, deltaSymClean, symmetryError and domainContact; domainN comes from PHASE6_CROSSPLATFORM_FIXTURE.dims.nx at phase6-sweep.ts:567 and is never written to any artifact, so largestExtent/domainN > 0.65 is not re-evaluable from evidence. All 204 rows carry largestExtent 21 and domainContact false today. This is strictly sharper than the known gap 4: one edit defeats both the registered measurement size and the domain-contact guard.",
+        "correctedSeverity": "high",
+        "dimension": "artifact-schema"
+      },
+      {
+        "surface": "diagram.svg is reconciled with points.json by nothing, at production time or after; it is rendered from the in-memory scored array and no code in the repo parses it",
+        "mutationExecuted": "Two executions. (i) Edited one grid cell's fill=\"#dddddd\" to fill=\"#2c7fb8\" in the published diagram.svg (one neutral cell becomes a plate in the picture) and ran the verifier. (ii) Replaced diagram.svg wholesale with the superseded arm's (different picture, different class counts) leaving points.json and report.json clean, and ran the verifier.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Both PASSED, exit 0, 'VERIFIED'. (i) svg hash 40458703061a -> e2d8d09fc3ac; the verifier printed the new hash and compared it to nothing while points.json still classifies that cell neutral. (ii) svg hash -> 4b37ec727689 (31,599 B vs 31,193 B) and nothing cross-checked it against the 204 rows or against report.json. Confirmed the only two repo references to 'diagram.svg' are main.ts:1399 (write, from `scored`, not from the file just written) and phase6-wp5-independent.mjs:106 (hash and print). runner/test/phase6-diagram.test.ts renders synthetic grids only. I wrote the checker that does not exist and confirmed the published SVG does agree with points.json today: re-rendering phase6RenderDiagram(rows, subtitle) reproduces the published diagram.svg BYTE-FOR-BYTE (204 scored cells, 0 absent, 6 band columns, 168 neutral / 6 plate / 30 column fills plus one legend swatch each). None of that agreement is checked by the project.",
+        "correctedSeverity": "high",
+        "dimension": "artifact-schema"
+      },
+      {
+        "surface": "Measurement and condition fields — sigmaInf, steps, attached, symmetryError, distanceToBoundaryC, point.inAmbiguityBand — are recorded and never re-derived or bounded",
+        "mutationExecuted": "On row 0 (T=-2, f=0.9) set point.sigmaInf and result.sigmaInf 0.018->0.5, result.attached 2267->999999, result.steps 149->3, point.distanceToBoundaryC 1.3->99; ran the verifier.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Verifier exit 0, 'VERIFIED: 204 points re-derived', every count unchanged (headline 90, agree 3, neutral 168, fragile 16). points.json moved 0ed613bce61e -> 555f158425c5. So a published row can claim a habit measured at a supersaturation 28x the registered one, with an attached count 440x larger and 3 steps instead of 149, and still be certified clean. Confirmed the verifier uses symmetryError only as a raw input to invalidReasons(), re-derives inAmbiguityBand from tempC (so the duplicated point.inAmbiguityBand copy is never checked), and never touches sigmaInf, steps, attached or distanceToBoundaryC. sigmaInf is exactly re-derivable as phase6SigmaWaterFromTable(tempC) x fraction from the gated anchors but no code does it. Partial external pin confirmed as claimed: PHASE6_FIXTURE_X64_BASELINE (phase6-crossplatform.ts:260-265) transcribes steps/attached/aspectRatio/habit for 4 of 204 rows, and runner/test/phase6-crossplatform.test.ts passes without ever opening points.json.",
+        "correctedSeverity": "high",
+        "dimension": "artifact-schema"
+      },
+      {
+        "surface": "All three artifacts live in a gitignored tree, so their only pin is a hand-maintained markdown hash table, and the one script that computes those hashes never compares them",
+        "mutationExecuted": "Verified the ignore and the absence of tracking (`grep -n out/ .gitignore` -> line 26; `git ls-files out/` -> empty), located the sole recorded hashes, grepped the entire repo for who else references them, and observed across all eleven artifact mutations above whether any computed-vs-recorded comparison exists.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": ".gitignore:26 is `out/` and `git ls-files out/` returns nothing, so version control holds no copy of any Phase 6 artifact. The only recorded hashes are research/phase6-sweep-report.md:58-60 (points.json 129,760 / 0ed613bce61e...; report.json 928 / 71ae094c3877...; diagram.svg 31,193 / 40458703061a...), correct byte-for-byte today. A repo-wide grep for those three digests returns ONLY those three markdown lines — no test, script, or preflight reads them. Every one of the eleven mutations I executed changed at least one of the three hashes, the verifier PRINTED the changed hash at :106-112, and all eleven still exited 0. So the pin is real but purely manual, and it is worthless against production-time forgery, which is the ADR 0031 defect class: the 6995868 arm also had recorded hashes and was wrong about paramSet for all 204 runs. Making the printed hash an assertion against a registered constant would convert mutations B, C1-C4, D, E, F, G, H and L from undetectable to detectable.",
+        "correctedSeverity": "high",
+        "dimension": "artifact-schema"
+      },
+      {
+        "surface": "phase6ValuesManifest's freezeRows projection: prose.value of the 25 freeze rows is outside the gated values hash by construction",
+        "mutationExecuted": "(a) Programmatic: forged prose.value on 11 numeric rows via phase6ValuesManifest(mutated) — values hash bit-identical. (b) Per-row file mutation of all 25 rows, one at a time, each with the two \"free prose correction\" pin bumps (justification + combined) recomputed and revision rows appended, then `npx vitest run runner/test/phase6-protocol.test.ts` per row. (c) Combined 6-row forgery in-file + `phase6SweepPreflight()` + `npx vitest run runner/test/` + `node app/scripts/phase6-wp5-independent.mjs`.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "The values hash stayed 879e069f612f1c6b4b40074d5cc890419fc17f09545dc27b2c8823d7667938f6 for ALL 25 single-row forgeries. 9 of 25 rows are forgeable with NO test failure: t-sigma-grid, metric-thresholds, parameter-interpolation, param-set, latent-heating, pressure, physical-seed-size, noise-amplitude, relax-max-sweeps. Final combined run with 6 rows forged (param-set -> \"CAK_A1\", noise-amplitude -> \"0.05 - noise ON at every sweep point\", metric-thresholds -> \"plate AR <= 0.9, column AR >= 1.1\", physical-seed-size -> \"seedRadius 4, seedThickness 2\", pressure -> \"50000 Pa (0.5 atm)\", relax-max-sweeps -> \"500\"): preflight's only failure was \"tracked tree is dirty\" (vanishes on commit), valuesSha256 unchanged, 628/628 tests PASSED, WP5 independent verifier PASS. AUDITOR CORRECTION: the auditor's specific list is wrong on two rows — `dx` is exactly pinned (phase6-protocol.test.ts:582 `toBe(\"0.35 µm\")`) and `habit-measurement-size` is pinned (:198 `toContain(\"21\")`); also fill-cfl, residual-tolerance, div-tol and domain-budgets are caught. The auditor's first-pass \"whole suite is green\" claim came from assertion masking — several checks share one `it` block, so the first failure hides the rest. SHARPEST RESULT the auditor missed: ADR 0033's own stated mitigation at phase6-protocol.test.ts:882 is `expect(byId.get(\"param-set\")?.prose.value).toContain(PHASE6_PARAM_SET)` — substring, and \"CAK_A1\".includes(\"CAK\") is true, so the freeze row can be made to read the exact ADR 0031 defect value while its designated guard passes. Same vacuity at :221 `toContain(\"0\")` for noise-amplitude, which \"0.05 - noise ON\" satisfies.",
+        "correctedSeverity": "critical",
+        "dimension": "hashed-manifest"
+      },
+      {
+        "surface": "PHASE6_CROSSPLATFORM_FIXTURE — operand source for every child command line and the authority phase6ConfigFailures compares runs against — is in neither manifest",
+        "mutationExecuted": "Changed PHASE6_CROSSPLATFORM_FIXTURE.seedThickness and GROW_LK_DEFAULTS.seedThickness from 1 to 3 (NOT 2 — see correction), then ran phase6SweepPreflight(), the three manifest hashes, `npx vitest run` on all four phase6 test files, and a real `node --experimental-strip-types runner/src/main.ts grow-lk` at the registered sweep configuration to capture the child's echoed header, then fed that header through phase6ParseRunConfig + phase6ConfigFailures.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "preflight failures = [] apart from \"tracked tree is dirty\"; values/justification/combined hashes all unchanged (879e069f / 040b1a44 / 2b94aa5f); 85/85 phase6 tests PASSED. The real child run's header changed only in `seedSites=19` -> `seedSites=57` (a 3-layer 57-site prism replacing the canonical 19-site single-layer seed), and `phase6ConfigFailures(phase6ParseRunConfig(header))` returned [] — Phase6RunConfig has no seedSites or seedThickness field. The physical-seed-size freeze row still reads \"seedRadius 2, seedThickness 1\". AUDITOR CORRECTIONS: (1) seedThickness 1->2 does NOT work — core/src/lattice.ts:136 throws \"seed thickness must be odd and >= 1\", so the mutation must use 3; (2) the change is NOT absent from stdout — grow-lk echoes `seedSites`, and Phase 2b's own gate2b checkRun (main.ts:1114) rejects `seedSites !== 19`; that check simply was never carried to Phase 6. (3) fixture.domain = \"hexPrism\" is not a live forgery path: main.ts:650 hardcodes `domain: \"hexPrism\"`, so the fixture key is decorative — grep across runner/app/core found no Phase 6 reader.",
+        "correctedSeverity": "critical",
+        "dimension": "hashed-manifest"
+      },
+      {
+        "surface": "The published artifacts have no recorded content hash, and the WP5 independent verifier compares only published.headlineAgree",
+        "mutationExecuted": "Hand-edited out/phase6-sweep/report.json: perRegime[1] (\"columns\") agree 0->24, disagree 24->0, neutralCount 24->0; excludedCount 0->17; extentFragileCount 16->0; neutralCount 168->4; excludedPoints [] -> one fabricated row. Left headlineAgree = 3 untouched. Ran `node app/scripts/phase6-wp5-independent.mjs` and `node app/scripts/phase6-wp5-negative-controls.mjs`.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Verifier exit 0, \"PHASE6 WP5 INDEPENDENT VERIFY: PASS\". It printed report.json's sha256 as fd48458bdff5bf2b… (changed from 71ae094c38778b0d…) and compared it to nothing. It re-derived and PRINTED `columns … agree= 0`, `extent-fragile 16`, `excluded (named) 0` — all contradicting the forged artifact — and compared none of them; only headlineAgree is compared (phase6-wp5-independent.mjs:184-188). The negative-control suite also passed the forged artifact (it re-derives from points.json and never reads report.json's aggregates). ADDITIONAL FINDING the auditor missed: `out/` is gitignored (.gitignore:26), so the three published artifacts are not under version control at all — there is no git-level pin either, `git checkout` cannot restore them, and preflight's clean-tree check does not cover them. I had to back them up manually; all three are restored to 0ed613bc / 71ae094c / 40458703.",
+        "correctedSeverity": "critical",
+        "dimension": "hashed-manifest"
+      },
+      {
+        "surface": "report.json records the COMBINED hash only; preflight computes valuesSha256 and justificationSha256 then discards them, and nothing reads report.protocolSha256 back",
+        "mutationExecuted": "Hand-edited out/phase6-sweep/report.json protocolSha256 from 8aeb2b80a5d8…(the arm-1 evidence commit 390fe35) to 2b94aa5fa35b…(HEAD's combined hash), then ran the WP5 independent verifier and the negative-control suite, and grepped every consumer of report.json and of protocolSha256 across runner/ and app/.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Verifier PASS, exit 0; the field is never read. grep shows the ONLY reader of out/phase6-sweep/report.json in the whole repo is phase6-wp5-independent.mjs:99, which touches `headlineAgree` and nothing else. phase6Aggregate (phase6-sweep.ts:397) takes protocolSha256 as an unvalidated string parameter and main.ts:1396 passes preflight.protocolSha256 straight through; preflight.valuesSha256 and preflight.justificationSha256 are computed (phase6-sweep.ts:142-143), placed on Phase6PreflightReport, and never consumed. I confirmed the gated hash 879e069f appears in NO artifact. The Phase 5 counterpart the auditor cites is real: gate5-evidence.ts:1708 rejects an artifact whose protocolSha256 !== PHASE5_PROTOCOL_SHA256, and that readback was not carried to Phase 6. The artifact now falsely claims reproducibility at HEAD and nothing notices.",
+        "correctedSeverity": "high",
+        "dimension": "hashed-manifest"
+      },
+      {
+        "surface": "GROW_LK_DEFAULTS.steps (100_000) and .metricsEvery (100) — grow-lk defaults with no coverage of any kind",
+        "mutationExecuted": "(a) Changed GROW_LK_DEFAULTS.steps 100_000 -> 150 and metricsEvery 100 -> 7; ran phase6SweepPreflight(), the three hashes, and `npx vitest run` on the four phase6 files plus grow-lk.test.ts. (b) Executed a REAL grow-lk run at the registered sweep configuration with --steps 1 to force the step cap, then fed its actual stdout through phase6ParseRun + phase6ConfigFailures + phase6ScorePoint. (c) grepped GROW_LK_DEFAULTS.steps / .metricsEvery across runner/ app/ core/.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "With steps=150 and metricsEvery=7: all three hashes unchanged, preflight structurally clean, 97/97 tests PASSED. grep found ZERO references to GROW_LK_DEFAULTS.steps or .metricsEvery anywhere outside their declaration (grow-lk-defaults.ts:56, :60) — no manifest key, no PHASE6_EXPLICIT_FLAGS entry, no phase6DefaultBackedParameters row, no test. The downstream half is worse than the auditor argued and I measured it: the real step-capped run printed `stop reason=step-cap step=1 attached=19 extent=5 AR=0.200000`, and phase6ParseRun accepted it, phase6ConfigFailures returned [], and phase6ScorePoint returned modelClass=plate, score=AGREE, exclusionReason=null — a crystal measured at extent 5 against the registered measurement extent 21, scored as a clean agreement. The new WP5-GAP-3 config check cannot catch it either, because config.targetExtent echoes the REQUESTED 21, not the achieved 5. Note `--steps` does exist as a CLI flag (main.ts:601) but is absent from PHASE6_EXPLICIT_FLAGS, so the sweep silently takes the default.",
+        "correctedSeverity": "high",
+        "dimension": "hashed-manifest"
+      },
+      {
+        "surface": "The diagram renderer's class->colour map and its hardcoded threshold legend; diagram.svg is never re-derived or hashed",
+        "mutationExecuted": "Five separate in-file mutations of runner/src/phase6-diagram.ts / phase6-sweep.ts, each followed by the three manifest hashes, `npx vitest run` on phase6-diagram/phase6-sweep/phase6-protocol tests, and the WP5 verifier: (1) CLASS_FILL.neutral #dddddd -> #2c7fb9; (2) neutral -> exact #2c7fb8; (3) plate/column colours swapped; (4) legend text \"AR ≤ 0.667\"->\"AR ≤ 0.900\" and \"AR ≥ 1.5\"->\"AR ≥ 1.1\"; (5) PLATE_CEILING 1/1.5 -> 0.9 with the legend untouched. Also counted colour occurrences in the published diagram.svg.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Mutation (1) — the auditor's exact prediction — UNCAUGHT: hashes unchanged, all tests pass, WP5 verifier PASS. Their reasoning about why is also exactly right: mutation (2) with the EXACT plate blue #2c7fb8 IS caught, because phase6-diagram.test.ts:112 asserts that colour occurs exactly once, so only a near-miss hex passes. Mutation (4), the legend numbers, UNCAUGHT — no test asserts the legend text, and the strings are literals not derived from PLATE_CEILING/COLUMN_FLOOR (phase6-diagram.ts:193-194). Quantified on the real artifact: out/phase6-sweep/diagram.svg contains 169 × #dddddd (168 neutral cells + 1 legend swatch) against 7 × #2c7fb8 (6 plate cells + 1 swatch), so mutation (1) repaints 168 of 204 cells as visually indistinguishable plate blue while report.json still says headlineAgree 3/90 with 168 neutrals. Mutations (3) and (5) ARE caught (by the same occurrence-count test, and by the boundary test at phase6-sweep.test.ts:73-85). The published subtitle carries only \"protocol 8aeb2b80a5d8 · head 390fe35a049e\" — the drifting combined hash, not the gated one. No script re-renders diagram.svg from points.json and diffs; the verifier prints its sha256 (40458703…) and compares nothing.",
+        "correctedSeverity": "high",
+        "dimension": "hashed-manifest"
+      },
+      {
+        "surface": "Provenance captured once at launch (main.ts:1365 → phase6-sweep.ts:175); never re-checked at completion, so a mid-run source edit is invisible",
+        "mutationExecuted": "Executed the source-edit half end-to-end. (1) Ran the exact registered child command `node runner/src/main.ts grow-lk --temp-c -2 --sigma-inf 0.002000 --dims 48,48,48 --dx-um 0.35 --cfl 0.1 --target-extent 21 --surface-policy aggregate-hv-g1h1-v6 --far-field monopole-matched --param-set CAK --metrics-every 100000 --steps 25` on a clean tree. (2) Edited core/src/libbrecht.ts:19 D_AIR_1ATM 2.0e-5 → 2.4e-5 and re-ran the identical command. (3) Reverted the edit and re-computed provenance + all three manifest hashes. (4) Ran HEAD's new per-point config check on the MUTATED run's own stdout: phase6ParseRunConfig + phase6ConfigFailures. (5) Grepped every caller of phase6ProtocolProvenance / phase6SweepPreflight.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "The mutated solver produced measurably different physics: minShell 5.021e-3 vs 5.384e-3, minExchange 5.021e-3 vs 5.384e-3, fillLedger 63.537 vs 66.146, saturationClipped 1.800 vs 0.600, maxAbsSmootherDrift 9.012e-15 vs 8.847e-15. The child's SELF-REPORTED config header was byte-identical in both runs (paramSet=CAK dx=0.35um P=101325Pa cfl=0.1 tol=1e-9 divTol=1e-7 maxSweeps=200000 targetExtent=21 seed=1 noise=0 seedRadius=2) and HEAD's phase6ConfigFailures(parsed) returned [] on the mutated run — so the one new per-point pin does NOT see a source mutation, only a parameter mutation. phase6ProtocolProvenance is called from exactly one place (phase6-sweep.ts:175, inside preflight) and phase6SweepPreflight from exactly one place (main.ts:1365); report.json is written at main.ts:1396 from `preflight.head` captured at t=0, and the SVG subtitle at :1400-1405 from the same snapshot. After `git checkout`-equivalent revert, values 879e069f…, and provenance {head 32e0234b…, treeIsClean true} were identical to pre-mutation — nothing anywhere records that a file changed between t=0 and t=20h. Undetectable mutation confirmed: edit any solver file after point 1, revert before the report is written; report.json/diagram.svg name the launch commit and no field differs.",
+        "correctedSeverity": "critical",
+        "dimension": "provenance-capture"
+      },
+      {
+        "surface": "Children execute runner/src/main.ts from the WORKING TREE by relative path; no digest of the executed source graph is recorded",
+        "mutationExecuted": "grep for createHash/sha256 anywhere in runner/src/phase6-sweep.ts and in the sweep block of main.ts; enumerated the full key set of report.json and of each points.json row; plus the two executions from items 1 and 6 (in-tree constant edit, and an out-of-tree module substitution via runner/node_modules that git cannot see at any --untracked-files setting).",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "runner/src/phase6-sweep.ts contains no createHash and no sha256 of anything (grep: zero hits). report.json's complete key set is protocolSha256, head, headlineAgree, headlineTotal, neutralCount, excludedCount, extentFragileCount, perRegime, excludedPoints — no source digest, no per-point provenance. Each points.json row's result carries exactly 12 keys (tempC, fraction, sigmaInf, steps, attached, aspectRatio, largestExtent, symmetryError, deltaSymClean, allConverged, domainContact, seconds) for the published arm. I proved the executed bytes need not even be in the git tree: a shadow @vcc/core placed in runner/node_modules was loaded by the real child (marker printed before the grow-lk header) while `git status --porcelain --untracked-files=all` showed nothing. A pristine checkout of 390fe35 and a hand-edited-then-restored tree are byte-identical in every provenance field the artifacts carry.",
+        "correctedSeverity": "critical",
+        "dimension": "provenance-capture"
+      },
+      {
+        "surface": "treeIsClean / trackedStatus / preflightOk are computed, used to gate, then discarded — they appear in no artifact, and no code reads out/phase6-sweep/report.json",
+        "mutationExecuted": "Two executions on copies (out/ never touched). (a) Copied the published trio to scratch, rewrote report.json head 390fe35a… → deadbeefdeadbeef… and protocolSha256 8aeb2b80… → 2b94aa5f00…, then ran `node app/scripts/phase6-wp5-independent.mjs <dir>`. (b) Wrote a 14-line fabricate.mjs that imports phase6ScorePoint + phase6Aggregate, NEVER calls preflight, flips 6 headline-scope plates-cold rows' aspectRatio to 0.45, re-aggregates with the published protocol hash and head, and writes both files; then ran the independent verifier on that pair.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "(a) verifier printed 'PHASE6 WP5 INDEPENDENT VERIFY: PASS', exit 0, with head=deadbeef… and protocolSha256=2b94aa5f00… — it prints the files' own sha256s but compares them to nothing. (b) fabricate.mjs produced headlineAgree 9/90 (published: 3/90) attributed to head 390fe35a049e… and protocol 8aeb2b80…, and the verifier again said 'VERIFIED: 204 points re-derived … matches the published artifact', exit 0. No preflight ran; no artifact field records that one ever did. Phase6PreflightReport (phase6-sweep.ts:108-119) carries no treeIsClean/trackedStatus, and report.json's 9 keys contain no preflightOk. Independently corroborated live: while I worked, out/phase6-sweep/{points.json,report.json} were replaced with an internally-consistent forged pair (129,722 B / 94c407c2…, report 6fcaae54…, headlineAgree 5) and later restored — I hashed both states, and the verifier PASSED on the forged pair.",
+        "correctedSeverity": "critical",
+        "dimension": "provenance-capture"
+      },
+      {
+        "surface": "Child stdout — the only place a run describes its own configuration — parsed in memory and discarded; no sweep log retained; published points.json has no per-row config",
+        "mutationExecuted": "Enumerated out/phase6-sweep (3 files, no log). Counted rows whose result contains a `config` key. Read the HEAD code path that consumes stdout (phase6-sweep.ts:583-625) for any writeFileSync/appendFileSync of stdout. Ran phase6ParseRunConfig + phase6ConfigFailures against a real child's stdout, including the mutated-solver run. Checked which registered values the self-report actually covers.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Published arm: 0 of 204 rows have result.config; out/phase6-sweep/ holds exactly diagram.svg, points.json, report.json — no log; nothing in the artifact can say which paramSet/tol/divTol/seed/noise/seedRadius/targetExtent any row ran under. So for the PUBLISHED evidence the surface is unpinned and no mutation is needed. BUT the auditor is out of date on the code: at HEAD phase6ParseRun records config (phase6-sweep.ts:530) and phase6RunSweep ABORTS the sweep when phase6ConfigFailures is non-empty (:606-625, checker at :255-276) — I executed it on a live child's stdout and it parsed all 13 fields and returned []. Residual gaps I verified: raw stdout is still never written anywhere (no writeFileSync of stdout in the file), and the self-report omits `dims`, `seedThickness` and `steps` — seedThickness has NO CLI flag (main.ts:916 default 1) and is absent from Phase6RunConfig, so a mid-run edit of that default changes the seed geometry (echoed only as the unparsed seedSites=19) and passes both the t=0 default check and the per-point config check.",
+        "correctedSeverity": "high",
+        "dimension": "provenance-capture"
+      },
+      {
+        "surface": "Children inherit process.env wholesale (no `env` key at phase6-sweep.ts:582); NODE_OPTIONS can inject out-of-repo code, and no environment fact is captured",
+        "mutationExecuted": "Wrote scratchpad/probe.mjs and ran `NODE_OPTIONS=--import=file:///<scratchpad>/probe.mjs node runner/src/main.ts` inside the repo; then `git status --porcelain --untracked-files=no`; then grepped runner/src and app/scripts for NODE_OPTIONS and process.env.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "The loader ran inside the real runner process: 'PROBE-LOADER-RAN pid=26760' printed before main.ts's own usage output. git status afterwards showed no repo change (the loader lives outside the tree). grep for NODE_OPTIONS or process.env across runner/src and app/scripts returns ZERO hits — no preflight reads the environment, and no artifact records NODE_OPTIONS, PATH, process.execPath or the child argv. Pointing that loader at a module that patches the AR metric or the divergence check alters all 204 points while tree-cleanliness, the values hash 879e069f…, the combined hash and the tests all stay green.",
+        "correctedSeverity": "critical",
+        "dimension": "provenance-capture"
+      },
+      {
+        "surface": "node_modules/ is gitignored and the solver resolves @vcc/core through it, so code outside git's view runs the sweep",
+        "mutationExecuted": "Did NOT touch the existing node_modules/@vcc/core symlink. Instead executed an equivalent, higher-precedence, fully reversible hijack: created runner/node_modules/@vcc/core/{package.json,index.mjs} (ignored by .gitignore's `node_modules/` at any depth, and nearer than repo-root node_modules in Node's resolution walk from runner/src) whose index.mjs prints a marker and re-exports the real core; ran the registered child command; ran phase6SweepPreflight; then `rm -rf runner/node_modules` and re-ran the child to confirm restoration.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "The child loaded my out-of-git module: 'SHADOW-CORE-LOADED from runner/node_modules — arbitrary code in the solver's resolution path' printed immediately before the genuine `grow-lk T=-2C …` header, and the run completed normally (step=1 attached=19 extent=5 AR=0.200000). `git status --porcelain` and `git status --porcelain --untracked-files=all` reported NOTHING about node_modules (git check-ignore: `.gitignore:17:node_modules/  node_modules/@vcc/core`; `git ls-files node_modules` = 0 files). phase6SweepPreflight's only complaint was an unrelated concurrently-dirty file — nothing about the shadow. So this is not an inspection-only finding: it is executed, and it is as cheap as the NODE_OPTIONS path. Restored: runner/node_modules removed, marker gone on re-run, node_modules/@vcc/ symlinks untouched.",
+        "correctedSeverity": "critical",
+        "dimension": "provenance-capture"
+      },
+      {
+        "surface": "The artifacts' only durable chain of custody is the hand-maintained hash table at research/phase6-sweep-report.md:44-60, which no code reads",
+        "mutationExecuted": "Grepped every .ts/.mjs/.js for a reader of research/phase6-sweep-report.md and for the literal hashes 0ed613bc / 71ae094c / 40458703; grepped for any code that reads out/phase6-sweep; re-hashed the three artifacts repeatedly; and captured a real, undetected swap of the artifacts that occurred while I was measuring.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "No code reads the md (only prose mentions at phase6-protocol.ts:1504 and hand-transcribed numbers in docs/education/assets/anim-sweep.js) and no .ts/.mjs contains any of the three artifact hashes. Direct demonstration of the exact mutation: at 19:46:44 I hashed out/phase6-sweep/points.json = 94c407c2… (129,722 B) and report.json = 6fcaae54… while the md asserted 0ed613bc… (129,760 B) and 71ae094c…; the pair was an internally consistent forgery (headlineAgree 5 vs the published 3) that `phase6-wp5-independent.mjs` PASSED, out/ is gitignored so git showed nothing, and minutes later the files were restored to 0ed613bc…/71ae094c…. (That swap was performed by a concurrent process in this session, not by me — but I hashed both states, so the undetectability is measured, not argued.) My own fabricated pair reproduced the same result. A ~20-line re-hash-against-the-md checker would have caught both; it does not exist.",
+        "correctedSeverity": "high",
+        "dimension": "provenance-capture"
+      },
+      {
+        "surface": "head, freezeIsAncestor and treeIsClean all come from a PATH-resolved `git` binary whose path and version are never recorded or checked",
+        "mutationExecuted": "Built the exploit the auditor could not. Confirmed a git.cmd/git.bat shim at PATH[0] does NOT hijack execFileSync (verified with a correctly-formed Windows PATH: 'real git won'), then compiled a NATIVE forger with the local .NET SDK (`dotnet build -c Release`, AssemblyName=git → git.exe) that answers rev-parse with a chosen 40-hex string, exits 0 for merge-base --is-ancestor, and prints nothing for status --porcelain. Prepended its directory to PATH and called phase6ProtocolProvenance('G:/Code Files/snowflake') and phase6SweepPreflight('G:/Code Files/snowflake').",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Under the shim: {\"node\":\"v24.13.1\",\"v8\":\"13.6.233.17-node.40\",\"head\":\"cafebabecafebabecafebabecafebabecafebabe\",\"trackedStatus\":\"\",\"freezeIsAncestor\":true,\"treeIsClean\":true} and `preflight.ok = true head = cafebabe… failures: []` — while REAL git in the same command reported ' M runner/src/phase6-protocol.ts'. All three git-derived pins (commit identity, freeze ancestry, tree cleanliness) were forged simultaneously, a genuinely dirty tree passed the fail-closed gate, and a sweep launched this way would write head=cafebabe… into report.json and the SVG. Neither the resolved binary path nor `git --version` is recorded or checked anywhere. The exploit is built and executed, so this is not 'mechanism confirmed by inspection' — it is a working forgery of the entire provenance gate.",
+        "correctedSeverity": "high",
+        "dimension": "provenance-capture"
+      },
+      {
+        "surface": "result.domainContact — published validity boolean consumed rather than re-derived by the independent verifier (runner/src/phase6-sweep.ts:341/:528; app/scripts/phase6-wp5-independent.mjs:91 via invalidReasons())",
+        "mutationExecuted": "In scratchpad copy mut/m1 I set result.domainContact=true, modelClass=\"invalid\", score=\"excluded\", exclusionReason=\"tripped the 65% domain-contact guard\", extentFragile=false on all 87 rows with inHeadlineScope && score==\"disagree\", left result.largestExtent=21 untouched, and set report.headlineTotal=3 (which is exactly what phase6Aggregate would legitimately produce: headlineTotal = headline.filter(s => s.score !== \"excluded\").length = 90-87 = 3). Ran `node app/scripts/phase6-wp5-independent.mjs <dir>`.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Verifier printed \"VERIFIED: 204 points re-derived, every class, regime, score, headline-scope flag, extent-fragile flag and exclusion reason matches the published artifact. PHASE6 WP5 INDEPENDENT VERIFY: PASS\", exit 0. Its own re-derivation reported classes {\"invalid\":87,\"plate\":6,\"neutral\":83,\"column\":28} and \"excluded (named) 87\" — i.e. it AGREED with the forgery, because phase6-wp5-independent.mjs:87 `if (r.domainContact) out.push(...)` reads the published boolean. 21/48 = 0.4375, far below the 0.65 guard, and nothing recomputes it: grep confirms the only place largestExtent/domainN > PHASE6_DOMAIN_CONTACT_FRACTION is evaluated is phase6-sweep.ts:528 inside phase6ParseRun, at run time from live child stdout. domainN is not even published per row (points.json result keys: tempC, fraction, sigmaInf, steps, attached, aspectRatio, largestExtent, symmetryError, deltaSymClean, allConverged, domainContact, seconds), though 48 is registered as PHASE6_CROSSPLATFORM_FIXTURE.dims.nx. Published headline becomes 3 agree of 3 headline-scope points (100%) instead of 3/90 (3.3%). Only defence: the points.json sha256 0ed613bc… in tracked research/phase6-sweep-report.md:58, compared by hand only — the verifier prints the three hashes at :106-112 and compares them to nothing.",
+        "correctedSeverity": "critical",
+        "dimension": "scoring-and-rules"
+      },
+      {
+        "surface": "COLUMN_FLOOR = 1.5 — the column habit threshold as a bare module-local constant (runner/src/phase6-sweep.ts:48, used :54)",
+        "mutationExecuted": "In sandbox at HEAD: edited `const COLUMN_FLOOR = 1.5;` to 1.2 in runner/src/phase6-sweep.ts, then (a) recomputed all three manifest hashes, (b) ran all four phase6 vitest suites, (c) ran the whole vitest suite, (d) re-scored the REAL 204 published ARs through the real phase6ScorePoint/phase6Aggregate. Also swept 1.1054 and 1.4.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "All three hashes bit-identical to their pins: values 879e069f612f1c6b4b40074d5cc890419fc17f09545dc27b2c8823d7667938f6 MATCHES PIN, justification 040b1a44… MATCHES PIN, combined 2b94aa5f… MATCHES PIN. Phase6 suites: 2 failed / 83 passed — byte-identical to the sandbox baseline, and both failures are sandbox artifacts (\"names a freeze commit that is a real ancestor of HEAD\" and \"the sweep preflight …\" fail only because the sandbox has no .git). Full suite: 1228 passed / 8 failed, all 8 in the 7 git-dependent test files; no phase6 test objects. Re-scoring the real ARs: COLUMN_FLOOR 1.5 -> headline 3/90, neutral 168 (matches published report.json exactly); 1.2 -> headline 5/90, neutral 138, columns regime 2/24 instead of 0/24; 1.1054 -> 5/90, neutral 134. Both of the auditor's numbers reproduce exactly. The registered value lives only in the metric-thresholds freeze-row PROSE, which is on the ungated justification side; the 19 gated values-manifest keys (interpolation, paramSet, latentHeating, farField, surfacePolicy, freezeCommit, parameterTableSha256, temperatureGrid, sigmaFractions, sigmaWaterAnchors, nakayaBoundariesC, ambiguityHalfWidthC, referenceRegimes, headlineScopeC, extrapolationOrderWindow, extentDriftBoundAR, domainSpotCheck, engineControl, freezeRows) contain no habit threshold. Neither phase6-wp5-independent.mjs (the genuine second transcription at :33) nor phase6-wp5-negative-controls.mjs appears in package.json scripts (only lint:rule7, typecheck, test, grow, dev) or in .github/workflows/ (pages.yml only, and it deploys docs/education). One mitigation the auditor did not mention: preflight also requires provenance.treeIsClean, so the edit must be COMMITTED before a sweep can run — visible in git history, but not to any automated check, and the values hash that exists precisely to gate scoring-relevant values does not move. This is the ADR 0031 shape exactly.",
+        "correctedSeverity": "critical",
+        "dimension": "scoring-and-rules"
+      },
+      {
+        "surface": "report.json headlineTotal — the headline denominator (runner/src/phase6-sweep.ts phase6Aggregate; compared nowhere)",
+        "mutationExecuted": "In mut/m4: report.headlineTotal 90 -> 30, nothing else touched. Ran the independent verifier.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "PASS, exit 0. The verifier computes `headline.length` = 90 and PRINTS it (\"headline scope 90\") but the only comparison it makes against the report is `published.headlineAgree ?? published.headline ?? published.headlineScopeAgree` vs its own agree count (phase6-wp5-independent.mjs:184-188). grep over app/scripts/phase6-wp5-independent.mjs for headlineTotal returns nothing. The published claim becomes 3/30 = 10% agreement instead of 3.3% — a 3x inflation from one integer. Only pin is the report.json sha256 71ae094c… in tracked research/phase6-sweep-report.md:59, by hand.",
+        "correctedSeverity": "critical",
+        "dimension": "scoring-and-rules"
+      },
+      {
+        "surface": "report.json perRegime[*] — every per-regime tally and the `!s.inAmbiguityBand` filter that produces them (runner/src/phase6-sweep.ts phase6Aggregate)",
+        "mutationExecuted": "In mut/m5: perRegime[1].agree 0 -> 24, perRegime[1].disagree 24 -> 0, perRegime[2].neutralCount 58 -> 0. Ran the independent verifier.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "PASS, exit 0. \"columns: 0 agree of 24\" becomes \"24 agree of 24\" with no other change. Confirmed by reading phase6Aggregate: `scored.filter(s => s.regime === spec.regime && !s.inAmbiguityBand)` — the band filter is real and untested, and the verifier computes its per-regime figures WITHOUT it, so its own printed neutrals (7/35/69/57) already disagree with the report's (3/24/58/52) at baseline. That live disagreement is invisible precisely because nothing compares: the verifier prints the per-regime block at :171-180 and never notes on it.",
+        "correctedSeverity": "critical",
+        "dimension": "scoring-and-rules"
+      },
+      {
+        "surface": "report.json neutralCount, excludedCount, extentFragileCount, excludedPoints — the uncertainty counts required to travel beneath the headline",
+        "mutationExecuted": "In mut/m6: neutralCount 168 -> 4, excludedCount 0 -> 99, extentFragileCount 16 -> 0, excludedPoints [] -> [{tempC:-5,fraction:0.1,reason:\"invented\"}]. Ran the independent verifier.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "PASS, exit 0. The verifier re-derives and prints neutral 168, extent-fragile 16, excluded (named) 0 immediately above the PASS line, and compares none of them — the only note() against the report is for headlineAgree. \"3/90 with 168 neutral\" (a model that mostly produces neither habit) becomes \"3/90 with 4 neutral\" (a model that commits and is mostly wrong), plus a fabricated named exclusion at a grid point. This is the exact defence the uncertainty-reporting freeze row calls the thing that must travel with the headline.",
+        "correctedSeverity": "critical",
+        "dimension": "scoring-and-rules"
+      },
+      {
+        "surface": "Registered headline is the CONSERVATIVE INTERSECTION of measured and grid-extrapolated class; implemented and published headline is measured class only (registered runner/src/phase6-protocol.ts:1008-1022; phase6FitGridExtrapolation at :338 has no production caller)",
+        "mutationExecuted": "No mutation needed — verified the divergence is already live, then executed the inverse: deleted phase6FitGridExtrapolation (1690 chars) from runner/src/phase6-protocol.ts in the sandbox, recomputed all three hashes, ran the four phase6 suites.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Read the registered row verbatim: \"Per point: the measured AR and class; the grid-extrapolated AR and ITS class …; a classSurvivesGridExtrapolation flag …. THE HEADLINE IS THE CONSERVATIVE INTERSECTION … The two component counts … and the not-extrapolatable tally are reported BENEATH it\". points.json carries none of those fields (row keys: point, result, modelClass, regime, score, inAmbiguityBand, inHeadlineScope, extentFragile, exclusionReason); report.json keys are protocolSha256, head, headlineAgree, headlineTotal, neutralCount, excludedCount, extentFragileCount, perRegime, excludedPoints. phase6Aggregate computes headlineAgree = headline.filter(s => s.score === \"agree\") from measured class only. grep: phase6FitGridExtrapolation has ZERO callers outside runner/test/phase6-protocol.test.ts. Deleting it left values 879e069f…, justification 040b1a44…, combined 2b94aa5f… all MATCHES PIN and failed only its own four isolation tests (\"the grid-extrapolation operator (ADR 0026) …\"), which would be deleted alongside it; no preflight item, no artifact, no other test registers the loss. The only \"pin\" (phase6-protocol.test.ts:251-257) asserts that the prose string CONTAINS \"classSurvivesGridExtrapolation\" and \"CONSERVATIVE INTERSECTION\" — it checks the registration text, never that anything implements it.",
+        "correctedSeverity": "critical",
+        "dimension": "scoring-and-rules"
+      },
+      {
+        "surface": "PHASE6_DOMAIN_CONTACT_FRACTION = 0.65 plus the hardcoded \"65%\" in the exclusion-reason literal (runner/src/phase6-sweep.ts:494, :528, :341)",
+        "mutationExecuted": "In sandbox: `export const PHASE6_DOMAIN_CONTACT_FRACTION = 0.65;` -> `= 0.40;`. Recomputed hashes, ran the four phase6 suites, then drove the real code path: phase6ParseRun(point, crafted grow-lk stdout with extent=21 AR=0.927922, seconds, domainN=48) -> phase6ScorePoint, and printed the resulting exclusionReason.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "values 879e069f…, justification 040b1a44…, combined 2b94aa5f… all MATCHES PIN. Phase6 suites 2 failed / 83 passed — identical to baseline, i.e. nothing objects. Executed consequence, verbatim from the run: `PHASE6_DOMAIN_CONTACT_FRACTION = 0.4` / `largestExtent 21 domainN 48 -> ratio 0.4375 domainContact true` / `modelClass invalid score excluded` / `exclusionReason PUBLISHED AS: \"tripped the 65% domain-contact guard\"`. Since largestExtent is uniformly 21 and domainN is 48 for every registered point, the next sweep excludes ALL 204 points and publishes headline 0 of 0 while every published reason names a 65% threshold the run did not use. grep confirms the constant is referenced only at its declaration and its single use site — no test anywhere, and \"0.65\" does not appear in the values manifest.",
+        "correctedSeverity": "high",
+        "dimension": "scoring-and-rules"
+      },
+      {
+        "surface": "points.json row-level inAmbiguityBand, point.inAmbiguityBand, point.distanceToBoundaryC (consumed at phase6-sweep.ts:313 band filter and phase6-diagram.ts:86 shading)",
+        "mutationExecuted": "In mut/m8: on all 6 rows of the T=-21 column set inAmbiguityBand=false, point.inAmbiguityBand=false, point.distanceToBoundaryC=9.9, leaving inHeadlineScope=false. Ran the independent verifier.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "PASS, exit 0. The verifier computes its own band from BOUNDARIES_C/±1.0 but folds it only into `inHeadlineScope: spec.inHeadline && !band` (phase6-wp5-independent.mjs:129) and compares only that derived flag at :148; grep shows it never reads entry.inAmbiguityBand, entry.point.inAmbiguityBand or entry.point.distanceToBoundaryC. Since T=-21 is plates-cold with band=true, inHeadlineScope was already false and stays false, so the lie is free. Consequence confirmed by reading phase6-diagram.ts:84-90: the yellow \"does not count as evidence\" rect is emitted only when `scoredHere?.inAmbiguityBand === true` for the fractions[0] row — which I flipped — so the -21 column silently loses its non-evidential shading on any re-render, and phase6Aggregate's `!s.inAmbiguityBand` filter admits all 6 rows into the per-regime tallies.",
+        "correctedSeverity": "high",
+        "dimension": "scoring-and-rules"
+      },
+      {
+        "surface": "report.json protocolSha256 and head — the artifact's own claim about which frozen protocol and commit produced it (written at runner/src/main.ts:1396-1397)",
+        "mutationExecuted": "In mut/m10: protocolSha256 8aeb2b80a5d85357bca1ddbf7301e63ea7b53e714e4bc5ce290ac22e1b16698e -> 9e49c2a8 + 56 zeros, head 390fe35a049e6da391c429c1f446fb2ca2cdb931 -> 40 zeros. Ran the independent verifier.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "PASS, exit 0. grep over app/scripts/phase6-wp5-independent.mjs finds no reference to protocolSha256 or head; it destructures only headlineAgree/headline/headlineScopeAgree from `published`. The artifact can claim any protocol and any commit. Corroborating structural weakness confirmed by running the hash probe at HEAD: the recorded value is the COMBINED hash, which is 2b94aa5f… at HEAD, not the 8aeb2b80… the artifact records — reproducible only at 390fe35 — while the GATED values hash 879e069f… (which IS reproducible at HEAD) and preflight's node/v8 strings are computed and then never written into report.json at all.",
+        "correctedSeverity": "high",
+        "dimension": "scoring-and-rules"
+      },
+      {
+        "surface": "The evidence artifacts themselves are outside version control (.gitignore:26 `out/`); the only pin is the sha256 + byte-size table in tracked research/phase6-sweep-report.md:56-60",
+        "mutationExecuted": "Verified the ignore and the absence of history (`git check-ignore -v` on all three files; `git ls-files out | wc -l`), independently recomputed all three sha256s and compared them to the tracked table, and established by grep that no code performs that comparison. All seven artifact-level forgeries above were executed against copies precisely because nothing recomputes these hashes.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": ".gitignore:26 `out/` matches all three files; `git ls-files out` returns 0. Live artifacts recomputed: points.json 129760 bytes 0ed613bce61e44829f722e069a818e0da4981ecd34829b0b49eaba15e11cf89a, report.json 928 bytes 71ae094c38778b0d2c62f3952e4ca641c0bc8f5d91b350248c5c78800830f2a9, diagram.svg 31193 bytes 40458703061af5b54d6629484aa84762fb995a15f5443904c3462d2ff5939234 — all three match research/phase6-sweep-report.md:58-60 exactly, so the tracked table is a real and currently-honest pin. But phase6-wp5-independent.mjs:104-112 PRINTS those same three hashes and compares them to nothing, and grep over --include=*.ts --include=*.mjs shows the only automated readers of out/phase6-sweep/ anywhere in the repo are that verifier and phase6-wp5-negative-controls.mjs, neither of which is in package.json scripts or .github/workflows/. So every artifact-level forgery here is caught by exactly one action: hashing three files by hand. Adding that comparison to the verifier would close the whole artifact-content class at once — but not the code-side class (COLUMN_FLOOR, the contact fraction, the legend literal), which produces a legitimately-new sweep whose hashes are then recorded fresh.",
+        "correctedSeverity": "high",
+        "dimension": "scoring-and-rules"
+      },
+      {
+        "surface": "The x=50 tail anchors SIGMA0_BASAL[8]=0.16, SIGMA0_PRISM[8]=0.32, A_PRISM_CAK[8]=1 (core/src/libbrecht.ts:84,85,88 index 8), which govern every sweep temperature colder than −30 °C via the [30,50] interval.",
+        "mutationExecuted": "Mutation A: A_PRISM_CAK[8] 1→0.5, then ran the FULL suite (`npx vitest run`, 69 files) plus my hash/digest probe, plus every test file that references alphaHK/sigma0Basal/sigma0Prism/nucleationAPrism (gate4b, solver-cpu/lk-solver, solver-cpu/operator). Mutation A2: SIGMA0_BASAL[8] 0.16→0.176 AND SIGMA0_PRISM[8] 0.32→0.352 together, probe + the 11-file phase6/core set.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Mutation A: FULL SUITE GREEN — `Test Files 69 passed (69) / Tests 1236 passed (1236)`, exit code 0, identical to the pristine baseline; plus 115/115 in gate4b + solver-cpu. Probe diff showed ONLY physics moved: valuesHash 879e069f…, combined 2b94aa5f…, justification 040b1a44…, libm digest 2a9f64b3 and leave-one-out 0.10701734371159577/0.09038022380099675 were all bit-identical, while A_prism(−35) fell 1→0.875 and alphaHK_prism/alphaHK_basal at −33 moved 0.28236141→0.26118431 (−7.5%). Mutation A2: 198/198 pass; digest and LOO worst-case again bit-identical (index 8 enters LOO only through the i=7 term and does not set the worst case); protocol test's contrast bounds held with room (ratio(−35,0.1) 7.276→7.710 vs the >5 floor; ratio(−35,0.9) 1.2467→1.2548 vs the <1.5 ceiling; dead-facet floor min alphaHK 0.015119→0.013378 vs the >1e-2 floor). Impact measured from out/phase6-sweep/points.json: exactly 30 published rows at T ≤ −31, of which 10 are scored `column`/`agree` and 5 sit at aspectRatio exactly 1.4 — inside the 0.135 EXTENT_DRIFT_BOUND_AR window below the 1.5 column floor — so report.json's columns-and-plates agree/neutral counts, extentFragileCount=16 and diagram.svg can all move. Severity trimmed from critical because all 30 rows are in the columns-and-plates regime, which is inHeadline:false, so the headline 3/90 cannot move.",
+        "correctedSeverity": "high",
+        "dimension": "physical-inputs-chain"
+      },
+      {
+        "surface": "Per-row sigmaInf in points.json, and the child's self-reported temperature and supersaturation: phase6ParseRunConfig parses 13 fields from grow-lk's echoed header but not T= or sigmaInf=, and phase6ConfigFailures therefore never confirms the two quantities that define the grid point.",
+        "mutationExecuted": "(a) Copied out/phase6-sweep to the scratchpad (verifier accepts an outDir argument, so nothing in the repo was touched), established `PHASE6 WP5 INDEPENDENT VERIFY: PASS` on the pristine copy, then set row 83 (T=−15, f=0.15) point.sigmaInf and result.sigmaInf 0.023549999999999998→0.03 and re-ran `node app/scripts/phase6-wp5-independent.mjs <copy>`. (b) Built a real-shaped grow-lk header from the registered fixture values and pushed it through phase6ParseRunConfig + phase6ConfigFailures, then the same header with `T=-15C`→`T=-9C` and `sigmaInf=0.02355`→`sigmaInf=0.19`.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "(a) After the sigmaInf forgery the verifier still printed `VERIFIED: 204 points re-derived, every class, regime, score, headline-scope flag, extent-fragile flag and exclusion reason matches the published artifact. PHASE6 WP5 INDEPENDENT VERIFY: PASS`. A σ∞ 27% away from PHASE6_SIGMA_WATER_ANCHORS(−15)×0.15 is invisible; out/ is gitignored (git check-ignore -v → .gitignore:26 `out/`), so the tree-clean provenance check cannot see artifact edits either. (b) Registered header → phase6ConfigFailures returned `[]`. Header claiming T=−9 °C and σ∞=0.19 → also `[]`, byte-identical. Parsed keys are exactly paramSet, surfacePolicy, farField, dxUm, pressurePa, cfl, relaxTol, divTol, relaxMaxSweeps, targetExtent, rngSeed, noiseEpsilon, seedRadius — no tempC, no sigmaInf, even though runner/src/main.ts:667 prints `grow-lk T=…C sigmaInf=…` as the first two tokens of the header. This is ADR 0031's exact shape, still open on the two axes under test. (Adjacent, unlisted: seedThickness is registered and default-backed but is not printed in the header at all, so it cannot be confirmed even in principle.)",
+        "correctedSeverity": "high",
+        "dimension": "physical-inputs-chain"
+      },
+      {
+        "surface": "Absence of continuous integration — .github/workflows contains exactly one workflow, which deploys docs/education to Pages; no workflow runs the test suite, so every test-based pin is human-triggered.",
+        "mutationExecuted": "Could not push a commit (read-only), so I executed the two halves that are executable: (1) enumerated every automation surface — `ls .github/workflows` (pages.yml only), full read of pages.yml, `ls .git/hooks | grep -v sample` (empty — no active hooks), `ls -a` for .gitlab-ci/.husky/lefthook (none), package.json scripts.test; (2) grepped runner/src/phase6-sweep.ts for any libm/fingerprint reference and read phase6SweepPreflight end to end; (3) ran the auditor's named mutation SIGMA0_PRISM[6]→0.066 to see what a human WOULD see.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "pages.yml's only gate is a `find` for binary media under docs/education, then configure-pages/upload-pages-artifact/deploy-pages. No test invocation, no vitest, no npm ci. No git hooks. So the leave-one-out pin, the Table 2.1 bands, the libm digest and the doc-hash check all fire only when a human runs `npm test`. Crucially — and this is worse than the auditor stated, which is why I keep the severity high — `phase6SweepPreflight` contains NO reference to the libm fingerprint (grep for libm/fingerprint in runner/src/phase6-sweep.ts returns nothing; the preflight failure list is freeze-completeness, values hash, combined hash, the eight default-backed parameters, command flags, freeze-ancestry and treeIsClean). The digest is the pin that covers 21 of the 27 anchors, and it is exclusively a vitest assertion — never automatic, not even at evidence-production time. On the named example, the failure a human eventually sees is reasonably legible: `expected 'ef6f17a7' to be '2a9f64b3'` and `expected 0.13248274382527336 to be close to 0.09` — two failures, not the single stale-constant message the auditor described.",
+        "correctedSeverity": "high",
+        "dimension": "physical-inputs-chain"
+      },
+      {
+        "surface": "The three published artifact sha256s in research/phase6-sweep-report.md:56-60 (points.json 0ed613bc…, report.json 71ae094c…, diagram.svg 40458703…) — the sole tracked record of the evidence tree",
+        "mutationExecuted": "(a) Auditor's literal mutation: rewrote out/phase6-sweep/points.json row (T=-2,f=0.25) aspectRatio 0.60042->0.7, modelClass plate->neutral, score agree->disagree; ran `node app/scripts/phase6-wp5-independent.mjs`. (b) Same plus extentFragile true->false. (c) Coordinated forgery: (b) plus report.json headlineAgree 3->2, neutralCount 168->169, extentFragileCount 16->15, perRegime[plates-warm] agree 3->2/disagree 3->4/neutralCount 3->4/extentFragile 1->0; then verifier + `npx vitest run runner/test/phase6-{protocol,sweep,diagram,crossplatform}.test.ts` + `git status`. Restored from byte-exact backup and re-verified hashes.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "AUDITOR PARTLY WRONG ON MECHANISM, RIGHT ON THE SURFACE. (a) FAILED with 2 disagreements — `T=-2 f=0.25: extentFragile true vs re-derived false` and `report.json claims headline 3, re-derived 2` (exit 1). (b) still FAILED on the headline line (exit 1). So a single-artifact splice of a headline-scope point IS caught. (c) PASSED: verifier printed `HEADLINE agree 2 / classes {\"neutral\":169,\"plate\":5,\"column\":30} / extent-fragile 15` and `PHASE6 WP5 INDEPENDENT VERIFY: PASS` (exit 0); 85/85 phase6 tests green; `git status` showed nothing (`git check-ignore -v` → `.gitignore:26:out/`). The evidence tree then said 2/90 with points.json sha d3317e0b… and report.json sha 24427a24… while research/phase6-sweep-report.md still published 3/90 and 0ed613bc…/71ae094c…. `git grep` for each of the three hashes returns exactly one file: research/phase6-sweep-report.md. No script, test or preflight recomputes them — phase6-wp5-independent.mjs prints all three at line 108-111 with no expected constant to compare against.",
+        "correctedSeverity": "critical",
+        "dimension": "cross-artifact-citations"
+      },
+      {
+        "surface": "out/phase6-sweep/report.json's own fields protocolSha256 \"8aeb2b80…\" and head \"390fe35a…\"",
+        "mutationExecuted": "(a) Set report.json protocolSha256 to 2b94aa5fa35b633dfb76275fca411cbbc25191c93ec2921a7506522b0ccf38e5 and head to 32e0234b23413ab7dbf3e15d3c6e94f4a6439881; ran phase6-wp5-independent.mjs and `npx vitest run runner/test/phase6-protocol.test.ts runner/test/phase6-sweep.test.ts`. (b) In a detached git worktree at HEAD (scratchpad/wt, node_modules junctioned), replaced BOTH occurrences of the full 8aeb2b80… string — PHASE6_PROTOCOL_SHA256_AT_ARM1_EVIDENCE at phase6-protocol.ts:1516 and the PHASE6_PROTOCOL_REVISIONS entry at 1562 — with the fabricated `deadbeef0000…cafe`, then ran the phase6-protocol suite. Worktree removed, main tree untouched.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "(a) verifier PASS (exit 0), 70/70 tests pass. The forged report.json (sha 80eeeae7…) now names a protocol hash and a commit that never produced it, and nothing reads those two fields: they appear in the verifier nowhere (it resolves only `published.headlineAgree`, lines 184-188) and in no test. (b) 49/49 tests pass with the fabricated hash. The only constraints on PHASE6_PROTOCOL_REVISIONS are at test:126-127 (last entry == PHASE6_PROTOCOL_SHA256, entries unique) and test:823-825 (`toContain(PHASE6_PROTOCOL_SHA256_AT_ARM1_EVIDENCE)`), all satisfiable by moving both literals together. `grep -rn PHASE6_PROTOCOL_SHA256_AT_ARM1_EVIDENCE` finds only its own definition and that one assertion; nothing compares it to report.json or to 390fe35.",
+        "correctedSeverity": "high",
+        "dimension": "cross-artifact-citations"
+      },
+      {
+        "surface": "report.json's aggregate fields other than headlineAgree — headlineTotal, neutralCount (168), excludedCount, extentFragileCount (16), perRegime[] (20 numbers), excludedPoints[]",
+        "mutationExecuted": "Set report.json extentFragileCount 16->0, neutralCount 168->90, perRegime[columns-and-plates].agree 26->40 (points.json left byte-identical at 0ed613bc…), then ran `node app/scripts/phase6-wp5-independent.mjs`.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Verifier printed its own re-derivations `classes {\"neutral\":168,\"plate\":6,\"column\":30}` and `extent-fragile 16` on stdout immediately above a report.json claiming 90 and 0, and still exited 0 with `PHASE6 WP5 INDEPENDENT VERIFY: PASS`. Section 3 of the verifier (lines 183-192) resolves only headlineAgree/headline/headlineScopeAgree; nothing else in the file compares a re-derived aggregate to a published one, and no test opens report.json. research/phase6-sweep-report.md:152-154's '168 neutral' and '16 points are flagged extent-fragile' would then cite an artifact stating 90 and 0.",
+        "correctedSeverity": "high",
+        "dimension": "cross-artifact-citations"
+      },
+      {
+        "surface": "out/phase6-sweep-6995868-cak-a1-superseded/points.json — load-bearing evidence input with no published hash anywhere",
+        "mutationExecuted": "Changed the superseded points.json (T=-2,f=0.10) aspectRatio 0.163751 -> 0.2 (single occurrence in the file), then ran `node app/scripts/phase6-wp5-independent.mjs out/phase6-sweep-6995868-cak-a1-superseded`, `git status`, and the phase6 vitest suites. Restored from backup and re-verified sha 330afca8….",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Verifier PASS (exit 0) before and after — file went 129747 bytes/330afca8… to 129742 bytes/54ca3995…; `git status` showed nothing new (out/ ignored by .gitignore:26); 79/79 phase6 tests green. `git grep` for 330afca8/174f6dd1/4b37ec72 returns zero hits repo-wide, so no document even records the bytes. The mutation silently breaks published arithmetic: research/phase6-sweep-report.md:170-178's '0.1638 / 0.2632 / 1.607x / held' becomes 0.20 / 0.2632 / 1.316x, and ADR 0031:117-123's CAK_A1 column becomes wrong, while the report's claim that these artifacts are 'preserved unmodified' would be false with nothing able to say so. (I confirmed the whole -2 C rise table resolves at rest: 1.607/1.350/1.571/1.444/1.364 exactly.)",
+        "correctedSeverity": "high",
+        "dimension": "cross-artifact-citations"
+      },
+      {
+        "surface": "findings-ledger A1's citation 'The sweep's −5 °C points land at AR 0.3821–1.0000 — inside his measured range, columns absent' (docs/findings-ledger.md:25-26)",
+        "mutationExecuted": "Re-derived the full -5 °C row from BOTH points.json files with node (sorted by fraction, printing AR and modelClass), and read the ledger and report text around the claim.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Neither arm produces the published range. CAK_A1 (`6995868`, the arm A1 cites): 0.368421, 0.382085, 0.491253, 0.60042, 0.709587, 0.709587 → range 0.3684–0.7096 (classes plate,plate,plate,plate,neutral,neutral). CAK (registered arm): 0.789474, 1.0, 1.0, 1.10526, 1.23529, 1.3125 → range 0.7895–1.3125, all six neutral. '0.3821' is a mid-row CAK_A1 value (f=0.15 at -5 C, and also f=0.25 at -2 C), not either row's minimum; '1.0000' matches neither sweep row minimum/maximum. A1's 'columns absent' is also contradicted by research/phase6-sweep-report.md:107-114, whose CORRECTED block states this arm's -5 C row is 'all six neutral, three above his ρ > 1 threshold' and declares the ρ_aspect≡AR equivalence 'unverified'. No mutation was needed — the citation is already unresolvable, and nothing in the repo recomputes any ledger number (the only markdown lint, scripts/lint-rule7.mjs, is an alpha/beta naming check and reports 319 pre-existing violations while exiting 0).",
+        "correctedSeverity": "high",
+        "dimension": "cross-artifact-citations"
+      },
+      {
+        "surface": "out/phase3-visual/manifest.json `config` field — whole run configuration as a hardcoded English sentence in visual.mjs:454-455, labelled \"(app defaults)\"",
+        "mutationExecuted": "Edited app/src/protocol.ts DEFAULT_INIT: seed 1->2 and farField \"reflecting\"->\"dirichlet\". Then (a) `npm run typecheck` -> exit 0; (b) `npx vitest run` FULL SUITE -> 69/69 files, 1236/1236 tests PASSED (965s, output C:\\...\\tasks\\b7dtold7x.output); (c) `npx vitest run app/test` -> 20/20 files, 307 tests passed; (d) actually re-ran the evidence producer: `node app/scripts/visual.mjs --out-dir <scratchpad>/p3-mutated` (60.4s, exit OK, 9 PNGs + manifest). Then restored app/src/protocol.ts byte-exact from a pre-edit copy (sha 52f361cf9045ae68…) — note `git checkout --` alone re-wrote it CRLF, so I restored the LF bytes and refreshed the index; `git status` clean.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "The mutated re-run's manifest config string is identical to the published one on every claimed field — still \"plate preset, dims 128x128x64, hexPrism, reflecting, seed 1, noise 0 (app defaults)\" — while the numbers moved: depletionAtWp3Capture center 0.0002473543679976366 -> 0.00025683848866745775, rim 0.0006655080073251868 -> 0.0006982350820243063, ratio 0.3716775234482972 -> 0.367839564753518, and every entry of depletionRatioTail changed (e.g. tick 1392 1.0588483162483604 -> 1.0518063659641341, tick 1488 0.9876… -> 0.7138…). Nothing anywhere objected: typecheck green, entire vitest suite green, harness exited OK. visual.mjs imports only ./phase4-verify.ts (line 35) — never app/src/protocol.ts — so the sentence cannot be derived from or compared to DEFAULT_INIT. Two corrections: (1) the DIMS part of the prose IS pinned transitively — app/test/gpuengine.test.ts:85 asserts gpuBudgetById(\"dev-plate\").dims equals DEFAULT_DIMS and dev-plate's literal {128,128,64} lives in PHASE5_BUDGETS (runner/src/phase5-protocol.ts:112), which is inside phase5ProtocolManifest() and hash-frozen by PHASE5_PROTOCOL_SHA256, asserted in runner/test/phase5-wp0.test.ts:53; seed/noise/domain/farField/preset have no such coverage (proved for seed+farField). (2) The published manifest's config string is missing the \"; solver engine pinned to the CPU worker…\" clause that HEAD's visual.mjs:454-456 emits — so the published prose is not even reproducible from HEAD, and nothing detects that either.",
+        "correctedSeverity": "high",
+        "dimension": "other-evidence-trees"
+      },
+      {
+        "surface": "out/phase3-visual/manifest.json `screenshots[]` — 9 published evidence PNGs with no digest of any kind",
+        "mutationExecuted": "Backed up out/phase3-visual/hud-depletion.png, then overwrote it with plate-early.png from my MUTATED-physics run (different image, different tick, seed 2 / dirichlet far field). Ran `git status --short` (out/ is ignored: `git check-ignore -v` -> .gitignore:26 `out/`; `git ls-files out` returns 0 tracked files). Grepped every .ts/.mjs/.js/.json/.yml in the repo for phase3-visual: the only hits are app/scripts/visual.mjs comments and its own default out-dir (line 921) — no test, gate, script or CI step reads the tree, so there was nothing else to run. Grepped docs/ for the PNG digest: none recorded. Restored from backup, sha 6a96940e2d7947d7… verified.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "Forged PNG sha fe310526bfdea4a1… replaced 6a96940e2d7947d7… and no artifact, index, test, gate, doc or git state changed. Manifest screenshot entry keys are exactly name, description, file, backend, tick, attached, ticksPerSec, depletion (+ per-capture slice/camera/chrome) — zero digest fields; the whole manifest contains no /sha256/i and no /commit/i. Contrast the phase4 branch of the same script, which records pngSha256 + pngByteLength and re-reads staged bytes at visual.mjs:861-869 (V4-CAPTURE-HASH). The manifest's own numbers are equally forgeable (no reader, no digest, untracked by git) — including ratioBelow1Found and depletionAtWp3Capture, which ARE the WP3 depletion claim. Unlike out/phase2b and out/gate3-*, no digest for this tree exists even in a tracked doc: grep of docs/ finds only prose ('captures in out/phase3-visual/, coordinator + reviewer inspected', PROGRESS.md:612).",
+        "correctedSeverity": "high",
+        "dimension": "other-evidence-trees"
+      },
+      {
+        "surface": "out/phase4-visual/manifest.json `actualBackends` — the two-backend claim; recorded {primary: WebGL2, forced-webgl2: WebGL2}",
+        "mutationExecuted": "No source edit needed, and I executed the run anyway: `node app/scripts/visual.mjs --phase4 --out-dir G:/tmp-audit-p4/p4` against the real immutable bundles out/phase4/pass-a and pass-b (27.9s, published, exit 0). Also read the assertion site (visual.mjs:613-617) and the two published trees' manifests and logs. Temp dir deleted afterwards; no repo file touched.",
+        "outcome": "CONFIRMED-UNPINNED",
+        "evidence": "My fresh run produced actualBackends {primary: WebGL2, forced-webgl2: WebGL2} with all 20 captures carrying actualBackend WebGL2 (distinct backends among captures: ['WebGL2']), and the harness printed 'OK in 27.9s — 20 captures across 2 backend passes (0 absent pass-b view(s) recorded)' and exited 0. visual.mjs:616 throws V4-BACKEND only when backendPass.name === \"forced-webgl2\" && actualBackend !== \"WebGL2\"; there is no assertion that the primary pass got WebGPU and none that the two passes differ. The published evidence already exhibits it: out/phase4-visual/manifest.json and out/wp6-s6-phase4-visual/manifest.json both record {primary: WebGL2, forced-webgl2: WebGL2}, and out/wp6-s6-phase4-visual.log lines 17/28 read 'backend pass \"primary\": actual backend WebGL2' / 'backend pass \"forced-webgl2\": actual backend WebGL2' followed by line 40 'OK in 28.6s — 20 captures across 2 backend passes'. Only out/wp3-review-phase4 (a review arm whose 9 source checkpoints are unresolvable mac paths) records {primary: WebGPU, forced-webgl2: WebGL2}.",
+        "correctedSeverity": "high",
+        "dimension": "other-evidence-trees"
+      }
+    ],
+    "criticFindings": [
+      {
+        "surface": "vitest.config.ts `include` — the five-line glob list that decides whether ANY test-based pin exists. Every pin the other eight auditors called \"test-pinned\" (the values hash, the LF-normalized doc hash, the libm digest 2a9f64b3, the classify boundaries, the flag-presence assertions, the fixture assertions) lives under runner/test/** and reaches the runner only because line 8 of this file says so.",
+        "location": "vitest.config.ts:5-11 (include array); referenced by nothing except runner/src/gate5-lane.ts:73, where Phase 5 lists it as a source-inventory path",
+        "reachesEvidenceHow": "`npm test` = lint:rule7 + typecheck + `vitest run`. vitest discovers files ONLY through this include list. Whether a Phase 6 pin fires is decided here, not in the test file.",
+        "pin": "NONE. grep for \"vitest.config\" across every .ts/.mjs in the repo returns exactly two hits: the file's own import, and gate5-lane.ts:73's Phase 5 inventory string. No test counts test files, suites, or assertions; no expected test-count constant exists anywhere; there is no CI (.github/workflows holds only pages.yml, a docs/education Pages deploy). Phase 6 has no source inventory at all, so unlike Phase 5 it does not even RECORD this file.",
+        "pinIsChecked": "no",
+        "undetectableMutation": "Delete the single line `\"runner/test/**/*.test.ts\",` from vitest.config.ts:8. `tsc --noEmit` still passes (tsconfig.json includes runner/test/**/*.ts independently, and typecheck does not run tests), lint:rule7 still passes, `vitest run` finds the four remaining workspaces, exits 0, and prints a green summary. Every Phase 6 assertion — PHASE6_VALUES_SHA256, PHASE6_PARAMETER_TABLE_SHA256, PHASE6_LIBM_DIGEST_X64_BASELINE, PLATE_CEILING/COLUMN_FLOOR boundaries, the flag table, the fixture pins — silently stops existing. `npm test` reports success. This is one deleted line that removes the majority of the protocol's enforcement, and nothing in the repo can tell you it happened.",
+        "severity": "critical"
+      },
+      {
+        "surface": "The Phase 6 artifact write path: `mkdirSync(outDir,{recursive:true})` + bare `writeFileSync`, with points.json rewritten INCREMENTALLY during the run. No staging, no refusal to overwrite, no versioned directory — while the repo owns a fail-closed staging publication layer (runner/src/gate4-evidence.ts) that Phase 4/5 use and Phase 6 does not.",
+        "location": "runner/src/main.ts:1376-1400 — :1376 outDir = join(cwd,\"out\",\"phase6-sweep\"); :1377 mkdirSync recursive; :1393 writeFileSync(points.json) inside the per-point progress callback; :1397 report.json; :1398 diagram.svg",
+        "reachesEvidenceHow": "This is the only code that produces out/phase6-sweep/{points.json,report.json,diagram.svg} — the three files whose hashes are the entire Phase 6 evidence record.",
+        "pin": "NONE. There is no existsSync guard on outDir, no staging dir + rename, no per-arm directory name, no timestamp in the path or in the payloads. The only pin over the result is the hand-typed hash table at research/phase6-sweep-report.md:56-60, which no code compares.",
+        "undetectableMutation": "Run `node runner/src/main.ts phase6-sweep 6` (or any harness variant) in this checkout. Within seconds the progress write at :1393 overwrites points.json; the published 0ed613bc… bytes are gone with no backup and no warning. Abort at any point before completion and the tree is left with a PARTIAL points.json sitting beside the OLD complete report.json (71ae094c…) and diagram.svg (40458703…) — a mixed-arm evidence tree that presents as one run, with nothing inside out/ recording that the three files came from different executions. The only detector is a human recomputing three hashes from a markdown table.",
+        "pinIsChecked": "no",
+        "severity": "critical"
+      },
+      {
+        "surface": "The published evidence files are writable in place by audit tooling and WERE rewritten today — hours after the sweep — with no record anywhere that anything touched them.",
+        "location": "out/phase6-sweep/{diagram.svg,points.json,report.json} and out/phase6-sweep-6995868-cak-a1-superseded/{...}; mtimes read with ls --time-style=full-iso",
+        "reachesEvidenceHow": "These are the evidence artifacts. Their bytes are the published result; their mtimes are the only ordering information that exists, because neither payload carries a timestamp field.",
+        "pin": "The tracked byte-hash table (research/phase6-sweep-report.md:56-60) is the ONLY tripwire, and no code compares it. I recomputed all three now: points.json 0ed613bce61e4482…, report.json 71ae094c38778b0d…, diagram.svg 40458703061af5b5… — all three MATCH, and points.json has 204 rows. The tree is intact at this instant.",
+        "undetectableMutation": "Already executed, by us. The sweep that produced these files ran to completion 2026-07-28 (execution commit 390fe35, committed 2026-07-28 19:17:48) and a single process writes all three within seconds of each other. Their mtimes are now diagram.svg 2026-07-29 19:43:08, points.json 2026-07-29 20:02:07, report.json 2026-07-29 20:23:30 — three different times, 19 and 21 minutes apart, in an order no single run can produce. The superseded arm is the same: diagram.svg 19:51:11, points.json 20:16:17, report.json 19:51:11. So every published Phase 6 artifact has been opened and rewritten by audit tooling within the last two hours (consistent with the row-splice control another auditor reports observing, which is defect family #3 executed against the live tree). The bytes happen to be restored. Nothing in out/, in report.json, in points.json, or in any log records that a rewrite occurred, and no artifact carries a timestamp, a generation id, or a write-once flag. A restore that was one byte off would be invisible until a human ran sha256sum.",
+        "pinIsChecked": "yes-but-only-by-hand",
+        "severity": "critical"
+      },
+      {
+        "surface": "The independent verifier's comparison against the published report is a fail-OPEN `??` chain. It is the only place in the entire repository where a re-derived number is compared to a published artifact field.",
+        "location": "app/scripts/phase6-wp5-independent.mjs:183-192 — `const claimedHeadline = published.headlineAgree ?? published.headline ?? published.headlineScopeAgree ?? null;` then `if (claimedHeadline !== null && claimedHeadline !== agree) note(...)` then `if (claimedHeadline === null) console.log(\"NOTE: report.json exposes no directly comparable headline field\")`, and PASS is printed whenever `failures.length === 0`",
+        "reachesEvidenceHow": "report.json's headlineAgree = 3 is THE published result of Phase 6 (\"3 of 90\"). This chain is the sole automated check that the published 3 equals the 3 an independent re-derivation gets from points.json.",
+        "pin": "NONE over the field name. The verifier hunts three candidate names and, finding none, downgrades a missing comparison to an informational console line. `failures` is only appended to by `note()`, and the null branch calls console.log, not note().",
+        "undetectableMutation": "Rename `headlineAgree` to `headline_agree` in report.json (or delete the key). `claimedHeadline` resolves to null, the comparison at :186 is skipped, the friendly NOTE prints, `failures.length === 0`, and the script prints \"PHASE6 WP5 INDEPENDENT VERIFY: PASS\". The report's headline is now compared to nothing at all, and the script's verdict is unchanged — it still says PASS. Every other field (headlineTotal 90, neutralCount, excludedCount, extentFragileCount, all 20 perRegime numbers, excludedPoints) is already only printed, never compared, so after this one rename the verifier compares zero published values while claiming to have verified the artifact.",
+        "pinIsChecked": "no",
+        "severity": "critical"
+      },
+      {
+        "surface": "The two Phase 6 verification scripts are .mjs files typechecked by NO tsconfig, covered by no test, absent from every npm script, and absent from CI — yet they are the sole post-hoc pin over 8 of report.json's 9 fields and the sole second implementation of the scoring rules.",
+        "location": "app/scripts/phase6-wp5-independent.mjs and app/scripts/phase6-wp5-negative-controls.mjs. Root tsconfig.json's include lists core/solver-cpu/solver-gpu/runner + vitest.config.ts and NOT app at all; app/tsconfig.json's include is [\"src/**/*.ts\",\"test/**/*.ts\",\"vite.config.ts\"] — app/scripts is in neither, and .mjs is not typechecked regardless (no allowJs/checkJs)",
+        "reachesEvidenceHow": "phase6-wp5-independent.mjs is the only code that re-derives all 204 rows' class/regime/score/headline-scope/extent-fragile/exclusion from points.json; the negative-control script is the only executed test of the guards. Both are cited as the reason the artifacts are trustworthy.",
+        "pin": "NONE. `npm test` = lint:rule7 + typecheck + vitest run; none of the three touches these files (rule7 lints them for bare Greek identifiers only). package.json has no script for either. No vitest include pattern matches .mjs. No workflow runs them.",
+        "undetectableMutation": "In phase6-wp5-independent.mjs's `invalidReasons`, change `if (r.domainContact)` to `if (r.domainContacts)`. The property is undefined on every row, so the domain-contact exclusion condition silently ceases to exist in the only independent re-derivation; with 0 currently-excluded rows the re-derived output is byte-identical, the script prints \"VERIFIED: 204 points re-derived … PASS\", and no typechecker, test, or lint anywhere in the repo can see the typo. The same one-character edit in a .ts file under runner/src would be caught by `tsc --noEmit`.",
+        "pinIsChecked": "no",
+        "severity": "high"
+      },
+      {
+        "surface": "`project charter.md` — the document that DEFINES what the freeze covers, what invalidates a sweep, and what §2.4 requires — is hash-pinned by nothing. The same is true of AGENTS.md and all 34 ADRs. docs/libbrecht-parameters.md is the only tracked document in the entire repository with a hash pin.",
+        "location": "\"project charter.md\" (63,902 bytes), line 308 (the Protocol-freeze clause enumerating the 21 frozen items and stating \"Any post-freeze edit to parameters or protocol requires a logged ADR and invalidates prior sweep results — the full sweep re-runs\"), line 9 (§2.4 far-field amendment, v1.17), line 23. Contrast runner/src/phase6-protocol.ts:806-813, the single doc hash.",
+        "reachesEvidenceHow": "Every claim of the form \"the charter says X invalidates a sweep\", \"charter §2.4 registers the far-field condition\", \"the 25 freeze rows implement charter §3.2 Phase 6 item 1\" resolves against this file. It is the top authority the whole protocol is measured against, including the ADR-0033 doctrine about which hash is load-bearing.",
+        "pin": "NONE. No SHA256 constant covers it; no test reads it; no preflight reads it. I checked the one thing that could substitute for a pin — completeness of the registry against the charter's own list — BY HAND: all 21 items charter:308 enumerates plus the doc freeze map onto the 25 PHASE6_FREEZE_LIST ids (t-sigma-grid, far-field, agreement-scoring, boundary-ambiguity-band, grid-extrapolation-operator, habit-measurement-size, metric-thresholds, uncertainty-reporting, parameter-table, parameter-interpolation, param-set, latent-heating, pressure, physical-seed-size, noise-amplitude, domain-budgets, dx, surface-policy, fill-cfl, residual-tolerance, div-tol, relax-max-sweeps, float-precision, seed-ensemble-size, code-version). The registry is complete today. No code performs that comparison.",
+        "undetectableMutation": "Edit charter:308 to delete \"and invalidates prior sweep results — the full sweep re-runs\", or to add a 22nd required freeze item, or edit §2.4's far-field requirement. Every hash (values 879e069f…, justification 040b1a44…, combined 2b94aa5f…, parameter table), every test, and the preflight stay green, because none of them reads the charter. The obligation the entire audit measures against can be rewritten for free; the only trace is git history, which no check consults. Removal of a freeze ROW is caught (the required-ids array in phase6-protocol.test.ts), but a charter-side addition or a weakening of the invalidation rule is not.",
+        "pinIsChecked": "no",
+        "severity": "high"
+      },
+      {
+        "surface": "The three commit SHAs that constitute all Phase 6 provenance are anchored by no ref: no tag, no note, no protected branch. Any history rewrite of `main` makes the published evidence permanently unverifiable.",
+        "location": "report.json field `head` = 390fe35a049e6da391c429c1f446fb2ca2cdb931; research/phase6-sweep-report.md:50-51 (execution commit 390fe35, freeze commit e2f1bfcab4cf605f5c9c44ad096d8b1bcc0fe967); the directory name out/phase6-sweep-6995868-cak-a1-superseded. Checked: `git tag -l` EMPTY, `git notes list` EMPTY; `git for-each-ref` shows only refs/heads/main, refs/heads/education-worktree, refs/remotes/origin/{HEAD,main}, refs/stash, and seven refs/codex/turn-diffs/... tree refs.",
+        "reachesEvidenceHow": "390fe35 is the ONLY place the arm-1 protocol hash 8aeb2b80… can be recomputed (phase6ValuesManifest does not exist at that commit, so no test at any commit can compute it); e2f1bfca is the freeze whose ancestry preflight asserts; 6995868 names the superseded arm cited by ADR 0031 and by negative control 3.",
+        "pin": "Reachability from `main` only, plus the fact that all three are ancestors of origin/main (I verified 390fe35 is an ancestor of origin/main, and e2f1bfca is an ancestor of 390fe35; 6995868 and e1c1d09 both resolve as commits). That is a pin only for as long as nobody rewrites the branch.",
+        "undetectableMutation": "`git rebase -i` / `git commit --amend` / `git filter-repo` anywhere at or below 390fe35 on main, then force-push. New SHAs; 390fe35, e2f1bfca and 6995868 become unreachable and are eventually pruned (`git count-objects -v` already shows prune-packable: 62). report.json's `head` field then names a commit that does not exist, the documented recipe for reproducing 8aeb2b80 is unrunnable forever, and NOTHING reports it — no test, script or preflight ever reads report.json.head, and preflight's freezeIsAncestor would simply start failing closed with no explanation of why. A single `git tag --sign phase6-arm1 390fe35` would have prevented this and does not exist.",
+        "pinIsChecked": "no",
+        "severity": "high"
+      },
+      {
+        "surface": "The public repository of record carries the REFUTED doctrine and none of its refutations: main is 14 commits ahead of origin/main, and every 2026-07-29 correction is unpushed.",
+        "location": "origin/main = 859de374bc43607628f7dcf5e3b00ff2234110bd (\"ADR 0033: split the frozen manifest into a values hash and a justification hash\"). Unpushed on main: 3773458 (Implement ADR 0033), e6f2c29 (ADR 0034: correct ADR 0033's over-strong claim), e3ab0a2 (errata rewrite), 2b2ef6e (WP5 negative controls: 5 CAUGHT, 2 GAPs), 5625ad4 (retract the necessity claim in chapters 12/13/28), 32e0234 (close WP5 GAP 3), plus the education-worktree merges.",
+        "reachesEvidenceHow": "The evidence artifacts are gitignored, so a third party's ONLY access to Phase 6 is the tracked documents — the hash table, the freeze list, the ADRs — as published at origin/main.",
+        "pin": "NONE. Nothing checks push state; no test, preflight, or document asserts that the corrections are published.",
+        "undetectableMutation": "No mutation needed — the divergence exists now. Anyone who clones https://github.com/billatgameology/snowflake today gets ADR 0033's claim that the legacy combined hash \"must still hash to 8aeb2b80…, pinned by test\" WITHOUT ADR 0034's falsification of it, without the errata rewrite, without the negative-control results, and without the values/justification gate implementation. Fourteen commits of corrections — including every refutation this audit family has produced — exist on exactly one laptop's working repository, in a tree whose only other copy of the evidence is a gitignored directory. A disk failure erases the corrections and leaves the refuted doctrine as the published record.",
+        "pinIsChecked": "no",
+        "severity": "high"
+      },
+      {
+        "surface": "`.gitignore`'s `research/*` + `!research/*.md` re-includes only TOP-LEVEL .md, so 901 evidence .md files in research subdirectories are invisible to git — including the digitization card, bounding boxes and crop for monograph Figure 4.5, the source of all 27 CAK anchors.",
+        "location": ".gitignore:10-11 (`research/*` / `!research/*.md`). Confirmed by `git check-ignore -v research/1910.06389v2-llm/figures/fig-4.5/evidence.md` → `.gitignore:10:research/*`. The untracked files: research/1910.06389v2-llm/figures/fig-4.5/{evidence.md 2021 B, evidence.json 3563 B, evidence.png 148336 B, visual.png 73619 B}. `find research -name '*.md' -mindepth 2 | wc -l` = 901.",
+        "reachesEvidenceHow": "docs/libbrecht-parameters.md:244 states the anchors are \"digitized from Figure 4.5\", and :60-63 states the sanctioned exception \"records the figure, the digitization method … checkable by anyone with the source open.\" Those anchors are SIGMA0_BASAL/SIGMA0_PRISM/A_PRISM_CAK in core/src/libbrecht.ts — the physics input to all 204 runs. fig-4.5/evidence.json is where the crop's bbox_pdf_points and the caption transcription live.",
+        "pin": "Partial, at the root only, and it is genuine: research/1910.06389v2-llm.md:10 records the source PDF's sha256 and I VERIFIED it by recomputation — research/1910.06389v2.pdf = f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471, exact match, 25,611,913 bytes. That plus the tracked scripts/build_pdf_llm_bundle.py makes the bundle re-derivable in principle. Nothing in the repo recomputes it (I believe this was its first machine check), and the intermediate layer — the crop actually read, and the pixel coordinates of the 27 readings — is pinned by nothing. research/figures.md is the project's mechanism for making a figure re-checkable and has NO Figure 4.5 row (its only \"4.5\" hits are a filename containing \"4.5C\" and a prose \"(Tm−T) = 4.5\"), while asserting at :19-24 \"No curve on any of these charts has been digitized.\"",
+        "undetectableMutation": "Edit research/1910.06389v2-llm/figures/fig-4.5/evidence.json's crop.visual_bbox_pdf_points, or replace visual.png with a differently-cropped render, or reword evidence.md. `git status` shows nothing (ignored), `git add` refuses without --force, no hash covers any of it, and the next person re-reading the figure reads a different image than the one the 0.83 correction of 2026-07-15 was made against. The tracked claim that a digitized number is \"checkable by anyone with the source open\" is backed by bytes git cannot see.",
+        "pinIsChecked": "no",
+        "severity": "high"
+      },
+      {
+        "surface": "`.claude/settings.json` sets `\"permissions\": {\"defaultMode\": \"bypassPermissions\"}` for the whole project — the enabling condition for every write-surface above.",
+        "location": ".claude/settings.json (3 lines, entire content is that permission mode)",
+        "reachesEvidenceHow": "Every agent that opens this repository can write any file with no prompt and no record: the frozen docs/libbrecht-parameters.md, \"project charter.md\", runner/src/phase6-protocol.ts's hash constants, out/phase6-sweep/*.json, and .gitignore itself.",
+        "pin": "NONE. No hook, no test, and no document registers the expected permission mode; nothing records which agent wrote what. The system's own doctrine is that only the permission system or the user can authorize a change, and the permission system is switched off here.",
+        "undetectableMutation": "An agent (or a script an agent runs) writes out/phase6-sweep/points.json, or appends a row to research/phase6-sweep-report.md's hash table to match a freshly-mutated artifact, in a single tool call with no prompt. The artifact-side change is invisible (out/ is ignored); the table-side change is visible only in git history, which no check reads. This is not hypothetical: the mtimes in surface 3 show the published artifacts being rewritten under exactly this permission mode within the last two hours.",
+        "pinIsChecked": "no",
+        "severity": "high"
+      }
+    ],
+    "register": "Table validated: 117 rows, all six columns intact, no stray pipes.\n\n```\nPIN REGISTER: g:/Code Files/snowflake/docs/phase6-evidence-pin-register.md  (452 lines, 117 surfaces)\n\nTOTALS\n  117 surfaces enumerated  |  103 unpinned-or-imperfect  |  14 pinned correctly\n  unpinned by severity: 23 critical, 29 high, 30 medium, 21 low\n  22 confirmed forgery paths (mutation executed, nothing caught it), ranked in section 3\n  9 claimed forgery paths were OVERTURNED by execution and moved to \"Pinned correctly\"\n\nTHREE HIGHEST (harm prevented / cost)\n1. Make the three artifact sha256s an ASSERTION, not a printout.\n   app/scripts/phase6-wp5-independent.mjs:106-112 computes points.json/report.json/diagram.svg\n   digests and compares them to nothing; the only record is a hand-typed table at\n   research/phase6-sweep-report.md:56-60 that no code reads (git grep: 1 hit each).\n   ~15 lines + 3 constants in phase6-protocol.ts. Closes the ENTIRE artifact-content class:\n   forgery paths 1,2,4,5,13,14,15. No ADR.\n2. Parse the tokens grow-lk ALREADY PRINTS and check them.\n   The header emits dims=, seedSites=, active=, T=, sigmaInf= and the run emits\n   stop reason=/extent=; Phase6RunConfig has 13 fields and none of those. Add them, then require\n   stopReason === \"size-target\" and largestExtent === fixture.targetExtent else exclude by name.\n   ~25 lines, zero new instrumentation. Closes six criticals/highs: `steps`, largestExtent +\n   WP5 control 6, seedThickness (via seedSites=19 — the line Phase 2b already has at main.ts:1114),\n   domain hexPrism->box (via active=), the tempC/sigmaInf axes, and the dims/domainN mismatch. No ADR.\n3. Add CI + assert the test inventory.\n   .github/workflows/ has one workflow and it deploys docs/education. Deleting ONE line\n   (vitest.config.ts:8) drops runner/test entirely: tsc passes, lint passes, vitest exits 0 green,\n   npm test reports success, and every Phase 6 pin silently stops existing. ~30 lines YAML +\n   ~10 lines test. Converts every \"test only\" pin in the register — values hash, doc hash, libm\n   digest, classify boundaries, flag table, the HEADER literal, Murphy-Koop referee — to automatic.\n\nWHAT SURPRISED ME\n- The strongest new pin in the tree is a STRING. Five of the eight default-backed parameters\n  (relaxTol, divTol, relaxMaxSweeps, seedRadius, rngSeed) are not hash-pinned and not\n  preflight-pinned, but ARE caught — by a hard-coded header literal at\n  runner/test/phase6-sweep.test.ts:257-263 driven through phase6ConfigFailures, which nobody had\n  enumerated as a pin. It checks what the CHILD reported, not what the parent intended: exactly the\n  ADR 0031 lesson, implemented correctly, and load-bearing for five registered values.\n- ADR 0033's own nominated mitigation for the ADR 0031 defect ADMITS the ADR 0031 value.\n  phase6-protocol.test.ts:882 is toContain(PHASE6_PARAM_SET), and \"CAK_A1\".includes(\"CAK\") is true.\n  The freeze row can be made to read CAK_A1 while its designated guard passes. Same vacuity at :221\n  for noise-amplitude (toContain(\"0\"), satisfied by \"0.05 - noise ON\").\n- Nine claimed holes were real pins, and the pattern is instructive: the mutation was undetectable\n  by every hash and by preflight, and caught only by a unit test. So the register's real finding is\n  not \"unpinned\" vs \"pinned\" — it is that the gate (preflight, fail-closed, automatic) and the pins\n  (vitest, human-triggered, no CI) protect disjoint sets of values.\n- The libm digest is simultaneously much stronger and much weaker than the physical-inputs pass\n  assumed: it pins 21 of the 27 digitized anchors BIT-EXACTLY (four anchor mutations executed, all\n  four moved it) — and it is a same-file literal, x64-only, and never computed by preflight\n  (grep libm runner/src/phase6-sweep.ts: zero hits). Re-pinning it costs one line and no ADR.\n- `steps` escaped for a reason worth naming: PHASE6_UNFLAGGED_PARAMETERS (grow-lk-defaults.ts:89)\n  documents itself as the guard that stops coverage silently lapsing, and NOTHING IMPORTS IT.\n  Enumerating Object.keys(GROW_LK_DEFAULTS) against the flag table names `steps` in one pass — the\n  generic check that would have replaced finding these four one at a time.\n- The published artifacts were rewritten in place DURING this audit. mtimes are diagram.svg 19:43:08,\n  points.json 20:02:07, report.json 20:23:30 on 2026-07-29 — 19 and 21 minutes apart, in an order no\n  single run can produce (one process writes all three within seconds). One lane hashed points.json\n  at 94c407c2... (headline 5) and later at 0ed613bc... again. All three match the tracked table now;\n  nothing anywhere records that a rewrite happened, and .claude/settings.json sets\n  bypassPermissions project-wide. Also note: docs/education/chapters/03-why-six-sides.html is\n  currently modified in the working tree and was not touched by me.\n- The published headline is computed by a DIFFERENT RULE than the one registered. The\n  uncertainty-reporting freeze row registers the conservative intersection of measured and\n  grid-extrapolated class; phase6FitGridExtrapolation has zero production callers and points.json\n  carries none of the required fields. The only \"pin\" asserts the PROSE contains the string\n  \"CONSERVATIVE INTERSECTION\". No mutation needed — the divergence is live and undetected.\n- One rule the artifact can never satisfy: points.json row order is worker-completion order and\n  nothing sorts it, so the byte hash presented as the reproducibility guarantee cannot be re-earned\n  by re-running the deterministic sweep (identical data in grid order hashes 0474d153..., not\n  0ed613bc...). A hash mismatch therefore cannot be read as tampering.\n```"
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Enumerate"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 2,
+      "title": "Attack"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 3,
+      "title": "Critique"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 4,
+      "title": "Register"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "enumerate:run-inputs",
+      "phaseIndex": 1,
+      "phaseTitle": "Enumerate",
+      "agentId": "a92af1e71511eb31d",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785379357908,
+      "lastProgressAt": 1785379357908,
+      "cached": true,
+      "resultPreview": "{\"dimension\":\"run-inputs\",\"whatIExamined\":\"Read at HEAD 2b2ef6e: runner/src/main.ts (parseLKArgs 527-633, growLK 635-880, phase6-sweep command 1359-1423, phase6Fixture 1197-1231, fmt 269-271), runner/src/grow-lk-defaults.ts (all 94 lines), runner/src/phase6-sweep.ts (all 572 lines at HEAD), runner/src/phase6-protocol.ts (all 1593 lines incl. the 25 freeze rows and the three manifest builders 1385-…",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "enumerate:artifact-schema",
+      "phaseIndex": 1,
+      "phaseTitle": "Enumerate",
+      "agentId": "ad5f27952431ad4f5",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785379357909,
+      "lastProgressAt": 1785379357909,
+      "cached": true,
+      "resultPreview": "{\"dimension\":\"artifact-schema\",\"whatIExamined\":\"Artifacts (read-only, mtime 2026-07-29 10:21): out/phase6-sweep/{points.json (204 rows, 129,760 B, sha256 0ed613bc…), report.json (928 B, 71ae094c…), diagram.svg (31,193 B, 40458703…)} and out/phase6-sweep-6995868-cak-a1-superseded/{points.json,report.json,diagram.svg}. Code: runner/src/phase6-sweep.ts (whole file, twice — it changed under me mid-aud…",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "enumerate:hashed-manifest",
+      "phaseIndex": 1,
+      "phaseTitle": "Enumerate",
+      "agentId": "a3031317d7662b937",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785379357909,
+      "lastProgressAt": 1785379357909,
+      "cached": true,
+      "resultPreview": "{\"dimension\":\"hashed-manifest — what phase6ValuesManifest() / phase6JustificationManifest() do and do not cover\",\"whatIExamined\":\"Read in full: runner/src/phase6-protocol.ts (1594 lines, both manifest builders at :1442-1487, the 25-row PHASE6_FREEZE_LIST, all pinned hashes/revision lists), runner/src/phase6-sweep.ts (working-tree version, 683 lines — it grew from 572 under me mid-audit), runner/sr…",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 4,
+      "label": "enumerate:provenance-capture",
+      "phaseIndex": 1,
+      "phaseTitle": "Enumerate",
+      "agentId": "ad94e5705ba12bcba",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785379357909,
+      "lastProgressAt": 1785379357909,
+      "cached": true,
+      "resultPreview": "{\"dimension\":\"provenance-capture\",\"whatIExamined\":\"Code read in full: runner/src/phase6-protocol.ts (phase6ProtocolProvenance at :860-886, PHASE6_PROTOCOL_FREEZE_COMMIT :845, phase6ValuesManifest :1442-1473, phase6ProtocolManifest :1385-1435, the 25 freeze rows), runner/src/phase6-sweep.ts (phase6SweepPreflight :126-199, Phase6PreflightReport :108-119, phase6PointCommand, phase6RunSweep :555-664, …",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 5,
+      "label": "enumerate:scoring-and-rules",
+      "phaseIndex": 1,
+      "phaseTitle": "Enumerate",
+      "agentId": "a1c0dd46989965866",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785379357910,
+      "lastProgressAt": 1785379357910,
+      "cached": true,
+      "resultPreview": "{\"dimension\":\"scoring-and-rules\",\"whatIExamined\":\"Code read in full: runner/src/phase6-sweep.ts (phase6ClassifyHabit, phase6ScorePoint, phase6Aggregate, phase6ParseRun, phase6SweepPreflight, phase6DomainSpotCheckPasses, PHASE6_DOMAIN_CONTACT_FRACTION, PLATE_CEILING/COLUMN_FLOOR); runner/src/phase6-protocol.ts (phase6ReferenceRegime, phase6ScoreHabit, phase6IsInAmbiguityBand, phase6DistanceToNeares…",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 6,
+      "label": "enumerate:physical-inputs-chain",
+      "phaseIndex": 1,
+      "phaseTitle": "Enumerate",
+      "agentId": "aca571c486f310b41",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785379357910,
+      "lastProgressAt": 1785379357910,
+      "cached": true,
+      "resultPreview": "{\"dimension\":\"physical-inputs-chain\",\"whatIExamined\":\"Read in full: core/src/libbrecht.ts (all 261 lines), docs/libbrecht-parameters.md (all 548 lines), core/test/libbrecht.test.ts, runner/src/phase6-protocol.ts (1594 lines), runner/src/phase6-sweep.ts, runner/src/phase6-crossplatform.ts, runner/src/grow-lk-defaults.ts, app/scripts/phase6-libbrecht-closed-forms.mjs, app/scripts/phase6-wp5-negative…",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 7,
+      "label": "enumerate:cross-artifact-citations",
+      "phaseIndex": 1,
+      "phaseTitle": "Enumerate",
+      "agentId": "a2b3bae3deb0dd8e0",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785379365440,
+      "queuedAt": 1785379357910,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "cross-artifact-citations",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…",
+      "lastProgressAt": 1785380323884,
+      "tokens": 137862,
+      "toolCalls": 66,
+      "durationMs": 958444,
+      "resultPreview": "{\"dimension\":\"cross-artifact-citations\",\"whatIExamined\":\"Documents read in full: research/phase6-sweep-report.md, docs/phase6-protocol-errata.md, docs/decisions/0031/0032/0033/0034-*.md, docs/findings-ledger.md. Code read: runner/src/phase6-protocol.ts (manifest fns 1385-1566, t-sigma-grid row, freeze list), runner/src/phase6-sweep.ts (55-115 preflight tables, 364-431 phase6Aggregate), runner/src/…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 8,
+      "label": "enumerate:other-evidence-trees",
+      "phaseIndex": 1,
+      "phaseTitle": "Enumerate",
+      "agentId": "a0d16eeb79d8c8a1f",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785379382977,
+      "queuedAt": 1785379357911,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "other-evidence-trees",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…",
+      "lastProgressAt": 1785380245568,
+      "tokens": 132749,
+      "toolCalls": 87,
+      "durationMs": 862591,
+      "resultPreview": "{\"dimension\":\"other-evidence-trees\",\"whatIExamined\":\"Read (never modified): runner/src/{phase5-protocol.ts, gate5-protocol.ts, gate5-evidence.ts, gate5-aggregate.ts, gate5-lane.ts, gate4a.ts, gate4b.ts, gate4-aggregate.ts, gate4-protocol.ts, gate3.ts, gate2b-validation.ts, main.ts}, app/scripts/{phase5-gate.mjs, phase5-wp1/wp2/wp3/wp4/wp6.mjs, phase5-performance.mjs, phase5-capability.mjs, phase5-…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 9,
+      "label": "attack:run-inputs",
+      "phaseIndex": 2,
+      "phaseTitle": "Attack",
+      "agentId": "ac45e4509cf7f4378",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785379372644,
+      "queuedAt": 1785379357924,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…",
+      "lastProgressAt": 1785381744698,
+      "tokens": 149395,
+      "toolCalls": 70,
+      "durationMs": 2372054,
+      "resultPreview": "{\"results\":[{\"surface\":\"`steps` — GROW_LK_DEFAULTS.steps = 100_000 (grow-lk-defaults.ts:56), loop bound at main.ts:691\",\"mutationExecuted\":\"(a) Ran the real child at the exact sweep configuration for T=-15/f=0.15 with `--steps 5` and fed its stdout through phase6ParseRun → phase6ConfigFailures → phase6ScorePoint. (b) sed grow-lk-defaults.ts `steps: 100_000` → `steps: 200`, then recomputed all thre…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 10,
+      "label": "attack:artifact-schema",
+      "phaseIndex": 2,
+      "phaseTitle": "Attack",
+      "agentId": "a374566700eadaab4",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785379369031,
+      "queuedAt": 1785379357924,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…",
+      "lastProgressAt": 1785380311096,
+      "tokens": 105766,
+      "toolCalls": 50,
+      "durationMs": 942065,
+      "resultPreview": "{\"results\":[{\"surface\":\"points.json rows carry NO run configuration — no config object, no paramSet, no policy, no tolerances, no seed\",\"mutationExecuted\":\"Spliced all 56 rows whose aspectRatio differs from out/phase6-sweep-6995868-cak-a1-superseded/points.json (real CAK_A1 data, produced under a different paramSet) into out/phase6-sweep/points.json, and set report.headlineAgree 3->5. Then ran `no…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 11,
+      "label": "attack:hashed-manifest",
+      "phaseIndex": 2,
+      "phaseTitle": "Attack",
+      "agentId": "a0681d563c4b571b2",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785379366609,
+      "queuedAt": 1785379357924,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…",
+      "lastProgressAt": 1785382375763,
+      "tokens": 187114,
+      "toolCalls": 94,
+      "durationMs": 3009154,
+      "resultPreview": "{\"results\":[{\"surface\":\"phase6ValuesManifest's freezeRows projection: prose.value of the 25 freeze rows is outside the gated values hash by construction\",\"mutationExecuted\":\"(a) Programmatic: forged prose.value on 11 numeric rows via phase6ValuesManifest(mutated) — values hash bit-identical. (b) Per-row file mutation of all 25 rows, one at a time, each with the two \\\"free prose correction\\\" pin bu…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 12,
+      "label": "attack:provenance-capture",
+      "phaseIndex": 2,
+      "phaseTitle": "Attack",
+      "agentId": "a489758a1662ddf2c",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785379370434,
+      "queuedAt": 1785379357924,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…",
+      "lastProgressAt": 1785380559406,
+      "tokens": 115667,
+      "toolCalls": 56,
+      "durationMs": 1188972,
+      "resultPreview": "{\"results\":[{\"surface\":\"Provenance captured once at launch (main.ts:1365 → phase6-sweep.ts:175); never re-checked at completion, so a mid-run source edit is invisible\",\"mutationExecuted\":\"Executed the source-edit half end-to-end. (1) Ran the exact registered child command `node runner/src/main.ts grow-lk --temp-c -2 --sigma-inf 0.002000 --dims 48,48,48 --dx-um 0.35 --cfl 0.1 --target-extent 21 --s…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 13,
+      "label": "attack:scoring-and-rules",
+      "phaseIndex": 2,
+      "phaseTitle": "Attack",
+      "agentId": "aec792eaebe1e5ebd",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785379379590,
+      "queuedAt": 1785379357924,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…",
+      "lastProgressAt": 1785381124289,
+      "tokens": 123747,
+      "toolCalls": 87,
+      "durationMs": 1744699,
+      "resultPreview": "{\"results\":[{\"surface\":\"result.domainContact — published validity boolean consumed rather than re-derived by the independent verifier (runner/src/phase6-sweep.ts:341/:528; app/scripts/phase6-wp5-independent.mjs:91 via invalidReasons())\",\"mutationExecuted\":\"In scratchpad copy mut/m1 I set result.domainContact=true, modelClass=\\\"invalid\\\", score=\\\"excluded\\\", exclusionReason=\\\"tripped the 65% domain…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 14,
+      "label": "attack:physical-inputs-chain",
+      "phaseIndex": 2,
+      "phaseTitle": "Attack",
+      "agentId": "a8208ea7e92f3bd40",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785379375881,
+      "queuedAt": 1785379357924,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…",
+      "lastProgressAt": 1785382030039,
+      "tokens": 189123,
+      "toolCalls": 118,
+      "durationMs": 2654158,
+      "resultPreview": "{\"results\":[{\"surface\":\"The doc→code binding itself: PHASE6_PARAMETER_TABLE_SHA256 freezes docs/libbrecht-parameters.md, phase6ValuesManifest() carries only that hash and no anchor value, and nothing binds core/src/libbrecht.ts:83-88 to the frozen document.\",\"mutationExecuted\":\"Applied the auditor's named mutation and both of their recommended fallbacks to core/src/libbrecht.ts, one at a time, eac…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 15,
+      "label": "attack:other-evidence-trees",
+      "phaseIndex": 2,
+      "phaseTitle": "Attack",
+      "agentId": "a19f23645897b2dbe",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785380251933,
+      "queuedAt": 1785380247843,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…",
+      "lastProgressAt": 1785383294984,
+      "tokens": 174808,
+      "toolCalls": 138,
+      "durationMs": 3043049,
+      "resultPreview": "{\"results\":[{\"surface\":\"out/phase3-visual/manifest.json `config` field — whole run configuration as a hardcoded English sentence in visual.mjs:454-455, labelled \\\"(app defaults)\\\"\",\"mutationExecuted\":\"Edited app/src/protocol.ts DEFAULT_INIT: seed 1->2 and farField \\\"reflecting\\\"->\\\"dirichlet\\\". Then (a) `npm run typecheck` -> exit 0; (b) `npx vitest run` FULL SUITE -> 69/69 files, 1236/1236 tests …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 16,
+      "label": "attack:cross-artifact-citations",
+      "phaseIndex": 2,
+      "phaseTitle": "Attack",
+      "agentId": "a145aad5021fe30fd",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785380334135,
+      "queuedAt": 1785380327292,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…",
+      "lastProgressAt": 1785381723181,
+      "tokens": 111523,
+      "toolCalls": 71,
+      "durationMs": 1389046,
+      "resultPreview": "{\"results\":[{\"surface\":\"The three published artifact sha256s in research/phase6-sweep-report.md:56-60 (points.json 0ed613bc…, report.json 71ae094c…, diagram.svg 40458703…) — the sole tracked record of the evidence tree\",\"mutationExecuted\":\"(a) Auditor's literal mutation: rewrote out/phase6-sweep/points.json row (T=-2,f=0.25) aspectRatio 0.60042->0.7, modelClass plate->neutral, score agree->disagre…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 17,
+      "label": "completeness-critic",
+      "phaseIndex": 3,
+      "phaseTitle": "Critique",
+      "agentId": "ad0d637dfd2ada4dd",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785383325051,
+      "queuedAt": 1785383318190,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "completeness-critic: the seams nobody enumerated (toolchain…",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…",
+      "lastProgressAt": 1785384050694,
+      "tokens": 122129,
+      "toolCalls": 41,
+      "durationMs": 725643,
+      "resultPreview": "{\"dimension\":\"completeness-critic: the seams nobody enumerated (toolchain, evidence-tree write path, verifier substrate, git/ignore layer, document authority)\",\"whatIExamined\":\"Read: vitest.config.ts; tsconfig.json; tsconfig.base.json; app/tsconfig.json; package.json (root + app); .gitignore; .github/workflows (only pages.yml); .claude/settings.json; scripts/lint-rule7.mjs header; scripts/verify_p…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 18,
+      "label": "register",
+      "phaseIndex": 4,
+      "phaseTitle": "Register",
+      "agentId": "aef96ba1c6643e9ad",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1785384065543,
+      "queuedAt": 1785384052922,
+      "attempt": 1,
+      "lastToolName": "Bash",
+      "lastToolSummary": "cd \"G:/Code Files/snowflake\" && echo \"high (any form):\"; gr…",
+      "promptPreview": "You are auditing the \"snowflake\" project at g:/Code Files/snowflake. Phase 6 validates a 3-D faceted ice-growth\nsolver against the Nakaya morphology diagram and publishes evidence artifacts under out/.\n\nTHE QUESTION, and it is the only question: **for every surface that touches an evidence artifact,\nwhat PINS it?** A pin is anything that would make an unauthorised change detectable — a hash, an\nex…",
+      "lastProgressAt": 1785385028609,
+      "tokens": 282285,
+      "toolCalls": 14,
+      "durationMs": 963066,
+      "resultPreview": "Table validated: 117 rows, all six columns intact, no stray pipes.\n\n```\nPIN REGISTER: g:/Code Files/snowflake/docs/phase6-evidence-pin-register.md  (452 lines, 117 surfaces)\n\nTOTALS\n  117 surfaces enumerated  |  103 unpinned-or-imperfect  |  14 pinned correctly\n  unpinned by severity: 23 critical, 29 high, 30 medium, 21 low\n  22 confirmed forgery paths (mutation executed, nothing caught it), ranke…"
+    }
+  ],
+  "totalTokens": 1832168,
+  "totalToolCalls": 892
+}
