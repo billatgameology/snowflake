@@ -25,8 +25,20 @@ import {
   PHASE6_CROSSPLATFORM_FIXTURE,
 } from "./phase6-crossplatform.ts";
 import {
+  PHASE6_ARM2_FREEZE_COMMIT,
+  PHASE6_ARM2_ID,
+  PHASE6_ARM2_PARAM_SET,
+  PHASE6_ARM2_VALUES_SHA256,
+  phase6Arm2InHeadlineScope,
+  phase6Arm2IsBistable,
+  phase6Arm2JustificationManifest,
+  phase6Arm2ScoreHabit,
+  phase6Arm2ValuesManifest,
+} from "./phase6-arm2-protocol.ts";
+import {
   PHASE6_DOMAIN_SPOT_CHECK,
   PHASE6_PARAM_SET,
+  PHASE6_PROTOCOL_FREEZE_COMMIT,
   PHASE6_PROTOCOL_SHA256,
   PHASE6_REQUIRED_STOP_REASON,
   PHASE6_VALUES_SHA256,
@@ -60,6 +72,72 @@ export function phase6ClassifyHabit(aspectRatioValue: number): Phase6ModelClass 
   if (aspectRatioValue >= COLUMN_FLOOR) return "column";
   return "neutral";
 }
+
+/**
+ * Which ARM a sweep is running — the one operand that must never be defaulted by accident.
+ *
+ * Phase 6 has two arms over the SAME grid: arm 1 (`CAK`, published, headline 3/90) and arm 2
+ * (`M1`, the SDAK arm registered by ADR 0036). They differ in the parameter set, in the scoring of
+ * the bistable band, and in nothing else — everything shared is what makes the comparison
+ * controlled.
+ *
+ * Bundled into one object rather than passed as three arguments on purpose: a caller that supplied
+ * arm 2's param set with arm 1's scorer would produce an artifact that is neither arm's, and WP5
+ * control 3 showed a mixed artifact is indistinguishable from a clean one. One object cannot be
+ * half-substituted.
+ */
+export interface Phase6Arm {
+  readonly id: string;
+  readonly paramSet: string;
+  /** Directory under out/ this arm publishes to. Separate, so neither arm can overwrite the other. */
+  readonly outDirName: string;
+  readonly valuesSha256: () => string;
+  /** REPORTED, never gated (ADR 0033). Per arm, because arm 1's was being printed for both. */
+  readonly justificationSha256: () => string;
+  readonly scoreHabit: (tempC: number, modelClass: Phase6ModelClass) => Phase6Score;
+  readonly inHeadlineScope: (tempC: number) => boolean;
+  /** True where the REFERENCE names two habits, so the point is reported with its own count. */
+  readonly isBistable: (tempC: number) => boolean;
+  /** Goes in the published diagram's title, so a figure that escapes names its own arm. */
+  readonly diagramLabel: string;
+  /**
+   * The commit at which THIS arm's protocol froze. Preflight requires it to be an ancestor of the
+   * execution HEAD, which is what makes "registered before it ran" checkable rather than asserted.
+   */
+  readonly freezeCommit: string;
+}
+
+/** Arm 1 — the published no-SDAK arm. Its behaviour is the default everywhere, for that reason. */
+export const PHASE6_ARM1: Phase6Arm = {
+  id: "arm1-cak",
+  paramSet: PHASE6_PARAM_SET,
+  outDirName: "phase6-sweep",
+  valuesSha256: () => canonicalJsonSha256(phase6ValuesManifest()),
+  justificationSha256: () => canonicalJsonSha256(phase6JustificationManifest()),
+  scoreHabit: phase6ScoreHabit,
+  inHeadlineScope: (tempC) => {
+    const spec = PHASE6_REFERENCE_REGIMES.find((c) => c.regime === phase6ReferenceRegime(tempC));
+    return (spec?.inHeadline ?? false) && !phase6IsInAmbiguityBand(tempC);
+  },
+  // Arm 1 registers no bistable band: its scoring is single-valued everywhere by construction.
+  isBistable: () => false,
+  diagramLabel: "no-SDAK (CAK)",
+  freezeCommit: PHASE6_PROTOCOL_FREEZE_COMMIT,
+};
+
+/** Arm 2 — the SDAK arm. ADR 0036. */
+export const PHASE6_ARM2: Phase6Arm = {
+  id: PHASE6_ARM2_ID,
+  paramSet: PHASE6_ARM2_PARAM_SET,
+  outDirName: "phase6-sweep-arm2",
+  valuesSha256: () => canonicalJsonSha256(phase6Arm2ValuesManifest()),
+  justificationSha256: () => canonicalJsonSha256(phase6Arm2JustificationManifest()),
+  scoreHabit: phase6Arm2ScoreHabit,
+  inHeadlineScope: phase6Arm2InHeadlineScope,
+  isBistable: phase6Arm2IsBistable,
+  diagramLabel: "SDAK (M1)",
+  freezeCommit: PHASE6_ARM2_FREEZE_COMMIT,
+};
 
 /**
  * Every registered value that reaches a sweep run through a CLI DEFAULT rather than the command
@@ -107,8 +185,8 @@ export function phase6DefaultBackedParameters(): readonly {
  * hand-kept lists both omitted it, and no test could notice, because neither list claimed to be
  * complete.
  */
-export function phase6UnaccountedDefaults(): readonly string[] {
-  const command = phase6PointCommand(phase6SweepGrid()[0] as Phase6GridPoint);
+export function phase6UnaccountedDefaults(arm: Phase6Arm = PHASE6_ARM1): readonly string[] {
+  const command = phase6PointCommand(phase6SweepGrid()[0] as Phase6GridPoint, arm);
   const checked = new Set(phase6DefaultBackedParameters().map((p) => p.defaultsKey as string));
   const out: string[] = [];
   for (const key of Object.keys(GROW_LK_DEFAULTS)) {
@@ -135,7 +213,10 @@ export function phase6UnaccountedDefaults(): readonly string[] {
  * Every flag the protocol requires on a child command line, checked against a command actually
  * built by `phase6PointCommand` rather than against a list someone maintained by hand.
  */
-export function phase6CommandFlagFailures(command: readonly string[]): readonly string[] {
+export function phase6CommandFlagFailures(
+  command: readonly string[],
+  arm: Phase6Arm = PHASE6_ARM1,
+): readonly string[] {
   const failures: string[] = [];
   for (const flag of PHASE6_EXPLICIT_FLAGS) {
     const occurrences = command.filter((token) => token === flag).length;
@@ -154,11 +235,20 @@ export function phase6CommandFlagFailures(command: readonly string[]): readonly 
   }
   // The one whose absence caused ADR 0031, checked by VALUE as well as by presence.
   const at = command.indexOf("--param-set");
-  if (at >= 0 && command[at + 1] !== PHASE6_PARAM_SET) {
-    failures.push(`the child command passes --param-set ${command[at + 1]}, not the registered ${PHASE6_PARAM_SET}`);
+  if (at >= 0 && command[at + 1] !== arm.paramSet) {
+    failures.push(`the child command passes --param-set ${command[at + 1]}, not the registered ${arm.paramSet}`);
   }
   return failures;
 }
+
+/**
+ * Each arm's registered VALUES hash, by arm id. Preflight gates on the entry for the arm it is
+ * running, so an arm with no registered hash cannot produce evidence at all.
+ */
+export const PHASE6_ARM_VALUES_SHA256: Readonly<Record<string, string>> = {
+  "arm1-cak": PHASE6_VALUES_SHA256,
+  [PHASE6_ARM2_ID]: PHASE6_ARM2_VALUES_SHA256,
+};
 
 export interface Phase6PreflightReport {
   readonly ok: boolean;
@@ -178,7 +268,10 @@ export interface Phase6PreflightReport {
  * than throwing, so a caller can print all of them at once — a preflight that reports one
  * problem per run wastes an operator's evening.
  */
-export function phase6SweepPreflight(repoRoot: string = process.cwd()): Phase6PreflightReport {
+export function phase6SweepPreflight(
+  repoRoot: string = process.cwd(),
+  arm: Phase6Arm = PHASE6_ARM1,
+): Phase6PreflightReport {
   const failures: string[] = [];
 
   if (!phase6FreezeComplete()) {
@@ -194,12 +287,13 @@ export function phase6SweepPreflight(repoRoot: string = process.cwd()): Phase6Pr
     // results. The JUSTIFICATION hash is reported and NOT gated — a prose correction is ADR-logged
     // but costs no re-sweep, because no evidence-producing path reads prose. The legacy combined
     // hash is still checked, because published evidence cites it.
-    valuesSha256 = canonicalJsonSha256(phase6ValuesManifest());
-    justificationSha256 = canonicalJsonSha256(phase6JustificationManifest());
+    valuesSha256 = arm.valuesSha256();
+    justificationSha256 = arm.justificationSha256();
     protocolSha256 = canonicalJsonSha256(phase6ProtocolManifest());
-    if (valuesSha256 !== PHASE6_VALUES_SHA256) {
+    if (valuesSha256 !== PHASE6_ARM_VALUES_SHA256[arm.id]) {
       failures.push(
-        `values hash ${valuesSha256} does not match the registered ${PHASE6_VALUES_SHA256} ` +
+        `${arm.id} values hash ${valuesSha256} does not match the registered ` +
+          `${PHASE6_ARM_VALUES_SHA256[arm.id] ?? "(UNREGISTERED ARM)"} ` +
           "— a registered VALUE was edited without updating the pin, which invalidates prior sweeps",
       );
     }
@@ -223,17 +317,39 @@ export function phase6SweepPreflight(repoRoot: string = process.cwd()): Phase6Pr
       );
     }
   }
-  for (const failure of phase6CommandFlagFailures(phase6PointCommand(phase6SweepGrid()[0] as Phase6GridPoint))) {
+  for (const failure of phase6CommandFlagFailures(phase6PointCommand(phase6SweepGrid()[0] as Phase6GridPoint, arm), arm)) {
     failures.push(failure);
   }
   // Pin-register recommendation 14. The generic version of the two checks above: it walks the
   // defaults object rather than a maintained list, so the NEXT `steps` is found by preflight
   // instead of by an audit.
-  for (const failure of phase6UnaccountedDefaults()) {
+  for (const failure of phase6UnaccountedDefaults(arm)) {
     failures.push(failure);
   }
 
   const provenance = phase6ProtocolProvenance(repoRoot);
+  // The ARM's own freeze commit, checked against this working tree. Arm 1's is checked by
+  // phase6ProtocolProvenance; arm 2's is checked here because its constant lives in the arm module.
+  if (arm.freezeCommit !== PHASE6_PROTOCOL_FREEZE_COMMIT) {
+    if (!/^[0-9a-f]{40}$/.test(arm.freezeCommit)) {
+      failures.push(
+        `${arm.id} has no freeze commit registered (it reads "${arm.freezeCommit}") — this arm ` +
+          "cannot show that its protocol was frozen before the sweep ran",
+      );
+    } else {
+      try {
+        execFileSync("git", ["merge-base", "--is-ancestor", arm.freezeCommit, provenance.head], {
+          cwd: repoRoot,
+          stdio: "ignore",
+        });
+      } catch {
+        failures.push(
+          `${arm.id}'s freeze commit ${arm.freezeCommit} is not an ancestor of HEAD ` +
+            `${provenance.head} — this tree cannot show the arm was frozen before the sweep ran`,
+        );
+      }
+    }
+  }
   if (!provenance.freezeIsAncestor) {
     failures.push(
       "the registered freeze commit is not an ancestor of HEAD — this working tree cannot show " +
@@ -449,6 +565,7 @@ export function phase6ConfigFailures(
    * pass it, which is the same silent-default shape as ADR 0031 itself.
    */
   point: Pick<Phase6GridPoint, "tempC" | "sigmaInf">,
+  arm: Phase6Arm = PHASE6_ARM1,
 ): readonly string[] {
   if (config === null) return ["the child's configuration header could not be parsed"];
   const f = PHASE6_CROSSPLATFORM_FIXTURE;
@@ -456,7 +573,7 @@ export function phase6ConfigFailures(
   const eq = (name: string, got: unknown, want: unknown): void => {
     if (got !== want) out.push(`${name}: run used ${String(got)}, protocol registers ${String(want)}`);
   };
-  eq("paramSet", config.paramSet, PHASE6_PARAM_SET);
+  eq("paramSet", config.paramSet, arm.paramSet);
   eq("surfacePolicy", config.surfacePolicy, f.surfacePolicy);
   eq("farField", config.farField, f.farField);
   eq("dxUm", config.dxUm, f.dxUm);
@@ -582,6 +699,7 @@ export interface Phase6ScoredPoint {
 export function phase6ScorePoint(
   point: Phase6GridPoint,
   result: Phase6PointResult,
+  arm: Phase6Arm = PHASE6_ARM1,
 ): Phase6ScoredPoint {
   const invalidReasons: string[] = [];
   if (!result.allConverged) invalidReasons.push("a relaxation did not converge");
@@ -617,11 +735,11 @@ export function phase6ScorePoint(
     result,
     modelClass,
     regime,
-    score: phase6ScoreHabit(point.tempC, modelClass),
+    score: arm.scoreHabit(point.tempC, modelClass),
     inAmbiguityBand,
     // A point counts toward the headline only if it is in a single-habit regime AND outside the
     // ambiguity band. Both conditions were registered pre-sweep.
-    inHeadlineScope: (spec?.inHeadline ?? false) && !inAmbiguityBand,
+    inHeadlineScope: arm.inHeadlineScope(point.tempC),
     extentFragile: modelClass !== "invalid" && phase6IsExtentFragile(result.aspectRatio),
     exclusionReason: invalidReasons.length > 0 ? invalidReasons.join("; ") : null,
   };
@@ -638,16 +756,45 @@ export interface Phase6RegimeTally {
 }
 
 export interface Phase6SweepReport {
+  /**
+   * WHICH ARM produced this artifact. Added by the arm-2 freeze review: without it, arm 2's
+   * report.json is field-for-field indistinguishable from arm 1's except by directory name, and a
+   * directory name is not evidence.
+   */
+  readonly arm: string;
+  readonly paramSet: string;
+  /** The GATED hash of the arm that produced this. Previously computed and written nowhere. */
+  readonly valuesSha256: string;
+  readonly justificationSha256: string;
   readonly protocolSha256: string;
   readonly head: string;
   /** THE headline: agreement over headline-scope points, measured class. */
   readonly headlineAgree: number;
   readonly headlineTotal: number;
+  /**
+   * The SAME points scored under arm 1's unmodified rules — the common denominator.
+   *
+   * ADR 0036 forecloses "reporting arm 2's headline under a denominator arm 1 was not scored
+   * against, without also reporting the common one". For arm 1 these equal the headline above.
+   */
+  readonly headlineAgreeCommonDenominator: number;
+  readonly headlineTotalCommonDenominator: number;
   /** Published beneath the headline, never above it. */
   readonly neutralCount: number;
   readonly excludedCount: number;
   readonly extentFragileCount: number;
   readonly perRegime: readonly Phase6RegimeTally[];
+  /**
+   * Points the arm excluded from the headline because the REFERENCE names two habits there —
+   * arm 2's bistable band. Registered as "reported with its own count", which needs a field to be
+   * reported in. Empty for arm 1.
+   */
+  readonly bistable: {
+    readonly temperaturesC: readonly number[];
+    readonly points: number;
+    readonly agree: number;
+    readonly neutralCount: number;
+  };
   readonly excludedPoints: readonly { tempC: number; fraction: number; reason: string }[];
 }
 
@@ -657,15 +804,26 @@ export interface Phase6SweepReport {
  * The headline is deliberately narrow — headline-scope points only — and the counts that could
  * inflate it travel with it rather than beneath a fold: neutrals (which score disagree), named
  * exclusions, and extent-fragile flags.
+ *
+ * ARM-AWARE, and it was not. The arm-2 freeze review measured the defect: with arm 1's scoping the
+ * `columns` row published 24 points and counted the twelve bistable agreements the exclusion exists
+ * to remove — for a model that had produced no columns at all — while ADR 0036 registers that row as
+ * n = 12, predicted agree 0, and calls it the arm's sharpest falsifiable claim. A per-regime table
+ * scoped by a different rule than the headline it sits under is not a breakdown of that headline.
  */
 export function phase6Aggregate(
   scored: readonly Phase6ScoredPoint[],
   protocolSha256: string,
   head: string,
+  arm: Phase6Arm = PHASE6_ARM1,
 ): Phase6SweepReport {
   const headline = scored.filter((s) => s.inHeadlineScope);
   const perRegime = PHASE6_REFERENCE_REGIMES.map((spec) => {
-    const inRegime = scored.filter((s) => s.regime === spec.regime && !s.inAmbiguityBand);
+    // Scoped by the ARM's own headline rule, so `sum(perRegime[inHeadline]) === headlineTotal` is
+    // an invariant of the report rather than a coincidence of arm 1's rules. Asserted in the tests.
+    const inRegime = scored.filter(
+      (s) => s.regime === spec.regime && !s.inAmbiguityBand && (!spec.inHeadline || s.inHeadlineScope),
+    );
     return {
       regime: spec.regime,
       inHeadline: spec.inHeadline,
@@ -677,15 +835,36 @@ export function phase6Aggregate(
     };
   });
 
+  // The common denominator: the same measured classes, scored by arm 1's frozen rules. No free
+  // choice is involved — both rules are registered — so this is a re-scoring, not a second result.
+  const common = scored.filter((s) => PHASE6_ARM1.inHeadlineScope(s.point.tempC));
+  const bistablePoints = scored.filter((s) => arm.isBistable(s.point.tempC));
+
   return {
+    arm: arm.id,
+    paramSet: arm.paramSet,
+    valuesSha256: arm.valuesSha256(),
+    justificationSha256: arm.justificationSha256(),
     protocolSha256,
     head,
     headlineAgree: headline.filter((s) => s.score === "agree").length,
     headlineTotal: headline.filter((s) => s.score !== "excluded").length,
+    headlineAgreeCommonDenominator: common.filter(
+      (s) => PHASE6_ARM1.scoreHabit(s.point.tempC, s.modelClass) === "agree",
+    ).length,
+    headlineTotalCommonDenominator: common.filter(
+      (s) => PHASE6_ARM1.scoreHabit(s.point.tempC, s.modelClass) !== "excluded",
+    ).length,
     neutralCount: scored.filter((s) => s.modelClass === "neutral").length,
     excludedCount: scored.filter((s) => s.score === "excluded").length,
     extentFragileCount: scored.filter((s) => s.extentFragile).length,
     perRegime,
+    bistable: {
+      temperaturesC: [...new Set(bistablePoints.map((s) => s.point.tempC))].sort((a, b) => b - a),
+      points: bistablePoints.length,
+      agree: bistablePoints.filter((s) => s.score === "agree").length,
+      neutralCount: bistablePoints.filter((s) => s.modelClass === "neutral").length,
+    },
     excludedPoints: scored
       .filter((s) => s.exclusionReason !== null)
       .map((s) => ({
@@ -706,7 +885,10 @@ export function phase6SweepPlan(): readonly Phase6GridPoint[] {
  * sweep command cannot drift from the frozen configuration, and exported so the runbook and the
  * tests can assert they are the same thing.
  */
-export function phase6PointCommand(point: Phase6GridPoint): readonly string[] {
+export function phase6PointCommand(
+  point: Phase6GridPoint,
+  arm: Phase6Arm = PHASE6_ARM1,
+): readonly string[] {
   const fixture = PHASE6_CROSSPLATFORM_FIXTURE;
   return [
     "runner/src/main.ts", "grow-lk",
@@ -723,7 +905,7 @@ export function phase6PointCommand(point: Phase6GridPoint): readonly string[] {
     // "CAK_A1", so every one of its 204 runs used A_prism ≡ 1 while the registered interpolation
     // row said A_prism is interpolated. The fixture even declared `paramSet` — it was simply
     // never emitted, and the default happened to match, so nothing failed loudly.
-    "--param-set", PHASE6_PARAM_SET,
+    "--param-set", arm.paramSet,
     "--metrics-every", "100000",
   ];
 }
@@ -827,7 +1009,10 @@ export async function phase6RunSweep(options: {
   readonly points?: readonly Phase6GridPoint[];
   /** Per-point wall budget; default 3 h. Over-budget points are excluded by name. */
   readonly pointBudgetMs?: number;
+  /** Which arm. Defaults to arm 1, whose behaviour is the published one. */
+  readonly arm?: Phase6Arm;
 }): Promise<readonly Phase6ScoredPoint[]> {
+  const arm = options.arm ?? PHASE6_ARM1;
   const { execFile } = await import("node:child_process");
   const queue = options.points ?? phase6SweepPlan();
   const domainN = PHASE6_CROSSPLATFORM_FIXTURE.dims.nx;
@@ -848,7 +1033,7 @@ export async function phase6RunSweep(options: {
       let overBudget = false;
       const child = execFile(
         process.execPath,
-        [...phase6PointCommand(point)],
+        [...phase6PointCommand(point, arm)],
         { cwd: options.repoRoot, encoding: "utf8", maxBuffer: 128 * 1024 * 1024 },
         (error, stdout) => {
           clearTimeout(timer);
@@ -869,7 +1054,7 @@ export async function phase6RunSweep(options: {
                 domainContact: false,
                 config: null,
                 seconds,
-              }),
+              }, arm),
             );
             return;
           }
@@ -880,7 +1065,7 @@ export async function phase6RunSweep(options: {
           // whole sweep rather than continue and publish a mixed artifact, which control 3 showed is
           // indistinguishable from a clean one.
           if (parsed !== null) {
-            const configFailures = phase6ConfigFailures(parsed.config, point);
+            const configFailures = phase6ConfigFailures(parsed.config, point, arm);
             if (configFailures.length > 0) {
               reject(
                 new Error(
@@ -912,15 +1097,15 @@ export async function phase6RunSweep(options: {
                 domainContact: false,
                 config: null,
                 seconds,
-              }),
+              }, arm),
             );
             return;
           }
           if (error !== null && error !== undefined) {
-            resolve(phase6ScorePoint(point, { ...parsed, allConverged: false }));
+            resolve(phase6ScorePoint(point, { ...parsed, allConverged: false }, arm));
             return;
           }
-          resolve(phase6ScorePoint(point, parsed));
+          resolve(phase6ScorePoint(point, parsed, arm));
         },
       );
       const timer = setTimeout(() => {

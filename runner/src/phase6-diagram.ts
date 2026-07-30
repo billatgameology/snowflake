@@ -52,6 +52,12 @@ function escapeXml(value: string): string {
 export function phase6RenderDiagram(
   scored: readonly Phase6ScoredPoint[],
   subtitle: string,
+  /**
+   * Which arm this diagram shows. Defaulted to arm 1 because that is what every existing caller
+   * renders, and passed explicitly by the sweep so an arm-2 figure cannot escape captioned as
+   * arm 1's — which the hard-coded title used to guarantee it would.
+   */
+  armLabel = "no-SDAK (CAK)",
 ): string {
   const temps = phase6TemperatureGrid();
   const fractions: number[] = [...PHASE6_SIGMA_FRACTIONS];
@@ -73,7 +79,7 @@ export function phase6RenderDiagram(
       `patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#b00" ` +
       `stroke-width="1.5"/></pattern></defs>`,
     `<text x="${LAYOUT.padLeft}" y="26" font-size="16" font-weight="600">` +
-      `Phase 6 — no-SDAK habit over the registered (T, σ) grid</text>`,
+      `Phase 6 — ${escapeXml(armLabel)} habit over the registered (T, σ) grid</text>`,
     `<text x="${LAYOUT.padLeft}" y="46" font-size="11" fill="#555">${escapeXml(subtitle)}</text>`,
   );
 

@@ -159,18 +159,32 @@ At −15 °C the prism dip cuts σ₀,prism to **5.5%** of its broad-facet value
 reduction at −25 °C and an 8% reduction at −35 °C. It is the single most consequential input in the
 arm, across the entire cold half of the grid.
 
-**The anchors.** `2009.08404v2` Figure 18 plots a *measured* σ₀,prism,SDAK(T) curve spanning roughly
-−8 to −30 °C, but **only two of its points appear as numbers in any prose in the corpus**. Both
-were checked against the closed form:
+**The anchors — CORRECTED 2026-07-30, and the correction changes the conclusion.**
 
-| T (°C) | measured | M1 closed form | ratio | source |
-|---|---|---|---|---|
-| −10 | 0.85% | 0.5916% | **0.696** | `2009.08404v2` p14 |
-| −25 | 6.6% | 6.0409% | **0.915** | `2009.08404v2` p13 |
+This section originally counted **two** anchors, both prism, and drew a tier boundary at −15 °C on
+the claim that prose-stated numbers existed for both dips down to there. The arm-2 freeze review
+challenged it; re-deriving from `research/libbrecht-papers-extracts.md` showed the review and I were
+each half wrong. There are **four** prose-stated narrow-facet anchors, not two — the basal dip has
+its own at −5 and −14 °C — and the warmest anchor of any kind is −5 °C, so −2…−4 is warmer than all
+of them.
 
-The closed form runs **low against both**, by 30% at −10 °C and 8.5% at −25 °C. That is not a
-transcription error — it is the ad-hoc fit's own residual, and the paper says as much: *"While these
-functional forms are completely ad hoc, the values of σ₀(T) derive mainly from experimental data."*
+| T (°C) | facet | measured | M1 closed form | ratio | source |
+|---|---|---|---|---|---|
+| −5 | basal | 0.1% | 0.0987% | **0.987** | `1912.03230v1` (CM6) |
+| −10 | prism | 0.85% | 0.5916% | **0.696** | `2009.08404v2` p14 (CM8) |
+| −14 | basal | 2.33% | 2.2636% | **0.972** | `2009.08404v2` (CM8) |
+| −25 | prism | 6.6% | 6.0409% | **0.915** | `2009.08404v2` p13 (CM8) |
+
+**The asymmetry is the real finding, and it is worse for arm 2 than the two-anchor version was.**
+The basal dip is *well* anchored — 2.8% worst error across both its anchors. The prism dip is not:
+30% low at −10 °C and low at both. And arm 2's predicted gain is almost entirely **cold plates**,
+which the **prism** dip drives. So the arm's strongest predicted effect rides on its
+weaker-anchored input. That is registered here, before the run, rather than surfacing in the
+discussion afterwards.
+
+The closed form running low is not a transcription error — it is the ad-hoc fit's own residual, and
+the paper says as much: *"While these functional forms are completely ad hoc, the values of σ₀(T)
+derive mainly from experimental data."*
 
 **The decision.** Arm 2's report carries a **sourcing tier per temperature**, published with the
 headline rather than beneath it:
@@ -363,6 +377,33 @@ not by reasoning ahead of it.
 
 The Phase 6 grid (−2 … −35 °C) sits comfortably inside that domain, so the guard does not bite
 today. It bites the moment anyone proposes extending the grid, which is when it should.
+
+## The arm-2 freeze review, and the six defects it caught
+
+Rule 13 requires an interpretive document's adversarial audit *before* publication, scaled to claim
+strength. A 15-hour sweep about to be scored against a registered prediction is as load-bearing as
+this project gets, so the freeze was reviewed by five independent adversarial lenses with a
+refutation pass over their findings before a single point ran. Six survived, and all six were real:
+
+| # | defect | what it would have produced |
+|---|---|---|
+| 1 | `phase6Aggregate` scoped `perRegime` by arm 1's rule | arm 2's `columns` row publishing **24 points and 12 agreements** — precisely the free bistable agreements the exclusion exists to remove — against ADR 0036's registered n = 12, agree 0. It also broke the `sum(perRegime) = headline` identity. |
+| 2 | `report.json` and `diagram.svg` carried no arm identity | the SDAK arm's figure captioned **"no-SDAK"**, stamped with a protocol hash whose manifest registers `CAK`, and a report indistinguishable from arm 1's except by directory name |
+| 3 | no arm-2 freeze commit existed | "registered before it ran" enforced by nothing. Worse: `freezeCommit` belongs in the *gated* manifest, so adding it after the sweep would have invalidated the sweep |
+| 4 | the sourcing tiers were factually wrong | see the corrected table above — and being inside the gated manifest, fixing it later would also have cost the run |
+| 5 | nothing refused to write into a non-empty `out/` | `out/` is gitignored and arm 1's 204 rows exist in **no commit**; one mistyped suffix would have destroyed 89 core-hours irrecoverably |
+| 6 | the bistable band had no field to be reported in | a *registered* obligation — "reported with its own count" — that the artifact could not express, which is how a pre-registration gets settled after the run |
+
+Three of the six (1, 3, 4) would have cost the sweep itself; one (5) would have cost arm 1. None
+would have failed a test, and the freeze passed typecheck and 23 unit tests before the review ran.
+
+**Two further things this cost me, worth recording rather than smoothing over.** The review's own
+claim that −11…−15 °C was anchor-free was *also* wrong — I checked the corpus rather than accepting
+either account, and found the basal anchor at −14 °C. And a separate end-to-end check found the CPU
+solver rejecting `paramSet: "M1"` outright: the allow-list was hand-written in four places, I had
+updated one, typecheck and every unit test passed, and the first real child died on its first line.
+There is now a single `NUCLEATION_PARAM_SETS` in `core`, with the GPU path deliberately staying
+narrower and saying why.
 
 ## Consequences
 

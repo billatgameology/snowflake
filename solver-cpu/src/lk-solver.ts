@@ -24,6 +24,7 @@
 // (charter §3.1).
 
 import {
+  isNucleationParamSet,
   alphaHK,
   cSat,
 
@@ -445,7 +446,7 @@ export class LKSolver implements SurfaceOperator {
     requirePositiveFinite(this.sigmaInfinity, "sigmaInfinity");
     requirePositiveFinite(options.dxUm, "dxUm");
     requirePositiveFinite(this.pressurePa, "pressurePa");
-    if (this.paramSet !== "CAK_A1" && this.paramSet !== "CAK") {
+    if (!isNucleationParamSet(this.paramSet)) {
       throw new Error(`paramSet is invalid: ${String(this.paramSet)}`);
     }
     if (!Number.isFinite(this.cflFill) || !(this.cflFill > 0 && this.cflFill < 1)) {

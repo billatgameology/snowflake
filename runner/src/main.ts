@@ -82,7 +82,7 @@ import {
   FAR_FIELD_STOP_FRACTION,
   float64SmootherDriftAbsLimit,
 } from "@vcc/solver-cpu";
-import { GROW_LK_DEFAULTS } from "./grow-lk-defaults.ts";
+import { GROW_LK_DEFAULTS, type GrowLKDefaults } from "./grow-lk-defaults.ts";
 import { gate3 } from "./gate3.ts";
 import { gate4a } from "./gate4a.ts";
 import { gate4b } from "./gate4b.ts";
@@ -113,6 +113,8 @@ import {
 } from "./phase6-crossplatform.ts";
 import { phase6RenderDiagram } from "./phase6-diagram.ts";
 import {
+  PHASE6_ARM1,
+  PHASE6_ARM2,
   phase6Aggregate,
   phase6RunSweep,
   phase6SweepPlan,
@@ -506,7 +508,9 @@ interface GrowLKOptions {
   sigmaInf: number | null;
   dims: Dims;
   dxUm: number;
-  paramSet: "CAK_A1" | "CAK";
+  // "M1" for Phase 6 arm 2 (ADR 0036). Sourced from GrowLKDefaults so the CLI allow-list, the
+  // defaults object and this option type cannot drift apart.
+  paramSet: GrowLKDefaults["paramSet"];
   cfl: number;
   tol: number;
   steps: number;
@@ -586,8 +590,11 @@ function parseLKArgs(argv: string[]): GrowLKOptions {
         break;
       case "--param-set": {
         const v = value();
-        if (v !== "CAK_A1" && v !== "CAK") {
-          throw new Error(`--param-set wants CAK_A1 or CAK, got ${v}`);
+        // "M1" added for Phase 6 arm 2 (ADR 0036). Validated by an explicit allow-list rather than
+        // a cast, so a typo is a named error at the command line instead of a silent default —
+        // ADR 0031's defect was exactly a param set arriving unvalidated.
+        if (v !== "CAK_A1" && v !== "CAK" && v !== "M1") {
+          throw new Error(`--param-set wants CAK_A1, CAK or M1, got ${v}`);
         }
         options.paramSet = v;
         break;
@@ -1356,14 +1363,19 @@ if (command === "__gate2b-worker") {
     console.error("GATE5 EXIT STATUS: 1");
     process.exitCode = 1;
   }
-} else if (command === "phase6-sweep") {
+} else if (command === "phase6-sweep" || command === "phase6-sweep-arm2") {
+  // ADR 0036. One code path, one operand: the ARM. Everything downstream reads it from the single
+  // descriptor rather than re-deciding, so an arm-2 run cannot inherit an arm-1 scorer or write
+  // into arm 1's directory.
+  const arm = command === "phase6-sweep-arm2" ? PHASE6_ARM2 : PHASE6_ARM1;
   const concurrency = rest.length === 0 ? 7 : Number(rest[0]);
   if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 64) {
     console.error("usage: node runner/src/main.ts phase6-sweep [concurrency]");
     process.exit(2);
   }
-  const preflight = phase6SweepPreflight(process.cwd());
-  console.log(`PHASE 6 SWEEP — protocol ${preflight.protocolSha256}`);
+  const preflight = phase6SweepPreflight(process.cwd(), arm);
+  console.log(`PHASE 6 SWEEP [${arm.id}] paramSet=${arm.paramSet} — protocol ${preflight.protocolSha256}`);
+  console.log(`arm values hash ${preflight.valuesSha256} (GATED) · justification ${preflight.justificationSha256} (reported)`);
   console.log(`head=${preflight.head} node=${preflight.node} v8=${preflight.v8}`);
   if (!preflight.ok) {
     console.error("PREFLIGHT FAILED — no sweep evidence may be produced:");
@@ -1373,10 +1385,21 @@ if (command === "__gate2b-worker") {
   }
   const plan = phase6SweepPlan();
   console.log(`preflight OK; ${plan.length} registered grid points, concurrency ${concurrency}`);
-  const outDir = join(process.cwd(), "out", "phase6-sweep");
+  const outDir = join(process.cwd(), "out", arm.outDirName);
+  // REFUSE to write into a directory that already holds evidence. out/ is gitignored, so arm 1's
+  // 204 rows exist in no commit: typing `phase6-sweep` when you meant `phase6-sweep-arm2` would
+  // destroy 89 core-hours of published evidence irrecoverably, and the two commands differ by one
+  // suffix. Found by the arm-2 freeze review; the guard costs one line.
+  if (existsSync(join(outDir, "points.json"))) {
+    console.error(`REFUSING to run: ${outDir} already contains points.json.`);
+    console.error("Move or delete the existing artifact deliberately before re-running this arm.");
+    console.error("PHASE6 SWEEP EXIT STATUS: 3");
+    process.exit(3);
+  }
   mkdirSync(outDir, { recursive: true });
   const scored = await phase6RunSweep({
     concurrency,
+    arm,
     repoRoot: process.cwd(),
     // `accumulated` comes FROM the harness. Reading the binding this await assigns would be a
     // temporal dead zone error, because the callback fires while the await is still pending.
@@ -1393,14 +1416,15 @@ if (command === "__gate2b-worker") {
       writeFileSync(join(outDir, "points.json"), JSON.stringify(accumulated, null, 1));
     },
   });
-  const report = phase6Aggregate(scored, preflight.protocolSha256, preflight.head);
+  const report = phase6Aggregate(scored, preflight.protocolSha256, preflight.head, arm);
   writeFileSync(join(outDir, "report.json"), JSON.stringify(report, null, 1));
   writeFileSync(
     join(outDir, "diagram.svg"),
     phase6RenderDiagram(
       scored,
-      `protocol ${preflight.protocolSha256.slice(0, 12)} · head ${preflight.head.slice(0, 12)} · ` +
-        `node ${preflight.node} · ${plan.length} registered points`,
+      `${arm.id} · paramSet ${arm.paramSet} · values ${preflight.valuesSha256.slice(0, 12)} · ` +
+        `head ${preflight.head.slice(0, 12)} · node ${preflight.node} · ${plan.length} points`,
+      arm.diagramLabel,
     ),
   );
   console.log("");
@@ -1443,7 +1467,8 @@ if (command === "__gate2b-worker") {
       "       node runner/src/main.ts gate5-lane\n" +
       "       node runner/src/main.ts gate5\n" +
       "       node runner/src/main.ts phase6-fixture\n" +
-      "       node runner/src/main.ts phase6-sweep [concurrency]",
+      "       node runner/src/main.ts phase6-sweep [concurrency]\n" +
+      "       node runner/src/main.ts phase6-sweep-arm2 [concurrency]",
   );
   process.exit(2);
 }

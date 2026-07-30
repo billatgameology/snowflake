@@ -108,6 +108,20 @@ const A_PRISM_CAK = [0.45, 0.28, 0.21, 0.18, 0.83, 1, 1, 1, 1];
  */
 export type NucleationParamSet = "CAK_A1" | "CAK" | "M1";
 
+/**
+ * Every parameter set a run may use, and the ONE list that decides it.
+ *
+ * Four separate hand-written guards used to spell this out — the CPU solver, the checkpoint
+ * validator, the GPU solver and the CLI — and adding "M1" to the type plus the CLI left three of
+ * them rejecting it. Typecheck passed, 23 unit tests passed, and the first real child died on its
+ * first line. A list repeated four times is a list that drifts, so there is now one.
+ */
+export const NUCLEATION_PARAM_SETS = ["CAK_A1", "CAK", "M1"] as const;
+
+export function isNucleationParamSet(value: unknown): value is NucleationParamSet {
+  return typeof value === "string" && (NUCLEATION_PARAM_SETS as readonly string[]).includes(value);
+}
+
 // ── M1: the SDAK-dipped closed forms ────────────────────────────────────────────────────────
 //
 // arXiv:2306.13087v1 p6, sigma_0 printed in PERCENT with T the magnitude in degrees Celsius:

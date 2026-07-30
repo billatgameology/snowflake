@@ -1599,6 +1599,10 @@ export class GpuLkSolver {
     requirePositiveFinite(sigmaInfinity, "sigmaInfinity");
     requirePositiveFinite(dxUm, "dxUm");
     requirePositiveFinite(pressurePa, "pressurePa");
+    // DELIBERATELY narrower than core's NUCLEATION_PARAM_SETS: "M1" is Phase 6 arm 2, which ADR
+    // 0030 item 1 scopes to the float64 CPU oracle only. The GPU path has no M1 shader constants,
+    // so accepting the name here would run CAK's numbers under arm 2's label — the worst kind of
+    // silent success. Refusing by name is the correct behaviour, not an oversight.
     if (paramSet !== "CAK_A1" && paramSet !== "CAK") {
       throw new Error("paramSet must be CAK_A1 or CAK");
     }

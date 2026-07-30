@@ -25,7 +25,9 @@ export interface GrowLKDefaults {
   readonly farField: FarFieldCondition;
   readonly dims: { readonly nx: number; readonly ny: number; readonly nz: number };
   readonly dxUm: number;
-  readonly paramSet: "CAK_A1" | "CAK";
+  // "M1" is Phase 6 arm 2's set (ADR 0036). Widened here rather than cast at the parse site, so the
+  // CLI's allow-list and this type cannot drift apart.
+  readonly paramSet: "CAK_A1" | "CAK" | "M1";
   readonly cfl: number;
   readonly tol: number;
   readonly steps: number;

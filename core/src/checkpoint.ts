@@ -17,6 +17,7 @@
 import { cellCount, hexDistance, type Dims } from "./lattice.ts";
 import {
   isLKSurfacePolicy,
+  isNucleationParamSet,
   kineticLength,
   mIce,
   vKin,
@@ -591,7 +592,7 @@ function validateLKMetadata(value: unknown): number {
       throw new Error(`LK checkpoint ${name} must be finite and positive`);
     }
   }
-  if (metadata.paramSet !== "CAK_A1" && metadata.paramSet !== "CAK") {
+  if (!isNucleationParamSet(metadata.paramSet)) {
     throw new Error(`LK checkpoint paramSet is invalid: ${String(metadata.paramSet)}`);
   }
   const cfl = requireFinite(metadata.cflFill, "cflFill");
