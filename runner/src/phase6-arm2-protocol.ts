@@ -55,7 +55,7 @@ import {
  * added later without invalidating the run, which is the only thing that makes "registered before it
  * ran" cost anything.
  */
-export const PHASE6_ARM2_FREEZE_COMMIT = "PENDING_FREEZE_COMMIT";
+export const PHASE6_ARM2_FREEZE_COMMIT = "483f7ee56cbbcd5017658aa4879a3a9b87c56809";
 
 /** Arm 2's identity, recorded in its artifacts so an arm can never be mistaken for the other. */
 export const PHASE6_ARM2_ID = "arm2-sdak-m1" as const;
@@ -418,7 +418,7 @@ export function phase6Arm2JustificationManifest(
  * Registered at the arm-2 freeze, before any arm-2 point ran.
  */
 export const PHASE6_ARM2_VALUES_SHA256 =
-  "d8c4e799095e4db870b03c696bf40d2ec4f72f0c8e1396457b4bd257026cbd93";
+  "13e678d5eec467a391958a18c71c8d170900d6efd0d5c23bb4362d863b9acd76";
 
 /** Arm 2's justification hash — reported, never gated. Prose corrections cost no re-sweep. */
 export const PHASE6_ARM2_JUSTIFICATION_SHA256 =
@@ -427,7 +427,7 @@ export const PHASE6_ARM2_JUSTIFICATION_SHA256 =
 /** Values-hash revisions for arm 2, newest last. */
 export const PHASE6_ARM2_VALUES_REVISIONS: readonly { sha256: string; note: string }[] = [
   {
-    sha256: "d8c4e799095e4db870b03c696bf40d2ec4f72f0c8e1396457b4bd257026cbd93",
+    sha256: "13e678d5eec467a391958a18c71c8d170900d6efd0d5c23bb4362d863b9acd76",
     note:
       "arm-2 freeze, ADR 0036. 28 rows: arm 1's 25 with param-set, parameter-interpolation and " +
       "parameter-table overridden, plus bistable-band, input-sourcing-tiers and " +
