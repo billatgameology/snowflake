@@ -901,6 +901,37 @@ immutable.
 
 ## Next step
 
+**`docs/education/` is Rule 7 clean and its claims are re-verified against the 2026-07-29
+correction (`c7eb7f4`, `8b34535`, `5625ad4`).** The site predates Rule 7 and had never been
+scanned: all 321 violations were bare `alpha`/`beta`/α/β under `docs/education/` (16 chapter
+files plus the glossary), fixed by editorial rename to `alphaHK*`/`ggThresh*` — verbatim
+quotations and a few genuinely unrelated third quantities (a classical-nucleation step energy
+in chapters 5/6/11/glossary, a canvas opacity variable in chapter 24, Rule 7's own policy text
+quoted in chapter 16) marked `rule7-waive:` instead of renamed. `node scripts/lint-rule7.mjs`
+is clean over 329 files.
+
+Separately — Rule 9's spirit, checking the artifact rather than the claim — chapters 12, 13,
+and 28 turned out to independently restate the exact claim commit `5463e76` retracted:
+comparing the two broad-facet sigma_0 curves alone and calling the one crossing found that way
+a "structural, not numerical" ceiling "independent of diffusion, grid, seed, far field." That
+drops the `A` prefactor in `alphaHK = A*exp(-sigma0/sigma_surf)`; restored, the swap count
+depends on `sigma_surf` and reaches three even with no SDAK. Chapters 12 and 28's own
+interactive charts had the retraction's other bug too — the printed SDAK dip formulas use
+`log10`, and these charts used `Math.log`, printing 5 crossings (3.70/6.25/8.46/9.93/18.62 °C)
+instead of the corrected 3 (3.08/8.07/24.73 °C). Fixed in
+`docs/education/assets/anim-sigma0.js` (shared by ch. 12 and ch. 13) and chapter 28's own
+crossing widget; the corrected values were independently re-derived in Node against the fixed
+formulas, not just asserted. Chapter 12's "exact hit" claim for the middle boundary — an
+artifact of the log-base bug — is withdrawn in place; the corrected middle crossing misses by
+1.8 °C, outside the diagram's own read uncertainty. Chapters 11, 14–27, 29, `glossary.html`
+and `index.html` were checked against the same three criteria (necessity-form language, the
+3/90-vs-5/90 headline, "cannot" vs. "as run, does not reproduce") and already read correctly;
+nothing there was changed. Renaming and claim-correction were kept in separate commits, per
+instruction. Exact root `npm test` (`lint:rule7 && typecheck && vitest run`) exits 0 at commit
+`5625ad4`: 69 files / 1232 tests. This is documentation-only — it changes no Phase 6 protocol,
+freeze row, or evidence claim, and does not touch `runner/`, `core/`, `solver-cpu/`,
+`solver-gpu/`, or `app/`.
+
 **Phases 2b, 3, 4, and 5 are complete. Phase 6 is next.**
 
 **Phase 7 scope is pre-solidified (2026-07-28, maker-directed): decision 0029 + charter
