@@ -904,15 +904,22 @@ immutable.
 **A new independent audit of the complete education course is active under
 [`education-parts-1-2-audit-and-remediation.md`](plans/education-parts-1-2-audit-and-remediation.md),
 criteria-first commit `9897fd5`.** Candidate `c69c66c` already claims the user's requested
-Part One/Part Two review and fifteen new demos, but its producer's verdict is not being inherited:
-three read-only reviews are independently re-deriving Part One paper coverage/order, Part Two
-authority/code coverage/order, and every interactive's behavior before any remediation. The
-clean `education-worktree` is at `f8668d2`, its merge base with `main`; `c69c66c` is the later
-main-only candidate. The local research cache was inventoried without mutation (14 PDFs, 10
-videos, 3,628 ignored files, zero untracked non-ignored research files), and no copyrighted media
-will be staged. Existing dirty Phase 6 SDAK work is unrelated and remains outside this plan.
-Next action: collect the three independent findings, record the paper/code/demo matrices in the
-plan, then assign non-overlapping fixes and behavioral tests.
+Part One/Part Two review and fifteen new demos, but its producer's verdict was not inherited.
+Three read-only reviews have now independently mapped the Part One corpus, Part Two authority and
+implementation, and all 169 interactive roots. They found substantial later-paper omissions,
+stale/incorrect Part Two claims, and reproduced model defects: the G-G zoo loses 12.64–19.85% of
+its displayed mass and stops valid growth early; the diffusion demo breaks D6 symmetry by step
+2,000. The full source/authority/demo matrices and reviewer limits are in the active plan.
+
+Implementation is isolated in `G:\Code Files\snowflake-education-audit` on branch
+`education-audit`, based on commits `9897fd5` and `3af7501`. Read-only ignored junctions expose
+the local figure/video cache; no copyrighted media will be staged. The primary worktree's dirty
+Phase 6 SDAK work remains untouched. Baseline exact `npm test` passed Rule 7, both typechecks, and
+1,261/1,262 cases; the sole failure requires ignored `out/phase6-sweep/points.json`, which final
+verification will supply from the existing immutable artifact without changing Phase 6 code.
+Next action: repair Part One first in non-overlapping content/demo batches, build all five
+review-recommended Part One interactions, and pass the Part One behavioral/browser gate before
+starting Part Two remediation.
 
 **`docs/education/` is Rule 7 clean and its claims are re-verified against the 2026-07-29
 correction (`c7eb7f4`, `8b34535`, `5625ad4`).** The site predates Rule 7 and had never been
