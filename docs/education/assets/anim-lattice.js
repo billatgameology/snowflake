@@ -106,7 +106,7 @@
     }
 
     function render(t) {
-      const time = ((t % DUR) + DUR) % DUR;
+      const time = Math.max(0, Math.min(DUR, t));
       if (svg) svg.remove();
       const c = Viz.colors();
 
@@ -232,22 +232,52 @@
       if (scrub && !scrub.dragging) scrub.input.value = time;
     }
 
-    const anim = Viz.animate(root, render, { duration: DUR, staticAt: 8.4, controls: false });
+    // The scrubber includes both endpoints. Do not wrap DUR back to zero:
+    // the final lattice state must remain inspectable and distinct from the
+    // initial cloud of molecules.
+    const anim = Viz.animate(root, render, {
+      duration: DUR, loop: false, staticAt: 8.4, controls: false,
+    });
 
     if (bar) {
-      Viz.button(bar, "Pause", function (b) {
-        const playing = anim.isPlaying;
-        if (playing) anim.pause(); else anim.play();
-        b.textContent = playing ? "Play" : "Pause";
+      const motionPreference = Viz.reduceMotion;
+      const playbackButton = Viz.button(bar, "Pause", function () {
+        if (anim.isPlaybackRequested) anim.pause();
+        else anim.play();
+        syncPlaybackButton();
       });
+
+      function syncPlaybackButton() {
+        const reduced = motionPreference.matches;
+        playbackButton.disabled = reduced;
+        playbackButton.textContent = reduced
+          ? "Motion reduced"
+          : (anim.isPlaybackRequested ? "Pause" : "Play");
+        playbackButton.setAttribute(
+          "aria-label",
+          reduced
+            ? "Animation paused because reduced motion is enabled; use the Step through slider"
+            : (anim.isPlaybackRequested ? "Pause animation" : "Play animation"),
+        );
+        playbackButton.title = reduced
+          ? "Use the Step through slider to inspect the animation manually"
+          : "";
+      }
+
       scrub = Viz.slider(bar, {
         label: "Step through", id: "lattice-scrub",
         min: 0, max: DUR, step: 0.05, value: 0,
         format: (v) => v.toFixed(1) + "s",
-        onInput: function (v) { anim.pause(); anim.seek(v); },
+        onInput: function (v) {
+          anim.pause();
+          anim.seek(v);
+          syncPlaybackButton();
+        },
       });
       scrub.input.addEventListener("pointerdown", function () { scrub.dragging = true; });
       window.addEventListener("pointerup", function () { if (scrub) scrub.dragging = false; });
+      motionPreference.addEventListener("change", syncPlaybackButton);
+      syncPlaybackButton();
     }
 
     Viz.onThemeChange(function () { render(anim.time); });

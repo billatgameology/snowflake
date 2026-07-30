@@ -400,11 +400,16 @@
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
-          <span class="built-from">Original simulation. Vapour is relaxed to the steady state of the
-          diffusion equation on a hexagonal lattice each frame, with the far field held humid and the
-          ice surface held at zero, and surface cells fill at a rate proportional to the vapour reaching
-          them &mdash; the diffusion-limited growth described in Libbrecht, <em>Snow Crystals</em>,
-          chapter 3. The &ldquo;Face-seeking&rdquo; slider is a cartoon of attachment kinetics, not the
+          <span class="built-from">Original simulation. Vapour is relaxed toward the quasi-static
+          solution of the diffusion equation on a hexagonal lattice each frame, with the far field
+          held humid and the ice surface held at zero. Each relaxation sweep reads one complete old
+          field before writing the next, and sums opposite-neighbour pairs in a canonical order.
+          That avoids the unsafe in-place raster shortcut, whose answer depends on which side of the
+          crystal the loop visits first. The live D6 readout compares every cell with its
+          60-degree-rotated and mirrored images; all three values should remain exactly zero.
+          Surface cells fill at a rate proportional to the vapour reaching them &mdash; the
+          diffusion-limited growth described in Libbrecht, <em>Snow Crystals</em>, chapter 3.
+          The &ldquo;Face-seeking&rdquo; slider is a cartoon of attachment kinetics, not the
           measured attachment coefficient, and no number in it is a physical measurement.</span>
         </figcaption>
       </figure>
@@ -784,7 +789,9 @@
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
-          <span class="built-from">Original diagram, redrawn at random on each press. The arm is built
+          <span class="built-from">Original diagram, redrawn from a named, seeded pseudo-random
+          sequence on each press, so a fresh page load is reproducible without making successive
+          specimens identical. The arm is built
           from the measured traits on printed pp. 84&ndash;85 of Libbrecht, <em>Snow Crystals</em>:
           sidebranches leave at 60 degrees, begin a few tip radii behind the tip, and are spaced
           erratically with little correlation between the two sides. The gaps are drawn from a range
@@ -1374,9 +1381,15 @@
     const W = 560, H = 352, RTIP = 9, HALF = 9, ORIGIN = 46, LOCK = 430;
     let sigma = 0.45, tipX = ORIGIN, nextGap = 0, branches = [];
     const tick = stepper();
+    const rng = Viz.namedRng("chapter06-tip-frame");
 
     // the first sidebranch only after the arm is long enough to carry one
-    function reseed() { branches = []; tipX = ORIGIN; nextGap = 62 + Math.random() * 28; }
+    function reseed() {
+      rng.reset();
+      branches = [];
+      tipX = ORIGIN;
+      nextGap = 62 + rng() * 28;
+    }
     reseed();
 
     /**
@@ -1479,8 +1492,8 @@
       nextGap -= v * dt;
       if (nextGap <= 0) {
         // a new sidebranch, born a few tip radii behind the point, side chosen at random
-        branches.push({ x: tipX - 4 * RTIP, side: Math.random() < 0.5 ? 1 : -1, len: 0 });
-        nextGap = 30 + Math.random() * 42;
+        branches.push({ x: tipX - 4 * RTIP, side: rng() < 0.5 ? 1 : -1, len: 0 });
+        nextGap = 30 + rng() * 42;
       }
       branches.forEach(function (b) { b.len = Math.min(54, b.len + 26 * dt); });
       if (tipX > W - 34) reseed();
@@ -1509,14 +1522,15 @@
 
     const W = 560, H = 262, AXIS = 126, X0 = 70, XT = 500;
     let folded = false, twinned = false, top = [], bottom = [];
+    const rng = Viz.namedRng("chapter06-mirror-test");
 
     function build() {
       function side() {
         const out = [];
-        let x = X0 + 14 + Math.random() * 18;
+        let x = X0 + 14 + rng() * 18;
         while (x < XT - 34) {
           out.push(x);
-          x += 26 + Math.random() * 30;       // erratic spacing
+          x += 26 + rng() * 30;       // erratic spacing
         }
         return out;
       }

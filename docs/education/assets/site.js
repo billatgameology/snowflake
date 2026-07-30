@@ -6,10 +6,11 @@
 
    Figure resolution exists because the source figures are third-party and
    copyrighted (Libbrecht). Per decision 0004 they are NOT committed to this
-   repository; they live in the gitignored research/ cache. So every paper
-   figure is referenced by path and degrades to a fully-cited placeholder when
-   the local cache is absent. The citation is always present either way — the
-   image is the part that may be missing, never the attribution.
+   repository; they live in the gitignored research/ cache. Authored public
+   pages render fully-cited placeholders without probing those paths.
+   tools/build-local.mjs copies the cached files and stamps an explicit local
+   figure base into its private output. The citation is always present either
+   way — the image is the part that may be missing, never the attribution.
    ========================================================================= */
 
 (function () {
@@ -34,27 +35,15 @@
   }
 
   /**
-   * Path prefix from this page back to the REPOSITORY root.
-   * Only meaningful when the site is opened from a checkout — docs/education/
-   * is two levels below the repo root. On a deployed site this walks above the
-   * document root, which is exactly why figure requests 404 there and fall back
-   * to the cited placeholder.
-   */
-  function repoRoot() {
-    return "../".repeat(2 + depth());
-  }
-
-  /**
    * Where figure images live, relative to this page.
    *
-   * Defaults to the repository root, which is what makes figures resolve from a
-   * checkout and 404 on the published site. A self-contained local build (see
-   * tools/build-local.mjs) overrides it by putting data-figure-base on <body>,
-   * so the images can sit beside the pages instead of two levels above them.
+   * Only the self-contained local build supplies data-figure-base on <body>.
+   * Returning null for authored pages is deliberate: the public artifact must
+   * not become fail-open merely because a server happens to expose /research.
    */
   function figureBase() {
     const explicit = document.body.getAttribute("data-figure-base");
-    return explicit === null ? repoRoot() : explicit;
+    return explicit === null ? null : explicit;
   }
 
   function el(tag, className, text) {
@@ -82,11 +71,21 @@
     return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   }
 
-  function initTheme() {
+  /*
+   * site.js is loaded immediately before viz.js on every page. Restore an
+   * explicit preference while this script is evaluating, before any
+   * visualization reads the CSS palette. DOM-dependent button wiring can
+   * still wait for DOMContentLoaded.
+   */
+  function restoreSavedTheme() {
     let saved = null;
     try { saved = localStorage.getItem(THEME_KEY); } catch (e) { /* private mode */ }
-    if (saved) applyTheme(saved);
+    if (saved === "light" || saved === "dark") applyTheme(saved);
+  }
 
+  restoreSavedTheme();
+
+  function initTheme() {
     const button = $("[data-theme-toggle]");
     if (!button) return;
 
@@ -105,6 +104,7 @@
       window.dispatchEvent(new CustomEvent("themechange", { detail: { theme: next } }));
     });
 
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", sync);
     sync();
   }
 
@@ -135,24 +135,22 @@
     const figureId = fig.getAttribute("data-figure") || "";
     const page = fig.getAttribute("data-page") || "";
     const alt = fig.getAttribute("data-alt") || figureId || "Figure from the source paper";
-    const url = figureBase() + src;
-
-    const frame = el("div", "figure__frame");
-    const img = el("img");
-    img.src = url;
-    img.alt = alt;
-    img.decoding = "async";
-    // NOT loading="lazy". A lazy image below the fold is never fetched, so it
-    // never fires "error", so the citation card never replaces it — on the
-    // published site, where no figure resolves, that leaves blank frames where
-    // the citations should be. Eager loading costs nothing there (every request
-    // 404s immediately) and a chapter holds at most ~17 figures locally.
-
-    img.addEventListener("error", function () {
-      frame.replaceWith(missingCard(src, figureId, source, page));
-    });
-
-    frame.appendChild(img);
+    const sourceUrl = fig.getAttribute("data-source-url") || "";
+    const base = figureBase();
+    let frame;
+    if (base === null) {
+      frame = missingCard(src, figureId, source, page, sourceUrl);
+    } else {
+      frame = el("div", "figure__frame");
+      const img = el("img");
+      img.src = base + src;
+      img.alt = alt;
+      img.decoding = "async";
+      img.addEventListener("error", function () {
+        frame.replaceWith(missingCard(src, figureId, source, page, sourceUrl));
+      });
+      frame.appendChild(img);
+    }
 
     // citation strip — always rendered, image present or not
     const cite = el("div", "figure__cite");
@@ -175,7 +173,7 @@
    * card's job is not to apologise but to send the reader to the real thing —
    * the exact paper, figure number and page, one click away.
    */
-  function missingCard(src, figureId, source, page) {
+  function missingCard(src, figureId, source, page, sourceUrl) {
     const box = el("div", "figure__missing");
     box.appendChild(el("h4", null, (figureId || "This figure") + " is in the source paper"));
 
@@ -195,19 +193,21 @@
     ));
     box.appendChild(where);
 
-    // arXiv id lives inside the citation string, e.g. "…(arXiv:1910.06389v2)"
+    // An explicit source URL handles journals and archives without arXiv IDs.
+    // Otherwise derive the stable arXiv abstract link from the citation.
     const arxiv = /arXiv:\s*([0-9]{4}\.[0-9]{4,5})(v[0-9]+)?/i.exec(source || "");
-    if (arxiv) {
+    const openUrl = sourceUrl || (arxiv ? "https://arxiv.org/abs/" + arxiv[1] : "");
+    if (openUrl) {
       const open = el("p");
-      const a = el("a", null, "Open the paper on arXiv →");
-      a.href = "https://arxiv.org/abs/" + arxiv[1];
+      const a = el("a", null, arxiv && !sourceUrl ? "Open the paper on arXiv →" : "Open the source →");
+      a.href = openUrl;
       a.rel = "noopener";
       open.appendChild(a);
       box.appendChild(open);
     }
 
     const note = el("p");
-    note.appendChild(document.createTextNode("Reading from a checkout? The image belongs at "));
+    note.appendChild(document.createTextNode("Building the personal offline edition? The image belongs at "));
     note.appendChild(el("code", null, src));
     note.appendChild(document.createTextNode(" — see "));
     const link = el("a", null, "FIGURES.md");
@@ -343,7 +343,6 @@
 
   // expose for animation modules
   window.SnowSite = {
-    repoRoot: repoRoot, siteRoot: siteRoot,
-    currentTheme: currentTheme, $: $, $$: $$, el: el,
+    siteRoot: siteRoot, currentTheme: currentTheme, $: $, $$: $$, el: el,
   };
 })();

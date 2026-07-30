@@ -15,7 +15,7 @@
 
    HOW IT WORKS, so nobody mistakes it for a research model:
      - the lattice is HEXAGONAL, because ice is; six-fold branching here comes
-       from the lattice, exactly as it does in a real crystal
+       from the lattice anisotropy, as it does in a real crystal
      - vapour density lives on that lattice, pinned to 1 far away and 0 on the
        crystal surface (a perfectly absorbing surface)
      - it is relaxed toward its steady state every frame, which is the
@@ -67,9 +67,10 @@
 
   function makeState() {
     const s = {
-      vapour: new Float32Array(W * W),
+      vapour: new Float64Array(W * W),
+      vapourNext: new Float64Array(W * W),
       solid: new Uint8Array(W * W),
-      fill: new Float32Array(W * W),
+      fill: new Float64Array(W * W),
       live: [],          // indices of cells inside the hexagonal domain
       edge: new Uint8Array(W * W),   // 1 if on the far-field rim
       neighbours: null,
@@ -95,9 +96,13 @@
 
   function reset(s, seed) {
     s.vapour.fill(0);
+    s.vapourNext.fill(0);
     s.solid.fill(0);
     s.fill.fill(0);
-    for (const i of s.live) s.vapour[i] = 1;
+    for (const i of s.live) {
+      s.vapour[i] = 1;
+      s.vapourNext[i] = 1;
+    }
     const seedR = seed == null ? 1 : seed;
     for (let r = -seedR; r <= seedR; r++) {
       for (let q = -seedR; q <= seedR; q++) {
@@ -106,27 +111,53 @@
           const i = idx(q, r);
           s.solid[i] = 1;
           s.vapour[i] = 0;
+          s.vapourNext[i] = 0;
         }
       }
     }
     s.radius = seedR;
   }
 
-  /** One Gauss-Seidel sweep of Laplace's equation over the hexagonal lattice. */
+  /**
+   * Add the three opposite-direction pairs, sort those pair sums, then add
+   * them. Every D6 transform only permutes the pairs and/or swaps the two
+   * operands inside a pair, so the evaluated result is invariant to direction
+   * enumeration rather than merely equal in exact arithmetic.
+   */
+  function d6NeighbourSum(a0, a1, a2, a3, a4, a5) {
+    let x = a0 + a1;
+    let y = a2 + a3;
+    let z = a4 + a5;
+    let swap;
+    if (x > y) { swap = x; x = y; y = swap; }
+    if (y > z) { swap = y; y = z; z = swap; }
+    if (x > y) { swap = x; x = y; y = swap; }
+    return (x + y) + z;
+  }
+
+  /** One double-buffered, D6-equivariant Jacobi sweep of Laplace's equation. */
   function relax(s) {
-    const v = s.vapour, solid = s.solid, nb = s.neighbours, edge = s.edge;
+    const v = s.vapour, next = s.vapourNext;
+    const solid = s.solid, nb = s.neighbours, edge = s.edge;
     for (let n = 0; n < s.live.length; n++) {
       const i = s.live[n];
-      if (solid[i]) { v[i] = 0; continue; }
-      if (edge[i]) { v[i] = 1; continue; }          // far field stays undepleted
-      let sum = 0, count = 0;
+      if (solid[i]) { next[i] = 0; continue; }
+      if (edge[i]) { next[i] = 1; continue; }        // far field stays undepleted
+      let n0, n1, n2, n3, n4, n5;
       for (let k = 0; k < 6; k++) {
         const j = nb[i * 6 + k];
-        if (j < 0) { sum += 1; count++; }           // treat outside as far field
-        else { sum += v[j]; count++; }
+        const value = j < 0 ? 1 : v[j];             // treat outside as far field
+        if (k === 0) n0 = value;
+        else if (k === 1) n1 = value;
+        else if (k === 2) n2 = value;
+        else if (k === 3) n3 = value;
+        else if (k === 4) n4 = value;
+        else n5 = value;
       }
-      v[i] = sum / count;
+      next[i] = d6NeighbourSum(n0, n1, n2, n3, n4, n5) / 6;
     }
+    s.vapour = next;
+    s.vapourNext = v;
   }
 
   /**
@@ -144,16 +175,24 @@
       const i = s.live[n];
       if (solid[i]) continue;
 
-      let contact = 0, sum = 0;
+      let contact = 0;
+      let n0, n1, n2, n3, n4, n5;
       for (let k = 0; k < 6; k++) {
         const j = nb[i * 6 + k];
-        if (j < 0) { sum += 1; continue; }
-        if (solid[j]) contact++;
-        else sum += v[j];
+        let value;
+        if (j < 0) value = 1;
+        else if (solid[j]) { contact++; value = 0; }
+        else value = v[j];
+        if (k === 0) n0 = value;
+        else if (k === 1) n1 = value;
+        else if (k === 2) n2 = value;
+        else if (k === 3) n3 = value;
+        else if (k === 4) n4 = value;
+        else n5 = value;
       }
       if (!contact) continue;
 
-      const flux = sum / 6;
+      const flux = d6NeighbourSum(n0, n1, n2, n3, n4, n5) / 6;
       const flatness = contact / 6;
       const rate = flux * ((1 - stick) + stick * flatness);
       surf.push(i, rate);
@@ -176,6 +215,34 @@
       }
     }
     return froze;
+  }
+
+  /**
+   * Compare the two D6 generators: a 60-degree rotation
+   * (q,r) -> (-r,q+r), and a mirror (q,r) -> (r,q). Invariance under both
+   * generators implies invariance under the full group.
+   */
+  function orbitError(s) {
+    let vapour = 0;
+    let fill = 0;
+    let solidMismatches = 0;
+    for (let n = 0; n < s.live.length; n++) {
+      const i = s.live[n];
+      const q = (i % W) - R;
+      const r = Math.floor(i / W) - R;
+      const images = [idx(-r, q + r), idx(r, q)];
+      for (let k = 0; k < images.length; k++) {
+        const j = images[k];
+        vapour = Math.max(vapour, Math.abs(s.vapour[i] - s.vapour[j]));
+        fill = Math.max(fill, Math.abs(s.fill[i] - s.fill[j]));
+        if (s.solid[i] !== s.solid[j]) solidMismatches++;
+      }
+    }
+    return Object.freeze({
+      vapour: vapour,
+      fill: fill,
+      solidMismatches: solidMismatches,
+    });
   }
 
   /* --------------------------------------------------------------- mount -- */
@@ -214,6 +281,7 @@
 
     let stick = o.stick;
     let showField = o.showField;
+    let symmetryEl = null;
 
     // The lattice is finite, so the crystal must eventually stop growing and
     // loop back to a fresh seed. A hard jump-cut from a full crystal to a
@@ -317,6 +385,16 @@
           ctx.restore();
         }
       }
+
+      if (symmetryEl) {
+        const error = orbitError(s);
+        symmetryEl.textContent = "D6 orbit error: vapour " + error.vapour.toExponential(2)
+          + " · fill " + error.fill.toExponential(2)
+          + " · solid mismatches " + error.solidMismatches
+          + " (rotation + mirror generators)";
+        symmetryEl.style.color = error.vapour === 0 && error.fill === 0
+          && error.solidMismatches === 0 ? c.good : c.critical;
+      }
     }
 
     function simulate() {
@@ -380,8 +458,13 @@
         phase = "growing"; phaseT = 0; fade = 1; acc = 0;
         draw();
       });
+      symmetryEl = document.createElement("span");
+      symmetryEl.className = "control";
+      symmetryEl.style.fontFamily = "var(--font-mono)";
+      symmetryEl.style.fontSize = "0.72rem";
+      bar.appendChild(symmetryEl);
       if (Viz.reduceMotion.matches) {
-        Viz.button(bar, "Grow 60 steps", function () { for (let i = 0; i < 60; i++) step(); });
+        Viz.button(bar, "Grow 120 steps", function () { for (let i = 0; i < 120; i++) step(); });
       }
     }
 
@@ -389,9 +472,54 @@
     Viz.onThemeChange(draw);
     return {
       step: step, draw: draw, state: s, anim: anim,
+      get orbitError() { return orbitError(s); },
       get phase() { return phase; }, get fade() { return fade; },
     };
   }
 
   window.Diffusion = { mount: mount };
+
+  // Stable non-visual seam for the fail-closed verifier. All arrays returned
+  // by snapshot() are copies; tests can independently recompute D6 errors
+  // without mutating the model or trusting the on-page readout.
+  const educationHooks = window.EducationTestHooks || (window.EducationTestHooks = {});
+  educationHooks.diffusion = Object.freeze({
+    constants: Object.freeze({ radius: R, width: W }),
+    create: function (options) {
+      const o = Object.assign({ seed: 1, pace: 0.015, stick: 0.5, sweeps: 4 }, options || {});
+      const s = makeState();
+      reset(s, o.seed);
+
+      function snapshot() {
+        const error = orbitError(s);
+        return Object.freeze({
+          radius: s.radius,
+          orbitError: error,
+          live: Int32Array.from(s.live),
+          edge: Uint8Array.from(s.edge),
+          neighbours: Int32Array.from(s.neighbours),
+          vapour: Float64Array.from(s.vapour),
+          fill: Float64Array.from(s.fill),
+          solid: Uint8Array.from(s.solid),
+        });
+      }
+
+      return Object.freeze({
+        settle: function (sweeps) {
+          const n = Math.max(0, Math.floor(Number(sweeps) || 0));
+          for (let i = 0; i < n; i++) relax(s);
+          return snapshot();
+        },
+        advance: function (steps) {
+          const n = Math.max(0, Math.floor(Number(steps) || 0));
+          for (let i = 0; i < n; i++) {
+            for (let k = 0; k < o.sweeps; k++) relax(s);
+            grow(s, o.pace, o.stick);
+          }
+          return snapshot();
+        },
+        snapshot: snapshot,
+      });
+    },
+  });
 })();

@@ -55,9 +55,9 @@
           Where does a growing snow crystal get its water, and how does it arrive?
         </p>
         <div class="chapter-header__meta">
-          <span>~15 min read</span>
-          <span>10 figures</span>
-          <span>4 animations</span>
+          <span>~22 min read</span>
+          <span>12 figures</span>
+          <span>6 animations</span>
         </div>
       </header>
 
@@ -69,6 +69,8 @@
           <li>Say why a snow crystal growing in a cloud is quietly destroying the droplets around it.</li>
           <li>Show that the actual surplus of vapour peaks near &minus;12&nbsp;&deg;C even though the percentage keeps climbing all the way to &minus;40.</li>
           <li>Describe the dried-out halo around a growing crystal, and predict which parts of the crystal get fed best.</li>
+          <li>Separate surface and transport resistance for the exactly soluble spherical case.</li>
+          <li>Explain how falling, alignment and ventilation perturb growth without mistaking them for its main cause.</li>
         </ul>
       </section>
 
@@ -610,6 +612,67 @@
         aside by default. So will we &mdash; but it is a simplification, not an absence.
       </p>
 
+      <h2 id="two-bottlenecks-in-series">Two bottlenecks in series</h2>
+
+      <p>
+        For one ideal shape the bookkeeping can be done exactly. Put a spherical ice crystal of
+        radius <em>R</em> in an infinite reservoir with supersaturation
+        &sigma;<sub>infinity</sub>. The steady field outside it is
+        &sigma;(<em>r</em>)&nbsp;=&nbsp;&sigma;<sub>infinity</sub>&nbsp;&minus;
+        (<em>R</em>/<em>r</em>)[&sigma;<sub>infinity</sub>&nbsp;&minus;
+        &sigma;<sub>surf</sub>]: the depleted halo falls away as 1/<em>r</em>. At the surface,
+        diffusion and attachment must carry exactly the same molecular traffic, which gives
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          &sigma;<sub>surf</sub> =
+          <span class="frac"><span><em>X</em><sub>0</sub>/<em>R</em></span><span><code>alphaHK</code> + <em>X</em><sub>0</sub>/<em>R</em></span></span>
+          &sigma;<sub>infinity</sub>
+        </p>
+        <p class="equation__math">
+          <em>v</em><sub>n</sub> =
+          <span class="frac"><span><code>alphaHK</code>(<em>X</em><sub>0</sub>/<em>R</em>)</span><span><code>alphaHK</code> + <em>X</em><sub>0</sub>/<em>R</em></span></span>
+          <em>v</em><sub>kin</sub>&sigma;<sub>infinity</sub>
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt><code>alphaHK</code></dt><dd>the surface attachment coefficient introduced at the end of this chapter and developed in Chapter 5</dd>
+            <dt><em>X</em><sub>0</sub>/<em>R</em></dt><dd>the dimensionless diffusive conductance: delivery becomes harder as the sphere grows</dd>
+            <dt><em>v</em><sub>kin</sub></dt><dd>the molecular speed scale used by the Hertz&ndash;Knudsen growth law</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">
+          Libbrecht, Snow Crystals, Eqs. 3.16&ndash;3.24, printed pp. 96&ndash;98
+        </p>
+      </div>
+
+      <p>
+        Read the second equation as two narrow doors in series. If
+        <code>alphaHK</code>&nbsp;&ll;&nbsp;<em>X</em><sub>0</sub>/<em>R</em>, the surface is the
+        smaller door and &sigma;<sub>surf</sub> stays close to the far-away value. If
+        <em>X</em><sub>0</sub>/<em>R</em>&nbsp;&ll;&nbsp;<code>alphaHK</code>, diffusion is the
+        smaller door and the surface consumes nearly everything delivered to it. This exact sphere
+        is a calibration case, not a claim that plates and dendrites are spherical. Cylinders, thin
+        plates and branched crystals require geometry factors or a full three-dimensional field
+        solve; their tips and sheltered faces do not share one surface value.
+      </p>
+
+      <p>
+        Heat adds a third door. Depositing ice warms the interface, and warmer ice has a higher
+        equilibrium vapour pressure, so part of the applied supersaturation is spent carrying latent
+        heat away. For a small prism near &minus;5&nbsp;&deg;C, one later apparatus analysis gives the
+        scale
+        &Delta;&sigma;<sub>therm</sub>&nbsp;&asymp;&nbsp;0.01%&nbsp;&times;
+        (<em>R</em>/10&nbsp;&micro;m)(<em>v</em>/0.1&nbsp;&micro;m&nbsp;s<sup>&minus;1</sup>),
+        before an estimated geometry correction. That is often smaller than particle diffusion in
+        normal air, but it grows with size and speed and cannot be removed merely by lowering the
+        background-gas pressure. The FACET study in Chapter 5 shows the regime where this deferred
+        resistance stops being optional.
+        (Libbrecht, arXiv:1912.09440v1, printed pp.&nbsp;7&ndash;8.)
+      </p>
+
       <!-- ================================================================= -->
       <h2 id="the-hungry-halo">The hungry halo</h2>
 
@@ -684,6 +747,33 @@
           vapor density is lower in that region. The boundary between these two regions shows where
           the humidity passes through the dew point (or, equivalently, the supersaturation passes
           through &sigma;<sub>water</sub>), which is when water droplets begin to condense.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <figure class="anim" id="anim-real-growth"
+              data-offline-video-source="../../../research/snowcrystals.com-videos/1aMonoMovie-droplet-surrounded-high-resolution.mp4"
+              data-source-url="https://www.snowcrystals.com/videos/videos.html"
+              data-direct-source-url="https://www.snowcrystals.com/videos/1aMonoMovie.mp4">
+        <div class="anim__head">
+          <p class="anim__title">The halo changes while the crystal grows</p>
+          <p class="anim__sub">
+            This is a laboratory time-lapse, not a simulation. In the offline research build, scrub
+            from the small seed through branching and watch nearby droplets disappear as their water
+            is transferred through the vapour to the ice. The public page deliberately carries only
+            the source card.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">
+            Kenneth G. Libbrecht, SnowCrystals.com,
+            <a href="https://www.snowcrystals.com/videos/videos.html">Growing Snowflakes</a>,
+            high-resolution movie <code>1aMonoMovie.mp4</code>, catalog checked 2026-07-14.
+            The source publishes no temperature or humidity schedule for this movie, so none is
+            invented here. Copyright remains with the source: local research media may be consumed
+            by the offline page but is never committed or redistributed by the public site.
+          </span>
         </figcaption>
       </figure>
 
@@ -895,6 +985,125 @@
         painted onto the outline in every picture in this chapter.
       </p>
 
+      <h2 id="when-growth-runs-backward">When growth runs backward</h2>
+
+      <p>
+        Supersaturation can be negative. In air drier than the ice balance value,
+        &sigma;<sub>infinity</sub>&nbsp;&lt;&nbsp;0, the same transport problem reverses:
+        molecules leave the solid and diffuse away. That direct solid-to-vapour change is
+        <strong>sublimation</strong>. Convex surfaces do not have to nucleate a new terrace in order
+        to lose molecules, so their sublimation attachment coefficient is usually near one. The
+        transport field then dominates: tips and corners stick furthest into the dry air and retreat
+        fastest, rounding a once-sharp crystal into the &ldquo;travel-worn&rdquo; forms often collected
+        below a high cloud. Running a sublimation movie backward is therefore not a growth movie;
+        the telltale geometry evolves differently. (Libbrecht, Snow Crystals, printed
+        pp.&nbsp;132&ndash;134.)
+      </p>
+
+      <p>
+        There is also a more literal <strong>negative snow crystal</strong>: not an ice object in
+        air, but a crystal-shaped void carved inside a larger single crystal of ice. Pull water
+        vapour from a small internal cavity and its walls sublimate outward. Concave surfaces can
+        carry a nucleation barrier in the reverse process, so the void can become faceted rather than
+        merely spherical. It is a subtractive sibling of ordinary growth: heat and vapour still have
+        to move, and direction-dependent molecular kinetics still selects the faces, but empty space
+        is what grows.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-6.40/visual.png"
+              data-figure="Figure 6.40"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 246 &middot; printed p. 245"
+              data-alt="A faceted, branching crystal-shaped void growing inside a transparent block of single-crystal ice while vapour is removed through a narrow capillary.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the bright branching object is the boundary of an empty
+          cavity, not a solid snow crystal. Its faceted outline shows that direction-dependent
+          sublimation kinetics can sculpt a subtractive crystal just as attachment kinetics sculpts
+          ordinary growth.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 6.40: A &lsquo;negative&rsquo; snow crystal growing at
+          &minus;14 C in a block of single-crystal ice, as a vacuum pump removes water vapor via a
+          0.45-mm-diameter capillary tube. The morphology of the void is determined from thermal
+          diffusion effects together with a strong nucleation barrier in the sublimation kinetics.
+          As with normal snow crystal growth, surface energy effects here are negligible compared to
+          anisotropic sublimation kinetics.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <h2 id="falling-through-the-supply">Falling through the supply</h2>
+
+      <p>
+        A snow crystal does not feel the wind speed measured over the ground. A small crystal is
+        carried along with the surrounding air, so the relevant quantity is the air&rsquo;s speed
+        <em>relative to the crystal</em>. Gravity supplies that difference. Drag rises until it
+        balances weight, producing a terminal fall speed; the resulting flow can orient the crystal
+        and refresh part of its depleted halo.
+      </p>
+
+      <p>
+        Thin plates tend to fall with their broad basal faces roughly horizontal, while slender
+        columns tend to put their long c axis horizontally. The alignment has a window: tiny crystals
+        are easily tossed by turbulence, and sufficiently large plates flutter or tumble. The
+        monograph therefore expects especially good alignment mainly around 0.1&ndash;1&nbsp;mm,
+        with substantial uncertainty because natural crystals are not ideal disks.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-3.28/visual.png"
+              data-figure="Figure 3.28"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 110 &middot; printed p. 109"
+              data-alt="A log-log graph comparing the calculated terminal velocity of a thin snow-crystal disk with two models of turbulent air speed as crystal radius increases.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> alignment becomes plausible where the terminal-velocity
+          curve rises above the turbulence curves: gravity then gives the crystal a steadier
+          direction through the surrounding air than the eddies do. The graph is an idealized
+          2-&micro;m-thick disk calculation, not a universal fall-speed lookup table.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 3.28: The terminal velocity curve on this plot shows
+          the fall velocity of a 2-&micro;m-thick snow crystal disk as a function of disk radius,
+          while approximate scaling with disk thickness is given by Equations 3.48 and 3.49. The
+          turbulence curves show two models of root-mean-squared air velocities when the average air
+          speed is 1 m/sec. When R is large enough that the terminal velocity curve is above the
+          turbulence curves, then gravity can align the crystal horizontally.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        Flow also increases growth by sweeping depleted air away, the
+        <strong>ventilation effect</strong>. For an ideal sphere the monograph gives
+        <em>f</em><sub>v</sub>&nbsp;&asymp;&nbsp;1&nbsp;+&nbsp;0.1&nbsp;Re below
+        Re&nbsp;=&nbsp;1, and
+        <em>f</em><sub>v</sub>&nbsp;&asymp;&nbsp;0.8&nbsp;+&nbsp;0.3&radic;Re above it. The first
+        branching of a representative fern was estimated at Re&nbsp;&asymp;&nbsp;0.1, only about a
+        one-percent correction. Once mature, its sharp tips were estimated to grow roughly
+        25&nbsp;% faster at terminal fall. Aerodynamics can perturb morphology and perhaps symmetry,
+        but the source&rsquo;s conclusion is deliberately modest: it is usually a minor effect beside
+        attachment kinetics and diffusion.
+      </p>
+
+      <figure class="anim" id="anim-aerodynamics">
+        <div class="anim__head">
+          <p class="anim__title">Falling changes the air, not the lattice</p>
+          <p class="anim__sub">
+            Choose a plate or column, change its size, and vary the relative-flow Reynolds number.
+            The drawing separates orientation from ventilation: size selects only a qualitative
+            alignment regime, while the bars evaluate the source&rsquo;s spherical transport estimate.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">
+            Original conceptual explorer based on Libbrecht, Snow Crystals, section 3.7, printed
+            pp.&nbsp;108&ndash;111; ventilation factor from Eq.&nbsp;3.53. It does not calculate a
+            terminal velocity or predict a habit. The spherical factor is not a sharp-tip solution,
+            and the size bands are the source&rsquo;s qualitative alignment summary.
+          </span>
+        </figcaption>
+      </figure>
+
       <aside class="callout callout--open">
         <p class="callout__label">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
@@ -952,6 +1161,8 @@
 <script src="../assets/viz.js"></script>
 <script src="../assets/anim-nakaya.js"></script>
 <script src="../assets/anim-diffusion.js"></script>
+<script src="../assets/anim-real-growth.js"></script>
+<script src="../assets/anim-aerodynamics.js"></script>
 <script>
 /* ===========================================================================
    Chapter 4 originals.
@@ -1006,21 +1217,27 @@ var TABLE_2_1 = {
   var BOX_W = 128, GAP = 16, BOX_TOP = 48, BOX_H = 148;
   var x0 = (W - (CHAMBERS.length * BOX_W + (CHAMBERS.length - 1) * GAP)) / 2;
   var FONT = '"Segoe UI", system-ui, -apple-system, sans-serif';
+  var chamberRng = Viz.namedRng("chapter-04-sealed-box-molecules");
+  function makePacks() {
+    chamberRng.reset();
+    return CHAMBERS.map(function (c, i) {
+      var n = Math.max(1, Math.round(TOP_DOTS * c.csat / CHAMBERS[0].csat));
+      var left = x0 + i * (BOX_W + GAP);
+      var dots = [];
+      for (var k = 0; k < n; k++) {
+        dots.push({
+          x: left + 7 + chamberRng() * (BOX_W - 14),
+          y: BOX_TOP + 7 + chamberRng() * (BOX_H - 14),
+          vx: (chamberRng() - 0.5) * 34,
+          vy: (chamberRng() - 0.5) * 34
+        });
+      }
+      return { info: c, left: left, n: n, dots: dots };
+    });
+  }
 
-  var packs = CHAMBERS.map(function (c, i) {
-    var n = Math.max(1, Math.round(TOP_DOTS * c.csat / CHAMBERS[0].csat));
-    var left = x0 + i * (BOX_W + GAP);
-    var dots = [];
-    for (var k = 0; k < n; k++) {
-      dots.push({
-        x: left + 7 + Math.random() * (BOX_W - 14),
-        y: BOX_TOP + 7 + Math.random() * (BOX_H - 14),
-        vx: (Math.random() - 0.5) * 34,
-        vy: (Math.random() - 0.5) * 34
-      });
-    }
-    return { info: c, left: left, n: n, dots: dots };
-  });
+  var packs = makePacks();
+  var lastAnimationTime = null;
 
   var view = Viz.createCanvas(body, W, H, {
     label:
@@ -1037,8 +1254,8 @@ var TABLE_2_1 = {
       var p = packs[i];
       for (var k = 0; k < p.dots.length; k++) {
         var d = p.dots[k];
-        d.vx += (Math.random() - 0.5) * 60 * step;
-        d.vy += (Math.random() - 0.5) * 60 * step;
+        d.vx += (chamberRng() - 0.5) * 60 * step;
+        d.vy += (chamberRng() - 0.5) * 60 * step;
         d.vx *= 0.96; d.vy *= 0.96;
         d.x += d.vx * step; d.y += d.vy * step;
         if (d.x < p.left + 5) { d.x = p.left + 5; d.vx = Math.abs(d.vx); }
@@ -1095,7 +1312,17 @@ var TABLE_2_1 = {
     ctx.fillText("Every dot = the same amount of water vapour", x0, 15);
   }
 
-  var anim = Viz.animate(root, function (t, dt) { update(dt); draw(); }, { staticAt: 1, stepBy: 0.4 });
+  var anim = Viz.animate(root, function (t, dt) {
+    if (lastAnimationTime !== null && t < lastAnimationTime) {
+      packs = makePacks();
+    }
+    var manualDt = lastAnimationTime === null
+      ? 0
+      : Math.max(0, Math.min(0.4, t - lastAnimationTime));
+    lastAnimationTime = t;
+    update(dt > 0 ? dt : manualDt);
+    draw();
+  }, { staticAt: 1, stepBy: 0.4 });
   Viz.onThemeChange(draw);
   // Under prefers-reduced-motion Viz.animate refuses to run the loop and installs
   // its own "Step forward" / "Restart" pair, so a play/pause button here would be

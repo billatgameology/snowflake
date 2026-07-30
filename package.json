@@ -15,6 +15,7 @@
     "lint:rule7": "node scripts/lint-rule7.mjs",
     "typecheck": "tsc --noEmit && tsc -p app --noEmit",
     "test": "npm run lint:rule7 && npm run typecheck && vitest run",
+    "education:verify": "node docs/education/tools/verify.mjs",
     "grow": "node runner/src/main.ts",
     "dev": "npm run dev --workspace app"
   },

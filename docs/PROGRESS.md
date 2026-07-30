@@ -83,7 +83,7 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   size-target termination, all relaxations converged, bounded smoother drift, and
   round-trip-identical checkpoints. Stable evidence and exact hashes are in
   [the v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result).
-- **Last updated:** 2026-07-24 by Codex
+- **Last updated:** 2026-07-30 by Codex
 - **Phase 5 is frozen as Windows-only at the operator's direction.** Decision
   [0018](decisions/0018-phase5-windows-only-gate.md), charter v1.16, and the active
   [Phase 5 plan](plans/phase-5-gpu-port.md) defer Metal to a later machine and narrow the current
@@ -905,11 +905,9 @@ immutable.
 [`education-parts-1-2-audit-and-remediation.md`](plans/education-parts-1-2-audit-and-remediation.md),
 criteria-first commit `9897fd5`.** Candidate `c69c66c` already claims the user's requested
 Part One/Part Two review and fifteen new demos, but its producer's verdict was not inherited.
-Three read-only reviews have now independently mapped the Part One corpus, Part Two authority and
-implementation, and all 169 interactive roots. They found substantial later-paper omissions,
-stale/incorrect Part Two claims, and reproduced model defects: the G-G zoo loses 12.64–19.85% of
-its displayed mass and stops valid growth early; the diffusion demo breaks D6 symmetry by step
-2,000. The full source/authority/demo matrices and reviewer limits are in the active plan.
+Three read-only reviews independently mapped the Part One corpus, Part Two authority and
+implementation, and all 169 interactive roots. The full source/authority/demo matrices and
+reviewer limits are in the active plan.
 
 Implementation is isolated in `G:\Code Files\snowflake-education-audit` on branch
 `education-audit`, based on commits `9897fd5` and `3af7501`. Read-only ignored junctions expose
@@ -917,9 +915,31 @@ the local figure/video cache; no copyrighted media will be staged. The primary w
 Phase 6 SDAK work remains untouched. Baseline exact `npm test` passed Rule 7, both typechecks, and
 1,261/1,262 cases; the sole failure requires ignored `out/phase6-sweep/points.json`, which final
 verification will supply from the existing immutable artifact without changing Phase 6 code.
-Next action: repair Part One first in non-overlapping content/demo batches, build all five
-review-recommended Part One interactions, and pass the Part One behavioral/browser gate before
-starting Part Two remediation.
+**Part One is complete.** All five independently recommended demonstrations are integrated:
+FACET/CM7 process comparison, TAX1/TAX2 morphology matrices, CM6 history, rights-aware
+real-growth video, and aerodynamics/ventilation. The later-paper omissions and source limits are
+repaired; diffusion is double-buffered and D6-equivariant; the G-G teaching model conserves its
+displayed reflecting ledger and uses derived halt guards; stochastic demos, theme, playback,
+replay, and reduced-motion controls are deterministic and truthful. The public source tree
+contains no research media and does not probe `research/`; the ignored personal build copied 139
+authenticated figures for 179 references and one authenticated video.
+
+The combined Part One gate
+`node docs/education/tools/verify.mjs --part-one` exited 0 in 335.8 seconds. Report
+`out/education-verify/part-one-report.json` is 275 bytes, SHA-256
+`264992201f9b53b9d6daab2c2e837058692ced13ae0969529df49398841eb552`: 17 pages, 67 visual
+roots, public plus offline modes, 38 blocking checks, zero failures. The same run's 87,960-byte
+`out/education-local/source-media-map.json` has SHA-256
+`696b97469c9bf9bb895d3347b8c42469aa67d7be265b909a5accc1f488204656`. It independently
+rehashed every source/copy pair and rewrite, loaded 102 profiles plus deterministic repeats per
+mode, recomputed the load-bearing demo claims, exercised controls and failure states, and
+executed/rejected all eight artifact-backed negative controls. Independent shared-context Codex
+GPT-5-family science and control reviewers closed their assigned Part One scopes with zero
+remaining findings after remediation; their re-execution and explicit limits are in the plan.
+
+Next action: commit this Part One checkpoint, then repair the recorded Part Two authority/content
+defects and implement all five recommended Part Two demonstrations. Do not touch solver, runner,
+GPU, Phase 6 protocol, or Phase 6 evidence bytes.
 
 **`docs/education/` is Rule 7 clean and its claims are re-verified against the 2026-07-29
 correction (`c7eb7f4`, `8b34535`, `5625ad4`).** The site predates Rule 7 and had never been

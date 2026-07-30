@@ -33,9 +33,9 @@
        equilibrium each frame the way anim-diffusion.js does — the paper's
        vapour field is genuinely time-dependent). A missing neighbour off
        the edge of this small simulated patch reflects (contributes the
-       centre site's own value), matching a closed, reflecting domain: the
-       total vapour + ice mass is approximately conserved, exactly as the
-       paper's dynamics conserves it exactly.
+       centre site's own value), matching a closed, reflecting domain. The
+       total diffusive + boundary mass is conserved up to floating-point
+       roundoff; a live sum below the picture makes that contract testable.
 
      - Freezing and attachment follow the paper's Eqs. (2)-(3): a boundary
        site (touching at least one attached neighbour) converts a fraction
@@ -46,9 +46,10 @@
        neighbours; dropping Z collapses that to this demo's three exposed
        thresholds). The paper's own hole-filling rule — attach automatically
        once four or more neighbours are already attached — is kept exactly,
-       at the same neighbour count. The freezing fraction itself (the
-       paper's kappa, which the paper has decrease with neighbour count) is
-       fixed here, not exposed, so the four exposed knobs stay legible:
+       at the same neighbour count. The fraction frozen is 1 minus the
+       paper's kappa; kappa decreases, so this frozen fraction increases
+       with neighbour count. It is fixed here, not exposed, so the four
+       exposed knobs stay legible:
        background vapour density and the three neighbour-count thresholds.
 
      - Melting (the paper's Eq. (4), a boundary site's mass reverting to
@@ -72,25 +73,30 @@
   const NB = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, -1], [-1, 1]];
 
   const SEED_RADIUS = 2;              // a small central hexagon, frozen from the start
-  const FREEZE_FRAC = [0.35, 0.55, 0.78]; // fixed, not exposed: kappa's "decreasing in neighbour count"
+  // This is 1 - kappa, the fraction transferred out of vapour. The paper
+  // requires kappa to decrease with neighbour count, so 1 - kappa increases.
+  const ONE_MINUS_KAPPA = [0.35, 0.55, 0.78];
   const HOLE_FILL_N = 4;              // paper's own automatic-attachment neighbour count
   const TICKS_PER_FRAME = 3;
-  const STALL_LIMIT = 90;             // ticks with zero new attachments before auto-pause
+  const EDGE_GUARD_RADIUS = R - 4;     // retain a four-cell buffer around the crystal
+  const MAX_TICKS = 12000;             // explicit work guard; never called "vapour exhausted"
 
   /* ------------------------------------------------------------- lattice -- */
 
   function makeState() {
     const s = {
-      vapour: new Float32Array(W * W),
-      vapour2: new Float32Array(W * W),
-      boundary: new Float32Array(W * W),
+      vapour: new Float64Array(W * W),
+      vapour2: new Float64Array(W * W),
+      boundary: new Float64Array(W * W),
       attached: new Uint8Array(W * W),
       live: [],
       neighbours: null,
       tick: 0,
       attachedCount: 0,
-      stalled: false,
-      stallTicks: 0,
+      stopped: false,
+      stopReason: "",
+      maxRadius: SEED_RADIUS,
+      initialMass: 0,
     };
     const nb = new Int32Array(W * W * 6).fill(-1);
     for (let r = -R; r <= R; r++) {
@@ -114,8 +120,9 @@
     s.boundary.fill(0);
     s.attached.fill(0);
     s.tick = 0;
-    s.stalled = false;
-    s.stallTicks = 0;
+    s.stopped = false;
+    s.stopReason = "";
+    s.maxRadius = SEED_RADIUS;
     let n = 0;
     for (let r = -SEED_RADIUS; r <= SEED_RADIUS; r++) {
       for (let q = -SEED_RADIUS; q <= SEED_RADIUS; q++) {
@@ -130,20 +137,27 @@
       }
     }
     s.attachedCount = n;
+    s.initialMass = diagnostics(s).mass;
   }
 
   /** One pass of the paper's Eq. (1a): fixed 1/7 average, reflecting at the patch edge. */
   function diffuse(s) {
     const v = s.vapour, v2 = s.vapour2, at = s.attached, nb = s.neighbours;
+    const operands = new Float64Array(7);
     for (let n = 0; n < s.live.length; n++) {
       const i = s.live[n];
       if (at[i]) { v2[i] = 0; continue; }
-      let sum = v[i];
+      operands[0] = v[i];
       for (let k = 0; k < 6; k++) {
         const j = nb[i * 6 + k];
-        if (j < 0) sum += v[i];               // reflecting: missing neighbour mirrors self
-        else sum += at[j] ? 0 : v[j];
+        operands[k + 1] = j < 0 || at[j] ? v[i] : v[j];
       }
+      // A D6 transform permutes these seven operands. Sorting makes the
+      // evaluated reduction depend on their multiset rather than direction
+      // enumeration, so an exactly symmetric field remains exactly symmetric.
+      operands.sort();
+      let sum = 0;
+      for (let k = 0; k < operands.length; k++) sum += operands[k];
       v2[i] = sum / 7;
     }
     s.vapour.set(v2);
@@ -183,7 +197,7 @@
       if (count >= HOLE_FILL_N) { toAttach.push(i); continue; }
 
       const bucket = count === 1 ? 0 : count === 2 ? 1 : 2;
-      const transfer = FREEZE_FRAC[bucket] * v[i];
+      const transfer = ONE_MINUS_KAPPA[bucket] * v[i];
       b[i] += transfer; v[i] -= transfer;
 
       if (b[i] >= thresh[bucket]) toAttach.push(i);
@@ -191,21 +205,26 @@
     for (let n = 0; n < toAttach.length; n++) {
       const i = toAttach[n];
       at[i] = 1; b[i] += v[i]; v[i] = 0;
+      const q = (i % W) - R, r = Math.floor(i / W) - R;
+      const d = (Math.abs(q) + Math.abs(r) + Math.abs(q + r)) / 2;
+      if (d > s.maxRadius) s.maxRadius = d;
     }
     s.attachedCount += toAttach.length;
     return toAttach.length;
   }
 
   function tick(s, params) {
+    if (s.stopped) return;
     diffuse(s);
-    const froze = freezeAndAttach(s, [params.thresh1, params.thresh2, params.thresh3]);
+    freezeAndAttach(s, [params.thresh1, params.thresh2, params.thresh3]);
     s.tick++;
-    if (froze > 0) s.stallTicks = 0; else s.stallTicks++;
-    if (s.stallTicks >= STALL_LIMIT) s.stalled = true;
-    // stop before the crystal reaches the rim, where the reflecting edge
-    // would stop being a fair stand-in for an unbounded patch of sky
-    let maxRadius = 0;
-    return maxRadius;
+    if (s.maxRadius >= EDGE_GUARD_RADIUS) {
+      s.stopped = true;
+      s.stopReason = "reached the " + (R - EDGE_GUARD_RADIUS) + "-cell edge guard";
+    } else if (s.tick >= MAX_TICKS) {
+      s.stopped = true;
+      s.stopReason = "reached the explicit " + MAX_TICKS.toLocaleString() + "-tick work guard";
+    }
   }
 
   function crystalRadius(s) {
@@ -221,6 +240,35 @@
       if (d > maxD) maxD = d;
     }
     return maxD;
+  }
+
+  /**
+   * Recompute diagnostics from the published state arrays. These values do
+   * not trust tick counters or a separately accumulated ledger.
+   */
+  function diagnostics(s) {
+    let mass = 0;
+    let correction = 0;
+    let maxBoundary = 0;
+    const v = s.vapour, b = s.boundary, at = s.attached, nb = s.neighbours;
+    for (let n = 0; n < s.live.length; n++) {
+      const i = s.live[n];
+      // Kahan summation keeps the display sensitive to solver loss rather
+      // than to the order in which the diagnostic scans the lattice.
+      const term = v[i] + b[i];
+      const y = term - correction;
+      const t = mass + y;
+      correction = (t - mass) - y;
+      mass = t;
+      if (at[i] || b[i] <= maxBoundary) continue;
+      let isBoundary = false;
+      for (let k = 0; k < 6; k++) {
+        const j = nb[i * 6 + k];
+        if (j >= 0 && at[j]) { isBoundary = true; break; }
+      }
+      if (isBoundary) maxBoundary = b[i];
+    }
+    return { mass: mass, maxBoundary: maxBoundary };
   }
 
   /* --------------------------------------------------------------- mount -- */
@@ -288,8 +336,9 @@
     const s = makeState();
     const params = Object.assign({}, PRESETS[0]);
     let currentPresetKey = PRESETS[0].key;
-    let playing = true;
-    let statusEl = null, playPauseBtn = null;
+    const manualMotion = Viz.reduceMotion.matches;
+    let playing = !manualMotion;
+    let statusEl = null, diagnosticsEl = null, playPauseBtn = null;
     const presetButtons = [];
     const sliders = {};
 
@@ -362,20 +411,31 @@
       view.ctx.drawImage(buffer, 0, 0);
 
       if (statusEl) {
-        const radius = crystalRadius(s);
-        const nearEdge = radius > R - 4;
-        if (nearEdge && !s.stalled) { s.stalled = true; }
-        statusEl.textContent = s.stalled
-          ? "stopped — " + (nearEdge ? "reached the edge of this simulated patch" : "vapour exhausted near the crystal")
-            + " (" + s.attachedCount + " cells, " + s.tick + " ticks)"
-          : (playing ? "growing — " : "paused — ") + s.attachedCount + " cells frozen, " + s.tick + " ticks";
+        statusEl.textContent = s.stopped
+          ? "stopped — " + s.stopReason + " (" + s.attachedCount + " cells, " + s.tick + " ticks)"
+          : (manualMotion ? "manual stepping — " : playing ? "growing — " : "paused — ")
+            + s.attachedCount + " cells frozen, " + s.tick + " ticks";
+      }
+      if (s.stopped && playPauseBtn) {
+        playing = false;
+        playPauseBtn.disabled = true;
+        playPauseBtn.textContent = "Stopped";
+        playPauseBtn.setAttribute("aria-pressed", "false");
+      }
+      if (diagnosticsEl) {
+        const d = diagnostics(s);
+        const drift = d.mass - s.initialMass;
+        diagnosticsEl.textContent = "recomputed Σ(d+b) " + d.mass.toFixed(9)
+          + " (Δ " + (drift >= 0 ? "+" : "") + drift.toExponential(2) + ")"
+          + " · max active b " + d.maxBoundary.toFixed(6)
+          + " · radius " + s.maxRadius + "/" + EDGE_GUARD_RADIUS;
       }
     }
 
     function simulate() {
-      if (s.stalled) return;
+      if (s.stopped) return;
       for (let k = 0; k < TICKS_PER_FRAME; k++) {
-        if (s.stalled) break;
+        if (s.stopped) break;
         tick(s, params);
       }
     }
@@ -387,17 +447,25 @@
 
     function applyPreset(preset) {
       Object.assign(params, preset);
-      currentPresetKey = preset.key;
       reset(s, params.rho);
-      s.stalled = false;
-      playing = true;
-      if (playPauseBtn) { playPauseBtn.textContent = "Pause"; playPauseBtn.setAttribute("aria-pressed", "true"); }
+      playing = !manualMotion;
+      if (playPauseBtn) {
+        playPauseBtn.disabled = false;
+        playPauseBtn.textContent = "Pause";
+        playPauseBtn.setAttribute("aria-pressed", "true");
+      }
+      if (sliders.rho) sliders.rho.value = params.rho;
+      if (sliders.t1) sliders.t1.value = params.thresh1;
+      if (sliders.t2) sliders.t2.value = params.thresh2;
+      if (sliders.t3) sliders.t3.value = params.thresh3;
+      currentPresetKey = preset.key;
       presetButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.key === currentPresetKey)));
-      sliders.rho.value = params.rho;
-      sliders.t1.value = params.thresh1;
-      sliders.t2.value = params.thresh2;
-      sliders.t3.value = params.thresh3;
       draw();
+    }
+
+    function markCustom() {
+      currentPresetKey = "";
+      presetButtons.forEach((b) => b.setAttribute("aria-pressed", "false"));
     }
 
     if (bar) {
@@ -415,39 +483,55 @@
         label: "Background vapour density", id: "gg-rho",
         min: 0.04, max: 0.60, step: 0.01, value: params.rho,
         format: (v) => v.toFixed(2),
-        onInput: (v) => { params.rho = v; },
+        onInput: (v) => {
+          params.rho = v;
+          markCustom();
+          reset(s, params.rho);
+          playing = !manualMotion;
+          if (playPauseBtn) {
+            playPauseBtn.disabled = false;
+            playPauseBtn.textContent = "Pause";
+            playPauseBtn.setAttribute("aria-pressed", "true");
+          }
+          draw();
+        },
       });
       sliders.t1 = Viz.slider(bar, {
         label: "1-neighbour threshold", id: "gg-t1",
         min: 0.10, max: 5.0, step: 0.05, value: params.thresh1,
         format: (v) => v.toFixed(2),
-        onInput: (v) => { params.thresh1 = v; },
+        onInput: (v) => { params.thresh1 = v; markCustom(); },
       });
       sliders.t2 = Viz.slider(bar, {
         label: "2-neighbour threshold", id: "gg-t2",
         min: 0.10, max: 14.0, step: 0.1, value: params.thresh2,
         format: (v) => v.toFixed(2),
-        onInput: (v) => { params.thresh2 = v; },
+        onInput: (v) => { params.thresh2 = v; markCustom(); },
       });
       sliders.t3 = Viz.slider(bar, {
         label: "3+-neighbour threshold", id: "gg-t3",
         min: 0.10, max: 14.0, step: 0.1, value: params.thresh3,
         format: (v) => v.toFixed(2),
-        onInput: (v) => { params.thresh3 = v; },
+        onInput: (v) => { params.thresh3 = v; markCustom(); },
       });
 
-      playPauseBtn = Viz.button(bar, "Pause", function () {
-        playing = !playing;
-        playPauseBtn.textContent = playing ? "Pause" : "Play";
-        playPauseBtn.setAttribute("aria-pressed", String(playing));
-      }, { pressed: true });
+      if (!manualMotion) {
+        playPauseBtn = Viz.button(bar, "Pause", function () {
+          if (s.stopped) return;
+          playing = !playing;
+          playPauseBtn.textContent = playing ? "Pause" : "Play";
+          playPauseBtn.setAttribute("aria-pressed", String(playing));
+        }, { pressed: true });
+      }
 
       Viz.button(bar, "Reset this shape", function () {
         reset(s, params.rho);
-        s.stalled = false;
-        playing = true;
-        playPauseBtn.textContent = "Pause";
-        playPauseBtn.setAttribute("aria-pressed", "true");
+        playing = !manualMotion;
+        if (playPauseBtn) {
+          playPauseBtn.disabled = false;
+          playPauseBtn.textContent = "Pause";
+          playPauseBtn.setAttribute("aria-pressed", "true");
+        }
         draw();
       });
 
@@ -456,9 +540,16 @@
       statusEl.style.color = "var(--ink-muted)";
       bar.appendChild(statusEl);
 
-      if (Viz.reduceMotion.matches) {
+      diagnosticsEl = document.createElement("span");
+      diagnosticsEl.className = "control";
+      diagnosticsEl.style.color = "var(--ink-muted)";
+      diagnosticsEl.style.fontFamily = "var(--font-mono)";
+      diagnosticsEl.style.fontSize = "0.72rem";
+      bar.appendChild(diagnosticsEl);
+
+      if (manualMotion) {
         Viz.button(bar, "Grow 60 ticks", function () {
-          for (let i = 0; i < 60 && !s.stalled; i++) tick(s, params);
+          for (let i = 0; i < 60 && !s.stopped; i++) tick(s, params);
           draw();
         });
       }
@@ -470,11 +561,83 @@
 
     return {
       state: s, params: params, anim: anim, draw: draw,
-      forceTicks: function (n) { for (let i = 0; i < n && !s.stalled; i++) tick(s, params); draw(); },
+      forceTicks: function (n) { for (let i = 0; i < n && !s.stopped; i++) tick(s, params); draw(); },
       applyPreset: applyPreset,
-      get stats() { return { attached: s.attachedCount, ticks: s.tick, stalled: s.stalled, radius: crystalRadius(s) }; },
+      get stats() {
+        const d = diagnostics(s);
+        return {
+          attached: s.attachedCount,
+          ticks: s.tick,
+          stopped: s.stopped,
+          stopReason: s.stopReason,
+          radius: crystalRadius(s),
+          mass: d.mass,
+          massDrift: d.mass - s.initialMass,
+          maxBoundary: d.maxBoundary,
+        };
+      },
     };
   }
 
   window.GGZoo = { mount: mount, PRESETS: PRESETS };
+
+  // Stable, non-visual seam for the fail-closed education verifier. The
+  // model remains private; snapshots are copies, so tests cannot mutate a
+  // running demo and then accept their own mutation as solver output.
+  const educationHooks = window.EducationTestHooks || (window.EducationTestHooks = {});
+  educationHooks.ggZoo = Object.freeze({
+    constants: Object.freeze({
+      radius: R,
+      seedRadius: SEED_RADIUS,
+      edgeGuardRadius: EDGE_GUARD_RADIUS,
+      maxTicks: MAX_TICKS,
+    }),
+    create: function (options) {
+      const o = Object.assign({ preset: "hexagon" }, options || {});
+      const preset = PRESETS.find((p) => p.key === o.preset) || PRESETS[0];
+      const params = Object.assign({}, preset, o.params || {});
+      const s = makeState();
+      reset(s, params.rho);
+
+      function snapshot() {
+        const d = diagnostics(s);
+        return Object.freeze({
+          tick: s.tick,
+          attachedCount: s.attachedCount,
+          stopped: s.stopped,
+          stopReason: s.stopReason,
+          radius: crystalRadius(s),
+          initialMass: s.initialMass,
+          recomputedMass: d.mass,
+          maxBoundary: d.maxBoundary,
+          live: Int32Array.from(s.live),
+          vapour: Float64Array.from(s.vapour),
+          boundary: Float64Array.from(s.boundary),
+          attached: Uint8Array.from(s.attached),
+        });
+      }
+
+      return Object.freeze({
+        advance: function (count) {
+          const n = Math.max(0, Math.floor(Number(count) || 0));
+          for (let i = 0; i < n && !s.stopped; i++) tick(s, params);
+          return snapshot();
+        },
+        resetDensity: function (rho) {
+          params.rho = Number(rho);
+          reset(s, params.rho);
+          return snapshot();
+        },
+        parameters: function () {
+          return Object.freeze({
+            rho: params.rho,
+            thresh1: params.thresh1,
+            thresh2: params.thresh2,
+            thresh3: params.thresh3,
+          });
+        },
+        snapshot: snapshot,
+      });
+    },
+  });
 })();

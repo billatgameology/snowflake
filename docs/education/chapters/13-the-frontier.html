@@ -37,6 +37,9 @@
     <ol>
       <li><a href="#four-kinds-of-line">Four kinds of line</a></li>
       <li><a href="#working-hypothesis">The answer is a working hypothesis</a></li>
+      <li><a href="#modelling-2012">What modelling could do in 2012</a></li>
+      <li><a href="#starter-models">Two starter models, not one final model</a></li>
+      <li><a href="#triangular-test">A triangular stress test</a></li>
       <li><a href="#where-it-runs-out">Six places the account runs out</a></li>
       <li><a href="#a-field-of-a-handful">A field of a handful of people</a></li>
       <li><a href="#why-bother">Why bother</a></li>
@@ -54,8 +57,8 @@
           little of it been worked out?
         </p>
         <div class="chapter-header__meta">
-          <span>~17 min read</span>
-          <span>10 figures</span>
+          <span>~34 min read</span>
+          <span>11 figures</span>
           <span>4 original graphics</span>
         </div>
       </header>
@@ -65,6 +68,12 @@
         <ul>
           <li>Tell a measurement from a fitted curve, a fitted curve from a line drawn to guide
             the eye, and any of those from a formula chosen because it was convenient.</li>
+          <li>Distinguish the 2023 M1 and M2 starter models, including what each assumes about
+            narrow facets, surface energy and the attachment prefactor.</li>
+          <li>Use triangular plates as a stress test: separate the controlled
+            &minus;14&nbsp;&deg;C observation from the proposed three-dimensional SDAK mechanism.</li>
+          <li>Place a modelling claim on its timeline: distinguish what was possible in principle
+            in 2012 from what had actually been demonstrated then and what later work added.</li>
           <li>Name half a dozen specific places where the account of snow crystals runs out, and
             say for each one whether it is genuinely hard or has simply not been done.</li>
           <li>Explain why a field with almost nobody in it is a reason a problem stays open, not
@@ -86,8 +95,10 @@
         for the six side faces, tracking how hard it is to start a new layer of ice on each.
         Whichever curve is lower, that face grows more easily. When the flat top and bottom are the
         easy ones the crystal grows taller, into a column; when the six side faces are the easy
-        ones it spreads sideways, into a plate. The curves cross, and at every crossing the crystal
-        switches from the one to the other.
+        ones it spreads sideways, into a plate. Where the full attachment coefficients cross, the
+        faster-facet tendency reverses. That makes a crossing a <em>candidate</em> habit boundary,
+        not an automatic switch: diffusion, facet width, growth history and how unequal the two
+        rates become still matter.
       </p>
       <p>
         That is a real explanation, built on real measurements. It is also, in the words of the
@@ -212,11 +223,14 @@
       <h2 id="working-hypothesis">The answer is a working hypothesis</h2>
 
       <p>
-        Now turn that lens on the explanation you just accepted. Chapter 12 needed two dips: a
+        Now turn that lens on the explanation you just accepted. Chapter 12 used two dips: a
         region near &minus;5&nbsp;&deg;C where the top and bottom faces suddenly become easy to
-        grow, and a region near &minus;15&nbsp;&deg;C where the side faces do. Without them the two
-        curves cross once, and the real world flips three times. The dips are what make the
-        explanation work.
+        grow, and a region near &minus;15&nbsp;&deg;C where the side faces do. Comparing only the
+        two broad-facet barrier curves gives one crossing, while the dipped barrier curves give
+        three. The full attachment coefficients can behave differently because their prefactors
+        also vary, and no crossing by itself computes a crystal habit. The dips are the part of the
+        working model designed to put strong column-like and plate-like tendencies into the
+        observed temperature bands.
       </p>
 
       <figure class="figure"
@@ -306,7 +320,7 @@
             <dt>0.87</dt><dd>how deep the dip goes. Chosen, and the least anchored of the three: no measured depth for the basal dip is printed anywhere in these papers. The only printed dip depth of any kind is for the <em>prism</em> dip, which is said to fall to &ldquo;about one-tenth of its broad-facet value&rdquo; at &minus;14&nbsp;&deg;C (arXiv:2012.12916v1, p. 9)</dd>
             <dt>4.5</dt><dd>where the dip is centred, in degrees below freezing. Chosen to sit on the measured dip, not derived from any theory of the ice surface &mdash; the dedicated experiment puts the basal dip&rsquo;s centre near &minus;4&nbsp;&deg;C, and 4.5 is a round number in that neighbourhood</dd>
             <dt>0.07</dt><dd>how wide the dip is. Chosen, not derived &mdash; widths are one of the two things the paper says outright were &ldquo;judiciously chosen&rdquo;</dd>
-            <dt>log</dt><dd>the logarithm, which is how these curves are plotted &mdash; it makes the dip symmetric on the graph rather than in degrees. Which logarithm (base 10, or natural) is not stated. The chart below uses the natural one, which is a reading, not a reported value</dd>
+            <dt>log</dt><dd>the logarithm, which makes the dip symmetric on the graph rather than in degrees. The source does not state its base. This site uses base 10 because direct evaluation then reproduces the shape and three-crossing pattern of the paper&rsquo;s Figure&nbsp;1. That is an inference from the figure, not a convention printed in the equation</dd>
           </dl>
         </div>
         <p class="equation__cite">Libbrecht, arXiv:2306.13087v1, p. 6 &mdash; the printed expression, with its two missing closing brackets supplied</p>
@@ -335,10 +349,10 @@
           <p class="anim__title">Three numbers you can move</p>
           <p class="anim__sub">The two barrier curves, drawn from the printed equations. The sliders
             control the depth, centre and width of the basal dip &mdash; the three constants that
-            were chosen rather than derived. Every crossing is a place where the crystal switches
-            between a plate and a column. The real world flips three times; the printed values
-            cross three times too &mdash; though not at the same three temperatures, and the chart
-            does not hide that either.</p>
+            were chosen rather than derived. Every crossing reverses this simplified barrier-order
+            tendency; it does not guarantee that a full growth calculation switches habit. Under
+            the site&rsquo;s documented base-10 reading, the printed constants give three crossings
+            &mdash; not at the same three temperatures as the canonical morphology bands.</p>
         </div>
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
@@ -351,15 +365,13 @@
           4.5 and 0.07 marked on the sliders, from Libbrecht, arXiv:2306.13087v1, pp. 6&ndash;7.
           Crossing temperatures are computed from those equations by bisection. Only the three
           basal-dip constants are adjustable here, because those are the three the paper describes
-          as chosen. This chart previously used the natural logarithm, flagged here as an
-          undisclosed choice rather than a printed value; a 2026-07-29 audit settled the question
-          the other way &mdash; the printed log is base 10, confirmed by evaluating the dip equation
-          above directly rather than tracing a plotted line, and reading it that way moves the count
-          from five crossings to three, closer to the diagram's own boundaries. The chart now uses
-          base 10 at
-          the printed slider defaults; move any slider away from its printed value and you are
-          exploring the same sensitivity the natural-versus-base-10 mistake once did &mdash; small
-          changes to an unforced constant move every crossing.</span>
+          as chosen. The source prints <code>log</code> without a base. This chart uses base 10
+          because evaluating that reading reproduces the shape and three-crossing pattern in the
+          paper&rsquo;s Figure&nbsp;1; the base is therefore a site inference, not a source-printed
+          value. An earlier site version used the natural logarithm and obtained five crossings.
+          Move any slider away from its printed value and you are exploring the same important
+          sensitivity: small changes to an unforced constant can move the crossing
+          locations.</span>
         </figcaption>
       </figure>
       <p>
@@ -422,6 +434,274 @@
         incorrect&rdquo;</em> (arXiv:2004.06212v1, p. 7) is one of them. That is what a live field
         looks like from the inside. Results get withdrawn by the people who published them.
       </p>
+
+      <h2 id="modelling-2012">What modelling could do in 2012</h2>
+
+      <p>
+        Before comparing the 2023 starter models, freeze the clock eleven years earlier.
+        Libbrecht&rsquo;s first <em>Toward a Comprehensive Model</em> paper surveyed the available
+        numerical routes in 2012. Its distinction is still clarifying, but its status words belong
+        to that date.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The computational landscape described in arXiv:1211.5555v1, pp.&nbsp;2&ndash;3,
+            published in 2012. These are that paper&rsquo;s assessments, not a claim that later work
+            stopped there.
+          </caption>
+          <thead>
+            <tr><th>Route</th><th>What had worked</th><th>What remained difficult in 2012</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Front tracking and phase field</td>
+              <td>Considerable success for dendrites growing from a melt, where interfaces are
+                smooth and material anisotropies are often only a few percent.</td>
+              <td>Vapour-grown snow crystals combine very large attachment anisotropy with sharp
+                facets and edges. The paper reports numerical-instability problems and says the
+                usual techniques had not produced satisfactory snow crystals from reasonable
+                physical inputs.</td>
+            </tr>
+            <tr>
+              <td>Gravner&ndash;Griffeath cellular automata</td>
+              <td>Stable three-dimensional structures that were both branched and sharply faceted,
+                including many characteristics seen in natural crystals.</td>
+              <td>The surface rules were mesoscopic and phenomenological. Morphological resemblance
+                was not yet a quantitative validation of physical inputs.</td>
+            </tr>
+            <tr>
+              <td>More physically derived cellular automata</td>
+              <td>Demonstrations suggested that physical transport and surface rules could be put
+                into a stable cellular framework.</td>
+              <td>The 2012 paper said accurate growth rates and morphologies across temperatures
+                and supersaturations appeared possible <em>in principle</em>, while also stating
+                that accurate model crystals over a range of conditions had not yet been
+                accomplished.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        The survey also separates two jobs that are easy to conflate. Diffusion theory already
+        supplied a qualitative explanation for why morphological complexity tends to rise when
+        <strong>supersaturation, crystal size, or background-gas pressure</strong> rises: each
+        change strengthens diffusion-limited competition and the branching instability. That
+        explained much of the vertical complexity trend in the morphology diagram. It did not
+        explain why the preferred large-scale habit alternates plate&ndash;column&ndash;plate with
+        temperature; that requires the attachment kinetics developed in the rest of the series
+        (arXiv:1211.5555v1, pp.&nbsp;2&ndash;3).
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          Read the tense
+        </p>
+        <p>
+          &ldquo;Possible in principle&rdquo; and &ldquo;not yet accomplished&rdquo; were compatible
+          statements in 2012: the first described a route; the second described the evidence then
+          available. Later CAK measurements, the 97- and 206-image needle surveys, newer faceting
+          calculations, and this repository&rsquo;s own solver gates must each be judged from their
+          later artifacts. None retroactively turns a 2012 proposal into a 2012 result.
+        </p>
+      </aside>
+
+      <h2 id="starter-models">Two starter models, not one final model</h2>
+
+      <p>
+        The 2023 paper that published the 206-crystal matrix did something unusually useful: it
+        wrote down not a finished theory, but two different <em>starter models</em> that a simulator
+        could test against those photographs. The names are deliberately modest. M1 is the compact
+        first attempt; M2 is a more explicit way to separate broad and narrow facets. The paper says
+        model-to-experiment comparison is needed to learn whether changing from one to the other
+        makes substantial differences (arXiv:2306.13087v1, p.&nbsp;7).
+      </p>
+
+      <figure class="figure"
+              data-src="research/figures/nakaya-bands-on-sigma0-M1.png"
+              data-figure="Figure 1"
+              data-source="Libbrecht, &ldquo;A Taxonomy of Snow Crystal Growth Behaviors: 2. Quantifying the Nakaya Diagram&rdquo; (arXiv:2306.13087v1)"
+              data-page="PDF p. 6"
+              data-alt="Two logarithmic curves of the basal and prism nucleation barriers against degrees below freezing, each with a deep dip. Horizontal labels mark plates, columns, thin plates, and columns in successive temperature bands.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> this is the parameter map used by M1. The warm basal dip
+          and colder prism dip are already inside the two curves; they are not an optional effect to
+          add after running M1. The morphology words above the curves are the observed bands the
+          model was designed to reproduce, not outputs of this graph. The paper calls the closed
+          forms ad hoc while tracing their broad trends to measurements and their two dips to the
+          dedicated SDAK experiments (arXiv:2306.13087v1, p.&nbsp;6).
+        </figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            M1 and M2 as printed in arXiv:2306.13087v1, pp.&nbsp;6&ndash;7. Neither row is a
+            validation result; both are proposals for computations that still need comparison with
+            the 206 observations.
+          </caption>
+          <thead>
+            <tr><th>Question</th><th>M1 &mdash; compact starter</th><th>M2 &mdash; structural split</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Which barrier curve?</td>
+              <td>Use the dipped &sigma;<sub>0</sub>(T) curves in Figure&nbsp;1 for faceted
+                surfaces. Broad and narrow facets are not distinguished.</td>
+              <td>Use undipped broad-facet curves on broad facets and the dipped curves on narrow
+                ones. A model must therefore decide what &ldquo;narrow&rdquo; means.</td>
+            </tr>
+            <tr>
+              <td>Attachment prefactor</td>
+              <td>Set <em>A</em>&nbsp;=&nbsp;1 for all conditions, including prism facets.</td>
+              <td>The paper names width-dependent attachment kinetics and prints broad-facet
+                &sigma;<sub>0</sub>(T) curves, but supplies no complete
+                <em>A</em>(T,width) or width-to-parameter transition law.</td>
+            </tr>
+            <tr>
+              <td>Why this choice?</td>
+              <td>In air, edge sharpening can quickly make fast-growing facets narrow, so M1 treats
+                narrow-facet kinetics as a first approximation. This is not asserted for every
+                morphology.</td>
+              <td>Facet width becomes explicit in the attachment kinetics, at the price of a
+                non-local classification problem. Curvature enters separately through the surface
+                energy required by both starter models.</td>
+            </tr>
+            <tr>
+              <td>What remains outside it?</td>
+              <td colspan="2">Both need diffusion, surface energy and a seed. The paper ignores
+                latent heating and thermal diffusion after approximating them by rescaling the
+                far-field supersaturation; that shortcut is stated, not validated generally.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          A simplification with known counter-evidence
+        </p>
+        <p>
+          M1&rsquo;s <em>A</em>&nbsp;=&nbsp;1 is a pragmatic modelling choice, not the result of the
+          broad-facet experiments. At &minus;2&nbsp;&deg;C, two low-pressure data sets require
+          A<sub>prism</sub>&nbsp;&asymp;&nbsp;0.25 for large prism facets and cannot be fit
+          satisfactorily with A<sub>prism</sub>&nbsp;=&nbsp;1
+          (arXiv:2004.06212v1, pp.&nbsp;3&ndash;6). Near &minus;4&nbsp;&deg;C the broad-facet
+          prefactor is also substantially below one, while narrow, fast prism facets may approach
+          one. M1 deliberately spends that distinction to stay small enough to implement.
+        </p>
+      </aside>
+
+      <p>
+        Surface energy is not optional cleanup. TAX2 says the Gibbs&ndash;Thomson effect must be
+        included to stop a discretized model growing one-pixel-wide plates and similar artefacts
+        (p.&nbsp;7). Yet the anisotropy of ice surface energy has not been definitively measured;
+        the working approximation is that it is small enough to treat the equilibrium shape as
+        nearly spherical (p.&nbsp;5). This is a useful example of two different epistemic jobs:
+        surface energy regularizes sharp geometry, while the much larger anisotropy in attachment
+        kinetics produces plate-versus-column growth.
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          A third model is not simply M2
+        </p>
+        <p>
+          The separate 2023 faceting paper uses two additive terrace-nucleation terms on a prism
+          facet and puts a Gibbs&ndash;Thomson curvature correction inside their driving
+          supersaturation (arXiv:2306.04042v1, pp.&nbsp;8&ndash;9). That is not the same operation
+          as selecting one broad or narrow branch. Its table is anchored to growth measurements,
+          but the second high-temperature process is called speculative; its particle-diffusion
+          simplification is scoped to low pressure, and its latent-heating treatment is described
+          as rough. The papers therefore offer related modelling policies, not one silently
+          interchangeable formula.
+        </p>
+      </aside>
+
+      <h2 id="triangular-test">A triangular stress test</h2>
+
+      <p>
+        A six-sided lattice sometimes grows a three-sided crystal. That is more than a curiosity:
+        the six prism facets have the same molecular structure, yet in a triangular plate three
+        alternating facets advance differently from the other three. Diffusion by itself tends to
+        restore a hexagonal outline, so a stable triangular form demands some anisotropy in the
+        attachment kinetics (arXiv:2106.09809v1, pp.&nbsp;9&ndash;11).
+      </p>
+
+      <p>
+        The controlled experiment was narrow in scope: c-axis needle seeds, fixed
+        &minus;14&nbsp;&deg;C, air at one atmosphere, and varied far-field supersaturation. Below
+        about 6&nbsp;% supersaturation the needle tips stopped making plates and instead produced
+        slow blocky forms or simple columns (p.&nbsp;7). Within a narrow higher-supply range the
+        yield of strongly triangular plates approached 100&nbsp;%, showing that the symmetry
+        breaking can be reproducible under those conditions. It does not establish a
+        temperature-wide triangular-growth law.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            What the triangular experiment observed, inferred, and proposed. Source:
+            arXiv:2106.09809v1, pp.&nbsp;7&ndash;18.
+          </caption>
+          <thead>
+            <tr><th>Evidence level</th><th>Claim</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Observed</td>
+              <td>At the registered &minus;14&nbsp;&deg;C needle-seed condition, morphology and
+                triangularity change with supersaturation; one analysed growth sequence showed a
+                roughly 60&nbsp;% disparity associated with alternating facets.</td>
+            </tr>
+            <tr>
+              <td>Geometric requirement</td>
+              <td>A stable sharp triangular tip needs the tip-side prism attachment coefficient to
+                exceed the large-facet value by more than about a factor of two. This is a model
+                condition, not a separately measured coefficient.</td>
+            </tr>
+            <tr>
+              <td>Proposed mechanism</td>
+              <td>At a sharp triangular tip the top terrace becomes a small island, perhaps
+                producing a three-dimensional extension of SDAK that reinforces three alternating
+                fast facets.</td>
+            </tr>
+            <tr>
+              <td>Still open</td>
+              <td>How the asymmetry starts, whether that mechanism applies away from this
+                temperature and seed, and a full three-dimensional quantitative calculation.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Try the right demo, with the right claim
+        </p>
+        <p>
+          <a href="09-the-menagerie.html#anim-triangular">Chapter&nbsp;9&rsquo;s triangular-plate
+          interactive</a> lets you impose a difference between alternating facet speeds and watch a
+          hexagon sharpen into a triangle. It makes the geometric feedback in the proposal visible.
+          It does <em>not</em> derive that speed difference from molecules, model the
+          &minus;14&nbsp;&deg;C apparatus, or prove the proposed three-dimensional SDAK mechanism.
+          The slider is the hypothesis made visible.
+        </p>
+      </aside>
 
       <h2 id="where-it-runs-out">Six places the account runs out</h2>
 
@@ -1127,8 +1407,9 @@
   const PRINTED = { depth: 0.87, centre: 4.5, width: 0.07 };
   const state = { depth: 0.87, centre: 4.5, width: 0.07, dips: true };
 
-  // CORRECTED 2026-07-29: the printed log is base 10, not natural — see the disclosure
-  // text below.
+  // The paper prints "log" without a base. This site uses base 10 because that
+  // reading reproduces the shape and three-crossing pattern of its Figure 1.
+  // The page disclosure identifies this as an inference, not a printed value.
   function basalDip(t) {
     return 1 - state.depth *
       Math.exp(-Math.pow(Math.log10(t) - Math.log10(state.centre), 2) / state.width);
@@ -1204,8 +1485,8 @@
       label:
         "How hard it is to start a new layer on each face of an ice crystal, plotted against " +
         "how far below freezing the air is. The basal curve carries an adjustable dip. Where " +
-        "the two curves cross, the crystal switches between growing as a plate and growing " +
-        "as a column.",
+        "the two curves cross, the simplified faster-facet tendency reverses. The chart does " +
+        "not simulate the final crystal habit.",
     });
 
     const basal = [], prism = [];
@@ -1215,7 +1496,7 @@
     }
     const cross = crossings();
 
-    /* ---- what you get, as a strip below the axis ---- */
+    /* ---- simplified faster-facet tendency below the axis ---- */
     const STRIP_Y = plot.y0 + 34;
     const edges = [T_LO].concat(cross, [T_HI]);
     for (let i = 0; i < edges.length - 1; i++) {
@@ -1231,7 +1512,7 @@
           x: (xs(a) + xs(b)) / 2, y: STRIP_Y + 15, "text-anchor": "middle",
           fill: ink, "font-size": 11, "font-weight": 620, "font-family": "var(--font-sans)",
         });
-        label.textContent = basalLower ? "column" : "plate";
+        label.textContent = basalLower ? "column-like" : "plate-like";
         svg.appendChild(label);
       }
     }
@@ -1240,7 +1521,7 @@
       fill: c.inkSecondary, "font-size": 11, "font-weight": 620,
       "font-family": "var(--font-sans)",
     });
-    stripTitle.textContent = "you get";
+    stripTitle.textContent = "tendency";
     svg.appendChild(stripTitle);
 
     /* ---- axes ---- */
@@ -1309,21 +1590,24 @@
       Math.abs(state.width - PRINTED.width) < 0.005;
 
     const n = cross.length;
+    root.dataset.crossingCount = String(n);
+    root.dataset.dipsEnabled = String(state.dips);
+    root.dataset.logBaseInterpretation = "10-inferred-from-figure";
     let msg = n + (n === 1 ? " crossing." : " crossings.") + " ";
     if (!state.dips) {
-      msg += "With the dips taken away the curves cross once, so this version can change habit " +
-        "exactly once — and the real world flips three times.";
+      msg += "With the dips taken away, this barrier-only diagram has one candidate tendency " +
+        "reversal. That is not a limit on what a full growth model can do.";
     } else if (atPrinted) {
-      msg += "These are the printed values, read with the corrected base-10 logarithm — the " +
-        "count matches the real world's three flips, but not the placement: the warm crossing " +
-        "lands close to the observed boundary, the middle one misses it by almost two degrees, " +
-        "and the coldest sits in a range the observations do not pin down at all. Matching the " +
-        "count is not the same as matching the diagram.";
+      msg += "These are the printed constants under the site's inferred base-10 reading. The " +
+        "count matches the canonical diagram's three candidate transitions, but not their " +
+        "placement: the warm crossing lands close, the middle misses by almost two degrees, " +
+        "and the coldest sits in a poorly pinned range. A crossing is not a simulated habit.";
     } else if (n >= 3) {
-      msg += "At least the three the real world needs — though nothing says the crossings sit " +
-        "where the observations put the boundaries.";
+      msg += "This parameter choice produces at least three candidate tendency reversals, but " +
+        "neither their locations nor the resulting crystal habits are established by this chart.";
     } else {
-      msg += "Fewer than three, so this version cannot reproduce the Nakaya diagram at all.";
+      msg += "This barrier-only comparison produces fewer than three candidate reversals. A full " +
+        "growth model would still need diffusion, prefactors, facet width and history.";
     }
     status.textContent = msg;
   }
@@ -1352,13 +1636,17 @@
     syncToggle();
     render();
   }, { pressed: false });
+  sDepth.input.dataset.control = "frontier-dip-depth";
+  sCentre.input.dataset.control = "frontier-dip-centre";
+  sWidth.input.dataset.control = "frontier-dip-width";
+  toggle.dataset.control = "frontier-dips-toggle";
 
   function syncToggle() {
     toggle.textContent = state.dips ? "Take both dips away" : "Put the dips back";
     toggle.setAttribute("aria-pressed", String(!state.dips));
   }
 
-  Viz.button(bar, "Back to the printed values", function () {
+  const reset = Viz.button(bar, "Back to the printed values", function () {
     state.dips = true;
     sDepth.value = PRINTED.depth;
     sCentre.value = PRINTED.centre;
@@ -1369,6 +1657,7 @@
     syncToggle();
     render();
   });
+  reset.dataset.control = "frontier-dips-reset";
 
   syncToggle();
   render();

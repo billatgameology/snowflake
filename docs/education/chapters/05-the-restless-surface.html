@@ -57,9 +57,9 @@
           the wrong way round?
         </p>
         <div class="chapter-header__meta">
-          <span>~20 min read</span>
-          <span>13 figures</span>
-          <span>5 animations &middot; 1 chart</span>
+          <span>~28 min read</span>
+          <span>16 figures</span>
+          <span>6 animations &middot; 1 chart</span>
         </div>
       </header>
 
@@ -71,6 +71,8 @@
           <li>Define the attachment coefficient, written <code>alphaHK</code> in this project, and say what nucleation barrier stands behind it.</li>
           <li>Rule out the &ldquo;lowest surface energy&rdquo; explanation of faceting using three independent checks.</li>
           <li>Explain why a snow crystal at &minus;5&nbsp;&deg;C is a rigid lattice wearing a slushy skin.</li>
+          <li>Compare FACET&rsquo;s additive two-process kinetics with CM7&rsquo;s mutually exclusive branches.</li>
+          <li>Explain why trace chemical vapours are both an experimental tool and a contamination hazard.</li>
           <li>Separate crystallography &mdash; solved &mdash; from crystal growth, which is not.</li>
         </ul>
       </section>
@@ -1033,6 +1035,156 @@
         </table>
       </div>
 
+      <h3 id="two-processes-or-two-branches">Two processes &mdash; or two branches?</h3>
+
+      <p>
+        The later FACET model does more than remove anisotropic surface energy. For prism facets it
+        replaces the one-term terrace-nucleation law with the <em>sum</em> of two processes:
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          <code>alphaHK</code><sub>facet</sub> =
+          <em>A</em><sub>1</sub> exp
+          <span class="frac"><span>&minus;&sigma;<sub>0,1</sub></span><span>&sigma;<sub>surf</sub> &minus; <em>d</em><sub>sv</sub>&kappa;<sub>facet</sub></span></span>
+          +
+          <em>A</em><sub>2</sub> exp
+          <span class="frac"><span>&minus;&sigma;<sub>0,2</sub></span><span>&sigma;<sub>surf</sub> &minus; <em>d</em><sub>sv</sub>&kappa;<sub>facet</sub></span></span>
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt><em>A</em><sub>1,2</sub></dt><dd>the two process amplitudes</dd>
+            <dt>&sigma;<sub>0,1,2</sub></dt><dd>their independent terrace-nucleation barriers</dd>
+            <dt><em>d</em><sub>sv</sub>&kappa;<sub>facet</sub></dt><dd>the Gibbs&ndash;Thomson curvature correction; it is zero for the flat-facet explorer below</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">
+          Libbrecht &amp; Walkling, arXiv:2306.04042v1, Eq. 32, printed p. 8
+        </p>
+      </div>
+
+      <p>
+        Table&nbsp;1 gives all six temperature rows without digitizing a curve. Its
+        &sigma;<sub>0</sub> entries are <em>fractions</em>: 3&times;10<sup>&minus;4</sup> means
+        0.03&nbsp;%, not 3&times;10<sup>&minus;4</sup>&nbsp;%. Process&nbsp;1 reproduces the
+        broad-prism measurements at &minus;2 and &minus;5&nbsp;&deg;C. The second, warm-end process is
+        the paper&rsquo;s convenient parameterization of what it calls SDAK-2, and is absent by
+        &minus;15&nbsp;&deg;C. The authors say the warmer rows are increasingly uncertain and the
+        second process remains speculative.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            FACET Table 1, transcribed exactly. Barrier columns are fractions; parenthetical values
+            convert them to percent for comparison with &sigma;<sub>surf</sub>.
+          </caption>
+          <thead>
+            <tr>
+              <th>T</th><th class="num"><em>v</em><sub>kin</sub></th>
+              <th class="num"><em>A</em><sub>1</sub></th><th class="num">&sigma;<sub>0,1</sub></th>
+              <th class="num"><em>A</em><sub>2</sub></th><th class="num">&sigma;<sub>0,2</sub></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>&minus;1&nbsp;&deg;C</td><td class="num">690&nbsp;&micro;m/s</td><td class="num">0.30</td><td class="num">3&times;10<sup>&minus;5</sup> (0.003%)</td><td class="num">0.70</td><td class="num">1&times;10<sup>&minus;3</sup> (0.10%)</td></tr>
+            <tr><td>&minus;2&nbsp;&deg;C</td><td class="num">635&nbsp;&micro;m/s</td><td class="num">0.25</td><td class="num">3&times;10<sup>&minus;4</sup> (0.03%)</td><td class="num">0.75</td><td class="num">1.5&times;10<sup>&minus;3</sup> (0.15%)</td></tr>
+            <tr><td>&minus;3&nbsp;&deg;C</td><td class="num">585&nbsp;&micro;m/s</td><td class="num">0.20</td><td class="num">1&times;10<sup>&minus;3</sup> (0.10%)</td><td class="num">0.80</td><td class="num">3&times;10<sup>&minus;3</sup> (0.30%)</td></tr>
+            <tr><td>&minus;5&nbsp;&deg;C</td><td class="num">496&nbsp;&micro;m/s</td><td class="num">0.20</td><td class="num">2&times;10<sup>&minus;3</sup> (0.20%)</td><td class="num">0.80</td><td class="num">5.5&times;10<sup>&minus;3</sup> (0.55%)</td></tr>
+            <tr><td>&minus;7&nbsp;&deg;C</td><td class="num">419&nbsp;&micro;m/s</td><td class="num">0.50</td><td class="num">8&times;10<sup>&minus;3</sup> (0.80%)</td><td class="num">0.50</td><td class="num">1&times;10<sup>&minus;2</sup> (1.0%)</td></tr>
+            <tr><td>&minus;15&nbsp;&deg;C</td><td class="num">208&nbsp;&micro;m/s</td><td class="num">1.00</td><td class="num">3&times;10<sup>&minus;2</sup> (3.0%)</td><td class="num">&mdash;</td><td class="num">&mdash;</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure class="figure"
+              data-src="research/figures/sdak2-two-branch-table.png"
+              data-figure="Table 1"
+              data-source="Libbrecht &amp; Walkling, &ldquo;A Comprehensive Model of Snow Crystal Faceting&rdquo; (arXiv:2306.04042v1)"
+              data-page="PDF p. 9"
+              data-alt="The source paper's six-row table of kinetic velocity and two prism attachment-process parameter pairs from minus 1 to minus 15 Celsius.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> each warm row has two parameter pairs whose amplitudes
+          sum to one. At &minus;15&nbsp;&deg;C only the first pair remains. The accessible table above
+          carries the numbers; this crop lets the offline reader verify them against the printed
+          source.
+          <br><br>
+          <em>Published caption: &ldquo;Table 1. The parameters used to describe the prism attachment
+          kinetics at different temperature using Equation 32.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <p>
+        The same two barrier values at &minus;2&nbsp;&deg;C appear in the earlier CM7 paper, but that
+        paper does <em>not</em> add them. It treats
+        0.25&nbsp;exp(&minus;0.03%/&sigma;<sub>surf</sub>) as the large-prism branch and
+        1.0&nbsp;exp(&minus;0.15%/&sigma;<sub>surf</sub>) as a kinetic-roughening branch for smaller
+        facets or faster growth. Their domains overlap between roughly 0.1 and 1&nbsp;% surface
+        supersaturation. CM7 says the switch might be smooth or abrupt and that neither theory nor
+        experiment fixes it. FACET instead sums two terms, with 0.75 rather than 1.0 as the second
+        amplitude at &minus;2&nbsp;&deg;C. The shared barrier numbers do not make these the same
+        model.
+      </p>
+
+      <figure class="anim" id="anim-facet-processes">
+        <div class="anim__head">
+          <p class="anim__title">Add both, or choose one?</p>
+          <p class="anim__sub">
+            Select FACET to add both tabulated processes at any printed temperature. Select either
+            CM7 branch to compare the mutually exclusive &minus;2&nbsp;&deg;C interpretation. Move
+            &sigma;<sub>surf</sub> and watch the difference become quantitative.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">
+            FACET curves evaluate Eq.&nbsp;32 at zero curvature using Table&nbsp;1,
+            arXiv:2306.04042v1, pp.&nbsp;8&ndash;9. CM7 curves use its printed large-prism and
+            kinetic-roughening parameters, arXiv:2004.06212v1, pp.&nbsp;3&ndash;4. The explorer
+            deliberately supplies no automatic CM7 branch switch because the paper supplies no
+            selection law.
+          </span>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          Where the analytic model applies
+        </p>
+        <p>
+          FACET targets low-pressure prism experiments and neglects particle diffusion in its basic
+          analytic calculation. The paper states the direction of the resulting bias: appreciable
+          particle diffusion would make the model <em>underestimate</em> the degree of faceting,
+          whereas appreciable latent heating would make it <em>overestimate</em> it. Full
+          three-dimensional diffusion is needed to quantify either correction. Latent heating is
+          negligible at the slowest growth rates but becomes more important for faster, warmer and
+          larger crystals; near-vacuum does not remove it. These qualifications prevent the
+          low-pressure chart from being silently transferred to a one-atmosphere cloud.
+        </p>
+      </aside>
+
+      <figure class="figure"
+              data-src="research/figures/latent-heating-faceting-vs-growth-rate.png"
+              data-figure="Figures 2 and 3 (crop)"
+              data-source="Libbrecht &amp; Walkling, &ldquo;A Comprehensive Model of Snow Crystal Faceting&rdquo; (arXiv:2306.04042v1)"
+              data-page="PDF p. 10"
+              data-alt="Curves of a prism faceting ratio against growth velocity at six temperatures, comparing calculations with and without latent heating for small and large crystals.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> red and black separate as growth gets faster, especially
+          for the larger crystal and warmer temperatures. This crop is a locator for the shape of the
+          systematic, not digitized numerical input and not transferable to one-atmosphere growth.
+          <br><br>
+          <em>Source scope:</em> the calculations assume near-vacuum prism growth. The source says
+          its thermal model is a rough estimate and is sensitive to the chosen heat-transfer
+          coefficient.
+        </figcaption>
+      </figure>
+
       <aside class="callout callout--myth">
         <p class="callout__label">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
@@ -1120,6 +1272,68 @@
         mysterious&rdquo; (printed p.&nbsp;16).
       </p>
 
+      <h2 id="when-the-air-is-not-inert">When the air is not inert</h2>
+
+      <p>
+        The entire chapter has quietly assumed that the surrounding gas delivers water but does not
+        meddle with the ice surface. For clean nitrogen, oxygen and ordinary laboratory air, that is
+        the best current reading: adsorption is weak, molecular simulations find little direct
+        change to surface premelting, and the cleanest small-crystal measurements find no significant
+        pressure dependence once diffusion is separated from attachment. Older claims of a direct
+        air-pressure effect were especially vulnerable to getting that separation wrong.
+      </p>
+
+      <p>
+        Chemically active trace vapours are different. Ten parts per million of butyl alcohol was
+        reported to turn the usual plates at &minus;20&nbsp;&deg;C into columns. Trace silicone vapour
+        produced columns instead of thin plates near &minus;15&nbsp;&deg;C; camphor, ketones, fatty
+        acids, aldehydes and other alcohols altered other bands. Near &minus;5 to
+        &minus;6&nbsp;&deg;C, acetic-acid and related vapours at concentrations down to roughly one
+        part per million can promote growth along the c axis, making the electric ice needles used
+        as laboratory seeds later in this course.
+      </p>
+
+      <figure class="figure"
+              data-src="research/1910.06389v2-llm/figures/fig-8.8/visual.png"
+              data-figure="Figure 8.8"
+              data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
+              data-page="PDF p. 291 &middot; printed p. 290"
+              data-alt="Three laboratory ice needles followed by ordinary growth that reveals their different crystallographic growth axes, including one needle aligned with the c axis.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> the ordinary growth added after the electric field was
+          switched off acts as an orientation marker. Trace chemical vapour can make the bottom
+          c-axis form appear reliably near &minus;6&nbsp;&deg;C, turning contamination into a useful
+          seed-making tool without explaining its molecular mechanism.
+          <br><br>
+          <em>Published caption: &ldquo;Figure 8.8. Under different experimental conditions,
+          e-needles can grow preferentially along the a-axis (top photo), the [11&#773;00] axis
+          (middle photo), or the c-axis (bottom photo). In these photos, a period of e-needle growth
+          was followed by a period of normal growth, during which there was no applied voltage. The
+          orientation of the e-needle could then be determined by the orientation of the subsequent
+          normal growth.&rdquo;</em>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Mechanism unknown
+        </p>
+        <p>
+          The likely first step is adsorption onto ice, after which the molecules alter terrace
+          nucleation or step motion. There is essentially no predictive theory connecting chemical
+          identity and concentration to the resulting habit. Most additives below 10&nbsp;ppm cause
+          no clearly observable change at one bar, and ultra-clean nitrogen resembles ordinary air,
+          so this is not evidence that natural snowflakes are generally impurity-controlled. It is a
+          warning about experiments: contamination can dramatically change attachment kinetics,
+          cannot be eliminated or bounded perfectly, and becomes a particularly serious concern
+          below &minus;20&nbsp;&deg;C. (Libbrecht, Snow Crystals, printed pp.&nbsp;169&ndash;171;
+          arXiv:1912.09440v1, printed p.&nbsp;7.)
+        </p>
+      </aside>
+
       <p>
         You now have both halves of the engine. Chapter 4 gave you &sigma; &mdash; the fuel, and how
         diffusion rations it. This chapter gave you <code>alphaHK</code> &mdash; the surface's willingness to
@@ -1164,6 +1378,7 @@
 
 <script src="../assets/site.js"></script>
 <script src="../assets/viz.js"></script>
+<script src="../assets/anim-facet-processes.js"></script>
 <script>
 /* ===========================================================================
    Chapter 5 — original figures.

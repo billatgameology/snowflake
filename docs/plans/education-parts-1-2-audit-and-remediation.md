@@ -61,11 +61,11 @@ the resulting bytes through a final adversarial pass.
       paper-by-paper checklist and omissions in this plan.
 - [x] Audit every Part One demo from code and in a real browser; add behavioral assertions that
       independently recompute load-bearing outputs.
-- [ ] Repair every Part One gap and implement every recommended new demo.
+- [x] Repair every Part One gap and implement every recommended new demo.
 - [x] Audit Part Two against current authority documents, repository code, tests, evidence, and
       chapter order; record the authority-to-chapter checklist and omissions in this plan.
-- [x] Audit every Part Two demo from code and in a real browser; repair gaps and implement every
-      recommended new demo.
+- [x] Audit every Part Two demo from code and in a real browser.
+- [ ] Repair every Part Two gap and implement every recommended new demo.
 - [ ] Run the offline/online media split checks, whole-site browser matrix, exact `npm test`, and
       visual inspection of representative pages and every changed interactive.
 - [ ] Obtain an independent adversarial re-review of the final bytes, remediate all findings, then
@@ -160,6 +160,48 @@ recommended demo:
 4. Rights-aware real-growth time-lapse scrubber.
 5. Aerodynamics/ventilation explorer.
 
+### Part One remediation and gate
+
+Part One is complete at this checkpoint. The repaired course now:
+
+- teaches the registered later-paper evidence and limits from TAX1/TAX2, FACET, CM6–CM10, CAK,
+  the 2012 modelling survey, triangular crystals, and the three-dimensional
+  Gravner–Griffeath examples, while retaining the accepted learning order;
+- adds all five recommended demonstrations: the FACET/CM7 process comparison, TAX1/TAX2
+  morphology-matrix browser, CM6 history explorer, rights-aware real-growth scrubber, and
+  aerodynamics/ventilation explorer;
+- repairs the G–G toy's reflecting-neighbor mass loss, premature halt and reset behavior, and
+  replaces raster-order diffusion with a double-buffered D6-equivariant update;
+- makes every stochastic teaching model deterministic, fixes the rib schedule, initial theme and
+  playback-intent behavior, and gives reduced-motion users genuine step/reset semantics;
+- keeps authored/public pages media-free and copies authenticated source media only into the
+  ignored personal offline edition.
+
+The combined command
+`node docs/education/tools/verify.mjs --part-one` exited 0 in 335.8 seconds. Its exact report is
+`out/education-verify/part-one-report.json`, 275 bytes, SHA-256
+`264992201f9b53b9d6daab2c2e837058692ced13ae0969529df49398841eb552`, generated
+`2026-07-30T15:59:43.166Z`. The report records 17 pages, 67 visual roots, public and offline
+modes, 38 blocking checks, and zero failures. The same run rebuilt
+`out/education-local/source-media-map.json`, 87,960 bytes, SHA-256
+`696b97469c9bf9bb895d3347b8c42469aa67d7be265b909a5accc1f488204656`; the builder reported
+33 pages, 139 distinct source figures copied for 179 references, and one local video. The
+verifier independently enumerated authored references, rehashed source and copied bytes, checked
+every rewrite, loaded 102 profiles plus deterministic repeats in each mode, recomputed the
+load-bearing diffusion/G–G/FACET/CM7/aerodynamic/rib/morphology/CM6 claims, exercised the movie
+and album paths, and executed and rejected all eight artifact-backed negative controls.
+
+The closing science reviewer was a Codex GPT-5-family subagent with shared task context and did
+not author the reviewed batch. It independently rechecked chapters 7 and 10–13 plus the TAX and
+CM6 demos against the local papers/crops, recomputed representative values, and exercised
+public/offline mobile, dark and reduced-motion states; it closed with zero findings. A separate
+Codex GPT-5-family shared-context reviewer independently re-executed focused control paths and
+identified the reduced-motion defects subsequently repaired. Limits: neither reviewer searched
+beyond the registered corpus, made a legal redistribution determination, used a screen reader,
+tested Firefox/WebKit, reran a scientific gate, or ran exact root `npm test`. The combined
+Chromium verifier closes the full Part One browser/model scope; exact root verification remains a
+final whole-course requirement.
+
 ### Part Two authority/code and order audit
 
 The Part Two sequence is accepted: scope, evidence labels, provenance, falsifiability,
@@ -177,14 +219,15 @@ tests, GPU conformance, preregistration, result, and limitations. Its blocking r
 - narrow `deltaSymClean` to attachment-delta symmetry, correct the workspace/spike and 38-check
   descriptions, and distinguish the Phase 3 instrument from the future Phase 7 product.
 
-Four reviewed opportunities are mandatory implementation work:
+Five reviewed opportunities are mandatory implementation work:
 
 1. GG-versus-LK timeline-event explorer, including state preservation, density transform,
    unclamped negative supersaturation, shell re-clamp diagnostic, atomic kinetics, and step-local
    conversion.
 2. Fail-closed checkpoint mutation explorer.
 3. Side-by-side numerical-exchange and physical-demand ledger explorer.
-4. Transferability matrix plus historical/current Phase 6 status controls.
+4. Transferability matrix.
+5. Historical/current Phase 6 status controls.
 
 ### Interactive audit
 

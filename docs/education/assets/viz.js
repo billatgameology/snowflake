@@ -361,6 +361,69 @@
     return h;
   }
 
+  /*
+   * A small browser-native counterpart to core/src/prng.ts. Each call hashes
+   * the immutable stream name and an explicit counter; consuming one stream
+   * therefore cannot shift any other stream. The returned function is stateful
+   * only in the counter it supplies to that pure hash.
+   */
+  function rotl32(x, r) {
+    return ((x << r) | (x >>> (32 - r))) | 0;
+  }
+
+  function mixCounterWord(k) {
+    k = Math.imul(k, 0xcc9e2d51);
+    k = rotl32(k, 15);
+    return Math.imul(k, 0x1b873593);
+  }
+
+  function mixCounterHash(h, k) {
+    h ^= mixCounterWord(k);
+    h = rotl32(h, 13);
+    return (Math.imul(h, 5) + 0xe6546b64) | 0;
+  }
+
+  function hashCounter(seed, cellIndex, tick, streamId) {
+    let h = seed | 0;
+    h = mixCounterHash(h, cellIndex | 0);
+    h = mixCounterHash(h, tick | 0);
+    h = mixCounterHash(h, streamId | 0);
+    h ^= 12;
+    h ^= h >>> 16;
+    h = Math.imul(h, 0x85ebca6b);
+    h ^= h >>> 13;
+    h = Math.imul(h, 0xc2b2ae35);
+    h ^= h >>> 16;
+    return h >>> 0;
+  }
+
+  function hashStreamName(name) {
+    let h = 0x811c9dc5;
+    for (let i = 0; i < name.length; i++) {
+      h ^= name.charCodeAt(i);
+      h = Math.imul(h, 0x01000193);
+    }
+    return h | 0;
+  }
+
+  function namedRng(name) {
+    if (typeof name !== "string" || !name.length) {
+      throw new TypeError("Viz.namedRng requires a non-empty stream name");
+    }
+    const streamId = hashString(name);
+    const seed = hashStreamName("snow-crystals-education:" + name);
+    let counter = 0;
+
+    function next() {
+      const value = hashCounter(seed, counter, name.length, streamId) / 4294967296;
+      counter = (counter + 1) >>> 0;
+      return value;
+    }
+
+    next.reset = function () { counter = 0; };
+    return next;
+  }
+
   /* ----------------------------------------------------------- animation -- */
 
   /**
@@ -370,8 +433,8 @@
    *
    * - runs only while `rootElement` is on screen
    * - under prefers-reduced-motion it does NOT loop: it renders one frame at
-   *   `staticAt` seconds and adds a "Play once" / "Step" control instead
-   * - returns { stop, play, pause, reset, isPlaying }
+   *   `staticAt` seconds and adds manual step/restart controls instead
+   * - returns playback methods plus actual-running and requested-playback state
    */
   function animate(root, tick, opts) {
     const o = opts || {};
@@ -379,8 +442,10 @@
     let last = 0;
     let elapsed = o.startAt || 0;
     let visible = false;
-    let wanted = true;
+    let pageVisible = !document.hidden;
+    let playbackRequested = true;
     let running = false;
+    let removeManualControls = null;
 
     function frame(now) {
       const dt = last ? Math.min((now - last) / 1000, 0.05) : 0;
@@ -408,7 +473,7 @@
     }
 
     function evaluate() {
-      if (visible && wanted && !reduceMotion.matches) start();
+      if (visible && pageVisible && playbackRequested && !reduceMotion.matches) start();
       else stop();
     }
 
@@ -419,38 +484,61 @@
     io.observe(root);
 
     document.addEventListener("visibilitychange", function () {
-      wanted = !document.hidden;
+      pageVisible = !document.hidden;
       evaluate();
     });
 
     const api = {
       get isPlaying() { return running; },
-      play: function () { wanted = true; evaluate(); },
-      pause: function () { wanted = false; stop(); },
+      get isPlaybackRequested() { return playbackRequested; },
+      play: function () { playbackRequested = true; evaluate(); },
+      pause: function () { playbackRequested = false; stop(); },
       stop: stop,
       reset: function () { elapsed = o.startAt || 0; tick(elapsed, 0); },
       seek: function (t) { elapsed = t; tick(elapsed, 0); },
       get time() { return elapsed; },
     };
 
-    if (reduceMotion.matches) {
-      // one representative frame, plus a manual way to advance
+    function showReducedMotionFrame() {
       elapsed = o.staticAt != null ? o.staticAt : (o.duration ? o.duration * 0.6 : 3);
       tick(elapsed, 0);
-      if (o.controls !== false) addManualControls(root, api, o);
+      if (o.controls !== false && !removeManualControls) {
+        removeManualControls = addManualControls(root, api, o);
+      }
+    }
+
+    function hideManualControls() {
+      if (!removeManualControls) return;
+      removeManualControls();
+      removeManualControls = null;
+    }
+
+    if (reduceMotion.matches) {
+      // one representative frame, plus a manual way to advance
+      showReducedMotionFrame();
     } else {
       tick(elapsed, 0);
     }
 
-    reduceMotion.addEventListener("change", function () { evaluate(); });
+    reduceMotion.addEventListener("change", function () {
+      if (reduceMotion.matches) {
+        stop();
+        showReducedMotionFrame();
+      } else {
+        hideManualControls();
+        evaluate();
+      }
+    });
     return api;
   }
 
   function addManualControls(root, api, o) {
+    let madeBar = false;
     const bar = root.querySelector(".anim__controls") || (function () {
       const made = document.createElement("div");
       made.className = "anim__controls";
       root.appendChild(made);
+      madeBar = true;
       return made;
     })();
 
@@ -460,8 +548,20 @@
     note.textContent = "Motion reduced — step through manually:";
     bar.appendChild(note);
 
-    button(bar, "Step forward", function () { api.seek(api.time + (o.stepBy || 0.5)); });
-    button(bar, "Restart", function () { api.reset(); });
+    const stepButton = button(bar, "Step forward", function () {
+      const start = o.startAt || 0;
+      const step = o.stepBy || (o.duration ? Math.max(0.5, o.duration / 8) : 0.5);
+      if (o.duration && api.time >= o.duration) api.seek(start);
+      else api.seek(o.duration ? Math.min(o.duration, api.time + step) : api.time + step);
+    });
+    const restartButton = button(bar, "Restart", function () { api.reset(); });
+
+    return function () {
+      note.remove();
+      stepButton.remove();
+      restartButton.remove();
+      if (madeBar && !bar.children.length) bar.remove();
+    };
   }
 
   /* ------------------------------------------------- hexagonal geometry -- */
@@ -534,6 +634,7 @@
     legend: legend,
     slider: slider,
     button: button,
+    namedRng: namedRng,
     animate: animate,
     hexPoints: hexPoints,
     hexPath: hexPath,
