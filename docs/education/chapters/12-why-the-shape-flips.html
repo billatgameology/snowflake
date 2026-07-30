@@ -69,8 +69,9 @@
             curves swap order.</li>
           <li>Count the crossings a set of curves produces and compare that count with the number
             of boundaries on the Nakaya diagram.</li>
-          <li>Explain why a model built only from broad, flat faces cannot produce three
-            boundaries, no matter how carefully it is fitted.</li>
+          <li>See why comparing &sigma;<sub>0</sub> alone, though it looks decisive, is not quite
+            the whole criterion for a habit flip &mdash; and what that means for what a broad-facet
+            model can and cannot be shown to do.</li>
           <li>Describe what SDAK proposes: that a very narrow facet has a much lower effective
             barrier than a wide one of the same crystal plane.</li>
           <li>Locate the two measured dips &mdash; basal near &minus;4&nbsp;&deg;C, prism near
@@ -180,8 +181,11 @@
           Plot &sigma;<sub>0</sub> for the basal face and &sigma;<sub>0</sub> for the prism face
           against temperature. Everywhere the two curves cross, the lower one becomes the upper
           one, the faster face becomes the slower face, and the crystal switches between plate and
-          column. A habit boundary <em>is</em> a crossing &mdash; so the number of crossings is a hard
-          ceiling on how many times the shape can flip.
+          column &mdash; <em>provided</em> the two facets' A prefactors are equal, which the equation
+          above already told you is not always true. Set that condition aside for a moment and treat
+          a crossing as a habit boundary anyway: does the number of crossings then put a hard
+          ceiling on how many times the shape can flip? That question, and exactly where the simple
+          version of it breaks, is what the rest of this chapter works out.
         </p>
       </aside>
 
@@ -321,15 +325,55 @@
       </p>
 
       <p>
-        One crossing cannot make three boundaries. This is not a matter of tuning. Refit the curves
-        to new data and the count stays at one. Humidity does not enter these curves at all; the
-        model also assumes air pressure does not, though that is an assumption rather than a
-        measurement &mdash; the monograph flags &ldquo;an implicit assumption that the attachment
-        kinetics does not depend on background gas pressure or other chemical effects&rdquo;
-        (printed p.&nbsp;145). A crossing depends only on where the two curves sit relative to each
-        other, and both of them are smooth and rise steadily as the air gets colder. Two smooth
-        rising curves like these cross once. The shortfall is structural, not numerical.
+        Counted this way &mdash; the two &sigma;<sub>0</sub> curves alone, holding
+        &sigma;<sub>surf</sub> fixed &mdash; one crossing is what you get, and refitting the curves
+        to new data does not change that: two smooth, monotonically rising curves cross once.
+        Humidity does not enter these curves at all; the model also assumes air pressure does not,
+        though that is an assumption rather than a measurement &mdash; the monograph flags &ldquo;an
+        implicit assumption that the attachment kinetics does not depend on background gas pressure
+        or other chemical effects&rdquo; (printed p.&nbsp;145).
       </p>
+
+      <p>
+        But &sigma;<sub>0</sub> alone is not quite the quantity a habit flip depends on. Look back at
+        the equation this chapter opened with: alphaHK = A&nbsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>).
+        Whichever facet wins is whichever has the larger alphaHK, and A is not always 1 &mdash; the
+        equation's own gloss above already flagged that the prism A dips well below 1 over part of
+        the warm range. Comparing &sigma;<sub>0</sub> alone silently assumes A cancels out of the
+        comparison, and it does not. Put A back in and the crossing count stops being a fixed
+        property of the two curves and becomes a property of &sigma;<sub>surf</sub> too &mdash; the
+        same spare vapour the slider in the last section let you move. Evaluated that way, at
+        &sigma;<sub>surf</sub> = 0.20&ndash;0.30&nbsp;% (outside that band the count drops back to
+        two, one, or zero), these same broad-facet curves &mdash; no SDAK, no dips &mdash; swap order
+        <strong>three</strong> times, not once.
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Corrected
+        </p>
+        <p>
+          An earlier version of this chapter counted &sigma;<sub>0</sub> crossings only, and called
+          the result &ldquo;structural, not numerical&rdquo; and independent of diffusion. An
+          adversarial review in 2026 found both halves wrong: the habit-relevant quantity is alphaHK,
+          not &sigma;<sub>0</sub> alone, and once A is included the swap count is set by
+          &sigma;<sub>surf</sub>, which diffusion supplies (see the correction and the numbers it
+          produced in <code>research/libbrecht-figure-findings.md</code> and
+          <code>app/scripts/phase6-libbrecht-closed-forms.mjs</code>). So a broad-facet model, with no
+          SDAK at all, is <em>not</em> structurally incapable of three habit transitions the way this
+          chapter first argued. What survives is weaker, and still real: the three swaps found this
+          way sit at different temperatures than the diagram's three boundaries &mdash; at
+          &sigma;<sub>surf</sub> = 0.20&nbsp;%, for instance, near 3.9, 5.0 and 10.6&nbsp;&deg;C below
+          freezing, clustered rather than spread across the full range &mdash; so showing that three
+          is <em>possible</em> is not the same as this particular broad-facet set
+          <em>explaining</em> the diagram. That distinction &mdash; possible versus actually
+          happening at the right places &mdash; is the reason SDAK remains a live proposal rather
+          than a settled one, and it is the reason the rest of this chapter exists.
+        </p>
+      </aside>
 
       <p>
         The first line of defence would be to doubt the diagram. Perhaps the three boundaries are
@@ -782,10 +826,10 @@
       </figure>
 
       <p>
-        Evaluate those curves and the crossings multiply. Read the habit off them and you get: plate at
-        &minus;2&nbsp;&deg;C, column at &minus;5&nbsp;&deg;C, plate at &minus;15&nbsp;&deg;C, column
-        at &minus;30&nbsp;&deg;C. All four Nakaya bands, in the right order, at roughly the right
-        temperatures, from two curves and two dips.
+        Evaluate those curves with the dips added and the crossings triple. Read the habit off them
+        and you get: plate at &minus;2&nbsp;&deg;C, column at &minus;5&nbsp;&deg;C, plate at
+        &minus;15&nbsp;&deg;C, column at &minus;30&nbsp;&deg;C. All four Nakaya bands, in the right
+        order, from two curves and two dips.
       </p>
 
       <div class="table-wrap">
@@ -793,7 +837,11 @@
           <caption>
             Crossings found by solving the printed closed forms for the temperature at which the two
             barrier curves are equal. Every row shares the same basal curve (arXiv:2009.08404v2,
-            p. 3, Eq. 2) and differs only in the prism curve and in whether the dips are applied.
+            p. 3, Eq. 2) and differs only in the prism curve and in whether the dips are applied. The
+            dip formulas use a base-10 logarithm, as printed (arXiv:2306.13087v1, p.&nbsp;6); an
+            earlier version of this table used the natural logarithm by mistake and reported five
+            crossings instead of three &mdash; corrected 2026-07-29, see
+            <code>app/scripts/phase6-libbrecht-closed-forms.mjs</code>.
           </caption>
           <thead>
             <tr><th>Curves used</th><th class="num">Crossings</th><th>At</th></tr>
@@ -812,47 +860,51 @@
             <tr>
               <td>The first row again, with both SDAK dips applied
                 (arXiv:2306.13087v1, p. 6)</td>
-              <td class="num">5</td>
-              <td>&minus;3.7, &minus;6.3, &minus;8.5, &minus;9.9, &minus;18.6&nbsp;&deg;C</td>
+              <td class="num">3</td>
+              <td>&minus;3.1, &minus;8.1, &minus;24.7&nbsp;&deg;C</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <p>
-        Five is more than three, and that is worth saying out loud rather than hiding. Three of the
-        five crossings are the diagram's boundaries. The other two, at about &minus;6.3 and
-        &minus;8.5&nbsp;&deg;C, carve a thin sliver out of the middle of the column band &mdash; and
-        they are not meaningful. Across that whole stretch the two curves sit within a few per cent
-        of one another, so which of them is technically underneath flips on almost nothing. The
-        lesson is the one the counting argument gave in the first place: crossings are a ceiling,
-        not a promise. Fewer than three and the pattern is impossible. Five means the physics has
-        the freedom it needs &mdash; not that every wiggle in the curves corresponds to something a
-        snow crystal does.
+        Three crossings from two curves and two dips, matching the diagram's three boundaries in
+        <em>count</em>. Whether they match in <em>place</em> is a separate question, and the honest
+        answer is: partly.
       </p>
 
       <p>
-        Now set those three beside the numbers Chapter&nbsp;7 actually printed. Its table of band
+        Set those three beside the numbers Chapter&nbsp;7 actually printed. Its table of band
         boundaries, measured off a published figure with &plusmn;0.5&nbsp;&deg;C read uncertainty,
-        gave &minus;3.3, &minus;9.9 and &minus;21.5&nbsp;&deg;C. The three meaningful crossings here
-        are &minus;3.7, &minus;9.9 and &minus;18.6&nbsp;&deg;C. The warm one agrees to within that
-        read uncertainty. The middle one is an exact hit &mdash; the same number to the tenth of a
-        degree, reached once by cataloguing thousands of photographed crystals and once by solving
-        two barrier curves for where they cross. Be precise about what that does and does not show:
-        the dip onsets were chosen to put the dips near &minus;5 and &minus;15&nbsp;&deg;C, so the
-        <em>bands</em> were fitted. Where the boundary between two fitted bands then falls was not
-        fitted, and it falls on Chapter&nbsp;7's middle boundary.
+        gave &minus;3.3, &minus;9.9 and &minus;21.5&nbsp;&deg;C. The warm crossing here,
+        &minus;3.1&nbsp;&deg;C, agrees with &minus;3.3&nbsp;&deg;C to within that read uncertainty.
+        The middle crossing, &minus;8.1&nbsp;&deg;C, misses &minus;9.9&nbsp;&deg;C by
+        1.8&nbsp;&deg;C &mdash; outside the read uncertainty, and a plainly weaker match than the
+        exact hit an earlier, miscalculated version of this table reported. Be precise about what the
+        match that remains does and does not show: the dip onsets were chosen to put the dips near
+        &minus;5 and &minus;15&nbsp;&deg;C, so the <em>bands</em> were fitted; the count of three
+        survives that fitting, and the warm boundary lands close, but the middle boundary does not.
       </p>
 
       <p>
-        The cold one does not match, and Chapter&nbsp;7 warned you in advance that it would not.
-        That chapter printed &minus;21.5&nbsp;&deg;C and then said in the same breath that the
+        The cold one does not match either, and Chapter&nbsp;7 warned you in advance that the
         coldest boundary is barely pinned at all: the research literature sets the sequence out as
         &ldquo;platelike again from -11 C to -18 C, and columnar again below -30 C&rdquo;
-        (arXiv:2012.12916v1, p.&nbsp;1), leaving the twelve degrees in between simply unassigned.
-        Our &minus;18.6&nbsp;&deg;C crossing sits inside that gap. The disagreement is genuine, and
-        it is exactly where Chapter&nbsp;7 showed the ground was softest &mdash; which is the least
-        damaging place for a model and a measurement to part company.
+        (arXiv:2012.12916v1, p.&nbsp;1), leaving the twelve degrees in between simply unassigned. The
+        &minus;24.7&nbsp;&deg;C crossing here sits inside that gap, as the miscalculated version's
+        crossing did too, though it now sits further from Chapter&nbsp;7's &minus;21.5&nbsp;&deg;C
+        than that version claimed.
+      </p>
+
+      <p>
+        So: the count of three is real, and it survives the correction to the log base. One of the
+        three placements &mdash; the warm one &mdash; survives with it. The middle one, which an
+        earlier version of this chapter called &ldquo;an exact hit&rdquo;, does not; that claim was
+        an artefact of the log-base error and is withdrawn here. Read the whole exercise as it should
+        have been read from the start: not proof that the SDAK dips are placed correctly, but a
+        demonstration that dips of roughly this size and location can turn one crossing into three.
+        The dips' own standing rests on the two independently measured data sets in the next section,
+        not on how precisely this curve-counting exercise lines up.
       </p>
 
       <figure class="figure"
@@ -1045,9 +1097,13 @@
 
       <p>
         <strong>Well established.</strong> The broad-facet barrier curves are measurements. The
-        Nakaya diagram's three boundaries are measurements, reproduced by independent groups. The
-        arithmetic that says one crossing cannot make three boundaries is arithmetic. The two SDAK
-        dips are measurements, with error bars, published as data points.
+        Nakaya diagram's three boundaries are measurements, reproduced by independent groups. That
+        the two broad-facet &sigma;<sub>0</sub> curves alone cross once is arithmetic; that this by
+        itself proves no broad-facet model could ever produce three boundaries is not &mdash; an
+        earlier version of this chapter claimed exactly that, and it does not survive putting the
+        full attachment coefficient back into the count (see &ldquo;One crossing, three
+        boundaries&rdquo; above). The two SDAK dips are measurements, with error bars, published as
+        data points.
       </p>
 
       <p>

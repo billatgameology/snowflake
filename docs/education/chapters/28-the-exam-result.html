@@ -803,40 +803,51 @@
       <h2 id="counting">One crossing, three boundaries</h2>
 
       <p>
-        Eliminating two suspects leaves the third by default, which is a weak kind of argument. The
-        strongest result in the whole sweep is not the score at all. It is a counting argument that
-        says the model could not have passed, whatever the code and whatever the grid.
+        Eliminating two suspects leaves the third by default, which is a weak kind of argument. What
+        the sweep adds beyond the score is a counting argument &mdash; though an earlier version of
+        this chapter overstated it, and the correction is worth walking through rather than hiding.
       </p>
 
       <p>
         Here is the chain. A habit boundary &mdash; the temperature where a crystal stops growing
         plates and starts growing columns &mdash; requires the basal and prism facets to swap which
-        one is stickier. Stickiness in this model is set by a critical supersaturation
-        <em>&sigma;<sub>0</sub></em>, one curve per facet: the lower the curve, the stickier the
-        facet, so a swap in stickiness is exactly a <strong>crossing</strong> of the two curves.
-        Which way round matters. When the prism faces are the stickier pair they advance faster, the
-        crystal spreads sideways, and you get a plate; when the basal faces win, it grows tall and
-        you get a column. So
-        the number of crossings is a hard ceiling on the number of habit boundaries a model can
-        produce &mdash; and that ceiling does not care about the diffusion solver, the grid
-        spacing, the seed shape, the far-field condition or the domain size.
+        one is stickier. Stickiness is set by the attachment coefficient
+        alphaHK&nbsp;=&nbsp;A&thinsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>), and a
+        swap in stickiness is a crossing of the two <em>alphaHK</em> curves &mdash; not, as an earlier
+        version of this argument assumed, simply a crossing of the two critical supersaturation
+        curves <em>&sigma;<sub>0</sub></em> alone. That shortcut only works when the A prefactor is
+        equal on both facets, and this project's own equation gloss (Chapter 12) shows it is not, on
+        the prism facet, over part of the warm range. Compare &sigma;<sub>0</sub> alone and the count
+        is a fixed property of the two curves; put A back in and the count is set jointly by the
+        curves <em>and</em> &sigma;<sub>surf</sub> &mdash; the vapour the diffusion solver actually
+        delivers to the surface. So the number of &sigma;<sub>0</sub> crossings is not a ceiling that
+        ignores the diffusion solver, the grid, the seed or the far field: a 2026-07-29 adversarial
+        review found that the same broad-facet curves used below swap order three times, not once,
+        for some values of &sigma;<sub>surf</sub> &mdash; see Chapter 12 and
+        <code>research/libbrecht-figure-findings.md</code>.
       </p>
 
       <p>
         Three independent parameterizations of those curves have been evaluated &mdash; the
         project&rsquo;s own digitized anchors at &minus;10.00&nbsp;&deg;C and two printed closed
-        forms from separate papers at &minus;8.39 and &minus;10.92&nbsp;&deg;C. Each has exactly one
-        crossing, and all three cross in the same direction. The Nakaya diagram has three
-        boundaries. One is less than three, and no amount of engineering closes that gap.
+        forms from separate papers at &minus;8.39 and &minus;10.92&nbsp;&deg;C. Compared as
+        &sigma;<sub>0</sub> alone, each has exactly one crossing, and all three cross in the same
+        direction. The Nakaya diagram has three boundaries. One is less than three &mdash; but
+        &sigma;<sub>0</sub> alone is not quite the criterion, and the corrected count (below) is not
+        stuck at one. What the sweep's own registered points actually run at is a narrower claim:
+        along this sweep's constant-supersaturation ladders the alphaHK swap count is one at the
+        warmest point and zero everywhere colder, never three. That is a statement about the runs
+        this project made, not a proof about every broad-facet model.
       </p>
 
       <p>
-        This is the part of the sweep the correction did not touch, and the report says the
-        withdrawal actually strengthened it: the plate&nbsp;&rarr;&nbsp;neutral&nbsp;&rarr;&nbsp;column
-        sequence, monotone in temperature with no return, &ldquo;now holds under <strong>both</strong>
-        parameter sets, which is stronger than holding under one&rdquo;. A structural claim that
-        survives its own experiment being re-run under different inputs is doing better than a score
-        that does not.
+        The monotone sequence itself &mdash; plate&nbsp;&rarr;&nbsp;neutral&nbsp;&rarr;&nbsp;column,
+        with no return as it gets colder &mdash; is a different, narrower claim from the crossing
+        count, and it is the part the ADR&nbsp;0031 re-sweep did not touch: the report says it
+        &ldquo;now holds under <strong>both</strong> parameter sets, which is stronger than holding
+        under one&rdquo;. That survives. What does not survive, corrected 2026-07-29 and after
+        ADR&nbsp;0031 landed, is calling the one-crossing count itself a structural ceiling
+        &ldquo;independent of diffusion&rdquo; &mdash; see the correction above.
       </p>
 
       <div class="equation">
@@ -894,15 +905,20 @@
       </figure>
 
       <p>
-        Switch both dips on at the depth the page starts with and the count goes to five. That
-        number is not this page&rsquo;s invention: evaluating Libbrecht&rsquo;s own printed
-        dip-bearing parameterization gives five crossings too, at &minus;3.70, &minus;6.25,
-        &minus;8.46, &minus;9.93 and &minus;18.62&nbsp;&deg;C, against reference boundaries at
-        &minus;3.3, &minus;9.9 and &minus;21.5&nbsp;&deg;C. Two of those land within
-        0.4&nbsp;&deg;C of a real boundary. And notice what the mapping does to the sweep&rsquo;s
-        failures: the columns band that scored 0 of 24 contains the basal dip at
-        &minus;4.5&nbsp;&deg;C; the cold plates band that scored 0 of 60 contains the prism dip at
-        &minus;14.4&nbsp;&deg;C; the one band where the model scored at all contains no dip.
+        Switch both dips on at the depth the page starts with and the count goes to five &mdash; a
+        property of this page&rsquo;s own notch shape, tuned only to sit at the right two centres.
+        It does not confirm Libbrecht&rsquo;s own printed dip-bearing parameterization, which a
+        2026-07-29 correction found crosses three times, not five: the printed dip formulas use a
+        base-10 logarithm, and an earlier reading of them used the natural logarithm by mistake. Read
+        correctly, the crossings sit at &minus;3.08, &minus;8.07 and &minus;24.73&nbsp;&deg;C, against
+        reference boundaries at &minus;3.3, &minus;9.9 and &minus;21.5&nbsp;&deg;C. Only the warm one
+        lands close &mdash; within the diagram&rsquo;s own read uncertainty; the middle one misses by
+        nearly two degrees, a plainly weaker match than the miscalculated version&rsquo;s claimed
+        exact hit. The dip <em>centres</em> themselves are unaffected by that correction, so the
+        observation about the sweep&rsquo;s failures still holds: the columns band that scored 0 of
+        24 contains the basal dip at &minus;4.5&nbsp;&deg;C; the cold plates band that scored 0 of 60
+        contains the prism dip at &minus;14.4&nbsp;&deg;C; the one band where the model scored at all
+        contains no dip.
       </p>
 
       <p>
@@ -1223,10 +1239,13 @@
         <em>looks like</em> &mdash; the fourteen-to-nineteen-degree gap where the model has no habit
         at all, the habit destroyed by humidity &mdash; is this project&rsquo;s, and it is the
         smaller of the two. It missed while agreeing with his own laboratory data at a temperature
-        where that laboratory data and the diagram contradict each other. And it missed structurally,
-        not narrowly: one crossing cannot make three boundaries, so no broad-facet parameterization
-        could have passed &mdash; a claim that now survives the same experiment being run twice under
-        different inputs. What is left to blame is the physics, not the arithmetic.
+        where that laboratory data and the diagram contradict each other. And it missed at the
+        conditions actually run, not because no broad-facet parameterization possibly could have
+        passed: a claim that strong was made here once, found wrong on 2026-07-29, and corrected
+        above. What survives, and it is enough to hang the verdict on, is narrower: at the
+        supersaturations this sweep&rsquo;s own registered points reach, the swap count never gets
+        past one, so this parameterization, as run, does not reproduce the diagram. What is left to
+        blame is the physics at the conditions tested, not the arithmetic.
       </p>
 
       <p>
@@ -1668,10 +1687,10 @@
       {
         id: "theory",
         title: "The theory is insufficient.",
-        ask: "What would have to be true: broad-facet attachment kinetics alone cannot produce the diagram.",
+        ask: "What would have to be true: this parameterization's broad-facet attachment kinetics, as actually run, does not produce the diagram — whether or not a broad-facet model could in principle.",
         verdict: "SURVIVES",
         out: false,
-        evidence: "This is the source's own published position: SDAK \"provides the only viable option currently available that can adequately explain the Nakaya diagram together with a plethora of other ice-growth data\". It is a claim about what a model without SDAK will do, and nobody had run it in 3-D. Scope, and it matters: this sweep is the first independent test of a claim that already existed in prose. It is never a discovery of this project."
+        evidence: "This is the source's own published position: SDAK \"provides the only viable option currently available that can adequately explain the Nakaya diagram together with a plethora of other ice-growth data\". It is a claim about what a model without SDAK will do, and nobody had run it in 3-D. Scope, and it matters: this sweep is the first independent test of a claim that already existed in prose, and it is never a discovery of this project. Narrower scope still, corrected 2026-07-29: this project does not show that no broad-facet model COULD reproduce the diagram — an adversarial review found the opposite is reachable in principle, for some supersaturations (Chapter 12). What survives is the weaker, still-measured fact: the registered set, evaluated at the conditions this sweep actually runs at, does not produce the diagram. That is evidence for the source's published position, not a proof that broad-facet kinetics alone never could."
       }
     ];
 
