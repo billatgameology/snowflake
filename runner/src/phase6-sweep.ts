@@ -12,7 +12,9 @@
 // rests on that being checkable rather than asserted.
 
 import { execFileSync } from "node:child_process";
-import { canonicalJsonSha256 } from "./gate4-evidence.ts";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { join, relative, sep } from "node:path";
+import { canonicalJsonSha256, sha256Bytes } from "./gate4-evidence.ts";
 import {
   GROW_LK_DEFAULTS,
   PHASE6_DEFAULT_KEY_FLAGS,
@@ -261,6 +263,117 @@ export function phase6SweepPreflight(repoRoot: string = process.cwd()): Phase6Pr
 // gate4-evidence's key ordering and encoding exactly, and any drift between the two would make
 // preflight reject a protocol that is in fact correct — a fail-closed check that fails for the
 // wrong reason is worse than none, because it trains an operator to bypass it.
+
+/**
+ * Every source file whose contents can change what a sweep computes, one sha256 each, plus a digest
+ * over the sorted list.
+ *
+ * Pin-register recommendation 10. `phase6SweepPreflight` already refuses to run on a dirty tracked
+ * tree — but it checks that ONCE, before the first point. The sweep then runs unattended for hours,
+ * and an edit landing at hour three is invisible to a check that finished at hour zero. That is not
+ * hypothetical: the WP5 negative controls include a mid-sweep solver edit, and this session found an
+ * attacker mutation to `solver-cpu/src/lk-solver.ts` still sitting in the working tree after a crash.
+ *
+ * Three roots, and the reason for each: `core/src` holds the physics (`alphaHK`, σ₀, the saturation
+ * tables), `solver-cpu/src` the growth loop, `runner/src` the harness and the protocol itself. A
+ * change anywhere in them changes what the evidence means.
+ */
+export interface Phase6SourceGraph {
+  readonly files: readonly { path: string; sha256: string }[];
+  readonly digest: string;
+}
+
+/** Source roots hashed by `phase6SourceGraph`, in the order they are walked. */
+export const PHASE6_SOURCE_ROOTS = ["core/src", "solver-cpu/src", "runner/src"] as const;
+
+export function phase6SourceGraph(repoRoot: string = process.cwd()): Phase6SourceGraph {
+  const files: { path: string; sha256: string }[] = [];
+  for (const root of PHASE6_SOURCE_ROOTS) {
+    const base = join(repoRoot, root);
+    if (!existsSync(base)) {
+      // Fail LOUD rather than hashing a smaller set: a missing root would silently shrink the
+      // fingerprint to whatever remained, and two runs over different file sets would compare equal.
+      throw new Error(`phase6SourceGraph: source root ${root} does not exist under ${repoRoot}`);
+    }
+    for (const entry of readdirSync(base, { withFileTypes: true, recursive: true })) {
+      if (!entry.isFile() || !entry.name.endsWith(".ts")) continue;
+      const absolute = join(entry.parentPath, entry.name);
+      files.push({
+        // Posix-separated and repo-relative, so a Windows run and a Linux run produce the same digest.
+        path: relative(repoRoot, absolute).split(sep).join("/"),
+        sha256: sha256Bytes(readFileSync(absolute)),
+      });
+    }
+  }
+  files.sort((a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : 0));
+  return { files, digest: canonicalJsonSha256(files) };
+}
+
+/** What was true about the repository at one instant of a sweep. */
+export interface Phase6ExecutionFingerprint {
+  readonly head: string;
+  readonly trackedStatus: string;
+  readonly treeIsClean: boolean;
+  readonly sourceGraphSha256: string;
+  readonly sourceFileCount: number;
+}
+
+export function phase6ExecutionFingerprint(repoRoot: string = process.cwd()): Phase6ExecutionFingerprint {
+  const provenance = phase6ProtocolProvenance(repoRoot);
+  const graph = phase6SourceGraph(repoRoot);
+  return {
+    head: provenance.head,
+    trackedStatus: provenance.trackedStatus,
+    treeIsClean: provenance.treeIsClean,
+    sourceGraphSha256: graph.digest,
+    sourceFileCount: graph.files.length,
+  };
+}
+
+/**
+ * Compare the repository at the start of a sweep against the repository at the end, and name every
+ * way they differ.
+ *
+ * The maker's standing constraint that this exists to satisfy: *"no evidence run executes while
+ * another session is committing to main until the completion-time provenance re-check exists — the
+ * nine-commit hazard was luck, and we don't bank luck twice."* Arm 1 ran while nine commits landed on
+ * main. Nothing detected it, because nothing looked twice.
+ *
+ * The source-graph digest is the part that catches what `head` alone cannot: a commit that lands
+ * mid-sweep moves `head`, but an *uncommitted* edit to `lk-solver.ts` at hour three moves neither
+ * `head` nor — once it is reverted before the sweep ends — `trackedStatus`. The digest is taken at
+ * both ends and would still differ.
+ */
+export function phase6CompletionDrift(
+  before: Phase6ExecutionFingerprint,
+  after: Phase6ExecutionFingerprint,
+): readonly string[] {
+  const out: string[] = [];
+  if (before.head !== after.head) {
+    out.push(
+      `HEAD moved during the sweep: ${before.head} → ${after.head}. The evidence cannot name one ` +
+        "commit that produced it",
+    );
+  }
+  if (before.sourceGraphSha256 !== after.sourceGraphSha256) {
+    out.push(
+      `the executed source graph changed during the sweep: ${before.sourceGraphSha256} → ` +
+        `${after.sourceGraphSha256} (${before.sourceFileCount} → ${after.sourceFileCount} files). ` +
+        "Earlier points and later points did not run the same code",
+    );
+  }
+  if (before.trackedStatus !== after.trackedStatus) {
+    out.push(
+      "the tracked worktree changed during the sweep:\n  before: " +
+        `${before.trackedStatus === "" ? "(clean)" : before.trackedStatus}\n  after:  ` +
+        `${after.trackedStatus === "" ? "(clean)" : after.trackedStatus}`,
+    );
+  }
+  if (!after.treeIsClean) {
+    out.push(`the tracked worktree is dirty at completion, so the evidence is not reproducible from ${after.head}`);
+  }
+  return out;
+}
 
 /** One sweep point, measured. */
 export interface Phase6PointResult {
@@ -720,6 +833,10 @@ export async function phase6RunSweep(options: {
   const domainN = PHASE6_CROSSPLATFORM_FIXTURE.dims.nx;
   const scored: Phase6ScoredPoint[] = [];
   let next = 0;
+  // Taken BEFORE the first child starts, and compared against the same measurement after the last
+  // one finishes. Preflight's clean-tree check happens once at hour zero; this is what makes the
+  // guarantee cover all of the hours after it.
+  const before = phase6ExecutionFingerprint(options.repoRoot);
 
   const runOne = (point: Phase6GridPoint): Promise<Phase6ScoredPoint> =>
     new Promise((resolve, reject) => {
@@ -832,5 +949,18 @@ export async function phase6RunSweep(options: {
   await Promise.all(
     Array.from({ length: Math.min(options.concurrency, queue.length) }, () => worker()),
   );
+
+  // Pin-register recommendation 10. THROW rather than return: `main.ts` writes `report.json` and
+  // `diagram.svg` after this resolves, so throwing means the artifact set is never completed. A
+  // sweep whose code changed underneath it must not be able to publish, and a warning printed
+  // beneath 204 lines of progress output is not a gate.
+  const drift = phase6CompletionDrift(before, phase6ExecutionFingerprint(options.repoRoot));
+  if (drift.length > 0) {
+    throw new Error(
+      "the repository changed between the start and the end of this sweep, so no artifact is " +
+        "written — the evidence could not name one commit and one source tree that produced it:" +
+        drift.map((d) => `\n  - ${d}`).join(""),
+    );
+  }
   return scored;
 }

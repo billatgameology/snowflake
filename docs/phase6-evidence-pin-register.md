@@ -16,11 +16,24 @@ has actually been done, so the two can be compared rather than conflated.
 | **2** | **CLOSED** | ADR 0035 | Three executed controls: `--steps 1` (was plate/AGREE/headline → now invalid/excluded); `domain: "hexPrism"` → `"box"` (CAUGHT, `active=110592` vs 77 879); `seedThickness` 1 → 3 (CAUGHT twice, `seedSites=57` vs 19 and preflight). |
 | **7** | **CLOSED** | ADR 0035 | `--param-set CAK --param-set CAK_A1` is rejected; it previously passed both the presence and the value check while running `CAK_A1`. |
 | **14** | **CLOSED** | ADR 0035 | `phase6UnaccountedDefaults()` walks `GROW_LK_DEFAULTS` and requires every key in a named bucket. `steps` is now registered on the fixture and checked, not called harmless. |
+| **3** | **CLOSED** | `.github/workflows/test.yml` + `runner/test/suite-integrity.test.ts` | CI runs exact `npm test`, unmodified. The suite test pins the `include` list both ways (no missing glob, no extra) and a per-workspace test-file floor. **Expected RED** on the delegated `docs/education` Rule 7 violations — a CI red for a named, owned reason is working. |
+| **10** | **GATE half CLOSED**, fields deferred | `phase6ExecutionFingerprint` / `phase6SourceGraph` / `phase6CompletionDrift` | The gap was **temporal**: preflight checks a clean tree once, at hour zero, then the sweep runs unattended for hours. All 39 files under `core/src`, `solver-cpu/src`, `runner/src` are now hashed before the first child and again after the last, and `phase6RunSweep` **throws** on any drift — so `report.json` and `diagram.svg` are never written. Verified end to end: it throws today, naming the dirty tree. |
 
-**Not yet closed, and the ones that matter most:** **3** (no CI — every pin in this register is still
-human-triggered), **5** and **10** (artifact identity and completion-time provenance), **6** (the libm
-digest is collected but not gated), **8** (registered *values* are not themselves hashable), **11**
-(the solver's test hooks are reachable on an evidence path).
+**On rec 10's split.** The register asked for the provenance fields to be recorded in `report.json` as
+well, which needs an ADR because it changes a published schema. Deferred to the arm-2 freeze, where
+rec 5 revises that schema anyway — writing it twice would re-pin `report.json`'s digest twice. The
+half that **gates** landed now, because the maker's constraint is about execution, not reporting: *no
+evidence run executes while another session is committing to main until the completion-time re-check
+exists.* It exists.
+
+**Consequence worth stating plainly:** arm 2 cannot run until the delegated `docs/education` work is
+committed, because the tree is dirty and both preflight and the completion check refuse. That is the
+constraint operating as designed, not an obstacle to route around.
+
+**Not yet closed, and the ones that matter most:** **5** (artifact identity and per-row config),
+**6** (the libm digest is collected but not gated), **8** (registered *values* are not themselves
+hashable), **11** (the solver's test hooks are reachable on an evidence path), **15** (the published
+headline is computed by a different rule than the `uncertainty-reporting` row registers).
 
 One correction to this register's own text, found while closing rec 2: it recommended requiring
 `largestExtent === fixture.targetExtent`. Extent can rise by two in a step, so a correct run can end
