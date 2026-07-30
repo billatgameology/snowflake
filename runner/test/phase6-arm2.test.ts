@@ -26,6 +26,7 @@ import {
   PHASE6_ARM2_PARAM_SET,
   PHASE6_ARM2_ROW_OVERRIDES,
   PHASE6_ARM2_FREEZE_COMMIT,
+  PHASE6_ARM2_PROTOCOL_SHA256,
   PHASE6_ARM2_SDAK_ANCHORS,
   PHASE6_ARM2_SOURCING_TIERS,
   PHASE6_ARM2_VALUES_SHA256,
@@ -33,6 +34,7 @@ import {
   phase6Arm2InHeadlineScope,
   phase6Arm2IsBistable,
   phase6Arm2JustificationManifest,
+  phase6Arm2ProtocolManifest,
   phase6Arm2ScoreHabit,
   phase6Arm2SourcingTier,
   phase6Arm2ValuesManifest,
@@ -446,5 +448,29 @@ describe("BLOCKER 3, enforced — preflight refuses an arm with no freeze commit
   it("arm 1's freeze commit is a real 40-hex commit and is checked", () => {
     expect(PHASE6_ARM1.freezeCommit).toMatch(/^[0-9a-f]{40}$/);
     expect(PHASE6_ARM1.freezeCommit).not.toBe(PHASE6_ARM2.freezeCommit);
+  });
+});
+
+describe("arm 2's combined hash names arm 2's protocol", () => {
+  it("differs from arm 1's, and matches its registered pin", () => {
+    // Caught after the sweep was launched and stopped a minute in: the header printed arm 1's
+    // combined hash for an arm-2 run, and arm 2's report.json would have carried it. A report that
+    // says `arm: arm2-sdak-m1` beside a hash whose manifest registers paramSet "CAK" is exactly the
+    // confusion the arm-identity fields exist to remove.
+    expect(PHASE6_ARM2.protocolSha256()).toBe(PHASE6_ARM2_PROTOCOL_SHA256);
+    expect(PHASE6_ARM2.protocolSha256()).not.toBe(PHASE6_ARM1.protocolSha256());
+    expect(PHASE6_ARM1.protocolSha256()).toBe(PHASE6_PROTOCOL_SHA256);
+  });
+
+  it("carries arm 2's param set, so the hash describes what it names", () => {
+    const m = phase6Arm2ProtocolManifest() as { paramSet: string; arm: string };
+    expect(m.paramSet).toBe("M1");
+    expect(m.arm).toBe(PHASE6_ARM2.id);
+  });
+
+  it("adding it moved NOTHING gated — the freeze survives", () => {
+    expect(canonicalJsonSha256(phase6Arm2ValuesManifest())).toBe(PHASE6_ARM2_VALUES_SHA256);
+    expect(canonicalJsonSha256(phase6ValuesManifest())).toBe(PHASE6_VALUES_SHA256);
+    expect(PHASE6_ARM2_FREEZE_COMMIT).toMatch(/^[0-9a-f]{40}$/);
   });
 });

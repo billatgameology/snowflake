@@ -32,6 +32,7 @@ import {
   phase6Arm2InHeadlineScope,
   phase6Arm2IsBistable,
   phase6Arm2JustificationManifest,
+  phase6Arm2ProtocolManifest,
   phase6Arm2ScoreHabit,
   phase6Arm2ValuesManifest,
 } from "./phase6-arm2-protocol.ts";
@@ -105,6 +106,8 @@ export interface Phase6Arm {
    * execution HEAD, which is what makes "registered before it ran" checkable rather than asserted.
    */
   readonly freezeCommit: string;
+  /** COMBINED hash, reported in the artifacts. Moves on prose; never gated. */
+  readonly protocolSha256: () => string;
 }
 
 /** Arm 1 — the published no-SDAK arm. Its behaviour is the default everywhere, for that reason. */
@@ -123,6 +126,7 @@ export const PHASE6_ARM1: Phase6Arm = {
   isBistable: () => false,
   diagramLabel: "no-SDAK (CAK)",
   freezeCommit: PHASE6_PROTOCOL_FREEZE_COMMIT,
+  protocolSha256: () => canonicalJsonSha256(phase6ProtocolManifest()),
 };
 
 /** Arm 2 — the SDAK arm. ADR 0036. */
@@ -137,6 +141,7 @@ export const PHASE6_ARM2: Phase6Arm = {
   isBistable: phase6Arm2IsBistable,
   diagramLabel: "SDAK (M1)",
   freezeCommit: PHASE6_ARM2_FREEZE_COMMIT,
+  protocolSha256: () => canonicalJsonSha256(phase6Arm2ProtocolManifest()),
 };
 
 /**
@@ -289,7 +294,7 @@ export function phase6SweepPreflight(
     // hash is still checked, because published evidence cites it.
     valuesSha256 = arm.valuesSha256();
     justificationSha256 = arm.justificationSha256();
-    protocolSha256 = canonicalJsonSha256(phase6ProtocolManifest());
+    protocolSha256 = arm.protocolSha256();
     if (valuesSha256 !== PHASE6_ARM_VALUES_SHA256[arm.id]) {
       failures.push(
         `${arm.id} values hash ${valuesSha256} does not match the registered ` +
@@ -297,7 +302,7 @@ export function phase6SweepPreflight(
           "— a registered VALUE was edited without updating the pin, which invalidates prior sweeps",
       );
     }
-    if (protocolSha256 !== PHASE6_PROTOCOL_SHA256) {
+    if (arm.id === PHASE6_ARM1.id && protocolSha256 !== PHASE6_PROTOCOL_SHA256) {
       failures.push(
         `combined hash ${protocolSha256} does not match the current pin ${PHASE6_PROTOCOL_SHA256} ` +
           "— it moves on any prose change, so the pin must be updated in the same ADR",

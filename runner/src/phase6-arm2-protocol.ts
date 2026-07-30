@@ -434,3 +434,35 @@ export const PHASE6_ARM2_VALUES_REVISIONS: readonly { sha256: string; note: stri
       "registered-expectation. Registered BEFORE any arm-2 point ran",
   },
 ];
+
+/**
+ * Arm 2's COMBINED manifest — values and prose in one object, the same construction arm 1 uses for
+ * `phase6ProtocolManifest`.
+ *
+ * Added after the arm-2 freeze review, and after the sweep was launched and stopped one minute in:
+ * the header printed `protocol 2b94aa5f…`, which is ARM 1's combined hash, and arm 2's report.json
+ * would have carried it. The arm-discriminating fields were all correct, but a report that says
+ * `arm: arm2-sdak-m1` beside a protocol hash whose manifest registers `paramSet: "CAK"` is exactly
+ * the confusion the identity fix existed to remove.
+ *
+ * It is NOT part of `phase6Arm2ValuesManifest`, for the same reason arm 1's combined hash is not
+ * part of its own values manifest: a manifest cannot contain its own hash, and a combined hash moves
+ * on prose. So adding this leaves `PHASE6_ARM2_VALUES_SHA256` and the freeze commit untouched — the
+ * freeze stands, and this costs no re-freeze.
+ */
+export function phase6Arm2ProtocolManifest(
+  items: readonly Phase6FreezeItem[] = phase6Arm2FreezeList(),
+): Record<string, unknown> {
+  return {
+    ...phase6Arm2ValuesManifest(items),
+    prose: items.map((item) => ({ id: item.id, ...item.prose })),
+  };
+}
+
+/**
+ * Arm 2's combined hash. Reported in its artifacts so a reader can name the protocol that produced
+ * them; it moves on prose, so it is pinned by revision history rather than treated as durable —
+ * the lesson ADR 0034 paid for on arm 1.
+ */
+export const PHASE6_ARM2_PROTOCOL_SHA256 =
+  "b09a932ec7345eddf838ee2de1c0ef4731212c625a1069e62193c06ae950fdec";
