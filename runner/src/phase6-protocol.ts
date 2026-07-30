@@ -17,6 +17,15 @@ import { sigma0Basal, sigma0Prism } from "../../core/src/index.ts";
 /** Status of one freeze-list item. A protocol freezes only when nothing is `pending`. */
 export type Phase6FreezeStatus = "registered" | "pending";
 
+/**
+ * ADR 0033. The prose fields live in a nested `prose` object so the values/justification partition
+ * is STRUCTURAL rather than a judgement about what counts as prose: a field is a value if declared
+ * outside `prose`, a justification if declared inside. `phase6ValuesManifest()` takes the outer
+ * fields, `phase6JustificationManifest()` takes `prose`, and only the first gates a sweep.
+ *
+ * `id`, `group` and `status` are on the values side because evidence-producing paths read them —
+ * `phase6PendingFreezeItems` reads `status`, and preflight reports `id`.
+ */
 export interface Phase6FreezeItem {
   readonly id: string;
   readonly group:
@@ -28,12 +37,14 @@ export interface Phase6FreezeItem {
     | "statistics"
     | "provenance";
   readonly status: Phase6FreezeStatus;
-  /** What the charter/ADR requires, in its own terms. */
-  readonly requirement: string;
-  /** The registered value, or null while pending. */
-  readonly value: string | null;
-  /** Where the value comes from, or what must produce it. */
-  readonly source: string;
+  readonly prose: {
+    /** What the charter/ADR requires, in its own terms. */
+    readonly requirement: string;
+    /** The registered value, or null while pending. */
+    readonly value: string | null;
+    /** Where the value comes from, or what must produce it. */
+    readonly source: string;
+  };
 }
 
 // ── Registered: the parameter interpolation scheme (P4) ─────────────────────────────────────
@@ -881,426 +892,476 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
     id: "t-sigma-grid",
     group: "comparison-design",
     status: "registered",
-    requirement: "the T/σ grid",
-    value:
-      "34 temperatures x 6 water-relative fractions = 204 points. T: uniform 1 °C from −2 to " +
-      "−35 °C. σ: f ∈ {0.10, 0.15, 0.25, 0.40, 0.60, 0.90} of Table 2.1 water saturation, " +
-      "σ∞ = f · phase6SigmaWaterFromTable(T)",
-    source:
-      "WP0c. The T axis is uniform because a cost probe showed fine spacing need not be bought " +
-      "by coarsening elsewhere, and because the ambiguity-band formula takes ONE spacing — a " +
-      "mixed grid would leave no honest value to hand it. Its range is the digitized figure's " +
-      "own labelled span. The σ axis is bounded at both ends by measured facet physics rather " +
-      "than by assertion: below f ≈ 0.10 the smaller facet coefficient collapses into the " +
-      "dead-facet regime (2.3e-4 at f = 0.05, −35 °C, against rough-site 1.0), and toward " +
-      "f = 0.90 the basal/prism contrast compresses from 0.34–3.76 to 0.84–1.25. The top row " +
-      "is kept deliberately: weak facet contrast is not weak habit variation, because at high " +
-      "supersaturation morphology is set by branching instability rather than facet kinetics, " +
-      "so what the model does there is a real question. Constrained throughout by the " +
-      "interpolation domain (T ∈ [−50, −1] °C, extrapolation banned)",
+    prose: {
+      requirement: "the T/σ grid",
+      value:
+        "34 temperatures x 6 water-relative fractions = 204 points. T: uniform 1 °C from −2 to " +
+        "−35 °C. σ: f ∈ {0.10, 0.15, 0.25, 0.40, 0.60, 0.90} of Table 2.1 water saturation, " +
+        "σ∞ = f · phase6SigmaWaterFromTable(T)",
+      source:
+        "WP0c. The T axis is uniform because a cost probe showed fine spacing need not be bought " +
+        "by coarsening elsewhere, and because the ambiguity-band formula takes ONE spacing — a " +
+        "mixed grid would leave no honest value to hand it. Its range is the digitized figure's " +
+        "own labelled span. The σ axis is bounded at both ends by measured facet physics rather " +
+        "than by assertion: below f ≈ 0.10 the smaller facet coefficient collapses into the " +
+        "dead-facet regime (2.3e-4 at f = 0.05, −35 °C, against rough-site 1.0), and toward " +
+        "f = 0.90 the basal/prism contrast compresses from 0.34–3.76 to 0.84–1.25. The top row " +
+        "is kept deliberately: weak facet contrast is not weak habit variation, because at high " +
+        "supersaturation morphology is set by branching instability rather than facet kinetics, " +
+        "so what the model does there is a real question. Constrained throughout by the " +
+        "interpolation domain (T ∈ [−50, −1] °C, extrapolation banned)",
+    },
   },
   {
     id: "habit-measurement-size",
     group: "comparison-design",
     status: "registered",
-    requirement:
-      "the crystal size at which habit is measured — habit is size-dependent, so a stated " +
-      "maximum dimension is what keeps comparisons apples-to-apples",
-    value:
-      "largest extent 21 lattice cells — 7.35 µm at the registered Δx — where largest extent " +
-      "is max(tExtent, zExtent), so the crystal is bounded in EVERY direction at measurement " +
-      "regardless of habit",
-    source:
-      "WP3 §3 (research/phase6-convergence.md). Set by the slowest-developing habit, not the " +
-      "fastest: the warm plate classifies correctly from extent 9, but at that size the cold " +
-      "condition reads AR = 0.63 and classifies plate — the opposite of its converged class, " +
-      "and a silent misclassification of half the diagram. Cold's CLASS settles at extent 11 " +
-      "and holds comfortable margin by 15–19; its VALUE settles only near 31. Extent 21 is the " +
-      "class-adequate size and is registered for classification. Any quantitative AR quoted at " +
-      "this size carries the residual drift toward the extent-31 value, on top of the grid " +
-      "systematic, and says so",
+    prose: {
+      requirement:
+        "the crystal size at which habit is measured — habit is size-dependent, so a stated " +
+        "maximum dimension is what keeps comparisons apples-to-apples",
+      value:
+        "largest extent 21 lattice cells — 7.35 µm at the registered Δx — where largest extent " +
+        "is max(tExtent, zExtent), so the crystal is bounded in EVERY direction at measurement " +
+        "regardless of habit",
+      source:
+        "WP3 §3 (research/phase6-convergence.md). Set by the slowest-developing habit, not the " +
+        "fastest: the warm plate classifies correctly from extent 9, but at that size the cold " +
+        "condition reads AR = 0.63 and classifies plate — the opposite of its converged class, " +
+        "and a silent misclassification of half the diagram. Cold's CLASS settles at extent 11 " +
+        "and holds comfortable margin by 15–19; its VALUE settles only near 31. Extent 21 is the " +
+        "class-adequate size and is registered for classification. Any quantitative AR quoted at " +
+        "this size carries the residual drift toward the extent-31 value, on top of the grid " +
+        "systematic, and says so",
+    },
   },
   {
     id: "metric-thresholds",
     group: "comparison-design",
     status: "registered",
-    requirement: "metric thresholds",
-    value:
-      "AR = z-extent / T-extent; plate AR ≤ 1/1.5 (0.6667), column AR ≥ 1.5, otherwise neutral",
-    source:
-      "the Phase 2b/4 habit criterion, registered explicitly here rather than inherited " +
-      "silently. Three-way with an explicit neutral class on purpose: at the registered " +
-      "conditions the cold point measures AR ≈ 1.11, which a two-way plate/column split would " +
-      "force into one class or the other and report as agreement or disagreement when the " +
-      "honest answer is that the model produced neither habit",
+    prose: {
+      requirement: "metric thresholds",
+      value:
+        "AR = z-extent / T-extent; plate AR ≤ 1/1.5 (0.6667), column AR ≥ 1.5, otherwise neutral",
+      source:
+        "the Phase 2b/4 habit criterion, registered explicitly here rather than inherited " +
+        "silently. Three-way with an explicit neutral class on purpose: at the registered " +
+        "conditions the cold point measures AR ≈ 1.11, which a two-way plate/column split would " +
+        "force into one class or the other and report as agreement or disagreement when the " +
+        "honest answer is that the model produced neither habit",
+    },
   },
   {
     id: "grid-extrapolation-operator",
     group: "comparison-design",
     status: "registered",
-    requirement:
-      "how the grid-extrapolated aspect ratio the uncertainty scheme consumes is computed, and " +
-      "when it is refused",
-    value:
-      "First-order Richardson on the two finest spacings, AR0 = AR(h2) + (AR(h2) − AR(h1)) / " +
-      "((h1/h2) − 1), admitted ONLY where the order fitted from three spacings lies in " +
-      "[0.7, 1.5]. Outside that window the point is reported not-extrapolatable and carries its " +
-      "measured class alone. Measured at the registered conditions: cold p = 1.142 (admitted, " +
-      "AR0 = 1.456), warm p = 0.207 (refused)",
-    source:
-      "ADR 0026, from the grid ladder re-run at the REGISTERED measurement extent " +
-      "(research/phase6-convergence.md §4.2). The order is fitted rather than assumed because " +
-      "the refinement ratios are non-uniform and because assuming first order is precisely what " +
-      "produced §4.1's withdrawn warm limit — a number computed from the cold pair and applied " +
-      "to warm, whose own successive differences GREW 26x under refinement. The admission " +
-      "window exists because at warm the extrapolated CLASS changes with the assumed order " +
-      "(neutral at the fitted order, plate at first order), and an extrapolation that sensitive " +
-      "to a fitted exponent carries no information about the class",
+    prose: {
+      requirement:
+        "how the grid-extrapolated aspect ratio the uncertainty scheme consumes is computed, and " +
+        "when it is refused",
+      value:
+        "First-order Richardson on the two finest spacings, AR0 = AR(h2) + (AR(h2) − AR(h1)) / " +
+        "((h1/h2) − 1), admitted ONLY where the order fitted from three spacings lies in " +
+        "[0.7, 1.5]. Outside that window the point is reported not-extrapolatable and carries its " +
+        "measured class alone. Measured at the registered conditions: cold p = 1.142 (admitted, " +
+        "AR0 = 1.456), warm p = 0.207 (refused)",
+      source:
+        "ADR 0026, from the grid ladder re-run at the REGISTERED measurement extent " +
+        "(research/phase6-convergence.md §4.2). The order is fitted rather than assumed because " +
+        "the refinement ratios are non-uniform and because assuming first order is precisely what " +
+        "produced §4.1's withdrawn warm limit — a number computed from the cold pair and applied " +
+        "to warm, whose own successive differences GREW 26x under refinement. The admission " +
+        "window exists because at warm the extrapolated CLASS changes with the assumed order " +
+        "(neutral at the fitted order, plate at first order), and an extrapolation that sensitive " +
+        "to a fitted exponent carries no information about the class",
+    },
   },
   {
     id: "agreement-scoring",
     group: "comparison-design",
     status: "registered",
-    requirement:
-      "how a model habit class is scored against the reference regimes — the accepted-class " +
-      "matrix, the treatment of neutral and invalid, the flip predicate, and the headline scope",
-    value:
-      "Regimes (colderBound, warmerBound]: plates-warm accepts {plate}; columns accepts " +
-      "{column}; plates-cold accepts {plate}; columns-and-plates accepts {plate, column} and is " +
-      "EXCLUDED from the headline. neutral = DISAGREE (count published separately); invalid = " +
-      "EXCLUDED by name. Headline scope −2…−21.5 °C = 15 counting temperatures; the 13 colder " +
-      "counting temperatures are reported separately. Flips are bracketed intervals, never " +
-      "midpoints, and the flip COUNT is a first-class result. Per-regime budget 1/4/10/13",
-    source:
-      "ADR 0025, registered pre-sweep after the 2026-07-27 independent review found this hole " +
-      "in the WP0c freeze. Without it the mapping from model class onto reference regime was an " +
-      "open degree of freedom that could have been settled after seeing results — neutral in " +
-      "particular had no score at all, and WP3's cold discriminating point measures neutral",
+    prose: {
+      requirement:
+        "how a model habit class is scored against the reference regimes — the accepted-class " +
+        "matrix, the treatment of neutral and invalid, the flip predicate, and the headline scope",
+      value:
+        "Regimes (colderBound, warmerBound]: plates-warm accepts {plate}; columns accepts " +
+        "{column}; plates-cold accepts {plate}; columns-and-plates accepts {plate, column} and is " +
+        "EXCLUDED from the headline. neutral = DISAGREE (count published separately); invalid = " +
+        "EXCLUDED by name. Headline scope −2…−21.5 °C = 15 counting temperatures; the 13 colder " +
+        "counting temperatures are reported separately. Flips are bracketed intervals, never " +
+        "midpoints, and the flip COUNT is a first-class result. Per-regime budget 1/4/10/13",
+      source:
+        "ADR 0025, registered pre-sweep after the 2026-07-27 independent review found this hole " +
+        "in the WP0c freeze. Without it the mapping from model class onto reference regime was an " +
+        "open degree of freedom that could have been settled after seeing results — neutral in " +
+        "particular had no score at all, and WP3's cold discriminating point measures neutral",
+    },
   },
   {
     id: "uncertainty-reporting",
     group: "comparison-design",
     status: "registered",
-    requirement: "the uncertainty-reporting scheme",
-    value:
-      "Per point: the measured AR and class; the grid-extrapolated AR and ITS class where the " +
-      "registered operator admits one, otherwise the point is marked not-extrapolatable; a " +
-      "classSurvivesGridExtrapolation flag; the distance to the nearest reference boundary; and " +
-      "ambiguity-band membership. THE HEADLINE IS THE CONSERVATIVE INTERSECTION — points whose " +
-      "measured class agrees AND whose admitted extrapolation does not contradict it — over the " +
-      "15 headline-scope counting temperatures. The two component counts (measured-only, " +
-      "extrapolated-only) and the not-extrapolatable tally are reported BENEATH it, never as " +
-      "the top line. Global qualifiers travel with every table: volume-like quantities are not " +
-      "converged at the registered fill-CFL (+8.7%) or domain (+0.04%); latent heating is " +
-      "carried and not applied; cross-platform reproducibility is unestablished until the arm64 " +
-      "control runs. The MEASUREMENT-EXTENT systematic is carried per point as well: any point " +
-      "whose measured AR sits within 0.135 BELOW a class threshold is flagged extent-fragile, " +
-      "because WP3 §3 measured that much residual upward drift between the registered extent 21 " +
-      "and the value-converged extent 31 and the drift is one-directional",
-    source:
-      "WP0c, from the systematics WP3 actually measured rather than a generic error budget. " +
-      "The scheme is about CLASS ROBUSTNESS, not error bars on a ratio, because the class is " +
-      "the only quantity the comparison consumes — an interval on AR would imply a precision " +
-      "the unconverged grid cannot support, and would invite reading a habit boundary off the " +
-      "third decimal of a number whose own convergence study says it still moves 10.6%. " +
-      "The conservative intersection is the headline because counting agreement twice and " +
-      "quoting the friendlier number is the failure mode a dual report invites; where measured " +
-      "and extrapolated class disagree the point is reported grid-fragile, excluded from " +
-      "neither count but flagged in both. The ±25% σ_0 digitization band " +
-      "and the 10.7%/9.0% interpolation error are NOT folded in here — they move the physics " +
-      "inputs rather than the measurement, so they are swept explicitly at their edges by WP4 " +
-      "and reported as separate runs, never as a widened bar on a single run",
+    prose: {
+      requirement: "the uncertainty-reporting scheme",
+      value:
+        "Per point: the measured AR and class; the grid-extrapolated AR and ITS class where the " +
+        "registered operator admits one, otherwise the point is marked not-extrapolatable; a " +
+        "classSurvivesGridExtrapolation flag; the distance to the nearest reference boundary; and " +
+        "ambiguity-band membership. THE HEADLINE IS THE CONSERVATIVE INTERSECTION — points whose " +
+        "measured class agrees AND whose admitted extrapolation does not contradict it — over the " +
+        "15 headline-scope counting temperatures. The two component counts (measured-only, " +
+        "extrapolated-only) and the not-extrapolatable tally are reported BENEATH it, never as " +
+        "the top line. Global qualifiers travel with every table: volume-like quantities are not " +
+        "converged at the registered fill-CFL (+8.7%) or domain (+0.04%); latent heating is " +
+        "carried and not applied; cross-platform reproducibility is unestablished until the arm64 " +
+        "control runs. The MEASUREMENT-EXTENT systematic is carried per point as well: any point " +
+        "whose measured AR sits within 0.135 BELOW a class threshold is flagged extent-fragile, " +
+        "because WP3 §3 measured that much residual upward drift between the registered extent 21 " +
+        "and the value-converged extent 31 and the drift is one-directional",
+      source:
+        "WP0c, from the systematics WP3 actually measured rather than a generic error budget. " +
+        "The scheme is about CLASS ROBUSTNESS, not error bars on a ratio, because the class is " +
+        "the only quantity the comparison consumes — an interval on AR would imply a precision " +
+        "the unconverged grid cannot support, and would invite reading a habit boundary off the " +
+        "third decimal of a number whose own convergence study says it still moves 10.6%. " +
+        "The conservative intersection is the headline because counting agreement twice and " +
+        "quoting the friendlier number is the failure mode a dual report invites; where measured " +
+        "and extrapolated class disagree the point is reported grid-fragile, excluded from " +
+        "neither count but flagged in both. The ±25% σ_0 digitization band " +
+        "and the 10.7%/9.0% interpolation error are NOT folded in here — they move the physics " +
+        "inputs rather than the measurement, so they are swept explicitly at their edges by WP4 " +
+        "and reported as separate runs, never as a widened bar on a single run",
+    },
   },
   {
     id: "boundary-ambiguity-band",
     group: "comparison-design",
     status: "registered",
-    requirement: "the half-width of the near-boundary band, inside which habit disagreement is not counted",
-    value:
-      "±1.0 °C around each of −3.3, −9.9 and −21.5 °C — WP1's measured ±0.5 °C reference " +
-      "uncertainty plus half the registered 1 °C T-grid spacing. Of the 34 grid temperatures, " +
-      "28 count as evidence and 6 are ambiguous (−3, −4, −9, −10, −21, −22), two flanking each " +
-      "boundary",
-    source:
-      "the pre-registered formula phase6AmbiguityHalfWidthC, evaluated at the now-frozen grid " +
-      "spacing. The Nakaya figure is a redrawn schematic whose boundaries carry ±0.5 C (WP1), " +
-      "so the model cannot be asked to place a flip more precisely than the reference locates " +
-      "it. It cuts BOTH ways: agreement inside the band earns nothing either, because a model " +
-      "agreeing with the diagram only near boundaries has demonstrated nothing. The evidence " +
-      "budget is published here pre-sweep so that 'the disagreeing points happened to be near a " +
-      "boundary' cannot be discovered afterwards",
+    prose: {
+      requirement: "the half-width of the near-boundary band, inside which habit disagreement is not counted",
+      value:
+        "±1.0 °C around each of −3.3, −9.9 and −21.5 °C — WP1's measured ±0.5 °C reference " +
+        "uncertainty plus half the registered 1 °C T-grid spacing. Of the 34 grid temperatures, " +
+        "28 count as evidence and 6 are ambiguous (−3, −4, −9, −10, −21, −22), two flanking each " +
+        "boundary",
+      source:
+        "the pre-registered formula phase6AmbiguityHalfWidthC, evaluated at the now-frozen grid " +
+        "spacing. The Nakaya figure is a redrawn schematic whose boundaries carry ±0.5 C (WP1), " +
+        "so the model cannot be asked to place a flip more precisely than the reference locates " +
+        "it. It cuts BOTH ways: agreement inside the band earns nothing either, because a model " +
+        "agreeing with the diagram only near boundaries has demonstrated nothing. The evidence " +
+        "budget is published here pre-sweep so that 'the disagreeing points happened to be near a " +
+        "boundary' cannot be discovered afterwards",
+    },
   },
   {
     id: "parameter-table",
     group: "physics-inputs",
     status: "registered",
-    requirement: "docs/libbrecht-parameters.md frozen in full",
-    value: `docs/libbrecht-parameters.md at sha256 ${PHASE6_PARAMETER_TABLE_SHA256} (LF-normalized)`,
-    source:
-      "frozen 2026-07-27 by WP0c and enforced by runner/test/phase6-protocol.test.ts, so an " +
-      "edit fails the suite rather than silently changing the physics under a completed sweep. " +
-      "The four pre-freeze source corrections landed 2026-07-26 while they were still free to " +
-      "make. Post-freeze changes need a logged ADR and invalidate every Phase 6 sweep result " +
-      "under this protocol — the sweep re-runs in full, which is the cost that stops a " +
-      "parameter being adjusted after a disagreeing result is seen",
+    prose: {
+      requirement: "docs/libbrecht-parameters.md frozen in full",
+      value: `docs/libbrecht-parameters.md at sha256 ${PHASE6_PARAMETER_TABLE_SHA256} (LF-normalized)`,
+      source:
+        "frozen 2026-07-27 by WP0c and enforced by runner/test/phase6-protocol.test.ts, so an " +
+        "edit fails the suite rather than silently changing the physics under a completed sweep. " +
+        "The four pre-freeze source corrections landed 2026-07-26 while they were still free to " +
+        "make. Post-freeze changes need a logged ADR and invalidate every Phase 6 sweep result " +
+        "under this protocol — the sweep re-runs in full, which is the cost that stops a " +
+        "parameter being adjusted after a disagreeing result is seen",
+    },
   },
   {
     id: "parameter-interpolation",
     group: "physics-inputs",
     status: "registered",
-    requirement: "the parameter interpolation scheme",
-    value:
-      "sigma_0: piecewise log-log linear between digitized anchors; A_prism: piecewise linear " +
-      "in (Tm−T); A_basal ≡ 1; extrapolation banned outside T ∈ [−50, −1] °C",
-    source:
-      "core/src/libbrecht.ts (the scheme every run has used); justification measured, not " +
-      "asserted — leave-one-out worst error 10.7% basal / 9.0% prism against a ±25% band",
+    prose: {
+      requirement: "the parameter interpolation scheme",
+      value:
+        "sigma_0: piecewise log-log linear between digitized anchors; A_prism: piecewise linear " +
+        "in (Tm−T); A_basal ≡ 1; extrapolation banned outside T ∈ [−50, −1] °C",
+      source:
+        "core/src/libbrecht.ts (the scheme every run has used); justification measured, not " +
+        "asserted — leave-one-out worst error 10.7% basal / 9.0% prism against a ±25% band",
+    },
   },
   {
     id: "param-set",
     group: "physics-inputs",
     status: "registered",
-    requirement:
-      "the parameter set selecting which A_prism the interpolation scheme above actually applies",
-    value: "CAK — A_basal ≡ 1, A_prism interpolated through the digitized A_PRISM_CAK anchors",
-    source:
-      "ADR 0031. Registered because the sweep of 6995868 ran CAK_A1 (A_prism ≡ 1), violating the " +
-      "parameter-interpolation row above, via an unregistered --param-set default in " +
-      "runner/src/main.ts. CAK is registered on provenance and on conformance to that row, NOT " +
-      "on score: 2009.08404v2 p3 Eq. (5) prints A_prism = (0.4+0.04|T*−4|³)/(2.2+0.04|T*−4|³), " +
-      "which the digitized anchors reproduce to 8.4% worst and <2% typically, and 2306.04042v1 " +
-      "Table 1 p9 prints A1 = 0.25 at −2 °C and 0.2 at −5 °C, matching the dedicated measurement " +
-      "papers exactly. CAK_A1's justification is M1's documented simplification, defensible for " +
-      "a starter model and not for a run whose protocol registered the opposite. ADR 0031 " +
-      "records IN ADVANCE that this is expected to LOWER the headline from 5/90 to about 2/90",
+    prose: {
+      requirement:
+        "the parameter set selecting which A_prism the interpolation scheme above actually applies",
+      value: "CAK — A_basal ≡ 1, A_prism interpolated through the digitized A_PRISM_CAK anchors",
+      source:
+        "ADR 0031. Registered because the sweep of 6995868 ran CAK_A1 (A_prism ≡ 1), violating the " +
+        "parameter-interpolation row above, via an unregistered --param-set default in " +
+        "runner/src/main.ts. CAK is registered on provenance and on conformance to that row, NOT " +
+        "on score: 2009.08404v2 p3 Eq. (5) prints A_prism = (0.4+0.04|T*−4|³)/(2.2+0.04|T*−4|³), " +
+        "which the digitized anchors reproduce to 8.4% worst and <2% typically, and 2306.04042v1 " +
+        "Table 1 p9 prints A1 = 0.25 at −2 °C and 0.2 at −5 °C, matching the dedicated measurement " +
+        "papers exactly. CAK_A1's justification is M1's documented simplification, defensible for " +
+        "a starter model and not for a run whose protocol registered the opposite. ADR 0031 " +
+        "records IN ADVANCE that this is expected to LOWER the headline from 5/90 to about 2/90",
+    },
   },
   {
     id: "latent-heating",
     group: "physics-inputs",
     status: "registered",
-    requirement:
-      "whether the latent-heating correction is applied or carried (charter item 1 covers the " +
-      "parameter table; ADR 0005 D4 requires the treatment be fixed before the sweep)",
-    value: "carried as a stated systematic; not applied",
-    source: "PHASE6_LATENT_HEATING; docs/libbrecht-parameters.md §7",
+    prose: {
+      requirement:
+        "whether the latent-heating correction is applied or carried (charter item 1 covers the " +
+        "parameter table; ADR 0005 D4 requires the treatment be fixed before the sweep)",
+      value: "carried as a stated systematic; not applied",
+      source: "PHASE6_LATENT_HEATING; docs/libbrecht-parameters.md §7",
+    },
   },
   {
     id: "pressure",
     group: "physics-inputs",
     status: "registered",
-    requirement: "pressure",
-    value: "101325 Pa (1 atm), fixed for every sweep point",
-    source:
-      "every run in this project to date, registered rather than inherited. It is also the " +
-      "reference pressure for D_AIR_1ATM, so the diffusivity P^-1 scaling is exact rather " +
-      "than extrapolated at this value. Held FIXED because pressure enters both the kinetic " +
-      "length X_0 and the latent-heating chi_0 (~1/P), and the sweep varies temperature and " +
-      "supersaturation only — a varying pressure would confound the axis under test",
+    prose: {
+      requirement: "pressure",
+      value: "101325 Pa (1 atm), fixed for every sweep point",
+      source:
+        "every run in this project to date, registered rather than inherited. It is also the " +
+        "reference pressure for D_AIR_1ATM, so the diffusivity P^-1 scaling is exact rather " +
+        "than extrapolated at this value. Held FIXED because pressure enters both the kinetic " +
+        "length X_0 and the latent-heating chi_0 (~1/P), and the sweep varies temperature and " +
+        "supersaturation only — a varying pressure would confound the axis under test",
+    },
   },
   {
     id: "physical-seed-size",
     group: "physics-inputs",
     status: "registered",
-    requirement: "physical seed size",
-    value:
-      "the canonical 19-site hexagonal seed: seedRadius 2, seedThickness 1 — 0.7 µm radius at " +
-      "the registered Δx",
-    source:
-      "gg-machinery §5; the same seed every gate in this project has used. A seed CLASS change " +
-      "(a column seed, per the plan's open ADR-level question) is not available to this " +
-      "protocol and would require an ADR and a full re-sweep",
+    prose: {
+      requirement: "physical seed size",
+      value:
+        "the canonical 19-site hexagonal seed: seedRadius 2, seedThickness 1 — 0.7 µm radius at " +
+        "the registered Δx",
+      source:
+        "gg-machinery §5; the same seed every gate in this project has used. A seed CLASS change " +
+        "(a column seed, per the plan's open ADR-level question) is not available to this " +
+        "protocol and would require an ADR and a full re-sweep",
+    },
   },
   {
     id: "noise-amplitude",
     group: "physics-inputs",
     status: "registered",
-    requirement: "noise amplitude",
-    value: "0 — noise off at every sweep point",
-    source:
-      "WP0. Noise off is what makes the D6h symmetry check enforceable (symErr must be exactly " +
-      "0 and every per-tick delta D6h-invariant), and that check is this project's strongest " +
-      "evidence that a run did what the operator specified. It also makes each point a single " +
-      "deterministic run rather than an ensemble — see seed-ensemble-size",
+    prose: {
+      requirement: "noise amplitude",
+      value: "0 — noise off at every sweep point",
+      source:
+        "WP0. Noise off is what makes the D6h symmetry check enforceable (symErr must be exactly " +
+        "0 and every per-tick delta D6h-invariant), and that check is this project's strongest " +
+        "evidence that a run did what the operator specified. It also makes each point a single " +
+        "deterministic run rather than an ensemble — see seed-ensemble-size",
+    },
   },
   {
     id: "far-field",
     group: "boundary-and-domain",
     status: "registered",
-    requirement: "the far-field boundary condition (named per charter §2.4 as amended in v1.17)",
-    value: PHASE6_FAR_FIELD,
-    source:
-      "ADR 0024 on the measurement — a fixed-σ Dirichlet shell over-supplies vapor by an amount " +
-      "that GROWS with the crystal (~46% at 48³, ~160% at Phase 2b's own configuration), while " +
-      "monopole matching turns a measured 4.1% attached-count swing from domain size into 0.0% " +
-      "— and ADR 0027 for the authority, which amended charter §2.4 to v1.17. This row " +
-      "previously cited '§2.4 — required for every Phase 6 validation run', which was the clause " +
-      "MANDATING fixed-σ Dirichlet: it named the rule that forbade this condition as the " +
-      "authority for registering it. §2.4 now fixes the obligation (name it, freeze it, never " +
-      "compare across conditions silently) and leaves the choice to the per-sweep protocol",
+    prose: {
+      requirement: "the far-field boundary condition (named per charter §2.4 as amended in v1.17)",
+      value: PHASE6_FAR_FIELD,
+      source:
+        "ADR 0024 on the measurement — a fixed-σ Dirichlet shell over-supplies vapor by an amount " +
+        "that GROWS with the crystal (~46% at 48³, ~160% at Phase 2b's own configuration), while " +
+        "monopole matching turns a measured 4.1% attached-count swing from domain size into 0.0% " +
+        "— and ADR 0027 for the authority, which amended charter §2.4 to v1.17. This row " +
+        "previously cited '§2.4 — required for every Phase 6 validation run', which was the clause " +
+        "MANDATING fixed-σ Dirichlet: it named the rule that forbade this condition as the " +
+        "authority for registering it. §2.4 now fixes the obligation (name it, freeze it, never " +
+        "compare across conditions silently) and leaves the choice to the per-sweep protocol",
+    },
   },
   {
     id: "domain-budgets",
     group: "boundary-and-domain",
     status: "registered",
-    requirement: "domain budgets",
-    value: "48 x 48 x 48, hexPrism active domain — a 16.8 µm box at the registered Δx",
-    source:
-      "WP3 §1.2, measured AT the registered measurement extent rather than at a convenient " +
-      "smaller one. Ten points, N = 40…80: warm is bit-identical at all five domains and cold " +
-      "converges exactly by N = 64 (5185 -> 5161 -> 5161 -> 5159 -> 5159), so N = 48 carries a " +
-      "+0.04% attached-count residual against the asymptote — 200x smaller than the +8.7% " +
-      "volume residual already accepted at the registered fill-CFL, and AR is identical at all " +
-      "five domains so it cannot move a habit class. N = 64 is the exact answer and costs ~3x " +
-      "more per point. It generalises across habits by construction, because the stopping " +
-      "criterion bounds the crystal in every direction (see habit-measurement-size). It does " +
-      "NOT generalise across growth RATE: Eq. 5.30's correction scales with dV/dt, so the " +
-      "sweep's fastest-growing point must be spot-checked against N = 64 rather than assumed " +
-      "covered — and that spot-check now has a PASS CRITERION (PHASE6_DOMAIN_SPOT_CHECK): " +
-      "identical habit class at N = 48 and N = 64 AND attached counts within 0.5%, that 0.5% " +
-      "being the residual measured at N = 40, one ladder step below the registered domain. On " +
-      "failure the domain rises to N = 64 for the ENTIRE grid, because a per-point domain would " +
-      "make points incomparable. WP3 §1.3 also disproved ADR 0024's ratio-based validity limit, " +
-      "so this number may not be extrapolated to any other configuration — it must be " +
-      "re-measured if Δx, the measurement extent, or the far field changes",
+    prose: {
+      requirement: "domain budgets",
+      value: "48 x 48 x 48, hexPrism active domain — a 16.8 µm box at the registered Δx",
+      source:
+        "WP3 §1.2, measured AT the registered measurement extent rather than at a convenient " +
+        "smaller one. Ten points, N = 40…80: warm is bit-identical at all five domains and cold " +
+        "converges exactly by N = 64 (5185 -> 5161 -> 5161 -> 5159 -> 5159), so N = 48 carries a " +
+        "+0.04% attached-count residual against the asymptote — 200x smaller than the +8.7% " +
+        "volume residual already accepted at the registered fill-CFL, and AR is identical at all " +
+        "five domains so it cannot move a habit class. N = 64 is the exact answer and costs ~3x " +
+        "more per point. It generalises across habits by construction, because the stopping " +
+        "criterion bounds the crystal in every direction (see habit-measurement-size). It does " +
+        "NOT generalise across growth RATE: Eq. 5.30's correction scales with dV/dt, so the " +
+        "sweep's fastest-growing point must be spot-checked against N = 64 rather than assumed " +
+        "covered — and that spot-check now has a PASS CRITERION (PHASE6_DOMAIN_SPOT_CHECK): " +
+        "identical habit class at N = 48 and N = 64 AND attached counts within 0.5%, that 0.5% " +
+        "being the residual measured at N = 40, one ladder step below the registered domain. On " +
+        "failure the domain rises to N = 64 for the ENTIRE grid, because a per-point domain would " +
+        "make points incomparable. WP3 §1.3 also disproved ADR 0024's ratio-based validity limit, " +
+        "so this number may not be extrapolated to any other configuration — it must be " +
+        "re-measured if Δx, the measurement extent, or the far field changes",
+    },
   },
   {
     id: "dx",
     group: "boundary-and-domain",
     status: "registered",
-    requirement: "Δx",
-    value: "0.35 µm",
-    source:
-      "WP0c, by a COST rule fixed in advance: the finest spacing whose full registered grid " +
-      "fits an overnight-scale wall-clock budget on the registered host. Deciding it on cost " +
-      "rather than on outcome is the point — a spacing chosen because of the habits it " +
-      "produced would be tuning, so the choice was made and recorded BEFORE any habit result " +
-      "existed at the finer spacing. Measured: at the registered configuration eight " +
-      "temperatures cost 748–2424 s each and 40 min wall across seven cores; the same eight at " +
-      "Δx = 0.2333 µm (72³, extent 32, identical physical box and measurement size) ran 153 " +
-      "minutes without completing even the cheapest point, so the finer grid costs at least 12x " +
-      "per point. That puts one 34-temperature row at the finer spacing near 28 h — plus a " +
-      "fresh domain ladder, because WP3 §1.3 disproved the rule that would have let the " +
-      "existing one transfer — against about 14 h for the entire six-row grid at 0.35 µm. " +
-      "This is NOT a converged value and is not registered as one: WP3 §4 found Δx is the one " +
-      "axis that does not converge, 0.7 µm flips the cold habit class outright, and 0.35 µm " +
-      "still moves AR +10.6% cold and +18% warm going finer. The bias is therefore CARRIED on " +
-      "every reported point under the uncertainty-reporting scheme, and points whose class " +
-      "would change under extrapolation are flagged individually",
+    prose: {
+      requirement: "Δx",
+      value: "0.35 µm",
+      source:
+        "WP0c, by a COST rule fixed in advance: the finest spacing whose full registered grid " +
+        "fits an overnight-scale wall-clock budget on the registered host. Deciding it on cost " +
+        "rather than on outcome is the point — a spacing chosen because of the habits it " +
+        "produced would be tuning, so the choice was made and recorded BEFORE any habit result " +
+        "existed at the finer spacing. Measured: at the registered configuration eight " +
+        "temperatures cost 748–2424 s each and 40 min wall across seven cores; the same eight at " +
+        "Δx = 0.2333 µm (72³, extent 32, identical physical box and measurement size) ran 153 " +
+        "minutes without completing even the cheapest point, so the finer grid costs at least 12x " +
+        "per point. That puts one 34-temperature row at the finer spacing near 28 h — plus a " +
+        "fresh domain ladder, because WP3 §1.3 disproved the rule that would have let the " +
+        "existing one transfer — against about 14 h for the entire six-row grid at 0.35 µm. " +
+        "This is NOT a converged value and is not registered as one: WP3 §4 found Δx is the one " +
+        "axis that does not converge, 0.7 µm flips the cold habit class outright, and 0.35 µm " +
+        "still moves AR +10.6% cold and +18% warm going finer. The bias is therefore CARRIED on " +
+        "every reported point under the uncertainty-reporting scheme, and points whose class " +
+        "would change under extrapolation are flagged individually",
+    },
   },
   {
     id: "surface-policy",
     group: "surface-operator",
     status: "registered",
-    requirement: "the named surface policy",
-    value: PHASE6_SURFACE_POLICY,
-    source: "ADR 0009, amended by ADR 0023 (D6h-equivariant opposing-vapor mean)",
+    prose: {
+      requirement: "the named surface policy",
+      value: PHASE6_SURFACE_POLICY,
+      source: "ADR 0009, amended by ADR 0023 (D6h-equivariant opposing-vapor mean)",
+    },
   },
   {
     id: "fill-cfl",
     group: "numerics",
     status: "registered",
-    requirement: "the fill-CFL bound",
-    value: "0.1",
-    source:
-      "WP3 §2, four timesteps spanning 8x. AR is IDENTICAL at every one of them at both " +
-      "temperatures, so the registered habit criterion is insensitive to this choice across " +
-      "the whole range tested. The attached count is not: cold runs 1697 -> 1505 -> 1649 -> " +
-      "1649, settling only at cfl <= 0.05, so 0.1 sits 8.7% off the converged volume. " +
-      "REGISTERED CONSEQUENCE: 0.1 is adequate for a habit-class sweep and is NOT adequate " +
-      "for any reported volume-like quantity, which must be labelled not-converged at this " +
-      "setting rather than quietly inheriting the number",
+    prose: {
+      requirement: "the fill-CFL bound",
+      value: "0.1",
+      source:
+        "WP3 §2, four timesteps spanning 8x. AR is IDENTICAL at every one of them at both " +
+        "temperatures, so the registered habit criterion is insensitive to this choice across " +
+        "the whole range tested. The attached count is not: cold runs 1697 -> 1505 -> 1649 -> " +
+        "1649, settling only at cfl <= 0.05, so 0.1 sits 8.7% off the converged volume. " +
+        "REGISTERED CONSEQUENCE: 0.1 is adequate for a habit-class sweep and is NOT adequate " +
+        "for any reported volume-like quantity, which must be labelled not-converged at this " +
+        "setting rather than quietly inheriting the number",
+    },
   },
   {
     id: "residual-tolerance",
     group: "numerics",
     status: "registered",
-    requirement: "the diffusion residual tolerance and its norm",
-    value:
-      "1e-9, on the RELATIVE MAX-NORM OF THE SUCCESSIVE-ITERATE CHANGE: " +
-      "max|sigma_new - sigma_old| over the sweep, divided by sigma_infinity",
-    source:
-      "the value every LK run in this project has used, with its norm now stated exactly " +
-      "because the charter asks for the norm and the distinction is load-bearing. This is an " +
-      "iterate-CHANGE criterion, not a PDE residual: on a slowly-converging relaxation the " +
-      "change can be small while the true error is not, so alone it would be optimistic. That " +
-      "is precisely why ADR 0006 pairs it with the divergence identity below, which is an " +
-      "independent global conservation check rather than another look at the same iteration",
+    prose: {
+      requirement: "the diffusion residual tolerance and its norm",
+      value:
+        "1e-9, on the RELATIVE MAX-NORM OF THE SUCCESSIVE-ITERATE CHANGE: " +
+        "max|sigma_new - sigma_old| over the sweep, divided by sigma_infinity",
+      source:
+        "the value every LK run in this project has used, with its norm now stated exactly " +
+        "because the charter asks for the norm and the distinction is load-bearing. This is an " +
+        "iterate-CHANGE criterion, not a PDE residual: on a slowly-converging relaxation the " +
+        "change can be small while the true error is not, so alone it would be optimistic. That " +
+        "is precisely why ADR 0006 pairs it with the divergence identity below, which is an " +
+        "independent global conservation check rather than another look at the same iteration",
+    },
   },
   {
     id: "div-tol",
     group: "numerics",
     status: "registered",
-    requirement: "the divergence-identity tolerance",
-    value:
-      "1e-7, RELATIVE: |injection + smoother drift - surface exchange| / |surface exchange|",
-    source:
-      "ADR 0006 dual convergence, with ADR 0013/0014's metered float64 smoother-drift term in " +
-      "the numerator. Relative, not absolute — an earlier description of it as absolute was " +
-      "corrected in WP0c. Both engines compute the same form, which is why the float32 " +
-      "diagnostic lane cannot satisfy it: 1e-7 is below one float32 epsilon (1.19e-7)",
+    prose: {
+      requirement: "the divergence-identity tolerance",
+      value:
+        "1e-7, RELATIVE: |injection + smoother drift - surface exchange| / |surface exchange|",
+      source:
+        "ADR 0006 dual convergence, with ADR 0013/0014's metered float64 smoother-drift term in " +
+        "the numerator. Relative, not absolute — an earlier description of it as absolute was " +
+        "corrected in WP0c. Both engines compute the same form, which is why the float32 " +
+        "diagnostic lane cannot satisfy it: 1e-7 is below one float32 epsilon (1.19e-7)",
+    },
   },
   {
     id: "relax-max-sweeps",
     group: "numerics",
     status: "registered",
-    requirement: "the relaxation-sweep cap",
-    value: "200000",
-    source:
-      "ADR 0006. It is a REFUSAL BOUND, not a convergence setting: a run that reaches it has " +
-      "not converged and fails closed rather than publishing a partially-relaxed field. Every " +
-      "one of WP3's 38 convergence points and all 8 WP0c cost points converged well inside it",
+    prose: {
+      requirement: "the relaxation-sweep cap",
+      value: "200000",
+      source:
+        "ADR 0006. It is a REFUSAL BOUND, not a convergence setting: a run that reaches it has " +
+        "not converged and fails closed rather than publishing a partially-relaxed field. Every " +
+        "one of WP3's 38 convergence points and all 8 WP0c cost points converged well inside it",
+    },
   },
   {
     id: "float-precision",
     group: "numerics",
     status: "registered",
-    requirement: "float precision",
-    value:
-      "float64 CPU oracle produces the sweep evidence; the float32 GPU port is a labelled " +
-      "diagnostic cross-check only, at a relaxed divergence tolerance, never a gate criterion",
-    source:
-      "operator decision 2026-07-26, revised the same day on measurement. The first decision " +
-      "registered the GPU on the premise that it was equal-quality and faster; a calibration " +
-      "probe measured neither. Slower: 32.9 s against the oracle's ~5 s at 28^3, because the " +
-      "CPU converges warm-started steps in one relaxation sweep while the GPU cannot submit " +
-      "fewer than a 16-sweep segment plus a queue sync. Not equal-quality: divTol is RELATIVE " +
-      "(|injection + drift - exchange| / |exchange|, both engines), and the frozen 1e-7 sits " +
-      "below ONE float32 epsilon (1.19e-7) of the arithmetic asked to meet it, so sustained " +
-      "runs refuse at a bit-stationary fixed point (residual exactly 0, both ULP distances 0, " +
-      "divergence residual 1.0-1.6e-7 on a ~0.596 operand). Phase 5 certified this path for " +
-      "four interface steps at 24x24x18 only. Reinstating the GPU as primary would require an " +
-      "ADR replacing it with a bound scaled to the arithmetic's own epsilon (the shape 0014 uses for " +
-      "smoother drift). Sweeps also parallelise across 16 CPU cores while the Phase 5 protocol " +
-      "permits one process per physical adapter",
+    prose: {
+      requirement: "float precision",
+      value:
+        "float64 CPU oracle produces the sweep evidence; the float32 GPU port is a labelled " +
+        "diagnostic cross-check only, at a relaxed divergence tolerance, never a gate criterion",
+      source:
+        "operator decision 2026-07-26, revised the same day on measurement. The first decision " +
+        "registered the GPU on the premise that it was equal-quality and faster; a calibration " +
+        "probe measured neither. Slower: 32.9 s against the oracle's ~5 s at 28^3, because the " +
+        "CPU converges warm-started steps in one relaxation sweep while the GPU cannot submit " +
+        "fewer than a 16-sweep segment plus a queue sync. Not equal-quality: divTol is RELATIVE " +
+        "(|injection + drift - exchange| / |exchange|, both engines), and the frozen 1e-7 sits " +
+        "below ONE float32 epsilon (1.19e-7) of the arithmetic asked to meet it, so sustained " +
+        "runs refuse at a bit-stationary fixed point (residual exactly 0, both ULP distances 0, " +
+        "divergence residual 1.0-1.6e-7 on a ~0.596 operand). Phase 5 certified this path for " +
+        "four interface steps at 24x24x18 only. Reinstating the GPU as primary would require an " +
+        "ADR replacing it with a bound scaled to the arithmetic's own epsilon (the shape 0014 uses for " +
+        "smoother drift). Sweeps also parallelise across 16 CPU cores while the Phase 5 protocol " +
+        "permits one process per physical adapter",
+    },
   },
   {
     id: "seed-ensemble-size",
     group: "statistics",
     status: "registered",
-    requirement: "seed-ensemble size",
-    value: "1 — a single deterministic run per grid point",
-    source:
-      "follows from noise-amplitude = 0. The RNG is consumed only by the alphaHK slowdown " +
-      "noise, so with noise off a grid point has no stochasticity to average over and repeated " +
-      "runs are bit-identical by construction — which the project already demonstrates, since " +
-      "gate2b requires bit-identical checkpoints across separate processes. An ensemble of " +
-      "N > 1 here would report a spread of exactly zero and would misrepresent a deterministic " +
-      "result as a sampled one. The uncertainty that DOES exist at each point is systematic " +
-      "(grid, measurement extent, digitization band) and is carried by the uncertainty-" +
-      "reporting scheme instead, which is where it belongs",
+    prose: {
+      requirement: "seed-ensemble size",
+      value: "1 — a single deterministic run per grid point",
+      source:
+        "follows from noise-amplitude = 0. The RNG is consumed only by the alphaHK slowdown " +
+        "noise, so with noise off a grid point has no stochasticity to average over and repeated " +
+        "runs are bit-identical by construction — which the project already demonstrates, since " +
+        "gate2b requires bit-identical checkpoints across separate processes. An ensemble of " +
+        "N > 1 here would report a spread of exactly zero and would misrepresent a deterministic " +
+        "result as a sampled one. The uncertainty that DOES exist at each point is systematic " +
+        "(grid, measurement extent, digitization band) and is carried by the uncertainty-" +
+        "reporting scheme instead, which is where it belongs",
+    },
   },
   {
     id: "code-version",
     group: "provenance",
     status: "registered",
-    requirement: "the model/code version (commit hash)",
-    value: PHASE6_PROTOCOL_FREEZE_COMMIT,
-    source:
-      "the commit in which every substantive protocol value became final. It is named from the " +
-      "commit that FOLLOWS it, because a commit cannot contain its own hash; that following " +
-      "commit adds no protocol content, so the hash recorded here is genuinely the one the " +
-      "protocol froze in. Verified by phase6ProtocolProvenance(): it must be an ancestor of " +
-      "every execution commit, and the tree must be tracked-clean when evidence is produced",
+    prose: {
+      requirement: "the model/code version (commit hash)",
+      value: PHASE6_PROTOCOL_FREEZE_COMMIT,
+      source:
+        "the commit in which every substantive protocol value became final. It is named from the " +
+        "commit that FOLLOWS it, because a commit cannot contain its own hash; that following " +
+        "commit adds no protocol content, so the hash recorded here is genuinely the one the " +
+        "protocol froze in. Verified by phase6ProtocolProvenance(): it must be an ancestor of " +
+        "every execution commit, and the tree must be tracked-clean when evidence is produced",
+    },
   },
 ];
 
@@ -1357,7 +1418,70 @@ export function phase6ProtocolManifest(
     extentDriftBoundAR: PHASE6_EXTENT_DRIFT_BOUND_AR,
     domainSpotCheck: PHASE6_DOMAIN_SPOT_CHECK,
     engineControl: PHASE6_ENGINE_CONTROL,
-    freezeList: items,
+    // ADR 0033: FLATTENED back to the pre-split shape on purpose. out/phase6-sweep/report.json
+    // records this hash as the protocol that produced it, so a refactor that changed it would make
+    // existing evidence unverifiable — the exact harm ADR 0033 exists to prevent, inflicted by the
+    // fix. Pinned to 8aeb2b80… by test.
+    freezeList: items.map((item) => ({
+      id: item.id,
+      group: item.group,
+      status: item.status,
+      requirement: item.prose.requirement,
+      value: item.prose.value,
+      source: item.prose.source,
+    })),
+  };
+}
+
+/**
+ * ADR 0033 — the VALUES manifest. Everything an evidence-producing path reads: the eighteen typed
+ * constants the solver and scorer consume, plus each freeze row's structural fields. This is the
+ * hash `phase6SweepPreflight` GATES on, and the one whose edit costs a re-sweep.
+ */
+export function phase6ValuesManifest(
+  items: readonly Phase6FreezeItem[] = PHASE6_FREEZE_LIST,
+): Record<string, unknown> {
+  const pending = phase6PendingFreezeItems(items);
+  if (pending.length > 0) {
+    throw new Error(
+      `Phase 6 protocol is not frozen: ${pending.length} freeze-list item(s) pending — ` +
+        `${pending.map((item) => item.id).join(", ")}`,
+    );
+  }
+  return {
+    interpolation: PHASE6_INTERPOLATION,
+    paramSet: PHASE6_PARAM_SET,
+    latentHeating: PHASE6_LATENT_HEATING,
+    farField: PHASE6_FAR_FIELD,
+    surfacePolicy: PHASE6_SURFACE_POLICY,
+    freezeCommit: PHASE6_PROTOCOL_FREEZE_COMMIT,
+    parameterTableSha256: PHASE6_PARAMETER_TABLE_SHA256,
+    temperatureGrid: phase6TemperatureGrid(),
+    sigmaFractions: PHASE6_SIGMA_FRACTIONS,
+    sigmaWaterAnchors: PHASE6_SIGMA_WATER_ANCHORS,
+    nakayaBoundariesC: PHASE6_NAKAYA_BOUNDARIES_C,
+    ambiguityHalfWidthC: PHASE6_AMBIGUITY_HALF_WIDTH_C,
+    referenceRegimes: PHASE6_REFERENCE_REGIMES,
+    headlineScopeC: PHASE6_HEADLINE_SCOPE_C,
+    extrapolationOrderWindow: PHASE6_EXTRAPOLATION_ORDER_WINDOW,
+    extentDriftBoundAR: PHASE6_EXTENT_DRIFT_BOUND_AR,
+    domainSpotCheck: PHASE6_DOMAIN_SPOT_CHECK,
+    engineControl: PHASE6_ENGINE_CONTROL,
+    freezeRows: items.map((item) => ({ id: item.id, group: item.group, status: item.status })),
+  };
+}
+
+/**
+ * ADR 0033 — the JUSTIFICATION manifest. Every freeze row's prose, and nothing else. Preflight
+ * REPORTS this hash and does not gate on it: correcting a wrong justification is ADR-logged but
+ * costs no re-sweep, because no evidence-producing path reads anything here. That claim is
+ * established by the mutation test in runner/test/phase6-protocol.test.ts, not by assertion.
+ */
+export function phase6JustificationManifest(
+  items: readonly Phase6FreezeItem[] = PHASE6_FREEZE_LIST,
+): Record<string, unknown> {
+  return {
+    prose: items.map((item) => ({ id: item.id, ...item.prose })),
   };
 }
 
@@ -1382,6 +1506,30 @@ export const PHASE6_PROTOCOL_SHA256 =
  * - `0050040e…` — ADR 0025 adds the agreement-scoring rule (23 rows). Registered pre-sweep after
  *   the 2026-07-27 independent review found the class-to-regime mapping unregistered.
  */
+/**
+ * ADR 0033 — the VALUES hash. This is what `phase6SweepPreflight` GATES on, and the one whose edit
+ * invalidates prior sweep results under the amended charter §3.2 Phase 6 item 1.
+ */
+export const PHASE6_VALUES_SHA256 =
+  "879e069f612f1c6b4b40074d5cc890419fc17f09545dc27b2c8823d7667938f6";
+
+/**
+ * ADR 0033 — the JUSTIFICATION hash. Reported, never gated. A prose correction moves this and
+ * nothing else, so it is ADR-logged but costs no re-sweep.
+ */
+export const PHASE6_JUSTIFICATION_SHA256 =
+  "8b73b5f8dc8b7747fc47b3d071c31023bbee30af389ee7bcf67820e3daea93bc";
+
+/** Values-hash revisions, newest last. A freeze with a silently-replaced constant is not a freeze. */
+export const PHASE6_VALUES_REVISIONS = [
+  { sha256: "879e069f612f1c6b4b40074d5cc890419fc17f09545dc27b2c8823d7667938f6", note: "ADR 0033 initial split; values side of the 8aeb2b80 combined manifest, unchanged in content" },
+] as const;
+
+/** Justification-hash revisions, newest last. Prose corrections land here and cost no re-sweep. */
+export const PHASE6_JUSTIFICATION_REVISIONS = [
+  { sha256: "8b73b5f8dc8b7747fc47b3d071c31023bbee30af389ee7bcf67820e3daea93bc", note: "ADR 0033 initial split; carries erratum E1's wrong contrast-collapse justification, to be corrected under this scheme" },
+] as const;
+
 export const PHASE6_PROTOCOL_REVISIONS = [
   { sha256: "9e49c2a8a811e9d62d383730878d125bad50c5e86b71a95d1aff64277e434547", note: "WP0c initial freeze" },
   { sha256: "0050040e961c0e08cbfb2f7fc035ded860308552630bf51240db2df4222c89ca", note: "ADR 0025 agreement-scoring rule" },

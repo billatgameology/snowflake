@@ -24,13 +24,16 @@ import {
   PHASE6_DOMAIN_SPOT_CHECK,
   PHASE6_PARAM_SET,
   PHASE6_PROTOCOL_SHA256,
+  PHASE6_VALUES_SHA256,
   phase6FreezeComplete,
   phase6IsExtentFragile,
   phase6IsInAmbiguityBand,
   phase6PendingFreezeItems,
+  phase6JustificationManifest,
   phase6ProtocolManifest,
   phase6ProtocolProvenance,
   phase6ReferenceRegime,
+  phase6ValuesManifest,
   phase6ScoreHabit,
   phase6SweepGrid,
   PHASE6_REFERENCE_REGIMES,
@@ -106,6 +109,10 @@ export interface Phase6PreflightReport {
   readonly ok: boolean;
   readonly failures: readonly string[];
   readonly protocolSha256: string;
+  /** ADR 0033: the gating hash. */
+  readonly valuesSha256: string;
+  /** ADR 0033: reported, never gated. */
+  readonly justificationSha256: string;
   readonly head: string;
   readonly node: string;
   readonly v8: string;
@@ -125,13 +132,26 @@ export function phase6SweepPreflight(repoRoot: string = process.cwd()): Phase6Pr
   }
 
   let protocolSha256 = "";
+  let valuesSha256 = "";
+  let justificationSha256 = "";
   try {
-    // Imported lazily so a manifest failure is a preflight failure, not a module-load crash.
+    // ADR 0033. The VALUES hash is the gate: editing a registered value invalidates prior sweep
+    // results. The JUSTIFICATION hash is reported and NOT gated — a prose correction is ADR-logged
+    // but costs no re-sweep, because no evidence-producing path reads prose. The legacy combined
+    // hash is still checked, because published evidence cites it.
+    valuesSha256 = canonicalJsonSha256(phase6ValuesManifest());
+    justificationSha256 = canonicalJsonSha256(phase6JustificationManifest());
     protocolSha256 = canonicalJsonSha256(phase6ProtocolManifest());
+    if (valuesSha256 !== PHASE6_VALUES_SHA256) {
+      failures.push(
+        `values hash ${valuesSha256} does not match the registered ${PHASE6_VALUES_SHA256} ` +
+          "— a registered VALUE was edited without updating the pin, which invalidates prior sweeps",
+      );
+    }
     if (protocolSha256 !== PHASE6_PROTOCOL_SHA256) {
       failures.push(
-        `protocol hash ${protocolSha256} does not match the registered ${PHASE6_PROTOCOL_SHA256} ` +
-          "— a registered value was edited without updating the pin",
+        `legacy combined hash ${protocolSha256} does not match ${PHASE6_PROTOCOL_SHA256} ` +
+          "— published evidence cites it, so it must stay reproducible",
       );
     }
   } catch (error) {
@@ -170,6 +190,8 @@ export function phase6SweepPreflight(repoRoot: string = process.cwd()): Phase6Pr
     ok: failures.length === 0,
     failures,
     protocolSha256,
+    valuesSha256,
+    justificationSha256,
     head: provenance.head,
     node: provenance.node,
     v8: provenance.v8,
