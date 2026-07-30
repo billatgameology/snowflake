@@ -336,9 +336,9 @@
           <p class="anim__sub">The two barrier curves, drawn from the printed equations. The sliders
             control the depth, centre and width of the basal dip &mdash; the three constants that
             were chosen rather than derived. Every crossing is a place where the crystal switches
-            between a plate and a column. The real world flips three times; the printed values,
-            evaluated as written, cross five. Two of the crossings are spare, and the chart does
-            not hide them.</p>
+            between a plate and a column. The real world flips three times; the printed values
+            cross three times too &mdash; though not at the same three temperatures, and the chart
+            does not hide that either.</p>
         </div>
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
@@ -351,10 +351,14 @@
           4.5 and 0.07 marked on the sliders, from Libbrecht, arXiv:2306.13087v1, pp. 6&ndash;7.
           Crossing temperatures are computed from those equations by bisection. Only the three
           basal-dip constants are adjustable here, because those are the three the paper describes
-          as chosen. One disclosure of our own: the paper does not state which logarithm it means,
-          and this chart uses the natural logarithm. That is a choice we made, not a value we read
-          &mdash; with base 10 the same three constants give a dip more than twice as wide in
-          log-temperature, and every crossing moves.</span>
+          as chosen. This chart previously used the natural logarithm, flagged here as an
+          undisclosed choice rather than a printed value; a 2026-07-29 audit settled the question
+          the other way &mdash; the printed log is base 10, and reading it that way moves the count
+          from five crossings to three, closer to the diagram's own boundaries (see
+          <code>app/scripts/phase6-libbrecht-closed-forms.mjs</code>). The chart now uses base 10 at
+          the printed slider defaults; move any slider away from its printed value and you are
+          exploring the same sensitivity the natural-versus-base-10 mistake once did &mdash; small
+          changes to an unforced constant move every crossing.</span>
         </figcaption>
       </figure>
       <p>
@@ -402,7 +406,7 @@
       <p>
         The same researcher has publicly withdrawn several of his own earlier analyses of these
         quantities &mdash; <em>&ldquo;I now believe that the analysis for
-        &alpha;<sub>basal</sub> and &alpha;<sub>prism</sub> in that paper was largely
+        &alpha;<sub>basal</sub> and &alpha;<sub>prism</sub> in that paper was largely <!-- rule7-waive: verbatim quotation of the author's own retraction statement (arXiv:2004.06212v1, p. 7), not altered -->
         incorrect&rdquo;</em> (arXiv:2004.06212v1, p. 7) is one of them. That is what a live field
         looks like from the inside. Results get withdrawn by the people who published them.
       </p>
@@ -843,14 +847,29 @@
         missing, and it is the only sentence that tells the next person where to start.
       </p>
 
+      <p>
+        Two asides before the last thing. There is a <a href="../references.html">reference
+        list</a> at the back of the site &mdash; every figure, printed page and quoted sentence
+        this half leaned on &mdash; so that when a line here struck you as too convenient you can
+        go and see for yourself whether it was a measurement or a hand; all of it is free to read.
+        And next time it snows on a cold day &mdash; the big stars grow near &minus;15&nbsp;&deg;C
+        up in the cloud, so cold days are when they reach the ground intact &mdash; take a
+        magnifier and a piece of dark card outside and look. The field is small enough that
+        careful looking still counts.
+      </p>
+
       <p class="handoff">
-        Two things left. The next page is the reference list: every figure, printed page and quoted
-        sentence this site leaned on, so that when a line here struck you as too convenient you can
-        go and see for yourself whether it was a measurement or a hand. All of it is free to read.
-        And then: next time it snows on a cold day &mdash; the big stars grow near
-        &minus;15&nbsp;&deg;C up in the cloud, so cold days are when they reach the ground intact
-        &mdash; take a magnifier and a piece of dark card outside and look. The field is small
-        enough that careful looking still counts.
+        And there is one more thing you can do with an answer nobody has proved, which is what the
+        rest of this site is. Something has to make the shape flip three times; the two crossing
+        curves are a candidate that fits a lot of measurements and they are not a proof. Nobody had
+        ever installed those curves in a full three-dimensional crystal, grown it, and compared the
+        shapes that came out against Nakaya&rsquo;s diagram. Somebody tried. Part Two, beginning at
+        Chapter 14, is that attempt &mdash; and mostly it is not physics at all but the machinery
+        underneath it: the arithmetic, the tests, and a marking scheme written down and sealed
+        before the answer was known. Without all of that you cannot tell a wrong theory from a
+        broken program. It is not finished. The scores it has produced so far are bad ones,
+        and nobody outside the project has checked them yet. Both of those are the reason to read
+        it.
       </p>
 
       <nav class="chapter-nav" aria-label="Chapter navigation">
@@ -858,9 +877,9 @@
           <span class="chapter-nav__dir">&larr; Previous</span>
           <span class="chapter-nav__title">Why the Shape Flips</span>
         </a>
-        <a class="chapter-nav__link is-next" href="../references.html">
+        <a class="chapter-nav__link is-next" href="./14-what-we-are-building.html">
           <span class="chapter-nav__dir">Next &rarr;</span>
-          <span class="chapter-nav__title">References &mdash; every source behind this site</span>
+          <span class="chapter-nav__title">What We Are Building &mdash; Part Two begins</span>
         </a>
       </nav>
 
@@ -1090,15 +1109,17 @@
     return 0.015 * t * t + 0.02 * Math.pow(t, 0.6);     // arXiv:2306.13087v1 p. 7
   };
   const prismDip = S.prismDip || function (t) {
-    return 1 - 0.95 * Math.exp(-Math.pow(Math.log(t) - Math.log(14.4), 2) / 0.06);
+    return 1 - 0.95 * Math.exp(-Math.pow(Math.log10(t) - Math.log10(14.4), 2) / 0.06);
   };
 
   const PRINTED = { depth: 0.87, centre: 4.5, width: 0.07 };
   const state = { depth: 0.87, centre: 4.5, width: 0.07, dips: true };
 
+  // CORRECTED 2026-07-29: the printed log is base 10, not natural — see the disclosure
+  // text below and app/scripts/phase6-libbrecht-closed-forms.mjs.
   function basalDip(t) {
     return 1 - state.depth *
-      Math.exp(-Math.pow(Math.log(t) - Math.log(state.centre), 2) / state.width);
+      Math.exp(-Math.pow(Math.log10(t) - Math.log10(state.centre), 2) / state.width);
   }
   const basalAt = (t) => basalBroad(t) * (state.dips ? basalDip(t) : 1);
   const prismAt = (t) => prismBroad(t) * (state.dips ? prismDip(t) : 1);
@@ -1281,11 +1302,11 @@
       msg += "With the dips taken away the curves cross once, so this version can change habit " +
         "exactly once — and the real world flips three times.";
     } else if (atPrinted) {
-      msg += "These are the printed values, read with the natural logarithm — and the real " +
-        "world flips three times, so two of these crossings are spare. The extra pair, near " +
-        "−6.3 °C and −8.5 °C, insert a narrow extra plate band across a stretch the " +
-        "observations leave unassigned. One more place the explanation is looser than a tidy " +
-        "summary of it sounds.";
+      msg += "These are the printed values, read with the corrected base-10 logarithm — the " +
+        "count matches the real world's three flips, but not the placement: the warm crossing " +
+        "lands close to the observed boundary, the middle one misses it by almost two degrees, " +
+        "and the coldest sits in a range the observations do not pin down at all. Matching the " +
+        "count is not the same as matching the diagram.";
     } else if (n >= 3) {
       msg += "At least the three the real world needs — though nothing says the crossings sit " +
         "where the observations put the boundaries.";

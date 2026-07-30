@@ -282,27 +282,46 @@
         291 cells in the small box, 279 in the bigger one. A 4.1% swing produced by nothing but the
         wall. Under monopole matching: <strong>231 in both</strong>, with an identical aspect ratio
         and a symmetry error of exactly zero. The test that pins this does not check that the code
-        runs; it checks the claim. Its own header says so:
+        runs; it checks the claim.
+      </p>
+
+      <p>
+        There are four runs in that test, and it names each one with two letters.
+        <strong>d</strong> is the fixed-value Dirichlet wall and <strong>m</strong> is
+        monopole-matched; <strong>n</strong> is the near wall, 28 cells across, and
+        <strong>f</strong> is the far one at 40. So <code>dn</code> is Dirichlet-near and
+        <code>mf</code> is monopole-far. Each run reports two numbers: <code>attached</code>, the
+        crystal's cell count, and <code>ar</code>, its aspect ratio. Three assertions is all the
+        file needs.
       </p>
 
       <div class="table-wrap">
         <table>
-          <caption><code>solver-cpu/test/monopole-far-field.test.ts</code>, the assertion at the
-          heart of the file. Comments are verbatim.</caption>
+          <caption><code>solver-cpu/test/monopole-far-field.test.ts</code>, the three assertions at
+          the heart of the file. The monospace line under each claim is the assertion as written;
+          the right-hand column is the file's own comment, verbatim.</caption>
           <thead>
             <tr><th>What is asserted</th><th>Why</th></tr>
           </thead>
           <tbody>
             <tr>
-              <td><code>expect(Math.abs(df.attached&nbsp;&minus;&nbsp;dn.attached)&nbsp;/&nbsp;dn.attached).toBeGreaterThan(0.03)</code></td>
+              <td>The two fixed-value runs must come out <strong>more than 3% apart</strong>. Take
+                the difference in cell count between the far-wall run and the near-wall one, divide
+                it by the near-wall count, and that fraction has to exceed 0.03.<br>
+                <span class="figure__source">expect(Math.abs(df.attached&nbsp;&minus;&nbsp;dn.attached)&nbsp;/&nbsp;dn.attached).toBeGreaterThan(0.03)</span></td>
               <td>"Fixed-sigma Dirichlet: the same crystal, grown the same way, comes out a different size purely because the boundary moved."</td>
             </tr>
             <tr>
-              <td><code>expect(mn.attached).toBe(mf.attached)</code></td>
+              <td>The two monopole-matched runs must come out <strong>exactly equal</strong> — the
+                same integer cell count, not merely a close one.<br>
+                <span class="figure__source">expect(mn.attached).toBe(mf.attached)</span></td>
               <td>"Monopole-matched: it does not." Exact equality, not a tolerance.</td>
             </tr>
             <tr>
-              <td><code>expect(mn.ar).not.toBe(dn.ar)</code></td>
+              <td>Comparing the two <em>wall rules</em> at the same box size, the
+                <strong>aspect ratio must move</strong>: the monopole-matched run's habit number
+                must not equal the Dirichlet run's.<br>
+                <span class="figure__source">expect(mn.ar).not.toBe(dn.ar)</span></td>
               <td>"the correction is not cosmetic — it moves the habit metric, which is why no Dirichlet-measured threshold transfers to a monopole-matched sweep"</td>
             </tr>
           </tbody>
@@ -473,7 +492,18 @@
           <code>research/phase6-convergence.md</code> §1.2 (ten points, &Delta;x&nbsp;=&nbsp;0.35&nbsp;µm,
           <code>cflFill</code>&nbsp;=&nbsp;0.1, measured at extent 21): warm attached 1513 at all five
           domains; cold 5185, 5161, 5161, 5159, 5159. The guard line is 21&nbsp;/&nbsp;0.65,
-          rounded up to the first integer domain the guard admits.</span>
+          rounded up to the first integer domain the guard admits. That study ran under the
+          parameter set <code>CAK_A1</code>, which ADR 0031 later replaced with <code>CAK</code>,
+          so the aspect ratios printed here &mdash; 0.3821 warm, 1.1053 cold &mdash; are the earlier
+          set's. Under the registered set the same warm configuration measures 1.0000, which is the
+          figure chapters 28 and 29 use; that comes from the two calibration probes in
+          <code>research/libbrecht-figure-findings.md</code> §9, which that file marks as
+          &ldquo;never citable as gate evidence&rdquo;. The cold figure is unchanged, because the one
+          coefficient the two sets disagree about has climbed back to 1 by &minus;15&nbsp;&deg;C. What
+          the convergence study
+          establishes is unaffected either way: the habit class is robust across domain size and the
+          cell count under it is not, and that split is what carries forward rather than either
+          value.</span>
         </figcaption>
       </figure>
 
@@ -497,6 +527,36 @@
         about volume. The registered domain is 48, chosen with its residual attached to it rather
         than rounded away: N&nbsp;=&nbsp;64 is the exact answer and costs roughly three times as much
         per point.
+      </p>
+
+      <p>
+        One caution about the two aspect ratios the chart prints along its bottom edge, because you
+        will meet a different number for one of them later. This study was run before a correction to
+        the model's inputs. It used a parameter set in which the attachment coefficient for the prism
+        facets — the crystal's six side walls — was held at 1 whatever the temperature, rather than
+        varying with temperature the way the registered protocol says it must. ADR 0031 replaced that
+        set; chapter 27 tells the story properly, because it is also what invalidated the project's
+        first validation sweep. So the warm figure here, 0.3821, is not the one chapter 28 reports. A
+        run made afterwards at exactly this configuration — same box, same grid spacing, same wall,
+        only the parameter set swapped — came out at exactly 1.0000, and the file recording it labels
+        it a calibration probe and never gate evidence. The cold figure is untouched, and it is worth
+        seeing how narrow that exemption is. The prism coefficient the two parameter sets disagree
+        about is throttled hardest at &minus;5&nbsp;&deg;C and climbs back to 1 by
+        &minus;15&nbsp;&deg;C, so at that one temperature the two sets really are the same model. They
+        are not the same model at &minus;10&nbsp;&deg;C, where it still sits at 0.83 &mdash; and ADR
+        0031 carries a dated audit note striking out an earlier sentence of its own that claimed the
+        whole cold band was exempt. Even the record correcting the sweep needed correcting.
+      </p>
+
+      <p>
+        That does not disturb what this chart is for, and the reason is worth seeing. Domain size was
+        the only thing varied across the five points; every one of them was run the same way, under
+        the same inputs. The finding is therefore a <em>comparison</em> between five boxes rather
+        than a value — the class does not move and the count does — and a comparison survives a
+        change that shifts all five points together. That is the part that carries forward. It is
+        also a good habit to acquire early: when a number turns out to have been measured under
+        superseded settings, ask whether the claim resting on it was about the number or about a
+        difference between numbers.
       </p>
 
       <aside class="callout callout--key">
@@ -632,8 +692,8 @@
       </figure>
 
       <p>
-        Check&nbsp;3 is the one a teenager can hold in their head, and it is the last of the three
-        the erratum note lists: if a crystal is not growing, it is not drawing vapour, so a distant boundary cannot
+        Check&nbsp;3 is the easiest of the three to see, and it is the last one the erratum note
+        lists: if a crystal is not growing, it is not drawing vapour, so a distant boundary cannot
         possibly be biasing it. The corrected form agrees — the bias falls to nothing. The printed
         form insists on about 22% for a crystal that is doing nothing at all.
       </p>
@@ -1629,7 +1689,10 @@
     return arr.map(function (v, i) { return [NS[i], 100 * (v - base) / base]; });
   }
 
-  var W = 620, H = 352, ML = 66, MR = 116, MT = 24, MB = 76;
+  /* H and MB carry 28px more than the plot needs: the foot below the axis title is three
+     lines, because the two aspect ratios printed there need the parameter-set caveat
+     attached to them rather than left to the caption. Plot geometry (H − MB) is unchanged. */
+  var W = 620, H = 380, ML = 66, MR = 116, MT = 24, MB = 104;
 
   function draw() {
     if (svg) svg.remove();
@@ -1716,13 +1779,18 @@
     an2.textContent = "exact from N = 64";
     svg.appendChild(an2);
 
-    var foot = Viz.svgEl("text", {
-      x: ML, y: H - 10, fill: c.muted, "font-size": 10.5,
-      "font-family": "var(--font-sans)",
+    [
+      "Aspect ratio is identical at all five domains — 0.3821 warm, 1.1053 cold. Only the count under it moved.",
+      "Both were measured under paramSet CAK_A1, which ADR 0031 replaced. Under the registered set the warm value",
+      "becomes 1.0000 (a probe, not gate evidence) and the cold one is unchanged. Class robust, count not: that carries.",
+    ].forEach(function (line, li) {
+      var foot = Viz.svgEl("text", {
+        x: 10, y: H - 44 + li * 14, fill: c.muted, "font-size": 10.5,
+        "font-family": "var(--font-sans)",
+      });
+      foot.textContent = line;
+      svg.appendChild(foot);
     });
-    foot.textContent =
-      "Aspect ratio is identical at all five domains — 0.3821 warm, 1.1053 cold. Only the count under it moved.";
-    svg.appendChild(foot);
   }
 
   draw();
@@ -1964,7 +2032,7 @@
 
   if (bar) {
     var aSlider = Viz.slider(bar, {
-      label: "Attachment coefficient", id: "ch23-alpha",
+      label: "Attachment coefficient", id: "ch23-alphaHK",
       min: -8, max: 0, step: "any", value: expo,
       format: function (v) {
         var a = Math.pow(10, v);

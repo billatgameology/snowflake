@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References — Snow Crystals</title>
-<meta name="description" content="Every source behind this site: Kenneth Libbrecht's Snow Crystals monograph, his post-monograph measurement papers, and the historical record.">
+<meta name="description" content="Every source behind this site: for Part One, Kenneth Libbrecht's Snow Crystals monograph, his post-monograph measurement papers, and the historical record; for Part Two, this project's own tracked repository — charter, rules, decision records, progress log, findings ledger, sweep report and source trees.">
 <link rel="stylesheet" href="./assets/education.css">
 </head>
 <body data-depth="0">
@@ -39,6 +39,14 @@
       <li><a href="#modelling">Modelling papers</a></li>
       <li><a href="#historical">The historical record</a></li>
       <li><a href="#standards">Reference standards</a></li>
+      <li><a href="#repository">Part Two: a repository, not a literature</a></li>
+      <li class="is-sub"><a href="#governing">The governing documents</a></li>
+      <li class="is-sub"><a href="#decisions">The decision records</a></li>
+      <li class="is-sub"><a href="#state">Live state and evidence</a></li>
+      <li class="is-sub"><a href="#notes">The derivation notes</a></li>
+      <li class="is-sub"><a href="#code">The source trees</a></li>
+      <li><a href="#status">What Phase 6 has and has not shown</a></li>
+      <li><a href="#who-checked">Who has actually checked this</a></li>
       <li><a href="#figures">About the figures</a></li>
       <li><a href="#honesty">What we did not do</a></li>
     </ol>
@@ -55,6 +63,20 @@
           whole list, with what each source actually contributes.
         </p>
       </header>
+
+      <p>
+        This page has two halves, because the site does. Part One&rsquo;s sources are
+        <strong>published papers</strong> written by scientists outside this project and refereed or
+        posted openly for anyone to attack. Part Two&rsquo;s sources are of a different kind
+        entirely: they are <strong>this project&rsquo;s own tracked files</strong>. Both lists are
+        below, and the difference between them matters more than either list.
+        <a href="#repository">Skip to Part Two&rsquo;s sources</a> if that is what you came for.
+      </p>
+
+      <div class="part-heading">
+        <span class="part-heading__num">Part One &middot; The published literature</span>
+        <span class="part-heading__rule"></span>
+      </div>
 
       <p>
         Nearly all of the modern science here comes from one person: <strong>Kenneth G.
@@ -297,6 +319,559 @@
           </p>
         </li>
       </ul>
+
+      <div class="part-heading">
+        <span class="part-heading__num">Part Two &middot; This project&rsquo;s own record</span>
+        <span class="part-heading__rule"></span>
+      </div>
+
+      <h2 id="repository">Part Two: a repository, not a literature</h2>
+
+      <p>
+        Part One cites <em>papers</em>. Part Two cites a <em>directory tree</em>. Every claim in
+        chapters 14&ndash;29 &mdash; every number, every gate, every admission of failure &mdash;
+        traces to a tracked file in this project&rsquo;s own Git repository, and the chapters
+        usually name the file and sometimes the line. This section lists those files, so you can
+        open them yourself. Counts and versions below are as of <strong>29 July 2026</strong>; the
+        repository moves, so treat them as a snapshot rather than a fixed fact.
+      </p>
+
+      <p>
+        The difference in kind matters, and it cuts in a specific direction:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Nothing in Part Two has been refereed.</strong> Libbrecht&rsquo;s papers were
+          written to be attacked by other people who grow ice crystals for a living. Part
+          Two&rsquo;s sources were written by this project, about itself.
+        </li>
+        <li>
+          <strong>The same party makes the claim and keeps the score.</strong> There is no external
+          examiner. The marking scheme in chapter 27 was written by the people being marked.
+        </li>
+        <li>
+          <strong>What you can check is consistency, not correctness.</strong> The record is dated,
+          hash-stamped, and in places pre-registered &mdash; predictions written down and committed
+          <em>before</em> the run that tested them. So you can check whether it contradicts itself:
+          whether the decision record that predicted an outcome really predates the run
+          (<code>git log</code> will tell you), whether the quoted SHA-256 hashes match the
+          artifacts, whether a recorded failure was quietly deleted later. That is an unusual amount
+          of checkable structure for a hobby project. It is still not the same thing as an outside
+          expert saying the physics is right.
+        </li>
+        <li>
+          <strong>The evidence artifacts themselves are not in the repository.</strong> Run outputs
+          land in <code>out/</code>, which is deliberately untracked, because they are reproducible
+          from the recorded seed, dimensions, and command (Rule 6). What is tracked is the recipe,
+          the hashes, and the commit &mdash; not the bytes. To check a number you re-run the command
+          and compare hashes; you cannot simply download the answer.
+        </li>
+      </ul>
+
+      <aside class="callout callout--myth">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+          </svg>
+          How much weight to give this
+        </p>
+        <p>
+          Read Part Two as a claim about <strong>a piece of software and how it was built</strong>,
+          not as a claim about nature. The strongest honest reading of the record below is: this
+          project wrote down what it would count as success before it measured, measured, and then
+          reported a bad score without moving the target. That is a claim about method, and the
+          files let you audit it. Whether the physics inside the solver is <em>right</em> is a
+          separate question, and Phase 6 has not answered it.
+        </p>
+      </aside>
+
+      <h3 id="governing">The governing documents</h3>
+
+      <p>
+        Two files sit at the top of the project&rsquo;s authority chain. When the code and the
+        documents disagree, the disagreement is settled against these &mdash; and then against the
+        accepted decision records that amend them, which are the next section.
+      </p>
+
+      <ul class="refs">
+        <li>
+          <span class="ref__title">The project charter</span>
+          <span class="ref__meta">
+            <span class="ref__id">project charter.md</span> &mdash; &ldquo;The Virtual Cloud
+            Chamber&rdquo;, v1.18, revised 28 July 2026. 344 lines.
+          </span>
+          <p>
+            What is being built, what would count as success (&sect;1.4), the science it depends on
+            (&sect;2), the phase ladder with each phase&rsquo;s registered gate (&sect;3.2), and the
+            standing guardrails (&sect;3.3). &sect;1.5, &ldquo;Epistemic honesty as product
+            identity&rdquo;, is the clause the two labels in chapter 15 come from. Its whole
+            revision history, v1.0 to v1.18, sits at the top: every amendment dated and tied to the
+            decision number that forced it. You can read straight down it and watch the project
+            change its mind.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">The working rules</span>
+          <span class="ref__meta">
+            <span class="ref__id">AGENTS.md</span> &mdash; 454 lines: thirteen numbered rules, plus
+            a list of anti-rules.
+          </span>
+          <p>
+            The operating discipline of the project, written for whichever model opens the
+            repository next. The chapters cite Rule 2 (plan in a file before you build), Rule 3
+            (update the progress log as you go, not at the end), Rule 4 (record what failed, not
+            just what worked), Rule 6 (claims are cheap; evidence is the deliverable), Rule 7 (a
+            bare <code>alpha</code> is banned from this repository), <!-- rule7-waive: naming what Rule 7 bans, in order to describe the rule -- the same exemption the linter grants its own policy text -->
+            Rule 9 (a verdict is computed
+            from the artifact, never inherited from its producer), Rule 10 (reviews carry provenance
+            and state their limits), Rule 11 (probes transfer only from the registered
+            configuration), Rule 12 (check source currency before any freeze), and Rule 13
+            (interpretation is gated like evidence). It also carries the repository map and a
+            section called <em>High-value traps already paid for</em> &mdash; a list of mistakes
+            that cost real time, kept so they are not made twice.
+          </p>
+        </li>
+      </ul>
+
+      <h3 id="decisions">The decision records</h3>
+
+      <p>
+        An <strong>ADR</strong> is an <em>architecture decision record</em>: one small file per
+        decision that contradicts or extends the charter. Rule 5 requires one. Each states the
+        context, what was decided, what was rejected and why, and what follows &mdash; and once
+        accepted it is <em>never edited to look better</em>. A later ADR supersedes an earlier one
+        and both stay on disk. That is what makes the sequence readable as a history of being wrong
+        rather than a tidy story.
+      </p>
+
+      <p>
+        There are <strong>34</strong> of them, <code>docs/decisions/0001-&hellip;</code> through
+        <code>0034-&hellip;</code>, plus a template. The ones Part Two leans on hardest:
+      </p>
+
+      <ul class="refs">
+        <li>
+          <span class="ref__title">0031 &mdash; Phase 6 parameter-set freeze row</span>
+          <span class="ref__meta">
+            <span class="ref__id">docs/decisions/0031-phase6-paramset-freeze-row.md</span>
+          </span>
+          <p>
+            The most consequential file in Part Two. It invalidated the first 204-point sweep
+            (an unregistered CLI default supplied parameter set <code>CAK_A1</code>, in which
+            <code>A_prism</code> is identically 1, violating a registered freeze row), chose the
+            registered set <code>CAK</code> rather than editing the scheme to match what had run,
+            and <em>pre-registered the corrected expectation before the re-run</em>: the headline
+            &ldquo;falls from 5/90 to approximately 2/90&rdquo;, and &ldquo;the corrected result is
+            expected to be worse, and that is the point&rdquo;. Chapters 27 and 28.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">0003 &mdash; Libbrecht attachment kinetics</span>
+          <span class="ref__meta"><span class="ref__id">0003-libbrecht-attachment-kinetics.md</span></span>
+          <p>
+            Puts measured attachment kinetics on the Gravner&ndash;Griffeath skeleton, and reframes
+            Phase 6 from <em>calibration</em> to <em>validation</em> &mdash; the decision that made
+            it possible to fail. Chapters 17 and 21.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">0024 and 0027 &mdash; the monopole-matched far field</span>
+          <span class="ref__meta">
+            <span class="ref__id">0024-monopole-matched-far-field.md</span> ·
+            <span class="ref__id">0027-charter-far-field-amendment.md</span>
+          </span>
+          <p>
+            The walls of chapter 23: the measurement showing that a fixed-supersaturation shell
+            over-supplies vapour by an amount that <em>grows</em> with the crystal, and the charter
+            amendment that replaced it for Phase 6.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">0013, 0014, 0020, 0021 &mdash; the floating-point drift decisions</span>
+          <span class="ref__meta">
+            <span class="ref__id">0013-float64-smoother-drift-divergence-identity.md</span> ·
+            <span class="ref__id">0014-bound-float64-smoother-drift.md</span> ·
+            <span class="ref__id">0020-floor-phase5-float32-smoother-drift.md</span> ·
+            <span class="ref__id">0021-bound-phase5-float32-two-cycles.md</span>
+          </span>
+          <p>
+            Chapter 20&rsquo;s subject: metering the drift in the last bit, then requiring it to
+            pass an operation-count-derived bound rather than merely being small.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">0025 and 0026 &mdash; the marking scheme</span>
+          <span class="ref__meta">
+            <span class="ref__id">0025-phase6-agreement-scoring-rule.md</span> ·
+            <span class="ref__id">0026-phase6-grid-extrapolation-operator.md</span>
+          </span>
+          <p>
+            How a model habit is scored against a reference regime, and how an extrapolated
+            quantity is computed and when it is refused &mdash; the two freeze rows chapter 27 is
+            about, both registered before the sweep ran.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">0022 &mdash; observed negative-control ownership</span>
+          <span class="ref__meta"><span class="ref__id">0022-phase5-observed-negative-control-ownership.md</span></span>
+          <p>
+            Chapter 25: a negative control must actually break the thing it claims to break, and
+            the right criterion must be the one that catches it.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">0028 &mdash; parameter-table erratum</span>
+          <span class="ref__meta"><span class="ref__id">0028-parameter-table-erratum-exponent.md</span></span>
+          <p>An exponent wrong in the project&rsquo;s own transcription of a published table. Chapter 16.</p>
+        </li>
+        <li>
+          <span class="ref__title">0033 and 0034 &mdash; splitting the frozen manifest</span>
+          <span class="ref__meta">
+            <span class="ref__id">0033-phase6-values-justification-hash-split.md</span> ·
+            <span class="ref__id">0034-phase6-e1-justification-correction.md</span>
+          </span>
+          <p>
+            Hashing prose together with registered values had made it impossible to fix a wrong
+            sentence without invalidating the sweep. 0033 split the hash in two; 0034 then used the
+            split to correct an erratum at zero cost, and to walk back an over-strong claim 0033
+            had itself made.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">0030 &mdash; the Phase 6 SDAK arm</span>
+          <span class="ref__meta"><span class="ref__id">0030-phase6-sdak-arm.md</span></span>
+          <p>
+            The second arm of the comparison, registered but not yet run. Both sweeps so far were
+            no-SDAK.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">0018 &mdash; Phase 5 is Windows-only</span>
+          <span class="ref__meta"><span class="ref__id">0018-phase5-windows-only-gate.md</span></span>
+          <p>
+            Narrows the GPU claim to one Windows D3D12 lane and makes no general-WebGPU or Metal
+            portability claim at all &mdash; an example of a decision whose whole content is
+            <em>claiming less</em>.
+          </p>
+        </li>
+      </ul>
+
+      <h3 id="state">Live state and evidence</h3>
+
+      <ul class="refs">
+        <li>
+          <span class="ref__title">The progress log</span>
+          <span class="ref__meta"><span class="ref__id">docs/PROGRESS.md</span> &mdash; 1,694 lines.</span>
+          <p>
+            The file to open first. It carries the phase table with each gate&rsquo;s status and the
+            metric that closed it, a <strong>Next step</strong> section that is the current state of
+            play, and long passages of &ldquo;traps already known&rdquo; recording defects, dead
+            ends, and interrupted runs. Rule 3 requires it be written as work happens rather than
+            tidied up afterwards, which is why it reads the way it does.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">The findings ledger</span>
+          <span class="ref__meta"><span class="ref__id">docs/findings-ledger.md</span> &mdash; 167 lines.</span>
+          <p>
+            Results the project considers worth showing anyone, in three classes: <strong>A</strong>
+            the model reproducing measured reality, <strong>B</strong> uncharted territory entered
+            with supporting evidence, <strong>C</strong> queued items not there yet. Entries are
+            never softened or deleted &mdash; a correction is appended as a note, the way ADRs work.
+            The 29 July 2026 audit pass is visible in it: one entry retracted in its strongest form,
+            one superseded in part, one entry&rsquo;s stated limit reversed. Every entry names its
+            own verification status, and the ledger grants nothing by itself.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">The Phase 6 sweep report</span>
+          <span class="ref__meta"><span class="ref__id">research/phase6-sweep-report.md</span></span>
+          <p>
+            The corrected 204-point no-SDAK sweep, and the single most important document behind
+            chapter 28. It carries the provenance table (protocol hash over 25 freeze rows,
+            parameter set <code>CAK</code>, execution commit, the freeze commit verified as its
+            ancestor, engine version, exact command, exit code), byte counts and SHA-256 for each
+            artifact, the per-regime results behind <strong>3 of 90</strong>, and the class totals.
+            It opens with a <em>retraction of its own Finding 1</em> &mdash; a structural bound an
+            adversarial audit refuted &mdash; and states in bold that its numbers are not yet gate
+            evidence.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">The Phase 6 plan</span>
+          <span class="ref__meta"><span class="ref__id">docs/plans/phase-6-nakaya-validation.md</span></span>
+          <p>
+            The registered plan, with the work-package checklist showing exactly what is done and
+            what is not (WP5 is still unchecked), the freeze list, an explicit <em>Out of
+            scope</em> section, and a <em>Tried and rejected</em> section that includes running the
+            sweep on the GPU &mdash; registered and retracted the same day on measurement.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">The frozen-protocol errata</span>
+          <span class="ref__meta"><span class="ref__id">docs/phase6-protocol-errata.md</span></span>
+          <p>
+            Errors found <em>inside</em> the hashed protocol after the sweep had already run,
+            recorded here instead of edited in place.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">The soundness audit transcript</span>
+          <span class="ref__meta"><span class="ref__id">docs/phase6-soundness-audit-2026-07-29.raw.txt</span></span>
+          <p>
+            The raw output of the adversarial audit that forced the retraction above, kept
+            unedited. Useful if you want to see what a review of this project actually looks like
+            before deciding how much it is worth.
+          </p>
+        </li>
+      </ul>
+
+      <h3 id="notes">The derivation notes</h3>
+
+      <p>
+        Between Part One&rsquo;s papers and Part Two&rsquo;s code sit four long tracked notes. They
+        are where a published equation becomes a constant in a source file, and they are the
+        documents the solvers are written <em>against</em>.
+      </p>
+
+      <ul class="refs">
+        <li>
+          <span class="ref__title">The Libbrecht parameter mapping</span>
+          <span class="ref__meta"><span class="ref__id">docs/libbrecht-parameters.md</span> &mdash; 547 lines. Frozen 27 July 2026.</span>
+          <p>
+            The mapping layer: which published number, from which page, becomes which constant.
+            Chapter 16 is about this file. Its content hash is registered as
+            <code>PHASE6_PARAMETER_TABLE_SHA256</code> in
+            <code>runner/src/phase6-protocol.ts</code> and enforced, so editing it now breaks the
+            protocol on purpose.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">Attachment kinetics &mdash; the physics spec</span>
+          <span class="ref__meta"><span class="ref__id">docs/attachment-kinetics.md</span> &mdash; 724 lines.</span>
+          <p>
+            The only physically parameterized step of the update cycle, specified in full. Its own
+            header carries a correction: it used to claim this was &ldquo;the only step that is
+            physics&rdquo;, which overstated it.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">The Gravner&ndash;Griffeath machinery &mdash; implementation spec</span>
+          <span class="ref__meta"><span class="ref__id">docs/gg-machinery.md</span> &mdash; 431 lines.</span>
+          <p>
+            The shared computational skeleton: lattice, diffusion, state fields, mass bookkeeping,
+            melting, noise &mdash; and which of those are physical transport and which are
+            phenomenological knobs. Chapters 18 through 22, and 24, draw on it.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">The monograph review</span>
+          <span class="ref__meta"><span class="ref__id">docs/monograph-review.md</span> &mdash; 480 lines.</span>
+          <p>
+            A living note comparing the 523-page monograph against the plan. It is explicitly
+            <em>not</em> a plan and <em>not</em> an ADR: nothing in it changes the project by
+            itself, and every item that survives discussion has to land through the normal
+            authority chain.
+          </p>
+        </li>
+      </ul>
+
+      <h3 id="code">The source trees</h3>
+
+      <p>
+        Five workspace packages, each with a <code>src/</code> and a <code>test/</code> directory.
+        The chapters quote from these by path, and often by line. Dependency direction is
+        <code>core</code> &rarr; <code>solver-cpu</code> &rarr; <code>runner</code>; solver code
+        stays free of Node APIs and file I/O so the same oracle can run in a browser worker.
+      </p>
+
+      <ul class="refs">
+        <li>
+          <span class="ref__title">core/</span>
+          <span class="ref__meta"><span class="ref__id">core/src</span> · <span class="ref__id">core/test</span> &mdash; 7 test files</span>
+          <p>
+            Environment-neutral contracts: the lattice and its D6h symmetry transforms
+            (<code>core/src/lattice.ts</code>, chapter 19), state fields, parameters, metrics
+            (<code>core/src/metrics.ts</code>), a seeded counter-based random generator
+            (<code>core/src/prng.ts</code>, chapter 20), strict checkpoint codecs, and the Libbrecht
+            mapping <code>core/src/libbrecht.ts</code> &mdash; the single most-cited file in Part
+            Two.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">solver-cpu/</span>
+          <span class="ref__meta"><span class="ref__id">solver-cpu/src</span> · <span class="ref__id">solver-cpu/test</span> &mdash; 10 test files</span>
+          <p>
+            The permanent float64 oracle and the thing everything else is measured against:
+            <code>gg-solver.ts</code>, <code>lk-solver.ts</code>, their shared
+            <code>SurfaceOperator</code> contract (chapter 21&rsquo;s seam), the 1D spherical
+            reference solver, and the monopole far field (chapter 23).
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">solver-gpu/</span>
+          <span class="ref__meta"><span class="ref__id">solver-gpu/src</span> · <span class="ref__id">solver-gpu/test</span> &mdash; 9 test files</span>
+          <p>
+            The Phase 5 WebGPU port: memory layout, diffusion and surface shaders, submission and
+            readback auditing. Chapter 26. Certified on one Windows D3D12 lane and nothing wider
+            (ADR 0018), and <em>not</em> used for the Phase 6 sweep &mdash; it was measured slower
+            than the CPU oracle and could not meet the frozen tolerance in float32 at all.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">runner/</span>
+          <span class="ref__meta"><span class="ref__id">runner/src</span> · <span class="ref__id">runner/test</span> &mdash; 24 test files</span>
+          <p>
+            The evidence boundary, and where a claim becomes an exit code: the CLI
+            (<code>runner/src/main.ts</code>), argument validation, stopping rules, checkpoint
+            round-trips, the enforced gates, the frozen protocols
+            (<code>runner/src/phase6-protocol.ts</code>,
+            <code>runner/src/phase5-protocol.ts</code>) and the sweep driver
+            (<code>runner/src/phase6-sweep.ts</code>). Chapters 24, 25, 27 and 28 live here.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">app/</span>
+          <span class="ref__meta"><span class="ref__id">app/src</span> · <span class="ref__id">app/test</span> &mdash; 20 test files</span>
+          <p>
+            The browser instrument: a Web Worker copy of the CPU solver, the overlays and vapour
+            slice that let you watch the crystal starve (chapter 24), picking and readouts, and a
+            deterministic visual harness so the pictures can be tested too.
+          </p>
+        </li>
+      </ul>
+
+      <p>
+        One command, <code>npm test</code>, runs the Rule 7 naming scan, both strict TypeScript
+        projects, and every suite above; quoting a bare test runner instead is explicitly not
+        verification. The exact pass count at each gate is recorded with that gate in
+        <code>docs/PROGRESS.md</code>, not asserted here.
+      </p>
+
+      <h2 id="status">What Phase 6 has and has not shown</h2>
+
+      <p>
+        Chapter 28 reports a score. Because the number is easy to quote out of context, here is the
+        status in plain terms:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Phase 6 is still in development.</strong> It has not concluded, and Phase 7 has
+          not started.
+        </li>
+        <li>
+          The first 204-point sweep scored <strong>5 of 90</strong> and was
+          <strong>invalidated</strong> by ADR 0031 &mdash; an unregistered command-line default
+          supplied parameter set <code>CAK_A1</code>, in which <code>A_prism</code> is identically
+          1, violating a registered freeze row. Its artifacts are preserved unmodified rather than
+          deleted.
+        </li>
+        <li>
+          The corrected re-sweep, under the registered set <code>CAK</code>, scored
+          <strong>3 of 90</strong>: warm plates 3/6, columns 0/24, cold plates 0/60. Class totals
+          across all 204 points: 6 plate, 168 neutral, 30 column, 0 invalid.
+        </li>
+        <li>
+          That corrected headline was <strong>predicted in writing before the re-run</strong>. ADR
+          0031 registered &ldquo;approximately 2/90&rdquo; and said the corrected result was
+          expected to be <em>worse</em>. Outcome: direction correct, magnitude one point
+          pessimistic.
+        </li>
+        <li>
+          <strong>3 of 90 is not gate evidence, and the project says so itself.</strong> The sweep
+          report states it in bold. WP5 &mdash; run the registered gate command at one exact clean
+          commit, authenticate the artifacts, and obtain independent review to zero blockers &mdash;
+          is still unchecked in the Phase 6 plan. <strong>No independent verifier has re-derived
+          <code>report.json</code> from <code>points.json</code>.</strong> Until that happens this
+          is a measured result with verified provenance, which is a different and lesser thing.
+        </li>
+        <li>
+          A <strong>verification hazard is recorded and not yet fixed</strong>: the harness captures
+          provenance once at preflight, but each of the 204 child runs spawns
+          <code>runner/src/main.ts</code> from the <em>working tree</em>. An edit to the solver
+          mid-sweep would have changed the physics for later points while the report still named the
+          launch commit. Nine commits from a parallel session did land during the run; the relevant
+          diff was verified empty afterwards, so this sweep is unaffected &mdash; which the report
+          calls luck, not design.
+        </li>
+        <li>
+          The <strong>SDAK arm is separate and later</strong> (ADR 0030). Both sweeps so far were
+          no-SDAK. Phase 6 is to report the two arms together, control and treatment, so what 3 of
+          90 <em>means</em> for the phase is deliberately not drawn yet.
+        </li>
+      </ul>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.8 2.8M14.9 14.9l2.8 2.8M17.7 6.3l-2.8 2.8M9.1 14.9l-2.8 2.8"/>
+          </svg>
+          If you read one file, read this one
+        </p>
+        <p>
+          <code>research/phase6-sweep-report.md</code>. It contains the numbers, their provenance,
+          the retraction of its own strongest claim, and the sentence that keeps the whole thing
+          honest: <em>these numbers are not yet gate evidence.</em>
+        </p>
+      </aside>
+
+      <h2 id="who-checked">Who has actually checked this</h2>
+
+      <p>
+        <strong>Every review this project has had has been an LLM review.</strong> The code, the
+        evidence bundles, the decision records, the sweep report, the chapters of this website
+        including this page &mdash; all of it was written by language models and reviewed by other
+        language models. <strong>No human snow-crystal scientist, numerical-methods specialist, or
+        graphics engineer has read any of it.</strong>
+      </p>
+
+      <p>
+        The project does not present machine review as a substitute for expert review, and neither
+        does this site. What it does instead is make the limit explicit and structural:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Rule 10</strong> requires every review to record three things &mdash; the
+          reviewing model and whether it shared context with the developer, what it independently
+          re-executed, and what it did <em>not</em> check, stated as a limit of the evidence rather
+          than left implicit. Gate-bearing reviews prefer a different model from the one that wrote
+          the code.
+        </li>
+        <li>
+          <strong>Rule 9</strong> forbids inheriting a verdict from whoever produced the artifact;
+          the verdict is recomputed from the artifact itself.
+        </li>
+        <li>
+          <strong>Rule 13</strong> requires an adversarial audit of any interpretation before it is
+          published. That rule was earned the hard way: the audit that retracted the sweep
+          report&rsquo;s Finding 1 found exactly the errors it was asked to look for, but only after
+          the claim had already spread into a memory entry, the findings ledger, and chapters of
+          this site &mdash; each of which then needed its own correction pass.
+        </li>
+      </ul>
+
+      <p>
+        That machinery raises the floor. It does not turn machine review into peer review.
+        Cross-checking between models catches implementation seams, arithmetic slips, and prose that
+        overreaches its evidence &mdash; the corrections listed on this page are all of that kind.
+        It cannot tell you the physics is right, and any blind spot the models share stays invisible
+        to all of them. Treat that as a disclosed limitation covering the whole of Part Two,
+        including these references.
+      </p>
+
+      <p>
+        The disclosure is also an invitation. If you know ice physics, numerical methods for
+        diffusion problems, or GPU compute, the files listed above are the entire record &mdash;
+        there is no unpublished version that looks better.
+      </p>
+
+      <div class="part-heading">
+        <span class="part-heading__num">Both parts &middot; Images and limits</span>
+        <span class="part-heading__rule"></span>
+      </div>
 
       <h2 id="figures">About the figures</h2>
 

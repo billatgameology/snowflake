@@ -6,6 +6,49 @@
 <title>A Model That Can Be Wrong — Snow Crystals</title>
 <meta name="description" content="Some of the model's inputs were chosen so that the answer would come out right. That makes agreement worthless as evidence — and it is why the project rebuilt the experiment so it could lose.">
 <link rel="stylesheet" href="../assets/education.css">
+<style>
+/* In-demo honesty banners and the calibration task panel. Scoped with a c17-
+   prefix so nothing here can leak into another page's components.
+
+   The banners exist because a caveat printed under a demo arrives after the
+   reader has already believed the number. These sit above the score instead. */
+.c17-flag {
+  margin: 0;
+  padding: 0.55rem 1.25rem 0.6rem;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  background: rgba(208, 59, 59, 0.09);
+  font-size: var(--step--1);
+  color: var(--ink-secondary);
+}
+.c17-flag strong { color: var(--ink-primary); }
+.c17-task {
+  display: grid;
+  gap: 0.3rem;
+  max-width: 46rem;
+  margin: 0.15rem auto 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 10px);
+  background: var(--surface-sunken);
+  padding: 0.7rem 0.9rem;
+  font-size: var(--step--1);
+}
+.c17-task h4 {
+  margin: 0 0 0.15rem;
+  font-size: var(--step--1);
+  font-weight: 680;
+}
+.c17-step { display: flex; gap: 0.5rem; align-items: baseline; color: var(--ink-secondary); }
+.c17-step .c17-box {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--ink-primary);
+  flex: none;
+}
+.c17-step.is-done { color: var(--ink-muted); }
+.c17-step.is-done .c17-label { text-decoration: line-through; }
+.c17-ask { margin: 0.4rem 0 0; color: var(--ink-primary); font-weight: 620; }
+</style>
 </head>
 
 <body data-depth="1">
@@ -162,6 +205,13 @@
             Drag the two dip centres and watch the score climb. Then ask what the score measured.
           </p>
         </div>
+        <p class="c17-flag">
+          <strong>Simplified stand-in &mdash; not the real sweep.</strong> This strip asks only
+          which face has the lower nucleation barrier, at one humidity level instead of six, so it
+          scores out of 15 where the project's registered sweep scores out of 90. The score below
+          is a real number about these two knobs. It is not a result about snow, and the project's
+          own number is a different thing entirely: chapter 28 has it.
+        </p>
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
@@ -170,11 +220,8 @@
           transcribes from Libbrecht's published closed forms &mdash; the citations are in the
           module's own header &mdash; and <code>docs/libbrecht-parameters.md</code> &sect;4.1
           records the same dips as provenance class P3. The scoring re-implements the project's
-          registered rule (ADR&nbsp;0025). This strip is a
-          <strong>simplified predictor</strong>, not the project's 3-D solver: it asks only which
-          face has the lower nucleation barrier at each temperature, and it sweeps one humidity
-          level rather than six, so its score out of 15 is not comparable with the registered
-          sweep's score out of 90.</span>
+          registered rule (ADR&nbsp;0025). What this strip is and is not is on the banner above it,
+          where you can read it before the score rather than after.</span>
         </figcaption>
       </figure>
 
@@ -360,8 +407,19 @@
       <figure class="anim" id="fig-designs">
         <div class="anim__head">
           <p class="anim__title">Fit anything &mdash; then run the other version</p>
-          <p class="anim__sub">Two experiment designs, one screen. Count the possible outcomes.</p>
+          <p class="anim__sub">
+            Match the real diagram. Then match the one this page invented. If both are matchable,
+            what did the match tell you? The task panel tracks the two, and you are finished when
+            it says both.
+          </p>
         </div>
+        <p class="c17-flag">
+          <strong>Simplified stand-in &mdash; not the real sweep.</strong> The same simplified
+          predictor as the strip above, at one humidity level instead of six, and it forces a habit
+          at every temperature. Its scores count columns on this strip &mdash; 15, 28, 34, whatever
+          the axis leaves in scope &mdash; and are not a version of the registered sweep's score out
+          of 90. Nothing you can reach on this screen is a measurement of anything.
+        </p>
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
@@ -371,15 +429,13 @@
           the axis fixed and reads the habit from the broad-facet nucleation parameters via
           <code>Prereg.habitAt</code> in <code>../assets/anim-preregister.js</code>, with the dips
           off. Reference regimes and the near-boundary exclusion are transcribed from the same
-          module (its <code>BOUNDS</code> and <code>AMBIGUITY</code>). Like that module, this is a
-          <strong>simplified predictor</strong> and not the project's 3-D solver: it sweeps one
-          humidity level rather than six, so its score out of 15 is not comparable with the
-          registered sweep's score out of 90. It also forces a habit at every temperature, plate
-          or column. The registered scoring rule keeps a third class &mdash; ADR&nbsp;0025 maps
-          results onto &ldquo;<code>{plate, column, neutral, invalid}</code>&rdquo; &mdash; and in
-          the real sweep that neutral class turned out to be the largest single feature of the
-          model's own output (<code>research/phase6-sweep-report.md</code>, finding 3). That is
-          chapter 28's.</span>
+          module (its <code>BOUNDS</code> and <code>AMBIGUITY</code>). The banner above the strip
+          says what the strip is; one consequence of it is worth spelling out here. Forcing a habit
+          at every temperature is not what the project does: its registered scoring rule keeps a
+          third class &mdash; ADR&nbsp;0025 maps results onto
+          &ldquo;<code>{plate, column, neutral, invalid}</code>&rdquo; &mdash; and in the real sweep
+          that neutral class turned out to be the largest single feature of the model's own output
+          (<code>research/phase6-sweep-report.md</code>, finding 3). That is chapter 28's.</span>
         </figcaption>
       </figure>
 
@@ -394,8 +450,8 @@
         Validation mode is the same screen with the axis frozen and the knobs gone, because
         temperature now enters the equations rather than being written on them afterwards. Most
         columns disagree, and there is nothing to slide. Do not carry that count away as the
-        project's answer &mdash; the caption says what it is and is not. Chapter 28 has the real
-        number.
+        project's answer &mdash; the banner above the strip says why it cannot be. Chapter 28 has
+        the project's own number, measured on the real solver and counted a different way.
       </p>
 
       <p>
@@ -801,6 +857,16 @@
   status.style.marginTop = "0.35rem";
   head.appendChild(status);
 
+  /* The task panel, appended before anything else, so it is the first child of
+     the body and sits above the strip and its score: the reader can see what
+     counts as finished before a number appears, and can see when they are done.
+     Deliberately NOT a live region — it redraws on every slider tick, and the
+     status line above already announces the two milestones. Two live regions
+     racing each other would make the demo unusable with a screen reader. */
+  var task = document.createElement("div");
+  task.className = "c17-task";
+  body.appendChild(task);
+
   var N = 34;
   var W = 720, H = 212;
   var M = { top: 62, right: 20, bottom: 60, left: 104 };
@@ -887,6 +953,71 @@
     return c;
   }
 
+  /* ---- the task panel: two steps, ticked when each reference is matched ---- */
+
+  function stepRow(done, text) {
+    var row = document.createElement("p");
+    row.className = "c17-step" + (done ? " is-done" : "");
+    row.style.margin = "0";
+    /* The glyph is decoration; the state is carried by a word for screen
+       readers, since a strikethrough and a bracket are not announced. */
+    var box = document.createElement("span");
+    box.className = "c17-box";
+    box.setAttribute("aria-hidden", "true");
+    box.textContent = done ? "[x]" : "[ ]";
+    row.appendChild(box);
+    var said = document.createElement("span");
+    said.className = "visually-hidden";
+    said.textContent = done ? "Done. " : "Not done yet. ";
+    row.appendChild(said);
+    var lab = document.createElement("span");
+    lab.className = "c17-label";
+    lab.textContent = text;
+    row.appendChild(lab);
+    return row;
+  }
+
+  function renderTask() {
+    task.textContent = "";
+    var h = document.createElement("h4");
+    task.appendChild(h);
+
+    if (mode === "val") {
+      h.textContent = "Design B — there is no task here";
+      var p = document.createElement("p");
+      p.className = "c17-step";
+      p.style.margin = "0";
+      p.textContent =
+        "Nothing on this screen can be adjusted, so there is nothing to finish. The strip has " +
+        "two possible outcomes and you do not choose between them: agree, or disagree. Go back " +
+        "to Design A if you have not matched both diagrams yet.";
+      task.appendChild(p);
+      return;
+    }
+
+    h.textContent = "Your task: match both diagrams — " + matchCount() + " of 2 done";
+    task.appendChild(stepRow(
+      !!matched.real,
+      "Match the real diagram: set the reference to real, then slide until every scored " +
+      "column under the strip is green."
+    ));
+    task.appendChild(stepRow(
+      !!matched.fake,
+      "Match the diagram this page invented: same three knobs, same movable axis, different " +
+      "reference."
+    ));
+
+    if (matchCount() === 2) {
+      var ask = document.createElement("p");
+      ask.className = "c17-ask";
+      ask.textContent =
+        "Finished. Now the question the task was for: if this method fits a real diagram and an " +
+        "invented one equally well, what did either match tell you about nature? Then switch to " +
+        "Design B and see what a design that can fail looks like.";
+      task.appendChild(ask);
+    }
+  }
+
   function label(x, y, text, fill, size, weight, anchor) {
     var el = Viz.svgEl("text", {
       x: x, y: y, fill: fill, "font-size": size || 11,
@@ -906,6 +1037,7 @@
 
     /* record a completed match before anything that reads the counter draws */
     if (mode === "cal" && s.n >= 8 && s.agree === s.n) matched[targetKey] = true;
+    renderTask();
 
     svg = Viz.createSvg(body, W, H, {
       label: "A strip of predicted crystal habits compared against a reference diagram of " +
@@ -1018,7 +1150,9 @@
       } else {
         status.textContent =
           "Three knobs with no physical meaning, plus a temperature axis you assign afterwards. " +
-          "Slide until the two rows line up; you are allowed to move the axis, not just the model.";
+          "Slide until the two rows line up; you are allowed to move the axis, not just the " +
+          "model. If it will not come, the last button will do this reference for you — that it " +
+          "can is the point.";
       }
     } else {
       status.textContent =
@@ -1070,6 +1204,21 @@
         label: "Axis spans", id: "fitspan", min: 8, max: 44, step: 0.5, value: span,
         format: function (v) { return v.toFixed(1) + " °C"; },
         onInput: function (v) { span = v; render(); }
+      });
+      /* A guaranteed exit from the task. Both settings were found by exhaustive
+         search over these five sliders' own steps and score every counted column
+         correctly — real: 28 of 28, invented: 32 of 32 — with all three reference
+         bands on screen. Neither one fits the other reference (15 of 28 and 7 of
+         14), so switching cannot tick a box by accident. That a perfect fit to an
+         invented diagram exists at all, and can be handed over in one click, is
+         the demonstration rather than a shortcut around it. */
+      Viz.button(bar, "Stuck? Fit this reference for me", function () {
+        var f = targetKey === "real"
+          ? { k1: 1.00, k2: 0.51, k3: -0.38, start: 2.0, span: 18.5 }
+          : { k1: 1.10, k2: 0.95, k3: 0.50, start: 1.0, span: 37.5 };
+        k1 = f.k1; k2 = f.k2; k3 = f.k3; start = f.start; span = f.span;
+        buildControls();
+        render();
       });
     } else {
       var note = document.createElement("span");

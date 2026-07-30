@@ -10,28 +10,38 @@
      sigma0_prism broad   0.015 * t^2 + 0.02 * t^0.6     [%]
                           arXiv:2306.13087v1, p. 7  (the "M2" form)
 
-     basal SDAK dip       1 - 0.87 * exp(-(ln t - ln 4.5)^2 / 0.07)
+     basal SDAK dip       1 - 0.87 * exp(-(log10 t - log10 4.5)^2 / 0.07)
                           arXiv:2306.13087v1, p. 6
 
-     prism SDAK dip       1 - 0.95 * exp(-(ln t - ln 14.4)^2 / 0.06)
+     prism SDAK dip       1 - 0.95 * exp(-(log10 t - log10 14.4)^2 / 0.06)
                           arXiv:2306.13087v1, p. 6
 
    where t = (T_melt - T) is the supercooling in degrees Celsius, so t = 5
-   means -5 C. The full "M1" model is the broad curve times its dip.
+   means -5 C. The full "M1" model is the broad curve times its dip. CORRECTED
+   2026-07-29: the printed log in both dip formulas is BASE 10, not natural —
+   this file used Math.log (natural) until then, which gave five crossings
+   instead of the three below. See app/scripts/phase6-libbrecht-closed-forms.mjs.
 
    WHAT THE CHART IS FOR
    ---------------------
    sigma0 is how hard it is to start a new layer on a facet. A SMALLER sigma0
-   means that face grows MORE easily. So whichever curve is lower is the face
-   that wins:
+   means that face grows MORE easily, PROVIDED the two facets' A prefactors in
+   alphaHK = A * exp(-sigma0/sigma_surf) are equal — which they are not always
+   (see core/src/libbrecht.ts and Chapter 12's own equation gloss). With that
+   proviso, whichever curve is lower is the face that wins:
 
      basal lower  -> the top and bottom faces grow  -> the crystal gets taller -> COLUMN
      prism lower  -> the six side faces grow        -> the crystal spreads     -> PLATE
 
-   A habit boundary therefore happens exactly where the two curves CROSS. That
-   makes the number of crossings a hard limit on how many habit changes the
-   model can produce — and it is why the two dips matter: the broad curves
-   alone cross once, and the Nakaya diagram has three boundaries.
+   A habit boundary happens where the two curves cross, ON THIS SIMPLIFIED
+   READING. It is not a hard structural limit on how many habit changes a
+   broad-facet model can produce: an earlier version of this comment claimed
+   that, and an adversarial review in 2026 found it wrong — habit is actually
+   set by the full alphaHK, not sigma0 alone, and once the A prefactor is
+   restored the swap count depends on sigma_surf and can reach three even
+   without the dips (research/libbrecht-figure-findings.md). The two dips still
+   matter, as the measured, independently-motivated mechanism this chapter
+   discusses — just not because sigma0-alone crossings are a proven ceiling.
 
    The crossing temperatures shown are computed here by bisection on those
    printed equations, not read off anything.
@@ -46,9 +56,9 @@
   const sigma0PrismBroad = (t) => 0.015 * t * t + 0.02 * Math.pow(t, 0.6);
 
   const basalDip = (t) =>
-    1 - 0.87 * Math.exp(-Math.pow(Math.log(t) - Math.log(4.5), 2) / 0.07);
+    1 - 0.87 * Math.exp(-Math.pow(Math.log10(t) - Math.log10(4.5), 2) / 0.07);
   const prismDip = (t) =>
-    1 - 0.95 * Math.exp(-Math.pow(Math.log(t) - Math.log(14.4), 2) / 0.06);
+    1 - 0.95 * Math.exp(-Math.pow(Math.log10(t) - Math.log10(14.4), 2) / 0.06);
 
   function sigma0(facet, t, withDips) {
     if (facet === "basal") {
@@ -233,10 +243,11 @@
 
       paintLegend();
       status.textContent = withDips
-        ? cross.length + " crossings — enough to make all three of the habit " +
-          "boundaries the Nakaya diagram shows."
-        : "Only one crossing, at −" + cross[0].toFixed(1) + " °C — so this version can " +
-          "change habit exactly once, and the diagram needs three.";
+        ? cross.length + " crossings from the sigma0-alone comparison — matching the Nakaya " +
+          "diagram's three boundaries in count, though not exactly in place (see the chapter text)."
+        : "Only one sigma0 crossing, at −" + cross[0].toFixed(1) + " °C — but sigma0 alone " +
+          "isn't quite the right thing to compare (see the chapter text), so this is not proof " +
+          "that a broad-facet model can only flip habit once.";
     }
 
     if (bar) {
@@ -250,7 +261,8 @@
       const note = document.createElement("span");
       note.className = "control";
       note.style.color = "var(--ink-muted)";
-      note.textContent = "Without the dips the two curves cross once — one boundary, not three.";
+      note.textContent = "Without the dips the two sigma0 curves cross once — but that count "
+        + "assumes the two facets' A prefactors are equal, which they are not always.";
       bar.appendChild(note);
     }
 

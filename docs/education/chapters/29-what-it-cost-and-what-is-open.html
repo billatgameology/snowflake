@@ -74,6 +74,7 @@
           <li>Explain why a pre-registration only proves itself the first time obeying it <em>costs</em> something.</li>
           <li>Read a prediction against its own outcome &mdash; and say what &ldquo;nearly right&rdquo; earns and what it does not.</li>
           <li>Read a limitations list written by the claimant as the most informative thing on the page &mdash; and write one.</li>
+          <li>Tell a retracted <em>interpretation</em> from a retracted <em>measurement</em>, and say why only one of the two costs you your numbers.</li>
           <li>Tell what a result <em>licenses</em> apart from what it merely suggests.</li>
           <li>Say which of Part One&rsquo;s open questions now carries a number, and which do not.</li>
         </ul>
@@ -87,8 +88,9 @@
         project itself, on the same date the finding was first written into the ledger; all 204
         points were then run again; and the corrected run came in at <strong>3 of 90</strong>, which
         is the number that stands now. Before the re-run existed, somebody wrote down what it would
-        return. The withdrawal and that written-down prediction are the two most useful things in
-        this section, and they arrive in that order.
+        return. Chapter 28 read that 3 as a result; this chapter is the invoice behind it, and the
+        withdrawal and that written-down prediction are the first two lines on it. They arrive in
+        that order.
       </p>
 
       <p>
@@ -378,24 +380,37 @@
       </p>
 
       <p>
-        Two facts make the closing credible. First, the change is confined. A figure caption in one
-        of Libbrecht&rsquo;s own papers (arXiv:2009.08404v2) states that between &minus;10 and
-        &minus;30&nbsp;&deg;C the two prefactors are both about 1 &mdash; so in the cold-plates band
-        <em>&ldquo;the two parameter sets are the same model&rdquo;</em>, and
-        <em>&ldquo;the violation can only have affected roughly &minus;2 to &minus;9&nbsp;&deg;C&rdquo;</em>.
-        Second, the reason the diagram cannot be reproduced has nothing to do with which parameter
-        set is used: it is the counting argument from the last chapter, and
+        Two arguments were offered at the time for why that door could be closed honestly. First,
+        that the change was <em>confined</em>: a figure caption in one of Libbrecht&rsquo;s own
+        papers (arXiv:2009.08404v2) says that between &minus;10 and &minus;30&nbsp;&deg;C the two
+        prefactors are both about 1, so in the cold-plates band
+        <em>&ldquo;the two parameter sets are the same model&rdquo;</em> and the violation
+        <em>&ldquo;can only have affected roughly &minus;2 to &minus;9&nbsp;&deg;C&rdquo;</em>.
+        Second, that the reason the diagram cannot be reproduced has nothing to do with which
+        parameter set is used, because it is a counting argument about two curves &mdash; and
         <code>CAK</code> is a broad-facet parameterization exactly as <code>CAK_A1</code> was.
       </p>
 
       <blockquote class="c29-quote">
         <p>
-          &ldquo;The re-sweep is expected to reproduce the warm plate regime less well and the
-          other two regimes exactly as badly, and <strong>must not be presented as an attempt to
-          fix the columns or cold-plates bands</strong>.&rdquo;
+          &ldquo;The re-sweep is expected to reproduce the warm plate regime less well, and
+          <strong>must not be presented as an attempt to fix the columns or cold-plates
+          bands</strong>.&rdquo;
         </p>
         <p><cite>ADR 0031, <em>Consequences</em></cite></p>
       </blockquote>
+
+      <p>
+        Hold on to both of those arguments, because neither of them lasted. An audit dated
+        2026-07-29 &mdash; the same day the corrected sweep was scored, and so well after both
+        arguments had been written down to license it &mdash; weakened the first and retracted the
+        second outright. Both strikings are now printed inside the decision record itself,
+        immediately above the sentences they cancel; you will meet each of them shortly, at the point
+        in this chapter where it does its damage. The prohibition they were supporting survived both.
+        That is the part worth keeping: a rule can be right for reasons that turn out to be wrong,
+        and the only way anybody ever finds that out is if the reasons were written down somewhere
+        checkable.
+      </p>
 
       <p>
         With that fixed in advance, the re-run was allowed to start.
@@ -404,15 +419,14 @@
       <h2 id="rerun-came-in">The re-run came in</h2>
 
       <p>
-        All 204 points ran again under the registered parameter set, and the report of them carries
-        the provenance a reader is meant to check: protocol
-        <code>8aeb2b80&hellip;</code> with its 25 freeze rows, parameter set <code>CAK</code>,
-        execution commit <code>390fe35</code>, the freeze commit
-        <em>&ldquo;verified an ancestor of the execution commit&rdquo;</em>, exit 0, 204 of 204
-        points, about 20 hours of wall time on six workers, and a sha256 printed for each of the
-        three output files. The raw output still lives in an evidence tree the repository does not
-        track; the hashes of it are the tracked record, which is the project&rsquo;s standing
-        convention for research artifacts.
+        All 204 points ran again under the registered parameter set <code>CAK</code>, against the
+        25-row protocol <code>8aeb2b80&hellip;</code>, and finished clean: exit 0, 204 of 204 points,
+        about twenty hours of wall time on six workers. Chapter 28 reads that provenance table as
+        part of the result; the row this chapter needs off it is the last one, a sha256 printed for
+        each of the three output files. The raw output lives in an evidence tree the repository does
+        not track, so those hashes <em>are</em> the tracked record &mdash; the standing convention
+        here for research artifacts, and the reason a few paragraphs below are about whether a hash
+        can be trusted at all.
       </p>
 
       <blockquote class="c29-quote">
@@ -434,50 +448,42 @@
       </blockquote>
 
       <p>
-        Scored by the same rule, frozen before either run, the four regimes came out like this.
+        How that 3 is distributed, and how the whole measured picture moved with it, is in chapter
+        28&rsquo;s per-regime table rather than repeated here &mdash; that is the corrected sweep read
+        as a result, regime by regime and class by class. Two lines off it are all the bill
+        needs. Warm plates
+        scored 3 of 6, columns 0 of 24, cold plates 0 of 60. And all three agreements sit at
+        &minus;2&nbsp;&deg;C, the single counting temperature in the warmest regime, which the
+        scoring rule had registered <em>pre-sweep</em> as carrying essentially no statistical weight
+        &mdash; <em>&ldquo;precisely so this could not be presented as a result&rdquo;</em>. Three is
+        not a small success; it is three humidity cells at one weightless temperature. What this
+        chapter adds is the price of being allowed to print it.
       </p>
 
-      <div class="table-wrap">
-        <table>
-          <caption>
-            The corrected sweep, per regime. Transcribed from the scored-result table in
-            <code>research/phase6-sweep-report.md</code>. <em>In headline</em> is how many of that
-            regime&rsquo;s points are actually counted &mdash; the &plusmn;1.0&nbsp;&deg;C ambiguity
-            band around each boundary is excluded by the frozen scoring rule.
-          </caption>
-          <thead>
-            <tr>
-              <th>Regime</th><th>Points</th><th>In headline</th><th>Agree</th><th>Neutral</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>plates-warm (T &gt; &minus;3.3&nbsp;&deg;C)</td>
-              <td>12</td><td>6</td><td><strong>3</strong></td><td>7</td>
-            </tr>
-            <tr>
-              <td>columns (&minus;3.3 to &minus;9.9&nbsp;&deg;C)</td>
-              <td>36</td><td>24</td><td><strong>0</strong></td><td>35</td>
-            </tr>
-            <tr>
-              <td>plates-cold (&minus;9.9 to &minus;21.5&nbsp;&deg;C)</td>
-              <td>72</td><td>60</td><td><strong>0</strong></td><td>69</td>
-            </tr>
-            <tr>
-              <td>columns-and-plates (&lt; &minus;21.5&nbsp;&deg;C)</td>
-              <td>84</td><td>0 &mdash; not in the headline</td><td>27 reported</td><td>57</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <p>
+        Two things the twenty hours bought that never appear on the scoreboard. The first is that the
+        change arrived in the <em>shape</em> ADR 0031 said to expect, which is a check on the forecast
+        that survives the count being one point off: the warm end got worse, the cold end kept every
+        habit class it already had &mdash; <em>&ldquo;No <code>plates-cold</code> point changed
+        class&rdquo;</em>, which is what the 0 of 60 rests on &mdash; and nothing anywhere was fixed.
+        The confinement argument itself came back a notch weaker than it had been written. The prism
+        prefactor is 0.830 at &minus;10&nbsp;&deg;C and only reaches 1 at &minus;15, so the two
+        parameter sets do not actually coincide until about &minus;15&nbsp;&deg;C; the
+        violation&rsquo;s reach was roughly &minus;2 to &minus;14&nbsp;&deg;C rather than &minus;2 to
+        &minus;9; and 11 of the 72 points between &minus;10 and &minus;21&nbsp;&deg;C did move, by up
+        to 0.1092 in aspect ratio &mdash; never far enough to cross a class line. &ldquo;The same
+        model&rdquo; was an overstatement of a conclusion that happened to be true.
+      </p>
 
       <p>
-        Over all 204 points the classes total <strong>6 plate, 168 neutral, 30 column, 0
-        invalid</strong>, and 16 points are flagged extent-fragile &mdash; close enough to a class
-        boundary that the registered size-drift bound could move them across it. The cold mixed
-        regime is reported rather than counted, because it accepts both pure shapes and so cannot
-        discriminate; that exclusion was registered before either run, not chosen after seeing that
-        27 points landed there.
+        The second is a measured claim that got <em>stronger</em> for having been made twice.
+        Wherever the model commits to a habit at all, the sequence is plate, then neutral, then
+        column, once, with no return &mdash; one transition where the reference diagram has three
+        &mdash; and that now holds under both parameter sets,
+        <em>&ldquo;which is stronger than holding under one&rdquo;</em>. A score can move when you
+        change the inputs; a measurement that does not move is worth more than the score. What did
+        not survive is the <em>explanation</em> the project had attached to that measurement, and
+        losing it is the largest correction anywhere in Part Two.
       </p>
 
       <aside class="callout callout--myth">
@@ -488,36 +494,28 @@
           Careful
         </p>
         <p>
-          Three is not a small success. It is three points at one temperature.
-          <strong>All three agreements are at &minus;2&nbsp;&deg;C</strong>, the single counting
-          temperature in the warmest regime &mdash; and the scoring rule registered that temperature
-          <em>pre-sweep</em> as carrying essentially no statistical weight,
-          <em>&ldquo;precisely so this could not be presented as a result&rdquo;</em>. The report
-          says the rest plainly: <em>&ldquo;The model agrees with the reference nowhere else inside
-          the headline scope.&rdquo;</em> So the honest reading of 3 of 90 is not &ldquo;the model
-          got a few right&rdquo;. It is a negative result with a rounding error attached to it, and
-          the project built the rule that says so before it knew which way the rounding would go.
+          The pre-registered reason for &ldquo;one transition, never three&rdquo; was a counting
+          argument: a habit boundary needs the two critical-supersaturation curves to swap which
+          facet is stickier, every printed broad-facet pair swaps once, Nakaya needs three
+          &mdash; therefore <em>no</em> broad-facet model could ever produce the diagram, and the
+          bound was said to hold independently of diffusion, grid, seed and far field. On 2026-07-29
+          an eighteen-agent adversarial audit refuted that, and the project reproduced the refutation
+          before recording it. Stickiness is not &sigma;<sub>0</sub> alone but
+          <code>alphaHK = A&middot;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>)</code>,
+          which carries <code>A_prism</code> &mdash; the very parameter this chapter is about. Put it
+          back in and the registered set has <strong>three</strong> swaps for
+          &sigma;<sub>surf</sub> between 0.247% and 0.366%, a band containing 2 of these 204 points;
+          and because the count depends on &sigma;<sub>surf</sub>, which the diffusion solver sets,
+          it was never independent of diffusion. What survives is measured and much narrower: along
+          this sweep&rsquo;s own constant-humidity ladders the swap count is one at the driest row
+          and zero at every wetter one, never three &mdash; so <em>this parameterization, as run,</em>
+          does not reproduce the diagram. An existence result, not a necessity theorem. The
+          retraction is printed at the head of the sweep report, inside ADR 0031 and inside the
+          findings ledger, and it is careful to say what it does <em>not</em> touch: &ldquo;the 3/90
+          headline, the per-regime table, the class totals, the diagram, the artifact hashes &mdash;
+          are <strong>unaffected</strong>. What is retracted is the <em>interpretation</em>.&rdquo;
         </p>
       </aside>
-
-      <p>
-        The <em>shape</em> of the change is the shape ADR 0031 said to expect, which is its own kind
-        of check. Correcting the prism prefactor shrank the plate region and widened the neutral
-        band at the warm end: plate now ends at &minus;4, &minus;3 and &minus;2&nbsp;&deg;C in the
-        three driest rows and vanishes entirely in the wetter ones, while column onset stays exactly
-        where it was, at &minus;19 and &minus;23&nbsp;&deg;C. The cold end did not move, because in
-        that band the two parameter sets are the same model. Nothing was fixed. The warm end got
-        worse and the rest stayed as bad as it was, on the record, in advance.
-      </p>
-
-      <p>
-        And one finding got <em>stronger</em> for having survived both runs. Wherever the model
-        commits to a habit at all, the sequence is plate, then neutral, then column, once, with no
-        return &mdash; one transition where the reference diagram has three. That now holds under
-        both parameter sets, <em>&ldquo;which is stronger than holding under one&rdquo;</em>. The
-        counting argument behind it was registered before either sweep, and it is indifferent to
-        which broad-facet parameterization you feed it.
-      </p>
 
       <aside class="callout callout--open">
         <p class="callout__label">
@@ -596,7 +594,8 @@
 
       <p>
         Below, five claims from that result are printed as rows, and each stated limit is a switch.
-        Turn them on one at a time and watch the counter.
+        One of the ten switches is the retraction from earlier in this chapter, wired to the one
+        claim it actually touches. Turn them on one at a time and watch the counter.
       </p>
 
       <figure class="anim" id="c29-caveats">
@@ -604,7 +603,7 @@
           <p class="anim__title">Turn on the caveats</p>
           <p class="anim__sub">
             Five claims from the corrected sweep &mdash; the current standing evidence &mdash; and
-            nine stated limits. A claim stops counting as unqualified the moment any limit attaches
+            ten stated limits. A claim stops counting as unqualified the moment any limit attaches
             to it.
           </p>
         </div>
@@ -613,10 +612,10 @@
         <figcaption class="anim__foot">
           <span class="built-from">
             Original interactive. The five claims are the corrected sweep&rsquo;s own headline,
-            per-regime and class-total numbers from <code>research/phase6-sweep-report.md</code>.
-            Eight of the nine limits are transcribed from that file &mdash; from
-            &ldquo;What this does NOT establish&rdquo;, from its scored-result section and from the
-            recorded verification hazard; the ninth is from
+            per-regime and validity numbers from <code>research/phase6-sweep-report.md</code>.
+            Nine of the ten limits are transcribed from that file &mdash; from its 2026-07-29
+            retraction header, from &ldquo;What this does NOT establish&rdquo;, from its
+            scored-result section and from the recorded verification hazard; the tenth is from
             <code>docs/stretch-sharing-and-investigation.md</code> &sect;1 (S4), and the
             cross-platform entry carries two further clauses from
             <code>docs/decisions/0031-phase6-paramset-freeze-row.md</code>. Which limit attaches to
@@ -639,9 +638,9 @@
           The switches are not doubts about whether the sweep happened; they are the boundaries of
           the sentence you are allowed to build from it. Notice also which way the limits point.
           Both zeroes have now been arrived at twice, under two different parameter sets, and neither
-          moved: the 60 counted cold-plates points are bit-identical under either set, and every
-          counted point in the columns band sits inside the window the violation touched, so those
-          24 were genuinely re-measured rather than inherited. Nothing on the list would make either
+          moved: not one of the 60 counted cold-plates points changed class between the two runs, and
+          every counted point in the columns band sits inside the window the violation touched, so
+          those 24 were genuinely re-measured rather than inherited. Nothing on the list would make either
           band agree &mdash; and the one limit that used to point at the warm end, the suspect
           &sigma;<sub>0</sub> curve, has since been withdrawn by the project against itself.
         </p>
@@ -699,7 +698,10 @@
           mechanism depends on is about 50&nbsp;nm, and the registered grid cell is 350&nbsp;nm.
           The thing the theory needs is seven times smaller than the smallest thing this model can
           see, so it has to be represented rather than resolved &mdash; and how it is represented
-          has to be written down and frozen before that run, not after.
+          has to be written down and frozen before that run, not after. One thing about that arm did
+          change with the 2026-07-29 retraction, in its favour: with the necessity argument gone,
+          whether any broad-facet model could reproduce the diagram is open again, so the second
+          arm&rsquo;s outcome is <em>genuinely uncertain rather than foregone</em>.
         </p>
       </aside>
 
@@ -806,11 +808,12 @@
       <h2 id="rigour-budget">What the carefulness cost</h2>
 
       <p>
-        The project turns its scepticism on its own method in several places &mdash; three of the
-        working rules carry a line headed <em>Paid for twice</em>, naming the exact work that had
-        to be done again. But the one place it puts a <em>number</em> on what its own carefulness
-        cost is a single bullet in a section called <em>Anti-rules</em> &mdash; a list of things
-        not to do, written by people who had done them.
+        You have met this number already. Chapter 18 read it off the end of the rulebook, out of the
+        <em>anti-rules</em> &mdash; a list of things not to do, written by people who had done them:
+        <em>&ldquo;Integrity has a budget: ceremony ran ~15% of all commits and evidence-hardening
+        ~45% of all rework through Phase 5, with visibly declining yield after WP5.&rdquo;</em> On the
+        ladder it was a percentage with nothing to weigh against it. Here there is something to
+        weigh: three bills have since come in, and all three are itemised on this page.
       </p>
 
       <figure class="chart" id="c29-budget">
@@ -837,19 +840,48 @@
         The instruction attached to those numbers is
         <em>&ldquo;Don&rsquo;t build new adversarial evidence machinery per work package. Reuse the
         existing verifier seams; a new seam is justified only by a new attack surface.&rdquo;</em>
-        Roughly one commit in seven went on ceremony rather than on the thing itself, and almost
-        half of all the redoing was hardening evidence rather than fixing physics &mdash; with, in
-        the project&rsquo;s own words, <strong>visibly declining yield</strong> after a certain
-        point.
+        Now price it against something. The first bill is the one this chapter opened with. An entire
+        204-point sweep, already run, scored and written up, was invalidated by a clause the project
+        had written against itself; about twenty hours of machine time went on producing its
+        replacement; and a better-looking headline was handed back at the same time. Every hour of
+        that is ceremony in the anti-rule&rsquo;s own sense &mdash; not one of it went into the
+        physics, and the physics came out worse for it. That is what the 15% looks like on a single
+        line item, with a real number of hours attached rather than a percentage.
       </p>
 
       <p>
-        That does not undo Part Two. It qualifies it. Rigour is a design problem with trade-offs,
-        not a virtue you can max out, and the same record shows the cost of skimping: one work
-        package paid twice for the same lesson, because a study run at one crystal size was used to
-        justify a decision at another, and its conclusion <em>reversed</em> when re-run at the
-        registered size. Knowing where the knee of that curve is, is itself a skill, and this
-        project would tell you it has not found it.
+        The second bill is what the other side of the trade-off costs, and the record has an entry
+        for that too: one work package paid twice for the same lesson, because a study run at one
+        crystal size was used to justify a decision at another, and its conclusion <em>reversed</em>
+        when it was re-run at the registered size. Three of the working rules now carry a line headed
+        <em>Paid for twice</em>, naming the exact work that had to be done again. That is the same 45%
+        seen from the other end &mdash; rework that only existed because the evidence had not been
+        hardened the first time.
+      </p>
+
+      <p>
+        The third bill is the retraction, and it is the awkward one, because no machinery
+        malfunctioned to produce it. Retracting the structural claim cost an eighteen-agent
+        adversarial audit, a reproduction of that audit before anyone was allowed to record it,
+        retraction notes in three documents, and the narrowing of the most quotable result the project
+        had. What it bought is a single new line in the working rules, and that line is worth more
+        than the claim was: <em>&ldquo;State the measured claim, not the strongest claim.
+        &lsquo;Cannot&rsquo;, &lsquo;every&rsquo;, &lsquo;always&rsquo;, &lsquo;independent
+        of&rsquo;, and &lsquo;provably&rsquo; assert theorems: they require a stated derivation whose
+        quantity and scope are both named &mdash; and the derivation must be about the quantity the
+        claim governs.&rdquo;</em> That last clause is the entire failure. The derivation counted
+        crossings of one quantity; the claim was about a different one. The rule is filed under
+        <em>Paid for twice in two days</em>, which is what it cost.
+      </p>
+
+      <p>
+        None of that undoes Part Two. It qualifies it. Rigour is a design problem with a cost on both
+        sides, not a virtue you can max out: skimp and you pay for the same lesson twice; spend and
+        you buy twenty hours of arithmetic whose only product is a worse headline; spend as hard as
+        this project did and you can still publish a theorem you had not proved. The
+        project&rsquo;s own record says the returns on the spending side are visibly falling. Knowing
+        where the knee of that curve is, is itself a skill, and this project would tell you it has not
+        found it.
       </p>
 
       <h2 id="product-survives">The thing being built</h2>
@@ -927,39 +959,37 @@
           <p class="anim__title">Build the claim</p>
           <p class="anim__sub">
             Pick a verb, pick an object. The meter says whether the evidence on record supports the
-            sentence you built &mdash; and names what would have to exist if it does not.
+            sentence you built &mdash; and names what would have to exist if it does not. One cell
+            now reads <em>withdrawn</em>; before 2026-07-29 it read <em>supported</em>.
           </p>
         </div>
         <div class="anim__body"></div>
         <figcaption class="anim__foot">
           <span class="built-from">
             Original interactive. The verdicts and named artifacts come from
-            <code>docs/findings-ledger.md</code> entries A1 and A2,
-            <code>research/phase6-sweep-report.md</code>, <code>project charter.md</code> &sect;1.5,
-            and the held-out test list in <code>docs/stretch-sharing-and-investigation.md</code>
-            &sect;3.
+            <code>docs/findings-ledger.md</code> entries A1 and A2 and the 2026-07-29 supersession
+            notes on A1, A3 and B2, <code>research/phase6-sweep-report.md</code> including its
+            retraction header and its <em>&ldquo;CORRECTED 2026-07-29&rdquo;</em> note on
+            &minus;5&nbsp;&deg;C, <code>project charter.md</code> &sect;1.5, and the held-out test
+            list in <code>docs/stretch-sharing-and-investigation.md</code> &sect;3.
           </span>
         </figcaption>
       </figure>
 
       <p>
         Three sentences are supported, in ascending order of strength, and each one is pinned to a
-        different artifact.
+        different artifact. Above them sits a rung nobody claims. And one more sentence was on the
+        supported list until 2026-07-29 &mdash; watching that one come off is the most useful thing
+        in the section.
       </p>
 
       <p>
-        <strong>One.</strong> The model implements measured broad-facet attachment physics, and it
-        reproduces the &minus;5&nbsp;&deg;C laboratory measurements those inputs came from.
-        Libbrecht&rsquo;s substrate experiments at that temperature found aspect ratios between
-        0.1 and 1, with
-        columnar crystals absent; the ledger records the sweep&rsquo;s &minus;5&nbsp;&deg;C points
-        at 0.3821 to 1.0000 &mdash; inside that range, columns absent. Those two endpoints happen
-        to bracket both parameter sets: 0.3821 is what the withdrawn run measured at
-        &minus;5&nbsp;&deg;C, and 1.0000 is what the registered one measures &mdash; ADR 0031
-        records the move, at the largest throttle in the whole table. So this claim survives the
-        re-run in a way the headline does not. And the ledger attaches the limit in the same entry:
-        that lab data is upstream of the model&rsquo;s own inputs, so this is a strong consistency
-        check, not independent validation.
+        <strong>One.</strong> The model implements measured broad-facet attachment physics. That is
+        a claim about inputs, and it is the best-evidenced sentence in the project. The prism
+        prefactor anchors were digitized off a printed figure, pixel by pixel, before anybody found
+        the later paper that prints the same curve as an equation; compared afterwards they
+        reproduce it to 8.4% at worst and under 2% typically. An extraction that agrees with a
+        source it could not have peeked at is independently confirmed, not merely self-consistent.
       </p>
 
       <p>
@@ -967,18 +997,23 @@
         that failure is now measured rather than argued: one habit transition where the reference
         needs three, and a band 14 to 19&nbsp;&deg;C wide in which the model declines to commit to
         either shape &mdash; the single largest feature of the measured diagram. That is the sweep
-        report&rsquo;s own finding, it now holds under both parameter sets, and the counting argument
-        behind it was registered before either run.
+        report&rsquo;s own finding and it holds under both parameter sets. Read the subject of the
+        sentence carefully, though, because it shrank on 2026-07-29: <em>this parameterization, as
+        run,</em> does not reproduce the diagram. Whether some other broad-facet parameterization
+        could is open again.
       </p>
 
       <p>
-        <strong>Three.</strong> Therefore the narrow-facet mechanism &mdash; the one Chapter 12
-        offered and Chapter 13 left you holding as a working hypothesis &mdash; is not optional
-        decoration for this diagram, and this is the first time anyone has run the test that shows
-        it. Through July 2026 a literature sweep found that mechanism had never been independently
-        tested by anybody. The framing the project permits itself is exact: <em>first quantitative,
-        pre-registered, full-3D falsification test of a claim that existed only in prose</em>. Not a
-        discovery &mdash; the claim was Libbrecht&rsquo;s, published in words. Nobody had run it.
+        <strong>Three.</strong> The narrow-facet mechanism &mdash; the one Chapter 12 offered and
+        Chapter 13 left you holding as a working hypothesis &mdash; has now been tested, and this is
+        the first time anyone has run that test. Through July 2026 a literature sweep found the
+        mechanism had never been independently tested by anybody. The framing the project permits
+        itself is exact: <em>first quantitative, pre-registered, full-3D falsification test of a
+        claim that existed only in prose</em>. Not a discovery &mdash; the claim was
+        Libbrecht&rsquo;s, published in words. Nobody had run it. What the test does not license is
+        the stronger sentence the project briefly allowed itself, that the mechanism is therefore
+        <em>necessary</em>. One parameterization missing the diagram is an existence result, not a
+        proof that nothing else could hit it.
       </p>
 
       <p>
@@ -987,6 +1022,24 @@
         test on data the model was not built from, and the project&rsquo;s own register lists four
         candidates &mdash; free-fall growth data, facet-rate curves, size-dependent habit, a
         pressure ladder. None has been run.
+      </p>
+
+      <p>
+        <strong>And the one that came off the list.</strong> Until 2026-07-29 there was one more
+        supported sentence: that the model also reproduces Libbrecht&rsquo;s
+        &minus;5&nbsp;&deg;C laboratory measurements, the ones its own inputs came from. His
+        substrate experiments there found aspect ratios between 0.1 and 1 with columnar crystals
+        absent, and the ledger recorded the sweep&rsquo;s &minus;5&nbsp;&deg;C points as landing
+        inside that range. Then somebody read the corrected sweep&rsquo;s own
+        &minus;5&nbsp;&deg;C row: 0.7895, 1.0000, 1.0000, 1.1053, 1.2353, 1.3125. All six neutral;
+        three of them <em>above</em> the ratio of 1 he reported as absent; not one of them a plate,
+        which is what he actually found. The report withdrew the claim in its own text &mdash; at
+        &minus;5&nbsp;&deg;C the model produces <strong>no habit at all</strong>, disagreeing with
+        the diagram <em>and</em> with the bench &mdash; and took a second clause down with it: he
+        never says what radius his aspect ratio is measured against, so whether his number and the
+        model&rsquo;s are even the same quantity is <em>unverified</em>, and an equal-area radius
+        would move his by about 10%. The withdrawn run had measured 0.3821 there and looked like a
+        match. The correction that cost the headline two points cost this claim all of it.
       </p>
 
       <h2 id="back-to-the-frontier">Back to the frontier</h2>
@@ -1012,11 +1065,16 @@
         cannot explain the diagram&rdquo; was a sentence in a paper. Now it has a number attached:
         3 of 90, with all three of those agreements sitting at the single temperature the scoring
         rule had already declared weightless before anyone ran anything; columns 0 of 24; cold
-        plates 0 of 60; zero invalid runs in 204, twice over &mdash; and a structural argument that
-        says no amount of tuning the grid, the seed, the box or the diffusion can fix it, because
-        none of those things reorders the two curves. The missing mechanism is now measurably not
-        optional. That is one open question carrying a measurement it did not carry before. The other
-        questions on that clock carry exactly what they carried.
+        plates 0 of 60; zero invalid runs in 204, twice over &mdash; and, measured over five seed
+        shapes, the finding that no knob which is the same at every temperature can rescue it,
+        because the two failing bands need opposite pushes and a seed pushes both the same way.
+        Then notice what that list no longer contains. It does not contain a proof that <em>no</em>
+        broad-facet model could do better; that argument was retracted on the same day the sweep was
+        scored. One parameterization has been tested, thoroughly, under a scheme sealed in advance,
+        and it failed. That is one open question carrying a measurement it did not carry before. The
+        other questions on that clock carry exactly what they carried &mdash; and one of them,
+        whether the broad-facet picture could ever have been enough on its own, was closed for
+        precisely one day and is open again.
       </p>
 
       <p>
@@ -1028,8 +1086,16 @@
         against the very diagram it would be reproducing, and the width scale it depends on is seven
         times smaller than this grid can see. The provenance hazard is recorded and unfixed, so the
         commit hash on that report is trustworthy because of a diff somebody ran, not because of a
-        mechanism that would have caught it. And no human domain scientist has read any of this: not
-        the sweep, not the code, not the charter, and not this page.
+        mechanism that would have caught it. The interpretation the project had built on top of these
+        numbers was retracted on the same day they were scored, which leaves the measurements exactly
+        where they were and the meaning of them thinner than it looked. And no human domain scientist
+        has read any of this: not the sweep, not the code, not the charter, and not this page.
+      </p>
+
+      <p class="c29-aside">
+        Every repository file quoted in Part Two is named where it is quoted, so any sentence on these
+        sixteen pages can be checked against the thing it came from; the papers and the monograph
+        behind Part One are listed on the <a href="../references.html">references page</a>.
       </p>
 
       <aside class="callout callout--key">
@@ -1043,8 +1109,10 @@
           The machinery in Part Two was not built to make the model right. It was built so that
           when the model came out wrong, you could tell whether the fault was in the theory or in
           the code &mdash; and the answer, in the findings ledger&rsquo;s own phrase, is
-          <em>the signature of a correct implementation of an insufficient theory</em>. That
-          separation is the achievement. The score is just where it happened to land.
+          <em>the signature of a correct implementation of an insufficient theory</em>, with
+          &ldquo;insufficient&rdquo; now scoped, after the retraction, to the parameterization that
+          was actually run rather than to every one that could be. That separation is the
+          achievement. The score is just where it happened to land.
         </p>
       </aside>
 
@@ -1073,8 +1141,16 @@
       <p class="handoff">
         That is the end of the story so far, which is a strange place to stop and exactly the right
         one: the interesting things in science are the sentences somebody has not been able to write
-        yet. Every repository file quoted in Part Two is named where it is quoted; the papers and
-        the monograph behind Part One are listed on the references page.
+        yet. So take chapter 13&rsquo;s last instruction, which has been waiting sixteen chapters for
+        you. The next time it snows on a cold day &mdash; the big stars grow near
+        &minus;15&nbsp;&deg;C up in the cloud, so cold days are when they reach the ground intact
+        &mdash; take a magnifier and a piece of dark card outside and look. It is a better invitation
+        now than it was then, because you know what is landing on the card: a lattice choosing its own
+        shape one molecule at a time, and choosing it in a way that the model in Part Two &mdash; built
+        from published laboratory measurements of how ice sticks to ice, and marked against a scheme
+        sealed before it ran &mdash; reproduces at three of ninety counting points, all three at a
+        single temperature that scheme had already called weightless, in a result that is not finished
+        being checked. The field is small enough that careful looking still counts.
       </p>
 
       <nav class="chapter-nav" aria-label="Chapter navigation">
@@ -1116,6 +1192,10 @@
   color: var(--ink-primary); overflow-wrap: anywhere;
 }
 .c29-note { font-size: var(--step--1); color: var(--ink-secondary); line-height: 1.55; margin: 0; }
+.c29-aside {
+  font-size: var(--step--1); color: var(--ink-muted); line-height: 1.55;
+  margin: 0 0 1.5em; padding-left: 0.9rem; border-left: 2px solid var(--rule);
+}
 .c29-stack { display: grid; gap: 0.85rem; }
 .c29-panel {
   border: 1px solid var(--rule); border-radius: 8px;
@@ -1267,7 +1347,7 @@
       [
         "The frozen protocol registers the prism prefactor as interpolated, not constant.",
         "All 204 runs used the constant value, via a command-line default the freeze did not cover.",
-        "The 204-point sweep took about 17 hours on 6 workers.",
+        "The 204-point sweep has already run, scored, and been written up.",
         "The measured headline is 5 of 90."
       ].forEach(function (t) { ul.appendChild(el("li", null, t)); });
       facts.appendChild(ul);
@@ -1638,11 +1718,12 @@
 
   /* ==========================================================================
      3 — TURN ON THE CAVEATS
-     The five claims are the corrected sweep's own numbers. Eight of the nine
-     limits come from research/phase6-sweep-report.md — its "What this does NOT
-     establish" list, its scored-result section, and the recorded verification
-     hazard; the ninth comes from the stretch register §1 (S4), and the
-     cross-platform entry carries two clauses from ADR 0031.
+     The five claims are the corrected sweep's own numbers. Nine of the ten
+     limits come from research/phase6-sweep-report.md — its 2026-07-29 retraction
+     header, its "What this does NOT establish" list, its scored-result section,
+     and the recorded verification hazard; the tenth comes from the stretch
+     register §1 (S4), and the cross-platform entry carries two clauses from
+     ADR 0031.
      ====================================================================== */
   (function () {
     var root = document.getElementById("c29-caveats");
@@ -1679,6 +1760,18 @@
               "Nine commits landed during this run; the diff over the physics directories was " +
               "verified empty, so this sweep is unaffected — “That was luck, not design.” The " +
               "fix is outstanding." },
+      { on: false, hits: ["k4"],
+        head: "The explanation for this one was retracted a day after the numbers landed.",
+        body: "The measurements are untouched — “the 3/90 headline, the per-regime table, the " +
+              "class totals, the diagram, the artifact hashes — are unaffected. What is retracted " +
+              "is the interpretation.” What went was the bound: the crossing count had been " +
+              "computed on σ₀ alone, while habit depends on the ordering of " +
+              "alphaHK = A·exp(−σ₀/σ_surf), which carries A_prism. With it included the " +
+              "registered set has three alphaHK crossings for σ_surf in [0.247%, 0.366%] — a band " +
+              "containing 2 of these 204 points — and the count depends on σ_surf, which " +
+              "diffusion sets, so it was never “independent of diffusion”. What survives: along " +
+              "this sweep’s own constant-f ladders the reversal count is 1 at f = 0.10 and 0 at " +
+              "every larger f, never 3. An existence result, not a necessity theorem." },
       { on: false, hits: ["k1", "k2a", "k2b"],
         head: "Habit was measured at one crystal size.",
         body: "“Habit is measured at extent 21, and habit is size-dependent. 16 points sit " +
@@ -1938,7 +2031,8 @@
       "what nature grows at a given temperature"
     ];
 
-    var SUPPORTED = "supported", MISLABELLED = "mislabelled", OVER = "over-reaching";
+    var SUPPORTED = "supported", MISLABELLED = "mislabelled", OVER = "over-reaching",
+        WITHDRAWN = "withdrawn";
 
     /* rows = verb, cols = object */
     var GRID = [
@@ -1956,14 +2050,17 @@
       [ /* reproduces */
         { v: MISLABELLED, t: "These curves are what goes in. You cannot reproduce your own input " +
             "— that is the check the project calls self-consistency and refuses to count." },
-        { v: SUPPORTED, t: "Ledger entry A1. His substrate experiments at −5 °C found " +
-            "aspect ratios between 0.1 and 1 with columnar crystals absent; the sweep’s " +
-            "−5 °C points land at 0.3821–1.0000, columns absent. Those endpoints bracket both " +
-            "parameter sets — 0.3821 is the withdrawn run’s −5 °C value, 1.0000 the registered " +
-            "one’s (ADR 0031 records the move, at the table’s largest throttle) — so this claim " +
-            "survived the re-run in a way the headline did not. The limit the " +
-            "ledger attaches in the same entry: that lab data is upstream of the model’s own " +
-            "inputs, so this is a consistency check, not independent validation." },
+        { v: WITHDRAWN, t: "This was a supported claim until 2026-07-29, on ledger entry A1: his " +
+            "substrate experiments at −5 °C found aspect ratios between 0.1 and 1 with columnar " +
+            "crystals absent, and the withdrawn run’s −5 °C value of 0.3821 sat inside that range. " +
+            "The corrected sweep’s own −5 °C row is 0.7895 / 1.0000 / 1.0000 / 1.1053 / 1.2353 / " +
+            "1.3125 — all six neutral, three of them above the ratio of 1 he reported as absent, " +
+            "and not one of them a plate, which is what he found. The report withdrew the claim: at " +
+            "−5 °C the model produces no habit at all, “disagreeing with the diagram AND with his " +
+            "measurements”. It also flagged that he never defines the radius behind his aspect " +
+            "ratio, so the equivalence with the model’s AR is unverified — an equal-area radius " +
+            "would move his by about 10%. Even at its best this was a consistency check rather " +
+            "than independent validation, because that lab data is upstream of the model’s inputs." },
         { v: OVER, t: "Measured false. The corrected sweep scores 3 of 90, columns 0 of 24, cold " +
             "plates 0 of 60 — and all three of those agreements sit at −2 °C, the one counting " +
             "temperature the scoring rule had already registered as carrying essentially no " +
@@ -1977,7 +2074,8 @@
         { v: MISLABELLED, t: "Prediction is about outputs. These are the inputs." },
         { v: OVER, t: "Prediction means the answer was not available when the model was built. " +
             "These measurements are upstream of the model’s inputs, so agreement here cannot " +
-            "be a prediction however well it lands." },
+            "be a prediction however well it lands — and since 2026-07-29 it does not land " +
+            "either: see the verdict on “reproduces”." },
         { v: OVER, t: "Over-reaching and measured false in the same sentence. The sweep is the " +
             "test of this claim, and it came back negative: one habit transition where the " +
             "reference needs three, 0 of 24 in the columns band, 0 of 60 in the cold-plates band, " +
@@ -2001,10 +2099,13 @@
       var cell = GRID[vi][oi];
       sentence.textContent = "“This model " + VERBS[vi] + " " + OBJECTS[oi] + ".”";
       meter.textContent = "";
-      var colour = cell.v === SUPPORTED ? c.good : cell.v === OVER ? c.critical : c.muted;
+      var colour = cell.v === SUPPORTED ? c.good
+        : (cell.v === OVER || cell.v === WITHDRAWN) ? c.critical : c.muted;
       meter.style.color = colour;
       meter.appendChild(el("b", null,
-        cell.v === SUPPORTED ? "Supported" : cell.v === OVER ? "Over-reaching" : "Mislabelled"));
+        cell.v === SUPPORTED ? "Supported"
+          : cell.v === WITHDRAWN ? "Withdrawn 2026-07-29"
+          : cell.v === OVER ? "Over-reaching" : "Mislabelled"));
       meter.appendChild(el("span", null, cell.t));
 
       Array.prototype.forEach.call(vRow.children, function (btn, i) {

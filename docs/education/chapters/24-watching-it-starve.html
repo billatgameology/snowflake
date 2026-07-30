@@ -551,12 +551,21 @@
       </blockquote>
 
       <p>
-        Pass A contains no physics claim at all. Its habit sweep moves one abstract knob — a single
-        threshold slot, <code>ggThreshBeta(0,1) = 3 &minus; 2u</code> for <code>u</code> at five
-        evenly spaced values — with "every other scalar and vector slot byte-identical across the
-        five runs". If the plate that comes out at one end and the column at the other are correctly
-        measured as a plate and a column, and the three steps in between move the right way, then
-        those rulers work. Its other scenarios do the same job for the depletion metric, the two
+        Pass A contains no physics claim at all. Its habit sweep turns one abstract knob from one
+        end of its range to the other, in five equal steps. The plan writes that knob
+        <code>u</code>: an "abstract columnarity control" running from 0 to 1, taking the values
+        <code>u = [0, 0.25, 0.5, 0.75, 1]</code>. <code>u</code> is not a temperature and not any
+        other physical quantity — it is a dial with no units, and its only job is to set one number
+        inside the borrowed threshold rule: the basal attachment threshold
+        <code>ggThreshBeta(0,1) = 3 &minus; 2u</code>, so the five runs use the thresholds
+        <code>[3, 2.5, 2, 1.5, 1]</code>. That single slot is the plate&harr;column axis of chapter
+        18's borrowed rule: a high basal threshold means the top and bottom faces accept vapour
+        reluctantly and growth goes sideways into a plate, a low one means they accept it easily and
+        growth goes up into a column. So <code>u = 0</code> is the plate end of the sweep and
+        <code>u = 1</code> the column end, and everything else is held still — "every other scalar
+        and vector slot byte-identical across the five runs". If the plate that comes out at one end
+        and the column at the other are correctly measured as a plate and a column, and the three
+        steps in between move the right way, then those rulers work. Its other scenarios do the same job for the depletion metric, the two
         hollowness numbers, the cap score and the branch counter. That is all Pass A is for.
       </p>
 
@@ -569,7 +578,9 @@
           <p class="anim__title">Certify your ruler</p>
           <p class="anim__sub">
             Six instrument checks. Certify the ones that meet their registered requirement, reject
-            the one that does not — then the physics run unlocks.
+            the one that does not — then the physics run unlocks. (<code>u</code> is the unitless
+            columnarity knob from above: <code>u = 0</code> is the plate end of the sweep,
+            <code>u = 1</code> the column end.)
           </p>
         </div>
         <div class="anim__body"></div>
@@ -653,7 +664,7 @@
             <tr><td>records</td><td class="num">24 / 24 green</td><td class="num">12 / 12 execution records green</td></tr>
             <tr><td>plate / column aspect ratio</td><td class="num">0.0666667 / 1.66667</td><td>&#10003; diagnostic pass — habit endpoints invert</td></tr>
             <tr><td>five-point sweep</td><td>strictly increasing</td><td>&#10003; diagnostic pass — non-decreasing</td></tr>
-            <tr><td>column endpoint solid</td><td>hollowness 0 and sealed void 0 at the <code>u = 1</code> endpoint</td><td>&#10003; diagnostic pass — cold endpoint solid</td></tr>
+            <tr><td>column endpoint solid</td><td>hollowness 0 and sealed void 0 at the <code>u = 1</code> endpoint (the column end of the sweep)</td><td>&#10003; diagnostic pass — cold endpoint solid</td></tr>
             <tr><td>depletion median</td><td class="num">0.770238, 7/7 samples below one</td><td>&#9651; honest miss</td></tr>
             <tr><td>transverse widening</td><td class="num">width 7 &rarr; 13</td><td>&#9651; honest miss</td></tr>
             <tr><td>hollowing</td><td>three distinct reproducible open-hollow occupancies</td><td>&#9651; honest miss</td></tr>
@@ -965,11 +976,11 @@
     var lo = rampRgb[Math.floor(x)];
     var hi = rampRgb[Math.min(rampRgb.length - 1, Math.ceil(x))];
     var f = x - Math.floor(x);
-    var alpha = 0.85 * d;
+    var alpha = 0.85 * d; // rule7-waive: canvas alpha-compositing (opacity) factor for the depletion colour ramp, not the physics attachment coefficient
     var out = [0, 0, 0];
     for (var n = 0; n < 3; n++) {
       var mix = lo[n] + (hi[n] - lo[n]) * f;
-      out[n] = Math.round(surfaceRgb[n] + (mix - surfaceRgb[n]) * alpha);
+      out[n] = Math.round(surfaceRgb[n] + (mix - surfaceRgb[n]) * alpha); // rule7-waive: same rendering opacity factor as above, not physics
     }
     return "rgb(" + out[0] + "," + out[1] + "," + out[2] + ")";
   }
@@ -1590,15 +1601,15 @@
 
     var cards = [
       { tool: "aspectRatio", crit: "A-HABIT-ENDPOINTS",
-        req: "aspect ratio at u = 0 must be ≤ 0.3",
+        req: "aspect ratio at u = 0 — the plate end of the unitless columnarity knob — must be ≤ 0.3",
         val: "measured 0.0666667", certify: true,
         why: "A plate. The instrument reads well under the bar, so it can tell a plate when it sees one." },
       { tool: "aspectRatio", crit: "A-HABIT-ENDPOINTS",
-        req: "aspect ratio at u = 1 must be ≥ 1.5",
+        req: "aspect ratio at u = 1 — the column end of the same knob — must be ≥ 1.5",
         val: "measured 1.66667", certify: true,
         why: "A column, from the same solver with one threshold slot changed. Same ruler, opposite verdict." },
       { tool: "aspectRatio", crit: "A-HABIT-MONOTONE",
-        req: "AR strictly increasing at every consecutive u — “Equal adjacent values fail; no post-hoc tolerance or isotonic fit is allowed”",
+        req: "AR strictly increasing at every consecutive u — every adjacent pair in the knob's five-value sweep, 0 → 0.25 → 0.5 → 0.75 → 1 — with “Equal adjacent values fail; no post-hoc tolerance or isotonic fit is allowed”",
         val: "measured: a strictly increasing five-point sweep", certify: true,
         why: "The instrument tracks a continuous change, not just the two ends. And note what is banned: no smoothing after the fact." },
       { tool: "crossSectionHollowness", crit: "A-HABIT-SOLID",

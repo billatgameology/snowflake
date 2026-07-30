@@ -110,6 +110,16 @@
       </blockquote>
 
       <p>
+        &ldquo;Committed&rdquo; there is the version-control sense, and it is worth a sentence
+        because a number later in this chapter is measured in these units. The project&rsquo;s files
+        live in <strong>git</strong>, which keeps their history as a chain of snapshots; each
+        snapshot is a <strong>commit</strong>. Committing the plan first puts the finish line into
+        that chain before any result exists to shape it. Chapter 27 needs a sharper version of that
+        &mdash; how a commit gets its name, and why a place in the chain cannot be back-dated &mdash;
+        and builds one. The chain is enough here.
+      </p>
+
+      <p>
         The template every plan file starts from repeats the instruction and then says what to do
         with the temptation: &ldquo;Copy the charter&rsquo;s &lsquo;done when&rsquo; for this
         milestone <strong>verbatim</strong>. If the charter has none, write one as a metric with a
@@ -156,6 +166,42 @@
           &ldquo;CPU reference solver&rdquo; (§3.2, line 245).</span>
         </figcaption>
       </figure>
+
+      <p>
+        One word needs pinning down before the table, because the rest of Part Two leans on it hard.
+        A <strong>gate</strong> is a written pass/fail condition, fixed before the work starts, that
+        a phase has to meet before its results are allowed to count as evidence. From Phase 2a
+        onward every one of them is an automated metric: a threshold registered in advance, a
+        measured value set against it, and a command anyone can re-run. That is the whole
+        definition. Later chapters shorten it &mdash; chapter 22 needs it in half a line &mdash; but
+        shortening is not redefining, and that sentence is what they mean.
+      </p>
+
+      <p>
+        Chapter 14 introduced a gate as a check that blocks a phase from starting until the previous
+        one has met it. That is what a gate usually does, and it is a fair picture of the ordinary
+        case, but it is not the rule &mdash; and two things about the table below will look like the
+        project breaking its own rule if you hold on to it. The load-bearing word is
+        <em>counting</em>, not <em>starting</em>. Take the two departures in turn.
+      </p>
+
+      <p>
+        First, Phases 0 and 1 have no metric underneath them at all. Their gates are still written
+        pass/fail conditions fixed before the work started &mdash; five things you have to be able to
+        do; one question you have to be able to answer with evidence &mdash; but no program can test
+        either, so the maker&rsquo;s word is the evidence, and the table says so on its own face
+        instead of dressing those rows up as measurements. That is a labelled exception, not a lapse,
+        and the section &ldquo;Two rungs no computer can check&rdquo; below is entirely about it
+        &mdash; including the part where the protocol that was supposed to supply Phase 1&rsquo;s
+        evidence was not run.
+      </p>
+
+      <p>
+        Second, the dates at the end of this chapter show rungs closing out of order: Phase 4&rsquo;s
+        gate closed on 2026-07-18, before Phase 2b&rsquo;s and Phase 3&rsquo;s, each time under a
+        numbered written exception. So an unmet gate did not stop the next phase from starting. What
+        it always stops is that phase&rsquo;s own results from being cited as evidence.
+      </p>
 
       <p>
         Below is that table&rsquo;s own content: the gate for each rung, and its recorded status.
@@ -691,54 +737,91 @@
       </p>
 
       <p>
-        That is not the ladder being ignored; it is the ladder being bent on the record. The
-        opening paragraph of §3.2 sets out the default and the ordering exceptions granted so far:
+        That is not the ladder being ignored; it is the ladder being bent on the record. The opening
+        paragraph of §3.2 sets the default in one sentence, and then spends the rest of itself on the
+        exceptions to it:
       </p>
 
       <blockquote class="callout">
         <p>
           &ldquo;Phases 1 and 2 can run in parallel; everything else is sequential except where an
-          accepted, maker-directed ADR records narrower independence. Decisions 0007 and 0008
-          allowed Phase 3&rsquo;s development visualization to complete independently of Phase 2b.
-          Decision 0010 allows Phase 4 to proceed while Phase 3 awaits external assertion and Phase
-          2b&rsquo;s v4 evidence run finishes: external processes and artifacts are immutable, no
-          claim is borrowed, relevant upstream corrections must be integrated and rerun before
-          Phase 4 evidence, and the exception ends with Phase 4.&hellip;&rdquo;
+          accepted, maker-directed ADR records narrower independence.&rdquo;
           <br><span class="figure__source">snowflake repository, project charter.md &mdash;
-          &sect;3.2, opening paragraph (line 237), first three sentences of five</span>
+          &sect;3.2, opening paragraph (line 237), first sentence of five</span>
         </p>
       </blockquote>
 
       <p>
-        That ellipsis is doing real work, so here is what it hides. The paragraph has one more
-        exception in it, and it is not about order at all. &ldquo;Phase 4 began in an isolated
-        worktree&rdquo; &mdash; a second working copy of the repository, kept apart from the main
-        one &mdash; and when that copy was folded back in, the charter records that decision 0012
-        &ldquo;permits v2 only on <code>main</code> in the current Windows repository while
-        preserving every isolation constraint on the separate Phase 2b process and evidence&rdquo;
-        (line 237). <code>v2</code> is Phase 4&rsquo;s second, re-run version of its evidence. So
-        that exception moved <em>where</em> the work was allowed to happen, not <em>when</em>.
-        After it, the paragraph ends on the sentence this chapter opened with: &ldquo;Each
-        milestone has a done when.&rdquo;
+        Three exceptions have been granted so far, and none of them is a shrug. <strong>The
+        first</strong> let Phase 3&rsquo;s development viewer finish without waiting for Phase 2b:
+        the viewer draws whatever the solver hands it, so what it draws does not depend on which
+        surface rule is running underneath. <strong>The second</strong> let Phase 4 start while Phase
+        3 was still waiting on an outside assertion &mdash; a sign-off the phase could not generate
+        for itself &mdash; and while Phase 2b&rsquo;s evidence run was still going. It came with three
+        conditions and an end date. The other phase&rsquo;s
+        processes and artifacts are immutable; no claim may be borrowed from them; any correction
+        upstream must be folded in and the run repeated before Phase 4&rsquo;s evidence counts; and
+        &ldquo;the exception ends with Phase 4&rdquo;. <strong>The third</strong> is not about order
+        at all. Phase 4 had begun in an isolated <strong>worktree</strong> &mdash; a second working
+        copy of the repository, kept apart from the main one &mdash; and when that copy was folded
+        back in, the exception permitted Phase 4&rsquo;s second evidence run &mdash; the v2 run the
+        gate table&rsquo;s 2026-07-18 entry cites &mdash; &ldquo;only on <code>main</code> in the
+        current Windows repository while preserving every isolation constraint on the separate Phase
+        2b process and evidence&rdquo;. It moved <em>where</em> the work was allowed to happen, not
+        <em>when</em>. After all three, the paragraph ends on the sentence this chapter opened with:
+        &ldquo;Each milestone has a done when.&rdquo;
+      </p>
+
+      <p class="figure__source">
+        The three, in order: decisions 0007 and 0008; decision 0010; decision 0012 &mdash; all named
+        in project charter.md &sect;3.2, line 237, which is also where the quoted fragments come from.
       </p>
 
       <p>
-        Read the shape of those exceptions, not the detail. Each is <strong>numbered</strong>, so
-        it can be looked up. Each states its <strong>boundaries</strong> &mdash; what may not be
-        borrowed, what must be re-run, what stays walled off. And decision 0010 states its
-        <strong>expiry</strong> in six words: <em>the exception ends with Phase 4</em>. An
-        exception with no end date is not an exception; it is a quiet amendment.
+        Three exceptions, one shape. Each is <strong>numbered</strong>, so a stranger can go and read
+        the argument rather than take the outcome on trust. Each states its
+        <strong>boundaries</strong> &mdash; what may not be borrowed, what must be re-run, what stays
+        walled off. And one of the three states its own <strong>expiry</strong>, in six words:
+        <em>the exception ends with Phase 4</em>. An exception with no end date is not an exception;
+        it is a quiet amendment.
       </p>
 
       <p>
-        It would be a poor advertisement for all this to pretend it is free. The rulebook closes
-        with a set of anti-rules &mdash; things not to do &mdash; and the last of them contains a
-        measurement of the project&rsquo;s own overhead: &ldquo;Integrity has a budget: ceremony ran
-        ~15% of all commits and evidence-hardening ~45% of all rework through Phase 5, with visibly
-        declining yield after WP5.&rdquo; (<code>AGENTS.md</code>, lines 426&ndash;428). Roughly one
-        commit in seven was process, and nearly half the rework was spent hardening evidence rather
-        than producing it &mdash; and the file says the returns are falling. Whether that price is
-        worth paying is a live question, and the project logs it as one rather than settling it.
+        It would be a poor advertisement for all this to pretend it is free. The rulebook closes with
+        a set of anti-rules &mdash; things not to do &mdash; and the last of them tells you not to
+        build fresh evidence machinery for every new piece of work (&ldquo;Reuse the existing
+        verifier seams; a new seam is justified only by a new attack surface&rdquo;), then attaches a
+        measurement of what the machinery has already cost:
+      </p>
+
+      <blockquote class="callout">
+        <p>
+          &ldquo;Integrity has a budget: ceremony ran ~15% of all commits and evidence-hardening
+          ~45% of all rework through Phase 5, with visibly declining yield after WP5.&rdquo;
+          <br><span class="figure__source">snowflake repository, AGENTS.md &mdash; the last
+          anti-rule, lines 426&ndash;428</span>
+        </p>
+      </blockquote>
+
+      <p>
+        Three of those words are the project&rsquo;s own shorthand. <strong>Commits</strong> are the
+        history&rsquo;s snapshots, from the top of this chapter, so &ldquo;~15% of all commits&rdquo;
+        says roughly one saved step in seven carried process rather than progress: a plan file, a
+        decision record, a freeze. <strong>Rework</strong> is effort spent redoing work already
+        done &mdash; a run re-executed, an evidence bundle rebuilt, a gate closed a second time.
+        <strong>WP5</strong> is work package 5: each phase&rsquo;s plan is cut into numbered work
+        packages, and in both Phase 5 and Phase 6 the one numbered 5 is the evidence package &mdash;
+        run the registered command at one clean commit, authenticate the artifacts, and get an
+        independent reviewer to sign them off. The WP5 in that sentence is Phase 5&rsquo;s, which is
+        closed. Chapters 28 and 29 need the same abbreviation for Phase 6&rsquo;s, which has not run,
+        and that is why the current Phase 6 numbers are not yet gate evidence.
+      </p>
+
+      <p>
+        So the measurement reads: nearly half the rework went on hardening evidence rather than on
+        producing new results, and past the point where the verification machinery existed, building
+        more of it visibly bought less. Whether that price is worth paying is a live question, and
+        the project logs it as one rather than settling it.
       </p>
 
       <aside class="callout callout--key">

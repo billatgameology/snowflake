@@ -315,13 +315,16 @@
       </p>
 
       <p>
-        One piece of vocabulary before the evidence. The repository version-numbers this arithmetic
-        the way software gets a version, calls it a <strong>surface policy</strong>, and writes it
-        into every saved run <em>&ldquo;precisely so numerics cannot be mixed across
-        versions&rdquo;</em> (ADR&nbsp;0023, Context). Gather order is policy
-        <code>aggregate-hv-g1h1-v5</code> &mdash; <em>v5</em>, with <em>v4</em> before it; the sorted
-        one is <em>v6</em>. Read &ldquo;a v5 grid point&rdquo; as &ldquo;a run made under the old
-        summation order&rdquo;.
+        So there are now two summation rules in play, and the rest of this chapter compares them.
+        This page names them by what they do: the <strong>gather order</strong>, which adds the
+        operands in the sequence the code walks the neighbours, and the <strong>sorted order</strong>,
+        which adds them smallest first. The quoted lines below use different names, so here is the
+        one piece of vocabulary you need. The repository treats each summation rule the way software
+        treats a version &mdash; it is a named <strong>surface policy</strong>, stamped into every
+        saved run <em>&ldquo;precisely so numerics cannot be mixed across versions&rdquo;</em>
+        (ADR&nbsp;0023, Context) &mdash; and it numbers them. The whole mapping is one line:
+        <strong>v4 and v5 are the gather order; v6 is the sorted order.</strong> So read &ldquo;a v5
+        grid point&rdquo; as &ldquo;a run made under the gather order&rdquo;.
       </p>
 
       <aside class="callout callout--myth">
@@ -440,12 +443,12 @@
         <p>
           That distinction is what lets the decision record say two things that sound
           contradictory. The field asymmetry is &ldquo;chronic&rdquo; &mdash; and yet the two
-          re-run v5 grid points <em>&ldquo;returned <code>deltaSymClean=true</code> for both. They
+          re-run gather-order grid points <em>&ldquo;returned <code>deltaSymClean=true</code> for both. They
           were genuinely clean runs, not lucky stops.&rdquo;</em> On the evidence that the field
           defect is chronic, a field check would very likely have called those two runs broken
           &mdash; the record does not say, because it did not check their field.
           The attachment-delta check called them clean, and it was right to.
-          The rule that comes out of it is stated flatly: a v4/v5 <code>symErr = 0</code>
+          The rule that comes out of it is stated flatly: a gather-order <code>symErr = 0</code>
           <em>&ldquo;is a snapshot at the stop instant and does not establish that the run stayed
           symmetric, whereas <code>deltaSymClean</code> does&rdquo;</em>. So both checks are kept,
           and the per-tick one is reported on every line the run prints.
@@ -720,7 +723,8 @@
         it reaches the same state v5 does at this scale&rdquo;</em>
         (solver-cpu/test/lk-solver.test.ts:1182). That is one scale, not a guarantee. On the
         configuration that opened the investigation the attached count moved 765 to 749, and the
-        record refuses to let that pass as noise: <em>&ldquo;v6 will differ from v5 wherever the
+        record refuses to let that pass as noise &mdash; every number measured under the gather order
+        has to be measured again: <em>&ldquo;v6 will differ from v5 wherever the
         split orbits fall differently, and any v5 calibration number carried forward has to be
         re-measured rather than assumed.&rdquo;</em> What was changed was the order of an addition.
         What that does to any particular crystal still has to be measured. It also cost about 5% in
@@ -800,14 +804,14 @@
         <table>
           <caption>
             The two summation orders, side by side. Numbers from
-            docs/decisions/0023-d6h-equivariant-opposing-vapor-mean.md; policy names are the
-            repository&rsquo;s own.
+            docs/decisions/0023-d6h-equivariant-opposing-vapor-mean.md, which calls the left-hand
+            column v4 and v5 and the right-hand one v6.
           </caption>
           <thead>
             <tr>
               <th>&nbsp;</th>
-              <th>gather order (v4, v5)</th>
-              <th>ascending value order (v6)</th>
+              <th>the gather order</th>
+              <th>the sorted order</th>
             </tr>
           </thead>
           <tbody>
@@ -833,7 +837,9 @@
             </tr>
             <tr>
               <td>Kept because</td>
-              <td>Phase 2b and Phase 4b evidence was produced under them</td>
+              <td>Phase 2b and Phase 4 Pass B evidence was produced under them
+                &mdash; Pass B is Phase&nbsp;4&rsquo;s diagnostic physics run, the subject of
+                chapter&nbsp;24; the record writes it &ldquo;Phase 4b&rdquo;</td>
               <td>it is the policy the validation sweep registers</td>
             </tr>
           </tbody>
@@ -877,8 +883,8 @@
   <div class="shell">
     <p>
       Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
-      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
-      from a local research cache under citation; they are not redistributed with this repository.
+      snowflake formation. Part Two describes a software project; every figure in it is original,
+      and every quoted line names the repository file it came from.
     </p>
     <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
   </div>

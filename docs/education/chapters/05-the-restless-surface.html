@@ -68,7 +68,7 @@
         <ul>
           <li>Describe an ice surface as a staircase of molecular terraces separated by one-molecule steps.</li>
           <li>State the counterintuitive core of faceting: flat faces survive because they are the <em>worst</em> at growing.</li>
-          <li>Define the attachment coefficient &alpha;, and say what nucleation barrier stands behind it.</li>
+          <li>Define the attachment coefficient, written <code>alphaHK</code> in this project, and say what nucleation barrier stands behind it.</li>
           <li>Rule out the &ldquo;lowest surface energy&rdquo; explanation of faceting using three independent checks.</li>
           <li>Explain why a snow crystal at &minus;5&nbsp;&deg;C is a rigid lattice wearing a slushy skin.</li>
           <li>Separate crystallography &mdash; solved &mdash; from crystal growth, which is not.</li>
@@ -220,7 +220,7 @@
         its rim are barely held. But there is a size above which the island is stable &mdash; the
         <strong>critical radius</strong> &mdash; and the step energy sets it: the more it costs to
         make an edge, the bigger an island has to be before keeping it pays. That cost is a
-        measurable quantity in its own right, written &beta;; the section &ldquo;The price of an
+        measurable quantity in its own right &mdash; the section &ldquo;The price of an
         edge&rdquo; puts a number on it, and the note beneath the animation below quotes that number
         in advance. Crowd more spare vapour
         onto the surface and the critical size drops. At a surface supersaturation of about
@@ -241,10 +241,10 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original schematic. Encodes classical terrace-nucleation
           kinetics: an island whose radius is below the critical size
-          <em>R</em><sub>crit</sub>&nbsp;=&nbsp;<em>a</em><sup>2</sup>&beta;&nbsp;/&nbsp;&sigma;<sub>surf</sub><em>kT</em>
+          <em>R</em><sub>crit</sub>&nbsp;=&nbsp;<em>a</em><sup>2</sup>&beta;&nbsp;/&nbsp;&sigma;<sub>surf</sub><em>kT</em><!-- rule7-waive: beta here is the step (ledge) energy from classical nucleation theory, Libbrecht's R_crit formula printed p. 142 -- a third quantity, distinct from the attachment coefficient (alphaHK) and the G-G attachment threshold (ggThresh) -->
           shrinks and vanishes, while a larger one spreads across the facet &mdash; Libbrecht, Snow
           Crystals, printed p.&nbsp;142, anchored at the printed example
-          &sigma;<sub>surf</sub>&nbsp;&asymp;&nbsp;1&nbsp;% and &beta;&nbsp;&asymp;&nbsp;10<sup>&minus;12</sup>&nbsp;J/m,
+          &sigma;<sub>surf</sub>&nbsp;&asymp;&nbsp;1&nbsp;% and &beta;&nbsp;&asymp;&nbsp;10<sup>&minus;12</sup>&nbsp;J/m,<!-- rule7-waive: beta again is the step energy (third quantity, see note above), not alphaHK or ggThresh -->
           which gives <em>R</em><sub>crit</sub>&nbsp;&asymp;&nbsp;10<em>a</em> and roughly 300
           molecules. The process itself is the one photographed in Figure 6.20, printed
           p.&nbsp;232. Island sizes, birth times and sweep rates are illustrative, not to
@@ -313,7 +313,7 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original animation. Each surface direction advances at its own
           constant speed and the crystal outline is the envelope of those advancing surfaces &mdash;
-          the standard kinematic picture of growth at speed <em>v</em> = &alpha;&nbsp;<em>v</em><sub>kin</sub>&nbsp;&sigma;<sub>surf</sub>
+          the standard kinematic picture of growth at speed <em>v</em> = <code>alphaHK</code>&nbsp;<em>v</em><sub>kin</sub>&nbsp;&sigma;<sub>surf</sub>
           with an anisotropic attachment coefficient, Libbrecht, Snow Crystals, printed p.&nbsp;93.
           Shape only &mdash; the sizes and times are not to scale.</span>
         </figcaption>
@@ -332,27 +332,28 @@
 
       <p>
         &ldquo;Sticks more&rdquo; and &ldquo;sticks less&rdquo; are not measurements. The quantity
-        that makes them one is the <strong>attachment coefficient</strong>, written &alpha;
-        (&ldquo;alpha&rdquo;): the probability that a molecule striking the surface actually joins
+        that makes them one is the <strong>attachment coefficient</strong> &mdash; this is
+        Libbrecht's Hertz-Knudsen coefficient, written <code>alphaHK</code> in this project: the
+        probability that a molecule striking the surface actually joins
         the lattice and stays. It runs from zero &mdash; nothing sticks &mdash; to one, where every
         arrival is captured. The whole collection of surface processes that set it is called the
         <strong>attachment kinetics</strong>.
       </p>
 
       <p>
-        With &alpha; in hand, the growth of any patch of surface is one short equation.
+        With <code>alphaHK</code> in hand, the growth of any patch of surface is one short equation.
       </p>
 
       <div class="equation">
         <p class="equation__math">
-          <em>v</em> = &alpha; &middot; <em>v</em><sub>kin</sub> &middot; &sigma;<sub>surf</sub>
+          <em>v</em> = <code>alphaHK</code> &middot; <em>v</em><sub>kin</sub> &middot; &sigma;<sub>surf</sub>
         </p>
         <div class="equation__where">
           <strong>where</strong>
           <dl>
             <dt>v</dt><dd>how fast that patch of surface moves outward</dd>
-            <dt>&alpha;</dt><dd>attachment coefficient &mdash; the fraction of arriving molecules that actually join the crystal, between 0 and 1</dd>
-            <dt>v<sub>kin</sub></dt><dd>a reference speed set by temperature and by how heavy a water molecule is &mdash; the speed the surface would advance if every arriving molecule stuck and the air carried 100&nbsp;% spare vapour. The real speed is that figure multiplied by both &alpha; and &sigma;<sub>surf</sub>, so it is always very much smaller</dd>
+            <dt><code>alphaHK</code></dt><dd>attachment coefficient &mdash; the fraction of arriving molecules that actually join the crystal, between 0 and 1</dd>
+            <dt>v<sub>kin</sub></dt><dd>a reference speed set by temperature and by how heavy a water molecule is &mdash; the speed the surface would advance if every arriving molecule stuck and the air carried 100&nbsp;% spare vapour. The real speed is that figure multiplied by both <code>alphaHK</code> and &sigma;<sub>surf</sub>, so it is always very much smaller</dd>
             <dt>&sigma;<sub>surf</sub></dt><dd>the supersaturation right at the surface &mdash; how much spare water vapour the air immediately above that patch is carrying, measured against what ice can hold</dd>
           </dl>
         </div>
@@ -362,15 +363,15 @@
       <p>
         Read it as a product of two things you have now met separately. Chapter 4 supplied
         &sigma;<sub>surf</sub>: the fuel actually delivered, after diffusion has taken its cut. This
-        chapter supplies &alpha;: the surface's willingness to accept it. Fuel without willingness
+        chapter supplies <code>alphaHK</code>: the surface's willingness to accept it. Fuel without willingness
         grows nothing. Willingness without fuel grows nothing. <strong>The shape of a snowflake is
         decided by the product.</strong> Most of what follows on this site is an argument about one
         factor or the other.
       </p>
 
       <p>
-        A facet is a surface with small &alpha;. A rough surface has &alpha; close to one. And the
-        reason &alpha; is small on a facet is the nucleation barrier you met at the start of this
+        A facet is a surface with small <code>alphaHK</code>. A rough surface has <code>alphaHK</code> close to one. And the
+        reason <code>alphaHK</code> is small on a facet is the nucleation barrier you met at the start of this
         chapter: to move at all, the facet must first build a new terrace out of nothing. That
         already sorts every surface on a snow crystal into three kinds.
       </p>
@@ -383,16 +384,16 @@
               data-alt="A branched stellar snow crystal annotated to mark which of its surfaces are top basal terraces, which are top prism terraces, and which are rough.">
         <figcaption class="figure__caption">
           <strong>What to look at:</strong> a real crystal with the abstract symbol pinned onto it.
-          Every flat top face is a basal terrace with its own &alpha;; every straight side wall is a
-          prism terrace with its own &alpha;; everything else &mdash; the rounded shoulders, the
-          ragged tips &mdash; is rough, and takes &alpha; close to one. Three numbers, not a
+          Every flat top face is a basal terrace with its own <code>alphaHKBasal</code>; every straight side wall is a
+          prism terrace with its own <code>alphaHKPrism</code>; everything else &mdash; the rounded shoulders, the
+          ragged tips &mdash; is rough, and takes <code>alphaHKRough</code> close to one. Three numbers, not a
           thousand. And note the claim in the caption: the whole shape of this object is being
           steered by the two small ones.
           <br><br>
           <em>Published caption: &ldquo;Figure 4.3. Facet-Dominated Growth. The attachment kinetics
           on any snow crystal can be divided into three classes of surfaces: top basil terraces
-          described by &alpha;<sub>basal</sub>, top prism terraces described by &alpha;<sub>prism</sub>,
-          and all other surfaces described by &alpha; &asymp; &alpha;<sub>rough</sub> &asymp; 1. The
+          described by &alpha;<sub>basal</sub>, top prism terraces described by &alpha;<sub>prism</sub>,<!-- rule7-waive: verbatim quotation from Libbrecht, Snow Crystals (Figure 4.3 caption), preserves the author's own printed notation -->
+          and all other surfaces described by &alpha; &asymp; &alpha;<sub>rough</sub> &asymp; 1. The<!-- rule7-waive: verbatim quotation from Libbrecht, Snow Crystals (Figure 4.3 caption), preserves the author's own printed notation -->
           overall platelike structure of this crystal, as well as much of its dendritic branching, is
           determined by the first two surface classes. Thus, the attachment kinetics on the topmost
           facet terraces strongly influences the morphological development of the entire
@@ -411,7 +412,7 @@
         The definition is concrete enough to picture. Take a flat island of molecules sitting on a
         facet and cut it in two. You have to break the bonds along the cut, and the molecules along
         the two new edges are now exposed. The energy you paid is proportional to the length of new
-        edge you made. Energy divided by length is the step energy, written &beta; (&ldquo;beta&rdquo;):
+        edge you made. Energy divided by length is the step energy, written &beta; (&ldquo;beta&rdquo;):<!-- rule7-waive: beta here is the step (ledge) energy from classical nucleation theory -- a third quantity, distinct from Libbrecht's attachment coefficient (alphaHK) and G-G's attachment threshold (ggThresh) -->
         &ldquo;the step energy is the amount of energy needed to create the edge, or step, of a
         molecular terrace on a crystal facet&rdquo; (printed pp.&nbsp;59&ndash;60).
       </p>
@@ -662,12 +663,12 @@
         face. But it sweeps <em>fastest</em> near the corners, where there is most fuel, and slows
         as it travels inward. Steps that start fast and finish slow pile up behind one another
         &mdash; so the step density is highest in the middle of the face. And steps are exactly
-        where molecules stick. So &alpha; is highest in the middle of the face, precisely where
+        where molecules stick. So <code>alphaHK</code> is highest in the middle of the face, precisely where
         &sigma; is lowest.
       </p>
 
       <p>
-        High &sigma; and low &alpha; at the corners. Low &sigma; and high &alpha; at the centre. The
+        High &sigma; and low <code>alphaHK</code> at the corners. Low &sigma; and high <code>alphaHK</code> at the centre. The
         growth rate is their product, and the product is the same everywhere. The face advances as
         one flat sheet.
       </p>
@@ -683,8 +684,8 @@
           <span class="built-from">Original schematic. Encodes the negative feedback described in
           Libbrecht, Snow Crystals, printed p.&nbsp;80 and Figure 3.4, printed p.&nbsp;79:
           &sigma;<sub>surf</sub> higher
-          at the corners, &alpha; higher at the facet centre through step bunching, and the growth
-          rate &alpha;&nbsp;&sigma;<sub>surf</sub> held constant across the face. The curves are
+          at the corners, <code>alphaHK</code> higher at the facet centre through step bunching, and the growth
+          rate <code>alphaHK</code>&nbsp;&sigma;<sub>surf</sub> held constant across the face. The curves are
           illustrative shapes, not measured profiles.</span>
         </figcaption>
       </figure>
@@ -727,22 +728,22 @@
               data-figure="Figure 3.4"
               data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
               data-page="PDF p. 80 &middot; printed p. 79"
-              data-alt="A photograph of a laboratory snow crystal with razor-straight prism facets, above a schematic of the same facet drawn strongly concave with labels for sigma and alpha.">
+              data-alt="A photograph of a laboratory snow crystal with razor-straight prism facets, above a schematic of the same facet drawn strongly concave with labels for sigma and alphaHK.">
         <figcaption class="figure__caption">
           <strong>What to look at:</strong> the photograph first &mdash; those prism edges are as
           straight as a ruler. Then the sketch below it, which is the same face with the concavity
           exaggerated thousands of times so you can see it at all. Follow the two labels: at the
-          corners, higher &sigma; and lower &alpha;; at the centre, lower &sigma; and higher
-          &alpha;. The two errors cancel, and the face marches outward as one. (POP is a laboratory
+          corners, higher &sigma; and lower <code>alphaHK</code>; at the centre, lower &sigma; and higher
+          <code>alphaHK</code>. The two errors cancel, and the face marches outward as one. (POP is a laboratory
           method for growing single crystals on a flat pedestal.)
           <br><br>
           <em>Published caption: &ldquo;Figure 3.4: The prism facets on this POP snow crystal (top
           photo) look straight, but they must be slightly concave at the molecular scale (bottom
           sketch). The hexagonal corners stick out farther into the humid air, so &sigma; is
           slightly higher at the corners than at the facet centers. At the same time, the density of
-          molecular terrace steps is higher nearer the facet centers, making &alpha; slightly higher
+          molecular terrace steps is higher nearer the facet centers, making &alpha; slightly higher<!-- rule7-waive: verbatim quotation from Libbrecht, Snow Crystals (Figure 3.4 caption), preserves the author's own printed notation -->
           there (the surface lines in the sketch represent molecular layers). Because the growth
-          rate is proportional to &alpha;&sigma;, the entire facet surface grows upward at a
+          rate is proportional to &alpha;&sigma;, the entire facet surface grows upward at a<!-- rule7-waive: verbatim quotation from Libbrecht, Snow Crystals (Figure 3.4 caption), preserves the author's own printed notation -->
           constant rate, maintaining its flat appearance.&rdquo;</em>
         </figcaption>
       </figure>
@@ -778,7 +779,7 @@
           corners &mdash; the Berg effect, exactly as advertised. On the right, around the thin
           plate, they jam up against the plate's edge and leave the middle of the flat face sitting
           in the richest air. Chapter 4 could only tell you that the right-hand panel inverts the
-          rule; the answer it deferred is &alpha;. Same physics, opposite conclusion, purely because
+          rule; the answer it deferred is <code>alphaHK</code>. Same physics, opposite conclusion, purely because
           the two faces have very different attachment coefficients &mdash; and the published
           caption says so outright in its last sentence.
           <br><br>
@@ -787,8 +788,8 @@
           crystal (left), the supersaturation is highest near the corners of the faceted prism, a
           phenomenon called the Berg effect. Around a thin-plate crystal, the contour lines are
           tightly bunched at the plate edge, and the supersaturation is highest at the center of the
-          basal facets. The model on the left assumed &alpha;<sub>basal</sub>&nbsp;&asymp;&nbsp;&alpha;<sub>prism</sub>&nbsp;&lt;&nbsp;1,
-          while the model on the right assumed &alpha;<sub>basal</sub>&nbsp;&laquo;&nbsp;&alpha;<sub>prism</sub>.&rdquo;</em>
+          basal facets. The model on the left assumed &alpha;<sub>basal</sub>&nbsp;&asymp;&nbsp;&alpha;<sub>prism</sub>&nbsp;&lt;&nbsp;1,<!-- rule7-waive: verbatim quotation from Libbrecht, Snow Crystals (Figure 3.29 caption), preserves the author's own printed notation -->
+          while the model on the right assumed &alpha;<sub>basal</sub>&nbsp;&laquo;&nbsp;&alpha;<sub>prism</sub>.&rdquo;</em><!-- rule7-waive: verbatim quotation from Libbrecht, Snow Crystals (Figure 3.29 caption), preserves the author's own printed notation -->
         </figcaption>
       </figure>
 
@@ -1030,7 +1031,7 @@
 
       <p>
         That single distinction explains the strange state of this field. The ice lattice has been
-        known for the better part of a century. The attachment kinetics &mdash; what &alpha; is, on
+        known for the better part of a century. The attachment kinetics &mdash; what <code>alphaHK</code> is, on
         which face, at which temperature, and why &mdash; is still being argued about:
         &ldquo;the crystallography of ice has been essentially solved for decades, while many
         important aspects the ice attachment kinetics remain quite puzzling&rdquo; (printed
@@ -1044,14 +1045,14 @@
 
       <p>
         You now have both halves of the engine. Chapter 4 gave you &sigma; &mdash; the fuel, and how
-        diffusion rations it. This chapter gave you &alpha; &mdash; the surface's willingness to
+        diffusion rations it. This chapter gave you <code>alphaHK</code> &mdash; the surface's willingness to
         accept it, the nucleation barrier behind that willingness, and the feedback loop that keeps
         a face flat while it grows.
       </p>
 
       <p class="handoff">
         But look again at what that feedback loop depends on: the facet centre must always be able
-        to raise its &alpha; enough to make up for its fuel deficit. And &alpha; cannot exceed one.
+        to raise its <code>alphaHK</code> enough to make up for its fuel deficit. And <code>alphaHK</code> cannot exceed one.
         Push a crystal hard enough that molecules stick everywhere they land, and the flatness
         machine has nothing left to give &mdash; which is where the next chapter is heading: the
         moment a smooth face gives up and a branch shoots out of the corner.
@@ -1091,7 +1092,7 @@
    Chapter 5 — original figures.
    1. anim-slow-wins       kinematic growth: slow directions survive
    2. anim-nucleation      terrace nucleation: islands below R_crit dissolve
-   3. anim-facet-balance   the alpha·sigma negative feedback across one facet
+   3. anim-facet-balance   the alphaHK·sigma negative feedback across one facet
    4. anim-qll             surface premelting depth vs temperature
    5. chart-anisotropy     surface-energy anisotropy: needed vs available
    ======================================================================== */
@@ -1250,8 +1251,8 @@
   let sigma = 1.0;              // sigma_surf, in per cent
   let svg = null;
 
-  // R_crit = a^2 * beta / (sigma_surf k T), anchored at the printed example
-  // sigma_surf = 1 %, beta = 1e-12 J/m  ->  R_crit = 10a  (printed p. 142)
+  // R_crit = a^2 * beta / (sigma_surf k T), anchored at the printed example -- rule7-waive: beta is the step (ledge) energy from classical nucleation theory, a third quantity distinct from alphaHK/ggThresh
+  // sigma_surf = 1 %, beta = 1e-12 J/m  ->  R_crit = 10a  (printed p. 142) -- rule7-waive: beta again is the step energy (see note above), not alphaHK or ggThresh
   function critA() { return 10 / sigma; }
 
   // deliberately coarse: this is a schematic count, not a measurement
@@ -1476,10 +1477,10 @@
       color: c.series[0], label: "σ — spare vapour", labelAt: d.sig[N - 1], labelDy: -7,
     });
     Viz.series(svg, d.alp, xs, ys, {
-      color: c.series[1], label: "α — stickiness", labelAt: d.alp[N - 1], labelDy: 4,
+      color: c.series[1], label: "alphaHK — stickiness", labelAt: d.alp[N - 1], labelDy: 4,
     });
     Viz.series(svg, d.pro, xs, ys, {
-      color: c.series[2], label: "α × σ — speed", labelAt: d.pro[N - 1], labelDy: 17, width: 2.8,
+      color: c.series[2], label: "alphaHK × σ — speed", labelAt: d.pro[N - 1], labelDy: 17, width: 2.8,
     });
 
     const flat = Math.abs(curv - 1) < 0.06;

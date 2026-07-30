@@ -64,7 +64,7 @@
         <h2>By the end you will be able to</h2>
         <ul>
           <li>Recognise a <em>vicinal</em> surface &mdash; a facet tilted by a degree or two &mdash; and say why tilting a face that little can make it a hundred times stickier.</li>
-          <li>Read &alpha; = <em>A</em>&thinsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>) as a threshold: &sigma;<sub>0</sub> is how hard it is to start a brand-new molecular layer.</li>
+          <li>Read <code>alphaHK</code> = <em>A</em>&thinsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>) as a threshold: &sigma;<sub>0</sub> is how hard it is to start a brand-new molecular layer.</li>
           <li>Explain why a <em>low</em> &sigma;<sub>0</sub> means <em>fast</em> growth on that face.</li>
           <li>Say where the published &sigma;<sub>0</sub> and <em>A</em> values came from &mdash; and where the whole scheme is openly resting on guesswork.</li>
           <li>Say why the prism ceiling <em>A</em> sags below 1 near the melting point, and why the explanation offered for it is still a cartoon.</li>
@@ -77,21 +77,22 @@
       <p>
         The previous chapter ended with a promise: growth measurements turned into two curves, one
         for each kind of face, and a single equation for reading them. Both are built out of a
-        number you already own. Chapter 5 gave you the <strong>attachment coefficient</strong>
-        &alpha; &mdash; the probability that a molecule striking the surface actually joins the
+        number you already own. Chapter 5 gave you the <strong>attachment coefficient</strong>,
+        written <code>alphaHK</code> in this project &mdash; the probability that a molecule
+        striking the surface actually joins the
         lattice &mdash; along with the growth law
-        <em>v</em>&nbsp;=&nbsp;&alpha;&thinsp;<em>v</em><sub>kin</sub>&thinsp;&sigma;<sub>surf</sub>
-        and the nucleation barrier standing behind a facet's small &alpha;. Everything there was an
+        <em>v</em>&nbsp;=&nbsp;<code>alphaHK</code>&thinsp;<em>v</em><sub>kin</sub>&thinsp;&sigma;<sub>surf</sub>
+        and the nucleation barrier standing behind a facet's small <code>alphaHK</code>. Everything there was an
         idea. <strong>This is the chapter where those ideas become measured numbers</strong>, with
         error bars, printed in papers, and honest about where they run out.
       </p>
 
       <p>
         One line of refresher, in the monograph's own words, because the exact wording carries the
-        rest of the chapter: &ldquo;One can think of &alpha; as a sticking probability, equal to the
+        rest of the chapter: &ldquo;One can think of &alpha; as a sticking probability, equal to the <!-- rule7-waive: verbatim quotation from Libbrecht's monograph, preserves the author's own printed notation (p. 138) -->
         probability that a water vapor molecule striking the ice surface becomes assimilated into the
         crystal lattice&rdquo; (printed p.&nbsp;138). Being a probability it is boxed in:
-        0 &le; &alpha; &le; 1. Nothing sticks at 0; every arrival is captured at 1.
+        0 &le; <code>alphaHK</code> &le; 1. Nothing sticks at 0; every arrival is captured at 1.
       </p>
 
       <p>
@@ -105,7 +106,7 @@
       </p>
 
       <div class="equation">
-        <p class="equation__math">v<sub>n</sub> = &alpha; &middot; v<sub>kin</sub> &middot; &sigma;<sub>surf</sub></p>
+        <p class="equation__math">v<sub>n</sub> = <code>alphaHK</code> &middot; v<sub>kin</sub> &middot; &sigma;<sub>surf</sub></p>
         <p class="equation__cite">Libbrecht, Snow Crystals, Equation 4.1, printed p.&nbsp;137</p>
       </div>
 
@@ -129,7 +130,7 @@
           Careful
         </p>
         <p>
-          &alpha; is not a property of ice, the way density or melting point are. It is a property of
+          <code>alphaHK</code> is not a property of ice, the way density or melting point are. It is a property of
           <em>this bit of surface, right now</em>. The value &ldquo;may depend on &sigma;<sub>surf</sub>,
           <em>T</em>, surface orientation relative to the crystal axes, and perhaps other factors&rdquo;
           (printed p.&nbsp;138). On one crystal, at one instant, in one parcel of air, a flat face can
@@ -144,9 +145,9 @@
         column when the reverse is true. In symbols (the sign &#8810; means &ldquo;is very much
         smaller than&rdquo; &mdash; not just smaller, but smaller by a big factor):
         &ldquo;thin platelike crystals (including stellar
-        plates and stellar dendrites) form only when &alpha;<sub>basal</sub> &#8810;
-        &alpha;<sub>prism</sub> while slender columnar forms require &alpha;<sub>prism</sub> &#8810;
-        &alpha;<sub>basal</sub>&rdquo; (printed p.&nbsp;138). Everything else in this chapter is an
+        plates and stellar dendrites) form only when &alpha;<sub>basal</sub> &#8810; <!-- rule7-waive: verbatim quotation from Libbrecht's monograph, preserves the author's own printed notation (p. 138) -->
+        &alpha;<sub>prism</sub> while slender columnar forms require &alpha;<sub>prism</sub> &#8810; <!-- rule7-waive: verbatim quotation from Libbrecht's monograph, preserves the author's own printed notation (p. 138) -->
+        &alpha;<sub>basal</sub>&rdquo; (printed p.&nbsp;138). Everything else in this chapter is an <!-- rule7-waive: verbatim quotation from Libbrecht's monograph, preserves the author's own printed notation (p. 138) -->
         attempt to work out what sets those two numbers.
       </p>
 
@@ -155,9 +156,9 @@
 
       <p>
         Chapter 5 sorted a snow crystal's alarming amount of surface into three classes and pinned
-        the symbols onto a real crystal: top basal terraces with an &alpha; of their own, top prism
-        terraces with an &alpha; of their own, and everything else &mdash; shoulders, ridges, hollows,
-        ragged branch ends &mdash; rough, with &alpha; near 1. Here is that picture again, because
+        the symbols onto a real crystal: top basal terraces with an <code>alphaHKBasal</code> of their own, top prism
+        terraces with an <code>alphaHKPrism</code> of their own, and everything else &mdash; shoulders, ridges, hollows,
+        ragged branch ends &mdash; rough, with <code>alphaHKRough</code> near 1. Here is that picture again, because
         every measurement in this chapter is a measurement of one of those two small numbers &mdash;
         and because the boundary between &ldquo;flat&rdquo; and &ldquo;rough&rdquo; turns out to be
         far sharper than anything has a right to be.
@@ -180,8 +181,8 @@
           <br><br>
           <em>Published caption: &ldquo;Figure 4.3. Facet-Dominated Growth. The attachment kinetics
           on any snow crystal can be divided into three classes of surfaces: top basil terraces
-          described by &alpha;<sub>basal</sub>, top prism terraces described by &alpha;<sub>prism</sub>,
-          and all other surfaces described by &alpha; &asymp; &alpha;<sub>rough</sub> &asymp; 1. The
+          described by &alpha;<sub>basal</sub>, top prism terraces described by &alpha;<sub>prism</sub>, <!-- rule7-waive: verbatim quotation of Libbrecht's published Figure 4.3 caption -->
+          and all other surfaces described by &alpha; &asymp; &alpha;<sub>rough</sub> &asymp; 1. The <!-- rule7-waive: verbatim quotation of Libbrecht's published Figure 4.3 caption -->
           overall platelike structure of this crystal, as well as much of its dendritic branching, is
           determined by the first two surface classes. Thus, the attachment kinetics on the topmost
           facet terraces strongly influences the morphological development of the entire
@@ -192,11 +193,11 @@
       <p>
         The classification needs only a sentence of recall, because it turns on one contrast. A
         <strong>faceted</strong> surface &mdash; basal or prism &mdash; is molecularly flat &mdash; an unbroken plain of molecules with almost nowhere for a newcomer to
-        grip &mdash; and shows &alpha; values &ldquo;orders of magnitude lower than on non-faceted
+        grip &mdash; and shows <code>alphaHK</code> values &ldquo;orders of magnitude lower than on non-faceted
         surfaces&rdquo; (printed p.&nbsp;139), under 0.01 not unusually. A <strong>rough</strong>
         surface is crowded with one-molecule steps and exposed bonds, so an arriving molecule is
         captured essentially on contact, becoming &ldquo;immediately indistinguishable&rdquo; from
-        the ice already there (printed p.&nbsp;140); that is &alpha;<sub>rough</sub> &asymp; 1, the
+        the ice already there (printed p.&nbsp;140); that is <code>alphaHKRough</code> &asymp; 1, the
         <em>fast kinetics</em> limit.
       </p>
 
@@ -209,7 +210,7 @@
         <strong>admolecule</strong>, sitting on the crystal but not yet part of it. It skates about
         for a while and then heat throws it back into the air. But if it meets a step edge first, it
         drops into the lattice properly and is captured for good. So &ldquo;it is not uncommon to have
-        &alpha;<sub>facet</sub> &lt; 0.01 while &alpha;<sub>vicinal</sub> &asymp; 1 at a vicinal angle
+        &alpha;<sub>facet</sub> &lt; 0.01 while &alpha;<sub>vicinal</sub> &asymp; 1 at a vicinal angle <!-- rule7-waive: verbatim quotation from Libbrecht's monograph, preserves the author's own printed notation (p. 141) -->
         of just a degree or two&rdquo; (printed p.&nbsp;141). Tilt a face by one degree and its
         stickiness can jump a hundredfold.
       </p>
@@ -218,8 +219,8 @@
         The monograph states that race as a plain inequality. Call the average gap between steps
         &#8467;<sub>vicinal</sub>, and call the typical distance an admolecule covers before it
         evaporates the <strong>diffusion length</strong>, x<sub>diff</sub>. Then
-        &ldquo;&alpha;<sub>vicinal</sub> &asymp; 1 when &#8467;<sub>vicinal</sub> &lt;
-        x<sub>diff</sub>, and &alpha;<sub>vicinal</sub> &rarr; &alpha;<sub>facet</sub> when
+        &ldquo;&alpha;<sub>vicinal</sub> &asymp; 1 when &#8467;<sub>vicinal</sub> &lt; <!-- rule7-waive: verbatim quotation from Libbrecht's monograph, preserves the author's own printed notation (p. 140) -->
+        x<sub>diff</sub>, and &alpha;<sub>vicinal</sub> &rarr; &alpha;<sub>facet</sub> when <!-- rule7-waive: verbatim quotation from Libbrecht's monograph, preserves the author's own printed notation (p. 140) -->
         &#8467;<sub>vicinal</sub> &rarr; &infin;&rdquo; (printed p.&nbsp;140). Steps closer together
         than a molecule can walk: everything gets caught. Steps further apart than that: almost
         nothing does.
@@ -235,8 +236,8 @@
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">Original animation. The condition drawn is
-          &alpha;<sub>vicinal</sub> &asymp; 1 when the step spacing is less than the mean diffusion
-          length x<sub>diff</sub>, and &alpha;<sub>vicinal</sub> &rarr; &alpha;<sub>facet</sub> as
+          <code>alphaHKVicinal</code> &asymp; 1 when the step spacing is less than the mean diffusion
+          length x<sub>diff</sub>, and <code>alphaHKVicinal</code> &rarr; <code>alphaHKFacet</code> as
           the spacing grows, from Libbrecht, <em>Snow Crystals</em>, printed p.&nbsp;140. The
           staircase descends to the right, and capture is drawn only at the uphill edge of each
           terrace, because a step takes molecules in &ldquo;typically from the lower terrace&rdquo;
@@ -246,14 +247,14 @@
       </figure>
 
       <p>
-        That sharpness is the whole reason the classification works. &alpha; does not drift smoothly
+        That sharpness is the whole reason the classification works. <code>alphaHK</code> does not drift smoothly
         as you swing the surface around; it has deep, narrow cusps sitting exactly at the principal
         facet orientations, and is close to 1 everywhere else. Which licenses a drastic
         simplification:
-        &ldquo;Essentially all non-faceted ice/vapor surfaces can be described with &alpha; &asymp;
-        &alpha;<sub>rough</sub> &asymp; 1 to a reasonable degree of accuracy. Thus, the only thing
-        left to define the overall morphology of a snow crystal is &alpha;<sub>basal</sub> and
-        &alpha;<sub>prism</sub>&rdquo; (printed p.&nbsp;141).
+        &ldquo;Essentially all non-faceted ice/vapor surfaces can be described with &alpha; &asymp; <!-- rule7-waive: verbatim quotation from Libbrecht's monograph, preserves the author's own printed notation (p. 141) -->
+        &alpha;<sub>rough</sub> &asymp; 1 to a reasonable degree of accuracy. Thus, the only thing <!-- rule7-waive: verbatim quotation from Libbrecht's monograph, preserves the author's own printed notation (p. 141) -->
+        left to define the overall morphology of a snow crystal is &alpha;<sub>basal</sub> and <!-- rule7-waive: verbatim quotation from Libbrecht's monograph, preserves the author's own printed notation (p. 141) -->
+        &alpha;<sub>prism</sub>&rdquo; (printed p.&nbsp;141). <!-- rule7-waive: verbatim quotation from Libbrecht's monograph, preserves the author's own printed notation (p. 141) -->
       </p>
 
       <figure class="anim" id="anatomy">
@@ -265,7 +266,7 @@
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">Original diagram. Surface classification and the
-          &alpha;<sub>rough</sub> &asymp; 1 assignment are taken from Libbrecht,
+          <code>alphaHKRough</code> &asymp; 1 assignment are taken from Libbrecht,
           <em>Snow Crystals</em>, printed pp.&nbsp;139&ndash;141 and Figure&nbsp;4.3.</span>
         </figcaption>
       </figure>
@@ -369,14 +370,14 @@
       <p>
         And starting one is genuinely hard. That is chapter 5's island story, so take it compressed.
         A small island is nearly all edge; edge costs energy at a rate called the
-        <strong>step energy</strong>, written &beta;; so below a critical radius
-        R<sub>crit</sub>&nbsp;=&nbsp;a<sup>2</sup>&beta;&thinsp;/&thinsp;(&sigma;<sub>surf</sub><em>kT</em>)
+        <strong>step energy</strong>, written &beta;; so below a critical radius <!-- rule7-waive: step/ledge free energy from classical nucleation theory (used to derive Libbrecht's sigma_0); neither the Hertz-Knudsen alphaHK coefficient nor a Gravner-Griffeath ggThresh -->
+        R<sub>crit</sub>&nbsp;=&nbsp;a<sup>2</sup>&beta;&thinsp;/&thinsp;(&sigma;<sub>surf</sub><em>kT</em>) <!-- rule7-waive: step/ledge free energy, same quantity as above; not alphaHK or ggThresh -->
         an island is more likely to fall apart than to survive, and at a realistic 1&nbsp;per cent
         surface supersaturation that threshold sits at about ten molecular widths &mdash; roughly 300
         water molecules in all (printed p.&nbsp;142). The surface is therefore &ldquo;a maelstrom of
         molecular activity&hellip; Small terrace islands are constantly forming and
         disintegrating&rdquo; (printed p.&nbsp;141). Only the rare oversized one wins. Hold on to
-        &beta;, though: it is the one quantity from that story that this chapter is going to
+        &beta;, though: it is the one quantity from that story that this chapter is going to <!-- rule7-waive: step/ledge free energy, same quantity as above; not alphaHK or ggThresh -->
         measure.
       </p>
 
@@ -389,7 +390,7 @@
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">Original animation. Islands shrink or grow according to whether
-          they are below or above the critical radius R<sub>crit</sub> = a<sup>2</sup>&beta; /
+          they are below or above the critical radius R<sub>crit</sub> = a<sup>2</sup>&beta; / <!-- rule7-waive: step/ledge free energy from classical nucleation theory, not the Hertz-Knudsen alphaHK coefficient nor a Gravner-Griffeath ggThresh -->
           (&sigma;<sub>surf</sub>kT), from Libbrecht, <em>Snow Crystals</em>, printed p.&nbsp;142.
           Sizes on screen are schematic; the real threshold island at &sigma;<sub>surf</sub> &asymp;
           1&nbsp;percent is about ten molecular diameters across.</span>
@@ -473,14 +474,14 @@
       </p>
 
       <div class="equation">
-        <p class="equation__math">&alpha;(&sigma;<sub>surf</sub>) = <em>A</em> e<sup>&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub></sup></p>
+        <p class="equation__math"><code>alphaHK</code>(&sigma;<sub>surf</sub>) = <em>A</em> e<sup>&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub></sup></p>
         <div class="equation__where">
           <strong>where</strong>
           <dl>
-            <dt>&alpha;</dt><dd>the sticking probability on this facet</dd>
+            <dt><code>alphaHK</code></dt><dd>the sticking probability on this facet</dd>
             <dt>&sigma;<sub>surf</sub></dt><dd>the spare vapour just above the surface</dd>
             <dt>&sigma;<sub>0</sub></dt><dd>the <strong>nucleation barrier</strong>, expressed in the same units as &sigma;<sub>surf</sub>: roughly, how much spare vapour this face needs before new layers start with any regularity</dd>
-            <dt><em>A</em></dt><dd>the ceiling &mdash; the value &alpha; climbs towards once the barrier stops mattering. You would expect 1.</dd>
+            <dt><em>A</em></dt><dd>the ceiling &mdash; the value <code>alphaHK</code> climbs towards once the barrier stops mattering. You would expect 1.</dd>
           </dl>
         </div>
         <p class="equation__cite">Libbrecht, Snow Crystals, Equation 4.4, printed p.&nbsp;142</p>
@@ -488,13 +489,13 @@
 
       <p>
         The theory also hands over the barrier itself, and it turns out to depend on almost nothing.
-        The monograph's Equation 4.5 writes &sigma;<sub>0</sub> in terms of the step energy &beta;,
+        The monograph's Equation 4.5 writes &sigma;<sub>0</sub> in terms of the step energy &beta;, <!-- rule7-waive: step/ledge free energy from classical nucleation theory, not the Hertz-Knudsen alphaHK coefficient nor a Gravner-Griffeath ggThresh -->
         the size of a water molecule, the temperature, and one dimensionless geometrical fudge factor
-        of about 1 dropped in to absorb several small theoretical corrections &mdash; and &beta;
+        of about 1 dropped in to absorb several small theoretical corrections &mdash; and &beta; <!-- rule7-waive: step/ledge free energy, same quantity as above; not alphaHK or ggThresh -->
         enters <em>squared</em>, so the barrier is exquisitely sensitive to it (printed p.&nbsp;142).
         You will not need to compute with it. What you need is the conclusion, and the conclusion is
         what makes the whole scheme worth trusting: &ldquo;over a broad range of surface
-        characteristics, the terrace step energy &beta; is the only parameter that has a substantial
+        characteristics, the terrace step energy &beta; is the only parameter that has a substantial <!-- rule7-waive: verbatim quotation from Libbrecht's monograph about the step/ledge free energy (p. 143); not alphaHK or ggThresh -->
         effect on &sigma;<sub>0</sub>&rdquo; (printed p.&nbsp;143). Expensive edges mean a stiff
         barrier. Every messy detail of how admolecules hop, how long they linger, how many islands
         are alive at once &mdash; all of it washes out.
@@ -503,10 +504,10 @@
       <p>
         Now go back to Equation 4.4 and read it as a threshold, because that is what an exponential of
         &minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub> is. If the spare vapour is well below the
-        barrier, the ratio in the exponent is large and negative, &alpha; is minuscule, and the face
-        is effectively dead. Push &sigma;<sub>surf</sub> up towards &sigma;<sub>0</sub> and &alpha;
+        barrier, the ratio in the exponent is large and negative, <code>alphaHK</code> is minuscule, and the face
+        is effectively dead. Push &sigma;<sub>surf</sub> up towards &sigma;<sub>0</sub> and <code>alphaHK</code>
         climbs steeply. Push it well past &sigma;<sub>0</sub> and the exponential factor goes to 1,
-        so &alpha; flattens out at <em>A</em>. The face has stopped caring about the barrier
+        so <code>alphaHK</code> flattens out at <em>A</em>. The face has stopped caring about the barrier
         altogether: nucleation has become so easy that the surface is dense with steps and behaves
         as if it were rough.
       </p>
@@ -514,7 +515,7 @@
       <p>
         There is a trap in the sign here, so it is worth saying out loud. Because
         &sigma;<sub>0</sub> sits in a negative exponent, a <em>bigger</em> &sigma;<sub>0</sub> means
-        a <em>smaller</em> &alpha;. Or, as the monograph puts it: &ldquo;A lower nucleation barrier
+        a <em>smaller</em> <code>alphaHK</code>. Or, as the monograph puts it: &ldquo;A lower nucleation barrier
         (i.e., a lower &sigma;<sub>0</sub>) means faster attachment kinetics on the corresponding
         facet surface&rdquo; (printed p.&nbsp;153). Low barrier, fast face.
       </p>
@@ -528,14 +529,14 @@
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">Original chart. The curve is Equation 4.4,
-          &alpha; = <em>A</em>&thinsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>), from
+          <code>alphaHK</code> = <em>A</em>&thinsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>), from
           Libbrecht, <em>Snow Crystals</em>, printed p.&nbsp;142. The two presets are the measured
           large-facet values near &minus;5&nbsp;&deg;C reported in arXiv:1912.03230v1.</span>
         </figcaption>
       </figure>
 
       <p>
-        Notice how brutal the curve is. Over most of its range &alpha; is not merely small, it is
+        Notice how brutal the curve is. Over most of its range <code>alphaHK</code> is not merely small, it is
         small by factors of thousands, and it changes by factors of thousands for changes in
         &sigma;<sub>surf</sub> that look modest on a linear axis. This is the single most important
         non-linearity in the subject. A patch of surface that gets slightly less vapour than its
@@ -553,7 +554,7 @@
       </p>
 
       <p>
-        The shape of the &alpha; curve is also a fingerprint you can go and look for in a laboratory. If
+        The shape of the <code>alphaHK</code> curve is also a fingerprint you can go and look for in a laboratory. If
         growth really is limited by the birth of new terraces, then measured growth speeds must bend
         upwards in exactly this way. They do.
       </p>
@@ -569,7 +570,7 @@
           not growing, and the sudden upward sweep as the spare vapour climbs. That knee is the
           signature of a threshold. These points are one prism facet measured at
           &minus;15&nbsp;&deg;C in 20&nbsp;mbar of background air, and the line through them is
-          &alpha; = exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>) with &sigma;<sub>0</sub> = 3
+          <code>alphaHK</code> = exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>) with &sigma;<sub>0</sub> = 3
           percent (printed p.&nbsp;144). The inset is the actual crystal that was measured.
           <br><br>
           <em>Published caption: &ldquo;Figure 4.4: Ice-growth measurements (data points) are well
@@ -589,7 +590,7 @@
           A whole face of a snow crystal &mdash; a maelstrom of billions of molecules landing,
           skating and leaving &mdash; is summarised by two numbers: a barrier &sigma;<sub>0</sub>
           and a ceiling <em>A</em>. Of the two, &sigma;<sub>0</sub> does nearly all the work, and it
-          traces back to a single equilibrium property of the surface, the step energy &beta;.
+          traces back to a single equilibrium property of the surface, the step energy &beta;. <!-- rule7-waive: step/ledge free energy from classical nucleation theory, not the Hertz-Knudsen alphaHK coefficient nor a Gravner-Griffeath ggThresh -->
         </p>
       </aside>
 
@@ -607,7 +608,7 @@
         its faces advances, to a precision of nanometres per second, over a range of supersaturations
         and temperatures. That gives you v<sub>n</sub>. You divide out v<sub>kin</sub> and
         &sigma;<sub>surf</sub> using the Hertz&ndash;Knudsen relation, which converts each speed into
-        a value of &alpha;. You then fit &alpha; = <em>A</em>&thinsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>)
+        a value of <code>alphaHK</code>. You then fit <code>alphaHK</code> = <em>A</em>&thinsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>)
         through those points to extract <em>A</em> and &sigma;<sub>0</sub> at that temperature. Repeat
         at many temperatures and you have curves. The monograph describes precisely this sequence
         (printed p.&nbsp;145), and is candid about what it produces: those curves &ldquo;are little
@@ -642,7 +643,7 @@
           <em>Published caption: &ldquo;Figure 4.5: The smooth curves in these graphs show
           best-estimate CAK model functions &sigma;<sub>0</sub>(T) and A(T) on large basal and prism
           facets as a function of temperature, where T<sub>m</sub> = 0 C is the ice melting point. The
-          respective attachment coefficients are then given by &alpha;(&sigma;<sub>surf</sub>) =
+          respective attachment coefficients are then given by &alpha;(&sigma;<sub>surf</sub>) = <!-- rule7-waive: verbatim quotation of Libbrecht's published Figure 4.5 caption -->
           A&thinsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>). The underlying experimental
           data and measurement techniques used to obtain these curves are described in Chapter 7.
           Because these curves parameterize the large-facet attachment kinetics over a broad range of
@@ -690,8 +691,9 @@
           <em>lowest</em> supersaturations.
           <br><br>
           <em>Published caption: &ldquo;Figure 4.18: Data points in these two graphs show measurements
-          of &alpha;<sub>basal</sub>(&sigma;<sub>surf</sub>) and
-          &alpha;<sub>prism</sub>(&sigma;<sub>surf</sub>) at -5 C in a low-pressure environment. Lines
+          of &alpha;<sub>basal</sub>(&sigma;<sub>surf</sub>) and <!-- rule7-waive: verbatim quotation of Libbrecht's published Figure 4.18 caption -->
+          &alpha;<sub>prism</sub>(&sigma;<sub>surf</sub>) at -5 C in a low-pressure environment. Lines <!-- rule7-waive: verbatim quotation of Libbrecht's published Figure 4.18 caption -->
+
           in both graphs are from the CAK model for -5 C, while nonessential curves have been faded
           in the different panels. These observations reveal that platelike habits are the norm for
           simple ice prisms at -5 C, with thinner plates forming at lower supersaturations. These
@@ -804,11 +806,11 @@
 
       <p>
         There is one more check available, and it is the elegant one. Because &sigma;<sub>0</sub> is
-        tied to the step energy &beta;, you can run the whole chain backwards: take
+        tied to the step energy &beta;, you can run the whole chain backwards: take <!-- rule7-waive: step/ledge free energy from classical nucleation theory, not the Hertz-Knudsen alphaHK coefficient nor a Gravner-Griffeath ggThresh -->
         &sigma;<sub>0</sub>(T) extracted from growth speeds, invert Equation 4.5, and you have
-        measured &beta; &mdash; an <em>equilibrium</em> property of the ice surface, obtained
-        entirely from watching crystals grow. &beta; is otherwise very hard to get at, and in fact
-        &ldquo;growth-rate experiments have yielded the best measurements of &beta; on the ice
+        measured &beta; &mdash; an <em>equilibrium</em> property of the ice surface, obtained <!-- rule7-waive: step/ledge free energy, same quantity as above; not alphaHK or ggThresh -->
+        entirely from watching crystals grow. &beta; is otherwise very hard to get at, and in fact <!-- rule7-waive: step/ledge free energy, same quantity as above; not alphaHK or ggThresh -->
+        &ldquo;growth-rate experiments have yielded the best measurements of &beta; on the ice <!-- rule7-waive: verbatim quotation from Libbrecht's monograph about the step/ledge free energy (p. 143); not alphaHK or ggThresh -->
         facets&rdquo; (printed p.&nbsp;143). What comes out is at least the right size: in the cold
         limit it heads for the value expected of a rigid lattice, and at the warm end the basal
         value heads for the one measured for ice growing in liquid water. Both targets come from
@@ -850,7 +852,7 @@
       </p>
 
       <p>
-        That ceiling is <em>A</em>: the value &alpha; settles at once the barrier has been
+        That ceiling is <em>A</em>: the value <code>alphaHK</code> settles at once the barrier has been
         overwhelmed. At that point nucleation is happening constantly, the surface is thick with
         steps, and &mdash; on the argument from earlier in this chapter &mdash; it should behave like
         a rough surface. Which means <em>A</em> should be 1.
@@ -891,7 +893,7 @@
           the end of a c-axis electric ice needle (Chapter 8) in air at -0.5 C, with
           &sigma;<sub>surf</sub> &asymp; 0.1 percent. Because &sigma;<sub>surf</sub> &#8811;
           &sigma;<sub>0</sub> under these conditions, the strong prism faceting did not result from a
-          nucleation barrier but arose because &alpha;<sub>prism</sub> &asymp; A<sub>prism</sub> &lt; 1
+          nucleation barrier but arose because &alpha;<sub>prism</sub> &asymp; A<sub>prism</sub> &lt; 1 <!-- rule7-waive: verbatim quotation of Libbrecht's published Figure 4.8 caption -->
           at this temperature, as shown in Figure 4.5. The CAK model proposes a &lsquo;frustrated QLL
           kinetics&rsquo; phenomenon to explain this low A<sub>prism</sub> behavior, although the
           underlying molecular physics here is not known with certainty.&rdquo;</em>
@@ -971,7 +973,7 @@
 
       <p>
         It is worth being clear about what has and has not been established. That growth on a large
-        flat facet is limited by the birth of new terraces, and that &alpha; therefore takes the form
+        flat facet is limited by the birth of new terraces, and that <code>alphaHK</code> therefore takes the form
         <em>A</em>&thinsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>), is on firm ground:
         the functional form comes from theory that predates ice research by decades, it is
         &ldquo;especially robust&rdquo; within that theory (printed p.&nbsp;143), and repeated
@@ -1021,7 +1023,7 @@
 <script>
 /* ===========================================================================
    1. The race to a step — vicinal surfaces.
-      α_vicinal ≈ 1 when ℓ_vicinal < x_diff, and α_vicinal → α_facet as
+      alphaHKVicinal ≈ 1 when ℓ_vicinal < x_diff, and alphaHKVicinal → alphaHKFacet as
       ℓ_vicinal → ∞. Snow Crystals, printed p.140. Walks are schematic.
       Capture is one-sided: attachment happens "typically from the lower
       terrace" (printed p.138), so only uphill (leftward) crossings stick;
@@ -1432,15 +1434,15 @@
     tag(100, 92, "prism facets", c.series[1], "end", on("prism"));
 
     leader(124, 271, 118, 290, on("rough"));
-    tag(14, 300, "rough tips, α ≈ 1", c.inkSecondary, "start", on("rough"));
+    tag(14, 300, "rough tips, alphaHKRough ≈ 1", c.inkSecondary, "start", on("rough"));
 
     tag(cx, cy + 4, "basal terrace", c.series[0], "middle", on("basal"));
 
     /* --------------------------------------------------------------- legend */
     const items = [
-      { color: c.series[0], label: "basal terraces — small α" },
-      { color: c.series[1], label: "prism terraces — small α" },
-      { color: c.inkSecondary, label: "everything else — α ≈ 1" },
+      { color: c.series[0], label: "basal terraces — small alphaHKBasal" },
+      { color: c.series[1], label: "prism terraces — small alphaHKPrism" },
+      { color: c.inkSecondary, label: "everything else — alphaHKRough ≈ 1" },
     ];
     Viz.legend(body, items);
   }
@@ -1463,7 +1465,7 @@
 
 /* ===========================================================================
    3. The island lottery — critical-radius dynamics on a bare facet.
-      R_crit = a²β / (σ_surf k T), Snow Crystals printed p.142.
+      R_crit = a²β / (σ_surf k T), Snow Crystals printed p.142. rule7-waive: step/ledge free energy from classical nucleation theory, not the Hertz-Knudsen alphaHK coefficient nor a Gravner-Griffeath ggThresh.
    ======================================================================== */
 (function () {
   const root = document.getElementById("island-lottery");
@@ -1613,7 +1615,7 @@
 })();
 
 /* ===========================================================================
-   4. Cross the barrier — α = A·exp(−σ0/σ_surf), Equation 4.4, printed p.142.
+   4. Cross the barrier — alphaHK = A·exp(−σ0/σ_surf), Equation 4.4, printed p.142.
       Presets are measured large-facet values near −5 °C (arXiv:1912.03230v1).
    ======================================================================== */
 (function () {
@@ -1634,7 +1636,7 @@
   const SUP = { "-1": "⁻¹", "-2": "⁻²", "-3": "⁻³",
                 "-4": "⁻⁴", "-5": "⁻⁵", "-6": "⁻⁶" };
 
-  function alphaAt(s) {
+  function alphaHKAt(s) {
     if (s <= 0) return 0;
     return state.A * Math.exp(-state.s0 / s);
   }
@@ -1664,7 +1666,7 @@
         const e = Math.round(Math.log10(v));
         return e === 0 ? "1" : "10" + (SUP[String(e)] || "");
       },
-      title: "α — chance an arriving molecule sticks",
+      title: "alphaHK — chance an arriving molecule sticks",
       titleOffset: 54,
     });
     Viz.axisBottom(svg, xs, {
@@ -1697,7 +1699,7 @@
     const pts = [];
     for (let i = 0; i <= 420; i++) {
       const x = (3 * i) / 420;
-      const y = alphaAt(x);
+      const y = alphaHKAt(x);
       pts.push([x, y >= 1e-6 ? Math.min(y, 1) : NaN]);
     }
     // basal is always series[0] and prism always series[1], site-wide
@@ -1710,11 +1712,11 @@
 
     Viz.series(svg, pts, xs, ys, {
       color: curveColor, width: 2.4, label: curveLabel,
-      labelAt: [3, Math.min(Math.max(alphaAt(3), 1e-6), 1)], labelDx: 8, labelDy: 4,
+      labelAt: [3, Math.min(Math.max(alphaHKAt(3), 1e-6), 1)], labelDx: 8, labelDy: 4,
     });
 
     // the operating point
-    const a = alphaAt(state.sig);
+    const a = alphaHKAt(state.sig);
     const yv = Math.max(a, 1e-6);
     svg.appendChild(Viz.svgEl("line", {
       class: "annotation-rule", x1: xs(state.sig), x2: xs(state.sig),
@@ -1726,7 +1728,7 @@
     }));
 
     readout.textContent =
-      "At σ = " + state.sig.toFixed(2) + " %,  α = " +
+      "At σ = " + state.sig.toFixed(2) + " %,  alphaHK = " +
       (a >= 1e-4 ? a.toFixed(4) : a.toExponential(1)) + " — " + oneIn(a) +
       (state.note ? "   ·   " + state.note : "");
   }
