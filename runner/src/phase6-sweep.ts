@@ -15,7 +15,9 @@ import { execFileSync } from "node:child_process";
 import { canonicalJsonSha256 } from "./gate4-evidence.ts";
 import {
   GROW_LK_DEFAULTS,
+  PHASE6_DEFAULT_KEY_FLAGS,
   PHASE6_EXPLICIT_FLAGS,
+  PHASE6_RESULT_IRRELEVANT_DEFAULTS,
 } from "./grow-lk-defaults.ts";
 import {
   PHASE6_CROSSPLATFORM_FIXTURE,
@@ -24,7 +26,9 @@ import {
   PHASE6_DOMAIN_SPOT_CHECK,
   PHASE6_PARAM_SET,
   PHASE6_PROTOCOL_SHA256,
+  PHASE6_REQUIRED_STOP_REASON,
   PHASE6_VALUES_SHA256,
+  phase6ExpectedRunGeometry,
   phase6FreezeComplete,
   phase6IsExtentFragile,
   phase6IsInAmbiguityBand,
@@ -69,21 +73,60 @@ export function phase6ClassifyHabit(aspectRatioValue: number): Phase6ModelClass 
  */
 export function phase6DefaultBackedParameters(): readonly {
   name: string;
+  /** The `GROW_LK_DEFAULTS` key this row covers, so the generic sweep below can match it. */
+  defaultsKey: keyof typeof GROW_LK_DEFAULTS;
   fromDefault: unknown;
   registered: unknown;
   hasFlag: boolean;
 }[] {
   const f = PHASE6_CROSSPLATFORM_FIXTURE;
   return [
-    { name: "relaxTol", fromDefault: GROW_LK_DEFAULTS.tol, registered: f.relaxTol, hasFlag: true },
-    { name: "divTol", fromDefault: GROW_LK_DEFAULTS.divTol, registered: f.divTol, hasFlag: true },
-    { name: "noiseEpsilon", fromDefault: GROW_LK_DEFAULTS.noise, registered: f.noiseEpsilon, hasFlag: true },
-    { name: "rngSeed", fromDefault: GROW_LK_DEFAULTS.seed, registered: f.rngSeed, hasFlag: true },
-    { name: "pressurePa", fromDefault: GROW_LK_DEFAULTS.pressurePa, registered: f.pressurePa, hasFlag: false },
-    { name: "seedRadius", fromDefault: GROW_LK_DEFAULTS.seedRadius, registered: f.seedRadius, hasFlag: false },
-    { name: "seedThickness", fromDefault: GROW_LK_DEFAULTS.seedThickness, registered: f.seedThickness, hasFlag: false },
-    { name: "relaxMaxSweeps", fromDefault: GROW_LK_DEFAULTS.relaxMaxSweeps, registered: f.relaxMaxSweeps, hasFlag: false },
+    { name: "relaxTol", defaultsKey: "tol", fromDefault: GROW_LK_DEFAULTS.tol, registered: f.relaxTol, hasFlag: true },
+    { name: "divTol", defaultsKey: "divTol", fromDefault: GROW_LK_DEFAULTS.divTol, registered: f.divTol, hasFlag: true },
+    { name: "noiseEpsilon", defaultsKey: "noise", fromDefault: GROW_LK_DEFAULTS.noise, registered: f.noiseEpsilon, hasFlag: true },
+    { name: "rngSeed", defaultsKey: "seed", fromDefault: GROW_LK_DEFAULTS.seed, registered: f.rngSeed, hasFlag: true },
+    { name: "pressurePa", defaultsKey: "pressurePa", fromDefault: GROW_LK_DEFAULTS.pressurePa, registered: f.pressurePa, hasFlag: false },
+    { name: "seedRadius", defaultsKey: "seedRadius", fromDefault: GROW_LK_DEFAULTS.seedRadius, registered: f.seedRadius, hasFlag: false },
+    { name: "seedThickness", defaultsKey: "seedThickness", fromDefault: GROW_LK_DEFAULTS.seedThickness, registered: f.seedThickness, hasFlag: false },
+    { name: "relaxMaxSweeps", defaultsKey: "relaxMaxSweeps", fromDefault: GROW_LK_DEFAULTS.relaxMaxSweeps, registered: f.relaxMaxSweeps, hasFlag: false },
+    // ADR 0035. The step cap: registered nowhere until now, and the highest-harm hole the pin
+    // register found. It has a flag, but the sweep does not pass it, so the default is the path.
+    { name: "steps", defaultsKey: "steps", fromDefault: GROW_LK_DEFAULTS.steps, registered: f.steps, hasFlag: true },
   ];
+}
+
+/**
+ * Every `GROW_LK_DEFAULTS` key that is neither passed explicitly, nor checked against a registered
+ * value, nor named as provably result-irrelevant.
+ *
+ * Pin-register recommendation 14, and the structural half of recommendation 2. The point is the
+ * direction of the iteration: this walks the DEFAULTS, so a value that reaches a run is discovered
+ * by the check rather than remembered by a person. `steps` is the proof it was needed — two
+ * hand-kept lists both omitted it, and no test could notice, because neither list claimed to be
+ * complete.
+ */
+export function phase6UnaccountedDefaults(): readonly string[] {
+  const command = phase6PointCommand(phase6SweepGrid()[0] as Phase6GridPoint);
+  const checked = new Set(phase6DefaultBackedParameters().map((p) => p.defaultsKey as string));
+  const out: string[] = [];
+  for (const key of Object.keys(GROW_LK_DEFAULTS)) {
+    if (key in PHASE6_RESULT_IRRELEVANT_DEFAULTS) continue;
+    if (checked.has(key)) continue;
+    const flag = PHASE6_DEFAULT_KEY_FLAGS[key];
+    if (flag !== undefined) {
+      // Claiming a key is covered by a flag is only true if the flag is actually on the line.
+      if (!command.includes(flag)) {
+        out.push(`${key} is mapped to ${flag}, but phase6PointCommand does not pass ${flag}`);
+      }
+      continue;
+    }
+    out.push(
+      `${key} reaches every run from GROW_LK_DEFAULTS.${key} = ${JSON.stringify(GROW_LK_DEFAULTS[key as keyof typeof GROW_LK_DEFAULTS])} ` +
+        "and is in NO bucket: not passed explicitly, not checked against a registered value, not " +
+        "named result-irrelevant. Editing it would move no hash and fail no test",
+    );
+  }
+  return out;
 }
 
 /**
@@ -93,8 +136,18 @@ export function phase6DefaultBackedParameters(): readonly {
 export function phase6CommandFlagFailures(command: readonly string[]): readonly string[] {
   const failures: string[] = [];
   for (const flag of PHASE6_EXPLICIT_FLAGS) {
-    if (!command.includes(flag)) {
+    const occurrences = command.filter((token) => token === flag).length;
+    if (occurrences === 0) {
       failures.push(`the child command omits ${flag}, so that registered value would come from a CLI default`);
+    } else if (occurrences > 1) {
+      // Pin-register recommendation 7. `parseLKArgs` takes the LAST occurrence of a repeated flag,
+      // and `indexOf` below takes the FIRST — so `--param-set CAK --param-set CAK_A1` passes a
+      // presence check, passes a value check, and runs under CAK_A1. Rejecting duplicates outright
+      // is the only version of this that cannot be reasoned around.
+      failures.push(
+        `the child command passes ${flag} ${occurrences} times; the parser honours the last ` +
+          "occurrence and this check reads the first, so a duplicate can make them disagree",
+      );
     }
   }
   // The one whose absence caused ADR 0031, checked by VALUE as well as by presence.
@@ -171,6 +224,12 @@ export function phase6SweepPreflight(repoRoot: string = process.cwd()): Phase6Pr
   for (const failure of phase6CommandFlagFailures(phase6PointCommand(phase6SweepGrid()[0] as Phase6GridPoint))) {
     failures.push(failure);
   }
+  // Pin-register recommendation 14. The generic version of the two checks above: it walks the
+  // defaults object rather than a maintained list, so the NEXT `steps` is found by preflight
+  // instead of by an audit.
+  for (const failure of phase6UnaccountedDefaults()) {
+    failures.push(failure);
+  }
 
   const provenance = phase6ProtocolProvenance(repoRoot);
   if (!provenance.freezeIsAncestor) {
@@ -242,6 +301,23 @@ export interface Phase6RunConfig {
   readonly rngSeed: number;
   readonly noiseEpsilon: number;
   readonly seedRadius: number;
+  // --- Pin-register recommendation 2. All already printed; all previously read by nothing. ---
+  /** The two quantities that DEFINE the grid point, confirmed from the run rather than assumed. */
+  readonly tempC: number;
+  readonly sigmaInf: number;
+  /** Domain shape and size, via the solver's own cell counts. Pins `dims` AND `domain`. */
+  readonly dimsN: number;
+  readonly hexRadius: number;
+  readonly zHalfExtent: number;
+  readonly activeCells: number;
+  /** Pins `seedRadius` and `seedThickness` — the latter has no CLI flag at all. */
+  readonly seedSites: number;
+  /**
+   * From the child's FINAL line, not its header: how the run ended, and at what size. A run that
+   * hit the step cap is not a smaller measurement of the same thing, it is a different crystal.
+   */
+  readonly stopReason: string;
+  readonly finalExtent: number;
 }
 
 /**
@@ -252,7 +328,15 @@ export interface Phase6RunConfig {
  * and the child using the right value are two different propositions; only the second one produced
  * the evidence.
  */
-export function phase6ConfigFailures(config: Phase6RunConfig | null): readonly string[] {
+export function phase6ConfigFailures(
+  config: Phase6RunConfig | null,
+  /**
+   * The grid point the run was supposed to be. REQUIRED rather than optional: an optional operand
+   * here would mean the two quantities that define a point go unchecked wherever a caller forgot to
+   * pass it, which is the same silent-default shape as ADR 0031 itself.
+   */
+  point: Pick<Phase6GridPoint, "tempC" | "sigmaInf">,
+): readonly string[] {
   if (config === null) return ["the child's configuration header could not be parsed"];
   const f = PHASE6_CROSSPLATFORM_FIXTURE;
   const out: string[] = [];
@@ -272,16 +356,55 @@ export function phase6ConfigFailures(config: Phase6RunConfig | null): readonly s
   eq("rngSeed", config.rngSeed, f.rngSeed);
   eq("noiseEpsilon", config.noiseEpsilon, f.noiseEpsilon);
   eq("seedRadius", config.seedRadius, f.seedRadius);
+
+  // Pin-register recommendation 2. The point's own identity: a run at the wrong temperature or the
+  // wrong supersaturation is not a bad measurement of this point, it is a measurement of another.
+  eq("tempC", config.tempC, point.tempC);
+  // Compared against the value the COMMAND LINE carries, not the raw float: phase6PointCommand
+  // emits `point.sigmaInf.toFixed(6)`, so the child can only ever echo the rounded value and
+  // comparing against the unrounded one would fail every run.
+  eq("sigmaInf", config.sigmaInf, Number(point.sigmaInf.toFixed(6)));
+
+  // Geometry, against the closed form rather than a measured literal.
+  const geometry = phase6ExpectedRunGeometry(f.dims.nx, f.seedRadius, f.seedThickness);
+  eq("dimsN", config.dimsN, f.dims.nx);
+  eq("hexRadius", config.hexRadius, geometry.hexRadius);
+  eq("zHalfExtent", config.zHalfExtent, geometry.zHalfExtent);
+  if (config.activeCells !== geometry.activeCells) {
+    out.push(
+      `activeCells: run had ${config.activeCells}, a ${f.domain} at N=${f.dims.nx} has ` +
+        `${geometry.activeCells} — this is the only check that sees the domain SHAPE, which has no ` +
+        "CLI flag and is hard-coded at the sweep's solver construction",
+    );
+  }
+  if (config.seedSites !== geometry.seedSites) {
+    out.push(
+      `seedSites: run seeded ${config.seedSites} sites, seedRadius=${f.seedRadius} × ` +
+        `seedThickness=${f.seedThickness} gives ${geometry.seedSites} — neither has a CLI flag, so ` +
+        "this token is the only evidence of what was actually seeded",
+    );
+  }
   return out;
 }
 
-/** Parse grow-lk's echoed header — the run describing itself. */
+/**
+ * Parse grow-lk's echoed header — the run describing itself.
+ *
+ * Two regions, deliberately separated. The HEADER is what the child was configured with, printed
+ * before it takes a step. The FINAL line is how it ended. Reading both matters: a step-capped run
+ * has a perfectly clean header, which is precisely why a header-only check certified one.
+ */
 export function phase6ParseRunConfig(stdout: string): Phase6RunConfig | null {
-  const head = stdout.split("stop reason")[0] ?? "";
-  const str = (re: RegExp): string | null => {
-    const hit = re.exec(head);
+  const at = stdout.indexOf("stop reason");
+  const head = at < 0 ? stdout : stdout.slice(0, at);
+  // The last one, not the first: a progress line can never contain it, but neither should this be
+  // the kind of parse that a second occurrence quietly changes the meaning of.
+  const tail = at < 0 ? "" : stdout.slice(stdout.lastIndexOf("stop reason"));
+  const from = (region: string, re: RegExp): string | null => {
+    const hit = re.exec(region);
     return hit === null ? null : (hit[1] as string);
   };
+  const str = (re: RegExp): string | null => from(head, re);
   const n = (re: RegExp): number => {
     const raw = str(re);
     return raw === null ? Number.NaN : Number(raw);
@@ -289,7 +412,8 @@ export function phase6ParseRunConfig(stdout: string): Phase6RunConfig | null {
   const paramSet = str(/paramSet=(\S+)/);
   const surfacePolicy = str(/surfacePolicy=(\S+)/);
   const farField = str(/farField=(\S+)/);
-  if (paramSet === null || surfacePolicy === null || farField === null) return null;
+  const stopReason = from(tail, /stop reason=(\S+)/);
+  if (paramSet === null || surfacePolicy === null || farField === null || stopReason === null) return null;
   const config: Phase6RunConfig = {
     paramSet,
     surfacePolicy,
@@ -304,6 +428,18 @@ export function phase6ParseRunConfig(stdout: string): Phase6RunConfig | null {
     rngSeed: n(/seed=([0-9]+)/),
     noiseEpsilon: n(/noise=([0-9.e+-]+)/),
     seedRadius: n(/seedRadius=([0-9]+)/),
+    tempC: n(/\bT=(-?[0-9.e+-]+)C/),
+    sigmaInf: n(/sigmaInf=([0-9.e+-]+)/),
+    dimsN: n(/dims=([0-9]+),/),
+    // Signed on purpose. A `box` domain prints `hexRadius=-1`, and matching only digits there made
+    // the whole parse fail — so the sweep aborted with "header could not be parsed" instead of
+    // naming the domain. Fail-closed either way, but a check should say what it found.
+    hexRadius: n(/hexRadius=(-?[0-9]+)/),
+    zHalfExtent: n(/zHalfExtent=(-?[0-9]+)/),
+    activeCells: n(/active=([0-9]+)/),
+    seedSites: n(/seedSites=([0-9]+)/),
+    stopReason,
+    finalExtent: Number(from(tail, /extent=([0-9]+)/) ?? Number.NaN),
   };
   return Object.values(config).some((v) => typeof v === "number" && !Number.isFinite(v)) ? null : config;
 }
@@ -339,6 +475,23 @@ export function phase6ScorePoint(
   if (!result.deltaSymClean) invalidReasons.push("a per-tick attachment delta broke D6h invariance");
   if (result.symmetryError !== 0) invalidReasons.push(`symmetryError = ${result.symmetryError} with noise off`);
   if (result.domainContact) invalidReasons.push("tripped the 65% domain-contact guard");
+  // ADR 0035. The `habit-measurement-size` freeze row has registered "largest extent 21 lattice
+  // cells" since WP0c, and nothing enforced it. Written as `!(x >= target)` rather than `x < target`
+  // so a NaN extent — an over-budget or unparseable run — is caught rather than passed by the
+  // comparison being false either way.
+  const measurementSize = PHASE6_CROSSPLATFORM_FIXTURE.targetExtent;
+  if (!(result.largestExtent >= measurementSize)) {
+    invalidReasons.push(
+      `stopped at extent ${result.largestExtent}, short of the registered measurement size ` +
+        `${measurementSize} — habit is size-dependent, so this is not a smaller measurement of the ` +
+        "same crystal",
+    );
+  }
+  if (result.config !== null && result.config.stopReason !== PHASE6_REQUIRED_STOP_REASON) {
+    invalidReasons.push(
+      `stop reason "${result.config.stopReason}", not the registered "${PHASE6_REQUIRED_STOP_REASON}"`,
+    );
+  }
 
   const modelClass: Phase6ModelClass =
     invalidReasons.length > 0 ? "invalid" : phase6ClassifyHabit(result.aspectRatio);
@@ -610,7 +763,7 @@ export async function phase6RunSweep(options: {
           // whole sweep rather than continue and publish a mixed artifact, which control 3 showed is
           // indistinguishable from a clean one.
           if (parsed !== null) {
-            const configFailures = phase6ConfigFailures(parsed.config);
+            const configFailures = phase6ConfigFailures(parsed.config, point);
             if (configFailures.length > 0) {
               reject(
                 new Error(

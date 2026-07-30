@@ -1567,6 +1567,65 @@ export const PHASE6_DOMAIN_CONTACT_GUARD_FRACTION = 0.65;
 /** The registered sweep domain N, so a verifier can recompute the contact guard from geometry. */
 export const PHASE6_SWEEP_DOMAIN_N = 48;
 
+/**
+ * Sites in a solid centred hexagonal disc of radius `r`, `thickness` layers deep — the closed form
+ * for both the seed and the hexPrism domain: `(3r² + 3r + 1) · layers`.
+ *
+ * DERIVED, not registered. Nothing here is a new degree of freedom: every input is already a freeze
+ * row or a fixture field, and this function only states the arithmetic consequence. That is why
+ * ADR 0035 moves no hash — see its "Charter impact".
+ */
+export function phase6HexPrismSites(r: number, thickness: number): number {
+  return (3 * r * r + 3 * r + 1) * thickness;
+}
+
+/**
+ * What a correctly-configured child must print for `active=` and `seedSites=` — the two tokens that
+ * pin the run inputs NO flag and NO hash can otherwise reach (pin-register recommendation 2).
+ *
+ * `active` pins `domain` and `dims` together: `main.ts` hard-codes `domain: "hexPrism"` at the
+ * sweep's own solver construction, so the fixture's `domain` field is never read and mutating that
+ * line to `"box"` moved no hash and failed no test. A box at 48³ has 110 592 active cells against
+ * this hexPrism's 77 879 — the difference is 29%, printed on every run, and previously read by
+ * nothing.
+ *
+ * `seedSites` pins `seedRadius` and `seedThickness`, neither of which has a CLI flag at all. The
+ * pin register measured `seedThickness` 1 → 3 taking seedSites 19 → 57 and the seed's aspect ratio
+ * 0.2 → 0.6, with every hash and all 100 tests still green. 19 · 3 = 57 is exactly what the closed
+ * form above gives, which is why these are checked arithmetically rather than pinned as literals.
+ */
+export function phase6ExpectedRunGeometry(dimsN: number, seedRadius: number, seedThickness: number): {
+  readonly hexRadius: number;
+  readonly zHalfExtent: number;
+  readonly activeCells: number;
+  readonly seedSites: number;
+} {
+  // The solver's own convention: a hexPrism inscribed in an N³ box keeps a one-cell margin, so the
+  // hex radius and the z half-extent are both (N/2) − 1. Checked against a real child header in
+  // runner/test/phase6-sweep.test.ts rather than asserted here.
+  const hexRadius = Math.floor(dimsN / 2) - 1;
+  const zHalfExtent = hexRadius;
+  return {
+    hexRadius,
+    zHalfExtent,
+    activeCells: phase6HexPrismSites(hexRadius, 2 * zHalfExtent + 1),
+    seedSites: phase6HexPrismSites(seedRadius, seedThickness),
+  };
+}
+
+/**
+ * The only stop reason under which a run's aspect ratio is a measurement of habit.
+ *
+ * The pin register's highest-harm finding: at `--steps 5` the child prints
+ * `stop reason=step-cap … extent=5 AR=0.200000 symErr=0 deltaSymClean=true allConverged=true`, and
+ * the harness scored that plate / **AGREE** / headline at −2 °C. The same point run to completion is
+ * neutral / **disagree**. `steps` is registered nowhere, so mutating its default moved no hash and
+ * passed every test — a whole fabricated diagram, 204 rows, in about a minute of compute.
+ *
+ * Reproduced directly on 2026-07-29 at the registered configuration; see ADR 0035.
+ */
+export const PHASE6_REQUIRED_STOP_REASON = "size-target";
+
 /** Values-hash revisions, newest last. A freeze with a silently-replaced constant is not a freeze. */
 export const PHASE6_VALUES_REVISIONS = [
   { sha256: "879e069f612f1c6b4b40074d5cc890419fc17f09545dc27b2c8823d7667938f6", note: "ADR 0033 initial split; values side of the 8aeb2b80 combined manifest, unchanged in content" },

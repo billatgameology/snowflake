@@ -106,6 +106,30 @@ there. The comment now says that instead.
 
 ---
 
+## E3 — arm 1's rows cannot show how their runs ENDED (open, and it closes itself at arm 2)
+
+ADR 0035 requires a scored run to have stopped on `stop reason=size-target`, because a step-capped run
+reports the shape of the 19-site seed — `AR = 0.200000`, temperature-independent — and the harness
+scored that `plate / AGREE / headline`. Applied to the whole grid the fabrication reads **66 of 90**
+against arm 1's measured **3 of 90**.
+
+**Arm 1's `points.json` predates per-row `config`, so 0 of 204 rows record a stop reason.** The check
+cannot be applied to the published artifact retroactively.
+
+**What carries the claim instead.** All 204 rows are at **exactly** extent 21, the registered
+measurement size, and that is sufficient rather than merely reassuring: the growth loop cannot continue
+past the size target, so reaching 21 implies the size-target condition fired. The stop reason is
+corroboration, not the load-bearing evidence. `app/scripts/phase6-wp5-independent.mjs` now **prints**
+both the extent census and the `0/204` config count, with the limitation stated in its output — a
+verifier that silently skips a check it cannot run is how the step-cap fabrication survived
+certification in the first place.
+
+**Why this is not being fixed by re-running.** Re-deriving it would cost the full 89 core-hours to add
+corroboration to a conclusion the extent census already supports. Arm 2 records `config` on every row
+from the start, so the gap does not recur and does not need to be paid for twice.
+
+---
+
 ## What is NOT covered here
 
 - Errata in **unhashed** locations are fixed in place and not listed, except E2.

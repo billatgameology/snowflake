@@ -290,14 +290,49 @@ for (const [key, count] of seen) {
 for (const key of expectedKeys) if (!seen.has(key)) note(`registered grid point ${key} is MISSING`);
 
 // Measurement size: recorded on every row and, until now, checked by nothing.
+//
+// `<` rather than `!==`, matching the rule ADR 0035 registered. Extent can rise by two in a step, so
+// a legitimate run can end at 22; invalidating that would be a different defect from the one this
+// closes. Every arm-1 row is in fact exactly 21, which is reported below rather than assumed.
+let atExactSize = 0;
 for (const entry of points) {
-  if (entry.result.largestExtent !== REGISTERED_TARGET_EXTENT && entry.exclusionReason === null) {
+  if (entry.result.largestExtent === REGISTERED_TARGET_EXTENT) atExactSize += 1;
+  if (entry.result.largestExtent < REGISTERED_TARGET_EXTENT && entry.exclusionReason === null) {
     note(
       `T=${entry.point.tempC} f=${entry.point.fraction} was measured at extent ` +
-        `${entry.result.largestExtent}, not the registered ${REGISTERED_TARGET_EXTENT}, yet is scored — ` +
-        "habit is size-dependent, so this is not a comparable measurement",
+        `${entry.result.largestExtent}, short of the registered ${REGISTERED_TARGET_EXTENT}, yet is ` +
+        "scored — habit is size-dependent, so this is not a comparable measurement",
     );
   }
+}
+
+// ADR 0035's stop-reason half, and its NAMED limitation. Arm 1 predates per-row `config`, so its
+// rows cannot be checked for how they ended. That gap is PRINTED rather than left implicit: a
+// verifier that silently skips a check it cannot run is how the step-cap fabrication survived.
+const withConfig = points.filter((e) => e.result.config !== null && e.result.config !== undefined);
+for (const entry of withConfig) {
+  if (entry.result.config.stopReason !== "size-target" && entry.exclusionReason === null) {
+    note(
+      `T=${entry.point.tempC} f=${entry.point.fraction} ended on stop reason ` +
+        `"${entry.result.config.stopReason}", not "size-target", yet is scored`,
+    );
+  }
+}
+console.log(
+  `measurement size: ${atExactSize}/${points.length} rows at exactly extent ${REGISTERED_TARGET_EXTENT}; ` +
+    `${withConfig.length}/${points.length} rows carry a self-reported run config.`,
+);
+if (withConfig.length === 0) {
+  console.log(
+    "  LIMITATION, stated not skipped: no row records how its run ended, so the ADR 0035 stop-reason",
+  );
+  console.log(
+    "  check cannot be applied to this artifact. Reaching extent 21 does imply the size-target",
+  );
+  console.log(
+    "  condition fired — the growth loop cannot continue past it — so the extent check above carries",
+  );
+  console.log("  the claim, and the stop reason is corroboration this arm does not have.");
 }
 
 console.log("");

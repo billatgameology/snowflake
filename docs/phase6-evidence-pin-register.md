@@ -4,6 +4,28 @@
 All three published artifacts verified at rest against `research/phase6-sweep-report.md:56-60`:
 `points.json` 0ed613bce61e4482…, `report.json` 71ae094c38778b0d…, `diagram.svg` 40458703061af5b5…
 
+## Closure log
+
+Appended as recommendations land. Section 5's table is the plan and is left as written; this is what
+has actually been done, so the two can be compared rather than conflated.
+
+| rec | status | where | verified by |
+|---|---|---|---|
+| **1** | **CLOSED** | `990840a` | Substituting the superseded `CAK_A1` arm now FAILS on digest mismatch on both files; untouched artifacts PASS. |
+| **4** | **CLOSED** | `990840a` | Forging `domainContact=true` on the 87 headline disagreements — which made the headline read 3 of 3 — now FAILS with 18 distinct disagreements. |
+| **2** | **CLOSED** | ADR 0035 | Three executed controls: `--steps 1` (was plate/AGREE/headline → now invalid/excluded); `domain: "hexPrism"` → `"box"` (CAUGHT, `active=110592` vs 77 879); `seedThickness` 1 → 3 (CAUGHT twice, `seedSites=57` vs 19 and preflight). |
+| **7** | **CLOSED** | ADR 0035 | `--param-set CAK --param-set CAK_A1` is rejected; it previously passed both the presence and the value check while running `CAK_A1`. |
+| **14** | **CLOSED** | ADR 0035 | `phase6UnaccountedDefaults()` walks `GROW_LK_DEFAULTS` and requires every key in a named bucket. `steps` is now registered on the fixture and checked, not called harmless. |
+
+**Not yet closed, and the ones that matter most:** **3** (no CI — every pin in this register is still
+human-triggered), **5** and **10** (artifact identity and completion-time provenance), **6** (the libm
+digest is collected but not gated), **8** (registered *values* are not themselves hashable), **11**
+(the solver's test hooks are reachable on an evidence path).
+
+One correction to this register's own text, found while closing rec 2: it recommended requiring
+`largestExtent === fixture.targetExtent`. Extent can rise by two in a step, so a correct run can end
+at 22 and `===` would invalidate it. ADR 0035 registers `< targetExtent` instead.
+
 ---
 
 ## 1. What this is

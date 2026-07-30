@@ -92,3 +92,38 @@ export const PHASE6_UNFLAGGED_PARAMETERS = [
   "seedThickness",
   "relaxMaxSweeps",
 ] as const;
+
+/**
+ * Which `GROW_LK_DEFAULTS` key each explicitly-passed flag overrides.
+ *
+ * Pin-register recommendation 14. The previous checks were both *enumerated*: a hand-kept list of
+ * flags and a hand-kept table of default-backed parameters. Two hand-kept lists cannot prove they
+ * cover a third thing, and they didn't — `steps` was in neither, so mutating its default moved no
+ * hash, failed no test, and let a five-step run be scored as a habit measurement.
+ *
+ * With this map, preflight iterates the DEFAULTS OBJECT itself and requires every key to be
+ * accounted for. A new field added to `GrowLKDefaults` fails preflight until someone says which
+ * bucket it belongs in — which is the property an enumerated list can never have.
+ */
+export const PHASE6_DEFAULT_KEY_FLAGS: Readonly<Record<string, string>> = {
+  surfacePolicy: "--surface-policy",
+  farField: "--far-field",
+  dims: "--dims",
+  dxUm: "--dx-um",
+  paramSet: "--param-set",
+  cfl: "--cfl",
+  targetExtent: "--target-extent",
+};
+
+/**
+ * Defaults that CANNOT change a run's physics, each with the reason it cannot.
+ *
+ * This bucket is deliberately hard to qualify for: it means the value is provably absent from the
+ * numerical path, not merely believed harmless. `steps` was the tempting candidate and is exactly
+ * the one that does not qualify — a loop bound decides when measurement happens, so it decides what
+ * is measured. It is registered on the fixture instead.
+ */
+export const PHASE6_RESULT_IRRELEVANT_DEFAULTS: Readonly<Record<string, string>> = {
+  metricsEvery: "controls how often a progress line is printed; read only by console.log, and the " +
+    "sweep passes --metrics-every 100000 to silence it. No solver state depends on it",
+};

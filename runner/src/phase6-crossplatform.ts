@@ -88,6 +88,14 @@ export const PHASE6_CROSSPLATFORM_FIXTURE = {
   seedRadius: 2,
   seedThickness: 1,
   /**
+   * The step cap. Registered because the pin register found it registered NOWHERE while being the
+   * single highest-harm unpinned input in the tree: at `--steps 5` a child prints a clean header and
+   * `stop reason=step-cap … extent=5 AR=0.200000`, which the harness scored plate / AGREE / headline.
+   * It is a SAFETY BOUND, not a physics operand — a correct run stops on `size-target` long before
+   * it, which is what ADR 0035 now requires — so its value is not tuned, only pinned.
+   */
+  steps: 100_000,
+  /**
    * Sampling fraction for the TIER-1 fingerprint only — it sweeps σ_surf across every fingerprint
    * temperature, so it needs one fraction rather than a per-point one. The tier-2 points below
    * carry their own fractions.

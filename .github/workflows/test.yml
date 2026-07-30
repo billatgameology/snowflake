@@ -1,0 +1,56 @@
+# Run the repository's exact check on every push and pull request.
+#
+# WHY THIS EXISTS. Until now this repository had no CI: `.github/workflows/` contained one workflow and
+# it deploys `docs/education` to Pages. Every test, every hash pin, every preflight check and every
+# freeze assertion was therefore HUMAN-TRIGGERED — the evidence pin register records this as R32,
+# because it means "the suite is green" has always meant "green on whatever the operator happened to
+# run". Two concrete consequences already happened:
+#
+#   - A "1227/1227 green" claim was based on `npx vitest run`, which skips the Rule 7 scan and BOTH
+#     typechecks. 319 Rule 7 violations were live at the time.
+#   - A "628 tests passed" claim came from `npx vitest run runner/test` — a subset — while an
+#     unrestored physics mutation sat in the working tree.
+#
+# So this runs `npm test` and nothing else. `npm test` is `lint:rule7 && typecheck && vitest run`, and
+# per the project's Rule 6 it is the ONLY command that counts as the suite being green. Splitting it
+# into separate steps for nicer log grouping was considered and rejected: the whole point is that the
+# thing CI runs is the thing a human is told to run, character for character.
+#
+# EXPECTED RED, AND WHY THAT IS THE CORRECT SIGNAL. At the time this workflow was added, exact
+# `npm test` FAILS on 319 Rule 7 violations in `docs/education/chapters/*.html` and `glossary.html`.
+# That work is delegated to a separate session and is deliberately not fixed here. A CI that is red
+# for a known, named, owned reason is doing its job; making it green by narrowing what it runs is the
+# exact failure this workflow exists to prevent. Nothing deploys to Pages until it is green.
+
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # The runner uses `--experimental-strip-types`, so the major version matters. package.json
+          # asks for >=23.6; pin the major here so a silent bump cannot change what the numerics do.
+          node-version: "24"
+          cache: npm
+
+      - run: npm ci
+
+      # The exact command, unmodified. See the header.
+      - run: npm test
