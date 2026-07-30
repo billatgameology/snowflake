@@ -904,8 +904,9 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
         "mixed grid would leave no honest value to hand it. Its range is the digitized figure's " +
         "own labelled span. The σ axis is bounded at both ends by measured facet physics rather " +
         "than by assertion: below f ≈ 0.10 the smaller facet coefficient collapses into the " +
-        "dead-facet regime (2.3e-4 at f = 0.05, −35 °C, against rough-site 1.0), and toward " +
-        "f = 0.90 the basal/prism contrast compresses from 0.34–3.76 to 0.84–1.25. The top row " +
+        "dead-facet regime (2.3e-4 at f = 0.05, −35 °C, against rough-site 1.0), and above 1x " +
+        "water saturation sustained supersaturation nucleates droplets, which changes the " +
+        "boundary condition around the crystal (2109.00098v1 p9). The top row " +
         "is kept deliberately: weak facet contrast is not weak habit variation, because at high " +
         "supersaturation morphology is set by branching instability rather than facet kinetics, " +
         "so what the model does there is a real question. Constrained throughout by the " +
@@ -1495,6 +1496,23 @@ export function phase6JustificationManifest(
  * sweep evidence under a protocol nobody agreed to.
  */
 export const PHASE6_PROTOCOL_SHA256 =
+  "2b94aa5fa35b633dfb76275fca411cbbc25191c93ec2921a7506522b0ccf38e5";
+
+/**
+ * ADR 0034 — the combined hash AT THE COMMIT THE ARM-1 EVIDENCE CITES.
+ *
+ * `out/phase6-sweep/report.json` and `research/phase6-sweep-report.md` both record
+ * `8aeb2b80…`, and it is reproducible by checking out `390fe35` and computing
+ * `canonicalJsonSha256(phase6ProtocolManifest())` there. It is NOT reproducible at HEAD, and
+ * cannot be: the combined manifest contains prose by construction, so the first ADR-logged
+ * justification correction necessarily moves it.
+ *
+ * ADR 0033 claimed the legacy hash would be "preserved, not retired". That was over-strong —
+ * true only until the first prose fix, which ADR 0034 then made. Corrected here: the combined
+ * hash is HISTORICAL, verified against the commit the evidence names rather than against HEAD,
+ * and `PHASE6_VALUES_SHA256` is the hash that must hold across prose corrections. It does.
+ */
+export const PHASE6_PROTOCOL_SHA256_AT_ARM1_EVIDENCE =
   "8aeb2b80a5d85357bca1ddbf7301e63ea7b53e714e4bc5ce290ac22e1b16698e";
 
 /**
@@ -1518,7 +1536,7 @@ export const PHASE6_VALUES_SHA256 =
  * nothing else, so it is ADR-logged but costs no re-sweep.
  */
 export const PHASE6_JUSTIFICATION_SHA256 =
-  "8b73b5f8dc8b7747fc47b3d071c31023bbee30af389ee7bcf67820e3daea93bc";
+  "040b1a44505fdba1767311927be5dad56b622ca9ee2c6bc4e4ab73e77f83c332";
 
 /** Values-hash revisions, newest last. A freeze with a silently-replaced constant is not a freeze. */
 export const PHASE6_VALUES_REVISIONS = [
@@ -1527,7 +1545,8 @@ export const PHASE6_VALUES_REVISIONS = [
 
 /** Justification-hash revisions, newest last. Prose corrections land here and cost no re-sweep. */
 export const PHASE6_JUSTIFICATION_REVISIONS = [
-  { sha256: "8b73b5f8dc8b7747fc47b3d071c31023bbee30af389ee7bcf67820e3daea93bc", note: "ADR 0033 initial split; carries erratum E1's wrong contrast-collapse justification, to be corrected under this scheme" },
+  { sha256: "8b73b5f8dc8b7747fc47b3d071c31023bbee30af389ee7bcf67820e3daea93bc", note: "ADR 0033 initial split; carried erratum E1's wrong contrast-collapse justification" },
+  { sha256: "040b1a44505fdba1767311927be5dad56b622ca9ee2c6bc4e4ab73e77f83c332", note: "ADR 0034 corrects E1: the compression claim was CAK_A1 and reverses under CAK; replaced with the droplet-nucleation ground" },
 ] as const;
 
 export const PHASE6_PROTOCOL_REVISIONS = [
@@ -1540,7 +1559,11 @@ export const PHASE6_PROTOCOL_REVISIONS = [
   // THE FIRST AMENDMENT THAT IS NOT FREE. Every revision above was registered before any sweep
   // ran, so each cost nothing. This one invalidates the 204-point sweep of 6995868 and re-runs it,
   // which is what §3.2 Phase 6 item 1 prices and is the reason the clause exists.
-  { sha256: "8aeb2b80a5d85357bca1ddbf7301e63ea7b53e714e4bc5ce290ac22e1b16698e", note: "ADR 0031 registers paramSet = CAK as a freeze row (25 rows); the sweep of 6995868 ran CAK_A1 in violation of the parameter-interpolation row and is invalidated" },
+  { sha256: "8aeb2b80a5d85357bca1ddbf7301e63ea7b53e714e4bc5ce290ac22e1b16698e", note: "ADR 0031 registers paramSet = CAK as a freeze row (25 rows); the sweep of 6995868 ran CAK_A1 in violation of the parameter-interpolation row and is invalidated. THE ARM-1 EVIDENCE CITES THIS VALUE — reproducible at commit 390fe35" },
+  // ADR 0034. Moved by a JUSTIFICATION correction only: PHASE6_VALUES_SHA256 is unchanged, so
+  // under the amended charter §3.2 this invalidates nothing and costs no re-sweep. This is the
+  // first entry in this list that did not.
+  { sha256: "2b94aa5fa35b633dfb76275fca411cbbc25191c93ec2921a7506522b0ccf38e5", note: "ADR 0034 corrects the t-sigma-grid contrast-collapse justification (erratum E1); values hash unchanged, no re-sweep" },
 ] as const;
 
 /**

@@ -57,7 +57,14 @@ Found by the adversarial audit of 2026-07-29
 
 ---
 
-## E1 — the `t-sigma-grid` row's contrast-collapse justification is wrong, and inverted
+## E1 — CLOSED by ADR 0034 (2026-07-29)
+
+**Fixed, not carried.** Once ADR 0033's two-hash split landed, correcting this string cost nothing:
+`PHASE6_VALUES_SHA256` is unchanged at `879e069f…`, only the justification hash moved
+(`8b73b5f8…` → `040b1a44…`), and no sweep was invalidated. See ADR 0034 for the old → new text.
+The record below is retained as the finding's history.
+
+## E1 (historical) — the `t-sigma-grid` row's contrast-collapse justification is wrong, and inverted
 
 **Where:** `runner/src/phase6-protocol.ts`, freeze row `t-sigma-grid`, `source` string.
 

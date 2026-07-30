@@ -59,6 +59,7 @@ import {
   PHASE6_PARAMETER_TABLE_SHA256,
   PHASE6_PROTOCOL_FREEZE_COMMIT,
   PHASE6_PROTOCOL_SHA256,
+  PHASE6_PROTOCOL_SHA256_AT_ARM1_EVIDENCE,
   PHASE6_PROTOCOL_REVISIONS,
   phase6ProtocolProvenance,
   type Phase6FreezeItem,
@@ -814,10 +815,17 @@ describe("the latent-heating decision", () => {
 });
 
 describe("ADR 0033 — the values/justification split", () => {
-  it("preserves the legacy combined hash published evidence cites", () => {
-    // out/phase6-sweep/report.json records 8aeb2b80 as the protocol that produced it. The split
-    // refactor must leave that reproducible, or the fix destroys the evidence it exists to protect.
+  it("keeps the arm-1 evidence hash in the revision history, not at HEAD", () => {
+    // ADR 0033 claimed the legacy combined hash would be "preserved". That was over-strong: the
+    // combined manifest contains prose, so ADR 0034's justification correction necessarily moved
+    // it. What must hold instead is that the value the evidence CITES is still recorded, so a
+    // reader can verify it at the commit the evidence names (390fe35).
+    expect(PHASE6_PROTOCOL_REVISIONS.map((r) => r.sha256)).toContain(
+      PHASE6_PROTOCOL_SHA256_AT_ARM1_EVIDENCE,
+    );
     expect(canonicalJsonSha256(phase6ProtocolManifest())).toBe(PHASE6_PROTOCOL_SHA256);
+    // The VALUES hash is what had to survive the prose correction, and it did.
+    expect(canonicalJsonSha256(phase6ValuesManifest())).toBe(PHASE6_VALUES_SHA256);
   });
 
   it("pins both new hashes, with revision history", () => {
