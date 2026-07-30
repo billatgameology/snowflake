@@ -190,29 +190,30 @@
       </p>
       <p>
         Chapter 5 gave a name to how readily molecules stick to a given facet: the attachment
-        coefficient, written &alpha; (0 to 1). Small &alpha; means a stubborn facet.
+        coefficient, written <code>alphaHK</code> in this project (0 to 1). Small <code>alphaHK</code>
+        means a stubborn facet.
         Put the two ideas together and you get a rule that Libbrecht says &ldquo;applies throughout
         the menagerie of different snow-crystal types&rdquo;:
       </p>
 
       <div class="equation">
         <p class="equation__math">
-          thin plates &rArr; &alpha;<sub>basal</sub> &#8810; &alpha;<sub>prism</sub><br>
-          slender columns &rArr; &alpha;<sub>basal</sub> &#8811; &alpha;<sub>prism</sub>
+          thin plates &rArr; alphaHK<sub>basal</sub> &#8810; alphaHK<sub>prism</sub><br>
+          slender columns &rArr; alphaHK<sub>basal</sub> &#8811; alphaHK<sub>prism</sub>
         </p>
         <div class="equation__where">
           <strong>where</strong>
           <dl>
-            <dt>&alpha;<sub>basal</sub></dt><dd>how readily a molecule sticks to the flat top or bottom cap</dd>
-            <dt>&alpha;<sub>prism</sub></dt><dd>how readily a molecule sticks to one of the six sides</dd>
+            <dt>alphaHK<sub>basal</sub></dt><dd>how readily a molecule sticks to the flat top or bottom cap</dd>
+            <dt>alphaHK<sub>prism</sub></dt><dd>how readily a molecule sticks to one of the six sides</dd>
             <dt>&#8810;</dt><dd>&ldquo;very much less than&rdquo; — not merely smaller, but smaller by a lot</dd>
             <dt>&#8811;</dt><dd>&ldquo;very much greater than&rdquo;</dd>
           </dl>
         </div>
         <p class="equation__cite">
           Libbrecht, <em>Snow Crystals</em>, printed p. 111: &ldquo;the formation of thin plates
-          invariably requires &alpha;<sub>basal</sub> &#8810; &alpha;<sub>prism</sub>, while the
-          formation of slender columns requires &alpha;<sub>basal</sub> &#8811; &alpha;<sub>prism</sub>.&rdquo;
+          invariably requires &alpha;<sub>basal</sub> &#8810; &alpha;<sub>prism</sub>, while the <!-- rule7-waive: verbatim quotation from Libbrecht, Snow Crystals, printed p. 111, preserves the author's own printed notation -->
+          formation of slender columns requires &alpha;<sub>basal</sub> &#8811; &alpha;<sub>prism</sub>.&rdquo; <!-- rule7-waive: verbatim quotation from Libbrecht, Snow Crystals, printed p. 111, preserves the author's own printed notation -->
         </p>
       </div>
 
@@ -220,10 +221,10 @@
         Read that backwards and it becomes a measuring instrument. You do not need a laboratory to
         find out that the caps of a stellar dendrite are far harder to grow on than its edges. You
         need a photograph of one. Libbrecht runs exactly that argument on a stellar dendrite: the
-        rounded branch tips say &alpha;<sub>prism</sub> is close to 1 there, and the extreme
-        flatness says &alpha;<sub>basal</sub> is below 0.01. As he puts it, &ldquo;just looking at a
-        large stellar dendrite with rounded branch tips reveals that &alpha;<sub>prism</sub>
-        &asymp; 1 at the tips and &alpha;<sub>basal</sub> &lt; 0.01.&rdquo;
+        rounded branch tips say alphaHK<sub>prism</sub> is close to 1 there, and the extreme
+        flatness says alphaHK<sub>basal</sub> is below 0.01. As he puts it, &ldquo;just looking at a
+        large stellar dendrite with rounded branch tips reveals that &alpha;<sub>prism</sub> <!-- rule7-waive: verbatim quotation from Libbrecht, Snow Crystals, preserves the author's own printed notation -->
+        &asymp; 1 at the tips and &alpha;<sub>basal</sub> &lt; 0.01.&rdquo; <!-- rule7-waive: verbatim quotation from Libbrecht, Snow Crystals, preserves the author's own printed notation -->
       </p>
 
       <figure class="figure"
@@ -235,10 +236,10 @@
         <figcaption class="figure__caption">
           <strong>What to look at:</strong> two different readings, off one photograph. Look at the
           very end of a branch: it is <em>rounded</em>, curved rather than cut flat. A rounded surface
-          is one that molecules stick to almost every time they arrive — &alpha;<sub>prism</sub> near
+          is one that molecules stick to almost every time they arrive — alphaHK<sub>prism</sub> near
           1. Now slide your eye back along the same branch to its long side: that edge is
           <em>straight</em>, a proper flat facet, which means molecules there are being turned away —
-          &alpha;<sub>prism</sub> below 1. Same crystal, same six-fold lattice, two different values
+          alphaHK<sub>prism</sub> below 1. Same crystal, same six-fold lattice, two different values
           of the same quantity in two places a fraction of a millimetre apart. That is the
           aspect-ratio rule being used as an instrument.
           <br><br>
@@ -251,8 +252,8 @@
           <br><br>
           <em>Published caption: &ldquo;Figure 3.30: Simple stars present a case where large-scale
           morphology is directed by an unusual characteristic of anisotropic attachment kinetics.
-          Rounding near the branch tips indicates &alpha;<sub>prism</sub> &asymp; 1 on the outermost
-          prism surfaces, but faceting on the branch sides indicates &alpha;<sub>prism</sub> &lt; 1
+          Rounding near the branch tips indicates &alpha;<sub>prism</sub> &asymp; 1 on the outermost <!-- rule7-waive: verbatim quotation of the published figure caption, preserves the author's own printed notation -->
+          prism surfaces, but faceting on the branch sides indicates &alpha;<sub>prism</sub> &lt; 1 <!-- rule7-waive: verbatim quotation of the published figure caption, preserves the author's own printed notation -->
           on those prism surfaces. This difference explains why sidebranching is suppressed on this
           crystal. The Edge-Sharpening Instability (see Chapter 3) may be present at the branch tips,
           although high-fidelity 3D numerical simulations will likely be needed to fully understand
@@ -280,8 +281,8 @@
       </figure>
 
       <p>
-        One more thing the rule is careful about. It says &alpha;<sub>basal</sub> &#8810;
-        &alpha;<sub>prism</sub>, with the &ldquo;very much less than&rdquo; symbol, not simply
+        One more thing the rule is careful about. It says alphaHK<sub>basal</sub> &#8810;
+        alphaHK<sub>prism</sub>, with the &ldquo;very much less than&rdquo; symbol, not simply
         &ldquo;less than&rdquo;. A small imbalance gives you a slightly squat or slightly stretched
         prism. An aspect ratio of 0.01 needs a whopping imbalance. Extreme shapes are evidence of
         extreme differences between the two faces.
@@ -311,9 +312,9 @@
           crystal (left), the supersaturation is highest near the corners of the faceted prism, a
           phenomenon called the Berg effect. Around a thin-plate crystal, the contour lines are
           tightly bunched at the plate edge, and the supersaturation is highest at the center of the
-          basal facets. The model on the left assumed &alpha;<sub>basal</sub> &asymp;
-          &alpha;<sub>prism</sub> &lt; 1, while the model on the right assumed &alpha;<sub>basal</sub>
-          &#8810; &alpha;<sub>prism</sub>.&rdquo;</em>
+          basal facets. The model on the left assumed &alpha;<sub>basal</sub> &asymp; <!-- rule7-waive: verbatim quotation of the published figure caption, preserves the author's own printed notation -->
+          &alpha;<sub>prism</sub> &lt; 1, while the model on the right assumed &alpha;<sub>basal</sub> <!-- rule7-waive: verbatim quotation of the published figure caption, preserves the author's own printed notation -->
+          &#8810; &alpha;<sub>prism</sub>.&rdquo;</em> <!-- rule7-waive: verbatim quotation of the published figure caption, preserves the author's own printed notation -->
         </figcaption>
       </figure>
 
@@ -331,7 +332,7 @@
         Because branching and stretching are different jobs, and diffusion is only good at one of
         them. Diffusion makes structures <em>intricate</em>. Left to itself it does not make them
         <em>lopsided</em>. Take a thin plate and remove the imbalance between its two faces — set
-        &alpha;<sub>basal</sub> and &alpha;<sub>prism</sub> equal — and the plate does not stay thin.
+        alphaHK<sub>basal</sub> and alphaHK<sub>prism</sub> equal — and the plate does not stay thin.
         Its edges thicken, and the whole thing drifts back toward being as tall as it is wide, even
         while it keeps sprouting elaborate branches.
       </p>
@@ -347,7 +348,7 @@
           This is not a hunch; it is what happens when you actually solve the growth equations with
           the two faces made equal. Libbrecht runs exactly that experiment on paper, on printed
           p. 112: &ldquo;If, for example, one begins with a thin plate crystal and then changes
-          parameters so that &alpha;<sub>basal</sub> &asymp; &alpha;<sub>prism</sub>, then the
+          parameters so that &alpha;<sub>basal</sub> &asymp; &alpha;<sub>prism</sub>, then the <!-- rule7-waive: verbatim quotation from Libbrecht, Snow Crystals, printed p. 112, preserves the author's own printed notation -->
           subsequent growth will not maintain the thin-plate structure. Instead the edges of the
           plate would thicken over time and the overall aspect ratio would tend toward unity.&rdquo;
           Take away the imbalance and the plate un-flattens itself. The general statement is on
@@ -871,10 +872,10 @@
         one. It is not. The instability decided <em>where</em> the ice would break out — at the
         corners of the basal edges, and nowhere else. It did not make the result slender. That is
         still the column band's own kinetic imbalance doing its work. Printed p. 114 states the
-        requirement plainly — &ldquo;an overall columnar shape indicates &alpha;<sub>prism</sub>
+        requirement plainly — &ldquo;an overall columnar shape indicates &alpha;<sub>prism</sub> <!-- rule7-waive: verbatim quotation from Libbrecht, Snow Crystals, printed p. 114, preserves the author's own printed notation -->
         &#8810; 1 for moderate supersaturations near -5 C&rdquo; — and the aspect-ratio rule from
-        p. 111 supplies the comparison, that slender columns need &alpha;<sub>basal</sub> &#8811;
-        &alpha;<sub>prism</sub>. Take that imbalance away and the
+        p. 111 supplies the comparison, that slender columns need alphaHK<sub>basal</sub> &#8811;
+        alphaHK<sub>prism</sub>. Take that imbalance away and the
         corners would still break out; what came out of them would simply not be slender, because
         &ldquo;diffusion effects alone cannot yield structures with extreme aspect ratios&rdquo;
         (printed p. 111). Diffusion picks the place; the surface decides the shape.
@@ -1167,19 +1168,19 @@
     function verdict() {
       if (ar < 0.3) {
         return "Much flatter than it is wide. The two basal caps must be the HARDER faces to grow " +
-               "on — α_basal much less than α_prism.";
+               "on — alphaHKBasal much less than alphaHKPrism.";
       }
       if (ar < 0.9) {
         return "Slightly flatter than it is wide. The two basal caps are the harder faces to grow " +
-               "on, but only modestly so — α_basal a little below α_prism.";
+               "on, but only modestly so — alphaHKBasal a little below alphaHKPrism.";
       }
       if (ar > 3) {
         return "Much taller than it is wide. The six prism sides must be the HARDER faces to grow " +
-               "on — α_prism much less than α_basal.";
+               "on — alphaHKPrism much less than alphaHKBasal.";
       }
       if (ar > 1.15) {
         return "Slightly taller than it is wide. The six prism sides are the harder faces to grow " +
-               "on, but only modestly so — α_prism a little below α_basal.";
+               "on, but only modestly so — alphaHKPrism a little below alphaHKBasal.";
       }
       return "About as tall as it is wide. The two families of facet are growing at roughly the " +
              "same rate — no strong imbalance either way.";

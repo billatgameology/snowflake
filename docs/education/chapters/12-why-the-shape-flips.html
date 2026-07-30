@@ -106,14 +106,14 @@
 
       <div class="equation">
         <p class="equation__math">
-          &alpha;(&sigma;<sub>surf</sub>) = A&nbsp;exp(&minus;&sigma;<sub>0</sub>&thinsp;/&thinsp;&sigma;<sub>surf</sub>)
+          alphaHK(&sigma;<sub>surf</sub>) = A&nbsp;exp(&minus;&sigma;<sub>0</sub>&thinsp;/&thinsp;&sigma;<sub>surf</sub>)
         </p>
         <div class="equation__where">
           <strong>where</strong>
           <dl>
-            <dt>&alpha;</dt><dd>the attachment coefficient &mdash; the fraction of the water molecules
-              arriving at this face that actually stick. &alpha;&nbsp;=&nbsp;1 means everything sticks;
-              &alpha;&nbsp;=&nbsp;0.001 means only one in a thousand does</dd>
+            <dt>alphaHK</dt><dd>the attachment coefficient &mdash; the fraction of the water molecules
+              arriving at this face that actually stick. alphaHK&nbsp;=&nbsp;1 means everything sticks;
+              alphaHK&nbsp;=&nbsp;0.001 means only one in a thousand does</dd>
             <dt>&sigma;<sub>surf</sub></dt><dd>the spare water vapour in the air immediately above
               the face, as a percentage of what ice can hold at that temperature</dd>
             <dt>&sigma;<sub>0</sub></dt><dd>the barrier for this face &mdash; how much spare vapour it
@@ -134,8 +134,8 @@
         The exponential is the important part. Because &sigma;<sub>0</sub> sits inside an
         exponential, a modest difference in barrier becomes an enormous difference in growth
         speed. At &sigma;<sub>surf</sub>&nbsp;=&nbsp;0.5&nbsp;%, a face with
-        &sigma;<sub>0</sub>&nbsp;=&nbsp;0.35&nbsp;% has &alpha;&nbsp;&asymp;&nbsp;0.5, while a face
-        with &sigma;<sub>0</sub>&nbsp;=&nbsp;2.6&nbsp;% has &alpha;&nbsp;&asymp;&nbsp;0.005 &mdash; a
+        &sigma;<sub>0</sub>&nbsp;=&nbsp;0.35&nbsp;% has alphaHK&nbsp;&asymp;&nbsp;0.5, while a face
+        with &sigma;<sub>0</sub>&nbsp;=&nbsp;2.6&nbsp;% has alphaHK&nbsp;&asymp;&nbsp;0.005 &mdash; a
         hundredfold gap from a barrier only seven times larger. So in practice you rarely need to
         do the arithmetic. You only need to know <strong>which of the two barriers is
         smaller</strong>. That face wins, and usually it wins by a landslide.
@@ -151,9 +151,9 @@
 
       <blockquote class="callout">
         <p>
-          &ldquo;thin snow-crystal plates only form when &alpha;<sub>basal</sub>&nbsp;&#8810;&nbsp;&alpha;<sub>prism</sub>,
+          &ldquo;thin snow-crystal plates only form when &alpha;<sub>basal</sub>&nbsp;&#8810;&nbsp;&alpha;<sub>prism</sub>, <!-- rule7-waive: verbatim quotation, Libbrecht arXiv:2306.13087v1 p. 4 -->
           while slender columns only appear when
-          &alpha;<sub>prism</sub>&nbsp;&#8810;&nbsp;&alpha;<sub>basal</sub>. Neither
+          &alpha;<sub>prism</sub>&nbsp;&#8810;&nbsp;&alpha;<sub>basal</sub>. Neither <!-- rule7-waive: verbatim quotation, Libbrecht arXiv:2306.13087v1 p. 4 -->
           diffusion-limited growth nor surface-energy
           effects produce growing snow crystals with high overall aspect ratios.&rdquo;
           <br><span class="figure__source">Libbrecht, arXiv:2306.13087v1, p. 4</span>
@@ -196,8 +196,8 @@
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
-          <span class="built-from">Original animation. The two &alpha; values are evaluated from the
-          printed equation &alpha; = A&nbsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>)
+          <span class="built-from">Original animation. The two alphaHK values are evaluated from the
+          printed equation alphaHK = A&nbsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>)
           with A&nbsp;=&nbsp;1 (Libbrecht, Snow Crystals, printed p. 144). The crystal drawing is a
           schematic: it encodes <em>which</em> facet is favoured and roughly how strongly, not a
           calculated aspect ratio. The plate / blocky prism / column verdict follows the inequality
@@ -273,7 +273,7 @@
           best-estimate CAK model functions &sigma;<sub>0</sub>(T) and A(T) on large basal and prism
           facets as a function of temperature, where T<sub>m</sub> = 0 C is the ice melting point.
           The respective attachment coefficients are then given by
-          &alpha;(&sigma;<sub>surf</sub>) = A&nbsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>).
+          &alpha;(&sigma;<sub>surf</sub>) = A&nbsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>). <!-- rule7-waive: verbatim published caption quotation, Libbrecht Snow Crystals Figure 4.5 -->
           The underlying experimental data and measurement techniques used to obtain these curves
           are described in Chapter 7. Because these curves parameterize the large-facet attachment
           kinetics over a broad range of growth conditions, they provide the foundation for the CAK
@@ -434,9 +434,9 @@
       <p>
         And now the contradiction becomes sharp. Thin plates near &minus;15&nbsp;&deg;C are one of
         the most common natural forms; their existence demands
-        &alpha;<sub>prism</sub>&nbsp;&#8811;&nbsp;&alpha;<sub>basal</sub>. But the broad-facet curves
-        in Figure 4.5 &ldquo;clearly indicate that &alpha;<sub>prism</sub> &asymp;
-        &alpha;<sub>basal</sub> at -15 C, thereby precluding the formation of thin plates&rdquo;
+        alphaHK<sub>prism</sub>&nbsp;&#8811;&nbsp;alphaHK<sub>basal</sub>. But the broad-facet curves
+        in Figure 4.5 &ldquo;clearly indicate that &alpha;<sub>prism</sub> &asymp; <!-- rule7-waive: verbatim quotation, Libbrecht Snow Crystals printed p. 148 -->
+        &alpha;<sub>basal</sub> at -15 C, thereby precluding the formation of thin plates&rdquo; <!-- rule7-waive: verbatim quotation, Libbrecht Snow Crystals printed p. 148 -->
         (printed p.&nbsp;148). The monograph puts the choice
         plainly: &ldquo;Either something is very wrong with the large-facet measurements, or small
         facets have a different story to tell&rdquo; (printed p.&nbsp;149).
@@ -1162,7 +1162,7 @@
 
 /* ===========================================================================
    2. "Two barriers, one shape"
-      alpha = A exp(-sigma0 / sigma_surf) with A = 1, evaluated live from the
+      alphaHK = A exp(-sigma0 / sigma_surf) with A = 1, evaluated live from the
       two slider values. The crystal beside it is a SCHEMATIC of which facet
       is favoured — never a calculated aspect ratio.
    ======================================================================== */
@@ -1177,7 +1177,7 @@
   let s0Basal = 2.60, s0Prism = 0.35, sSurf = 0.50;
   let svg = null, sliderB = null, sliderP = null;
 
-  const alphaOf = (s0) => Math.exp(-s0 / sSurf);
+  const alphaHKOf = (s0) => Math.exp(-s0 / sSurf);
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
   function fmtAlpha(a) {
@@ -1227,7 +1227,7 @@
   function render() {
     if (svg) svg.remove();
     const c = Viz.colors();
-    const aB = alphaOf(s0Basal), aP = alphaOf(s0Prism);
+    const aB = alphaHKOf(s0Basal), aP = alphaHKOf(s0Prism);
     const ratio = aP / aB;
 
     const verdict = ratio > 3 ? "thin plate" : ratio < 1 / 3 ? "slender column" : "blocky prism";
@@ -1261,14 +1261,14 @@
       }));
       text(svg, b.x, base - h - 9, b.s0.toFixed(2) + " %", { fill: b.color, weight: 650 });
       text(svg, b.x, base + 19, b.name, { fill: b.color, weight: 650 });
-      text(svg, b.x, base + 37, "α = " + fmtAlpha(b.a), { fill: c.inkSecondary, size: 11.5 });
+      text(svg, b.x, base + 37, "alphaHK = " + fmtAlpha(b.a), { fill: c.inkSecondary, size: 11.5 });
     });
 
     text(svg, 161, 40, "How hard the face is to start (σ₀)", { fill: c.inkSecondary, weight: 620 });
     text(svg, 161, 58, "shorter bar = easier = faster face", { fill: c.muted, size: 11 });
 
     /* ---------------- right panel: the schematic crystal ---------------- */
-    // Height/width ratio is a bounded, monotone SCHEMATIC map of the alpha
+    // Height/width ratio is a bounded, monotone SCHEMATIC map of the alphaHK
     // ratio. It says which way and roughly how strongly — nothing more.
     const lg = clamp(Math.log10(ratio), -1.5, 1.5);
     const hw = Math.pow(3, -lg);
@@ -1302,7 +1302,7 @@
     text(svg, cx, base + 37, winner, { fill: c.inkSecondary, size: 11.5 });
 
     text(svg, W / 2, H - 14,
-      "α ratio (prism ÷ basal) = " + (ratio >= 1 ? ratio.toFixed(1) : ratio.toPrecision(2))
+      "alphaHK ratio (prism ÷ basal) = " + (ratio >= 1 ? ratio.toFixed(1) : ratio.toPrecision(2))
       + "   ·   σ_surf held at " + sSurf.toFixed(2) + " %",
       { fill: c.muted, size: 11.5 });
   }

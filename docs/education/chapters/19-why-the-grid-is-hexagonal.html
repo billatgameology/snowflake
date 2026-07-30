@@ -335,7 +335,29 @@
         The ADR's own verdict on that was mild: &ldquo;This does not break the physics &mdash; the
         crystal simply must not reach the domain edge, which the 80% stopping rule already enforces
         &mdash; but any metric that assumes &lsquo;distance to domain edge&rsquo; is isotropic is
-        wrong&rdquo; (lines 59&ndash;61). A separate rule already keeps runs away from the wall. What
+        wrong&rdquo; (lines 59&ndash;61).
+      </p>
+
+      <p>
+        That 80% is worth pinning down before it confuses you later, because chapter 23 will describe
+        what sounds like the same rule and attach a different number to it. They are two rules, not one
+        rule quoted carelessly. <strong>Eighty per cent is Gravner and Griffeath's own stopping
+        rule</strong>, transcribed from their paper: halt the run when the crystal's radius passes 80%
+        of the domain radius (<code>docs/gg-machinery.md</code> lines 376&ndash;377). It ends a
+        simulation. <strong>Sixty-five per cent is a later and stricter instrument</strong> &mdash; the
+        <em>domain-contact guard</em>, which the specification introduces in the very next paragraph as
+        &ldquo;distinct from, and stricter than, G-G's 80% stopping rule&rdquo;: it flags a run
+        <strong>invalid</strong> when the crystal's bounding box exceeds about 65% of any domain extent,
+        and &ldquo;flagged runs never enter validation results&rdquo; (lines 379&ndash;383). One stops
+        the clock; the other disqualifies the output as evidence. ADR 0001 could only cite the looser of
+        the two because the tighter one did not exist yet &mdash; the ADR arrived with charter v1.1 and
+        the guard was added in the next revision, v1.2, as review integration
+        (<code>project charter.md</code>, revision history). The rule chapter 23 takes apart is the 65%
+        guard.
+      </p>
+
+      <p>
+        Either way, a rule already keeps runs off the wall. What
         the ADR did not anticipate is what happens to a symmetry gate that has to read
         <em>exactly</em> zero &mdash; which is where this chapter ends, after two more pieces of
         machinery have to be in place first.
@@ -638,13 +660,58 @@
         &ldquo;never compared across conditions silently &mdash; the two record different
         experiments&rdquo; (<code>docs/gg-machinery.md</code> lines 211&ndash;212). One more thing has
         to be said about those Phase 6 runs, because it is easy to picture them as this chapter's tick
-        with a different wall bolted on. They are not. They run the other surface rule, and under
-        <code>LibbrechtKinetics</code> &ldquo;diffusion becomes an iterated surface-boundary
-        relaxation, freezing is replaced by that sole sink, threshold attachment is replaced by
-        policy-versioned boundary-pixel fill, and melting is disabled&rdquo; (lines 172&ndash;177).
-        Three of the four steps in the last section are replaced or switched off. What carries through
-        unchanged into Phase 6 is the lattice underneath them &mdash; which is the point of this
-        chapter.
+        with a different wall bolted on. They are not. They run the other surface rule,
+        <code>LibbrechtKinetics</code>, and it rewrites three of the four steps you just read. In plain
+        English:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Diffusion stops being one averaging pass.</strong> Instead of smoothing the vapour
+          field once per tick and moving on, the field is relaxed over and over &mdash; the same kind of
+          neighbour averaging applied repeatedly until the answer stops moving &mdash; with the
+          crystal's surface written into the boundary of that solve. Deciding when it has stopped moving
+          is a harder question than it sounds, and chapter 22 is about that.
+        </li>
+        <li>
+          <strong>The freezing step disappears.</strong> The crystal's surface becomes the one and only
+          place vapour leaves the field, absorbed there at a rate the surface physics sets. That
+          absorption is the &ldquo;sink&rdquo; the quotation below mentions, and it does the job freezing
+          used to do: &ldquo;its Robin sink replaces <code>&kappa;</code> freezing&rdquo;
+          (<code>docs/gg-machinery.md</code> lines 125&ndash;126).
+        </li>
+        <li>
+          <strong>Attachment stops being a threshold.</strong> Rather than tipping over a fixed line, a
+          surface cell accumulates a <em>fill fraction</em> &mdash; it fills up, face by face, and
+          becomes ice when it is full. Which rule governs that filling is recorded in the run as a
+          version number, so a result can always name the policy that produced it. That is what
+          &ldquo;policy-versioned boundary-pixel fill&rdquo; means.
+        </li>
+        <li>
+          <strong>Melting is switched off entirely.</strong> The fourth step simply does not run.
+        </li>
+      </ul>
+
+      <p>
+        That third change is the hard one, and chapter 21 is about nothing else: turning a continuous
+        surface speed into a discrete cell that either is or is not ice. Here is the specification's own
+        one-sentence version, now that you can read it.
+      </p>
+
+      <div class="equation equation--quote">
+        <p class="equation__math">
+          &ldquo;Under <code>LibbrechtKinetics</code>, diffusion becomes an iterated surface-boundary
+          relaxation, freezing is replaced by that sole sink, threshold attachment is replaced by
+          policy-versioned boundary-pixel fill, and melting is disabled.&rdquo;
+        </p>
+        <p class="equation__cite">docs/gg-machinery.md, lines 173&ndash;175</p>
+      </div>
+
+      <p>
+        What carries through unchanged into Phase 6 is everything underneath &mdash; the eight
+        unit-length bonds, the integer symmetry operators, the inscribed hexagonal prism. That is the
+        point of this chapter, and the point of the ladder in the last one: the rung below does not get
+        rebuilt when the rung above changes.
       </p>
 
       <!-- ================================================================= -->
@@ -762,7 +829,11 @@
         </p>
         <p>
           <code>solver-cpu/test/gg-solver.test.ts</code> line 152 runs a <em>negative control</em>
-          named &ldquo;the box domain breaks symmetry once the field feels the walls&rdquo;. At
+          &mdash; a test built to fail on purpose, so you know your instrument can still catch the
+          thing it is watching for. (The name is borrowed from laboratory science, and chapter 25 makes
+          it the backbone of the whole test suite. It does <em>not</em> mean a run that happened to come
+          out negative.) The control here is named &ldquo;the box domain breaks symmetry once the field
+          feels the walls&rdquo;. At
           32&times;32&times;16 it records that &ldquo;the first asymmetric attachment lands at tick 270
           via zmirror, with a boundary-mass split of ~0.03 between mirror partners: mesoscopic wall physics,
           three orders above ulp scale, NOT index arithmetic&rdquo;, and asserts that tick number

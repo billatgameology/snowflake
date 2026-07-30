@@ -149,7 +149,7 @@
           <span class="built-from">Original interactive. Three of the readout names are printed by
           the application (<code>app/src/main.ts:599</code>, <code>:652</code>,
           <code>:655</code>), a fourth is the shipped control&rsquo;s own label
-          (<code>:1307</code>), and the fifth is the line the charter
+          (same file, line 1307), and the fifth is the line the charter
           specifies for a temperature input (<code>project charter.md:87</code>); the shipped
           control pane has no temperature binding, because it drives the older
           <code>GGThreshold</code> rule, which has no temperature in it.
@@ -213,8 +213,15 @@
         third, and only where the comparison actually holds&rdquo;</em>
         (<code>project charter.md:82</code>). Phase&nbsp;6 is the validation phase &mdash; the one
         that runs the model against measurements it could disagree with. It is
-        <strong>in flight as this is written</strong>: a first sweep has run, was invalidated by a
-        later decision record, and re-runs. Chapter&nbsp;28 is where its result lives.
+        <strong>in flight as this is written</strong>: its first sweep ran and was invalidated by a
+        later decision record
+        (<code>docs/decisions/0031-phase6-paramset-freeze-row.md</code>); the corrected re-sweep has
+        since run and reported <strong>3 of 90</strong> &mdash; three agreements among the ninety
+        comparisons it scored (<code>research/phase6-sweep-report.md:104</code>). And even that
+        number is not yet allowed
+        to move a label, because the report says so about itself, in bold: <em>&ldquo;These numbers
+        are not yet gate evidence&rdquo;</em> (same file, line&nbsp;11) &mdash; the independent
+        re-derivation has not been done. Chapter&nbsp;28 is where its result lives.
       </p>
 
       <p>
@@ -266,7 +273,7 @@
         same line: <code>all model quantities: Evidence = unvalidated (&sect;1.5)</code>
         (<code>app/src/main.ts:573</code>, <code>:633</code>, <code>:678</code>). The control pane
         beside it is titled
-        <code>GGThreshold dev instrument (model, unvalidated)</code> (<code>:1284</code>).
+        <code>GGThreshold dev instrument (model, unvalidated)</code> (same file, line 1284).
       </p>
 
       <h2 id="two-sentences">The two sentences that must never merge</h2>
@@ -288,7 +295,7 @@
           &lsquo;The model was given real physics&rsquo; and &lsquo;the model was shown to reproduce
           reality&rsquo; are different claims; only Phase&nbsp;6 can promote the first to the
           second.&rdquo;</em> &mdash; <code>project charter.md:340</code>, one of the ten standing
-          guardrails at <code>:335&ndash;344</code>.
+          guardrails at lines 335&ndash;344 of the same file.
         </p>
       </aside>
 
@@ -377,7 +384,7 @@
         <em>&ldquo;matching Nakaya is in-sample reproduction&rdquo;</em> rather than validation
         (<code>project charter.md:183</code>). Be exact about the tense: that arm
         has not run &mdash; <em>&ldquo;Every run is no-SDAK; <code>SDAK</code> appears in no source
-        file&rdquo;</em> (<code>research/phase6-sweep-report.md:112</code>) &mdash; and the record
+        file&rdquo;</em> (<code>research/phase6-sweep-report.md:183</code>) &mdash; and the record
         that would add the SDAK arm is still marked <code>Status: proposed</code>
         (<code>docs/decisions/0030-phase6-sdak-arm.md:4</code>). Bolting that door in advance is
         what keeps the arm that <em>has</em> run a real test &mdash; the charter&rsquo;s own version
@@ -452,7 +459,7 @@
         <code>0.0035</code> (<code>docs/libbrecht-parameters.md:255</code>). It was
         <em>read off a plot</em>, because neither source document prints a formula or a table, and
         its stated uncertainty is <em>&ldquo;&plusmn;25% relative on &sigma;<sub>0</sub> (log-scale
-        reading)&rdquo;</em> (<code>:246</code>). Where it came from is
+        reading)&rdquo;</em> (same file, line 246). Where it came from is
         chapter&nbsp;16&rsquo;s subject; here, only what happens when you print it.
       </p>
 
@@ -470,7 +477,7 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. Value from the &minus;2&nbsp;&deg;C row of
           the frozen parameter table (<code>docs/libbrecht-parameters.md:255</code>); uncertainty
-          band from the digitization note at <code>:246</code>. The
+          band from the digitization note at line 246 of the same file. The
           <code>0.0035&nbsp;&plusmn;&nbsp;0.0009</code> stop is that stated &plusmn;25% band written
           out to one significant figure; it is not a separate published quantity.</span>
         </figcaption>
@@ -541,7 +548,12 @@
       <h2 id="d-is-not-sigma">Why <code>d</code> is not <code>sigma</code></h2>
 
       <p>
-        Here is where the discipline stops being a writing style and becomes code that throws.
+        Here is where the discipline stops being a writing style and becomes code that
+        <strong>throws</strong>. That is a programmer&rsquo;s verb and the rest of Part&nbsp;Two
+        leans on it, so here is what it means: the program reaches a check it cannot satisfy and
+        <em>stops instead of answering</em>. No picture, no number, no best guess &mdash; just a
+        message naming what was wrong. It is the loudest thing a program can do, which is precisely
+        why the awkward checks are wired to it rather than to a warning nobody reads.
       </p>
 
       <p>
@@ -576,7 +588,7 @@
           &mdash; <code>app/src/display.ts:3&ndash;9</code>. The enforcement is one function down the
           file: <em>&ldquo;<code>assertFieldSemanticsHonest</code> rejects any operator/field-name
           combination that would show one operator&rsquo;s state under the other&rsquo;s
-          label&rdquo;</em> (<code>:11&ndash;13</code>).
+          label&rdquo;</em> (same file, lines 11&ndash;13).
         </p>
       </aside>
 
@@ -600,8 +612,8 @@
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. The two frozen label sets and the two error
-          messages are transcribed from <code>app/src/display.ts:29&ndash;47</code> and
-          <code>:64&ndash;89</code>.</span>
+          messages are transcribed from <code>app/src/display.ts:29&ndash;47</code> and lines
+          64&ndash;89 of the same file.</span>
         </figcaption>
       </figure>
 
@@ -631,8 +643,12 @@
         <em>&ldquo;the repository&rsquo;s explicit synthetic NOT-gate-evidence fixtures passed the
         visual verifier, which then displayed and recorded them as published Pass A/B
         evidence&rdquo;</em>
-        (<code>docs/plans/phase-4-morphology-gauntlet.md:899&ndash;904</code>). Everything about
-        those fixtures was internally consistent. That was the problem.
+        (<code>docs/plans/phase-4-morphology-gauntlet.md:899&ndash;904</code>).
+        <strong>Pass&nbsp;A</strong> and <strong>Pass&nbsp;B</strong> are the two runs of
+        Phase&nbsp;4&rsquo;s shape gauntlet &mdash; the same set of test crystals grown once on the
+        borrowed threshold rule and once on the measured physics; chapter&nbsp;24 is about why there
+        have to be two. Everything about those fixtures was internally consistent. That was the
+        problem.
       </p>
 
       <p>
@@ -643,24 +659,52 @@
       </p>
 
       <p>
-        A <strong>manifest</strong>, in this project, is not a list of results. It is the frozen
-        registry of the runs that were <em>supposed</em> to execute: for each one its grid,
-        parameters, random seed and stopping rule, plus the operator, the backend,
-        the numeric precision, the hashes of the solver source and the commit hashes of the frozen
-        pass criteria (the
-        <code>Gate4AManifest</code> type, <code>runner/src/gate4a.ts:133&ndash;146</code>; the file
-        is <code>out/phase4/pass-a/manifest.json</code>). Nothing a run produced is inside it. Hash
-        that registry and &ldquo;the manifest hash&rdquo; pins what
-        was <em>pre-registered</em>, not what came out &mdash; and before
-        any run starts, the runner rebuilds it and stops dead unless it hashes to the reviewed
-        freeze: <code>A-EXEC-CONFIG: rebuilt Pass-A manifest differs from the
-        reviewed freeze</code> (<code>runner/src/gate4a.ts:2539&ndash;2540</code>). Chapter&nbsp;27
-        is about why it is frozen first.
+        A <strong>manifest</strong> is the second word, and there is an everyday thing it is almost
+        exactly: an <strong>exam timetable</strong>, written and signed before anybody sits down.
+        Which candidates sit which paper, at which desk, with which calculator. Notice what a
+        timetable does not contain: <em>answers</em>. It could not contain them &mdash; it was
+        written before the exam. A manifest is the same object for a set of solver runs. It records
+        <strong>which runs, at what settings, and with which version of the program</strong>, and
+        nothing any run produced is inside it.
       </p>
 
       <p>
-        The fix made the evidence class an explicit field with its own type, alongside a required
-        notice string:
+        So take the fingerprint of the timetable, and what you have pinned is <em>what was
+        promised</em> &mdash; never what came out. That is all &ldquo;the manifest hash&rdquo; means
+        in this project, and it has teeth. Before any run starts, the program rebuilds the timetable
+        from its own source and refuses to go on unless the rebuilt copy fingerprints to the one a
+        reviewer signed off. If it does not match, it throws:
+        <code>A-EXEC-CONFIG: rebuilt Pass-A manifest differs from the reviewed freeze</code>
+        (<code>runner/src/gate4a.ts:2539&ndash;2540</code>). You cannot quietly rewrite the paper
+        once the timetable is signed. Chapter&nbsp;27 is about why it is signed first.
+      </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How we know
+        </p>
+        <p>
+          Pass&nbsp;A&rsquo;s timetable is a real file &mdash;
+          <code>out/phase4/pass-a/manifest.json</code> &mdash; and the exact list of what it is
+          allowed to contain is written into the source as the <code>Gate4AManifest</code> type
+          (<code>runner/src/gate4a.ts:133&ndash;146</code>). Per run it fixes the grid, the
+          parameters, the random seed and the stopping rule. Once for the whole set it fixes which
+          surface rule was used, whether the arithmetic ran on the processor or the graphics card,
+          how many digits that arithmetic carried, a fingerprint of the solver&rsquo;s own source
+          code, and four version markers for the frozen pass criteria &mdash; the marking scheme,
+          which is chapter&nbsp;27&rsquo;s subject. Every entry is something that could otherwise
+          have been changed after the fact without leaving a trace.
+        </p>
+      </aside>
+
+      <p>
+        The fix was to stop inferring the class and make every saved file <em>declare</em> it. Each
+        one already travels with a small block of labels about itself &mdash; which run made it,
+        which pass, which timetable it was promised under. Two more labels were added to that block,
+        and the app now refuses to open any file whose two labels disagree with each other:
       </p>
 
       <div class="table-wrap">
@@ -702,8 +746,8 @@
           <span class="built-from">Original interactive. The branches and error strings are
           transcribed from <code>app/src/inspect.ts:283&ndash;298</code>, which is the last of
           several checks in <code>verifyContext</code>; the earlier ones &mdash; including the
-          self-hash check at <code>:243&ndash;247</code> &mdash; are described rather than modelled
-          here. The frozen Pass&nbsp;A manifest hash is the constant at
+          self-fingerprint check at lines 243&ndash;247 of the same file &mdash; are described rather
+          than modelled here. The frozen Pass&nbsp;A manifest hash is the constant at
           <code>app/src/inspect.ts:214&ndash;215</code>, and the same value is recorded at
           <code>passA.manifestSha256</code> in <code>out/phase4/gate4-report.json</code>. The
           thirteen published run checkpoint hashes are at
@@ -715,38 +759,49 @@
       <p>
         The two halves are not the same kind of safeguard, and it is worth being exact about what
         each buys. <strong>Removing the badge is closed
-        outright.</strong> The class is a <em>separate field</em>, and a context that classifies
-        itself as synthetic without carrying the exact string
-        <code>SYNTHETIC FIXTURE - NOT GATE EVIDENCE</code> is rejected
-        (<code>app/src/inspect.ts:292&ndash;295</code>). There is no path through by omission.
+        outright.</strong> The class is a <em>separate field</em>, so a saved file that calls itself
+        synthetic and then does not carry the exact string
+        <code>SYNTHETIC FIXTURE - NOT GATE EVIDENCE</code> is thrown out
+        (<code>app/src/inspect.ts:292&ndash;295</code>). There is no way through by leaving something
+        off.
       </p>
 
       <p>
-        <strong>Lying about the class is closed differently, and more weakly.</strong> A context
-        claiming <code>published-gate-evidence</code> must pin the frozen Pass&nbsp;A manifest hash
-        and carry no synthetic notice at all (<code>:283&ndash;287</code>). On its own, that pin
-        buys nothing. The frozen hash is a constant in
-        the source at <code>app/src/inspect.ts:214&ndash;215</code>, published besides in
-        <code>out/phase4/gate4-report.json</code> under <code>passA.manifestSha256</code>, and the
-        field is supplied by the file being loaded &mdash; so a forger copies it and the comparison
-        matches <em>by construction</em>, for the forgery exactly as for the real thing. The
-        run identifier is no better: <code>verifyContext</code> never checks it against the frozen
-        run set, and the real identifiers are published to be read.
+        <strong>Lying about the class is closed differently, and more weakly.</strong> A saved file
+        that calls itself <code>published-gate-evidence</code> has to quote the frozen
+        Pass&nbsp;A manifest hash &mdash; the fingerprint of the signed timetable &mdash; and carry
+        no synthetic notice at all (same file, lines 283&ndash;287). On its own, that quotation buys
+        nothing, because the answer is public. The frozen hash sits in the source as a plain
+        constant (<code>app/src/inspect.ts:214&ndash;215</code>) and is published besides in
+        <code>out/phase4/gate4-report.json</code> under <code>passA.manifestSha256</code>; and the
+        value being checked is simply whatever the file being loaded says. So a forger copies it,
+        and the comparison then matches <em>by construction</em> &mdash; for the forgery exactly as
+        for the real thing. The run identifier is no better: the checking function never compares it
+        against the frozen list of runs, and the real identifiers are published to be read anyway.
       </p>
 
       <p>
-        The check that bites is an earlier one. A context must record its own
-        <code>checkpointSha256</code>, and that value must equal the hash of the bytes just loaded,
-        or the load throws <code>artifact hash mismatch</code>
-        (<code>:243&ndash;247</code>). A forger can satisfy it &mdash; by writing
-        down the true hash of their own file. That is the trap.
-        <code>out/phase4/pass-a/gate4a-report.json</code> publishes the
-        <code>checkpointSha256</code> of every real Pass&nbsp;A run: thirteen records, at
-        <code>payload.runs[].final.checkpointSha256</code>. A forged checkpoint is a different file,
-        so it hashes to a value in none of the thirteen &mdash; and it cannot lie about
-        that hash, because the loader recomputes it from the bytes. The manifest hash matches
-        happily; the file is contradicted anyway. A vague badge cannot be contradicted by evidence.
-        A hash a file is forced to compute about itself can be.
+        The check that bites is an earlier one, and it works by making the file say something about
+        itself that it cannot control. Every saved file has to carry its own fingerprint in a field
+        of its own &mdash; the app calls the field <code>checkpointSha256</code>. When the app opens
+        the file it fingerprints it independently: to a program a saved file is just a long run of
+        bytes, and hashing them costs nothing. Those two values have to agree. If they do not, the
+        load throws &mdash; <code>artifact hash mismatch</code> (same file, lines 243&ndash;247), and
+        nothing is displayed.
+      </p>
+
+      <p>
+        A forger can pass that check without difficulty: fingerprint your own forgery, write the true
+        answer in the field. And that is the trap closing, not opening.
+        <code>out/phase4/pass-a/gate4a-report.json</code> publishes the fingerprint of every real
+        Pass&nbsp;A run &mdash; thirteen of them, at
+        <code>payload.runs[].final.checkpointSha256</code>. A forged crystal is a different file, so
+        its honest fingerprint appears nowhere on that list of thirteen; and it cannot write down a
+        flattering one instead, because the app recomputes the value from the bytes in front of it.
+        The manifest hash matches happily. The file has still been forced to state a fact about
+        itself that anyone can look up and find missing. That is the whole asymmetry, and it is the
+        point of the section: a vague badge cannot be contradicted by evidence, and a fingerprint a
+        file is compelled to compute about itself can be.
       </p>
 
       <aside class="callout callout--key">
@@ -1234,9 +1289,10 @@
       verdict.textContent =
         "Refused. “Only Phase 6 can grant the third, and only where the comparison actually " +
         "holds” (project charter.md:82). Phase 6 is in flight: its first sweep ran and was " +
-        "invalidated by decision 0031, and it re-runs. Nothing in the application has been " +
-        "promoted — the status footer still ends: all model quantities: Evidence = " +
-        "unvalidated (§1.5).";
+        "invalidated by decision 0031; the corrected re-sweep has run and reported 3 of 90, and " +
+        "that is not yet gate evidence (research/phase6-sweep-report.md:11, :104). Nothing in the " +
+        "application has been promoted — the status footer still ends: all model quantities: " +
+        "Evidence = unvalidated (§1.5).";
       pickEv = null;
       eButtons.forEach(function (b, i) { b.setAttribute("aria-pressed", String(false)); });
       drawGrid();
@@ -1647,8 +1703,10 @@
         "Refused. “Only Phase 6 can grant the third, and only where the comparison actually " +
         "holds” (project charter.md:82), and “no UI label ever claims more physical " +
         "confidence than Phase 6 has earned” (project charter.md:340). " +
-        "Missing precondition: a Phase 6 report naming THIS comparison and the domain it holds " +
-        "over. There is no such artifact on disk, so there is nothing to point the label at." };
+        "Missing precondition: a gate-qualified Phase 6 report naming THIS comparison and the " +
+        "domain it holds over. The one sweep report that exists disclaims itself in bold — " +
+        "“These numbers are not yet gate evidence” (research/phase6-sweep-report.md:11) — so " +
+        "there is nothing to point the label at." };
     } else if (row.id !== REPORT_DOMAIN) {
       message = { tone: "bad", text:
         "Refused. The loaded report’s named domain is “growth rates vs (T, σ)”. " +
@@ -1661,7 +1719,7 @@
             "reproduction” (project charter.md:183), and “results from Nakaya-informed (P3) " +
             "inputs are never labeled independent validation” (project charter.md:341). That arm " +
             "has not run: every executed sweep point so far is no-SDAK " +
-            "(research/phase6-sweep-report.md:112), and the SDAK arm is a proposed decision " +
+            "(research/phase6-sweep-report.md:183), and the SDAK arm is a proposed decision " +
             "record, not an accepted one (docs/decisions/0030-phase6-sdak-arm.md:4). So with no " +
             "P3 input anywhere, this comparison IS a fair test today — it is just a test whose " +
             "report does not exist yet. Chapter 16 is about those tags, chapter 17 about why " +
@@ -1728,7 +1786,8 @@
     note.style.margin = "0.7rem 0 0";
     note.textContent = loaded
       ? "loaded: stand-in report · named domain: growth rates vs (T, σ) · " +
-        "this artifact does not exist — Phase 6 is in flight."
+        "this artifact does not exist — Phase 6 is in flight, and its one sweep report is not " +
+        "yet gate evidence."
       : "no Phase 6 report loaded · the last three rows are three of the four held-out " +
         "observables named at project charter.md:183 — measurements deliberately not used to " +
         "pick any of the model’s inputs, so they can serve as a fair test.";

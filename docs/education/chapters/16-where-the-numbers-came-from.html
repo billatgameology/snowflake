@@ -258,9 +258,9 @@
 
       <p>
         The citation rule is enforced by more than good intentions. That parameter file is now
-        <strong>hash-frozen</strong>. A <em>hash</em> is a short fingerprint computed from every
-        character in a file &mdash; change one digit anywhere and the fingerprint comes out
-        completely different. (Line endings are normalised first, which is why the file can say the
+        <strong>hash-frozen</strong> &mdash; chapter 15&rsquo;s fingerprint, pointed this time at a
+        table of physical constants instead of a run manifest. (Line endings are normalised before
+        the fingerprint is taken, which is why the file can say the
         fingerprint &ldquo;survives this repository&rsquo;s CRLF checkout conversion and can be
         verified on any platform&rdquo;: Windows and Linux write the invisible end-of-line character
         differently, and without that step the same file would fingerprint differently on the two
@@ -328,8 +328,13 @@
         possible moment: the rule file records that three uncited Libbrecht papers printing closed
         forms for figure-digitized curves &ldquo;surfaced the day <em>after</em> the table&rsquo;s
         hash-freeze, converting a free upgrade into an ADR-plus-re-freeze decision.&rdquo; An
-        <em>ADR</em> is what this project calls a numbered, written decision record &mdash; chapter
-        15&rsquo;s decision records, filed under <code>docs/decisions/</code>. So: a correction that
+        <strong>ADR</strong> &mdash; an <em>Architecture Decision Record</em> &mdash; is one of the
+        numbered decision records chapter 15 kept quoting: one permanent, public file per decision,
+        filed under <code>docs/decisions/</code>, setting out the context, the decision, its
+        consequences, and the alternatives rejected. They are numbered in the order they were
+        written, and a later mistake is repaired by adding a new one rather than editing the old, so
+        the sequence doubles as the project&rsquo;s history. The rest of Part Two uses that
+        abbreviation without unpacking it again. So: a correction that
         would have been free the day before now costs a written decision and a re-freeze. That is
         why <code>AGENTS.md</code> now carries a Rule 12 reading &ldquo;Check source currency before
         any freeze&rdquo; &mdash; a rule written by getting it wrong first.
@@ -399,9 +404,8 @@
 
       <p>
         Most code, asked for a value outside its data, quietly continues the line and hands back a
-        number. This code does not. Here is the guard from <code>core/src/libbrecht.ts</code>,
-        with the two array-bound expressions replaced by the values they hold and the split
-        message joined back up:
+        number. This code does not. Here is that guard, from <code>core/src/libbrecht.ts</code>,
+        with its message tidied so that it reads as one sentence:
       </p>
 
       <div class="equation">
@@ -416,7 +420,8 @@
           <dl>
             <dt>throw</dt><dd>the program stops here. It does not return a value, it does not warn and continue, and no crystal is produced.</dd>
             <dt>(Tm &minus; T)</dt><dd>how far below freezing the run asked for, in &deg;C &mdash; the horizontal axis of the digitized figure.</dd>
-            <dt>[1, 50]</dt><dd>the only interval the printed plot actually covers. In the file itself these two bounds are read out of the anchor list rather than typed as digits, so that the message can never disagree with the data.</dd>
+            <dt><code>${x}</code></dt><dd>not a symbol from the physics, and not a printing error: it is a slot the program fills in with the actual number that was asked for, so that the message names the offending value instead of complaining in general. Ask for 55&nbsp;&deg;C below freezing and the message comes out saying 55 &mdash; which is what you are about to see happen in the panel below.</dd>
+            <dt>[1, 50]</dt><dd>the only interval the printed plot actually covers. In the file itself these two bounds are not typed as digits either &mdash; they are filled in the same way, read out of the anchor list, so that the message can never disagree with the data.</dd>
           </dl>
         </div>
         <p class="equation__cite">core/src/libbrecht.ts, <code>interpIndex</code>; pinned by core/test/libbrecht.test.ts &mdash; &ldquo;throws outside the digitized domain instead of extrapolating&rdquo;</p>
@@ -605,12 +610,12 @@
 
       <div class="equation">
         <p class="equation__math">
-          &alpha;<sub>HK</sub> = <em>A</em> &middot; exp(&minus;&sigma;<sub>0</sub> / &sigma;<sub>surf</sub>)
+          <code>alphaHK</code> = <em>A</em> &middot; exp(&minus;&sigma;<sub>0</sub> / &sigma;<sub>surf</sub>)
         </p>
         <div class="equation__where">
           <strong>where</strong>
           <dl>
-            <dt>&alpha;<sub>HK</sub></dt><dd>the attachment coefficient &mdash; Part One&rsquo;s &ldquo;stickiness&rdquo;. The fraction of vapour molecules that arrive at the surface and actually stay. Between 0 and 1.</dd>
+            <dt><code>alphaHK</code></dt><dd>the attachment coefficient &mdash; Part One&rsquo;s &ldquo;stickiness&rdquo;. The fraction of vapour molecules that arrive at the surface and actually stay. Between 0 and 1.</dd>
             <dt><em>A</em></dt><dd>a prefactor for that facet, read off the same figure; between 0 and 1.</dd>
             <dt>&sigma;<sub>0</sub></dt><dd>the nucleation parameter &mdash; how much spare vapour a flat facet needs before a new layer can get started.</dd>
             <dt>&sigma;<sub>surf</sub></dt><dd>the supersaturation right at the crystal surface, as the solver computes it there and then.</dd>
@@ -715,7 +720,7 @@
 
       <p>
         This solver has two ancestors. From Libbrecht it takes the <strong>attachment
-        coefficient</strong> &mdash; the stickiness &alpha;<sub>HK</sub> in the equation above,
+        coefficient</strong> &mdash; the stickiness <code>alphaHK</code> in the equation above,
         dimensionless, between 0 and 1. From Gravner and Griffeath it takes an <strong>attachment
         threshold</strong> &mdash; a completely unrelated quantity, a cutoff on how much vapour must
         be sitting next to a site before it freezes, indexed by how many neighbours it has. The two
@@ -724,7 +729,7 @@
       </p>
 
       <p>
-        By convention, both are written &alpha;.
+        By convention, both are written &alpha;. <!-- rule7-waive: meta-discussion of the shared-symbol literature convention that this rule exists to stop from being conflated in code; not a code identifier. -->
       </p>
 
       <p>
@@ -765,8 +770,8 @@
             <tr><th>Write this</th><th>Never this</th><th>Meaning</th></tr>
           </thead>
           <tbody>
-            <tr><td><code>alphaHK</code>, <code>alphaHKBasal</code>, <code>alphaHKPrism</code></td><td><code>alpha</code>, &alpha;</td><td>Hertz&ndash;Knudsen attachment coefficient</td></tr>
-            <tr><td><code>ggThreshAlpha</code>, <code>ggThreshBeta</code>, <code>ggThreshTheta</code></td><td><code>alpha</code>, <code>beta</code></td><td>Gravner&ndash;Griffeath boundary-mass thresholds</td></tr>
+            <tr><td><code>alphaHK</code>, <code>alphaHKBasal</code>, <code>alphaHKPrism</code></td><td><code>alpha</code>, &alpha;</td><td>Hertz&ndash;Knudsen attachment coefficient</td></tr><!-- rule7-waive: this row of Rule 7's own substitution table must quote the banned bare spellings in the "Never this" column to state the rule. -->
+            <tr><td><code>ggThreshAlpha</code>, <code>ggThreshBeta</code>, <code>ggThreshTheta</code></td><td><code>alpha</code>, <code>beta</code></td><td>Gravner&ndash;Griffeath boundary-mass thresholds</td></tr><!-- rule7-waive: this row of Rule 7's own substitution table must quote the banned bare spellings in the "Never this" column to state the rule. -->
           </tbody>
         </table>
       </div>
@@ -1860,12 +1865,12 @@
   var bar = root.querySelector(".anim__controls");
 
   /* ---- the scanner, transcribed from scripts/lint-rule7.mjs ---- */
-  var BARE_STEM = /^(alpha|beta)$/i;
-  var QUALIFIED_STEM = /^(alpha|beta)[0-9_$A-Z]|^(ALPHA|BETA)[0-9_$]/;
+  var BARE_STEM = /^(alpha|beta)$/i; // rule7-waive: the pattern must spell the stems to detect them.
+  var QUALIFIED_STEM = /^(alpha|beta)[0-9_$A-Z]|^(ALPHA|BETA)[0-9_$]/; // rule7-waive: reproduces the real scanner's own pattern for this faithful in-page re-implementation.
   var ALLOWLIST_PREFIX = /^(alphaHK|ggThresh)/;
   var ALLOWLIST_EXACT = { reiterAlpha: 1, reiterBeta: 1, reiterGamma: 1 };
   var IDENTIFIER = /[A-Za-z_$][A-Za-z0-9_$]*/g;
-  var GREEK_BARE = /[αβ](?![₀-₉])/g;
+  var GREEK_BARE = /[αβ](?![₀-₉])/g; // rule7-waive: the pattern must spell the letters to detect them.
   var WAIVER = /rule7-waive:\s*\S/;
 
   function violationsInLine(line) {
@@ -1886,9 +1891,9 @@
   var GOOD_LINE =
     "const alphaHK = nucleationAPrism(tempC, set) * Math.exp(-sigma0Prism(tempC) / sigmaSurf);";
   var BARE_LINE =
-    "const alpha = nucleationAPrism(tempC, set) * Math.exp(-sigma0Prism(tempC) / sigmaSurf);";
+    "const alpha = nucleationAPrism(tempC, set) * Math.exp(-sigma0Prism(tempC) / sigmaSurf);"; // rule7-waive: intentional bad-input fixture for the "type the forbidden word" demo.
   var GREEK_LINE =
-    "const α = nucleationAPrism(tempC, set) * Math.exp(-sigma0Prism(tempC) / sigmaSurf);";
+    "const α = nucleationAPrism(tempC, set) * Math.exp(-sigma0Prism(tempC) / sigmaSurf);"; // rule7-waive: intentional bad-input fixture for the "type the forbidden word" demo.
   var WAIVED_LINE = BARE_LINE + "  // rule7-waive: quoted in a teaching example";
 
   var scannerOn = true;
@@ -1976,7 +1981,7 @@
           : "rule7: skipped");
     } else if (v.length) {
       text = "$ npm test\n" +
-        "Rule 7 violations (bare alpha/beta — see AGENTS.md Rule 7):\n" +
+        "Rule 7 violations (bare alpha/beta — see AGENTS.md Rule 7):\n" + /* rule7-waive: error message names the rule, quoting the real scanner's own output text verbatim. */
         v.map(function (t) {
           return "  core/src/libbrecht.ts:257: `" + t + "`";
         }).join("\n") + "\n" +

@@ -517,29 +517,43 @@
 
       <p>
         Chapter 21 left protocol v4's cold job stopped while attempting growth step 12, the
-        residual at exactly zero, the divergence ratio stuck at
-        3.097032516200489&times;10<sup>&minus;7</sup> against a registered <code>divTol</code> of
-        10<sup>&minus;7</sup>, and the cause named as roundoff in the smoothing stencil. Here are
-        the two numbers that named it.
+        residual at exactly zero, the divergence ratio stuck at about
+        3.1&times;10<sup>&minus;7</sup> &mdash; three times its registered <code>divTol</code> of
+        1&times;10<sup>&minus;7</sup> &mdash; and the cause named as roundoff in the smoothing
+        stencil. Here is the measurement that named it. Every value below is quoted to a few digits
+        and recorded to full precision in the credit line under the figure that follows, so nothing
+        here asks you to compare sixteen digits by eye.
       </p>
 
       <p>
         Rather than loosening the tolerance, a separate program &mdash;
         <code>scripts/diagnose-gate2b-v4.ts</code> &mdash; decoded the saved checkpoint and rebuilt
         the diffusion stencil <em>outside</em> the solver. One reconstructed sweep measured 643,055
-        active cells, a shell injection of 3.679402302324622&times;10<sup>&minus;7</sup> and a
-        boundary exchange of 3.679401162802118&times;10<sup>&minus;7</sup> &mdash; a difference of
-        1.1395225041344048&times;10<sup>&minus;13</sup>. Then it measured one more thing, which is
-        the whole point: the signed change the smoothing step itself had made, before any boundary
-        values were substituted in. That came out as
-        &minus;1.1395225041344048&times;10<sup>&minus;13</sup>. The same digits, opposite sign
+        active cells and the two totals a steady state says must be identical: injection across the
+        outer shell, and exchange at the crystal's surface. They agreed to six digits and then
+        parted company &mdash; 3.67940<strong>2</strong>&hellip;&times;10<sup>&minus;7</sup> going
+        in, 3.67940<strong>1</strong>&hellip;&times;10<sup>&minus;7</sup> coming out. Subtract them
+        and the entire disagreement is about 1.1&times;10<sup>&minus;13</sup>. Divide that by the
+        exchange, which is what the identity does, and it comes to 3.1&times;10<sup>&minus;7</sup>
+        &mdash; the exact ratio the cold run was stuck at, three times over its tolerance. That is
+        the whole quarrel: a crumb about three parts in ten million of either total, refusing to go
+        away after 200,000 sweeps.
+      </p>
+
+      <p>
+        Then the program measured one more thing, which is the whole point: the signed change the
+        smoothing step itself had made, before any boundary values were substituted in. That came
+        out as &minus;1.1&times;10<sup>&minus;13</sup>. Same size, opposite sign &mdash; and not
+        merely the same size. The two values match digit for digit, down to the last digit either
+        was printed with, which is
+        why the diagnosis was an identification rather than a guess: the vapour the books could not
+        account for is precisely the vapour the averaging step rounded away
         (<code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md:20&ndash;29</code>).
       </p>
 
       <p>
         So about 10<sup>&minus;13</sup> more vapour crossed the outer wall than the surface ever
-        absorbed, and the smoother is where it went: the averaging lost that much on that sweep,
-        which is exactly what the opposite-sign measurement establishes. The two-term identity had
+        absorbed, the smoother is where it went, and the two-term identity had
         nowhere to put it. When the crystal is growing very slowly, as it is in the cold, that
         harmless absolute crumb is divided by a very small exchange and comes out as a relative
         error above tolerance. The identity was not detecting a physics problem. It was detecting
@@ -595,7 +609,11 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. Every number in the &ldquo;registered cold
           checkpoint&rdquo; scenario is transcribed from
-          <code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md:20&ndash;29</code>;
+          <code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md:20&ndash;29</code>,
+          at the full precision the ADR records and the prose above rounds: shell injection
+          3.679402302324622e-7, signed boundary exchange 3.679401162802118e-7, their difference
+          1.1395225041344048e-13, ratio 3.097032516200489e-7, metered smoother drift
+          &minus;1.1395225041344048e-13, over 643,055 active cells;
           the forged scenario is the exploit described at
           <code>docs/decisions/0014-bound-float64-smoother-drift.md:11&ndash;15</code>; the bound is
           computed live with the formula in that ADR's Decision&nbsp;1, implemented at
@@ -720,8 +738,8 @@
         <code>LibbrechtKinetics</code> does not inherit them; its separate fill-CFL and P&eacute;clet
         checks are specified in attachment-kinetics.md &sect;4.3&ndash;&sect;4.4&rdquo;
         (<code>docs/gg-machinery.md:355&ndash;357</code>). So in this section, &ldquo;the source
-        paper&rdquo; means Gravner and Griffeath's, and &rho;, &kappa;, &mu; and &beta; are not
-        knobs on the vapour field you just watched converge.
+        paper&rdquo; means Gravner and Griffeath's, and &rho;, &kappa;, &mu; and
+        <code>ggThreshBeta</code> are not knobs on the vapour field you just watched converge.
       </p>
 
       <p>
@@ -737,21 +755,56 @@
       </p>
 
       <p>
-        The third check needs one piece of vocabulary first. <code>GGThreshold</code> does not carry
-        a single attachment threshold; it carries one for each way a cell can be surrounded. A
-        <strong>slot</strong> is written (n<sub>T</sub>,&nbsp;n<sub>Z</sub>): how many neighbours
-        the cell already has in its own plane, capped at three, and how many above or below, capped
-        at one. Four choices times two is eight, minus the case where the cell has no attached
-        neighbours at all &mdash; which is not a boundary site and never gets asked &mdash; so
-        seven: &ldquo;excluding <code>(0,0)</code> &mdash; that's <code>4&middot;2 &minus; 1 = 7</code>
-        slots&rdquo; (<code>docs/gg-machinery.md:113</code>). The arrays are still eight long, and
-        the missing slot is not left empty &mdash; it is &ldquo;poisoned with NaN so accidental
-        reads are loud&rdquo; (<code>core/src/params.ts:4&ndash;5</code>). <strong>&beta;</strong>
-        is the threshold
-        at that slot, the boundary mass a cell needs before it joins the crystal;
+        The third check needs two pieces of vocabulary first, and they are worth taking one at a
+        time. The first is the <strong>slot</strong>. <code>GGThreshold</code> does not carry a
+        single attachment threshold; it carries one for each way a cell can be surrounded, and a
+        slot is the name of one of those ways, written
+        (n<sub>T</sub>,&nbsp;n<sub>Z</sub>): how many neighbours the cell already has in its own
+        plane, capped at three &mdash; so 0, 1, 2 or 3, four possibilities &mdash; and how many
+        above or below, capped at one, so two possibilities. Four times two is eight, minus the
+        case where the cell has no attached neighbours at all &mdash; which is not a boundary site
+        and never gets asked &mdash; so seven: &ldquo;excluding <code>(0,0)</code> &mdash; that's
+        <code>4&middot;2 &minus; 1 = 7</code> slots&rdquo;
+        (<code>docs/gg-machinery.md:113</code>).
+      </p>
+
+      <p>
+        Seven meaningful slots, and yet the arrays holding them are eight long. That is not a
+        miscount. The slot number is worked out arithmetically &mdash;
+        <code>return nT * 2 + nZ;</code> (<code>core/src/params.ts:24&ndash;25</code>) &mdash; so
+        the busiest corner, (3,1), lands at index 7, and an array has to run 0 to 7 to reach it.
+        That leaves index 0, the (0,0) nobody ever asks about, as a hole in the middle of live data.
+        A hole is the dangerous kind of empty, because an unfilled number in a computer is usually
+        zero, and zero is a perfectly usable threshold: a cell compared against it would attach
+        immediately, and nothing would look wrong. So the hole is deliberately filled with something
+        unusable instead &mdash; &ldquo;poisoned with NaN so accidental reads are loud&rdquo;
+        (<code>core/src/params.ts:4&ndash;5</code>).
+      </p>
+
+      <p>
+        That is the second piece of vocabulary. <strong>NaN</strong> &mdash; &ldquo;not a
+        number&rdquo; &mdash; is what a computer stores when a calculation has no answer at all:
+        zero divided by zero, the square root of a negative, a measurement that was never taken. It
+        is not a word and not an error message; it is a value that lives in a number's slot and can
+        be passed around like one. What makes it useful here is that it is deliberately contagious.
+        Anything you do with a NaN comes back NaN, and every size comparison with it &mdash; greater
+        than, less than, equal to &mdash; is false, including comparing it with itself. A threshold
+        read out of slot 0 by mistake therefore cannot pass for a threshold. It poisons every sum it
+        touches and fails every test it enters, so the mistake surfaces loudly instead of settling
+        quietly into the results. You will meet it again in chapter 24, standing in exactly the same
+        way for a measurement that could not be taken.
+      </p>
+
+      <p>
+        The parameters, once, before the demo uses them. <code>ggThreshBeta</code> is the
+        threshold at a slot &mdash; the boundary mass a cell needs before it joins the crystal;
         <strong>&rho;</strong> is the vapour supply, <strong>&kappa;</strong> the fraction of vapour
         that stays vapour at a boundary site, and <strong>&mu;</strong> the melting rate that hands
-        mass back (<code>core/src/params.ts:10&ndash;20</code>).
+        mass back (<code>core/src/params.ts:10&ndash;20</code>). &rho; is one number for the whole
+        run; <code>ggThreshBeta</code>, &kappa; and &mu; each carry a value per slot, and the
+        monotonicity check below is applied to all three &mdash; though in both published presets
+        &kappa; and &mu; happen to use the same value in every slot, so only
+        <code>ggThreshBeta</code> varies from slot to slot.
       </p>
 
       <p>
@@ -762,8 +815,8 @@
         fixed n<sub>T</sub>&rdquo; (<code>core/src/params.ts:157</code> and <code>:163</code>).
         That is a perfectly reasonable assumption. It is also violated by the paper's own published
         hollow-column preset &mdash; &ldquo;twice, both into slot (3,1)&rdquo;, because
-        &beta;<sub>31</sub> = 1 while both of its less-enclosed neighbours,
-        &beta;<sub>30</sub> and &beta;<sub>21</sub>, are 0.5
+        <code>ggThreshBeta</code><sub>31</sub> = 1 while both of its less-enclosed neighbours,
+        <code>ggThreshBeta</code><sub>30</sub> and <code>ggThreshBeta</code><sub>21</sub>, are 0.5
         (<code>core/src/params.ts:144&ndash;146</code>;
         <code>docs/gg-machinery.md:385&ndash;393</code>). The comment in <code>params.ts</code>
         says what to do about that in one clause &mdash; &ldquo;a hard error would reject published
@@ -783,7 +836,7 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. The three checks, their severities and
           their message wording are transcribed from <code>core/src/params.ts:143&ndash;231</code>;
-          the demo runs the monotonicity comparison on &beta; only, while the real validator runs
+          the demo runs the monotonicity comparison on <code>ggThreshBeta</code> only, while the real validator runs
           the same comparison on &kappa; and &mu; as well
           (<code>core/src/params.ts:153</code> and <code>:217</code>);
           the two presets are the published parameter sets at
@@ -1715,8 +1768,8 @@
   mk("rho", "ρ (vapour supply)", 0.01, 1, 0.01);
   mk("kappa", "κ (fraction staying vapour)", 0, 0.95, 0.05);
   mk("mu", "μ (melting rate)", 0, 0.2, 0.001);
-  mk("b01", "β at slot (0,1)", 0.05, 3, 0.05);
-  mk("b31", "β at slot (3,1)", 0.1, 3, 0.1);
+  mk("b01", "ggThreshBeta at slot (0,1)", 0.05, 3, 0.05);
+  mk("b31", "ggThreshBeta at slot (3,1)", 0.1, 3, 0.1);
 
   Viz.button(bar, "Published plate", function () { setPreset("plate"); });
   Viz.button(bar, "Published hollow column", function () { setPreset("hollowColumn"); });

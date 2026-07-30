@@ -87,8 +87,9 @@
         project itself, on the same date the finding was first written into the ledger; all 204
         points were then run again; and the corrected run came in at <strong>3 of 90</strong>, which
         is the number that stands now. Before the re-run existed, somebody wrote down what it would
-        return. The withdrawal and that written-down prediction are the two most useful things in
-        this section, and they arrive in that order.
+        return. Chapter 28 read that 3 as a result; this chapter is the invoice behind it, and the
+        withdrawal and that written-down prediction are the first two lines on it. They arrive in
+        that order.
       </p>
 
       <p>
@@ -434,89 +435,29 @@
       </blockquote>
 
       <p>
-        Scored by the same rule, frozen before either run, the four regimes came out like this.
-      </p>
-
-      <div class="table-wrap">
-        <table>
-          <caption>
-            The corrected sweep, per regime. Transcribed from the scored-result table in
-            <code>research/phase6-sweep-report.md</code>. <em>In headline</em> is how many of that
-            regime&rsquo;s points are actually counted &mdash; the &plusmn;1.0&nbsp;&deg;C ambiguity
-            band around each boundary is excluded by the frozen scoring rule.
-          </caption>
-          <thead>
-            <tr>
-              <th>Regime</th><th>Points</th><th>In headline</th><th>Agree</th><th>Neutral</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>plates-warm (T &gt; &minus;3.3&nbsp;&deg;C)</td>
-              <td>12</td><td>6</td><td><strong>3</strong></td><td>7</td>
-            </tr>
-            <tr>
-              <td>columns (&minus;3.3 to &minus;9.9&nbsp;&deg;C)</td>
-              <td>36</td><td>24</td><td><strong>0</strong></td><td>35</td>
-            </tr>
-            <tr>
-              <td>plates-cold (&minus;9.9 to &minus;21.5&nbsp;&deg;C)</td>
-              <td>72</td><td>60</td><td><strong>0</strong></td><td>69</td>
-            </tr>
-            <tr>
-              <td>columns-and-plates (&lt; &minus;21.5&nbsp;&deg;C)</td>
-              <td>84</td><td>0 &mdash; not in the headline</td><td>27 reported</td><td>57</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p>
-        Over all 204 points the classes total <strong>6 plate, 168 neutral, 30 column, 0
-        invalid</strong>, and 16 points are flagged extent-fragile &mdash; close enough to a class
-        boundary that the registered size-drift bound could move them across it. The cold mixed
-        regime is reported rather than counted, because it accepts both pure shapes and so cannot
-        discriminate; that exclusion was registered before either run, not chosen after seeing that
-        27 points landed there.
-      </p>
-
-      <aside class="callout callout--myth">
-        <p class="callout__label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
-          </svg>
-          Careful
-        </p>
-        <p>
-          Three is not a small success. It is three points at one temperature.
-          <strong>All three agreements are at &minus;2&nbsp;&deg;C</strong>, the single counting
-          temperature in the warmest regime &mdash; and the scoring rule registered that temperature
-          <em>pre-sweep</em> as carrying essentially no statistical weight,
-          <em>&ldquo;precisely so this could not be presented as a result&rdquo;</em>. The report
-          says the rest plainly: <em>&ldquo;The model agrees with the reference nowhere else inside
-          the headline scope.&rdquo;</em> So the honest reading of 3 of 90 is not &ldquo;the model
-          got a few right&rdquo;. It is a negative result with a rounding error attached to it, and
-          the project built the rule that says so before it knew which way the rounding would go.
-        </p>
-      </aside>
-
-      <p>
-        The <em>shape</em> of the change is the shape ADR 0031 said to expect, which is its own kind
-        of check. Correcting the prism prefactor shrank the plate region and widened the neutral
-        band at the warm end: plate now ends at &minus;4, &minus;3 and &minus;2&nbsp;&deg;C in the
-        three driest rows and vanishes entirely in the wetter ones, while column onset stays exactly
-        where it was, at &minus;19 and &minus;23&nbsp;&deg;C. The cold end did not move, because in
-        that band the two parameter sets are the same model. Nothing was fixed. The warm end got
-        worse and the rest stayed as bad as it was, on the record, in advance.
+        How that 3 is distributed, and how the whole measured picture moved with it, is in chapter
+        28&rsquo;s per-regime table rather than repeated here &mdash; that is the corrected sweep read
+        as a result, regime by regime and class by class. Two lines off it are all the bill
+        needs. Warm plates
+        scored 3 of 6, columns 0 of 24, cold plates 0 of 60. And all three agreements sit at
+        &minus;2&nbsp;&deg;C, the single counting temperature in the warmest regime, which the
+        scoring rule had registered <em>pre-sweep</em> as carrying essentially no statistical weight
+        &mdash; <em>&ldquo;precisely so this could not be presented as a result&rdquo;</em>. Three is
+        not a small success; it is three humidity cells at one weightless temperature. What this
+        chapter adds is the price of being allowed to print it.
       </p>
 
       <p>
-        And one finding got <em>stronger</em> for having survived both runs. Wherever the model
-        commits to a habit at all, the sequence is plate, then neutral, then column, once, with no
-        return &mdash; one transition where the reference diagram has three. That now holds under
-        both parameter sets, <em>&ldquo;which is stronger than holding under one&rdquo;</em>. The
-        counting argument behind it was registered before either sweep, and it is indifferent to
-        which broad-facet parameterization you feed it.
+        Two things the twenty hours bought that never appear on the scoreboard. The first is that the
+        change arrived in the <em>shape</em> ADR 0031 said to expect, which is a check on the forecast
+        that survives the count being one point off: the warm end got worse, the cold end did not move
+        at all &mdash; in that band the two parameter sets are the same model &mdash; and nothing
+        anywhere was fixed. The second is that a structural claim got <em>stronger</em> for having
+        been measured twice. Wherever the model commits to a habit at all, the sequence is plate, then
+        neutral, then column, once, with no return &mdash; one transition where the reference diagram
+        has three &mdash; and that now holds under both parameter sets,
+        <em>&ldquo;which is stronger than holding under one&rdquo;</em>. A score can move when you
+        change the inputs. A claim that does not move is worth more than the score.
       </p>
 
       <aside class="callout callout--open">
@@ -806,11 +747,12 @@
       <h2 id="rigour-budget">What the carefulness cost</h2>
 
       <p>
-        The project turns its scepticism on its own method in several places &mdash; three of the
-        working rules carry a line headed <em>Paid for twice</em>, naming the exact work that had
-        to be done again. But the one place it puts a <em>number</em> on what its own carefulness
-        cost is a single bullet in a section called <em>Anti-rules</em> &mdash; a list of things
-        not to do, written by people who had done them.
+        You have met this number already. Chapter 18 read it off the end of the rulebook, out of the
+        <em>anti-rules</em> &mdash; a list of things not to do, written by people who had done them:
+        <em>&ldquo;Integrity has a budget: ceremony ran ~15% of all commits and evidence-hardening
+        ~45% of all rework through Phase 5, with visibly declining yield after WP5.&rdquo;</em> On the
+        ladder it was a percentage with nothing to weigh against it. Here there is something to
+        weigh: two bills have since come in, and both are itemised on this page.
       </p>
 
       <figure class="chart" id="c29-budget">
@@ -837,19 +779,32 @@
         The instruction attached to those numbers is
         <em>&ldquo;Don&rsquo;t build new adversarial evidence machinery per work package. Reuse the
         existing verifier seams; a new seam is justified only by a new attack surface.&rdquo;</em>
-        Roughly one commit in seven went on ceremony rather than on the thing itself, and almost
-        half of all the redoing was hardening evidence rather than fixing physics &mdash; with, in
-        the project&rsquo;s own words, <strong>visibly declining yield</strong> after a certain
-        point.
+        Now price it against something. The first bill is the one this chapter opened with. An entire
+        204-point sweep, already run, scored and written up, was invalidated by a clause the project
+        had written against itself; about twenty hours of machine time went on producing its
+        replacement; and a better-looking headline was handed back at the same time. Every hour of
+        that is ceremony in the anti-rule&rsquo;s own sense &mdash; not one of it went into the
+        physics, and the physics came out worse for it. That is what the 15% looks like on a single
+        line item, with a real number of hours attached rather than a percentage.
       </p>
 
       <p>
-        That does not undo Part Two. It qualifies it. Rigour is a design problem with trade-offs,
-        not a virtue you can max out, and the same record shows the cost of skimping: one work
-        package paid twice for the same lesson, because a study run at one crystal size was used to
-        justify a decision at another, and its conclusion <em>reversed</em> when re-run at the
-        registered size. Knowing where the knee of that curve is, is itself a skill, and this
-        project would tell you it has not found it.
+        The second bill is what the other side of the trade-off costs, and the record has an entry
+        for that too: one work package paid twice for the same lesson, because a study run at one
+        crystal size was used to justify a decision at another, and its conclusion <em>reversed</em>
+        when it was re-run at the registered size. Three of the working rules now carry a line headed
+        <em>Paid for twice</em>, naming the exact work that had to be done again. That is the same 45%
+        seen from the other end &mdash; rework that only existed because the evidence had not been
+        hardened the first time.
+      </p>
+
+      <p>
+        None of that undoes Part Two. It qualifies it. Rigour is a design problem with a cost on both
+        sides, not a virtue you can max out: skimp and you pay for the same lesson twice, spend and
+        you buy twenty hours of arithmetic whose only product is a worse headline. The
+        project&rsquo;s own record says the returns on the spending side are visibly falling. Knowing
+        where the knee of that curve is, is itself a skill, and this project would tell you it has not
+        found it.
       </p>
 
       <h2 id="product-survives">The thing being built</h2>
@@ -1032,6 +987,12 @@
         the sweep, not the code, not the charter, and not this page.
       </p>
 
+      <p class="c29-aside">
+        Every repository file quoted in Part Two is named where it is quoted, so any sentence on these
+        sixteen pages can be checked against the thing it came from; the papers and the monograph
+        behind Part One are listed on the <a href="../references.html">references page</a>.
+      </p>
+
       <aside class="callout callout--key">
         <p class="callout__label">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
@@ -1073,8 +1034,16 @@
       <p class="handoff">
         That is the end of the story so far, which is a strange place to stop and exactly the right
         one: the interesting things in science are the sentences somebody has not been able to write
-        yet. Every repository file quoted in Part Two is named where it is quoted; the papers and
-        the monograph behind Part One are listed on the references page.
+        yet. So take chapter 13&rsquo;s last instruction, which has been waiting sixteen chapters for
+        you. The next time it snows on a cold day &mdash; the big stars grow near
+        &minus;15&nbsp;&deg;C up in the cloud, so cold days are when they reach the ground intact
+        &mdash; take a magnifier and a piece of dark card outside and look. It is a better invitation
+        now than it was then, because you know what is landing on the card: a lattice choosing its own
+        shape one molecule at a time, and choosing it in a way that the model in Part Two &mdash; built
+        from published laboratory measurements of how ice sticks to ice, and marked against a scheme
+        sealed before it ran &mdash; reproduces at three of ninety counting points, all three at a
+        single temperature that scheme had already called weightless, in a result that is not finished
+        being checked. The field is small enough that careful looking still counts.
       </p>
 
       <nav class="chapter-nav" aria-label="Chapter navigation">
@@ -1116,6 +1085,10 @@
   color: var(--ink-primary); overflow-wrap: anywhere;
 }
 .c29-note { font-size: var(--step--1); color: var(--ink-secondary); line-height: 1.55; margin: 0; }
+.c29-aside {
+  font-size: var(--step--1); color: var(--ink-muted); line-height: 1.55;
+  margin: 0 0 1.5em; padding-left: 0.9rem; border-left: 2px solid var(--rule);
+}
 .c29-stack { display: grid; gap: 0.85rem; }
 .c29-panel {
   border: 1px solid var(--rule); border-radius: 8px;

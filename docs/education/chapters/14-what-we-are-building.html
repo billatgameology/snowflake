@@ -57,7 +57,7 @@
         </p>
         <div class="chapter-header__meta">
           <span>~14 min read</span>
-          <span>2 original interactives, 2 diagrams</span>
+          <span>3 original interactives, 2 diagrams</span>
           <span>Part VI &middot; What we tried to build</span>
         </div>
       </header>
@@ -89,6 +89,29 @@
         finally pointed at Nakaya's diagram.
       </p>
 
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          How the citations work
+        </p>
+        <p>
+          Every quotation in Part Two comes with something like
+          <code>project charter.md</code>, line&nbsp;183, or
+          <code>research/phase6-sweep-report.md</code>, &ldquo;Scored result&rdquo;. This project
+          keeps its records as plain text files &mdash; a founding document, decision records,
+          a report for each experiment &mdash; all of them stored together in what programmers call
+          a <em>repository</em>, a folder whose entire history is kept, so you can see not only what
+          a file says now but every version it has ever said. A reference like that names the file
+          and then the place inside it, the way a page number names a place in a book. Line numbers
+          are exact but they move when a file is edited; section headings do not, so headings are
+          used wherever a file has them. You can ignore all of it and lose nothing: the citations
+          are there so that somebody who doubts a sentence can go and check it, which is a different
+          job from reading.
+        </p>
+      </aside>
+
       <h2 id="the-ending-first">The ending, first</h2>
 
       <p>
@@ -99,35 +122,63 @@
       <p>
         The completed solver was run 204 times across a grid of temperatures and humidities, and its
         results were scored against the Nakaya diagram by a rule written down before the run. It
-        agreed with the diagram at <strong>5 of the 90 points that counted</strong>. Ninety, not
-        204, because that same rule set two groups aside before the run. Thirty-six points sit in a
-        band of &plusmn;1&nbsp;&deg;C either side of each of the three boundaries, where the diagram
-        itself is ambiguous about which habit belongs there. Seventy-eight sit in the very cold
-        regime, where the diagram accepts either pure habit &mdash; so producing one of them cannot
-        be scored wrong, and the regime is &ldquo;reported but kept out of the headline because it
-        accepts both pure classes&rdquo;. Those 78 are worth having anyway: 26 agreed, and 52 did
-        not, every one of the 52 a run that came out neither plate nor column
-        (<code>research/phase6-sweep-report.md</code>, lines 60&ndash;63 and 72). Ninety plus 78 plus
-        36 is 204: nothing was quietly dropped, and you can do the subtraction yourself.
+        agreed with the diagram at <strong>3 of the 90 points that counted</strong>
+        (<code>research/phase6-sweep-report.md</code>, &ldquo;Scored result&rdquo;). Ninety, not
+        204, because the scoring rule had already set two groups aside &mdash; before anybody knew
+        what would land on them. Here is the whole grid with those groups marked, so that you can do
+        the subtraction yourself instead of taking it from me.
+      </p>
+
+      <figure class="anim" id="anim-denominator">
+        <div class="anim__head">
+          <p class="anim__title">The 204 runs, and the 90 that counted</p>
+          <p class="anim__sub">
+            One square per run: 34 temperatures across, six humidity levels down. Press each button
+            to isolate one group and read what the rule says about it. The three counts are worked
+            out on this page from the rule, not copied from the report &mdash; and they have to add
+            up to 204.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive, <strong>not the solver</strong>: no
+          crystal is grown here and no habit is shown. What is drawn is the grid of conditions the
+          sweep visited &mdash; the 34 temperatures and six supersaturation levels printed in
+          <code>research/phase6-sweep-report.md</code>, &ldquo;The measured diagram&rdquo; &mdash;
+          sorted by this page's own re-implementation of the scoring rule's regime boundaries
+          (&minus;3.3, &minus;9.9 and &minus;21.5&nbsp;&deg;C) and its &plusmn;1.0&nbsp;&deg;C
+          ambiguity band. Reproducing the report's 90, 84 and 30 from the rule is a check anyone can
+          repeat, so the page repeats it rather than printing the answer. One honest wrinkle:
+          &minus;22&nbsp;&deg;C falls inside the ambiguity band as well, but it makes no difference
+          to any count, because its whole regime is out of the headline already &mdash; which is why
+          this grid's 84 is the report's regime size and not 78.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        So: 30 points sit in a band of &plusmn;1&nbsp;&deg;C either side of each of the three
+        regime boundaries, where the diagram itself is ambiguous about which habit belongs there,
+        and the rule excludes them from counting. Another 84 sit in the very cold regime, where the
+        diagram accepts either pure habit &mdash; so producing one of them cannot be scored wrong,
+        and the regime is &ldquo;reported but kept out of the headline because it accepts both pure
+        classes&rdquo;. Those 84 are worth having anyway: 27 came out in agreement with the diagram
+        and 57 came out neither plate nor column. Ninety plus 84 plus 30 is 204. Nothing was quietly
+        dropped.
       </p>
       <p>
-        Now the 90. In the band
-        where the diagram says columns, it produced columns <strong>0 times out of 24</strong>. In
-        the cold band where the diagram says plates, <strong>0 out of 60</strong>. And across all
-        204 runs, the number that failed a numerical check was <strong>zero</strong>
-        (<code>research/phase6-sweep-report.md</code>, lines 65&ndash;72 and 91&ndash;93).
+        Now the 90, regime by regime. In the warmest band, where the diagram says plates, the model
+        produced plates <strong>3 times out of 6</strong> &mdash; those three are the whole of the
+        agreement, and chapter 28 explains why even they do not amount to agreeing with the diagram.
+        In the band where the diagram says columns, it produced columns <strong>0 times out of
+        24</strong>. In the cold band where the diagram says plates again, <strong>0 out of
+        60</strong>. Over all 204 runs it committed to a plate 6 times and to a column 30 times and
+        declined to commit either way 168 times. And the number of runs that failed a numerical
+        check was <strong>zero</strong>.
       </p>
       <p>
-        Even the 5 are not really agreement. All five sit at a single temperature,
-        &minus;2&nbsp;&deg;C, which the scoring rule had already registered <em>before</em> the sweep
-        ran as carrying essentially no weight &mdash; precisely so that it could not later be waved
-        about as a result. Outside that one column, in the report's own words, &ldquo;the model
-        agrees with the reference nowhere else inside the headline scope&rdquo;
-        (<code>research/phase6-sweep-report.md</code>, lines 77&ndash;80).
-      </p>
-      <p>
-        Read those numbers in that order, or you will read them wrong. &ldquo;5 out of 90&rdquo; on
-        its own sounds like broken code. &ldquo;5 out of 90 with zero invalid runs&rdquo; is a
+        Read those numbers in that order, or you will read them wrong. &ldquo;3 out of 90&rdquo; on
+        its own sounds like broken code. &ldquo;3 out of 90 with zero invalid runs&rdquo; is a
         different kind of statement: the machinery did everything it was asked to do, and the
         physics it was given still did not produce the diagram.
       </p>
@@ -138,24 +189,63 @@
         The extra mechanism chapter 13 ended on, the SDAK dips on narrow facets, was deliberately
         left switched off. That is the design, not an oversight. The dips are the part of the theory
         whose positions were chosen rather than measured, so the charter reports runs with them and
-        runs without them separately: &ldquo;wherever P3 inputs are active, matching Nakaya is
-        in-sample reproduction&rdquo;, P3 being its label for &ldquo;Nakaya-informed SDAK hypotheses
-        (dip locations chosen to impose agreement with the diagram)&rdquo;
-        (<code>project charter.md</code>, line 183). Switching them on and then matching the diagram
-        would prove nothing. What ran instead is what the charter calls &ldquo;the no-SDAK probe
-        &hellip; a first-class result in its own right&rdquo; (line 313). Chapter 28 works through
-        why the other half could not have been a fair test.
+        runs without them separately &mdash; &ldquo;wherever P3 inputs are active, matching Nakaya
+        is in-sample reproduction&rdquo;, P3 being its label for &ldquo;Nakaya-informed SDAK
+        hypotheses (dip locations chosen to impose agreement with the diagram)&rdquo; &mdash; and
+        what ran here is what it calls &ldquo;the no-SDAK probe &hellip; a first-class result in its
+        own right&rdquo; (<code>project charter.md</code>, &sect;2.7 line 183 and &sect;3.2 line
+        313). Switching the dips on and then matching the diagram would prove nothing. Chapter 28
+        works through why that other half could not have been a fair test.
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          Two things stop that 3 from being a finished result, and neither is a hedge added here:
+          both are printed in the report above its own headline. First &mdash; &ldquo;<strong>These
+          numbers are not yet gate evidence.</strong> WP5 has not run: no independent verifier has
+          re-derived <code>report.json</code> from <code>points.json</code>, and the six negative
+          controls have not executed.&rdquo; WP5 is the project's verification-and-closure work
+          package; the negative controls are tests built to fail on purpose, to prove the checker can
+          still detect a fault. What the report claims instead is &ldquo;a measured result with
+          verified provenance, which is not the same thing&rdquo;. Second, this is <strong>one arm of
+          two</strong> &mdash; the control arm, with the extra mechanism switched off &mdash; and the
+          report refuses to draw the Phase&nbsp;6 conclusion until the other arm has run:
+          &ldquo;the numbers below are complete and final for this arm; what they <em>mean</em> for
+          the phase waits&rdquo;. Sixteen of the 204 points are also flagged
+          <em>extent-fragile</em>: habit depends on size, and those sixteen sit close enough to a
+          class threshold that measuring at a slightly different size could move them.
+        </p>
+      </aside>
+
+      <p>
+        There is one more thing to know about that 3, and it is the reason chapter 29 exists: it is
+        the <em>second</em> number this sweep produced. The first time all 204 points ran, they
+        scored 5 of 90. Then somebody compared what the runs had actually done against the protocol
+        that was supposed to govern them, and found a mismatch &mdash; the way the model's
+        parameters were worked out between measured temperatures was not the way the frozen protocol
+        said. The project's own rule is that any change to a frozen protocol voids the sweep that
+        ran under it, so the 5 of 90 was not softened or annotated. It was withdrawn: &ldquo;the
+        204-point sweep of <code>6995868</code> is invalidated and re-runs&rdquo;
+        (<code>docs/decisions/0031-phase6-paramset-freeze-row.md</code>). All 204 points ran again,
+        about twenty hours of machine time, and returned the 3.
       </p>
       <p>
-        Inside that scope, one thing did match. The same sweep's &minus;5&nbsp;&deg;C points land
-        inside the range of aspect ratios &mdash; height divided by width &mdash; that Libbrecht
-        measured on his own bench, with columns absent exactly as he reported. The project's
-        findings ledger, a running file of results it thinks are worth sharing outside the
-        repository, states the catch in the same breath: the model &ldquo;agrees with the lab data
-        its inputs came from&rdquo; (<code>docs/findings-ledger.md</code>, entry A1).
-        Agreeing with the data you were built from is a check that the wiring is right, not
-        independent validation. The disagreement with the diagram is the half nobody could have
-        arranged.
+        That is not a technicality being observed politely. The decision record considers the cheap
+        alternative &mdash; keep the result, write the mismatch down as a limitation &mdash; and
+        rejects it by name: &ldquo;The mismatch is not a limitation of the evidence, it is a
+        contradiction between the evidence and the protocol that certifies it.&rdquo; And it doubted
+        its own published numbers explicitly, in writing, before the correction ran: the class matrix
+        and the per-regime counts &ldquo;are all per-point quantities, and none of them is currently
+        correct&rdquo; (same file, &ldquo;Alternatives considered&rdquo;). Chapter 28 reads the
+        corrected result and chapter 29 itemises what the correction cost. Everything between here
+        and chapter 28 is the work that has to exist before any of these numbers are allowed to mean
+        anything at all.
       </p>
 
       <aside class="callout callout--key">
@@ -167,37 +257,14 @@
         </p>
         <p>
           The interesting result is not that a model failed. It is that a model failed while the
-          safeguards did their job. Every numerical check held inside all 204 runs &mdash; and where
-          something did slip past, a mismatch between the written protocol and what the runs
-          actually did, a different safeguard caught it afterwards and made it expensive. That
-          combination is only worth anything if the safeguards were built first, in public, and hard
-          enough to be trusted &mdash; which is what the next fifteen chapters are about.
+          safeguards did their job. Every numerical check held inside all 204 runs, in both sweeps
+          &mdash; and where something did slip past, a mismatch between the written protocol and
+          what the runs actually did, a different safeguard caught it afterwards and made it
+          expensive. That combination is only worth anything if the safeguards were built first, in
+          public, and hard enough to be trusted &mdash; which is what the next fifteen chapters are
+          about.
         </p>
       </aside>
-
-      <p>
-        Because here is the twist. Those numbers are <em>already invalidated</em>. The way the
-        model's parameters were supposed to be worked out between measured temperatures was
-        written into the frozen protocol before the sweep; the way the 204 runs actually worked
-        them out was different, and nobody noticed until afterwards. The project's own rule is that
-        any change to a frozen protocol voids the sweep that ran under it, so all 204 points are
-        being run again: &ldquo;the 204-point sweep of <code>6995868</code> is invalidated and
-        re-runs&rdquo; (<code>docs/decisions/0031-phase6-paramset-freeze-row.md</code>).
-      </p>
-      <p>
-        That is not a technicality being observed politely. The decision record considers the cheap
-        alternative &mdash; keep the result, write the mismatch down as a limitation &mdash; and
-        rejects it by name:
-        &ldquo;The mismatch is not a limitation of the evidence, it is a contradiction between the
-        evidence and the protocol that certifies it.&rdquo; And it doubts the published numbers
-        explicitly, in writing: the class matrix and the per-regime counts &ldquo;are all per-point
-        quantities, and none of them is currently correct&rdquo; (same file, &ldquo;Alternatives
-        considered&rdquo;). What the re-run is expected to produce is written down in advance
-        &mdash; a headline of about 2 of 90, with the structure of the failure unchanged
-        (<code>docs/findings-ledger.md</code>, entry B1). Chapter 29 is entirely about what that
-        cost. Everything between here and chapter 28 is the work that has to exist before any of
-        these numbers are allowed to mean anything at all.
-      </p>
 
       <h2 id="the-instrument">The instrument</h2>
 
@@ -285,6 +352,46 @@
         features second &mdash; that they are the same artifact is the project's luckiest
         property&rdquo; (line 281).
       </p>
+      <p>
+        The next demo is the smallest honest version of a hidden state made visible, and it needs
+        one piece of physics first. Water vapour travels through air by <em>diffusion</em>: it drifts
+        from where there is more of it to where there is less. It does that far faster than ice
+        grows, so at every instant we can treat the vapour as having already finished settling. That
+        assumption has a name &mdash; <em>quasi-static</em> &mdash; and it collapses the whole
+        moving air problem into one standing equation.
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">&nabla;&sup2;&sigma; &asymp; 0</p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>&sigma;</dt><dd>the supersaturation: how much more water vapour the air is carrying
+              than it can hold. This is the quantity the crystal eats and the distant air keeps
+              supplying</dd>
+            <dt>&nabla;&sup2;</dt><dd>read it as &ldquo;how far this point sits below the average of
+              its surroundings&rdquo;. Setting that to zero says every point equals the average of
+              its neighbours &mdash; which is exactly what you get by replacing each cell with the
+              average of its neighbours, over and over, until it stops changing. That is all the
+              demo does</dd>
+            <dt>&asymp;</dt><dd>approximately, not exactly. A computer stops when the remaining
+              mismatch is small enough, and what counts as small enough is a number this project had
+              to write down and defend. Chapter 22 is about what happens when it is set too loosely</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">The &ldquo;quasi-static diffusion (Laplace) equation,
+          &nabla;&sup2;&sigma; &asymp; 0, with the crystal surface as a sink&rdquo; &mdash;
+          <code>project charter.md</code> &sect;2.4, line 130</p>
+      </div>
+
+      <p>
+        Two edges close the problem off. The ice is a <em>sink</em>: it swallows vapour on contact,
+        so &sigma; is held at zero along its surface. The rim of the box is the <em>far field</em>, a
+        stand-in for undisturbed air a long way off, held at a fixed value. Everything interesting
+        happens in between, and ice is added wherever the vapour at a surface cell rises past a fixed
+        threshold &mdash; the <strong>attach</strong> step of the four-rule cycle named in the next
+        section (<code>docs/video-explainer.md</code>, lines 199&ndash;201).
+      </p>
 
       <figure class="anim" id="anim-xray">
         <div class="anim__head">
@@ -297,38 +404,35 @@
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
-          <span class="built-from">Original interactive, and a genuine miniature: a two-dimensional
-          triangular lattice on which the vapour in each empty cell is repeatedly replaced by the
-          average of its neighbours, over and over, until it nearly stops changing. That smoothing
-          is what the <em>diffusion</em>, or <em>Laplace</em>, equation
-          &mdash; written &nabla;&sup2;&sigma; &asymp; 0, where &sigma; is the vapour and
-          &nabla;&sup2; is shorthand for &ldquo;how far this point sits below the average of its
-          surroundings&rdquo; &mdash; describes. <em>Quasi-static</em> means the air settles so much
-          faster than the ice grows that we can treat the vapour as already settled at every step.
-          The charter names that equation in <code>project charter.md</code> &sect;2.4, line 130. The
-          ice is a <em>sink</em>: it eats vapour, holding it at zero. The edge of the box is held at
-          a fixed <em>far-field</em> value &mdash; a stand-in for undisturbed air far away. Ice is
-          added when the vapour at a surface cell passes a fixed threshold, in the spirit of the
-          Gravner&ndash;Griffeath &ldquo;attach&rdquo; rule described in
-          <code>docs/video-explainer.md</code> lines 199&ndash;201. It is
-          <strong>two-dimensional, coarse, deliberately stopped short of convergence so that it
-          runs in a browser, and not the project's solver</strong>; the numbers it prints are its
-          own. The word for that is <em>under-converged</em>: the smoothing is halted after a couple
-          of dozen passes where honest convergence would need thousands &mdash; the charter notes
-          that the count &ldquo;scale[s] like (L/&Delta;x)&sup2;&rdquo; (&sect;2.4, line 139) &mdash;
-          so the picture is qualitatively right and quantitatively short. Chapter 22 is entirely
-          about what stopping early costs when it matters. Keep pressing &ldquo;Grow 6 steps&rdquo;
-          and the demo will eventually refuse to grow: a crystal that can feel its own container is
-          partly measuring the container, so this page carries a working miniature of the project's
-          own domain-contact guard &mdash; &ldquo;any run in which the crystal's bounding box
-          exceeds ~65% of any domain extent is automatically flagged invalid&rdquo;
-          (<code>project charter.md</code>, line 231). The real guard is a verdict, not a brake: the
-          run is allowed to finish and its results are then refused, which is what makes &ldquo;zero
-          invalid runs&rdquo; a statement worth making. This miniature stops the growth instead, so
-          that you can watch the moment it fires. All 204 runs of the real sweep cleared that
-          guard (<code>research/phase6-sweep-report.md</code>, lines 91&ndash;93).</span>
+          <span class="built-from">Original interactive, running exactly the rule described above on
+          a two-dimensional triangular lattice: ice as the sink, the rim of the box held at the
+          far-field value, and attachment above a fixed threshold. It is <strong>coarse,
+          two-dimensional, deliberately stopped short of convergence so that it runs in a browser,
+          and not the project's solver</strong> &mdash; every number it prints is its own. Keep
+          pressing &ldquo;Grow 6 steps&rdquo; and it will eventually refuse to continue, which is
+          this page's working miniature of a safeguard chapter 23 is largely about.</span>
         </figcaption>
       </figure>
+
+      <p>
+        Two things that demo does deliberately badly are worth naming, because both come back as
+        real problems later. The first is that it is <em>under-converged</em>. The smoothing is
+        halted after a couple of dozen passes where honest convergence would need thousands, because
+        the number of passes needed &ldquo;scale[s] like (L/&Delta;x)&sup2;&rdquo; &mdash; halve the
+        cell size and you quadruple the work, so a browser-sized budget buys a picture that is
+        qualitatively right and quantitatively short (<code>project charter.md</code> &sect;2.4,
+        line 139). Chapter 22 is entirely about what stopping early costs when it matters.
+      </p>
+      <p>
+        The second is what happens when the crystal grows big enough to feel the walls of its box. A
+        crystal near the wall is partly measuring the wall, so the real project flags it: &ldquo;any
+        run in which the crystal's bounding box exceeds ~65% of any domain extent is automatically
+        flagged invalid&rdquo; (line 231). Notice the shape of that rule &mdash; it is a
+        <em>verdict</em>, not a brake. The run is allowed to finish and then its results are refused,
+        which is what makes &ldquo;zero invalid runs&rdquo; a sentence worth saying rather than a
+        tautology. The miniature above brakes instead, purely so that you can watch the moment it
+        fires.
+      </p>
 
       <aside class="callout callout--method">
         <p class="callout__label">
@@ -604,9 +708,11 @@
         What exists is the engine and its evidence: a solver that runs on a graphics card in a
         browser, a headless runner that executes hundreds of runs without a human watching, the
         metrics, the gates &mdash; automatic pass/fail checks that block a phase from starting until
-        the previous one has met them &mdash; and the 204-run sweep. The validation work &mdash; the
-        project calls it Phase 6 &mdash; is <strong>in flight, not finished</strong>: the sweep ran,
-        and the re-run described above is pending (<code>docs/findings-ledger.md</code>, entry B1).
+        the previous one has met them &mdash; and the 204-run sweep, twice over. The validation work
+        &mdash; the project calls it Phase 6 &mdash; is <strong>in flight, not finished</strong>: the
+        first sweep was withdrawn, the corrected sweep has run and is reported at 3 of 90, that 3 is
+        not yet gate evidence, and the second arm has not run
+        (<code>research/phase6-sweep-report.md</code>, opening and &ldquo;Scored result&rdquo;).
         The product layer &mdash; Phase 7, the four view profiles (four ways of presenting the same
         engine, changing what the screen shows and nothing about the physics), the polished timeline
         editor a person would actually enjoy using &mdash; has <strong>not started</strong>. Its
@@ -617,26 +723,13 @@
         the same honesty device applied to the future.
       </p>
 
-      <aside class="callout callout--open">
-        <p class="callout__label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
-          </svg>
-          Still unsettled
-        </p>
-        <p>
-          One limitation applies to every review this project has ever had, including the
-          two-reviewer process that checked this page. This repository is worked on by
-          &ldquo;multiple different LLMs across sessions&rdquo; (<code>AGENTS.md</code>, line 3), and
-          its own publication checklist records the consequence in writing: &ldquo;At least one human
-          domain scientist reads any manuscript before submission. All reviews to date, internal and
-          external-facing, are LLM reviews; for publication that is a disclosed limitation, not a
-          substitute&rdquo; (<code>docs/stretch-sharing-and-investigation.md</code>, &sect;4, lines
-          217&ndash;219). No human domain scientist has read this work. That is a real gap, it is
-          stated rather than buried, and you should hold everything in this section a little more
-          loosely because of it.
-        </p>
-      </aside>
+      <p>
+        And one limitation applies to all of it, including the two-reviewer process that checked this
+        page: every review this project has had was done by a language model, and no human domain
+        scientist has read the work &mdash; in the project's own words a &ldquo;disclosed limitation,
+        not a substitute&rdquo; (<code>docs/stretch-sharing-and-investigation.md</code>, &sect;4).
+        Chapter 29 gives that its own section, because by then you will be able to see what it costs.
+      </p>
 
       <p class="handoff">
         You now know what the machine is for and what it refuses to claim. What you do not yet have
@@ -682,11 +775,12 @@
 /* ===========================================================================
    Chapter 14 — original interactives.
 
-   Four demos, two of which share a small two-dimensional lattice model:
-     1. anim-timeline  the diary, drawn (pure illustration)
-     2. anim-xray      predict where ice goes, then reveal the vapour field
-     3. anim-dials     the unlabelled dial (pure illustration)
-     4. anim-cheat     add a "make it hollow" rule and watch a criterion die
+   Five demos, two of which share a small two-dimensional lattice model:
+     1. anim-denominator  the 204 runs and the 90 that counted (no habit shown)
+     2. anim-timeline     the diary, drawn (pure illustration)
+     3. anim-xray         predict where ice goes, then reveal the vapour field
+     4. anim-dials        the unlabelled dial (pure illustration)
+     5. anim-cheat        add a "make it hollow" rule and watch a criterion die
    ======================================================================== */
 (function () {
   "use strict";
@@ -802,10 +896,10 @@
     function domainContact() { return extentFraction() > GUARD; }
 
     /* One growth step. A boundary cell attaches when the vapour it sits in
-       passes a fixed threshold `beta` — the same shape of rule as the
+       passes a fixed threshold `ggThreshBeta` — the same shape of rule as the
        Gravner–Griffeath "attach" step. `allow` may veto a cell, which is how
        the cheat demo hard-codes its answer. */
-    function step(beta, allow, sweeps) {
+    function step(ggThreshBeta, allow, sweeps) {
       if (domainContact()) return null;
       var b = boundary();
       if (!b.length) return null;
@@ -813,7 +907,7 @@
       var i, c, r;
       for (var j = 0; j < b.length; j++) {
         i = b[j];
-        if (sig[i] < beta) continue;
+        if (sig[i] < ggThreshBeta) continue;
         if (allow) {
           c = i % cols; r = (i - c) / cols;
           if (!allow(px(c, r) - px(cc, cr), py(c, r) - py(cc, cr))) continue;
@@ -918,7 +1012,265 @@
   function fmt2(v) { return (Math.round(v * 100) / 100).toFixed(2); }
 
   /* =================================================================== */
-  /* 1. anim-timeline — the diary, drawn.                                 */
+  /* 1. anim-denominator — the 204 runs, and the 90 that counted.          */
+  /*                                                                      */
+  /* No crystal, no habit, no agreement is drawn here. This figure is      */
+  /* ONLY about the denominator: the habit grid belongs to chapter 28, and */
+  /* the reason this one sits so early is that a reader should be able to  */
+  /* check the arithmetic of "90 out of 204" before being asked to believe */
+  /* a score computed over it.                                             */
+  /*                                                                      */
+  /* The grid is the registered sweep grid: 34 temperatures (-2..-35 C) by */
+  /* six supersaturation levels, as printed in                             */
+  /* research/phase6-sweep-report.md, "The measured diagram".              */
+  /*                                                                      */
+  /* Every count below is COMPUTED from ADR 0025's scoring rule rather     */
+  /* than transcribed — regime boundaries at -3.3, -9.9 and -21.5 C, a     */
+  /* +/-1.0 C ambiguity band excluded from counting, and the coldest       */
+  /* regime reported but held out of the headline because it accepts both  */
+  /* pure classes. That yields 90 counted, 84 reported-only and 30         */
+  /* excluded, reproducing the report's regime table (n = 12/36/72/84 with */
+  /* an in-headline column of 6/24/60/0).                                  */
+  /*                                                                      */
+  /* ORDER MATTERS in category(): -22 C also lies within 1 C of the -21.5  */
+  /* boundary, but the report assigns a point to its regime first, and the */
+  /* coldest regime is out of the headline as a whole. Hence 84, not 78.   */
+  /* Scoring the band first would give the equally self-consistent but     */
+  /* NON-report partition 90 + 78 + 36, which is what an earlier revision  */
+  /* of this chapter printed and what chapter 28's table does not say.     */
+  /* =================================================================== */
+  (function () {
+    var root = document.getElementById("anim-denominator");
+    if (!root) return;
+    var body = root.querySelector(".anim__body");
+    var controls = root.querySelector(".anim__controls");
+
+    // Temperatures as (Tm - T) in degrees C: 2 means -2 C. The report drops the
+    // sign in its own grid; the labels here put it back.
+    var TEMPS = [];
+    for (var t0 = 2; t0 <= 35; t0++) TEMPS.push(t0);
+    var FRACTIONS = [0.10, 0.15, 0.25, 0.40, 0.60, 0.90];
+    var BOUNDS = [3.3, 9.9, 21.5];
+    var BAND = 1.0;
+
+    var REGIMES = [
+      { n: 1, to: 3.3, label: "plates" },
+      { n: 2, to: 9.9, label: "columns" },
+      { n: 3, to: 21.5, label: "plates" },
+      { n: 4, to: 99, label: "columns and plates" }
+    ];
+
+    function regimeIndex(t) {
+      for (var i = 0; i < REGIMES.length; i++) if (t <= REGIMES[i].to) return i;
+      return REGIMES.length - 1;
+    }
+
+    function category(t) {
+      if (t > BOUNDS[2]) return "cold";
+      for (var i = 0; i < BOUNDS.length; i++) if (Math.abs(t - BOUNDS[i]) <= BAND) return "band";
+      return "counted";
+    }
+
+    var COUNT = { counted: 0, cold: 0, band: 0 };
+    var REG_N = [0, 0, 0, 0];
+    TEMPS.forEach(function (t) {
+      COUNT[category(t)] += FRACTIONS.length;
+      REG_N[regimeIndex(t)] += FRACTIONS.length;
+    });
+    var TOTAL = COUNT.counted + COUNT.cold + COUNT.band;
+
+    var W = 660, H = 238;
+    var X0 = 66, CW = 17, Y0 = 50, CH = 20;
+    var GW = TEMPS.length * CW;
+    var GH = FRACTIONS.length * CH;
+
+    var sel = "all";
+    var svg = null;
+    var pal = Viz.colors();
+
+    var plot = document.createElement("div");
+    body.appendChild(plot);
+
+    var readout = document.createElement("p");
+    readout.style.margin = "0.7rem auto 0";
+    readout.style.maxWidth = "64ch";
+    readout.style.fontSize = "var(--step--1)";
+    readout.style.color = "var(--ink-secondary)";
+    body.appendChild(readout);
+
+    function catColor(cat, c) {
+      if (cat === "counted") return c.series[0];
+      if (cat === "cold") return c.series[3];
+      return c.ruleStrong;
+    }
+
+    // The three categories differ in FILL, in OPACITY and in SHAPE — a solid
+    // square, a hatched square, a dashed outline — so none of them is told
+    // apart by colour alone.
+    function cell(g, x, y, w, h, cat, dim, c) {
+      var col = catColor(cat, c);
+      var op = dim ? 0.13 : 1;
+      if (cat === "band") {
+        g.appendChild(Viz.svgEl("rect", {
+          x: (x + 1).toFixed(1), y: (y + 1).toFixed(1),
+          width: (w - 2).toFixed(1), height: (h - 2).toFixed(1), rx: 2,
+          fill: "none", stroke: col, "stroke-width": 1,
+          "stroke-dasharray": "2.5 2", opacity: op
+        }));
+        return;
+      }
+      g.appendChild(Viz.svgEl("rect", {
+        x: (x + 1).toFixed(1), y: (y + 1).toFixed(1),
+        width: (w - 2).toFixed(1), height: (h - 2).toFixed(1), rx: 2,
+        fill: col, opacity: (cat === "cold" ? 0.4 : 0.9) * op
+      }));
+      if (cat === "cold") {
+        g.appendChild(Viz.svgEl("line", {
+          x1: (x + 2).toFixed(1), y1: (y + h - 2).toFixed(1),
+          x2: (x + w - 2).toFixed(1), y2: (y + 2).toFixed(1),
+          stroke: col, "stroke-width": 1.3, opacity: op
+        }));
+      }
+    }
+
+    function render() {
+      var c = pal;
+      if (svg) svg.remove();
+      svg = Viz.createSvg(plot, W, H, {
+        label: "A grid of 34 temperature columns by six supersaturation rows, one square per " +
+               "run, marked by whether the run counted toward the headline score.",
+        desc: "Ninety squares are counted; eighty-four sit in the coldest regime and are " +
+              "reported but held out of the headline; thirty fall within one degree of a regime " +
+              "boundary and are excluded from counting."
+      });
+
+      function text(x, y, s, o) {
+        o = o || {};
+        var node = Viz.svgEl("text", {
+          x: x, y: y, "text-anchor": o.anchor || "middle",
+          style: "fill:" + (o.fill || c.inkSecondary) + ";font-size:" + (o.size || 11) +
+                 "px;font-weight:" + (o.weight || 400) + ";font-family:var(--font-sans)"
+        });
+        node.textContent = s;
+        svg.appendChild(node);
+        return node;
+      }
+
+      function colX(i) { return X0 + i * CW; }
+      // Each column covers [t - 0.5, t + 0.5], so a boundary at value v falls here.
+      function boundX(v) { return X0 + (v - 2 + 0.5) * CW; }
+
+      text(X0 + GW / 2, 16,
+        "reference regimes, and the runs in each:  " + REGIMES.map(function (r, i) {
+          return r.n + " " + r.label + " " + REG_N[i];
+        }).join("   ·   "),
+        { fill: c.muted, size: 10 });
+
+      REGIMES.forEach(function (r, i) {
+        var xa = boundX(i === 0 ? 1.5 : REGIMES[i - 1].to);
+        var xb = boundX(i === REGIMES.length - 1 ? 35.5 : r.to);
+        svg.appendChild(Viz.svgEl("rect", {
+          x: xa.toFixed(1), y: 34, width: Math.max(2, xb - xa).toFixed(1), height: 4, rx: 2,
+          fill: c.ruleStrong
+        }));
+        text((xa + xb) / 2, 30, String(r.n), { fill: c.inkSecondary, size: 10, weight: 700 });
+      });
+
+      text(X0 - 8, Y0 - 8, "humidity f", { anchor: "end", size: 10, fill: c.muted });
+      FRACTIONS.forEach(function (f, j) {
+        text(X0 - 8, Y0 + j * CH + 14, f.toFixed(2),
+          { anchor: "end", size: 10, fill: c.inkSecondary });
+      });
+
+      TEMPS.forEach(function (t, i) {
+        var cat = category(t);
+        var dim = (sel !== "all" && sel !== cat);
+        for (var j = 0; j < FRACTIONS.length; j++) {
+          cell(svg, colX(i), Y0 + j * CH, CW, CH, cat, dim, c);
+        }
+        if (t === 2 || t % 5 === 0) {
+          text(colX(i) + CW / 2, Y0 + GH + 16, "−" + t, { size: 10, fill: c.inkSecondary });
+        }
+      });
+      text(X0 - 8, Y0 + GH + 16, "°C", { anchor: "end", size: 10, fill: c.muted });
+
+      BOUNDS.forEach(function (v) {
+        var x = boundX(v);
+        svg.appendChild(Viz.svgEl("line", {
+          x1: x.toFixed(1), y1: 42, x2: x.toFixed(1), y2: (Y0 + GH + 4).toFixed(1),
+          stroke: c.ink, "stroke-width": 1, "stroke-dasharray": "3 3", opacity: 0.5
+        }));
+        text(x, Y0 + GH + 32, "−" + v.toFixed(1), { size: 10, fill: c.muted });
+      });
+
+      var LG = [
+        { cat: "counted", text: COUNT.counted + " counted" },
+        { cat: "cold", text: COUNT.cold + " reported, out of the headline" },
+        { cat: "band", text: COUNT.band + " excluded, ambiguity band" }
+      ];
+      var widths = LG.map(function (it) { return 22 + it.text.length * 5.6; });
+      var total = widths.reduce(function (a, b) { return a + b; }, 0) + 18 * (LG.length - 1);
+      var lx = Math.max(8, (W - total) / 2);
+      var ly = H - 24;
+      LG.forEach(function (it, i) {
+        var lit = (sel === "all" || sel === it.cat);
+        cell(svg, lx, ly, 18, 14, it.cat, !lit, c);
+        text(lx + 22, ly + 11, it.text,
+          { anchor: "start", size: 10, fill: lit ? c.inkSecondary : c.muted });
+        lx += widths[i] + 18;
+      });
+    }
+
+    function say() {
+      if (sel === "counted") {
+        return COUNT.counted + " runs counted. Every one of them sits in a regime where the " +
+          "diagram names a single habit, so the model either produced that habit or it did not " +
+          "— there is no third answer. This is the denominator of the headline, and it was " +
+          "fixed before the sweep ran.";
+      }
+      if (sel === "cold") {
+        return COUNT.cold + " runs colder than −21.5 °C, where the diagram accepts " +
+          "either pure habit. A plate cannot be scored wrong there and neither can a column, so " +
+          "the whole regime is reported and kept out of the headline. For the record, 27 of them " +
+          "agreed with the diagram and 57 came out neither plate nor column.";
+      }
+      if (sel === "band") {
+        return COUNT.band + " runs within ±1.0 °C of a regime boundary, where the " +
+          "diagram itself is ambiguous about which habit belongs there. They are excluded from " +
+          "counting by a rule registered before anyone knew which runs would fall inside it " +
+          "— which is the only circumstance in which you may write a rule like that.";
+      }
+      return "Two hundred and four runs: 34 temperatures across, six supersaturation levels f " +
+        "down, f being the fraction of water saturation the air is held at. " + COUNT.counted +
+        " counted, " + COUNT.cold + " reported but held out of the headline, " + COUNT.band +
+        " excluded before the sweep ran. " + COUNT.counted + " + " + COUNT.cold + " + " +
+        COUNT.band + " = " + TOTAL + ".";
+    }
+
+    var buttons = [];
+    function choose(key) {
+      return function (b) {
+        sel = key;
+        buttons.forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+        render();
+        readout.textContent = say();
+      };
+    }
+    buttons.push(Viz.button(controls, "All " + TOTAL, choose("all"), { pressed: true }));
+    buttons.push(Viz.button(controls, "The " + COUNT.counted + " that counted",
+      choose("counted"), { pressed: false }));
+    buttons.push(Viz.button(controls, "The " + COUNT.cold + " reported only",
+      choose("cold"), { pressed: false }));
+    buttons.push(Viz.button(controls, "The " + COUNT.band + " excluded",
+      choose("band"), { pressed: false }));
+
+    render();
+    readout.textContent = say();
+    Viz.onThemeChange(function () { pal = Viz.colors(); render(); });
+  })();
+
+  /* =================================================================== */
+  /* 2. anim-timeline — the diary, drawn.                                 */
   /* =================================================================== */
   (function () {
     var root = document.getElementById("anim-timeline");
@@ -1108,7 +1460,7 @@
     var body = root.querySelector(".anim__body");
     var controls = root.querySelector(".anim__controls");
 
-    var BETA = 0.14;          // the attachment threshold this miniature uses
+    var ggThreshBeta = 0.14;          // the attachment threshold this miniature uses
     var field = makeField(51, 43, 5);
     var cv = Viz.createCanvas(body, Math.round(field.width), Math.round(field.height), {
       label: "A small two-dimensional ice crystal, optionally overlaid with the vapour field " +
@@ -1133,7 +1485,7 @@
       state.refused = false;
       for (var s = 0; s < 24; s++) {
         if (field.compactness().radius >= 7) break;
-        if (!field.step(BETA, null, 24)) break;
+        if (!field.step(ggThreshBeta, null, 24)) break;
       }
       draw();
     }
@@ -1207,7 +1559,7 @@
       state.fresh = new Set();
       state.refused = true;
       for (var s = 0; s < 6; s++) {
-        var added = field.step(BETA, null, 24);
+        var added = field.step(ggThreshBeta, null, 24);
         if (!added) break;
         state.refused = false;
         for (var j = 0; j < added.length; j++) state.fresh.add(added[j]);
@@ -1430,7 +1782,7 @@
       return off > 18;                            // true = still allowed to grow
     }
 
-    var BETA = 0.14;          // the same attachment threshold as the X-ray demo
+    var ggThreshBeta = 0.14;          // the same attachment threshold as the X-ray demo
 
     function run() {
       results = STARTS.map(function (rad) {
@@ -1438,7 +1790,7 @@
         f.seed(rad, 340);
         var steps = 0, last = f.compactness();
         for (var s = 1; s <= 30; s++) {
-          var added = f.step(BETA, cheat ? faceBan : null, 22);
+          var added = f.step(ggThreshBeta, cheat ? faceBan : null, 22);
           if (!added) break;
           steps = s;
           last = f.compactness();

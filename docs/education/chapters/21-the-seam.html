@@ -167,13 +167,13 @@
 
       <div class="equation">
         <p class="equation__math">
-          v<sub>n</sub> = &alpha;<sub>HK</sub> &middot; v<sub>kin</sub> &middot; &sigma;<sub>surf</sub>
+          v<sub>n</sub> = alphaHK &middot; v<sub>kin</sub> &middot; &sigma;<sub>surf</sub>
         </p>
         <div class="equation__where">
           <strong>where</strong>
           <dl>
             <dt>v<sub>n</sub></dt><dd>the speed the ice surface advances, perpendicular to itself, in metres per second</dd>
-            <dt>&alpha;<sub>HK</sub></dt><dd>the attachment coefficient &mdash; the fraction of molecules that hit the surface and actually stay (Part One, chapter 11)</dd>
+            <dt>alphaHK</dt><dd>the attachment coefficient &mdash; the fraction of molecules that hit the surface and actually stay (Part One, chapter 11)</dd>
             <dt>v<sub>kin</sub></dt><dd>the kinetic velocity &mdash; how fast the surface would advance if every molecule that hit it stuck</dd>
             <dt>&sigma;<sub>surf</sub></dt><dd>the supersaturation right at the surface, which the diffusion field decides, not you</dd>
           </dl>
@@ -228,7 +228,7 @@
 
       <div class="equation">
         <p class="equation__math">
-          f(x) &nbsp;+=&nbsp; &alpha;<sub>HK</sub> &middot; v<sub>kin</sub> &middot; &sigma;<sub>b</sub> &middot; &Delta;t / (H<sub>b</sub> &middot; &Delta;x)
+          f(x) &nbsp;+=&nbsp; alphaHK &middot; v<sub>kin</sub> &middot; &sigma;<sub>b</sub> &middot; &Delta;t / (H<sub>b</sub> &middot; &Delta;x)
           &nbsp;&nbsp;&nbsp; &mdash; attach when f(x) &ge; 1
         </p>
         <div class="equation__where">
@@ -238,7 +238,7 @@
             <dt>&sigma;<sub>b</sub></dt><dd>the supersaturation the surface actually sees, solved so that the rate the surface demands and the rate the vapour can deliver agree</dd>
             <dt>&Delta;t</dt><dd>the length of this growth step, in seconds &mdash; and it is not a setting; see the next section</dd>
             <dt>&Delta;x</dt><dd>the lattice spacing (0.35&nbsp;&micro;m in this phase's runs)</dd>
-            <dt>H<sub>b</sub></dt><dd>a shape correction for the patch of surface one boundary cell stands for. Every boundary cell is labelled by how many ice neighbours it has &mdash; first the count in the crystal's plane, then the count above and below &mdash; and the two labels this project treats as flat facets, the basal one and the prism one, are written <code>[01]</code> and <code>[20]</code>. Both take the value 1, cited straight from the monograph</dd>
+            <dt>H<sub>b</sub></dt><dd>a shape correction for the patch of surface one boundary cell stands for. For both kinds of flat face it is 1, cited straight from the monograph, so in these runs it changes nothing (docs/attachment-kinetics.md, lines 539&ndash;540). The two cases still need names, because which cell counts as which is exactly what goes wrong in the source audit at the end of this chapter. A boundary cell is labelled by its ice neighbours &mdash; the in-plane count first, then the count above and below. A cell resting on the flat top of a plate has none beside it in its own plane and ice directly beneath it: that is <code>[01]</code>, the basal case. A cell standing against a flat side wall has two beside it in its own plane and nothing above or below: that is <code>[20]</code>, the prism case</dd>
           </dl>
         </div>
         <p class="equation__cite">docs/attachment-kinetics.md &sect;4.2; forward policy in project charter.md, line 265</p>
@@ -330,7 +330,7 @@
           <strong>where</strong>
           <dl>
             <dt>cfl</dt><dd>the fill-CFL bound &mdash; the most any cell is allowed to fill in one step. Default 0.1, meaning 10% of a cell</dd>
-            <dt>rate</dt><dd>a cell's fill rate, &alpha;<sub>HK</sub>&middot;v<sub>kin</sub>&middot;&sigma;<sub>b</sub>&nbsp;/&nbsp;(H<sub>b</sub>&middot;&Delta;x), in cells per second</dd>
+            <dt>rate</dt><dd>a cell's fill rate, alphaHK&middot;v<sub>kin</sub>&middot;&sigma;<sub>b</sub>&nbsp;/&nbsp;(H<sub>b</sub>&middot;&Delta;x), in cells per second</dd>
             <dt>max(rate)</dt><dd>the largest of those, over every boundary cell, recomputed every step</dd>
           </dl>
         </div>
@@ -411,7 +411,7 @@
       </p>
 
       <p>
-        Look back at the fill equation. &alpha;<sub>HK</sub> is the attachment coefficient, and
+        Look back at the fill equation. <code>alphaHK</code> is the attachment coefficient, and
         Part One's chapter 11 already told you what it depends on: which facet you are on, how
         supersaturated the air is right there, and <em>the temperature</em>. So temperature is
         inside the rate. It is inside the rate of every single boundary cell, recomputed every
@@ -422,7 +422,7 @@
       <blockquote class="callout">
         <p>
           &ldquo;temperature is an input to the physics, not a label applied afterward.
-          &alpha;_basal(T, &sigma;_surf) and &alpha;_prism(T, &sigma;_surf) are computed each step
+          &alpha;_basal(T, &sigma;_surf) and &alpha;_prism(T, &sigma;_surf) are computed each step <!-- rule7-waive: verbatim quotation from project charter.md, line 165, preserves the source's own notation -->
           from the local supersaturation the diffusion field delivers, and the plate&harr;column
           habit is an output of their competition rather than a knob. This is what allows the model
           to be wrong &mdash; and therefore worth testing&rdquo;
@@ -433,13 +433,13 @@
       <p>
         Compare that with the rule it replaced. Under the borrowed threshold rule, whether a cell
         attaches depends on a set of numbers &mdash; the project writes two of them
-        &beta;<sub>01</sub> and &beta;<sub>20</sub> &mdash; that you choose before the run. The
-        project's own notes are blunt about what those numbers are: &ldquo;<strong>&beta;&#8320;&#8321;
-        / &beta;&#8322;&#8320; is the plate&harr;column axis under <code>GGThreshold</code>.</strong>
-        High &beta;&#8320;&#8321; &rArr; basal faces attach reluctantly &rArr; growth goes sideways
+        <code>ggThreshBeta01</code> and <code>ggThreshBeta20</code> &mdash; that you choose before the run. The
+        project's own notes are blunt about what those numbers are: &ldquo;<strong>&beta;&#8320;&#8321; <!-- rule7-waive: verbatim quotation from docs/gg-machinery.md, lines 143-149, preserves the source's own notation -->
+        / &beta;&#8322;&#8320; is the plate&harr;column axis under <code>GGThreshold</code>.</strong> <!-- rule7-waive: verbatim quotation from docs/gg-machinery.md, lines 143-149, preserves the source's own notation -->
+        High &beta;&#8320;&#8321; &rArr; basal faces attach reluctantly &rArr; growth goes sideways <!-- rule7-waive: verbatim quotation from docs/gg-machinery.md, lines 143-149, preserves the source's own notation -->
         &rArr; <strong>plate</strong>&rdquo; &mdash; and then, four lines later,
         &ldquo;Under <code>LibbrechtKinetics</code> the habit is not a knob at all &mdash; it is an
-        <em>output</em> of the &alpha;_basal/&alpha;_prism competition at a given temperature&rdquo;
+        <em>output</em> of the &alpha;_basal/&alpha;_prism competition at a given temperature&rdquo; <!-- rule7-waive: verbatim quotation from docs/gg-machinery.md, lines 143-149, preserves the source's own notation -->
         (docs/gg-machinery.md, lines 143&ndash;149).
       </p>
 
@@ -465,7 +465,7 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original diagram. The threshold-rule crystal is a schematic
           drawn from the direction stated in docs/gg-machinery.md, lines 143&ndash;146 (high
-          &beta;&#8320;&#8321; &rarr; plate, low &beta;&#8320;&#8321; &rarr; column); no aspect ratio is
+          <code>ggThreshBeta01</code> &rarr; plate, low <code>ggThreshBeta01</code> &rarr; column); no aspect ratio is
           computed from it. The kinetics-rule crystal is drawn from the two aspect ratios actually
           recorded by the Phase 2b run in docs/PROGRESS.md, line 611, on a compressed scale so both
           fit the frame. The control-group check reports the permanent Phase 2a
@@ -563,7 +563,21 @@
       </p>
 
       <p>
-        That definition earns its keep in the table below, where the two runs record the same
+        One item on that list is worth stopping on, because it comes back at the very end of the
+        book. The code offers exactly two named settings of the CAK nucleation curves &mdash; the
+        curves Part One's chapter 11 introduced and chapter 16 had you digitize &mdash; and no
+        others: <code>CAK</code>, which uses the digitized prism prefactor
+        <em>A</em><sub>prism</sub>, the dipping curve read off the plot; and <code>CAK_A1</code>,
+        which holds <em>A</em><sub>prism</sub> at exactly 1 at every temperature. The second is a
+        simplification, and the code says so where it is defined &mdash; &ldquo;a documented
+        SIMPLIFICATION of the CAK set&rdquo; (core/src/libbrecht.ts, lines 90&ndash;102 and
+        142&ndash;143). Phase 2b registered <code>CAK_A1</code> in advance, ran it, and reported it,
+        which is the whole of what a registered choice has to do. Chapter 29 is about a later phase
+        that registered the other one and then ran this one without noticing.
+      </p>
+
+      <p>
+        The definition of extent earns its keep in the table below, where the two runs record the same
         extent &mdash; 61 &mdash; and it is not the same measurement twice. At &minus;5&nbsp;&deg;C
         the aspect ratio is far below 1, so that crystal is very much wider than it is tall, and its
         61 is a sideways span. At &minus;15&nbsp;&deg;C the aspect ratio is 12.2000, which is 61
@@ -610,8 +624,9 @@
         The frozen protocol lists, among the things held fixed, &ldquo;no events, SDAK, or
         ramps&rdquo; (docs/plans/phase-2b-v5p-parallel-retry.md, line 51), and the project's own
         record calls this &ldquo;Phase 2b's scoped no-SDAK deliverable&rdquo; (docs/PROGRESS.md,
-        line 523). SDAK &mdash; the narrow-facet mechanism chapter 12 spent itself on, and the
-        disputed one &mdash; is not in this model at all. So the flip is not evidence that
+        line 523). SDAK &mdash; the narrow-facet mechanism chapter 12 offered and chapter 13 left
+        standing as a working hypothesis rather than a settled result &mdash; is not in this model
+        at all. So the flip is not evidence that
         attachment kinetics is simply backwards. It is evidence that <em>broad-facet</em> attachment
         kinetics on its own, with no narrow-facet term anywhere in the rule, flips the wrong way.
         Those are different claims, and later chapters need the second one.
@@ -885,8 +900,9 @@
       <p>
         A source audit afterwards found why the seam had been blunt. The monograph names one
         boundary configuration as basal and another as the prism facet; the executed rule had
-        classified them differently, so a temperature-independent path controlled twelve of the
-        seed's own starting sites. The record does not treat that as a licence to delete the run:
+        classified them differently &mdash; it read the flat side wall, <code>[20]</code> in the
+        notation above, as a rough step site rather than a prism facet &mdash; so a
+        temperature-independent path controlled twelve of the seed's own starting sites. The record does not treat that as a licence to delete the run:
         &ldquo;This source contradiction is a seam defect discovered after the run, not a reason to
         rewrite or discard the negative result; it limits interpretation of the failure as a test
         of the intended physical model&rdquo; (docs/PROGRESS.md, lines 1643&ndash;1646).
@@ -1272,7 +1288,7 @@
     "σ<sub>∞</sub> = 0.002 — the supersaturation held at that far edge",
     "pressure 101325 Pa",
     "lattice spacing dx = 0.35 µm",
-    "nucleation parameter set CAK_A1",
+    "nucleation parameter set CAK_A1 — the CAK curves with the prism prefactor <em>A</em><sub>prism</sub> held at 1, registered in advance",
     "seed 1",
     "noise 0",
     "fill-CFL 0.1",
@@ -1382,13 +1398,13 @@
   const controls = root.querySelector(".anim__controls");
 
   let rule = "GGThreshold";
-  let beta01 = 1.25;
+  let ggThreshBeta01 = 1.25;
   let temp = "-5";
   let checkedControl = false;
 
   /* The control-group differential, with the numbers the record actually carries.
-     The 2a plate is a FIXED registered run (its own preset), not whatever the β
-     slider on this panel is showing. Values: docs/PROGRESS.md lines 610-612. */
+     The 2a plate is a FIXED registered run (its own preset), not whatever the
+     ggThreshBeta01 slider on this panel is showing. Values: docs/PROGRESS.md lines 610-612. */
   const CONTROL_CARD =
     "<div class=\"c21-card\"><h4>The control, checked</h4>" +
     "<div class=\"c21-rows\">" +
@@ -1407,7 +1423,7 @@
     "sweep and the checkpoint code are not the suspects, and anything strange in the kinetics " +
     "run belongs to the physics. Had the hash moved instead, the fault would be underneath both " +
     "rules &mdash; and the physics would be innocent, because no claim about it could be made at " +
-    "all. This is a fixed registered run, not the β slider above.</p></div>";
+    "all. This is a fixed registered run, not the <code>ggThreshBeta01</code> slider above.</p></div>";
 
   const AR_TEXT = { "-5": "0.118644", "-15": "12.2000" };
   const AR_NUM = { "-5": 0.118644, "-15": 12.2 };
@@ -1470,13 +1486,13 @@
   function render() {
     const isGG = rule === "GGThreshold";
     const s = isGG
-      ? 2.4 * Math.pow(0.22, (beta01 - 0.3) / 1.7)
+      ? 2.4 * Math.pow(0.22, (ggThreshBeta01 - 0.3) / 1.7)
       : Math.pow(AR_NUM[temp], 0.35);
     const verdictWord = isGG
-      ? (beta01 > 1.05 ? "plate" : beta01 < 0.75 ? "column" : "blocky prism")
+      ? (ggThreshBeta01 > 1.05 ? "plate" : ggThreshBeta01 < 0.75 ? "column" : "blocky prism")
       : HABIT[temp];
 
-    if (betaSlider) betaSlider.element.style.display = isGG ? "" : "none";
+    if (ggThreshBeta01Slider) ggThreshBeta01Slider.element.style.display = isGG ? "" : "none";
 
     const controlList = isGG
       ? "<p style=\"font-size:var(--step--1);margin:0 0 0.5rem;\">β₀₁ / β₂₀ &mdash; " +
@@ -1544,12 +1560,12 @@
     if (b.dataset.act === "control") { checkedControl = !checkedControl; render(); }
   });
 
-  const betaSlider = Viz.slider(controls, {
+  const ggThreshBeta01Slider = Viz.slider(controls, {
     label: "β₀₁ (basal threshold)",
-    id: "head-beta",
+    id: "head-basal-thresh",
     min: 0.3, max: 2.0, step: 0.05, value: 1.25,
     format: function (v) { return v.toFixed(2); },
-    onInput: function (v) { beta01 = v; render(); },
+    onInput: function (v) { ggThreshBeta01 = v; render(); },
   });
 
   render();

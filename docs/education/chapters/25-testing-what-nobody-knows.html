@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Testing What Nobody Knows — Snow Crystals</title>
+<title>Testing What Nobody Knows the Answer To — Snow Crystals</title>
 <meta name="description" content="How you test a program whose output nobody knows in advance: assert the properties the answer must obey, then prove the assertions are capable of failing.">
 <link rel="stylesheet" href="../assets/education.css">
 </head>
@@ -19,7 +19,7 @@
     </svg>
     Snow Crystals
   </a>
-  <span class="topbar__crumb">Chapter 25 &middot; Testing What Nobody Knows</span>
+  <span class="topbar__crumb">Chapter 25 &middot; Testing What Nobody Knows the Answer To</span>
   <span class="topbar__spacer"></span>
   <button class="icon-button" data-theme-toggle type="button" aria-label="Switch theme">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
@@ -53,9 +53,10 @@
       <!-- ===== header ===== -->
       <header class="chapter-header">
         <p class="chapter-header__eyebrow">Chapter 25</p>
-        <h1>Testing What Nobody Knows</h1>
+        <h1>Testing What Nobody Knows the Answer To</h1>
         <p class="chapter-header__question">
-          You can test <code>add(2, 2)</code> because you already know the answer is 4. What do you
+          You can check <code>add(2, 2)</code> &mdash; ask a program that adds two numbers for
+          2&nbsp;+&nbsp;2 &mdash; because you already know the answer is 4. What do you
           test when the output is a snow crystal and nobody on Earth knows what it should look like?
         </p>
         <div class="chapter-header__meta">
@@ -69,7 +70,8 @@
       <section class="goals">
         <h2>By the end you will be able to</h2>
         <ul>
-          <li>Write an assertion that is <strong>insensitive to what you do not know</strong> and
+          <li>Say what makes a check worth having: one that is
+            <strong>insensitive to what you do not know</strong> and
             <strong>sensitive to what would be a bug</strong>.</li>
           <li>Ask of any test you meet: <em>what deletion would this catch?</em></li>
           <li>Explain why a green test suite can mean either &ldquo;the code works&rdquo; or
@@ -82,14 +84,26 @@
       <h2 id="no-oracle">What is the 4?</h2>
 
       <p>
-        Every test you have ever written has the same shape. Call something with a known input,
-        compare what comes back against a known correct answer, go green or red. That known correct
-        answer has a name: the <strong>oracle</strong>. In <code>add(2, 2)</code> the oracle is 4,
-        and it costs nothing, because you knew it before you wrote the function.
+        A test has the same shape whether a person or a program does the checking: try something
+        whose answer you already know, and see whether you get it. Put a one-kilogram weight on a
+        new balance; ask a calculator for 2&nbsp;+&nbsp;2. Software is checked the same way. You
+        <em>call</em> a piece of it &mdash; hand it an input and take back what it returns &mdash;
+        with an input whose answer is known, and compare. Green if they match, red if they do not.
       </p>
 
       <p>
-        Now call the previous chapter's program instead. <code>grow(&minus;15&nbsp;&deg;C,
+        The known correct answer has a name, and you have met it already. Chapter 18 called the
+        slow, readable TypeScript solver the <strong>CPU oracle</strong>. The word comes from
+        testing, where an <strong>oracle</strong> is whatever tells you the right answer. In
+        <code>add(2, 2)</code> the oracle is 4, and it costs nothing, because you knew it before
+        the function was written. The CPU oracle is that same idea stretched over a whole solver:
+        nothing can tell the fast graphics-card version what the right crystal is, so the slow
+        readable one is nominated to define it, and chapter 26 is about what that nomination costs.
+        This chapter is the harder case, where there is nothing available to nominate.
+      </p>
+
+      <p>
+        Call the previous chapter's program instead. <code>grow(&minus;15&nbsp;&deg;C,
         &sigma;&nbsp;=&nbsp;2&nbsp;%)</code>. Out comes a crystal. What is the 4?
       </p>
 
@@ -111,6 +125,34 @@
         <p class="equation__cite">project charter.md &sect;1.5, line 87</p>
       </div>
 
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          Reading the code quotes
+        </p>
+        <p>
+          The rest of this chapter quotes real tests, and you do not need to know the language they
+          are written in. Each demand a test makes is called an <strong>assertion</strong>, and two
+          shapes cover almost all of them. <code>expect(A).toBe(B)</code> means <em>demand that A is
+          exactly B</em>; the variants only say how strictly &mdash;
+          <code>toBeCloseTo(B,&nbsp;5)</code> is <em>to five decimal places</em>,
+          <code>toBeGreaterThan(B)</code> is <em>more than B</em>, <code>toContain(B)</code> is
+          <em>B is among them</em>. And <code>it("&hellip;")</code> holds one test's claim as an
+          English sentence, so that a failure prints the claim rather than a line number.
+        </p>
+        <p>
+          Four smaller conventions, and then the notation is behind us. <code>===</code> means
+          <em>is exactly equal to</em>. <code>1e-10</code> is how programs write
+          10<sup>&minus;10</sup>. A phrase between slashes &mdash;
+          <code>/outside the digitized domain/</code> &mdash; is a pattern that some message has to
+          match. And where a test demands that the code <em>refuse</em>, the call being tested is
+          wrapped as <code>() =&gt; f(x)</code>, which means <em>this call, not yet made</em>: it has
+          to be handed over unrun so the refusal can be caught instead of stopping the test.
+        </p>
+      </aside>
+
       <p>
         So the tests here never assert the answer. They assert what the answer
         <strong>must obey</strong> whatever it turns out to be. Water cannot appear from nowhere. A
@@ -130,7 +172,7 @@
           <p class="anim__title">Be the tester</p>
           <p class="anim__sub">
             Four builds of the same toy solver. One is correct, one differs only in its random seed,
-            and two are broken. Choose which assertions go in your suite, then read the scoreboard:
+            and two are broken. Choose which assertions go in your test suite, then read the scoreboard:
             how many broken builds did you catch, and how many alarms did you raise on builds that
             are fine?
           </p>
@@ -181,8 +223,9 @@
         (<code>runner/src/phase6-protocol.ts</code>, lines 297&ndash;301). The residual it measured
         between the two domains was 5,161 against 5,159
         (<code>runner/test/phase6-sweep.test.ts</code>, lines 178&ndash;204). Note what that is and
-        is not: a check that the answer does not depend on the size of the box &mdash; chapter 24's
-        subject &mdash; not a check that today's answer equals yesterday's.
+        is not: a check that the answer does not depend on the size of the box &mdash; chapter 23's
+        subject, and both of those counts sit on its convergence ladder &mdash; not a check that
+        today's answer equals yesterday's.
       </p>
 
       <aside class="callout callout--key">
@@ -212,8 +255,8 @@
         <strong>Conservation.</strong> Water molecules do not appear or vanish. In a sealed box the
         total &mdash; vapour still drifting, vapour clinging to the surface, ice &mdash; must be the
         same after ten thousand ticks as before, to better than one part in ten billion, while you
-        know nothing at all about what grew. In the code that budget is written <code>1e-10</code>,
-        which is how programs spell 10<sup>&minus;10</sup>. Every word of the test's title was
+        know nothing at all about what grew. In the code that budget is written <code>1e-10</code>.
+        Every word of the test's title was
         fought for: <code>&ldquo;conserves total mass to &lt; 1e-10 relative over 10&nbsp;000 ticks
         GROWN, noise OFF, reflecting&rdquo;</code>. An earlier version split that into a
         crystal-free ten-thousand-tick run and a 4,800-tick grown one; the audit that caught it is
@@ -227,8 +270,9 @@
 
       <p>
         <strong>Symmetry, exactly.</strong> Most simulations settle for
-        &ldquo;approximately&rdquo;. This one asserts <code>toBe(0)</code>, not
-        <code>toBeCloseTo</code> &mdash; possible only because the solver adds neighbouring cells in
+        &ldquo;approximately&rdquo;. This one asserts <code>toBe(0)</code> &mdash; exactly zero
+        &mdash; and not <code>toBeCloseTo</code>, near enough to zero: possible only because the
+        solver adds neighbouring cells in
         a fixed, symmetry-respecting order. Floating-point addition is not associative, so that
         order matters. The solver's header
         states the consequence flatly: &ldquo;Symmetric cells round identically, so the gate's
@@ -275,8 +319,9 @@
         this rule holds, checked over the whole input space when it is small enough to enumerate.
         <code>core/test/lattice.test.ts</code> is almost entirely properties: index to coordinates
         and back is the identity, over <em>every</em> index; the neighbour relation is mutual in all
-        eight directions; mirroring twice returns you to the start. The nicest is
-        <code>it("rot60 has order 6 exactly")</code>, which turns the hexagon six times, demands you
+        eight directions; mirroring twice returns you to the start. The nicest states its claim in
+        its own title &mdash; <code>it("rot60 has order 6 exactly")</code> &mdash; then turns the
+        hexagon six times, demands you
         land back where you started, and demands you have <em>not</em> landed there after any of the
         first five turns. Without that second half, a function that did nothing would pass.
       </p>
@@ -296,7 +341,8 @@
         </p>
         <p>
           The repository has 69 test files holding roughly 1,040 individual cases, counted by
-          matching <code>it(</code> and <code>test(</code> across every <code>*.test.ts</code>. A
+          matching <code>it(</code> and <code>test(</code> &mdash; the two words that open a single
+          case &mdash; across every file whose name ends <code>.test.ts</code>. A
           startling fraction of them exist for one reason only: to prove that <em>other</em> tests
           are capable of failing. The next four sections are about those.
         </p>
@@ -691,7 +737,10 @@
       </div>
 
       <p>
-        Read the second line again. It asserts the code is <em>at least</em> 15&nbsp;% wrong, so
+        In English: the first line demands that the function still return &minus;0.009146 at
+        &minus;1&nbsp;&deg;C, to five decimal places, and the second demands that at
+        &minus;10&nbsp;&deg;C it stay at least 15&nbsp;% away from the monograph's published 0.102.
+        Read that second line again. It asserts the code is <em>at least</em> 15&nbsp;% wrong, so
         improving the formula would turn it red. That is deliberate: it is pinned
         &ldquo;so the limitation cannot silently un-happen&rdquo;. The quantity is a plausibility
         reference against the source, explicitly &ldquo;not an enforced runtime ceiling or a
@@ -725,9 +774,12 @@
       <p>
         That is the alarm half, pointed backwards at a flaw already known. Pointed forwards, the same
         instinct produces a stranger habit: functions that refuse to answer. Ask for a
-        parameter outside the range actually digitised from the source figure and the code throws
-        rather than extrapolating &mdash;
-        <code>expect(() =&gt; sigma0Basal(-0.5)).toThrow(/outside the digitized domain/)</code>.
+        parameter outside the range actually digitised from the source figure and the code
+        <strong>throws</strong> rather than extrapolating: it returns no number at all and states a
+        reason. The test demands exactly that refusal &mdash;
+        <code>expect(() =&gt; sigma0Basal(-0.5)).toThrow(/outside the digitized domain/)</code>,
+        which reads <em>asking for the basal attachment coefficient at &minus;0.5&nbsp;&deg;C must
+        fail, complaining that it is outside the digitized domain</em>.
         There is a family of these: a solver that refuses to advance the surface on an unconverged
         field, even through its public interface; a grid-limit extrapolation
         <em>published</em> for the cold case and <em>refused</em> for the warm one, where two

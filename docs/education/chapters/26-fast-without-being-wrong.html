@@ -42,7 +42,7 @@
       <li><a href="#the-shadow">Measuring the error before writing the fast code</a></li>
       <li><a href="#never-vote">A tolerance may never vote</a></li>
       <li><a href="#two-seconds">Two seconds, and what Windows does after them</a></li>
-      <li><a href="#saboteurs">Sixteen criteria, sixteen saboteurs</a></li>
+      <li><a href="#saboteurs">The gate's own checklist</a></li>
       <li><a href="#the-twist">Winning the gate, losing the job</a></li>
       <li><a href="#entitlement">What exit 0 lets anyone say</a></li>
     </ol>
@@ -75,6 +75,18 @@
           <li>Say what the word &ldquo;faster&rdquo; is a claim about &mdash; and why this project measured its own situation and retracted its own plan.</li>
         </ul>
       </section>
+
+      <p>
+        Chapter 25 left the hardest oracle problem of the lot still open: a program checked against
+        <em>another program</em> &mdash; a fast engine on the graphics card, working in about seven
+        decimal digits instead of sixteen, which must nonetheless be shown to agree with the slow,
+        readable one. How wide should that envelope be, and who decides, and when? The short answers
+        are the spine of this chapter: the envelope is <em>measured</em>, and its fingerprint
+        published, before anybody is allowed to look at the fast code &mdash; and for the yes-or-no
+        quantities there is no envelope at all. But the reason a graphics card <em>forces</em> that
+        discipline rather than merely rewarding it starts with what the machine is, so that is where
+        we start.
+      </p>
 
       <!-- ============================================================ 1 -->
       <h2 id="sameness">Why sameness is the whole trick</h2>
@@ -123,14 +135,21 @@
         two correct programs disagree. Adding the same seven numbers in a different order gives a
         different 32-bit answer, so the shader fixes the order by value rather than leaving it to
         whatever the compiler felt like. The project has a whole decision record for the identical
-        technique on the surface operator &mdash; ADR&nbsp;0023, <em>&ldquo;Sum the opposing-vapor
-        operands in ascending order (surface policy v6)&rdquo;</em> &mdash; and the shadow program
-        implements it a second time, independently, as <code>sortedTriple()</code>
+        technique applied to a <em>different</em> reduction, the surface operator &mdash;
+        ADR&nbsp;0023, <em>&ldquo;Sum the opposing-vapor operands in ascending order&rdquo;</em>,
+        which the repository version-numbers as <strong>surface policy v6</strong>, chapter 20's
+        subject. Hold that label apart from the other v6 in this chapter: the Phase&nbsp;5
+        <strong>protocol version</strong> is also numbered v6, and it means something entirely
+        unrelated. The shadow program implements the same sort a second time, independently, as
+        <code>sortedTriple()</code>
         (<code>runner/src/phase5-shadow.ts</code>, lines&nbsp;108&ndash;121). It is also the one
         place in this pass where the workers do not literally do the identical thing: the branch
         ladder means neighbouring cells can take different routes through the sort. They still all
         run the same program, which is what the hardware demands. They just do not all take the same
-        turning.
+        turning. One caution about that decision record, collected in full at the end of this
+        chapter: the sort you have just read does ship, in this diffusion pass &mdash; but
+        ADR&nbsp;0023's fix to the <em>surface</em> operator was never ported to the graphics card,
+        and that omission bounds what the closing conformance claim is allowed to say.
       </p>
 
       <p>
@@ -329,9 +348,10 @@
         So the slow solver is never thrown away. The charter fixes this before any shader exists:
         the processor solver &ldquo;is the ground truth and the debugging environment. It is never
         deleted&rdquo;, and four lines later, <strong>&ldquo;Never port ahead of the
-        oracle.&rdquo;</strong> (<code>project charter.md</code>, &sect;3.1.) An <em>oracle</em>, in
-        testing, is whatever defines the right answer. Here it is not a person and not a paper; it
-        is a slow, readable program you are allowed to step through line by line.
+        oracle.&rdquo;</strong> (<code>project charter.md</code>, &sect;3.1.) The oracle of
+        chapters&nbsp;18 and&nbsp;25 &mdash; whatever tells you the right answer &mdash; is here
+        neither a person nor a paper: it is a slow, readable program you are allowed to step through
+        line by line.
       </p>
 
       <p>
@@ -473,8 +493,8 @@
 
       <p>
         Once measured, the numbers were frozen and hashed. The tolerance manifest carries the
-        SHA-256 <code>d38ec0f7a0096dc297d651cd1b89fb80275edb4098c16545c44274e585c2a09b</code>
-        (<code>runner/src/phase5-protocol.ts</code>, lines&nbsp;20&ndash;21). A hash is a short
+        SHA-256 <code>d38ec0f7&hellip;</code>, printed in full at
+        <code>runner/src/phase5-protocol.ts</code>, lines&nbsp;20&ndash;21. A hash is a short
         fingerprint of a file: change one digit of one tolerance and the fingerprint changes, so a
         quiet edit stops being quiet.
       </p>
@@ -705,29 +725,31 @@
       </p>
 
       <!-- ============================================================ 7 -->
-      <h2 id="saboteurs">Sixteen criteria, sixteen saboteurs</h2>
+      <h2 id="saboteurs">The gate's own checklist</h2>
 
       <p>
-        That is the structural answer to &ldquo;how do you know the checks work?&rdquo; A test suite
-        that only ever passes proves nothing. So the protocol registers sixteen named pass/fail
-        criteria &mdash; <code>P5-WINDOWS-PROVENANCE</code> through <code>P5-PUBLICATION</code>
-        (<code>runner/src/phase5-protocol.ts</code>, lines&nbsp;854&ndash;871) &mdash; and, for each,
-        a specific mutation aimed at that one criterion. Every mutation is executed against
-        the published evidence, and the observed set of failures must contain its registered owner.
+        Chapter 25 has already told the sabotage half of this story &mdash; the sixteen registered
+        mutations, and why the ownership rule had to retreat from &ldquo;fails exactly its
+        owner&rdquo; to &ldquo;the observed failing set contains its owner.&rdquo; What belongs here
+        is the other half: the sixteen <em>criteria</em> those mutations are aimed at, because read
+        as a list they are this chapter in checklist form. They run
+        <code>P5-WINDOWS-PROVENANCE</code> through <code>P5-PUBLICATION</code>
+        (<code>runner/src/phase5-protocol.ts</code>, lines&nbsp;854&ndash;871), and they cover, one
+        criterion apiece, the things the six sections above have been about: the recorded machine,
+        the layout indexing, the frozen field and scalar tolerances, the exactness of the discrete
+        decisions, the bounded dispatch, the audited readbacks.
       </p>
 
       <p>
-        One saboteur guards the guards: <code>NC-TOLERANCE-BYPASS</code>, whose mutation is to
-        &ldquo;report pass while one blocking raw field, scalar, decision, or invariant comparison
-        exceeds its frozen tolerance&rdquo; (lines&nbsp;952&ndash;957). And there is a revealing
-        piece of history in the rule's own wording. The earlier version demanded that a mutation
-        fail <em>exactly</em> its owner and nothing else. That turned out to be satisfiable only by
-        asserting a singleton &mdash; in other words, by hard-coding &mdash; because real evidence is
-        cross-linked and more than one criterion may legitimately notice a break. The protocol's
-        header records the correction plainly: the v6 change is &ldquo;only the negative-control
-        ownership rule, from &lsquo;fails exactly its owner&rsquo; to &lsquo;the observed failing
-        set contains its owner&rsquo;, after the stricter form proved satisfiable only by asserting
-        a singleton&rdquo; (<code>runner/src/phase5-protocol.ts</code>, lines&nbsp;2&ndash;4).
+        One of them bears directly on the rule two sections back. If a tolerance may never vote on a
+        yes-or-no, something has to stop the harness quietly deciding that a blown tolerance was
+        close enough &mdash; so there is a mutation pointed at exactly that temptation:
+        <code>NC-TOLERANCE-BYPASS</code>, which &ldquo;report[s] pass while one blocking raw field,
+        scalar, decision, or invariant comparison exceeds its frozen tolerance&rdquo;
+        (<code>runner/src/phase5-protocol.ts</code>, lines&nbsp;952&ndash;957). That is the saboteur
+        aimed at the tolerance machinery this chapter spent three sections building &mdash; and, as
+        it happens, the one chapter 25 singled out, for the unrelated reason that it is the mutation
+        two criteria legitimately notice.
       </p>
 
       <p>
@@ -916,14 +938,18 @@
       <p>
         The phase's canonical result is a single command exiting 0 &mdash; 0 being the code a
         program returns when it has nothing to complain about &mdash; at a named clean commit
-        <code>c436df5716578a61f8c0598e9230420cbdef6108</code>
-        (<code>docs/plans/phase-5-gpu-port.md:1449</code>), under protocol
-        <code>phase5-gpu-conformance-windows-v6</code> (<code>runner/src/phase5-protocol.ts</code>,
-        line&nbsp;15). Alongside it: zero device losses, zero uncaptured GPU errors, zero
+        <code>c436df57&hellip;</code>
+        (printed in full at <code>docs/plans/phase-5-gpu-port.md:1449</code>), under protocol
+        version <code>phase5-gpu-conformance-windows-v6</code>
+        (<code>runner/src/phase5-protocol.ts</code>, line&nbsp;15). That is the <em>protocol</em> v6
+        flagged in the first section, not the surface policy that carries the same number: what its
+        v6 revision changed was &ldquo;only the negative-control ownership rule&rdquo; chapter 25
+        described (same file, lines&nbsp;2&ndash;4).
+        Alongside it: zero device losses, zero uncaptured GPU errors, zero
         hidden retries, zero stale generations, and zero full-field <em>display-frame</em> reads
         across 2,715 audited readbacks (docs/plans/phase-5-gpu-port.md:1453&ndash;1455). Those
         middle words carry weight. Copying a whole field back out of the card is allowed &mdash;
-        for a checkpoint, for a test, for the evidence bundle. What is forbidden is doing it in
+        for a checkpoint, for a test, for the published gate artifacts. What is forbidden is doing it in
         order to draw a picture: the app &ldquo;may not copy a full field to JavaScript every
         display frame&rdquo; (<code>docs/plans/phase-5-gpu-port.md:113&ndash;115</code>). All 2,715
         readbacks were audited against that rule, and none of them broke it.
@@ -935,6 +961,46 @@
         reproduced the float64 implementation's results, within tolerances published before the
         shader existed, with the discrete decisions matching exactly and every safeguard
         demonstrably able to fail.
+      </p>
+
+      <p>
+        The words <em>the same model</em> now carry an asterisk, and it was pinned on after this
+        phase closed. Phase 5 certified the graphics-card path under one named surface policy:
+        <code>aggregate-hv-g1h1-v5</code> &mdash; the gather-order summation of chapter 20 &mdash;
+        which the plan writes into its scope (<code>docs/plans/phase-5-gpu-port.md:50</code>, and
+        again at line&nbsp;947: WP4 &ldquo;implements only the forward
+        <code>aggregate-hv-g1h1-v5</code> policy&rdquo;). Surface policy v6, ADR&nbsp;0023's
+        ascending-order fix, arrived later and was ported to the processor lane only. On the card,
+        the opposing-vapour sum still accumulates in gather order
+        (<code>opposingSupersaturation</code>, <code>solver-gpu/src/lk-shaders.ts:640</code>), and
+        the entry points refuse any other policy by name: <code>&ldquo;GPU LK supports only
+        aggregate-hv-g1h1-v5: the WGSL boundary kernel still sums the Eq. 5.35 opposing operands in
+        gather order&rdquo;</code> (<code>solver-gpu/src/lk-solver.ts:1512&ndash;1515</code>). In
+        ADR&nbsp;0023's own words the shader defect is <em>&ldquo;registered, not repaired&rdquo;</em>.
+      </p>
+
+      <p>
+        That does not retract anything above it, and it is worth being exact about why not. Both
+        engines were on the same policy when the gate ran: the plan names
+        <code>aggregate-hv-g1h1-v5</code> as Phase 5's <em>solver truth</em>, for the oracle as much
+        as the shader, so the float32 run was compared against a float64 program computing the
+        identical arithmetic &mdash; which is exactly the comparison the whole chapter has been
+        about. And the sorted pass at the top of this chapter is the in-plane diffusion smoother, a
+        different reduction that carried the pairing-and-sorting rule from the beginning and was
+        never the defective one. The defect ADR&nbsp;0023 found was in the <em>surface</em> operator,
+        and it was found a phase later.
+      </p>
+
+      <p>
+        What it does mean is that the certificate names a <em>policy</em> as well as a machine, and
+        that the card ended up excluded from the sweep for two independent reasons rather than one.
+        &ldquo;Winning the gate, losing the job&rdquo; gave the first: at sweep durations the card is
+        slower, and at the frozen divergence tolerance it cannot finish at all. ADR&nbsp;0023 gives
+        the second &mdash; the unported operator is &ldquo;a second declared difference beside f32
+        arithmetic and the relaxed divergence tolerance: the GPU lane can corroborate a trend, and
+        cannot be compared value-for-value against a v6 sweep.&rdquo; A certificate that is honest
+        about its own scope is what makes a sentence like that writable at all. An engine certified
+        without one would simply have been assumed to transfer.
       </p>
 
       <p>
@@ -968,11 +1034,12 @@
           How we know
         </p>
         <p>
-          So why spend a whole phase on it? Because of what it buys later. When the validation sweep
-          returns a score &mdash; whatever that score turns out to be &mdash; somebody will ask the
-          obvious question: was that the physics, or was it the code? Every safeguard in this chapter &mdash; the frozen
-          tolerances, the decision margins, the sixteen saboteurs, the bounded dispatch, the
-          recorded provenance &mdash; exists to make those two answers separable. This phase did not
+          So why spend a whole phase on it? Because of what it buys next. When the validation sweep
+          returned its score, the obvious question followed at once: was that the physics, or was it
+          the code? Chapter 28 has the number, and the several reasons it is not yet gate evidence.
+          Every safeguard in this chapter &mdash; the frozen tolerances, the decision margins, the
+          sixteen registered criteria, the bounded dispatch, the recorded provenance &mdash; exists
+          to make those two answers separable. This phase did not
           make the sweep <em>faster</em>. It made the sweep's failures <em>readable</em>.
         </p>
       </aside>
@@ -987,7 +1054,7 @@
       <nav class="chapter-nav" aria-label="Chapter navigation">
         <a class="chapter-nav__link is-prev" href="./25-testing-what-nobody-knows.html">
           <span class="chapter-nav__dir">&larr; Previous</span>
-          <span class="chapter-nav__title">Testing What Nobody Knows</span>
+          <span class="chapter-nav__title">Testing What Nobody Knows the Answer To</span>
         </a>
         <a class="chapter-nav__link is-next" href="./27-sealing-the-envelope.html">
           <span class="chapter-nav__dir">Next &rarr;</span>
@@ -1798,8 +1865,8 @@
           "an ADR replacing this tolerance with a bound that scales with the arithmetic's own " +
           "epsilon and the cell count&hellip; That is a protocol decision, not something a probe " +
           "or a work package may substitute quietly.&rdquo; <span style=\"color:" + c.inkSecondary +
-          "\">(docs/plans/phase-6-nakaya-validation.md:326&ndash;330)</span> And the existing " +
-          "evidence bundle would no longer describe the shipped code.</p>"
+          "\">(docs/plans/phase-6-nakaya-validation.md:326&ndash;330)</span> And the already " +
+          "published gate artifacts would no longer describe the shipped code.</p>"
         : "");
   }
 

@@ -314,7 +314,7 @@
             freeze-list row that registers each is named beside it &mdash; all from
             <code>runner/src/phase6-protocol.ts</code>. <code>farField</code> names what the box edge
             pretends the distant sky is doing (chapter 23); <code>paramSet</code> is the
-            twenty-fifth row, added by decision record 0031 <em>after</em> the sweep &mdash; it is in
+            twenty-fifth row, added by decision record 0031 <em>after</em> the first sweep &mdash; it is in
             the envelope now precisely because it was not before, which is what &sect;&thinsp;Try to
             cheat is about. The four-line success transcript is a
             simulation of the preflight&rsquo;s reasoning, not the output of a real run &mdash; the
@@ -467,13 +467,20 @@
           manifest hashed to the registered pin, the freeze commit was an ancestor of HEAD, and the
           tracked tree was clean&rdquo; (<code>research/phase6-sweep-report.md</code>). Its
           provenance table names the protocol fingerprint
-          <code>9aa2e7c1&hellip;</code> &mdash; the protocol that sweep ran under &mdash; the
-          execution commit <code>3e3f75ce&hellip;</code>, and the freeze commit
-          <code>e2f1bfca&hellip;</code>, &ldquo;<strong>verified an ancestor of the execution
-          commit</strong>&rdquo;. That is not the pin you saw in the last section. The list has since
-          gained a row and the pin has moved; decision record 0031 records the move as
+          <code>8aeb2b80&hellip;</code> &mdash; &ldquo;25 freeze rows&rdquo;, the same pin you saw in
+          the last section &mdash; the execution commit <code>390fe35&hellip;</code>, and the freeze
+          commit <code>e2f1bfca&hellip;</code>, &ldquo;<strong>verified an ancestor of the execution
+          commit</strong>&rdquo;.
+        </p>
+        <p>
+          There is a second sweep, though, and keeping the two apart is the one piece of bookkeeping
+          the next two chapters ask of you. An earlier 204-point sweep exists, and its report named a
+          <em>different</em> fingerprint: the twenty-four-row <code>9aa2e7c1&hellip;</code>. That is
+          the sweep that was thrown away. Decision record 0031 records the move as
           &ldquo;<code>9aa2e7c1&hellip;</code> &rarr; <code>8aeb2b80&hellip;</code> (24 freeze rows
-          &rarr; 25)&rdquo;. Hold on to that difference.
+          &rarr; 25)&rdquo;, and &sect;&thinsp;Try to cheat is the story of why the list gained that
+          twenty-fifth row. Hold on to which hash belongs to which: <code>9aa2e7c1</code> is the
+          withdrawn one, <code>8aeb2b80</code> the one that stands.
         </p>
       </aside>
 
@@ -751,8 +758,10 @@
             the temperature grid, the &plusmn;1.0&nbsp;&deg;C band, the regime edges and the headline
             scope are the registered values in <code>runner/src/phase6-protocol.ts</code>; the
             scoring follows <code>docs/decisions/0025-phase6-agreement-scoring-rule.md</code>; the
-            re-sweep cost is the wall-clock time the registered sweep actually took, &ldquo;~17&nbsp;h
-            wall on 6 workers&rdquo; (<code>research/phase6-sweep-report.md</code>).
+            re-sweep cost is the wall-clock time the sweep that stands actually took,
+            &ldquo;~20&nbsp;h wall on 6 workers&rdquo;
+            (<code>research/phase6-sweep-report.md</code>) &mdash; the withdrawn sweep it replaced had
+            taken about 17&nbsp;h, so changing your mind cost more than the run it discarded.
           </span>
         </figcaption>
       </figure>
@@ -931,23 +940,33 @@
           A safeguard is not a promise not to cheat. It is an arrangement in which cheating costs
           something specific, leaves a mark, and has to be signed for. Twenty-five rows, one
           fingerprint, four preflight refusals, three exit codes, six named sabotages &mdash; and a
-          price of roughly seventeen hours of compute for changing your mind after the fact.
+          price of about twenty hours of compute for changing your mind after the fact, which this
+          project has now paid once.
         </p>
       </aside>
 
       <p>
         Phase 6 is still in flight as this is written; Phase 7, the product layer, has not started.
-        What exists is a sealed envelope and a machine that will open it exactly once, in public,
-        under rules nobody can now revise without saying so.
+        What exists is a sealed envelope and a machine that will not open it except in public, under
+        rules nobody can now revise without saying so. It has already done that twice: the sweep ran
+        once under the twenty-four-row protocol, was withdrawn, and ran again under the
+        twenty-five-row one. Both openings are on the public record, which is the arrangement working
+        rather than failing &mdash; but note that &ldquo;sealed&rdquo; never meant &ldquo;opened
+        once&rdquo;. It meant that every opening has to say which envelope it belonged to.
       </p>
 
       <p class="handoff">
-        The grid is 204 points and the headline is computed over 90 of them. One caution to carry
-        across first, this chapter&rsquo;s thesis turned on itself: the envelope you just watched
-        being sealed is the twenty-five-row <code>8aeb2b80&hellip;</code>, while the exam chapter 28
-        reports was sat under the earlier <code>9aa2e7c1&hellip;</code>. A protocol is identified by
-        its hash, and those are two different hashes; chapter 29 owns what that cost. Now the number
-        gets read.
+        The grid is 204 points and the headline is computed over 90 of them. One piece of
+        bookkeeping to carry across, because chapter 28 opens with it: the envelope you just watched
+        being sealed &mdash; the twenty-five-row <code>8aeb2b80&hellip;</code> &mdash; is the one the
+        exam in chapter 28 was actually sat under. The earlier twenty-four-row
+        <code>9aa2e7c1&hellip;</code> is the envelope the <em>withdrawn</em> sweep was sat under. It
+        was withdrawn not because that hash was wrong but because a knob outside the list had
+        overridden a row inside it &mdash; and adding the missing row moved the pin, which is what
+        makes the two results impossible to confuse. A protocol is identified by its hash, so a
+        number produced under <code>9aa2e7c1</code> can never be quietly reported as a number
+        produced under <code>8aeb2b80</code>. Chapter 29 itemises what going from twenty-four rows to
+        twenty-five cost. Now the number gets read.
       </p>
 
       <nav class="chapter-nav" aria-label="Chapter navigation">
@@ -1631,14 +1650,14 @@
         costNote.textContent =
           "Every button below edits a row that is on the frozen list, so every button moves the "
           + "protocol fingerprint. Now the harder question: is there a fifth button — a knob nobody "
-          + "put on the list? Keep reading. The revision log answers that, and the answer cost "
-          + "seventeen hours.";
+          + "put on the list? Keep reading. The revision log answers that, and the answer cost a "
+          + "full re-sweep: about twenty hours.";
       } else {
         banner.style.color = c.critical;
         banner.textContent =
-          "PROTOCOL HASH MISMATCH · ALL 204 RESULTS INVALIDATED · RE-SWEEP REQUIRED (~17 h)";
+          "PROTOCOL HASH MISMATCH · ALL 204 RESULTS INVALIDATED · RE-SWEEP REQUIRED (~20 h)";
         costNote.textContent =
-          "Cost: one full re-sweep, ~17 h of compute, plus ONE numbered public decision record and "
+          "Cost: one full re-sweep, ~20 h of compute, plus ONE numbered public decision record and "
           + "ONE permanent revision-log entry — naming "
           + (edits === 1 ? "the row" : "all " + edits + " rows") + " you changed, and why. The "
           + "re-sweep bill is the same whether you press one button or four — what grows is the "
@@ -1981,7 +2000,7 @@
         { id: "…", note: "" },
         { id: "e2f1bfc", note: "protocol frozen", mark: true },
         { id: "…", note: "" },
-        { id: "3e3f75c", note: "sweep executed", mark: true }
+        { id: "390fe35", note: "sweep executed", mark: true }
       ], true, "RUNS");
 
       chain(178, "the backdated version", [

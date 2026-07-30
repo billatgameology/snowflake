@@ -445,16 +445,16 @@
 
       <div class="equation">
         <p class="equation__math">
-          &sigma;<sub>bottom</sub> &asymp; (1 + 2&epsilon;&beta;L / R)<sup>&minus;1</sup>
-          &sigma;<sub>1</sub> &nbsp;&nbsp;&nbsp; with &nbsp; &beta; = &pi;R&sup2; / &#8467;&sup2;
+          &sigma;<sub>bottom</sub> &asymp; (1 + 2&epsilon;&beta;L / R)<sup>&minus;1</sup> <!-- rule7-waive: Libbrecht's chamber filling factor beta (Eq. 7.6, printed p. 251), the substrate ice-coverage fraction -- a third quantity unrelated to both alphaHK and ggThresh -->
+          &sigma;<sub>1</sub> &nbsp;&nbsp;&nbsp; with &nbsp; &beta; = &pi;R&sup2; / &#8467;&sup2; <!-- rule7-waive: same filling factor as above (Eq. 7.7) -- see the equation__where definition below -->
         </p>
         <div class="equation__where">
           <strong>where</strong>
           <dl>
             <dt>&sigma;<sub>bottom</sub></dt><dd>the supersaturation the crystals actually feel</dd>
             <dt>&sigma;<sub>1</sub></dt><dd>the supersaturation you set with the two temperatures</dd>
-            <dt>&beta;</dt><dd>the filling factor &mdash; the fraction of the floor covered by ice.
-              <em>(This &beta; is <strong>not</strong> the step energy &beta; of Chapter 5 &mdash; the
+            <dt>&beta;</dt><dd>the filling factor &mdash; the fraction of the floor covered by ice. <!-- rule7-waive: defines Libbrecht's filling factor beta (Eq. 7.6/7.7) -- substrate coverage fraction, a third quantity unrelated to alphaHK and ggThresh -->
+              <em>(This &beta; is <strong>not</strong> the step energy &beta; of Chapter 5 &mdash; the <!-- rule7-waive: meta-discussion distinguishing this filling factor beta from the unrelated step-energy beta of Chapter 5 -- neither is alphaHK or ggThresh -->
               monograph reuses the letter. Here it is a bare area fraction, a pure number between 0
               and 1, with no units.)</em></dd>
             <dt>L</dt><dd>the height of the chamber, from floor to frost ceiling</dd>
@@ -1329,7 +1329,7 @@
   const R_UM = 10;          // crystal radius, microns — the text's worked example
   const EPS = 1;            // greediest case, as in the text
 
-  let beta = 0.01;          // filling factor
+  let fillFrac = 0.01;      // filling factor
   let Lmm = 10;             // chamber height, millimetres
 
   function survives(b, L_mm) {
@@ -1344,13 +1344,13 @@
     const c = Viz.colors();
     if (svg) svg.remove();
 
-    const frac = survives(beta, Lmm);
+    const frac = survives(fillFrac, Lmm);
     const over = 1 / frac;
 
     svg = Viz.createSvg(body, W, H, {
       label: "Left: a top-down view of a substrate sparsely covered with tiny ice crystals. " +
              "Right: the fraction of the set supersaturation that survives to reach them.",
-      desc: "At a filling factor of " + (beta * 100).toFixed(1) + " percent and a chamber height " +
+      desc: "At a filling factor of " + (fillFrac * 100).toFixed(1) + " percent and a chamber height " +
             "of " + Lmm + " millimetres, only " + (frac * 100).toFixed(1) + " percent of the " +
             "supersaturation you set is left at the substrate.",
     });
@@ -1361,8 +1361,8 @@
       x: PX, y: PY, width: PW, height: PH, fill: c.sunken, stroke: c.rule, "stroke-width": 1,
     }));
 
-    // draw the real square array: spacing l set by beta, R fixed at 10 um
-    const ell = spacing(beta);                 // microns
+    // draw the real square array: spacing l set by the filling factor, R fixed at 10 um
+    const ell = spacing(fillFrac);              // microns
     const viewUm = 1400;                       // the panel shows a 1.4 mm square of substrate
     const scale = PW / viewUm;
     const n = Math.floor(viewUm / ell);
@@ -1386,12 +1386,12 @@
     t = Viz.svgEl("text", { x: PX, y: PY - 8, class: "annotation" });
     t.setAttribute("fill", c.muted);
     t.textContent = "1.4 mm across · crystals 10 µm in radius, spaced " +
-                    (beta > 0.0002 ? Math.round(ell) + " µm" : "far apart");
+                    (fillFrac > 0.0002 ? Math.round(ell) + " µm" : "far apart");
     svg.appendChild(t);
 
     t = Viz.svgEl("text", { x: PX, y: PY + PH + 20, class: "annotation" });
     t.setAttribute("fill", c.inkSecondary);
-    t.textContent = "coverage: " + (beta * 100).toFixed(1) + "% of the area — looks empty";
+    t.textContent = "coverage: " + (fillFrac * 100).toFixed(1) + "% of the area — looks empty";
     svg.appendChild(t);
 
     /* ---------- RIGHT: how much supersaturation survives ---------- */
@@ -1460,17 +1460,17 @@
   render();
   Viz.onThemeChange(render);
 
-  const sBeta = Viz.slider(controls, {
-    label: "Fraction of floor covered", id: "beta", min: 0, max: 0.05, step: 0.0005, value: beta,
+  const sFillFrac = Viz.slider(controls, {
+    label: "Fraction of floor covered", id: "fillfrac", min: 0, max: 0.05, step: 0.0005, value: fillFrac,
     format: function (v) { return (v * 100).toFixed(2) + "%"; },
-    onInput: function (v) { beta = v; render(); },
+    onInput: function (v) { fillFrac = v; render(); },
   });
   const sL = Viz.slider(controls, {
     label: "Chamber height L", id: "L", min: 1, max: 30, step: 1, value: Lmm,
     format: function (v) { return v + " mm"; },
     onInput: function (v) { Lmm = v; render(); },
   });
-  Viz.button(controls, "The worked example", function () { sBeta.value = 0.01; sL.value = 10; });
+  Viz.button(controls, "The worked example", function () { sFillFrac.value = 0.01; sL.value = 10; });
   Viz.button(controls, "The real apparatus (L = 1 mm)", function () { sL.value = 1; });
 })();
 

@@ -194,8 +194,10 @@
         So say it in the split form. <em>The model was given real, measured physics</em> &mdash;
         that claim is about where the numbers came from, and it is the claim chapter 16 spent its
         whole length supporting. <em>The model reproduces the Nakaya diagram</em> &mdash; that claim
-        is about outcome, and it has now been tested and has failed. Both sentences are true of the
-        same 204 runs. Neither is allowed to stand in for the other.
+        is about outcome, and it has now been tested once, under a scheme frozen in advance, and the
+        measured result disagrees: a result that is not yet gate evidence and not yet a Phase 6
+        conclusion, because the verifier has not run and the second arm does not exist. Both claims
+        are about the same 204 runs. Neither is allowed to stand in for the other.
       </p>
 
       <aside class="callout callout--key">
@@ -1050,12 +1052,12 @@
 
       <div class="equation">
         <p class="equation__math">
-          &alpha;<sub>HK</sub> = A &middot; exp(&minus;&sigma;<sub>0</sub> / &sigma;<sub>surf</sub>)
+          <code>alphaHK</code> = A &middot; exp(&minus;&sigma;<sub>0</sub> / &sigma;<sub>surf</sub>)
         </p>
         <div class="equation__where">
           <strong>where</strong>
           <dl>
-            <dt>&alpha;<sub>HK</sub></dt><dd>the attachment coefficient: the fraction of molecules striking this facet that actually stick</dd>
+            <dt><code>alphaHK</code></dt><dd>the attachment coefficient: the fraction of molecules striking this facet that actually stick</dd>
             <dt>A</dt><dd>the facet&rsquo;s prefactor, its stickiness ceiling</dd>
             <dt>&sigma;<sub>0</sub></dt><dd>the facet&rsquo;s critical supersaturation &mdash; low means sticky</dd>
             <dt>&sigma;<sub>surf</sub></dt><dd>the supersaturation actually present at the surface, which rises as you make the air wetter</dd>
@@ -1070,7 +1072,7 @@
       <p>
         Read the formula and the collapse is obvious in hindsight. As
         &sigma;<sub>surf</sub> grows, the exponential term goes to 1 and every facet&rsquo;s
-        &alpha; saturates toward its own ceiling A. The facets stop being able to tell each other
+        <code>alphaHK</code> saturates toward its own ceiling A. The facets stop being able to tell each other
         apart, so the crystal stops being able to choose a habit. That much was computed on the
         registered curves before either sweep ran, and written into the protocol as the reason the
         humidity axis stops where it does: the basal/prism contrast spans 0.34 to 3.76 across the

@@ -117,18 +117,18 @@
           its arrow is already taller than its neighbours. Bottom: the bump has grown, and its arrow
           dwarfs the rest. Nothing was added between the sketches. The same rule, applied three times,
           is the whole mechanism. One symbol in the published
-          caption needs a word before the next section puts it back to work: &alpha; is the attachment
-          coefficient from chapter 5, the fraction of arriving molecules that stick, so &alpha;&asymp;1
+          caption needs a word before the next section puts it back to work: alphaHK is the attachment
+          coefficient from chapter 5, the fraction of arriving molecules that stick, so alphaHK&asymp;1
           means every one of them does. Setting it to 1 is the author's way of switching faceting off,
           leaving the runaway as the only thing in the picture.
           <br><br>
           <em>Published caption: &ldquo;Figure 3.6: The diffusion-limited growth of an initially flat
-          surface with &alpha;&asymp;1 (top sketch) is susceptible to the Mullins-Sekerka instability,
+          surface with &alpha;&asymp;1 (top sketch) is susceptible to the Mullins-Sekerka instability, <!-- rule7-waive: verbatim quotation of Libbrecht's Figure 3.6 caption, printed p. 82 -->
           also known as the branching instability. If a small bump appears on the surface (center), it
           will stick out farther into the supersaturated medium, so the top of the bump will grow
           slightly faster than the surrounding flat surface. This initiates a positive feedback effect,
           causing the bump to become larger, increasing its relative growth rate even more (bottom).
-          This illustration assumes zero anisotropy in the attachment kinetics (&alpha;&asymp;1) to
+          This illustration assumes zero anisotropy in the attachment kinetics (&alpha;&asymp;1) to <!-- rule7-waive: verbatim quotation of Libbrecht's Figure 3.6 caption, printed p. 82 -->
           eliminate the possibility of faceting and thus emphasize the Mullins-Sekerka
           instability.&rdquo;</em>
         </figcaption>
@@ -212,12 +212,12 @@
 
       <div class="equation">
         <p class="equation__math">
-          <em>v</em><sub>n</sub> = &alpha; &middot; <em>v</em><sub>kin</sub> &middot;
+          <em>v</em><sub>n</sub> = alphaHK &middot; <em>v</em><sub>kin</sub> &middot;
           &sigma;<sub>surf</sub>
         </p>
         <div class="equation__where">
           <strong>where</strong> the three factors on the right are exactly the ones from chapter 5:
-          &alpha; the attachment coefficient, which can never exceed 1; <em>v</em><sub>kin</sub> the
+          alphaHK the attachment coefficient, which can never exceed 1; <em>v</em><sub>kin</sub> the
           reference speed set by temperature; and &sigma;<sub>surf</sub> the spare vapour right at
           this patch of surface. Only the subscript on <em>v</em><sub>n</sub> is new, and it just
           means &ldquo;measured straight out from the patch itself&rdquo;.
@@ -236,16 +236,16 @@
 
       <p>
         Read the equation as a negotiation. The corners have the higher &sigma;<sub>surf</sub>; the
-        face centre has the higher &alpha;; the products match, so <em>v</em><sub>n</sub> is the same
+        face centre has the higher alphaHK; the products match, so <em>v</em><sub>n</sub> is the same
         everywhere and the face stays flat. Now push the crystal harder &mdash; raise the humidity, or
         just let the crystal get bigger, which increases the difference between the corners and the
-        middle. The face centre answers by raising &alpha;. And then it hits the ceiling. <strong>There
-        is no &alpha; above 1</strong>: you cannot capture more than every molecule that arrives.
+        middle. The face centre answers by raising alphaHK. And then it hits the ceiling. <strong>There
+        is no alphaHK above 1</strong>: you cannot capture more than every molecule that arrives.
       </p>
 
       <p>
         Libbrecht states the consequence flatly: &ldquo;the faceting mechanism continues working only
-        until &alpha;&asymp;1 at the facet centers. Once this happens, &alpha; can no longer increase,
+        until &alpha;&asymp;1 at the facet centers. Once this happens, &alpha; can no longer increase, <!-- rule7-waive: verbatim quotation of Libbrecht, printed p. 80 -->
         and this causes the self-regulating process described above to break down&hellip; When this
         happens, branches sprout from the hexagonal corners.&rdquo;
       </p>
@@ -869,7 +869,7 @@
         But you can push ice into the seaweed regime, and this is the satisfying part. The anisotropy
         that protects the tip comes from the fact that molecules find some faces hard to stick to.
         Raise the humidity far enough and the prism faces &mdash; the six side walls of the hexagon
-        &mdash; stop being hard: &alpha;<sub>prism</sub> climbs to about 1, so the difference between
+        &mdash; stop being hard: alphaHK<sub>prism</sub> climbs to about 1, so the difference between
         the six in-plane directions collapses and the protection is gone. Real snow crystal tips then
         start splitting.
       </p>
@@ -895,13 +895,13 @@
           dendrite ends in one travelling point; these do not. The conditions in the published caption
           are extreme &mdash; a supersaturation of about 1.3, meaning the air held more than twice the
           water vapour ice was in balance with. At that point even the prism faces are easy to stick to
-          (&ldquo;&alpha;<sub>prism</sub> is close to unity&rdquo;), the difference between the in-plane
+          (&ldquo;&alpha;<sub>prism</sub> is close to unity&rdquo;), the difference between the in-plane <!-- rule7-waive: verbatim quotation of Libbrecht, printed p. 108 -->
           directions collapses, and the tip loses the thing keeping it single. And note what the
           previous paragraph predicted: each arm divides sideways, within the plane it already lies in.
           <br><br>
           <em>Published caption: &ldquo;Figure 3.27: An example of tip splitting in rapidly growing
           fernlike dendrites at <strong>&sigma;<sub>far</sub></strong>&asymp; 1.3 near -15 C. In these
-          conditions, <strong>&alpha;<sub>prism</sub></strong> is close to unity and the anisotropy in
+          conditions, <strong>&alpha;<sub>prism</sub></strong> is close to unity and the anisotropy in <!-- rule7-waive: verbatim quotation of Libbrecht's Figure 3.27 caption, printed p. 108 -->
           the kinetic coefficient becomes quite low. Notably, the tip splitting in this example occurred
           when the crystal was small, and the surface supersaturation was therefore higher than at later
           times (as indicated in Equation 3.25).&rdquo;</em>
@@ -1214,7 +1214,7 @@
     Viz.slider(bar, {
       label: "Faceting brake", id: "bump-brake",
       min: 0, max: 1, step: 0.01, value: brake,
-      format: (v) => v < 0.34 ? "weak — α near 1" : v < 0.55 ? "matched" : "strong — sharp facets",
+      format: (v) => v < 0.34 ? "weak — alphaHK near 1" : v < 0.55 ? "matched" : "strong — sharp facets",
       onInput: (v) => { brake = v; },
     });
     Viz.button(bar, "Poke it again", function () { amp = 5; draw(); });

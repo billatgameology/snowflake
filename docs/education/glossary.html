@@ -73,9 +73,9 @@
           If you only came here for one thing
         </p>
         <p>
-          It is probably a symbol. &sigma; is spare vapour, &alpha; is stickiness,
+          It is probably a symbol. &sigma; is spare vapour, alphaHK is stickiness,
           &sigma;<sub>0</sub> is how hard a face is to start growing on, <em>A</em> is the ceiling
-          that &alpha; climbs to, and <em>v</em><sub>kin</sub> is the reference speed the other two
+          that alphaHK climbs to, and <em>v</em><sub>kin</sub> is the reference speed the other two
           get multiplied by. They are set out with the rest under
           <a href="#symbols">the symbols, in one place</a>.
         </p>
@@ -469,7 +469,7 @@
             </tr>
             <tr>
               <td><strong>attachment coefficient</strong></td>
-              <td>The probability that a molecule striking this patch of surface actually joins the lattice and stays &mdash; written &alpha;, running from 0 to 1, and a property of the patch rather than of ice.</td>
+              <td>The probability that a molecule striking this patch of surface actually joins the lattice and stays &mdash; written alphaHK, running from 0 to 1, and a property of the patch rather than of ice.</td>
               <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
             </tr>
             <tr>
@@ -514,12 +514,12 @@
             </tr>
             <tr>
               <td><strong>Hertz&ndash;Knudsen relation</strong></td>
-              <td>The growth law <em>v</em>&nbsp;=&nbsp;&alpha;&nbsp;<em>v</em><sub>kin</sub>&nbsp;&sigma;<sub>surf</sub>: speed equals stickiness, times a fixed conversion factor, times how much spare vapour is there.</td>
+              <td>The growth law <em>v</em>&nbsp;=&nbsp;alphaHK&nbsp;<em>v</em><sub>kin</sub>&nbsp;&sigma;<sub>surf</sub>: speed equals stickiness, times a fixed conversion factor, times how much spare vapour is there.</td>
               <td><a href="./chapters/11-the-stickiness-of-ice.html">11 &middot; The Stickiness of Ice</a></td>
             </tr>
             <tr>
               <td><strong>molecularly rough / smooth</strong></td>
-              <td>A rough patch is jagged and full of half-finished bonding sites, so it catches nearly everything that hits it (&alpha;&nbsp;&asymp;&nbsp;1); a smooth facet is aligned with the lattice and catches very little.</td>
+              <td>A rough patch is jagged and full of half-finished bonding sites, so it catches nearly everything that hits it (alphaHK<sub>rough</sub>&nbsp;&asymp;&nbsp;1); a smooth facet is aligned with the lattice and catches very little.</td>
               <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
             </tr>
             <tr>
@@ -554,7 +554,7 @@
             </tr>
             <tr>
               <td><strong>step energy</strong></td>
-              <td>The energy cost of creating one metre of terrace edge, written &beta;; about 10<sup>&minus;12</sup>&nbsp;joules per metre for ice growing from vapour, far below the rigid-lattice prediction because real surface molecules relax into the gap.</td>
+              <td>The energy cost of creating one metre of terrace edge, written &beta;; about 10<sup>&minus;12</sup>&nbsp;joules per metre for ice growing from vapour, far below the rigid-lattice prediction because real surface molecules relax into the gap.</td><!-- rule7-waive: step energy is a distinct BCF terrace-edge quantity (joules per metre), not Hertz-Knudsen's alphaHK nor Gravner-Griffeath's ggThresh attachment threshold -->
               <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
             </tr>
             <tr>
@@ -722,7 +722,7 @@
             </tr>
             <tr>
               <td><strong>aspect-ratio rule</strong></td>
-              <td>Thin plates require &alpha;<sub>basal</sub>&nbsp;&#8810;&nbsp;&alpha;<sub>prism</sub> and slender columns require &alpha;<sub>basal</sub>&nbsp;&#8811;&nbsp;&alpha;<sub>prism</sub> &mdash; which turns a photograph of any crystal into a statement about its two families of face.</td>
+              <td>Thin plates require alphaHK<sub>basal</sub>&nbsp;&#8810;&nbsp;alphaHK<sub>prism</sub> and slender columns require alphaHK<sub>basal</sub>&nbsp;&#8811;&nbsp;alphaHK<sub>prism</sub> &mdash; which turns a photograph of any crystal into a statement about its two families of face.</td>
               <td><a href="./chapters/07-plates-columns-plates-columns.html">7 &middot; Plates, Columns, Plates, Columns</a></td>
             </tr>
             <tr>
@@ -989,7 +989,7 @@
           <tbody>
             <tr>
               <td><strong><em>A</em></strong></td>
-              <td>The ceiling on &alpha;: the value the attachment coefficient climbs to once the nucleation barrier has stopped mattering &mdash; you would expect 1, it is 1 on the basal face, and on the prism face above about &minus;10&nbsp;&deg;C it stubbornly is not.</td>
+              <td>The ceiling on alphaHK: the value the attachment coefficient climbs to once the nucleation barrier has stopped mattering &mdash; you would expect 1, it is 1 on the basal face, and on the prism face above about &minus;10&nbsp;&deg;C it stubbornly is not.</td>
               <td><a href="./chapters/11-the-stickiness-of-ice.html">11 &middot; The Stickiness of Ice</a></td>
             </tr>
             <tr>
@@ -998,12 +998,12 @@
               <td><a href="./chapters/03-why-six-sides.html">3 &middot; Why Six Sides</a></td>
             </tr>
             <tr>
-              <td><strong>&alpha;</strong> (alpha)</td>
-              <td>The attachment coefficient, the fraction of arriving molecules that stick, between 0 and 1; &alpha;<sub>basal</sub> and &alpha;<sub>prism</sub> are its values on the two facet families, and &alpha;<sub>rough</sub>&nbsp;&asymp;&nbsp;1 is its value on everything else.</td>
+              <td><strong>alphaHK</strong></td>
+              <td>The attachment coefficient, the fraction of arriving molecules that stick, between 0 and 1; alphaHK<sub>basal</sub> and alphaHK<sub>prism</sub> are its values on the two facet families, and alphaHK<sub>rough</sub>&nbsp;&asymp;&nbsp;1 is its value on everything else.</td>
               <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
             </tr>
             <tr>
-              <td><strong>&beta;</strong> (beta)</td>
+              <td><strong>&beta;</strong> (beta)</td><!-- rule7-waive: step energy, the BCF terrace-edge quantity this row defines, is a third symbol unrelated to Hertz-Knudsen's alphaHK or Gravner-Griffeath's ggThresh threshold -->
               <td>The step energy: the energy cost of one metre of terrace edge. (Chapter 10 borrows the same letter for a chamber&rsquo;s filling factor; the two are unrelated.)</td>
               <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
             </tr>
@@ -1069,7 +1069,7 @@
             </tr>
             <tr>
               <td><strong><em>v</em><sub>kin</sub></strong></td>
-              <td>A reference speed fixed by temperature and by the mass of a water molecule: how fast a surface would advance if every arriving molecule stuck <em>and</em> the air carried 100 per cent spare vapour &mdash; real speeds are that figure multiplied by both &alpha; and &sigma;<sub>surf</sub>, so always very much smaller.</td>
+              <td>A reference speed fixed by temperature and by the mass of a water molecule: how fast a surface would advance if every arriving molecule stuck <em>and</em> the air carried 100 per cent spare vapour &mdash; real speeds are that figure multiplied by both alphaHK and &sigma;<sub>surf</sub>, so always very much smaller.</td>
               <td><a href="./chapters/05-the-restless-surface.html">5 &middot; The Restless Surface</a></td>
             </tr>
             <tr>
