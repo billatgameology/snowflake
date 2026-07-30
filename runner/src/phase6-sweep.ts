@@ -150,8 +150,8 @@ export function phase6SweepPreflight(repoRoot: string = process.cwd()): Phase6Pr
     }
     if (protocolSha256 !== PHASE6_PROTOCOL_SHA256) {
       failures.push(
-        `legacy combined hash ${protocolSha256} does not match ${PHASE6_PROTOCOL_SHA256} ` +
-          "— published evidence cites it, so it must stay reproducible",
+        `combined hash ${protocolSha256} does not match the current pin ${PHASE6_PROTOCOL_SHA256} ` +
+          "— it moves on any prose change, so the pin must be updated in the same ADR",
       );
     }
   } catch (error) {
