@@ -1538,6 +1538,35 @@ export const PHASE6_VALUES_SHA256 =
 export const PHASE6_JUSTIFICATION_SHA256 =
   "040b1a44505fdba1767311927be5dad56b622ca9ee2c6bc4e4ab73e77f83c332";
 
+/**
+ * The arm-1 published artifacts, by byte length and sha256 (pin-register recommendation 1).
+ *
+ * These were printed in `research/phase6-sweep-report.md` and by the verifier, and ASSERTED against
+ * nothing — which is what let the pin register substitute the superseded CAK_A1 arm for the CAK arm,
+ * duplicate rows, delete disagreements and forge report.json's aggregates, all while the verifier
+ * printed "VERIFIED ... exit 0". Moving the table out of markdown and into code is the difference
+ * between publishing a digest and checking one.
+ *
+ * These pin the arm-1 artifact specifically. A future sweep produces different bytes (rows now carry
+ * `config`), and its digests are registered here alongside rather than replacing these.
+ */
+export const PHASE6_ARM1_ARTIFACT_DIGESTS = [
+  { path: "points.json", byteLength: 129_760, sha256: "0ed613bce61e44829f722e069a818e0da4981ecd34829b0b49eaba15e11cf89a" },
+  { path: "report.json", byteLength: 928, sha256: "71ae094c38778b0d2c62f3952e4ca641c0bc8f5d91b350248c5c78800830f2a9" },
+  { path: "diagram.svg", byteLength: 31_193, sha256: "40458703061af5b54d6629484aa84762fb995a15f5443904c3462d2ff5939234" },
+] as const;
+
+/**
+ * The registered domain-contact guard fraction. Previously reachable only through
+ * PHASE6_DOMAIN_CONTACT_FRACTION in the sweep module; the verifier trusted the published boolean
+ * instead of recomputing it, which let 87 headline disagreements be marked excluded and the headline
+ * read 3 of 3.
+ */
+export const PHASE6_DOMAIN_CONTACT_GUARD_FRACTION = 0.65;
+
+/** The registered sweep domain N, so a verifier can recompute the contact guard from geometry. */
+export const PHASE6_SWEEP_DOMAIN_N = 48;
+
 /** Values-hash revisions, newest last. A freeze with a silently-replaced constant is not a freeze. */
 export const PHASE6_VALUES_REVISIONS = [
   { sha256: "879e069f612f1c6b4b40074d5cc890419fc17f09545dc27b2c8823d7667938f6", note: "ADR 0033 initial split; values side of the 8aeb2b80 combined manifest, unchanged in content" },

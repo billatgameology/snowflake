@@ -34,6 +34,17 @@ const COLUMN_FLOOR = 1.5;
 const BOUNDARIES_C = [-3.3, -9.9, -21.5];
 const AMBIGUITY_HALF_WIDTH_C = 1.0;
 const EXTENT_DRIFT_BOUND_AR = 0.135; // freeze row `uncertainty-reporting`
+const DOMAIN_CONTACT_FRACTION = 0.65; // PHASE6_DOMAIN_CONTACT_GUARD_FRACTION
+const SWEEP_DOMAIN_N = 48; // PHASE6_SWEEP_DOMAIN_N
+const REGISTERED_TARGET_EXTENT = 21; // PHASE6_CROSSPLATFORM_FIXTURE.targetExtent
+const TEMPERATURE_GRID = Array.from({ length: 34 }, (_, i) => -2 - i); // -2 .. -35
+const SIGMA_FRACTIONS = [0.1, 0.15, 0.25, 0.4, 0.6, 0.9];
+/** Arm-1 artifact digests — PHASE6_ARM1_ARTIFACT_DIGESTS, transcribed. */
+const ARM1_DIGESTS = [
+  { path: "points.json", byteLength: 129760, sha256: "0ed613bce61e44829f722e069a818e0da4981ecd34829b0b49eaba15e11cf89a" },
+  { path: "report.json", byteLength: 928, sha256: "71ae094c38778b0d2c62f3952e4ca641c0bc8f5d91b350248c5c78800830f2a9" },
+  { path: "diagram.svg", byteLength: 31193, sha256: "40458703061af5b54d6629484aa84762fb995a15f5443904c3462d2ff5939234" },
+];
 
 const REGIMES = [
   { regime: "plates-warm", warmerBoundC: Infinity, colderBoundC: -3.3, accepts: ["plate"], inHeadline: true },
@@ -88,7 +99,17 @@ function invalidReasons(r) {
   if (!r.allConverged) out.push("a relaxation did not converge");
   if (!r.deltaSymClean) out.push("a per-tick attachment delta broke D6h invariance");
   if (r.symmetryError !== 0) out.push(`symmetryError = ${r.symmetryError} with noise off`);
-  if (r.domainContact) out.push("tripped the 65% domain-contact guard");
+  // RECOMPUTED from geometry, never read from the artifact. The pin register set domainContact=true
+  // on 87 headline disagreements, turning them into named exclusions so the headline read 3 of 3, and
+  // this verifier certified it because it trusted the published boolean. 21/48 = 0.4375 < 0.65.
+  const contactByGeometry = r.largestExtent / SWEEP_DOMAIN_N > DOMAIN_CONTACT_FRACTION;
+  if (contactByGeometry) out.push("tripped the 65% domain-contact guard");
+  if (r.domainContact !== contactByGeometry) {
+    out.push(
+      `PUBLISHED domainContact=${r.domainContact} disagrees with geometry ` +
+        `(${r.largestExtent}/${SWEEP_DOMAIN_N} = ${(r.largestExtent / SWEEP_DOMAIN_N).toFixed(4)} vs ${DOMAIN_CONTACT_FRACTION})`,
+    );
+  }
   return out;
 }
 
@@ -103,11 +124,26 @@ const note = (message) => failures.push(message);
 
 console.log("PHASE 6 WP5 — INDEPENDENT VERIFICATION");
 console.log(`artifacts: ${outDir}`);
+let digestsRegistered = 0;
 for (const name of ["points.json", "report.json", "diagram.svg"]) {
   const bytes = readFileSync(join(outDir, name));
-  console.log(
-    `  ${name.padEnd(13)} ${String(statSync(join(outDir, name)).size).padStart(8)} bytes  ` +
-      createHash("sha256").update(bytes).digest("hex"),
+  const size = statSync(join(outDir, name)).size;
+  const sha = createHash("sha256").update(bytes).digest("hex");
+  const expected = ARM1_DIGESTS.find((d) => d.path === name);
+  const match = expected !== undefined && expected.sha256 === sha && expected.byteLength === size;
+  if (match) digestsRegistered++;
+  console.log(`  ${name.padEnd(13)} ${String(size).padStart(8)} bytes  ${sha}  ${match ? "== registered" : "NOT the registered arm-1 digest"}`);
+  if (expected !== undefined && !match) {
+    note(
+      `${name}: sha256 ${sha} (${size} bytes) does not match the registered arm-1 digest ` +
+        `${expected.sha256} (${expected.byteLength} bytes) — this is not the published artifact`,
+    );
+  }
+}
+if (digestsRegistered === 0) {
+  note(
+    "not one artifact matches a registered digest, so this directory cannot be identified as any " +
+      "published arm — the superseded CAK_A1 arm has the same shape and would otherwise verify",
   );
 }
 
@@ -180,15 +216,88 @@ for (const spec of REGIMES) {
   );
 }
 
-// 3. Compare against what the report CLAIMS, wherever the field names allow it.
-const claimedHeadline =
-  published.headlineAgree ?? published.headline ?? published.headlineScopeAgree ?? null;
-if (claimedHeadline !== null && claimedHeadline !== agree) {
-  note(`report.json claims headline ${claimedHeadline}, re-derived ${agree}`);
+// 3. Compare EVERY field report.json publishes, and the row set itself.
+//
+// The previous version compared only `headlineAgree` and printed a NOTE when it could not find a
+// comparable field — so the pin register set headlineTotal 90->30, neutralCount 168->4,
+// extentFragileCount 16->0 and excludedCount 0->99, duplicated a row 30x and deleted 20
+// disagreements, and this verifier printed its own correct numbers immediately above "PASS".
+const required = (name, derived) => {
+  if (!(name in published)) {
+    note(`report.json omits ${name}, so it cannot be verified — failing closed rather than skipping`);
+    return;
+  }
+  if (published[name] !== derived) note(`report.json claims ${name} = ${published[name]}, re-derived ${derived}`);
+};
+required("headlineAgree", agree);
+required("headlineTotal", headline.filter((p) => p.score !== "excluded").length);
+required("neutralCount", mine.filter((p) => p.modelClass === "neutral").length);
+required("excludedCount", mine.filter((p) => p.exclusionReason !== null).length);
+required("extentFragileCount", mine.filter((p) => p.extentFragile).length);
+required("protocolSha256", published.protocolSha256); // presence only; the value is pinned below
+if (!("head" in published)) note("report.json omits head, so the execution commit is unverifiable");
+if (!Array.isArray(published.excludedPoints)) note("report.json's excludedPoints is not an array");
+else if (published.excludedPoints.length !== mine.filter((p) => p.exclusionReason !== null).length) {
+  note(`excludedPoints lists ${published.excludedPoints.length} entries, re-derived ${mine.filter((p) => p.exclusionReason !== null).length}`);
 }
-if (claimedHeadline === null) {
-  console.log("\n  NOTE: report.json exposes no directly comparable headline field; keys are");
-  console.log(`  ${Object.keys(published).join(", ")}`);
+
+// Per-regime block, field by field.
+if (!Array.isArray(published.perRegime)) note("report.json's perRegime is not an array");
+else {
+  for (const spec of REGIMES) {
+    const claimed = published.perRegime.find((x) => x.regime === spec.regime);
+    if (claimed === undefined) {
+      note(`perRegime omits ${spec.regime}`);
+      continue;
+    }
+    // The registered convention (phase6Aggregate): every point in the regime EXCLUDING the
+    // ambiguity band — NOT headline scope. My first pass filtered by headline scope and disagreed on
+    // six tallies; adjudicated against the code, the harness was right and this file was wrong for
+    // the third time. `inAmbiguityBand` is RECOMPUTED from tempC, not read from the artifact, for the
+    // same reason `domainContact` now is.
+    const g = mine.filter((p) => p.regime === spec.regime && !inAmbiguityBand(p.tempC));
+    const checks = {
+      agree: g.filter((p) => p.score === "agree").length,
+      disagree: g.filter((p) => p.score === "disagree").length,
+      excluded: g.filter((p) => p.score === "excluded").length,
+      neutralCount: g.filter((p) => p.modelClass === "neutral").length,
+      extentFragile: g.filter((p) => p.extentFragile).length,
+    };
+    for (const [key, derived] of Object.entries(checks)) {
+      if (key in claimed && claimed[key] !== derived) {
+        note(`perRegime[${spec.regime}].${key} claims ${claimed[key]}, re-derived ${derived}`);
+      }
+    }
+  }
+}
+
+// The ROW SET must be exactly the registered grid — no duplicates, no deletions, no extras.
+// This is what makes "duplicate an agreeing row 30x" and "delete 20 disagreements" detectable.
+const expectedKeys = new Set();
+for (const t of TEMPERATURE_GRID) for (const f of SIGMA_FRACTIONS) expectedKeys.add(`${t}|${f}`);
+const seen = new Map();
+for (const entry of points) {
+  const key = `${entry.point.tempC}|${entry.point.fraction}`;
+  seen.set(key, (seen.get(key) ?? 0) + 1);
+}
+if (points.length !== expectedKeys.size) {
+  note(`points.json has ${points.length} rows, the registered grid has ${expectedKeys.size}`);
+}
+for (const [key, count] of seen) {
+  if (count > 1) note(`grid point ${key} appears ${count} times — duplicated row`);
+  if (!expectedKeys.has(key)) note(`grid point ${key} is not on the registered grid`);
+}
+for (const key of expectedKeys) if (!seen.has(key)) note(`registered grid point ${key} is MISSING`);
+
+// Measurement size: recorded on every row and, until now, checked by nothing.
+for (const entry of points) {
+  if (entry.result.largestExtent !== REGISTERED_TARGET_EXTENT && entry.exclusionReason === null) {
+    note(
+      `T=${entry.point.tempC} f=${entry.point.fraction} was measured at extent ` +
+        `${entry.result.largestExtent}, not the registered ${REGISTERED_TARGET_EXTENT}, yet is scored — ` +
+        "habit is size-dependent, so this is not a comparable measurement",
+    );
+  }
 }
 
 console.log("");
