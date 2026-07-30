@@ -1,0 +1,205 @@
+// Phase 6 WP5 — the INDEPENDENT verifier: re-derive report.json from points.json.
+//
+// Rule 9 requires that a verdict be computed from published artifacts, and that no component
+// supply both sides of a check. So this module deliberately imports NOTHING from runner/src:
+// not `phase6-sweep.ts`, which produced `report.json`, and not `phase6-protocol.ts`, which holds
+// the rules. Importing either would make this a re-run of the thing under test rather than a check
+// on it.
+//
+// Every rule below is transcribed from the ADR that registered it, with the ADR cited, and every
+// threshold is written as a literal here so a drift between the protocol and the ADR shows up as a
+// disagreement instead of being silently inherited. If this file and the harness ever disagree,
+// that IS the finding — do not reconcile by importing.
+//
+//   node app/scripts/phase6-wp5-independent.mjs [outDir]
+//
+// Exit 0 if every re-derived quantity matches the published report; exit 1 otherwise.
+
+import { createHash } from "node:crypto";
+import { readFileSync, statSync } from "node:fs";
+import { join } from "node:path";
+
+// ── Registered rules, transcribed from the ADRs rather than imported ─────────────────────────
+//
+// docs/decisions/0025-phase6-agreement-scoring-rule.md:
+//   - regimes are half-open (colderBoundC, warmerBoundC], keyed to -3.3, -9.9, -21.5
+//   - plates-warm accepts plate; columns accepts column; plates-cold accepts plate;
+//     columns-and-plates accepts plate OR column and is NOT in the headline
+//   - neutral scores DISAGREE; invalid scores EXCLUDED by name
+//   - a point counts toward the headline only if its regime is in headline scope AND it is
+//     outside the +/-1.0 C ambiguity band
+// runner freeze row `metric-thresholds`: plate AR <= 1/1.5, column AR >= 1.5, else neutral
+const PLATE_CEILING = 1 / 1.5;
+const COLUMN_FLOOR = 1.5;
+const BOUNDARIES_C = [-3.3, -9.9, -21.5];
+const AMBIGUITY_HALF_WIDTH_C = 1.0;
+const EXTENT_DRIFT_BOUND_AR = 0.135; // freeze row `uncertainty-reporting`
+
+const REGIMES = [
+  { regime: "plates-warm", warmerBoundC: Infinity, colderBoundC: -3.3, accepts: ["plate"], inHeadline: true },
+  { regime: "columns", warmerBoundC: -3.3, colderBoundC: -9.9, accepts: ["column"], inHeadline: true },
+  { regime: "plates-cold", warmerBoundC: -9.9, colderBoundC: -21.5, accepts: ["plate"], inHeadline: true },
+  { regime: "columns-and-plates", warmerBoundC: -21.5, colderBoundC: -Infinity, accepts: ["plate", "column"], inHeadline: false },
+];
+
+function classify(ar) {
+  if (!Number.isFinite(ar) || ar <= 0) return "invalid";
+  if (ar <= PLATE_CEILING) return "plate";
+  if (ar >= COLUMN_FLOOR) return "column";
+  return "neutral";
+}
+
+/**
+ * DIRECTIONAL on purpose, and this verifier got it wrong on the first pass — worth recording,
+ * because it is what an independent check is for.
+ *
+ * The registered rule flags a point only when its AR sits within the drift bound BELOW a class
+ * threshold: extent drift RAISES AR, so a point just above a threshold is not at risk from it. My
+ * first implementation used a symmetric window |AR - threshold| <= bound, which flagged 59 points
+ * against the harness's 16. The disagreement was adjudicated against the registered definition and
+ * the HARNESS was correct; this file was the defective side. Nothing was reconciled by importing.
+ */
+function isExtentFragile(ar) {
+  for (const threshold of [PLATE_CEILING, COLUMN_FLOOR]) {
+    if (ar < threshold && ar >= threshold - EXTENT_DRIFT_BOUND_AR) return true;
+  }
+  return false;
+}
+
+/** Half-open (colderBoundC, warmerBoundC], so a boundary temperature belongs to its cold side. */
+function regimeOf(tempC) {
+  for (const r of REGIMES) if (tempC > r.colderBoundC && tempC <= r.warmerBoundC) return r;
+  throw new Error(`no regime for T=${tempC}`);
+}
+
+function inAmbiguityBand(tempC) {
+  return BOUNDARIES_C.some((b) => Math.abs(tempC - b) <= AMBIGUITY_HALF_WIDTH_C);
+}
+
+/** ADR 0025: invalid is EXCLUDED BY NAME, neutral DISAGREES, otherwise accepted-class membership. */
+function score(tempC, modelClass) {
+  if (modelClass === "invalid") return "excluded";
+  return regimeOf(tempC).accepts.includes(modelClass) ? "agree" : "disagree";
+}
+
+/** A run that did not happen properly is not a statement about the model. Reasons are named. */
+function invalidReasons(r) {
+  const out = [];
+  if (!r.allConverged) out.push("a relaxation did not converge");
+  if (!r.deltaSymClean) out.push("a per-tick attachment delta broke D6h invariance");
+  if (r.symmetryError !== 0) out.push(`symmetryError = ${r.symmetryError} with noise off`);
+  if (r.domainContact) out.push("tripped the 65% domain-contact guard");
+  return out;
+}
+
+// ── Verify ──────────────────────────────────────────────────────────────────────────────────
+const outDir = process.argv[2] ?? join(process.cwd(), "out", "phase6-sweep");
+const raw = readFileSync(join(outDir, "points.json"));
+const points = JSON.parse(raw.toString("utf8"));
+const published = JSON.parse(readFileSync(join(outDir, "report.json"), "utf8"));
+
+const failures = [];
+const note = (message) => failures.push(message);
+
+console.log("PHASE 6 WP5 — INDEPENDENT VERIFICATION");
+console.log(`artifacts: ${outDir}`);
+for (const name of ["points.json", "report.json", "diagram.svg"]) {
+  const bytes = readFileSync(join(outDir, name));
+  console.log(
+    `  ${name.padEnd(13)} ${String(statSync(join(outDir, name)).size).padStart(8)} bytes  ` +
+      createHash("sha256").update(bytes).digest("hex"),
+  );
+}
+
+// 1. Re-derive every per-point verdict from the raw measurement, ignoring the published one.
+let reclassified = 0;
+let rescored = 0;
+const mine = [];
+for (const entry of points) {
+  const r = entry.result;
+  const reasons = invalidReasons(r);
+  const modelClass = reasons.length > 0 ? "invalid" : classify(r.aspectRatio);
+  const spec = regimeOf(entry.point.tempC);
+  const band = inAmbiguityBand(entry.point.tempC);
+  const derived = {
+    tempC: entry.point.tempC,
+    fraction: entry.point.fraction,
+    modelClass,
+    regime: spec.regime,
+    score: score(entry.point.tempC, modelClass),
+    inHeadlineScope: spec.inHeadline && !band,
+    extentFragile: modelClass !== "invalid" && isExtentFragile(r.aspectRatio),
+    exclusionReason: reasons.length > 0 ? reasons.join("; ") : null,
+  };
+  mine.push(derived);
+
+  if (derived.modelClass !== entry.modelClass) {
+    reclassified++;
+    note(
+      `T=${entry.point.tempC} f=${entry.point.fraction}: published class ${entry.modelClass}, ` +
+        `re-derived ${derived.modelClass} from AR=${r.aspectRatio}`,
+    );
+  }
+  if (derived.score !== entry.score) {
+    rescored++;
+    note(`T=${entry.point.tempC} f=${entry.point.fraction}: published score ${entry.score}, re-derived ${derived.score}`);
+  }
+  if (derived.regime !== entry.regime) note(`T=${entry.point.tempC}: published regime ${entry.regime}, re-derived ${derived.regime}`);
+  if (derived.inHeadlineScope !== entry.inHeadlineScope) {
+    note(`T=${entry.point.tempC} f=${entry.point.fraction}: headline scope ${entry.inHeadlineScope} vs re-derived ${derived.inHeadlineScope}`);
+  }
+  if (derived.extentFragile !== entry.extentFragile) {
+    note(`T=${entry.point.tempC} f=${entry.point.fraction}: extentFragile ${entry.extentFragile} vs re-derived ${derived.extentFragile}`);
+  }
+  // An exclusion must be NAMED, never silent (ADR 0025).
+  if ((derived.exclusionReason === null) !== (entry.exclusionReason === null)) {
+    note(`T=${entry.point.tempC} f=${entry.point.fraction}: exclusionReason presence disagrees`);
+  }
+}
+
+// 2. Re-derive the aggregate the report publishes.
+const headline = mine.filter((p) => p.inHeadlineScope);
+const agree = headline.filter((p) => p.score === "agree").length;
+const classes = {};
+for (const p of mine) classes[p.modelClass] = (classes[p.modelClass] ?? 0) + 1;
+
+console.log("\nre-derived independently of runner/src:");
+console.log(`  points                 ${mine.length}`);
+console.log(`  headline scope         ${headline.length}`);
+console.log(`  HEADLINE agree         ${agree}`);
+console.log(`  classes                ${JSON.stringify(classes)}`);
+console.log(`  extent-fragile         ${mine.filter((p) => p.extentFragile).length}`);
+console.log(`  excluded (named)       ${mine.filter((p) => p.exclusionReason !== null).length}`);
+for (const spec of REGIMES) {
+  const g = mine.filter((p) => p.regime === spec.regime);
+  const h = g.filter((p) => p.inHeadlineScope);
+  console.log(
+    `    ${spec.regime.padEnd(20)} n=${String(g.length).padStart(3)}  headline=${String(h.length).padStart(3)}` +
+      `  agree=${String(h.filter((p) => p.score === "agree").length).padStart(3)}` +
+      `  neutral=${String(g.filter((p) => p.modelClass === "neutral").length).padStart(3)}`,
+  );
+}
+
+// 3. Compare against what the report CLAIMS, wherever the field names allow it.
+const claimedHeadline =
+  published.headlineAgree ?? published.headline ?? published.headlineScopeAgree ?? null;
+if (claimedHeadline !== null && claimedHeadline !== agree) {
+  note(`report.json claims headline ${claimedHeadline}, re-derived ${agree}`);
+}
+if (claimedHeadline === null) {
+  console.log("\n  NOTE: report.json exposes no directly comparable headline field; keys are");
+  console.log(`  ${Object.keys(published).join(", ")}`);
+}
+
+console.log("");
+if (failures.length === 0) {
+  console.log(`VERIFIED: ${mine.length} points re-derived, every class, regime, score, headline-scope`);
+  console.log("flag, extent-fragile flag and exclusion reason matches the published artifact.");
+  console.log("PHASE6 WP5 INDEPENDENT VERIFY: PASS");
+} else {
+  console.log(`DISAGREEMENTS: ${failures.length} (${reclassified} class, ${rescored} score)`);
+  for (const f of failures.slice(0, 40)) console.log(`  - ${f}`);
+  if (failures.length > 40) console.log(`  ... and ${failures.length - 40} more`);
+  console.log("PHASE6 WP5 INDEPENDENT VERIFY: FAIL");
+  process.exit(1);
+}

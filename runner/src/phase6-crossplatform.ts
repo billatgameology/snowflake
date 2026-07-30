@@ -57,12 +57,15 @@ export function float64Bits(value: number): string {
 }
 
 /**
- * The registered end-to-end fixture. Two points, one per habit class the sweep must separate,
- * at the configuration WP3 registered (N = 48, measurement extent 21, Δx = 0.35, cfl = 0.1).
+ * The registered end-to-end fixture. **Four points in two pairs** (ADR 0032), at the configuration
+ * WP3 registered (N = 48, measurement extent 21, Δx = 0.35, cfl = 0.1).
  *
  * They are the SWEEP's configuration on purpose. A cheaper, smaller fixture would test the
  * arithmetic just as well but would not test it where a habit class is actually being decided,
  * and the registered failure mode is a class that flips.
+ *
+ * It was two points until ADR 0031: `CAK` collapsed the old −5/−15 °C pair into the same class
+ * (both `neutral`), leaving a control that could not detect the flip it exists to detect.
  */
 export const PHASE6_CROSSPLATFORM_FIXTURE = {
   dims: { nx: 48, ny: 48, nz: 48 },
@@ -84,16 +87,49 @@ export const PHASE6_CROSSPLATFORM_FIXTURE = {
   domain: "hexPrism",
   seedRadius: 2,
   seedThickness: 1,
+  /**
+   * Sampling fraction for the TIER-1 fingerprint only — it sweeps σ_surf across every fingerprint
+   * temperature, so it needs one fraction rather than a per-point one. The tier-2 points below
+   * carry their own fractions.
+   */
   waterRelativeFraction: 0.15,
+  /**
+   * TIER-2 points, selected by the ADR 0032 rule applied mechanically to the ADR 0031 re-sweep.
+   * Two pairs, never pooled:
+   *
+   *   robust  — smallest and largest aspectRatio among valid points. Asks whether the whole
+   *             pipeline agrees across architectures. Spans plate/column, so a flip is detectable.
+   *   fragile — closest to each class threshold. Asks whether any class here is a last-ULP coin
+   *             toss. `fragile-column-floor` measured AR **exactly 1.5000**, i.e. an exact integer
+   *             tie in lattice extents sitting precisely on the column floor — one site either way
+   *             changes its class. That is the sharpest fragility probe the grid contains.
+   *
+   * Every one is a point the re-sweep already ran, because the rule selects from its valid points.
+   * The baseline below is therefore taken from the sweep's own rows rather than from fresh runs —
+   * same arithmetic, no chance of a separate run diverging. ADR 0032's "four growth runs" cost
+   * estimate applies only to the arm64 side.
+   */
   points: [
-    { label: "warm", tempC: -5 },
-    { label: "cold", tempC: -15 },
+    { label: "robust-plate", tempC: -2, fraction: 0.1 },
+    { label: "robust-column", tempC: -28, fraction: 0.1 },
+    { label: "fragile-plate-ceiling", tempC: -3, fraction: 0.25 },
+    { label: "fragile-column-floor", tempC: -23, fraction: 0.15 },
   ],
 } as const;
 
-/** σ∞ for a fixture point, from the registered Table 2.1 ladder rather than `sigmaWater()`. */
+/**
+ * σ∞ at the tier-1 fingerprint's sampling fraction, from the registered Table 2.1 ladder rather
+ * than `sigmaWater()` — whose own docstring records that it crosses zero at −1.969 °C.
+ */
 export function phase6FixtureSigmaInf(tempC: number): number {
   return phase6SigmaWaterFromTable(tempC) * PHASE6_CROSSPLATFORM_FIXTURE.waterRelativeFraction;
+}
+
+/** σ∞ for a named tier-2 fixture point, at that point's own registered fraction. */
+export function phase6FixturePointSigmaInf(label: string): number {
+  const point = PHASE6_CROSSPLATFORM_FIXTURE.points.find((p) => p.label === label);
+  if (point === undefined) throw new Error(`no fixture point labelled ${label}`);
+  return phase6SigmaWaterFromTable(point.tempC) * point.fraction;
 }
 
 /**
@@ -208,8 +244,25 @@ export const PHASE6_FIXTURE_X64_BASELINE_STALE_CAK_A1 = [
   { label: "cold", tempC: -15, steps: 316, attached: 5161, aspectRatio: 1.1053, habit: "neutral" },
 ] as const;
 
-/** Pending repopulation under `CAK` — see the stale table above. */
-export const PHASE6_FIXTURE_X64_BASELINE = [] as const;
+/**
+ * The x64 tier-2 baseline under `CAK`, at the four ADR 0032 points. Taken verbatim from the
+ * ADR 0031 re-sweep's own `out/phase6-sweep/points.json` rows (protocol `8aeb2b80…`, produced at
+ * commit `390fe35`, 204/204 with zero exclusions), NOT from separate runs.
+ *
+ * It is a BASELINE, NOT A REQUIREMENT. A second architecture producing different numbers is this
+ * control's expected-possible outcome and a reportable finding, not a bug to be fixed — and that
+ * applies with most force to `fragile-column-floor`, whose AR is exactly 1.5000, sitting on the
+ * column floor by an exact integer tie.
+ *
+ * **MAC RUN NEEDED** — the arm64 side is four growth runs plus the tier-1 fingerprint, roughly
+ * 30 minutes each. Not attempted here; see docs/phase6-cross-platform-control.md.
+ */
+export const PHASE6_FIXTURE_X64_BASELINE = [
+  { label: "robust-plate", tempC: -2, fraction: 0.1, sigmaInf: 0.002, steps: 175, attached: 1313, aspectRatio: 0.263158, habit: "plate" },
+  { label: "robust-column", tempC: -28, fraction: 0.1, sigmaInf: 0.03150000000000001, steps: 195, attached: 1171, aspectRatio: 2.33333, habit: "column" },
+  { label: "fragile-plate-ceiling", tempC: -3, fraction: 0.25, sigmaInf: 0.0075, steps: 198, attached: 3157, aspectRatio: 0.684211, habit: "neutral" },
+  { label: "fragile-column-floor", tempC: -23, fraction: 0.15, sigmaInf: 0.037875, steps: 248, attached: 3037, aspectRatio: 1.5, habit: "column" },
+] as const;
 
 function fnv1a(entries: readonly Phase6LibmEntry[]): string {
   let hash = 0x811c9dc5;

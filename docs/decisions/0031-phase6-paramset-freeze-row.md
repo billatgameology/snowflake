@@ -67,8 +67,17 @@ minimum), 1.75× at −8 °C, and **1.0× at −15 °C and colder**.
 
 `research/libbrecht-figure-findings.md` §2 records the corroborating source finding: `2009.08404v2`
 Figure 2's caption states "The present paper focuses on temperatures between -10 C and -30 C, where
-𝐴_basal ≈ 𝐴_prism ≈ 1". **So in the `plates-cold` band the two parameter sets are the same model**,
+𝐴_basal ≈ 𝐴_prism ≈ 1". ~~**So in the `plates-cold` band the two parameter sets are the same model**,~~
 and the violation can only have affected roughly −2 to −9 °C.
+
+> **CORRECTED 2026-07-29 (audit).** "The same model" is false as stated, and measurably so. Of the
+> 72 points in −10…−21 °C, **11 differ** between the two `points.json` files, with **max |ΔAR| =
+> 0.1092**. `A_prism` reaches 1 only at (Tm−T) = 15: it is **0.830 at −10 °C**, 0.864 at −11, 0.898
+> at −12, 0.966 at −14. So the sets coincide only from about −15 °C colder, and the mismatch's reach
+> is roughly −2 to −14 °C rather than −2 to −9 °C. It remains true that **no `plates-cold` point
+> changed CLASS** — the band is 0/60 under both sets — which is the conclusion that mattered, but
+> the stronger "same model" phrasing was wrong.
+
 
 ## Decision
 
@@ -137,12 +146,33 @@ parameterization contradicts its own registered protocol. The verifier and the s
 controls are unaffected in design and can be built against the existing `points.json` schema while
 the sweep runs.
 
-**The structural finding is untouched, and is not what this ADR is about.**
-`research/libbrecht-figure-findings.md` establishes by three independent routes — crossing count,
-the source's own Figure 1, and two solver probes — that no broad-facet parameterization can produce
-the Nakaya diagram's three habit boundaries. `CAK` is a broad-facet parameterization. The re-sweep
-is expected to reproduce the warm plate regime less well and the other two regimes exactly as
-badly, and **must not be presented as an attempt to fix the columns or cold-plates bands**.
+**~~The structural finding is untouched, and is not what this ADR is about.~~**
+
+> **CORRECTION 2026-07-29 — this paragraph was wrong and is retracted.** It claimed
+> `research/libbrecht-figure-findings.md` established "by three independent routes" that no
+> broad-facet parameterization can produce three habit boundaries. An adversarial audit refuted
+> both the claim and the independence:
+>
+> - The "three routes" were **not independent**: crossing-counting and Figure 1 are the same σ₀
+>   argument over n = 2 printed forms, and the third was two calibration probes that this very
+>   document declares are never citable as gate evidence.
+> - The claim itself is **false**. Habit depends on the ordering of `alphaHK = A·exp(−σ₀/σ_surf)`,
+>   which carries `A_prism`; the crossing count was computed on σ₀ alone. **`CAK` — the set this ADR
+>   registers — has three αHK order swaps for σ_surf ∈ [0.00247, 0.00366], and 2 of the re-sweep's
+>   204 points lie inside that band.** So "`CAK` is a broad-facet parameterization, therefore the
+>   finding is untouched" does not follow: `CAK` is precisely the set whose `A_prism ≠ 1` breaks the
+>   σ₀-crossing/αHK-swap identification the argument assumed.
+>
+> What survives is narrower and is a statement about the runs, not the model class: along the
+> sweep's own constant-`f` ladders the swap count is 1 at f = 0.10 and 0 above, never 3, so **this
+> parameterization at these σ_surf values does not reproduce the diagram**.
+>
+> **The decision this ADR takes is unaffected.** `paramSet` belongs in the freeze list, `CAK` is the
+> registered value on provenance grounds, and the re-sweep was required — none of that rested on the
+> retracted paragraph. What changes is only how the result may be described.
+
+The re-sweep is expected to reproduce the warm plate regime less well, and **must not be presented
+as an attempt to fix the columns or cold-plates bands**.
 
 **`PHASE6_PROTOCOL_SHA256` moves** `9aa2e7c1…` → `8aeb2b80…` (24 freeze rows → 25), with the
 previous value retained in the revision list so the freeze keeps a history rather than a
@@ -200,5 +230,6 @@ quantities, and none of them is currently correct.
 
 **Re-sweep only the affected band (−2 to −9 °C) and splice.** Rejected. It would produce a
 `points.json` whose rows came from two different parameter sets, which is the merged-report failure
-mode the WP5 negative controls exist to catch. The cold rows are bit-identical under either set, so
+mode the WP5 negative controls exist to catch. ~~The cold rows are bit-identical under either set~~
+(11 of 72 differ, max |ΔAR| = 0.1092 — see the correction above), so
 the compute saved is real, but a spliced artifact cannot be gated.

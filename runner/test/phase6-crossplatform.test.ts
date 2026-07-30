@@ -5,7 +5,7 @@
 // not asserted, because a different digest there is the control's expected-possible OUTCOME — a
 // reportable finding about non-correctly-rounded transcendentals — and turning a legitimate
 // finding into a red test would train everyone to ignore it. The comparison that decides the
-// control is run by hand, per docs/runbooks/phase6-cross-platform-control.md.
+// control is run by hand, per docs/phase6-cross-platform-control.md.
 
 import { describe, expect, it } from "vitest";
 import {
@@ -14,6 +14,7 @@ import {
   PHASE6_FIXTURE_X64_BASELINE_STALE_CAK_A1,
   PHASE6_LIBM_DIGEST_X64_BASELINE,
   float64Bits,
+  phase6FixturePointSigmaInf,
   phase6FixtureSigmaInf,
   phase6LibmDigest,
   phase6LibmFingerprint,
@@ -100,32 +101,46 @@ describe("the registered fixture", () => {
     expect(phase6FixtureSigmaInf(-15)).toBeCloseTo(0.023550, 12);
   });
 
-  it("records a baseline that separates the two habit classes, or is explicitly pending", () => {
-    // A control whose two points classify the same way could not detect a flip in either. That
-    // requirement is UNCHANGED and is the whole value of the tier-2 control.
-    //
-    // ADR 0031 put the baseline into a pending state rather than weakening the requirement. The
-    // old rows were measured under `CAK_A1` and the registered set is now `CAK`; a measured probe
-    // gives −5 °C AR 1.0000 (neutral) against the 0.3821 plate recorded before, while −15 °C
-    // barely moves from 1.1053 (neutral) because A_prism ≈ 0.968 there. So under `CAK` BOTH
-    // fixture points classify neutral and the fixture stops separating anything — a real
-    // consequence of the parameter-set change, not a test artifact.
-    //
-    // The empty state is therefore an honest "not yet measured, and the old points are known to
-    // be inadequate", and this test accepts it only while it is explicitly empty. As soon as rows
-    // are populated the original two-class requirement binds again, so nothing can be filled in
-    // that does not separate the classes.
-    if (PHASE6_FIXTURE_X64_BASELINE.length === 0) {
-      expect(PHASE6_FIXTURE_X64_BASELINE_STALE_CAK_A1.length).toBe(2);
-      return;
+  it("registers two pairs that answer different questions (ADR 0032)", () => {
+    const labels = PHASE6_CROSSPLATFORM_FIXTURE.points.map((p) => p.label);
+    expect(labels).toEqual([
+      "robust-plate",
+      "robust-column",
+      "fragile-plate-ceiling",
+      "fragile-column-floor",
+    ]);
+    // Every baseline row is a registered fixture point, and vice versa — so a row cannot be
+    // added for a point the fixture does not register, or a point left without a baseline.
+    expect(PHASE6_FIXTURE_X64_BASELINE.map((r) => r.label)).toEqual(labels);
+    // Each row's sigmaInf is the one its own registered fraction produces, not the tier-1
+    // sampling fraction. This is the check that would have caught reusing 0.15 for all four.
+    for (const row of PHASE6_FIXTURE_X64_BASELINE) {
+      expect(phase6FixturePointSigmaInf(row.label)).toBeCloseTo(row.sigmaInf, 12);
     }
-    const habits = PHASE6_FIXTURE_X64_BASELINE.map((row) => row.habit);
-    expect(new Set(habits).size).toBe(2);
-    const warm = PHASE6_FIXTURE_X64_BASELINE.find((row) => row.label === "warm");
-    const cold = PHASE6_FIXTURE_X64_BASELINE.find((row) => row.label === "cold");
-    expect(warm?.aspectRatio).toBeLessThan(1 / 1.5); // plate
-    expect(cold?.aspectRatio).toBeGreaterThan(1 / 1.5); // not a plate
-    expect(cold?.aspectRatio).toBeLessThan(1.5); // and not a column: neutral
+  });
+
+  it("keeps the robust pair spanning two classes and the fragile pair on the thresholds", () => {
+    const at = (label: string) => PHASE6_FIXTURE_X64_BASELINE.find((r) => r.label === label);
+    // Robust: the control cannot detect a class flip unless these two differ.
+    expect(at("robust-plate")?.habit).toBe("plate");
+    expect(at("robust-column")?.habit).toBe("column");
+    // ...and they must sit clear of the thresholds, or they are not robust.
+    expect(at("robust-plate")?.aspectRatio).toBeLessThan(1 / 1.5 - 0.2);
+    expect(at("robust-column")?.aspectRatio).toBeGreaterThan(1.5 + 0.5);
+
+    // Fragile: within a hair of a threshold, which is the whole point. `fragile-column-floor`
+    // is exactly 1.5 — an exact integer tie in lattice extents, so its class turns on one site.
+    expect(Math.abs((at("fragile-plate-ceiling")?.aspectRatio ?? 0) - 1 / 1.5)).toBeLessThan(0.05);
+    expect(at("fragile-column-floor")?.aspectRatio).toBe(1.5);
+  });
+
+  it("keeps the superseded CAK_A1 rows as history, not as a usable baseline", () => {
+    // ADR 0031's stale table is retained so the comparison has a history. It must stay clearly
+    // separate from the live baseline: two rows, both neutral-or-plate under the old parameter
+    // set, and no label overlap with the four ADR 0032 points that replaced them.
+    expect(PHASE6_FIXTURE_X64_BASELINE_STALE_CAK_A1.length).toBe(2);
+    const stale = new Set<string>(PHASE6_FIXTURE_X64_BASELINE_STALE_CAK_A1.map((r) => r.label));
+    for (const row of PHASE6_FIXTURE_X64_BASELINE) expect(stale.has(row.label)).toBe(false);
   });
 });
 

@@ -4,11 +4,23 @@
 // research/libbrecht-later-papers.md, with the page cited beside it. Nothing here is digitized
 // off a curve. Run it with:  node app/scripts/phase6-libbrecht-closed-forms.mjs
 //
-// The question it answers: can ANY broad-facet attachment-kinetics parameterization reproduce the
-// three habit boundaries of the Nakaya diagram? A habit boundary requires the basal and prism
+// The question it answers: how many habit transitions can each printed parameterization express,
+// and how does that compare with the Nakaya diagram's three boundaries?
+//
+// CORRECTED 2026-07-29. This header previously read: "A habit boundary requires the basal and prism
 // alphaHK curves to swap order, i.e. a sigma0 crossing. So the crossing count is a hard structural
-// bound on how many habit transitions a model can produce, independent of diffusion, geometry,
-// grid, seed, or far field.
+// bound ... independent of diffusion, geometry, grid, seed, or far field."
+//
+// The first clause is right and the "i.e." is WRONG. A habit boundary is an alphaHK order swap, and
+//
+//       alphaHK = A * exp(-sigma0 / sigma_surf)
+//
+// so the swap condition is  ln A_prism(t) = (sigma0_prism(t) - sigma0_basal(t)) / sigma_surf,
+// which coincides with a sigma0 crossing ONLY when A_prism == 1. For the registered CAK set
+// A_prism runs 0.18-0.45 at the warm end, and the swap count is then a function of sigma_surf —
+// so there is no sigma_surf-independent bound, and nothing here is independent of diffusion.
+// Section 3 prints both counts side by side. See the retraction at the head of
+// research/libbrecht-figure-findings.md.
 
 // ---------------------------------------------------------------------------------------------
 // The project's own digitized anchors — core/src/libbrecht.ts, A_PRISM_CAK
@@ -35,8 +47,11 @@ const aPrismBroad = (t) => {
 // Equation 3 for all growth conditions" (p6).
 // ---------------------------------------------------------------------------------------------
 const sigma0PrismBroadM2 = (t) => 0.015 * t ** 2 + 0.02 * t ** 0.6; // p7, percent
-const basalDip = (t) => 1 - 0.87 * Math.exp(-((Math.log(t) - Math.log(4.5)) ** 2) / 0.07); // p6
-const prismDip = (t) => 1 - 0.95 * Math.exp(-((Math.log(t) - Math.log(14.4)) ** 2) / 0.06); // p6
+// CORRECTED 2026-07-29: `log` in the printed dip formulas is BASE 10. Using Math.log (natural)
+// gave five sigma0 crossings at 3.70/6.25/8.46/9.93/18.62; log10 gives three at 3.08/8.07/24.73.
+// The wrong count was published in research/libbrecht-figure-findings.md and the sweep report.
+const basalDip = (t) => 1 - 0.87 * Math.exp(-((Math.log10(t) - Math.log10(4.5)) ** 2) / 0.07); // p6
+const prismDip = (t) => 1 - 0.95 * Math.exp(-((Math.log10(t) - Math.log10(14.4)) ** 2) / 0.06); // p6
 const sigma0BasalM1 = (t) => sigma0BasalBroad(t) * basalDip(t);
 const sigma0PrismM1 = (t) => sigma0PrismBroadM2(t) * prismDip(t);
 
@@ -53,8 +68,9 @@ const MEASURED = [
 ];
 
 // ---------------------------------------------------------------------------------------------
-// Crossing finder. A crossing of sigma0_basal and sigma0_prism is where the anisotropy sense
-// flips, and therefore an upper bound on the number of habit transitions a model can express.
+// sigma0 crossing finder. This is NOT the habit criterion and NOT a bound on habit transitions —
+// see the corrected header. It is retained only so section 3 can print it beside the alphaHK swap
+// count and show that the two differ. Use alphaHKSwaps() for anything about habit.
 // ---------------------------------------------------------------------------------------------
 function crossings(fBasal, fPrism, lo = 1, hi = 50, step = 0.001) {
   const out = [];
@@ -166,19 +182,71 @@ console.log("At -15 C Table 1 gives A1=1, sigma0,1=3e-2=3%; Eq.(3) gives " +
   `${sigma0PrismBroad08404(15).toFixed(4)}% and M2 gives ${sigma0PrismBroadM2(15).toFixed(4)}%.`);
 
 console.log("\n" + "=".repeat(94));
-console.log("3. THE STRUCTURAL RESULT — how many habit transitions can each model express?");
+console.log("3. HOW MANY HABIT TRANSITIONS CAN EACH MODEL EXPRESS?");
 console.log("=".repeat(94));
-const models = [
-  ["2009.08404v2 Eq.(2)/(3)  broad facets", sigma0BasalBroad, sigma0PrismBroad08404],
-  ["2306.13087v1 M2          broad facets", sigma0BasalBroad, sigma0PrismBroadM2],
-  ["2306.13087v1 M1          WITH BOTH SDAK DIPS", sigma0BasalM1, sigma0PrismM1],
+console.log(`
+  RETRACTION NOTE. This section previously counted crossings of sigma0 alone and concluded that
+  every broad-facet parameterization has exactly ONE, giving a hard bound "independent of diffusion,
+  grid, seed, far field". Both halves were wrong, and an adversarial audit on 2026-07-29 refuted
+  them.
+
+  Habit depends on which facet has the larger ATTACHMENT COEFFICIENT, and
+
+        alphaHK = A * exp(-sigma0 / sigma_surf)
+
+  carries A as well as sigma0. So the habit-relevant order swap is a zero of
+
+        ln(alphaHKPrism / alphaHKBasal) = ln A_prism(t) - (sigma0_prism(t) - sigma0_basal(t)) / sigma_surf
+
+  which (i) is NOT the same as a sigma0 crossing whenever A_prism != 1, and (ii) depends on
+  sigma_surf, which diffusion sets. There is therefore no sigma_surf-independent bound at all.
+  Both counts are printed below so the difference is visible rather than asserted.
+`);
+
+const sigma0Models = [
+  ["2009.08404v2 Eq.(2)/(3)  broad facets", sigma0BasalBroad, sigma0PrismBroad08404, aPrismBroad],
+  ["2306.13087v1 M2          broad facets", sigma0BasalBroad, sigma0PrismBroadM2, aPrismBroad],
+  ["2306.13087v1 M1          A = 1 on every facet", sigma0BasalM1, sigma0PrismM1, () => 1],
 ];
-for (const [name, fb, fp] of models) {
+
+console.log("  (a) sigma0 crossings — the quantity previously counted. NOT the habit criterion.");
+for (const [name, fb, fp] of sigma0Models) {
   const c = crossings(fb, fp);
-  console.log(`  ${name.padEnd(46)} ${String(c.length).padStart(2)} crossing(s) at (Tm-T) = ${c.join(", ")}`);
+  console.log(`      ${name.padEnd(46)} ${String(c.length).padStart(2)} at (Tm-T) = ${c.join(", ")}`);
 }
-console.log("\n  Nakaya diagram habit boundaries, digitized (research/nakaya-morphology-diagram.md):");
-console.log("    (Tm-T) = 3.3, 9.9, 21.5  ->  3 boundaries");
-console.log("\n  Every BROAD-FACET parameterization yields exactly ONE crossing. Adding the two SDAK");
-console.log("  dips is what produces the extra crossings. This bound is independent of diffusion,");
-console.log("  grid, seed, far field, and domain size, so no numerical change can close the gap.");
+
+// alphaHK order-swap count, as a function of sigma_surf (percent, same units as sigma0 here).
+function alphaHKSwaps(fb, fp, fA, sigmaSurf, lo = 1, hi = 50, step = 0.0005) {
+  const g = (t) => Math.log(fA(t)) - (fp(t) - fb(t)) / sigmaSurf;
+  const out = [];
+  let prev = g(lo);
+  for (let t = lo + step; t <= hi; t += step) {
+    const cur = g(t);
+    if (prev === 0 || prev * cur < 0) out.push(Number(t.toFixed(2)));
+    prev = cur;
+  }
+  return out;
+}
+
+console.log("\n  (b) alphaHK order swaps — the actual habit criterion — vs sigma_surf (percent):");
+for (const [name, fb, fp, fA] of sigma0Models) {
+  console.log(`\n      ${name}`);
+  for (const ss of [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 1.0, 2.0]) {
+    const s = alphaHKSwaps(fb, fp, fA, ss);
+    const flag = s.length >= 3 ? "   <-- THREE OR MORE" : "";
+    console.log(
+      `        sigma_surf = ${ss.toFixed(2)}%   swaps = ${String(s.length).padStart(2)}` +
+        `   at (Tm-T) = ${s.join(", ") || "none"}${flag}`,
+    );
+  }
+}
+
+console.log("\n  Nakaya habit boundaries, digitized: (Tm-T) = 3.3, 9.9, 21.5  ->  3 boundaries.");
+console.log(`
+  READ THE RESULT THIS WAY. The printed broad-facet set reaches THREE alphaHK swaps in a band of
+  sigma_surf, with plate/column/plate/column alternation, so a broad-facet model is NOT structurally
+  incapable of three habit transitions. What can still be said, and is much weaker than what was
+  published, is that at the sigma_surf values the sweep's own points actually reach, the swap count
+  is 1 or 0 rather than 3 — so THIS sweep does not reproduce the diagram. That is a statement about
+  the runs, not a bound on the model class.
+`);

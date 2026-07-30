@@ -82,6 +82,7 @@ import {
   FAR_FIELD_STOP_FRACTION,
   float64SmootherDriftAbsLimit,
 } from "@vcc/solver-cpu";
+import { GROW_LK_DEFAULTS } from "./grow-lk-defaults.ts";
 import { gate3 } from "./gate3.ts";
 import { gate4a } from "./gate4a.ts";
 import { gate4b } from "./gate4b.ts";
@@ -106,7 +107,7 @@ import {
 import { occupancyTopDownPGM, propensitySlicePGM, vaporSlicePGM } from "./pgm.ts";
 import {
   PHASE6_CROSSPLATFORM_FIXTURE,
-  phase6FixtureSigmaInf,
+  phase6FixturePointSigmaInf,
   phase6LibmDigest,
   phase6LibmFingerprint,
 } from "./phase6-crossplatform.ts";
@@ -524,28 +525,14 @@ interface GrowLKOptions {
 }
 
 function parseLKArgs(argv: string[]): GrowLKOptions {
+  // Sourced from GROW_LK_DEFAULTS so the Phase 6 preflight can CHECK these against the frozen
+  // protocol. Seven of them reach a sweep run through this object rather than the command line —
+  // see the header of runner/src/grow-lk-defaults.ts and ADR 0031.
   const options: GrowLKOptions = {
-    surfacePolicy: "aggregate-hv-g1h1-v5",
-    // Default unchanged so every executed Phase 2b/4/5 command replays byte for byte.
-    farField: "dirichlet",
+    ...GROW_LK_DEFAULTS,
     tempC: null,
     sigmaInf: null,
-    dims: { nx: 96, ny: 96, nz: 96 },
-    dxUm: 0.35,
-    paramSet: "CAK_A1",
-    cfl: 0.1,
-    tol: 1e-9,
-    steps: 100_000,
-    targetExtent: 60,
-    seed: 1,
-    noise: 0,
     out: null,
-    metricsEvery: 100,
-    pressurePa: 101325,
-    seedRadius: 2,
-    seedThickness: 1,
-    relaxMaxSweeps: 200_000,
-    divTol: 1e-7,
   };
   for (let i = 0; i < argv.length; i++) {
     const flag = argv[i];
@@ -1205,7 +1192,7 @@ async function gate2b(): Promise<void> {
  * rather than executed, because it costs a full growth run per point and the operator running
  * this on a second machine should decide when to spend that.
  *
- * See docs/runbooks/phase6-cross-platform-control.md.
+ * See docs/phase6-cross-platform-control.md.
  */
 function phase6Fixture(): void {
   const entries = phase6LibmFingerprint();
@@ -1222,15 +1209,25 @@ function phase6Fixture(): void {
   console.log("");
   console.log("tier 2 — run each of these and compare the habit class, not the digits:");
   const f = PHASE6_CROSSPLATFORM_FIXTURE;
+  // Two bugs fixed here 2026-07-29, both found by audit. (1) sigma_inf came from
+  // phase6FixtureSigmaInf, which uses the TIER-1 sampling fraction 0.15 for every temperature —
+  // wrong for 3 of the 4 tier-2 points, which sit at f = 0.10/0.10/0.25/0.15. It must come from
+  // each point's own registered fraction. (2) --param-set was omitted, so an operator pasting
+  // these would silently get the CLI default CAK_A1 — the exact defect ADR 0031 exists to fix —
+  // and produce a run not comparable to the baseline.
   for (const point of f.points) {
     console.log(
-      `  node runner/src/main.ts grow-lk --temp-c ${point.tempC} ` +
-        `--sigma-inf ${phase6FixtureSigmaInf(point.tempC).toFixed(6)} ` +
+      `  # ${point.label}` +
+        `\n  node runner/src/main.ts grow-lk --temp-c ${point.tempC} ` +
+        `--sigma-inf ${phase6FixturePointSigmaInf(point.label).toFixed(6)} ` +
         `--dims ${f.dims.nx},${f.dims.ny},${f.dims.nz} --dx-um ${f.dxUm} --cfl ${f.cflFill} ` +
         `--target-extent ${f.targetExtent} --surface-policy ${f.surfacePolicy} ` +
-        `--far-field ${f.farField} --metrics-every 100000`,
+        `--far-field ${f.farField} --param-set ${f.paramSet} --metrics-every 100000`,
     );
   }
+  console.log("");
+  console.log("--param-set is MANDATORY: omitting it falls back to CAK_A1 and the run is not");
+  console.log("comparable to the registered baseline. See docs/phase6-cross-platform-control.md.");
 }
 
 const [command, ...rest] = process.argv.slice(2);

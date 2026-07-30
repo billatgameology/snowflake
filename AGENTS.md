@@ -338,6 +338,18 @@ Scientific milestones are **automated metrics, not screenshots** (§3.3). So:
   earlier prose mention. When a bundle is superseded, correct its quoted numbers in the same
   session; at least three review rounds have been spent entirely on stale prose quotes (a
   recomputed p99, superseded bundle measurements, a wrong file count).
+- **State the measured claim, not the strongest claim.** "Cannot", "every", "always",
+  "independent of", and "provably" assert theorems: they require a stated derivation whose
+  quantity and scope are both named — and the derivation must be about the quantity the
+  claim governs. If what you have is a measurement, write the measured statement with its
+  scope. Paid for twice in two days: ADR 0031's retracted "three independent routes"
+  paragraph, and the `5463e76` retraction of the Phase 6 structural bound, whose script
+  counted sigma_0 crossings while the claim governed habit — which depends on the full
+  attachment coefficient alphaHK, a different quantity with a different crossing count.
+- **The required local check is exact `npm test`, and nothing else counts as it.** A green
+  `npx vitest run` omits the Rule 7 scan and both typechecks; quoting it as verification is
+  how 319 scan violations merged to `main` unnoticed on 2026-07-29. Name the exact command
+  beside any "suite green" claim.
 
 ## Rule 7 — A bare `alpha` is banned from this repository
 
@@ -410,6 +422,20 @@ Record the check as part of the freeze. Paid for at exactly the wrong moment: th
 Libbrecht papers printing closed forms for figure-digitized curves (arXiv:2009.08404,
 2306.13087, 2306.04042) surfaced the day *after* the table's hash-freeze, converting a free
 upgrade into an ADR-plus-re-freeze decision.
+
+## Rule 13 — Interpretation is gated like evidence
+
+An interpretive document — a sweep report, a scientific-claim section of an ADR, a memory or
+ledger entry, education content, anything outward-facing — receives an adversarial audit
+**before** it is published, merged, or propagated into other artifacts, not after. Scale the
+audit to the claim: anything carrying a theorem-strength claim (Rule 6's "cannot / every /
+independent of" class) or leaving the repository gets the full adversarial treatment;
+routine records get a proportionate skeptical pass. The audit that retracted the Phase 6
+structural bound (`5463e76`) found exactly the attacks it was asked to try — meaning it
+would have caught the error pre-publication, and running it post-publication was purely a
+scheduling choice. By then the claim had already propagated into a memory entry, a findings
+ledger, and education chapters, each of which needed its own correction pass. Evidence
+earned this gate in Phase 2; interpretation has now paid for it twice.
 
 ---
 

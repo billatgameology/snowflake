@@ -14,19 +14,26 @@
 import { execFileSync } from "node:child_process";
 import { canonicalJsonSha256 } from "./gate4-evidence.ts";
 import {
+  GROW_LK_DEFAULTS,
+  PHASE6_EXPLICIT_FLAGS,
+} from "./grow-lk-defaults.ts";
+import {
   PHASE6_CROSSPLATFORM_FIXTURE,
 } from "./phase6-crossplatform.ts";
 import {
   PHASE6_DOMAIN_SPOT_CHECK,
   PHASE6_PARAM_SET,
   PHASE6_PROTOCOL_SHA256,
+  PHASE6_VALUES_SHA256,
   phase6FreezeComplete,
   phase6IsExtentFragile,
   phase6IsInAmbiguityBand,
   phase6PendingFreezeItems,
+  phase6JustificationManifest,
   phase6ProtocolManifest,
   phase6ProtocolProvenance,
   phase6ReferenceRegime,
+  phase6ValuesManifest,
   phase6ScoreHabit,
   phase6SweepGrid,
   PHASE6_REFERENCE_REGIMES,
@@ -48,10 +55,64 @@ export function phase6ClassifyHabit(aspectRatioValue: number): Phase6ModelClass 
   return "neutral";
 }
 
+/**
+ * Every registered value that reaches a sweep run through a CLI DEFAULT rather than the command
+ * line, paired with the registered value it must equal.
+ *
+ * ADR 0031's defect was exactly this shape: `paramSet` was registered, was not passed, and the
+ * default disagreed — so 204 runs violated a freeze row while every hash and test stayed green.
+ * The audit of 2026-07-29 found seven more parameters in the same position, all of which happen to
+ * agree today. This table converts that coincidence into something preflight can fail on.
+ *
+ * Four of them (`pressurePa`, `seedRadius`, `seedThickness`, `relaxMaxSweeps`) have no CLI flag at
+ * all, so checking the default is the ONLY way to know what a run used.
+ */
+export function phase6DefaultBackedParameters(): readonly {
+  name: string;
+  fromDefault: unknown;
+  registered: unknown;
+  hasFlag: boolean;
+}[] {
+  const f = PHASE6_CROSSPLATFORM_FIXTURE;
+  return [
+    { name: "relaxTol", fromDefault: GROW_LK_DEFAULTS.tol, registered: f.relaxTol, hasFlag: true },
+    { name: "divTol", fromDefault: GROW_LK_DEFAULTS.divTol, registered: f.divTol, hasFlag: true },
+    { name: "noiseEpsilon", fromDefault: GROW_LK_DEFAULTS.noise, registered: f.noiseEpsilon, hasFlag: true },
+    { name: "rngSeed", fromDefault: GROW_LK_DEFAULTS.seed, registered: f.rngSeed, hasFlag: true },
+    { name: "pressurePa", fromDefault: GROW_LK_DEFAULTS.pressurePa, registered: f.pressurePa, hasFlag: false },
+    { name: "seedRadius", fromDefault: GROW_LK_DEFAULTS.seedRadius, registered: f.seedRadius, hasFlag: false },
+    { name: "seedThickness", fromDefault: GROW_LK_DEFAULTS.seedThickness, registered: f.seedThickness, hasFlag: false },
+    { name: "relaxMaxSweeps", fromDefault: GROW_LK_DEFAULTS.relaxMaxSweeps, registered: f.relaxMaxSweeps, hasFlag: false },
+  ];
+}
+
+/**
+ * Every flag the protocol requires on a child command line, checked against a command actually
+ * built by `phase6PointCommand` rather than against a list someone maintained by hand.
+ */
+export function phase6CommandFlagFailures(command: readonly string[]): readonly string[] {
+  const failures: string[] = [];
+  for (const flag of PHASE6_EXPLICIT_FLAGS) {
+    if (!command.includes(flag)) {
+      failures.push(`the child command omits ${flag}, so that registered value would come from a CLI default`);
+    }
+  }
+  // The one whose absence caused ADR 0031, checked by VALUE as well as by presence.
+  const at = command.indexOf("--param-set");
+  if (at >= 0 && command[at + 1] !== PHASE6_PARAM_SET) {
+    failures.push(`the child command passes --param-set ${command[at + 1]}, not the registered ${PHASE6_PARAM_SET}`);
+  }
+  return failures;
+}
+
 export interface Phase6PreflightReport {
   readonly ok: boolean;
   readonly failures: readonly string[];
   readonly protocolSha256: string;
+  /** ADR 0033: the gating hash. */
+  readonly valuesSha256: string;
+  /** ADR 0033: reported, never gated. */
+  readonly justificationSha256: string;
   readonly head: string;
   readonly node: string;
   readonly v8: string;
@@ -71,17 +132,44 @@ export function phase6SweepPreflight(repoRoot: string = process.cwd()): Phase6Pr
   }
 
   let protocolSha256 = "";
+  let valuesSha256 = "";
+  let justificationSha256 = "";
   try {
-    // Imported lazily so a manifest failure is a preflight failure, not a module-load crash.
+    // ADR 0033. The VALUES hash is the gate: editing a registered value invalidates prior sweep
+    // results. The JUSTIFICATION hash is reported and NOT gated — a prose correction is ADR-logged
+    // but costs no re-sweep, because no evidence-producing path reads prose. The legacy combined
+    // hash is still checked, because published evidence cites it.
+    valuesSha256 = canonicalJsonSha256(phase6ValuesManifest());
+    justificationSha256 = canonicalJsonSha256(phase6JustificationManifest());
     protocolSha256 = canonicalJsonSha256(phase6ProtocolManifest());
+    if (valuesSha256 !== PHASE6_VALUES_SHA256) {
+      failures.push(
+        `values hash ${valuesSha256} does not match the registered ${PHASE6_VALUES_SHA256} ` +
+          "— a registered VALUE was edited without updating the pin, which invalidates prior sweeps",
+      );
+    }
     if (protocolSha256 !== PHASE6_PROTOCOL_SHA256) {
       failures.push(
-        `protocol hash ${protocolSha256} does not match the registered ${PHASE6_PROTOCOL_SHA256} ` +
-          "— a registered value was edited without updating the pin",
+        `legacy combined hash ${protocolSha256} does not match ${PHASE6_PROTOCOL_SHA256} ` +
+          "— published evidence cites it, so it must stay reproducible",
       );
     }
   } catch (error) {
     failures.push(`protocol manifest unavailable: ${error instanceof Error ? error.message : String(error)}`);
+  }
+
+  // ADR 0031's defect class, checked rather than assumed. Both of these would have caught it.
+  for (const p of phase6DefaultBackedParameters()) {
+    if (p.fromDefault !== p.registered) {
+      failures.push(
+        `${p.name} reaches every run from the grow-lk default ${String(p.fromDefault)}, but the ` +
+          `protocol registers ${String(p.registered)}` +
+          (p.hasFlag ? "" : " — and it has NO CLI flag, so the default is the only path"),
+      );
+    }
+  }
+  for (const failure of phase6CommandFlagFailures(phase6PointCommand(phase6SweepGrid()[0] as Phase6GridPoint))) {
+    failures.push(failure);
   }
 
   const provenance = phase6ProtocolProvenance(repoRoot);
@@ -102,6 +190,8 @@ export function phase6SweepPreflight(repoRoot: string = process.cwd()): Phase6Pr
     ok: failures.length === 0,
     failures,
     protocolSha256,
+    valuesSha256,
+    justificationSha256,
     head: provenance.head,
     node: provenance.node,
     v8: provenance.v8,

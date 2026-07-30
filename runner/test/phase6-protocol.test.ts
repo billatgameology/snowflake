@@ -20,8 +20,10 @@ import {
 } from "../../core/src/index.ts";
 import {
   phase6FreezeComplete,
+  phase6JustificationManifest,
   phase6MeasureInterpolationError,
   phase6PendingFreezeItems,
+  phase6ValuesManifest,
   phase6AmbiguityHalfWidthC,
   phase6ProtocolManifest,
   PHASE6_REFERENCE_BOUNDARY_UNCERTAINTY_C,
@@ -29,6 +31,11 @@ import {
   PHASE6_FAR_FIELD,
   PHASE6_ENGINE_CONTROL,
   PHASE6_FREEZE_LIST,
+  PHASE6_PARAM_SET,
+  PHASE6_JUSTIFICATION_REVISIONS,
+  PHASE6_JUSTIFICATION_SHA256,
+  PHASE6_VALUES_REVISIONS,
+  PHASE6_VALUES_SHA256,
   PHASE6_INTERPOLATION,
   PHASE6_INTERPOLATION_LEAVE_ONE_OUT,
   PHASE6_LATENT_HEATING,
@@ -97,9 +104,9 @@ describe("the Phase 6 freeze list", () => {
     // No duplicates, and every item states where its value comes from.
     expect(new Set(registered).size).toBe(registered.length);
     for (const item of PHASE6_FREEZE_LIST) {
-      expect(item.requirement.length).toBeGreaterThan(0);
-      expect(item.source.length).toBeGreaterThan(0);
-      expect(item.status === "registered" ? item.value !== null : item.value === null).toBe(true);
+      expect(item.prose.requirement.length).toBeGreaterThan(0);
+      expect(item.prose.source.length).toBeGreaterThan(0);
+      expect(item.status === "registered" ? item.prose.value !== null : item.prose.value === null).toBe(true);
     }
   });
 
@@ -129,8 +136,8 @@ describe("the Phase 6 freeze list", () => {
     expect(manifest).toContain("headlineScopeC");
     const scoring = PHASE6_FREEZE_LIST.find((item) => item.id === "agreement-scoring");
     expect(scoring?.status).toBe("registered");
-    expect(scoring?.value).toContain("neutral = DISAGREE");
-    expect(scoring?.value).toContain("EXCLUDED from the headline");
+    expect(scoring?.prose.value).toContain("neutral = DISAGREE");
+    expect(scoring?.prose.value).toContain("EXCLUDED from the headline");
   });
 
   it("still refuses to produce a manifest if anything is pending", () => {
@@ -142,9 +149,11 @@ describe("the Phase 6 freeze list", () => {
         id: "synthetic-unfrozen-item",
         group: "numerics",
         status: "pending",
-        requirement: "a requirement nobody has answered",
-        value: null,
-        source: "test only",
+        prose: {
+          requirement: "a requirement nobody has answered",
+          value: null,
+          source: "test only",
+        },
       },
     ];
     expect(phase6FreezeComplete(withPending)).toBe(false);
@@ -162,7 +171,7 @@ describe("the Phase 6 freeze list", () => {
     expect(provenance.freezeIsAncestor).toBe(true);
     expect(provenance.head).toMatch(/^[0-9a-f]{40}$/);
     const codeVersion = PHASE6_FREEZE_LIST.find((item) => item.id === "code-version");
-    expect(codeVersion?.value).toBe(PHASE6_PROTOCOL_FREEZE_COMMIT);
+    expect(codeVersion?.prose.value).toBe(PHASE6_PROTOCOL_FREEZE_COMMIT);
     // treeIsClean is NOT asserted here: a working tree is dirty during development by design.
     // It is a gate-time requirement on evidence production, not a condition on the test suite.
   });
@@ -170,7 +179,7 @@ describe("the Phase 6 freeze list", () => {
   it("has the conditions the charter fixes outright already registered", () => {
     const byId = new Map(PHASE6_FREEZE_LIST.map((item) => [item.id, item]));
     expect(byId.get("far-field")?.status).toBe("registered");
-    expect(byId.get("far-field")?.value).toBe(PHASE6_FAR_FIELD);
+    expect(byId.get("far-field")?.prose.value).toBe(PHASE6_FAR_FIELD);
     // ADR 0024 moved this off fixed-σ Dirichlet; the plan and the module must not drift apart.
     expect(PHASE6_FAR_FIELD).toBe("monopole-matched");
     expect(byId.get("surface-policy")?.status).toBe("registered");
@@ -185,37 +194,37 @@ describe("the Phase 6 freeze list", () => {
     // Measurement size: set by the SLOWEST-developing habit. The failure this avoids is not
     // subtle — extent 9 misclassifies the cold half of the diagram.
     expect(byId.get("habit-measurement-size")?.status).toBe("registered");
-    expect(byId.get("habit-measurement-size")?.value).toContain("21");
-    expect(byId.get("habit-measurement-size")?.source).toContain("slowest-developing");
+    expect(byId.get("habit-measurement-size")?.prose.value).toContain("21");
+    expect(byId.get("habit-measurement-size")?.prose.source).toContain("slowest-developing");
 
     // Domain: measured AT the registered extent. WP3's whole sequencing lesson is in that word.
     expect(byId.get("domain-budgets")?.status).toBe("registered");
-    expect(byId.get("domain-budgets")?.value).toContain("48");
-    expect(byId.get("domain-budgets")?.source).toContain("registered measurement extent");
+    expect(byId.get("domain-budgets")?.prose.value).toContain("48");
+    expect(byId.get("domain-budgets")?.prose.source).toContain("registered measurement extent");
     // And it must carry the two limits on its own transferability.
-    expect(byId.get("domain-budgets")?.source).toContain("re-measured");
-    expect(byId.get("domain-budgets")?.source).toContain("fastest-growing");
+    expect(byId.get("domain-budgets")?.prose.source).toContain("re-measured");
+    expect(byId.get("domain-budgets")?.prose.source).toContain("fastest-growing");
 
     // fill-CFL: adequate for class, NOT for volume. Both halves must survive together.
-    expect(byId.get("fill-cfl")?.value).toBe("0.1");
-    expect(byId.get("fill-cfl")?.source).toContain("8.7%");
-    expect(byId.get("fill-cfl")?.source).toContain("NOT adequate");
+    expect(byId.get("fill-cfl")?.prose.value).toBe("0.1");
+    expect(byId.get("fill-cfl")?.prose.source).toContain("8.7%");
+    expect(byId.get("fill-cfl")?.prose.source).toContain("NOT adequate");
 
     // The charter asks for the residual tolerance AND ITS NORM.
-    expect(byId.get("residual-tolerance")?.value).toContain("1e-9");
-    expect(byId.get("residual-tolerance")?.value).toContain("SUCCESSIVE-ITERATE CHANGE");
-    expect(byId.get("div-tol")?.value).toContain("RELATIVE");
+    expect(byId.get("residual-tolerance")?.prose.value).toContain("1e-9");
+    expect(byId.get("residual-tolerance")?.prose.value).toContain("SUCCESSIVE-ITERATE CHANGE");
+    expect(byId.get("div-tol")?.prose.value).toContain("RELATIVE");
 
     // Ensemble size 1 is a consequence of noise = 0, not an independent choice; if noise ever
     // becomes nonzero this pairing must be revisited, so they are asserted together.
-    expect(byId.get("noise-amplitude")?.value).toContain("0");
-    expect(byId.get("seed-ensemble-size")?.value).toContain("1");
-    expect(byId.get("seed-ensemble-size")?.source).toContain("noise-amplitude = 0");
+    expect(byId.get("noise-amplitude")?.prose.value).toContain("0");
+    expect(byId.get("seed-ensemble-size")?.prose.value).toContain("1");
+    expect(byId.get("seed-ensemble-size")?.prose.source).toContain("noise-amplitude = 0");
 
     // Δx is registered, but its row must keep saying that the value is not converged — the
     // number alone would read as a settled choice, which is exactly what it is not.
     expect(byId.get("dx")?.status).toBe("registered");
-    expect(byId.get("dx")?.source).toContain("does not converge");
+    expect(byId.get("dx")?.prose.source).toContain("does not converge");
   });
 
   it("enforces the frozen parameter table by content, not by promise", () => {
@@ -238,29 +247,29 @@ describe("the Phase 6 freeze list", () => {
     const scheme = PHASE6_FREEZE_LIST.find((item) => item.id === "uncertainty-reporting");
     expect(scheme?.status).toBe("registered");
     // The unconverged grid is carried by reporting BOTH classes, not by widening a bar.
-    expect(scheme?.value).toContain("classSurvivesGridExtrapolation");
-    expect(scheme?.source).toContain("CLASS ROBUSTNESS");
+    expect(scheme?.prose.value).toContain("classSurvivesGridExtrapolation");
+    expect(scheme?.prose.source).toContain("CLASS ROBUSTNESS");
     // The headline must be the CONSERVATIVE INTERSECTION. Counting agreement twice and quoting
     // the friendlier number is the failure mode a dual report invites.
-    expect(scheme?.value).toContain("CONSERVATIVE INTERSECTION");
-    expect(scheme?.value).toContain("BENEATH it, never as the top line");
-    expect(scheme?.value).toContain("not-extrapolatable");
+    expect(scheme?.prose.value).toContain("CONSERVATIVE INTERSECTION");
+    expect(scheme?.prose.value).toContain("BENEATH it, never as the top line");
+    expect(scheme?.prose.value).toContain("not-extrapolatable");
     const operator = PHASE6_FREEZE_LIST.find((i) => i.id === "grid-extrapolation-operator");
     expect(operator?.status).toBe("registered");
-    expect(operator?.value).toContain(String(PHASE6_EXTRAPOLATION_ORDER_WINDOW.lowest));
+    expect(operator?.prose.value).toContain(String(PHASE6_EXTRAPOLATION_ORDER_WINDOW.lowest));
     // The parameter-side uncertainties are swept, not folded in — they move the inputs, not
     // the measurement, so averaging them into one bar would hide a structural question.
-    expect(scheme?.source).toContain("NOT folded in");
-    expect(scheme?.source).toContain("WP4");
+    expect(scheme?.prose.source).toContain("NOT folded in");
+    expect(scheme?.prose.source).toContain("WP4");
     // The global qualifiers that must travel with every table.
     for (const qualifier of ["8.7%", "latent heating", "arm64"]) {
-      expect(scheme?.value, qualifier).toContain(qualifier);
+      expect(scheme?.prose.value, qualifier).toContain(qualifier);
     }
     // The measurement-extent systematic is now carried PER POINT as a fragility flag, not only
     // named as a global caveat — that is the section-B upgrade and it must not regress.
-    expect(scheme?.value).toContain("MEASUREMENT-EXTENT");
-    expect(scheme?.value).toContain("extent-fragile");
-    expect(scheme?.value).toContain(String(PHASE6_EXTENT_DRIFT_BOUND_AR));
+    expect(scheme?.prose.value).toContain("MEASUREMENT-EXTENT");
+    expect(scheme?.prose.value).toContain("extent-fragile");
+    expect(scheme?.prose.value).toContain(String(PHASE6_EXTENT_DRIFT_BOUND_AR));
   });
 
   it("registers the D6h-equivariant policy and departs from the runner default deliberately", () => {
@@ -569,13 +578,13 @@ describe("the registered sweep grid", () => {
   it("registers Delta-x on cost, and says out loud that it is not converged", () => {
     const dx = PHASE6_FREEZE_LIST.find((item) => item.id === "dx");
     expect(dx?.status).toBe("registered");
-    expect(dx?.value).toBe("0.35 µm");
+    expect(dx?.prose.value).toBe("0.35 µm");
     // The rule must be a COST rule, and must record that it was applied before any habit
     // result existed at the finer spacing — otherwise the choice is unfalsifiably tunable.
-    expect(dx?.source).toContain("COST rule");
-    expect(dx?.source).toContain("BEFORE any habit result");
+    expect(dx?.prose.source).toContain("COST rule");
+    expect(dx?.prose.source).toContain("BEFORE any habit result");
     // And it must not be mistaken for a converged value.
-    expect(dx?.source).toContain("NOT a converged value");
+    expect(dx?.prose.source).toContain("NOT a converged value");
   });
 });
 
@@ -589,10 +598,10 @@ describe("the near-boundary ambiguity band", () => {
     // not a value that merely resembles it. This is the whole guarantee: the band was fixed by
     // a rule written down before the grid, so it could not be chosen to suit any result.
     expect(PHASE6_AMBIGUITY_HALF_WIDTH_C).toBe(phase6AmbiguityHalfWidthC(PHASE6_T_GRID.spacingC));
-    expect(band?.value).toContain("1.0 °C");
-    expect(band?.value).toContain("28");
+    expect(band?.prose.value).toContain("1.0 °C");
+    expect(band?.prose.value).toContain("28");
     // And it must record that it suppresses agreement too, not only disagreement.
-    expect(band?.source).toContain("BOTH ways");
+    expect(band?.prose.source).toContain("BOTH ways");
   });
 
   it("adds WP1's measured reference uncertainty to half the T-grid spacing", () => {
@@ -774,13 +783,13 @@ describe("the engine decision", () => {
     expect(PHASE6_ENGINE_CONTROL.controlPoints).toBeNull();
     const floatItem = PHASE6_FREEZE_LIST.find((item) => item.id === "float-precision");
     expect(floatItem?.status).toBe("registered");
-    expect(floatItem?.value).toContain("float64 CPU oracle");
-    expect(floatItem?.value).toContain("never a gate criterion");
+    expect(floatItem?.prose.value).toContain("float64 CPU oracle");
+    expect(floatItem?.prose.value).toContain("never a gate criterion");
     // The source must carry WHY it was revised, so the retraction cannot quietly become a
     // preference: the measured numbers and the tolerance floor both belong in the record.
-    expect(floatItem?.source).toContain("32.9 s");
-    expect(floatItem?.source).toContain("below ONE float32 epsilon");
-    expect(floatItem?.source).toContain("RELATIVE");
+    expect(floatItem?.prose.source).toContain("32.9 s");
+    expect(floatItem?.prose.source).toContain("below ONE float32 epsilon");
+    expect(floatItem?.prose.source).toContain("RELATIVE");
   });
 
   it("registers a cross-platform reproducibility control", () => {
@@ -801,5 +810,111 @@ describe("the latent-heating decision", () => {
       { tempC: -10, chi0: 0.4 },
     ]);
     expect(PHASE6_LATENT_HEATING.correctionIfApplied).toContain("1 + chi_0");
+  });
+});
+
+describe("ADR 0033 — the values/justification split", () => {
+  it("preserves the legacy combined hash published evidence cites", () => {
+    // out/phase6-sweep/report.json records 8aeb2b80 as the protocol that produced it. The split
+    // refactor must leave that reproducible, or the fix destroys the evidence it exists to protect.
+    expect(canonicalJsonSha256(phase6ProtocolManifest())).toBe(PHASE6_PROTOCOL_SHA256);
+  });
+
+  it("pins both new hashes, with revision history", () => {
+    expect(canonicalJsonSha256(phase6ValuesManifest())).toBe(PHASE6_VALUES_SHA256);
+    expect(canonicalJsonSha256(phase6JustificationManifest())).toBe(PHASE6_JUSTIFICATION_SHA256);
+    for (const [revisions, current] of [
+      [PHASE6_VALUES_REVISIONS, PHASE6_VALUES_SHA256],
+      [PHASE6_JUSTIFICATION_REVISIONS, PHASE6_JUSTIFICATION_SHA256],
+    ] as const) {
+      expect(revisions[revisions.length - 1]?.sha256).toBe(current);
+      expect(new Set(revisions.map((r) => r.sha256)).size).toBe(revisions.length);
+    }
+    // Neither hash may appear inside the thing it hashes.
+    expect(JSON.stringify(phase6ValuesManifest())).not.toContain(PHASE6_VALUES_SHA256);
+    expect(JSON.stringify(phase6JustificationManifest())).not.toContain(PHASE6_JUSTIFICATION_SHA256);
+  });
+
+  it("the partition is exhaustive: every prose field is on the justification side only", () => {
+    // Structural, not a judgement: the prose fields are exactly the keys of `prose`.
+    for (const item of PHASE6_FREEZE_LIST) {
+      expect(Object.keys(item.prose).sort()).toEqual(["requirement", "source", "value"]);
+      expect(Object.keys(item).sort()).toEqual(["group", "id", "prose", "status"]);
+    }
+    // The values manifest must not carry prose CONTENT. Checked only for strings distinctive
+    // enough to mean something: the `pressure` row's requirement is the single word "pressure",
+    // which is a substring of its own row id, and ids legitimately live on the values side. A
+    // one-word collision is not leakage, so the check is on prose of >= 30 characters — long
+    // enough that an appearance in the values manifest could only be a real leak.
+    const values = JSON.stringify(phase6ValuesManifest());
+    let checked = 0;
+    for (const item of PHASE6_FREEZE_LIST) {
+      // `prose.value` is DESCRIBED value, so it legitimately duplicates the constant it describes
+      // — `code-version`'s value is the freeze commit, which is also `freezeCommit` on the values
+      // side. Only `requirement` and `source` are checked for leakage; `prose.value` gets the
+      // consistency check below instead, which is the mitigation ADR 0033 committed to.
+      for (const text of [item.prose.source, item.prose.requirement]) {
+        if (text !== null && text.length >= 30) {
+          expect(values, `${item.id}: prose leaked into the values manifest`).not.toContain(text);
+          checked++;
+        }
+      }
+    }
+    // Guard the guard: if the length threshold ever excluded everything, this test would pass
+    // vacuously. Stated per-row rather than as a magic total so it does not go stale when the
+    // field list changes — every row must contribute at least one distinctive prose string.
+    expect(checked).toBeGreaterThanOrEqual(PHASE6_FREEZE_LIST.length);
+
+    // ADR 0033's stated mitigation for the residual risk, for the rows where it is machine-
+    // checkable: a description must actually agree with the constant it describes, so that a
+    // description sitting on the justification side cannot silently drift from behaviour.
+    const byId = new Map(PHASE6_FREEZE_LIST.map((i) => [i.id, i]));
+    expect(byId.get("code-version")?.prose.value).toContain(PHASE6_PROTOCOL_FREEZE_COMMIT);
+    expect(byId.get("parameter-table")?.prose.value).toContain(PHASE6_PARAMETER_TABLE_SHA256);
+    expect(byId.get("param-set")?.prose.value).toContain(PHASE6_PARAM_SET);
+    expect(byId.get("far-field")?.prose.value).toContain(PHASE6_FAR_FIELD);
+    expect(byId.get("surface-policy")?.prose.value).toContain(PHASE6_SURFACE_POLICY);
+  });
+
+  it("MUTATING every justification changes only the justification hash — the derivation", () => {
+    // This is what ADR 0033's "a prose edit cannot change what evidence a run produces" rests on.
+    // Rule 6: a theorem word needs a derivation about the quantity it governs. The quantity is
+    // "what an evidence-producing path reads", and this mutation is what establishes it.
+    const mutated: Phase6FreezeItem[] = PHASE6_FREEZE_LIST.map((item) => ({
+      id: item.id,
+      group: item.group,
+      status: item.status,
+      prose: {
+        requirement: `MUTATED ${item.prose.requirement}`,
+        value: item.prose.value === null ? null : `MUTATED ${item.prose.value}`,
+        source: `MUTATED ${item.prose.source}`,
+      },
+    }));
+
+    // The justification hash MUST react — otherwise prose is not actually hashed at all.
+    expect(canonicalJsonSha256(phase6JustificationManifest(mutated))).not.toBe(
+      PHASE6_JUSTIFICATION_SHA256,
+    );
+
+    // ...and every evidence-producing consumer must be bit-identical.
+    expect(canonicalJsonSha256(phase6ValuesManifest(mutated))).toBe(PHASE6_VALUES_SHA256);
+    expect(phase6FreezeComplete(mutated)).toBe(true);
+    expect(phase6PendingFreezeItems(mutated).map((i) => i.id)).toEqual(
+      phase6PendingFreezeItems().map((i) => i.id),
+    );
+  });
+
+  it("a mutated VALUE does move the values hash, so the gate can actually fail", () => {
+    // A check that cannot fail is not a check. Flip one row's status and the values hash must move
+    // (and the manifest must refuse to exist at all, since the freeze is then incomplete).
+    const unfrozen: Phase6FreezeItem[] = PHASE6_FREEZE_LIST.map((item, index) =>
+      index === 0 ? { ...item, status: "pending" as const } : item,
+    );
+    expect(() => phase6ValuesManifest(unfrozen)).toThrow(/not frozen/);
+    // And a benign structural change — a renamed id — moves it without throwing.
+    const renamed: Phase6FreezeItem[] = PHASE6_FREEZE_LIST.map((item, index) =>
+      index === 0 ? { ...item, id: `${item.id}-renamed` } : item,
+    );
+    expect(canonicalJsonSha256(phase6ValuesManifest(renamed))).not.toBe(PHASE6_VALUES_SHA256);
   });
 });

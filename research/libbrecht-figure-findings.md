@@ -1,5 +1,35 @@
 # What the figures say — reading the ten Libbrecht papers as images
 
+> # ⚠ RETRACTION — §1's structural claim is WRONG (2026-07-29)
+>
+> An adversarial audit refuted the central claim of §1, and I have reproduced the refutation
+> independently. **Do not cite §1's "structural bound" or the phrase "no broad-facet
+> parameterization can express three habit boundaries."** Two separate errors:
+>
+> **1. The bound was computed on the wrong quantity.** Habit depends on the ordering of
+> `alphaHK = A·exp(−σ₀/σ_surf)`, which carries `A_prism`. §1 counted crossings of **σ₀ alone**, and
+> `app/scripts/phase6-libbrecht-closed-forms.mjs` fed its crossing finder only the σ₀ pair, silently
+> discarding `A_prism`. Recomputed with `A_prism` included, the printed `2009.08404v2` broad-facet
+> set has **THREE** αHK crossings for σ_surf ≈ 0.199–0.399 %, alternating plate/column/plate/column.
+> The registered `CAK` set likewise has three for σ_surf ∈ [0.00247, 0.00366] — **and 2 of the 204
+> sweep points sit inside that band.** So there is no bound of one, and it is not "independent of
+> diffusion": the count is a function of σ_surf, which diffusion sets.
+>
+> **2. `log` in the M1 dip formulas is base-10, not natural.** Using `Math.log` gave five crossings
+> at 3.70/6.25/8.46/9.93/18.62. With `log10` as printed there are **three**, at
+> **3.08 / 8.07 / 24.73** — much closer to the reference boundaries 3.3 / 9.9 / 21.5 than the number
+> I published.
+>
+> **What still stands.** The sweep's measured numbers are unaffected. Along the sweep's own
+> constant-`f` ladders the αHK reversal count is 1 at f = 0.10 and 0 at every larger `f` — never 3 —
+> so the model *as actually run* still produces at most one transition, and "this parameterization
+> does not reproduce the Nakaya diagram" survives. What is refuted is the **necessity** argument:
+> that no broad-facet model *could*. That was the strongest thing I claimed and it is not true.
+>
+> §9's probes and §10's source quotes are separately qualified below; see also the audit's finding
+> that §10.1's ρ_aspect comparison is cherry-picked (the sweep's −5 °C row has 3 of 6 points above
+> ρ > 1 and none a plate, while §10.1 shows only the isometric point).
+
 `research/libbrecht-later-papers.md` obtained ten papers and stated plainly that their "contents
 are unread except where noted". This document is the reading. It is separate from that index
 because the index records *what was obtained* and this records *what it says*.
@@ -22,12 +52,20 @@ results — the full sweep re-runs."* Acting on any of this is an ADR-level deci
 
 ---
 
-## 1. The headline: a broad-facet model cannot express the Nakaya diagram, and this is structural
+## 1. ~~The headline: a broad-facet model cannot express the Nakaya diagram, and this is structural~~ RETRACTED
 
-A habit boundary requires the basal and prism attachment coefficients to swap order — that is, a
-σ₀ crossing. So **the number of σ₀ crossings is a hard upper bound on the number of habit
+**This entire section is retracted — see the notice at the head of the document.** It is kept
+unedited below (with corrections marked) so that anything built on it can be traced, not because any
+of its reasoning should be reused. The corrected treatment is in
+[`../app/scripts/phase6-libbrecht-closed-forms.mjs`](../app/scripts/phase6-libbrecht-closed-forms.mjs)
+§3, which prints σ₀ crossings and αHK order swaps side by side.
+
+~~A habit boundary requires the basal and prism attachment coefficients to swap order — that is, a
+σ₀ crossing.~~ **The first clause is right; "that is, a σ₀ crossing" is the error.** The swap
+condition is `ln A_prism(t) = (σ₀_prism − σ₀_basal)/σ_surf`, which equals a σ₀ crossing only when
+`A_prism = 1`. ~~So **the number of σ₀ crossings is a hard upper bound on the number of habit
 transitions a model can produce**, independent of diffusion, grid spacing, seed shape, far-field
-condition, or domain size.
+condition, or domain size.~~ **Neither a bound nor independent: the count is a function of σ_surf.**
 
 Computed from the printed closed forms:
 
@@ -36,13 +74,18 @@ Computed from the printed closed forms:
 | this project's digitized anchors | **1** | 10.00 |
 | `2306.13087v1` M2, broad facets (p7) | **1** | 8.39 |
 | `2009.08404v2` Eq. (2)/(3), broad facets (p3) | **1** | 10.92 |
-| `2306.13087v1` M1, **with both SDAK dips** (p6) | **5** | 3.70, 6.25, 8.46, 9.93, 18.62 |
+| `2306.13087v1` M1, **with both SDAK dips** (p6) | ~~5~~ **3** | ~~3.70, 6.25, 8.46, 9.93, 18.62~~ **3.08, 8.07, 24.73** — `log` is base-10 |
 
-The digitized Nakaya diagram has **three** boundaries (3.3, 9.9, 21.5). Every broad-facet
-parameterization ever printed for this model yields **one** crossing, all three landing between
-−8.4 and −10.9 °C. The two SDAK dips are what supply the rest.
+The digitized Nakaya diagram has **three** boundaries (3.3, 9.9, 21.5). ~~Every broad-facet
+parameterization ever printed for this model yields **one** crossing~~ — true of σ₀, **false of the
+αHK ordering that actually sets habit**: the printed `2009.08404v2` set reaches three αHK swaps for
+σ_surf ≈ 0.199–0.399 %, and the registered `CAK` set for σ_surf ∈ [0.00247, 0.00366].
 
-**This explains the WP2 sweep result at the level of mechanism.** The sweep scored 5/90, with
+**STALE — these are the superseded `CAK_A1` sweep's numbers.** The registered `CAK` sweep scores
+**3/90** with `plates-warm` 3/6; see `phase6-sweep-report.md`. The retraction at the head of this
+document withdraws the mechanism claim itself. Original text follows.
+
+~~This explains the WP2 sweep result at the level of mechanism.~~ The sweep scored 5/90, with
 `columns` 0/24 and `plates-cold` 0/60, and each failing band contains exactly one SDAK dip:
 
 | Nakaya band | sweep | SDAK dip centre, printed |
@@ -104,10 +147,19 @@ Caption to Figure 2, `2009.08404v2` p3:
 > "The present paper focuses on temperatures between -10 C and -30 C, **where 𝐴_basal ≈ 𝐴_prism
 > ≈ 1**."
 
-So in the `plates-cold` band (−9.9…−21.5 °C), `CAK` and `CAK_A1` are the *same model* — Eq. (5)
+~~So in the `plates-cold` band (−9.9…−21.5 °C), `CAK` and `CAK_A1` are the *same model* — Eq. (5)
 gives 0.968 at (Tm−T)=15. **The registered-vs-executed `A_prism` mismatch cannot explain 0/60
 there.** It can only bite between roughly −2 and −9 °C, which is where the −8 °C spot-check moved
-plate → neutral (AR 0.5789 → 0.7895).
+plate → neutral (AR 0.5789 → 0.7895).~~
+
+> **CORRECTED 2026-07-29 (audit).** "The same model" is false as stated, and measurably so. Of the
+> 72 points in −10…−21 °C, **11 differ** between the two `points.json` files, with **max |ΔAR| =
+> 0.1092**. `A_prism` reaches 1 only at (Tm−T) = 15: it is **0.830 at −10 °C**, 0.864 at −11, 0.898
+> at −12, 0.966 at −14. So the sets coincide only from about −15 °C colder, and the mismatch's reach
+> is roughly −2 to −14 °C rather than −2 to −9 °C. It remains true that **no `plates-cold` point
+> changed CLASS** — the band is 0/60 under both sets — which is the conclusion that mattered, but
+> the stronger "same model" phrasing was wrong.
+
 
 And the executed `CAK_A1` choice matches M1's own documented simplification (`2306.13087v1` p6):
 
@@ -323,7 +375,13 @@ The parameterization, and what the second branch is for (p9):
 > "Using the sum of two nucleation processes is a convenient parameterization to include what we
 > have called the '**SDAK-2**' phenomenon at the higher temperatures."
 
-So `α_prism = A1·exp(−σ₀,1/σ_surf) + A2·exp(−σ₀,2/σ_surf)` (their Eq. 32).
+So `α_prism = A1·exp(−σ₀,1/σ_surf) + A2·exp(−σ₀,2/σ_surf)`.
+
+> **CORRECTED 2026-07-29.** That was presented as "their Eq. 32" and it is **not** — the printed
+> Eq. 32 carries a Gibbs–Thomson term in BOTH exponent denominators, which the transcription above
+> silently dropped. The two-branch (A, σ₀) structure and Table 1's values are unaffected, but the
+> expression as written is this project's simplification, not the source's equation, and must not be
+> cited as Eq. 32. Anyone implementing the SDAK arm from this must read p9 directly.
 
 **σ₀ in this table is a FRACTION, not a percent**, and branch 1 is the broad-facet kinetics. Both
 follow from the table reproducing the dedicated measurement papers exactly:
@@ -498,19 +556,48 @@ He also states the conflict explicitly (p11): the broad-facet model's plate pred
 "contradicts a well-established rule from the morphology diagram, suggesting that only columnar
 crystals are produced at -5 C."
 
-**𝜌_aspect = H/R is thickness/width — the same quantity as our AR.** So his measurements are
-directly comparable to the probes in §9:
+### CORRECTED 2026-07-29 — the comparison below was cherry-picked, and the claim is withdrawn
 
-| | ρ_aspect / AR |
-|---|---|
-| Libbrecht, −5 °C substrate, low σ_surf | 0.1–1.0; ρ ≈ 0.5 typical; **columns absent**; "blockier, nearly isometric" common |
-| our `CAK_A1` at −5 °C | 0.3821 |
-| our `CAK` at −5 °C | **1.0000** — isometric |
+**`ρ_aspect = H/R` may not be exactly our AR.** The halves cancel — `H/R` = half-thickness/radius =
+thickness/diameter, and our `AR = zExtent/tExtent` is thickness/width — **but only if his `R` is the
+circumradius.** Our `tExtent = max(xSpan, ySpan)`, which on this lattice (`x = i + j/2`,
+`y = j√3/2`) is the **corner-to-corner** diameter `2a`. If "effective radius" means an equal-area
+radius (`0.909a`) then ρ is ~10% larger than our AR. He does not define it in that sentence. The
+equivalence is **unverified**, not established.
 
-**The sweep is not failing to reproduce reality. It is reproducing Libbrecht's own broad-facet
-measurements while disagreeing with the Nakaya diagram — which is exactly what he says a
-broad-facet model does.** Note also that his columnar threshold is ρ > 1 where the registered
-criterion is AR ≥ 1.5; under *his* threshold our `CAK` −5 °C result sits exactly on the boundary.
+**And the previous version of this section showed one point out of six.** Here is the whole −5 °C
+row from `out/phase6-sweep/points.json`:
+
+| f | 0.10 | 0.15 | 0.25 | 0.40 | 0.60 | 0.90 |
+|---|---|---|---|---|---|---|
+| AR | 0.7895 | 1.0000 | 1.0000 | **1.1053** | **1.2353** | **1.3125** |
+| class | neutral | neutral | neutral | neutral | neutral | neutral |
+| above his ρ > 1? | no | no | no | **yes** | **yes** | **yes** |
+
+Libbrecht measured `0.1 < ρ_aspect < 1` at −5 °C with "**Columnar crystals (with ρ_aspect > 1) were
+absent**" and thick plates "the norm" at ρ ≈ 0.5. **Our −5 °C row has three of six points above his
+ρ > 1 threshold and not one plate anywhere.** The earlier table quoted only f = 0.15 — the single
+value that matched his description.
+
+**So the claim "the sweep is reproducing Libbrecht's own broad-facet measurements" is WITHDRAWN.**
+It does not reproduce them: he found plates and no columns, the model produces neither. The honest
+statement is narrower and less satisfying:
+
+> At −5 °C the model produces **no habit at all** — six neutral points spanning AR 0.79–1.31. That
+> disagrees with the Nakaya diagram, which wants columns, *and* with Libbrecht's own substrate
+> measurements, which found plates.
+
+**Two further reasons the comparison was never clean**, neither disclosed in the earlier version:
+
+- **His −5 °C substrate runs are not the model's configuration.** He nucleated "a crowded field of
+  crystals on a substrate and simply let them grow larger, as diffusion effects then readily lower
+  σ_surf" (p13). The model is a single isolated crystal with a monopole-matched far field. Crowded
+  substrate growth and isolated growth are different diffusion problems.
+- **The same paper reports columns at −5 °C**, in free fall and on a substrate when started at high
+  σ∞ — "the model predicts that we should be able to observe columnar growth on a substrate in air
+  at -5 C, provided we just start the experiment with a sufficiently high sigma_inf" (p16). Quoting
+  only the no-columns result made his position look one-sided when it is explicitly conditional on
+  growth history.
 
 ### 10.2 Producing columns needs three things, and two are hard for this architecture
 

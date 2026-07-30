@@ -50,7 +50,7 @@ Nothing here is a pass/fail gate on the Mac. Both outcomes are publishable; only
 ## Tier 1 — the libm fingerprint (seconds)
 
 Bitwise-exact values of every transcendental-dependent quantity above, at 1 °C spacing across the
-whole Nakaya range plus the three digitized boundaries and both fixture temperatures — 448
+whole Nakaya range plus the three digitized boundaries and every fixture temperature — 448
 entries, printed as raw float64 bit patterns so nothing can hide in a rounded decimal.
 
 ```sh
@@ -61,10 +61,17 @@ node runner/src/main.ts phase6-fixture
 Compare the last line against the registered x64 baseline:
 
 ```
-PHASE6 LIBM DIGEST: 560aeaf7
+PHASE6 LIBM DIGEST: 2a9f64b3
 ```
 
 measured on **win32 x64, Node v24.13.1, V8 13.6.233.17-node.40**.
+
+> **Re-issued 2026-07-28 by ADR 0031**, `560aeaf7` → `2a9f64b3`. The fingerprint previously sampled
+> `nucleationAPrism` and `alphaHK` at a hard-coded `"CAK_A1"`, under which `nucleationAPrism`
+> returns a constant 1 at every temperature — so it fingerprinted a code path the sweep does not
+> ship and exercised nothing of the A_prism interpolation. It now samples the registered
+> `PHASE6_PARAM_SET`. **Any arm64 digest recorded against `560aeaf7` is not comparable to this
+> one** and must be re-measured.
 
 If the digests match, the two platforms agree on every physics input bit for bit, and no
 downstream difference can be attributed to libm. If they differ, redirect the full output to a
@@ -88,38 +95,68 @@ the registered failure mode is a habit class flipping and the fixture has to sit
 actually being decided.
 
 ```sh
-node runner/src/main.ts grow-lk --temp-c -5 --sigma-inf 0.007500 --dims 48,48,48 \
-  --dx-um 0.35 --cfl 0.1 --target-extent 21 \
-  --surface-policy aggregate-hv-g1h1-v6 --far-field monopole-matched --metrics-every 100000
+COMMON="--dims 48,48,48 --dx-um 0.35 --cfl 0.1 --target-extent 21 \
+  --surface-policy aggregate-hv-g1h1-v6 --far-field monopole-matched \
+  --param-set CAK --metrics-every 100000"
 
-node runner/src/main.ts grow-lk --temp-c -15 --sigma-inf 0.023550 --dims 48,48,48 \
-  --dx-um 0.35 --cfl 0.1 --target-extent 21 \
-  --surface-policy aggregate-hv-g1h1-v6 --far-field monopole-matched --metrics-every 100000
+# robust-plate            T =  -2 C, f = 0.10
+node runner/src/main.ts grow-lk --temp-c  -2 --sigma-inf 0.002000 $COMMON
+
+# robust-column           T = -28 C, f = 0.10
+node runner/src/main.ts grow-lk --temp-c -28 --sigma-inf 0.031500 $COMMON
+
+# fragile-plate-ceiling   T =  -3 C, f = 0.25
+node runner/src/main.ts grow-lk --temp-c  -3 --sigma-inf 0.007500 $COMMON
+
+# fragile-column-floor    T = -23 C, f = 0.15
+node runner/src/main.ts grow-lk --temp-c -23 --sigma-inf 0.037875 $COMMON
 
 # Also record, on the same machine:
 node --version && node -p "process.arch + ' ' + process.versions.v8"
 ```
 
-Cost on one core, from the x64 measurements: the warm point is minutes, the cold point tens of
-minutes. They are independent and can run concurrently.
+**`--param-set CAK` is mandatory and is the whole point of ADR 0031.** Omitting it silently falls
+back to the CLI default `CAK_A1`, which is what caused the first sweep to run a parameterization
+its own frozen protocol did not register. A run without this flag is not comparable to the
+baseline below and must be discarded.
+
+Cost on one core, from the x64 measurements: 20–35 minutes each. All four are independent and can
+run concurrently.
 
 ### The x64 baseline
 
-These are **not fresh runs**. They are the N = 48 rows of WP3's extent-21 domain ladder
-(`research/phase6-convergence.md` §1.2), whose conditions this fixture reproduces exactly — which
-is asserted in `runner/test/phase6-crossplatform.test.ts` so the two cannot drift apart.
+These are **not fresh runs**. They are rows taken verbatim from the ADR 0031 re-sweep's own
+`out/phase6-sweep/points.json` (protocol `8aeb2b80…`, commit `390fe35`, 204/204 with zero
+exclusions). ADR 0032's selection rule picks fixture points *from* the sweep's valid points, so
+they had already been measured — same arithmetic, with no chance of a separate run diverging.
 
 | point | T | σ∞ | steps | attached | `AR` | **habit** |
 |---|---|---|---|---|---|---|
-| warm | −5 °C | 0.007500 | 145 | 1513 | 0.3821 | **plate** |
-| cold | −15 °C | 0.023550 | 316 | 5161 | 1.1053 | **neutral** |
+| `robust-plate` | −2 °C | 0.002000 | 175 | 1313 | 0.263158 | **plate** |
+| `robust-column` | −28 °C | 0.031500 | 195 | 1171 | 2.33333 | **column** |
+| `fragile-plate-ceiling` | −3 °C | 0.007500 | 198 | 3157 | 0.684211 | **neutral** |
+| `fragile-column-floor` | −23 °C | 0.037875 | 248 | 3037 | **1.5** | **column** |
 
-Every one of those runs reported `symErr = 0`, `deltaSymClean = true`, and all relaxations
-converged; the arm64 run should report the same, and any difference in those flags is itself
-worth reporting.
+Every one reported `symErr = 0`, `deltaSymClean = true`, and all relaxations converged; the arm64
+runs should report the same, and any difference in those flags is itself worth reporting.
 
-The two points classify differently on purpose. A control whose points shared a habit class could
-not detect a flip in either.
+### The two pairs mean different things — never pool them (ADR 0032)
+
+**The robust pair** (`robust-plate`, `robust-column`) is the smallest and largest aspect ratio in
+the whole sweep. It spans plate/column with wide margins, so it asks: *does the pipeline agree
+across architectures at all?* **A difference here is serious** and points at something structural,
+not at a rounding tie.
+
+**The fragile pair** (`fragile-plate-ceiling`, `fragile-column-floor`) sits as close to the class
+thresholds as any point in the sweep. It asks: *is any habit class here decided by a last-ULP coin
+toss?* `fragile-column-floor` measured `AR` **exactly 1.5000** — an exact integer tie in lattice
+extents landing precisely on the column floor, so a single attached site either way changes its
+class. **A difference here is EXPECTED-POSSIBLE and is a finding, not a bug.** It would mean that
+classification was always a coin toss and must be reported as fragile.
+
+Report the two pairs separately. A robust pair agreeing while a fragile pair differs is the most
+informative outcome available, and collapsing them into one pass/fail destroys exactly that
+distinction.
 
 **Read the `habit` column first.** The other columns exist to locate a difference, not to be
 required to match.
