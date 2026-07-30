@@ -12,8 +12,11 @@
 
      sigma0_basal broad   0.02 * t^1.75 + 0.3              arXiv:2009.08404v2 p.3 Eq.(2)
      sigma0_prism broad   0.015 * t^2 + 0.02 * t^0.6       arXiv:2306.13087v1 p.7
-     basal dip            1 - 0.87 * exp(-(ln t - ln C_b)^2 / 0.07)   ibid. p.6, C_b = 4.5
-     prism dip            1 - 0.95 * exp(-(ln t - ln C_p)^2 / 0.06)   ibid. p.6, C_p = 14.4
+     basal dip            1 - 0.87 * exp(-(log10 t - log10 C_b)^2 / 0.07)  ibid. p.6, C_b = 4.5
+     prism dip            1 - 0.95 * exp(-(log10 t - log10 C_p)^2 / 0.06)  ibid. p.6, C_p = 14.4
+
+   The log is BASE 10. This file used natural log until 2026-07-29; that bug
+   changed every score below and is corrected here.
 
    whichever sigma0 is LOWER is the face that grows, so basal-lower gives a
    column and prism-lower gives a plate. Scoring is ADR 0025's, the same rule
@@ -26,7 +29,13 @@
    with the diagram)" (project charter, section 2.7). So a high score at the
    default position is not evidence. It is the knob being where someone put it
    to make the score high. That is why this project reports its no-SDAK sweep
-   separately, and why that sweep scored 5 of 90.
+   separately. STATUS of that sweep, as of 2026-07-29: the standing headline is
+   3 of 90 (research/phase6-sweep-report.md). An earlier run of the same sweep
+   measured 5 of 90 and was INVALIDATED by ADR 0031 — an unregistered CLI default
+   supplied a parameter set violating a registered freeze row — so 5 of 90 is
+   withdrawn, not merely superseded. And the 3 of 90 is NOT yet gate evidence:
+   the report says so in bold, WP5 has not run, and no independent verifier has
+   reproduced it. Phase 6 is still in development.
 
    WHAT THIS IS NOT
    This strip is a SIMPLIFIED PREDICTOR — it asks only which sigma0 curve is
@@ -34,9 +43,10 @@
    one humidity level rather than six, so it scores out of 15 counting
    temperatures where the project's registered sweep scores out of 90. The two
    numbers are not interchangeable and are never presented as if they were.
-   Measured here: no dips at all scores 1 of 15; the published dip centres score
-   11 of 15; the best any slider position reaches is 14 of 15, at basal 5.0 and
-   prism 14.8.
+   Measured here, with the corrected base-10 log: no dips at all scores 1 of 15,
+   and the published dip centres score 15 of 15 — a perfect match, which is the
+   whole point. Nothing was discovered by that; the centres were placed where
+   they are in order to land there.
 
    Nothing here is a claim about nature. It is a demonstration of a reasoning
    error, run on real equations so the reader can check that the trap is real.
@@ -60,8 +70,12 @@
 
   const basalBroad = (t) => 0.02 * Math.pow(t, 1.75) + 0.3;
   const prismBroad = (t) => 0.015 * t * t + 0.02 * Math.pow(t, 0.6);
+  // The log in the printed dip formulas is BASE 10, not natural. This file used
+  // Math.log until 2026-07-29; that bug inflated the crossing count and every
+  // score quoted in the header comment. See the correction in
+  // app/scripts/phase6-libbrecht-closed-forms.mjs and anim-sigma0.js.
   const dip = (t, centre, depth, width) =>
-    1 - depth * Math.exp(-Math.pow(Math.log(t) - Math.log(centre), 2) / width);
+    1 - depth * Math.exp(-Math.pow(Math.log10(t) - Math.log10(centre), 2) / width);
 
   function habitAt(t, cB, cP, useDips) {
     const b = basalBroad(t) * (useDips ? dip(t, cB, 0.87, 0.07) : 1);
@@ -199,8 +213,8 @@
       /* ---- narration ---- */
       if (mode === "free") {
         status.textContent =
-          "Drag the two dip positions until the model matches nature. You can reach 14 of 15 — " +
-          "but notice that you can see the score the whole time you are tuning.";
+          "Drag the two dip positions until the model matches nature. A perfect 15 of 15 is " +
+          "reachable — but notice that you can see the score the whole time you are tuning.";
       } else if (mode === "frozen") {
         status.textContent =
           `Frozen at basal ${frozen.cB.toFixed(2)} °C, prism ${frozen.cP.toFixed(2)} °C — ` +
@@ -257,7 +271,8 @@
         note.textContent =
           "Turn the dips off entirely and this strip scores 1 of 15. That is the arrangement " +
           "the project actually registered and ran — as a full 3-D sweep over six humidity " +
-          "levels, where it scored 5 of 90.";
+          "levels, where it scored 3 of 90. Even that number is not finished evidence: the " +
+          "report carrying it says so, because no independent verifier has reproduced it yet.";
         bar.appendChild(note);
       }
     }

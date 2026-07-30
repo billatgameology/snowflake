@@ -139,7 +139,8 @@
           exactly B</em>; the variants only say how strictly &mdash;
           <code>toBeCloseTo(B,&nbsp;5)</code> is <em>to five decimal places</em>,
           <code>toBeGreaterThan(B)</code> is <em>more than B</em>, <code>toContain(B)</code> is
-          <em>B is among them</em>. And <code>it("&hellip;")</code> holds one test's claim as an
+          <em>B is among them</em>, and <code>toThrow(&hellip;)</code> is <em>the call must refuse
+          to answer at all</em>. And <code>it("&hellip;")</code> holds one test's claim as an
           English sentence, so that a failure prints the claim rather than a line number.
         </p>
         <p>
@@ -309,7 +310,7 @@
         answer to the same equations. Notice what the test file refuses to do. Rather than
         transcribe the monograph's printed solution it re-solves the problem from scratch, and says
         why: &ldquo;Nothing in this function comes from Eqs. 3.33-3.36, so agreeing with it is real
-        evidence.&rdquo; Copying a formula out of a book and confirming your code agrees with the
+        evidence.&rdquo; Copying a formula out of a book and confirming the code agrees with the
         book proves nothing.
       </p>
 
@@ -595,8 +596,12 @@
         So the strong tests compute the expected answer a second time, by a different route, using
         none of the production code's internals. One is titled in capitals:
         <code>it("NON-TAUTOLOGICAL: the ledger delta equals independently recomputed kinetic demand")</code>.
-        It rebuilds the expected growth from public fields and raw physics functions, and draws the
+        It rebuilds the expected growth from <strong>public fields</strong> &mdash; the numbers the
+        solver publishes to anyone who asks, as opposed to its private working &mdash; and from raw
+        physics functions, and draws the
         line: &ldquo;Neither solver rate cache nor ledger internals enter the expected value.&rdquo;
+        (A <em>cache</em> is a number the solver worked out once and kept; reading one back would be
+        asking the solver rather than checking it.)
         It also insists on being run somewhere difficult: it fails if the run never hits a step
         where demand has to be <strong>clipped</strong> &mdash; cut back, because a cell was asked
         to freeze more vapour than was actually there. Clipping is where the historical bug lived.
@@ -657,7 +662,9 @@
       <p>
         Rule&nbsp;9 states it &mdash; &ldquo;A harness that silently ignores an unrecognized field in
         a status line is fail-open and invalid evidence&rdquo; &mdash; and then names the incident
-        that bought it. A calibration probe read the solver's status lines looking for
+        that bought it. A calibration probe read the solver's <strong>status lines</strong> &mdash;
+        the one-line summaries a run prints as it goes, each of them a list of
+        <code>name=value</code> readings &mdash; looking for
         <code>symErr=</code>. It found it, it was zero, the probe was satisfied. Sitting in the same
         line, unread, was <code>deltaSymClean=false</code>: a flag reporting a real solver defect.
         The probe was not lying. It had no opinion about a field it was never told to look for, and
@@ -669,7 +676,8 @@
         <div class="anim__head">
           <p class="anim__title">Break the harness</p>
           <p class="anim__sub">
-            Feed a status line to two parsers. The fail-open one reports on the field it knows about.
+            Feed a status line to two <strong>parsers</strong> &mdash; the parts of a program that
+            read a line of text and pull the values out of it. The fail-open one reports on the field it knows about.
             The fail-closed one refuses anything it was not told to expect. Try the second preset:
             it reconstructs the two fields the record actually names. Then register
             <code>deltaSymClean</code> and watch the fail-closed verdict change from <em>I do not
@@ -873,7 +881,9 @@
 
       <p>
         Note how much of that file is about arguments rather than physics. A <code>--noise</code>
-        value of <code>NaN</code> or <code>-1</code> used to run as a silent noise-off while writing
+        value of <code>-1</code>, or of <code>NaN</code> &mdash; <em>not a number</em>, the non-answer
+        a machine hands back when it is asked for something impossible like zero divided by zero
+        &mdash; used to run as a silent noise-off while writing
         false metadata into the record; now the parser rejects it for every run, gate or not. A
         <code>--stop-check-every</code> of <code>0</code> is rejected too, along with a fractional
         <code>--metrics-every</code> and a <code>NaN</code> <code>--symmetry-every</code>, under a

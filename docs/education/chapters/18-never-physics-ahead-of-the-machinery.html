@@ -170,16 +170,37 @@
       <p>
         One word needs pinning down before the table, because the rest of Part Two leans on it hard.
         A <strong>gate</strong> is a written pass/fail condition, fixed before the work starts, that
-        a phase has to meet before its results are allowed to count as evidence. Chapter 14
-        introduced the gates as checks that block a phase from starting until the previous one has
-        met them, and from Phase 2a onward that is exactly how they behave: an automated metric, a
-        threshold registered in advance, a command anyone can re-run. Two of the nine rungs are not
-        like that, and the project says so in the same breath as the table &mdash; Phases 0 and 1
-        have no metric underneath them at all, which is what the section &ldquo;Two rungs no computer
-        can check&rdquo; below is entirely about. And <em>counting</em> is the load-bearing word
-        rather than <em>starting</em>: the dates at the end of this chapter show rungs closing out of
-        order, each time under a written exception. An unmet gate does not always stop the next
-        phase. It always stops that phase&rsquo;s own results from being cited.
+        a phase has to meet before its results are allowed to count as evidence. From Phase 2a
+        onward every one of them is an automated metric: a threshold registered in advance, a
+        measured value set against it, and a command anyone can re-run. That is the whole
+        definition. Later chapters shorten it &mdash; chapter 22 needs it in half a line &mdash; but
+        shortening is not redefining, and that sentence is what they mean.
+      </p>
+
+      <p>
+        Chapter 14 introduced a gate as a check that blocks a phase from starting until the previous
+        one has met it. That is what a gate usually does, and it is a fair picture of the ordinary
+        case, but it is not the rule &mdash; and two things about the table below will look like the
+        project breaking its own rule if you hold on to it. The load-bearing word is
+        <em>counting</em>, not <em>starting</em>. Take the two departures in turn.
+      </p>
+
+      <p>
+        First, Phases 0 and 1 have no metric underneath them at all. Their gates are still written
+        pass/fail conditions fixed before the work started &mdash; five things you have to be able to
+        do; one question you have to be able to answer with evidence &mdash; but no program can test
+        either, so the maker&rsquo;s word is the evidence, and the table says so on its own face
+        instead of dressing those rows up as measurements. That is a labelled exception, not a lapse,
+        and the section &ldquo;Two rungs no computer can check&rdquo; below is entirely about it
+        &mdash; including the part where the protocol that was supposed to supply Phase 1&rsquo;s
+        evidence was not run.
+      </p>
+
+      <p>
+        Second, the dates at the end of this chapter show rungs closing out of order: Phase 4&rsquo;s
+        gate closed on 2026-07-18, before Phase 2b&rsquo;s and Phase 3&rsquo;s, each time under a
+        numbered written exception. So an unmet gate did not stop the next phase from starting. What
+        it always stops is that phase&rsquo;s own results from being cited as evidence.
       </p>
 
       <p>
@@ -735,14 +756,16 @@
         first</strong> let Phase 3&rsquo;s development viewer finish without waiting for Phase 2b:
         the viewer draws whatever the solver hands it, so what it draws does not depend on which
         surface rule is running underneath. <strong>The second</strong> let Phase 4 start while Phase
-        3 was still waiting on an outside assertion and Phase 2b&rsquo;s evidence run was still
-        going &mdash; and it came with three conditions and an end date. The other phase&rsquo;s
+        3 was still waiting on an outside assertion &mdash; a sign-off the phase could not generate
+        for itself &mdash; and while Phase 2b&rsquo;s evidence run was still going. It came with three
+        conditions and an end date. The other phase&rsquo;s
         processes and artifacts are immutable; no claim may be borrowed from them; any correction
         upstream must be folded in and the run repeated before Phase 4&rsquo;s evidence counts; and
         &ldquo;the exception ends with Phase 4&rdquo;. <strong>The third</strong> is not about order
         at all. Phase 4 had begun in an isolated <strong>worktree</strong> &mdash; a second working
         copy of the repository, kept apart from the main one &mdash; and when that copy was folded
-        back in, the exception permitted the re-run evidence &ldquo;only on <code>main</code> in the
+        back in, the exception permitted Phase 4&rsquo;s second evidence run &mdash; the v2 run the
+        gate table&rsquo;s 2026-07-18 entry cites &mdash; &ldquo;only on <code>main</code> in the
         current Windows repository while preserving every isolation constraint on the separate Phase
         2b process and evidence&rdquo;. It moved <em>where</em> the work was allowed to happen, not
         <em>when</em>. After all three, the paragraph ends on the sentence this chapter opened with:

@@ -104,7 +104,7 @@
         </p>
         <div class="chapter-header__meta">
           <span>~18 min read</span>
-          <span>6 figures</span>
+          <span>7 figures</span>
           <span>5 interactives</span>
         </div>
       </header>
@@ -238,11 +238,54 @@
             <dt>&sigma;<sub>b</sub></dt><dd>the supersaturation the surface actually sees, solved so that the rate the surface demands and the rate the vapour can deliver agree</dd>
             <dt>&Delta;t</dt><dd>the length of this growth step, in seconds &mdash; and it is not a setting; see the next section</dd>
             <dt>&Delta;x</dt><dd>the lattice spacing (0.35&nbsp;&micro;m in this phase's runs)</dd>
-            <dt>H<sub>b</sub></dt><dd>a shape correction for the patch of surface one boundary cell stands for. For both kinds of flat face it is 1, cited straight from the monograph, so in these runs it changes nothing (docs/attachment-kinetics.md, lines 539&ndash;540). The two cases still need names, because which cell counts as which is exactly what goes wrong in the source audit at the end of this chapter. A boundary cell is labelled by its ice neighbours &mdash; the in-plane count first, then the count above and below. A cell resting on the flat top of a plate has none beside it in its own plane and ice directly beneath it: that is <code>[01]</code>, the basal case. A cell standing against a flat side wall has two beside it in its own plane and nothing above or below: that is <code>[20]</code>, the prism case</dd>
+            <dt>H<sub>b</sub></dt><dd>a shape correction for the patch of surface one boundary cell stands for. For both kinds of flat face it is 1, cited straight from the monograph, so in these runs it changes nothing (docs/attachment-kinetics.md, lines 539&ndash;540). The two cases still need names, because which cell counts as which is exactly what goes wrong in the source audit at the end of this chapter; the repository writes them <code>[01]</code> and <code>[20]</code>, and the figure just below draws what those labels are counting</dd>
           </dl>
         </div>
         <p class="equation__cite">docs/attachment-kinetics.md &sect;4.2; forward policy in project charter.md, line 265</p>
       </div>
+
+      <p>
+        Those two labels are worth half a minute now, because the audit at the end of this chapter
+        turns on them. Chapter 19 gave every cell eight neighbours: six in its own sheet, one
+        directly above, one directly below. A boundary cell is labelled by how many of those eight
+        are already ice &mdash; the in-plane count first, then the count above and below, the pair
+        written together in square brackets. That is the whole notation. What makes it worth drawing
+        is that the two flat faces of a crystal come out as counts that look nothing like each
+        other.
+      </p>
+
+      <figure class="chart" id="chart-facets">
+        <div class="chart__head">
+          <p class="chart__title">The two flat faces, counted</p>
+          <p class="chart__sub">
+            Each row is one boundary cell &mdash; the outlined one &mdash; drawn twice: its own
+            sheet seen from above, and the two cells directly above and below it. Count the ice
+            among the eight, in-plane first, and you have read the label.
+          </p>
+        </div>
+        <div class="chart__body"></div>
+        <figcaption class="chart__foot">
+          <span class="built-from">Original diagram. The scheme is the monograph's
+          <code>[HV]</code> notation as the repository records it &mdash; <em>H</em> the in-plane
+          attached count, <em>V</em> the vertical one, with <code>[01]</code> identified as basal
+          and <code>[20]</code> as prism (docs/attachment-kinetics.md, lines 320&ndash;322, and the
+          adopted policy table at lines 351&ndash;358). Neighbour positions use chapter 19's
+          real-space embedding of the triangular lattice; the ice fragments are schematic, drawn
+          only far enough to show which neighbours touch.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        The lower row is where the notation stops being arbitrary. In a triangular sheet a flat wall
+        is a straight close-packed row, and a cell resting against that row sits in the notch
+        between two of its cells &mdash; it touches both, never just one. Nothing is above or below
+        it, because those two neighbours are out in the vapour alongside the wall. So a flat side
+        face reads <code>[20]</code>. A flat top reads <code>[01]</code> for the mirror-image
+        reason: the cell sits in the first empty layer over the plate, so nothing in its own sheet
+        is ice yet, and its single ice neighbour is the plate surface directly beneath. Basal and
+        prism &mdash; the two flat faces Part One kept returning to &mdash; are those two labels,
+        and H<sub>b</sub> is 1 for both of them, which is why it drops out of the arithmetic above.
+      </p>
 
       <p>
         That accumulator is the seam &mdash; and the seam is not that one rule keeps a number and
@@ -557,8 +600,9 @@
         reaches the registered target of 60, which is why both runs record 61 rather than exactly
         60. Same far field &mdash; the outer wall of the box, held at a fixed supersaturation
         &mdash; at the same &sigma;<sub>&infin;</sub> = 0.002; same 101325&nbsp;Pa, same
-        0.35&nbsp;&micro;m lattice spacing, same <code>CAK_A1</code> nucleation parameter set,
-        seed 1, noise 0, fill-CFL 0.1, and the same convergence tolerances
+        0.35&nbsp;&micro;m lattice spacing, same <code>CAK_A1</code> nucleation parameter set
+        (one of the code's two named settings of the CAK curves, and the subject of the next
+        paragraph), seed 1, noise 0, fill-CFL 0.1, and the same convergence tolerances
         (docs/plans/phase-2b-v5p-parallel-retry.md, lines 47&ndash;51). Temperature alone differed.
       </p>
 
@@ -1784,6 +1828,158 @@
 
   render();
   Viz.onThemeChange(render);
+})();
+
+/* ===========================================================================
+   6. THE TWO FLAT FACES, COUNTED
+   Static diagram, no controls. Each boundary configuration is drawn twice —
+   the cell's own sheet seen from above, and the two cells directly above and
+   below it — so the [HV] label is READ OFF the two counts rather than
+   asserted. Reviewers could not see from the notation alone why "0 in-plane"
+   is the flat top, or why a flat side wall gives 2 and not 1; both facts are
+   visible once the triangular row is drawn.
+   Notation: docs/attachment-kinetics.md lines 320-322 ([HV], H in-plane,
+   V vertical; [01] basal, [20] prism) and the adopted policy table, lines
+   351-358. Positions use chapter 19's real-space lattice embedding.
+   ======================================================================== */
+(function () {
+  const root = document.getElementById("chart-facets");
+  if (!root) return;
+  const body = root.querySelector(".chart__body");
+
+  const W = 660, H = 312;
+  const U = 26;                        // lattice spacing, px
+  const R = 10;                        // drawn cell radius, px
+  const DY = U * Math.sqrt(3) / 2;     // gap between rows of a triangular sheet
+  const SHEET_X = 116, STACK_X = 268, BOX_X = 356;
+
+  const ROWS = [
+    {
+      kind: "basal", cy: 84,
+      title: "A cell resting on the flat top of a plate",
+      token: "[01]", name: "basal — the flat top and bottom",
+      counts: "0 ice in its own sheet, 1 above-or-below",
+    },
+    {
+      kind: "prism", cy: 240,
+      title: "A cell standing against a flat side wall",
+      token: "[20]", name: "prism — the flat sides",
+      counts: "2 ice in its own sheet, 0 above-or-below",
+    },
+  ];
+
+  function draw() {
+    body.innerHTML = "";
+    const c = Viz.colors();
+    const svg = Viz.createSvg(body, W, H, {
+      label: "Two boundary cells, each drawn twice. The first rests on the flat top of a plate: " +
+             "none of the six neighbours in its own sheet are ice, and the cell directly beneath " +
+             "it is, so its label is [01], the basal case. The second stands against a flat side " +
+             "wall: the wall is a straight row in its own sheet, and the cell sits in the notch " +
+             "between two of that row's cells so it touches both, with vapour directly above and " +
+             "below, so its label is [20], the prism case.",
+    });
+
+    /* `.annotation` gets a fill from the stylesheet, and a stylesheet rule beats an
+       SVG presentation attribute — so the colour has to go on the element's style. */
+    function txt(x, y, s, anchor, fill, big) {
+      const t = Viz.svgEl("text", {
+        class: "annotation", x: x, y: y, "text-anchor": anchor || "start",
+      });
+      t.style.fill = fill || c.inkSecondary;
+      if (big) {
+        /* px, like the stylesheet's own SVG text sizes — SVG geometry here is
+           laid out in user units, so a font that scaled with the root would
+           drift out of the box it is centred in. */
+        t.style.fontFamily = "var(--font-mono)";
+        t.style.fontSize = "18px";
+        t.style.fontWeight = "700";
+      }
+      t.textContent = s;
+      return t;
+    }
+    function bond(x1, y1, x2, y2) {
+      return Viz.svgEl("line", {
+        x1: x1, y1: y1, x2: x2, y2: y2, stroke: c.series[0], "stroke-width": 2.6,
+      });
+    }
+    function disc(cx, cy, kind) {
+      if (kind === "ice") {
+        return Viz.svgEl("circle", {
+          cx: cx, cy: cy, r: R, fill: c.series[0], "fill-opacity": 0.9,
+          stroke: c.ink, "stroke-width": 0.8,
+        });
+      }
+      if (kind === "self") {
+        return Viz.svgEl("circle", {
+          cx: cx, cy: cy, r: R, fill: c.surface, stroke: c.ink, "stroke-width": 2.2,
+        });
+      }
+      return Viz.svgEl("circle", {
+        cx: cx, cy: cy, r: R, fill: "none", stroke: c.ruleStrong,
+        "stroke-width": 1.2, "stroke-dasharray": "3 3",
+      });
+    }
+
+    // the six in-plane neighbour sites, at 60 degrees apart and all distance 1
+    const SITES = [[U, 0], [U / 2, -DY], [-U / 2, -DY], [-U, 0], [-U / 2, DY], [U / 2, DY]];
+
+    ROWS.forEach(function (row) {
+      const cy = row.cy;
+      svg.appendChild(txt(16, cy - 58, row.title, "start", c.ink));
+
+      /* --- view 1: the cell's own sheet, seen from above ------------------ */
+      if (row.kind === "prism") {
+        /* A flat prism wall is a straight close-packed row, with more ice behind
+           it. Two rows are enough to show that; the cell's own row is the first
+           empty one, so its two side neighbours are vapour. */
+        for (let k = -2; k <= 2; k++) svg.appendChild(disc(SHEET_X + k * U, cy - 2 * DY, "ice"));
+        for (let k = -3; k <= 2; k++) svg.appendChild(disc(SHEET_X + (k + 0.5) * U, cy - DY, "ice"));
+        svg.appendChild(bond(SHEET_X, cy, SHEET_X + U / 2, cy - DY));
+        svg.appendChild(bond(SHEET_X, cy, SHEET_X - U / 2, cy - DY));
+        svg.appendChild(disc(SHEET_X + U / 2, cy - DY, "ice"));   // over the bonds
+        svg.appendChild(disc(SHEET_X - U / 2, cy - DY, "ice"));
+        [[U, 0], [-U, 0], [-U / 2, DY], [U / 2, DY]].forEach(function (o) {
+          svg.appendChild(disc(SHEET_X + o[0], cy + o[1], "vapour"));
+        });
+      } else {
+        // the plate's top layer is the sheet BELOW this one, so this sheet is empty
+        SITES.forEach(function (o) {
+          svg.appendChild(disc(SHEET_X + o[0], cy + o[1], "vapour"));
+        });
+      }
+      svg.appendChild(disc(SHEET_X, cy, "self"));
+      svg.appendChild(txt(SHEET_X, cy + 48, "its own sheet", "middle", c.muted));
+
+      /* --- view 2: the two cells directly above and below ----------------- */
+      if (row.kind === "basal") svg.appendChild(bond(STACK_X, cy, STACK_X, cy + U));
+      svg.appendChild(disc(STACK_X, cy - U, "vapour"));
+      svg.appendChild(disc(STACK_X, cy + U, row.kind === "basal" ? "ice" : "vapour"));
+      svg.appendChild(disc(STACK_X, cy, "self"));
+      svg.appendChild(txt(STACK_X + 16, cy - U + 4, "above", "start", c.muted));
+      svg.appendChild(txt(STACK_X + 16, cy + U + 4, "below", "start", c.muted));
+      svg.appendChild(txt(STACK_X, cy + 48, "above and below", "middle", c.muted));
+
+      /* --- the label the two counts spell out ----------------------------- */
+      svg.appendChild(Viz.svgEl("rect", {
+        x: BOX_X, y: cy - 44, width: W - 16 - BOX_X, height: 88, rx: 8,
+        fill: c.sunken, stroke: c.rule, "stroke-width": 1,
+      }));
+      svg.appendChild(txt(BOX_X + 18, cy - 12, row.token, "start", c.ink, true));
+      svg.appendChild(txt(W - 30, cy - 14, "shape factor: 1", "end", c.muted));
+      svg.appendChild(txt(BOX_X + 18, cy + 12, row.name, "start", c.ink));
+      svg.appendChild(txt(BOX_X + 18, cy + 30, row.counts, "start", c.inkSecondary));
+    });
+
+    Viz.legend(body, [
+      { color: c.series[0], label: "ice" },
+      { color: c.ruleStrong, label: "empty site — vapour (dashed outline)" },
+      { color: c.ink, label: "the boundary cell being labelled (solid outline)" },
+    ]);
+  }
+
+  draw();
+  Viz.onThemeChange(draw);
 })();
 </script>
 </body>

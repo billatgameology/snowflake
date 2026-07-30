@@ -601,7 +601,9 @@
       <figure class="anim" id="fig-drift">
         <div class="anim__head">
           <p class="anim__title">Forge the drift</p>
-          <p class="anim__sub">Two real reports and one dial. Find a drift that makes the identity
+          <p class="anim__sub">Two real reports and one dial. The panel marks the digit where
+            injection and exchange part company and prints their difference on its own line, so the
+            crumb can be read rather than taken on trust. Find a drift that makes the identity
             balance &mdash; then find out that balancing the identity is not enough.</p>
         </div>
         <div class="anim__body"></div>
@@ -610,7 +612,8 @@
           <span class="built-from">Original interactive. Every number in the &ldquo;registered cold
           checkpoint&rdquo; scenario is transcribed from
           <code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md:20&ndash;29</code>,
-          at the full precision the ADR records and the prose above rounds: shell injection
+          at the full precision the ADR records, the prose above rounds, and the panel prints to
+          seven digits with the differing tail marked: shell injection
           3.679402302324622e-7, signed boundary exchange 3.679401162802118e-7, their difference
           1.1395225041344048e-13, ratio 3.097032516200489e-7, metered smoother drift
           &minus;1.1395225041344048e-13, over 643,055 active cells;
@@ -786,7 +789,11 @@
         number&rdquo; &mdash; is what a computer stores when a calculation has no answer at all:
         zero divided by zero, the square root of a negative, a measurement that was never taken. It
         is not a word and not an error message; it is a value that lives in a number's slot and can
-        be passed around like one. What makes it useful here is that it is deliberately contagious.
+        be passed around like one. You have met the three letters once already: chapter 15's
+        depletion panel prints the literal string
+        <code>undefined (NaN)</code> rather than invent a figure for a measurement it could not take
+        (<code>app/src/main.ts:807</code>). This is the value behind that string. What makes it
+        useful here is that it is deliberately contagious.
         Anything you do with a NaN comes back NaN, and every size comparison with it &mdash; greater
         than, less than, equal to &mdash; is false, including comparing it with itself. A threshold
         read out of slot 0 by mistake therefore cannot pass for a threshold. It poisons every sum it
@@ -802,8 +809,8 @@
         that stays vapour at a boundary site, and <strong>&mu;</strong> the melting rate that hands
         mass back (<code>core/src/params.ts:10&ndash;20</code>). &rho; is one number for the whole
         run; <code>ggThreshBeta</code>, &kappa; and &mu; each carry a value per slot, and the
-        monotonicity check below is applied to all three &mdash; though in both published presets
-        &kappa; and &mu; happen to use the same value in every slot, so only
+        monotonicity check below is applied to all three &mdash; though in all four published
+        presets &kappa; and &mu; happen to use the same value in every slot, so only
         <code>ggThreshBeta</code> varies from slot to slot.
       </p>
 
@@ -839,7 +846,7 @@
           the demo runs the monotonicity comparison on <code>ggThreshBeta</code> only, while the real validator runs
           the same comparison on &kappa; and &mu; as well
           (<code>core/src/params.ts:153</code> and <code>:217</code>);
-          the two presets are the published parameter sets at
+          the two loadable presets are two of the four published parameter sets at
           <code>core/src/params.ts:80&ndash;141</code>; the construction refusal is
           <code>solver-cpu/src/gg-solver.ts:240&ndash;243</code>.</span>
         </figcaption>
@@ -1506,14 +1513,38 @@
 
   function fmt(v) { return v === 0 ? "0" : v.toExponential(3); }
 
+  // The cold checkpoint's two totals first differ in their seventh significant digit, so four
+  // digits render them as the same string and the panel would be asserting a difference it does
+  // not show. Seven digits, with the tail that actually differs marked, keeps the comparison
+  // readable without asking anyone to compare sixteen digits by eye; the full-precision values are
+  // in the credit line below.
+  function markedPair(a, b) {
+    const sa = a.toExponential(6), sb = b.toExponential(6);
+    if (sa.length !== sb.length) return [sa, sb];
+    let i = 0;
+    while (i < sa.length && sa[i] === sb[i]) i++;
+    if (i >= sa.length) return [sa, sb];
+    function wrap(s) {
+      return s.slice(0, i) +
+        '<strong style="color:var(--ink-primary)">' + s.slice(i) + "</strong>";
+    }
+    return [wrap(sa), wrap(sb)];
+  }
+
   function state() {
     const drift = -MAGNITUDES[index];
     const bound = driftLimit(scenario.activeCells, SIGMA_INF);
+    const gap = scenario.injection - scenario.exchange;
     const twoTerm = Math.abs(scenario.injection - scenario.exchange) /
       Math.max(Math.abs(scenario.exchange), 1e-300);
     const threeTerm = Math.abs(scenario.injection + drift - scenario.exchange) /
       Math.max(Math.abs(scenario.exchange), 1e-300);
-    return { drift: drift, bound: bound, twoTerm: twoTerm, threeTerm: threeTerm };
+    return {
+      drift: drift, bound: bound, gap: gap, twoTerm: twoTerm, threeTerm: threeTerm,
+      // Does the claimed drift cancel the gap? True for the metered value on the cold
+      // checkpoint — and true by construction for the forgery, which is the lesson.
+      cancels: Math.abs(drift + gap) <= Math.abs(gap) * 1e-6,
+    };
   }
 
   function drawStrip(s) {
@@ -1597,12 +1628,19 @@
         "three-term identity closes.</span>";
     }
 
+    const pair = markedPair(scenario.injection, scenario.exchange);
     panel.innerHTML =
       '<div style="color:var(--ink-muted);letter-spacing:0.04em">' +
       scenario.name.toUpperCase() + "</div>" +
-      "<div>shell injection &nbsp;&nbsp;" + fmt(scenario.injection) + "</div>" +
-      "<div>surface exchange &nbsp;" + fmt(scenario.exchange) + "</div>" +
-      "<div>claimed drift &nbsp;&nbsp;&nbsp;&nbsp;" + fmt(s.drift) + "</div>" +
+      "<div>shell injection &nbsp;&nbsp;" + pair[0] + "</div>" +
+      "<div>surface exchange &nbsp;" + pair[1] + "</div>" +
+      "<div>difference &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + fmt(s.gap) +
+      '<span style="color:var(--ink-muted)"> &nbsp;&nbsp;injection &minus; exchange</span></div>' +
+      "<div>claimed drift &nbsp;&nbsp;&nbsp;&nbsp;" + fmt(s.drift) +
+      (s.cancels
+        ? '<span style="color:var(--ink-muted)"> &nbsp;&nbsp;same size as the difference, ' +
+          "opposite sign</span>"
+        : "") + "</div>" +
       '<div style="border-top:1px solid var(--rule);margin-top:0.4rem;padding-top:0.4rem">' +
       "two-term identity &nbsp;" +
       '<span style="color:' + (s.twoTerm < DIVTOL ? good : bad) + '">' +

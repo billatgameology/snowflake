@@ -498,8 +498,9 @@
           set's. Under the registered set the same warm configuration measures 1.0000, which is the
           figure chapters 28 and 29 use; that comes from the two calibration probes in
           <code>research/libbrecht-figure-findings.md</code> §9, which that file marks as
-          &ldquo;never citable as gate evidence&rdquo;. The cold figure is unchanged, because the two
-          parameter sets are the same model at &minus;15&nbsp;&deg;C. What the convergence study
+          &ldquo;never citable as gate evidence&rdquo;. The cold figure is unchanged, because the one
+          coefficient the two sets disagree about has climbed back to 1 by &minus;15&nbsp;&deg;C. What
+          the convergence study
           establishes is unaffected either way: the habit class is robust across domain size and the
           cell count under it is not, and that split is what carries forward rather than either
           value.</span>
@@ -538,8 +539,13 @@
         first validation sweep. So the warm figure here, 0.3821, is not the one chapter 28 reports. A
         run made afterwards at exactly this configuration — same box, same grid spacing, same wall,
         only the parameter set swapped — came out at exactly 1.0000, and the file recording it labels
-        it a calibration probe and never gate evidence. The cold figure is untouched: at
-        &minus;15&nbsp;&deg;C the two parameter sets are the same model.
+        it a calibration probe and never gate evidence. The cold figure is untouched, and it is worth
+        seeing how narrow that exemption is. The prism coefficient the two parameter sets disagree
+        about is throttled hardest at &minus;5&nbsp;&deg;C and climbs back to 1 by
+        &minus;15&nbsp;&deg;C, so at that one temperature the two sets really are the same model. They
+        are not the same model at &minus;10&nbsp;&deg;C, where it still sits at 0.83 &mdash; and ADR
+        0031 carries a dated audit note striking out an earlier sentence of its own that claimed the
+        whole cold band was exempt. Even the record correcting the sweep needed correcting.
       </p>
 
       <p>
@@ -1775,8 +1781,8 @@
 
     [
       "Aspect ratio is identical at all five domains — 0.3821 warm, 1.1053 cold. Only the count under it moved.",
-      "Both are the earlier paramSet CAK_A1 values, later replaced by ADR 0031: under the registered set the",
-      "warm point measures 1.0000 (a probe, not sweep evidence). The split — class robust, count not — carries forward.",
+      "Both were measured under paramSet CAK_A1, which ADR 0031 replaced. Under the registered set the warm value",
+      "becomes 1.0000 (a probe, not gate evidence) and the cold one is unchanged. Class robust, count not: that carries.",
     ].forEach(function (line, li) {
       var foot = Viz.svgEl("text", {
         x: 10, y: H - 44 + li * 14, fill: c.muted, "font-size": 10.5,

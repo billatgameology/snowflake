@@ -41,6 +41,8 @@
       <li><a href="#instability">Instability and branching</a></li>
       <li><a href="#habits">Shapes and habits</a></li>
       <li><a href="#measurement">Measurement and evidence</a></li>
+      <li><a href="#evidence">Part Two: the project&rsquo;s evidence vocabulary</a></li>
+      <li><a href="#machine">Part Two: the machine</a></li>
       <li><a href="#symbols">The symbols, in one place</a></li>
     </ol>
   </nav>
@@ -63,6 +65,16 @@
         <strong>explained</strong>, which is not always the first place it appears &mdash; several
         words are used in passing early on and unpacked properly much later, and the link takes you
         to the unpacking.
+      </p>
+
+      <p>
+        The first seven groups are the science of Part One. The last two are Part Two, which is about
+        a piece of software rather than about ice, and needs a second vocabulary almost none of which
+        is physics: words for what a number has earned, who checked it, and what a computed result is
+        and is not allowed to say. If a Part Two chapter footer sent you here, those two groups are
+        where you want to be &mdash;
+        <a href="#evidence">the project&rsquo;s evidence vocabulary</a> and
+        <a href="#machine">the machine</a>.
       </p>
 
       <aside class="callout callout--key">
@@ -972,6 +984,355 @@
       </div>
 
       <!-- ================================================================= -->
+      <h2 id="evidence">Part Two: the project&rsquo;s evidence vocabulary</h2>
+
+      <p>
+        Part Two is not about snowflakes. It is about an attempt to grow one in software and then find
+        out whether the attempt was any good, and the hard part of that turns out not to be the physics
+        but the bookkeeping: deciding in advance what would count as success, recording where every
+        borrowed number came from, and keeping &ldquo;the program ran correctly&rdquo; strictly apart
+        from &ldquo;the answer was right&rdquo;. These are the words for that.
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Where the project stands, since several of these entries name a status
+        </p>
+        <p>
+          The validation work &mdash; <strong>Phase&nbsp;6</strong> &mdash; is <strong>still in
+          development</strong>. Its first 204-point sweep scored 5 of 90 and has been
+          <strong>withdrawn</strong>, invalidated by decision record 0031. The corrected re-sweep has
+          run and reported <strong>3 of 90</strong>. Even that 3 is <strong>not yet gate
+          evidence</strong>: the sweep report says so about itself, in bold, because work package 5
+          &mdash; the independent re-derivation &mdash; has not run. <strong>Phase&nbsp;7 has not
+          started.</strong> Chapters <a href="./chapters/28-the-exam-result.html">28</a> and
+          <a href="./chapters/29-what-it-cost-and-what-is-open.html">29</a> are where that sits.
+        </p>
+      </aside>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The vocabulary of deciding what counts &mdash; who checked a number, what it has earned,
+            and what a result is not allowed to claim.
+          </caption>
+          <thead>
+            <tr><th>Term</th><th>In one sentence</th><th>Explained in</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ADR</strong> (decision record)</td>
+              <td>A numbered plain-text file recording one decision, its context and what it forecloses, written at the time and not rewritten afterwards &mdash; which is why Part Two can cite the reasoning behind a choice and not merely the choice.</td>
+              <td><a href="./chapters/14-what-we-are-building.html">14 &middot; What We Are Building</a></td>
+            </tr>
+            <tr>
+              <td><strong>ambiguity band</strong></td>
+              <td>A strip of &plusmn;1.0&nbsp;&deg;C either side of each reference boundary whose points are excluded from the headline count, because that close to a boundary the reference diagram itself cannot say which habit it expects.</td>
+              <td><a href="./chapters/27-sealing-the-envelope.html">27 &middot; Sealing the Envelope</a></td>
+            </tr>
+            <tr>
+              <td><strong>blocking gate</strong> vs <strong>diagnostic gate</strong></td>
+              <td>A blocking gate must pass before the next phase may start; a diagnostic gate only has to report its number, so a bad value there is a finding to publish rather than a stop.</td>
+              <td><a href="./chapters/24-watching-it-starve.html">24 &middot; Watching It Starve</a></td>
+            </tr>
+            <tr>
+              <td><strong>checkpoint</strong></td>
+              <td>The saved file holding the crystal and its fields at the end of a run, identified by the fingerprint of its own bytes so that &ldquo;the same run&rdquo; is a checkable claim rather than a memory.</td>
+              <td><a href="./chapters/18-never-physics-ahead-of-the-machinery.html">18 &middot; Never Physics Ahead of the Machinery</a></td>
+            </tr>
+            <tr>
+              <td><strong>CPU oracle</strong></td>
+              <td>The slow, readable solver, nominated to define the right answer for the fast graphics-card version because nothing else can &mdash; a stand-in for truth, and never deleted, since deleting it would leave the fast version unjudgeable.</td>
+              <td><a href="./chapters/25-testing-what-nobody-knows.html">25 &middot; Testing What Nobody Knows</a></td>
+            </tr>
+            <tr>
+              <td><strong>delta check</strong></td>
+              <td>The sixfold-symmetry test re-run after a change, so that a modification which quietly broke a symmetry already proved cannot pass unnoticed.</td>
+              <td><a href="./chapters/18-never-physics-ahead-of-the-machinery.html">18 &middot; Never Physics Ahead of the Machinery</a></td>
+            </tr>
+            <tr>
+              <td><strong>done when</strong></td>
+              <td>A phase&rsquo;s exit condition, written as a checkable condition before the phase starts, so that nobody gets to decide afterwards whether it was met.</td>
+              <td><a href="./chapters/18-never-physics-ahead-of-the-machinery.html">18 &middot; Never Physics Ahead of the Machinery</a></td>
+            </tr>
+            <tr>
+              <td><strong>Evidence</strong> (label)</td>
+              <td>One of the two labels every displayed quantity carries: <em>unvalidated</em>, <em>qualitatively supported</em>, or <em>quantitatively validated over a named domain</em> &mdash; and only Phase&nbsp;6 can grant the third, only where the comparison actually holds.</td>
+              <td><a href="./chapters/15-two-labels-on-every-number.html">15 &middot; Two Labels on Every Number</a></td>
+            </tr>
+            <tr>
+              <td><strong>exit code</strong></td>
+              <td>The small number a finished program hands back to the operating system. The Phase&nbsp;6 gate uses three, and 0 means &ldquo;this is evidence&rdquo;, <em>not</em> &ldquo;the model was right&rdquo;: a morphology miss still exits 0.</td>
+              <td><a href="./chapters/27-sealing-the-envelope.html">27 &middot; Sealing the Envelope</a></td>
+            </tr>
+            <tr>
+              <td><strong>extent-fragile</strong></td>
+              <td>A flag on a sweep point whose habit depends on size and which sits close enough to a class threshold that measuring at a slightly different size could move it; sixteen of the 204 points carry it.</td>
+              <td><a href="./chapters/14-what-we-are-building.html">14 &middot; What We Are Building</a></td>
+            </tr>
+            <tr>
+              <td><strong>fail-open</strong></td>
+              <td>A test harness that reports success when it is not actually testing anything &mdash; the failure mode in which green means the check never ran, and the reason a test that has never gone red is not yet known to be a test.</td>
+              <td><a href="./chapters/25-testing-what-nobody-knows.html">25 &middot; Testing What Nobody Knows</a></td>
+            </tr>
+            <tr>
+              <td><strong>freeze list</strong>, <strong>freeze row</strong></td>
+              <td>The list of everything that must be fixed before an experiment runs, one row per item; departing from a registered row does not produce a different result, it produces an invalid one.</td>
+              <td><a href="./chapters/27-sealing-the-envelope.html">27 &middot; Sealing the Envelope</a></td>
+            </tr>
+            <tr>
+              <td><strong>gate</strong></td>
+              <td>An automatic pass/fail check that blocks a phase from starting until the previous one has met it &mdash; a rule enforced by a program rather than by an intention.</td>
+              <td><a href="./chapters/14-what-we-are-building.html">14 &middot; What We Are Building</a></td>
+            </tr>
+            <tr>
+              <td><strong>gate evidence</strong></td>
+              <td>A number a gate is entitled to act on. The corrected sweep&rsquo;s 3 of 90 is <em>not</em> gate evidence and its own report says so in bold, because the independent re-derivation (work package 5) has not been done.</td>
+              <td><a href="./chapters/15-two-labels-on-every-number.html">15 &middot; Two Labels on Every Number</a></td>
+            </tr>
+            <tr>
+              <td><strong>headline scope</strong></td>
+              <td>The registered temperature range the headline number is counted over, &minus;2 to &minus;21.5&nbsp;&deg;C, fixed before the sweep ran so the band could not be chosen after somebody had seen the scores.</td>
+              <td><a href="./chapters/27-sealing-the-envelope.html">27 &middot; Sealing the Envelope</a></td>
+            </tr>
+            <tr>
+              <td><strong>held-out</strong> (test)</td>
+              <td>A comparison against something that was <em>not</em> used to build the model &mdash; the only kind of test that can fail informatively.</td>
+              <td><a href="./chapters/17-a-model-that-can-be-wrong.html">17 &middot; A Model That Can Be Wrong</a></td>
+            </tr>
+            <tr>
+              <td><strong>in-sample</strong></td>
+              <td>A comparison against the same data the model&rsquo;s numbers were fitted to, which therefore cannot fail and proves only that the arithmetic works.</td>
+              <td><a href="./chapters/17-a-model-that-can-be-wrong.html">17 &middot; A Model That Can Be Wrong</a></td>
+            </tr>
+            <tr>
+              <td><strong>invalid</strong> (vs <strong>failing</strong>)</td>
+              <td>A run that did not happen properly &mdash; failed to converge, broke D6h symmetry with noise off, or tripped the domain-contact guard &mdash; as against a run that happened properly and disagreed with the reference. Invalid runs are excluded <em>by name</em>, never dropped silently, because a pipeline that may drop runs it dislikes can be tuned by choosing what to dislike.</td>
+              <td><a href="./chapters/23-walls-that-pretend-to-be-sky.html">23 &middot; Walls That Pretend to Be Sky</a></td>
+            </tr>
+            <tr>
+              <td><strong>manifest</strong></td>
+              <td>The machine-built document listing every registered setting of a run, serialised one fixed way and hashed, so that a single changed byte is visible to anyone.</td>
+              <td><a href="./chapters/27-sealing-the-envelope.html">27 &middot; Sealing the Envelope</a></td>
+            </tr>
+            <tr>
+              <td><strong>negative control</strong></td>
+              <td>A break introduced on purpose to prove the test can go red; without one, a green test is only evidence that nothing tripped it.</td>
+              <td><a href="./chapters/25-testing-what-nobody-knows.html">25 &middot; Testing What Nobody Knows</a></td>
+            </tr>
+            <tr>
+              <td><strong>neutral</strong></td>
+              <td>The model&rsquo;s third outcome: an aspect ratio landing strictly between 0.6667 and 1.5, meaning neither a plate nor a column. The registered rule scores neutral as <em>disagreement</em>, and publishes the count separately so that &ldquo;wrong habit&rdquo; stays distinguishable from &ldquo;no habit&rdquo;.</td>
+              <td><a href="./chapters/27-sealing-the-envelope.html">27 &middot; Sealing the Envelope</a></td>
+            </tr>
+            <tr>
+              <td><strong>oracle</strong> (the oracle problem)</td>
+              <td>In testing, whatever tells you the right answer &mdash; the 4 in <code>add(2, 2)</code>. The oracle problem is having none, which is exactly the position of a program computing something nobody has ever measured.</td>
+              <td><a href="./chapters/25-testing-what-nobody-knows.html">25 &middot; Testing What Nobody Knows</a></td>
+            </tr>
+            <tr>
+              <td><strong>Pass A</strong>, <strong>Pass B</strong></td>
+              <td>The two runs of the Phase&nbsp;4 gauntlet. Pass A, on the borrowed threshold rule, certifies the machinery and the metrics and is blocking; Pass B is the physics comparison and is diagnostic &mdash; though its <em>execution</em> criteria are every bit as blocking as Pass A&rsquo;s.</td>
+              <td><a href="./chapters/24-watching-it-starve.html">24 &middot; Watching It Starve</a></td>
+            </tr>
+            <tr>
+              <td><strong>phase</strong></td>
+              <td>One rung of the project&rsquo;s ladder of eight phases numbered 0 to 7, each with its own written done-when and its own gate, and none of which may be started before the previous gate passes.</td>
+              <td><a href="./chapters/18-never-physics-ahead-of-the-machinery.html">18 &middot; Never Physics Ahead of the Machinery</a></td>
+            </tr>
+            <tr>
+              <td><strong>pre-registration</strong></td>
+              <td>Writing down what will count as success while the answer is still unknown, then sealing the record so it cannot be quietly edited once the answer arrives.</td>
+              <td><a href="./chapters/27-sealing-the-envelope.html">27 &middot; Sealing the Envelope</a></td>
+            </tr>
+            <tr>
+              <td><strong>provenance class</strong> (P1&ndash;P4)</td>
+              <td>The stamp every borrowed number carries, saying what kind of thing it is: <strong>P1</strong> measured, <strong>P2</strong> fitted or inferred (figure digitizations land here), <strong>P3</strong> a hypothesis chosen to impose agreement with the morphology diagram, <strong>P4</strong> a numerical or discretization choice.</td>
+              <td><a href="./chapters/16-where-the-numbers-came-from.html">16 &middot; Where the Numbers Came From</a></td>
+            </tr>
+            <tr>
+              <td><strong>SHA-256</strong> (hash)</td>
+              <td>A function turning any text or file into a fixed 64-character fingerprint, where changing anything at all scrambles the output unpredictably &mdash; how the project seals a freeze list and how it names a checkpoint.</td>
+              <td><a href="./chapters/27-sealing-the-envelope.html">27 &middot; Sealing the Envelope</a></td>
+            </tr>
+            <tr>
+              <td><strong>shadow run</strong></td>
+              <td>A deliberately slow, independent program that predicts how far off the fast code <em>will</em> be, written <em>before</em> the fast code exists so the tolerance cannot be tuned to flatter it.</td>
+              <td><a href="./chapters/26-fast-without-being-wrong.html">26 &middot; Fast Without Being Wrong</a></td>
+            </tr>
+            <tr>
+              <td><strong>Type</strong> (label)</td>
+              <td>The other of the two labels: what a quantity <em>is</em> &mdash; an input, computed state, a derived metric, or a phenomenological parameter, which is the honest word for a knob that changes the picture and corresponds to no quantity in nature.</td>
+              <td><a href="./chapters/15-two-labels-on-every-number.html">15 &middot; Two Labels on Every Number</a></td>
+            </tr>
+            <tr>
+              <td><strong>work package</strong> (WP)</td>
+              <td>A named unit of work inside a phase, cited the way a section is. WP5 &mdash; the independent re-derivation of the Phase&nbsp;6 sweep &mdash; has not run, which is precisely why the 3 of 90 is not gate evidence.</td>
+              <td><a href="./chapters/18-never-physics-ahead-of-the-machinery.html">18 &middot; Never Physics Ahead of the Machinery</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ================================================================= -->
+      <h2 id="machine">Part Two: the machine &mdash; grid, arithmetic, convergence</h2>
+
+      <p>
+        The second Part Two vocabulary is the computer science each rung of the ladder demanded: the
+        shape of the grid, the fact that adding numbers is not quite adding, what &ldquo;the numbers
+        stopped changing&rdquo; is allowed to mean, and what a wall at the edge of a box has to pretend
+        to be. Several of these are the names of actual settings in the code, which is why they are
+        written the way the repository writes them.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>
+            The lattice, the arithmetic, the solver&rsquo;s stopping rules and the boundary conditions
+            &mdash; the machinery the physics is not allowed to get ahead of.
+          </caption>
+          <thead>
+            <tr><th>Term</th><th>In one sentence</th><th>Explained in</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>D6h</strong></td>
+              <td>The full symmetry group of a hexagonal prism &mdash; sixth-turn, mirror, and top-to-bottom flip; &ldquo;exact D6h symmetry&rdquo; means every one of those operations leaves the crystal identical, cell for cell.</td>
+              <td><a href="./chapters/19-why-the-grid-is-hexagonal.html">19 &middot; Why the Grid Is Hexagonal</a></td>
+            </tr>
+            <tr>
+              <td><strong>Dirichlet</strong> (boundary)</td>
+              <td>A box edge where you dictate the value rather than the flow &mdash; a supersaturation held fixed at the wall, which makes the wall an inexhaustible supply and so cannot show starvation.</td>
+              <td><a href="./chapters/23-walls-that-pretend-to-be-sky.html">23 &middot; Walls That Pretend to Be Sky</a></td>
+            </tr>
+            <tr>
+              <td><strong>divergence identity</strong></td>
+              <td>The bookkeeping behind the second convergence gate: in a steady state nothing accumulates in the middle, so whatever the boundary injects must equal what the surface takes. It compares two totals computed independently and demands they agree.</td>
+              <td><a href="./chapters/22-when-the-numbers-stop-changing.html">22 &middot; When the Numbers Stop Changing</a></td>
+            </tr>
+            <tr>
+              <td><strong><code>divTol</code></strong></td>
+              <td>The tolerance on the divergence identity &mdash; how far injection and surface exchange may disagree, as a fraction, before a run counts as unconverged; registered at 1&times;10<sup>&minus;7</sup>.</td>
+              <td><a href="./chapters/22-when-the-numbers-stop-changing.html">22 &middot; When the Numbers Stop Changing</a></td>
+            </tr>
+            <tr>
+              <td><strong>domain-contact guard</strong></td>
+              <td>The rule that invalidates a run whose crystal has grown too close to the wall of its box, at 65 per cent of the way out. It detects collision; it does not prove the far boundary is irrelevant &mdash; only a domain-convergence study could do that.</td>
+              <td><a href="./chapters/23-walls-that-pretend-to-be-sky.html">23 &middot; Walls That Pretend to Be Sky</a></td>
+            </tr>
+            <tr>
+              <td><strong>fill fraction</strong></td>
+              <td>How full of ice a boundary cell is: 0 is empty, 1 is full, and full means ice &mdash; the number that lets a continuous growth speed live on a grid of whole cells.</td>
+              <td><a href="./chapters/21-the-seam.html">21 &middot; The Seam</a></td>
+            </tr>
+            <tr>
+              <td><strong>fill-CFL</strong></td>
+              <td>The bound on how much of any one cell is allowed to fill in a single step &mdash; default a tenth &mdash; which is what actually sets the length of the time step.</td>
+              <td><a href="./chapters/21-the-seam.html">21 &middot; The Seam</a></td>
+            </tr>
+            <tr>
+              <td><strong>float64</strong>, <strong>float32</strong></td>
+              <td>Two number formats. A float64 stores about sixteen decimal digits and is what the readable solver runs on; a float32 stores about seven and is what a graphics card is fast at &mdash; which is the whole reason the fast version has to be checked against the slow one.</td>
+              <td><a href="./chapters/20-the-flaw-in-the-last-bit.html">20 &middot; The Flaw in the Last Bit</a> &middot; <a href="./chapters/26-fast-without-being-wrong.html">26 &middot; Fast Without Being Wrong</a></td>
+            </tr>
+            <tr>
+              <td><strong>Gauss&ndash;Seidel</strong></td>
+              <td>Updating a field in place, so cells visited later in a sweep already see this pass&rsquo;s new values &mdash; cheaper, half the memory, order-dependent, and rejected in the solver header as &ldquo;a silent physics bug&rdquo;.</td>
+              <td><a href="./chapters/19-why-the-grid-is-hexagonal.html">19 &middot; Why the Grid Is Hexagonal</a></td>
+            </tr>
+            <tr>
+              <td><strong><code>GGThreshold</code></strong></td>
+              <td>The borrowed Gravner&ndash;Griffeath threshold rule, their published numbers unchanged, used as the known-good stand-in the machinery is proved on before any new physics is written.</td>
+              <td><a href="./chapters/18-never-physics-ahead-of-the-machinery.html">18 &middot; Never Physics Ahead of the Machinery</a></td>
+            </tr>
+            <tr>
+              <td><strong><code>hexPrism</code></strong></td>
+              <td>The mask that trims the active region to a hexagonal prism inscribed in the index box, with equal numbers of layers above and below the seed plane, so the shape of the <em>container</em> cannot break the symmetry the physics is supposed to have.</td>
+              <td><a href="./chapters/19-why-the-grid-is-hexagonal.html">19 &middot; Why the Grid Is Hexagonal</a></td>
+            </tr>
+            <tr>
+              <td><strong>Jacobi</strong></td>
+              <td>Updating a field by reading one copy and writing a second, then swapping, so no cell can ever see a value changed this tick and the order cells are visited in cannot matter.</td>
+              <td><a href="./chapters/19-why-the-grid-is-hexagonal.html">19 &middot; Why the Grid Is Hexagonal</a></td>
+            </tr>
+            <tr>
+              <td><strong><code>LibbrechtKinetics</code></strong></td>
+              <td>The physics model proper &mdash; attachment kinetics driven by the digitized nucleation curves &mdash; as against the borrowed <code>GGThreshold</code> rule. The two are separate machines and the repository is explicit that they do not share guardrails.</td>
+              <td><a href="./chapters/17-a-model-that-can-be-wrong.html">17 &middot; A Model That Can Be Wrong</a></td>
+            </tr>
+            <tr>
+              <td><strong>monopole-matched far field</strong></td>
+              <td>A box edge set to the value a single point sink would produce at that distance, so the wall approximates open sky rather than a mirror or an endless supply.</td>
+              <td><a href="./chapters/23-walls-that-pretend-to-be-sky.html">23 &middot; Walls That Pretend to Be Sky</a></td>
+            </tr>
+            <tr>
+              <td><strong>P&eacute;clet condition</strong></td>
+              <td>A deliberately pessimistic check that the quasi-static approximation is permitted at all; where it fails the model is invalid <em>there</em>, and that is a finding to report rather than a nuisance to tune away.</td>
+              <td><a href="./chapters/22-when-the-numbers-stop-changing.html">22 &middot; When the Numbers Stop Changing</a></td>
+            </tr>
+            <tr>
+              <td><strong>quasi-static</strong></td>
+              <td>The approximation that the vapour field settles to its steady state far faster than the crystal grows, so each growth step can solve a standing-still diffusion problem instead of following diffusion through time.</td>
+              <td><a href="./chapters/22-when-the-numbers-stop-changing.html">22 &middot; When the Numbers Stop Changing</a></td>
+            </tr>
+            <tr>
+              <td><strong>reflecting</strong> (boundary)</td>
+              <td>A box edge that bounces vapour straight back, making the box a finite reservoir that can be used up &mdash; which is what lets starvation happen at all, and what makes &ldquo;nothing is created, nothing escapes&rdquo; a checkable claim.</td>
+              <td><a href="./chapters/23-walls-that-pretend-to-be-sky.html">23 &middot; Walls That Pretend to Be Sky</a></td>
+            </tr>
+            <tr>
+              <td><strong><code>relaxTol</code></strong></td>
+              <td>The convergence tolerance on the residual: below this, the solver calls the vapour field settled. Registered at 1&times;10<sup>&minus;9</sup>.</td>
+              <td><a href="./chapters/22-when-the-numbers-stop-changing.html">22 &middot; When the Numbers Stop Changing</a></td>
+            </tr>
+            <tr>
+              <td><strong>residual</strong></td>
+              <td>The largest change any single cell made during one whole sweep, divided by the far-field supersaturation so the answer is a fraction rather than a size &mdash; and a small residual means the numbers stopped moving, which is not the same as being right.</td>
+              <td><a href="./chapters/22-when-the-numbers-stop-changing.html">22 &middot; When the Numbers Stop Changing</a></td>
+            </tr>
+            <tr>
+              <td><strong>seed</strong> (random-number)</td>
+              <td>The integer that fixes a pseudo-random sequence, so that &ldquo;random&rdquo; noise comes out identically on every re-run and is therefore reproducible. Nothing to do with the <em>ice</em> seed the crystal is grown from &mdash; the two senses sit in the same sentence more than once.</td>
+              <td><a href="./chapters/20-the-flaw-in-the-last-bit.html">20 &middot; The Flaw in the Last Bit</a></td>
+            </tr>
+            <tr>
+              <td><strong>surface operator</strong></td>
+              <td>The step that turns the solved vapour field into ice added at the surface &mdash; the small sum whose ordering ADR&nbsp;0023 had to pin down, because adding the same operands in a different order gives a different answer.</td>
+              <td><a href="./chapters/26-fast-without-being-wrong.html">26 &middot; Fast Without Being Wrong</a></td>
+            </tr>
+            <tr>
+              <td><strong>surface policy</strong></td>
+              <td>A version number stamped into every saved run recording which summation rule its numerics used &mdash; v4 and v5 the gather order, v6 the sorted order &mdash; &ldquo;precisely so numerics cannot be mixed across versions&rdquo;.</td>
+              <td><a href="./chapters/20-the-flaw-in-the-last-bit.html">20 &middot; The Flaw in the Last Bit</a></td>
+            </tr>
+            <tr>
+              <td><strong>sweep</strong></td>
+              <td>Two unrelated senses, both unavoidable: one pass of the relaxation solver over every cell, and the 204-point run across the temperature&ndash;supersaturation grid that produced the Phase&nbsp;6 numbers. Context always separates them, but it is worth knowing there are two.</td>
+              <td><a href="./chapters/22-when-the-numbers-stop-changing.html">22 &middot; When the Numbers Stop Changing</a> &middot; <a href="./chapters/28-the-exam-result.html">28 &middot; The Exam Result</a></td>
+            </tr>
+            <tr>
+              <td><strong>symmetry error</strong></td>
+              <td>The worst mismatch between a cell and its sixth-turn partner. On a hexagonal grid with the noise switched off this can be <em>exactly</em> zero rather than merely small, which is what makes the choice of grid a physics decision rather than a convenience.</td>
+              <td><a href="./chapters/19-why-the-grid-is-hexagonal.html">19 &middot; Why the Grid Is Hexagonal</a> &middot; <a href="./chapters/20-the-flaw-in-the-last-bit.html">20 &middot; The Flaw in the Last Bit</a></td>
+            </tr>
+            <tr>
+              <td><strong>ulp</strong></td>
+              <td>&ldquo;Unit in the last place&rdquo;: the smallest difference a number of that size can have, and therefore the width of the gap a rounded sum lands across &mdash; the whole subject of chapter 20 is one of these.</td>
+              <td><a href="./chapters/20-the-flaw-in-the-last-bit.html">20 &middot; The Flaw in the Last Bit</a></td>
+            </tr>
+            <tr>
+              <td><strong>WGSL</strong></td>
+              <td>The shading language WebGPU uses &mdash; the language the fast graphics-card solver is written in, and the reason it needs an oracle to be checked against.</td>
+              <td><a href="./chapters/26-fast-without-being-wrong.html">26 &middot; Fast Without Being Wrong</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ================================================================= -->
       <h2 id="symbols">The symbols, in one place</h2>
 
       <p>
@@ -1115,6 +1476,15 @@
           Where each term sits on that spectrum is the business of
           <a href="./chapters/13-the-frontier.html">Chapter 13</a>, and it is worth knowing before
           you quote any of them.
+        </p>
+        <p>
+          The same warning applies twice over to the two Part Two groups, and for a different reason.
+          There, a defined term is not a validated one either: the vocabulary of gates, freeze rows
+          and provenance classes describes machinery that has been <em>built</em>, and building the
+          machinery that could detect a wrong answer is not the same as having established a right
+          one. Phase&nbsp;6 is still in development, and
+          <a href="./chapters/29-what-it-cost-and-what-is-open.html">Chapter 29</a> is the list of
+          what remains open.
         </p>
       </aside>
 

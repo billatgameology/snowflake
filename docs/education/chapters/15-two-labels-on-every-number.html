@@ -217,10 +217,10 @@
         later decision record
         (<code>docs/decisions/0031-phase6-paramset-freeze-row.md</code>); the corrected re-sweep has
         since run and reported <strong>3 of 90</strong> &mdash; three agreements among the ninety
-        comparisons it scored (<code>research/phase6-sweep-report.md:104</code>). And even that
+        comparisons it scored (<code>research/phase6-sweep-report.md:143</code>). And even that
         number is not yet allowed
         to move a label, because the report says so about itself, in bold: <em>&ldquo;These numbers
-        are not yet gate evidence&rdquo;</em> (same file, line&nbsp;11) &mdash; the independent
+        are not yet gate evidence&rdquo;</em> (same file, line&nbsp;40) &mdash; the independent
         re-derivation has not been done. Chapter&nbsp;28 is where its result lives.
       </p>
 
@@ -384,7 +384,7 @@
         <em>&ldquo;matching Nakaya is in-sample reproduction&rdquo;</em> rather than validation
         (<code>project charter.md:183</code>). Be exact about the tense: that arm
         has not run &mdash; <em>&ldquo;Every run is no-SDAK; <code>SDAK</code> appears in no source
-        file&rdquo;</em> (<code>research/phase6-sweep-report.md:183</code>) &mdash; and the record
+        file&rdquo;</em> (<code>research/phase6-sweep-report.md:225</code>) &mdash; and the record
         that would add the SDAK arm is still marked <code>Status: proposed</code>
         (<code>docs/decisions/0030-phase6-sdak-arm.md:4</code>). Bolting that door in advance is
         what keeps the arm that <em>has</em> run a real test &mdash; the charter&rsquo;s own version
@@ -1290,7 +1290,7 @@
         "Refused. “Only Phase 6 can grant the third, and only where the comparison actually " +
         "holds” (project charter.md:82). Phase 6 is in flight: its first sweep ran and was " +
         "invalidated by decision 0031; the corrected re-sweep has run and reported 3 of 90, and " +
-        "that is not yet gate evidence (research/phase6-sweep-report.md:11, :104). Nothing in the " +
+        "that is not yet gate evidence (research/phase6-sweep-report.md:40, :143). Nothing in the " +
         "application has been promoted — the status footer still ends: all model quantities: " +
         "Evidence = unvalidated (§1.5).";
       pickEv = null;
@@ -1704,9 +1704,10 @@
         "holds” (project charter.md:82), and “no UI label ever claims more physical " +
         "confidence than Phase 6 has earned” (project charter.md:340). " +
         "Missing precondition: a gate-qualified Phase 6 report naming THIS comparison and the " +
-        "domain it holds over. The one sweep report that exists disclaims itself in bold — " +
-        "“These numbers are not yet gate evidence” (research/phase6-sweep-report.md:11) — so " +
-        "there is nothing to point the label at." };
+        "domain it holds over. A sweep HAS reported a number — the corrected re-sweep scored " +
+        "3 of 90 — and that report disclaims itself in bold: “These numbers are not yet gate " +
+        "evidence” (research/phase6-sweep-report.md:40, :143). A measured number that no " +
+        "independent verifier has re-derived is still not something a label can point at." };
     } else if (row.id !== REPORT_DOMAIN) {
       message = { tone: "bad", text:
         "Refused. The loaded report’s named domain is “growth rates vs (T, σ)”. " +
@@ -1719,7 +1720,7 @@
             "reproduction” (project charter.md:183), and “results from Nakaya-informed (P3) " +
             "inputs are never labeled independent validation” (project charter.md:341). That arm " +
             "has not run: every executed sweep point so far is no-SDAK " +
-            "(research/phase6-sweep-report.md:183), and the SDAK arm is a proposed decision " +
+            "(research/phase6-sweep-report.md:225), and the SDAK arm is a proposed decision " +
             "record, not an accepted one (docs/decisions/0030-phase6-sdak-arm.md:4). So with no " +
             "P3 input anywhere, this comparison IS a fair test today — it is just a test whose " +
             "report does not exist yet. Chapter 16 is about those tags, chapter 17 about why " +
@@ -1786,8 +1787,8 @@
     note.style.margin = "0.7rem 0 0";
     note.textContent = loaded
       ? "loaded: stand-in report · named domain: growth rates vs (T, σ) · " +
-        "this artifact does not exist — Phase 6 is in flight, and its one sweep report is not " +
-        "yet gate evidence."
+        "this artifact does not exist — Phase 6 is in flight, and the corrected re-sweep’s own " +
+        "report (3 of 90) is not yet gate evidence."
       : "no Phase 6 report loaded · the last three rows are three of the four held-out " +
         "observables named at project charter.md:183 — measurements deliberately not used to " +
         "pick any of the model’s inputs, so they can serve as a fair test.";

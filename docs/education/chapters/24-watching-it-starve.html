@@ -1601,15 +1601,15 @@
 
     var cards = [
       { tool: "aspectRatio", crit: "A-HABIT-ENDPOINTS",
-        req: "aspect ratio at u = 0 must be ≤ 0.3",
+        req: "aspect ratio at u = 0 — the plate end of the unitless columnarity knob — must be ≤ 0.3",
         val: "measured 0.0666667", certify: true,
         why: "A plate. The instrument reads well under the bar, so it can tell a plate when it sees one." },
       { tool: "aspectRatio", crit: "A-HABIT-ENDPOINTS",
-        req: "aspect ratio at u = 1 must be ≥ 1.5",
+        req: "aspect ratio at u = 1 — the column end of the same knob — must be ≥ 1.5",
         val: "measured 1.66667", certify: true,
         why: "A column, from the same solver with one threshold slot changed. Same ruler, opposite verdict." },
       { tool: "aspectRatio", crit: "A-HABIT-MONOTONE",
-        req: "AR strictly increasing at every consecutive u — “Equal adjacent values fail; no post-hoc tolerance or isotonic fit is allowed”",
+        req: "AR strictly increasing at every consecutive u — every adjacent pair in the knob's five-value sweep, 0 → 0.25 → 0.5 → 0.75 → 1 — with “Equal adjacent values fail; no post-hoc tolerance or isotonic fit is allowed”",
         val: "measured: a strictly increasing five-point sweep", certify: true,
         why: "The instrument tracks a continuous change, not just the two ends. And note what is banned: no smoothing after the fact." },
       { tool: "crossSectionHollowness", crit: "A-HABIT-SOLID",
