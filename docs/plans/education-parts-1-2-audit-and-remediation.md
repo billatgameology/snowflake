@@ -55,7 +55,7 @@ the resulting bytes through a final adversarial pass.
 
 ## Steps
 
-- [ ] Reconcile the education worktree, merged history, current candidate, and research-source
+- [x] Reconcile the education worktree, merged history, current candidate, and research-source
       inventory without changing or force-adding local media.
 - [ ] Audit Part One source coverage, image choices, terminology, and chapter order; record the
       paper-by-paper checklist and omissions in this plan.
@@ -89,6 +89,27 @@ the resulting bytes through a final adversarial pass.
   and layout, captions, axes, and figure-to-claim correspondence require rendered-page review.
 - **Commit the local research corpus for a self-contained online site.** Rejected by ADR 0004 and
   copyright scope. The offline builder may consume local media; the public site must reference it.
+
+## Audit record
+
+### Worktree, history, and corpus reconciliation
+
+- `education-worktree` is clean at `f8668d23667f499693a015062756430a4d6a8e81`; that commit is
+  also its merge base with `main`. The reviewed Part Two branch was merged by `5af860e`; candidate
+  `c69c66c` is a later main-only whole-course remediation and is therefore the byte set under
+  review, not an unmerged alternate implementation.
+- At audit start `main` was at `c69c66c`, 19 commits ahead of `origin/main`, with unrelated
+  in-progress Phase 6 SDAK files already dirty. Plan commit `9897fd5` added only this file; the
+  Phase 6 files remain outside the education scope and must not be staged.
+- The local research cache contains 14 top-level PDFs plus generated page/figure derivatives,
+  10 videos, and the transcript: 3,628 ignored files in total and zero untracked non-ignored
+  research files. Git tracks 13 research indexes/reports, not the copyrighted media. No cache
+  byte was modified, moved, staged, or force-added during reconciliation.
+- The public source inventory names the monograph, ten post-monograph measurement/method papers,
+  three modelling papers (including Gravner-Griffeath), three historical works, and the
+  Murphy-Koop reference standard. Part One's paper audit uses that inventory and the 120-entry
+  tracked figure manifest; historical works and the standard are checked as concept sources even
+  though they are not among the 14 cached PDFs.
 
 ## Open questions
 

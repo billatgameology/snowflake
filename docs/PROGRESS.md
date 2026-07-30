@@ -901,6 +901,19 @@ immutable.
 
 ## Next step
 
+**A new independent audit of the complete education course is active under
+[`education-parts-1-2-audit-and-remediation.md`](plans/education-parts-1-2-audit-and-remediation.md),
+criteria-first commit `9897fd5`.** Candidate `c69c66c` already claims the user's requested
+Part One/Part Two review and fifteen new demos, but its producer's verdict is not being inherited:
+three read-only reviews are independently re-deriving Part One paper coverage/order, Part Two
+authority/code coverage/order, and every interactive's behavior before any remediation. The
+clean `education-worktree` is at `f8668d2`, its merge base with `main`; `c69c66c` is the later
+main-only candidate. The local research cache was inventoried without mutation (14 PDFs, 10
+videos, 3,628 ignored files, zero untracked non-ignored research files), and no copyrighted media
+will be staged. Existing dirty Phase 6 SDAK work is unrelated and remains outside this plan.
+Next action: collect the three independent findings, record the paper/code/demo matrices in the
+plan, then assign non-overlapping fixes and behavioral tests.
+
 **`docs/education/` is Rule 7 clean and its claims are re-verified against the 2026-07-29
 correction (`c7eb7f4`, `8b34535`, `5625ad4`).** The site predates Rule 7 and had never been
 scanned: all 321 violations were bare `alpha`/`beta`/α/β under `docs/education/` (16 chapter
