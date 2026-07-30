@@ -60,7 +60,7 @@
         </p>
         <div class="chapter-header__meta">
           <span>~18 min read</span>
-          <span>7 interactives</span>
+          <span>8 interactives</span>
           <span>2 equations</span>
         </div>
       </header>
@@ -132,23 +132,28 @@
       </p>
 
       <p>
-        Four checks, decided before either sweep, applied automatically to every run. They live in
-        one function in <code>runner/src/phase6-sweep.ts</code> called
-        <code>phase6ScorePoint</code>, and they are four lines long:
+        At the time these Arm&nbsp;1 artifacts were scored, four checks decided before either sweep
+        applied automatically to every run. They live in one function in
+        <code>runner/src/phase6-sweep.ts</code> called <code>phase6ScorePoint</code>:
         <code>allConverged</code>, <code>deltaSymClean</code>, <code>symmetryError !== 0</code>,
         <code>domainContact</code>. Fail any one and the run is stamped <code>invalid</code> and,
         in the file&rsquo;s own words, &ldquo;EXCLUDED BY NAME, never dropped &mdash; &hellip;
-        Those are runs that did not happen properly, not statements about the model.&rdquo;
+        Those are runs that did not happen properly, not statements about the model.&rdquo; Decision
+        0035 later added two outcome checks to the current function: measured extent must reach 21,
+        and a recorded configuration must say <code>stopReason = "size-target"</code>. All 204
+        historical rows reached extent 21. They predate per-row configuration, so the second new
+        check is disclosed as unavailable rather than fabricated after the fact.
       </p>
 
       <p>
         None of them fired. Not once, across 204 crystals grown at 34 temperatures and six
         humidities. In plain English: every crystal converged on both of the two independent
-        convergence tests chapter 22 described, not just the easy one; every crystal came out with
-        a symmetry error of exactly zero; every single growth step stayed perfectly six-fold
-        symmetric, which is what &ldquo;D<sub>6h</sub>-invariant&rdquo; means &mdash;
-        D<sub>6h</sub> is the crystallographer&rsquo;s name for the symmetry of a hexagonal prism;
-        and no crystal ever grew far enough to touch the wall of its own box.
+        convergence tests chapter 22 described, not just the easy one; every final crystal reported
+        a symmetry error of exactly zero; and every per-tick <em>attachment delta</em> stayed
+        perfectly six-fold symmetric. That last check is deliberately narrow: it does not certify
+        the vapour field, fill field, or intermediate relaxation iterates. D<sub>6h</sub> is the
+        crystallographer&rsquo;s name for the symmetry of a hexagonal prism. No crystal ever grew
+        far enough to touch the wall of its own box.
       </p>
 
       <p>
@@ -195,8 +200,11 @@
         whole length supporting. <em>The model reproduces the Nakaya diagram</em> &mdash; that claim
         is about outcome, and it has now been tested once, under a scheme frozen in advance, and the
         measured result disagrees: a result that is not yet gate evidence and not yet a Phase 6
-        conclusion, because the verifier has not run and the second arm does not exist. Both claims
-        are about the same 204 runs. Neither is allowed to stand in for the other.
+        conclusion. An independent verifier has now re-derived it, but Arm&nbsp;1&rsquo;s flagless
+        closing gate and zero-blocker review have not happened, and the separate second arm had no
+        completed, reviewed sweep result at the audit cutoff. Both claims are about the same 204
+        Arm&nbsp;1 runs. Neither is allowed to stand in for
+        the other.
       </p>
 
       <aside class="callout callout--key">
@@ -208,9 +216,11 @@
         </p>
         <p>
           A wrong answer about nature is a measurement. A wrong answer about your own rules is a
-          defect. The 204 runs produced the first and tripped none of the four numeric validity
-          rules &mdash; which is what lets the disagreement be attributed to the physics rather
-          than to the program.
+          defect. The 204 runs produced the first and tripped none of the four validity rules
+          recorded with those artifacts. The current extent guard also passes all 204; the absent
+          historical stop-reason field is named as a provenance limit, not silently invented. That
+          is what lets the disagreement be attributed to this parameterization&rsquo;s physics rather
+          than to a detected program failure.
         </p>
       </aside>
 
@@ -220,9 +230,9 @@
       </p>
 
       <p>
-        <strong>It is not gate evidence yet.</strong> The report says so in bold before it prints a
-        single number, and names the step that has not happened &mdash; WP5, the project&rsquo;s
-        verification-and-closure work package:
+        <strong>It is not gate evidence yet.</strong> The historical report says so in bold before
+        it prints a single number, and records WP5, the project&rsquo;s
+        verification-and-closure work package, at its then-current state:
         &ldquo;<strong>These numbers are not yet gate evidence.</strong> WP5 has not run: no
         independent verifier has re-derived <code>report.json</code> from <code>points.json</code>,
         and the six negative controls have not executed.&rdquo; What it is instead, in the
@@ -248,12 +258,19 @@
           them, checked one of <code>report.json</code>&rsquo;s nine fields, and trusted a published
           pass/fail flag instead of recomputing it &mdash; and under those gaps it had certified two
           real forgeries as &ldquo;VERIFIED&hellip;exit 0&rdquo;: a substituted superseded-arm
-          artifact, and a mutation that would have read the headline as 3 of 3 instead of 3 of 90. It
-          has since been hardened and now correctly fails both. The controls&rsquo; own two real gaps
+          artifact, and a mutation that would have read the headline as 3 of 3 instead of 3 of 90.
+          Commit <code>990840a</code> hardened it: all three registered artifact digests are asserted;
+          the exact 204-point grid is checked for duplicates, omissions, and additions; all nine
+          report fields are re-derived; and ambiguity and domain-contact status are recomputed from
+          raw values. It now correctly fails both forgeries. The controls&rsquo; own two real gaps
           &mdash; a splice from a different parameter set that was undetectable, and a run measured
           at the wrong crystal size that scored identically to a correct one &mdash; are addressed
-          the same way: the first for sweeps run from here on, the second by a registered check
-          (decision record 0035) confirmed on re-check not to move any of the 204 published rows.
+          at commit <code>b701285</code> by decision record 0035: future child output is checked
+          against every pinned input, a size-target stop is required, and
+          <code>largestExtent&nbsp;&ge;&nbsp;21</code> is enforced. Re-checking Arm&nbsp;1 found all
+          204 rows at extent exactly 21, so the published classes and 3-of-90 headline do not move;
+          the later code cannot add the per-row configuration and stop-reason fields those artifacts
+          never recorded.
           None of this closes WP5. The project&rsquo;s own plan still requires a flagless canonical
           gate run and an independent review down to zero blockers, and
           <code>docs/PROGRESS.md</code> has not recorded either as done &mdash; so &ldquo;not yet
@@ -262,10 +279,49 @@
         </p>
       </aside>
 
+      <figure class="anim is-wide" id="c28-phase6-status"
+              data-demo="phase6-status-history">
+        <div class="anim__head">
+          <p class="anim__title">Do not let the status overwrite the history</p>
+          <p class="anim__sub">
+            Switch between the Arm&nbsp;1 report&rsquo;s own snapshot and the audit-cutoff
+            authority. The measured Arm&nbsp;1 bytes stay 3 of 90 in both views. Later
+            verification and safeguards change what can be checked now; they do not rewrite what the
+            old run recorded, and Arm&nbsp;2 remains a separate lane.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls" aria-label="Phase 6 status date"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">
+            Original interactive. The historical view is the provenance/status text in
+            <code>research/phase6-sweep-report.md</code> for execution commit
+            <code>390fe35</code>. The audit-cutoff view is a repository-history audit through
+            <code>8c781b1</code>: independent-verifier hardening at <code>990840a</code>, the seven
+            executed negative controls, decision 0035&rsquo;s input/outcome pins at
+            <code>b701285</code>, the future-sweep source fingerprint at <code>154359d</code>, and
+            Arm&nbsp;2&rsquo;s M1 value content frozen at <code>483f7ee</code>, its freeze ancestry
+            and final values-hash pin recorded at <code>0cb52bf</code>, and its arm-specific
+            combined protocol revision hash recorded at <code>8c781b1</code>. That combined hash moves with
+            prose and is revision-pinned rather than a durable gate; the separate values hash is
+            the frozen gate. The same commit records why the first launch stopped about a minute in:
+            its first line exposed Arm&nbsp;1&rsquo;s combined hash. At this audit&rsquo;s
+            2026-07-30 10:23&nbsp;PDT cutoff, the repaired canonical
+            sweep was running and its local output was still mutable. The 42-of-90 / 42-of-78
+            Arm&nbsp;2 values remain registered predictions, not measurements extracted from that
+            run. No incomplete result or score is combined across arms.
+          </span>
+        </figcaption>
+      </figure>
+
       <p>
         <strong>And it is one arm of two.</strong> This sweep is the <em>control</em> &mdash; the
         model with no SDAK in it at all. The treatment arm, the one with the dip mechanism switched
-        on, has not been run, and the report refuses to draw the Phase 6 conclusion until it has:
+        on, is now implemented as the separately registered M1 parameter set and its own values
+        protocol is frozen. One launch was stopped about a minute in after its first line exposed
+        a wrong-arm combined hash. At this audit&rsquo;s cutoff, the repaired sweep
+        was running but its partial output had not become a completed, reviewed result. The
+        report refuses to draw the Phase 6 conclusion until it has:
         &ldquo;The numbers below are complete and final for this arm; what they <em>mean</em> for
         the phase waits.&rdquo; So this chapter is reading a result, not a verdict.
       </p>
@@ -795,8 +851,9 @@
       <p>
         Second, none of these numbers is gate evidence, and for three different reasons. The six
         cells in the table come from the corrected sweep, which is a frozen-protocol run with
-        verified provenance and is still waiting on the verifier and the negative controls, so
-        nothing in it can be called gate evidence yet. AR 1.0000 as the old reading quoted it came
+        verified provenance whose independent re-derivation now passes, but its flagless canonical
+        gate and closing review remain undone, so nothing in it can be called gate evidence yet.
+        AR 1.0000 as the old reading quoted it came
         from a <strong>calibration probe</strong>: a run made to help choose settings, not a run made
         under the frozen protocol. The project maintains a two-tier truth system for exactly this
         reason, and the document that prints the number prints the restriction beside it: &ldquo;These
@@ -925,16 +982,15 @@
           reader comparing the runs against the protocol, not by the machine.
         </p>
         <p>
-          The corrected run carries a second example, found while it was running and recorded
-          because it is <strong>not yet fixed</strong>. The harness stamps the provenance once at
+          The corrected run carries a second example, found while it was running and recorded in the
+          report as <strong>not yet fixed at that snapshot</strong>. The harness stamps the provenance once at
           the start, but each of the 204 child processes launches the model from the
           <em>working tree</em> &mdash; so an edit to the solver mid-run would change the physics for
           the later points while the report still named the commit it started from. Nine commits from
           a parallel session did land during the twenty hours; the project checked afterwards that
           none of them touched the solver, so this sweep is unaffected. Its own verdict on that:
-          &ldquo;That was luck, not design.&rdquo; The fix &mdash; a preflight check that the child
-          command line carries every frozen parameter, plus a re-check at the end &mdash; is
-          outstanding.
+          &ldquo;That was luck, not design.&rdquo; At the time, the completion-time source re-check
+          was outstanding; the update immediately below records the later forward fix.
         </p>
       </aside>
 
@@ -1305,28 +1361,38 @@
       </p>
 
       <p>
-        <strong>It is not gate evidence, and it is not a phase conclusion.</strong> The verifier has
-        not re-derived the report from the raw points, the six negative controls have not run, and
-        the SDAK arm this one is the control for does not exist yet. Everything on this page is a
-        measured result with verified provenance, which the report is careful to say is not the same
-        thing as gated evidence.
+        <strong>It is not gate evidence, and it is not a phase conclusion.</strong> The report&rsquo;s
+        historical text says that no verifier and six controls were still owed. Current history is
+        different: a hardened independent verifier passes and seven controls executed, but the
+        Arm&nbsp;1 flagless closing gate and zero-blocker review are still owed, while the separately
+        frozen M1 arm was running but incomplete at the audit cutoff. Everything on this page is an
+        Arm&nbsp;1 measured result with verified provenance, which is not the same thing as gated
+        evidence or a two-arm phase conclusion.
       </p>
 
       <p>
-        <strong>Updated 2026-07-29.</strong> The verifier and negative-control counts in that
-        paragraph are the report&rsquo;s original wording and are no longer current: an independent
-        verifier now runs and passes, and negative controls have grown from six executed to seven,
-        finding two real gaps that have since been addressed. None of that closes WP5 &mdash; a
+        <strong>Updated through repository commit <code>8c781b1</code>.</strong> The verifier now
+        asserts all three artifact digests, re-derives the exact 204-row set and all report fields,
+        and rejects the two real forgeries its first version accepted. The seven executed controls
+        found two real gaps; decision 0035 pins inputs and the size-target outcome for future runs,
+        while Arm&nbsp;1 remains historically honest about the per-row fields it lacks. None of that
+        closes WP5 &mdash; a
         flagless run of the canonical gate command and an independent review to zero blockers are
         still missing, and <code>docs/PROGRESS.md</code> has not recorded WP5 as complete &mdash; so
         the sentence this note is attached to is still the accurate one. The fuller account, with
-        file names and what each gap was, is earlier in this chapter.
+        file names and what each gap was, is earlier in this chapter. A separate currency defect is
+        visible in that same progress file: its Next step still says to freeze Arm&nbsp;2 even though
+        <code>483f7ee</code> froze the content, <code>0cb52bf</code> recorded the final gated values
+        hash and freeze ancestry, and <code>8c781b1</code> pinned the combined revision hash.
+        This page states the disagreement instead of silently treating either snapshot as current.
       </p>
 
       <p>
-        <strong>It is not a test of SDAK.</strong> Every run is a no-SDAK run; in the report&rsquo;s
-        own words, &ldquo;<code>SDAK</code> appears in no source file&rdquo;. The dip mechanism has
-        never been tested here.
+        <strong>It is not a test of SDAK.</strong> Every measured run on this page is a no-SDAK
+        Arm&nbsp;1 run. The report&rsquo;s historical wording &mdash;
+        &ldquo;<code>SDAK</code> appears in no source file&rdquo; &mdash; was true of the execution
+        it describes. M1 has since been implemented and frozen for Arm&nbsp;2, but no completed,
+        reviewed Arm&nbsp;2 sweep result existed at the audit cutoff.
       </p>
 
       <p>
@@ -1412,8 +1478,9 @@
         least one human domain scientist read any manuscript before submission, and record the
         current position without softening it: all reviews to date are LLM reviews, and for
         publication that is a disclosed limitation, not a substitute. Phase 6 is in flight as this
-        is written. Phase 7, the product layer that would turn any of this into something a person
-        could use, has not started.
+        is written. A Phase&nbsp;3 browser development instrument already exists &mdash; solver in a
+        worker, overlays, vapour slice, picking, and readouts. Phase&nbsp;7, the polished product
+        layer and its audience profiles, has not started.
       </p>
 
       <p>
@@ -1444,8 +1511,9 @@
       <p class="handoff">
         Which leaves the bill. Twenty hours of compute for the run that stands, an entire earlier
         sweep of the same size thrown away to get it, every phase of machinery that came before
-        both, and a verifier, a set of negative controls, a second machine and a whole second arm
-        still owed &mdash; that is the next chapter, along with the list of things this project still
+        both, plus verifier hardening and seven executed negative controls. The flagless gate,
+        zero-blocker closing review, Apple-silicon control, and the frozen second arm&rsquo;s sweep
+        remain owed &mdash; that is the next chapter, along with the list of things this project still
         does not know.
       </p>
 
@@ -1483,7 +1551,7 @@
   border: 1px solid var(--rule); border-radius: 10px; padding: 0.75rem 0.85rem;
   background: var(--surface-1); display: flex; flex-direction: column; gap: 0.5rem;
 }
-.c28-card h4 { margin: 0; font-size: var(--step-0); line-height: 1.25; }
+.c28-card h3 { margin: 0; font-size: var(--step-0); line-height: 1.25; }
 .c28-card p { margin: 0; font-size: var(--step--1); line-height: 1.5; color: var(--ink-secondary); }
 .c28-card .c28-ev { color: var(--ink-primary); }
 .c28-card .button { align-self: flex-start; margin-top: auto; }
@@ -1510,6 +1578,7 @@
 <script src="../assets/site.js"></script>
 <script src="../assets/viz.js"></script>
 <script src="../assets/anim-sweep.js"></script>
+<script src="../assets/anim-phase6-status.js"></script>
 <script>
 /* ===========================================================================
    Chapter 28 — original interactives.
@@ -1657,7 +1726,7 @@
 
       /* legend */
       var items = view === "machinery"
-        ? [{ c: c.good, l: "valid — all four checks passed" }]
+        ? [{ c: c.good, l: "valid — all four artifact-era checks passed" }]
         : [{ c: c.good, l: "agrees" }, { c: c.critical, l: "disagrees" },
            { c: c.rule, l: "outside the headline scope" }];
       items.forEach(function (it, i) {
@@ -1902,7 +1971,7 @@
         ask: "What would have to be true: at least one of the 204 runs failed a validity check, or the gate failed on something it is allowed to fail on.",
         verdict: "ELIMINATED, with a disclosed hazard",
         out: true,
-        evidence: "Measured: 0 of 204 runs invalid, in this run and in the withdrawn one. Every point converged under the dual criterion, held symErr = 0 with noise off, kept every per-tick attachment delta sixfold-clean, and cleared the 65% domain-contact guard. And the gate that certifies the phase is forbidden to fail on a morphology miss — it fails on invalid numerics, provenance, artifacts, incomplete runs or a protocol violation, never on the model disagreeing with the diagram. Nothing in that list fired. Hazard, recorded and not yet fixed: the harness stamps provenance once at preflight, but each of the 204 children launches the model from the working tree, so a mid-run edit to the solver would change the physics for later points while the report still named the launch commit. Nine commits landed during this run; a diff confirmed none touched the solver. The report's own verdict: \"That was luck, not design.\""
+        evidence: "Measured: 0 of 204 runs invalid, in this run and in the withdrawn one. Every point converged under the dual criterion, held symErr = 0 with noise off, kept every per-tick attachment delta sixfold-clean, and cleared the 65% domain-contact guard. And the gate that certifies the phase is forbidden to fail on a morphology miss — it fails on invalid numerics, provenance, artifacts, incomplete runs or a protocol violation, never on the model disagreeing with the diagram. Nothing in that list fired. Historical Arm 1 hazard: the harness stamped provenance once at preflight, while each child launched the model from the working tree. Nine commits landed during the run; a later diff confirmed none touched the solver. The report's verdict was \"That was luck, not design.\" Commit 154359d added a dynamic start/end source fingerprint for future sweeps; it does not retro-upgrade Arm 1."
       },
       {
         id: "numbers",
@@ -1942,7 +2011,7 @@
       var card = document.createElement("div");
       card.className = "c28-card";
 
-      var h = document.createElement("h4");
+      var h = document.createElement("h3");
       h.textContent = k.title;
       card.appendChild(h);
 
@@ -2039,30 +2108,72 @@
       return 1 - 0.95 * Math.exp(-Math.pow(Math.log10(T) - Math.log10(centre), 2) / 0.06);
     }
 
-    var st = { bOn: false, pOn: false, bC: 4.5, pC: 14.4, depth: 0.7, mode: "approx" };
+    var DEFAULT_CROSSING_STATE = {
+      bOn: false, pOn: false, bC: 4.5, pC: 14.4, depth: 0.7, mode: "approx"
+    };
+    var PUBLISHED_CROSSING_STATE = {
+      bOn: true, pOn: true, bC: 4.5, pC: 14.4, depth: 0.7, mode: "corrected"
+    };
+    var st = Object.assign({}, DEFAULT_CROSSING_STATE);
     var WIDTH = 1.6;   // this page's own notch width, not the source's
 
-    function notch(T, on, centre) {
+    function normalizeCrossingState(raw) {
+      var next = {
+        bOn: raw.bOn,
+        pOn: raw.pOn,
+        bC: Number(raw.bC),
+        pC: Number(raw.pC),
+        depth: Number(raw.depth),
+        mode: raw.mode
+      };
+      if (typeof next.bOn !== "boolean" || typeof next.pOn !== "boolean") {
+        throw new Error("crossing-state dip toggles must be boolean");
+      }
+      if (next.mode !== "approx" && next.mode !== "corrected") {
+        throw new Error("crossing-state mode must be approx or corrected");
+      }
+      if (!Number.isFinite(next.bC) || next.bC < 2 || next.bC > 35 ||
+          !Number.isFinite(next.pC) || next.pC < 2 || next.pC > 35) {
+        throw new Error("crossing-state centres must lie from 2 to 35 degrees below freezing");
+      }
+      if (!Number.isFinite(next.depth) || next.depth < 0 || next.depth > 0.9) {
+        throw new Error("crossing-state approximate depth must lie from 0 to 0.9");
+      }
+      return next;
+    }
+    function stateSnapshot() {
+      return normalizeCrossingState(st);
+    }
+    function isPublishedCorrectedState(state) {
+      return state.mode === "corrected" && state.bOn && state.pOn &&
+        Math.abs(state.bC - 4.5) < 1e-12 && Math.abs(state.pC - 14.4) < 1e-12;
+    }
+    function notch(T, on, centre, state) {
       if (!on) return 1;
       var z = (T - centre) / WIDTH;
-      return 1 - st.depth * Math.exp(-z * z);
+      return 1 - state.depth * Math.exp(-z * z);
     }
-    function sBasal(T) {
-      if (st.mode === "corrected") return baseBasal(T) * (st.bOn ? basalDipReal(T, st.bC) : 1);
-      return baseBasal(T) * notch(T, st.bOn, st.bC);
+    function sBasalFor(T, state) {
+      if (state.mode === "corrected") {
+        return baseBasal(T) * (state.bOn ? basalDipReal(T, state.bC) : 1);
+      }
+      return baseBasal(T) * notch(T, state.bOn, state.bC, state);
     }
-    function sPrism(T) {
-      if (st.mode === "corrected") return basePrismM2(T) * (st.pOn ? prismDipReal(T, st.pC) : 1);
-      return basePrism(T) * notch(T, st.pOn, st.pC);
+    function sPrismFor(T, state) {
+      if (state.mode === "corrected") {
+        return basePrismM2(T) * (state.pOn ? prismDipReal(T, state.pC) : 1);
+      }
+      return basePrism(T) * notch(T, state.pOn, state.pC, state);
     }
 
     /** Every crossing of the two curves, found by fine sampling. */
-    function crossings() {
+    function crossingsFor(rawState) {
+      var state = normalizeCrossingState(rawState);
       var out = [];
       var prev = null, prevT = null;
       for (var i = 0; i <= 660; i++) {
         var T = 2 + i * 0.05;
-        var d = sBasal(T) - sPrism(T);
+        var d = sBasalFor(T, state) - sPrismFor(T, state);
         if (prev !== null && ((prev > 0) !== (d > 0))) {
           out.push(prevT + (T - prevT) * (Math.abs(prev) / (Math.abs(prev) + Math.abs(d))));
         }
@@ -2072,13 +2183,16 @@
     }
 
     /** The habit sequence is constant between crossings, so it is a handful of bands. */
-    function habitBands(cross) {
+    function habitBands(cross, state) {
       var edges = [2].concat(cross, [35]);
       var out = [];
       for (var i = 0; i < edges.length - 1; i++) {
         var mid = (edges[i] + edges[i + 1]) / 2;
         // basal is the HIGHER sigma-0 here → prism is stickier → the crystal spreads → plate
-        out.push([edges[i], edges[i + 1], sBasal(mid) - sPrism(mid) > 0 ? "P" : "C"]);
+        out.push([
+          edges[i], edges[i + 1],
+          sBasalFor(mid, state) - sPrismFor(mid, state) > 0 ? "P" : "C"
+        ]);
       }
       return out;
     }
@@ -2090,8 +2204,22 @@
     function render() {
       if (svg) svg.remove();
       var c = Viz.colors();
-      var cross = crossings();
-      var bands = habitBands(cross);
+      var state = stateSnapshot();
+      var cross = crossingsFor(state);
+      var bands = habitBands(cross, state);
+      var publishedState = isPublishedCorrectedState(state);
+
+      root.setAttribute("data-formula-mode", state.mode);
+      root.setAttribute("data-basal-dip", state.bOn ? "on" : "off");
+      root.setAttribute("data-prism-dip", state.pOn ? "on" : "off");
+      root.setAttribute("data-basal-centre", String(state.bC));
+      root.setAttribute("data-prism-centre", String(state.pC));
+      root.setAttribute("data-depth", String(state.depth));
+      root.setAttribute("data-crossing-count", String(cross.length));
+      root.setAttribute("data-crossings", cross.map(function (value) {
+        return value.toFixed(6);
+      }).join(","));
+      root.setAttribute("data-published-state", String(publishedState));
 
       svg = Viz.createSvg(plot, W, H, {
         label: "Two critical-supersaturation curves against temperature, with the habit sequence " +
@@ -2113,8 +2241,8 @@
 
       var bas = [], pri = [];
       for (var T = 2; T <= 35.0001; T += 0.1) {
-        bas.push([T, Math.min(25, Math.max(0.002, sBasal(T)))]);
-        pri.push([T, Math.min(25, Math.max(0.002, sPrism(T)))]);
+        bas.push([T, Math.min(25, Math.max(0.002, sBasalFor(T, state)))]);
+        pri.push([T, Math.min(25, Math.max(0.002, sPrismFor(T, state)))]);
       }
       Viz.series(svg, bas, x, y, {
         color: c.series[0], label: "basal", labelDx: 6, labelDy: 15
@@ -2204,25 +2332,34 @@
 
       readout.innerHTML = "<b>" + n + "</b> crossing" + (n === 1 ? "" : "s")
         + (n ? " at " + cross.map(function (t) { return "−" + t.toFixed(2) + "°C"; }).join(", ") : "")
-        + " · " + (st.mode === "corrected" ? "corrected log10 dip formula" : "approximate notch shape");
+        + " · " + (state.mode === "corrected" ? "corrected log10 dip formula" : "approximate notch shape");
 
       var msg;
       var tone;
+      var verdictKind;
       if (n === 0) {
-        msg = "No crossing at all — one habit across the whole axis, and zero boundaries.";
+        msg = "The curves in the current widget state have no crossing: one inferred habit across "
+            + "the whole axis, and zero possible boundaries.";
         tone = "var(--ink-secondary)";
+        verdictKind = "current-zero";
+      } else if (n === 1 && !state.bOn && !state.pOn) {
+        msg = "With both dips off, the two broad-facet curves shown here cross once, so this ribbon "
+            + "can contain only one boundary. The separate registered digitized curves showed the "
+            + "same monotone sense along the sweep: basal/prism ratio 12.50 at −2 °C, 1.00 at "
+            + "−10 °C, 0.52 at −40 °C.";
+        tone = "var(--ink-secondary)";
+        verdictKind = "broad-curves-only";
       } else if (n === 1) {
-        msg = "Two smooth curves, one crossing, one boundary. Scale either of these curves up or "
-            + "down by any constant and it stays one crossing — because what falls steadily with "
-            + "cold is the basal/prism RATIO, and multiplying one curve by a constant cannot make "
-            + "a steadily falling ratio cross 1 twice. The project registered that argument on its "
-            + "own digitized curves before the sweep: ratio 12.50 at −2 °C, 1.00 at −10 °C, 0.52 "
-            + "at −40 °C.";
+        msg = "The current dip toggles and centres produce one crossing. That verdict belongs to "
+            + "the state displayed now; it says nothing about the published two-dip state.";
         tone = "var(--ink-secondary)";
+        verdictKind = state.mode === "corrected" ? "corrected-modified" : "approximate-modified";
       } else if (n === 2) {
-        msg = "Two crossings. Better — and you got there by carving a hole in a published curve.";
+        msg = "The current dip toggles and centres produce two crossings. This is a result of the "
+            + "displayed state, not the published two-dip verdict.";
         tone = "var(--ink-secondary)";
-      } else if (st.mode === "corrected" && n === 3) {
+        verdictKind = state.mode === "corrected" ? "corrected-modified" : "approximate-modified";
+      } else if (publishedState && n === 3) {
         msg = "Three crossings — this is Libbrecht's own printed base-10-log dip formula "
             + "(arXiv:2306.13087v1 p6), at its published dip centres, not this page's "
             + "approximate notch. Against the reference boundaries −3.3, −9.9 and "
@@ -2231,22 +2368,32 @@
             + "match than the earlier natural-log mistake's claimed exact hit. Sense and "
             + "count only, never location.";
         tone = "var(--accent-key)";
-      } else if (st.mode === "corrected") {
-        msg = n + " crossings — the centre sliders have been moved away from Libbrecht's "
-            + "printed values (−4.5 °C basal, −14.4 °C prism). At the printed centres this "
-            + "formula gives exactly three, at −3.08, −8.07 and −24.73 °C. Reset the centres "
-            + "to see it.";
+        verdictKind = "published-corrected";
+      } else if (state.mode === "corrected") {
+        var off = [];
+        if (!state.bOn) off.push("basal dip off");
+        if (!state.pOn) off.push("prism dip off");
+        var changed = [];
+        if (Math.abs(state.bC - 4.5) >= 1e-12) changed.push("basal centre −" + state.bC.toFixed(1) + " °C");
+        if (Math.abs(state.pC - 14.4) >= 1e-12) changed.push("prism centre −" + state.pC.toFixed(1) + " °C");
+        msg = n + " crossings in the corrected-formula mode, with "
+            + (off.concat(changed).length ? off.concat(changed).join(", ") : "the current controls")
+            + ". This is not the complete published state. “Load published dip state” sets both "
+            + "dips on at −4.5 and −14.4 °C; there the independently evaluated array has three "
+            + "crossings at −3.08, −8.07 and −24.73 °C.";
         tone = "var(--ink-secondary)";
+        verdictKind = "corrected-modified";
       } else {
-        msg = "Three or more. You have just put the answer in by hand: the dip centres came from "
-            + "this diagram in the first place. That is why a dip-bearing run can only ever be "
-            + "called in-sample reproduction, never validation. This is still this page's own "
-            + "notch shape — switch to “Corrected log10 dip formula” above to see "
-            + "Libbrecht's actual printed form instead.";
+        msg = n + " crossings under this page's approximate notch, using the toggles, centres, and "
+            + "depth displayed now. This is not Libbrecht's printed dip formula. Dip-bearing "
+            + "agreement with the diagram is in-sample reproduction, never validation.";
         tone = "var(--accent-key)";
+        verdictKind = "approximate-modified";
       }
       banner.textContent = msg;
       banner.style.color = tone;
+      banner.setAttribute("data-verdict-kind", verdictKind);
+      root.setAttribute("data-verdict-kind", verdictKind);
     }
 
     var plot = document.createElement("div");
@@ -2269,6 +2416,8 @@
           armSliders();
           render();
         }, { pressed: v[0] === st.mode });
+        b.setAttribute("data-control", "crossing-mode");
+        b.setAttribute("data-mode-id", v[0]);
         modeButtons.push(b);
       });
       var modeNote = document.createElement("span");
@@ -2283,6 +2432,7 @@
          slider stays disabled in corrected mode, whose depth is a fixed printed constant
          (87% basal, 95% prism), not a knob. */
       var bSlider = null, pSlider = null, dSlider = null;
+      var bToggle = null, pToggle = null;
       function armSliders() {
         function arm(h, live, offTitle) {
           if (!h) return;
@@ -2296,37 +2446,113 @@
           st.mode === "corrected" ? "the printed formula fixes this (87% basal, 95% prism)"
                                    : "switch a dip on first");
       }
+      function syncButtons() {
+        modeButtons.forEach(function (button) {
+          button.setAttribute("aria-pressed", String(button.getAttribute("data-mode-id") === st.mode));
+        });
+        bToggle.textContent = "Basal dip: " + (st.bOn ? "on" : "off");
+        bToggle.setAttribute("aria-pressed", String(st.bOn));
+        pToggle.textContent = "Prism dip: " + (st.pOn ? "on" : "off");
+        pToggle.setAttribute("aria-pressed", String(st.pOn));
+      }
+      function applyCrossingState(raw) {
+        var next = normalizeCrossingState(raw);
+        Object.keys(next).forEach(function (key) { st[key] = next[key]; });
+        bSlider.value = st.bC;
+        pSlider.value = st.pC;
+        dSlider.value = st.depth;
+        syncButtons();
+        armSliders();
+        render();
+      }
 
-      Viz.button(bar, "Basal dip: off", function (b) {
+      bToggle = Viz.button(bar, "Basal dip: off", function (b) {
         st.bOn = !st.bOn;
         b.textContent = "Basal dip: " + (st.bOn ? "on" : "off");
         b.setAttribute("aria-pressed", String(st.bOn));
         armSliders();
         render();
       }, { pressed: false });
+      bToggle.setAttribute("data-control", "crossing-toggle");
+      bToggle.setAttribute("data-dip", "basal");
       bSlider = Viz.slider(bar, {
         label: "basal dip centre", id: "c28x-bc", min: 2, max: 35, step: 0.1, value: 4.5,
         format: function (v) { return "−" + v.toFixed(1) + " °C"; },
         onInput: function (v) { st.bC = v; render(); }
       });
-      Viz.button(bar, "Prism dip: off", function (b) {
+      bSlider.input.setAttribute("data-control", "crossing-slider");
+      bSlider.input.setAttribute("data-field", "bC");
+      pToggle = Viz.button(bar, "Prism dip: off", function (b) {
         st.pOn = !st.pOn;
         b.textContent = "Prism dip: " + (st.pOn ? "on" : "off");
         b.setAttribute("aria-pressed", String(st.pOn));
         armSliders();
         render();
       }, { pressed: false });
+      pToggle.setAttribute("data-control", "crossing-toggle");
+      pToggle.setAttribute("data-dip", "prism");
       pSlider = Viz.slider(bar, {
         label: "prism dip centre", id: "c28x-pc", min: 2, max: 35, step: 0.1, value: 14.4,
         format: function (v) { return "−" + v.toFixed(1) + " °C"; },
         onInput: function (v) { st.pC = v; render(); }
       });
+      pSlider.input.setAttribute("data-control", "crossing-slider");
+      pSlider.input.setAttribute("data-field", "pC");
       dSlider = Viz.slider(bar, {
         label: "dip depth", id: "c28x-d", min: 0, max: 0.9, step: 0.05, value: 0.7,
         format: function (v) { return Math.round(v * 100) + "%"; },
         onInput: function (v) { st.depth = v; render(); }
       });
+      dSlider.input.setAttribute("data-control", "crossing-slider");
+      dSlider.input.setAttribute("data-field", "depth");
+      var publishedButton = Viz.button(bar, "Load published dip state", function () {
+        applyCrossingState(PUBLISHED_CROSSING_STATE);
+      });
+      publishedButton.setAttribute("data-control", "crossing-load-published");
+      var resetButton = Viz.button(bar, "Reset demo", function () {
+        applyCrossingState(DEFAULT_CROSSING_STATE);
+      });
+      resetButton.setAttribute("data-control", "crossing-reset");
       armSliders();
+
+      window.__VCC_EDU_CROSSINGS__ = {
+        schemaVersion: 1,
+        constants: {
+          range: [2, 35],
+          sampleStep: 0.05,
+          approximateWidth: WIDTH,
+          defaultState: Object.assign({}, DEFAULT_CROSSING_STATE),
+          publishedState: Object.assign({}, PUBLISHED_CROSSING_STATE)
+        },
+        evaluate: function (raw) {
+          var state = normalizeCrossingState(raw);
+          return {
+            state: state,
+            crossings: crossingsFor(state),
+            publishedState: isPublishedCorrectedState(state)
+          };
+        },
+        state: function () {
+          var state = stateSnapshot();
+          return {
+            state: state,
+            crossings: crossingsFor(state),
+            publishedState: isPublishedCorrectedState(state)
+          };
+        },
+        setState: function (raw) {
+          applyCrossingState(raw);
+          return this.state();
+        },
+        loadPublished: function () {
+          applyCrossingState(PUBLISHED_CROSSING_STATE);
+          return this.state();
+        },
+        reset: function () {
+          applyCrossingState(DEFAULT_CROSSING_STATE);
+          return this.state();
+        }
+      };
     }
 
     render();

@@ -55,9 +55,9 @@
         <p class="chapter-header__eyebrow">Chapter 26</p>
         <h1>Fast Without Being Wrong</h1>
         <p class="chapter-header__question">
-          A graphics card can update eight million cells at once. It also does its arithmetic with
-          about nine fewer digits than the careful version. So how do you know the fast answer is
-          the same answer?
+          The preview design budget keeps about eight million cells on the graphics card, split
+          across bounded submissions. The card also does its arithmetic with about nine fewer
+          digits than the careful version. So how do you know the fast answer is the same answer?
         </p>
         <div class="chapter-header__meta">
           <span>~18 min read</span>
@@ -669,22 +669,37 @@
       <h2 id="two-seconds">Two seconds, and what Windows does after them</h2>
 
       <p>
-        This chapter's opening question said &ldquo;eight million cells at once.&rdquo; That is not
-        quite legal, and the reason is an operating system rather than a physicist. Windows watches
-        the graphics card; if one piece of GPU work runs for roughly two seconds without finishing,
-        it assumes the driver has hung, resets it, and kills whatever was running &mdash; including
-        your browser tab. The charter turns that into an architectural rule: &ldquo;Every pass is
-        bounded (Windows' GPU watchdog resets dispatches that run &asymp;2&nbsp;s), so bake-quality
-        work is chunked across many dispatches by design&rdquo; (&sect;3.1).
+        About eight million cells is the blocking <em>preview budget</em>, not one simultaneous
+        update. Windows watches the graphics card; if one piece of GPU work runs for roughly two
+        seconds without finishing, it assumes the driver has hung, resets it, and kills whatever
+        was running &mdash; including your browser tab. The charter turns that into an
+        architectural rule: &ldquo;Every pass is bounded (Windows' GPU watchdog resets dispatches
+        that run &asymp;2&nbsp;s), so bake-quality work is chunked across many dispatches by
+        design&rdquo; (&sect;3.1).
       </p>
 
       <p>
         So the ceiling is written into the code, well below where the operating system would
         intervene: 16,384 squads of 256 workers, or <strong>4,194,304 cells</strong> in one
         dispatch (<code>solver-gpu/src/submission.ts</code>, lines&nbsp;1&ndash;4). The blocking
-        column budget is 160&times;160&times;320 = 8,192,000 cells
+        column preview budget is 160&times;160&times;320 = 8,192,000 cells
         (<code>runner/src/phase5-protocol.ts</code>, line&nbsp;115), so it needs at least two
-        ranges. The bounded seam is not hypothetical at the size the project actually ships.
+        ranges. The plate preview budget is 400&times;400&times;50 = 8,000,000 cells. These are
+        morphology-shaped Phase&nbsp;5 design and gate budgets, not a claim that either whole field
+        is processed in one dispatch.
+      </p>
+
+      <p>
+        The larger numbers are targets with a different status. Detailed mode is about
+        30&nbsp;million cells; the two bake shapes are 133,120,000 cells for a plate and
+        131,072,000 for a column &mdash; roughly 130&nbsp;million. Detailed and bake are
+        <strong>capability-reported design budgets, not Phase&nbsp;5 acceptance criteria</strong>.
+        Under the canonical device request, one bake field would exceed the requested storage
+        binding limit, so bake is currently reported unsupported rather than partially allocated
+        or silently shrunk. The adapter's aggregate 10&nbsp;GB memory does not turn that target into
+        an executed capability claim
+        (<code>docs/plans/phase-5-gpu-port.md</code>, &ldquo;Resolution and memory budgets&rdquo;
+        and &ldquo;Out of scope&rdquo;).
       </p>
 
       <p>
@@ -849,9 +864,12 @@
         fixed-supersaturation run counts as converged only when <em>two independent</em> things hold.
         The iterate residual &mdash; how much the field <em>changed</em> during a sweep &mdash; must be
         under <code>relaxTol</code>. <strong>And</strong> the divergence identity &mdash;
-        |injection + drift &minus; exchange| / |exchange|, the bookkeeping check that what the outer
-        wall pushes in equals what the crystal's surface takes out &mdash; must be under
-        <code>divTol</code>. They are two separate controls, registered on the fixture itself on
+        |injection + drift &minus; exchange| / |exchange|, the numerical bookkeeping check that the
+        signed shell-clamp update, directly metered smoother drift and signed surface-boundary
+        replacement balance during the final elliptic sweep &mdash; must be under
+        <code>divTol</code>. It is not a physical uptake or deposited-ice identity; relaxation
+        sweeps advance no physical time. The residual and divergence identity are two separate
+        controls, registered on the fixture itself on
         consecutive lines: <code>relaxTol: 1e-9</code> and <code>divTol: 1e-7</code>
         (<code>runner/src/phase5-protocol.ts</code>, lines&nbsp;345&ndash;346; the same pair is
         registered again for the Phase&nbsp;6 runs at
@@ -866,7 +884,8 @@
 
       <p>
         <code>divTol = 1e-7</code> is <em>relative</em> &mdash; the imbalance as a proportion of the
-        surface exchange (<code>docs/plans/phase-6-nakaya-validation.md:305</code> and
+        signed numerical surface-boundary exchange, not Hertz&ndash;Knudsen demand or uptake
+        (<code>docs/plans/phase-6-nakaya-validation.md:305</code> and
         314&ndash;321) &mdash; and it is the one float32 cannot satisfy. In float32, the smallest gap
         between two representable numbers near 1.0 is <code>2<sup>&minus;23</sup></code> &mdash; about
         <strong>1.19&times;10<sup>&minus;7</sup></strong> (<code>FLOAT32_EPSILON</code>,
@@ -920,7 +939,7 @@
         to hold at whatever magnitude the field legitimately reaches &mdash; including a subnormal
         one, since the CPU oracle accepts finite supersaturation all the way down to one. Written as
         a pure fraction of the field's own size, the pre-shader expression was
-        <code>64&nbsp;*&nbsp;activeCellCount&nbsp;*&nbsp;2<sup>&minus;23</sup>&nbsp;*&nbsp;maxAbsSweepInput</code>
+        <code>64 * activeCellCount *<wbr> 2<sup>&minus;23</sup> *<wbr> maxAbsSweepInput</code>
         (<code>docs/decisions/0020-floor-phase5-float32-smoother-drift.md:13</code>). Independent
         WP4 review found that it underflows conceptually on legal input, before any production
         shader existed to hit it: &ldquo;For <code>maxAbsSweepInput&nbsp;=&nbsp;2<sup>&minus;149</sup></code>,

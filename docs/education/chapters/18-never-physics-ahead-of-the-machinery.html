@@ -143,21 +143,22 @@
         </p>
       </aside>
 
-      <figure class="chart" id="fig-ladder">
+      <figure class="chart" id="fig-ladder" data-status-snapshot-date="2026-07-26">
         <div class="chart__head">
-          <p class="chart__title">The ladder, and where the project is standing on it</p>
+          <p class="chart__title">The ladder &mdash; status snapshot recorded 2026-07-26</p>
           <p class="chart__sub">
-            Five rungs closed on an automated metric; two closed on the maker&rsquo;s word, and
-            labelled as such. Phase 6 is in flight. Phase 7 has not started. The two brackets on
-            the right mark the only two places one rule is invoked; they use two terms the next
-            section unpacks &mdash; the <em>CPU oracle</em> is the slow, readable TypeScript
-            solver, and <em>WGSL</em> is the language the graphics-card version is written in.
+            This reproduces the dated gate table used by this chapter; it is not a live status
+            widget. Use <code>docs/PROGRESS.md</code>, <strong>Next step</strong>, for where the
+            project stands now. The two brackets on the right mark the only two places one rule is
+            invoked; they use two terms the next section unpacks &mdash; the <em>CPU oracle</em> is
+            the slow, readable TypeScript solver, and <em>WGSL</em> is the language the
+            graphics-card version is written in.
           </p>
         </div>
         <div class="chart__body"></div>
         <figcaption class="chart__foot">
-          <span class="built-from">Original diagram. Rungs transcribed from the phase-gate table in
-          <code>docs/PROGRESS.md</code> (lines 606&ndash;616); the labels are not. The
+          <span class="built-from">Original diagram. Rungs transcribed from the 2026-07-26
+          phase-gate snapshot in <code>docs/PROGRESS.md</code>; the labels are not. The
           metric-closed / maker-asserted split is that file&rsquo;s own classification at lines
           597&ndash;604, applied here to the table&rsquo;s rows &mdash; three of which that table
           itself records as &ldquo;maker-asserted complete&rdquo;. The two brackets encode the
@@ -204,7 +205,8 @@
       </p>
 
       <p>
-        Below is that table&rsquo;s own content: the gate for each rung, and its recorded status.
+        Below is that table&rsquo;s own content: the gate for each rung, and its status as recorded
+        in the chapter&rsquo;s 2026-07-26 snapshot.
         The sentence introducing that table in <code>docs/PROGRESS.md</code> (line 594) states the
         standard it enforces: &ldquo;A gate flips to &check; only with a named metric, its value,
         and the seed/resolution/command to reproduce it.&rdquo; A <strong>seed</strong> here is the
@@ -244,11 +246,15 @@
       </div>
 
       <p>
-        Two things in that table are worth flagging now, because the rest of Part Two depends on
-        them. Phase 6 is <strong>in flight</strong> &mdash; its gate has not been closed, and this
-        site does not write as though it had. Phase 7, the product, has <strong>not
-        started</strong>. There is no product. There is a ladder with a person standing near the
-        top of it.
+        Two things in that <strong>2026-07-26 snapshot</strong> are worth flagging because the rest
+        of Part Two depends on the distinction: Phase&nbsp;6 was in flight, and Phase&nbsp;7 had not
+        started. Those cells explain the evidence discussed by the chapters; they do not freeze the
+        project there. The dated <strong>Next step</strong> entry in
+        <code>docs/PROGRESS.md</code> is the designated live authority. At <code>8c781b1</code> it
+        contains a known lag: it still says to freeze Arm&nbsp;2 although <code>483f7ee</code>
+        froze the value content, <code>0cb52bf</code> recorded its ancestry and final values pin,
+        and <code>8c781b1</code> recorded the combined revision hash. The working rules require this
+        disagreement to be stated, not silently resolved.
       </p>
 
       <!-- ================================================================= -->
@@ -290,7 +296,7 @@
         only ever names one boundary &mdash; Libbrecht&rsquo;s equations on one side, everything
         the lattice needs in order to run at all on the other &mdash; so that is the boundary this
         chapter uses. The disagreement is flagged here rather than quietly settled, for a reason
-        that arrives later in this chapter, in the section on which document wins.
+        that arrives later in this chapter, in the question-based authority router.
       </p>
 
       <p>
@@ -504,9 +510,13 @@
         standing guardrail (§3.3, line 336), and the reason is in the phase text: a piece of
         weekend code that survives contact with the real project stops being a prototype and
         becomes, silently, the foundation. That is not a hypothetical: the archived code still
-        sits in the repository today, as the sixth package in AGENTS.md&rsquo;s own repository
-        map, <code>spike/</code> &mdash; &ldquo;deliberately outside the npm workspace. Do not
-        evolve it into the product&rdquo; (<code>AGENTS.md</code>, line 91).
+        sits in the repository today as <code>spike/</code>, but it is <strong>outside the five
+        npm workspaces</strong> in the repository map &mdash; not a sixth package in the product
+        dependency graph. The map says it is &ldquo;deliberately outside the npm workspace. Do not
+        evolve it into the product&rdquo; (<code>AGENTS.md</code>, repository map). Its standalone
+        <code>node spike/check.mjs</code> run currently prints 38 passing machine checks; those
+        checks do not retroactively perform the four human play-test tasks that the plan records
+        as unrun.
       </p>
 
       <p>
@@ -692,34 +702,37 @@
       </p>
 
       <p>
-        And because six different kinds of document now exist, they are ranked. The table below is
-        the project&rsquo;s answer to &ldquo;which one wins when two of them disagree?&rdquo;
+        Six different kinds of record now exist, but they do not form one universal ranking.
+        They answer different questions. The table below is a router: begin with what you need to
+        know, then open the authority assigned to that question.
       </p>
 
       <figure class="chart" id="fig-authority">
         <div class="chart__head">
-          <p class="chart__title">The authority ladder</p>
+          <p class="chart__title">The authority router</p>
           <p class="chart__sub">
-            Six document kinds, ranked. The crossed arrow is the rule that matters: code is
-            evidence, not contract.
+            Six questions, six primary records. A disagreement is repaired at the authority for
+            the question; it is never settled by silently choosing the row drawn highest.
           </p>
         </div>
         <div class="chart__body"></div>
         <figcaption class="chart__foot">
-          <span class="built-from">Original diagram. Rows and question labels transcribed from the
-          cold-start and authority tables in <code>AGENTS.md</code>, lines 21&ndash;23 and
-          52&ndash;57.</span>
+          <span class="built-from">Original diagram. Questions and responsibilities are
+          transcribed from the cold-start and &ldquo;When sources disagree&rdquo; tables in
+          <code>AGENTS.md</code>. Vertical position is layout only; it carries no rank.</span>
         </figcaption>
       </figure>
 
       <p>
-        The bottom row is the interesting one. Its entry in the authority table reads: &ldquo;Code,
+        The implementation row is the interesting one. Its entry in the authority table reads: &ldquo;Code,
         tests, logs, checkpoints | Implementation and evidence. They do not silently overrule the
-        written contract.&rdquo; (line 57). Code is what the project <em>did</em>; the charter is
-        what the project <em>agreed to do</em>. When they disagree, the disagreement is the finding.
+        written contract.&rdquo; Code is what the project <em>did</em>; the charter is the current
+        product, science, phase and gate contract. A mismatch does not make either one the
+        all-purpose winner: it asks whether the implementation is wrong, the contract needs an
+        ADR-backed change, or the two records are answering different questions.
         The next sentence in the file forbids the tidy way out: &ldquo;If any two disagree, state
         the disagreement explicitly and fix it at the proper authority level; never choose one
-        silently.&rdquo; (lines 59&ndash;60).
+        silently.&rdquo;
       </p>
 
       <p>
@@ -731,31 +744,28 @@
       </p>
 
       <p>
-        The table only does its job if it also works in reverse: given two documents and a
-        disagreement, you should be able to name the winner and quote the reason before you go
-        looking it up. Below, pick two of the six kinds yourself.
+        The table only does its job if it works from a real question. Ask where a fact belongs,
+        inspect the primary record and its necessary companion, then decide what kind of repair a
+        disagreement calls for.
       </p>
 
-      <figure class="anim" id="demo-authority">
+      <figure class="anim" id="demo-authority" data-authority-router="question-based">
         <div class="anim__head">
-          <p class="anim__title">Pick two, see who wins</p>
+          <p class="anim__title">Ask first, then route</p>
           <p class="anim__sub">
-            Choose two of <code>AGENTS.md</code>&rsquo;s six document kinds. An example
-            disagreement appears on its own &mdash; invent a more plausible one if you like, the
-            verdict does not depend on which. Swap the two and check that the answer does not
-            change with them.
+            Choose the question you are trying to answer. The router names the primary authority,
+            what to cross-check, and what a conflict means. No source wins questions outside its
+            remit.
           </p>
         </div>
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
-          <span class="built-from">Original interactive. The six document kinds and their
-          authority text are quoted verbatim from the &ldquo;When sources disagree&rdquo; table in
-          <code>AGENTS.md</code>, lines 52&ndash;57; the closing rule is quoted from lines
-          59&ndash;60. One curated example reuses this chapter&rsquo;s own citations for the
-          vapour-diffusion wrinkle, <code>docs/decisions/0003-libbrecht-attachment-kinetics.md</code>
-          lines 40 and 44 and <code>docs/gg-machinery.md</code> line 4; the other curated examples
-          are invented for this demo and labelled as such.</span>
+          <span class="built-from">Original interactive. The six responsibilities are quoted or
+          closely paraphrased from the &ldquo;When sources disagree&rdquo; table in
+          <code>AGENTS.md</code>; the repair rule is quoted verbatim from the paragraph immediately
+          below that table. The routes explain repository governance, not a hierarchy of truth in
+          science generally.</span>
         </figcaption>
       </figure>
 
@@ -845,8 +855,10 @@
         packages, and in both Phase 5 and Phase 6 the one numbered 5 is the evidence package &mdash;
         run the registered command at one clean commit, authenticate the artifacts, and get an
         independent reviewer to sign them off. The WP5 in that sentence is Phase 5&rsquo;s, which is
-        closed. Chapters 28 and 29 need the same abbreviation for Phase 6&rsquo;s, which has not run,
-        and that is why the current Phase 6 numbers are not yet gate evidence.
+        closed. In the evidence snapshot discussed by chapters&nbsp;28 and&nbsp;29,
+        Phase&nbsp;6&rsquo;s WP5 had not run; that is why the numbers reported in that snapshot were
+        not yet gate evidence. See <code>docs/PROGRESS.md</code>, <strong>Next step</strong>, before
+        making a present-tense status claim.
       </p>
 
       <p>
@@ -948,8 +960,8 @@
     const body = root.querySelector(".chart__body");
 
     const RUNGS = [
-      { id: "7",  name: "Product layer",                       state: "not started" },
-      { id: "6",  name: "Validation against the Nakaya diagram", state: "in flight" },
+      { id: "7",  name: "Product layer",                       state: "not started (snapshot)" },
+      { id: "6",  name: "Validation against the Nakaya diagram", state: "in flight (snapshot)" },
       { id: "5",  name: "GPU port",                            state: "closed on a metric" },
       { id: "4",  name: "The morphology gauntlet",             state: "closed on a metric" },
       { id: "3",  name: "Development visualization",           state: "closed on a metric" },
@@ -969,7 +981,7 @@
       body.textContent = "";
       const c = Viz.colors();
       const svg = Viz.createSvg(body, W, H, {
-        label: "A nine-rung ladder from Phase 0 at the bottom to Phase 7 at the top. Phases 2a to 5 are closed on an automated metric; Phases 0 and 1 are closed on the maker's assertion and marked differently; Phase 6 is in flight and Phase 7 has not started.",
+        label: "A dated 2026-07-26 nine-rung ladder from Phase 0 at the bottom to Phase 7 at the top. Phases 2a to 5 are closed on an automated metric; Phases 0 and 1 are closed on the maker's assertion and marked differently; the snapshot records Phase 6 in flight and Phase 7 not started.",
         desc: "Two nested brackets on the right mark the two boundaries governed by the rule 'never physics ahead of the machinery': Phase 2a before Phase 2b, and the CPU oracle — Phases 2a and 2b together — before the GPU port at Phase 5.",
       });
 
@@ -986,7 +998,7 @@
       RUNGS.forEach(function (r, i) {
         const y = TOP + i * PITCH;
         const closed = r.state === "closed on a metric";
-        const flight = r.state === "in flight";
+        const flight = r.state.indexOf("in flight") === 0;
         const asserted = r.state === "maker-asserted";
         const dim = closed ? c.good : (flight ? c.ink : (asserted ? c.inkSecondary : c.muted));
         svg.appendChild(Viz.svgEl("rect", {
@@ -994,7 +1006,7 @@
           fill: flight ? c.sunken : c.surface,
           stroke: flight ? c.ink : c.rule,
           "stroke-width": flight ? 2 : 1,
-          opacity: r.state === "not started" ? 0.55 : 1,
+          opacity: r.state.indexOf("not started") === 0 ? 0.55 : 1,
         }));
         svg.appendChild(Viz.svgEl("circle", {
           cx: RX + 26, cy: y + RH / 2, r: 14,
@@ -1046,60 +1058,47 @@
     Viz.onThemeChange(render);
   })();
 
-  /* =========================================== FIGURE: authority ladder */
+  /* =========================================== FIGURE: authority router */
   (function () {
     const root = document.getElementById("fig-authority");
     if (!root || !window.Viz) return;
     const body = root.querySelector(".chart__body");
 
     const ROWS = [
-      ["project charter.md",           "the spec — the current charter wins"],
-      ["docs/decisions/NNNN-*.md",     "Why is it this way and not the obvious alternative?"],
-      ["the three solver specs",       "delegated technical ground truth"],
-      ["docs/plans/<phase>-*.md",      "What are we about to do, and why that way?"],
-      ["docs/PROGRESS.md",             "Where is the project right now?"],
-      ["code, tests, logs, checkpoints", "Implementation and evidence."],
+      ["What product, science, phase or gate contract applies?", "project charter.md"],
+      ["Why was that contract changed; what alternative lost?", "accepted ADR"],
+      ["What algorithm must the implemented solver execute?", "relevant solver spec"],
+      ["What approach or pre-registered protocol governs this work?", "active plan"],
+      ["What is complete, in flight, and next?", "docs/PROGRESS.md"],
+      ["What did the implementation or recorded execution actually do?", "code, tests, logs, checkpoints"],
     ];
 
-    const W = 720, RH = 40, GAP = 9, TOP = 16, LX = 74, LW = 560;
-    const H = TOP + ROWS.length * (RH + GAP) + 24;
+    const W = 720, RH = 52, GAP = 9, TOP = 16, LX = 16, LW = 688;
+    const H = TOP + ROWS.length * (RH + GAP) + 28;
 
     function render() {
       body.textContent = "";
       const c = Viz.colors();
       const svg = Viz.createSvg(body, W, H, {
-        label: "Six document kinds ranked from the charter at the top to code at the bottom, with a crossed-out arrow from code back up to the charter.",
-        desc: "The crossed arrow is labelled: code cannot silently overrule the written contract.",
+        label: "Six governance questions routed to the charter, accepted decisions, solver specifications, active plan, progress file, or implementation and evidence.",
+        desc: "Rows are not ranked. Each row pairs one question with the repository record assigned to answer it.",
       });
 
       ROWS.forEach(function (r, i) {
         const y = TOP + i * (RH + GAP);
         svg.appendChild(Viz.svgEl("rect", {
           x: LX, y: y, width: LW, height: RH, rx: 7,
-          fill: i === 0 ? c.sunken : c.surface,
-          stroke: i === 0 ? c.ink : c.rule, "stroke-width": i === 0 ? 1.8 : 1,
+          fill: i % 2 === 0 ? c.sunken : c.surface,
+          stroke: c.rule, "stroke-width": 1,
         }));
-        txt(svg, LX + 14, y + RH / 2 + 4, r[0], { size: 12, weight: 640, mono: true, fill: c.ink });
-        txt(svg, LX + LW - 14, y + RH / 2 + 4, r[1], {
-          anchor: "end", size: 11.5, fill: c.inkSecondary,
+        txt(svg, LX + 14, y + 20, r[0], { size: 11.5, weight: 560, fill: c.ink });
+        txt(svg, LX + 14, y + 40, "open → " + r[1], {
+          size: 11.5, weight: 700, mono: true, fill: c.series[i % c.series.length],
         });
       });
 
-      // the refused arrow: bottom row back to top row
-      const yBot = TOP + (ROWS.length - 1) * (RH + GAP) + RH / 2;
-      const yTop = TOP + RH / 2;
-      svg.appendChild(Viz.svgEl("path", {
-        d: "M" + (LX - 12) + "," + yBot + " C22," + yBot + " 22," + yTop + " " + (LX - 12) + "," + yTop,
-        fill: "none", stroke: c.critical, "stroke-width": 1.6, "stroke-dasharray": "5 4",
-      }));
-      const mx = 34, my = (yTop + yBot) / 2;
-      svg.appendChild(Viz.svgEl("path", {
-        d: "M" + (mx - 8) + "," + (my - 8) + " L" + (mx + 8) + "," + (my + 8) +
-           " M" + (mx + 8) + "," + (my - 8) + " L" + (mx - 8) + "," + (my + 8),
-        stroke: c.critical, "stroke-width": 2.4, "stroke-linecap": "round",
-      }));
-      txt(svg, LX + 14, H - 6, "code cannot silently overrule the written contract", {
-        size: 11, weight: 600, fill: c.critical,
+      txt(svg, LX, H - 6, "route by question • state disagreements • repair at the proper authority", {
+        size: 11, weight: 650, fill: c.inkSecondary,
       });
     }
 
@@ -1753,191 +1752,142 @@
     Viz.onThemeChange(render);
   })();
 
-  /* ============================================================ DEMO: pick two, see who wins */
+  /* ============================================================ DEMO: question-based authority router */
   (function () {
     const root = document.getElementById("demo-authority");
     if (!root || !window.Viz) return;
     const body = root.querySelector(".anim__body");
     const controls = root.querySelector(".anim__controls");
 
-    /* The six rows, in the exact order and wording of the "When sources disagree" table,
-       AGENTS.md lines 52–57. Rank is the row's position in this array: 0 is highest authority,
-       5 is lowest. `mid` is a lowercase mid-sentence form used only in this demo's own prose;
-       `authority` and `line` are the verbatim quote and its citation. */
-    const KINDS = [
-      { mid: "the charter", short: "The charter",
-        authority: "Governing product, science, phase, and gate contract. The current charter wins.",
-        line: 52 },
-      { mid: "the ADR", short: "An accepted ADR",
-        authority: "Why the charter changed and which tempting alternative was rejected. An ADR and the charter should already agree.",
-        line: 53 },
-      { mid: "the solver spec", short: "A solver spec",
-        authority: "Delegated technical ground truth for the implemented algorithms.",
-        line: 54 },
-      { mid: "the active plan", short: "The active plan",
-        authority: "Current implementation approach, pre-registered protocols, evidence, and rejected attempts.",
-        line: 55 },
-      { mid: "PROGRESS.md", short: "PROGRESS.md",
-        authority: "Live state: what is complete, what is in flight, and the next concrete action.",
-        line: 56 },
-      { mid: "the code", short: "The code",
-        authority: "Implementation and evidence. They do not silently overrule the written contract.",
-        line: 57 },
+    const ROUTES = [
+      {
+        id: "contract",
+        button: "What must the project do?",
+        question: "What is the governing product, science, phase, or gate contract?",
+        primary: "project charter.md",
+        reason: "The current charter defines the contract.",
+        companion: "Accepted ADRs explain why that contract changed and which alternative was rejected.",
+        conflict: "Check whether implementation violates the contract or an ADR-backed charter update is missing. Do not let either change silently.",
+      },
+      {
+        id: "rationale",
+        button: "Why was it changed?",
+        question: "Why is the current contract this way, and what tempting alternative was rejected?",
+        primary: "accepted ADR",
+        reason: "A decision record owns rationale and consequences.",
+        companion: "The current charter should already express the accepted decision.",
+        conflict: "An ADR and charter disagreement is itself a defect: repair both at the governing level before proceeding.",
+      },
+      {
+        id: "algorithm",
+        button: "What algorithm runs?",
+        question: "What is the technical ground truth for an implemented solver algorithm?",
+        primary: "relevant solver spec",
+        reason: "The charter delegates algorithm detail to the solver specifications.",
+        companion: "Code and tests show whether the implementation actually follows that specification.",
+        conflict: "Determine whether code is wrong or the delegated spec needs a governed revision; an executed bug does not rewrite the algorithm.",
+      },
+      {
+        id: "protocol",
+        button: "How will this run be done?",
+        question: "What implementation approach or pre-registered protocol governs the current work?",
+        primary: "active plan",
+        reason: "The plan owns the approach, evidence protocol, and tried-and-rejected routes.",
+        companion: "The charter and accepted ADRs bound what the plan is allowed to decide.",
+        conflict: "Stop before producing evidence; reconcile the plan with its governing contract and record the rejected route.",
+      },
+      {
+        id: "state",
+        button: "Where are we now?",
+        question: "What is complete, what is in flight, and what happens next?",
+        primary: "docs/PROGRESS.md",
+        reason: "The progress file is the live state and handoff index.",
+        companion: "Named plans and artifacts support its status; stale prose elsewhere does not replace it.",
+        conflict: "Re-derive the status from the named artifact, correct the live handoff, and leave the next action specific.",
+      },
+      {
+        id: "execution",
+        button: "What actually happened?",
+        question: "What did the implementation or a recorded execution actually do?",
+        primary: "code, tests, logs, checkpoints",
+        reason: "These bytes are implementation and evidence.",
+        companion: "The applicable spec and pre-registered plan say what those bytes were supposed to do and how their verdict is computed.",
+        conflict: "Report the mismatch as a finding. Evidence can disprove a claim, but it cannot silently rewrite the contract that makes the evidence interpretable.",
+      },
     ];
 
-    /* A few curated, plausible disagreements, keyed "lowRank|highRank". Everything else falls
-       back to a generic prompt built from the two picks — the verdict logic below never reads
-       this object, only the two ranks, so every pair still resolves correctly with no entry. */
-    const EXAMPLES = {
-      "0|1": "Invented: an ADR still argues for a boundary the charter’s current §3.3 text no longer states the same way — the ADR was never revisited when the charter moved on.",
-      "1|2": "Real, from earlier in this chapter: decision 0003 files vapour diffusion under “infrastructure, not physics”; docs/gg-machinery.md opens by calling diffusion “physical transport.”",
-      "4|5": "Invented: PROGRESS.md’s gate entry cites a checkpoint hash; the checkpoint actually sitting on disk hashes to something else.",
-    };
-    function defaultExample(a, b) {
-      return "Invented: " + a.mid + " and " + b.mid + " both speak to the same question, and do not agree.";
-    }
-
-    let pickA = 0, pickB = 5; /* the charter vs the code — the pair this pattern rewards most */
-    let focusKey = null;
-
-    const pickerA = el("div", { display: "flex", flexWrap: "wrap", gap: "0.4rem", margin: "0 0 0.6rem" });
-    const pickerB = el("div", { display: "flex", flexWrap: "wrap", gap: "0.4rem", margin: "0 0 0.7rem" });
-    const example = el("p", {
-      margin: "0 0 0.7rem", fontSize: "0.83rem", fontStyle: "italic", color: "var(--ink-secondary)",
-    });
-    const banner = el("div", {
+    let selected = 0;
+    let focusId = null;
+    const routeButtons = [];
+    const panel = el("div", {
       border: "1px solid var(--rule)", borderRadius: "10px",
-      padding: "0.7rem 0.85rem", background: "var(--surface-sunken)",
+      padding: "0.8rem 0.9rem", background: "var(--surface-sunken)",
     });
-    banner.setAttribute("role", "status");
-    banner.setAttribute("aria-live", "polite");
+    panel.setAttribute("role", "status");
+    panel.setAttribute("aria-live", "polite");
+    body.appendChild(panel);
 
-    function caption(text) {
-      return el("p", {
-        margin: "0 0 0.3rem", fontSize: "0.76rem", fontWeight: "700", color: "var(--ink-muted)",
-        textTransform: "uppercase", letterSpacing: "0.05em",
-      }, text);
-    }
-    body.appendChild(caption("Document A"));
-    body.appendChild(pickerA);
-    body.appendChild(caption("Document B"));
-    body.appendChild(pickerB);
-    body.appendChild(example);
-    body.appendChild(banner);
-
-    function restoreFocus() {
-      if (!focusKey) return;
-      const t = body.querySelector('[data-k="' + focusKey + '"]');
-      if (t) t.focus();
-      focusKey = null;
-    }
-
-    function pickBtn(host, role, i, on) {
-      const k = KINDS[i];
-      const b = el("button", {
-        font: "inherit", fontSize: "0.78rem", padding: "0.32rem 0.6rem",
-        borderRadius: "7px", cursor: "pointer",
-        border: "1px solid " + (on ? "var(--ink-primary)" : "var(--rule-strong)"),
-        background: on ? "var(--surface-1)" : "transparent",
-        color: on ? "var(--ink-primary)" : "var(--ink-secondary)",
-        fontWeight: on ? "700" : "500",
-      }, k.short);
-      b.type = "button";
-      b.setAttribute("aria-pressed", String(on));
-      b.setAttribute("data-k", role + ":" + i);
-      b.setAttribute("aria-label", "Document " + role + ": " + k.short);
-      b.addEventListener("click", function () {
-        if (role === "A") pickA = i; else pickB = i;
-        focusKey = role + ":" + i;
-        render();
-      });
-      host.appendChild(b);
+    function line(label, value, tone) {
+      const row = el("p", { margin: "0 0 0.55rem", fontSize: "0.85rem" });
+      row.appendChild(el("strong", { color: tone || "var(--ink-primary)" }, label + " "));
+      row.appendChild(document.createTextNode(value));
+      return row;
     }
 
     function render() {
-      const c = Viz.colors();
-
-      pickerA.textContent = "";
-      pickerB.textContent = "";
-      KINDS.forEach(function (_, i) {
-        pickBtn(pickerA, "A", i, pickA === i);
-        pickBtn(pickerB, "B", i, pickB === i);
-      });
-
-      banner.textContent = "";
-      example.textContent = "";
-
-      if (pickA === pickB) {
-        banner.style.borderColor = "var(--rule)";
-        banner.appendChild(el("p", { margin: "0", fontWeight: "700" },
-          "Pick two different kinds — a document does not outrank itself."));
-        restoreFocus();
-        return;
-      }
-
-      const lo = Math.min(pickA, pickB), hi = Math.max(pickA, pickB);
-      const winner = KINDS[lo], loser = KINDS[hi];
-      example.textContent = EXAMPLES[lo + "|" + hi] || defaultExample(KINDS[pickA], KINDS[pickB]);
-
-      banner.style.borderColor = c.good;
-      banner.appendChild(el("p", { margin: "0 0 0.4rem", fontWeight: "700", color: c.good },
-        winner.short + " wins."));
-
-      banner.appendChild(el("p", {
-        margin: "0 0 0.2rem", fontSize: "0.86rem", fontStyle: "italic",
-        borderLeft: "3px solid " + c.good, paddingLeft: "0.6rem",
-      }, "“" + winner.authority + "”"));
-      banner.appendChild(el("p", {
-        margin: "0 0 0.55rem", fontSize: "0.74rem", color: "var(--ink-muted)", fontFamily: "var(--font-mono)",
-      }, "AGENTS.md, line " + winner.line));
-
-      banner.appendChild(el("p", { margin: "0 0 0.2rem", fontSize: "0.82rem", color: "var(--ink-secondary)" },
-        "For comparison, " + loser.mid + "’s own row in the same table:"));
-      banner.appendChild(el("p", {
-        margin: "0 0 0.2rem", fontSize: "0.84rem", fontStyle: "italic", color: "var(--ink-secondary)",
-        borderLeft: "3px solid " + c.rule, paddingLeft: "0.6rem",
-      }, "“" + loser.authority + "”"));
-      banner.appendChild(el("p", {
-        margin: "0 0 0.55rem", fontSize: "0.74rem", color: "var(--ink-muted)", fontFamily: "var(--font-mono)",
-      }, "AGENTS.md, line " + loser.line));
-
-      if (lo === 0 && hi === 1) {
-        banner.appendChild(el("p", { margin: "0 0 0.55rem", fontSize: "0.85rem" },
-          "This is the one pair that is not supposed to happen. The ADR row says so itself: an ADR and the charter should already agree. If they do not, the mismatch is the finding — a stale ADR, or a charter change nobody wrote a decision for — not a reason to trust the charter’s date over the ADR’s argument without saying why."));
-      }
-      if (hi === 5) {
-        banner.appendChild(el("p", { margin: "0 0 0.55rem", fontSize: "0.85rem" },
-          "The code row states the general case: evidence does not silently overrule " + winner.mid +
-          ". A mismatch here means either the code is wrong, or " + winner.mid +
-          " needs a written update — not that the code quietly wins because it is what actually ran."));
-      }
-
-      banner.appendChild(el("p", { margin: "0.3rem 0 0.2rem", fontSize: "0.85rem", fontWeight: "700" },
-        "The rule that decides it, unconditionally:"));
-      banner.appendChild(el("p", {
-        margin: "0 0 0.2rem", fontSize: "0.85rem", fontStyle: "italic",
-        borderLeft: "3px solid " + c.critical, paddingLeft: "0.6rem",
+      const route = ROUTES[selected];
+      root.dataset.routeId = route.id;
+      root.dataset.routePrimary = route.primary;
+      panel.textContent = "";
+      panel.appendChild(el("p", {
+        margin: "0 0 0.7rem", fontWeight: "700", fontSize: "0.95rem",
+      }, route.question));
+      panel.appendChild(line("Open first:", route.primary, "var(--ink-primary)"));
+      panel.appendChild(line("Why:", route.reason));
+      panel.appendChild(line("Cross-check:", route.companion));
+      panel.appendChild(line("If they conflict:", route.conflict, "var(--status-critical, var(--ink-primary))"));
+      panel.appendChild(el("p", {
+        margin: "0.75rem 0 0", paddingTop: "0.65rem", borderTop: "1px solid var(--rule)",
+        fontSize: "0.8rem", fontStyle: "italic", color: "var(--ink-secondary)",
       }, "“If any two disagree, state the disagreement explicitly and fix it at the proper authority level; never choose one silently.”"));
-      banner.appendChild(el("p", {
-        margin: "0", fontSize: "0.74rem", color: "var(--ink-muted)", fontFamily: "var(--font-mono)",
-      }, "AGENTS.md, lines 59–60"));
-
-      restoreFocus();
+      routeButtons.forEach(function (button, index) {
+        button.setAttribute("aria-pressed", String(index === selected));
+      });
+      if (focusId !== null && routeButtons[focusId]) {
+        routeButtons[focusId].focus();
+        focusId = null;
+      }
     }
 
-    Viz.button(controls, "Swap A and B", function () {
-      const t = pickA; pickA = pickB; pickB = t;
-      render();
-    });
-    Viz.button(controls, "The charter vs an ADR", function () {
-      pickA = 0; pickB = 1; render();
-    });
-    Viz.button(controls, "PROGRESS.md vs the code", function () {
-      pickA = 4; pickB = 5; render();
+    ROUTES.forEach(function (route, index) {
+      const button = Viz.button(controls, route.button, function () {
+        selected = index;
+        focusId = index;
+        render();
+      }, { pressed: index === selected });
+      button.dataset.control = "authority-route";
+      button.dataset.routeId = route.id;
+      routeButtons.push(button);
     });
     Viz.button(controls, "Reset", function () {
-      pickA = 0; pickB = 5; render();
-    });
+      selected = 0;
+      render();
+    }).dataset.control = "authority-reset";
+
+    window.__educationAuthorityRouter = {
+      routes: function () {
+        return ROUTES.map(function (route) {
+          return {
+            id: route.id,
+            question: route.question,
+            primary: route.primary,
+            companion: route.companion,
+            conflict: route.conflict,
+          };
+        });
+      },
+      selected: function () { return ROUTES[selected].id; },
+    };
 
     render();
     Viz.onThemeChange(render);

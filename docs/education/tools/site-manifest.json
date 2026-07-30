@@ -160,6 +160,7 @@
     "anim-clock",
     "anim-head",
     "anim-locked",
+    "anim-timeline-events",
     "anim-ledger",
     "chart-claims",
     "anim-classifier"
@@ -169,6 +170,7 @@
     "fig-tolerance",
     "fig-audit",
     "fig-convergence",
+    "anim-part2-ledger-separation",
     "fig-gate",
     "fig-drift",
     "fig-validator"
@@ -179,6 +181,7 @@
     "fig-measured",
     "fig-guard",
     "fig-ladder",
+    "anim-part2-transferability",
     "fig-erratum",
     "fig-open-predictors"
   ],
@@ -217,10 +220,12 @@
     "c27-budget",
     "c27-cheat",
     "c27-stepcap",
-    "c27-gate"
+    "c27-gate",
+    "c27-checkpoint-mutations"
   ],
   "chapters/28-the-exam-result.html": [
     "c28-verdicts",
+    "c28-phase6-status",
     "c28-sweep",
     "c28-minus5",
     "c28-blame",

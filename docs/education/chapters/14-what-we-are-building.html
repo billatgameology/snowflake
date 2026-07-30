@@ -318,6 +318,16 @@
         </p>
       </blockquote>
       <p>
+        That paragraph is the <em>product goal</em>, not a description of the screen that exists
+        today. Phase&nbsp;3 built a Three.js <strong>development instrument</strong>: an orbit
+        camera, field overlays, a vapour slice and honest cell readouts for inspecting the solver.
+        The charter calls those views &ldquo;debugging instruments first and product features
+        second&rdquo; (<code>project charter.md</code>, &sect;3.2, Phase&nbsp;3). The polished
+        application &mdash; Phase&nbsp;7&rsquo;s four view profiles, timeline editor and product
+        shell &mdash; is a later layer over that engine. Sharing an engine does not make the
+        development viewer the finished product.
+      </p>
+      <p>
         Notice what you are <em>not</em> given: a shape tool. You cannot drag a branch where you
         want one. The only thing you can edit is the weather, and the crystal is whatever that
         weather writes. That follows from chapter 8: a snow crystal is a record of
@@ -585,10 +595,12 @@
           <dl>
             <dt>10<sup>18</sup></dt><dd>water molecules in one real snow crystal &mdash; a billion
               billion (<code>project charter.md</code>, line 54)</dd>
-            <dt>N<sub>cells</sub></dt><dd>lattice cells the solver actually tracks. The development
-              budget is about 1 million cells; the interactive preview budget about 8 million, and
-              an offline high-fidelity run about 130 million
-              (<code>project charter.md</code>, line 299)</dd>
+            <dt>N<sub>cells</sub></dt><dd>lattice cells in a solver run. The charter&rsquo;s
+              <em>design budgets</em> are about 1 million for development, 8 million for preview
+              and 130 million for a bake-quality target. They are planning targets, not a claim
+              that every adapter has demonstrated all three capacities; the charter makes the
+              detailed and bake targets adapter-dependent
+              (<code>project charter.md</code>, &sect;3.2, Phase&nbsp;5)</dd>
             <dt>10<sup>12</sup></dt><dd>roughly a trillion real molecules standing behind each cell
               the program moves</dd>
           </dl>
@@ -735,26 +747,27 @@
 
       <p>
         It would be easy, after several pages of design documents, to leave you with the impression
-        that the application described in &sect;1.1 exists. It does not, and being clear about that
-        is the same discipline as everything else on this page.
+        that the application described in &sect;1.1 is the same artifact as the Phase&nbsp;3
+        viewer. It is not. The development instrument exists to inspect a running solver; the
+        Phase&nbsp;7 product is the later, human-facing composition of that engine. Being clear
+        about the boundary is the same discipline as everything else on this page.
       </p>
       <p>
-        What exists is the engine and its evidence: a solver that runs on a graphics card in a
-        browser, a headless runner that executes hundreds of runs without a human watching, the
-        metrics, the gates &mdash; automatic pass/fail checks that block a phase from starting until
-        the previous one has met them &mdash; and the 204-run sweep, twice over. The validation work
-        &mdash; the project calls it Phase 6 &mdash; is <strong>in flight, not finished</strong>: the
-        first sweep was withdrawn, the corrected sweep has run and is reported at 3 of 90, that 3 is
-        not yet gate evidence, and the second arm has not run
-        (<code>research/phase6-sweep-report.md</code>, opening and &ldquo;Scored result&rdquo;).
-        The product layer &mdash; Phase 7, the four view profiles (four ways of presenting the same
-        engine, changing what the screen shows and nothing about the physics), the polished timeline
-        editor a person would actually enjoy using &mdash; has <strong>not started</strong>. Its
-        scope was written down in July 2026; it still begins after Phase 6
-        (<code>docs/PROGRESS.md</code>, &ldquo;Next step&rdquo;). The charter's own long-term sketch
-        &mdash; two engines, one interactive and one slow and high-fidelity &mdash; is labelled
-        &ldquo;post-v1, non-binding&rdquo; in its heading (&sect;1.6, lines 89&ndash;94), which is
-        the same honesty device applied to the future.
+        The sweep account at the start of this chapter is a dated evidence snapshot: it describes
+        the corrected no-SDAK arm and the repository state recorded with that report, not a
+        permanently live status panel. This page deliberately does not copy a mutable
+        &ldquo;Phase&nbsp;6 is in progress&rdquo; sentence. For what is complete now, what is in
+        flight and the next concrete action, use the dated <strong>Next step</strong> entry in
+        <code>docs/PROGRESS.md</code>; that file is the project&rsquo;s designated live-state
+        authority (<code>AGENTS.md</code>, &ldquo;When sources disagree&rdquo;). This audit found
+        that its entry at <code>8c781b1</code> lags three commits it should have recorded: it still
+        says to freeze Arm&nbsp;2 after <code>483f7ee</code> froze the value content,
+        <code>0cb52bf</code> recorded that freeze commit and the final gated values hash, and
+        <code>8c781b1</code> repaired the arm-specific combined revision hash. The disagreement is explicit; Git
+        establishes the landed implementation while the progress file&rsquo;s next action needs
+        correction. The stable
+        architectural distinction is simpler: Phase&nbsp;3 is the development instrument, while
+        Phase&nbsp;7 is the product layer described by the charter.
       </p>
 
       <p>

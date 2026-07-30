@@ -33,7 +33,7 @@
   padding: 0.7rem 0.9rem;
   font-size: var(--step--1);
 }
-.c17-task h4 {
+.c17-task h3 {
   margin: 0 0 0.15rem;
   font-size: var(--step--1);
   font-weight: 680;
@@ -343,11 +343,15 @@
           The parameter file records <em>two</em> SDAK hypotheses, not one. SDAK-1 is the pair of
           &sigma;<sub>0</sub> dips in the table above. SDAK-2 changes a different quantity on
           narrow prism facets above about &minus;10&nbsp;&deg;C and is aimed at sharp-tipped
-          dendrites rather than at the habit flip; it is written down but not digitized, because
-          nothing in the solver consumes it. Of both, &sect;4 says: &ldquo;Nothing in the solver
+          dendrites rather than at the habit flip; it is written down but not digitized, and no
+          implementation consumes it. The same frozen file says: &ldquo;Nothing in the solver
           implements either one &mdash; <code>SDAK</code> appears in no source file &mdash; so
-          every run to date is a no-SDAK run.&rdquo; That is a claim you can check by searching
-          the repository, which is the point of writing it that way.
+          every run to date is a no-SDAK run.&rdquo; That sentence records the Arm&nbsp;1-era tree
+          and execution correctly, but the authorities now disagree on its present tense. Accepted
+          decision 0036 and <code>core/src/libbrecht.ts</code> add the later paper&rsquo;s M1
+          SDAK-1 closed forms as a third <code>NucleationParamSet</code>; M2/SDAK-2 remains
+          deferred. Searching the current repository is therefore still the right check, and now
+          it is also how you detect the older parameter-file sentence that needs a currency label.
         </p>
       </aside>
 
@@ -712,23 +716,29 @@
       <h2 id="your-turn">Your turn, before the result</h2>
 
       <p>
-        Nothing here is finished, and the status is on the record rather than in anyone's head.
-        Phase 6 &mdash; the comparison against the diagram &mdash; is marked <strong>in
-        progress</strong> in <code>docs/PROGRESS.md</code>. Phase 7, the product layer this whole
-        thing is supposed to become, is marked <strong>not started</strong>. And the run that
-        would switch the diagram-informed dips back on has its own plan file whose status line
-        reads &ldquo;not started &mdash; blocked on ADR 0030 acceptance &hellip;&rdquo;, with the outcome
-        stated as unknown in advance: &ldquo;The arm is decisive in either direction, and the
-        direction it lands is a first either way&rdquo;
-        (<code>docs/plans/phase-6-sdak-arm.md</code>).
+        The outcome is unfinished, and the status is supposed to live on the record rather than in
+        anyone&rsquo;s head. Phase 6 &mdash; the comparison against the diagram &mdash; remains
+        <strong>in progress</strong>; Phase 7, the product layer this whole thing is supposed to
+        become, remains <strong>not started</strong>. The records also expose a lag rather than
+        silently agreeing. <code>docs/plans/phase-6-sdak-arm.md</code> still says &ldquo;not started
+        &mdash; blocked on ADR 0030 acceptance&rdquo;, and the <code>docs/PROGRESS.md</code> Next
+        step at commit <code>8c781b1</code> still says to freeze Arm&nbsp;2. Later accepted decision
+        0036 and the commit history show more: M1 was implemented at <code>2127d96</code>,
+        <code>483f7ee</code> froze its value content, <code>0cb52bf</code> recorded the freeze
+        ancestry and final gated values hash, and <code>8c781b1</code> records the corrected
+        arm-specific combined revision hash. The plan and Next-step sentence are stale on those
+        preparation facts. A launch was stopped about a minute in after its first line exposed the
+        wrong combined hash. At this audit&rsquo;s
+        2026-07-30 10:23&nbsp;PDT cutoff, the repaired canonical sweep was running, its output was
+        still mutable, and no completed, reviewed result existed, so the outcome was still unknown.
       </p>
 
       <p>
         So commit. A prediction written after the result is not a prediction. Mind the asymmetry
         between the two questions below, because this page has to obey its own rules: chapter 14
         already told you how the first one turned out, so answering it tests your memory rather
-        than your judgement. The second one nobody can answer &mdash; not you, not the reviewers,
-        not the project.
+        than your judgement. The second has a registered forecast but no completed, reviewed answer &mdash;
+        not from you, not from the reviewers, and not from the project.
       </p>
 
       <figure class="anim" id="fig-envelope">
@@ -743,10 +753,11 @@
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. Question 1 restates the charter's Phase 6
-          test (&sect;3.2). Question 2 restates the goal of
-          <code>docs/plans/phase-6-sdak-arm.md</code>, whose status line reads &ldquo;not started
-          &mdash; blocked on ADR 0030 acceptance &hellip;&rdquo; &mdash; nobody knows that answer,
-          including the project. Your choices are stored in this browser and nothing is sent
+          test (&sect;3.2). Question 2 is now governed by accepted decision 0036 and the separately
+          frozen M1 protocol; the older plan&rsquo;s &ldquo;blocked on ADR 0030 acceptance&rdquo;
+          status is stale. The registered forecast is not an observed answer. At the audit cutoff,
+          Arm&nbsp;2 had mutable partial rows but no completed, reviewed sweep result. Your choices
+          are stored in this browser and nothing is sent
           anywhere, which also means nothing else can read them: the seal is for you to check
           against chapter 28, not something chapter 28 will open for you.</span>
         </figcaption>
@@ -979,7 +990,7 @@
 
   function renderTask() {
     task.textContent = "";
-    var h = document.createElement("h4");
+    var h = document.createElement("h3");
     task.appendChild(h);
 
     if (mode === "val") {
@@ -1559,9 +1570,11 @@
       id: "q2",
       text: "When the dips are switched ON, will they right the flip — will the model " +
         "then produce columns near −5 °C?",
-      note: "This run has not happened. docs/plans/phase-6-sdak-arm.md is marked " +
-        "“not started”, and the project says the arm “is decisive in either " +
-        "direction, and the direction it lands is a first either way.”",
+      note: "Accepted decision 0036 registered a forecast, M1 is implemented, 483f7ee froze " +
+        "its separate value content, and 0cb52bf recorded the freeze ancestry and final values-hash pin. A first launch was stopped about a minute in after its first line exposed " +
+        "a wrong-arm hash; 8c781b1 records the repair. At this audit’s cutoff the corrected sweep " +
+        "was running, but partial mutable rows were not a completed, reviewed answer. A forecast " +
+        "is not the observed answer.",
       options: ["Yes, the flip is righted", "No, it still does not"]
     }
   ];
@@ -1651,7 +1664,8 @@
       st.appendChild(document.createTextNode(
         " Your answers are locked and stored in this browser only — nothing is sent anywhere " +
         "and no other page reads them. Check them yourself against chapter 28. Question 2 has " +
-        "no answer anywhere yet: the SDAK arm has not run."));
+        "no completed, reviewed answer yet: at the audit cutoff, the SDAK-arm sweep had mutable " +
+        "partial rows and was still running."));
       var changed = first && QUESTIONS.some(function (q) {
         return first.answers[q.id] !== sealed.answers[q.id];
       });

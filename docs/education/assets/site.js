@@ -175,7 +175,11 @@
    */
   function missingCard(src, figureId, source, page, sourceUrl) {
     const box = el("div", "figure__missing");
-    box.appendChild(el("h4", null, (figureId || "This figure") + " is in the source paper"));
+    box.appendChild(el(
+      "p",
+      "figure__missing-title",
+      (figureId || "This figure") + " is in the source paper",
+    ));
 
     const p = el("p");
     p.appendChild(document.createTextNode(
@@ -314,6 +318,7 @@
       const tag = (event.target.tagName || "").toLowerCase();
       if (tag === "input" || tag === "textarea" || tag === "select") return;
       if (event.target.isContentEditable) return;
+      if (event.target.closest("a, button, [role='region'], .table-wrap")) return;
 
       if (event.key === "ArrowLeft") {
         const prev = $('.chapter-nav__link.is-prev');
@@ -325,6 +330,78 @@
     });
   }
 
+  /* ------------------------------------------ keyboard table scrolling --- */
+
+  function initScrollableTables() {
+    let scheduled = false;
+
+    function labelFor(wrap, index) {
+      const table = wrap.querySelector("table");
+      const caption = table && table.querySelector("caption");
+      const figure = wrap.closest("figure");
+      const figureTitle = figure && figure.querySelector(
+        ".anim__title, .chart__title, figcaption",
+      );
+      const section = wrap.closest("section");
+      const sectionTitle = section && section.querySelector("h2, h3");
+      const source = caption || figureTitle || sectionTitle;
+      const text = source && source.textContent
+        ? source.textContent.trim().replace(/\s+/g, " ")
+        : `Table ${index + 1}`;
+      return `Scrollable table: ${text}`;
+    }
+
+    function sync() {
+      scheduled = false;
+      $$(".table-wrap").forEach(function (wrap, index) {
+        const overflowing = wrap.scrollWidth > wrap.clientWidth + 1;
+        if (overflowing) {
+          if (!wrap.hasAttribute("role")) {
+            wrap.setAttribute("role", "region");
+            wrap.dataset.autoScrollRegion = "true";
+          }
+          if (!wrap.hasAttribute("tabindex")) {
+            wrap.tabIndex = 0;
+            wrap.dataset.autoScrollTabstop = "true";
+          }
+          if (!wrap.getAttribute("aria-label")) {
+            wrap.setAttribute("aria-label", labelFor(wrap, index));
+            wrap.dataset.autoScrollLabel = "true";
+          }
+          wrap.dataset.scrollable = "true";
+        } else {
+          delete wrap.dataset.scrollable;
+          if (wrap.dataset.autoScrollRegion === "true") {
+            wrap.removeAttribute("role");
+            delete wrap.dataset.autoScrollRegion;
+          }
+          if (wrap.dataset.autoScrollTabstop === "true") {
+            wrap.removeAttribute("tabindex");
+            delete wrap.dataset.autoScrollTabstop;
+          }
+          if (wrap.dataset.autoScrollLabel === "true") {
+            wrap.removeAttribute("aria-label");
+            delete wrap.dataset.autoScrollLabel;
+          }
+        }
+      });
+    }
+
+    function schedule() {
+      if (scheduled) return;
+      scheduled = true;
+      window.requestAnimationFrame(sync);
+    }
+
+    const observer = new MutationObserver(schedule);
+    observer.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener("resize", schedule, { passive: true });
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(schedule);
+    }
+    schedule();
+  }
+
   /* -------------------------------------------------------------- boot ---- */
 
   function boot() {
@@ -333,6 +410,7 @@
     initProgress();
     initScrollSpy();
     initKeyboardNav();
+    initScrollableTables();
   }
 
   if (document.readyState === "loading") {

@@ -59,8 +59,8 @@
         </p>
         <div class="chapter-header__meta">
           <span>~14 min read</span>
-          <span>7 figures</span>
-          <span>3 interactives</span>
+          <span>8 figures</span>
+          <span>4 interactives</span>
         </div>
       </header>
 
@@ -143,19 +143,21 @@
 
       <p>
         <strong>Fixed value.</strong> The shell cells are pinned at the set supersaturation, so
-        vapour is replenished as fast as the crystal drinks it. Mathematicians call this a
-        Dirichlet condition — a boundary where you dictate the value rather than the flow. This is
-        much closer to a laboratory, where an experimenter maintains the chamber conditions, and it
-        is what the project used until Phase&nbsp;6. It also breaks the exact conservation invariant on
-        purpose, so the code <em>meters</em> the breakage: it counts every unit of vapour it
-        injects at the wall, and requires that count to balance against what the crystal absorbed.
+        the far-field value after every relaxation sweep. Mathematicians call this a Dirichlet
+        condition — a boundary where you dictate the value rather than the flow. This is closer to
+        a laboratory in which an experimenter maintains the chamber conditions, and it is what the
+        project used until Phase&nbsp;6. Clamping the shell breaks the sealed-reservoir invariant on
+        purpose. The solver therefore meters the shell clamp, the float64 smoother drift and the
+        signed surface-boundary replacement during the final elliptic sweep. Their balance is a
+        numerical convergence diagnostic, not an integrated physical mass or uptake statement:
+        relaxation sweeps advance no physical time.
       </p>
 
       <p>
         <strong>Monopole-matched.</strong> Same shell, same meter, same convergence checks — one
         thing different, the <em>value</em> each shell cell is held at. Instead of the full sky
         value, each cell is held at the value an infinite sky would actually have <em>at that
-        distance</em>, given how fast the crystal is currently drinking.
+        distance</em>, using the computed kinetic demand from the last completed interface update.
       </p>
 
       <div class="equation">
@@ -170,7 +172,10 @@
             <dt>&sigma;<sub>B</sub></dt><dd>the supersaturation one outer-shell cell is clamped to</dd>
             <dt>&rho;<sub>far</sub></dt><dd>the distance from the model's physical centre to <em>that</em> cell — per cell, not one number for the whole wall</dd>
             <dt>&sigma;<sub>&infin;</sub></dt><dd>the supersaturation an infinitely distant sky would carry</dd>
-            <dt>dV/dt</dt><dd>how fast the crystal is gaining volume right now, summed over its surface (Eq. 5.31)</dd>
+            <dt>dV/dt</dt><dd>the previous completed interface update's geometry-adjusted
+              per-boundary-pixel Hertz&ndash;Knudsen kinetic demand expressed as a volume rate
+              (Eq. 5.31). It lags by one growth step and can differ from placed volume when
+              saturation clipping or geometric hole filling occurs</dd>
             <dt>X<sub>0</sub></dt><dd>the kinetic length — the distance scale at which attachment and diffusion trade places</dd>
             <dt>v<sub>kin</sub></dt><dd>the kinetic velocity, the speed scale set by how fast molecules hit the surface</dd>
           </dl>
@@ -474,16 +479,18 @@
       </p>
 
       <p>
-        That is a claim you can check, and the project checked it. The Phase&nbsp;6 convergence
-        study grew the same two crystals — a warm plate at &minus;5&nbsp;°C and a cold one at
-        &minus;15&nbsp;°C — to the same registered size in five different boxes, all under the
-        monopole-matched wall, and compared the results. Every point converged, every point reported
-        a symmetry error of exactly zero.
+        That is a claim you can check. A historical Phase&nbsp;6 convergence study grew the same
+        two crystals — a warm case at &minus;5&nbsp;°C and a cold one at
+        &minus;15&nbsp;°C — to extent 21 in five different boxes under the monopole-matched wall.
+        Every recorded point converged and reported a symmetry error of exactly zero. But the
+        study used the superseded parameter set <code>CAK_A1</code>. It checks domain sensitivity
+        for that configuration only; Rule&nbsp;11 does not let it certify the registered
+        <code>CAK</code> sweep.
       </p>
 
       <figure class="chart" id="fig-ladder">
         <div class="chart__head">
-          <p class="chart__title">Where the guard sits, and where the answer settles</p>
+          <p class="chart__title">Historical CAK_A1 ladder: where the guard sits and the count settles</p>
           <p class="chart__sub">Attached-cell count at each domain size, as a percentage above the largest-box value. Zero means "same answer as the roomiest box tested".</p>
         </div>
         <div class="chart__body"></div>
@@ -495,23 +502,19 @@
           rounded up to the first integer domain the guard admits. That study ran under the
           parameter set <code>CAK_A1</code>, which ADR 0031 later replaced with <code>CAK</code>,
           so the aspect ratios printed here &mdash; 0.3821 warm, 1.1053 cold &mdash; are the earlier
-          set's. Under the registered set the same warm configuration measures 1.0000, which is the
-          figure chapters 28 and 29 use; that comes from the two calibration probes in
-          <code>research/libbrecht-figure-findings.md</code> §9, which that file marks as
-          &ldquo;never citable as gate evidence&rdquo;. The cold figure is unchanged, because the one
-          coefficient the two sets disagree about has climbed back to 1 by &minus;15&nbsp;&deg;C. What
-          the convergence study
-          establishes is unaffected either way: the habit class is robust across domain size and the
-          cell count under it is not, and that split is what carries forward rather than either
-          value.</span>
+          set's. The plotted comparison is evidence about <code>CAK_A1</code> only. It is explicitly
+          <strong>non-transferable</strong> to <code>CAK</code>; neither a later single-domain
+          calibration probe nor a matching coefficient at one temperature supplies the missing
+          exact-configuration domain ladder.</span>
         </figcaption>
       </figure>
 
       <p>
-        The smallest box the guard allows at this crystal size is 33 cells across. The smallest box
-        that actually gives the right answer is 64. In between sits N&nbsp;=&nbsp;40 — a domain the
-        guard is perfectly happy with, which still reports 0.50% too many cells. The convergence
-        report states it plainly: <em>"The 65% domain-contact guard does not imply domain
+        Within that historical <code>CAK_A1</code> ladder, the smallest box the guard allows at
+        this crystal size is 33 cells across. The first tested cold-case box whose attached count
+        matches the largest tested box is N&nbsp;=&nbsp;64. In between sits N&nbsp;=&nbsp;40 — a
+        domain the guard is perfectly happy with, which reports 0.50% more cells than N&nbsp;=&nbsp;80.
+        The convergence report states it plainly: <em>"The 65% domain-contact guard does not imply domain
         convergence. At extent 21 it requires N&nbsp;&ge;&nbsp;33, which happens to exclude the one
         warm configuration that breaks — but it admits cold at N&nbsp;=&nbsp;40, which still carries
         a +0.50% attached-count error. The guard is a collision heuristic and cannot be read as a
@@ -519,45 +522,65 @@
       </p>
 
       <p>
-        Look at what the chart <em>does</em> show, though. The aspect ratio — the quantity that
-        decides whether the model calls a crystal a plate or a column — is identical at all five
-        domains, to four decimal places, at both temperatures. The classification is rock solid; the
-        cell count underneath it is not. That split runs through the whole convergence report, and
-        it is what licenses the sweep to make claims about habit and forbids it from making claims
-        about volume. The registered domain is 48, chosen with its residual attached to it rather
-        than rounded away: N&nbsp;=&nbsp;64 is the exact answer and costs roughly three times as much
-        per point.
+        Look at what the chart <em>does</em> show within its configuration. Under
+        <code>CAK_A1</code>, the reported aspect ratio is identical at all five domains to four
+        decimal places at both temperatures, while the cold attached count moves. That historical
+        result is useful for understanding why the collision guard and a convergence ladder ask
+        different questions. It does <em>not</em> license habit or volume claims for the registered
+        <code>CAK</code> sweep, and it cannot justify that sweep's N&nbsp;=&nbsp;48 domain.
       </p>
 
       <p>
-        One caution about the two aspect ratios the chart prints along its bottom edge, because you
-        will meet a different number for one of them later. This study was run before a correction to
-        the model's inputs. It used a parameter set in which the attachment coefficient for the prism
-        facets — the crystal's six side walls — was held at 1 whatever the temperature, rather than
-        varying with temperature the way the registered protocol says it must. ADR 0031 replaced that
-        set; chapter 27 tells the story properly, because it is also what invalidated the project's
-        first validation sweep. So the warm figure here, 0.3821, is not the one chapter 28 reports. A
-        run made afterwards at exactly this configuration — same box, same grid spacing, same wall,
-        only the parameter set swapped — came out at exactly 1.0000, and the file recording it labels
-        it a calibration probe and never gate evidence. The cold figure is untouched, and it is worth
-        seeing how narrow that exemption is. The prism coefficient the two parameter sets disagree
-        about is throttled hardest at &minus;5&nbsp;&deg;C and climbs back to 1 by
-        &minus;15&nbsp;&deg;C, so at that one temperature the two sets really are the same model. They
-        are not the same model at &minus;10&nbsp;&deg;C, where it still sits at 0.83 &mdash; and ADR
-        0031 carries a dated audit note striking out an earlier sentence of its own that claimed the
-        whole cold band was exempt. Even the record correcting the sweep needed correcting.
+        The reason for the quarantine is concrete. The ladder was run before ADR&nbsp;0031
+        corrected the model inputs. Its <code>CAK_A1</code> set held the prism-facet attachment
+        coefficient at 1, while <code>CAK</code> makes it temperature-dependent. A later
+        single-domain warm calibration probe changed the reported aspect ratio from 0.3821 to
+        1.0000; its own source labels it &ldquo;never citable as gate evidence&rdquo;. At
+        &minus;15&nbsp;°C the relevant coefficient happens to agree, but that observation is not an
+        authenticated equivalence proof for every quantity governed by the domain decision.
+        Exact configuration means all thirty-six governing fields &mdash; not only the parameter
+        set, temperature, grid, wall, policy, stopping rule and measurement size, but also the
+        supersaturation cases, domain shape and ladder, seed geometry, pressure, noise and RNG
+        settings, within-run environment history, both convergence norms and their refusal cap,
+        arithmetic, the executed code revision, the recorded Node/V8 identity, and host scope.
+        A field omitted by the cited evidence is shown as &ldquo;not recorded&rdquo;; the matrix
+        does not inherit a target value merely because the report is silent.
       </p>
 
       <p>
-        That does not disturb what this chart is for, and the reason is worth seeing. Domain size was
-        the only thing varied across the five points; every one of them was run the same way, under
-        the same inputs. The finding is therefore a <em>comparison</em> between five boxes rather
-        than a value — the class does not move and the count does — and a comparison survives a
-        change that shifts all five points together. That is the part that carries forward. It is
-        also a good habit to acquire early: when a number turns out to have been measured under
-        superseded settings, ask whether the claim resting on it was about the number or about a
-        difference between numbers.
+        It is tempting to say that changing the parameter set would shift all five domains
+        together, preserving their comparison. Nothing in the ladder measures that assumption.
+        The attachment law changes the growth trajectory, and the trajectory is the thing that
+        interacts with the boundary. The valid transfer rule is therefore exact and deliberately
+        unromantic: evidence supports only the configuration it actually ran. A
+        <code>CAK</code> domain claim needs a <code>CAK</code> domain ladder.
       </p>
+
+      <figure class="anim" id="anim-part2-transferability">
+        <div class="anim__head">
+          <p class="anim__title">Does this evidence transfer to the registered domain claim?</p>
+          <p class="anim__sub">
+            Choose an evidence bundle. The matrix compares all 36 governing fields with the
+            registered no-SDAK <code>CAK</code> target; one mismatch is enough to stop transfer.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive built from AGENTS.md Rule&nbsp;11,
+          <code>research/phase6-convergence.md</code> opening conditions and §§1.1, 1.2 and 5;
+          <code>runner/src/phase6-protocol.ts</code>,
+          <code>runner/src/phase6-crossplatform.ts</code>,
+          <code>runner/src/phase6-sweep.ts</code>,
+          <code>runner/src/grow-lk-defaults.ts</code>, and
+          <code>runner/test/phase6-protocol.test.ts</code> and
+          <code>runner/test/phase6-sweep.test.ts</code>, all pinned at
+          <code>main@8c781b1</code>; plus ADR&nbsp;0024, ADR&nbsp;0031 and the Phase&nbsp;5
+          fixture registry. &ldquo;Exact-config study shape&rdquo; is a requirement example, not
+          executed evidence. Matching all 36 fields is necessary for transfer; it does not
+          authenticate, execute or review a study.</span>
+        </figcaption>
+      </figure>
 
       <aside class="callout callout--key">
         <p class="callout__label">
@@ -570,7 +593,9 @@
           A safeguard that advertises what it catches <em>and</em> what it misses is stronger than
           one advertised as total, because the second kind quietly invites you to stop checking.
           "The crystal did not touch the wall" and "the wall did not affect the answer" are
-          different sentences, and only one of them was tested.
+          different sentences. The historical <code>CAK_A1</code> ladder tested the second only
+          for its own configuration; neither sentence has been established for the registered
+          <code>CAK</code> sweep by that ladder.
         </p>
       </aside>
 
@@ -578,10 +603,12 @@
       <h2 id="consistency-is-not-accuracy">Consistency is not accuracy</h2>
 
       <p>
-        Notice what the convergence study actually proved. It compared the solver to <em>itself</em>
-        at five box sizes and found that the answer stopped moving. That is real evidence, and it is
-        not evidence of correctness. A program with a wrong constant in it will happily converge —
-        smoothly, monotonically, beautifully — onto the wrong number.
+        Notice what the historical study actually measured. It compared the
+        <code>CAK_A1</code> solver to <em>itself</em> at five box sizes and found where its named
+        reported quantities stopped moving. That is real, configuration-scoped evidence; it is
+        neither transferable to <code>CAK</code> nor evidence of correctness. A program with a
+        wrong constant in it will happily converge — smoothly, monotonically, beautifully — onto
+        the wrong number.
       </p>
 
       <p>
@@ -736,10 +763,10 @@
       <h2 id="still-open">What is still open</h2>
 
       <p>
-        Monopole matching does not make box size irrelevant. It moves the point where box size
-        starts to matter further out, and — this is the useful part — it makes the residual
-        measurable. At the crystal size used for that probe, boxes of 24 cells and up all return
-        81 attached cells; a 20-cell box returns 105. Something changes below a threshold.
+        In the historical <code>CAK_A1</code> probes, monopole matching did not make box size
+        irrelevant. It moved the observed effect and made the residual measurable. At the crystal
+        size used for one probe, boxes of 24 cells and up all returned 81 attached cells; a
+        20-cell box returned 105. Something changed below a threshold in that configuration.
       </p>
 
       <p>
@@ -747,12 +774,14 @@
         crystal as a single point when you work out what the sky value should be at the wall. If
         that were the cause, the thing that decided whether a box was big enough would be a
         <em>ratio</em>: how far the nearest wall sits from the centre, divided by the crystal's
-        half-width. The convergence study tested that and destroyed it. One configuration breaks at
-        a ratio of 1.74; a different one is bit-for-bit identical all the way down to a ratio of
-        1.24 — a <em>tighter</em> squeeze that does not break. Absolute clearance in cells does not
-        sort them either, and the first correction you would add to a point source predicts the
-        wrong one to be the fragile one. The report's verdict — a <em>multipole argument</em> being
-        that same point-source picture with its corrections added back on — is blunt:
+        half-width. The historical study tested that ordering for its two
+        <code>CAK_A1</code> configurations and rejected it. One configuration breaks at a ratio of
+        1.74; a different one is bit-for-bit identical all the way down to a ratio of 1.24 — a
+        <em>tighter</em> squeeze that does not break. Absolute clearance in cells does not sort
+        those two either, and the first correction you would add to a point source predicts the
+        wrong one to be fragile. The report's configuration-scoped verdict — a
+        <em>multipole argument</em> being that same point-source picture with its corrections added
+        back on — is blunt:
         <em>"Both metrics say the smaller crystal is the more
         sensitive one, which is the opposite of what a multipole argument predicts, so the residual
         is probably not a multipole-truncation effect at all. It is not resolved here what the
@@ -787,7 +816,8 @@
           instead (0.407 vs 0.332 &mdash; the same direction of failure). Only these two
           configurations were ever measured against this question; a third would be needed to
           actually test any candidate rule, and none is fabricated here to make the chart look
-          richer than the evidence is.</span>
+          richer than the evidence is. Both used <code>CAK_A1</code>; this predictor comparison is
+          likewise non-transferable to <code>CAK</code> without an exact-configuration study.</span>
         </figcaption>
       </figure>
 
@@ -867,6 +897,7 @@
 
 <script src="../assets/site.js"></script>
 <script src="../assets/viz.js"></script>
+<script src="../assets/anim-part2-transferability.js"></script>
 <script>
 /* ===========================================================================
    Chapter 23 — shared physics.
@@ -995,7 +1026,7 @@
       rule: "held at σ∞, always",
       level: 1.0,
       levelLabel: "σ∞ exactly",
-      note: "Vapour is replenished, which is closer to a laboratory. It also over-supplies: the true sky value at that distance is lower.",
+      note: "The shell is clamped to σ∞, which is closer to a maintained laboratory. It also over-supplies: the true sky value at that distance is lower.",
       arrows: "in",
     },
     {
@@ -1003,7 +1034,7 @@
       rule: "held at the local sky value",
       level: 0.836,
       levelLabel: "6.27×10⁻³",
-      note: "Every shell cell gets its own value, corrected for its own distance and for how fast the crystal is drinking.",
+      note: "Every shell cell gets its own value, corrected for its own distance and the last completed interface demand.",
       arrows: "in-short",
     },
   ];
@@ -1731,7 +1762,7 @@
     var c = Viz.colors();
     svg = Viz.createSvg(body, W, H, {
       label: "Attached-cell count against domain size, as a percentage above the largest-box value.",
-      desc: "The warm run is identical at all five domains. The cold run is 0.50% high at N = 40 and exact from N = 64.",
+      desc: "Historical CAK_A1 ladder. The warm count is identical at all five tested domains. The cold count is 0.50% above N = 80 at N = 40 and matches N = 80 from N = 64.",
     });
 
     var xs = Viz.scaleLinear([28, 84], [ML, W - MR]);
@@ -1808,13 +1839,13 @@
       x: xs(64), y: ys(0) + 18, fill: c.inkSecondary, "font-size": 11,
       "text-anchor": "middle", "font-family": "var(--font-sans)",
     });
-    an2.textContent = "exact from N = 64";
+    an2.textContent = "matches N = 80 from N = 64";
     svg.appendChild(an2);
 
     [
-      "Aspect ratio is identical at all five domains — 0.3821 warm, 1.1053 cold. Only the count under it moved.",
-      "Both were measured under paramSet CAK_A1, which ADR 0031 replaced. Under the registered set the warm value",
-      "becomes 1.0000 (a probe, not gate evidence) and the cold one is unchanged. Class robust, count not: that carries.",
+      "Historical CAK_A1 result: aspect ratio matched across these five domains; the cold attached count moved.",
+      "ADR 0031 replaced CAK_A1 with CAK. Rule 11 forbids transferring this comparison to CAK,",
+      "even where other axes match. The registered configuration needs its own domain ladder.",
     ].forEach(function (line, li) {
       var foot = Viz.svgEl("text", {
         x: 10, y: H - 44 + li * 14, fill: c.muted, "font-size": 10.5,

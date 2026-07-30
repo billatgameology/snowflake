@@ -509,8 +509,10 @@
       </p>
 
       <p>
-        There are <strong>35</strong> of them, <code>docs/decisions/0001-&hellip;</code> through
-        <code>0035-&hellip;</code>, plus a template. The ones Part Two leans on hardest:
+        There are <strong>36</strong> numbered records in the current authority,
+        <code>docs/decisions/0001-&hellip;</code> through <code>0036-&hellip;</code>: 34 accepted,
+        one superseded (0002), and one proposed (0030), plus a template. The ones Part Two leans on
+        hardest:
       </p>
 
       <ul class="refs">
@@ -527,6 +529,36 @@
             and <em>pre-registered the corrected expectation before the re-run</em>: the headline
             &ldquo;falls from 5/90 to approximately 2/90&rdquo;, and &ldquo;the corrected result is
             expected to be worse, and that is the point&rdquo;. Chapters 27 and 28.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">0035 &mdash; Phase 6 run outcome and input pins</span>
+          <span class="ref__meta">
+            <span class="ref__id">docs/decisions/0035-phase6-run-outcome-and-input-pins.md</span>
+          </span>
+          <p>
+            The executed <code>--steps 1</code> attack showed that a one-step seed could be scored as
+            a crystal. This record registers the 100,000-step safety cap, requires a size-target stop,
+            enforces <code>largestExtent&nbsp;&ge;&nbsp;21</code>, and binds every child&rsquo;s
+            temperature, supersaturation, dimensions, domain, active-cell count, seed, and other
+            inputs. Re-checking Arm&nbsp;1 found all 204 rows at extent exactly 21, but cannot add
+            per-row fields its historical artifacts never carried.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">0036 &mdash; the separate Phase 6 M1 arm</span>
+          <span class="ref__meta">
+            <span class="ref__id">docs/decisions/0036-phase6-sdak-arm-pre-registrations.md</span>
+          </span>
+          <p>
+            Registers Arm&nbsp;2&rsquo;s all-facets-narrow M1 interpretation, its own exclusions and
+            its pre-run forecast. This is a separate protocol from Arm&nbsp;1, never a patch to it:
+            42 of 90 on the common denominator and 42 of 78 under Arm&nbsp;2&rsquo;s own bistable-row
+            exclusion are predictions, not measurements. Its values protocol is frozen. One launch
+            was stopped about a minute in after its first line exposed Arm&nbsp;1&rsquo;s combined
+            protocol hash. At the education audit&rsquo;s
+            2026-07-30 10:23&nbsp;PDT cutoff, the repaired canonical sweep was running; its local
+            output remained mutable and did not yet constitute a completed, reviewed sweep result.
           </p>
         </li>
         <li>
@@ -602,11 +634,14 @@
           </p>
         </li>
         <li>
-          <span class="ref__title">0030 &mdash; the Phase 6 SDAK arm</span>
+          <span class="ref__title">0030 &mdash; proposed precursor to the Phase 6 SDAK arm</span>
           <span class="ref__meta"><span class="ref__id">0030-phase6-sdak-arm.md</span></span>
           <p>
-            The second arm of the comparison, registered but not yet run. Both sweeps so far were
-            no-SDAK.
+            A <code>Status: proposed</code> design record for the second arm. It is not the accepted
+            registration and must not be cited as one; accepted decision 0036, the M1 implementation,
+            and the later Arm&nbsp;2 values freeze supersede its preparation status. Both completed
+            Arm&nbsp;1 sweeps were no-SDAK. At the education audit cutoff, Arm&nbsp;2 had mutable
+            partial rows but no completed, reviewed sweep result.
           </p>
         </li>
         <li>
@@ -625,13 +660,18 @@
       <ul class="refs">
         <li>
           <span class="ref__title">The progress log</span>
-          <span class="ref__meta"><span class="ref__id">docs/PROGRESS.md</span> &mdash; 1,725 lines.</span>
+          <span class="ref__meta"><span class="ref__id">docs/PROGRESS.md</span> &mdash; mutable live-state record.</span>
           <p>
             The file to open first. It carries the phase table with each gate&rsquo;s status and the
             metric that closed it, a <strong>Next step</strong> section that is the current state of
             play, and long passages of &ldquo;traps already known&rdquo; recording defects, dead
             ends, and interrupted runs. Rule 3 requires it be written as work happens rather than
-            tidied up afterwards, which is why it reads the way it does.
+            tidied up afterwards, which is why it reads the way it does. This audit found a concrete
+            lag at <code>8c781b1</code>: Next step still says to freeze Arm&nbsp;2 even though
+            <code>483f7ee</code> froze the value content, <code>0cb52bf</code> recorded the freeze
+            ancestry and final values pin, and <code>8c781b1</code> recorded the arm-specific
+            combined revision hash. That disagreement is stated here because the project&rsquo;s
+            own rule forbids choosing a source silently.
           </p>
         </li>
         <li>
@@ -743,8 +783,11 @@
       <h3 id="code">The source trees</h3>
 
       <p>
-        Five workspace packages, each with a <code>src/</code> and a <code>test/</code> directory,
-        plus one archived prototype kept outside the workspace entirely.
+        The root <code>package.json</code> lists exactly five npm workspaces:
+        <code>core</code>, <code>solver-cpu</code>, <code>solver-gpu</code>, <code>runner</code>,
+        and <code>app</code>. Each currently has a <code>src/</code> and a <code>test/</code>
+        directory. The archived <code>spike/</code> prototype has no package manifest and is not in
+        that workspace list.
         The chapters quote from these by path, and often by line. Dependency direction is
         <code>core</code> &rarr; <code>solver-cpu</code> &rarr; <code>runner</code>; solver code
         stays free of Node APIs and file I/O so the same oracle can run in a browser worker.
@@ -789,7 +832,7 @@
         </li>
         <li>
           <span class="ref__title">runner/</span>
-          <span class="ref__meta"><span class="ref__id">runner/src</span> · <span class="ref__id">runner/test</span> &mdash; 25 test files</span>
+            <span class="ref__meta"><span class="ref__id">runner/src</span> · <span class="ref__id">runner/test</span> &mdash; 27 test files</span>
           <p>
             The evidence boundary, and where a claim becomes an exit code: the CLI
             (<code>runner/src/main.ts</code>), argument validation, stopping rules, checkpoint
@@ -817,7 +860,7 @@
             repository map states the boundary directly &mdash; &ldquo;deliberately outside the
             npm workspace&rdquo;, kept so nobody &ldquo;evolve[s] it into the product&rdquo;.
             Nothing in the real solver imports from it, and nothing here imports from the
-            workspace; its own 39-check suite (<code>node spike/check.mjs</code>) runs outside
+            workspace; its own 38-check suite (<code>node spike/check.mjs</code>) runs outside
             <code>npm test</code>.
           </p>
         </li>
@@ -840,7 +883,8 @@
       <ul>
         <li>
           <strong>Phase 6 is still in development.</strong> It has not concluded, and Phase 7 has
-          not started.
+          not started. This does not erase the Phase&nbsp;3 browser development instrument, which
+          already exists; Phase&nbsp;7 is the separate polished product layer.
         </li>
         <li>
           The first 204-point sweep scored <strong>5 of 90</strong> and was
@@ -864,23 +908,47 @@
           <strong>3 of 90 is not gate evidence, and the project says so itself.</strong> The sweep
           report states it in bold. WP5 &mdash; run the registered gate command at one exact clean
           commit, authenticate the artifacts, and obtain independent review to zero blockers &mdash;
-          is still unchecked in the Phase 6 plan. <strong>No independent verifier has re-derived
-          <code>report.json</code> from <code>points.json</code>.</strong> Until that happens this
-          is a measured result with verified provenance, which is a different and lesser thing.
+          is still unchecked in the Phase 6 plan. The historical report says no independent
+          verifier had run. Current history is later: commit <code>990840a</code>&rsquo;s hardened
+          verifier asserts all three artifact digests, requires the exact 204-row set, re-derives all
+          report fields, recomputes ambiguity and domain-contact status, passes the unchanged
+          artifacts, and rejects the two real forgeries its first version accepted. Seven negative
+          controls executed. Arm&nbsp;1&rsquo;s flagless closing gate and zero-blocker review still have
+          not happened, so this remains a measured result with verified provenance, which is a
+          different and lesser thing.
         </li>
         <li>
-          A <strong>verification hazard is recorded and not yet fixed</strong>: the harness captures
-          provenance once at preflight, but each of the 204 child runs spawns
-          <code>runner/src/main.ts</code> from the <em>working tree</em>. An edit to the solver
-          mid-sweep would have changed the physics for later points while the report still named the
-          launch commit. Nine commits from a parallel session did land during the run; the relevant
-          diff was verified empty afterwards, so this sweep is unaffected &mdash; which the report
-          calls luck, not design.
+          Arm&nbsp;1&rsquo;s <strong>historical verification hazard remains historical</strong>:
+          its 204 child runs loaded the working tree after provenance was stamped. Nine commits landed
+          during the run; a later diff found no physics change, which the report calls luck, not
+          design. Commit <code>154359d</code> now fingerprints the full source graph before and after
+          a future sweep and refuses publication on drift. That closes the timing path forward; it
+          does not retro-upgrade Arm&nbsp;1.
         </li>
         <li>
-          The <strong>SDAK arm is separate and later</strong> (ADR 0030). Both sweeps so far were
-          no-SDAK. Phase 6 is to report the two arms together, control and treatment, so what 3 of
-          90 <em>means</em> for the phase is deliberately not drawn yet.
+          Decision record 0035&rsquo;s checks at <code>b701285</code> bind future child inputs and
+          require a size-target stop at <code>largestExtent&nbsp;&ge;&nbsp;21</code>. All 204 Arm&nbsp;1
+          rows record extent exactly 21, so its classes and headline do not move. They do not record
+          per-row configuration or stop reason, and later code does not pretend otherwise.
+        </li>
+        <li>
+          The <strong>SDAK arm is separate</strong>. Its M1 value content was frozen at
+          <code>483f7ee</code>; <code>0cb52bf</code> then recorded that freeze commit in the
+          manifest and repinned the final gated values hash. The corrected arm-specific combined protocol hash is
+          recorded at commit <code>8c781b1</code>, but it moves with prose and is revision-pinned,
+          not a durable gate; the values hash is the freeze. That commit also records the launch
+          stopped about a minute in after its first line exposed the wrong-arm header. At the education
+          audit&rsquo;s 2026-07-30 10:23&nbsp;PDT cutoff, its repaired canonical sweep was running;
+          partial local output was still mutable and was not a completed, reviewed result.
+          Forecasts of 42/90 on Arm&nbsp;1&rsquo;s common denominator and 42/78 under Arm&nbsp;2&rsquo;s
+          own bistable exclusion are predictions, not measurements, and are never merged with
+          Arm&nbsp;1&rsquo;s 3/90. Phase&nbsp;6 reports the two arms together before drawing a
+          conclusion.
+        </li>
+        <li>
+          The x64 cross-platform baseline exists; the Apple-silicon half has not run and its runbook
+          still says <strong>MAC RUN NEEDED</strong>. No cross-platform reproducibility claim has
+          been earned.
         </li>
       </ul>
 
@@ -892,9 +960,11 @@
           If you read one file, read this one
         </p>
         <p>
-          <code>research/phase6-sweep-report.md</code>. It contains the numbers, their provenance,
-          the retraction of its own strongest claim, and the sentence that keeps the whole thing
-          honest: <em>these numbers are not yet gate evidence.</em>
+          <code>research/phase6-sweep-report.md</code>. It contains the Arm&nbsp;1 numbers, their
+          provenance, the retraction of its own strongest claim, and the sentence that keeps the whole
+          thing honest: <em>these numbers are not yet gate evidence.</em> Its verification inventory
+          is a historical snapshot; use <a href="./chapters/28-the-exam-result.html#c28-phase6-status">chapter
+          28&rsquo;s status control</a> to compare it with current authority without merging them.
         </p>
       </aside>
 

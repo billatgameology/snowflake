@@ -598,9 +598,12 @@
       </p>
 
       <p>
-        Suppose a solver keeps a ledger: a running total of the vapour it has turned into ice. How
-        do you test the ledger? The tempting answer is to ask the solver what it thinks it did. That
-        comparison always passes and means nothing, because the same code produced both sides of it.
+        Suppose the Libbrecht solver reports its interface-step books: placed fill in one term and
+        any computed demand left unapplied at saturation in another. These are not a total of
+        physical vapour uptake, and they are separate from the signed numerical exchange measured
+        during elliptic relaxation. How do you test the demand ledger? The tempting answer is to
+        ask the solver what it thinks it did. That comparison always passes and means nothing,
+        because the same code produced both sides of it.
       </p>
 
       <p>
@@ -621,10 +624,12 @@
         (A <em>cache</em> is a number the solver worked out once and kept; reading one back would be
         asking the solver rather than checking it.)
         It also insists on being run somewhere difficult: it fails if the run never hits a step
-        where demand has to be <strong>clipped</strong> &mdash; cut back, because a cell was asked
-        to freeze more vapour than was actually there. Clipping is where the historical bug lived.
-        In an early audit, recomputed demand exceeded the ledger by 35&nbsp;% while the clipping
-        happened silently &mdash; and that 35&nbsp;% is a figure the project itself labels
+        where demand has to be <strong>clipped</strong>: the computed increment would carry a
+        boundary cell's fill fraction above 1 before the topology is refreshed, so only the part
+        up to saturation is placed. The remainder is recorded as unapplied numerical excess; it is
+        not deposited ice, physical uptake, or a quantity to replay later. Clipping is where the
+        historical bug lived. In an early audit, recomputed demand exceeded placed fill by
+        35&nbsp;% while that excess went unrecorded &mdash; and the 35&nbsp;% is a figure the project itself labels
         non-reproducible history, because the ad-hoc probe script was never retained
         (<code>solver-cpu/test/lk-solver.test.ts</code>, lines 814&ndash;816; ADR&nbsp;0006, lines
         25&ndash;28). The fix is reproducible; the measurement of how bad the bug was is not.
@@ -635,10 +640,10 @@
         <div class="anim__head">
           <p class="anim__title">Two ledgers</p>
           <p class="anim__sub">
-            The solver keeps its own running total of ice. The test recomputes it a second way, from
-            public fields only. Introduce an unmetered 3&nbsp;% clipping bug and the two separate.
-            Then let the test read the solver's cache instead, and watch the difference become
-            permanently, unfalsifiably zero.
+            This conservation toy keeps its own ice counter. The test recomputes the same toy
+            quantity from public fields only. Introduce an unmetered 3&nbsp;% removal and the two
+            separate. Then let the test read the toy's cache instead, and watch the difference
+            become permanently, unfalsifiably zero.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -650,13 +655,14 @@
           contract in <code>AGENTS.md</code> lines 254&ndash;256 and Rule&nbsp;9 (lines
           389&ndash;390), and the shape of
           <code>solver-cpu/test/lk-solver.test.ts</code> line 780. One difference from the real
-          solver, stated because it matters: this toy has no separate demand ledger, so it can only
-          expose an unmetered clip by letting the clipped mass leave the box, which is what the
-          conservation route then sees. The real solver meters the clipped amount into
-          <code>saturationClippedFill</code> and the test adds it back before comparing against
-          recomputed demand (<code>solver-cpu/test/lk-solver.test.ts</code> lines 805&ndash;810), so
-          clipped mass is accounted for rather than lost. The historical bug was that the clipping was
-          unmetered, not that water vanished.</span>
+          solver, stated because it matters: this toy has no kinetic-demand ledger, so it exposes
+          an unmetered removal by letting mass leave the box. The real solver instead requires
+          <strong>placed fill + <code>saturationClippedFill</code> = independently recomputed
+          kinetic demand</strong> (<code>solver-cpu/test/lk-solver.test.ts</code> lines
+          805&ndash;810). <code>saturationClippedFill</code> is recorded, unapplied demand &mdash;
+          not mass, deposited ice, or uptake &mdash; and hole-fill deficit is reported separately.
+          The toy teaches independent recomputation; its conservation equation is not the
+          production ledger identity.</span>
         </figcaption>
       </figure>
 
@@ -684,7 +690,8 @@
         the one-line summaries a run prints as it goes, each of them a list of
         <code>name=value</code> readings &mdash; looking for
         <code>symErr=</code>. It found it, it was zero, the probe was satisfied. Sitting in the same
-        line, unread, was <code>deltaSymClean=false</code>: a flag reporting a real solver defect.
+        line, unread, was <code>deltaSymClean=false</code>: a flag reporting that a per-tick
+        attachment delta had broken D<sub>6h</sub> invariance.
         The probe was not lying. It had no opinion about a field it was never told to look for, and
         no opinion reads exactly like approval.
       </p>
@@ -699,7 +706,8 @@
             The fail-closed one refuses anything it was not told to expect. Try the second preset:
             it reconstructs the two fields the record actually names. Then register
             <code>deltaSymClean</code> and watch the fail-closed verdict change from <em>I do not
-            recognise this field</em> to <em>this field is reporting a defect</em>.
+            recognise this field</em> to <em>a per-tick attachment delta broke D<sub>6h</sub>
+            symmetry</em>.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -709,7 +717,8 @@
           (<code>AGENTS.md</code> lines 391&ndash;397): the fail-open definition and the recorded
           incident &mdash; &ldquo;the Phase 6 WP0b calibration probe that parsed only
           <code>symErr=</code> and dropped the <code>deltaSymClean=false</code> that was reporting a
-          real solver defect.&rdquo; The surrounding <code>tick</code> and <code>attached</code>
+          real per-tick attachment-delta symmetry defect.&rdquo; The surrounding
+          <code>tick</code> and <code>attached</code>
           values are illustrative, and so is the four-row schema table with its per-field rules;
           <code>AGENTS.md</code> records only the <code>symErr=</code> and
           <code>deltaSymClean=false</code> fields. The unknown-key refusal mirrors
@@ -1059,10 +1068,12 @@
     return r;
   }
 
+  let selectControlSerial = 0;
+
   function selectControl(container, label, options, onChange) {
     const wrap = document.createElement("div");
     wrap.className = "control";
-    const id = "sel-" + Math.random().toString(36).slice(2, 8);
+    const id = "ch25-select-" + (++selectControlSerial);
     const lab = document.createElement("label");
     lab.setAttribute("for", id);
     lab.textContent = label;
@@ -1809,8 +1820,8 @@
     function draw() {
       if (svg) svg.remove();
       svg = Viz.createSvg(body, W, H, {
-        label: "A growing crystal with the solver's own ice ledger beside an independently recomputed one.",
-        desc: "A difference bar between the solver's ledger and a recomputation from public fields.",
+        label: "A conservation toy with its own ice counter beside an independently recomputed one.",
+        desc: "A difference bar between the toy's counter and a recomputation from public fields.",
       });
       const c = Viz.colors();
       svg.setAttribute("fill", c.ink);
@@ -1826,7 +1837,7 @@
       const diff = Math.abs(solver - independent);
 
       const boxes = [
-        ["the solver's own ledger", solver, c.series[0], "a counter inside the solver"],
+        ["the toy's own counter", solver, c.series[0], "a counter inside the toy"],
         [peek ? "the test, reading the cache" : "recomputed in the test", independent, c.series[1],
           peek ? "solver.iceLedger" : "start total − vapour − boundary mass"],
       ];
@@ -1889,11 +1900,25 @@
     toggle(controls, "Let the test read the solver's cache", false, function (on) {
       peek = on; draw();
     });
-    Viz.button(controls, "Pause", function (b) {
-      const playing = anim.isPlaying;
-      if (playing) anim.pause(); else anim.play();
-      b.textContent = playing ? "Play" : "Pause";
+    const playbackButton = Viz.button(controls, "Pause", function () {
+      if (anim.isPlaybackRequested) anim.pause(); else anim.play();
+      syncPlaybackButton();
     });
+    function syncPlaybackButton() {
+      const reduced = Viz.reduceMotion.matches;
+      playbackButton.disabled = reduced;
+      playbackButton.textContent = reduced
+        ? "Motion reduced"
+        : (anim.isPlaybackRequested ? "Pause" : "Play");
+      playbackButton.setAttribute(
+        "aria-label",
+        reduced
+          ? "Animation paused because reduced motion is enabled; use the manual step controls"
+          : (anim.isPlaybackRequested ? "Pause animation" : "Play animation"),
+      );
+    }
+    syncPlaybackButton();
+    Viz.reduceMotion.addEventListener("change", syncPlaybackButton);
     Viz.onThemeChange(draw);
   })();
 
@@ -1918,7 +1943,7 @@
       { name: "attached", required: true, on: true, rule: "a non-negative integer",
         ok: function (v) { return /^\d+$/.test(v); } },
       { name: "deltaSymClean", required: false, on: false,
-        rule: "true; false is reporting a solver defect",
+        rule: "true; false means a per-tick attachment delta broke D6h invariance",
         ok: function (v) { return v === "true"; } },
     ];
     function registered() { return FIELDS.filter(function (f) { return f.on; }); }

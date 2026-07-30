@@ -28,7 +28,7 @@
   <div class="progress-rail"><div class="progress-rail__fill"></div></div>
 </header>
 
-<div class="shell">
+<main class="shell">
 
   <section class="hero">
     <h1 class="hero__title">How a snowflake is made</h1>
@@ -131,7 +131,8 @@
       answers three questions: what the machine is meant to do, whether there is real science in it
       and how you could possibly check, and what computer science makes both possible. It ends with
       the result so far &mdash; a failure, reported while the checks that could still overturn it are
-      unfinished, and the most useful thing in it.
+      unfinished, and the most useful thing in it. A Phase&nbsp;3 browser development instrument
+      already exists; the Phase&nbsp;7 polished product is a separate future layer.
     </p>
 
     <div class="part-heading">
@@ -248,19 +249,29 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
         </svg>
-        Where this stands, as this is written
+        Where this stood at the audit cutoff
       </p>
       <p>
         Part Two describes work that is <strong>still in flight</strong>, and every chapter in it
         says so. The exam it ends with &mdash; Phase&nbsp;6 &mdash; has run and produced a number,
         <strong>3 of 90</strong>, but that number is <strong>not yet gate evidence</strong>: the
-        project&rsquo;s own verification work package (WP5) is still open. Its independent
-        re-derivation of the score from the raw per-point results has now run and matched, but the
-        controls written to prove that the scoring itself is capable of failing turned up two real
-        gaps on their first pass and neither is fixed; no second machine has reproduced the run; and
-        the second of the experiment&rsquo;s two arms has not been attempted, which is why the
-        project&rsquo;s own report deliberately draws no Phase&nbsp;6 conclusion at all.
-        Phase&nbsp;7 has not started. Read the result as measured, not as settled.
+        project&rsquo;s own verification work package (WP5) is still open. Its hardened independent
+        verifier now asserts all three artifact digests, re-derives the exact 204 rows and every
+        report field, and rejects two real forgeries its first version accepted. Seven negative
+        controls executed; the two gaps they exposed led to decision 0035&rsquo;s input/size checks
+        and a completion-time source fingerprint for future sweeps. Those later safeguards do not
+        retroactively add missing per-row configuration and stop-reason fields to Arm&nbsp;1. The
+        Arm&nbsp;1 flagless closing gate and zero-blocker review have not happened; the Apple-silicon
+        control is still pending; and Arm&nbsp;2 is implemented and separately protocol-frozen.
+        Its first launch was stopped about a minute in after its first line exposed
+        Arm&nbsp;1&rsquo;s combined protocol hash. During this audit&rsquo;s closing review, on
+        2026-07-30, the corrected canonical Arm&nbsp;2 sweep was observed running and writing a
+        mutable partial artifact. That dated observation is execution progress, not a completed,
+        reviewed sweep result. The project therefore draws no Phase&nbsp;6 conclusion at this
+        cutoff.
+        Phase&nbsp;7 has not started. Read the result as measured, not as settled. Chapter
+        <a href="./chapters/28-the-exam-result.html#c28-phase6-status">28&rsquo;s status control</a>
+        keeps the report snapshot, committed authority and dated live observation visibly separate.
       </p>
       <p>
         And <strong>no human expert has read any of this</strong>. Every review the project or this
@@ -402,7 +413,7 @@
     </ul>
   </section>
 
-</div>
+</main>
 
 <footer class="site-footer">
   <div class="shell">

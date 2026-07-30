@@ -16,6 +16,7 @@
   border: 1px solid var(--border); border-radius: var(--radius-md, 10px);
   background: var(--surface-sunken); padding: 0.9rem 1rem;
 }
+.c21-card h3,
 .c21-card h4 { margin: 0 0 0.45rem; font-size: var(--step--1); font-weight: 660; }
 .c21-rows { display: grid; grid-template-columns: 1fr auto; gap: 0.25rem 0.8rem; font-size: var(--step--1); }
 .c21-rows span:nth-child(even) { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; color: var(--ink-primary); }
@@ -86,6 +87,7 @@
       <li><a href="#who-sets-the-clock">Who sets the clock?</a></li>
       <li><a href="#temperature">Where temperature stops being a label</a></li>
       <li><a href="#change-one-thing">Change one thing</a></li>
+      <li><a href="#timeline-events">Change conditions mid-growth</a></li>
       <li><a href="#the-ledger">A conservation law and an audit trail</a></li>
       <li><a href="#registered">What the code refuses to do</a></li>
       <li><a href="#three-protocols">Three protocols on the record</a></li>
@@ -103,9 +105,9 @@
           only &ldquo;ice&rdquo; and &ldquo;not ice&rdquo;. Which cell freezes, and when?
         </p>
         <div class="chapter-header__meta">
-          <span>~19 min read</span>
-          <span>8 figures</span>
-          <span>6 interactives</span>
+          <span>~23 min read</span>
+          <span>9 figures</span>
+          <span>7 interactives</span>
         </div>
       </header>
 
@@ -116,6 +118,8 @@
             physical law means on a grid.</li>
           <li>Explain why a timestep <em>derived</em> from the state is a stronger claim than a
             timestep somebody chose.</li>
+          <li>Contrast a G&ndash;G parameter event with an LK temperature event without pretending
+            their stored fields mean the same thing.</li>
           <li>Say what a control group is for, having used one.</li>
           <li>Tell a conservation law apart from an audit trail, and say why the second is
             sometimes the more honest promise.</li>
@@ -709,11 +713,119 @@
           Two temperatures is not a diagram. All this phase established is that habit moves when
           temperature moves, at two points, with everything else nailed down. Whether the model
           reproduces the pattern nature shows across the whole temperature range is the question
-          the validation phase exists to answer &mdash; and that phase is not finished. In the
-          project's own gate table, Phase 6 is marked <em>in progress</em> and Phase 7, the product
-          layer, is marked <em>not started</em> (docs/PROGRESS.md, lines 615&ndash;616). The chapters
-          ahead report what the validation sweep found so far. They do not report a finished
-          project.
+          the validation phase exists to answer. The earlier version of this chapter froze a
+          mutable status sentence here; it is intentionally not repeated. For the project&rsquo;s
+          dated current state, open <code>docs/PROGRESS.md</code>, especially
+          <strong>Next step</strong>. The stable claim this chapter can make is only about the
+          completed Phase&nbsp;2b pair above, not the completion state of later work.
+        </p>
+      </aside>
+
+      <h2 id="timeline-events">Change conditions mid-growth</h2>
+
+      <p>
+        A crystal can record a journey only if conditions can change while it is growing. But
+        &ldquo;change the weather now&rdquo; is not one operation shared by both surface rules.
+        Their fields mean different things, so decision&nbsp;0011 gives each operator its own
+        event semantics.
+      </p>
+
+      <p>
+        Under <code>GGThreshold</code>, the controls are phenomenological parameter vectors. They
+        are not temperature or physical supersaturation. At a completed-cycle boundary, an event
+        atomically replaces the full registered parameter bundle and does nothing else:
+        <code>a</code>, <code>b</code> and <code>d</code> remain bit-unchanged, and the event
+        consumes no tick or solver substep. A column-promoting bundle followed by a plate-promoting
+        bundle can make the capped-column history; calling that jump a temperature change would
+        invent physics the G&ndash;G fields do not carry.
+      </p>
+
+      <p>
+        Under <code>LibbrechtKinetics</code>, stored &sigma; is relative to ice saturation, so
+        holding it fixed through a temperature jump would silently create or remove absolute
+        vapour throughout the domain. The event instead conserves the number density
+        <code>c = (1 + sigma)&middot;cSat(T)</code> in every active unattached cell:
+      </p>
+
+      <div class="equation">
+        <p class="equation__math">
+          &sigma;<sub>new</sub> =
+          (1 + &sigma;<sub>old</sub>) &middot;
+          c<sub>sat</sub>(T<sub>old</sub>) / c<sub>sat</sub>(T<sub>new</sub>) &minus; 1
+        </p>
+        <div class="equation__where">
+          <strong>where</strong>
+          <dl>
+            <dt>active unattached</dt><dd>vapour cells only; attached ice and inactive wall cells are excluded</dd>
+            <dt>negative result</dt><dd>truthful subsaturation, preserved without clamping; the no-sublimation growth law simply gives it zero kinetic demand</dd>
+            <dt>Dirichlet shell</dt><dd>transformed with the interior first, then reset to the schedule&rsquo;s explicit &sigma;<sub>&infin;</sub> by the next elliptic solve</dd>
+          </dl>
+        </div>
+        <p class="equation__cite">decision 0011, &sect;&sect;3&ndash;4; solver-cpu/src/lk-solver.ts, <code>applyTimelineEnvironment()</code></p>
+      </div>
+
+      <p>
+        That later shell reset is external-reservoir exchange and remains a numerical boundary
+        diagnostic &mdash; not kinetic uptake or deposited ice. In the same atomic event commit,
+        temperature, the explicit far-field target, <code>vKin</code>, <code>X0</code>,
+        <code>M_ice</code> and the basal/prism kinetics move to the new environment together.
+        Topology, fill, physical time and completed-step ledgers do not jump. Historical fill in
+        vapour-equivalent units is accumulated segment by segment with the
+        <code>M_ice(T)</code> that applied to each interface step; multiplying the whole history
+        by the final temperature&rsquo;s conversion is wrong.
+      </p>
+
+      <figure class="anim" id="anim-timeline-events"
+              data-event-mode="abrupt"
+              data-timeline-operator="GGThreshold"
+              data-timeline-stage="before">
+        <div class="anim__head">
+          <p class="anim__title">One event, two meanings</p>
+          <p class="anim__sub">
+            Switch operators, apply the abrupt event, and inspect the complete teaching fixture. In the LK
+            view, apply the next solve&rsquo;s guaranteed shell clamp separately so the transformed
+            shell and its later reservoir exchange cannot blur into one operation.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive, <strong>not a growth run</strong>. It
+          evaluates the exact saturation-density fit and decision-0011 affine transform used by
+          <code>core/src/libbrecht.ts</code> and
+          <code>solver-cpu/src/lk-solver.ts</code>, then shows a small source-anchored teaching
+          fixture. Its named <code>CAK</code> broad-facet pairs are the exact &minus;15&nbsp;&deg;C
+          and &minus;5&nbsp;&deg;C anchors in <code>core/src/libbrecht.ts</code>, not interpolated
+          display values.
+          The G&ndash;G arrays are illustrative bytes chosen to make bit preservation visible; the
+          LK cells include active interior, active shell, attached and wall cases so exclusions are
+          inspectable. Small <code>a</code> and <code>f</code> arrays plus completed tick and
+          physical time make the event&rsquo;s state-preservation claim testable. The example
+          interface step then deposits its 0.07-cell increment into one unsaturated
+          <code>f</code> entry, advances tick and time, and appends the matching
+          temperature-tagged ledger segment; no cell saturates, so <code>a</code> stays fixed.
+          The two fill increments are not recorded scientific evidence. Raw fixture inputs,
+          formulas and current state are exposed through
+          <code>window.__educationTimelineEvents</code> for independent recomputation. Decision
+          0011 supports abrupt events only: interpolation and ramps are deliberately absent.</span>
+        </figcaption>
+      </figure>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          Abrupt means boundary-ordered
+        </p>
+        <p>
+          Events fire only at a completed-cycle boundary, before the next relaxation. A tick
+          trigger names completed cycles; an extent trigger is observed after a complete
+          interface step. If two unfired events become eligible at the same boundary, the run
+          rejects the ambiguity before either mutates state. Ramps are unsupported, and existing
+          checkpoint meanings do not become resumable mid-history checkpoints merely because a
+          final artifact carries a schedule and event log (decision&nbsp;0011, &sect;&sect;1 and
+          6).
         </p>
       </aside>
 
@@ -741,7 +853,8 @@
 
       <p>
         So it makes a different promise, and the promise is still <em>exact</em>. Not &ldquo;nothing
-        left the system&rdquo;, but &ldquo;everything that left was written down&rdquo;:
+        left the system&rdquo;, but &ldquo;every unit of computed kinetic demand was either placed
+        or recorded as unapplied&rdquo;:
       </p>
 
       <blockquote class="callout">
@@ -861,10 +974,11 @@
           Key idea
         </p>
         <p>
-          A conservation law says nothing left the system. An audit trail says everything that left
-          was written down. When you cannot honestly promise the first, the second is not a weaker
-          substitute &mdash; it is the promise that happens to be true, and it can be tested just as
-          exactly.
+          A conservation law says nothing left the system. This audit trail says every unit of
+          computed Hertz&ndash;Knudsen kinetic demand was either placed or recorded as unapplied
+          saturation excess. That excess is neither deposited ice nor physical uptake. When you
+          cannot honestly promise conservation, this narrower accounting identity is the promise
+          that happens to be true, and it can be tested just as exactly.
         </p>
       </aside>
 
@@ -1140,6 +1254,7 @@
 
 <script src="../assets/site.js"></script>
 <script src="../assets/viz.js"></script>
+<script src="../assets/anim-part2-timeline-events.js"></script>
 <script>
 /* ===========================================================================
    1. FILL THE CELL
@@ -1366,7 +1481,7 @@
       "<span>&Delta;t = cfl / max(rate)</span><span>" + dt.toFixed(4) + " s</span>" +
       "<span>largest &Delta;f any cell takes this step</span><span>" + cfl.toFixed(2) + "</span>";
     panel.innerHTML =
-      "<h4>What the solver computes, this step</h4><div class=\"c21-rows\">" + rows + "</div>" +
+      "<h3>What the solver computes, this step</h3><div class=\"c21-rows\">" + rows + "</div>" +
       "<p style=\"margin:0.7rem 0 0;font-size:var(--step--1);color:var(--ink-secondary);\">" +
       (tip
         ? "The sharpened tip is now the fastest cell on the surface, so it owns the clock. " +
@@ -1456,7 +1571,7 @@
         "<span>cells attached</span><span>&mdash;</span>" +
         "<span>aspect ratio (height ÷ width)</span><span>&mdash;</span>" +
         "<span>habit</span><span>&mdash;</span>";
-    return "<div class=\"c21-card\"><h4>Run " + title + "</h4>" +
+    return "<div class=\"c21-card\"><h3>Run " + title + "</h3>" +
       "<div style=\"display:flex;gap:0.5rem;margin-bottom:0.6rem;\">" + pick("-5") + pick("-15") + "</div>" +
       "<div class=\"c21-rows\">" + results + "</div></div>";
   }
@@ -1497,7 +1612,7 @@
     body.innerHTML =
       "<div class=\"c21-panel\">" +
         "<div class=\"c21-cards\">" + runCard("A", tA) + runCard("B", tB) + "</div>" +
-        "<div class=\"c21-card\"><h4>Everything else</h4>" + lockRows + "</div>" +
+        "<div class=\"c21-card\"><h3>Everything else</h3>" + lockRows + "</div>" +
         verdict() +
         "<div style=\"display:flex;gap:0.6rem;flex-wrap:wrap;\">" +
           "<button type=\"button\" class=\"button\" data-act=\"toggle\">" +
@@ -1540,7 +1655,7 @@
      The 2a plate is a FIXED registered run (its own preset), not whatever the
      ggThreshBeta01 slider on this panel is showing. Values: docs/PROGRESS.md lines 610-612. */
   const CONTROL_CARD =
-    "<div class=\"c21-card\"><h4>The control, checked</h4>" +
+    "<div class=\"c21-card\"><h3>The control, checked</h3>" +
     "<div class=\"c21-rows\">" +
       "<span>rule</span><span>GGThreshold</span>" +
       "<span>registered run</span><span>plate, seed 1, 128×128×64 hexPrism</span>" +
@@ -1677,8 +1792,8 @@
           "<button type=\"button\" class=\"button\" data-act=\"rule\" data-val=\"LibbrechtKinetics\" aria-pressed=\"" + !isGG + "\">LibbrechtKinetics</button>" +
         "</div>" +
         "<div class=\"c21-cards\">" +
-          "<div class=\"c21-card\"><h4>Controls under this rule</h4>" + controlList + "</div>" +
-          "<div class=\"c21-card\"><h4>What comes out</h4>" + readout + "</div>" +
+          "<div class=\"c21-card\"><h3>Controls under this rule</h3>" + controlList + "</div>" +
+          "<div class=\"c21-card\"><h3>What comes out</h3>" + readout + "</div>" +
         "</div>" +
         "<div style=\"max-width:320px;margin:0 auto;\">" + crystal(s, verdictWord) + "</div>" +
         controlHtml +
@@ -1864,13 +1979,13 @@
     body.innerHTML =
       "<div class=\"c21-panel\">" +
         "<div class=\"c21-cards\">" +
-          "<div class=\"c21-card\"><h4>This toy run</h4><div class=\"c21-rows\">" +
+          "<div class=\"c21-card\"><h3>This toy run</h3><div class=\"c21-rows\">" +
             "<span>boundary cells</span><span>" + RATES.length + "</span>" +
             "<span>growth steps</span><span>" + steps + "</span>" +
             "<span>&Delta;t = cfl / max(rate)</span><span>" + r.dt.toFixed(4) + "</span>" +
             "<span>cells that saturated</span><span>" + r.attaches + "</span>" +
           "</div></div>" +
-          "<div class=\"c21-card\"><h4>The books</h4><div class=\"c21-rows\">" +
+          "<div class=\"c21-card\"><h3>The books</h3><div class=\"c21-rows\">" +
             "<span>computed demand</span><span>" + r.demand.toFixed(4) + "</span>" +
             "<span>placed fill</span><span>" + r.placed.toFixed(4) + "</span>" +
             "<span>recorded clipping</span><span>" + (record ? r.clipped.toFixed(4) : "not recorded") + "</span>" +
@@ -2167,8 +2282,9 @@
     const ariaLabel = "A schematic patch of 56 boundary cells from the post-v3 audit's own " +
       "count, grouped by bracket label: 38 basal, 12 prism-configuration, and 6 isolated-tip " +
       "cells. " + (aggregate
-        ? "Under the v4/v5/v6 aggregate policy shown here, all three groups are colored " +
-          "the same way: each computes its attachment coefficient from temperature every step."
+        ? "Under the v4/v5/v6 aggregate policy shown here, basal and prism groups use their " +
+          "temperature-dependent facet kinetics while the isolated-tip group is inhibited " +
+          "with attachment coefficient fixed at zero."
         : "Under the legacy-v3 classifier shown here, the 12 prism cells are colored as a " +
           "separate, pinned class with no temperature dependence, and the 6 tip cells are " +
           "colored the same as real prism cells — the wrong facet.");
@@ -2195,7 +2311,7 @@
     fillCard.className = "c21-card";
     fillCard.style.marginTop = "0.9rem";
     fillCard.innerHTML =
-      "<h4>What was measured, not toggled: partial fill at the &minus;15&nbsp;&deg;C v3 checkpoint</h4>" +
+      "<h3>What was measured, not toggled: partial fill at the &minus;15&nbsp;&deg;C v3 checkpoint</h3>" +
       "<div class=\"c21-rows\">" +
         "<span>max partial fill, [01] (n = 38)</span><span>1.079e-4</span>" +
         "<span>max partial fill, [20] (n = 12)</span><span>0.0716</span>" +
@@ -2212,7 +2328,7 @@
     const whatCard = document.createElement("div");
     whatCard.className = "c21-card";
     whatCard.style.marginTop = "0.9rem";
-    whatCard.innerHTML = "<h4>What alphaHK computes for each group, right now</h4>" +
+    whatCard.innerHTML = "<h3>What alphaHK computes for each group, right now</h3>" +
       GROUPS.map(function (g) {
         const info = classOf(g.type);
         return "<p style=\"margin:0 0 0.5rem;font-size:var(--step--1);\"><strong>" + g.count +
@@ -2222,10 +2338,11 @@
 
     const verdict = document.createElement("div");
     verdict.innerHTML = aggregate
-      ? "<div class=\"c21-verdict is-good\"><strong>All three groups now get the source's own " +
-        "class.</strong> <code>[20]</code> computes alphaHKPrism(T) like every other prism " +
-        "site, and <code>[10]</code> is correctly inhibited. Nothing here is pinned to a " +
-        "constant regardless of temperature.</div>"
+      ? "<div class=\"c21-verdict is-good\"><strong>All three groups now get the adopted " +
+        "source-constrained class.</strong> <code>[20]</code> computes alphaHKPrism(T) like " +
+        "other prism sites. <code>[10]</code> is the deliberate exception: it is inhibited, " +
+        "with alphaHK fixed at 0 under aggregate v4, v5 and v6. The facet labels may track " +
+        "temperature; the raw classifier code for <code>[10]</code> does not.</div>"
       : "<div class=\"c21-verdict is-bad\"><strong>12 straight prism-facet cells are pinned to " +
         "alphaHK = 1, from step zero.</strong> Under this classifier <code>[20]</code> reads as " +
         "a rough step site, not a prism facet, so those 12 cells never see temperature at all. " +

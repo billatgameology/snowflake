@@ -171,8 +171,9 @@
           about nature. It removes exactly one specific way of being wrong: the way where a sixfold
           result would only have been the container talking. Everything in this chapter buys
           interpretability, not correctness. Whether the physics laid on top of the grid matches
-          reality is a separate question that only the validation sweep can ask &mdash; and that
-          sweep, Phase&nbsp;6, is still in progress.
+          reality is a separate question that only the validation sweep can ask. This chapter does
+          not freeze that phase&rsquo;s mutable status; use <code>docs/PROGRESS.md</code>,
+          <strong>Next step</strong>, for the dated current state.
         </p>
       </aside>
 
@@ -671,10 +672,13 @@
         at the set supersaturation, so vapour is replenished at the far field. The motive is that
         &ldquo;Nakaya coordinates and Libbrecht's measurements assume a <em>maintained</em> far-field
         &sigma;&rdquo;. The cost is the theorem. Under Dirichlet the boundary is &ldquo;a source/sink
-        <em>by design</em>&rdquo;, so those runs do not come with a closed ledger; they come with a
-        metered one, a check that &ldquo;starts depleted and verifies that Dirichlet returns to the set
-        value with injected field change metered and balancing&rdquo; (lines 203&ndash;210). Same
-        discipline, different theorem.
+        <em>by design</em>&rdquo;, so those runs do not come with the reflecting mass invariant.
+        Under G&ndash;G, the fixed-&sigma; test meters injected field change. Under
+        <code>LibbrechtKinetics</code>, however, repeated far-shell clamps and signed replacements
+        at the crystal surface belong to an <em>elliptic numerical solve</em>: they balance in the
+        divergence identity, but they are not integrated physical uptake. The physical interface
+        demand has a different ledger, described below. &ldquo;Metered&rdquo; therefore does not
+        mean one universal conservation law.
       </p>
 
       <p>
@@ -707,15 +711,19 @@
           is a harder question than it sounds, and chapter 22 is about that.
         </li>
         <li>
-          <strong>The freezing step disappears.</strong> The crystal's surface becomes the one and only
-          place vapour leaves the field, absorbed there at a rate the surface physics sets. That
-          absorption is the &ldquo;sink&rdquo; the quotation below mentions, and it does the job freezing
-          used to do: &ldquo;its Robin sink replaces <code>&kappa;</code> freezing&rdquo;
-          (<code>docs/gg-machinery.md</code> lines 125&ndash;126).
+          <strong>The freezing transfer disappears.</strong> During relaxation, the solver replaces
+          each boundary pixel by the self-consistent Robin value
+          &sigma;<sub>b</sub>. The signed replacement delta can be positive or negative because
+          &sigma; is a potential; its sum is a numerical boundary-exchange diagnostic, not vapour
+          deposited as ice. This coupled boundary condition replaces <code>&kappa;</code>
+          freezing, but it is not a second physical uptake channel
+          (<code>docs/attachment-kinetics.md</code>, &sect;4.4, component&nbsp;3).
         </li>
         <li>
           <strong>Attachment stops being a threshold.</strong> Rather than tipping over a fixed line, a
-          surface cell accumulates a <em>fill fraction</em> &mdash; it fills up, face by face, and
+          surface cell accumulates a <em>fill fraction</em> from the nonnegative
+          Hertz&ndash;Knudsen kinetic demand computed with the same cached
+          (<code>alphaHK</code>, &sigma;<sub>b</sub>) pair &mdash; it fills up and
           becomes ice when it is full. Which rule governs that filling is recorded in the run as a
           version number, so a result can always name the policy that produced it. That is what
           &ldquo;policy-versioned boundary-pixel fill&rdquo; means.
@@ -724,6 +732,25 @@
           <strong>Melting is switched off entirely.</strong> The fourth step simply does not run.
         </li>
       </ul>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          Two books, two questions
+        </p>
+        <p>
+          The <strong>solve-quality identity</strong> compares far-shell injection, any
+          policy-metered floating-point smoother drift, and signed numerical surface exchange.
+          It asks whether the quasi-static field solve balances. The <strong>interface-demand
+          identity</strong> says placed fill plus recorded saturation-clipped excess equals the
+          geometry-adjusted Hertz&ndash;Knudsen demand for that physical interface step. Clipped
+          excess is recorded but not deposited ice or physical uptake. Neither identity may be
+          substituted for the other (<code>docs/attachment-kinetics.md</code>, &sect;4.4,
+          components&nbsp;3&ndash;4).
+        </p>
+      </aside>
 
       <p>
         That third change is the hard one, and chapter 21 is about nothing else: turning a continuous
@@ -739,6 +766,12 @@
         </p>
         <p class="equation__cite">docs/gg-machinery.md, lines 173&ndash;175</p>
       </div>
+
+      <p>
+        In that compact quotation, &ldquo;sink&rdquo; names the Robin boundary condition that
+        replaces G&ndash;G freezing. It does not turn the signed per-sweep replacement meter into
+        physical uptake; the interface-demand ledger remains the only book for placed fill.
+      </p>
 
       <p>
         What carries through unchanged into Phase 6 is everything underneath &mdash; the eight
@@ -988,9 +1021,10 @@
           describes. Every review in this project to date has been an LLM review &mdash; including the
           two-reviewer process that checked this chapter. The project treats that as a disclosed
           limitation, not as a substitute for review by a human domain scientist, and no human domain
-          scientist has yet read any of it. Phase 6, the validation sweep, is in progress; Phase 7, the
-          product, has not started. Nothing in this chapter is evidence about nature. It is evidence
-          about whether the apparatus can be blamed.
+          scientist has yet read any of it. The Phase&nbsp;6/Phase&nbsp;7 statuses printed by the
+          earlier draft were a staleable snapshot, so they are not repeated here; consult
+          <code>docs/PROGRESS.md</code>, <strong>Next step</strong>. Nothing in this chapter is
+          evidence about nature. It is evidence about whether the apparatus can be blamed.
         </p>
       </aside>
 

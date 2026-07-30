@@ -59,8 +59,8 @@
         </p>
         <div class="chapter-header__meta">
           <span>~17 min read</span>
-          <span>7 figures</span>
-          <span>5 interactive, 1 animation</span>
+          <span>8 figures</span>
+          <span>6 interactive, 1 animation</span>
         </div>
       </header>
 
@@ -71,7 +71,7 @@
             are right.</li>
           <li>Recognise the nastiest class of bug &mdash; one that gets <em>worse</em> as the problem
             gets bigger, so the cheap tests are exactly the ones that look fine.</li>
-          <li>Say why an independent physical check beats a tighter tolerance.</li>
+          <li>Say why an independent discrete-balance check beats a tighter tolerance.</li>
           <li>Explain how a model can test whether its own core assumption still holds, and why
             the answer gets reported rather than tuned away.</li>
           <li>Describe graded validation severity, and why a rule that rejects your own source's
@@ -245,12 +245,14 @@
 
       <p>
         Unpack it. &ldquo;Dirichlet-shell&rdquo; is the outer wall of the box, held at a fixed
-        supersaturation, where vapour is injected. &ldquo;Robin-sink&rdquo; is the crystal surface,
-        where vapour is absorbed. A <strong>gate</strong> is a pass/fail check a phase has to clear
-        before its results count; the <strong>habit gate</strong> is the one that decides whether
-        the crystal grew into the right shape. <strong>Round 3</strong> is the third pass of
-        internal review over the same code. In a steady state those two totals must be equal. They
-        were not. The
+        supersaturation, where the final sweep's shell-clamp update is metered.
+        &ldquo;Robin-sink&rdquo; is historical shorthand here for the numerical boundary replacement
+        at the crystal surface. That signed replacement is a change to a supersaturation
+        <em>potential</em>, not measured physical uptake. A <strong>gate</strong> is a pass/fail
+        check a phase has to clear before its results count; the <strong>habit gate</strong> is the
+        one that decides whether the crystal grew into the right shape. <strong>Round 3</strong> is
+        the third pass of internal review over the same code. In a converged discrete solve those
+        numerical updates must balance. They did not. The
         mismatch was 2.46&times;10<sup>&minus;6</sup> on a 32&sup3; grid and
         8.85&times;10<sup>&minus;6</sup> on a 48&sup3; grid &mdash; about 3.6 times larger &mdash;
         and all the while the residual test was being satisfied at a tolerance of
@@ -317,8 +319,8 @@
       <p>
         That half of the argument is worth watching rather than taking on trust. Hold the sweep
         budget fixed, widen the domain, and the two meters disagree: the residual goes quiet
-        anyway, while the conservation check climbs past 99&nbsp;%. Nearly all the vapour the field
-        claims to inject is unaccounted for at the surface.
+        anyway, while the discrete-balance check climbs past 99&nbsp;%. Nearly all of the numerical
+        shell-clamp update is then unmatched by the signed surface-boundary replacement.
       </p>
 
       <figure class="anim" id="fig-convergence">
@@ -354,15 +356,16 @@
       <p>
         Not a tighter tolerance. Tightening <code>relaxTol</code> makes the same test stricter; it
         does not make it a different test. What was needed was a second question, asked of a
-        different quantity, with a physical reason behind it. Here is that reason, in one sentence:
-        <strong>in a steady state nothing accumulates in the middle, so whatever the boundary
-        injects must equal what the surface takes.</strong>
+        different quantity, with a discrete conservation reason behind it. Here is that reason,
+        in one sentence: <strong>in a converged elliptic sweep, the signed field changes made by
+        the shell clamp, the smoother and the surface-boundary replacement must balance.</strong>
       </p>
 
       <p>
         That is the <strong>divergence identity</strong>. It is not a smaller version of the
-        residual check &mdash; it is bookkeeping. It compares two totals that were computed
-        independently of each other, and demands they agree.
+        residual check &mdash; it is numerical bookkeeping over one relaxation sweep. It does
+        <em>not</em> say that vapour loss equals deposited ice, because an elliptic sweep has no
+        physical duration.
       </p>
 
       <p>
@@ -388,18 +391,56 @@
         <div class="equation__where">
           <strong>where</strong>
           <dl>
-            <dt>shellInjection</dt><dd>the vapour pushed in across the outer wall, which is held at
-              a fixed supersaturation</dd>
-            <dt>surfaceExchange</dt><dd>the vapour the crystal's surface actually absorbed, summed
-              over the boundary cells</dd>
-            <dt>smootherDrift</dt><dd>a third term that is exactly zero in mathematics and not
-              quite zero in a computer &mdash; the next section is entirely about it</dd>
+            <dt>shellInjection</dt><dd>the signed numerical field change made when the outer shell
+              is clamped to its prescribed value during the final sweep</dd>
+            <dt>surfaceExchange</dt><dd>the signed net numerical boundary-value replacement around
+              the crystal; local terms may be negative, and none is deposited ice or physical
+              uptake</dd>
+            <dt>smootherDrift</dt><dd>the directly metered signed field change made by float64
+              rounding in the smoother &mdash; exactly zero in real arithmetic</dd>
             <dt>1e&minus;300</dt><dd>a floor on the divider, so that an exchange of almost nothing
               cannot turn the fraction into infinity</dd>
           </dl>
         </div>
         <p class="equation__cite">As written in <code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md</code>, Decision&nbsp;2 (which spells the bars as <code>abs(&hellip;)</code>); implemented at <code>solver-cpu/src/lk-solver.ts:1555&ndash;1562</code></p>
       </div>
+
+      <p>
+        The solver has a second set of books, but it lives on the other clock and must never be
+        used to patch this identity. Physical time advances only in the <strong>interface
+        step</strong>. There, the nonnegative, geometry-adjusted per-boundary-pixel
+        Hertz&ndash;Knudsen demand is divided into two recorded terms:
+        <strong>placed fill + unapplied saturation excess = computed kinetic demand</strong>.
+        The excess is demand that would carry an already-filling cell past saturation; it is not
+        deposited fill, ice, or uptake, and is not replayed after the topology changes. A
+        hole-filling attachment is a separate geometric event whose deficit is reported beside
+        that identity, never netted into it.
+      </p>
+
+      <figure class="anim" id="anim-part2-ledger-separation">
+        <div class="anim__head">
+          <p class="anim__title">Two clocks, two ledgers, no cancellation between them</p>
+          <p class="anim__sub">
+            Select a witnessed fixed point or a constructed negative control. Every raw term stays
+            visible. Then try to use one card to repair the other &mdash; the demo refuses the move
+            for the same reason the solver does.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">Original interactive. The cold numerical terms are transcribed
+          from ADR&nbsp;0013: shell injection 3.679402302324622e-7, signed boundary exchange
+          3.679401162802118e-7, and directly metered smoother drift
+          &minus;1.1395225041344048e-13. The interface terms use explicitly illustrative integer
+          micro-fill units so the identity can be recomputed exactly; they are not run
+          measurements. Contracts:
+          <code>docs/attachment-kinetics.md</code> &sect;4.4 components 3&ndash;4,
+          ADR&nbsp;0009 Decisions 3&ndash;4, ADR&nbsp;0013 Decisions 2&ndash;4, and
+          <code>solver-cpu/src/operator.ts</code>. The &ldquo;break&rdquo; presets are negative
+          controls, not scientific evidence.</span>
+        </figcaption>
+      </figure>
 
       <p>
         ADR 0006, the decision that introduced the identity, is blunt about what it means for the
@@ -529,10 +570,11 @@
         Rather than loosening the tolerance, a separate program &mdash;
         <code>scripts/diagnose-gate2b-v4.ts</code> &mdash; decoded the saved checkpoint and rebuilt
         the diffusion stencil <em>outside</em> the solver. One reconstructed sweep measured 643,055
-        active cells and the two totals a steady state says must be identical: injection across the
-        outer shell, and exchange at the crystal's surface. They agreed to six digits and then
-        parted company &mdash; 3.67940<strong>2</strong>&hellip;&times;10<sup>&minus;7</sup> going
-        in, 3.67940<strong>1</strong>&hellip;&times;10<sup>&minus;7</sup> coming out. Subtract them
+        active cells and the two numerical totals the v4 identity compared: the shell-clamp
+        update and the signed surface-boundary replacement. They agreed to six digits and then
+        parted company &mdash; 3.67940<strong>2</strong>&hellip;&times;10<sup>&minus;7</sup> at the
+        shell, 3.67940<strong>1</strong>&hellip;&times;10<sup>&minus;7</sup> at the crystal
+        boundary. Subtract them
         and the entire disagreement is about 1.1&times;10<sup>&minus;13</sup>. Divide that by the
         exchange, which is what the identity does, and it comes to 3.1&times;10<sup>&minus;7</sup>
         &mdash; the exact ratio the cold run was stuck at, three times over its tolerance. That is
@@ -546,18 +588,19 @@
         out as &minus;1.1&times;10<sup>&minus;13</sup>. Same size, opposite sign &mdash; and not
         merely the same size. The two values match digit for digit, down to the last digit either
         was printed with, which is
-        why the diagnosis was an identification rather than a guess: the vapour the books could not
-        account for is precisely the vapour the averaging step rounded away
+        why the diagnosis was an identification rather than a guess: the signed field change the
+        two-term numerical identity could not account for is precisely the field change the
+        averaging step rounded away
         (<code>docs/decisions/0013-float64-smoother-drift-divergence-identity.md:20&ndash;29</code>).
       </p>
 
       <p>
-        So about 10<sup>&minus;13</sup> more vapour crossed the outer wall than the surface ever
-        absorbed, the smoother is where it went, and the two-term identity had
-        nowhere to put it. When the crystal is growing very slowly, as it is in the cold, that
-        harmless absolute crumb is divided by a very small exchange and comes out as a relative
-        error above tolerance. The identity was not detecting a physics problem. It was detecting
-        itself.
+        So the shell-clamp update exceeded the signed surface-boundary update by about
+        10<sup>&minus;13</sup>; the directly metered smoother drift was its exact opposite, and the
+        two-term identity had nowhere to put it. When the boundary exchange is very small, as it
+        is in the cold, that harmless absolute crumb becomes a relative error above tolerance.
+        The identity was not detecting physical uptake or missing ice. It was detecting a term in
+        its own floating-point operator.
       </p>
 
       <p>
@@ -589,7 +632,7 @@
         its magnitude, and an adversarial review worked out what that permits. A report claiming a
         shell injection of 1, a
         surface exchange of 10<sup>&minus;6</sup>, and a drift of &minus;0.999999 would satisfy the
-        corrected identity. Any real loss could be relabelled &ldquo;roundoff&rdquo; and
+        corrected identity. Any numerical imbalance could be relabelled &ldquo;roundoff&rdquo; and
         cancelled by the new term
         (<code>docs/decisions/0014-bound-float64-smoother-drift.md:11&ndash;15</code>). ADR 0014's
         answer is a bound derived from the arithmetic itself &mdash; a conservative allowance of
@@ -915,6 +958,7 @@
 
 <script src="../assets/site.js"></script>
 <script src="../assets/viz.js"></script>
+<script src="../assets/anim-part2-ledger-separation.js"></script>
 <script src="../assets/anim-convergence.js"></script>
 
 <script>
@@ -1065,15 +1109,15 @@
 /* ==========================================================================
    A small spherically-symmetric relaxation, shared by figures 2 and 5.
 
-   Steady diffusion around an absorbing sphere: the field is relaxed by Jacobi
+   Steady diffusion around a reactive-boundary sphere: the field is relaxed by Jacobi
    sweeps between a Dirichlet outer shell held at sigma-infinity and a surface
    condition of the form used by the project's aggregate boundary rule,
    sigma_b = sigma_opp / (1 + k).  Two numbers come out of every sweep:
 
      residual   = max |change| over the sweep, divided by sigma-infinity
                   (solver-cpu/src/lk-solver.ts:1528)
-     divergence = |injection - absorption| / |absorption|
-                  (the two-term identity of decision 0006)
+     divergence = |shell update - boundary exchange| / |boundary exchange|
+                  (the historical two-term identity of decision 0006)
 
    This is a teaching model of the STOPPING RULE, not the project's 3-D solver.
    ======================================================================== */
@@ -1109,8 +1153,9 @@
       sweeps++;
       residual = maxAbs / SINF;
       const injection = (aOut * (src[n] - src[n - 1])) / h;
-      const absorbed = (aIn * (src[1] - src[0])) / h;
-      divergence = Math.abs(injection - absorbed) / Math.max(Math.abs(absorbed), 1e-300);
+      const boundaryExchange = (aIn * (src[1] - src[0])) / h;
+      divergence = Math.abs(injection - boundaryExchange) /
+        Math.max(Math.abs(boundaryExchange), 1e-300);
       if (residual < tol && (!requireDiv || divergence < divTol)) break;
     }
     return {

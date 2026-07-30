@@ -5,6 +5,7 @@
  *   node docs/education/tools/verify.mjs --part-one
  *   node docs/education/tools/verify.mjs --public-only
  *   node docs/education/tools/verify.mjs --offline-only
+ *   node docs/education/tools/verify.mjs --part-two-models-only
  *
  * Screenshots are optional artifacts (`--screenshots`); no screenshot supplies
  * a verdict. The verifier checks the published bytes and independently
@@ -25,6 +26,23 @@ import { basename, dirname, extname, join, relative, resolve, sep } from "node:p
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 import { chromium } from "playwright";
+import {
+  runCheckpointProductionOracle,
+} from "./checkpoint-production-oracle.mjs";
+import {
+  checkpointViolations,
+  crossingViolations,
+  ledgerViolations,
+  PHASE6_ARM2_PROTOCOL_SHA256,
+  PHASE6_ARM2_VALUES_PIN_COMMIT,
+  PHASE6_ARM2_VALUES_SHA256,
+  PHASE6_STATUS_COMMIT,
+  phase6StatusViolations,
+  timelineViolations,
+  TRANSFER_AXIS_COUNT,
+  TRANSFER_SOURCE_AUTHORITY,
+  transferabilityViolations,
+} from "./part-two-oracles.mjs";
 
 const TOOL_DIR = fileURLToPath(new URL(".", import.meta.url));
 const REPO = resolve(TOOL_DIR, "../../..");
@@ -37,6 +55,10 @@ const MANIFEST = JSON.parse(readFileSync(join(TOOL_DIR, "site-manifest.json"), "
 const ALL_PAGE_PATHS = Object.freeze(Object.keys(MANIFEST));
 const args = new Set(process.argv.slice(2));
 const partOneOnly = args.has("--part-one");
+const partTwoModelsOnly = args.has("--part-two-models-only");
+if (partOneOnly && partTwoModelsOnly) {
+  throw new Error("--part-one and --part-two-models-only are mutually exclusive");
+}
 const PAGE_PATHS = Object.freeze(
   ALL_PAGE_PATHS.filter((path) => {
     const match = /^chapters\/(\d\d)-/.exec(path);
@@ -148,6 +170,296 @@ function staticChecks() {
     `manifest pins the complete 33-page course and the ${partOneOnly ? "17-page Part One" : "full"} visual-root inventory`,
     `allPages=${ALL_PAGE_PATHS.length}, selectedPages=${PAGE_PATHS.length}, roots=${EXPECTED_ROOTS}`,
   );
+
+  if (!partOneOnly) {
+    const provenanceProblems = [];
+    const resolveCommit = (name) => {
+      try {
+        return execFileSync(
+          "git",
+          ["rev-parse", "--verify", `${name}^{commit}`],
+          { cwd: REPO, encoding: "utf8" },
+        ).trim();
+      } catch {
+        provenanceProblems.push(`missing commit ${name}`);
+        return "";
+      }
+    };
+    const currentCommit = resolveCommit(PHASE6_STATUS_COMMIT);
+    const verifierCommit = resolveCommit("990840a");
+    const inputRepairCommit = resolveCommit("b701285");
+    const sourceFingerprintCommit = resolveCommit("154359d");
+    const valuesFreezeCommit = resolveCommit("483f7ee");
+    const valuesPinCommit = resolveCommit(PHASE6_ARM2_VALUES_PIN_COMMIT);
+    const combinedProtocolCommit = resolveCommit("8c781b1");
+    const arm2FreezeCommit =
+      "483f7ee56cbbcd5017658aa4879a3a9b87c56809";
+    if (currentCommit !== PHASE6_STATUS_COMMIT) {
+      provenanceProblems.push("current status commit resolution");
+    }
+    if (combinedProtocolCommit !== PHASE6_STATUS_COMMIT) {
+      provenanceProblems.push("combined protocol commit resolution");
+    }
+    if (
+      [
+        verifierCommit,
+        inputRepairCommit,
+        sourceFingerprintCommit,
+        valuesFreezeCommit,
+        valuesPinCommit,
+      ].some((value) => value === "")
+    ) {
+      provenanceProblems.push("named safeguard/freeze commit resolution");
+    }
+    try {
+      const isAncestor = (older, newer) => {
+        try {
+          execFileSync(
+            "git",
+            ["merge-base", "--is-ancestor", older, newer],
+            { cwd: REPO, stdio: "ignore" },
+          );
+          return true;
+        } catch {
+          return false;
+        }
+      };
+      if (
+        valuesFreezeCommit !== arm2FreezeCommit
+        || valuesPinCommit !== PHASE6_ARM2_VALUES_PIN_COMMIT
+        || !isAncestor(valuesFreezeCommit, valuesPinCommit)
+        || !isAncestor(valuesPinCommit, combinedProtocolCommit)
+      ) {
+        provenanceProblems.push("Arm 2 freeze/pin/combined ancestry");
+      }
+      const interimProtocol = execFileSync(
+        "git",
+        [
+          "show",
+          `${valuesFreezeCommit}:runner/src/phase6-arm2-protocol.ts`,
+        ],
+        { cwd: REPO, encoding: "utf8", maxBuffer: 4 * 1024 * 1024 },
+      );
+      if (
+        !interimProtocol.includes(
+          'PHASE6_ARM2_FREEZE_COMMIT = "PENDING_FREEZE_COMMIT"',
+        )
+        || !interimProtocol.includes(
+          '"d8c4e799095e4db870b03c696bf40d2ec4f72f0c8e1396457b4bd257026cbd93"',
+        )
+      ) {
+        provenanceProblems.push("Arm 2 freeze commit interim state");
+      }
+      const pinnedValuesProtocol = execFileSync(
+        "git",
+        [
+          "show",
+          `${valuesPinCommit}:runner/src/phase6-arm2-protocol.ts`,
+        ],
+        { cwd: REPO, encoding: "utf8", maxBuffer: 4 * 1024 * 1024 },
+      );
+      const pinPaths = execFileSync(
+        "git",
+        ["diff-tree", "--no-commit-id", "--name-only", "-r", valuesPinCommit],
+        { cwd: REPO, encoding: "utf8" },
+      ).trim().split(/\r?\n/).filter(Boolean);
+      if (
+        !pinnedValuesProtocol.includes(
+          `PHASE6_ARM2_FREEZE_COMMIT = "${arm2FreezeCommit}"`,
+        )
+        || !pinnedValuesProtocol.includes(`"${PHASE6_ARM2_VALUES_SHA256}"`)
+        || pinnedValuesProtocol.includes("PENDING_FREEZE_COMMIT")
+        || pinnedValuesProtocol.includes(
+          "d8c4e799095e4db870b03c696bf40d2ec4f72f0c8e1396457b4bd257026cbd93",
+        )
+        || pinPaths.length !== 1
+        || pinPaths[0] !== "runner/src/phase6-arm2-protocol.ts"
+      ) {
+        provenanceProblems.push("Arm 2 values-pin bridge semantics");
+      }
+      const protocol = execFileSync(
+        "git",
+        [
+          "show",
+          `${PHASE6_STATUS_COMMIT}:runner/src/phase6-arm2-protocol.ts`,
+        ],
+        { cwd: REPO, encoding: "utf8", maxBuffer: 4 * 1024 * 1024 },
+      );
+      if (
+        !protocol.includes(`"${PHASE6_ARM2_VALUES_SHA256}"`)
+        || !protocol.includes(`"${PHASE6_ARM2_PROTOCOL_SHA256}"`)
+        || !protocol.includes(
+          `PHASE6_ARM2_FREEZE_COMMIT = "${arm2FreezeCommit}"`,
+        )
+        || !protocol.includes("pinned by revision history rather than treated as durable")
+        || !protocol.includes("stopped one minute in")
+      ) {
+        provenanceProblems.push("Arm 2 protocol/hash semantics");
+      }
+      const progress = execFileSync(
+        "git",
+        ["show", `${PHASE6_STATUS_COMMIT}:docs/PROGRESS.md`],
+        { cwd: REPO, encoding: "utf8", maxBuffer: 8 * 1024 * 1024 },
+      );
+      const nextStepIndex = progress.lastIndexOf("## Next step");
+      const nextStep = nextStepIndex >= 0
+        ? progress.slice(nextStepIndex)
+        : "";
+      if (
+        nextStepIndex < 0
+        || !/freeze/i.test(nextStep)
+        || !/arm\s*2/i.test(nextStep)
+      ) {
+        provenanceProblems.push("recorded PROGRESS disagreement");
+      }
+    } catch (error) {
+      provenanceProblems.push(`Git source read: ${error.message}`);
+    }
+    requireCheck(
+      provenanceProblems.length === 0,
+      "Phase 6 status provenance authenticates the 483f7ee interim freeze, 0cb52bf values-pin bridge, 8c781b1 combined hash, their ancestry, and the disclosed PROGRESS disagreement",
+      provenanceProblems.join(" | "),
+    );
+
+    const transferSourceProblems = [];
+    if (TRANSFER_SOURCE_AUTHORITY.revision !== PHASE6_STATUS_COMMIT) {
+      transferSourceProblems.push("authority revision is not the registered status commit");
+    }
+    for (const [path, expectedBlob] of Object.entries(
+      TRANSFER_SOURCE_AUTHORITY.blobs,
+    )) {
+      try {
+        const actualBlob = execFileSync(
+          "git",
+          ["rev-parse", `${TRANSFER_SOURCE_AUTHORITY.revision}:${path}`],
+          { cwd: REPO, encoding: "utf8" },
+        ).trim();
+        if (actualBlob !== expectedBlob) {
+          transferSourceProblems.push(
+            `${path}: expected ${expectedBlob}, got ${actualBlob}`,
+          );
+        }
+      } catch (error) {
+        transferSourceProblems.push(`${path}: ${error.message}`);
+      }
+    }
+    try {
+      const authorityRevision = TRANSFER_SOURCE_AUTHORITY.revision;
+      const report = execFileSync(
+        "git",
+        ["show", `${authorityRevision}:research/phase6-convergence.md`],
+        { cwd: REPO, encoding: "utf8", maxBuffer: 8 * 1024 * 1024 },
+      );
+      const protocol = execFileSync(
+        "git",
+        ["show", `${authorityRevision}:runner/src/phase6-protocol.ts`],
+        { cwd: REPO, encoding: "utf8", maxBuffer: 8 * 1024 * 1024 },
+      );
+      const sweep = execFileSync(
+        "git",
+        ["show", `${authorityRevision}:runner/src/phase6-sweep.ts`],
+        { cwd: REPO, encoding: "utf8", maxBuffer: 8 * 1024 * 1024 },
+      );
+      const crossPlatform = execFileSync(
+        "git",
+        ["show", `${authorityRevision}:runner/src/phase6-crossplatform.ts`],
+        { cwd: REPO, encoding: "utf8", maxBuffer: 8 * 1024 * 1024 },
+      );
+      const wp3RecordCommit = execFileSync(
+        "git",
+        ["rev-parse", "--verify", "675288f^{commit}"],
+        { cwd: REPO, encoding: "utf8" },
+      ).trim();
+      const phase6FreezeCommit = execFileSync(
+        "git",
+        ["rev-parse", "--verify", "e2f1bfc^{commit}"],
+        { cwd: REPO, encoding: "utf8" },
+      ).trim();
+      const pointCommandStart = sweep.indexOf(
+        "export function phase6PointCommand",
+      );
+      const pointCommandEnd = sweep.indexOf(
+        "\nexport ",
+        pointCommandStart + 1,
+      );
+      const pointCommand = pointCommandStart >= 0
+        ? sweep.slice(
+            pointCommandStart,
+            pointCommandEnd >= 0 ? pointCommandEnd : undefined,
+          )
+        : "";
+      let recordPredatesFreeze = false;
+      try {
+        execFileSync(
+          "git",
+          ["merge-base", "--is-ancestor", wp3RecordCommit, phase6FreezeCommit],
+          { cwd: REPO, stdio: "ignore" },
+        );
+        recordPredatesFreeze = true;
+      } catch {
+        recordPredatesFreeze = false;
+      }
+      if (
+        wp3RecordCommit
+          !== "675288fce6e3d33dc6fb1c6d7d56d9818fb9b0bb"
+        || phase6FreezeCommit
+          !== "e2f1bfcab4cf605f5c9c44ad096d8b1bcc0fe967"
+        || !recordPredatesFreeze
+        || !report.includes("paramSet` CAK_A1")
+        || !report.includes("### 1.2 At the registered measurement size")
+        || /\b(?:Node|V8)\b/.test(report)
+      ) {
+        transferSourceProblems.push(
+          "historical ladder parameter/runtime/code provenance",
+        );
+      }
+      if (
+        !protocol.includes(
+          'PHASE6_PROTOCOL_FREEZE_COMMIT = "e2f1bfcab4cf605f5c9c44ad096d8b1bcc0fe967"',
+        )
+        || !protocol.includes('id: "code-version"')
+        || !protocol.includes("node: process.version")
+        || !protocol.includes("v8: process.versions.v8")
+        || !protocol.includes("the sweep varies temperature and")
+        || !protocol.includes("supersaturation only")
+        || !crossPlatform.includes(
+          "Host: win32 x64, Node v24.13.1, V8 13.6.233.17-node.40.",
+        )
+        || !pointCommand.includes('"--temp-c"')
+        || !pointCommand.includes('"--sigma-inf"')
+        || /--(?:timeline|schedule|event|ramp)/.test(pointCommand)
+      ) {
+        transferSourceProblems.push(
+          "registered code/runtime/constant-environment contract",
+        );
+      }
+      const transferAssetSource = readFileSync(
+        join(PUBLIC_ROOT, "assets/anim-part2-transferability.js"),
+        "utf8",
+      );
+      const transferOracleSource = readFileSync(
+        join(TOOL_DIR, "part-two-oracles.mjs"),
+        "utf8",
+      );
+      const inheritedAssetRows =
+        /Object\.assign\(\{\},\s*target\s*,/.test(transferAssetSource);
+      const inheritedOracleRows = [
+        ...transferOracleSource.matchAll(/\.\.\.TRANSFER_TARGET/g),
+      ].length;
+      if (inheritedAssetRows || inheritedOracleRows !== 1) {
+        transferSourceProblems.push(
+          "evidence fixtures inherit unauthenticated target fields",
+        );
+      }
+    } catch (error) {
+      transferSourceProblems.push(`transfer source semantics: ${error.message}`);
+    }
+    requireCheck(
+      transferSourceProblems.length === 0,
+      "Part Two transferability contract resolves every pinned report, protocol, runtime-default, and test blob at main@8c781b1",
+      transferSourceProblems.join(" | "),
+    );
+  }
 }
 
 function selectedPublishedSources() {
@@ -441,8 +753,34 @@ async function rootSignatures(page) {
       }
       return `${h1.toString(16).padStart(8, "0")}${h2.toString(16).padStart(8, "0")}`;
     }
+    function canonicalNode(node) {
+      if (node.nodeType !== Node.ELEMENT_NODE) {
+        return [node.nodeType, node.nodeValue];
+      }
+      const attributes = [...node.attributes]
+        .map((attribute) => [
+          attribute.namespaceURI,
+          attribute.name,
+          attribute.value,
+        ])
+        .sort((left, right) => {
+          const a = JSON.stringify(left);
+          const b = JSON.stringify(right);
+          return a < b ? -1 : a > b ? 1 : 0;
+        });
+      return [
+        node.namespaceURI,
+        node.localName,
+        attributes,
+        [...node.childNodes].map(canonicalNode),
+      ];
+    }
     return [...document.querySelectorAll("figure.anim, figure.chart")].map((root) => {
-      let material = root.innerHTML;
+      // Chromium may serialize semantically identical SVG attributes in
+      // insertion order (for example `fill` before or after `style`) across
+      // otherwise equivalent contexts. Compare DOM structure with attributes
+      // sorted instead, while retaining text, comments, values and child order.
+      let material = JSON.stringify([...root.childNodes].map(canonicalNode));
       for (const canvas of root.querySelectorAll("canvas")) {
         const context = canvas.getContext("2d");
         if (!context) continue;
@@ -508,6 +846,101 @@ async function pageFacts(page) {
         if (!hidden && !name.trim()) inaccessibleGraphics.push(`${root.id}:${graphic.tagName}`);
       }
     }
+    const visualRootOverflows = [];
+    for (const root of roots) {
+      const containers = [
+        root,
+        ...root.querySelectorAll(
+          ".anim__head, .anim__body, .anim__controls, .chart__body",
+        ),
+      ];
+      for (const container of containers) {
+        if (
+          container.clientWidth <= 0
+          || container.scrollWidth <= container.clientWidth + 1
+        ) continue;
+        const overflowX = getComputedStyle(container).overflowX;
+        if (overflowX === "auto" || overflowX === "scroll") continue;
+        const identity = container === root
+          ? "root"
+          : container.className || container.tagName.toLowerCase();
+        visualRootOverflows.push(
+          `${root.id}:${identity}:${container.scrollWidth}>${container.clientWidth}`,
+        );
+      }
+    }
+    const inaccessibleScrollableTables = [
+      ...document.querySelectorAll(".table-wrap"),
+    ].filter((wrap) => wrap.scrollWidth > wrap.clientWidth + 1)
+      .filter((wrap) =>
+        wrap.getAttribute("role") !== "region"
+        || wrap.tabIndex < 0
+        || !(wrap.getAttribute("aria-label") || "").trim())
+      .map((wrap, index) => {
+        const table = wrap.querySelector("table");
+        const caption = table?.querySelector("caption")?.textContent?.trim();
+        return caption || `scrollable-table-${index + 1}`;
+      });
+    const sourcePlaceholderHeadings = [
+      ...document.querySelectorAll(
+        ".figure__missing h1, .figure__missing h2, .figure__missing h3, "
+        + ".figure__missing h4, .figure__missing h5, .figure__missing h6",
+      ),
+    ].map((heading) => heading.textContent.trim());
+    const headingSkips = [];
+    const headings = [...document.querySelectorAll("main h1, main h2, main h3, main h4, main h5, main h6")];
+    for (let index = 1; index < headings.length; index++) {
+      const previous = Number(headings[index - 1].tagName.slice(1));
+      const current = Number(headings[index].tagName.slice(1));
+      if (current > previous + 1) {
+        headingSkips.push(
+          `${headings[index - 1].tagName}:${headings[index - 1].textContent.trim()}`
+          + ` -> ${headings[index].tagName}:${headings[index].textContent.trim()}`,
+        );
+      }
+    }
+    function rgb(value) {
+      const match = /^#([0-9a-f]{6})$/i.exec(value.trim());
+      if (!match) return null;
+      const integer = Number.parseInt(match[1], 16);
+      return [
+        (integer >> 16) & 255,
+        (integer >> 8) & 255,
+        integer & 255,
+      ];
+    }
+    function luminance(color) {
+      return color.map((channel) => {
+        const value = channel / 255;
+        return value <= 0.04045
+          ? value / 12.92
+          : ((value + 0.055) / 1.055) ** 2.4;
+      }).reduce(
+        (sum, value, index) =>
+          sum + value * [0.2126, 0.7152, 0.0722][index],
+        0,
+      );
+    }
+    function ratio(left, right) {
+      const a = luminance(left);
+      const b = luminance(right);
+      return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+    }
+    const rootStyle = getComputedStyle(document.documentElement);
+    const token = (name) => rgb(rootStyle.getPropertyValue(name));
+    const contrastPairs = [
+      ["muted/surface", token("--ink-muted"), token("--surface-1")],
+      ["muted/sunken", token("--ink-muted"), token("--surface-sunken")],
+      ["good/surface", token("--status-good"), token("--surface-1")],
+      ["critical/surface", token("--status-critical"), token("--surface-1")],
+      ["critical/sunken", token("--status-critical"), token("--surface-sunken")],
+      ["selected/white", token("--control-selected"), [255, 255, 255]],
+    ];
+    const lowContrastTokens = contrastPairs
+      .filter(([, foreground, background]) =>
+        !foreground || !background || ratio(foreground, background) < 4.5)
+      .map(([label, foreground, background]) =>
+        `${label}:${foreground && background ? ratio(foreground, background).toFixed(2) : "unparsed"}`);
     const documentElement = document.documentElement;
     const theme = documentElement.getAttribute("data-theme");
     const links = [...document.querySelectorAll("a[href]")].map((anchor) => ({
@@ -545,6 +978,12 @@ async function pageFacts(page) {
       emptyRoots,
       unlabeledControls,
       inaccessibleGraphics,
+      visualRootOverflows,
+      inaccessibleScrollableTables,
+      sourcePlaceholderHeadings,
+      headingSkips,
+      mainLandmarks: document.querySelectorAll("main").length,
+      lowContrastTokens,
       scrollWidth: documentElement.scrollWidth,
       clientWidth: documentElement.clientWidth,
       theme,
@@ -580,14 +1019,91 @@ async function exerciseControls(page) {
       for (const canvas of root.querySelectorAll("canvas")) {
         try { value += canvas.toDataURL(); } catch { value += "|canvas-unreadable"; }
       }
+      for (const control of root.querySelectorAll("input, select, button")) {
+        value += `|${control.tagName}:${control.type || ""}:${control.value || ""}`
+          + `:${control.checked === true}:${control.disabled === true}`
+          + `:${control.selectedIndex ?? ""}`;
+      }
       return value;
     }
 
     function name(control) {
       return control.getAttribute("aria-label")
         || (control.labels?.length ? [...control.labels].map((label) => label.textContent).join(" ") : "")
+        || control.closest(".control")?.querySelector("label")?.textContent
         || control.textContent
         || control.tagName;
+    }
+
+    function normalizedName(control) {
+      return name(control).trim().replace(/\s+/g, " ");
+    }
+
+    function supportedControls(root) {
+      return [...root.querySelectorAll("button")]
+        .concat([...root.querySelectorAll("input, select")])
+        .filter((control) =>
+          control.tagName === "BUTTON"
+          || control.tagName === "SELECT"
+          || control.matches(
+            'input[type="range"], input[type="checkbox"], input[type="radio"], '
+            + 'input[type="text"], input[type="search"]',
+          ));
+    }
+
+    // Several course interactives deliberately rebuild their controls while
+    // changing state. Keep a stable description instead of retaining a
+    // detached element and mistaking a click on that stale node for a broken
+    // model.
+    const identityDataKeys = [
+      "control", "act", "action", "val", "run", "caseId", "viewId",
+      "operator", "modeId", "dip", "field", "temp", "policy", "scenario",
+      "target", "step", "kind", "choice", "preset", "surface",
+    ];
+
+    function describeControl(control, controls) {
+      const tag = control.tagName;
+      const type = control.type || "";
+      const label = normalizedName(control);
+      const peers = controls.filter((candidate) =>
+        candidate.tagName === tag && (candidate.type || "") === type);
+      const sameLabel = peers.filter((candidate) => normalizedName(candidate) === label);
+      const data = {};
+      for (const key of identityDataKeys) {
+        if (control.dataset[key] != null) data[key] = control.dataset[key];
+      }
+      return {
+        tag,
+        type,
+        id: control.id || "",
+        label,
+        ordinal: peers.indexOf(control),
+        labelOrdinal: sameLabel.indexOf(control),
+        data,
+      };
+    }
+
+    function resolveControl(root, descriptor) {
+      let candidates = supportedControls(root).filter((candidate) =>
+        candidate.tagName === descriptor.tag
+        && (candidate.type || "") === descriptor.type);
+      if (descriptor.id) {
+        const byId = candidates.find((candidate) => candidate.id === descriptor.id);
+        if (byId) return byId;
+      }
+      const dataEntries = Object.entries(descriptor.data);
+      if (dataEntries.length) {
+        const byData = candidates.filter((candidate) =>
+          dataEntries.every(([key, value]) => candidate.dataset[key] === value));
+        if (byData.length === 1) return byData[0];
+        if (byData.length > 1) candidates = byData;
+      }
+      const byLabel = candidates.filter((candidate) =>
+        normalizedName(candidate) === descriptor.label);
+      if (byLabel.length) {
+        return byLabel[Math.max(0, descriptor.labelOrdinal)] || byLabel[0];
+      }
+      return candidates[Math.max(0, descriptor.ordinal)] || null;
     }
 
     async function settle() {
@@ -621,14 +1137,29 @@ async function exerciseControls(page) {
         control.dispatchEvent(new Event("change", { bubbles: true }));
         return true;
       }
+      if (control.matches('input[type="text"], input[type="search"]')) {
+        control.value = control.value === ""
+          ? "verification probe"
+          : `${control.value} verification probe`;
+        control.dispatchEvent(new Event("input", { bubbles: true }));
+        control.dispatchEvent(new Event("change", { bubbles: true }));
+        return true;
+      }
       return false;
     }
 
     for (const root of document.querySelectorAll("figure.anim, figure.chart")) {
-      const controls = [...root.querySelectorAll("button")]
-        .concat([...root.querySelectorAll("input, select")]);
+      const initialControls = supportedControls(root);
+      const controls = initialControls.map((control) =>
+        describeControl(control, initialControls));
       const repeatedControlGroups = new Set();
-      for (const control of controls) {
+      for (const descriptor of controls) {
+        let control = resolveControl(root, descriptor);
+        if (!control) continue;
+        const refresh = () => {
+          control = resolveControl(root, descriptor) || control;
+          return control;
+        };
         if (control.disabled) {
           // A disabled action may be truthful at the representative state
           // yet become available after a prerequisite input (for example,
@@ -637,6 +1168,7 @@ async function exerciseControls(page) {
           for (const setupControl of root.querySelectorAll("input, select")) {
             if (setupControl.disabled || !moveValueControl(setupControl)) continue;
             await settle();
+            refresh();
             if (!control.disabled) break;
           }
           if (control.disabled) continue;
@@ -645,7 +1177,7 @@ async function exerciseControls(page) {
         if (repeatedGroup && repeatedControlGroups.has(repeatedGroup)) continue;
         if (repeatedGroup) repeatedControlGroups.add(repeatedGroup);
         eligible++;
-        const label = name(control).trim().replace(/\s+/g, " ");
+        const label = descriptor.label;
         try {
           if (control.tagName === "BUTTON") {
             // A selected mode button is a legitimate no-op unless another mode
@@ -657,6 +1189,7 @@ async function exerciseControls(page) {
               for (const alternate of alternates) {
                 alternate.click();
                 await settle();
+                refresh();
                 if (control.getAttribute("aria-pressed") === "false") break;
               }
             } else if (
@@ -669,6 +1202,7 @@ async function exerciseControls(page) {
               // will produce, falsely making a working Restart look inert.
               control.click();
               await settle();
+              refresh();
               const resetState = effect(root);
               const advanceButtons = [...root.querySelectorAll("button:not(:disabled)")]
                 .filter((button) =>
@@ -679,6 +1213,7 @@ async function exerciseControls(page) {
                 for (let attempt = 0; attempt < 4; attempt++) {
                   advance.click();
                   await settle();
+                  refresh();
                   if (effect(root) !== resetState) break;
                 }
                 if (effect(root) !== resetState) break;
@@ -692,6 +1227,7 @@ async function exerciseControls(page) {
                 for (const setupControl of setupControls) {
                   if (!moveValueControl(setupControl)) continue;
                   await settle();
+                  refresh();
                   if (effect(root) !== resetState) break;
                 }
               }
@@ -707,9 +1243,11 @@ async function exerciseControls(page) {
             if (alternate) {
               alternate.click();
               await settle();
+              refresh();
             }
           }
 
+          refresh();
           const before = effect(root);
           if (control.tagName === "BUTTON") {
             control.click();
@@ -718,6 +1256,7 @@ async function exerciseControls(page) {
           }
           executed.push(`${root.id}:${label}`);
           await settle();
+          refresh();
           let after = effect(root);
           let changed = before !== after;
           if (
@@ -726,8 +1265,10 @@ async function exerciseControls(page) {
             && /\b(?:step|grow|advance)\b/i.test(label)
           ) {
             for (let attempt = 0; attempt < 7 && !changed; attempt++) {
+              refresh();
               control.click();
               await settle();
+              refresh();
               after = effect(root);
               changed = before !== after;
             }
@@ -740,13 +1281,74 @@ async function exerciseControls(page) {
               for (const setupControl of root.querySelectorAll("input, select")) {
                 if (setupControl.disabled || !moveValueControl(setupControl)) continue;
                 await settle();
+                refresh();
                 const prepared = effect(root);
                 control.click();
                 await settle();
+                refresh();
                 after = effect(root);
                 if (after !== prepared) {
                   changed = true;
                   break;
+                }
+              }
+            }
+          }
+          if (!changed && control.tagName === "BUTTON") {
+            // Mode and choice buttons in older chapters do not all expose an
+            // aria-pressed state. If the target is already selected, prepare
+            // the same root with another live button and try the target again.
+            // The comparison is against the prepared state so an inert target
+            // cannot borrow the alternate's visible change.
+            const alternates = [...root.querySelectorAll("button:not(:disabled)")]
+              .filter((candidate) => candidate !== control);
+            for (const alternate of alternates) {
+              alternate.click();
+              await settle();
+              refresh();
+              if (control.disabled) continue;
+              const prepared = effect(root);
+              control.click();
+              await settle();
+              refresh();
+              after = effect(root);
+              if (after !== prepared) {
+                changed = true;
+                break;
+              }
+            }
+            if (!changed) {
+              // A staged action can require both a reset and one prerequisite
+              // action. Explore that two-step path while continuing to compare
+              // the target only against the prepared state.
+              const liveButtons = [...root.querySelectorAll("button:not(:disabled)")];
+              const resets = liveButtons.filter((candidate) =>
+                /\b(?:reset|restart|replay|start\s+(?:again|over)|back\s+to)\b/i
+                  .test(normalizedName(candidate)));
+              for (const reset of resets) {
+                if (changed) break;
+                reset.click();
+                await settle();
+                refresh();
+                const prerequisites = [...root.querySelectorAll("button:not(:disabled)")]
+                  .filter((candidate) =>
+                    candidate !== control
+                    && !/\b(?:reset|restart|replay|start\s+(?:again|over)|back\s+to)\b/i
+                      .test(normalizedName(candidate)));
+                for (const prerequisite of prerequisites) {
+                  prerequisite.click();
+                  await settle();
+                  refresh();
+                  if (control.disabled) continue;
+                  const prepared = effect(root);
+                  control.click();
+                  await settle();
+                  refresh();
+                  after = effect(root);
+                  if (after !== prepared) {
+                    changed = true;
+                    break;
+                  }
                 }
               }
             }
@@ -849,6 +1451,30 @@ function factViolations(facts, expectedIds, expectedTheme, mode) {
   }
   if (facts.inaccessibleGraphics.length) {
     add("accessible graphics", facts.inaccessibleGraphics.join(", "));
+  }
+  if (facts.visualRootOverflows.length) {
+    add("visual-root internal layout", facts.visualRootOverflows.join(", "));
+  }
+  if (facts.inaccessibleScrollableTables.length) {
+    add(
+      "keyboard-accessible scroll tables",
+      facts.inaccessibleScrollableTables.join(", "),
+    );
+  }
+  if (facts.sourcePlaceholderHeadings.length) {
+    add(
+      "source-placeholder heading hierarchy",
+      facts.sourcePlaceholderHeadings.join(", "),
+    );
+  }
+  if (facts.headingSkips.length) {
+    add("heading hierarchy", facts.headingSkips.join(" | "));
+  }
+  if (facts.mainLandmarks !== 1) {
+    add("main landmark", `expected 1, got ${facts.mainLandmarks}`);
+  }
+  if (facts.lowContrastTokens.length) {
+    add("text-token contrast", facts.lowContrastTokens.join(", "));
   }
   if (facts.scrollWidth > facts.clientWidth + 1) {
     add("horizontal layout", `${facts.scrollWidth} > ${facts.clientWidth}`);
@@ -2133,7 +2759,757 @@ async function verifyRibReplayControl(browser, root) {
   }
 }
 
-async function negativeControls(browser) {
+const capturedPartTwoEvidence = Object.create(null);
+
+async function verifyPartTwoModels(browser, root) {
+  const server = await serve(root);
+  const context = await browser.newContext({
+    reducedMotion: "reduce",
+    colorScheme: "light",
+    viewport: { width: 1100, height: 850 },
+  });
+  await installTheme(context, "light");
+  const page = await context.newPage();
+  try {
+    await page.goto(
+      `${server.baseUrl}/chapters/21-the-seam.html`,
+      { waitUntil: "networkidle" },
+    );
+    const timelineHeader = await page.evaluate(() => {
+      const hook = window.__educationTimelineEvents;
+      if (!hook) return null;
+      const fixture = hook.fixtures();
+      return {
+        version: hook.version,
+        fixtures: fixture,
+        formulaSamples: [-15, -5].map((tempC) => ({
+          tempC,
+          sigmaOld: 0.002,
+          cSat: hook.cSat(tempC),
+          vKin: hook.vKin(tempC),
+          kineticLength: hook.kineticLength(tempC, fixture.lk.pressurePa),
+          mIce: hook.mIce(tempC),
+          transformedSigma: hook.transformSigma(
+            0.002,
+            fixture.lk.beforeEnvironment.tempC,
+            fixture.lk.afterEnvironment.tempC,
+          ),
+        })),
+      };
+    });
+    const timeline = timelineHeader
+      ? {
+          ...timelineHeader,
+          ggBefore: null,
+          ggApplied: null,
+          ggReset: null,
+          lkBefore: null,
+          lkTransformed: null,
+          lkReclamped: null,
+          lkStepped: null,
+          lkReset: null,
+        }
+      : null;
+    const readTimeline = async () => page.evaluate(() => {
+      const rootElement = document.getElementById("anim-timeline-events");
+      const body = rootElement.querySelector(".anim__body");
+      const isVisible = (element) => {
+        if (!element) return false;
+        const style = getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        return style.display !== "none"
+          && style.visibility !== "hidden"
+          && Number(style.opacity) !== 0
+          && rect.width > 0
+          && rect.height > 0;
+      };
+      const visibleTable = [...body.querySelectorAll("table")]
+        .find((table) => isVisible(table));
+      const snapshot = window.__educationTimelineEvents.snapshot();
+      return {
+        ...snapshot,
+        dom: {
+          operator: rootElement.dataset.timelineOperator,
+          stage: rootElement.dataset.timelineStage,
+          eventMode: rootElement.dataset.eventMode,
+          visibleText: isVisible(body) ? body.innerText : "",
+          visibleCellRows: visibleTable
+            ? [...visibleTable.querySelectorAll("tbody tr")].map((row) =>
+                [...row.querySelectorAll("th, td")].map((cell) =>
+                  cell.innerText.trim().replace(/\s+/g, " ")))
+            : [],
+        },
+      };
+    });
+    if (timeline) {
+      timeline.ggBefore = await readTimeline();
+      await page.click(
+        '#anim-timeline-events [data-control="timeline-apply"]',
+      );
+      timeline.ggApplied = await readTimeline();
+      await page.click(
+        '#anim-timeline-events [data-control="timeline-reset"]',
+      );
+      timeline.ggReset = await readTimeline();
+      await page.click(
+        '#anim-timeline-events [data-control="timeline-operator"]'
+        + '[data-operator="LibbrechtKinetics"]',
+      );
+      timeline.lkBefore = await readTimeline();
+      await page.click(
+        '#anim-timeline-events [data-control="timeline-apply"]',
+      );
+      timeline.lkTransformed = await readTimeline();
+      await page.click(
+        '#anim-timeline-events [data-control="timeline-solve"]',
+      );
+      timeline.lkReclamped = await readTimeline();
+      await page.click(
+        '#anim-timeline-events [data-control="timeline-step"]',
+      );
+      timeline.lkStepped = await readTimeline();
+      await page.click(
+        '#anim-timeline-events [data-control="timeline-reset"]',
+      );
+      timeline.lkReset = await readTimeline();
+    }
+    capturedPartTwoEvidence.timeline = structuredClone(timeline);
+    const timelineProblems = timelineViolations(timeline);
+    requireCheck(
+      timelineProblems.length === 0,
+      "timeline-event explorer independently preserves G-G state, conserves LK density, isolates shell re-clamp, and weights each fill segment at its own temperature",
+      JSON.stringify(timelineProblems),
+    );
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.waitForTimeout(100);
+    const timelineScrollBefore = await page.evaluate(() => {
+      const wrap = document.querySelector(
+        "#anim-timeline-events .table-wrap",
+      );
+      if (!wrap) return null;
+      wrap.focus();
+      return {
+        url: location.href,
+        left: wrap.scrollLeft,
+        clientWidth: wrap.clientWidth,
+        scrollWidth: wrap.scrollWidth,
+        role: wrap.getAttribute("role"),
+        label: wrap.getAttribute("aria-label"),
+        tabIndex: wrap.tabIndex,
+      };
+    });
+    await page.keyboard.press("ArrowRight");
+    await page.waitForTimeout(120);
+    const timelineScrollAfter = await page.evaluate(() => {
+      const wrap = document.querySelector(
+        "#anim-timeline-events .table-wrap",
+      );
+      return wrap ? { url: location.href, left: wrap.scrollLeft } : null;
+    });
+    requireCheck(
+      timelineScrollBefore !== null
+        && timelineScrollAfter !== null
+        && timelineScrollBefore.scrollWidth > timelineScrollBefore.clientWidth
+        && timelineScrollBefore.role === "region"
+        && timelineScrollBefore.tabIndex === 0
+        && Boolean(timelineScrollBefore.label)
+        && timelineScrollAfter.url === timelineScrollBefore.url
+        && timelineScrollAfter.left > timelineScrollBefore.left,
+      "keyboard focus pans the mobile timeline table without triggering chapter navigation",
+      JSON.stringify({ timelineScrollBefore, timelineScrollAfter }),
+    );
+    await page.setViewportSize({ width: 1100, height: 850 });
+
+    await page.goto(
+      `${server.baseUrl}/chapters/22-when-the-numbers-stop-changing.html`,
+      { waitUntil: "networkidle" },
+    );
+    const ledgerHeader = await page.evaluate(() => {
+      const hook = window.EducationTestHooks?.part2LedgerSeparation;
+      return hook
+        ? {
+            schema: hook.schema,
+            fillUnitScale: hook.fillUnitScale,
+            divergenceFloor: hook.divergenceFloor,
+            scenarioIds: [...hook.scenarioIds],
+          }
+        : null;
+    });
+    const ledger = ledgerHeader
+      ? { ...ledgerHeader, rows: [], crossAttempt: null }
+      : null;
+    if (ledger) {
+      for (const scenarioId of ledger.scenarioIds) {
+        await page.click(
+          `#anim-part2-ledger-separation [data-control="ledger-scenario-${scenarioId}"]`,
+        );
+        ledger.rows.push(await page.evaluate((id) => {
+          const rootElement =
+            document.getElementById("anim-part2-ledger-separation");
+          const hook = window.EducationTestHooks.part2LedgerSeparation;
+          const body = rootElement.querySelector(".anim__body");
+          const status = rootElement.querySelector(
+            ".anim__head [role='status']",
+          );
+          const visibleText = (element) => {
+            if (!element) return "";
+            const style = getComputedStyle(element);
+            const rect = element.getBoundingClientRect();
+            if (
+              style.display === "none"
+              || style.visibility === "hidden"
+              || Number(style.opacity) === 0
+              || rect.width <= 0
+              || rect.height <= 0
+            ) return "";
+            return element.innerText.trim().replace(/\s+/g, " ");
+          };
+          return {
+            raw: hook.getRawScenario(id),
+            dom: {
+              scenarioId: rootElement.dataset.scenarioId,
+              shellInjection: rootElement.dataset.shellInjection,
+              smootherDrift: rootElement.dataset.smootherDrift,
+              boundaryExchange: rootElement.dataset.boundaryExchange,
+              divTol: rootElement.dataset.divTol,
+              localExchangeSign: rootElement.dataset.localExchangeSign,
+              placedFillUnits: rootElement.dataset.placedFillUnits,
+              saturationExcessUnits: rootElement.dataset.saturationExcessUnits,
+              kineticDemandUnits: rootElement.dataset.kineticDemandUnits,
+              holeFillDeficitUnits: rootElement.dataset.holeFillDeficitUnits,
+              fillUnitScale: rootElement.dataset.fillUnitScale,
+              divergenceFloor: rootElement.dataset.divergenceFloor,
+              crossLedgerPolicy: rootElement.dataset.crossLedgerPolicy,
+              visibleText: visibleText(body),
+              visibleStatusText: visibleText(status),
+            },
+          };
+        }, scenarioId));
+      }
+      await page.click(
+        '#anim-part2-ledger-separation [data-control="ledger-cross-cancel"]',
+      );
+      ledger.crossAttempt = await page.evaluate(() => {
+        const rootElement =
+          document.getElementById("anim-part2-ledger-separation");
+        const body = rootElement.querySelector(".anim__body");
+        return {
+          attempted: rootElement.dataset.crossLedgerAttempted,
+          policy: rootElement.dataset.crossLedgerPolicy,
+          text: rootElement.textContent,
+          visibleText: body?.innerText ?? "",
+        };
+      });
+    }
+    capturedPartTwoEvidence.ledger = structuredClone(ledger);
+    const ledgerProblems = ledgerViolations(ledger);
+    requireCheck(
+      ledgerProblems.length === 0,
+      "Part Two ledger explorer independently separates elliptic-solve balance, kinetic demand, clipping, and hole fill",
+      JSON.stringify(ledgerProblems),
+    );
+
+    await page.goto(
+      `${server.baseUrl}/chapters/23-walls-that-pretend-to-be-sky.html`,
+      { waitUntil: "networkidle" },
+    );
+    const transferHeader = await page.evaluate(() => {
+      const hook = window.EducationTestHooks?.part2Transferability;
+      return hook
+          ? {
+            schema: hook.schema,
+            axes: JSON.parse(JSON.stringify(hook.axes)),
+            target: hook.getTargetConfig(),
+            sourceAuthority: hook.getSourceAuthority(),
+            evidenceIds: [...hook.evidenceIds],
+          }
+        : null;
+    });
+    const transfer = transferHeader
+      ? { ...transferHeader, rows: [] }
+      : null;
+    if (transfer) {
+      for (const evidenceId of transfer.evidenceIds) {
+        await page.click(
+          `#anim-part2-transferability [data-control="transfer-row-${evidenceId}"]`,
+        );
+        transfer.rows.push(await page.evaluate((id) => {
+          const rootElement =
+            document.getElementById("anim-part2-transferability");
+          const hook = window.EducationTestHooks.part2Transferability;
+          const visibleText = (element) => {
+            if (!element) return "";
+            const style = getComputedStyle(element);
+            const rect = element.getBoundingClientRect();
+            if (
+              style.display === "none"
+              || style.visibility === "hidden"
+              || Number(style.opacity) === 0
+              || rect.width <= 0
+              || rect.height <= 0
+            ) return "";
+            return element.innerText.trim().replace(/\s+/g, " ");
+          };
+          return {
+            raw: hook.getRawEvidence(id),
+            dom: {
+              selectedEvidenceId: rootElement.dataset.selectedEvidenceId,
+              targetConfig: rootElement.dataset.targetConfig,
+              selectedConfig: rootElement.dataset.selectedConfig,
+              selectedSource: rootElement.dataset.selectedSource,
+              selectedEvidenceStatus: rootElement.dataset.selectedEvidenceStatus,
+              sourceAuthority: rootElement.dataset.sourceAuthority,
+              tableRows: Array.from(
+                rootElement.querySelectorAll("[data-config-key]"),
+                (row) => {
+                  const cells = row.querySelectorAll("th, td");
+                  const evidence = row.querySelector("[data-config-match]");
+                  return {
+                    key: row.dataset.configKey,
+                    label: visibleText(cells[0]),
+                    target: visibleText(cells[1]),
+                    evidence: visibleText(cells[2]),
+                    match: evidence?.dataset.configMatch ?? "",
+                  };
+                },
+              ),
+              visibleSummaryText: visibleText(
+                rootElement.querySelector(".transfer-summary"),
+              ),
+              visibleStatusText: visibleText(
+                rootElement.querySelector(".anim__head [role='status']"),
+              ),
+              visibleScrollCueText: visibleText(
+                rootElement.querySelector(".table-scroll-cue"),
+              ),
+              visibleAuthorityText: visibleText(
+                rootElement.querySelector(".transfer-authority"),
+              ),
+              visibleCaptionText: visibleText(
+                rootElement.querySelector("table caption"),
+              ),
+            },
+          };
+        }, evidenceId));
+      }
+    }
+    capturedPartTwoEvidence.transferability = structuredClone(transfer);
+    const transferProblems = transferabilityViolations(transfer);
+    requireCheck(
+      transferProblems.length === 0,
+      `Part Two transferability matrix compares all ${TRANSFER_AXIS_COUNT} governing domain-study fields and refuses silent target inheritance and the CAK_A1-to-CAK shortcut`,
+      JSON.stringify(transferProblems),
+    );
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.waitForTimeout(100);
+    const transferScrollBefore = await page.evaluate((axisCount) => {
+      const rootElement =
+        document.getElementById("anim-part2-transferability");
+      const wrap = rootElement?.querySelector(".table-wrap");
+      return wrap
+        ? {
+            left: wrap.scrollLeft,
+            clientWidth: wrap.clientWidth,
+            scrollWidth: wrap.scrollWidth,
+            role: wrap.getAttribute("role"),
+            tabIndex: wrap.tabIndex,
+            label: wrap.getAttribute("aria-label"),
+            rowCount: rootElement.querySelectorAll(
+              "[data-config-key]",
+            ).length,
+            expectedRowCount: axisCount,
+            pageOverflow:
+              document.documentElement.scrollWidth - window.innerWidth,
+            url: location.href,
+          }
+        : null;
+    }, TRANSFER_AXIS_COUNT);
+    await page.locator(
+      "#anim-part2-transferability .table-wrap",
+    ).focus();
+    await page.keyboard.press("ArrowRight");
+    await page.waitForTimeout(150);
+    const transferScrollAfter = await page.evaluate(() => {
+      const wrap = document.querySelector(
+        "#anim-part2-transferability .table-wrap",
+      );
+      return wrap
+        ? { left: wrap.scrollLeft, url: location.href }
+        : null;
+    });
+    requireCheck(
+      transferScrollBefore !== null
+        && transferScrollAfter !== null
+        && transferScrollBefore.scrollWidth
+          > transferScrollBefore.clientWidth
+        && transferScrollBefore.role === "region"
+        && transferScrollBefore.tabIndex === 0
+        && Boolean(transferScrollBefore.label)
+        && transferScrollBefore.rowCount
+          === transferScrollBefore.expectedRowCount
+        && transferScrollBefore.pageOverflow <= 1
+        && transferScrollAfter.url === transferScrollBefore.url
+        && transferScrollAfter.left > transferScrollBefore.left,
+      `the ${TRANSFER_AXIS_COUNT}-field transferability matrix stays inside an accessible, keyboard-pannable mobile region without page overflow or navigation`,
+      JSON.stringify({ transferScrollBefore, transferScrollAfter }),
+    );
+    await page.setViewportSize({ width: 1100, height: 850 });
+
+    await page.goto(
+      `${server.baseUrl}/chapters/27-sealing-the-envelope.html`,
+      { waitUntil: "networkidle" },
+    );
+    const checkpointHeader = await page.evaluate(() => {
+      const hook = window.__VCC_EDU_CHECKPOINT_EXPLORER__;
+      return hook
+        ? {
+            schemaVersion: hook.schemaVersion,
+            cases: JSON.parse(JSON.stringify(hook.cases)),
+          }
+        : null;
+    });
+    const checkpoint = checkpointHeader
+      ? { ...checkpointHeader, rendered: {}, reset: null }
+      : null;
+    if (checkpoint) {
+      for (const record of checkpoint.cases) {
+        await page.click(
+          `#c27-checkpoint-mutations [data-control="checkpoint-case"]`
+          + `[data-case-id="${record.id}"]`,
+        );
+        checkpoint.rendered[record.id] = await page.evaluate(() => {
+          const rootElement = document.getElementById("c27-checkpoint-mutations");
+          const visibleText = (element) => {
+            if (!element) return "";
+            const style = getComputedStyle(element);
+            const rect = element.getBoundingClientRect();
+            if (
+              style.display === "none"
+              || style.visibility === "hidden"
+              || Number(style.opacity) === 0
+              || rect.width <= 0
+              || rect.height <= 0
+            ) return "";
+            return element.innerText.trim().replace(/\s+/g, " ");
+          };
+          const mutationCard = rootElement.querySelector(".ckx-card");
+          return {
+            selectedMutation: rootElement.dataset.selectedMutation,
+            checkpointKind: rootElement.dataset.checkpointKind,
+            codecOutcome: rootElement.dataset.codecOutcome,
+            contextOutcome: rootElement.dataset.contextOutcome,
+            failureStage: rootElement.dataset.failureStage,
+            requiredFields: rootElement.dataset.requiredFields,
+            visibleMutationRows: [...mutationCard.querySelectorAll(".ckx-code")]
+              .map(visibleText),
+            visibleRequiredFields: [
+              ...mutationCard.querySelectorAll(".ckx-list li"),
+            ].map(visibleText),
+            visibleStages: [
+              ...rootElement.querySelectorAll(".ckx-stage"),
+            ].map((stage) => ({
+              stage: stage.dataset.stage,
+              disposition: stage.dataset.disposition,
+              text: [
+                visibleText(stage.querySelector("b")),
+                visibleText(stage.querySelector("span")),
+              ].filter(Boolean).join(" "),
+            })),
+            visibleResult: visibleText(
+              rootElement.querySelector(".ckx-result"),
+            ),
+            visibleNote: visibleText(rootElement.querySelector(".ckx-note")),
+          };
+        });
+      }
+      await page.click(
+        '#c27-checkpoint-mutations [data-control="checkpoint-reset"]',
+      );
+      checkpoint.reset = await page.evaluate(() => {
+        const rootElement = document.getElementById("c27-checkpoint-mutations");
+        const result = rootElement.querySelector(".ckx-result");
+        return {
+          selectedMutation: rootElement.dataset.selectedMutation,
+          codecOutcome: rootElement.dataset.codecOutcome,
+          contextOutcome: rootElement.dataset.contextOutcome,
+          failureStage: rootElement.dataset.failureStage,
+          visibleResult: result?.innerText ?? "",
+        };
+      });
+    }
+    capturedPartTwoEvidence.checkpoint = structuredClone(checkpoint);
+    const checkpointProblems = checkpointViolations(checkpoint);
+    requireCheck(
+      checkpointProblems.length === 0,
+      "checkpoint explorer independently derives fail-closed codec and evidence-context refusal stages from raw observations",
+      JSON.stringify(checkpointProblems),
+    );
+    try {
+      const productionCheckpoint = runCheckpointProductionOracle();
+      const productionProblems = [];
+      if (
+        productionCheckpoint.pass !== true
+        || productionCheckpoint.cases.length !== 10
+        || productionCheckpoint.cases.some((record) =>
+          JSON.stringify(record.expected) !== JSON.stringify(record.actual))
+      ) {
+        productionProblems.push("production outcomes");
+      }
+      if (
+        productionCheckpoint.negativeControls.length !== 4
+        || productionCheckpoint.negativeControls.some(
+          (control) => control.refused !== true,
+        )
+      ) {
+        productionProblems.push("production negative controls");
+      }
+      requireCheck(
+        productionProblems.length === 0,
+        "all ten checkpoint teaching cases execute through production codecs/context validation and all four production-oracle negative controls are refused",
+        JSON.stringify(productionProblems),
+      );
+    } catch (error) {
+      fail(
+        "checkpoint production oracle",
+        error.stack || error.message,
+      );
+    }
+
+    await page.goto(
+      `${server.baseUrl}/chapters/28-the-exam-result.html`,
+      { waitUntil: "networkidle" },
+    );
+    const statusHeader = await page.evaluate(() => {
+      const hook = window.__VCC_EDU_PHASE6_STATUS__;
+      return hook
+        ? {
+            schemaVersion: hook.schemaVersion,
+            records: JSON.parse(JSON.stringify(hook.records)),
+          }
+        : null;
+    });
+    const status = statusHeader
+      ? { ...statusHeader, rendered: {}, reset: null }
+      : null;
+    if (status) {
+      for (const view of ["historical", "current"]) {
+        await page.click(
+          `#c28-phase6-status [data-control="phase6-status-view"]`
+          + `[data-view-id="${view}"]`,
+        );
+        status.rendered[view] = await page.evaluate(() => {
+          const rootElement = document.getElementById("c28-phase6-status");
+          const visibleText = (element) => {
+            if (!element) return "";
+            const style = getComputedStyle(element);
+            const rect = element.getBoundingClientRect();
+            if (
+              style.display === "none"
+              || style.visibility === "hidden"
+              || Number(style.opacity) === 0
+              || rect.width <= 0
+              || rect.height <= 0
+            ) return "";
+            return element.innerText.trim().replace(/\s+/g, " ");
+          };
+          return {
+            view: rootElement.dataset.view,
+            recordId: rootElement.dataset.recordId,
+            arm1Status: rootElement.dataset.arm1Status,
+            arm2Status: rootElement.dataset.arm2Status,
+            gateStatus: rootElement.dataset.gateStatus,
+            reviewStatus: rootElement.dataset.reviewStatus,
+            crossPlatformStatus: rootElement.dataset.crossPlatformStatus,
+            arm1MeasuredHeadline: rootElement.dataset.arm1MeasuredHeadline,
+            arm2Measurement: rootElement.dataset.arm2Measurement,
+            visibleCards: [...rootElement.querySelectorAll(".p6s-card")]
+              .map((card) => {
+                const terms = [...card.querySelectorAll("dt")];
+                const values = [...card.querySelectorAll("dd")];
+                return {
+                  title: visibleText(card.querySelector("h3")),
+                  rows: terms.map((term, index) => ({
+                    label: visibleText(term),
+                    value: visibleText(values[index]),
+                  })),
+                };
+              }),
+            visibleStamp: visibleText(
+              rootElement.querySelector(".p6s-stamp"),
+            ),
+            visibleBanner: visibleText(
+              rootElement.querySelector(".p6s-banner"),
+            ),
+          };
+        });
+      }
+      await page.click(
+        '#c28-phase6-status [data-control="phase6-status-reset"]',
+      );
+      status.reset = await page.evaluate(() => {
+        const rootElement = document.getElementById("c28-phase6-status");
+        return {
+          view: rootElement.dataset.view,
+          visibleStamp:
+            rootElement.querySelector(".p6s-stamp")?.innerText ?? "",
+        };
+      });
+    }
+    capturedPartTwoEvidence.status = structuredClone(status);
+    const statusProblems = phase6StatusViolations(status);
+    requireCheck(
+      statusProblems.length === 0,
+      "Phase 6 status control keeps Arm 1 history, current safeguards, incomplete Arm 2 execution, and its registered forecast separate",
+      JSON.stringify(statusProblems),
+    );
+
+    const crossingHeader = await page.evaluate(() => {
+      const hook = window.__VCC_EDU_CROSSINGS__;
+      return hook
+        ? {
+            schemaVersion: hook.schemaVersion,
+            constants: JSON.parse(JSON.stringify(hook.constants)),
+          }
+        : null;
+    });
+    const crossing = crossingHeader
+      ? {
+          ...crossingHeader,
+          default: null,
+          published: null,
+          mutated: null,
+          reset: null,
+          controls: {},
+        }
+      : null;
+    if (crossing) {
+      const readCrossing = async () => page.evaluate(() => {
+        const hook = window.__VCC_EDU_CROSSINGS__;
+        const rootElement = document.getElementById("c28-crossings");
+        const svg = rootElement.querySelector("svg");
+        const isVisible = (element) => {
+          if (!element) return false;
+          const style = getComputedStyle(element);
+          const rect = element.getBoundingClientRect();
+          return style.display !== "none"
+            && style.visibility !== "hidden"
+            && Number(style.opacity) !== 0
+            && rect.width > 0
+            && rect.height > 0;
+        };
+        const evaluated = hook.state();
+        return {
+          state: JSON.parse(JSON.stringify(evaluated.state)),
+          crossings: [...evaluated.crossings],
+          publishedState: evaluated.publishedState,
+          dom: {
+            formulaMode: rootElement.dataset.formulaMode,
+            basalDip: rootElement.dataset.basalDip,
+            prismDip: rootElement.dataset.prismDip,
+            basalCentre: rootElement.dataset.basalCentre,
+            prismCentre: rootElement.dataset.prismCentre,
+            depth: rootElement.dataset.depth,
+            crossingCount: rootElement.dataset.crossingCount,
+            crossings: rootElement.dataset.crossings,
+            publishedState: rootElement.dataset.publishedState,
+            verdictKind: rootElement.dataset.verdictKind,
+            visibleReadout:
+              rootElement.querySelector(".c28-readout")?.innerText ?? "",
+            visibleBanner:
+              rootElement.querySelector(".c28-banner")?.innerText ?? "",
+            visibleSeriesCount:
+              svg?.querySelectorAll("path.series-line").length ?? 0,
+            visibleMarkerCount:
+              svg?.querySelectorAll(
+                'line[stroke-dasharray="3 3"][stroke-opacity="0.65"]',
+              ).length ?? 0,
+            visibleModelBandCount:
+              svg?.querySelectorAll('rect[y="292"]').length ?? 0,
+            visibleSvg: isVisible(svg),
+          },
+        };
+      });
+      await page.click('#c28-crossings [data-control="crossing-reset"]');
+      crossing.default = await readCrossing();
+      const readControlState = async () => page.evaluate(() => {
+        const rootElement = document.getElementById("c28-crossings");
+        const hook = window.__VCC_EDU_CROSSINGS__;
+        const state = hook.state().state;
+        const control = (selector) => rootElement.querySelector(selector);
+        return {
+          state: JSON.parse(JSON.stringify(state)),
+          basalSliderDisabled: control(
+            '[data-control="crossing-slider"][data-field="bC"]',
+          )?.disabled,
+          prismSliderDisabled: control(
+            '[data-control="crossing-slider"][data-field="pC"]',
+          )?.disabled,
+          depthSliderDisabled: control(
+            '[data-control="crossing-slider"][data-field="depth"]',
+          )?.disabled,
+          approximatePressed: control(
+            '[data-control="crossing-mode"][data-mode-id="approx"]',
+          )?.getAttribute("aria-pressed"),
+          correctedPressed: control(
+            '[data-control="crossing-mode"][data-mode-id="corrected"]',
+          )?.getAttribute("aria-pressed"),
+        };
+      });
+      crossing.controls.default = await readControlState();
+      await page.click(
+        '#c28-crossings [data-control="crossing-toggle"][data-dip="basal"]',
+      );
+      crossing.controls.basalOn = await readControlState();
+      await page.click(
+        '#c28-crossings [data-control="crossing-toggle"][data-dip="prism"]',
+      );
+      crossing.controls.bothOn = await readControlState();
+      await page.locator(
+        '#c28-crossings [data-control="crossing-slider"][data-field="bC"]',
+      ).fill("6.2");
+      crossing.controls.basalSlider = await readControlState();
+      await page.locator(
+        '#c28-crossings [data-control="crossing-slider"][data-field="pC"]',
+      ).fill("16.1");
+      crossing.controls.prismSlider = await readControlState();
+      await page.locator(
+        '#c28-crossings [data-control="crossing-slider"][data-field="depth"]',
+      ).fill("0.5");
+      crossing.controls.depthSlider = await readControlState();
+      await page.click(
+        '#c28-crossings [data-control="crossing-mode"][data-mode-id="corrected"]',
+      );
+      crossing.controls.correctedMode = await readControlState();
+      await page.click(
+        '#c28-crossings [data-control="crossing-mode"][data-mode-id="approx"]',
+      );
+      crossing.controls.approximateMode = await readControlState();
+      await page.click('#c28-crossings [data-control="crossing-load-published"]');
+      crossing.published = await readCrossing();
+      await page.locator(
+        '#c28-crossings [data-control="crossing-slider"][data-field="bC"]',
+      ).fill("5.2");
+      crossing.mutated = await readCrossing();
+      await page.click('#c28-crossings [data-control="crossing-reset"]');
+      crossing.reset = await readCrossing();
+    }
+    capturedPartTwoEvidence.crossing = structuredClone(crossing);
+    const crossingProblems = crossingViolations(crossing);
+    requireCheck(
+      crossingProblems.length === 0,
+      "crossing explorer derives roots from its actual state, gates the published-form verdict, and resets every control",
+      JSON.stringify(crossingProblems),
+    );
+  } finally {
+    await context.close();
+    await server.close();
+  }
+}
+
+async function negativeControls(
+  browser,
+  { partTwoModelControlsOnly = false } = {},
+) {
   const server = await serve(PUBLIC_ROOT);
   let passed = 0;
 
@@ -2159,6 +3535,7 @@ async function negativeControls(browser) {
   }
 
   try {
+    if (!partTwoModelControlsOnly) {
     await expectRejected("deleted served visual root", "root inventory", async () => {
       const result = await loadProfile(
         browser,
@@ -2208,6 +3585,104 @@ async function negativeControls(browser) {
       await result.context.close();
       return { executed, detections };
     });
+
+    await expectRejected(
+      "clipped visual-root internal overflow",
+      "visual-root internal layout",
+      async () => {
+        const result = await loadProfile(
+          browser,
+          server.baseUrl,
+          "chapters/01-not-a-frozen-raindrop.html",
+          { ...PROFILES.mobile, savedTheme: "dark" },
+          "public",
+        );
+        const executed = await result.page.evaluate(() => {
+          const body = document.querySelector("#anim-aggregate .anim__body");
+          if (!body) return false;
+          body.style.overflowX = "hidden";
+          const probe = document.createElement("div");
+          probe.style.width = "900px";
+          probe.style.height = "1px";
+          probe.dataset.overflowMutation = "true";
+          body.appendChild(probe);
+          return body.scrollWidth > body.clientWidth + 1;
+        });
+        const facts = await pageFacts(result.page);
+        const detections = factViolations(
+          facts,
+          MANIFEST["chapters/01-not-a-frozen-raindrop.html"],
+          "dark",
+          "public",
+        ).map((violation) => violation.name);
+        await result.context.close();
+        return { executed, detections };
+      },
+    );
+
+    await expectRejected(
+      "unlabeled keyboard-inaccessible scroll table",
+      "keyboard-accessible scroll tables",
+      async () => {
+        const result = await loadProfile(
+          browser,
+          server.baseUrl,
+          "chapters/01-not-a-frozen-raindrop.html",
+          { ...PROFILES.mobile, savedTheme: "dark" },
+          "public",
+        );
+        const executed = await result.page.evaluate(() => {
+          const wrap = [...document.querySelectorAll(".table-wrap")]
+            .find((candidate) =>
+              candidate.scrollWidth > candidate.clientWidth + 1);
+          if (!wrap) return false;
+          wrap.removeAttribute("role");
+          wrap.removeAttribute("tabindex");
+          wrap.removeAttribute("aria-label");
+          return wrap.tabIndex < 0 && !wrap.getAttribute("aria-label");
+        });
+        const facts = await pageFacts(result.page);
+        const detections = factViolations(
+          facts,
+          MANIFEST["chapters/01-not-a-frozen-raindrop.html"],
+          "dark",
+          "public",
+        ).map((violation) => violation.name);
+        await result.context.close();
+        return { executed, detections };
+      },
+    );
+
+    await expectRejected(
+      "low-contrast semantic text tokens",
+      "text-token contrast",
+      async () => {
+        const result = await loadProfile(
+          browser,
+          server.baseUrl,
+          "chapters/01-not-a-frozen-raindrop.html",
+          PROFILES.storedLightOsLight,
+          "public",
+        );
+        const executed = await result.page.evaluate(() => {
+          document.documentElement.style.setProperty(
+            "--ink-muted",
+            "#eeeeee",
+          );
+          return getComputedStyle(document.documentElement)
+            .getPropertyValue("--ink-muted").trim() === "#eeeeee";
+        });
+        const facts = await pageFacts(result.page);
+        const detections = factViolations(
+          facts,
+          MANIFEST["chapters/01-not-a-frozen-raindrop.html"],
+          "light",
+          "public",
+        ).map((violation) => violation.name);
+        await result.context.close();
+        return { executed, detections };
+      },
+    );
 
     await expectRejected("post-interaction page error", "interaction-only failure", async () => {
       const result = await loadProfile(
@@ -2313,20 +3788,424 @@ async function negativeControls(browser) {
         detections: zooGrowthViolations(evidence),
       };
     });
+    }
+
+    if (!partOneOnly) {
+      await expectRejected(
+        "synchronized wrong timeline fixture",
+        "timeline raw constants/fixtures",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.timeline);
+          evidence.fixtures.gg.trigger = { kind: "tick", value: -999 };
+          return {
+            executed: evidence.fixtures.gg.trigger.value === -999,
+            detections: timelineViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "blank timeline learner view",
+        "timeline G-G before visible body",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.timeline);
+          evidence.ggBefore.dom.visibleText = "";
+          return {
+            executed: evidence.ggBefore.dom.visibleText === "",
+            detections: timelineViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "LK event density transform shifted",
+        "timeline LK cell transform interior-low",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.timeline);
+          evidence.lkTransformed.lk.cells[0].sigmaCurrent += 0.01;
+          return {
+            executed:
+              evidence.lkTransformed.lk.cells[0].sigmaCurrent
+              !== capturedPartTwoEvidence.timeline.lkTransformed.lk.cells[0]
+                .sigmaCurrent,
+            detections: timelineViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "LK event mutates completed state and clock",
+        "timeline LK transformed state",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.timeline);
+          evidence.lkTransformed.lk.state.tick += 1;
+          evidence.lkTransformed.lk.state.f[1] += 0.125;
+          return {
+            executed:
+              evidence.lkTransformed.lk.state.tick
+                !== capturedPartTwoEvidence.timeline.lkTransformed.lk.state.tick
+              && evidence.lkTransformed.lk.state.f[1]
+                !== capturedPartTwoEvidence.timeline.lkTransformed.lk.state.f[1],
+            detections: timelineViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "ledger rows deleted",
+        "ledger row coverage",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.ledger);
+          evidence.rows = [];
+          return {
+            executed: evidence.rows.length === 0,
+            detections: ledgerViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "ledger witness coherently replaced",
+        "ledger cold-fixed-point source-pinned fixture",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.ledger);
+          const target = evidence.rows.find(
+            (entry) => entry.raw.id === "cold-fixed-point",
+          );
+          target.raw.shellInjection = 1;
+          target.raw.smootherDrift = 0;
+          target.raw.boundaryExchange = 1;
+          target.dom.shellInjection = "1";
+          target.dom.smootherDrift = "0";
+          target.dom.boundaryExchange = "1";
+          return {
+            executed: target.raw.shellInjection === 1,
+            detections: ledgerViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "blank ledger learner view",
+        "ledger cold-fixed-point visible teaching state",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.ledger);
+          evidence.rows[0].dom.visibleText = "";
+          return {
+            executed: evidence.rows[0].dom.visibleText === "",
+            detections: ledgerViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "cross-ledger substitution",
+        "ledger missing-excess independent identities",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.ledger);
+          const target = evidence.rows.find(
+            (entry) => entry.raw.id === "missing-excess",
+          );
+          target.raw.saturationExcessUnits = 35_000;
+          return {
+            executed: target.raw.saturationExcessUnits === 35_000,
+            detections: ledgerViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "transferability rows deleted",
+        "transferability row coverage",
+        async () => {
+          const evidence = structuredClone(
+            capturedPartTwoEvidence.transferability,
+          );
+          evidence.rows = [];
+          return {
+            executed: evidence.rows.length === 0,
+            detections: transferabilityViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "transferability provenance coherently rewritten",
+        "transferability cak-a1-domain source-pinned fixture",
+        async () => {
+          const evidence = structuredClone(
+            capturedPartTwoEvidence.transferability,
+          );
+          const target = evidence.rows.find(
+            (entry) => entry.raw.id === "cak-a1-domain",
+          );
+          target.raw.source = "invented source";
+          target.dom.selectedSource = "invented source";
+          return {
+            executed: target.raw.source === "invented source",
+            detections: transferabilityViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "transferability source authority coherently rewritten",
+        "transferability source authority",
+        async () => {
+          const evidence = structuredClone(
+            capturedPartTwoEvidence.transferability,
+          );
+          evidence.sourceAuthority.blobs[
+            "research/phase6-convergence.md"
+          ] = "0000000000000000000000000000000000000000";
+          for (const entry of evidence.rows) {
+            entry.dom.sourceAuthority = JSON.stringify(
+              evidence.sourceAuthority,
+            );
+          }
+          return {
+            executed:
+              evidence.sourceAuthority.blobs[
+                "research/phase6-convergence.md"
+              ] === "0000000000000000000000000000000000000000",
+            detections: transferabilityViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "blank transferability learner view",
+        "transferability cak-a1-domain visible teaching state",
+        async () => {
+          const evidence = structuredClone(
+            capturedPartTwoEvidence.transferability,
+          );
+          const target = evidence.rows.find(
+            (entry) => entry.raw.id === "cak-a1-domain",
+          );
+          target.dom.visibleSummaryText = "";
+          return {
+            executed: target.dom.visibleSummaryText === "",
+            detections: transferabilityViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "off-configuration evidence relabeled transferable",
+        "transferability cak-a1-domain mismatches",
+        async () => {
+          const evidence = structuredClone(
+            capturedPartTwoEvidence.transferability,
+          );
+          const target = evidence.rows.find(
+            (entry) => entry.raw.id === "cak-a1-domain",
+          );
+          target.raw.config.paramSet = "CAK";
+          return {
+            executed: target.raw.config.paramSet === "CAK",
+            detections: transferabilityViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "historical omissions silently inherited from target",
+        "transferability cak-a1-domain source-pinned fixture",
+        async () => {
+          const evidence = structuredClone(
+            capturedPartTwoEvidence.transferability,
+          );
+          const target = evidence.rows.find(
+            (entry) => entry.raw.id === "cak-a1-domain",
+          );
+          target.raw.config = structuredClone(evidence.target);
+          target.dom.selectedConfig = JSON.stringify(target.raw.config);
+          for (const row of target.dom.tableRows) {
+            row.evidence = evidence.target[row.key];
+            row.match = "true";
+          }
+          target.dom.visibleSummaryText =
+            "Configuration match. All fields match.";
+          target.dom.visibleStatusText =
+            `${target.raw.label} — all configuration fields match.`;
+          return {
+            executed:
+              target.raw.config.paramSet === evidence.target.paramSet
+              && target.raw.config.runtimeIdentity
+                === evidence.target.runtimeIdentity,
+            detections: transferabilityViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "checkpoint teaching details erased",
+        "checkpoint source-pinned teaching cases",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.checkpoint);
+          const target = evidence.cases.find(
+            (record) => record.id === "corrupt-magic",
+          );
+          delete target.mutation.operation;
+          delete target.mutation.before;
+          delete target.mutation.after;
+          delete target.note;
+          return {
+            executed: target.mutation.operation === undefined,
+            detections: checkpointViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "blank checkpoint learner view",
+        "checkpoint clean-lk-v2 rendered state",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.checkpoint);
+          evidence.rendered["clean-lk-v2"].visibleMutationRows = [];
+          return {
+            executed:
+              evidence.rendered["clean-lk-v2"].visibleMutationRows.length === 0,
+            detections: checkpointViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "checkpoint framing refusal erased",
+        "checkpoint corrupt-magic outcome",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.checkpoint);
+          const target = evidence.cases.find(
+            (record) => record.id === "corrupt-magic",
+          );
+          target.observations[0].disposition = "accept";
+          return {
+            executed: target.observations[0].disposition === "accept",
+            detections: checkpointViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "Phase 6 provenance and forecast coherently falsified",
+        "Phase 6 source-pinned records",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.status);
+          evidence.records.current.arm2.forecast =
+            "99/90 measured and gate-passing";
+          evidence.records.current.arm1.verifier = "no verifier exists";
+          evidence.records.historical.arm1.evidenceClass =
+            "validated gate evidence";
+          evidence.records.current.authority.verifierCommit = "bogus";
+          return {
+            executed:
+              evidence.records.current.authority.verifierCommit === "bogus",
+            detections: phase6StatusViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "Arm 2 values-pin bridge omitted",
+        "Phase 6 source-pinned records",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.status);
+          evidence.records.current.authority.arm2ValuesPinCommit = "483f7ee";
+          return {
+            executed:
+              evidence.records.current.authority.arm2ValuesPinCommit
+                === "483f7ee",
+            detections: phase6StatusViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "blank Phase 6 learner view",
+        "Phase 6 current visible teaching state",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.status);
+          evidence.rendered.current.visibleCards = [];
+          return {
+            executed: evidence.rendered.current.visibleCards.length === 0,
+            detections: phase6StatusViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "incomplete Phase 6 arm relabeled complete",
+        "Phase 6 current snapshot",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.status);
+          evidence.records.current.arm2.runState = "complete";
+          return {
+            executed: evidence.records.current.arm2.runState === "complete",
+            detections: phase6StatusViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "crossing control wiring falsified",
+        "crossing actual control wiring",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.crossing);
+          evidence.controls.default.state.bOn = true;
+          return {
+            executed: evidence.controls.default.state.bOn === true,
+            detections: crossingViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "blank crossing learner chart",
+        "crossing published visible chart state",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.crossing);
+          evidence.published.dom.visibleReadout = "";
+          return {
+            executed: evidence.published.dom.visibleReadout === "",
+            detections: crossingViolations(evidence),
+          };
+        },
+      );
+
+      await expectRejected(
+        "published crossing location shifted",
+        "crossing published independent roots",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.crossing);
+          evidence.published.crossings[0] += 1;
+          return {
+            executed: evidence.published.crossings[0] > 4,
+            detections: crossingViolations(evidence),
+          };
+        },
+      );
+    }
   } finally {
     await server.close();
   }
+  const expectedNegativeControls = partTwoModelControlsOnly
+    ? 24
+    : partOneOnly
+      ? 11
+      : 35;
   requireCheck(
-    passed === 8,
-    "all eight artifact-backed verifier negative controls executed and were rejected by production predicates",
-    `passed ${passed}/8`,
+    passed === expectedNegativeControls,
+    `all ${expectedNegativeControls} artifact-backed verifier negative controls executed and were rejected by production predicates`,
+    `passed ${passed}/${expectedNegativeControls}`,
   );
 }
 
 mkdirSync(OUT, { recursive: true });
 staticChecks();
 
-if (modes.includes("offline")) {
+if (!partTwoModelsOnly && modes.includes("offline")) {
   execFileSync("node", ["docs/education/tools/build-local.mjs"], {
     cwd: REPO,
     stdio: "inherit",
@@ -2337,16 +4216,22 @@ if (modes.includes("offline")) {
 
 const browser = await chromium.launch();
 try {
-  for (const mode of modes) {
-    const root = mode === "public" ? PUBLIC_ROOT : OFFLINE_ROOT;
-    await verifySite(browser, mode, root);
+  if (partTwoModelsOnly) {
+    await verifyPartTwoModels(browser, PUBLIC_ROOT);
+    await negativeControls(browser, { partTwoModelControlsOnly: true });
+  } else {
+    for (const mode of modes) {
+      const root = mode === "public" ? PUBLIC_ROOT : OFFLINE_ROOT;
+      await verifySite(browser, mode, root);
+    }
+    const modelMode = modes.includes("public") ? "public" : "offline";
+    const modelRoot = modelMode === "public" ? PUBLIC_ROOT : OFFLINE_ROOT;
+    await verifyScientificModels(browser, modelRoot, modelMode);
+    await verifyRibReplayControl(browser, modelRoot);
+    if (!partOneOnly) await verifyPartTwoModels(browser, modelRoot);
+    if (modes.includes("offline")) await verifyRealGrowthFailureStates(browser);
+    await negativeControls(browser);
   }
-  const modelMode = modes.includes("public") ? "public" : "offline";
-  const modelRoot = modelMode === "public" ? PUBLIC_ROOT : OFFLINE_ROOT;
-  await verifyScientificModels(browser, modelRoot, modelMode);
-  await verifyRibReplayControl(browser, modelRoot);
-  if (modes.includes("offline")) await verifyRealGrowthFailureStates(browser);
-  await negativeControls(browser);
 } finally {
   await browser.close();
 }
@@ -2354,10 +4239,14 @@ try {
 const report = {
   generatedAt: new Date().toISOString(),
   manifestSha256: sha256(join(TOOL_DIR, "site-manifest.json")),
-  scope: partOneOnly ? "part-one" : "complete-course",
-  pages: PAGE_PATHS.length,
-  visualRoots: EXPECTED_ROOTS,
-  modes,
+  scope: partTwoModelsOnly
+    ? "part-two-models"
+    : partOneOnly
+      ? "part-one"
+      : "complete-course",
+  pages: partTwoModelsOnly ? 6 : PAGE_PATHS.length,
+  visualRoots: partTwoModelsOnly ? 6 : EXPECTED_ROOTS,
+  modes: partTwoModelsOnly ? ["public"] : modes,
   checks: checks.length,
   failures,
 };

@@ -1,7 +1,7 @@
 # Plan — Education Parts One and Two audit and remediation
 
 - **Phase:** Documentation and onboarding (education website)
-- **Status:** in progress
+- **Status:** complete
 - **Started:** 2026-07-30
 - **Last touched:** 2026-07-30 by Codex
 - **Candidate under review:** `c69c66cf8b6d05898b810f02794a8fd66df05045`
@@ -65,10 +65,10 @@ the resulting bytes through a final adversarial pass.
 - [x] Audit Part Two against current authority documents, repository code, tests, evidence, and
       chapter order; record the authority-to-chapter checklist and omissions in this plan.
 - [x] Audit every Part Two demo from code and in a real browser.
-- [ ] Repair every Part Two gap and implement every recommended new demo.
-- [ ] Run the offline/online media split checks, whole-site browser matrix, exact `npm test`, and
+- [x] Repair every Part Two gap and implement every recommended new demo.
+- [x] Run the offline/online media split checks, whole-site browser matrix, exact `npm test`, and
       visual inspection of representative pages and every changed interactive.
-- [ ] Obtain an independent adversarial re-review of the final bytes, remediate all findings, then
+- [x] Obtain an independent adversarial re-review of the final bytes, remediate all findings, then
       update `docs/PROGRESS.md`, mark this plan done, and commit the completed audit.
 
 ## Out of scope
@@ -261,6 +261,91 @@ frames, authority/code/history, all pages in Chromium, controls, and selected ma
 oracles. Limits: no reviewer reran scientific gates or the full literature beyond the registered
 corpus; unflagged decorative models were mounted and inspected but not all independently
 re-derived.
+
+### Part Two remediation
+
+All recorded Part Two findings are repaired without changing solver, runner, GPU, protocol, or
+Phase 6 evidence behavior:
+
+- chapters 14–29, the index, glossary, and references now route each question to the appropriate
+  authority, separate numerical field diagnostics from physical interface demand, state the
+  aggregate `[10]` closure correctly, scope convergence and symmetry claims to what was measured,
+  and keep the Phase 3 instrument distinct from the future Phase 7 product;
+- Phase 6 history is authenticated as the three-step
+  `483f7ee` → `0cb52bf` → `8c781b1` chain. The outward-facing status is fixed to a
+  2026-07-30 10:23 PDT audit cutoff: the corrected Arm 2 sweep was observed running, but mutable
+  partial rows were not promoted to a completed, reviewed result. The retained read-only snapshot
+  is `out/education-review/phase6-arm2-live-snapshot-review-20260730T102316-PDT.json`,
+  43,550 bytes, SHA-256
+  `6342042508a7912ac596afe58facc69f32f2e06f99148b2013380ac390e964f9`;
+- all five recommended demonstrations are integrated: timeline-event semantics, fail-closed
+  checkpoint mutation, numerical-versus-kinetic ledgers, a 36-field transferability matrix, and
+  historical/current Phase 6 status. The timeline exposes and preserves the full teaching state,
+  the ledger keeps its two identities disjoint, every real transfer row is an explicit
+  source-authenticated fixture, the checkpoint cases execute production codecs and context
+  validation, and the status control never turns a forecast or partial artifact into a result;
+- the crossing explorer derives its verdict from the displayed state and resets every control;
+  tables have named focusable scroll regions, chapter navigation ignores interactive controls,
+  stored theme and playback intent are stable, reduced-motion mode is genuinely static, and the
+  final two-column ledger layout wraps without label/value overlap;
+- the committed verifier enumerates the complete page/root manifest, canonicalizes DOM attributes
+  without hiding node/text order, independently recomputes load-bearing claims, drives all five
+  new demonstrations, executes production checkpoint cases, authenticates pinned Git objects,
+  checks mobile keyboard behavior and media boundaries, and proves its refusal predicates with
+  named mutations.
+
+### Final whole-course verification and adversarial review
+
+The definitive command `node docs/education/tools/verify.mjs` exited 0. Its exact report is
+`out/education-verify/report.json`, 283 bytes, SHA-256
+`23f7f3a8cdfb1c479174e5ab9049ed71be3b325ff55b7c7cba26e24c8e7fbc97`, generated
+`2026-07-30T18:24:35.477Z`. The report records the complete-course scope, 33 pages, 179 visual
+roots, public and offline modes, 76 blocking checks, and zero failures. The run loaded 198
+profiles plus deterministic repeats in each mode, passed the Part One and Part Two independent
+model oracles, executed all ten production checkpoint teaching cases plus four internal
+production-oracle negatives, and executed and rejected all 35 verifier negative controls.
+
+The same run rebuilt `out/education-local/source-media-map.json`, 87,960 bytes, SHA-256
+`696b97469c9bf9bb895d3347b8c42469aa67d7be265b909a5accc1f488204656`.
+That map authenticates 139 distinct figures used at 179 placements plus one local movie:
+99,302,123 copied bytes in total. Every source and output byte count and SHA-256 was independently
+recomputed; the public tree contains no image, audio, video, or PDF file and makes no local-media
+probe. Representative paper images decoded and rendered in the offline build, and the copied
+growth movie's 35.502102-second video stream was independently sought, played, paused, and
+visually inspected.
+
+Exact root `npm test` exited 0 on 2026-07-30, so the required Rule 7 scan, both TypeScript checks,
+and Vitest all completed successfully in the one exact command. Its Vitest cache was preserved as
+`out/education-review/npm-test-vitest-results-20260730.json`, 5,944 bytes, SHA-256
+`b45aff6bea19a946f02c51e2068895262a417af3fd05fa124c8dc8b88a4f1588`; that artifact records
+Vitest 3.2.7 results for 71 files with zero failed files. The ignored prerequisite
+`out/phase6-sweep/points.json` was authenticated immediately before the run at 129,760 bytes,
+SHA-256 `0ed613bce61e44829f722e069a818e0da4981ecd34829b0b49eaba15e11cf89a`;
+it was not staged or modified.
+
+The closing authority reviewer was an OpenAI Codex GPT-5-family subagent (exact backend variant
+not exposed), shared the full task context, and did not author or modify the reviewed bytes. It
+independently authenticated the Phase 6 ancestry and hashes, resolved all seven transferability
+source blobs at `main@8c781b1`, checked all 36 fields on every row, executed all five demos and
+the production checkpoint oracle, rechecked chapter order and theorem-strength wording, and
+closed with zero content, ordering, authority, or model blockers. It caught the unsupported
+strengthening of “stopped about a minute in” into “before any point completed”; every occurrence
+was narrowed before the final gate.
+
+The final visual/media reviewer was a separate OpenAI Codex GPT-5-family shared-context subagent
+that did not author or modify the candidate. It independently exercised public and offline
+desktop/mobile, light/dark and reduced-motion states; exact reset, keyboard scrolling, movie
+controls and media decoding; and every source/copy hash. It found the ledger label/value collision
+that numeric overflow checks missed, reverified the repair with zero text overlap, and closed
+public/offline UX and media handling clean. A third Codex GPT-5-family implementation reviewer
+independently re-executed the focused Part Two model gate and its 24 scoped negative controls
+before source freeze.
+
+Review limits: Chromium only; no Firefox/WebKit, real screen reader, OS high-contrast/zoom
+session, legal redistribution determination, literature search beyond the registered corpus, or
+scientific gate rerun. The audit observed but did not alter or interpret the active mutable Arm 2
+sweep beyond the dated cutoff. These limits are disclosure boundaries, not claims filled in by
+the automated gate.
 
 ## Open questions
 

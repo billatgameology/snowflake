@@ -220,8 +220,10 @@
         comparisons it scored (<code>research/phase6-sweep-report.md:143</code>). And even that
         number is not yet allowed
         to move a label, because the report says so about itself, in bold: <em>&ldquo;These numbers
-        are not yet gate evidence&rdquo;</em> (same file, line&nbsp;40) &mdash; the independent
-        re-derivation has not been done. Chapter&nbsp;28 is where its result lives.
+        are not yet gate evidence&rdquo;</em> (same file, line&nbsp;40). That sentence describes
+        the report&rsquo;s historical snapshot. The independent re-derivation has since been
+        hardened and passes, but the Arm&nbsp;1 closing gate and zero-blocker review remain open.
+        Chapter&nbsp;28 keeps those dates separate and is where the result lives.
       </p>
 
       <p>
@@ -378,17 +380,26 @@
         Two things in that refusal are worth pulling out. First, an upgrade needs a
         <strong>named domain</strong>, not a general endorsement: a report about growth rates says
         nothing about pressure dependence, so five of the six rows stay grey even after it loads.
-        Second, some rows carry a refusal held in reserve, against a class of input that is not
-        switched on yet. Where inputs chosen to impose agreement with the
-        Nakaya diagram are active &mdash; the project&rsquo;s P3 class &mdash;
+        Second, some rows carry a refusal against a class of input that is now implemented for a
+        separate arm but is absent from every completed, reviewed result. Where inputs chosen to impose
+        agreement with the Nakaya diagram are active &mdash; the project&rsquo;s P3 class &mdash;
         <em>&ldquo;matching Nakaya is in-sample reproduction&rdquo;</em> rather than validation
-        (<code>project charter.md:183</code>). Be exact about the tense: that arm
-        has not run &mdash; <em>&ldquo;Every run is no-SDAK; <code>SDAK</code> appears in no source
-        file&rdquo;</em> (<code>research/phase6-sweep-report.md:225</code>) &mdash; and the record
-        that would add the SDAK arm is still marked <code>Status: proposed</code>
-        (<code>docs/decisions/0030-phase6-sdak-arm.md:4</code>). Bolting that door in advance is
-        what keeps the arm that <em>has</em> run a real test &mdash; the charter&rsquo;s own version
-        of one: <em>&ldquo;Set &minus;5&nbsp;&deg;C &mdash; does a column grow? Set &minus;15&nbsp;&deg;C
+        (<code>project charter.md:183</code>). Be exact about the tense. The Arm&nbsp;1 report&rsquo;s
+        sentence &mdash; <em>&ldquo;Every run is no-SDAK; <code>SDAK</code> appears in no source
+        file&rdquo;</em> (<code>research/phase6-sweep-report.md:225</code>) &mdash; is true of the
+        source tree and runs it records. It is not current source-tree status. Accepted decision
+        0036 added M1 as a third <code>NucleationParamSet</code>; its value content was frozen at
+        <code>483f7ee</code>, and <code>0cb52bf</code> then recorded that ancestry and repinned the
+        final values hash. A first Arm&nbsp;2 launch was stopped about a minute in after its first
+        line exposed Arm&nbsp;1&rsquo;s combined protocol hash; commit
+        <code>8c781b1</code> records the arm-specific replacement. At this audit&rsquo;s
+        2026-07-30 10:23&nbsp;PDT cutoff, the corrected canonical sweep was running and its local
+        point file was still changing. Partial rows are measurements of an unfinished run, not a
+        completed, reviewed sweep result. Decision 0030 remains the proposed precursor, not the
+        current registration.
+        Bolting the P3 door before Arm&nbsp;1 ran is what keeps that no-SDAK arm a real test &mdash;
+        the charter&rsquo;s own version of one: <em>&ldquo;Set &minus;5&nbsp;&deg;C &mdash; does a
+        column grow? Set &minus;15&nbsp;&deg;C
         &mdash; does the habit flip back to plates? A model that cannot be wrong is not attempting
         this problem&rdquo;</em> (<code>project charter.md:185</code>). Chapter&nbsp;17 is about
         that distinction.
@@ -1714,17 +1725,21 @@
         "This row is outside it. An upgrade is granted per comparison, never wholesale — that " +
         "is the whole force of the phrase “over a named domain”." +
         (row.nakaya
-          ? "  This row also carries a second refusal, held in reserve against a class of input " +
-            "that is not switched on yet. Where inputs chosen to impose agreement with the Nakaya " +
+          ? "  This row also carries a second refusal against a separately implemented class of input. " +
+            "Where inputs chosen to impose agreement with the Nakaya " +
             "diagram are active — the project’s P3 class — “matching Nakaya is in-sample " +
             "reproduction” (project charter.md:183), and “results from Nakaya-informed (P3) " +
-            "inputs are never labeled independent validation” (project charter.md:341). That arm " +
-            "has not run: every executed sweep point so far is no-SDAK " +
-            "(research/phase6-sweep-report.md:225), and the SDAK arm is a proposed decision " +
-            "record, not an accepted one (docs/decisions/0030-phase6-sdak-arm.md:4). So with no " +
-            "P3 input anywhere, this comparison IS a fair test today — it is just a test whose " +
-            "report does not exist yet. Chapter 16 is about those tags, chapter 17 about why " +
-            "they would close this door."
+            "inputs are never labeled independent validation” (project charter.md:341). Every " +
+            "completed and reviewed sweep result so far is in no-SDAK Arm 1 " +
+            "(research/phase6-sweep-report.md:225). Accepted decision 0036 later added M1 to the " +
+            "source tree; 483f7ee froze its separate Arm 2 value content, and 0cb52bf recorded " +
+            "that ancestry and final values-hash pin. One launch was stopped about a minute in " +
+            "after its first line exposed the wrong arm’s combined hash; " +
+            "8c781b1 records the repair. At this audit’s 2026-07-30 cutoff, the corrected sweep " +
+            "was running but incomplete. So this no-SDAK comparison remains a fair test, while " +
+            "Arm 2 has a registered prediction but no completed, reviewed result and could earn " +
+            "at most in-sample reproduction. Chapter 16 is about those tags; chapter 17 is about why " +
+            "they close the independent-validation door."
           : "") };
     } else {
       upgraded = row.id;
