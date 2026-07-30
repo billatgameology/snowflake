@@ -28,9 +28,9 @@ const REGISTERED_SUITES = [
   { dir: "core/test", glob: "core/test/**/*.test.ts", floor: 7 },
   { dir: "solver-cpu/test", glob: "solver-cpu/test/**/*.test.ts", floor: 10 },
   { dir: "solver-gpu/test", glob: "solver-gpu/test/**/*.test.ts", floor: 9 },
-  // Raised 23 → 25 when suite-integrity.test.ts and phase6-provenance.test.ts landed. Raising the
-  // floor on add is the point: a floor left behind protects only the files that predate it.
-  { dir: "runner/test", glob: "runner/test/**/*.test.ts", floor: 25 },
+  // Raised 23 → 25 (suite-integrity, phase6-provenance) → 26 (phase6-sdak). Raising the floor on
+  // add is the point: a floor left behind protects only the files that predate it.
+  { dir: "runner/test", glob: "runner/test/**/*.test.ts", floor: 26 },
   { dir: "app/test", glob: "app/test/**/*.test.ts", floor: 20 },
 ] as const;
 

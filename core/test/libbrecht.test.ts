@@ -15,7 +15,14 @@ import {
   pSatIce,
   pecletUpperBound,
   sigma0Basal,
+  M1_DOMAIN_MAGNITUDE_C,
+  sigma0BasalFor,
+  sigma0BasalM1,
+  sigma0BasalM2Broad,
   sigma0Prism,
+  sigma0PrismFor,
+  sigma0PrismM1,
+  sigma0PrismM2Broad,
   sigmaWater,
   vKin,
 } from "@vcc/core";
@@ -252,5 +259,101 @@ describe("quasi-static validity (Péclet; §4.4 test 6)", () => {
     const worst = pecletUpperBound(-15, 0.157, 1e-3, 101325);
     expect(worst).toBeGreaterThan(1e-3);
     expect(worst).toBeLessThan(2e-3);
+  });
+});
+
+describe("the M1 parameter set (ADR 0036 — Phase 6 arm 2)", () => {
+  // M1 is the SDAK-dipped closed forms from arXiv:2306.13087v1 p6-7, added as a third
+  // NucleationParamSet. These tests exist for one reason above all: adding it must move NOTHING.
+
+  it("moves no existing number — CAK and CAK_A1 are bit-identical through the new dispatch", () => {
+    // The whole design rests on this. Phase 2b/4/5 evidence replays byte for byte and the Phase 6
+    // libm fingerprint hashes sigma0Basal/sigma0Prism, so a single changed ULP here would silently
+    // invalidate three phases of published evidence. Object.is, not toBeCloseTo: bit equality.
+    for (let tempC = -1; tempC >= -50; tempC -= 0.5) {
+      for (const set of ["CAK", "CAK_A1"] as const) {
+        expect(Object.is(sigma0BasalFor(tempC, set), sigma0Basal(tempC))).toBe(true);
+        expect(Object.is(sigma0PrismFor(tempC, set), sigma0Prism(tempC))).toBe(true);
+      }
+      for (const sigmaSurf of [1e-3, 1e-2, 0.1]) {
+        for (const set of ["CAK", "CAK_A1"] as const) {
+          for (const facet of ["basal", "prism"] as const) {
+            const viaDispatch = alphaHK(facet, tempC, sigmaSurf, set);
+            const direct =
+              (facet === "basal" ? 1 : set === "CAK_A1" ? 1 : nucleationAPrism(tempC, set)) *
+              Math.exp(-(facet === "basal" ? sigma0Basal(tempC) : sigma0Prism(tempC)) / sigmaSurf);
+            expect(Object.is(viaDispatch, direct), `${facet} ${set} at ${tempC} C`).toBe(true);
+          }
+        }
+      }
+    }
+  });
+
+  it("sets A = 1 on BOTH facets, which is what makes M1's habit ordering sigma-independent", () => {
+    for (let tempC = -1; tempC >= -35; tempC -= 1) {
+      expect(nucleationAPrism(tempC, "M1")).toBe(1);
+    }
+  });
+
+  it("reproduces the printed percentages, and returns them as FRACTIONS like every other sigma_0", () => {
+    // Spot values recomputed by hand from the printed forms. The unit is the trap here: the paper
+    // prints percent, alphaHK divides by a fractional sigma_surf, and a factor of 100 in the
+    // exponent is the difference between a crystal and a stationary seed.
+    expect(sigma0BasalM1(-2) * 100).toBeCloseTo(0.3129, 4);
+    expect(sigma0PrismM1(-2) * 100).toBeCloseTo(0.0903, 4);
+    expect(sigma0BasalM1(-14) * 100).toBeCloseTo(2.2636, 4);
+    expect(sigma0PrismM1(-14) * 100).toBeCloseTo(0.1591, 4);
+    // Signed or unsigned temperature must not matter; only the magnitude is used.
+    expect(sigma0BasalM1(-14)).toBe(sigma0BasalM1(14));
+    expect(sigma0PrismM1(-14)).toBe(sigma0PrismM1(14));
+  });
+
+  it("dips BELOW the undipped branch everywhere, and only at the dips", () => {
+    for (let t = 1; t <= 50; t += 0.5) {
+      expect(sigma0BasalM1(-t)).toBeLessThanOrEqual(sigma0BasalM2Broad(-t));
+      expect(sigma0PrismM1(-t)).toBeLessThanOrEqual(sigma0PrismM2Broad(-t));
+    }
+    // Far from either centre the dip has essentially closed; at the centres it is deep.
+    expect(sigma0BasalM1(-4.5) / sigma0BasalM2Broad(-4.5)).toBeCloseTo(0.13, 2);
+    expect(sigma0PrismM1(-14.4) / sigma0PrismM2Broad(-14.4)).toBeCloseTo(0.05, 2);
+  });
+
+  it("gives M1 a genuinely different anisotropy from CAK at the prism dip", () => {
+    // If M1 and CAK were close, arm 2 would be a re-run rather than a test. At -14 C the dipped
+    // prism barrier is an order of magnitude below the basal one; under CAK the two are comparable.
+    const m1 = sigma0BasalFor(-14, "M1") / sigma0PrismFor(-14, "M1");
+    const cak = sigma0BasalFor(-14, "CAK") / sigma0PrismFor(-14, "CAK");
+    expect(m1).toBeGreaterThan(10);
+    expect(cak).toBeLessThan(2);
+  });
+});
+
+describe("M1 inherits the digitized set's extrapolation ban", () => {
+  it("THROWS outside the registered domain, exactly where the digitized set does", () => {
+    // A closed form returns a number for any input, so adopting M1 without this guard would have
+    // silently dropped a safety property CAK has — and dropped it in the worst direction, since the
+    // M1 forms are ad-hoc fits whose behaviour outside Libbrecht's data range is unconstrained
+    // rather than merely uncertain. Found by a test failing at -0.5 C, not by reasoning ahead.
+    for (const outside of [-0.5, -0.999, -50.001, -80]) {
+      expect(() => sigma0BasalM1(outside), `${outside} C should be banned`).toThrow(/extrapolation is banned/);
+      expect(() => sigma0PrismM1(outside)).toThrow(/extrapolation is banned/);
+      expect(() => sigma0Basal(outside)).toThrow(/extrapolation is banned/);
+    }
+    // Both endpoints are inside, for both sets.
+    for (const inside of [-1, -50]) {
+      expect(() => sigma0BasalM1(inside)).not.toThrow();
+      expect(() => sigma0Basal(inside)).not.toThrow();
+    }
+  });
+
+  it("bounds M1 to the SAME domain as the anchors, introducing no new registered number", () => {
+    expect(M1_DOMAIN_MAGNITUDE_C).toEqual({ min: 1, max: 50 });
+  });
+
+  it("leaves the whole Phase 6 grid comfortably inside the domain", () => {
+    for (let tempC = -2; tempC >= -35; tempC -= 1) {
+      expect(() => alphaHK("basal", tempC, 0.01, "M1")).not.toThrow();
+      expect(() => alphaHK("prism", tempC, 0.01, "M1")).not.toThrow();
+    }
   });
 });

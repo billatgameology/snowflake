@@ -98,8 +98,106 @@ const A_PRISM_CAK = [0.45, 0.28, 0.21, 0.18, 0.83, 1, 1, 1, 1];
  *   "CAK"    — the monograph's full set: CAK sigma_0 plus A_basal = 1 and the digitized
  *              A_prism dip (Fig. 4.5 lower panel).
  * The choice is recorded per run; the pre-registered 2b habit gate states which it uses.
+ *
+ *   "M1"     — the SDAK-dipped closed forms printed in arXiv:2306.13087v1 p6-7, with A = 1 on
+ *              BOTH facets by that paper's own choice. Phase 6 arm 2's inputs (ADR 0036). Unlike
+ *              the two sets above it is not digitized from a figure: every coefficient is
+ *              transcribed from a printed equation. Provenance is still P3 — the dip CENTRES were
+ *              chosen by the author to impose agreement with the Nakaya diagram (charter §2.5), so
+ *              agreement obtained under it is in-sample reproduction, never validation.
  */
-export type NucleationParamSet = "CAK_A1" | "CAK";
+export type NucleationParamSet = "CAK_A1" | "CAK" | "M1";
+
+// ── M1: the SDAK-dipped closed forms ────────────────────────────────────────────────────────
+//
+// arXiv:2306.13087v1 p6, sigma_0 printed in PERCENT with T the magnitude in degrees Celsius:
+//
+//   sigma_0,basal(T) = (0.02 T^1.75 + 0.3) * (1 - 0.87 exp(-(log T - log 4.5)^2 / 0.07))
+//   sigma_0,prism(T) = (0.015 T^2 + 0.02 T^0.6) * (1 - 0.95 exp(-(log T - log 14.4)^2 / 0.06))
+//
+// `log` is BASE 10, established 2026-07-29 and restated because no paper says so: with natural log
+// the dip centres land at 3.08 and 8.07 degrees and M1 makes FIVE habit transitions on the Phase 6
+// grid; with log10 they land at 4.5 and 14.4 exactly as the paper's own prose describes, and it
+// makes three. runner/test/phase6-sdak.test.ts asserts the difference rather than trusting this note.
+//
+// Returned as a FRACTION, matching `sigma0Basal`/`sigma0Prism` and the `sigmaSurf` argument of
+// `alphaHK` — the printed percentages are divided by 100 here, once, rather than at each call site.
+
+/** M1 dip centres in degrees Celsius of magnitude. Printed values; not fitted by this project. */
+export const M1_BASAL_DIP_CENTRE_C = 4.5;
+export const M1_PRISM_DIP_CENTRE_C = 14.4;
+
+/**
+ * The temperature domain M1 is allowed to be evaluated on, as (Tm − T) in °C.
+ *
+ * A closed form has no natural domain — it returns a number for any input — where the digitized CAK
+ * set is interpolated between anchors and THROWS outside them ("extrapolation is banned"). Adopting
+ * M1 without this guard would silently lose a safety property the other two sets have, and would do
+ * it in the direction that matters: the M1 forms are ad-hoc fits, so their behaviour outside the
+ * range Libbrecht had data for is unconstrained rather than merely uncertain.
+ *
+ * Bounded to the SAME domain as the digitized anchors rather than to a range chosen for M1, so this
+ * introduces no new registered number. The Phase 6 grid (−2 … −35 °C) sits comfortably inside it.
+ */
+export const M1_DOMAIN_MAGNITUDE_C = { min: X_ANCHORS[0] as number, max: X_ANCHORS[X_ANCHORS.length - 1] as number };
+
+function m1Magnitude(tempC: number): number {
+  const t = Math.abs(tempC);
+  if (!(t >= M1_DOMAIN_MAGNITUDE_C.min && t <= M1_DOMAIN_MAGNITUDE_C.max)) {
+    throw new RangeError(
+      `(Tm - T) = ${t} C is outside M1's registered domain ` +
+        `[${M1_DOMAIN_MAGNITUDE_C.min}, ${M1_DOMAIN_MAGNITUDE_C.max}] — extrapolation is banned`,
+    );
+  }
+  return t;
+}
+
+/** sigma_0,basal under M1, as a fraction. `tempC` is signed; only its magnitude is used. */
+export function sigma0BasalM1(tempC: number): number {
+  const t = m1Magnitude(tempC);
+  const dip = 1 - 0.87 * Math.exp(-((Math.log10(t) - Math.log10(M1_BASAL_DIP_CENTRE_C)) ** 2) / 0.07);
+  return ((0.02 * t ** 1.75 + 0.3) * dip) / 100;
+}
+
+/** sigma_0,prism under M1, as a fraction. */
+export function sigma0PrismM1(tempC: number): number {
+  const t = m1Magnitude(tempC);
+  const dip = 1 - 0.95 * Math.exp(-((Math.log10(t) - Math.log10(M1_PRISM_DIP_CENTRE_C)) ** 2) / 0.06);
+  return ((0.015 * t ** 2 + 0.02 * t ** 0.6) * dip) / 100;
+}
+
+/**
+ * The same forms with the dips removed — M2's BROAD-facet branch.
+ *
+ * Exported for contrast only and deliberately NOT reachable through `NucleationParamSet`: M2 is the
+ * width-dependent model, and its broad branch is the half that the Edge-Sharpening Instability
+ * removes in air ("quite efficient in air, quickly turning broad facets into narrow facets during
+ * growth", 2306.13087v1 p7). Running a sweep against it would measure the branch the physics
+ * deletes. ADR 0036 defers M2 in full.
+ */
+export function sigma0BasalM2Broad(tempC: number): number {
+  const t = Math.abs(tempC);
+  return (0.02 * t ** 1.75 + 0.3) / 100;
+}
+export function sigma0PrismM2Broad(tempC: number): number {
+  const t = Math.abs(tempC);
+  return (0.015 * t ** 2 + 0.02 * t ** 0.6) / 100;
+}
+
+/**
+ * sigma_0 for a NAMED parameter set — the dispatch `alphaHK` uses.
+ *
+ * `sigma0Basal`/`sigma0Prism` are left exactly as they were, returning the digitized CAK anchors
+ * with no set argument, because Phase 2b/4/5 evidence paths and the Phase 6 libm fingerprint call
+ * them and must stay bit-identical. For "CAK" and "CAK_A1" these dispatchers return precisely those
+ * same values, so adding M1 moves no existing number.
+ */
+export function sigma0BasalFor(tempC: number, set: NucleationParamSet): number {
+  return set === "M1" ? sigma0BasalM1(tempC) : sigma0Basal(tempC);
+}
+export function sigma0PrismFor(tempC: number, set: NucleationParamSet): number {
+  return set === "M1" ? sigma0PrismM1(tempC) : sigma0Prism(tempC);
+}
 
 function interpIndex(x: number): number {
   if (!(x >= X_ANCHORS[0] && x <= X_ANCHORS[X_ANCHORS.length - 1])) {
@@ -140,7 +238,11 @@ export function nucleationABasal(_tempC: number, _set: NucleationParamSet): numb
 }
 
 export function nucleationAPrism(tempC: number, set: NucleationParamSet): number {
-  return set === "CAK_A1" ? 1 : interpLinear(-tempC, A_PRISM_CAK);
+  // M1 sets A = 1 on every facet by its own paper's choice: "To keep M1 relatively simple, we chose
+  // to set A = 1 in Equation 3 for all growth conditions". That is what makes M1's habit ordering
+  // independent of sigma_surf — see ADR 0036 — so it is a load-bearing 1, not a placeholder.
+  if (set === "CAK_A1" || set === "M1") return 1;
+  return interpLinear(-tempC, A_PRISM_CAK);
 }
 
 /**
@@ -251,10 +353,13 @@ export function alphaHK(
   if (facet === "inhibited") return 0;
   if (sigmaSurf <= 0) return 0; // no growth from sub/zero saturation (no sublimation modeled)
   if (facet === "rough") return 1;
+  // Dispatched by set. For "CAK" and "CAK_A1" the dispatchers return exactly what the bare
+  // sigma0Basal/sigma0Prism return, so every executed Phase 2b/4/5 run and the Phase 6 libm
+  // fingerprint are bit-unchanged by M1's addition — asserted in core/test/libbrecht.test.ts.
   if (facet === "basal") {
-    return nucleationABasal(tempC, set) * Math.exp(-sigma0Basal(tempC) / sigmaSurf);
+    return nucleationABasal(tempC, set) * Math.exp(-sigma0BasalFor(tempC, set) / sigmaSurf);
   }
-  return nucleationAPrism(tempC, set) * Math.exp(-sigma0Prism(tempC) / sigmaSurf);
+  return nucleationAPrism(tempC, set) * Math.exp(-sigma0PrismFor(tempC, set) / sigmaSurf);
 }
 
 /** Stream id for the LibbrechtKinetics alphaHK slowdown noise, shared by sink and growth. */

@@ -901,6 +901,37 @@ immutable.
 
 ## Next step
 
+**Phase 6 arm 2 (SDAK) is pre-registered and its inputs are implemented; the sweep has not run.**
+[ADR 0036](decisions/0036-phase6-sdak-arm-pre-registrations.md) settles the three questions that
+had to be answered before any point executes, and registers a per-point expected result derived
+from arm 1's own measured data.
+
+- **The ~50 nm closure is avoided, not solved.** SDAK's controlling facet width is ~50 nm against
+  Δx = 350 nm — 7× below one cell. Arm 2 therefore runs **M1** (all facets narrow, `A = 1` on both,
+  closed forms in temperature alone) rather than the width-dependent **M2**, which would need a
+  sub-grid closure with a strength parameter no source prints. Removing that free parameter is what
+  makes the arm falsifiable; M2 is deferred.
+- **The bistable band −4/−5/−6 °C is excluded from the headline by name**, the same treatment
+  `columns-and-plates` already gets: the source records both habits under identical conditions
+  there, so no single-valued score can be right. Costs 12 headline points and half the `columns`
+  regime. It moves the denominator only — the predicted numerator is 42 either way.
+- **The cold end carries a sourcing tier.** The prism dip cuts σ₀,prism to 5.5% of broad-facet at
+  −15 °C and is still a 36% reduction at −25 °C, on exactly **two** numerically-stated anchors in
+  the whole corpus, against which the closed form runs 30% and 8.5% low.
+
+**The registered prediction, apples to apples under arm 1's unmodified rules: 42 of 90, against
+arm 1's measured 3 of 90.** Per regime: plates-cold 0 → 38/60 (the entire gain), plates-warm 3 →
+4/6, and **columns 0 → 0/12, all neutral** — SDAK as M1 is predicted *not* to rescue the column
+band. The 0D sense agreement (15/15 temperatures, three transitions at −3/−4, −8/−9, −24/−25) is a
+transcription check and **not evidence**: the dip centres were chosen to impose it.
+
+M1 is implemented in `core/src/libbrecht.ts` as a third `NucleationParamSet`. Adding it moved
+nothing — libm digest still `2a9f64b3`, all three manifest hashes unchanged, bit equality for
+`CAK`/`CAK_A1` asserted with `Object.is` across the domain — and it inherits the digitized set's
+extrapolation ban, which a closed form would otherwise have silently dropped. Exact `npm test`
+green. Next action: freeze the arm-2 protocol under the two-hash scheme, then run the sweep
+(~15 h at concurrency 6).
+
 **A new independent audit of the complete education course is active under
 [`education-parts-1-2-audit-and-remediation.md`](plans/education-parts-1-2-audit-and-remediation.md),
 criteria-first commit `9897fd5`.** Candidate `c69c66c` already claims the user's requested
