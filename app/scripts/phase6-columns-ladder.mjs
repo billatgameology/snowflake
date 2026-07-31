@@ -80,11 +80,18 @@ const POINTS = [
 // class is identical and the attached counts agree within 0.5%, N = 64 is adequate at extent 28
 // and rung B's crossing is a size effect. If they disagree, it is a domain artifact and the
 // correction built on it is withdrawn.
+// Rungs C64/D/D80 belong to `docs/phase6-convergence-study-prereg.md` and pick the SMALLEST domain
+// at which the extent is legal under the registered 0.65 domain-contact guard, rather than a fixed
+// extent/N ratio. Rung C above was run at N = 80 for extent 35 when N = 64 (0.547) was legal — the
+// ratio reasoning cost compute as well as validity.
 const RUNGS = [
   { id: "A", n: 48, targetExtent: 21 },
   { id: "B", n: 64, targetExtent: 28 },
   { id: "C", n: 80, targetExtent: 35 },
   { id: "B80", n: 80, targetExtent: 28 },
+  { id: "C64", n: 64, targetExtent: 35 },
+  { id: "D", n: 64, targetExtent: 41 },
+  { id: "D80", n: 80, targetExtent: 41 },
 ];
 
 /** Everything the sweep passes, unchanged except dims and target extent. */
