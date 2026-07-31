@@ -202,6 +202,25 @@ columns claim, which is the apparatus catching something ahead of its author. Ev
 from the two published `points.json` files; diagnostic pre-registered with all four outcomes fixed
 in advance at `docs/phase6-columns-refinement-prereg.md`. Status: measured in-repo.
 
+**B10 — Neither parameterization ever returns from column to plate (2026-07-31).** ADR 0025
+registers the habit-flip count as "itself a first-class result"; `phase6DetectFlips` had never
+been called outside tests and neither arm's artifact carried one (pin register R55). Produced at
+last, from the published rows at zero compute. Scanning warm to cold along each constant-f ladder,
+**both arms produce exactly two flips and both are `plate→column`. Neither produces a single
+`column→plate` flip anywhere in 408 measurements.** The Nakaya diagram changes habit three times,
+and the middle one — `column→plate` at −9.9 °C — is precisely the one absent. This is sharper than
+the class census: the model does not merely miss the `columns` regime, its habit sequence is
+**monotone in temperature** and never comes back. Two effects visible only in this view: SDAK
+**narrowed** both brackets (15 → 6 °C at f = 0.10, 20 → 10 °C at f = 0.15), so its transition is
+better localized than the control's, while moving both **colder** — it sharpened the wrong
+transition. And `M1`, which has **three** αHK crossings, still produces **one** flip per ladder,
+which is the surviving form of the retracted B2 counting argument now measured on the arm that has
+the crossings: crossing count and habit-transition count are different observables. Evidence:
+`app/scripts/phase6-flip-census.mjs`, which runs the registered operator AND an independent
+re-derivation from the registered definition and requires them to agree on all twelve ladders; they
+do. Status: measured in-repo, both implementations agreeing. Carries B8's four registered limits
+and erratum E5 (no convergence study exists warmer than −15 °C under either executed parameter set).
+
 ## C. Queued — share-worthy when it lands
 
 **C1 — The SDAK arm** (ADR 0030): **LANDED 2026-07-30 — see B8.** First 3D run of the

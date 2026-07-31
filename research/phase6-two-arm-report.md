@@ -228,6 +228,54 @@ optimistic; non-monotone is reported as non-monotone.
 
 ---
 
+## 4b. The flip census — a registered output, produced for the first time
+
+ADR 0025 registers the count of habit flips as "**itself a first-class result**", and
+`phase6DetectFlips` exists to produce it. It has never been called outside `runner/test`, and
+neither arm's artifact carries a flip count (pin register R55). It costs no compute — flips are a
+function of the published `points.json` — so it is produced here.
+
+A flip is a change between **pure** classes scanning warm to cold along a constant-f ladder, and it
+is **bracketed rather than pinpointed**: reported as the interval between the last temperature of
+one class and the first of the other. Neutral points do not terminate a scan, they widen the
+bracket, because a wide neutral span means the flip is poorly located and a midpoint would
+manufacture precision.
+
+| | arm 1 (`CAK`) | arm 2 (`M1`, SDAK) |
+|---|---|---|
+| f = 0.10 | `plate→column`, bracketed −4 … −19 °C (width **15**) | `plate→column`, bracketed −24 … −30 °C (width **6**) |
+| f = 0.15 | `plate→column`, bracketed −3 … −23 °C (width **20**) | `plate→column`, bracketed −22 … −32 °C (width **10**) |
+| f = 0.25 – 0.90 | none | none |
+| **total** | **2** | **2** |
+| `plate→column` | 2 | 2 |
+| **`column→plate`** | **0** | **0** |
+
+The reference changes habit **three** times scanning warm to cold: `plate→column` at −3.3,
+**`column→plate` at −9.9**, and `plate→column` at −21.5.
+
+**Neither arm produces a single `column→plate` flip anywhere in 408 measurements.** That is the
+crispest available statement of the failure, and it is sharper than the class census: the model does
+not merely miss the `columns` regime, it never returns from columnar to plate-like at all. Its habit
+sequence is monotone in temperature.
+
+**Two things SDAK did do, visible only here.** It **narrowed** both brackets — 15 → 6 and 20 → 10 —
+so the transition it produces is better localized than the control's. And it moved both **colder**,
+out of the regime where a transition is wanted. SDAK sharpened the wrong transition.
+
+**And this is the surviving form of the retracted structural claim, now measured on the SDAK arm.**
+`M1` has three αHK crossings, not one. It still produces **exactly one flip per ladder**, on the two
+ladders that have any, and none on the other four. Crossing count and habit-transition count are
+different observables — the retraction of 2026-07-29 said the counting argument could not be
+asserted a priori; this is the measurement that says it directly, from the arm that has the
+crossings.
+
+Reproduce with `node app/scripts/phase6-flip-census.mjs`. It runs the registered operator **and** an
+independent re-derivation from the registered definition, and requires them to agree on every
+ladder, so a silent change to the operator cannot pass as a change in the result. They agree on all
+twelve.
+
+---
+
 ## 5. The bistable band failed in the only way it could
 
 ADR 0036 pre-registered −4, −5 and −6 °C as a **bistable band**: at those temperatures the source
@@ -336,6 +384,13 @@ irregular.** Arm 2's report was regenerated rather than written by its own sweep
 - The instrument's AR resolution near the class thresholds is 0.088–0.100, which is a property of
   the lattice and the measurement size rather than of either parameter set, and it is large enough
   that near-threshold verdicts must be read as one-step statements.
+- **Neither arm produces a single `column→plate` habit flip in 408 measurements.** Both produce
+  exactly two flips, both `plate→column`; the reference needs three, one of which is `column→plate`
+  at −9.9 °C. The model's habit sequence is monotone in temperature — it never returns from columnar
+  to plate-like. SDAK narrowed both flip brackets (15 → 6 and 20 → 10 °C) while moving them colder,
+  so it sharpened a transition in the wrong place.
+- **`M1` has three αHK crossings and still produces one flip per ladder.** Crossing count and
+  habit-transition count are different observables, measured on the arm that has the crossings.
 - The solver is **deterministic across parameter sets, commits and worktrees**, measured on four
   points spanning both arms: AR, step count, extent and stop reason all reproduce exactly when re-run
   at a commit distinct from either arm's execution commit.
