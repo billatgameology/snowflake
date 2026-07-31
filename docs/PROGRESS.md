@@ -901,7 +901,65 @@ immutable.
 
 ## Next step
 
-**Phase 6 arm 2 (SDAK) is pre-registered and its inputs are implemented; the sweep has not run.**
+**Phase 6 arm 2 (SDAK) HAS RUN, and both arms are reported together at
+[research/phase6-two-arm-report.md](../research/phase6-two-arm-report.md) (2026-07-30).**
+
+> **Common denominator: arm 1 3/90, arm 2 54/90**, against a registered prediction of 42/90.
+> Verified independently — 204 rows re-derived by a checker importing nothing from `runner/src`,
+> every field matching, all 204 rows carrying a self-reported `paramSet=M1`.
+
+**The headline is the least informative number here and is not the lead.**
+
+- **SDAK is a TRADE, not an improvement.** It converts 66 neutral points to plates and pays with
+  **20 of arm 1's 30 columns** (14 → neutral, 6 → plate). Warmest column −19 °C → **−30 °C**. In
+  `columns-and-plates`, the one regime that accepts *both* pure classes and is therefore the easiest
+  on the board, arm 2 is **worse than the control: 26/78 → 14/78** (published tallies, ambiguity
+  band already excluded).
+- **Neither arm produces a single column in the Nakaya `columns` regime** (−3.3…−9.9 °C), 36 points
+  each. Adding the mechanism the source says is *required* there moved **zero** points to `column`.
+  Across almost the whole regime both arms produce **no definite habit at all** — 35/36 and 33/36
+  neutral. That is a different failure from producing the wrong habit.
+- **The bistable band failed in the only way it could.** ADR 0036's registered rule accepts *either*
+  pure class at −4/−5/−6 °C, so its single failure mode is producing neither. **All 18 points did:
+  0 agree, 18 neutral.** Registered in advance as "not an amnesty"; it was not one.
+- **At f = 0.90 SDAK changes nothing at all** — both arms neutral at all 34 temperatures, zero class
+  changes. `alphaHK = A·exp(−σ₀/σ_surf)` saturates toward `A`, so σ₀ dips stop separating the
+  facets. The reference diagram is most structured exactly where SDAK is inert.
+- **The dominant class is still "no habit":** 119 of 204 neutral with SDAK on, down from 168.
+- One real gain, reported against arm 1 as well: arm 1 produced **three columns inside
+  `plates-cold`** where the reference demands plates, two in headline scope. Arm 2 has none.
+
+**Four registered reasons to discount 54/90**, written before the sweep: it is in-sample (the dip
+centres were chosen to match this diagram); the prediction was beaten by 12 **in the direction the
+forecasting method was known to be weak**, over the very points it had to extrapolate; the
+instrument favours plates **4.81× in `ln AR`** (at isotropic kinetics the fitted AR sits 0.140 from
+the plate ceiling and 0.671 from the column floor); and **all five `plates-warm` agreements are at
+−2 °C**, the regime's only counting temperature, which ADR 0025 pre-registered as carrying
+essentially no statistical weight. A fifth, unregistered: the artifact was **regenerated**, not
+written by its own sweep (erratum E4).
+
+**A measured property of the instrument, found while checking the columns claim.** `AR = zExtent /
+tExtent` with `zExtent` an integer layer count, so AR is discrete. **408 measurements across both
+arms produced 36 distinct AR values**; near the column floor the realized ladder is 1.3125, 1.4000,
+1.5000, 1.6154, and **no measurement in either arm lands strictly between 1.4 and 1.5**. Arm 2's
+best columns-regime point sits one lattice cell short of qualifying (`tExtent` 15, needs 14) — and
+the registered `extentFragile` rule already flags it. Whether the columns failure belongs to the
+model or to the ruler is therefore a separate question, pre-registered with all four outcomes fixed
+in advance at [phase6-columns-refinement-prereg.md](phase6-columns-refinement-prereg.md).
+
+**Verification.** Arm 2's independent verifier now has **16 executed negative controls — 15 CAUGHT,
+1 GAP, 0 ERROR** — each mutating real data and judged by the real verifier as a subprocess, with a
+positive control proving the clean artifact still passes. Two of them found **real gaps in the
+verifier itself** (a spliced other-arm artifact and a config-stripped artifact both verified clean,
+because a missing field could not fail a check that only inspected present ones); both are closed.
+The remaining GAP is by design: `phase6Aggregate` tallies the per-row verdicts it is handed rather
+than re-deriving them, so these artifacts are trustworthy in company with the verifier and never
+alone. Exact `npm test` green at the two-arm report: **73 files, 1318 tests.**
+
+---
+
+*The pre-registration that this arm was measured against, retained:*
+
 [ADR 0036](decisions/0036-phase6-sdak-arm-pre-registrations.md) settles the three questions that
 had to be answered before any point executes, and registers a per-point expected result derived
 from arm 1's own measured data.
@@ -929,8 +987,15 @@ M1 is implemented in `core/src/libbrecht.ts` as a third `NucleationParamSet`. Ad
 nothing — libm digest still `2a9f64b3`, all three manifest hashes unchanged, bit equality for
 `CAK`/`CAK_A1` asserted with `Object.is` across the domain — and it inherits the digitized set's
 extrapolation ban, which a closed form would otherwise have silently dropped. Exact `npm test`
-green. Next action: freeze the arm-2 protocol under the two-hash scheme, then run the sweep
-(~15 h at concurrency 6).
+green.
+
+**How that prediction did, scored against the measurement:** `plates-warm` predicted 4/6, measured
+**5/6**; `columns` predicted 0/12, measured **0/12** — right, and for the reason given; `plates-cold`
+predicted 38/60, measured **49/60**. Total 42/90 predicted, **54/90 measured.** The prediction was
+beaten by 12, entirely in `plates-cold`, which is exactly where the transfer function behind it had
+to extrapolate and exactly the direction it was already known to under-predict. **A forecast beaten
+by its own known bias is not corroboration**, and the arm is in-sample regardless — see the four
+registered reasons above.
 
 **The independent audit and remediation of the complete education course is complete under
 [`education-parts-1-2-audit-and-remediation.md`](plans/education-parts-1-2-audit-and-remediation.md).**

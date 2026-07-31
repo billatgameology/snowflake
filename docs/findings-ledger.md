@@ -82,6 +82,14 @@ expectation in ADR 0025 and `baf7749`. Status: measured; re-sweep pending under 
 > narrowed per B2's retraction: this is "this parameterization, as run, does not reproduce
 > the diagram," not "no broad-facet model could." These numbers are verified-provenance,
 > not yet gated evidence — WP5's independent verifier has not run.
+>
+> **THE OTHER ARM HAS NOW RUN, 2026-07-30 — see B8.** The claim in this entry's title still
+> stands, but its shape changed: SDAK did not rescue the regime it exists to explain. **Neither
+> arm produces a single column in the Nakaya `columns` regime**, 36 points each, and across
+> almost all of it both produce *no definite habit at all* (35/36 and 33/36 neutral). What SDAK
+> did instead was trade columns for cold plates. So "SDAK is load-bearing" survives as a claim
+> about what a no-SDAK model cannot do; it is **not** corroborated as a claim that adding SDAK
+> produces the diagram — this implementation of it does not.
 
 **B2 — The counting argument: no broad-facet model can produce the diagram, and the two
 missing boundaries are the two SDAK dips (2026-07-28).** A habit boundary requires the
@@ -152,12 +160,57 @@ The 2026-07-29 retraction pass (`5463e76`) belongs in this entry too: an 18-agen
 refuting the phase's central interpretive claim, reproduced before recording, retractions at
 document heads — the apparatus applied to interpretation, one publication too late.
 
+**B8 — SDAK is a TRADE, measured in 3D for the first time (2026-07-30).** Both arms of the
+registered comparison ran: `CAK` (no SDAK) and `M1` (SDAK), same solver, same grid, same seed,
+same measurement size, same scoring rule, parameter set the only intended difference — and each
+of arm 2's 204 rows carries its own echoed `paramSet=M1`, so that is checkable rather than
+asserted. Common denominator **3/90 → 54/90**. The number is the least informative part.
+**SDAK buys 66 neutral→plate conversions and pays with 20 of arm 1's 30 columns** (14 → neutral,
+6 → plate); warmest column −19 °C → −30 °C; and in `columns-and-plates` — the one regime that
+accepts *both* pure classes, therefore the easiest on the board — arm 2 is **worse than the
+control, 26/78 → 14/78** (the published tallies, whose denominators already exclude the ±1.0 °C
+ambiguity band). The mechanism is one thing seen twice: at f = 0.10 arm 2's plate band
+runs unbroken from −9 °C to −24 °C, 2.5 °C past the boundary, so the dip that manufactures cold
+plates is the same dip that suppresses the colder columns. Two further measured facts: **at
+f = 0.90 SDAK changes the class of not one point in 34** (`alphaHK = A·exp(−σ₀/σ_surf)` saturates
+toward `A`, so σ₀ dips stop separating facets — and the reference diagram is most structured
+exactly where SDAK is inert); and the dominant class is still *no habit*, 119 of 204 neutral.
+Against this, one genuine gain reported in arm 1's favour being removed: arm 1 produced **three
+columns inside `plates-cold`** where the reference demands plates, two in headline scope; arm 2
+has none. Evidence: `research/phase6-two-arm-report.md`, `out/phase6-sweep-arm2/` (values hash
+`13e678d5…`, freeze `483f7ee5`, execution `8c781b16`), independent verifier PASS on all 204 rows
+importing nothing from `runner/src`, **16 negative controls executed — 15 CAUGHT, 1 GAP**.
+Status: measured and independently verified. **Stated limits, all registered before the sweep:**
+in-sample by construction (ADR 0005 — the dip centres were chosen against this diagram); the
+42/90 prediction was beaten by 12 entirely in the regime its transfer function had to extrapolate
+over and in the direction it was known to under-predict; the instrument favours plates **4.81× in
+`ln AR`**; all five `plates-warm` agreements sit at −2 °C, the regime's only counting temperature,
+which ADR 0025 pre-registered as weightless. Unregistered fifth limit: the artifact was
+regenerated, not written by its own sweep (erratum E4).
+
+**B9 — The measurement's own resolution, measured rather than assumed (2026-07-30).**
+`AR = zExtent/tExtent` with `zExtent` an integer layer count, so AR is discrete — and how coarse
+it is at the class thresholds had never been quantified. **408 measurements across both arms
+produced 36 distinct AR values.** Near the column floor the realized ladder is 1.3125, 1.4000,
+1.5000, 1.6154 — steps of 0.0875 and 0.1000 — and **no measurement in either arm lands strictly
+between 1.4 and 1.5**. Arm 2's best columns-regime point sits at `tExtent 15` where qualifying
+needs 14: **one lattice cell.** This is why "closest approach 1.4000 against a floor of 1.5" could
+not be read as a physical distance, and it applies to every near-threshold verdict in both arms,
+not only that one. The registered `extentFragile` rule (±0.135 AR, ADR 0025) was already flagging
+the point — the protocol's own fragility test pointed here before anyone connected it to the
+columns claim, which is the apparatus catching something ahead of its author. Evidence: computed
+from the two published `points.json` files; diagnostic pre-registered with all four outcomes fixed
+in advance at `docs/phase6-columns-refinement-prereg.md`. Status: measured in-repo.
+
 ## C. Queued — share-worthy when it lands
 
-**C1 — The SDAK arm** (ADR 0030): first 3D run of the hypothesis, decisive either way; now
-known to require a stated sub-grid closure (terrace scale ~50 nm vs Δx = 350 nm) and a
-bistability-aware score at −5 °C — and, after B2's retraction, an outcome that is genuinely
-open rather than foregone. **C2 — The re-sweep under ADR 0031**: LANDED 2026-07-29 — actual
+**C1 — The SDAK arm** (ADR 0030): **LANDED 2026-07-30 — see B8.** First 3D run of the
+hypothesis. Its two pre-registered hazards both materialized as registered: the ~50 nm terrace
+scale was avoided by running M1 rather than M2 (no free strength parameter, which is what keeps
+the arm falsifiable), and the bistable band at −4/−5/−6 °C **failed in the only way its rule
+allowed** — that rule accepts *either* pure class, so its single failure mode is producing
+neither, and all 18 points did: 0 agree, 18 neutral. Registered in advance as "not an amnesty";
+it was not one. **C2 — The re-sweep under ADR 0031**: LANDED 2026-07-29 — actual
 3/90 against the registered ≈2/90, scored honestly including the note that the
 throttle-to-rise model behind the prediction was wrong (`264a9e2`); the
 prediction-then-measurement pair is on the record. **C3 —

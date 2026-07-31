@@ -1,5 +1,17 @@
 # Phase 6 — the no-SDAK validation sweep (arm 1 of 2)
 
+> **ARM 2 HAS RUN. Read [phase6-two-arm-report.md](phase6-two-arm-report.md) instead, or first.**
+> This document is arm 1 alone and was written when arm 2 was still hypothetical; its "the Phase 6
+> conclusion is deliberately not drawn here" is now discharged there. Everything measured below
+> stands unchanged — 3/90, the per-regime table, the class totals, the artifact hashes. What
+> changed is that the comparison it was waiting for exists: **SDAK is a trade** (it buys 66
+> neutral→plate conversions and pays 20 of this arm's 30 columns), **neither arm produces a single
+> column in the Nakaya `columns` regime**, and the AR resolution near the class thresholds has now
+> been measured (36 distinct values in 408 measurements), which changes how the near-threshold
+> statements in §"What this does NOT establish" should be read.
+
+---
+
 > ## ⚠ RETRACTION — Finding 1's structural bound is WRONG (2026-07-29)
 >
 > **Finding 1 below, and the crossing counts it cites, are retracted.** An adversarial audit refuted
