@@ -1118,7 +1118,9 @@
   }
 
   build();
-  const anim = Viz.animate(root, draw, { staticAt: AUTO_OUT + 0.6, stepBy: 0.4 });
+  const anim = Viz.animate(root, draw, {
+    duration: AUTO_OUT + 0.6, loop: false, staticAt: AUTO_OUT + 0.6, stepBy: 0.4,
+  });
   Viz.onThemeChange(function () { build(); draw(anim.time); });
 
   crowdSlider = Viz.slider(controls, {
@@ -1299,6 +1301,7 @@
     items.forEach(function (item, i) {
       const btn = document.createElement("button");
       btn.type = "button";
+      btn.dataset.control = "album-crystal";
       btn.style.cssText =
         "background:transparent;border:1.5px solid transparent;border-radius:6px;" +
         "padding:2px;cursor:pointer;line-height:0;";

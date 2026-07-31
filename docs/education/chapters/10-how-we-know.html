@@ -58,7 +58,7 @@
           in a few minutes and disappears if you breathe on it?
         </p>
         <div class="chapter-header__meta">
-          <span>~22 min read</span>
+        <span>~31 min read</span>
           <span>17 figures</span>
           <span>4 originals</span>
         </div>
@@ -479,8 +479,12 @@
         to the crystal and the correction shrinks with it. In the apparatus behind &ldquo;some of the
         most accurate snow-crystal growth-rate measurements to date&rdquo; (printed p. 222), the gap
         between reservoir and test crystal is <strong>L&nbsp;=&nbsp;1&nbsp;mm</strong> &mdash;
-        &ldquo;as small as practical&rdquo;, chosen for exactly this reason (printed p. 254). Combine
-        that with a rule of only ever putting one crystal on the substrate, and the trap closes.
+        &ldquo;as small as practical&rdquo;, chosen for exactly this reason (printed p. 254).
+        <strong>The small gap is a correction, not a cure by itself.</strong> Put the worked
+        one-percent floor coverage into Equation 7.6 even at L&nbsp;=&nbsp;1&nbsp;mm and only one
+        third of &sigma;<sub>1</sub> reaches the crystals. The trap closes only when the small gap is
+        combined with the experiment&rsquo;s rule of analysing one isolated crystal, so the actual
+        floor coverage is far below one percent.
       </p>
 
       <figure class="figure"
@@ -509,8 +513,8 @@
             Set the two thermometers to fix &sigma;<sub>1</sub> &mdash; the supersaturation you are
             asking for. Then drag the chamber gap L and watch how much of it survives the trip down
             to the crystal, &sigma;<sub>bottom</sub>, once its sparse neighbours have taken their
-            cut. Shrink L toward the real apparatus's 1&nbsp;mm mark and the two numbers converge;
-            stretch the chamber out and they pull apart.
+            cut. Shrink L toward the real apparatus's 1&nbsp;mm mark and read the correction that
+            still remains. The gap helps; a nearly bare floor is what makes the two numbers meet.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -588,6 +592,42 @@
         pp. 3, 8). Neither problem shows up as noise on a plotted curve. Both are folded into a number
         that looks exactly as clean as any other.
       </p>
+
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          What the apparatus actually fits
+        </p>
+        <p>
+          The camera supplies a projected silhouette: a radius R and half-height H. A
+          &ldquo;1.5D&rdquo; forward model then turns those outlines into diffusion, heating and
+          facet-growth estimates. Its own paper says it works best for nearly isometric prisms with
+          R&nbsp;&asymp;&nbsp;H and gives somewhat distorted results for the thin plates and slender
+          columns everyone most wants to explain (arXiv:1912.09440v1, p. 9). This is not a hidden
+          three-dimensional reconstruction.
+        </p>
+        <p>
+          The base temperature is controlled to better than 0.1&nbsp;&deg;C, but the supersaturation
+          zero is normally fitted separately for each crystal from the onset of sublimation. The
+          paper describes refitting under different zero-point assumptions as its uncertainty
+          procedure, then publishes the &minus;5&nbsp;&deg;C best-fit values
+          &sigma;<sub>0,basal</sub>&nbsp;=&nbsp;0.73&nbsp;%,
+          &sigma;<sub>0,prism</sub>&nbsp;=&nbsp;0.20&nbsp;% and
+          A<sub>prism</sub>&nbsp;=&nbsp;0.25 without numerical uncertainties (pp. 9, 11&ndash;12).
+        </p>
+        <p>
+          Two corrections show their scale at &minus;5&nbsp;&deg;C. Small-scale diffusion costs about
+          1.4&nbsp;%&thinsp;&times;&thinsp;(R/10&nbsp;&micro;m)&thinsp;&times;&thinsp;(v/0.1&nbsp;&micro;m/s);
+          latent heating costs about
+          0.01&nbsp;%&thinsp;&times;&thinsp;(R/10&nbsp;&micro;m)&thinsp;&times;&thinsp;(v/0.1&nbsp;&micro;m/s)
+          before an estimated geometry factor of roughly two (pp. 6&ndash;7). Lower pressure reduces
+          the particle-diffusion correction but not the heating term, so heating can become the
+          limiting systematic precisely in the near-vacuum measurements. Substrate coatings and
+          trace chemicals add further effects that the experiment cannot bound away.
+        </p>
+      </aside>
 
       <!-- ================================================================== -->
       <h2 id="counting-fringes">Counting flickers of laser light</h2>
@@ -1181,11 +1221,20 @@
 
   // drifting vapour markers, held in [0,1] chamber coordinates
   const CEIL = 78, FLOOR = 262, LEFT = 74, RIGHT = 400;
+  const rng = Viz.namedRng("chapter10-two-thermometers-vapour");
   const dots = [];
-  for (let i = 0; i < 46; i++) dots.push({ x: Math.random(), y: Math.random(), s: 0.6 + Math.random() * 0.8 });
+  function seedDots() {
+    rng.reset();
+    dots.length = 0;
+    for (let i = 0; i < 46; i++) {
+      dots.push({ x: rng(), y: rng(), s: 0.6 + rng() * 0.8 });
+    }
+  }
+  seedDots();
 
   let radius = 16;   // drawn half-width of the test crystal
   const R_MIN = 7, R_MAX = 30;
+  let lastAnimationTime = null;
 
   /* The <svg>, its <title> and its <desc> are built once. Each frame clears only
      the drawing beneath them, so the accessible region is never torn down. */
@@ -1321,14 +1370,23 @@
   }
 
   function tick(t, dt) {
+    if (lastAnimationTime !== null && t < lastAnimationTime) {
+      radius = 16;
+      seedDots();
+    }
+    const manualDt = lastAnimationTime === null
+      ? 0
+      : Math.max(0, Math.min(0.4, t - lastAnimationTime));
+    lastAnimationTime = t;
+    const elapsed = dt > 0 ? dt : manualDt;
     const s = sigma1(tSub, dT);
     const flow = Math.max(-1, Math.min(1, s / 0.10));
     dots.forEach(function (d) {
-      d.y += flow * d.s * dt * 0.22;
-      if (d.y > 1) { d.y -= 1; d.x = Math.random(); }
-      if (d.y < 0) { d.y += 1; d.x = Math.random(); }
+      d.y += flow * d.s * elapsed * 0.22;
+      if (d.y > 1) { d.y -= 1; d.x = rng(); }
+      if (d.y < 0) { d.y += 1; d.x = rng(); }
     });
-    radius = Math.max(R_MIN, Math.min(R_MAX, radius + flow * dt * 3.2));
+    radius = Math.max(R_MIN, Math.min(R_MAX, radius + flow * elapsed * 3.2));
     render(t);
   }
 
@@ -1345,7 +1403,11 @@
     format: function (v) { return v.toFixed(2) + " °C"; },
     onInput: function (v) { dT = v; render(anim.time); },
   });
-  Viz.button(controls, "Reset crystal", function () { radius = 16; render(anim.time); });
+  Viz.button(controls, "Reset crystal", function () {
+    radius = 16;
+    seedDots();
+    render(anim.time);
+  });
 })();
 
 
@@ -1359,7 +1421,8 @@
    The two thermometers set sigma_1; dragging the chamber gap L (with the
    substrate's own filling factor b) then determines how much of sigma_1
    survives as sigma_bottom. The real apparatus runs at L = 1 mm, marked on
-   the schematic; sigma_bottom -> sigma_1 as L shrinks toward that mark.
+   the schematic. That smaller gap reduces the correction; it does not erase
+   the correction unless the substrate coverage is also very small.
    ======================================================================== */
 (function () {
   const root = document.getElementById("anim-why-l-1mm");
@@ -1417,14 +1480,6 @@
     const sBottom = s1 * frac;
     const over = 1 / Math.max(frac, 1e-9);
     const ceil = ceilY(Lmm);
-    // what the marked L = 1mm point itself achieves at this same coverage — the
-    // status verdict below is judged against that self-relative benchmark, not
-    // a fixed fraction, because how close sigma_bottom gets to sigma_1 in
-    // absolute terms depends on the crowding formula's own coverage exponent
-    // too (Eq. 7.6/7.7): at a given coverage,
-    // "converged" means "close to what the real apparatus's own gap gives you".
-    const fracAt1mm = survives(fillFrac, 1);
-
     svg = Viz.createSvg(body, W, H, {
       label: "Left: a side view of the two-temperature growth chamber, showing the frost " +
              "reservoir, the gap L, and several small crystals on the substrate. Right: the " +
@@ -1565,11 +1620,16 @@
     t.textContent = over < 1.05 ? "a genuinely bare floor" : "if you assume the floor is empty";
     svg.appendChild(t);
 
-    const status = frac >= 0.8 * fracAt1mm
-      ? { word: "converged — close to the L = 1 mm value", color: c.good }
-      : frac <= 0.3 * fracAt1mm
-      ? { word: "diverged — well below the L = 1 mm value", color: c.critical }
-      : { word: "partway between", color: c.inkSecondary };
+    const atApparatusGap = Lmm <= 1.05;
+    const correctionSmall = over < 1.05;
+    const status = atApparatusGap
+      ? correctionSmall
+        ? { word: "1 mm gap + bare floor: correction small", color: c.good }
+        : { word: "at 1 mm: a " + over.toFixed(1) + "× correction remains",
+            color: c.critical }
+      : correctionSmall
+      ? { word: "small only because the floor is nearly bare", color: c.good }
+      : { word: "gap and floor coverage both matter", color: c.inkSecondary };
     t = Viz.svgEl("text", { x: RX, y: vy + 74, fill: status.color });
     t.setAttribute("style", "font-size:13px;font-weight:600");
     t.textContent = status.word;

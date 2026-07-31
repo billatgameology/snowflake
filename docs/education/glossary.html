@@ -684,7 +684,7 @@
             </tr>
             <tr>
               <td><strong>SDAK dip</strong></td>
-              <td>The band of temperatures over which a narrow facet&rsquo;s barrier drops below the broad-facet curve &mdash; measured near &minus;4&nbsp;&deg;C on the basal face and near &minus;14&nbsp;&deg;C on the prism face, and the reason the shape can flip three times rather than once.</td>
+              <td>A proposed band of temperatures over which a narrow facet&rsquo;s barrier drops below the broad-facet curve. Narrow-facet observations near &minus;4&nbsp;&deg;C on basal faces and &minus;14&nbsp;&deg;C on prism faces motivate the hypothesis, but the effective dip locations and depths are uncertain, morphology-informed inputs rather than direct measurements. The dips are the proposed route by which the shape can flip three times rather than once.</td>
               <td><a href="./chapters/12-why-the-shape-flips.html">12 &middot; Why the Shape Flips</a></td>
             </tr>
             <tr>
@@ -1033,7 +1033,7 @@
             </tr>
             <tr>
               <td><strong>CAK</strong>, <strong>CAK_A1</strong> (parameter set)</td>
-              <td>The code&rsquo;s two named settings of the borrowed attachment curves: <code>CAK</code> uses the digitized prism prefactor, <code>CAK_A1</code> pins that prefactor to 1. A command-line default quietly handed <code>CAK_A1</code> to all 204 children, which is what invalidated the first sweep.</td>
+              <td>The code&rsquo;s two broad-facet settings: <code>CAK</code> uses the digitized prism prefactor, while <code>CAK_A1</code> pins it to 1. A command-line default quietly handed <code>CAK_A1</code> to all 204 children, invalidating the first sweep because <code>CAK</code> was registered. A probe or result under <code>CAK_A1</code> transfers only to that same complete configuration; it is not evidence for <code>CAK</code> merely because the two settings share other inputs.</td>
               <td><a href="./chapters/21-the-seam.html">21 &middot; The Seam</a> &middot; <a href="./chapters/29-what-it-cost-and-what-is-open.html">29 &middot; What It Cost and What Is Open</a></td>
             </tr>
             <tr>
@@ -1098,7 +1098,7 @@
             </tr>
             <tr>
               <td><strong>no-SDAK run</strong></td>
-              <td>A run with the narrow-facet SDAK dips switched off. SDAK appears in no source file, so every run to date is one, and the arm that would switch them on is a separate, later arm still marked as proposed.</td>
+              <td>A run with the narrow-facet SDAK dips switched off. Every completed, reviewed Phase&nbsp;6 sweep result at the education audit&rsquo;s cutoff is in the no-SDAK Arm&nbsp;1. M1 dip inputs are implemented and separately protocol-frozen for Arm&nbsp;2; its corrected sweep was then running and had mutable partial rows, but no completed, reviewed sweep result.</td>
               <td><a href="./chapters/16-where-the-numbers-came-from.html">16 &middot; Where the Numbers Came From</a> &middot; <a href="./chapters/17-a-model-that-can-be-wrong.html">17 &middot; A Model That Can Be Wrong</a></td>
             </tr>
             <tr>
@@ -1108,7 +1108,7 @@
             </tr>
             <tr>
               <td><strong>protocol hash</strong></td>
-              <td>The fingerprint of the whole sealed protocol &mdash; the manifest and its twenty-five-row freeze list together, in canonical form. The function that builds it throws if any row is still pending, so a sweep cannot quote a hash the freeze has not earned.</td>
+              <td>A fingerprint of a protocol manifest. Under the current two-hash scheme, the combined hash identifies one values-plus-prose revision and is reported and pinned by revision history; the separate values hash is the durable preflight gate whose movement triggers a re-sweep. A pending freeze row prevents either manifest from being earned.</td>
               <td><a href="./chapters/27-sealing-the-envelope.html">27 &middot; Sealing the Envelope</a></td>
             </tr>
             <tr>
@@ -1133,12 +1133,12 @@
             </tr>
             <tr>
               <td><strong>verification hazard</strong></td>
-              <td>A recorded flaw in how a result was <em>verified</em> rather than in the physics: the harness stamps provenance once at preflight while each of the 204 children loads the solver from the working tree. It is written down because it is <strong>not yet fixed</strong>.</td>
+              <td>A recorded flaw in how a result was <em>verified</em> rather than in the physics: Arm&nbsp;1 stamped provenance once while its 204 children kept loading the working tree. A completion-time source fingerprint now closes that timing path for future sweeps, but cannot retroactively add it to Arm&nbsp;1.</td>
               <td><a href="./chapters/28-the-exam-result.html">28 &middot; The Exam Result</a> &middot; <a href="./chapters/29-what-it-cost-and-what-is-open.html">29 &middot; What It Cost and What Is Open</a></td>
             </tr>
             <tr>
               <td><strong>verifier</strong> (independent)</td>
-              <td>Somebody other than the person who ran it, re-deriving the summary from the raw per-point data. Phase&nbsp;6 is still waiting on one, which is exactly why its 3 of 90 is not gate evidence.</td>
+              <td>A second implementation that re-derives a summary from the raw per-point data instead of inheriting the producer&rsquo;s verdict. Phase&nbsp;6 now has a hardened one that asserts all three artifact digests, the exact 204-row set and every report field, and rejects two real forgeries its first version accepted; the flagless gate and zero-blocker closing review are still owed.</td>
               <td><a href="./chapters/28-the-exam-result.html">28 &middot; The Exam Result</a></td>
             </tr>
             <tr>
@@ -1178,9 +1178,14 @@
           development</strong>. Its first 204-point sweep scored 5 of 90 and has been
           <strong>withdrawn</strong>, invalidated by decision record 0031. The corrected re-sweep has
           run and reported <strong>3 of 90</strong>. Even that 3 is <strong>not yet gate
-          evidence</strong>: the sweep report says so about itself, in bold, because work package 5
-          &mdash; the independent re-derivation &mdash; has not run. <strong>Phase&nbsp;7 has not
-          started.</strong> Chapters <a href="./chapters/28-the-exam-result.html">28</a> and
+          evidence</strong>: the sweep report says so about itself, in bold. Its hardened independent
+          re-derivation now passes and seven controls have executed, but Arm&nbsp;1&rsquo;s flagless
+          closing gate and zero-blocker review have not happened. Arm&nbsp;2 is implemented and
+          separately frozen; its corrected sweep was observed running but incomplete at the
+          education audit&rsquo;s 2026-07-30 cutoff, with no completed, reviewed sweep result.
+          <strong>Phase&nbsp;7 has not started</strong>; the
+          Phase&nbsp;3 browser development instrument is a distinct thing and already exists.
+          Chapters <a href="./chapters/28-the-exam-result.html">28</a> and
           <a href="./chapters/29-what-it-cost-and-what-is-open.html">29</a> are where that sits.
         </p>
       </aside>
@@ -1212,7 +1217,7 @@
             </tr>
             <tr>
               <td><strong>checkpoint</strong></td>
-              <td>The saved file holding the crystal and its fields at the end of a run, identified by the fingerprint of its own bytes so that &ldquo;the same run&rdquo; is a checkable claim rather than a memory.</td>
+              <td>A strict binary save of the crystal, fields, and run controls: magic bytes and a length-prefixed JSON header describe exact typed arrays, while the decoder rejects shifted tables, extra payload, unknown controls, and impossible state. Artifact hashes live in the surrounding evidence envelope; the codec does not certify its own bytes.</td>
               <td><a href="./chapters/18-never-physics-ahead-of-the-machinery.html">18 &middot; Never Physics Ahead of the Machinery</a></td>
             </tr>
             <tr>
@@ -1262,7 +1267,7 @@
             </tr>
             <tr>
               <td><strong>gate evidence</strong></td>
-              <td>A number a gate is entitled to act on. The corrected sweep&rsquo;s 3 of 90 is <em>not</em> gate evidence and its own report says so in bold, because the independent re-derivation (work package 5) has not been done.</td>
+              <td>A number a gate is entitled to act on. The corrected sweep&rsquo;s 3 of 90 is still <em>not</em> gate evidence even though its hardened independent re-derivation passes: the registered flagless gate and zero-blocker closing review remain incomplete.</td>
               <td><a href="./chapters/15-two-labels-on-every-number.html">15 &middot; Two Labels on Every Number</a></td>
             </tr>
             <tr>
@@ -1342,7 +1347,7 @@
             </tr>
             <tr>
               <td><strong>work package</strong> (WP)</td>
-              <td>A named unit of work inside a phase, cited the way a section is. WP5 &mdash; the independent re-derivation of the Phase&nbsp;6 sweep &mdash; has not run, which is precisely why the 3 of 90 is not gate evidence.</td>
+              <td>A named unit of work inside a phase, cited the way a section is. Phase&nbsp;6 WP5 includes more than its now-passing independent re-derivation: Arm&nbsp;1&rsquo;s flagless closing gate and independent zero-blocker closure review remain incomplete, so 3 of 90 is not gate evidence.</td>
               <td><a href="./chapters/18-never-physics-ahead-of-the-machinery.html">18 &middot; Never Physics Ahead of the Machinery</a></td>
             </tr>
           </tbody>
@@ -1381,6 +1386,11 @@
               <td><a href="./chapters/21-the-seam.html">21 &middot; The Seam</a></td>
             </tr>
             <tr>
+              <td><strong>boundary replacement / exchange</strong> (LK numerical diagnostic)</td>
+              <td>The signed change made when a relaxation sweep replaces a boundary pixel&rsquo;s reflecting candidate by the coupled value <code>sigma_b</code>. A local or net value may be negative because supersaturation is a potential being redistributed; this is numerical boundary exchange, not physical vapour uptake, kinetic demand, or placed ice.</td>
+              <td><a href="./chapters/21-the-seam.html">21 &middot; The Seam</a> &middot; <a href="./chapters/22-when-the-numbers-stop-changing.html">22 &middot; When the Numbers Stop Changing</a></td>
+            </tr>
+            <tr>
               <td><strong>convergence study</strong></td>
               <td>Refining something that should not matter &mdash; the grid spacing, the size of the box &mdash; and checking that the answer stops moving; the Phase&nbsp;6 studies found the habit class robust on every axis tested, while the aspect ratio underneath it was not.</td>
               <td><a href="./chapters/23-walls-that-pretend-to-be-sky.html">23 &middot; Walls That Pretend to Be Sky</a> &middot; <a href="./chapters/28-the-exam-result.html">28 &middot; The Exam Result</a></td>
@@ -1392,7 +1402,7 @@
             </tr>
             <tr>
               <td><strong><code>deltaSymClean</code></strong></td>
-              <td>The narrower, per-tick companion the solver prints beside <code>symErr</code>: whether the set of cells that attached on <em>this one tick</em> is itself D6h-invariant, checked at every tick rather than only at the run&rsquo;s end. A gather-order <code>symErr&nbsp;=&nbsp;0</code> is a snapshot at the stop instant and does not by itself establish that the run stayed symmetric throughout &mdash; <code>deltaSymClean</code> does, and it is what caught a chronic field-level symmetry break that a snapshot-only reading of <code>symErr</code> had missed.</td>
+              <td>The narrow per-tick companion printed beside <code>symErr</code>: whether the set of cells attached on <em>this tick</em> is D6h-invariant. It certifies attachment deltas only. It does not say that the vapour field, fill field, or every intermediate relaxation state stayed symmetric; those need their own field-level checks.</td>
               <td><a href="./chapters/20-the-flaw-in-the-last-bit.html">20 &middot; The Flaw in the Last Bit</a> &middot; <a href="./chapters/25-testing-what-nobody-knows.html">25 &middot; Testing What Nobody Knows</a> &middot; <a href="./chapters/28-the-exam-result.html">28 &middot; The Exam Result</a></td>
             </tr>
             <tr>
@@ -1402,7 +1412,7 @@
             </tr>
             <tr>
               <td><strong>divergence identity</strong></td>
-              <td>The bookkeeping behind the second convergence gate: in a steady state nothing accumulates in the middle, so whatever the boundary injects must equal what the surface takes. It compares two totals computed independently and demands they agree.</td>
+              <td>The second fixed-supersaturation convergence check. Under aggregate v5/v6, the final relaxation sweep&rsquo;s signed shell-clamp change plus independently metered signed smoother drift must equal signed numerical boundary exchange. These are numerical potential terms with no physical timestep; the identity does not equate them to kinetic demand or deposited ice.</td>
               <td><a href="./chapters/22-when-the-numbers-stop-changing.html">22 &middot; When the Numbers Stop Changing</a></td>
             </tr>
             <tr>
@@ -1427,7 +1437,7 @@
             </tr>
             <tr>
               <td><strong>fill ledger</strong></td>
-              <td>The running account of ice added, kept so that &ldquo;nothing is created and nothing escapes&rdquo; can be audited rather than assumed: the ledger plus the separately recorded saturation clipping has to integrate to exactly the demand the physics asked for.</td>
+              <td>The exact demand-bookkeeping account for the physics operator: <em>placed fill + recorded unapplied saturation excess = independently recomputed geometry-adjusted, per-boundary-pixel Hertz&ndash;Knudsen kinetic demand</em>. It deliberately excludes numerical boundary exchange and separately deficit-ledgers geometric hole fills.</td>
               <td><a href="./chapters/21-the-seam.html">21 &middot; The Seam</a></td>
             </tr>
             <tr>
@@ -1454,6 +1464,16 @@
               <td><strong>growth step</strong> (interface step)</td>
               <td>One advance of the crystal&rsquo;s surface: solve the vapour field, move the ice a little, repeat. Thousands of relaxation sweeps go into a single one of them.</td>
               <td><a href="./chapters/21-the-seam.html">21 &middot; The Seam</a> &middot; <a href="./chapters/22-when-the-numbers-stop-changing.html">22 &middot; When the Numbers Stop Changing</a></td>
+            </tr>
+            <tr>
+              <td><strong>Hertz&ndash;Knudsen kinetic demand</strong> (per boundary pixel)</td>
+              <td>The nonnegative interface increment computed once per boundary pixel from the shared <code>alphaHK</code>, kinetic speed, aggregate surface supersaturation, physical timestep, geometry factor, and lattice spacing. It is the right-hand side of the exact fill-ledger identity, not the signed relaxation exchange.</td>
+              <td><a href="./chapters/21-the-seam.html">21 &middot; The Seam</a></td>
+            </tr>
+            <tr>
+              <td><strong>hole fill</strong>, <strong>hole-fill deficit</strong></td>
+              <td>A geometric closure event that sets an enclosed boundary cell to full even when kinetic demand did not earn its remaining fraction. It is outside the fill-CFL and demand identity, so the count and unearned remainder are reported separately instead of being hidden as physical growth.</td>
+              <td><a href="./chapters/21-the-seam.html">21 &middot; The Seam</a> &middot; <a href="./chapters/25-testing-what-nobody-knows.html">25 &middot; Testing What Nobody Knows</a></td>
             </tr>
             <tr>
               <td><strong><code>hexPrism</code></strong></td>
@@ -1512,13 +1532,23 @@
             </tr>
             <tr>
               <td><strong>Robin sink</strong></td>
-              <td>The crystal surface as the divergence bookkeeping sees it &mdash; the place vapour is absorbed &mdash; as against the shell, where it is injected; the two totals the identity compares are named after those two ends.</td>
+              <td>The coupled boundary condition that makes the crystal surface a sink in the discrete diffusion operator. Its signed per-sweep numerical exchange is tested by the divergence identity; comparing that exchange with nonnegative interface kinetic demand is a separate discretization diagnostic, never an equality to deposited growth.</td>
               <td><a href="./chapters/22-when-the-numbers-stop-changing.html">22 &middot; When the Numbers Stop Changing</a></td>
             </tr>
             <tr>
-              <td><strong>saturation clipping</strong></td>
-              <td>What happens when a cell is asked to freeze more vapour than is actually there: the excess is cut back and metered into its own separate total, never silently dropped, so the books still balance afterwards.</td>
+              <td><strong>saturation excess</strong> (<code>saturationClippedFill</code>)</td>
+              <td>The part of computed kinetic demand left unapplied when a boundary cell reaches fill 1 during a step. Recording it closes the demand ledger; it is not deposited fill, ice, physical uptake, or permission to replay the excess after topology changes.</td>
               <td><a href="./chapters/21-the-seam.html">21 &middot; The Seam</a> &middot; <a href="./chapters/25-testing-what-nobody-knows.html">25 &middot; Testing What Nobody Knows</a></td>
+            </tr>
+            <tr>
+              <td><strong>shell clamp</strong>, <strong>smoother drift</strong> (numerical diagnostics)</td>
+              <td>The shell clamp is the signed change from re-imposing the fixed outer supersaturation after a relaxation sweep; smoother drift is the independently metered float-roundoff change made by the reflecting stencil before boundary replacement and clamping. Neither has physical duration or counts as vapour uptake; v5/v6 use both only in the numerical divergence identity, and drift must also satisfy its own roundoff bound.</td>
+              <td><a href="./chapters/22-when-the-numbers-stop-changing.html">22 &middot; When the Numbers Stop Changing</a></td>
+            </tr>
+            <tr>
+              <td><strong>placed fill</strong></td>
+              <td>The portion of kinetic demand actually added to the dimensionless boundary-cell fill field during the interface step, capped at the room left before fill reaches 1. It advances the interface account; recorded saturation excess does not.</td>
+              <td><a href="./chapters/21-the-seam.html">21 &middot; The Seam</a></td>
             </tr>
             <tr>
               <td><strong>seed</strong> (random-number)</td>
@@ -1552,7 +1582,7 @@
             </tr>
             <tr>
               <td><strong>symmetry error</strong> (<code>symErr</code>)</td>
-              <td>The worst mismatch between a cell and its sixth-turn partner, measured on the crystal&rsquo;s attached set. On a hexagonal grid with the noise switched off this can be <em>exactly</em> zero rather than merely small, which is what makes the choice of grid a physics decision rather than a convenience &mdash; but it is a snapshot taken at one instant, and chapter 20 shows a run whose symmetry error read a clean zero while the vapour field feeding it had already broken symmetry. The narrower, per-tick <code>deltaSymClean</code> check exists to catch exactly that.</td>
+              <td>The worst mismatch between a cell and its sixth-turn partner, measured on the crystal&rsquo;s attached set. On a hexagonal grid with noise off this can be <em>exactly</em> zero rather than merely small &mdash; but it is one attached-set snapshot. <code>deltaSymClean</code> adds a history of attachment-set deltas; neither quantity, by itself, certifies the symmetry of the vapour or fill fields.</td>
               <td><a href="./chapters/19-why-the-grid-is-hexagonal.html">19 &middot; Why the Grid Is Hexagonal</a> &middot; <a href="./chapters/20-the-flaw-in-the-last-bit.html">20 &middot; The Flaw in the Last Bit</a></td>
             </tr>
             <tr>
@@ -1978,7 +2008,9 @@
         <p>
           A definition is not a guarantee that the thing defined is settled. The pyramidal step
           energy has never been measured, the equilibrium crystal shape of ice has never been
-          observed, and the SDAK dips are real measurements with hand-drawn curves through them.
+          observed. Observations motivate the SDAK hypothesis, but the effective dip curves are
+          hand-drawn, morphology-informed proposals whose locations and depths are not well
+          constrained by measurements.
           Where each term sits on that spectrum is the business of
           <a href="./chapters/13-the-frontier.html">Chapter 13</a>, and it is worth knowing before
           you quote any of them.

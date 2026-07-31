@@ -931,6 +931,35 @@
         head start, let diffusion-limited growth do the rest, and watch the hexagon go triangular.
       </p>
 
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          What the dedicated experiment measured &mdash; and what it inferred
+        </p>
+        <p>
+          A perfectly sharp 60-degree triangular tip supplies one unusually clean number. Its tiny
+          tip facet must advance perpendicular to itself at exactly twice the speed of either
+          neighbouring large facet just to preserve that geometry. The three top terraces are close
+          enough to experience nearly the same local supersaturation, so the paper infers that the
+          tip&rsquo;s attachment coefficient alphaHK must exceed twice the neighbouring value.
+          It proposes a <strong>three-dimensional extension of structure-dependent attachment
+          kinetics</strong>: at the tip, the top terrace has shrunk from a narrow strip into a small
+          island. That extension is a hypothesis, not a measured transition law
+          (arXiv:2106.09809v1, pp.&nbsp;9&ndash;10).
+        </p>
+        <p>
+          A less extreme trigonal plate in the same study gave a separate rate measurement: its
+          short facets advanced about 60&nbsp;% faster than its long facets. The author suggests
+          slightly different top-terrace widths could produce that contrast, but says the photographs
+          cannot establish those widths. These experiments used c-axis needle tips at
+          &minus;14&nbsp;&deg;C in air at one atmosphere; below 6&nbsp;% far-field supersaturation,
+          plates stopped appearing. They measure a narrow slice of conditions, not a universal
+          triangular-crystal rule (pp.&nbsp;6&ndash;7, 12).
+        </p>
+      </aside>
+
       <figure class="anim" id="anim-triangular">
         <div class="anim__head">
           <p class="anim__title">Three facets take the lead</p>
@@ -1166,6 +1195,37 @@
         3-or-more already-frozen neighbors &mdash; not measured supersaturations or temperatures.
       </p>
 
+      <p>
+        The omitted dimension matters for more than the silhouette. Gravner and Griffeath&rsquo;s
+        full <i>T</i>&times;<i>Z</i> simulations produced plates with ridges or ribs, true axial
+        needles, and columns whose hollow cores began developing early. They also demonstrated
+        abrupt environmental changes that produced capped columns and plates with dendritic
+        extensions (their &sect;7 and Figure&nbsp;4; &sect;&sect;11&ndash;12 and
+        Figures&nbsp;29&ndash;30). This one-layer teaching model cannot test any of those three-dimensional
+        results; it demonstrates only how neighbour-count thresholds can reorganize a flat growth
+        front. It also omits the paper&rsquo;s vertical diffusion, drift, melting, and proposed random
+        slowdown, so resemblance here is a qualitative regime illustration, not a reproduction of
+        a published three-dimensional case.
+      </p>
+
+      <figure class="figure"
+              data-src="research/figures/gg-3d-morphologies-fig23-31.png"
+              data-figure="Figures 23–31"
+              data-source="Gravner &amp; Griffeath, &ldquo;Modeling snow-crystal growth: A three-dimensional mesoscopic approach&rdquo; (Physical Review E 79, 011601, 2009)"
+              data-source-url="https://doi.org/10.1103/PhysRevE.79.011601"
+              data-page="PDF p. 13"
+              data-alt="A published page of nine three-dimensional cellular-automaton snow crystals, including sectored and dendritic plates, a simple star, an axial needle, and hollow-column forms.">
+        <figcaption class="figure__caption">
+          <strong>What to look at:</strong> compare the plate ridges and branching forms with the
+          axial needle and hollow columns on the same published page. Those are not silhouettes
+          that this chapter&rsquo;s one-layer animation can reproduce; they are the evidence for why
+          the missing vertical neighbours are a scientific boundary, not merely a drawing
+          convenience. An offline study build may resolve the locally held source crop. The public
+          build retains this citation, page number, and description without redistributing the
+          source artwork.
+        </figcaption>
+      </figure>
+
       <figure class="anim is-wide" id="anim-gg-zoo">
         <div class="anim__head">
           <p class="anim__title">One rule, tuned four ways</p>
@@ -1190,8 +1250,11 @@
           &ldquo;needle-like&rdquo; preset instead shows the flat lattice&rsquo;s six thin,
           unbranched spikes. Melting (their Eq. 4) is omitted, and the freezing fraction at each
           neighbour count is fixed rather than exposed, so the four knobs kept are the background
-          vapor density and the three attachment thresholds. No number here is a physical
-          measurement.</span>
+          vapor density and the three attachment thresholds. Changing the density restarts the
+          finite-reservoir experiment; the live ledger independently recomputes
+          &Sigma;(<i>d</i>+<i>b</i>) from the arrays. Growth stops only at the labeled four-cell
+          boundary guard or explicit 12,000-tick work guard, never merely because attachment paused
+          for a while. No number here is a physical measurement.</span>
         </figcaption>
       </figure>
 

@@ -1,14 +1,16 @@
-# Figure crops — the Libbrecht charts this project actually needs
+# Figure crops and source plates — the research images this project actually needs
 
-Standalone crops of the load-bearing figures and tables from the Libbrecht papers, so a future
-reader can look at the chart without paging through a PDF.
+Standalone crops of load-bearing figures and tables plus education-only source plates, so a future
+reader can inspect the cited evidence without first paging through a PDF.
 
 **Media is not versioned** (decision 0004). The `.png` files are a local cache exactly like the
 PDFs and page renders. **This file is the tracked artifact**: it records the source paper, page,
-crop rectangle and sha256 of every image, so all of them are reproducible by re-running
+crop rectangle and sha256 of every image. Phase 6 crops and education-only full-page plates are
+reproducible separately:
 
 ```
 node app/scripts/phase6-crop-figures.mjs
+node docs/education/tools/build-source-plates.mjs
 ```
 
 Crop rectangles are fractions of the page `(x0, y0, x1, y1)` from the top-left, so they are
@@ -40,6 +42,12 @@ are transcribed, verified against two independent measurement papers, and record
 | `nakaya-206-observations-p2-minus5-to-10C.png` | `2306.13087v1` | 12 | whole page | 4,353,465 | `366bfd0b10465673a850d4bc0086611e323e1482190ab3e69a969e30c090e797` |
 | `nakaya-206-observations-p3-minus11-to-16C.png` | `2306.13087v1` | 13 | whole page | 5,514,953 | `b1f9e270facadeb0641f454bd569113456850be5d342aca36e45644af3e6ed5b` |
 | `nakaya-206-observations-p4-minus17-to-24C.png` | `2306.13087v1` | 14 | whole page | 4,493,705 | `fe22dadd963b8f16aa3110b2ffc6b1a15cb9fa625bec59c6c936d79fe0a3f9c1` |
+| `tax1-needle-matrix-p1-minus0.5-to-3C.png` | `2109.00098v1` | 19 | whole page | 3,713,281 | `5418444407cbdc568089800dc1ebebd0523615580605ebc35496eef1e74ad9c7` |
+| `tax1-needle-matrix-p2-minus4-to-7C.png` | `2109.00098v1` | 20 | whole page | 2,543,180 | `530e5e8ed26b3623174467562a86ba09919ebdd436150ab4e020f79b151edd09` |
+| `tax1-needle-matrix-p3-minus8-to-11C.png` | `2109.00098v1` | 21 | whole page | 3,938,647 | `edaf11e0c88044e9c1640b6e1ad0b489f00ae980b1ddb008db6afdda5af17c11` |
+| `tax1-needle-matrix-p4-minus12-to-15C.png` | `2109.00098v1` | 22 | whole page | 4,251,774 | `9b803d725a3b8b123e2186b01b790f850b8189d2b17d84db92582208c5ee1a57` |
+| `tax1-needle-matrix-p5-minus16-to-21C.png` | `2109.00098v1` | 23 | whole page | 3,832,935 | `dc48148ba9dc4f7f411e95f7bcf536e08fb65ed156cff5190fdebc397fb548e1` |
+| `gg-3d-morphologies-fig23-31.png` | `GravnerGriffeath_PhysRevE09` | 13 | whole page | 3,079,600 | `92a1f433e66ccadeefafafbcc5e502a33dc2702fd06942ca59079c84b8c4b979` |
 
 ## What each one shows, and why it is here
 
@@ -101,3 +109,18 @@ sweep's 0/60 there.
 is not yet established from the source, the panels are selected rather than sampled, every crystal
 grows on a c-axis needle rather than this project's hexagonal plate seed, and the stated
 supersaturation uncertainty is a ±20% band.
+
+### `tax1-needle-matrix-*.png` — the seed-conditioned morphology survey
+
+TAX1 Figure 24a–e: five full pages of crystals grown on the ends of slender c-axis ice needles,
+arranged by temperature and far-away supersaturation. The plates preserve the printed captions,
+empty or unreachable cells, and needle geometry. They are qualitative selected examples rather
+than population frequencies, and their seed differs from this project's plate seed. The education
+site uses them to teach how to read a morphology matrix; they are not Phase 6 evidence.
+
+### `gg-3d-morphologies-fig23-31.png` — what the full 3-D model produced
+
+Gravner and Griffeath printed page 13, containing Figures 23–31: sectored plates, fern and
+simple-star morphologies, a needle, a hollow column, and a column with hollow prism facets. The
+education site uses this page to distinguish its small two-dimensional teaching zoo from the
+paper's three-dimensional model. This source plate does not alter or extend the repository solver.

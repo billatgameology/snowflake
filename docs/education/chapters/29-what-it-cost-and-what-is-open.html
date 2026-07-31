@@ -526,10 +526,11 @@
         </p>
         <p>
           Two things stop 3 of 90 from being a finished result, and the report puts both in its own
-          opening. First, <em>&ldquo;these numbers are not yet gate evidence&rdquo;</em>: the
-          verification work package has not run, no independent verifier has re-derived the summary
-          from the raw per-point file, and the six negative controls &mdash; the tests designed to
-          fail on purpose, to prove the checker can detect a fault &mdash; have not executed.
+          opening. First, <em>&ldquo;these numbers are not yet gate evidence&rdquo;</em>. Its
+          historical inventory says the verification work package had not run, no independent
+          verifier had re-derived the summary from the raw per-point file, and the original six
+          negative controls &mdash; the tests designed to fail on purpose, to prove the checker can
+          detect a fault &mdash; had not executed.
           <em>&ldquo;Until then this is a measured result with verified provenance, which is not the
           same thing.&rdquo;</em> Second, this is <strong>one arm of a two-arm comparison</strong>.
           On maker direction the phase reports the model without the missing mechanism as the control
@@ -556,14 +557,20 @@
           it should have recomputed &mdash; and under those gaps it had certified two real forgeries,
           a substituted superseded-arm artifact and a domain-contact mutation that would have read
           the headline as 3 of 3 instead of 3 of 90, both as &ldquo;VERIFIED&hellip;exit
-          0&rdquo;. It has since been hardened and now correctly fails both. The seven controls&rsquo;
+          0&rdquo;. Commit <code>990840a</code> hardened it: all three registered artifact digests are
+          asserted, the exact 204-point grid is checked for duplicate, missing, and extra rows, every
+          report field is re-derived, and ambiguity and domain-contact status are recomputed. It now
+          correctly fails both. The seven controls&rsquo;
           own two real gaps &mdash; an undetectable splice from a different parameter set, and a
           scored run whose measurement size was never checked against the registered one &mdash; are
-          addressed the same way: the first for runs from here on, the second by a registered check
-          (decision record 0035) confirmed not to move any of the 204 published rows on re-check.
+          addressed at <code>b701285</code> by decision record 0035: the child command and output are
+          checked against every pinned input, a size-target stop is required, and measured extent must
+          be at least 21. Arm&nbsp;1 has no per-row configuration or stop-reason field, so later code
+          cannot retroactively give it one; re-checking all 204 recorded extents found exactly 21 and
+          therefore moved no class or headline.
           This is one more entry for the budget this chapter is about: real, executed, adversarial
           work, after publication, closing real holes &mdash; and it still does not add up to WP5
-          being closed. The project&rsquo;s own plan still requires a flagless canonical gate run and
+          being closed. The project&rsquo;s own plan still requires an Arm&nbsp;1 flagless closing gate run and
           an independent review to zero blockers, and <code>docs/PROGRESS.md</code> has not recorded
           either. &ldquo;Not yet gate evidence&rdquo; is still the accurate sentence; only the
           inventory behind it has moved.
@@ -596,20 +603,38 @@
         that makes it a finding rather than a reassurance: <em>&ldquo;That was luck, not
         design.&rdquo;</em> The fix &mdash; a preflight assertion that the spawned command line
         carries every frozen parameter, plus a re-check when the run finishes &mdash; is written
-        down as outstanding. Until it lands, the provenance of this sweep rests on a diff somebody
-        remembered to run.
+        down there as outstanding. For historical Arm&nbsp;1, the provenance still rests on a diff
+        somebody remembered to run; the forward fix below does not rewrite that artifact.
       </p>
 
       <p>
-        <strong>Updated 2026-07-29.</strong> The completion-time re-check named as outstanding above
-        has since landed: a fingerprint of every source file under <code>core/src</code>,
-        <code>solver-cpu/src</code> and <code>runner/src</code> is now taken before the first child
-        launches and taken again after the last one finishes, and the sweep throws rather than
-        publishing if the two disagree &mdash; catching a landed commit and an uncommitted edit
-        reverted before the run ends alike. It protects the arm that has not run yet; it cannot
+        <strong>Updated at commit <code>154359d</code>.</strong> The completion-time re-check named
+        as outstanding above has since landed: the sweep dynamically enumerates every TypeScript
+        source file under <code>core/src</code>, <code>solver-cpu/src</code> and
+        <code>runner/src</code> and fingerprints the set and bytes before the first child launches
+        and again after the last one finishes. There were 39 files at that commit; additions are
+        included rather than hidden behind a fixed count. The sweep throws rather than publishing if
+        the two fingerprints disagree &mdash; catching a landed commit and an uncommitted edit
+        reverted before the run ends alike. It protects Arm&nbsp;2&rsquo;s in-progress execution; it cannot
         reach backward and verify Arm 1, whose provenance is exactly what this section already
         described: a diff somebody remembered to run, and luck rather than design that it came back
         empty.
+      </p>
+
+      <p>
+        The second arm has moved too, but only on the preparation side of the line. Its M1 value
+        content was frozen at <code>483f7ee</code>; <code>0cb52bf</code> then recorded that freeze
+        ancestry and repinned the final gated values hash. Commit <code>8c781b1</code> records an
+        arm-specific <em>combined</em> protocol revision hash that moves with
+        prose and is therefore revision-pinned rather than frozen as a gate. That repair was caught
+        by launching the sweep: its first line exposed Arm&nbsp;1&rsquo;s combined hash, so that run
+        was stopped about a minute in. At this audit&rsquo;s
+        2026-07-30 10:23&nbsp;PDT cutoff, the corrected canonical sweep was running and its local
+        point artifact remained mutable. The registered forecast
+        is 42 of 90 when written over Arm&nbsp;1&rsquo;s common denominator, or 42 of 78 under
+        Arm&nbsp;2&rsquo;s own pre-registered exclusion of the bistable &minus;4, &minus;5, and
+        &minus;6&nbsp;&deg;C rows. Those are predictions transcribed from the input curves, not
+        measurements, and neither is added to Arm&nbsp;1&rsquo;s measured 3 of 90.
       </p>
 
       <h2 id="turn-on-the-caveats">Turn on the caveats</h2>
@@ -735,19 +760,21 @@
           Still unsettled
         </p>
         <p>
-          The obvious next experiment &mdash; switch the missing narrow-facet mechanism on and see
-          whether the diagram appears &mdash; is the second arm of this phase, not yet run, and its
-          ceiling is already fixed. Because
+          The obvious next experiment &mdash; switch the narrow-facet M1 mechanism on and see
+          whether the diagram appears &mdash; is the second arm of this phase. Its code and values
+          freeze exist; at the audit cutoff its corrected sweep was running but incomplete, and its
+          evidence ceiling was already fixed. Because
           the mechanism&rsquo;s parameters were chosen against the Nakaya diagram in the first
           place, matching it can only ever be labelled <em>in-sample reproduction</em>, never
           independent validation. There is a harder problem underneath: the width scale the
           mechanism depends on is about 50&nbsp;nm, and the registered grid cell is 350&nbsp;nm.
-          The thing the theory needs is seven times smaller than the smallest thing this model can
-          see, so it has to be represented rather than resolved &mdash; and how it is represented
-          has to be written down and frozen before that run, not after. One thing about that arm did
-          change with the 2026-07-29 retraction, in its favour: with the necessity argument gone,
-          whether any broad-facet model could reproduce the diagram is open again, so the second
-          arm&rsquo;s outcome is <em>genuinely uncertain rather than foregone</em>.
+          M1 avoids that closure instead of solving it: accepted decision 0036 assumes all facets
+          are narrow and uses temperature-only closed forms with A&nbsp;=&nbsp;1 on both facets.
+          The width-dependent M2 model, which would need a sub-grid rule and an unprinted strength
+          parameter, is deferred. One thing about that arm did change with the 2026-07-29 retraction,
+          in its favour: with the necessity argument gone, whether any broad-facet model could
+          reproduce the diagram is open again, so the second arm&rsquo;s outcome is <em>genuinely
+          uncertain rather than foregone</em>.
         </p>
       </aside>
 
@@ -952,6 +979,15 @@
       </p>
 
       <p>
+        There is already something a person can open: Phase&nbsp;3 built a browser
+        <em>development instrument</em>, with the CPU solver in a Web Worker, overlays, a vapour
+        slice, picking, readouts, and a deterministic visual harness. That is not the polished
+        product just specified. Phase&nbsp;7 owns the audience profiles, storytelling shell, and
+        product-level finish; keeping those two nouns separate prevents an implemented scientific
+        instrument from being erased and a future product from being claimed early.
+      </p>
+
+      <p>
         The capability that idea rests on has been demonstrated, and it is Part One&rsquo;s central
         metaphor made into software. Phase 4&rsquo;s gate closed on 2026-07-18, and among its
         criteria was a crystal grown through a two-segment history: column conditions, then plate
@@ -982,13 +1018,14 @@
           Careful
         </p>
         <p>
-          None of those four profiles exists as software. Phases 0 through 5 are complete, Phase 6 is
-          in flight &mdash; first sweep withdrawn, corrected sweep reported at 3 of 90, not yet
-          gated, second arm not run &mdash; and Phase 7 &mdash; the whole
-          product layer &mdash; is marked <strong>not started</strong>; there is no Phase 7 plan
-          file. What exists is one accepted decision record describing what it will be. Read a
-          confident specification as a promise that is binding on its authors, not as a description
-          of a thing you could open.
+          None of those four <em>product profiles</em> exists as software. The Phase&nbsp;3
+          development instrument does. Phase&nbsp;6 is in flight &mdash; first sweep withdrawn,
+          corrected Arm&nbsp;1 reported at 3 of 90 but not gated, Arm&nbsp;2 implemented, frozen
+          and observed running but incomplete &mdash; and Phase&nbsp;7, the product layer, is marked
+          <strong>not started</strong>; there is no Phase&nbsp;7 plan file. What exists for those
+          profiles is one accepted decision record describing what they will be. Read a confident
+          specification as a promise binding on its authors, not as a description of a shipped
+          product.
         </p>
       </aside>
 
@@ -1050,16 +1087,17 @@
       </p>
 
       <p>
-        <strong>Three.</strong> The narrow-facet mechanism &mdash; the one Chapter 12 offered and
-        Chapter 13 left you holding as a working hypothesis &mdash; has now been tested, and this is
-        the first time anyone has run that test. Through July 2026 a literature sweep found the
-        mechanism had never been independently tested by anybody. The framing the project permits
-        itself is exact: <em>first quantitative, pre-registered, full-3D falsification test of a
-        claim that existed only in prose</em>. Not a discovery &mdash; the claim was
-        Libbrecht&rsquo;s, published in words. Nobody had run it. What the test does not license is
-        the stronger sentence the project briefly allowed itself, that the mechanism is therefore
-        <em>necessary</em>. One parameterization missing the diagram is an existence result, not a
-        proof that nothing else could hit it.
+        <strong>Three.</strong> Libbrecht&rsquo;s claim that the narrow-facet mechanism is
+        load-bearing for the Nakaya diagram has now faced a no-SDAK ablation: Arm&nbsp;1 omitted the
+        mechanism and measured what the registered broad-facet parameterization did instead.
+        Through July 2026 a literature sweep found no earlier independent full-3D test of that
+        published prose claim. That is the scoped first the project may state. It is <em>not</em> a
+        completed result from the narrow-facet mechanism itself; M1 Arm&nbsp;2 was running but
+        incomplete at the audit cutoff. Nor does the
+        ablation license the stronger sentence the project briefly allowed itself, that the
+        mechanism is therefore <em>necessary</em>. One broad-facet parameterization missing the
+        diagram is a measured counterexample to its own sufficiency, not a proof that nothing else
+        could hit it.
       </p>
 
       <p>
@@ -1125,28 +1163,39 @@
 
       <p>
         And the honest close is a list of things nobody knows. The 3 of 90 is
-        <em>not yet gate evidence</em>: no independent verifier has re-derived it from the raw
-        per-point file, and the six negative controls have not run. It is one arm of two, and the
-        arm with the missing mechanism switched on has not been run at all &mdash; when it is, the
-        best it can earn is <em>in-sample reproduction</em>, because its parameters were chosen
+        <em>not yet gate evidence</em>: its hardened independent re-derivation passes and seven
+        controls have executed, but the Arm&nbsp;1 closing gate has not run flagless and the closing
+        review has not reached zero blockers. It is one arm of two, and the arm with the mechanism
+        switched on is implemented and protocol-frozen. At this audit&rsquo;s cutoff its corrected
+        sweep was running but its partial artifact had not become a completed, reviewed result
+        &mdash; if it agrees, the best it can earn is <em>in-sample reproduction</em>, because its parameters were chosen
         against the very diagram it would be reproducing, and the width scale it depends on is seven
-        times smaller than this grid can see. The provenance hazard is recorded and unfixed, so the
-        commit hash on that report is trustworthy because of a diff somebody ran, not because of a
-        mechanism that would have caught it. The interpretation the project had built on top of these
+        times smaller than this grid can see. A completion-time source fingerprint now protects
+        future sweeps, but it does not retro-upgrade Arm&nbsp;1: the commit hash on that historical
+        report remains trustworthy because of a diff somebody ran, not because that run had the new
+        mechanism. The interpretation the project had built on top of these
         numbers was retracted on the same day they were scored, which leaves the measurements exactly
         where they were and the meaning of them thinner than it looked. And no human domain scientist
         has read any of this: not the sweep, not the code, not the charter, and not this page.
       </p>
 
       <p>
-        <strong>Updated 2026-07-29.</strong> Two of those items have since moved, and are corrected
-        with the file names and numbers earlier in this chapter: negative controls now number seven
-        executed, not six, and an independent verifier exists, runs, and passes, after being
-        hardened against real forgeries it had first certified. The provenance hazard also has a
-        completion-time check now, closing it for runs not yet made. None of that makes 3 of 90 gate
-        evidence &mdash; the canonical gate command has still not run flagless, and no independent
-        review has returned zero blockers &mdash; so the list this paragraph closes on is shorter by
-        two items and exactly as inconclusive in its bottom line.
+        <strong>Current-status boundary.</strong> Those are later safeguards around a historical
+        measurement, not repairs to its bytes. Arm&nbsp;1 still lacks per-row configuration and
+        stop-reason fields and did not execute the completion fingerprint. Arm&nbsp;2 has its own
+        frozen M1 protocol. One launch was stopped about a minute in after its first line exposed
+        the wrong arm&rsquo;s combined hash; the repaired canonical sweep was observed running at the
+        2026-07-30 10:23&nbsp;PDT audit cutoff, with mutable partial output and no completed,
+        reviewed result. The Apple-silicon
+        control is still marked
+        <strong>MAC RUN NEEDED</strong>. The Phase&nbsp;6 bottom line therefore remains open for four
+        separately named reasons: Arm&nbsp;1 closing gate, zero-blocker review, second architecture,
+        and completion and review of the Arm&nbsp;2 sweep. There is also a live-record defect to carry forward:
+        <code>docs/PROGRESS.md</code>&rsquo;s Next step at <code>8c781b1</code> still says to freeze
+        Arm&nbsp;2, although <code>483f7ee</code>, <code>0cb52bf</code>, and <code>8c781b1</code>
+        show the value-content freeze, gated values pin, and combined revision pin already landed.
+        Git history establishes those implementation facts;
+        the progress file remains the authority that needs its stale next action corrected.
       </p>
 
       <p class="c29-aside">
@@ -1804,19 +1853,18 @@
               "“The model agrees with the reference nowhere else inside the headline scope.”" },
       { on: false, hits: ["k1", "k2a", "k2b", "k3", "k4"],
         head: "It is not gate evidence yet.",
-        body: "“WP5 has not run: no independent verifier has re-derived report.json from " +
-              "points.json, and the six negative controls have not executed. Until then this is " +
-              "a measured result with verified provenance, which is not the same thing.” It is " +
-              "also one arm of two: the arm with the missing mechanism switched on has not run, " +
-              "and the phase conclusion is deliberately not drawn from this arm alone." },
+        body: "The historical report said no verifier and six controls were still owed. Current " +
+              "history is later: the hardened independent verifier passes and seven controls " +
+              "executed, but the Arm 1 closing gate and zero-blocker review are still " +
+               "owed. Arm 2 is implemented and protocol-frozen; at the audit cutoff its corrected " +
+               "sweep was running but incomplete, so no " +
+              "two-arm phase conclusion is drawn." },
       { on: false, hits: ["k1", "k2a", "k2b", "k3", "k4"],
-        head: "A provenance hazard is recorded and unfixed.",
-        body: "The harness captures provenance once at preflight, but each of the 204 children " +
-              "spawns runner/src/main.ts from the working tree, so a mid-run edit “would change " +
-              "the physics for later points while the report still named the launch commit”. " +
-              "Nine commits landed during this run; the diff over the physics directories was " +
-              "verified empty, so this sweep is unaffected — “That was luck, not design.” The " +
-              "fix is outstanding." },
+        head: "Arm 1 keeps its historical provenance limit.",
+        body: "Its children loaded the working tree after preflight. Nine commits landed during " +
+              "the run; the later physics-directory diff was empty — luck, not design. Commit " +
+              "154359d added a dynamic start/end source fingerprint for future sweeps. That closes " +
+              "the timing route forward without retroactively upgrading Arm 1." },
       { on: false, hits: ["k4"],
         head: "The explanation for this one was retracted a day after the numbers landed.",
         body: "The measurements are untouched — “the 3/90 headline, the per-regime table, the " +
@@ -1853,10 +1901,13 @@
               "sense, so any falsification claim is worded for roughly −2 to −20 °C " +
               "and the cold end is reported separately." },
       { on: false, hits: ["k2a", "k2b", "k4"],
-        head: "It is not a test of the missing mechanism.",
-        body: "“It is not a test of SDAK. Every run is no-SDAK; SDAK appears in no source " +
-              "file.” And if it were switched on, agreement would be in-sample by " +
-              "construction, because the dip locations were chosen against this diagram." },
+        head: "Arm 1 is not a test of the added mechanism.",
+        body: "The historical report correctly says every completed Arm 1 run is no-SDAK and the " +
+              "mechanism was then absent from source. M1 is now implemented and separately " +
+              "protocol-frozen for Arm 2. One launch was stopped about a minute in after its first line " +
+              "exposed a wrong-arm combined hash; at the audit cutoff the corrected sweep was " +
+              "running but incomplete. Any eventual agreement is " +
+              "in-sample because its dip locations were chosen against this diagram." },
       { on: false, hits: ["k1", "k2a", "k2b", "k3", "k4"],
         head: "No cross-platform control has been run.",
         body: "“No cross-platform control has been run. Scoped to the registered x64 host " +

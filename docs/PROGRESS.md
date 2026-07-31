@@ -83,7 +83,7 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   size-target termination, all relaxations converged, bounded smoother drift, and
   round-trip-identical checkpoints. Stable evidence and exact hashes are in
   [the v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result).
-- **Last updated:** 2026-07-24 by Codex
+- **Last updated:** 2026-07-30 by Codex
 - **Phase 5 is frozen as Windows-only at the operator's direction.** Decision
   [0018](decisions/0018-phase5-windows-only-gate.md), charter v1.16, and the active
   [Phase 5 plan](plans/phase-5-gpu-port.md) defer Metal to a later machine and narrow the current
@@ -932,18 +932,69 @@ extrapolation ban, which a closed form would otherwise have silently dropped. Ex
 green. Next action: freeze the arm-2 protocol under the two-hash scheme, then run the sweep
 (~15 h at concurrency 6).
 
-**A new independent audit of the complete education course is active under
-[`education-parts-1-2-audit-and-remediation.md`](plans/education-parts-1-2-audit-and-remediation.md),
-criteria-first commit `9897fd5`.** Candidate `c69c66c` already claims the user's requested
-Part One/Part Two review and fifteen new demos, but its producer's verdict is not being inherited:
-three read-only reviews are independently re-deriving Part One paper coverage/order, Part Two
-authority/code coverage/order, and every interactive's behavior before any remediation. The
-clean `education-worktree` is at `f8668d2`, its merge base with `main`; `c69c66c` is the later
-main-only candidate. The local research cache was inventoried without mutation (14 PDFs, 10
-videos, 3,628 ignored files, zero untracked non-ignored research files), and no copyrighted media
-will be staged. Existing dirty Phase 6 SDAK work is unrelated and remains outside this plan.
-Next action: collect the three independent findings, record the paper/code/demo matrices in the
-plan, then assign non-overlapping fixes and behavioral tests.
+**The independent audit and remediation of the complete education course is complete under
+[`education-parts-1-2-audit-and-remediation.md`](plans/education-parts-1-2-audit-and-remediation.md).**
+The criteria were frozen first at `9897fd5`; the producer's verdict for candidate `c69c66c` was
+not inherited. Part One landed at `dd5aec1` after a paper-by-paper corpus map, order review,
+interactive-model audit, five added demonstrations, and remediation of every recorded finding.
+Part Two then received the equivalent authority/code/history review and all five recommended
+demonstrations: timeline-event semantics, fail-closed checkpoint mutation,
+numerical-versus-kinetic ledgers, a 36-field transferability matrix, and historical/current
+Phase 6 status. The chapter order was accepted; source routing, ledger language, timeline and
+checkpoint claims, current-status framing, accessibility, deterministic behavior, and responsive
+layout were repaired in place.
+
+The definitive command `node docs/education/tools/verify.mjs` exited 0. Its exact report,
+`out/education-verify/report.json`, is 283 bytes with SHA-256
+`23f7f3a8cdfb1c479174e5ab9049ed71be3b325ff55b7c7cba26e24c8e7fbc97`; the report records
+the complete-course scope, 33 pages, 179 visual roots, public and offline modes, 76 blocking
+checks, and zero failures. It independently recomputed the load-bearing Part One and Part Two
+models, exercised production checkpoint codecs and evidence context, authenticated the
+Phase 6 Git chain and transferability sources, and executed/rejected all named negative controls.
+
+The same run rebuilt `out/education-local/source-media-map.json`, 87,960 bytes, SHA-256
+`696b97469c9bf9bb895d3347b8c42469aa67d7be265b909a5accc1f488204656`.
+It binds every source/copy pair for the personal offline edition; public authored pages remain
+reference-only and contain no research media. Independent final-byte inspection rehashed the
+complete map, rendered representative paper images, sought/played/paused the copied real-growth
+movie, exercised all five Part Two demos in offline desktop/mobile modes, and closed without a
+remaining media or UX finding.
+
+Exact root `npm test` exited 0, covering the required Rule 7 scan, both TypeScript checks and
+Vitest. The preserved Vitest result cache
+`out/education-review/npm-test-vitest-results-20260730.json` is 5,944 bytes with SHA-256
+`b45aff6bea19a946f02c51e2068895262a417af3fd05fa124c8dc8b88a4f1588`;
+it records Vitest 3.2.7 results for 71 files and zero failed files. The ignored Phase 6
+prerequisite `out/phase6-sweep/points.json` was authenticated at 129,760 bytes, SHA-256
+`0ed613bce61e44829f722e069a818e0da4981ecd34829b0b49eaba15e11cf89a`,
+and was neither staged nor modified.
+
+Three independent shared-context OpenAI Codex GPT-5-family reviewers who did not author the
+candidate closed the final Part Two implementation, authority/content, and public/offline
+visual/media scopes. They independently resolved pinned Git objects, recomputed representative
+models, ran production checkpoint cases, exercised all five new demos, and visually inspected
+the final responsive states. They caught and had repaired an unsupported Arm 2 history
+strengthening and a ledger label/value collision that numeric overflow checks missed. Their exact
+re-execution and evidence limits are recorded in the completed plan. Limits remain Chromium-only:
+no Firefox/WebKit, real screen reader, high-contrast/zoom session, legal redistribution judgment,
+literature search beyond the registered corpus, or scientific gate rerun.
+
+All implementation and verification occurred in the isolated
+`G:\Code Files\snowflake-education-audit` worktree on branch `education-audit`. No solver, runner,
+GPU, protocol, scientific evidence, or copyrighted research-media byte is part of the education
+commit. The primary `G:\Code Files\snowflake` Phase 6 worktree and its active Arm 2 execution were
+not edited, staged, stopped, or interpreted. The dated read-only cutoff snapshot is
+`out/education-review/phase6-arm2-live-snapshot-review-20260730T102316-PDT.json`, 43,550 bytes,
+SHA-256 `6342042508a7912ac596afe58facc69f32f2e06f99148b2013380ac390e964f9`.
+
+**Next action:** review the complete isolated branch delta with
+`git -C "G:\Code Files\snowflake-education-audit" log --oneline --stat main..education-audit`
+and `git -C "G:\Code Files\snowflake-education-audit" diff --stat main...education-audit`.
+When the maker is ready and the active Phase 6 worktree is coordinated, merge
+`education-audit`; for a linear handoff, current `main` already contains `9897fd5` and `3af7501`,
+so cherry-pick the remaining education commits in order with
+`git cherry-pick 600c3fc dd5aec1 education-audit`. Do not copy anything under `out/`, do not
+force-add `research/` media, and do not push unless the maker separately asks.
 
 **`docs/education/` is Rule 7 clean and its claims are re-verified against the 2026-07-29
 correction (`c7eb7f4`, `8b34535`, `5625ad4`).** The site predates Rule 7 and had never been

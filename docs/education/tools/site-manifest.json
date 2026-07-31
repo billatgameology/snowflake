@@ -1,0 +1,244 @@
+{
+  "index.html": [
+    "hero-anim"
+  ],
+  "figures.html": [],
+  "glossary.html": [],
+  "references.html": [],
+  "chapters/01-not-a-frozen-raindrop.html": [
+    "anim-aggregate",
+    "anim-supercool",
+    "anim-budget"
+  ],
+  "chapters/02-four-hundred-years-of-looking.html": [
+    "anim-packing",
+    "anim-album",
+    "anim-diffract"
+  ],
+  "chapters/03-why-six-sides.html": [
+    "why-six-anim",
+    "lattice-anim",
+    "rotate-anim",
+    "stack-anim",
+    "prism-anim",
+    "angle-anim"
+  ],
+  "chapters/04-the-fuel-supply.html": [
+    "anim-chambers",
+    "chart-vapour",
+    "chart-excess",
+    "anim-real-growth",
+    "anim-halo",
+    "anim-aerodynamics"
+  ],
+  "chapters/05-the-restless-surface.html": [
+    "anim-nucleation",
+    "anim-slow-wins",
+    "anim-vicinal",
+    "anim-qll",
+    "anim-facet-balance",
+    "chart-anisotropy",
+    "anim-facet-processes"
+  ],
+  "chapters/06-the-runaway-bump.html": [
+    "anim-bump",
+    "anim-rod",
+    "anim-diffusion",
+    "anim-tipframe",
+    "anim-mirror"
+  ],
+  "chapters/07-plates-columns-plates-columns.html": [
+    "anim-aspect",
+    "anim-nakaya",
+    "anim-morphology-matrix",
+    "anim-alternation",
+    "anim-hollow"
+  ],
+  "chapters/08-a-snowflake-is-a-record.html": [
+    "journey",
+    "six-arms",
+    "rib-schedule",
+    "bookshelf"
+  ],
+  "chapters/09-the-menagerie.html": [
+    "anim-fieldguide",
+    "anim-taxonomy",
+    "anim-twin-groove",
+    "anim-twin-angles",
+    "anim-triangular",
+    "anim-vanishing-facet",
+    "anim-gg-zoo"
+  ],
+  "chapters/10-how-we-know.html": [
+    "anim-two-thermometers",
+    "anim-why-l-1mm",
+    "anim-fringes",
+    "chart-reachable"
+  ],
+  "chapters/11-the-stickiness-of-ice.html": [
+    "vicinal-race",
+    "anatomy",
+    "island-lottery",
+    "barrier-chart"
+  ],
+  "chapters/12-why-the-shape-flips.html": [
+    "anim-rule",
+    "anim-sigma0-broad",
+    "anim-alphaHK-crossings",
+    "anim-crowding",
+    "anim-cm6-history",
+    "anim-sigma0-dips",
+    "anim-esi",
+    "anim-esi-shortfall"
+  ],
+  "chapters/13-the-frontier.html": [
+    "epistemic-lines",
+    "chosen-numbers",
+    "confidence-map",
+    "open-clock"
+  ],
+  "chapters/14-what-we-are-building.html": [
+    "anim-denominator",
+    "anim-timeline",
+    "anim-xray",
+    "anim-dials",
+    "anim-cheat"
+  ],
+  "chapters/15-two-labels-on-every-number.html": [
+    "fig-ladder",
+    "fig-label",
+    "fig-smuggle",
+    "fig-upgrade",
+    "fig-precision",
+    "fig-mislabel",
+    "fig-badge"
+  ],
+  "chapters/16-where-the-numbers-came-from.html": [
+    "anim-tracer",
+    "anim-digitize",
+    "anim-domain",
+    "anim-transcribe",
+    "anim-rule7",
+    "anim-full-table"
+  ],
+  "chapters/17-a-model-that-can-be-wrong.html": [
+    "fig-dartboard",
+    "fig-designs",
+    "fig-split",
+    "fig-refute",
+    "fig-envelope"
+  ],
+  "chapters/18-never-physics-ahead-of-the-machinery.html": [
+    "fig-ladder",
+    "demo-skip",
+    "demo-findbug",
+    "demo-reviewer",
+    "fig-authority",
+    "demo-authority"
+  ],
+  "chapters/19-why-the-grid-is-hexagonal.html": [
+    "demo-two-grids",
+    "demo-eight-bonds",
+    "demo-group-closure",
+    "demo-in-place",
+    "demo-mass-ledger",
+    "demo-symmetry-stopwatch",
+    "demo-seed"
+  ],
+  "chapters/20-the-flaw-in-the-last-bit.html": [
+    "demo-order",
+    "demo-pairs",
+    "demo-break",
+    "demo-distance",
+    "demo-matrix",
+    "demo-prng",
+    "demo-f32"
+  ],
+  "chapters/21-the-seam.html": [
+    "chart-facets",
+    "anim-fill",
+    "anim-clock",
+    "anim-head",
+    "anim-locked",
+    "anim-timeline-events",
+    "anim-ledger",
+    "chart-claims",
+    "anim-classifier"
+  ],
+  "chapters/22-when-the-numbers-stop-changing.html": [
+    "fig-two-clocks",
+    "fig-tolerance",
+    "fig-audit",
+    "fig-convergence",
+    "anim-part2-ledger-separation",
+    "fig-gate",
+    "fig-drift",
+    "fig-validator"
+  ],
+  "chapters/23-walls-that-pretend-to-be-sky.html": [
+    "fig-three-edges",
+    "fig-move-wall",
+    "fig-measured",
+    "fig-guard",
+    "fig-ladder",
+    "anim-part2-transferability",
+    "fig-erratum",
+    "fig-open-predictors"
+  ],
+  "chapters/24-watching-it-starve.html": [
+    "slice-demo",
+    "gate3-chart",
+    "break-metric",
+    "fake-readout",
+    "branch-demo",
+    "certify-demo",
+    "passb-demo",
+    "search-demo",
+    "mismatch-demo"
+  ],
+  "chapters/25-testing-what-nobody-knows.html": [
+    "anim-be-the-tester",
+    "anim-vacuity",
+    "anim-sabotage",
+    "anim-two-ledgers",
+    "anim-harness",
+    "anim-fix-the-bug",
+    "anim-run-the-gate"
+  ],
+  "chapters/26-fast-without-being-wrong.html": [
+    "fig-axis-swap",
+    "fig-shadow-vs-frozen",
+    "fig-shadow",
+    "fig-fma",
+    "fig-margin",
+    "fig-bakeoff",
+    "fig-epsilon"
+  ],
+  "chapters/27-sealing-the-envelope.html": [
+    "c27-seal",
+    "c27-ancestor",
+    "c27-budget",
+    "c27-cheat",
+    "c27-stepcap",
+    "c27-gate",
+    "c27-checkpoint-mutations"
+  ],
+  "chapters/28-the-exam-result.html": [
+    "c28-verdicts",
+    "c28-phase6-status",
+    "c28-sweep",
+    "c28-minus5",
+    "c28-blame",
+    "c28-crossings",
+    "c28-lever",
+    "c28-gap"
+  ],
+  "chapters/29-what-it-cost-and-what-is-open.html": [
+    "c29-fork",
+    "c29-throttle",
+    "c29-caveats",
+    "c29-relay",
+    "c29-budget",
+    "c29-claim"
+  ]
+}

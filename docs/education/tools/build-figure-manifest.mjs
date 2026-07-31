@@ -6,10 +6,10 @@
  *
  * WHY THIS EXISTS
  * ---------------
- * The figures on this site are Kenneth Libbrecht's, and they are copyrighted.
+ * The figures on this site are third-party copyrighted research media.
  * Decision 0004 (docs/decisions/0004-research-media-not-versioned.md) settled
- * that research media is NOT committed to this repository: committing it would
- * publish it on the first push, and git history would make that permanent.
+ * that those bytes are NOT committed to this repository: committing them would
+ * publish them on the first push, and git history would make that permanent.
  *
  * So the site references figures by path into the gitignored research/ cache,
  * and every reference degrades to a fully-cited placeholder when the cache is
@@ -107,18 +107,18 @@ lines.push("```");
 lines.push("");
 lines.push(
   "Every third-party figure the education site references, with the paper, page, and local " +
-  "sha256 it was recorded at. The images themselves are **not versioned** — they are Kenneth " +
-  "Libbrecht's copyrighted work, and [decision 0004](../decisions/0004-research-media-not-versioned.md) " +
+  "sha256 it was recorded at. The images themselves are **not versioned** — they are third-party " +
+  "copyrighted research media, and [decision 0004](../decisions/0004-research-media-not-versioned.md) " +
   "keeps research media out of git. This file is the tracked record; the bytes are a cache."
 );
 lines.push("");
 lines.push("## Why a figure may not appear on the site");
 lines.push("");
 lines.push(
-  "If you opened a chapter and saw a hatched placeholder instead of a figure, the local cache " +
-  "is missing that file. The site is fully usable without it: the explanation, the original " +
-  "diagrams, and every animation are ours and always render. Only the scanned source figures " +
-  "depend on the cache."
+  "The authored and published site always shows a cited placeholder: it never probes a " +
+  "copyrighted cache path. Run the personal offline builder after restoring the local cache to " +
+  "put the source images beside the pages. A file that is absent from the cache remains a cited " +
+  "placeholder there too. The explanation, original diagrams, and animations work in either mode."
 );
 lines.push("");
 lines.push("## How to restore the images locally");
@@ -133,12 +133,20 @@ lines.push("3. **Rebuild the post-monograph crops** (supplies `research/figures/
 lines.push("   ```");
 lines.push("   node app/scripts/phase6-crop-figures.mjs");
 lines.push("   ```");
+lines.push("4. **Rebuild the education-only source plates:**");
+lines.push("   ```");
+lines.push("   node docs/education/tools/build-source-plates.mjs");
+lines.push("   ```");
+lines.push("5. **Build the private offline edition that is allowed to load those copied files:**");
+lines.push("   ```");
+lines.push("   node docs/education/tools/build-local.mjs");
+lines.push("   ```");
 lines.push("");
 lines.push("## Status of this checkout");
 lines.push("");
 lines.push(`- Figures referenced by the site: **${figures.length}**`);
 lines.push(`- Present in the local cache right now: **${present}**`);
-lines.push(`- Missing (will render as a cited placeholder): **${figures.length - present}**`);
+lines.push(`- Missing from the cache (the offline build keeps a cited placeholder): **${figures.length - present}**`);
 lines.push("");
 lines.push("## The figures");
 lines.push("");
@@ -241,7 +249,7 @@ const page = `<!doctype html>
           Why the images are not here
         </p>
         <p>
-          These ${figures.length} figures are Kenneth&nbsp;G.&nbsp;Libbrecht&rsquo;s copyrighted work.
+          These ${figures.length} figures are copyrighted third-party research media.
           This site cites them but does not republish them, so on the published site each one
           appears as a card naming the paper, figure and page rather than as an image. Every
           explanation, diagram and animation on the site is ours and does not depend on them.
@@ -249,8 +257,9 @@ const page = `<!doctype html>
       </aside>
 
       <p>
-        If you are reading from a repository checkout with the local research cache present, the
-        figures render inline instead. The canonical record is
+        To see locally cached source media inline, create the private personal edition with
+        <code>node docs/education/tools/build-local.mjs</code>. The authored pages do not probe
+        <code>research/</code>, even inside a checkout. The canonical record is
         <a href="./FIGURES.md">FIGURES.md</a>, which also carries each file&rsquo;s size and SHA-256
         so a local copy can be verified byte for byte.
       </p>
@@ -275,8 +284,8 @@ ${tableRows}
 <footer class="site-footer">
   <div class="shell">
     <p>
-      Part of <a href="./index.html">Snow Crystals</a>. Source figures are
-      &copy; Kenneth&nbsp;G.&nbsp;Libbrecht and are cited, not redistributed.
+      Part of <a href="./index.html">Snow Crystals</a>. Source figures remain
+      copyrighted by their named authors or rightsholders and are cited, not redistributed.
     </p>
     <p><a href="./index.html">Contents</a> &middot; <a href="./references.html">References</a> &middot; <a href="./glossary.html">Glossary</a></p>
   </div>

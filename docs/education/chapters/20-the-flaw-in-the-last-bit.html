@@ -808,10 +808,11 @@
       </p>
 
       <p>
-        For orientation: that sweep is Phase&nbsp;6, the validation phase, and it is
-        <strong>in flight</strong>. Phase&nbsp;7, the product layer, has <strong>not
-        started</strong> &mdash; the progress ledger records it as one unticked box. Nothing on
-        this page describes a finished thing.
+        For orientation: that sweep belongs to Phase&nbsp;6, while the product layer belongs to
+        Phase&nbsp;7. Their completion states are mutable and are therefore not copied into this
+        chapter. Use the dated <strong>Next step</strong> entry in
+        <code>docs/PROGRESS.md</code> for current status. The claim here is narrower and stable:
+        exact D6h symmetry is an instrument check, not physical validation.
       </p>
 
       <aside class="callout callout--method">
@@ -945,11 +946,14 @@
 (function () {
   "use strict";
 
+  let chapterSelectCounter = 0;
+
   /** A native <select> dressed as a Viz control. */
   window.ChapterSelect = function (container, opts) {
     const wrap = document.createElement("div");
     wrap.className = "control";
-    const id = "sel-" + Math.random().toString(36).slice(2, 8);
+    chapterSelectCounter += 1;
+    const id = "sel-ch20-" + chapterSelectCounter;
     const label = document.createElement("label");
     label.setAttribute("for", id);
     label.textContent = opts.label;
@@ -2083,9 +2087,9 @@
 
   // Accumulation: add the same operand A repeatedly, float64 next to a
   // float32-simulated running sum, and find the first step at which the
-  // float32 sum first departs from simply rounding the exact float64 sum to
-  // float32 — i.e. the first step where accumulated rounding beats one-shot
-  // rounding.
+  // float32 sum first departs from rounding the binary64 running sum to
+  // float32 — i.e. the first step where accumulated binary32 rounding differs
+  // from one final conversion of JavaScript's already-rounded binary64 path.
   const MAX_STEPS = 2000;
   const sums64 = new Float64Array(MAX_STEPS + 1);
   const sums32 = new Float64Array(MAX_STEPS + 1);
@@ -2228,8 +2232,9 @@
     body.appendChild(accRow);
 
     body.appendChild(verdictBox(
-      "The float32 running sum first departs from simply rounding the exact float64 sum to "
-        + "float32 at step " + firstDiverge + " — no rotation, no permutation, nothing but "
+      "The float32 running sum first departs from rounding the binary64 running sum to "
+        + "float32 at step " + firstDiverge + " — no real-number exact sum is available here; "
+        + "both paths round. There is no rotation or permutation, only "
         + "the same addition run " + firstDiverge + " times. The float64 reordering bug above "
         + "needed a 60° rotation and a specific operand triple to show one ulp of "
         + "disagreement; float32 shows measurable drift from ordinary repeated addition alone, "

@@ -296,8 +296,9 @@
         ceiling of 0.75. Fraction of window samples below 1: <strong>90.2&nbsp;%</strong>, against a
         registered floor of 80&nbsp;%. Final bounding radius 38, against a floor of 30. Every
         per-tick attachment delta exactly symmetric under the hexagonal lattice's rotations and
-        mirrors (D<sub>6h</sub>), and — a separate, belt-and-braces clause — the final symmetry
-        error exactly 0. Far-field stop at tick 4800, no domain contact. Exit code 0 — the
+        mirrors (D<sub>6h</sub>): that is the precise scope of
+        <code>deltaSymClean</code>. Separately, the final occupancy's symmetry error was exactly
+        0. Far-field stop at tick 4800, no domain contact. Exit code 0 — the
         single number a finished program hands back when it stops, where 0 means every enforced
         criterion held and anything else means at least one did not.
       </p>
@@ -629,15 +630,18 @@
           repeated averaging must report itself settled: a finite residual below the registered
           <code>relaxTol</code>&nbsp;=&nbsp;1e-9, on a whole number of sweeps inside the registered
           range. Second, and separately, the runner recomputes chapter 22's divergence identity
-          from the run's own totals — the fraction by which the vapour injected at the outer shell
-          and the net exchange at the surface fail to match — and requires that fraction to come
-          out below <code>divTol</code>&nbsp;=&nbsp;1e-7. Two tolerances, two registered constants,
-          two bars. It is the second meter from chapter 22, not a second opinion about the first
+          from the run's own totals — signed shell-clamp update plus directly metered smoother
+          drift minus signed surface-boundary replacement — and requires the normalised mismatch
+          to come out below <code>divTol</code>&nbsp;=&nbsp;1e-7. These are numerical field
+          updates during the final elliptic sweep, not physical uptake. Two tolerances, two
+          registered constants, two bars. It is the second meter from chapter 22, not a second
+          opinion about the first
           (<code>B-EXEC-CONVERGENCE</code>,
           <code>docs/plans/phase-4-morphology-gauntlet.md</code>).</li>
-        <li>The runner adds up the vapour bookkeeping independently, step by step — how much
-          vapour the surface should have consumed this step — instead of trusting the solver's
-          own total.</li>
+        <li>On the separate interface clock, the runner independently reconstructs the
+          geometry-adjusted per-boundary-pixel Hertz&ndash;Knudsen kinetic demand. It requires
+          placed fill plus recorded unapplied saturation excess to equal that demand. Geometric
+          hole-fill deficit is reported separately and cannot repair the identity.</li>
         <li>The saved state has to reload to exactly the bits it was written from.</li>
       </ul>
 

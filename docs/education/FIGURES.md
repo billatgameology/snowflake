@@ -6,11 +6,11 @@
 node docs/education/tools/build-figure-manifest.mjs
 ```
 
-Every third-party figure the education site references, with the paper, page, and local sha256 it was recorded at. The images themselves are **not versioned** — they are Kenneth Libbrecht's copyrighted work, and [decision 0004](../decisions/0004-research-media-not-versioned.md) keeps research media out of git. This file is the tracked record; the bytes are a cache.
+Every third-party figure the education site references, with the paper, page, and local sha256 it was recorded at. The images themselves are **not versioned** — they are third-party copyrighted research media, and [decision 0004](../decisions/0004-research-media-not-versioned.md) keeps research media out of git. This file is the tracked record; the bytes are a cache.
 
 ## Why a figure may not appear on the site
 
-If you opened a chapter and saw a hatched placeholder instead of a figure, the local cache is missing that file. The site is fully usable without it: the explanation, the original diagrams, and every animation are ours and always render. Only the scanned source figures depend on the cache.
+The authored and published site always shows a cited placeholder: it never probes a copyrighted cache path. Run the personal offline builder after restoring the local cache to put the source images beside the pages. A file that is absent from the cache remains a cited placeholder there too. The explanation, original diagrams, and animations work in either mode.
 
 ## How to restore the images locally
 
@@ -24,19 +24,27 @@ If you opened a chapter and saw a hatched placeholder instead of a figure, the l
    ```
    node app/scripts/phase6-crop-figures.mjs
    ```
+4. **Rebuild the education-only source plates:**
+   ```
+   node docs/education/tools/build-source-plates.mjs
+   ```
+5. **Build the private offline edition that is allowed to load those copied files:**
+   ```
+   node docs/education/tools/build-local.mjs
+   ```
 
 ## Status of this checkout
 
-- Figures referenced by the site: **120**
-- Present in the local cache right now: **120**
-- Missing (will render as a cited placeholder): **0**
+- Figures referenced by the site: **139**
+- Present in the local cache right now: **139**
+- Missing from the cache (the offline build keeps a cited placeholder): **0**
 
 ## The figures
 
 | figure | source | page | used in | bytes | sha256 |
 |---|---|---|---|---:|---|
 | Figure 1.1 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 18 &middot; printed p. 17 | `01-not-a-frozen-raindrop.html`, `07-plates-columns-plates-columns.html`, `13-the-frontier.html` | 124,154 | `406f554f11cdab8a2e2a8b50aeb5d31140ffe413ea9c1cdabbd18a0aeb613881` |
-| Figure 1.10 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 23 &middot; printed p. 22 | `08-a-snowflake-is-a-record.html` | 92,223 | `87bbb6527a966f63479e39d4b8aaabc42c0dfc19a1202ce74b5fc25704870874` |
+| Figure 1.10 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 23 &middot; printed p. 22 | `01-not-a-frozen-raindrop.html`, `08-a-snowflake-is-a-record.html` | 92,223 | `87bbb6527a966f63479e39d4b8aaabc42c0dfc19a1202ce74b5fc25704870874` |
 | Figure 1.11 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 23 &middot; printed p. 22 | `01-not-a-frozen-raindrop.html`, `08-a-snowflake-is-a-record.html` | 181,984 | `64b996f9cc410d08be3f807c920ac0ca6ca1fb88ba34226d74fc6a50f1d0f3a4` |
 | Figure 1.12 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 24 &middot; printed p. 23 | `07-plates-columns-plates-columns.html` | 101,521 | `51d7825338bd1612a6fe167d23d1751974cba849d9d6e44e3c3f6934fcc06151` |
 | Figure 1.13 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 25 &middot; printed p. 24 | `02-four-hundred-years-of-looking.html` | 141,795 | `43e9bd023c22cecb57ee5aa65035eaa02ab44e6fba026fd6788a233b7d66d4f8` |
@@ -62,8 +70,8 @@ If you opened a chapter and saw a hatched placeholder instead of a figure, the l
 | Figure 1.5 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 20 &middot; printed p. 19 | `01-not-a-frozen-raindrop.html`, `04-the-fuel-supply.html` | 92,245 | `1fd9bf0fae2d7b4d64cf569eb5ed960a565287a5cafff5653d13f0b61ec4443e` |
 | Figure 1.6 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 20 &middot; printed p. 19 | `01-not-a-frozen-raindrop.html`, `04-the-fuel-supply.html` | 112,713 | `4322d4427aa76b55719b39d5746385e88ea8f1c04716156145fb2ac9a74850f2` |
 | Figure 1.7 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 21 &middot; printed p. 20 | `01-not-a-frozen-raindrop.html` | 210,036 | `7510897eb30a77fabdc39245022e62b3729f5fa708b24f11e9ff2af530eb9267` |
-| Figure 1.8 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 22 &middot; printed p. 21 | `05-the-restless-surface.html` | 77,499 | `86a869e3aa94f914a74d5e30f5d5ad8dfd1db3ccf32d630b9b0d44a4ad703b97` |
-| Figure 1.9 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 22 &middot; printed p. 21 | `06-the-runaway-bump.html` | 38,982 | `d6b12736f5bcd46d18c92d82ad8f8f03669ec65340251c45c367c92502692e90` |
+| Figure 1.8 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 22 &middot; printed p. 21 | `01-not-a-frozen-raindrop.html`, `05-the-restless-surface.html` | 77,499 | `86a869e3aa94f914a74d5e30f5d5ad8dfd1db3ccf32d630b9b0d44a4ad703b97` |
+| Figure 1.9 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 22 &middot; printed p. 21 | `01-not-a-frozen-raindrop.html`, `06-the-runaway-bump.html` | 38,982 | `d6b12736f5bcd46d18c92d82ad8f8f03669ec65340251c45c367c92502692e90` |
 | Figure 10.2 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 387 &middot; printed p. 386 | `09-the-menagerie.html` | 801,214 | `274ed152802116fe6499d9d65db8624c021879ea26401c2b37f5e3456ed5cbed` |
 | Figure 10.3 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 388 &middot; printed p. 387 | `09-the-menagerie.html` | 820,075 | `1238f9afcc7c77a621f2580d3ec626d81f3268be2fadb92d354cb44b6e8f3529` |
 | Figure 10.4 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 389 &middot; printed p. 388 | `02-four-hundred-years-of-looking.html`, `09-the-menagerie.html` | 116,616 | `661b1be4ccb12560d81c6cb789f7de95e59ec16b9b4ab185650f9902b32a03ee` |
@@ -104,6 +112,7 @@ If you opened a chapter and saw a hatched placeholder instead of a figure, the l
 | Figure 3.24 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 106 &middot; printed p. 105 | `06-the-runaway-bump.html` | 27,101 | `93d9afa5f225db24d01b61ce779cf3203abbefc8b28e380df4707c7df7de7333` |
 | Figure 3.26 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 108 &middot; printed p. 107 | `06-the-runaway-bump.html` | 152,922 | `f658401fa9e9ae5f0e15e43379305d8cbe0ec149cd1ec42907b553d48bbe0c01` |
 | Figure 3.27 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 109 &middot; printed p. 108 | `06-the-runaway-bump.html` | 94,953 | `5bd56a09deb34ecb04e20da99e173abe32681c3dfafcf821f1e411b3721d4dd3` |
+| Figure 3.28 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 110 &middot; printed p. 109 | `04-the-fuel-supply.html` | 162,288 | `60e496930bf14d58ea838acf6feca1b0dc87a2a64cd6bdb0656c6e5b22be21bc` |
 | Figure 3.29 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 113 &middot; printed p. 112 | `04-the-fuel-supply.html`, `05-the-restless-surface.html`, `07-plates-columns-plates-columns.html` | 102,115 | `0ce5b10fcc0e442d885862a96d154db926c737c791bb1e42cc12406130434749` |
 | Figure 3.3 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 79 &middot; printed p. 78 | `04-the-fuel-supply.html` | 212,234 | `a0338d4dd8571bc2071b2bdaf1e81cefac3198c365dc606dcd406cee094e21ac` |
 | Figure 3.30 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 114 &middot; printed p. 113 | `07-plates-columns-plates-columns.html` | 101,033 | `376a1b69ef53f1df29c3715e656123f58a23ff504be6892090437c723b06d956` |
@@ -140,6 +149,7 @@ If you opened a chapter and saw a hatched placeholder instead of a figure, the l
 | Figure 6.20 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 233 &middot; printed p. 232 | `05-the-restless-surface.html` | 227,381 | `98063ee446984f0e3c8e07156c529f62c159384c36286be9d18031cd13f60005` |
 | Figure 6.22 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 235 &middot; printed p. 234 | `07-plates-columns-plates-columns.html` | 39,396 | `a1ad5eeea773ba4c5c431a52b8b1588c0223932a586a94ccc6ab269faa23ac0f` |
 | Figure 6.3 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 217 &middot; printed p. 216 | `10-how-we-know.html` | 96,348 | `f1132989456fa7155f28e70195adf8dae564889773b14b2e7b80aed109475c77` |
+| Figure 6.40 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 246 &middot; printed p. 245 | `04-the-fuel-supply.html` | 134,288 | `45a958e0476a6dd53e0c81c33ab416b1573390c68cfd0e4570b6db1eaebc9721` |
 | Figure 7.1 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 251 &middot; printed p. 250 | `10-how-we-know.html` | 23,867 | `c4f079bd74b0203e87bbeaec748767033e199f6a2f8c22289a2cb217d8fd2b5e` |
 | Figure 7.10 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 260 &middot; printed p. 259 | `10-how-we-know.html` | 180,726 | `c87fa2d3834e2a3dc4c679bc1926c935acb9bffff186843ea28b42dad3f25beb` |
 | Figure 7.11 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 261 &middot; printed p. 260 | `10-how-we-know.html` | 55,272 | `6a1dd22ab5dd88c435d58cb7448e81b7c58aacdf28967c1f64c482585af4ebbb` |
@@ -149,12 +159,29 @@ If you opened a chapter and saw a hatched placeholder instead of a figure, the l
 | Figure 7.8 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 259 &middot; printed p. 258 | `10-how-we-know.html` | 134,395 | `12cbf2f3ec775701669580ac063f2b1451fb32f7dc98c3e694b4bdf6bdcc5ab1` |
 | Figure 8.1 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 280 &middot; printed p. 279 | `10-how-we-know.html` | 56,036 | `4d3d6c72fc962671862567645ccede87971fea9919f0e42cc424da31ceb79348` |
 | Figure 8.2 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 280 &middot; printed p. 279 | `10-how-we-know.html` | 51,433 | `1faea81b008b7caeb562add1c518e5eb0d850c59f438bc54dde71c7debf95080` |
+| Figure 8.8 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 291 &middot; printed p. 290 | `05-the-restless-surface.html` | 301,460 | `57395552c628e00350dee8cb5d591afb0670c866c311a34b848e6a101f055ae6` |
 | Figure 9.1 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 330 &middot; printed p. 329 | `10-how-we-know.html` | 30,296 | `66d6cc4b6720b50658c4720f716ae8e9c40bd761ea0593907521289321a622cd` |
 | Figure 9.16 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 346 &middot; printed p. 345 | `04-the-fuel-supply.html` | 258,686 | `688a47a4f2fa86073d10944030654c6848d8b6fdba73ad7ed28b7bc5fa435dc0` |
 | Figure 9.17 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 347 &middot; printed p. 346 | `04-the-fuel-supply.html` | 257,979 | `6c7c5d31e7adbb3f10e08723600420033ccd2e7f1c027ab8c6fddfc4784f7b01` |
 | Figure 9.27 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 354 &middot; printed p. 353 | `08-a-snowflake-is-a-record.html` | 139,392 | `be998f9ae9dc67ff2c07437928b6171bf5424b28471f0ee4e13f115fb41033ca` |
 | Figure 9.28 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 355 &middot; printed p. 354 | `08-a-snowflake-is-a-record.html` | 142,836 | `4c5054d414d5d070dd04f0924b2555196596a1bb7dbb8fc407dddb7b55426917` |
 | Figure 9.30 | Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2) | PDF p. 355 &middot; printed p. 354 | `08-a-snowflake-is-a-record.html` | 154,099 | `3d0856d7d546d3808be3aab472a7e5c55be6359444d732b0f895bdd1a03b9002` |
+| Figure 2 | Libbrecht, &ldquo;Toward a Comprehensive Model of Snow Crystal Growth Dynamics: 8&rdquo; (arXiv:2009.08404v2) | PDF p. 3 | `11-the-stickiness-of-ice.html` | 270,031 | `759feb5a576716b922f2edc44b6b39b7b15c1683af2c54a307e395db56e21fe9` |
+| Figures 23–31 | Gravner &amp; Griffeath, &ldquo;Modeling snow-crystal growth: A three-dimensional mesoscopic approach&rdquo; (Physical Review E 79, 011601, 2009) | PDF p. 13 | `09-the-menagerie.html` | 3,079,600 | `92a1f433e66ccadeefafafbcc5e502a33dc2702fd06942ca59079c84b8c4b979` |
+| Figures 2 and 3 (crop) | Libbrecht &amp; Walkling, &ldquo;A Comprehensive Model of Snow Crystal Faceting&rdquo; (arXiv:2306.04042v1) | PDF p. 10 | `05-the-restless-surface.html` | 700,222 | `cbcdd97ff6b197a712582b1e93495d52cbd6644e3e91bc7fc3915a005bcfd409` |
+| Figure 2, page 1 of 4 | Libbrecht, &ldquo;A Taxonomy of Snow Crystal Growth Behaviors: 2&rdquo; (arXiv:2306.13087v1) | PDF p. 11 | `07-plates-columns-plates-columns.html` | 4,403,023 | `0043b9d1a9375c84970b972c3dc45e117a8f3c939c0818834228ef94c28d7af8` |
+| Figure 2, page 2 of 4 | Libbrecht, &ldquo;A Taxonomy of Snow Crystal Growth Behaviors: 2&rdquo; (arXiv:2306.13087v1) | PDF p. 12 | `07-plates-columns-plates-columns.html` | 4,353,465 | `366bfd0b10465673a850d4bc0086611e323e1482190ab3e69a969e30c090e797` |
+| Figure 2, page 3 of 4 | Libbrecht, &ldquo;A Taxonomy of Snow Crystal Growth Behaviors: 2&rdquo; (arXiv:2306.13087v1) | PDF p. 13 | `07-plates-columns-plates-columns.html` | 5,514,953 | `b1f9e270facadeb0641f454bd569113456850be5d342aca36e45644af3e6ed5b` |
+| Figure 2, page 4 of 4 | Libbrecht, &ldquo;A Taxonomy of Snow Crystal Growth Behaviors: 2&rdquo; (arXiv:2306.13087v1) | PDF p. 14 | `07-plates-columns-plates-columns.html` | 4,493,705 | `fe22dadd963b8f16aa3110b2ffc6b1a15cb9fa625bec59c6c936d79fe0a3f9c1` |
+| Figure 1 | Libbrecht, &ldquo;A Taxonomy of Snow Crystal Growth Behaviors: 2. Quantifying the Nakaya Diagram&rdquo; (arXiv:2306.13087v1) | PDF p. 6 | `13-the-frontier.html` | 330,911 | `fd25a2224cf931d4b88e15a3f7ad71985fd81b310fd2241c78840c28d94adc68` |
+| Figure 5 | Libbrecht, &ldquo;Toward a Comprehensive Model of Snow Crystal Growth Dynamics: 9&rdquo; (arXiv:2011.02353v1) | PDF p. 7 | `12-why-the-shape-flips.html` | 194,787 | `cf0f8cec2a1ec64db0dd72fab46e98c14f02b1d689b60fa6c08b50ba3bd958a5` |
+| Figure 18 | Libbrecht, &ldquo;Toward a Comprehensive Model of Snow Crystal Growth Dynamics: 8&rdquo; (arXiv:2009.08404v2) | PDF p. 15 | `12-why-the-shape-flips.html` | 376,029 | `f637a36930fcaac50789afe2cc564be82d784a03a1a4a5d7a0ce51c453b689c8` |
+| Table 1 | Libbrecht &amp; Walkling, &ldquo;A Comprehensive Model of Snow Crystal Faceting&rdquo; (arXiv:2306.04042v1) | PDF p. 9 | `05-the-restless-surface.html` | 79,522 | `27a519e3c566efbcc90502a07820ac5a72a528aa3a337c5c77f52a33b7d42844` |
+| Figure 24a | Libbrecht, &ldquo;A Taxonomy of Snow Crystal Growth Behaviors: 1&rdquo; (arXiv:2109.00098v1) | PDF p. 19 | `07-plates-columns-plates-columns.html` | 3,713,281 | `5418444407cbdc568089800dc1ebebd0523615580605ebc35496eef1e74ad9c7` |
+| Figure 24b | Libbrecht, &ldquo;A Taxonomy of Snow Crystal Growth Behaviors: 1&rdquo; (arXiv:2109.00098v1) | PDF p. 20 | `07-plates-columns-plates-columns.html` | 2,543,180 | `530e5e8ed26b3623174467562a86ba09919ebdd436150ab4e020f79b151edd09` |
+| Figure 24c | Libbrecht, &ldquo;A Taxonomy of Snow Crystal Growth Behaviors: 1&rdquo; (arXiv:2109.00098v1) | PDF p. 21 | `07-plates-columns-plates-columns.html` | 3,938,647 | `edaf11e0c88044e9c1640b6e1ad0b489f00ae980b1ddb008db6afdda5af17c11` |
+| Figure 24d | Libbrecht, &ldquo;A Taxonomy of Snow Crystal Growth Behaviors: 1&rdquo; (arXiv:2109.00098v1) | PDF p. 22 | `07-plates-columns-plates-columns.html` | 4,251,774 | `9b803d725a3b8b123e2186b01b790f850b8189d2b17d84db92582208c5ee1a57` |
+| Figure 24e | Libbrecht, &ldquo;A Taxonomy of Snow Crystal Growth Behaviors: 1&rdquo; (arXiv:2109.00098v1) | PDF p. 23 | `07-plates-columns-plates-columns.html` | 3,832,935 | `dc48148ba9dc4f7f411e95f7bcf536e08fb65ed156cff5190fdebc397fb548e1` |
 
 ### Paths
 
@@ -229,6 +256,7 @@ If you opened a chapter and saw a hatched placeholder instead of a figure, the l
 | Figure 3.24 | `research/1910.06389v2-llm/figures/fig-3.24/visual.png` |
 | Figure 3.26 | `research/1910.06389v2-llm/figures/fig-3.26/visual.png` |
 | Figure 3.27 | `research/1910.06389v2-llm/figures/fig-3.27/visual.png` |
+| Figure 3.28 | `research/1910.06389v2-llm/figures/fig-3.28/visual.png` |
 | Figure 3.29 | `research/1910.06389v2-llm/figures/fig-3.29/visual.png` |
 | Figure 3.3 | `research/1910.06389v2-llm/figures/fig-3.3/visual.png` |
 | Figure 3.30 | `research/1910.06389v2-llm/figures/fig-3.30/visual.png` |
@@ -265,6 +293,7 @@ If you opened a chapter and saw a hatched placeholder instead of a figure, the l
 | Figure 6.20 | `research/1910.06389v2-llm/figures/fig-6.20/visual.png` |
 | Figure 6.22 | `research/1910.06389v2-llm/figures/fig-6.22/visual.png` |
 | Figure 6.3 | `research/1910.06389v2-llm/figures/fig-6.3/visual.png` |
+| Figure 6.40 | `research/1910.06389v2-llm/figures/fig-6.40/visual.png` |
 | Figure 7.1 | `research/1910.06389v2-llm/figures/fig-7.1/visual.png` |
 | Figure 7.10 | `research/1910.06389v2-llm/figures/fig-7.10/visual.png` |
 | Figure 7.11 | `research/1910.06389v2-llm/figures/fig-7.11/visual.png` |
@@ -274,9 +303,26 @@ If you opened a chapter and saw a hatched placeholder instead of a figure, the l
 | Figure 7.8 | `research/1910.06389v2-llm/figures/fig-7.8/visual.png` |
 | Figure 8.1 | `research/1910.06389v2-llm/figures/fig-8.1/visual.png` |
 | Figure 8.2 | `research/1910.06389v2-llm/figures/fig-8.2/visual.png` |
+| Figure 8.8 | `research/1910.06389v2-llm/figures/fig-8.8/visual.png` |
 | Figure 9.1 | `research/1910.06389v2-llm/figures/fig-9.1/visual.png` |
 | Figure 9.16 | `research/1910.06389v2-llm/figures/fig-9.16/visual.png` |
 | Figure 9.17 | `research/1910.06389v2-llm/figures/fig-9.17/visual.png` |
 | Figure 9.27 | `research/1910.06389v2-llm/figures/fig-9.27/visual.png` |
 | Figure 9.28 | `research/1910.06389v2-llm/figures/fig-9.28/visual.png` |
 | Figure 9.30 | `research/1910.06389v2-llm/figures/fig-9.30/visual.png` |
+| Figure 2 | `research/figures/cak-broad-facet-sigma0-and-A.png` |
+| Figures 23–31 | `research/figures/gg-3d-morphologies-fig23-31.png` |
+| Figures 2 and 3 (crop) | `research/figures/latent-heating-faceting-vs-growth-rate.png` |
+| Figure 2, page 1 of 4 | `research/figures/nakaya-206-observations-p1-minus0.5-to-4.5C.png` |
+| Figure 2, page 2 of 4 | `research/figures/nakaya-206-observations-p2-minus5-to-10C.png` |
+| Figure 2, page 3 of 4 | `research/figures/nakaya-206-observations-p3-minus11-to-16C.png` |
+| Figure 2, page 4 of 4 | `research/figures/nakaya-206-observations-p4-minus17-to-24C.png` |
+| Figure 1 | `research/figures/nakaya-bands-on-sigma0-M1.png` |
+| Figure 5 | `research/figures/sdak-dip-basal-measured-near-minus4C.png` |
+| Figure 18 | `research/figures/sdak-dip-prism-measured-near-minus14C.png` |
+| Table 1 | `research/figures/sdak2-two-branch-table.png` |
+| Figure 24a | `research/figures/tax1-needle-matrix-p1-minus0.5-to-3C.png` |
+| Figure 24b | `research/figures/tax1-needle-matrix-p2-minus4-to-7C.png` |
+| Figure 24c | `research/figures/tax1-needle-matrix-p3-minus8-to-11C.png` |
+| Figure 24d | `research/figures/tax1-needle-matrix-p4-minus12-to-15C.png` |
+| Figure 24e | `research/figures/tax1-needle-matrix-p5-minus16-to-21C.png` |

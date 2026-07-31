@@ -42,7 +42,7 @@
       <li><a href="#empty-cell">The cell that stays empty</a></li>
       <li><a href="#hundred">A factor of a hundred, hiding in an exponent</a></li>
       <li><a href="#forbidden">The word you are not allowed to type</a></li>
-      <li><a href="#browse-everything">Browse the whole table</a></li>
+      <li><a href="#browse-everything">Browse the grouped table</a></li>
       <li><a href="#what-it-buys">What a stamp buys, and what it does not</a></li>
     </ol>
   </nav>
@@ -272,9 +272,16 @@
         one of them failing stops the change.)
         Corrections are still allowed, at a price the file prints: any change &ldquo;invalidates
         every Phase 6 sweep result produced under the current protocol; the sweep re-runs in
-        full.&rdquo; The price is the point &mdash; &ldquo;it is what stops a parameter from being
-        adjusted after a disagreeing result is seen.&rdquo; The sweep that freeze protects has since
-        run &mdash; that is chapter 28 &mdash; and Phase 6 around it has not finished.
+        full.&rdquo; Scope that frozen sentence to Arm&nbsp;1 and other consumers of this exact
+        table. Arm&nbsp;2 intentionally reads its own separately frozen M1 manifest and overrides
+        the relevant parameter row, so editing this Arm&nbsp;1 table does not silently decide the
+        other arm&rsquo;s registered cost. The price is the point &mdash; &ldquo;it is what stops a
+        parameter from being adjusted after a disagreeing result is seen.&rdquo; In the dated evidence snapshot discussed
+        by chapter&nbsp;28, the protected sweep had run while the surrounding Phase&nbsp;6 gate had
+        not closed. That is historical context, not a live status claim; use
+        <code>docs/PROGRESS.md</code>, <strong>Next step</strong>, as the designated live-state
+        starting point, with the known Arm&nbsp;2 freeze lag stated in this chapter&rsquo;s final
+        section rather than silently ignored.
       </p>
 
       <!-- ================================================================ 3 -->
@@ -855,7 +862,7 @@
       </p>
 
       <!-- ================================================================ 8 -->
-      <h2 id="browse-everything">Browse the whole table</h2>
+      <h2 id="browse-everything">Browse the grouped table</h2>
 
       <p>
         Every example so far in this chapter was chosen for you. Eight entries, picked one at a
@@ -868,44 +875,71 @@
       <p>
         <code>docs/libbrecht-parameters.md</code> carries more than thirty numbered entries, not
         eight, and the same rule is supposed to bind all of them: no citation, no entry; no
-        printed source, no number; an empty cell instead of a guess. Below is the file, transcribed
-        in full &mdash; every physical constant in section&nbsp;2, both branches of
-        &sigma;<sub>0</sub>(T) and A(T) in section&nbsp;3 (the digitized anchors <em>and</em> the
-        text-cited ones the project did not have to digitize), the SDAK-1 and SDAK-2 hypotheses and
-        the printed width form of section&nbsp;4, v<sub>kin</sub> in section&nbsp;5, the D(T) gap of
-        section&nbsp;6, &chi;<sub>0</sub> in section&nbsp;7, and the derived quantities of
-        section&nbsp;8. Filter it by class, sort it, search it &mdash; and check any row you like
-        against the source file itself, because the citation is printed right there in the row.
+        printed source, no number; an empty cell instead of a guess. The browser below is a
+        <strong>33-row grouped teaching view of sections&nbsp;2&ndash;8</strong>, not a
+        byte-for-byte or one-number-per-row rendering of the frozen file. For example, one row
+        groups four values at one temperature, and the Table&nbsp;2.1 row groups nine validation
+        anchors. Filter it by class, sort it, search it &mdash; then check the source file itself
+        for the complete prose, every atomic value and its exact freeze status.
       </p>
 
-      <figure class="anim" id="anim-full-table">
+      <aside class="callout callout--method">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+          </svg>
+          What the grouping must not hide
+        </p>
+        <p>
+          <strong>P1 is a route to a source, not a blanket accuracy badge.</strong> In this view it
+          includes Appendix&nbsp;A textbook constants, direct prose anchors, the image-embedded
+          Table&nbsp;2.1 transcription, the pressure law and the two printed
+          &chi;<sub>0</sub> anchors. Each row names which route it used. The source file also
+          records limitations that do not all fit the one empty-value row: the chosen CAK curves
+          have no printed formula or numeric table; the paper&rsquo;s separate
+          A&nbsp;&equiv;&nbsp;1 &sigma;<sub>0</sub> curves remain undigitized; the original
+          monograph&rsquo;s SDAK temperature dips have no printed functional form in this frozen
+          Arm&nbsp;1 table, although the later M1 paper does print the closed forms now transcribed
+          into the separate Arm&nbsp;2 implementation; SDAK-2 has no extracted anchor table;
+          D(T) has no printed law; &chi;<sub>0</sub> has two anchors and a trend rather than a
+          curve; w<sub>0</sub> is adjustable; and the monograph cites an Appendix&nbsp;B that is
+          absent from v2. See <code>docs/libbrecht-parameters.md</code>, &ldquo;Extraction
+          protocol&rdquo; and &ldquo;Open questions&rdquo;.
+        </p>
+      </aside>
+
+      <figure class="anim" id="anim-full-table" data-table-scope="grouped-sections-2-8" data-grouped-row-count="33">
         <div class="anim__head">
-          <p class="anim__title">The full provenance table</p>
-          <p class="anim__sub">Every numeric entry in docs/libbrecht-parameters.md, not just the eight curated ones above. Filter by class, sort by name or class, or search.</p>
+          <p class="anim__title">The grouped provenance browser</p>
+          <p class="anim__sub">Thirty-three teaching rows spanning sections 2&ndash;8. A row may group several atomic values; filter by class, sort by name or class, or search.</p>
         </div>
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
-          <span class="built-from">Original interactive. Every row is transcribed in full from
+          <span class="built-from">Original interactive. This is a grouped view transcribed from
           <code>docs/libbrecht-parameters.md</code> &sect;&sect;2&ndash;8 &mdash; physical constants;
           Branch&nbsp;1 broad-facet &sigma;<sub>0</sub>(T)/A(T), digitized and text-cited alike; the
           SDAK-1/SDAK-2 hypotheses and the printed width form; v<sub>kin</sub>; D(T,&nbsp;P)
           including its temperature-dependence gap; &chi;<sub>0</sub>; and the derived quantities of
           &sect;8 &mdash; the same file <a href="#tracer">the tracer above</a> draws its eight
-          curated entries from. Nothing here is invented: every value, citation and class is copied,
-          not paraphrased.</span>
+          curated entries from. Values, citations and classes shown are copied; grouping and short
+          explanations are editorial. The frozen source file, not this browser, is the complete
+          parameter record.</span>
         </figcaption>
       </figure>
 
       <p>
-        Filter to <strong>GAP</strong> and exactly one row survives: D(T)&rsquo;s temperature
-        dependence, the same empty cell from earlier in this chapter, and nothing else in the whole
-        file is left that unfinished. Filter to <strong>P3</strong> and you get three rows &mdash;
-        the two SDAK-1 dips and the SDAK-2 A<sub>prism</sub> recovery &mdash; all Nakaya-informed,
-        all still unwired in the solver. That is the point of building the browser instead of just
-        asserting it: &ldquo;the discipline covers the whole table&rdquo; is now something you can
-        check yourself, one filter click at a time, rather than a claim this chapter is asking you
-        to take on the strength of eight hand-picked examples.
+        Filter to <strong>GAP</strong> and exactly one <em>empty-value row</em> survives:
+        D(T)&rsquo;s temperature dependence. That does not mean it is the file&rsquo;s only open
+        extraction question; the limitations listed above live inside otherwise populated rows
+        and in the source file&rsquo;s explicit gap register. Filter to <strong>P3</strong> and you
+        get three grouped rows &mdash;
+        the two SDAK-1 dips and the SDAK-2 A<sub>prism</sub> recovery &mdash; all Nakaya-informed.
+        The two dip concepts now have an executable M1 transcription from later printed equations;
+        SDAK-2 remains unwired. That is the point of building the browser instead of just asserting
+        it: this is a grouped view of the frozen sections, not a complete inventory of the later
+        source tree. It exposes provenance classes and recorded limits while refusing to pretend 33
+        grouped cards replace either the parameter authority or current implementation evidence.
       </p>
 
       <!-- ================================================================ 9 -->
@@ -919,12 +953,19 @@
 
       <p>
         What it buys is that the number&rsquo;s status is <em>legible</em> &mdash; to a reviewer, to
-        a future maintainer, and to you, reading a result twelve chapters from now. The comparison in
-        chapter 28 has run; Phase 6 around it has not finished. When the argument about that verdict
-        starts &mdash; why did it come out this way? &mdash; the argument is only possible if the
-        inputs are already sorted. Was it the code? The numbers? Or the theory? You cannot even ask
-        that question of a parameter table where measurements and guesses are printed in the same
-        typeface.
+        a future maintainer, and to you, reading a result twelve chapters from now.
+        Chapter&nbsp;28 reports a dated run whose surrounding Phase&nbsp;6 gate was then still open.
+        For current status, start with <code>docs/PROGRESS.md</code>, <strong>Next step</strong>.
+        There is a dated lag to state rather than hide: at repository commit <code>8c781b1</code>
+        that entry still says to freeze Arm&nbsp;2, while <code>483f7ee</code> froze the value
+        content, <code>0cb52bf</code> recorded the freeze ancestry and final gated values hash, and
+        <code>8c781b1</code> recorded the corrected arm-specific combined revision hash. A corrected Arm&nbsp;2 sweep was observed running at this audit&rsquo;s
+        2026-07-30 10:23&nbsp;PDT cutoff; its local artifact was still mutable and no completed,
+        reviewed sweep result existed. When the
+        argument about that dated verdict starts &mdash; why did it come out this way? &mdash; the
+        argument is only possible if the inputs are already sorted. Was it the code? The numbers?
+        Or the theory? You cannot even ask that question of a parameter table where measurements
+        and guesses are printed in the same typeface.
       </p>
 
       <aside class="callout callout--open">
@@ -965,20 +1006,27 @@
       <p>
         Sit with that. Some of this model&rsquo;s <em>available</em> inputs were set, by their
         original author, openly and for a stated reason, so that a model using them would agree with
-        the Nakaya diagram. Available, and not used: nothing in the solver implements them. The
-        parameter file records that &ldquo;<code>SDAK</code> appears in no source file &mdash; so
-        every run to date is a no-SDAK run.&rdquo; They were extracted, classified, cited, and then
-        deliberately left unwired, which is what makes chapter 28&rsquo;s comparison a real test
-        rather than a rehearsal.
+        the Nakaya diagram. Arm&nbsp;1 deliberately did not use them. The frozen parameter file still
+        records that &ldquo;<code>SDAK</code> appears in no source file &mdash; so every run to date
+        is a no-SDAK run.&rdquo; That sentence is true of the Arm&nbsp;1 execution and is why
+        chapter&nbsp;28&rsquo;s comparison is a real test rather than a rehearsal; it is no longer a
+        current source-tree claim. Accepted decision 0036 transcribes the later paper&rsquo;s printed
+        M1 dip equations into <code>core/src/libbrecht.ts</code>; <code>483f7ee</code> froze their
+        value content for a separate Arm&nbsp;2, and <code>0cb52bf</code> recorded that ancestry and
+        the final gated values hash. SDAK-2 and the width-dependent M2 closure remain
+        unimplemented. One Arm&nbsp;2 launch was stopped about a minute in after its first line
+        exposed a wrong-arm combined hash. Every completed, reviewed Phase&nbsp;6 sweep result
+        remains no-SDAK at the audit cutoff.
       </p>
 
       <p class="handoff">
         Every number in the model now carries a stamp, and one of those stamps says that the value
         was chosen to make the model agree with the very diagram the project intends to test it
-        against. Why leaving those values unwired was forced, what it cost, and why the parameter
-        file keeps &ldquo;<strong>two separate branches</strong>&hellip; never merged&rdquo; is
-        chapter 17 &mdash; which asks the uncomfortable question underneath all of it: what would it
-        even mean for this model to be <em>wrong</em>?
+        against. Why Arm&nbsp;1 had to leave those values unwired, why Arm&nbsp;2 can only earn
+        in-sample reproduction, and why the parameter file keeps
+        &ldquo;<strong>two separate branches</strong>&hellip; never merged&rdquo; is chapter 17
+        &mdash; which asks the uncomfortable question underneath all of it: what would it even mean
+        for this model to be <em>wrong</em>?
       </p>
 
       <nav class="chapter-nav" aria-label="Chapter navigation">
@@ -1119,8 +1167,8 @@
       page: "printed p. 152 / pdf 153",
       method: "Digitized from a curve the source draws DOTTED, “to signify their substantial uncertainties”. The source also states the dip positions were chosen “to impose agreement with the known ice-growth behaviors from the Nakaya diagram”.",
       unc: "The source states the width and depth are “not well constrained by measurements”.",
-      code: "Nothing. The parameter file records that SDAK “appears in no source file”, so every run to date is a no-SDAK run.",
-      note: "IN-SAMPLE means the answer was already used to draw the question: these values were picked so that a model using them would match the Nakaya diagram, so matching it proves nothing. This is chapter 17&rsquo;s subject."
+      code: "Historical Arm 1: absent, exactly as the frozen parameter file and sweep report say. Current tree: M1 is a third NucleationParamSet in core/src/libbrecht.ts; 483f7ee froze its separate Arm 2 value content and 0cb52bf recorded that ancestry plus the final values-hash pin. At the education audit’s 2026-07-30 cutoff, its corrected sweep was running but its mutable partial rows were not a completed, reviewed result.",
+      note: "IN-SAMPLE means the answer was already used to draw the question: these values were picked so that a model using them would match the Nakaya diagram, so matching it proves nothing. The later M1 equations make the hypothesis executable; they do not raise its evidence ceiling. This is chapter 17&rsquo;s subject."
     },
     {
       short: "interpolation",
@@ -2119,9 +2167,10 @@
 
 <script>
 /* ===========================================================================
-   6. THE FULL PROVENANCE TABLE
-   Every numeric entry transcribed from docs/libbrecht-parameters.md sections
-   2-8 (33 rows): physical constants; Branch 1 broad-facet sigma_0(T)/A(T)
+   6. GROUPED PROVENANCE BROWSER
+   A 33-row teaching view transcribed from docs/libbrecht-parameters.md sections
+   2-8. Rows may group multiple atomic values: physical constants; Branch 1
+   broad-facet sigma_0(T)/A(T)
    (digitized anchors and text-cited anchors); the SDAK-1/SDAK-2 hypotheses
    and printed width form; v_kin; D(T,P) including its temperature gap;
    chi_0; and the derived quantities of section 8. Complements anim-tracer's
@@ -2243,13 +2292,13 @@
       cls: "P3", clsName: "Nakaya-informed SDAK hypothesis &mdash; in-sample for any Nakaya comparison",
       source: "monograph Figure 4.12", page: "printed p. 152 / pdf 153",
       unc: "&lsquo;Not well constrained by measurements&rsquo; (1910.09067 p. 13); drawn dotted &lsquo;to signify their substantial uncertainties.&rsquo;",
-      note: "Explains rapid basal growth of hollow-column edges near &minus;5&nbsp;&deg;C, by the source&rsquo;s own claim." },
+      note: "Explains rapid basal growth of hollow-column edges near &minus;5&nbsp;&deg;C, by the source&rsquo;s own claim. A later paper prints the M1 closed form now implemented for separate Arm&nbsp;2; this card remains the frozen monograph-table provenance view." },
     { name: "SDAK-1 dip, prism", what: "narrow-facet reduction in the nucleation barrier",
       value: "&sigma;&#8320; &asymp; 0.18&ndash;0.20% (fraction &asymp; 0.0018&ndash;0.0020), minimum at (Tm&minus;T) &asymp; 14&ndash;16&nbsp;&deg;C",
       cls: "P3", clsName: "Nakaya-informed SDAK hypothesis &mdash; in-sample for any Nakaya comparison",
       source: "monograph Figure 4.12", page: "printed p. 152 / pdf 153",
       unc: "&lsquo;Not well constrained by measurements&rsquo; (1910.09067 p. 13); drawn dotted &lsquo;to signify their substantial uncertainties.&rsquo;",
-      note: "Explains thin-plate edges near &minus;15&nbsp;&deg;C, by the source&rsquo;s own claim." },
+      note: "Explains thin-plate edges near &minus;15&nbsp;&deg;C, by the source&rsquo;s own claim. A later paper prints the M1 closed form now implemented for separate Arm&nbsp;2; this card remains the frozen monograph-table provenance view." },
     { name: "SDAK-2, A_prism recovery", what: "a second, A-side hypothesis on small prism facets",
       value: "Increases A_prism on small prism facets above &asymp; &minus;10&nbsp;&deg;C; supersaturation-dependent, A_prism &rarr; 1 at high &sigma;_surf",
       cls: "P3", clsName: "Nakaya-informed SDAK hypothesis &mdash; in-sample for any Nakaya comparison",

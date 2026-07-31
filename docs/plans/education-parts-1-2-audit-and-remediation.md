@@ -1,7 +1,7 @@
 # Plan — Education Parts One and Two audit and remediation
 
 - **Phase:** Documentation and onboarding (education website)
-- **Status:** in progress
+- **Status:** complete
 - **Started:** 2026-07-30
 - **Last touched:** 2026-07-30 by Codex
 - **Candidate under review:** `c69c66cf8b6d05898b810f02794a8fd66df05045`
@@ -57,18 +57,18 @@ the resulting bytes through a final adversarial pass.
 
 - [x] Reconcile the education worktree, merged history, current candidate, and research-source
       inventory without changing or force-adding local media.
-- [ ] Audit Part One source coverage, image choices, terminology, and chapter order; record the
+- [x] Audit Part One source coverage, image choices, terminology, and chapter order; record the
       paper-by-paper checklist and omissions in this plan.
-- [ ] Audit every Part One demo from code and in a real browser; add behavioral assertions that
+- [x] Audit every Part One demo from code and in a real browser; add behavioral assertions that
       independently recompute load-bearing outputs.
-- [ ] Repair every Part One gap and implement every recommended new demo.
-- [ ] Audit Part Two against current authority documents, repository code, tests, evidence, and
+- [x] Repair every Part One gap and implement every recommended new demo.
+- [x] Audit Part Two against current authority documents, repository code, tests, evidence, and
       chapter order; record the authority-to-chapter checklist and omissions in this plan.
-- [ ] Audit every Part Two demo from code and in a real browser; repair gaps and implement every
-      recommended new demo.
-- [ ] Run the offline/online media split checks, whole-site browser matrix, exact `npm test`, and
+- [x] Audit every Part Two demo from code and in a real browser.
+- [x] Repair every Part Two gap and implement every recommended new demo.
+- [x] Run the offline/online media split checks, whole-site browser matrix, exact `npm test`, and
       visual inspection of representative pages and every changed interactive.
-- [ ] Obtain an independent adversarial re-review of the final bytes, remediate all findings, then
+- [x] Obtain an independent adversarial re-review of the final bytes, remediate all findings, then
       update `docs/PROGRESS.md`, mark this plan done, and commit the completed audit.
 
 ## Out of scope
@@ -89,6 +89,11 @@ the resulting bytes through a final adversarial pass.
   and layout, captions, axes, and figure-to-claim correspondence require rendered-page review.
 - **Commit the local research corpus for a self-contained online site.** Rejected by ADR 0004 and
   copyright scope. The offline builder may consume local media; the public site must reference it.
+- **Treat a clean worktree's missing ignored Phase 6 sweep as an education failure.** Rejected:
+  baseline exact `npm test` passed Rule 7, both typechecks, and 1,261 of 1,262 cases; the sole
+  failure is `runner/test/phase6-sweep.test.ts` requiring ignored
+  `out/phase6-sweep/points.json`. Final verification will use the existing immutable artifact as
+  an ignored prerequisite and will not alter Phase 6 code or evidence semantics.
 
 ## Audit record
 
@@ -110,6 +115,237 @@ the resulting bytes through a final adversarial pass.
   Murphy-Koop reference standard. Part One's paper audit uses that inventory and the 120-entry
   tracked figure manifest; historical works and the standard are checked as concept sources even
   though they are not among the 14 cached PDFs.
+- To honor the operator's isolation request, implementation now lives in
+  `G:\Code Files\snowflake-education-audit` on branch `education-audit`, based on criteria/state
+  commits `9897fd5` and `3af7501`. Read-only junctions expose the local ignored figure/video cache
+  to the isolated worktree; the primary Phase 6 worktree is not an edit or staging target.
+
+### Part One source-coverage and order audit
+
+The chapter order is accepted: observable crystal and cloud, history, lattice, transport,
+surface physics, instability, habit diagram, environmental history, morphology, measurement,
+quantitative kinetics, SDAK, then the epistemic frontier. Repairs are local rather than a
+chapter reorder.
+
+| Source family | Coverage verdict before remediation | Required remediation |
+|---|---|---|
+| Libbrecht monograph | Main vapor-growth narrative is strong | Add transport resistance, aerodynamics/ventilation, negative crystals, and chemical/contamination effects; name liquid-water growth, cartography, full simulation survey, and photographic craft as deliberate scope limits |
+| TAX2, 2306.13087 | M1 curves, dips, bands, and working-hypothesis status are present | Show the 206-observation evidence; distinguish M1/M2, Gibbs-Thomson, seed/sample scope, and correct the inferred-log-base provenance |
+| FACET, 2306.04042 | Only a high-level paragraph | Teach its two-process equation, accessible Table 1, temperature/pressure scope, particle-diffusion bias, latent heating, and disagreement with CM7 |
+| TAX1, 2109.00098 | Needle-seed concepts and plate multiplicity are present | Add the 97-panel matrix and its selected-sample, growth-time, scale, and top/bottom-asymmetry limits |
+| Triangular crystals, 2106.09809 | Puzzle and threshold interaction are good | Add measured rate/width context, 3-D SDAK interpretation, and narrow experimental scope |
+| CM10, 2012.12916 | Factor-two prediction versus factor-ten observation is strong | Add pressure-gated ESI assumptions and uncertainty |
+| CM9, 2011.02353 | Sparse | Add measured basal-dip evidence, rate ratios, hollowing onset, pressure branches, and errors |
+| CM8, 2009.08404 | Broad curves and prism dip are substantially taught | Add direct evidence, factor-two witness systematic, and morphology/history caveat |
+| CM7, 2004.06212 | Broad −2 °C values only | Add large-prism versus kinetic-roughening branches, overlap ambiguity, pressure limit, and FACET conflict |
+| CM6, 1912.03230 | Two −5 °C rows only | Add broad/narrow basal branches, initial-fast history, hysteresis, plate/column outcomes, and selection limits |
+| Apparatus, 1912.09440 | Chamber, fitting, substrate, zero point are strong | Add 1.5-D silhouette, latent-heating correction, and uncertainty limits |
+| CAK, 1910.09067 | Concepts are distributed but direct scope is sparse | Add a measured-versus-modeled source map and semi-empirical limit |
+| Growth physics, 1211.5555 | Habit boundaries and transport/kinetics are good | Add size/pressure complexity and situate the wider modeling survey |
+| Gravner-Griffeath | Simplified 2-D rule and zoo are taught | Repair the toy model, add 3-D ridges/ribs/hollowing context, and state omissions |
+| Kepler, Bentley/Humphreys, Nakaya, Murphy-Koop | Appropriate and adequate | Retain; pair reconstructed habits with the later laboratory matrices |
+| Local videos | Unused | Add an offline real-growth scrubber and a rights-aware online source card |
+
+Before remediation, all 160 Part One source-image placements used the monograph cache; none used
+the strongest later-paper crops already present under `research/figures`. The public claim must
+be “the registered local corpus,” not “all snowflake science globally”: the source-currency
+sweep excludes non-arXiv publications, journal errata, website updates, and G-G currency.
+
+Five reviewed opportunities are mandatory implementation work because the user requested every
+recommended demo:
+
+1. FACET additive-process versus CM7 branch-switch explorer.
+2. TAX1/TAX2 laboratory morphology-matrix browser.
+3. CM6 −5 °C history/hysteresis explorer.
+4. Rights-aware real-growth time-lapse scrubber.
+5. Aerodynamics/ventilation explorer.
+
+### Part One remediation and gate
+
+Part One is complete at this checkpoint. The repaired course now:
+
+- teaches the registered later-paper evidence and limits from TAX1/TAX2, FACET, CM6–CM10, CAK,
+  the 2012 modelling survey, triangular crystals, and the three-dimensional
+  Gravner–Griffeath examples, while retaining the accepted learning order;
+- adds all five recommended demonstrations: the FACET/CM7 process comparison, TAX1/TAX2
+  morphology-matrix browser, CM6 history explorer, rights-aware real-growth scrubber, and
+  aerodynamics/ventilation explorer;
+- repairs the G–G toy's reflecting-neighbor mass loss, premature halt and reset behavior, and
+  replaces raster-order diffusion with a double-buffered D6-equivariant update;
+- makes every stochastic teaching model deterministic, fixes the rib schedule, initial theme and
+  playback-intent behavior, and gives reduced-motion users genuine step/reset semantics;
+- keeps authored/public pages media-free and copies authenticated source media only into the
+  ignored personal offline edition.
+
+The combined command
+`node docs/education/tools/verify.mjs --part-one` exited 0 in 335.8 seconds. Its exact report is
+`out/education-verify/part-one-report.json`, 275 bytes, SHA-256
+`264992201f9b53b9d6daab2c2e837058692ced13ae0969529df49398841eb552`, generated
+`2026-07-30T15:59:43.166Z`. The report records 17 pages, 67 visual roots, public and offline
+modes, 38 blocking checks, and zero failures. The same run rebuilt
+`out/education-local/source-media-map.json`, 87,960 bytes, SHA-256
+`696b97469c9bf9bb895d3347b8c42469aa67d7be265b909a5accc1f488204656`; the builder reported
+33 pages, 139 distinct source figures copied for 179 references, and one local video. The
+verifier independently enumerated authored references, rehashed source and copied bytes, checked
+every rewrite, loaded 102 profiles plus deterministic repeats in each mode, recomputed the
+load-bearing diffusion/G–G/FACET/CM7/aerodynamic/rib/morphology/CM6 claims, exercised the movie
+and album paths, and executed and rejected all eight artifact-backed negative controls.
+
+The closing science reviewer was a Codex GPT-5-family subagent with shared task context and did
+not author the reviewed batch. It independently rechecked chapters 7 and 10–13 plus the TAX and
+CM6 demos against the local papers/crops, recomputed representative values, and exercised
+public/offline mobile, dark and reduced-motion states; it closed with zero findings. A separate
+Codex GPT-5-family shared-context reviewer independently re-executed focused control paths and
+identified the reduced-motion defects subsequently repaired. Limits: neither reviewer searched
+beyond the registered corpus, made a legal redistribution determination, used a screen reader,
+tested Firefox/WebKit, reran a scientific gate, or ran exact root `npm test`. The combined
+Chromium verifier closes the full Part One browser/model scope; exact root verification remains a
+final whole-course requirement.
+
+### Part Two authority/code and order audit
+
+The Part Two sequence is accepted: scope, evidence labels, provenance, falsifiability,
+governance, lattice, determinism, surface seam, convergence, far field, metrics, adversarial
+tests, GPU conformance, preregistration, result, and limitations. Its blocking repairs are:
+
+- distinguish signed numerical boundary replacement/exchange from physical kinetic demand and
+  the placed-fill ledger in chapters 19, 22, 23, 26, and the glossary;
+- consolidate current Phase 6 status in the index, references, glossary, and chapters 28–29;
+- replace chapter 18's false universal source ranking with question-based authority routing;
+- fix chapter 21's `[10]` explanation: aggregate v4/v5/v6 pins it to zero;
+- mark the CAK_A1 domain ladder non-transferable to CAK;
+- make chapter 28's crossing verdict depend on the actual published state and add reset;
+- scope chapter 16's 33-row display as a grouped §§2–8 view and expose recorded gaps;
+- narrow `deltaSymClean` to attachment-delta symmetry, correct the workspace/spike and 38-check
+  descriptions, and distinguish the Phase 3 instrument from the future Phase 7 product.
+
+Five reviewed opportunities are mandatory implementation work:
+
+1. GG-versus-LK timeline-event explorer, including state preservation, density transform,
+   unclamped negative supersaturation, shell re-clamp diagnostic, atomic kinetics, and step-local
+   conversion.
+2. Fail-closed checkpoint mutation explorer.
+3. Side-by-side numerical-exchange and physical-demand ledger explorer.
+4. Transferability matrix.
+5. Historical/current Phase 6 status controls.
+
+### Interactive audit
+
+The independent browser inventory contains 33 pages and 169 visual roots: 151 `.anim` roots and
+18 charts; 150 have controls and 19 are static. Every root mounted at desktop/light,
+mobile/dark, and reduced motion, with zero page exceptions, empty roots, or missing accessible
+names. That mounting result did not certify model behavior. Independent oracles found:
+
+- `anim-gg-zoo.js` substitutes zero for an attached neighbor instead of the center value, losing
+  12.64–19.85% of `Σ(v+b)` across the four presets; its density slider does not reset state and
+  its 90-tick attachment stall falsely declares vapor exhaustion;
+- `anim-diffusion.js` uses raster-order in-place Gauss-Seidel and reaches vapor orbit error
+  `0.01325047`, fill orbit error `0.07122594`, and four occupancy disagreements by step 2,000;
+- chapter 8's rib schedule is static and reports 50 units when it draws 67.25;
+- chapter 10 correctly evaluates Eq. 7.6 but calls proximity to its 1 mm value “convergence”;
+- chapters 13, 16, 18, 21, and 28 contain the claim/state defects recorded above;
+- 32 `Math.random()` calls make six visual models and five generated-ID groups non-deterministic;
+- stored-theme selection happens after figures mount, so 133 of 169 roots initially use the
+  wrong palette when stored and OS themes disagree;
+- `viz.js` can restart a user-paused demo after tab restoration; chapter 20 calls a sequential
+  binary64 accumulation exact; chapter 26 has a two-pixel mobile overflow.
+
+The existing `screenshot.mjs` is fail-open and nonportable. It must be replaced by a committed
+Playwright verifier with an exact page/root manifest, layout/theme/motion/accessibility/link
+checks, control/reset coverage, deterministic-load checks, independent scientific oracles, and
+executed negative controls. Screenshots remain artifacts rather than verdicts.
+
+Audit reviewers were read-only Codex GPT-5-family subagents sharing the task context but not the
+candidate producer's execution. They independently inspected primary-source pages/crops/video
+frames, authority/code/history, all pages in Chromium, controls, and selected mathematical
+oracles. Limits: no reviewer reran scientific gates or the full literature beyond the registered
+corpus; unflagged decorative models were mounted and inspected but not all independently
+re-derived.
+
+### Part Two remediation
+
+All recorded Part Two findings are repaired without changing solver, runner, GPU, protocol, or
+Phase 6 evidence behavior:
+
+- chapters 14–29, the index, glossary, and references now route each question to the appropriate
+  authority, separate numerical field diagnostics from physical interface demand, state the
+  aggregate `[10]` closure correctly, scope convergence and symmetry claims to what was measured,
+  and keep the Phase 3 instrument distinct from the future Phase 7 product;
+- Phase 6 history is authenticated as the three-step
+  `483f7ee` → `0cb52bf` → `8c781b1` chain. The outward-facing status is fixed to a
+  2026-07-30 10:23 PDT audit cutoff: the corrected Arm 2 sweep was observed running, but mutable
+  partial rows were not promoted to a completed, reviewed result. The retained read-only snapshot
+  is `out/education-review/phase6-arm2-live-snapshot-review-20260730T102316-PDT.json`,
+  43,550 bytes, SHA-256
+  `6342042508a7912ac596afe58facc69f32f2e06f99148b2013380ac390e964f9`;
+- all five recommended demonstrations are integrated: timeline-event semantics, fail-closed
+  checkpoint mutation, numerical-versus-kinetic ledgers, a 36-field transferability matrix, and
+  historical/current Phase 6 status. The timeline exposes and preserves the full teaching state,
+  the ledger keeps its two identities disjoint, every real transfer row is an explicit
+  source-authenticated fixture, the checkpoint cases execute production codecs and context
+  validation, and the status control never turns a forecast or partial artifact into a result;
+- the crossing explorer derives its verdict from the displayed state and resets every control;
+  tables have named focusable scroll regions, chapter navigation ignores interactive controls,
+  stored theme and playback intent are stable, reduced-motion mode is genuinely static, and the
+  final two-column ledger layout wraps without label/value overlap;
+- the committed verifier enumerates the complete page/root manifest, canonicalizes DOM attributes
+  without hiding node/text order, independently recomputes load-bearing claims, drives all five
+  new demonstrations, executes production checkpoint cases, authenticates pinned Git objects,
+  checks mobile keyboard behavior and media boundaries, and proves its refusal predicates with
+  named mutations.
+
+### Final whole-course verification and adversarial review
+
+The definitive command `node docs/education/tools/verify.mjs` exited 0. Its exact report is
+`out/education-verify/report.json`, 283 bytes, SHA-256
+`23f7f3a8cdfb1c479174e5ab9049ed71be3b325ff55b7c7cba26e24c8e7fbc97`, generated
+`2026-07-30T18:24:35.477Z`. The report records the complete-course scope, 33 pages, 179 visual
+roots, public and offline modes, 76 blocking checks, and zero failures. The run loaded 198
+profiles plus deterministic repeats in each mode, passed the Part One and Part Two independent
+model oracles, executed all ten production checkpoint teaching cases plus four internal
+production-oracle negatives, and executed and rejected all 35 verifier negative controls.
+
+The same run rebuilt `out/education-local/source-media-map.json`, 87,960 bytes, SHA-256
+`696b97469c9bf9bb895d3347b8c42469aa67d7be265b909a5accc1f488204656`.
+That map authenticates 139 distinct figures used at 179 placements plus one local movie:
+99,302,123 copied bytes in total. Every source and output byte count and SHA-256 was independently
+recomputed; the public tree contains no image, audio, video, or PDF file and makes no local-media
+probe. Representative paper images decoded and rendered in the offline build, and the copied
+growth movie's 35.502102-second video stream was independently sought, played, paused, and
+visually inspected.
+
+Exact root `npm test` exited 0 on 2026-07-30, so the required Rule 7 scan, both TypeScript checks,
+and Vitest all completed successfully in the one exact command. Its Vitest cache was preserved as
+`out/education-review/npm-test-vitest-results-20260730.json`, 5,944 bytes, SHA-256
+`b45aff6bea19a946f02c51e2068895262a417af3fd05fa124c8dc8b88a4f1588`; that artifact records
+Vitest 3.2.7 results for 71 files with zero failed files. The ignored prerequisite
+`out/phase6-sweep/points.json` was authenticated immediately before the run at 129,760 bytes,
+SHA-256 `0ed613bce61e44829f722e069a818e0da4981ecd34829b0b49eaba15e11cf89a`;
+it was not staged or modified.
+
+The closing authority reviewer was an OpenAI Codex GPT-5-family subagent (exact backend variant
+not exposed), shared the full task context, and did not author or modify the reviewed bytes. It
+independently authenticated the Phase 6 ancestry and hashes, resolved all seven transferability
+source blobs at `main@8c781b1`, checked all 36 fields on every row, executed all five demos and
+the production checkpoint oracle, rechecked chapter order and theorem-strength wording, and
+closed with zero content, ordering, authority, or model blockers. It caught the unsupported
+strengthening of “stopped about a minute in” into “before any point completed”; every occurrence
+was narrowed before the final gate.
+
+The final visual/media reviewer was a separate OpenAI Codex GPT-5-family shared-context subagent
+that did not author or modify the candidate. It independently exercised public and offline
+desktop/mobile, light/dark and reduced-motion states; exact reset, keyboard scrolling, movie
+controls and media decoding; and every source/copy hash. It found the ledger label/value collision
+that numeric overflow checks missed, reverified the repair with zero text overlap, and closed
+public/offline UX and media handling clean. A third Codex GPT-5-family implementation reviewer
+independently re-executed the focused Part Two model gate and its 24 scoped negative controls
+before source freeze.
+
+Review limits: Chromium only; no Firefox/WebKit, real screen reader, OS high-contrast/zoom
+session, legal redistribution determination, literature search beyond the registered corpus, or
+scientific gate rerun. The audit observed but did not alter or interpret the active mutable Arm 2
+sweep beyond the dated cutoff. These limits are disclosure boundaries, not claims filled in by
+the automated gate.
 
 ## Open questions
 

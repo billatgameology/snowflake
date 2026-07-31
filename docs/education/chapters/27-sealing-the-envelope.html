@@ -44,6 +44,7 @@
       <li><a href="#try-to-cheat">Try to cheat</a></li>
       <li><a href="#the-real-exploit">A cheat nobody had to invent</a></li>
       <li><a href="#exit-codes">Three exit codes</a></li>
+      <li><a href="#checkpoint-contract">A saved run is a contract</a></li>
       <li><a href="#limits">What the seal cannot do</a></li>
     </ol>
   </nav>
@@ -60,8 +61,8 @@
         </p>
         <div class="chapter-header__meta">
           <span>~19 min read</span>
-          <span>6 figures</span>
-          <span>5 interactives</span>
+          <span>7 figures</span>
+          <span>6 interactives</span>
         </div>
       </header>
 
@@ -71,7 +72,9 @@
           <li>Explain why the <em>timing</em> of a decision changes its meaning, even when the decision itself is word-for-word identical.</li>
           <li>Recognise a partial safeguard that is worse than no safeguard, because it looks like protection.</li>
           <li>Tell &ldquo;wrong about the world&rdquo; apart from &ldquo;wrong about the evidence&rdquo;, and find the two wired to different exit codes.</li>
-          <li>Say why making cheating <em>expensive and visible</em> is a stronger design than making it forbidden.</li>
+        <li>Say why making cheating <em>expensive and visible</em> is a stronger design than making it forbidden.</li>
+        <li>Follow a saved checkpoint through framing, schema, state, and experiment-context checks,
+          and explain why a file can pass one layer and fail the next.</li>
         </ul>
       </section>
 
@@ -300,9 +303,9 @@
         <div class="anim__head">
           <p class="anim__title">Break the seal</p>
           <p class="anim__sub">
-            Five real registered values. Edit any character &mdash; a decimal place, one letter of a
-            commit name &mdash; and the fingerprint changes completely, and the sweep refuses to
-            start.
+            Five real registered values. This toy is a values-only seal: edit any value &mdash; a
+            decimal place, one letter of a commit name &mdash; and its fingerprint changes
+            completely, the same class of change for which the real sweep refuses to start.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -321,11 +324,15 @@
             simulation of the preflight&rsquo;s reasoning, not the output of a real run &mdash; the
             four checks and their order are the real ones
             (<code>phase6SweepPreflight</code>), but the real function collects failures and prints
-            no per-check &ldquo;ok&rdquo; line. The refusal text is verbatim, the real message from
-            <code>runner/src/phase6-sweep.ts</code>. The pin shown is a fingerprint of these five
-            fields only, computed when the page loaded &mdash; it is <strong>not</strong> the
-            project&rsquo;s protocol hash, which covers the whole manifest, the twenty-five-row
-            freeze list and all. Note that the canonical form sorts the keys and normalises number
+            no per-check &ldquo;ok&rdquo; line. The refusal mirrors the real
+            <strong>values-hash</strong> branch in <code>runner/src/phase6-sweep.ts</code>, with
+            <code>&lt;live&gt;</code> and <code>&lt;pin&gt;</code> placeholders. The pin shown is a
+            fingerprint of these five fields only, computed when the page loaded &mdash; it is
+            <strong>not</strong> the project&rsquo;s complete values hash. The real values manifest
+            covers every registered result-bearing value and is the durable preflight gate. A
+            separate combined values-plus-prose hash identifies and reports a particular revision;
+            prose can move it without pricing a re-sweep, provided its revision pin is updated in
+            the same decision record. Note that the canonical form sorts the keys and normalises number
             spelling, so <code>0.135</code> and <code>0.1350</code> seal identically: hashing
             serialises the <em>value</em>, so those are the same number. It is the strict
             <em>reader</em> described just above that refuses a <em>file</em> spelling it the second
@@ -1047,9 +1054,10 @@
           <span class="built-from">
             Original interactive, and a simulation of the gate&rsquo;s reasoning rather than a
             transcript of a real run. The nine check areas are the rows of the gate-contract table in
-            <code>docs/plans/phase-6-nakaya-validation.md</code>; the exit-code assignment and the six
-            named negative controls are quoted from the same file; the hash-mismatch wording is the
-            real message in <code>runner/src/phase6-sweep.ts</code>. The last button is labelled
+            <code>docs/plans/phase-6-nakaya-validation.md</code>; the exit-code assignment and the
+            original six named controls are quoted from the same file; the hash-mismatch wording is
+            the real message in <code>runner/src/phase6-sweep.ts</code>. A seventh executed control,
+            the mid-run solver edit described below, was added during WP5 hardening. The last button is labelled
             <em>hypothetical</em> on purpose: it shows a weaker gate than the registered one, which
             counts 204 points because the grid is hashed into the manifest by value and its
             Execution-validity row demands that every point completed.
@@ -1060,16 +1068,18 @@
       <p>
         The last row of that gate contract is the one most projects skip. It is not enough for the
         gate to pass on good evidence; it has to be shown failing on bad evidence, on demand, for
-        each specific kind of bad. Six sabotages are registered:
+        each specific kind of bad. The original plan named six. WP5 later executed a seventh, aimed
+        at the timing hazard the sweep itself disclosed:
       </p>
 
       <ul>
-        <li>forged provenance</li>
+        <li>a forged published verdict</li>
         <li>a post-freeze parameter edit</li>
-        <li>a merged no-SDAK / SDAK report</li>
+        <li>rows merged from two different parameter sets</li>
         <li>a domain-contacted run entering results</li>
         <li>a mismatched far-field condition</li>
         <li>a habit classification taken at the wrong measurement size</li>
+        <li>a tracked solver file edited after preflight</li>
       </ul>
 
       <p>
@@ -1081,6 +1091,29 @@
       </p>
 
       <p>
+        All seven mutations really executed. The first pass caught five and exposed two gaps:
+        per-row output could not prove which parameter set produced it, and a row measured at the
+        wrong size still scored normally. Commit <code>b701285</code>, implementing decision record
+        0035, pins every child input and requires a size-target stop with
+        <code>largestExtent&nbsp;&ge;&nbsp;21</code>. The inequality matters: a legitimate growth step
+        can jump from 20 to 22. Re-checking the historical Arm&nbsp;1 rows found all 204 at extent
+        exactly 21, so its measured 3 of 90 did not move. That repair governs checking and future
+        runs; it cannot insert the per-row configuration and stop-reason fields that Arm&nbsp;1 never
+        recorded.
+      </p>
+
+      <p>
+        The timing control needed a different repair. Commit <code>154359d</code> dynamically
+        fingerprints every TypeScript source file under <code>core/src</code>,
+        <code>solver-cpu/src</code>, and <code>runner/src</code> before a future sweep launches and
+        again when it finishes, and refuses publication if the sets or bytes differ. There were 39
+        such files at that commit; later additions are included rather than hidden behind a
+        hard-coded count. It catches a commit landing mid-run and an uncommitted edit that is later
+        reverted. Again, that is a forward safeguard, not a retroactive upgrade of Arm&nbsp;1&rsquo;s
+        provenance.
+      </p>
+
+      <p>
         The same instinct governs how results reach disk. The Phase 4 and Phase 5 gates each publish
         through their own staging function (<code>publishEvidenceBundle</code> in
         <code>runner/src/gate4-evidence.ts</code>; <code>publishPhase5Lane</code> in
@@ -1089,6 +1122,57 @@
         single <code>renameSync</code> onto its published name. Evidence either appears complete or
         does not appear.
       </p>
+
+      <h2 id="checkpoint-contract">A saved run is a contract too</h2>
+
+      <p>
+        The same fail-closed idea reaches inside a checkpoint. Its first eight bytes must spell
+        <code>VCCCKPT1</code>; the next four declare, in little-endian order, exactly how long the
+        JSON header is; and the header&rsquo;s field table says where the raw arrays begin and end.
+        The decoder does not merely ask whether the file is readable. It requires the exact wire
+        version, the exact fields for that solver, an exact payload length, recognized controls, and
+        state that can exist: attachment flags are 0 or 1, fill lies from 0 to 1, supersaturation is
+        never below &minus;1, and attached cells and masked walls carry their required values.
+      </p>
+
+      <p>
+        Then a gate asks a question the codec cannot answer: <em>is this the checkpoint from the
+        registered run in front of me?</em> A reflecting-boundary LK file is perfectly valid
+        diagnostic data, for example, but it cannot support a physical habit gate that registered a
+        fixed-supersaturation far field. A recognized v5 policy is valid syntax but still the wrong
+        experiment when the run registered v6. Gate validators therefore compare the decoded
+        metadata and field bits with the named run, require a byte-stable re-encode, and reconstruct a
+        solver from the recorded controls. The SHA-256 that authenticates an evidence artifact belongs
+        to the surrounding evidence bundle; the checkpoint codec does not smuggle a self-certifying
+        hash into its own payload.
+      </p>
+
+      <figure class="anim is-wide" id="c27-checkpoint-mutations"
+              data-demo="checkpoint-mutation-explorer">
+        <div class="anim__head">
+          <p class="anim__title">Mutate a checkpoint</p>
+          <p class="anim__sub">
+            Pick one byte-, header-, state-, or experiment-level mutation. The file advances only
+            until the first layer entitled to reject it. Notice the two cases where the codec accepts
+            valid data and the evidence context still refuses the claim.
+          </p>
+        </div>
+        <div class="anim__body"></div>
+        <div class="anim__controls" aria-label="Checkpoint mutation cases"></div>
+        <figcaption class="anim__foot">
+          <span class="built-from">
+            Original interactive teaching reconstruction, not an uploaded-file decoder. Format and
+            mutations are transcribed from <code>core/src/checkpoint.ts</code> and
+            <code>core/test/checkpoint.test.ts</code>: corrupt magic, exact field tables and payload
+            lengths, the silently shifted <code>f</code>-descriptor probe, the &sigma;&nbsp;&ge;&nbsp;&minus;1
+            density floor, strict metric keys, LK v1&rsquo;s implicit <code>legacy-v3</code> policy,
+            and reflecting diagnostic round trips. The final context layer is transcribed from the
+            runner&rsquo;s strict checkpoint validators, which compare registered metadata and field
+            bits, demand byte-stable re-encoding, and reconstruct the solver. This browser model does
+            not execute those TypeScript codecs or authenticate evidence bytes.
+          </span>
+        </figcaption>
+      </figure>
 
       <h2 id="limits">What the seal cannot do</h2>
 
@@ -1142,7 +1226,7 @@
         <p>
           A safeguard is not a promise not to cheat. It is an arrangement in which cheating costs
           something specific, leaves a mark, and has to be signed for. Twenty-five rows, one
-          fingerprint, four preflight refusals, three exit codes, six named sabotages &mdash; and a
+          fingerprint, four preflight refusals, three exit codes, seven executed sabotages &mdash; and a
           price of about twenty hours of compute for changing your mind after the fact, which this
           project has now paid once.
         </p>
@@ -1200,7 +1284,7 @@
 </footer>
 
 <style>
-/* Scoped helpers for this chapter's five interactives. */
+/* Scoped helpers for this chapter's six interactives. */
 #c27-seal .c27-rows { display: grid; gap: 0.45rem; }
 .c27-row { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 0.6rem; align-items: center; }
 .c27-row label { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-secondary); overflow-wrap: anywhere; }
@@ -1257,6 +1341,7 @@
 
 <script src="../assets/site.js"></script>
 <script src="../assets/viz.js"></script>
+<script src="../assets/anim-checkpoint-mutations.js"></script>
 <script>
 /* ===========================================================================
    Chapter 27 — Sealing the Envelope
@@ -1525,12 +1610,14 @@
     });
 
     render();
-    // Show the real refusal text once, verbatim in shape, beneath the panel.
+    // Show the real values-gate refusal with digest placeholders beneath the panel.
     var note = el("p", "c27-note");
     note.style.marginTop = "0.6rem";
     note.textContent =
-      'The real refusal, from runner/src/phase6-sweep.ts: "protocol hash <live> does not match '
-      + 'the registered <pin> — a registered value was edited without updating the pin".';
+      'The real values-gate refusal, with digest placeholders: "arm1-cak values hash <live> '
+      + 'does not match the registered <pin> — a registered VALUE was edited without updating '
+      + 'the pin, which invalidates prior sweeps". A combined-hash mismatch instead says its '
+      + 'values-plus-prose revision pin must be updated; it does not claim a value changed.';
     body.appendChild(note);
     Viz.onThemeChange(render);
   })();
@@ -2078,8 +2165,8 @@
         label: "Someone edited a frozen parameter after the freeze",
         build: function () {
           var l = fail(base(), "pre-registration",
-            "protocol hash <live> does not match the registered <pin> — a registered value "
-            + "was edited without updating the pin");
+            "arm1-cak values hash <live> does not match the registered <pin> — a registered "
+            + "VALUE was edited without updating the pin, which invalidates prior sweeps");
           l[1] = { text: pad("provenance") + " SKIP", ok: false };
           return {
             lines: l, tail: [], code: 1,
@@ -2244,8 +2331,8 @@
     term.textContent = "$ node runner/src/main.ts phase6-gate\n\n"
       + "  pick a scenario below.\n\n"
       + "  this is a simulation of the gate's reasoning, not a transcript of a real run.\n"
-      + "  the nine check areas, the exit codes and the six negative controls are the\n"
-      + "  registered ones; the situations are hypothetical.";
+      + "  the nine check areas, the exit codes and the original six controls are the\n"
+      + "  registered ones; WP5 later executed a seventh. the situations here are hypothetical.";
     Viz.onThemeChange(function () { setLamps(lastCode); styleTerm(lastCode); });
   })();
 

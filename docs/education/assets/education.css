@@ -20,7 +20,7 @@
   --surface-sunken: #f1f1ed;
   --ink-primary: #0b0b0b;
   --ink-secondary: #52514e;
-  --ink-muted: #898781;
+  --ink-muted: #66645f;
   --rule: #e1e0d9;
   --rule-strong: #c3c2b7;
   --border: rgba(11, 11, 11, 0.10);
@@ -42,10 +42,11 @@
   --seq-700: #0d366b;
 
   /* status — reserved, never a series */
-  --status-good: #0ca30c;
+  --status-good: #087a08;
   --status-warning: #fab219;
   --status-serious: #ec835a;
-  --status-critical: #d03b3b;
+  --status-critical: #b3261e;
+  --control-selected: #185c9f;
 
   /* accents used by callouts */
   --accent-key: #2a78d6;
@@ -80,7 +81,7 @@
     --surface-sunken: #141413;
     --ink-primary: #ffffff;
     --ink-secondary: #c3c2b7;
-    --ink-muted: #898781;
+    --ink-muted: #aaa79f;
     --rule: #2c2c2a;
     --rule-strong: #383835;
     --border: rgba(255, 255, 255, 0.10);
@@ -103,6 +104,9 @@
     --accent-myth: #e66767;
     --accent-method: #199e70;
     --accent-open: #9085e9;
+    --status-good: #6bd66b;
+    --status-critical: #ff7b7b;
+    --control-selected: #185c9f;
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
@@ -116,7 +120,7 @@
   --surface-sunken: #141413;
   --ink-primary: #ffffff;
   --ink-secondary: #c3c2b7;
-  --ink-muted: #898781;
+  --ink-muted: #aaa79f;
   --rule: #2c2c2a;
   --rule-strong: #383835;
   --border: rgba(255, 255, 255, 0.10);
@@ -139,6 +143,9 @@
   --accent-myth: #e66767;
   --accent-method: #199e70;
   --accent-open: #9085e9;
+  --status-good: #6bd66b;
+  --status-critical: #ff7b7b;
+  --control-selected: #185c9f;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
@@ -548,10 +555,12 @@ img { max-width: 100%; height: auto; display: block; }
   border-bottom: 1px solid var(--rule);
   text-align: center;
 }
-.figure__missing h4 {
+.figure__missing p.figure__missing-title {
   margin: 0 0 0.6rem;
   font-size: var(--step-0);
+  font-weight: 700;
   color: var(--ink-primary);
+  text-align: center;
 }
 /* The heading stays centred; the body reads as prose, so it is left-aligned. */
 .figure__missing p {
@@ -624,6 +633,11 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: var(--step--1);
   color: var(--ink-muted);
 }
+.anim__foot code,
+.chart__foot code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
 .chart__foot .built-from { font-style: italic; }
 
 /* legend — always present for >= 2 series */
@@ -649,6 +663,7 @@ img { max-width: 100%; height: auto; display: block; }
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  min-width: 0;
   gap: 0.75rem 1.25rem;
   padding: 0.75rem 1.25rem;
   border-top: 1px solid var(--rule);
@@ -657,7 +672,10 @@ img { max-width: 100%; height: auto; display: block; }
 
 .control {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  min-width: 0;
+  max-width: 100%;
   gap: 0.6rem;
   font-size: var(--step--1);
   color: var(--ink-secondary);
@@ -667,6 +685,8 @@ img { max-width: 100%; height: auto; display: block; }
   font-family: var(--font-mono);
   font-size: 0.82rem;
   min-width: 5.5ch;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   color: var(--ink-primary);
   font-variant-numeric: tabular-nums;
 }
@@ -675,6 +695,7 @@ img { max-width: 100%; height: auto; display: block; }
   -webkit-appearance: none;
   appearance: none;
   width: clamp(110px, 22vw, 190px);
+  max-width: 100%;
   height: 20px;
   background: transparent;
   cursor: pointer;
@@ -719,11 +740,44 @@ img { max-width: 100%; height: auto; display: block; }
   cursor: pointer;
   white-space: nowrap;
 }
-.button:hover { border-color: var(--accent-key); color: var(--accent-key); }
+.button:hover { border-color: var(--accent-key); color: var(--control-selected); }
 .button[aria-pressed="true"] {
-  background: var(--accent-key);
-  border-color: var(--accent-key);
+  background: var(--control-selected);
+  border-color: var(--control-selected);
   color: #fff;
+}
+
+@media (max-width: 480px) {
+  .anim__controls {
+    gap: 0.65rem;
+    padding-inline: 0.8rem;
+    min-width: 0;
+  }
+  .anim__controls .control {
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .anim__controls .control label {
+    flex: 1 1 9rem;
+    white-space: normal;
+  }
+  .anim__controls .control input[type="range"] {
+    flex: 1 1 7rem;
+    width: auto;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .anim__controls .control output {
+    min-width: 0;
+  }
+  .anim__controls .button {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
 }
 
 /* chart primitives used by inline SVG */
