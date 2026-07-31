@@ -90,6 +90,36 @@ here deliberately, and the commitment is that P4 (arm 1, no SDAK) is reported on
 if arm 1 also crosses 1.5 at rung C, then size, not SDAK, is what makes columns, and that is a worse
 result for the SDAK arm than the one I am currently reporting.
 
+## AMENDMENT 2026-07-31 — a latent defect in outcome 2, found while the ladder was still running
+
+**Recorded before the deciding rungs landed**, with P1-B, P2-B and all of rung C still executing.
+
+Outcome 2 is stated as "every rung within one representable step of rung A". Building the reader
+(`app/scripts/phase6-ladder-read.mjs`) exposed that **"one representable step" is not computable at
+the new measurement sizes**, so as written outcome 2 cannot be evaluated there.
+
+The lattice permits `tExtent ∈ {1 + n/2} ∪ {1 + m·√3/2}`, and those two families interleave
+arbitrarily closely — 26·√3/2 = 22.516 sits 0.016 from 22.5 — so the permitted set is nearly dense
+and its local gap is not a resolution scale at all. The first version of the reader computed exactly
+that and printed `step 0.0000`.
+
+What a grown crystal realizes is far coarser, because D6h symmetry couples Δx and Δy rather than
+letting them range independently: **408 crystals produced 36 distinct AR values.** The realized step
+is therefore an *empirical* quantity, established only where many crystals were measured — 408 of
+them at extent 21, a handful at the ladder's new sizes.
+
+**Consequence, and it is a narrowing rather than a repair.**
+
+- Outcomes **1** (a rung reaches AR ≥ 1.5), **3** (AR falls) and **4** (non-monotone) are
+  directional or absolute. They are unaffected and are evaluated as registered.
+- Outcome **2** is reported against the extent-21 realized step (0.0875–0.1000 near the floor) as
+  the only *measured* scale available, and every such statement is flagged as resting on a threshold
+  imported from a different measurement size. **"Size-converged" is the stronger claim, so it does
+  not get the benefit of an invented threshold.**
+
+This is a defect in the registration, not in the data, and it is recorded here rather than fixed by
+quietly restating outcome 2 in terms the data happens to satisfy.
+
 ## What this cannot show
 
 - Nothing about `dxUm` convergence. Not run, not affordable, not claimed.
