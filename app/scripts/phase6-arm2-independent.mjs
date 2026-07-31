@@ -103,10 +103,26 @@ if (svg.includes("no-SDAK habit")) note("diagram.svg is titled as the NO-SDAK ar
 //
 // The per-row `config` is the child's self-reported header. It is what makes a spliced row from the
 // other arm detectable: arm 1's rows say paramSet=CAK.
+//
+// EVERY row must carry one, and that requirement is not pedantry — it is negative controls C7 and
+// C8 (`app/scripts/phase6-arm2-negative-controls.mjs`). This loop originally skipped rows with no
+// config and merely PRINTED how many had one. Both forgeries passed verification unchanged:
+//
+//   C7 — six real arm-1 rows spliced in at their own grid points. Arm 1 predates per-row config
+//        (erratum E3), so the spliced rows carried none and the check simply did not look at them.
+//   C8 — `config` deleted from all 204 rows. An artifact stripped of every trace of which parameter
+//        set produced it verified clean, because a check that only inspects rows that HAVE the field
+//        is disarmed by removing the field.
+//
+// A check that an absent field cannot fail is not a check. Missing config is now a FAILURE.
 let withConfig = 0;
+const noConfig = [];
 for (const e of points) {
   const c = e.result?.config;
-  if (c === null || c === undefined) continue;
+  if (c === null || c === undefined) {
+    noConfig.push(`T=${e.point.tempC} f=${e.point.fraction}`);
+    continue;
+  }
   withConfig += 1;
   if (c.paramSet !== PARAM_SET) {
     note(`T=${e.point.tempC} f=${e.point.fraction} ran under paramSet "${c.paramSet}", not ${PARAM_SET}`);
@@ -118,6 +134,16 @@ for (const e of points) {
   }
   if (c.tempC !== e.point.tempC) note(`T=${e.point.tempC} row reports a run at ${c.tempC} C`);
 }
+if (noConfig.length > 0) {
+  note(
+    `${noConfig.length} of ${points.length} rows carry NO per-row config, so they cannot say which ` +
+      `parameter set produced them (first: ${noConfig.slice(0, 3).join(", ")}) — negative controls C7/C8`,
+  );
+}
+// WHAT THIS STILL CANNOT DO, stated rather than implied. The per-row config is SELF-REPORTED. A
+// spliced foreign row whose config was also forged to say M1 is indistinguishable from a genuine
+// one by any inspection of the artifact alone. Detecting that needs the source-graph digest and the
+// execution-time provenance record, not this file.
 
 // ── 2. The row set is exactly the registered grid ────────────────────────────────────────────
 const expected = new Set();
