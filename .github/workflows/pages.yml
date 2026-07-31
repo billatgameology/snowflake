@@ -39,9 +39,13 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          # education:verify checks git ancestry against historically pinned freeze
+          # commits (Phase 6 provenance). A shallow clone would make those checks fail.
+          fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: "24"
           cache: npm

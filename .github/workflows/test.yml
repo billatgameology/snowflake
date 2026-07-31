@@ -41,9 +41,14 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          # Several suites check git ancestry against historically pinned freeze commits
+          # (Phase 6/4 provenance, e.g. phase6-sweep.test.ts). A shallow clone would make
+          # those checks fail with "not an ancestor" / "ambiguous argument" errors.
+          fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           # The runner uses `--experimental-strip-types`, so the major version matters. package.json
           # asks for >=23.6; pin the major here so a silent bump cannot change what the numerics do.
