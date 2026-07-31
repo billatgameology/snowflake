@@ -65,28 +65,21 @@
     };
 
     function makeSelect(labelText, hook) {
-      const label = document.createElement("label");
-      label.style.display = "grid";
-      label.style.gap = "0.25rem";
-      label.style.minWidth = "11rem";
+      const wrap = document.createElement("div");
+      wrap.className = "control";
 
-      const text = document.createElement("span");
-      text.textContent = labelText;
-      text.style.fontWeight = "650";
-      text.style.fontSize = "0.82rem";
+      const id = "matrix-" + hook;
+      const label = document.createElement("label");
+      label.setAttribute("for", id);
+      label.textContent = labelText;
 
       const select = document.createElement("select");
+      select.id = id;
       select.setAttribute("data-test-hook", hook);
-      select.style.font = "inherit";
-      select.style.padding = "0.45rem 0.55rem";
-      select.style.border = "1px solid var(--rule)";
-      select.style.borderRadius = "0.35rem";
-      select.style.color = "var(--ink)";
-      select.style.background = "var(--surface)";
 
-      label.appendChild(text);
-      label.appendChild(select);
-      controls.appendChild(label);
+      wrap.appendChild(label);
+      wrap.appendChild(select);
+      controls.appendChild(wrap);
       return select;
     }
 
