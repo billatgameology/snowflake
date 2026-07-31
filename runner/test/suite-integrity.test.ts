@@ -75,4 +75,21 @@ describe("the test suite's own integrity", () => {
     expect(pkg.scripts.test).toContain("vitest run");
     expect(pkg.scripts.typecheck).toBe("tsc --noEmit && tsc -p app --noEmit");
   });
+
+  // Evidence pin register R26. `LKSolver` now throws when a TEST-ONLY hook is set without
+  // `testMode: true`, but that guard is only worth anything while the evidence path has no way to
+  // SATISFY it. The runner is the only route from a command line to a scored crystal, so the claim
+  // "no evidence run can reach these hooks" is exactly the claim that these three identifiers never
+  // appear in it. A future `--test-mode` flag would silently re-open the path; this fails first.
+  it("the runner offers no route to the TEST-ONLY solver hooks", () => {
+    const main = readFileSync(join(REPO_ROOT, "runner", "src", "main.ts"), "utf8");
+    for (const identifier of ["testAlphaOverride", "testExtraSeedSites", "testMode"]) {
+      expect(
+        main.includes(identifier),
+        `runner/src/main.ts mentions ${identifier}. The hook guard is only meaningful while the ` +
+          "evidence path cannot satisfy it — R26's executed mutation scored plate/AGREE with every " +
+          "hash unmoved.",
+      ).toBe(false);
+    }
+  });
 });

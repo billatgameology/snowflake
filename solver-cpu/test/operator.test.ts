@@ -73,6 +73,7 @@ describe("legacy-v3 cross-rule kernel identity", () => {
       farField: "reflecting",
       relaxTol: 1e9, // any first-sweep residual "converges": exactly one sweep runs
       testAlphaOverride: () => 0,
+      testMode: true, // R26: the TEST-ONLY hook above now requires an explicit opt-in.
     });
     const n = cellCount(dims);
     for (let x = 0; x < n; x++) {

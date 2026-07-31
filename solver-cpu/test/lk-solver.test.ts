@@ -34,6 +34,10 @@ const devOptions = {
   dxUm: 0.35,
   rngSeed: 1,
   relaxTol: 1e-8,
+  // R26: `testAlphaOverride`/`testExtraSeedSites` now require an explicit opt-in, because
+  // "never set in runs" was previously enforced by a comment and the executed mutation showed a
+  // hooked run scoring plate/AGREE with every hash unmoved. These ARE tests, so they say so.
+  testMode: true,
 } as const;
 
 const neighborDirections = [
@@ -672,6 +676,7 @@ describe("LKSolver — divergence identity (§4.4 test 3)", () => {
       divTol: 1,
       relaxMaxSweeps: 1,
       seedRadius: null,
+      testMode: true, // R26: the TEST-ONLY hook below now requires an explicit opt-in.
       testExtraSeedSites: [
         indexOf(4, 4, 4, dims),
         indexOf(5, 4, 4, dims),
@@ -1202,5 +1207,66 @@ describe("opposing-vapor mean, D6h equivariance", () => {
     expect(usesCanonicalOpposingOrder("aggregate-hv-g1h1-v4")).toBe(false);
     expect(isLKSurfacePolicy("aggregate-hv-g1h1-v6")).toBe(true);
     expect(isLKSurfacePolicy("aggregate-hv-g1h1-v7")).toBe(false);
+  });
+});
+
+// Evidence pin register R26. `testAlphaOverride` substitutes the facet kinetics wholesale — the
+// single quantity Phase 6 measures — and until 2026-07-31 the only thing preventing an evidence run
+// from setting it was a doc comment saying "Never set in runs". The mutation was EXECUTED: a hooked
+// run scored plate / AGREE with `configFailures = []`, every hash unmoved, preflight clean and the
+// whole suite green. These tests are the reason the comment is now load-bearing, and they exist
+// because a guard nothing exercises is indistinguishable from no guard.
+describe("R26 — the TEST-ONLY hooks are unreachable from an evidence path", () => {
+  // Deliberately NOT `devOptions`, which now carries `testMode: true`.
+  const evidenceLikeOptions = {
+    surfacePolicy: "aggregate-hv-g1h1-v4",
+    dims: { nx: 12, ny: 12, nz: 9 },
+    tempC: -5,
+    sigmaInfinity: 0.01,
+    dxUm: 0.35,
+    rngSeed: 1,
+    relaxTol: 1e-8,
+  } as const;
+
+  it("refuses testAlphaOverride without an explicit opt-in, and says which hook", () => {
+    expect(() => new LKSolver({ ...evidenceLikeOptions, testAlphaOverride: () => 1 })).toThrow(
+      /testAlphaOverride is a TEST-ONLY hook/,
+    );
+  });
+
+  it("refuses testExtraSeedSites without an explicit opt-in", () => {
+    expect(() => new LKSolver({ ...evidenceLikeOptions, testExtraSeedSites: [0] })).toThrow(
+      /testExtraSeedSites is a TEST-ONLY hook/,
+    );
+  });
+
+  it("treats testMode: false as refusal, not as absence", () => {
+    expect(
+      () => new LKSolver({ ...evidenceLikeOptions, testAlphaOverride: () => 1, testMode: false }),
+    ).toThrow(/TEST-ONLY hook/);
+  });
+
+  it("refuses BEFORE any other validation, so the failure cannot be read as a numerical one", () => {
+    // `surfacePolicy` is also invalid here. The hook guard must win, or a real misuse could be
+    // misdiagnosed as a config typo and "fixed" by correcting the wrong field.
+    expect(
+      () =>
+        new LKSolver({
+          ...evidenceLikeOptions,
+          surfacePolicy: "not-a-policy" as never,
+          testAlphaOverride: () => 1,
+        }),
+    ).toThrow(/TEST-ONLY hook/);
+  });
+
+  it("still allows the hooks when a test opts in explicitly", () => {
+    const solver = new LKSolver({ ...evidenceLikeOptions, testAlphaOverride: () => 1, testMode: true });
+    expect(solver.attachedCount).toBeGreaterThan(0);
+  });
+
+  it("leaves an unhooked construction completely unaffected", () => {
+    // The guard must be invisible to every ordinary run, including one that never mentions testMode.
+    const solver = new LKSolver({ ...evidenceLikeOptions });
+    expect(solver.attachedCount).toBeGreaterThan(0);
   });
 });

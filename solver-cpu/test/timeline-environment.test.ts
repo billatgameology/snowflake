@@ -389,6 +389,7 @@ describe("LKSolver abrupt environment transitions (ADR 0011)", () => {
       sigmaInfinity: 0.01,
       farField: "reflecting",
       testAlphaOverride: () => 1,
+      testMode: true, // R26: the TEST-ONLY hook above now requires an explicit opt-in.
     });
     expect(solver.relaxField().converged).toBe(true);
     const internal = solver as unknown as LKInternalSnapshotView;
@@ -428,6 +429,7 @@ describe("LKSolver abrupt environment transitions (ADR 0011)", () => {
       sigmaInfinity: 0.01,
       farField: "reflecting",
       testAlphaOverride: () => 1,
+      testMode: true, // R26: the TEST-ONLY hook above now requires an explicit opt-in.
     });
     expect(solver.relaxField().converged).toBe(true);
     solver.advanceSurface();

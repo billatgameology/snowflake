@@ -85,6 +85,7 @@ const lkOptions = {
   relaxMaxSweeps: 1,
   farField: "reflecting",
   testAlphaOverride: () => 1,
+  testMode: true, // R26: the TEST-ONLY hook above now requires an explicit opt-in.
 } as const;
 
 describe("SurfaceOperator cycle ownership hardening", () => {

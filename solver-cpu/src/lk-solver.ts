@@ -96,6 +96,13 @@ export interface LKSolverOptions {
   readonly center?: readonly [number, number, number];
   /**
    * TEST-ONLY hook replacing alphaHK for boundary-law tests. Never set in runs.
+   *
+   * "Never set in runs" was, until 2026-07-31, enforced by this sentence alone — evidence pin
+   * register R26, rated **high**. The mutation was EXECUTED: adding `testAlphaOverride: () => 1`
+   * to the runner replaced the entire facet kinetics, i.e. the exact quantity Phase 6 is measuring
+   * (`minShell` moved 6.836e-2 -> 1.547e-1 on the same point and seed), and the run was scored
+   * plate / AGREE with `configFailures = []`, every hash unmoved, preflight clean, the full suite
+   * passing and `tsc --noEmit` clean. Requiring `testMode` makes the comment load-bearing.
    */
   readonly testAlphaOverride?: (facet: FacetClass, tempC: number, sigmaSurf: number) => number;
   /**
@@ -103,6 +110,13 @@ export interface LKSolverOptions {
    * exact boundary geometries (e.g. the hole-fill probe). Never set in runs.
    */
   readonly testExtraSeedSites?: readonly number[];
+  /**
+   * Explicit opt-in required before EITHER test hook above may be used. There is deliberately no
+   * CLI flag that sets it and no default that enables it: a test constructs `LKSolver` directly
+   * and can pass it, while every evidence path goes through `runner/src/main.ts`, which does not.
+   * So the guard cannot be satisfied by anything an evidence run can reach.
+   */
+  readonly testMode?: boolean;
 }
 
 /** Read-only liveness report. Observability only; it does not participate in convergence. */
@@ -420,6 +434,23 @@ export class LKSolver implements SurfaceOperator {
     this.center = options.center ?? domainCenter(this.dims);
     this.testAlphaOverride = options.testAlphaOverride;
     this.divTol = options.divTol ?? 1e-6;
+
+    // Evidence pin register R26. The two TEST-ONLY hooks are now unusable without an explicit
+    // opt-in, and this throw comes FIRST — before any other validation and before any work — so
+    // the failure is impossible to mistake for a numerical one. `testAlphaOverride` substitutes
+    // the facet kinetics wholesale, which is the single quantity Phase 6 exists to measure; a run
+    // that sets it is not a worse measurement, it is a measurement of something else entirely.
+    if (options.testMode !== true) {
+      for (const hook of ["testAlphaOverride", "testExtraSeedSites"] as const) {
+        if (options[hook] !== undefined) {
+          throw new Error(
+            `${hook} is a TEST-ONLY hook and was set without testMode: true. It replaces ` +
+              "physics under test, so it must never be reachable from an evidence path. If this " +
+              "is a test, pass testMode: true explicitly; if it is a run, this is the bug.",
+          );
+        }
+      }
+    }
 
     // Runtime validation is load-bearing: TypeScript does not bind JS callers or parsed CLI
     // numbers, and an invalid run must fail before doing hours of relaxation or writing a

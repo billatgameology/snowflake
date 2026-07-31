@@ -207,6 +207,91 @@ sidecar carries the digest in the meantime.
 
 ---
 
+## E5 — the freeze rows' WARM-side evidence was measured under the superseded parameter set
+
+**Found by the 2026-07-29 adversarial audit, rated CRITICAL, and never propagated out of
+`docs/phase6-soundness-audit-2026-07-29.raw.txt` into any ADR, erratum or report until now
+(2026-07-31).** That is the finding's second defect: it was discovered, written down, and left
+where nobody reading the evidence would meet it. Recorded here so the next reader meets it.
+
+**What is true.** `research/phase6-convergence.md:9` declares that every run in the WP3 convergence
+campaign used `paramSet CAK_A1` — the set ADR 0031 invalidated the first sweep over. WP3's two
+conditions behave completely differently under the registered sets:
+
+| WP3 condition | steps / attached / AR | matches |
+|---|---|---|
+| warm, −5 °C f = 0.15 | 145 / 1513 / 0.3821 **plate** | the SUPERSEDED `CAK_A1` artifact exactly |
+| warm, −5 °C f = 0.15, under registered `CAK` | 300 / 4883 / 1.0000 **neutral** | 3.2× the mass, 2.07× the steps, a different class |
+| cold, −15 °C f = 0.15 | 316 / 5161 / 1.10526 | **bit-identical in BOTH sweeps** |
+
+The cold arm is bit-identical because `A_prism → 1` at T ≤ −15, so `CAK` and `CAK_A1` coincide
+there. The warm arm is not the crystal either published arm produces.
+
+**What this voids, and what it does not.**
+
+- **Survives, on its cold derivation:** N = 48, extent 21, `cflFill` 0.1, and the **+0.135
+  extent-fragile bound** — which is why the per-point fragility flag both arms carry is still sound.
+  **No published sweep number is shown wrong by this.**
+- **Void for the executed parameter sets, warm side:** the `domain-budgets`, `habit-measurement-size`,
+  `fill-cfl` and `dx` freeze rows' warm justifications, and
+  `PHASE6_EXTRAPOLATION_ORDER_WINDOW`'s refusal of warm — whose `p = 0.207` was fitted on the
+  `CAK_A1` crystal.
+- **The consequence stated plainly: under `CAK` or `M1` there is no grid-, timestep-, domain-,
+  measurement-extent or seed convergence study at ANY temperature warmer than −15 °C.** Charter
+  line 309 requires convergence studies at representative sweep points; the warm representative is
+  no longer the point that was measured.
+
+**Why the obvious defence fails.** "Numerical convergence transfers across parameter values" is the
+exact reasoning this project has twice recorded as wrong (WP3 §4.1/§1.1, and ADR 0026: *a
+convergence study measured at a size other than the one being registered does not compose with the
+registration, and in this project it has twice produced the wrong answer rather than merely a less
+precise one*). The `domain-budgets` row itself says the budget "does NOT generalise across growth
+RATE", and the CAK warm crystal carries 3.2× the mass at the same grid point.
+
+**Where this bites hardest, and it is the regime under discussion.** The Nakaya `columns` regime is
+−3.3 to −9.9 °C. Every point in it is warmer than −15 °C. So the two-arm report's central negative
+result — neither arm produces a column there — rests on numerics with **no convergence study under
+the executed parameter set**. The size ladder of
+[`phase6-columns-refinement-prereg.md`](phase6-columns-refinement-prereg.md), run at −5 and −4 °C
+under `M1` and `CAK`, is therefore the **first** measurement-extent convergence evidence in that
+regime under a parameter set an arm actually used. It was designed to test an interpretation; it
+also starts paying a debt E5 names.
+
+---
+
+## E6 — the registered domain spot-check has never been run, and was never listed as outstanding
+
+**Also from the 2026-07-29 audit (rated HIGH), also unpropagated until 2026-07-31.**
+
+The `domain-budgets` freeze row makes the sweep's validity at N = 48 **conditional**: the budget
+"does NOT generalise across growth RATE … so the sweep's fastest-growing point must be spot-checked
+against N = 64 rather than assumed covered." `PHASE6_DOMAIN_SPOT_CHECK` registers the criterion
+(`coarseN` 48, `fineN` 64, identical class required, attached counts within 0.5%) **inside the gated
+values manifest**, and registers the failure consequence: *raise the registered domain to N = 64 for
+the entire grid and re-run it.*
+
+`phase6DomainSpotCheckPasses` has **no caller outside `runner/test`**. No N = 64 row exists in either
+artifact. Neither arm's report mentions it, and arm 1's "What this does NOT establish" list does not
+list it as outstanding — so a mandatory, falsifiable check with a full-grid re-run as its
+consequence was neither executed nor disclosed.
+
+The audit also identified the point it must run at, on both natural readings of "fastest-growing",
+from `points.json` rather than by assumption:
+
+| reading | point | value |
+|---|---|---|
+| most attached | **T = −13 °C, f = 0.15** | 5291 cells |
+| fastest per step | **T = −31 °C, f = 0.6** | 19.8 cells/step |
+
+Both sit outside WP3's ladder coverage, and under `CAK` the ladder's own warm condition grows a
+4883-cell crystal where WP3 measured 1513 — so the coverage gap is not confined to the cold end.
+
+**Status: being discharged rather than recorded.** The check needs the published N = 48 row (which
+exists, and is the coarse measurement by construction) against one N = 64 run per point per arm at
+the registered extent 21. That is affordable, unlike the dx study E5 would need.
+
+---
+
 ## What is NOT covered here
 
 - Errata in **unhashed** locations are fixed in place and not listed, except E2.
