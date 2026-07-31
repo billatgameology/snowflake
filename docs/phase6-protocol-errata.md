@@ -130,6 +130,83 @@ from the start, so the gap does not recur and does not need to be paid for twice
 
 ---
 
+## E4 — arm 2's artifact was REGENERATED, not written by its own sweep (closed, and measured)
+
+**What happened.** The arm-2 sweep executed all 204 points and wrote no artifact. The
+completion-time provenance re-check (REC 10) refused it:
+
+```
+HEAD moved during the sweep: 8c781b1 -> eda1b5e
+tracked worktree changed: (clean) -> M docs/education/assets/anim-morphology-matrix.js
+```
+
+Five commits landed on `main` during the 11.5-hour run -- education-audit merges and a CI fix. This
+is the nine-commit hazard recurring, and the check the maker required before any further evidence
+run is exactly what caught it.
+
+**What the check discriminated, which is the whole reason it exists.** `phase6CompletionDrift`
+hashes the executed source graph SEPARATELY from HEAD. The source-graph digest did **not** fire.
+Only HEAD-moved and dirty-tree did. Verified two ways:
+
+- `git diff --name-only 8c781b1 27eb3430 -- core/src solver-cpu/src runner/src` returns **zero
+  files**, across the entire range including the regeneration commit.
+- `package.json` changed by exactly one added npm script, so `node_modules` is identical too.
+
+So this was a **provenance** failure, not a physics failure -- and that is a checked fact rather
+than an argument, because the two quantities were separated by design.
+
+**What was actually lost.** `report.json` and `diagram.svg`, both pure functions of `points.json`
+and the arm, plus the property "this artifact names one commit". The 204 measurements were never in
+question.
+
+**MY ERROR, recorded because it nearly cost 11.5 hours.** I read "the gate refused to publish" as
+"the run is void" and launched a full re-run. It was stopped at 0/204. A refusal to publish is not
+a verdict on the data, and conflating them makes the gate more expensive than it needs to be --
+which is how a safety mechanism gets resented and then bypassed.
+
+**The recovery, and why each step is not a convenience.**
+
+1. `app/scripts/phase6-regenerate-report.mjs` re-derives the two files, calling the SAME
+   `phase6Aggregate` the sweep calls. It lives in `app/scripts/` and NOT `runner/src` precisely so
+   that adding it leaves the hashed source graph byte-identical to the tree that computed the
+   points -- putting it in `runner/src` would have falsified the claim the recovery rests on.
+2. It refuses to overwrite an existing report, refuses a row set that is not exactly the registered
+   grid, refuses rows whose self-reported `paramSet` belongs to the other arm, and refuses a dirty
+   tree.
+3. `report.json`'s `head` records the EXECUTION commit `8c781b1`, not the regeneration commit.
+   Recording the latter would misdate the measurements.
+4. A `regeneration.json` sidecar records the whole irregular history -- both commits, the reason,
+   the source-graph digest, and all three artifact digests -- so the artifact cannot be mistaken
+   for an ordinary sweep output.
+5. `app/scripts/phase6-arm2-independent.mjs`, which imports nothing from `runner/src`, re-derives
+   all 204 rows and every reported field: **PASS**.
+
+**The determinism claim, MEASURED rather than assumed.** Four points spanning the grid were re-run
+at the clean regeneration commit and compared against the stranded rows. All four reproduce
+bit-identically in every recorded field:
+
+| T (deg C) | steps | attached | AR | reproduced |
+|---|---|---|---|---|
+| -2 | 155 | 1223 | 0.272918 | identical |
+| -8 | 198 | 3253 | 0.684211 | identical |
+| -15 | 121 | 917 | 0.272918 | identical |
+| -35 | 199 | 1195 | 2.33333 | identical |
+
+This is the step a blind re-run would have skipped: it would have *assumed* determinism where this
+*tests* it.
+
+**The structural fix, so this cannot recur.** An evidence sweep must not run in a worktree another
+session commits to. Future sweeps run in a dedicated detached worktree pinned to a fixed commit,
+where HEAD physically cannot move under them. `G:/Code Files/snowflake-phase6-arm2` is that
+worktree.
+
+**A gap this exposed and did NOT close.** The source-graph digest is computed and compared by the
+completion check but recorded in no artifact, so after the fact it had to be re-derived from git
+rather than read. That is REC 10's deferred half -- provenance fields in `report.json` -- and the
+sidecar carries the digest in the meantime.
+
+---
+
 ## What is NOT covered here
 
 - Errata in **unhashed** locations are fixed in place and not listed, except E2.
