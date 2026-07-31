@@ -114,8 +114,19 @@ for (const p of POINTS) {
   }
 }
 mkdirSync(OUT_DIR, { recursive: true });
-const done = existsSync(OUT_FILE) ? JSON.parse(readFileSync(OUT_FILE, "utf8")) : [];
+const recorded = existsSync(OUT_FILE) ? JSON.parse(readFileSync(OUT_FILE, "utf8")) : [];
 const key = (j) => `${j.point.id}-${j.rung.id}`;
+// A row only counts as DONE if it actually produced a measurement. Killing the driver mid-run — as
+// happened at the 2026-07-30 shutdown — records a row with `error` set and `aspectRatio: null`, and
+// keying resume on the id alone would have skipped those runs FOREVER while the summary table
+// printed a blank line for them. An incomplete row is retried and its carcass discarded.
+const succeeded = (d) => d.error === null && Number.isFinite(d.aspectRatio);
+const abandoned = recorded.filter((d) => !succeeded(d));
+const done = recorded.filter(succeeded);
+if (abandoned.length > 0) {
+  console.log(`discarding ${abandoned.length} incomplete row(s) and re-running them:`);
+  for (const d of abandoned) console.log(`  ${d.pointId}-${d.rungId} (${d.error === null ? "no measurement parsed" : "errored"})`);
+}
 const already = new Set(done.map((d) => `${d.pointId}-${d.rungId}`));
 const todo = jobs.filter((j) => !already.has(key(j)));
 

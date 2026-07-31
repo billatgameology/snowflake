@@ -212,9 +212,19 @@ is withdrawn; AR flat within one representable step means the habit is size-conv
 columns failure is a property of the model; AR falling means the published measurement was
 optimistic; non-monotone is reported as non-monotone.
 
-> **STATUS: rung B is executing; rung C is not yet launched.** Until they land, §8's statement of the
+> **STATUS (2026-07-30, 22:40): rung B was launched and STOPPED four minutes in for a machine
+> shutdown. No rung-B measurement exists.** Resume with
+> `node app/scripts/phase6-columns-ladder.mjs --repo "G:/Code Files/snowflake-phase6-arm2" --rung B
+> --concurrency 4`; rung A is recorded and will be skipped. Until B and C land, §8's statement of the
 > columns finding is scoped to the registered measurement size and says so, and nothing in this
 > report depends on their outcome.
+>
+> **A bug the shutdown exposed, fixed rather than noted.** Killing the driver mid-run recorded two
+> rows with `error` set and `aspectRatio: null`, and the resume logic keyed on `pointId-rungId`
+> alone — so those two runs would have been **skipped forever** while the summary table printed a
+> blank line for them. Resume now requires a row to carry an actual finite measurement; incomplete
+> rows are discarded by name and re-run. The two carcasses were purged, leaving the file
+> byte-identical to the hash recorded above.
 
 ---
 
