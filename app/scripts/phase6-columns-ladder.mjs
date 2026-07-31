@@ -215,13 +215,52 @@ function runOne(job) {
 
 // Bounded concurrency, and the results file is rewritten after EVERY completion — erratum E4's
 // lesson is that an 11.5-hour run holding all its output in memory is one interruption from nothing.
+/**
+ * MERGE-ON-WRITE, and this is a bug fix paid for with a 5.2-hour measurement.
+ *
+ * The previous version held its own `done` array in memory and wrote the WHOLE array after each
+ * completion. Three driver instances were running concurrently against one file — the rung B/C
+ * sweep, the P5 control, and the P1-B80 domain check — each having read the file at ITS OWN start
+ * time. Every write therefore reverted the file to that instance's snapshot plus its own results.
+ *
+ * P5-B (arm 1 at −5 °C, f = 0.10) completed at ~14:21 and wrote its row. P4-C completed at ~14:46
+ * and overwrote the file from a snapshot taken at 05:52, deleting it. The measurement survives only
+ * as one line in a log, without the `attached`, `symErr`, `allConverged` and `deltaSymClean` fields
+ * that decide whether a run is admissible at all — so it has to be re-run, which is the honest cost.
+ *
+ * The fix: re-read the file immediately before every write and merge by (pointId, rungId), keeping
+ * whichever row actually carries a measurement. Concurrent drivers now converge instead of racing.
+ * This is not atomic against a simultaneous write to the byte, but the runs are hours apart and the
+ * failure it actually had was a stale snapshot, not a torn write.
+ */
+function mergeAndWrite(row) {
+  let onDisk = [];
+  try {
+    onDisk = JSON.parse(readFileSync(OUT_FILE, "utf8"));
+  } catch {
+    onDisk = [];
+  }
+  const merged = new Map();
+  const succeeded = (d) => d.error === null && Number.isFinite(d.aspectRatio);
+  for (const r of [...onDisk, ...done, row]) {
+    const k = `${r.pointId}-${r.rungId}`;
+    const prior = merged.get(k);
+    // A row that measured something always beats one that did not.
+    if (prior === undefined || (!succeeded(prior) && succeeded(r))) merged.set(k, r);
+  }
+  const out = [...merged.values()];
+  writeFileSync(OUT_FILE, JSON.stringify(out, null, 1));
+  return out.length;
+}
+
 let next = 0;
 async function worker() {
   while (next < todo.length) {
     const job = todo[next++];
     const row = await runOne(job);
     done.push(row);
-    writeFileSync(OUT_FILE, JSON.stringify(done, null, 1));
+    const total = mergeAndWrite(row);
+    console.log(`     merged into ${OUT_FILE} — ${total} rows on disk`);
   }
 }
 await Promise.all(Array.from({ length: Math.min(CONCURRENCY, todo.length) }, worker));
