@@ -286,9 +286,50 @@ from `points.json` rather than by assumption:
 Both sit outside WP3's ladder coverage, and under `CAK` the ladder's own warm condition grows a
 4883-cell crystal where WP3 measured 1513 — so the coverage gap is not confined to the cold end.
 
-**Status: being discharged rather than recorded.** The check needs the published N = 48 row (which
-exists, and is the coarse measurement by construction) against one N = 64 run per point per arm at
-the registered extent 21. That is affordable, unlike the dx study E5 would need.
+**Status: DISCHARGED 2026-07-31 — AND IT FAILS.**
+
+Run at last, with the published N = 48 row as the coarse side (it is the measurement whose validity
+is conditional, so re-running it would test the wrong thing) against a fresh N = 64 run at the same
+registered extent 21, judged by the registered evaluator:
+
+| reading | point | N = 48 | N = 64 | Δ attached | class | registered verdict |
+|---|---|---|---|---|---|---|
+| arm 1 fastest/step | −31 °C, f = 0.60 | 4551 | 4551 | **0.000%** | neutral = neutral | **PASS** |
+| arm 1 most attached | −13 °C, f = 0.15 | 5291 | 5159 | **2.495%** | neutral = neutral | **FAIL** |
+| arm 2 fastest/step | −6 °C, f = 0.15 | 4223 | 4295 | **1.705%** | neutral = neutral | **FAIL** |
+| arm 2 most attached | −27 °C, f = 0.15 | 5329 | 5197 | **2.477%** | neutral = neutral | **FAIL** |
+
+Registered tolerance: **0.5%**. Three of four readings exceed it by 3–5×.
+
+**An internal control that says these failures are real.** The one PASS reproduces the coarse
+attached count *exactly* — 4551 against 4551 at a different domain. A systematic error in the fine
+runs could not produce that.
+
+**The habit CLASS is identical in all four**, which is what the headlines score, so no published
+tally is shown wrong here. What fails is the registered pass criterion, which requires identical
+class **and** attached counts within 0.5%.
+
+**The registered consequence, quoted rather than paraphrased:** *"raise the registered domain to
+N = 64 for the ENTIRE grid and re-run it"* — and the row explains why it is the whole grid rather
+than the failing points: *"a per-point domain would make points incomparable with each other, which
+is the one thing a morphology diagram cannot survive."* This is not discretionary and it is not
+mine to waive. Cost, measured from these runs rather than estimated: N = 64 at extent 21 ran
+4.0–4.7× its N = 48 counterpart, so a full two-arm re-sweep is roughly **780 core-hours**.
+
+**Why this was findable only by running it, and why WP3 did not.** WP3's domain ladder concluded
+"value converged at 48 to 0.04%, exact from 64" — but it measured exactly two conditions, −5 °C and
+−15 °C, and it measured them under `CAK_A1` (erratum E5). Every point that fails here is a different
+condition: −13, −6 and −27 °C. **The registered domain budget was justified on two points and fails
+at three of the four others that were checked.** That is precisely the hazard the freeze row named
+when it demanded a spot-check at the fastest-growing point — "the budget does NOT generalise across
+growth RATE" — and precisely why leaving that check unrun for the whole phase mattered.
+
+Note also that the 0.5% tolerance itself is inherited from WP3's `CAK_A1` domain ladder, so E5
+touches the threshold as well as the justification.
+
+**Maker decision required.** A full-grid re-run at N = 64 is a materially larger commitment than
+anything else outstanding in Phase 6, and the class-robustness result above means the published
+headline classifications may well survive it unchanged. Recorded here, not decided here.
 
 ---
 
