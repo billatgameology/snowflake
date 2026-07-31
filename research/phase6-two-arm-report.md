@@ -288,9 +288,34 @@ irregular.** Arm 2's report was regenerated rather than written by its own sweep
   arm-1 row was re-run at a later commit and reproduced exactly, **and its re-run does record
   `paramSet=CAK` and `stop reason=size-target`** — which corroborates the artifact from outside
   without amending it. Four rows out of 204 is corroboration, not closure.
+- **THE WARM-SIDE CONVERGENCE EVIDENCE WAS MEASURED UNDER THE SUPERSEDED PARAMETER SET** (erratum
+  E5, added 2026-07-31 after this report was first published). The whole WP3 convergence campaign
+  ran `paramSet CAK_A1` — the set ADR 0031 invalidated. Its cold condition is bit-identical under
+  `CAK`, so N = 48, extent 21, `cflFill` 0.1 and the **+0.135 extent-fragile bound keep their cold
+  derivation, and no number in this report is shown wrong by it.** But its warm condition is a
+  different crystal entirely: −5 °C, f = 0.15 is 1513 cells / AR 0.3821 **plate** under `CAK_A1` and
+  4883 cells / AR 1.0000 **neutral** under `CAK`. **So under either published parameter set there is
+  no grid-, timestep-, domain-, measurement-extent or seed convergence study at any temperature
+  warmer than −15 °C — and the entire Nakaya `columns` regime is warmer than −15 °C.** §4's central
+  negative result rests on numerics with no convergence study under the set that produced it. The
+  size ladder in §4 is the first such evidence in that regime, which is a reason to weight it and
+  not a reason to relax about the gap.
+- **The registered headline rule is not the rule that produced either headline** (pin register R15).
+  The `uncertainty-reporting` freeze row registers the headline as the **conservative intersection**
+  of measured and grid-extrapolated class, with a `classSurvivesGridExtrapolation` flag and a
+  not-extrapolatable tally per point. `phase6FitGridExtrapolation` has no caller outside
+  `runner/test`; neither arm's rows carry any of those fields. Discharging it needs three grid
+  spacings **per point** — 612 runs per arm — which the registered budget never contained, so this
+  is a defect in the registration found late, not a shortcut in the implementation. Not being fixed
+  by amending the registration to describe what the code does: ADR 0031 rejected exactly that move
+  by name.
+- **The registered domain spot-check had never been run** (erratum E6) — a mandatory, hashed
+  criterion whose registered failure consequence is raising the whole grid to N = 64 and re-running
+  it, undisclosed as outstanding until now. Being discharged by execution rather than de-registered.
 - **No cross-platform control.** Scoped to the registered x64 host. **MAC RUN NEEDED.**
-- **No `dxUm` convergence study.** Halving the cell size costs roughly 60× per point. Not run, not
-  affordable, not claimed.
+- **No `dxUm` convergence study under either published parameter set.** Halving the cell size costs
+  roughly 60× per point. Not run, not affordable, not claimed — and per E5 the existing one does not
+  substitute for it at any temperature the `columns` regime occupies.
 - **The comparison target is a redrawn 1954 schematic** whose supersaturation axis WP1 measured as
   failing an independent check, which is why only its three boundary temperatures are used.
 
@@ -304,7 +329,10 @@ irregular.** Arm 2's report was regenerated rather than written by its own sweep
   agreement** (26/78 → 14/78) in the one regime that accepts both habits.
 - **Neither parameterization produces a single column in the Nakaya `columns` regime**, 36 points
   each, at the registered measurement size. This is not a marginal miss on a continuum: across
-  almost the whole regime both arms produce no definite habit at all.
+  almost the whole regime both arms produce no definite habit at all. **Carry E5 with this
+  sentence wherever it goes:** every point in that regime is warmer than −15 °C, and warmer than
+  −15 °C there is no convergence study of any kind under either executed parameter set. The claim
+  is a measurement; its numerical footing at that temperature is not yet established.
 - The instrument's AR resolution near the class thresholds is 0.088–0.100, which is a property of
   the lattice and the measurement size rather than of either parameter set, and it is large enough
   that near-threshold verdicts must be read as one-step statements.
