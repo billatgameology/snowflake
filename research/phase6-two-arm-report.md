@@ -205,9 +205,34 @@ model declines to produce a definite habit at **58% of the grid** even with SDAK
 > | P3 | arm 2 `M1` | −5 | 0.90 | 1.26594 | 1.33122 | +0.065 |
 > | P4 | arm 1 `CAK` | −5 | 0.90 | 1.31250 | 1.31818 | +0.006 |
 >
-> Note what the two `CAK` and `M1` runs at the *same* −5 °C and f = 0.90 do: 1.31818 against
-> 1.33122. At that supersaturation the two arms are nearly identical and neither is close to the
-> floor. Whatever is happening at f = 0.10 is a low-supersaturation effect.
+> ### The bigger finding, and it is not about SDAK: AR does not converge with size at −5 °C
+>
+> Rung C for the controlled pair — same −5 °C, same σ∞ = 0.045, differing only in parameter set:
+>
+> | point | set | ext 21 | ext 29 | ext 35 | rate 21→29 | rate 29→35 |
+> |---|---|---|---|---|---|---|
+> | **P3** | `M1` | 1.26594 | 1.33122 | **1.48831** | 0.00816/cell | **0.02618/cell** |
+> | **P4** | `CAK` | 1.31250 | 1.31818 | **1.40000** | 0.00071/cell | **0.01364/cell** |
+>
+> **Both arms rise, and both ACCELERATE** — the per-cell increment grows by 3.2× for `M1` and 19× for
+> `CAK`. Over extents 21–35 the aspect ratio at −5 °C is not converging in either arm; the increments
+> get *larger*, which is the opposite of convergence. **So "the habit class at −5 °C" is not a
+> size-independent property of this model in the range measured, and the registered extent 21
+> captures a transient.** That is a limitation on how both published headlines treat this regime, and
+> it is parameter-set-independent.
+>
+> At extent 35 the two arms sit **0.088 apart — about one representable step** (0.0875 near 1.4). SDAK
+> shifts the curve up by roughly a step; it does not create the divergence.
+>
+> **A claim of mine that this withdraws.** On seeing rung B alone I wrote that P4 was flat at
+> 0.00071/cell, "11× slower — a genuine mechanism difference: SDAK driving a self-reinforcing
+> columnar habit, which is what the hypothesis predicts." That was two rungs. The third shows arm 1
+> doing the same thing, and the reading is withdrawn.
+>
+> **A confound this ladder does not separate, stated rather than left implicit.** Every rung changes
+> the domain N *and* the measurement extent together, so "size effect" and "domain effect" are not
+> distinguished by these runs. Rung B80 separates them at extent 28 only. Nothing here separates them
+> at extent 35, and no claim is made that it does.
 >
 > **This also sharpens erratum E5 rather than resolving it.** E5 records that no convergence study
 > exists warmer than −15 °C under either executed parameter set. This is that gap producing a
