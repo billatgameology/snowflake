@@ -46,6 +46,20 @@ history is in erratum E4 and in the artifact's own `regeneration.json` sidecar.
 | negative controls executed | 7 (5 CAUGHT, 2 GAP) | **16 (15 CAUGHT, 1 GAP)** |
 | per-row parameter set recorded | 0 of 204 (erratum E3) | **204 of 204** |
 | run-end condition recorded | 0 of 204 (erratum E3) | **204 of 204** |
+| figure re-renders from the data | **data byte-identical** | **data byte-identical** |
+| whole SVG re-renders byte-identically | no — caption drift | **yes** |
+
+**The figure is the data, checked rather than assumed.** `app/scripts/phase6-diagram-reconcile.mjs`
+re-renders each `diagram.svg` from its own `points.json` and compares. Every plotted cell, axis and
+legend is byte-identical in **both** arms — so neither published figure has drifted from the rows it
+claims to show. This is a different claim from independent verification and needs the renderer, so
+it deliberately lives outside the two independent verifiers, which import nothing from `runner/src`.
+
+One real drift found, and it is caption-only: arm 1's figure predates the two-arm refactor, so both
+its title constant (`no-SDAK` → `no-SDAK (CAK)`) and its subtitle format changed after it was
+written. **Arm 1's recorded SVG byte hash can therefore no longer be re-earned from the current
+tree**, though its plotted content can and does. Recorded rather than repaired: editing the
+published figure to match today's renderer would be changing evidence to suit code.
 
 The verifier re-derives all 204 rows importing nothing from `runner/src`. Its negative controls
 found two real gaps in it — an artifact with the other arm's rows spliced in, and an artifact
