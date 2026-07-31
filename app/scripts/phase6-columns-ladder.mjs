@@ -46,6 +46,24 @@ const POINTS = [
   { id: "P2", arm: "arm2", paramSet: "M1", tempC: -4, fraction: 0.1, sigmaInf: "0.004000", publishedAR: 1.23529 },
   { id: "P3", arm: "arm2", paramSet: "M1", tempC: -5, fraction: 0.9, sigmaInf: "0.045000", publishedAR: 1.26594 },
   { id: "P4", arm: "arm1", paramSet: "CAK", tempC: -5, fraction: 0.9, sigmaInf: "0.045000", publishedAR: 1.3125 },
+  // P5 — ADDED 2026-07-31, AFTER SEEING P1-B, and the reason is recorded rather than smoothed over.
+  //
+  // P1 (arm 2, M1, -5 C, f = 0.10) crossed the column floor at rung B: 1.40000 -> 1.52632, a COLUMN
+  // at the temperature the reference demands one. The obvious next sentence is "and SDAK is what did
+  // it" — but the ladder had no arm-1 run at these conditions to support it. P4 is arm 1's best
+  // columns-regime point and sits at f = 0.90, a different supersaturation entirely, so the two are
+  // not a controlled pair.
+  //
+  // P5 is that control: same temperature, same sigma_inf (0.005000 — sigma_water is
+  // parameter-set-independent, so the two arms' f = 0.10 points are the SAME condition), differing
+  // only in paramSet. At the registered size arm 1 reads 0.789474 here against arm 2's 1.40000.
+  //
+  // Adding a point after seeing data is exactly the move a pre-registration exists to restrain, so:
+  // this ADDS A CONTROL that can only weaken the conclusion I am moving toward, it changes no
+  // reading rule, drops no point, and its result is reported whichever way it falls. If P5 also
+  // crosses, then SIZE and not SDAK makes the column, which the pre-registration already named as
+  // the outcome worse for arm 2 than the one being reported.
+  { id: "P5", arm: "arm1", paramSet: "CAK", tempC: -5, fraction: 0.1, sigmaInf: "0.005000", publishedAR: 0.789474 },
 ];
 // targetExtent / N = 0.4375 at every rung — the sweep's own ratio.
 const RUNGS = [

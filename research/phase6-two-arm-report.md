@@ -9,8 +9,16 @@ This document does not restate it; it reads the two arms against each other.
 
 **The headline number is the least informative thing here, and it is not the lead.** SDAK raises the
 common-denominator score from 3/90 to 54/90. What that number hides is that the mechanism is a
-**trade**; that the regime SDAK exists to explain is the one regime it does not move at all; and
-that the single pre-registration arm 2 was capable of failing, it did fail.
+**trade**; that at the registered measurement size neither arm scores a single point in the regime
+SDAK exists to explain; and that the single pre-registration arm 2 was capable of failing, it did
+fail.
+
+> **READ §4's CORRECTION FIRST (2026-07-31).** The pre-registered size ladder has since shown that
+> arm 2 **does** produce a column in that regime at −5 °C when the crystal is measured at extent 29
+> instead of the registered 21 — AR 1.40000 → **1.52632**. The scored tallies above are unaffected;
+> the *interpretation* of the `columns` regime is under correction and is provisional pending two
+> runs still executing. An earlier version of this paragraph said SDAK "does not move that regime at
+> all", which was wrong even at the registered size — arm 2 turns three of its points to `plate`.
 
 ---
 
@@ -148,7 +156,58 @@ model declines to produce a definite habit at **58% of the grid** even with SDAK
 
 ---
 
-## 4. Neither arm produces a column in the `columns` regime
+## 4. Neither arm produces a column in the `columns` regime — AT THE REGISTERED MEASUREMENT SIZE
+
+> ### ⚠ CORRECTION IN PROGRESS (2026-07-31) — the unqualified form of this section's claim is WITHDRAWN
+>
+> **Arm 2 DOES produce a column in the Nakaya `columns` regime when the crystal is measured larger.**
+>
+> The pre-registered size ladder returned rung B, and at **T = −5 °C, f = 0.10 under `M1`** the
+> aspect ratio went **1.40000 at extent 21 → 1.52632 at extent 29**, crossing the registered 1.5
+> floor. That is a `column`, at a temperature where the reference demands one, from a clean run:
+> `stop reason=size-target`, `symErr = 0`, `allConverged`, `deltaSymClean`, 298 steps, 6779 cells,
+> and the geometry self-reports `hexRadius 31`, `seedSites 19`. Nothing excludes it.
+>
+> `1.52632 = 29/19` exactly.
+>
+> **What is withdrawn:** "neither arm produces a single column in the Nakaya `columns` regime" as a
+> statement about the **model**. **What stands:** the same sentence as a statement about the model
+> **at the registered measurement size**, which is what was measured and what the 3/90 and 54/90
+> headlines score. No published tally moves.
+>
+> This is pre-registered outcome 1, and it is the outcome that costs me the section's headline
+> finding. It was written into `docs/phase6-columns-refinement-prereg.md` first, listed *first*
+> precisely because it was the convenient-to-avoid one, and the ladder was built to be able to
+> return it.
+>
+> **Still open, and the correction is provisional until both land:**
+> 1. **Rung C** (extent 35) for P1. If AR falls back below 1.5 the reading becomes outcome 4,
+>    non-monotone, and extent 29 is not converged either.
+> 2. **P5** — arm 1 (`CAK`) at the *same* −5 °C and σ∞ = 0.005. The ladder as designed had **no
+>    controlled arm-1 run at these conditions** — P4 is arm 1's best regime point but sits at
+>    f = 0.90 — so "SDAK is what produced the column" currently rests on extrapolation from arm 1's
+>    0.789474 at the registered size, not on measurement. P5 was added *after* seeing P1-B, and it
+>    can only weaken that reading: **if P5 also crosses, then size and not SDAK makes the column.**
+>
+> Rung B in full — every point rose, one crossed:
+>
+> | point | arm | T | f | extent 21 | extent 29 | Δ |
+> |---|---|---|---|---|---|---|
+> | **P1** | arm 2 `M1` | −5 | 0.10 | 1.40000 | **1.52632** | **+0.126 → COLUMN** |
+> | P2 | arm 2 `M1` | −4 | 0.10 | 1.23529 | 1.31818 | +0.083 |
+> | P3 | arm 2 `M1` | −5 | 0.90 | 1.26594 | 1.33122 | +0.065 |
+> | P4 | arm 1 `CAK` | −5 | 0.90 | 1.31250 | 1.31818 | +0.006 |
+>
+> Note what the two `CAK` and `M1` runs at the *same* −5 °C and f = 0.90 do: 1.31818 against
+> 1.33122. At that supersaturation the two arms are nearly identical and neither is close to the
+> floor. Whatever is happening at f = 0.10 is a low-supersaturation effect.
+>
+> **This also sharpens erratum E5 rather than resolving it.** E5 records that no convergence study
+> exists warmer than −15 °C under either executed parameter set. This is that gap producing a
+> class change, at the first temperature it was checked.
+
+The section below is preserved as published, and every number in it remains correct **as a
+measurement at extent 21**.
 
 This is the finding the headline is hiding.
 
@@ -389,12 +448,14 @@ irregular.** Arm 2's report was regenerated rather than written by its own sweep
   Nakaya boundary temperatures from 3/90 to 54/90 — and the gain is in-sample by construction.
 - The gain is a **trade**: it costs two thirds of the model's columns (30 → 10) and **12 points of
   agreement** (26/78 → 14/78) in the one regime that accepts both habits.
-- **Neither parameterization produces a single column in the Nakaya `columns` regime**, 36 points
-  each, at the registered measurement size. This is not a marginal miss on a continuum: across
-  almost the whole regime both arms produce no definite habit at all. **Carry E5 with this
-  sentence wherever it goes:** every point in that regime is warmer than −15 °C, and warmer than
-  −15 °C there is no convergence study of any kind under either executed parameter set. The claim
-  is a measurement; its numerical footing at that temperature is not yet established.
+- **Neither parameterization produces a single column in the Nakaya `columns` regime at the
+  registered measurement size**, 36 points each. Across almost the whole regime both arms produce no
+  definite habit at all. **The unqualified version of this claim is withdrawn — see §4.** Measured
+  at extent 29, arm 2 produces a `column` at −5 °C, f = 0.10 (AR 1.52632). So this is a statement
+  about the model *as measured at extent 21*, not about the model. **Carry E5 with it wherever it
+  goes:** every point in that regime is warmer than −15 °C, and warmer than −15 °C there is no
+  convergence study of any kind under either executed parameter set — and the first time that gap
+  was probed, it produced a class change.
 - The instrument's AR resolution near the class thresholds is 0.088–0.100, which is a property of
   the lattice and the measurement size rather than of either parameter set, and it is large enough
   that near-threshold verdicts must be read as one-step statements.
