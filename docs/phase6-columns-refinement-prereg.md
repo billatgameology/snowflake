@@ -90,6 +90,36 @@ here deliberately, and the commitment is that P4 (arm 1, no SDAK) is reported on
 if arm 1 also crosses 1.5 at rung C, then size, not SDAK, is what makes columns, and that is a worse
 result for the SDAK arm than the one I am currently reporting.
 
+## AMENDMENT 2026-07-31 (second) — THE LADDER'S DOMAIN JUSTIFICATION WAS THE ONE THE PROTOCOL DISPROVES
+
+This document's Design section says the rungs hold `targetExtent / N = 0.4375`, "the sweep's own
+ratio, so the domain-contact margin and the far-field treatment stay comparable rather than
+improving alongside the size." **That reasoning is refuted by a registered freeze row I did not read
+before writing it.** The `domain-budgets` row states:
+
+> "WP3 §1.3 also disproved ADR 0024's ratio-based validity limit, so this number may not be
+> extrapolated to any other configuration — it must be re-measured if Δx, **the measurement
+> extent**, or the far field changes."
+
+The ladder changes the measurement extent at every rung. Holding a ratio fixed is exactly the
+ratio-based extrapolation that row forbids, so **rungs B and C carry no domain-adequacy evidence at
+their own measurement sizes**, and the AR rise they report could be a domain effect rather than the
+size effect the ladder was built to measure.
+
+**This is a defect in the diagnostic's design, found by me, after the diagnostic returned the result
+I then published a correction on.** It is not fatal and it is not hidden: it is testable, and it is
+being tested rather than argued.
+
+**Rung B80** — the same target extent 28 as rung B, at N = 80 instead of 64, on P1, the point the
+whole correction rests on. The criterion is the registered one (`PHASE6_DOMAIN_SPOT_CHECK`):
+
+- **identical habit class AND attached counts within 0.5%** → N = 64 is adequate at extent 28, the
+  1.40000 → 1.52632 crossing is a size effect, and §4's correction stands.
+- **otherwise** → the crossing is a domain artifact at that extent, and **the correction built on it
+  is withdrawn**, not weakened.
+
+Fixed before the run returned, as with everything else here.
+
 ## AMENDMENT 2026-07-31 — a latent defect in outcome 2, found while the ladder was still running
 
 **Recorded before the deciding rungs landed**, with P1-B, P2-B and all of rung C still executing.

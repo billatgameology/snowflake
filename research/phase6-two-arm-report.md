@@ -180,9 +180,16 @@ model declines to produce a definite habit at **58% of the grid** even with SDAK
 > precisely because it was the convenient-to-avoid one, and the ladder was built to be able to
 > return it.
 >
-> **Still open, and the correction is provisional until both land:**
-> 1. **Rung C** (extent 35) for P1. If AR falls back below 1.5 the reading becomes outcome 4,
->    non-monotone, and extent 29 is not converged either.
+> **Still open, and the correction is provisional until all three land:**
+> 0. **THE LADDER'S OWN DOMAIN JUSTIFICATION WAS WRONG, and I found it after publishing the
+>    correction above.** The ladder holds `targetExtent / N = 0.4375` and argued that kept the
+>    far-field treatment comparable. The `domain-budgets` freeze row says the opposite in as many
+>    words: *"WP3 §1.3 also disproved ADR 0024's ratio-based validity limit … it must be re-measured
+>    if Δx, **the measurement extent**, or the far field changes."* The ladder changes the
+>    measurement extent at every rung, so **rungs B and C carry no domain-adequacy evidence** and the
+>    rise could be a domain effect. Being tested, not argued: **rung B80** re-runs P1 at the same
+>    extent 28 in N = 80. Identical class and attached counts within the registered 0.5% → N = 64 was
+>    adequate and the crossing is a size effect. Otherwise **this correction is withdrawn outright.**
 > 2. **P5** — arm 1 (`CAK`) at the *same* −5 °C and σ∞ = 0.005. The ladder as designed had **no
 >    controlled arm-1 run at these conditions** — P4 is arm 1's best regime point but sits at
 >    f = 0.90 — so "SDAK is what produced the column" currently rests on extrapolation from arm 1's

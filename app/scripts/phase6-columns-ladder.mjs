@@ -66,10 +66,25 @@ const POINTS = [
   { id: "P5", arm: "arm1", paramSet: "CAK", tempC: -5, fraction: 0.1, sigmaInf: "0.005000", publishedAR: 0.789474 },
 ];
 // targetExtent / N = 0.4375 at every rung — the sweep's own ratio.
+//
+// ⚠ THAT RATIO IS NOT A JUSTIFICATION, AND SAYING IT WAS IS A DEFECT IN THIS LADDER'S DESIGN.
+// The `domain-budgets` freeze row states plainly: "WP3 §1.3 also disproved ADR 0024's ratio-based
+// validity limit, so this number may not be extrapolated to any other configuration — it must be
+// re-measured if Δx, THE MEASUREMENT EXTENT, or the far field changes." This ladder changes the
+// measurement extent at every rung. Holding extent/N fixed is exactly the ratio-based reasoning
+// that row says was disproved, so rungs B and C carry NO domain-adequacy evidence, and the AR rise
+// they report could be a domain effect rather than a size effect.
+//
+// Rung B80 is the fix, applied to the point the conclusion rests on: the SAME target extent as
+// rung B at a LARGER domain. Per PHASE6_DOMAIN_SPOT_CHECK's registered criterion, if the habit
+// class is identical and the attached counts agree within 0.5%, N = 64 is adequate at extent 28
+// and rung B's crossing is a size effect. If they disagree, it is a domain artifact and the
+// correction built on it is withdrawn.
 const RUNGS = [
   { id: "A", n: 48, targetExtent: 21 },
   { id: "B", n: 64, targetExtent: 28 },
   { id: "C", n: 80, targetExtent: 35 },
+  { id: "B80", n: 80, targetExtent: 28 },
 ];
 
 /** Everything the sweep passes, unchanged except dims and target extent. */
