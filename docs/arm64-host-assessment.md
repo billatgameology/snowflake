@@ -7,6 +7,45 @@
 > Written 2026-07-31 on `mac-branch`. Revised the same day after the concurrent throughput probe,
 > which **overturned the performance objection** in the first draft and weakened the GPU one.
 
+> ## ⚠ THE MISSING MEASUREMENT WAS TAKEN (2026-08-01). "Performance is a wash" is WITHDRAWN.
+>
+> §"The one measurement still missing" asked for the same two-phase probe on the PC. It was run —
+> `app/scripts/phase6-throughput-probe.mjs`, same four registered control points, same protocol,
+> same code, on an idle machine — and it **contradicts this document's central estimate.**
+>
+> | | M4 (4P + 6E) | Ryzen 7 5700G (8C/16T) |
+> |---|---|---|
+> | serial idle, 4 points | 3484 s | **4959 s** |
+> | 4-concurrent wall | 1247 s | **2236 s** |
+> | 8-concurrent wall | 1531 s | **2580 s** |
+> | scaling at 4-way | 2.79× | **2.22×** |
+> | scaling at 8-way | 4.55× | **3.84×** |
+> | worst per-process penalty, 4-way | +4.8% | **+54.0%** |
+> | worst per-process penalty, 8-way | +39% | **+73.5%** |
+> | **per-point at 8-way** | **191.4 s** | **322.5 s** |
+>
+> **The Mac is 1.42× faster per process serially and 1.69× faster in aggregate throughput — the
+> quantity a multi-day sweep actually consumes.** The estimate of "≈1.12× — effectively parity" was
+> built on an inferred PC figure of ~214 s/point; the measured figure is **322.5 s/point**, so the
+> assumption named in that section was wrong in the Mac's disfavour.
+>
+> **And the scaling story reverses too.** This document argued the Mac's heterogeneous cores were a
+> risk under saturation. Measured, the *Ryzen* degrades far worse: +54% per-process at 4-way against
+> the Mac's +4.8%, and it converts 8 processes into only 3.84× throughput against the Mac's 4.55×.
+> This workload is memory-bandwidth-bound, and the M4's unified memory subsystem handles concurrency
+> better than dual-channel DDR4 plus SMT.
+>
+> **Determinism holds on both hosts:** all 16 x64 runs byte-identical per point under contention,
+> matching the arm64 result.
+>
+> **What does NOT change: the recommendation.** Performance was listed as *not* a reason to migrate,
+> and it is still not a reason — it has simply flipped from "a wash" to "a real Mac advantage" while
+> the binding constraints stay where they were: **24 GB against 64 GB of headroom** (binding at the
+> queued 72³), reference-architecture continuity for an x64-pinned evidence corpus, the macOS
+> `TMPDIR` blocker, and the GPU. A 1.69× throughput gain does not buy a 24 GB machine more memory.
+>
+> Every per-run figure below that compares hosts should be read against this box.
+
 ## The short version
 
 **Recommendation: do not migrate wholesale — but performance is no longer a reason, and neither
