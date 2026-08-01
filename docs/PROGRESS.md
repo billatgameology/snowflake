@@ -914,6 +914,27 @@ immutable.
 > replace the throughput estimate with a measurement.
 > A host change contradicts `AGENTS.md`'s execution-host section and needs an ADR (Rule 5).
 
+### PHASE 6 CONCLUSION — [research/phase6-conclusion.md](../research/phase6-conclusion.md) (2026-08-01)
+
+**Measurement is complete and the phase's conclusion is written.** In one paragraph: at the
+registered measurement size neither parameterization reproduces the Nakaya diagram (3/90 without
+SDAK, 54/90 with it, in-sample by construction) — **but the registered measurement size is too small
+to decide the question it was asked to decide.** At −5 °C the habit class changes between extent 21
+and 29 and stays `COLUMN` at 35 and 41 across two box sizes, and where we looked at the larger size
+**SDAK produced the column it was invoked for (1.52632) and the matched no-SDAK control did not
+(0.851852).** The registered domain fails its own registered check, and so does the fix that check
+mandates. **No re-sweep was run** — a sweep at an unconverged configuration buys a different
+unconverged number (ADR 0037 §5).
+
+The three results here that are not in the literature: the **first independent 3-D test** of SDAK's
+necessity at −5 °C with a matched control; the **flip census** (neither arm ever produces a
+`column→plate` transition in 408 measurements, while the reference needs one); and a **measured
+account of what the instrument cannot resolve**, produced by turning the pre-registration apparatus
+on the protocol itself and finding a registered obligation both unexecuted and unsatisfiable as
+written.
+
+---
+
 ### Where Phase 6 stands, 2026-07-31 evening
 
 **Measurement is essentially complete; what remains is adjudication.** Both arms swept, frozen,

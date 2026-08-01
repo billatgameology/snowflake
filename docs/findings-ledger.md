@@ -264,6 +264,31 @@ ADR 0037. Status: measured; remediation open. This is the pre-registration appar
 protocol itself and finding that a registered obligation was both unexecuted and unsatisfiable as
 written.
 
+**B13 — SDAK produces the −5 °C column its author says it must, measured against a matched control
+(2026-08-01).** Libbrecht states the requirement in prose — *"Producing columnar crystals at −5 C
+then requires the SDAK effect"* (arXiv:1912.03230 p10) — and the 2026-07 literature sweep found
+nobody has tested it in 3-D. At −5 °C, f = 0.10, measured at extent 29 with the domain checked at two
+box sizes: **arm 2 (`M1`, SDAK) AR 1.52632, `COLUMN`; arm 1 (`CAK`, no SDAK) AR 0.851852,
+`neutral`.** Identical temperature, identical σ∞, identical measurement size, **0.675 apart and on
+opposite sides of the class boundary.** The class holds `COLUMN` at extents 29, 35 and 41 at BOTH
+N = 64 and N = 80, with the aspect ratio identical to six figures at every domain pair — so the
+habit determination does not depend on the box anywhere it was tested. **The control was added after
+the crossing was seen, specifically because it could only weaken the conclusion**, and the
+pre-registered ARM SPLIT outcome (size rather than SDAK making the column) is refuted by it.
+**Two qualifications carried with it, both measured:** at f = 0.90 the no-SDAK arm is also climbing
+toward the floor with size (1.46429 at extent 41, crossing near extent 44), so the effect is specific
+to **low supersaturation** rather than general; and the registered domain criterion **fails** at
+extent 35 on attached count (1.071%, 120 cells of interior fill inside a bit-identical envelope)
+while class and AR are domain-invariant, so no configuration is *demonstrated* converged and no
+re-sweep was run (ADR 0037 §5). Evidence: `docs/phase6-columns-refinement-prereg.md`,
+`docs/phase6-convergence-study-prereg.md`, `out/phase6-columns-ladder/ladder.json`,
+`app/scripts/phase6-ladder-read.mjs`. Status: measured, domain-checked, pre-registered with all
+outcomes fixed before the deciding runs.
+**This also withdrew the two-arm report's central negative claim.** "Neither arm produces a column in
+the Nakaya `columns` regime" is now scoped to *at the registered measurement size* — where it remains
+true and is what 3/90 and 54/90 score. The unqualified form is retracted at the head of the report's
+§4 rather than edited away.
+
 ## C. Queued — share-worthy when it lands
 
 **C1 — The SDAK arm** (ADR 0030): **LANDED 2026-07-30 — see B8.** First 3D run of the
