@@ -89,6 +89,43 @@ same registered evaluator. It is running as this is written.
 Erratum E4 records me reaching for expensive re-verification instead of the cheap discriminating
 check and nearly paying 11.5 hours for it. This is that check, costing hours against days.
 
+### RESULT (2026-07-31, 21:20) — N = 64 IS NOT ADEQUATE. 3 of 4 FAIL.
+
+| reading | point | N=48 → 64 | **N=64 → 80** | verdict at N=64 |
+|---|---|---|---|---|
+| arm 1 most attached | −13 °C, f = 0.15 | 2.495% | **1.861%** | **FAIL** |
+| arm 2 most attached | −27 °C, f = 0.15 | 2.477% | **0.693%** | **FAIL** |
+| arm 2 fastest/step | −6 °C, f = 0.15 | 1.705% | **0.559%** | **FAIL** |
+| arm 1 fastest/step | −31 °C, f = 0.60 | 0.000% | 0.264% | PASS |
+
+**The check was worth its four hours: it stopped a ~780 core-hour re-sweep from landing on a domain
+that fails the very criterion that ordered it.**
+
+**And the finding is larger than a wrong target. The registered protocol's own remediation
+instruction does not remediate.** The `domain-budgets` row's failure consequence is "raise the
+registered domain to N = 64 for the ENTIRE grid and re-run it". Executed, that would have produced
+408 fresh points at a domain now measured to fail the same spot-check. A registered consequence
+that does not discharge the condition it answers is a defect in the registration, and it is recorded
+here rather than quietly widened to N = 80.
+
+**Escalating N alone is unlikely to be affordable.** At the worst point the successive differences
+are 2.495% → 1.861%, a ratio of 0.746. If that geometric rate held, reaching the registered 0.5%
+would take roughly four more domain doublings beyond N = 80 — and N = 80 already costs ~12× N = 48
+per point. This is not a budget that can be bought.
+
+**A more promising reading, and it is being tested rather than asserted.** Every failure above is at
+the registered **extent 21**. At **extent 29**, P1's own domain check PASSED — N = 64 vs N = 80
+agreeing to 0.354%. A plausible mechanism: at extent 21 the crystal is small relative to its
+diffusion field, so the far-field boundary contributes proportionally more; as the crystal grows it
+dominates its own field and domain sensitivity falls. **If that holds, the fix is a larger
+measurement extent rather than an ever-larger box** — which would also address the extent
+non-convergence that motivated the columns ladder, with one configuration instead of two.
+
+**This is not yet a controlled comparison and must not be quoted as one:** the four failing points
+are different (T, f) conditions from P1, so extent and condition are confounded. `P1-C64` (N = 64,
+extent 35, against the existing N = 80 extent-35 run) is executing and tests the same point at a
+third extent.
+
 ## 5. Decision (PENDING §4)
 
 Maker direction 2026-07-31: **honor the registered consequence in full** — re-sweep both arms at the

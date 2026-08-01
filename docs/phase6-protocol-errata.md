@@ -327,9 +327,35 @@ growth RATE" — and precisely why leaving that check unrun for the whole phase 
 Note also that the 0.5% tolerance itself is inherited from WP3's `CAK_A1` domain ladder, so E5
 touches the threshold as well as the justification.
 
-**Maker decision required.** A full-grid re-run at N = 64 is a materially larger commitment than
-anything else outstanding in Phase 6, and the class-robustness result above means the published
-headline classifications may well survive it unchanged. Recorded here, not decided here.
+**Maker direction 2026-07-31: honor the registered consequence in full.** Best science practice
+governs cost/speed/accuracy tradeoffs.
+
+**AND THEN THE REMEDIATION ITSELF FAILED ITS OWN CHECK (2026-07-31, 21:20).** Before committing
+~780 core-hours to the mandated N = 64 re-sweep, the same criterion was applied one rung up —
+already-measured N = 64 against fresh N = 80, at the same four points:
+
+| point | N=48 → 64 | **N=64 → 80** | N = 64 verdict |
+|---|---|---|---|
+| arm 1, −13 °C, f = 0.15 | 2.495% | **1.861%** | **FAIL** |
+| arm 2, −27 °C, f = 0.15 | 2.477% | **0.693%** | **FAIL** |
+| arm 2, −6 °C, f = 0.15 | 1.705% | **0.559%** | **FAIL** |
+| arm 1, −31 °C, f = 0.60 | 0.000% | 0.264% | PASS |
+
+**Three of four fail. The registered failure consequence does not discharge the registered
+condition.** "Raise the domain to N = 64 and re-run the entire grid" would have produced 408 fresh
+points at a domain that fails the very spot-check that ordered the re-run. That is a defect in the
+registration, not merely a wrong number, and it is recorded rather than silently widened to N = 80.
+
+**Escalating N alone looks unaffordable.** Successive differences at the worst point run
+2.495% → 1.861%, a ratio of 0.746; at that rate reaching 0.5% needs roughly four more doublings
+beyond N = 80, which already costs ~12× N = 48 per point.
+
+**Where the resolution may actually lie.** Every failure above is at the registered **extent 21**.
+At **extent 29** the same criterion PASSED for P1 — N = 64 vs N = 80 agreeing to 0.354%. If the
+domain sensitivity is a small-crystal effect rather than a box-size effect, a larger measurement
+extent fixes both this and the extent non-convergence at once. **Confounded and under test** — the
+failing points are different (T, f) conditions from P1 — by the pre-registered convergence study in
+[`phase6-convergence-study-prereg.md`](phase6-convergence-study-prereg.md).
 
 ---
 
