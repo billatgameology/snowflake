@@ -903,11 +903,15 @@ immutable.
 
 > **Open operator decision — x64 PC vs Mac as primary host.**
 > [docs/arm64-host-assessment.md](arm64-host-assessment.md) (2026-07-31, on `mac-branch`).
-> Recommendation: **do not migrate**; keep the PC as the registered evidence host and use the Mac
-> as the second architecture. **Do not quote a Mac-vs-PC speedup from the control's wall times** —
-> the arm64 runs were serial and idle, the x64 baseline is contended, and the ratio is invalid.
-> The one measurement that would settle it is cheap and has NOT been taken: re-run the four
-> control points **concurrently** on the Mac and compare against the 58.1-minute serial total.
+> Recommendation: **do not migrate wholesale — but NOT for performance reasons.** The concurrent
+> throughput probe measured the M4 at **2.79× at 4-way** (96% of achievable) and **4.55× at
+> 8-way**; the feared efficiency-core collapse did not occur, and determinism held byte-identical
+> across all 16 runs. Estimated aggregate throughput is **≈ parity** (~1.12× Mac), so the decision
+> rests on RAM/disk headroom (24 GB vs 64 GB, binding at the queued 72³), reference continuity,
+> and the macOS `tmpdir` test blocker.
+> **The retracted 1.72× serial "speedup" must not be quoted**; under comparable contention it is
+> ≈1.28× per point. The remaining gap is one PC-side run of the same probe (~2.5 h), which would
+> replace the throughput estimate with a measurement.
 > A host change contradicts `AGENTS.md`'s execution-host section and needs an ADR (Rule 5).
 
 **Phase 6 arm 2 (SDAK) HAS RUN, and both arms are reported together at

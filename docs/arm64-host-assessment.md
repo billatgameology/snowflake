@@ -4,130 +4,142 @@
 > If the operator decides to move the primary execution host, that contradicts the "Local
 > execution host and operator preference" section of `AGENTS.md` and needs an ADR under Rule 5.
 >
-> Written 2026-07-31 on `mac-branch`, alongside the Phase 6 cross-platform control
-> (`docs/phase6-cross-platform-control.md` §Result), which is the only new measured evidence here.
+> Written 2026-07-31 on `mac-branch`. Revised the same day after the concurrent throughput probe,
+> which **overturned the performance objection** in the first draft and weakened the GPU one.
 
 ## The short version
 
-**Recommendation: do not migrate wholesale. Keep the x64 PC as the registered evidence host and
-adopt the Mac as the second architecture and development machine.**
+**Recommendation: do not migrate wholesale — but performance is no longer a reason, and neither
+is the GPU as strongly as first written.** Keep the x64 PC as the registered evidence host, keep
+the Mac as the second architecture and development machine.
 
-The reason is not that the Mac is worse. It is that **the measurement that would justify a move
-has not been taken, and the one I did take does not transfer to it** (Rule 11). Three of the four
-non-performance factors also favour the PC, and none of them is close.
+**Aggregate sweep throughput between the two machines is roughly a wash** (estimate: within
+~10–15%, Mac marginally ahead). The decision therefore rests on memory/disk headroom, reference
+continuity, and the macOS test blocker — none of which is decisive on its own, which is why the
+honest recommendation is "don't move yet" rather than "the Mac is worse."
 
-## The performance evidence does NOT support a move — including the part that looked like it did
+## Performance — MEASURED, and it is not the problem
 
-The four control runs, serial, on an otherwise idle M4:
+The first draft of this document argued that the M4's 4 performance + 6 efficiency layout would
+collapse under sweep-like load, and that per-core latency did not transfer to throughput. **The
+first half of that was wrong and the probe says so.**
 
-| point | arm64 wall | x64 wall (baseline) | naive ratio |
-|---|---|---|---|
-| `robust-plate` | 697 s | 1254 s (20.9 min) | 1.80 |
-| `robust-column` | 810 s | 1326 s (22.1 min) | 1.64 |
-| `fragile-plate-ceiling` | 780 s | 1416 s (23.6 min) | 1.82 |
-| `fragile-column-floor` | 1197 s | 2004 s (33.4 min) | 1.67 |
-| **total** | **3484 s (58.1 min)** | **6000 s (100 min)** | **1.72** |
+All figures below are the four registered control points, same configuration, on the M4.
+Logs in `out/phase6-arm64/concurrent/` (gitignored).
 
-**That 1.72× is not a valid comparison and must not be quoted as one.** The x64 column is taken
-from the sweep's own `points.json` rows, and `research/phase6-convergence.md:417` states plainly:
-*"Wall times are contended and are not cost measurements."* The sweep runs roughly seven points
-concurrently (`docs/PROGRESS.md`: "eight temperatures … cost 40 minutes wall across seven cores").
-So the table compares a **contended** x64 host against an **uncontended, serial** arm64 host. It
-overstates the Mac's advantage by an unknown amount, and the amount is unknown in the unhelpful
-direction — it could be most of the gap.
+| regime | aggregate wall | work delivered | throughput vs serial | worst per-process penalty |
+|---|---|---|---|---|
+| serial (1 at a time, idle) | 3484 s (58.1 min) | 1 × 4 points | 1.00× | — |
+| **4 concurrent** | **1247 s (20.8 min)** | 1 × 4 points | **2.79×** | +4.8% |
+| **8 concurrent** (2 copies each) | **1531 s (25.5 min)** | 2 × 4 points | **4.55×** | +39% |
 
-The honest statement of what was measured: **the M4 completed the four registered points serially,
-idle, in 58.1 minutes.** There is no clean x64 counterpart to compare it against, so there is
-currently **no valid per-core speed comparison between the two hosts in either direction.**
+- **4-way is near-perfect.** 2.79× against a ceiling of 2.91× (bounded by the longest job) = 96%
+  of achievable scaling, with ≤4.8% contention. The four performance cores are effectively
+  independent for this workload; memory bandwidth is not binding at 48³.
+- **8-way did not collapse.** Per-process cost rose 26–39%, and aggregate throughput still improved
+  by 1.63× over 4-way. The feared efficiency-core cliff **did not appear**. macOS spread the load
+  rather than stranding four processes on slow cores — the duplicate pairs finished within ~3% of
+  each other (950/942, 1112/1117, 1051/1084, 1531/1513) instead of splitting into fast and slow
+  groups, which is what a hard P/E partition would have produced.
+- **Determinism survives contention.** All 16 runs (4 serial + 4 at 4-way + 8 at 8-way) produced
+  byte-identical `stop reason` lines, including `fillLedger` and `maxAbsSmootherDrift`. Scheduling
+  has no path into the arithmetic, now verified rather than assumed.
 
-### And per-core speed is the wrong quantity anyway
+### Cross-host comparison — an ESTIMATE, with its assumption named
 
-Even a clean per-core number would not settle this, because the work is not run one process at a
-time. Sweeps run as N independent processes, so the deciding quantity is **aggregate throughput
-under the real parallel load**, and the two machines differ structurally in exactly the way that
-makes per-core latency non-transferable:
+The x64 baseline walls were produced under contention (`research/phase6-convergence.md`: *"Wall
+times are contended and are not cost measurements"*), at roughly seven concurrent processes
+(`PROGRESS.md`: "eight temperatures … 40 minutes wall across seven cores"). The **8-way arm64
+phase is therefore the comparable regime** — not the serial phase this document originally, and
+wrongly, compared against.
 
-| | x64 PC | Mac |
+| point | arm64 @ 8-way | x64 baseline (contended) |
 |---|---|---|
-| cores | Ryzen 7 5700G, **8 homogeneous physical** (16 logical) | M4, **4 performance + 6 efficiency** |
-| behaviour under 7–8 concurrent solver processes | 7–8 equivalent cores | 4 fast + 3–4 much slower cores |
+| `robust-plate` | 950 / 942 s | 1254 s |
+| `robust-column` | 1112 / 1117 s | 1326 s |
+| `fragile-plate-ceiling` | 1051 / 1084 s | 1416 s |
+| `fragile-column-floor` | 1531 / 1513 s | 2004 s |
 
-A single-process measurement on a heterogeneous CPU says nothing about what happens when you
-saturate it, because the scheduler starts placing work on efficiency cores. This is precisely the
-Rule 11 failure mode the project has already paid for twice, so it is stamped here at creation
-time rather than discovered later:
+Per point, the M4 is ≈ **1.28×** the x64 host under comparable load — not the 1.72× the serial
+numbers suggested, and that earlier figure is retracted.
 
-> **NON-TRANSFERABLE.** The 58.1-minute serial figure was measured at one process at a time on an
-> idle machine. It does not license any conclusion about sweep throughput, and no migration
-> decision should rest on it.
+Aggregate throughput, which is what a 12-hour sweep actually consumes:
 
-## The measurement that would actually settle it
+- arm64: 8 point-runs in 1531 s → **191 s of wall per point delivered**
+- x64: ~7 concurrent at ~1500 s average → **~214 s of wall per point delivered**
 
-Cheap, and it is a genuine A/B rather than a cross-host guess:
+**≈ 1.12× in the Mac's favour — effectively parity.**
 
-1. On the Mac, re-run the same four control points **concurrently** and record aggregate wall time.
-   Compare against the 58.1-minute serial total. This measures directly how much the M4's 4P+6E
-   layout gives up under saturation — the whole question, on one machine, with no cross-host
-   contention confound.
-2. On the PC, run the same four points **serially and idle**. That produces the clean per-core x64
-   number that does not currently exist, making the table above meaningful.
+> **ASSUMPTION, and the estimate fails without it:** that the x64 baseline rows were produced at
+> ~7-way concurrency. That is inferred from a *different* probe (the 8-temperature cost run), not
+> measured during the sweep that produced these rows. If the sweep ran at lower concurrency, the
+> PC's per-point number is better than 214 s and the PC wins on throughput. **This is an estimate
+> with a named assumption, not a measurement**, and the assumption is checkable in one run — see
+> below. Also unmeasured: sustained thermal behaviour. The arm64 figures are 25-minute bursts; a
+> 12-hour sweep is a different thermal regime, and a desktop tower has cooling headroom a laptop-
+> class part does not.
 
-Until at least (1) exists, "the Mac is faster" is an impression, not a result.
+### The one measurement still missing
 
-## The non-performance factors, which mostly favour the PC
+Run this same two-phase probe on the PC: the four points serially and idle, then 8 concurrent.
+That produces the clean x64 per-core number and the clean x64 scaling curve, which together
+replace the estimate above with a measurement. Roughly 2.5 hours of PC time.
 
-**1. GPU — the strongest single argument against moving.** Phase 5 lane evidence records adapter
-identity (`gate5-evidence.ts` carries `adapter.vendor` / `.architecture` / `.device`), and it was
-certified on the RTX 3080. `solver-gpu/` is a tracked package and the WGSL kernel plus GPU LK entry
-points are pinned (they refuse any surface policy but v5, per `AGENTS.md`). Apple silicon has no
-CUDA; the WebGPU path would run on Metal against a different adapter. Moving strands the hardware
-that Phase 5's device witnesses name, and any future GPU comparison gate would be on a device the
-existing evidence does not cover.
+## The non-performance factors
 
-**2. Headroom.** PC: 64 GB RAM, multiple NVMe SSDs. Mac: **24 GB RAM, 68 GB free on a 228 GB
-volume.** Neither is binding at the registered 48³, but the finer-grid work already queued in
-`PROGRESS.md` (Δx = 0.2333 µm, 72³, extent 32) is ~3.4× the cells, and evidence runs accumulate
-checkpoints and field dumps. The PC has room to grow into; the Mac has noticeably less.
+**1. Headroom — now the strongest argument.** PC: 64 GB RAM, multiple NVMe SSDs. Mac: **24 GB RAM,
+68 GB free of 228 GB.** Not binding at the registered 48³ — 8 concurrent processes ran without
+trouble — but the finer-grid work already queued in `PROGRESS.md` (Δx = 0.2333 µm, 72³, extent 32)
+is ~3.4× the cells per process, and evidence runs accumulate checkpoints and field dumps. At 8-way
+concurrency on 72³ the Mac's 24 GB is a real constraint where the PC's 64 GB is not.
+
+**2. GPU — weaker than the first draft claimed.** Phase 5 lane evidence records adapter identity
+(`gate5-evidence.ts`: `adapter.vendor` / `.architecture` / `.device`) and was certified on the
+RTX 3080, which Apple silicon cannot stand in for. **But** the registered `float-precision` row
+states the float32 GPU port is "a labelled diagnostic cross-check only, at a relaxed divergence
+tolerance, **never a gate criterion**", and the calibration probe measured it *slower* than the
+CPU oracle (32.9 s against ~5 s at 28³). The GPU is not on the critical path for Phase 6, so this
+costs the ability to reproduce Phase 5's device-witnessed evidence and any future GPU work — not
+the sweep programme. The first draft called this "the strongest single argument"; that was wrong.
 
 **3. Reference-architecture continuity.** Every frozen protocol hash, the 204-point sweep, gate2b
 and Phase 5 were produced on x64, and `PHASE6_LIBM_DIGEST_X64_BASELINE` is the pinned constant.
-The control just measured that **tier 1 differs across architectures**, so making the Mac primary
-changes the reference architecture for a project whose stated identity is epistemic honesty.
-*Mitigating, and it matters:* **zero checkpoints are committed to git** (`git ls-files | grep
-'\.ckpt$'` → 0), so no committed artifact is at risk of failing a cross-machine bitwise
-comparison. The continuity cost is real but smaller than it first looks.
+The control measured that **tier 1 differs across architectures**, so making the Mac primary
+changes the reference architecture for a project whose identity is epistemic honesty.
+*Mitigating:* **zero checkpoints are committed** (`git ls-files | grep '\.ckpt$'` → 0), so no
+committed artifact risks failing a cross-machine bitwise comparison. Real, but the smallest of the
+three.
 
 **4. The suite does not currently pass on macOS.** 31 of 32 failures come from `os.tmpdir()` being
-a symlink (`/var/folders/…` → `/private/var/folders/…`) and tripping the Phase 5 evidence guard on
-the test harness's own scaffolding. With `TMPDIR` unsymlinked the suite reproduces exactly
-(1317 passed). It is a real blocker for making the Mac primary, and it is fixable — the tests
-should `realpathSync` their temp root — but it touches Rule 9 anti-tampering machinery, so it is a
-reviewed change, not a cleanup.
+a symlink (`/var/folders/…` → `/private/var/folders/…`) tripping the Phase 5 evidence guard on the
+test harness's own scaffolding. With `TMPDIR` unsymlinked the suite reproduces exactly (1317
+passed). A hard blocker for making the Mac primary, fixable by having those tests `realpathSync`
+their temp root — but it touches Rule 9 anti-tampering machinery, so it is a reviewed change.
 
 ## What the Mac is unambiguously good for
 
-Its highest value is the thing it just delivered and the PC structurally cannot: **it is the
-second architecture.** The cross-platform control had been outstanding since WP0c precisely
-because no second machine existed. Keeping it in that role — plus development, test runs, and
-exploratory work — captures the benefit without paying any of the four costs above.
+**It is the second architecture**, which is what closed a control outstanding since WP0c and which
+the PC structurally cannot provide. It also runs the same Node v24.13.1 and V8 13.6.233.17-node.40,
+so the split is purely architectural. Keeping it in that role — plus development and exploratory
+runs — captures the benefit at none of the four costs above.
 
-It also runs the same Node v24.13.1 and V8 13.6.233.17-node.40 as the PC, so the toolchain is
-identical and the split is purely architectural, which is what made the control clean.
+## What would change the recommendation
 
-## What would change this recommendation
-
-- The concurrent-throughput probe showing the M4 matching or beating the PC's aggregate sweep
-  throughput. That would make the Mac attractive for CPU-only sweep work — but arguments 1 and 2
-  (GPU, headroom) would still stand and would still need answering separately.
-- Phase 5 / GPU work being formally closed out, which would retire argument 1.
-- A Mac with substantially more RAM, which would retire argument 2.
+- **The PC-side probe** showing the PC's aggregate throughput materially below the Mac's. That
+  would make the Mac the better sweep host on measurement rather than estimate — though headroom
+  (argument 1) would still need answering for 72³ and beyond.
+- **Fixing the macOS tmpdir issue**, which retires argument 4 cheaply and is worth doing regardless
+  of the host decision, since it currently blocks running the suite on the second architecture.
+- **More RAM on the Mac**, which retires argument 1.
 
 ## Limits of this assessment (Rule 10)
 
-Written by the same session that produced the control it cites, so it is not an independent
-review. What it re-executed: the four tier-2 runs, the tier-1 fingerprint, and exact `npm test`,
-all on arm64. What it did **not** check: any x64 run (no x64 host was available, so every x64
-number here is quoted from committed artifacts, not re-measured); concurrent throughput on either
-host; GPU behaviour on Apple silicon; and whether LK checkpoint bytes are bit-identical across
-architectures — tier 2 shows the *discrete* outcomes match exactly, which says nothing about the
-float64 field bytes.
+Written by the same session that produced the evidence it cites, so it is not an independent
+review. **Re-executed here:** the four tier-2 control runs serially, the same four at 4-way and
+8-way concurrency, the tier-1 fingerprint, and exact `npm test` — all on arm64. **Not checked:**
+any x64 run whatsoever (no x64 host was available, so every x64 number is quoted from committed
+artifacts, never re-measured); the actual concurrency of the sweep that produced the x64 baseline,
+which the throughput estimate assumes; sustained multi-hour thermal behaviour on either machine;
+72³ memory behaviour on 24 GB; GPU behaviour on Apple silicon; and whether LK checkpoint *bytes*
+are bit-identical across architectures — tier 2 shows the discrete outcomes and full `stop reason`
+lines match, which is strong but is not a field-by-field byte comparison.
