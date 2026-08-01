@@ -56,9 +56,7 @@ drawn here.** On maker direction (2026-07-28) Phase 6 reports the no-SDAK arm an
 together, no-SDAK as the control and SDAK as the treatment, rather than publishing this arm alone.
 The numbers below are complete and final for this arm; what they *mean* for the phase waits.
 
-**These numbers are not yet gate evidence.** WP5 has not run: no independent verifier has
-re-derived `report.json` from `points.json`, and the six negative controls have not executed. Until
-then this is a measured result with verified provenance, which is not the same thing.
+**WP5 HAS run (corrected 2026-08-01, external review).** The independent verifier re-derives all 204 rows importing nothing from `runner/src` and returns PASS; seven negative controls executed, 5 CAUGHT and 2 GAP. The sentence here previously said WP5 had not run and was stale for weeks. **What remains true is the stronger caveat:** these are valid *measured-only* counts, not registered headline verdicts — the pre-registered conservative-intersection rule was never implemented (pin-register R15), so the registered scientific gate is incomplete. See `phase6-conclusion.md`.
 
 ## Provenance
 

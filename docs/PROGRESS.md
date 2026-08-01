@@ -914,7 +914,15 @@ immutable.
 > replace the throughput estimate with a measurement.
 > A host change contradicts `AGENTS.md`'s execution-host section and needs an ADR (Rule 5).
 
-### PHASE 6 CONCLUSION — [research/phase6-conclusion.md](../research/phase6-conclusion.md) (2026-08-01)
+### PHASE 6 — CONCLUDED, GATE INCOMPLETE — [research/phase6-conclusion.md](../research/phase6-conclusion.md)
+
+> **STATUS CORRECTED 2026-08-01 BY INDEPENDENT EXTERNAL REVIEW.** Phase 6 concluded; measured-only
+> Nakaya reproduction **FAILED**; **the registered scientific gate remains INCOMPLETE.** 3/90 and
+> 54/90 are valid *measured-only* counts, **not registered headline verdicts** — the pre-registered
+> conservative-intersection rule was never implemented (R15, a BLOCKER). Charter obligations
+> (held-out validation; hundreds of preview-resolution GPU runs) were omitted without an amending
+> ADR. **Do not report this phase as a completed gate.** Accepted-findings list at the head of the
+> conclusion; resume point in [HANDOFF.md](HANDOFF.md).
 
 **Measurement is complete and the phase's conclusion is written.** In one paragraph: at the
 registered measurement size neither parameterization reproduces the Nakaya diagram (3/90 without

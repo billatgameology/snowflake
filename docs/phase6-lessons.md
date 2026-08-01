@@ -181,6 +181,44 @@ asserts the runner contains no route to satisfying it.
 
 ---
 
+---
+
+## E. The failure this list did not contain, found by external review
+
+### E1 — every gap honestly recorded, and a summary the gaps did not support
+
+**Incident (2026-08-01).** An independent review (Codex/GPT-5) reproduced every measured number and
+found no solver defect — then found that I had called Phase 6 "concluded" while my own conclusion
+§3.5 said the registered headline rule was never implemented. **Both cannot stand.** 3/90 and 54/90
+are valid *measured-only* counts and are **not registered headline verdicts**; that alone prevents
+gate acceptance.
+
+The review found seven more, all valid: charter obligations omitted without an amending ADR; a
+positive SDAK claim promoted above the evidence status its *own* pre-registration assigned it; an
+environment-inheritance forgery path present in the audit and absent from the conclusion; a
+fragility rule whose directional justification **my own ladder had already refuted**; a
+cross-platform claim generalized from four runs to both arms; five state documents contradicting one
+another; and a mathematically impossible explanation of a logarithm base.
+
+**What makes this a distinct failure class.** Every one of those gaps was *already written down
+somewhere in this repository, by me, honestly.* R15 was in the pin register and in §3.5. The
+diagnostic's inadmissibility was in the pre-registration I wrote. The `NODE_OPTIONS` path was in the
+audit. The falling AR was in my own ladder table. **Nothing was hidden. The summary simply did not
+follow from the parts.**
+
+**Rule — DISCIPLINE.** *Recording a limitation is not the same as honouring it in the conclusion.*
+Before writing any status line, re-read your own "what this does not establish" section and ask
+whether the headline survives it. A document that lists blockers and then declares completion has
+not been careful — it has been careful in the parts and careless in the aggregate, which reads as
+worse than sloppiness because the evidence of the contradiction is in the same file.
+
+**Corollary — DISCIPLINE.** An external reviewer with no stake reproduced the numbers in hours and
+found eight things eight sessions of self-audit did not. **Adversarial review by a party that did
+not author the work is not a formality**, and its findings should be checked and accepted on their
+merits rather than argued down. All eight here were verified before acceptance; all eight held.
+
+---
+
 ## What could NOT be automated, and why it matters
 
 B2's rule — *preflight asserts every registered output was produced* — is the one that would have

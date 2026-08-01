@@ -1,3 +1,8 @@
+> **THIS IS NOT THE PROJECT HANDOFF.** It is the education-worktree handoff, kept for that
+> session. For the current project state, open items and standing constraints, read
+> **`docs/HANDOFF.md`**. Flagged 2026-08-01 after an external review found the two files
+> conflicting; `docs/HANDOFF.md` was added without checking whether a root one already existed.
+
 # Handoff — Education Worktree
 
 ## Purpose of this worktree

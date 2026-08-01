@@ -1,7 +1,7 @@
 # ADR 0037 — the registered domain spot-check failed, and what that costs
 
-**Status:** DRAFT — the failure and its enumeration are final; the replacement domain is pending the
-escalation check described in §4. Do not act on §5 until that returns.
+**Status:** ACCEPTED 2026-08-01 (see §5). This header read DRAFT while §5 read ACCEPTED — a contradiction found by external review. The failure and its enumeration are final; the replacement domain is pending the
+escalation check described in §4 — which HAS since returned (N = 64 inadequate, 3 of 4), and §5 records the decision that followed: no re-sweep.
 
 **Date:** 2026-07-31
 

@@ -1,7 +1,15 @@
 # Plan — Phase 6: Validation against the Nakaya diagram
 
 - **Phase:** Phase 6 — validation, not calibration (decision 0003)
-- **Status:** registered, WP0/WP1 in progress. **No validation sweep runs until the freeze
+- **Status (corrected 2026-08-01 by external review):** **SUPERSEDED as a live plan.** Both arms ran
+  to completion; the phase is concluded and its outcome is
+  [research/phase6-conclusion.md](../../research/phase6-conclusion.md). **The registered scientific
+  gate is INCOMPLETE** — the pre-registered conservative-intersection headline rule was never
+  implemented (R15), and charter obligations (held-out validation; hundreds of preview-resolution
+  GPU runs) were omitted without an amending ADR. Unchecked work packages below reflect what was
+  planned, **not** what remains scheduled; the ranked open items live in
+  [docs/HANDOFF.md](../HANDOFF.md). The line below is the ORIGINAL status and is retained as history.
+- **Status (original):** registered, WP0/WP1 in progress. **No validation sweep runs until the freeze
   lands**, and the freeze now waits on convergence evidence rather than preceding it.
 - **Started:** 2026-07-26
 - **Last touched:** 2026-07-26 by Claude

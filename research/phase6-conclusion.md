@@ -1,5 +1,42 @@
 # Phase 6 — conclusion
 
+> ## ⚠ STATUS CORRECTED BY EXTERNAL REVIEW (2026-08-01)
+>
+> **Phase 6 concluded; measured-only Nakaya reproduction failed. THE REGISTERED SCIENTIFIC GATE
+> REMAINS INCOMPLETE.**
+>
+> An independent review (Codex/GPT-5, no involvement in the authoring sessions) reproduced the
+> measured results — arm 1 3/90, arm 2 54/90, classes 6/168/30 and 75/119/10, zero stored-class
+> mismatches, two `plate→column` flips per arm and zero `column→plate` — and found no solver defect
+> overturning them. **It also found that I had overstated the phase's status, and it is right.**
+> Earlier versions of this document and of `docs/HANDOFF.md` said "Phase 6 concluded" without
+> qualification. That reads as a cleanly completed gate. It is not one.
+>
+> **Why it is not a clean gate — accepted findings:**
+>
+> 1. **BLOCKER. The published headline is not the pre-registered headline.** The frozen protocol
+>    requires the conservative intersection of measured and grid-extrapolated class; no artifact
+>    carries the extrapolated fields and the operator has no production caller. **3/90 and 54/90 are
+>    valid measured-only counts, not registered headline verdicts.** §3.5 already recorded the gap;
+>    what was wrong was continuing to call the phase concluded anyway.
+> 2. **Charter obligations were omitted without amending the charter** — held-out validation
+>    (growth rates, size-dependent habit, pressure, histories) and the "hundreds of automated runs at
+>    preview resolution" on the GPU harness (charter §2.7, line 311). The move to the float64 CPU
+>    oracle at ~78 000 active cells was scientifically sound **and needed an ADR**. So does deferring
+>    the held-out work.
+> 3. **The SDAK claim is stronger than its evidence status** — see §2.3, now corrected.
+> 4. **Provenance limits are understated** — see §3.8, now added.
+> 5. **The extent-fragility rule rests on a directional assumption my own ladder refuted** — see
+>    §3.6, now corrected.
+> 6. **Cross-platform scope was overstated** — see §2.6, now corrected.
+> 7. State documents contradicted one another (PROGRESS, the Phase 6 plan, ADR 0037's status, the
+>    arm-1 report's "WP5 has not run", and an obsolete root `HANDOFF.md` I failed to check for before
+>    adding `docs/HANDOFF.md`). Reconciled.
+> 8. A mathematically wrong explanation of the M1 logarithm base — corrected in
+>    `core/src/libbrecht.ts` and `runner/test/phase6-sdak.test.ts`.
+>
+> **What the review does not change:** every measured number below. It reproduced them independently.
+
 **What Phase 6 asked:** does a 3-D diffusion-limited solver, given Libbrecht's published attachment
 kinetics, reproduce the Nakaya morphology diagram — and is the SDAK mechanism load-bearing for it?
 
@@ -56,9 +93,22 @@ measurements.** The Nakaya diagram changes habit three times and the middle one 
 
 0.675 apart at identical temperature, supersaturation and measurement size, on opposite sides of the
 class boundary. This is Libbrecht's own claim — *"Producing columnar crystals at −5 C then requires
-the SDAK effect"* — reproduced independently in 3-D for the first time. **Qualified:** at f = 0.90
-the no-SDAK arm is also climbing toward the floor with size (1.46429 at extent 41, crossing near
-extent 44), so the effect is specific to low supersaturation rather than general.
+the SDAK effect"*. **Qualified:** at f = 0.90 the no-SDAK arm is also climbing toward the floor with
+size (1.46429 at extent 41, crossing near extent 44), so the effect is specific to low
+supersaturation rather than general.
+
+> **EVIDENCE STATUS CORRECTED after external review (2026-08-01), and this is the correction that
+> stings most.** This section previously called the result the "first independent 3-D test" of SDAK's
+> necessity and presented it as a Phase 6 finding. **Its own owning pre-registration says the
+> opposite:** `docs/phase6-columns-refinement-prereg.md` states *"Nothing registered. No hash gates
+> this, and it is not admissible as gate evidence — the same rule that bars calibration probes."*
+> I wrote that sentence and then used the result as a headline claim anyway.
+>
+> **The measurement is real and the comparison is controlled** — 1.52632 against 0.851852 at matched
+> conditions, with the control added specifically because it could only weaken the conclusion.
+> **What is withdrawn is its standing:** this is a *predeclared, controlled diagnostic*, not a
+> Phase 6 validation result and not a literature-priority claim. Elevating it to one would require
+> it to be registered, hash-gated and run on the grid rather than on two conditions.
 
 **2.4 The bistable band failed the only way its rule allowed.** ADR 0036 registered −4/−5/−6 °C as
 accepting *either* pure class, so the single failure mode was producing neither. **All 18 points did:
@@ -68,12 +118,19 @@ accepting *either* pure class, so the single failure mode was producing neither.
 across all 34 temperatures — `alphaHK = A·exp(−σ₀/σ_surf)` saturates toward `A`, so a σ₀ dip stops
 separating the facets. The reference diagram is most structured exactly where SDAK does nothing.
 
-**2.6 Habit classes cross architectures; digits do not.** The cross-platform control, registered at
-WP0c and outstanding for the whole phase, ran on Apple silicon under the same Node/V8 build. Tier 1
-**differs** (`2a9f64b3` vs `3662b9e2`) — two conforming libm implementations disagree in the last ULP
-on the physics inputs. Tier 2 **reproduced exactly at all four points**, including one whose AR is
-exactly 1.5000 by an integer tie that could have broken either way. No bitwise reproducibility claim
-in this project extends off a single architecture; class conclusions do.
+**2.6 Four `CAK` configurations reproduce across architectures; digits do not.** The cross-platform
+control, registered at WP0c and outstanding for the whole phase, ran on Apple silicon under the same
+Node/V8 build. Tier 1 **differs** (`2a9f64b3` vs `3662b9e2`) — two conforming libm implementations
+disagree in the last ULP on the physics inputs. Tier 2 **reproduced exactly at all four points**,
+including one whose AR is exactly 1.5000 by an integer tie that could have broken either way.
+
+> **SCOPE CORRECTED after external review (2026-08-01).** This section previously said "habit classes
+> cross architectures", generalizing from four runs to both arms and the whole grid. **Only four
+> arm-1 / `CAK` configurations were executed on arm64. Nothing here establishes architecture
+> independence for arm 2 / `M1`, and nothing establishes it for the other 200 grid points.** The
+> two-arm report stated this limit correctly; this document did not. The defensible claim is: *the
+> four tested arm-1 configurations reproduced their habit class exactly on a second architecture,
+> while the physics inputs differed bitwise.*
 
 ## 3. What Phase 6 does NOT establish, and this is the load-bearing half
 
@@ -115,6 +172,26 @@ Near-threshold verdicts are one-step statements.
 
 **3.7 The comparison target remains a redrawn 1954 schematic** whose supersaturation axis failed an
 independent check, which is why only its three boundary temperatures are used.
+
+**3.8 The published `extentFragile` counts are incomplete, and my own ladder is what shows it.**
+The registered rule flags only points sitting *below* a class threshold, justified by
+`phase6-protocol.ts`'s statement that measurement-extent drift is one-directional — AR rises with
+size and is "never less". **The size ladder measured a fall:** P1 goes 1.52632 at extent 29 →
+**1.52174** at extent 35 → 1.64000 at 41. Small, and inside the instrument's own resolution, but the
+registered justification is a directional claim and the data contradicts it.
+
+Applied symmetrically, the ±0.135 bound would flag **42 additional arm-1 rows and 51 additional
+arm-2 rows** that sit within the bound *above* a threshold. **No score changes** — fragility is a
+caveat, not a class — but the published counts of 16 and 33 describe one side of a bound that the
+measurements no longer support treating as one-sided. Found by external review, 2026-08-01.
+
+**3.9 The sweep inherits its process environment, and that is a live forgery path.** Each of the
+408 child runs is spawned without an explicit `env`, so `NODE_OPTIONS` and the surrounding
+environment pass through. The adversarial audit demonstrated that an out-of-repository loader can
+modify the executing solver **while `git status` stays clean and every registered hash still
+matches** (pin-register R20/R81/R82, recommendation 20). This was recorded in the audit and in the
+pin register and was **absent from this document** until external review flagged it. It is not
+hypothetical and it is not closed: nothing in the evidence chain would detect it.
 
 ## 4. What the phase is worth
 

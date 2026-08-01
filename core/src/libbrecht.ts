@@ -129,10 +129,20 @@ export function isNucleationParamSet(value: unknown): value is NucleationParamSe
 //   sigma_0,basal(T) = (0.02 T^1.75 + 0.3) * (1 - 0.87 exp(-(log T - log 4.5)^2 / 0.07))
 //   sigma_0,prism(T) = (0.015 T^2 + 0.02 T^0.6) * (1 - 0.95 exp(-(log T - log 14.4)^2 / 0.06))
 //
-// `log` is BASE 10, established 2026-07-29 and restated because no paper says so: with natural log
-// the dip centres land at 3.08 and 8.07 degrees and M1 makes FIVE habit transitions on the Phase 6
-// grid; with log10 they land at 4.5 and 14.4 exactly as the paper's own prose describes, and it
-// makes three. runner/test/phase6-sdak.test.ts asserts the difference rather than trusting this note.
+// `log` is BASE 10, established 2026-07-29 and restated because no paper says so.
+//
+// CORRECTED 2026-08-01 (external review). The previous note here said natural log "moves the dip
+// centres to 3.08 and 8.07 degrees". THAT IS MATHEMATICALLY IMPOSSIBLE and the numbers were
+// misattributed. The dip is `exp(-(log T - log c)^2 / w)`, whose minimum is at `T = c` in ANY base,
+// because `log T - log c = 0` exactly when `T = c`. Verified: the centre sits at 4.500 under both
+// log10 and ln. **A base change rescales the dip WIDTH, not its centre** — that is the real
+// difference, and with `ln` the dips are ~2.3x narrower in log-argument terms.
+//
+// 3.08 and 8.07 are alphaHK CROSSING locations from the 2026-07-29 retraction
+// (research/phase6-sweep-report.md), not dip centres. The conclusion the old note reached — use
+// log10 — is unchanged and independently supported: the paper's own prose names 4.5 and 14.4, and
+// the printed Figure 1 dip widths match log10.
+// runner/test/phase6-sdak.test.ts asserts the behaviour rather than trusting this note.
 //
 // Returned as a FRACTION, matching `sigma0Basal`/`sigma0Prism` and the `sigmaSurf` argument of
 // `alphaHK` — the printed percentages are divided by 100 here, once, rather than at each call site.

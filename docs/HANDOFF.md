@@ -4,9 +4,24 @@ Read this first, then `research/phase6-conclusion.md`, then `docs/phase6-lessons
 
 ## 1. Where the project is
 
-**Phases 2b, 3, 4, 5 complete. Phase 6 concluded — measurement and reporting are done; the phase's
-question does not have a clean answer, and the conclusion says so.** Those are different things and
-should not be blurred.
+**Phases 2b, 3, 4, 5 complete. PHASE 6 CONCLUDED; MEASURED-ONLY NAKAYA REPRODUCTION FAILED. THE
+REGISTERED SCIENTIFIC GATE REMAINS INCOMPLETE.**
+
+> **Status corrected 2026-08-01 after independent external review** (Codex/GPT-5, no involvement in
+> the authoring sessions). It reproduced every measured number — arm 1 3/90, arm 2 54/90, classes
+> 6/168/30 and 75/119/10, zero stored-class mismatches, two `plate→column` flips per arm and zero
+> `column→plate` — and found no solver defect. **It also found that this file previously said
+> "Phase 6 concluded" without qualification, which reads as a cleanly completed gate. It is not
+> one.**
+>
+> **3/90 and 54/90 are valid measured-only counts, NOT registered headline verdicts** — the
+> pre-registered conservative-intersection rule was never implemented (**O3 / R15**, and it is a
+> BLOCKER for gate acceptance, not a footnote). Charter obligations were also omitted without an
+> amending ADR: held-out validation, and the "hundreds of automated runs at preview resolution" on
+> the GPU harness (charter line 311) — the executed work used the float64 CPU oracle at ~78 000
+> active cells. **Do not report this phase as a completed gate.**
+>
+> Full accepted-findings list at the head of `research/phase6-conclusion.md`.
 
 Exact `npm test` green: **74 files, 1332 tests**, `rule7` clean. Working tree clean.
 
@@ -42,6 +57,20 @@ sweep is roughly **1130 core-hours (~4 days at 12 concurrent)**.
 satisfied at any configuration tested, so this re-measurement would produce a better-founded number
 that still fails the same check. Decide deliberately whether that is worth 4 days; it is a maker
 decision, and ADR 0037 §5 explains why no re-sweep was run under the current criterion.
+
+### O1b — CLOSE THE GATE, OR NARROW IT BY ADR — REQUIRED BEFORE PHASE 6 IS "COMPLETE"
+
+Raised by external review 2026-08-01. Phase 6 cannot be reported as a completed gate until one of:
+
+- **Execute R15** (the conservative-intersection headline, 612 runs per arm) **and** the charter's
+  held-out validation + preview-resolution GPU runs; **or**
+- **An explicit maker decision, via ADR and charter amendment, that narrows the gate** — recording
+  that the float64 CPU oracle at ~78 000 cells replaces the GPU harness clause, and that held-out
+  validation is deferred with a named owner.
+
+The second is legitimate and probably correct; what is not legitimate is leaving the charter saying
+one thing and the evidence being another. **Do not close this by quietly restating the registered
+rule to match what was built** — ADR 0031 rejected that move by name.
 
 ### O2 — Preflight asserts every registered output was produced — HIGHEST LEVERAGE
 

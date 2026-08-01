@@ -158,9 +158,17 @@ describe("the registered 0D expectation (ADR 0036 Part 1)", () => {
     }
   });
 
-  it("log is BASE 10 — natural log gives five transitions, not three", () => {
-    // The error this project actually made, kept as a live check rather than a note. With Math.log
-    // the dip centres move to 3.08 and 8.07 degrees and the transition count changes.
+  it("log is BASE 10 — natural log changes the transition count", () => {
+    // The error this project actually made, kept as a live check rather than a note.
+    //
+    // CORRECTED 2026-08-01 (external review). This comment previously said natural log "moves the
+    // dip centres to 3.08 and 8.07 degrees". Impossible: the dip is exp(-(log T - log c)^2 / w),
+    // whose minimum is at T = c in ANY base — verified at 4.500 under both log10 and ln. A base
+    // change rescales the dip WIDTH (~2.3x narrower under ln), and it is the width, not a moved
+    // centre, that changes the transition count. 3.08 and 8.07 are alphaHK CROSSING locations from
+    // the 2026-07-29 retraction, misattributed here.
+    //
+    // The assertion below was always about the transition COUNT and is unaffected by the fix.
     const naturalSense = (tempC: number): string => {
       const T = Math.abs(tempC);
       const b = (0.02 * T ** 1.75 + 0.3) * (1 - 0.87 * Math.exp(-((Math.log(T) - Math.log(4.5)) ** 2) / 0.07));
