@@ -209,6 +209,13 @@ Run serially, one at a time, on an otherwise idle machine. Logs and exit status 
 | `fragile-plate-ceiling` | 198 | 3157 | 0.684211 | **neutral** | 780 s (13.0 min) | 23.6 min |
 | `fragile-column-floor` | 248 | 3037 | 1.50000 | **column** | 1197 s (20.0 min) | 33.4 min |
 
+> **The two wall-time columns are NOT comparable, and their ratio must not be quoted as a
+> speedup.** The arm64 column was measured serially on an idle machine; the x64 column comes from
+> the sweep's own rows, and `research/phase6-convergence.md` states that its wall times are
+> contended and are not cost measurements. **NON-TRANSFERABLE** (Rule 11): the arm64 figure is one
+> process at a time and licenses no conclusion about sweep throughput. See
+> `docs/arm64-host-assessment.md`.
+
 Every value matches `PHASE6_FIXTURE_X64_BASELINE` — not merely the registered habit class, but the
 step count and attached count as well. Classes are assigned by the registered rule
 (`phase6-protocol.ts`: plate `AR` ≤ 0.6667, column `AR` ≥ 1.5, else neutral).

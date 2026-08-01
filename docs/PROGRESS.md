@@ -901,6 +901,15 @@ immutable.
 
 ## Next step
 
+> **Open operator decision — x64 PC vs Mac as primary host.**
+> [docs/arm64-host-assessment.md](arm64-host-assessment.md) (2026-07-31, on `mac-branch`).
+> Recommendation: **do not migrate**; keep the PC as the registered evidence host and use the Mac
+> as the second architecture. **Do not quote a Mac-vs-PC speedup from the control's wall times** —
+> the arm64 runs were serial and idle, the x64 baseline is contended, and the ratio is invalid.
+> The one measurement that would settle it is cheap and has NOT been taken: re-run the four
+> control points **concurrently** on the Mac and compare against the 58.1-minute serial total.
+> A host change contradicts `AGENTS.md`'s execution-host section and needs an ADR (Rule 5).
+
 **Phase 6 arm 2 (SDAK) HAS RUN, and both arms are reported together at
 [research/phase6-two-arm-report.md](../research/phase6-two-arm-report.md) (2026-07-30).**
 
