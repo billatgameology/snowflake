@@ -180,7 +180,40 @@ model declines to produce a definite habit at **58% of the grid** even with SDAK
 > precisely because it was the convenient-to-avoid one, and the ladder was built to be able to
 > return it.
 >
-> **Still open, and the correction is provisional until all three land:**
+> ### The correction SURVIVED both of its tests (2026-07-31, later)
+>
+> **The domain check passed.** P1 re-run at the same extent 28 in N = 80 instead of 64, judged by
+> the registered `PHASE6_DOMAIN_SPOT_CHECK` criterion:
+>
+> | P1 at extent 29 | AR | class | attached | symErr | converged | D6h |
+> |---|---|---|---|---|---|---|
+> | N = 64 | **1.52632** | `column` | 6779 | 0 | true | true |
+> | N = 80 | **1.52632** | `column` | 6755 | 0 | true | true |
+>
+> Identical class, identical AR to six figures, attached counts **0.354% apart against the
+> registered 0.5%**. **N = 64 is adequate at that extent, so the crossing is a size effect and not a
+> domain artifact.**
+>
+> **And it is not SDAK-agnostic.** P5 — arm 1 (`CAK`) at the *same* −5 °C and σ∞ = 0.005, added
+> specifically because it could only weaken this reading — goes **0.789474 → 0.851852** from extent
+> 21 to 29. A rise of 0.062, against arm 2's 0.126, landing **0.648 below the floor**. At identical
+> conditions and identical measurement size the two arms sit 0.675 apart. **SDAK produces the column;
+> size alone does not.** The pre-registered ARM SPLIT outcome is refuted.
+>
+> **And P1 has converged.** 1.40000 (ext 21) → 1.52632 (29) → 1.52174 (35): the second interval is
+> **−0.00076/cell**, flat and slightly negative, with the class stable at `column` across a 21%
+> increase in measurement size.
+>
+> *(P5's row was destroyed by a race between three concurrent ladder drivers before it could be
+> recorded with its validity fields; the measurement above survives in a driver log and is being
+> re-run to restore an admissible record. The driver now merges on write.)*
+>
+> **A pattern worth keeping.** At extent 21 the domain check FAILS (N = 48 vs 64, 1.7–2.5%); at
+> extent 29 it PASSES (N = 64 vs 80, 0.354%). Absolute clearance grew 13.5 → 17.5 → 25.5 cells while
+> the extent/N ratio barely moved. **Agreement tracks absolute clearance, not the ratio** — which is
+> the freeze row's "the limit is NOT a ratio" stated as a measurement.
+>
+> **Still open:**
 > 0. **THE LADDER'S OWN DOMAIN JUSTIFICATION WAS WRONG, and I found it after publishing the
 >    correction above.** The ladder holds `targetExtent / N = 0.4375` and argued that kept the
 >    far-field treatment comparable. The `domain-budgets` freeze row says the opposite in as many
