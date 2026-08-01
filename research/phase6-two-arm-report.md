@@ -213,21 +213,42 @@ model declines to produce a definite habit at **58% of the grid** even with SDAK
 > the extent/N ratio barely moved. **Agreement tracks absolute clearance, not the ratio** — which is
 > the freeze row's "the limit is NOT a ratio" stated as a measurement.
 >
-> **Still open:**
-> 0. **THE LADDER'S OWN DOMAIN JUSTIFICATION WAS WRONG, and I found it after publishing the
->    correction above.** The ladder holds `targetExtent / N = 0.4375` and argued that kept the
->    far-field treatment comparable. The `domain-budgets` freeze row says the opposite in as many
->    words: *"WP3 §1.3 also disproved ADR 0024's ratio-based validity limit … it must be re-measured
->    if Δx, **the measurement extent**, or the far field changes."* The ladder changes the
->    measurement extent at every rung, so **rungs B and C carry no domain-adequacy evidence** and the
->    rise could be a domain effect. Being tested, not argued: **rung B80** re-runs P1 at the same
->    extent 28 in N = 80. Identical class and attached counts within the registered 0.5% → N = 64 was
->    adequate and the crossing is a size effect. Otherwise **this correction is withdrawn outright.**
-> 2. **P5** — arm 1 (`CAK`) at the *same* −5 °C and σ∞ = 0.005. The ladder as designed had **no
->    controlled arm-1 run at these conditions** — P4 is arm 1's best regime point but sits at
->    f = 0.90 — so "SDAK is what produced the column" currently rests on extrapolation from arm 1's
->    0.789474 at the registered size, not on measurement. P5 was added *after* seeing P1-B, and it
->    can only weaken that reading: **if P5 also crosses, then size and not SDAK makes the column.**
+> ### FINAL (2026-08-01) — the correction stands in CLASS terms; the registered convergence
+> ### criterion does NOT pass, and both are reported
+>
+> Every open item above has now been measured. The pre-registered convergence study
+> ([prereg](../docs/phase6-convergence-study-prereg.md)) returns **outcome 3, NOT CONVERGED.**
+>
+> | P1, arm 2 `M1`, −5 °C, f = 0.10 | AR | class | domain check N=64 vs N=80 |
+> |---|---|---|---|
+> | extent 21 (registered) | 1.40000 | `neutral` | — |
+> | extent 29 | **1.52632** at *both* domains | **COLUMN** | 0.354% **PASS** |
+> | extent 35 | **1.52174** at *both* domains | **COLUMN** | 1.071% **FAIL** |
+> | extent 41 | **1.64000** at *both* domains | **COLUMN** | 0.444% **PASS** |
+>
+> **What is established.** The habit is `COLUMN` in all six runs at extents 29/35/41, and the aspect
+> ratio is **identical to six figures at both domains at every extent**. The class does not depend on
+> the domain anywhere it was tested at extent ≥ 29. **Arm 2 produces a column at −5 °C in the Nakaya
+> `columns` regime, and the registered extent 21 was too small to see it.**
+>
+> **What is NOT established.** The registered domain criterion requires identical class **and**
+> attached counts within 0.5%. At extent 35 the attached counts differ by **1.071%** — 11 201 against
+> 11 081, 120 cells of interior fill inside a bit-identical envelope. **The criterion fails, so no
+> configuration is demonstrated converged, and no re-sweep is run** (ADR 0037 §5). The criterion is
+> not rewritten to the one that passes.
+>
+> So: the failure is in **total accreted mass**, and the quantity the Nakaya comparison consumes —
+> the class — is invariant across every domain tested. Both facts travel together.
+>
+> **P5 settles the mechanism.** Arm 1 (`CAK`) at the *same* −5 °C, the *same* σ∞ = 0.005 and the
+> *same* extent 29 reads **0.851852** against arm 2's **1.52632** — 0.675 apart, on opposite sides of
+> the class boundary. The pre-registered ARM SPLIT outcome is refuted: **SDAK produces this column,
+> size does not.**
+>
+> **With one honest qualification.** P4 (arm 1 at f = 0.90) reads 1.31250 → 1.31818 → 1.40000 →
+> **1.46429** and is still `neutral` — but it sits 0.036 below the floor rising ~0.011 per cell and
+> would cross near extent 44. **At high supersaturation the no-SDAK arm is also heading to `column`
+> with size.** The SDAK column at −5 °C is a **low-supersaturation** phenomenon, not a general one.
 >
 > Rung B in full — every point rose, one crossed:
 >
