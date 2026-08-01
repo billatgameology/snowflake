@@ -219,11 +219,37 @@ export function phase6LibmDigest(entries: readonly Phase6LibmEntry[]): string {
  * fingerprinting a code path the sweep was not going to ship, and exercised nothing of the
  * A_prism interpolation. It now samples `PHASE6_PARAM_SET`.
  *
- * **MAC RUN NEEDED.** The arm64 side of this control has not been run and is not attempted here;
- * see the runbook. Re-issuing the digest resets that comparison — any previously recorded arm64
- * digest is against `560aeaf7` and is not comparable to this one.
+ * **RUN 2026-07-31.** The arm64 side has now been measured and DIFFERS; see
+ * `PHASE6_LIBM_DIGEST_ARM64_BASELINE` below. This digest was confirmed to be the re-issued
+ * `2a9f64b3` fixture (it samples `PHASE6_PARAM_SET`, so `nucleationAPrism` varies with
+ * temperature) and is therefore comparable to the arm64 measurement.
  */
 export const PHASE6_LIBM_DIGEST_X64_BASELINE = "2a9f64b3";
+
+/**
+ * The arm64 baseline, measured 2026-07-31. **It DIFFERS from the x64 baseline, and that is a
+ * recorded finding, not a defect.** IEEE 754 does not specify `exp`/`log`/`pow`, so two
+ * conforming libm implementations may legitimately differ in the last ULP; this measures that
+ * they do.
+ *
+ * Host: darwin arm64, Apple M4 (4P + 6E), macOS 26.5.2, Node v24.13.1, V8 13.6.233.17-node.40 —
+ * the SAME Node and V8 build as the x64 baseline, so this isolates architecture and platform
+ * libm rather than engine version.
+ *
+ * The full 448-entry table is committed at `docs/phase6-fingerprint-arm64.txt` so the
+ * per-entry diff can be taken when an x64 host is next available; no x64 per-entry file is
+ * committed, which is why this difference is not yet localized to named entries.
+ *
+ * Localization attempted without the x64 file (`out/phase6-arm64/localize-digest.mjs`): no
+ * single-entry perturbation within ±16 ULP (14 336 candidates) maps the arm64 table onto
+ * `2a9f64b3`, so **the difference spans more than one entry** — consistent with a shared
+ * upstream call (e.g. the `exp` in `pSatIce`) propagating into the quantities derived from it.
+ *
+ * CRITICALLY: tier 1 differing did NOT change any tier-2 habit class. All four
+ * `PHASE6_FIXTURE_X64_BASELINE` points reproduced exactly on arm64 — same steps, same attached
+ * count, same aspect ratio — including `fragile-column-floor` at its exact 1.5000 tie.
+ */
+export const PHASE6_LIBM_DIGEST_ARM64_BASELINE = "3662b9e2";
 
 /**
  * The tier-2 baseline, likewise x64-only. These are not fresh runs: they are the N = 48 rows of
@@ -262,8 +288,14 @@ export const PHASE6_FIXTURE_X64_BASELINE_STALE_CAK_A1 = [
  * applies with most force to `fragile-column-floor`, whose AR is exactly 1.5000, sitting on the
  * column floor by an exact integer tie.
  *
- * **MAC RUN NEEDED** — the arm64 side is four growth runs plus the tier-1 fingerprint, roughly
- * 30 minutes each. Not attempted here; see docs/phase6-cross-platform-control.md.
+ * **RUN 2026-07-31 on arm64 — ALL FOUR REPRODUCED EXACTLY.** Same steps, same attached count,
+ * same aspect ratio, hence the same habit class, at every one of the four points, including
+ * `fragile-column-floor` on its exact 1.5000 tie. Every run also reported `symErr = 0`,
+ * `deltaSymClean = true` and `allConverged = true`, matching the baseline's flags.
+ * Host and wall times in `docs/phase6-cross-platform-control.md` §Result.
+ *
+ * This held even though the tier-1 libm digest DIFFERS across the two architectures, so the
+ * agreement is a measured outcome, not a consequence of identical inputs.
  */
 export const PHASE6_FIXTURE_X64_BASELINE = [
   { label: "robust-plate", tempC: -2, fraction: 0.1, sigmaInf: 0.002, steps: 175, attached: 1313, aspectRatio: 0.263158, habit: "plate" },

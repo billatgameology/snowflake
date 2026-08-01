@@ -399,9 +399,19 @@ is available.
   [0.7, 1.5] admission window elsewhere on the sweep grid, so every point must have its own order
   fitted and may come back `not-extrapolatable`. The operator is not a licence to extrapolate
   everywhere; it is a test each point has to pass.
-- **No cross-platform control has been run.** `Math.exp`/`log`/`pow` are not specified to be
-  correctly rounded, so nothing here claims bitwise reproducibility off this host. The arm64
-  control remains outstanding and every claim above is scoped to the registered x64 host.
+- **The cross-platform control has now been run (2026-07-31), and it splits.** `Math.exp`/`log`/
+  `pow` are not specified to be correctly rounded, and the two architectures measurably differ:
+  the tier-1 libm fingerprint is `2a9f64b3` on x64 and **`3662b9e2`** on arm64 (Apple M4, macOS
+  26.5.2, Node v24.13.1, V8 13.6.233.17-node.40 — the same engine build as the x64 host, so the
+  difference is architecture and platform libm, not engine version). **No bitwise reproducibility
+  claim extends off a single architecture**, and none is made here.
+  **Habit class, however, reproduced exactly at all four registered fixture points** — same steps,
+  same attached count, same aspect ratio — including `fragile-column-floor` on its exact `AR`
+  = 1.5000 tie on the column floor. So the habit-class conclusions at those four points are
+  portable across x64 and arm64, while everything digit-level above remains scoped to the
+  registered x64 host. Four points is not the 204-point sweep: see
+  `docs/phase6-cross-platform-control.md` §Result for the full table, the wall times, and what
+  the evidence explicitly does not establish.
 - **These are coordinator-run studies, not gate evidence.** Their conclusions feed WP0c's
   freeze; their printed metrics are not citable as a Phase 6 result.
 - Wall times are contended and are not cost measurements.

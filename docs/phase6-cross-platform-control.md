@@ -1,13 +1,17 @@
-# MAC RUN NEEDED — Phase 6 cross-platform reproducibility control
+# Phase 6 cross-platform reproducibility control
 
-> **Status: registered and awaiting a second machine.** Everything on the x64 side is done and
-> committed. What is outstanding is a single operator action on an Apple-silicon (arm64) machine,
-> described below. **Nothing in Phase 6 is blocked on it** — the sweep runs and reports scoped to
-> the registered x64 host, and this control either widens that scope or produces a fragility
-> finding. Until it runs, no result in this project may claim cross-platform reproducibility.
+> **Status: RUN 2026-07-31 on Apple silicon. Both tiers measured.** See **§Result** below.
+> Tier 1 **differs** across architectures; tier 2 **reproduced exactly at all four points**.
 >
-> This file is the runbook. Its result lands in `research/phase6-convergence.md` and in the
-> `float-precision` / reproducibility rows of the Phase 6 freeze list.
+> This file is the runbook, and it is retained as the protocol that was executed. Its result is
+> recorded here, in `research/phase6-convergence.md`, and in
+> `PHASE6_LIBM_DIGEST_ARM64_BASELINE`. It is **not** recorded in the `float-precision` freeze-list
+> row: that row's prose is hash-pinned and editing it breaks the registered protocol hashes, so it
+> needs an ADR. See the note at the end of §Reporting the result.
+>
+> The arm64 tier-1 table is committed at `docs/phase6-fingerprint-arm64.txt` so the per-entry diff
+> can be taken the next time an x64 host is available — that diff has **not** been taken, because
+> no x64 per-entry file exists in this repository.
 
 ## Why this control exists
 
@@ -161,6 +165,100 @@ distinction.
 **Read the `habit` column first.** The other columns exist to locate a difference, not to be
 required to match.
 
+## Result — measured 2026-07-31 on arm64
+
+**Host.** Apple M4, 4 performance + 6 efficiency cores (10 logical), macOS 26.5.2,
+Node **v24.13.1**, `process.arch` **arm64**, V8 **13.6.233.17-node.40**. That is the *same Node
+and V8 build* as the registered x64 baseline, so this control isolates architecture and platform
+libm rather than engine version — a cleaner comparison than the protocol required.
+
+### Tier 1 — DIFFERS
+
+```
+arm64        3662b9e2     (docs/phase6-fingerprint-arm64.txt, 448 entries)
+x64 baseline 2a9f64b3
+```
+
+Confirmed to be the ADR 0031 **re-issued** fixture, not the retired `560aeaf7`: `nucleationAPrism`
+varies with temperature (0.28 at −2 °C, 0.21 at −3 °C) rather than returning a constant 1, so it
+samples `PHASE6_PARAM_SET`. The digest is FNV-1a over `name|argument|bits` only
+(`phase6-crossplatform.ts` `fnv1a`) — the `platform=`/`arch=` header line is **not** hashed, so
+this is a genuine float64 difference in the physics inputs and not an artifact of the banner.
+
+**The two platforms do not agree bit-for-bit on the physics inputs.**
+
+Which entries moved is **not yet localized**: no x64 per-entry file is committed anywhere in the
+repo, so the diff the runbook calls for could not be taken. The arm64 half is now committed at
+`docs/phase6-fingerprint-arm64.txt` so that diff becomes a one-liner on the next x64 host.
+
+A localization search was run instead (`out/phase6-arm64/localize-digest.mjs`, gitignored):
+**no single-entry perturbation within ±16 ULP** — 14 336 candidates — maps the arm64 table onto
+`2a9f64b3`. So the difference spans **more than one entry**, which is what a shared upstream call
+differing (e.g. the `exp` inside `pSatIce`, feeding `cSat`, `vKin` and onward) would look like.
+This is a candidate explanation from a 32-bit non-cryptographic hash, not a proof.
+
+### Tier 2 — ALL FOUR REPRODUCED EXACTLY
+
+Run serially, one at a time, on an otherwise idle machine. Logs and exit status in
+`out/phase6-arm64/` (gitignored); every run exited 0 with an empty stderr.
+
+| point | steps | attached | `AR` | habit | arm64 wall | x64 wall |
+|---|---|---|---|---|---|---|
+| `robust-plate` | 175 | 1313 | 0.263158 | **plate** | 697 s (11.6 min) | 20.9 min |
+| `robust-column` | 195 | 1171 | 2.33333 | **column** | 810 s (13.5 min) | 22.1 min |
+| `fragile-plate-ceiling` | 198 | 3157 | 0.684211 | **neutral** | 780 s (13.0 min) | 23.6 min |
+| `fragile-column-floor` | 248 | 3037 | 1.50000 | **column** | 1197 s (20.0 min) | 33.4 min |
+
+Every value matches `PHASE6_FIXTURE_X64_BASELINE` — not merely the registered habit class, but the
+step count and attached count as well. Classes are assigned by the registered rule
+(`phase6-protocol.ts`: plate `AR` ≤ 0.6667, column `AR` ≥ 1.5, else neutral).
+
+All four reported `symErr = 0`, `deltaSymClean = true`, `allConverged = true`,
+`worstDiv = 1.000e-7`, `maxKineticFill = 0.1000`, matching the baseline's stated flags.
+
+**`fragile-column-floor` is the load-bearing one.** Its `AR` is exactly 1.5000, sitting on the
+column floor by an exact integer tie in lattice extents, where a single attached site either way
+changes the class. It landed on 248 steps and 3037 attached — identical to x64. The tie did not
+break differently.
+
+### What this establishes, and what it does not
+
+- **Established:** at these four registered configurations, the habit-class conclusions reproduce
+  on x64 and arm64. The sweep's claims at these points widen from "on the registered host" to
+  "on both tested architectures".
+- **Established, negatively:** bitwise reproducibility of the physics inputs does **not** extend
+  across architectures. Phase 2b's refusal to make a cross-engine bitwise claim was correct and
+  is now measured rather than assumed.
+- **Not established:** that every point in the 204-point sweep is architecture-independent. Four
+  points were measured. Two were selected by ADR 0032 precisely because they sit closest to the
+  class thresholds, which is the strongest available evidence at this cost — but it is four
+  points, not a theorem, and the surviving exact tie at `fragile-column-floor` should not be read
+  as proof that no point anywhere can flip.
+- **Not established:** anything about a third architecture or a different V8 build. The engine was
+  held fixed here.
+
+### Incidental finding — the suite is not portable to macOS
+
+Exact `npm test` on arm64: **32 failed / 1286 passed / 7 skipped (73 files)**. None of the
+failures is numerical.
+
+- **31 failures** — macOS `os.tmpdir()` is `/var/folders/…`, a symlink to `/private/var/folders/…`.
+  The Phase 5 and Phase 4 evidence guards reject any path resolving through a symlink
+  (`gate5-evidence.ts` `directoryIdentity`: "resolves through an alias or junction"). The Rule 9
+  anti-tampering check fires on the *test harness's own scaffolding*, in
+  `runner/test/gate5-evidence.test.ts`, `runner/test/gate5-runner.test.ts` and
+  `app/test/phase4-verify.test.ts`, each of which does `mkdtempSync(join(tmpdir(), …))`.
+  Re-running those three files with `TMPDIR=/private/tmp/vcc-tmp`: **130 passed, 0 failed.**
+- **1 failure** — `runner/test/phase6-sweep.test.ts` reads `out/phase6-sweep/points.json`, which is
+  gitignored and absent from any fresh clone on any architecture.
+
+With the symlink cause removed, exact `npm test` gives **1317 passed / 1 failed / 7 skipped**;
+1317 plus the artifact-dependent test is the x64 1318. **The suite reproduces on arm64.**
+
+The fix is for those tests to `realpathSync` their temp root before use, not for the guard to
+relax — the guard is correct and is load-bearing. Not done here: this session's scope was the
+control, and changing Phase 5 evidence machinery is not a cleanup refactor.
+
 ## Reporting the result
 
 Record, in `research/phase6-convergence.md` under "Validity, and what is not established here"
@@ -176,6 +274,27 @@ Record, in `research/phase6-convergence.md` under "Validity, and what is not est
 Then update the `float-precision` freeze-list row's reproducibility note in
 `runner/src/phase6-protocol.ts`, and delete the **MAC RUN NEEDED** marker from the top of this
 file.
+
+**Done on 2026-07-31, with one step blocked** — see §Result. The marker is removed, the
+convergence report's validity bullet is rewritten, and `PHASE6_LIBM_DIGEST_ARM64_BASELINE` is
+recorded so the tier-1 digest is now pinned by test on both measured architectures instead of
+returning early on arm64 (pin-register R28).
+
+> **BLOCKED, and this runbook's instruction is wrong as written: the `float-precision` freeze-list
+> row cannot be edited here.** Its `source` prose is hash-pinned. Adding the reproducibility note
+> to it was attempted and changed the registered protocol hashes, failing seven tests across
+> `phase6-protocol.test.ts` ("pins both new hashes, with revision history"), `phase6-arm2.test.ts`
+> ("keeps all three of arm 1's registered hashes") and the sweep preflight, which then rejected
+> the protocol it is supposed to admit. The edit was reverted; `runner/src/phase6-protocol.ts` is
+> unchanged.
+>
+> That row's prose is part of the protocol identity under which the 204-point sweep was produced,
+> so rewriting it silently would re-stamp the sweep's protocol as something it did not run under —
+> exactly the fail-open substitution Rule 9 exists to prevent. **Recording this measurement in the
+> freeze list requires an ADR and a re-pin of the ADR 0033 values/justification hashes**, which is
+> a registered decision, not a documentation edit, and is deliberately not taken in this session.
+> Until then the measurement lives in §Result, in `research/phase6-convergence.md`, and in
+> `PHASE6_LIBM_DIGEST_ARM64_BASELINE`, none of which are hash-pinned.
 
 ## What must not happen
 

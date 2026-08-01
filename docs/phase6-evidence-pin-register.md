@@ -439,9 +439,13 @@ Stated so the next pass starts from the boundary rather than re-deriving it.
 - **`node_modules` vs `package-lock.json`** — `npm ci --dry-run`/`npm ls` not run, and the `@vcc/*`
   entries were not verified to be the expected workspace symlinks rather than copies or redirected
   junctions. Mitigating: no third-party package is imported anywhere in the physics path.
-- **The arm64 half of the cross-platform control** — `PHASE6_LIBM_DIGEST_X64_BASELINE` and
-  `PHASE6_FIXTURE_X64_BASELINE` are marked "MAC RUN NEEDED" and have never run; the digest assertion
-  returns early on non-x64 by design, so on the second machine the control needs, it is a no-op.
+- ~~**The arm64 half of the cross-platform control**~~ — **CLOSED 2026-07-31.** Both halves have
+  now run on Apple silicon. `PHASE6_LIBM_DIGEST_ARM64_BASELINE = "3662b9e2"` is recorded and
+  asserted under `process.arch === "arm64"`, so the digest assertion **no longer returns early on
+  the second machine the control needs** — R28's no-op is closed on both measured architectures.
+  Tier 1 differs across architectures; tier 2 reproduced the habit class exactly at all four
+  points. Still open: the digest is asserted only in tests, never inside `phase6SweepPreflight`,
+  so recommendation 6 stands unchanged.
 
 **Attempted and unresolved**
 

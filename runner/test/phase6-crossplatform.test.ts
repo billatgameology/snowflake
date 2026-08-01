@@ -13,6 +13,7 @@ import {
   PHASE6_FIXTURE_X64_BASELINE,
   PHASE6_FIXTURE_X64_BASELINE_STALE_CAK_A1,
   PHASE6_LIBM_DIGEST_X64_BASELINE,
+  PHASE6_LIBM_DIGEST_ARM64_BASELINE,
   float64Bits,
   phase6FixturePointSigmaInf,
   phase6FixtureSigmaInf,
@@ -78,6 +79,20 @@ describe("the libm fingerprint", () => {
   it("matches the registered x64 baseline, when running on x64", () => {
     if (process.arch !== "x64") return; // see the header — not a failure elsewhere
     expect(phase6LibmDigest(phase6LibmFingerprint())).toBe(PHASE6_LIBM_DIGEST_X64_BASELINE);
+  });
+
+  // Pin-register R28 observed that the assertion above returns early on arm64, so on the second
+  // machine the cross-platform control needs, it was a no-op. The 2026-07-31 arm64 measurement
+  // supplies the missing constant, so the digest is now pinned on BOTH measured architectures.
+  it("matches the registered arm64 baseline, when running on arm64", () => {
+    if (process.arch !== "arm64") return; // unmeasured elsewhere — not a failure
+    expect(phase6LibmDigest(phase6LibmFingerprint())).toBe(PHASE6_LIBM_DIGEST_ARM64_BASELINE);
+  });
+
+  // The control's headline finding, asserted rather than left in prose: the two measured
+  // architectures do NOT agree bit-for-bit on the physics inputs.
+  it("records that the two measured architectures disagree on the physics inputs", () => {
+    expect(PHASE6_LIBM_DIGEST_ARM64_BASELINE).not.toBe(PHASE6_LIBM_DIGEST_X64_BASELINE);
   });
 });
 

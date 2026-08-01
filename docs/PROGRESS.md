@@ -1713,15 +1713,34 @@ Four WP0c decisions are worth carrying rather than just recording:
   control. An edit now fails the suite instead of silently changing what a completed sweep ran
   against.
 
-**The cross-platform control is built, measured on x64, and committed marked `MAC RUN NEEDED`**
-([docs/phase6-cross-platform-control.md](phase6-cross-platform-control.md)) rather than blocking
-the phase. Tier 1 is a millisecond libm fingerprint — 448 bitwise float64 entries covering every
-transcendental the solver consumes, digest `560aeaf7` — which localizes a difference to a
-function and an argument. Tier 2 is the end-to-end habit class at the sweep's own configuration;
-its baseline needed no new runs because the fixture reproduces WP3's extent-21 ladder conditions
-exactly, which a test asserts so the two cannot drift apart. **A habit class that differs across
-architectures is a FINDING reported as fragile** — never averaged away, and neither architecture
-declared correct.
+**The cross-platform control HAS RUN (2026-07-31, Apple M4 / arm64) and it splits**
+([docs/phase6-cross-platform-control.md](phase6-cross-platform-control.md) §Result). Tier 1 is a
+millisecond libm fingerprint — 448 bitwise float64 entries covering every transcendental the
+solver consumes. Tier 2 is the end-to-end habit class at the sweep's own configuration; its
+baseline needed no new runs because the fixture reproduces WP3's extent-21 ladder conditions
+exactly, which a test asserts so the two cannot drift apart.
+
+> **Tier 1 DIFFERS: x64 `2a9f64b3` vs arm64 `3662b9e2`.** (The `560aeaf7` this paragraph used to
+> quote was retired by ADR 0031 and was stale.) The two architectures do not agree bit-for-bit on
+> the physics inputs, so **no bitwise reproducibility claim extends off a single architecture.**
+> Node and V8 were the *same build* on both hosts (v24.13.1, V8 13.6.233.17-node.40), so this is
+> architecture and platform libm, not engine version.
+>
+> **Tier 2 REPRODUCED EXACTLY at all four ADR 0032 points** — same steps, same attached count,
+> same aspect ratio, hence the same habit class, with `symErr = 0`, `deltaSymClean = true` and
+> `allConverged = true` throughout. That includes `fragile-column-floor`, whose `AR` is exactly
+> 1.5000 on the column floor by an integer tie: it landed on 248 steps / 3037 attached, identical
+> to x64. The tie did not break differently.
+>
+> So: **habit-class conclusions are portable across x64 and arm64 at those four points; digit-level
+> agreement is not.** Four points is not the 204-point sweep, and no claim is made about the other
+> 200 or about a third architecture.
+
+`PHASE6_LIBM_DIGEST_ARM64_BASELINE` is now recorded, so the tier-1 digest is pinned by test on
+**both** measured architectures — closing pin-register R28's observation that the assertion
+returned early on arm64 and was a no-op on exactly the machine the control needed. **A habit class
+that differs across architectures is a FINDING reported as fragile** — never averaged away, and
+neither architecture declared correct; that remains the rule for any future point.
 
 Two rows remain: **Δx** and the **σ axis**, both waiting on a cost measurement of the finer grid
 (Δx = 0.2333 µm, 72³, extent 32) now running. The coarse-grid cost is measured: eight
