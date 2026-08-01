@@ -914,6 +914,42 @@ immutable.
 > replace the throughput estimate with a measurement.
 > A host change contradicts `AGENTS.md`'s execution-host section and needs an ADR (Rule 5).
 
+### Where Phase 6 stands, 2026-07-31 evening
+
+**Measurement is essentially complete; what remains is adjudication.** Both arms swept, frozen,
+hash-pinned and independently verified (23 negative controls between them). The last outstanding
+control — cross-platform, open since WP0c — was executed and merged today.
+
+Landed 2026-07-31, in the order it happened:
+
+| | result |
+|---|---|
+| **Cross-platform control** (B11) | tier 1 **differs** (`2a9f64b3` vs `3662b9e2`), tier 2 **identical at all four points** — classes portable, digits not |
+| **Flip census** (R55) | both arms: 2 flips, both `plate→column`, **zero `column→plate` in 408 measurements**; the reference needs one |
+| **Diagram reconcile** (rec 13) | both figures' plotted data byte-identical to a fresh render; one caption-only drift on arm 1 |
+| **R26 closed** | test-only solver hooks now unreachable from an evidence path, with the runner proven unable to satisfy the opt-in |
+| **Errata E5, E6** | two CRITICAL/HIGH audit findings propagated out of the raw audit file where they had been sitting unread |
+| **Columns size ladder** | **arm 2 produces a `column` at −5 °C** (1.40000 → **1.52632**) — domain-adequate (0.354%) and size-converged (1.52174 at extent 35) |
+| **P5 control** | arm 1 at the same T and σ∞ reaches only **0.851852** → **SDAK produces the column, size does not** |
+| **Domain spot-check** (E6) | never run in the phase's history; **3 of 4 FAIL** |
+| **Escalation** | **N = 64 fails too, 3 of 4** — the registered remediation does not remediate (B12) |
+
+**Two claims of mine were withdrawn today by later measurement, both recorded in place:** that
+neither arm produces a column in the `columns` regime (it does, when measured larger), and that the
+size divergence was an SDAK effect (both arms diverge; SDAK shifts the curve by about one
+representable step).
+
+**Executing now:** the pre-registered convergence study (`docs/phase6-convergence-study-prereg.md`) —
+whether **any affordable configuration is converged on both the domain and extent axes**. Its
+outcome decides between a re-sweep at a converged configuration and publishing the measured
+non-convergence as the Phase 6 result for this regime. Both readings are fixed in advance.
+
+**Open and named:** R15 (the registered conservative-intersection headline rule was never
+implemented and needs 612 runs per arm to discharge), E5's Δx gap warmer than −15 °C, and E6's
+remediation.
+
+---
+
 **Phase 6 arm 2 (SDAK) HAS RUN, and both arms are reported together at
 [research/phase6-two-arm-report.md](../research/phase6-two-arm-report.md) (2026-07-30).**
 

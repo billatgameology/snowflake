@@ -221,6 +221,49 @@ re-derivation from the registered definition and requires them to agree on all t
 do. Status: measured in-repo, both implementations agreeing. Carries B8's four registered limits
 and erratum E5 (no convergence study exists warmer than −15 °C under either executed parameter set).
 
+**B11 — Habit classes cross architectures; digits do not (2026-07-31).** The Phase 6 cross-platform
+control, registered at WP0c and carried as MAC RUN NEEDED through the entire phase, executed on an
+Apple M4 under the SAME Node v24.13.1 / V8 13.6.233.17-node.40 build as the x64 host, so it isolates
+architecture and platform libm rather than engine version. **It splits, and both halves are the
+result.** Tier 1, the 448-entry libm fingerprint, **DIFFERS**: x64 `2a9f64b3`, arm64 `3662b9e2`.
+IEEE 754 does not specify `exp`/`log`/`pow`, and two conforming implementations are measured
+disagreeing in the last ULP on the physics inputs — so no bitwise reproducibility claim in this
+project extends off a single architecture, and Phase 2b's refusal to make a cross-engine bitwise
+claim is now measured rather than assumed. Tier 2, the four registered fixture points, **REPRODUCED
+EXACTLY** — same steps, same attached count, same aspect ratio, `symErr = 0` and `deltaSymClean`
+throughout — **including `fragile-column-floor` whose AR is exactly 1.5000, sitting on the class
+boundary by an integer tie that could have broken either way and did not.** So habit-class
+conclusions are portable across the two tested architectures at those points while digit-level
+agreement is not, and the agreement is a measured outcome rather than a consequence of identical
+inputs. Verified on x64 before merging: the committed 448-entry table recomputes to `3662b9e2` under
+the project's own FNV-1a transcribed by hand, and all four tier-2 rows match the values pulled
+independently from `out/phase6-sweep/points.json`. Evidence: `docs/phase6-cross-platform-control.md`
+§Result, `docs/phase6-fingerprint-arm64.txt`, `PHASE6_LIBM_DIGEST_ARM64_BASELINE`. Closes pin-register
+R28 — the digest assertion returned early on non-x64, so it was a no-op on precisely the machine the
+control needed; now pinned on both measured architectures with a third test asserting they disagree,
+which runs everywhere and cannot be vacuous. Status: measured on both architectures, independently
+re-verified. Limit: four points, not the 204-point sweep, and nothing here claims otherwise.
+
+**B12 — A registered protocol whose own remediation instruction does not remediate (2026-07-31).**
+The `domain-budgets` freeze row makes the sweep's validity at N = 48 conditional on a spot-check at
+the fastest-growing point, registers the criterion inside the **gated** manifest (identical habit
+class AND attached counts within 0.5%), and registers the failure consequence: *raise the domain to
+N = 64 for the ENTIRE grid and re-run it.* **The check had never been executed in the phase's
+history and was never disclosed as outstanding.** Executed against both arms and both natural
+readings of "fastest-growing", each re-derived from `points.json`: **3 of 4 FAIL**, by 3–5× the
+tolerance. Then, before spending the ~780 core-hours the consequence demands, the same criterion was
+applied one rung up — **N = 64 against N = 80 fails 3 of 4 as well** (worst 1.861%). **So the
+registered remediation would have produced 408 fresh points at a domain that fails the very
+spot-check that ordered the re-run.** That is a defect in the registration rather than a wrong
+number, and escalating N alone looks unaffordable: successive differences run 2.495% → 1.861%, a
+ratio of 0.746, so reaching 0.5% needs roughly four more doublings beyond an N = 80 that already
+costs ~12× N = 48 per point. **The habit CLASS is identical at all four points in both comparisons**,
+and class is the only quantity the headline consumes, so no published tally is shown wrong.
+Evidence: `app/scripts/phase6-domain-spot-check.mjs`, `phase6-domain-escalation.mjs`, errata E6,
+ADR 0037. Status: measured; remediation open. This is the pre-registration apparatus turned on the
+protocol itself and finding that a registered obligation was both unexecuted and unsatisfiable as
+written.
+
 ## C. Queued — share-worthy when it lands
 
 **C1 — The SDAK arm** (ADR 0030): **LANDED 2026-07-30 — see B8.** First 3D run of the
