@@ -200,7 +200,7 @@ reaches the solver without going through preflight.
 ## What this does to arm 1
 
 **Nothing, and this is asserted rather than argued.** A test reads
-`out/phase6-sweep/points.json` and requires all 204 rows to be at extent ≥ 21; the verifier reports
+`evidence/phase6-sweep/points.json` and requires all 204 rows to be at extent ≥ 21; the verifier reports
 that all 204 are at **exactly** 21. So the extent condition changes no published class, score, or
 count. Headline stays **3 of 90**.
 

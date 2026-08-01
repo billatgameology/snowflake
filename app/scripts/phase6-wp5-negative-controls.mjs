@@ -21,7 +21,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-const OUT = join(process.cwd(), "out", "phase6-sweep");
+const OUT = join(process.cwd(), "evidence", "phase6-sweep");
 const points = JSON.parse(readFileSync(join(OUT, "points.json"), "utf8"));
 
 const results = [];
@@ -99,7 +99,7 @@ console.log("PHASE 6 WP5 — NEGATIVE CONTROLS (each mutation is executed, not a
   // Execute the mutation: splice rows that could only have come from a different parameter set.
   // The superseded CAK_A1 sweep is real data produced by a different paramSet, so use it.
   const other = JSON.parse(
-    readFileSync(join(process.cwd(), "out", "phase6-sweep-6995868-cak-a1-superseded", "points.json"), "utf8"),
+    readFileSync(join(process.cwd(), "evidence", "phase6-sweep-6995868-cak-a1-superseded", "points.json"), "utf8"),
   );
   const merged = structuredClone(points);
   let spliced = 0;

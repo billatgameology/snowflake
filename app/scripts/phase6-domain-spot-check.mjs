@@ -47,7 +47,7 @@ if (REPO === null || !existsSync(join(REPO, "runner", "src", "main.ts"))) {
   process.exit(2);
 }
 const CONCURRENCY = Number(arg("--concurrency", "2"));
-const OUT_DIR = join(process.cwd(), "out", "phase6-domain-spot-check");
+const OUT_DIR = join(process.cwd(), "evidence", "phase6-domain-spot-check");
 const OUT_FILE = join(OUT_DIR, "spot-check.json");
 const REGISTERED_EXTENT = 21;
 
@@ -56,7 +56,7 @@ const PARAM_SET = { arm1: "CAK", arm2: "M1" };
 
 /** Re-derive the two readings of "fastest-growing" from the artifact, never from a literal. */
 function fastestPoints(arm) {
-  const rows = JSON.parse(readFileSync(join(process.cwd(), "out", ARTIFACTS[arm], "points.json"), "utf8"));
+  const rows = JSON.parse(readFileSync(join(process.cwd(), "evidence", ARTIFACTS[arm], "points.json"), "utf8"));
   const byAttached = rows.slice().sort((a, b) => b.result.attached - a.result.attached)[0];
   const byRate = rows
     .slice()

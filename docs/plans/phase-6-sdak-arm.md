@@ -67,7 +67,7 @@ not touch (ADR 0030 §5).
   sweep's execution commit.
 - [ ] **S7 — Run the SDAK sweep** (flagless, CPU oracle, parallel per-point processes).
   Check: exit status, per-point records, and artifacts under a fresh `out/` root that cannot
-  collide with `out/phase6-sweep/`.
+  collide with `evidence/phase6-sweep/`.
 - [ ] **S8 — Report**: SDAK diagram beside the no-SDAK diagram, never merged; in-sample
   labels on every agreement; S2's expectation confronted explicitly; if the sense is not
   righted, the ADR 0030 §7 ladder (chi_0, then terrace context) is the recorded next step —

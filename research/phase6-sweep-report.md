@@ -78,7 +78,7 @@ then this is a measured result with verified provenance, which is not the same t
 | `report.json` | 928 | `71ae094c38778b0d2c62f3952e4ca641c0bc8f5d91b350248c5c78800830f2a9` |
 | `diagram.svg` | 31,193 | `40458703061af5b54d6629484aa84762fb995a15f5443904c3462d2ff5939234` |
 
-Artifacts live in the ignored evidence tree `out/phase6-sweep/`; their hashes are the tracked
+Artifacts live in the TRACKED evidence tree `evidence/phase6-sweep/`; their hashes are the tracked
 record, as for research media under decision 0004. The preflight refused to produce any of it until
 the freeze was complete, the manifest hashed to the registered pin, the freeze commit was an
 ancestor of HEAD, and the tracked tree was clean.
@@ -90,7 +90,7 @@ An earlier 204-point sweep at commit `6995868` (protocol `9aa2e7c1…`) scored *
 `PHASE6_INTERPOLATION` registered `aPrism: "piecewise-linear-in-(Tm-T)"` — distinct from
 `aBasal: "constant-1"`. The runs violated a registered freeze row, because the harness emitted no
 `--param-set` and the CLI default supplied `CAK_A1`. Its artifacts are preserved unmodified at
-`out/phase6-sweep-6995868-cak-a1-superseded/`.
+`evidence/phase6-sweep-6995868-cak-a1-superseded/`.
 
 **A verification hazard found while this sweep ran, and recorded because it is not yet fixed.** The
 harness captures provenance once at preflight, but each of the 204 children spawns

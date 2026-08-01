@@ -1,0 +1,122 @@
+[
+ {
+  "arm": "arm2",
+  "reading": "fastest-per-step",
+  "paramSet": "M1",
+  "tempC": -6,
+  "fraction": 0.15,
+  "sigmaInf": 0.00906,
+  "coarse": {
+   "dimsN": 64,
+   "stopReason": "size-target",
+   "steps": 218,
+   "attached": 4295,
+   "extent": 21,
+   "aspectRatio": 1,
+   "symmetryError": 0,
+   "modelClass": "neutral",
+   "source": "out/phase6-domain-spot-check/spot-check.json (the N=64 run already measured)"
+  },
+  "fine": {
+   "dimsN": 80,
+   "stopReason": "size-target",
+   "steps": 219,
+   "attached": 4319,
+   "extent": 21,
+   "aspectRatio": 1,
+   "modelClass": "neutral"
+  },
+  "seconds": 15253.749,
+  "error": null
+ },
+ {
+  "arm": "arm1",
+  "reading": "fastest-per-step",
+  "paramSet": "CAK",
+  "tempC": -31,
+  "fraction": 0.6,
+  "sigmaInf": 0.21204000000000003,
+  "coarse": {
+   "dimsN": 64,
+   "stopReason": "size-target",
+   "steps": 230,
+   "attached": 4551,
+   "extent": 21,
+   "aspectRatio": 1,
+   "symmetryError": 0,
+   "modelClass": "neutral",
+   "source": "out/phase6-domain-spot-check/spot-check.json (the N=64 run already measured)"
+  },
+  "fine": {
+   "dimsN": 80,
+   "stopReason": "size-target",
+   "steps": 231,
+   "attached": 4563,
+   "extent": 21,
+   "aspectRatio": 1,
+   "modelClass": "neutral"
+  },
+  "seconds": 16520.006,
+  "error": null
+ },
+ {
+  "arm": "arm1",
+  "reading": "most-attached",
+  "paramSet": "CAK",
+  "tempC": -13,
+  "fraction": 0.15,
+  "sigmaInf": 0.02025,
+  "coarse": {
+   "dimsN": 64,
+   "stopReason": "size-target",
+   "steps": 306,
+   "attached": 5159,
+   "extent": 21,
+   "aspectRatio": 1,
+   "symmetryError": 0,
+   "modelClass": "neutral",
+   "source": "out/phase6-domain-spot-check/spot-check.json (the N=64 run already measured)"
+  },
+  "fine": {
+   "dimsN": 80,
+   "stopReason": "size-target",
+   "steps": 308,
+   "attached": 5063,
+   "extent": 21,
+   "aspectRatio": 1,
+   "modelClass": "neutral"
+  },
+  "seconds": 22418.321,
+  "error": null
+ },
+ {
+  "arm": "arm2",
+  "reading": "most-attached",
+  "paramSet": "M1",
+  "tempC": -27,
+  "fraction": 0.15,
+  "sigmaInf": 0.045375,
+  "coarse": {
+   "dimsN": 64,
+   "stopReason": "size-target",
+   "steps": 319,
+   "attached": 5197,
+   "extent": 21,
+   "aspectRatio": 1.10526,
+   "symmetryError": 0,
+   "modelClass": "neutral",
+   "source": "out/phase6-domain-spot-check/spot-check.json (the N=64 run already measured)"
+  },
+  "fine": {
+   "dimsN": 80,
+   "stopReason": "size-target",
+   "steps": 311,
+   "attached": 5233,
+   "extent": 21,
+   "aspectRatio": 1.05,
+   "modelClass": "neutral"
+  },
+  "seconds": 23816.548,
+  "error": null
+ }
+]

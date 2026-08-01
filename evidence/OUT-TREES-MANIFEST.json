@@ -1,0 +1,1974 @@
+{
+ "schema": "out-tree-digest-manifest-v1",
+ "recorded": "2026-08-01",
+ "why": "These earlier-phase evidence trees stay in the ignored out/ tree (ADR 0038): the maker's standing constraint is read-only, and ~900 MB of .ckpt/.png blobs is a Git LFS decision rather than this one. Their DIGESTS are tracked here so the trees are checkable — before this they existed only on one disk with no tracked record of their contents.",
+ "constraint": "read only; register digests and add checks only. Nothing was written into these trees.",
+ "totalFiles": 479,
+ "totalBytes": 904317624,
+ "trees": {
+  "out/phase2b": {
+   "fileCount": 11,
+   "bytes": 60438811,
+   "files": {
+    "v4/gate2b-rerun-20260717_162624.err": {
+     "bytes": 271,
+     "sha256": "17535e98a254c4986eccc919f0e6e70a40dbc3e088b4f3ec70bb9a8190669b10"
+    },
+    "v4/gate2b-rerun-20260717_162624.log": {
+     "bytes": 116549,
+     "sha256": "9f6ac629a5175cacbe0f55435e638276fdfc018d7ef163855c5a1c2ce0de41e6"
+    },
+    "v4/gate2b-v4-column.ckpt": {
+     "bytes": 15041088,
+     "sha256": "8997d90689fdbe6fb7fe496e4d2780d2f61abe92166e67ed56fa77e65f2de91d"
+    },
+    "v4/gate2b-v4-plate.ckpt": {
+     "bytes": 15041089,
+     "sha256": "fee39ec1ebdf481e370661e1ca4a13384b2d6f3a56477db1b35927f2355179a8"
+    },
+    "v5-interrupted/gate2b-v5-20260719_083231.err": {
+     "bytes": 850,
+     "sha256": "61ee8cd4a9ad5d215ef299be3dcfb018d3a693505767f562704e256025d4632b"
+    },
+    "v5-interrupted/gate2b-v5-20260719_083231.log": {
+     "bytes": 21710,
+     "sha256": "7b19399678bbc9c5696b30dcfbb0f84fba8b3aee97ba367da8fec28bf2e5a610"
+    },
+    "v5p/gate2b-v5p-20260719_204213.err": {
+     "bytes": 0,
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "v5p/gate2b-v5p-20260719_204213.exit-status.txt": {
+     "bytes": 3,
+     "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    "v5p/gate2b-v5p-20260719_204213.log": {
+     "bytes": 135074,
+     "sha256": "ea69d65ab5baf4c06d0f6947683f4f7c580ebec3d3590f7db83b7730a14c45e6"
+    },
+    "v5p/gate2b-v5p-column.ckpt": {
+     "bytes": 15041089,
+     "sha256": "28e97c088b3ce6ad3bd1d15f1a3638b1a1ac17092aacb2c07b085c04432a669a"
+    },
+    "v5p/gate2b-v5p-plate.ckpt": {
+     "bytes": 15041088,
+     "sha256": "c81f45b7efba2a4db92da0b3871e919e74b93e3a8a99663add4103d58e8b532f"
+    }
+   }
+  },
+  "out/phase4": {
+   "fileCount": 125,
+   "bytes": 519684864,
+   "files": {
+    "gate4-report.json": {
+     "bytes": 19187,
+     "sha256": "194f837dc3f57939fa38efb7e4ff67a9c0d8d28d669e0239eefaa1b0c3d8d8e2"
+    },
+    "pass-a/artifact-index.json": {
+     "bytes": 12672,
+     "sha256": "92346e3eb5df9ad25ecf8d1452003dd0814617dac9008a5ceb951a371c419917"
+    },
+    "pass-a/gate4a-report.json": {
+     "bytes": 44387,
+     "sha256": "bcb29e05daebb43e9338a1de64bb93bb804fe6576f953be59c7414ed04347188"
+    },
+    "pass-a/manifest.json": {
+     "bytes": 8267,
+     "sha256": "e5e85c70d377e90dcca2974579122e67417c60fd2c11683276f528615e608644"
+    },
+    "pass-a/runs/A-BRANCH-COMPARATOR/deltas.json": {
+     "bytes": 231895,
+     "sha256": "04927100f69f6742e8047f66aea3a4428b812c8d605493c8dbd605cf3e4dc8c6"
+    },
+    "pass-a/runs/A-BRANCH-COMPARATOR/far-field.f64le": {
+     "bytes": 103809504,
+     "sha256": "b21c67b5378e9cf199e864af1cc04a74d4815960a6d6163c20802ce2ddbe247a"
+    },
+    "pass-a/runs/A-BRANCH-COMPARATOR/final.ckpt": {
+     "bytes": 20890376,
+     "sha256": "2b532b16e74f46fb0604d689e031b4bad67b44d68af0977506986089397fc0b7"
+    },
+    "pass-a/runs/A-BRANCH-COMPARATOR/scenario.json": {
+     "bytes": 3871,
+     "sha256": "410343f6b59a1217c122aacca46f020a2f05113f30988c593955cc3959c757e6"
+    },
+    "pass-a/runs/A-BRANCH-COMPARATOR/series.csv": {
+     "bytes": 902229,
+     "sha256": "7946ba78e6e9b9656ad4a3c47d5af9a9ce864d21250c8f2711c094d007d2b762"
+    },
+    "pass-a/runs/A-BRANCH-DENDRITE/deltas.json": {
+     "bytes": 207625,
+     "sha256": "ce2850a1a6b2971a072f2afb480b4fc75a526f5a4bce8871a122aa1c41d3185b"
+    },
+    "pass-a/runs/A-BRANCH-DENDRITE/far-field.f64le": {
+     "bytes": 91011072,
+     "sha256": "3df3120d651d194caa8984025822b70471e621bf49d2cc9fd98525603b05882b"
+    },
+    "pass-a/runs/A-BRANCH-DENDRITE/final.ckpt": {
+     "bytes": 20890389,
+     "sha256": "4d624fcfa8682f6713868f13817e087442829653f9f74cd8209b5b569481d0d7"
+    },
+    "pass-a/runs/A-BRANCH-DENDRITE/scenario.json": {
+     "bytes": 3756,
+     "sha256": "362598b5d66cf46da9abb249115d7c92dca8b186304e9f7248a42928e3fb8070"
+    },
+    "pass-a/runs/A-BRANCH-DENDRITE/series.csv": {
+     "bytes": 788149,
+     "sha256": "eccb888930b30a936e92f64ff9a39656222e2595f017f2acac58ed2149dac039"
+    },
+    "pass-a/runs/A-DEPLETION/deltas.json": {
+     "bytes": 30661,
+     "sha256": "836a7c8e8dcbbc1f0dac16bf802d86f7316d756a14bffd0f88e264af1fa243db"
+    },
+    "pass-a/runs/A-DEPLETION/far-field.f64le": {
+     "bytes": 14485184,
+     "sha256": "95b756c06d186e11387e839d0300cfbeaf65fb462c84023da5fccda8d7392bbb"
+    },
+    "pass-a/runs/A-DEPLETION/final.ckpt": {
+     "bytes": 8913681,
+     "sha256": "fdb90e4ea23fcf27f33d98d0921de33f9624a94fa73c49a131dac22593ad12bc"
+    },
+    "pass-a/runs/A-DEPLETION/scenario.json": {
+     "bytes": 4334,
+     "sha256": "2137e2d3d2e0fbe3fd026a3bc2416d10698d03d6d8315111ba20d95979eb9b29"
+    },
+    "pass-a/runs/A-DEPLETION/series.csv": {
+     "bytes": 252808,
+     "sha256": "38f7d677415e0ec2b4d27fded4077382f863329d19715fe868554138b1845625"
+    },
+    "pass-a/runs/A-HABIT-U0/deltas.json": {
+     "bytes": 1183,
+     "sha256": "5d6b60e05b5f78bac1f4490a10bb49c9c5a5493d5daa3be1c1e046e3f73750ab"
+    },
+    "pass-a/runs/A-HABIT-U0/far-field.f64le": {
+     "bytes": 3971744,
+     "sha256": "37ac8073b3fe35b95dee824446368f233b3d9abceb2c2d6d520b215ae8a83e71"
+    },
+    "pass-a/runs/A-HABIT-U0/final.ckpt": {
+     "bytes": 8913663,
+     "sha256": "031f1c55825ca431bb934d47753e6b27709541d0e60f626274dd58a1cdea8826"
+    },
+    "pass-a/runs/A-HABIT-U0/scenario.json": {
+     "bytes": 2946,
+     "sha256": "313bf255e61d6c999e56d47e446260720a01f52e4a45f5512a63e574fee62139"
+    },
+    "pass-a/runs/A-HABIT-U0/series.csv": {
+     "bytes": 67466,
+     "sha256": "69a750cf7454e05ef6f44dee2ae8a27d03d298379cf09d4c1ff829791cc654ef"
+    },
+    "pass-a/runs/A-HABIT-U0P25/deltas.json": {
+     "bytes": 2668,
+     "sha256": "11e44bfb50d961b9fabbf2c4a2047e0767dc5e682aa6f3543800a4702aaa6367"
+    },
+    "pass-a/runs/A-HABIT-U0P25/far-field.f64le": {
+     "bytes": 4205376,
+     "sha256": "581e03ac88422856b62f0bd655bbec26fec2559b891330ec760407ac90bfb090"
+    },
+    "pass-a/runs/A-HABIT-U0P25/final.ckpt": {
+     "bytes": 8913648,
+     "sha256": "5468ddbe290ba5a8d435c24868be6ec88537dd8075c325033ea947cf83b0f2b4"
+    },
+    "pass-a/runs/A-HABIT-U0P25/scenario.json": {
+     "bytes": 2927,
+     "sha256": "f9529ad5ab74d172cf06cd2bee6c49fe3de93e6c91b2ebc0584f7f836f60cf2d"
+    },
+    "pass-a/runs/A-HABIT-U0P25/series.csv": {
+     "bytes": 68538,
+     "sha256": "9befff2c123a87929d16b02f82f5c84056d13e1e3820bc42015d2d9b399f0066"
+    },
+    "pass-a/runs/A-HABIT-U0P5/deltas.json": {
+     "bytes": 2803,
+     "sha256": "de87d824e9bfeb4dfdc0be026c484e5607eadaeaae71bc2c9c4d03c11d3c1231"
+    },
+    "pass-a/runs/A-HABIT-U0P5/far-field.f64le": {
+     "bytes": 4205376,
+     "sha256": "48e34e0133b06c4c93e717d06c88ff3968a4901c111b647c3925f2ebdd3baa8f"
+    },
+    "pass-a/runs/A-HABIT-U0P5/final.ckpt": {
+     "bytes": 8913660,
+     "sha256": "cf8db3633ff1704e325c1c7d6e8437833a5db4733d56de39b96435593cfe63cd"
+    },
+    "pass-a/runs/A-HABIT-U0P5/scenario.json": {
+     "bytes": 2946,
+     "sha256": "cd1c0613375c08ef218e41220c881473b0209a6bafdc93053dc13795152d68f4"
+    },
+    "pass-a/runs/A-HABIT-U0P5/series.csv": {
+     "bytes": 70741,
+     "sha256": "b34fce50fb07886f23ffcf9d15d741f8da10f66ac9e56973039160a99491f981"
+    },
+    "pass-a/runs/A-HABIT-U0P75/deltas.json": {
+     "bytes": 3888,
+     "sha256": "2c7aa3d106f6808a32e47229762457e901252e3d107b739040ee10fc74dece83"
+    },
+    "pass-a/runs/A-HABIT-U0P75/far-field.f64le": {
+     "bytes": 4205376,
+     "sha256": "8beb765db568a0108360adafe0cc825773879a49b995df3c1778ca03b76aeceb"
+    },
+    "pass-a/runs/A-HABIT-U0P75/final.ckpt": {
+     "bytes": 8913681,
+     "sha256": "fb1b826e8ef2970c06000f8c49b8e318f2ff2496eb7266d2574826a3af3c4cab"
+    },
+    "pass-a/runs/A-HABIT-U0P75/scenario.json": {
+     "bytes": 2993,
+     "sha256": "f9986d5eb1ae2bea19c8d4dfe3a1750e64d4a44a34df3c800d6b530370cd5e19"
+    },
+    "pass-a/runs/A-HABIT-U0P75/series.csv": {
+     "bytes": 72056,
+     "sha256": "2eaa646b73f1fc8312d8247dfb6a4400555e8ec43eadec40d794bcf9494058fb"
+    },
+    "pass-a/runs/A-HABIT-U1/deltas.json": {
+     "bytes": 1239,
+     "sha256": "16e3d248390f403d1df5268297e9aa8a4bfac63e4f6fa8db408e9b97abeb3de7"
+    },
+    "pass-a/runs/A-HABIT-U1/far-field.f64le": {
+     "bytes": 2569952,
+     "sha256": "756a6252574b21dffbc77a627e52d77b1c6d1bac9bcb00e278e9735c64e1eba3"
+    },
+    "pass-a/runs/A-HABIT-U1/final.ckpt": {
+     "bytes": 8913662,
+     "sha256": "f7a4846c867a4d22da2573f602c626a344f2f2f3afb073421d96dab2cf38f700"
+    },
+    "pass-a/runs/A-HABIT-U1/scenario.json": {
+     "bytes": 2913,
+     "sha256": "d1389a36d0e9b9af914cbcae600291f585dfe9ec2b118a760d0e3162e8d65b2f"
+    },
+    "pass-a/runs/A-HABIT-U1/series.csv": {
+     "bytes": 42270,
+     "sha256": "e1048fd650ef0cb7e3aa05a5bf2277284e85c0bbd173c7841eac5cc49743b38a"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-1/deltas.json": {
+     "bytes": 22380,
+     "sha256": "0bc5050a40b55689febdad5bf6c8dd3a0c26cdc1797d0f089ce69467d883a45f"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-1/far-field.f64le": {
+     "bytes": 12382496,
+     "sha256": "e1ba357ac298ee70a8eddf7d86f6f9a524d114348cbf054dd95f198fe4c59d90"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-1/final.ckpt": {
+     "bytes": 8913703,
+     "sha256": "2645ff4514f1564ac6b3d50a8bc7f39df122861e0f126f216d12b70fa0bd1fae"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-1/noise-witness.bin": {
+     "bytes": 9437498,
+     "sha256": "9cbc2db06caa847e59a2cd27f65ff57e7f89300700f78a5f17357fa5f6f8323f"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-1/scenario.json": {
+     "bytes": 3934,
+     "sha256": "d81da044a1491ba99ed03f23983d5f9f04e0cae1572afcfbda6a440ad7615c26"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-1/series.csv": {
+     "bytes": 209059,
+     "sha256": "99b9069abc795db0f212b87dbfbfa8c5d2005da2b54e39ad3cd8b8fc76f5b04d"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-1-REPLAY/deltas.json": {
+     "bytes": 22387,
+     "sha256": "2fca93ea02d173b6048f4f1a16800fa0ff3545ac3954ecab14a86b79d2adfeae"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-1-REPLAY/far-field.f64le": {
+     "bytes": 12382496,
+     "sha256": "e1ba357ac298ee70a8eddf7d86f6f9a524d114348cbf054dd95f198fe4c59d90"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-1-REPLAY/final.ckpt": {
+     "bytes": 8913703,
+     "sha256": "2645ff4514f1564ac6b3d50a8bc7f39df122861e0f126f216d12b70fa0bd1fae"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-1-REPLAY/noise-witness.bin": {
+     "bytes": 9437498,
+     "sha256": "9cbc2db06caa847e59a2cd27f65ff57e7f89300700f78a5f17357fa5f6f8323f"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-1-REPLAY/scenario.json": {
+     "bytes": 3948,
+     "sha256": "2c96cd5121842f67f7d6aa02cd1a10dc025c618b81eb0ff0f36255bf0d1b9846"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-1-REPLAY/series.csv": {
+     "bytes": 209059,
+     "sha256": "99b9069abc795db0f212b87dbfbfa8c5d2005da2b54e39ad3cd8b8fc76f5b04d"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-2/deltas.json": {
+     "bytes": 24163,
+     "sha256": "aea6a9c420618412f6eb495d05318f05820a67c2a3d671092f8c4a740073832e"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-2/far-field.f64le": {
+     "bytes": 12382496,
+     "sha256": "36172aaa58d62ab56ef5a789521565e57ff020e92a0a888d2a9b5a36a99e31ae"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-2/final.ckpt": {
+     "bytes": 8913702,
+     "sha256": "15820b8e71bc4065b1ba44770879eca610b85edb515042c4a0d589709b512938"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-2/noise-witness.bin": {
+     "bytes": 9437498,
+     "sha256": "653fcc05bfb72b0f51f9f0b6aa91053cb4b35e3a851e0f8cc82cb9acdff2edfa"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-2/scenario.json": {
+     "bytes": 3933,
+     "sha256": "27122224352259266a4a7b603abea9cb8b69f06fd0fbcea3aeb2f7bfae5a594c"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-2/series.csv": {
+     "bytes": 207257,
+     "sha256": "64d0a1e7e1d4b0df408f7760210f8481105fcc31abc6bcbea699dc0851c7f760"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-3/deltas.json": {
+     "bytes": 34100,
+     "sha256": "d51e32abb5384541706e29e8c598a0d9588e886b6823b3e9507c4369920414ad"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-3/far-field.f64le": {
+     "bytes": 13317024,
+     "sha256": "ddd73e0b9a4a8d4b151c747101175f927d8ae4ce43d3fa23502c587fcf62b5e6"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-3/final.ckpt": {
+     "bytes": 8913705,
+     "sha256": "7bf12834cb2d1ceabe3034313f08dd7b15572636cd4916b960441f0dab702bdd"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-3/noise-witness.bin": {
+     "bytes": 9437498,
+     "sha256": "4a3925b0f1f1fddf7540f726f68e02373788abe946d49e6a2dd489a42eedfce9"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-3/scenario.json": {
+     "bytes": 3959,
+     "sha256": "7b4bdb383dfd2f4846cc775d667c64faf519210caa846282537c6f87e391ff70"
+    },
+    "pass-a/runs/A-HOLLOW-SEED-3/series.csv": {
+     "bytes": 226064,
+     "sha256": "9c53959773208b12b5845689b3bce868c510a5974f8370c879858ba22f0c3fec"
+    },
+    "pass-a/runs/A-TIMELINE/deltas.json": {
+     "bytes": 74149,
+     "sha256": "3784d19f7d84f9bf03cb0b900a490cf2fc6aaba141351a0db1b67469155b3419"
+    },
+    "pass-a/runs/A-TIMELINE/far-field.f64le": {
+     "bytes": 35278432,
+     "sha256": "621f818d9e53a35d54d814cecf3e09342c1f04130c3d9ade6fe6ff1b50d6f680"
+    },
+    "pass-a/runs/A-TIMELINE/final.ckpt": {
+     "bytes": 8913670,
+     "sha256": "02d05c9cb09ec0014111c056df5255cde92eb8497c8438c824342a795a2a151c"
+    },
+    "pass-a/runs/A-TIMELINE/scenario.json": {
+     "bytes": 5470,
+     "sha256": "b25d6d4632f5a5bc4ac3a18dc003a1fbe510b06fab8c01295d5457d1bc199ceb"
+    },
+    "pass-a/runs/A-TIMELINE/series.csv": {
+     "bytes": 619117,
+     "sha256": "1eec4e2195399545c1783e525680647b51b59cb53135c2f91672e616c5a5860f"
+    },
+    "pass-b/artifact-index.json": {
+     "bytes": 9088,
+     "sha256": "5644f8380efe75eb9adc6ff6aefd2ebe32dc9de61924a3bd3306d44a1f425cb0"
+    },
+    "pass-b/gate4b-report.json": {
+     "bytes": 29329,
+     "sha256": "22c8a92c5f22af054bb181da1170437e15740c9e0898f0891b4481f95875fa2d"
+    },
+    "pass-b/manifest.json": {
+     "bytes": 6596,
+     "sha256": "c0ceed5b0ebb68defee85b1d78d52c9563f5edd35ed415b8cfdad57dd7c3e812"
+    },
+    "pass-b/runs/B-BRANCH/deltas.json": {
+     "bytes": 16630,
+     "sha256": "a489f140f7456679d653b34217fe7aa330d11d0dd1cbecc5a4338e22e0d62519"
+    },
+    "pass-b/runs/B-BRANCH/final.ckpt": {
+     "bytes": 1880639,
+     "sha256": "6faf8d6d3ebd57d4d27568974c6cc89e8841200583648a8ea7ca051253f1918e"
+    },
+    "pass-b/runs/B-BRANCH/scenario.json": {
+     "bytes": 2140,
+     "sha256": "933441708263d60df5e26e38c7126e5c5ed812ed90957e79e25940ba8a5ecc40"
+    },
+    "pass-b/runs/B-BRANCH/series.csv": {
+     "bytes": 46629,
+     "sha256": "1c507cce9eb6e47a37468e219910b545d6ce677d93c9a19a70f4e3506c762e1a"
+    },
+    "pass-b/runs/B-HABIT-TM10/deltas.json": {
+     "bytes": 53211,
+     "sha256": "9ad5ff56fafeef963b29806e7d60f8d00ffe15d9b64913480fdd08bc7e8d7cac"
+    },
+    "pass-b/runs/B-HABIT-TM10/final.ckpt": {
+     "bytes": 1880641,
+     "sha256": "d680db6f228b2fd2044c18ec4bb995bc22ae84816ce44f6b4f0f9b2b6c9feefb"
+    },
+    "pass-b/runs/B-HABIT-TM10/scenario.json": {
+     "bytes": 2114,
+     "sha256": "65b4ca67f89fa9a4145bc979ba46edc81318a1b0241731262825168c14aed506"
+    },
+    "pass-b/runs/B-HABIT-TM10/series.csv": {
+     "bytes": 86984,
+     "sha256": "4149294eaaf152abcdda46ad0f1b31e10c528fa9248bab30f11bad1fcdaab5d5"
+    },
+    "pass-b/runs/B-HABIT-TM12P5/deltas.json": {
+     "bytes": 10071,
+     "sha256": "6ff8f113c341148a372793e14a744160691557cd02c196ba5bf79af288b2bcc8"
+    },
+    "pass-b/runs/B-HABIT-TM12P5/final.ckpt": {
+     "bytes": 1880644,
+     "sha256": "d4ca592d8d5238d31b8ed3e8e030ed291f13e1757219365dac63698b61fc4c64"
+    },
+    "pass-b/runs/B-HABIT-TM12P5/scenario.json": {
+     "bytes": 2138,
+     "sha256": "c8a588981e0d3b4d1253a2fc8bf441654ebcadd8a29f1117c0b562ac05f442cd"
+    },
+    "pass-b/runs/B-HABIT-TM12P5/series.csv": {
+     "bytes": 61705,
+     "sha256": "32f56f84cd31a4d708efa4fffe1c906d02976199593c46074dcd945099c3988b"
+    },
+    "pass-b/runs/B-HABIT-TM15/deltas.json": {
+     "bytes": 3078,
+     "sha256": "80e2b23b288fb1e5b9ea48def697d7d43967f73b4af26f99cc9d641411d910e5"
+    },
+    "pass-b/runs/B-HABIT-TM15/final.ckpt": {
+     "bytes": 1880642,
+     "sha256": "ea826392f86ec600650331550589516cfbfa83e3b334019c76dc662362f313e8"
+    },
+    "pass-b/runs/B-HABIT-TM15/scenario.json": {
+     "bytes": 3372,
+     "sha256": "beffb944634f3d41c294dc644255e0deec6f264baf822b33bc5345cf94260773"
+    },
+    "pass-b/runs/B-HABIT-TM15/series.csv": {
+     "bytes": 36514,
+     "sha256": "e2610ecb9fac746698315f1f36dca3d2a8bc50e3bfc5f0c332dc0584c48b7933"
+    },
+    "pass-b/runs/B-HABIT-TM5/deltas.json": {
+     "bytes": 8924,
+     "sha256": "2f434755733789b0aae24243db8b03e3f9b79c68f512dfb5b24e9ccc80335387"
+    },
+    "pass-b/runs/B-HABIT-TM5/final.ckpt": {
+     "bytes": 1880641,
+     "sha256": "27b3819b82660c2cf6a8314e0a7faeb4643e059539eb6e64f288634c95bb0311"
+    },
+    "pass-b/runs/B-HABIT-TM5/scenario.json": {
+     "bytes": 2112,
+     "sha256": "6768c4786b7fba6a3af4660e1190dd2b13faa82022556ca68d6bf70214a1c462"
+    },
+    "pass-b/runs/B-HABIT-TM5/series.csv": {
+     "bytes": 65908,
+     "sha256": "78785d29b80131f7eb1559696c7950107e00778713270262d2df42917ad94365"
+    },
+    "pass-b/runs/B-HABIT-TM7P5/deltas.json": {
+     "bytes": 13892,
+     "sha256": "b02e2bada34af70dd7706a1c9c5b1745dd90815e8b02d658a8ac168415c83f1e"
+    },
+    "pass-b/runs/B-HABIT-TM7P5/final.ckpt": {
+     "bytes": 1880642,
+     "sha256": "771fae6b400339cff60475ed787de5115c40ca3a9ee6295b6182b780ef88abc1"
+    },
+    "pass-b/runs/B-HABIT-TM7P5/scenario.json": {
+     "bytes": 2136,
+     "sha256": "ecbca77b4a63b636340fc0812f78f42ec90a4328a3a58d26b96683211d486c32"
+    },
+    "pass-b/runs/B-HABIT-TM7P5/series.csv": {
+     "bytes": 76220,
+     "sha256": "2d37ede589229c648f3b484fd066c7414ee466bfe19ed3bad7528a5d2bf825bd"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-1/deltas.json": {
+     "bytes": 3081,
+     "sha256": "163696c47177383cbc1599d7d2f07f5578c5e332b73a11260332296923f96ae1"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-1/final.ckpt": {
+     "bytes": 1880646,
+     "sha256": "0cc6ca9c6b6f64101242979c03b1e36373d52475adb87d5fa1a095a38ba26997"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-1/noise-witness.json": {
+     "bytes": 7907,
+     "sha256": "d41cfe793a7357792aa18e3b1d762f23813fe02adb77c09eed680582f6ddbdcb"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-1/scenario.json": {
+     "bytes": 2214,
+     "sha256": "a1eb4977f832c13ee2b830cfdb935c1c2b6192b5b6d8fc59ec14d6efbc77c66f"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-1/series.csv": {
+     "bytes": 36387,
+     "sha256": "4bd31ee5e0db55c4b10bb0ddac83533e1e88187229200a7b3adccd71dacc911e"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-1-REPLAY/deltas.json": {
+     "bytes": 3088,
+     "sha256": "768d77da2f5eb47c14089286412a37e88427c14d0c2216e08f838f265b46a87b"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-1-REPLAY/final.ckpt": {
+     "bytes": 1880646,
+     "sha256": "0cc6ca9c6b6f64101242979c03b1e36373d52475adb87d5fa1a095a38ba26997"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-1-REPLAY/noise-witness.json": {
+     "bytes": 7914,
+     "sha256": "ad867b895b04d05943a215321dee4b800eea6d70e79a7317f721a909438e25d8"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-1-REPLAY/scenario.json": {
+     "bytes": 2221,
+     "sha256": "e26e39a4387986c1264a4ae0ec83eaf650774700777ee2198a9df835c84d399b"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-1-REPLAY/series.csv": {
+     "bytes": 36387,
+     "sha256": "4bd31ee5e0db55c4b10bb0ddac83533e1e88187229200a7b3adccd71dacc911e"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-2/deltas.json": {
+     "bytes": 3081,
+     "sha256": "395ce9e2db2e838479f893cd0b6368b0ac03ed615afd385bc4e667b08a94e493"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-2/final.ckpt": {
+     "bytes": 1880645,
+     "sha256": "8c434d695795c34a145df0074d20921948c119eac5b16f92408357c0c950f21c"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-2/noise-witness.json": {
+     "bytes": 7928,
+     "sha256": "c93c6dc88e1b15b7f97229517cb27000ffa10931ff5accbf5033960332c51ecb"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-2/scenario.json": {
+     "bytes": 2213,
+     "sha256": "6fa76b25c63de22fc11498d1224bda6d3b4ef40ee7a1945ffb66537393c3b76c"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-2/series.csv": {
+     "bytes": 36395,
+     "sha256": "189ff51e23b689c8bca66b5797681cb4b7d178b9c2fa057549fbc0a462088428"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-3/deltas.json": {
+     "bytes": 3081,
+     "sha256": "3670db854cdfa1b387111e06fd0bbb6aeb9bf74fdf52c251ac23397f3f8657b2"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-3/final.ckpt": {
+     "bytes": 1880645,
+     "sha256": "3656ba815da3f10879562c677c954c5b7f69fcd09b6e4f19377e7e3fcdf84ffa"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-3/noise-witness.json": {
+     "bytes": 7910,
+     "sha256": "eb22c627a6a652e1c11fdece94447452c1fe9e3ffff6ec7caf2b759d949f88c5"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-3/scenario.json": {
+     "bytes": 2211,
+     "sha256": "8bf41adbf6c78f722bb5d2ff33b6069e793b9385d620571764fe652c1deca351"
+    },
+    "pass-b/runs/B-HOLLOW-SEED-3/series.csv": {
+     "bytes": 36390,
+     "sha256": "99ba2831d18458d0553b9c22150d8e9ffe0c913575cfbbce18504f46ff82f814"
+    },
+    "pass-b/runs/B-TIMELINE/deltas.json": {
+     "bytes": 48923,
+     "sha256": "85c83f79f0e5a7e3b0fcd57bd8fe6ced1c3e6e1609f822d3241406f08aba2bff"
+    },
+    "pass-b/runs/B-TIMELINE/final.ckpt": {
+     "bytes": 1880641,
+     "sha256": "7f5add96c100ab0f2fafdf40601e23f25b862a1137d36ff332f6dc7b8d82390a"
+    },
+    "pass-b/runs/B-TIMELINE/scenario.json": {
+     "bytes": 4771,
+     "sha256": "b90969617cbc6ccf8b8692f1dce59b08b567722485a6fe7a727ef6e6654195a2"
+    },
+    "pass-b/runs/B-TIMELINE/series.csv": {
+     "bytes": 122946,
+     "sha256": "582534c9f058f265b2ce857deabc3b7806695224fa342df633e0cc0248c94ae2"
+    },
+    "pass-b/runs/B-TIMELINE/timeline-witness.bin": {
+     "bytes": 1769793,
+     "sha256": "b2839eff883c8141a62defa2a26664ba3c5190c813c82308b328f6afe4cadcc7"
+    }
+   }
+  },
+  "out/phase4-visual": {
+   "fileCount": 21,
+   "bytes": 1924721,
+   "files": {
+    "manifest.json": {
+     "bytes": 66781,
+     "sha256": "19e0fcfea22f8f8d53f303511fe3a286e7ff10564480f653b72c10b00488573b"
+    },
+    "pass-a-capped-column-profile--forced-webgl2.png": {
+     "bytes": 85213,
+     "sha256": "9b01336dd78e4c9b3d4d53616118689566af97a15e20f21e9d5fd7609936285c"
+    },
+    "pass-a-capped-column-profile--primary.png": {
+     "bytes": 85213,
+     "sha256": "9b01336dd78e4c9b3d4d53616118689566af97a15e20f21e9d5fd7609936285c"
+    },
+    "pass-a-column-endpoint--forced-webgl2.png": {
+     "bytes": 74906,
+     "sha256": "2c474dc066947c254ed8ce8e9be68294686b1a26ffd3df091465c3538b6cfbec"
+    },
+    "pass-a-column-endpoint--primary.png": {
+     "bytes": 74906,
+     "sha256": "2c474dc066947c254ed8ce8e9be68294686b1a26ffd3df091465c3538b6cfbec"
+    },
+    "pass-a-dendrite-top--forced-webgl2.png": {
+     "bytes": 125160,
+     "sha256": "a3fee449b4c1379b752e718f10f40720779d50c9ae3e44fe2c8c5ea015dddaba"
+    },
+    "pass-a-dendrite-top--primary.png": {
+     "bytes": 125160,
+     "sha256": "a3fee449b4c1379b752e718f10f40720779d50c9ae3e44fe2c8c5ea015dddaba"
+    },
+    "pass-a-hollow-column-slice--forced-webgl2.png": {
+     "bytes": 136850,
+     "sha256": "b16311d9e9a3174efbe0b36740748f1bb9bb20c1e31e55d9d7cba05975bd7904"
+    },
+    "pass-a-hollow-column-slice--primary.png": {
+     "bytes": 136850,
+     "sha256": "b16311d9e9a3174efbe0b36740748f1bb9bb20c1e31e55d9d7cba05975bd7904"
+    },
+    "pass-a-plate-endpoint--forced-webgl2.png": {
+     "bytes": 78857,
+     "sha256": "3071200e05561c1e1aab18ee58da9ddacc0cdb6450e3b292ce4f34347a0e3d92"
+    },
+    "pass-a-plate-endpoint--primary.png": {
+     "bytes": 78857,
+     "sha256": "3071200e05561c1e1aab18ee58da9ddacc0cdb6450e3b292ce4f34347a0e3d92"
+    },
+    "pass-b-capped-column-profile--forced-webgl2.png": {
+     "bytes": 86583,
+     "sha256": "db5bc5ee618559c57b601674a10e4f042d0ec1c2834feb9c0d0f5ff44fe76b5a"
+    },
+    "pass-b-capped-column-profile--primary.png": {
+     "bytes": 86583,
+     "sha256": "db5bc5ee618559c57b601674a10e4f042d0ec1c2834feb9c0d0f5ff44fe76b5a"
+    },
+    "pass-b-column-endpoint--forced-webgl2.png": {
+     "bytes": 76794,
+     "sha256": "581b0e4e23b1aba131e79e223e00647bc5c6f025ee625c8fdcf6423e329e7faf"
+    },
+    "pass-b-column-endpoint--primary.png": {
+     "bytes": 76794,
+     "sha256": "581b0e4e23b1aba131e79e223e00647bc5c6f025ee625c8fdcf6423e329e7faf"
+    },
+    "pass-b-dendrite-top--forced-webgl2.png": {
+     "bytes": 92341,
+     "sha256": "83dc30f04917bb6f2818902a45ad2446c6afb067663ee97141c457ced07805f1"
+    },
+    "pass-b-dendrite-top--primary.png": {
+     "bytes": 92341,
+     "sha256": "83dc30f04917bb6f2818902a45ad2446c6afb067663ee97141c457ced07805f1"
+    },
+    "pass-b-hollow-column-slice--forced-webgl2.png": {
+     "bytes": 83540,
+     "sha256": "e8d1918c29de5072d11c509089906d96c94534b7c3dd47704757b41871bd0d9b"
+    },
+    "pass-b-hollow-column-slice--primary.png": {
+     "bytes": 83540,
+     "sha256": "e8d1918c29de5072d11c509089906d96c94534b7c3dd47704757b41871bd0d9b"
+    },
+    "pass-b-plate-endpoint--forced-webgl2.png": {
+     "bytes": 88726,
+     "sha256": "bea5485138a7d6531832743a004a8615068a0c49e7a461cc46e6481890308b34"
+    },
+    "pass-b-plate-endpoint--primary.png": {
+     "bytes": 88726,
+     "sha256": "bea5485138a7d6531832743a004a8615068a0c49e7a461cc46e6481890308b34"
+    }
+   }
+  },
+  "out/phase5": {
+   "fileCount": 78,
+   "bytes": 80944402,
+   "files": {
+    "gate5-artifact-index.json": {
+     "bytes": 16014,
+     "sha256": "66546520c39c531ea253791fad7f5786ae6623855c7b59354ed4a18cb4c67747"
+    },
+    "gate5-report.json": {
+     "bytes": 931186,
+     "sha256": "57ae43901fa140c17c7c92ab83846bca546b93f269f44c6fabd37f15b8d45026"
+    },
+    "windows-d3d12/artifact-index.json": {
+     "bytes": 14796,
+     "sha256": "3659912fedca5b2db3c1bd4c09d7f9df6981c73cdaae78f2e11571dc67c89189"
+    },
+    "windows-d3d12/exit-status.txt": {
+     "bytes": 2,
+     "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/comparison.json": {
+     "bytes": 3611,
+     "sha256": "78a2ebcbe7a198162357fdaf92c3c27f5b600658fd9a8c2238a8476578b9001f"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/config.json": {
+     "bytes": 343,
+     "sha256": "62d01719cb255fe6bff5eb614bc9c4759676a4f0f5c4ccbf05841cbfd620a2f5"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/cpu-reference.ckpt": {
+     "bytes": 17408497,
+     "sha256": "bb43eec8066e133ed78980676ed11819077087b1e64f5b5ff4dcd15e93da2473"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/events.json": {
+     "bytes": 671,
+     "sha256": "885faffd678c530479783bdfc85610205187b061706fcd705950c6dac9d61c91"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/gpu-export.ckpt": {
+     "bytes": 17408497,
+     "sha256": "0ceb673755368d7ada278d76f54cf406247158c854a05ec106b24212a4514162"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/readback.json": {
+     "bytes": 1837,
+     "sha256": "8eaac3d31606c80d3a16524867396fa6da9cf25d3143aed05bd21669e24cf0d2"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/timing.json": {
+     "bytes": 187,
+     "sha256": "a9a60983eb6e5553bf0c7d555ce2e000e5d938a8eceb4461b220d5f16ef56e88"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/comparison.json": {
+     "bytes": 3621,
+     "sha256": "eb8d804ccae71cbd541217fb00ad0505e411133d180a91c8fb7f09522849bb60"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/config.json": {
+     "bytes": 345,
+     "sha256": "6723ab0a899e4672d137bd8094f3cac3c9c8db7c7264252c5f7460ec1b381a69"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/cpu-reference.ckpt": {
+     "bytes": 17826293,
+     "sha256": "3cd6a26677705f168b9a1c249899d880527a163b7aefce7dc31fda9aa4c3c3a7"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/events.json": {
+     "bytes": 672,
+     "sha256": "4408759e5d34ea49e4766f7c5974d7c6eb5ca08904ce07e4216082b028b22af8"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/gpu-export.ckpt": {
+     "bytes": 17826293,
+     "sha256": "c718bb47c5369f04d9b99dbfa16ab301e392c7949263ee6faab333883b6a368b"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/readback.json": {
+     "bytes": 1848,
+     "sha256": "d644fda90c7cbc951c4d57d14d0fd56bc47601c9d5805335103ba81889f32307"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/timing.json": {
+     "bytes": 188,
+     "sha256": "f169418f5c5a835a5cececd7a50f6fc860b8dbb72f053fb51fb01ad99bd57db2"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/comparison.json": {
+     "bytes": 3882,
+     "sha256": "8b72e3158985c6db776a8e36d4dcd4ee35e1644a0fd7553f353f6c9d6ef0dd2b"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/config.json": {
+     "bytes": 371,
+     "sha256": "2651286466da2971cd0597481e424998b799260f8703ed2c0d9fff469efed7bf"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/cpu-reference.ckpt": {
+     "bytes": 321458,
+     "sha256": "a48154991bba78b5ac6116d9ffafb33f3044fa90a18384a931fd085356dc1868"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/events.json": {
+     "bytes": 745,
+     "sha256": "f95391f43c9712fad3a2cc8ccddfe7e80c22848ddcff6a6eb4ae091689e83b14"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/gpu-export.ckpt": {
+     "bytes": 321458,
+     "sha256": "2f9303e554eed790bf110a7755f91e3124a76cf3b37989132b3ed28c24ad46bb"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/readback.json": {
+     "bytes": 2214,
+     "sha256": "1de8d658e98d46711c6d1ec6ead8712f265134f5b49a850ab1a4ba8214042250"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/timing.json": {
+     "bytes": 193,
+     "sha256": "da159a1e67cd1c62dd616bc7a923f4d378960dd14f2ada4ea496d6d2c590deed"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/comparison.json": {
+     "bytes": 3832,
+     "sha256": "c1b2957ebfc9650532700f7c5cf16d4b0f5b41c3337ad1544e562ab78044cbd0"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/config.json": {
+     "bytes": 353,
+     "sha256": "1edf01f706cbfa4bf860020ad0ec66ee26517aca2dbe909ae70dcf0db2c4591e"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/cpu-reference.ckpt": {
+     "bytes": 260311,
+     "sha256": "104ec07b33feb9a3d8dc77ddf9daa46d6828de21dd20293ab3e661b164bedcd8"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/events.json": {
+     "bytes": 732,
+     "sha256": "bbf26a40ade695288a9845518ea192761ed2c69272e156cdcd48a196a7d5c779"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/gpu-export.ckpt": {
+     "bytes": 260311,
+     "sha256": "c9a647f8776203a0f98117f6667799c304c549db277b00d2f4bc409739e52ff2"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/readback.json": {
+     "bytes": 2423,
+     "sha256": "9b92953bef169d39dbdabb180adbcf401d9656a98f69131cb45103eb55b18bcd"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/timing.json": {
+     "bytes": 186,
+     "sha256": "65b7b7d1340c750d01b83d748665a7a849ac8ed7f3e6066824f7cf8abbbb6520"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/comparison.json": {
+     "bytes": 194008,
+     "sha256": "36b4a84d0165f12ebb0f7eac8ee5970bbbcc8cb630146c692205ad12f09806e6"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/config.json": {
+     "bytes": 412,
+     "sha256": "99546c03eb2fd9b2b6ad92658e6aff5e08779a133d2aa84d9a9295ae3c81a1c9"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/cpu-reference.ckpt": {
+     "bytes": 1114621,
+     "sha256": "a7870fbb53e2e68c7c01396548f477e901468938459f596d06afc774ddc980c2"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/events.json": {
+     "bytes": 31648,
+     "sha256": "5428ee3d0d331d133796d1a34bdb19fed2aca8a75a4cab03231bb2b2535f23e7"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/gpu-export.ckpt": {
+     "bytes": 1114621,
+     "sha256": "99b43f0b9bf3b7ab563c7e06474b9fc5b6ae1ac4e46c876a348075ae2820e6a4"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/readback.json": {
+     "bytes": 336958,
+     "sha256": "dedee985f0fc13125613fb9e97ddd2ca3da107066fe4f399a3db6d3a96eb19e8"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/timing.json": {
+     "bytes": 12923,
+     "sha256": "3da2eb9513467624d132d7accab08cbb126ba1c2560897f7eda7fdc79c769f0b"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/comparison.json": {
+     "bytes": 9514,
+     "sha256": "f15b023963c21bfe7dad338cd3bc8a0a41bc3e02771ee2217b8386df4b0f4eed"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/config.json": {
+     "bytes": 344,
+     "sha256": "7e5cc6eded32930d82aa736a8985b34481ed4c6410f18ad0f6e440056c98535b"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/cpu-reference.ckpt": {
+     "bytes": 940527,
+     "sha256": "d1b48578e9ee02a514dad99a75ab77baf8d8551afd6f919bc4b71243f3161a74"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/events.json": {
+     "bytes": 61643,
+     "sha256": "27932db8fb1778c8faf60b9b257e44e92e72b83db3a42df6e6d98b6065e35aa3"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/gpu-export.ckpt": {
+     "bytes": 940527,
+     "sha256": "0c600d49849af76adb08302654bab89faed69eecbcaf57dce4358f6ffcd6203e"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/readback.json": {
+     "bytes": 356859,
+     "sha256": "8df93bd0ecdd5aa4a63c5519d2681d4f95e53362a23a5eae423bdad605ea7f4e"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/timing.json": {
+     "bytes": 12692,
+     "sha256": "a98813174272ad29c974953a05248e14d5a8d68eab3bcf5c3dc3dbe3d390b8d5"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/comparison.json": {
+     "bytes": 5869,
+     "sha256": "2a3cdc357c6aa562bfa11c7a39f7e6805d290a4dbc65695be06e4ed89719a94a"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/config.json": {
+     "bytes": 318,
+     "sha256": "04379d697866f0e1f2da2eeed74f8698dce0d1cf1d6f55bb4654973faea80d51"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/cpu-reference.ckpt": {
+     "bytes": 60891,
+     "sha256": "6823a6a97b3a62568443a5d2fec32471dc917d3e3803d416c40b7e14a60c5660"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/events.json": {
+     "bytes": 3808,
+     "sha256": "f9fa20edb152686e3f356f07c35e48ecf16f3bc311b74218698fc3cfad7afc97"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/gpu-export.ckpt": {
+     "bytes": 60891,
+     "sha256": "6823a6a97b3a62568443a5d2fec32471dc917d3e3803d416c40b7e14a60c5660"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/readback.json": {
+     "bytes": 1570,
+     "sha256": "6c4423905f43694ac50bf50cc3c8941a825cfe2a20f1e66c0f2caed483a6e442"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/timing.json": {
+     "bytes": 180,
+     "sha256": "c2a6443f613d074f02f1b17bcaca6dfa18a3a0e0f60a232dfb184297306db4d5"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/comparison.json": {
+     "bytes": 15940,
+     "sha256": "1b9ae10613f56161a23d79d75d02624e0c9f97dd52b527fbbc2e7f14ede8ac8f"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/config.json": {
+     "bytes": 591,
+     "sha256": "7f48127c8ed49d2c43f9b8b2a8a17c43f378aa653e488b6c24ce71cf7b207d73"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/cpu-reference.ckpt": {
+     "bytes": 165818,
+     "sha256": "d0263fdae8baf405eaa84948ae45957c6374df472c920d88a614752ef4d24fe8"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/events.json": {
+     "bytes": 4415,
+     "sha256": "d0bd5ca3668491083dcd5256e857f17318e0ff5b24524046e82984ec4f6e5116"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/gpu-export.ckpt": {
+     "bytes": 165818,
+     "sha256": "538ba0cc7b4073e68ba1d17f25db47cf4e7b063c81d0cf5b2288c977a4c81a04"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/readback.json": {
+     "bytes": 81710,
+     "sha256": "d8e735e23adf8534e67a564e7ef1f0ff968c8d4bb0f0ac74488872040e4175d5"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/timing.json": {
+     "bytes": 193,
+     "sha256": "2ca9163572919eb38029082d148d31673bda4c9c83ad33f9dff46eeaeba820c9"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/comparison.json": {
+     "bytes": 12904,
+     "sha256": "75b8112fa72085fe1188e4c11d7d85e1c5283c7c381506f7aa3e4aa4187075d3"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/config.json": {
+     "bytes": 523,
+     "sha256": "208f22acac0f06ccbbce0137c7ec3ddcc5bc2437882d3fb29fffc06e58dc85a1"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/cpu-reference.ckpt": {
+     "bytes": 82932,
+     "sha256": "7995400e2abebba7ca2287fba8b0d8b16defe5773b5c1adf5f159b67ab1b80a3"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/events.json": {
+     "bytes": 1429,
+     "sha256": "b19169e545539203e140196f17dd1ebada90d02439692029fbc891859f4d906d"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/gpu-export.ckpt": {
+     "bytes": 82930,
+     "sha256": "573ffe1502dc9582826124b2117603c8696da5f8d8ee9bb95bdf57515de38a10"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/readback.json": {
+     "bytes": 16875,
+     "sha256": "96ba189d3e8c59ef7e863905c853dd214b01950b62d37d6d8e4faabdab492485"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/timing.json": {
+     "bytes": 185,
+     "sha256": "ce00007f9add3bcf9d516a15c38d61daf44058d40087ca30ec30f276b0b717e8"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/comparison.json": {
+     "bytes": 15064,
+     "sha256": "0d5291d0238332a2cc0cf0fcde8e7158bf378779465402f4a2b9e70bcd327d32"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/config.json": {
+     "bytes": 515,
+     "sha256": "184c84077f12cd6289cf496b739d8fbede51baa38c1d9abcd1125236f0137ca6"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/cpu-reference.ckpt": {
+     "bytes": 176827,
+     "sha256": "274d7b28006d97c733e89356dd144c5cd38d34f1b2989a40917ec7273d833552"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/events.json": {
+     "bytes": 4286,
+     "sha256": "4326346edcf46f2558ffb85922de3971a0439c81adae24fa41f085b7ac80c09c"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/gpu-export.ckpt": {
+     "bytes": 176827,
+     "sha256": "80e4da66b42c44e89170e7187522737969f929a368005682d7eb29f0de5e8c2a"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/readback.json": {
+     "bytes": 91834,
+     "sha256": "0003fd42a745ca4b0f0b340042447f305b50efb85122e8fee2cfb76e3179291a"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/timing.json": {
+     "bytes": 178,
+     "sha256": "4c220167f28d2802253e5ff9e3d2d199404aed60c83221a3cb7ec99f81afaab3"
+    },
+    "windows-d3d12/lane-manifest.json": {
+     "bytes": 46083,
+     "sha256": "a897985cd6fdc5381bf45de3bfd4e98208ed42ad70b3115cb674200001c673c5"
+    },
+    "windows-d3d12/lane-report.json": {
+     "bytes": 1915577,
+     "sha256": "1adaebbe560353e303188b178084702a48baf832551bf7869d43f29815caa007"
+    },
+    "windows-d3d12/stderr.log": {
+     "bytes": 0,
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "windows-d3d12/stdout.log": {
+     "bytes": 754,
+     "sha256": "57f541459e501ed7cad89900a8c6db07e7aedebc123dd348a5080ab1640442ec"
+    }
+   }
+  },
+  "out/phase5-wp5-0a611e7": {
+   "fileCount": 78,
+   "bytes": 79697941,
+   "files": {
+    "gate5-artifact-index.json": {
+     "bytes": 16014,
+     "sha256": "550dff1ff672c7ced947360bb3d2379ca45c275a52cf1736dfb23dcd776d287b"
+    },
+    "gate5-report.json": {
+     "bytes": 622786,
+     "sha256": "3c213ef580ef645aadccd7c70a053455c92e4bee28bf994c89c74eeb3295fbbc"
+    },
+    "windows-d3d12/artifact-index.json": {
+     "bytes": 14796,
+     "sha256": "94d1f00571223249ce25d2d687ff5f06e521d61eddc207adfa100b79acee9ce8"
+    },
+    "windows-d3d12/exit-status.txt": {
+     "bytes": 2,
+     "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/comparison.json": {
+     "bytes": 3611,
+     "sha256": "78a2ebcbe7a198162357fdaf92c3c27f5b600658fd9a8c2238a8476578b9001f"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/config.json": {
+     "bytes": 343,
+     "sha256": "62d01719cb255fe6bff5eb614bc9c4759676a4f0f5c4ccbf05841cbfd620a2f5"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/cpu-reference.ckpt": {
+     "bytes": 17408497,
+     "sha256": "bb43eec8066e133ed78980676ed11819077087b1e64f5b5ff4dcd15e93da2473"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/events.json": {
+     "bytes": 671,
+     "sha256": "885faffd678c530479783bdfc85610205187b061706fcd705950c6dac9d61c91"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/gpu-export.ckpt": {
+     "bytes": 17408497,
+     "sha256": "0ceb673755368d7ada278d76f54cf406247158c854a05ec106b24212a4514162"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/readback.json": {
+     "bytes": 1837,
+     "sha256": "8eaac3d31606c80d3a16524867396fa6da9cf25d3143aed05bd21669e24cf0d2"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/timing.json": {
+     "bytes": 187,
+     "sha256": "a9a60983eb6e5553bf0c7d555ce2e000e5d938a8eceb4461b220d5f16ef56e88"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/comparison.json": {
+     "bytes": 3621,
+     "sha256": "eb8d804ccae71cbd541217fb00ad0505e411133d180a91c8fb7f09522849bb60"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/config.json": {
+     "bytes": 345,
+     "sha256": "6723ab0a899e4672d137bd8094f3cac3c9c8db7c7264252c5f7460ec1b381a69"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/cpu-reference.ckpt": {
+     "bytes": 17826293,
+     "sha256": "3cd6a26677705f168b9a1c249899d880527a163b7aefce7dc31fda9aa4c3c3a7"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/events.json": {
+     "bytes": 672,
+     "sha256": "4408759e5d34ea49e4766f7c5974d7c6eb5ca08904ce07e4216082b028b22af8"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/gpu-export.ckpt": {
+     "bytes": 17826293,
+     "sha256": "c718bb47c5369f04d9b99dbfa16ab301e392c7949263ee6faab333883b6a368b"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/readback.json": {
+     "bytes": 1848,
+     "sha256": "d644fda90c7cbc951c4d57d14d0fd56bc47601c9d5805335103ba81889f32307"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/timing.json": {
+     "bytes": 188,
+     "sha256": "f169418f5c5a835a5cececd7a50f6fc860b8dbb72f053fb51fb01ad99bd57db2"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/comparison.json": {
+     "bytes": 3882,
+     "sha256": "8b72e3158985c6db776a8e36d4dcd4ee35e1644a0fd7553f353f6c9d6ef0dd2b"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/config.json": {
+     "bytes": 371,
+     "sha256": "2651286466da2971cd0597481e424998b799260f8703ed2c0d9fff469efed7bf"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/cpu-reference.ckpt": {
+     "bytes": 321458,
+     "sha256": "a48154991bba78b5ac6116d9ffafb33f3044fa90a18384a931fd085356dc1868"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/events.json": {
+     "bytes": 745,
+     "sha256": "f95391f43c9712fad3a2cc8ccddfe7e80c22848ddcff6a6eb4ae091689e83b14"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/gpu-export.ckpt": {
+     "bytes": 321458,
+     "sha256": "2f9303e554eed790bf110a7755f91e3124a76cf3b37989132b3ed28c24ad46bb"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/readback.json": {
+     "bytes": 2214,
+     "sha256": "1de8d658e98d46711c6d1ec6ead8712f265134f5b49a850ab1a4ba8214042250"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/timing.json": {
+     "bytes": 193,
+     "sha256": "da159a1e67cd1c62dd616bc7a923f4d378960dd14f2ada4ea496d6d2c590deed"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/comparison.json": {
+     "bytes": 3832,
+     "sha256": "c1b2957ebfc9650532700f7c5cf16d4b0f5b41c3337ad1544e562ab78044cbd0"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/config.json": {
+     "bytes": 353,
+     "sha256": "1edf01f706cbfa4bf860020ad0ec66ee26517aca2dbe909ae70dcf0db2c4591e"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/cpu-reference.ckpt": {
+     "bytes": 260311,
+     "sha256": "104ec07b33feb9a3d8dc77ddf9daa46d6828de21dd20293ab3e661b164bedcd8"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/events.json": {
+     "bytes": 732,
+     "sha256": "bbf26a40ade695288a9845518ea192761ed2c69272e156cdcd48a196a7d5c779"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/gpu-export.ckpt": {
+     "bytes": 260311,
+     "sha256": "c9a647f8776203a0f98117f6667799c304c549db277b00d2f4bc409739e52ff2"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/readback.json": {
+     "bytes": 2423,
+     "sha256": "9b92953bef169d39dbdabb180adbcf401d9656a98f69131cb45103eb55b18bcd"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/timing.json": {
+     "bytes": 186,
+     "sha256": "65b7b7d1340c750d01b83d748665a7a849ac8ed7f3e6066824f7cf8abbbb6520"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/comparison.json": {
+     "bytes": 194008,
+     "sha256": "36b4a84d0165f12ebb0f7eac8ee5970bbbcc8cb630146c692205ad12f09806e6"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/config.json": {
+     "bytes": 412,
+     "sha256": "99546c03eb2fd9b2b6ad92658e6aff5e08779a133d2aa84d9a9295ae3c81a1c9"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/cpu-reference.ckpt": {
+     "bytes": 1114621,
+     "sha256": "a7870fbb53e2e68c7c01396548f477e901468938459f596d06afc774ddc980c2"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/events.json": {
+     "bytes": 31648,
+     "sha256": "5428ee3d0d331d133796d1a34bdb19fed2aca8a75a4cab03231bb2b2535f23e7"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/gpu-export.ckpt": {
+     "bytes": 1114621,
+     "sha256": "99b43f0b9bf3b7ab563c7e06474b9fc5b6ae1ac4e46c876a348075ae2820e6a4"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/readback.json": {
+     "bytes": 179553,
+     "sha256": "f56aa120e855f9e9d9e21d3c03833fab140b38f4476750a86d33a6a1093961a3"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/timing.json": {
+     "bytes": 10232,
+     "sha256": "c83564ac60d285bc1008291648a50dcfacbe968744a573465dfeae7232280ab2"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/comparison.json": {
+     "bytes": 9514,
+     "sha256": "f15b023963c21bfe7dad338cd3bc8a0a41bc3e02771ee2217b8386df4b0f4eed"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/config.json": {
+     "bytes": 344,
+     "sha256": "7e5cc6eded32930d82aa736a8985b34481ed4c6410f18ad0f6e440056c98535b"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/cpu-reference.ckpt": {
+     "bytes": 940527,
+     "sha256": "d1b48578e9ee02a514dad99a75ab77baf8d8551afd6f919bc4b71243f3161a74"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/events.json": {
+     "bytes": 61643,
+     "sha256": "27932db8fb1778c8faf60b9b257e44e92e72b83db3a42df6e6d98b6065e35aa3"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/gpu-export.ckpt": {
+     "bytes": 940527,
+     "sha256": "0c600d49849af76adb08302654bab89faed69eecbcaf57dce4358f6ffcd6203e"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/readback.json": {
+     "bytes": 205865,
+     "sha256": "246257f1a6ae5eebc37674e6cfad975b6f1be14d9673eb43c44e0eb75e2fb50c"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/timing.json": {
+     "bytes": 10020,
+     "sha256": "abb15fbaf5f31a1aa8cb203c03021c999f1d257e803c096ed67bf975d544b5c4"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/comparison.json": {
+     "bytes": 5869,
+     "sha256": "2a3cdc357c6aa562bfa11c7a39f7e6805d290a4dbc65695be06e4ed89719a94a"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/config.json": {
+     "bytes": 318,
+     "sha256": "04379d697866f0e1f2da2eeed74f8698dce0d1cf1d6f55bb4654973faea80d51"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/cpu-reference.ckpt": {
+     "bytes": 60891,
+     "sha256": "6823a6a97b3a62568443a5d2fec32471dc917d3e3803d416c40b7e14a60c5660"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/events.json": {
+     "bytes": 3808,
+     "sha256": "f9fa20edb152686e3f356f07c35e48ecf16f3bc311b74218698fc3cfad7afc97"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/gpu-export.ckpt": {
+     "bytes": 60891,
+     "sha256": "6823a6a97b3a62568443a5d2fec32471dc917d3e3803d416c40b7e14a60c5660"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/readback.json": {
+     "bytes": 1570,
+     "sha256": "6c4423905f43694ac50bf50cc3c8941a825cfe2a20f1e66c0f2caed483a6e442"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/timing.json": {
+     "bytes": 180,
+     "sha256": "c2a6443f613d074f02f1b17bcaca6dfa18a3a0e0f60a232dfb184297306db4d5"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/comparison.json": {
+     "bytes": 15940,
+     "sha256": "1b9ae10613f56161a23d79d75d02624e0c9f97dd52b527fbbc2e7f14ede8ac8f"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/config.json": {
+     "bytes": 591,
+     "sha256": "7f48127c8ed49d2c43f9b8b2a8a17c43f378aa653e488b6c24ce71cf7b207d73"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/cpu-reference.ckpt": {
+     "bytes": 165818,
+     "sha256": "d0263fdae8baf405eaa84948ae45957c6374df472c920d88a614752ef4d24fe8"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/events.json": {
+     "bytes": 4415,
+     "sha256": "d0bd5ca3668491083dcd5256e857f17318e0ff5b24524046e82984ec4f6e5116"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/gpu-export.ckpt": {
+     "bytes": 165818,
+     "sha256": "538ba0cc7b4073e68ba1d17f25db47cf4e7b063c81d0cf5b2288c977a4c81a04"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/readback.json": {
+     "bytes": 81710,
+     "sha256": "d8e735e23adf8534e67a564e7ef1f0ff968c8d4bb0f0ac74488872040e4175d5"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/timing.json": {
+     "bytes": 193,
+     "sha256": "2ca9163572919eb38029082d148d31673bda4c9c83ad33f9dff46eeaeba820c9"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/comparison.json": {
+     "bytes": 12904,
+     "sha256": "75b8112fa72085fe1188e4c11d7d85e1c5283c7c381506f7aa3e4aa4187075d3"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/config.json": {
+     "bytes": 523,
+     "sha256": "208f22acac0f06ccbbce0137c7ec3ddcc5bc2437882d3fb29fffc06e58dc85a1"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/cpu-reference.ckpt": {
+     "bytes": 82932,
+     "sha256": "7995400e2abebba7ca2287fba8b0d8b16defe5773b5c1adf5f159b67ab1b80a3"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/events.json": {
+     "bytes": 1429,
+     "sha256": "b19169e545539203e140196f17dd1ebada90d02439692029fbc891859f4d906d"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/gpu-export.ckpt": {
+     "bytes": 82930,
+     "sha256": "573ffe1502dc9582826124b2117603c8696da5f8d8ee9bb95bdf57515de38a10"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/readback.json": {
+     "bytes": 16875,
+     "sha256": "96ba189d3e8c59ef7e863905c853dd214b01950b62d37d6d8e4faabdab492485"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/timing.json": {
+     "bytes": 185,
+     "sha256": "ce00007f9add3bcf9d516a15c38d61daf44058d40087ca30ec30f276b0b717e8"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/comparison.json": {
+     "bytes": 15064,
+     "sha256": "0d5291d0238332a2cc0cf0fcde8e7158bf378779465402f4a2b9e70bcd327d32"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/config.json": {
+     "bytes": 515,
+     "sha256": "184c84077f12cd6289cf496b739d8fbede51baa38c1d9abcd1125236f0137ca6"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/cpu-reference.ckpt": {
+     "bytes": 176827,
+     "sha256": "274d7b28006d97c733e89356dd144c5cd38d34f1b2989a40917ec7273d833552"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/events.json": {
+     "bytes": 4286,
+     "sha256": "4326346edcf46f2558ffb85922de3971a0439c81adae24fa41f085b7ac80c09c"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/gpu-export.ckpt": {
+     "bytes": 176827,
+     "sha256": "80e4da66b42c44e89170e7187522737969f929a368005682d7eb29f0de5e8c2a"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/readback.json": {
+     "bytes": 91834,
+     "sha256": "0003fd42a745ca4b0f0b340042447f305b50efb85122e8fee2cfb76e3179291a"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/timing.json": {
+     "bytes": 178,
+     "sha256": "4c220167f28d2802253e5ff9e3d2d199404aed60c83221a3cb7ec99f81afaab3"
+    },
+    "windows-d3d12/lane-manifest.json": {
+     "bytes": 44354,
+     "sha256": "3f196044aa6181c34c62816e50d9eb94af2b6de013817bd268a5464a6a3963da"
+    },
+    "windows-d3d12/lane-report.json": {
+     "bytes": 1293415,
+     "sha256": "9c4fda75f220517dad64cf71a4f735b2e123a4e1a0be9474221df2b0a3c7ac3f"
+    },
+    "windows-d3d12/stderr.log": {
+     "bytes": 0,
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "windows-d3d12/stdout.log": {
+     "bytes": 346,
+     "sha256": "c072de8aaeda50532abfdf6a08a4e38b21bde0e74af239afe695f734d595bc7f"
+    }
+   }
+  },
+  "out/phase5-wp5-0a611e7-original": {
+   "fileCount": 78,
+   "bytes": 79697941,
+   "files": {
+    "gate5-artifact-index.json": {
+     "bytes": 16014,
+     "sha256": "550dff1ff672c7ced947360bb3d2379ca45c275a52cf1736dfb23dcd776d287b"
+    },
+    "gate5-report.json": {
+     "bytes": 622786,
+     "sha256": "3c213ef580ef645aadccd7c70a053455c92e4bee28bf994c89c74eeb3295fbbc"
+    },
+    "windows-d3d12/artifact-index.json": {
+     "bytes": 14796,
+     "sha256": "94d1f00571223249ce25d2d687ff5f06e521d61eddc207adfa100b79acee9ce8"
+    },
+    "windows-d3d12/exit-status.txt": {
+     "bytes": 2,
+     "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/comparison.json": {
+     "bytes": 3611,
+     "sha256": "78a2ebcbe7a198162357fdaf92c3c27f5b600658fd9a8c2238a8476578b9001f"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/config.json": {
+     "bytes": 343,
+     "sha256": "62d01719cb255fe6bff5eb614bc9c4759676a4f0f5c4ccbf05841cbfd620a2f5"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/cpu-reference.ckpt": {
+     "bytes": 17408497,
+     "sha256": "bb43eec8066e133ed78980676ed11819077087b1e64f5b5ff4dcd15e93da2473"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/events.json": {
+     "bytes": 671,
+     "sha256": "885faffd678c530479783bdfc85610205187b061706fcd705950c6dac9d61c91"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/gpu-export.ckpt": {
+     "bytes": 17408497,
+     "sha256": "0ceb673755368d7ada278d76f54cf406247158c854a05ec106b24212a4514162"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/readback.json": {
+     "bytes": 1837,
+     "sha256": "8eaac3d31606c80d3a16524867396fa6da9cf25d3143aed05bd21669e24cf0d2"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/timing.json": {
+     "bytes": 187,
+     "sha256": "a9a60983eb6e5553bf0c7d555ce2e000e5d938a8eceb4461b220d5f16ef56e88"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/comparison.json": {
+     "bytes": 3621,
+     "sha256": "eb8d804ccae71cbd541217fb00ad0505e411133d180a91c8fb7f09522849bb60"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/config.json": {
+     "bytes": 345,
+     "sha256": "6723ab0a899e4672d137bd8094f3cac3c9c8db7c7264252c5f7460ec1b381a69"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/cpu-reference.ckpt": {
+     "bytes": 17826293,
+     "sha256": "3cd6a26677705f168b9a1c249899d880527a163b7aefce7dc31fda9aa4c3c3a7"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/events.json": {
+     "bytes": 672,
+     "sha256": "4408759e5d34ea49e4766f7c5974d7c6eb5ca08904ce07e4216082b028b22af8"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/gpu-export.ckpt": {
+     "bytes": 17826293,
+     "sha256": "c718bb47c5369f04d9b99dbfa16ab301e392c7949263ee6faab333883b6a368b"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/readback.json": {
+     "bytes": 1848,
+     "sha256": "d644fda90c7cbc951c4d57d14d0fd56bc47601c9d5805335103ba81889f32307"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/timing.json": {
+     "bytes": 188,
+     "sha256": "f169418f5c5a835a5cececd7a50f6fc860b8dbb72f053fb51fb01ad99bd57db2"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/comparison.json": {
+     "bytes": 3882,
+     "sha256": "8b72e3158985c6db776a8e36d4dcd4ee35e1644a0fd7553f353f6c9d6ef0dd2b"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/config.json": {
+     "bytes": 371,
+     "sha256": "2651286466da2971cd0597481e424998b799260f8703ed2c0d9fff469efed7bf"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/cpu-reference.ckpt": {
+     "bytes": 321458,
+     "sha256": "a48154991bba78b5ac6116d9ffafb33f3044fa90a18384a931fd085356dc1868"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/events.json": {
+     "bytes": 745,
+     "sha256": "f95391f43c9712fad3a2cc8ccddfe7e80c22848ddcff6a6eb4ae091689e83b14"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/gpu-export.ckpt": {
+     "bytes": 321458,
+     "sha256": "2f9303e554eed790bf110a7755f91e3124a76cf3b37989132b3ed28c24ad46bb"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/readback.json": {
+     "bytes": 2214,
+     "sha256": "1de8d658e98d46711c6d1ec6ead8712f265134f5b49a850ab1a4ba8214042250"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/timing.json": {
+     "bytes": 193,
+     "sha256": "da159a1e67cd1c62dd616bc7a923f4d378960dd14f2ada4ea496d6d2c590deed"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/comparison.json": {
+     "bytes": 3832,
+     "sha256": "c1b2957ebfc9650532700f7c5cf16d4b0f5b41c3337ad1544e562ab78044cbd0"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/config.json": {
+     "bytes": 353,
+     "sha256": "1edf01f706cbfa4bf860020ad0ec66ee26517aca2dbe909ae70dcf0db2c4591e"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/cpu-reference.ckpt": {
+     "bytes": 260311,
+     "sha256": "104ec07b33feb9a3d8dc77ddf9daa46d6828de21dd20293ab3e661b164bedcd8"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/events.json": {
+     "bytes": 732,
+     "sha256": "bbf26a40ade695288a9845518ea192761ed2c69272e156cdcd48a196a7d5c779"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/gpu-export.ckpt": {
+     "bytes": 260311,
+     "sha256": "c9a647f8776203a0f98117f6667799c304c549db277b00d2f4bc409739e52ff2"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/readback.json": {
+     "bytes": 2423,
+     "sha256": "9b92953bef169d39dbdabb180adbcf401d9656a98f69131cb45103eb55b18bcd"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/timing.json": {
+     "bytes": 186,
+     "sha256": "65b7b7d1340c750d01b83d748665a7a849ac8ed7f3e6066824f7cf8abbbb6520"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/comparison.json": {
+     "bytes": 194008,
+     "sha256": "36b4a84d0165f12ebb0f7eac8ee5970bbbcc8cb630146c692205ad12f09806e6"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/config.json": {
+     "bytes": 412,
+     "sha256": "99546c03eb2fd9b2b6ad92658e6aff5e08779a133d2aa84d9a9295ae3c81a1c9"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/cpu-reference.ckpt": {
+     "bytes": 1114621,
+     "sha256": "a7870fbb53e2e68c7c01396548f477e901468938459f596d06afc774ddc980c2"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/events.json": {
+     "bytes": 31648,
+     "sha256": "5428ee3d0d331d133796d1a34bdb19fed2aca8a75a4cab03231bb2b2535f23e7"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/gpu-export.ckpt": {
+     "bytes": 1114621,
+     "sha256": "99b43f0b9bf3b7ab563c7e06474b9fc5b6ae1ac4e46c876a348075ae2820e6a4"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/readback.json": {
+     "bytes": 179553,
+     "sha256": "f56aa120e855f9e9d9e21d3c03833fab140b38f4476750a86d33a6a1093961a3"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/timing.json": {
+     "bytes": 10232,
+     "sha256": "c83564ac60d285bc1008291648a50dcfacbe968744a573465dfeae7232280ab2"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/comparison.json": {
+     "bytes": 9514,
+     "sha256": "f15b023963c21bfe7dad338cd3bc8a0a41bc3e02771ee2217b8386df4b0f4eed"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/config.json": {
+     "bytes": 344,
+     "sha256": "7e5cc6eded32930d82aa736a8985b34481ed4c6410f18ad0f6e440056c98535b"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/cpu-reference.ckpt": {
+     "bytes": 940527,
+     "sha256": "d1b48578e9ee02a514dad99a75ab77baf8d8551afd6f919bc4b71243f3161a74"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/events.json": {
+     "bytes": 61643,
+     "sha256": "27932db8fb1778c8faf60b9b257e44e92e72b83db3a42df6e6d98b6065e35aa3"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/gpu-export.ckpt": {
+     "bytes": 940527,
+     "sha256": "0c600d49849af76adb08302654bab89faed69eecbcaf57dce4358f6ffcd6203e"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/readback.json": {
+     "bytes": 205865,
+     "sha256": "246257f1a6ae5eebc37674e6cfad975b6f1be14d9673eb43c44e0eb75e2fb50c"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/timing.json": {
+     "bytes": 10020,
+     "sha256": "abb15fbaf5f31a1aa8cb203c03021c999f1d257e803c096ed67bf975d544b5c4"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/comparison.json": {
+     "bytes": 5869,
+     "sha256": "2a3cdc357c6aa562bfa11c7a39f7e6805d290a4dbc65695be06e4ed89719a94a"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/config.json": {
+     "bytes": 318,
+     "sha256": "04379d697866f0e1f2da2eeed74f8698dce0d1cf1d6f55bb4654973faea80d51"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/cpu-reference.ckpt": {
+     "bytes": 60891,
+     "sha256": "6823a6a97b3a62568443a5d2fec32471dc917d3e3803d416c40b7e14a60c5660"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/events.json": {
+     "bytes": 3808,
+     "sha256": "f9fa20edb152686e3f356f07c35e48ecf16f3bc311b74218698fc3cfad7afc97"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/gpu-export.ckpt": {
+     "bytes": 60891,
+     "sha256": "6823a6a97b3a62568443a5d2fec32471dc917d3e3803d416c40b7e14a60c5660"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/readback.json": {
+     "bytes": 1570,
+     "sha256": "6c4423905f43694ac50bf50cc3c8941a825cfe2a20f1e66c0f2caed483a6e442"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/timing.json": {
+     "bytes": 180,
+     "sha256": "c2a6443f613d074f02f1b17bcaca6dfa18a3a0e0f60a232dfb184297306db4d5"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/comparison.json": {
+     "bytes": 15940,
+     "sha256": "1b9ae10613f56161a23d79d75d02624e0c9f97dd52b527fbbc2e7f14ede8ac8f"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/config.json": {
+     "bytes": 591,
+     "sha256": "7f48127c8ed49d2c43f9b8b2a8a17c43f378aa653e488b6c24ce71cf7b207d73"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/cpu-reference.ckpt": {
+     "bytes": 165818,
+     "sha256": "d0263fdae8baf405eaa84948ae45957c6374df472c920d88a614752ef4d24fe8"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/events.json": {
+     "bytes": 4415,
+     "sha256": "d0bd5ca3668491083dcd5256e857f17318e0ff5b24524046e82984ec4f6e5116"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/gpu-export.ckpt": {
+     "bytes": 165818,
+     "sha256": "538ba0cc7b4073e68ba1d17f25db47cf4e7b063c81d0cf5b2288c977a4c81a04"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/readback.json": {
+     "bytes": 81710,
+     "sha256": "d8e735e23adf8534e67a564e7ef1f0ff968c8d4bb0f0ac74488872040e4175d5"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/timing.json": {
+     "bytes": 193,
+     "sha256": "2ca9163572919eb38029082d148d31673bda4c9c83ad33f9dff46eeaeba820c9"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/comparison.json": {
+     "bytes": 12904,
+     "sha256": "75b8112fa72085fe1188e4c11d7d85e1c5283c7c381506f7aa3e4aa4187075d3"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/config.json": {
+     "bytes": 523,
+     "sha256": "208f22acac0f06ccbbce0137c7ec3ddcc5bc2437882d3fb29fffc06e58dc85a1"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/cpu-reference.ckpt": {
+     "bytes": 82932,
+     "sha256": "7995400e2abebba7ca2287fba8b0d8b16defe5773b5c1adf5f159b67ab1b80a3"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/events.json": {
+     "bytes": 1429,
+     "sha256": "b19169e545539203e140196f17dd1ebada90d02439692029fbc891859f4d906d"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/gpu-export.ckpt": {
+     "bytes": 82930,
+     "sha256": "573ffe1502dc9582826124b2117603c8696da5f8d8ee9bb95bdf57515de38a10"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/readback.json": {
+     "bytes": 16875,
+     "sha256": "96ba189d3e8c59ef7e863905c853dd214b01950b62d37d6d8e4faabdab492485"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/timing.json": {
+     "bytes": 185,
+     "sha256": "ce00007f9add3bcf9d516a15c38d61daf44058d40087ca30ec30f276b0b717e8"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/comparison.json": {
+     "bytes": 15064,
+     "sha256": "0d5291d0238332a2cc0cf0fcde8e7158bf378779465402f4a2b9e70bcd327d32"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/config.json": {
+     "bytes": 515,
+     "sha256": "184c84077f12cd6289cf496b739d8fbede51baa38c1d9abcd1125236f0137ca6"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/cpu-reference.ckpt": {
+     "bytes": 176827,
+     "sha256": "274d7b28006d97c733e89356dd144c5cd38d34f1b2989a40917ec7273d833552"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/events.json": {
+     "bytes": 4286,
+     "sha256": "4326346edcf46f2558ffb85922de3971a0439c81adae24fa41f085b7ac80c09c"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/gpu-export.ckpt": {
+     "bytes": 176827,
+     "sha256": "80e4da66b42c44e89170e7187522737969f929a368005682d7eb29f0de5e8c2a"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/readback.json": {
+     "bytes": 91834,
+     "sha256": "0003fd42a745ca4b0f0b340042447f305b50efb85122e8fee2cfb76e3179291a"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/timing.json": {
+     "bytes": 178,
+     "sha256": "4c220167f28d2802253e5ff9e3d2d199404aed60c83221a3cb7ec99f81afaab3"
+    },
+    "windows-d3d12/lane-manifest.json": {
+     "bytes": 44354,
+     "sha256": "3f196044aa6181c34c62816e50d9eb94af2b6de013817bd268a5464a6a3963da"
+    },
+    "windows-d3d12/lane-report.json": {
+     "bytes": 1293415,
+     "sha256": "9c4fda75f220517dad64cf71a4f735b2e123a4e1a0be9474221df2b0a3c7ac3f"
+    },
+    "windows-d3d12/stderr.log": {
+     "bytes": 0,
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "windows-d3d12/stdout.log": {
+     "bytes": 346,
+     "sha256": "c072de8aaeda50532abfdf6a08a4e38b21bde0e74af239afe695f734d595bc7f"
+    }
+   }
+  },
+  "out/phase5-wp7-32eed48-superseded": {
+   "fileCount": 78,
+   "bytes": 80944780,
+   "files": {
+    "gate5-artifact-index.json": {
+     "bytes": 16014,
+     "sha256": "eab607490be5a372eaf95d30153bfff2361ed7eefd590846608d024a6346410b"
+    },
+    "gate5-report.json": {
+     "bytes": 931172,
+     "sha256": "2047a5f3bc286cf1728a707ad9dfd3f58c26f33f4c91fe71cd4bd4587aafef9f"
+    },
+    "windows-d3d12/artifact-index.json": {
+     "bytes": 14796,
+     "sha256": "e02348e64cedf1b8c193ecbc37751e0d8f2ae541f8d9fe787ad48d3ed4b14b18"
+    },
+    "windows-d3d12/exit-status.txt": {
+     "bytes": 2,
+     "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/comparison.json": {
+     "bytes": 3611,
+     "sha256": "78a2ebcbe7a198162357fdaf92c3c27f5b600658fd9a8c2238a8476578b9001f"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/config.json": {
+     "bytes": 343,
+     "sha256": "62d01719cb255fe6bff5eb614bc9c4759676a4f0f5c4ccbf05841cbfd620a2f5"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/cpu-reference.ckpt": {
+     "bytes": 17408497,
+     "sha256": "bb43eec8066e133ed78980676ed11819077087b1e64f5b5ff4dcd15e93da2473"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/events.json": {
+     "bytes": 671,
+     "sha256": "885faffd678c530479783bdfc85610205187b061706fcd705950c6dac9d61c91"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/gpu-export.ckpt": {
+     "bytes": 17408497,
+     "sha256": "0ceb673755368d7ada278d76f54cf406247158c854a05ec106b24212a4514162"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/readback.json": {
+     "bytes": 1837,
+     "sha256": "8eaac3d31606c80d3a16524867396fa6da9cf25d3143aed05bd21669e24cf0d2"
+    },
+    "windows-d3d12/fixtures/diff-dev-column-dirichlet-80x80x160/timing.json": {
+     "bytes": 187,
+     "sha256": "a9a60983eb6e5553bf0c7d555ce2e000e5d938a8eceb4461b220d5f16ef56e88"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/comparison.json": {
+     "bytes": 3621,
+     "sha256": "eb8d804ccae71cbd541217fb00ad0505e411133d180a91c8fb7f09522849bb60"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/config.json": {
+     "bytes": 345,
+     "sha256": "6723ab0a899e4672d137bd8094f3cac3c9c8db7c7264252c5f7460ec1b381a69"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/cpu-reference.ckpt": {
+     "bytes": 17826293,
+     "sha256": "3cd6a26677705f168b9a1c249899d880527a163b7aefce7dc31fda9aa4c3c3a7"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/events.json": {
+     "bytes": 672,
+     "sha256": "4408759e5d34ea49e4766f7c5974d7c6eb5ca08904ce07e4216082b028b22af8"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/gpu-export.ckpt": {
+     "bytes": 17826293,
+     "sha256": "c718bb47c5369f04d9b99dbfa16ab301e392c7949263ee6faab333883b6a368b"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/readback.json": {
+     "bytes": 1848,
+     "sha256": "d644fda90c7cbc951c4d57d14d0fd56bc47601c9d5805335103ba81889f32307"
+    },
+    "windows-d3d12/fixtures/diff-dev-plate-reflecting-128x128x64/timing.json": {
+     "bytes": 188,
+     "sha256": "f169418f5c5a835a5cececd7a50f6fc860b8dbb72f053fb51fb01ad99bd57db2"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/comparison.json": {
+     "bytes": 3882,
+     "sha256": "8b72e3158985c6db776a8e36d4dcd4ee35e1644a0fd7553f353f6c9d6ef0dd2b"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/config.json": {
+     "bytes": 371,
+     "sha256": "2651286466da2971cd0597481e424998b799260f8703ed2c0d9fff469efed7bf"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/cpu-reference.ckpt": {
+     "bytes": 321458,
+     "sha256": "a48154991bba78b5ac6116d9ffafb33f3044fa90a18384a931fd085356dc1868"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/events.json": {
+     "bytes": 745,
+     "sha256": "f95391f43c9712fad3a2cc8ccddfe7e80c22848ddcff6a6eb4ae091689e83b14"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/gpu-export.ckpt": {
+     "bytes": 321458,
+     "sha256": "2f9303e554eed790bf110a7755f91e3124a76cf3b37989132b3ed28c24ad46bb"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/readback.json": {
+     "bytes": 2214,
+     "sha256": "1de8d658e98d46711c6d1ec6ead8712f265134f5b49a850ab1a4ba8214042250"
+    },
+    "windows-d3d12/fixtures/diff-small-dirichlet-noise-drift-31x29x21/timing.json": {
+     "bytes": 193,
+     "sha256": "da159a1e67cd1c62dd616bc7a923f4d378960dd14f2ada4ea496d6d2c590deed"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/comparison.json": {
+     "bytes": 3832,
+     "sha256": "c1b2957ebfc9650532700f7c5cf16d4b0f5b41c3337ad1544e562ab78044cbd0"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/config.json": {
+     "bytes": 353,
+     "sha256": "1edf01f706cbfa4bf860020ad0ec66ee26517aca2dbe909ae70dcf0db2c4591e"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/cpu-reference.ckpt": {
+     "bytes": 260311,
+     "sha256": "104ec07b33feb9a3d8dc77ddf9daa46d6828de21dd20293ab3e661b164bedcd8"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/events.json": {
+     "bytes": 732,
+     "sha256": "bbf26a40ade695288a9845518ea192761ed2c69272e156cdcd48a196a7d5c779"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/gpu-export.ckpt": {
+     "bytes": 260311,
+     "sha256": "c9a647f8776203a0f98117f6667799c304c549db277b00d2f4bc409739e52ff2"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/readback.json": {
+     "bytes": 2423,
+     "sha256": "9b92953bef169d39dbdabb180adbcf401d9656a98f69131cb45103eb55b18bcd"
+    },
+    "windows-d3d12/fixtures/diff-small-reflecting-hex-29x31x17/timing.json": {
+     "bytes": 186,
+     "sha256": "65b7b7d1340c750d01b83d748665a7a849ac8ed7f3e6066824f7cf8abbbb6520"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/comparison.json": {
+     "bytes": 194008,
+     "sha256": "36b4a84d0165f12ebb0f7eac8ee5970bbbcc8cb630146c692205ad12f09806e6"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/config.json": {
+     "bytes": 412,
+     "sha256": "99546c03eb2fd9b2b6ad92658e6aff5e08779a133d2aa84d9a9295ae3c81a1c9"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/cpu-reference.ckpt": {
+     "bytes": 1114621,
+     "sha256": "a7870fbb53e2e68c7c01396548f477e901468938459f596d06afc774ddc980c2"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/events.json": {
+     "bytes": 31648,
+     "sha256": "5428ee3d0d331d133796d1a34bdb19fed2aca8a75a4cab03231bb2b2535f23e7"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/gpu-export.ckpt": {
+     "bytes": 1114621,
+     "sha256": "99b43f0b9bf3b7ab563c7e06474b9fc5b6ae1ac4e46c876a348075ae2820e6a4"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/readback.json": {
+     "bytes": 336958,
+     "sha256": "dedee985f0fc13125613fb9e97ddd2ca3da107066fe4f399a3db6d3a96eb19e8"
+    },
+    "windows-d3d12/fixtures/gg-column-dirichlet-noise-timeline-32x32x64/timing.json": {
+     "bytes": 13068,
+     "sha256": "28306e136d5529c29651738f7b5e3a445c041790f29226c63684d4c133c014b9"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/comparison.json": {
+     "bytes": 9514,
+     "sha256": "f15b023963c21bfe7dad338cd3bc8a0a41bc3e02771ee2217b8386df4b0f4eed"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/config.json": {
+     "bytes": 344,
+     "sha256": "7e5cc6eded32930d82aa736a8985b34481ed4c6410f18ad0f6e440056c98535b"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/cpu-reference.ckpt": {
+     "bytes": 940527,
+     "sha256": "d1b48578e9ee02a514dad99a75ab77baf8d8551afd6f919bc4b71243f3161a74"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/events.json": {
+     "bytes": 61643,
+     "sha256": "27932db8fb1778c8faf60b9b257e44e92e72b83db3a42df6e6d98b6065e35aa3"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/gpu-export.ckpt": {
+     "bytes": 940527,
+     "sha256": "0c600d49849af76adb08302654bab89faed69eecbcaf57dce4358f6ffcd6203e"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/readback.json": {
+     "bytes": 356859,
+     "sha256": "8df93bd0ecdd5aa4a63c5519d2681d4f95e53362a23a5eae423bdad605ea7f4e"
+    },
+    "windows-d3d12/fixtures/gg-plate-reflecting-48x48x24/timing.json": {
+     "bytes": 12750,
+     "sha256": "19e6107913543b532457992a7a157abb62777115ae31055fbc6f8ba2460650ff"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/comparison.json": {
+     "bytes": 5869,
+     "sha256": "2a3cdc357c6aa562bfa11c7a39f7e6805d290a4dbc65695be06e4ed89719a94a"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/config.json": {
+     "bytes": 318,
+     "sha256": "04379d697866f0e1f2da2eeed74f8698dce0d1cf1d6f55bb4654973faea80d51"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/cpu-reference.ckpt": {
+     "bytes": 60891,
+     "sha256": "6823a6a97b3a62568443a5d2fec32471dc917d3e3803d416c40b7e14a60c5660"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/events.json": {
+     "bytes": 3808,
+     "sha256": "f9fa20edb152686e3f356f07c35e48ecf16f3bc311b74218698fc3cfad7afc97"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/gpu-export.ckpt": {
+     "bytes": 60891,
+     "sha256": "6823a6a97b3a62568443a5d2fec32471dc917d3e3803d416c40b7e14a60c5660"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/readback.json": {
+     "bytes": 1570,
+     "sha256": "6c4423905f43694ac50bf50cc3c8941a825cfe2a20f1e66c0f2caed483a6e442"
+    },
+    "windows-d3d12/fixtures/layout-noncubic-box-17x19x11/timing.json": {
+     "bytes": 180,
+     "sha256": "c2a6443f613d074f02f1b17bcaca6dfa18a3a0e0f60a232dfb184297306db4d5"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/comparison.json": {
+     "bytes": 15940,
+     "sha256": "1b9ae10613f56161a23d79d75d02624e0c9f97dd52b527fbbc2e7f14ede8ac8f"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/config.json": {
+     "bytes": 591,
+     "sha256": "7f48127c8ed49d2c43f9b8b2a8a17c43f378aa653e488b6c24ce71cf7b207d73"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/cpu-reference.ckpt": {
+     "bytes": 165818,
+     "sha256": "d0263fdae8baf405eaa84948ae45957c6374df472c920d88a614752ef4d24fe8"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/events.json": {
+     "bytes": 4415,
+     "sha256": "d0bd5ca3668491083dcd5256e857f17318e0ff5b24524046e82984ec4f6e5116"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/gpu-export.ckpt": {
+     "bytes": 165818,
+     "sha256": "538ba0cc7b4073e68ba1d17f25db47cf4e7b063c81d0cf5b2288c977a4c81a04"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/readback.json": {
+     "bytes": 81710,
+     "sha256": "d8e735e23adf8534e67a564e7ef1f0ff968c8d4bb0f0ac74488872040e4175d5"
+    },
+    "windows-d3d12/fixtures/lk-cold-dirichlet-noise-timeline-18x18x30/timing.json": {
+     "bytes": 193,
+     "sha256": "2ca9163572919eb38029082d148d31673bda4c9c83ad33f9dff46eeaeba820c9"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/comparison.json": {
+     "bytes": 12904,
+     "sha256": "75b8112fa72085fe1188e4c11d7d85e1c5283c7c381506f7aa3e4aa4187075d3"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/config.json": {
+     "bytes": 523,
+     "sha256": "208f22acac0f06ccbbce0137c7ec3ddcc5bc2437882d3fb29fffc06e58dc85a1"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/cpu-reference.ckpt": {
+     "bytes": 82932,
+     "sha256": "7995400e2abebba7ca2287fba8b0d8b16defe5773b5c1adf5f159b67ab1b80a3"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/events.json": {
+     "bytes": 1429,
+     "sha256": "b19169e545539203e140196f17dd1ebada90d02439692029fbc891859f4d906d"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/gpu-export.ckpt": {
+     "bytes": 82930,
+     "sha256": "573ffe1502dc9582826124b2117603c8696da5f8d8ee9bb95bdf57515de38a10"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/readback.json": {
+     "bytes": 16875,
+     "sha256": "96ba189d3e8c59ef7e863905c853dd214b01950b62d37d6d8e4faabdab492485"
+    },
+    "windows-d3d12/fixtures/lk-reflecting-diagnostic-17x19x15/timing.json": {
+     "bytes": 185,
+     "sha256": "ce00007f9add3bcf9d516a15c38d61daf44058d40087ca30ec30f276b0b717e8"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/comparison.json": {
+     "bytes": 15064,
+     "sha256": "0d5291d0238332a2cc0cf0fcde8e7158bf378779465402f4a2b9e70bcd327d32"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/config.json": {
+     "bytes": 515,
+     "sha256": "184c84077f12cd6289cf496b739d8fbede51baa38c1d9abcd1125236f0137ca6"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/cpu-reference.ckpt": {
+     "bytes": 176827,
+     "sha256": "274d7b28006d97c733e89356dd144c5cd38d34f1b2989a40917ec7273d833552"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/events.json": {
+     "bytes": 4286,
+     "sha256": "4326346edcf46f2558ffb85922de3971a0439c81adae24fa41f085b7ac80c09c"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/gpu-export.ckpt": {
+     "bytes": 176827,
+     "sha256": "80e4da66b42c44e89170e7187522737969f929a368005682d7eb29f0de5e8c2a"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/readback.json": {
+     "bytes": 91834,
+     "sha256": "0003fd42a745ca4b0f0b340042447f305b50efb85122e8fee2cfb76e3179291a"
+    },
+    "windows-d3d12/fixtures/lk-warm-dirichlet-24x24x18/timing.json": {
+     "bytes": 178,
+     "sha256": "4c220167f28d2802253e5ff9e3d2d199404aed60c83221a3cb7ec99f81afaab3"
+    },
+    "windows-d3d12/lane-manifest.json": {
+     "bytes": 46083,
+     "sha256": "151ff1160dbf5e59d3290cbcd070285f18ba648b4c76d62369c44a63052301b2"
+    },
+    "windows-d3d12/lane-report.json": {
+     "bytes": 1915766,
+     "sha256": "c3b1888fb83abff277a4e0701ad37c987603bbada2b07d28a2517164c4b6844d"
+    },
+    "windows-d3d12/stderr.log": {
+     "bytes": 0,
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "windows-d3d12/stdout.log": {
+     "bytes": 754,
+     "sha256": "a9ff9fe75a8ca9e461af28065fc6eedf94b2020c5709452ec30a6da655d7ac49"
+    }
+   }
+  },
+  "out/phase3-visual": {
+   "fileCount": 10,
+   "bytes": 984164,
+   "files": {
+    "fallback-webgl2.png": {
+     "bytes": 134851,
+     "sha256": "fad6b3bbf9df70e2e90a4d0579fa51311c84e41ba56f1dd996fbbd88e987b054"
+    },
+    "hud-depletion.png": {
+     "bytes": 79011,
+     "sha256": "6a96940e2d7947d73d2eacef0d0a279833f2fe9443243a659ebb7cdf10383c1c"
+    },
+    "manifest.json": {
+     "bytes": 7047,
+     "sha256": "71b248e712855682b97c90adab81f90afbb3a5eafc607c0565c41a9b1850bb6b"
+    },
+    "overlay-vapor.png": {
+     "bytes": 144792,
+     "sha256": "7079d9be25651dcaa9e4f27727edfff671b43ca39ce74f1510b544c9c04d012c"
+    },
+    "picking-rim.png": {
+     "bytes": 193597,
+     "sha256": "8d71d14cfbc2cdb1a0c402419c22d388655433093b1722282cc14c5f65d0fa7e"
+    },
+    "plate-early.png": {
+     "bytes": 111260,
+     "sha256": "8dcc58b4682372dc0fa57df5488b8bfe92a156fd9671a3d70442547d1b3ae014"
+    },
+    "plate-mid-orbit.png": {
+     "bytes": 117553,
+     "sha256": "d5d3a21598022aadfc8733c2e0c8109e503ec5ed00e87762080710ad5d86cf3e"
+    },
+    "plate-mid.png": {
+     "bytes": 116003,
+     "sha256": "2eba1779b87a884ad2b5baf3f0f40450afb1671f638d50fb3e94b16a04fb1982"
+    },
+    "slice-vertical-mid.png": {
+     "bytes": 28556,
+     "sha256": "42f9211eb7c7b6fc764dc48d8b41d81fbb5a53118d57d721eb44e2c51357de0b"
+    },
+    "slice-vertical.png": {
+     "bytes": 51494,
+     "sha256": "196f5ecc6223e3640b740e7b35de06ae6de1f1f154f27dcb359566849ca6d6e7"
+    }
+   }
+  }
+ }
+}

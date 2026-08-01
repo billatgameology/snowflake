@@ -1,0 +1,118 @@
+[
+ {
+  "arm": "arm1",
+  "reading": "fastest-per-step",
+  "paramSet": "CAK",
+  "tempC": -31,
+  "fraction": 0.6,
+  "sigmaInf": 0.21204000000000003,
+  "coarse": {
+   "dimsN": 48,
+   "attached": 4551,
+   "steps": 230,
+   "aspectRatio": 1,
+   "modelClass": "neutral",
+   "source": "out/phase6-sweep/points.json (the published row whose validity is conditional)"
+  },
+  "fine": {
+   "dimsN": 64,
+   "stopReason": "size-target",
+   "steps": 230,
+   "attached": 4551,
+   "extent": 21,
+   "aspectRatio": 1,
+   "symmetryError": 0,
+   "modelClass": "neutral"
+  },
+  "seconds": 8758.754,
+  "error": null,
+  "stdoutTail": "lax growthStep=213 sweeps=2048 residual=6.95e-9 div=2.11e-5 elapsed=8092.6s\nrelax growthStep=215 sweeps=1024 residual=4.23e-8 div=1.20e-4 elapsed=8159.5s\nrelax growthStep=217 sweeps=1024 residual=9.08e-8 div=2.87e-4 elapsed=8220.4s\nrelax growthStep=218 sweeps=3072 residual=4.55e-11 div=1.42e-7 elapsed=8282.9s\nrelax growthStep=220 sweeps=2048 residual=1.06e-8 div=3.20e-5 elapsed=8349.1s\nrelax growthStep=222 sweeps=1024 residual=1.16e-7 div=3.45e-4 elapsed=8418.7s\nrelax growthStep=223 sweeps=3072 residual=5.83e-11 div=1.69e-7 elapsed=8481.3s\nrelax growthStep=225 sweeps=2048 residual=4.38e-9 div=1.27e-5 elapsed=8549.5s\nrelax growthStep=227 sweeps=1024 residual=2.43e-7 div=7.36e-4 elapsed=8618.9s\nrelax growthStep=228 sweeps=3072 residual=3.35e-11 div=1.01e-7 elapsed=8685.3s\nrelax growthStep=230 sweeps=2048 residual=1.95e-10 div=5.69e-7 elapsed=8752.2s\nstop reason=size-target step=230 attached=4551 extent=21 AR=1 symErr=0 deltaSymClean=true allConverged=true minShell=8.648e-1 minExchange=8.648e-1 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=2.145e-12 smootherDriftLimit=9.042e-9 holeFills=92 simTime=7.24s fillLedger=5100.795 holeFillDeficit=6.417 saturationClipped=168.552\n"
+ },
+ {
+  "arm": "arm1",
+  "reading": "most-attached",
+  "paramSet": "CAK",
+  "tempC": -13,
+  "fraction": 0.15,
+  "sigmaInf": 0.02025,
+  "coarse": {
+   "dimsN": 48,
+   "attached": 5291,
+   "steps": 318,
+   "aspectRatio": 1,
+   "modelClass": "neutral",
+   "source": "out/phase6-sweep/points.json (the published row whose validity is conditional)"
+  },
+  "fine": {
+   "dimsN": 64,
+   "stopReason": "size-target",
+   "steps": 306,
+   "attached": 5159,
+   "extent": 21,
+   "aspectRatio": 1,
+   "symmetryError": 0,
+   "modelClass": "neutral"
+  },
+  "seconds": 11761.901,
+  "error": null,
+  "stdoutTail": "p=292 attached=4607 extent=19 AR=0.894737 sweeps=2782 div=9.97e-8 simTime=18.55s deltaSym=true elapsed=11148.3s\nrelax growthStep=294 sweeps=2048 residual=2.92e-10 div=9.55e-7 elapsed=11218.6s\nrelax growthStep=296 sweeps=1024 residual=1.94e-6 div=5.83e-3 elapsed=11292.1s\nrelax growthStep=297 sweeps=2048 residual=1.16e-9 div=3.51e-6 elapsed=11359.9s\nstep=298 attached=4811 extent=19 AR=1 sweeps=3335 div=9.96e-8 simTime=19.20s deltaSym=true elapsed=11420.0s\nrelax growthStep=300 sweeps=2048 residual=3.30e-9 div=1.08e-5 elapsed=11493.8s\nrelax growthStep=301 sweeps=3072 residual=1.24e-10 div=3.99e-7 elapsed=11554.4s\nrelax growthStep=303 sweeps=1024 residual=4.11e-7 div=1.34e-3 elapsed=11618.9s\nrelax growthStep=304 sweeps=2048 residual=1.82e-10 div=5.92e-7 elapsed=11682.7s\nrelax growthStep=306 sweeps=2048 residual=4.03e-10 div=1.31e-6 elapsed=11751.4s\nstop reason=size-target step=306 attached=5159 extent=21 AR=1 symErr=0 deltaSymClean=true allConverged=true minShell=6.064e-2 minExchange=6.064e-2 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=2.279e-13 smootherDriftLimit=8.635e-10 holeFills=112 simTime=19.86s fillLedger=6018.410 holeFillDeficit=15.304 saturationClipped=210.781\n"
+ },
+ {
+  "arm": "arm2",
+  "reading": "fastest-per-step",
+  "paramSet": "M1",
+  "tempC": -6,
+  "fraction": 0.15,
+  "sigmaInf": 0.00906,
+  "coarse": {
+   "dimsN": 48,
+   "attached": 4223,
+   "steps": 215,
+   "aspectRatio": 1,
+   "modelClass": "neutral",
+   "source": "out/phase6-sweep-arm2/points.json (the published row whose validity is conditional)"
+  },
+  "fine": {
+   "dimsN": 64,
+   "stopReason": "size-target",
+   "steps": 218,
+   "attached": 4295,
+   "extent": 21,
+   "aspectRatio": 1,
+   "symmetryError": 0,
+   "modelClass": "neutral"
+  },
+  "seconds": 6850.303,
+  "error": null,
+  "stdoutTail": "rowthStep=197 sweeps=3072 residual=1.32e-10 div=4.31e-7 elapsed=6145.9s\nrelax growthStep=199 sweeps=3072 residual=2.90e-10 div=8.78e-7 elapsed=6215.8s\nrelax growthStep=201 sweeps=3072 residual=2.45e-10 div=7.49e-7 elapsed=6281.3s\nrelax growthStep=203 sweeps=2048 residual=7.53e-10 div=2.33e-6 elapsed=6341.9s\nrelax growthStep=205 sweeps=2048 residual=1.04e-9 div=3.20e-6 elapsed=6405.5s\nrelax growthStep=207 sweeps=2048 residual=1.46e-9 div=4.44e-6 elapsed=6469.9s\nrelax growthStep=209 sweeps=2048 residual=5.85e-11 div=1.75e-7 elapsed=6533.8s\nrelax growthStep=211 sweeps=3072 residual=7.42e-11 div=2.20e-7 elapsed=6599.9s\nrelax growthStep=213 sweeps=3072 residual=1.57e-10 div=4.72e-7 elapsed=6670.1s\nrelax growthStep=215 sweeps=2048 residual=6.64e-9 div=1.95e-5 elapsed=6730.2s\nrelax growthStep=217 sweeps=1024 residual=1.48e-7 div=4.38e-4 elapsed=6790.7s\nstop reason=size-target step=218 attached=4295 extent=21 AR=1 symErr=0 deltaSymClean=true allConverged=true minShell=3.895e-2 minExchange=3.895e-2 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=8.390e-14 smootherDriftLimit=3.864e-10 holeFills=62 simTime=16.57s fillLedger=4904.293 holeFillDeficit=4.203 saturationClipped=152.115\n"
+ },
+ {
+  "arm": "arm2",
+  "reading": "most-attached",
+  "paramSet": "M1",
+  "tempC": -27,
+  "fraction": 0.15,
+  "sigmaInf": 0.045375,
+  "coarse": {
+   "dimsN": 48,
+   "attached": 5329,
+   "steps": 313,
+   "aspectRatio": 1.05,
+   "modelClass": "neutral",
+   "source": "out/phase6-sweep-arm2/points.json (the published row whose validity is conditional)"
+  },
+  "fine": {
+   "dimsN": 64,
+   "stopReason": "size-target",
+   "steps": 319,
+   "attached": 5197,
+   "extent": 21,
+   "aspectRatio": 1.10526,
+   "symmetryError": 0,
+   "modelClass": "neutral"
+  },
+  "seconds": 11830.063,
+  "error": null,
+  "stdoutTail": "72 residual=4.15e-11 div=1.67e-7 elapsed=11194.7s\nrelax growthStep=305 sweeps=1024 residual=4.61e-8 div=1.87e-4 elapsed=11261.2s\nstep=306 attached=5087 extent=19 AR=1 sweeps=2593 div=1.00e-7 simTime=38.19s deltaSym=true elapsed=11328.4s\nrelax growthStep=308 sweeps=2048 residual=3.12e-10 div=1.26e-6 elapsed=11394.0s\nrelax growthStep=310 sweeps=1024 residual=4.06e-7 div=1.64e-3 elapsed=11459.1s\nrelax growthStep=311 sweeps=2048 residual=3.77e-10 div=1.53e-6 elapsed=11526.4s\nrelax growthStep=313 sweeps=1024 residual=2.30e-9 div=9.36e-6 elapsed=11588.9s\nstep=314 attached=5149 extent=19 AR=1 sweeps=2863 div=9.97e-8 simTime=39.56s deltaSym=true elapsed=11649.4s\nstep=316 attached=5149 extent=19 AR=1 sweeps=2966 div=9.99e-8 simTime=40.38s deltaSym=true elapsed=11719.8s\nrelax growthStep=318 sweeps=2048 residual=9.88e-11 div=4.02e-7 elapsed=11792.3s\nstop reason=size-target step=319 attached=5197 extent=21 AR=1.10526 symErr=0 deltaSymClean=true allConverged=true minShell=1.035e-1 minExchange=1.035e-1 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=4.966e-13 smootherDriftLimit=1.935e-9 holeFills=134 simTime=41.61s fillLedger=6420.987 holeFillDeficit=10.393 saturationClipped=218.140\n"
+ }
+]

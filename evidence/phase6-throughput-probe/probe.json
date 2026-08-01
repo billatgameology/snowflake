@@ -1,0 +1,132 @@
+[
+ {
+  "name": "serial",
+  "wall": 4958.835,
+  "rows": [
+   {
+    "label": "robust-plate",
+    "tag": "serial",
+    "seconds": 934.903,
+    "finalLine": "stop reason=size-target step=175 attached=1313 extent=21 AR=0.263158 symErr=0 deltaSymClean=true allConverged=true minShell=5.384e-3 minExchange=5.384e-3 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=8.847e-15 smootherDriftLimit=3.542e-11 holeFills=0 simTime=34.60s fillLedger=1592.876 holeFillDeficit=0.000 saturationClipped=58.444",
+    "error": null
+   },
+   {
+    "label": "robust-column",
+    "tag": "serial",
+    "seconds": 1203.959,
+    "finalLine": "stop reason=size-target step=195 attached=1171 extent=21 AR=2.33333 symErr=0 deltaSymClean=true allConverged=true minShell=4.586e-2 minExchange=4.586e-2 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=1.417e-13 smootherDriftLimit=5.578e-10 holeFills=26 simTime=52.04s fillLedger=1567.826 holeFillDeficit=1.307 saturationClipped=54.318",
+    "error": null
+   },
+   {
+    "label": "fragile-plate-ceiling",
+    "tag": "serial",
+    "seconds": 1123.262,
+    "finalLine": "stop reason=size-target step=198 attached=3157 extent=21 AR=0.684211 symErr=0 deltaSymClean=true allConverged=true minShell=2.759e-2 minExchange=2.759e-2 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=3.406e-14 smootherDriftLimit=1.328e-10 holeFills=36 simTime=13.51s fillLedger=3600.931 holeFillDeficit=2.452 saturationClipped=123.564",
+    "error": null
+   },
+   {
+    "label": "fragile-column-floor",
+    "tag": "serial",
+    "seconds": 1696.709,
+    "finalLine": "stop reason=size-target step=248 attached=3037 extent=21 AR=1.50000 symErr=0 deltaSymClean=true allConverged=true minShell=9.103e-2 minExchange=9.103e-2 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=1.579e-13 smootherDriftLimit=6.707e-10 holeFills=112 simTime=23.26s fillLedger=3299.870 holeFillDeficit=7.906 saturationClipped=133.491",
+    "error": null
+   }
+  ]
+ },
+ {
+  "name": "4-concurrent",
+  "wall": 2236.479,
+  "rows": [
+   {
+    "label": "robust-plate",
+    "tag": "4-concurrent#0",
+    "seconds": 1440.154,
+    "finalLine": "stop reason=size-target step=175 attached=1313 extent=21 AR=0.263158 symErr=0 deltaSymClean=true allConverged=true minShell=5.384e-3 minExchange=5.384e-3 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=8.847e-15 smootherDriftLimit=3.542e-11 holeFills=0 simTime=34.60s fillLedger=1592.876 holeFillDeficit=0.000 saturationClipped=58.444",
+    "error": null
+   },
+   {
+    "label": "robust-column",
+    "tag": "4-concurrent#1",
+    "seconds": 1759.42,
+    "finalLine": "stop reason=size-target step=195 attached=1171 extent=21 AR=2.33333 symErr=0 deltaSymClean=true allConverged=true minShell=4.586e-2 minExchange=4.586e-2 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=1.417e-13 smootherDriftLimit=5.578e-10 holeFills=26 simTime=52.04s fillLedger=1567.826 holeFillDeficit=1.307 saturationClipped=54.318",
+    "error": null
+   },
+   {
+    "label": "fragile-plate-ceiling",
+    "tag": "4-concurrent#2",
+    "seconds": 1619.702,
+    "finalLine": "stop reason=size-target step=198 attached=3157 extent=21 AR=0.684211 symErr=0 deltaSymClean=true allConverged=true minShell=2.759e-2 minExchange=2.759e-2 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=3.406e-14 smootherDriftLimit=1.328e-10 holeFills=36 simTime=13.51s fillLedger=3600.931 holeFillDeficit=2.452 saturationClipped=123.564",
+    "error": null
+   },
+   {
+    "label": "fragile-column-floor",
+    "tag": "4-concurrent#3",
+    "seconds": 2236.46,
+    "finalLine": "stop reason=size-target step=248 attached=3037 extent=21 AR=1.50000 symErr=0 deltaSymClean=true allConverged=true minShell=9.103e-2 minExchange=9.103e-2 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=1.579e-13 smootherDriftLimit=6.707e-10 holeFills=112 simTime=23.26s fillLedger=3299.870 holeFillDeficit=7.906 saturationClipped=133.491",
+    "error": null
+   }
+  ]
+ },
+ {
+  "name": "8-concurrent",
+  "wall": 2579.591,
+  "rows": [
+   {
+    "label": "robust-plate",
+    "tag": "8-concurrent#0",
+    "seconds": 1621.715,
+    "finalLine": "stop reason=size-target step=175 attached=1313 extent=21 AR=0.263158 symErr=0 deltaSymClean=true allConverged=true minShell=5.384e-3 minExchange=5.384e-3 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=8.847e-15 smootherDriftLimit=3.542e-11 holeFills=0 simTime=34.60s fillLedger=1592.876 holeFillDeficit=0.000 saturationClipped=58.444",
+    "error": null
+   },
+   {
+    "label": "robust-column",
+    "tag": "8-concurrent#1",
+    "seconds": 1894.263,
+    "finalLine": "stop reason=size-target step=195 attached=1171 extent=21 AR=2.33333 symErr=0 deltaSymClean=true allConverged=true minShell=4.586e-2 minExchange=4.586e-2 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=1.417e-13 smootherDriftLimit=5.578e-10 holeFills=26 simTime=52.04s fillLedger=1567.826 holeFillDeficit=1.307 saturationClipped=54.318",
+    "error": null
+   },
+   {
+    "label": "fragile-plate-ceiling",
+    "tag": "8-concurrent#2",
+    "seconds": 1772.406,
+    "finalLine": "stop reason=size-target step=198 attached=3157 extent=21 AR=0.684211 symErr=0 deltaSymClean=true allConverged=true minShell=2.759e-2 minExchange=2.759e-2 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=3.406e-14 smootherDriftLimit=1.328e-10 holeFills=36 simTime=13.51s fillLedger=3600.931 holeFillDeficit=2.452 saturationClipped=123.564",
+    "error": null
+   },
+   {
+    "label": "fragile-column-floor",
+    "tag": "8-concurrent#3",
+    "seconds": 2578.613,
+    "finalLine": "stop reason=size-target step=248 attached=3037 extent=21 AR=1.50000 symErr=0 deltaSymClean=true allConverged=true minShell=9.103e-2 minExchange=9.103e-2 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=1.579e-13 smootherDriftLimit=6.707e-10 holeFills=112 simTime=23.26s fillLedger=3299.870 holeFillDeficit=7.906 saturationClipped=133.491",
+    "error": null
+   },
+   {
+    "label": "robust-plate",
+    "tag": "8-concurrent#4",
+    "seconds": 1621.368,
+    "finalLine": "stop reason=size-target step=175 attached=1313 extent=21 AR=0.263158 symErr=0 deltaSymClean=true allConverged=true minShell=5.384e-3 minExchange=5.384e-3 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=8.847e-15 smootherDriftLimit=3.542e-11 holeFills=0 simTime=34.60s fillLedger=1592.876 holeFillDeficit=0.000 saturationClipped=58.444",
+    "error": null
+   },
+   {
+    "label": "robust-column",
+    "tag": "8-concurrent#5",
+    "seconds": 1827.627,
+    "finalLine": "stop reason=size-target step=195 attached=1171 extent=21 AR=2.33333 symErr=0 deltaSymClean=true allConverged=true minShell=4.586e-2 minExchange=4.586e-2 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=1.417e-13 smootherDriftLimit=5.578e-10 holeFills=26 simTime=52.04s fillLedger=1567.826 holeFillDeficit=1.307 saturationClipped=54.318",
+    "error": null
+   },
+   {
+    "label": "fragile-plate-ceiling",
+    "tag": "8-concurrent#6",
+    "seconds": 1837.493,
+    "finalLine": "stop reason=size-target step=198 attached=3157 extent=21 AR=0.684211 symErr=0 deltaSymClean=true allConverged=true minShell=2.759e-2 minExchange=2.759e-2 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=3.406e-14 smootherDriftLimit=1.328e-10 holeFills=36 simTime=13.51s fillLedger=3600.931 holeFillDeficit=2.452 saturationClipped=123.564",
+    "error": null
+   },
+   {
+    "label": "fragile-column-floor",
+    "tag": "8-concurrent#7",
+    "seconds": 2579.534,
+    "finalLine": "stop reason=size-target step=248 attached=3037 extent=21 AR=1.50000 symErr=0 deltaSymClean=true allConverged=true minShell=9.103e-2 minExchange=9.103e-2 worstDiv=1.000e-7 maxKineticFill=0.1000 maxAbsSmootherDrift=1.579e-13 smootherDriftLimit=6.707e-10 holeFills=112 simTime=23.26s fillLedger=3299.870 holeFillDeficit=7.906 saturationClipped=133.491",
+    "error": null
+   }
+  ]
+ }
+]

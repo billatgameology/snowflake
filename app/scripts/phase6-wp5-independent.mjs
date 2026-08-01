@@ -114,7 +114,7 @@ function invalidReasons(r) {
 }
 
 // ── Verify ──────────────────────────────────────────────────────────────────────────────────
-const outDir = process.argv[2] ?? join(process.cwd(), "out", "phase6-sweep");
+const outDir = process.argv[2] ?? join(process.cwd(), "evidence", "phase6-sweep");
 const raw = readFileSync(join(outDir, "points.json"));
 const points = JSON.parse(raw.toString("utf8"));
 const published = JSON.parse(readFileSync(join(outDir, "report.json"), "utf8"));

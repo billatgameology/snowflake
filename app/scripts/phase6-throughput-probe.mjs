@@ -27,7 +27,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const REPO = process.cwd();
-const OUT = join(REPO, "out", "phase6-throughput-probe");
+const OUT = join(REPO, "evidence", "phase6-throughput-probe");
 mkdirSync(OUT, { recursive: true });
 
 const POINTS = [

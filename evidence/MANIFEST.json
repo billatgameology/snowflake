@@ -1,0 +1,74 @@
+{
+ "schema": "phase6-evidence-manifest-v1",
+ "movedFrom": "out/ (gitignored)",
+ "movedTo": "evidence/ (tracked)",
+ "note": "Every digest below was computed before the move and re-verified after it. These are the same bytes the published reports hash, not a re-creation.",
+ "fileCount": 16,
+ "totalBytes": 937834,
+ "files": {
+  "phase6-columns-ladder/ladder-BACKUP-20260731-162007.json": {
+   "bytes": 33423,
+   "sha256": "f5ded51630221f180f33fa5273dad1636a6b0ef2ce83a3816c133a9a844d8ac6"
+  },
+  "phase6-columns-ladder/ladder.json": {
+   "bytes": 50166,
+   "sha256": "b3dc6b50f036fdc573b08e7f28ab7fac6ac0aec3fdd00435eb3707c1dfbee4d4"
+  },
+  "phase6-domain-escalation/escalation-n80.json": {
+   "bytes": 2538,
+   "sha256": "6d78a6f54b2201e8522896f7acad12eb41210fbd65d5d003fe8ce5279c76f764"
+  },
+  "phase6-domain-spot-check/spot-check.json": {
+   "bytes": 7284,
+   "sha256": "f25390c6371b3a9bf9e3c993096159b780b1b0795cca7c58e6b16879ed026401"
+  },
+  "phase6-sweep-6995868-cak-a1-superseded/diagram.svg": {
+   "bytes": 31599,
+   "sha256": "4b37ec727689383d3834d510fed9ae59a47cefe01d92ac0d03b37f1b3a8f3a2b"
+  },
+  "phase6-sweep-6995868-cak-a1-superseded/points.json": {
+   "bytes": 129747,
+   "sha256": "330afca8c5990f7cf9225b89f5704f695d5c8d4cce314caa90b1a483e50f807b"
+  },
+  "phase6-sweep-6995868-cak-a1-superseded/report.json": {
+   "bytes": 927,
+   "sha256": "174f6dd1ab5aa8d79e2ca2a7dd064e72e58022df7308cf7fea82650ddb826a88"
+  },
+  "phase6-sweep-arm2-STRANDED-8c781b1/points.json": {
+   "bytes": 241161,
+   "sha256": "b3fb4616d6413520f6505bfb6e1e068544622fee76bbca743f2aa01a7549a520"
+  },
+  "phase6-sweep-arm2/diagram.svg": {
+   "bytes": 27207,
+   "sha256": "9de7a43ac024f11684ce5cd37a3abe86f0ba9116e2a348630030c9f458dbc7a2"
+  },
+  "phase6-sweep-arm2/points.json": {
+   "bytes": 241161,
+   "sha256": "b3fb4616d6413520f6505bfb6e1e068544622fee76bbca743f2aa01a7549a520"
+  },
+  "phase6-sweep-arm2/regeneration.json": {
+   "bytes": 1478,
+   "sha256": "175fbbf628324d139722e65683cbcf24fe2a0512bb8372bb9a579aad7fbeb8e4"
+  },
+  "phase6-sweep-arm2/report.json": {
+   "bytes": 1345,
+   "sha256": "8d02741da298781b0675e1b75dc0b26ccb46a54e65d831ae9117f7f6633a9d42"
+  },
+  "phase6-sweep/diagram.svg": {
+   "bytes": 31193,
+   "sha256": "40458703061af5b54d6629484aa84762fb995a15f5443904c3462d2ff5939234"
+  },
+  "phase6-sweep/points.json": {
+   "bytes": 129760,
+   "sha256": "0ed613bce61e44829f722e069a818e0da4981ecd34829b0b49eaba15e11cf89a"
+  },
+  "phase6-sweep/report.json": {
+   "bytes": 928,
+   "sha256": "71ae094c38778b0d2c62f3952e4ca641c0bc8f5d91b350248c5c78800830f2a9"
+  },
+  "phase6-throughput-probe/probe.json": {
+   "bytes": 7917,
+   "sha256": "b50f624a3532a9f56f8a4b2974a211f35fe3a7585e719fd4acd4a18d2e5fd406"
+  }
+ }
+}

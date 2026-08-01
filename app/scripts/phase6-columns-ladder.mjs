@@ -37,7 +37,7 @@ if (REPO === null || !existsSync(join(REPO, "runner", "src", "main.ts"))) {
 const CONCURRENCY = Number(arg("--concurrency", "3"));
 const onlyPoint = arg("--only");
 const onlyRung = arg("--rung");
-const OUT_DIR = join(process.cwd(), "out", "phase6-columns-ladder");
+const OUT_DIR = join(process.cwd(), "evidence", "phase6-columns-ladder");
 const OUT_FILE = join(OUT_DIR, "ladder.json");
 
 // The four points, fixed in the pre-registration by one stated criterion.

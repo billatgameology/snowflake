@@ -47,8 +47,8 @@ import { join } from "node:path";
 import { phase6Aggregate, PHASE6_ARM2 } from "../../runner/src/phase6-sweep.ts";
 
 const REPO = process.cwd();
-const ARM2 = join(REPO, "out", "phase6-sweep-arm2");
-const ARM1 = join(REPO, "out", "phase6-sweep");
+const ARM2 = join(REPO, "evidence", "phase6-sweep-arm2");
+const ARM1 = join(REPO, "evidence", "phase6-sweep");
 const VERIFIER = join(REPO, "app", "scripts", "phase6-arm2-independent.mjs");
 const EXECUTION_HEAD = "8c781b1"; // arm 2's execution commit, per regeneration.json
 

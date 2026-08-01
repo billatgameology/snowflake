@@ -43,7 +43,7 @@ const chromeOf = (svg) => svg.split("\n").filter(isChrome).map(textOf);
 
 let failures = 0;
 for (const target of TARGETS) {
-  const dir = join(process.cwd(), "out", target.dir);
+  const dir = join(process.cwd(), "evidence", target.dir);
   let points, report, sidecar = null;
   try {
     points = JSON.parse(readFileSync(join(dir, "points.json"), "utf8"));

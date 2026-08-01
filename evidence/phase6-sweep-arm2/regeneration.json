@@ -1,0 +1,16 @@
+{
+ "schema": "phase6-regeneration-v1",
+ "arm": "arm2-sdak-m1",
+ "paramSet": "M1",
+ "reason": "The sweep completed all 204 points but the completion-time provenance re-check refused to write an artifact, because HEAD moved during the run. The measurements were not in question: no file under core/src, solver-cpu/src or runner/src differed across the commit range, so the executed physics was byte-identical throughout. report.json and diagram.svg are pure functions of points.json and the arm, and are regenerated here rather than re-measured.",
+ "executionHead": "8c781b166db2c72d2fa86cef001e2e8c48ac96c3",
+ "regenerationHead": "27eb34305b40673badf83468d1d3e2cdf07b9716",
+ "regeneratedBy": "app/scripts/phase6-regenerate-report.mjs",
+ "sourceGraphSha256": "58e616cd2682bf9d58373c448963078158d9e1abc00ad564cbd839b401612698",
+ "sourceGraphFileCount": 41,
+ "sourceGraphIdenticalAcrossRange": "verified with `git diff --name-only <executionHead> <regenerationHead> -- core/src solver-cpu/src runner/src`, which returned zero files",
+ "pointsSha256": "b3fb4616d6413520f6505bfb6e1e068544622fee76bbca743f2aa01a7549a520",
+ "reportSha256": "8d02741da298781b0675e1b75dc0b26ccb46a54e65d831ae9117f7f6633a9d42",
+ "diagramSha256": "9de7a43ac024f11684ce5cd37a3abe86f0ba9116e2a348630030c9f458dbc7a2",
+ "note": "sweep completed 204/204; completion-time provenance check refused the artifact because HEAD moved (education audit merges + a CI fix); source graph byte-identical across the range"
+}

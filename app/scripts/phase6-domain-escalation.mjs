@@ -38,8 +38,8 @@ if (REPO === null || !existsSync(join(REPO, "runner", "src", "main.ts"))) {
 const FINE_N = Number(arg("--fine-n", "80"));
 const CONCURRENCY = Number(arg("--concurrency", "4"));
 const REGISTERED_EXTENT = 21;
-const SPOT = join(process.cwd(), "out", "phase6-domain-spot-check", "spot-check.json");
-const OUT_DIR = join(process.cwd(), "out", "phase6-domain-escalation");
+const SPOT = join(process.cwd(), "evidence", "phase6-domain-spot-check", "spot-check.json");
+const OUT_DIR = join(process.cwd(), "evidence", "phase6-domain-escalation");
 const OUT_FILE = join(OUT_DIR, `escalation-n${FINE_N}.json`);
 
 const prior = JSON.parse(readFileSync(SPOT, "utf8")).filter((r) => Number.isFinite(r.fine?.aspectRatio));
@@ -94,7 +94,7 @@ function runOne(r) {
         resolve({
           arm: r.arm, reading: r.reading, paramSet: r.paramSet, tempC: r.tempC, fraction: r.fraction,
           sigmaInf: r.sigmaInf,
-          coarse: { ...r.fine, source: "out/phase6-domain-spot-check/spot-check.json (the N=64 run already measured)" },
+          coarse: { ...r.fine, source: "evidence/phase6-domain-spot-check/spot-check.json (the N=64 run already measured)" },
           fine,
           seconds: (Date.now() - started) / 1000,
           error: error === null ? null : String(error.message).slice(0, 300),

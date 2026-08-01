@@ -57,7 +57,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const COLUMN_FLOOR = 1.5;
-const LADDER = join(process.cwd(), "out", "phase6-columns-ladder", "ladder.json");
+const LADDER = join(process.cwd(), "evidence", "phase6-columns-ladder", "ladder.json");
 
 /**
  * The REALIZED step of the instrument near `ar`, measured from the 408 published crystals at the
@@ -67,7 +67,7 @@ const LADDER = join(process.cwd(), "out", "phase6-columns-ladder", "ladder.json"
 const REALIZED_AR_AT_EXTENT_21 = (() => {
   const values = new Set();
   for (const dir of ["phase6-sweep", "phase6-sweep-arm2"]) {
-    for (const e of JSON.parse(readFileSync(join(process.cwd(), "out", dir, "points.json"), "utf8"))) {
+    for (const e of JSON.parse(readFileSync(join(process.cwd(), "evidence", dir, "points.json"), "utf8"))) {
       if (Number.isFinite(e.result.aspectRatio) && e.result.aspectRatio > 0) values.add(e.result.aspectRatio);
     }
   }

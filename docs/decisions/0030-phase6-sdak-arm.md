@@ -55,7 +55,7 @@ is immutable and this ADR must not disturb it.
 5. **Its own frozen protocol, after the running sweep.** The SDAK sweep runs under a new
    protocol id through the same freeze machinery, and only after the running no-SDAK sweep
    terminates and its evidence is published and recorded. Until then, SDAK work is additive:
-   no edits to `runner/src/phase6-protocol.ts`, the frozen table, or `out/phase6-sweep/`.
+   no edits to `runner/src/phase6-protocol.ts`, the frozen table, or `evidence/phase6-sweep/`.
 6. **Reporting is bound by standing rules.** SDAK-active and no-SDAK results are never merged
    (charter §3.3); SDAK-vs-Nakaya agreement is labeled in-sample everywhere it appears
    (ADR 0005); scoring uses ADR 0025's registered matrix; grid handling uses ADR 0026's

@@ -177,7 +177,7 @@ toward `A`, so σ₀ dips stop separating facets — and the reference diagram i
 exactly where SDAK is inert); and the dominant class is still *no habit*, 119 of 204 neutral.
 Against this, one genuine gain reported in arm 1's favour being removed: arm 1 produced **three
 columns inside `plates-cold`** where the reference demands plates, two in headline scope; arm 2
-has none. Evidence: `research/phase6-two-arm-report.md`, `out/phase6-sweep-arm2/` (values hash
+has none. Evidence: `research/phase6-two-arm-report.md`, `evidence/phase6-sweep-arm2/` (values hash
 `13e678d5…`, freeze `483f7ee5`, execution `8c781b16`), independent verifier PASS on all 204 rows
 importing nothing from `runner/src`, **16 negative controls executed — 15 CAUGHT, 1 GAP**.
 Status: measured and independently verified. **Stated limits, all registered before the sweep:**
@@ -237,7 +237,7 @@ conclusions are portable across the two tested architectures at those points whi
 agreement is not, and the agreement is a measured outcome rather than a consequence of identical
 inputs. Verified on x64 before merging: the committed 448-entry table recomputes to `3662b9e2` under
 the project's own FNV-1a transcribed by hand, and all four tier-2 rows match the values pulled
-independently from `out/phase6-sweep/points.json`. Evidence: `docs/phase6-cross-platform-control.md`
+independently from `evidence/phase6-sweep/points.json`. Evidence: `docs/phase6-cross-platform-control.md`
 §Result, `docs/phase6-fingerprint-arm64.txt`, `PHASE6_LIBM_DIGEST_ARM64_BASELINE`. Closes pin-register
 R28 — the digest assertion returned early on non-x64, so it was a no-op on precisely the machine the
 control needed; now pinned on both measured architectures with a third test asserting they disagree,
@@ -281,7 +281,7 @@ to **low supersaturation** rather than general; and the registered domain criter
 extent 35 on attached count (1.071%, 120 cells of interior fill inside a bit-identical envelope)
 while class and AR are domain-invariant, so no configuration is *demonstrated* converged and no
 re-sweep was run (ADR 0037 §5). Evidence: `docs/phase6-columns-refinement-prereg.md`,
-`docs/phase6-convergence-study-prereg.md`, `out/phase6-columns-ladder/ladder.json`,
+`docs/phase6-convergence-study-prereg.md`, `evidence/phase6-columns-ladder/ladder.json`,
 `app/scripts/phase6-ladder-read.mjs`. Status: measured, domain-checked, pre-registered with all
 outcomes fixed before the deciding runs.
 **This also withdrew the two-arm report's central negative claim.** "Neither arm produces a column in

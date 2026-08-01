@@ -69,7 +69,7 @@ after the rule landed.
 **Corrected mechanism:**
 
 - `PHASE6_PROTOCOL_SHA256_AT_ARM1_EVIDENCE` records `8aeb2b80…` as a **historical** value. It is
-  reproducible by checking out `390fe35` — the commit `out/phase6-sweep/report.json` names — and
+  reproducible by checking out `390fe35` — the commit `evidence/phase6-sweep/report.json` names — and
   computing the combined manifest there. It is **not** reproducible at HEAD, and does not need to
   be: evidence is verified against the commit that produced it.
 - `PHASE6_PROTOCOL_SHA256` tracks the current combined value, with both entries in

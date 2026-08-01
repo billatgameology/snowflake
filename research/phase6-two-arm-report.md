@@ -34,7 +34,7 @@ fail.
 | values hash (GATED) | `879e069f…` | `13e678d5eec467a391958a18c71c8d170900d6efd0d5c23bb4362d863b9acd76` |
 | points | 204 | 204 |
 | excluded | 0 | 0 |
-| artifact | `out/phase6-sweep/` | `out/phase6-sweep-arm2/` |
+| artifact | `evidence/phase6-sweep/` | `evidence/phase6-sweep-arm2/` |
 
 Both ran the same 34 × 6 grid, the same solver, the same seed, the same far field, the same
 measurement size, and the same registered scoring rule (ADR 0025). **The parameter set is the only
@@ -345,7 +345,7 @@ both arms' execution commits — against values published from `390fe35a` (arm 1
 | P3 | arm 2 `M1` | −5 | 0.90 | 1.26594 | **1.26594** | 119 → **119** | 21 | `size-target` |
 | P4 | arm 1 `CAK` | −5 | 0.90 | 1.31250 | **1.31250** | 172 → **172** | 21 | `size-target` |
 
-Raw rows at `out/phase6-columns-ladder/ladder.json` — every number above is transcribed from it, and
+Raw rows at `evidence/phase6-columns-ladder/ladder.json` — every number above is transcribed from it, and
 the file's hash is recorded here rather than the file tracked, per decision 0004's treatment of
 evidence artifacts. **Rung A alone: 11,128 bytes, sha256
 `248ae0af3196c35da258a2b69a3aec5e3d133191a769867172670253e6ade855`** (this hash covers the four rung-A

@@ -1,0 +1,48 @@
+{
+ "protocolSha256": "8aeb2b80a5d85357bca1ddbf7301e63ea7b53e714e4bc5ce290ac22e1b16698e",
+ "head": "390fe35a049e6da391c429c1f446fb2ca2cdb931",
+ "headlineAgree": 3,
+ "headlineTotal": 90,
+ "neutralCount": 168,
+ "excludedCount": 0,
+ "extentFragileCount": 16,
+ "perRegime": [
+  {
+   "regime": "plates-warm",
+   "inHeadline": true,
+   "agree": 3,
+   "disagree": 3,
+   "excluded": 0,
+   "neutralCount": 3,
+   "extentFragile": 1
+  },
+  {
+   "regime": "columns",
+   "inHeadline": true,
+   "agree": 0,
+   "disagree": 24,
+   "excluded": 0,
+   "neutralCount": 24,
+   "extentFragile": 0
+  },
+  {
+   "regime": "plates-cold",
+   "inHeadline": true,
+   "agree": 0,
+   "disagree": 60,
+   "excluded": 0,
+   "neutralCount": 58,
+   "extentFragile": 3
+  },
+  {
+   "regime": "columns-and-plates",
+   "inHeadline": false,
+   "agree": 26,
+   "disagree": 52,
+   "excluded": 0,
+   "neutralCount": 52,
+   "extentFragile": 8
+  }
+ ],
+ "excludedPoints": []
+}

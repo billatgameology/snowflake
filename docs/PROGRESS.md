@@ -1100,7 +1100,7 @@ Vitest. The preserved Vitest result cache
 `out/education-review/npm-test-vitest-results-20260730.json` is 5,944 bytes with SHA-256
 `b45aff6bea19a946f02c51e2068895262a417af3fd05fa124c8dc8b88a4f1588`;
 it records Vitest 3.2.7 results for 71 files and zero failed files. The ignored Phase 6
-prerequisite `out/phase6-sweep/points.json` was authenticated at 129,760 bytes, SHA-256
+prerequisite `evidence/phase6-sweep/points.json` was authenticated at 129,760 bytes, SHA-256
 `0ed613bce61e44829f722e069a818e0da4981ecd34829b0b49eaba15e11cf89a`,
 and was neither staged nor modified.
 
@@ -1577,7 +1577,7 @@ evidence; neither may be relabelled as WP7's.
 
 **Next action: the 204-point validation sweep is RUNNING (launched 2026-07-27 22:47 at
 `1366403`, protocol `9aa2e7c1`, concurrency 6, ~14 h). When it lands: read
-`out/phase6-sweep/report.json` and `diagram.svg`, then WP4's remaining solver work and WP5.**
+`evidence/phase6-sweep/report.json` and `diagram.svg`, then WP4's remaining solver work and WP5.**
 
 Everything gating it is closed. Sections B and C landed at `9a727db`: the stale comment claiming
 the sweep runs on the GPU, [ADR 0028](decisions/0028-parameter-table-erratum-exponent.md)'s

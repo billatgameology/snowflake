@@ -447,7 +447,7 @@ Two solver runs at the registered conditions (48³, Δx 0.35 µm, extent 21, `cf
 
 Both `CAK` runs are clean: `symErr = 0`, `deltaSymClean = true`, `allConverged = true`,
 `domainContact` false, stop reason `size-target` at extent 21. The `CAK_A1` values are the sweep's
-own `out/phase6-sweep/points.json` entries for the same grid points.
+own `evidence/phase6-sweep/points.json` entries for the same grid points.
 
 **−5 °C is the strongest test the grid admits.** `A_PRISM_CAK` reaches its minimum of **0.18 at
 (Tm−T) = 5**, so −5 °C is where the correction throttles α_prism hardest — a 5.6× reduction in the
@@ -566,7 +566,7 @@ radius (`0.909a`) then ρ is ~10% larger than our AR. He does not define it in t
 equivalence is **unverified**, not established.
 
 **And the previous version of this section showed one point out of six.** Here is the whole −5 °C
-row from `out/phase6-sweep/points.json`:
+row from `evidence/phase6-sweep/points.json`:
 
 | f | 0.10 | 0.15 | 0.25 | 0.40 | 0.60 | 0.90 |
 |---|---|---|---|---|---|---|
@@ -633,7 +633,7 @@ and the monograph p59 defines σ_water = [c_water(T) − c_sat(T)]/c_sat(T) on t
 Libbrecht's percentages are ice-relative and σ_water is a *level* on the axis, not the normaliser —
 directly comparable to the sweep's `sigmaInf`.
 
-Comparing the sweep's **executed** σ∞ values from `out/phase6-sweep/points.json` against the
+Comparing the sweep's **executed** σ∞ values from `evidence/phase6-sweep/points.json` against the
 206-observation rows (7, 10, 15, 20, 30, 45, 70, 100, 150 %):
 
 | T (°C) | our executed span | Libbrecht rows inside it |

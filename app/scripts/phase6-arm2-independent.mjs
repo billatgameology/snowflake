@@ -57,7 +57,7 @@ const PREDICTED = {
   rangeAcrossFitForms: [42, 66],
 };
 
-const outDir = process.argv[2] ?? join(process.cwd(), "out", "phase6-sweep-arm2");
+const outDir = process.argv[2] ?? join(process.cwd(), "evidence", "phase6-sweep-arm2");
 const failures = [];
 const note = (m) => failures.push(m);
 

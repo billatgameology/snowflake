@@ -33,7 +33,7 @@ const m1Sigma0Prism = (T) =>
 const m1Ratio = (tempC, sigmaSurf) =>
   Math.exp(-m1Sigma0Basal(Math.abs(tempC)) / sigmaSurf) / Math.exp(-m1Sigma0Prism(Math.abs(tempC)) / sigmaSurf);
 
-const rows = JSON.parse(readFileSync(new URL("../../out/phase6-sweep/points.json", import.meta.url), "utf8"));
+const rows = JSON.parse(readFileSync(new URL("../../evidence/phase6-sweep/points.json", import.meta.url), "utf8"));
 const classify = (ar) => (ar <= PLATE_CEILING ? "plate" : ar >= COLUMN_FLOOR ? "column" : "neutral");
 
 // ── 1. The transfer function arm 1 measured ──────────────────────────────────────────────────

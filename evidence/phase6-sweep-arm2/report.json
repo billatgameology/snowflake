@@ -1,0 +1,64 @@
+{
+ "arm": "arm2-sdak-m1",
+ "paramSet": "M1",
+ "valuesSha256": "13e678d5eec467a391958a18c71c8d170900d6efd0d5c23bb4362d863b9acd76",
+ "justificationSha256": "1b7faeb85fb9095931ef9294d65c619723ac389de24daddd8d9c173b833d00e8",
+ "protocolSha256": "b09a932ec7345eddf838ee2de1c0ef4731212c625a1069e62193c06ae950fdec",
+ "head": "8c781b166db2c72d2fa86cef001e2e8c48ac96c3",
+ "headlineAgree": 54,
+ "headlineTotal": 78,
+ "headlineAgreeCommonDenominator": 54,
+ "headlineTotalCommonDenominator": 90,
+ "neutralCount": 119,
+ "excludedCount": 0,
+ "extentFragileCount": 33,
+ "perRegime": [
+  {
+   "regime": "plates-warm",
+   "inHeadline": true,
+   "agree": 5,
+   "disagree": 1,
+   "excluded": 0,
+   "neutralCount": 1,
+   "extentFragile": 2
+  },
+  {
+   "regime": "columns",
+   "inHeadline": true,
+   "agree": 0,
+   "disagree": 12,
+   "excluded": 0,
+   "neutralCount": 12,
+   "extentFragile": 0
+  },
+  {
+   "regime": "plates-cold",
+   "inHeadline": true,
+   "agree": 49,
+   "disagree": 11,
+   "excluded": 0,
+   "neutralCount": 11,
+   "extentFragile": 11
+  },
+  {
+   "regime": "columns-and-plates",
+   "inHeadline": false,
+   "agree": 14,
+   "disagree": 64,
+   "excluded": 0,
+   "neutralCount": 64,
+   "extentFragile": 8
+  }
+ ],
+ "bistable": {
+  "temperaturesC": [
+   -4,
+   -5,
+   -6
+  ],
+  "points": 18,
+  "agree": 0,
+  "neutralCount": 18
+ },
+ "excludedPoints": []
+}

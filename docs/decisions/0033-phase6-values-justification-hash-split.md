@@ -98,7 +98,7 @@ silently-replaced constant is not a freeze.
 `requirement`/`value`/`source` fields from `prose` — and **must still hash to
 `8aeb2b80a5d85357bca1ddbf7301e63ea7b53e714e4bc5ce290ac22e1b16698e`**, pinned by test.
 
-This is not optional tidiness. `out/phase6-sweep/report.json` records that hash as the protocol
+This is not optional tidiness. `evidence/phase6-sweep/report.json` records that hash as the protocol
 that produced it, and `research/phase6-sweep-report.md` publishes it. If the refactor changed it,
 the existing evidence would become unverifiable — which is precisely the harm this ADR exists to
 prevent, inflicted by the fix rather than by the clause.

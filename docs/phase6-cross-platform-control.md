@@ -130,7 +130,7 @@ run concurrently.
 ### The x64 baseline
 
 These are **not fresh runs**. They are rows taken verbatim from the ADR 0031 re-sweep's own
-`out/phase6-sweep/points.json` (protocol `8aeb2b80…`, commit `390fe35`, 204/204 with zero
+`evidence/phase6-sweep/points.json` (protocol `8aeb2b80…`, commit `390fe35`, 204/204 with zero
 exclusions). ADR 0032's selection rule picks fixture points *from* the sweep's valid points, so
 they had already been measured — same arithmetic, with no chance of a separate run diverging.
 
@@ -256,7 +256,7 @@ failures is numerical.
   `runner/test/gate5-evidence.test.ts`, `runner/test/gate5-runner.test.ts` and
   `app/test/phase4-verify.test.ts`, each of which does `mkdtempSync(join(tmpdir(), …))`.
   Re-running those three files with `TMPDIR=/private/tmp/vcc-tmp`: **130 passed, 0 failed.**
-- **1 failure** — `runner/test/phase6-sweep.test.ts` reads `out/phase6-sweep/points.json`, which is
+- **1 failure** — `runner/test/phase6-sweep.test.ts` reads `evidence/phase6-sweep/points.json`, which is
   gitignored and absent from any fresh clone on any architecture.
 
 With the symlink cause removed, exact `npm test` gives **1317 passed / 1 failed / 7 skipped**;

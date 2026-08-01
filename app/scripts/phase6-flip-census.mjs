@@ -55,7 +55,7 @@ const disagreements = [];
 const summary = [];
 
 for (const arm of ARMS) {
-  const rows = JSON.parse(readFileSync(join(process.cwd(), "out", arm.dir, "points.json"), "utf8"));
+  const rows = JSON.parse(readFileSync(join(process.cwd(), "evidence", arm.dir, "points.json"), "utf8"));
   console.log(`\n${"=".repeat(88)}\n${arm.label}`);
   let armFlips = 0;
   const kinds = { "plate->column": 0, "column->plate": 0 };

@@ -457,7 +457,7 @@ describe("ADR 0035 — a step-capped run is EXCLUDED, not scored as a habit", ()
     // on all 204. Reaching extent 21 IMPLIES the size-target condition fired, because the loop
     // cannot continue past it — so the stop-reason check is a belt, not the only trousers.
     const rows = JSON.parse(
-      readFileSync(new URL("../../out/phase6-sweep/points.json", import.meta.url), "utf8"),
+      readFileSync(new URL("../../evidence/phase6-sweep/points.json", import.meta.url), "utf8"),
     ) as { result: { largestExtent: number }; exclusionReason: string | null }[];
     expect(rows.length).toBe(204);
     expect(rows.filter((r) => r.result.largestExtent < 21)).toEqual([]);

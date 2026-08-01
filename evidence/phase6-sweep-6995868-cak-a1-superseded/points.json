@@ -1,0 +1,6122 @@
+[
+ {
+  "point": {
+   "tempC": -2,
+   "fraction": 0.15,
+   "sigmaInf": 0.003,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.2999999999999998
+  },
+  "result": {
+   "tempC": -2,
+   "fraction": 0.15,
+   "sigmaInf": 0.003,
+   "steps": 121,
+   "attached": 905,
+   "aspectRatio": 0.272918,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 806.846
+  },
+  "modelClass": "plate",
+  "regime": "plates-warm",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -2,
+   "fraction": 0.25,
+   "sigmaInf": 0.005,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.2999999999999998
+  },
+  "result": {
+   "tempC": -2,
+   "fraction": 0.25,
+   "sigmaInf": 0.005,
+   "steps": 120,
+   "attached": 1135,
+   "aspectRatio": 0.382085,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 827.951
+  },
+  "modelClass": "plate",
+  "regime": "plates-warm",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -2,
+   "fraction": 0.6,
+   "sigmaInf": 0.012,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.2999999999999998
+  },
+  "result": {
+   "tempC": -2,
+   "fraction": 0.6,
+   "sigmaInf": 0.012,
+   "steps": 120,
+   "attached": 1327,
+   "aspectRatio": 0.60042,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 851.937
+  },
+  "modelClass": "plate",
+  "regime": "plates-warm",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -2,
+   "fraction": 0.1,
+   "sigmaInf": 0.002,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.2999999999999998
+  },
+  "result": {
+   "tempC": -2,
+   "fraction": 0.1,
+   "sigmaInf": 0.002,
+   "steps": 124,
+   "attached": 663,
+   "aspectRatio": 0.163751,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 852.97
+  },
+  "modelClass": "plate",
+  "regime": "plates-warm",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -2,
+   "fraction": 0.9,
+   "sigmaInf": 0.018000000000000002,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.2999999999999998
+  },
+  "result": {
+   "tempC": -2,
+   "fraction": 0.9,
+   "sigmaInf": 0.018000000000000002,
+   "steps": 120,
+   "attached": 1289,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 867.514
+  },
+  "modelClass": "neutral",
+  "regime": "plates-warm",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -2,
+   "fraction": 0.4,
+   "sigmaInf": 0.008,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.2999999999999998
+  },
+  "result": {
+   "tempC": -2,
+   "fraction": 0.4,
+   "sigmaInf": 0.008,
+   "steps": 121,
+   "attached": 1293,
+   "aspectRatio": 0.491253,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 892.171
+  },
+  "modelClass": "plate",
+  "regime": "plates-warm",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -3,
+   "fraction": 0.15,
+   "sigmaInf": 0.0045,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.2999999999999998
+  },
+  "result": {
+   "tempC": -3,
+   "fraction": 0.15,
+   "sigmaInf": 0.0045,
+   "steps": 123,
+   "attached": 1001,
+   "aspectRatio": 0.272918,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 843.797
+  },
+  "modelClass": "plate",
+  "regime": "plates-warm",
+  "score": "agree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -3,
+   "fraction": 0.25,
+   "sigmaInf": 0.0075,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.2999999999999998
+  },
+  "result": {
+   "tempC": -3,
+   "fraction": 0.25,
+   "sigmaInf": 0.0075,
+   "steps": 120,
+   "attached": 1159,
+   "aspectRatio": 0.382085,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 832.888
+  },
+  "modelClass": "plate",
+  "regime": "plates-warm",
+  "score": "agree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -3,
+   "fraction": 0.4,
+   "sigmaInf": 0.012,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.2999999999999998
+  },
+  "result": {
+   "tempC": -3,
+   "fraction": 0.4,
+   "sigmaInf": 0.012,
+   "steps": 121,
+   "attached": 1341,
+   "aspectRatio": 0.491253,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 837.422
+  },
+  "modelClass": "plate",
+  "regime": "plates-warm",
+  "score": "agree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -3,
+   "fraction": 0.9,
+   "sigmaInf": 0.027,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.2999999999999998
+  },
+  "result": {
+   "tempC": -3,
+   "fraction": 0.9,
+   "sigmaInf": 0.027,
+   "steps": 120,
+   "attached": 1397,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 802.682
+  },
+  "modelClass": "neutral",
+  "regime": "plates-warm",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -3,
+   "fraction": 0.6,
+   "sigmaInf": 0.018,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.2999999999999998
+  },
+  "result": {
+   "tempC": -3,
+   "fraction": 0.6,
+   "sigmaInf": 0.018,
+   "steps": 121,
+   "attached": 1397,
+   "aspectRatio": 0.60042,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 835.295
+  },
+  "modelClass": "plate",
+  "regime": "plates-warm",
+  "score": "agree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -3,
+   "fraction": 0.1,
+   "sigmaInf": 0.003,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.2999999999999998
+  },
+  "result": {
+   "tempC": -3,
+   "fraction": 0.1,
+   "sigmaInf": 0.003,
+   "steps": 131,
+   "attached": 905,
+   "aspectRatio": 0.272918,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 919.152
+  },
+  "modelClass": "plate",
+  "regime": "plates-warm",
+  "score": "agree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -4,
+   "fraction": 0.6,
+   "sigmaInf": 0.024,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.7000000000000002
+  },
+  "result": {
+   "tempC": -4,
+   "fraction": 0.6,
+   "sigmaInf": 0.024,
+   "steps": 121,
+   "attached": 1423,
+   "aspectRatio": 0.60042,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 842.713
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -4,
+   "fraction": 0.4,
+   "sigmaInf": 0.016,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.7000000000000002
+  },
+  "result": {
+   "tempC": -4,
+   "fraction": 0.4,
+   "sigmaInf": 0.016,
+   "steps": 120,
+   "attached": 1377,
+   "aspectRatio": 0.60042,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 866.854
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -4,
+   "fraction": 0.25,
+   "sigmaInf": 0.01,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.7000000000000002
+  },
+  "result": {
+   "tempC": -4,
+   "fraction": 0.25,
+   "sigmaInf": 0.01,
+   "steps": 122,
+   "attached": 1375,
+   "aspectRatio": 0.491253,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 888.103
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -4,
+   "fraction": 0.9,
+   "sigmaInf": 0.036000000000000004,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.7000000000000002
+  },
+  "result": {
+   "tempC": -4,
+   "fraction": 0.9,
+   "sigmaInf": 0.036000000000000004,
+   "steps": 120,
+   "attached": 1409,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 886.101
+  },
+  "modelClass": "neutral",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -4,
+   "fraction": 0.15,
+   "sigmaInf": 0.006,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.7000000000000002
+  },
+  "result": {
+   "tempC": -4,
+   "fraction": 0.15,
+   "sigmaInf": 0.006,
+   "steps": 131,
+   "attached": 1267,
+   "aspectRatio": 0.382085,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 975.185
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -4,
+   "fraction": 0.1,
+   "sigmaInf": 0.004,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.7000000000000002
+  },
+  "result": {
+   "tempC": -4,
+   "fraction": 0.1,
+   "sigmaInf": 0.004,
+   "steps": 145,
+   "attached": 1127,
+   "aspectRatio": 0.272918,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1139.156
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -5,
+   "fraction": 0.6,
+   "sigmaInf": 0.03,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.7000000000000002
+  },
+  "result": {
+   "tempC": -5,
+   "fraction": 0.6,
+   "sigmaInf": 0.03,
+   "steps": 121,
+   "attached": 1445,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 840.631
+  },
+  "modelClass": "neutral",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -5,
+   "fraction": 0.25,
+   "sigmaInf": 0.0125,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.7000000000000002
+  },
+  "result": {
+   "tempC": -5,
+   "fraction": 0.25,
+   "sigmaInf": 0.0125,
+   "steps": 129,
+   "attached": 1521,
+   "aspectRatio": 0.491253,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 956.888
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -5,
+   "fraction": 0.4,
+   "sigmaInf": 0.020000000000000004,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.7000000000000002
+  },
+  "result": {
+   "tempC": -5,
+   "fraction": 0.4,
+   "sigmaInf": 0.020000000000000004,
+   "steps": 123,
+   "attached": 1485,
+   "aspectRatio": 0.60042,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 959.468
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -5,
+   "fraction": 0.9,
+   "sigmaInf": 0.045000000000000005,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.7000000000000002
+  },
+  "result": {
+   "tempC": -5,
+   "fraction": 0.9,
+   "sigmaInf": 0.045000000000000005,
+   "steps": 121,
+   "attached": 1469,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 881.719
+  },
+  "modelClass": "neutral",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -5,
+   "fraction": 0.15,
+   "sigmaInf": 0.0075,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.7000000000000002
+  },
+  "result": {
+   "tempC": -5,
+   "fraction": 0.15,
+   "sigmaInf": 0.0075,
+   "steps": 145,
+   "attached": 1513,
+   "aspectRatio": 0.382085,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1149.48
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -5,
+   "fraction": 0.1,
+   "sigmaInf": 0.005000000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.7000000000000002
+  },
+  "result": {
+   "tempC": -5,
+   "fraction": 0.1,
+   "sigmaInf": 0.005000000000000001,
+   "steps": 173,
+   "attached": 1615,
+   "aspectRatio": 0.368421,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1564.128
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -6,
+   "fraction": 0.4,
+   "sigmaInf": 0.02416,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.7
+  },
+  "result": {
+   "tempC": -6,
+   "fraction": 0.4,
+   "sigmaInf": 0.02416,
+   "steps": 125,
+   "attached": 1593,
+   "aspectRatio": 0.60042,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 923.989
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -6,
+   "fraction": 0.6,
+   "sigmaInf": 0.03624,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.7
+  },
+  "result": {
+   "tempC": -6,
+   "fraction": 0.6,
+   "sigmaInf": 0.03624,
+   "steps": 123,
+   "attached": 1505,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 914.697
+  },
+  "modelClass": "neutral",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -6,
+   "fraction": 0.25,
+   "sigmaInf": 0.0151,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.7
+  },
+  "result": {
+   "tempC": -6,
+   "fraction": 0.25,
+   "sigmaInf": 0.0151,
+   "steps": 136,
+   "attached": 1647,
+   "aspectRatio": 0.491253,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1095.173
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -6,
+   "fraction": 0.15,
+   "sigmaInf": 0.00906,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.7
+  },
+  "result": {
+   "tempC": -6,
+   "fraction": 0.15,
+   "sigmaInf": 0.00906,
+   "steps": 163,
+   "attached": 1929,
+   "aspectRatio": 0.473684,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1378.865
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -6,
+   "fraction": 0.9,
+   "sigmaInf": 0.054360000000000006,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.7
+  },
+  "result": {
+   "tempC": -6,
+   "fraction": 0.9,
+   "sigmaInf": 0.054360000000000006,
+   "steps": 120,
+   "attached": 1469,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 934.539
+  },
+  "modelClass": "neutral",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -6,
+   "fraction": 0.1,
+   "sigmaInf": 0.00604,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.7
+  },
+  "result": {
+   "tempC": -6,
+   "fraction": 0.1,
+   "sigmaInf": 0.00604,
+   "steps": 209,
+   "attached": 1987,
+   "aspectRatio": 0.368421,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1892.214
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -7,
+   "fraction": 0.25,
+   "sigmaInf": 0.0177,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.9000000000000004
+  },
+  "result": {
+   "tempC": -7,
+   "fraction": 0.25,
+   "sigmaInf": 0.0177,
+   "steps": 145,
+   "attached": 1911,
+   "aspectRatio": 0.60042,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1178.26
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -7,
+   "fraction": 0.4,
+   "sigmaInf": 0.02832,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.9000000000000004
+  },
+  "result": {
+   "tempC": -7,
+   "fraction": 0.4,
+   "sigmaInf": 0.02832,
+   "steps": 129,
+   "attached": 1629,
+   "aspectRatio": 0.60042,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 944.867
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -7,
+   "fraction": 0.6,
+   "sigmaInf": 0.04248,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.9000000000000004
+  },
+  "result": {
+   "tempC": -7,
+   "fraction": 0.6,
+   "sigmaInf": 0.04248,
+   "steps": 123,
+   "attached": 1505,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 890.202
+  },
+  "modelClass": "neutral",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -7,
+   "fraction": 0.9,
+   "sigmaInf": 0.06372,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.9000000000000004
+  },
+  "result": {
+   "tempC": -7,
+   "fraction": 0.9,
+   "sigmaInf": 0.06372,
+   "steps": 121,
+   "attached": 1481,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 855.109
+  },
+  "modelClass": "neutral",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -7,
+   "fraction": 0.15,
+   "sigmaInf": 0.01062,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.9000000000000004
+  },
+  "result": {
+   "tempC": -7,
+   "fraction": 0.15,
+   "sigmaInf": 0.01062,
+   "steps": 193,
+   "attached": 2361,
+   "aspectRatio": 0.473684,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1636.137
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -7,
+   "fraction": 0.1,
+   "sigmaInf": 0.00708,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.9000000000000004
+  },
+  "result": {
+   "tempC": -7,
+   "fraction": 0.1,
+   "sigmaInf": 0.00708,
+   "steps": 227,
+   "attached": 2451,
+   "aspectRatio": 0.473684,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2114.183
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -8,
+   "fraction": 0.6,
+   "sigmaInf": 0.04871999999999999,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.9000000000000004
+  },
+  "result": {
+   "tempC": -8,
+   "fraction": 0.6,
+   "sigmaInf": 0.04871999999999999,
+   "steps": 125,
+   "attached": 1613,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 916.172
+  },
+  "modelClass": "neutral",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -8,
+   "fraction": 0.25,
+   "sigmaInf": 0.0203,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.9000000000000004
+  },
+  "result": {
+   "tempC": -8,
+   "fraction": 0.25,
+   "sigmaInf": 0.0203,
+   "steps": 159,
+   "attached": 2249,
+   "aspectRatio": 0.60042,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1243.983
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -8,
+   "fraction": 0.4,
+   "sigmaInf": 0.03248,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.9000000000000004
+  },
+  "result": {
+   "tempC": -8,
+   "fraction": 0.4,
+   "sigmaInf": 0.03248,
+   "steps": 134,
+   "attached": 1815,
+   "aspectRatio": 0.60042,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 994.434
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -8,
+   "fraction": 0.9,
+   "sigmaInf": 0.07307999999999999,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.9000000000000004
+  },
+  "result": {
+   "tempC": -8,
+   "fraction": 0.9,
+   "sigmaInf": 0.07307999999999999,
+   "steps": 123,
+   "attached": 1541,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 889.329
+  },
+  "modelClass": "neutral",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -8,
+   "fraction": 0.15,
+   "sigmaInf": 0.012179999999999998,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.9000000000000004
+  },
+  "result": {
+   "tempC": -8,
+   "fraction": 0.15,
+   "sigmaInf": 0.012179999999999998,
+   "steps": 219,
+   "attached": 2945,
+   "aspectRatio": 0.578947,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2001.626
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -8,
+   "fraction": 0.1,
+   "sigmaInf": 0.00812,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.9000000000000004
+  },
+  "result": {
+   "tempC": -8,
+   "fraction": 0.1,
+   "sigmaInf": 0.00812,
+   "steps": 242,
+   "attached": 3017,
+   "aspectRatio": 0.578947,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2214.409
+  },
+  "modelClass": "plate",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -9,
+   "fraction": 0.4,
+   "sigmaInf": 0.03664,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.9000000000000004
+  },
+  "result": {
+   "tempC": -9,
+   "fraction": 0.4,
+   "sigmaInf": 0.03664,
+   "steps": 141,
+   "attached": 1971,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1058.924
+  },
+  "modelClass": "neutral",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -9,
+   "fraction": 0.25,
+   "sigmaInf": 0.0229,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.9000000000000004
+  },
+  "result": {
+   "tempC": -9,
+   "fraction": 0.25,
+   "sigmaInf": 0.0229,
+   "steps": 175,
+   "attached": 2591,
+   "aspectRatio": 0.684211,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1467.686
+  },
+  "modelClass": "neutral",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -9,
+   "fraction": 0.6,
+   "sigmaInf": 0.05496,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.9000000000000004
+  },
+  "result": {
+   "tempC": -9,
+   "fraction": 0.6,
+   "sigmaInf": 0.05496,
+   "steps": 129,
+   "attached": 1721,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 950.308
+  },
+  "modelClass": "neutral",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -9,
+   "fraction": 0.9,
+   "sigmaInf": 0.08244,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.9000000000000004
+  },
+  "result": {
+   "tempC": -9,
+   "fraction": 0.9,
+   "sigmaInf": 0.08244,
+   "steps": 123,
+   "attached": 1541,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 933.101
+  },
+  "modelClass": "neutral",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -9,
+   "fraction": 0.15,
+   "sigmaInf": 0.01374,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.9000000000000004
+  },
+  "result": {
+   "tempC": -9,
+   "fraction": 0.15,
+   "sigmaInf": 0.01374,
+   "steps": 253,
+   "attached": 3523,
+   "aspectRatio": 0.684211,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2415.357
+  },
+  "modelClass": "neutral",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -9,
+   "fraction": 0.1,
+   "sigmaInf": 0.00916,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.9000000000000004
+  },
+  "result": {
+   "tempC": -9,
+   "fraction": 0.1,
+   "sigmaInf": 0.00916,
+   "steps": 253,
+   "attached": 3595,
+   "aspectRatio": 0.684211,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2477.324
+  },
+  "modelClass": "neutral",
+  "regime": "columns",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -10,
+   "fraction": 0.4,
+   "sigmaInf": 0.0408,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.09999999999999964
+  },
+  "result": {
+   "tempC": -10,
+   "fraction": 0.4,
+   "sigmaInf": 0.0408,
+   "steps": 146,
+   "attached": 2101,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1106.782
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -10,
+   "fraction": 0.25,
+   "sigmaInf": 0.0255,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.09999999999999964
+  },
+  "result": {
+   "tempC": -10,
+   "fraction": 0.25,
+   "sigmaInf": 0.0255,
+   "steps": 196,
+   "attached": 3205,
+   "aspectRatio": 0.684211,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1683.298
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -10,
+   "fraction": 0.9,
+   "sigmaInf": 0.09179999999999999,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.09999999999999964
+  },
+  "result": {
+   "tempC": -10,
+   "fraction": 0.9,
+   "sigmaInf": 0.09179999999999999,
+   "steps": 124,
+   "attached": 1601,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 869.272
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -10,
+   "fraction": 0.6,
+   "sigmaInf": 0.06119999999999999,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.09999999999999964
+  },
+  "result": {
+   "tempC": -10,
+   "fraction": 0.6,
+   "sigmaInf": 0.06119999999999999,
+   "steps": 131,
+   "attached": 1757,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1013.409
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -10,
+   "fraction": 0.1,
+   "sigmaInf": 0.0102,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.09999999999999964
+  },
+  "result": {
+   "tempC": -10,
+   "fraction": 0.1,
+   "sigmaInf": 0.0102,
+   "steps": 261,
+   "attached": 4137,
+   "aspectRatio": 0.789474,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2672.158
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -10,
+   "fraction": 0.15,
+   "sigmaInf": 0.015299999999999998,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.09999999999999964
+  },
+  "result": {
+   "tempC": -10,
+   "fraction": 0.15,
+   "sigmaInf": 0.015299999999999998,
+   "steps": 283,
+   "attached": 4087,
+   "aspectRatio": 0.789474,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2748.639
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -11,
+   "fraction": 0.4,
+   "sigmaInf": 0.0452,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.0999999999999996
+  },
+  "result": {
+   "tempC": -11,
+   "fraction": 0.4,
+   "sigmaInf": 0.0452,
+   "steps": 154,
+   "attached": 2319,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1206.094
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -11,
+   "fraction": 0.25,
+   "sigmaInf": 0.028249999999999997,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.0999999999999996
+  },
+  "result": {
+   "tempC": -11,
+   "fraction": 0.25,
+   "sigmaInf": 0.028249999999999997,
+   "steps": 210,
+   "attached": 3595,
+   "aspectRatio": 0.789474,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1762.969
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -11,
+   "fraction": 0.9,
+   "sigmaInf": 0.1017,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.0999999999999996
+  },
+  "result": {
+   "tempC": -11,
+   "fraction": 0.9,
+   "sigmaInf": 0.1017,
+   "steps": 124,
+   "attached": 1625,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 889.306
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -11,
+   "fraction": 0.6,
+   "sigmaInf": 0.06779999999999999,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.0999999999999996
+  },
+  "result": {
+   "tempC": -11,
+   "fraction": 0.6,
+   "sigmaInf": 0.06779999999999999,
+   "steps": 135,
+   "attached": 1883,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1030.269
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -11,
+   "fraction": 0.1,
+   "sigmaInf": 0.0113,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.0999999999999996
+  },
+  "result": {
+   "tempC": -11,
+   "fraction": 0.1,
+   "sigmaInf": 0.0113,
+   "steps": 279,
+   "attached": 4617,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2752.319
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -11,
+   "fraction": 0.15,
+   "sigmaInf": 0.016949999999999996,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.0999999999999996
+  },
+  "result": {
+   "tempC": -11,
+   "fraction": 0.15,
+   "sigmaInf": 0.016949999999999996,
+   "steps": 288,
+   "attached": 4125,
+   "aspectRatio": 0.789474,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2627.961
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -12,
+   "fraction": 0.4,
+   "sigmaInf": 0.049600000000000005,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.0999999999999996
+  },
+  "result": {
+   "tempC": -12,
+   "fraction": 0.4,
+   "sigmaInf": 0.049600000000000005,
+   "steps": 161,
+   "attached": 2485,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1266.958
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -12,
+   "fraction": 0.6,
+   "sigmaInf": 0.0744,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.0999999999999996
+  },
+  "result": {
+   "tempC": -12,
+   "fraction": 0.6,
+   "sigmaInf": 0.0744,
+   "steps": 137,
+   "attached": 1907,
+   "aspectRatio": 0.709587,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1082.428
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -12,
+   "fraction": 0.9,
+   "sigmaInf": 0.1116,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.0999999999999996
+  },
+  "result": {
+   "tempC": -12,
+   "fraction": 0.9,
+   "sigmaInf": 0.1116,
+   "steps": 127,
+   "attached": 1685,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 963.339
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -12,
+   "fraction": 0.25,
+   "sigmaInf": 0.031,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.0999999999999996
+  },
+  "result": {
+   "tempC": -12,
+   "fraction": 0.25,
+   "sigmaInf": 0.031,
+   "steps": 224,
+   "attached": 3873,
+   "aspectRatio": 0.789474,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1905.019
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -12,
+   "fraction": 0.1,
+   "sigmaInf": 0.012400000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.0999999999999996
+  },
+  "result": {
+   "tempC": -12,
+   "fraction": 0.1,
+   "sigmaInf": 0.012400000000000001,
+   "steps": 293,
+   "attached": 4883,
+   "aspectRatio": 0.95,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2998.811
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -12,
+   "fraction": 0.15,
+   "sigmaInf": 0.0186,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.0999999999999996
+  },
+  "result": {
+   "tempC": -12,
+   "fraction": 0.15,
+   "sigmaInf": 0.0186,
+   "steps": 294,
+   "attached": 4653,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2702.841
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -13,
+   "fraction": 0.4,
+   "sigmaInf": 0.054000000000000006,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.0999999999999996
+  },
+  "result": {
+   "tempC": -13,
+   "fraction": 0.4,
+   "sigmaInf": 0.054000000000000006,
+   "steps": 174,
+   "attached": 2913,
+   "aspectRatio": 0.789474,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1404.268
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -13,
+   "fraction": 0.6,
+   "sigmaInf": 0.081,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.0999999999999996
+  },
+  "result": {
+   "tempC": -13,
+   "fraction": 0.6,
+   "sigmaInf": 0.081,
+   "steps": 141,
+   "attached": 2003,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1035.277
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -13,
+   "fraction": 0.9,
+   "sigmaInf": 0.12150000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.0999999999999996
+  },
+  "result": {
+   "tempC": -13,
+   "fraction": 0.9,
+   "sigmaInf": 0.12150000000000001,
+   "steps": 127,
+   "attached": 1745,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 920.45
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -13,
+   "fraction": 0.25,
+   "sigmaInf": 0.03375,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.0999999999999996
+  },
+  "result": {
+   "tempC": -13,
+   "fraction": 0.25,
+   "sigmaInf": 0.03375,
+   "steps": 236,
+   "attached": 3969,
+   "aspectRatio": 0.789474,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2098.515
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -13,
+   "fraction": 0.15,
+   "sigmaInf": 0.02025,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.0999999999999996
+  },
+  "result": {
+   "tempC": -13,
+   "fraction": 0.15,
+   "sigmaInf": 0.02025,
+   "steps": 304,
+   "attached": 4667,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2951.526
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -13,
+   "fraction": 0.1,
+   "sigmaInf": 0.013500000000000002,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.0999999999999996
+  },
+  "result": {
+   "tempC": -13,
+   "fraction": 0.1,
+   "sigmaInf": 0.013500000000000002,
+   "steps": 317,
+   "attached": 5161,
+   "aspectRatio": 1.10526,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 3378.988
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -14,
+   "fraction": 0.4,
+   "sigmaInf": 0.05840000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.1
+  },
+  "result": {
+   "tempC": -14,
+   "fraction": 0.4,
+   "sigmaInf": 0.05840000000000001,
+   "steps": 175,
+   "attached": 2975,
+   "aspectRatio": 0.789474,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1407.725
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -14,
+   "fraction": 0.9,
+   "sigmaInf": 0.13140000000000002,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.1
+  },
+  "result": {
+   "tempC": -14,
+   "fraction": 0.9,
+   "sigmaInf": 0.13140000000000002,
+   "steps": 129,
+   "attached": 1769,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 921.347
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -14,
+   "fraction": 0.6,
+   "sigmaInf": 0.08760000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.1
+  },
+  "result": {
+   "tempC": -14,
+   "fraction": 0.6,
+   "sigmaInf": 0.08760000000000001,
+   "steps": 145,
+   "attached": 2147,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1116.385
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -14,
+   "fraction": 0.25,
+   "sigmaInf": 0.036500000000000005,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.1
+  },
+  "result": {
+   "tempC": -14,
+   "fraction": 0.25,
+   "sigmaInf": 0.036500000000000005,
+   "steps": 253,
+   "attached": 4377,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2266.521
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -14,
+   "fraction": 0.15,
+   "sigmaInf": 0.021900000000000003,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.1
+  },
+  "result": {
+   "tempC": -14,
+   "fraction": 0.15,
+   "sigmaInf": 0.021900000000000003,
+   "steps": 317,
+   "attached": 5435,
+   "aspectRatio": 0.95,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 3117.058
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -14,
+   "fraction": 0.1,
+   "sigmaInf": 0.014600000000000002,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.1
+  },
+  "result": {
+   "tempC": -14,
+   "fraction": 0.1,
+   "sigmaInf": 0.014600000000000002,
+   "steps": 306,
+   "attached": 5161,
+   "aspectRatio": 1.10526,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 3384.595
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -15,
+   "fraction": 0.4,
+   "sigmaInf": 0.06280000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.1
+  },
+  "result": {
+   "tempC": -15,
+   "fraction": 0.4,
+   "sigmaInf": 0.06280000000000001,
+   "steps": 187,
+   "attached": 3203,
+   "aspectRatio": 0.789474,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1422.334
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -15,
+   "fraction": 0.9,
+   "sigmaInf": 0.1413,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.1
+  },
+  "result": {
+   "tempC": -15,
+   "fraction": 0.9,
+   "sigmaInf": 0.1413,
+   "steps": 131,
+   "attached": 1823,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 938.652
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -15,
+   "fraction": 0.6,
+   "sigmaInf": 0.09419999999999999,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.1
+  },
+  "result": {
+   "tempC": -15,
+   "fraction": 0.6,
+   "sigmaInf": 0.09419999999999999,
+   "steps": 148,
+   "attached": 2183,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1150.956
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -15,
+   "fraction": 0.25,
+   "sigmaInf": 0.03925,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.1
+  },
+  "result": {
+   "tempC": -15,
+   "fraction": 0.25,
+   "sigmaInf": 0.03925,
+   "steps": 267,
+   "attached": 4557,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2440.991
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -15,
+   "fraction": 0.1,
+   "sigmaInf": 0.015700000000000002,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.1
+  },
+  "result": {
+   "tempC": -15,
+   "fraction": 0.1,
+   "sigmaInf": 0.015700000000000002,
+   "steps": 288,
+   "attached": 4135,
+   "aspectRatio": 1.23529,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2976.631
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -15,
+   "fraction": 0.15,
+   "sigmaInf": 0.023549999999999998,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.1
+  },
+  "result": {
+   "tempC": -15,
+   "fraction": 0.15,
+   "sigmaInf": 0.023549999999999998,
+   "steps": 316,
+   "attached": 5161,
+   "aspectRatio": 1.10526,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 3075.656
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -16,
+   "fraction": 0.6,
+   "sigmaInf": 0.10116,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.5
+  },
+  "result": {
+   "tempC": -16,
+   "fraction": 0.6,
+   "sigmaInf": 0.10116,
+   "steps": 153,
+   "attached": 2375,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1190.598
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -16,
+   "fraction": 0.9,
+   "sigmaInf": 0.15174,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.5
+  },
+  "result": {
+   "tempC": -16,
+   "fraction": 0.9,
+   "sigmaInf": 0.15174,
+   "steps": 133,
+   "attached": 1835,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 951.625
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -16,
+   "fraction": 0.4,
+   "sigmaInf": 0.06744,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.5
+  },
+  "result": {
+   "tempC": -16,
+   "fraction": 0.4,
+   "sigmaInf": 0.06744,
+   "steps": 197,
+   "attached": 3553,
+   "aspectRatio": 0.789474,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1616.506
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -16,
+   "fraction": 0.1,
+   "sigmaInf": 0.01686,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.5
+  },
+  "result": {
+   "tempC": -16,
+   "fraction": 0.1,
+   "sigmaInf": 0.01686,
+   "steps": 276,
+   "attached": 4123,
+   "aspectRatio": 1.23529,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2958.577
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -16,
+   "fraction": 0.25,
+   "sigmaInf": 0.04215,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.5
+  },
+  "result": {
+   "tempC": -16,
+   "fraction": 0.25,
+   "sigmaInf": 0.04215,
+   "steps": 280,
+   "attached": 4593,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2583.593
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -16,
+   "fraction": 0.15,
+   "sigmaInf": 0.02529,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.5
+  },
+  "result": {
+   "tempC": -16,
+   "fraction": 0.15,
+   "sigmaInf": 0.02529,
+   "steps": 305,
+   "attached": 5161,
+   "aspectRatio": 1.10526,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2974.327
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -17,
+   "fraction": 0.6,
+   "sigmaInf": 0.10812,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.5
+  },
+  "result": {
+   "tempC": -17,
+   "fraction": 0.6,
+   "sigmaInf": 0.10812,
+   "steps": 159,
+   "attached": 2545,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1179.277
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -17,
+   "fraction": 0.9,
+   "sigmaInf": 0.16218,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.5
+  },
+  "result": {
+   "tempC": -17,
+   "fraction": 0.9,
+   "sigmaInf": 0.16218,
+   "steps": 134,
+   "attached": 1895,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 978.267
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -17,
+   "fraction": 0.4,
+   "sigmaInf": 0.07208,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.5
+  },
+  "result": {
+   "tempC": -17,
+   "fraction": 0.4,
+   "sigmaInf": 0.07208,
+   "steps": 206,
+   "attached": 3661,
+   "aspectRatio": 0.789474,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1686.585
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -17,
+   "fraction": 0.1,
+   "sigmaInf": 0.01802,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.5
+  },
+  "result": {
+   "tempC": -17,
+   "fraction": 0.1,
+   "sigmaInf": 0.01802,
+   "steps": 267,
+   "attached": 3307,
+   "aspectRatio": 1.4,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2767.896
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -17,
+   "fraction": 0.25,
+   "sigmaInf": 0.04505,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.5
+  },
+  "result": {
+   "tempC": -17,
+   "fraction": 0.25,
+   "sigmaInf": 0.04505,
+   "steps": 304,
+   "attached": 5087,
+   "aspectRatio": 1,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2785.85
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -17,
+   "fraction": 0.15,
+   "sigmaInf": 0.02703,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.5
+  },
+  "result": {
+   "tempC": -17,
+   "fraction": 0.15,
+   "sigmaInf": 0.02703,
+   "steps": 298,
+   "attached": 4171,
+   "aspectRatio": 1.23529,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2984.051
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -18,
+   "fraction": 0.9,
+   "sigmaInf": 0.17262,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.5
+  },
+  "result": {
+   "tempC": -18,
+   "fraction": 0.9,
+   "sigmaInf": 0.17262,
+   "steps": 137,
+   "attached": 1979,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1002.327
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -18,
+   "fraction": 0.6,
+   "sigmaInf": 0.11507999999999999,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.5
+  },
+  "result": {
+   "tempC": -18,
+   "fraction": 0.6,
+   "sigmaInf": 0.11507999999999999,
+   "steps": 161,
+   "attached": 2605,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1209.522
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -18,
+   "fraction": 0.4,
+   "sigmaInf": 0.07672000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.5
+  },
+  "result": {
+   "tempC": -18,
+   "fraction": 0.4,
+   "sigmaInf": 0.07672000000000001,
+   "steps": 219,
+   "attached": 4113,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1746.935
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -18,
+   "fraction": 0.1,
+   "sigmaInf": 0.019180000000000003,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.5
+  },
+  "result": {
+   "tempC": -18,
+   "fraction": 0.1,
+   "sigmaInf": 0.019180000000000003,
+   "steps": 267,
+   "attached": 3223,
+   "aspectRatio": 1.4,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2753.04
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -18,
+   "fraction": 0.15,
+   "sigmaInf": 0.028769999999999997,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.5
+  },
+  "result": {
+   "tempC": -18,
+   "fraction": 0.15,
+   "sigmaInf": 0.028769999999999997,
+   "steps": 288,
+   "attached": 4135,
+   "aspectRatio": 1.23529,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2777.624
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -18,
+   "fraction": 0.25,
+   "sigmaInf": 0.04795,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.5
+  },
+  "result": {
+   "tempC": -18,
+   "fraction": 0.25,
+   "sigmaInf": 0.04795,
+   "steps": 316,
+   "attached": 5147,
+   "aspectRatio": 1,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2695.998
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -19,
+   "fraction": 0.6,
+   "sigmaInf": 0.12204,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.5
+  },
+  "result": {
+   "tempC": -19,
+   "fraction": 0.6,
+   "sigmaInf": 0.12204,
+   "steps": 170,
+   "attached": 2851,
+   "aspectRatio": 0.789474,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 967.976
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -19,
+   "fraction": 0.9,
+   "sigmaInf": 0.18306,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.5
+  },
+  "result": {
+   "tempC": -19,
+   "fraction": 0.9,
+   "sigmaInf": 0.18306,
+   "steps": 140,
+   "attached": 2015,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 739.827
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -19,
+   "fraction": 0.1,
+   "sigmaInf": 0.02034,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.5
+  },
+  "result": {
+   "tempC": -19,
+   "fraction": 0.1,
+   "sigmaInf": 0.02034,
+   "steps": 243,
+   "attached": 2425,
+   "aspectRatio": 1.61538,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1940.857
+  },
+  "modelClass": "column",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -19,
+   "fraction": 0.15,
+   "sigmaInf": 0.03051,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.5
+  },
+  "result": {
+   "tempC": -19,
+   "fraction": 0.15,
+   "sigmaInf": 0.03051,
+   "steps": 271,
+   "attached": 3925,
+   "aspectRatio": 1.3125,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2060.214
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -19,
+   "fraction": 0.4,
+   "sigmaInf": 0.08136,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.5
+  },
+  "result": {
+   "tempC": -19,
+   "fraction": 0.4,
+   "sigmaInf": 0.08136,
+   "steps": 229,
+   "attached": 4317,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1557.799
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -19,
+   "fraction": 0.25,
+   "sigmaInf": 0.05085,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.5
+  },
+  "result": {
+   "tempC": -19,
+   "fraction": 0.25,
+   "sigmaInf": 0.05085,
+   "steps": 318,
+   "attached": 5135,
+   "aspectRatio": 1.10526,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2334.434
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -20,
+   "fraction": 0.6,
+   "sigmaInf": 0.129,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.5
+  },
+  "result": {
+   "tempC": -20,
+   "fraction": 0.6,
+   "sigmaInf": 0.129,
+   "steps": 175,
+   "attached": 2983,
+   "aspectRatio": 0.789474,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1134.547
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -20,
+   "fraction": 0.9,
+   "sigmaInf": 0.1935,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.5
+  },
+  "result": {
+   "tempC": -20,
+   "fraction": 0.9,
+   "sigmaInf": 0.1935,
+   "steps": 143,
+   "attached": 2087,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 777.509
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -20,
+   "fraction": 0.1,
+   "sigmaInf": 0.021500000000000002,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.5
+  },
+  "result": {
+   "tempC": -20,
+   "fraction": 0.1,
+   "sigmaInf": 0.021500000000000002,
+   "steps": 243,
+   "attached": 2449,
+   "aspectRatio": 1.61538,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2034.395
+  },
+  "modelClass": "column",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -20,
+   "fraction": 0.4,
+   "sigmaInf": 0.08600000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.5
+  },
+  "result": {
+   "tempC": -20,
+   "fraction": 0.4,
+   "sigmaInf": 0.08600000000000001,
+   "steps": 237,
+   "attached": 4413,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1762.007
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -20,
+   "fraction": 0.15,
+   "sigmaInf": 0.03225,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.5
+  },
+  "result": {
+   "tempC": -20,
+   "fraction": 0.15,
+   "sigmaInf": 0.03225,
+   "steps": 269,
+   "attached": 3223,
+   "aspectRatio": 1.4,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2363.349
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -20,
+   "fraction": 0.25,
+   "sigmaInf": 0.05375,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.5
+  },
+  "result": {
+   "tempC": -20,
+   "fraction": 0.25,
+   "sigmaInf": 0.05375,
+   "steps": 319,
+   "attached": 5123,
+   "aspectRatio": 1.10526,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2697.336
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": true,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -21,
+   "fraction": 0.6,
+   "sigmaInf": 0.1365,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.5
+  },
+  "result": {
+   "tempC": -21,
+   "fraction": 0.6,
+   "sigmaInf": 0.1365,
+   "steps": 183,
+   "attached": 3283,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1425.969
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -21,
+   "fraction": 0.9,
+   "sigmaInf": 0.20475000000000002,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.5
+  },
+  "result": {
+   "tempC": -21,
+   "fraction": 0.9,
+   "sigmaInf": 0.20475000000000002,
+   "steps": 145,
+   "attached": 2171,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1088.349
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -21,
+   "fraction": 0.1,
+   "sigmaInf": 0.022750000000000003,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.5
+  },
+  "result": {
+   "tempC": -21,
+   "fraction": 0.1,
+   "sigmaInf": 0.022750000000000003,
+   "steps": 244,
+   "attached": 2425,
+   "aspectRatio": 1.61538,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2463.538
+  },
+  "modelClass": "column",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -21,
+   "fraction": 0.15,
+   "sigmaInf": 0.034125,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.5
+  },
+  "result": {
+   "tempC": -21,
+   "fraction": 0.15,
+   "sigmaInf": 0.034125,
+   "steps": 263,
+   "attached": 3223,
+   "aspectRatio": 1.4,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2553.993
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -21,
+   "fraction": 0.4,
+   "sigmaInf": 0.09100000000000001,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.5
+  },
+  "result": {
+   "tempC": -21,
+   "fraction": 0.4,
+   "sigmaInf": 0.09100000000000001,
+   "steps": 248,
+   "attached": 4617,
+   "aspectRatio": 1,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2134.51
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -21,
+   "fraction": 0.25,
+   "sigmaInf": 0.056875,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.5
+  },
+  "result": {
+   "tempC": -21,
+   "fraction": 0.25,
+   "sigmaInf": 0.056875,
+   "steps": 295,
+   "attached": 4325,
+   "aspectRatio": 1.16667,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2730.652
+  },
+  "modelClass": "neutral",
+  "regime": "plates-cold",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -22,
+   "fraction": 0.6,
+   "sigmaInf": 0.144,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.5
+  },
+  "result": {
+   "tempC": -22,
+   "fraction": 0.6,
+   "sigmaInf": 0.144,
+   "steps": 188,
+   "attached": 3403,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1467.66
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -22,
+   "fraction": 0.9,
+   "sigmaInf": 0.216,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.5
+  },
+  "result": {
+   "tempC": -22,
+   "fraction": 0.9,
+   "sigmaInf": 0.216,
+   "steps": 146,
+   "attached": 2195,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1109.279
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -22,
+   "fraction": 0.1,
+   "sigmaInf": 0.024,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.5
+  },
+  "result": {
+   "tempC": -22,
+   "fraction": 0.1,
+   "sigmaInf": 0.024,
+   "steps": 226,
+   "attached": 2083,
+   "aspectRatio": 1.75,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2213.242
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -22,
+   "fraction": 0.4,
+   "sigmaInf": 0.096,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.5
+  },
+  "result": {
+   "tempC": -22,
+   "fraction": 0.4,
+   "sigmaInf": 0.096,
+   "steps": 256,
+   "attached": 4967,
+   "aspectRatio": 1,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2239.189
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -22,
+   "fraction": 0.15,
+   "sigmaInf": 0.036,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.5
+  },
+  "result": {
+   "tempC": -22,
+   "fraction": 0.15,
+   "sigmaInf": 0.036,
+   "steps": 262,
+   "attached": 3223,
+   "aspectRatio": 1.4,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2685.197
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -22,
+   "fraction": 0.25,
+   "sigmaInf": 0.06,
+   "inAmbiguityBand": true,
+   "distanceToBoundaryC": 0.5
+  },
+  "result": {
+   "tempC": -22,
+   "fraction": 0.25,
+   "sigmaInf": 0.06,
+   "steps": 294,
+   "attached": 4121,
+   "aspectRatio": 1.23529,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2837.494
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": true,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -23,
+   "fraction": 0.1,
+   "sigmaInf": 0.02525,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.5
+  },
+  "result": {
+   "tempC": -23,
+   "fraction": 0.1,
+   "sigmaInf": 0.02525,
+   "steps": 222,
+   "attached": 1765,
+   "aspectRatio": 1.90909,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2223.467
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -23,
+   "fraction": 0.9,
+   "sigmaInf": 0.22725,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.5
+  },
+  "result": {
+   "tempC": -23,
+   "fraction": 0.9,
+   "sigmaInf": 0.22725,
+   "steps": 151,
+   "attached": 2363,
+   "aspectRatio": 0.927922,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1097.414
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -23,
+   "fraction": 0.6,
+   "sigmaInf": 0.1515,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.5
+  },
+  "result": {
+   "tempC": -23,
+   "fraction": 0.6,
+   "sigmaInf": 0.1515,
+   "steps": 189,
+   "attached": 3415,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1454.546
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -23,
+   "fraction": 0.15,
+   "sigmaInf": 0.037875,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.5
+  },
+  "result": {
+   "tempC": -23,
+   "fraction": 0.15,
+   "sigmaInf": 0.037875,
+   "steps": 248,
+   "attached": 3037,
+   "aspectRatio": 1.5,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2474.351
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -23,
+   "fraction": 0.25,
+   "sigmaInf": 0.063125,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.5
+  },
+  "result": {
+   "tempC": -23,
+   "fraction": 0.25,
+   "sigmaInf": 0.063125,
+   "steps": 291,
+   "attached": 4121,
+   "aspectRatio": 1.23529,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2748.914
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -23,
+   "fraction": 0.4,
+   "sigmaInf": 0.101,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 1.5
+  },
+  "result": {
+   "tempC": -23,
+   "fraction": 0.4,
+   "sigmaInf": 0.101,
+   "steps": 262,
+   "attached": 4955,
+   "aspectRatio": 1,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2280.346
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -24,
+   "fraction": 0.9,
+   "sigmaInf": 0.23850000000000002,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.5
+  },
+  "result": {
+   "tempC": -24,
+   "fraction": 0.9,
+   "sigmaInf": 0.23850000000000002,
+   "steps": 153,
+   "attached": 2411,
+   "aspectRatio": 0.927922,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1162.726
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -24,
+   "fraction": 0.1,
+   "sigmaInf": 0.026500000000000003,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.5
+  },
+  "result": {
+   "tempC": -24,
+   "fraction": 0.1,
+   "sigmaInf": 0.026500000000000003,
+   "steps": 225,
+   "attached": 1765,
+   "aspectRatio": 1.90909,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2191.901
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -24,
+   "fraction": 0.6,
+   "sigmaInf": 0.159,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.5
+  },
+  "result": {
+   "tempC": -24,
+   "fraction": 0.6,
+   "sigmaInf": 0.159,
+   "steps": 196,
+   "attached": 3669,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1488.057
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -24,
+   "fraction": 0.15,
+   "sigmaInf": 0.03975,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.5
+  },
+  "result": {
+   "tempC": -24,
+   "fraction": 0.15,
+   "sigmaInf": 0.03975,
+   "steps": 240,
+   "attached": 2425,
+   "aspectRatio": 1.61538,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2265.102
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -24,
+   "fraction": 0.4,
+   "sigmaInf": 0.10600000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.5
+  },
+  "result": {
+   "tempC": -24,
+   "fraction": 0.4,
+   "sigmaInf": 0.10600000000000001,
+   "steps": 271,
+   "attached": 5039,
+   "aspectRatio": 1,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2367.633
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -24,
+   "fraction": 0.25,
+   "sigmaInf": 0.06625,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 2.5
+  },
+  "result": {
+   "tempC": -24,
+   "fraction": 0.25,
+   "sigmaInf": 0.06625,
+   "steps": 288,
+   "attached": 4133,
+   "aspectRatio": 1.23529,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2785.575
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -25,
+   "fraction": 0.1,
+   "sigmaInf": 0.027750000000000004,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.5
+  },
+  "result": {
+   "tempC": -25,
+   "fraction": 0.1,
+   "sigmaInf": 0.027750000000000004,
+   "steps": 221,
+   "attached": 1765,
+   "aspectRatio": 1.90909,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2102.746
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -25,
+   "fraction": 0.9,
+   "sigmaInf": 0.24975000000000003,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.5
+  },
+  "result": {
+   "tempC": -25,
+   "fraction": 0.9,
+   "sigmaInf": 0.24975000000000003,
+   "steps": 154,
+   "attached": 2399,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1177.565
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -25,
+   "fraction": 0.6,
+   "sigmaInf": 0.1665,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.5
+  },
+  "result": {
+   "tempC": -25,
+   "fraction": 0.6,
+   "sigmaInf": 0.1665,
+   "steps": 200,
+   "attached": 3771,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1563.896
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -25,
+   "fraction": 0.15,
+   "sigmaInf": 0.041625,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.5
+  },
+  "result": {
+   "tempC": -25,
+   "fraction": 0.15,
+   "sigmaInf": 0.041625,
+   "steps": 246,
+   "attached": 2509,
+   "aspectRatio": 1.61538,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2461.085
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -25,
+   "fraction": 0.4,
+   "sigmaInf": 0.11100000000000002,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.5
+  },
+  "result": {
+   "tempC": -25,
+   "fraction": 0.4,
+   "sigmaInf": 0.11100000000000002,
+   "steps": 277,
+   "attached": 5099,
+   "aspectRatio": 1,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2505.654
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -25,
+   "fraction": 0.25,
+   "sigmaInf": 0.069375,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 3.5
+  },
+  "result": {
+   "tempC": -25,
+   "fraction": 0.25,
+   "sigmaInf": 0.069375,
+   "steps": 291,
+   "attached": 4133,
+   "aspectRatio": 1.23529,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2819.462
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -26,
+   "fraction": 0.1,
+   "sigmaInf": 0.029000000000000005,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.5
+  },
+  "result": {
+   "tempC": -26,
+   "fraction": 0.1,
+   "sigmaInf": 0.029000000000000005,
+   "steps": 225,
+   "attached": 1765,
+   "aspectRatio": 1.90909,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2116.596
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -26,
+   "fraction": 0.9,
+   "sigmaInf": 0.26100000000000007,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.5
+  },
+  "result": {
+   "tempC": -26,
+   "fraction": 0.9,
+   "sigmaInf": 0.26100000000000007,
+   "steps": 158,
+   "attached": 2519,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1193.971
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -26,
+   "fraction": 0.15,
+   "sigmaInf": 0.043500000000000004,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.5
+  },
+  "result": {
+   "tempC": -26,
+   "fraction": 0.15,
+   "sigmaInf": 0.043500000000000004,
+   "steps": 247,
+   "attached": 2449,
+   "aspectRatio": 1.61538,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2338.823
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -26,
+   "fraction": 0.6,
+   "sigmaInf": 0.17400000000000002,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.5
+  },
+  "result": {
+   "tempC": -26,
+   "fraction": 0.6,
+   "sigmaInf": 0.17400000000000002,
+   "steps": 205,
+   "attached": 3831,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1659.538
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -26,
+   "fraction": 0.25,
+   "sigmaInf": 0.07250000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.5
+  },
+  "result": {
+   "tempC": -26,
+   "fraction": 0.25,
+   "sigmaInf": 0.07250000000000001,
+   "steps": 276,
+   "attached": 3989,
+   "aspectRatio": 1.23529,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2652.734
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -26,
+   "fraction": 0.4,
+   "sigmaInf": 0.11600000000000002,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 4.5
+  },
+  "result": {
+   "tempC": -26,
+   "fraction": 0.4,
+   "sigmaInf": 0.11600000000000002,
+   "steps": 280,
+   "attached": 5147,
+   "aspectRatio": 1.10526,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2470.21
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -27,
+   "fraction": 0.1,
+   "sigmaInf": 0.03025,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.5
+  },
+  "result": {
+   "tempC": -27,
+   "fraction": 0.1,
+   "sigmaInf": 0.03025,
+   "steps": 197,
+   "attached": 1267,
+   "aspectRatio": 2.1,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1819.096
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -27,
+   "fraction": 0.9,
+   "sigmaInf": 0.27225,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.5
+  },
+  "result": {
+   "tempC": -27,
+   "fraction": 0.9,
+   "sigmaInf": 0.27225,
+   "steps": 161,
+   "attached": 2603,
+   "aspectRatio": 0.927922,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1253.283
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -27,
+   "fraction": 0.15,
+   "sigmaInf": 0.045375,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.5
+  },
+  "result": {
+   "tempC": -27,
+   "fraction": 0.15,
+   "sigmaInf": 0.045375,
+   "steps": 244,
+   "attached": 2425,
+   "aspectRatio": 1.61538,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2343.203
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -27,
+   "fraction": 0.6,
+   "sigmaInf": 0.1815,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.5
+  },
+  "result": {
+   "tempC": -27,
+   "fraction": 0.6,
+   "sigmaInf": 0.1815,
+   "steps": 212,
+   "attached": 4035,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1677.677
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -27,
+   "fraction": 0.4,
+   "sigmaInf": 0.121,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.5
+  },
+  "result": {
+   "tempC": -27,
+   "fraction": 0.4,
+   "sigmaInf": 0.121,
+   "steps": 281,
+   "attached": 5099,
+   "aspectRatio": 1.10526,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2442.14
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -27,
+   "fraction": 0.25,
+   "sigmaInf": 0.075625,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 5.5
+  },
+  "result": {
+   "tempC": -27,
+   "fraction": 0.25,
+   "sigmaInf": 0.075625,
+   "steps": 272,
+   "attached": 3779,
+   "aspectRatio": 1.3125,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2545.472
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -28,
+   "fraction": 0.1,
+   "sigmaInf": 0.03150000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 6.5
+  },
+  "result": {
+   "tempC": -28,
+   "fraction": 0.1,
+   "sigmaInf": 0.03150000000000001,
+   "steps": 195,
+   "attached": 1171,
+   "aspectRatio": 2.33333,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1779.428
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -28,
+   "fraction": 0.9,
+   "sigmaInf": 0.2835000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 6.5
+  },
+  "result": {
+   "tempC": -28,
+   "fraction": 0.9,
+   "sigmaInf": 0.2835000000000001,
+   "steps": 161,
+   "attached": 2603,
+   "aspectRatio": 0.927922,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1253.935
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -28,
+   "fraction": 0.6,
+   "sigmaInf": 0.18900000000000003,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 6.5
+  },
+  "result": {
+   "tempC": -28,
+   "fraction": 0.6,
+   "sigmaInf": 0.18900000000000003,
+   "steps": 213,
+   "attached": 3999,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1687.382
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -28,
+   "fraction": 0.15,
+   "sigmaInf": 0.04725000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 6.5
+  },
+  "result": {
+   "tempC": -28,
+   "fraction": 0.15,
+   "sigmaInf": 0.04725000000000001,
+   "steps": 243,
+   "attached": 2425,
+   "aspectRatio": 1.61538,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2409.953
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -28,
+   "fraction": 0.25,
+   "sigmaInf": 0.07875000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 6.5
+  },
+  "result": {
+   "tempC": -28,
+   "fraction": 0.25,
+   "sigmaInf": 0.07875000000000001,
+   "steps": 267,
+   "attached": 3209,
+   "aspectRatio": 1.4,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2618.706
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -28,
+   "fraction": 0.4,
+   "sigmaInf": 0.12600000000000003,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 6.5
+  },
+  "result": {
+   "tempC": -28,
+   "fraction": 0.4,
+   "sigmaInf": 0.12600000000000003,
+   "steps": 279,
+   "attached": 4979,
+   "aspectRatio": 1.10526,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2622.333
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -29,
+   "fraction": 0.1,
+   "sigmaInf": 0.03275,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 7.5
+  },
+  "result": {
+   "tempC": -29,
+   "fraction": 0.1,
+   "sigmaInf": 0.03275,
+   "steps": 199,
+   "attached": 1171,
+   "aspectRatio": 2.33333,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1872.866
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -29,
+   "fraction": 0.9,
+   "sigmaInf": 0.29475,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 7.5
+  },
+  "result": {
+   "tempC": -29,
+   "fraction": 0.9,
+   "sigmaInf": 0.29475,
+   "steps": 162,
+   "attached": 2615,
+   "aspectRatio": 0.818755,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1198.8
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -29,
+   "fraction": 0.15,
+   "sigmaInf": 0.049125,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 7.5
+  },
+  "result": {
+   "tempC": -29,
+   "fraction": 0.15,
+   "sigmaInf": 0.049125,
+   "steps": 229,
+   "attached": 2341,
+   "aspectRatio": 1.61538,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2221.409
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -29,
+   "fraction": 0.6,
+   "sigmaInf": 0.1965,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 7.5
+  },
+  "result": {
+   "tempC": -29,
+   "fraction": 0.6,
+   "sigmaInf": 0.1965,
+   "steps": 219,
+   "attached": 4215,
+   "aspectRatio": 1,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1849.189
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -29,
+   "fraction": 0.25,
+   "sigmaInf": 0.081875,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 7.5
+  },
+  "result": {
+   "tempC": -29,
+   "fraction": 0.25,
+   "sigmaInf": 0.081875,
+   "steps": 269,
+   "attached": 3245,
+   "aspectRatio": 1.4,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2504.844
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -30,
+   "fraction": 0.1,
+   "sigmaInf": 0.034,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 8.5
+  },
+  "result": {
+   "tempC": -30,
+   "fraction": 0.1,
+   "sigmaInf": 0.034,
+   "steps": 197,
+   "attached": 1207,
+   "aspectRatio": 2.33333,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1708.424
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -29,
+   "fraction": 0.4,
+   "sigmaInf": 0.131,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 7.5
+  },
+  "result": {
+   "tempC": -29,
+   "fraction": 0.4,
+   "sigmaInf": 0.131,
+   "steps": 279,
+   "attached": 4943,
+   "aspectRatio": 1.10526,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2532.203
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -30,
+   "fraction": 0.15,
+   "sigmaInf": 0.051000000000000004,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 8.5
+  },
+  "result": {
+   "tempC": -30,
+   "fraction": 0.15,
+   "sigmaInf": 0.051000000000000004,
+   "steps": 221,
+   "attached": 1741,
+   "aspectRatio": 1.90909,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2135.035
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -30,
+   "fraction": 0.9,
+   "sigmaInf": 0.30600000000000005,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 8.5
+  },
+  "result": {
+   "tempC": -30,
+   "fraction": 0.9,
+   "sigmaInf": 0.30600000000000005,
+   "steps": 166,
+   "attached": 2753,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1300.645
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -30,
+   "fraction": 0.6,
+   "sigmaInf": 0.20400000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 8.5
+  },
+  "result": {
+   "tempC": -30,
+   "fraction": 0.6,
+   "sigmaInf": 0.20400000000000001,
+   "steps": 225,
+   "attached": 4407,
+   "aspectRatio": 1,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1833.618
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -30,
+   "fraction": 0.25,
+   "sigmaInf": 0.085,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 8.5
+  },
+  "result": {
+   "tempC": -30,
+   "fraction": 0.25,
+   "sigmaInf": 0.085,
+   "steps": 266,
+   "attached": 3209,
+   "aspectRatio": 1.4,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2515.982
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -31,
+   "fraction": 0.1,
+   "sigmaInf": 0.03534,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 9.5
+  },
+  "result": {
+   "tempC": -31,
+   "fraction": 0.1,
+   "sigmaInf": 0.03534,
+   "steps": 202,
+   "attached": 1171,
+   "aspectRatio": 2.33333,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1770.745
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -30,
+   "fraction": 0.4,
+   "sigmaInf": 0.136,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 8.5
+  },
+  "result": {
+   "tempC": -30,
+   "fraction": 0.4,
+   "sigmaInf": 0.136,
+   "steps": 278,
+   "attached": 4787,
+   "aspectRatio": 1.10526,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2470.21
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -31,
+   "fraction": 0.9,
+   "sigmaInf": 0.31806000000000006,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 9.5
+  },
+  "result": {
+   "tempC": -31,
+   "fraction": 0.9,
+   "sigmaInf": 0.31806000000000006,
+   "steps": 170,
+   "attached": 2933,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1336.769
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -31,
+   "fraction": 0.15,
+   "sigmaInf": 0.05301000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 9.5
+  },
+  "result": {
+   "tempC": -31,
+   "fraction": 0.15,
+   "sigmaInf": 0.05301000000000001,
+   "steps": 219,
+   "attached": 1741,
+   "aspectRatio": 1.90909,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2161.153
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -31,
+   "fraction": 0.6,
+   "sigmaInf": 0.21204000000000003,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 9.5
+  },
+  "result": {
+   "tempC": -31,
+   "fraction": 0.6,
+   "sigmaInf": 0.21204000000000003,
+   "steps": 230,
+   "attached": 4551,
+   "aspectRatio": 1,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1902.256
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -31,
+   "fraction": 0.25,
+   "sigmaInf": 0.08835000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 9.5
+  },
+  "result": {
+   "tempC": -31,
+   "fraction": 0.25,
+   "sigmaInf": 0.08835000000000001,
+   "steps": 266,
+   "attached": 3221,
+   "aspectRatio": 1.4,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2611.822
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -32,
+   "fraction": 0.1,
+   "sigmaInf": 0.036680000000000004,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 10.5
+  },
+  "result": {
+   "tempC": -32,
+   "fraction": 0.1,
+   "sigmaInf": 0.036680000000000004,
+   "steps": 203,
+   "attached": 1195,
+   "aspectRatio": 2.33333,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1913.697
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -31,
+   "fraction": 0.4,
+   "sigmaInf": 0.14136,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 9.5
+  },
+  "result": {
+   "tempC": -31,
+   "fraction": 0.4,
+   "sigmaInf": 0.14136,
+   "steps": 275,
+   "attached": 4481,
+   "aspectRatio": 1.16667,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2535.919
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -32,
+   "fraction": 0.15,
+   "sigmaInf": 0.05502,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 10.5
+  },
+  "result": {
+   "tempC": -32,
+   "fraction": 0.15,
+   "sigmaInf": 0.05502,
+   "steps": 224,
+   "attached": 1765,
+   "aspectRatio": 1.90909,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2133.717
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -32,
+   "fraction": 0.9,
+   "sigmaInf": 0.33012,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 10.5
+  },
+  "result": {
+   "tempC": -32,
+   "fraction": 0.9,
+   "sigmaInf": 0.33012,
+   "steps": 170,
+   "attached": 2897,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1270.369
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -32,
+   "fraction": 0.6,
+   "sigmaInf": 0.22008,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 10.5
+  },
+  "result": {
+   "tempC": -32,
+   "fraction": 0.6,
+   "sigmaInf": 0.22008,
+   "steps": 231,
+   "attached": 4539,
+   "aspectRatio": 1,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1914.016
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -32,
+   "fraction": 0.25,
+   "sigmaInf": 0.0917,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 10.5
+  },
+  "result": {
+   "tempC": -32,
+   "fraction": 0.25,
+   "sigmaInf": 0.0917,
+   "steps": 264,
+   "attached": 3221,
+   "aspectRatio": 1.4,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2541.505
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -33,
+   "fraction": 0.1,
+   "sigmaInf": 0.03802,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 11.5
+  },
+  "result": {
+   "tempC": -33,
+   "fraction": 0.1,
+   "sigmaInf": 0.03802,
+   "steps": 204,
+   "attached": 1195,
+   "aspectRatio": 2.33333,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1836.271
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -32,
+   "fraction": 0.4,
+   "sigmaInf": 0.14672000000000002,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 10.5
+  },
+  "result": {
+   "tempC": -32,
+   "fraction": 0.4,
+   "sigmaInf": 0.14672000000000002,
+   "steps": 277,
+   "attached": 4253,
+   "aspectRatio": 1.16667,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2621.824
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -33,
+   "fraction": 0.9,
+   "sigmaInf": 0.34218,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 11.5
+  },
+  "result": {
+   "tempC": -33,
+   "fraction": 0.9,
+   "sigmaInf": 0.34218,
+   "steps": 175,
+   "attached": 3091,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1328.927
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -33,
+   "fraction": 0.15,
+   "sigmaInf": 0.05703,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 11.5
+  },
+  "result": {
+   "tempC": -33,
+   "fraction": 0.15,
+   "sigmaInf": 0.05703,
+   "steps": 222,
+   "attached": 1741,
+   "aspectRatio": 1.90909,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2136.778
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -33,
+   "fraction": 0.6,
+   "sigmaInf": 0.22812,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 11.5
+  },
+  "result": {
+   "tempC": -33,
+   "fraction": 0.6,
+   "sigmaInf": 0.22812,
+   "steps": 234,
+   "attached": 4599,
+   "aspectRatio": 1,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2042.919
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -33,
+   "fraction": 0.25,
+   "sigmaInf": 0.09505,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 11.5
+  },
+  "result": {
+   "tempC": -33,
+   "fraction": 0.25,
+   "sigmaInf": 0.09505,
+   "steps": 262,
+   "attached": 3197,
+   "aspectRatio": 1.4,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2606.621
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -34,
+   "fraction": 0.1,
+   "sigmaInf": 0.039360000000000006,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 12.5
+  },
+  "result": {
+   "tempC": -34,
+   "fraction": 0.1,
+   "sigmaInf": 0.039360000000000006,
+   "steps": 205,
+   "attached": 1171,
+   "aspectRatio": 2.33333,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2011.762
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -33,
+   "fraction": 0.4,
+   "sigmaInf": 0.15208,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 11.5
+  },
+  "result": {
+   "tempC": -33,
+   "fraction": 0.4,
+   "sigmaInf": 0.15208,
+   "steps": 279,
+   "attached": 4109,
+   "aspectRatio": 1.23529,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2634.097
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -34,
+   "fraction": 0.9,
+   "sigmaInf": 0.35424,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 12.5
+  },
+  "result": {
+   "tempC": -34,
+   "fraction": 0.9,
+   "sigmaInf": 0.35424,
+   "steps": 175,
+   "attached": 3065,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1320.215
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -34,
+   "fraction": 0.15,
+   "sigmaInf": 0.059039999999999995,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 12.5
+  },
+  "result": {
+   "tempC": -34,
+   "fraction": 0.15,
+   "sigmaInf": 0.059039999999999995,
+   "steps": 228,
+   "attached": 1777,
+   "aspectRatio": 1.90909,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2292.771
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -34,
+   "fraction": 0.6,
+   "sigmaInf": 0.23615999999999998,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 12.5
+  },
+  "result": {
+   "tempC": -34,
+   "fraction": 0.6,
+   "sigmaInf": 0.23615999999999998,
+   "steps": 237,
+   "attached": 4683,
+   "aspectRatio": 1,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1992.167
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -34,
+   "fraction": 0.25,
+   "sigmaInf": 0.0984,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 12.5
+  },
+  "result": {
+   "tempC": -34,
+   "fraction": 0.25,
+   "sigmaInf": 0.0984,
+   "steps": 264,
+   "attached": 3197,
+   "aspectRatio": 1.4,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2641.362
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -35,
+   "fraction": 0.1,
+   "sigmaInf": 0.04070000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 13.5
+  },
+  "result": {
+   "tempC": -35,
+   "fraction": 0.1,
+   "sigmaInf": 0.04070000000000001,
+   "steps": 180,
+   "attached": 1087,
+   "aspectRatio": 2.33333,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1600.029
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -34,
+   "fraction": 0.4,
+   "sigmaInf": 0.15744000000000002,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 12.5
+  },
+  "result": {
+   "tempC": -34,
+   "fraction": 0.4,
+   "sigmaInf": 0.15744000000000002,
+   "steps": 276,
+   "attached": 4109,
+   "aspectRatio": 1.23529,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2606.416
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -35,
+   "fraction": 0.9,
+   "sigmaInf": 0.3663,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 13.5
+  },
+  "result": {
+   "tempC": -35,
+   "fraction": 0.9,
+   "sigmaInf": 0.3663,
+   "steps": 175,
+   "attached": 3041,
+   "aspectRatio": 0.894737,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1279.313
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -35,
+   "fraction": 0.15,
+   "sigmaInf": 0.06105,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 13.5
+  },
+  "result": {
+   "tempC": -35,
+   "fraction": 0.15,
+   "sigmaInf": 0.06105,
+   "steps": 226,
+   "attached": 1825,
+   "aspectRatio": 1.90909,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2086.822
+  },
+  "modelClass": "column",
+  "regime": "columns-and-plates",
+  "score": "agree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -35,
+   "fraction": 0.6,
+   "sigmaInf": 0.2442,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 13.5
+  },
+  "result": {
+   "tempC": -35,
+   "fraction": 0.6,
+   "sigmaInf": 0.2442,
+   "steps": 242,
+   "attached": 4743,
+   "aspectRatio": 1,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 1909.774
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -35,
+   "fraction": 0.25,
+   "sigmaInf": 0.10175000000000001,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 13.5
+  },
+  "result": {
+   "tempC": -35,
+   "fraction": 0.25,
+   "sigmaInf": 0.10175000000000001,
+   "steps": 258,
+   "attached": 3175,
+   "aspectRatio": 1.4,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2481.953
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": true,
+  "exclusionReason": null
+ },
+ {
+  "point": {
+   "tempC": -35,
+   "fraction": 0.4,
+   "sigmaInf": 0.16280000000000003,
+   "inAmbiguityBand": false,
+   "distanceToBoundaryC": 13.5
+  },
+  "result": {
+   "tempC": -35,
+   "fraction": 0.4,
+   "sigmaInf": 0.16280000000000003,
+   "steps": 279,
+   "attached": 4109,
+   "aspectRatio": 1.23529,
+   "largestExtent": 21,
+   "symmetryError": 0,
+   "deltaSymClean": true,
+   "allConverged": true,
+   "domainContact": false,
+   "seconds": 2415.979
+  },
+  "modelClass": "neutral",
+  "regime": "columns-and-plates",
+  "score": "disagree",
+  "inAmbiguityBand": false,
+  "inHeadlineScope": false,
+  "extentFragile": false,
+  "exclusionReason": null
+ }
+]
