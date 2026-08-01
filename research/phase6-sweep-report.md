@@ -5,10 +5,17 @@
 > conclusion is deliberately not drawn here" is now discharged there. Everything measured below
 > stands unchanged — 3/90, the per-regime table, the class totals, the artifact hashes. What
 > changed is that the comparison it was waiting for exists: **SDAK is a trade** (it buys 66
-> neutral→plate conversions and pays 20 of this arm's 30 columns), **neither arm produces a single
-> column in the Nakaya `columns` regime**, and the AR resolution near the class thresholds has now
-> been measured (36 distinct values in 408 measurements), which changes how the near-threshold
-> statements in §"What this does NOT establish" should be read.
+> neutral→plate conversions and pays 20 of this arm's 30 columns); **neither arm produces a column
+> in the Nakaya `columns` regime AT THE REGISTERED MEASUREMENT SIZE**; and the AR resolution near
+> the class thresholds has now been measured (36 distinct values in 408 measurements), which changes
+> how the near-threshold statements in §"What this does NOT establish" should be read.
+>
+> **That middle clause was unqualified when this pointer was written, and it is now corrected.** The
+> pre-registered size ladder measured arm 2 producing a **`column`** at −5 °C, f = 0.10 when the
+> crystal is grown to extent 29 instead of 21 — AR 1.40000 → **1.52632**, domain-adequate (N = 64 vs
+> N = 80 agree to 0.354% against a registered 0.5%) and size-converged (1.52174 at extent 35). **This
+> arm at the same −5 °C and σ∞ reaches only 0.851852**, so the column is SDAK's doing and not the
+> ruler's. Nothing in this document's tallies moves; the claim about the model does.
 
 ---
 
