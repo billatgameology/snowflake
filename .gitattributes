@@ -1,0 +1,22 @@
+# Evidence bytes are HASH-REGISTERED. Git must never rewrite them.
+#
+# Found 2026-08-01, immediately after `evidence/` was created (ADR 0038). The commit output said:
+#
+#   warning: LF will be replaced by CRLF in evidence/phase6-sweep/points.json
+#
+# This machine has `core.autocrlf=true`. The committed blob is correct — it is LF and its sha256 is
+# the registered `0ed613bc…` — but autocrlf converts on CHECKOUT, so a fresh clone on Windows would
+# write CRLF into the working tree and **every sha256 printed in the published reports would fail
+# against the file the reader actually has.** The evidence would be intact in the object store and
+# unverifiable in practice, which is the worst of both.
+#
+# `-text` disables all end-of-line conversion in both directions while keeping the files diffable
+# (unlike `binary`, which would also suppress diffs on what are JSON and SVG).
+#
+# The rule is deliberately the whole subtree: an evidence file added later must not have to remember
+# this.
+evidence/** -text
+
+# The manifests are the checking mechanism for the above, so they get the same treatment.
+evidence/MANIFEST.json -text
+evidence/OUT-TREES-MANIFEST.json -text
