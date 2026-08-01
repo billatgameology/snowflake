@@ -260,7 +260,10 @@ reference diagram is at its most structured exactly there — dendrites, sectore
   registered ±0.135 extent-drift bound of a class threshold and are flagged extent-fragile.
 - **No cross-platform control has been run.** Scoped to the registered x64 host until the arm64
   fixture runs — four tier-2 points plus the tier-1 fingerprint, per
-  `docs/phase6-cross-platform-control.md`. **MAC RUN NEEDED.**
+  `docs/phase6-cross-platform-control.md`. **RUN 2026-07-31 on arm64: tier 1 DIFFERS
+  (`2a9f64b3` → `3662b9e2`), so no bitwise claim leaves one architecture; tier 2 reproduced the
+  habit class exactly at all four points, including the exact 1.5000 tie.** See that file's
+  §Result for scope — four points, not the full sweep.
 - **The comparison target is a redrawn 1954 schematic** whose supersaturation axis WP1 measured as
   failing an independent check, which is why only its three boundary temperatures are used.
 - **The 206-observation alternative cannot substitute for it in the bands that matter.** With the

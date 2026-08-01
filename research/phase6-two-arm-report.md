@@ -498,7 +498,11 @@ irregular.** Arm 2's report was regenerated rather than written by its own sweep
 - **The registered domain spot-check had never been run** (erratum E6) — a mandatory, hashed
   criterion whose registered failure consequence is raising the whole grid to N = 64 and re-running
   it, undisclosed as outstanding until now. Being discharged by execution rather than de-registered.
-- **No cross-platform control.** Scoped to the registered x64 host. **MAC RUN NEEDED.**
+- **Cross-platform control RUN 2026-07-31 (arm64), and it splits.** Tier-1 libm digest DIFFERS
+  (x64 `2a9f64b3`, arm64 `3662b9e2`), so digit-level results stay scoped to the registered x64
+  host. Tier-2 habit class reproduced exactly at all four registered fixture points. **These arm-2
+  (SDAK) results were not themselves re-run on arm64** — the control's four points are arm-1
+  configurations, so nothing here establishes that an arm-2 point is architecture-independent.
 - **No `dxUm` convergence study under either published parameter set.** Halving the cell size costs
   roughly 60× per point. Not run, not affordable, not claimed — and per E5 the existing one does not
   substitute for it at any temperature the `columns` regime occupies.
