@@ -5,6 +5,13 @@ escalation check described in §4 — which HAS since returned (N = 64 inadequat
 
 **Date:** 2026-07-31
 
+> **SUPERSESSION NOTE 2026-08-01.** The measured spot-check results in this ADR remain evidence.
+> Its resource-based scheduling conclusion — no further production re-sweep — is superseded by the
+> maker's later science-first direction recorded in
+> [`../plans/phase-6-science-first-completion.md`](../plans/phase-6-science-first-completion.md).
+> That plan does not itself amend the frozen protocol: a replacement ADR and the required charter
+> and protocol alignment must precede new production evidence.
+
 ## 1. What happened
 
 The `domain-budgets` freeze row makes the sweep's validity at N = 48 **conditional**:
@@ -28,11 +35,14 @@ both natural readings of "fastest-growing", each re-derived from `points.json` r
 
 Three of four exceed the registered tolerance by 3–5×.
 
-**The failures are not an artifact of the fine runs.** The one PASS reproduces the coarse attached
-count *exactly* — 4551 against 4551 at a different domain. A systematic error could not do that.
+**The one PASS reproduces the coarse attached count exactly** — 4551 against 4551 at a different
+domain — so no discrepancy was measured at that condition. One exact result cannot rule out a
+condition-dependent systematic error at the other three conditions; it is an internal check on
+that row, not a proof about the fine runs as a class.
 
-**The habit CLASS is identical at all four points**, and class is the only quantity the headline
-consumes, so no published tally is shown wrong by this. What fails is the registered criterion,
+**The habit CLASS is identical at all four points**, so those four historical measured-only class
+readings do not change. The registered R15 headline was never produced and would also require the
+grid-extrapolated component. What fails here is the registered domain criterion,
 which requires identical class **and** attached counts within 0.5%.
 
 ## 2. Why it was findable only by running it
@@ -108,10 +118,13 @@ registered domain to N = 64 for the ENTIRE grid and re-run it". Executed, that w
 that does not discharge the condition it answers is a defect in the registration, and it is recorded
 here rather than quietly widened to N = 80.
 
-**Escalating N alone is unlikely to be affordable.** At the worst point the successive differences
-are 2.495% → 1.861%, a ratio of 0.746. If that geometric rate held, reaching the registered 0.5%
-would take roughly four more domain doublings beyond N = 80 — and N = 80 already costs ~12× N = 48
-per point. This is not a budget that can be bought.
+**Escalating N alone has a steep measured cost, but affordability was not established.** At the
+worst point the two observed successive differences are 2.495% → 1.861%, a ratio of 0.746. If that
+single observed ratio continued geometrically, four further reductions would leave about 0.576%,
+and **five** would leave about 0.430%, below the registered 0.5%. Those are five hypothetical
+factor-0.746 reductions, not demonstrated domain doublings; two intervals do not establish a
+convergence rate. N = 80 cost about 12× N = 48 per measured point, so the extrapolation flags a
+large resource requirement but does not prove that no affordable configuration exists.
 
 **A more promising reading, and it is being tested rather than asserted.** Every failure above is at
 the registered **extent 21**. At **extent 29**, P1's own domain check PASSED — N = 64 vs N = 80
@@ -136,16 +149,26 @@ target, and this ADR records why rather than substituting a cheaper one.**
 1. The mandated target, N = 64, is **measured inadequate** — 3 of 4 fail against N = 80 at the
    registered extent 21 (§4). Re-sweeping there would produce 408 fresh points failing the check
    that ordered the re-sweep.
-2. Escalating the domain alone is **not affordable**: successive differences run 2.495% → 1.861%
+2. ~~Escalating the domain alone is **not affordable**: successive differences run 2.495% → 1.861%
    (ratio 0.746), so reaching 0.5% needs roughly four more doublings past an N = 80 that already
-   costs ~12× N = 48 per point.
+   costs ~12× N = 48 per point.~~ **Correction:** applying 0.746 geometrically requires five more
+   reductions to move 1.861% below 0.5% (four gives about 0.576%; five about 0.430%). The observed
+   ratio and cost establish neither a convergence law nor a universal affordability bound.
 3. The alternative — a larger measurement extent, where the domain checks looked better — was
    pre-registered and tested. It returns **outcome 3, NOT CONVERGED**: the domain check fails at
    extent 35 (1.071%) even though it passes at 29 and 41.
 
-**So there is no configuration, at any affordable cost, demonstrated to satisfy the registered
+~~**So there is no configuration, at any affordable cost, demonstrated to satisfy the registered
 criterion. A sweep at an unconverged configuration buys a different unconverged number, and the
-pre-registration says so in advance.** No re-sweep is run.
+pre-registration says so in advance.** No re-sweep is run.~~
+
+> **CORRECTION 2026-08-01.** The executed configurations did not demonstrate satisfaction of the
+> registered criterion. They cannot support the broader claim that no affordable configuration can
+> do so. The later convergence study was a post-sweep diagnostic and is non-transferable to a new
+> production configuration. Its own rule labels the extent-35 domain failure “outcome 3”; the
+> earlier registered A/B/C extent ladder is separately **outcome 4, non-monotone**, because P1 falls
+> 1.52632 → 1.52174 between adjacent rungs before rising to 1.64000 in the later extension. Neither
+> diagnostic closes the production gate.
 
 **What is published instead is the non-convergence itself, measured.** That is a weaker headline and
 a stronger paper: the phase reports what its numerics do and do not support, on evidence, rather
@@ -186,8 +209,11 @@ freeze commit, and the geometry closed form at the new N.
 
 - **No published tally is shown wrong.** Habit class is identical at all four spot-check points, and
   class is what 3/90 and 54/90 score.
-- The two-arm comparison's *controlled* character is untouched: both arms ran at the same domain, so
-  whatever bias N = 48 carries, it carries equally in both and the arm-to-arm differences survive it.
+- ~~The two-arm comparison's *controlled* character is untouched: both arms ran at the same domain,
+  so whatever bias N = 48 carries, it carries equally in both and the arm-to-arm differences survive
+  it.~~ **Correction:** matching the nominal domain does not establish equal domain bias across arms;
+  different kinetics and morphologies can couple differently to the boundary. The observed
+  arm-to-arm differences survive as measurements at N = 48, not as bias-free causal estimates.
 - Everything measured about the arms' relationship — the trade, the flip census, the bistable-band
   failure — is a comparison between two artifacts produced identically, and none of it rests on the
   absolute attached count.

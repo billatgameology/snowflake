@@ -4,7 +4,7 @@
 // specify `Math.exp`, `Math.log` or `Math.pow`. Every one of this solver's physics inputs runs
 // through at least one of them — `pSatIce` and `pSatWater` (exp), `sigma0Basal`/`sigma0Prism`
 // (log and exp, via the piecewise log-log scheme), `alphaHK` (exp) — so two conforming engines on
-// two architectures may legitimately differ in the last ULP. Phase 2b pinned its exact Node/V8
+// two architectures may legitimately differ in low-order ULPs. Phase 2b pinned its exact Node/V8
 // build and declined any cross-engine bitwise claim. Phase 6 goes further and TESTS it.
 //
 // The control is deliberately two-tier, because the two tiers answer different questions and
@@ -25,7 +25,7 @@
 // alone cannot localize a failure. Both are registered.
 //
 // **A difference is a FINDING, not a failure to fix.** If a habit class differs between arm64
-// and x64, that conclusion was resting on a last-ULP coin toss and is reported as fragile. It is
+// and x64, that conclusion was resting on a low-order-ULP sensitivity and is reported as fragile. It is
 // never averaged away, and neither platform is declared correct.
 
 import {
@@ -107,8 +107,9 @@ export const PHASE6_CROSSPLATFORM_FIXTURE = {
    *
    *   robust  — smallest and largest aspectRatio among valid points. Asks whether the whole
    *             pipeline agrees across architectures. Spans plate/column, so a flip is detectable.
-   *   fragile — closest to each class threshold. Asks whether any class here is a last-ULP coin
-   *             toss. `fragile-column-floor` measured AR **exactly 1.5000**, i.e. an exact integer
+   *   fragile — closest to each class threshold. Asks whether any class here is sensitive to
+   *             low-order platform arithmetic. `fragile-column-floor` measured AR **exactly
+   *             1.5000**, i.e. an exact integer
    *             tie in lattice extents sitting precisely on the column floor — one site either way
    *             changes its class. That is the sharpest fragility probe the grid contains.
    *
@@ -229,21 +230,18 @@ export const PHASE6_LIBM_DIGEST_X64_BASELINE = "2a9f64b3";
 /**
  * The arm64 baseline, measured 2026-07-31. **It DIFFERS from the x64 baseline, and that is a
  * recorded finding, not a defect.** IEEE 754 does not specify `exp`/`log`/`pow`, so two
- * conforming libm implementations may legitimately differ in the last ULP; this measures that
+ * conforming libm implementations may legitimately differ in low-order ULPs; this measures that
  * they do.
  *
  * Host: darwin arm64, Apple M4 (4P + 6E), macOS 26.5.2, Node v24.13.1, V8 13.6.233.17-node.40 —
  * the SAME Node and V8 build as the x64 baseline, so this isolates architecture and platform
  * libm rather than engine version.
  *
- * The full 448-entry table is committed at `docs/phase6-fingerprint-arm64.txt` so the
- * per-entry diff can be taken when an x64 host is next available; no x64 per-entry file is
- * committed, which is why this difference is not yet localized to named entries.
- *
- * Localization attempted without the x64 file (`out/phase6-arm64/localize-digest.mjs`): no
- * single-entry perturbation within ±16 ULP (14 336 candidates) maps the arm64 table onto
- * `2a9f64b3`, so **the difference spans more than one entry** — consistent with a shared
- * upstream call (e.g. the `exp` in `pSatIce`) propagating into the quantities derived from it.
+ * The full 448-entry arm64 and x64 tables are preserved under `evidence/phase6-crossplatform/`
+ * and hash-registered in the evidence manifest. Their comparison localizes the mismatch to 9/448 entries, at
+ * distances 1, 1, 2, 3, 4, 5, 7, 11 and 31 ULP. The largest is
+ * `alphaHK.prism|-14.0@0.25` at 31 ULP. The architecture-neutral regression parses and digests
+ * both exact tables, so this finding is checked on x64 and arm64 alike.
  *
  * CRITICALLY: tier 1 differing did NOT change any tier-2 habit class. All four
  * `PHASE6_FIXTURE_X64_BASELINE` points reproduced exactly on arm64 — same steps, same attached

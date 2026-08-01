@@ -19,6 +19,14 @@ configuration. They are not erased, upgraded, or silently pooled into the new re
 failure to reproduce the Nakaya diagram also remains a valid measured-only result. This plan is
 about earning the registered verdict and the independent evidence that were not produced.
 
+The historical CAK→M1 comparison is also not a causal SDAK ablation. It simultaneously changes the
+broad σ₀ functions, the facet prefactors, and the M1 dip factors. A new, explicitly named
+`M1_NO_DIP_ABLATION` arm therefore matches M1 in every implemented kinetic choice except that its
+basal and prism dip factors are one: it uses `sigma0BasalM2Broad`, `sigma0PrismM2Broad`, and
+`A_basal = A_prism = 1`. CAK-versus-M1 remains a useful parameter-family comparison; only the
+matched M1-versus-`M1_NO_DIP_ABLATION` comparison may support a causal statement about those dip
+factors.
+
 ## Done when
 
 > Done when the model's temperature-vs-supersaturation morphology diagram is compared against Nakaya's, with the agreements and the disagreements both stated. A negative result is a result: if the model does not reproduce the flip, that is a finding about the model, it is reported as one, and GGThreshold still ships a beautiful crystal (Phase 2a). What is not permitted is quietly tuning until the diagram matches and calling it validation — the protocol freeze (item 1) makes that structurally impossible rather than merely forbidden.
@@ -76,30 +84,32 @@ producer-supplied pass field is trusted.
 
 ### WP0 — repair the state before making new claims
 
-- [ ] Reconcile `docs/PROGRESS.md`, `docs/HANDOFF.md`, the prior Phase 6 plan, ADR 0037, the two-arm
+- [x] Reconcile `docs/PROGRESS.md`, `docs/HANDOFF.md`, the prior Phase 6 plan, ADR 0037, the two-arm
   report, and the conclusion so they agree that the gate is active and incomplete.
-- [ ] Correct the columns diagnostic to registered outcome 4 (non-monotone) and remove every
+- [x] Correct the columns diagnostic to registered outcome 4 (non-monotone) and remove every
   surviving priority or gate-standing claim derived from that inadmissible diagnostic.
-- [ ] Recompute the symmetric extent-fragility census with an explicit boundary convention and pin
+- [x] Recompute the symmetric extent-fragility census with an explicit boundary convention and pin
   it in executable tests; do not publish 42/51 or 43/52 until the convention and raw rows agree.
-- [ ] Narrow cross-architecture prose to the four executed `CAK` configurations.
-- [ ] Add an executable M1 regression that pins the analytic base-invariant dip centre rather than
+- [x] Narrow cross-architecture prose to the four executed `CAK` configurations.
+- [x] Add an executable M1 regression that pins the analytic base-invariant dip centre rather than
   only a downstream transition count.
-- [ ] Correct stale cross-references and run the existing independent verifiers against the tracked
+- [x] Correct stale cross-references and run the existing independent verifiers against the tracked
   evidence.
-- [ ] Obtain an adversarial interpretation review before committing the corrected conclusion.
+- [x] Resolve the final non-author adversarial review and obtain a clean recheck before committing
+  the corrected conclusion. Earlier claim/R15/source audits and the closing content/verifier review
+  are complete; the closing review found no remaining content or fail-closed-verifier blocker.
 
 ### WP1 — source currency and held-out target inventory
 
-- [ ] Re-check every Phase 6 input and validation citation against its latest primary-source
+- [x] Re-check every Phase 6 input and validation citation against its latest primary-source
   version, and sweep the cited authors' later primary output for superseding forms or data.
-- [ ] Build a candidate inventory for all four charter-mandated held-out families: growth rates over
+- [x] Build a candidate inventory for all four charter-mandated held-out families: growth rates over
   named (T, supersaturation) points, size-dependent habit, pressure dependence, and deterministic
   growth-history responses.
-- [ ] Record whether each candidate is truly held out from P1–P4 inputs, its geometry and substrate
+- [x] Record whether each candidate is truly held out from P1–P4 inputs, its geometry and substrate
   conditions, observable definition, digitization/measurement uncertainty, and whether the 3-D
   lattice can make an apples-to-apples prediction without a new fitted quantity.
-- [ ] Reject targets that reuse Nakaya-tuned P3 inputs as “independent,” require an unregistered
+- [x] Reject targets that reuse Nakaya-tuned P3 inputs as “independent,” require an unregistered
   geometry mapping, or cannot be scored without looking at the model output.
 - [ ] Freeze the selected primary-source bytes or stable identifiers, extraction scripts, target
   table, uncertainty model, and source-currency record in one commit after independent review.
@@ -110,8 +120,10 @@ producer-supplied pass field is trusted.
   near-threshold and fast-growth cases, and all physical sizes selected in WP1. Reconnaissance
   outputs are explicitly non-transferable.
 - [ ] At fixed physical size and grid spacing, expand the far boundary until the registered domain
-  quantities pass on successive comparisons. A resource estimate may choose concurrency; it may
-  not declare a failing rung adequate.
+  quantities pass on two successive domain increments. Because the earlier errors were
+  non-monotone, run the pre-registered whole-grid domain matrix at every spacing and parameter arm,
+  unless an independently reviewed worst-case bound genuinely covers the omitted points. A
+  resource estimate may choose concurrency; it may not declare a failing rung adequate.
 - [ ] At fixed physical size and adequate physical boundary placement, execute at least three grid
   spacings and apply ADR 0026's fitted-order admission rule. Add a fourth spacing wherever the class
   or admission decision depends on the fit, as ADR 0026 already anticipates.
@@ -120,8 +132,12 @@ producer-supplied pass field is trusted.
 - [ ] Test relaxation caps and dual-convergence tolerances for non-vacuity at the worst registered
   points; convergence work is not physical time.
 - [ ] Freeze one production geometry mapping per grid spacing only after every registered numerical
-  control passes. If no tested configuration passes, continue the predeclared escalation or return
-  to the maker with a measured scientific obstacle; resource cost alone is not a stopping rule.
+  control passes. Freeze exact rational spacing, lattice dimensions, target and achieved physical
+  size, the allowed one-cell overshoot operator, and which spacing supplies the primary measured
+  class. Preserve physical seed geometry under refinement, state its lattice representation, and
+  execute a registered seed-representation sensitivity check. If no tested configuration passes,
+  continue the predeclared escalation or return to the maker with a measured scientific obstacle;
+  resource cost alone is not a stopping rule.
 
 ### WP3 — decision and protocol freeze
 
@@ -132,12 +148,26 @@ producer-supplied pass field is trusted.
   must name all sizes, grid spacings, physical domains, timestep controls, CPU/GPU roles, selected
   held-out targets, exact run counts, uncertainty operators, engine versions, environment policy,
   and failure consequences.
+- [ ] Freeze the complete R15 truth table before execution: primary measured spacing; inclusive,
+  boundary-safe fitted-order comparisons; admitted versus mathematically refused versus
+  missing/invalid triplets; measured-only eligibility for a refused fit; component denominators;
+  `classSurvivesGridExtrapolation`; and the class sequence used by the flip census.
+- [ ] Freeze round-trip-exact numeric serialization, underlying occupancy/extents needed for
+  independent metric recomputation, per-resolution timeout and retry limits, and the rule that a
+  timeout is infrastructure failure rather than a scientific exclusion. The historical three-hour
+  timeout is shorter than an observed fine-spacing run and cannot be reused.
 - [ ] Put every behavior-affecting value in the gated values manifest; prose remains the
-  justification, never the only pin.
+  justification, never the only pin. This includes exact rational spacings, dimensions, target and
+  achieved-size/overshoot rules, physical seed mapping, sweep domain, cross-platform fixture,
+  surface mapping, denominators, and registered output set.
 - [ ] Freeze an explicit clean child-process environment allow-list. Inherited `NODE_OPTIONS`,
   preload hooks, and equivalent out-of-repository mutation paths must fail closed.
 - [ ] Add a preflight that proves every frozen row reaches every spawned CPU/GPU invocation and is
   echoed into each result.
+- [ ] Execute production children from an immutable detached source snapshot. Hash the exact argv,
+  allow-listed environment, source tree, package manifests, lockfile, and resolved workspace
+  modules used by each child; before/after endpoint hashes are not evidence against a transient
+  source edit.
 - [ ] Subject the ADR, source freeze, protocol, cost model, and expected-result statement to a
   non-author adversarial review. Resolve findings before any production row runs.
 
@@ -149,6 +179,17 @@ producer-supplied pass field is trusted.
 - [ ] Extend the artifact schema with raw spacing rows, fitted order, admission reason,
   extrapolated value/class, measured/extrapolated agreement components, conservative-intersection
   verdict, and a counted `not-extrapolatable` state.
+- [ ] Replace six-significant-digit stdout ingestion with canonical structured records that preserve
+  every binary64 number round-trip exactly. Independently recompute aspect ratio from retained
+  occupancy/extents, and test values immediately on both sides of the 2/3, 1.5, 0.7, and 1.5 fit
+  boundaries, including exact endpoints and nonfinite, constant, and non-monotone sequences.
+- [ ] Require the exact frozen raw key set before reduction. For the two charter arms the minimum is
+  1,224 valid raw rows forming 408 complete triplets; a missing, timed-out, duplicated,
+  unparseable, or shifted row fails the artifact rather than shrinking a denominator. The matched
+  no-dip arm adds its separately frozen cohort.
+- [ ] Stage results atomically in canonical key order while retaining exact stdout, stderr, exit
+  status, convergence trace, argv, environment fingerprint, source snapshot identity, and compact
+  occupancy/extents for every child.
 - [ ] Compute all reports, tables, diagrams, and the final verdict from the artifact rather than
   from producer summaries.
 - [ ] Add independent recomputation that imports neither the sweep producer nor its evaluator.
@@ -180,6 +221,10 @@ producer-supplied pass field is trusted.
   requires the registered spacing cohort, so the historical R15 minimum is 612 forward runs before
   any added convergence or held-out rows.
 - [ ] Run the frozen three-spacing SDAK (`M1`) matrix separately, again at least 612 forward runs.
+- [ ] Run the frozen three-spacing `M1_NO_DIP_ABLATION` matrix separately, again at least 612
+  forward runs, with a manifest-level proof that the only kinetic difference from M1 is replacement
+  of both registered dip factors by one. Use this matched pair—not CAK→M1—for any causal statement
+  about the M1 dip factors.
 - [ ] Run independent cases in isolated parallel processes within measured RAM limits; preserve a
   live log, stderr, exit status, checkpoint/result bytes, and immutable manifest entry per case.
 - [ ] Stop and invalidate by name on any domain contact, convergence failure, symmetry split,
@@ -197,7 +242,10 @@ producer-supplied pass field is trusted.
 - [ ] Run the frozen pressure comparison with diffusivity and latent-heating limitations carried
   explicitly; do not attribute a mismatch to one omitted mechanism without a discriminating test.
 - [ ] Run the frozen schedule/history comparison using decision 0011 event semantics and compare
-  predeclared observables at predeclared times/sizes.
+  predeclared observables at predeclared times/sizes. Do not freeze a target until its free-crystal
+  or explicitly implemented supported/needle geometry, temperature, supersaturation history,
+  pressure, and observables are apples-to-apples with the solver; absence of an admissible current
+  target is a geometry/model-scope result, not permission to score a near miss.
 - [ ] Report each family independently. Failure or non-comparability in one family is not averaged
   away by another, and P3-active outcomes remain in-sample even when a held-out observable is used.
 
@@ -227,11 +275,11 @@ numerical reconnaissance (non-transferable)             │
               │                                         │
               └── production protocol + ADR freeze      │
                                │                         │
-              ┌────────────────┼───────────────┐         │
-              │                │               │         │
-       float64 CAK R15   float64 M1 R15   preview GPU    │
-              │                │               │         │
-              └────────────────┴──────┬────────┘         │
+              ┌────────────┬──────────┼───────────────┐  │
+              │            │          │               │  │
+       float64 CAK   float64 M1   matched no-dip  preview GPU
+              │            │          │               │  │
+              └────────────┴──────────┴──────┬────────┘  │
                                      │                  │
                          independent byte re-derivation │
                                      │                  │
@@ -282,14 +330,32 @@ tolerance without a derivation.
 **Choose held-out targets after seeing which ones agree.** Rejected. Targets, extraction,
 uncertainty, scoring, and failure handling freeze before model output is generated.
 
+**Use Libbrecht–Arnold 2009 as held-out CAK validation.** Rejected by source currency. The later
+−5 °C reanalysis says the original kinetic interpretation was largely incorrect, chamber
+supersaturation was not accurately known, and CAK is assumed in the reinterpretation.
+
+**Freeze the archive's pressure thresholds without primary reconciliation.** Rejected. Gonda and
+Gomi's primary prose reports about 1.7/4.1/10.1%, while the later archive reports materially
+different 2.84/5.83% values for nominally corresponding pressures. Observable definitions and
+digitization must be reconciled first.
+
+**Call a supported prescribed-history experiment a free-crystal test.** Rejected. The best exact
+history found is substrate-grown and depends on rim width/step-source/asymmetric transport absent
+from the solver. Takahashi is free fall but constant-environment ensemble data, not one-crystal
+history. No current candidate discharges the history obligation honestly.
+
 **Let resource exhaustion become a passing scientific result.** Rejected. Resource measurements
 are reported and may trigger a maker-visible engineering redesign, but they cannot relax a frozen
 criterion or turn absence of evidence into validation.
 
 ## Open questions
 
-- Which primary-source observations survive the currency/independence audit for each held-out
-  family? WP1 answers this before target freeze.
+- Takahashi's early −5.3 °C free-cloud dimensions are the leading conditional growth/size target.
+  What independent extraction and uncertainty operator make them freeze-ready, and where must the
+  comparison stop before topology/riming/ventilation make it non-comparable?
+- Pressure and prescribed-history targets do not match current geometry/physics. Should a future ADR
+  add substrate/thermal/step-source physics, or should those charter obligations remain explicitly
+  incomplete until a compatible free-crystal dataset is acquired?
 - What physical crystal size or size strata make the Nakaya comparison apples-to-apples with the
   selected reference? This must be sourced and frozen, not inferred from the prior ladder.
 - What domain/grid/timestep configuration passes at the eventual physical sizes? WP2 measures it;

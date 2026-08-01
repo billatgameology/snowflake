@@ -4,6 +4,12 @@
 All three published artifacts verified at rest against `research/phase6-sweep-report.md:56-60`:
 `points.json` 0ed613bce61e4482…, `report.json` 71ae094c38778b0d…, `diagram.svg` 40458703061af5b5…
 
+> **Closure state corrected 2026-08-01.** R15 remains a Phase 6 gate blocker. R54 and R55 now have
+> independently recomputed diagnostic outputs, but neither is carried by the historical artifacts
+> and no generic preflight proves every registered output exists. Endpoint source hashing does not
+> close transient edits or inherited-environment injection. The science-first replacement must use
+> an immutable snapshot, environment allow-list and a new artifact-derived gate.
+
 ## Closure log
 
 Appended as recommendations land. Section 5's table is the plan and is left as written; this is what
@@ -18,26 +24,24 @@ has actually been done, so the two can be compared rather than conflated.
 | **14** | **CLOSED** | ADR 0035 | `phase6UnaccountedDefaults()` walks `GROW_LK_DEFAULTS` and requires every key in a named bucket. `steps` is now registered on the fixture and checked, not called harmless. |
 | **3** | **CLOSED** | `.github/workflows/test.yml` + `runner/test/suite-integrity.test.ts` | CI runs exact `npm test`, unmodified. The suite test pins the `include` list both ways (no missing glob, no extra) and a per-workspace test-file floor. **Expected RED** on the delegated `docs/education` Rule 7 violations — a CI red for a named, owned reason is working. |
 | **11** | **CLOSED** 2026-07-31 | `solver-cpu/src/lk-solver.ts` + `solver-cpu/test/lk-solver.test.ts` + `runner/test/suite-integrity.test.ts` | `LKSolver` now THROWS when `testAlphaOverride` or `testExtraSeedSites` is set without `testMode: true`, and throws **first**, before any other validation, so a real misuse cannot be misread as a config typo. Six tests exercise it (both hooks, `testMode: false` treated as refusal not absence, precedence over an invalid `surfacePolicy`, the opt-in still working, and an unhooked construction unaffected). The guard is only worth anything while the evidence path cannot SATISFY it, so a suite-integrity test asserts `runner/src/main.ts` contains none of `testAlphaOverride`, `testExtraSeedSites`, `testMode` — a future `--test-mode` flag would silently re-open R26 and now fails first. Found by execution, not review: adding the hook to the runner had scored plate/AGREE with `configFailures = []`, every hash unmoved, preflight clean and the suite green. |
-| **10** | **GATE half CLOSED**, fields deferred | `phase6ExecutionFingerprint` / `phase6SourceGraph` / `phase6CompletionDrift` | The gap was **temporal**: preflight checks a clean tree once, at hour zero, then the sweep runs unattended for hours. All 39 files under `core/src`, `solver-cpu/src`, `runner/src` are now hashed before the first child and again after the last, and `phase6RunSweep` **throws** on any drift — so `report.json` and `diagram.svg` are never written. Verified end to end: it throws today, naming the dirty tree. |
+| **10** | **PARTIAL — endpoint drift only** | `phase6ExecutionFingerprint` / `phase6SourceGraph` / `phase6CompletionDrift` | Hashing before the first and after the last child detects persistent tracked-source drift. It cannot detect a transient edit used by some children and reverted before completion, ignored module-resolution shadows, or an inherited `NODE_OPTIONS` loader. R15 requires an immutable detached source snapshot, resolved-module/package hashes and explicit child environment; endpoint equality is not execution identity. |
 
-| **15** | **PARTIAL — one of three discharged, none de-registered** | `docs/phase6-protocol-errata.md` E5/E6, `app/scripts/phase6-domain-spot-check.mjs` | Three registered outputs are absent from both arms, and all three are now **documented rather than quietly carried**. **R54** (the domain spot-check, whose registered failure consequence is a full-grid re-run at N = 64) is being **discharged by execution**, not de-registered: the published N = 48 row is the coarse side by construction, one N = 64 run supplies the fine side, and both natural readings of "fastest-growing" are re-derived from `points.json` for **both** arms rather than assumed. **R15** (the headline is registered as the conservative intersection of measured and grid-extrapolated class; both arms publish measured class only) and **R55** (the flip count) remain OPEN. R15 cannot be discharged at the registered budget — the operator needs three grid spacings per point, i.e. 612 runs per arm — and ADR 0031's precedent forbids the cheap alternative of amending the registration to describe what the code does. See E5 for why the existing WP3 calibration cannot stand in. |
+| **15** | **PARTIAL — R54/R55 measured externally; R15 open** | errata E5/E6; `phase6-domain-spot-check.mjs`; `phase6-flip-census.mjs` | R54 executed and returned negative evidence: N = 48→64 fails 3/4 sampled checks and N = 64→80 also fails 3/4, so the old automatic N = 64 remedy does not establish adequacy. R55 is independently recomputed: each arm has two `plate→column` flips total under the pure-class operator and zero reverse flips. Neither output is embedded in the historical artifact, and the generic output-completeness preflight remains absent. **R15 remains OPEN and blocking:** the published measured-only counts are not the registered conservative intersection. The repaired minimum is 612 raw runs per charter arm, plus the matched no-dip arm; the historical budget does not discharge it. |
 | **—** | **PROPAGATED** 2026-07-31 | `docs/phase6-protocol-errata.md` E5, E6 | Two findings the 2026-07-29 adversarial audit rated CRITICAL and HIGH had never left `phase6-soundness-audit-2026-07-29.raw.txt` — no ADR, no erratum, no report carried them. Being discovered and written down is not the same as being propagated, and the raw file is not where a reader of the evidence meets a limitation. Both are now errata, and both were re-derived independently before being recorded rather than transcribed on the audit's authority. |
 
-**On rec 10's split.** The register asked for the provenance fields to be recorded in `report.json` as
-well, which needs an ADR because it changes a published schema. Deferred to the arm-2 freeze, where
-rec 5 revises that schema anyway — writing it twice would re-pin `report.json`'s digest twice. The
-half that **gates** landed now, because the maker's constraint is about execution, not reporting: *no
-evidence run executes while another session is committing to main until the completion-time re-check
-exists.* It exists.
+**On rec 10's split.** The historical endpoint check exists and catches persistent tracked drift.
+The 2026-08-01 audit showed why calling the gate half closed was wrong: equal endpoints cannot prove
+which bytes each child executed, and the child environment is inherited. The replacement artifact
+schema and immutable execution path are required before new production evidence.
 
-**Consequence worth stating plainly:** arm 2 cannot run until the delegated `docs/education` work is
-committed, because the tree is dirty and both preflight and the completion check refuse. That is the
-constraint operating as designed, not an obstacle to route around.
+**Historical consequence superseded:** arm 2 subsequently ran. New Phase 6 production remains barred
+until the repaired protocol, immutable source snapshot and explicit environment boundary are frozen.
 
 **Not yet closed, and the ones that matter most:** **5** (artifact identity and per-row config),
 **6** (the libm digest is collected but not gated), **8** (registered *values* are not themselves
-hashable), **11** (the solver's test hooks are reachable on an evidence path), **15** (the published
-headline is computed by a different rule than the `uncertainty-reporting` row registers).
+hashable), **10** (execution identity/environment is not closed), and **15** (the published
+measured-only counts use a different rule from the registered conservative intersection and no
+generic output-completeness gate exists). Recommendation 11 is closed as recorded in the table.
 
 One correction to this register's own text, found while closing rec 2: it recommended requiring
 `largestExtent === fixture.targetExtent`. Extent can rise by two in a step, so a correct run can end

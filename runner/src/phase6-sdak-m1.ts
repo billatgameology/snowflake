@@ -6,10 +6,12 @@
 // with the Nakaya diagram (charter §2.5), so agreement obtained with them is in-sample reproduction
 // and never validation (ADR 0005).
 //
-// `log` is BASE 10. Established 2026-07-29 and worth restating because the papers do not say so:
-// with natural log the dip centres land at 3.08 and 8.07 degrees and M1 produces FIVE transitions on
-// the registered grid; with log10 they land at 4.5 and 14.4 degrees exactly as the paper's own prose
-// describes them, and M1 produces three.
+// `log` is BASE 10. Established 2026-07-29 and worth restating because the papers do not say so.
+// Changing the base rescales each dip's width and changes the registered-grid transition count; it
+// cannot move a dip centre. For `1 - q * exp(-(log T - log c)^2 / w)`, every logarithm base gives
+// the dip factor its minimum at T = c; the exponential term itself has its maximum there. The
+// previously quoted 3.08 and 8.07 values are alphaHK crossing locations, not centres.
+// The paper's plotted widths and the three registered transitions select log10 here.
 //
 // **A = 1 for every facet**, by the paper's own choice: "To keep M1 relatively simple, we chose to
 // set A = 1 in Equation 3 for all growth conditions". That single fact is what makes the arm's sense

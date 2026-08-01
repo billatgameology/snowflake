@@ -1,11 +1,19 @@
 {
  "schema": "phase6-evidence-manifest-v1",
- "movedFrom": "out/ (gitignored)",
+ "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
- "note": "Every digest below was computed before the move and re-verified after it. These are the same bytes the published reports hash, not a re-creation.",
- "fileCount": 16,
- "totalBytes": 937834,
+ "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
+ "fileCount": 18,
+ "totalBytes": 974627,
  "files": {
+  "phase6-crossplatform/arm64-libm-fingerprint.txt": {
+   "bytes": 18398,
+   "sha256": "d6686f8e687bc4328cf693febe0325932077582f4fd3445bf6d6010e9bce0c02"
+  },
+  "phase6-crossplatform/x64-libm-fingerprint.txt": {
+   "bytes": 18395,
+   "sha256": "c21fa3775360cfb910d524bf34eb2a6fef76059476805e50b9acb7531f6b53a4"
+  },
   "phase6-columns-ladder/ladder-BACKUP-20260731-162007.json": {
    "bytes": 33423,
    "sha256": "f5ded51630221f180f33fa5273dad1636a6b0ef2ce83a3816c133a9a844d8ac6"

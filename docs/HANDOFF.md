@@ -1,152 +1,180 @@
-# Handoff — state at the close of Phase 6 (2026-08-01)
+# Handoff — Phase 6 science-first completion active (2026-08-01)
 
-Read this first, then `research/phase6-conclusion.md`, then `docs/phase6-lessons.md`.
+Read this file, then `docs/phase6-lessons.md`, `docs/PROGRESS.md`, and the active
+`docs/plans/phase-6-science-first-completion.md`. The older
+`docs/plans/phase-6-nakaya-validation.md` is historical registration, not the live schedule.
 
 ## 1. Where the project is
 
-**Phases 2b, 3, 4, 5 complete. PHASE 6 CONCLUDED; MEASURED-ONLY NAKAYA REPRODUCTION FAILED. THE
-REGISTERED SCIENTIFIC GATE REMAINS INCOMPLETE.**
+**Phases 2b, 3, 4 and 5 are complete. Phase 6 is ACTIVE AND INCOMPLETE.** The maker accepted the
+historical failure to reproduce the Nakaya diagram and directed the science-first branch of O1b:
+execute the omitted obligations rather than narrow the charter. Resource cost may control scheduling
+and concurrency; it may not weaken a scientific criterion.
 
-> **Status corrected 2026-08-01 after independent external review** (Codex/GPT-5, no involvement in
-> the authoring sessions). It reproduced every measured number — arm 1 3/90, arm 2 54/90, classes
-> 6/168/30 and 75/119/10, zero stored-class mismatches, two `plate→column` flips per arm and zero
-> `column→plate` — and found no solver defect. **It also found that this file previously said
-> "Phase 6 concluded" without qualification, which reads as a cleanly completed gate. It is not
-> one.**
->
-> **3/90 and 54/90 are valid measured-only counts, NOT registered headline verdicts** — the
-> pre-registered conservative-intersection rule was never implemented (**O3 / R15**, and it is a
-> BLOCKER for gate acceptance, not a footnote). Charter obligations were also omitted without an
-> amending ADR: held-out validation, and the "hundreds of automated runs at preview resolution" on
-> the GPU harness (charter line 311) — the executed work used the float64 CPU oracle at ~78 000
-> active cells. **Do not report this phase as a completed gate.**
->
-> Full accepted-findings list at the head of `research/phase6-conclusion.md`.
+The two historical extent-21 artifacts remain valid measured-only results:
 
-Exact `npm test` green: **74 files, 1332 tests**, `rule7` clean. Working tree clean.
+| artifact | measured-only agreement | classes plate / neutral / column | scope |
+|---|---:|---:|---|
+| CAK | 3/90 | 6 / 168 / 30 | 204 rows, broad-facet parameterization |
+| M1 | 54/90 common; 54/78 arm scope | 75 / 119 / 10 | 204 rows, dipped parameterization; in-sample |
 
-### What Phase 6 established
+They are **not** ADR 0026's registered conservative-intersection headline. R15 has no production
+caller or complete artifact/gate. The charter's held-out comparisons and hundreds of automated
+preview-resolution GPU runs were not executed. Do not report Phase 6 as a completed gate.
 
-- **SDAK is a trade**: buys 66 neutral→plate conversions, pays 20 of arm 1's 30 columns. In
-  `columns-and-plates` — the easiest regime on the board — arm 2 is *worse* than the control.
-- **Neither arm ever produces a `column→plate` flip** in 408 measurements. The reference needs one at
-  −9.9 °C. The model's habit sequence is monotone in temperature.
-- **SDAK produces the −5 °C column its author says it requires**: 1.52632 (`COLUMN`) against a
-  matched no-SDAK control's 0.851852 at identical T, σ∞ and measurement size. Low-supersaturation
-  specific — at f = 0.90 the control also climbs toward the floor with size.
-- **Habit classes cross architectures; digits do not** (x64 `2a9f64b3` vs arm64 `3662b9e2`, tier 2
-  identical at all four points).
+CAK→M1 is not a causal SDAK ablation: it changes broad `sigma_0` functions and facet prefactors as
+well as M1's dip factors. The active plan adds `M1_NO_DIP_ABLATION`, matching M1 except that both dip
+factors are one. Only that matched pair may support a causal statement about those factors.
 
-### What Phase 6 could not establish
+## 2. Corrections landed in the current working tree
 
-- The headline numbers (3/90, 54/90) describe the model **at extent 21**, and extent 21 is measured
-  unable to resolve the `columns` regime.
-- The registered domain **fails its own registered check**, and so does the fix that check mandates.
-- **No configuration is demonstrated converged** (pre-registered outcome 3). No re-sweep was run.
-- No Δx study exists warmer than −15 °C under either executed parameter set.
+The current correction unit is deliberately kept together pending exact root verification. Its
+final non-author content/verifier review is clean. It includes:
 
-## 2. Open items, ranked
+- M1's analytic dip centres are 4.5 °C and 14.4 °C under both `log10` and `ln`; 3.08/8.07 are
+  `alphaHK` crossing locations, not moved centres. Executable regression added.
+- The exact registered columns cohort is P1–P4 × A/B/C = 12 rows. Its fail-closed reader now compares
+  consecutive rungs and reports P1 **outcome 4**: 1.40000 → 1.52632 → 1.52174. Six later diagnostics
+  are separate. Missing, duplicate, shifted and fall-removed mutations are rejected.
+- A closed symmetric ±0.135 threshold distance flags 43 additional CAK rows and 52 additional M1
+  rows, for totals 59/204 and 85/204. The extra boundary rows have AR exactly 1.500.
+- At f = 0.90 the two arms have identical classes at all 34 temperatures, but raw AR differs in
+  28/34 pairs; maximum sampled `|ΔAR| = 0.218335`.
+- Cross-architecture scope is four CAK configurations only. The live fingerprint differs in 9/448
+  entries at 1–31 ULP; all four output rows reproduce exactly. No M1 or full-grid portability claim.
+- The flip operator scans pure classes, skips neutral rows and finds two `plate→column` flips per
+  arm: one on 2/6 constant-f ladders, none on 4/6, and zero reverse flips. Independent verifiers now
+  label their output **MEASURED-ONLY AGREEMENT**, not headline.
+- The withdrawn `sigma_0`-crossing structural theorem is marked retracted at every reviewed live
+  propagation point. Habit depends on full `alphaHK` and the diffusion-determined surface field.
+- ADR 0037's measurements remain: N = 48→64 fails 3/4 sampled checks and N = 64→80 fails 3/4. Its
+  no-re-sweep resource decision is superseded. A ratio of 0.746 would require five further
+  reductions to get below 0.5% (four gives about 0.576%, five about 0.430%), and is not a convergence
+  proof.
 
-### O1 — Full-grid re-measurement of the `columns` regime at extent 29 — HIGHEST VALUE
+## 3. Why R15 cannot be launched yet
 
-The single job that converts the conclusion's biggest limitation into an answer. **Now scoped rather
-than open-ended.** Measured cost: N = 64 / extent 29 ran 166–297 min per point, so a two-arm 408-point
-sweep is roughly **1130 core-hours (~4 days at 12 concurrent)**.
+Do not extend the legacy 204-row loop in place. The reviewed minimum for the two charter arms is
+1,224 raw runs: 612 per arm, reducing to 204 complete three-spacing triplets per arm. The matched
+no-dip arm adds at least 612 raw runs. Before any production row, a replacement ADR/protocol must
+freeze and independently review all of the following:
 
-**Before launching, read `docs/phase6-lessons.md` §B3** — the registered domain criterion is *not*
-satisfied at any configuration tested, so this re-measurement would produce a better-founded number
-that still fails the same check. Decide deliberately whether that is worth 4 days; it is a maker
-decision, and ADR 0037 §5 explains why no re-sweep was run under the current criterion.
+- exact rational spacings, dimensions, physical target/achieved size and one-cell overshoot rule;
+- a physical seed representation held fixed under refinement, plus a seed-mapping sensitivity test;
+- which spacing supplies the primary measured class and the exact admitted/refused/invalid truth
+  table, denominators and boundary-safe fitted-order comparisons;
+- whole-grid domain escalation at every spacing/arm until two successive increments pass, unless an
+  independently reviewed worst-case bound genuinely covers omitted points;
+- fixed-physics timestep and relaxation controls;
+- round-trip-exact structured binary64 output with independently recomputable occupancy/extents;
+- exact raw key set; missing, timeout, duplicate, malformed or shifted rows fail rather than shrink a
+  denominator;
+- per-resolution timeout/retry rules—the old three-hour timeout is shorter than an observed fine run;
+- immutable detached source snapshot; exact argv; environment allow-list rejecting `NODE_OPTIONS` and
+  preload hooks; per-child source/environment/provenance hashes; canonical atomic publication;
+- a flagless artifact-derived `gate6` with independent recomputation and adversarial controls.
 
-### O1b — CLOSE THE GATE, OR NARROW IT BY ADR — REQUIRED BEFORE PHASE 6 IS "COMPLETE"
+The historical prose tuple was not fixed physics: the radius-2/thickness-1 seed stayed fixed in
+cells while spacing changed, and 11×0.7, 21×0.35 and 33×0.2333 measure about 7.70, 7.35 and 7.70 µm.
+Human stdout also rounded AR to six significant digits, enough to change habit and fitted-order
+boundary decisions. Historical ladder rows cannot be upgraded into R15 evidence.
 
-Raised by external review 2026-08-01. Phase 6 cannot be reported as a completed gate until one of:
+## 4. GPU and held-out obligations
 
-- **Execute R15** (the conservative-intersection headline, 612 runs per arm) **and** the charter's
-  held-out validation + preview-resolution GPU runs; **or**
-- **An explicit maker decision, via ADR and charter amendment, that narrows the gate** — recording
-  that the float64 CPU oracle at ~78 000 cells replaces the GPU harness clause, and that held-out
-  validation is deferred with a named owner.
+The existing WGSL Phase 6 path is v5/CAK/Dirichlet-oriented. Before the GPU cohort it needs v6's
+order-invariant reduction, M1 and matched no-dip routing as registered, monopole-matched far field,
+and a derived binary32 convergence envelope validated against float64. Copying float64 tolerances or
+calling CPU rows “GPU harness” is not allowed. The charter minimum remains hundreds of automated
+runs at approximately eight million active cells; the active target is the full 204-point CAK and M1
+grid (408 preview-budget runs), reported separately from the float64 headline.
 
-The second is legitimate and probably correct; what is not legitimate is leaving the charter saying
-one thing and the evidence being another. **Do not close this by quietly restating the registered
-rule to match what was built** — ADR 0031 rejected that move by name.
+The primary-source currency audit and candidate inventory are complete; the selected target/evidence
+freeze is still open. Current findings:
 
-### O2 — Preflight asserts every registered output was produced — HIGHEST LEVERAGE
+- Takahashi et al. 1991 free-cloud-chamber a/c trajectories appear structurally held out from the
+  CAK fit and are the leading size/growth candidate, subject to primary-data uncertainty review.
+- No admissible free-crystal prescribed-environment history matching the current geometry has been
+  found. Supported or needle histories require implementing/matching that geometry before scoring.
+- Do not freeze a pressure threshold: a 2024 archive extraction disagrees materially with Gonda and
+  Gomi's 1985 primary prose, so observable definitions and source currency must be reconciled first.
+- Libbrecht and Arnold 2009 is not held-out validation; Libbrecht's 2020 reanalysis says its original
+  kinetic interpretation was largely incorrect and the actual supersaturation was not known.
 
-`docs/phase6-lessons.md` "What could NOT be automated". A registered check nothing calls and a
-registered output nothing produces are indistinguishable from not being registered. This one check
-would have caught **E6, R15 and R55** generically. Not implemented. Small compared to what it
-prevents.
+## 5. Ranked next actions
 
-### O3 — R15: the registered conservative-intersection headline rule was never implemented
+1. Finish the WP1 selected-target/evidence freeze and freeze no target until geometry, independence,
+   observable definition, source currency and uncertainty all pass review.
+2. Execute WP2's fixed-physics numerical reconnaissance and whole-grid domain/grid/timestep campaign;
+   record every probe as non-transferable until it matches the eventual registered configuration.
+3. Write the replacement science-first ADR and amended Phase 6 protocol only after WP1/WP2 supply
+   the missing target and numerical inputs. A plan is already committed;
+   the ADR must quote every affected/no-impact charter clause and preserve ADR 0037's negative data.
+4. Implement a new versioned `phase6-r15-*` evidence path and flagless gate, then adversarially review
+   it before any registered production row.
+5. Execute the frozen numerical campaign, CPU arms, matched ablation, GPU cohort and held-out families
+   in that order only where the preceding freeze/adequacy dependency is satisfied.
 
-Needs three grid spacings per point — 612 runs per arm — which the registered budget never contained.
-**A defect in the registration, not a shortcut in the implementation.** Do not close it by amending
-the registration to describe what the code does; ADR 0031 rejected exactly that move by name.
+## 6. Standing constraints
 
-### O4 — E5: no Δx convergence study warmer than −15 °C under either executed set
+- Do not push unless asked. Local commits are intentionally unpushed.
+- `docs/education/**` is delegated to a separate session; do not touch it. Corrections that propagated
+  there remain a named external dependency.
+- Preserve `.claude/settings.local.json`; it is untracked user state, not part of this correction.
+- Treat accepted `out/phase5*`, `out/phase2b/`, `out/phase4/` and `out/phase4-visual/` as read-only.
+- Never relabel Windows/Chromium/D3D12 evidence as Metal or general WebGPU portability.
+- Calibration/reconnaissance probes are non-transferable unless they use the exact registered
+  configuration; they never enter a gate by prose.
+- Only exact `npm test` counts as the full local check. Name the exact command and result.
+- A verdict is recomputed from published bytes; no component supplies both sides. Every negative
+  control must prove its named mutation occurred independently of the verifier it attacks.
+- No long Phase 6 evidence run from a moving working tree or inherited environment.
 
-WP3's campaign ran `CAK_A1`, which ADR 0031 invalidated. Its cold arm is bit-identical under `CAK`
-and survives; its warm arm is a different crystal. The whole `columns` regime is warmer than −15 °C.
-Halving Δx costs ~60× per point.
+## 7. Repository state and current verification
 
-### O5 — Host decision
+- Branch `main`; local commits remain unpushed. This reviewed correction unit is intentionally kept
+  as one commit.
+- `.claude/settings.local.json` is untracked user state and intentionally untouched.
+- Historical production sweep bytes were not modified. The arm64 fingerprint was relocated
+  byte-identically from `docs/` into the manifest-guarded evidence tree (18,398 bytes, SHA-256
+  `d6686f8e...`); a complete x64 lightweight fingerprint fixture was added beside it and the
+  evidence manifest updated. Neither is a production sweep.
+- Targeted verification completed so far:
 
-`docs/arm64-host-assessment.md`, with the measured correction at its head. **The Mac is 1.69× faster
-in aggregate throughput** — "performance is a wash" was withdrawn on measurement. The recommendation
-still stands (do not migrate wholesale) on **headroom (24 GB vs 64 GB, binding at the queued 72³),
-reference continuity for an x64-pinned corpus, the macOS `TMPDIR` blocker, and the GPU** — none of
-which a throughput gain addresses.
-
-### O6 — Small and worth doing
-
-- Fix the macOS `TMPDIR` symlink issue so the suite passes there without a workaround (31 of 32
-  failures come from `os.tmpdir()` being a symlink and tripping the Phase 5 evidence guard on the
-  test harness's own scaffolding).
-- Decide whether the earlier-phase binaries in `out/` (862 MB, digests registered in
-  `evidence/OUT-TREES-MANIFEST.json`) should move to **Git LFS**. ADR 0038 explains why that was not
-  taken unilaterally.
-
-## 3. Standing constraints — carry these forward
-
-- **Do not push unless asked.** There are unpushed commits; see §4.
-- **Never attempt the Mac/arm64 work from this machine.** (The cross-platform control is now DONE.)
-- **`docs/education/**` is delegated to a separate session.** Do not touch it.
-- **Read-only, digests only:** `out/phase5*`, `out/phase2b/`, `out/phase4/`, `out/phase4-visual/`.
-- **Metal is deferred.** Never relabel Windows GPU evidence as Metal or claim general WebGPU
-  portability.
-- **Calibration probes are never citable as gate evidence.**
-- **Only exact `npm test` counts as the suite being green**, and the command must be named beside the
-  claim.
-- **Rule 6** — state the measured claim, not the strongest one. Theorem words need a derivation about
-  the quantity the claim governs.
-- **Rule 7** — `alphaHK*` and `ggThresh*`; never bare `alpha`/`beta`.
-- **Rule 9** — a verdict is computed from published artifacts; no component supplies both sides.
-- **Rule 13** — interpretive documents get their adversarial audit *before* publication.
-
-## 4. Repository state
-
-- Branch `main`, tree clean. **Unpushed commits present** — the last push was a safety step before
-  deleting `mac-branch`.
-- **Evidence is tracked** at `evidence/` (ADR 0038), 16 files + 2 manifests, fresh-clone reproducible
-  (verified by checking `HEAD` into a throwaway worktree and re-hashing: 16/16).
-- `out/` is scratch and may be deleted. 862 MB of earlier-phase artifacts remain there with digests
-  registered.
-- A detached worktree `G:/Code Files/snowflake-phase6-arm2` exists for evidence runs, so HEAD cannot
-  move under a long sweep (the structural fix from erratum E4). **Use it for any long run.**
-
-## 5. How to verify everything from scratch
-
-```sh
-npm ci
-npm test                                              # 74 files, 1332 tests
-node app/scripts/phase6-wp5-independent.mjs           # arm 1  -> PASS
-node app/scripts/phase6-arm2-independent.mjs          # arm 2  -> PASS
-node app/scripts/phase6-arm2-negative-controls.mjs    # 16 controls, 15 CAUGHT / 1 GAP by design
-node app/scripts/phase6-diagram-reconcile.mjs         # figures are the data -> PASS
-node app/scripts/phase6-flip-census.mjs               # the registered flip count
-node app/scripts/phase6-ladder-read.mjs               # the size ladder against its pre-registration
+```text
+node app/scripts/phase6-ladder-read.mjs
+node app/scripts/phase6-flip-census.mjs
+node app/scripts/phase6-wp5-independent.mjs
+node app/scripts/phase6-arm2-independent.mjs
+node app/scripts/phase6-diagram-reconcile.mjs
+npx vitest run runner/test/evidence-integrity.test.ts runner/test/phase6-ladder-reader.test.ts runner/test/phase6-independent-evidence-scripts.test.ts runner/test/phase6-sdak.test.ts runner/test/phase6-sweep.test.ts runner/test/phase6-crossplatform.test.ts runner/test/phase6-protocol.test.ts
+npm run lint:rule7
 ```
 
-Everything reads from `evidence/`. No prior artifacts, no network, no GPU.
+All five direct readers/verifiers pass. The combined focused run is **7 files / 125 tests passed**,
+including evidence integrity and ten fail-closed reader/verifier regressions. Exact root `npm test`
+exited 0 in 735.4 seconds on the final candidate: Rule 7 clean across 408 files, both TypeScript
+projects passed, and Vitest passed **76 files / 1,347 tests** in 725.74 seconds. `git diff --check`
+is clean. The closing reviewer separately invoked `npm.cmd test`; its 600.4-second tool ceiling
+terminated the still-passing run with exit 124 after Rule 7 and both typechecks completed, so that
+reviewer attempt is explicitly a timeout, not a second full-suite pass.
+
+## 8. Review provenance and limits
+
+The 2026-08-01 claim audit used OpenAI `gpt-5.6-sol` at ultra reasoning. It inherited the current
+request/handoff context but did not author Phase 6. It independently re-executed both historical
+artifact verifiers, diagram reconciliation, flip census, ladder reader, direct JSON class/fragility/
+f = 0.90 recomputations and the live fingerprint, and inspected CAK/M1 mappings. Separate non-author
+reviews audited R15 and the GPU/held-out seams.
+
+The closing content/verifier review used OpenAI `gpt-5.6-terra` at ultra reasoning. It shared the
+task/handoff context, did not author or edit the candidate, and independently rechecked the focused
+7-file / 125-test suite, evidence integrity, both complete fingerprint tables and their manifest,
+reader mutation coverage, Rule 7, both typechecks and `git diff --check`. It found no remaining
+content or fail-closed-verifier blocker. Its attempted repository-wide test hit the 600.4-second
+tool limit described above; that timeout is a review limit, not a pass or test failure.
+
+No reviewer re-ran the 408 historical long solver jobs, an R15 production campaign, preview-budget
+GPU cohort or held-out experiment. The source-currency audit is complete, but the selected target/
+evidence freeze remains open. `docs/education/**`
+was explicitly out of scope. No arm64 execution or primary-source revalidation was performed by the
+closing reviewer. Root completed the exact full-suite check recorded above.

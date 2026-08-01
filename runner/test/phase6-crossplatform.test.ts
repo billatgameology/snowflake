@@ -1,12 +1,11 @@
 // The Phase 6 cross-platform reproducibility control (WP0c registration).
 //
-// Note what is and is not asserted here. The libm digest is pinned ONLY when the test is running
-// on x64, where it is a genuine regression tripwire. On any other architecture it is deliberately
-// not asserted, because a different digest there is the control's expected-possible OUTCOME — a
-// reportable finding about non-correctly-rounded transcendentals — and turning a legitimate
-// finding into a red test would train everyone to ignore it. The comparison that decides the
-// control is run by hand, per docs/phase6-cross-platform-control.md.
+// Note what is and is not asserted here. Each measured architecture is pinned to its own digest.
+// The two hash-registered full tables make their measured difference testable on either architecture.
+// An unmeasured third
+// architecture is not forced to match either baseline.
 
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import {
   PHASE6_CROSSPLATFORM_FIXTURE,
@@ -21,6 +20,59 @@ import {
   phase6LibmFingerprint,
 } from "../src/phase6-crossplatform.ts";
 import { PHASE6_FAR_FIELD, PHASE6_SURFACE_POLICY } from "../src/phase6-protocol.ts";
+
+const ARM64_FINGERPRINT_URL = new URL(
+  "../../evidence/phase6-crossplatform/arm64-libm-fingerprint.txt",
+  import.meta.url,
+);
+const X64_FINGERPRINT_URL = new URL(
+  "../../evidence/phase6-crossplatform/x64-libm-fingerprint.txt",
+  import.meta.url,
+);
+
+function parseTrackedFingerprint(text: string, arch: "arm64" | "x64", digest: string): Map<string, string> {
+  const lines = text.split(/\r?\n/);
+  const headerIndexes = lines.flatMap((line, index) => (line.startsWith("entries=") ? [index] : []));
+  const digestIndexes = lines.flatMap((line, index) =>
+    line.startsWith("PHASE6 LIBM DIGEST:") ? [index] : [],
+  );
+  if (headerIndexes.length !== 1 || digestIndexes.length !== 1) {
+    throw new Error(`tracked ${arch} fingerprint must have one entries header and one digest`);
+  }
+  const headerIndex = headerIndexes[0] as number;
+  const digestIndex = digestIndexes[0] as number;
+  if (lines[headerIndex] !== "entries=448" || digestIndex <= headerIndex) {
+    throw new Error(`tracked ${arch} fingerprint has an invalid entry count or ordering`);
+  }
+  const hostLines = lines.filter((line) => line.startsWith("host platform="));
+  if (hostLines.length !== 1 || !hostLines[0]?.includes(`arch=${arch}`)) {
+    throw new Error(`tracked ${arch} fingerprint has an invalid host line`);
+  }
+  const entryLines = lines.slice(headerIndex + 1, digestIndex);
+  if (entryLines.length !== 448) {
+    throw new Error(`tracked ${arch} fingerprint has ${entryLines.length} rows instead of 448`);
+  }
+  const entries = new Map<string, string>();
+  for (const line of entryLines) {
+    const match = /^\s{2}([^\t]+)\t([^\t]+)\t([0-9a-f]{16})$/.exec(line);
+    if (match === null) throw new Error(`malformed tracked ${arch} fingerprint row: ${line}`);
+    const key = `${match[1]}|${match[2]}`;
+    if (entries.has(key)) throw new Error(`duplicate tracked ${arch} fingerprint key: ${key}`);
+    entries.set(key, match[3] as string);
+  }
+  if (lines[digestIndex] !== `PHASE6 LIBM DIGEST: ${digest}`) {
+    throw new Error(`tracked ${arch} fingerprint digest line is inconsistent`);
+  }
+  return entries;
+}
+
+function entriesFromMap(entries: ReadonlyMap<string, string>) {
+  return [...entries].map(([key, bits]) => {
+    const separator = key.indexOf("|");
+    if (separator < 1) throw new Error(`invalid fingerprint key ${key}`);
+    return { name: key.slice(0, separator), argument: key.slice(separator + 1), bits };
+  });
+}
 
 describe("the libm fingerprint", () => {
   it("is deterministic and covers every transcendental the solver consumes", () => {
@@ -62,7 +114,7 @@ describe("the libm fingerprint", () => {
     }
   });
 
-  it("would actually notice a last-ULP change", () => {
+  it("would actually notice a one-ULP change", () => {
     // The guard this whole control rests on: a one-ULP difference must change the digest. If the
     // fingerprint rounded, printed too few digits, or hashed something coarser, it could not
     // detect what it exists to detect.
@@ -93,6 +145,85 @@ describe("the libm fingerprint", () => {
   // architectures do NOT agree bit-for-bit on the physics inputs.
   it("records that the two measured architectures disagree on the physics inputs", () => {
     expect(PHASE6_LIBM_DIGEST_ARM64_BASELINE).not.toBe(PHASE6_LIBM_DIGEST_X64_BASELINE);
+  });
+
+  it("quantifies the tracked arm64/x64 difference instead of calling it the last ULP", () => {
+    const arm64 = parseTrackedFingerprint(
+      readFileSync(ARM64_FINGERPRINT_URL, "utf8"),
+      "arm64",
+      PHASE6_LIBM_DIGEST_ARM64_BASELINE,
+    );
+    const x64 = parseTrackedFingerprint(
+      readFileSync(X64_FINGERPRINT_URL, "utf8"),
+      "x64",
+      PHASE6_LIBM_DIGEST_X64_BASELINE,
+    );
+    expect(arm64.size).toBe(448);
+    expect(x64.size).toBe(448);
+
+    const live = new Map(phase6LibmFingerprint().map((entry) => [`${entry.name}|${entry.argument}`, entry.bits]));
+    expect([...live.keys()].sort()).toEqual([...arm64.keys()].sort());
+    expect([...x64.keys()].sort()).toEqual([...arm64.keys()].sort());
+    expect(phase6LibmDigest(entriesFromMap(arm64))).toBe(PHASE6_LIBM_DIGEST_ARM64_BASELINE);
+    expect(phase6LibmDigest(entriesFromMap(x64))).toBe(PHASE6_LIBM_DIGEST_X64_BASELINE);
+
+    if (process.arch === "x64") expect([...live]).toEqual([...x64]);
+    if (process.arch === "arm64") expect([...live]).toEqual([...arm64]);
+
+    const differences = [...x64]
+      .map(([key, bits]) => {
+        const other = arm64.get(key);
+        if (other === undefined) throw new Error(`tracked arm64 fingerprint is missing ${key}`);
+        const distance =
+          BigInt(`0x${bits}`) >= BigInt(`0x${other}`)
+            ? BigInt(`0x${bits}`) - BigInt(`0x${other}`)
+            : BigInt(`0x${other}`) - BigInt(`0x${bits}`);
+        return { key, distance };
+      })
+      .filter((entry) => entry.distance !== 0n);
+
+    expect(differences).toHaveLength(9);
+    expect(differences.map((entry) => entry.distance).sort((a, b) => Number(a - b))).toEqual([
+      1n,
+      1n,
+      2n,
+      3n,
+      4n,
+      5n,
+      7n,
+      11n,
+      31n,
+    ]);
+    expect(differences.reduce((largest, entry) => (entry.distance > largest.distance ? entry : largest))).toEqual({
+      key: "alphaHK.prism|-14.0@0.25",
+      distance: 31n,
+    });
+  });
+
+  it("fails closed on duplicate, malformed, or extra tracked fingerprint rows", () => {
+    const original = readFileSync(ARM64_FINGERPRINT_URL, "utf8");
+    const lines = original.split(/\r?\n/);
+    const first = lines.findIndex((line) => /^\s{2}[^\t]+\t[^\t]+\t[0-9a-f]{16}$/.test(line));
+    expect(first).toBeGreaterThanOrEqual(0);
+
+    const duplicateLines = [...lines];
+    duplicateLines[first + 1] = duplicateLines[first] as string;
+    expect(() =>
+      parseTrackedFingerprint(duplicateLines.join("\n"), "arm64", PHASE6_LIBM_DIGEST_ARM64_BASELINE),
+    ).toThrow(/duplicate/);
+
+    const malformedLines = [...lines];
+    malformedLines[first] = (malformedLines[first] as string).slice(0, -1);
+    expect(() =>
+      parseTrackedFingerprint(malformedLines.join("\n"), "arm64", PHASE6_LIBM_DIGEST_ARM64_BASELINE),
+    ).toThrow(/malformed/);
+
+    const extraLines = [...lines];
+    const digestIndex = extraLines.findIndex((line) => line.startsWith("PHASE6 LIBM DIGEST:"));
+    extraLines.splice(digestIndex, 0, "  fake\t0.0\t0000000000000000");
+    expect(() =>
+      parseTrackedFingerprint(extraLines.join("\n"), "arm64", PHASE6_LIBM_DIGEST_ARM64_BASELINE),
+    ).toThrow(/449 rows/);
   });
 });
 

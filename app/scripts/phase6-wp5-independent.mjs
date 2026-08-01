@@ -124,6 +124,10 @@ const note = (message) => failures.push(message);
 
 console.log("PHASE 6 WP5 — INDEPENDENT VERIFICATION");
 console.log(`artifacts: ${outDir}`);
+console.log(
+  "RESULT LABEL: MEASURED-ONLY AGREEMENT — this is not ADR 0026's registered " +
+    "three-grid conservative-intersection headline.",
+);
 let digestsRegistered = 0;
 for (const name of ["points.json", "report.json", "diagram.svg"]) {
   const bytes = readFileSync(join(outDir, name));
@@ -201,16 +205,16 @@ for (const p of mine) classes[p.modelClass] = (classes[p.modelClass] ?? 0) + 1;
 
 console.log("\nre-derived independently of runner/src:");
 console.log(`  points                 ${mine.length}`);
-console.log(`  headline scope         ${headline.length}`);
-console.log(`  HEADLINE agree         ${agree}`);
+console.log(`  historical scope       ${headline.length}   (artifact field: inHeadlineScope)`);
+console.log(`  MEASURED-ONLY AGREEMENT ${agree}/${headline.filter((p) => p.score !== "excluded").length}`);
 console.log(`  classes                ${JSON.stringify(classes)}`);
-console.log(`  extent-fragile         ${mine.filter((p) => p.extentFragile).length}`);
+console.log(`  historical extent-fragile (artifact flag) ${mine.filter((p) => p.extentFragile).length}`);
 console.log(`  excluded (named)       ${mine.filter((p) => p.exclusionReason !== null).length}`);
 for (const spec of REGIMES) {
   const g = mine.filter((p) => p.regime === spec.regime);
   const h = g.filter((p) => p.inHeadlineScope);
   console.log(
-    `    ${spec.regime.padEnd(20)} n=${String(g.length).padStart(3)}  headline=${String(h.length).padStart(3)}` +
+    `    ${spec.regime.padEnd(20)} n=${String(g.length).padStart(3)}  historical-scope=${String(h.length).padStart(3)}` +
       `  agree=${String(h.filter((p) => p.score === "agree").length).padStart(3)}` +
       `  neutral=${String(g.filter((p) => p.modelClass === "neutral").length).padStart(3)}`,
   );
@@ -337,8 +341,12 @@ if (withConfig.length === 0) {
 
 console.log("");
 if (failures.length === 0) {
-  console.log(`VERIFIED: ${mine.length} points re-derived, every class, regime, score, headline-scope`);
-  console.log("flag, extent-fragile flag and exclusion reason matches the published artifact.");
+  console.log(`VERIFIED: ${mine.length} points re-derived, every class, regime, score, historical`);
+  console.log("inHeadlineScope artifact flag, historical extent-fragile artifact flag and exclusion reason matches.");
+  console.log(
+    `MEASURED-ONLY AGREEMENT: ${agree}/${headline.filter((p) => p.score !== "excluded").length} ` +
+      "(not the registered ADR 0026 conservative-intersection headline)",
+  );
   console.log("PHASE6 WP5 INDEPENDENT VERIFY: PASS");
 } else {
   console.log(`DISAGREEMENTS: ${failures.length} (${reclassified} class, ${rescored} score)`);

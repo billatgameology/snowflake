@@ -1,24 +1,28 @@
-# Phase 6 — the two-arm Nakaya validation
+# Phase 6 — the historical two-arm measured comparison
 
-**Both arms of the registered comparison, reported together.** Arm 1 (`CAK`, no SDAK) is the
-control; arm 2 (`M1`, SDAK) is the treatment. Neither is publishable alone: an arm-1-only report
-tests a model its own author predicts will fail, and an arm-2-only report has no control.
+> **Gate status corrected 2026-08-01.** The 3/90 and 54/90 values in this report are measured-only
+> counts, not ADR 0026's registered conservative-intersection headline. R15 and the charter's GPU
+> and held-out obligations remain open under the science-first completion plan.
+
+**Both historical arms, reported together.** Arm 1 is the `CAK` broad-facet parameterization; arm 2
+is the dipped `M1` parameterization. This is **not an SDAK-only ablation**: M1 also changes the broad
+`sigma_0` forms and sets `A_prism = 1`. The comparison measures a bundled parameter-set difference.
+A matched M1-without-dips arm is required before any difference can be assigned causally to SDAK.
 
 Arm 1's own report is [phase6-sweep-report.md](phase6-sweep-report.md), including its retraction.
 This document does not restate it; it reads the two arms against each other.
 
-**The headline number is the least informative thing here, and it is not the lead.** SDAK raises the
-common-denominator score from 3/90 to 54/90. What that number hides is that the mechanism is a
-**trade**; that at the registered measurement size neither arm scores a single point in the regime
-SDAK exists to explain; and that the single pre-registration arm 2 was capable of failing, it did
-fail.
+**The common measured-only number is the least informative thing here, and it is not the lead.** M1
+scores 54/90 against CAK's 3/90. The bundled parameterization change is a **trade**; at the registered
+measurement size neither arm scores a single point in the regime the SDAK hypothesis exists to
+explain; and arm 2 failed its one registered forecast failure mode.
 
-> **READ §4's CORRECTION FIRST (2026-07-31).** The pre-registered size ladder has since shown that
+> **READ §4's CORRECTION FIRST.** The predeclared diagnostic has since shown that
 > arm 2 **does** produce a column in that regime at −5 °C when the crystal is measured at extent 29
-> instead of the registered 21 — AR 1.40000 → **1.52632**. The scored tallies above are unaffected;
-> the *interpretation* of the `columns` regime is under correction and is provisional pending two
-> runs still executing. An earlier version of this paragraph said SDAK "does not move that regime at
-> all", which was wrong even at the registered size — arm 2 turns three of its points to `plate`.
+> instead of the registered 21 — AR 1.40000 → **1.52632**. Its final registered outcome is
+> non-monotone, and the diagnostic is not admissible as gate evidence. The scored tallies above are
+> unaffected. An earlier version of this paragraph attributed the difference to SDAK alone, which
+> the two confounded parameter sets cannot establish.
 
 ---
 
@@ -27,7 +31,7 @@ fail.
 | | arm 1 | arm 2 |
 |---|---|---|
 | parameter set | `CAK` | `M1` |
-| SDAK | no | yes (two dips) |
+| parameterization label | broad-facet CAK | dipped M1 (two dip factors) |
 | arm id | `arm1-cak` | `arm2-sdak-m1` |
 | freeze commit | `e2f1bfca…` | `483f7ee56cbbcd5017658aa4879a3a9b87c56809` |
 | execution commit | `390fe35a…` | `8c781b166db2c72d2fa86cef001e2e8c48ac96c3` |
@@ -50,12 +54,15 @@ history is in erratum E4 and in the artifact's own `regeneration.json` sidecar.
 
 | check | arm 1 | arm 2 |
 |---|---|---|
-| independent re-derivation of every field | PASS (WP5) | **PASS** |
+| independent re-derivation of every field | PASS (historical-plan WP5 verifier) | **PASS (historical-plan verifier)** |
 | negative controls executed | 7 (5 CAUGHT, 2 GAP) | **16 (15 CAUGHT, 1 GAP)** |
 | per-row parameter set recorded | 0 of 204 (erratum E3) | **204 of 204** |
 | run-end condition recorded | 0 of 204 (erratum E3) | **204 of 204** |
 | figure re-renders from the data | **data byte-identical** | **data byte-identical** |
 | whole SVG re-renders byte-identically | no — caption drift | **yes** |
+
+The active science-first plan's WP5 is the still-open preview-budget GPU cohort; it is unrelated to
+the completed historical-plan verifier in this table.
 
 **The figure is the data, checked rather than assumed.** `app/scripts/phase6-diagram-reconcile.mjs`
 re-renders each `diagram.svg` from its own `points.json` and compares. Every plotted cell, axis and
@@ -75,15 +82,23 @@ stripped of all per-row config, both verified clean because a missing field coul
 that only inspected present ones. Both are closed. One gap remains open by design and is stated in
 §7.
 
+**Review provenance and limits (2026-08-01).** The adversarial claim reviewer was OpenAI
+`gpt-5.6-sol` at ultra reasoning, with the current request/handoff context and no Phase 6 authorship.
+It independently re-executed both artifact verifiers, diagram reconciliation, flip census, ladder
+reader, direct JSON class/fragility/f = 0.90 checks, and the live fingerprint. It did not re-run the
+408 long solver jobs, execute GPU or held-out campaigns, establish numerical convergence, audit
+`docs/education/**`, or run complete `npm test`. Those omissions limit the reviewed evidence.
+
 ---
 
 ## 2. The result
 
 > ### Common denominator: arm 1 **3 of 90**, arm 2 **54 of 90**.
 
-The common denominator is arm 1's headline scope scored by arm 1's rule, applied to both arms, so
-the two numbers are comparable. Arm 2's own headline — which additionally withholds the three
-pre-registered bistable temperatures — is **54 of 78**.
+The common denominator is arm 1's historical measured-only scoring scope applied to both arms, so
+the two numbers are comparable. Arm 2's own measured-only scope — which additionally withholds the
+three pre-registered bistable temperatures — is **54 of 78**. Neither value is ADR 0026's registered
+conservative-intersection headline.
 
 | regime | arm 1 agree | arm 2 agree | arm 2 pre-registered |
 |---|---|---|---|
@@ -116,10 +131,10 @@ Point-by-point, 115 of 204 points did not change class. The 89 that did:
 
 ---
 
-## 3. SDAK is a TRADE, not an improvement
+## 3. M1 versus CAK is a trade, not an SDAK ablation
 
-**Twenty of arm 1's thirty columns stopped being columns.** SDAK converted 66 neutral points into
-plates, and it paid for them by destroying two thirds of the columns the model already had.
+**Twenty of CAK's thirty columns stop being columns under M1.** The bundled parameter-set change
+converts 66 neutral points into plates and loses two thirds of CAK's columns.
 
 | | arm 1 | arm 2 |
 |---|---|---|
@@ -129,11 +144,9 @@ plates, and it paid for them by destroying two thirds of the columns the model a
 | column onset at f = 0.15 | −23 °C (13 points) | −32 °C (4 points) |
 | `columns-and-plates` agreement | **26 / 78** | 14 / 78 |
 
-The mechanism is visible in the measured diagram. The prism dip that manufactures plates near
-−14 °C does not stop at the regime boundary: at f = 0.10 arm 2's plate region runs unbroken from
-−9 °C to **−24 °C** — 2.5 °C past the −21.5 °C boundary and into the regime where the reference
-wants columns available. The plates arm 2 gains in `plates-cold` and the columns it loses below
-−21.5 °C are the same mechanism seen twice.
+The class trade is visible in the measured diagram: at f = 0.10 M1's plate region runs unbroken from
+−9 °C to **−24 °C** — 2.5 °C past the −21.5 °C boundary and into the regime where the reference wants
+columns available. These runs do not identify which of M1's changed inputs causes that region.
 
 `columns-and-plates` accepts **both** pure classes, so it is the easiest regime on the board to
 agree with — and it is the one regime where arm 2 is **worse than the control**, 26/78 → 14/78.
@@ -143,24 +156,24 @@ agree with — and it is the one regime where arm 2 is **worse than the control*
 wrong-habit points, not merely neutral ones. Arm 2 has none. That is a real improvement in kind and
 not only in count.
 
-### At the highest supersaturation, SDAK does nothing whatsoever
+### At the highest sampled supersaturation, CAK and M1 have identical classes
 
 **At f = 0.90 the two arms are identical in class at all 34 temperatures** — every point neutral in
-both, not one class changed. At f = 0.60 only 11 of 34 changed. The mechanism is not mysterious:
-`alphaHK = A·exp(−σ₀/σ_surf)` saturates toward `A` as σ_surf grows, so a σ₀ dip stops being able to
-separate the facets. Whatever SDAK is doing, it is doing it only at the bottom of the σ axis — and
-the reference diagram is at its most structured exactly where SDAK is inert.
+both, not one class changed. Their raw aspect ratios nevertheless differ in 28/34 pairs, with
+maximum sampled `|ΔAR| = 0.218335`. At f = 0.60, 11 of 34 classes changed. Because M1 also changes
+`A_prism` and the broad `sigma_0` forms, neither the class equality nor the raw differences isolate
+the dip factors. The matched no-dip arm must make that comparison.
 
 **And the dominant class is still "no habit".** Arm 2 reduced neutral from 168 to 119 of 204. The
-model declines to produce a definite habit at **58% of the grid** even with SDAK on.
+M1 artifact has no definite habit at **58% of the grid**.
 
 ---
 
 ## 4. Neither arm produces a column in the `columns` regime — AT THE REGISTERED MEASUREMENT SIZE
 
-> ### ⚠ CORRECTION IN PROGRESS (2026-07-31) — the unqualified form of this section's claim is WITHDRAWN
+> ### ⚠ FINAL INTERPRETIVE CORRECTION (2026-08-01) — diagnostic outcome 4, not gate evidence
 >
-> **Arm 2 DOES produce a column in the Nakaya `columns` regime when the crystal is measured larger.**
+> At the sampled −5 °C, f = 0.10 diagnostic point, arm 2 measures a column at larger sizes.
 >
 > The pre-registered size ladder returned rung B, and at **T = −5 °C, f = 0.10 under `M1`** the
 > aspect ratio went **1.40000 at extent 21 → 1.52632 at extent 29**, crossing the registered 1.5
@@ -175,14 +188,14 @@ model declines to produce a definite habit at **58% of the grid** even with SDAK
 > **at the registered measurement size**, which is what was measured and what the 3/90 and 54/90
 > headlines score. No published tally moves.
 >
-> This is pre-registered outcome 1, and it is the outcome that costs me the section's headline
-> finding. It was written into `docs/phase6-columns-refinement-prereg.md` first, listed *first*
-> precisely because it was the convenient-to-avoid one, and the ladder was built to be able to
-> return it.
+> The complete sequence is **registered outcome 4, non-monotone**: 1.40000 (extent 21) → 1.52632
+> (29) → 1.52174 (35) → 1.64000 (41). Outcome 1 required a monotone rise. Selecting the extent-29
+> crossing and ignoring the following fall was exactly what outcome 4 prohibited.
 >
 > ### The correction SURVIVED both of its tests (2026-07-31, later)
 >
-> **The domain check passed.** P1 re-run at the same extent 28 in N = 80 instead of 64, judged by
+> **One same-extent domain comparison passed; the adequacy inference is withdrawn.** P1 re-run at
+> the same extent 28 in N = 80 instead of 64, judged by
 > the registered `PHASE6_DOMAIN_SPOT_CHECK` criterion:
 >
 > | P1 at extent 29 | AR | class | attached | symErr | converged | D6h |
@@ -191,27 +204,29 @@ model declines to produce a definite habit at **58% of the grid** even with SDAK
 > | N = 80 | **1.52632** | `column` | 6755 | 0 | true | true |
 >
 > Identical class, identical AR to six figures, attached counts **0.354% apart against the
-> registered 0.5%**. **N = 64 is adequate at that extent, so the crossing is a size effect and not a
-> domain artifact.**
+> registered 0.5%**. This local comparison passes, but it does not establish N = 64 adequate or
+> prove that the crossing is solely a physical-size effect; the extent-35 pair later fails the
+> same criterion and the A/B/C ladder changes domain and crystal size together.
 >
-> **And it is not SDAK-agnostic.** P5 — arm 1 (`CAK`) at the *same* −5 °C and σ∞ = 0.005, added
-> specifically because it could only weaken this reading — goes **0.789474 → 0.851852** from extent
-> 21 to 29. A rise of 0.062, against arm 2's 0.126, landing **0.648 below the floor**. At identical
-> conditions and identical measurement size the two arms sit 0.675 apart. **SDAK produces the column;
-> size alone does not.** The pre-registered ARM SPLIT outcome is refuted.
+> **The parameter-set split is large at this point.** P5 — `CAK` at the *same* −5 °C and
+> σ∞ = 0.005, added after the M1 crossing was observed — goes **0.789474 → 0.851852** from extent 21
+> to 29. At identical conditions and measurement size the two parameterizations sit 0.675 apart.
+> Because CAK→M1 changes more than the dips, this is not an SDAK-only causal result.
 >
-> **And P1 has converged.** 1.40000 (ext 21) → 1.52632 (29) → 1.52174 (35): the second interval is
-> **−0.00076/cell**, flat and slightly negative, with the class stable at `column` across a 21%
-> increase in measurement size.
+> **P1 does not show size convergence over the sampled rungs.** 1.40000 (ext 21) → 1.52632
+> (29) → 1.52174 (35) → 1.64000
+> (41) is non-monotone. The class is `column` at the three larger sampled extents, which is a narrower
+> measured statement than convergence.
 >
-> *(P5's row was destroyed by a race between three concurrent ladder drivers before it could be
-> recorded with its validity fields; the measurement above survives in a driver log and is being
-> re-run to restore an admissible record. The driver now merges on write.)*
+> *(Historical note superseded: P5's first row was destroyed by a concurrent-writer race. The
+> current `ladder.json` contains the completed P5-B record with its validity fields; the ladder
+> reader keeps it separate from the registered 12-row A/B/C cohort.)*
 >
 > **A pattern worth keeping.** At extent 21 the domain check FAILS (N = 48 vs 64, 1.7–2.5%); at
 > extent 29 it PASSES (N = 64 vs 80, 0.354%). Absolute clearance grew 13.5 → 17.5 → 25.5 cells while
-> the extent/N ratio barely moved. **Agreement tracks absolute clearance, not the ratio** — which is
-> the freeze row's "the limit is NOT a ratio" stated as a measurement.
+> the extent/N ratio barely moved. Over these two sampled extents, agreement coincides with increased
+> absolute clearance rather than the nearly fixed ratio. Two comparisons do not establish absolute
+> clearance as the governing variable; they do refute using the ratio alone as a transferable rule.
 >
 > ### FINAL (2026-08-01) — the correction stands in CLASS terms; the registered convergence
 > ### criterion does NOT pass, and both are reported
@@ -226,29 +241,34 @@ model declines to produce a definite habit at **58% of the grid** even with SDAK
 > | extent 35 | **1.52174** at *both* domains | **COLUMN** | 1.071% **FAIL** |
 > | extent 41 | **1.64000** at *both* domains | **COLUMN** | 0.444% **PASS** |
 >
-> **What is established.** The habit is `COLUMN` in all six runs at extents 29/35/41, and the aspect
+> **What the diagnostic measures.** The habit is `COLUMN` in all six runs at extents 29/35/41, and the aspect
 > ratio is **identical to six figures at both domains at every extent**. The class does not depend on
-> the domain anywhere it was tested at extent ≥ 29. **Arm 2 produces a column at −5 °C in the Nakaya
-> `columns` regime, and the registered extent 21 was too small to see it.**
+> the domain anywhere it was tested at extent ≥ 29. At this one sampled condition, arm 2 is neutral
+> at extent 21 and columnar at all three larger sampled extents.
 >
 > **What is NOT established.** The registered domain criterion requires identical class **and**
 > attached counts within 0.5%. At extent 35 the attached counts differ by **1.071%** — 11 201 against
 > 11 081, 120 cells of interior fill inside a bit-identical envelope. **The criterion fails, so no
-> configuration is demonstrated converged, and no re-sweep is run** (ADR 0037 §5). The criterion is
-> not rewritten to the one that passes.
+> configuration is demonstrated converged.** The historical ADR 0037 §5 no-re-sweep resource
+> decision has been superseded by the maker's science-first direction; the active completion plan
+> requires a new frozen campaign. The criterion is not rewritten to the one that passes.
 >
 > So: the failure is in **total accreted mass**, and the quantity the Nakaya comparison consumes —
 > the class — is invariant across every domain tested. Both facts travel together.
 >
-> **P5 settles the mechanism.** Arm 1 (`CAK`) at the *same* −5 °C, the *same* σ∞ = 0.005 and the
+> **The execution-matched comparison separates the parameter sets at this diagnostic point.** Arm 1 (`CAK`) at the
+> *same* −5 °C, the *same* σ∞ = 0.005 and the
 > *same* extent 29 reads **0.851852** against arm 2's **1.52632** — 0.675 apart, on opposite sides of
-> the class boundary. The pre-registered ARM SPLIT outcome is refuted: **SDAK produces this column,
-> size does not.**
+> the class boundary. This is a controlled M1-versus-CAK diagnostic at one condition; the control was
+> added after the crossing was observed, and the owning pre-registration explicitly makes the
+> diagnostic inadmissible as gate evidence. It is not a matched dip ablation because the parameter
+> sets change broad functions and facet prefactors too.
 >
-> **With one honest qualification.** P4 (arm 1 at f = 0.90) reads 1.31250 → 1.31818 → 1.40000 →
-> **1.46429** and is still `neutral` — but it sits 0.036 below the floor rising ~0.011 per cell and
-> would cross near extent 44. **At high supersaturation the no-SDAK arm is also heading to `column`
-> with size.** The SDAK column at −5 °C is a **low-supersaturation** phenomenon, not a general one.
+> **With one honest qualification.** P4 (CAK at f = 0.90) reads 1.31250 → 1.31818 → 1.40000 →
+> **1.46429** and is still `neutral`. No crossing was measured; the former post-hoc extent-44
+> extrapolation is retracted. The measured M1-versus-CAK class split is present at the sampled
+> f = 0.10 point; f = 0.90 remains neutral through the largest sampled extent. This
+> two-fraction diagnostic does not establish a general supersaturation boundary.
 >
 > Rung B in full — every point rose, one crossed:
 >
@@ -259,7 +279,7 @@ model declines to produce a definite habit at **58% of the grid** even with SDAK
 > | P3 | arm 2 `M1` | −5 | 0.90 | 1.26594 | 1.33122 | +0.065 |
 > | P4 | arm 1 `CAK` | −5 | 0.90 | 1.31250 | 1.31818 | +0.006 |
 >
-> ### The bigger finding, and it is not about SDAK: AR does not converge with size at −5 °C
+> ### The broader diagnostic: AR changes across jointly larger crystal/domain rungs
 >
 > Rung C for the controlled pair — same −5 °C, same σ∞ = 0.045, differing only in parameter set:
 >
@@ -268,38 +288,41 @@ model declines to produce a definite habit at **58% of the grid** even with SDAK
 > | **P3** | `M1` | 1.26594 | 1.33122 | **1.48831** | 0.00816/cell | **0.02618/cell** |
 > | **P4** | `CAK` | 1.31250 | 1.31818 | **1.40000** | 0.00071/cell | **0.01364/cell** |
 >
-> **Both arms rise, and both ACCELERATE** — the per-cell increment grows by 3.2× for `M1` and 19× for
-> `CAK`. Over extents 21–35 the aspect ratio at −5 °C is not converging in either arm; the increments
-> get *larger*, which is the opposite of convergence. **So "the habit class at −5 °C" is not a
-> size-independent property of this model in the range measured, and the registered extent 21
-> captures a transient.** That is a limitation on how both published headlines treat this regime, and
-> it is parameter-set-independent.
+> **Both sampled sequences rise, and their second interval is steeper** — the per-cell increment is
+> 3.2× larger for `M1` and 19× larger for `CAK` than in the first interval. Three points over extents
+> 21–35 show no sampled aspect-ratio plateau. Because A/B/C also change domain N, P3/P4 do not by
+> themselves establish physical-size dependence. P1's matched-domain rows show the same AR at both
+> sampled boxes for each larger extent, so they support a one-condition size association; none of
+> this establishes a size-independent or size-dependent habit for a full regime or arm.
 >
-> At extent 35 the two arms sit **0.088 apart — about one representable step** (0.0875 near 1.4). SDAK
-> shifts the curve up by roughly a step; it does not create the divergence.
+> At extent 35 the two arms sit **0.088 apart**, close to an extent-21 empirical AR gap of 0.0875 near
+> 1.4. That scale is imported from a different size. M1 sits above CAK by roughly that sampled gap;
+> the confounded comparison cannot assign the offset or the divergence to the dip factors.
 >
 > **A claim of mine that this withdraws.** On seeing rung B alone I wrote that P4 was flat at
 > 0.00071/cell, "11× slower — a genuine mechanism difference: SDAK driving a self-reinforcing
 > columnar habit, which is what the hypothesis predicts." That was two rungs. The third shows arm 1
 > doing the same thing, and the reading is withdrawn.
 >
-> **A confound this ladder does not separate, stated rather than left implicit.** Every rung changes
-> the domain N *and* the measurement extent together, so "size effect" and "domain effect" are not
-> distinguished by these runs. Rung B80 separates them at extent 28 only. Nothing here separates them
-> at extent 35, and no claim is made that it does.
+> **The domain controls separate class/AR from mass convergence.** Matched N = 64/N = 80 rows at
+> extents 29, 35 and 41 reproduce P1 class and AR exactly, so P1's cross-extent AR pattern is not changed
+> by the tested box sizes. The registered criterion also consumes attached count, however, and that
+> quantity fails at extent 35. The ladder therefore supports a P1 one-condition size-associated
+> class/AR diagnostic, not a general size-effect claim or a numerically converged gate result.
 >
 > **This also sharpens erratum E5 rather than resolving it.** E5 records that no convergence study
-> exists warmer than −15 °C under either executed parameter set. This is that gap producing a
-> class change, at the first temperature it was checked.
+> exists warmer than −15 °C under either executed parameter set. This diagnostic shows a class
+> change at one of the first selected warm points; it does not establish priority over every prior
+> or future warm-side check.
 
 The section below is preserved as published, and every number in it remains correct **as a
 measurement at extent 21**.
 
-This is the finding the headline is hiding.
+This is a measured-size limitation that a single aggregate score does not show.
 
 The Nakaya `columns` regime, −3.3 to −9.9 °C, is the regime the SDAK hypothesis exists to explain.
-Adding the mechanism Libbrecht says is required there — "Producing columnar crystals at −5 C then
-requires the SDAK effect" (`1912.03230v1` p10) — moved **zero** of those points to `column`.
+At the registered extent, changing from CAK to the bundled M1 parameterization moved **zero** of
+those points to `column`. That is not a matched test of the source's causal SDAK claim.
 
 | | arm 1 (36 pts) | arm 2 (36 pts) |
 |---|---|---|
@@ -308,14 +331,14 @@ requires the SDAK effect" (`1912.03230v1` p10) — moved **zero** of those point
 | neutral | 35 | 33 |
 | headline-scope points | 24, all neutral | 12, all neutral |
 
-Both arms produce *no habit at all* across almost the whole regime. That is a different failure from
-producing the wrong habit, and a more specific one: the model is not making a mistake about which
-axis wins, it is failing to break the tie.
+Across almost the whole regime, both arms remain in the registered `neutral` AR interval rather than
+reaching either pure-class threshold. That is distinct from producing the wrong pure habit; it does
+not by itself identify a kinetic tie or its cause.
 
-### The gap is one step of the instrument, and that had to be measured before it could be read
+### The gap spans one observed step in the extent-21 corpus
 
-`AR = zExtent / tExtent`, where `zExtent` is an integer layer count. AR is therefore **discrete**,
-and near the class thresholds it is coarse:
+`AR = zExtent / tExtent`, where `zExtent` is an integer layer count. AR is therefore **discrete**.
+The executed extent-21 rows sample it as follows near the class thresholds:
 
 - **408 measurements across both arms produced 36 distinct AR values.**
 - Near the column floor the realized ladder is `1.3125, 1.4000, 1.5000, 1.6154` — steps of 0.0875
@@ -326,10 +349,10 @@ and near the class thresholds it is coarse:
 - The registered `extentFragile` rule (±0.135 AR, ADR 0025) already flags that point. The
   protocol's own fragility test was pointing here before this was connected to the columns claim.
 
-So "1.4000 against a floor of 1.5" is one representable step, not a physical distance, and the
-question of whether the columns failure belongs to the model or to the ruler could not be settled
-from the sweep. It was pre-registered as a separate diagnostic in
-`docs/phase6-columns-refinement-prereg.md`, with all four outcomes fixed in advance, and run.
+So "1.4000 against a floor of 1.5" spans one observed step in these 408 rows, not a physical
+distance. This does not define the instrument's resolution at another size or for an unobserved
+crystal. The physical-size question was pre-registered as a separate diagnostic in
+`docs/phase6-columns-refinement-prereg.md`; P1's deciding A/B/C reading is outcome 4.
 
 ### Rung A: the ladder's own validity check, and a determinism result
 
@@ -345,17 +368,17 @@ both arms' execution commits — against values published from `390fe35a` (arm 1
 | P3 | arm 2 `M1` | −5 | 0.90 | 1.26594 | **1.26594** | 119 → **119** | 21 | `size-target` |
 | P4 | arm 1 `CAK` | −5 | 0.90 | 1.31250 | **1.31250** | 172 → **172** | 21 | `size-target` |
 
-Raw rows at `evidence/phase6-columns-ladder/ladder.json` — every number above is transcribed from it, and
-the file's hash is recorded here rather than the file tracked, per decision 0004's treatment of
-evidence artifacts. **Rung A alone: 11,128 bytes, sha256
+Raw rows are tracked at `evidence/phase6-columns-ladder/ladder.json`; every number above is
+transcribed from it and the full file is hash-registered in `evidence/MANIFEST.json`. The historical
+rung-A-only snapshot was **11,128 bytes, sha256
 `248ae0af3196c35da258a2b69a3aec5e3d133191a769867172670253e6ade855`** (this hash covers the four rung-A
 rows only and moves as later rungs append).
 
-**All four identical, and the ladder is valid.** This is a stronger determinism statement than the
-checks that preceded it: those were three points within one arm and four points within the other,
-each re-run against its own execution. This spans **both parameter sets**, from a **third commit**,
-in a **different worktree**, and reproduces the **step count** as well as the measured shape — so it
-is not only "the same numbers came out" but "the same trajectory was taken to get there".
+**All four registered outputs are identical, and rung A passes its reproduction check.** The sample
+spans both parameter sets, a third commit and a different worktree, and reproduces step count as well
+as measured shape. Equal final metrics and step count do not prove every intermediate state was the
+same, and the inherited process environment was not sealed; the result is scoped to these four
+executions on the registered host/engine family.
 
 It also independently corroborates erratum E4's central claim. E4 argues that arm 2's provenance
 failure was not a physics failure, on the ground that no file under the hashed source roots differed
@@ -364,8 +387,9 @@ commit five days and dozens of commits earlier, reproduces exactly at the arm-2 
 
 ### Rungs B and C
 
-Rung B (N = 64, target extent 28) and rung C (N = 80, target extent 35) are the rungs that actually
-answer the question. **Their reading is fixed in the pre-registration and is not to be chosen now:**
+Rung B (N = 64, target extent 28) and rung C (N = 80, target extent 35) were intended to answer the
+diagnostic question. Their final P1 reading is outcome 4 (non-monotone), not convergence.
+**The historical outcome definitions were fixed in the pre-registration:**
 AR rising to ≥ 1.5 means the columns verdict is a measurement-size artifact and the interpretation
 is withdrawn; AR flat within one representable step means the habit is size-converged and the
 columns failure is a property of the model; AR falling means the published measurement was
@@ -385,6 +409,11 @@ optimistic; non-monotone is reported as non-monotone.
 > rows are discarded by name and re-run. The two carcasses were purged, leaving the file
 > byte-identical to the hash recorded above.
 
+> **ARCHIVAL STATUS ONLY — superseded 2026-08-01.** The launch log above is preserved to document the
+> resume bug, not to describe current state. All 12 registered A/B/C rows now exist and validate;
+> later B80/C64/D/D80/P5 diagnostics are stored separately. The fail-closed reader reports P1 as
+> outcome 4 and rejects missing, duplicate, shifted, or B→C-fall-removed mutations.
+
 ---
 
 ## 4b. The flip census — a registered output, produced for the first time
@@ -400,7 +429,7 @@ one class and the first of the other. Neutral points do not terminate a scan, th
 bracket, because a wide neutral span means the flip is poorly located and a midpoint would
 manufacture precision.
 
-| | arm 1 (`CAK`) | arm 2 (`M1`, SDAK) |
+| | arm 1 (`CAK`) | arm 2 (`M1`, dipped) |
 |---|---|---|
 | f = 0.10 | `plate→column`, bracketed −4 … −19 °C (width **15**) | `plate→column`, bracketed −24 … −30 °C (width **6**) |
 | f = 0.15 | `plate→column`, bracketed −3 … −23 °C (width **20**) | `plate→column`, bracketed −22 … −32 °C (width **10**) |
@@ -412,21 +441,19 @@ manufacture precision.
 The reference changes habit **three** times scanning warm to cold: `plate→column` at −3.3,
 **`column→plate` at −9.9**, and `plate→column` at −21.5.
 
-**Neither arm produces a single `column→plate` flip anywhere in 408 measurements.** That is the
-crispest available statement of the failure, and it is sharper than the class census: the model does
-not merely miss the `columns` regime, it never returns from columnar to plate-like at all. Its habit
-sequence is monotone in temperature.
+**Neither arm produces a `column→plate` flip under the registered pure-class operator on these
+twelve sampled ladders.** The operator skips neutral rows: each arm has one `plate→column` flip on 2
+of 6 ladders and zero flips on the other 4. This does not classify neutral-mediated changes or
+unsampled temperatures.
 
-**Two things SDAK did do, visible only here.** It **narrowed** both brackets — 15 → 6 and 20 → 10 —
-so the transition it produces is better localized than the control's. And it moved both **colder**,
-out of the regime where a transition is wanted. SDAK sharpened the wrong transition.
+**Two bundled CAK→M1 differences are visible here.** The two observed brackets narrow — 15 → 6 and
+20 → 10 — and move colder. Because broad functions and facet prefactors change too, the comparison
+does not identify the dip factors as the cause.
 
-**And this is the surviving form of the retracted structural claim, now measured on the SDAK arm.**
-`M1` has three αHK crossings, not one. It still produces **exactly one flip per ladder**, on the two
-ladders that have any, and none on the other four. Crossing count and habit-transition count are
-different observables — the retraction of 2026-07-29 said the counting argument could not be
-asserted a priori; this is the measurement that says it directly, from the arm that has the
-crossings.
+**This is a measured contrast, not a restored structural theorem.** `M1` has three `alphaHK`
+crossings. Its sampled corpus has one registered flip on 2 of 6 ladders and none on the other 4.
+Crossing count and habit-transition count are therefore different observables in these rows; no
+bound for every field, supersaturation, or broad-facet model follows.
 
 Reproduce with `node app/scripts/phase6-flip-census.mjs`. It runs the registered operator **and** an
 independent re-derivation from the registered definition, and requires them to agree on every
@@ -439,8 +466,9 @@ twelve.
 
 ADR 0036 pre-registered −4, −5 and −6 °C as a **bistable band**: at those temperatures the source
 reports that "both platelike and needlelike crystals can grow under essentially identical
-conditions", so habit is not single-valued in (T, σ) and no deterministic per-point score can be
-right there even in principle. The registered rule therefore accepts **either** pure class.
+conditions". One deterministic run does not represent that reported population mixture under the
+chosen regime-level comparison, so the registered rule accepts **either** pure class. This does not
+prove that no deterministic score could be valid for a more specifically controlled experiment.
 
 That rule has exactly one failure mode: produce neither habit.
 
@@ -452,7 +480,7 @@ declined to give one.
 
 ---
 
-## 6. Four registered reasons to discount the headline
+## 6. Four registered reasons to discount the measured-only score
 
 Written before the sweep, not assembled afterwards.
 
@@ -465,12 +493,13 @@ Written before the sweep, not assembled afterwards.
    under-predicted plates on arm 1's own data — and the points it had to extrapolate over sat
    precisely in `plates-cold`, which is where the 12 came from. An estimator beating its target by
    its own known bias is not corroboration.
-3. **The instrument favours plates 4.8×.** At `ln r = 0` — isotropic kinetics, no habit preference —
+3. **The fitted transfer function is asymmetric toward plates at this executed configuration.** At
+   `ln r = 0` — isotropic kinetics, no habit preference —
    the fitted AR is 0.7665. In `ln AR`, the space the fit is linear in, that sits **0.1396 from the
    plate ceiling and 0.6714 from the column floor: a factor of 4.81**. (Measured in linear AR the
    same asymmetry reads 7.35×; the log figure is the conservative one and is quoted here for that
-   reason.) On this lattice at this measurement size plates are structurally easier to score than
-   columns, and 75 of arm 2's 85 non-neutral points are plates.
+   reason.) This is an empirical fit over the sampled configuration, not an instrument or lattice
+   theorem. In the executed arm, 75 of 85 non-neutral points are plates.
 4. **Every one of arm 2's `plates-warm` agreements is at a single temperature that was
    pre-registered as carrying essentially no statistical weight.** `plates-warm` has exactly one
    counting temperature, −2 °C; −3 °C falls in the ±1.0 °C ambiguity band. So all 5 agreements — and
@@ -516,17 +545,20 @@ irregular.** Arm 2's report was regenerated rather than written by its own sweep
   is a defect in the registration found late, not a shortcut in the implementation. Not being fixed
   by amending the registration to describe what the code does: ADR 0031 rejected exactly that move
   by name.
-- **The registered domain spot-check had never been run** (erratum E6) — a mandatory, hashed
-  criterion whose registered failure consequence is raising the whole grid to N = 64 and re-running
-  it, undisclosed as outstanding until now. Being discharged by execution rather than de-registered.
+- **The registered domain spot-check was omitted, then run and failed** (erratum E6) — N = 48 versus
+  N = 64 fails 3/4 sampled checks, and N = 64 versus N = 80 also fails 3/4. The historical automatic
+  N = 64 remedy therefore did not establish adequacy. The active science-first plan requires a new
+  pre-registered whole-grid numerical campaign rather than de-registering the criterion.
 - **Cross-platform control RUN 2026-07-31 (arm64), and it splits.** Tier-1 libm digest DIFFERS
   (x64 `2a9f64b3`, arm64 `3662b9e2`), so digit-level results stay scoped to the registered x64
   host. Tier-2 habit class reproduced exactly at all four registered fixture points. **These arm-2
   (SDAK) results were not themselves re-run on arm64** — the control's four points are arm-1
   configurations, so nothing here establishes that an arm-2 point is architecture-independent.
-- **No `dxUm` convergence study under either published parameter set.** Halving the cell size costs
-  roughly 60× per point. Not run, not affordable, not claimed — and per E5 the existing one does not
-  substitute for it at any temperature the `columns` regime occupies.
+- **No valid `dxUm` convergence study under either published parameter set.** The historical probe
+  estimated roughly 60× more work per point when halving cell size, but resource cost does not
+  establish numerical adequacy. The old spacing tuple also changes physical seed and achieved size.
+  A repaired fixed-physics R15 campaign is planned but not yet frozen or running; the existing
+  study does not substitute for it.
 - **The comparison target is a redrawn 1954 schematic** whose supersaturation axis WP1 measured as
   failing an independent check, which is why only its three boundary temperatures are used.
 
@@ -534,9 +566,10 @@ irregular.** Arm 2's report was regenerated rather than written by its own sweep
 
 **Stated at the strength the measurements support, per Rule 6.**
 
-- Adding SDAK to this solver, at the registered grid and measurement size, raises agreement with the
-  Nakaya boundary temperatures from 3/90 to 54/90 — and the gain is in-sample by construction.
-- The gain is a **trade**: it costs two thirds of the model's columns (30 → 10) and **12 points of
+- Changing from CAK to M1, at the registered grid and measurement size, raises measured-only
+  agreement from 3/90 to 54/90 — and that change is in-sample by construction. It is not the
+  registered conservative-intersection headline and not an SDAK-only ablation.
+- The bundled parameterization change is a **trade**: it costs two thirds of CAK's columns (30 → 10) and **12 points of
   agreement** (26/78 → 14/78) in the one regime that accepts both habits.
 - **Neither parameterization produces a single column in the Nakaya `columns` regime at the
   registered measurement size**, 36 points each. Across almost the whole regime both arms produce no
@@ -546,19 +579,18 @@ irregular.** Arm 2's report was regenerated rather than written by its own sweep
   goes:** every point in that regime is warmer than −15 °C, and warmer than −15 °C there is no
   convergence study of any kind under either executed parameter set — and the first time that gap
   was probed, it produced a class change.
-- The instrument's AR resolution near the class thresholds is 0.088–0.100, which is a property of
-  the lattice and the measurement size rather than of either parameter set, and it is large enough
-  that near-threshold verdicts must be read as one-step statements.
-- **Neither arm produces a single `column→plate` habit flip in 408 measurements.** Both produce
-  exactly two flips, both `plate→column`; the reference needs three, one of which is `column→plate`
-  at −9.9 °C. The model's habit sequence is monotone in temperature — it never returns from columnar
-  to plate-like. SDAK narrowed both flip brackets (15 → 6 and 20 → 10 °C) while moving them colder,
-  so it sharpened a transition in the wrong place.
-- **`M1` has three αHK crossings and still produces one flip per ladder.** Crossing count and
-  habit-transition count are different observables, measured on the arm that has the crossings.
-- The solver is **deterministic across parameter sets, commits and worktrees**, measured on four
-  points spanning both arms: AR, step count, extent and stop reason all reproduce exactly when re-run
-  at a commit distinct from either arm's execution commit.
+- The executed extent-21 corpus has observed AR gaps of 0.0875–0.100 near the column threshold. That
+  is an empirical sample property, not a universal resolution of the lattice or instrument.
+- **Neither sampled artifact produces a `column→plate` flip under the registered pure-class operator.**
+  Each arm produces one `plate→column` flip on 2 of 6 constant-f ladders and none on the other 4;
+  the reference needs three transitions, including `column→plate` at −9.9 °C. M1's two observed
+  brackets are narrower and colder than CAK's, but the confounded comparison does not assign that
+  difference to the dip factors.
+- **`M1` has three `alphaHK` crossings while only 2 of 6 sampled ladders contain one registered
+  flip.** Crossing count and habit-transition count are distinct observables in this corpus.
+- Four selected points spanning both parameter sets reproduce AR, step count, extent and stop reason
+  exactly at a later commit/worktree. This scoped reproduction does not prove every intermediate
+  state, untested point, architecture, or inherited environment identical.
 
 **What it does not establish:** that no SDAK parameterization can produce columns there; that the
 failure is or is not a resolution artifact beyond the range the diagnostic covers; or anything at

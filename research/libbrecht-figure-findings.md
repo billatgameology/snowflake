@@ -20,10 +20,11 @@
 > **3.08 / 8.07 / 24.73** — much closer to the reference boundaries 3.3 / 9.9 / 21.5 than the number
 > I published.
 >
-> **What still stands.** The sweep's measured numbers are unaffected. Along the sweep's own
-> constant-`f` ladders the αHK reversal count is 1 at f = 0.10 and 0 at every larger `f` — never 3 —
-> so the model *as actually run* still produces at most one transition, and "this parameterization
-> does not reproduce the Nakaya diagram" survives. What is refuted is the **necessity** argument:
+> **What still stands.** The sweep's measured numbers are unaffected. Along the sweep's sampled
+> constant-`f` ladders the `alphaHK` reversal count is 1 at f = 0.10 and 0 at every larger sampled
+> f. Separately, the measured-only habit comparison and pure-class flip census fail to reproduce
+> the reference under the executed protocol. The reversal count does not bound habit transitions.
+> What is refuted is the **necessity** argument:
 > that no broad-facet model *could*. That was the strongest thing I claimed and it is not true.
 >
 > §9's probes and §10's source quotes are separately qualified below; see also the audit's finding

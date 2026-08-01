@@ -75,11 +75,10 @@ const POINTS = [
 // that row says was disproved, so rungs B and C carry NO domain-adequacy evidence, and the AR rise
 // they report could be a domain effect rather than a size effect.
 //
-// Rung B80 is the fix, applied to the point the conclusion rests on: the SAME target extent as
-// rung B at a LARGER domain. Per PHASE6_DOMAIN_SPOT_CHECK's registered criterion, if the habit
-// class is identical and the attached counts agree within 0.5%, N = 64 is adequate at extent 28
-// and rung B's crossing is a size effect. If they disagree, it is a domain artifact and the
-// correction built on it is withdrawn.
+// Rung B80 is a same-extent comparison at a larger domain. It passes the registered criterion
+// locally at extent 28, but that does not establish N = 64 adequate: the C64/C pair later fails the
+// same attached-count criterion at extent 35. These rows are historical diagnostics, not proof
+// that the crossing is solely a physical-size effect.
 // Rungs C64/D/D80 belong to `docs/phase6-convergence-study-prereg.md` and pick the SMALLEST domain
 // at which the extent is legal under the registered 0.65 domain-contact guard, rather than a fixed
 // extent/N ratio. Rung C above was run at N = 80 for extent 35 when N = 64 (0.547) was legal — the

@@ -2,6 +2,10 @@
 
 - **Date:** 2026-07-29
 - **Status:** accepted
+- **Evidence correction (2026-08-01):** the values/justification hash split remains accepted. The
+  counterfactual below that a full re-sweep would reproduce identical numbers because the solver is
+  deterministic is withdrawn. Three exact point replays establish only those executions on the
+  tested host/engine and inherited environment; they do not entail all 204 rows or every state.
 - **Charter impact:** **AMENDS §3.2 Phase 6 item 1.** Old → new wording below.
 
 ## Charter impact, in Rule 5 form
@@ -39,9 +43,9 @@ wrong.
 
 Under the old clause, fixing that sentence costs a full re-sweep. Measured from the sweep's own
 per-point timings that is **89.4 core-hours**, about 10 h wall-clock at concurrency 12 on this host
-— and it would reproduce identical numbers, since the solver is deterministic at the registered
-settings (`noiseEpsilon = 0`, `rngSeed = 1`; verified by re-running points and matching
-`points.json` bit for bit, recorded in `docs/phase6-protocol-errata.md`).
+— but the former claim that it would reproduce identical numbers is not established. Three point
+replays matched exactly at the tested host/engine and environment; that scoped measurement is
+recorded in `docs/phase6-protocol-errata.md` and is not a universal determinism proof.
 
 So the clause as written prices a prose fix at ten hours of compute and zero new information. The
 observed consequence is that the prose does not get fixed: E1 sits in an errata file instead, which

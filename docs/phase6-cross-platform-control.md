@@ -9,15 +9,18 @@
 > row: that row's prose is hash-pinned and editing it breaks the registered protocol hashes, so it
 > needs an ADR. See the note at the end of §Reporting the result.
 >
-> The arm64 tier-1 table is committed at `docs/phase6-fingerprint-arm64.txt` so the per-entry diff
-> can be taken the next time an x64 host is available — that diff has **not** been taken, because
-> no x64 per-entry file exists in this repository.
+> The exact former Git blob of the arm64 tier-1 table is preserved at
+> `evidence/phase6-crossplatform/arm64-libm-fingerprint.txt` (18,398 bytes; SHA-256
+> `d6686f8e687bc4328cf693febe0325932077582f4fd3445bf6d6010e9bce0c02`) and registered in
+> `evidence/MANIFEST.json`. The complete x64 fixture output is preserved beside it (18,395 bytes;
+> SHA-256 `c21fa3775360cfb910d524bf34eb2a6fef76059476805e50b9acb7531f6b53a4`). Their exact comparison localizes the difference to 9/448
+> entries, 1–31 ULP; the largest is `alphaHK.prism|-14.0@0.25` at 31 ULP.
 
 ## Why this control exists
 
 IEEE 754 makes `+ − × ÷ √` correctly rounded on every conforming platform. It does **not**
 specify `Math.exp`, `Math.log` or `Math.pow`, and different libm implementations legitimately
-differ in the last ULP. This solver depends on all three throughout its physics inputs:
+differ in low-order ULPs. This solver depends on all three throughout its physics inputs:
 
 | quantity | transcendental |
 |---|---|
@@ -28,10 +31,10 @@ differ in the last ULP. This solver depends on all three throughout its physics 
 That last one is where a ULP gets amplified rather than absorbed. `alphaHK = A·exp(−σ₀/σ_surf)`,
 and at the registered conditions `σ₀/σ_surf` is of order 10, so a relative perturbation in `σ₀`
 arrives at the growth rate multiplied by roughly that ratio. WP0b already demonstrated that this
-solver can turn one ULP into a different crystal: a float64 addition-order difference in the
+solver did turn one ULP into a different crystal in that measured case: a float64 addition-order difference in the
 boundary operator propagated through `σ_b → alphaHK → fill rate → accumulated fill` until an
-attachment threshold was crossed a step early. The mechanism is proven; only its magnitude across
-architectures is unmeasured.
+attachment threshold was crossed a step early. That measured case establishes the mechanism; it
+does not prove how often or how strongly it acts across architectures.
 
 Phase 2b pinned its exact Node/V8 build and declined any cross-engine bitwise claim. This control
 is the step past that.
@@ -45,7 +48,7 @@ is the step past that.
   differences found in tier 1 are still recorded, as a measured statement about how far
   reproducibility extends.
 - **A class differs** → **that is a finding, and it is reported as one.** It means the conclusion
-  at that point was resting on a last-ULP coin toss. It is not averaged, not re-run until it
+  at that point was sensitive to low-order platform arithmetic. It is not averaged, not re-run until it
   agrees, and neither architecture is declared correct. The affected sweep points are labelled
   fragile.
 
@@ -77,10 +80,10 @@ measured on **win32 x64, Node v24.13.1, V8 13.6.233.17-node.40**.
 > `PHASE6_PARAM_SET`. **Any arm64 digest recorded against `560aeaf7` is not comparable to this
 > one** and must be re-measured.
 
-If the digests match, the two platforms agree on every physics input bit for bit, and no
-downstream difference can be attributed to libm. If they differ, redirect the full output to a
-file on both machines and diff it — the per-entry lines name the exact function and argument that
-moved, which no end-to-end comparison can do.
+If the digests match, the two platforms agree on every sampled physics input bit for bit, and no
+downstream difference at those inputs can be attributed to the sampled libm path. If they differ,
+preserve the full output and compare the per-entry lines; that comparison has now been executed for
+the measured x64 and arm64 hosts and is pinned by `phase6-crossplatform.test.ts`.
 
 ```sh
 node runner/src/main.ts phase6-fixture > fingerprint-arm64.txt
@@ -152,11 +155,11 @@ across architectures at all?* **A difference here is serious** and points at som
 not at a rounding tie.
 
 **The fragile pair** (`fragile-plate-ceiling`, `fragile-column-floor`) sits as close to the class
-thresholds as any point in the sweep. It asks: *is any habit class here decided by a last-ULP coin
-toss?* `fragile-column-floor` measured `AR` **exactly 1.5000** — an exact integer tie in lattice
+thresholds as any point in the sweep. It asks: *is any habit class here sensitive to low-order
+platform arithmetic?* `fragile-column-floor` measured `AR` **exactly 1.5000** — an exact integer tie in lattice
 extents landing precisely on the column floor, so a single attached site either way changes its
-class. **A difference here is EXPECTED-POSSIBLE and is a finding, not a bug.** It would mean that
-classification was always a coin toss and must be reported as fragile.
+  class. **A difference here is EXPECTED-POSSIBLE and is a finding, not a bug.** It would show that
+  classification is platform-fragile for the two tested hosts and must be reported as such.
 
 Report the two pairs separately. A robust pair agreeing while a fragile pair differs is the most
 informative outcome available, and collapsing them into one pass/fail destroys exactly that
@@ -175,7 +178,7 @@ libm rather than engine version — a cleaner comparison than the protocol requi
 ### Tier 1 — DIFFERS
 
 ```
-arm64        3662b9e2     (docs/phase6-fingerprint-arm64.txt, 448 entries)
+arm64        3662b9e2     (evidence/phase6-crossplatform/arm64-libm-fingerprint.txt, 448 entries)
 x64 baseline 2a9f64b3
 ```
 
@@ -187,15 +190,12 @@ this is a genuine float64 difference in the physics inputs and not an artifact o
 
 **The two platforms do not agree bit-for-bit on the physics inputs.**
 
-Which entries moved is **not yet localized**: no x64 per-entry file is committed anywhere in the
-repo, so the diff the runbook calls for could not be taken. The arm64 half is now committed at
-`docs/phase6-fingerprint-arm64.txt` so that diff becomes a one-liner on the next x64 host.
-
-A localization search was run instead (`out/phase6-arm64/localize-digest.mjs`, gitignored):
-**no single-entry perturbation within ±16 ULP** — 14 336 candidates — maps the arm64 table onto
-`2a9f64b3`. So the difference spans **more than one entry**, which is what a shared upstream call
-differing (e.g. the `exp` inside `pSatIce`, feeding `cSat`, `vKin` and onward) would look like.
-This is a candidate explanation from a 32-bit non-cryptographic hash, not a proof.
+The difference is now localized by exact table comparison: **9 of 448 entries differ**, at ULP
+distances **1, 1, 2, 3, 4, 5, 7, 11, and 31**. The largest is
+`alphaHK.prism|-14.0@0.25` at **31 ULP**. The other eight named entries and both parsed full-table
+448-entry digests are pinned in `runner/test/phase6-crossplatform.test.ts`; the parser rejects
+duplicate, malformed, and extra rows. This is a measured two-host result, not a general bound for
+other architectures or libm implementations.
 
 ### Tier 2 — ALL FOUR REPRODUCED EXACTLY
 
@@ -244,7 +244,7 @@ break differently.
 - **Not established:** anything about a third architecture or a different V8 build. The engine was
   held fixed here.
 
-### Incidental finding — the suite is not portable to macOS
+### Historical incidental finding — 2026-07-31 suite snapshot
 
 Exact `npm test` on arm64: **32 failed / 1286 passed / 7 skipped (73 files)**. None of the
 failures is numerical.
@@ -256,11 +256,13 @@ failures is numerical.
   `runner/test/gate5-evidence.test.ts`, `runner/test/gate5-runner.test.ts` and
   `app/test/phase4-verify.test.ts`, each of which does `mkdtempSync(join(tmpdir(), …))`.
   Re-running those three files with `TMPDIR=/private/tmp/vcc-tmp`: **130 passed, 0 failed.**
-- **1 failure** — `runner/test/phase6-sweep.test.ts` reads `evidence/phase6-sweep/points.json`, which is
-  gitignored and absent from any fresh clone on any architecture.
+- **1 failure at that time** — `runner/test/phase6-sweep.test.ts` read a sweep artifact that was then
+  gitignored and absent from a fresh clone. ADR 0038 later moved that artifact into tracked
+  `evidence/`; this specific cause no longer applies.
 
-With the symlink cause removed, exact `npm test` gives **1317 passed / 1 failed / 7 skipped**;
-1317 plus the artifact-dependent test is the x64 1318. **The suite reproduces on arm64.**
+With the symlink cause removed, that historical exact `npm test` gave **1317 passed / 1 failed /
+7 skipped**; the remaining artifact-absence cause was later repaired. This is not a current arm64
+full-suite result for the post-repair tree, so general suite portability remains to be re-measured.
 
 The fix is for those tests to `realpathSync` their temp root before use, not for the guard to
 relax — the guard is correct and is load-bearing. Not done here: this session's scope was the

@@ -94,6 +94,80 @@ describe("habit classification", () => {
   });
 });
 
+describe("the post-result symmetric extent-fragility audit", () => {
+  it("includes exact-threshold rows and pins the independently recomputed evidence counts", () => {
+    // The frozen historical flag is one-sided. The later size ladder falsified its premise that AR
+    // never falls, so this audit applies the same 0.135 distance on both sides. A closed distance
+    // interval includes AR exactly on a threshold; that convention is why these are 43/52 rather
+    // than the formerly quoted 42/51 strict-above counts.
+    const thresholds = [1 / 1.5, 1.5] as const;
+    const bound = 0.135;
+    const audit = (relativePath: string) => {
+      const rows = JSON.parse(
+        readFileSync(new URL(relativePath, import.meta.url), "utf8"),
+      ) as {
+        point: { tempC: number; fraction: number };
+        result: { aspectRatio: number };
+        extentFragile: boolean;
+      }[];
+      const symmetric = rows.filter((row) =>
+        thresholds.some((threshold) => Math.abs(row.result.aspectRatio - threshold) <= bound),
+      );
+      const additional = symmetric.filter((row) => !row.extentFragile);
+      const exactColumnFloor = additional.filter((row) => row.result.aspectRatio === 1.5);
+      return { rows, symmetric, additional, exactColumnFloor };
+    };
+
+    const arm1 = audit("../../evidence/phase6-sweep/points.json");
+    const arm2 = audit("../../evidence/phase6-sweep-arm2/points.json");
+
+    expect(arm1.rows).toHaveLength(204);
+    expect(arm2.rows).toHaveLength(204);
+    expect(arm1.symmetric).toHaveLength(59);
+    expect(arm2.symmetric).toHaveLength(85);
+    expect(arm1.additional).toHaveLength(43);
+    expect(arm2.additional).toHaveLength(52);
+    expect(arm1.exactColumnFloor.map((row) => [row.point.tempC, row.point.fraction])).toEqual([
+      [-23, 0.15],
+    ]);
+    expect(arm2.exactColumnFloor.map((row) => [row.point.tempC, row.point.fraction])).toEqual([
+      [-32, 0.15],
+    ]);
+  });
+
+  it("distinguishes unchanged f=0.90 classes from changed raw aspect ratios", () => {
+    type StoredRow = {
+      point: { tempC: number; fraction: number };
+      result: { aspectRatio: number };
+      modelClass: string;
+    };
+    const read = (relativePath: string): StoredRow[] =>
+      JSON.parse(readFileSync(new URL(relativePath, import.meta.url), "utf8")) as StoredRow[];
+    const cak = new Map(
+      read("../../evidence/phase6-sweep/points.json")
+        .filter((row) => row.point.fraction === 0.9)
+        .map((row) => [row.point.tempC, row]),
+    );
+    const m1 = read("../../evidence/phase6-sweep-arm2/points.json").filter(
+      (row) => row.point.fraction === 0.9,
+    );
+
+    expect(cak.size).toBe(34);
+    expect(m1).toHaveLength(34);
+    const paired = m1.map((row) => {
+      const control = cak.get(row.point.tempC);
+      if (control === undefined) throw new Error(`missing CAK row at ${row.point.tempC} C`);
+      return {
+        classChanged: control.modelClass !== row.modelClass,
+        arDifference: Math.abs(control.result.aspectRatio - row.result.aspectRatio),
+      };
+    });
+    expect(paired.filter((row) => row.classChanged)).toHaveLength(0);
+    expect(paired.filter((row) => row.arDifference !== 0)).toHaveLength(28);
+    expect(Math.max(...paired.map((row) => row.arDifference))).toBeCloseTo(0.218335, 12);
+  });
+});
+
 describe("scoring a measured point", () => {
   it("excludes a broken run BY NAME rather than scoring it", () => {
     // Each of these is a run that did not happen properly, not a statement about the model.

@@ -43,13 +43,22 @@ Titles and dates are verified from the arXiv listing API. This index records wha
 >   — every printed closed form transcribed beside its page citation, evaluated against this
 >   project's inputs and against the dedicated measurement papers. Re-runnable.
 >
-> **The headline.** A habit boundary requires the basal and prism σ₀ curves to swap order, so the
+> ~~**The headline.** A habit boundary requires the basal and prism σ₀ curves to swap order, so the
 > crossing count bounds how many habit transitions a model can express. Every broad-facet
 > parameterization ever printed for this model has **one** crossing (ours 10.00, M2 8.39,
 > `2009.08404v2` Eq. 3 10.92); the Nakaya diagram has **three** boundaries. The two SDAK dips —
 > basal at −4.5 °C, prism at −14.4 °C — supply the difference, and each sits inside a band the WP2
 > sweep scored zero on (`columns` 0/24, `plates-cold` 0/60). **The sweep's result is structural,
-> not a tuning failure**, and SDAK is load-bearing rather than an enhancement.
+> not a tuning failure**, and SDAK is load-bearing rather than an enhancement.~~
+>
+> **CORRECTION 2026-08-01 — the structural claim is retracted.** Crossings of `sigma0Basal` and
+> `sigma0Prism` alone cannot bound habit transitions: the governing attachment coefficient is
+> `alphaHK = A * exp(-sigma0 / sigmaSurface)`, so the temperature- and facet-dependent prefactor
+> `A` can change the ordering. The cited crossing counts therefore do not prove a model-class
+> impossibility, and the sweep cannot establish from them that SDAK is load-bearing. What survives
+> is empirical and limited to the executed rows: they did not reproduce the registered diagram at
+> the sampled conditions. Isolating the dip contribution requires a matched no-dip ablation that
+> holds the remaining M1 kinetics and run configuration fixed.
 
 ### Directly on the warm-end problem
 

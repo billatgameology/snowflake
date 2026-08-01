@@ -263,12 +263,17 @@ export const PHASE6_AMBIGUITY_HALF_WIDTH_C = phase6AmbiguityHalfWidthC(PHASE6_T_
 export const PHASE6_EXTRAPOLATION_ORDER_WINDOW = { lowest: 0.7, highest: 1.5 } as const;
 
 /**
- * The measurement-extent systematic, carried as a NAMED bound rather than folded away.
+ * Historical measured-only extent-fragility operator.
+ *
+ * CORRECTION 2026-08-01: the registered one-directional premise was refuted by the P1 ladder,
+ * whose AR moved 1.52632 -> 1.52174 from rung B to C. This helper is retained to reproduce and
+ * audit the historical artifacts; it is not a valid R15 uncertainty bound and must not be used by
+ * the replacement production evaluator.
  *
  * WP3 §3 measured how far `AR` still drifts between the registered extent 21 and the
  * value-converged extent 31: **cold +0.135** (1.1053 → 1.240) and warm about +0.04. The larger is
- * registered as the bound. The drift is one-directional — a developing habit grows *more*
- * extreme with size, never less — so it can only push a point UP across a class threshold.
+ * registered as the historical bound. The original registration asserted one-directional drift;
+ * that assertion is false and is preserved only in the immutable protocol text/hash.
  *
  * Carried this way because a per-point extent trajectory is unaffordable: it needs a run to
  * extent 39 at every grid point, several times the cost of the sweep itself. What is affordable,
@@ -279,9 +284,8 @@ export const PHASE6_EXTRAPOLATION_ORDER_WINDOW = { lowest: 0.7, highest: 1.5 } a
 export const PHASE6_EXTENT_DRIFT_BOUND_AR = 0.135;
 
 /**
- * True when a measured `AR` sits close enough below a class threshold that the registered
- * extent drift could carry it across. Directional on purpose: drift raises `AR`, so a point just
- * ABOVE a threshold is not at risk from it.
+ * Reproduces whether a historical measured `AR` was flagged below a class threshold under the
+ * now-refuted directional rule. This is an artifact reader, not a scientific adequacy predicate.
  */
 export function phase6IsExtentFragile(aspectRatioValue: number): boolean {
   for (const threshold of [1 / 1.5, 1.5]) {

@@ -133,8 +133,9 @@ export function isNucleationParamSet(value: unknown): value is NucleationParamSe
 //
 // CORRECTED 2026-08-01 (external review). The previous note here said natural log "moves the dip
 // centres to 3.08 and 8.07 degrees". THAT IS MATHEMATICALLY IMPOSSIBLE and the numbers were
-// misattributed. The dip is `exp(-(log T - log c)^2 / w)`, whose minimum is at `T = c` in ANY base,
-// because `log T - log c = 0` exactly when `T = c`. Verified: the centre sits at 4.500 under both
+// misattributed. The full factor is `1 - q * exp(-(log T - log c)^2 / w)`: that factor reaches its
+// minimum at `T = c` in ANY base, while the exponential term reaches its maximum there, because
+// `log T - log c = 0` exactly when `T = c`. Verified: the centre sits at 4.500 under both
 // log10 and ln. **A base change rescales the dip WIDTH, not its centre** — that is the real
 // difference, and with `ln` the dips are ~2.3x narrower in log-argument terms.
 //

@@ -1,91 +1,180 @@
-# Phase 6 source-currency check (Rule 12)
+# Phase 6 source-currency and held-out-target audit (Rule 12)
 
-Rule 12 requires that before a parameter table or protocol freezes, every cited source is
-confirmed to be its latest version and the cited authors' later output is swept for anything
-superseding the extraction — with the check recorded as part of the freeze.
+**Status:** current primary-source audit completed 2026-08-01; target freeze still open. This record
+supersedes the 2026-07-28 title/version-only pass, which explicitly had not read most later papers or
+checked journal/errata sources. It does not edit the historical frozen table or upgrade any existing
+artifact. The science-first replacement protocol must cite this audit and independently review the
+selected target bytes, extraction and uncertainty before freezing.
 
-**This check is late.** The Phase 6 parameter table froze at `6d28623` without it; three uncited
-Libbrecht papers surfaced the following day, which is the incident Rule 12 was written from. This
-document performs the check retroactively and records what it found.
+## Method and cutoff
 
-**It deliberately edits neither the frozen table nor the protocol.** The 204-point sweep has now
-run, and charter §3.2 Phase 6 item 1 says:
+The audit checked current arXiv abstract/version pages, Libbrecht's official publication list
+(observed last modified 2025-10-11), primary articles/PDFs where accessible, journal DOI metadata,
+official corrigenda and data archives. It separated four questions that the old record conflated:
 
-> "Any post-freeze edit to parameters or protocol requires a logged ADR and invalidates prior
-> sweep results — the full sweep re-runs."
+1. Is the cited source at its latest version?
+2. Does later work supersede or qualify the extracted physical input?
+3. Is a candidate observable structurally held out from CAK/M1 inputs?
+4. Can the current free-crystal hex-prism solver make an apples-to-apples prediction?
 
-So a currency record written *into* the frozen artifacts would invalidate the evidence it is
-meant to qualify. It lives here instead, and the protocol references it.
+“Held out” below means no explicit numerical reuse was found in the audited input derivation. It
+cannot establish what an author informally knew. A later publication date is not sufficient if the
+dataset reuses an input paper, shares M1's Nakaya tuning, or needs unimplemented geometry/physics.
 
-## Method
+## 1. Source currency
 
-arXiv listing API, `http://export.arxiv.org/api/query?search_query=au:"Libbrecht"`, sorted by
-submission date descending, 40 entries retrieved 2026-07-28. Version numbers confirmed against
-each paper's own abstract page. Non-snow-crystal entries by unrelated authors of the same surname
-are excluded.
+The repository's principal frozen arXiv sources are current at these versions:
 
-## Part 1 — are the cited sources current?
+| source | current version / publication | result |
+|---|---|---|
+| `1910.09067` morphology model | v2 | current |
+| `1910.06389` *Snow Crystals* monograph | v2 | current |
+| `1208.5982` attachment measurements | v1; J. Crystal Growth 377, 1–8, DOI `10.1016/j.jcrysgro.2013.04.037` | current |
+| `1211.5555` comprehensive-model part 1 | v1 | current |
 
-| cited source | we cite | latest | current? |
-|---|---|---|---|
-| arXiv:1910.09067 *A Quantitative Physical Model of the Snow Crystal Morphology Diagram* | v2 | **v2** | yes |
-| arXiv:1910.06389 *Snow Crystals* (the monograph) | v2 | **v2** | yes |
-| arXiv:1211.5555 *Toward a Comprehensive Model… 1* | v1 | **v1** | yes |
+The official publication list contains no later Libbrecht snow-crystal paper after the June 2023
+pair. Relevant later primary versions reviewed are:
 
-All three are at their latest version. **No cited source is stale.**
+| source | current | scientific bearing |
+|---|---|---|
+| `2004.06212` near −2 °C | v1 | dedicated warm-prism measurements; supports the digitized CAK anchors better than M2's simplified warm branch |
+| `1912.03230` near −5 °C | v1 | reanalysis says the 2009 kinetic interpretation was largely incorrect and actual chamber supersaturation was not accurately known |
+| `2009.08404` near −14 °C / broad CAK forms | v2 | primary SDAK/CAK forms and numeric anchors |
+| `2011.02353` near −4 °C | v1 | warm SDAK qualification |
+| `2012.12916` molecular SDAK | v1 | mechanism/scale qualification, not a replacement CAK table |
+| `2109.00098` c-axis needle methods | v1 | geometry dependency for the 206-observation corpus |
+| `2306.04042` faceting | v1 | later model qualification |
+| `2306.13087` quantitative Nakaya / M1 | v1 | defines the Nakaya-tuned M1 model and shares the 206-observation needle corpus |
 
-## Part 2 — the author's later output
+No reviewed later paper justifies silently replacing the frozen CAK table. The dedicated −2 and
+−5 °C measurement papers support its warm anchors; M1/M2 are distinct modelling alternatives. No
+explicit correction/erratum relation superseding the frozen CAK extraction was found. This is not
+an exhaustive publisher-book errata search.
 
-This is where the check bites. Libbrecht's snow-crystal papers published *after* the monograph
-(1910.06389v2, from which our σ₀ anchors are digitized):
+## 2. Dependency and circularity
 
-| arXiv | date | title | in the stretch register? | obtained? |
+- The CAK measurement paper `1208.5982` cites Takahashi et al. 1991 bibliographically, but fits its
+  numeric parameters to its own low-pressure supported-facet measurements. Takahashi's quantitative
+  `a(t)` and `c(t)` dimensions are therefore structurally held out from the CAK fit.
+- M1 is explicitly chosen to reproduce the Nakaya habit sequence. Takahashi's numeric dimensions
+  may be held-out observables for M1, but its plate/column category is not fully independent.
+- Libbrecht and Arnold 2009 is not held-out CAK validation. The later −5 °C reanalysis says the
+  original kinetic analysis was largely incorrect, actual supersaturation was not accurately known
+  because of chamber depletion, and CAK is assumed in the reinterpretation. The −2 °C paper makes a
+  related correction.
+- The 206 c-axis-needle observations in `2306.13087` are in the paper that defines M1, hence in-sample
+  for M1, and their needle seed is not the current regular hex-prism seed.
+- Harrington and Pokrifka 2024 postdates M1, but its archive includes a Libbrecht 2013 row that is
+  circular with P1. Any later use must freeze/reanalyse non-Libbrecht raw rows separately.
+- Kuroda/Gonda and Gonda predate the current inputs and are external, but their geometry and omitted
+  transport/thermal physics prevent current-model quantitative scoring.
+
+## 3. Candidate matrix
+
+| charter family | best audited primary target | independence | current-model compatibility | verdict |
 |---|---|---|---|---|
-| 2306.13087v1 | 2023-06-22 | Taxonomy 2: **Quantifying the Nakaya Diagram** | yes | **yes** |
-| 2306.04042v1 | 2023-06-06 | A Comprehensive Model of Snow Crystal Faceting | yes | no |
-| 2109.00098v1 | 2021-08-31 | Taxonomy 1: **Using c-axis Ice Needles as Seed Crystals** | **no** | no |
-| 2106.09809v1 | 2021-06-17 | Triangular Snowflakes | **no** | no |
-| 2012.12916v1 | 2020-12-23 | Comprehensive Model 10: **Molecular Dynamics of SDAK** | **no** | no |
-| 2011.02353v1 | 2020-11-04 | Comprehensive Model 9: **SDAK near −4 °C** | mentioned | no |
-| 2009.08404**v2** | 2020-09-17 | Comprehensive Model 8: **SDAK near −14 °C** | yes (unversioned) | no |
-| 2004.06212v1 | 2020-04-13 | Comprehensive Model 7: **Ice Attachment Kinetics near −2 °C** | **no** | no |
-| 1912.09440v1 | 2019-12-19 | Apparatus for measuring growth rates of small ice prisms | **no** | no |
-| 1912.03230v1 | 2019-12-06 | Comprehensive Model 6: **Ice Attachment Kinetics near −5 °C** | **no** | no |
+| growth versus T and supersaturation | Takahashi et al. 1991, DOI `10.2151/jmsj1965.69.1_15`; corrigendum `10.2151/jmsj1965.69.2_251` | dimensions held out from CAK; habit partly in-sample for M1 | free fall and near-atmospheric air; water saturation only; different specimens at successive times; uncertain seeds; later riming/ventilation | **conditionally admissible partial target**, especially early −5.3 °C |
+| size-dependent habit | Takahashi −5.3 °C hollow-column→sheath/needle sequence | dimensions external to CAK; categorical habit partly in-sample for M1 | ensemble at successive times rather than one trajectory; topology becomes load-bearing | **conditional**, with explicit ensemble/topology limits |
+| pressure | Kuroda & Gonda 1984; Gonda 1976; Gonda & Gomi 1985 | external | substrate or gas-specific transport/thermal/supersaturation/size confounds | **no admissible current-model quantitative target** |
+| prescribed history | Harrington & Pokrifka 2026 | postdates inputs; exact switch history | substrate-supported; rim width, step source and asymmetric transport absent | **no admissible target for current geometry**; leading future substrate-model target |
 
-**Six snow-crystal papers the stretch register did not list**, and one version discrepancy
-(2009.08404 is at v2; the register cites it unversioned).
+No one audited dataset currently satisfies all four families under the present geometry.
 
-## Part 3 — what this means, ordered by consequence
+## 4. Conditional Takahashi target
 
-**1. There is dedicated published measurement at exactly the temperatures where our warm-end
-inputs are worst.** `2004.06212` measures attachment kinetics near **−2 °C** and `1912.03230`
-near **−5 °C**. Those are precisely the temperatures where `research/2306.13087v1.md` §3 found our
-digitized σ₀_prism low by a factor of **1.6–3.2** against Libbrecht's own printed closed form —
-and −2 °C is where **all five** of the sweep's agreements sit. Our anchors there come from
-digitizing a figure in the 2019 monograph; dedicated measurement papers for those exact
-temperatures were published in 2019-12 and 2020-04 and have never been consulted by this project.
+Takahashi et al. 1991 used isolated crystals freely suspended in a vertical cloud tunnel near water
+saturation and about 1010 mb, over −3 to −23 °C and 3–30 minutes. Reported temperature variation is
+roughly ±0.2 °C early and ±0.4 °C later; cloud liquid water is about 0.1 g m⁻³ with mostly 5–15 µm
+droplets. Specimens at successive times are different crystals, not longitudinal measurements of one
+individual. The official corrigendum changes Figure 3 placement/issue metadata, not numeric results.
 
-**2. The seed question has a companion paper we have not read.** `2109.00098` is *Taxonomy 1:
-Using c-axis Ice Needles as Seed Crystals* — the methods paper for the seed geometry used
-throughout `2306.13087`'s 206 observations. Any decision about adopting that data set as a
-comparison target, or about matching its seed, should read this first.
+The −5.3 °C series is the leading present-model candidate: ventilation was reported unnoticeable
+even at large size and the paper gives strong axial-ratio evolution. Hollow/sheath topology later
+becomes important; failure to reproduce it must be reported, not hidden by scoring only dimensions.
 
-**3. SDAK has three later papers.** `2012.12916` (molecular dynamics), `2011.02353` (near −4 °C)
-and `2009.08404v2` (near −14 °C). ADR 0030's SDAK arm proposes building its annex from printed
-closed forms; these are the primary sources behind them and its step-zero verification should
-cover them.
+The 2026 Penn State archive (DOI `10.26208/XJQK-R076`) contains machine-readable `a`/`c` values
+digitized from Takahashi figures. Despite filenames containing `raw`, these are later digitizations,
+not original instrument records, and they lack per-point dimensional uncertainty.
 
-## What was NOT checked
+A defensible pre-registration must:
 
-Stated as a limit rather than left implicit:
+- compare `a(t)` and `c(t)` separately and describe the rows as an ensemble, not one-crystal history;
+- independently redigitize or use the paper's ensemble fits, with digitization and temperature
+  uncertainty propagated;
+- convert water saturation through the registered Murphy–Koop-refereed table path, never the known
+  invalid warm-end `sigmaWater()` difference form;
+- freeze physical seed/initial-size mapping and stop before riming or ventilation invalidates the
+  comparison;
+- label M1's numeric dimension comparison as held-out observable under an in-sample habit class;
+- state that this samples temperature along one physical water-saturation curve, not an independent
+  two-dimensional `(T, sigma)` grid.
 
-- **Only titles, dates and version numbers were verified** for every paper except 2306.13087.
-  Nothing in Part 3 rests on having read the others — the consequences above are inferences from
-  titles and from the already-measured discrepancy, not from their contents.
-- **No non-arXiv source was swept** — journal versions, errata, or the snowcrystals.com material
-  may differ from the preprints.
-- **Only Libbrecht was swept.** The Gravner–Griffeath sources behind the G–G skeleton were not
-  re-checked for currency.
-- **This check does not re-open the freeze.** It records what a Rule 12 check would have found
-  had it run at the right time. Acting on any of it is an ADR-level decision with a re-sweep
-  cost, and none is taken here.
+## 5. Pressure sources and unresolved discrepancy
+
+Kuroda and Gonda 1984 (DOI `10.2151/jmsj1965.62.3_563`) measured substrate-grown crystals at −30 °C
+in air at 0.3 and 250 Torr. At `sigmaInfinity = 3%`, low-pressure growth is nearly linear over roughly
+10–160 µm while 250 Torr becomes nonlinear. Normal-rate comparisons use different reference sizes.
+The plotted data are useful diagnostics, but the inferred pressure-dependent attachment coefficients
+were challenged by later diffusion analysis; no electronic table or explicit plotted-point
+uncertainty was found.
+
+Gonda 1976 (DOI `10.2151/jmsj1965.54.4_233`) is free-fall but varies helium/argon across a broad
+pressure range. The solver implements air through `D(P)`, not gas-specific diffusion and thermal
+conductivity, and the article reports plot-level morphology frequencies rather than raw rates.
+
+Gonda and Gomi 1985 (DOI `10.3189/1985AoG6-1-222-224`) gives a useful −30 °C instability boundary at
+several pressures but is substrate-grown. Its primary prose reports lowest instability
+supersaturations about 1.7%, 4.1% and 10.1% at `10^5`, `3.3×10^4` and `4×10^3 Pa`. The
+Harrington/Pokrifka archive instead records 2.84±0.644% at “1000 hPa” and 5.83±0.84% at “300 hPa.”
+The observable/definition/extraction mismatch is unresolved. **Do not freeze either archive threshold
+until it is reconciled from primary figures and definitions.**
+
+## 6. Prescribed-history result
+
+The 2026 Harrington/Pokrifka article (DOI `10.1175/JAS-D-26-0016.1`) and archive
+`10.26208/XJQK-R076` provide an exact schedule at −50 °C, about 972 hPa, 48% supersaturation followed
+by 20% at 230 minutes, with `a`, `c`, min/max errors and rim width versus time. −50 °C is at the CAK
+interpolation boundary. The blocker is physics/geometry: substrate-supported growth, rim width,
+step-source location and asymmetric transport are quantitatively load-bearing and absent from the
+current free-crystal solver.
+
+The related 2025 paper (DOI `10.1175/JAS-D-25-0030.1`) also uses substrate/thermal-gradient growth;
+only its −50 to −46 °C portion lies inside the current parameter domain. The 2024 article/DOI
+`10.1175/JAS-D-23-0131.1` and archive `10.26208/YMMC-Z637` give compact/hollow transitions but no
+crystal size in threshold rows, so cannot discharge size-dependent habit alone.
+
+The targeted audit found no source combining all of:
+
+1. free/isolated geometry compatible with the current seed;
+2. exact time-varying T or supersaturation;
+3. conditions inside the source-defined parameter domain;
+4. dimensional/morphological time series with usable uncertainty.
+
+This is a targeted-search result, not a theorem that no compatible experiment exists. Do not relabel
+Takahashi's constant-environment ensemble or a qualitative movie as a prescribed-history target.
+Science-first options are to implement and verify substrate/thermal/step-source physics, acquire a
+compatible dataset, or leave this charter obligation explicitly incomplete.
+
+## 7. Freeze consequences
+
+- Freeze no held-out production target in this commit; the source audit precedes, rather than
+  silently becoming, the protocol decision.
+- Takahashi −5.3 °C is the leading conditional growth/size target and requires independent extraction
+  plus uncertainty review.
+- Pressure and prescribed-history targets are blocked for the current geometry. A diagnostic may run
+  only if labelled non-transferable; it cannot discharge the charter obligation.
+- Any new geometry/physics is an ADR/spec/implementation decision and requires its own numerical and
+  evidence review before held-out scoring.
+
+## 8. Review provenance and limits
+
+Reviewer: OpenAI Sol-class Codex subagent with full shared request/handoff context, not involved in
+Phase 6 authoring and not context-blind. It re-executed arXiv version queries, checked the official
+publication list, read primary Takahashi/Gonda/Kuroda-Gonda/Gonda-Gomi sources, inspected DOI/archive
+metadata and CSV rows for Harrington/Pokrifka 2024–2026, and traced dependencies against `1208.5982`,
+CAK and M1.
+
+It did not execute the solver, numerically reproduce any paper, perform an exhaustive world-literature
+or publisher-book-errata search, contact authors, or access the full 2024 AMS article body. The 2024
+archive and authoritative metadata were available; the threshold-definition discrepancy remains an
+explicit blocker.

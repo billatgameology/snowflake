@@ -67,6 +67,10 @@ function sha256(path) {
 
 // ── 0. The artifact set, and WHICH ARM it claims to be ───────────────────────────────────────
 console.log(`artifacts: ${outDir}`);
+console.log(
+  "RESULT LABEL: MEASURED-ONLY AGREEMENT — this is not ADR 0026's registered " +
+    "three-grid conservative-intersection headline.",
+);
 for (const name of ["points.json", "report.json", "diagram.svg"]) {
   const p = join(outDir, name);
   try {
@@ -261,12 +265,12 @@ console.log("re-derived independently of runner/src:");
 console.log(`  arm                    ${published.arm} (paramSet ${published.paramSet})`);
 console.log(`  freeze commit          ${FREEZE_COMMIT}`);
 console.log(`  points                 ${mine.length}   config-carrying ${withConfig}`);
-console.log(`  HEADLINE               ${headlineAgree}/${headlineTotal}   (predicted ${PREDICTED.armDenominator.agree}/${PREDICTED.armDenominator.total})`);
-console.log(`  common denominator     ${commonAgree}/${commonTotal}   (predicted ${PREDICTED.commonDenominator.agree}/${PREDICTED.commonDenominator.total}, arm 1 measured 3/90)`);
+console.log(`  MEASURED-ONLY AGREEMENT (arm scope)   ${headlineAgree}/${headlineTotal}   (pre-run prediction ${PREDICTED.armDenominator.agree}/${PREDICTED.armDenominator.total})`);
+console.log(`  MEASURED-ONLY AGREEMENT (common scope) ${commonAgree}/${commonTotal}   (pre-run prediction ${PREDICTED.commonDenominator.agree}/${PREDICTED.commonDenominator.total}, arm 1 measured 3/90)`);
 const classes = {};
 for (const s of mine) classes[s.cls] = (classes[s.cls] ?? 0) + 1;
 console.log(`  classes                ${JSON.stringify(classes)}`);
-console.log(`  extent-fragile         ${mine.filter((s) => s.cls !== "invalid" && extentFragile(s.result.aspectRatio)).length}`);
+console.log(`  historical extent-fragile (artifact flag) ${mine.filter((s) => s.cls !== "invalid" && extentFragile(s.result.aspectRatio)).length}`);
 console.log(`  excluded (named)       ${mine.filter((s) => s.score === "excluded").length}`);
 console.log(`  bistable band          ${bist.length} points, ${bist.filter((s) => s.score === "agree").length} agree, ${bist.filter((s) => s.cls === "neutral").length} neutral`);
 for (const t of perRegime) {
@@ -277,8 +281,14 @@ for (const t of perRegime) {
 
 console.log("");
 if (failures.length === 0) {
-  console.log(`VERIFIED: ${mine.length} points re-derived; every class, score, headline flag,`);
-  console.log("extent-fragile flag, per-regime tally, bistable count and arm-identity field matches.");
+  console.log(`VERIFIED: ${mine.length} points re-derived; every class, score, historical`);
+  console.log("inHeadlineScope artifact flag, historical extent-fragile artifact flag, per-regime tally, bistable count");
+  console.log("and arm-identity field matches.");
+  console.log(
+    `MEASURED-ONLY AGREEMENT: ${headlineAgree}/${headlineTotal} in arm scope; ` +
+      `${commonAgree}/${commonTotal} in the arm-1 common scope ` +
+      "(not the registered ADR 0026 conservative-intersection headline)",
+  );
   console.log("PHASE6 ARM2 INDEPENDENT VERIFY: PASS");
 } else {
   console.log(`DISAGREEMENTS: ${failures.length} (${reclassified} class, ${rescored} score)`);

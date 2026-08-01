@@ -177,6 +177,37 @@ describe("the registered 0D expectation (ADR 0036 Part 1)", () => {
     };
     expect(transitions(naturalSense).length).not.toBe(PHASE6_M1_EXPECTED_TRANSITIONS.length);
   });
+
+  it("keeps each analytic dip centre fixed under log10 and natural log", () => {
+    // This pins the exact mathematical fact the corrected prose relies on. A transition-count test
+    // alone cannot catch a future comment that misattributes a crossing location as a moved centre.
+    const dipFactor = (
+      magnitudeC: number,
+      centreC: number,
+      depth: number,
+      width: number,
+      logarithm: (value: number) => number,
+    ): number =>
+      1 -
+      depth *
+        Math.exp(-((logarithm(magnitudeC) - logarithm(centreC)) ** 2) / width);
+
+    for (const [centreC, depth, width] of [
+      [PHASE6_M1_BASAL_DIP_CENTRE_C, 0.87, 0.07],
+      [PHASE6_M1_PRISM_DIP_CENTRE_C, 0.95, 0.06],
+    ] as const) {
+      for (const logarithm of [Math.log10, Math.log]) {
+        const atCentre = dipFactor(centreC, centreC, depth, width, logarithm);
+        expect(atCentre).toBe(1 - depth);
+        expect(dipFactor(centreC * 0.999, centreC, depth, width, logarithm)).toBeGreaterThan(
+          atCentre,
+        );
+        expect(dipFactor(centreC * 1.001, centreC, depth, width, logarithm)).toBeGreaterThan(
+          atCentre,
+        );
+      }
+    }
+  });
 });
 
 describe("the cold-end input gap (ADR 0036 pre-registration 3)", () => {

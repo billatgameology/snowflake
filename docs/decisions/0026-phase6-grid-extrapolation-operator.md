@@ -2,6 +2,15 @@
 
 - **Date:** 2026-07-27
 - **Status:** accepted
+- **Evidence correction (2026-08-01):** the fitted-order operator and conservative-intersection
+  policy remain the accepted historical decision. The claims below that the consequential
+  numerical question was closed, that the old spacing ladder established adequacy, or that the
+  cold condition cannot reach column in the grid limit are **retracted**. The 0.7/0.35/0.2333 µm
+  rows changed lattice seed representation and achieved physical size with refinement, so they
+  are not a fixed-physics R15 convergence campaign. The current science-first plan requires a new
+  whole-grid, fixed-physics campaign before production; no tested configuration is presently
+  adequate. This correction preserves the historical operator rather than amending it to match
+  the measured-only artifacts.
 - **Charter impact:** none, and per Rule 5 here are the clauses that make it none. §3.2 Phase 6
   item 1's freeze list ends with "…and the **uncertainty-reporting scheme**", and that scheme —
   registered in WP0c — consumes a per-point grid-extrapolated class. This ADR supplies the
@@ -81,7 +90,7 @@ temperatures (ADR 0025). The two component counts and the `not-extrapolatable` t
 beneath it, never as the top line. Counting agreement twice and quoting the friendlier number is
 the failure mode a dual report invites.
 
-## Consequences
+## Historical consequences — numerical-closure claims superseded above
 
 **The most consequential open question in Phase 6 is now closed by measurement, and the answer is
 neutral.** §4.1 combined an extent extrapolation with a grid extrapolation to put a converged cold

@@ -1,5 +1,16 @@
 # Phase 6 numerical verification — the four convergence studies
 
+> **CORRECTED STATUS 2026-08-01 — historical, non-transferable reconnaissance; numerical
+> adequacy remains open.** This report ran under `CAK_A1` and its grid ladder changed lattice seed
+> representation and achieved physical size with spacing. The later registered domain spot-check
+> failed N = 48 against N = 64 at 3/4 points, and the N = 64 against N = 80 escalation also failed
+> 3/4. Therefore the statements below that habit class is robust on every axis, the sweep is
+> viable, N = 48 is adequate, the domain ladder generalises across habits, or the cold grid-limit
+> class is settled are **retracted as current conclusions**. The tabulated runs remain historical
+> measurements at their executed configurations. They do not close R15 and cannot select the new
+> production configuration. The governing replacement is
+> `docs/plans/phase-6-science-first-completion.md`, WP2–WP4.
+
 Charter §3.2 Phase 6 item 2 requires numerical verification, and requires it *reported*. This is
 that report. It is the WP3 deliverable and it runs **before** the grid freeze, because
 calibration had already shown a small domain producing a different growth regime rather than a
@@ -22,7 +33,7 @@ eight physical cores, so every second is contended by construction.
 
 ---
 
-## The one result that matters most
+## Historical summary — superseded by the correction above
 
 **The habit CLASS is robust on every axis. The value underneath converges late or not at all on
 three of the four — and on the fourth, grid spacing, it does not converge in any usable sense at

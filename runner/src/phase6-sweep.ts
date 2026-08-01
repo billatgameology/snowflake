@@ -773,7 +773,7 @@ export interface Phase6SweepReport {
   readonly justificationSha256: string;
   readonly protocolSha256: string;
   readonly head: string;
-  /** THE headline: agreement over headline-scope points, measured class. */
+  /** Historical measured-only agreement. This is not ADR 0026's registered R15 headline. */
   readonly headlineAgree: number;
   readonly headlineTotal: number;
   /**

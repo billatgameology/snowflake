@@ -228,6 +228,15 @@ per-point classes, and the probes show it does not — one point measured at −
 1.0000. The published class matrix, the flip brackets and the per-regime counts are all per-point
 quantities, and none of them is currently correct.
 
+> **CORRECTION 2026-08-01 — the structural-bound rationale in this alternative is retracted.** A
+> crossing count for `sigma0Basal` and `sigma0Prism` does not bound habit transitions, because habit
+> is governed by the full attachment coefficient
+> `alphaHK = A * exp(-sigma0 / sigmaSurface)`, including the facet-dependent prefactor `A`. The
+> re-sweep still could not be skipped: the executed rows violated the registered `CAK` parameter
+> set, the charter required the full sweep to re-run after that frozen input changed, and the
+> measured per-point classes did change. Those protocol and measurement reasons reject the
+> alternative without invoking the withdrawn theorem.
+
 **Re-sweep only the affected band (−2 to −9 °C) and splice.** Rejected. It would produce a
 `points.json` whose rows came from two different parameter sets, which is the merged-report failure
 mode the WP5 negative controls exist to catch. ~~The cold rows are bit-identical under either set~~

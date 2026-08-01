@@ -1,18 +1,18 @@
 # Plan — Phase 6: Validation against the Nakaya diagram
 
 - **Phase:** Phase 6 — validation, not calibration (decision 0003)
-- **Status (corrected 2026-08-01 by external review):** **SUPERSEDED as a live plan.** Both arms ran
-  to completion; the phase is concluded and its outcome is
-  [research/phase6-conclusion.md](../../research/phase6-conclusion.md). **The registered scientific
-  gate is INCOMPLETE** — the pre-registered conservative-intersection headline rule was never
-  implemented (R15), and charter obligations (held-out validation; hundreds of preview-resolution
-  GPU runs) were omitted without an amending ADR. Unchecked work packages below reflect what was
-  planned, **not** what remains scheduled; the ranked open items live in
-  [docs/HANDOFF.md](../HANDOFF.md). The line below is the ORIGINAL status and is retained as history.
+- **Status (corrected 2026-08-01):** **SUPERSEDED as a live plan.** Both historical 204-row arms ran,
+  but the Phase 6 scientific gate remains active and incomplete: the pre-registered
+  conservative-intersection headline rule was never implemented (R15), and charter obligations
+  (held-out validation; hundreds of preview-resolution GPU runs) were omitted. The science-first
+  completion work is governed by
+  [phase-6-science-first-completion.md](phase-6-science-first-completion.md). Unchecked work packages
+  below are historical registration, not the current schedule. The line below is the ORIGINAL
+  status and is retained as history.
 - **Status (original):** registered, WP0/WP1 in progress. **No validation sweep runs until the freeze
   lands**, and the freeze now waits on convergence evidence rather than preceding it.
 - **Started:** 2026-07-26
-- **Last touched:** 2026-07-26 by Claude
+- **Last touched:** 2026-08-01 by OpenAI Codex (GPT-5)
 - **Charter version at registration:** v1.16 (2026-07-24)
 - **Revised 2026-07-26 on the operator's stated priority: accuracy to reality and science
   first; development and runtime speed secondary.** That priority changed five things, each
@@ -242,7 +242,7 @@ Results may therefore differ in the last ULP across engine versions or CPU archi
 2b already pinned its exact Node/V8 build and declined any cross-engine bitwise claim. Phase 6
 goes one step further and *tests* it: the same registered fixture runs on a second machine
 (Apple M-series, arm64) and the habit classification is compared. **If a classification changes,
-that conclusion was resting on a last-ULP coin toss and the finding is reported as fragile.** If
+that conclusion was sensitive to low-order platform arithmetic and the finding is reported as fragile.** If
 no second machine is available the claim is scoped to the registered host and says so.
 
 ## Pre-registration contents (WP0)
@@ -452,6 +452,15 @@ The interim reading above, taken while the runs were in flight, said cold "flatt
 That was mid-rise: the value was still climbing and the final figure is a quarter higher. The
 *class* it reported happens to be the right one, but it was right for the wrong reason, and the
 correction matters because §4 of the convergence report extrapolates from this value.
+
+> **STRUCTURAL ARGUMENT BELOW RETRACTED — 2026-08-01 adversarial review.** Lines in this historical
+> registration that infer a habit-transition bound or sense from `sigma_0` crossings alone are
+> false. Habit depends on the full `alphaHK = A·exp(−sigma_0/sigma_surf)` ordering; `A_prism` changes
+> the crossings and diffusion determines `sigma_surf`. The registered CAK functions can have three
+> `alphaHK` crossings over a narrow sampled surface-supersaturation band, and the ±25% anchor exercise
+> below governs `sigma_0`, not habit. What remains is empirical: under the registered pure-class
+> operator, each executed arm has two `plate→column` flips total across six constant-f ladders and no
+> `column→plate` flip. Nothing below proves what every broad-facet model can or cannot produce.
 
 **This sharpens into a specific, falsifiable expectation, and it is not the one the diagram
 shows.** The registered σ₀(T) has a *single* crossing, at exactly −10 °C where

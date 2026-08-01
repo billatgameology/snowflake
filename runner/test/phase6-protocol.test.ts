@@ -388,8 +388,8 @@ describe("the grid-extrapolation operator (ADR 0026)", () => {
 
 describe("the carried systematics", () => {
   it("flags extent-fragile points below a threshold, and only below", () => {
-    // The drift is one-directional — a developing habit grows MORE extreme with size — so a
-    // point just above a threshold is not at risk from it and must not be flagged.
+    // Historical reproduction only: the registered one-directional premise was later refuted by
+    // P1's B-to-C fall. These assertions pin the old artifact flag; they do not validate R15.
     expect(PHASE6_EXTENT_DRIFT_BOUND_AR).toBe(0.135);
     expect(phase6IsExtentFragile(0.6)).toBe(true); // 0.6 -> could reach 0.735, past 0.667
     expect(phase6IsExtentFragile(0.5)).toBe(false); // too far below to reach it

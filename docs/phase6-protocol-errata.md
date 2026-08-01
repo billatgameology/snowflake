@@ -15,7 +15,7 @@ So this file is no longer a parking place. It is for findings inside the frozen 
 *yet* be fixed, and it currently holds none: E1 is closed, E2 was always an unhashed comment and was
 corrected in place.
 
-### Determinism, measured on three points
+### Scoped replay on three points; universal determinism claim withdrawn
 
 The original argument for not re-sweeping rested on the solver being deterministic, so that a
 corrected justification could not change any executed result. Maker-directed after the 2026-07-29
@@ -28,12 +28,16 @@ different classes, run lengths and hole-fill counts rather than one case repeate
 | −2 °C, f = 0.25 — plate branch, 19 min | plate | 158 | 0.600420 | **0.600420** |
 | −12 °C, f = 0.10 — slow cold, 46 min, 146 hole fills | neutral | 310 | 0.950000 | **0.950000** |
 
-`steps`, `attached`, `extent` and `symErr` matched exactly on all three as well. The solver is
-deterministic at the registered settings (`noiseEpsilon = 0`, `rngSeed = 1`).
+`steps`, `attached`, `extent` and `symErr` matched exactly on all three as well. This establishes
+exact replay for those three executions on the tested host/engine and inherited environment. It
+does not prove universal determinism across every state, source snapshot, process environment, or
+architecture.
 
 **Cost of a re-sweep, had one been owed**, from the sweep's own per-point timings: **89.4
 core-hours** — 14.9 h at concurrency 6, ~7.5 h ideal at 12 on this 16-thread host, so roughly 10 h
-wall-clock. Maker decision: NO. It would have reproduced identical numbers.
+wall-clock. Historical maker decision: NO. The former sentence saying a re-sweep *would* reproduce
+identical numbers is retracted; three exact replays do not entail that result for all 204 rows. The
+2026-08-01 science-first direction supersedes that resource scheduling decision.
 
 Found by the adversarial audit of 2026-07-29
 (`docs/phase6-soundness-audit-2026-07-29.raw.txt`).
@@ -181,8 +185,8 @@ which is how a safety mechanism gets resented and then bypassed.
 5. `app/scripts/phase6-arm2-independent.mjs`, which imports nothing from `runner/src`, re-derives
    all 204 rows and every reported field: **PASS**.
 
-**The determinism claim, MEASURED rather than assumed.** Four points spanning the grid were re-run
-at the clean regeneration commit and compared against the stranded rows. All four reproduce
+**Scoped four-point replay, not a universal determinism claim.** Four points spanning the grid were
+re-run at the clean regeneration commit and compared against the stranded rows. All four reproduce
 bit-identically in every recorded field:
 
 | T (deg C) | steps | attached | AR | reproduced |
@@ -192,8 +196,9 @@ bit-identically in every recorded field:
 | -15 | 121 | 917 | 0.272918 | identical |
 | -35 | 199 | 1195 | 2.33333 | identical |
 
-This is the step a blind re-run would have skipped: it would have *assumed* determinism where this
-*tests* it.
+This checks exact replay for these four executions on the tested host/engine and inherited
+environment. It does not establish that every grid row, state trajectory, architecture, or process
+environment is deterministic.
 
 **The structural fix, so this cannot recur.** An evidence sweep must not run in a worktree another
 session commits to. Future sweeps run in a dedicated detached worktree pinned to a fixed commit,
@@ -301,12 +306,17 @@ registered extent 21, judged by the registered evaluator:
 
 Registered tolerance: **0.5%**. Three of four readings exceed it by 3–5×.
 
-**An internal control that says these failures are real.** The one PASS reproduces the coarse
+~~**An internal control that says these failures are real.** The one PASS reproduces the coarse
 attached count *exactly* — 4551 against 4551 at a different domain. A systematic error in the fine
-runs could not produce that.
+runs could not produce that.~~
 
-**The habit CLASS is identical in all four**, which is what the headlines score, so no published
-tally is shown wrong here. What fails is the registered pass criterion, which requires identical
+> **CORRECTION 2026-08-01.** The exact 4551-to-4551 result establishes only that no discrepancy was
+> measured at that condition. One exact pass cannot exclude a condition-dependent systematic error
+> at the three failing conditions.
+
+**The habit CLASS is identical in all four**, so the four historical measured-only class readings do
+not change. The registered conservative-intersection headline was never produced. What fails is the
+registered pass criterion, which requires identical
 class **and** attached counts within 0.5%.
 
 **The registered consequence, quoted rather than paraphrased:** *"raise the registered domain to
@@ -330,6 +340,12 @@ touches the threshold as well as the justification.
 **Maker direction 2026-07-31: honor the registered consequence in full.** Best science practice
 governs cost/speed/accuracy tradeoffs.
 
+> **SUPERSEDED SCHEDULING DIRECTION 2026-08-01.** The maker subsequently directed the science-first
+> O1b path to execute rather than stop for resource reasons; see
+> [`plans/phase-6-science-first-completion.md`](plans/phase-6-science-first-completion.md). This note
+> does not amend the frozen protocol: the replacement ADR and charter/protocol alignment remain
+> prerequisites to new production evidence.
+
 **AND THEN THE REMEDIATION ITSELF FAILED ITS OWN CHECK (2026-07-31, 21:20).** Before committing
 ~780 core-hours to the mandated N = 64 re-sweep, the same criterion was applied one rung up —
 already-measured N = 64 against fresh N = 80, at the same four points:
@@ -346,9 +362,15 @@ condition.** "Raise the domain to N = 64 and re-run the entire grid" would have 
 points at a domain that fails the very spot-check that ordered the re-run. That is a defect in the
 registration, not merely a wrong number, and it is recorded rather than silently widened to N = 80.
 
-**Escalating N alone looks unaffordable.** Successive differences at the worst point run
+~~**Escalating N alone looks unaffordable.** Successive differences at the worst point run
 2.495% → 1.861%, a ratio of 0.746; at that rate reaching 0.5% needs roughly four more doublings
-beyond N = 80, which already costs ~12× N = 48 per point.
+beyond N = 80, which already costs ~12× N = 48 per point.~~
+
+> **CORRECTION 2026-08-01.** If the single observed ratio 0.746 continued geometrically, four
+> further reductions would leave about 0.576%, and **five** would leave about 0.430%, below 0.5%.
+> These are hypothetical factor-0.746 reductions, not demonstrated domain doublings. The measured
+> N = 80 cost shows that further study is expensive; two intervals do not establish either a
+> convergence law or that every adequate configuration is unaffordable.
 
 **Where the resolution may actually lie.** Every failure above is at the registered **extent 21**.
 At **extent 29** the same criterion PASSED for P1 — N = 64 vs N = 80 agreeing to 0.354%. If the
@@ -356,6 +378,12 @@ domain sensitivity is a small-crystal effect rather than a box-size effect, a la
 extent fixes both this and the extent non-convergence at once. **Confounded and under test** — the
 failing points are different (T, f) conditions from P1 — by the pre-registered convergence study in
 [`phase6-convergence-study-prereg.md`](phase6-convergence-study-prereg.md).
+
+> **RESULT-SCOPE CORRECTION 2026-08-01.** That follow-up is diagnostic only and non-transferable to
+> a production configuration. The original registered A/B/C ladder is **outcome 4,
+> non-monotone**: P1 changes 1.40000 → 1.52632 → 1.52174, so the adjacent B→C fall refutes the
+> earlier monotone-growth reading. Later diagnostic rungs do not retroactively change that
+> registered outcome and do not close a Phase 6 gate.
 
 ---
 

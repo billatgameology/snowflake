@@ -2,6 +2,12 @@
 
 - **Date:** 2026-07-27
 - **Status:** accepted
+- **Evidence correction (2026-08-01):** the pure-class flip operator, bracketing rule, and scoring
+  policy remain accepted. The later statement that one monotone `sigma0` crossing can produce at
+  most one habit flip is **retracted**: habit depends on the full `alphaHK` ordering, including
+  facet prefactors, surface supersaturation, diffusion, and size evolution. A `sigma0` crossing
+  count is not a structural bound on habit flips. Historical flip counts remain measurements of
+  the executed ladders only.
 - **Charter impact:** none, and per Rule 5 here are the clauses that make it none. §3.2 Phase 6
   item 1 requires:
 
@@ -93,8 +99,8 @@ interval between the last temperature of one pure class and the first of the oth
 interval width as the location uncertainty. Neutral and invalid points do not terminate a scan —
 they *widen* the bracket, which is the honest representation. A wide neutral span means the flip
 is poorly located, and collapsing it to a midpoint would manufacture precision the grid does not
-have. **The number of flips is itself a first-class result**: the reference has three, and a
-single monotone σ₀ crossing can produce at most one.
+have. **The number of flips is itself a first-class result**: the reference has three. The former
+single-`sigma0`-crossing structural bound is retracted by the correction at the head of this ADR.
 
 **The per-regime evidence budget is published pre-sweep**, alongside the existing 28/6 split:
 

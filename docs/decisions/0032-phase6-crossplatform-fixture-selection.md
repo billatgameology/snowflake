@@ -37,7 +37,7 @@ not exist. Applying the rule afterwards is mechanical.
 questions and conflating them costs the answer to both:
 
 - the **robust pair** asks *does the whole pipeline agree across architectures?*
-- the **fragile pair** asks *is any habit class in this sweep decided by a last-ULP coin toss?*
+- the **fragile pair** asks *is any habit class in this sweep sensitive to low-order platform arithmetic?*
 
 A single pair chosen for maximum sensitivity answers only the second and reports a difference so
 readily that a genuine pipeline disagreement would be indistinguishable from expected noise. A
@@ -72,7 +72,7 @@ thresholds. Registered as-is; the duplicate is reported rather than worked aroun
 
 Unchanged from the WP0c registration, and it applies with more force to the fragile pair: **a
 difference is a FINDING, not a failure to fix.** A fragile point differing between architectures
-says that classification rested on a last-ULP coin toss and must be reported as fragile. Neither
+says that classification is fragile across the tested platforms and must be reported as such. Neither
 platform is declared correct and nothing is averaged.
 
 **The two pairs are reported separately and never pooled.** A robust pair agreeing while a fragile

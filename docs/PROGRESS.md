@@ -83,7 +83,17 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   size-target termination, all relaxations converged, bounded smoother drift, and
   round-trip-identical checkpoints. Stable evidence and exact hashes are in
   [the v5p plan](plans/phase-2b-v5p-parallel-retry.md#terminal-v5p-result).
-- **Last updated:** 2026-07-30 by Codex
+- **Phase 6 is ACTIVE AND INCOMPLETE (corrected 2026-08-01).** The two historical 204-row artifacts
+  are valid measured-only comparisons (CAK 3/90, M1 54/90), not ADR 0026's registered
+  conservative-intersection headline. R15, numerical adequacy, the preview-budget GPU cohort, a
+  matched M1 no-dip ablation, and held-out validation remain open under
+  [the science-first completion plan](plans/phase-6-science-first-completion.md). The maker directed
+  that scientific criteria take priority over resource cost. No new production evidence runs until
+  a replacement ADR/protocol and its adversarial review freeze the repaired geometry and gate. The
+  WP0 interpretation/evidence correction has a clean non-author content/verifier review. Exact root
+  `npm test` exits 0 in 735.4 seconds: Rule 7 clean over 408 files, both TypeScript projects green,
+  and 76 files / 1,347 tests passed.
+- **Last updated:** 2026-08-01 by OpenAI Codex (`gpt-5.6-sol`)
 - **Phase 5 is frozen as Windows-only at the operator's direction.** Decision
   [0018](decisions/0018-phase5-windows-only-gate.md), charter v1.16, and the active
   [Phase 5 plan](plans/phase-5-gpu-port.md) defer Metal to a later machine and narrow the current
@@ -612,7 +622,7 @@ milestone — its evidence is the maker's written play-session notes per the pro
 | 3 | Facet center starves in the slice view while the plate grows, **confirmed by the automated center-vs-rim depletion metric** (v1.3) | ✅ **maker-asserted complete, 2026-07-23** — `gate3` exit 0: window median depletionRatio 0.531454 (registered ≤ 0.75), 90.2% of window samples < 1 (≥ 80%), radius 38, AR 0.168831, far-field stop tick 4800, symErr 0 all ticks. Repro: `node runner/src/main.ts gate3` (flagless, protocol pinned; plate, dims 128,128,64, seed 1, hexPrism, reflecting, noise 0). Checkpoint byte-identical to the accepted 2a artifact (SHA f1796b5015…). Slice-view half: app captures in `out/phase3-visual/` via `node app/scripts/visual.mjs`, coordinator + reviewer inspected. Full record: [phase-3 plan](plans/phase-3-dev-visualization.md) |
 | 4 | Hollowing emerges with no explicit hollow rule, reproducibly across seeds — **run twice, once per `SurfaceOperator` implementation**: pass A (`GGThreshold`) is **blocking**, pass B (`LibbrechtKinetics`) is **diagnostic** (v1.3) — a failed pass B is a finding, not a blocker for Phase 6 | ✅ **complete, 2026-07-18** — one canonical `node runner/src/main.ts gate4` at `70a2496`, Node `v24.13.1` / V8 `13.6.233.17-node.40`, exit 0 in 7,178.8 s. Pass A: 13 runs, 24/24 records green; plate/column AR `0.0666667`/`1.66667`; five-point sweep strictly increasing; depletion median `0.770238`, 7/7 samples below one, width 7→13; three distinct reproducible open-hollow occupancies; cap score `1.3`; dendrite/compact branches 6/0 at independent first reservoir crossings (cycles 4,775/5,450, extents 99/83). A manifest/report/index SHA-256: `e5e85c70…8644` / `bcb29e05…7188` / `92346e3e…1917`. Pass B: 11 runs, 12/12 execution records green; three morphology diagnostics pass and five honestly miss (depletion, widening, hollowing, capped history, branch). B manifest/report/index: `c0ceed5b…e812` / `22c8a92c…fa2d` / `5644f838…5cb0`. Aggregate v2 SHA-256 `194f837d…d8e2`, `gatePass=true`, `passBDiagnosticPass=false`. Real `node app/scripts/visual.mjs --phase4`: 20/20 original-resolution captures inspected by coordinator and reviewer, zero absent/error/clipped/hash-mismatch views, manifest `19e0fcfe…573b`. Post-publication exact root suite 779/779 and 33-module build green; final same-reviewer verdict on repair `b7153cc`: CLEAN, 0 blockers / 0 should-fixes. Full record: [v2 plan](plans/phase-4-v2-reservoir-matched-branch-control.md). |
 | 5 | GPU agrees with CPU oracle to tolerance on observed Windows D3D12; preview budget (**≈8M cells**, not a cube — ADR 0001) interactively editable. This phase makes no Metal/general-WebGPU portability claim (ADR 0018). | ✅ **maker-asserted complete, 2026-07-26** — all seven work packages closed with zero-finding independent review. The canonical run at exact clean commit `c436df5` exits 0 on both frozen flagless commands: `node runner/src/main.ts gate5-lane` (observed D3D12, 172 commit-derived source hashes) and `node runner/src/main.ts gate5` (**16/16 criteria**), publishing `out/phase5/`. Both preview budgets meet every registered bound (plate edit-ack max 9.90 ms and first valid frame max 308.0 ms; column 10.90 ms and 309.3 ms; published p99 37.70 / 34.40 ms; all 560 bounded segments inside 500 ms) with zero device losses, uncaptured errors, hidden retries, stale generations, and **zero full-field display-frame reads** across 2,715 audited readbacks. All sixteen negative controls were rejected with their registered owner in the observed failing set (ADR 0022, protocol v6 `5ef6d11b…`). Three review rounds: four should-fixes, then two, then **CLEAN**. Scope is Windows/Chromium/D3D12 only — **no Metal and no general-WebGPU portability claim** (ADR 0018); Metal remains a separately frozen later-machine extension. Plan: [phase-5-gpu-port.md](plans/phase-5-gpu-port.md). |
-| 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; no-SDAK and SDAK runs reported **separately**, SDAK-active comparisons labeled **in-sample**; independent validation on held-out observables (v1.3) | 🔶 **in progress, 2026-07-26** — WP1, WP0a and WP0b done; WP0c pending after WP3 — [phase-6-nakaya-validation.md](plans/phase-6-nakaya-validation.md). Comparison targets are split by claim strength: the classical Nakaya diagram (Libbrecht 1211.5555v1 Fig. 1, printed p. 2) is the **qualitative** report card the charter §2.3 asks for, and Libbrecht's Fig. 8.16 e-needle grid is the **quantitative** onset target later, once the ADR-level column-seed question is answered. WP0 (pre-registration) must land before any sweep; the first scientific deliverable is the no-SDAK reversal probe, which ADR 0005 makes a first-class result whichever way it lands. |
+| 6 | Model's T-vs-σ morphology diagram compared against Nakaya's — **agreements and disagreements both reported**; parameter arms separate and M1 comparisons labeled **in-sample**; independent validation on held-out observables; hundreds of preview-resolution GPU runs | 🔶 **active and incomplete, corrected 2026-08-01** — historical measured-only comparison: CAK 3/90, M1 54/90; registered conservative-intersection headline absent; numerical adequacy not established; GPU and held-out obligations absent. A matched `M1_NO_DIP_ABLATION` is required for causal dip claims. Current contract: [science-first completion plan](plans/phase-6-science-first-completion.md). No production run before repaired ADR/protocol freeze and non-author review. |
 | 7 | Product layer | ⬜ not started |
 
 Phase 2 is now **2a (machinery) / 2b (physics)**, and Phase 6 is **validation, not calibration** —
@@ -722,36 +732,21 @@ in charter §3.1 and get no retroactive ADR.
 
 ## Active plan
 
-- [phase-5-gpu-port.md](plans/phase-5-gpu-port.md) — two-lane WP0 remains superseded history;
-  decision 0018 narrows the active lane to Windows. Accepted decision 0021 and protocol v5 are
-  the current contract. WP4 is independently closed; WP5 is active.
-  WP1 is independently closed. WP2 is independently closed at reviewed implementation
-  `9f7a7b476a17e9f47849cc323d49e928fc177b65`: focused tests pass 21/21, exact root
-  verification passes 47 files / 833 tests, the 33-module app build passes, and the canonical
-  clean D3D12 probe passes every registered comparison and negative with zero uncaptured errors
-  and no unexpected device loss. WP3 is independently closed at docs closure
-  `39d8b435ef638608b98480cb7f052adb845e9ad1`: exact root verification passes 49 files /
-  849 tests, the app build passes, and canonical D3D12 log
-  `out/wp3-canonical-0ff70b6.log` has SHA-256
-  `a0578ffecdcf15688343b8a50e8d96d1032bd6cc51e2256a4bf5036fd6a51827`, zero GPU
-  errors/loss, 778 bounded submissions, 946 audited test readbacks, and zero display-frame
-  full-field reads. Both blocking G-G fixtures pass exact discrete comparisons and unchanged
-  frozen tolerances; same-reviewer closure found zero blockers and zero should-fixes. WP4 design
-  commit `5ca5c36` received seven blockers and three should-fixes; repair `98a8083` then received
-  four blockers and one should-fix. Protocol v4's minimum-subnormal drift repair at exact clean
-  `87150eb` received same-reviewer round-3 acceptance with zero blockers and zero should-fixes,
-  but production execution then exposed the persistent-f32 cold orbit. Protocol v5 repairs only
-  that representability seam. Same-reviewer acceptance of exact repair `79ec322` returned zero
-  blockers and zero should-fixes. WP4 exact implementation
-  `2788cc060116ce8021911248771aa3c148b8fe63` passes post-commit root `npm test`
-  (53 files / 863 tests in 436.80 seconds). Clean canonical artifact
-  `out/wp4-canonical-2788cc0.json` has SHA-256
-  `541c73d6f940e4f5676f3f38a469a0cf3b92e0067a3e60b8c6ed29c463a35d00`,
-  strict UTF-8/no-BOM bytes, internal `pass: true`, 3/3 blocking fixtures, 3/3 stress
-  diagnostics, exact 48/48 controls, 133 bounded submissions (22.2 ms maximum / 20.4 ms p99),
-  481 audited readbacks with zero full-field display reads, and zero GPU errors/loss. Final
-  same-reviewer closure on the exact commit/artifact reports zero blockers and zero should-fixes.
-  WP4 is closed. WP1–WP4 canonical probes must replay before final publication.
+- [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) — active. The
+  maker selected execution of O1b rather than narrowing the charter. WP0 is correcting the evidence
+  interpretation/state; WP1's source audit/inventory is complete and its selected-target freeze is
+  open. Before any new production row, the
+  project must accept a replacement ADR and amended protocol that freeze exact rational spacing,
+  physical seed/size mapping, whole-grid domain and timestep controls, round-trip-exact structured
+  output, primary measured spacing, extrapolation truth table, immutable source snapshot,
+  environment allow-list, timeout/retry policy, exact key set and artifact-derived gate.
+
+  The historical Phase 6 plan is superseded as a live schedule. The historical CAK and M1 artifacts
+  remain measured evidence, and the accepted failure to reproduce Nakaya remains reportable at that
+  scope. CAK→M1 is not a causal dip ablation; the new plan adds a matched
+  `M1_NO_DIP_ABLATION`. The charter's GPU obligation requires v6/M1/monopole support plus a derived
+  binary32 convergence rule before hundreds of preview-budget runs. Held-out targets remain blocked
+  until their geometry, source currency, independence and uncertainty are apples-to-apples.
 
 ## Completed plans
 
@@ -901,6 +896,30 @@ immutable.
 
 ## Next step
 
+### Current resume point — Phase 6 science-first completion
+
+1. Finish WP1's selected-target/evidence freeze. The primary-source currency matrix is complete.
+   Takahashi et al. 1991 currently appears structurally
+   held out from the CAK fit and is a candidate free-cloud size/growth trajectory. Do **not** freeze a
+   pressure target: the 2024 archive's Gonda/Gomi thresholds disagree materially with the 1985
+   primary prose and require reconciliation. No admissible free-crystal prescribed-history target
+   has yet been found; supported/needle histories require matching geometry before scoring.
+2. Execute WP2's fixed-physics numerical reconnaissance and whole-grid domain/grid/timestep
+   campaign. Every probe remains non-transferable until it matches the eventual registered
+   configuration; a failing rung is not made adequate by resource cost.
+3. Write and independently review the replacement ADR/protocol only after WP1/WP2 supply its target
+   and numerical inputs. Start with [the active plan](plans/phase-6-science-first-completion.md), the
+   R15 audit requirements recorded there, and `docs/phase6-lessons.md`. The first implementation seam
+   is a new versioned `phase6-r15-*` artifact/gate path; do not expand the legacy 204-row loop in place.
+4. Do not launch R15, GPU, matched-ablation or held-out production rows until the immutable inputs,
+   numerical escalation, output schema, exact run set, failure semantics and cost model are frozen
+   and adversarially accepted. Resource cost may schedule work; it may not weaken a criterion.
+
+### Archival material below — superseded as a resume point
+
+The older operator decision and Phase 6 diary below are retained as history only. They do not
+override the current resume point, gate table or active plan above.
+
 > **Open operator decision — x64 PC vs Mac as primary host.**
 > [docs/arm64-host-assessment.md](arm64-host-assessment.md) (2026-07-31, on `mac-branch`).
 > Recommendation: **do not migrate wholesale — but NOT for performance reasons.** The concurrent
@@ -914,9 +933,10 @@ immutable.
 > replace the throughput estimate with a measurement.
 > A host change contradicts `AGENTS.md`'s execution-host section and needs an ADR (Rule 5).
 
-### PHASE 6 — CONCLUDED, GATE INCOMPLETE — [research/phase6-conclusion.md](../research/phase6-conclusion.md)
+### ARCHIVAL PHASE 6 CLOSURE CLAIM — RETRACTED — [research/phase6-conclusion.md](../research/phase6-conclusion.md)
 
-> **STATUS CORRECTED 2026-08-01 BY INDEPENDENT EXTERNAL REVIEW.** Phase 6 concluded; measured-only
+> **STATUS CORRECTED 2026-08-01 BY INDEPENDENT EXTERNAL REVIEW.** The historical sweep campaign
+> concluded, but Phase 6 did not; measured-only
 > Nakaya reproduction **FAILED**; **the registered scientific gate remains INCOMPLETE.** 3/90 and
 > 54/90 are valid *measured-only* counts, **not registered headline verdicts** — the pre-registered
 > conservative-intersection rule was never implemented (R15, a BLOCKER). Charter obligations
@@ -924,22 +944,17 @@ immutable.
 > ADR. **Do not report this phase as a completed gate.** Accepted-findings list at the head of the
 > conclusion; resume point in [HANDOFF.md](HANDOFF.md).
 
-**Measurement is complete and the phase's conclusion is written.** In one paragraph: at the
-registered measurement size neither parameterization reproduces the Nakaya diagram (3/90 without
-SDAK, 54/90 with it, in-sample by construction) — **but the registered measurement size is too small
-to decide the question it was asked to decide.** At −5 °C the habit class changes between extent 21
-and 29 and stays `COLUMN` at 35 and 41 across two box sizes, and where we looked at the larger size
-**SDAK produced the column it was invoked for (1.52632) and the matched no-SDAK control did not
-(0.851852).** The registered domain fails its own registered check, and so does the fix that check
-mandates. **No re-sweep was run** — a sweep at an unconverged configuration buys a different
-unconverged number (ADR 0037 §5).
+**Historical measurement campaign complete; scientific phase incomplete.** At extent 21, CAK
+measures 3/90 and M1 54/90, both measured-only. A four-point diagnostic shows physical-size
+dependence and P1 outcome 4, but does not select a better production size. The 1.52632 M1 versus
+0.851852 CAK split is a bundled parameterization comparison, not a matched dip ablation. The old
+domain criterion fails at 3/4 sampled points for both N = 48→64 and N = 64→80; the maker has
+superseded the no-re-sweep resource decision and ordered a repaired science-first campaign.
 
-The three results here that are not in the literature: the **first independent 3-D test** of SDAK's
-necessity at −5 °C with a matched control; the **flip census** (neither arm ever produces a
-`column→plate` transition in 408 measurements, while the reference needs one); and a **measured
-account of what the instrument cannot resolve**, produced by turning the pre-registration apparatus
-on the protocol itself and finding a registered obligation both unexecuted and unsatisfiable as
-written.
+The earlier priority, causal and universal-resolution paragraph is withdrawn. What survives is
+scoped evidence: under the registered pure-class operator each arm has two `plate→column` flips
+total across six ladders and no `column→plate` flip; the extent-21 corpus contains 36 distinct AR
+values; and the registered conservative-intersection, GPU and held-out obligations were not met.
 
 ---
 
@@ -958,8 +973,8 @@ Landed 2026-07-31, in the order it happened:
 | **Diagram reconcile** (rec 13) | both figures' plotted data byte-identical to a fresh render; one caption-only drift on arm 1 |
 | **R26 closed** | test-only solver hooks now unreachable from an evidence path, with the runner proven unable to satisfy the opt-in |
 | **Errata E5, E6** | two CRITICAL/HIGH audit findings propagated out of the raw audit file where they had been sitting unread |
-| **Columns size ladder** | **arm 2 produces a `column` at −5 °C** (1.40000 → **1.52632**) — domain-adequate (0.354%) and size-converged (1.52174 at extent 35) |
-| **P5 control** | arm 1 at the same T and σ∞ reaches only **0.851852** → **SDAK produces the column, size does not** |
+| **Columns size ladder** | P1 is **outcome 4, non-monotone**: 1.40000 → 1.52632 → 1.52174; the same-extent domain criterion is mixed, not converged |
+| **P5 diagnostic** | CAK reaches 0.851852 versus M1 1.52632 at the sampled point; bundled parameter sets, not a causal dip ablation |
 | **Domain spot-check** (E6) | never run in the phase's history; **3 of 4 FAIL** |
 | **Escalation** | **N = 64 fails too, 3 of 4** — the registered remediation does not remediate (B12) |
 
@@ -1000,9 +1015,8 @@ remediation.
 - **The bistable band failed in the only way it could.** ADR 0036's registered rule accepts *either*
   pure class at −4/−5/−6 °C, so its single failure mode is producing neither. **All 18 points did:
   0 agree, 18 neutral.** Registered in advance as "not an amnesty"; it was not one.
-- **At f = 0.90 SDAK changes nothing at all** — both arms neutral at all 34 temperatures, zero class
-  changes. `alphaHK = A·exp(−σ₀/σ_surf)` saturates toward `A`, so σ₀ dips stop separating the
-  facets. The reference diagram is most structured exactly where SDAK is inert.
+- **At f = 0.90 CAK and M1 have identical classes** at all 34 temperatures, but raw AR differs in
+  28/34 pairs with maximum `|ΔAR| = 0.218335`. The confounded parameter sets do not isolate why.
 - **The dominant class is still "no habit":** 119 of 204 neutral with SDAK on, down from 168.
 - One real gain, reported against arm 1 as well: arm 1 produced **three columns inside
   `plates-cold`** where the reference demands plates, two in headline scope. Arm 2 has none.
@@ -1010,7 +1024,8 @@ remediation.
 **Four registered reasons to discount 54/90**, written before the sweep: it is in-sample (the dip
 centres were chosen to match this diagram); the prediction was beaten by 12 **in the direction the
 forecasting method was known to be weak**, over the very points it had to extrapolate; the
-instrument favours plates **4.81× in `ln AR`** (at isotropic kinetics the fitted AR sits 0.140 from
+fitted transfer function is **4.81× more distant from the column floor in `ln AR`** at this sampled
+configuration (at isotropic kinetics the fitted AR sits 0.140 from
 the plate ceiling and 0.671 from the column floor); and **all five `plates-warm` agreements are at
 −2 °C**, the regime's only counting temperature, which ADR 0025 pre-registered as carrying
 essentially no statistical weight. A fifth, unregistered: the artifact was **regenerated**, not
@@ -1606,6 +1621,12 @@ its own, a preflight that refuses to produce evidence unless the freeze is compl
 hashes to the pin, the freeze commit is an ancestor of HEAD and the tree is clean, and a
 self-contained SVG diagram carrying its own provenance.
 
+> **RETRACTED INTERPRETATION (2026-08-01).** The archived paragraph below counts `sigma_0`
+> crossings while claiming a bound on habit. Habit depends on full `alphaHK`, including facet
+> prefactors and the diffusion-determined surface supersaturation. Its “sense and count invariant”
+> conclusion is false and must not be propagated; only the sampled flip census survives at measured
+> scope.
+
 **WP4's cheap half is already done, and it is the sharpest result of the phase so far**
 (`aff4ca7`). At the edges of the ±25% digitization band the σ₀ crossing moves between **−6.90 °C
 and −22.89 °C** — a 16 °C span covering nearly the whole region between Nakaya's −3.3 and −21.5
@@ -1642,12 +1663,16 @@ acting, and all held.
   §2.4 now fixes the *obligation* (name it, freeze it, never compare across conditions silently)
   and leaves the choice to the per-sweep protocol.
 
-**The most consequential open question in Phase 6 is now closed by measurement.** WP3 §4.1 put a
+> **2026-08-01 archival correction:** the following numerical-closure paragraph is retracted. The
+> old ladder did not preserve physical seed/size under refinement and does not close R15; see the
+> active science-first plan and the correction at the head of ADR 0026.
+
+~~**The most consequential open question in Phase 6 is now closed by measurement.** WP3 §4.1 put a
 converged cold `AR` near 1.47 and called neutral-vs-column a numerics decision. At the registered
 measurement size cold is 1.2222 at the finest spacing and extrapolates to **1.42–1.46, below the
 1.5 column floor on both estimates** — it does not reach column at f = 0.15 even in the grid
 limit. This is the **third** WP3 study to reverse when re-measured at the registered crystal size,
-and the pattern is now recorded once at the top of the convergence report.
+and the pattern is now recorded once at the top of the convergence report.~~
 
 `PHASE6_PROTOCOL_SHA256` ran `9e49c2a8` → `0050040e` → `a9f0ad21` → `f5350b85` across the three
 amendments, with `PHASE6_PROTOCOL_REVISIONS` keeping the history. The freeze is amended, never
