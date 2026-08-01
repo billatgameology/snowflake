@@ -26,6 +26,11 @@ Templates live at `docs/plans/_TEMPLATE.md` and `docs/decisions/_TEMPLATE.md`.
 
 Read in this order on every cold start:
 
+0. **Read `docs/HANDOFF.md`.** It is the current resume point: what is done, what is open and ranked,
+   the standing constraints, and how to verify the whole evidence corpus from a clean clone. Then
+   read **`docs/phase6-lessons.md`** — every rule in it came from a real incident that cost time or
+   nearly cost evidence, and several are enforced by `npm test`
+   (`runner/test/evidence-integrity.test.ts`).
 1. Read `docs/PROGRESS.md` completely, including **Next step**.
 2. Read the active plan it names, including **Tried and rejected**. That section contains killed
    protocols and measured failure modes that must not be rediscovered or restored.
