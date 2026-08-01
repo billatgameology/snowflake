@@ -126,7 +126,52 @@ are different (T, f) conditions from P1, so extent and condition are confounded.
 extent 35, against the existing N = 80 extent-35 run) is executing and tests the same point at a
 third extent.
 
-## 5. Decision (PENDING §4)
+## 5. DECISION (2026-08-01) — no re-sweep; the measured non-convergence is the result
+
+**Status: ACCEPTED.** §4 returned and the pre-registered convergence study completed.
+
+Maker direction was to honor the registered consequence in full. **That consequence has no valid
+target, and this ADR records why rather than substituting a cheaper one.**
+
+1. The mandated target, N = 64, is **measured inadequate** — 3 of 4 fail against N = 80 at the
+   registered extent 21 (§4). Re-sweeping there would produce 408 fresh points failing the check
+   that ordered the re-sweep.
+2. Escalating the domain alone is **not affordable**: successive differences run 2.495% → 1.861%
+   (ratio 0.746), so reaching 0.5% needs roughly four more doublings past an N = 80 that already
+   costs ~12× N = 48 per point.
+3. The alternative — a larger measurement extent, where the domain checks looked better — was
+   pre-registered and tested. It returns **outcome 3, NOT CONVERGED**: the domain check fails at
+   extent 35 (1.071%) even though it passes at 29 and 41.
+
+**So there is no configuration, at any affordable cost, demonstrated to satisfy the registered
+criterion. A sweep at an unconverged configuration buys a different unconverged number, and the
+pre-registration says so in advance.** No re-sweep is run.
+
+**What is published instead is the non-convergence itself, measured.** That is a weaker headline and
+a stronger paper: the phase reports what its numerics do and do not support, on evidence, rather
+than a converged-looking figure that no check backs.
+
+**What this decision does NOT license.** It is not a finding that N = 48 is adequate, and the
+published tallies do not acquire a clean bill of health. They stand as measured at a domain that
+fails its own registered check, and every document reporting them says so.
+
+**The one thing that survives the failure intact, and it is what the comparison consumes.** Across
+extents 29, 35 and 41, at BOTH N = 64 and N = 80, P1's aspect ratio is identical to six figures and
+the class is `COLUMN` in all six runs. The registered criterion fails on **total accreted mass**
+(11 201 vs 11 081 at extent 35 — 120 cells of interior fill inside a bit-identical envelope), not on
+the habit determination. Both are reported. **The criterion is not rewritten to the one that
+passes.**
+
+### Consequential follow-up, recorded not scheduled
+
+The registered criterion couples two quantities of different robustness: habit class, which is
+invariant here across every domain tested, and attached count, which is not. A future protocol
+should decide deliberately whether a mass-conservation tolerance belongs in the same gate as a
+morphology criterion. **That is a protocol-design question for a later phase and is deliberately not
+settled here** — changing a registered criterion in response to it failing is the exact move
+ADR 0031 rejected by name.
+
+## 5a. Superseded draft decision (retained)
 
 Maker direction 2026-07-31: **honor the registered consequence in full** — re-sweep both arms at the
 adequate domain rather than record the failure and carry it.
