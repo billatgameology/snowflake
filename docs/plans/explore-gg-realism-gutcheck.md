@@ -229,11 +229,15 @@ commitment.
 
 **Maker verdict (one sentence, in the maker's own words):** _pending._
 
-## Proposed follow-up runs — paper-scale portfolio, three in parallel (NOT launched; awaiting maker go)
+## Follow-up runs — paper-scale portfolio, three in parallel (LAUNCHED 2026-08-02, maker-approved)
 
 Written 2026-08-02 in answer to the maker's "before you run the 8–15 hr job, tell me
-exactly what your plan is," extended same-day after the maker asked for parallelism.
-Nothing below has been executed. Per the working rules, independent cases run as separate
+exactly what your plan is," extended same-day after the maker asked for parallelism, and
+**launched same day on the maker's "go"** — all three commands exactly as registered
+below. Startup verified: each run reports `hexRadius=599, zHalfExtent=23,
+activeCells=50675447, seedSites=19, seedSymErr=0` and holds a full core (~1.8 GB steady
+deterministic, ~2.8 GB noisy). Expected completion ≈ 10–18 h from launch; results land in
+the named logs/checkpoints regardless of which session harvests them. Per the working rules, independent cases run as separate
 single-threaded Node processes; on this 10-core / 24 GB M4, three paper-scale runs cost
 the same wall clock as one (4 performance cores; ~2.6–3.4 GB steady each; the ~6 GB
 checkpoint round-trip transients only overlap if two runs finish simultaneously — worst
