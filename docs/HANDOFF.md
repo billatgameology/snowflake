@@ -2,10 +2,14 @@
 
 ## Restart checkpoint — WP1 register review paused safely
 
-The current tree is intentionally paused before the assessment-schema rewrite. No source-search
-request, acquisition call, TAX2 extraction, or long evidence job ran. Section 11 of
+The current tree is intentionally paused after the self-contained assessment-revision v2 rewrite
+and before that rewrite is integrated into the register's downstream scheduling, occurrence,
+candidate, summary, checkpoint, and publication-review schemas. No source-search request,
+acquisition call, TAX2 extraction, or long evidence job ran. Section 11 of
 `research/phase6-source-currency.md` is a **work-in-progress, unaccepted protocol candidate**; its
-older embedded 0/0 review statements are historical and do not authorize execution.
+registration header now explicitly forbids dispatch and export. Its older embedded 0/0 review
+statements are historical and do not authorize execution. The paused register bytes have git-blob
+SHA-1 `62bd4e3c21797db63c0f6ca5650d658f8f082a26` and 2,954 lines.
 
 Two independent offline `gpt-5.6-sol` audits of exact blob
 `71254cd345379b061011f6c7895dd246c3418d33` reopened it. The scientific audit reported 10 blockers /
@@ -14,17 +18,23 @@ working diff has already addressed durable `execution.endedUtc`, per-invocation 
 canonical display tie-breaking, OpenAlex DOI resolution, pending-inbox/owner recovery, exact
 relation witnesses, first-200 caps, acquisition locators, normalized/invalid version URLs, identity
 conflicts, total initial screening, append-only date operands, and two deterministic local Yamashita
-roots. Those repairs have not received a final exact-byte review.
+roots. The current v2 assessment contract additionally specifies append-only revisions and effective
+heads, reviewed-source screening witnesses, acquisition evidence, explicit OCR/translation/language
+review provenance, assessment identifiers entering the identity graph, and entry-specific Yamashita
+or matched-pressure evidence. Those repairs have not received a final exact-byte review.
 
-Resume at lines near the `phase6-wp1-candidate-assessment-v1` import contract. Still close, as one
-coherent design: append-only assessment revisions and effective heads; actual reviewed-source rather
-than executor-claimed full-text screening; non-English/OCR/translation provenance without suppressing
-honest uncertainty; assessment identifiers entering the identity graph; exact entry-specific
-scientific evidence (especially matched-pressure covariates); acquisition-aware publication and
-summary actions; and an independently imported Rule 10/13 publication review bound to a canonical
-science-state root and copied into `verification.json`. Then audit one exact blob to 0 blockers / 0
-should-fixes, update the embedded review provenance, run focused checks, and freeze the register in a
-record-only commit before touching transport.
+Resume at the scheduling-witness contract near the remaining `unusableVersionUrlSha256s` and
+`versionUrls` fields. Integrate v2 effective heads through scheduling, occurrences, candidates,
+summary actions, terminal scopes, checkpoint ordering, and source inputs; eliminate the remaining
+v1/non-duplicate/single-assessment assumptions; then add an independently imported Rule 10/13
+publication review bound to a canonical science-state root and copied into `verification.json`.
+Reconcile the publication precondition and negative controls afterward. Only then audit one exact
+blob to 0 blockers / 0 should-fixes, update the embedded review provenance, run focused checks, and
+freeze the register in a record-only commit before touching transport.
+
+The subordinate plan's **Current register-rewrite checkpoint** preserves the two paused read-only
+schema-review recommendations. Both are anchored to committed `HEAD 00b949a`, not the working
+rewrite, and therefore guide reconciliation but do not accept the paused bytes.
 
 Preserve the untracked root `=`, `runner/src/phase6-wp1-source-search.ts`, and
 `runner/test/phase6-wp1-source-search.test.ts`. They are deliberate pre-freeze skeletons and must not

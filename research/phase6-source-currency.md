@@ -355,8 +355,11 @@ PDF, run the solver, or implement thermal, sublimation, substrate, polycrystal o
 
 ## 11. WP1 source-search and extraction register
 
-**Registration state:** `REGISTERED; ALL THREE ENTRIES UNEXECUTED` on 2026-08-02. This section is a
-prospective execution contract, not a report of searches or measurements already performed. It
+**Registration state:** `REOPENED CANDIDATE; NOT AUTHORIZED FOR EXECUTION; ALL THREE ENTRIES
+UNEXECUTED` on 2026-08-02. This section is a prospective execution-contract candidate, not a report
+of searches or measurements already performed. It becomes `REGISTERED` only after the final exact
+Section 11 bytes receive a recorded non-author verdict of 0 blockers / 0 should-fixes and those
+reviewed bytes are committed. Until then no CLI action may dispatch or export a request. It
 does not authorize a validation target, change
 `PHASE6_HELDOUT_CANDIDATES_2026_08_01`, or change that lock's `passEligible=false` value. A known
 pointer, search-engine result, catalog record, abstract, or inaccessible stable identifier is a
@@ -429,35 +432,45 @@ ISBN-13 values unchanged. OCLC removes one leading `ocm`, `ocn`, `on`, or `OCLC`
 then requires nonzero decimal digits. Other named identifiers are Unicode-NFC trimmed and use their
 provider's case convention.
 
-Identity is a union of every shared normalized strong identifier: DOI; arXiv versioned identifier;
+Identity is derived from every normalized strong identifier observed in provider/local-root records
+or any accepted assessment revision: DOI; arXiv versioned identifier;
 OpenAlex work ID; PubMed/PMC ID; J-STAGE article ID; CiNii ID; NDL bibliographic ID; valid ISBN plus volume; Internet
 Archive identifier; or OCLC number. A record carrying DOI plus OpenAlex ID therefore joins a later
-record carrying only that OpenAlex ID. If one occurrence would bridge components containing
-different nonempty DOIs or conflicting ISBN-plus-volume identities, do not union them: give the
-occurrence a raw-hash identity and mark `identity-conflict` for review. Only when no strong ID exists
+record carrying only that OpenAlex ID. The verifier first builds the complete **unconstrained** graph
+without arrival order. If one connected set contains more than one distinct DOI or more than one
+distinct ISBN-volume identity, every occurrence in that set is quarantined as its own raw-hash
+component; none of that set's identifiers is route-usable, and every row is marked conflict. An
+assessment revision can add an observation but never delete an earlier one, so a conflict remains a
+published unresolved limitation for this execution rather than being silently repaired. Only when no strong ID exists
 may Unicode-NFKC/case-folded title plus a nonmissing first-author family name and four-digit year
 form a fallback key. A missing author or year forces a separate raw-record SHA-256 key, preventing
 generic titles from merging.
 
 That mark is closed data, not prose. Every occurrence has `identityStatus=resolved` with
 `identityConflictWitness=null`, or `identityStatus=conflict` with a witness containing exactly
-`conflictingComponentKeys`, `conflictingStrongIdentifiers`, and `triggerOccurrenceId`. The
-trigger is that immutable occurrence ID; both arrays are UTF-16-sorted, duplicate-free and contain
-the complete pre-union keys/normalized strong IDs that made the bridge contradictory. A conflict
-never unions those components, makes effective candidate `admissibility.identity=fail`, publishes
-`identity-conflict:OCCURRENCE_ID`, adds `resolve-identity`, and cannot be scoreable even after a
-source assessment. A resolved component has effective identity `pass`; no producer-entered status
-can override this derivation.
+`conflictingDois`, `conflictingIsbnVolumes`, and `unconstrainedOccurrenceIds`. The arrays are
+UTF-16-sorted, duplicate-free, and are the complete conflicting DOI/ISBN-volume sets and occurrence
+membership of the unconstrained graph. A conflict makes effective candidate
+`admissibility.identity=fail`, publishes `identity-conflict:OCCURRENCE_ID`, adds
+`resolve-identity-conflict`, enters `terminalScope.identityConflicts`, and cannot be scoreable even
+after source assessment. A resolved component has effective identity `pass`; no producer-entered
+status can override this derivation. This complete-graph/quarantine rule, not the occurrence that
+happened to expose a bridge first, determines the result.
 
 Every provider/query occurrence remains in the ledger. Duplicate occurrences point to one
-canonical component. The component key is its lexicographically smallest type-prefixed strong ID,
-otherwise its fallback or raw-hash key. The canonical display variant maximizes the number present
-among the fixed fields `title`, `firstAuthor`, `publicationDate`, `venue`, `strongIdentifier`,
-`abstractOrSubject`, and `acquisitionURL`, then minimizes the lexicographically joined normalized
-strong IDs and finally the stored lowercase `rawRecordSha256`; route or arrival order never chooses
-it. An occurrence's display `strongIdentifier` is the UTF-16-smallest type-prefixed normalized
-strong identifier it carries, or null. No unstated JSON projection or terminal-LF choice enters
-either tie-break. Metadata from
+canonical component. The component key is its lexicographically smallest usable type-prefixed
+strong ID, otherwise its fallback or raw-hash key. An occurrence's display `strongIdentifier` is
+null exactly when it carries no usable nonconflicting strong ID; otherwise it is the UTF-16-smallest
+type-prefixed normalized identifier in its complete provider/local/assessment identity set. The
+canonical display variant is recomputed after every accepted assessment revision. Its total-order
+tuple is: descending count of nonempty `title`, `firstAuthor`, `publicationDate`, `venue`,
+`strongIdentifier`, and `acquisitionURL` plus one when `abstractOrSubjectPresent=true`; ascending
+NUL-joined sorted type-prefixed identifiers (the empty literal is allowed); ascending lowercase
+SHA-256 of the canonical exact seven-field object `{abstractOrSubjectPresent,acquisitionURL,
+firstAuthor,publicationDate,strongIdentifier,title,venue}`; ascending `rawRecordSha256`; then
+ascending `occurrenceId`. Route/provider priority never enters, and the last key only resolves a
+byte/content-equivalent final tie. No unstated JSON projection or terminal-LF choice enters the
+selection. Metadata from
 all variants remains available. Each occurrence has two independent axes:
 `screenDisposition` is one of `include-acquire`, `include-citation-lead`,
 `exclude-out-of-scope`, or `duplicate-alias`; `acquisitionStatus` is one of `not-attempted`,
@@ -481,7 +494,9 @@ Latin tokens/phrases `experiment`, `experimental`, `measurement`, `measurements`
 `observation`, `growth rate`, or `morphology`, or the CJK substrings `実験`, `測定`, `観測`,
 or `形態`.
 
-`excludedCategory` is null unless the pressure entry's sufficient corpus first matches, in this
+The complete entry predicate is exact: for Yamashita it is
+`(yamashitaToken && crystalToken) || durationDimensionAlternative`; for matched pressure it is
+`pressureToken && crystalToken`. `excludedCategory` is null unless the pressure entry's sufficient corpus first matches, in this
 fixed priority, `non-water-crystal`, `sublimation-only`, `atmospheric-remote-sensing`,
 `bulk-cloud-statistics`, or `theory-or-simulation`. Those categories respectively require a
 complete phrase `non water crystal`, `sodium chloride crystal`, `ammonium crystal`, or
@@ -489,8 +504,8 @@ complete phrase `non water crystal`, `sodium chloride crystal`, `ammonium crysta
 or `成長`; `remote sensing`, `radar retrieval`, or `satellite retrieval`; `cloud statistics`
 or `precipitation statistics`; or one of `theory`, `theoretical`, `simulation`, `numerical
 model` without any primary-experiment-claim term. Complete Latin phrases use the registered
-whitespace-token rule and CJK uses substring matching. The initial disposition priority is: a positive complete entry predicate plus
-`primaryExperimentClaim=true` and null exclusion gives `include-acquire`; a positive predicate
+whitespace-token rule and CJK uses substring matching. The initial disposition priority is: a true complete entry predicate plus
+`primaryExperimentClaim=true` and null exclusion gives `include-acquire`; a true predicate
 without that claim, or any insufficient metadata, gives `include-citation-lead`; otherwise
 sufficient metadata gives `exclude-out-of-scope`. Its initial acquisition state is respectively
 `not-attempted`, `metadata-only-by-design`, or `not-required`, with null pointer.
@@ -499,18 +514,23 @@ Identity is then applied without erasing that science result. The occurrence ret
 `screenDispositionBeforeAlias`; the current canonical occurrence's `screenDisposition` equals
 that value and every other member's is `duplicate-alias`. A late merge re-runs only the registered
 canonical selection and those alias labels; it never changes retained pre-alias screen,
-acquisition, or assessment history. Candidate science is reduced over complete pre-alias states and
-effective assessments, so an assessed occurrence does not lose evidence merely because a later
-bridge makes it an alias. The version-link special case computes the same token booleans over
+acquisition, or assessment history. These two occurrence screen fields remain capture/local-root
+facts and are never overwritten by an assessment. Candidate science instead uses each occurrence's
+effective assessment head when present and its retained pre-alias state otherwise, so an assessed
+occurrence does not lose evidence merely because a later bridge makes it an alias. Every occurrence,
+including one currently displayed as `duplicate-alias`, may be assessed. The version-link special case computes the same token booleans over
 `documentTitle`, has `metadataSufficient` equal to title presence,
 `primaryExperimentClaim=false`, and null exclusion except `post-cutoff-follow-up`; its
 acquisition pointer is the exact reserved capture path/bytes/hash plus empty relevant pages.
 
-Identity components may merge as later routes reveal bridging IDs, so their display/component key
-is not a scheduling identity. Each occurrence gets immutable `occurrenceId = sha256(requestId |
-providerRank | rawRecordSha256)`. A relation subject gets immutable `subjectScheduleId` equal to the
-type-prefixed normalized DOI/OpenAlex/other external identifier actually used in that request, or
-`occurrence:occurrenceId` for a title-only route. Component merges append an alias/pointer history;
+Identity components may merge as later routes or assessments reveal bridging IDs, so their
+display/component key is not a scheduling identity. Each captured occurrence gets the immutable
+canonical occurrence identity registered below. A relation subject gets immutable
+`subjectScheduleId` equal to the type-prefixed normalized DOI, OpenAlex or other external identifier
+actually used in that request. A title-only route instead uses `citation-title:SHA256`, where the
+digest is over canonical `{schema:"phase6-wp1-citation-title-subject-v1",title}` and `title` is the
+exact received Unicode-NFC, control-free title after edge trimming and collapsing internal Unicode
+whitespace to one ASCII space. Component merges append an alias/pointer history;
 they never rename an `occurrenceId`, `subjectScheduleId`, completed request, or raw file. Final
 evidence maps all immutable IDs to the final component graph.
 
@@ -608,14 +628,19 @@ Before any candidate freezes, its currency check executes these deterministic de
    observable clauses. Rows missing enough metadata to apply them remain citation leads. An
     unresolved author identity leaves source currency unresolved.
 
-Every initial Rule 12 version-link operand is parsed with pinned-Node WHATWG `new URL(value)`,
-requires `http:` or `https:`, empty username/password, has its fragment cleared, and uses the
-resulting `.href` as its sole request/loop identity—the same normalization used after redirects.
-Valid duplicates collapse after that serialization. An observed value that cannot satisfy this rule
-is not dispatched or silently dropped: its raw UTF-8 value is represented by lowercase SHA-256 in
-the supplying scheduling witness and candidate `schedulingInputs.unusableVersionUrlSha256s`; any
-nonnull member produces `invalid-version-url:SHA256`, an unresolved Rule 12 scope and the effective
-currency clamp. Raw capture/source bytes remain the authority for the undistributed original value.
+Every observed Rule 12 version-link operand becomes exact
+`phase6-wp1-version-url-observation-v1` with keys `normalizedUrl`, `rawValueSha256`, `reason`, and
+`schema`. The raw UTF-8 value is retained only in its ignored capture/source and is represented in
+the product by lowercase SHA-256. Before parsing, a value must be nonempty, at most 8192 code points,
+and contain no control or Unicode-whitespace character. The executor Unicode-normalizes it to NFC,
+parses it with pinned-Node WHATWG `new URL`, requires `http:` or `https:` with empty username and
+password, clears the fragment, and uses the resulting `.href` without query reordering. A valid
+observation has that href and `reason=null`; an invalid one has `normalizedUrl=null` and exactly one
+reason from `empty`, `too-long`, `control-or-whitespace`, `parse-failure`, `unsupported-scheme`, or
+`credentials`, selected in that precedence. Valid request/loop identities deduplicate by normalized
+href while every raw-hash observation remains published. An invalid observation dispatches no
+request but creates an unresolved version-link cohort, `invalid-version-url:SHA256:REASON`, and the
+effective currency clamp. Raw capture/source bytes remain the authority for the undistributed value.
 
 Any remaining cursor or advertised/returned total above 200 makes that candidate's Rule 12 route
 cap-incomplete. The record states whether a correction, version, or later same-author primary work
@@ -697,7 +722,7 @@ with one terminal LF. All named keys are present; an inapplicable scalar is `nul
 
 - A request identity object has exactly `direction`, `entryId`, `hop`, `pageOrdinal`,
   `priorResponseSha256`, `queryOrdinal`, `requestUrl`, `route`, `stage`, and
-  `subjectScheduleId`. `pageOrdinal`, `providerRank`, and a non-null `queryOrdinal` are one-based
+  `subjectScheduleId`. `pageOrdinal` and a non-null `queryOrdinal` are one-based
   safe integers; a non-null `hop` is a safe integer in 0--3. Exactly one of `queryOrdinal` and
   `subjectScheduleId` is non-null. `direction` and `hop` are both null for a base discovery request
   and both non-null for a derived request. `priorResponseSha256` is non-null if and only if this is
@@ -706,9 +731,11 @@ with one terminal LF. All named keys are present; an inapplicable scalar is `nul
   Rule 12 version link;
   an initial literal OpenAlex `*` is not a continuation. The bound hash is that prior response's
   exact raw/canonical capture hash. `requestId` is the lowercase SHA-256 of the identity object.
-- An occurrence identity object has exactly `providerRank`, `rawRecordSha256`, and `requestId`;
-  `occurrenceId` is its lowercase SHA-256. Rank is the provider-displayed one-based rank within the
-  response page, not a mutable global/component rank.
+- A captured occurrence identity object has exactly `providerRank`, `rawRecordSha256`, and
+  `requestId`; `occurrenceId` is its lowercase SHA-256. Rank is the provider-displayed one-based safe
+  integer within the response page, not a mutable global/component rank. A deterministic local root
+  instead uses the separately registered local-root occurrence identity and has no invented request
+  or provider rank.
 - For a returned JSON object, `rawRecordSha256` hashes
   `canonicalJsonBytes(parsedCompleteObject)`, not a selected projection; a provider result that is
   not one complete strict-JSON object is a parse failure. For XML, HTML, or an opaque/manual result,
@@ -722,7 +749,9 @@ with one terminal LF. All named keys are present; an inapplicable scalar is `nul
   remains separately byte-hashed under `research/tmp/` and is the authority if that metadata is
   later questioned.
 - `subjectScheduleId` is the exact type-prefixed normalized identifier used to create the request.
-  A title-only subject is `occurrence:` plus the immutable occurrence ID. A late component merge
+  A title-only subject is the registered content-derived `citation-title:SHA256`. The witness retains
+  the immutable supplying occurrence/request/source identity, so deduplicating an identical title
+  operand never erases its provenance. A late component merge
   may append aliases and final-component pointers only.
 
 The nine base-route strings are exactly `crossref`, `openalex`, `cinii`, `ndl`, `jstage`,
@@ -737,12 +766,12 @@ by the Rule 12 link traversal; it is never a base query route. The complete stag
 | `relation-resolution` | `resolution` | resolved node depth 0--3 | route-usable `doi:DOI` or `openalex-work:WID` | `crossref` for DOI; `openalex` for DOI or WID |
 | `relation-backward` | `backward` | depth of members requested, 1--3 | resolved parent DOI for Crossref, or WID for OpenAlex | `crossref` or `openalex` |
 | `relation-forward` | `forward` | depth of members requested, 1--2 | resolved parent WID | `openalex` |
-| `citation-title-discovery` | `backward` | unresolved member depth 1--3 | `occurrence:ID` of a returned title-only reference or `local-member:ID` of a local-source title member | `crossref`, `openalex`, `cinii`, `ndl`, or `supplemental-web` |
-| `currency-correction` | `correction` | 0 | `doi:DOI` when present, otherwise `occurrence:ID` of the candidate supplying the exact title | `crossref`, `openalex`, `cinii`, `ndl`, `jstage`, or `supplemental-web` |
+| `citation-title-discovery` | `backward` | unresolved member depth 1--3 | content-derived `citation-title:SHA256` | `crossref`, `openalex`, `cinii`, `ndl`, or `supplemental-web` |
+| `currency-correction` | `correction` | 0 | `doi:DOI` when present, otherwise content-derived `citation-title:SHA256` for the candidate's exact title | `crossref`, `openalex`, `cinii`, `ndl`, `jstage`, or `supplemental-web` |
 | `currency-version-link` | `version-link` | 0 | `doi:DOI` when present, otherwise `occurrence:ID` of the candidate | `registered-version-url` |
 | `currency-same-author` | `same-author` | 0 | `openalex-author:AID` or `author-name:SHA256` | `openalex` for AID; `crossref` for exact name |
 
-`author-name:SHA256` uses lowercase hexadecimal SHA-256 of the canonical object with exactly
+`citation-title:SHA256` uses the exact normalized-title object registered above. `author-name:SHA256` uses lowercase hexadecimal SHA-256 of the canonical object with exactly
 `displayName` and `schema`, where `schema=phase6-wp1-author-name-v1` and `displayName` is the exact
 Unicode-NFC display name. A local source member without a strong identifier uses
 `local-member:SHA256`, where the lowercase digest covers the canonical object with exactly
@@ -779,7 +808,7 @@ collapsed to one ASCII space. Title/family-name folding uses Unicode NFKC follow
 Node/V8 engine's ECMAScript `toLowerCase`, punctuation-to-space and whitespace collapse; it is not
 described as language-independent full Unicode case folding.
 
-Type-prefixed component keys use exactly `doi:`, `openalex-work:`, `pubmed:`, `pmc:`, `jstage:`,
+Type-prefixed component keys use exactly `doi:`, `arxiv:`, `openalex-work:`, `pubmed:`, `pmc:`, `jstage:`,
 `cinii:`, `ndl:`, `isbn-volume:`, `internet-archive:`, and `oclc:`. An ISBN-volume value is
 `ISBN13|` plus the normalized volume. Fallback keys are `title-author-year:` plus lowercase
 hexadecimal SHA-256 of a canonical object with exactly `firstAuthorFamilyFolded`, `schema`,
@@ -866,125 +895,185 @@ direct adapter no-response still hashes its standalone no-response object and us
 `captureKind=no-response`.
 
 An acquisition outcome and scientific assessment enter together only through canonical
-`phase6-wp1-candidate-assessment-v1` with exactly `admissibility`, `acquisition`, `citation`,
-`currencyLinks`, `independenceEvidence`, `methodsData`, `occurrenceId`, `review`,
-`schedulingInputs`, `schedulingWitnesses`, `schema`, `screening`, and `source`.
-`occurrenceId` is immutable even if its component later merges; citation/methods/admissibility/
-scheduling objects use the exact published schemas below. `source` is null or has exactly `bytes`,
-`path`, `relevantPages`, and `sha256` and is reopened before import.
+`phase6-wp1-candidate-assessment-v2` with exactly `admissibility`, `acquisition`, `citation`,
+`currencyLinks`, `entryEvidence`, `independenceEvidence`, `methodsData`, `occurrenceId`, `review`,
+`revision`, `schedulingInputs`, `schedulingWitnesses`, `schema`, `screening`, and `source`.
+`occurrenceId` is immutable even if its component later merges or the row is a display alias;
+citation/methods/admissibility/scheduling objects use the exact published schemas below. `source` is
+null or has exactly `bytes`, `path`, `relevantPages`, and `sha256` and is reopened before import.
+
+`revision` has exactly `ordinal` and `supersedesAssessmentSha256`. The first accepted assessment for
+an occurrence has ordinal one and null predecessor. A later assessment has the next consecutive
+safe integer and names the exact current-head assessment hash. Re-import of an already accepted
+canonical hash is idempotent and retains its original import time; a gap, branch, wrong predecessor,
+same ordinal with different bytes, or non-head successor is rejected without mutation. Every
+revision remains published. A later revision may complete acquisition, improve review, or correct a
+scientific judgment; it never rewrites history.
 
 `acquisition` has exactly `attempts` and `status`. Its status is one of
 `acquired-and-verified`, `inaccessible-after-attempts`, `metadata-only-by-design`, or
 `not-required`; an accepted assessment can never claim `not-attempted`. Each attempt has exactly
-`detail`, `endedUtc`, `evidence`, `httpStatus`, `locator`, and `outcome`. `evidence` is null or
-exactly `{bytes,path,sha256}`; `httpStatus` is null or a safe integer from 100 through 599; and
-`locator` has exactly `kind`, `provenance`, and `value`. Its kind is `http`, `repository`, or
-`opaque`; provenance is `candidate-acquisition-url`, `provider-fulltext-url`,
+`detail`, `endedUtc`, `evidence`, `httpStatus`, `locator`, `outcome`, and `sourceSha256`. `evidence`
+is exact `{bytes,path,sha256}` and is reopened before import; `httpStatus` is null or a safe integer
+from 100 through 599. `locator` has exactly `kind`, `provenance`, and `value`; kind is `http`,
+`repository`, or `opaque`, and provenance is `candidate-acquisition-url`, `provider-fulltext-url`,
 `publisher-version-url`, `repository-url`, `registered-source-path`, or
 `operator-discovered-url`. HTTP values use the registered WHATWG http(s), empty-credential,
 fragment-cleared serialization; repository values are governed repository-relative artifact paths;
 opaque values are nonempty stable tool/catalog locators. A locator must be rederived from the
-occurrence, a registered version/scheduling witness or source input; an operator-discovered value
-requires nonnull evidence and an adequate review. `outcome` is one of
-`acquired`, `authentication-required`, `forbidden`, `not-found`, `gone`,
-`paywall-or-license-barrier`, `network-failure`, `format-unusable`, or
-`other-access-failure`. `detail` is null for every closed outcome except
-`other-access-failure`, where it is nonempty. HTTP status and outcome are constrained:
+occurrence, a registered version/scheduling witness, or a source input; an operator-discovered value
+requires evidence and human review.
+
+Attempt `outcome` is `acquired`, `authentication-required`, `forbidden`, `not-found`, `gone`,
+`paywall-or-license-barrier`, `network-failure`, `format-unusable`, or `other-access-failure`.
 `authentication-required` uses 401/407, `forbidden` 403/451, `not-found` 404, `gone` 410,
-`network-failure` null, and `acquired` a 2xx or null non-HTTP locator. A
-`paywall-or-license-barrier` uses 402/403/a 2xx paywall page or null non-HTTP observation and
-requires evidence; `format-unusable` uses a 2xx or null and requires evidence; only
-`other-access-failure` permits another status/null combination and records its detail. Attempts
-sort by end time, canonical locator object, outcome, null-first
-status, then null-first evidence hash and are duplicate-free. `acquired-and-verified` requires a
-nonnull source, a nonempty attempt list whose final member is `acquired`, and a reopened source
-whose bytes/hash agree; no other status permits a nonnull source or an `acquired` attempt.
-`inaccessible-after-attempts` requires no acquired attempt and either one evidence-bearing
-authoritative HTTP terminal observation (401/403/404/407/410/451) or at least two distinct normalized
-locators. It means inaccessible under exactly those recorded attempts, never globally inaccessible.
-`metadata-only-by-design` and `not-required` require no attempt, with the former allowed only for
-a retained citation lead and the latter only for an exclusion. These are scoped observations, not
-claims that every possible access route was exhausted.
+`network-failure` null, and `acquired` a 2xx or null non-HTTP locator.
+`paywall-or-license-barrier` uses 402/403/a 2xx paywall page or null non-HTTP observation;
+`format-unusable` uses a 2xx or null; only `other-access-failure` permits another status/null
+combination. `detail` is nonempty exactly for the last four nonsimple failures and null for the four
+simple mapped statuses and `acquired`. `sourceSha256` is nonnull exactly for `acquired`, equals the
+top-level source hash, and is null otherwise. Evidence may be an access/error/page capture and need
+not equal the acquired source bytes. Attempts sort by end time, canonical locator, outcome,
+null-first status, then evidence hash and are duplicate-free. `acquired-and-verified` requires a
+nonnull reopened source and a nonempty attempt list whose final member is acquired; no other status
+permits a source or acquired attempt. `inaccessible-after-attempts` requires no acquired attempt and
+either one authoritative HTTP terminal observation (401/403/404/407/410/451) or at least two
+distinct normalized locators. It is scoped to those attempts, never a global access claim.
+`metadata-only-by-design` and `not-required` require no attempt and are allowed only for,
+respectively, a retained citation lead or exclusion.
+
+For a successor revision, the prior head's complete acquisition-attempt array must be an exact
+prefix. A source may change only by appending an acquired attempt whose `sourceSha256` binds the new
+source; a nonnull source never silently returns to null. Thus inaccessible/metadata-only work can be
+upgraded after later access while every earlier attempt and source descriptor remains in history.
 
 `screening` has exactly `basis`, `disposition`, and `witness`. `basis` is `metadata-only` or
-`acquired-source`; disposition is one of `include-acquire`, `include-citation-lead`, or
-`exclude-out-of-scope`; and witness uses the exact closed screen-witness schema below. An
-assessment of an occurrence currently marked `duplicate-alias` is refused and names its current
-canonical occurrence instead. With null source, basis must be `metadata-only` and disposition/
-witness must preserve the independently rebuilt pre-assessment screen. With nonnull source, basis
-must be `acquired-source` and the importer re-executes the entry-specific full-text inclusion rule;
-only that path may promote an `include-citation-lead` occurrence to `include-acquire` or otherwise
-change its screen. The accepted transition deterministically replaces that occurrence's
-`screenDisposition`, `screenWitness`, `acquisitionStatus`, and `acquisitionPointer`; every other
-occurrence field remains rederived from captures and the final identity graph.
+`reviewed-source`; disposition is `include-acquire`, `include-citation-lead`, or
+`exclude-out-of-scope`. With null source, basis is metadata-only and witness is the exact initial
+seven-key screen witness; disposition must equal the independently rebuilt pre-alias result. With a
+nonnull source, basis is reviewed-source and witness has exactly `entryPredicateMatched`,
+`excludedCategory`, `primaryExperimentClaim`, and `sourceLocators`. The three first values are
+boolean/string-or-null under the registered exclusion vocabulary, and source locators are a nonempty
+UTF-16-sorted duplicate-free array of page/table/figure/section locators in the bound source.
+Disposition is derived in this priority: nonnull exclusion gives exclusion; otherwise a true entry
+predicate plus primary-experiment claim gives include-acquire; a true predicate gives citation lead;
+otherwise exclusion. This is a human source judgment recorded by the reviewer—not a claim that the
+executor parsed arbitrary full text or independently verified its scientific truth. The importer
+checks schema, source binding, chronology, revision continuity, and cross-field consistency only.
+Assessment screening never overwrites the occurrence's retained initial/alias fields; candidate
+projection uses the effective head.
 
-`review` has exactly `humanReviewed`, `humanReviewUncertainty`, `ocrTool`,
-`originalLanguageExcerptSha256`, `reviewDisposition`, `reviewer`, `reviewLimits`,
-`translationTool`, and `utc`, with explicit nulls. Its three states are exact biconditionals:
-`adequate` iff `humanReviewed=true` and uncertainty is null; `limited` iff
-`humanReviewed=true` and uncertainty is nonempty; and `unreviewed` iff
-`humanReviewed=false` and uncertainty is nonempty. `reviewer` is nonempty and `reviewLimits` is a
-UTF-16-sorted duplicate-free array of nonempty strings. Machine translation without named human
-review must be `unreviewed`.
+`review` has exactly `humanReviewed`, `languageReview`, `loadBearingLimit`, `reviewDisposition`,
+`reviewer`, `reviewLimits`, and `utc`. `reviewer` is null exactly when `humanReviewed=false`; otherwise
+it has exactly `id`, `languages`, and `name`, with nonempty stable ID/name and a UTF-16-sorted,
+duplicate-free array of lower-case BCP-47 language tags. `reviewLimits` is a sorted duplicate-free
+array of nonempty strings. The disposition is an exact biconditional: `unreviewed` iff no human
+review; `limited` iff human-reviewed with `loadBearingLimit=true`; and `adequate` iff human-reviewed
+with `loadBearingLimit=false`. Scientific, OCR, and translation uncertainty remains reportable even
+under adequate review; uncertainty is not erased merely to earn that label.
+
+`languageReview` has exactly `mode`, `ocrTool`, `originalLanguageEvidence`, `translationReviewer`,
+`translationTool`, and `uncertainties`. Mode is `not-applicable-english`,
+`source-language-direct`, `machine-assisted-human-checked`, or `unreviewed-machine`.
+`originalLanguageEvidence` is null only for English; otherwise it has exact `artifact` and
+`locators`, where artifact is `{bytes,path,sha256}` bound to the source or ignored excerpt artifact
+and locators are nonempty sorted source positions. Each nonnull tool has exactly `arguments`, `name`,
+`output`, and `version`; arguments is a sorted string array and output is `{bytes,path,sha256}`.
+`translationReviewer` is null or the same exact reviewer schema. Uncertainties are sorted nonempty
+strings and may be empty. Direct mode requires the source language in the main reviewer's languages
+and no translation tool/reviewer. Machine-assisted-human-checked requires a translation tool and
+named translation reviewer competent in the source language. Unreviewed-machine requires a
+translation tool, null translation reviewer, and prevents an adequate review. OCR, when used, always
+binds its exact tool/version/arguments and ignored output artifact. Machine output alone cannot make
+a source review adequate.
+
+`entryEvidence` is discriminated by entry. Yamashita uses exact
+`phase6-wp1-yamashita-entry-evidence-v1` with keys `attributionStatus`, `dataPresentation`, `kind`,
+`sourceLocators`, `sourceRole`, and `yamashitaAuthorship`. `sourceRole` is `primary-experiment`,
+`author-controlled-dataset`, `secondary-reproduction`, `citation-only`, or `unresolved`;
+authorship is `confirmed`, `not-yamashita`, or `unresolved`; attribution is
+`source-attributes-200-second-data`, `other-data`, `no-attribution`, or `unresolved`; data
+presentation is `methods-and-data`, `data-only`, `no-primary-data`, or `unresolved`. Locators are
+nonempty and source-bound. A Yamashita primary identity is supported only by role primary-experiment
+or author-controlled-dataset, confirmed authorship, the 200-second attribution, and methods/data or
+data-only presentation. The two registered local roots must instead record secondary-reproduction;
+neither may self-promote to a primary source. This lineage entry never becomes a held-out scoreable
+validation target merely because it finds the original source.
+
+Matched pressure uses exact `phase6-wp1-pressure-entry-evidence-v1` with keys `covariates`, `kind`,
+`pressureObservations`, `resultPairing`, `solverPredictability`, `sourceLocators`, and
+`uncertaintyBasis`. Each pressure observation has exactly `pressurePa`, `rawUnit`, `rawValue`,
+`resultGroupId`, and `sourceLocator`; `pressurePa` is a positive canonical ASCII decimal without
+exponent or redundant leading/trailing zero, and the other values are nonempty source strings.
+`covariates` has exactly `apparatus`, `durationHistory`, `gasComposition`, `observable`,
+`seedPopulationCrystallography`, `supersaturation`, `supportVentilation`, and `temperature`; every
+member has exact `sourceLocators` and `status`, where status is `controlled-identical`,
+`pressure-specific-measured`, `confounded`, or `unreported`. Pairing status is `paired`,
+`distribution-compatible`, `unpaired`, or `unresolved`. Uncertainty basis is `source-stated`,
+`raw-repeat-data`, `instrument-and-repeat-sufficient`, or `absent`. `solverPredictability` has exact
+`omittedPhysics`, `sourceLocators`, and `status`, with status `pass`, `fail`, or `unresolved` and a
+sorted duplicate-free omitted-physics array. A pressure entry-evidence pass requires at least two
+distinct positive pressures, every covariate controlled-identical or pressure-specific-measured,
+paired/distribution-compatible results, non-absent uncertainty, and solver-predictability pass.
+These exact witnesses drive the corresponding primary-source, geometry, transport, observable, and
+uncertainty admissibility fields; a producer cannot assert those passes against contradictory entry
+evidence.
 
 `currencyLinks` is a sorted duplicate-free array of exact objects
 `{effect,relationRequestId,subjectOccurrenceId,witness}`. `effect` is `not-relevant`,
-`confirms-current-version`, `corrects-without-superseding`, `supersedes`, or `unresolved`;
-the two IDs are immutable registered IDs and witness is nonempty source-supported text or a stable
-locator. A link is accepted only when the assessed occurrence was returned by that Rule 12 request
-and its relation row names the subject occurrence; unrelated/base-search assessments use an empty
-array. Links sort by subject occurrence ID, relation request ID, effect, then witness using UTF-16
-code-unit order. `independenceEvidence` has exactly `CAK`, `M1`, and `M1_NO_DIP_ABLATION`. Each arm has
-exactly `paths`, `rationales`, and `status`, with status equal to its corresponding admissibility
-field and nonempty UTF-16-sorted duplicate-free path and rationale arrays. `independent` records the
-complete checked source/data chain, `overlap` names the exact shared data or citation path, and
-`unresolved` names the unresolved seam; a bare status is invalid.
+`confirms-current-version`, `corrects-without-superseding`, `supersedes`, or `unresolved`; the IDs are
+immutable registered IDs and witness is nonempty source-supported text or a stable locator. A link
+is accepted only when the assessed occurrence was returned by that Rule 12 request and its relation
+row names the subject occurrence; unrelated/base-search assessments use an empty array. Links sort
+by subject occurrence ID, relation request ID, effect, then witness. `independenceEvidence` has
+exactly `CAK`, `M1`, and `M1_NO_DIP_ABLATION`; each arm has `paths`, `rationales`, and `status`, with
+status equal to its admissibility field and nonempty sorted path/rationale arrays. `independent`
+records the complete checked source/data chain, `overlap` names shared data/citation paths, and
+`unresolved` names the seam; a bare status is invalid.
 
-Only manual `observableResult.path`, assessment `source.path`, acquisition-attempt
-`evidence.path`, and accepted import/archive paths are governed by the following repository-artifact
-rule; entry-relative raw/reservation paths and separately recorded certificate paths retain their
-own rules. Each governed path is slash-normalized and repository-relative with no empty, dot or
-dot-dot segment. A manual page source must lie under
-`research/tmp/phase6-wp1-source-search-01/ENTRY_ID/source-pages/`; a source must be an exact
-pre-existing registered input or lie under
-`research/tmp/phase6-wp1-source-search-01/ENTRY_ID/sources/`; acquisition evidence must lie under
-`research/tmp/phase6-wp1-source-search-01/ENTRY_ID/acquisition-evidence/`. Resolution walks each
-component without following a symlink or reparse point, requires a regular file and exact on-disk
-component spelling, and reopens/rehashes before and after parsing. Absolute or out-of-repository
-paths are refused.
+Only manual `observableResult.path`, assessment `source.path`, acquisition `evidence.path`, review
+language artifacts/tool outputs, and accepted import/archive paths are governed by the following
+repository-artifact rule; entry-relative raw/reservation paths and separately recorded certificate
+paths retain their rules. Each governed path is slash-normalized and repository-relative with no
+empty, dot, or dot-dot segment. A manual page source lies under
+`research/tmp/phase6-wp1-source-search-01/ENTRY_ID/source-pages/`; a source is an exact registered
+input or lies under `.../ENTRY_ID/sources/`; acquisition evidence lies under
+`.../ENTRY_ID/acquisition-evidence/`; and review/OCR/translation outputs lie under
+`.../ENTRY_ID/review-artifacts/`. Resolution walks each component without following a symlink or
+reparse point, requires a regular file and exact on-disk component spelling, and reopens/rehashes
+before and after parsing. Absolute or out-of-repository paths are refused.
 
-An accepted assessment is preserved by exact
-`phase6-wp1-assessment-descriptor-v1` with exactly `admissibility`, `acquisition`,
-`assessmentBytes`, `assessmentPath`, `assessmentSha256`, `citation`, `currencyLinks`,
-`importedUtc`, `independenceEvidence`, `methodsData`, `occurrenceId`, `review`, `schedulingInputs`,
-`schedulingWitnesses`, `schema`, `screening`, and `source`. Except for its three archive
-descriptor fields, importer-sampled `importedUtc`, and descriptor schema, it copies every canonical
-assessment member unchanged;
-`assessmentPath` is the accepted ignored canonical assessment archive below. The checkpoint
-retains these complete descriptors in `assessments`, and each tracked candidate publishes the
-complete descriptor subset for its final component. A clean verifier can therefore rebuild the
-projection from tracked descriptors, while initial root-bearing acceptance additionally requires
-an independent reviewer to reopen every named assessment, source, and acquisition-evidence artifact.
-That review still does not make the scientific content self-verifying.
+An accepted assessment is preserved by exact `phase6-wp1-assessment-descriptor-v2` with exactly
+`admissibility`, `acquisition`, `assessmentBytes`, `assessmentPath`, `assessmentSha256`, `citation`,
+`currencyLinks`, `entryEvidence`, `importedUtc`, `independenceEvidence`, `methodsData`,
+`occurrenceId`, `review`, `revision`, `schedulingInputs`, `schedulingWitnesses`, `schema`, `screening`,
+and `source`. Except for its three archive descriptor fields, importer-sampled `importedUtc`, and
+descriptor schema, it copies the canonical assessment unchanged. The checkpoint retains every
+descriptor and each candidate publishes the complete history for its final component. Assessments
+sort by occurrence ID then revision ordinal; duplicate sort keys are invalid.
 
-Exactly one assessment is accepted per immutable occurrence ID. After the second source/archive
-reopen and before mutation, the first import samples one strict injected UTC; it must be no earlier
-than execution start, every acquisition-attempt end, review UTC, and the current retained
-observational maximum, and becomes descriptor `importedUtc`. Re-import of the same canonical
-assessment hash is idempotent and retains that original time; a second different assessment for that occurrence is rejected before
-mutation. If later identity union merges components containing multiple assessed occurrences, all
-descriptors remain. Candidate projection is conservative and order-independent: citation author and
-stable-ID arrays are sorted unions; each scalar citation or methods field is the sole distinct
-nonnull value or null when none/multiple, with every multiple-value field named in
-`dispositionReasons` as `assessment-conflict:OBJECT.FIELD`. Each ordinary admissibility status
-reduces `fail` before `unresolved` before `pass` before `not-applicable`; each independence status
-reduces `overlap` before `unresolved` before `independent`. Each final independence-evidence arm
-has that reduced status and the sorted union of every path/rationale. Currency links and scheduling
-inputs/witnesses are complete sorted unions rederived from all component occurrences and
-assessments. A component with no assessment is `lead`; any conflict or nonpassing load-bearing
-status is `blocked`; only the exact acquired-source/all-pass/all-independent rule below is
-`scoreable`. Arrival order and later canonical-variant change therefore cannot select scientific
-admissibility.
+After the second source/archive reopen and before mutation, each new import samples one strict
+injected UTC no earlier than execution start, every acquisition-attempt end, review UTC, predecessor
+import time, and the retained observational maximum. The checkpoint's effective assessment for an
+occurrence is its greatest valid ordinal. Candidate scientific projection uses effective heads only;
+identity observations, publication-date witnesses, scheduling inputs/witnesses, source inputs, and
+currency search obligations use the append-only union of **all** revisions so supersession can never
+unschedule or erase provenance. A successor must preserve prior citation stable IDs/date witnesses,
+scheduling inputs/witnesses, and acquisition attempts as exact subsets/prefixes. If identity union
+later merges components with several assessed occurrences, all chains remain.
+
+Across effective heads, candidate projection is conservative and order-independent: citation
+author/stable-ID arrays are sorted unions; each scalar citation, methods, or entry-evidence value is
+the sole distinct nonnull canonical value or null when none/multiple, and every multiple value emits
+`assessment-conflict:OBJECT.FIELD`. Ordinary admissibility reduces `fail` before `unresolved` before
+`pass` before `not-applicable`; independence reduces `overlap` before `unresolved` before
+`independent`. Currency links and independence paths/rationales are complete sorted unions. A
+component with no effective assessment is `lead`; any conflict or nonpassing load-bearing status is
+`blocked`; only the exact acquired-source/all-pass/all-independent pressure rule below is
+`scoreable`. Arrival order, revision history, and canonical-display changes cannot select scientific
+admissibility. Tracked descriptors make the history structurally rederivable, but scientific source
+truth is not self-verifying; the independently imported root-bound publication review below is
+mandatory before publication.
 
 Operator inputs use a closed inbox lifecycle. `import-capture` accepts only
 `imports/inbox/capture-SHA256.json` and `import-assessment` only
@@ -998,19 +1087,21 @@ temporary inode; it must not remain hard-linked to either inbox or accepted arch
 checkpoint leaves an inbox input for the
 same explicit import; a crash after checkpoint deterministically finishes the accepted archive.
 Every accepted capture archive must match exactly one attempt capture hash and every accepted
-assessment archive exactly one descriptor; no accepted archive may be changed or removed. A single
-valid pending inbox input is allowed during read-only `status` and stale-owner `recover-owner`;
-every other non-import action still refuses, and more than one
-inbox file, an unreferenced accepted archive, wrong prefix/hash, partial/noncanonical input, symlink,
-reparse point, or nonregular file fails closed. This inventory prevents an accepted operator review
+assessment/review archive exactly one descriptor; no accepted archive may be changed or removed.
+Read-only `status` inventories any inbox state without interpreting it. `recover-owner` and its claim
+continuation may run while any number or validity of inbox names exists, but they do not open, parse,
+rename, link, unlink, or authorize an inbox byte. An explicit import requires exactly its one named
+valid input and refuses any conflicting extra inbox name; every other non-import action refuses any
+inbox file. An unreferenced accepted archive, wrong prefix/hash, partial/noncanonical selected input,
+symlink, reparse point, or nonregular file fails closed. This inventory prevents an accepted operator review
 from disappearing while keeping manual response bytes duplicated only as ignored provenance and the
 registered raw-attempt authority.
 
 Owner recovery never interprets or imports inbox bytes: an owner record does not bind the action that
 crashed, and a queued input may be unrelated. `recover-owner` is the sole mutating command exempt
 from the one-pending-inbox refusal. It journals and replaces stale ownership exactly as registered,
-leaves every inbox and accepted-archive byte untouched, and normally releases its authenticated live
-successor after the recovery event is durable. A dead-claim continuation likewise leaves the inbox
+leaves every inbox and accepted-archive byte untouched, and normally archives/releases its authenticated live
+successor and exits after the recovery event is durable. A dead-claim continuation likewise leaves the inbox
 unchanged and exits 78. The operator then invokes the explicit matching `import-capture --input` or
 `import-assessment --input`; that importer idempotently distinguishes and completes the pre-checkpoint,
 post-checkpoint/pre-archive, and post-archive/pre-unlink states from the checkpoint descriptor and
@@ -1289,7 +1380,7 @@ registered pending-retry/deadline rule; an opaque-tool result has one terminal a
 invented retry. This order/stopping policy is rederived from the checkpoint and makes provider
 timing unable to authorize bypass of a waiting earlier request.
 
-Every new checkpoint additionally initializes `assessments=[]`, `candidates=[]`, `dispatchReservation=null`,
+Every new checkpoint additionally initializes `assessments=[]`, `dispatchReservation=null`,
 `execution.endedUtc=null`, `publicationPlan=null`, and `relations=[]`; its
 `manifestStartSha256`, provenance, execution object and sorted source-input pins are the freshly
 reopened registered values. There are exactly two admissible initial forms. A **fresh** form has no
@@ -1298,7 +1389,7 @@ only authenticated stale-owner and/or checkpoint-temporary recovery archive/jour
 initializes `auditEvents` to the event-ID-sorted exact events independently reconstructed from those
 pairs. No other nullable or collection field is producer-chosen.
 
-The pressure entry initializes `occurrences=[]`. The Yamashita entry instead installs exactly two
+The pressure entry initializes `occurrences=[]` and `candidates=[]`. The Yamashita entry instead installs exactly two
 deterministic local-root occurrences before deriving candidates and the dynamic schedule. Local root
 `YAMASHITA-MONOGRAPH-ROOT-01` binds `research/1910.06389v2.pdf`, 25,611,913 bytes, SHA-256
 `f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471`, arXiv
@@ -1311,13 +1402,13 @@ Kinetics near -2 C*, relevant page `8`, and its Figure 8 later-reproduction lead
 and rehashes both registered source inputs at preparation; the published occurrence pointer uses the
 same exact path/bytes/hash and relevant-page array.
 
-Each root's canonical local descriptor has exactly `arxivId`, `entryId`, `localRootId`, `path`,
-`relevantPages`, `schema`, and `sha256`, with schema `phase6-wp1-local-root-v1`. Its virtual
-`requestId` is SHA-256 of canonical `{entryId,localRootId,schema}` with
-`schema=phase6-wp1-local-root-request-v1`; that ID deliberately has no `requests.jsonl` row and is
-excluded from fixed/dynamic request counts. Its ordinary `rawRecordSha256` hashes the complete
-canonical local descriptor, and its `occurrenceId` uses the registered occurrence formula with
-provider rank `local-root`. The occurrence has the arXiv versioned strong ID, resolved identity,
+Each root's canonical local descriptor has exactly `entryId`, `ordinal`, `schema`, `sourceBytes`,
+`sourcePath`, and `sourceSha256`, with schema `phase6-wp1-local-root-v1` and ordinal one or two in the
+order above. `localRootId` is lowercase SHA-256 of that canonical descriptor. Its `occurrenceId` is
+lowercase SHA-256 of canonical `{localRootId,schema:"phase6-wp1-local-root-occurrence-v1"}`. It has
+`requestId=null`, `providerRank=null`, and no `requests.jsonl` row; local roots are excluded from
+fixed/dynamic request counts. `rawRecordSha256` equals `localRootId`. The occurrence has the registered
+title/author/page metadata above, the arXiv versioned strong ID, resolved identity,
 `screenDispositionBeforeAlias=include-citation-lead`, `acquisitionStatus=acquired-and-verified`, the
 bound pointer, empty provider-date witnesses, and a citation-walk trigger. It therefore makes the
 starting chain reachable even if every network route returns zero records. Both roots require an
@@ -1325,6 +1416,9 @@ effective adequately reviewed assessment before publication; the monograph asses
 least one source-supported local citation witness for `[1987Kob]`. Root occurrences participate in
 identity union, candidate projection and dynamic relation scheduling exactly like captured
 occurrences; only their absence from the request ledger/counts is special.
+The initial Yamashita candidate projection therefore contains exactly two lead components unless
+the independently regenerated identity graph joins them; it is never initialized as an arbitrary
+empty or producer-selected array.
 
 Every checkpoint rewrite restores the tracked product orders before canonical serialization:
 `assessments` by occurrence ID, `requests` by request ID, `occurrences` by occurrence ID,
@@ -1371,8 +1465,9 @@ reauthenticates the claim and current owner, and atomically renames the candidat
 owner while the claim remains installed. It reopens the successor bytes and archive, completes and
 reopens the event-bearing checkpoint transition, and installs the claim bytes without change at
 `audit/orphaned-recovery-claims/CLAIM_SHA256.json` by no-replace hard link/reopen validation. Only
-then does it remove the exact live claim. If the process PID equals `claimantPid`, it now owns the
-successor and may continue. A continuation actor for a dead claimant may do no ordinary work: it
+then does it remove the exact live claim. If the process PID equals `claimantPid`, it owns the
+successor only long enough to perform the registered normal archive/release and then exits; a
+separate explicit command must acquire the next owner before ordinary work. A continuation actor for a dead claimant may do no ordinary work: it
 exits 78 with `recovery-successor-stale`, leaving the dead claim-derived successor installed for a
 fresh, separately serialized owner recovery. Once the recovery event is durable and the claim is
 absent, the old journal/archive pair is a completed historical action; later valid owners or normal

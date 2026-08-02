@@ -50,14 +50,19 @@ index, a plan, ADR, or audit links to historical detail.
   execution**. At exact register blob `71254cd345379b061011f6c7895dd246c3418d33`, two independent
   offline `gpt-5.6-sol` audits found respectively 10 blockers / 2 should-fixes in scientific
   assessment/closure and 9 blockers / 3 should-fixes in operational closure. The prior 0/0 reviews
-  predate this broader attack and must not authorize a request. The current uncommitted correction
+  predate this broader attack and must not authorize a request. The current checkpointed correction
   has closed or specified durable end time, runtime drift rechecks, canonical display selection,
   OpenAlex DOI resolution, pending-inbox recovery, relation/witness identity, result caps,
   acquisition locators, version-URL normalization, identity conflicts, total initial screening,
-  append-only date scheduling, and deterministic local Yamashita roots. It has **not yet** completed
-  the interdependent assessment-revision, non-English/source-review, entry-specific evidence,
-  acquisition-publication closure, or root-bound independent publication-review schemas, and no
-  final exact-blob review has run. The untracked executor/test skeleton remains deliberately outside
+  append-only date scheduling, and deterministic local Yamashita roots. The current paused register
+  also contains a self-contained v2 assessment contract for append-only effective revisions,
+  reviewed-source screening, acquisition evidence, non-English/OCR/translation provenance,
+  assessment-derived identity, and entry-specific Yamashita/matched-pressure evidence. That v2
+  contract is **not yet integrated** into the downstream scheduling, occurrence, candidate, summary,
+  checkpoint, publication-precondition, or root-bound independent-publication-review schemas; stale
+  v1/single-assessment/non-duplicate assumptions remain below it, and no final exact-blob review has
+  run. The paused register bytes have git-blob SHA-1
+  `62bd4e3c21797db63c0f6ca5650d658f8f082a26` and 2,954 lines. The untracked executor/test skeleton remains deliberately outside
   this record change; it implements only early pure helpers and is not authorized for transport.
   No live request or TAX2 numeric extraction has run; all three question IDs remain unexecuted.
   At this restart checkpoint, exact `npm.cmd run lint:rule7` is clean over 422 files,

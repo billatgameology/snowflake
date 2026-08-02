@@ -75,9 +75,31 @@ and verifier; never edit or silently reinterpret the existing ID. A successor ma
 pass-eligible only after a target passes every scientific admissibility check and receives
 independent evidence review.
 
+## Current register-rewrite checkpoint
+
+Two read-only OpenAI `gpt-5.6-sol` ultra-reasoning subreviewers with inherited repository/task
+context audited committed `HEAD 00b949a` and register blob
+`89ed7cca8f85ff4a7c949ce8e4fe44c13acf0c0e`; neither inspected or edited the concurrent working
+rewrite, executed the proposed transport, or reviewed final bytes. Their recommendations are design
+inputs, not an acceptance verdict:
+
+- The assessment reviewer requires versioned append-only revisions with rederived series identity,
+  complete revision histories plus effective heads, source-segment/OCR/translation identities,
+  named human language competence and load-bearing uncertainties, assessment identifiers in the
+  identity graph, entry-specific Yamashita and matched-pressure evidence, and adversarial mutations
+  for every reducer. The paused v2 rewrite implements the same obligations with a different exact
+  shape; downstream schemas must be reconciled to one internally consistent contract rather than
+  mixing the two proposals.
+- The publication reviewer requires a review-excluding canonical science-state root, append-only
+  imported non-author review chain bound to the current root, acquisition-aware terminal scope,
+  distinct producer and verifier implementations, seven tracked per-entry files including the
+  review ledger, evidence-root-relative manifest paths, clean-clone verification without ignored
+  working files, and named review/root/manifest/crash negative controls. This closes the current
+  circular requirement for a review that neither checkpoint nor verification can represent.
+
 ## Steps
 
-- [x] Add the three open entries to `research/phase6-source-currency.md`. Each begins explicitly
+- [ ] Freeze the three open entries in `research/phase6-source-currency.md`. Each begins explicitly
   `UNEXECUTED` and freezes the search scope/stopping fields above before execution; a known pointer
   is not recorded as a completed search. Section 11 now fixes 243 base query-route combinations,
   derived citation/Rule 12 routes, finite traversal, admission rules, entry-specific atomic
@@ -87,14 +109,19 @@ independent evidence review.
   publication details. The dated Section 11 amendment fixes those choices before code or execution;
   a no-shared-chat-context `gpt-5.6-terra` high-reasoning non-author review closed at 0 blockers / 0
   should-fixes after three rounds, but a later broader schema/Rule 9 audit reopened that scoped
-  verdict. The broader inherited-context `gpt-5.6-sol` non-author review closed the current bytes at
+  verdict. The broader inherited-context `gpt-5.6-sol` non-author review closed the then-current bytes at
   0 blockers / 0 should-fixes after exact identity, witness, verifier and crash-recovery corrections.
   After that register landed at `1c28c13`, the first pure executor skeleton exposed a missing
   checkpoint state for a captured transient response and a crash-ambiguous dispatch. A follow-up
   record-only correction now closes the pending-row fields, finite `Retry-After`, bounded/yielding
   resume, pre-dispatch reservation, binary-safe capture and no-overwrite recovery semantics. Two
-  offline `gpt-5.6-sol` non-author reviews closed its current subsection at 0 blockers / 0
-  should-fixes. No HTTP/retry path, request or numeric extraction ran.
+  offline `gpt-5.6-sol` non-author reviews closed that subsection at 0 blockers / 0 should-fixes.
+  Two later independent audits of exact blob
+  `71254cd345379b061011f6c7895dd246c3418d33` reopened the whole register with respectively 10
+  blockers / 2 should-fixes and 9 blockers / 3 should-fixes. The paused unaccepted rewrite has
+  git-blob SHA-1 `62bd4e3c21797db63c0f6ca5650d658f8f082a26`; its v2 assessment contract is not yet integrated
+  into downstream publication/checkpoint schemas and has not received an exact-byte review. No
+  HTTP/retry path, request or numeric extraction ran.
 
 - [ ] Implement the deterministic source-search executor, entry-specific checkpoint/resume path,
   normalized occurrence/candidate ledgers, and evidence publisher exactly from Section 11 in
@@ -109,8 +136,9 @@ independent evidence review.
   `npx.cmd vitest run runner/test/phase6-wp1-source-search.test.ts`. Obtain a non-author
   code/evidence-boundary review before the first live request. An uncommitted pure skeleton currently
   covers registry/schedule identities, normalization, identity union, Git provenance, entry ownership
-  and atomic canonical writes; it typechecks but has no transport, retry/checkpoint state machine,
-  parser, publisher, independent verifier, CLI or focused test yet.
+  and atomic canonical writes; it typechecked before the register rewrite but has no transport,
+  retry/checkpoint state machine, parser, publisher, independent verifier, CLI or focused test yet.
+  No current post-rewrite typecheck claim is made.
 
 - [ ] Execute `YAMASHITA-FREEFALL-LINEAGE-01`, beginning from authoritative `1910.06389v2`
   Figure 6.22 (printed p. 234 / PDF p. 235), Figure 7.21 (printed p. 268 / PDF p. 269), and the
