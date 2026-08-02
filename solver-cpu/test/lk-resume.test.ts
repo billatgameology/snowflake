@@ -391,7 +391,7 @@ describe("LK v3 field-adopting restore", () => {
   }
 
   for (const paramSet of ["CAK", "M1"] as const) {
-    it(`${paramSet}: realistic multi-sweep continuation remains exact after nonlinear events`, async () => {
+    it(`${paramSet}: converged multi-sweep continuation remains exact after nonlinear events`, async () => {
       const options = multiSweepDifferentialOptions(paramSet);
       const direct = new LKSolver(options);
       let checkpointEveryCycle = await roundTrip(new LKSolver(options));
