@@ -1,5 +1,36 @@
 # Handoff — Phase 6 science-first completion active (2026-08-02)
 
+## Restart checkpoint — WP1 register review paused safely
+
+The current tree is intentionally paused before the assessment-schema rewrite. No source-search
+request, acquisition call, TAX2 extraction, or long evidence job ran. Section 11 of
+`research/phase6-source-currency.md` is a **work-in-progress, unaccepted protocol candidate**; its
+older embedded 0/0 review statements are historical and do not authorize execution.
+
+Two independent offline `gpt-5.6-sol` audits of exact blob
+`71254cd345379b061011f6c7895dd246c3418d33` reopened it. The scientific audit reported 10 blockers /
+2 should-fixes; the operational/schema audit reported 9 blockers / 3 should-fixes. The current
+working diff has already addressed durable `execution.endedUtc`, per-invocation runtime drift,
+canonical display tie-breaking, OpenAlex DOI resolution, pending-inbox/owner recovery, exact
+relation witnesses, first-200 caps, acquisition locators, normalized/invalid version URLs, identity
+conflicts, total initial screening, append-only date operands, and two deterministic local Yamashita
+roots. Those repairs have not received a final exact-byte review.
+
+Resume at lines near the `phase6-wp1-candidate-assessment-v1` import contract. Still close, as one
+coherent design: append-only assessment revisions and effective heads; actual reviewed-source rather
+than executor-claimed full-text screening; non-English/OCR/translation provenance without suppressing
+honest uncertainty; assessment identifiers entering the identity graph; exact entry-specific
+scientific evidence (especially matched-pressure covariates); acquisition-aware publication and
+summary actions; and an independently imported Rule 10/13 publication review bound to a canonical
+science-state root and copied into `verification.json`. Then audit one exact blob to 0 blockers / 0
+should-fixes, update the embedded review provenance, run focused checks, and freeze the register in a
+record-only commit before touching transport.
+
+Preserve the untracked root `=`, `runner/src/phase6-wp1-source-search.ts`, and
+`runner/test/phase6-wp1-source-search.test.ts`. They are deliberate pre-freeze skeletons and must not
+be staged with the register. The working branch is ahead of `origin/main`; do not push unless asked.
+The maker's no-education and at-most-hourly-status constraints remain in force.
+
 Read this file, then `docs/phase6-lessons.md`, `docs/PROGRESS.md`, and the active
 `docs/plans/phase-6-science-first-completion.md`. The older
 `docs/plans/phase-6-nakaya-validation.md` is historical registration, not the live schedule.

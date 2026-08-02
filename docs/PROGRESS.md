@@ -45,35 +45,25 @@ index, a plan, ADR, or audit links to historical detail.
   held-out target is apples-to-apples with the current geometry and transport physics. Missing
   crystallography, substrate/needle geometry, latent heat, sublimation, ventilation, and confounded
   pressure conditions are scientific scope blockers, not permission to score a near miss.
-- The bounded [WP1 source-lineage/TAX2 plan](plans/phase-6-wp1-source-lineage-and-tax2.md) is
-  pre-registered and accepted by a read-only non-author review with 0 blockers / 0 should-fixes
-  after correcting the Yamashita chain and freezing search stopping, renderer provenance,
-  machine-readable in-sample/geometry/pass labels, evidence-manifest registration, source currency,
-  and post-extraction anti-tuning rules. Section 11 of `research/phase6-source-currency.md` now
-  freezes the 243 base query-route combinations, derived citation/currency routes, finite
-  stopping/admission, merge-safe entry checkpoints, and durable source-search/TAX2 evidence
-  boundaries. Three offline non-author review slices returned 0 blockers / 0 should-fixes on the
-  initial register. A later implementation audit found identity, manual-capture, ownership and
-  publication choices that still admitted multiple producers; the dated pre-execution amendment
-  now fixes them. A no-shared-chat-context non-author re-review closed at 0 blockers / 0
-  should-fixes after three rounds, although a later broader schema/Rule 9 audit has reopened the
-  amendment. That broader inherited-context non-author review now closes the current bytes at 0
-  blockers / 0 should-fixes after exact identity, scheduling-witness, independent-verifier and
-  crash-recovery corrections; that identity freeze is committed at `1c28c13`. The first uncommitted
-  pure executor skeleton then exposed a missing captured-retry checkpoint state and crash-ambiguous
-  dispatch. A record-only correction now fixes the closed pending row, finite wait/header semantics,
-  bounded resume, pre-dispatch reservation, binary-safe capture, and no-overwrite recovery. Two
-  offline `gpt-5.6-sol` non-author reviews closed its current subsection at 0 blockers / 0
-  should-fixes. The skeleton currently covers only pure registry/schedule identities, normalization,
-  identity union, Git provenance, ownership and atomic canonical writes and passes strict typecheck;
-  it has no HTTP/retry path, checkpoint executor, parser, publisher, independent verifier, CLI or
-  focused test. No live request or TAX2 numeric extraction has run, and all three question IDs
-  remain unexecuted.
-  Current focused checks are exact `npm.cmd run lint:rule7` clean over 421 files,
-  `npx.cmd vitest run runner/test/progress-index.test.ts` passing 7/7,
-  `npx.cmd tsc --noEmit --pretty false` exit 0, and `git diff --check` clean apart from line-ending
-  conversion warnings. Exact root `npm test` has not run for this amendment and no full-suite claim
-  is made.
+- The bounded [WP1 source-lineage/TAX2 plan](plans/phase-6-wp1-source-lineage-and-tax2.md) remains
+  accepted, but its much larger Section 11 execution register is **reopened and not accepted for
+  execution**. At exact register blob `71254cd345379b061011f6c7895dd246c3418d33`, two independent
+  offline `gpt-5.6-sol` audits found respectively 10 blockers / 2 should-fixes in scientific
+  assessment/closure and 9 blockers / 3 should-fixes in operational closure. The prior 0/0 reviews
+  predate this broader attack and must not authorize a request. The current uncommitted correction
+  has closed or specified durable end time, runtime drift rechecks, canonical display selection,
+  OpenAlex DOI resolution, pending-inbox recovery, relation/witness identity, result caps,
+  acquisition locators, version-URL normalization, identity conflicts, total initial screening,
+  append-only date scheduling, and deterministic local Yamashita roots. It has **not yet** completed
+  the interdependent assessment-revision, non-English/source-review, entry-specific evidence,
+  acquisition-publication closure, or root-bound independent publication-review schemas, and no
+  final exact-blob review has run. The untracked executor/test skeleton remains deliberately outside
+  this record change; it implements only early pure helpers and is not authorized for transport.
+  No live request or TAX2 numeric extraction has run; all three question IDs remain unexecuted.
+  At this restart checkpoint, exact `npm.cmd run lint:rule7` is clean over 422 files,
+  `npx.cmd vitest run runner/test/progress-index.test.ts` passes 7/7, and `git diff --check` exits 0
+  with line-ending conversion warnings only. Exact root `npm test` and TypeScript checks did not run
+  after the latest prose changes, so no current full-suite or typecheck claim is made.
 - Under the current whole-grid rule the minimum planning count is `612 × S × D × Z` rows
   (three arms × 204 points × spacings × domains × physical-size strata). The present
   three-spacing, three-domain, one-size baseline is 5,508 CPU rows. This is a feasibility bound, not
@@ -153,10 +143,13 @@ For unattended long work: first update this index and `HANDOFF.md`; run only fro
 source snapshot; write labeled live/error/exit records; put durable generated science under
 `evidence/`; and report user-facing status at most once per hour unless the maker asks.
 
-1. If the independently accepted captured-retry correction is still uncommitted, land it record-only
-   while preserving the untracked skeleton and root `=`. Then update the executor's register pins to
-   the resulting committed Section 11 identity and finish and independently review the source-search
-   executor, entry-specific atomic
+1. Resume the **unaccepted** Section 11 register at the assessment-import schema. Finish the
+   append-only assessment-revision chain, reviewed-source/language provenance, entry-specific
+   evidence, acquisition/publication closure and science-state-root-bound independent publication
+   review. Then run a fresh adversarial review against one exact blob and require 0 blockers / 0
+   should-fixes before a record-only freeze commit. Preserve the untracked executor/test skeleton and
+   root `=`. Only after that freeze, update the executor's register pins and finish and independently
+   review the source-search executor, entry-specific atomic
    checkpoint/resume path and normalized evidence publisher before any live request. Complete
    `runner/src/phase6-wp1-source-search.ts`, `runner/src/phase6-wp1-source-search-main.ts`, and
    `runner/test/phase6-wp1-source-search.test.ts` under the accepted WP1 plan. First focused checks
