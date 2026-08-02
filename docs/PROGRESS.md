@@ -52,10 +52,18 @@ index, a plan, ADR, or audit links to historical detail.
   and post-extraction anti-tuning rules. Section 11 of `research/phase6-source-currency.md` now
   freezes the 243 base query-route combinations, derived citation/currency routes, finite
   stopping/admission, merge-safe entry checkpoints, and durable source-search/TAX2 evidence
-  boundaries. Three offline
-  non-author review slices returned 0 blockers / 0 should-fixes on the final register. No live
-  request or TAX2 numeric extraction has run. Rule 7 is clean over 420 files, the progress-index
-  suite passes 7/7, and `git diff --check` is clean for this registration unit.
+  boundaries. Three offline non-author review slices returned 0 blockers / 0 should-fixes on the
+  initial register. A later implementation audit found identity, manual-capture, ownership and
+  publication choices that still admitted multiple producers; the dated pre-execution amendment
+  now fixes them. A no-shared-chat-context non-author re-review closed at 0 blockers / 0
+  should-fixes after three rounds, although a later broader schema/Rule 9 audit has reopened the
+  amendment. That broader inherited-context non-author review now closes the current bytes at 0
+  blockers / 0 should-fixes after exact identity, scheduling-witness, independent-verifier and
+  crash-recovery corrections. No executor exists yet, no live
+  request or TAX2 numeric extraction has run, and all three question IDs remain unexecuted. Current
+  focused checks are exact `npm.cmd run lint:rule7` clean over 420 files, exact
+  `npx.cmd vitest run runner/test/progress-index.test.ts` passing 7/7, and `git diff --check` clean.
+  Exact root `npm test` has not run for this amendment and no full-suite claim is made.
 - Under the current whole-grid rule the minimum planning count is `612 × S × D × Z` rows
   (three arms × 204 points × spacings × domains × physical-size strata). The present
   three-spacing, three-domain, one-size baseline is 5,508 CPU rows. This is a feasibility bound, not
@@ -135,7 +143,8 @@ For unattended long work: first update this index and `HANDOFF.md`; run only fro
 source snapshot; write labeled live/error/exit records; put durable generated science under
 `evidence/`; and report user-facing status at most once per hour unless the maker asks.
 
-1. Implement and independently review the Section 11 source-search executor, entry-specific atomic
+1. Commit the independently accepted Section 11 amendment; then implement and independently review the
+   source-search executor, entry-specific atomic
    checkpoint/resume path and normalized evidence publisher before any live request. Create
    `runner/src/phase6-wp1-source-search.ts`, `runner/src/phase6-wp1-source-search-main.ts`, and
    `runner/test/phase6-wp1-source-search.test.ts` under the accepted WP1 plan. First focused checks

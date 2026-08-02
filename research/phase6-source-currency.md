@@ -599,6 +599,447 @@ surface; the tracked evidence bundle is the durable scientific record. `docs/PRO
 `docs/HANDOFF.md` point to each entry-specific checkpoint while execution is active and to the evidence bundle when
 complete, keeping those state indexes compact.
 
+#### 2026-08-02 executor-identity and publication amendment
+
+This amendment was registered before implementation and before the first live request. The initial
+offline implementation audit found that the prose above fixed the scientific traversal but left
+several byte identities and crash states with more than one conforming implementation. Those
+choices are fixed here rather than allowed to become producer-selected protocol. They add no search
+endpoint, traversal, query, candidate, measurement or source; `registered-version-url` below merely
+names the Rule 12 publisher/repository link traversal already registered above. All three entries
+remain unexecuted.
+
+**Canonical identities.** Every identity below hashes the exact bytes returned by
+`canonicalJsonBytes` in `runner/src/gate4-evidence.ts`: recursively sorted-key, strict UTF-8 JSON
+with one terminal LF. All named keys are present; an inapplicable scalar is `null`, never omitted.
+
+- A request identity object has exactly `direction`, `entryId`, `hop`, `pageOrdinal`,
+  `priorResponseSha256`, `queryOrdinal`, `requestUrl`, `route`, `stage`, and
+  `subjectScheduleId`. `pageOrdinal`, `providerRank`, and a non-null `queryOrdinal` are one-based
+  safe integers; a non-null `hop` is a safe integer in 0--3. Exactly one of `queryOrdinal` and
+  `subjectScheduleId` is non-null. `direction` and `hop` are both null for a base discovery request
+  and both non-null for a derived request. `priorResponseSha256` is non-null if and only if this is
+  a continuation request whose cursor/token/link came from the immediately prior page captured in
+  that same request-pagination chain, never merely the temporally preceding request and never a
+  Rule 12 version link;
+  an initial literal OpenAlex `*` is not a continuation. The bound hash is that prior response's
+  exact raw/canonical capture hash. `requestId` is the lowercase SHA-256 of the identity object.
+- An occurrence identity object has exactly `providerRank`, `rawRecordSha256`, and `requestId`;
+  `occurrenceId` is its lowercase SHA-256. Rank is the provider-displayed one-based rank within the
+  response page, not a mutable global/component rank.
+- For a returned JSON object, `rawRecordSha256` hashes
+  `canonicalJsonBytes(parsedCompleteObject)`, not a selected projection; a provider result that is
+  not one complete strict-JSON object is a parse failure. For XML, HTML, or an opaque/manual result,
+  it hashes a canonical identity envelope with exactly `responseBodySha256`, `schema`, and
+  `sourceLocator`. `schema` is `phase6-wp1-provider-record-v1`, and `sourceLocator` is exactly
+  `xml-record-index:N`, `displayed-result-index:N`, or `tool-result-index:N`, with one-based safe
+  integer `N` in source/display/tool order. The response hash plus ordinal alone defines the record
+  identity without allowing two parsers' field projections to change it or pretending a projection
+  is an exact XML/HTML byte slice. One complete strict-JSON object of observed fields is retained
+  separately as non-identity checkpoint metadata with the parser/importer version. The raw response
+  remains separately byte-hashed under `research/tmp/` and is the authority if that metadata is
+  later questioned.
+- `subjectScheduleId` is the exact type-prefixed normalized identifier used to create the request.
+  A title-only subject is `occurrence:` plus the immutable occurrence ID. A late component merge
+  may append aliases and final-component pointers only.
+
+The nine base-route strings are exactly `crossref`, `openalex`, `cinii`, `ndl`, `jstage`,
+`google-books`, `internet-archive`, `worldcat`, and `supplemental-web`. The derived-only
+`registered-version-url` route represents the finite publisher/repository/version URLs authorized
+by the Rule 12 link traversal; it is never a base query route. The complete stage contract is:
+
+| stage | direction | hop | scheduling operand | allowed route |
+|---|---|---:|---|---|
+| `base-discovery` | null | null | one-based registered `queryOrdinal` | any of the nine base routes |
+| `known-seed-resolution` | `resolution` | 0 | registered `doi:DOI` or `openalex-work:WID` | `crossref` for DOI; `openalex` for DOI or WID |
+| `relation-resolution` | `resolution` | resolved node depth 0--3 | route-usable `doi:DOI` or `openalex-work:WID` | `crossref` for DOI; `openalex` for DOI or WID |
+| `relation-backward` | `backward` | depth of members requested, 1--3 | resolved parent DOI for Crossref, or WID for OpenAlex | `crossref` or `openalex` |
+| `relation-forward` | `forward` | depth of members requested, 1--2 | resolved parent WID | `openalex` |
+| `citation-title-discovery` | `backward` | unresolved member depth 1--3 | `occurrence:ID` of a returned title-only reference or `local-member:ID` of a local-source title member | `crossref`, `openalex`, `cinii`, `ndl`, or `supplemental-web` |
+| `currency-correction` | `correction` | 0 | `doi:DOI` when present, otherwise `occurrence:ID` of the candidate supplying the exact title | `crossref`, `openalex`, `cinii`, `ndl`, `jstage`, or `supplemental-web` |
+| `currency-version-link` | `version-link` | 0 | `doi:DOI` when present, otherwise `occurrence:ID` of the candidate | `registered-version-url` |
+| `currency-same-author` | `same-author` | 0 | `openalex-author:AID` or `author-name:SHA256` | `openalex` for AID; `crossref` for exact name |
+
+`author-name:SHA256` uses lowercase hexadecimal SHA-256 of the canonical object with exactly
+`displayName` and `schema`, where `schema=phase6-wp1-author-name-v1` and `displayName` is the exact
+Unicode-NFC display name. A local source member without a strong identifier uses
+`local-member:SHA256`, where the lowercase digest covers the canonical object with exactly
+`memberOrdinal`, `parentOccurrenceId`, `rawMemberSha256`, `schema`, and `sourceSha256`, with
+`schema=phase6-wp1-local-member-v1`; the occurrence ID is the immutable assessment/witness parent,
+not a later canonical-variant selection. A supplemental request has canonical
+`requestUrl = opaque:search_query?q=` plus the common one-pass encoding of decoded `Q`; that string
+is an identity, not a claim that the opaque provider exposes an HTTP endpoint. OpenAlex pagination
+terminates on an empty page. This amendment supersedes the earlier `stop earlier only on an empty
+page` sentence only when the provider returns no next cursor: if the accumulated returned count
+equals the advertised total and is below the 200 cap, record `provider-terminal-no-cursor` and
+complete; otherwise the absent continuation is `terminal-access-failure`, or
+`terminal-partial-at-cap` when 200 records were already captured. A request is never fabricated
+without a provider cursor. An empty page completes only when accumulated records equal the
+advertised total below cap; it is `terminal-partial-at-cap` after 200, and otherwise
+`terminal-access-failure` because advertised records are missing. Every other route follows the
+displayed/fixed continuation rules already registered above.
+
+In every rule below, `control` means Unicode General Category `Cc` or `Cf` as matched by the pinned
+engine's `/[\p{Cc}\p{Cf}]/u`; `Unicode whitespace` means `\p{White_Space}`; `punctuation` means
+Unicode General Category `P` as matched by `/\p{P}/gu`; code-point length is `[...value].length`.
+Folding replaces each punctuation code point with one ASCII space and collapses each nonempty run
+of Unicode whitespace to one ASCII space after normalization/lowercasing.
+
+After the already registered prefix stripping and one valid percent-decode, a DOI is usable as a
+strong identifier or request operand only when it matches `10.` plus 4--9 ASCII digits, `/`, and a
+nonempty suffix containing no control or Unicode-whitespace character. ASCII letters lowercase;
+non-ASCII code points are preserved. PubMed is a nonzero decimal integer and PMC is `PMC` plus a
+nonzero decimal integer. A J-STAGE, CiNii, NDL or Internet Archive provider ID is Unicode-NFC,
+trimmed, nonempty, at most 512 code points, and contains no control/Unicode-whitespace character; provider
+case is preserved. An ISBN becomes a strong key only together with a nonempty volume designator;
+the volume is Unicode-NFKC, ECMAScript-lowercased, trimmed and internal Unicode whitespace is
+collapsed to one ASCII space. Title/family-name folding uses Unicode NFKC followed by the pinned
+Node/V8 engine's ECMAScript `toLowerCase`, punctuation-to-space and whitespace collapse; it is not
+described as language-independent full Unicode case folding.
+
+Type-prefixed component keys use exactly `doi:`, `openalex-work:`, `pubmed:`, `pmc:`, `jstage:`,
+`cinii:`, `ndl:`, `isbn-volume:`, `internet-archive:`, and `oclc:`. An ISBN-volume value is
+`ISBN13|` plus the normalized volume. Fallback keys are `title-author-year:` plus lowercase
+hexadecimal SHA-256 of a canonical object with exactly `firstAuthorFamilyFolded`, `schema`,
+`titleFolded`, and `year`, where `schema=phase6-wp1-title-author-year-v1` and `year` is the exact
+four-digit string; the other values are the registered folds;
+otherwise the key is `raw-sha256:` plus the record hash. These prefixes participate in the already
+registered lexical component-key selection and prevent two identifier namespaces from colliding.
+Every `lexicographic`, `lexically`, canonical path/row, identifier, component, variant and tie-break
+sort in this register uses locale-independent ECMAScript UTF-16 code-unit order (`a < b`, `a > b`),
+never locale collation; tests include non-ASCII operands.
+
+**Capture and terminal schemas.** Direct JSON/XML HTTP responses are fetched by the executor.
+J-STAGE, WorldCat, saved manual pages and the supplemental opaque search provider enter only through
+a canonical `phase6-wp1-manual-capture-v1` import. That import binds the registered request ID and
+identity object, exact intended call/URL, capture kind, final URL where observable, stable response
+headers/metadata, provider total, continuation/cap state, complete returned provider-record
+envelopes, and either an ignored raw-page path plus bytes/hash or the canonical observable tool
+result. It cannot create an unregistered request, change a query, substitute a provider, or mark an
+uncaptured continuation complete.
+
+The manual-capture object has exactly these keys, with explicit null rather than omission:
+`capTruncated`, `captureKind`, `endedUtc`, `error`, `finalUrl`, `identity`, `intendedRequest`,
+`observableResult`, `providerTotal`, `records`, `requestId`, `responseHeaders`, `schema`,
+`semanticHeaderStatus`, `startedUtc`, `status`, and `continuation`. `schema` is the literal above;
+`identity` is the exact request identity object; `intendedRequest` has exactly `controlledHeaders`,
+`kind`, and `urlOrCall`, where `controlledHeaders` has exactly `accept` and `userAgent` and `kind` is
+`http` or `opaque-tool`; `semanticHeaderStatus` has exactly `accept` and `userAgent`, each one of
+`confirmed`, `unobservable`, `uncontrollable`, or `not-applicable`; `continuation` is null or has
+exactly `kind`, `value`, and `url`; and every `records` member has exactly `fields` and
+`sourceLocator` under the non-JSON record rule. Exactly one of these capture representations is
+used: `manual-page-source` names an ignored regular file in `observableResult` with exactly
+`bytes`, `path`, and `sha256`; `observable-tool-result` stores the complete strict-JSON observable
+tool result there; `no-response` stores the already registered no-response object. The importer
+reopens and hashes any named file before acceptance. Extra/missing keys, a mismatched request ID,
+wrong representation, noncanonical JSON, or a total/cap/continuation inconsistent with `records` is a
+parse failure, not a partially accepted capture.
+
+An acquired-source/operator assessment enters only through canonical
+`phase6-wp1-candidate-assessment-v1` with exactly `admissibility`, `citation`, `methodsData`,
+`occurrenceId`, `review`, `schedulingInputs`, `schedulingWitnesses`, `schema`, and `source`.
+`occurrenceId` is immutable even if its component later merges; citation/methods/admissibility/
+scheduling objects use the exact published schemas below. `source` has exactly `bytes`, `path`,
+`relevantPages`, and `sha256` and is reopened before import. `review` has exactly `humanReviewed`,
+`ocrTool`, `originalLanguageExcerptSha256`, `reviewer`, `translationTool`, and `utc`, with explicit
+nulls. This records an operator/source assessment; it does not make its scientific content
+self-verifying or pass-eligible.
+
+Request terminal states describe one page/call. A valid parsed 2xx response is `complete`,
+`terminal-no-results`, or `terminal-partial-at-cap` according to the registered page/cursor rule.
+After redirects are recorded and followed for at most ten hops, 401, 403, 404, 407, 410, 451,
+redirect failure/loop, any other terminal 4xx, exhausted 429/5xx retries, DNS/TLS/connection failure,
+or a malformed/unparseable 2xx response is `terminal-access-failure` with a reason code and retained
+capture. A malformed success is never silently zero results. Route/entry completion is derived from
+the full registered schedule and dynamic relation schedule; it is not a producer-supplied boolean.
+
+For direct or manual HTTP, the executor-controlled semantic request headers are exactly
+`User-Agent` and route `Accept`; ordinary client/transport headers such as `Host` are neither
+controlled nor claimed absent. A manual capture records which request headers the tool exposes and
+whether the two registered semantic values were set; an unobservable or uncontrollable value is an
+explicit `terminal-access-failure` for that manual HTTP page, not a fabricated fact or a completed
+route. The opaque tool route is exempt because the original register explicitly states that it does
+not expose those headers; it records no invented HTTP headers. The recorded stable response-header
+allow-list is `content-type`, `content-encoding`, `content-length`, `content-range`, `etag`,
+`last-modified`, `link`, `location`, `retry-after`, `x-ratelimit-limit`,
+`x-ratelimit-remaining`, and `x-ratelimit-reset`; other response headers are transport/provider
+diagnostics and are deliberately not evidence fields. Redirect status, allowed headers and target
+are recorded per hop. A numeric `Retry-After` is seconds; an HTTP-date is converted against the
+recorded injected clock and rounded up to whole nonnegative milliseconds. Invalid/past values use
+the registered deterministic fallback. There are at most four attempts total: the initial attempt
+plus waits of 5, 20 and 60 seconds before the three retries.
+
+**Ownership, checkpoint and drift.** The checkpoint schema is
+`phase6-wp1-source-search-checkpoint-v1`. One mutating invocation owns an entry through an exclusive
+sibling `owner.json` created with create-new semantics; read-only `status` and `verify` do not claim
+ownership. A second mutating owner is refused. A crashed owner is never silently stolen:
+`recover-owner` requires the expected owner-file SHA-256, proves the recorded PID is absent on the
+same host, preserves the old owner as an immutable audit artifact, and acquires a new owner. A
+cross-host owner cannot be proven dead by this executor and automatic recovery is refused. Every raw
+attempt path is exclusive and contains immutable request and attempt ordinals.
+
+On normal exit, a mutating invocation first flushes its final checkpoint, reopens `owner.json`,
+proves its exact nonce and SHA-256 still match the in-memory owner it created, and then removes that
+one file. Failure to authenticate or remove it is an error and leaves the owner for explicit
+recovery; it is never reported as a successful clean release. `prepare`, `run-direct`,
+`import-capture`, `import-assessment`, `publish`, and `recover-owner` all use this acquire/release rule. Tests cover clean
+handoff to the next invocation separately from crashed-owner recovery.
+
+The checkpoint contains a canonical `auditEvents` array. A missing/tampered raw-checkpoint pair,
+stale-owner recovery, parse failure, or publication recovery appends an event with UTC time, event
+kind, request ID when applicable, prior path/hash facts and the prescribed action. An interrupted
+attempt never overwrites or renames an earlier attempt. The checkpoint write is sibling create-new,
+write, file flush, close, reopen/canonical-parse/hash, then atomic rename over `checkpoint.json`;
+the temporary name is owner/sequence-specific. Only a terminal checkpoint entry whose capture bytes
+and hash revalidate may be skipped.
+
+Its top-level object has exactly `auditEvents`, `candidates`, `entryId`, `execution`,
+`lastFullyPublished`, `manifestStartSha256`, `occurrences`, `outstandingRequestIds`,
+`provenance`, `publicationPlan`, `relations`, `requests`, `schema`, and `sourceInputs`.
+`execution` has exactly `cutoffUtc` and `startedUtc`; request/occurrence/candidate/relation members
+use the corresponding versioned row schemas below, with attempt `rawPath` additionally present only
+in the ignored checkpoint form. `lastFullyPublished` is null or exactly `{captureSha256,requestId}`.
+An audit event has exactly `action`, `eventId`, `kind`, `priorFacts`, `requestId`, and `utc`;
+`eventId` is independently recomputed from the other five canonical fields. `publicationPlan` is
+null or the exact six-key object registered below. Outstanding IDs are sorted and rederived. This
+closed key set, every nested row schema and all cross-references are validated before a checkpoint
+can resume or publish.
+
+At execution start, before every live direct request, and immediately before publication, the
+executor rechecks the same HEAD and a tracked-only clean status. It records Git blob IDs for this
+register, the executor and CLI source, SHA-256 of the exact Section 11 Git-blob bytes, and SHA-256 of
+the executor/CLI Git-blob bytes. The Section 11 slice begins at the first UTF-8 byte of the exact
+heading `## 11. WP1 source-search and extraction register` and continues through end-of-file, with no
+preceding newline; moving later material below that heading therefore moves the pin. Untracked/
+ignored paths are inventoried but do not cause refusal.
+Nonempty `NODE_OPTIONS`, `NODE_PATH`, `NODE_USE_ENV_PROXY`, `NODE_CHANNEL_FD`,
+`NODE_TLS_REJECT_UNAUTHORIZED`, `SSL_CERT_DIR`, or `OPENSSL_CONF` is refused. The recorded non-secret
+environment is the explicit set `LANG`, `LC_ALL`, `TZ`, `SSL_CERT_FILE`, `NODE_EXTRA_CA_CERTS`,
+`NODE_TLS_REJECT_UNAUTHORIZED`, `SSL_CERT_DIR`, and `OPENSSL_CONF`; refused values are explicit null.
+A named certificate file is recorded by path, bytes and SHA-256, while an
+absent variable is explicit null. No other environment value or secret is serialized.
+
+**Durable products and publication.** A completed entry publishes exactly one subdirectory
+`evidence/phase6-wp1-source-search-01/ENTRY_ID/` containing five products:
+`requests.jsonl` ordered by request ID, `occurrences.jsonl` ordered by occurrence ID,
+`candidates.jsonl` ordered by final component key, `relations-and-currency.jsonl` ordered by
+the field-by-field tuple fixed below, and `summary.json`. Empty JSONL products are one empty
+file of zero bytes; nonempty files contain one canonical JSON object plus LF per row. `summary.json`
+is canonical JSON, binds the other four exact byte lengths/hashes, all register/executor/source/
+environment provenance, terminal scope and a fail-closed target disposition, and contains no
+abstract/full-text/source-image payload.
+
+All objects below reject extra/missing keys and use explicit nulls. Array members use the global
+UTF-16 comparator on the named key; set-valued arrays reject duplicates.
+
+- A `requests.jsonl` row has exactly `attempts`, `capTruncated`, `continuation`,
+  `decodedParameters`, `identity`, `intendedRequest`, `occurrenceIds`, `providerTotal`, `reasonCode`,
+  `requestId`, `returnedCount`, `schedulingWitnesses`, `schema`, and `terminalState`; its schema is
+  `phase6-wp1-request-ledger-row-v1`. `requestId` and identity are independently rederived.
+  `intendedRequest` has the three manual-schema keys above. `continuation` is the same null-or-three-
+  key object above. An attempt has exactly `attemptOrdinal`, `captureBytes`, `captureKind`,
+  `captureSha256`, `endedUtc`, `error`, `finalUrl`, `redirects`, `responseHeaders`, `retryDecision`, `startedUtc`,
+  `status`, and `waitMs`; the ignored checkpoint form additionally has `rawPath`, while the tracked
+  evidence form removes only that key. Ordinals are consecutive from one and retry/wait values must implement the
+  registered rule. Attempt `error` is null or exactly `{code,message,name}`; `status` is an HTTP
+  integer or null; `retryDecision` is `none`, `retry`, or `terminal`; and `responseHeaders` has every
+  stable allow-list header key exactly once with string-or-null values. The row terminal state is
+  one of the four registered terminal states, `reasonCode` is nonempty, and `occurrenceIds` sort by
+  ID.
+  Request and candidate `schedulingWitnesses` sort by `witnessId`; candidate scheduling inputs sort
+  by their string value. Arrival order never selects published byte order.
+  Each `redirects` member has exactly `fromUrl`, `location`, `responseHeaders`, and `status`, in hop
+  order, with at most ten members. Each `schedulingWitnesses` member has exactly `memberCount`,
+  `members`, `membersSha256`, `parentOccurrenceId`, `parentRequestId`, `schema`,
+  `sourceCaptureSha256`, `sourceKind`, and `witnessId`; its schema is
+  `phase6-wp1-scheduling-witness-v1`. `sourceKind` is one of `crossref-references`,
+  `openalex-referenced-works`, `openalex-authors`, `stable-version-urls`, `exact-author-names`, or
+  `local-source-citations`. A member has exactly `authorNameVariants`, `memberOrdinal`,
+  `normalizedIdentifiers`, `openalexAuthorIds`, `predicateWitness`, `rawMemberSha256`,
+  `subjectScheduleId`, `title`, `versionUrls`, and `year`; arrays are complete normalized and sorted
+  within the member, and members retain the registered provider/local-sort order by consecutive one-based ordinal. `predicateWitness`
+  uses the exact occurrence screen-witness keys. `membersSha256` hashes the canonical complete
+  member array and `witnessId` is lowercase SHA-256 of the canonical witness without its own ID.
+  Parent and member cardinality are source-kind-specific:
+
+  | source kind | parent IDs | one member per | required nonempty member field(s) | subject ID |
+  |---|---|---|---|---|
+  | `crossref-references` | enclosing request; occurrence null | complete received reference after registered sort | any available IDs/names/title/year; AID/URL arrays empty | `doi:DOI` if present, else `openalex-work:WID` if present, else `occurrence:` plus ID derived from parent request, ordinal and raw-member hash |
+  | `openalex-referenced-works` | enclosing request; occurrence null | received WID after registered sort | exactly one work ID; names/AIDs/URLs empty | `openalex-work:WID` |
+  | `openalex-authors` | enclosing request; occurrence null | validated received AID | exactly one AID and available exact display names; IDs/URLs empty | `openalex-author:AID` |
+  | `stable-version-urls` | immutable occurrence that supplied the metadata/assessment; request null | registered returned URL | exactly one URL; other arrays empty | candidate `doi:DOI` if present, else `occurrence:` plus that parent occurrence ID |
+  | `exact-author-names` | immutable occurrence that supplied the metadata/assessment; request null | distinct Unicode-sorted exact name | exactly one name; other arrays empty | registered `author-name:SHA256` |
+  | `local-source-citations` | assessment occurrence; request null | citation/credit in source order | available IDs/names/title/year; AID/URL arrays empty | `doi:DOI` if present, else `openalex-work:WID` if present, else registered `local-member:SHA256` |
+
+  Here `enclosing request` means `parentRequestId` is that request and `parentOccurrenceId` is null;
+  `candidate/assessment occurrence` means the inverse and always names the immutable occurrence
+  that supplied those values, never a later component/canonical pointer. Both parent IDs non-null, or both null, is
+  invalid. For a request-parent witness, `sourceCaptureSha256` equals that request's terminal
+  successful attempt capture hash. For a candidate-parent version/name witness it equals either a
+  terminal successful capture belonging to that candidate component or the imported assessment
+  source hash; for a local citation it equals the assessment source hash. A
+  Crossref reference `rawMemberSha256` hashes its complete received strict-JSON reference object. An
+  OpenAlex referenced-work member hashes the canonical `{schema,workId}` object with
+  `schema=phase6-wp1-openalex-work-member-v1`; an author member hashes canonical
+  `{authorId,displayNames,schema}` with `schema=phase6-wp1-openalex-author-member-v1`; a version-URL
+  member hashes canonical `{schema,url}` with `schema=phase6-wp1-version-url-member-v1`; and an exact
+  author-name member hashes the registered author-name object. A local-source member hashes the canonical object with exactly
+  `authorNameVariants`, `normalizedIdentifiers`, `schema`, `title`, and `year`, where
+  `schema=phase6-wp1-local-citation-member-v1`. Fields unavailable from the source are explicit
+  null/empty arrays, never omitted.
+  Other strong identifiers remain identity aliases but are never substituted into Crossref/OpenAlex
+  relation or Rule 12 query operands. A returned `occurrence:ID` or `local-member:ID` schedules
+  title discovery only when its member has an exact nonempty title; without one it remains an
+  explicit unresolved citation lead. Candidate correction uses normalized DOI as `TOKEN` when
+  present, otherwise the exact title from its occurrence, regardless of any lexically smaller
+  non-DOI component alias.
+  The received count must equal `memberCount` and array length; an inaccessible/unparseable relation
+  is represented by the request's terminal failure, never an invented empty witness.
+- An `occurrences.jsonl` row has exactly `acquisitionPointer`, `acquisitionStatus`,
+  `canonicalVariantOccurrenceId`, `citationWalkTrigger`, `componentAliasHistory`, `display`,
+  `finalComponentKey`, `identifiers`, `occurrenceId`, `providerRank`, `rawRecordSha256`, `reasonCodes`,
+  `requestId`, `schema`, `screenDisposition`, and `screenWitness`; its schema is
+  `phase6-wp1-occurrence-ledger-row-v1`. `identifiers` is a sorted array of exact `{type,value}`
+  objects using the registered identifier namespaces. `display` has exactly
+  `abstractOrSubjectPresent`, `acquisitionURL`, `firstAuthor`, `publicationDate`, `strongIdentifier`,
+  `title`, and `venue`; only the presence boolean is published for abstract/subject content.
+  `screenWitness` has exactly `crystalToken`, `durationDimensionAlternative`, `excludedCategory`,
+  `metadataSufficient`, `pressureToken`, `primaryExperimentClaim`, and `yamashitaToken`.
+  The six non-category witness values are booleans and `excludedCategory` is string or null.
+  `acquisitionPointer` is null or has exactly `bytes`, `path`, `relevantPages`, and `sha256`; it binds
+  ignored/source bytes without redistributing them. Display members are string or null except the
+  required presence boolean; identifier values and reason codes are nonempty strings; relevant
+  pages are sorted strings.
+- A `candidates.jsonl` row has exactly `admissibility`, `aliases`, `canonicalOccurrenceId`,
+  `citation`, `componentKey`, `dispositionReasons`, `identifiers`, `methodsData`, `occurrenceIds`,
+  `schedulingInputs`, `schedulingWitnesses`, and `schema`; its schema is `phase6-wp1-candidate-row-v1`. `citation` has exactly `authors`,
+  `publicationDate`, `stableIdentifiers`, `title`, and `venue`. `methodsData` has exactly
+  `apparatus`, `durationHistory`, `observable`, `pressureGas`, `sampleSize`,
+  `seedPopulationCrystallography`, `solverPredictability`, `supersaturation`,
+  `supportVentilation`, `temperature`, and `uncertainty`. `admissibility` has exactly `geometry`,
+  `independenceCAK`, `independenceM1`, `independenceM1NoDip`, `observable`, `primarySource`,
+  `sourceBytes`, `targetStatus`, `transport`, and `uncertainty`; statuses use the entry's registered
+  fail-closed vocabulary. The three independence values are exactly `independent`, `overlap`, or
+  `unresolved`; the other non-target statuses are exactly `pass`, `fail`, `unresolved`, or
+  `not-applicable`; and `targetStatus` is one of `scoreable`, `blocked`, `lead`, or `excluded`.
+  Citation authors/identifiers and every reason array are sorted nonempty strings; other citation and
+  every methods-data value are string or null. `schedulingInputs` has exactly
+  `authorNameVariants`, `openalexAuthorIds`, `relationIdentifiers`, and `versionUrls`, each a sorted,
+  duplicate-free string array. Candidate `schedulingWitnesses` use the same exact witness schema and
+  carry acquired/local-source citations or credits that are not response children. Each
+  `schedulingInputs` array is the independently rederived sorted projection of the candidate plus
+  its request/local witnesses; a producer cannot add or omit an input independently of its witness.
+- A `relations-and-currency.jsonl` row has exactly `direction`, `hop`, `outcome`, `reasonCodes`,
+  `requestIds`, `schema`, `stage`, `subjectScheduleId`, `triggerOccurrenceId`, and `witnessIds`; its schema is
+  `phase6-wp1-relation-currency-row-v1`. Its stage/direction/hop/route cohort must match the stage
+  table, and `outcome` is derived from its request terminal states. Rows sort field-by-field by
+  `subjectScheduleId`, `stage`, `direction`, numeric `hop`, null-first `triggerOccurrenceId`,
+  canonical JSON of sorted `requestIds`, then canonical JSON of sorted `witnessIds`; duplicate full
+  tuples are rejected.
+- `summary.json` has exactly `artifacts`, `counts`, `cutoffUtc`, `entryId`, `execution`,
+  `limitations`, `outcome`, `passEligible`, `provenance`, `schema`, `sourceInputs`, and
+  `terminalScope`; its schema is `phase6-wp1-source-search-summary-v1` and `passEligible` is literal
+  false. `execution` has exactly `endedUtc` and `startedUtc`. `provenance` has exactly `arch`,
+  `cliBlob`, `cliSha256`, `environment`, `executorBlob`, `executorCommit`, `executorSha256`, `head`,
+  `manifestStartSha256`, `node`, `platform`, `registerBlob`, `registerSectionSha256`, and `v8`.
+  `environment` has exactly `LANG`, `LC_ALL`, `NODE_EXTRA_CA_CERTS`, `NODE_TLS_REJECT_UNAUTHORIZED`,
+  `OPENSSL_CONF`, `SSL_CERT_DIR`, `SSL_CERT_FILE`, and `TZ`; the
+  `LANG`, `LC_ALL`, and `TZ` are string or null, while each certificate value is null or exactly
+  `{bytes,path,sha256}`; the three refused TLS/config override keys are literal null.
+  `sourceInputs` is sorted `{bytes,path,sha256}`. `artifacts` lists the other four products as sorted
+  `{bytes,path,sha256}`. `counts` has exactly `baseQueryRouteCombinations`, `dynamicRequests`,
+  `occurrences`, `outstandingRequests`, `requests`, and `terminalRequests`. `terminalScope` has
+  exactly sorted `accessFailures`, `capIncomplete`, `noResults`, and `unresolvedSources` arrays.
+  `outcome` is exactly `incomplete`, `complete-candidate-found`, or
+  `complete-no-admissible-candidate`, derived without changing `passEligible=false`.
+
+`verify` strictly parses all five files and independently recomputes, rather than trusts: every
+request/occurrence ID; the complete 243-combination base schedule and every required fixed page;
+continuation parent hashes and missing children; relation/Rule 12 triggers and the stage table;
+request terminal/cap/access outcomes; identifier normalization, conflicts, union components,
+aliases and canonical-variant selection; candidate/component cross-references; the four artifact
+descriptors; every summary count/scope/outcome; and literal `passEligible=false`. It also reopens the
+global manifest and checks exact path/byte/hash/count/total pins. The verifier derives structural
+search completion and fail-closed disposition without reading `summary.outcome` or
+`summary.passEligible`, then requires the stored values to equal the independent result. It cannot
+accept the producer-selected relation rows as the schedule: it expands every complete request-side
+scheduling witness and candidate scheduling input into the required relation/currency rows and
+descendant requests, rejects an unreferenced row, and rejects any missing witness, trigger or
+descendant. It cannot establish completeness/correctness of parser-entered scheduling/screen
+witnesses, relation members, or methods facts, or that a copyrighted source actually supports those
+facts, when the raw source/response bytes are intentionally absent;
+a successor candidate lock remains forbidden until an independent reviewer reopens the acquired
+source and records that scientific review.
+
+Focused negative controls independently prove and then reject mutation of each of: an unknown
+schema, an omitted registered request, a registered
+query/route/page, request identity field, continuation-parent hash, terminal/cap/access state,
+occurrence ID, strong-ID bridge/conflict, component/canonical variant, required relation/Rule 12
+trigger, candidate admissibility/status, summary count/outcome/pass field (including a summary-only
+verdict flip), combined removal of one witness-derived trigger and all its descendants, artifact byte/path/hash,
+and global-manifest path/byte/hash/file-count/total. A coherent repin of the five files and manifest
+still fails against the flushed publication-plan root; no producer-supplied verdict is accepted.
+
+Before changing tracked evidence, the checkpoint stores and atomically flushes a publication plan
+containing exactly `aggregateRootSha256`, `artifacts`, `nextManifestByteLength`,
+`nextManifestSha256`, `nextManifestUtf8`, and `startingManifestSha256`. `artifacts` is the five
+path-sorted `{bytes,path,sha256}` descriptors and `aggregateRootSha256` hashes their canonical
+array; `nextManifestUtf8` is the exact deterministic next-manifest text and its byte count/hash must
+agree. Publication verifies every old manifest pin, stages/reopens the
+five files and next manifest, rechecks source drift, atomically renames the new entry directory,
+then atomically replaces the manifest. The manifest keeps its existing schema and three metadata
+strings verbatim, sorts file paths by UTF-16 code-unit order, recomputes `fileCount`/`totalBytes`,
+and serializes as `JSON.stringify(value, null, 1)` plus LF with the existing top-level key order.
+If interruption leaves a canonical entry absent from the old manifest, recovery may finish only
+when every canonical byte matches the flushed publication plan and the old manifest still has its
+recorded hash. If manifest replacement completed before the final checkpoint, recovery accepts only
+the exact planned next-manifest hash/bytes together with the exact planned entry bytes and then
+records completion; any third state, divergent byte, or coherent unregistered repin fails closed.
+After one
+entry publishes, its intentional tracked manifest change and new evidence must be reviewed and
+committed before another entry may make a live request.
+
+The CLI actions are the exact finite set `prepare`, `run-direct`, `export-pending-captures`,
+`import-capture`, `import-assessment`, `status`, `publish`, `verify`, and `recover-owner`. Every action requires one
+explicit registered `--entry`; unknown or duplicate flags/actions are errors. `run-direct` executes
+registered pending direct requests only and checkpoints after every attempt; it never treats a
+manual/opaque request as completed. These operational partitions change neither the schedule nor
+the stopping condition.
+
+The implementation-ambiguity audit used OpenAI Codex `gpt-5.6-sol` at inherited reasoning/context,
+read the accepted register and existing evidence/provenance machinery offline, and independently
+identified the identity, raw-record, manual-capture, ownership, terminal-state, header, drift and
+publication choices fixed above. The amendment acceptance review used OpenAI Codex
+`gpt-5.6-terra` at high reasoning with no inherited chat context. That read-only non-author reviewed
+the current amendment against the surrounding register and WP1 executor step and challenged
+implementability, crash recovery, identity uniqueness, ordering and pre-execution truth. Its first
+round found two blockers and two should-fixes; its next round found one blocker and one should-fix;
+its scoped re-review returned 0 blockers / 0 should-fixes after the corrections above. A later,
+broader read-only `gpt-5.6-sol` audit reopened that verdict for exact stage/identity construction,
+version-link routing, Unicode ordering, five-product schemas, Rule 9 recomputation and the
+post-manifest crash state. After also closing scheduling-witness, local-member, route-usable operand,
+source-kind cardinality and total-order findings, that non-author's final current-byte verdict is
+0 blockers / 0 should-fixes. It checked the amended identities, stage/route operands, local-member
+and witness derivation, source-kind cardinalities, ordering, capture/checkpoint schemas, Rule 9
+verifier independence, negative controls and publication crash recovery. Its model was OpenAI Codex
+`gpt-5.6-sol` with inherited parent context/reasoning; it independently re-executed no command.
+All preceding amendment/schema reviews were offline, read-only, changed no file, and independently
+re-executed no test or command. They did not inspect implementation or Git/commit ordering; inspect
+live endpoint behavior, execute a request, validate a future checkpoint/evidence bundle, inspect the
+1987 source, or perform TAX2 extraction, solver, GPU or education work. Those remain explicit limits,
+not evidence that execution passed.
+
+On the record candidate immediately before this provenance append, the same offline/read-only/
+no-network non-author independently re-executed
+`npm.cmd run lint:rule7` (clean, 420 files),
+`npx.cmd vitest run runner/test/progress-index.test.ts` (7/7), and `git diff --check` (exit 0,
+conversion warnings only). It also verified the four-file diff/status, preserved untracked `=`,
+absence of the three planned executor/test files, and exact `docs/PROGRESS.md` identity: 14,338
+bytes, 169 LF-only lines, terminal LF, SHA-256
+`6ba5be29f5f9d92c13e0f014f77b6d77688236fc133099ddda7a89ab85982943`.
+It inherited the scientific limits above and did not run exact root `npm test`; no full-suite claim
+is made for this registration amendment.
+
 ### `YAMASHITA-FREEFALL-LINEAGE-01`
 
 - **Status:** `UNEXECUTED`.

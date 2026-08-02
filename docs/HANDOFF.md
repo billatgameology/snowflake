@@ -187,8 +187,10 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
 
 ## 5. Ranked next actions
 
-1. The bounded `docs/plans/phase-6-wp1-source-lineage-and-tax2.md` and Section 11 pre-execution
-   register are accepted. Before any live request, implement and independently review its exact
+1. The bounded `docs/plans/phase-6-wp1-source-lineage-and-tax2.md` and initial Section 11 register
+   are accepted. The dated pre-execution amendment closes byte-identity, manual-capture, ownership
+   and publication ambiguity. Its broader inherited-context non-author schema/Rule 9 re-review now
+   closes at 0 blockers / 0 should-fixes. Commit the amendment before implementation. Before any live request, implement and independently review its exact
    source-search executor, entry-specific atomic checkpoint/resume path, negative controls and
    normalized `evidence/phase6-wp1-source-search-01/` publisher. All three question IDs remain
    unexecuted; the candidate lock remains `passEligible=false`.
@@ -257,10 +259,14 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
   incorporated, and exact `npm.cmd test` passed (419 scanned files; both typechecks; 81 files /
   1,442 tests). Its runner layer
   remains WP3-deferred and the ADR remains proposed.
-- WP1's bounded plan is committed at `004818f`. Its final offline-reviewed Section 11 register
-  freezes all live-search, citation/currency, identity, restart and publication semantics while
-  leaving every question explicitly unexecuted. The next commit implements/reviews the executor;
-  no endpoint was called and no TAX2 span was measured in the registration unit.
+- WP1's bounded plan is committed at `004818f`; the initial register is committed at `700be66`.
+  Its dated pre-implementation amendment fixes the remaining ID serialization, record hashing,
+  capture, terminal, ownership, drift and five-product publication semantics. A read-only
+  no-shared-chat-context `gpt-5.6-terra` high-reasoning review closed its scoped review after three
+  rounds; a later broader inherited-context `gpt-5.6-sol` audit reopened it, drove exact identity,
+  witness, independent-verifier and crash-recovery corrections, and closed the current bytes at 0
+  blockers / 0 should-fixes. Commit that amendment before implementing/reviewing the executor; no
+  endpoint was called and no TAX2 span was measured in either registration unit.
 - The repaired current table is 50,464 LF-normalized bytes with current SHA-256
   `c0b314b681146152207f061209a3097609e34a234b0027ed73faa427334c79e2`, propagated through the
   separately named `PHASE6_CURRENT_PARAMETER_TABLE_SHA256`. The final scoped review and exact root
@@ -269,7 +275,7 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
   `276494f69682adb2b071c2e2683a98281aef17b3558b4efa6301ceaf11dfa741` and both legacy values
   manifests remain untouched. This is a current content pin, not the R15 values/protocol freeze;
   that freeze remains deferred until WP1/WP2.
-- The compact `docs/PROGRESS.md` is the sole current-state authority (13,489 bytes / 160 lines at
+- The compact `docs/PROGRESS.md` is the sole current-state authority (14,338 bytes / 169 lines at
   this checkpoint). Its linked archive preserves
   the exact 191,859-byte pre-compaction body at SHA-256
   `2550319a3ac5d528c111875242419de91d2ed9b34f245f7a0364ede8b323f955`; an enforcing test pins the

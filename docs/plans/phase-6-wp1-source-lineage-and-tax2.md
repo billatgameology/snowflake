@@ -82,7 +82,14 @@ independent evidence review.
   is not recorded as a completed search. Section 11 now fixes 243 base query-route combinations,
   derived citation/Rule 12 routes, finite traversal, admission rules, entry-specific atomic
   checkpoints and durable evidence schemas. Three offline non-author review slices returned 0
-  blockers / 0 should-fixes on the final register; no request or numeric extraction ran.
+  blockers / 0 should-fixes on the initial register. A pre-implementation audit then exposed
+  underdetermined byte identities, manual-capture/header outcomes, entry ownership and evidence
+  publication details. The dated Section 11 amendment fixes those choices before code or execution;
+  a no-shared-chat-context `gpt-5.6-terra` high-reasoning non-author review closed at 0 blockers / 0
+  should-fixes after three rounds, but a later broader schema/Rule 9 audit reopened that scoped
+  verdict. The broader inherited-context `gpt-5.6-sol` non-author review closed the current bytes at
+  0 blockers / 0 should-fixes after exact identity, witness, verifier and crash-recovery corrections.
+  No request or numeric extraction ran.
 
 - [ ] Implement the deterministic source-search executor, entry-specific checkpoint/resume path,
   normalized occurrence/candidate ledgers, and evidence publisher exactly from Section 11 in
