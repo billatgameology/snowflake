@@ -4,8 +4,9 @@
 - **Status:** accepted
 - **Evidence correction (2026-08-01):** the pure-class flip operator, bracketing rule, and scoring
   policy remain accepted. The later statement that one monotone `sigma0` crossing can produce at
-  most one habit flip is **retracted**: habit depends on the full `alphaHK` ordering, including
-  facet prefactors, surface supersaturation, diffusion, and size evolution. A `sigma0` crossing
+  most one habit flip is **retracted**: morphology depends on each facet's full local `alphaHK`,
+  evaluated at the solver-produced surface field, plus diffusion, geometry, seed and size evolution.
+  One shared-field `alphaHK` ordering is only a restricted function diagnostic. A `sigma0` crossing
   count is not a structural bound on habit flips. Historical flip counts remain measurements of
   the executed ladders only.
 - **Charter impact:** none, and per Rule 5 here are the clauses that make it none. §3.2 Phase 6

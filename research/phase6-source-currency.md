@@ -63,6 +63,71 @@ No reviewed later paper justifies silently replacing the frozen CAK table. The d
 explicit correction/erratum relation superseding the frozen CAK extraction was found. This is not
 an exhaustive publisher-book errata search.
 
+### 1.1 Exact-metrology source currency
+
+Checked 2026-08-02 against the current authoritative publications rather than relying on the
+monograph for standards it does not define:
+
+| adopted definition | current authority checked | result and provenance |
+|---|---|---|
+| `k = 1.380649 × 10⁻²³ J K⁻¹` | BIPM, *The International System of Units*, 9th ed., version 4.01 (June 2026), §2.2, printed pp. 124–125, Table 1; DOI `10.59161/AUEZ1291` | exact defining constant with no uncertainty; P1 authoritative exact definition |
+| `T/K = t/°C + 273.15` | same brochure, §2.3.1, printed p. 130 | exact Celsius/kelvin relation; P1 authoritative exact definition |
+| `1 atm = 101325 Pa` | 10th CGPM (1954), Resolution 4, Proceedings p. 79; DOI `10.59161/CGPM1954RES4E` | exact standard-atmosphere definition; P1 authoritative exact definition |
+
+The BIPM landing page identifies version 4.01 as the June-2026 current revision. The exact decimal
+definitions' binary64 representation is a P4 precision policy, not empirical uncertainty. The
+separate diffusivity mapping remains composite: the monograph's `D_air ≈ 2 × 10⁻⁵ m²/s` is
+an approximate P1 textbook property; `D ∼ P⁻¹` is a P2 source-stated relation; and associating
+that approximate value specifically with exact one standard atmosphere is a P2
+project-derived/model-inferred closure. The monograph says only "typical atmospheric conditions"
+and does not print an exact 101325-Pa anchor.
+
+### 1.2 Local source-cache inventory
+
+The third-party bytes below were acquired on 2026-08-01. They live under ignored `research/` paths:
+the tracked record is the stable identifier, byte count and digest, not redistribution of the source.
+They were promoted from the mixed root `tmp/` cache after an inventory found no generated scientific
+evidence there. To preserve useful local research work without mistaking it for evidence, the
+remaining page renders, parse cache and one-off extraction dependencies were moved intact to ignored
+`research/tmp/`. They remain transient/provenance-incomplete because their exact render/tool
+environment was not recorded; nothing under that directory may support a claim or enter
+`evidence/` without a new provenance record.
+
+The post-promotion local-cache inventory was recomputed after the move (recursive regular files,
+byte size from the filesystem):
+
+| ignored local path | files | bytes | disposition |
+|---|---:|---:|---|
+| `research/tmp/pdfs/` | 12 | 18,213,837 | derivative audit/page renders; preserved, provenance-incomplete |
+| `research/tmp/source-audit/heldout-search/rendered/` | 29 | 10,119,739 | derivative page renders; preserved, provenance-incomplete |
+| `research/tmp/source-audit/heldout-search/extract-pdf.cjs` | 1 | 898 | one-off extractor; preserved as local tooling context |
+| `research/tmp/source-audit/heldout-search/tooling/` | 789 | 33,376,804 | local extraction dependency/cache; preserved, not evidence |
+| **remaining cache total** | **831** | **61,711,278** | ignored under `research/tmp/` |
+
+Together with the nine promoted source inputs below (23,215,628 bytes), this reconciles the former
+root cache to **840 files / 84,926,906 bytes**. No file in the 831-file remainder was classified as
+generated scientific output.
+
+| local cache path | stable acquisition identifier | bytes | pages / pinned members | SHA-256 | scientific role and status |
+|---|---|---:|---:|---|---|
+| `research/harrison-2016.zip` | Penn State Data Commons DOI `10.26208/dd1w-wa17` | 3,422,359 | 21 pinned members | `4901759b3f5f6d71759b31286db6103d9f7d9b23512c01237067c11da3be815c` | load-bearing candidate lock; not scoreable |
+| `research/pokrifka-2020.pdf` | NSF accepted manuscript, DOI `10.1175/JAS-D-19-0303.1` | 4,016,872 | 56 pages | `5010ded8ee7c16178e5007c9228e2d0ab7785ec698ae77c2662cb3259b50fab1` | corrected conditions for candidate lock; manual table transcription |
+| `research/takahashi1991.pdf` | J-STAGE DOI `10.2151/jmsj1965.69.1_15` | 8,910,942 | 16 pages | `2e5c6b492fcab7d1b3958be5a4c859fcd31174a1ac4865588ca48820bd4cd8eb` | non-gating size/mass diagnostic |
+| `research/takahashi1991-corrigendum.pdf` | J-STAGE DOI `10.2151/jmsj1965.69.2_251` | 1,009,054 | 2 pages | `5297d387ee1c0e33944d9bdb0f6bd68a70a251e64f1f4b5f8e367e7b4c5946bb` | official correction; candidate lock |
+| `research/harrington-pokrifka-2026.zip` | Penn State Data Commons DOI `10.26208/XJQK-R076` | 104,949 | 13 source members | `3fa016d36ae11dad221b2c9b300a5fe928ed253ac92dd8acdb2887291f32bc36` | history candidate; not scoreable |
+| `research/takahashi-fukuta1988.pdf` | J-STAGE DOI `10.2151/jmsj1965.66.6_841` | 3,527,682 | 15 pages | `a4886bcc09ddfbc05d467a0b3ac5729e044723a2befcc05f20d5e77f18bc3659` | pressure context only; no matched target |
+| `research/nelson-1998-soic-author-copy.pdf` | author PDF, DOI `10.1175/1520-0469(1998)055<0910:SOIC>2.0.CO;2` | 215,189 | 10 pages | `df67110fdb98eb29ce11512ac1ebc8019bddc72825fb14ce1dea94a7982cd060` | rejected current-model target |
+| `research/bacon-baker-swanson-2003.pdf` | public PDF, DOI `10.1256/qj.02.04` | 1,270,112 | 25 pages | `f312a5a18889320c0be62d200c39db723bca2a1d68968b8ec308dc4789370530` | morphology reconnaissance only |
+| `research/bailey-hallett-2002-conference-primary.pdf` | official AMS conference precursor | 738,469 | 10 pages | `7c2450c14aca3408b7ead8db243d0721979be1698cdad5c4479e3c8ffa3db38e` | context only; not the blocked 2004 journal article |
+
+After promotion, the five-file verifier was re-executed from these `research/` paths and returned:
+
+```text
+SOURCE LOCK BYTES OK id=PHASE6_HELDOUT_CANDIDATES_2026_08_01 files=5 members=21 maxGap=0.9451000000000249s passEligible=false
+```
+
+That result proves byte/extraction continuity only. It does not make the candidate set pass-eligible.
+
 ## 2. Dependency and circularity
 
 - The CAK measurement paper `1208.5982` cites Takahashi et al. 1991 bibliographically, but fits its
@@ -199,7 +264,54 @@ None combined compatible free-single-crystal geometry, an exact schedule, in-dom
 longitudinal observables with usable uncertainty. This is the measured scope of the search, not a
 theorem about every experiment that could exist.
 
-## 8. Freeze consequences
+## 8. Second candidate audit — Nelson, Bailey–Hallett and Bacon (2026-08-01)
+
+A second non-author primary-source search tested three apparently cleaner candidates. Publicly
+available primary bytes were acquired into the local source cache and checked completely where
+available:
+
+| source | acquired bytes | pages | SHA-256 | result |
+|---|---:|---:|---|---|
+| Nelson 1998, DOI `10.1175/1520-0469(1998)055<0910:SOIC>2.0.CO;2`, author PDF `https://www.redmondphysicalsciences.com/nelson1998Subl.pdf` | 215,189 | 10 | `df67110fdb98eb29ce11512ac1ebc8019bddc72825fb14ce1dea94a7982cd060` | rejected for current growth solver |
+| Bacon, Baker & Swanson 2003, DOI `10.1256/qj.02.04`, public PDF `https://www.laucksfoundation.org/articles/baconqjrms2003.pdf` | 1,270,112 | 25 | `f312a5a18889320c0be62d200c39db723bca2a1d68968b8ec308dc4789370530` | closest independent morphology reconnaissance; not a gate target |
+| Bailey & Hallett 2002 official AMS conference precursor, `https://ams.confex.com/ams/pdfpapers/42237.pdf` | 738,469 | 10 | `7c2450c14aca3408b7ead8db243d0721979be1698cdad5c4479e3c8ffa3db38e` | context for the 2004 journal study; not substituted for it |
+
+The Bailey–Hallett 2004 journal article is DOI
+`10.1175/1520-0469(2004)061<0514:GRAHOI>2.0.CO;2`. The publisher PDF returned HTTP 403 and no
+repository copy was found, so this audit makes no byte/hash claim for that article. Its indexed
+publisher full text was reviewed alongside, but not conflated with, the hashed official precursor.
+
+**Nelson 1998.** Roughly 10 µm crystals were frozen onto roughly 5 µm glass capillaries, grown to
+about 100 µm, then sublimated while stationary in unstirred air. The reported sublimation domain is
+−18 to −0.1 °C and 0.05–5% undersaturation, with temperature ±0.03 °C and undersaturation ±0.03%; no
+quantitative pressure is reported. Its dimension-versus-time figures are useful future benchmarks,
+but the present solver forbids nonpositive far-field supersaturation, cannot remove ice, and omits
+capillary support and latent heat. The approximately 100 µm preparation size is not a growth target.
+
+**Bailey–Hallett 2004.** Crystals grew on 50–70 µm soda-lime glass filaments in a static diffusion
+chamber. Temperature and pressure covary from about −20 °C/550 hPa to −70 °C/150 hPa. Habit-specific
+growth fits use 10–50 measurements and generally span 150–300 µm, but many observations are
+polycrystals, twins, rosettes or defect-controlled layered structures; substrate stimulation is
+unresolved, thermal effects are included, and several temperatures lie outside the solver domain.
+This is neither a single-crystal LK target nor an independent pressure experiment. The 150–300 µm
+fit support is not one common endpoint.
+
+**Bacon et al. 2003.** More than 100 particles were electrodynamically levitated in 1 atm air from
+−4 to −38 °C, typically to 100–200 µm. Optical size accuracy is about ±5%, resolution about 2 µm,
+and aspect-ratio uncertainty about ±0.2. Initial particles were frozen droplets, irregular frost,
+or unresolved frost remnants and could be polycrystalline. Decisively, chamber supersaturation was
+not independently imposed/measured at the particle: it was inferred by fitting the particle's own
+mass-growth curve to a spherical heat/vapor model. That mass curve therefore cannot independently
+validate a solver given the inferred supersaturation. Morphology conditional on that drive remains
+reconnaissance, but needs recovered per-particle data, set-valued initial-state treatment and an
+explicit thermal bound/model before it could become a statistical target.
+
+These sources justify only labeled, non-transferable planning probes at 100, 150, 200 and 300 µm.
+They do **not** justify freezing any one of those values as the charter's apples-to-apples habit
+measurement size. No target in this second audit closes any of the four held-out families for the
+current solver.
+
+## 9. Freeze consequences
 
 - The candidate-source lock is complete and machine-verified against five external files and 21
   Harrison archive members. The PDF checks are byte/hash checks; corrected conditions are a
@@ -217,7 +329,7 @@ theorem about every experiment that could exist.
   resource-deferred and must not be marked passed.
 - Any new physics is an ADR/spec/implementation decision with its own numerical and evidence review.
 
-## 9. Review provenance and limits
+## 10. Review provenance and limits
 
 The principal WP1 reviewer was OpenAI `gpt-5.6-sol` at ultra reasoning, non-author but sharing the
 full repository context. It independently rendered the official J-STAGE paper/corrigendum and NSF
@@ -233,3 +345,10 @@ distributions, exhaust every world publication, contact authors, digitize the Ma
 implement latent heat, sublimation, ventilation, substrate, polycrystal, rim, or step-source physics.
 The required source-byte verifier was then executed locally by the integrating reviewer; its pass
 does not resolve any of those scientific limits.
+
+The second candidate reviewer was OpenAI `gpt-5.6-sol` at ultra reasoning, non-author with full
+repository context. It independently downloaded and hashed the three public PDFs above, checked
+their page counts, extracted the complete relevant text, visually reviewed methods/apparatus/images/
+tables/results, and inspected the Bailey–Hallett indexed publisher rendering. It did not digitize
+plots, recover unpublished/raw particle tables, contact authors, acquire the blocked 2004 journal
+PDF, run the solver, or implement thermal, sublimation, substrate, polycrystal or defect physics.

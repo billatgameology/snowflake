@@ -1,8 +1,8 @@
 // ADR 0024 — the monopole-matched far field.
 //
-// The claim being tested is not "it runs" but "it removes the domain dependence that fixed-σ
-// Dirichlet has". Growing a crystal is the expensive part, so the four comparison runs are done
-// ONCE and every assertion is derived from them.
+// The scoped claim is equality for the tested −5 °C, 60-step, 28³/40³ pair while fixed-σ differs.
+// It is not general domain independence: the smaller-domain test below deliberately demonstrates
+// a break. Growing a crystal is expensive, so the four comparison runs are done once.
 
 import { beforeAll, describe, expect, it } from "vitest";
 import {
@@ -89,7 +89,7 @@ describe("monopole-matched far field", () => {
     monopoleFar = grow(FAR, "monopole-matched");
   }, 900_000);
 
-  it("removes the domain dependence that fixed-sigma Dirichlet has", () => {
+  it("matches the tested 28/40 pair where fixed-sigma Dirichlet differs", () => {
     const dn = summarize(dirichletNear, NEAR);
     const df = summarize(dirichletFar, FAR);
     const mn = summarize(monopoleNear, NEAR);
@@ -98,7 +98,8 @@ describe("monopole-matched far field", () => {
     // Fixed-sigma Dirichlet: the same crystal, grown the same way, comes out a different size
     // purely because the boundary moved.
     expect(Math.abs(df.attached - dn.attached) / dn.attached).toBeGreaterThan(0.03);
-    // Monopole-matched: it does not.
+    // Monopole-matched: this exact tested pair agrees. The validity-limit test below prevents
+    // promotion of that measurement into a universal claim.
     expect(mn.attached).toBe(mf.attached);
     expect(mn.ar).toBe(mf.ar);
 

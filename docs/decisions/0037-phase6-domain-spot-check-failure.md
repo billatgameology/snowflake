@@ -180,16 +180,17 @@ fails its own registered check, and every document reporting them says so.
 
 **The one thing that survives the failure intact, and it is what the comparison consumes.** Across
 extents 29, 35 and 41, at BOTH N = 64 and N = 80, P1's aspect ratio is identical to six figures and
-the class is `COLUMN` in all six runs. The registered criterion fails on **total accreted mass**
-(11 201 vs 11 081 at extent 35 — 120 cells of interior fill inside a bit-identical envelope), not on
-the habit determination. Both are reported. **The criterion is not rewritten to the one that
+the class is `COLUMN` in all six runs. The registered criterion fails on **attached-cell count**
+(11 201 vs 11 081 at extent 35 — a 120-attached-cell difference despite the same reported extents
+and six-decimal aspect ratio; no occupancy witness establishes envelope identity), not on the
+habit determination. Both are reported. **The criterion is not rewritten to the one that
 passes.**
 
 ### Consequential follow-up, recorded not scheduled
 
 The registered criterion couples two quantities of different robustness: habit class, which is
 invariant here across every domain tested, and attached count, which is not. A future protocol
-should decide deliberately whether a mass-conservation tolerance belongs in the same gate as a
+should decide deliberately whether an attached-count tolerance belongs in the same gate as a
 morphology criterion. **That is a protocol-design question for a later phase and is deliberately not
 settled here** — changing a registered criterion in response to it failing is the exact move
 ADR 0031 rejected by name.

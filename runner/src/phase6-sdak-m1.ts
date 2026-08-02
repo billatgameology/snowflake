@@ -1,21 +1,29 @@
-// M1 — the SDAK-dipped attachment kinetics, as printed. Arm 2's registered physics inputs.
+// M1 — the printed SDAK-dipped algebra plus the registered P4 log-base resolution. Arm 2 inputs.
 //
-// Source: arXiv:2306.13087v1 p6-7 (Libbrecht, "A Snow Crystal Growth Model..."). Every number here
-// is transcribed from a printed closed form; none is fitted, digitized, or chosen by this project.
-// Provenance class P3 throughout — the dip CENTRES were chosen by the author to impose agreement
-// with the Nakaya diagram (charter §2.5), so agreement obtained with them is in-sample reproduction
-// and never validation (ADR 0005).
+// Source: arXiv:2306.13087v1 p6-7 (Libbrecht, "A Taxonomy of Snow Crystal Growth Behaviors:
+// 2. Quantifying the Nakaya Diagram"). The numeric
+// constants are transcribed from printed closed forms; the unstated logarithm base is this project's
+// registered P4 transcription choice rather than a source-printed constant.
+// The source's M1 prescription is P3 — the dip CENTRES were chosen by the author to impose agreement
+// with the Nakaya diagram (charter §2.5), so agreement obtained with it is in-sample consistency and
+// never validation (ADR 0005). The source leaves the logarithm base unspecified; resolving it from
+// Figure 1 as base 10 is this project's separate P4 transcription choice.
 //
-// `log` is BASE 10. Established 2026-07-29 and worth restating because the papers do not say so.
-// Changing the base rescales each dip's width and changes the registered-grid transition count; it
-// cannot move a dip centre. For `1 - q * exp(-(log T - log c)^2 / w)`, every logarithm base gives
+// `log` is interpreted as BASE 10. Established 2026-07-29 and worth restating because the papers do
+// not state the base.
+// Changing the base rescales each dip's width and changes the registered-grid coefficient-order
+// swap count; it cannot move a dip centre. For `1 - q * exp(-(log T - log c)^2 / w)`, every
+// logarithm base gives
 // the dip factor its minimum at T = c; the exponential term itself has its maximum there. The
-// previously quoted 3.08 and 8.07 values are alphaHK crossing locations, not centres.
-// The paper's plotted widths and the three registered transitions select log10 here.
+// previously quoted approximate 3.08 and 8.07 values are equal-shared-field attachment-coefficient equality
+// locations, not centres or habit transitions.
+// Agreement with the paper's plotted Figure 1 widths supports log10 here. The resulting in-sample
+// coefficient-order swap count is not an independent selector of the source convention.
 //
 // **A = 1 for every facet**, by the paper's own choice: "To keep M1 relatively simple, we chose to
-// set A = 1 in Equation 3 for all growth conditions". That single fact is what makes the arm's sense
-// prediction provable rather than empirical — see `phase6M1Sense`.
+// set A = 1 in Equation 3 for all growth conditions". That makes the *equal-local-field attachment-
+// coefficient ordering* algebraically independent of the chosen positive local supersaturation.
+// It does not predict the coupled crystal habit; see `phase6M1AnalyticCoefficientOrder`.
 //
 // These live in runner/src, hashed by the completion-time source-graph digest, and are re-derived
 // independently in app/scripts/phase6-sdak-m1-prediction.mjs. The two are deliberately separate
@@ -32,8 +40,8 @@ import {
 
 // The closed forms themselves live in `core/src/libbrecht.ts` alongside every other kinetics
 // function, reachable as the "M1" NucleationParamSet. This module holds only what is specific to
-// ARM 2's registration — the expected transitions and the sourcing anchors — and re-expresses the
-// forms in PERCENT, the unit the paper prints, so a reader comparing against the paper does not
+// ARM 2's registration — the coefficient-order diagnostic and sourcing anchors — and re-expresses
+// the forms in PERCENT, the unit the paper prints, so a reader comparing against the paper does not
 // have to undo a factor of 100 in their head.
 
 /** Dip centres, in degrees Celsius of magnitude. Printed values, not fitted here. */
@@ -62,7 +70,11 @@ export function phase6M1Sigma0PrismPercent(magnitudeC: number): number {
   return sigma0PrismM1(magnitudeC) * 100;
 }
 
-/** The same forms with the dips removed — M2's broad-facet branch, kept for contrast only. */
+/**
+ * The same forms with the dips removed — M2's broad-facet branch, used for contrast and intended
+ * for the future matched `M1_NO_DIP_ABLATION` arm. Its production use still requires the replacement
+ * protocol freeze; this helper does not implement M2's facet-width feedback.
+ */
 export function phase6BroadSigma0BasalPercent(magnitudeC: number): number {
   return sigma0BasalM2Broad(magnitudeC) * 100;
 }
@@ -70,57 +82,60 @@ export function phase6BroadSigma0PrismPercent(magnitudeC: number): number {
   return sigma0PrismM2Broad(magnitudeC) * 100;
 }
 
-export type Phase6M1Sense = "plate" | "column" | "tie";
+export type Phase6M1CoefficientOrder = "basal-higher" | "prism-higher" | "tie";
 
 /**
- * Which habit M1 implies at a temperature — and it needs no supersaturation argument, which is the
- * whole point.
+ * Which M1 attachment coefficient is larger when both facets are evaluated at the same positive
+ * local supersaturation.
  *
  * With `A_basal = A_prism = 1`:
  *
  *     alphaHK_basal > alphaHK_prism  <=>  exp(−σ₀b/σs) > exp(−σ₀p/σs)  ⟺  σ₀b < σ₀p     for every σs > 0
  *
- * because the exponential is monotonic and σ_surf is positive. The ordering is **independent of
- * σ_surf**, so M1's habit sense is a pure function of temperature.
+ * because the exponential is monotonic and σ_surf is positive. This equal-field coefficient
+ * ordering is **independent of σ_surf**. A coupled run generally gives the two facets different
+ * local fields and geometry, so this identity is not a habit or morphology theorem.
  *
  * This project previously counted σ₀ crossings as habit transitions for the **CAK** set, where
  * `A_prism ≠ 1` and the swap is instead a zero of `ln A_prism(T) − (σ₀,prism − σ₀,basal)/σ_surf` —
- * σ-dependent, and the source of a claim that was refuted. M1 earns the shortcut that set did not,
- * by construction rather than by luck, and `phase6-sdak.test.ts` asserts the independence rather
+ * σ-dependent, which invalidates the shortcut previously claimed for CAK. M1 permits only the
+ * narrower equal-field coefficient shortcut, and `phase6-sdak.test.ts` asserts that identity rather
  * than trusting this comment.
  *
- * Smaller sigma_0 => larger alphaHK => that facet grows faster. Basal faster ⇒ the crystal extends along c ⇒
- * COLUMN. Prism faster ⇒ PLATE.
+ * Smaller sigma_0 => larger alphaHK under the stated equal-field comparison.
  */
-export function phase6M1Sense(tempC: number): Phase6M1Sense {
+export function phase6M1AnalyticCoefficientOrder(tempC: number): Phase6M1CoefficientOrder {
   const T = Math.abs(tempC);
   const basal = phase6M1Sigma0BasalPercent(T);
   const prism = phase6M1Sigma0PrismPercent(T);
-  return basal < prism ? "column" : basal > prism ? "plate" : "tie";
+  return basal < prism ? "basal-higher" : basal > prism ? "prism-higher" : "tie";
 }
 
 /**
- * The registered arm-2 expectation at the temperature level (ADR 0036 Part 1).
+ * The registered M1 equal-field coefficient-order swaps on the temperature grid.
  *
- * Three transitions, against Nakaya's three. **This is a transcription check and NOT evidence** —
- * the dip centres were chosen to impose exactly this agreement. It is registered so that a later
- * edit to the forms above cannot silently move the expectation the arm is scored against.
+ * These three swaps are an in-sample transcription diagnostic, not a morphology expectation or
+ * evidence. The dip functions were chosen using the Nakaya diagram, and the coupled operator may
+ * give the facets different local fields. This catches a later transcription change only.
  */
-export const PHASE6_M1_EXPECTED_TRANSITIONS = [
-  { warmerC: -3, colderC: -4, from: "plate", to: "column" },
-  { warmerC: -8, colderC: -9, from: "column", to: "plate" },
-  { warmerC: -24, colderC: -25, from: "plate", to: "column" },
+export const PHASE6_M1_EXPECTED_ORDER_SWAPS = [
+  { warmerC: -3, colderC: -4, from: "prism-higher", to: "basal-higher" },
+  { warmerC: -8, colderC: -9, from: "basal-higher", to: "prism-higher" },
+  { warmerC: -24, colderC: -25, from: "prism-higher", to: "basal-higher" },
 ] as const;
 
 /**
- * The only two numerically-stated measurements of the prism dip anywhere in the corpus, and what M1
- * gives at the same temperatures (ADR 0036 pre-registration 3).
+ * The two absolute sigma0Prism,SDAK values inferred by the source and stated in prose in the
+ * audited CM8/CM10 source set, and what M1 gives at the same temperatures (ADR 0036
+ * pre-registration 3).
  *
- * `2009.08404v2` Figure 18 plots a measured σ₀,prism,SDAK(T) curve over roughly −8 to −30 °C, but only
- * these two points appear as numbers in prose. The closed form runs LOW against both. Registered so
- * the arm's weakest inputs are named before it runs rather than after it disappoints.
+ * `2009.08404v2` Figure 18 labels a σ₀,prism,SDAK(T) curve inferred from growth measurements over
+ * roughly −8 to −30 °C, but only these two points appear as numbers in prose. They are
+ * model-dependent inversions of growth-rate observations, not direct measurements of a surface
+ * barrier. The closed form runs LOW against both. Registered so the arm's weakest inputs are named
+ * before it runs rather than after it disappoints.
  */
-export const PHASE6_M1_PRISM_DIP_ANCHORS = [
-  { tempC: -10, measuredPercent: 0.85, source: "2009.08404v2 p14 (CM8)" },
-  { tempC: -25, measuredPercent: 6.6, source: "2009.08404v2 p13 (CM8)" },
+export const PHASE6_M1_PRISM_DIP_SOURCE_INFERRED_ANCHORS = [
+  { tempC: -10, sourceInferredPercent: 0.85, source: "2009.08404v2 p14 (CM8)" },
+  { tempC: -25, sourceInferredPercent: 6.6, source: "2009.08404v2 p13 (CM8)" },
 ] as const;

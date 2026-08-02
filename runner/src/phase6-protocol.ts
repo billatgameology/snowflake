@@ -9,7 +9,9 @@
 // Freeze list authority: charter §3.2 Phase 6 item 1 (v1.16 line 303), expanded by ADR 0005 D4,
 // amended by ADR 0006 (dual convergence adds `divTol` and `relaxMaxSweeps`) and ADR 0009 (the
 // coupled surface policy). Any post-freeze edit to a registered value requires a logged ADR and
-// invalidates that protocol's prior sweep results — the sweep re-runs in full.
+// makes the earlier sweep inadmissible for a replacement gate — the replacement sweep re-runs in
+// full. The earlier executed bytes and measurements remain historical evidence of their named
+// superseded protocol.
 
 import { execFileSync } from "node:child_process";
 import { sigma0Basal, sigma0Prism } from "../../core/src/index.ts";
@@ -138,8 +140,9 @@ export const PHASE6_LATENT_HEATING = {
  * registered as fixed-σ Dirichlet until WP3b measured what that shell costs: it holds
  * `sigma_infinity` at a finite radius and so over-supplies vapor by roughly 46% at 48³ and 160%
  * at Phase 2b's own configuration. ADR 0024 adds the monopole-matched shell of monograph
- * Eq. 5.30, which removes the domain dependence outright — a 4.1% swing becomes 0.0% — and
- * Phase 6 runs it.
+ * Eq. 5.30. In the tested −5 °C, 60-step, 28³/40³ pair a 4.1% attached-count swing becomes
+ * 0.0%; the separate 20³ break proves this is not general domain independence. Phase 6 runs it
+ * with a separately measured domain requirement.
  *
  * Phase 2b/4/5 evidence keeps the condition that produced it and is never pooled with sweeps.
  */
@@ -543,8 +546,8 @@ export interface Phase6Flip {
  * is the honest representation: a wide neutral span means the flip location is poorly located,
  * and collapsing it to a midpoint would manufacture precision the data does not have.
  *
- * The count of flips is itself a first-class result. The reference has three; a single monotone
- * sigma_0 crossing can produce at most one.
+ * The count of measured pure-class flips is itself a first-class result; the reference has three.
+ * No `sigma_0` equality count bounds this forward morphology operator.
  */
 export function phase6DetectFlips(
   observations: readonly { readonly tempC: number; readonly modelClass: Phase6ModelClass }[],
@@ -585,33 +588,25 @@ export function phase6DetectFlips(
 // high-sigma observations use free-standing needles, and why a cloud-conditions grid stops there.
 // See docs/phase6-protocol-errata.md E2.
 //
-// The usable window is bounded at BOTH ends, and WP0c measured where rather than asserting it.
-// Both bounds are properties of alphaHK = A*exp(-sigma_0/sigma_surf) evaluated on the registered
-// sigma_0 curves:
+// The fractions below are immutable historical protocol values. Their former lower-bound and
+// high-end mechanism explanations were too strong and are corrected here and in the justification
+// manifest without changing those values.
 //
-//   TOO LOW — the dead-facet regime. At f = 0.05 the smaller of the two facet coefficients falls
-//   to 2.3e-4 at -35 C against rough-site 1.0, so both facet families are effectively frozen and
-//   habit is set by rough-site geometry and hole filling rather than by the CAK crossing under
-//   test. That is the regime `monograph-review.md` §2.5 warns about, and it is where Phase 2b's
-//   sigma_inf = 0.002 sat. f = 0.10 keeps the smaller coefficient at 1.5e-2 or above everywhere
-//   on the registered T axis, which is the low bound registered here.
+//   LOWER-END PROXY — at f = 0.05 the smaller broad-facet coefficient evaluated against the shared
+//   far-field value is 2.3e-4 at -35 C; f = 0.10 keeps that restricted proxy at 1.5e-2 or above on
+//   the registered axis. This does not establish either facet's solved local field, a “dead-facet
+//   regime”, the dominant growth mechanism, or habit.
 //
 //   TOO HIGH — ~~contrast collapse~~ RETRACTED, see docs/phase6-protocol-errata.md E1. The figures
 //   below (0.34–3.76 at f = 0.15 compressing to 0.84–1.25 at f = 0.90) are `CAK_A1` values, and the
 //   registered set is `CAK`. Under `CAK` the basal/prism ratio spans 1.20–3.75 at f = 0.15 and
 //   1.06–5.05 at f = 0.90 — WIDER at the top, not compressed, so the contrast-collapse argument
-//   REVERSES for the registered set. The identical wording appears inside the hashed `t-sigma-grid`
-//   freeze row, where it cannot be edited without invalidating the sweep; it is carried as erratum
-//   E1 instead. The upper bound stands on the OTHER ground given below (weak facet contrast is not
-//   weak habit variation), which does not depend on the compression figure.
+//   REVERSES for the registered set. ADR 0033's values/justification split allows the false prose
+//   to be corrected while preserving the executed values and historical revision hashes.
 //
-// The top of the range is kept ANYWAY, and deliberately. Weak facet contrast is not the same as
-// weak habit variation — at high supersaturation growth is increasingly diffusion-limited and
-// morphology is set by branching instability rather than facet kinetics, which is precisely the
-// regime the diagram fills with dendrites and needles. So f = 0.90 is not registered as a
-// prediction of "no habit variation"; it is registered as the row where facet kinetics stop
-// being the dominant mechanism, and what the model does there is a genuine question rather than
-// a foregone one.
+// The top row is retained as an executed sample. Droplet nucleation supports the historical choice
+// not to extend this cloud-conditions ladder above water saturation; the relative roles of
+// diffusion, facet kinetics, branching, and rough-site geometry are outcomes, not premises.
 export const PHASE6_SIGMA_FRACTIONS = [0.1, 0.15, 0.25, 0.4, 0.6, 0.9] as const;
 
 /** σ∞ at a registered grid point: a fraction of Table 2.1 water saturation. */
@@ -689,12 +684,11 @@ export function phase6EvidencePartition(): {
 
 // ── Registered: how the supersaturation ladder is defined ───────────────────────────────────
 //
-// The Nakaya diagram's upper region is bounded by the water-saturation curve, so the physically
-// meaningful ladder is a fraction of water saturation rather than a set of absolute sigma
-// values: at -2 C, sigma = 0.05 would be 2.5x water saturation, which no cloud produces, while
-// the same number at -15 C sits comfortably below it. A water-relative ladder also tracks
-// sigma_0(T) automatically, which keeps grid points out of the dead-facet regime that the
-// plan's open question 6 warns about.
+// Historical water-relative ladder, retained exactly: a fixed absolute sigma would represent very
+// different fractions of water saturation across temperature. The water-saturation curve does not
+// bound the reference diagram, but sustained supersaturation above it can nucleate droplets and
+// change the boundary condition. This ladder neither tracks `sigma_0(T)` automatically nor proves
+// a facet-local regime or habit.
 //
 // It is NOT computed from `sigmaWater()`. That difference form is a known, pinned limitation
 // (`core/test/libbrecht.test.ts`), and WP0c measured how bad it actually is rather than
@@ -807,19 +801,27 @@ export const PHASE6_ENGINE_CONTROL = {
 // ── Registered: the frozen parameter table ──────────────────────────────────────────────────
 
 /**
- * sha256 of `docs/libbrecht-parameters.md` **with line endings normalized to LF**.
- *
- * Normalized deliberately. This repository converts LF to CRLF on checkout, so a hash of the raw
- * bytes would depend on the checking-out machine's git configuration rather than on the content,
- * and would fail spuriously on exactly the second platform the cross-platform control needs to
- * run on. Normalizing makes the hash a statement about the physics, which is what it is for.
+ * Historical 2026-07-27 parameter-table identity consumed by the legacy Arm 1 values manifest.
+ * It names the LF-normalized bytes recoverable at commits `390fe35` and `483f7ee`; it is
+ * deliberately NOT redirected to the current working-tree file after accepted ADR 0040.
  */
 export const PHASE6_PARAMETER_TABLE_SHA256 =
   "276494f69682adb2b071c2e2683a98281aef17b3558b4efa6301ceaf11dfa741";
 
 /**
+ * LF-normalized identity of the current authoritative mapping accepted by ADR 0040.
+ *
+ * This content pin prevents silent drift in future work. It is not an R15 values/protocol freeze:
+ * R15 still freezes its complete configuration only after WP1/WP2 close the numerical and held-out
+ * inputs, and then pays the full replacement sweep.
+ */
+export const PHASE6_CURRENT_PARAMETER_TABLE_SHA256 =
+  "c0b314b681146152207f061209a3097609e34a234b0027ed73faa427334c79e2";
+
+/**
  * Parameter-table revisions, newest last. Post-freeze edits go through an ADR and, once a sweep
- * has run, cost a full re-sweep — so this list should stay very short.
+ * has run, cost a full replacement-gate re-sweep — so this list should stay very short. Earlier
+ * executed bytes and measurements remain historical evidence of their named protocol.
  *
  * - `e572da78…` — WP0c initial freeze (commit 6d28623).
  * - `276494f6…` — ADR 0028: exponent mismatch in the §1.1 Eq. 3.35 erratum check corrected
@@ -829,6 +831,19 @@ export const PHASE6_PARAMETER_TABLE_SHA256 =
 export const PHASE6_PARAMETER_TABLE_REVISIONS = [
   { sha256: "e572da78f9fe1b1178ef0fd83cf0d6de3ac698a7413342b1e1bb4e235f0d2ed3", note: "WP0c initial freeze" },
   { sha256: "276494f69682adb2b071c2e2683a98281aef17b3558b4efa6301ceaf11dfa741", note: "ADR 0028 erratum-check exponent fix" },
+] as const;
+
+/** Current-authority lineage; the legacy lineage above remains byte-for-byte unchanged. */
+export const PHASE6_CURRENT_PARAMETER_TABLE_REVISIONS = [
+  ...PHASE6_PARAMETER_TABLE_REVISIONS,
+  {
+    sha256: "be00e00b3e4018f552b1f4be1bed52fcc809c1522b6587d646cf2692ea257d72",
+    note: "ADR 0040 initial accepted current-table candidate; superseded by the acceptance-audit exact-metrology repair",
+  },
+  {
+    sha256: PHASE6_CURRENT_PARAMETER_TABLE_SHA256,
+    note: "ADR 0040 acceptance-audit metrology follow-up; exact definitions and the P2 diffusivity anchor closure recorded; current content pin, not the R15 protocol freeze",
+  },
 ] as const;
 
 // ── Registered: the freeze commit ───────────────────────────────────────────────────────────
@@ -906,14 +921,14 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
         "WP0c. The T axis is uniform because a cost probe showed fine spacing need not be bought " +
         "by coarsening elsewhere, and because the ambiguity-band formula takes ONE spacing — a " +
         "mixed grid would leave no honest value to hand it. Its range is the digitized figure's " +
-        "own labelled span. The σ axis is bounded at both ends by measured facet physics rather " +
-        "than by assertion: below f ≈ 0.10 the smaller facet coefficient collapses into the " +
-        "dead-facet regime (2.3e-4 at f = 0.05, −35 °C, against rough-site 1.0), and above 1x " +
+        "own labelled span. The historical lower choice used a restricted shared-far-field " +
+        "broad-facet diagnostic: its smaller coefficient is 2.3e-4 at f = 0.05, −35 °C and at " +
+        "least 1.5e-2 on the executed f ≥ 0.10 grid. That proxy does not determine solved " +
+        "facet-local fields, dominant mechanism, or habit. Above 1x " +
         "water saturation sustained supersaturation nucleates droplets, which changes the " +
-        "boundary condition around the crystal (2109.00098v1 p9). The top row " +
-        "is kept deliberately: weak facet contrast is not weak habit variation, because at high " +
-        "supersaturation morphology is set by branching instability rather than facet kinetics, " +
-        "so what the model does there is a real question. Constrained throughout by the " +
+        "boundary condition around the crystal (2109.00098v1 p9). The top row is retained as an " +
+        "executed sample without presupposing whether diffusion, facet kinetics, branching, or " +
+        "rough-site geometry dominates. Constrained throughout by the " +
         "interpolation domain (T ∈ [−50, −1] °C, extrapolation banned)",
     },
   },
@@ -930,14 +945,12 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
         "is max(tExtent, zExtent), so the crystal is bounded in EVERY direction at measurement " +
         "regardless of habit",
       source:
-        "WP3 §3 (research/phase6-convergence.md). Set by the slowest-developing habit, not the " +
-        "fastest: the warm plate classifies correctly from extent 9, but at that size the cold " +
-        "condition reads AR = 0.63 and classifies plate — the opposite of its converged class, " +
-        "and a silent misclassification of half the diagram. Cold's CLASS settles at extent 11 " +
-        "and holds comfortable margin by 15–19; its VALUE settles only near 31. Extent 21 is the " +
-        "class-adequate size and is registered for classification. Any quantitative AR quoted at " +
-        "this size carries the residual drift toward the extent-31 value, on top of the grid " +
-        "systematic, and says so",
+        "Historical WP3 §3 CAK_A1 size ladder (research/phase6-convergence.md). The sampled warm " +
+        "row classified plate from extent 9; the sampled cold row moved from plate at extent 9 " +
+        "to neutral at later extents and retained numerical drift through the ladder. The study " +
+        "did not establish an exact asymptote, transfer to registered CAK, or adequacy across the " +
+        "full grid. Extent 21 is the executed historical classification value, not an accepted " +
+        "replacement-protocol size; quantitative AR at it carries unresolved size and grid error",
     },
   },
   {
@@ -1071,9 +1084,11 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
         "frozen 2026-07-27 by WP0c and enforced by runner/test/phase6-protocol.test.ts, so an " +
         "edit fails the suite rather than silently changing the physics under a completed sweep. " +
         "The four pre-freeze source corrections landed 2026-07-26 while they were still free to " +
-        "make. Post-freeze changes need a logged ADR and invalidate every Phase 6 sweep result " +
-        "under this protocol — the sweep re-runs in full, which is the cost that stops a " +
-        "parameter being adjusted after a disagreeing result is seen",
+        "make. Post-freeze changes need a logged ADR and make every earlier Phase 6 sweep under " +
+        "this protocol inadmissible for a replacement gate — the replacement sweep re-runs in " +
+        "full. That cost makes any post-result adjustment explicit and prevents the adjusted input " +
+        "from silently inheriting prior gate evidence. Earlier executed bytes and measurements " +
+        "remain historical evidence of their named superseded protocol",
     },
   },
   {
@@ -1130,9 +1145,11 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
       requirement: "pressure",
       value: "101325 Pa (1 atm), fixed for every sweep point",
       source:
-        "every run in this project to date, registered rather than inherited. It is also the " +
-        "reference pressure for D_AIR_1ATM, so the diffusivity P^-1 scaling is exact rather " +
-        "than extrapolated at this value. Held FIXED because pressure enters both the kinetic " +
+        "every run in this project to date, registered rather than inherited. The conversion " +
+        "1 atm = 101325 Pa is an exact metrological definition. Associating the monograph's " +
+        "approximate D_air with that exact pressure is a documented P2 project closure, so the " +
+        "P^-1 multiplier equals one there by construction, not because the source stated an " +
+        "exact anchor. Held FIXED because pressure enters both the kinetic " +
         "length X_0 and the latent-heating chi_0 (~1/P), and the sweep varies temperature and " +
         "supersaturation only — a varying pressure would confound the axis under test",
     },
@@ -1176,7 +1193,9 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
       source:
         "ADR 0024 on the measurement — a fixed-σ Dirichlet shell over-supplies vapor by an amount " +
         "that GROWS with the crystal (~46% at 48³, ~160% at Phase 2b's own configuration), while " +
-        "monopole matching turns a measured 4.1% attached-count swing from domain size into 0.0% " +
+        "at the tested −5 °C, 60-step, 28³/40³ pair, monopole matching turns a measured 4.1% " +
+        "attached-count swing into 0.0%; ADR 0024's 20³ break proves this is not general domain " +
+        "independence and the minimum remains configuration-specific " +
         "— and ADR 0027 for the authority, which amended charter §2.4 to v1.17. This row " +
         "previously cited '§2.4 — required for every Phase 6 validation run', which was the clause " +
         "MANDATING fixed-σ Dirichlet: it named the rule that forbade this condition as the " +
@@ -1192,23 +1211,16 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
       requirement: "domain budgets",
       value: "48 x 48 x 48, hexPrism active domain — a 16.8 µm box at the registered Δx",
       source:
-        "WP3 §1.2, measured AT the registered measurement extent rather than at a convenient " +
-        "smaller one. Ten points, N = 40…80: warm is bit-identical at all five domains and cold " +
-        "converges exactly by N = 64 (5185 -> 5161 -> 5161 -> 5159 -> 5159), so N = 48 carries a " +
-        "+0.04% attached-count residual against the asymptote — 200x smaller than the +8.7% " +
-        "volume residual already accepted at the registered fill-CFL, and AR is identical at all " +
-        "five domains so it cannot move a habit class. N = 64 is the exact answer and costs ~3x " +
-        "more per point. It generalises across habits by construction, because the stopping " +
-        "criterion bounds the crystal in every direction (see habit-measurement-size). It does " +
-        "NOT generalise across growth RATE: Eq. 5.30's correction scales with dV/dt, so the " +
-        "sweep's fastest-growing point must be spot-checked against N = 64 rather than assumed " +
-        "covered — and that spot-check now has a PASS CRITERION (PHASE6_DOMAIN_SPOT_CHECK): " +
+        "Historical WP3 §1.2 CAK_A1 ladder at extent 21. Ten samples over N = 40…80 gave an " +
+        "unchanged warm row and cold attached counts 5185 -> 5161 -> 5161 -> 5159 -> 5159; the " +
+        "last two sampled counts matching is not an exact asymptote or a bound for other habits, " +
+        "rates, parameterizations, or grid spacings. N = 48 remained historical only under a " +
+        "registered spot-check rule (PHASE6_DOMAIN_SPOT_CHECK): " +
         "identical habit class at N = 48 and N = 64 AND attached counts within 0.5%, that 0.5% " +
-        "being the residual measured at N = 40, one ladder step below the registered domain. On " +
-        "failure the domain rises to N = 64 for the ENTIRE grid, because a per-point domain would " +
-        "make points incomparable. WP3 §1.3 also disproved ADR 0024's ratio-based validity limit, " +
-        "so this number may not be extrapolated to any other configuration — it must be " +
-        "re-measured if Δx, the measurement extent, or the far field changes",
+        "being the sampled difference at N = 40. ADR 0037 later measured that N = 48 -> 64 fails " +
+        "three of four registered checks and N = 64 -> 80 also fails three of four. Neither N is " +
+        "adequate for the replacement campaign; domain convergence must be re-established on the " +
+        "complete frozen physical configuration",
     },
   },
   {
@@ -1224,17 +1236,17 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
         "rather than on outcome is the point — a spacing chosen because of the habits it " +
         "produced would be tuning, so the choice was made and recorded BEFORE any habit result " +
         "existed at the finer spacing. Measured: at the registered configuration eight " +
-        "temperatures cost 748–2424 s each and 40 min wall across seven cores; the same eight at " +
-        "Δx = 0.2333 µm (72³, extent 32, identical physical box and measurement size) ran 153 " +
+        "temperatures cost 748–2424 s each and 40 min wall across seven cores; a 72³ probe at " +
+        "Δx = 0.2333 µm ran 153 " +
         "minutes without completing even the cheapest point, so the finer grid costs at least 12x " +
         "per point. That puts one 34-temperature row at the finer spacing near 28 h — plus a " +
         "fresh domain ladder, because WP3 §1.3 disproved the rule that would have let the " +
         "existing one transfer — against about 14 h for the entire six-row grid at 0.35 µm. " +
-        "This is NOT a converged value and is not registered as one: WP3 §4 found Δx is the one " +
-        "axis that does not converge, 0.7 µm flips the cold habit class outright, and 0.35 µm " +
-        "still moves AR +10.6% cold and +18% warm going finer. The bias is therefore CARRIED on " +
-        "every reported point under the uncertainty-reporting scheme, and points whose class " +
-        "would change under extrapolation are flagged individually",
+        "Those probes changed the cell-space seed, achieved endpoint, and stopping composition " +
+        "with spacing, so they are non-transferable cost/composition diagnostics rather than a " +
+        "fixed-physics convergence ladder; they do not isolate spacing as the cause of a class " +
+        "difference. This is NOT a converged value. The replacement protocol must freeze physical " +
+        "seed and achieved-size mappings before any spacing result can carry numerical standing",
     },
   },
   {
@@ -1255,13 +1267,12 @@ export const PHASE6_FREEZE_LIST: readonly Phase6FreezeItem[] = [
       requirement: "the fill-CFL bound",
       value: "0.1",
       source:
-        "WP3 §2, four timesteps spanning 8x. AR is IDENTICAL at every one of them at both " +
-        "temperatures, so the registered habit criterion is insensitive to this choice across " +
-        "the whole range tested. The attached count is not: cold runs 1697 -> 1505 -> 1649 -> " +
-        "1649, settling only at cfl <= 0.05, so 0.1 sits 8.7% off the converged volume. " +
-        "REGISTERED CONSEQUENCE: 0.1 is adequate for a habit-class sweep and is NOT adequate " +
-        "for any reported volume-like quantity, which must be labelled not-converged at this " +
-        "setting rather than quietly inheriting the number",
+        "Historical WP3 §2 CAK_A1 probe at two temperatures, four timesteps spanning 8x. AR was " +
+        "identical across those sampled rows, while the cold attached count was 1697 -> 1505 -> " +
+        "1649 -> 1649. That scoped observation neither proves whole-grid habit adequacy nor " +
+        "transfers to registered CAK or the replacement physical configuration. The executed " +
+        "0.1 value is historical; replacement timestep adequacy must be re-established at " +
+        "representative frozen points before production, and attached count was not converged at 0.1",
     },
   },
   {
@@ -1500,7 +1511,7 @@ export function phase6JustificationManifest(
  * sweep evidence under a protocol nobody agreed to.
  */
 export const PHASE6_PROTOCOL_SHA256 =
-  "2b94aa5fa35b633dfb76275fca411cbbc25191c93ec2921a7506522b0ccf38e5";
+  "ea9c76fc3819adceb0bce32dbe07b8288d079ed734b0addd6ee1891483f845c1";
 
 /**
  * ADR 0034 — the combined hash AT THE COMMIT THE ARM-1 EVIDENCE CITES.
@@ -1530,7 +1541,8 @@ export const PHASE6_PROTOCOL_SHA256_AT_ARM1_EVIDENCE =
  */
 /**
  * ADR 0033 — the VALUES hash. This is what `phase6SweepPreflight` GATES on, and the one whose edit
- * invalidates prior sweep results under the amended charter §3.2 Phase 6 item 1.
+ * invalidates prior sweep evidence for a replacement gate under the amended charter §3.2 Phase 6
+ * item 1; historical executed measurements retain their superseded-protocol scope.
  */
 export const PHASE6_VALUES_SHA256 =
   "879e069f612f1c6b4b40074d5cc890419fc17f09545dc27b2c8823d7667938f6";
@@ -1540,7 +1552,7 @@ export const PHASE6_VALUES_SHA256 =
  * nothing else, so it is ADR-logged but costs no re-sweep.
  */
 export const PHASE6_JUSTIFICATION_SHA256 =
-  "040b1a44505fdba1767311927be5dad56b622ca9ee2c6bc4e4ab73e77f83c332";
+  "52697efb3fd01c5f5777100b5572b51e595a0e1a44cf9755cad6167214181a5c";
 
 /**
  * The arm-1 published artifacts, by byte length and sha256 (pin-register recommendation 1).
@@ -1639,6 +1651,10 @@ export const PHASE6_VALUES_REVISIONS = [
 export const PHASE6_JUSTIFICATION_REVISIONS = [
   { sha256: "8b73b5f8dc8b7747fc47b3d071c31023bbee30af389ee7bcf67820e3daea93bc", note: "ADR 0033 initial split; carried erratum E1's wrong contrast-collapse justification" },
   { sha256: "040b1a44505fdba1767311927be5dad56b622ca9ee2c6bc4e4ab73e77f83c332", note: "ADR 0034 corrects E1: the compression claim was CAK_A1 and reverses under CAK; replaced with the droplet-nucleation ground" },
+  { sha256: "6bfde2617d19f68f40142c489256b1e785c6b3faad2b86e58736b8ab2dd68ae4", note: "candidate ADR 0040 interpretation correction: scope historical numerical probes to the CAK_A1 configurations actually measured and remove unsupported habit, exact-convergence and causal readings; values hash unchanged" },
+  { sha256: "15a60d0a9b23e6ed38bad73fca4cae517264e3efe8391a802327806124f6fe64", note: "candidate ADR 0040 acceptance correction: a post-freeze value edit makes earlier runs inadmissible for a replacement gate/full replacement rerun while preserving their bytes and measurements as named superseded-protocol history; values hash unchanged" },
+  { sha256: "13911b85f31e98bc34d908647067ca8b201f89c59aac00224ebf2649c3d1f6c8", note: "candidate ADR 0040 freeze-capability correction: a post-result adjustment is auditable and cannot silently inherit prior gate evidence; the freeze does not make authorized correction impossible; values hash unchanged" },
+  { sha256: "52697efb3fd01c5f5777100b5572b51e595a0e1a44cf9755cad6167214181a5c", note: "ADR 0040 acceptance-audit metrology follow-up: exact atmosphere conversion is distinguished from the P2 diffusivity anchor closure; values hash unchanged" },
 ] as const;
 
 export const PHASE6_PROTOCOL_REVISIONS = [
@@ -1656,6 +1672,10 @@ export const PHASE6_PROTOCOL_REVISIONS = [
   // under the amended charter §3.2 this invalidates nothing and costs no re-sweep. This is the
   // first entry in this list that did not.
   { sha256: "2b94aa5fa35b633dfb76275fca411cbbc25191c93ec2921a7506522b0ccf38e5", note: "ADR 0034 corrects the t-sigma-grid contrast-collapse justification (erratum E1); values hash unchanged, no re-sweep" },
+  { sha256: "a211846759fa45f4ef0460ec09fb31929281a40fb0166622269d25f12c93f6d5", note: "candidate ADR 0040 interpretation correction: CAK_A1 provenance and finite-sample scope restored across the numerical-probe justifications; values hash unchanged, no historical artifact upgraded" },
+  { sha256: "c2b854d94238bb7fa1166f53bf95ba5a928390392090bc4e58e49e2c39251583", note: "candidate ADR 0040 acceptance correction: replacement-gate invalidation is scoped without erasing historical executed bytes or measurements; values hash unchanged, no historical artifact upgraded" },
+  { sha256: "6f35c2bc8ab9bd51ae16ddafc6536698b73ab919bee4362dc8500e3a8bec8f2f", note: "candidate ADR 0040 freeze-capability correction: versioned re-freeze makes authorized post-result adjustment explicit and prevents reuse of prior gate evidence rather than making adjustment impossible; values hash unchanged" },
+  { sha256: "ea9c76fc3819adceb0bce32dbe07b8288d079ed734b0addd6ee1891483f845c1", note: "ADR 0040 acceptance-audit metrology follow-up: exact atmosphere conversion and the P2 diffusivity anchor closure are separated; values hash unchanged" },
 ] as const;
 
 /**

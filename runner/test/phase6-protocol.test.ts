@@ -4,6 +4,7 @@
 
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
 import { describe, expect, it } from "vitest";
 import { canonicalJsonSha256 } from "../src/gate4-evidence.ts";
 import {
@@ -57,6 +58,9 @@ import {
   phase6RegimeBudget,
   phase6ScoreHabit,
   PHASE6_PARAMETER_TABLE_SHA256,
+  PHASE6_PARAMETER_TABLE_REVISIONS,
+  PHASE6_CURRENT_PARAMETER_TABLE_SHA256,
+  PHASE6_CURRENT_PARAMETER_TABLE_REVISIONS,
   PHASE6_PROTOCOL_FREEZE_COMMIT,
   PHASE6_PROTOCOL_SHA256,
   PHASE6_PROTOCOL_SHA256_AT_ARM1_EVIDENCE,
@@ -192,24 +196,31 @@ describe("the Phase 6 freeze list", () => {
     // makes it defensible, so a later edit that keeps the number but loses the reasoning fails.
     const byId = new Map(PHASE6_FREEZE_LIST.map((item) => [item.id, item]));
 
-    // Measurement size: set by the SLOWEST-developing habit. The failure this avoids is not
-    // subtle — extent 9 misclassifies the cold half of the diagram.
+    // Measurement size: preserve what the historical CAK_A1 ladder actually measured and its
+    // non-transferability rather than promoting two trajectories into a general selection rule.
     expect(byId.get("habit-measurement-size")?.status).toBe("registered");
     expect(byId.get("habit-measurement-size")?.prose.value).toContain("21");
-    expect(byId.get("habit-measurement-size")?.prose.source).toContain("slowest-developing");
+    expect(byId.get("habit-measurement-size")?.prose.source).toContain("CAK_A1");
+    expect(byId.get("habit-measurement-size")?.prose.source).toContain(
+      "did not establish an exact asymptote",
+    );
+    expect(byId.get("habit-measurement-size")?.prose.source).toContain(
+      "not an accepted replacement-protocol size",
+    );
 
-    // Domain: measured AT the registered extent. WP3's whole sequencing lesson is in that word.
+    // Domain: the historical finite ladder and its later registered failure must travel together.
     expect(byId.get("domain-budgets")?.status).toBe("registered");
     expect(byId.get("domain-budgets")?.prose.value).toContain("48");
-    expect(byId.get("domain-budgets")?.prose.source).toContain("registered measurement extent");
-    // And it must carry the two limits on its own transferability.
-    expect(byId.get("domain-budgets")?.prose.source).toContain("re-measured");
-    expect(byId.get("domain-budgets")?.prose.source).toContain("fastest-growing");
+    expect(byId.get("domain-budgets")?.prose.source).toContain("CAK_A1");
+    expect(byId.get("domain-budgets")?.prose.source).toContain("not an exact asymptote");
+    expect(byId.get("domain-budgets")?.prose.source).toContain("ADR 0037");
+    expect(byId.get("domain-budgets")?.prose.source).toContain("Neither N is adequate");
 
-    // fill-CFL: adequate for class, NOT for volume. Both halves must survive together.
+    // fill-CFL: only two historical rows were measured; no whole-grid adequacy follows.
     expect(byId.get("fill-cfl")?.prose.value).toBe("0.1");
-    expect(byId.get("fill-cfl")?.prose.source).toContain("8.7%");
-    expect(byId.get("fill-cfl")?.prose.source).toContain("NOT adequate");
+    expect(byId.get("fill-cfl")?.prose.source).toContain("CAK_A1");
+    expect(byId.get("fill-cfl")?.prose.source).toContain("neither proves whole-grid habit adequacy");
+    expect(byId.get("fill-cfl")?.prose.source).toContain("not converged at 0.1");
 
     // The charter asks for the residual tolerance AND ITS NORM.
     expect(byId.get("residual-tolerance")?.prose.value).toContain("1e-9");
@@ -225,23 +236,52 @@ describe("the Phase 6 freeze list", () => {
     // Δx is registered, but its row must keep saying that the value is not converged — the
     // number alone would read as a settled choice, which is exactly what it is not.
     expect(byId.get("dx")?.status).toBe("registered");
-    expect(byId.get("dx")?.prose.source).toContain("does not converge");
+    expect(byId.get("dx")?.prose.source).toContain("non-transferable");
+    expect(byId.get("dx")?.prose.source).toContain("NOT a converged value");
   });
 
-  it("enforces the frozen parameter table by content, not by promise", () => {
-    // The charter freezes docs/libbrecht-parameters.md in full. A freeze nothing checks is a
-    // comment, so this recomputes the hash from the file on every run: an edit to the physics
-    // inputs fails here rather than silently changing what a completed sweep was run against.
+  it("enforces the accepted current parameter table by content without rewriting legacy identity", () => {
+    // ADR 0040 accepts the corrected mapping but does not prematurely freeze R15. The current-file
+    // pin therefore has its own name; the legacy Arm 1 manifest keeps the historical constant.
     const source = readFileSync(new URL("../../docs/libbrecht-parameters.md", import.meta.url), "utf8");
     // LF-normalized — this repo checks out CRLF, and the hash must describe the content rather
     // than the checking-out machine's git configuration. Without this the arm64 cross-platform
     // control would fail on a difference that has nothing to do with the physics.
     const normalized = source.replace(/\r\n/g, "\n");
     const digest = createHash("sha256").update(normalized, "utf8").digest("hex");
-    expect(digest).toBe(PHASE6_PARAMETER_TABLE_SHA256);
-    // The file must also SAY it is frozen, so a reader of the document alone is not misled.
-    expect(normalized).toContain("FROZEN 2026-07-27");
-    expect(normalized).toContain("invalidates every Phase 6 sweep result");
+    expect(Buffer.byteLength(normalized, "utf8")).toBe(50_464);
+    expect(digest).toBe(PHASE6_CURRENT_PARAMETER_TABLE_SHA256);
+    expect(normalized).toContain("current authoritative mapping revision accepted 2026-08-02");
+    expect(normalized).toContain("`PHASE6_PARAMETER_TABLE_SHA256` remains the historical");
+    expect(normalized).toContain("`PHASE6_CURRENT_PARAMETER_TABLE_SHA256` pins this corrected");
+    expect(normalized).toContain("current identity is a content pin, not the R15\n> protocol freeze");
+  });
+
+  it("preserves the historical table constant/revisions and proves the named Git bytes", () => {
+    const historical = "276494f69682adb2b071c2e2683a98281aef17b3558b4efa6301ceaf11dfa741";
+    expect(PHASE6_PARAMETER_TABLE_SHA256).toBe(historical);
+    expect(PHASE6_PARAMETER_TABLE_REVISIONS).toEqual([
+      { sha256: "e572da78f9fe1b1178ef0fd83cf0d6de3ac698a7413342b1e1bb4e235f0d2ed3", note: "WP0c initial freeze" },
+      { sha256: historical, note: "ADR 0028 erratum-check exponent fix" },
+    ]);
+    expect(PHASE6_CURRENT_PARAMETER_TABLE_REVISIONS.slice(0, PHASE6_PARAMETER_TABLE_REVISIONS.length)).toEqual(
+      PHASE6_PARAMETER_TABLE_REVISIONS,
+    );
+    expect(PHASE6_CURRENT_PARAMETER_TABLE_REVISIONS.at(-2)?.sha256).toBe(
+      "be00e00b3e4018f552b1f4be1bed52fcc809c1522b6587d646cf2692ea257d72",
+    );
+    expect(PHASE6_CURRENT_PARAMETER_TABLE_REVISIONS.at(-1)?.sha256).toBe(
+      PHASE6_CURRENT_PARAMETER_TABLE_SHA256,
+    );
+
+    for (const commit of ["390fe35", "483f7ee"] as const) {
+      const bytes = execFileSync(
+        "git",
+        ["show", `${commit}:docs/libbrecht-parameters.md`],
+        { encoding: "utf8", maxBuffer: 4 * 1024 * 1024 },
+      ).replace(/\r\n/g, "\n");
+      expect(createHash("sha256").update(bytes, "utf8").digest("hex"), commit).toBe(historical);
+    }
   });
 
   it("reports uncertainty as class robustness, not as an interval on the ratio", () => {
@@ -347,12 +387,13 @@ describe("the grid-extrapolation operator (ADR 0026)", () => {
   // The spacings and values WP3 §4.2 measured at the REGISTERED measurement extent.
   const H = [0.7, 0.35, 0.2333333] as const;
 
-  it("reproduces the measured cold fit and admits it", () => {
+  it("reproduces the historical cold operator output and admits it by the frozen rule", () => {
     const cold = phase6FitGridExtrapolation(H, [0.7246, 1.1053, 1.2222]);
     expect(cold.fittedOrder).toBeCloseTo(1.142, 2);
     expect(cold.admitted).toBe(true);
     expect(cold.extrapolatedAR).toBeCloseTo(1.456, 3);
-    // The whole point of the cold result: it stays neutral in the grid limit.
+    // This only pins the historical fit/operator output. The compared configurations changed
+    // physical composition, so 1.456 is not a fixed-physics continuum or grid-limit estimate.
     expect(cold.extrapolatedAR as number).toBeLessThan(1.5);
   });
 
@@ -401,16 +442,16 @@ describe("the carried systematics", () => {
     expect(phase6IsExtentFragile(1.1053)).toBe(false);
   });
 
-  it("gives the domain spot-check a pass criterion instead of an instruction", () => {
-    // "Spot-check the fastest-growing point" is unfalsifiable without one.
+  it("pins the historical domain spot-check criterion that ADR 0037 later failed", () => {
+    // The criterion is preserved as executed history, not asserted adequate for replacement work.
     expect(PHASE6_DOMAIN_SPOT_CHECK.coarseN).toBe(48);
     expect(PHASE6_DOMAIN_SPOT_CHECK.fineN).toBe(64);
     expect(PHASE6_DOMAIN_SPOT_CHECK.requireIdenticalClass).toBe(true);
     // 0.5% is the residual measured one ladder step BELOW the registered domain, so exceeding
     // it means the point behaves worse at N = 48 than the calibration did at N = 40.
     expect(PHASE6_DOMAIN_SPOT_CHECK.attachedCountTolerance).toBe(0.005);
-    // Failure must raise the domain for the WHOLE grid; a per-point domain makes points
-    // incomparable, which a morphology diagram cannot survive.
+    // ADR 0037 measured this failure path; the science-first plan now requires a newly frozen
+    // whole-grid escalation rather than treating N=64 as adequate.
     expect(PHASE6_DOMAIN_SPOT_CHECK.onFailure).toContain("entire grid");
   });
 });
@@ -543,31 +584,32 @@ describe("the registered sweep grid", () => {
     }
   });
 
-  it("keeps every point out of the dead-facet regime", () => {
-    // The low end of the sigma axis is bounded by physics, not preference: if both facet
-    // coefficients collapse toward zero, habit is set by rough-site geometry rather than by the
-    // CAK crossing under test, and the sweep would be measuring the wrong mechanism. Rough
-    // sites are 1.0 by definition, so this asserts the facets are not effectively frozen.
+  it("pins the historical shared-far-field broad-facet floor as a function diagnostic", () => {
+    // This is a restricted input-function calculation, not a local-field, dominant-mechanism, or
+    // habit assertion. Use the actually registered parameter set rather than the former CAK_A1 proxy.
     for (const point of phase6SweepGrid()) {
       const smaller = Math.min(
-        alphaHK("basal", point.tempC, point.sigmaInf, "CAK_A1"),
-        alphaHK("prism", point.tempC, point.sigmaInf, "CAK_A1"),
+        alphaHK("basal", point.tempC, point.sigmaInf, PHASE6_PARAM_SET),
+        alphaHK("prism", point.tempC, point.sigmaInf, PHASE6_PARAM_SET),
       );
       expect(smaller, `T=${point.tempC} f=${point.fraction}`).toBeGreaterThan(1e-2);
     }
   });
 
-  it("spans a real contrast range, or the sigma axis would carry no information", () => {
-    // If the basal/prism ratio were flat across the whole grid there would be nothing for the
-    // sigma axis to resolve. This pins that the registered fractions actually span the
-    // mechanism: strong contrast at the bottom, compressed at the top.
+  it("pins selected equal-shared-field CAK coefficient ratios without assigning habit", () => {
+    // These ratios demonstrate only that the registered inputs vary with T and sigma. The coupled
+    // facets generally see different local fields, so no plate/column label follows.
     const ratioAt = (tempC: number, fraction: number): number => {
       const sigma = phase6SigmaInf(tempC, fraction);
-      return alphaHK("basal", tempC, sigma, "CAK_A1") / alphaHK("prism", tempC, sigma, "CAK_A1");
+      return (
+        alphaHK("basal", tempC, sigma, PHASE6_PARAM_SET) /
+        alphaHK("prism", tempC, sigma, PHASE6_PARAM_SET)
+      );
     };
-    expect(ratioAt(-35, 0.1)).toBeGreaterThan(5); // strongly column-forming
-    expect(ratioAt(-35, 0.9)).toBeLessThan(1.5); // compressed toward 1
-    expect(ratioAt(-2, 0.1)).toBeLessThan(0.5); // strongly plate-forming
+    expect(ratioAt(-35, 0.1)).toBeGreaterThan(5);
+    expect(ratioAt(-35, 0.9)).toBeLessThan(1.5);
+    expect(ratioAt(-2, 0.1)).toBeLessThan(1);
+    expect(ratioAt(-2, 0.9)).toBeGreaterThan(2.5);
   });
 
   it("refuses a fraction that is not on the registered axis", () => {
@@ -681,7 +723,7 @@ describe("the registered interpolation scheme", () => {
   });
 
   it("registers an interpolation error the solver still reproduces", () => {
-    // The justification for the scheme is measured, not asserted: leave-one-out error is
+    // The justification for the scheme is computed, not asserted: leave-one-out error is
     // subdominant to the ±25% digitization band already carried on the anchors. Recomputing it
     // here from the live solver stops the registered number from drifting away from the code.
     const measured = phase6MeasureInterpolationError();
@@ -703,7 +745,7 @@ describe("the water-saturation ladder reference", () => {
           Math.tanh(0.0415 * (T - 218.8)) *
             (53.878 - 1331.22 / T - 9.44523 * Math.log(T) + 0.014025 * T),
       );
-    // Measured worst deviation is 1.78%, at the -1 C anchor; every anchor from -5 C to -40 C
+    // Computed worst deviation is 1.78%, at the -1 C anchor; every anchor from -5 C to -40 C
     // agrees to within 0.5%. The two bounds are asserted separately so a regression at the warm
     // end cannot hide inside a single loose tolerance.
     for (const { tempC, sigmaWater } of PHASE6_SIGMA_WATER_ANCHORS) {

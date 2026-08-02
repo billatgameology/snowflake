@@ -25,14 +25,15 @@ them was observed.
 **This is diagnostic evidence, not Phase 6 gate evidence, and it changes no published number.** Arm 1's 3/90 and arm 2's 54/90 were
 measured at the registered size on the registered grid and stand exactly as published whatever this
 finds. What is at stake here is an *interpretation* I have been stating: that neither arm produces a
-column in the Nakaya `columns` regime. This asks whether that is a property of the model or of the
-ruler.
+column in the Nakaya `columns` regime **at the historical registered extent 21**. This asks whether
+that sampled result is a property of the model or of the ruler.
 
 ## The measured fact that motivates it
 
-Across the Nakaya `columns` regime (−9.9 < T ≤ −3.3 °C), 36 points per arm, neither arm produced a
-single column. The closest approach is arm 2 at **T = −5 °C, f = 0.10: AR = 1.4000**, against a
-column floor of 1.5.
+Across the historical extent-21 Nakaya `columns` corpus (−9.9 < T ≤ −3.3 °C), 36 points per arm,
+neither arm produced a single column. The closest approach is arm 2 at **T = −5 °C, f = 0.10:
+AR = 1.4000**, against a column floor of 1.5. The later diagnostic at extent 29 does produce an M1
+column and is why this scope matters.
 
 In this executed extent-21 corpus, that sampled gap is one observed metric step, not a physical
 distance:
@@ -143,7 +144,9 @@ whole correction rests on. The criterion is the registered one (`PHASE6_DOMAIN_S
   pass, but extent 35 later failed the same criterion. One passing pair does not establish N = 64
   adequate or isolate physical size as the cause.
 - **Actual status:** class/AR match at all sampled domain pairs, attached-count adequacy is mixed,
-  and no tested configuration is demonstrated converged.
+  and the sampled multi-extent diagnostic does not demonstrate one composed converged
+  configuration or N = 64 adequacy across the ladder. Individual passing domain pairs retain only
+  their local, executed scope.
 
 Fixed before the run returned, as with everything else here.
 

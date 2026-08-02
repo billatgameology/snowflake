@@ -1,15 +1,30 @@
 # 0036 — SDAK arm pre-registrations: the closure, the bistable band, the cold end, and the expected result
 
 - **Date:** 2026-07-30
-- **Status:** accepted
+- **Status:** accepted historical registration; scientific interpretation corrected by accepted decision 0040
 
 > **Evidence correction 2026-08-01.** Dip centres do not establish the logarithm base. For the
 > printed factor, both `log10` and `ln` put the minima at 4.5 °C and 14.4 °C; changing base changes
-> width. The formerly cited 3.08/8.07 °C values are alphaHK crossing locations under the log10
-> reading, not centres. The plotted widths and resulting transition sequence support retaining
-> log10, but the transition count is a downstream diagnostic rather than independent source proof.
-> The registered forms and historical prediction are unchanged; the current justification hashes
-> and revision history are recorded by erratum E7.
+> width. The formerly cited approximately 3.08/8.07 °C values are restricted equal-shared-positive-field alphaHK
+> equality locations under the log10 reading, not centres or habit transitions. Only agreement with
+> Figure 1's plotted widths supports retaining log10; the in-sample equality count is not an
+> independent source proof.
+> The registered forms and historical proxy bytes/counts are unchanged; their habit-prediction
+> interpretation is withdrawn. The current justification hashes and revision history are recorded
+> by erratum E7.
+>
+> **Scientific interpretation correction accepted 2026-08-02 (decision 0040).** The analytic calculation compares
+> alphaHKBasal and alphaHKPrism at the same positive surface supersaturation in exact arithmetic.
+> It is a coefficient-order diagnostic, not a plate/column prediction or a Nakaya score; the
+> historical 15/15 label is retracted and future-gate-inadmissible. The 3-D forecast below transfers
+> a sigmaInfinity proxy fit from CAK to M1 even though changing kinetics changes local depletion and
+> geometry, so it is a confounded historical forecast, not evidence. Part 3 mistakes a regression
+> intercept for an isotropic forward run. Part 4 mistakes the normal/subnormal boundary for exact
+> underflow and does not bound local sigmaSurf from sigmaInfinity. All four interpretations are
+> withdrawn; only published forward-run artifact bytes evaluated by the frozen evaluator supply
+> habit labels. A matched M1/no-dip forward arm is required to isolate the implemented dip factors'
+> effect on this solver under a frozen configuration; it cannot establish physical SDAK causality or
+> necessity in nature.
 
 ## Charter impact
 
@@ -44,7 +59,7 @@ where I had been reading.
 | TAX2 | `2306.13087v1` | Taxonomy 2: quantifying the Nakaya diagram. **M1 and M2 live here.** |
 | TAX1 | `2109.00098v1` | Taxonomy 1: c-axis ice needles as seeds. The −5 °C bistability observation. |
 | CM6 | `1912.03230v1` | Comprehensive Model 6: attachment kinetics **near −5 °C**. Growth-history dependence. |
-| CM8 | `2009.08404v2` | Comprehensive Model 8: characterizing SDAK **near −14 °C**. The ~50 nm width and both prism-dip anchors. |
+| CM8 | `2009.08404v2` | Comprehensive Model 8: characterizing SDAK **near −14 °C**. The ~50 nm example width and both prism-dip same-lineage numeric references. |
 | CM9 | `2011.02353v1` | Comprehensive Model 9: characterizing SDAK **near −4 °C**. The basal dip. |
 | FACET | `2306.04042v1` | Comprehensive faceting model. The SDAK-2 two-branch table. |
 
@@ -85,21 +100,26 @@ and M1 additionally sets `A = 1` for every facet, by the same paper's choice:
 
 > "To keep M1 relatively simple, we chose to set A = 1 in Equation 3 for all growth conditions"
 
-So M1 is a closed form in temperature alone, with **no free parameter and no unresolvable length
-scale**. The ~50 nm problem is *avoided*, not solved.
+So M1 is a closed form in temperature alone with no explicit width input. **Accepted interpretation
+correction under ADR 0040:** that does not avoid or resolve the source's example ~50 nm
+terrace scale. M1 substitutes an everywhere-narrow starter approximation for the unimplemented
+width-dependent closure.
 
-**Why avoiding it is the right call rather than the convenient one.** A sub-grid closure would need a
+**Why the historical arm selected M1.** A sub-grid closure would need a
 width proxy keyed to something the lattice represents — some integer count of surface cells — and a
 strength parameter mapping that proxy onto the dip depth. Neither appears in any source. Agreement
-obtained by tuning that parameter would be uninterpretable: the arm would be measuring the closure,
-not the hypothesis. Removing the free parameter is what makes arm 2 falsifiable at all.
+obtained by tuning that parameter would be uninterpretable without a separate freeze: the arm would
+be measuring the closure as well as the prescribed kinetics. M1 is executable without inventing
+that new parameter, but its in-sample forward result neither validates the everywhere-narrow
+assumption nor isolates the dip factors.
 
 **The limitation this buys, registered now.** M1's all-facets-narrow assumption is scoped by its own
 author to fast-growing morphologies — *"In these cases, therefore…"* refers to the ESI-dominated
 regime. The registered grid includes f = 0.10 rows, which are the slowest-growing points on it, and
-those are where the assumption is least justified. **If arm 2 fails preferentially at low f, that is
-the assumption failing, not the SDAK hypothesis failing.** Registered before the run so it cannot
-become a post-hoc excuse.
+those are where the assumption is least justified. A failure concentrated at low f is
+**nondiagnostic**: it cannot by itself identify the everywhere-narrow assumption, the dip forms,
+broad-facet changes, diffusion/local-field coupling, geometry, size, or another model limitation.
+The former one-cause reading is withdrawn.
 
 **M2 is deferred, not abandoned.** If arm 2 succeeds, the width-dependent model is the natural next
 question and the closure has to be faced honestly. If arm 2 fails, ADR 0030's differential-diagnosis
@@ -155,7 +175,8 @@ table (`2306.04042` Table 1) stops at −15 °C, and −15 has no second branch.
 arm-2 input** — M1 sets `A = 1` everywhere and uses neither branch. So the gap that matters is not
 the two-branch table's; it is the **prism dip's**.
 
-The prism dip is doing enormous work across the cold end, and it is doing it on almost no anchors.
+The prism dip changes the prescribed barrier strongly across the cold end, with only sparse
+same-lineage numeric references.
 Dip strength (1 = no dip), computed from the registered closed form:
 
 | T (°C) | −15 | −16 | −20 | −25 | −30 | −35 |
@@ -164,103 +185,97 @@ Dip strength (1 = no dip), computed from the registered closed form:
 | **prism dip** | **0.055** | **0.083** | **0.323** | **0.635** | **0.825** | **0.920** |
 
 At −15 °C the prism dip cuts σ₀,prism to **5.5%** of its broad-facet value, and it is still a 36%
-reduction at −25 °C and an 8% reduction at −35 °C. It is the single most consequential input in the
-arm, across the entire cold half of the grid.
+reduction at −25 °C and an 8% reduction at −35 °C. This is the largest individual dip multiplier
+change in the cold half of the grid. The earlier claim that it was the arm's “single most
+consequential input” is retracted: CAK→M1 changes broad-facet σ₀, the prism prefactor and the dips
+together, and no matched ablation has isolated their causal contributions.
 
-**The anchors — CORRECTED 2026-07-30, and the correction changes the conclusion.**
+**The same-lineage numeric references — corrected under accepted ADR 0040.**
 
-This section originally counted **two** anchors, both prism, and drew a tier boundary at −15 °C on
-the claim that prose-stated numbers existed for both dips down to there. The arm-2 freeze review
-challenged it; re-deriving from `research/libbrecht-papers-extracts.md` showed the review and I were
-each half wrong. There are **four** prose-stated narrow-facet anchors, not two — the basal dip has
-its own at −5 and −14 °C — and the warmest anchor of any kind is −5 °C, so −2…−4 is warmer than all
-of them.
+This section originally counted **two** values, both prism, and later called four same-lineage
+source/model-inferred values measured anchors. The latter provenance is also wrong. The four values
+are useful transcription/model-consistency references, but they are not an independent direct-
+measurement lineage. Their temperature bracket is −5…−25 °C; M1 itself remains displayed in TAX2
+Figure 1 over `(Tm−T) ∈ [1, 50] °C`.
 
-| T (°C) | facet | measured | M1 closed form | ratio | source |
+| T (°C) | facet | source-inferred reference | M1 closed form | ratio | source |
 |---|---|---|---|---|---|
 | −5 | basal | 0.1% | 0.0987% | **0.987** | `1912.03230v1` (CM6) |
 | −10 | prism | 0.85% | 0.5916% | **0.696** | `2009.08404v2` p14 (CM8) |
 | −14 | basal | 2.33% | 2.2636% | **0.972** | `2009.08404v2` (CM8) |
 | −25 | prism | 6.6% | 6.0409% | **0.915** | `2009.08404v2` p13 (CM8) |
 
-**The asymmetry is the real finding, and it is worse for arm 2 than the two-anchor version was.**
-The basal dip is *well* anchored — 2.8% worst error across both its anchors. The prism dip is not:
-30% low at −10 °C and low at both. And arm 2's predicted gain is almost entirely **cold plates**,
-which the **prism** dip drives. So the arm's strongest predicted effect rides on its
-weaker-anchored input. That is registered here, before the run, rather than surfacing in the
-discussion afterwards.
+The basal pair differs from M1 by at most 2.8%; the prism pair differs by 30% at −10 °C and 8.5% at
+−25 °C. These are same-lineage model-consistency residuals, not independent evidence that one dip is
+well anchored or that another is experimentally weaker-anchored. The paper describes the functions
+as ad hoc and its values as deriving mainly from experimental data; that statement does not turn
+these source/model inversions into direct surface-supersaturation measurements.
 
-The closed form running low is not a transcription error — it is the ad-hoc fit's own residual, and
-the paper says as much: *"While these functional forms are completely ad hoc, the values of σ₀(T)
-derive mainly from experimental data."*
+**The historical tier values and current interpretation.** The values-hashed legacy identifiers
+remain frozen for artifact verification, but current reporting uses source-reference-bracket names:
 
-**The decision.** Arm 2's report carries a **sourcing tier per temperature**, published with the
-headline rather than beneath it:
+- **−2 to −4 °C** — outside the four-reference bracket on the warm side, while inside the
+  source-displayed M1 domain.
+- **−5 to −25 °C** — within the temperature bracket spanned by the four same-lineage references.
+- **−26 to −35 °C** — outside that numeric-reference bracket on the cold side, while still inside
+  TAX2 Figure 1's M1 domain through −50 °C. These ten temperatures are not closed-form
+  extrapolation beyond the displayed model.
 
-- **−2 to −15 °C** — inside the range where prose-stated numbers exist for both dips.
-- **−16 to −25 °C** — inside Figure 18's plotted span, with one numeric anchor (−25 °C).
-- **−26 to −35 °C** — **below every numeric anchor and below the plotted curve's cold end.** Ten of
-  34 registered temperatures. Arm 2 adds no independent information here; whatever it produces is
-  the closed form's extrapolation, evaluated in 3D.
-
-**A correction to my own first draft of this section, in the model's favour.** I wrote that M1's
-third transition "sits inside the thinnest-anchored tier", i.e. beyond every anchor. It does not.
-The transition is at **−24/−25 °C** and the single cold anchor is at **−25 °C** — they coincide. The
-test that pins this is what caught it. So the third transition is anchored at exactly one measured
-point, where the closed form runs 8.5% low; what is genuinely beyond every anchor is everything
-colder than −25 °C, which is ten of the 34 registered temperatures and none of the headline.
-
-That makes the third transition **better supported than I first claimed, and still the weakest of
-the three** — one anchor against the first two transitions' prose-stated values. It is registered as
-such now so that a hit there is not over-read and a miss is not treated as a refutation of SDAK.
+The historical restricted coefficient-order swap near **−24/−25 °C** coincides with the −25 °C
+same-lineage prism reference. That coincidence supplies a model-consistency check, not one measured
+habit-transition anchor or independent support. A hit or miss in the 3-D forward result cannot be
+assigned to that reference or to the dip factors without the matched no-dip ablation.
 
 ---
 
 ## The registered expected result
 
-### Part 1 — the 0D sense prediction, which is evidence of nothing
+### Part 1 — the equal-field coefficient-order diagnostic
 
 `app/scripts/phase6-sdak-m1-prediction.mjs`, committed with this ADR.
 
-With `A_basal = A_prism = 1`, the habit ordering is **provably independent of σ_surf**:
+With `A_basal = A_prism = 1`, the exact-arithmetic coefficient order at one shared positive
+`σ_surf` is independent of which positive shared value is selected:
 
 ```
 alphaHK_basal > alphaHK_prism  ⟺  exp(−σ₀b/σs) > exp(−σ₀p/σs)  ⟺  σ₀b < σ₀p    for every σs > 0
 ```
 
-This is the case where the σ₀ crossing and the αHK swap coincide, and coincide *by construction*
+This is the restricted case where the σ₀ crossing and equal-field alphaHK swap coincide
 rather than by luck. It is worth stating in exactly those terms, because this project previously
 counted σ₀ crossings as habit transitions for the **CAK** set, where `A_prism ≠ 1` and the swap is a
-zero of `ln A_prism(T) − (σ₀,prism − σ₀,basal)/σ_surf` — σ-dependent, and the source of a refuted
-claim. M1 earns the shortcut the CAK set did not.
+zero of `ln A_prism(T) − (σ₀,prism − σ₀,basal)/σ_surf` — σ-dependent, invalidating the
+old counting proof. Neither calculation determines coupled morphology.
 
-M1's transitions on the registered grid, and the broad-facet branch for contrast:
+M1's equal-field coefficient-order swaps on the grid, and the broad branch for contrast:
 
-| | transitions | where |
-|---|---|---|
-| **M1 (dipped)** | **3** | plate→column at −3/−4, column→plate at −8/−9, plate→column at −24/−25 |
-| broad-facet | 1 | plate→column at −8/−9 — the **opposite sense** to Nakaya at that boundary |
-| Nakaya (ADR 0025) | 3 | −3.3, −9.9, −21.5 |
+| diagnostic/reference | counted separators | locations or brackets |
+|---|---:|---|
+| **M1 equal-field coefficient-order swaps** | **3** | prism-higher→basal-higher at −3/−4; basal-higher→prism-higher at −8/−9; prism-higher→basal-higher at −24/−25 |
+| broad-branch equal-field coefficient-order swap | 1 | prism-higher→basal-higher at −8/−9 |
+| Nakaya reference habit boundaries (ADR 0025) | 3 | −3.3, −9.9, −21.5 |
 
-Scored at the temperature level against ADR 0025's regimes, ambiguity band excluded: **15 of 15
-headline temperatures agree, zero disagree.**
+The historical code converted those swaps to plate/column labels and reported **15 of 15**. That
+score is retracted: the conversion is not supplied by the analytic equality.
 
 **This number is not evidence and must never be reported as though it were.** The dip centres 4.5
 and 14.4 were chosen to impose agreement with the Nakaya diagram (charter §2.5). A closed form tuned
-to reproduce three transitions reproduces three transitions. The 15/15 is a **transcription check** —
-it confirms the forms were read correctly, including that `log` is base 10 — and nothing more.
+so its restricted coefficient-order swaps align with three source habit separators unsurprisingly
+produces three such swaps. The 15/15 only confirms that the historical code's own swap-to-label
+conversion agrees with its analytic swap table; it does not
+independently validate the forms or logarithm base. Base 10 is supported separately by agreement with
+the source's printed Figure 1 widths, not by this circular score.
 
-### Part 2 — the 3D prediction, which is the actual registration
+### Part 2 — the historical confounded 3-D proxy forecast
 
-The open question is entirely whether 3D diffusion-limited growth on this grid *preserves* the
-ordering and produces aspect ratios that clear 0.6667 / 1.5 rather than measuring neutral. **Arm 1's
-dominant outcome was not disagreement — it was 168 of 204 points measuring `neutral`.** A sense
-prediction says nothing about that, so registering "SDAK will fix it" would be a hope, not a
-prediction.
+Arm 1 measured 168 neutral classes. The historical forecast attempted to map a far-field
+coefficient-ratio proxy to aspect ratio; this section preserves what was preregistered, not a valid
+physical transfer.
 
-Arm 1 supplies the missing map. `app/scripts/phase6-sdak-arm2-expectation.mjs` fits its 204 measured
+`app/scripts/phase6-sdak-arm2-expectation.mjs` fits arm 1's 204 measured
 aspect ratios against the attachment anisotropy `r = α_basal/α_prism` its own kinetics imply, then
-applies that transfer function to M1's anisotropy at the same 204 points.
+applies that regression to M1's far-field proxy at the same 204 points. Because neither facet
+generally sees sigmaInfinity and CAK→M1 changes the coupled field/geometry, transfer is unearned.
 
 ```
 ln AR = −0.2659 + 0.5119 · ln r          R² = 0.511
@@ -272,57 +287,58 @@ Log-log rather than linear because both sides are ratios, and because the linear
 ratio is not a conservative prediction, it is an invalid model — and the plates-cold regime that
 drives the entire forecast sits in exactly that extrapolated range.
 
-**THE REGISTERED PREDICTION**, apples to apples, arm 2 scored under arm 1's **unmodified** 90-point
-rules:
+**HISTORICAL REGISTERED PROXY FORECAST—inadmissible as habit evidence**, scored under arm 1's
+unmodified 90-point rules:
 
-| | arm 1, measured | arm 2, predicted |
+| | arm 1, measured | arm 2, withdrawn confounded proxy |
 |---|---|---|
 | headline agreement | **3 / 90** | **42 / 90** |
 | neutral | 168 / 204 | 48 / 90 headline |
 
-Under pre-registration 2's scoring the same forecast is **42 of 78** — the numerator is *unchanged*,
-because all 12 excluded points were predicted neutral anyway. The bistability rule moves the
-denominator, not the result, which is the strongest available answer to the charge that it was
-introduced to flatter the arm. Both numbers will be published.
+Under pre-registration 2's scoring the same withdrawn, confounded historical proxy forecast is
+**42 of 78** — the numerator is unchanged because all 12 excluded points were assigned neutral by
+the proxy. The 42/90 and 42/78 counts are preserved only as historical record: they are
+inadmissible as habit evidence and were not valid pre-run habit predictions.
 
-**Per-regime, which is where the falsifiable content is:**
+**Historical proxy breakdown (no habit-evidence standing):**
 
-| regime | headline n | predicted agree | predicted neutral | arm 1 measured |
+| regime | headline n | proxy-assigned agree | proxy-assigned neutral | arm 1 measured |
 |---|---|---|---|---|
 | plates-warm | 6 | 4 | 2 | 3 |
 | **columns** | **12** | **0** | **12** | **0** |
 | plates-cold | 60 | 38 | 22 | **0** |
 
-Three sharp claims, each refutable on its own:
+The following three claims are preserved solely as withdrawn, confounded historical proxy content;
+none is habit evidence or a valid pre-run habit prediction:
 
 1. **The entire gain is in plates-cold.** 0 → 38 of 60. If arm 2 does not produce cold plates, the
    prism dip does not do in 3D what it does in 0D, and the arm has failed at its central purpose.
 2. **SDAK as M1 still does NOT rescue the column regime.** 0 of 12, all neutral, at −7 and −8 °C.
    M1's own facet contrast there is 0.673 and 0.976 — essentially isotropic. **If arm 2 produces
    columns at −7/−8, this pre-registration is wrong and the model is better than predicted.** That
-   is the outcome I would most like to be wrong about, and it is registered as a prediction rather
-   than left as an unstated hope.
-3. **The fit's own upper bound is 66 of 78** under the linear form. The registered range is
-   **42–66**, and the spread between two defensible fit forms is the honest uncertainty. Registering
-   only the log-log number would be choosing the fit whose answer I preferred after seeing both.
+   is the outcome I would most like to be wrong about, and it was historically registered as a
+   prediction rather than left as an unstated hope. ADR 0040 withdraws that interpretation.
+3. **WITHDRAWN AS NUMERICALLY INVALID.** The linear form produced nonpositive aspect ratios in the
+   M1 query set, yet those impossible values were classified as plates. Its 66/78 score is not an
+   upper bound, the 42–66 range is not an uncertainty interval, and the linear branch is refused.
+   The positive log-log branch's 42/78 remains a reproducible confounded historical proxy forecast,
+   not habit evidence.
 
-### Part 3 — a measurement systematic, registered before it surprises anyone
+### Part 3 — regression-intercept interpretation, withdrawn
 
-At `ln r = 0` — perfectly isotropic attachment — the fitted transfer function gives **AR = 0.766**,
-not 1.0. Arm 1's own data says an isotropically-growing crystal on this lattice measures 0.766,
-which is **0.100 from the plate ceiling and 0.734 from the column floor**. In anisotropy terms it
-takes `ln r = −0.273` to be classified a plate and `ln r = +1.311` to be classified a column — a
-**4.8× asymmetry**.
+At `ln r_proxy = 0` the fitted regression gives **AR = 0.766**, not 1.0. No isotropic
+forward run was executed, so this is a fit intercept rather than evidence that an
+isotropically-growing crystal measures 0.766. The fitted value is **0.100 from the plate ceiling
+and 0.734 from the column floor**. Under that historical proxy fit, reaching the classification
+thresholds requires `ln r = −0.273` for plate and `ln r = +1.311` for column. This **4.8×
+threshold-distance asymmetry** is a property of the proxy and metric, not a forward-run control.
 
-The habit criterion is not symmetric about isotropy on this lattice. That follows from `tExtent`
-being the corner-to-corner diameter of a hexagon while `zExtent` is a plain thickness, and it biases
-every regime the same way: **columns are structurally harder to score than plates here.** It is
-registered now because it partly explains arm 1's column-side failure and will otherwise look like a
-discovery when arm 2's column band comes back neutral again.
+No lattice-wide or regime-independent bias follows from this intercept. The geometry of `tExtent`
+remains a valid metric-design consideration, but it requires its own direct control.
 
-### Part 4 — a float64 floor, found by writing the test rather than by hitting it
+### Part 4 — historical float64-floor calculation, withdrawn
 
-`α = exp(−σ₀/σ_surf)` is exactly zero in float64 once `σ₀/σ_surf` exceeds 709. M1's σ₀ grows steeply
+`exp(−σ₀/σ_surf)` enters the binary64 subnormal range near 708.396 and is not zero at 709. M1's σ₀ grows steeply
 with |T| — 0.09% at −2 °C against **17.07% at −35 °C** — so the floor is temperature-dependent, and
 at the cold end it is not far below the grid.
 
@@ -332,11 +348,9 @@ Measured per temperature, against each temperature's own smallest swept σ∞:
 |---|---|---|---|---|---|
 | margin to facet arrest | 453× | 438× | 326× | 214× | **169×** |
 
-**169× at −35 °C is comfortable but not enormous**, and σ_surf is *below* σ∞ because diffusion
-depletes it — so the margin that actually applies at the growing surface is smaller than the table
-says by whatever the depletion factor is. Registered so that a cold, low-σ point returning no growth
-at all is recognised as arithmetic underflow rather than reported as physics, and so that any future
-proposal to extend the grid colder than −35 °C or below f = 0.10 prices this in first.
+The table uses sigmaInfinity, not facet-local sigmaSurf, so it cannot bound evaluated coefficients
+at the growing surface or diagnose a no-growth row as arithmetic underflow. It is retained only as
+a historical far-field calculation; a valid underflow control must use or bound local fields.
 
 I found this by writing the assertion, not by hitting the bug — and the first version of the
 assertion was itself wrong, comparing the −35 °C floor against the whole grid's smallest σ∞, which
@@ -345,24 +359,24 @@ per temperature and cannot make that mistake.
 
 ## Caveats, all of which weaken the prediction above
 
-**The strongest part of the forecast is the least supported.** 44 of 204 points ask the transfer
+**Historical regression limitation; no current forecast standing.** 44 of 204 points ask the transfer
 function about anisotropies arm 1 never measured — `ln r` down to −1.50 against arm 1's observed
 minimum of −0.34 — and they are concentrated at −10 to −23 °C, which is precisely the plates-cold
-regime supplying the entire predicted gain. The 38-of-60 rests on extrapolation.
+regime supplying the entire predicted gain. The historical 38-of-60 rests on extrapolation of an
+already inadmissible transfer fit and has no habit-evidence standing.
 
-**R² = 0.511.** The transfer function explains half the variance. It under-predicts plates on arm 1
-itself (1 predicted against 6 measured), so it is conservative in the direction the prediction
-depends on — which cuts in favour of the forecast, and is stated because it could equally have cut
-the other way.
+**Historical fit diagnostic: R² = 0.511.** The transfer function explains about half the sampled
+variance and under-predicts plates on arm 1 itself (1 predicted against 6 measured). That residual
+does not make its cross-parameter-set forecast conservative or admissible.
 
-**σ_surf ≈ σ∞ is a proxy.** Diffusion depletes the near-surface supersaturation, so this is an upper
-bound and the anisotropies on both sides are systematically compressed. The same bias applies to the
-fit and the prediction, which is why the proxy is usable at all, but it is a bias.
+**σ_surf ≈ σ∞ is a proxy.** Diffusion generally depletes near-surface supersaturation, but the two
+facets need not share one local field and geometry changes between CAK and M1. No common-bias
+cancellation or direction of error for the coefficient ratio follows.
 
 **None of this is a validation claim.** Every input is provenance class P3, tuned to the diagram the
 arm is scored against. A hit is in-sample reproduction (ADR 0005), reported as such everywhere it
-appears. The only genuinely new information is whether a form tuned in 0D survives 3D — which is a
-question about the model, not about snow.
+appears. The measured information is the bundled M1 forward outcome at the executed configuration;
+whether the dip factors themselves survive 3-D requires the matched no-dip arm.
 
 ## Implementation, and one guard that had to be restored
 
@@ -375,16 +389,15 @@ evidence replays unchanged, the Phase 6 libm digest is still `2a9f64b3`, and all
 hashes are unmoved — recomputed after the edit, not assumed. `core/test/libbrecht.test.ts` checks
 bit equality with `Object.is` over the whole domain at half-degree steps.
 
-**It keeps the extrapolation ban.** The digitized CAK anchors *throw* outside (Tm − T) ∈ [1, 50];
-a closed form does not — it returns a number for any input. Adopting M1 as written would have
-silently dropped that safety property, and dropped it in the worst direction, since the M1 forms are
-ad-hoc fits whose behaviour outside Libbrecht's data range is unconstrained rather than merely
-uncertain. M1 is therefore bounded to **the same domain as the anchors**, which introduces no new
-registered number and puts both sets' refusal in the same place. Found by a test failing at −0.5 °C,
-not by reasoning ahead of it.
+**It keeps an explicit evaluation-domain guard.** A closed form returns a number outside any source
+domain unless the code refuses it. TAX2 Figure 1 (2306.13087v1 printed p.6) displays the exact M1
+curves over (Tm − T) ∈ [1, 50] °C and says the text defines them, so M1 is bounded to that **source
+model display domain**. This does not claim direct measurements anchor every temperature; cold rows
+remain P3/model-prescription territory. Found by a test failing at −0.5 °C, then corrected against
+the primary figure rather than by inheriting CAK's unrelated anchor range.
 
-The Phase 6 grid (−2 … −35 °C) sits comfortably inside that domain, so the guard does not bite
-today. It bites the moment anyone proposes extending the grid, which is when it should.
+The Phase 6 grid (−2 … −35 °C) lies inside that displayed domain. The guard rejects proposals outside
+it unless a later decision freezes a new source-supported or explicitly extrapolated policy.
 
 ## The arm-2 freeze review, and the six defects it caught
 
@@ -420,9 +433,10 @@ from the arm's own prior data rather than from optimism — the thing the no-SDA
 expectation (~2/90 against a measured 3/90) got right and which is worth repeating properly. And a
 scope decision that removes the arm's only free parameter before anyone can tune it.
 
-**Costs.** 18 points leave the headline. M2 and the width-dependent hypothesis are deferred, so a
-success here is a success for the all-facets-narrow approximation, not for SDAK in general — a
-narrower claim than ADR 0030 anticipated, and it will be worded that way.
+**Costs.** The named bistable set contains 18 raw rows, but −4 °C was already ambiguity-excluded;
+the net headline denominator change is 90→78, or 12 rows. M2 and the width-dependent hypothesis are
+deferred. A forward agreement under M1 would be an in-sample result for that prescribed model, not
+validation of the all-facets-narrow assumption or SDAK causality.
 
 **Forecloses.** Deciding how to score the bistable band after seeing what it produced. Building a
 sub-grid closure with a tunable parameter and reporting the agreement it buys. Reporting the 0D 15/15
@@ -433,8 +447,9 @@ a denominator arm 1 was not scored against, without also reporting the common on
 
 **Run M2 with a facet-width proxy keyed to integer surface-cell counts.** Rejected for arm 2 as the
 primary. It is the physically richer model and it is what a full test of SDAK eventually requires,
-but its closure has a free strength parameter with no printed value, and an arm whose result depends
-on a number nobody published cannot distinguish the hypothesis from the tuning. Deferred to a
+but its closure has a free strength parameter for which the reviewed source set supplied no
+transferable value, and an arm whose result depends on an unconstrained closure cannot distinguish
+the hypothesis from the tuning. Deferred to a
 successor arm with the closure itself pre-registered.
 
 **Score the bistable band by the branch a registered selection rule picks** (facet width, or growth

@@ -65,6 +65,11 @@ import {
 /** Registered habit thresholds — restated from the protocol, not re-chosen. */
 const PLATE_CEILING = 1 / 1.5;
 const COLUMN_FLOOR = 1.5;
+const PHASE6_REGISTERED_ACTIVE_CELLS = phase6ExpectedRunGeometry(
+  PHASE6_CROSSPLATFORM_FIXTURE.dims.nx,
+  PHASE6_CROSSPLATFORM_FIXTURE.seedRadius,
+  PHASE6_CROSSPLATFORM_FIXTURE.seedThickness,
+).activeCells;
 
 /** Classify a measured aspect ratio under the registered thresholds. */
 export function phase6ClassifyHabit(aspectRatioValue: number): Phase6ModelClass {
@@ -288,10 +293,12 @@ export function phase6SweepPreflight(
   let valuesSha256 = "";
   let justificationSha256 = "";
   try {
-    // ADR 0033. The VALUES hash is the gate: editing a registered value invalidates prior sweep
-    // results. The JUSTIFICATION hash is reported and NOT gated — a prose correction is ADR-logged
-    // but costs no re-sweep, because no evidence-producing path reads prose. The legacy combined
-    // hash is still checked, because published evidence cites it.
+    // ADR 0033. The VALUES hash is the gate: editing a registered value makes earlier sweeps
+    // inadmissible for a replacement gate and requires a full replacement rerun. Their executed
+    // bytes and measurements remain historical evidence of the named superseded protocol. The
+    // JUSTIFICATION hash is reported and NOT gated — a prose correction is ADR-logged but costs no
+    // re-sweep, because no evidence-producing path reads prose. The legacy combined hash is still
+    // checked, because published evidence cites it.
     valuesSha256 = arm.valuesSha256();
     justificationSha256 = arm.justificationSha256();
     protocolSha256 = arm.protocolSha256();
@@ -299,7 +306,9 @@ export function phase6SweepPreflight(
       failures.push(
         `${arm.id} values hash ${valuesSha256} does not match the registered ` +
           `${PHASE6_ARM_VALUES_SHA256[arm.id] ?? "(UNREGISTERED ARM)"} ` +
-          "— a registered VALUE was edited without updating the pin, which invalidates prior sweeps",
+          "— a registered VALUE was edited without updating the pin, making earlier sweeps " +
+          "inadmissible for a replacement gate until a full replacement rerun; historical bytes " +
+          "and measurements retain their named superseded-protocol scope",
       );
     }
     if (arm.id === PHASE6_ARM1.id && protocolSha256 !== PHASE6_PROTOCOL_SHA256) {
@@ -623,6 +632,22 @@ export function phase6ConfigFailures(
 }
 
 /**
+ * Return one raw `name=value` token, but only when the field name occurs exactly once.
+ *
+ * Count names separately from capturing values. If the occurrence scan were coupled to the
+ * non-whitespace value capture, `cfl=0.1)cfl=garbage` would be consumed as one invalid value and
+ * punctuation-separated variants could make a valid token plus a malformed duplicate look unique.
+ * The identifier boundary keeps substrings such as `targetExtent` from being counted as `extent`.
+ */
+function phase6UniqueRawToken(region: string, name: string): string | null {
+  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const fieldStart = `(?<![A-Za-z0-9_])${escaped}=`;
+  const occurrences = [...region.matchAll(new RegExp(fieldStart, "g"))];
+  if (occurrences.length !== 1) return null;
+  return new RegExp(`${fieldStart}([^\\s]+)`).exec(region)?.[1] ?? null;
+}
+
+/**
  * Parse grow-lk's echoed header — the run describing itself.
  *
  * Two regions, deliberately separated. The HEADER is what the child was configured with, printed
@@ -630,51 +655,70 @@ export function phase6ConfigFailures(
  * has a perfectly clean header, which is precisely why a header-only check certified one.
  */
 export function phase6ParseRunConfig(stdout: string): Phase6RunConfig | null {
-  const at = stdout.indexOf("stop reason");
-  const head = at < 0 ? stdout : stdout.slice(0, at);
-  // The last one, not the first: a progress line can never contain it, but neither should this be
-  // the kind of parse that a second occurrence quietly changes the meaning of.
-  const tail = at < 0 ? "" : stdout.slice(stdout.lastIndexOf("stop reason"));
-  const from = (region: string, re: RegExp): string | null => {
-    const hit = re.exec(region);
-    return hit === null ? null : (hit[1] as string);
+  const marker = "stop reason=";
+  const at = stdout.indexOf(marker);
+  if (at < 0 || at !== stdout.lastIndexOf(marker)) return null;
+  const head = stdout.slice(0, at);
+  const tail = stdout.slice(at + marker.length);
+  // Count raw field-name occurrences before validating values. Matching only valid tokens makes a
+  // valid value plus a malformed duplicate look unique, which is fail-open provenance parsing.
+  const rawToken = phase6UniqueRawToken;
+  const numberPattern = "[+-]?(?:[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+)(?:[eE][+-]?[0-9]+)?";
+  const parsedNumber = (raw: string | null, pattern: RegExp): number => {
+    if (raw === null) return Number.NaN;
+    const match = pattern.exec(raw);
+    if (match === null) return Number.NaN;
+    const value = Number(match[1]);
+    return Number.isFinite(value) ? value : Number.NaN;
   };
-  const str = (re: RegExp): string | null => from(head, re);
-  const n = (re: RegExp): number => {
-    const raw = str(re);
-    return raw === null ? Number.NaN : Number(raw);
+  const parsedInteger = (raw: string | null, pattern: RegExp): number => {
+    const value = parsedNumber(raw, pattern);
+    return Number.isSafeInteger(value) ? value : Number.NaN;
   };
-  const paramSet = str(/paramSet=(\S+)/);
-  const surfacePolicy = str(/surfacePolicy=(\S+)/);
-  const farField = str(/farField=(\S+)/);
-  const stopReason = from(tail, /stop reason=(\S+)/);
-  if (paramSet === null || surfacePolicy === null || farField === null || stopReason === null) return null;
+  const paramSet = rawToken(head, "paramSet");
+  const surfacePolicy = rawToken(head, "surfacePolicy");
+  const farField = rawToken(head, "farField");
+  const stopReason = /^(\S+)(?=\s|$)/.exec(tail)?.[1] ?? null;
+  if (
+    paramSet === null || !/^[^(),]+$/.test(paramSet)
+    || surfacePolicy === null || !/^[^(),]+$/.test(surfacePolicy)
+    || farField === null || !/^[^(),]+$/.test(farField)
+    || stopReason === null
+  ) return null;
+  const dims = /^([0-9]+),([0-9]+),([0-9]+)$/.exec(rawToken(head, "dims") ?? "");
+  const dimsN = Number(dims?.[1]);
+  if (
+    dims === null
+    || dims[1] !== dims[2]
+    || dims[1] !== dims[3]
+    || !Number.isSafeInteger(dimsN)
+  ) return null;
   const config: Phase6RunConfig = {
     paramSet,
     surfacePolicy,
     farField,
-    dxUm: n(/dx=([0-9.e+-]+)um/),
-    pressurePa: n(/P=([0-9.e+-]+)Pa/),
-    cfl: n(/cfl=([0-9.e+-]+)/),
-    relaxTol: n(/[^v]tol=([0-9.e+-]+)/),
-    divTol: n(/divTol=([0-9.e+-]+)/),
-    relaxMaxSweeps: n(/maxSweeps=([0-9]+)/),
-    targetExtent: n(/targetExtent=([0-9]+)/),
-    rngSeed: n(/seed=([0-9]+)/),
-    noiseEpsilon: n(/noise=([0-9.e+-]+)/),
-    seedRadius: n(/seedRadius=([0-9]+)/),
-    tempC: n(/\bT=(-?[0-9.e+-]+)C/),
-    sigmaInf: n(/sigmaInf=([0-9.e+-]+)/),
-    dimsN: n(/dims=([0-9]+),/),
+    dxUm: parsedNumber(rawToken(head, "dx"), new RegExp(`^(${numberPattern})um$`)),
+    pressurePa: parsedNumber(rawToken(head, "P"), new RegExp(`^(${numberPattern})Pa$`)),
+    cfl: parsedNumber(rawToken(head, "cfl"), new RegExp(`^(${numberPattern})$`)),
+    relaxTol: parsedNumber(rawToken(head, "tol"), new RegExp(`^(${numberPattern})$`)),
+    divTol: parsedNumber(rawToken(head, "divTol"), new RegExp(`^(${numberPattern})$`)),
+    relaxMaxSweeps: parsedInteger(rawToken(head, "maxSweeps"), /^([0-9]+)$/),
+    targetExtent: parsedInteger(rawToken(head, "targetExtent"), /^([0-9]+)$/),
+    rngSeed: parsedInteger(rawToken(head, "seed"), /^([0-9]+)$/),
+    noiseEpsilon: parsedNumber(rawToken(head, "noise"), new RegExp(`^(${numberPattern})$`)),
+    seedRadius: parsedInteger(rawToken(head, "seedRadius"), /^([0-9]+)$/),
+    tempC: parsedNumber(rawToken(head, "T"), new RegExp(`^(${numberPattern})C$`)),
+    sigmaInf: parsedNumber(rawToken(head, "sigmaInf"), new RegExp(`^(${numberPattern})$`)),
+    dimsN,
     // Signed on purpose. A `box` domain prints `hexRadius=-1`, and matching only digits there made
     // the whole parse fail — so the sweep aborted with "header could not be parsed" instead of
     // naming the domain. Fail-closed either way, but a check should say what it found.
-    hexRadius: n(/hexRadius=(-?[0-9]+)/),
-    zHalfExtent: n(/zHalfExtent=(-?[0-9]+)/),
-    activeCells: n(/active=([0-9]+)/),
-    seedSites: n(/seedSites=([0-9]+)/),
+    hexRadius: parsedInteger(rawToken(head, "hexRadius"), /^(-?[0-9]+),$/),
+    zHalfExtent: parsedInteger(rawToken(head, "zHalfExtent"), /^(-?[0-9]+),$/),
+    activeCells: parsedInteger(rawToken(head, "active"), /^([0-9]+)\)$/),
+    seedSites: parsedInteger(rawToken(head, "seedSites"), /^([0-9]+)$/),
     stopReason,
-    finalExtent: Number(from(tail, /extent=([0-9]+)/) ?? Number.NaN),
+    finalExtent: parsedInteger(rawToken(tail, "extent"), /^([0-9]+)$/),
   };
   return Object.values(config).some((v) => typeof v === "number" && !Number.isFinite(v)) ? null : config;
 }
@@ -707,26 +751,76 @@ export function phase6ScorePoint(
   arm: Phase6Arm = PHASE6_ARM1,
 ): Phase6ScoredPoint {
   const invalidReasons: string[] = [];
-  if (!result.allConverged) invalidReasons.push("a relaxation did not converge");
-  if (!result.deltaSymClean) invalidReasons.push("a per-tick attachment delta broke D6h invariance");
+  if (!Number.isSafeInteger(result.steps) || result.steps < 0) {
+    invalidReasons.push("step count was not a nonnegative safe integer");
+  } else if (result.steps > PHASE6_CROSSPLATFORM_FIXTURE.steps) {
+    invalidReasons.push(
+      `step count ${result.steps} exceeded the registered safety cap `
+        + `${PHASE6_CROSSPLATFORM_FIXTURE.steps}`,
+    );
+  }
+  if (!Number.isSafeInteger(result.attached) || result.attached < 0) {
+    invalidReasons.push("attached count was not a nonnegative safe integer");
+  } else if (result.attached > PHASE6_REGISTERED_ACTIVE_CELLS) {
+    invalidReasons.push(
+      `attached count ${result.attached} exceeded the registered active-cell count `
+        + `${PHASE6_REGISTERED_ACTIVE_CELLS}`,
+    );
+  }
+  if (!Number.isFinite(result.seconds) || result.seconds < 0) {
+    invalidReasons.push("wall seconds was not finite and nonnegative");
+  }
+  const extentTelemetryValid = Number.isSafeInteger(result.largestExtent) && result.largestExtent >= 0;
+  if (!extentTelemetryValid) {
+    invalidReasons.push("largest extent was not a nonnegative safe integer");
+  }
+  if (result.tempC !== point.tempC) invalidReasons.push("result temperature did not match its grid point");
+  if (result.fraction !== point.fraction) invalidReasons.push("result fraction did not match its grid point");
+  if (result.sigmaInf !== point.sigmaInf) {
+    invalidReasons.push("result far-field supersaturation did not match its grid point");
+  }
+  if (result.allConverged !== true) {
+    invalidReasons.push(
+      result.allConverged === false
+        ? "a relaxation did not converge"
+        : "allConverged telemetry was not exactly boolean true",
+    );
+  }
+  if (result.deltaSymClean !== true) {
+    invalidReasons.push(
+      result.deltaSymClean === false
+        ? "a per-tick attachment delta broke D6h invariance"
+        : "deltaSymClean telemetry was not exactly boolean true",
+    );
+  }
   if (result.symmetryError !== 0) invalidReasons.push(`symmetryError = ${result.symmetryError} with noise off`);
-  if (result.domainContact) invalidReasons.push("tripped the 65% domain-contact guard");
+  const derivedDomainContact = extentTelemetryValid
+    && result.largestExtent / PHASE6_CROSSPLATFORM_FIXTURE.dims.nx
+      > PHASE6_DOMAIN_CONTACT_FRACTION;
+  if (result.domainContact !== derivedDomainContact) {
+    invalidReasons.push("domain-contact telemetry did not match the independently derived geometry");
+  }
+  if (derivedDomainContact) {
+    invalidReasons.push("tripped the 65% domain-contact guard");
+  }
   // ADR 0035. The `habit-measurement-size` freeze row has registered "largest extent 21 lattice
-  // cells" since WP0c, and nothing enforced it. Written as `!(x >= target)` rather than `x < target`
-  // so a NaN extent — an over-budget or unparseable run — is caught rather than passed by the
-  // comparison being false either way.
+  // cells" since WP0c, and nothing enforced it. The telemetry guard above rejects NaN/noninteger
+  // extents; this separate comparison then names a finite, valid run that stopped short.
   const measurementSize = PHASE6_CROSSPLATFORM_FIXTURE.targetExtent;
-  if (!(result.largestExtent >= measurementSize)) {
+  if (extentTelemetryValid && result.largestExtent < measurementSize) {
     invalidReasons.push(
       `stopped at extent ${result.largestExtent}, short of the registered measurement size ` +
         `${measurementSize} — habit is size-dependent, so this is not a smaller measurement of the ` +
         "same crystal",
     );
   }
-  if (result.config !== null && result.config.stopReason !== PHASE6_REQUIRED_STOP_REASON) {
+  if (result.config != null && result.config.stopReason !== PHASE6_REQUIRED_STOP_REASON) {
     invalidReasons.push(
       `stop reason "${result.config.stopReason}", not the registered "${PHASE6_REQUIRED_STOP_REASON}"`,
     );
+  }
+  if (!Number.isFinite(result.aspectRatio) || result.aspectRatio <= 0) {
+    invalidReasons.push("aspect ratio was not finite and positive");
   }
 
   const modelClass: Phase6ModelClass =
@@ -956,26 +1050,54 @@ export function phase6ParseRun(
   seconds: number,
   domainN: number,
 ): Phase6PointResult | null {
-  const tail = stdout.split("stop reason")[1];
-  if (tail === undefined) return null;
-  const num = (re: RegExp): number => {
-    const hit = re.exec(tail);
-    return hit === null ? Number.NaN : Number(hit[1]);
+  const marker = "stop reason=";
+  const at = stdout.indexOf(marker);
+  if (at < 0 || at !== stdout.lastIndexOf(marker)) return null;
+  const tail = stdout.slice(at + marker.length);
+  const rawToken = (name: string): string | null => phase6UniqueRawToken(tail, name);
+  const integerToken = (name: string): number => {
+    const raw = rawToken(name);
+    if (raw === null || !/^[0-9]+$/.test(raw)) return Number.NaN;
+    const value = Number(raw);
+    return Number.isSafeInteger(value) ? value : Number.NaN;
   };
-  const largestExtent = num(/extent=(\d+)/);
-  const aspectRatioValue = num(/AR=([0-9.e+-]+)/);
-  if (!Number.isFinite(largestExtent) || !Number.isFinite(aspectRatioValue)) return null;
+  const numberToken = (name: string): number => {
+    const raw = rawToken(name);
+    if (raw === null || !/^[0-9.e+-]+$/.test(raw)) return Number.NaN;
+    const value = Number(raw);
+    return Number.isFinite(value) ? value : Number.NaN;
+  };
+  const booleanToken = (name: string): boolean | null => {
+    const raw = rawToken(name);
+    return raw === "true" ? true : raw === "false" ? false : null;
+  };
+  const largestExtent = integerToken("extent");
+  const aspectRatioValue = numberToken("AR");
+  const steps = integerToken("step");
+  const attached = integerToken("attached");
+  const symmetryError = numberToken("symErr");
+  const deltaSymClean = booleanToken("deltaSymClean");
+  const allConverged = booleanToken("allConverged");
+  if (
+    !Number.isSafeInteger(largestExtent) || largestExtent < 0
+    || !Number.isSafeInteger(steps) || steps < 0
+    || !Number.isSafeInteger(attached) || attached < 0
+    || !Number.isFinite(aspectRatioValue)
+    || !Number.isFinite(symmetryError)
+    || deltaSymClean === null
+    || allConverged === null
+  ) return null;
   return {
     tempC: point.tempC,
     fraction: point.fraction,
     sigmaInf: point.sigmaInf,
-    steps: num(/step=(\d+)/),
-    attached: num(/attached=(\d+)/),
+    steps,
+    attached,
     aspectRatio: aspectRatioValue,
     largestExtent,
-    symmetryError: num(/symErr=([0-9.e+-]+)/),
-    deltaSymClean: /deltaSymClean=true/.test(tail),
-    allConverged: /allConverged=true/.test(tail),
+    symmetryError,
+    deltaSymClean,
+    allConverged,
     // Computed rather than parsed: the guard is a property of the geometry, and a run that
     // reached it must be excluded whether or not the runner happened to print it.
     domainContact: largestExtent / domainN > PHASE6_DOMAIN_CONTACT_FRACTION,

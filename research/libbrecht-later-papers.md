@@ -1,8 +1,9 @@
 # Libbrecht's post-monograph snow-crystal papers — index
 
-The nine snow-crystal papers Libbrecht published *after* the monograph (`1910.06389v2`), from
-which this project's σ₀ anchors are digitized. Found by the Rule 12 source-currency sweep
-(`research/phase6-source-currency.md`); obtained 2026-07-28 at maker direction.
+Nine snow-crystal papers Libbrecht published *after* the monograph (`1910.06389v2`), indexed by
+the Rule 12 source-currency sweep (`research/phase6-source-currency.md`) and obtained 2026-07-28 at
+maker direction. They include later printed forms and source-fit values related to, but not the
+exclusive provenance of, this project's historical digitized broad-facet table.
 
 Media is not versioned (decision 0004). This index is the tracked artifact: the PDFs and their
 page renders are a local cache, re-downloadable and re-verifiable from the URLs and hashes here.
@@ -41,7 +42,8 @@ Titles and dates are verified from the arXiv listing API. This index records wha
 >   and hashes, reproducible via `app/scripts/phase6-crop-figures.mjs`.
 > - **[`../app/scripts/phase6-libbrecht-closed-forms.mjs`](../app/scripts/phase6-libbrecht-closed-forms.mjs)**
 >   — every printed closed form transcribed beside its page citation, evaluated against this
->   project's inputs and against the dedicated measurement papers. Re-runnable.
+>   project's inputs and against same-lineage source-fit values in the dedicated analysis papers.
+>   Re-runnable; this is not independent experimental validation.
 >
 > ~~**The headline.** A habit boundary requires the basal and prism σ₀ curves to swap order, so the
 > crossing count bounds how many habit transitions a model can express. Every broad-facet
@@ -58,22 +60,25 @@ Titles and dates are verified from the arXiv listing API. This index records wha
 > impossibility, and the sweep cannot establish from them that SDAK is load-bearing. What survives
 > is empirical and limited to the executed rows: they did not reproduce the registered diagram at
 > the sampled conditions. Isolating the dip contribution requires a matched no-dip ablation that
-> holds the remaining M1 kinetics and run configuration fixed.
+> holds the remaining M1 kinetics and run configuration fixed. Even a restricted equal-shared-field
+> `alphaHK` ordering swap does not bound the coupled habit: facet-local fields, geometry, diffusion,
+> size and history remain part of the forward result.
 
 ### Directly on the warm-end problem
 
-~~Our digitized σ₀_prism is **1.6–3.2× low at −2…−5 °C** against Libbrecht's own printed closed
-form (`2306.13087v1.md` §3)~~, and −2 °C is where all five of the validation sweep's agreements
-sit. These two are dedicated measurement papers at exactly those temperatures, published *after*
-the figure we digitized:
+~~Historical claim: our digitized σ₀_prism is 1.6–3.2× low at −2…−5 °C; −2 °C contains all five
+validation agreements; and the comparators are dedicated independent measurement papers.~~
 
-> **CORRECTION 2026-07-28 — the struck claim is REVERSED by these two papers.** They measure
-> σ₀,prism = **0.03%** at −2 °C and **≈0.2%** at −5 °C. Our digitized curve matches to ~7%. The
-> closed form we were judging ourselves against (`2306.13087v1` M2) is the outlier — it is **3.01×
-> the measured value at −2 °C**. The other printed closed form, `2009.08404v2` Eq. (3), gives
-> ×1.07 there. Our digitized `A_prism` likewise reproduces `2009.08404v2` Eq. (5) to within 8%
-> worst and ~2% typically. **The project's digitization was not low; the comparison was against
-> the wrong closed form.** Computed in
+> **CORRECTION 2026-08-01 — the struck claim is unsupported by the cited comparison.** These papers
+> infer/source-fit σ₀,prism = **0.03%** at −2 °C and **≈0.2%** at −5 °C within the same model/source
+> lineage. Our digitized anchors are 0.028% at −2 °C (6.7% low) and 0.27% at −5 °C
+> (35% high; 0.07 percentage point absolute). M2 is ×3.01/×2.14 and `2009.08404v2` Eq. (3) is
+> ×1.07/×1.54 relative to those −2/−5 °C source fits. The earlier uniform 1.6–3.2×-low conclusion
+> used the wrong comparator, but the corrected comparison does not support uniform ~7% agreement.
+> This is a same-lineage transcription/model-consistency check, not independent measurement of
+> σ₀. The “five agreements” count belonged to the superseded CAK_A1 artifact; the retained historical
+> CAK artifact is 3/90. Our digitized `A_prism` separately matches `2009.08404v2` Eq. (5) to within 8.4% worst and
+> ~2% typically. Computed in
 > [`../app/scripts/phase6-libbrecht-closed-forms.mjs`](../app/scripts/phase6-libbrecht-closed-forms.mjs).
 
 - **`2004.06212v1`** — *Comprehensive Model 7: Ice Attachment Kinetics near −2 °C* (2020-04-13)
@@ -84,8 +89,9 @@ the figure we digitized:
 - **`2109.00098v1`** — *Taxonomy 1: Using c-axis Ice Needles as Seed Crystals* (2021-08-31). The
   methods paper for the seed geometry behind all 206 observations in `2306.13087`. Required
   reading before adopting that data set as a comparison target or matching its seed — our
-  registered seed is a hexagonal plate, and seed shape is the largest single systematic measured
-  in Phase 6 (`phase6-convergence.md` §5).
+  registered seed is a hexagonal plate. A sparse Phase 6 diagnostic found a large seed-dependent
+  difference in its executed comparison; it did not establish a largest systematic over the full
+  protocol (`phase6-convergence.md` §5).
 
 ### SDAK primary sources (ADR 0030's arm)
 
@@ -99,8 +105,9 @@ the figure we digitized:
 - **`2306.04042v1`** — *A Comprehensive Model of Snow Crystal Faceting* (2023-06-06). ~~Reportedly
   carries the SDAK-2 two-branch (A, σ₀) table — sweep-reported, unverified.~~ **VERIFIED
   2026-07-28: it is Table 1, page 9**, covering −1 to −15 °C with `v_kin(T)`, and it is a table
-  rather than a plot, so it needs no digitization. Its first branch reproduces the −2 °C and −5 °C
-  measurement papers exactly on all four numbers. See
+  rather than a plot, so it needs no digitization. Its first branch matches the four displayed
+  source-fit values in the −2 °C and −5 °C papers at their stated precision; all are from the same
+  author/model lineage. See
   [`libbrecht-figure-findings.md`](libbrecht-figure-findings.md) §8 and the crop in
   [`figures.md`](figures.md).
 - **`1912.09440v1`** — *A Versatile Apparatus for Measuring the Growth Rates of Small Ice Prisms
@@ -111,6 +118,9 @@ the figure we digitized:
 
 ## Standing constraint
 
-Nothing here has been read into any frozen artifact. The parameter table and the Phase 6 protocol
-are frozen and a sweep has run against them, so per charter §3.2 any edit invalidates that
-evidence. Acting on any of these papers is an ADR-level decision with a stated re-sweep cost.
+The historical CAK artifact retains the parameter-table hash it executed. M1 forms from this corpus
+did enter the historical arm-2 freeze, whose registered headline was never produced; its values
+hash remains preserved for artifact verification. The corrected table is accepted under ADR 0040
+with a separately named current-file hash; the replacement protocol still requires a new freeze and
+full registered rerun. Any further behavior change
+remains ADR- and re-freeze-gated under charter §3.2.

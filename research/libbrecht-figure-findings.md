@@ -1,31 +1,41 @@
 # What the figures say — reading the ten Libbrecht papers as images
 
-> # ⚠ RETRACTION — §1's structural claim is WRONG (2026-07-29)
+> # ⚠ RETRACTION — §1's structural proof is INVALID (2026-07-29)
 >
-> An adversarial audit refuted the central claim of §1, and I have reproduced the refutation
-> independently. **Do not cite §1's "structural bound" or the phrase "no broad-facet
+> An adversarial audit invalidated the central proof in §1, and the document author separately
+> reproduced the calculations exposing its errors. The surviving record does not name that
+> reproducer's model, shared-context status, exact reruns, or limits, so the corroboration does not
+> establish independence under current Rule 10. The audit did not prove the claim's negation.
+> **Do not cite §1's
+> "structural bound" or the phrase "no broad-facet
 > parameterization can express three habit boundaries."** Two separate errors:
 >
-> **1. The bound was computed on the wrong quantity.** Habit depends on the ordering of
-> `alphaHK = A·exp(−σ₀/σ_surf)`, which carries `A_prism`. §1 counted crossings of **σ₀ alone**, and
+> **1. The bound was computed on the wrong quantity.** A restricted equal-field comparison uses
+> `alphaHK = A·exp(−σ₀/σ_surf)`, which carries `A_prism`; actual habit also depends on each facet's
+> solver-produced field and coupled evolution. §1 counted crossings of **σ₀ alone**, and
 > `app/scripts/phase6-libbrecht-closed-forms.mjs` fed its crossing finder only the σ₀ pair, silently
 > discarding `A_prism`. Recomputed with `A_prism` included, the printed `2009.08404v2` broad-facet
-> set has **THREE** αHK crossings for σ_surf ≈ 0.199–0.399 %, alternating plate/column/plate/column.
-> The registered `CAK` set likewise has three for σ_surf ∈ [0.00247, 0.00366] — **and 2 of the 204
-> sweep points sit inside that band.** So there is no bound of one, and it is not "independent of
+> set has **THREE** equal-field alphaHK crossings for a shared σ_surf ≈ 0.199–0.399 %.
+> The registered `CAK` set likewise has three for a shared σ_surf ∈ [0.00247, 0.00366]. Two of the
+> 204 sigmaInfinity inputs lie numerically in that interval, with no implication for facet-local
+> sigmaSurf. The one-crossing proof fails, and the count is not "independent of
 > diffusion": the count is a function of σ_surf, which diffusion sets.
 >
-> **2. `log` in the M1 dip formulas is base-10, not natural.** Using `Math.log` gave five crossings
-> at 3.70/6.25/8.46/9.93/18.62. With `log10` as printed there are **three**, at
-> **3.08 / 8.07 / 24.73** — much closer to the reference boundaries 3.3 / 9.9 / 21.5 than the number
+> **2. The project interprets the unstated `log` in the M1 dip formulas as base 10.** Figure 1's
+> plotted dip widths support that registered transcription choice; the source does not print the
+> base. The prior natural-log implementation gave five
+> equal-shared-field attachment-coefficient equalities at 3.70/6.25/8.46/9.93/18.62. With
+> the project's registered, Figure-1-width-supported `log10` reading there are **three**, at
+> **Approximately 3.08 / 8.07 / 24.73** — much closer to the reference boundaries 3.3 / 9.9 / 21.5 than the number
 > I published.
 >
 > **What still stands.** The sweep's measured numbers are unaffected. Along the sweep's sampled
-> constant-`f` ladders the `alphaHK` reversal count is 1 at f = 0.10 and 0 at every larger sampled
-> f. Separately, the measured-only habit comparison and pure-class flip census fail to reproduce
+> constant-`f` ladders the far-field proxy has one equal-field coefficient-order swap at f = 0.10
+> and none at every larger sampled f; this is not a measured solver reversal. Separately, the
+> measured-only habit comparison and pure-class flip census fail to reproduce
 > the reference under the executed protocol. The reversal count does not bound habit transitions.
-> What is refuted is the **necessity** argument:
-> that no broad-facet model *could*. That was the strongest thing I claimed and it is not true.
+> What is withdrawn is the **necessity** argument that no broad-facet model *could*. The audit
+> invalidated its proof; it did not establish the opposite with a 3-D broad-facet counterexample.
 >
 > §9's probes and §10's source quotes are separately qualified below; see also the audit's finding
 > that §10.1's ρ_aspect comparison is cherry-picked (the sweep's −5 °C row has 3 of 6 points above
@@ -46,10 +56,12 @@ which transcribes each constant beside its page citation and can be re-run. **No
 read off a plotted curve.** Where a quantity exists only as plotted data, it is recorded as
 requiring digitization and no number is given.
 
-**Nothing here has been read into a frozen artifact.** The Phase 6 parameter table and protocol
-are frozen and a 204-point sweep has run against them. Charter §3.2 Phase 6 item 1: *"Any
-post-freeze edit to parameters or protocol requires a logged ADR and invalidates prior sweep
-results — the full sweep re-runs."* Acting on any of this is an ADR-level decision.
+**Historical freeze note, superseded by accepted decision 0040 on 2026-08-02.** At the time of this
+reading, none of these
+findings had been read into the then-frozen parameter table, and a 204-point sweep had run against
+that historical freeze. Accepted decision 0040 establishes a corrected table under a separately
+named current hash and requires a full replacement sweep while preserving the historical artifacts
+under their original hash.
 
 ---
 
@@ -62,7 +74,8 @@ of its reasoning should be reused. The corrected treatment is in
 §3, which prints σ₀ crossings and αHK order swaps side by side.
 
 ~~A habit boundary requires the basal and prism attachment coefficients to swap order — that is, a
-σ₀ crossing.~~ **The first clause is right; "that is, a σ₀ crossing" is the error.** The swap
+σ₀ crossing.~~ **Both morphology inference and equivalence are too strong.** Under a shared
+positive surface field, the coefficient-order
 condition is `ln A_prism(t) = (σ₀_prism − σ₀_basal)/σ_surf`, which equals a σ₀ crossing only when
 `A_prism = 1`. ~~So **the number of σ₀ crossings is a hard upper bound on the number of habit
 transitions a model can produce**, independent of diffusion, grid spacing, seed shape, far-field
@@ -70,17 +83,18 @@ condition, or domain size.~~ **Neither a bound nor independent: the count is a f
 
 Computed from the printed closed forms:
 
-| model | crossings | at (Tm−T) °C |
+| model | nominal `sigma_0` equalities | at (Tm−T) °C |
 |---|---|---|
 | this project's digitized anchors | **1** | 10.00 |
 | `2306.13087v1` M2, broad facets (p7) | **1** | 8.39 |
 | `2009.08404v2` Eq. (2)/(3), broad facets (p3) | **1** | 10.92 |
-| `2306.13087v1` M1, **with both SDAK dips** (p6) | ~~5~~ **3** | ~~3.70, 6.25, 8.46, 9.93, 18.62~~ **3.08, 8.07, 24.73** — `log` is base-10 |
+| `2306.13087v1` M1, **with both SDAK dips** (p6) | ~~5~~ **3** | ~~3.70, 6.25, 8.46, 9.93, 18.62~~ **≈3.08, ≈8.07, ≈24.73** — source base unstated; project P4 reading is base 10 |
 
 The digitized Nakaya diagram has **three** boundaries (3.3, 9.9, 21.5). ~~Every broad-facet
-parameterization ever printed for this model yields **one** crossing~~ — true of σ₀, **false of the
-αHK ordering that actually sets habit**: the printed `2009.08404v2` set reaches three αHK swaps for
-σ_surf ≈ 0.199–0.399 %, and the registered `CAK` set for σ_surf ∈ [0.00247, 0.00366].
+parameterization ever printed for this model yields **one** crossing~~ — true of these nominal σ₀
+pairs, **false even of the restricted equal-field attachment ordering**: the printed
+`2009.08404v2` set reaches three coefficient-order swaps for σ_surf ≈ 0.199–0.399 %, and the
+registered `CAK` set for σ_surf ∈ [0.00247, 0.00366]. Neither swap count is a habit criterion.
 
 **STALE — these are the superseded `CAK_A1` sweep's numbers.** The registered `CAK` sweep scores
 **3/90** with `plates-warm` 3/6; see `phase6-sweep-report.md`. The retraction at the head of this
@@ -91,14 +105,13 @@ document withdraws the mechanism claim itself. Original text follows.
 
 | Nakaya band | sweep | SDAK dip centre, printed |
 |---|---|---|
-| `plates-warm` T > −3.3 | 5/6 | — (no dip; the one band we reproduce) |
+| `plates-warm` T > −3.3 | 5/6 | — (no dip; the one band historically scored as agreement) |
 | `columns` −3.3…−9.9 | **0/24** | basal dip at log(4.5) → **−4.5 °C** |
 | `plates-cold` −9.9…−21.5 | **0/60** | prism dip at log(14.4) → **−14.4 °C** |
 
-ADR 0025 registered the structural argument pre-sweep — *"the reference has three, and a single
-monotone σ₀ crossing can produce at most one"* — so this is a confirmation of a registered
-expectation, not a post-hoc rationalisation. What the figures add is **which** transitions are
-missing and **why**, by name and temperature.
+ADR 0025 historically registered the structural argument pre-sweep. The current correction withdraws
+that interpretation; accepted decision 0040 makes it future-gate-inadmissible. The forward artifacts measure missing classes, but these figures do not
+establish which analytic feature caused them or why.
 
 Libbrecht states the anisotropy requirement directly (`2306.13087v1` p4):
 
@@ -106,20 +119,25 @@ Libbrecht states the anisotropy requirement directly (`2306.13087v1` p4):
 > when 𝛼_prism ≪ 𝛼_basal. **Neither diffusion-limited growth nor surface-energy effects produce
 > growing snow crystals with high overall aspect ratios.**"
 
-Note **≪**, not <. This is the printed source of a lesson Phase 6 learned by measurement twice:
-an α ratio above 1 marks where one habit stops, not where the other starts.
+Note **≪**, not <. This is a source-model anisotropy statement. The historical run separately
+measured a wide neutral region in two sampled ladders; no universal stopping rule follows from an
+equal-field ratio crossing.
 
 **Figure 1 of `2306.13087v1` (p6) draws the Nakaya habit bands directly onto the σ₀(T) plot** —
-`plates | columns | thin plates | columns`, separated at (Tm−T) ≈ 3, 8, 25 — with the band edges
-at the curve crossings. The claim that the crossing structure *is* the morphology mechanism is
-the source's own, not an inference drawn here.
+`plates | columns | thin plates | columns`, separated at (Tm−T) ≈ 3, 8, 25. Evaluating the printed
+algebra with the project's registered, Figure-1-width-supported P4 base-10 reading gives `sigma_0`
+equalities at approximately 3.08, 8.07 and 24.73 °C, visually near those
+separators. Because M1's prefactors are one, these are also equal-shared-positive-field coefficient
+equalities—not habit transitions. This
+records M1's source-side, in-sample construction; neither the visual alignment nor the crossing
+count proves the coupled solver's morphology mechanism.
 
 ---
 
-## 2. A printed closed form for `A_prism`, and an independent check on our digitization
+## 2. A printed closed form for `A_prism`, and a separate transcription-route check
 
-`2009.08404v2` p3 prints the broad-facet model in full — the first printed closed form for
-`A_prism` this project has had:
+`2009.08404v2` p3 prints the broad-facet model in full — the earliest printed closed form for
+`A_prism` identified in this project's reviewed source set:
 
 ```
 σ₀,basal(T*) = 0.02·T*^1.75 + 0.3                            (2)
@@ -137,9 +155,10 @@ temperatures of `A_PRISM_CAK` in `core/src/libbrecht.ts`:
 | Eq. (5) | 0.4512 | 0.2857 | 0.1964 | 0.1964 | 0.8339 | 0.9675 | 0.9892 | 0.9974 | 0.9995 |
 | deviation | −0.27% | −2.00% | +6.91% | **−8.36%** | −0.47% | +3.36% | +1.10% | +0.26% | +0.05% |
 
-Worst 8.4%, typically under 2%. **The digitization reproduces the printed closed form.** This is
-an independent check on the digitization method that the project never had, and it raises
-`A_prism`'s provenance above "read off a figure".
+Worst 8.4%, typically under 2%. **The digitization agrees with the later-discovered printed closed
+form through a separate transcription route.** That is stronger provenance than an unaudited
+figure read, but both representations come from the same author's model/source lineage; their
+agreement is not an independent experimental reproduction or physical validation.
 
 ### It also bounds the `paramSet` mismatch
 
@@ -176,7 +195,7 @@ to "the sweep ran a defensible model for an unregistered reason."
 
 ---
 
-## 3. Two different printed σ₀,prism closed forms by the same author — and which one measurement supports
+## 3. Two printed σ₀,prism closed forms by the same author — and which source-inferred values favour
 
 `2009.08404v2` Eq. (3) and `2306.13087v1` M2 (p7) are both printed, both by Libbrecht, and they
 disagree — by 14× at (Tm−T) = 1, converging to ≈0.88 above 8:
@@ -186,10 +205,10 @@ disagree — by 14× at (Tm−T) = 1, converging to ≈0.88 above 8:
 | `2009.08404v2` Eq. (3) | 0.0025 | 0.0321 | 0.0938 | 0.3082 | 1.3462 | 5.4366 | 21.1356 |
 | `2306.13087v1` M2 | 0.0350 | 0.0903 | 0.1737 | 0.4275 | 1.5796 | 6.1207 | 24.1829 |
 
-Against the dedicated measurement papers, the full `2009.08404v2` Eq. (2)–(5) set is
-self-consistently the closer one:
+Against the attachment parameters those dedicated papers infer from their growth observations, the
+full `2009.08404v2` Eq. (2)–(5) set is self-consistently the closer one:
 
-| quantity | T | measured | source | Eq. (2)/(3)/(5) | M2 |
+| quantity | T | source-inferred value | source | Eq. (2)/(3)/(5) | M2 |
 |---|---|---|---|---|---|
 | σ₀,prism | −2 °C | 0.03% | `2004.06212v1` | 0.0321% (**×1.07**) | 0.0903% (×3.01) |
 | σ₀,prism | −5 °C | ≈0.2% | `1912.03230v1` | 0.3082% (×1.54) | 0.4275% (×2.14) |
@@ -198,9 +217,10 @@ self-consistently the closer one:
 | σ₀,basal | −2 °C | 0.4% | `2004.06212v1` | 0.3673% (×0.92) | same Eq. (2) |
 | σ₀,basal | −5 °C | 0.7% | `1912.03230v1` | 0.6344% (×0.91) | same Eq. (2) |
 
-**This corroborates the earlier finding that M2 is the outlier at the warm end**, and identifies
-which printed form to prefer if the project ever replaces its digitized table:
-`2009.08404v2` Eqs. (2)–(5), as a set.
+**Within this same-author source family, this makes M2 the warm-end outlier**, and identifies which
+printed form is more consistent with the reported inversions if the project replaces its digitized
+table: `2009.08404v2` Eqs. (2)–(5), as a set. It is a source-consistency result, not an independent
+reproduction of the underlying surface physics.
 
 Libbrecht's own hedge on the warm prism regime (`2306.13087v1` p7):
 
@@ -227,24 +247,28 @@ kinetics, because M1's dipped curves *are* the narrow-facet kinetics (p7):
 > "it is a reasonable first approximation to assume that all faceted surfaces are described by the
 > attachment kinetics on narrow facets."
 
-And the broad branch barely applies in air (p7):
+The source says a physical ESI often converts broad facets into narrow ones in air (p7):
 
 > "the Edge-Sharpening Instability (ESI) [2021Lib, 2017Lib] is quite efficient in air, quickly
 > turning broad facets into narrow facets during growth. In the observations presented below, we
 > see that many fast-growing snow crystal morphologies do not contain any broad faceted surfaces."
 
 **Consequence.** The conclusion recorded as "M2 closed forms cannot improve the headline —
-re-sweep not warranted" was measured against M2's broad-facet branch, i.e. the branch the ESI
-removes. The conclusion may still hold, but its stated basis does not support it, and the
-sensitivity should be re-registered against the M1 (dipped) curves instead.
+re-sweep not warranted" was measured against M2's broad-facet branch, while the source says a
+physical ESI can narrow facets in air. The conclusion may still hold, but its stated basis does not
+support it. M1's everywhere-narrow curves are one printed starter approximation; a full M2 test
+would instead require the unimplemented width-dependent closure. Merely running diffusion through
+air does not implement or demonstrate that ESI mechanism.
 
 ---
 
-## 5. The SDAK branch is measured, not merely hypothesised
+## 5. The SDAK branch is inferred from growth measurements, not observed directly
 
-Two dedicated papers measure the narrow-facet σ₀ directly. Both plot data points with error bars;
-**the values exist only as plotted data and are not transcribed here** — extracting them is a
-digitization task.
+Two dedicated papers infer narrow-facet σ₀ from observed growth rates using the source's attachment-
+kinetics model. Both plot the inferred values as data points with error bars; **the values exist only
+as plotted data and are not transcribed here** — extracting them is a digitization task. The papers'
+captions call them measured values, but the repository treats them as model-dependent inversions,
+not direct observations of a microscopic surface barrier.
 
 | dip | paper | figure | span | condition |
 |---|---|---|---|---|
@@ -263,15 +287,15 @@ digitization task.
 
 ### Limits these papers state about their own SDAK numbers
 
-- **The prism curve was measured at one supersaturation.** σ_far = 32% only; any σ-dependence of
-  the SDAK branch is unmeasured by that data set.
+- **The prism curve was inferred at one supersaturation.** σ_far = 32% only; any σ-dependence of
+  the SDAK branch is unconstrained by that data set.
 - **The functional form fails at the peak** (`2009.08404v2` p15): *"The measurements near the peak
   at -14 C do not fit the simple exponential functional form, but the fit is reasonable on either
   side of the peak."*
 - **And the reduction to a single parameter is stated as inadequate there** (p15): *"The full data
   set indicates, however, that this simple picture of 𝜎₀,prism,SDAK(𝑇) is not adequate to fully
   describe the growth behavior near -14 C … when the SDAK effect is especially strong."*
-- **SDAK has two sub-effects, and the basal measurement deliberately isolates one** (`2011.02353v1`
+- **SDAK has two sub-effects, and the basal inversion deliberately isolates one** (`2011.02353v1`
   p7): *"I found that the SDAK-2 effect could be avoided by observing the growth of ice needles in
   air under conditions with 𝜎∞ ≈ 8 percent"*. So Fig. 5 characterises SDAK-1 with SDAK-2
   suppressed by construction.
@@ -287,7 +311,7 @@ digitization task.
 
 ---
 
-## 6. Two systematics this project defers, addressed by the source
+## 6. Two omitted systematics discussed by the source
 
 **Latent heating** (`2306.13087v1` p5) — the project currently does not apply it and records it as
 an unapplied systematic. Libbrecht makes the same choice and says why:
@@ -298,8 +322,11 @@ an unapplied systematic. Libbrecht makes the same choice and says why:
 > approximation. For this reason, I will ignore latent heating and thermal diffusion for the
 > remainder of this paper."
 
-This supports the project's deferral below −10 °C and confirms the warm end is where it bites —
-consistent with ADR 0025's refusal to extend the grid to −1 °C.
+This source-model statement makes the warm end the higher-risk region and supplies context for ADR
+0025's refusal to extend the grid to −1 °C. It does not quantify latent-heating error for this
+lattice, geometry, supersaturation ladder, or run size, and therefore does not by itself justify
+deferral for a validation claim. The omission remains a stated systematic until a registered
+regime-dependent bound or implemented correction covers the replacement domain.
 
 **Surface energy / Gibbs–Thomson** (`2306.13087v1` p5, p7) — not currently modelled:
 
@@ -319,7 +346,7 @@ Relevant to the low-σ end of the grid (f = 0.10, 0.15) where the sweep's only c
 
 Pages 11–14 are the photographic matrix, in a grid of temperature (columns) × supersaturation
 (rows: 7, 10, 15, 20, 30, 45, 70, 100, 150 %), each panel labelled with growth time in seconds and
-a size in µm. What the images show, as morphology:
+a field-of-view width in µm, not a measured crystal endpoint size. What the images show, as morphology:
 
 - **p11, −0.5…−4.5 °C** — dendritic stars and plates at high σ; by −3…−4.5 °C at low σ the
   crystals are columnar/needle-like.
@@ -334,10 +361,10 @@ a size in µm. What the images show, as morphology:
 **Why it is still not a scoring target**, beyond the reasons already recorded in
 `research/2306.13087v1.md` (needle seed; 206 panels to digitize):
 
-- **The σ normalisation convention is not established here.** Panels run to 150%, while the
-  registered grid uses fractions 0.1–0.9. Nothing read so far fixes what these percentages are
-  relative to. **This must be pinned from the source before any comparison is contemplated** — an
-  unresolved factor here would silently misalign every point.
+- **At this initial figure-only reading, the σ normalisation convention was not established.** Panels
+  run to 150%, while the registered grid uses fractions 0.1–0.9. Later source reconciliation in
+  §10.3 settles both as dimensionless ice-relative supersaturation; normalization is no longer an
+  open blocker. Geometry, seed/history, pressure and uncertainty still prevent direct scoring.
 - **Panels are selected, not sampled** (p8): *"Each composite photo … shows a representative
   example selected from several growing crystals … Some subjective preference was given to
   well-formed crystals exhibiting good symmetry."*
@@ -385,21 +412,23 @@ So `α_prism = A1·exp(−σ₀,1/σ_surf) + A2·exp(−σ₀,2/σ_surf)`.
 > cited as Eq. 32. Anyone implementing the SDAK arm from this must read p9 directly.
 
 **σ₀ in this table is a FRACTION, not a percent**, and branch 1 is the broad-facet kinetics. Both
-follow from the table reproducing the dedicated measurement papers exactly:
+follow from exact agreement with the same author's dedicated-paper parameter inversions:
 
-| T | Table 1 branch 1 | dedicated measurement | source |
+| T | Table 1 branch 1 | dedicated-paper inferred value | source |
 |---|---|---|---|
 | −2 °C | A1 = 0.25, σ₀,1 = 3e−4 = **0.03%** | A_prism = 0.25, σ₀,prism = **0.03%** | `2004.06212v1` |
 | −5 °C | A1 = 0.2, σ₀,1 = 2e−3 = **0.2%** | A_prism ≈ 0.2, σ₀,prism ≈ **0.2%** | `1912.03230v1` |
 
-Not approximately — identically, on all four numbers. And at −15 °C the table gives σ₀,1 = 3e−2 =
-3.0%, against Eq. (3)'s 3.0649% and M2's 3.4766%, so Eq. (3) tracks it and M2 again runs high.
+Not approximately — identically, on all four numbers. This is a same-source consistency check, not
+independent experimental replication. At −15 °C the table gives σ₀,1 = 3e−2 = 3.0%, against
+Eq. (3)'s 3.0649% and M2's 3.4766%, so Eq. (3) tracks it and M2 again runs high.
 
 **The second branch is absent by −15 °C**, which is consistent with SDAK-2 being a warm-end
 phenomenon and with `2009.08404v2`'s caption that A ≈ 1 for both facets between −10 and −30 °C.
 
-**This is the most directly usable artifact found in this reading.** ADR 0030's SDAK arm proposed
-building its annex from printed closed forms; this is a printed, measurement-anchored, tabulated
+**Within this ten-paper reading, this is the most directly usable parameter artifact found.** ADR
+0030's SDAK arm proposed building its annex from printed closed forms; this is a printed,
+growth-inversion-anchored, tabulated
 two-branch kinetics covering −1 to −15 °C with no read uncertainty. It also supplies `v_kin(T)`,
 which the project currently obtains elsewhere.
 
@@ -433,10 +462,12 @@ directly transferable, and is recorded as a locator, not as evidence.
 
 ---
 
-## 9. The structural bound, confirmed by direct measurement
+## 9. Calibration probes retained; the structural interpretation is retracted
 
-**These are CALIBRATION PROBES and are never citable as gate evidence.** They are recorded here
-because they test §1's structural claim by running the solver rather than by counting crossings.
+> **Correction 2026-08-01.** These are CALIBRATION PROBES and are never citable as gate evidence.
+> They measure two parameter-set substitutions and five seed substitutions at named points. They
+> do not test, confirm, or repair §1's retracted structural claim. The earlier section title and
+> theorem-strength conclusions below survived the first retraction pass and are withdrawn here.
 
 Two solver runs at the registered conditions (48³, Δx 0.35 µm, extent 21, `cflFill` 0.1,
 `aggregate-hv-g1h1-v6`, `monopole-matched`), differing from the swept points only in `--param-set`:
@@ -450,19 +481,17 @@ Both `CAK` runs are clean: `symErr = 0`, `deltaSymClean = true`, `allConverged =
 `domainContact` false, stop reason `size-target` at extent 21. The `CAK_A1` values are the sweep's
 own `evidence/phase6-sweep/points.json` entries for the same grid points.
 
-**−5 °C is the strongest test the grid admits.** `A_PRISM_CAK` reaches its minimum of **0.18 at
-(Tm−T) = 5**, so −5 °C is where the correction throttles α_prism hardest — a 5.6× reduction in the
-prefactor against `CAK_A1`'s A ≡ 1. Nowhere else on the grid does the correction have more room to
-work.
+At −5 °C, `A_PRISM_CAK` reaches its sampled-grid minimum of **0.18**, a 5.6× prefactor reduction
+against `CAK_A1`'s A ≡ 1. This makes the row a useful sampled sensitivity case; it does not make one
+temperature and one supersaturation a worst-case proof for the coupled solver.
 
 It produces an exactly equant crystal — both the transverse and z extents reach 21 together — and
-goes no further. **The broad-facet correction moves the model from one habit to *no* habit, not to
-the other habit.** That is §1's crossing bound showing up in a solver run, and it is the same
-lesson the σ₀ crossing already taught: the α ratio marks where a habit stops, not where the
-opposite habit starts. Libbrecht's own statement of the requirement is `α_prism ≪ α_basal`, and
-these ratios are nowhere near ≪.
+goes no further. At this one executed row, the broad-facet substitution moves the measured class
+from plate to neutral, not column. Together with the −8 °C row, that is a two-point result only. It
+does not bound what the full attachment coefficient and evolving surface field can produce at other
+temperatures, supersaturations, sizes, or seed states.
 
-### Consequence for the `paramSet` ADR: the corrected parameterization probably scores WORSE
+### Historical pre-sweep score estimate — superseded by the executed CAK sweep
 
 All five of the sweep's headline agreements sit at −2 °C, and `A_prism` there is **0.28** — a 3.6×
 throttle against `CAK_A1`. Their measured aspect ratios and the rise each would need to cross the
@@ -476,11 +505,10 @@ throttle against `CAK_A1`. Their measured aspect ratios and the rise each would 
 | 0.40 | 0.008 | 0.4913 | **1.36×** |
 | 0.60 | 0.012 | 0.6004 | **1.11×** |
 
-The two measured probes bracket what a throttle does to AR: 1.75× → 1.36× rise (−8 °C), and
-5.6× → 2.62× rise (−5 °C). **Interpolating, a 3.6× throttle at −2 °C lands somewhere near a
-1.9–2.2× rise.** That is an ESTIMATE from two points, not a measurement — only a re-sweep settles
-it — but it would put the bottom three rows of that table over the ceiling and take the headline
-from **5/90 to roughly 2/90**.
+The historical text interpolated these two probes to predict a **1.9–2.2×** rise at −2 °C and a
+headline near **2/90**. That interpolation was not a registered operator and is not evidence. The
+later full CAK sweep supplies the actual measured-only arm result, **3/90**, so the estimate is
+retained only as pre-run history and must not be quoted as an outcome.
 
 **So correcting the mismatch makes the reported result worse, and that must not become an argument
 for keeping the unregistered one.** The ADR should register `paramSet` as a freeze row and decide
@@ -489,7 +517,7 @@ behind them (§2) while `CAK_A1` has M1's documented simplification behind it (�
 record the expected score change *in advance*, precisely so that no later reader can select the
 parameterization by its score.
 
-### 9.2 The seed probe: a knob that moves AR a great deal and still cannot help
+### 9.2 The seed probe: a knob that moved AR substantially in five sampled geometries
 
 **Also a calibration probe, not gate evidence.** Five seed geometries at the two registered
 discriminating conditions — warm −5 °C σ∞ 0.0075 (Nakaya `columns`, needs AR ≥ 1.5) and cold −15 °C
@@ -504,27 +532,27 @@ v6, monopole-matched. Every run clean: `symErr = 0`, `deltaSymClean = true`.
 | 2 / 5 thick | 1.000 | 0.6842 neutral | 1.4000 neutral |
 | 1 / 5 needle-like | 1.667 | **0.7895** neutral ← closest | 1.6154 **column** |
 
-**The needle-like seed does produce a genuine column — at −15 °C, where a plate is required.**
-That is worth stating plainly because it refutes the loose form of the structural claim: seed
-geometry is not a small knob. It moves AR by **+0.41 at −5 °C and +0.51 at −15 °C** between the
-registered seed and the needle.
+**The needle-like seed produces a threshold-classified column at −15 °C, where the reference
+evaluator requires a plate.** That is worth stating plainly because it shows seed geometry is not a
+small knob in these two probes. It moves AR by **+0.41 at −5 °C and +0.51 at −15 °C** between
+the registered seed and the needle.
 
-**But it moves both ends the same way, and the two bands demand opposite moves.** −5 °C needs AR
-raised past 1.5; −15 °C needs it lowered below 0.667. A seed is temperature-independent, so it
-slides every point together. The consequence is visible in the table: the seed that comes closest
-at −15 °C (wide plate, 0.7895) is the **worst** at −5 °C (0.2729), and the seed that comes closest
-at −5 °C manufactures the **wrong habit** at −15 °C. **Not one of the five agrees at either
-temperature.**
+**The two sampled rows follow the same ordering over these five seeds, while the target classes
+need opposite changes from the registered seed.** The wide plate lowers both outputs; the
+needle-like seed raises both. −5 °C needs AR raised past 1.5, whereas −15 °C needs it lowered below
+0.667. The seed that comes closest at −15 °C (wide plate, 0.7895) is the **worst** at −5 °C
+(0.2729), and the seed that comes closest at −5 °C manufactures the **wrong habit** at −15 °C.
+**Not one of the five sampled geometries agrees at either sampled temperature.** This table does
+not establish how every seed maps a full temperature trajectory.
 
-**So the structural bound of §1 is about SENSE, not magnitude, and should always be stated that
-way.** Diffusion, grid, seed, far field and domain can all move the aspect ratio, some of them a
-lot. What none of them can do is **reverse the plate/column ordering as a function of
-temperature** — and the diagram requires that three times. Only a temperature-dependent change in
-the *relative* basal/prism kinetics can, which is what the SDAK dips are.
+Across these five tested seed geometries, the two rows share the same low-to-high ordering from wide
+plate to needle-like seed; none reaches the required class at either discriminating condition. That
+is the measured scope. It does not establish the former universal statement that seed, diffusion,
+grid, far field, or domain can never change the ordering over temperature.
 
-This also sharpens the seed systematic already recorded in `phase6-convergence.md` §5: it is the
-largest single systematic measured in Phase 6, and it is now measured to be **incapable of
-producing agreement at either discriminating condition, in either direction**.
+The probe still identifies seed representation as a large measured systematic for the two rows in
+`phase6-convergence.md` §5. A production claim requires the registered seed-sensitivity study over
+the frozen numerical configuration; these five calibration rows cannot substitute for it.
 
 ---
 
@@ -535,7 +563,7 @@ The figure reading above was followed by an exhaustive ten-paper text extraction
 on Phase 6, and the quotes below were **verified personally against the source PDFs**, not taken
 from the extraction pass.
 
-### 10.1 A plate at −5 °C is the CORRECT output of a broad-facet model — the source says so
+### 10.1 The cited broad-facet source model expects plates in one −5 °C regime
 
 `1912.03230v1` (the dedicated −5 °C measurement paper), p10, verified verbatim:
 
@@ -581,12 +609,14 @@ absent**" and thick plates "the norm" at ρ ≈ 0.5. **Our −5 °C row has thre
 value that matched his description.
 
 **So the claim "the sweep is reproducing Libbrecht's own broad-facet measurements" is WITHDRAWN.**
-It does not reproduce them: he found plates and no columns, the model produces neither. The honest
-statement is narrower and less satisfying:
+The experiment and simulation are not directly comparable enough to support either reproduction or
+a calibrated residual: they use different diffusion geometries, and the aspect metrics are not
+proven equivalent. The narrower descriptive contrast is:
 
-> At −5 °C the model produces **no habit at all** — six neutral points spanning AR 0.79–1.31. That
-> disagrees with the Nakaya diagram, which wants columns, *and* with Libbrecht's own substrate
-> measurements, which found plates.
+> At −5 °C the repository evaluator assigns **no pure threshold class** — six neutral points
+> spanning AR 0.79–1.31. These outputs satisfy neither the diagram's column criterion nor the
+> source's qualitative plate description, but that contrast is not a pointwise experimental
+> validation test.
 
 **Two further reasons the comparison was never clean**, neither disclosed in the earlier version:
 
@@ -600,7 +630,7 @@ statement is narrower and less satisfying:
   only the no-columns result made his position look one-sided when it is explicitly conditional on
   growth history.
 
-### 10.2 Producing columns needs three things, and two are hard for this architecture
+### 10.2 Three source-identified ingredients relevant to column growth
 
 From §7C of the extraction (these quotes are from the extraction pass, not personally verified):
 
@@ -608,19 +638,24 @@ From §7C of the extraction (these quotes are from the extraction pass, not pers
    reduction of the nucleation barrier that depends on T, sigma_surf, and the mesoscopic structure
    of the crystal, especially the width of the uppermost terrace surfaces" (CM9 p4). **The width
    scale is ~50 nm**: "For a typical thin-plate snow crystal growing near -14 C, we might have
-   R_edge ~ 1 um and w ~ 50 nm" (CM8 p6). The registered grid is **Δx = 0.35 µm = 350 nm**, so the
-   controlling width is 7× *below one cell*. SDAK cannot be resolved on this lattice and must enter
-   as a sub-grid closure keyed to something the grid does represent.
+   R_edge ~ 1 um and w ~ 50 nm" (CM8 p6). The registered grid is **Δx = 0.35 µm = 350 nm**, so that
+   illustrative terrace width is 7× below one cell. This shows that the current implementation has
+   no explicit width-resolved M2 closure; it does **not** prove that every relevant width effect is
+   unresolvable. A future implementation must choose and validate either finer resolution or an
+   explicit sub-grid closure rather than treating gas diffusion alone as that closure.
 2. **A fast-growth transient — i.e. history dependence.** "a brief interval of fast growth followed
    by a longer period of slower growth is the usual recipe for growing slender columnar snow
    crystals in air" (CM6 Fig. 12 caption). Worse for a (T, σ) scoring design: "both platelike and
    needlelike crystals can grow under essentially identical conditions at this temperature" (TAX1
-   p8). **At −5 °C the habit is not single-valued in (T, σ)**, so no deterministic per-point score
-   can be right there in principle.
+   p8). The source therefore reports history-dependent multiplicity near −5 °C. A deterministic
+   per-point score describes only its frozen seed/history protocol; it must not be presented as the
+   unique natural outcome at that coordinate.
 3. **A background gas** — "it only operates when the growth is substantially limited by particle
    diffusion through an inert background gas. The ESI does not occur at low pressures, so thin
-   plates do not appear in near-vacuum conditions" (CM10 p11). The project runs at 1 atm, so this
-   one is satisfied.
+   plates do not appear in near-vacuum conditions" (CM10 p11). The project models 1 atm gas-phase
+   transport, which is a stated necessary context in this source. That does not implement, measure,
+   or establish the ESI surface mechanism, so the mechanism obligation is not satisfied merely by
+   setting the pressure.
 
 ### 10.3 The 206-observation grid does not overlap ours where it matters
 
@@ -631,8 +666,10 @@ cites, verified verbatim:
 > saturation line gives the supersaturation of supercooled water"
 
 and the monograph p59 defines σ_water = [c_water(T) − c_sat(T)]/c_sat(T) on that same axis. So
-Libbrecht's percentages are ice-relative and σ_water is a *level* on the axis, not the normaliser —
-directly comparable to the sweep's `sigmaInf`.
+Libbrecht's percentages and the sweep's `sigmaInf` use the same dimensionless ice-relative units,
+and σ_water is a *level* on the axis, not the normaliser. Unit compatibility is necessary but not
+direct comparability: far-field geometry, pressure, seed/history, uncertainty and the local
+`sigmaSurf` fields still differ.
 
 Comparing the sweep's **executed** σ∞ values from `evidence/phase6-sweep/points.json` against the
 206-observation rows (7, 10, 15, 20, 30, 45, 70, 100, 150 %):
@@ -651,8 +688,9 @@ Comparing the sweep's **executed** σ∞ values from `evidence/phase6-sweep/poin
 −8/−9 only its single lowest row is in range. Whole-sweep span is 0.20–36.63 %; the observation
 grid is 7–150 %.
 
-This is a hard blocker on adopting the 206 observations as a scoring target, independent of the
-needle-seed and digitization problems already recorded in §7. It also has a physical reading:
+This is a hard blocker on adopting the 206 observations under the **historical executed grid** as a
+scoring target, in addition to the needle-seed and digitization problems recorded in §7. A new
+R15 grid would need to establish overlap anew rather than inherit this table. It also has a physical reading:
 `2109.00098v1` p9 notes that above σ_water "rapid nucleation of water droplets" makes substrate
 growth impractical, which is why the needle method exists — Libbrecht's grid deliberately explores
 far above water saturation, while the registered grid deliberately caps at 0.9 σ_water.
@@ -678,8 +716,8 @@ answers at the warm end. The table above is built from executed `sigmaInf` value
 - **`2109.00098v1`, the c-axis needle seed methods paper, was not read.** Seed geometry and chamber
   conditions remain uncharacterised, and they gate any use of the 206 observations. Its caption
   list shows Figures 15–20 covering the dual diffusion chamber, the vertical temperature profile,
-  the water-vapor model, and the e-needle growth procedure — that is where the σ normalisation
-  convention (§7) is most likely to be pinned down.
+  the water-vapor model, and the e-needle growth procedure. The supersaturation normalization is not
+  among the remaining unknowns; §10.3 pins it independently from `1211.5555v1`.
 - **`1912.09440v1`, the apparatus paper, was not read here** — so the measurement uncertainties
   quoted in §3 are the values the measurement papers state, not an independent assessment of what
   the instrument supports.

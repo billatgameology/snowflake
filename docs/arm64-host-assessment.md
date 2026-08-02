@@ -180,5 +180,7 @@ any x64 run whatsoever (no x64 host was available, so every x64 number is quoted
 artifacts, never re-measured); the actual concurrency of the sweep that produced the x64 baseline,
 which the throughput estimate assumes; sustained multi-hour thermal behaviour on either machine;
 72³ memory behaviour on 24 GB; GPU behaviour on Apple silicon; and whether LK checkpoint *bytes*
-are bit-identical across architectures — tier 2 shows the discrete outcomes and full `stop reason`
-lines match, which is strong but is not a field-by-field byte comparison.
+are bit-identical across architectures. This session reported matching Tier 2 discrete outcomes and
+full `stop reason` lines, but those raw logs and exit records remained gitignored and are no longer
+available in this repository. The statement is therefore an author report, not independently
+rederivable evidence or a field-by-field byte comparison.

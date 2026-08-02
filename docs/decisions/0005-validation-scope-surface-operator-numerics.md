@@ -10,6 +10,13 @@
   forward LK policies by [0009](0009-source-constrained-boundary-pixel-policy.md)
   (2026-07-16):** the v3 per-contact classifier/geometry is historical, forward fill and sink
   use a checkpointed aggregate boundary-pixel policy, and D4 freezes that policy.
+  **Scientific interpretation correction (accepted 2026-08-02, decision 0040):** D1's P1/P2 taxonomy and “measured
+  large-facet crossing alone” wording are historical and do not govern the replacement protocol.
+  Current P1 includes directly adopted measured/source-tabulated empirical inputs and authoritative
+  exact metrological definitions; P2 includes fitted, model-inferred, project-derived and
+  figure-digitized quantities. The no-SDAK arm tests the
+  full implemented broad-facet attachment parameterization with that recorded provenance; this note
+  is authoritative under accepted decision 0040.
 - **Charter impact:** §1.5, §2.4, §2.5, §2.6, §2.7, §3.2 (Phases 2b, 3, 4, 6), §3.3 amended in
   this session (charter v1.2 → v1.3). Phase 2b was **paused** until its two opening deliverables
   (D2 below) existed; that condition was fulfilled before implementation on 2026-07-15.

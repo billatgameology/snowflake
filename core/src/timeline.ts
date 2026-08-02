@@ -348,7 +348,7 @@ function validateLKEnvironment(
     (value.tempC as number) < -50 ||
     (value.tempC as number) > -1
   ) {
-    throw new Error(`${label}.tempC must stay in the digitized domain [-50, -1]`);
+    throw new Error(`${label}.tempC must stay in the supported temperature domain [-50, -1]`);
   }
   if (
     !Number.isFinite(value.sigmaInfinity) ||

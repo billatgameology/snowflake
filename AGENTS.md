@@ -32,6 +32,9 @@ Read in this order on every cold start:
    nearly cost evidence, and several are enforced by `npm test`
    (`runner/test/evidence-integrity.test.ts`).
 1. Read `docs/PROGRESS.md` completely, including **Next step**.
+   It is deliberately a compact current-state index. Its linked pre-compaction archive is a frozen
+   historical record, not current authority; open that archive only when a current record points to
+   it or the task requires historical provenance.
 2. Read the active plan it names, including **Tried and rejected**. That section contains killed
    protocols and measured failure modes that must not be rediscovered or restored.
 3. Inspect `git status` and the relevant diff before editing. A dirty worktree is often a
@@ -46,7 +49,7 @@ one before writing solver code, every time:
 |---|---|---|
 | `docs/gg-machinery.md` | lattice, diffusion, state, mass, melting, noise | shared machinery; diffusion is physical transport, G-G surface knobs phenomenological |
 | `docs/attachment-kinetics.md` | the attachment rule and coupled surface operator — Libbrecht's kinetics | **the physically parameterized surface-exchange step** (diffusion is physical transport too) |
-| `docs/libbrecht-parameters.md` | measured σ₀(T), A(T), v_kin(T), D(T,P) | extracted mapping table with P1–P4 provenance, stated digitization uncertainty, and explicit gaps; no number without a citation |
+| `docs/libbrecht-parameters.md` | provenance-recorded σ₀(T), A(T), v_kin(T), D(T,P), and exact metrological inputs | extracted mapping table distinguishing directly adopted empirical inputs and authoritative exact definitions from fits/inversions, digitizations and P3/P4 prescriptions, with stated uncertainty/exact status and explicit gaps; source values/transcriptions cite their source, while project-derived/P4 choices name operands and method |
 
 ### When sources disagree
 
@@ -96,7 +99,7 @@ The root is a strict-TypeScript ESM npm workspace on Node 23.6 or newer.
 | `spike/` | Frozen Phase 1 Reiter prototype, deliberately outside the npm workspace. Do not evolve it into the product. |
 | `research/` | Tracked source indexes and citations; most downloaded media are local and gitignored. Never force-add copyrighted media. |
 | `app/` | Phase 3 Three.js development instrument: Web Worker CPU solver, overlays, vapor slice, picking/readouts, stop-rule parity, and deterministic visual harness. Phase 4 extends it without moving solver work onto the UI thread. |
-| `solver-gpu/` | Reserved future package for Phase 5. Do not scaffold it incidentally. |
+| `solver-gpu/` | Phase 5 WebGPU implementation and Windows/Chromium/D3D12 evidence path. Phase 6 GPU work must preserve the accepted Phase 5 protocols and remains downstream of its own freeze/comparison gate. |
 
 Dependency direction is `core` → `solver-cpu` → `runner`. Keep solver code environment-neutral
 so the same oracle can later run in a Web Worker and serve as the GPU comparison target.

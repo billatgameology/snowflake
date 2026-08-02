@@ -1,6 +1,7 @@
 # Phase 6 — the columns-regime convergence study, pre-registered
 
-**Status:** pre-registration. Written and committed BEFORE any run of this study executed.
+**Status:** historical pre-registration and completed diagnostic. It was written and committed
+before any run of this study executed; the executed result is retained below and is not gate evidence.
 
 > **EXTERNAL-REVIEW CORRECTION 2026-08-01.** This document is retained as the historical
 > pre-registration and result of a post-sweep diagnostic. It is **not gate evidence**, is
@@ -23,7 +24,7 @@ Three findings force it, and they rank differently by whether they move a habit 
 |---|---|---|
 | **measurement extent** | sampled response is non-monotone; no numerical-convergence claim | **yes** — P1 at −5 °C f = 0.10 went `neutral` (AR 1.40000, extent 21) → **`column`** (1.52632, extent 29), then AR fell to 1.52174 at extent 35 |
 | **domain N** | registered spot-check FAILS 3 of 4, 1.7–2.5% against 0.5% (erratum E6) | **no** — class identical at all four |
-| **Δx** | no study warmer than −15 °C under either executed parameter set (erratum E5) | unknown |
+| **Δx** | no complete passing composed grid-spacing × timestep × domain × measurement-size/seed campaign under either registered production parameter set; later sparse warm checks do not compose into one | unknown |
 
 E6's registered consequence is a full re-sweep at N = 64. Honoring that alone would spend ~780
 core-hours on **the axis where class did not move in the four executed checks**, and leave untouched
@@ -139,11 +140,11 @@ not promote the diagnostic to gate evidence.
 tested extents for P1.** At
 all three extents the aspect ratio is **identical to six figures at both domains** — 1.52632,
 1.52174, 1.64000 — and the class is `COLUMN` in all six runs. What fails at extent 35 is the
-**attached count**: 11 201 against 11 081, a difference of 120 cells inside an envelope whose
-bounding shape is bit-identical. The two crystals have the same extent and the same aspect ratio and
-differ in interior fill.
+**attached count**: 11 201 against 11 081, a difference of 120 cells despite the same reported
+extents and six-decimal aspect ratio. No occupancy witness was retained, so these summaries neither
+localize the difference to interior fill nor establish a bit-identical envelope.
 
-So the registered criterion fails on total accreted mass, while the quantity the Nakaya comparison
+So the registered criterion fails on attached-cell count, while the quantity the Nakaya comparison
 reads — the class — is invariant across every domain tested. Both facts are reported; neither is
 allowed to suppress the other, and **the criterion is not rewritten to the one that passes.**
 

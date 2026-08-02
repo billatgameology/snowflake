@@ -1,20 +1,21 @@
-// ADR 0036 — the SDAK arm's registered expectation, pinned so it cannot drift.
+// ADR 0036/0040 — M1 equal-field transcription diagnostics, pinned so they cannot drift.
 //
-// A pre-registration that lives only in a markdown file is a pre-registration that can be edited
-// after the result is known. These tests are what make ADR 0036's numbers binding: change the closed
-// forms, change the log base, or change the dip centres, and the registered expectation fails here
-// rather than quietly becoming whatever arm 2 happens to produce.
+// These values verify the closed forms, logarithm-base interpretation, dip centres, and restricted
+// equal-shared-field coefficient ordering. They are not a morphology expectation: neither this
+// analytic diagnostic nor the CAK→M1 comparison isolates SDAK causally. Accepted ADR 0040 calls for
+// a matched M1/no-dip forward ablation to isolate the implemented dip factors' effect within the
+// frozen solver. It cannot establish physical SDAK causality or necessity in nature.
 
 import { describe, expect, it } from "vitest";
 import { alphaHK } from "@vcc/core";
 import {
   PHASE6_M1_BASAL_DIP_CENTRE_C,
-  PHASE6_M1_EXPECTED_TRANSITIONS,
-  PHASE6_M1_PRISM_DIP_ANCHORS,
+  PHASE6_M1_EXPECTED_ORDER_SWAPS,
+  PHASE6_M1_PRISM_DIP_SOURCE_INFERRED_ANCHORS,
   PHASE6_M1_PRISM_DIP_CENTRE_C,
   phase6BroadSigma0BasalPercent,
   phase6BroadSigma0PrismPercent,
-  phase6M1Sense,
+  phase6M1AnalyticCoefficientOrder,
   phase6M1Sigma0BasalPercent,
   phase6M1Sigma0PrismPercent,
 } from "../src/phase6-sdak-m1.ts";
@@ -23,65 +24,72 @@ import { phase6SweepGrid } from "../src/phase6-protocol.ts";
 /** The registered T axis, coldest-last, deduplicated from the sweep grid rather than re-typed. */
 const TEMPERATURES = [...new Set(phase6SweepGrid().map((p) => p.tempC))].sort((a, b) => b - a);
 
-function transitions(sense: (t: number) => string): { warmerC: number; colderC: number; from: string; to: string }[] {
+function orderSwaps(order: (t: number) => string): {
+  warmerC: number;
+  colderC: number;
+  from: string;
+  to: string;
+}[] {
   const out = [];
   for (let i = 1; i < TEMPERATURES.length; i++) {
     const warmerC = TEMPERATURES[i - 1] as number;
     const colderC = TEMPERATURES[i] as number;
-    if (sense(warmerC) !== sense(colderC)) {
-      out.push({ warmerC, colderC, from: sense(warmerC), to: sense(colderC) });
+    if (order(warmerC) !== order(colderC)) {
+      out.push({ warmerC, colderC, from: order(warmerC), to: order(colderC) });
     }
   }
   return out;
 }
 
-describe("M1's habit sense is provably independent of supersaturation", () => {
-  it("gives the same ordering at every sigma the sweep actually reaches", () => {
-    // The property the whole 0D prediction rests on. Asserted rather than trusted to a comment.
-    // The sigma range is the SWEPT one and a decade either side; see the underflow test below for
-    // why it is not wider, which is a real limit rather than a convenient choice of range.
+describe("M1's equal-field attachment-coefficient order", () => {
+  it("gives the same ordering at registered far-field inputs and a sensitivity bracket", () => {
+    // The property the equal-field diagnostic rests on. Asserted rather than trusted to a comment.
+    // These are registered sigmaInfinity inputs and a decade either side. They are not claims about
+    // the facet-local sigmaSurf values produced by the coupled solver.
     const sweptSigmaInf = phase6SweepGrid().map((p) => p.sigmaInf);
-    const probes = [Math.min(...sweptSigmaInf) / 10, ...sweptSigmaInf, Math.max(...sweptSigmaInf) * 10];
+    const probes = [
+      Math.min(...sweptSigmaInf) / 10,
+      ...sweptSigmaInf,
+      Math.max(...sweptSigmaInf) * 10,
+    ];
     for (const tempC of TEMPERATURES) {
       const T = Math.abs(tempC);
       const b = phase6M1Sigma0BasalPercent(T) / 100;
       const p = phase6M1Sigma0PrismPercent(T) / 100;
-      const senses = new Set<string>();
+      const orders = new Set<string>();
       for (const sigmaSurf of probes) {
         const alphaHKBasal = Math.exp(-b / sigmaSurf);
         const alphaHKPrism = Math.exp(-p / sigmaSurf);
-        senses.add(alphaHKBasal > alphaHKPrism ? "column" : alphaHKBasal < alphaHKPrism ? "plate" : "tie");
+        orders.add(
+          alphaHKBasal > alphaHKPrism
+            ? "basal-higher"
+            : alphaHKBasal < alphaHKPrism
+              ? "prism-higher"
+              : "tie",
+        );
       }
-      expect(senses.size, `sense at ${tempC} C depends on sigma_surf`).toBe(1);
-      expect([...senses][0]).toBe(phase6M1Sense(tempC));
+      expect(orders.size, `equal-field order at ${tempC} C depends on sigma_surf`).toBe(1);
+      expect([...orders][0]).toBe(phase6M1AnalyticCoefficientOrder(tempC));
     }
   });
 
   it("the ordering is exact in sigma_0, which is the statement that has no sigma at all", () => {
     // The float64 comparison above can only ever be checked at sampled sigmas. This is the actual
-    // claim: the sense is fixed by the sigma_0 ordering alone, for every positive sigma_surf,
+    // claim: the equal-field coefficient order is fixed by sigma_0 alone for every positive sigma_surf,
     // because the exponential is monotonic. No sampling involved.
     for (const tempC of TEMPERATURES) {
       const T = Math.abs(tempC);
-      const expected = phase6M1Sigma0BasalPercent(T) < phase6M1Sigma0PrismPercent(T) ? "column" : "plate";
-      expect(phase6M1Sense(tempC)).toBe(expected);
+      const expected =
+        phase6M1Sigma0BasalPercent(T) < phase6M1Sigma0PrismPercent(T)
+          ? "basal-higher"
+          : "prism-higher";
+      expect(phase6M1AnalyticCoefficientOrder(tempC)).toBe(expected);
     }
   });
 
-  it("every swept point clears the float64 underflow floor, checked PER TEMPERATURE", () => {
-    // Both alphaHK values are exp(-sigma_0/sigma_surf). Below exp(-709) a double is exactly 0, so at small
-    // enough sigma_surf the slower facet's alphaHK arrests and, lower still, both do and the ordering
-    // degenerates to a numerical tie — not because the physics is ambiguous but because float64 ran
-    // out. The sigma-independence claim above is exact in exact arithmetic and holds in float64 only
-    // above this floor.
-    //
-    // The floor is TEMPERATURE-DEPENDENT, because sigma_0 grows steeply with |T|: 0.09% at -2 C
-    // against 17.07% at -35 C. My first version of this test compared the coldest temperature's
-    // floor against the smallest sigma_infinity anywhere on the grid — which is at -2 C — and
-    // reported a margin of 8x that does not correspond to any real point. Per temperature the true
-    // worst case is 169x, at -35 C. Comparing a floor from one temperature against a value from
-    // another is exactly the mistake this test now cannot make.
-    const worstArrest: { tempC: number; margin: number }[] = [];
+  it("keeps every registered far-field evaluation in float64's normal exponential range", () => {
+    // This is deliberately a far-field input diagnostic only. It neither bounds depleted local
+    // sigmaSurf nor proves that a forward run cannot enter the subnormal/underflow region.
     for (const tempC of TEMPERATURES) {
       const T = Math.abs(tempC);
       const basal = phase6M1Sigma0BasalPercent(T) / 100;
@@ -89,98 +97,94 @@ describe("M1's habit sense is provably independent of supersaturation", () => {
       const sigmaInf = Math.min(
         ...phase6SweepGrid().filter((p) => p.tempC === tempC).map((p) => p.sigmaInf),
       );
-      // The slower facet arrests first, so max(sigma_0) sets the binding floor.
-      const arrestFloor = Math.max(basal, prism) / 709;
-      worstArrest.push({ tempC, margin: sigmaInf / arrestFloor });
-      // Both alphaHK values must be strictly positive at this point's smallest driving supersaturation.
-      expect(Math.exp(-basal / sigmaInf), `basal alphaHK underflows at ${tempC} C`).toBeGreaterThan(0);
-      expect(Math.exp(-prism / sigmaInf), `prism alphaHK underflows at ${tempC} C`).toBeGreaterThan(0);
+      // exp(-x) enters the subnormal range at -ln(2^-1022) ~= 708.396. This asserts only that the
+      // registered sigmaInfinity probes are far from that numerical regime.
+      const normalToSubnormalExponent = -Math.log(2 ** -1022);
+      expect(basal / sigmaInf, `basal far-field exponent at ${tempC} C`).toBeLessThan(
+        normalToSubnormalExponent,
+      );
+      expect(prism / sigmaInf, `prism far-field exponent at ${tempC} C`).toBeLessThan(
+        normalToSubnormalExponent,
+      );
     }
-    // sigma_surf is BELOW sigma_infinity — diffusion depletes it — so a positive margin is not
-    // enough on its own; it has to be large. The binding case is the cold end, where sigma_0 is
-    // largest. Registered so a cold low-sigma point returning no growth is recognised as underflow
-    // rather than reported as physics.
-    const tightest = worstArrest.reduce((a, b) => (a.margin < b.margin ? a : b));
-    expect(tightest.tempC).toBe(-35);
-    expect(tightest.margin).toBeGreaterThan(100);
-    expect(tightest.margin).toBeLessThan(200); // it is 169x — comfortable, not enormous
   });
 
   it("is NOT a property the registered CAK set has — the contrast that refuted the old claim", () => {
     // The negative half. If this passed for CAK too, the sigma-independence above would be a
     // property of the grid rather than of A = 1, and the distinction ADR 0036 draws would be empty.
-    // CAK carries A_prism != 1, so its alphaHK ordering moves with sigma_surf at some temperature.
+    // CAK carries A_prism != 1, so its equal-field alphaHK ordering moves with sigma_surf at some
+    // temperature.
     let foundSigmaDependentSwap = false;
     for (const tempC of TEMPERATURES) {
-      const senses = new Set<string>();
+      const orders = new Set<string>();
       for (const sigmaSurf of [1e-4, 1e-3, 2.5e-3, 1e-2, 0.1]) {
         const b = alphaHK("basal", tempC, sigmaSurf, "CAK");
         const p = alphaHK("prism", tempC, sigmaSurf, "CAK");
-        senses.add(b > p ? "column" : b < p ? "plate" : "tie");
+        orders.add(b > p ? "basal-higher" : b < p ? "prism-higher" : "tie");
       }
-      if (senses.size > 1) foundSigmaDependentSwap = true;
+      if (orders.size > 1) foundSigmaDependentSwap = true;
     }
-    expect(foundSigmaDependentSwap, "CAK's ordering never moved with sigma — check the premise").toBe(true);
+    expect(
+      foundSigmaDependentSwap,
+      "CAK's ordering never moved with sigma — check the premise",
+    ).toBe(true);
   });
 });
 
-describe("the registered 0D expectation (ADR 0036 Part 1)", () => {
-  it("M1 makes exactly the three transitions the ADR registers, at the registered temperatures", () => {
-    expect(transitions(phase6M1Sense)).toEqual([...PHASE6_M1_EXPECTED_TRANSITIONS]);
+describe("the registered equal-field coefficient diagnostic", () => {
+  it("M1 makes exactly the three coefficient-order swaps registered on the temperature grid", () => {
+    expect(orderSwaps(phase6M1AnalyticCoefficientOrder)).toEqual([
+      ...PHASE6_M1_EXPECTED_ORDER_SWAPS,
+    ]);
   });
 
-  it("the broad-facet branch makes ONE transition, in the WRONG sense — arm 1's problem", () => {
-    const broadSense = (tempC: number): string => {
+  it("the broad-facet branch makes one equal-field coefficient-order swap", () => {
+    const broadOrder = (tempC: number): string => {
       const T = Math.abs(tempC);
       const b = phase6BroadSigma0BasalPercent(T);
       const p = phase6BroadSigma0PrismPercent(T);
-      return b < p ? "column" : b > p ? "plate" : "tie";
+      return b < p ? "basal-higher" : b > p ? "prism-higher" : "tie";
     };
-    const broad = transitions(broadSense);
+    const broad = orderSwaps(broadOrder);
     expect(broad.length).toBe(1);
-    // Nakaya goes column -> plate crossing -9.9 C. The broad branch goes plate -> column there:
-    // the opposite sense, which is the whole reason arm 2 exists.
-    expect(broad[0]).toEqual({ warmerC: -8, colderC: -9, from: "plate", to: "column" });
+    expect(broad[0]).toEqual({
+      warmerC: -8,
+      colderC: -9,
+      from: "prism-higher",
+      to: "basal-higher",
+    });
   });
 
-  it("agrees with ADR 0025's regimes at every headline temperature — and this is NOT evidence", () => {
-    // In-sample by construction: the dip centres were CHOSEN to impose this agreement (charter
-    // §2.5). The assertion exists to catch a transcription error in the closed forms, which is the
-    // only thing it can detect. ADR 0036 says so at length; this comment exists so a reader of the
-    // test does not mistake a green check for a scientific result.
-    const accepts = (tempC: number): readonly string[] =>
-      tempC > -3.3 ? ["plate"] : tempC > -9.9 ? ["column"] : tempC > -21.5 ? ["plate"] : ["plate", "column"];
-    const inBand = (t: number): boolean => [-3.3, -9.9, -21.5].some((b) => Math.abs(t - b) <= 1.0);
-    const headline = TEMPERATURES.filter((t) => !inBand(t) && t > -21.5);
-    expect(headline.length).toBe(15);
-    for (const tempC of headline) {
-      expect(accepts(tempC), `M1 says ${phase6M1Sense(tempC)} at ${tempC} C`).toContain(phase6M1Sense(tempC));
-    }
-  });
-
-  it("log is BASE 10 — natural log changes the transition count", () => {
+  it("log is BASE 10 — natural log changes the coefficient-order swap count", () => {
     // The error this project actually made, kept as a live check rather than a note.
     //
     // CORRECTED 2026-08-01 (external review). This comment previously said natural log "moves the
     // dip centres to 3.08 and 8.07 degrees". Impossible: the dip is exp(-(log T - log c)^2 / w),
     // whose minimum is at T = c in ANY base — verified at 4.500 under both log10 and ln. A base
     // change rescales the dip WIDTH (~2.3x narrower under ln), and it is the width, not a moved
-    // centre, that changes the transition count. 3.08 and 8.07 are alphaHK CROSSING locations from
+    // centre, that changes the coefficient-order swap count. Approximately 3.08 and 8.07 are equal-shared-field
+    // attachment-coefficient equality locations from
     // the 2026-07-29 retraction, misattributed here.
     //
-    // The assertion below was always about the transition COUNT and is unaffected by the fix.
-    const naturalSense = (tempC: number): string => {
+    // The assertion below was always about the coefficient-order swap COUNT and is unaffected by
+    // the fix. It is not a habit-transition count.
+    const naturalOrder = (tempC: number): string => {
       const T = Math.abs(tempC);
-      const b = (0.02 * T ** 1.75 + 0.3) * (1 - 0.87 * Math.exp(-((Math.log(T) - Math.log(4.5)) ** 2) / 0.07));
-      const p = (0.015 * T ** 2 + 0.02 * T ** 0.6) * (1 - 0.95 * Math.exp(-((Math.log(T) - Math.log(14.4)) ** 2) / 0.06));
-      return b < p ? "column" : "plate";
+      const b =
+        (0.02 * T ** 1.75 + 0.3) *
+        (1 - 0.87 * Math.exp(-((Math.log(T) - Math.log(4.5)) ** 2) / 0.07));
+      const p =
+        (0.015 * T ** 2 + 0.02 * T ** 0.6) *
+        (1 - 0.95 * Math.exp(-((Math.log(T) - Math.log(14.4)) ** 2) / 0.06));
+      return b < p ? "basal-higher" : "prism-higher";
     };
-    expect(transitions(naturalSense).length).not.toBe(PHASE6_M1_EXPECTED_TRANSITIONS.length);
+    expect(orderSwaps(naturalOrder).length).not.toBe(PHASE6_M1_EXPECTED_ORDER_SWAPS.length);
   });
 
   it("keeps each analytic dip centre fixed under log10 and natural log", () => {
-    // This pins the exact mathematical fact the corrected prose relies on. A transition-count test
-    // alone cannot catch a future comment that misattributes a crossing location as a moved centre.
+    // This pins the exact mathematical fact the corrected prose relies on. A coefficient-order
+    // swap-count test alone cannot catch a future comment that misattributes an equality location
+    // as a moved centre.
     const dipFactor = (
       magnitudeC: number,
       centreC: number,
@@ -210,38 +214,43 @@ describe("the registered 0D expectation (ADR 0036 Part 1)", () => {
   });
 });
 
-describe("the cold-end input gap (ADR 0036 pre-registration 3)", () => {
-  it("the prism dip runs LOW against both numeric anchors, by the registered amounts", () => {
-    const ratios = PHASE6_M1_PRISM_DIP_ANCHORS.map(
-      (a) => phase6M1Sigma0PrismPercent(Math.abs(a.tempC)) / a.measuredPercent,
+describe("the cold-end source-inferred input gap (ADR 0036 pre-registration 3)", () => {
+  it("the prism dip is lower than both same-lineage source-inferred references", () => {
+    const ratios = PHASE6_M1_PRISM_DIP_SOURCE_INFERRED_ANCHORS.map(
+      (a) => phase6M1Sigma0PrismPercent(Math.abs(a.tempC)) / a.sourceInferredPercent,
     );
     expect(ratios[0]).toBeCloseTo(0.696, 3); // -10 C: 30% low
     expect(ratios[1]).toBeCloseTo(0.915, 3); // -25 C: 8.5% low
-    // Low against BOTH, which is a bias rather than scatter, and is why the ADR states it.
+    // Two same-sign discrepancies at n=2 are recorded values, not evidence of statistical bias.
     for (const r of ratios) expect(r).toBeLessThan(1);
   });
 
-  it("the prism dip is doing large work across the unanchored cold end", () => {
-    // If the dip had decayed to ~1 below -15 C the sourcing gap would not matter. It has not: the
-    // dip is still a 36% reduction at -25 C and 8% at -35 C, on ten temperatures with no anchor.
+  it("pins prism dip-factor magnitudes beyond the numeric-reference span", () => {
+    // These temperatures remain inside TAX2 Figure 1's displayed M1 domain. The ratios quantify the
+    // model prescription where no additional same-lineage numeric source-fit reference is available;
+    // they do not establish morphology or empirical importance.
     const dip = (tempC: number): number =>
       phase6M1Sigma0PrismPercent(Math.abs(tempC)) / phase6BroadSigma0PrismPercent(Math.abs(tempC));
     expect(dip(-15)).toBeCloseTo(0.055, 3);
     expect(dip(-25)).toBeCloseTo(0.635, 3);
     expect(dip(-35)).toBeCloseTo(0.920, 3);
-    // The basal dip, by contrast, IS dead at the cold end — so the gap is a prism-side problem only.
+    // The basal factor is numerically near one at the sampled cold end.
     const basalDip = (tempC: number): number =>
       phase6M1Sigma0BasalPercent(Math.abs(tempC)) / phase6BroadSigma0BasalPercent(Math.abs(tempC));
     expect(basalDip(-25)).toBeGreaterThan(0.999);
   });
 
-  it("the third transition lands exactly ON the single cold anchor, not beyond it", () => {
-    // Corrected by this test failing. I had written that the third transition "sits inside the
-    // thinnest-anchored tier", i.e. beyond every anchor. It does not: it is at -24/-25 and the one
-    // cold anchor is at -25. That is better-supported than I claimed, and the ADR was fixed to say
-    // so. What IS beyond every anchor is everything colder than -25.
-    const third = PHASE6_M1_EXPECTED_TRANSITIONS[2] as { colderC: number };
-    const coldestAnchor = Math.min(...PHASE6_M1_PRISM_DIP_ANCHORS.map((a) => a.tempC));
+  it("the third coefficient-order bracket shares a temperature with one source-fit reference", () => {
+    // Corrected by this test failing. I had written that the third coefficient-order swap "sits
+    // inside the thinnest-anchored tier", i.e. beyond every anchor. It does not: it is at -24/-25,
+    // and the one cold numeric reference is at -25. That coincidence checks the local M1 coefficient
+    // value only; it does not independently support the equality bracket or any habit interpretation.
+    // Everything colder than -25 lacks these same-lineage numeric reference points but remains inside
+    // the source model's Figure 1 display domain.
+    const third = PHASE6_M1_EXPECTED_ORDER_SWAPS[2] as { colderC: number };
+    const coldestAnchor = Math.min(
+      ...PHASE6_M1_PRISM_DIP_SOURCE_INFERRED_ANCHORS.map((a) => a.tempC),
+    );
     expect(third.colderC).toBe(coldestAnchor);
     const beyondEveryAnchor = TEMPERATURES.filter((t) => t < coldestAnchor);
     expect(beyondEveryAnchor.length).toBe(10); // -26 .. -35

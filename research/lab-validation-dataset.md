@@ -7,11 +7,12 @@ they reference live in the **local, gitignored** research media (decision
 [0004](../docs/decisions/0004-research-media-not-versioned.md)) — a fresh clone must re-download
 the PDF and regenerate renders (commands below).
 
-**Purpose.** The maker's directive: this library is the only lab source available for validating
-the models — so extract every image whose growth conditions the source documents, in a form that
-lets us *run the model at the same conditions and compare the result with the lab image* (and,
-where the source printed them, with measured growth rates). Companion analysis:
-[docs/monograph-review.md](../docs/monograph-review.md) (esp. §4.1 instrument-level validation).
+**Purpose.** This was created under a historical directive that treated the library as the available
+lab-data source. The later Phase 6 source audit found other primary candidates and no current
+apples-to-apples, pass-eligible held-out target. This remains a source index for in-sample checks and
+reconnaissance: it extracts images whose conditions the source documents so a model can be run at
+similar conditions without silently promoting the comparison to validation. Companion analysis:
+[docs/monograph-review.md](../docs/monograph-review.md) (esp. §4.1 in-sample instrument check).
 
 **Primary source:** K. Libbrecht, *Snow Crystals*, arXiv:1910.06389v2 (`1910.06389v2.pdf`),
 read via the `1910.06389v2-llm` bundle. Page cites are printed / pdf (pdf = printed + 1).
@@ -27,36 +28,43 @@ read via the `1910.06389v2-llm` bundle. Page cites are printed / pdf (pdf = prin
    canonical PDF page** (the bundle README's own rule).
 2. **σ semantics differ BETWEEN entries — never mix them.** Three classes appear, recorded
    per-entry in `sigma_ref`:
-   - `sigma_surf` **at the facet** (e.g. Figs. 4.8, 4.19, 7.14, 7.15): the transport problem is
-     already solved/corrected out; these test the **kinetics law alone**.
+   - `sigma_surf` **at the facet** (e.g. Figs. 4.8, 4.19, 7.14, 7.15): these values are
+     reconstructed or corrected by the source's transport model, not directly measured. They test
+     the source's fitted kinetics interpretation; transport is modeled rather than absent, so the
+     same source lineage cannot provide an independent validation of that interpretation.
    - `sigma_infinity` far-field / chamber supersaturation (Figs. 8.16 grid, 8.21–8.29, 7.21,
      3.59): the model must solve transport too; treat as the Dirichlet/monopole far field.
    - Values are **relative to ice** and can exceed water saturation by a lot in diffusion
      chambers (grid tops out at 128 %); that is chamber physics, not a typo. Chamber-model
      systematics apply (mono §6.1 "Supersaturation", §8.3).
 3. **Geometry classes gate feasibility.** Each entry carries `feasibility`:
-   - `free-crystal-analog` — isolated crystal in uniform far field (free-fall data): closest to
-     the solver today; **start here** (Fig. 7.21 is the flagship).
+   - `free-crystal-analog` — isolated free-fall crystal data, useful as a transport/ventilation
+     reconnaissance candidate but not geometry-, size-, or seed-matched to the solver today.
    - `facet-rate-experiment` — v_n(sigma_surf) curves: needs the facet-rate / 1D-oracle harness
-     (monograph-review §3), nearly transport-free.
+     (monograph-review §3); surface supersaturation is source-reconstructed, so these are useful
+     same-lineage fit diagnostics rather than transport-free independent observations.
    - `needs-column-seed` — e-needle growth: solver needs an elongated seed option (the canonical
      19-site seed is pinned; adding a seed class is an ADR-level change for evidence use).
    - `substrate-unsupported` — VPG/PoP substrate geometry not modeled in v1; qualitative trends
      may still be citable as context, never as agreement.
-   - `beyond-v1-kinetics` — source attributes the form to SDAK/ESI (thin plates near −15 °C,
-     hollow columns/fishbones near −5 °C at high σ): no-SDAK runs are **expected** to miss these;
-     record misses as consistent-with-source, not as solver defects.
+   - `beyond-v1-kinetics` — source attributes extreme thin plates near −15 °C and sheath-like
+     hollow columns/fishbones near −5 °C at high σ to SDAK/ESI: no-SDAK runs are **expected** to
+     miss those extreme forms. Mild hollowing is not excluded without ESI and must be assessed
+     separately; record scoped misses as consistent-with-source, not automatically as solver defects.
    - `cylindrical-analytic` — matches the 1D/2D reference-solver tier.
-4. **Growth time and scale.** Grid tiles: ~5 min (highest σ) to ~30 min (lower σ); per-tile time
-   and absolute scale are NOT recoverable (per-tile crop/zoom, mono printed p. 300). Comparisons
-   at matched **crystal size** (charter: habit is size-dependent) or matched physical time where
-   stated (e.g. 200 s in Fig. 7.21).
+4. **Growth time and scale.** Grid tiles: ~5 min (highest σ) to ~30 min (lower σ), and the source
+   supplies field-of-view scale/time information for the panels. Per-crystal dimensions and a common
+   endpoint size are not directly printed, while crop/zoom varies. Any accepted matched-size or
+   matched-time comparison therefore still needs a blind extraction protocol; a caption-wide time
+   range is not a per-tile clock (contrast the explicit 200 s in Fig. 7.21).
 5. **Grades.** A = quantitative rates/series with stated conditions; B = morphology image with
    stated (T, σ) and geometry; C = partial/contextual conditions; D = visual reference only.
    n/a = absent tile.
-6. Comparisons using CAK inputs at conditions the SDAK dips were tuned on remain **in-sample**
-   for Nakaya purposes (charter §2.7); the grid entries are still legitimate targets for
-   *rate/onset/trend* comparisons and for the no-SDAK falsification record.
+6. Comparisons using the M1/P3 SDAK approximation at conditions that informed its dips remain
+   **in-sample** for Nakaya purposes (charter §2.7). Grid entries may support clearly labeled
+   *rate/onset/trend* diagnostics and blind reconnaissance, but cannot close a held-out gate. The
+   machine-readable index carries `passEligible=false` until a separate selected-target lock says
+   otherwise; a future loader must fail closed if that lock is absent.
 
 ## Regenerating local image assets
 
@@ -134,31 +142,37 @@ Grade A (rates / time series with stated conditions):
 
 | JSONL id | What | Conditions | Why it matters |
 |---|---|---|---|
-| `mono-7.21_freefall-sizes_200s` | sizes+habit after 200 s free fall vs σ∞ (Fig. 7.21, printed p. 268) | −5 °C and −10 °C, air | **flagship near-term target** — isolated crystal, uniform far field, fixed clock; matches solver geometry today |
-| `mono-7.15_prism-vn-curve_-15C_20mbar` | prism v_n(σ_surf) curve, σ₀ = 3 % fit (Figs. 4.4/7.15, printed pp. 144/263) | −15 °C, 20 mbar air, σ_surf axis | kinetics-law test, transport-free; facet-rate harness target |
-| `mono-7.14_basal-vn-curve_-12C` | basal v_n(σ_surf), σ₀ = 2.3±0.2 % (Fig. 7.14, printed p. 263) | −12 °C, low P | ditto for basal; also rejects dislocation model |
+| `mono-7.21_freefall-sizes_200s` | sizes+habit after 200 s free fall vs σ∞ (Fig. 7.21, printed p. 268) | −5 °C and −10 °C, air | useful free-fall reconnaissance with a fixed clock; ventilation, seed, size, and geometry remain unmatched, so it is not a gate target |
+| `mono-7.15_prism-vn-curve_-15C_20mbar` | prism v_n(σ_surf) curve, σ₀ = 3 % source fit (Figs. 4.4/7.15, printed pp. 144/263) | −15 °C, 20 mbar air, source-reconstructed σ_surf axis | same-lineage kinetics-fit diagnostic for a facet-rate harness; not an independent or transport-free observation |
+| `mono-7.14_basal-vn-curve_-12C` | basal v_n(σ_surf), source-fit σ₀ = 2.3±0.2 % (Fig. 7.14, printed p. 263) | −12 °C, low P, source-reconstructed σ_surf | analogous same-lineage diagnostic for basal kinetics; the source reports rejection of the dislocation model by fit quality |
 | `mono-8.21/8.24/8.26` (3 entries) | σ-series at −15 °C: 4.6 % blocky → 7 % thick plate → 11 % thin plate (printed pp. 311–314) | e-needle, air, DC2 | aspect-ratio-vs-σ trend at fixed T; thin-plate endpoint is ESI territory |
-| `mono-8.29_needle-rates_-5C_1.8pct` | axial+radial needle rates, rate transition at full faceting (printed p. 317) | −5 °C, σ∞ 1.8 %, air | growth-rate trajectory target |
+| `mono-8.29_needle-rates_-5C_1.8pct` | axial+radial needle rates, rate transition at full faceting (printed p. 317) | −5 °C, σ∞ 1.8 %, air | growth-rate trajectory reconnaissance reference; e-needle geometry is unmatched |
 | `mono-8.17_needle-radius_-2C` | needle radius vs time (printed p. 308) | −2 °C, air | cylindrical-analytic tier |
 | `mono-3.20_needle-velocity-vs-T_heating` | radial velocity coefficient vs T; particle-only model overpredicts (printed p. 99) | air, r = 5 µm ref | the latent-heating (chi_0) benchmark |
 
 Grade B highlights (condition-labeled morphology):
 
 - `mono-4.20_-5C_sigma-threshold-series` — the −5 °C onset ladder (4 % solid column → 8 %
-  hollow → 16 % needle clusters → 32 % tridents → 64/128 % fishbones; printed p. 164). The
-  model's hollowing-onset σ at −5 °C is directly comparable even where extreme forms need SDAK.
+  hollow → 16 % needle clusters → 32 % tridents → 64/128 % fishbones; printed p. 164). It is an
+  in-sample, electric-needle onset reference; the model lacks that geometry and the extreme forms
+  need SDAK/ESI, so no threshold is directly gate-comparable without a registered mapping.
 - `mono-5.25_blocky-prism_-10C_artifact-control` — **numerics-artifact control**: real blocky
   prism has essentially no basal hollowing; the source's own facet-kink CA could not avoid
   hollowing it (printed p. 203). Cite when reading any LK hollowing positive.
-- `mono-4.8_blocky-plate_-0.5C` — prism faceting at σ_surf ≈ 0.1 % caused by `A_prism < 1`,
-  not a nucleation barrier: a target the `CAK_A1` set should FAIL and the `CAK` set should hit.
-- `mono-9.18_pop-timeline_-12.5C-to--15C` — the cleanest printed two-segment temperature
-  history (cool → edge thins → corner branching): a qualitative timeline target.
+- `mono-4.8_blocky-plate_-0.5C` — the source attributes prism faceting at reconstructed
+  σ_surf ≈ 0.1 % to `A_prism < 1`, not to a nucleation barrier. This contrasts the rationale
+  behind `CAK` and `CAK_A1`; the unmatched geometry makes reachability a diagnostic, not a
+  predetermined experimental hit/fail result.
+- `mono-9.18_pop-timeline_-12.5C-to--15C` — a printed two-segment temperature-history
+  reconnaissance reference (cool → edge thins → corner branching). The substrate geometry and
+  supersaturation are unmatched, so the dataset-wide `passEligible=false` status applies.
 - `mono-3.39` (−16 °C, 16 % spoked hollow plate), `mono-3.48` (I-beam ridges, −9 °C, 16 %),
   `mono-3.62` (tridents, −5 °C, 32/64 %), `mono-3.59` (free-fall non-hexagonal plates, −10 °C,
   σ∞ ≈ 1.4 % — symmetry-breaking statistics reference).
 
-Grade C/D: `mono-4.19` (VPG plates-vacuum vs columns-air at −5 °C, substrate), `mono-9.14`
+Grade C/D: `mono-4.19` (VPG plates at low pressure/low surface supersaturation versus columns in
+air at unstated/higher supersaturation, on a substrate—multiple covariates change, so this does not
+isolate pressure), `mono-9.14`
 (PoP 90→300 µm), `mono-6.26` ([1999Fuk] laminar-flow panel), snowcrystals.com videos (no
 recorded conditions — visual reference only, existing project rule).
 
@@ -173,13 +187,23 @@ recorded conditions — visual reference only, existing project rule).
 5. Any *accepted* comparison requires: PDF re-verification of the entry, a registered protocol,
    and honest in-sample labeling where P3 inputs are active. Exploratory comparisons say so.
 
-## JSONL schema (one object per line)
+## JSONL schema (one discriminated object per line)
 
+The first 122 lines are entry objects, identified by `id` and the absence of `record_kind`:
 `id`, `kind` (morphology-image | growth-rate-curve | time-series-images | video), `absent?`,
 `source` {doc, figure, printed_page, pdf_page, panel?}, `assets` (bundle-relative local paths),
 `conditions` {temp_c, sigma_pct, sigma_fraction, sigma_ref, medium, geometry, growth_time_s?,
 history?}, `morphology_as_read` (grid; reviewer reading) or `morphology_source_stated` (caption),
 `quantitative?`, `comparison_note?`, `special_role?`, `grade`, `feasibility[]`, `verification`.
+
+The final line is the sole status object and has no `id`:
+`record_kind="dataset-status"`, `dataset="lab-validation-dataset"`, `entry_count`,
+`source_index_only`, `passEligible`, and `eligibility_reason`. Thus 123 JSON lines means 122 indexed
+entries plus one status record, not 123 observations. Any consumer used for evidence must reject an
+unknown/duplicate/nonterminal status record, an entry containing `record_kind`, a status containing
+`id`, duplicate entry IDs, or a declared `entry_count` different from the independently counted entry
+objects. The current `passEligible=false` makes the dataset an index/reconnaissance corpus, not a
+held-out target lock.
 
 ## Gaps and next extraction targets
 

@@ -5,6 +5,11 @@
 - **Charter impact:** **YES — charter amended to v1.17 in this session** (Rule 5). §2.4 and §3.2
   Phase 6 item 1 both change.
 
+> **Scope correction accepted 2026-08-02 (decision 0040).** The historical text below said
+> monopole matching removed domain dependence “outright.” Decision 0024's own smaller-domain test
+> shows otherwise. The exact result is equality for the tested −5 °C, 60-step, 28³/40³ pair; it is
+> not a general domain-independence theorem. The far-field selection and charter authority remain.
+
 ## Context
 
 The 2026-07-27 independent review found a contradiction between the charter and the frozen
@@ -32,10 +37,11 @@ Three further problems compounded it:
    Dirichlet as the authority for registering monopole-matched.
 3. The plan's freeze-list table still read "Fixed-σ Dirichlet far field (charter §2.4)".
 
-The physics is not in question. ADR 0024's measurement stands: the Dirichlet shell holds `σ∞` at
-a finite radius and over-supplies vapor by an amount that **grows with the crystal** — ~46% at
-48³ and ~160% at Phase 2b's own extent-61-in-96³ configuration — while monopole matching removes
-the domain dependence outright, turning a measured 4.1% attached-count swing into 0.0%. What was
+The scoped measurement stands: the Dirichlet shell holds `σ∞` at a finite radius and over-supplies
+vapor by an amount that **grows with the crystal** — ~46% at 48³ and ~160% at Phase 2b's own
+extent-61-in-96³ configuration. For the tested −5 °C, 60-step, 28³/40³ pair, monopole matching turns
+a measured 4.1% attached-count swing into 0.0%; ADR 0024's 20³ break shows that it does not remove
+domain dependence generally. What was
 wrong is the paper trail, and a protocol that contradicts its own governing document cannot be
 said to be frozen against anything.
 

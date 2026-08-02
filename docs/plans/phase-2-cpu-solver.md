@@ -240,8 +240,8 @@ the entire justification for keeping two rules, and it will save more time than 
 
 Order within 2b is deliberate; each step gates the next:
 
-1. **Parameter extraction** → [libbrecht-parameters.md](../libbrecht-parameters.md). No number
-   without a citation.
+1. **Parameter extraction** → [libbrecht-parameters.md](../libbrecht-parameters.md). Adopted source
+   values/transcriptions require citations; project-derived/P4 choices require named operands and method.
 2. **Units** — Δx (µm), Δt (s), D (m²/s) — derive the adaptive fill-CFL interface timestep;
    elliptic relaxation sweeps are a convergence output, never a physical-time count. Record the
    quasi-static Péclet arithmetic in this file (attachment-kinetics §4.3–§4.4).
@@ -265,7 +265,7 @@ Order within 2b is deliberate; each step gates the next:
       "one candidate answer, not a decision" and delegated the call to the spec.
    2. **Steps (ii)/(iv) under `LibbrechtKinetics`:** freezing is *replaced* by the selected
       surface-policy boundary update inside field relaxation (the only field/surface
-      boundary-condition path, so a second uptake mechanism is structurally impossible);
+      boundary-condition path; enforcing tests make an accidental second uptake path detectable);
       melting is *disabled* (no sublimation; `v_n`
       clamped at 0 from below). Full disposition table incl. hole-filling (kept) and noise
       (redefined per-rule): §4.4 component 5.
@@ -509,16 +509,21 @@ Order within 2b is deliberate; each step gates the next:
 
 **Stage 2b — physics**
 - [x] **Fill [libbrecht-parameters.md](../libbrecht-parameters.md)** from arXiv:1910.09067, with
-      citations. Check: every cell cited, or explicitly marked as a gap. A documented gap is a
-      finding; a gap filled with a plausible number is a fabrication.
-      *(Done 2026-07-15. Every entry cited with page numbers; provenance classes assigned.
-      Findings worth knowing before reading it: the σ₀(T)/A(T) curves exist in the sources
-      ONLY as figures — no printed closed forms or tables anywhere — so the numeric anchors
+      citations. Check: every adopted source value/transcription is cited or explicitly marked as
+      a gap; project-derived/P4 entries name operands and method; analytic/contextual non-inputs are
+      labeled outside the taxonomy. A documented gap is a finding; a gap filled with a plausible
+      number is a fabrication.
+      *(Done 2026-07-15 and scope-corrected 2026-08-02. Adopted source values/transcriptions carry
+      page citations; project-derived/P4 entries name their construction; provenance classes assigned.
+      Findings worth knowing before reading it: in the monograph/1910 source pair audited during
+      this 2026-07-15 extraction, the σ₀(T)/A(T) curves appeared only as figures — no printed closed
+      forms or tables in that pair — so the numeric anchors
       are figure digitizations, labeled P2 with ±25% method uncertainty, against two printed
       text anchors; the two sources put the σ₀ crossing at different temperatures (−6 °C in
       1910.09067's A≡1 fits vs ≈−10 °C in the monograph's CAK curves) — recorded as a stated
       systematic, solver uses CAK; D(T) has NO temperature law in the source (the monograph's
-      own Table 2.1 is consistent with constant D at 1 atm — verified by back-computation);
+      own Table 2.1 is consistent with constant D across its approximate air rows — verified by
+      back-computation; associating those rows with exactly 101325 Pa is the project's P2 closure);
       the monograph's "Appendix B" is cited by its own text but does not exist in v2. The
       monograph's Table 2.1 (image-embedded) was transcribed and supplies v_kin(T), c_sat(T),
       sigma_water(T), X_0(T) anchors with a closed-form cross-check at −15 °C to 1.4%.)*
@@ -527,7 +532,8 @@ Order within 2b is deliberate; each step gates the next:
       iteration counts are outputs, not targets). Replaced by, per attachment-kinetics §4.3
       and §4.4: a **fill-CFL bound** on `Δt` (physical time lives only in the interface
       update) and the **quasi-static validity (Péclet) check**, arithmetic recorded here as
-      §4.4 requires — with the freshly extracted numbers, at −15 °C and 1 atm:
+      §4.4 requires — with the freshly extracted numbers, at −15 °C under the project's P2
+      exact-one-atmosphere closure:
       `v_kin = 2.079e-4 m/s` (Table 2.1), so `v_n ≤ alphaHK·v_kin·sigma_infinity ≤ 2.08e-6 m/s`
       at `sigma_infinity = 0.01`; with `L = 100 µm` and `D = 2e-5 m²/s`:
       `Pe = v_n·L/D ≤ 1.04e-5 ≪ 1`. Worst case in the target regime (`sigma_infinity =
@@ -658,8 +664,9 @@ Order within 2b is deliberate; each step gates the next:
       criteria retained, including both stated caveats (±25% digitization bands can
       reverse the −15 °C ordering — a failure is reported as a finding; the −15 °C
       expectation is Nakaya-inverted by the model's own prediction).
-      *(Round-4 arithmetic annotation, 2026-07-15 — registered text above left intact: the
-      closed-form `kineticLength(−15 °C, 1 atm)` gives `X_0 = 0.14545 µm` → `Δx/X_0 =
+      *(Round-4 arithmetic annotation, 2026-07-15 — registered text above left intact: under the
+      project's P2 exact-one-atmosphere closure, the closed-form `kineticLength(−15 °C, 101325 Pa)`
+      gives `X_0 = 0.14545 µm` → `Δx/X_0 =
       2.406`, not 2.414 — the 2.414 used Table 2.1's rounded 0.145 µm anchor. The exponents
       and the ≈ 82 ratio are unaffected, and the value is descriptive arithmetic, not a gate
       criterion. The round-4 audit's exact recomputation of the two worst-case ratios gives
@@ -824,6 +831,13 @@ Order within 2b is deliberate; each step gates the next:
   temperature-conditioned habits emerge but disagree with nature, **record the disagreement and
   proceed** — do not fit. If both temperatures produce the same habit, as in v3, Phase 2b's own
   temperature-output criterion has failed and the phase remains open.
+
+> **Scientific interpretation correction (accepted 2026-08-02, decision 0040).** The next bullet preserves the
+> historical Phase 2 sequencing rationale, not an established causal result. The Berg/nonlinear-
+> attachment account and the source's width-dependent account are forward hypotheses; this project
+> has not proved hollowing independent of the unimplemented width-dependent M2 closure or shown that
+> the latter is globally off the critical path.
+
 - **SDAK before the basal/prism split works.** It is the least certain piece and it is *not* on the
   critical path: hollowing comes from the Berg effect amplified by `exp(−sigma_0/sigma_surf)`, and
   survives dropping the width term entirely (attachment-kinetics §2, §3). Doing SDAK first puts the

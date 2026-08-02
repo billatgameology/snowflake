@@ -20,3 +20,10 @@ evidence/** -text
 # The manifests are the checking mechanism for the above, so they get the same treatment.
 evidence/MANIFEST.json -text
 evidence/OUT-TREES-MANIFEST.json -text
+
+# This archive deliberately preserves a mixed-CRLF/LF historical buffer byte-for-byte. Without an
+# exact-path override, this Windows host's core.autocrlf=true clean filter changes it while adding
+# the file, so the committed blob would not match the recorded raw-body identity. Git's whitespace
+# checker otherwise treats each preserved CR byte as trailing whitespace, so disable that one check
+# only for this exact immutable archive path.
+docs/progress-history-through-2026-08-02.md -text whitespace=-trailing-space

@@ -1,7 +1,8 @@
 # 0030 — Phase 6 SDAK arm: the in-sample reproduction sweep, from printed closed forms
 
 - **Date:** 2026-07-28
-- **Status:** proposed
+- **Status:** superseded before acceptance; do not implement (decision 0036; accepted decision
+  0040 records further interpretation corrections)
 - **Charter impact:** none — quoted per the amended Rule 5. §3.2 Phase 2b already schedules
   this work ("SDAK last, and gated. It is the least certain piece — Libbrecht's attachment
   coefficient depending on facet width requires a local geometric query over surface cells,
@@ -14,24 +15,30 @@
 
 ## Context
 
-The no-SDAK arm has produced its registered expectation and hardened it. The broad-facet
-sigma_0 crossing gives the habit flip in the opposite sense to Nakaya — plate at −5 °C,
-column at −15 °C (Phase 2b v5p; registered expectation `baf7749`) — and WP4's partial band
-sweep measured that the crossing's SENSE survives the entire ±25% digitization band; only its
-LOCATION moves (`aff4ca7`). No admissible wiggle of the measured broad-facet inputs rescues
-the sense. The missing load-bearing element is, on Libbrecht's own published account
-(arXiv:2011.02353; monograph §4.5), the structure-dependent attachment kinetics — narrow
-facets growing stickier, the feedback that makes thin plates and needles — which he proposed,
-tuned to the diagram, and never tested in full 3D. Nobody has (2026-07 literature sweep,
-[stretch register §1](../stretch-sharing-and-investigation.md)).
+> **Supersession note (2026-08-01).** This proposal was never accepted. Its premise converts
+> sigma0/equal-field coefficient order into habit “sense,” makes unsupported priority claims, and
+> treats CAK→M1 as a causal SDAK test. Those interpretations are withdrawn in the current correction;
+> accepted decision 0040 makes them future-gate-inadmissible. The active science-first plan uses the existing M1 approximation plus a matched
+> M1/no-dip forward ablation; full facet-width M2 remains unimplemented. Historical text below is
+> retained only to explain the abandoned proposal.
 
-What changed to make this feasible now: arXiv:2306.13087 is obtained and verified in-repo
-(`21bff19`) and prints closed forms for the SDAK dips; arXiv:2306.04042 reportedly prints the
-SDAK-2 two-branch (A, sigma_0) table (sweep-reported, not yet verified in-repo). SDAK input
-extraction is transcription from printed formulas, no longer figure digitization.
+The historical no-SDAK arm measured a failed Nakaya comparison. Its analytic crossing proxy does
+not specify a coupled plate/column result, and the partial uncertainty-band calculation does not
+close alternative broad-facet 3-D behavior. Published source models motivate narrow-facet kinetics,
+but the 2026-07 search was not an exhaustive priority review and this project makes no “first” claim.
 
-The 204-point no-SDAK validation sweep is RUNNING (launched 2026-07-27 22:47). Its evidence
-is immutable and this ADR must not disturb it.
+What changed to make this feasible then: arXiv:2306.13087 was obtained and verified in-repo
+(`21bff19`) and prints the algebraic forms for the SDAK dips. Its `log` base is unstated; the project
+uses base 10 as a separate, Figure-1-width-supported P4 transcription choice. At the time,
+arXiv:2306.04042 was only sweep-reported as printing the SDAK-2 two-branch (A, sigma_0) table; the
+later source audit verified Table 1 directly. M1 therefore uses the source-printed algebra for the
+project's P3-classified Nakaya-informed prescription, plus that P4 base resolution, rather than arm
+1's figure-digitized CAK anchors. The source prints the algebra; P3 is this project's provenance
+classification, not a label printed by the source.
+
+At this ADR's writing, the 204-point no-SDAK validation sweep had been launched (2026-07-27 22:47).
+Its historical measured-only bytes remain immutable; neither this superseded ADR nor accepted
+decision 0040 upgrades them into gate evidence.
 
 ## Decision
 
@@ -50,7 +57,7 @@ is immutable and this ADR must not disturb it.
    largest admissible fill-CFL — the regime that exposed both prior breaks.
 4. **The expected result is registered before the 3D run.** A 0D/1D analysis from the annex
    forms (Fig.-10-style: which facet family wins at each registered temperature) is derived
-   and committed — including the explicit sense prediction at −5/−15 °C — before any 3D SDAK
+   and committed — restricted to an equal-field coefficient-order diagnostic at −5/−15 °C — before any 3D SDAK
    sweep executes. The arm registers its probable outcome exactly as the no-SDAK arm did.
 5. **Its own frozen protocol, after the running sweep.** The SDAK sweep runs under a new
    protocol id through the same freeze machinery, and only after the running no-SDAK sweep
@@ -61,20 +68,20 @@ is immutable and this ADR must not disturb it.
    (ADR 0005); scoring uses ADR 0025's registered matrix; grid handling uses ADR 0026's
    operator.
 7. **The differential-diagnosis ladder is registered now, not after a disappointment.** If
-   SDAK fails to right the sense: next suspect is the latent-heating correction `chi_0(T,P)`
+   the forward morphology remains discrepant: next suspect is the latent-heating correction `chi_0(T,P)`
    (already tabulated; cheap; registered expectation: an isotropic supply correction with
-   smooth temperature dependence shifts boundaries but cannot invert the basal/prism sense —
+   smooth temperature dependence is expected to shift supply; no theorem about habit inversion follows —
    an expectation that is itself testable); after that, the nonlocal terrace-context
    classifier the source uses and the aggregate policy simplifies away. Surface diffusion
    stays outside v1 (charter §2.6).
 
 ## Consequences
 
-Buys: the first full-3D test of the SDAK hypothesis, decisive in either direction — if the
-sense rights itself, the first 3D demonstration that Libbrecht's tuned form is sufficient
-in-sample; if it does not, evidence that even the Nakaya-informed form cannot rescue the
-diagram in 3D, and the registered ladder says what to try next. Either outcome is reportable;
-neither is a validation claim.
+Historical intended benefit: a full-3D M1 run. It was not a causal SDAK test because CAK→M1 changes
+multiple kinetic inputs, and the literature search did not support a priority claim. The matched
+M1/no-dip forward pair in the active plan is the required design to isolate the implemented dip
+factors' effect on this solver under a frozen configuration; it cannot establish physical SDAK
+causality or necessity in nature.
 
 Costs: a new policy version, a new frozen annex, a new protocol, and the facet-width query —
 the genuinely hard part, and a fresh D6h hazard surface. The width query's definition at this
@@ -95,8 +102,8 @@ still-open maker decision and does not ride along.
   parameterization exists, and the measured failure signature (sense inversion at the
   broad-facet level, robust across the band) points at facet-family competition, not at
   step-flow misclassification.
-- **Tune broad-facet inputs until the sense flips.** Forbidden, twice over: structurally
-  (the table is hash-frozen; edits invalidate the sweep) and by identity (that is calibration
+- **Tune broad-facet inputs until the result flips.** Forbidden: the versioned table makes authorized
+  edits auditable and invalidates the sweep, and such tuning is calibration
   wearing validation's clothes — charter §3.2 Phase 6).
 - **Fold the broad-facet closed-form adoption into this ADR.** Rejected: it couples an open
   maker decision (re-freeze cost against the running sweep) to an arm that does not need it;

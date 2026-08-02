@@ -22,27 +22,38 @@
 
 ---
 
-> ## ⚠ RETRACTION — Finding 1's structural bound is WRONG (2026-07-29)
+> ## ⚠ RETRACTION — Finding 1's structural proof is invalid (2026-07-29)
 >
-> **Finding 1 below, and the crossing counts it cites, are retracted.** An adversarial audit refuted
-> them and I reproduced the refutation independently. The measured results in this report — the
+> **Finding 1 below, and the crossing counts it cites, are retracted.** An adversarial audit corrected
+> the numeric crossing count and invalidated the claimed structural proof; the document author then
+> separately recomputed the counterexample. That follow-up is not claimed as Rule 10-independent
+> review. The measured results in this report — the
 > 3/90 headline, the per-regime table, the class totals, the diagram, the artifact hashes — are
 > **unaffected**. What is retracted is the *interpretation*.
 >
-> - The bound was computed on **σ₀** crossings. Habit depends on the ordering of
->   `alphaHK = A·exp(−σ₀/σ_surf)`, which carries `A_prism`. With `A_prism` included, the printed
->   broad-facet set has **three** αHK crossings (σ_surf ≈ 0.199–0.399 %) and the registered `CAK`
->   set has three for σ_surf ∈ [0.00247, 0.00366] — a band containing **2 of these 204 points**.
-> - The count depends on σ_surf, so it is **not** "independent of diffusion, grid, seed, far field".
-> - The M1 count of five crossings is wrong: `log` in the printed dip formulas is base-10, giving
->   **three** at 3.08 / 8.07 / 24.73.
+> - The bound was computed on **σ₀** crossings. A restricted equal-field attachment-order comparison
+>   uses `alphaHK = A·exp(−σ₀/σ_surf)` and carries `A_prism`; actual habit additionally depends on
+>   facet-local solver fields and coupled geometry/evolution. With `A_prism` included, the printed
+>   broad-facet set has **three** equal-shared-field `alphaHK` equality events
+>   (`sigmaSurf` ≈ 0.199–0.399 %) and the registered `CAK`
+>   set has three for a shared σ_surf ∈ [0.00247, 0.00366]. Two of the 204 sigmaInfinity inputs
+>   numerically lie in that interval; neither is a measurement or bound on facet-local sigmaSurf.
+> - For unequal-prefactor CAK, the restricted equal-shared-field count depends on the selected
+>   shared σ_surf. Unit-prefactor M1's restricted equality locations do not; neither calculation
+>   transfers to the generally unequal facet-local fields or determines coupled habit.
+> - The M1 count of five crossings is wrong under the project's registered P4 transcription: the
+>   source leaves `log` unspecified, and the Figure-1-width-supported base-10 reading gives
+>   **three** at approximately 3.08 / 8.07 / 24.73.
 > - Three σ₀ crossings are also reachable **inside** the registered ±25 % per-anchor digitization
->   band (6561 of 19683 corner combinations), so "the count is invariant under the band" is false.
+>   band (65,536 of 262,144 independent lower/upper corners; equivalently 6,561 of 19,683 unique
+>   relative-factor patterns after collapsing the two equal-scale corners at each anchor), so
+>   "the count is invariant under the band" is false.
 >   the historical Phase 6 plan's structural-bound section already recorded this while another
 >   section claimed the opposite — a self-contradiction preserved and superseded in that plan.
 >
-> **What survives.** Along this sweep's sampled constant-`f` ladders the `alphaHK` reversal count is
-> 1 at f = 0.10 and 0 at every larger sampled `f`. Separately, the historical pure-class habit
+> **What survives.** The far-field proxy diagnostic has one equal-field coefficient-order swap at
+> f = 0.10 and none at every larger sampled `f`; it is not a measured solver `alphaHK` reversal.
+> Separately, the historical pure-class habit
 > operator measures at most one flip per sampled ladder. Neither count is a structural bound on
 > habit transitions. *This parameterization did not reproduce the Nakaya comparison under the
 > executed measured-only protocol* stands; the claim that **no** broad-facet parameterization
@@ -176,15 +187,19 @@ regime is reported but kept out of this historical measured-only scope because i
 
 > ### **Measured-only agreement: 3 of 90 scored points.**
 
-| regime | headline | n | in headline | agree (headline) | neutral |
+| regime | headline | raw n | ambiguity-excluded headline n | agree | raw neutral |
 |---|---|---|---|---|---|
 | `plates-warm` (T > −3.3) | yes | 12 | 6 | **3** | 7 |
 | `columns` (−3.3…−9.9) | yes | 36 | 24 | **0** | 35 |
 | `plates-cold` (−9.9…−21.5) | yes | 72 | 60 | **0** | 69 |
-| `columns-and-plates` (< −21.5) | no | 84 | 0 | 27 (reported) | 57 |
+| `columns-and-plates` (< −21.5) | no | 84 | 0 | 27/84 raw; 26/78 after ambiguity exclusion (reported only) | 57 |
 
 Class totals over all 204 points: **6 plate, 168 neutral, 30 column, 0 invalid.**
 16 points are flagged extent-fragile.
+
+The `raw n` and `raw neutral` columns include boundary-band rows; the headline denominator and
+headline agreement exclude them. The mixed cold regime is not in the headline, so both its raw
+27/84 and ambiguity-excluded 26/78 diagnostic counts are shown explicitly rather than mixed.
 
 **All three agreements are at −2 °C**, the single counting temperature in the warmest regime —
 which ADR 0025 registered *pre-sweep* as carrying essentially no statistical weight, precisely so
@@ -224,67 +239,87 @@ operator. The reference has three boundaries. This is a scoped measurement of tw
 the retracted structural theorem: habit depends on full `alphaHK`, diffusion sets the surface field,
 and no crossing-count bound follows for every parameterization or condition.
 
-**2. Zero invalid runs in 204, in both sweeps.** Every point converged under the dual criterion,
-held `symErr = 0` with noise off, kept every per-tick attachment delta D6h-invariant, and cleared
-the 65% domain-contact guard. Nothing was excluded, so nothing had to be argued about.
+**2. Zero invalid runs in 204, in both sweeps.** Every point passed the per-run elliptic dual
+criterion, held `symErr = 0` with noise off, kept every per-tick attachment delta D6h-invariant, and
+cleared the 65% domain-contact guard. Those checks make the rows admissible under the historical
+measured-only protocol; they are not grid-, timestep- or domain-convergence evidence. Nothing was
+excluded from that artifact.
 
-**3. The σ₀ crossing marks where plate STOPS, not where column STARTS.** Plate now ends at −4 °C
-(f = 0.10), −3 °C (f = 0.15) and −2 °C (f = 0.25); column does not begin until −19 °C (f = 0.10) or
-−23 °C (f = 0.15). The neutral band between them is 14–19 °C wide and is the single largest feature
-of the measured diagram. **Crossing location and habit-transition location are different
-observables**, and only the second is what a morphology diagram records. Libbrecht states the
-requirement as `α_prism ≪ α_basal` — with the ≪ — for columns (`2306.13087v1` p4), which is the
-same point from the source side.
+**3. The observed end of the plate class is not a coefficient-equality event or a column onset.**
+In the CAK artifact, the last sampled plates occur at −4 °C (f = 0.10), −3 °C (f = 0.15) and
+−2 °C (f = 0.25); the first sampled columns do not occur until −19 °C (f = 0.10) or −23 °C
+(f = 0.15). There are 14 intervening integer-temperature neutral rows at f = 0.10
+(−5 through −18 °C; a 15 °C endpoint gap) and 19 at f = 0.15 (−4 through −22 °C; a 20 °C
+endpoint gap). Those are artifact-derived class
+boundaries. A nominal `sigma_0` equality, or an `alphaHK` equality evaluated at one shared positive
+field, is a different analytic quantity and does not locate either morphology boundary. The source's
+strong-inequality condition for columns is consistent with distinguishing equality from a developed
+habit, but it does not predict these artifact boundaries by itself.
 
 **4. Correcting A_prism shrank the plate region and widened the neutral band.** Under `CAK_A1`
 plate held to −8/−9 °C across f = 0.10–0.40; under `CAK` it reaches only −4/−3/−2 °C and vanishes
-entirely at f ≥ 0.40. The cold end is unchanged — column onset stays at −19/−23 °C — exactly as
-expected, since `2009.08404v2` Fig. 2's caption states `A_basal ≈ A_prism ≈ 1` between −10 and
+entirely at f ≥ 0.40. The cold-end column onset stays at −19/−23 °C, which is consistent
+with—but does not follow deductively from—`2009.08404v2` Fig. 2's statement that
+`A_basal ≈ A_prism ≈ 1` between −10 and
 −30 °C, so the two parameter sets ~~are the same model there~~ **nearly coincide from about −15 °C
 colder**. Measured: 11 of the 72 points in −10…−21 °C differ, max |ΔAR| = 0.1092, and `A_prism` is
 0.830 at −10 °C rising to 1 only at −15 °C. **No `plates-cold` point changed class**, which is what
 the 0/60 result rests on.
 
-**5. Higher sampled supersaturation removes pure habit over most of the CAK grid.** Columns
+**5. Higher sampled supersaturation coincides with fewer pure classes over most of the CAK grid.** Columns
 occur only at f = 0.10 and 0.15. **At f = 0.40, 0.60 and 0.90 the model produces nothing but
 neutral across all 34 temperatures** — under `CAK_A1` that was true only at f = 0.90. This was
-predicted pre-sweep from the α ratio (`alphaHK = A·exp(−σ₀/σ_surf)` saturates toward `A`,
-compressing basal/prism contrast), but the measured effect is total rather than a bias. The
-reference diagram is at its most structured exactly there — dendrites, sectored plates, needles.
+anticipated by a far-field coefficient-ratio proxy (`alphaHK = A·exp(−sigma_0/sigmaSurf)` tends
+toward `A` as a shared positive `sigmaSurf` rises), but the proxy does not establish the cause of the
+coupled 3-D outcome. The measured statement is the class census above. The reference diagram is at
+its most structured in those sampled rows — dendrites, sectored plates and needles.
 
 ## What this does NOT establish
 
-- **It is not a test of SDAK.** Every run is no-SDAK; `SDAK` appears in no source file. Under ADR
-  0005 a SDAK model reproducing this diagram would be an in-sample result anyway, because the dip
-  locations were chosen against it. That is why arm 2 needs its own pre-registration.
+- **It is not a test of SDAK.** Every run used the registered broad-facet `CAK` configuration; that
+  configuration contains no narrow-facet dip closure. Under ADR 0005, comparing the later M1 source
+  model against the diagram used to construct its dip locations is in-sample. Neither this arm nor
+  the confounded CAK→M1 comparison identifies a causal SDAK contribution. A matched forward ablation
+  is required to isolate the implemented dip factors' effect on this solver under a frozen
+  configuration; it cannot establish physical SDAK causality or necessity in nature.
 - **Three source-motivated limitations are absent from this arm**, per
   `research/libbrecht-figure-findings.md` §10.2: a width-dependent nucleation barrier whose
   controlling terrace width is **~50 nm against this grid's 350 nm cells**; a fast-growth transient,
   since at −5 °C "both platelike and needlelike crystals can grow under essentially identical
   conditions", which motivates a population-aware comparison rather than treating one run as the
-  whole distribution; and a background gas, which at 1 atm is already represented. This list does
-  not prove that every item is necessary or that no deterministic score could fit a more tightly
-  controlled experiment.
-- **CORRECTED — the earlier claim that our σ₀_prism was "low by 1.6–3.2× at −2…−5 °C" is
-  REVERSED.** The dedicated measurement papers give σ₀,prism = 0.03% at −2 °C and ≈0.2% at −5 °C;
-  our digitized curve matches to ~7%. The closed form we were judging ourselves against
-  (`2306.13087v1` M2) is the outlier at ×3.01. `2009.08404v2` Eq. 3 gives ×1.07, and its Eq. 5
-  reproduces our digitized `A_prism` anchors to 8.4% worst. The warm end does **not** rest on a
-  suspect σ₀_prism.
-- **CORRECTED — seed shape IS class-changing.** The earlier statement that it was "a large
+  whole distribution; and a background gas. The current pressure input changes `D` and therefore
+  transport only. It does not implement pressure-dependent attachment kinetics or an
+  edge-sharpening instability, so an in-air setting cannot support either inference. This list does
+  not prove that every omitted item is necessary or that no deterministic score could fit a more
+  tightly controlled experiment.
+- **CORRECTED — the earlier claim that our `sigma_0_prism` was "low by 1.6–3.2× at −2…−5 °C" is
+  REVERSED.** The dedicated papers infer source-fit values `sigma_0_prism = 0.03%` at −2 °C and
+  approximately 0.2% at −5 °C; these are model-conditioned fit parameters, not direct
+  measurements. Our digitized anchors are 0.028% at −2 °C (6.7% low) and 0.27% at −5 °C
+  (35% high; a 0.07-percentage-point absolute difference from the approximate source fit).
+  `2306.13087v1` M2 is ×3.01 and ×2.14 relative to those source fits, while
+  `2009.08404v2` Eq. 3 is ×1.07 and ×1.54, respectively. Its Eq. 5
+  reproduces our digitized `A_prism` anchors to 8.4% worst. The earlier same-source discrepancy is
+  not the claimed uniform factor-of-1.6–3.2 low bias, but neither is it uniform ~7% agreement;
+  this is a same-lineage transcription/provenance check, not independent physical validation.
+- **CORRECTED — seed shape IS class-changing in the five-seed probe.** The earlier statement that it was "a large
   systematic, though not a class-changing one" was based on two seed thicknesses. A five-seed probe
-  found a needle-like seed produces a genuine **column (AR 1.6154) at −15 °C, where the reference
+  found a needle-like seed produces a threshold-classified **column (AR 1.6154) at −15 °C, where the reference
   requires a plate**. Seed geometry moves AR by +0.41 (−5 °C) and +0.51 (−15 °C) — but in the *same
   direction at both*, while the two bands demand opposite moves. None of the five sampled seeds
   agreed at either sampled condition; this does not rule out every temperature-independent seed.
-- **Habit is measured at extent 21, and selected points show physical-size dependence.** The
-  historical one-sided rule flags 16 points; a closed symmetric distance flags 59 total CAK rows
-  (43 additional). The four-point ladder is diagnostic and non-monotone, not a regime-wide size or
-  numerical-convergence study.
-- **The cross-platform control ran on four CAK configurations only.** Tier 1 differs in 9 of 448
-  fingerprint entries, at 1–31 ULP (`2a9f64b3` versus `3662b9e2`); tier 2 reproduced all four output
-  rows exactly, including the AR = 1.5000 tie. This establishes neither the other 200 CAK rows nor
-  any M1 row. See `docs/phase6-cross-platform-control.md` §Result.
+- **Habit is measured at extent 21, and selected points show size sensitivity.** The historical
+  one-sided rule flags 16 points below a threshold. Applying the same 0.135 distance strictly above
+  a threshold adds 42 rows (58 total); the closed symmetric audit includes one row exactly on a
+  threshold and adds 43 (59 total). Both counts are reported because the difference is threshold
+  equality, not a scientific disagreement. The four-point ladder changes crystal extent and, in its main rungs,
+  domain together; it is diagnostic and non-monotone, not a regime-wide physical-size or numerical-
+  convergence study.
+- **Tracked cross-platform evidence covers the Tier 1 fingerprints.** They differ in 9 of 448
+  entries, at 1–31 ULP (`2a9f64b3` versus `3662b9e2`). A historical table reports four matching CAK
+  output rows, including the AR = 1.5000 tie, but the raw arm64 logs and exit records were never
+  tracked and are unavailable here. No end-to-end, other-CAK-row or M1 portability result is
+  independently rederivable. See `docs/phase6-cross-platform-control.md` §Result.
 - **The comparison target is a redrawn 1954 schematic** whose supersaturation axis WP1 measured as
   failing an independent check, which is why only its three boundary temperatures are used.
 - **The 206-observation alternative cannot substitute for it in the bands that matter.** With the

@@ -59,6 +59,33 @@ describe("Phase 6 independent evidence script labels", () => {
     expect(text).toContain("not the registered ADR 0026 conservative-intersection headline");
     expect(text).not.toMatch(/^\s*HEADLINE\s/m);
   });
+
+  it("evaluates TAX2 M2 with its own unit prefactors, not CAK's A_prism curve", () => {
+    const result = runScript("phase6-libbrecht-closed-forms.mjs");
+    const text = output(result);
+    expect(result.status).toBe(0);
+    expect(text).toContain("project digitized 0.0280% [x0.93, -6.67%]");
+    expect(text).toContain("project digitized 0.2700% [x1.35, +35.00%]");
+    const m2Start = text.lastIndexOf("\n      2306.13087v1 M2");
+    const m1Start = text.lastIndexOf("\n      2306.13087v1 M1");
+    expect(m2Start).toBeGreaterThan(-1);
+    expect(m1Start).toBeGreaterThan(m2Start);
+    const m2Block = text.slice(m2Start, m1Start);
+    expect(m2Block.match(/swaps =\s+1\s+at \(Tm-T\) = 8\.39/g)).toHaveLength(11);
+  });
+
+  it("pins the withdrawn linear proxy's invalid-row audit", () => {
+    const result = runScript("phase6-sdak-arm2-expectation.mjs");
+    const text = output(result);
+    expect(result.status).toBe(0);
+    expect(text).toContain(
+      "Linear-fit alternative: REFUSED (9/78 headline rows have nonpositive/nonfinite AR)",
+    );
+    expect(text).toContain(
+      "audit decomposition: 57 valid positive-AR agreements + " +
+        "9 impossible values historically habit-scored = 66/78",
+    );
+  });
 });
 
 describe("Phase 6 registered flip census", () => {

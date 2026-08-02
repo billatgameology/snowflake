@@ -1,20 +1,24 @@
 # Plan — Phase 6 SDAK arm: in-sample reproduction sweep
 
 - **Phase:** Phase 6 — Validation against the Nakaya diagram (SDAK arm; ADR 0030)
-- **Status:** not started — blocked on ADR 0030 acceptance; steps S0–S2 may proceed on
-  acceptance even while the no-SDAK sweep runs, S6+ may not
+- **Status:** superseded; do not execute. ADR 0030 was never accepted; use
+  `phase-6-science-first-completion.md`; its interpretation amendment was accepted in decision 0040.
 - **Started:** 2026-07-28 (drafted)
 - **Last touched:** 2026-07-28 by Claude Fable 5 — initial draft at the maker's direction
 
 ## Goal
 
-Test, in full 3D for the first time, whether Libbrecht's structure-dependent attachment
-kinetics — transcribed from his printed closed forms, never re-tuned here — rights the habit
-flip that the measured broad-facet kinetics alone produce in the opposite sense to Nakaya.
+Historical goal (withdrawn): test whether M1 changes the failed CAK Nakaya comparison.
 This is the charter's scheduled SDAK arm (§3.2 Phase 2b "SDAK last, and gated"; §3.2 Phase 6
 separate reporting), and ADR 0005 fixes its epistemic ceiling in advance: with P3 inputs
-active, matching Nakaya is in-sample reproduction, never independent validation. The arm is
-decisive in either direction, and the direction it lands is a first either way.
+active, matching Nakaya is in-sample reproduction, never independent validation. CAK→M1 is
+confounded and is not decisive about the dip factors; no priority claim is supported.
+
+Provenance correction (accepted ADR 0040): the M1 source prints the algebra but leaves `log`
+unspecified. This project classifies the exact Nakaya-informed prescription as P3 and resolves the
+base as 10 through a separate, Figure-1-width-supported P4 transcription choice. P3 is the project's
+provenance classification, not a label printed by the source. The historical
+all-P3/direct-transcription wording below is not current.
 
 ## Done when
 
@@ -48,8 +52,8 @@ not touch (ADR 0030 §5).
   percent-vs-fraction guard restated, content hash registered in the test suite, and the
   Rule 12 currency check recorded in the freeze. Check: suite fails on any annex edit.
 - [ ] **S2 — Registered expectation**: 0D/1D facet-competition analysis from the annex forms
-  across the registered temperature axis; commit the predicted winner per temperature and
-  the explicit −5/−15 °C sense before any 3D SDAK run. Check: committed and referenced by
+  across the registered temperature axis; commit only the equal-field coefficient-order diagnostic
+  and its limitation before any 3D SDAK run. Check: withdrawn by the current correction and addressed by accepted decision 0040; referenced by
   the protocol before S6.
 - [ ] **S3 — Facet-width query**: local width measurement over surface cells, keyed to
   integer invariants only; D6h bitwise regression at the largest admissible fill-CFL plus a
@@ -69,8 +73,8 @@ not touch (ADR 0030 §5).
   Check: exit status, per-point records, and artifacts under a fresh `out/` root that cannot
   collide with `evidence/phase6-sweep/`.
 - [ ] **S8 — Report**: SDAK diagram beside the no-SDAK diagram, never merged; in-sample
-  labels on every agreement; S2's expectation confronted explicitly; if the sense is not
-  righted, the ADR 0030 §7 ladder (chi_0, then terrace context) is the recorded next step —
+  labels on every agreement; S2's historical proxy reported only as inadmissible; if morphology
+  remains discrepant, any next intervention requires its own sourced, registered design —
   not an improvisation.
 
 ## Out of scope
@@ -84,10 +88,8 @@ not touch (ADR 0030 §5).
 
 ## Tried and rejected
 
-- **Rescuing the sense from within the broad-facet band** — measured impossible before this
-  plan existed: WP4's partial band sweep (`aff4ca7`) shows the crossing's sense survives the
-  entire ±25% digitization band; only its location moves. This plan exists because that
-  avenue is closed.
+- **Broad-facet uncertainty-band conclusion** — the historical calculation concerns analytic input
+  ordering, not a 3-D habit theorem; it does not close the forward-model question.
 - (Append as the work proceeds.)
 
 ## Open questions

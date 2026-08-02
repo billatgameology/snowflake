@@ -20,7 +20,8 @@
   float32 GPU port; **domain convergence runs before the grid freeze** rather than after;
   measurement precision is spent on **temperature spacing near the boundaries** rather than on
   aspect-ratio resolution; the parameter **uncertainty is swept rather than narrated**; and the
-  **1D spherical reference solver** returns to scope as the only absolute accuracy anchor.
+  **1D spherical reference solver** returns as an analytic numerical check for its idealized
+  spherical boundary-value problem, not a physical-accuracy certificate for faceted growth.
 
 ## Goal
 
@@ -149,7 +150,9 @@ Phase 6 does not run as a single monolithic freeze. It runs as a sequence of **r
 protocols**, each frozen before its own sweep, each pinned by hash the way
 `PHASE4_CRITERIA_FREEZE`, `GATE2B_PREREGISTRATION` and `PHASE5_PROTOCOL_SHA256` are, and each
 reported separately. Charter item 1 binds every one of them: any post-freeze edit needs a logged
-ADR and **invalidates that protocol's prior sweep results — the sweep re-runs in full**.
+ADR and **makes that protocol's earlier sweep inadmissible for a replacement gate — the
+replacement sweep re-runs in full**. Earlier executed bytes and measurements remain historical
+evidence of their named superseded protocol.
 
 The first protocol is the no-SDAK reversal probe. Later protocols (SDAK-active reproduction,
 quantitative onset comparison against Fig 8.16, held-out observables) are registered when their
@@ -382,23 +385,22 @@ fixed at 0.9905.
 > the measurement extent was *then* chosen from the AR-vs-extent trajectories — so the two never
 > composed, and domain independence was never demonstrated at the size actually registered.
 > Re-run at extent 21 ([`research/phase6-convergence.md`](../../research/phase6-convergence.md)
-> §1.2), the cold attached count converges **exactly** by N = 64
-> (5185 → 5161 → 5161 → 5159 → 5159), and warm is bit-identical across all five domains. The
-> apparent domain effect above was an artefact of stopping mid-development, where a one-step
-> difference in which step trips the size target moves the count. **Registered minimum domain:
-> N = 48**, not the N = 40 this section concluded.
+> §1.2), the historical warm row was bit-identical and the last two sampled cold counts matched.
+> That two-row ladder was later shown non-transferable: R15's registered multi-point check failed
+> N = 48 and N = 64 at three of four points. No minimum domain or exact asymptote follows from this
+> table; the replacement protocol must re-establish both at its registered configuration.
 
-**The cold reading is not the predicted one, and it is now measured rather than open.** At −15 °C
-and f = 0.15 the α-ratio table predicts 1.40 — basal faster, i.e. a **column** — while extent 15
-measured `AR = 0.9905`, classifying neutral. The trajectories have since run to extent 39: cold
-rises to 1.258 and flattens from extent 31, so it is **neutral at every size measured and never a
-column**. The size-development explanation was therefore only half right — the habit does develop
+**The cold reading differs from the old equal-field coefficient proxy.** At −15 °C and f = 0.15
+that proxy compares coefficients under one shared far-field-derived value; it does not predict the
+coupled habit. Extent 15 measured `AR = 0.9905`, classifying neutral. The trajectories later ran to
+extent 39: cold rises to 1.258 and flattens from extent 31, remaining neutral at every sampled size.
+The size-development explanation was therefore only half right — the habit does develop
 with size, 0.63 → 1.26, but it stops well short of the 1.5 column floor. Whether the model
-delivers the habit its own parameters predict at cloud-realistic supersaturation is a live WP4
-question, not a measurement artefact. The registered measurement size is **extent 21**, set by
+changes under the replacement numerical controls is a live question. The historical measurement
+size was **extent 21**, set by
 the slowest-developing habit: a size adequate for the warm plate (extent 9) reads cold at 0.63
-and would classify it **plate** — the opposite of its converged class, and a silent
-misclassification of half the diagram.
+and would classify it **plate**, unlike its later sampled neutral class. That is enough to reject
+the early measurement size for this historical row; it is not a domain-wide convergence claim.
 
 Wall times are not recorded as costs here: the ladder ran up to thirteen jobs concurrently on
 eight physical cores, so every second is contended by construction.
@@ -413,16 +415,16 @@ extent 15).** Four timesteps spanning 8×, both temperatures.
 | 0.05 | 168 | 527 / 0.3810 | 342 | 1649 / 0.9905 |
 | 0.025 | 333 | 521 / 0.3810 | 677 | 1649 / 0.9905 |
 
-**Same split as the domain ladder, and it is becoming the pattern of this phase: the habit
-metric converges early and the volume metric converges late.** `AR` is identical at every
-timestep at both temperatures — an 8× change in step size does not move the registered
-criterion at all. Attached count is not converged until `cflFill ≤ 0.05`: on the cold side it
-runs 1697 → 1505 → 1649 → 1649, non-monotone, settling on 1649, so **cfl = 0.1 is 8.7% off the
-converged volume** while classifying identically. Warm spreads ~1% over the same range.
+**Finite historical observation:** `AR` is identical at every sampled timestep at both
+temperatures, so the 8× sampled change did not move the historical class criterion in these two
+rows. Cold attached count runs 1697 → 1505 → 1649 → 1649 non-monotonically. The last two samples
+are equal, but two equal terminal samples do not establish a limiting value; **cfl = 0.1 differs
+by 8.7% from the equal 0.05/0.025 pair** while classifying identically. Warm spreads ~1% across
+the sampled values.
 
-**Consequence for WP0c:** `cflFill = 0.1` is adequate for a habit-class sweep and is not
-adequate for any reported volume-like quantity. Whichever is registered, the other must be
-labelled as not converged at that setting rather than quietly inheriting the number.
+**Historical consequence only:** in these two rows `cflFill = 0.1` left class unchanged but was
+not adequate for attached-count quantities. The result does not transfer to R15's arms, sizes, and
+representative cases; the replacement protocol must run its own timestep controls.
 
 This ladder is also what caught the ADR 0024 `rho_far` defect: warm cfl = 0.2 originally
 reported `deltaSymClean = false`. Re-run under the fix, **every value in the table above is
@@ -455,34 +457,32 @@ correction matters because §4 of the convergence report extrapolates from this 
 
 > **STRUCTURAL ARGUMENT BELOW RETRACTED — 2026-08-01 adversarial review.** Lines in this historical
 > registration that infer a habit-transition bound or sense from `sigma_0` crossings alone are
-> false. Habit depends on the full `alphaHK = A·exp(−sigma_0/sigma_surf)` ordering; `A_prism` changes
-> the crossings and diffusion determines `sigma_surf`. The registered CAK functions can have three
+> unsupported and withdrawn. Even a restricted shared-field `alphaHK = A·exp(−sigma_0/sigma_surf)` comparison carries
+> `A_prism`; actual habit depends on each facet's solver-produced field plus diffusion, geometry,
+> seed, size and evolution. The registered CAK functions can have three
 > `alphaHK` crossings over a narrow sampled surface-supersaturation band, and the ±25% anchor exercise
 > below governs `sigma_0`, not habit. What remains is empirical: under the registered pure-class
 > operator, each executed arm has two `plate→column` flips total across six constant-f ladders and no
 > `column→plate` flip. Nothing below proves what every broad-facet model can or cannot produce.
 
-**This sharpens into a specific, falsifiable expectation, and it is not the one the diagram
-shows.** The registered σ₀(T) has a *single* crossing, at exactly −10 °C where
-σ₀_basal = σ₀_prism = 0.0140. Warmer, σ₀_prism is lower, prism facets advance faster, the
-crystal spreads: **plate**. Colder, σ₀_basal is lower, basal facets advance faster, the crystal
-lengthens along c: **column**. So crossing the model's boundary from warm to cold gives
-**plate → column**.
+**Historical expectation, retracted as a morphology inference.** The registered `sigma_0(T)`
+curves have one nominal crossing, but that alone does not determine the coupled solver's habit or
+transition sense. The complete attachment coefficient includes `A(T)` and the local surface field
+is facet- and geometry-dependent. The original text below is retained only to show what was
+pre-registered and subsequently invalidated by adversarial review.
 
 Nakaya's figure, by its own caption, switches "plates (−2 °C) to columns (−5 °C) to plates
 (−15 °C) to predominantly columns (< −30 °C)". Its boundary near −9.9 °C therefore separates
 **columns on the warm side from plates on the cold side** — crossing it warm to cold gives
 **column → plate**.
 
-The model's single crossing lands within 0.1 °C of a measured Nakaya boundary and runs in the
-**opposite sense**. Two consequences follow, and both are results rather than problems:
+The nominal crossing lands within 0.1 °C of one digitized Nakaya boundary. The two original
+consequences are both retracted:
 
-1. **One crossing cannot reproduce three transitions.** Nakaya has three; the large-facet CAK
-   σ₀ curves cross once and are monotone either side. No-SDAK is therefore *structurally*
-   incapable of reproducing the full diagram, independent of any numerics — which is exactly
-   what ADR 0005 makes a first-class result.
-2. **The sense at that one crossing is inverted.** This is the sharp claim WP4 must test, and
-   it is registered here before the sweep so it cannot be discovered after the fact.
+1. ~~One crossing cannot reproduce three transitions.~~ Unsupported: the crossing counted the wrong
+   quantity and does not bound morphology; the audit did not establish the opposite 3-D theorem.
+2. ~~The transition sense is fixed and inverted.~~ Unsupported: the executed pure-class operator,
+   not this curve comparison, is the admissible measurement.
 
 **WP4 partial result (2026-07-27), and it separates the two claims sharply — no solver runs
 required.** The σ₀ crossing is where the two curves are equal, so scaling BOTH by the same factor
@@ -502,40 +502,43 @@ these anchors it can sit anywhere across a **16 °C span**, which covers essenti
 region between Nakaya's −3.3 °C and −21.5 °C boundaries. So the observation that the nominal
 crossing lands within 0.1 °C of the −9.9 °C boundary is doubly worthless as evidence: it is
 in-sample (the plan already forbids presenting it as a prediction) **and** it is a coincidence
-inside an uncertainty that spans the diagram. Note too that the warm edge, −6.90 °C, sits right
-where 1910.09067's Fig. 4 independently puts the raw-measurement crossing (≈ −6 °C) — the two
-source estimates the plan requires probing separately are both *inside* the band.
+inside an uncertainty that spans the diagram. Note too that the warm edge, −6.90 °C, sits near
+the equality of the source-fit/model-inferred curves plotted in 1910.09067 Figure 4 (≈ −6 °C).
+That equality and the monograph-table equality are input-function diagnostics, both inside the band;
+neither is a morphology target or a direct measurement.
 
-**The crossing SENSE is completely robust to the same band.** The basal/prism σ₀ ratio is
-monotone decreasing in temperature — 12.50 at −2 °C, 1.00 at −10 °C, 0.52 at −40 °C — so there is
-exactly one crossing at any scaling, and warmer of it prism always advances faster (plate) while
-colder basal always does (column). **Multiplying either curve by a constant cannot change a
-monotone function's ordering**, so no point in the ±25% band produces more than one crossing, and
-none produces plate-cold → column-warm.
+**The earlier robust-sense conclusion is retracted.** Constant whole-curve multipliers preserve
+the nominal ratio's monotonicity, but the registered uncertainty is per anchor, not a single
+multiplier, and even the ordering of `sigma_0` is not a habit theorem. The later corner enumeration
+finds three `sigma_0` crossings in 65,536 of 262,144 independent lower/upper corners. The earlier
+6,561/19,683 count is the equivalent census of unique relative-factor patterns after collapsing
+the two equal-scale corners at each anchor.
 
-**Consequence for the report, registered here:** the falsifiable claim is the **sense and the
-count**, never the location. One monotone crossing cannot produce Nakaya's three transitions, and
-its sense is the reverse of the diagram's −9.9 °C boundary, at *every* point in the parameter
-band. That is what WP4 must test with runs; the location is not a testable quantity at this
-uncertainty and must not be reported as agreement or disagreement.
+**Corrected consequence for the report:** crossing location/count/sense of the two `sigma_0`
+curves are function diagnostics only. The admissible result is the registered forward solver's
+measured class/flip census with numerical controls satisfied; it supplies no universal bound.
 
 Three things must be ruled out before this is asserted as a finding rather than an expectation,
 and WP4 owns all three. The digitization is **not** one of the loose ends: σ₀_prism at −15 °C
 carries an independent text-cited anchor ("σ₀ = 3 percent for a prism facet at −15 °C", printed
 p. 144) that matches the digitized 3.2%, so the curves are not mislabelled.
 
-- The **source discrepancy already recorded** in `libbrecht-parameters.md` §3: 1910.09067's
-  Fig. 4 puts the raw-measurement crossing at ≈ −6 °C, the monograph's CAK curves at ≈ −10 °C.
-  Both crossings must be probed; the plan already requires this.
+- The **source-parameterization discrepancy already recorded** in `libbrecht-parameters.md` §3:
+  the source-fit/model-inferred curves plotted in 1910.09067 Figure 4 are equal near −6 °C, while
+  the monograph CAK curves are equal near −10 °C. A replacement comparison must execute the two
+  complete, separately frozen attachment parameterizations; it must not turn either equality into
+  a forward-run target.
 - The **±25% digitization band** on σ₀, whose edges move the crossing.
-- **Whether the cold column develops at all at f = 0.15.** It is measuring neutral, not column,
-  so the model may not even deliver the habit its own parameters predict at cloud-realistic
-  supersaturation. That is a separate finding from the sense inversion and must not be merged
-  with it.
+- **What the coupled solver actually produces at f = 0.15.** The historical row is neutral, not
+  column. That is a measured result of the complete field/geometry/kinetics calculation; no simple
+  coefficient-order proxy establishes a parameter-predicted habit against which to assign blame.
 
-**7. The grid (Δx) ladder — and it is the one that does NOT converge (2026-07-27).** Fixed
-physical box (16.8 µm) and fixed physical measurement size, three spacings, v6 + monopole,
-f = 0.15. Every point `symErr = 0`, `deltaSymClean = true`, all relaxations converged.
+**7. The historical grid-spacing ladder — non-transferable composition-changing diagnostic
+(2026-07-27).** The runs used a fixed nominal physical box (16.8 µm) and measurement size at three
+spacings, v6 + monopole, f = 0.15. Every point reported `symErr = 0`,
+`deltaSymClean = true`, and converged relaxations. Changing spacing also changed the discrete seed,
+site geometry, lattice realization and stopping composition, so these are not refinements of one
+fixed physical problem and cannot establish grid convergence.
 
 | Δx (µm) | N | extent | warm attached / AR | cold attached / AR |
 |---|---|---|---|---|
@@ -543,37 +546,21 @@ f = 0.15. Every point `symErr = 0`, `deltaSymClean = true`, all relaxations conv
 | 0.350 | 48 | 15 | 521 / 0.3810 plate | 1505 / **0.9905 neutral** |
 | 0.2333 | 72 | 23 | 2325 / 0.4488 plate | 6951 / **1.0952 neutral** |
 
-**Δx = 0.7 changes the habit class.** Cold reads plate there and neutral at both finer spacings,
-so the coarse grid is not a cheaper version of the answer — it is a different one. That alone
-makes Δx a first-order scientific choice rather than a refinement knob.
+**Measured scope only.** The executed coarse cold composition classified plate while the two finer
+compositions classified neutral; between 0.35 and 0.2333 µm, measured `AR` moved +10.6% cold and
++18% warm. Those differences show that the registered numerical answer was not stable across the
+executed ladder. They do not isolate spacing as the cause, establish a convergence order, or license
+a continuum extrapolation. The former first-order claim and h → 0 values 0.584/1.305 are withdrawn.
 
-**And Δx = 0.35 — what every result in this project so far has used — is not converged either.**
-Between 0.35 and 0.2333 the class holds but `AR` still moves, +10.6% cold and +18% warm, and it
-moves *toward* column. Successive changes fall by a factor 0.291 against the 0.333 expected for
-first order, so the convergence is roughly first order and can be extrapolated:
+**The old crossing interpretation is withdrawn.** A σ₀ or equal-field coefficient-order swap is
+not a coupled habit prediction. The measured historical cold class is neutral at the sampled
+spacings; no continuum or parameter-implied class may be quoted from this composition-changing
+ladder. R15 must measure a fixed-physical-size convergence trajectory.
 
-> **h → 0: warm `AR` ≈ 0.584, cold `AR` ≈ 1.305.**
-
-That is an extrapolation from three points assuming first order, not a measurement, and it is
-labelled as such. But its implication is not comfortable and must not be softened: **both
-conditions sit substantially closer to their classification thresholds in the converged limit
-than the Δx = 0.35 numbers suggest** — warm 0.584 against a plate ceiling of 0.667, cold 1.305
-against a column floor of 1.5. Neither class flips under the extrapolation, but the margins are
-thin, and *both* move in the direction that would flip them.
-
-**This qualifies §6 above rather than overturning it.** The registered expectation — one
-crossing, in the opposite sense to Nakaya — is a statement about the σ₀ ordering and does not
-depend on Δx. But the specific reading "cold measures neutral, not the column its parameters
-predict" is **provisional**: the grid trend points at column, and a converged grid may deliver
-the predicted column after all. That reading may not be quoted as a finding until it is
-measured at a converged spacing or reported with this systematic attached.
-
-**Consequence for WP0c, and it is a cost problem rather than a physics one.** Δx = 0.2333 at
-N = 72 cost ~6 hours for one point (contended), so a full sweep at that spacing is likely
-infeasible. The honest options are to register the finest affordable Δx and **report the grid
-bias as a measured, extrapolated systematic on every point**, or to restrict quantitative claims
-to the classifications that survive the extrapolation. Choosing the coarse grid and calling the
-result converged is the one option the measurements above have removed.
+**Consequence for WP0c.** The executed 0.2333 µm/N = 72 composition cost about six contended hours,
+which is useful non-transferable cost reconnaissance. It cannot choose the R15 spacing or supply a
+grid-bias systematic. The replacement design must hold the physical seed/size/problem definition
+fixed, run its registered spacing ladder, and treat resource cost only as a scheduling input.
 
 **The pre-freeze corrections are done (2026-07-26).** Four source-verified corrections landed
 in `docs/libbrecht-parameters.md` while they were still free to make; after the freeze each
@@ -710,62 +697,54 @@ coarser one, and a grid frozen against that would be wrong at every point.
       0.8% while our water-minus-ice excess runs 5–20% low, which touches no accepted evidence
       (`sigmaWater` is a diagnostic, not a solver input) but is recorded before any protocol
       sets a far field relative to water saturation.
-- [x] **WP3 — numerical verification. Runs BEFORE the grid freeze. DONE 2026-07-27**:
+- [x] **WP3 — historical numerical reconnaissance. Completed 2026-07-27; superseded for R15**:
       [`research/phase6-convergence.md`](../../research/phase6-convergence.md). Grid, timestep and
       domain convergence studies at representative conditions, reported with deltas. Registered
-      outcomes: **domain N = 48** (+0.04% attached against the N ≥ 64 asymptote), **measurement
-      extent 21** (class-adequate; the value settles only near 31), **`cflFill` = 0.1** (+8.7% on
-      volume, exact on class). Δx is handed to WP0c as an open cost/systematic decision because it
-      **does not converge** — 0.7 flips the cold class, and 0.35 still moves `AR` +10.6% cold going
-      finer. Two corrections came out of it: the first domain ladder was run at the wrong
+      historical outcomes included extent 21 and `cflFill = 0.1` leaving class unchanged in two
+      rows while attached count differed. The old N = 48 domain selection is withdrawn: R15 later failed it
+      at three of four registered points. The Δx ladder is non-transferable because each spacing
+      changed the discrete seed/site/stopping composition; its measured class and `AR` differences
+      do not establish a spacing-caused flip, convergence order or continuum value. Two corrections came out of it: the first domain ladder was run at the wrong
       measurement extent and its conclusion reversed when re-run at the right one, and ADR 0024's
       ratio-based validity limit was disproved (erratum logged; the governing quantity is not
       identified, so a domain budget must be measured per configuration and never extrapolated).
 
-      **"Representative" is a regime judgement, not a convenience one, and getting it wrong
-      would invalidate the study silently.** Two constraints, from the project's own analysis:
+      **Historical representative-condition rationale — coefficient proxy only, not a habit
+      mechanism.** The original selection used two heuristics:
 
-      1. *Not too high.* α_HK = A·exp(−σ₀/σ_surf) saturates toward A as σ_surf grows, so at high
-         supersaturation the basal/prism distinction — the whole mechanism under test — weakens.
-         The v6 calibration shows it directly at −5 °C: `AR` runs 0.471 → 0.606 → 0.740 (plate →
-         plate → neutral) as f goes 0.15 → 0.50 → 0.90. Convergence measured at f = 0.90 would
-         be convergence of a crystal with no habit to resolve.
+      1. *Not too high.* Under a shared prescribed surface field,
+         `alphaHK = A·exp(−sigma0/sigmaSurface)` approaches A as the field grows. The executed v6
+         calibration at −5 °C measured `AR` 0.471 → 0.606 → 0.740 (plate → plate → neutral) as f
+         went 0.15 → 0.50 → 0.90. That is an empirical row, not proof that coefficient contrast
+         alone selected those habits.
       2. *Not too low.* `monograph-review.md` §2.5 records that at −15 °C with the Phase 2b
-         σ∞ = 0.002, σ₀_basal/σ∞ = 12 and σ₀_prism/σ∞ = 16, giving facet coefficients of order
-         6e−6 and 1e−7 against rough-site 1 — **both facet families are effectively dead**, and
-         habit there is set by rough-site geometry, step flow and hole filling rather than by the
-         CAK crossing. Phase 2b's column at −15 °C is a real result about the solver but is not
-         the facet mechanism Phase 6 is testing.
+         `sigmaInfinity = 0.002`, the far-field barrier ratios are 12 and 16, giving equal-field
+         facet-coefficient diagnostics of order 6e−6 and 1e−7 against the rough-site unit closure.
+         The actual facets use solved boundary fields, so these numbers do not prove that rough-site
+         geometry, step flow or hole filling selected the observed Phase 2b column.
 
-      Both constraints are quantitative, and the deciding quantity — the ratio α_basal/α_prism,
-      which is what actually selects habit — can be computed from the registered parameters with
-      no 3D run at all:
+      The following ratio is therefore only an **equal-shared-field coefficient diagnostic**. The
+      coupled solver does not give basal and prism facets one common field: each `alphaHK` uses its
+      own solved boundary value, and diffusion, geometry, topology, filling and hole closure all
+      enter morphology. The diagnostic cannot select habit without the 3-D run:
 
-      | T | σ₀ basal | σ₀ prism | α_bas/α_pri, f=0.15 | f=0.50 | f=0.90 |
+      | T | sigma0 basal | sigma0 prism | equal-field `alphaHKBasal/alphaHKPrism`, f=0.15 | f=0.50 | f=0.90 |
       | --- | --- | --- | --- | --- | --- |
       | −5 °C | 0.00700 | 0.00270 | **0.56** | 0.84 | 0.91 |
       | −10 °C | 0.01400 | 0.01400 | **1.00** | 1.00 | 1.00 |
       | −15 °C | 0.02400 | 0.03200 | **1.40** | 1.11 | 1.06 |
 
-      Three things fall out. **(a)** The contrast collapses toward 1 — no habit preference — as f
-      rises, at every temperature, confirming constraint 1 numerically. **(b)** The ratio
-      *inverts* with temperature, below 1 at −5 °C (prism faster ⇒ plate) and above 1 at −15 °C
-      (basal faster ⇒ column). That inversion is the CAK crossing the sweep exists to test.
-      **(c)** σ₀_basal and σ₀_prism are **exactly equal at −10 °C**, so the model's own crossing
-      sits there. Nakaya's second measured boundary is at −9.9 ± 0.5 °C (WP1).
+      Within that restricted diagnostic, ratios move toward the prefactor ratio as f rises, their
+      ordering differs between −5 °C and −15 °C, and the two barriers are equal at −10 °C. None of
+      those statements maps coefficient order directly to plate/column class or predicts a habit
+      transition. The −10 °C equality is a property of source/project input curves, not model output;
+      failure of a 3-D flip cannot be assigned uniquely to solver rather than parameters.
 
-      Point (c) must not be read as an early success. σ₀(T) is digitized Libbrecht input data,
-      not a model output, so where its crossing lands is a property of the inputs; under the
-      provenance rules this is at best P2/P3 and the agreement is closer to in-sample than to
-      prediction. What it *is* good for is registering a falsifiable expectation before the
-      sweep: if the 3D runs do not flip habit near −10 °C at low f, the disagreement is with the
-      solver rather than with the parameters.
-
-      The water-relative ladder was chosen precisely to avoid both traps, and **f = 0.15 is the
-      discriminating fraction**: σ₀/σ∞ is 0.93/0.36 at −5 °C and 1.02/1.36 at −15 °C.
-      It is also the expensive end — the calibration's f = 0.15 cold points exceeded a 300 s
-      budget at 48³ — which is the accuracy-versus-cost tension made concrete. Under the stated
-      priority the answer is to pay it. Runs at σ∞ = 0.002 are retained as a numerical
+      The historical water-relative ladder chose f = 0.15 because it maximized this proxy contrast:
+      `sigma0/sigmaInfinity` is 0.93/0.36 at −5 °C and 1.02/1.36 at −15 °C. That choice is now
+      non-transferable and cannot select R15 conditions. It was also the expensive end—the
+      calibration's f = 0.15 cold points exceeded a 300 s budget at 48³. Runs at
+      `sigmaInfinity = 0.002` are retained as a numerical
       cross-check against Phase 2b's known answer, labelled as such, and are **not** the
       representative-condition study.
 
@@ -774,8 +753,9 @@ coarser one, and a grid frozen against that would be wrong at every point.
       finite radius and over-supplies vapor increasingly as the crystal grows, and the
       finite-outer-boundary spherical solution (Eqs. 3.33–3.36) gives that bias in closed form.
       Transcribing it for WP3b turned up an **erratum in the printed Eq. 3.35** — its
-      denominator should be the attachment coefficient, not X₀/R — caught by three independent
-      checks and recorded in `docs/libbrecht-parameters.md` §1.1. The correction matters here
+      denominator should be the attachment coefficient, not X₀/R — caught by three mutually
+      consistent cross-checks of the same equation and recorded in
+      `docs/libbrecht-parameters.md` §1.1. The correction matters here
       rather than being a curiosity: the printed form makes the bias a few percent and
       *independent of crystal size*, while the corrected form makes it grow toward
       [1 − R/R_far]⁻¹. On the corrected estimate a measurement at extent 17 carries ~46% bias at
@@ -822,18 +802,11 @@ coarser one, and a grid frozen against that would be wrong at every point.
       habit flips by design, so domains may not be pre-shaped to a morphology that is not yet
       known (ADR 0001 cuts both ways): use compromise near-cubic budgets or the two-pass
       probe-then-refit scheme.
-- [ ] **WP4 — the no-SDAK reversal probe, swept across its own uncertainty.** Run the frozen
-      grid with SDAK inactive and answer the charter's question: does the measured large-facet
-      crossing alone produce any habit reversal? **The nominal parameter values are not run
-      alone.** Two uncertainty axes are registered protocol rather than narrated caveats:
-      (a) **both σ₀ crossing candidates** — the −6 °C raw-measurement crossing and the CAK
-      curves' −9/−10 °C — which `docs/libbrecht-parameters.md` already requires before any
-      conclusion "about the model"; and (b) the **±25% digitization band edges on the cold
-      side**, where uncertainty-consistent draws are known to be able to reverse the basal/prism
-      ordering. A conclusion that flips between draws is not a conclusion, and the sweep is what
-      tells us which we have. Report the model's diagram beside Figure 1's boundaries with
-      agreements and disagreements both stated. **Either answer closes this work package.** A
-      null result is written up as a result.
+- [ ] **WP4 — historical framing withdrawn; do not execute this work package.** It incorrectly
+      promoted two `sigma_0` equalities into run targets and described one as a raw-measurement
+      crossing. A replacement protocol must compare the complete separately frozen attachment
+      parameterizations, propagate registered input uncertainty through forward solver artifacts,
+      and derive habit only from those artifacts. It must not score or target either equality.
 - [ ] **WP5 — canonical evidence and closure.** Run the registered gate command flagless at one
       exact clean commit, authenticate the artifacts, obtain independent review to zero blockers
       and zero should-fixes, and record every metric, value, host, command, commit and artifact
@@ -924,25 +897,28 @@ observables — are registered when they open, each with its own frozen protocol
 These are recorded systematics, not blockers. Each must be carried in the Phase 6 report; none
 may be discovered after the fact.
 
-1. **The σ₀ crossing discrepancy.** 1910.09067 Figure 4 puts the raw-measurement crossing at
-   T ≈ −6 °C; the monograph's CAK curves cross at (Tm−T) ≈ 9–10 °C. The solver uses the CAK set.
-   `docs/libbrecht-parameters.md` requires this be carried as a stated systematic, and that the
-   no-SDAK probe be run against **both** crossings before any conclusion about "the model".
+1. **The source-parameterization discrepancy.** The source-fit/model-inferred curves plotted in
+   1910.09067 Figure 4 are equal near T ≈ −6 °C; the monograph's CAK curves are equal at
+   (Tm−T) ≈ 9–10 °C. These are input-function diagnostics, not measured morphology boundaries.
+   Any replacement comparison must run the complete separately frozen parameterizations and carry
+   their provenance; it must not run “against” either equality.
 2. **±25% digitization bands can flip the cold-side ordering.** Propagating the bands
    independently per anchor lets the −15 °C bands overlap, so uncertainty-consistent parameter
    draws exist in which the ordering reverses. No covariance information exists to exclude them.
-3. **No `D(T)` law exists.** The solver, like the monograph's working table, treats diffusivity
-   as temperature-independent at 1 atm. This bites hardest in exactly this phase's temperature
-   sweeps.
+3. **No `D(T)` law exists.** The monograph's working table supports a temperature-independent
+   approximation in air but does not pin that row to exactly 101325 Pa. The solver applies it under
+   the project's P2 exact-one-atmosphere closure. This bites hardest in exactly this phase's
+   temperature sweeps.
 4. **CAK-in-air vs CAK-in-vacuum.** The monograph is internally split; the choice is a stated
    Phase 6 systematic.
 5. **Latent heating is unmodelled.** Ignoring it overestimates diffusion-limited growth by
    40–80% on the warm side. Whether a labelled correction enters the freeze list is a WP0
    decision.
-6. **Registered σ∞ = 0.002 puts the cold half of a sweep in a dead-facet regime**, which makes
-   "no column at −15 °C" partly predictable from regime placement alone. The frozen σ grid must
-   address this — per-temperature σ scaled to σ₀(T), or a second registered point near
-   0.01–0.02 — and the choice is registered in WP0, not decided after seeing results.
+6. **Historical far-field proxy warning; habit inference retracted.** At `sigmaInfinity = 0.002`,
+   evaluating broad-facet inputs against that shared far-field value gives weak attachment values
+   over much of the cold range. It does not establish facet-local solved fields, a “dead-facet
+   regime,” or a coupled no-column prediction. A replacement supersaturation grid must be sourced
+   and frozen before execution, not changed after seeing results.
 7. **Permanent model limits** (`docs/attachment-kinetics.md`): no latent-heat transport, no
    Gibbs–Thomson, no admolecule surface diffusion, no sublimation, seed placed rather than
    nucleated; plus intrinsic vicinal anisotropy (~10%, not removable by resolution) and a

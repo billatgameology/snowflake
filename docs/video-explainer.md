@@ -59,10 +59,10 @@ And this explains the two most famous snowflake facts:
 - **Why no two snowflakes are alike:** no two crystals take exactly the same path through
   exactly the same cloud. Different journey, different diary.
 
-### The 90-year-old mystery: the Nakaya diagram
+### The long-running modeling problem: the Nakaya diagram
 
-In the 1930s, a Japanese physicist named **Ukichiro Nakaya** became the first person to grow
-snowflakes in a lab (his trick for suspending them: a strand of rabbit hair). He grew
+In the 1930s, a Japanese physicist named **Ukichiro Nakaya** pioneered controlled laboratory
+growth of snow crystals (his trick for suspending them: a strand of rabbit hair). He grew
 thousands of crystals at controlled temperatures and humidity levels and mapped what shape
 grew where. The map — the **Nakaya morphology diagram** — is bizarre:
 
@@ -76,12 +76,12 @@ forth** as you cool it down, across just a few degrees. And separately: the more
 the air, the more elaborate and branchy the shape gets; less moisture gives small, simple,
 compact crystals.
 
-Why the flip-flop? **Nobody could explain it for about 75 years.** It's one of those
-embarrassing physics mysteries hiding inside an everyday thing. The first serious
-quantitative model that even attempts to explain it came from **Kenneth Libbrecht** (a
-Caltech physicist who spent decades growing and measuring snow crystals) — in **2019**. This
-is not settled textbook science. It's a live question. That's what makes this project more
-than a graphics demo.
+Why the flip-flop? It remains an active modeling problem rather than settled textbook
+science. A major modern quantitative account came from **Kenneth Libbrecht** (a Caltech
+physicist who spent decades growing and measuring snow crystals) in **2019**. The sources
+reviewed for this project establish that model's relevance, not a universal priority claim
+or a decades-long absence of other explanations. That's what makes this project more than a
+graphics demo.
 
 (One honesty note the project itself insists on: Nakaya's diagram is a hand-drawn qualitative
 map with fuzzy boundaries, not a precision dataset. Modern observations even disagree with it
@@ -91,7 +91,7 @@ below about −20 °C. The project treats it as a report card, not as gospel.)
 
 ## Part 2 — The physics in the papers
 
-Every paper this project sits on boils down to a supply chain with two stages. Stage one:
+The physical model used by this project organizes growth as a supply chain with two stages. Stage one:
 water vapor has to **travel through the air** to reach the crystal. Stage two: when a
 molecule arrives at the surface, it has to actually **stick**. Everything — plates, columns,
 branches, hollows, the whole Nakaya mystery — comes from how these two stages compete.
@@ -135,8 +135,8 @@ settle, then grow the crystal a tiny bit, repeat."
 
 ### Stage 2: The bouncer problem (attachment kinetics)
 
-Here's the part almost every popular explanation of snowflakes skips, and it's where the
-Nakaya mystery actually lives.
+Popular explanations of snowflakes often skip this part, and it is central to the Nakaya
+modeling problem.
 
 When a vapor molecule finally reaches the ice surface... it usually **doesn't stick**. It
 lands, skitters around, and often leaves again. Whether it sticks depends on what the surface
@@ -156,7 +156,7 @@ surface =
 
 where `v_kin` is a temperature-dependent speed limit (how fast molecules bombard the surface)
 and `sigma_surf` is the fuel gauge *right at the surface* — after diffusion has taken its
-cut. Simple law; all the physics hides inside `alphaHK`.
+cut. Simple law; much of the surface-attachment model hides inside `alphaHK`.
 
 **Why flat faces exist at all.** An atomically flat ice face is hard to grow on. A molecule
 landing mid-face has no ledge to grab, so it usually leaves. Growth on a flat face has to
@@ -171,24 +171,31 @@ formula form, `alphaHK ≈ A · exp(−sigma_0 / sigma_surf)`: below a critical 
 nonlinearity — whole shape families appearing and disappearing as conditions cross
 thresholds — is the engine behind the diagram's sharp personality changes.
 
-**The Nakaya mystery, restated in one sentence.** The basal faces (coin faces) and the prism
-faces (pencil sides) each have their *own* stickiness curve — their own `alphaHK(T, sigma)`,
-with their own `sigma_0(T)` and `A(T)` — and **the two curves trade places as temperature
-changes.** Where prism stickiness wins, sides grow, you get plates. Where basal wins, you get
-columns. The curves cross, and cross back — plates, columns, plates, columns. Libbrecht spent
-years actually **measuring** these curves in the lab for wide, clean facets. Those
-measurements are the physical heart of this entire project.
+**The Nakaya mystery, restated carefully.** Basal faces (coin faces) and prism faces
+(pencil sides) each have their own attachment parameterization — their own
+`alphaHK(T, sigma_surf)`, with `sigma_0(T)` and `A(T)`. The broad-facet evidence combines
+P1 measurements with P2 source fits, inferences, and figure digitizations; a continuous
+curve is not a direct measurement at every temperature. Under a deliberately restricted
+diagnostic, one can feed both facets the same positive `sigma_surf` and compare their
+coefficients. M1's equal-prefactor functions swap ordering with temperature. But a growing
+3-D crystal presents different, evolving local fields and geometry to its two facet
+families, so equal-field coefficient ordering does **not** determine plate or column habit.
+That answer has to come from the coupled forward solver.
 
-**And the honest gap in the science.** The measured curves alone don't obviously reproduce
-the whole diagram. Libbrecht's proposed missing piece is called **SDAK**
+**And the honest gap in the science.** The broad-facet P1/P2 parameterization does not by
+itself settle the whole diagram. Libbrecht's proposed missing piece is called **SDAK**
 (structure-dependent attachment kinetics): the hypothesis that stickiness depends not only on
 temperature and fuel but on the **shape of the facet itself** — specifically, that very
 narrow facet edges get stickier. That creates a feedback loop (narrow edge → stickier →
-grows faster → gets narrower → stickier...) which would explain the razor-thin plates and
-needles. But here's the thing the project cares deeply about: **the SDAK curves were never
-measured.** Libbrecht *chose* them so his model would match the Nakaya diagram. That's not
-cheating — it's a legitimate hypothesis — but it means "the model matches Nakaya" is partly
-built in, not discovered. Keep that loaded; it becomes the plot of Phase 6.
+grows faster → gets narrower → stickier...) which could help produce razor-thin plates and
+needles. Published model-dependent inversions of narrow-facet growth observations support
+approximate barrier-reduction regions near −4 °C and −14 °C, but the surface fuel was not
+directly verified and the dip widths and depths remain poorly constrained. The exact M1
+dip functions and placement were selected using the Nakaya diagram, so they are P3 and a
+Nakaya comparison using them is in-sample reproduction. The lattice mapping,
+interpolation, resolutions, and tolerances are separately registered P4 discretization
+choices. This provenance split — rather than a claim that every narrow-facet effect was
+simply unmeasured — becomes the plot of Phase 6.
 
 ### The two papers that give you a computable model
 
@@ -198,26 +205,25 @@ on a home PC. Their world is a 3D honeycomb of cells — hexagonal LEGO. Each ce
 numbers (vapor here? ice here? boundary mush?), and every tick, four simple rules run:
 **diffuse** (each cell's vapor averages with its neighbors), **freeze**, **attach** (a
 boundary cell joins the crystal when its local conditions pass a threshold), **melt**. That's
-it. Plates, stellar dendrites, hollow columns, sandwich plates — all emerge. It's the
-strongest proof that dumb local rules suffice. But it has one honest, fatal limitation:
+it. Plates, stellar dendrites, hollow columns, sandwich plates — all emerge. It's a vivid
+demonstration that simple local rules can generate elaborate forms. But it has one honest limitation:
 **there is no temperature anywhere in it.** Its attachment thresholds are abstract knobs.
 Some knob settings make plates and some make columns, but *no knob is labeled in degrees*.
 You can't ask it "what grows at −15 °C?" — the question isn't just unanswered, it's
 un-askable. It's a "how to compute" paper, not a "why" paper.
 
-**Libbrecht (2019 + the monograph) — the physics.** The other side has exactly the opposite
-strengths: real measured stickiness curves with real temperatures attached, a semi-empirical
-model of the morphology diagram, and a 500-page reference book (*Snow Crystals*) full of
-equations, data, and lab technique. But his own published simulations mostly run in
-simplified geometry (like assuming the crystal is perfectly round or cylindrical) — not
-full free-form 3D.
+**Libbrecht (2019 + the monograph) — the physics.** The other side has complementary
+strengths: broad-facet measurements and source fits tied to physical temperatures, a
+semi-empirical morphology model with explicitly Nakaya-informed narrow-facet inputs, and a
+500-page reference book (*Snow Crystals*) full of equations, data, and lab technique. His
+published simulations in the reviewed set mostly run in simplified geometry (like assuming
+the crystal is perfectly round or cylindrical), rather than full free-form 3-D.
 
-**The gap between them is where this project lives.** One side: a 3D engine with no
-temperature. Other side: temperature physics with no full 3D engine. Nobody had bolted the
-measured physics into the full 3D machinery and then *checked the result against the diagram
-without peeking*. As of this project's literature sweep (July 2026), that is still true —
-Libbrecht himself wrote in 2023 that no existing 3D model reproduces even one of his
-benchmark structures, and then stopped publishing on snow crystals.
+**The gap between them is where this project lives.** One side: a 3-D engine with no temperature.
+The other: temperature-dependent physics developed mainly in reduced geometries. The reviewed July
+2026 source set did not supply this exact end-to-end 3-D validation, but that search was not an
+exhaustive priority review. This project tests the connection without making a universal priority
+claim.
 
 ---
 
@@ -233,27 +239,29 @@ journey; the crystal writes the diary.
 But the twist that makes it special: the app **shows you the invisible**. You can slice
 through the air around the crystal and *see* the vapor shortage as a colored field — watch
 the tips glow with supply while the face centers starve. You can see, live, *why* the arms
-sprout and *why* the hollow forms. Every snowflake toy on the internet is a slot machine:
-pull the lever, get a pretty shape. This is an instrument: it makes cause-and-effect visible,
-so you can reason about it.
+sprout and *why* the hollow forms. Many online snowflake toys work like slot machines: pull
+the lever, get a pretty shape. This is designed as an instrument: it makes the model's
+cause-and-effect visible, so you can reason about it.
 
 ### The scientific move
 
-The build strategy in one sentence: **take Gravner–Griffeath's honeycomb machinery, rip out
-its temperature-blind attachment thresholds, and install Libbrecht's measured stickiness
-curves in their place.**
+The build strategy in one sentence: **take Gravner–Griffeath's honeycomb machinery, replace
+its temperature-blind attachment thresholds, and install Libbrecht's source-cited attachment
+parameterizations in their place.**
 
-Now the temperature slider is *real*. It feeds `alphaHK_basal(T, sigma)` and
-`alphaHK_prism(T, sigma)` — the measured curves — and the plate-vs-column outcome is
-**computed, not chosen**. Which means, for the first time in this lineage, the model can be
-**wrong**. Set −15 °C: does a plate grow? If yes — remarkable. If no — that's a real
-scientific finding about the measured physics. A model that cannot fail can't teach you
-anything; this one can fail, and that is deliberately the point.
+Now the temperature slider has a physical interpretation. It feeds the basal and prism
+`alphaHK(T, sigma_surf)` parameterizations into the coupled field/surface solver, and the
+plate-vs-column outcome is computed by that solver rather than assigned from a temperature
+label. The inputs do not all have the same standing: broad-facet evidence is P1/P2; exact
+M1 dips are Nakaya-informed P3 and in-sample for Nakaya; interpolation and the lattice
+mapping are P4. Set −15 °C: does a plate grow under a frozen parameter set and numerical
+protocol? Either answer is a scientific result about that implemented model. It is not,
+by itself, a parameter-free consequence of the underlying measurements.
 
 Both attachment rules are kept forever, side by side: `GGThreshold` (the original
-Gravner–Griffeath rule — the reliable "working floor" that always makes something beautiful,
-and the control group for debugging) and `LibbrechtKinetics` (the physics). Like keeping the
-answer key next to your own work.
+Gravner–Griffeath rule — the reliable working floor and control for debugging) and
+`LibbrechtKinetics` (the source-parameterized coupled operator). Like keeping a differential
+control next to your own work.
 
 ### The honesty system
 
@@ -265,8 +273,8 @@ earned. Concretely:
   quantitatively validated?). The UI says "−15 °C (model input; not yet validated against
   measurement)" until — *unless* — Phase 6 earns the stronger claim. A real-looking number
   resting on an untested model is the most convincing fake there is.
-- "We gave the model real physics" and "the model reproduces reality" are **different
-  claims**. Only the Phase 6 test can upgrade the first to the second.
+- "We supplied source-cited physical parameterizations" and "the model reproduces reality"
+  are **different claims**. Only the required Phase 6 evidence could support the second.
 - A quirky but revealing rule: the bare word "alpha" is *banned from the entire repository*,
   enforced by an automated scanner. Why? Libbrecht's stickiness coefficient and
   Gravner–Griffeath's threshold knob are unrelated quantities that are both traditionally
@@ -274,7 +282,7 @@ earned. Concretely:
   that confuses them would still make gorgeous crystals — for the wrong reasons — which for
   this project is the worst possible failure. So the code must always say *which* one:
   `alphaHK` or `ggThresh`. When correctness matters, you don't rely on being careful; you
-  make the mistake impossible to type.
+  make the build reject the ambiguous form.
 
 ### The engineering shape (quick, because Part 4 tells the story)
 
@@ -282,7 +290,7 @@ earned. Concretely:
   because sixfold symmetry has to live in the *bones*. On a normal cubic voxel grid you can
   tune parameters forever and never turn four into six.
 - **Two solvers, permanently.** A slow, ultra-careful CPU solver in double precision — the
-  **oracle**, the ground truth, never deleted — and a fast GPU solver for interactivity,
+  **oracle**, the pinned float64 numerical comparison reference, never deleted — and a fast GPU solver for interactivity,
   which must continually prove it agrees with the oracle. Fast intern, checked against the
   meticulous accountant.
 - **Metrics, not vibes.** Every scientific milestone is an automated number (a symmetry
@@ -290,8 +298,9 @@ earned. Concretely:
   right" is explicitly not evidence.
 - Built by **multiple AI models across sessions with no shared memory**, coordinated entirely
   through written state files, plan files, decision records, and adversarial review — a
-  relay race where every runner writes detailed notes for the next. (26 numbered decision
-  records so far. Every mid-course correction is written down with its reasons.)
+  relay race where every runner writes detailed notes for the next. (Numbered ADRs preserve
+  accepted decisions and proposed changes; every mid-course correction is written down with
+  its reasons.)
 
 ---
 
@@ -306,10 +315,10 @@ trail.
 ### Phase 0 — Read until you actually understand (no code allowed)
 
 Before any code: read the papers until specific skills exist — sketch the Nakaya diagram from
-memory; explain why a cubic grid can never work; write Gravner–Griffeath's update cycle as
-pseudocode; **explain hollowing without mentioning any hollowing rule**; and say precisely
-which parts of the model are measured physics and which are phenomenological knobs. That last
-skill matters most: it's the honesty system in embryo.
+memory; explain why a cubic grid cannot preserve the required sixfold environment; write
+Gravner–Griffeath's update cycle as pseudocode; **explain hollowing without mentioning any
+hollowing rule**; and separate measured, fitted/inferred, Nakaya-informed, and numerical
+inputs. That last skill matters most: it's the honesty system in embryo.
 
 ### Phase 1 — A cheap toy answers the only product question that matters (a weekend)
 
@@ -354,17 +363,19 @@ can look plausibly organic, but a malformed *field* is obvious at a glance.
 
 ### Phase 2b — Install the physics (the hard part, and a beautiful failure)
 
-Now the real surgery: replace the attachment thresholds with Libbrecht's measured kinetics.
+Now the real surgery: replace the attachment thresholds with Libbrecht's source-cited kinetics.
 Two documents had to exist *before* any code, by explicit decision:
 
-- **The parameter table.** Every measured quantity — `sigma_0(T)`, `A(T)` for basal and
-  prism, the speed limit `v_kin(T)`, diffusion `D(T, P)` — extracted from the papers **with
-  page citations**, units nailed down, and a provenance grade on every entry: P1 measured,
-  P2 fitted, P3 Nakaya-informed hypothesis (the SDAK curves!), P4 our own numerical choice.
-  That P3 label is the honesty system doing real work — it marks exactly which inputs would
-  make a Nakaya comparison circular. One trap the table guards in writing: sources quote
-  `sigma_0` sometimes as a percent, sometimes as a fraction — mix them up and your
-  exponential is wrong by a factor of 100.
+- **The parameter record.** Source-derived inputs — `sigma_0(T)`, `A(T)` for basal and
+  prism, the speed limit `v_kin(T)`, and diffusion `D(T, P)` — carry page citations, units,
+  and a provenance grade. P1 is a directly adopted authoritative source quantity: measured or
+  source-tabulated empirical input, or exact metrological definition;
+  P2 is fitted, model-inferred, project-derived, or figure-digitized; P3 marks the Nakaya-informed exact M1 dip functions and
+  placement. Interpolation and other numerical/discretization choices are separately
+  registered as P4 rather than presented as paper-backed physics. The P3 label marks a
+  Nakaya comparison as in-sample rather than independently validated. One trap the table
+  guards in writing: sources quote `sigma_0` sometimes as a percent, sometimes as a fraction
+  — mix them up and your exponential is wrong by a factor of 100.
 - **The seam spec.** G-G attaches cells in a binary flip; Libbrecht's law gives a smooth
   growth *speed*. Converting a speed into honest cell-flips is the actual engineering
   problem. The design: each surface cell accumulates a "fill fraction" at the physical rate;
@@ -407,12 +418,14 @@ difference:
 - **−15 °C → a column.** Aspect ratio 12.2 (twelve times taller than wide).
 
 Same code, same seed, same everything — a hundredfold shape flip from temperature alone,
-with perfect symmetry and every numerical check green. The model's temperature input is
-*real*.
+with perfect symmetry and every registered numerical check green. Temperature was an
+explicit physical input to this source-parameterized run; this gate did not independently
+validate the parameterization against nature.
 
-One more thing. Sharp readers should check that against Part 1... **it's backwards.** Nature
-says columns near −5 and plates near −15; the model says the opposite. Hold that thought —
-it's not a bug in the code, and it becomes the central scientific plot of Phase 6.
+One more thing. Sharp readers should check that historical pair against Part 1: its −5 °C
+plate and −15 °C column labels are opposite the corresponding Nakaya labels. That scoped
+result is neither a universal prediction nor, by itself, proof for or against an
+implementation defect. It becomes one of the scientific questions Phase 6 examines.
 
 ### Phase 3 — Make the invisible visible (and then distrust your eyes)
 
@@ -488,13 +501,11 @@ tolerance on the real hardware (Windows, RTX 3080), the ~8-million-cell preview 
 **interactively editable** — a parameter edit acknowledged in ~10 ms, first updated frame in
 ~0.3 s — with an audit trail of 2,715 checked GPU readbacks and zero forbidden shortcuts.
 
-And then a twist worth a whole video beat: **the Phase 6 science sweep doesn't even use the
-GPU.** When measured, at the small grids the sweep needs, the careful CPU oracle was
-*six times faster* than the GPU (parallelism doesn't pay at small sizes), and float32
-fundamentally cannot meet the sweep's convergence tolerance, which sits below float32's own
-rounding floor. So the science runs on the trusty accountant; the GPU serves the product —
-the thing you'll actually play with. Right tool, right job, and the project wrote down the
-measurement instead of assuming.
+Phase 6 now has two separate compute obligations. The float64 CPU oracle carries the replacement
+production and numerical-convergence campaigns. The charter also requires hundreds of automated
+runs at the preview-resolution GPU budget, with a binary32 error envelope and CPU comparison. The
+historical small-grid timing and tolerance probes do not replace that GPU clause; the cohort remains
+open.
 
 ### Phase 6 — The exam (in progress)
 
@@ -503,14 +514,11 @@ sweep temperature from −2 to −35 °C and humidity across the whole range, au
 habit at every grid point, and lay the model's morphology diagram next to Nakaya's. **The
 model's report card.**
 
-The defining rule is **pre-registration** — the sealed envelope. Every choice that could
-bend the outcome (the temperature grid, thresholds, domain sizes, tolerances, the exact
-frozen parameter table — 21 registered freeze rows, hash-locked so an edit literally fails
-the test suite) is written down and frozen *before* the first run. Any post-freeze change
-requires a formal decision record and **invalidates all results, forcing a full re-sweep**.
-Quiet tuning isn't forbidden; it's *structurally impossible*. This matters because the
-temptation is real: everyone wants the model to match the pretty diagram. The freeze makes
-"we matched it" mean something — and makes "we didn't match it" publishable.
+The defining rule is **pre-registration**. Every outcome-sensitive choice is versioned before a
+campaign. A post-freeze correction needs a decision record, a new protocol identity, and a full
+rerun; old bytes keep their old identity. This does not make quiet tuning impossible. It makes
+authorized edits auditable and gives reviewers artifacts against which undisclosed drift can be
+detected.
 
 Preparing the exam room turned into a scientific story of its own. Four discoveries:
 
@@ -524,63 +532,49 @@ be perfect mirror images computed the *same* values in *different orders*, diffe
 ulp — and growth **amplified** that dust, step by step, until one arm of the crystal
 attached a cell one step before its five siblings. Fix: sum in a fixed sorted order, making
 the result depend only on *which* values (the multiset), not the visiting order. And the
-verification is satisfying: the corrected version reproduces the accepted Phase 2b results
-**digit for digit** — proof it changed arithmetic order, not physics.
+verification is satisfying: the corrected version reproduces the scoped accepted Phase 2b
+cases **digit for digit**. That establishes bit-identical outputs for those cases while the
+summation order changed; it is not a theorem about every configuration.
 
 **2. The book is wrong (Equation 3.35).** Building an independent accuracy anchor — an
 exact 1D spherical solution to check the 3D solver against — meant transcribing formulas
 from the monograph. One didn't behave. Equation 3.35 (the correction for a finite outer
-boundary) fails three independent sanity checks; the printed denominator is simply the wrong
-symbol. The project derived the correct form and — better — later found Libbrecht had
-printed the *correct* version himself in a 2013 paper, the very source the book cites. A
-one-symbol transcription slip, in print, uncaught for years (the erratum email is drafted,
-pending the maker's send). The consequence is not cosmetic: the corrected form says finite
+boundary) disagreed with the project's derivation and with the form Libbrecht printed in a
+2013 paper cited by the book; the denominator uses a different symbol in the monograph.
+That one-symbol inconsistency matters (the erratum email is drafted, pending the maker's
+send). The consequence is not cosmetic: the corrected form says finite
 simulation boxes bias growth far more than the printed form implies — up to ~160% under
 some of this project's own earlier configurations. Which forced...
 
 **3. Walls that pretend to be sky.** Every simulation lives in a finite box, but a real
 crystal grows under an effectively infinite sky. Holding the box walls at fixed fuel level
-("Dirichlet") oversupplies the crystal — measurably: the same crystal grown the same number
-of steps came out **291 cells** in a small box vs **279** in a bigger one. The box size was
-leaking into the science. The fix (proposed in the monograph, never before implemented or
-tested in 3D): make the walls *impersonate* infinite sky — hold each wall cell at the fuel
-level the infinite atmosphere *would* have there, given how much the crystal is currently
-drinking (its "monopole" sink term). Result: **231 cells in both boxes.** The wall's shadow
-is gone from the answer. Nobody in this niche had ever published that number or that
-verification.
+("Dirichlet") oversupplied the smaller sampled case: the same crystal grown the same number
+of steps came out **291 cells** in a small domain vs **279** in a bigger one. The project
+then implemented the monograph's monopole idea: make the walls impersonate infinite sky by
+setting each wall cell from the crystal's current sink estimate. The matched sampled answers
+were **231 cells in both domains**. That demonstrates removal of the observed domain difference
+for those two sampled answers only; it does not prove wall independence across sizes, shapes,
+or parameters. The reviewed source set did not contain this exact check, but that is a scoped
+search result rather than a universal implementation or priority claim.
 
-**4. The convergence studies — including the trap the discipline caught.** Before freezing
-the exam settings, the project measured its own numerical error honestly. The domain-ladder
-story (run the same crystal in bigger and bigger boxes, first measured at the *wrong*
-crystal size, "non-convergence" reported; re-measured at the registered size, the
-conclusion **reversed** — the box was fine, the crystal had been judged half-baked) became
-the poster child for "test under the exact registered conditions." And one axis refused to
-converge: the lattice cell size itself still shifts the answer ~10–18% at the finest
-affordable grid — both habits drifting *toward* their classification thresholds. Rather
-than hide that, the frozen protocol reports every point's habit twice (measured, and
-grid-extrapolated) and flags any point where they disagree as grid-fragile. An error bar
-would have claimed precision the study itself disproved; this scheme reports exactly what's
-known and no more.
+**4. The convergence studies — including two transfer traps.** The first domain ladder ran at the
+wrong crystal size and reversed when repeated at the historical registered size. R15 then showed
+that even that repair did not generalize: N = 48 and N = 64 each failed three of four registered
+domain checks. The spacing ladder also changed the represented physical geometry while changing
+cell size, so its extrapolated limit is withdrawn. The replacement protocol must compose fixed-
+physical-size grid, timestep, and domain controls at the exact configuration they govern.
 
-**Where it stands, and the ending the envelope predicts.** The protocol froze (July 27).
-The remaining pre-flight items are recorded: freeze the agreement-scoring rule (how model
-habits map onto the diagram's regimes — decided *before* seeing results, or it's a thumb on
-the scale), and a maker decision on newly-found Libbrecht papers that print exact formulas
-for curves the parameter table had to digitize from graphs. Then: the sweep.
+**Where it stands.** Two historical 204-row forward campaigns measured poor Nakaya agreement: CAK
+3/90 and M1 54/90 under their measured-only scoring. That failure is accepted, but Phase 6 is not
+complete. R15's numerical controls, corrected parameter-table freeze, matched M1/no-dip ablation,
+preview-budget GPU cohort, and held-out obligations remain open. The old analytic plate/column
+forecast is retracted: same-field coefficient order is not coupled morphology, and CAK→M1 changes
+too many inputs to isolate the dip factors.
 
-And here's the ending worth building the video toward. Remember the backwards flip — the
-model growing plates at −5 °C and columns at −15 °C, opposite to nature? That's not a code
-bug; per Phase 2's checks, it is what **the measured broad-facet stickiness curves alone**
-appear to produce. Libbrecht himself predicted this in prose — his claim is that the
-measured curves *can't* make the Nakaya diagram without SDAK, the never-measured
-narrow-facet feedback he hypothesized. **Nobody has ever actually run that test.** This
-project's sealed envelope says: expect the model to *fail* the diagram, in a specific,
-quantified direction — and that failure, honestly measured under a frozen protocol, would
-be the first rigorous evidence that SDAK (or something like it) isn't optional decoration
-but the load-bearing missing physics of the snowflake. Either outcome teaches something
-real. That's what a falsifiable model is *for* — and it's the difference between this and
-every snowflake generator ever posted online: this one is allowed to be wrong, on the
-record, in public.
+Published model-dependent inversions of narrow-facet growth observations support approximate
+barrier-reduction regions near −4 °C and −14 °C. The exact M1 functions and placement remain
+Nakaya-informed and in-sample. The science-first ending is therefore not predetermined: run the
+matched forward ablation and report what the artifacts say, including another negative result.
 
 (And whichever way the exam lands: Phase 2a's control rule still grows a beautiful crystal,
 and Phase 7 still builds the instrument around it. The product doesn't die if the physics
@@ -594,8 +588,9 @@ result is negative — the honesty labels just keep telling the truth.)
 - **Basal / prism facets** — the coin-faces (top/bottom) vs pencil-sides of the hexagonal
   crystal. Their growth race decides plate vs column.
 - **Habit** — a crystal's overall shape family (plate, column, needle, dendrite).
-- **Nakaya diagram** — the map of which habit grows at which temperature and humidity; the
-  plates→columns→plates→columns flip-flop is the 90-year mystery.
+- **Nakaya diagram** — the qualitative map, developed from experiments beginning in the
+  1930s, of which habit grows at which temperature and humidity; explaining its alternating
+  plate/column regions remains an active modeling problem.
 - **Supersaturation (sigma)** — the fuel gauge: how much excess vapor the air holds beyond
   its comfortable limit.
 - **Diffusion** — vapor's slow, staggering delivery through air; creates the shortage that
@@ -605,12 +600,15 @@ result is negative — the honesty labels just keep telling the truth.)
 - **Attachment coefficient (`alphaHK`)** — stickiness, 0 to 1: the fraction of arriving
   molecules that actually stay. Different for basal and prism, changing with temperature
   and fuel; the heart of the mystery.
-- **SDAK** — Libbrecht's unmeasured hypothesis that narrow facets get stickier (a feedback
-  loop making thin plates and needles); chosen to fit the diagram, never measured — which
-  is exactly why Phase 6 tests the model without it first.
+- **SDAK** — width-dependent attachment kinetics. Model-dependent inversions of narrow-facet
+  observations support approximate barrier-reduction regions, while dip widths and depths
+  remain poorly constrained and the exact M1 prescription is Nakaya-informed P3/in-sample.
+  The implemented M1 is an everywhere-narrow approximation, not the full width-feedback
+  closure; numerical mappings remain P4.
 - **Lattice / mesoscopic** — the honeycomb LEGO world; each cell stands for trillions of
   molecules, not one.
-- **Oracle** — the slow, maximum-precision CPU solver kept forever as ground truth.
+- **Oracle** — the slow float64 CPU solver kept forever as the numerical comparison reference. It is
+  not physical ground truth; Phase 6 tests whether the model itself agrees with observations.
 - **Pre-registration** — sealed-envelope science: freeze every choice before running, so a
   match means something and a miss is a result.
 - **Ulp** — a float's last binary digit; the dust grain that broke the crystal's symmetry
@@ -620,20 +618,25 @@ result is negative — the honesty labels just keep telling the truth.)
 
 Themes with legs, in rough narrative order:
 
-1. **Cold open:** "No two snowflakes are alike — but nobody can tell you why ice flips
-   between plates and columns four times as it cools. That mystery is 90 years old, and
-   this computer is about to take the exam."
+1. **Cold open:** "The Nakaya diagram has mapped ice's alternating plate and column regions
+   since the 1930s, but reproducing them quantitatively remains an active modeling problem.
+   This computer is about to take the exam."
 2. **The diary metaphor** carries Part 1; the capped column (Phase 4's timeline demo) is
    its on-screen payoff.
 3. **Two-stage supply chain** (delivery vs bouncer) carries Part 2; the slice-plane
    starvation view is the money shot for "centers starve."
-4. **The gap between two papers** (3D engine with no thermometer; thermometer with no 3D
-   engine) sets up the project in one breath.
+4. **The contrast between two source lineages** (G-G's 3-D engine has no physical
+   temperature input; Libbrecht's reviewed simulations are mainly reduced-geometry) sets up
+   the project in one breath without a priority claim.
 5. **Failure montage** carries Part 4: the box that couldn't be perfect → the seed the
    paper miscounted → v3's identical twins → v4's phantom pennies → the breathing GPU →
    the crystal that grew a flaw one addition at a time → the typo in the textbook. Each
    failure caught by a written rule, each fix on the record.
-6. **The sealed envelope ending:** the model's flip is backwards, the envelope predicts
-   failure, and honest failure here IS the discovery (SDAK becomes load-bearing). End
-   before the sweep results — a genuine cliffhanger, because they genuinely don't exist
-   yet.
+6. **The sealed envelope ending, updated:** the historical registered arms failed to reproduce the
+   diagram under their executed protocol, and the envelope made that negative result reportable.
+   Do not say the flip is universally backwards or that SDAK became load-bearing: the former
+   crossing proof was wrong and CAK→M1 is not a causal ablation. The matched M1/no-dip arm and R15
+   numerical/held-out work remain open, so the cliffhanger is the still-unanswered effect of the
+   implemented dip factors within the frozen solver and the validation question—not nonexistent
+   historical results. Even the matched intervention cannot establish physical SDAK causality or
+   necessity in nature.

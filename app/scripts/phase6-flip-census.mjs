@@ -1,9 +1,9 @@
 // Phase 6 — the registered FLIP CENSUS, discharged (pin register R55).
 //
 // ADR 0025 registers the flip count as "itself a first-class result", and `phase6DetectFlips`
-// exists to produce it. It has no caller outside `runner/test`, and neither arm's artifact carries
-// a flip count — a registered output simply absent from the published evidence. Preflight does not
-// check that registered outputs were produced, so nothing failed.
+// exists to produce it. Before this census it had no caller outside `runner/test`, and neither
+// arm's artifact carried a flip count — a registered output simply absent from the published
+// evidence. Preflight does not check that registered outputs were produced, so nothing failed.
 //
 // This costs no compute: flips are a function of the published `points.json` files.
 //
@@ -26,7 +26,11 @@ import { phase6DetectFlips } from "../../runner/src/phase6-protocol.ts";
 
 const ARMS = [
   { id: "arm1-cak", label: "arm 1 (CAK, no SDAK)", dir: "phase6-sweep" },
-  { id: "arm2-sdak-m1", label: "arm 2 (M1, SDAK)", dir: "phase6-sweep-arm2" },
+  {
+    id: "arm2-sdak-m1",
+    label: "arm 2 (M1, SDAK-dipped approximation)",
+    dir: "phase6-sweep-arm2",
+  },
 ];
 const FRACTIONS = [0.1, 0.15, 0.25, 0.4, 0.6, 0.9];
 const TEMPERATURES_C = Array.from({ length: 34 }, (_, i) => -2 - i);

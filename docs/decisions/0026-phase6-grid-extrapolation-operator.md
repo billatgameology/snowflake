@@ -92,23 +92,26 @@ the failure mode a dual report invites.
 
 ## Historical consequences — numerical-closure claims superseded above
 
-**The most consequential open question in Phase 6 is now closed by measurement, and the answer is
-neutral.** §4.1 combined an extent extrapolation with a grid extrapolation to put a converged cold
-`AR` near 1.47 — "essentially on the 1.5 column boundary" — and concluded that neutral-vs-column
-was decided by numerics rather than physics. Measured at the registered size, cold is 1.2222 at
-the finest spacing and extrapolates to **1.42–1.46, below the 1.5 column floor on both
-estimates**. The cold condition does not reach column at f = 0.15 even in the grid limit.
+**Historical finite diagnostic; the closure reading is withdrawn.** §4.1 combined an extent
+extrapolation with a grid extrapolation to put the cold `AR` near 1.47 — "essentially on the 1.5
+column boundary" — and concluded that neutral-vs-column was decided by numerics rather than
+physics. In the later three-spacing diagnostic at the registered size, cold measured 1.2222 at
+the finest sampled spacing and the registered operator returned **1.42–1.46, below the 1.5 column
+floor on both estimates**. Because refinement changed the lattice seed composition, those outputs
+do not establish a fixed-physics grid limit or exclude a column under a valid R15 convergence
+campaign.
 
-**This is the third WP3 study to reverse when re-measured at the registered crystal size** (after
-the domain ladder, and after ADR 0024's ratio-based validity limit). The pattern is now recorded
-once, at the top of the convergence report: a convergence study measured at a size other than the
-one being registered does not compose with the registration, and in this project it has twice
-produced the *wrong answer* rather than merely a less precise one.
+**This historical diagnostic changed the earlier reading when re-measured at the registered
+crystal size.** Together with the domain and ADR 0024 diagnostics, it motivated the transfer rule
+now recorded at the top of the convergence report: a study measured at a configuration other than
+the one being registered does not compose with that registration. The new result was itself later
+found non-transferable because its spacing ladder did not preserve lattice composition.
 
-**The operator is validated at two conditions and refuses one of them.** Nothing establishes that
-the fitted order stays inside the admission window elsewhere on the sweep grid, so every point
-fits its own order and may come back `not-extrapolatable`. The operator is a test each point must
-pass, not a licence to extrapolate everywhere.
+**The operator was exercised at two historical conditions and refused one of them.** That verifies
+the refusal mechanism on those inputs, not scientific validity of either extrapolation. Nothing
+establishes that the fitted order stays inside the admission window elsewhere on the sweep grid,
+so every point fits its own order and may come back `not-extrapolatable`. The operator is a test
+each point must pass, not a licence to extrapolate everywhere.
 
 **Warm grid-extrapolated classes may not be reported at all** at the registered conditions. Warm's
 measured class is plate at every spacing tested, and that is what may be said.

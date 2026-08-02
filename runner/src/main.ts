@@ -1193,8 +1193,9 @@ async function gate2b(): Promise<void> {
 /**
  * Phase 6 cross-platform reproducibility control, tier 1 — the libm fingerprint.
  *
- * Prints the exact float64 bits of every transcendental-dependent physics quantity the solver
- * consumes, plus a one-line digest, plus the host identity that scopes the result. Tier 2 (the
+ * Prints exact float64 bits for every named transcendental-dependent quantity on the historical
+ * −2…−30 °C sampled grid, plus a one-line digest and a self-reported host header. The registered
+ * −31…−35 °C sweep tail is absent and must be added by R15. Tier 2 (the
  * end-to-end habit runs) is a `grow-lk` invocation and is printed here as the exact command
  * rather than executed, because it costs a full growth run per point and the operator running
  * this on a second machine should decide when to spend that.

@@ -5,8 +5,10 @@ produced and says whether that rule is **ENFORCED** (fails `npm test`) or **DISC
 a future agent has to make). Enforced beats discipline every time; where a rule could be automated it
 was.
 
-The pattern across all of them: **nothing here failed a test at the time it happened.** They were
-caught by reading output, by an adversarial audit, or by luck. That is what these rules are for.
+The pattern across the original incidents: **none failed a test when it happened.** They were
+caught by reading output, by an adversarial audit, or by luck. Later regression tests do fail for
+several corrected assertion defects; that does not retroactively make the original evidence path
+fail closed. That distinction is what these rules are for.
 
 ---
 
@@ -17,11 +19,20 @@ caught by reading output, by an adversarial audit, or by luck. That is what thes
 **Incident.** `out/` was gitignored and the convention (decision 0004) was "track the hashes, not the
 artifact." Arm 1's 204 measurements therefore existed on one disk, in no commit, for the entire
 phase. A mistyped directory suffix would have destroyed them. Arm 2's artifact *was* destroyed once
-by the provenance gate and survived only because it was copied aside by hand (erratum E4).
+by the provenance gate and survived only because it was copied aside by hand (erratum E4). The same
+failure repeated in the cross-platform control: Tier 2 arm64 logs and exit records stayed in
+gitignored `out/`, were never promoted, and are now unavailable. Only a prose table survives, so the
+reported end-to-end match is not independently rederivable.
 
-**Rule — ENFORCED** (`runner/test/evidence-integrity.test.ts`). Anything that backs a published claim
-lives in the **tracked** `evidence/` tree with a digest in `evidence/MANIFEST.json`. `out/` is
-scratch and may be deleted at any time. See ADR 0038.
+**Rule — DISCIPLINE.** Anything that backs a published claim lives in the **tracked** `evidence/`
+tree with a digest in `evidence/MANIFEST.json`. `out/` is scratch and may be deleted at any time.
+Before publishing, audit claim-to-artifact coverage explicitly: a file-tree test cannot discover a
+claim-backing artifact that the producer omitted from both the tree and manifest. See ADR 0038.
+
+**Targeted regression — ENFORCED** (`runner/test/evidence-integrity.test.ts`). Every file already
+published under `evidence/` must appear in the manifest, and every manifest entry must exist with its
+registered byte length and digest. This enforces integrity and inventory closure inside the evidence
+tree; it does not automate the claim-to-artifact census.
 
 > **A hash proves an artifact has not changed. It does not preserve it.** That distinction cost this
 > phase nothing only because of luck.
@@ -29,14 +40,18 @@ scratch and may be deleted at any time. See ADR 0038.
 ### A2 — a fresh clone would not have reproduced the published hashes
 
 **Incident.** Creating `evidence/` printed `warning: LF will be replaced by CRLF in
-evidence/phase6-sweep/points.json`. The committed blob was correct, but `core.autocrlf=true` converts
-on **checkout** — so anyone cloning on Windows would get CRLF and **every sha256 in the published
-reports would fail against the file they actually hold.** Intact in the object store, unverifiable in
-practice. It was caught by one warning line in git's output.
+evidence/phase6-sweep/points.json`. The committed blob was correct, but a checkout configuration
+such as `core.autocrlf=true` can convert the bytes — so affected Windows checkouts would get CRLF
+and **every sha256 in the published reports would fail against the file they actually hold.** Intact
+in the object store, unverifiable in that checkout. It was caught by one warning line in git's
+output.
 
 **Rule — ENFORCED.** Hash-registered files carry `-text` in `.gitattributes`, and the test asks *git*
-(`git check-attr`) rather than parsing the file, because the question is what git does. Verified by
-checking `HEAD` out into a throwaway worktree and re-hashing: 16 of 16.
+(`git check-attr`) rather than parsing the file, because the question is what git does. The current
+manifest contains 18 files; the regression checks the effective attribute on all 18 rather than one
+representative path. The earlier throwaway-worktree rehash covered the then-current 16-file manifest;
+the two later Tier 1 fingerprints still require the same clean-checkout rehash before a new
+fresh-clone count is claimed.
 
 ### A3 — three concurrent writers clobbered a 5.2-hour measurement
 
@@ -96,8 +111,9 @@ fix, not a proof of it.
 provenance failure, not a physics failure, and the artifact was regenerable (erratum E4).
 
 **Rule — DISCIPLINE.** **Spend the hours that tell you the expensive thing is necessary, before
-spending the days.** Applied successfully twice afterwards: the N=64 adequacy check (4 h) cancelled a
-780 core-hour re-sweep; the convergence study decided a multi-day question with four runs.
+spending the days.** The N=64 adequacy check (4 h) correctly prevented an invalid 780 core-hour
+re-sweep at that domain. The later four-run CAK_A1 study was only a sparse diagnostic: it did not
+decide the registered R15 grid/domain question or complete the scientific obligation.
 
 ### C2 — the diagnostic's design used the reasoning its own protocol disproves
 
@@ -117,9 +133,10 @@ findings that make some designs invalid.
 ladder had **no arm-1 run at those conditions**. P4 was arm 1's best regime point and sat at a
 different supersaturation entirely. The claim rested on extrapolation.
 
-**Rule — DISCIPLINE.** For any comparative claim, the control must exist **in the design**, at
-matched conditions. Adding it afterwards is acceptable only when it can **only weaken** the
-conclusion, and that must be recorded in place (P5 was, and it survived).
+**Rule — DISCIPLINE.** For any comparative claim, the control must exist **in the registered
+design**, at matched conditions. A post-hoc control can diagnose or weaken an earlier inference,
+but it cannot acquire pre-registration or gate standing after the result is known. Its post-hoc
+status and exact evidentiary limit must be recorded in place.
 
 ### C4 — a census claim from a partial file
 
@@ -187,11 +204,12 @@ asserts the runner contains no route to satisfying it.
 
 ### E1 — every gap honestly recorded, and a summary the gaps did not support
 
-**Incident (2026-08-01).** An independent review (Codex/GPT-5) reproduced every measured number and
-found no solver defect — then found that I had called Phase 6 "concluded" while my own conclusion
-§3.5 said the registered headline rule was never implemented. **Both cannot stand.** 3/90 and 54/90
-are valid *measured-only* counts and are **not registered headline verdicts**; that alone prevents
-gate acceptance.
+**Incident (2026-08-01).** A non-author review by OpenAI `gpt-5.6-sol` at ultra reasoning effort,
+with inherited repository and development context, independently recomputed three decisive numeric
+claims and found no solver defect in that reviewed scope — then found that Phase 6 had been called
+"concluded" while the conclusion's own §3.5 said the registered headline rule was never implemented.
+**Both cannot stand.** 3/90 and 54/90 are valid *measured-only* counts and are **not registered
+headline verdicts**; that alone prevents gate acceptance.
 
 The review found seven more, all valid: charter obligations omitted without an amending ADR; a
 positive SDAK claim promoted above the evidence status its *own* pre-registration assigned it; an
@@ -212,10 +230,133 @@ whether the headline survives it. A document that lists blockers and then declar
 not been careful — it has been careful in the parts and careless in the aggregate, which reads as
 worse than sloppiness because the evidence of the contradiction is in the same file.
 
-**Corollary — DISCIPLINE.** An external reviewer with no stake reproduced the numbers in hours and
-found eight things eight sessions of self-audit did not. **Adversarial review by a party that did
-not author the work is not a formality**, and its findings should be checked and accepted on their
-merits rather than argued down. All eight here were verified before acceptance; all eight held.
+**Corollary — DISCIPLINE.** A non-author reviewer reproduced the three decisive numbers in hours
+and found eight issues that eight sessions of self-audit did not. **Adversarial review by a party
+that did not author the work is not a formality**, and its findings should be checked and accepted
+on their merits rather than argued down. All eight issues in that review set were verified before
+acceptance; that is not an exhaustive certification of Phase 6.
+
+**Review limit.** That review did **not** execute the full Phase 6 campaign, inspect every artifact
+byte, or validate the later O1b repairs. Its accepted findings and the resulting gate reopening are
+propagated through [the corrected conclusion](../research/phase6-conclusion.md), the active
+[science-first completion plan](plans/phase-6-science-first-completion.md), and
+[the current handoff](HANDOFF.md). Subsequent non-author review found additional propagation and
+protocol defects, so only the latest dated review state may support a clean-review claim.
+
+### E2 — a true endpoint silently became a false range summary
+
+**Incident (2026-08-01).** The later-paper comparison correctly computed the −2 °C digitized
+prism barrier as 0.028% against a 0.03% source fit (6.7% low), then summarized both −2 °C and
+−5 °C as “agreement to ~7%.” At −5 °C the actual pair is 0.27% against approximately 0.20%:
+35% high. The same review found a claimed `A_prism` absolute bound of 0.015 whose actual maximum
+was 0.03247, 14 and 19 intervening temperature *rows* mislabeled as °C spans, and an attached-cell
+count mislabeled as total accreted mass. It also found 6,561/19,683 unique relative-factor patterns
+mislabeled as independent lower/upper corners; that independent-corner space is 65,536/262,144.
+
+**Rule — PARTLY ENFORCED.** A range, maximum, or cross-point summary must be recomputed over the
+exact named set and retain its unit, denominator, and extremizing witness. The closed-form script
+now prints both project/source-fit comparisons and a regression pins 0.028%/0.03% and
+0.27%/0.20%; prose review remains necessary. Never promote occupancy count to mass or a row count
+to a coordinate interval merely because the numbers sound physically related.
+
+### E3 — the authority audit must follow the complete diff
+
+**Incident (2026-08-01, before decision 0040 was accepted).** The then-proposed decision quoted
+every clause it said it amended, yet that candidate charter also changed §2.2's premelting claim
+and §2.6's treatment of omitted latent heat
+and surface diffusion. Those changes were scientifically preferable but unauthorized by the ADR's
+declared scope. A later acceptance audit found the same failure in §2.4, §3.1, Phase 2b and Phase 4,
+and caught edits to the accepted revision header/marker; the substantive clauses had to be added to
+the quote/decision inventory, while the unintended revision-marker edits were restored byte-exact.
+The same aggregate summary said all later printed mappings were in the parameter table while the CM8
+broad forms and FACET two-branch table were still absent.
+
+**Rule — DISCIPLINE.** Audit the complete charter and parameter-table diffs, not only the sections
+named by the author. Every changed charter clause is quoted and decided; every claimed source
+mapping is present with formula/table, page, units, provenance, and implementation status. A
+correct conclusion without a complete authority trail is still not a governed project decision.
+
+### E4 — a clean prose design can still contradict a reachable machine state
+
+**Incident (2026-08-01).** Decision 0039 was marked accepted after several design reviews, but its
+decoder contract rejected an unattached boundary cell at exact `f=1`. The current solver and v2
+validator already document why that state is reachable: the update may take the unsaturated branch
+with `raw < 1 - f`, then binary64 addition rounds `f + raw` to one. Attachment occurs on a later
+cycle only when the fill loop executes and that cell's computed raw increment is nonnegative; the
+positive-field production lane guarantees the local sign, but a general subsaturated checkpoint
+does not. The state may also persist through a globally stalled zero-rate cycle. Implementing the written invariant would have rejected a valid direct-run
+checkpoint or forced a numerical-evolution change to make the design appear correct. The same readiness audit found that
+runner run-spec, manifest, policy, cadence and retention details were being treated as accepted before
+WP3 had frozen their scientific inputs.
+
+**Rule — DISCIPLINE.** Before accepting a state-format design, trace every rejection invariant through
+the current mutation code and construct its boundary witness. A schema review is not an
+implementation-readiness review. Separate protocol-independent state preservation from
+campaign-dependent controls; do not let implementation choose a scientific input that the protocol
+has not frozen. A later review finding supersedes an earlier clean verdict until the corrected bytes
+receive a fresh review.
+
+### E5 — a controlled software ablation does not establish physical causality
+
+**Incident (2026-08-01).** The review correctly rejected CAK→M1 as a dip ablation because that switch
+also changes broad barrier functions and a facet prefactor. The replacement plan then repeatedly
+called the matched M1/no-dip pair the “required causal design” without naming the estimand. Holding
+the implementation fixed and replacing only its dip factors can isolate those factors' effect on
+this solver's outputs under the frozen configuration. It cannot establish that physical SDAK is
+causal or necessary in nature. The same wording audit caught “the source prints P3 algebra”: the
+source prints algebra, while P3 is this project's provenance classification and the unstated
+logarithm-base resolution is a separate P4 choice.
+
+**Rule — DISCIPLINE.** Every causal claim names the intervention, outcome, system, and scope. A
+matched code intervention supports an implementation-level causal contrast; a physical mechanism
+claim requires external identification evidence that the simulation cannot supply about itself.
+Likewise, keep source content separate from project metadata: say what the source prints first, then
+state the provenance class the project assigns and any independent transcription choice. Propagate
+both distinctions through status, specs, reports, education, and outward-facing material before
+acceptance.
+
+### E6 — a sibling manifest does not inherit another manifest's hash binding
+
+**Incident (2026-08-01).** Acceptance records said the historical parameter-table hash remained
+“inside both legacy values manifests.” Direct inspection of the canonical producers showed that arm
+1 does carry `parameterTableSha256`, while arm 2's independently frozen M1 values manifest never had
+that field. Arm 2 binds the exact M1-related fields and freeze/source identity its producer
+serialized, under its own values hash; it does not thereby bind every executable constant.
+Retrofitting a table digest after execution would change the historical schema and identity rather
+than preserve them. The summary inferred symmetry between related manifests that serialize
+different key sets.
+
+**Rule — DISCIPLINE.** A claim that a hash binds a value requires inspection of the canonical
+serialized bytes or producer key set, plus a mutation showing that the named value moves the digest.
+Never infer a binding from a sibling manifest, prose freeze row, or combined hash. When a correction
+needs a new current identity, preserve each historical manifest exactly as it was and add a
+separately named current path; document absent historical fields as absent rather than quietly
+backfilling them.
+
+**Targeted regression — ENFORCED.** `runner/test/phase6-arm2.test.ts` asserts the two current
+historical producer key sets and proves that changing arm 1's table field or retrofitting it into arm
+2 changes the corresponding manifest digest. That test protects these two named manifests; it does
+not mechanically establish the general claim-to-hash discipline for future schemas.
+
+### E7 — one successful setting does not establish uniqueness or sensitivity
+
+**Incident (2026-08-01).** A learner-facing pre-registration demo correctly showed that the
+published dip centres score 15/15 under its deliberately invalid input-order proxy, then claimed
+that moving the dips “anywhere else” makes the score collapse. An exhaustive check of the demo's
+actual 0.1 °C slider grid found **3,144** centre pairs scoring 15/15, including **3,143** pairs other
+than 4.5/14.4; 3.0/22.6 is one counterexample. The browser verifier exercised only the default
+revealed branch, so its green result authenticated a witness while missing the false landscape
+summary.
+
+**Rule — DISCIPLINE.** A sensitivity, uniqueness, or “any other setting” claim is a statement
+about a domain, not about the chosen witness. Enumerate the stated finite domain or run an explicit
+counterexample search before publishing it. Interactive verifiers must exercise at least one
+scientifically distinct non-default branch and pin the visible interpretation, not only the default
+formula. Prose elsewhere still requires adversarial review.
+
+**Targeted regression — ENFORCED.** The education verifier executes the 3.0/22.6 perfect-score
+counterexample and rejects erasure of the visible non-uniqueness warning. That regression protects
+this interactive's known branch; it does not automate the general domain-claim discipline.
 
 ---
 

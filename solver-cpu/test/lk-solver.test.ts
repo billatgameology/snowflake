@@ -975,6 +975,9 @@ describe("LKSolver — §4.4 contract closures (round-2 review)", () => {
       new LKSolver({ ...devOptions, dims: { nx: Number.MAX_SAFE_INTEGER, ny: 2, nz: 1 } }),
     ).toThrow(/cell count/);
     expect(() => new LKSolver({ ...devOptions, relaxMaxSweeps: 1.5 })).toThrow(/relaxMaxSweeps/);
+    expect(() => new LKSolver({ ...devOptions, tempC: -51 })).toThrow(
+      /supported temperature domain/,
+    );
     expect(() => new LKSolver({ ...devOptions, center: [-1, 1, 1] })).toThrow(/center/);
     expect(() => new LKSolver({ ...devOptions, testExtraSeedSites: [-1] })).toThrow(/extra seed/);
     // Positive finite raw inputs can still collapse derived SI scales. Before this guard,

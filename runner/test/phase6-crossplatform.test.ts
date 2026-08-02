@@ -75,7 +75,7 @@ function entriesFromMap(entries: ReadonlyMap<string, string>) {
 }
 
 describe("the libm fingerprint", () => {
-  it("is deterministic and covers every transcendental the solver consumes", () => {
+  it("is deterministic and covers every named quantity on its historical sampled grid", () => {
     const first = phase6LibmFingerprint();
     const second = phase6LibmFingerprint();
     expect(phase6LibmDigest(first)).toBe(phase6LibmDigest(second));
@@ -100,7 +100,7 @@ describe("the libm fingerprint", () => {
     for (const entry of first) expect(entry.bits).toMatch(/^[0-9a-f]{16}$/);
   });
 
-  it("samples the whole Nakaya range at 1 C, plus the boundaries and fixture points", () => {
+  it("samples integer -2 through -30 C plus the boundaries and fixture points", () => {
     const arguments_ = new Set(
       phase6LibmFingerprint()
         .filter((entry) => entry.name === "pSatIce")
@@ -135,7 +135,7 @@ describe("the libm fingerprint", () => {
 
   // Pin-register R28 observed that the assertion above returns early on arm64, so on the second
   // machine the cross-platform control needs, it was a no-op. The 2026-07-31 arm64 measurement
-  // supplies the missing constant, so the digest is now pinned on BOTH measured architectures.
+  // supplies the missing constant, so both tracked self-identified fixture digests are pinned.
   it("matches the registered arm64 baseline, when running on arm64", () => {
     if (process.arch !== "arm64") return; // unmeasured elsewhere — not a failure
     expect(phase6LibmDigest(phase6LibmFingerprint())).toBe(PHASE6_LIBM_DIGEST_ARM64_BASELINE);

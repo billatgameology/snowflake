@@ -6,6 +6,11 @@
   operator, not a threshold swap; Phase 6's Nakaya comparison is in-sample where SDAK inputs are
   active; and this ADR's "without noise, sidebranching never seeds" is corrected there (G–G's
   published 3D snowfakes are deterministic)
+- **Scientific interpretation correction (accepted 2026-08-02, decision 0040):** the historical risk paragraph's
+  “not load-bearing,” primary-cause and “survives entirely” statements are source-model hypotheses,
+  not causal findings established by this project. Phase 4 tested width-independent hollowing as a
+  forward hypothesis; the width-dependent M2 closure remains unimplemented. The paragraph stays as
+  decision history but does not govern a replacement validation claim.
 - **Charter impact:** §2.5, §2.6, §2.7, §1.5, §3.2 (Phases 2 and 6) and §3.3 amended in this
   session. This ADR **overrides** the charter's original "you will not implement these equations
   literally in v1."

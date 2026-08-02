@@ -1,20 +1,23 @@
-// Arm 2's per-point registered expectation, calibrated on arm 1's OWN measured data.
+// Historical arm-2 proxy forecast, preserved and explicitly withdrawn from gate use (ADR 0040).
 //
 // Why calibrate rather than assert. Arm 1's dominant outcome was not disagreement — it was 168 of
-// 204 points measuring `neutral`. A sense prediction (which facet grows faster) says nothing about
+// 204 points measuring `neutral`. An equal-field coefficient proxy says nothing by itself about
 // whether the measured aspect ratio clears 0.6667 / 1.5, and registering "SDAK will fix it" without
 // saying how much habit strength is needed is not a prediction, it is a hope.
 //
-// Arm 1 supplies the missing map. It ran 204 points and recorded, for each, both the attachment
-// anisotropy the kinetics imply and the aspect ratio the 3D solver actually produced. Fitting AR
-// against that anisotropy gives an empirical, in-house transfer function; applying it to M1's
-// anisotropy at the same 204 (T, sigma) points gives a per-point predicted class BEFORE arm 2 runs.
+// The historical forecast fit arm 1 AR against a far-field coefficient-ratio proxy and transferred
+// that empirical map from CAK to M1. That transfer is confounded: changing kinetics changes local
+// depletion and geometry, and neither facet is generally evaluated at sigmaInfinity in the solver.
+// The numbers remain reproducible as a historical pre-run proxy calculation, but were not a valid
+// pre-run habit prediction and are inadmissible as habit evidence or a causal SDAK prediction.
+// The replacement protocol requires a matched M1/no-dip forward
+// ablation to isolate the implemented dip factors' effect within the frozen solver; it has not yet
+// been frozen or executed and cannot establish physical SDAK causality or necessity in nature.
 //
 // The predictor is r = alphaHK(basal) / alphaHK(prism) evaluated at sigma_surf = sigma_infinity.
-// sigma_surf is NOT sigma_infinity — diffusion depletes it, so this is an upper bound on the driving
-// supersaturation and therefore a systematically compressed anisotropy. That is a stated bias, not a
-// hidden one: it is the same bias on both sides of the comparison, because arm 1's fit and M1's
-// prediction use the identical proxy.
+// sigma_surf is NOT sigma_infinity. Diffusion depletes it differently across facets and changing
+// the kinetics changes that depletion, so the proxy bias need not have the same sign or magnitude
+// in CAK and M1. Nothing below establishes transfer to the coupled M1 run.
 
 import { readFileSync } from "node:fs";
 import { alphaHK } from "../../core/src/libbrecht.ts";
@@ -55,11 +58,11 @@ console.log(`arm 1 rows usable for the fit: ${observed.length} of ${rows.length}
 
 // Least squares in LOG-LOG. Both sides are ratios, and that is not a cosmetic preference: fitting AR
 // directly on ln r gives AR = 0.7151 + 0.6585 ln r, which extrapolates to AR = -0.27 at M1's coldest
-// anisotropy. A negative aspect ratio is not a conservative prediction, it is an invalid model, and
+// proxy ratio. A negative aspect ratio is not a conservative forecast; it invalidates that fit, and
 // the plates-cold regime that drives this whole forecast sits in exactly that extrapolated range.
 // ln AR = a + b ln r keeps AR positive by construction and makes both axes log-ratios of the same
-// kind. Deliberately one slope and one intercept, no per-regime terms: a richer fit would describe
-// arm 1 better and predict arm 2 worse.
+// kind. Deliberately one slope and one intercept, no per-regime terms. This historical choice does
+// not cure the CAK→M1 transfer problem.
 const n = observed.length;
 const mx = observed.reduce((s, r) => s + r.lnR, 0) / n;
 const my = observed.reduce((s, r) => s + Math.log(r.ar), 0) / n;
@@ -72,7 +75,7 @@ for (const r of observed) {
 const slope = sxy / sxx;
 const intercept = my - slope * mx;
 const r2 = (sxy * sxy) / (sxx * syy);
-/** The calibrated transfer function: attachment anisotropy in, aspect ratio out. */
+/** Historical empirical proxy map; not a physical attachment-to-habit transfer function. */
 const predictAR = (lnR) => Math.exp(intercept + slope * lnR);
 console.log(`fit: ln AR = ${intercept.toFixed(4)} + ${slope.toFixed(4)} * ln(alphaHK_basal/alphaHK_prism)   R^2 = ${r2.toFixed(3)}`);
 console.log(`ln r spanned by arm 1: ${Math.min(...observed.map((r) => r.lnR)).toFixed(2)} .. ${Math.max(...observed.map((r) => r.lnR)).toFixed(2)}`);
@@ -123,28 +126,27 @@ for (const row of rows) {
 }
 
 console.log("");
-console.log("── M1's PREDICTED arm-2 outcome, under the pre-registered scoring ──────────────────");
+console.log("── HISTORICAL CONFOUNDED PROXY FORECAST — INADMISSIBLE AS HABIT EVIDENCE ───────");
+console.log("sigmaInfinity proxy + CAK→M1 transfer; ADR 0040 requires the matched forward ablation instead");
 console.log(`headline scope after excluding the bistable band ${BISTABLE_C.join("/")} C: ${headline} points`);
-console.log(`  PREDICTED AGREE    ${agree} / ${headline}   (${((100 * agree) / headline).toFixed(1)}%)`);
-console.log(`  PREDICTED neutral  ${neutral}`);
+  console.log(`  historical proxy AGREE    ${agree} / ${headline}   (${((100 * agree) / headline).toFixed(1)}%)`);
+  console.log(`  historical proxy neutral  ${neutral}`);
 console.log(`  bistable points excluded by name: ${bistableExcluded}`);
 for (const [regime, t] of Object.entries(perRegime)) {
   console.log(`    ${regime.padEnd(20)} n=${String(t.n).padStart(3)}  agree=${String(t.agree).padStart(3)}  neutral=${String(t.neutral).padStart(3)}`);
 }
 
-// ── 3. The same forecast under the OTHER fit form, so the spread is registered not hidden ────
+// ── 3. Refuse the historical alternative fit that produces impossible geometry ──────────────
 //
-// The linear form AR = a + b ln r is invalid at M1's coldest anisotropies (it returns AR < 0), but it
-// is invalid only there — over most of the range it is a perfectly reasonable alternative, and it
-// answers 66/78 where log-log answers 42/78. That spread is the honest uncertainty in this forecast
-// and it belongs in the registration, not in a footnote discovered afterwards. Registering the
-// log-log number alone would be picking the fit whose answer I preferred after seeing both.
+// The linear form AR = a + b ln r returns negative aspect ratios in the M1 query set. Those values
+// cannot be classified as plates or any other habit. The historical 66/78 result and 42–66 range
+// scored those impossible values and are therefore withdrawn, not retained as an uncertainty bound.
 {
   const myLin = observed.reduce((s, r) => s + r.ar, 0) / n;
   let lxy = 0, lxx = 0;
   for (const r of observed) { lxy += (r.lnR - mx) * (r.ar - myLin); lxx += (r.lnR - mx) ** 2; }
   const bLin = lxy / lxx, aLin = myLin - bLin * mx;
-  let hi = 0, tot = 0;
+  let invalid = 0, invalidHistoricallyScored = 0, validAgree = 0, tot = 0;
   for (const row of rows) {
     const { tempC, sigmaInf } = row.point;
     const regime = regimeOf(tempC);
@@ -152,16 +154,30 @@ for (const [regime, t] of Object.entries(perRegime)) {
     if (BOUNDARIES.some((b) => Math.abs(tempC - b) <= 1.0)) continue;
     if (BISTABLE_C.includes(tempC)) continue;
     tot += 1;
-    if (ACCEPTS[regime].includes(classify(aLin + bLin * Math.log(m1Ratio(tempC, sigmaInf))))) hi += 1;
+    const ar = aLin + bLin * Math.log(m1Ratio(tempC, sigmaInf));
+    if (!Number.isFinite(ar) || ar <= 0) {
+      invalid += 1;
+      // The withdrawn calculation passed these impossible values through `classify`, where every
+      // negative number became a plate. Count that historical mistake separately from valid rows.
+      if (ACCEPTS[regime].includes(classify(ar))) invalidHistoricallyScored += 1;
+    } else if (ACCEPTS[regime].includes(classify(ar))) {
+      validAgree += 1;
+    }
   }
   console.log("");
-  console.log(`Same forecast under the LINEAR fit (invalid below ln r ≈ -1.09, kept as an upper bound): ${hi}/${tot}`);
-  console.log(`  => REGISTERED RANGE for arm 2's headline: ${Math.min(agree, hi)}–${Math.max(agree, hi)} of ${headline}`);
+  console.log(`Linear-fit alternative: REFUSED (${invalid}/${tot} headline rows have nonpositive/nonfinite AR)`);
+  console.log(
+    `  audit decomposition: ${validAgree} valid positive-AR agreements + ` +
+      `${invalidHistoricallyScored} impossible values historically habit-scored = ` +
+      `${validAgree + invalidHistoricallyScored}/${tot}`,
+  );
+  console.log("  historical 66/78 score and 42–66 range are withdrawn; invalid AR is not habit-scored");
 }
 
 // ── 3b. The same forecast under arm 1's UNMODIFIED rules ─────────────────────────────────────
 //
-// Pre-registration 2 removes 18 points from the headline. Reporting only the number that follows a
+// The named bistable set contains 18 raw rows, but -4 C was already excluded by the ambiguity band;
+// the net headline denominator change is 90 -> 78, or 12 points. Reporting only the number after a
 // rule change made between the two arms would be moving the goalposts, whatever the justification.
 // So the apples-to-apples figure — arm 2 scored exactly as arm 1 was, over the same 90 points — is
 // registered alongside it and will be published alongside it.
@@ -184,15 +200,11 @@ for (const [regime, t] of Object.entries(perRegime)) {
 
 // ── 4. The geometric offset the AR criterion carries ─────────────────────────────────────────
 //
-// At ln r = 0 — perfectly isotropic attachment kinetics — the fitted transfer function does NOT give
-// AR = 1. Arm 1's own data says an isotropically-growing crystal on this lattice measures AR ≈ 0.77,
-// already within 0.10 of the 0.6667 plate ceiling and 0.73 away from the column floor. The habit
-// criterion is therefore not symmetric about isotropy on this lattice: it takes far less anisotropy
-// to be called a plate than to be called a column. That is a measurement systematic of tExtent being
-// the corner-to-corner diameter, and it is registered here because it biases every regime the same
-// way and would otherwise be discovered as a surprise in arm 2's cold-column band.
+// At ln r_proxy = 0 the fitted curve gives AR ≈ 0.77. That is an intercept of this confounded
+// regression, not a forward run with isotropic local attachment kinetics and not proof of a lattice
+// bias. The numbers are printed solely to reproduce what the historical forecast computed.
 console.log("");
-console.log(`isotropic-kinetics AR (ln r = 0): ${predictAR(0).toFixed(4)}`);
+console.log(`historical proxy-fit AR at ln r_proxy = 0: ${predictAR(0).toFixed(4)}`);
 console.log(`  distance to plate ceiling ${PLATE_CEILING.toFixed(4)}: ${(predictAR(0) - PLATE_CEILING).toFixed(4)}`);
 console.log(`  distance to column floor  ${COLUMN_FLOOR.toFixed(4)}: ${(COLUMN_FLOOR - predictAR(0)).toFixed(4)}`);
 console.log(`  ln r needed to reach the plate ceiling: ${((Math.log(PLATE_CEILING) - intercept) / slope).toFixed(3)}`);

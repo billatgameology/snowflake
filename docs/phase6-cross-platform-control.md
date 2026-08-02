@@ -1,7 +1,9 @@
 # Phase 6 cross-platform reproducibility control
 
-> **Status: RUN 2026-07-31 on Apple silicon. Both tiers measured.** See **§Result** below.
-> Tier 1 **differs** across architectures; tier 2 **reproduced exactly at all four points**.
+> **Status: Tier 1 bytes preserved; Tier 2 survives only as a historical report.** See
+> **§Result** below. Tier 1 **differs** between the two preserved fixtures. The Tier 2 table reports
+> four rows matching the x64 baseline, but its raw logs and exit records were never tracked and are no
+> longer available in this repository, so that report is not independently rederivable here.
 >
 > This file is the runbook, and it is retained as the protocol that was executed. Its result is
 > recorded here, in `research/phase6-convergence.md`, and in
@@ -43,10 +45,11 @@ is the step past that.
 
 **The registered comparison is the habit CLASS.** Not the digits, not the attached count.
 
-- **Classes match** → the conclusions are portable across the two architectures, and the sweep's
-  claims widen from "on the registered host" to "on both tested architectures". Any bitwise
-  differences found in tier 1 are still recorded, as a measured statement about how far
-  reproducibility extends.
+- **Classes match, with normalized outputs and exit records preserved** → only those four fixture
+  classes transfer across the two self-identified hosts; four points do not widen the 204-row
+  sweep. The historical Tier 2 outputs were not preserved, so the current repository cannot admit
+  even that four-point portability claim from independently rederivable bytes. Any bitwise
+  differences found in Tier 1 are still recorded within that fingerprint's sampled grid.
 - **A class differs** → **that is a finding, and it is reported as one.** It means the conclusion
   at that point was sensitive to low-order platform arithmetic. It is not averaged, not re-run until it
   agrees, and neither architecture is declared correct. The affected sweep points are labelled
@@ -56,9 +59,11 @@ Nothing here is a pass/fail gate on the Mac. Both outcomes are publishable; only
 
 ## Tier 1 — the libm fingerprint (seconds)
 
-Bitwise-exact values of every transcendental-dependent quantity above, at 1 °C spacing across the
-whole Nakaya range plus the three digitized boundaries and every fixture temperature — 448
-entries, printed as raw float64 bit patterns so nothing can hide in a rounded decimal.
+Bitwise-exact values of every named transcendental-dependent quantity above at integer temperatures
+from −2 through −30 °C, plus the three digitized boundaries and fixture temperatures — 448 entries,
+printed as raw float64 bit patterns so nothing can hide in a rounded decimal. The registered sweep
+continues through −35 °C: the −31…−35 °C cold tail and the tail anchor it reaches are absent from
+this historical fingerprint (pin-register R29). R15 must fingerprint its entire frozen grid.
 
 ```sh
 git clone <this repo> && cd snowflake && npm install
@@ -168,12 +173,12 @@ distinction.
 **Read the `habit` column first.** The other columns exist to locate a difference, not to be
 required to match.
 
-## Result — measured 2026-07-31 on arm64
+## Result — recorded 2026-07-31; tracked fixture bytes and a historical Tier 2 table
 
-**Host.** Apple M4, 4 performance + 6 efficiency cores (10 logical), macOS 26.5.2,
-Node **v24.13.1**, `process.arch` **arm64**, V8 **13.6.233.17-node.40**. That is the *same Node
-and V8 build* as the registered x64 baseline, so this control isolates architecture and platform
-libm rather than engine version — a cleaner comparison than the protocol required.
+**Recorded host.** The preserved fingerprint header self-reports `darwin`/`arm64`, Node
+**v24.13.1**, and V8 **13.6.233.17-node.40**; its companion self-reports `win32`/`x64` with the
+same Node/V8 build. Historical prose identifies the arm64 machine as an Apple M4. The tracked bytes
+bind the self-reported headers but do not independently authenticate either hardware host.
 
 ### Tier 1 — DIFFERS
 
@@ -194,13 +199,17 @@ The difference is now localized by exact table comparison: **9 of 448 entries di
 distances **1, 1, 2, 3, 4, 5, 7, 11, and 31**. The largest is
 `alphaHK.prism|-14.0@0.25` at **31 ULP**. The other eight named entries and both parsed full-table
 448-entry digests are pinned in `runner/test/phase6-crossplatform.test.ts`; the parser rejects
-duplicate, malformed, and extra rows. This is a measured two-host result, not a general bound for
-other architectures or libm implementations.
+duplicate, malformed, and extra rows. This is an exact comparison of two tracked, self-identified
+fixture tables, not hardware authentication and not a general bound for other architectures or libm
+implementations. Its temperature coverage stops at −30 °C as stated above.
 
-### Tier 2 — ALL FOUR REPRODUCED EXACTLY
+### Tier 2 — historical four-row comparison; raw outputs unavailable
 
-Run serially, one at a time, on an otherwise idle machine. Logs and exit status in
-`out/phase6-arm64/` (gitignored); every run exited 0 with an empty stderr.
+These rows were reported after serial runs on an otherwise idle machine. The underlying arm64 logs
+and exit-status bytes were not tracked and are unavailable to this repository; the arm64 output
+rows are therefore a historical report, not independently rederivable evidence. Future R15
+cross-platform outputs must be normalized and published under `evidence/` before a portability
+claim is admitted.
 
 | point | steps | attached | `AR` | habit | arm64 wall | x64 wall |
 |---|---|---|---|---|---|---|
@@ -216,31 +225,32 @@ Run serially, one at a time, on an otherwise idle machine. Logs and exit status 
 > process at a time and licenses no conclusion about sweep throughput. See
 > `docs/arm64-host-assessment.md`.
 
-Every value matches `PHASE6_FIXTURE_X64_BASELINE` — not merely the registered habit class, but the
-step count and attached count as well. Classes are assigned by the registered rule
+The tracked historical table reports every value matching `PHASE6_FIXTURE_X64_BASELINE` — not
+merely the registered habit class, but the step count and attached count as well. Classes are
+assigned by the registered rule
 (`phase6-protocol.ts`: plate `AR` ≤ 0.6667, column `AR` ≥ 1.5, else neutral).
 
-All four reported `symErr = 0`, `deltaSymClean = true`, `allConverged = true`,
+Historical prose also reports all four with `symErr = 0`, `deltaSymClean = true`, `allConverged = true`,
 `worstDiv = 1.000e-7`, `maxKineticFill = 0.1000`, matching the baseline's stated flags.
 
 **`fragile-column-floor` is the load-bearing one.** Its `AR` is exactly 1.5000, sitting on the
 column floor by an exact integer tie in lattice extents, where a single attached site either way
-changes the class. It landed on 248 steps and 3037 attached — identical to x64. The tie did not
-break differently.
+changes the class. The table reports 248 steps and 3037 attached — identical to x64. Without the
+raw arm64 bytes, the repository cannot independently recheck whether that tie broke differently.
 
 ### What this establishes, and what it does not
 
-- **Established:** at these four registered configurations, the habit-class conclusions reproduce
-  on x64 and arm64. The sweep's claims at these points widen from "on the registered host" to
-  "on both tested architectures".
+- **Historically reported, not independently rederivable here:** at four registered CAK
+  configurations, the arm64 output rows matched the x64 baseline. The current repository preserves
+  the normalized prose table but not the underlying arm64 logs or exit records, so this does not
+  widen the evidence-supported scope beyond the registered host.
 - **Established, negatively:** bitwise reproducibility of the physics inputs does **not** extend
   across architectures. Phase 2b's refusal to make a cross-engine bitwise claim was correct and
   is now measured rather than assumed.
-- **Not established:** that every point in the 204-point sweep is architecture-independent. Four
-  points were measured. Two were selected by ADR 0032 precisely because they sit closest to the
-  class thresholds, which is the strongest available evidence at this cost — but it is four
-  points, not a theorem, and the surviving exact tie at `fragile-column-floor` should not be read
-  as proof that no point anywhere can flip.
+- **Not established:** that any current end-to-end output is independently portable from the
+  published bytes, or that every point in the 204-point sweep is architecture-independent. The
+  historical report covers four points, not a theorem, and its exact tie at
+  `fragile-column-floor` cannot substitute for preserved output evidence.
 - **Not established:** anything about a third architecture or a different V8 build. The engine was
   held fixed here.
 
@@ -270,15 +280,16 @@ control, and changing Phase 5 evidence machinery is not a cleanup refactor.
 
 ## Reporting the result
 
-Record, in `research/phase6-convergence.md` under "Validity, and what is not established here"
-(which currently states that no cross-platform control has been run):
+The original run instructions required recording the following in
+`research/phase6-convergence.md` under "Validity, and what is not established here":
 
 1. The arm64 host: `node --version`, `process.arch`, V8 version, and the machine.
 2. The tier-1 digest, and whether it matched.
 3. If tier 1 differed: which entries, from the diff.
 4. The tier-2 habit class for both points, and whether each matched the baseline.
-5. The scope sentence the evidence now supports — either "conclusions reproduce on x64 and arm64"
-   or "point X is fragile across architectures", with nothing in between.
+5. The scope sentence the preserved bytes support. Because the Tier 2 raw outputs were not
+   retained, the current scope is the measured Tier 1 difference plus a non-rederivable historical
+   Tier 2 report.
 
 Then update the `float-precision` freeze-list row's reproducibility note in
 `runner/src/phase6-protocol.ts`, and delete the **MAC RUN NEEDED** marker from the top of this
@@ -286,7 +297,7 @@ file.
 
 **Done on 2026-07-31, with one step blocked** — see §Result. The marker is removed, the
 convergence report's validity bullet is rewritten, and `PHASE6_LIBM_DIGEST_ARM64_BASELINE` is
-recorded so the tier-1 digest is now pinned by test on both measured architectures instead of
+recorded so the tier-1 digest is now pinned by test for both tracked self-identified fixtures instead of
 returning early on arm64 (pin-register R28).
 
 > **BLOCKED, and this runbook's instruction is wrong as written: the `float-precision` freeze-list
@@ -302,8 +313,8 @@ returning early on arm64 (pin-register R28).
 > exactly the fail-open substitution Rule 9 exists to prevent. **Recording this measurement in the
 > freeze list requires an ADR and a re-pin of the ADR 0033 values/justification hashes**, which is
 > a registered decision, not a documentation edit, and is deliberately not taken in this session.
-> Until then the measurement lives in §Result, in `research/phase6-convergence.md`, and in
-> `PHASE6_LIBM_DIGEST_ARM64_BASELINE`, none of which are hash-pinned.
+> ADR 0038 later promoted both Tier 1 fingerprints into `evidence/` and its manifest. The Tier 2
+> logs and exit records were not promoted; only the historical table in §Result remains.
 
 ## What must not happen
 

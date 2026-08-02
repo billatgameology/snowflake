@@ -3,10 +3,10 @@
 // Pre-registered in `docs/phase6-columns-refinement-prereg.md` BEFORE this ran. Read that first:
 // it fixes what each outcome means, so this script only has to produce the numbers.
 //
-// THE QUESTION. Neither arm produced a column in the Nakaya `columns` regime. The closest approach
-// is arm 2 at T=-5, f=0.10: AR = 1.4000, one representable instrument step below the 1.5 floor
-// (zExtent 21 / tExtent 15; a column needs tExtent 14). Is that verdict a property of the model or
-// of measuring at extent 21?
+// THE QUESTION. At the historical registered extent 21, neither arm produced a column in the Nakaya
+// `columns` regime. The closest approach is arm 2 at T=-5, f=0.10: AR = 1.4000, one representable
+// instrument step below the 1.5 floor (zExtent 21 / tExtent 15; a column needs tExtent 14). Is that
+// sampled verdict a property of the model or of measuring at extent 21?
 //
 // THE DESIGN. Vary the RULER, hold the PHYSICS fixed. Only `--dims` and `--target-extent` move, and
 // they move together so `targetExtent/N` stays at the sweep's own 0.4375 — otherwise the
@@ -49,20 +49,23 @@ const POINTS = [
   // P5 — ADDED 2026-07-31, AFTER SEEING P1-B, and the reason is recorded rather than smoothed over.
   //
   // P1 (arm 2, M1, -5 C, f = 0.10) crossed the column floor at rung B: 1.40000 -> 1.52632, a COLUMN
-  // at the temperature the reference demands one. The obvious next sentence is "and SDAK is what did
-  // it" — but the ladder had no arm-1 run at these conditions to support it. P4 is arm 1's best
-  // columns-regime point and sits at f = 0.90, a different supersaturation entirely, so the two are
-  // not a controlled pair.
+  // at the temperature where the reference asks for one. That is an executed exploratory reading,
+  // not a size-causal or SDAK-causal result: rung B changes physical extent and domain together, and
+  // CAK -> M1 changes broad sigma0 functions, facet prefactors, and dip factors together. P4 is arm
+  // 1's best columns-regime point and sits at f = 0.90, a different supersaturation entirely, so it
+  // cannot even supply the matched condition needed to compare the bundled parameter sets.
   //
   // P5 is that control: same temperature, same sigma_inf (0.005000 — sigma_water is
   // parameter-set-independent, so the two arms' f = 0.10 points are the SAME condition), differing
   // only in paramSet. At the registered size arm 1 reads 0.789474 here against arm 2's 1.40000.
   //
-  // Adding a point after seeing data is exactly the move a pre-registration exists to restrain, so:
-  // this ADDS A CONTROL that can only weaken the conclusion I am moving toward, it changes no
-  // reading rule, drops no point, and its result is reported whichever way it falls. If P5 also
-  // crosses, then SIZE and not SDAK makes the column, which the pre-registration already named as
-  // the outcome worse for arm 2 than the one being reported.
+  // Adding a point after seeing data is exactly the move a pre-registration exists to restrain.
+  // P5 therefore stays explicitly post hoc and measured-only; it can strengthen or weaken an
+  // exploratory interpretation and cannot become a confirmatory control by being called
+  // conservative. Its result is retained whichever way it falls. If P5 also crosses, that would
+  // show a similar class change for CAK along this composed size/domain ladder; it would not prove
+  // that size alone caused either change, and a difference between P5 and P1 would not isolate SDAK.
+  // The replacement design needs independently adequate domains plus the matched M1/no-dip arm.
   { id: "P5", arm: "arm1", paramSet: "CAK", tempC: -5, fraction: 0.1, sigmaInf: "0.005000", publishedAR: 0.789474 },
 ];
 // targetExtent / N = 0.4375 at every rung — the sweep's own ratio.

@@ -568,7 +568,7 @@ function validateLKMetadata(value: unknown): number {
   }
   const tempC = requireFinite(metadata.tempC, "tempC");
   if (tempC < -50 || tempC > -1) {
-    throw new Error("LK checkpoint tempC must stay in the digitized domain [-50, -1]");
+    throw new Error("LK checkpoint tempC must stay in the supported temperature domain [-50, -1]");
   }
   const sigmaInfinity = requirePositive(metadata.sigmaInfinity, "sigmaInfinity");
   const dxUm = requirePositive(metadata.dxUm, "dxUm");
@@ -644,8 +644,11 @@ function validateLKStateArrays(state: LKRunState, n: number): void {
       throw new Error(`LK checkpoint attached cell ${i} must have f=1 and sigma=0`);
     }
     // Do not require the converse. In advanceSurface's unsaturated branch, floating-point
-    // addition can round f + raw to exactly 1 even though raw < 1 - f; that valid cell attaches
-    // on the following step.
+    // addition can round f + raw to exactly 1 even though raw < 1 - f. It attaches on a later
+    // step only when the fill loop executes and this cell's raw increment is nonnegative. The
+    // positive-field production lane guarantees that local condition; a general subsaturated
+    // checkpoint need not. It can also persist through a globally stalled zero-rate step because
+    // the fill/attachment loop is skipped.
     if (state.domain === "hexPrism") {
       const k = Math.floor(i / plane);
       const inPlane = i - k * plane;

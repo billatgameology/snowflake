@@ -11,14 +11,14 @@
 export interface RelaxationReport {
   /** GGThreshold: always 1 (the published single pass). LibbrechtKinetics: sweeps to tol. */
   readonly sweeps: number;
-  /** GGThreshold: vacuously true (one pass IS its dynamics). LK+Dirichlet: the DUAL
+  /** GGThreshold: vacuously true (one pass IS its dynamics). LK with either maintained shell: the DUAL
       criterion — residual < relaxTol AND divergenceResidual < divTol. Reflecting LK is a
       residual-only diagnostic with no divergence claim. */
   readonly converged: boolean;
   /** Relative per-sweep max change at exit; null under GGThreshold (no residual concept). */
   readonly residual: number | null;
   /** Policy-versioned global balance divided by |net surface exchange|; null under GGThreshold
-      and reflecting LK. Legacy-v3 and aggregate-v4 use |shell clamp − exchange|. Aggregate-v5
+      and reflecting LK. Legacy-v3 and aggregate-v4 use |shell clamp − exchange|. Aggregate-v5/v6
       uses |shell clamp + directly metered float64 smoother drift − exchange| (ADR 0013).
       Local exchange and smoother drift are numerical potential diagnostics, not uptake. */
   readonly divergenceResidual: number | null;
@@ -34,7 +34,7 @@ export interface RelaxationReport {
       GGThreshold. Legacy-v3's value is its nonnegative Robin absorption total. This is a
       relaxation diagnostic, never deposited fill or physical uptake. */
   readonly surfaceExchangeDiagnostic: number | null;
-  /** Aggregate-v5 only: signed active-field change produced by the reflecting smoother before
+  /** Aggregate-v5/v6 only: signed active-field change produced by the reflecting smoother before
       boundary replacement and Dirichlet clamp. Directly metered in the same sweep; never
       inferred from other report terms, and rejected if it exceeds decision 0014's independent
       float64 roundoff bound. Null for GG, legacy-v3, and aggregate-v4. */
@@ -87,7 +87,7 @@ export interface LedgerReport {
       (round-3 maker review: silently dropping it broke the bookkeeping identity by 35% on
       saturating steps). */
   readonly saturationClippedFill: number | null;
-  /** LK+Dirichlet: latest divergence residual. Null for GG and reflecting LK. */
+  /** LK with either maintained shell: latest divergence residual. Null for GG and reflecting LK. */
   readonly lastDivergenceResidual: number | null;
 }
 

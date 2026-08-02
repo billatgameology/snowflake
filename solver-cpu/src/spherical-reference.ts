@@ -4,8 +4,9 @@
 // convergence study shows the answer stops moving under refinement, which is consistency, not
 // accuracy. The spherical problem is the one case Libbrecht solves exactly (monograph §3.4,
 // printed pp. 96 and 100, transcribed in docs/libbrecht-parameters.md §1.1), so a solver of the
-// same equations in spherical symmetry can be checked against TRUTH. That is what this file is
-// for, and it is the only absolute accuracy anchor the project has.
+// same equations in spherical symmetry can be checked against an analytic solution. That is what
+// this file is for: it is an absolute numerical check for this idealized boundary-value problem,
+// not an absolute physical-accuracy certificate for faceted 3D growth.
 //
 // What it isolates, none of which the 3D convergence studies can separate:
 //   - Robin-discretization error: how badly the mixed surface condition is represented at a
@@ -101,8 +102,9 @@ function validate(problem: SphericalProblem): void {
  *
  *     gamma = (a + X_0/R) / a  =  1 + (X_0/R)/a
  *
- * Three independent checks, each of which the printed form fails and the corrected form passes
- * (all three are pinned in `solver-cpu/test/spherical-reference.test.ts`):
+ * Three mutually consistent cross-checks of the same equation, each of which the printed form
+ * fails and the corrected form passes (all three are pinned in
+ * `solver-cpu/test/spherical-reference.test.ts`):
  *
  *   1. Eq. 3.33 must reduce to Eq. 3.17 as R_far → ∞. Its limit is sigma_surf/sigma_inf =
  *      1 − 1/gamma. The printed gamma yields a/(a + X_0/R) — exactly the COMPLEMENT of Eq.

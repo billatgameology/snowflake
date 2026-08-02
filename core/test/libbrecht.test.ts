@@ -6,15 +6,20 @@ import { describe, expect, it } from "vitest";
 import {
   alphaHK,
   alphaHKFromPrepared,
+  CELSIUS_ZERO_K,
   cSat,
   classifyFacet,
+  D_AIR_1ATM,
+  diffusivity,
   type FacetClass,
   isLKSurfacePolicy,
   kineticLength,
+  K_BOLTZMANN,
   mIce,
   NUCLEATION_PARAM_SETS,
   nucleationAPrism,
   pSatIce,
+  P_ATM,
   pecletUpperBound,
   prepareAlphaHK,
   sigma0Basal,
@@ -48,6 +53,18 @@ function relErr(computed: number, anchor: number): number {
   return Math.abs(computed - anchor) / Math.abs(anchor);
 }
 
+describe("exact metrological definitions and the diffusivity anchor closure", () => {
+  it("pins the three authoritative exact definitions used by the solver", () => {
+    expect(K_BOLTZMANN).toBe(1.380649e-23);
+    expect(CELSIUS_ZERO_K).toBe(273.15);
+    expect(P_ATM).toBe(101325);
+  });
+
+  it("anchors the approximate source diffusivity at the project's exact reference pressure", () => {
+    expect(diffusivity(P_ATM)).toBe(D_AIR_1ATM);
+  });
+});
+
 describe("closed forms vs monograph Table 2.1 anchors", () => {
   it("p_ice within 3% (Arrhenius fit accuracy)", () => {
     for (const [tC, pIceMbar] of TABLE_2_1) {
@@ -67,9 +84,9 @@ describe("closed forms vs monograph Table 2.1 anchors", () => {
     }
   });
 
-  it("X_0 at 1 atm within 3% (0.145 um at -15 C)", () => {
+  it("X_0 under the project's exact 1 atm anchor is within 3% (0.145 um at -15 C)", () => {
     for (const [tC, , , , , x0Um] of TABLE_2_1) {
-      expect(relErr(kineticLength(tC, 101325), x0Um * 1e-6), `T=${tC}`).toBeLessThan(0.03);
+      expect(relErr(kineticLength(tC, P_ATM), x0Um * 1e-6), `T=${tC}`).toBeLessThan(0.03);
     }
   });
 
@@ -82,7 +99,7 @@ describe("closed forms vs monograph Table 2.1 anchors", () => {
     // ceiling or a dynamical input.
     expect(sigmaWater(-1)).toBeCloseTo(-0.009146, 5); // the near-melting breakdown, pinned
     expect(relErr(sigmaWater(-10), 0.102)).toBeGreaterThan(0.15); // ~20% off at -10, pinned
-    // Measured deviations of the difference form: -15: 12.8%, -20: 8.8%, -30: 4.6%, -40: 2.0%
+    // Computed deviations of the difference form: -15: 12.8%, -20: 8.8%, -30: 4.6%, -40: 2.0%
     for (const [tC, , , sigmaW] of TABLE_2_1) {
       if (tC > -15) continue; // region where the difference form is merely poor, not broken
       expect(relErr(sigmaWater(tC), sigmaW), `T=${tC}`).toBeLessThan(0.14);
@@ -327,7 +344,7 @@ describe("the M1 parameter set (ADR 0036 — Phase 6 arm 2)", () => {
     }
   });
 
-  it("sets A = 1 on BOTH facets, which is what makes M1's habit ordering sigma-independent", () => {
+  it("sets A = 1 on both facets, making the equal-field coefficient order sigma-independent", () => {
     for (let tempC = -1; tempC >= -35; tempC -= 1) {
       expect(nucleationAPrism(tempC, "M1")).toBe(1);
     }
@@ -366,25 +383,29 @@ describe("the M1 parameter set (ADR 0036 — Phase 6 arm 2)", () => {
   });
 });
 
-describe("M1 inherits the digitized set's extrapolation ban", () => {
-  it("THROWS outside the registered domain, exactly where the digitized set does", () => {
-    // A closed form returns a number for any input, so adopting M1 without this guard would have
-    // silently dropped a safety property CAK has — and dropped it in the worst direction, since the
-    // M1 forms are ad-hoc fits whose behaviour outside Libbrecht's data range is unconstrained
-    // rather than merely uncertain. Found by a test failing at -0.5 C, not by reasoning ahead.
+describe("M1 enforces its source-displayed domain", () => {
+  it("THROWS outside Figure 1's registered 1…50 C model domain", () => {
+    // A closed form returns a number for any input, so adopting M1 without an explicit boundary
+    // would manufacture values outside TAX2 Figure 1's displayed model domain. That domain happens
+    // to match the digitized CAK reference span, but it comes from the M1 source rather than being
+    // inherited from the digitization. Found by a test failing at -0.5 C, not by reasoning ahead.
     for (const outside of [-0.5, -0.999, -50.001, -80]) {
       expect(() => sigma0BasalM1(outside), `${outside} C should be banned`).toThrow(/extrapolation is banned/);
       expect(() => sigma0PrismM1(outside)).toThrow(/extrapolation is banned/);
+      expect(() => sigma0BasalM2Broad(outside)).toThrow(/extrapolation is banned/);
+      expect(() => sigma0PrismM2Broad(outside)).toThrow(/extrapolation is banned/);
       expect(() => sigma0Basal(outside)).toThrow(/extrapolation is banned/);
     }
     // Both endpoints are inside, for both sets.
     for (const inside of [-1, -50]) {
       expect(() => sigma0BasalM1(inside)).not.toThrow();
+      expect(() => sigma0BasalM2Broad(inside)).not.toThrow();
+      expect(() => sigma0PrismM2Broad(inside)).not.toThrow();
       expect(() => sigma0Basal(inside)).not.toThrow();
     }
   });
 
-  it("bounds M1 to the SAME domain as the anchors, introducing no new registered number", () => {
+  it("bounds M1 to TAX2 Figure 1's displayed 1..50 C model domain", () => {
     expect(M1_DOMAIN_MAGNITUDE_C).toEqual({ min: 1, max: 50 });
   });
 

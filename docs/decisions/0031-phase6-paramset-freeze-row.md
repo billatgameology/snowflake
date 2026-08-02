@@ -94,11 +94,12 @@ order, and deliberately not on score:
   Selecting `CAK_A1` now would mean editing the registered scheme to match the runs that were
   actually executed — fitting the pre-registration to the result, which is the single thing the
   freeze exists to prevent.
-- **`CAK`'s anchors have a printed closed form behind them.** `2009.08404v2` p3 Eq. (5) prints
+- **`CAK`'s digitized `A_prism` anchors have a printed closed form behind them.** `2009.08404v2` p3 Eq. (5) prints
   `A_prism = (0.4 + 0.04|T*−4|³)/(2.2 + 0.04|T*−4|³)`; the project's digitized anchors reproduce it
   to 8.4% worst and under 2% typically (`app/scripts/phase6-libbrecht-closed-forms.mjs`). Further,
-  `2306.04042v1` Table 1 p9 prints A1 = 0.25 at −2 °C and 0.2 at −5 °C, matching the dedicated
-  measurement papers exactly.
+  `2306.04042v1` Table 1 p9 prints A1 = 0.25 at −2 °C and 0.2 at −5 °C, matching the other
+  same-author source-family values at their printed precision; this is a provenance consistency
+  check, not independent reproduction of raw measurements.
 - **`CAK_A1`'s justification is a modelling convenience, not a measurement.** It matches M1's
   documented simplification — "To keep M1 relatively simple, we chose to set 𝐴 = 1 … even though
   our data suggest that this is not entirely accurate for broad prism facets at high temperatures"
@@ -129,8 +130,14 @@ three rows over the ceiling.
 
 > **Registered prediction: the headline falls from 5/90 to approximately 2/90.**
 
+> **Outcome annotation (2026-08-01):** the executed re-sweep returned **3/90**, as recorded in
+> `research/phase6-sweep-report.md`; the approximate 2/90 forecast is preserved as preregistration,
+> not rewritten into the observed result.
+
 This is an ESTIMATE from two probe points, not a measurement; only the re-sweep settles it. It is
-written down now so that **the parameterization cannot later be chosen by its score**. If the
+written down now so that any later score-driven authorized change is visible, prohibited by the
+frozen protocol, and priced at a new ADR plus rerun; a freeze does not make undisclosed misconduct
+physically impossible. If the
 re-sweep returns a worse number, that is the predicted outcome of adopting the better-provenanced
 inputs and is not grounds for revisiting this decision.
 
@@ -150,22 +157,26 @@ the sweep runs.
 
 > **CORRECTION 2026-07-29 — this paragraph was wrong and is retracted.** It claimed
 > `research/libbrecht-figure-findings.md` established "by three independent routes" that no
-> broad-facet parameterization can produce three habit boundaries. An adversarial audit refuted
-> both the claim and the independence:
+> broad-facet parameterization can produce three habit boundaries. An adversarial audit invalidated
+> the claimed proof and the independence claim:
 >
 > - The "three routes" were **not independent**: crossing-counting and Figure 1 are the same σ₀
 >   argument over n = 2 printed forms, and the third was two calibration probes that this very
 >   document declares are never citable as gate evidence.
-> - The claim itself is **false**. Habit depends on the ordering of `alphaHK = A·exp(−σ₀/σ_surf)`,
->   which carries `A_prism`; the crossing count was computed on σ₀ alone. **`CAK` — the set this ADR
->   registers — has three αHK order swaps for σ_surf ∈ [0.00247, 0.00366], and 2 of the re-sweep's
->   204 points lie inside that band.** So "`CAK` is a broad-facet parameterization, therefore the
+> - The proof is **invalid and the theorem-strength conclusion is withdrawn**. Even under a shared positive surface field, the ordering of
+>   `alphaHK = A·exp(−σ₀/σ_surf)` carries `A_prism`; the crossing count was computed on σ₀ alone.
+>   Actual habit additionally depends on each facet's solver-produced field and coupled evolution.
+>   **`CAK` — the set this ADR registers — has three equal-field alphaHK order swaps for a shared
+>   σ_surf ∈ [0.00247, 0.00366]. Two of the re-sweep's 204 sigmaInfinity inputs numerically lie
+>   inside that interval, which says nothing about either facet's local sigmaSurf.** So "`CAK` is a broad-facet parameterization, therefore the
 >   finding is untouched" does not follow: `CAK` is precisely the set whose `A_prism ≠ 1` breaks the
 >   σ₀-crossing/αHK-swap identification the argument assumed.
 >
-> What survives is narrower and is a statement about the runs, not the model class: along the
-> sweep's own constant-`f` ladders the swap count is 1 at f = 0.10 and 0 above, never 3, so **this
-> parameterization at these σ_surf values does not reproduce the diagram**.
+> What survives is split into two scoped statements. The far-field proxy diagnostic has one
+> equal-field coefficient-order swap at f = 0.10 and none at larger sampled f; it is not a solver
+> measurement. Separately, the artifact-derived habit evaluator shows that the executed CAK sweep
+> did not reproduce the diagram under its historical protocol. Neither result proves what every
+> broad-facet model can or cannot do.
 >
 > **The decision this ADR takes is unaffected.** `paramSet` belongs in the freeze list, `CAK` is the
 > registered value on provenance grounds, and the re-sweep was required — none of that rested on the

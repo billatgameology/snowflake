@@ -97,8 +97,9 @@ sublimation is not modeled (§2).
 > 2026-07-15; this note previously said "`b` is where the physics will live," which the settled
 > surface-operator spec decided otherwise). Under `LibbrechtKinetics` the surface state is a
 > *separate* fill field, `b` is untouched, and charter §2.2's premelting requirement is honored
-> where that rule's physics actually lives: folded into the measured `sigma_0(T)`/`A(T)`
-> (attachment-kinetics §4.4 component 4, and §5).
+> only to the extent that the provenance-recorded `sigma_0(T)`/`A(T)` parameterizations encode it
+> (attachment-kinetics §4.4 component 4, and §5). The solver has no separate quasi-liquid mass pool
+> and does not claim that those inputs quantitatively absorb every premelting effect.
 
 ## 3. Parameters
 

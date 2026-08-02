@@ -1,8 +1,9 @@
 // Phase 6 WP3b — the 1D spherical reference, and the Eq. 3.35 erratum it exposed.
 //
-// This is the project's only absolute accuracy anchor, so its own correctness has to be
-// established against something other than itself. Every test here either checks an identity
-// the source states, or checks the implementation against an independent exact solve.
+// This is an analytic numerical check for one idealized spherical boundary-value problem, so its
+// own correctness has to be established against something other than itself. Every test here
+// either checks a source-stated identity or checks the implementation against a separately derived
+// exact solution. It does not establish absolute physical accuracy for faceted 3D crystals.
 
 import { describe, expect, it } from "vitest";
 import { kineticLength, vKin } from "@vcc/core";

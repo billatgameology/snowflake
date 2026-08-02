@@ -1,4 +1,4 @@
-// The SDAK arm's registered expectation, derived BEFORE any 3D run (ADR 0030 item 4).
+// The SDAK arm's equal-local-field coefficient-order diagnostic, derived before any 3D run.
 //
 // M1, from 2306.13087v1 p6-7. `A = 1` for EVERY facet, by the paper's own choice:
 //   "To keep M1 relatively simple, we chose to set A = 1 in Equation 3 for all growth conditions"
@@ -9,25 +9,30 @@
 //
 // `log` is BASE 10. The paper does not state the base. Dip centres cannot select it: both log10 and
 // natural log place the factor minima at the printed 4.5 and 14.4 degrees. The base changes dip
-// width and therefore the downstream crossings: 3.08/8.07/24.73 are log10 alphaHK crossings, not
-// dip centres. The paper's plotted widths and resulting three-transition reading support log10.
+// width and therefore the downstream equalities: approximately 3.08/8.07/24.73 are restricted
+// equal-shared-positive-field attachment-coefficient equality locations under log10, not dip
+// centres or habit transitions. Only agreement with the paper's plotted widths selects log10 here;
+// the resulting three coefficient-order swaps are a consequence of that choice, not an independent
+// selector.
 //
-// WHY THIS IS A CLEAN PREDICTION, and why it is exactly the analysis the retraction demands.
+// WHAT THIS ANALYTIC CHECK DOES AND DOES NOT SHOW.
 //
-// This project's refuted claim counted sigma_0 CROSSINGS and treated them as habit transitions.
-// That is wrong in general: the habit-relevant quantity is the ordering of
+// This project's withdrawn claim counted sigma_0 CROSSINGS and treated them as habit transitions.
+// Even the following attachment-coefficient comparison is narrower than a habit claim. It compares
+// both facets at the SAME positive local supersaturation:
 // alphaHK = A exp(-sigma_0/sigma_surf), which carries A. When A_prism != 1 the swap is a zero of
 //   ln A_prism(T) - (sigma_0,prism - sigma_0,basal)/sigma_surf
 // and therefore depends on sigma_surf. The registered CAK set has A_prism != 1, which is why its
 // three-crossing window is narrow and sigma-dependent, and why the "no broad-facet model can do
-// three transitions" argument was REFUTED.
+// three transitions" argument was invalidated; no opposite 3-D habit theorem was established.
 //
-// M1 is the case where the two coincide, and coincide provably rather than by luck. With
+// M1 is the case where sigma_0 order and equal-field alphaHK order coincide. With
 // A_basal = A_prism = 1:
 //   alphaHK_basal > alphaHK_prism  <=>  exp(-s0b/ss) > exp(-s0p/ss)  <=>  s0b < s0p     (any ss > 0)
-// The exponential is monotonic and sigma_surf > 0, so the ordering is INDEPENDENT of sigma_surf.
-// M1's predicted habit sense is a pure function of temperature. That is a far stronger
-// pre-registration than the no-SDAK arm could make, and it is falsifiable on a single row.
+// The exponential is monotonic and sigma_surf > 0, so that equal-field ordering is independent of
+// the selected positive value. A coupled forward run generally gives basal and prism facets
+// different local fields and geometry. Therefore the swaps printed here are an in-sample function-
+// transcription diagnostic, not a prediction of habit, aspect ratio, or morphology.
 
 const log10 = Math.log10;
 
@@ -44,32 +49,32 @@ function s0BasalBroad(T) { return 0.02 * T ** 1.75 + 0.3; }
 function s0PrismBroad(T) { return 0.015 * T ** 2 + 0.02 * T ** 0.6; }
 
 /**
- * Habit sense from the sigma_0 ordering. Smaller sigma_0 => larger alphaHK => that facet grows FASTER.
- * Basal faster => the crystal extends along c => COLUMN. Prism faster => PLATE.
+ * Equal-field attachment-coefficient order. Smaller sigma_0 gives larger alphaHK only under this
+ * same-positive-local-supersaturation comparison.
  */
-function sense(s0b, s0p) {
-  return s0b < s0p ? "column" : s0b > s0p ? "plate" : "tie";
+function coefficientOrder(s0b, s0p) {
+  return s0b < s0p ? "basal-higher" : s0b > s0p ? "prism-higher" : "tie";
 }
 
 const GRID = Array.from({ length: 34 }, (_, i) => -2 - i); // the registered T axis, -2 .. -35
 
-console.log("M1 (SDAK dips, A=1 both facets) — sigma_0 in percent, sense is sigma_surf-INDEPENDENT");
+console.log("M1 (SDAK dips, A=1 both facets) — equal-field coefficient-order diagnostic");
 console.log("");
-console.log("   T     s0_basal   s0_prism   M1 sense   | broad s0_b  broad s0_p  broad sense");
-console.log("  ---------------------------------------+--------------------------------------");
-const senses = [];
+console.log("   T     s0_basal   s0_prism   M1 order       | broad s0_b  broad s0_p  broad order");
+console.log("  -------------------------------------------+------------------------------------------");
+const orders = [];
 for (const tempC of GRID) {
   const T = Math.abs(tempC);
   const b = s0Basal(T), p = s0Prism(T);
   const bb = s0BasalBroad(T), pb = s0PrismBroad(T);
-  senses.push({ tempC, sense: sense(b, p), broad: sense(bb, pb) });
+  orders.push({ tempC, order: coefficientOrder(b, p), broad: coefficientOrder(bb, pb) });
   console.log(
     `  ${String(tempC).padStart(4)}  ${b.toFixed(4).padStart(9)}  ${p.toFixed(4).padStart(9)}  ` +
-      `${sense(b, p).padStart(8)}   | ${bb.toFixed(4).padStart(9)}  ${pb.toFixed(4).padStart(10)}  ${sense(bb, pb).padStart(11)}`,
+      `${coefficientOrder(b, p).padStart(13)}   | ${bb.toFixed(4).padStart(9)}  ${pb.toFixed(4).padStart(10)}  ${coefficientOrder(bb, pb).padStart(13)}`,
   );
 }
 
-const transitions = (rows, key) => {
+const orderSwaps = (rows, key) => {
   const out = [];
   for (let i = 1; i < rows.length; i++) {
     if (rows[i][key] !== rows[i - 1][key]) out.push(`${rows[i - 1].tempC} -> ${rows[i].tempC} (${rows[i - 1][key]} -> ${rows[i][key]})`);
@@ -78,45 +83,20 @@ const transitions = (rows, key) => {
 };
 
 console.log("");
-console.log(`M1 transitions on the registered grid (${transitions(senses, "sense").length}):`);
-for (const t of transitions(senses, "sense")) console.log(`  ${t}`);
+console.log(`M1 equal-field coefficient-order swaps (${orderSwaps(orders, "order").length}):`);
+for (const t of orderSwaps(orders, "order")) console.log(`  ${t}`);
 console.log("");
-console.log(`Broad-facet transitions on the same grid (${transitions(senses, "broad").length}):`);
-for (const t of transitions(senses, "broad")) console.log(`  ${t}`);
-
-// Nakaya, as ADR 0025 registers the reference regimes.
-const NAKAYA = [
-  { regime: "plates-warm", colderBoundC: -3.3, warmerBoundC: Infinity, accepts: ["plate"] },
-  { regime: "columns", colderBoundC: -9.9, warmerBoundC: -3.3, accepts: ["column"] },
-  { regime: "plates-cold", colderBoundC: -21.5, warmerBoundC: -9.9, accepts: ["plate"] },
-  { regime: "columns-and-plates", colderBoundC: -Infinity, warmerBoundC: -21.5, accepts: ["plate", "column"] },
-];
-const regimeOf = (tempC) => NAKAYA.find((r) => tempC > r.colderBoundC && tempC <= r.warmerBoundC);
-
-console.log("");
-console.log("Scored against ADR 0025's registered regimes (+/-1.0 C ambiguity band excluded):");
-let agree = 0, disagree = 0, band = 0, outOfHeadline = 0;
-const wrong = [];
-for (const row of senses) {
-  const r = regimeOf(row.tempC);
-  const inBand = [-3.3, -9.9, -21.5].some((b) => Math.abs(row.tempC - b) <= 1.0);
-  if (inBand) { band++; continue; }
-  if (r.regime === "columns-and-plates") { outOfHeadline++; continue; }
-  if (r.accepts.includes(row.sense)) agree++;
-  else { disagree++; wrong.push(`${row.tempC} C: M1 says ${row.sense}, ${r.regime} accepts ${r.accepts.join("/")}`); }
-}
-console.log(`  headline temperatures: ${agree + disagree}   AGREE ${agree}   DISAGREE ${disagree}`);
-console.log(`  ambiguity band: ${band}   below -21.5 (reported, not headline): ${outOfHeadline}`);
-for (const w of wrong) console.log(`    - ${w}`);
+console.log(`Broad-branch equal-field swaps (${orderSwaps(orders, "broad").length}):`);
+for (const t of orderSwaps(orders, "broad")) console.log(`  ${t}`);
+console.log("These swaps are not scored as Nakaya habits; only forward-run artifact bytes are.");
 
 // ── Why arm 1 measured NEUTRAL rather than the wrong class, and what changes ──────────────────
 //
 // Arm 1's dominant outcome was not disagreement, it was 168 of 204 points measuring `neutral`. A
-// sense prediction says nothing about whether the aspect ratio clears 0.6667 / 1.5. The facet
-// CONTRAST is the quantity that should decide that, so it is registered here alongside the sense.
+// coefficient-order diagnostic says nothing about whether aspect ratio clears 0.6667 / 1.5. The
+// ratio below is retained as a parameter contrast only; the coupled run must establish morphology.
 console.log("");
-console.log("Facet contrast sigma_0,basal / sigma_0,prism — the quantity that should decide whether");
-console.log("a habit is strong enough to clear the AR thresholds rather than measuring neutral:");
+console.log("Input ratio sigma_0,basal / sigma_0,prism (not a morphology predictor):");
 console.log("");
 console.log("   T    broad   M1      M1/broad");
 for (const tempC of [-2, -5, -8, -10, -14, -15, -20, -25, -30, -35]) {
@@ -129,23 +109,24 @@ for (const tempC of [-2, -5, -8, -10, -14, -15, -20, -25, -30, -35]) {
   );
 }
 
-// ── The only two numeric anchors for the prism dip stated in text, and how far M1 is from them ──
+// ── The two prism-dip anchors stated in CM8 prose, and how far M1 is from them ────────────────
 //
-// This is the sourcing check the cold-end pre-registration needs. CM8 (2009.08404v2) Figure 18 plots a
-// MEASURED sigma_0,prism,SDAK(T) curve over roughly -8 to -30 C, but only two of its points appear as
-// numbers in the prose. Everything else about the dip below -15 C is a closed-form extrapolation with
-// no printed anchor.
+// CM8 (2009.08404v2) Figure 18 plots a witness-surface/model-conditioned
+// sigma_0,prism,SDAK(T) inversion over roughly -8 to -30 C; two fitted values appear numerically in
+// that paper's prose. TAX2 later prints its separate approximate M1 closed form. Neither is an
+// independent local-supersaturation measurement.
 console.log("");
-console.log("M1's prism dip against the ONLY two numerically-stated measurements of it:");
-for (const [tempC, measured, cite] of [[-10, 0.85, "2009.08404v2 p14"], [-25, 6.6, "2009.08404v2 p13"]]) {
+console.log("M1's prism dip against the two fitted values stated in CM8 prose:");
+for (const [tempC, sourceInferred, cite] of [[-10, 0.85, "2009.08404v2 p14"], [-25, 6.6, "2009.08404v2 p13"]]) {
   const m1 = s0Prism(Math.abs(tempC));
   console.log(
-    `  ${String(tempC).padStart(4)} C: measured ${measured}%  M1 ${m1.toFixed(4)}%  ` +
-      `ratio ${(m1 / measured).toFixed(3)}  (${cite})`,
+    `  ${String(tempC).padStart(4)} C: CM8 fitted ${sourceInferred}%  M1 ${m1.toFixed(4)}%  ` +
+      `ratio ${(m1 / sourceInferred).toFixed(3)}  (${cite})`,
   );
 }
 console.log("");
-console.log("Prism-dip strength (1 = no dip) across the cold end, where no anchor exists:");
+console.log("Prism-dip factor across the cold end; all rows are inside TAX2 Figure 1's displayed M1 domain,");
+console.log("but rows colder than the same-lineage numeric references lack those local source-fit anchors:");
 const dipP = (T) => 1 - 0.95 * Math.exp(-((log10(T) - log10(14.4)) ** 2) / 0.06);
 const dipB = (T) => 1 - 0.87 * Math.exp(-((log10(T) - log10(4.5)) ** 2) / 0.07);
 console.log("   T     basal dip   prism dip");

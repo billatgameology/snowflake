@@ -79,8 +79,9 @@ the same fact that refuted the σ₀-crossing argument.
 sweep executed exactly that grid. What is wrong is the stated *reason* the axis is bounded where it
 is. The upper bound remains defensible on the other ground the same row gives ("the top row is kept
 deliberately: weak facet contrast is not weak habit variation"), which does not depend on the
-compression figure. The lower bound's dead-facet argument (2.3e-4 at f = 0.05, −35 °C) was not
-checked by the audit and is not covered by this erratum.
+compression figure. The lower bound's former “dead-facet” argument (2.3e-4 at f = 0.05, −35 °C)
+was not checked by that historical audit. The later correction narrows it to a far-field
+barrier/coefficient proxy: it does not establish solved facet-local fields or coupled habit.
 
 **Consequence for reporting:** do not cite the 0.34–3.76 / 0.84–1.25 figures as a property of the
 registered model. `research/phase6-sweep-report.md` Finding 5 quoted them and is annotated.
@@ -241,10 +242,11 @@ there. The warm arm is not the crystal either published arm produces.
   `fill-cfl` and `dx` freeze rows' warm justifications, and
   `PHASE6_EXTRAPOLATION_ORDER_WINDOW`'s refusal of warm — whose `p = 0.207` was fitted on the
   `CAK_A1` crystal.
-- **The consequence stated plainly: under `CAK` or `M1` there is no grid-, timestep-, domain-,
-  measurement-extent or seed convergence study at ANY temperature warmer than −15 °C.** Charter
-  line 309 requires convergence studies at representative sweep points; the warm representative is
-  no longer the point that was measured.
+- **The consequence stated plainly:** the later columns ladder and matched-domain pairs provide
+  sparse warm-side measurement-extent/domain checks under `CAK` and `M1`, but there is no complete
+  passing composed grid-spacing × timestep × domain × measurement-extent/seed convergence campaign
+  under either registered production parameter set. Charter line 309 requires a convergence study
+  at representative sweep points; the sparse checks do not discharge it.
 
 **Why the obvious defence fails.** "Numerical convergence transfers across parameter values" is the
 exact reasoning this project has twice recorded as wrong (WP3 §4.1/§1.1, and ADR 0026: *a
@@ -254,13 +256,14 @@ precise one*). The `domain-budgets` row itself says the budget "does NOT general
 RATE", and the CAK warm crystal carries 3.2× the mass at the same grid point.
 
 **Where this bites hardest, and it is the regime under discussion.** The Nakaya `columns` regime is
-−3.3 to −9.9 °C. Every point in it is warmer than −15 °C. So the two-arm report's central negative
-result — neither arm produces a column there — rests on numerics with **no convergence study under
-the executed parameter set**. The size ladder of
+−3.3 to −9.9 °C. Every point in it is warmer than −15 °C. The two-arm report's central
+extent-21 result—neither arm produces a threshold-classified column in that regime at the registered
+measurement extent—therefore lacks a complete passing composed numerical campaign under either
+executed parameter set. The later size ladder in
 [`phase6-columns-refinement-prereg.md`](phase6-columns-refinement-prereg.md), run at −5 and −4 °C
-under `M1` and `CAK`, is therefore the **first** measurement-extent convergence evidence in that
-regime under a parameter set an arm actually used. It was designed to test an interpretation; it
-also starts paying a debt E5 names.
+under `M1` and `CAK`, supplies sparse diagnostic measurement-extent evidence and finds an M1 column
+at extent 29; it does not compose with grid-spacing, timestep, domain, or seed convergence and is not
+gate evidence.
 
 ---
 
@@ -395,15 +398,81 @@ are unchanged.**
 The `parameter-interpolation` source prose said the M1 dip minima establish base 10 because natural
 logarithm would put them at 3.08 °C and 8.07 °C. That is mathematically impossible for the printed
 factor: `log(T) - log(c) = 0` at `T = c` in every logarithm base. Both dip minima therefore remain
-at the printed 4.5 °C and 14.4 °C centres. A base change alters dip width. The numbers 3.08 °C and
-8.07 °C came from the separate alphaHK-crossing diagnostic and were misattributed.
+at the printed 4.5 °C and 14.4 °C centres. A base change alters dip width. The approximate numbers 3.08 °C and
+8.07 °C came from a separate restricted equal-shared-positive-field alphaHK equality diagnostic and
+were misattributed.
 
-The corrected prose retains base 10 because the printed Figure 1 widths match that reading and
-labels the downstream transition count as a consequence, not an independent base proof. ADR 0033's
+The corrected prose retains base 10 because the printed Figure 1 widths match that reading. The
+resulting coefficient-equality count is in-sample and is neither a habit-transition count nor an
+independent base proof. ADR 0033's
 values/justification split makes this correction non-gating: arm 2's values hash remains
 `13e678d5e...`. The historical justification and combined hashes remain in explicit revision
-history (`1b7faeb8...`, `b09a932e...`), while current corrected hashes are `80e9c920...` and
-`785f7325...`. The 204-row artifact continues to name and verify against its historical hashes.
+history (`1b7faeb8...`, `b09a932e...`). A broader decision-0040 interpretation correction now also
+fixes source-fit provenance, source-domain attribution, global-habit/low-f claims, and refuses the
+linear proxy's nonpositive aspect ratios. That intermediate revision's justification and combined
+hashes were `f184f545...` and `6e405882...`. The later causal-scope correction used
+`3d3e9195...` and `7b4b4c14...` in preserved intermediate candidate revision history; accepted
+ADR 0040's E8 propagation
+supersedes those worktree-current prose hashes without changing values. Every revision remains
+explicit, and the 204-row artifact continues to name and verify against its historical hashes.
+
+---
+
+## E8 — historical numerical-probe justifications overclaimed transfer and convergence
+
+**CORRECTION ACCEPTED 2026-08-02 under ADR 0040. Registered values and historical
+evidence bytes are unchanged.**
+
+An adversarial full-tree review found that six arm-1 justification strings still promoted finite
+historical `CAK_A1` probes into stronger statements: a restricted coefficient diagnostic was called
+facet physics or habit; two equal terminal samples were called a settled limit; two domain cases
+were treated as a general domain budget; a composition-changing spacing ladder was given a
+spacing-causal reading; and two fill-CFL samples were presented as wider adequacy. These claims do
+not follow from the measurements and do not transfer to `CAK`, `M1`, the no-dip arm, or R15.
+
+The current strings now name the parameter set and finite configurations actually executed,
+separate restricted equal-shared-field coefficient order from 3-D habit, and state explicitly that
+the historical probes neither establish an exact asymptote nor validate a replacement production
+configuration. Arm 2 inherits the arm-1 rows, so both arms' prose and combined hashes move together.
+An acceptance-review follow-up also corrected the arm-1 parameter-table row's unqualified
+"invalidates every result" wording: a value edit makes earlier rows inadmissible for a replacement
+gate and requires a full replacement rerun, while the executed bytes and measurements remain
+historical evidence of their named superseded protocol. That prose-only clarification produces the
+latest arm-1 hashes below; arm 2 overrides that row and therefore does not move from this edit. A
+separate P3/P4 provenance correction described below produces the latest arm-2 hashes.
+The ADR 0040 acceptance audit then separated the exact standard-atmosphere definition from the P2
+project closure that anchors the source's approximate diffusivity there. That inherited pressure-row
+prose moves both arms' justification and combined hashes once more, while both values hashes remain
+unchanged. The immediately preceding accepted hashes stay explicit as revision-history entries.
+
+| manifest | prior revision | current revision | values consequence |
+|---|---|---|---|
+| arm 1 justification | `040b1a44505fdba1767311927be5dad56b622ca9ee2c6bc4e4ab73e77f83c332`; intermediates `6bfde2617d19f68f40142c489256b1e785c6b3faad2b86e58736b8ab2dd68ae4`, `15a60d0a9b23e6ed38bad73fca4cae517264e3efe8391a802327806124f6fe64`, `13911b85f31e98bc34d908647067ca8b201f89c59aac00224ebf2649c3d1f6c8` | `52697efb3fd01c5f5777100b5572b51e595a0e1a44cf9755cad6167214181a5c` | arm-1 values remain `879e069f612f1c6b4b40074d5cc890419fc17f09545dc27b2c8823d7667938f6` |
+| arm 1 combined | `2b94aa5fa35b633dfb76275fca411cbbc25191c93ec2921a7506522b0ccf38e5`; intermediates `a211846759fa45f4ef0460ec09fb31929281a40fb0166622269d25f12c93f6d5`, `c2b854d94238bb7fa1166f53bf95ba5a928390392090bc4e58e49e2c39251583`, `6f35c2bc8ab9bd51ae16ddafc6536698b73ab919bee4362dc8500e3a8bec8f2f` | `ea9c76fc3819adceb0bce32dbe07b8288d079ed734b0addd6ee1891483f845c1` | unchanged |
+| arm 2 justification | `3d3e91954c71258c861092fd07a06297cae8ce39ece1bef62a35e8f4e81481d4`; intermediates `ad00d02c57d22b4902bbc823aadf34c47dda559f0ca1484f4850cb94216649c1`, `49ec78de5e79611918c08b88c3d43556f8ebd6f0b80451e13439181e7fd1a8a4`, `e8d8bd749e456246a504ff5093734a8c6ba15f865b2f5413f2a98abb0183e80d`, `e8dcc4378d6913c0da8d98f2820858cadd9a17fa541e4108770476883e26911e`, `709646e565b0795cad50349db72f42d882abfb84a6f927424f96ee2417441603` | `e2f7f24c5fc71137c9d06bb2344685b260d8702426edf656f22dd6b42f58471f` | arm-2 values remain `13e678d5eec467a391958a18c71c8d170900d6efd0d5c23bb4362d863b9acd76`; accepted ADR 0040 labels every live 42/90 or 42/78 field as a withdrawn/confounded historical proxy forecast |
+| arm 2 combined | `7b4b4c14e5d419e781224cfda36c2ed6b293d8c062014ff23a2e1dffa1507719`; intermediates `8c8db86582d1ced530b5cdbdaa0e924797c1aa14dc999d463f72e980db43ce14`, `cb88ee3020891867a170c20f62a6ce2cd72c1a4c248caef1899c90579e8e1c9b`, `09f49f229c472cd47c4a100fcd340f7fd472d716eb734c9c3244b3a19928146a`, `fa8c61f182966ea3496763ba766a2911086299fb3ef07e576be2a4023f82d2a9`, `21b16a7bf69b5015909fd381a6f7d2ab42ba5b8d343573c3e554bd4f1363261f` | `4be5c82d8ddb64947f459f40f1d941eb0e95d7548a6f6dd18067c65eda53076b` | registered values unchanged; no historical artifact upgraded |
+
+The hashes are independently recomputable with `canonicalJsonSha256` over
+`phase6ValuesManifest`, `phase6JustificationManifest`, `phase6ProtocolManifest`, and their arm-2
+counterparts. The old hashes remain in ordered revision arrays. No historical report is relabelled,
+no measured-only artifact becomes gate evidence, and this accepted correction does not discharge
+R15 or any charter obligation.
+
+A second pass found that arm 2's values-hashed legacy tier names called temperatures outside four
+same-lineage numeric references “extrapolating,” even though TAX2 Figure 1 displays M1 throughout
+the entire registered temperature domain. The legacy bytes remain solely for historical artifact
+identity. Current emitted prose uses `outside-reference-bracket-warm`,
+`within-reference-bracket`, and `outside-reference-bracket-cold`; this moved only the arm-2
+justification/combined hashes to the current values in the table.
+
+A subsequent non-author ADR 0040 audit found that arm 2's `parameter-table` row still said its
+inputs were not recorded by `docs/libbrecht-parameters.md`. The historical sourcing distinction is
+narrower: arm 2 uses the source-printed M1 algebra for the project's P3-classified Nakaya-informed
+prescription and does not consume arm 1's digitized CAK anchors, while the corrected table now
+records the M1 mapping at §4.1a. P3 is a project provenance class, not a source-printed label. The source does not state the
+logarithm base, so evaluating it as base 10 from Figure 1's widths is a project P4 transcription
+choice rather than a source-printed input. Those justification-only corrections produce the
+table's current arm-2 hashes; the values hash and every earlier revision remain unchanged.
 
 ---
 

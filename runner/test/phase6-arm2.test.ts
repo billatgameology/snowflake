@@ -31,14 +31,17 @@ import {
   PHASE6_ARM2_PROTOCOL_SHA256,
   PHASE6_ARM2_PROTOCOL_REVISIONS,
   PHASE6_ARM2_SDAK_ANCHORS,
-  PHASE6_ARM2_SOURCING_TIERS,
+  PHASE6_ARM2_SOURCE_INFERRED_REFERENCES,
+  PHASE6_ARM2_SOURCE_REFERENCE_TIERS,
   PHASE6_ARM2_VALUES_SHA256,
+  PHASE6_ARM2_VALUES_REVISIONS,
   phase6Arm2FreezeList,
   phase6Arm2InHeadlineScope,
   phase6Arm2IsBistable,
   phase6Arm2JustificationManifest,
   phase6Arm2ProtocolManifest,
   phase6Arm2ScoreHabit,
+  phase6Arm2SourceReferenceTier,
   phase6Arm2SourcingTier,
   phase6Arm2ValuesManifest,
 } from "../src/phase6-arm2-protocol.ts";
@@ -76,6 +79,20 @@ describe("arm 1 is untouched by arm 2 existing", () => {
       expect(phase6ScoreHabit(tempC, "plate")).toBe("disagree");
       expect(phase6ScoreHabit(tempC, "column")).toBe("agree");
     }
+  });
+
+  it("pins the historical parameter-table binding only where the producer serialized it", () => {
+    const arm1 = phase6ValuesManifest();
+    const arm2 = phase6Arm2ValuesManifest();
+    expect(Object.hasOwn(arm1, "parameterTableSha256")).toBe(true);
+    expect(Object.hasOwn(arm2, "parameterTableSha256")).toBe(false);
+
+    // Guard both claims non-vacuously: changing arm 1's serialized digest or retrofitting a
+    // previously absent arm-2 field changes that manifest's identity.
+    expect(canonicalJsonSha256({ ...arm1, parameterTableSha256: "0".repeat(64) }))
+      .not.toBe(PHASE6_VALUES_SHA256);
+    expect(canonicalJsonSha256({ ...arm2, parameterTableSha256: "0".repeat(64) }))
+      .not.toBe(PHASE6_ARM2_VALUES_SHA256);
   });
 });
 
@@ -125,6 +142,25 @@ describe("the arms differ in exactly the declared rows", () => {
       expect((row.prose.value ?? "").length).toBeGreaterThan(20);
       expect(row.prose.source.length).toBeGreaterThan(60);
     }
+  });
+
+  it("labels every live field of the withdrawn 42/90 proxy forecast", () => {
+    const expectation = PHASE6_ARM2_ADDED_ROWS.find((row) => row.id === "registered-expectation");
+    expect(expectation).toBeDefined();
+    for (const field of [
+      expectation?.prose.requirement,
+      expectation?.prose.value,
+      expectation?.prose.source,
+    ]) {
+      expect(field).toContain("historical");
+      expect(field).toMatch(/forecast|proxy/);
+    }
+    expect(expectation?.prose.requirement).toContain("inadmissible as habit evidence");
+    expect(expectation?.prose.value).toContain("not a valid pre-run habit prediction");
+
+    const bistable = PHASE6_ARM2_ADDED_ROWS.find((row) => row.id === "bistable-band");
+    expect(bistable?.prose.source).toContain("withdrawn/confounded historical proxy forecast");
+    expect(bistable?.prose.source).toContain("inadmissible as habit evidence");
   });
 
   it("registers no pending row — a sweep cannot quote a freeze it has not earned", () => {
@@ -186,18 +222,22 @@ describe("arm 2's scoring (ADR 0036 pre-registration 2)", () => {
 });
 
 describe("arm 2's sourcing tiers (ADR 0036 pre-registration 3)", () => {
-  it("assigns every registered temperature exactly one tier", () => {
+  it("assigns every registered temperature exactly one current source-reference tier", () => {
     const counts: Record<string, number> = {};
     for (const tempC of TEMPERATURES) {
-      const tier = phase6Arm2SourcingTier(tempC);
+      const tier = phase6Arm2SourceReferenceTier(tempC);
       counts[tier] = (counts[tier] ?? 0) + 1;
     }
-    // -2..-4 warm-extrapolated (3), -5..-25 bracketed (21), -26..-35 cold-extrapolated (10).
-    expect(counts).toEqual({ "extrapolating-warm": 3, bracketed: 21, "extrapolating-cold": 10 });
+    // All are inside Figure 1's M1 domain; these labels only describe the numeric-reference bracket.
+    expect(counts).toEqual({
+      "outside-reference-bracket-warm": 3,
+      "within-reference-bracket": 21,
+      "outside-reference-bracket-cold": 10,
+    });
   });
 
   it("covers the axis with no gap and no overlap", () => {
-    const tiers = [...PHASE6_ARM2_SOURCING_TIERS];
+    const tiers = [...PHASE6_ARM2_SOURCE_REFERENCE_TIERS];
     expect(tiers[0]?.warmestC).toBe(-2);
     expect(tiers[tiers.length - 1]?.coldestC).toBe(-35);
     for (let i = 1; i < tiers.length; i++) {
@@ -205,31 +245,59 @@ describe("arm 2's sourcing tiers (ADR 0036 pre-registration 3)", () => {
     }
   });
 
-  it("names EXACTLY ONE headline temperature whose inputs are extrapolated, and it is -2 C", () => {
-    // My first tiering asserted no headline temperature was unanchored. That was comfortable and
-    // false: the warmest prose-stated SDAK anchor is -5 C, so -2 C -- a headline temperature, and
-    // the whole of plates-warm's headline scope -- sits warmer than every anchor. Registered as a
-    // fact about the arm rather than smoothed away.
-    const extrapolated = TEMPERATURES.filter(
-      (t) => phase6Arm2InHeadlineScope(t) && phase6Arm2SourcingTier(t) !== "bracketed",
+  it("names EXACTLY ONE headline temperature beyond the numeric-reference bracket, and it is -2 C", () => {
+    // The warmest same-lineage numeric reference is -5 C, so -2 C -- a headline temperature, and
+    // the whole of plates-warm's headline scope -- sits warmer than every numeric reference while
+    // remaining inside the M1 source's displayed domain. The historical tier identifier is retained.
+    const outsideBracket = TEMPERATURES.filter(
+      (t) =>
+        phase6Arm2InHeadlineScope(t) &&
+        phase6Arm2SourceReferenceTier(t) !== "within-reference-bracket",
     );
-    expect(extrapolated).toEqual([-2]);
-    // Nothing in the headline is cold-extrapolated: the headline stops at -21.5 and that tier
-    // starts at -26.
+    expect(outsideBracket).toEqual([-2]);
+    // Nothing in the headline is colder than the reference bracket: the headline stops at -21.5
+    // and that tier starts at -26.
     for (const t of TEMPERATURES.filter(phase6Arm2InHeadlineScope)) {
-      expect(phase6Arm2SourcingTier(t), `${t} C`).not.toBe("extrapolating-cold");
+      expect(phase6Arm2SourceReferenceTier(t), `${t} C`).not.toBe(
+        "outside-reference-bracket-cold",
+      );
     }
   });
 });
 
 describe("arm 2's two-hash scheme", () => {
-  it("retains the historical false-base prose hashes while making the corrected hashes current", () => {
-    expect(PHASE6_ARM2_JUSTIFICATION_REVISIONS[0]?.sha256).toBe(
+  it("retains every historical manifest hash while making the latest correction current", () => {
+    expect(PHASE6_ARM2_VALUES_REVISIONS.map(({ sha256 }) => sha256)).toEqual([
+      "13e678d5eec467a391958a18c71c8d170900d6efd0d5c23bb4362d863b9acd76",
+    ]);
+    expect(PHASE6_ARM2_JUSTIFICATION_REVISIONS.map(({ sha256 }) => sha256)).toEqual([
       "1b7faeb85fb9095931ef9294d65c619723ac389de24daddd8d9c173b833d00e8",
-    );
-    expect(PHASE6_ARM2_PROTOCOL_REVISIONS[0]?.sha256).toBe(
+      "80e9c920b04c0a6e1f6985b2edb1e6cf33d336bb8bb89eb3fdf437a7dcfc24ba",
+      "f184f5459c99de6cac552e5b74bdd199a03ca205d6aabca5c12e6a98ff6464b9",
+      "3d3e91954c71258c861092fd07a06297cae8ce39ece1bef62a35e8f4e81481d4",
+      "ad00d02c57d22b4902bbc823aadf34c47dda559f0ca1484f4850cb94216649c1",
+      "49ec78de5e79611918c08b88c3d43556f8ebd6f0b80451e13439181e7fd1a8a4",
+      "e8d8bd749e456246a504ff5093734a8c6ba15f865b2f5413f2a98abb0183e80d",
+      "e8dcc4378d6913c0da8d98f2820858cadd9a17fa541e4108770476883e26911e",
+      "709646e565b0795cad50349db72f42d882abfb84a6f927424f96ee2417441603",
+      "e2f7f24c5fc71137c9d06bb2344685b260d8702426edf656f22dd6b42f58471f",
+    ]);
+    expect(PHASE6_ARM2_PROTOCOL_REVISIONS.map(({ sha256 }) => sha256)).toEqual([
       "b09a932ec7345eddf838ee2de1c0ef4731212c625a1069e62193c06ae950fdec",
+      "785f7325f7042b17ed220a19cc404d4ad0a5023d3c64de412afab138835db6e1",
+      "6e405882ff46c8fb883ee11753e1fc5ecfc9f046e16350590115d55469099e81",
+      "7b4b4c14e5d419e781224cfda36c2ed6b293d8c062014ff23a2e1dffa1507719",
+      "8c8db86582d1ced530b5cdbdaa0e924797c1aa14dc999d463f72e980db43ce14",
+      "cb88ee3020891867a170c20f62a6ce2cd72c1a4c248caef1899c90579e8e1c9b",
+      "09f49f229c472cd47c4a100fcd340f7fd472d716eb734c9c3244b3a19928146a",
+      "fa8c61f182966ea3496763ba766a2911086299fb3ef07e576be2a4023f82d2a9",
+      "21b16a7bf69b5015909fd381a6f7d2ab42ba5b8d343573c3e554bd4f1363261f",
+      "4be5c82d8ddb64947f459f40f1d941eb0e95d7548a6f6dd18067c65eda53076b",
+    ]);
+    expect(PHASE6_ARM2_VALUES_REVISIONS.at(-1)?.sha256).toBe(
+      canonicalJsonSha256(phase6Arm2ValuesManifest()),
     );
+    expect(PHASE6_ARM2_VALUES_SHA256).toBe(PHASE6_ARM2_VALUES_REVISIONS.at(-1)?.sha256);
     expect(PHASE6_ARM2_JUSTIFICATION_REVISIONS.at(-1)?.sha256).toBe(
       canonicalJsonSha256(phase6Arm2JustificationManifest()),
     );
@@ -245,6 +313,13 @@ describe("arm 2's two-hash scheme", () => {
     expect(PHASE6_ARM2_PROTOCOL_REVISIONS.at(-1)?.sha256).not.toBe(
       PHASE6_ARM2_PROTOCOL_REVISIONS[0]?.sha256,
     );
+    for (const revisions of [
+      PHASE6_ARM2_VALUES_REVISIONS,
+      PHASE6_ARM2_JUSTIFICATION_REVISIONS,
+      PHASE6_ARM2_PROTOCOL_REVISIONS,
+    ]) {
+      expect(new Set(revisions.map(({ sha256 }) => sha256)).size).toBe(revisions.length);
+    }
   });
 
   it("separates values from justification, and prose lives only on the justification side", () => {
@@ -413,28 +488,39 @@ describe("the arm-2 freeze review's six blockers, each with the defect it closes
     expect(JSON.stringify(phase6Arm2ValuesManifest())).toContain(PHASE6_ARM2_FREEZE_COMMIT);
   });
 
-  it("BLOCKER 4 — sourcing tiers match the corpus, and every anchor is reproduced by M1", () => {
-    // My first tiers claimed prose anchors over -2..-15 for BOTH dips. The warmest anchor of any
-    // kind is -5 C. Checked against the four anchors rather than against either account of them.
+  it("BLOCKER 4 — preserves legacy bytes while naming source-inferred references correctly", () => {
     expect(PHASE6_ARM2_SDAK_ANCHORS.map((a) => a.tempC)).toEqual([-5, -10, -14, -25]);
-    for (const a of PHASE6_ARM2_SDAK_ANCHORS) {
+    expect(PHASE6_ARM2_SOURCE_INFERRED_REFERENCES.map((a) => a.tempC)).toEqual([-5, -10, -14, -25]);
+    expect(PHASE6_ARM2_SOURCE_INFERRED_REFERENCES.map((a) => a.sourceInferredPercent)).toEqual(
+      PHASE6_ARM2_SDAK_ANCHORS.map((a) => a.measuredPercent),
+    );
+    for (const a of PHASE6_ARM2_SOURCE_INFERRED_REFERENCES) {
       const m1 = (a.facet === "basal" ? sigma0BasalM1(a.tempC) : sigma0PrismM1(a.tempC)) * 100;
-      const ratio = m1 / a.measuredPercent;
+      const ratio = m1 / a.sourceInferredPercent;
       expect(ratio, `${a.tempC} C ${a.facet}`).toBeGreaterThan(0.6);
       expect(ratio, `${a.tempC} C ${a.facet}`).toBeLessThan(1.05);
     }
-    // The asymmetry that matters: basal is well anchored, prism is not.
-    const basal = PHASE6_ARM2_SDAK_ANCHORS.filter((a) => a.facet === "basal");
-    const prism = PHASE6_ARM2_SDAK_ANCHORS.filter((a) => a.facet === "prism");
-    const err = (a: { tempC: number; facet: string; measuredPercent: number }): number =>
-      Math.abs((a.facet === "basal" ? sigma0BasalM1(a.tempC) : sigma0PrismM1(a.tempC)) * 100 / a.measuredPercent - 1);
+    // This is same-lineage model consistency, not independent measurement agreement.
+    const basal = PHASE6_ARM2_SOURCE_INFERRED_REFERENCES.filter((a) => a.facet === "basal");
+    const prism = PHASE6_ARM2_SOURCE_INFERRED_REFERENCES.filter((a) => a.facet === "prism");
+    const err = (a: { tempC: number; facet: string; sourceInferredPercent: number }): number =>
+      Math.abs(
+        (a.facet === "basal" ? sigma0BasalM1(a.tempC) : sigma0PrismM1(a.tempC)) * 100 /
+          a.sourceInferredPercent -
+          1,
+      );
     expect(Math.max(...basal.map(err))).toBeLessThan(0.05);
     expect(Math.max(...prism.map(err))).toBeGreaterThan(0.25);
-    // Tiers bracket by those anchors, and cover the axis exactly once.
+    // Historical tier labels bracket the numeric reference values, not the M1 equation domain.
     expect(phase6Arm2SourcingTier(-2)).toBe("extrapolating-warm");
     expect(phase6Arm2SourcingTier(-5)).toBe("bracketed");
     expect(phase6Arm2SourcingTier(-25)).toBe("bracketed");
     expect(phase6Arm2SourcingTier(-26)).toBe("extrapolating-cold");
+    // Current reporting must not reuse those misleading values-hashed identifiers.
+    expect(phase6Arm2SourceReferenceTier(-2)).toBe("outside-reference-bracket-warm");
+    expect(phase6Arm2SourceReferenceTier(-5)).toBe("within-reference-bracket");
+    expect(phase6Arm2SourceReferenceTier(-25)).toBe("within-reference-bracket");
+    expect(phase6Arm2SourceReferenceTier(-26)).toBe("outside-reference-bracket-cold");
   });
 
   it("BLOCKER 6 — the bistable band is reported with its own count", () => {

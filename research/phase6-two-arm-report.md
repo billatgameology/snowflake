@@ -7,15 +7,18 @@
 **Both historical arms, reported together.** Arm 1 is the `CAK` broad-facet parameterization; arm 2
 is the dipped `M1` parameterization. This is **not an SDAK-only ablation**: M1 also changes the broad
 `sigma_0` forms and sets `A_prism = 1`. The comparison measures a bundled parameter-set difference.
-A matched M1-without-dips arm is required before any difference can be assigned causally to SDAK.
+A matched M1-without-dips arm is required before any difference can be assigned causally to the
+implemented dip factors within the frozen solver configuration. Even that intervention cannot
+establish physical SDAK causality or necessity in nature.
 
 Arm 1's own report is [phase6-sweep-report.md](phase6-sweep-report.md), including its retraction.
 This document does not restate it; it reads the two arms against each other.
 
 **The common measured-only number is the least informative thing here, and it is not the lead.** M1
 scores 54/90 against CAK's 3/90. The bundled parameterization change is a **trade**; at the registered
-measurement size neither arm scores a single point in the regime the SDAK hypothesis exists to
-explain; and arm 2 failed its one registered forecast failure mode.
+measurement size neither arm scores a single point in the regime that the source's SDAK model was
+constructed to explain; and arm 2 produced neutral classes throughout its pre-registered bistable
+band. Neither observation is a causal SDAK test.
 
 > **READ §4's CORRECTION FIRST.** The predeclared diagnostic has since shown that
 > arm 2 **does** produce a column in that regime at −5 °C when the crystal is measured at extent 29
@@ -47,14 +50,16 @@ that claim is checkable from the artifact rather than asserted.
 
 Arm 2's artifact was **regenerated, not written by its own sweep** — the completion-time provenance
 check refused to publish because five commits landed on `main` during the 11.5-hour run. The
-measurements were never in question and the source-graph digest did not move. The whole irregular
-history is in erratum E4 and in the artifact's own `regeneration.json` sidecar.
+source-graph digest did not move, and the published rows were regenerated under the recorded source
+rather than accepted from the failed provenance check. That supports the regenerated artifact; it
+does not retroactively authenticate every state of the original long-running processes. The whole
+irregular history is in erratum E4 and in the artifact's own `regeneration.json` sidecar.
 
 ### Verification
 
 | check | arm 1 | arm 2 |
 |---|---|---|
-| independent re-derivation of every field | PASS (historical-plan WP5 verifier) | **PASS (historical-plan verifier)** |
+| separate re-derivation of published row/report fields | PASS (historical-plan WP5 verifier) | **PASS (historical-plan verifier)** |
 | negative controls executed | 7 (5 CAUGHT, 2 GAP) | **16 (15 CAUGHT, 1 GAP)** |
 | per-row parameter set recorded | 0 of 204 (erratum E3) | **204 of 204** |
 | run-end condition recorded | 0 of 204 (erratum E3) | **204 of 204** |
@@ -120,6 +125,14 @@ Class census over all 204 points:
 | arm 1 | 6 | 168 | 30 | 0 |
 | arm 2 | **75** | **119** | **10** | 0 |
 
+The historical one-directional `extentFragile` rule flags 16 arm-1 rows and 33 arm-2 rows below a
+threshold. Applying the same 0.135 distance to rows strictly above a threshold finds 42 and 51
+additional rows, for totals of 58 and 84. The closed symmetric audit also includes a row exactly on
+a threshold in each arm, giving 43 and 52 additional (59 and 85 total). The two count pairs differ
+only by threshold-equality convention; neither is a convergence result. The registered P1 ladder
+also falls from AR 1.52632 to 1.52174 on one interval, directly refuting the old one-directional
+rationale.
+
 Point-by-point, 115 of 204 points did not change class. The 89 that did:
 
 | move | n |
@@ -162,7 +175,8 @@ not only in count.
 both, not one class changed. Their raw aspect ratios nevertheless differ in 28/34 pairs, with
 maximum sampled `|ΔAR| = 0.218335`. At f = 0.60, 11 of 34 classes changed. Because M1 also changes
 `A_prism` and the broad `sigma_0` forms, neither the class equality nor the raw differences isolate
-the dip factors. The matched no-dip arm must make that comparison.
+the dip factors. The matched no-dip arm must make that within-solver comparison; it cannot by itself
+establish physical SDAK causality or necessity in nature.
 
 **And the dominant class is still "no habit".** Arm 2 reduced neutral from 168 to 119 of 204. The
 M1 artifact has no definite habit at **58% of the grid**.
@@ -181,7 +195,7 @@ M1 artifact has no definite habit at **58% of the grid**.
 > `stop reason=size-target`, `symErr = 0`, `allConverged`, `deltaSymClean`, 298 steps, 6779 cells,
 > and the geometry self-reports `hexRadius 31`, `seedSites 19`. Nothing excludes it.
 >
-> `1.52632 = 29/19` exactly.
+> `1.52632` is the five-decimal rendering of the exact extent ratio `29/19`.
 >
 > **What is withdrawn:** "neither arm produces a single column in the Nakaya `columns` regime" as a
 > statement about the **model**. **What stands:** the same sentence as a statement about the model
@@ -194,8 +208,9 @@ M1 artifact has no definite habit at **58% of the grid**.
 >
 > ### The correction SURVIVED both of its tests (2026-07-31, later)
 >
-> **One same-extent domain comparison passed; the adequacy inference is withdrawn.** P1 re-run at
-> the same extent 28 in N = 80 instead of 64, judged by
+> **One same-target domain comparison passed; the adequacy inference is withdrawn.** P1 requested
+> `--until-extent 28` in N = 80 instead of 64; the whole interface update reached reported extent 29
+> in both domains. It was judged by
 > the registered `PHASE6_DOMAIN_SPOT_CHECK` criterion:
 >
 > | P1 at extent 29 | AR | class | attached | symErr | converged | D6h |
@@ -231,7 +246,7 @@ M1 artifact has no definite habit at **58% of the grid**.
 > ### FINAL (2026-08-01) — the correction stands in CLASS terms; the registered convergence
 > ### criterion does NOT pass, and both are reported
 >
-> Every open item above has now been measured. The pre-registered convergence study
+> Every item named in this diagnostic block has now been measured. The pre-registered convergence study
 > ([prereg](../docs/phase6-convergence-study-prereg.md)) returns **outcome 3, NOT CONVERGED.**
 >
 > | P1, arm 2 `M1`, −5 °C, f = 0.10 | AR | class | domain check N=64 vs N=80 |
@@ -248,12 +263,14 @@ M1 artifact has no definite habit at **58% of the grid**.
 >
 > **What is NOT established.** The registered domain criterion requires identical class **and**
 > attached counts within 0.5%. At extent 35 the attached counts differ by **1.071%** — 11 201 against
-> 11 081, 120 cells of interior fill inside a bit-identical envelope. **The criterion fails, so no
-> configuration is demonstrated converged.** The historical ADR 0037 §5 no-re-sweep resource
+> 11 081, a 120-cell difference despite the same reported extents and six-decimal aspect ratio. The
+> ladder artifact contains no occupancy-level witness, so it does not establish an identical envelope. **The multi-rung diagnostic
+> therefore returns its registered not-converged outcome; the two passing rungs do not establish a
+> composed converged configuration.** The historical ADR 0037 §5 no-re-sweep resource
 > decision has been superseded by the maker's science-first direction; the active completion plan
 > requires a new frozen campaign. The criterion is not rewritten to the one that passes.
 >
-> So: the failure is in **total accreted mass**, and the quantity the Nakaya comparison consumes —
+> So: the failure is in **attached-cell count**, and the quantity the Nakaya comparison consumes —
 > the class — is invariant across every domain tested. Both facts travel together.
 >
 > **The execution-matched comparison separates the parameter sets at this diagnostic point.** Arm 1 (`CAK`) at the
@@ -304,16 +321,18 @@ M1 artifact has no definite habit at **58% of the grid**.
 > columnar habit, which is what the hypothesis predicts." That was two rungs. The third shows arm 1
 > doing the same thing, and the reading is withdrawn.
 >
-> **The domain controls separate class/AR from mass convergence.** Matched N = 64/N = 80 rows at
+> **The domain controls separate class/AR from attached-count convergence.** Matched N = 64/N = 80 rows at
 > extents 29, 35 and 41 reproduce P1 class and AR exactly, so P1's cross-extent AR pattern is not changed
 > by the tested box sizes. The registered criterion also consumes attached count, however, and that
 > quantity fails at extent 35. The ladder therefore supports a P1 one-condition size-associated
 > class/AR diagnostic, not a general size-effect claim or a numerically converged gate result.
 >
-> **This also sharpens erratum E5 rather than resolving it.** E5 records that no convergence study
-> exists warmer than −15 °C under either executed parameter set. This diagnostic shows a class
-> change at one of the first selected warm points; it does not establish priority over every prior
-> or future warm-side check.
+> **This also sharpens erratum E5 rather than resolving it.** E5's original statement that no
+> warm-side convergence evidence existed was too broad: the later ladder and matched-domain rows are
+> sparse warm-side numerical checks. They do not compose a grid-spacing, timestep, domain,
+> measurement-extent and seed convergence study under either executed parameter set. At one selected
+> warm point, changing measurement extent changed class; at another rung, the registered attached-count
+> domain criterion failed. Those are diagnostics of the open numerical problem, not convergence.
 
 The section below is preserved as published, and every number in it remains correct **as a
 measurement at extent 21**.
@@ -416,12 +435,12 @@ optimistic; non-monotone is reported as non-monotone.
 
 ---
 
-## 4b. The flip census — a registered output, produced for the first time
+## 4b. The flip census — a registered output produced from the historical artifacts
 
 ADR 0025 registers the count of habit flips as "**itself a first-class result**", and
-`phase6DetectFlips` exists to produce it. It has never been called outside `runner/test`, and
-neither arm's artifact carries a flip count (pin register R55). It costs no compute — flips are a
-function of the published `points.json` — so it is produced here.
+`phase6DetectFlips` exists to produce it. Before the census below it had never been called outside
+`runner/test`, and neither arm's artifact carried a flip count (pin register R55). It costs no
+compute — flips are a function of the published `points.json` — so it is produced here.
 
 A flip is a change between **pure** classes scanning warm to cold along a constant-f ladder, and it
 is **bracketed rather than pinpointed**: reported as the interval between the last temperature of
@@ -450,10 +469,12 @@ unsampled temperatures.
 20 → 10 — and move colder. Because broad functions and facet prefactors change too, the comparison
 does not identify the dip factors as the cause.
 
-**This is a measured contrast, not a restored structural theorem.** `M1` has three `alphaHK`
-crossings. Its sampled corpus has one registered flip on 2 of 6 ladders and none on the other 4.
-Crossing count and habit-transition count are therefore different observables in these rows; no
-bound for every field, supersaturation, or broad-facet model follows.
+**This is a measured contrast, not a restored structural theorem.** `M1` has three exact `sigma_0`
+equalities; because both M1 prefactors are one, those are also three
+equal-shared-positive-field attachment-coefficient equalities. They are analytic properties of the
+source model, not habit transitions. M1's sampled corpus has one registered pure-class flip on 2 of
+6 ladders and none on the other 4. The two quantities are different observables; no bound for every
+field, supersaturation, or parameterization follows.
 
 Reproduce with `node app/scripts/phase6-flip-census.mjs`. It runs the registered operator **and** an
 independent re-derivation from the registered definition, and requires them to agree on every
@@ -488,18 +509,21 @@ Written before the sweep, not assembled afterwards.
    diagram; the prism dip is centred at −14.4 °C and the `plates-cold` regime that supplies 49 of
    the 54 agreements is centred at −15.7 °C. ADR 0005 registered that a SDAK model reproducing this
    diagram is not independent evidence. **Arm 2 is a consistency check, not a test.**
-2. **I beat my own prediction by 12, in the direction my method was known to be weak.** The forecast
-   was 42/90 from a fitted transfer function (`ln AR = −0.2659 + 0.5119 ln r`, R² = 0.511) that
-   under-predicted plates on arm 1's own data — and the points it had to extrapolate over sat
-   precisely in `plates-cold`, which is where the 12 came from. An estimator beating its target by
-   its own known bias is not corroboration.
-3. **The fitted transfer function is asymmetric toward plates at this executed configuration.** At
-   `ln r = 0` — isotropic kinetics, no habit preference —
-   the fitted AR is 0.7665. In `ln AR`, the space the fit is linear in, that sits **0.1396 from the
-   plate ceiling and 0.6714 from the column floor: a factor of 4.81**. (Measured in linear AR the
-   same asymmetry reads 7.35×; the log figure is the conservative one and is quoted here for that
-   reason.) This is an empirical fit over the sampled configuration, not an instrument or lattice
-   theorem. In the executed arm, 75 of 85 non-neutral points are plates.
+2. **The 42/90 common-scope and 42/78 arm-scope values are a withdrawn, confounded historical
+   proxy forecast, inadmissible as habit evidence and not a valid pre-run habit prediction.** The
+   measured 54/90 and 54/78 counts therefore do not validate it. It came from a confounded transfer
+   fit (`ln AR = −0.2659 + 0.5119 ln r`,
+   R² = 0.511) from CAK outputs to M1's far-field coefficient-ratio proxy. Forty-four of 204
+   predictions extrapolated beyond the CAK proxy range, concentrated in `plates-cold`, and changing
+   parameterization also changes the facet-local fields and geometry. The alternative linear-AR fit
+   produced nonpositive aspect ratios; its historical 66/78 score and the 42–66 range are withdrawn,
+   not retained as an uncertainty interval.
+3. **The historical regression-intercept interpretation is withdrawn.** At `ln r_proxy = 0`, the
+   empirical fit returns AR 0.7665. That is an intercept of a CAK correlation evaluated on a
+   far-field proxy, not a forward run with isotropic local attachment kinetics. Its distances from
+   the plate and column thresholds therefore do not measure an instrument or lattice preference.
+   The directly measured statement is narrower: in the executed M1 arm, 75 of 85 non-neutral rows
+   are plates.
 4. **Every one of arm 2's `plates-warm` agreements is at a single temperature that was
    pre-registered as carrying essentially no statistical weight.** `plates-warm` has exactly one
    counting temperature, −2 °C; −3 °C falls in the ±1.0 °C ambiguity band. So all 5 agreements — and
@@ -523,19 +547,17 @@ irregular.** Arm 2's report was regenerated rather than written by its own sweep
   loop cannot exceed. Corroboration, not the load-bearing evidence. *Partly narrowed by rung A:* one
   arm-1 row was re-run at a later commit and reproduced exactly, **and its re-run does record
   `paramSet=CAK` and `stop reason=size-target`** — which corroborates the artifact from outside
-  without amending it. Four rows out of 204 is corroboration, not closure.
-- **THE WARM-SIDE CONVERGENCE EVIDENCE WAS MEASURED UNDER THE SUPERSEDED PARAMETER SET** (erratum
-  E5, added 2026-07-31 after this report was first published). The whole WP3 convergence campaign
-  ran `paramSet CAK_A1` — the set ADR 0031 invalidated. Its cold condition is bit-identical under
-  `CAK`, so N = 48, extent 21, `cflFill` 0.1 and the **+0.135 extent-fragile bound keep their cold
-  derivation, and no number in this report is shown wrong by it.** But its warm condition is a
-  different crystal entirely: −5 °C, f = 0.15 is 1513 cells / AR 0.3821 **plate** under `CAK_A1` and
-  4883 cells / AR 1.0000 **neutral** under `CAK`. **So under either published parameter set there is
-  no grid-, timestep-, domain-, measurement-extent or seed convergence study at any temperature
-  warmer than −15 °C — and the entire Nakaya `columns` regime is warmer than −15 °C.** §4's central
-  negative result rests on numerics with no convergence study under the set that produced it. The
-  size ladder in §4 is the first such evidence in that regime, which is a reason to weight it and
-  not a reason to relax about the gap.
+  without amending it. One row out of 204 is corroboration, not closure.
+- **THE COMPOSED WARM-SIDE CONVERGENCE CAMPAIGN REMAINS OPEN** (erratum E5, corrected
+  2026-08-01). The historical WP3 campaign ran `paramSet CAK_A1`, which ADR 0031 superseded. Its
+  cold condition is bit-identical under `CAK`, so the cold derivations remain available; its warm
+  condition is a different crystal entirely: −5 °C, f = 0.15 is 1513 cells / AR 0.3821 `plate`
+  under `CAK_A1` and 4883 cells / AR 1.0000 `neutral` under `CAK`. Later CAK/M1 size ladders and
+  matched-domain pairs provide sparse warm-side checks, so the earlier claim that no study of any
+  kind existed was false. What remains open is a pre-registered, composed grid-spacing, timestep,
+  domain, measurement-extent and seed campaign under the parameterization being scored. The sparse
+  checks do not close it: one selected point changed class with measurement extent, and one domain
+  rung failed the registered attached-count criterion.
 - **The registered headline rule is not the rule that produced either headline** (pin register R15).
   The `uncertainty-reporting` freeze row registers the headline as the **conservative intersection**
   of measured and grid-extrapolated class, with a `classSurvivesGridExtrapolation` flag and a
@@ -549,11 +571,12 @@ irregular.** Arm 2's report was regenerated rather than written by its own sweep
   N = 64 fails 3/4 sampled checks, and N = 64 versus N = 80 also fails 3/4. The historical automatic
   N = 64 remedy therefore did not establish adequacy. The active science-first plan requires a new
   pre-registered whole-grid numerical campaign rather than de-registering the criterion.
-- **Cross-platform control RUN 2026-07-31 (arm64), and it splits.** Tier-1 libm digest DIFFERS
+- **Cross-platform Tier 1 bytes preserved from 2026-07-31 (arm64), and they split.** Tier-1 libm digest DIFFERS
   (x64 `2a9f64b3`, arm64 `3662b9e2`), so digit-level results stay scoped to the registered x64
-  host. Tier-2 habit class reproduced exactly at all four registered fixture points. **These arm-2
-  (SDAK) results were not themselves re-run on arm64** — the control's four points are arm-1
-  configurations, so nothing here establishes that an arm-2 point is architecture-independent.
+  host. A historical Tier-2 table reports four exact arm-1 fixture matches, but its raw arm64 logs
+  and exit records were never tracked and are unavailable here, so no end-to-end portability result
+  is independently rederivable. **The arm-2 M1 results were not themselves re-run on arm64**;
+  nothing here establishes that an arm-2 point is architecture-independent.
 - **No valid `dxUm` convergence study under either published parameter set.** The historical probe
   estimated roughly 60× more work per point when halving cell size, but resource cost does not
   establish numerical adequacy. The old spacing tuple also changes physical seed and achieved size.
@@ -575,10 +598,10 @@ irregular.** Arm 2's report was regenerated rather than written by its own sweep
   registered measurement size**, 36 points each. Across almost the whole regime both arms produce no
   definite habit at all. **The unqualified version of this claim is withdrawn — see §4.** Measured
   at extent 29, arm 2 produces a `column` at −5 °C, f = 0.10 (AR 1.52632). So this is a statement
-  about the model *as measured at extent 21*, not about the model. **Carry E5 with it wherever it
-  goes:** every point in that regime is warmer than −15 °C, and warmer than −15 °C there is no
-  convergence study of any kind under either executed parameter set — and the first time that gap
-  was probed, it produced a class change.
+  about the model *as measured at extent 21*, not about the model. **Carry corrected E5 with it
+  wherever it goes:** sparse warm-side size/domain checks now exist, and one selected point changed
+  class with measurement extent, but no complete composed numerical-convergence campaign under
+  either executed parameter set supports a regime-wide conclusion.
 - The executed extent-21 corpus has observed AR gaps of 0.0875–0.100 near the column threshold. That
   is an empirical sample property, not a universal resolution of the lattice or instrument.
 - **Neither sampled artifact produces a `column→plate` flip under the registered pure-class operator.**
@@ -586,8 +609,10 @@ irregular.** Arm 2's report was regenerated rather than written by its own sweep
   the reference needs three transitions, including `column→plate` at −9.9 °C. M1's two observed
   brackets are narrower and colder than CAK's, but the confounded comparison does not assign that
   difference to the dip factors.
-- **`M1` has three `alphaHK` crossings while only 2 of 6 sampled ladders contain one registered
-  flip.** Crossing count and habit-transition count are distinct observables in this corpus.
+- **`M1` has three exact `sigma_0` equalities (and, with unit prefactors, three
+  equal-shared-positive-field attachment-coefficient equalities), while only 2 of 6 sampled ladders
+  contain one registered pure-class flip.** The analytic equality count and the artifact-derived
+  habit-flip count are distinct observables.
 - Four selected points spanning both parameter sets reproduce AR, step count, extent and stop reason
   exactly at a later commit/worktree. This scoped reproduction does not prove every intermediate
   state, untested point, architecture, or inherited environment identical.

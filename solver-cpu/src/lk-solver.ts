@@ -2,10 +2,11 @@
 //
 // One growth step (§4.4, decision 0009): the named surfacePolicy selects the immutable
 // legacy-v3 per-contact operator or a forward aggregate-hv-g1h1-v4/v5/v6 boundary-pixel operator.
-// Aggregate v4/v5 apply the Phase 2a reflecting smoother, replace each boundary pixel by the
-// nonlinear Eq. 5.34 value solved from opposing vapor pixels, and clamp the Dirichlet shell. Fixed-sigma
-// physics runs require BOTH the iterate residual and the signed global exchange divergence
-// identity. V5 directly meters float64 reflecting-smoother drift in that identity (ADR 0013)
+// Aggregate v4/v5/v6 apply the Phase 2a reflecting smoother, replace each boundary pixel by the
+// nonlinear Eq. 5.34 value solved from opposing vapor pixels, and clamp the maintained outer
+// shell. Both fixed-sigma and monopole-matched physics runs require the iterate residual AND the
+// signed global exchange divergence identity. V5/v6 directly meter float64 reflecting-smoother
+// drift in that identity (ADR 0013)
 // without changing any field value. The cached self-consistent (alphaHK, sigma_b) pair then fills
 // once per boundary pixel with H_b=1; the adaptive fill-CFL and explicit saturation-clipping
 // ledger are unchanged.
@@ -15,7 +16,7 @@
 // alphaHK slowdown applied identically in the boundary condition and growth, drift unsupported.
 //
 // Conservation claims (§4.4 components 3-4): the field is a quasi-static POTENTIAL, not a
-// mass store — the meaningful checks are (a) for fixed-sigma Dirichlet, the discrete divergence
+// mass store — the meaningful checks are (a) for either maintained-shell Dirichlet lane, the discrete divergence
 // identity REQUIRED for convergence (per-sweep injection equals signed net numerical boundary
 // exchange, since the interior smoother conserves), and (b) exact bookkeeping: fillLedger plus
 // recorded UNAPPLIED saturation excess equals the selected policy's Hertz-Knudsen demand
@@ -60,9 +61,9 @@ export interface LKSolverOptions {
   /** Coupled classifier/Robin/fill policy. Required: evidence must never rely on a default. */
   readonly surfacePolicy: LKSurfacePolicy;
   readonly dims: Dims;
-  /** Temperature, °C. Must keep (Tm − T) inside the digitized domain [1, 50]. */
+  /** Temperature, °C. Must remain in the selected parameterization's admitted domain (currently |T| = 1…50 °C). */
   readonly tempC: number;
-  /** Far-field supersaturation (dimensionless fraction), held at the Dirichlet shell. */
+  /** Far-field/asymptotic supersaturation (dimensionless fraction); see `farField` for shell use. */
   readonly sigmaInfinity: number;
   /** Lattice spacing, microns (P4 run input). */
   readonly dxUm: number;
@@ -85,12 +86,12 @@ export interface LKSolverOptions {
       the interface update for the same tick (round-3 coupling fix; this doc said "v_n
       slowdown" until round 5); 0 (default) = off. P4 dial (§4.4 component 5). */
   readonly noiseEpsilon?: number;
-  readonly domain?: DomainShape; // default "hexPrism" (Dirichlet shell needs a defined far field)
+  readonly domain?: DomainShape; // default "hexPrism" (a maintained shell needs a defined far field)
   /**
-   * "dirichlet" (default — the physical condition for this rule) or "reflecting", the
-   * DIAGNOSTIC-ONLY mode §4.4 component 1 promises for machinery tests: no clamp, no source;
-   * a quasi-static reflecting solve has only the depleted steady state, so no physics claim
-   * may cite a reflecting LK run.
+   * "dirichlet" (default fixed-sigma shell), "monopole-matched" (the maintained-shell condition
+   * registered for Phase 6), or "reflecting", the DIAGNOSTIC-ONLY mode §4.4 component 1 promises
+   * for machinery tests: no clamp, no source. A quasi-static reflecting solve has only the
+   * depleted steady state, so no physics claim may cite a reflecting LK run.
    */
   readonly farField?: FarFieldCondition;
   readonly seedRadius?: number | null;
@@ -476,7 +477,7 @@ export class LKSolver implements SurfaceOperator {
       throw new Error("cell count must be a positive safe integer");
     }
     if (!Number.isFinite(this.tempC) || this.tempC < -50 || this.tempC > -1) {
-      throw new Error("tempC must stay in the digitized domain [-50, -1]");
+      throw new Error("tempC must stay in the supported temperature domain [-50, -1]");
     }
     requirePositiveFinite(this.sigmaInfinity, "sigmaInfinity");
     requirePositiveFinite(options.dxUm, "dxUm");
@@ -1356,7 +1357,7 @@ export class LKSolver implements SurfaceOperator {
   }
 
   /**
-   * Aggregate-v4/v5 sweep. The interior pass is the Phase 2a reflecting kernel. Boundary pixels
+   * Aggregate-v4/v5/v6 sweep. The interior pass is the Phase 2a reflecting kernel. Boundary pixels
    * are then replaced by Eq. 5.34, and the signed replacement total is the numerical surface
    * exchange used only by the divergence diagnostic. Local exchange may be negative.
    */
@@ -1540,7 +1541,7 @@ export class LKSolver implements SurfaceOperator {
     return this.sweepAggregate(src, dst);
   }
 
-  /** §4.4 step 1: relax to tolerance; for Dirichlet, require the divergence identity too. */
+  /** §4.4 step 1: relax to tolerance; for either maintained shell, require divergence too. */
   relaxField(onProgress?: (progress: RelaxationProgress) => void): RelaxationReport {
     if (this.cycleState !== "boundary" && this.cycleState !== "incomplete") {
       throw new Error(`LK relaxation is not allowed in state ${this.cycleState}`);
@@ -1612,8 +1613,8 @@ export class LKSolver implements SurfaceOperator {
             divergenceResidual: this.hasClampedShell ? divergence : null,
           });
         }
-        // Fixed-sigma Dirichlet requires BOTH criteria. Reflecting is diagnostic-only and has
-        // no source against which a divergence identity could be stated.
+        // Both maintained-shell lanes require BOTH criteria. Reflecting is diagnostic-only and
+        // has no source against which a divergence identity could be stated.
         if (residual < this.relaxTol && divergenceSatisfied) break;
       }
       if (src !== this.sigma) this.sigma.set(src);
@@ -1624,7 +1625,7 @@ export class LKSolver implements SurfaceOperator {
         sweeps,
         residual,
         converged,
-        // The divergence identity is only defined against the Dirichlet source; in the
+        // The divergence identity is only defined against a maintained shell source; in the
         // reflecting diagnostic mode there is no source and the identity is not a claim.
         divergenceResidual: this.hasClampedShell ? divergence : null,
         shellClampDiagnostic: this.hasClampedShell ? injection : null,
@@ -1793,7 +1794,7 @@ export class LKSolver implements SurfaceOperator {
       claim:
         `the fill ledger plus recorded saturation clipping integrates exactly the ${demandDescription}; ` +
         "placed-fill vapor units accumulate each interface step at that step's M_ice; " +
-        "clipping is unapplied numerical excess, not deposited ice; Dirichlet solve quality " +
+        "clipping is unapplied numerical excess, not deposited ice; maintained-shell solve quality " +
         "is the divergence identity over signed net numerical boundary exchange, required for " +
         "convergence there; local exchange is potential redistribution, not uptake; no " +
         "Sigma(b+d) claim exists under this rule",

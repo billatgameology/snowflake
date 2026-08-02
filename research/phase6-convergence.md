@@ -1,4 +1,4 @@
-# Phase 6 numerical verification — the four convergence studies
+# Phase 6 historical WP3 report — four non-transferable convergence studies
 
 > **CORRECTED STATUS 2026-08-01 — historical, non-transferable reconnaissance; numerical
 > adequacy remains open.** This report ran under `CAK_A1` and its grid ladder changed lattice seed
@@ -11,8 +11,8 @@
 > production configuration. The governing replacement is
 > `docs/plans/phase-6-science-first-completion.md`, WP2–WP4.
 
-Charter §3.2 Phase 6 item 2 requires numerical verification, and requires it *reported*. This is
-that report. It is the WP3 deliverable and it runs **before** the grid freeze, because
+Historically, charter §3.2 Phase 6 item 2 required numerical verification and reporting. This was
+the original WP3 deliverable run **before** the grid freeze, because
 calibration had already shown a small domain producing a different growth regime rather than a
 coarser version of the same one.
 
@@ -23,10 +23,12 @@ so nothing here rests on a run whose symmetry or convergence was in doubt. The s
 is the ADR-reproduction table in §1.3, which is run at that ADR's own tolerances and reports no
 symmetry metric; it is flagged in place.
 
-Two temperatures at the same water-relative fraction **f = 0.15**, which the pre-registration
-established as the discriminating fraction: it maximises the basal/prism contrast at both ends
-(α ratio 0.56 warm, 1.40 cold) where f = 0.90 collapses it toward 1 and σ∞ = 0.002 puts the cold
-side in a dead-facet regime. Warm is −5 °C, σ∞ = 0.0075; cold is −15 °C, σ∞ = 0.02355.
+Two temperatures at the same water-relative fraction **f = 0.15**. The historical pre-registration
+selected it using an equal-shared-field coefficient proxy: `alphaHKBasal/alphaHKPrism` was 0.56 warm
+and 1.40 cold, while the proxy moved toward one at f = 0.90. Likewise, the old description of
+`sigmaInfinity = 0.002` as a cold “dead-facet regime” came only from far-field barrier ratios.
+Neither proxy establishes the separately solved facet-local fields or coupled habit. Executed warm
+is −5 °C, `sigmaInfinity = 0.0075`; cold is −15 °C, `sigmaInfinity = 0.02355`.
 
 Wall times are **not** reported as costs: the campaign ran up to thirteen jobs concurrently on
 eight physical cores, so every second is contended by construction.
@@ -77,13 +79,15 @@ Fixed Δx = 0.35 µm, measured at extent 15.
 | 48 | 521 / 0.3810 plate | 1505 / 0.9905 neutral |
 | 64 | 521 / 0.3810 plate | 1553 / 0.9905 neutral |
 
-Aspect ratio is converged from N = 28 warm and N = 40 cold. Attached count is **not** converged
-even at 64³ on the cold side — it climbs 1481 → 1505 → 1553 while `AR` sits fixed at 0.9905.
+Aspect ratio is unchanged across the sampled domains from N = 28 warm and N = 40 cold. Attached
+count still changes through 64³ on the cold side — it climbs 1481 → 1505 → 1553 while `AR` sits
+fixed at 0.9905.
 This was originally reported as a real domain effect that the registered criterion cannot see.
 **§1.2 shows that reading was wrong**: the residual is an artefact of stopping at extent 15,
 where the cold crystal is still developing steeply (§3: `AR` runs 0.63 → 1.25 over this range),
-so a one-step difference in which step trips the size target moves the attached count. At a size
-where the habit has developed, the domain dependence is gone.
+so a one-step difference in which step trips the size target can move the attached count. At extent
+21, the two sampled rows in §1.2 show much less domain sensitivity; the later multi-point failures
+show that domain dependence is not gone in general.
 
 ### 1.2 At the registered measurement size — extent 21
 
@@ -99,30 +103,32 @@ array; clearance is that minus the crystal's half-extent of 10.5. Both matter fo
 | 64 | 26.85 | 16.35 | 145 / 1513 / 0.3821 plate | 322 / 5159 / 1.1053 neutral |
 | 80 | 33.78 | 23.28 | 145 / 1513 / 0.3821 plate | 321 / 5159 / 1.1053 neutral |
 
-**Warm is bit-identical at all five domains** — same step count, same attached count, same `AR`
-— across a 8× range in cell count. **Cold's `AR` is identical at all five**, and its attached
-count runs 5185 → 5161 → 5161 → 5159 → 5159: converged **exactly** from N = 64, and to within
-2 cells (0.04%) from N = 48.
+In these two historical rows, warm is bit-identical at all five tested domains. Cold's `AR` is
+identical and its attached count runs 5185 → 5161 → 5161 → 5159 → 5159, with the last two
+sampled values equal. This is a finite two-row measurement, not proof of an exact asymptote or a
+domain budget transferable to the registered grid.
 
-The mechanism is visible in the step counts, which rise 315 → 316 → 320 → 322 as the domain
-grows. A larger domain supplies slightly less vapor, so the crystal takes slightly longer to
-reach the same size and arrives very slightly less dense. That is the residual over-supply
-draining away with distance, exactly as monopole matching predicts, and it has drained to
-nothing by N = 64.
+The step counts for this historical cold row rise 315 → 316 → 320 → 322 as the domain grows. The
+original report interpreted that as residual over-supply draining to nothing. That inference is
+withdrawn: the later registered multi-point ladder fails N = 64 against N = 80 at 3/4 points, so
+these two rows cannot establish an asymptote or mechanism for the wider grid.
 
-**Registered minimum domain: N = 48**, carrying a measured +0.04% attached-count residual
-against the N ≥ 64 asymptote. N = 64 is the exact answer and costs roughly 3× more per point
+**Historical minimum domain selection: N = 48 — withdrawn for R15.** In this one cold row it carried
+a measured +0.04% attached-count difference against N = 64/80. The original text called N = 64
+the exact asymptote; the later multi-point failures refute that generalisation. N = 64 costs roughly 3× more per point
 (2.37× the cells, plus relaxation sweeps that themselves scale with N) — which across a sweep of
 dozens of points is the difference between affordable and not. Compared like for like against the
-other attached-count systematic on the table, §2's registered `cflFill` = 0.1 sits **8.7%** off
-its converged volume; the domain residual at N = 48 is 200× smaller than the timestep residual
-already being accepted. `AR` is identical at all five domains, so it cannot move a habit class.
+other attached-count systematic on the table, the historical `cflFill` = 0.1 sample sits **8.7%**
+off the equal 0.05/0.025 pair; the domain residual at N = 48 is 200× smaller than that sampled
+timestep difference. `AR` is identical at all five domains for each of these two rows; that
+historical observation says nothing about other conditions.
 
-**This ladder generalises across habits, by construction.** The stopping criterion is
-`largestExtent >= 21`, and `largestExtent = max(tExtent, zExtent)`, so every sweep point is
-measured with the crystal bounded inside a 21-cell box in *every* direction regardless of whether
-it is a plate, a column or neutral. The shell clearance that governs §1.3 is therefore fixed at
-the value tabulated above for the whole sweep, not just for these two conditions.
+**This ladder does not generalise across habits.** Its stopping criterion bounds the measured
+crystal inside a 21-cell box, but that geometric fact does not bound the morphology's sensitivity
+to the far field. It measured only the warm/cold pair above. The later registered four-point
+spot-check failed N = 48 against N = 64 at 3/4 points, and N = 64 against N = 80 also failed 3/4;
+those results supersede the historical N = 48 selection. R15 must establish domain convergence
+for every representative class/configuration required by its new protocol.
 
 What it does **not** establish is independence from growth *rate*. Eq. 5.30's correction is
 proportional to `dV/dt`, so a much faster-growing condition carries a larger correction and
@@ -192,13 +198,15 @@ Fixed 48³, Δx = 0.35 µm, extent 15.
 | 0.05 | 168 / 527 / 0.3810 | 342 / 1649 / 0.9905 |
 | 0.025 | 333 / 521 / 0.3810 | 677 / 1649 / 0.9905 |
 
-`AR` is identical at every timestep at both temperatures — an 8× change in step size does not
-move the registered criterion at all. Attached count is not converged until `cflFill ≤ 0.05`:
-cold runs 1697 → 1505 → 1649 → 1649, non-monotone, settling on 1649, so **cfl = 0.1 is 8.7% off
-the converged volume while classifying identically**. Warm spreads ~1%.
+`AR` is identical at every sampled timestep at both temperatures — an 8× change in step size did
+not move the historical class criterion in these two rows. Cold attached count runs 1697 → 1505 →
+1649 → 1649, non-monotonically; the last two samples are equal, but two equal terminal samples do
+not establish a limiting value. **`cflFill = 0.1` differs by 8.7% from the equal 0.05/0.025 pair
+while classifying identically.** Warm spreads ~1% across the sampled values.
 
-**`cflFill` = 0.1 is adequate for a habit-class sweep and is not adequate for a reported
-volume.** Whichever is registered, the other is labelled not-converged at that setting.
+For these two historical rows, `cflFill = 0.1` leaves the class unchanged but is not converged for
+reported attached count. It does not discharge the replacement protocol's timestep study across its
+registered arms, sizes, and representative cases.
 
 ## 3. Measurement extent (habit development)
 
@@ -210,28 +218,30 @@ whole curve rather than an endpoint.
 | **warm** | 0.378 | 0.439 | 0.337 | 0.382 | 0.413 | 0.423 | 0.419 | 0.371 | **0.405** |
 | **cold** | 0.631 | 0.750 | 0.938 | 1.105 | 1.190 | 1.160 | 1.222 | 1.276 | **1.258** |
 
-**Warm is flat from extent 9**, oscillating in a band ≈ 0.31–0.45 about a mean near 0.40. The
-oscillation is lattice discreteness — `AR` is a ratio of integer-ish extents — and it never
-approaches the 0.667 plate ceiling, so the class is never in doubt.
+In the sampled historical trajectory, **warm stays between 0.337 and 0.439 from extent 9 onward**.
+The oscillation is consistent with lattice discreteness — `AR` is a ratio of integer-ish extents —
+but that mechanism was not isolated. None of these samples approaches the 0.667 plate ceiling.
 
-**Cold develops slowly and converges only near extent 31**, rising 0.63 → 1.25 and flattening in
-the 1.20–1.28 band from extent 31 onward.
+**Cold changes substantially with measurement extent**, rising 0.63 → 1.25 and lying in the
+1.20–1.28 band at the sampled extents from 31 onward. Those finite samples do not establish an
+asymptote.
 
-**Measurement size must be set by the slowest-developing habit.** A size adequate for the warm
-plate (extent 9) would read cold at ≈ 0.63 and classify it **plate** — the opposite of its
-converged neutral, and a silent misclassification of half the diagram.
+For this historical pair, a size selected from the warm row alone (extent 9) would read cold at
+≈ 0.63 and classify it **plate**, whereas every later sampled cold extent is neutral. This is a
+measured warning about selection from one condition, not a general measurement-size rule.
 
 **The class/value split applies here too, and the distinction is what makes the sweep
-affordable.** Cold's *classification* settles at extent 11 and carries comfortable margin by
-15–19 (`AR` 0.99–1.06 against a 0.667 plate ceiling); its *value* settles only near 31.
+affordable.** Cold's *classification* first becomes neutral at extent 11 and remains neutral at
+all later samples, with comfortable margin by 15–19 (`AR` 0.99–1.06 against a 0.667 plate
+ceiling); its reported *value* continues changing through the sampled trajectory.
 
 | cold extent | 9 | 11 | 15 | 19 | 31 | 39 |
 |---|---|---|---|---|---|---|
 | `AR` | 0.631 | 0.700 | 0.991 | 1.056 | 1.240 | 1.258 |
 | class | plate | neutral | neutral | neutral | neutral | neutral |
 
-Since the registered criterion is the class, **extent ≈ 21 is the defensible measurement size**
-and extent 31 is what a converged *value* would require.
+Under this historical CAK_A1 protocol, the class criterion selected extent ≈ 21 and the observed
+value continued drifting toward extent 31. Neither selection transfers to R15.
 
 An earlier version of this section argued that same conclusion from the ADR 0024 ratio
 `rho_far / R`, quoting 3.05 at 64³/extent 21 against 2.06 and 1.55 at extent 31, and concluding
@@ -241,27 +251,31 @@ the nearest shell cell of the `hexPrism` domain sits at ≈ 0.42·N, making thos
 and 1.29. The argument is the worse error: §1.3 shows the ratio does not predict the breakdown at
 all. What extent 31 would cost in domain size is **not known** and would have to be measured.
 
-The case for extent 21 stands without it, on §1.2 directly: at extent 21 the domain budget is a
-measured N = 48.
+The historical case for extent 21 used §1.2 directly: at that executed CAK_A1 configuration the
+extent-21 ladder measured N = 48. Later registered spot checks failed that budget, so it is not a
+current domain choice.
 
-**Registered minimum measurement extent: 21, for classification.** Any quantitative `AR` quoted
-at that size carries the residual extent drift toward the extent-31 value, on top of the grid
-systematic below.
+**Historical minimum measurement extent: 21, for that classification exercise.** Any quantitative
+`AR` quoted at that size carries residual extent drift and cannot select the replacement protocol.
 
 > **Sequencing note, recorded because it was an error — and because re-running in the right
 > order changed the answer.** The first domain ladder was run at extent 15 and the measurement
 > extent was then chosen from these curves, so the two did not compose: domain independence had
-> never been demonstrated at the size actually registered. That gap is now closed by §1.2. It did
+> never been demonstrated at the size actually registered. §1.2 appeared to close that gap only for
+> its CAK_A1 configuration; the result did not transfer and later registered checks reopened it. It did
 > not merely reconfirm the old ladder at a new size — it **reversed its central conclusion**. At
 > extent 15 the cold attached count climbed monotonically to 64³ and was reported as an
-> unconverged systematic; at extent 21 it converges exactly by 64³. The non-convergence was an
-> artefact of measuring mid-development, not a domain effect. Getting the order wrong did not
-> cost confidence, it cost correctness.
+> unconverged systematic; at extent 21 the last two sampled attached counts matched at that one
+> `CAK_A1` row. The earlier report interpreted the match as exact convergence and the extent-15
+> trend as a mid-development artefact. Neither an exact asymptote nor that causal mechanism was
+> established, and later registered checks showed the row did not transfer. Getting the order wrong
+> invalidated the intended composition of the checks.
 
 ## 4. Grid spacing
 
-Fixed physical box 16.8 µm and fixed physical measurement size; N and target extent scale with
-Δx so the physics compared is identical.
+The outer box was held at 16.8 µm while N and target extent scaled with Δx. The represented seed and
+achieved endpoint size changed with spacing, so the compared composition was **not** identical
+physics and cannot estimate a fixed-physics continuum limit.
 
 ### 4.1 At extent 9/15/23 — superseded, and wrong about the class flip
 
@@ -288,8 +302,10 @@ Found by the 2026-07-27 independent review.
 
 ### 4.2 At the registered measurement size — extent 21
 
-Same fixed physical box and the registered 7.35 µm measurement size; `cflFill` = 0.1, v6,
-monopole-matched. Every point `symErr = 0`, `deltaSymClean = true`, all relaxations converged.
+Same fixed 16.8 µm outer box and an intended 7.35 µm endpoint; the executed coarse/fine rows reached
+about 7.70 µm while the middle row reached 7.35 µm, and the physical seed changed with spacing.
+`cflFill` = 0.1, v6, monopole-matched. Every point `symErr = 0`, `deltaSymClean = true`, all
+relaxations converged.
 
 | Δx (µm) | N | extent | warm attached / AR | cold attached / AR |
 |---|---|---|---|---|
@@ -311,9 +327,10 @@ successive differences is itself a function of `p`; first order would give 0.333
 | warm | +0.0715, +0.0373 | 0.5217 | **0.207** | 0.8445 → *neutral* | 0.4940 → *plate* |
 | cold | +0.3807, +0.1169 | 0.3071 | **1.142** | 1.4207 → neutral | 1.4560 → neutral |
 
-**Cold is approximately first order and its limit is robust.** Both estimates land at 1.42–1.46,
-comfortably inside neutral and **below the 1.5 column floor**. The cold condition therefore does
-not reach column at f = 0.15 *even in the grid limit* — that is a measurement, not an assumption.
+The three cold samples happen to fit approximately first order, with extrapolations of 1.42–1.46.
+That calculation is not a grid-limit measurement: changing Δx also changed the represented physical
+geometry, so it cannot establish the continuum class. The replacement protocol must compose a
+fixed-physical-size spacing study before making a grid-limit claim.
 
 **Warm is NOT extrapolatable, and this is registered as a limit rather than papered over.** Its
 fitted order is 0.207, far below first, and the extrapolated **class changes with the assumed
@@ -330,27 +347,28 @@ class may be.
 
 ### What this does to the cold reading
 
-§4.1 combined an extent extrapolation with a grid extrapolation to put a fully converged cold
-`AR` near 1.47 — "essentially on the 1.5 column boundary" — and called the neutral/column
-question the most consequential open measurement in Phase 6. **That is now measured directly and
-the answer is neutral.** At the registered measurement size the cold value is 1.2222 at the
-finest spacing and extrapolates to 1.42–1.46, still short of 1.5 on both estimates. The margin is
-not large, but it no longer rests on an extrapolation of an extrapolation.
+§4.1 combined an extent extrapolation with a grid extrapolation to put a purportedly converged cold
+`AR` near 1.47 and called the neutral/column question the most consequential open measurement in
+Phase 6. The later ladder measured neutral values at its three **different composed configurations**,
+including 1.2222 at the finest row, but it did not directly measure a fixed-physics continuum answer.
+The 1.42–1.46 extrapolations are historical diagnostics only; the replacement campaign must resolve
+the question with a composed spacing/size/domain protocol.
 
-**The disagreement with Nakaya survives either way**, which is why this does not change the
-registered expectation: if cold is neutral, the model produces no reversal at f = 0.15; if it
-were column, it would produce a reversal in the **opposite sense** to the diagram, whose −9.9 °C
-boundary separates columns on the warm side from plates on the cold side. The model's single σ₀
-crossing at −10.1 °C runs plate-warm → column-cold.
+**The two executed rows disagree with their registered Nakaya classes.** Warm is plate where the
+reference calls for a column; cold remains neutral where it calls for a plate. The former causal
+and direction argument from the single `sigma_0` crossing is retracted: morphology depends on the
+complete attachment coefficient, the diffusion-determined surface field, size and geometry. These
+two trajectories establish only their measured classes at f = 0.15.
 
 **Caveat carried on the finest points.** They stopped at extent 33 rather than the targeted 32,
 so their physical measurement size is 7.70 µm against the registered 7.35 — 4.7% large. §3's
 cold trajectory rises about 0.01 per extent unit in that range, so the effect on the cold value
-is of order +0.01 and does not move any conclusion above.
+  is of order +0.01 within this historical ladder; it does not repair the composition error or earn
+  a continuum conclusion.
 
 ## 5. Seed shape — a systematic, not a convergence axis
 
-Every run in this project starts from the same seed: the canonical 19-site hexagon, radius 2,
+The registered baseline and 204-row Phase 6 sweeps start from the same seed: the canonical 19-site hexagon, radius 2,
 **thickness 1** — which is itself plate-like, aspect ratio 1/5 by construction. Since the cold
 call sits nearest a class threshold, "does the plate-like seed bias the result toward plate?" is
 a question the sweep should not leave unasked. Seed thickness must be **odd** (the seed is
@@ -365,10 +383,11 @@ Registered configuration otherwise unchanged; both points `symErr = 0`, clean, c
 | cold | 1 (registered) | 316 | 5161 | 1.1053 | neutral |
 | cold | 3 | 267 | 4135 | **1.2353** | neutral |
 
-**The habit class is invariant to seed shape at both conditions.** That is the result the sweep
-needs, and it is the reassuring one.
+The class was unchanged in these four runs (two conditions × two tested seed thicknesses). This
+does not establish invariance to seed shape generally; it is a scoped sensitivity observation.
 
-**The value is not, and warm's shift is the largest single systematic measured in this phase** —
+**The value is not, and warm's shift is the largest among the systematics sampled in this historical
+probe** —
 `AR` +0.218, or **+57%**, against the grid systematic's +10.6% cold. It is directional in the
 expected way: a thicker seed starts less plate-like and stays less plate-like. Warm's margin to
 the 0.667 plate ceiling goes from comfortable to thin (0.6004 is inside the extent-fragile band),
@@ -378,8 +397,8 @@ Note also that cold at thickness 3 reaches the measurement size in **fewer** ste
 attached cells (267/4135 against 316/5161): the thicker seed spends less growth becoming
 three-dimensional, so it arrives at extent 21 sooner and less dense.
 
-**What must not be done with these numbers.** Cold's registered value is 1.1053; the grid limit
-is 1.42–1.46; seed shape adds +0.13; extent drift adds up to +0.135. Stacking those gives ~1.7,
+**What must not be done with these numbers.** Cold's registered value is 1.1053; the historical
+grid extrapolation is 1.42–1.46; seed shape adds +0.13; extent drift adds up to +0.135. Stacking those gives ~1.7,
 above the 1.5 column floor — and that is **not a result**. It is an extrapolation of
 extrapolations, the exact error §4.1 was retracted for. The systematics are not established to be
 independent or additive, and each one *individually* leaves cold neutral. The honest statement is
@@ -388,12 +407,14 @@ is available.
 
 > **Why this is recorded here and NOT added to the frozen protocol.** The 204-point sweep was
 > running when these numbers landed. Charter §3.2 Phase 6 item 1 says a post-freeze protocol edit
-> invalidates prior sweep results and the sweep re-runs in full, so amending the protocol
+> invalidates prior sweep evidence for a replacement gate and the sweep re-runs in full before
+> replacement evidence is admissible, so amending the protocol
 > mid-sweep would have thrown away the run to record a caveat. It does not need to be in the
 > protocol: the registered seed is unchanged, this changes nothing about what executes, and it is
-> a *reported systematic* rather than a value. The asymmetry that makes that safe is worth being
-> explicit about — **adding a caveat after seeing data can only weaken a claim, never strengthen
-> it**, so it does not need pre-registration the way a threshold does.
+> a post-hoc diagnostic rather than a pre-registered value. Historical executed measurements remain
+> preserved at their measured-only scope. That diagnostic may explain or weaken
+> the historical reading, but it cannot gain gate standing or alter the registered acceptance logic.
+> Any use in the replacement campaign must be frozen before production under Rule 13.
 
 ---
 
@@ -405,7 +426,7 @@ is available.
   ladders (6 + 6), the extent-21 domain ladder (10) and the clearance probe (4) were not re-run
   against the pre-fix code; they each reported `symErr = 0` with clean incremental deltas and
   stand on the verified argument rather than on their own A/B.
-- **The registered grid-extrapolation operator is validated at exactly two conditions, and it
+- **The historical grid-extrapolation operator was exercised at exactly two conditions, and it
   refuses one of them.** Nothing here establishes that the fitted order stays inside the
   [0.7, 1.5] admission window elsewhere on the sweep grid, so every point must have its own order
   fitted and may come back `not-extrapolatable`. The operator is not a licence to extrapolate
@@ -416,13 +437,12 @@ is available.
   26.5.2, Node v24.13.1, V8 13.6.233.17-node.40 — the same engine build as the x64 host, so the
   difference is architecture and platform libm, not engine version). **No bitwise reproducibility
   claim extends off a single architecture**, and none is made here.
-  **Habit class, however, reproduced exactly at all four registered fixture points** — same steps,
-  same attached count, same aspect ratio — including `fragile-column-floor` on its exact `AR`
-  = 1.5000 tie on the column floor. So the habit-class conclusions at those four points are
-  portable across x64 and arm64, while everything digit-level above remains scoped to the
-  registered x64 host. Four points is not the 204-point sweep: see
-  `docs/phase6-cross-platform-control.md` §Result for the full table, the wall times, and what
-  the evidence explicitly does not establish.
+  A historical Tier 2 table reports exact reproduction at four registered fixture points — same
+  steps, attached count and aspect ratio — including `fragile-column-floor` on its exact `AR`
+  = 1.5000 tie. The underlying arm64 logs and exit records were gitignored, never promoted, and are
+  unavailable in this repository. The table is therefore not independently rederivable evidence
+  for end-to-end portability. See `docs/phase6-cross-platform-control.md` §Result for the preserved
+  table and this recordkeeping limit.
 - **These are coordinator-run studies, not gate evidence.** Their conclusions feed WP0c's
   freeze; their printed metrics are not citable as a Phase 6 result.
 - Wall times are contended and are not cost measurements.

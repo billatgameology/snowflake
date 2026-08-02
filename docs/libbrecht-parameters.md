@@ -1,38 +1,49 @@
 # Libbrecht parameters — the mapping layer
 
-**Status: FROZEN 2026-07-27 for Phase 6 (charter §3.2 Phase 6 item 1).** Extracted 2026-07-15
-(first pass, Phase 2b opening deliverable); corrected 2026-07-26 against the canonical source
-while corrections were still free to make.
+**Status: current authoritative mapping revision accepted 2026-08-02 by decision 0040; not yet
+frozen for R15.** Extracted 2026-07-15; corrected 2026-07-26; source-currency correction drafted
+2026-08-01 and accepted 2026-08-02. This revision has a separately named current content identity,
+but still requires the R15 values/protocol freeze and full rerun before it can govern replacement
+evidence (charter §3.2 Phase 6 item 1).
 
-> **This file is now a frozen protocol input.** Its content hash is registered as
-> `PHASE6_PARAMETER_TABLE_SHA256` in `runner/src/phase6-protocol.ts` and enforced by
-> `runner/test/phase6-protocol.test.ts`, so an edit here fails the suite rather than silently
-> changing the physics under a completed sweep. The hash is taken over the file with line
-> endings normalized to LF, so it survives this repository's CRLF checkout conversion and can be
-> verified on any platform — including the arm64 cross-platform control.
+> **Two identities deliberately coexist.** `PHASE6_PARAMETER_TABLE_SHA256` remains the historical
+> 2026-07-27 identity consumed by the legacy Arm 1 manifest; those exact table bytes are recoverable
+> at commits `390fe35` and `483f7ee`, and that constant is not the hash of this current file.
+> `PHASE6_CURRENT_PARAMETER_TABLE_SHA256` pins this corrected current revision for future work.
+> Both identities normalize line endings to LF, so checkout conversion cannot change their meaning.
 >
-> **Any change requires a logged ADR and invalidates every Phase 6 sweep result produced under
-> the current protocol; the sweep re-runs in full.** That cost is the point: it is what stops a
-> parameter from being adjusted after a disagreeing result is seen. Corrections that are genuinely
-> source-verified are still welcome — they just cost a re-sweep, and the ADR records why.
+> **Any change to this accepted mapping requires a logged ADR and new registered identity.** Once a
+> revision has been frozen into an executed protocol, a post-freeze change makes results under the
+> old revision inadmissible for a replacement gate governed by the changed input and the sweep must
+> rerun in full. Historical measurements and bytes remain reportable at their named superseded-
+> protocol scope; they are not silently upgraded. This makes a post-result adjustment explicit and
+> prevents adjusted inputs from silently inheriting prior gate evidence.
 >
 > Nothing here is frozen for other phases. Phase 2b/4/5 evidence keeps the values that produced
-> it, and this freeze binds Phase 6 only.
+> it. The historical freeze bound Phase 6 only; the current identity is a content pin, not the R15
+> protocol freeze.
 The 2026-07-26 pass landed four source-verified corrections while they were still free to make
 (post-freeze, each would cost a full re-sweep by charter rule): SDAK-2 recorded as an
 `A_prism` mechanism rather than a missing `A` gap (§4.2); the printed width parameterization
 recorded (§4.3); the latent-heating parameter `chi_0(T, P)` given anchors and its first-order
 correction (§7); and the CAK pressure-independence assumption qualified with the monograph's
-own retraction of it (Open questions). Every quotation was verified against the page renders,
-not taken from a summary.
-Every numeric entry below carries its citation and provenance class. The two known extraction
-limits are stated where they bite: the nucleation-parameter curves are **published only as
-figures** (no closed forms, no numeric tables exist in either source), so their numeric anchors
-here are figure digitizations with stated method and uncertainty; and `D(T)`'s temperature
-dependence is **not given** by the source (gap, recorded below).
+own retraction of it (Open questions). The 2026-07-26 correction record states that the passages
+used for those four changes were checked against the page renders rather than copied from a
+summary; this sentence does not claim a fresh recheck of every quotation in the current session.
+Every adopted solver input below carries its provenance class and either a source citation for a
+source value/transcription or named operands and method for a project-derived/P4 value; analytic
+verification relations and contextual numbers not adopted as inputs are explicitly marked outside
+that taxonomy.
+**Correction 2026-08-01:** the
+original-source CAK curves remain figure digitizations, but the later source-currency sweep found
+printed broad-facet and M1 closed forms in `2009.08404v2` and `2306.13087v1`. The former claim that no
+closed form existed was therefore false outside the original source pair. These later alternatives
+do not silently replace the CAK anchors; their distinct mappings and provenance are recorded in
+§§4.1a–4.1b. `D(T)`'s missing source law remains a separate recorded gap.
 
-This table is the mapping layer from real conditions `(T, σ, P)` into the solver. It is what
-replaces curve-fitting with measured physics — the whole substance of decision
+This table is the mapping layer from real conditions `(T, σ, P)` into the solver. It replaces
+project-side curve fitting with source-cited empirical quantities, authoritative exact definitions,
+source fits/models, and explicit project-derived/P4 choices — the substance of decision
 [0003](decisions/0003-libbrecht-attachment-kinetics.md). Used by
 [attachment-kinetics.md](attachment-kinetics.md), especially its §4.4 surface operator.
 
@@ -49,35 +60,48 @@ that the monograph's Chapter 4 refines. Monograph citations below give printed p
 
 ## The rule for this file
 
-> **No number enters this file without a citation** — paper, section or figure or table, and page.
+> **No adopted source value or source transcription enters this file without a citation** —
+> paper, section or figure or table, and page. Explicit project derivations and P4 choices name
+> their operands/rule; verification and contextual numbers not adopted as inputs are marked as such.
 > A parameter with no provenance is indistinguishable from a parameter someone tuned until the
 > picture looked right, and that is the exact failure this project exists to avoid.
 >
-> **No number is guessed, interpolated, or recalled from memory.** If a value is not in the
-> source, the cell stays empty and the gap is stated. An empty cell is a research task; a wrong
-> cell is a physics bug that will be discovered three phases later, if ever.
+> **No adopted source value is guessed or recalled from memory.** If a source value is unavailable,
+> the cell stays empty and the gap is stated. Derived values and P4 interpolation rules are admitted
+> only when labeled with their operands and method. An unexplained value is a physics bug that may
+> survive several phases.
 >
 > **Figure digitization is the one sanctioned exception**, used only where the source publishes
 > a quantity *exclusively* as a plot: the entry records the figure, the digitization method,
 > and a per-point uncertainty, and is class P2 at best. The figure remains the authority; the
 > digitized number is a reading of it, checkable by anyone with the source open.
 
-> **This file freezes before the first Phase 6 validation sweep** (charter Phase 6 protocol
-> freeze, added v1.2). Post-freeze, any edit to it requires a logged ADR and **invalidates all
-> prior sweep results** — the full sweep re-runs. Until that freeze it is a living extraction
-> target; after it, it is part of a pre-registered protocol.
+> **A revision governing a Phase 6 validation sweep freezes before that sweep** (charter Phase 6
+> protocol freeze, added v1.2). Post-freeze, any edit to it requires a logged ADR and makes prior sweep
+> results **inadmissible for a replacement gate governed by the changed input** — the full
+> replacement sweep re-runs. Historical executed measurements and bytes remain records of their
+> named superseded protocol. Until the freeze it is a living extraction target; after it, the file
+> is part of a pre-registered protocol.
 
-## Provenance classes (decision 0005; charter §2.7) — every entry carries one
+## Provenance classes (decision 0005; charter §2.7) — every adopted solver input carries one
 
-- **P1 — measured broad-facet kinetics.** Instrument data; record the stated uncertainty.
-- **P2 — fitted or inferred.** Record the functional form and its stated domain of validity —
+- **P1 — directly adopted authoritative source quantities.** This includes measured or
+  source-tabulated empirical inputs and exact metrological definitions. Empirical entries record
+  stated uncertainty or precision; defined entries record their defining authority and exact
+  status. A source fit, inversion, derived value, or figure reading is not P1 merely because its
+  source is authoritative.
+- **P2 — fitted, model-inferred, project-derived, or figure-digitized.** Record the functional form
+  and its stated domain of validity —
   extrapolating a fit outside its range silently manufactures a fake result. Figure
   digitizations land here, with the digitization uncertainty recorded.
 - **P3 — Nakaya-informed SDAK hypotheses.** The narrow-facet dip locations/depths were chosen to
   impose agreement with the morphology diagram (monograph printed p. 152 / pdf 153: "I have
   chosen different values of T_onset for the basal and prism facets **to impose agreement with
   the known ice-growth behaviors from the Nakaya diagram**"). Any Nakaya comparison using P3
-  inputs is **in-sample reproduction**, never independent validation.
+  inputs is **in-sample reproduction**, never independent validation. Published model-dependent
+  inversions of narrow-facet growth observations can support the existence and approximate
+  temperature regions of barrier reductions without promoting the exact M1 functional forms,
+  depths, widths, or placement out of P3 (decision 0040).
 - **P4 — numerical/discretization choices** (interpolation schemes, resolutions, tolerances).
 
 Consequently this file keeps **two separate branches** — the broad-facet (large-facet)
@@ -85,8 +109,8 @@ parameters and a separate SDAK section — never merged, because Phase 6 reports
 runs separately.
 
 **Canonical units (v1.3):** `sigma_0` and all supersaturations are **dimensionless fractions**
-here and in code. Libbrecht's plots and text quote **percent** — every entry below records the
-raw cited value with its raw units and the converted fraction. A silently mis-read percent is a
+here and in code. Libbrecht's plots and text quote **percent** — each adopted percent-valued input
+records the raw cited value with its raw units and the converted fraction. A silently mis-read percent is a
 **100× error inside `exp(−sigma_0/sigma_surf)`** — the single easiest way to destroy the model
 while every individual number "looks right." Pressure: raw units recorded, canonical Pa.
 
@@ -125,12 +149,13 @@ matches Table 2.1's `P_ice = 6.11` at 0 °C only if the formula's output unit is
 hPa; 611 Pa is the triple point). The mbar reading is therefore confirmed against the source's
 own table. `c_sat = p_ice/(kT)` converts to number density.
 
-### 1.1 The spherical analytic solutions (**P1** — exact, transcribed 2026-07-26)
+### 1.1 The spherical analytic solutions (source-exact verification relations, outside P1–P4)
 
-Added for Phase 6 WP3/WP3b. These are the project's only **absolute** accuracy anchor: every
-other numerical control shows the solver agreeing with itself under refinement, while these say
-whether the numbers are right. Transcribed from the page renders (`research/1910.06389v2/`),
-not from `monograph-review.md`.
+Added for Phase 6 WP3/WP3b. These are absolute discretization/implementation checks for an idealized
+spherical boundary-value problem: unlike self-refinement, they compare the solver with an analytic
+answer. They do not establish absolute physical accuracy for faceted 3-D crystals. Transcribed from
+the page renders (`research/1910.06389v2/`), not from `monograph-review.md`. P1–P4 classify solver
+inputs; an analytic verification relation is not measured kinetics and therefore is not P1.
 
 The monograph writes the attachment coefficient as a bare Greek letter; in this model that
 quantity is `alphaHK`. Its diffusive counterpart, Eq. 3.18, is the ratio `X_0/R`, and is written
@@ -148,7 +173,8 @@ out here rather than given a name, because a name built on the bare stem is what
 | diffusion-limited when | `X_0/R << alphaHK`, giving `v_n ≈ (c_sat·D)/(c_ice·R)·sigma_inf ≈ (X_0/R)·v_kin·sigma_inf` | 3.23–3.24 |
 
 **Finite outer boundary at R_far** (printed p. 100 / pdf 101, attributed to [2013Lib1]) — the
-case that matters to us, because our far field is a fixed-σ Dirichlet shell at finite radius:
+case that exposed the historical fixed-σ finite-shell bias; Phase 6 now uses the implemented
+monopole-matched shell:
 
 | Equation | Form | Number |
 |---|---|---|
@@ -168,8 +194,8 @@ be `alphaHK`:
 `gamma = (alphaHK + X_0/R) / alphaHK = 1 + (X_0/R)/alphaHK`
 
 The transcription above was verified at magnification against the page render, so this is a
-disagreement with the source, not a misreading of it. Three independent checks, each of which
-the printed form fails:
+disagreement with the source, not a misreading of it. Three mutually consistent cross-checks of the
+same equation—not three independent evidence lineages—each reject the printed form:
 
 1. **Eq. 3.33 must reduce to Eq. 3.17 as `R_far → ∞`.** Its limit is
    `sigma_surf/sigma_inf = 1 − 1/gamma`. The printed form gives `alphaHK/(alphaHK + X_0/R)` —
@@ -210,8 +236,9 @@ finite-shell over-supply on this estimate. The −15 °C numbers are within a po
 
 **Consequences.** The fixed-σ Dirichlet far field at these domain sizes is not a mild
 approximation, and the bias falls only as ~1/N, so the WP3 domain ladder is load-bearing rather
-than pro forma. It also makes the monopole-matched far field (`monograph-review.md` §2.4) a
-substantive candidate rather than a refinement. **This supersedes an earlier note here that a
+than pro forma. It also explains why the now-implemented, Phase-6-registered monopole-matched far
+field (`monograph-review.md` §2.4; decisions 0024/0027) is substantive rather than a refinement.
+**This supersedes an earlier note here that a
 "few-percent" bias could not explain the calibration observation of a needle at 28³ where 96³
 gives a plate at identical conditions — that note was computed with the printed `gamma` and was
 wrong; a bias of this size is a live candidate for exactly that effect.**
@@ -222,17 +249,29 @@ crude; and it assumes an isolated sphere, whereas at these ratios the crystal oc
 the domain. A **differential** per-facet bias — prism tips sit far closer to the wall than basal
 faces — is not expressible in this form at all, and is the natural next question.
 
-## 2. Physical constants (monograph Appendix A, printed pp. 500–501 / pdf 501–502)
+## 2. Physical constants and exact metrological definitions
 
 | Constant | Value (as cited) | Canonical | Class |
 |---|---|---|---|
-| `c_ice` (ice number density) | ≈ 3.1 × 10²⁸ m⁻³ | same | P1 (textbook) |
-| `rho_ice` | ≈ 917 kg/m³ | same | P1 |
-| `m_mol` (water molecule mass) | ≈ 3.0 × 10⁻²⁶ kg | same | P1 |
-| `a` (molecule size, `c_ice^(−1/3)`) | ≈ 0.32 nm | 3.2 × 10⁻¹⁰ m | P1 |
-| `gamma_sv` (ice/vapor surface energy) | ≈ 106 ± 15 mJ/m² | same | P1 (stated uncertainty) |
+| `k` (`K_BOLTZMANN`) | exactly 1.380649 × 10⁻²³ J K⁻¹ | same | P1 (exact metrological definition) |
+| Celsius-to-kelvin offset (`CELSIUS_ZERO_K`) | `T/K = t/°C + 273.15`, exactly | 273.15 K | P1 (exact metrological definition) |
+| standard atmosphere (`P_ATM`) | exactly 101325 Pa | same | P1 (exact metrological definition) |
+| `c_ice` (ice number density) | ≈ 3.1 × 10²⁸ m⁻³ | same | P1 (textbook; monograph Appendix A, printed p. 500 / pdf 501) |
+| `rho_ice` | ≈ 917 kg/m³ | same | P1 (monograph Appendix A, printed p. 501 / pdf 502) |
+| `m_mol` (water molecule mass) | ≈ 3.0 × 10⁻²⁶ kg | same | P1 (monograph Appendix A, printed p. 501 / pdf 502) |
+| `a` (molecule size, `c_ice^(−1/3)`) | ≈ 0.32 nm | 3.2 × 10⁻¹⁰ m | P2 (derived from the P1 density) |
+| `gamma_sv` (ice/vapor surface energy) | ≈ 106 ± 15 mJ/m² | same | P1 (stated uncertainty; monograph Appendix A, printed p. 500 / pdf 501) |
 | `d_sv` (Gibbs–Thomson length, `gamma_sv/(c_ice·kT)`) | ≈ 1 nm | 1 × 10⁻⁹ m | P2 (derived) |
-| `D_air` (water vapor diffusivity in air) | ≈ 2 × 10⁻⁵ m²/s | same | P1 (see §6 caveat) |
+| `D_air` (water vapor diffusivity in air) | ≈ 2 × 10⁻⁵ m²/s | same | P1 (monograph Appendix A, printed p. 500 / pdf 501; see §6 caveat) |
+
+The exact definitions come from authoritative metrology rather than empirical measurement:
+`k` is a defining constant in the **BIPM SI Brochure, 9th edition, version 4.01 (June 2026),
+§2.2, printed pp. 124–125, Table 1** (DOI `10.59161/AUEZ1291`), which states that defining
+constants have no uncertainty; the Celsius relation is in **§2.3.1, printed p. 130**; and one
+standard atmosphere is defined as exactly 101325 N/m² by the **10th CGPM (1954), Resolution 4,
+Proceedings p. 79**, DOI `10.59161/CGPM1954RES4E`. The exact decimal `k` and `273.15` definitions
+are represented by their nearest binary64 values in JavaScript, while integer 101325 is exactly
+representable. That representation policy is P4; it does not change the quantities' P1 provenance.
 
 ## 3. Branch 1 — broad-facet `sigma_0(T)` and `A(T)` (the CAK large-facet model)
 
@@ -261,21 +300,21 @@ Raw plot units: σ₀ in **percent**, abscissa `(Tm − T)` in °C. Fractions = 
 | 30 | −30 | 7 | 0.07 | 13 | 0.13 | 1 | 1 |
 | 50 | −50 | 16 | 0.16 | 32 | 0.32 | 1 | 1 |
 
-Text-cited anchors (not digitized — these are printed numbers, class **P1/P2 per the source's
-own framing**):
+Text-cited fit/inference statements (not digitized — **P2**, because the printed kinetic
+parameters are inferred from growth observations rather than directly observed quantities):
 
-- `sigma_0 = 3 percent` (fraction 0.03) for a **prism** facet at **−15 °C**, VIG apparatus,
+- source-fit `sigma_0 = 3 percent` (fraction 0.03) for a **prism** facet at **−15 °C**, VIG apparatus,
   20 mbar background air — monograph printed p. 144 / pdf 145 (Figure 4.4 discussion). Agrees
   with the digitized 3.2% ± 25% above.
-- `A ≈ 1` for basal across **−2 > T > −40 °C**: "unambiguous evidence for nucleation-limited
+- source-inferred `A ≈ 1` for basal across **−2 > T > −40 °C**: "unambiguous evidence for nucleation-limited
   growth with A ≈ 1 over the entire temperature range" — 1910.09067 p. 6, citing [2013Lib].
-- `A_prism < 1` above ≈ −10 °C: "substantial experimental evidence indicating A < 1 for prism
+- source-inferred `A_prism < 1` above ≈ −10 °C: "substantial experimental evidence indicating A < 1 for prism
   facets when the growth temperature is above −10 C" — 1910.09067 p. 4 (which then *sets this
   aside* and assumes A ≈ 1 throughout; the monograph's CAK curves *include* it — Figure 4.5
   lower panel, and the "frustrated QLL kinetics" discussion, printed p. 145–147 / pdf 146–148).
 
-**Parameter-set provenance (added round-3 — every solver input needs a class, including
-composite sets):** the solver's selectable sets are `CAK` — this Branch's digitized σ₀(T)
+**Parameter-set provenance (added round-3; corrected 2026-08-01 — every solver input needs a class,
+including composite sets):** the solver's selectable sets include `CAK` — this Branch's digitized σ₀(T)
 plus the digitized `A(T)` (both **P2**, figure digitizations of the source's own fits) — and
 `CAK_A1` — the same σ₀(T) with `A ≡ 1` on both facets. `CAK_A1` is classified **P2** as a
 whole: its σ₀ component is the P2 digitization above, and its `A ≡ 1` component is the
@@ -284,22 +323,32 @@ simplification 1910.09067 itself adopts for its analysis ("I will proceed by ass
 measurement). `CAK_A1` is NOT 1910.09067's model: that paper's own Fig. 4 σ₀ fits (made
 under A ≡ 1) are a separate, un-digitized curve set — a recorded gap.
 
-**Source discrepancy, recorded rather than smoothed over:** 1910.09067 Figure 4's caption puts
-the raw-measurement σ₀ crossing at **T ≈ −6 °C** (plates above, columns below, at face value);
+The Phase 6 code also exposes `M1`: the exact `2306.13087v1` closed forms recorded in §4.1a with
+`A_basal = A_prism = 1`. As a composite set it is **P3 for a Nakaya comparison** because its exact
+dip prescription was selected using that diagram. The intended replacement arm
+`M1_NO_DIP_ABLATION` is not yet a frozen production parameter set: it will match M1 except for
+setting both dip factors to one, using the printed M2 broad-branch functions. That matched pair can
+test sensitivity to the M1 dip factors; it is not an implementation of M2's width feedback.
+
+**Source discrepancy, recorded rather than smoothed over:** within that paper's `A ≈ 1` model,
+1910.09067 Figure 4's caption associates the source-fit/model-inferred σ₀ crossing at
+**T ≈ −6 °C** with plates above and columns below. That source-level interpretation does not make
+the σ₀ crossing an `alphaHK` crossing under unequal prefactors or facet fields, or a habit theorem;
 the monograph's CAK curves (Fig. 4.5, digitized above) cross at **(Tm−T) ≈ 9–10 °C**. The two
 sets differ in fit assumptions by the sources' own statements (09067 fits with A ≡ 1; the CAK
 model allows A_prism < 1). Whether that fully explains the shift is *our inference, not a
 source statement*. **The solver uses the CAK set (the later, fuller synthesis); Phase 6 must
-carry this discrepancy as a stated systematic**, and the no-SDAK habit probe should be run
-against both crossings before any conclusion about "the model" is drawn.
+carry this discrepancy as a stated systematic.** A valid comparison runs and evaluates each full
+parameterization; it does not use either crossing as a morphology target.
 
 **Interpolation between anchors is a P4 decision, not physics — REGISTERED 2026-07-26**
 (`runner/src/phase6-protocol.ts`, `PHASE6_INTERPOLATION`). The scheme is **piecewise log–log
 linear between adjacent anchors** for `sigma_0` (both facets), **piecewise linear in `(Tm−T)`**
 for `A_prism` (it touches 1 and dips, so a log scheme is wrong for it), `A_basal ≡ 1`, and
 **extrapolation is banned** — the solver throws outside `(Tm−T) ∈ [1, 50]`, i.e.
-`T ∈ [−50, −1] °C`. This is the scheme every run to date has used
-(`core/src/libbrecht.ts`); the freeze registers and verifies it rather than changing it.
+`T ∈ [−50, −1] °C`. This is the interpolation used by every `CAK`/`CAK_A1` run to date.
+`M1` instead evaluates the printed closed forms in §4.1a under the same source-displayed domain
+guard; it does not use these anchors or this interpolation.
 
 *The justification previously recorded here was wrong and is corrected.* This file used to say
 the curves are "near-straight on the log–log plot above (Tm−T) ≈ 3". They are not: the local
@@ -307,7 +356,7 @@ log–log slope runs **0.22 → 1.62** (basal) and **2.26 → 1.76** (prism) acr
 range, and a single power law fitted over `(Tm−T) ≥ 3` leaves residuals of **21%** (basal) and
 **23.8%** (prism). Global straightness is not why the scheme is acceptable.
 
-The measured reason is that its error is subdominant to the digitization band already carried
+The numerical leave-one-out reason is that its error is subdominant to the digitization band already carried
 on the anchors. Dropping each interior anchor and rebuilding it from its two neighbours by the
 same rule — a conservative bound, since it spans two intervals where the solver spans one —
 gives a worst relative error of **10.7% (basal)** and **9.0% (prism)** against the **±25%**
@@ -330,13 +379,16 @@ gate certifies the solver's response to its **recorded** inputs — the exact nu
 and a gate failure has digitization uncertainty as a live candidate cause, to be reported as
 such rather than debugged as code. Phase 6 must treat these bands as a stated systematic.
 
-## 4. Branch 2 — SDAK narrow-facet hypotheses (**P3** — never merged into Branch 1)
+## 4. Branch 2 — narrow-facet evidence and SDAK prescriptions (kept separate from Branch 1)
 
 **There are two distinct SDAK hypotheses in the sources, and this section records both.**
 SDAK-1 modifies `sigma_0` on narrow facets (the dips digitized below); SDAK-2 modifies
 `A_prism` on narrow prism facets (§4.2). They are separate mechanisms aimed at different
-observations, and neither implies the other. Nothing in the solver implements either one —
-`SDAK` appears in no source file — so every run to date is a no-SDAK run.
+observations, and neither implies the other. The solver implements neither the full width-dependent
+SDAK-1 closure nor SDAK-2. It does implement M1's everywhere-narrow approximation as `M1`;
+historical CAK runs are
+no-SDAK, historical M1 runs are Nakaya-informed/in-sample, and CAK→M1 changes multiple kinetic
+choices rather than isolating SDAK causally.
 
 ### 4.1 SDAK-1 — the `sigma_0` dips
 
@@ -345,8 +397,9 @@ their substantial uncertainties"; curves assume edge radius `R_edge ≈ 1–2 µ
 snow-crystal growth in air"). 1910.09067 p. 13: "Neither the width nor depth of the dip
 structure … is well constrained by measurements"; dip positions set by the premelting onset
 temperature per facet, "somewhat constrained by other measurements, but not tightly so."
-**No functional form is printed for the temperature dips themselves — figure-only. Documented
-gap.** A functional form for the *width* dependence is printed, and is recorded in §4.3.
+**No functional form for these monograph/1910 temperature-dip curves is printed in that original
+source pair—they are figure-only.** TAX2 later prints the distinct M1 forms recorded in §4.1a. A
+functional form for the *width* dependence is printed separately and recorded in §4.3.
 Digitized (same method and uncertainty as Branch 1):
 
 | Facet | Dip minimum | At (Tm−T) | Departs / rejoins large-facet curve | Explains (source's claim) |
@@ -355,9 +408,82 @@ Digitized (same method and uncertainty as Branch 1):
 | narrow **prism** | σ₀ ≈ 0.18–0.20% (fraction ≈ 0.0018–0.0020) | ≈ 14–16 °C (T ≈ −14 to −16) | ≈ 7–8 / ≈ 25–30 | thin-plate edges near −15 °C |
 
 The reduction is relative to the large-facet curve at the same T: roughly **×6–7 lower**
-(basal, at the minimum) and **×15 lower** (prism, at the minimum). All of it is P3: these
-curves were drawn to reproduce the Nakaya diagram, and every run using them is in-sample for
-Nakaya purposes (charter §2.7; ADR 0005 D1).
+(basal, at the minimum) and **×15 lower** (prism, at the minimum). Those exact digitized curves are
+P3 because they were drawn to reproduce the Nakaya diagram, and a run using them is in-sample for
+Nakaya purposes. Separately, CM8 (`2009.08404v2`), CM9 (`2011.02353v1`), and CM10
+(`2012.12916v1`) report model-dependent inversions of narrow-facet growth-rate observations
+supporting reductions in approximate regions near −4 °C and −14 °C; the page-level evidence is
+catalogued in [the later-paper extraction, H5–H9](../research/libbrecht-papers-extracts.md).
+Surface supersaturation was not directly verified, so those observations do not validate the exact
+curve, depth, or placement (charter §2.7; decisions 0005 and 0040).
+
+### 4.1a M1 printed closed forms and implemented mapping
+
+`2306.13087v1` p. 6 prints M1 with σ₀ in percent, `t = |T_C|`, `A_basal = A_prism = 1`,
+and an unspecified `log` base:
+
+```text
+σ₀,basal(t) = (0.02·t^1.75 + 0.3) · (1 − 0.87·exp(−(log t − log 4.5)² / 0.07))
+σ₀,prism(t) = (0.015·t² + 0.02·t^0.6) · (1 − 0.95·exp(−(log t − log 14.4)² / 0.06))
+```
+
+These printed expressions return percent values. `core/src/libbrecht.ts` divides each result by
+100 before it is used in the Hertz–Knudsen attachment coefficient, so the implemented `sigma_0`
+values are fractions.
+
+The source's M1 prescription—functional form, dip placement, and everywhere-narrow assumption—is
+P3. The source does not print the logarithm base. This project evaluates `log` as base 10 because
+that choice reproduces Figure 1's plotted widths; the unstated-base resolution is therefore a
+registered, figure-supported P4 transcription choice, not a source-printed input. The resulting
+mapping is implemented by `core/src/libbrecht.ts` under `M1`. The dip centres remain 4.5 °C and
+14.4 °C under any logarithm base; the base changes width and σ₀-equality locations, not centres. At
+one shared positive surface supersaturation, `A_basal = A_prism = 1` makes attachment-coefficient
+order the inverse of σ₀ order because `alphaHK = exp(−sigma_0 / sigma_surf)`. That restricted
+analytic fact is not a habit theorem because the coupled facets generally see different fields and
+geometry.
+
+`2306.13087v1` p. 7 prints the undipped broad branch
+`σ₀,basal = 0.02·t^1.75 + 0.3` and
+`σ₀,prism = 0.015·t² + 0.02·t^0.6` percent. These functions belong to M2's
+width-dependent model; alone they are only its broad-facet branch. The intended
+`M1_NO_DIP_ABLATION` reuses them as a deliberately matched dip-factor removal, not as a claim to
+implement M2. Full M2 requires a sourced width-selection/feedback closure and remains unimplemented.
+
+### 4.1b Other later printed mappings — alternatives, not silent replacements
+
+`2009.08404v2` p. 3 Eqs. (2)–(5) prints a distinct broad-facet model, with
+`t = |T_C|` and both nucleation barriers expressed in percent:
+
+```text
+σ₀,basal(t) = 0.02·t^1.75 + 0.3
+σ₀,prism(t) = 0.02·t^1.9 − 0.025·(t − 0.3)
+A_basal(t) = 1
+A_prism(t) = (0.4 + 0.04·|t − 4|³) / (2.2 + 0.04·|t − 4|³)
+```
+
+The paper describes these curves as approximate fits chosen to represent the available data; they
+are P2 source fits, not P1 raw measurements. They are independently evaluated by
+`app/scripts/phase6-libbrecht-closed-forms.mjs` but are not the implemented historical `CAK`
+mapping and do not replace its anchors without an accepted parameter/protocol decision.
+
+`2306.04042v1` p. 9 Table 1 prints a two-branch prism parameterization for its Eq. (32). The
+source stores each `σ₀` as a fraction; percent is shown here to make the unit conversion explicit:
+
+| T (°C) | A₁ | σ₀,₁ fraction (percent) | A₂ | σ₀,₂ fraction (percent) |
+|---:|---:|---:|---:|---:|
+| −1 | 0.30 | 0.00003 (0.003%) | 0.70 | 0.001 (0.10%) |
+| −2 | 0.25 | 0.0003 (0.03%) | 0.75 | 0.0015 (0.15%) |
+| −3 | 0.20 | 0.001 (0.10%) | 0.80 | 0.003 (0.30%) |
+| −5 | 0.20 | 0.002 (0.20%) | 0.80 | 0.0055 (0.55%) |
+| −7 | 0.50 | 0.008 (0.80%) | 0.50 | 0.01 (1.00%) |
+| −15 | 1.00 | 0.03 (3.00%) | — | — |
+
+At zero curvature the tabulated branches contribute
+`A₁·exp(−σ₀,₁/σ_surf) + A₂·exp(−σ₀,₂/σ_surf)` where branch 2 exists. The source calls the second
+branch a convenient SDAK-2 parameterization; the complete relation also carries a
+Gibbs–Thomson/curvature correction. The broad/source-fit branch is P2, while the added SDAK-2
+model prescription is P3. This table records the source mapping but does not implement the full
+FACET relation or supply M2's missing width-selection feedback.
 
 ### 4.2 SDAK-2 — the `A_prism` recovery on narrow prism facets (**P3**)
 
@@ -377,12 +503,14 @@ So: a second, `A`-side hypothesis, restricted to **small prism facets above ≈ 
 **supersaturation-dependent** (→ 1 at high `sigma_surf`), and aimed at **sharp-tipped
 dendrites** — a different target from SDAK-1's hollow-column edges near −5 °C and thin-plate
 edges near −15 °C. Like SDAK-1 it is dotted-curve P3, and it is **not digitized here**: no
-anchor table is extracted, because nothing in the solver consumes it yet. Digitizing it is
-work for the SDAK work package, and doing so does not merge it into Branch 1.
+anchor table is extracted from the monograph curve because nothing in the solver consumes it yet.
+The later, distinct `2306.04042v1` two-branch table is transcribed in §4.1b; it is not a
+digitization of this dotted curve and does not merge SDAK-2 into Branch 1.
 
 ### 4.3 The printed width parameterization (a real head start)
 
-The temperature dips have no printed form, but the **width** dependence does. Monograph
+The original monograph temperature-dip curves have no printed form; TAX2's later M1 approximation
+is recorded in §4.1a. The monograph's **width** dependence does have a printed form. Monograph
 printed p. 157 / pdf 158, verbatim:
 
 > For example, in [2015Lib2] we used the functional form `sigma_0 = sigma_0,∞[1 −
@@ -392,9 +520,19 @@ printed p. 157 / pdf 158, verbatim:
 
 Note the source's own framing on the same page: "the precise functional form for the SDAK
 effect may not be essential… the details may not matter as much as the attachment coefficients
-on the narrow 1-2 µm tips and edges." `w_0` is an **adjustable model parameter**, not a
-measurement — P3/P4, and any value chosen for it is registered in a protocol freeze, never
-tuned against a comparison.
+on the narrow 1-2 µm tips and edges." This records two distinct prospective entries, not one mixed
+class:
+
+- **P3 — source Nakaya/ESI prescription:** the printed width-dependent form and its adjustable
+  `w_0` model role were used to reproduce the −15 °C ESI transition; they are not measurements.
+  No numerical `w_0` value is frozen here. A value chosen or tuned against the target morphology
+  remains P3 and makes that comparison in-sample, not held-out validation.
+- **P4 — future project closure:** any lattice facet-width estimator, sub-grid mapping from that
+  estimator to physical `w`, and numerical evaluation/interpolation policy. Those numerical choices
+  must be registered separately and cannot be presented as a measured physical `w_0`.
+
+If a future numerical `w_0` is independently fitted to a different empirical dataset, it is P2 and
+must name that fit/domain. In every case the value and closure freeze before evidence production.
 
 ## 5. `v_kin(T)` — kinetic velocity
 
@@ -429,23 +567,33 @@ these anchors in a unit test.
 |---|---|---|---|
 | Diffusivity in air | `D_air ≈ 2 × 10⁻⁵ m²/s` | monograph Appendix A, printed p. 500 / pdf 501 | P1 |
 | Same quantity, main text | "`D_air ≈ 10⁻⁵ m²/s`" for "typical atmospheric conditions" | monograph printed p. 91 / pdf 92 | — (the source's own factor-2 looseness; Appendix A value adopted) |
-| Pressure dependence | `D ∼ P⁻¹` | monograph printed p. 65 / pdf 66 | P1 (kinetic theory) |
+| Pressure dependence | `D ∼ P⁻¹` | monograph printed p. 65 / pdf 66 | P2 (source-stated kinetic-theory relation, not a direct measurement) |
+| Reference-pressure association | adopt the Appendix-A `D_air ≈ 2 × 10⁻⁵ m²/s` value as `D_AIR_1ATM` at exact `P_ATM = 101325 Pa` | operands are the cited approximate `D_air`, the exact CGPM atmosphere definition, and the source-stated `P⁻¹` relation | P2 (project-derived/model-inferred closure) |
 | Temperature dependence | **NOT GIVEN — GAP.** | — | — |
 
 **Gap, stated:** no `D(T)` law is printed in either source. Back-computation from Table 2.1's
 `X_0` column (`D = X_0·v_kin·c_ice/c_sat`) gives `D ≈ 2.02 × 10⁻⁵ m²/s` at **both** −15 °C and
-−40 °C — i.e. **the monograph's own working table treats D as temperature-independent at
-1 atm.** The solver does the same (constant `D_air·(P_0/P)`) until a cited `D(T)` law is
+−40 °C. This supports a temperature-independent working value across the table, but neither
+Appendix A nor Table 2.1 explicitly binds that approximate value to exactly 101325 Pa. The solver's
+`D_AIR_1ATM` name is therefore the P2 project closure recorded above, not a source transcription.
+The solver uses constant `D_air·(P_0/P)` until a cited `D(T)` law is
 added; anyone tempted to import a `T^1.94`-style law from other literature must cite it and
 log the change here. This matters most for Phase 6 temperature sweeps; at fixed T (the 2b
 habit gate) it does not bite at all.
 
-## 7. `chi_0(T, P)` — the latent-heating correction (**P1**, currently unmodelled)
+## 7. `chi_0(T, P)` — source-stated latent-heating correction (currently unmodelled)
 
 Recorded 2026-07-26 (pre-freeze). The solver ignores latent heat, and the honest-limits list
 in `attachment-kinetics.md` says so — but "ignored" was recorded without its magnitude, and the
 source both quantifies it and prints a first-order fix that lives entirely inside the existing
-model. Monograph printed p. 98 / pdf 99, verbatim:
+model.
+
+`chi_0` is not currently a solver input, so assigning the section P1 would incorrectly label a
+source-stated analytic correction as measured broad-facet kinetics. The approximate anchors and
+scaling are contextual source statements outside P1–P4 until an implementation decision classifies
+the inputs it actually adopts; any project interpolation remains P4.
+
+Monograph printed p. 98 / pdf 99, verbatim:
 
 > The relevant variable `chi_0` equals about **0.8 at -1 C**, drops to about **0.4 at -10 C**,
 > and it continues falling with colder temperatures. If the growth is mainly kinetics-limited,
@@ -467,12 +615,12 @@ and heating becomes pronounced at low pressure.
 | colder | continues falling | less |
 
 Anchors only — the source prints two values and a trend, not a curve, so any interpolation
-between them is P4 and is registered, not assumed. **What this changes:** nothing in the
-kinetics-limited gates run so far (the source says so directly, and the registered
-`sigma_infinity = 0.002` runs sit in that regime). It matters for any Phase 6 sweep point that
-is diffusion-limited, especially on the warm side. Whether Phase 6 applies the correction as a
-labelled term or carries it as a stated systematic is a protocol-freeze decision, not a
-silent one.
+between them would be P4 and must be registered before implementation, not assumed. Historical gates at `sigma_infinity = 0.002`
+were described as kinetics-limited, but that scalar alone does not bound latent heating: the regime
+also depends on the attachment coefficient, `X_0/R`, geometry, and the local field. No executed
+dimensionless audit here quantifies the omission. It matters especially for diffusion-limited warm
+points. Whether Phase 6 applies the correction as a labelled term or carries a quantified systematic
+is a protocol-freeze decision, not a silent one.
 
 ## 8. Derived quantities the solver uses (forms, not new data)
 
@@ -494,10 +642,12 @@ full temperature domain for the reason recorded above.
 2. Formulas recorded where printed; measured points where printed; figure digitization used
    only where a quantity exists exclusively as a plot, and labeled as such with uncertainty.
 3. Measured-vs-fitted distinction: the CAK curves are the source's own fits ("little more than
-   parameterized fits," pdf 146) to [2013Lib]-class measurements → P2; SDAK dips are
-   Nakaya-informed hypotheses → P3, per the source's own language.
-4. Gaps found and stated: no printed σ₀/A closed forms or tables (figure-only); no D(T) law;
-   no SDAK functional form; no narrow-facet A treatment; monograph "Appendix B" is referenced
+   parameterized fits," pdf 146) to [2013Lib]-class measurements → P2. Model-dependent narrow-
+   facet inversions support approximate reduction regions; exact Nakaya-informed M1 dips remain P3.
+4. Gaps found and stated in the original source pair: no printed CAK σ₀/A closed forms or tables;
+   no D(T) law; no full facet-width-dependent SDAK closure. The later currency sweep found the M1
+   and M2-branch closed forms now recorded in §4.1a, so the former global "no closed form" statement
+   is superseded. The monograph "Appendix B" is referenced
    in the text (printed p. 65 / pdf 66, and printed p. 488 / pdf 489) **but does not exist in
    v2 of the monograph** — Appendix A ends at pdf 502 and the bibliography begins at pdf 503.
    *(Corrected 2026-07-15: this note first also cited printed p. 93, whose "doing the math"
@@ -513,20 +663,23 @@ full temperature domain for the reason recorded above.
   because nothing consumes it. Digitizing Figure 4.14 is SDAK work-package work, and it stays
   P3 when it happens.
 - **`w_0` in the printed width form (§4.3) is an adjustable model parameter, not a
-  measurement.** Any value is registered in a protocol freeze; it is never fitted against a
-  comparison this project is also using as evidence.
+  measurement.** Any project-chosen value must be registered before evidence production. If it is
+  fitted against a comparison, that comparison is in-sample and cannot also serve as held-out
+  validation.
 - **`chi_0` has two printed anchors and a trend, not a curve** (§7). Interpolating between
-  −1 °C and −10 °C is P4 and is registered rather than assumed.
+  −1 °C and −10 °C would be P4 and must be registered rather than assumed.
 
-- ~~Does Libbrecht's model give `sigma_0` and `A` as continuous functions of T?~~ **Answered:
-  as continuous *curves* (figures), with no printed functional form.** The interpolation
-  scheme between digitized anchors is therefore P4 and must be pre-registered before Phase 6
-  sweeps (proposal: log–log linear; see Branch 1).
+- ~~Does the original monograph/1910 extraction pair give `sigma_0` and `A` as continuous functions
+  of T?~~ **Answered for that pair: as continuous figures, with no printed functional form.** The
+  interpolation between those digitized anchors is therefore P4 and must be pre-registered. Later
+  2009/2023 primary papers print separate broad-facet and M1/M2 forms; they do not retroactively turn
+  the original digitization into a direct transcription of those forms.
 - His numerics largely use reduced (near-cylindrical) geometry (charter §2.7). Do the published
   parameters carry any assumption about that geometry which breaks on a 3D lattice? Partial
-  answer from the sources: the CAK curves describe *surface-local* kinetics measured on real
-  facets (near-vacuum, so diffusion systematics are small — 1910.09067 p. 6); geometry enters
-  through the diffusion modeling used in extraction, and 1910.09067 pp. 3, 5–6 documents how
+  answer from the sources: the CAK curves describe source-fitted *surface-local* kinetics inferred
+  from growth measurements on real facets (near-vacuum reduces, but does not erase, diffusion
+  systematics — 1910.09067 p. 6); geometry enters through the diffusion modeling used in extraction,
+  and 1910.09067 pp. 3, 5–6 documents how
   strongly diffusion effects contaminated historical measurements. The suspicion stands where
   it always did: **the transplanted numbers are only as geometry-free as [2013Lib]'s analysis
   made them.** Worth an hour of suspicion before a week of debugging, unchanged.
@@ -541,7 +694,9 @@ full temperature domain for the reason recorded above.
   of the attachment kinetics", because the analysis "already suggests **rather substantial
   changes in `sigma_0,prism(T)` with air pressure** are required in any future model" (printed
   p. 272 / pdf 273). Ch. 4.8 separately finds no significant pressure dependence in the
-  restricted low-`alpha` regime (printed pp. 169–171). **This matters here because the
+  restricted low-`alphaHK` regime (printed pp. 169–171). **This matters here because the
   digitized CAK curves come mostly from low-pressure measurements while the solver grows
   crystals at 1 atm.** Recorded as the stated systematic **"CAK-in-air vs CAK-in-vacuum"**,
-  carried in the Phase 6 report beside the σ₀-crossing discrepancy above. Class P2.
+  carried in the Phase 6 report beside the full parameterization comparison. The σ₀ crossing above
+  remains an input-function discrepancy only; it is neither an `alphaHK` crossing under general
+  facet fields nor a morphology target. Class P2.

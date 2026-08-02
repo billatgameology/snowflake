@@ -40,6 +40,8 @@ interface LKInternalSnapshotView {
   readonly boundarySigmaOpp: Float64Array;
   readonly closedPlacedFillVaporUnits: number;
   readonly currentTemperatureSegmentStartFill: number;
+  readonly shellRadiusM: Float64Array;
+  readonly volumeRateM3PerS: number;
 }
 
 function lkSnapshot(solver: LKSolver): unknown {
@@ -64,6 +66,7 @@ function lkSnapshot(solver: LKSolver): unknown {
     saturationClippedFill: solver.saturationClippedFill,
     closedPlacedFillVaporUnits: internal.closedPlacedFillVaporUnits,
     currentTemperatureSegmentStartFill: internal.currentTemperatureSegmentStartFill,
+    volumeRateM3PerS: internal.volumeRateM3PerS,
     lastRelaxation:
       solver.lastRelaxation === null ? null : { ...solver.lastRelaxation },
     cycleState: internal.cycleState,
@@ -327,6 +330,63 @@ describe("LKSolver abrupt environment transitions (ADR 0011)", () => {
         expect(solver.sigma[index]).toBe(0.004);
       }
     }
+  });
+
+  it("clears a monopole lag at an event, then resumes it from the next interface update", () => {
+    const solver = new LKSolver({
+      surfacePolicy: "aggregate-hv-g1h1-v6",
+      dims: { nx: 16, ny: 16, nz: 16 },
+      tempC: -5,
+      sigmaInfinity: 0.01,
+      dxUm: 0.35,
+      pressurePa: 101325,
+      paramSet: "CAK_A1",
+      cflFill: 0.1,
+      relaxTol: 1e9,
+      divTol: 1e9,
+      relaxMaxSweeps: 1,
+      rngSeed: 1,
+      noiseEpsilon: 0,
+      domain: "hexPrism",
+      farField: "monopole-matched",
+      seedRadius: 2,
+      seedThickness: 1,
+    });
+    const internal = solver as unknown as LKInternalSnapshotView;
+    expect(internal.volumeRateM3PerS).toBe(0);
+
+    const preEvent = solver.step();
+    expect(preEvent.relaxation.converged).toBe(true);
+    expect(internal.volumeRateM3PerS).toBeGreaterThan(0);
+
+    solver.applyTimelineEnvironment({ tempC: -10, sigmaInfinity: 0.02 });
+    expect(internal.volumeRateM3PerS).toBe(0);
+    solver.relaxField();
+    for (const index of solver.dirichletCells) {
+      if (solver.wall[index] === 1 || solver.a[index] === 1) continue;
+      expect(solver.sigma[index]).toBe(0.02);
+    }
+
+    solver.advanceSurface();
+    const newRate = internal.volumeRateM3PerS;
+    expect(newRate).toBeGreaterThan(0);
+    expect(() =>
+      solver.applyTimelineEnvironment({ tempC: -51, sigmaInfinity: 0.02 }),
+    ).toThrow(/supported temperature domain/);
+    expect(internal.volumeRateM3PerS).toBe(newRate);
+    solver.relaxField();
+
+    const shellValues: number[] = [];
+    for (let position = 0; position < solver.dirichletCells.length; position++) {
+      const index = solver.dirichletCells[position] as number;
+      if (solver.wall[index] === 1 || solver.a[index] === 1) continue;
+      const radiusM = internal.shellRadiusM[position] as number;
+      const independentTarget =
+        0.02 - newRate / (4 * Math.PI * solver.x0M * solver.vKinMS * radiusM);
+      expect(solver.sigma[index]).toBeCloseTo(independentTarget, 13);
+      shellValues.push(solver.sigma[index] as number);
+    }
+    expect(Math.max(...shellValues)).toBeGreaterThan(Math.min(...shellValues));
   });
 
   it("invalid, no-op, overflowed, malformed, and impossible-density changes are atomic", () => {

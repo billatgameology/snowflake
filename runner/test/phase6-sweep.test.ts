@@ -11,6 +11,7 @@ import {
   phase6CommandFlagFailures,
   phase6DefaultBackedParameters,
   phase6DomainSpotCheckPasses,
+  phase6ParseRun,
   phase6ParseRunConfig,
   phase6PointCommand,
   phase6ScorePoint,
@@ -34,10 +35,18 @@ import {
   type Phase6GridPoint,
 } from "../src/phase6-protocol.ts";
 
-const cleanResult = (aspectRatio: number): Phase6PointResult => ({
-  tempC: -15,
-  fraction: 0.15,
-  sigmaInf: 0.02355,
+const pointAt = (tempC: number, fraction = 0.15) => {
+  const found = phase6SweepGrid().find((p) => p.tempC === tempC && p.fraction === fraction);
+  if (found === undefined) throw new Error(`no grid point at ${tempC}/${fraction}`);
+  return found;
+};
+const cleanResult = (
+  aspectRatio: number,
+  point: Phase6GridPoint = pointAt(-15),
+): Phase6PointResult => ({
+  tempC: point.tempC,
+  fraction: point.fraction,
+  sigmaInf: point.sigmaInf,
   steps: 316,
   attached: 5161,
   aspectRatio,
@@ -49,11 +58,6 @@ const cleanResult = (aspectRatio: number): Phase6PointResult => ({
   config: null,
   seconds: 2341,
 });
-const pointAt = (tempC: number, fraction = 0.15) => {
-  const found = phase6SweepGrid().find((p) => p.tempC === tempC && p.fraction === fraction);
-  if (found === undefined) throw new Error(`no grid point at ${tempC}/${fraction}`);
-  return found;
-};
 
 describe("the sweep preflight", () => {
   it("passes only against the registered protocol, and reports the hash it saw", () => {
@@ -171,14 +175,44 @@ describe("the post-result symmetric extent-fragility audit", () => {
 describe("scoring a measured point", () => {
   it("excludes a broken run BY NAME rather than scoring it", () => {
     // Each of these is a run that did not happen properly, not a statement about the model.
-    const cases: [Partial<Phase6PointResult>, string][] = [
+    const cases: [Record<string, unknown>, string][] = [
       [{ allConverged: false }, "did not converge"],
+      [{ allConverged: 1 }, "allConverged telemetry"],
+      [{ allConverged: "false" }, "allConverged telemetry"],
       [{ deltaSymClean: false }, "D6h"],
+      [{ deltaSymClean: 1 }, "deltaSymClean telemetry"],
+      [{ deltaSymClean: "false" }, "deltaSymClean telemetry"],
       [{ symmetryError: 0.02 }, "symmetryError"],
       [{ domainContact: true }, "domain-contact"],
+      [{ domainContact: 0 }, "domain-contact telemetry"],
+      [{ domainContact: null }, "domain-contact telemetry"],
+      [{ steps: Number.NaN }, "step count was not a nonnegative safe integer"],
+      [{ steps: -1 }, "step count was not a nonnegative safe integer"],
+      [{ steps: 1.5 }, "step count was not a nonnegative safe integer"],
+      [{ steps: 9_007_199_254_740_993 }, "step count was not a nonnegative safe integer"],
+      [{ steps: 100_001 }, "exceeded the registered safety cap"],
+      [{ attached: Number.NaN }, "attached count was not a nonnegative safe integer"],
+      [{ attached: -1 }, "attached count was not a nonnegative safe integer"],
+      [{ attached: 1.5 }, "attached count was not a nonnegative safe integer"],
+      [{ attached: 9_007_199_254_740_993 }, "attached count was not a nonnegative safe integer"],
+      [{ attached: 77_880 }, "exceeded the registered active-cell count"],
+      [{ seconds: Number.NaN }, "wall seconds was not finite and nonnegative"],
+      [{ seconds: -1 }, "wall seconds was not finite and nonnegative"],
+      [{ largestExtent: 21.5 }, "largest extent was not a nonnegative safe integer"],
+      [{ largestExtent: 9_007_199_254_740_993 }, "largest extent was not a nonnegative safe integer"],
+      [{ aspectRatio: Number.NaN }, "aspect ratio was not finite and positive"],
+      [{ aspectRatio: 0 }, "aspect ratio was not finite and positive"],
+      [{ tempC: -14 }, "result temperature did not match"],
+      [{ fraction: 0.25 }, "result fraction did not match"],
+      [{ sigmaInf: 12345 }, "result far-field supersaturation did not match"],
+      [{ largestExtent: 32, domainContact: false }, "independently derived geometry"],
     ];
     for (const [override, fragment] of cases) {
-      const scored = phase6ScorePoint(pointAt(-15), { ...cleanResult(0.3), ...override });
+      const malformedRuntimeResult = {
+        ...cleanResult(0.3),
+        ...override,
+      } as unknown as Phase6PointResult;
+      const scored = phase6ScorePoint(pointAt(-15), malformedRuntimeResult);
       expect(scored.modelClass).toBe("invalid");
       expect(scored.score).toBe("excluded");
       expect(scored.exclusionReason ?? "").toContain(fragment);
@@ -200,7 +234,8 @@ describe("scoring a measured point", () => {
   });
 
   it("keeps ambiguity-band points out of the headline without excluding them", () => {
-    const scored = phase6ScorePoint(pointAt(-10), cleanResult(0.3));
+    const point = pointAt(-10);
+    const scored = phase6ScorePoint(point, cleanResult(0.3, point));
     expect(scored.inAmbiguityBand).toBe(true);
     expect(scored.inHeadlineScope).toBe(false);
     // It is still scored — reported, just not counted.
@@ -208,7 +243,8 @@ describe("scoring a measured point", () => {
   });
 
   it("keeps the mixed cold regime out of the headline", () => {
-    const scored = phase6ScorePoint(pointAt(-30), cleanResult(1.2));
+    const point = pointAt(-30);
+    const scored = phase6ScorePoint(point, cleanResult(1.2, point));
     expect(scored.regime).toBe("columns-and-plates");
     expect(scored.inHeadlineScope).toBe(false);
   });
@@ -225,12 +261,16 @@ describe("scoring a measured point", () => {
 
 describe("aggregation", () => {
   it("headlines only headline-scope points and publishes what could inflate it", () => {
+    const p16 = pointAt(-16);
+    const p30 = pointAt(-30);
+    const p10 = pointAt(-10);
+    const p17 = pointAt(-17);
     const scored = [
       phase6ScorePoint(pointAt(-15), cleanResult(0.3)), // plates-cold, plate -> agree
-      phase6ScorePoint(pointAt(-16), cleanResult(1.1)), // plates-cold, neutral -> disagree
-      phase6ScorePoint(pointAt(-30), cleanResult(0.3)), // mixed regime -> not headline
-      phase6ScorePoint(pointAt(-10), cleanResult(0.3)), // ambiguity band -> not headline
-      phase6ScorePoint(pointAt(-17), { ...cleanResult(0.3), allConverged: false }), // excluded
+      phase6ScorePoint(p16, cleanResult(1.1, p16)), // plates-cold, neutral -> disagree
+      phase6ScorePoint(p30, cleanResult(0.3, p30)), // mixed regime -> not headline
+      phase6ScorePoint(p10, cleanResult(0.3, p10)), // ambiguity band -> not headline
+      phase6ScorePoint(p17, { ...cleanResult(0.3, p17), allConverged: false }), // excluded
     ];
     const report = phase6Aggregate(scored, PHASE6_PROTOCOL_SHA256, "0".repeat(40));
     expect(report.headlineAgree).toBe(1);
@@ -239,7 +279,14 @@ describe("aggregation", () => {
     expect(report.excludedCount).toBe(1);
     // Exclusions are named, never a silent drop.
     expect(report.excludedPoints).toHaveLength(1);
-    expect(report.excludedPoints[0]?.reason).toContain("did not converge");
+    expect(report.excludedPoints[0]).toEqual({
+      tempC: -17,
+      fraction: 0.15,
+      reason: "a relaxation did not converge",
+    });
+    const coldPlates = report.perRegime.find((r) => r.regime === "plates-cold");
+    expect(coldPlates?.excluded).toBe(1);
+    expect(scored[4]?.inHeadlineScope).toBe(true);
     // The mixed regime is tallied but flagged out of the headline.
     const mixed = report.perRegime.find((r) => r.regime === "columns-and-plates");
     expect(mixed?.inHeadline).toBe(false);
@@ -388,6 +435,55 @@ describe("WP5 GAP 3 — a run's configuration is recorded and checked", () => {
     expect(phase6ConfigFailures(config, POINT)).toEqual([]);
   });
 
+  it("rejects missing, fractional, or trailing-garbage outcome telemetry", () => {
+    for (const [from, to] of [
+      ["step=175", "step=missing"],
+      ["step=175", "step=175.5"],
+      ["step=175", "step=9007199254740993"],
+      ["attached=1313", "attached=missing"],
+      ["attached=1313", "attached=9007199254740993"],
+      ["attached=1313", "attached=1313garbage"],
+      ["extent=21", "extent=21.5"],
+      ["AR=0.263158", "AR=0.263158garbage"],
+      ["symErr=0", "symErr=missing"],
+      ["symErr=0", "symErr=0garbage"],
+      ["step=175", "step=175 step=175"],
+      ["deltaSymClean=true", "deltaSymClean=truegarbage"],
+      ["deltaSymClean=true", "deltaSymClean=false deltaSymClean=true"],
+      ["allConverged=true", "allConverged=truegarbage"],
+      ["allConverged=true", "allConverged=false allConverged=true"],
+    ] as const) {
+      const mutated = HEADER.replace(from, to);
+      expect(mutated).not.toBe(HEADER);
+      expect(phase6ParseRun(POINT, mutated, 1, 48)).toBeNull();
+    }
+    const duplicateStop = `${HEADER}stop reason=size-target step=175 attached=1313 extent=21 `
+      + "AR=0.263158 symErr=0 deltaSymClean=true allConverged=true\n";
+    expect(phase6ParseRun(POINT, duplicateStop, 1, 48)).toBeNull();
+    expect(phase6ParseRunConfig(duplicateStop)).toBeNull();
+  });
+
+  it("rejects punctuation-prefixed malformed duplicates of every outcome field", () => {
+    for (const [token, name] of [
+      ["step=175", "step"],
+      ["attached=1313", "attached"],
+      ["extent=21", "extent"],
+      ["AR=0.263158", "AR"],
+      ["symErr=0", "symErr"],
+      ["deltaSymClean=true", "deltaSymClean"],
+      ["allConverged=true", "allConverged"],
+    ] as const) {
+      const mutated = HEADER.replace(token, `${token} )${name}=garbage`);
+      expect(mutated, `${name}: the mutation did not apply`).not.toBe(HEADER);
+      expect(phase6ParseRun(POINT, mutated, 1, 48), `${name}: duplicate survived`).toBeNull();
+    }
+
+    for (const delimiter of [")", ",", "]", ";"] as const) {
+      const mutated = HEADER.replace("step=175", `step=175 ${delimiter}step=garbage`);
+      expect(phase6ParseRun(POINT, mutated, 1, 48), `${delimiter} boundary survived`).toBeNull();
+    }
+  });
+
   it("the closed forms reproduce the real child's geometry, so neither pin is a magic number", () => {
     // 77 879 = (3·23² + 3·23 + 1) · 47 and 19 = 3·2² + 3·2 + 1, both from the registered fixture.
     const geometry = phase6ExpectedRunGeometry(48, 2, 1);
@@ -441,6 +537,73 @@ describe("WP5 GAP 3 — a run's configuration is recorded and checked", () => {
     }
   });
 
+  it("rejects malformed prefixes, duplicate tokens, and non-cubic self-reported dimensions", () => {
+    for (const [from, to] of [
+      ["maxSweeps=200000", "maxSweeps=200000.5"],
+      ["targetExtent=21", "targetExtent=21.5"],
+      ["seed=1", "seed=1.5"],
+      ["cfl=0.1", "cfl=0.1garbage"],
+      ["cfl=0.1", "cfl=0.1 cfl=0.1"],
+      ["paramSet=CAK", "paramSet=CAK paramSet=CAK"],
+      ["dims=48,48,48", "dims=48,49,48"],
+    ] as const) {
+      const mutated = HEADER.replace(from, to);
+      expect(mutated).not.toBe(HEADER);
+      expect(phase6ParseRunConfig(mutated), `${from} -> ${to}`).toBeNull();
+    }
+  });
+
+  it("rejects a valid configuration token followed by a malformed duplicate", () => {
+    for (const [from, to] of [
+      ["maxSweeps=200000", "maxSweeps=200000 maxSweeps=garbage"],
+      ["cfl=0.1", "cfl=0.1 cfl=garbage"],
+      ["dims=48,48,48", "dims=48,48,48 dims=garbage"],
+      ["seedSites=19", "seedSites=19 seedSites=garbage"],
+      ["hexRadius=23,", "hexRadius=23, hexRadius=garbage"],
+      ["zHalfExtent=23,", "zHalfExtent=23, zHalfExtent=garbage"],
+      ["active=77879)", "active=77879) active=garbage"],
+    ] as const) {
+      const mutated = HEADER.replace(from, to);
+      expect(mutated).not.toBe(HEADER);
+      expect(phase6ParseRunConfig(mutated), `${from} plus malformed duplicate`).toBeNull();
+    }
+  });
+
+  it("rejects punctuation-prefixed malformed duplicates of every parsed configuration field", () => {
+    for (const [token, name] of [
+      ["T=-2C", "T"],
+      ["sigmaInf=0.002", "sigmaInf"],
+      ["dims=48,48,48", "dims"],
+      ["hexRadius=23,", "hexRadius"],
+      ["zHalfExtent=23,", "zHalfExtent"],
+      ["active=77879)", "active"],
+      ["dx=0.35um", "dx"],
+      ["P=101325Pa", "P"],
+      ["paramSet=CAK", "paramSet"],
+      ["surfacePolicy=aggregate-hv-g1h1-v6", "surfacePolicy"],
+      ["farField=monopole-matched", "farField"],
+      ["cfl=0.1", "cfl"],
+      ["tol=1e-9", "tol"],
+      ["divTol=1e-7", "divTol"],
+      ["maxSweeps=200000", "maxSweeps"],
+      ["targetExtent=21", "targetExtent"],
+      ["seed=1", "seed"],
+      ["noise=0", "noise"],
+      ["seedRadius=2", "seedRadius"],
+      ["seedSites=19", "seedSites"],
+      ["extent=21", "extent"],
+    ] as const) {
+      const mutated = HEADER.replace(token, `${token} )${name}=garbage`);
+      expect(mutated, `${name}: the mutation did not apply`).not.toBe(HEADER);
+      expect(phase6ParseRunConfig(mutated), `${name}: duplicate survived`).toBeNull();
+    }
+
+    for (const delimiter of [")", ",", "]", ";"] as const) {
+      const mutated = HEADER.replace("cfl=0.1", `cfl=0.1 ${delimiter}cfl=garbage`);
+      expect(phase6ParseRunConfig(mutated), `${delimiter} boundary survived`).toBeNull();
+    }
+  });
+
   it("reports an unparseable header rather than treating it as agreement", () => {
     expect(phase6ParseRunConfig("no header here\nstop reason=size-target step=1")).toBeNull();
     expect(phase6ConfigFailures(null, POINT).length).toBe(1);
@@ -459,8 +622,7 @@ describe("ADR 0035 — a step-capped run is EXCLUDED, not scored as a habit", ()
   // the same point is neutral / disagree. Nothing registered `steps`, so mutating its default moved
   // no hash and failed no test.
   const stepCapped = (): Phase6PointResult => ({
-    ...cleanResult(0.2),
-    tempC: -2,
+    ...cleanResult(0.2, pointAt(-2, 0.1)),
     largestExtent: 5,
     steps: 1,
     attached: 19,
@@ -499,14 +661,14 @@ describe("ADR 0035 — a step-capped run is EXCLUDED, not scored as a habit", ()
     // step-capped sweep reads `plate` at every point, which agrees across plates-warm and
     // plates-cold and disagrees only in columns. Computed, not added up by hand.
     const forged = phase6SweepGrid()
-      .map((p) => phase6ScorePoint(p, { ...cleanResult(0.2), tempC: p.tempC, largestExtent: 21 }))
+      .map((p) => phase6ScorePoint(p, { ...cleanResult(0.2, p), largestExtent: 21 }))
       .filter((s) => s.inHeadlineScope);
     expect(forged.length).toBe(90);
     expect(forged.filter((s) => s.score === "agree").length).toBe(66);
     // And with ADR 0035's extent check applied to the runs that actually produced that AR — extent
     // 5, not 21 — the same grid yields zero, because every point is excluded by name.
     const guarded = phase6SweepGrid()
-      .map((p) => phase6ScorePoint(p, { ...cleanResult(0.2), tempC: p.tempC, largestExtent: 5 }))
+      .map((p) => phase6ScorePoint(p, { ...cleanResult(0.2, p), largestExtent: 5 }))
       .filter((s) => s.inHeadlineScope);
     expect(guarded.filter((s) => s.score === "agree").length).toBe(0);
     expect(guarded.every((s) => s.score === "excluded")).toBe(true);
@@ -515,14 +677,16 @@ describe("ADR 0035 — a step-capped run is EXCLUDED, not scored as a habit", ()
   it("still accepts a legitimate overshoot past the registered size", () => {
     // Extent can rise by two in a step, so a run can end at 22. The rule is `< target`, not
     // `!== target` — a stricter rule would invalidate correct runs, which is a different defect.
-    const over = phase6ScorePoint(pointAt(-2, 0.1), { ...cleanResult(0.2), tempC: -2, largestExtent: 22 });
+    const point = pointAt(-2, 0.1);
+    const over = phase6ScorePoint(point, { ...cleanResult(0.2, point), largestExtent: 22 });
     expect(over.exclusionReason).toBeNull();
   });
 
   it("excludes a NaN extent rather than letting the comparison pass it", () => {
-    const nan = phase6ScorePoint(pointAt(-2, 0.1), { ...cleanResult(0.2), largestExtent: Number.NaN });
+    const point = pointAt(-2, 0.1);
+    const nan = phase6ScorePoint(point, { ...cleanResult(0.2, point), largestExtent: Number.NaN });
     expect(nan.modelClass).toBe("invalid");
-    expect(nan.exclusionReason).toContain("short of the registered measurement size");
+    expect(nan.exclusionReason).toContain("largest extent was not a nonnegative safe integer");
   });
 
   it("leaves arm 1 scoring unchanged: every published row is at the registered size", () => {

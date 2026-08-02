@@ -5,10 +5,10 @@
 > **The historical measured-only Nakaya comparison failed. THE PHASE 6 SCIENTIFIC GATE IS ACTIVE
 > AND INCOMPLETE.**
 >
-> An independent review (Codex/GPT-5, no involvement in the authoring sessions) reproduced the
-> measured results — arm 1 3/90, arm 2 54/90, classes 6/168/30 and 75/119/10, zero stored-class
-> mismatches, two `plate→column` flips per arm and zero `column→plate` — and found no solver defect
-> overturning them. **It also found that I had overstated the phase's status, and it is right.**
+> An independent review (Codex/GPT-5, no involvement in the authoring sessions) checked three
+> decisive numeric claims and found no solver defect in that reviewed scope. The remaining listed
+> historical measurements retain their artifact/in-repo verification but were not all independently
+> rerun by that reviewer. **It also found that I had overstated the phase's status, and it is right.**
 > Earlier versions of this document and of `docs/HANDOFF.md` said "Phase 6 concluded" without
 > qualification. That reads as a cleanly completed gate. It is not one.
 >
@@ -21,7 +21,7 @@
 >    what was wrong was continuing to call the phase concluded anyway.
 > 2. **Charter obligations were omitted without amending the charter** — held-out validation
 >    (growth rates, size-dependent habit, pressure, histories) and the "hundreds of automated runs at
->    preview resolution" on the GPU harness (charter §2.7, line 311). The move to the float64 CPU
+>    preview resolution" on the GPU harness (charter §3.2, Phase 6 item 3). The move to the float64 CPU
 >    oracle at ~78 000 active cells was scientifically sound **and needed an ADR**. So does deferring
 >    the held-out work.
 > 3. **The SDAK claim is stronger than its evidence status** — see §2.3, now corrected.
@@ -37,13 +37,16 @@
 >    `core/src/libbrecht.ts` and `runner/test/phase6-sdak.test.ts`.
 > 9. **The two arms do not isolate SDAK.** `CAK`→`M1` changes the broad `sigma_0` forms and
 >    `A_prism` as well as adding the narrow-facet dips. The 66/20 trade and the −5 °C diagnostic are
->    M1-versus-CAK differences, not causal SDAK effects. A matched M1-without-dips arm is required.
+>    M1-versus-CAK differences, not causal SDAK effects. A matched M1-without-dips arm is required
+>    to isolate the implemented dip factors' effect on this solver under a frozen configuration; it
+>    cannot establish physical SDAK causality or necessity in nature.
 > 10. **R15's old three-spacing ladder does not hold physical geometry fixed.** The seed remains
 >    radius 2/thickness 1 in cells while `dxUm` changes, and its 11/21/33 extent tuple measures about
 >    7.70/7.35/7.70 µm. The exact tuple is not in the gated values manifest. A repaired, reviewed
 >    numerical protocol must freeze seed representation and achieved physical size before R15 runs.
 >
-> **What the review does not change:** every measured number below. It reproduced them independently.
+> **What the review does not change:** it did not overturn the artifact-backed measurements below.
+> This is not a claim that it independently reproduced every one of them.
 
 **What Phase 6 asked:** does a 3-D diffusion-limited solver, given Libbrecht's published attachment
 kinetics, reproduce the Nakaya morphology diagram — and is the SDAK mechanism load-bearing for it?
@@ -71,8 +74,8 @@ and each of arm 2's rows carrying its own echoed `paramSet` so that claim is che
 
 | | arm 1 | arm 2 |
 |---|---|---|
-| parameter set | `CAK` (no SDAK) | `M1` (SDAK, two dips) |
-| common-denominator score | **3 / 90** | **54 / 90** (registered prediction 42) |
+| parameter set | `CAK` (broad-facet) | `M1` (everywhere-narrow approximation; two Nakaya-informed dips) |
+| common-denominator score | **3 / 90** | **54 / 90** (the withdrawn/confounded historical proxy forecast was 42/90; inadmissible as habit evidence, not a valid pre-run habit prediction) |
 | classes (plate / neutral / column) | 6 / 168 / 30 | 75 / 119 / 10 |
 | excluded | 0 | 0 |
 | independent re-derivation | PASS | PASS |
@@ -88,7 +91,9 @@ points to plates and loses **20 of CAK's 30 columns**; the warmest column moves 
 `columns-and-plates` — the one regime accepting *both* pure classes, and therefore the easiest on the
 board — M1 is **worse than CAK, 26/78 → 14/78**. M1 changes the broad `sigma_0` forms and sets
 `A_prism = 1` in addition to applying dips, so none of those differences can be assigned to SDAK
-alone. A matched M1-without-dips run is the required causal control.
+alone. A matched M1-without-dips run is the required within-solver control for the implemented dip
+factors under a frozen configuration; it cannot establish physical SDAK causality or necessity in
+nature.
 
 **2.2 Neither sampled parameterization returns from column to plate under the registered flip
 operator on the sampled constant-f ladders.** The operator scans warm to cold, considers pure-class
@@ -111,7 +116,9 @@ agreed within 0.354%; the broader domain ladder did not demonstrate domain adequ
 class boundary. This changes `CAK` to `M1`, not “SDAK off” to “SDAK on” with everything else held
 fixed. It therefore cannot test Libbrecht's causal claim that producing the column requires the SDAK
 effect. At f = 0.90 the CAK diagnostic is also climbing toward the floor with size (1.46429 at
-extent 41); the sampled parameter-set difference is specific to low supersaturation.
+extent 41). The defensible scope is only the sampled points: the parameter sets differ strongly at
+f = 0.10, while the cited f = 0.90 CAK trajectory alone cannot establish how their difference varies
+with supersaturation.
 
 > **EVIDENCE STATUS CORRECTED after external review (2026-08-01), and this is the correction that
 > stings most.** This section previously called the result the "first independent 3-D test" of SDAK's
@@ -136,20 +143,22 @@ raw morphology metric.** Aspect ratio differs in 28 of those 34 pairs; the maxim
 CAK also differ in `A_prism` and their broad `sigma_0` forms. A matched no-dip M1 control is required
 before either class agreement or raw-metric differences can be attributed to the dip factors.
 
-**2.6 Four `CAK` configurations reproduce across architectures; all input digits do not.** The cross-platform
-control, registered at WP0c and outstanding for the whole phase, ran on Apple silicon under the same
+**2.6 Tracked input digits differ; four exact `CAK` output matches survive only as a historical
+report.** The cross-platform control, registered at WP0c and outstanding for the whole phase, was
+reported run on Apple silicon under the same
 Node/V8 build. Tier 1 **differs** (`2a9f64b3` vs `3662b9e2`) — two conforming libm implementations
-disagree in 9 of 448 fingerprint entries, at distances from 1 to 31 ULP. Tier 2 **reproduced exactly
-at all four points**,
-including one whose AR is exactly 1.5000 by an integer tie that could have broken either way.
+disagree in 9 of 448 fingerprint entries, at distances from 1 to 31 ULP. The Tier 2 table reports
+exact reproduction at all four points, including one whose AR is exactly 1.5000 by an integer tie.
+The underlying arm64 logs and exit records were never tracked and are unavailable in this
+repository, so those output rows are not independently rederivable evidence.
 
 > **SCOPE CORRECTED after external review (2026-08-01).** This section previously said "habit classes
 > cross architectures", generalizing from four runs to both arms and the whole grid. **Only four
 > arm-1 / `CAK` configurations were executed on arm64. Nothing here establishes architecture
 > independence for arm 2 / `M1`, and nothing establishes it for the other 200 grid points.** The
 > two-arm report stated this limit correctly; this document did not. The defensible claim is: *the
-> four tested arm-1 configurations reproduced their habit class exactly on a second architecture,
-> while the physics inputs differed bitwise.*
+> tracked Tier 1 fingerprints differ bitwise, while a non-rederivable historical table reports four
+> matching arm-1 output rows.*
 
 ## 3. What Phase 6 does NOT establish, and this is the load-bearing half
 
@@ -165,21 +174,26 @@ a replacement production size.
 **fails 3 of 4**. Its registered consequence is a full-grid re-sweep at N = 64; **N = 64 fails the
 same check 3 of 4** against N = 80. The old resource estimate projected a slow difference ratio of
 0.746 and drove ADR 0037's no-re-sweep scheduling decision; it is not proof that convergence is
-unreachable. *Habit class is identical at all four points in both comparisons*, so no published
-tally is shown wrong — what fails is the criterion. The maker's 2026-08-01 science-first direction
+unreachable. *Habit class is identical at the four selected points in both comparisons*, so those
+four classifications are unchanged; they cannot clear or preserve the other 200 rows. What fails is
+the registered criterion. The maker's 2026-08-01 science-first direction
 requires a new convergence campaign rather than accepting that resource decision.
 
-**3.3 No configuration is demonstrated converged.** The pre-registered convergence study returned
+**3.3 No replacement production configuration is demonstrated adequate across the full protocol.**
+Individual rungs and rows pass particular checks, but the pre-registered convergence study returned
 **outcome 3**: the domain check passes at extents 29 and 41 and **fails at 35** (1.071%). The failure
-is in *total accreted mass* — 120 cells of interior fill inside a bit-identical envelope — while the
-class and even the exact AR are domain-invariant at every extent tested. Both facts are reported and
+is in *attached-cell count* — a 120-attached-cell difference despite the same reported extents and
+six-decimal aspect ratio; no occupancy witness establishes envelope identity — while the class and
+reported aspect ratio are domain-invariant at every extent tested. Both facts are reported and
 the criterion was not rewritten to the one that passes. **No re-sweep was run**, because a sweep at
 an unconverged configuration buys a different unconverged number.
 
-**3.4 There is no convergence study at all warmer than −15 °C under either executed parameter set.**
-WP3's campaign ran `CAK_A1`, which ADR 0031 invalidated; its cold arm is bit-identical under `CAK`
-and survives, its warm arm is a different crystal (1513 cells / AR 0.3821 `plate` against 4883 /
-1.0000 `neutral`). **The entire Nakaya `columns` regime is warmer than −15 °C.** See erratum E5.
+**3.4 There is no complete, passing grid/timestep/domain campaign covering the warm columns regime
+under the registered production parameterizations.** Sparse warm checks do exist, including the M1
+−6 °C domain spot-check and historical CAK_A1 warm rows, but they do not compose a valid numerical
+campaign and some fail their criterion. WP3's CAK_A1 cold arm is bit-identical under `CAK`; its warm
+arm is a different crystal (1513 cells / AR 0.3821 `plate` against 4883 / 1.0000 `neutral`). **The
+entire Nakaya `columns` regime is warmer than −15 °C.** See erratum E5.
 
 **3.5 The registered headline rule was never implemented, and its old spacing tuple is not a clean
 fixed-physics grid study.** The `uncertainty-reporting` row registers
@@ -246,14 +260,17 @@ freeze, and convergence campaign that were missing or scientifically inadequate.
 
 The maker selected the science-first branch of O1b on 2026-08-01. The active work is
 [`docs/plans/phase-6-science-first-completion.md`](../docs/plans/phase-6-science-first-completion.md):
-repair and freeze the numerical geometry; add a matched M1-without-dips causal arm; implement the
-conservative-intersection artifact/gate; execute the float64 campaigns; port the registered physics
-to a preview-budget GPU evidence harness; and run independently sourced held-out growth-rate,
-size-dependent-habit, pressure, and history comparisons. Criteria are not weakened for cost.
+repair and freeze the numerical geometry; add a matched M1-without-dips arm that isolates the
+implemented dip factors' effect within the frozen solver without claiming physical SDAK causality
+or necessity in nature; implement the conservative-intersection artifact/gate; execute the float64 campaigns; port the registered physics
+  to a preview-budget GPU evidence harness; and execute held-out growth-rate, size-dependent-habit,
+  pressure, and history comparisons only after a source lock identifies a pass-eligible target. The
+  current lock has none. Criteria are not weakened for cost.
 
 ---
 
-**Every number in this document is traceable to a published artifact, an independent verifier, or a
-named run.** Where a claim of mine was overturned during the phase — the structural bound, the
+**Each number cited here is accompanied by a published artifact, verifier, or named-run reference in
+this document or its linked evidence; this is a prose index, not a machine-checked completeness map.**
+Where a claim of mine was overturned during the phase — the structural bound, the
 columns interpretation, the SDAK attribution of size divergence — the retraction is recorded at the
 document that carried it rather than quietly edited away.

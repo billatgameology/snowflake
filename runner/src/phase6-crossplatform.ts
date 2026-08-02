@@ -10,11 +10,11 @@
 // The control is deliberately two-tier, because the two tiers answer different questions and
 // cost three orders of magnitude apart:
 //
-//   TIER 1 — the libm fingerprint. Bitwise-exact values of every transcendental the solver
-//   actually calls, at the exact arguments it actually passes. Runs in milliseconds and needs no
-//   solver at all. If this matches, the two platforms agree on the physics inputs and no habit
-//   difference downstream can be blamed on libm. If it differs, this says exactly WHICH function
-//   at WHICH argument, which no end-to-end comparison can.
+//   TIER 1 — the historical libm fingerprint. Bitwise-exact values of every named
+//   transcendental-dependent quantity at integer temperatures −2…−30 °C plus the three registered
+//   boundaries/fixture points. It omits the registered −31…−35 °C cold tail (pin-register R29), so
+//   it localizes differences only on its sampled grid; R15 must replace it with full-grid coverage.
+//   It runs in milliseconds and needs no solver at all.
 //
 //   TIER 2 — the end-to-end habit classification, at the registered sweep configuration. This is
 //   the one that matters for the claim, because the registered failure mode is a habit class
@@ -142,9 +142,10 @@ export function phase6FixturePointSigmaInf(label: string): number {
 }
 
 /**
- * Temperatures the fingerprint samples. Covers the whole Nakaya range at 1 °C spacing so a libm
- * difference cannot hide between two coarsely-spaced samples, plus the exact fixture
- * temperatures and the three digitized Nakaya boundaries.
+ * Temperatures the historical fingerprint samples: integer T from −2 through −30 °C, plus the
+ * exact fixture temperatures and three digitized Nakaya boundaries. The registered sweep extends
+ * to −35 °C; −31…−35 °C and the tail anchor reached there are absent (pin-register R29). Preserve
+ * these historical bytes; the new R15 fingerprint must cover its entire frozen grid.
  */
 function fingerprintTemperatures(): number[] {
   const temps = new Set<number>();
@@ -161,8 +162,9 @@ export interface Phase6LibmEntry {
 }
 
 /**
- * TIER 1. Every transcendental-dependent physics quantity the solver consumes, at the arguments
- * it consumes them at, as exact float64 bit patterns.
+ * TIER 1. Every named transcendental-dependent physics quantity on the historical sampled
+ * temperature grid, as exact float64 bit patterns. This is not every argument used by the
+ * −2…−35 °C production sweep; see the cold-tail limitation above.
  *
  * `alphaHK` is sampled at the σ_surf values the sweep actually produces rather than at round
  * numbers: it is `A·exp(−σ₀/σ_surf)`, so its sensitivity to a ULP in `σ₀` is amplified by
@@ -233,19 +235,19 @@ export const PHASE6_LIBM_DIGEST_X64_BASELINE = "2a9f64b3";
  * conforming libm implementations may legitimately differ in low-order ULPs; this measures that
  * they do.
  *
- * Host: darwin arm64, Apple M4 (4P + 6E), macOS 26.5.2, Node v24.13.1, V8 13.6.233.17-node.40 —
- * the SAME Node and V8 build as the x64 baseline, so this isolates architecture and platform
- * libm rather than engine version.
+ * The preserved fixture header self-reports darwin arm64, Node v24.13.1 and V8
+ * 13.6.233.17-node.40; the companion header self-reports win32 x64 with that same engine build.
+ * These headers scope the fixtures but do not independently authenticate their hardware hosts.
  *
  * The full 448-entry arm64 and x64 tables are preserved under `evidence/phase6-crossplatform/`
  * and hash-registered in the evidence manifest. Their comparison localizes the mismatch to 9/448 entries, at
  * distances 1, 1, 2, 3, 4, 5, 7, 11 and 31 ULP. The largest is
  * `alphaHK.prism|-14.0@0.25` at 31 ULP. The architecture-neutral regression parses and digests
- * both exact tables, so this finding is checked on x64 and arm64 alike.
+ * both exact tables, so this finding is checked from the tracked fixture bytes on either host.
  *
- * CRITICALLY: tier 1 differing did NOT change any tier-2 habit class. All four
- * `PHASE6_FIXTURE_X64_BASELINE` points reproduced exactly on arm64 — same steps, same attached
- * count, same aspect ratio — including `fragile-column-floor` at its exact 1.5000 tie.
+ * A historical Tier-2 table reports all four `PHASE6_FIXTURE_X64_BASELINE` rows matching. The
+ * underlying arm64 logs and exit-status bytes were not tracked, so that table is not independently
+ * rederivable evidence and does not establish end-to-end portability.
  */
 export const PHASE6_LIBM_DIGEST_ARM64_BASELINE = "3662b9e2";
 
@@ -286,14 +288,12 @@ export const PHASE6_FIXTURE_X64_BASELINE_STALE_CAK_A1 = [
  * applies with most force to `fragile-column-floor`, whose AR is exactly 1.5000, sitting on the
  * column floor by an exact integer tie.
  *
- * **RUN 2026-07-31 on arm64 — ALL FOUR REPRODUCED EXACTLY.** Same steps, same attached count,
- * same aspect ratio, hence the same habit class, at every one of the four points, including
- * `fragile-column-floor` on its exact 1.5000 tie. Every run also reported `symErr = 0`,
- * `deltaSymClean = true` and `allConverged = true`, matching the baseline's flags.
- * Host and wall times in `docs/phase6-cross-platform-control.md` §Result.
+ * A 2026-07-31 historical table reports the same steps, attached count, aspect ratio and habit at
+ * all four rows, plus matching clean flags. The raw arm64 logs and exit records were not tracked;
+ * see `docs/phase6-cross-platform-control.md` §Result for the table and explicit evidence limit.
  *
- * This held even though the tier-1 libm digest DIFFERS across the two architectures, so the
- * agreement is a measured outcome, not a consequence of identical inputs.
+ * Do not upgrade the table to a measured portability outcome. R15 must publish normalized Tier-2
+ * outputs and exit records before an end-to-end cross-host claim is admitted.
  */
 export const PHASE6_FIXTURE_X64_BASELINE = [
   { label: "robust-plate", tempC: -2, fraction: 0.1, sigmaInf: 0.002, steps: 175, attached: 1313, aspectRatio: 0.263158, habit: "plate" },

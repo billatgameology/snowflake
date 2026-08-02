@@ -1,15 +1,22 @@
 // Libbrecht attachment-kinetics parameters (Phase 2b).
 //
-// Every number and form here is cited in docs/libbrecht-parameters.md — this file implements
-// that table and MUST NOT acquire values the table does not carry. The solver computes the
+// Every adopted source quantity and project-derived mapping here is traced in
+// docs/libbrecht-parameters.md — this file implements that table and MUST NOT acquire values or
+// closures the table does not carry. The solver computes the
 // closed forms; the digitized anchors are for interpolation (sigma0/A, figure-only in the
-// sources) and for validation tests (v_kin/X_0 vs monograph Table 2.1).
+// monograph/1910 source pair audited at extraction; later same-lineage papers print related
+// closed forms, as recorded in research/libbrecht-later-papers.md) and for validation tests
+// (v_kin/X_0 vs monograph Table 2.1).
 //
 // Units: SI internally (m, s, kg, Pa, K); temperatures in this API are degrees Celsius
 // (the sources' working unit); supersaturations are dimensionless FRACTIONS (the table's
 // canonical-units rule — the sources' plots quote percent; conversion happened at extraction).
 
-export const K_BOLTZMANN = 1.380649e-23; // J/K (SI defined)
+/** Exact SI defining constant: BIPM SI Brochure, 9th ed. v4.01, §2.2/Table 1.
+    The decimal definition is exact; JavaScript stores its nearest binary64 value. */
+export const K_BOLTZMANN = 1.380649e-23; // J/K
+/** Exact Celsius/kelvin offset: BIPM SI Brochure, 9th ed. v4.01, §2.3.1. */
+export const CELSIUS_ZERO_K = 273.15; // K
 /** Water molecule mass (monograph Appendix A, printed p. 501 / pdf 502). */
 export const M_MOL = 3.0e-26; // kg
 /** Ice number density (monograph Appendix A, printed p. 500 / pdf 501). */
@@ -17,36 +24,39 @@ export const C_ICE = 3.1e28; // 1/m^3
 /** Water-vapor diffusivity in air (monograph Appendix A); D ~ P^-1 (printed p. 65 / pdf 66).
     NO temperature law exists in the source (documented gap) — constant at fixed pressure. */
 export const D_AIR_1ATM = 2.0e-5; // m^2/s
-export const P_ATM = 101325; // Pa (reference pressure for D_AIR_1ATM; P4 choice)
+/** Exact standard-atmosphere definition: 10th CGPM (1954), Resolution 4.
+    Using it as the reference pressure for the source's approximate D_AIR value is the separate
+    P2 project-derived closure documented in docs/libbrecht-parameters.md §6. */
+export const P_ATM = 101325; // Pa
 
 /** Saturated vapor pressure over ice, Pa. Arrhenius fit, monograph Eq. 2.8 (printed p. 58 /
     pdf 59) — the fit outputs MBAR (unit check in the table): x100 converts to Pa. */
 export function pSatIce(tempC: number): number {
-  const tK = tempC + 273.15;
+  const tK = tempC + CELSIUS_ZERO_K;
   return 3.7e10 * Math.exp(-6150 / tK) * 100;
 }
 
 /** Saturated vapor pressure over supercooled water, Pa (monograph Eq. 2.8, same status). */
 export function pSatWater(tempC: number): number {
-  const tK = tempC + 273.15;
+  const tK = tempC + CELSIUS_ZERO_K;
   return (2.8e9 + 1700 * tempC * tempC * tempC) * Math.exp(-5450 / tK) * 100;
 }
 
 /** Saturated vapor number density over ice, 1/m^3 (ideal gas). */
 export function cSat(tempC: number): number {
-  return pSatIce(tempC) / (K_BOLTZMANN * (tempC + 273.15));
+  return pSatIce(tempC) / (K_BOLTZMANN * (tempC + CELSIUS_ZERO_K));
 }
 
 /** Kinetic velocity, m/s — 1910.09067 Eq. 2, p. 3. Validated against monograph Table 2.1
     anchors to ~1-2% (the Arrhenius fit's accuracy) in core/test/libbrecht.test.ts. */
 export function vKin(tempC: number): number {
-  const tK = tempC + 273.15;
+  const tK = tempC + CELSIUS_ZERO_K;
   return (cSat(tempC) / C_ICE) * Math.sqrt((K_BOLTZMANN * tK) / (2 * Math.PI * M_MOL));
 }
 
 /** Supersaturation of supercooled water relative to ice (fraction) — monograph Eq. 2.9.
     KNOWN LIMIT (recorded in the table): computed from the difference of two Arrhenius fits,
-    this deviates from Table 2.1's measured column by up to ~10% at -15 C and crosses zero at
+    this deviates from Table 2.1's source-tabulated column by up to ~10% at -15 C and crosses zero at
     T = -1.969 C, so it is negative over the whole range warmer than that. It is a source-side
     plausibility reference, NOT an enforced runtime ceiling and never part of the dynamics
     (attachment-kinetics §4.4 component 1). Phase 6's supersaturation ladder therefore uses the
@@ -56,7 +66,8 @@ export function sigmaWater(tempC: number): number {
   return (pSatWater(tempC) - pi) / pi;
 }
 
-/** Diffusivity at pressure P, m^2/s: D ~ P^-1 with the cited 1-atm value. */
+/** Diffusivity at pressure P, m^2/s: source-stated D ~ P^-1, using the documented P2 project
+    closure that anchors the source's approximate D_air to the exact standard atmosphere. */
 export function diffusivity(pressurePa: number): number {
   return D_AIR_1ATM * (P_ATM / pressurePa);
 }
@@ -129,7 +140,8 @@ export function isNucleationParamSet(value: unknown): value is NucleationParamSe
 //   sigma_0,basal(T) = (0.02 T^1.75 + 0.3) * (1 - 0.87 exp(-(log T - log 4.5)^2 / 0.07))
 //   sigma_0,prism(T) = (0.015 T^2 + 0.02 T^0.6) * (1 - 0.95 exp(-(log T - log 14.4)^2 / 0.06))
 //
-// `log` is BASE 10, established 2026-07-29 and restated because no paper says so.
+// The source leaves `log` unspecified. This project evaluates it as BASE 10 under its registered P4
+// transcription choice, supported by the printed Figure 1 dip widths (2026-07-29).
 //
 // CORRECTED 2026-08-01 (external review). The previous note here said natural log "moves the dip
 // centres to 3.08 and 8.07 degrees". THAT IS MATHEMATICALLY IMPOSSIBLE and the numbers were
@@ -139,10 +151,11 @@ export function isNucleationParamSet(value: unknown): value is NucleationParamSe
 // log10 and ln. **A base change rescales the dip WIDTH, not its centre** — that is the real
 // difference, and with `ln` the dips are ~2.3x narrower in log-argument terms.
 //
-// 3.08 and 8.07 are alphaHK CROSSING locations from the 2026-07-29 retraction
+// Approximately 3.08 and 8.07 are restricted equal-shared-positive-field alphaHK equality locations from the
+// 2026-07-29 retraction
 // (research/phase6-sweep-report.md), not dip centres. The conclusion the old note reached — use
-// log10 — is unchanged and independently supported: the paper's own prose names 4.5 and 14.4, and
-// the printed Figure 1 dip widths match log10.
+// log10 — is unchanged, but only the printed Figure 1 dip widths discriminate the base. The source
+// prose separately confirms the 4.5 and 14.4 centre values; those centres are base-invariant.
 // runner/test/phase6-sdak.test.ts asserts the behaviour rather than trusting this note.
 //
 // Returned as a FRACTION, matching `sigma0Basal`/`sigma0Prism` and the `sigmaSurf` argument of
@@ -155,16 +168,13 @@ export const M1_PRISM_DIP_CENTRE_C = 14.4;
 /**
  * The temperature domain M1 is allowed to be evaluated on, as (Tm − T) in °C.
  *
- * A closed form has no natural domain — it returns a number for any input — where the digitized CAK
- * set is interpolated between anchors and THROWS outside them ("extrapolation is banned"). Adopting
- * M1 without this guard would silently lose a safety property the other two sets have, and would do
- * it in the direction that matters: the M1 forms are ad-hoc fits, so their behaviour outside the
- * range Libbrecht had data for is unconstrained rather than merely uncertain.
- *
- * Bounded to the SAME domain as the digitized anchors rather than to a range chosen for M1, so this
- * introduces no new registered number. The Phase 6 grid (−2 … −35 °C) sits comfortably inside it.
+ * A closed form returns a number for any positive input, so the executable still needs an explicit
+ * refusal boundary. TAX2 Figure 1 (2306.13087v1 printed p.6) displays the exact M1 curves over
+ * (Tm − T) = 1…50 °C and states that the text defines them. That is the source model's displayed
+ * domain—not a claim that direct measurements anchor every temperature in it. Rows colder than the
+ * audited numeric/inversion anchors remain P3/model-prescription territory.
  */
-export const M1_DOMAIN_MAGNITUDE_C = { min: X_ANCHORS[0] as number, max: X_ANCHORS[X_ANCHORS.length - 1] as number };
+export const M1_DOMAIN_MAGNITUDE_C = { min: 1, max: 50 } as const;
 
 function m1Magnitude(tempC: number): number {
   const t = Math.abs(tempC);
@@ -194,18 +204,21 @@ export function sigma0PrismM1(tempC: number): number {
 /**
  * The same forms with the dips removed — M2's BROAD-facet branch.
  *
- * Exported for contrast only and deliberately NOT reachable through `NucleationParamSet`: M2 is the
- * width-dependent model, and its broad branch is the half that the Edge-Sharpening Instability
- * removes in air ("quite efficient in air, quickly turning broad facets into narrow facets during
- * growth", 2306.13087v1 p7). Running a sweep against it would measure the branch the physics
- * deletes. ADR 0036 defers M2 in full.
+ * Exported for contrast and for the planned M1/no-dip matched ablation, but deliberately
+ * NOT reachable as a standalone `NucleationParamSet`. M2 is width-dependent; the source hypothesizes
+ * that Edge-Sharpening Instability can drive some growing facets toward its narrow branch in air.
+ * The project has not established that the broad branch is universally deleted, and ADR 0036 defers
+ * the full width query/closure.
+ *
+ * The matched no-dip helper intentionally uses the same source-displayed domain guard as M1, so
+ * removing the dip factors does not silently add extrapolated temperature support.
  */
 export function sigma0BasalM2Broad(tempC: number): number {
-  const t = Math.abs(tempC);
+  const t = m1Magnitude(tempC);
   return (0.02 * t ** 1.75 + 0.3) / 100;
 }
 export function sigma0PrismM2Broad(tempC: number): number {
-  const t = Math.abs(tempC);
+  const t = m1Magnitude(tempC);
   return (0.015 * t ** 2 + 0.02 * t ** 0.6) / 100;
 }
 
@@ -264,8 +277,10 @@ export function nucleationABasal(_tempC: number, _set: NucleationParamSet): numb
 
 export function nucleationAPrism(tempC: number, set: NucleationParamSet): number {
   // M1 sets A = 1 on every facet by its own paper's choice: "To keep M1 relatively simple, we chose
-  // to set A = 1 in Equation 3 for all growth conditions". That is what makes M1's habit ordering
-  // independent of sigma_surf — see ADR 0036 — so it is a load-bearing 1, not a placeholder.
+  // to set A = 1 in Equation 3 for all growth conditions". That makes M1's attachment-coefficient
+  // ordering independent of the chosen positive sigma_surf only when both facets are evaluated at
+  // that same local field. It does not determine the coupled crystal habit. The 1 is a source-model
+  // choice, not a placeholder; see accepted ADR 0040.
   if (set === "CAK_A1" || set === "M1") return 1;
   return interpLinear(-tempC, A_PRISM_CAK);
 }
