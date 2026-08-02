@@ -30,16 +30,16 @@ index, a plan, ADR, or audit links to historical detail.
 - Accepted [ADR 0040](decisions/0040-correct-phase6-coefficient-and-sdak-provenance.md) and charter
   v1.19 govern the coefficient/provenance correction. Its acceptance audit subsequently found three
   exact metrological definitions missing from the authority chain: the Boltzmann constant, the
-  Celsius/kelvin offset, and the standard-atmosphere conversion. Their governed correction is in
-  progress. The monograph's approximate `D_air` value is not explicitly tied to exactly 101325 Pa;
+  Celsius/kelvin offset, and the standard-atmosphere conversion. Their governed correction is
+  complete at `7a60eaf`. The monograph's approximate `D_air` value is not explicitly tied to exactly 101325 Pa;
   that association is a P2 project-derived/model-inferred closure. The repaired current table is
   50,464 LF-normalized bytes with current SHA-256
   `c0b314b681146152207f061209a3097609e34a234b0027ed73faa427334c79e2`. A scoped read-only
   non-author acceptance follow-up independently verified that identity, all six current manifest
   identities, the exact-metrology authority chain, and 22/22 charter quotations with 0 blockers and
-  0 should-fixes. Exact current-tree `npm.cmd test` exits 0: Rule 7 clean over 417 files, both
-  TypeScript projects green, and 79 test files / 1,404 tests pass. Historical parameter/protocol hashes and both legacy
-  manifests remain untouched.
+  0 should-fixes. Its landing `npm.cmd test` result—417 files scanned and 79 files / 1,404 tests—is
+  historical and superseded as the current repository check by the 419-file / 1,442-test result
+  below. Historical parameter/protocol hashes and both legacy manifests remain untouched.
 - WP1's machine-verified candidate-source lock covers five files, 21 Harrison archive members, and
   all 16 reconciled levitation traces, but deliberately reports `passEligible=false`. No audited
   held-out target is apples-to-apples with the current geometry and transport physics. Missing
@@ -49,27 +49,37 @@ index, a plan, ADR, or audit links to historical detail.
   (three arms × 204 points × spacings × domains × physical-size strata). The present
   three-spacing, three-domain, one-size baseline is 5,508 CPU rows. This is a feasibility bound, not
   a frozen protocol or evidence result.
-- Proposed [ADR 0039](decisions/0039-cycle-boundary-lk-resume-checkpoints.md) now has an implemented
-  protocol-independent streamed v3 codec and field-adopting float64 CPU restore path. Frozen GG v1
-  and LK v1/v2 fixtures, cross-family rejection, exact CAK/M1 continuation, canonical framing,
-  topology/state validation, one-use ownership, bounded streaming, and mutation controls are
-  covered. Root verification is green for the combined new tests (2 files / 34 tests), a broader
-  checkpoint/solver set (5 files / 94 tests), and both TypeScript projects. A read-only cross-review
-  found two open items: add a durable realistic multi-sweep continuation regression (its independent
-  15-cycle CAK/M1 probe passed), and close a likely encode/decode asymmetry for degenerate monopole
-  domains where a zero-radius shell may encode but decode rejects. Exact `npm test` remains open. No runner
-  publication/crash path exists; those pieces remain deferred until WP3 freezes scientific inputs.
-- The first source-lock/prepared-kinetics correction unit is committed locally at `8dc7a60` after
-  exact `npm test`. The education work-in-progress is frozen in local checkpoint `60e3f3f`; the site
+- Proposed [ADR 0039](decisions/0039-cycle-boundary-lk-resume-checkpoints.md) now has a reviewed
+  protocol-independent streamed v3 codec and field-adopting float64 CPU restore path through
+  `a1d540c`. Frozen GG v1 and LK v1/v2 fixtures, cross-family rejection, canonical framing,
+  topology/state validation, one-use ownership, bounded streaming, mutation controls, and exact
+  CAK/M1 continuation are covered. The restart review closed both findings: zero-radius monopole
+  shells now fail before any encoder write and remain decoder-rejected under an independently framed
+  attack; a test-only, non-transferable 12×12×9 CAK/M1 witness exercises nine converged cycles at
+  34–75 sweeps/cycle, both sweep parities, nonzero noise/lag/attachment/clipping, an M1 hole fill,
+  and exact post-fill continuation. Two read-only non-author reviews independently executed the
+  focused 22-test core and 16-test solver suites: the codec review reported 0 blockers / 0
+  should-fixes; the continuation review reported no blocker and its scope-label should-fix is
+  incorporated. Exact `npm.cmd test` at `a1d540c` exited 0 in 735.3 seconds:
+  Rule 7 clean over 419 files, both TypeScript projects green, and 81 files / 1,442 tests passed.
+  After the record-only reconciliation, Rule 7 remains clean over 419 files, the progress-index
+  suite passes 7/7, and `git diff --check` is clean.
+  ADR 0039 remains proposed: no runner publication/crash path exists, and those pieces remain
+  deferred until WP3 freezes scientific inputs.
+- The first source-lock/prepared-kinetics correction unit is committed at `8dc7a60` after exact
+  `npm test`. The education work-in-progress is frozen in commit `60e3f3f`; the site
   warns that it is non-authoritative. No education content, figures, visual QA, verifier expansion,
   or acceptance work resumes until Phase 6 is complete.
-- The non-education WP0/ADR 0040 and progress-compaction unit is landed locally at `7a60eaf` after
+- The non-education WP0/ADR 0040 and progress-compaction unit landed at `7a60eaf` and is included in
+  the maker-pushed restart baseline after
   independent review and exact verification. Exact `npm.cmd test` exited 0 in 728.5 seconds; Vitest reported 79 files / 1,404 tests in
   718.77 seconds after Rule 7 and both typechecks pass. After the final record-only edits, Rule 7 is
   clean over the then-current 416-file scan and the progress-index test passes 7/7. This is
   repository verification, not R15 or validation evidence.
-- Branch `main` is local and unpushed. Preserve untracked `.claude/settings.local.json` and the
-  zero-byte root file `=`; neither belongs to Phase 6 work. Preserve `research/tmp/` as useful local
+- Branch `main` is based on the maker-pushed restart state and currently carries the reviewed Phase
+  6 continuation locally ahead of `origin/main`; do not push unless asked. Preserve untracked
+  `.claude/settings.local.json` and the zero-byte root file `=`; neither belongs to Phase 6 work.
+  Preserve `research/tmp/` as useful local
   research context, but do not treat its provenance-incomplete cache as evidence. Durable generated
   science belongs under the tracked `evidence/` manifest boundary.
 - **Last updated:** 2026-08-02 by OpenAI Codex (`gpt-5.6-sol`, ultra reasoning)
@@ -114,17 +124,21 @@ For unattended long work: first update this index and `HANDOFF.md`; run only fro
 source snapshot; write labeled live/error/exit records; put durable generated science under
 `evidence/`; and report user-facing status at most once per hour unless the maker asks.
 
-1. Resume ADR 0039 implementation review from local checkpoint `557d1de`: add the realistic
-   multi-sweep continuation regression, collect the interrupted read-only verdicts, resolve any
-   findings, run exact `npm test`, record provenance/limits, and commit the reviewed unit. Do not
-   redo the implementation from scratch.
-2. Repair the WP1 handoff before source work: identify the intended Yamashita/pressure citation
-   (the current phrase has no cold-resumable bibliographic identity) and split the circular WP2/WP3
-   sequence into a pre-registered deterministic control ladder, execution, and final production
-   binding. Then pre-register blind TAX2 segmentation before extracting a physical size.
-   before extracting a physical size. Do not inspect model output while selecting a target and do
-   not promote in-sample or geometry-mismatched data to held-out validation.
-3. Freeze and independently review the replacement R15 ADR/protocol only after WP1 supplies
+1. Create `docs/plans/phase-6-wp1-source-lineage-and-tax2.md` from `docs/plans/_TEMPLATE.md`, commit
+   and independently review it, then add to `research/phase6-source-currency.md` a cold-resumable
+   register for `YAMASHITA-FREEFALL-LINEAGE-01`, `MATCHED-AIR-PRESSURE-01`, and
+   `TAX2-PANEL-SPAN-01` before doing source extraction. First record checks: `npm.cmd run lint:rule7`,
+   `npx.cmd vitest run runner/test/progress-index.test.ts`, and `git diff --check`.
+2. Resolve the Yamashita primary-data lineage and separately search for a genuinely matched
+   air-pressure target. Keep the candidate lock `passEligible=false` unless independence, geometry,
+   transport, observable, and uncertainty all pass.
+3. Pre-register and independently review the TAX2 segmentation/span operator before any numeric
+   extraction. Do not inspect model output while selecting a target and do not promote in-sample or
+   geometry-mismatched data to held-out validation.
+4. After WP1 freezes exact source-derived physical-size strata, pre-register, review, execute, and
+   independently recompute the deterministic WP2 numerical-control ladder. WP3 may bind only the
+   artifact-selected configuration; it may not choose after seeing morphology.
+5. Freeze and independently review the replacement R15 ADR/protocol only after WP1 supplies
    admissible targets and WP2 supplies a passing transferable numerical configuration. Then build
    the new artifact/gate path and execute CPU arms, matched ablation, GPU cohort, and held-out
    families in dependency order.

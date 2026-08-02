@@ -54,15 +54,16 @@ N = 64 fails against N = 80 at three of four, and no configuration tested so far
 registered numerical condition. A new accepted ADR must record this supersession and quote the
 applicable charter clauses before a replacement protocol freezes. Accepted ADR 0040 and current
 charter v1.19 now govern the coefficient/provenance correction discovered during this review; their
-acceptance does not weaken any scientific obligation or freeze R15. ADR 0039 remains proposed: an
-implementation-readiness audit found a reachable-state contradiction and runner inputs that cannot
-be frozen before WP3. The protocol-independent core resume work may proceed under this plan, but no
-runner/evidence contract becomes authoritative until ADR 0039 is accepted after WP3 review.
+acceptance does not weaken any scientific obligation or freeze R15. ADR 0039 remains proposed. Its
+protocol-independent streamed codec and field-adopting float64 CPU restore are implemented and
+reviewed, but the runner generation/publication/retry/trace contract cannot be frozen before WP3.
+No runner/evidence contract becomes authoritative and no production row may use resume until ADR
+0039 is accepted after that review.
 
 The maker's 2026-08-02 sequencing direction is also binding: **freeze all further education-site
 work until Phase 6 is complete.** The landing page carries a prominent warning that the course is
 not the authoritative status or validation record. Preserve the current `docs/education/**` work
-exactly as the local, unpushed checkpoint `60e3f3f`; do not polish its prose, repair Chapter 16, regenerate its
+exactly as commit `60e3f3f`; do not polish its prose, repair Chapter 16, regenerate its
 figures, run its visual matrix, or spend Phase 6 resources extending its verifier. The prior
 education checks remain historical checks of earlier candidate bytes, not acceptance of the frozen
 current tree. Education repair and its adversarial acceptance review move to a post-Phase-6
@@ -184,7 +185,7 @@ producer-supplied pass field is trusted.
 - [x] Freeze the education site under the maker's 2026-08-02 sequencing direction and add a visible
   non-authoritative-status notice to its landing page. The completed verifier and visual-QA results
   above describe earlier candidate bytes; later Chapter 16/provenance edits reopened acceptance and
-  are preserved in local, unpushed checkpoint `60e3f3f` as deferred work-in-progress. No further education content, figure, visual-QA, or
+  are preserved in commit `60e3f3f` as deferred work-in-progress. No further education content, figure, visual-QA, or
   verifier work is on the Phase 6 critical path. Reconcile and independently review the entire site
   only after Phase 6 closes.
 - [x] Close ADR 0040's acceptance-audit follow-up. The implementation and authority records now
@@ -192,7 +193,7 @@ producer-supplied pass field is trusted.
   as P1 authoritative definitions, their binary64 representation as P4 precision policy, and the
   exact-atmosphere `D_air` anchor as a P2 project closure. Independently review those final bytes and
   the new 50,464-byte table pin, run focused non-education checks plus exact `npm test`, then commit
-  this non-education WP0 unit locally without touching either legacy manifest or the frozen
+  this non-education WP0 unit without touching either legacy manifest or the frozen
   education snapshot. The scoped OpenAI `gpt-5.6-sol` ultra read-only non-author follow-up is now
   clean (0 blockers / 0 should-fixes): it independently recomputed the table and six manifest
   identities, checked the official exact-metrology authority chain, matched 22/22 charter deletions
@@ -204,7 +205,8 @@ producer-supplied pass field is trusted.
   718.77 seconds. The staged diff check is clean; the local landing commit contains this completion
   record and changes neither legacy manifest nor the frozen education snapshot. After these final
   record-only edits, Rule 7 is clean over the then-current 416-file scan and the progress-index test
-  passes 7/7. Landed locally as `7a60eaf`; nothing was pushed.
+  passes 7/7. Landed as `7a60eaf` and was later included in the maker-pushed restart baseline
+  through `cd54b3e`.
 - [x] Compact `docs/PROGRESS.md` into a small authoritative current-state index. Move only clearly
   historical or explicitly superseded material verbatim into linked archive files; keep the current
   phase/gate state, active-plan pointer, current verification limits, ranked next actions, and
@@ -303,41 +305,31 @@ producer-supplied pass field is trusted.
   should-fixes. The reviewer shared full context, static-traced reachable `f=1`, topology adoption
   and recovery-chain semantics, ran a small binary64 witness and `git diff --check`, and ran no
   streaming/crash/resume implementation, production, GPU, held-out or full-suite checks. This
-  clears only core design; runner acceptance still waits for WP3, and the active WP0 dependency
-  still precedes implementation. Cold-start reconnaissance remains non-transferable.
-- [ ] After that core design review, implement and verify decision 0039's protocol-independent stream
-  codec and field-adopting solver restore, including frozen legacy byte fixtures, cross-family
-  rejection and direct/checkpoint-every-cycle/multiply-resumed CAK and M1 equality. The reviewed
-  landing points are a new `core/src/lk-resume-checkpoint.ts` exported from `core/src/index.ts` while
-  leaving legacy `core/src/checkpoint.ts` bytes/readers frozen, plus an internal
-  `LKSolver.fromResumeStateV3` path that adopts decoder-owned fields and validated topology and
-  recomputes only solver floating-physics and scratch caches. Retain original spacing/dimensions/centre, accepted-event count, sticky test-hook
-  use and mutation epoch. Do not reuse the runner canonical-JSON helper: it sorts keys and appends a
-  newline, contrary to the v3 contract. A fresh read-only implementation scout found no additional
-  core blocker after WP0 closes. It confirmed that the mutation epoch is a live encode-concurrency
-  sentinel, not a wire field; core must define its own structural resume-report type rather than
-  import `solver-cpu`; the decoder must independently construct final topology arrays for one-time
-  adoption; and `M1_NO_DIP_ABLATION` remains a wire reservation only until WP3. It recommended new
-  isolated `core/test/lk-resume-checkpoint.test.ts` and `solver-cpu/test/lk-resume.test.ts` files so
-  current legacy/provenance edits remain undisturbed, with literal/base64 v1/v2 fixture pins before
-  the new path lands. **Restart checkpoint 2026-08-02:** local commit `557d1de` preserves the named
-  core and solver files. Root observed the combined new suites green (2 files / 34 tests), the
-  broader checkpoint/solver regression green (5 files / 94 tests), and both TypeScript projects
-  green. Review found and fixed a Proxy-forgeable symbol constructor capability by replacing it
-  with one-use WeakMap identity branding. A read-only solver cross-review found no blocker and one
-  should-fix: preserve its independently passing realistic 15-cycle, multi-sweep CAK/M1 continuation
-  probe as a durable regression. The interrupted non-author review also found a likely public-core
-  encode/decode asymmetry for a manually supplied degenerate monopole domain with zero shell radius;
-  add a focused probe and make the paired APIs agree. Other read-only review execution was interrupted.
-  The completed cross-reviewer was OpenAI `gpt-5.6-sol` at ultra reasoning with full shared context;
-  it did not author the solver change but did author the paired core codec. It independently ran
-  3 files / 64 tests, root TypeScript, and an uncommitted exact 15-cycle CAK/M1 probe requiring
-  22–72 sweeps/cycle. It did not run root `npm test`, runner integration, production-size memory, or
-  concurrent mutation outside the registered trust boundary. The interrupted independent reviewer
-  was the same model/reasoning with full shared context and authored neither implementation; its
-  static verdict is preliminary because it ran no targeted tests before the restart.
-  This checkbox remains open for that test, remaining verdicts/findings, exact `npm test`, final
-  provenance, and the reviewed commit.
+  cleared only core design; runner acceptance still waits for WP3, and at that checkpoint the WP0
+  dependency still preceded implementation. Cold-start reconnaissance remains non-transferable.
+- [x] Implement and verify decision 0039's protocol-independent stream codec and field-adopting
+  solver restore, including frozen legacy byte fixtures, cross-family rejection and exact
+  direct/checkpoint-every-cycle/multiply-resumed CAK and M1 equality. The implementation lineage is
+  `557d1de`, `c595b55`, and `a1d540c`. It adds `core/src/lk-resume-checkpoint.ts`, leaves the legacy
+  codec bytes/readers frozen, and lets `LKSolver.fromResumeStateV3` consume decoder-owned fields and
+  independently validated topology exactly once. Review found and fixed a Proxy-forgeable symbol
+  constructor capability through WeakMap identity branding, then reproduced and closed a public
+  encode/decode asymmetry for degenerate monopole shells. Three zero-radius geometries now fail
+  before the first sink write; an independently framed hostile checkpoint remains decoder-rejected;
+  the minimum nondegenerate shell round-trips with finite positive radii.
+
+  A durable, **test-only and non-transferable** 12×12×9 CAK/M1 regression executes nine converged
+  cycles at 34–75 sweeps/cycle, covers odd and even sweep parity, noise, nonzero monopole lag,
+  attachments, saturation clipping, M1 hole fill at cycle 8, and exact continuation through cycle
+  9. Direct, every-cycle-restored, and multiply resumed reports, complete state, topology/order,
+  ledgers, and checkpoint bytes match exactly. The two final read-only OpenAI `gpt-5.6-sol` ultra
+  non-author reviews reported 0 blockers after independently executing the focused 22-test core and
+  16-test solver suites; the multi-sweep reviewer requested the non-transferable wording now
+  recorded here. Their limits exclude production-size memory, hostile mutation beyond the
+  registered trust boundary, runner crash recovery, R15, GPU, and held-out science. Exact
+  `npm.cmd test` at `a1d540c` exited 0 in 735.3 seconds: Rule 7 clean over 419 files, both TypeScript
+  projects green, and 81 Vitest files / 1,442 tests passed in 725.30 seconds. This completes only
+  the protocol-independent core unit; ADR 0039 and its WP3-dependent runner layer remain proposed.
 - [ ] After WP3 freezes the exact ordered run-spec and manifests plus termination, retry, checkpoint,
   stop, environment, symmetry, cadence and retention policies, implement the independent R15 worker,
   immutable generations/trace replay, publication crash controls and killed-child differential. A
@@ -350,17 +342,30 @@ producer-supplied pass field is trusted.
 - [ ] Use reconnaissance only to estimate feasibility and freeze candidate axes plus deterministic
   escalation rules. It cannot select or certify a production geometry, discharge domain/grid/time
   adequacy, or enter the gate result.
-- [ ] Design the **transferable** numerical-control campaign for WP3 freeze: at each physical size
-  and spacing, expand the far boundary until two successive registered increments pass; execute the
-  whole 204-point domain matrix for every arm/spacing/size unless an independently reviewed bound
-  covers omissions; use at least three spacings plus ADR 0026's conditional fourth; halve the
-  interface timestep at registered points; test relaxation caps/tolerances; and run seed-mapping
-  sensitivity. These rows become evidence only after their protocol is committed and reviewed.
-- [ ] Freeze deterministic geometry-selection/escalation rules rather than one convenient geometry
-  chosen from reconnaissance. Exact rational spacing, dimensions, target/achieved physical size,
-  one-cell overshoot, primary spacing, seed representation and failure consequences must all be
-  decided before transferable rows run. If no rung passes, continue the frozen escalation or report
-  the measured scientific obstacle; resource cost is not a stopping rule.
+- [ ] **Pre-register the deterministic numerical-control ladder.** After WP1 freezes exact
+  source-derived physical-size strata, commit and independently review the control protocol before
+  any transferable row runs. Freeze the exact arms/points, rational spacing rungs, domain
+  increments, timestep halvings, relaxation controls, physical-seed mappings and sensitivities,
+  starting rungs, escalation order, acceptance criteria, exhaustion/no-pass consequence, raw key
+  set, binary64 schema, immutable execution provenance, and the deterministic function that selects
+  one production configuration or returns no-pass. Reconnaissance may inform the candidate ladder
+  but cannot satisfy it.
+- [ ] **Execute the registered numerical-control ladder.** At each physical size and spacing,
+  expand the far boundary until two successive registered increments pass; execute the whole
+  204-point domain matrix for every arm/spacing/size unless an independently reviewed bound covers
+  omissions; use at least three spacings plus ADR 0026's conditional fourth; halve the interface
+  timestep at registered points; test relaxation caps/tolerances; and run seed-mapping sensitivity.
+  Preserve every rung under `evidence/` and apply only the pre-registered numerical criteria and
+  selection function. Morphology agreement may not choose a rung. If the ladder exhausts, publish
+  that numerical blocker; any extension requires a new reviewed pre-registration.
+- [ ] **Publish the artifact-derived numerical-control result.** Independent recomputation derives
+  either the exact selected spacing/domain/timestep/relaxation/seed configuration or no-pass from
+  the registered bytes. These rows are numerical-control evidence only and are not recycled into
+  R15 production morphology evidence.
+
+The dependency is therefore: WP1 source-derived sizes → non-transferable reconnaissance → reviewed
+control-ladder pre-registration → registered control execution → independently selected
+configuration or no-pass → WP3 production binding → fresh R15 production execution.
 
 ### WP3 — decision and protocol freeze
 
@@ -371,9 +376,12 @@ producer-supplied pass field is trusted.
   must name all sizes, grid spacings, physical domains, timestep controls, CPU/GPU roles, selected
   held-out targets, exact run counts, uncertainty operators, engine versions, environment policy,
   and failure consequences.
-- [ ] Freeze the complete transferable domain × spacing × size numerical-control matrix and its
-  deterministic escalation/selection rule. Explicitly forbid any pre-freeze reconnaissance row from
-  satisfying a Phase 6 numerical obligation.
+- [ ] **Bind, do not choose, the production configuration.** Hash-bind the reviewed WP2
+  pre-registration and its independently recomputed control artifact. The replacement ADR and
+  protocol may bind only the exact configuration selected by the pre-registered function; no author
+  or reviewer may choose among passing rungs after seeing morphology outcomes. If WP2 returned
+  no-pass, WP3 cannot freeze production. Pre-freeze reconnaissance never satisfies a Phase 6
+  numerical obligation.
 - [ ] Freeze the complete R15 truth table before execution: primary measured spacing; inclusive,
   boundary-safe fitted-order comparisons; admitted versus mathematically refused versus
   missing/invalid triplets; measured-only eligibility for a refused fit; component denominators;

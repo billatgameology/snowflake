@@ -24,8 +24,8 @@ preview-resolution GPU runs were not executed. Do not report Phase 6 as a comple
 
 The maker froze all further education-site work on 2026-08-02 until Phase 6 is complete. A prominent
 landing-page notice says that `docs/education/**` may lag the current science and is not the
-authoritative status or validation record. Preserve its 44-file work-in-progress snapshot in local,
-unpushed checkpoint `60e3f3f` (6,404 insertions / 2,904 deletions relative to its parent), but do not edit
+authoritative status or validation record. Preserve its 44-file work-in-progress snapshot in commit
+`60e3f3f` (6,404 insertions / 2,904 deletions relative to its parent), but do not edit
 Chapter 16, regenerate figures, run visual QA, extend the education verifier, or make education
 acceptance a prerequisite for the science campaign. Reconcile and independently review the site
 after Phase 6 closes. This is a scheduling decision only; it changes no scientific obligation.
@@ -38,9 +38,9 @@ nature.
 
 ## 2. Corrections and resume decision
 
-The first correction/source-lock/prepared-kinetics unit is committed locally at `8dc7a60` after
-exact root verification and clean non-author reviews. The current resume state combines that unit
-with the explicitly identified uncommitted propagation/ADR work below. Specifically:
+The first correction/source-lock/prepared-kinetics unit is committed at `8dc7a60` after exact root
+verification and clean non-author reviews. The maker pushed the restart baseline through `cd54b3e`;
+the current local continuation adds the reviewed ADR 0039 core closure. Specifically:
 
 - M1's analytic dip centres are 4.5 °C and 14.4 °C under both `log10` and `ln`; approximately 3.08/8.07 are
   restricted equal-shared-positive-field `alphaHKBasal = alphaHKPrism` locations under the base-10
@@ -65,7 +65,7 @@ with the explicitly identified uncommitted propagation/ADR work below. Specifica
   summaries saying otherwise. The expanded non-author audit found obsolete roots, labels or universal
   conclusions across at least ten files: the initial four, the superseded Phase 6 plan,
   `research/phase6-convergence.md`, the solver spec, stretch/publication note, video explainer and
-  papers-extract table. The current uncommitted correction replaces them with roots under the
+  papers-extract table. The correction landed at `7a60eaf` with roots under the
   registered, Figure-1-width-supported P4 base-10 M1 transcription
   and measured/source-scoped claims, including TAX2 independence, seed/score, pressure, priority,
   causality and domain-generalisation corrections. Three non-author slices initially closed the
@@ -94,19 +94,19 @@ the exact run-spec, manifest, policy, cadence and retention contracts cannot be 
 freezes their scientific inputs. The ADR is corrected to preserve that state, retain the complete
 generation chain to genesis and defer runner-dependent details. Its exact 1,095-line / 80,760-byte
 pre-review-record core-design candidate (`b9bfec37…3b69f`) received a clean non-author re-review:
-0 blockers and 0 core should-fixes. The ADR remains proposed because WP3-dependent runner inputs are
-unfrozen. The protocol-independent codec and field-adopting restore are saved in local checkpoint
-`557d1de`: new core/solver resume suites cover the frozen legacy families,
-streaming/canonical/state/ownership controls, and exact CAK/M1 continuation. Root observed 2 files /
-34 new tests green, a broader 5-file / 94-test checkpoint+solver set green, and both TypeScript
-projects green. Review found and fixed a Proxy-forgeable symbol constructor capability by replacing
-it with one-use WeakMap identity branding. A read-only solver cross-review found no blocker and one
-open should-fix: convert its independently passing realistic 15-cycle multi-sweep CAK/M1 probe into
-a durable regression. The interrupted non-author review also found a likely core asymmetry to probe:
-encode skips the decoder's zero-shell-radius rejection when validating a manually supplied
-degenerate monopole state. Other review execution was interrupted by the maker's restart request.
-Resume there, resolve findings, and run exact `npm test`; do not redo the implementation. No runner
-publication/crash control exists yet, and that protocol-dependent work still waits for WP3.
+0 blockers and 0 core should-fixes. The implementation lineage `557d1de` → `c595b55` → `a1d540c`
+now contains the protocol-independent codec and field-adopting restore. Review found and fixed a
+Proxy-forgeable symbol constructor capability with one-use WeakMap identity branding and then closed
+the restart's two findings. Zero-radius monopole shells fail before the first encoder write and an
+independently framed hostile checkpoint remains decoder-rejected. A test-only, non-transferable
+12×12×9 CAK/M1 differential executes nine converged cycles at 34–75 sweeps/cycle with both parities,
+noise, lag, attachment, clipping, an M1 hole fill at cycle 8, and exact continuation through cycle 9.
+Two final read-only non-author reviews reported 0 blockers after independently running the focused
+22-test core and 16-test solver suites. Exact `npm.cmd test` at `a1d540c` exited 0 in 735.3 seconds:
+Rule 7 clean over 419 files, both TypeScript projects green, and 81 files / 1,442 tests passed.
+
+ADR 0039 remains proposed because WP3-dependent runner inputs are unfrozen. No runner
+publication/crash control exists yet; the core implementation authorizes no production resume use.
 
 ## 3. Why R15 cannot be launched yet
 
@@ -186,9 +186,9 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
 
 ## 5. Ranked next actions
 
-1. Implement ADR 0039's protocol-independent streamed core codec, field-adopting
-   restore, frozen legacy fixtures, and direct/checkpoint-every-cycle/multiply-resumed CAK/M1
-   differentials. Do not implement its WP3-dependent runner/publication layer yet.
+1. Commit and independently review the bounded WP1 source-lineage/TAX2 plan and create the
+   cold-resumable register for `YAMASHITA-FREEFALL-LINEAGE-01`, `MATCHED-AIR-PRESSURE-01`, and
+   `TAX2-PANEL-SPAN-01` before any numeric extraction.
 2. The adversarial review of the candidate-source lock is clean. Retain `passEligible=false` until
    geometry, independence, observable definition and uncertainty all pass. Do not infer the missing
    Harrison crystallography or a convenient Nakaya measurement size from model output.
@@ -197,21 +197,26 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
    controls until WP3 freezes their exact schemas and policies. Under the current
    whole-grid rule the row count is `612 × S × D × Z` (three arms × 204 points × spacings × domains
    × physical-size strata); the 3×3×1 baseline is 5,508 and no rigorous D6h/monopole bound replaces it.
-4. Continue the Yamashita/pressure source lineage and pre-register blind TAX2 segmentation before
-   deriving a physical size. Do not inspect model output during extraction; do not promote TAX2 to
-   held-out M1 evidence or infer a target from the rejected candidates' broad size ranges.
-5. Write the replacement science-first ADR and amended Phase 6 protocol only after WP1/WP2 supply
+4. Resolve the Yamashita primary-data lineage and separately search for a genuinely matched
+   air-pressure target. Pre-register and review the TAX2 span operator before execution. Do not
+   inspect model output during extraction; do not promote TAX2 to held-out M1 evidence or infer a
+   target from rejected candidates' broad size ranges.
+5. After WP1 freezes exact physical-size strata, pre-register, review, and execute the deterministic
+   WP2 numerical-control ladder. Independent recomputation selects one production configuration or
+   no-pass; WP3 binds that artifact and may not choose among rungs after seeing morphology.
+6. Write the replacement science-first ADR and amended Phase 6 protocol only after WP1/WP2 supply
    admissible held-out targets and passing numerical inputs. A source-limited disposition may stop
    Phase 6 as incomplete but cannot substitute for the charter obligation or permit a pass. A plan is already committed;
    the ADR must quote every affected/no-impact charter clause and preserve ADR 0037's negative data.
-6. Implement a new versioned `phase6-r15-*` evidence path and flagless gate, then adversarially review
+7. Implement a new versioned `phase6-r15-*` evidence path and flagless gate, then adversarially review
    it before any registered production row.
-7. Execute the frozen numerical campaign, CPU arms, matched ablation, GPU cohort and held-out families
+8. Execute the frozen numerical campaign, CPU arms, matched ablation, GPU cohort and held-out families
    in that order only where the preceding freeze/adequacy dependency is satisfied.
 
 ## 6. Standing constraints
 
-- Do not push unless asked. Local commits are intentionally unpushed.
+- Do not push unless asked. The maker pushed the restart baseline; later local continuation commits
+  may remain ahead of `origin/main` until explicitly requested.
 - Education is frozen by maker direction until Phase 6 closes. The landing-page warning is already
   included in checkpoint `60e3f3f`; preserve that exact snapshot and authorize no further education
   edits. Defer content,
@@ -233,16 +238,20 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
 - No long Phase 6 evidence run from a moving working tree or inherited environment.
 - For unattended long work, user-facing status is at most hourly unless the maker asks. Before a
   long run, make this handoff and `docs/PROGRESS.md` independently sufficient to resume, use ADR
-  0039's immutable cycle-boundary generations once implemented, and write labeled live/error/exit
+  0039's immutable cycle-boundary generations only after its runner layer is accepted, and write labeled live/error/exit
   logs plus durable scientific outputs under the tracked `evidence/` manifest boundary.
 
 ## 7. Repository state and current verification
 
-- Branch `main`; local commits remain unpushed. `8dc7a60` commits the reviewed source-lock/
+- Branch `main`; the maker-pushed restart baseline reaches `cd54b3e`, and the reviewed ADR 0039 core
+  closure is currently local ahead of `origin/main`. `8dc7a60` commits the reviewed source-lock/
   prepared-kinetics unit, `60e3f3f` commits the frozen education snapshot, and `7a60eaf` commits the
   reviewed non-education WP0/ADR 0040, compact progress record, and exact verification record.
-  ADR 0039's corrected core design is cleanly
-  reviewed; its runner layer remains WP3-deferred.
+  ADR 0039's core implementation closes at `a1d540c`: the codec review reported 0 blockers / 0
+  should-fixes, the continuation review reported no blocker and its one scope-label should-fix is
+  incorporated, and exact `npm.cmd test` passed (419 scanned files; both typechecks; 81 files /
+  1,442 tests). Its runner layer
+  remains WP3-deferred and the ADR remains proposed.
 - The repaired current table is 50,464 LF-normalized bytes with current SHA-256
   `c0b314b681146152207f061209a3097609e34a234b0027ed73faa427334c79e2`, propagated through the
   separately named `PHASE6_CURRENT_PARAMETER_TABLE_SHA256`. The final scoped review and exact root
@@ -275,12 +284,11 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
   fixture beside it, `x64-libm-fingerprint.txt`, is 18,395 bytes with SHA-256
   `c21fa3775360cfb910d524bf34eb2a6fef76059476805e50b9acb7531f6b53a4`; the evidence manifest
   records both. Neither is a production sweep.
-- The current tree passes Rule 7 over 417 files, both TypeScript projects, a 12-file / 253-test
-  focused non-education set, and staged `git diff --check`. Exact `npm.cmd test` exits 0 in 728.5
-  seconds: Rule 7 is clean over 417 files, both TypeScript projects pass, and Vitest passes 79 files /
-  1,404 tests in 718.77 seconds. The final scoped non-author review is clean. None of these checks is
-  R15 or validation evidence. After the final record-only edits, Rule 7 is clean over the
-  then-current 416-file scan and the progress-index test passes 7/7.
+- At the `7a60eaf` WP0 landing, Rule 7 passed over 417 files, both TypeScript projects passed, and a
+  12-file / 253-test focused non-education set plus staged `git diff --check` passed. That landing's
+  exact `npm.cmd test` exited 0 in 728.5 seconds with 79 files / 1,404 tests in 718.77 seconds. The
+  scoped non-author review was clean. These are historical checks, superseded as the current
+  repository result by §7's `a1d540c` run; none is R15 or validation evidence.
 - Historical targeted verification for the committed `8dc7a60` unit (not the later dirty-tree
   interpretation/ADR changes):
 
@@ -320,8 +328,8 @@ Before the later ADR-acceptance and education repairs, the dirty tree passed Rul
 both TypeScript projects, `git diff --check`, the five-file / 21-member source lock, the independent
 arm-2 reader and the flip census. That earlier focused checkpoint/timeline/LK/arm-2 run passed
 **5 files / 121 tests**, and the earlier broader Phase 6 group passed 106/107 with only the deliberate
-corrected-table versus historical-table-pin mismatch. Those suite counts are now superseded pending
-a current-tree rerun. The latest direct canonical manifest recomputation exactly matches the
+corrected-table versus historical-table-pin mismatch. Those suite counts are historical and
+superseded by §7's current exact run. The latest direct canonical manifest recomputation exactly matches the
 candidate constants:
 
 | arm | values | justification | combined |
@@ -337,8 +345,8 @@ in 723.7 seconds: Rule 7 clean over 415 files, both TypeScript projects green, a
 historical `276494f6…` table constant remains inside arm 1's legacy values manifest; the accepted
 current bytes use the separate `c0b314b6…` content pin.
 Arm 2's historical M1 values manifest never carried a parameter-table digest and retains its exact
-independent `13e678d5…` identity; adding a field after execution would rewrite that contract. No
-current-tree **full-suite** claim is made before exact `npm test` completes.
+independent `13e678d5…` identity; adding a field after execution would rewrite that contract. The
+current-tree full-suite claim is §7's exact `a1d540c` result.
 
 The current focused verification commands are:
 
@@ -346,6 +354,7 @@ The current focused verification commands are:
 npm.cmd run lint:rule7
 npm.cmd run typecheck
 npx.cmd vitest run core/test/libbrecht.test.ts core/test/checkpoint.test.ts core/test/timeline.test.ts solver-cpu/test/lk-solver.test.ts solver-cpu/test/timeline-environment.test.ts runner/test/phase6-arm2.test.ts runner/test/phase6-independent-evidence-scripts.test.ts runner/test/phase6-sdak.test.ts runner/test/evidence-integrity.test.ts runner/test/phase6-crossplatform.test.ts runner/test/phase6-protocol.test.ts runner/test/progress-index.test.ts
+git diff --check
 git diff --cached --check
 npm.cmd test
 ```
@@ -543,6 +552,6 @@ revalidation was performed by either education review.
 
 Root separately completed exact `npm.cmd test` on the earlier pre-metrology/pre-compaction candidate:
 exit 0, Rule 7 clean over 415 files, both TypeScript projects green, and 78 files / 1,394 tests
-passed. That result remains historical. Root's fresh current-tree landing check is recorded in §7:
-exact `npm.cmd test` exits 0 with Rule 7 clean over 417 files, both TypeScript projects green, and
-79 files / 1,404 tests passed.
+passed. That result remains historical. Root's current-tree landing check is recorded in §7: exact
+`npm.cmd test` at `a1d540c` exits 0 with Rule 7 clean over 419 files, both TypeScript projects green,
+and 81 files / 1,442 tests passed.
