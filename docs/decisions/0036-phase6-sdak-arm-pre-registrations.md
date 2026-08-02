@@ -3,6 +3,14 @@
 - **Date:** 2026-07-30
 - **Status:** accepted
 
+> **Evidence correction 2026-08-01.** Dip centres do not establish the logarithm base. For the
+> printed factor, both `log10` and `ln` put the minima at 4.5 °C and 14.4 °C; changing base changes
+> width. The formerly cited 3.08/8.07 °C values are alphaHK crossing locations under the log10
+> reading, not centres. The plotted widths and resulting transition sequence support retaining
+> log10, but the transition count is a downstream diagnostic rather than independent source proof.
+> The registered forms and historical prediction are unchanged; the current justification hashes
+> and revision history are recorded by erratum E7.
+
 ## Charter impact
 
 None. §3.2 Phase 6 already requires the reporting shape this ADR works within:

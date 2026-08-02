@@ -32,7 +32,9 @@ The current correction unit is deliberately kept together pending exact root ver
 final non-author content/verifier review is clean. It includes:
 
 - M1's analytic dip centres are 4.5 °C and 14.4 °C under both `log10` and `ln`; 3.08/8.07 are
-  `alphaHK` crossing locations, not moved centres. Executable regression added.
+  `alphaHK` crossing locations, not moved centres. Executable regression added. The last surviving
+  false copy in arm 2's hashed justification is now corrected without changing its values hash; old
+  justification/combined hashes remain explicit revisions so historical rows still verify.
 - The exact registered columns cohort is P1–P4 × A/B/C = 12 rows. Its fail-closed reader now compares
   consecutive rungs and reports P1 **outcome 4**: 1.40000 → 1.52632 → 1.52174. Six later diagnostics
   are separate. Missing, duplicate, shifted and fall-removed mutations are rejected.
@@ -88,26 +90,42 @@ calling CPU rows “GPU harness” is not allowed. The charter minimum remains h
 runs at approximately eight million active cells; the active target is the full 204-point CAK and M1
 grid (408 preview-budget runs), reported separately from the float64 headline.
 
-The primary-source currency audit and candidate inventory are complete; the selected target/evidence
-freeze is still open. Current findings:
+The source inventory now has a fail-closed partial lock, not a selected validation target.
+`research/phase6-heldout-candidate-lock.json` pins five external file hashes, 21 Harrison archive
+members, all 16 reconciled levitation traces, corrected experimental conditions, a deterministic
+five-time extraction, Takahashi diagnostics, the rejected pressure row, and two history candidates.
+The executable verifier reproduces those bytes and says `passEligible=false`. Current findings:
 
-- Takahashi et al. 1991 free-cloud-chamber a/c trajectories appear structurally held out from the
-  CAK fit and are the leading size/growth candidate, subject to primary-data uncertainty review.
-- No admissible free-crystal prescribed-environment history matching the current geometry has been
-  found. Supported or needle histories require implementing/matching that geometry before scoring.
-- Do not freeze a pressure threshold: a 2024 archive extraction disagrees materially with Gonda and
-  Gomi's 1985 primary prose, so observable definitions and source currency must be reconciled first.
-- Libbrecht and Arnold 2009 is not held-out validation; Libbrecht's 2020 reanalysis says its original
-  kinetic interpretation was largely incorrect and the actual supersaturation was not known.
+- Harrison/Pokrifka is the cleanest mass-growth candidate, but particle shape and crystallography
+  were not observed and the present operator omits vapor-thermal latent-heat resistance. A regular
+  D6h seed would be this project's surrogate, not a source observation.
+- Takahashi −5.3 °C early mass is retained as a non-gating ensemble diagnostic only. Later sources
+  leave the actual warm supersaturation, hollow rim width and step-source state unresolved; its `a`
+  and `c` rows are unpaired and cannot form per-crystal aspect ratios.
+- The Takahashi 860/1010 mb ratio is context only. Pressure covaries with liquid-water content,
+  temperature drift, apparatus/population, polycrystallinity and riming, so no pass interval exists.
+- Harrington/Pokrifka 2026 needs substrate/asymmetric/rim/step-source physics. Magee 2006 is the
+  strongest free-particle history challenge but needs reversible sublimation, ventilation, latent
+  heat, figure digitization and a source-constrained frozen-droplet state.
+- No audited held-out family is presently apples-to-apples with the current solver. This is a
+  scientific source/model-scope blocker, not a resource deferral or permission to promote a near
+  miss.
+- The classical Nakaya reference gives morphology regions in temperature/supersaturation but no
+  crystal size or size stratum. The later 206-panel grid gives field-of-view widths around
+  c-axis-needle observations, not reported crystal dimensions for the current free-prism seed.
+  WP2 therefore cannot freeze an arbitrary convenient physical size.
 
 ## 5. Ranked next actions
 
-1. Finish the WP1 selected-target/evidence freeze and freeze no target until geometry, independence,
-   observable definition, source currency and uncertainty all pass review.
-2. Execute WP2's fixed-physics numerical reconnaissance and whole-grid domain/grid/timestep campaign;
-   record every probe as non-transferable until it matches the eventual registered configuration.
+1. The adversarial review of the candidate-source lock is clean. Retain `passEligible=false` until
+   geometry, independence, observable definition and uncertainty all pass. Do not infer the missing
+   Harrison crystallography or a convenient Nakaya measurement size from model output.
+2. The first bit-identical CPU preparation/cache improvement is implemented and independently
+   accepted. Specify the new resumable monopole checkpoint before freezing WP2 reconnaissance. Under
+   the current whole-grid rule the production domain minimum is 5,508 rows per nested size
+   trajectory; no rigorous D6h/monopole bound replaces it.
 3. Write the replacement science-first ADR and amended Phase 6 protocol only after WP1/WP2 supply
-   the missing target and numerical inputs. A plan is already committed;
+   an honest held-out disposition and passing numerical inputs. A plan is already committed;
    the ADR must quote every affected/no-impact charter clause and preserve ADR 0037's negative data.
 4. Implement a new versioned `phase6-r15-*` evidence path and flagless gate, then adversarially review
    it before any registered production row.
@@ -131,8 +149,9 @@ freeze is still open. Current findings:
 
 ## 7. Repository state and current verification
 
-- Branch `main`; local commits remain unpushed. This reviewed correction unit is intentionally kept
-  as one commit.
+- Branch `main`; local commits remain unpushed. The earlier reviewed correction unit is committed;
+  the partial source-lock/performance-preparation unit described above is currently uncommitted and
+  must receive exact root verification plus non-author recheck before commit.
 - `.claude/settings.local.json` is untracked user state and intentionally untouched.
 - Historical production sweep bytes were not modified. The arm64 fingerprint was relocated
   byte-identically from `docs/` into the manifest-guarded evidence tree (18,398 bytes, SHA-256
@@ -148,6 +167,7 @@ node app/scripts/phase6-arm2-independent.mjs
 node app/scripts/phase6-diagram-reconcile.mjs
 npx vitest run runner/test/evidence-integrity.test.ts runner/test/phase6-ladder-reader.test.ts runner/test/phase6-independent-evidence-scripts.test.ts runner/test/phase6-sdak.test.ts runner/test/phase6-sweep.test.ts runner/test/phase6-crossplatform.test.ts runner/test/phase6-protocol.test.ts
 npm run lint:rule7
+node scripts/verify-phase6-heldout-source-lock.mjs --harrison tmp/source-lock/harrison-2016.zip --pokrifka tmp/source-lock/pokrifka-2020.pdf --takahashi tmp/pdfs/takahashi1991.pdf --corrigendum tmp/pdfs/takahashi1991-corrigendum.pdf --history tmp/harrington-pokrifka-2026.zip
 ```
 
 All five direct readers/verifiers pass. The combined focused run is **7 files / 125 tests passed**,
@@ -157,6 +177,19 @@ projects passed, and Vitest passed **76 files / 1,347 tests** in 725.74 seconds.
 is clean. The closing reviewer separately invoked `npm.cmd test`; its 600.4-second tool ceiling
 terminated the still-passing run with exit 124 after Rule 7 and both typechecks completed, so that
 reviewer attempt is explicitly a timeout, not a second full-suite pass.
+
+The new partial source-lock verifier separately exits 0: five exact external files, 21 Harrison ZIP
+members, and every fixed-time interpolation reproduce; maximum observed bracket gap is
+`0.9451000000000249 s` in binary64 evaluation. Its focused Vitest file passes 7/7, including raw
+duplicate-key and unknown/duplicate-CLI-field controls. The prepared-kinetics differential passes
+56/56 across all existing parameter sets and all four policies; its independent reviewer reports no
+remaining blocker or should-fix. Exact root `npm test` on the complete unit exits 0 in 731.9 seconds:
+Rule 7 clean over 426 files, both TypeScript projects green, and 78 files / 1,383 tests passed
+(Vitest 721.88 seconds).
+
+The final combined current-unit run passes **4 files / 99 tests**. The source-lock reviewer
+independently reran 7/7 plus both byte verifiers and closed with zero blockers/should-fixes. The
+prepared-kinetics reviewer independently reran 56/56 and closed with zero blockers/should-fixes.
 
 ## 8. Review provenance and limits
 
@@ -173,8 +206,23 @@ reader mutation coverage, Rule 7, both typechecks and `git diff --check`. It fou
 content or fail-closed-verifier blocker. Its attempted repository-wide test hit the 600.4-second
 tool limit described above; that timeout is a review limit, not a pass or test failure.
 
+The candidate-source reviewer was OpenAI `gpt-5.6-sol` at ultra reasoning, non-author with full
+shared context. It independently checked all five external hashes, all 21 locked Harrison members,
+the 16 corrected condition rows, 80 interpolated ratios, duplicate/exclusion/missing-row controls,
+Takahashi ranges and every fail-closed mutation; final focused recheck was 7/7 plus both byte
+verifiers. It did not run the solver, exhaust world literature, recover missing crystallography,
+derive distributions, or digitize a compatible physical-size target.
+
+The prepared-kinetics reviewer was OpenAI `gpt-5.6-sol` at ultra reasoning, non-author with full
+shared context. It inspected construction, all boundary paths, timeline transactions, noise and
+override ordering, reports, ledgers and checkpoint codec use, and independently ran the final 56/56
+differential. It did not compare a separately built historical executable, run production-size or
+final-tolerance trajectories, test another engine/architecture, establish a whole-solver speedup,
+or complete final-tree `npm test`.
+
 No reviewer re-ran the 408 historical long solver jobs, an R15 production campaign, preview-budget
-GPU cohort or held-out experiment. The source-currency audit is complete, but the selected target/
-evidence freeze remains open. `docs/education/**`
+GPU cohort or held-out experiment. The candidate-source lock is complete, but the selected target/
+evidence freeze remains open because the current sources do not specify an apples-to-apples target.
+`docs/education/**`
 was explicitly out of scope. No arm64 execution or primary-source revalidation was performed by the
 closing reviewer. Root completed the exact full-suite check recorded above.

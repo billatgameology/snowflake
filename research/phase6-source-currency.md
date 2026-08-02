@@ -1,10 +1,20 @@
 # Phase 6 source-currency and held-out-target audit (Rule 12)
 
-**Status:** current primary-source audit completed 2026-08-01; target freeze still open. This record
-supersedes the 2026-07-28 title/version-only pass, which explicitly had not read most later papers or
-checked journal/errata sources. It does not edit the historical frozen table or upgrade any existing
-artifact. The science-first replacement protocol must cite this audit and independently review the
-selected target bytes, extraction and uncertainty before freezing.
+**Status:** reopened and corrected 2026-08-01; candidate bytes and extraction are locked, but no
+held-out validation target is frozen. The first 2026-08-01 pass missed later Takahashi and
+Harrison/Pokrifka papers that materially change target admissibility. The machine-checked
+[`phase6-heldout-candidate-lock.json`](phase6-heldout-candidate-lock.json) now freezes the candidate
+bytes, the independently reviewed manual transcription of corrected conditions, all usable
+levitation traces, deterministic extraction, and rejected-row controls. Its verifier hashes the
+source PDFs and archive bytes and independently re-executes the trace extraction; it does not parse
+the corrected condition table from the PDF. Its `passEligible=false` field is load-bearing: the lock
+prevents source drift but supplies no validation threshold.
+
+This record supersedes the 2026-07-28 title/version-only pass and the earlier same-day statement that
+Takahashi was conditionally admissible. It does not edit the historical frozen parameter table,
+upgrade any evidence label, or authorize a production comparison. The science-first replacement
+protocol may consume a target only after the missing geometry/transport systematic is bounded
+without inspecting model output.
 
 ## Method and cutoff
 
@@ -45,6 +55,8 @@ pair. Relevant later primary versions reviewed are:
 | `2109.00098` c-axis needle methods | v1 | geometry dependency for the 206-observation corpus |
 | `2306.04042` faceting | v1 | later model qualification |
 | `2306.13087` quantitative Nakaya / M1 | v1 | defines the Nakaya-tuned M1 model and shares the 206-observation needle corpus |
+| Harrison et al. 2023, DOI `10.1175/JAS-D-22-0077.1` | journal article | effective-density and polycrystal qualification for frozen-droplet experiments |
+| later columnar/substrate study, DOI `10.1175/JAS-D-25-0030.1` | journal article | geometry and support qualification; not a free-prism target |
 
 No reviewed later paper justifies silently replacing the frozen CAK table. The dedicated −2 and
 −5 °C measurement papers support its warm anchors; M1/M2 are distinct modelling alternatives. No
@@ -69,112 +81,155 @@ an exhaustive publisher-book errata search.
 - Kuroda/Gonda and Gonda predate the current inputs and are external, but their geometry and omitted
   transport/thermal physics prevent current-model quantitative scoring.
 
-## 3. Candidate matrix
+## 3. Corrected candidate matrix
 
-| charter family | best audited primary target | independence | current-model compatibility | verdict |
+| charter family | strongest audited candidate | source independence | unresolved mismatch | verdict |
 |---|---|---|---|---|
-| growth versus T and supersaturation | Takahashi et al. 1991, DOI `10.2151/jmsj1965.69.1_15`; corrigendum `10.2151/jmsj1965.69.2_251` | dimensions held out from CAK; habit partly in-sample for M1 | free fall and near-atmospheric air; water saturation only; different specimens at successive times; uncertain seeds; later riming/ventilation | **conditionally admissible partial target**, especially early −5.3 °C |
-| size-dependent habit | Takahashi −5.3 °C hollow-column→sheath/needle sequence | dimensions external to CAK; categorical habit partly in-sample for M1 | ensemble at successive times rather than one trajectory; topology becomes load-bearing | **conditional**, with explicit ensemble/topology limits |
-| pressure | Kuroda & Gonda 1984; Gonda 1976; Gonda & Gomi 1985 | external | substrate or gas-specific transport/thermal/supersaturation/size confounds | **no admissible current-model quantitative target** |
-| prescribed history | Harrington & Pokrifka 2026 | postdates inputs; exact switch history | substrate-supported; rim width, step source and asymmetric transport absent | **no admissible target for current geometry**; leading future substrate-model target |
+| growth versus T and supersaturation | Harrison et al. 2016 archive, corrected by Pokrifka et al. 2020 | direct single-particle mass ratios are not solver inputs | crystallography and shape were not observed; the present operator omits vapor-thermal latent-heat resistance | **candidate bytes locked; not scoreable** |
+| size-dependent habit | Takahashi et al. 1991 −5.3 °C ensemble | mass/dimensions are external to CAK; category is partly in-sample for M1 | actual warm-run supersaturation, hollow rim width, seed state, and step-source location are unresolved | **diagnostic only** |
+| pressure | Takahashi/Fukuta 860 mb versus Takahashi 1010 mb; Kuroda/Gonda/Gomi alternatives | external | pressure covaries with experiment, gas, substrate, liquid-water content, temperature drift, population, ventilation, or riming | **no quantitative target** |
+| prescribed history | Harrington/Pokrifka 2026 step; Magee/Moyle/Lamb 2006 cycle | postdates or is independent of the solver inputs | supported/asymmetric growth for the first; sublimation, ventilation, latent heat, and unobserved crystallography for the second | **no current-model target** |
 
-No one audited dataset currently satisfies all four families under the present geometry.
+No audited dataset is presently apples-to-apples with the current single-crystal free-prism solver.
+That is a source/model-scope result, not permission to widen an error bar until a comparison passes.
 
-## 4. Conditional Takahashi target
+The classical morphology reference also does not supply WP2's required physical measurement size.
+Libbrecht `1211.5555v1` Figure 1 defines regions only in temperature and ice supersaturation: it
+reports no crystal size, growth time, scale bar, or size stratum. The later in-sample 206-observation
+grid in `2306.13087v1` Figure 2 labels growth time and each panel's square field-of-view width
+(164–2026 µm in the audited panels), but those widths are not reported crystal dimensions or a
+common size stratum. The panels are subjectively selected 2-D projections with no stated span
+uncertainty, and their c-axis needle seed is load-bearing. Borrowing a field-of-view width as crystal
+extent or choosing a convenient common size is therefore forbidden. A future use would require a
+pre-registered panel segmentation/digitization and matching e-needle implementation.
 
-Takahashi et al. 1991 used isolated crystals freely suspended in a vertical cloud tunnel near water
-saturation and about 1010 mb, over −3 to −23 °C and 3–30 minutes. Reported temperature variation is
-roughly ±0.2 °C early and ±0.4 °C later; cloud liquid water is about 0.1 g m⁻³ with mostly 5–15 µm
-droplets. Specimens at successive times are different crystals, not longitudinal measurements of one
-individual. The official corrigendum changes Figure 3 placement/issue metadata, not numeric results.
+## 4. Locked levitation mass-growth candidate
 
-The −5.3 °C series is the leading present-model candidate: ventilation was reported unnoticeable
-even at large size and the paper gives strong axial-ratio evolution. Hollow/sheath topology later
-becomes important; failure to reproduce it must be reported, not hidden by scoring only dimensions.
+Harrison et al. 2016, article DOI `10.1175/JAS-D-15-0234.1` and official archive DOI
+`10.26208/dd1w-wa17`, contains direct mass-ratio histories for individually levitated
+heterogeneously frozen droplets under constant reported temperature and pressure and modeled ice
+supersaturation.
+Pokrifka et al. 2020, DOI `10.1175/JAS-D-19-0303.1`, reanalyses those histories and corrects the
+temperature, ice-supersaturation, and initial-radius table. The corrected source quotes a maximum
+relative mass-ratio error of 5%; its condition ranges are marginal ranges, not probability
+distributions. Their joint dependence is not reported, and ice-supersaturation uncertainty is partly
+derived from plate-temperature uncertainty, so the lock does not define a scoreable Cartesian
+prediction envelope or favorable corner.
 
-The 2026 Penn State archive (DOI `10.26208/XJQK-R076`) contains machine-readable `a`/`c` values
-digitized from Takahashi figures. Despite filenames containing `raw`, these are later digitizations,
-not original instrument records, and they lack per-point dimensional uncertainty.
+The candidate lock includes all 16 archive traces that reconcile to the corrected heterogeneous
+table. It fixes common observation times `{60,120,180,240,300} s`, finite six-column parsing,
+nondecreasing time, positive mass ratio, median coalescing of equal timestamps, and linear
+interpolation. The largest observed interpolation bracket is 0.9451 s. The verifier hashes the
+accepted manuscript that supplied the manually transcribed condition table, but does not extract
+that table from the PDF. It executes the
+8,850-duplicate-timestamp `712k` case, rejects `heticegrowth_625.dat`, refuses to synthesize the
+missing corrected −31.5 °C row, uses only direct mass ratio for the inconsistent `716d` absolute-mass
+column, and pins the corrected `805l` radius.
 
-A defensible pre-registration must:
+This is the strongest growth-rate candidate, but it is not a frozen validation target. The particle
+shape and crystallography were not imaged. The later 2020 and 2021 analyses report growth-mode and
+lateral-facet behavior that a fixed D6h single-crystal seed does not represent. The printed
+vapor-thermal/latent-heat resistance is source-specifiable without fitting and may be implemented in
+a later numerical arm; the missing per-particle crystallography is not source-specifiable. A compact
+isometric seed would be a sensitivity surrogate, not an observation.
 
-- compare `a(t)` and `c(t)` separately and describe the rows as an ensemble, not one-crystal history;
-- independently redigitize or use the paper's ensemble fits, with digitization and temperature
-  uncertainty propagated;
-- convert water saturation through the registered Murphy–Koop-refereed table path, never the known
-  invalid warm-end `sigmaWater()` difference form;
-- freeze physical seed/initial-size mapping and stop before riming or ventilation invalidates the
-  comparison;
-- label M1's numeric dimension comparison as held-out observable under an in-sample habit class;
-- state that this samples temperature along one physical water-saturation curve, not an independent
-  two-dimensional `(T, sigma)` grid.
+The source particles were heterogeneously nucleated Snomax/HPLC-water frozen droplets, not observed
+pristine faceted seeds. The apparatus review found no substrate or fall-ventilation mismatch: an
+oscillatory button quadrupole traps each particle while a constant vertical electric field balances
+gravity, the reported charge estimate is about an order of magnitude below the cited electrically
+enhanced-growth threshold, and later work treats the slow-rotation correction as small. Those checks
+make this candidate cleaner than the free-fall and substrate families; they do not identify the
+frozen droplet's crystallography or shape.
 
-## 5. Pressure sources and unresolved discrepancy
+## 5. Takahashi diagnostics and corrigendum
 
-Kuroda and Gonda 1984 (DOI `10.2151/jmsj1965.62.3_563`) measured substrate-grown crystals at −30 °C
-in air at 0.3 and 250 Torr. At `sigmaInfinity = 3%`, low-pressure growth is nearly linear over roughly
-10–160 µm while 250 Torr becomes nonlinear. Normal-rate comparisons use different reference sizes.
-The plotted data are useful diagnostics, but the inferred pressure-dependent attachment coefficients
-were challenged by later diffusion analysis; no electronic table or explicit plotted-point
-uncertainty was found.
+Takahashi et al. 1991, DOI `10.2151/jmsj1965.69.1_15`, used freely suspended crystals in a vertical
+cloud tunnel over −3 to −23 °C. The official corrigendum DOI `10.2151/jmsj1965.69.2_251` changes
+Figure 3 placement and issue metadata, not Table 2 or the reported pressure comparison. The source
+reports roughly ±0.2 °C early temperature variation, mostly 5–15 µm droplets, and different ensemble
+specimens at successive times.
 
-Gonda 1976 (DOI `10.2151/jmsj1965.54.4_233`) is free-fall but varies helium/argon across a broad
-pressure range. The solver implements air through `D(P)`, not gas-specific diffusion and thermal
-conductivity, and the article reports plot-level morphology frequencies rather than raw rates.
+The lock retains only a non-gating early-mass diagnostic at −5.3 °C. Table 2 gives
+`m(t)=8.4e-9*t^2.00 g`, with `t` in minutes, hence `7.56e-8 g` at 3 minutes and `2.10e-7 g` at
+5 minutes. Westbrook and Heymsfield 2011, DOI `10.1175/JAS-D-11-017.1`, supports ±10 s growth-time
+uncertainty and typical ±20–30% experimental mass scatter. The lock uses the conservative 30% value
+as a nonprobabilistic diagnostic range, composed explicitly as
+`[0.7*m(t - 10 s), 1.3*m(t + 10 s)]`.
 
-Gonda and Gomi 1985 (DOI `10.3189/1985AoG6-1-222-224`) gives a useful −30 °C instability boundary at
-several pressures but is substrate-grown. Its primary prose reports lowest instability
-supersaturations about 1.7%, 4.1% and 10.1% at `10^5`, `3.3×10^4` and `4×10^3 Pa`. The
-Harrington/Pokrifka archive instead records 2.84±0.644% at “1000 hPa” and 5.83±0.84% at “300 hPa.”
-The observable/definition/extraction mismatch is unresolved. **Do not freeze either archive threshold
-until it is reconciled from primary figures and definitions.**
+This row is not validation. Takahashi 2014, DOI `10.1175/JAS-D-14-0043.1`, leaves the actual warm-run
+water supersaturation unresolved. The 2026 analysis also shows hollow-crystal growth depending on
+unobserved rim width and step-source location. The paper's `a` and `c` digitizations are unpaired
+ensemble rows, so combining them into a per-crystal aspect ratio would manufacture an observation.
 
-## 6. Prescribed-history result
+## 6. Pressure candidates remain rejected
 
-The 2026 Harrington/Pokrifka article (DOI `10.1175/JAS-D-26-0016.1`) and archive
-`10.26208/XJQK-R076` provide an exact schedule at −50 °C, about 972 hPa, 48% supersaturation followed
-by 20% at 230 minutes, with `a`, `c`, min/max errors and rim width versus time. −50 °C is at the CAK
-interpolation boundary. The blocker is physics/geometry: substrate-supported growth, rim width,
-step-source location and asymmetric transport are quantitatively load-bearing and absent from the
-current free-crystal solver.
+The same free-fall-tunnel lineage compares the present 1010 mb results with Takahashi and Fukuta
+1988, DOI `10.2151/jmsj1965.66.6_841`, at 860 mb
+and reports the lower-pressure crystals about 30% heavier on average at ten minutes. The comparison
+is recorded as `TAKAHASHI91_PRESSURE_CONTEXT_V1`, not as a target: liquid-water content, temperature
+drift, apparatus/run population, polycrystallinity, ventilation, and riming differ between studies.
+Neither the ratio nor its direction isolates the implemented `D(P)` term, so no pass interval is
+derived.
 
-The related 2025 paper (DOI `10.1175/JAS-D-25-0030.1`) also uses substrate/thermal-gradient growth;
-only its −50 to −46 °C portion lies inside the current parameter domain. The 2024 article/DOI
-`10.1175/JAS-D-23-0131.1` and archive `10.26208/YMMC-Z637` give compact/hollow transitions but no
-crystal size in threshold rows, so cannot discharge size-dependent habit alone.
+Kuroda and Gonda 1984 (DOI `10.2151/jmsj1965.62.3_563`) is substrate-grown; Gonda 1976 (DOI
+`10.2151/jmsj1965.54.4_233`) changes helium/argon as well as pressure; Gonda and Gomi 1985 (DOI
+`10.3189/1985AoG6-1-222-224`) is substrate-grown and its instability-threshold definition does not
+reconcile with the later archive transcription. These are useful scientific context, not a matched
+air-pressure experiment.
 
-The targeted audit found no source combining all of:
+## 7. Prescribed-history candidates remain rejected
 
-1. free/isolated geometry compatible with the current seed;
-2. exact time-varying T or supersaturation;
-3. conditions inside the source-defined parameter domain;
-4. dimensional/morphological time series with usable uncertainty.
+Harrington and Pokrifka 2026, DOI `10.1175/JAS-D-26-0016.1` and archive
+`10.26208/XJQK-R076`, provides an exact −50 °C, about 972 hPa schedule with ice supersaturation
+changing from 48% to 20% at 230 minutes. Its substrate, asymmetric vapor/thermal transport, rim-width
+state, and step-source mechanism are quantitatively load-bearing. Selecting the source mechanism
+whose prediction resembles its outcome would be circular.
 
-This is a targeted-search result, not a theorem that no compatible experiment exists. Do not relabel
-Takahashi's constant-environment ensemble or a qualitative movie as a prescribed-history target.
-Science-first options are to implement and verify substrate/thermal/step-source physics, acquire a
-compatible dataset, or leave this charter obligation explicitly incomplete.
+The strongest omitted challenge found in a separate search is Magee, Moyle and Lamb 2006, DOI
+`10.1029/2006GL026665`: 35 relative-mass observations of one freely levitated particle through a
+cyclic humidity history near −50 °C and 973 hPa. It still cannot score the current solver. The cycle
+alternates growth and evaporation while the operator returns zero for nonpositive surface
+supersaturation; the schedule is figure-only; crystallography was unobserved and likely
+polycrystalline; and vertical flow, ventilation, and latent heat are omitted. Selecting only a later
+supersaturated suffix would inherit an unknown state produced by the unsupported evaporation.
 
-## 7. Freeze consequences
+The targeted search also checked supported cyclic-growth work, qualitative filament experiments,
+constant-environment free-particle experiments, cloud-chamber trajectories, and Libbrecht videos.
+None combined compatible free-single-crystal geometry, an exact schedule, in-domain conditions, and
+longitudinal observables with usable uncertainty. This is the measured scope of the search, not a
+theorem about every experiment that could exist.
 
-- Freeze no held-out production target in this commit; the source audit precedes, rather than
-  silently becoming, the protocol decision.
-- Takahashi −5.3 °C is the leading conditional growth/size target and requires independent extraction
-  plus uncertainty review.
-- Pressure and prescribed-history targets are blocked for the current geometry. A diagnostic may run
-  only if labelled non-transferable; it cannot discharge the charter obligation.
-- Any new geometry/physics is an ADR/spec/implementation decision and requires its own numerical and
-  evidence review before held-out scoring.
+## 8. Freeze consequences
 
-## 8. Review provenance and limits
+- The candidate-source lock is complete and machine-verified against five external files and 21
+  Harrison archive members. The PDF checks are byte/hash checks; corrected conditions are a
+  digest-pinned manual transcription, not a machine extraction from the PDF. It remains
+  `passEligible=false`.
+- WP1's validation-target freeze remains open. No R15 or held-out production row may start from this
+  lock alone.
+- WP2's physical-size freeze is independently source-blocked for the current free-prism/classical-
+  Nakaya geometry; the reference supplies no maximum dimension or size stratum.
+- A source-specifiable latent-heat arm can narrow the Harrison mismatch, but cannot infer the missing
+  per-particle crystallography. Substrate or sublimation work similarly does not erase the other
+  candidates' unobserved initial state.
+- The pressure and history obligations must be reported as scientifically blocked unless a matched
+  source or independently specified new geometry/physics is frozen before execution. They are not
+  resource-deferred and must not be marked passed.
+- Any new physics is an ADR/spec/implementation decision with its own numerical and evidence review.
 
-Reviewer: OpenAI Sol-class Codex subagent with full shared request/handoff context, not involved in
-Phase 6 authoring and not context-blind. It re-executed arXiv version queries, checked the official
-publication list, read primary Takahashi/Gonda/Kuroda-Gonda/Gonda-Gomi sources, inspected DOI/archive
-metadata and CSV rows for Harrington/Pokrifka 2024–2026, and traced dependencies against `1208.5982`,
-CAK and M1.
+## 9. Review provenance and limits
 
-It did not execute the solver, numerically reproduce any paper, perform an exhaustive world-literature
-or publisher-book-errata search, contact authors, or access the full 2024 AMS article body. The 2024
-archive and authoritative metadata were available; the threshold-definition discrepancy remains an
-explicit blocker.
+The principal WP1 reviewer was OpenAI `gpt-5.6-sol` at ultra reasoning, non-author but sharing the
+full repository context. It independently rendered the official J-STAGE paper/corrigendum and NSF
+accepted manuscript, hashed and parsed every Harrison archive member, recomputed the 16 trace
+interpolations and Takahashi diagnostic ranges, inspected the later 1999/2011/2014/2020/2021 and
+2024–2026 source lineage, and traced circularity against CAK and M1. A second non-author reviewer
+searched independently for prescribed-history candidates and identified Magee 2006 as the strongest
+omitted challenge.
+
+The reviewers did not run the solver, recover the missing experimental trace, prove particle
+crystallography, resolve `716d`'s radius/absolute-mass inconsistency, derive probability
+distributions, exhaust every world publication, contact authors, digitize the Magee figures, or
+implement latent heat, sublimation, ventilation, substrate, polycrystal, rim, or step-source physics.
+The required source-byte verifier was then executed locally by the integrating reviewer; its pass
+does not resolve any of those scientific limits.

@@ -25,7 +25,7 @@
 
 import {
   isNucleationParamSet,
-  alphaHK,
+  alphaHKFromPrepared,
   cSat,
 
   cellCount,
@@ -38,6 +38,7 @@ import {
   kineticLength,
   mIce,
   metersSmootherDrift,
+  prepareAlphaHK,
   randomBit,
   usesCanonicalOpposingOrder,
   validateTimelineSchedule,
@@ -51,6 +52,7 @@ import {
   type LKSurfacePolicy,
   type LKTimelineEnvironment,
   type NucleationParamSet,
+  type PreparedAlphaHK,
 } from "@vcc/core";
 import type { LedgerReport, RelaxationReport, SurfaceOperator, SurfaceReport } from "./operator.ts";
 
@@ -328,6 +330,8 @@ export class LKSolver implements SurfaceOperator {
   private _mIceLedger: number;
   private _maximumKineticVelocityScaleMS: number;
   private _maximumKineticFillRateScalePerSecond: number;
+  /** Facet kinetics constant between accepted temperature events. */
+  private preparedAlphaHK: PreparedAlphaHK;
   /** Geometry-adjusted max fill velocity max(rate)·dx (m/s) of the most recent update. */
   lastMaxFillVelocityMS = 0;
   holeFillCountTotal = 0;
@@ -534,6 +538,7 @@ export class LKSolver implements SurfaceOperator {
     this._maximumKineticVelocityScaleMS = initialScales.maximumKineticVelocityScaleMS;
     this._maximumKineticFillRateScalePerSecond =
       initialScales.maximumKineticFillRateScalePerSecond;
+    this.preparedAlphaHK = prepareAlphaHK(this.tempC, this.paramSet);
     // Positive raw inputs are not enough: IEEE-754 conversion/derived arithmetic can still
     // collapse an accepted run (for example Number.MIN_VALUE µm -> dxM === 0, or an
     // underflow-scale pressure -> X_0 === Infinity). Validate every derived scale the
@@ -772,6 +777,9 @@ export class LKSolver implements SurfaceOperator {
         this.dxM,
       );
       const temperatureChanged = !Object.is(target.tempC, this.tempC);
+      const stagedPreparedAlphaHK = temperatureChanged
+        ? prepareAlphaHK(target.tempC, this.paramSet)
+        : this.preparedAlphaHK;
       const cSatRatioOldToNew =
         derivedBefore.cSatPerCubicMeter / derivedAfter.cSatPerCubicMeter;
       requirePositiveFinite(cSatRatioOldToNew, "temperature density ratio");
@@ -913,6 +921,7 @@ export class LKSolver implements SurfaceOperator {
       this._maximumKineticVelocityScaleMS = derivedAfter.maximumKineticVelocityScaleMS;
       this._maximumKineticFillRateScalePerSecond =
         derivedAfter.maximumKineticFillRateScalePerSecond;
+      this.preparedAlphaHK = stagedPreparedAlphaHK;
       this.closedPlacedFillVaporUnits = stagedClosedPlacedFillVaporUnits;
       this.currentTemperatureSegmentStartFill = stagedTemperatureSegmentStartFill;
       this.sEff.fill(0);
@@ -1014,7 +1023,7 @@ export class LKSolver implements SurfaceOperator {
     let a =
       this.testAlphaOverride !== undefined
         ? this.testAlphaOverride(facet, this.tempC, sigmaSurf)
-        : alphaHK(facet, this.tempC, sigmaSurf, this.paramSet);
+        : alphaHKFromPrepared(facet, sigmaSurf, this.preparedAlphaHK);
     if (this.noiseEpsilon > 0) {
       a *=
         1 - this.noiseEpsilon * randomBit(this.rngSeed, index, this.tick, STREAM_NOISE_ALPHA_HK);

@@ -5,15 +5,18 @@
 import { describe, expect, it } from "vitest";
 import {
   alphaHK,
+  alphaHKFromPrepared,
   cSat,
   classifyFacet,
   type FacetClass,
   isLKSurfacePolicy,
   kineticLength,
   mIce,
+  NUCLEATION_PARAM_SETS,
   nucleationAPrism,
   pSatIce,
   pecletUpperBound,
+  prepareAlphaHK,
   sigma0Basal,
   M1_DOMAIN_MAGNITUDE_C,
   sigma0BasalFor,
@@ -119,6 +122,41 @@ describe("digitized sigma_0 / A anchors (monograph Fig. 4.5; P2, ±25%)", () => 
 });
 
 describe("alphaHK and versioned surface classification (ADR 0009)", () => {
+  it("prepares every parameter set without changing one coefficient bit", () => {
+    const facets: readonly FacetClass[] = ["basal", "prism", "rough", "inhibited"];
+    const temperatures = [-1, -2, -4.5, -5, -10, -14.4, -15, -35, -50] as const;
+    const supersaturations = [
+      Number.NEGATIVE_INFINITY,
+      -0.01,
+      -0,
+      0,
+      Number.MIN_VALUE,
+      1e-300,
+      1e-12,
+      0.001,
+      0.1,
+      Number.POSITIVE_INFINITY,
+      Number.NaN,
+    ] as const;
+
+    for (const set of NUCLEATION_PARAM_SETS) {
+      for (const tempC of temperatures) {
+        const prepared = prepareAlphaHK(tempC, set);
+        expect(Object.isFrozen(prepared), `${set} at ${tempC} C`).toBe(true);
+        for (const facet of facets) {
+          for (const sigmaSurf of supersaturations) {
+            const direct = alphaHK(facet, tempC, sigmaSurf, set);
+            const cached = alphaHKFromPrepared(facet, sigmaSurf, prepared);
+            expect(
+              Object.is(cached, direct),
+              `${set} ${facet} at ${tempC} C, sigma=${String(sigmaSurf)}`,
+            ).toBe(true);
+          }
+        }
+      }
+    }
+  });
+
   it("recognizes exactly the four coupled LK surface policies", () => {
     expect(isLKSurfacePolicy("legacy-v3")).toBe(true);
     expect(isLKSurfacePolicy("aggregate-hv-g1h1-v4")).toBe(true);

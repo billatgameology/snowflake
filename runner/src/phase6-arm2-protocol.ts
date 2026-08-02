@@ -238,9 +238,12 @@ export const PHASE6_ARM2_ROW_OVERRIDES: Readonly<Record<string, Phase6FreezeItem
       "10.7%/9.0% systematic entirely — but it also has no natural domain, so adopting it as " +
       "printed would have silently dropped the extrapolation ban the digitized set enforces. " +
       "Bounded to the anchors' own domain so no new number is registered. The base-10 reading is " +
-      "not stated in any paper: it is established by the dip minima landing at the 4.5 °C and " +
-      "14.4 °C the prose names, where natural log puts them at 3.08 °C and 8.07 °C and yields " +
-      "five habit transitions instead of three",
+      "not stated in any paper. Dip minima cannot distinguish logarithm bases: both factors reach " +
+      "their minima at the printed 4.5 °C and 14.4 °C centres under log10 and ln; changing base " +
+      "changes dip width, not centre. Base 10 is retained because the printed Figure 1 widths " +
+      "match that reading. The formerly quoted 3.08 °C and 8.07 °C values are alphaHK crossing " +
+      "locations, not dip centres; the downstream three-versus-five transition count is a " +
+      "diagnostic consequence rather than independent proof of the base",
   },
   "parameter-table": {
     requirement: "the provenance of arm 2's attachment-kinetics inputs",
@@ -422,7 +425,24 @@ export const PHASE6_ARM2_VALUES_SHA256 =
 
 /** Arm 2's justification hash — reported, never gated. Prose corrections cost no re-sweep. */
 export const PHASE6_ARM2_JUSTIFICATION_SHA256 =
-  "1b7faeb85fb9095931ef9294d65c619723ac389de24daddd8d9c173b833d00e8";
+  "80e9c920b04c0a6e1f6985b2edb1e6cf33d336bb8bb89eb3fdf437a7dcfc24ba";
+
+/** Justification-hash revisions for arm 2, newest last; old evidence cites the first row. */
+export const PHASE6_ARM2_JUSTIFICATION_REVISIONS: readonly {
+  sha256: string;
+  note: string;
+}[] = [
+  {
+    sha256: "1b7faeb85fb9095931ef9294d65c619723ac389de24daddd8d9c173b833d00e8",
+    note: "historical arm-2 justification, including the incorrect logarithm-base centre claim",
+  },
+  {
+    sha256: "80e9c920b04c0a6e1f6985b2edb1e6cf33d336bb8bb89eb3fdf437a7dcfc24ba",
+    note:
+      "2026-08-01 prose correction: both logarithm bases retain the printed dip centres; base " +
+      "changes width, and 3.08/8.07 C are alphaHK crossings. Registered values are unchanged",
+  },
+];
 
 /** Values-hash revisions for arm 2, newest last. */
 export const PHASE6_ARM2_VALUES_REVISIONS: readonly { sha256: string; note: string }[] = [
@@ -465,4 +485,16 @@ export function phase6Arm2ProtocolManifest(
  * the lesson ADR 0034 paid for on arm 1.
  */
 export const PHASE6_ARM2_PROTOCOL_SHA256 =
-  "b09a932ec7345eddf838ee2de1c0ef4731212c625a1069e62193c06ae950fdec";
+  "785f7325f7042b17ed220a19cc404d4ad0a5023d3c64de412afab138835db6e1";
+
+/** Combined-hash revisions for arm 2, newest last; combined hashes move on prose by design. */
+export const PHASE6_ARM2_PROTOCOL_REVISIONS: readonly { sha256: string; note: string }[] = [
+  {
+    sha256: "b09a932ec7345eddf838ee2de1c0ef4731212c625a1069e62193c06ae950fdec",
+    note: "historical combined manifest cited by the 204-row arm-2 artifact",
+  },
+  {
+    sha256: "785f7325f7042b17ed220a19cc404d4ad0a5023d3c64de412afab138835db6e1",
+    note: "combined manifest after the 2026-08-01 logarithm-base justification correction",
+  },
+];

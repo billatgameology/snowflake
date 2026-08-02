@@ -7,9 +7,10 @@
 //   sigma_0,basal(T) = (0.02 T^1.75 + 0.3) * (1 - 0.87 exp(-(log T - log 4.5)^2 / 0.07))
 //   sigma_0,prism(T) = (0.015 T^2 + 0.02 T^0.6) * (1 - 0.95 exp(-(log T - log 14.4)^2 / 0.06))
 //
-// `log` is BASE 10. Established by this project on 2026-07-29: with natural log the dips land at
-// 3.08/8.07/24.73 and Math.log gives five M1 crossings; with log10 the dip centres are at 4.5 and
-// 14.4 degrees as the paper's own prose describes them.
+// `log` is BASE 10. The paper does not state the base. Dip centres cannot select it: both log10 and
+// natural log place the factor minima at the printed 4.5 and 14.4 degrees. The base changes dip
+// width and therefore the downstream crossings: 3.08/8.07/24.73 are log10 alphaHK crossings, not
+// dip centres. The paper's plotted widths and resulting three-transition reading support log10.
 //
 // WHY THIS IS A CLEAN PREDICTION, and why it is exactly the analysis the retraction demands.
 //

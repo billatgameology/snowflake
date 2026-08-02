@@ -90,9 +90,28 @@ Rules: [AGENTS.md](../AGENTS.md). Spec: [project charter.md](../project%20charte
   [the science-first completion plan](plans/phase-6-science-first-completion.md). The maker directed
   that scientific criteria take priority over resource cost. No new production evidence runs until
   a replacement ADR/protocol and its adversarial review freeze the repaired geometry and gate. The
-  WP0 interpretation/evidence correction has a clean non-author content/verifier review. Exact root
-  `npm test` exits 0 in 735.4 seconds: Rule 7 clean over 408 files, both TypeScript projects green,
-  and 76 files / 1,347 tests passed.
+  WP0 interpretation/evidence correction has a clean non-author content/verifier review. WP1 now
+  has a machine-verified partial source lock with a clean non-author review: five candidate source
+  files and 21 Harrison archive members verify, all 16 reconciled levitation traces are retained,
+  raw/canonical manifest mutations and ZIP-basename ambiguity fail closed, and the lock explicitly
+  says `passEligible=false`. No held-out target is presently apples-to-apples: the strongest mass data
+  lack observed crystallography and latent-heat transport; the pressure comparison is confounded;
+  and the history candidates require missing load-bearing geometry/physics. The target freeze and
+  WP7 therefore remain open. The classical morphology reference also supplies no physical crystal
+  size/stratum; the later panel widths are fields of view around c-axis-needle observations, not
+  reported dimensions for the current free-prism seed. WP2 independently derives a minimum
+  5,508-row whole-grid domain
+  campaign per nested physical-size trajectory; no valid D6h/monopole theorem currently reduces it,
+  and the likely large-source geometry requires resumable monopole checkpoints before
+  reconnaissance. The first bit-identical optimization is implemented and independently accepted:
+  it prepares four temperature/parameter-set facet constants without changing the per-call
+  expression, noise order, solver state, reports, ledgers or checkpoint bytes; the final focused
+  differential passes 56/56 across all four policies. Its 4.86× measurement is coefficient-only,
+  not a whole-solver speed claim. The last false logarithm-base copy in arm 2's hashed
+  justification is corrected as prose-only revision history; its registered values hash and all
+  executed rows are unchanged. Exact root `npm test` on the complete current unit exits 0 in
+  731.9 seconds: Rule 7 clean over 426 files, both TypeScript projects green, and 78 files / 1,383
+  tests passed (Vitest 721.88 seconds).
 - **Last updated:** 2026-08-01 by OpenAI Codex (`gpt-5.6-sol`)
 - **Phase 5 is frozen as Windows-only at the operator's direction.** Decision
   [0018](decisions/0018-phase5-windows-only-gate.md), charter v1.16, and the active
@@ -733,9 +752,10 @@ in charter §3.1 and get no retroactive ADR.
 ## Active plan
 
 - [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) — active. The
-  maker selected execution of O1b rather than narrowing the charter. WP0 is correcting the evidence
-  interpretation/state; WP1's source audit/inventory is complete and its selected-target freeze is
-  open. Before any new production row, the
+  maker selected execution of O1b rather than narrowing the charter. WP0's evidence correction is
+  complete. WP1's candidate-source lock is complete and verified, while the selected validation
+  target remains open because no audited source is apples-to-apples with the current geometry and
+  physics. Before any new production row, the
   project must accept a replacement ADR and amended protocol that freeze exact rational spacing,
   physical seed/size mapping, whole-grid domain and timestep controls, round-trip-exact structured
   output, primary measured spacing, extrapolation truth table, immutable source snapshot,
@@ -745,8 +765,10 @@ in charter §3.1 and get no retroactive ADR.
   remain measured evidence, and the accepted failure to reproduce Nakaya remains reportable at that
   scope. CAK→M1 is not a causal dip ablation; the new plan adds a matched
   `M1_NO_DIP_ABLATION`. The charter's GPU obligation requires v6/M1/monopole support plus a derived
-  binary32 convergence rule before hundreds of preview-budget runs. Held-out targets remain blocked
-  until their geometry, source currency, independence and uncertainty are apples-to-apples.
+  binary32 convergence rule before hundreds of preview-budget runs. WP2's reviewed lower bound is
+  5,508 domain rows per nested size trajectory under the current whole-grid rule, plus 1,836 for
+  each added global domain or spacing. Held-out targets remain blocked until their geometry, source
+  currency, independence and uncertainty are apples-to-apples.
 
 ## Completed plans
 
@@ -898,19 +920,19 @@ immutable.
 
 ### Current resume point — Phase 6 science-first completion
 
-1. Finish WP1's selected-target/evidence freeze. The primary-source currency matrix is complete.
-   Takahashi et al. 1991 currently appears structurally
-   held out from the CAK fit and is a candidate free-cloud size/growth trajectory. Do **not** freeze a
-   pressure target: the 2024 archive's Gonda/Gomi thresholds disagree materially with the 1985
-   primary prose and require reconciliation. No admissible free-crystal prescribed-history target
-   has yet been found; supported/needle histories require matching geometry before scoring.
-2. Execute WP2's fixed-physics numerical reconnaissance and whole-grid domain/grid/timestep
-   campaign. Every probe remains non-transferable until it matches the eventual registered
-   configuration; a failing rung is not made adequate by resource cost.
-3. Write and independently review the replacement ADR/protocol only after WP1/WP2 supply its target
-   and numerical inputs. Start with [the active plan](plans/phase-6-science-first-completion.md), the
-   R15 audit requirements recorded there, and `docs/phase6-lessons.md`. The first implementation seam
-   is a new versioned `phase6-r15-*` artifact/gate path; do not expand the legacy 204-row loop in place.
+1. Run exact `npm test`, then commit the cleanly reviewed candidate-source lock and bit-identical
+   prepared-kinetics unit. Keep `passEligible=false`: missing crystallography, matched pressure,
+   compatible history geometry and a source-defined physical size are scientific blockers, not
+   values to infer from model output.
+2. Specify and implement LK checkpoint v3 with the monopole lag, ledgers, boundary order and campaign
+   cursor before long-run resilience work. Then pre-register WP2's staged reconnaissance only after
+   a defensible physical-size design exists; the existing 48³ throughput probe is planning evidence
+   and non-transferable.
+3. Write and independently review the replacement ADR/protocol only after WP1 supplies an admissible
+   target or explicitly records the source-limited held-out result, and WP2 supplies a passing
+   numerical configuration. Start with [the active plan](plans/phase-6-science-first-completion.md),
+   the R15 audit requirements recorded there, and `docs/phase6-lessons.md`. The implementation seam is
+   a new versioned `phase6-r15-*` artifact/gate path; do not expand the legacy 204-row loop in place.
 4. Do not launch R15, GPU, matched-ablation or held-out production rows until the immutable inputs,
    numerical escalation, output schema, exact run set, failure semantics and cost model are frozen
    and adversarially accepted. Resource cost may schedule work; it may not weaken a criterion.

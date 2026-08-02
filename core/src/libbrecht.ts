@@ -387,5 +387,51 @@ export function alphaHK(
   return nucleationAPrism(tempC, set) * Math.exp(-sigma0PrismFor(tempC, set) / sigmaSurf);
 }
 
+/**
+ * Temperature- and parameter-set-dependent inputs to the Hertz-Knudsen coefficient.
+ *
+ * A solver evaluates the coefficient many times at different local supersaturations while these
+ * four values remain constant. Preparing them once removes repeated interpolation/closed-form
+ * work without changing the load-bearing per-call expression. The object is frozen as well as
+ * readonly so an untyped caller cannot mutate a live solver's prepared physics.
+ */
+export interface PreparedAlphaHK {
+  readonly basalPrefactor: number;
+  readonly basalSigma0: number;
+  readonly prismPrefactor: number;
+  readonly prismSigma0: number;
+}
+
+/** Prepare the constant inputs used by `alphaHKFromPrepared`. */
+export function prepareAlphaHK(tempC: number, set: NucleationParamSet): PreparedAlphaHK {
+  return Object.freeze({
+    basalPrefactor: nucleationABasal(tempC, set),
+    basalSigma0: sigma0BasalFor(tempC, set),
+    prismPrefactor: nucleationAPrism(tempC, set),
+    prismSigma0: sigma0PrismFor(tempC, set),
+  });
+}
+
+/**
+ * The prepared equivalent of `alphaHK`.
+ *
+ * Keep the multiplication, unary negation, division, and `Math.exp` evaluation written in the
+ * same order as `alphaHK`: regrouping this expression would forfeit bit identity. Facet routing
+ * and the nonpositive-supersaturation branch are likewise intentionally identical.
+ */
+export function alphaHKFromPrepared(
+  facet: FacetClass,
+  sigmaSurf: number,
+  prepared: PreparedAlphaHK,
+): number {
+  if (facet === "inhibited") return 0;
+  if (sigmaSurf <= 0) return 0;
+  if (facet === "rough") return 1;
+  if (facet === "basal") {
+    return prepared.basalPrefactor * Math.exp(-prepared.basalSigma0 / sigmaSurf);
+  }
+  return prepared.prismPrefactor * Math.exp(-prepared.prismSigma0 / sigmaSurf);
+}
+
 /** Stream id for the LibbrechtKinetics alphaHK slowdown noise, shared by sink and growth. */
 export const STREAM_NOISE_ALPHA_HK = 2;

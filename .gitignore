@@ -12,6 +12,8 @@ research/*
 # Our own machine-readable index (annotations + citations, no copyrighted media) — tracked
 # alongside its .md twin. See research/lab-validation-dataset.md.
 !research/lab-validation-dataset.jsonl
+# Our own Phase 6 source-lock metadata and extracted observations; contains no third-party media.
+!research/phase6-heldout-candidate-lock.json
 
 # Workspace tooling (Phase 2 scaffold)
 node_modules/

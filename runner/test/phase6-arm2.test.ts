@@ -23,10 +23,13 @@ import {
   PHASE6_ARM2_ADDED_ROWS,
   PHASE6_ARM2_BISTABLE_TEMPERATURES_C,
   PHASE6_ARM2_ID,
+  PHASE6_ARM2_JUSTIFICATION_SHA256,
+  PHASE6_ARM2_JUSTIFICATION_REVISIONS,
   PHASE6_ARM2_PARAM_SET,
   PHASE6_ARM2_ROW_OVERRIDES,
   PHASE6_ARM2_FREEZE_COMMIT,
   PHASE6_ARM2_PROTOCOL_SHA256,
+  PHASE6_ARM2_PROTOCOL_REVISIONS,
   PHASE6_ARM2_SDAK_ANCHORS,
   PHASE6_ARM2_SOURCING_TIERS,
   PHASE6_ARM2_VALUES_SHA256,
@@ -220,6 +223,30 @@ describe("arm 2's sourcing tiers (ADR 0036 pre-registration 3)", () => {
 });
 
 describe("arm 2's two-hash scheme", () => {
+  it("retains the historical false-base prose hashes while making the corrected hashes current", () => {
+    expect(PHASE6_ARM2_JUSTIFICATION_REVISIONS[0]?.sha256).toBe(
+      "1b7faeb85fb9095931ef9294d65c619723ac389de24daddd8d9c173b833d00e8",
+    );
+    expect(PHASE6_ARM2_PROTOCOL_REVISIONS[0]?.sha256).toBe(
+      "b09a932ec7345eddf838ee2de1c0ef4731212c625a1069e62193c06ae950fdec",
+    );
+    expect(PHASE6_ARM2_JUSTIFICATION_REVISIONS.at(-1)?.sha256).toBe(
+      canonicalJsonSha256(phase6Arm2JustificationManifest()),
+    );
+    expect(PHASE6_ARM2_JUSTIFICATION_SHA256).toBe(
+      PHASE6_ARM2_JUSTIFICATION_REVISIONS.at(-1)?.sha256,
+    );
+    expect(PHASE6_ARM2_PROTOCOL_REVISIONS.at(-1)?.sha256).toBe(
+      canonicalJsonSha256(phase6Arm2ProtocolManifest()),
+    );
+    expect(PHASE6_ARM2_JUSTIFICATION_REVISIONS.at(-1)?.sha256).not.toBe(
+      PHASE6_ARM2_JUSTIFICATION_REVISIONS[0]?.sha256,
+    );
+    expect(PHASE6_ARM2_PROTOCOL_REVISIONS.at(-1)?.sha256).not.toBe(
+      PHASE6_ARM2_PROTOCOL_REVISIONS[0]?.sha256,
+    );
+  });
+
   it("separates values from justification, and prose lives only on the justification side", () => {
     // ADR 0033's structural claim, re-established for the new arm rather than inherited.
     const values = JSON.stringify(phase6Arm2ValuesManifest());

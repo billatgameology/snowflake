@@ -1,0 +1,206 @@
+{
+  "schema": "phase6-heldout-candidate-lock-v1",
+  "lockId": "PHASE6_HELDOUT_CANDIDATES_2026_08_01",
+  "cutoffDate": "2026-08-01",
+  "status": "candidate-only-no-validation-target-frozen",
+  "gateMeaning": {
+    "passEligible": false,
+    "reason": "No audited family is presently apples-to-apples with the current single-crystal free-prism solver. This lock prevents source and extraction drift; it supplies no validation threshold.",
+    "mustNotBeUsedAs": [
+      "a Phase 6 held-out pass result",
+      "a probability distribution",
+      "a fitted initial-state model",
+      "permission to omit source geometry or transport systematics"
+    ]
+  },
+  "sources": {
+    "harrison2016Archive": {
+      "doi": "10.26208/dd1w-wa17",
+      "publisher": "Penn State Data Commons",
+      "fileName": "harrison-2016.zip",
+      "byteLength": 3422359,
+      "sha256": "4901759b3f5f6d71759b31286db6103d9f7d9b23512c01237067c11da3be815c"
+    },
+    "pokrifka2020AcceptedManuscript": {
+      "doi": "10.1175/JAS-D-19-0303.1",
+      "publisher": "NSF Public Access Repository",
+      "fileName": "pokrifka-2020.pdf",
+      "byteLength": 4016872,
+      "sha256": "5010ded8ee7c16178e5007c9228e2d0ab7785ec698ae77c2662cb3259b50fab1"
+    },
+    "takahashi1991": {
+      "doi": "10.2151/jmsj1965.69.1_15",
+      "publisher": "J-STAGE",
+      "fileName": "takahashi1991.pdf",
+      "byteLength": 8910942,
+      "sha256": "2e5c6b492fcab7d1b3958be5a4c859fcd31174a1ac4865588ca48820bd4cd8eb"
+    },
+    "takahashi1991Corrigendum": {
+      "doi": "10.2151/jmsj1965.69.2_251",
+      "publisher": "J-STAGE",
+      "fileName": "takahashi1991-corrigendum.pdf",
+      "byteLength": 1009054,
+      "sha256": "5297d387ee1c0e33944d9bdb0f6bd68a70a251e64f1f4b5f8e367e7b4c5946bb"
+    },
+    "harringtonPokrifka2026Archive": {
+      "doi": "10.26208/XJQK-R076",
+      "publisher": "Penn State Data Commons",
+      "fileName": "harrington-pokrifka-2026.zip",
+      "byteLength": 104949,
+      "sha256": "3fa016d36ae11dad221b2c9b300a5fe928ed253ac92dd8acdb2887291f32bc36"
+    },
+    "mageeMoyleLamb2006": {
+      "doi": "10.1029/2006GL026665",
+      "publisher": "AGU",
+      "stableIdentifierOnly": true
+    }
+  },
+  "harrisonCandidate": {
+    "id": "HARRISON_POKRIFKA_BEL_HETERO_MASS_CANDIDATE_V1",
+    "status": "source-locked-not-scoreable",
+    "observable": "single-particle mass ratio m/m0",
+    "timesSeconds": [60, 120, 180, 240, 300],
+    "timeSelectionRule": "Largest whole-minute common window across all 16 reconciled heterogeneous traces, excluding the trivial t=0 row.",
+    "extraction": {
+      "columns": 6,
+      "timeColumnZeroBased": 2,
+      "massRatioColumnZeroBased": 4,
+      "finiteRowsOnly": true,
+      "requireNondecreasingTime": true,
+      "requirePositiveMassRatio": true,
+      "duplicateTimeOperator": "median",
+      "interpolation": "linear between adjacent coalesced timestamps",
+      "reportedDecimalPlaces": 9,
+      "maximumObservedBracketGapSeconds": 0.9451,
+      "interpolationGapComparisonToleranceSeconds": 1e-12
+    },
+    "observationUncertainty": {
+      "operator": "[0.95*y, 1.05*y]",
+      "meaning": "source-stated maximum relative error",
+      "not": ["confidence interval", "standard deviation", "probability distribution"]
+    },
+    "conditionUncertainty": {
+      "operator": "Freeze the three source-stated marginal ranges independently; no Cartesian corner is scoreable",
+      "temperatureRangeMeaning": "corrected-table marginal range",
+      "sigmaIceRangeMeaning": "corrected-table marginal range partly derived from plate-temperature uncertainty",
+      "initialRadiusRangeMeaning": "corrected-table marginal range",
+      "jointDependence": "not reported",
+      "pressureUncertainty": "not stated",
+      "combineByQuadrature": false,
+      "scoreableEnvelope": false
+    },
+    "unboundedSystematics": [
+      "per-particle crystallography was not observed",
+      "per-particle shape was not observed",
+      "the current operator omits vapor-thermal latent-heat resistance",
+      "later work reports faceting and lateral-growth transitions not represented by a fixed single-crystal seed"
+    ],
+    "archiveProvenanceMembers": [
+      {"name": "Conditions.txt", "byteLength": 1931, "sha256": "c105755e6bfa16cc47c477658c89a31508669bf24a42b41e6ff60e4bba1acc09"},
+      {"name": "DataDescription", "byteLength": 1496, "sha256": "19f7dae2ff4b43aab8c26f4f2f56e05deafb8349a94b57fbb99de7663a79e00b"},
+      {"name": "ElectrodynamicLevitationDiffusion_IceCrystals2016.xml", "byteLength": 8660, "sha256": "a745512bdd780d9820734f69ac6f37d759d500991f685c2e42c013041ecbd668"},
+      {"name": "README-Data", "byteLength": 1228, "sha256": "7e1654589396b5bee75d4bf2b899d77a62ff4a5834d9ab31ef33c54fb12eec34"}
+    ],
+    "excludedMembers": [
+      {
+        "name": "heticegrowth_625.dat",
+        "byteLength": 2178814,
+        "sha256": "26ff4d08236a147aad064f088863435a8db01372d24ecf0b1e7c79d841a79fd8",
+        "reason": "Archive metadata places it outside the heterogeneous domain and the latest corrected Table 1 assigns its radius to a homogeneous family."
+      }
+    ],
+    "requiredAbsence": [
+      {
+        "condition": "-31.5 C, 5 percent ice supersaturation, initial radius 10.69 micrometers",
+        "reason": "The latest Table 1 row has no matching ZIP member; synthesizing or substituting it is forbidden."
+      }
+    ],
+    "dataQualityPins": [
+      "heticegrowth_712k.dat contains 8850 duplicate timestamps and must execute the median coalescer",
+      "heticegrowth_716d.dat has an unresolved stated-radius versus absolute-initial-mass mismatch; only direct m/m0 is eligible",
+      "heticegrowth_805l.dat uses the corrected 8.9 +/- 0.7 micrometer radius, not the stale archive value"
+    ],
+    "traces": [
+      {"id": "712a", "member": "heticegrowth_712a.dat", "byteLength": 759413, "sha256": "46764d36da549b0b0f21515418194b8064ad6906716578a6d531bc28be6501f4", "pressurePa": 97233, "tempC": -32.6, "tempRangeC": 0.1, "sigmaIcePercent": 11.0, "sigmaIceRangePercent": 0.9, "initialRadiusUm": 11.7, "initialRadiusRangeUm": 0.2, "massRatios": [1.318499273, 1.673545500, 2.049770300, 2.464875600, 2.898340905]},
+      {"id": "712k", "member": "heticegrowth_712k.dat", "byteLength": 1013165, "sha256": "7be837919a54264eb8ff3222332169088426d33d630475866049d71495a0ce0c", "pressurePa": 97233, "tempC": -32.6, "tempRangeC": 0.1, "sigmaIcePercent": 11.0, "sigmaIceRangePercent": 0.9, "initialRadiusUm": 10.44, "initialRadiusRangeUm": 0.15, "massRatios": [1.440000000, 1.940000000, 2.480000000, 3.090000000, 3.740000000]},
+      {"id": "716a", "member": "heticegrowth_716a.dat", "byteLength": 1083296, "sha256": "d2f879e65cb4224394659e9539c268f325cedc38cdfe467660514cffff1f2c25", "pressurePa": 97999, "tempC": -33.0, "tempRangeC": 0.1, "sigmaIcePercent": 10.0, "sigmaIceRangePercent": 1.1, "initialRadiusUm": 7.6, "initialRadiusRangeUm": 0.3, "massRatios": [1.706361900, 2.567950300, 3.542329146, 4.631615275, 5.805013800]},
+      {"id": "716d", "member": "heticegrowth_716d.dat", "byteLength": 955062, "sha256": "1e69b553e54cf473fe54122a19695ab92a5c30a4afbcf3485ba7426a39685343", "pressurePa": 97999, "tempC": -33.0, "tempRangeC": 0.1, "sigmaIcePercent": 10.0, "sigmaIceRangePercent": 1.1, "initialRadiusUm": 5.8, "initialRadiusRangeUm": 0.4, "massRatios": [2.192939700, 3.686689700, 5.454465500, 7.400097861, 9.595758600]},
+      {"id": "716k", "member": "heticegrowth_716k.dat", "byteLength": 1868996, "sha256": "153a8866cf4e98906cd7ce84289c22b416ce88a29322a91c4d94802023262dc0", "pressurePa": 97999, "tempC": -33.0, "tempRangeC": 0.1, "sigmaIcePercent": 10.0, "sigmaIceRangePercent": 1.1, "initialRadiusUm": 8.7, "initialRadiusRangeUm": 0.3, "massRatios": [1.526369000, 2.139305118, 2.837075400, 3.584418104, 4.390575400]},
+      {"id": "724b", "member": "heticegrowth_724b.dat", "byteLength": 5655197, "sha256": "3d9a72486a014ada5fcf887676d24165a17125ecb2163de0e2a5e3172712b475", "pressurePa": 96730, "tempC": -30.9, "tempRangeC": 0.1, "sigmaIcePercent": 4.0, "sigmaIceRangePercent": 0.5, "initialRadiusUm": 7.7, "initialRadiusRangeUm": 0.3, "massRatios": [1.255954700, 1.564203400, 1.912168238, 2.273441000, 2.643788900]},
+      {"id": "724c", "member": "heticegrowth_724c.dat", "byteLength": 928969, "sha256": "020c848a4465bf7fc2cce24fb2e67fe6963ee444bcbc78cdb999e08b7ee87d11", "pressurePa": 96730, "tempC": -30.9, "tempRangeC": 0.1, "sigmaIcePercent": 4.0, "sigmaIceRangePercent": 0.5, "initialRadiusUm": 8.2, "initialRadiusRangeUm": 0.4, "massRatios": [1.234438900, 1.479996736, 1.752576300, 2.039923700, 2.328548100]},
+      {"id": "725c", "member": "heticegrowth_725c.dat", "byteLength": 956449, "sha256": "40872c57d5d8fe2c2638458fde46acda69f8b58c3a5be511257614c0eb4e0486", "pressurePa": 97055, "tempC": -33.8, "tempRangeC": 0.1, "sigmaIcePercent": 17.0, "sigmaIceRangePercent": 1.1, "initialRadiusUm": 8.9, "initialRadiusRangeUm": 0.2, "massRatios": [1.702753202, 2.523061300, 3.445240600, 4.467754700, 5.569838183]},
+      {"id": "725e", "member": "heticegrowth_725e.dat", "byteLength": 1458492, "sha256": "d058131a26879321299d7b54d3f4cd6027517d256361391c5a674f8daafe8380", "pressurePa": 97055, "tempC": -33.8, "tempRangeC": 0.1, "sigmaIcePercent": 17.0, "sigmaIceRangePercent": 1.1, "initialRadiusUm": 9.86, "initialRadiusRangeUm": 0.25, "massRatios": [1.613815500, 2.340516600, 3.150290714, 4.047911400, 5.059472300]},
+      {"id": "731a", "member": "heticegrowth_731a.dat", "byteLength": 2686900, "sha256": "d8f63d564f77851b09a6108b0cd43763bc8d65036e61079b0fafc2bdb6d561e1", "pressurePa": 97055, "tempC": -31.7, "tempRangeC": 0.1, "sigmaIcePercent": 7.5, "sigmaIceRangePercent": 0.7, "initialRadiusUm": 12.0, "initialRadiusRangeUm": 0.1, "massRatios": [1.229908676, 1.494295500, 1.766940400, 2.060411600, 2.372899697]},
+      {"id": "731b", "member": "heticegrowth_731b.dat", "byteLength": 1893052, "sha256": "e1e551faaa660375f73617b99fa79495afcff9480e8b23f3f9628d7fcf0f298a", "pressurePa": 97055, "tempC": -31.7, "tempRangeC": 0.1, "sigmaIcePercent": 7.5, "sigmaIceRangePercent": 0.7, "initialRadiusUm": 6.3, "initialRadiusRangeUm": 0.4, "massRatios": [1.397026598, 1.830699384, 2.318845500, 2.834506100, 3.399415200]},
+      {"id": "802d", "member": "heticegrowth_802d.dat", "byteLength": 2055527, "sha256": "d7046e363fe88c582940a3a19657797cd35021c9ca009486e4f2c787eb11fc85", "pressurePa": 96715, "tempC": -32.0, "tempRangeC": 0.1, "sigmaIcePercent": 7.5, "sigmaIceRangePercent": 0.7, "initialRadiusUm": 9.6, "initialRadiusRangeUm": 0.3, "massRatios": [1.381026242, 1.811304200, 2.266988000, 2.768778246, 3.299295200]},
+      {"id": "805a", "member": "heticegrowth_805a.dat", "byteLength": 711689, "sha256": "81864448ce5997b41379a398adf114f9be481c822095e727d81ac48bea4209f5", "pressurePa": 97020, "tempC": -35.7, "tempRangeC": 0.1, "sigmaIcePercent": 28.6, "sigmaIceRangePercent": 2.1, "initialRadiusUm": 10.3, "initialRadiusRangeUm": 0.5, "massRatios": [1.881288061, 2.983726327, 4.339722713, 5.958367000, 7.837523141]},
+      {"id": "805b", "member": "heticegrowth_805b.dat", "byteLength": 753399, "sha256": "ca3d2bb0159a5e93cbe51eae988e8fb16ab1a8bc55989ef1f9bf91c04846ef6e", "pressurePa": 97020, "tempC": -35.7, "tempRangeC": 0.1, "sigmaIcePercent": 28.6, "sigmaIceRangePercent": 2.1, "initialRadiusUm": 9.2, "initialRadiusRangeUm": 0.5, "massRatios": [2.007857866, 3.318574700, 4.933885100, 6.822534500, 8.979715500]},
+      {"id": "805h", "member": "heticegrowth_805h.dat", "byteLength": 508862, "sha256": "88a96cbaba0a93b8aeeaf7728fed8d83c2173b7d1f10025fac30059a295e5b7f", "pressurePa": 97020, "tempC": -35.7, "tempRangeC": 0.1, "sigmaIcePercent": 28.6, "sigmaIceRangePercent": 2.1, "initialRadiusUm": 8.2, "initialRadiusRangeUm": 0.5, "massRatios": [2.321997759, 4.048143262, 6.142817601, 8.562565800, 11.289581934]},
+      {"id": "805l", "member": "heticegrowth_805l.dat", "byteLength": 496543, "sha256": "8fdf7781f994a5eba24d5f17f2aeb86db680cb28c2f1b9039bec27197d0d9e1f", "pressurePa": 97020, "tempC": -35.7, "tempRangeC": 0.1, "sigmaIcePercent": 28.6, "sigmaIceRangePercent": 2.1, "initialRadiusUm": 8.9, "initialRadiusRangeUm": 0.7, "massRatios": [2.115708462, 3.602487339, 5.456701700, 7.644891629, 10.124304719]}
+    ]
+  },
+  "takahashiDiagnostic": {
+    "id": "TAKAHASHI91_WARM_EARLY_MASS_DIAGNOSTIC_V1",
+    "status": "source-locked-non-gating-diagnostic",
+    "conditions": {
+      "tempC": -5.3,
+      "earlyTempRangeC": 0.2,
+      "pressureMbApprox": 1010,
+      "humidityDescription": "reported water saturation",
+      "habitCode": "C1f hollow column before the six-minute sheath/needle regime"
+    },
+    "ensembleFit": {
+      "formula": "m(t)=8.4e-9*t^2.00 grams",
+      "timeUnit": "minutes",
+      "rows": [
+        {"timeMinutes": 3, "massGrams": 7.56e-8, "nonprobabilisticDiagnosticRangeGrams": [4.720333333e-8, 1.095033333e-7]},
+        {"timeMinutes": 5, "massGrams": 2.10e-7, "nonprobabilisticDiagnosticRangeGrams": [1.373633333e-7, 2.915033333e-7]}
+      ],
+      "rangeInputs": ["+/- 10 seconds growth time", "+/- 30 percent experimental mass scatter"],
+      "rangeOperator": "[0.7*m(t - 1/6 minute), 1.3*m(t + 1/6 minute)]"
+    },
+    "scoreable": false,
+    "blockers": [
+      "later source review leaves actual warm-run supersaturation unbounded",
+      "successive times are different ensemble specimens",
+      "reported a and c rows are unpaired and cannot form per-crystal aspect ratios",
+      "hollow rim width, seed state, and step-source location are not observed"
+    ]
+  },
+  "pressureContext": {
+    "id": "TAKAHASHI91_PRESSURE_CONTEXT_V1",
+    "status": "source-locked-context-only",
+    "observation": "The authors report crystals at 860 mb about 30 percent heavier on average, or 1010 mb masses 20 to 30 percent smaller, at ten minutes.",
+    "scoreable": false,
+    "reason": "Pressure is confounded with liquid-water content, temperature drift, apparatus/run population, polycrystallinity, ventilation, and riming; no pass interval may be derived."
+  },
+  "historyCandidates": [
+    {
+      "id": "HARRINGTON_POKRIFKA_2026_STEP_HISTORY",
+      "status": "source-locked-not-scoreable",
+      "schedule": "-50 C, about 972 hPa, ice supersaturation 48 percent to 20 percent at 230 minutes",
+      "blockers": ["substrate support", "asymmetric vapor and thermal transport", "rim-width state", "step-source mechanism"]
+    },
+    {
+      "id": "MAGEE_MOYLE_LAMB_2006_CYCLIC_HISTORY",
+      "status": "stable-id-only-not-scoreable",
+      "schedule": "one levitated frozen droplet through alternating growth and evaporation near -50 C and 973 hPa",
+      "blockers": ["reversible sublimation is absent", "figure-only schedule", "unobserved likely polycrystallinity", "ventilation", "latent heat"]
+    }
+  ],
+  "laterSourceStableIds": [
+    "10.1175/1520-0469(1999)056<1963:TGOAIC>2.0.CO;2",
+    "10.1175/JAS-D-11-017.1",
+    "10.1175/JAS-D-14-0043.1",
+    "10.1175/JAS-D-20-0228.1",
+    "10.1175/JAS-D-23-0131.1",
+    "10.1175/JAS-D-24-0182.1",
+    "10.1175/JAS-D-26-0016.1"
+  ],
+  "otherReviewedPrimaryStableIds": [
+    "10.1175/JAS-D-15-0234.1",
+    "10.2151/jmsj1965.66.6_841",
+    "10.1175/JAS-D-22-0077.1",
+    "10.1175/JAS-D-25-0030.1"
+  ]
+}

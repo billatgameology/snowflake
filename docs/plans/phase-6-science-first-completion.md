@@ -93,6 +93,9 @@ producer-supplied pass field is trusted.
 - [x] Narrow cross-architecture prose to the four executed `CAK` configurations.
 - [x] Add an executable M1 regression that pins the analytic base-invariant dip centre rather than
   only a downstream transition count.
+- [x] Correct the surviving arm-2 hashed justification that still claimed natural logarithm moved
+  those centres to 3.08/8.07 °C. Preserve the historical justification/combined hashes in revision
+  history; the registered values hash and executed rows remain unchanged.
 - [x] Correct stale cross-references and run the existing independent verifiers against the tracked
   evidence.
 - [x] Resolve the final non-author adversarial review and obtain a clean recheck before committing
@@ -111,11 +114,37 @@ producer-supplied pass field is trusted.
   lattice can make an apples-to-apples prediction without a new fitted quantity.
 - [x] Reject targets that reuse Nakaya-tuned P3 inputs as “independent,” require an unregistered
   geometry mapping, or cannot be scored without looking at the model output.
-- [ ] Freeze the selected primary-source bytes or stable identifiers, extraction scripts, target
-  table, uncertainty model, and source-currency record in one commit after independent review.
+- [x] Freeze candidate primary-source bytes/stable identifiers and a deterministic extraction in a
+  fail-closed partial lock. The 16-trace Harrison/Pokrifka candidate, Takahashi diagnostics,
+  rejected pressure row and two history candidates are pinned by
+  `research/phase6-heldout-candidate-lock.json`; the executable verifier independently checks five
+  external files and 21 archive members. The loader pins LF-normalized source text before parsing,
+  so duplicate JSON keys cannot hide behind `JSON.parse`; the CLI rejects unknown and duplicate
+  flags. Final non-author recheck is clean after all findings. The lock says `passEligible=false`
+  and is not a target.
+- [ ] Freeze a selected validation target, prediction-side geometry/transport uncertainty and
+  scoring operator after independent review. The corrected audit found no presently apples-to-apples
+  family: Harrison crystallography is unobserved; Takahashi's warm supersaturation/rim state is
+  unresolved; pressure is confounded; and both history candidates require missing load-bearing
+  physics. The classical Nakaya reference also supplies no crystal size or size stratum; the later
+  206-panel grid supplies field-of-view widths, not crystal dimensions, and uses a load-bearing
+  c-axis needle seed. Source absence, not compute cost, is the current WP1 blocker.
 
 ### WP2 — numerical configuration campaign
 
+- [x] Independently derive the minimum campaign and feasibility envelope. Without a new theorem the
+  plan requires at least 5,508 domain rows per nested size trajectory (three arms × 204 points ×
+  three spacings × three domains), plus 1,836 per added global domain or spacing. Exact D6h symmetry
+  and a monopole shell do not bound the surviving quadrupole/nonlinear attachment path, so they do
+  not replace the whole-grid matrix. A 350 µm target would require dimensions up to roughly 744 at
+  the candidate third spacing and makes the current uniform Jacobi path infeasible without audited
+  acceleration/resume work.
+- [x] Land the first bit-identical CPU acceleration: temperature/parameter-set facet constants are
+  prepared once while the per-call Hertz–Knudsen expression, noise order and every solver update
+  remain unchanged. A non-author audit accepted all four policies, all three existing parameter
+  sets, noise off/on, accepted/same-temperature/rejected events, complete state, reports, ledgers and
+  checkpoint bytes with no remaining finding. The measured 4.86× figure is coefficient-only and is
+  not a whole-solver or campaign-speed claim.
 - [ ] Pre-register a reconnaissance matrix that spans both parameter arms, both habit axes,
   near-threshold and fast-growth cases, and all physical sizes selected in WP1. Reconnaissance
   outputs are explicitly non-transferable.
@@ -344,18 +373,33 @@ history found is substrate-grown and depends on rim width/step-source/asymmetric
 from the solver. Takahashi is free fall but constant-environment ensemble data, not one-crystal
 history. No current candidate discharges the history obligation honestly.
 
+**Promote the cleanest levitation mass data by assigning the current seed.** Rejected. Harrison's
+mass ratios and conditions are excellent, but the particles' shape and crystallography were not
+observed, later work finds growth-mode transitions, and the present operator omits latent heat. A
+regular D6h seed would be a sensitivity surrogate chosen by this project, not a source observation.
+
+**Use the Takahashi 860/1010 mb ratio as a pressure tolerance.** Rejected. The two studies change
+liquid-water content, temperature drift, apparatus/run population, polycrystallinity and riming at
+the same time as pressure. The source observation is locked as context, with no pass interval.
+
+**Use symmetry plus monopole matching to skip the whole-grid domain matrix.** Rejected. D6h permits
+an axisymmetric quadrupole, supplies no coefficient bound for the discrete nonlinear Robin problem,
+and does not establish attachment-event margins. The repository's measured non-monotone domain
+response already refutes the available ratio and clearance proxies.
+
 **Let resource exhaustion become a passing scientific result.** Rejected. Resource measurements
 are reported and may trigger a maker-visible engineering redesign, but they cannot relax a frozen
 criterion or turn absence of evidence into validation.
 
 ## Open questions
 
-- Takahashi's early −5.3 °C free-cloud dimensions are the leading conditional growth/size target.
-  What independent extraction and uncertainty operator make them freeze-ready, and where must the
-  comparison stop before topology/riming/ventilation make it non-comparable?
-- Pressure and prescribed-history targets do not match current geometry/physics. Should a future ADR
-  add substrate/thermal/step-source physics, or should those charter obligations remain explicitly
-  incomplete until a compatible free-crystal dataset is acquired?
+- No audited held-out family currently has both observed initial state and compatible transport.
+  Harrison's latent-heat term is source-specifiable, but its crystallography is not. A matched
+  experiment or source-constrained set-valued initial-state model is required before a validation
+  target can freeze; an outcome-selected surrogate is forbidden.
+- Pressure needs a matched-pressure experiment or original matched runs. Prescribed history needs
+  either supported/asymmetric/rim physics for Harrington/Pokrifka, or sublimation/ventilation and a
+  source-constrained frozen-droplet state for Magee. Until then both remain explicitly incomplete.
 - What physical crystal size or size strata make the Nakaya comparison apples-to-apples with the
   selected reference? This must be sourced and frozen, not inferred from the prior ladder.
 - What domain/grid/timestep configuration passes at the eventual physical sizes? WP2 measures it;

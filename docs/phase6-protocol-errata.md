@@ -387,6 +387,26 @@ failing points are different (T, f) conditions from P1 — by the pre-registered
 
 ---
 
+## E7 — arm 2's logarithm-base justification misidentified crossing locations as dip centres
+
+**CLOSED 2026-08-01 as a justification-only correction. Registered values and historical evidence
+are unchanged.**
+
+The `parameter-interpolation` source prose said the M1 dip minima establish base 10 because natural
+logarithm would put them at 3.08 °C and 8.07 °C. That is mathematically impossible for the printed
+factor: `log(T) - log(c) = 0` at `T = c` in every logarithm base. Both dip minima therefore remain
+at the printed 4.5 °C and 14.4 °C centres. A base change alters dip width. The numbers 3.08 °C and
+8.07 °C came from the separate alphaHK-crossing diagnostic and were misattributed.
+
+The corrected prose retains base 10 because the printed Figure 1 widths match that reading and
+labels the downstream transition count as a consequence, not an independent base proof. ADR 0033's
+values/justification split makes this correction non-gating: arm 2's values hash remains
+`13e678d5e...`. The historical justification and combined hashes remain in explicit revision
+history (`1b7faeb8...`, `b09a932e...`), while current corrected hashes are `80e9c920...` and
+`785f7325...`. The 204-row artifact continues to name and verify against its historical hashes.
+
+---
+
 ## What is NOT covered here
 
 - Errata in **unhashed** locations are fixed in place and not listed, except E2.
