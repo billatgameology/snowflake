@@ -92,15 +92,32 @@ implicated by anything here.
 - [ ] Background `grow` run on the Mac writing checkpoint + PGM dumps under
       `out/gutcheck-gg-realism/` with live/error/exit files. Record the termination reason
       (a domain-contact stop is acceptable here — it invalidates gates, not looks).
-- [ ] Extraction script (new file): checkpoint → hex-lattice-aware resample → level-set mesh
-      (e.g. marching cubes on the resampled field) → mesh file. Check: the mesh opens in a
-      viewer and is not visibly voxelized.
-- [ ] Ice-look render per ADR 0029 sketch: transmission/refraction over a designed backdrop
-      gradient, dark facet-edge lines, bright ridge highlights, near-orthographic face-on
-      camera, restrained post-processing. Check: a PNG at 1024² or better.
+- [x] Extraction script (new file): `scripts/gutcheck-extract-mesh.ts` — checkpoint →
+      hex-lattice-aware resample (Gaussian splat through the exact embedding
+      `x = i + j/2, y = j·√3/2, z = k`) → naive surface nets at iso 0.5 → binary mesh +
+      optional OBJ. Smoke-tested on a re-grown 128,128,48 checkpoint (same seed/noise as the
+      probe): 147k triangles, opens in the render page, not visibly voxelized. **Level-set
+      answer to the open question below:** attached indicator = 1, and an unattached
+      boundary cell is graded by its attachment progress `b / ggThreshBeta[2·min(nT,3) +
+      min(nZ,1)]` — the G-G analog of the LK fill fraction (both measure progress toward
+      deterministic attachment). Recorded in the mesh header for provenance.
+- [x] Ice-look render per ADR 0029 sketch: `app/spike-gg-realism.html` +
+      `app/src/spike-gg-realism.ts` (dev-server-only page) + deterministic Playwright capture
+      `app/scripts/spike-capture.mjs` (throwaway Vite dev server, mesh served by route
+      interception, single fixed frame, PNG at any viewport size; separate ports/paths from
+      the review harnesses). Look: `MeshPhysicalMaterial` transmission ice, frustum-filling
+      two-tone warm→cool gradient (matched to the target frame), designed
+      oblique-illumination environment (warm patch up-left, dark horizon), directional
+      edge pass (warm where facing the key light, dark indigo opposite, weighted by normal
+      tilt off face-on). Converged on the smoke mesh over 5 iterations; final render happens
+      on the 384 mesh.
 - [ ] Side-by-side against a named J0521r2p frame (state the timestamp). Record the eyeball
       verdict here: what reads as real, what gives it away, one-line recommendation for
-      Phase 7 planning.
+      Phase 7 planning. **Frame chosen:** 23.633 s (frame 709 of 788 @ 30 fps ≈ 90% of the
+      26.27 s video), extracted with ffmpeg 8.0.1 from the main repo's local copy to
+      `out/gutcheck-gg-realism/target-frame-23.633s.png`. Copyright: Libbrecht holds the
+      video copyright (research/snowcrystals.com-videos.md), so the extracted frame and any
+      composite containing it stay in gitignored `out/` and are never committed or published.
 - [ ] Append every dead end to **Tried and rejected** as it happens, not at the end.
 
 ## Out of scope
@@ -115,7 +132,33 @@ implicated by anything here.
 
 ## Tried and rejected
 
-(Append as you go. Empty at plan creation.)
+All entries 2026-08-02, eyeballed on the 128,128,48 smoke mesh (renders kept locally as
+`out/gutcheck-gg-realism/smoke-render*.png`, superseded iterations numbered in order):
+
+- **Radial "condenser-spot" backdrop** — rejected on first comparison with the actual
+  23.633 s target frame: the footage backdrop is a smooth near-vertical linear gradient,
+  warm pale amber above to cool blue-lavender below, not a bright center with vignette.
+- **Backdrop plane sized 4× the subject** — the camera frustum saw only the flat center of
+  the gradient, so the designed two-tone read as a plain wall. The plane must be sized to
+  the frustum.
+- **`RoomEnvironment` as the IBL** — a uniformly bright environment reflects white into
+  every slightly-tilted facet and the transparent ice reads as milky plastic; lowering its
+  intensity just fades it toward invisible. Replaced with a designed oblique-illumination
+  environment (bright warm patch up-left, dark horizon band, dim cool floor) so face-on
+  facets stay clear while steep walls reflect darkness.
+- **Expecting PBR transmission alone to produce the dark facet-edge lines** — three.js
+  screen-space transmission refracts into whatever backdrop pixel the bent ray lands on,
+  which is always bright here; it cannot express "ray deviated outside the microscope's
+  collection cone", which is what actually makes the footage's edges dark. Approximated
+  honestly with a separate normal-tilt edge pass (dark where the surface tilts off
+  face-on), tinted directionally: warm toward the key-light flank, dark indigo opposite —
+  which also supplies the footage's amber/indigo oblique-illumination split that
+  physically-correct neutral lighting never produced.
+- **Smoothing σ = 0.6 lattice units at 0.5 spacing** — visibly rounder than the footage;
+  interior relief mostly gone on the small smoke crystal. σ = 0.45 at 0.4 spacing keeps
+  branch relief while still not voxelized. (ADR 0029's cost note — relief-preserving
+  smooth extraction is genuinely harder than blocky or over-smoothed — is confirmed by
+  direct experience here.)
 
 ## Open questions
 
