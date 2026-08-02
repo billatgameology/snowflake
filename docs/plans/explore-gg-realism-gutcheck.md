@@ -229,6 +229,72 @@ commitment.
 
 **Maker verdict (one sentence, in the maker's own words):** _pending._
 
+## Proposed follow-up run — paper-scale dendrite (NOT launched; awaiting maker go)
+
+Written 2026-08-02 in answer to the maker's "before you run the 8–15 hr job, tell me
+exactly what your plan is." Nothing below has been executed.
+
+**Goal.** Close the "did we reproduce the paper?" question figure-to-figure: grow the
+`dendrite` preset (the paper's Fig. 14 parameter set per `core/src/params.ts` provenance)
+at the paper's own scale — case studies run to radius ≈ 350 — and eyeball it against
+Fig. 14 itself, then re-run the ADR 0029 ice-look comparison at this more honest scale.
+
+**Command (exact, from the worktree root):**
+
+```
+node runner/src/main.ts grow --preset dendrite --dims 1200,1200,48 --domain hexPrism \
+  --ticks 80000 --noise 0 \
+  --metrics-every 500 --full-metrics-every 2000 \
+  --pgm-every 2000 --pgm-dir out/gutcheck-gg-realism/pgm-1200 \
+  --out out/gutcheck-gg-realism/dendrite-1200x1200x48-noise0.ckpt
+```
+
+- `--noise 0`, deliberately unlike the first run: the paper's case-study figures are
+  deterministic (§III C: "Our only three-dimensional virtual snowflakes to date are
+  deterministic"), so noise-off is the paper-faithful setting. Seed is then unread
+  (default 1, unused). Bitwise-reproducible on this oracle/engine; exact D6h symmetry
+  expected at every cadence (`symErr=0`) — a nice large-scale exhibit, but **no gate is
+  claimed**.
+- Sizing, from measured facts: both completed runs stopped at radius ≈ 0.61 × hexRadius
+  (38/63 and 117/191, noise-on). Dims 1200 → hexRadius 599 → predicted far-field stop at
+  radius ≈ 350–365. Domain-contact guard will not fire first (2·365/1200 = 61% < 65%).
+  Tick cap 80,000 ≈ 1.8× the naive extrapolation (350 / 0.0079 cells·tick⁻¹ ≈ 44k ticks;
+  paper's radius-350 plate took 70k steps).
+- Cost, from measured facts: ~50.7M active cells at ~16 ns/cell·tick (measured on the 384
+  run) ≈ 0.8 s/tick → **10–18 h wall clock**; ~2.6 GB steady (noise-off arrays), ~7 GB
+  transient at the checkpoint round-trip; host has 24 GB (`hw.memsize`), so it fits. Same
+  log/error/exit-status file pattern, `grow-1200.*` names.
+- Fallback semantics recorded up front: if the tick cap fires before radius 350, the
+  result is still a valid eyeball object; the shortfall gets recorded, not hidden.
+
+**Expected result (prediction, written before the run so hindsight can't edit it):** a
+deterministic, exactly sixfold-symmetric stellar dendrite ≈ 700 cells across with dense
+alternating sidebranches and midline ridges — Fig. 14's "classic dendrite" morphology at
+Fig. 14's scale. Two extractions of the one checkpoint: crisp (σ ≈ 0.30–0.35) for the
+figure comparison, and the ice look at the σ trade-off sweet spot for the footage
+comparison. If the sidebranch texture does *not* match Fig. 14 qualitatively, that is a
+real fidelity finding (likeliest suspects, in order: boundary condition — our reflecting
+hexPrism reservoir vs the paper's large-lattice treatment — then scale-dependent
+depletion; a solver defect is unlikely given the Phase 2a gates but would outrank this
+spike if implicated).
+
+**Comparisons the outputs feed (both eyeball-only, Evidence = unvalidated):**
+
+1. Primary — G-G Phys. Rev. E **79** 011601, Fig. 14 (ρ = 0.1), p. 9: same parameters,
+   same scale, our render vs their published figure. APS holds the figure copyright, so
+   that composite stays in gitignored `out/` like the video frame.
+2. Secondary — J0521r2p @ 23.633 s again: same target frame as the completed gut check,
+   now without the 3–10× scale handicap. Stated limit: the footage specimen is a 2.5 mm
+   broad-branched sector-plate crystal grown under changing conditions; ours is a
+   fixed-parameter classic dendrite at radius ≈ 350 — this compares look and texture,
+   not specimen morphology.
+
+**Not in this follow-up:** any LK run, any solver/runner edit, any gate or metric claim,
+any charter/ADR/education change. Host note: the charter prefers the Windows box for long
+evidence runs; this is an eyeball run and the Mac overnight is acceptable, but the
+registered command reproduces on either host (habit-class reproduction across arm64/x64
+was verified at commit `945437f`; bitwise identity is not claimed cross-arch).
+
 ## Out of scope
 
 - Any `LibbrechtKinetics` run — LK realism is Phase 6's question.
