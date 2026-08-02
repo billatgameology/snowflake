@@ -49,9 +49,13 @@ index, a plan, ADR, or audit links to historical detail.
   pre-registered and accepted by a read-only non-author review with 0 blockers / 0 should-fixes
   after correcting the Yamashita chain and freezing search stopping, renderer provenance,
   machine-readable in-sample/geometry/pass labels, evidence-manifest registration, source currency,
-  and post-extraction anti-tuning rules. No new literature search or TAX2 span extraction has run.
-  Rule 7 is clean over 420 files, the progress-index suite passes 7/7, and `git diff --check` is
-  clean for this plan unit.
+  and post-extraction anti-tuning rules. Section 11 of `research/phase6-source-currency.md` now
+  freezes the 243 base query-route combinations, derived citation/currency routes, finite
+  stopping/admission, merge-safe entry checkpoints, and durable source-search/TAX2 evidence
+  boundaries. Three offline
+  non-author review slices returned 0 blockers / 0 should-fixes on the final register. No live
+  request or TAX2 numeric extraction has run. Rule 7 is clean over 420 files, the progress-index
+  suite passes 7/7, and `git diff --check` is clean for this registration unit.
 - Under the current whole-grid rule the minimum planning count is `612 × S × D × Z` rows
   (three arms × 204 points × spacings × domains × physical-size strata). The present
   three-spacing, three-domain, one-size baseline is 5,508 CPU rows. This is a feasibility bound, not
@@ -131,14 +135,16 @@ For unattended long work: first update this index and `HANDOFF.md`; run only fro
 source snapshot; write labeled live/error/exit records; put durable generated science under
 `evidence/`; and report user-facing status at most once per hour unless the maker asks.
 
-1. Add to `research/phase6-source-currency.md` the pre-execution, cold-resumable register for
-   `YAMASHITA-FREEFALL-LINEAGE-01`, `MATCHED-AIR-PRESSURE-01`, and `TAX2-PANEL-SPAN-01`, including
-   each frozen search scope/stopping rule, before browsing or source extraction. First record checks:
-   `npm.cmd run lint:rule7`,
-   `npx.cmd vitest run runner/test/progress-index.test.ts`, and `git diff --check`.
-2. Resolve the Yamashita primary-data lineage and separately search for a genuinely matched
-   air-pressure target. Keep the candidate lock `passEligible=false` unless independence, geometry,
-   transport, observable, and uncertainty all pass.
+1. Implement and independently review the Section 11 source-search executor, entry-specific atomic
+   checkpoint/resume path and normalized evidence publisher before any live request. Create
+   `runner/src/phase6-wp1-source-search.ts`, `runner/src/phase6-wp1-source-search-main.ts`, and
+   `runner/test/phase6-wp1-source-search.test.ts` under the accepted WP1 plan. First focused checks
+   are `npm.cmd run lint:rule7`,
+   `npx.cmd vitest run runner/test/phase6-wp1-source-search.test.ts`,
+   `npx.cmd vitest run runner/test/evidence-integrity.test.ts`, and `git diff --check`.
+2. From a clean committed executor, resolve the Yamashita primary-data lineage and separately search
+   for a genuinely matched air-pressure target. Keep the candidate lock `passEligible=false` unless
+   independence, geometry, transport, observable, and uncertainty all pass.
 3. Pre-register and independently review the TAX2 segmentation/span operator before any numeric
    extraction. Do not consume or compare new R15 model output while selecting a target; no personnel
    blindness to historical output is claimed. Do not promote in-sample or geometry-mismatched data

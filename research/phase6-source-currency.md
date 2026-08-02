@@ -352,3 +352,498 @@ their page counts, extracted the complete relevant text, visually reviewed metho
 tables/results, and inspected the Bailey–Hallett indexed publisher rendering. It did not digitize
 plots, recover unpublished/raw particle tables, contact authors, acquire the blocked 2004 journal
 PDF, run the solver, or implement thermal, sublimation, substrate, polycrystal or defect physics.
+
+## 11. WP1 source-search and extraction register
+
+**Registration state:** `REGISTERED; ALL THREE ENTRIES UNEXECUTED` on 2026-08-02. This section is a
+prospective execution contract, not a report of searches or measurements already performed. It
+does not authorize a validation target, change
+`PHASE6_HELDOUT_CANDIDATES_2026_08_01`, or change that lock's `passEligible=false` value. A known
+pointer, search-engine result, catalog record, abstract, or inaccessible stable identifier is a
+lead, not quantitative evidence.
+
+The execution cutoff is 2026-08-02 23:59:59 UTC. Searches may execute later, but they admit only
+records first published, deposited, or publicly indexed on or before that cutoff. A source with an
+earlier publication date but a catalog record first discovered after the cutoff is admissible only
+if the execution record establishes that the underlying source was public by the cutoff; otherwise
+it is logged as post-cutoff follow-up. Each execution records its actual UTC start/end time, exact
+request or manual route, response status, returned and screened counts, cursor/page completion,
+every returned record's inclusion/exclusion disposition, acquisition result, and the SHA-256 and
+byte count of every raw response or source snapshot where preservation is legally and technically
+possible. Raw catalog responses and third-party source bytes stay under `research/tmp/`; the
+tracked record binds their identities but does not redistribute them.
+
+All query text below is Unicode NFC. The executor substitutes decoded parameter values first and
+then applies UTF-8 percent-encoding exactly once; spaces encode as `%20`. DOI query/path values and
+opaque cursors receive the same one-pass encoding, including `<`, `>`, parentheses, semicolons and
+slashes. The executor performs no stemming, synonym expansion, date change, or unregistered query
+addition; provider-native matching or normalization may still occur and is recorded as a provider
+limit.
+
+Every direct HTTP or manual-fetch endpoint is requested without authentication with
+`User-Agent: VirtualCloudChamber-Phase6-WP1/1.0` and the route-appropriate
+`Accept: application/json`, `application/xml`, or `text/html`. If a route requires a credential or
+rejects anonymous volume, that is a terminal access limitation; no secret or alternative credential
+class is improvised. An unavailable endpoint is not replaced without a new dated registration
+amendment. HTTP redirects, status codes, rate-limit retries, exact request/response headers excluding
+volatile transport fields, and the final URL are recorded. At most three retries are allowed for a
+transient `429` or `5xx`, using the server's `Retry-After` value or, if absent, deterministic waits
+of 5, 20, and 60 seconds. No retry changes the query or cap. The opaque supplemental search tool
+does not expose or promise those headers; its exact tool-call arguments, returned blocks, provider
+metadata that is observable, and canonical tool-result hash are recorded instead.
+
+### Shared bibliographic routes and deterministic screen
+
+The two literature entries use these registered routes. `Q` means one exact entry-specific query
+below and `FROM`/`TO` mean that entry's inclusive publication-date range.
+
+| route | exact request and returned fields | cap and pagination |
+|---|---|---|
+| Crossref REST | `GET https://api.crossref.org/works?query.bibliographic=Q&filter=from-pub-date:FROM,until-pub-date:TO&rows=100&offset=OFFSET`; retain the complete returned work objects rather than a selected-field projection | offsets 0 and 100; 200 per query; record `total-results` and whether it exceeds 200 |
+| OpenAlex | `GET https://api.openalex.org/works?search=Q&filter=from_publication_date:FROM,to_publication_date:TO&per-page=100&cursor=CURSOR`; retain the complete returned work objects, including available abstract, topic, keyword and relation fields | cursor from `*` through 200 records; stop earlier only on an empty page; record whether another cursor existed at the cap |
+| CiNii Research | `GET https://cir.nii.ac.jp/opensearch/all?q=Q&format=json&count=200&start=1` | one 200-record page; record advertised total and cap truncation |
+| NDL Search SRU | let `Q_CQL` replace `\` with `\\` and `"` with `\"` in decoded `Q`, let decoded `CQL` be `anywhere="Q_CQL"`, then request `GET https://ndlsearch.ndl.go.jp/api/sru?operation=searchRetrieve&version=1.2&recordSchema=dcndl&recordPacking=xml&query=CQL&maximumRecords=200&startRecord=1`, applying the common one-pass encoding to the complete `CQL` parameter value | one 200-record response; record `numberOfRecords` and cap truncation |
+| J-STAGE | manual HTML search at `https://www.jstage.jst.go.jp/result/global/-char/en?globalSearchKey=Q` | follow only the server-displayed next-page control through 200 results; record each final page URL, result count, and inaccessible continuation |
+| Google Books | `GET https://www.googleapis.com/books/v1/volumes?q=Q&printType=books&orderBy=relevance&maxResults=40&startIndex=START` | starts 0, 40, 80, 120, 160; 200 per query; record `totalItems` and cap truncation |
+| Internet Archive | `GET https://archive.org/advancedsearch.php?q=Q&fl[]=identifier&fl[]=title&fl[]=creator&fl[]=date&fl[]=description&fl[]=subject&fl[]=mediatype&rows=200&page=1&output=json` | one 200-record page; record `numFound` and cap truncation |
+| WorldCat | manual search at `https://search.worldcat.org/search?q=Q` | follow only the server-displayed next-page control and screen at most 100 records in displayed order; record every final page URL and access limitation |
+| supplemental web index | one configured `search_query` call with exact `Q` and no recency filter | screen every result returned by that one opaque provider call, up to 50; record when the tool returns fewer and offers no continuation; this route can discover a lead but cannot establish source conditions |
+
+Only Crossref and OpenAlex apply `FROM`/`TO` server-side. The other seven routes return their
+provider-ranked, relevance-capped sets; the executor then applies the inclusive date range locally.
+An out-of-range row is retained with that reason. A search-negative conclusion is explicitly
+bounded by those mixed-date provider caps and cannot be restated as a complete date-range census.
+
+DOIs normalize by trimming Unicode whitespace, stripping one case-insensitive leading `doi:`,
+`https://doi.org/`, `http://doi.org/`, or `http://dx.doi.org/`, percent-decoding a URL-derived value
+exactly once when valid, Unicode-normalizing to NFC, and ASCII-lowercasing. An OpenAlex work/author
+ID normalizes by trimming, removing one case-insensitive `https://openalex.org/` prefix, uppercasing
+the prefix letter, and requiring `W[1-9][0-9]*` or `A[1-9][0-9]*`; malformed IDs are unresolved and
+never placed in a path/filter. ISBN removes hyphens/spaces, uppercases `X`, and must pass an ISBN-10
+or ISBN-13 checksum; convert every valid ISBN-10 to its `978` ISBN-13 equivalent with a recomputed
+check digit before identity comparison, retain original forms as aliases, and leave valid `979`
+ISBN-13 values unchanged. OCLC removes one leading `ocm`, `ocn`, `on`, or `OCLC` label and leading zeros,
+then requires nonzero decimal digits. Other named identifiers are Unicode-NFC trimmed and use their
+provider's case convention.
+
+Identity is a union of every shared normalized strong identifier: DOI; OpenAlex work ID;
+PubMed/PMC ID; J-STAGE article ID; CiNii ID; NDL bibliographic ID; valid ISBN plus volume; Internet
+Archive identifier; or OCLC number. A record carrying DOI plus OpenAlex ID therefore joins a later
+record carrying only that OpenAlex ID. If one occurrence would bridge components containing
+different nonempty DOIs or conflicting ISBN-plus-volume identities, do not union them: give the
+occurrence a raw-hash identity and mark `identity-conflict` for review. Only when no strong ID exists
+may Unicode-NFKC/case-folded title plus a nonmissing first-author family name and four-digit year
+form a fallback key. A missing author or year forces a separate raw-record SHA-256 key, preventing
+generic titles from merging.
+
+Every provider/query occurrence remains in the ledger. Duplicate occurrences point to one
+canonical component. The component key is its lexicographically smallest type-prefixed strong ID,
+otherwise its fallback or raw-hash key. The canonical display variant maximizes the number present
+among the fixed fields `title`, `firstAuthor`, `publicationDate`, `venue`, `strongIdentifier`,
+`abstractOrSubject`, and `acquisitionURL`, then minimizes the lexicographically joined normalized
+strong IDs and SHA-256 of sorted-key UTF-8 JSON; route or arrival order never chooses it. Metadata from
+all variants remains available. Each occurrence has two independent axes:
+`screenDisposition` is one of `include-acquire`, `include-citation-lead`,
+`exclude-out-of-scope`, or `duplicate-alias`; `acquisitionStatus` is one of `not-attempted`,
+`acquired-and-verified`, `inaccessible-after-attempts`, `metadata-only-by-design`, or
+`not-required`. Thus a relevant inaccessible source remains included and still triggers its
+registered citation/currency work. A missing abstract cannot by itself exclude a record; it becomes
+an acquisition or citation lead. `metadata-only-by-design` is allowed only with
+`include-citation-lead`, `exclude-out-of-scope`, or `duplicate-alias`; an `include-acquire` record
+must end `acquired-and-verified` or `inaccessible-after-attempts` and is never pass-eligible under
+the latter.
+
+Identity components may merge as later routes reveal bridging IDs, so their display/component key
+is not a scheduling identity. Each occurrence gets immutable `occurrenceId = sha256(requestId |
+providerRank | rawRecordSha256)`. A relation subject gets immutable `subjectScheduleId` equal to the
+type-prefixed normalized DOI/OpenAlex/other external identifier actually used in that request, or
+`occurrence:occurrenceId` for a title-only route. Component merges append an alias/pointer history;
+they never rename an `occurrenceId`, `subjectScheduleId`, completed request, or raw file. Final
+evidence maps all immutable IDs to the final component graph.
+
+For every acquired candidate, the record gives complete citation, stable identifiers, acquisition
+URL, ignored local path, bytes, pages or archive members, SHA-256, relevant pages, original-language
+excerpt where applicable, and the exact OCR/translation tool and version. Machine translation is
+marked unreviewed unless a named human reviewer checks it. The methods/data screen records
+temperature, supersaturation definition and value, pressure and gas, duration/history, apparatus,
+support/ventilation, seed or population/crystallography, sample size, quantitative observable,
+uncertainty, and whether the current solver can predict the observable without fitting an
+unobserved initial state or adding omitted load-bearing physics.
+
+#### Registered citation-relation requests
+
+The following derived requests are part of this registration; they are not unregistered searches.
+`DOI` is the normalized DOI above, `WID` is the OpenAlex work ID returned by resolution, `AID` is an
+OpenAlex author ID, and `CANDIDATE_DATE` is the candidate's earliest source-supported publication
+date. Each placeholder is substituted and encoded under the one-pass rule above.
+
+Only validated short-form `WID`/`AID` values from the normalization rule enter requests. For
+`CANDIDATE_DATE`, preserve every reported publication/issued/print/online date variant, expand a
+source-supported `YYYY` to `YYYY-01-01` and `YYYY-MM` to `YYYY-MM-01`, and use the earliest expanded
+publication lower bound. Deposit/index dates do not override a supported publication date. If no
+publication year is supported, use the entry's registered `FROM` date solely as a conservative
+search lower bound, mark date identity unresolved, and prohibit quantitative target admission.
+
+1. Resolve a DOI in Crossref with
+   `GET https://api.crossref.org/works/DOI`; retain its complete work object. Its `reference` array
+   is the Crossref backward relation. Sort the complete received array locally by normalized DOI,
+   then by Unicode-NFKC/case-folded `article-title|author|year|unstructured`, with `<missing>`
+   sentinels, then by canonical raw-reference SHA-256. Screen the first 200 after that sort and record the received count. Crossref's
+   `is-referenced-by-count` is a count only and is never treated as a forward-citation list.
+2. Resolve a DOI in OpenAlex with
+   `GET https://api.openalex.org/works?filter=doi:https://doi.org/DOI&per-page=25`; require exactly
+   one matching normalized DOI or record an ambiguous/missing resolution. A known `WID` may instead
+   be fetched with `GET https://api.openalex.org/works/WID`. The complete `referenced_works` array
+   is sorted lexicographically by OpenAlex ID; screen its first 200 and record its full length.
+3. Retrieve OpenAlex forward citations with
+   `GET https://api.openalex.org/works?filter=cites:WID,from_publication_date:CANDIDATE_DATE,to_publication_date:2026-08-02&sort=publication_date:asc&per-page=100&cursor=CURSOR`,
+   starting at cursor `*` and stopping after two pages or an empty page. The provider's first 200 in
+   that registered chronological ordering are the capped cohort; only after retrieval are they
+   secondarily sorted by `publication_date|id` for screening. Record `count`, next-cursor presence,
+   and cap truncation. No claim is made that these are the globally lowest 200 IDs.
+4. Fetch an individual OpenAlex relation member with
+   `GET https://api.openalex.org/works/WID`. A member lacking the entry-specific phrase/token match
+   below but also lacking an abstract/subject/full text is retained as `include-citation-lead`, not
+   excluded. Provider relation APIs do not supply citing prose; this protocol never claims they do.
+
+A relation unavailable after the registered retries is `terminal-access-failure` for that direction
+and remains an explicit limit. A Crossref reference without a resolvable stable ID remains a
+bibliographic citation lead and is searched by its exact received title using the shared discovery
+template on Crossref, OpenAlex, CiNii, NDL and the supplemental web route, with those routes' normal
+caps. Relation depth and entry-specific text predicates are fixed in each entry below.
+
+#### Rule 12 derived requests
+
+Before any candidate freezes, its currency check executes these deterministic derived routes from
+`CANDIDATE_DATE` through 2026-08-02:
+
+1. Let `TOKEN` be the normalized DOI when present, otherwise the exact Unicode-NFC title without
+   added quotation marks; the NDL template supplies and escapes its own CQL quotes. For each `TERM`
+   in the fixed order `erratum`, `corrigendum`, `correction`, `retraction`, `正誤`, `正誤表`,
+   `訂正`, `撤回`, build exact query `TOKEN TERM` and run it on Crossref, OpenAlex, CiNii, NDL,
+   J-STAGE and the one-call supplemental web route using the shared templates and caps. Google
+   Books, Internet Archive and WorldCat are not correction-index routes and are not silently added.
+2. Inspect only publisher/repository/version URLs returned in the candidate's stable-ID metadata,
+   Crossref `link`/`relation` fields, or OpenAlex `primary_location`, `locations`, and
+   `best_oa_location`. Record every followed URL, redirect, version label and access failure. This
+   is deterministic link traversal, not an added text query.
+3. For every validated OpenAlex `AID` on the candidate, request
+   `GET https://api.openalex.org/works?filter=authorships.author.id:AID,from_publication_date:CANDIDATE_DATE,to_publication_date:2026-08-02&sort=publication_date:asc&per-page=100&cursor=CURSOR`
+   through two pages or an empty page. For an author without a resolved `AID`, request Crossref once
+   for every distinct complete original-script and romanized display-name variant present in the
+   acquired source and provider metadata, in Unicode-code-point sort order,
+   `GET https://api.crossref.org/works?query.author=EXACT_AUTHOR&filter=from-pub-date:CANDIDATE_DATE,until-pub-date:2026-08-02&rows=100&offset=OFFSET`
+   at offsets 0 and 100, where `EXACT_AUTHOR` is that Unicode-NFC display name. The resolved AID or
+   exact-name query discharges any author-name clause in the entry predicate; screen only its topical/
+   observable clauses. Rows missing enough metadata to apply them remain citation leads. An
+   unresolved author identity leaves source currency unresolved.
+
+Any remaining cursor or advertised/returned total above 200 makes that candidate's Rule 12 route
+cap-incomplete. The record states whether a correction, version, or later same-author primary work
+supersedes or qualifies the methods, values, or interpretation. An inaccessible primary source,
+unresolved version/author identity, access-incomplete or cap-incomplete currency route cannot become
+a quantitative target.
+
+#### Cold-resume and durable-ledger contract
+
+Before the first request for an entry, the executor creates
+`research/tmp/phase6-wp1-source-search-01/ENTRY_ID/`. It writes one immutable raw-response file per
+attempt and an entry-specific atomic `checkpoint.json` after every response: write a sibling
+temporary file, flush and close it, then rename it over the prior checkpoint. Separate entry
+directories prevent sequential overwrite and parallel races. The checkpoint's canonical sorted-key
+JSON schema contains:
+
+- `schema`, `entryId`, execution UTC start/cutoff, executor commit and tracked-dirty-state refusal,
+  Git blob identity of this file plus SHA-256 of the exact registered section text, engine/OS, and
+  non-secret environment;
+- for each request: `requestId`, stage, route, query ordinal or immutable `subjectScheduleId`, hop/direction,
+  page ordinal, prior-response hash when an opaque cursor is used, decoded parameters, exact final
+  URL, non-secret headers, attempts, UTC times, HTTP/fetch terminal state, status, raw path/bytes/
+  SHA-256, capture kind, provider total, returned count, next cursor/link, cap flag, and error;
+- for each returned occurrence: immutable `occurrenceId`, provider rank, raw-record SHA-256,
+  current component key plus alias history, canonical-variant pointer, both disposition axes, reason
+  code, citation-walk trigger, and acquisition pointer; and
+- outstanding request IDs plus the last fully published page/cursor.
+
+`requestId` is lowercase SHA-256 of canonical sorted-key UTF-8 JSON containing
+`entryId|stage|route|queryOrdinal|subjectScheduleId|hop|direction|pageOrdinal|requestUrl`; an opaque
+cursor request additionally binds the prior raw-response SHA-256. On resume, only a request whose
+terminal checkpoint entry and raw-response bytes/hash both validate may be skipped. A missing or
+mismatched pair is re-executed and the mismatch is preserved in the audit log.
+
+When DNS, TLS, connection, or tool failure yields no response body, write canonical sorted-key UTF-8
+JSON containing request/attempt IDs, route, exact intended URL/call, UTC start/end, error name/code/
+message and retry decision; set `captureKind=no-response` and hash those bytes. A terminal access
+failure resumes only when that error artifact and checkpoint hash validate.
+
+Execution refuses staged or unstaged modifications to tracked files, but records rather than
+rejects unrelated untracked/ignored paths; this preserves the user's root `=` file and the named
+ignored research inputs. It separately hashes every named ignored source input. For direct HTTP,
+the raw hash covers the exact client-decoded response-body bytes before text parsing and records
+`Content-Encoding`; for saved manual HTML it covers page-source bytes; when page source is
+unavailable, and for the opaque search route, it covers canonical sorted-key UTF-8 JSON of the
+observable tool result and marks that capture kind. No one representation is mislabeled as another.
+
+Every request ends in exactly one of `complete`, `terminal-access-failure`,
+`terminal-partial-at-cap`, or `terminal-no-results`; exhausting registered retries is completion of
+an access-failure record, not success. Thus an inaccessible route cannot create an infinite stopping
+condition, and every negative result names the missing/capped scope.
+
+Once an entry completes, publish normalized, non-copyrighted bibliographic/provenance data under
+`evidence/phase6-wp1-source-search-01/`: canonical request ledger, occurrence/disposition ledger,
+candidate table, currency/citation outcomes, and summary. Do not publish raw HTML/PDFs, full
+abstracts, or source images. Serialize JSON/JSONL as UTF-8 with LF, sorted keys, deterministic row
+orders and a terminal newline. Register every file's bytes and SHA-256 in `evidence/MANIFEST.json`
+and make the evidence-integrity test reopen it. The ignored checkpoint is the interruption-resume
+surface; the tracked evidence bundle is the durable scientific record. `docs/PROGRESS.md` and
+`docs/HANDOFF.md` point to each entry-specific checkpoint while execution is active and to the evidence bundle when
+complete, keeping those state indexes compact.
+
+### `YAMASHITA-FREEFALL-LINEAGE-01`
+
+- **Status:** `UNEXECUTED`.
+- **Exact question:** Which original Yamashita primary publication or dataset underlies the
+  diameter and thickness measurements after 200 seconds of free-fall growth reproduced through
+  `[1987Kob]`, and what pressure, temperature, supersaturation, growth time, apparatus/cloud,
+  seed/population/crystallography, dimension definition, sample size, and uncertainty did it
+  report?
+- **Authoritative starting chain:** local `1910.06389v2`, Figure 6.22 (printed p. 234 / PDF p. 235),
+  Figure 7.21 (printed p. 268 / PDF p. 269), and bibliography `[1987Kob]` (PDF p. 508).
+  `[1987Kob]` is T. Kobayashi and T. Kuroda, *Snow Crystals: Morphology of Crystals — Part B*,
+  Terra Scientific, Tokyo, 1987. The local monograph identifies the reproduced points as Yamashita
+  measurements after 200 seconds; it does not establish a figure number inside the 1987 book or
+  the original Yamashita citation. `2004.06212v1` Figure 8 is a second later reproduction, not an
+  independent primary source.
+- **Tracked pointer identities:** `research/1910.06389v2.pdf` is the 523-page official
+  `https://arxiv.org/abs/1910.06389v2` source, 25,611,913 bytes, SHA-256
+  `f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471`.
+  `research/2004.06212v1.pdf` is the 13-page official
+  `https://arxiv.org/abs/2004.06212v1` source, 1,562,618 bytes, SHA-256
+  `6e450a1c2969e5cd074b2282ed727c25cb56858347246350c4e0e487b592f49e`.
+- **Publication range:** 1930-01-01 through 1987-12-31 for the original source search. Rule 12 and
+  forward-citation searches for each recovered candidate run from that candidate's earliest
+  source-supported publication date through the common 2026-08-02 cutoff; no pre-book correction
+  interval is omitted.
+- **Exact discovery queries, each run on every shared route:**
+  1. `Yamashita snow crystal growth`
+  2. `A. Yamashita ice crystal growth`
+  3. `Akira Yamashita snow crystal`
+  4. `Yamashita snow crystal 200 seconds`
+  5. `Yamashita diameter thickness snow crystal`
+  6. `Yamashita free fall snow crystal`
+  7. `山下 雪結晶 成長`
+  8. `山下 雪結晶 200秒`
+  9. `山下 氷晶 成長`
+  10. `人工雪 結晶 山下`
+  11. `Snow Crystals Morphology of Crystals Part B Kobayashi Kuroda 1987`
+  12. `雪結晶 結晶成長 山下 明`
+- **Normalized relation predicate:** concatenate the available title, abstract, subjects/topics,
+  author display/family names, Crossref reference `author`/`unstructured` strings, and inspectable
+  acquired full text before Unicode NFKC plus case-folding. That corpus must contain `yamashita` or
+  `山下`, and at least one of `snow`, `ice`, `crystal`, `雪`, `氷`, or `結晶`; alternatively it
+  must contain `200` plus one of `second`, `seconds`, `sec`, or `秒` and one of `diameter`,
+  `thickness`, `dimension`, `直径`, or `厚`. Punctuation becomes spaces and runs of Unicode
+  whitespace collapse before matching. Latin alternatives match complete whitespace-delimited
+  tokens; CJK alternatives match substrings. In the Rule 12 same-author route, resolved AID or exact
+  author-name matching discharges `yamashita`/`山下`; the topical clause is the crystal-term half
+  or the complete 200-second/dimension alternative. A row missing title, abstract/subject and
+  inspectable full text is `include-citation-lead`, never a predicate-negative exclusion.
+- **Citation-chain rule:** inspect the 1987 book's figure credits, captions, notes, and reference
+  entries explicitly connected to the Yamashita curves. The finite backward roots are the book
+  citations/credits connected to those curves plus canonical discovery records assigned either
+  `include-acquire` or `include-citation-lead` and carrying a resolvable relation identifier;
+  each is depth 0. Retrieve its backward members as depth 1, expand predicate-passing or
+  metadata-missing depth-1/2 members to maximum depth 3, and never expand a depth-3 member. The
+  finite forward roots are canonical `include-acquire` records whose source/metadata explicitly
+  attributes the 200-second dimensions to Yamashita; each is depth 0. Retrieve direct citers as
+  depth 1, expand only predicate-passing or metadata-missing depth-1 members to depth 2, and never
+  expand depth 2 or promote any relation member to a new root. Rule 12 triggers for every forward
+  root and every backward node assigned `screenDisposition=include-acquire`. The registered
+  provider-order/cap rules govern cohort selection; a larger or inaccessible relation is scoped.
+- **Inclusion rule:** include any work authored by a Yamashita whose title/metadata concerns snow
+  or ice-crystal growth, or any source that explicitly credits Yamashita for the 200-second
+  diameter/thickness data. Name ambiguity stays unresolved until authorship is reconciled.
+- **Primary-source admission rule:** the inspectable source must present the experiment, methods,
+  data/table/graph, or an author-controlled dataset. A later reproduction, review, textbook, or
+  uncited curve is retained as a citation lead only. No missing condition or uncertainty may be
+  inferred from plot shape or a later author's apparatus.
+- **Deterministic stopping condition:** stop only after all 12 queries reach a registered terminal
+  state on all nine routes;
+  the connected book chain reaches a primary source, dead end, inaccessible record, or three
+  backward hops; every finite forward root executes the registered walk through maximum depth two,
+  terminating a branch on no results, access failure or cap; and every triggered Rule 12 check
+  reaches a registered terminal state. Any cap or inaccessible source is named in the terminal scope. The permitted outcomes
+  are a byte/stable-ID-provenanced primary identity and conditions, or a bounded search-negative/
+  inaccessible record. Neither outcome by itself makes the source a scoreable target.
+- **Execution:** `UNEXECUTED`; **execution/outcome reviewer:** `UNASSIGNED`. The offline
+  pre-execution register review is recorded at the end of this section.
+
+### `MATCHED-AIR-PRESSURE-01`
+
+- **Status:** `UNEXECUTED`.
+- **Exact question:** Is there a primary snow-crystal growth experiment that varies numeric
+  background air pressure while sufficiently controlling apparatus, gas composition, temperature,
+  supersaturation, growth duration/history, seed/crystallography or population definition,
+  ventilation/support state, and a quantitative observable with usable uncertainty?
+- **Publication range:** 1930-01-01 through the common 2026-08-02 cutoff.
+- **Exact discovery queries, each run on every shared route:**
+  1. `snow crystal growth pressure experiment air`
+  2. `ice crystal growth air pressure supersaturation experiment`
+  3. `snow crystals reduced pressure growth`
+  4. `ice crystals pressure dependence air temperature supersaturation`
+  5. `snow crystal low pressure air growth rate`
+  6. `artificial snow crystals pressure experiment`
+  7. `snow crystal growth different pressures same temperature`
+  8. `ice crystal growth pressure chamber morphology`
+  9. `雪結晶 成長 気圧 空気`
+  10. `氷晶 成長 圧力 空気`
+  11. `人工雪 結晶 気圧`
+  12. `Gonda snow crystal pressure growth`
+  13. `Takahashi Fukuta snow crystal pressure`
+  14. `Bailey Hallett ice crystal pressure growth`
+  15. `Yamashita snow crystal pressure`
+- **Known seed records, retained rather than silently rediscovered:** Takahashi/Fukuta 1988 DOI
+  `10.2151/jmsj1965.66.6_841`; Takahashi et al. 1991 DOI
+  `10.2151/jmsj1965.69.1_15`; Kuroda and Gonda 1984 DOI
+  `10.2151/jmsj1965.62.3_563`; Gonda 1976 DOI `10.2151/jmsj1965.54.4_233`; Gonda and Gomi 1985 DOI
+  `10.3189/1985AoG6-1-222-224`; and Bailey and Hallett 2004 DOI
+  `10.1175/1520-0469(2004)061<0514:GRAHOI>2.0.CO;2`. Their current rejection reasons in §6 remain
+  provisional inputs to this fresh screen, not inherited verdicts.
+- **Citation-chain rule:** for every known seed and every canonical discovery record assigned
+  `include-acquire` or `include-citation-lead` and carrying a resolvable relation identifier, traverse
+  the registered Crossref-backward/OpenAlex-backward/forward routes one hop. Normalize Unicode NFKC,
+  case-fold, replace punctuation with spaces and collapse whitespace; continue a relation member
+  only when its available title/abstract/subjects contain at least one of `snow`, `ice`, `crystal`,
+  `雪`, `氷`, or `結晶` and at least one of `pressure`, `pressures`, `hpa`, `mb`, `mbar`, `bar`,
+  `atm`, `気圧`, or `圧力`. Missing title plus abstract/subject/full text remains
+  `include-citation-lead`. Latin alternatives match complete whitespace-delimited tokens and CJK
+  alternatives match substrings. A passing or metadata-missing member receives one additional hop. The
+  registered provider-order/cap rules govern each direction/candidate/hop. This is maximum depth
+  two from the originating seed, not an unbounded snowball search. Rule 12 triggers for every node
+  assigned `screenDisposition=include-acquire`; citation-lead-only nodes do not become quantitative
+  candidates unless full screening changes that disposition under the frozen rule.
+- **Inclusion rule:** include an experimental primary work if its title, abstract, metadata, or
+  inspectable full text reports snow/ice deposition growth or morphology at a numeric gas
+  pressure, or compares two pressures. Retain uncertain metadata for acquisition. Theory,
+  simulation, sublimation-only, atmospheric remote sensing, bulk cloud statistics, and non-water
+  crystals are excluded with reasons, but any paper that supplies a citation to a potentially
+  qualifying experiment remains a citation lead.
+- **Matched-target rule:** at least two numeric pressures must come from the same experiment or a
+  source-demonstrated identical apparatus/protocol. Gas composition, temperature, supersaturation
+  definition, duration/history, initial particle/population, support/ventilation, and observable
+  must either be identical by design within stated uncertainty or have pressure-specific measured
+  values that can be supplied to the solver without fitting. The source must provide paired or
+  distribution-compatible outputs and source-stated uncertainty, raw repeat data, or sufficient
+  instrument/repeat information for a prospectively registered uncertainty operator. A change in
+  gas species, substrate, liquid-water/riming population, temperature regime, or unobserved
+  crystallography is a mismatch, not a pressure effect.
+- **Prediction-side rule:** the current solver must predict the reported observable without
+  selecting an unobserved initial state, tuning to that outcome, or adding an unregistered mapping
+  for substrate, ventilation, latent heat, polycrystallinity, riming, sublimation, or defect/step
+  physics. A source may be scientifically valuable yet blocked for the present model.
+- **Held-out independence rule:** before `scoreable`, trace every candidate dataset, apparatus
+  lineage, calibration, observable and derived input against every P1–P4 source/value in
+  `docs/libbrecht-parameters.md`, the CAK source chain, and the M1/TAX2 source chain in ADRs 0030,
+  0036 and 0040. Record `independenceStatus` separately for `CAK`, `M1`, and
+  `M1_NO_DIP_ABLATION` as `independent`, `overlap`, or `unresolved`, with the exact shared data or
+  citation path. Shared authorship alone is disclosed but is not data reuse. `overlap` or
+  `unresolved` is fail-closed for that arm; no target/tolerance may be derived from data that
+  supplied, calibrated, selected, or evaluated the same model input.
+- **Deterministic stopping condition:** stop only after all 15 queries reach a registered terminal
+  state on all nine routes;
+  all seed/candidate citation walks and Rule 12 checks complete; every `include-acquire` work is
+  acquired or explicitly marked inaccessible; and citation-lead-only metadata rows remain visible
+  and pass-ineligible. Any cap is part of the result's scope. The permitted outcomes
+  are a source-locked candidate that passes matching, model physics, uncertainty and held-out
+  independence with a separately predeclared uncertainty operator, or a scoped source/model-physics/
+  independence blocker. A simulator-only pressure ladder cannot close this search.
+- **Execution:** `UNEXECUTED`; **execution/outcome reviewer:** `UNASSIGNED`. The offline
+  pre-execution register review is recorded at the end of this section.
+
+### `TAX2-PANEL-SPAN-01`
+
+- **Status:** `REGISTERED; OPERATOR NOT YET PRE-REGISTERED; NO NUMERIC SPANS EXTRACTED`.
+- **Exact question:** Under one prospectively frozen operator that consumes no model result, what
+  two-dimensional projected crystal span can be measured at each panel's reported growth-time
+  snapshot across all 216 candidate TAX2 Figure 2 addresses, retaining operator-classified blanks,
+  refusals and censoring?
+- **Source identity:** `research/2306.13087v1.pdf`, the 14-page official
+  `https://arxiv.org/abs/2306.13087v1` source, 12,317,042 bytes, SHA-256
+  `20f579e01777d51b81b527751b32c3e44b1d8ebe9f1d09a7f15554c2445381af`. Source PDF pages 11–14
+  (one-based PDF pages, also the page numbers in `research/figures.md`) contain the registered grid.
+- **Existing inspection-render leads, not yet authorized measurement inputs:**
+
+  | file under ignored `research/figures/` | bytes | pixels | SHA-256 |
+  |---|---:|---:|---|
+  | `nakaya-206-observations-p1-minus0.5-to-4.5C.png` | 4,403,023 | 2550×3300 | `0043b9d1a9375c84970b972c3dc45e117a8f3c939c0818834228ef94c28d7af8` |
+  | `nakaya-206-observations-p2-minus5-to-10C.png` | 4,353,465 | 2550×3300 | `366bfd0b10465673a850d4bc0086611e323e1482190ab3e69a969e30c090e797` |
+  | `nakaya-206-observations-p3-minus11-to-16C.png` | 5,514,953 | 2550×3300 | `b1f9e270facadeb0641f454bd569113456850be5d342aca36e45644af3e6ed5b` |
+  | `nakaya-206-observations-p4-minus17-to-24C.png` | 4,493,705 | 2550×3300 | `fe22dadd963b8f16aa3110b2ffc6b1a15cb9fa625bec59c6c936d79fe0a3f9c1` |
+
+  The operator pre-registration must either bind these exact PNG bytes as inputs or define and bind
+  a new deterministic render. It must record renderer/tool/version, exact arguments, PDF page and
+  crop boxes, DPI, output pixels, color/transparency handling, resampling, and a render/hash check,
+  plus a predeclared renderer/resampling sensitivity. This register does not choose between them.
+- **Panel universe:** the candidate address space is the complete 24-temperature by 9-row grid,
+  216 addresses in source order. The source reports 206 observations and prior visual review found
+  ten apparent blank cells (four on page 11 and six on page 14), but neither the blank positions nor
+  the count is an accepted extraction result. The pre-registered operator must rederive every
+  address and blank/refusal/censor status uniformly; no failure may silently reduce the denominator.
+- **Known scientific scope:** each printed micrometre label is a square field-of-view width, not a
+  crystal dimension. The crystals grow on c-axis electric needles and are observed in a
+  two-dimensional projection. TAX2 co-publishes this corpus with M1 and does not document that the
+  panels were prospectively held out from M1's construction or evaluation. The project therefore
+  applies the conservative `inSampleForM1=true` label; it does not claim that these observations
+  caused or selected M1. Prior human/model inspection of these pages and historical CAK/M1 output is
+  disclosed; no personnel blindness is claimed.
+- **Pre-extraction gate:** commit
+  `research/phase6-tax2-panel-span-preregistration.md`, its deterministic implementation, fixtures,
+  canonical schema, negative controls, uncertainty/sensitivity protocol, and independently selected
+  remeasurement sample before exact page paths are supplied to its extraction entry point. Any later render, crop,
+  scale, segmentation, threshold, rule, or code change creates a new operator ID, preserves the old
+  output, receives new review, and forces all panels to be re-extracted. Panel-specific fixes after
+  seeing spans are forbidden.
+- **Required fail-closed labels:** every row and published bundle records
+  `inSampleForM1=true`, `geometry=c-axis-needle`, `observable=2d-projected-span`, and
+  `passEligible=false`. Refused and censored rows remain present with reason codes.
+- **Evidence boundary:** transient masks, crops, and diagnostics remain under `research/tmp/`.
+  Copyrighted source/render bytes are not published. Derived canonical numeric rows, provenance,
+  negative-control results, remeasurement results, and summaries go under the tracked
+  `evidence/phase6-tax2-panel-span-01/` bundle. Every published file is byte-counted and SHA-256
+  registered in `evidence/MANIFEST.json`, and the evidence-integrity test must reopen it.
+- **Admissible claim:** measured two-dimensional projected spans for the TAX2 c-axis-needle corpus,
+  with stated refusals/censoring and uncertainty. Success does not establish a three-dimensional
+  maximum dimension, source-match the current regular-prism seed, or make the data held out for M1.
+- **Operator registration:** `UNEXECUTED`; **numeric extraction:** `UNEXECUTED`;
+  **operator/outcome reviewers:** `UNASSIGNED`. The offline pre-execution register review is
+  recorded below.
+
+### Pre-execution register review provenance and limits
+
+Three read-only non-author review slices used OpenAI Codex `gpt-5.6-sol` with inherited repository
+context and known historical CAK/M1 output. The full acceptance reviewer used ultra reasoning and
+read the complete candidate then under review, its surrounding source-currency record, the WP1 and parent
+plans, handoff, progress index, Phase 6 charter clauses, lessons, and exact diff. It independently
+checked the request/date/cap rules, finite citation and Rule 12 expansion, two-axis dispositions,
+identity union/conflicts, immutable schedule IDs, checkpoints and hashes, evidence publication,
+pressure-arm independence, and TAX2 anti-tuning/scope. It recomputed the three registered PDF
+identities/page counts and all four TAX2 render identities, dimensions and RGB format; independently
+extracted the monograph PDF-page 235/269/508 pointers and later Figure 8 reproduction; ran Rule 7
+clean over 420 files, progress-index 7/7, and `git diff --check`; and returned 0 blockers / 0
+should-fixes after the corrections above.
+
+The endpoint-focused reviewer separately attacked encoding, request syntax, caps, relation ordering,
+Rule 12 construction, identifier/date normalization, union/conflict behavior, immutable scheduling,
+restart artifacts and terminal states. It returned 0 blockers / 0 should-fixes on the final bytes.
+The local-source reviewer independently inspected the PDFs/renders, recomputed their sizes, hashes,
+page counts and image dimensions, checked the 24×9 candidate universe and apparent 4+6 blank
+pattern as prior inspection rather than extraction, and corrected the unsupported claim that the
+panels constructed M1 plus the unsupported word `terminal`. Its final scientific re-review was
+clean; its sole remaining recordkeeping request was this provenance section.
+
+All three reviews were offline. They did not inspect the 1987 book; call or verify live provider
+endpoints; execute or screen the searches; implement/test the executor, checkpoint or evidence
+publisher; acquire/translate the original Yamashita source; pre-register or execute TAX2 spans;
+inspect every observation; run the source-lock/evidence-integrity verifiers or exact root
+`npm test`; or inspect R15, solver, GPU, education or later Phase 6 work. Live endpoint behavior and
+all execution outcomes therefore remain open and fail closed under this register.

@@ -171,7 +171,8 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
   crystal size or size stratum. The later 206-panel grid gives field-of-view widths around
   c-axis-needle observations, not reported crystal dimensions for the current free-prism seed.
   WP2 therefore cannot freeze an arbitrary convenient physical size. A prospectively frozen panel
-  segmentation can derive terminal span from pixels × field of view, but the electric-needle
+  segmentation can derive two-dimensional projected span at each reported growth-time snapshot,
+  but the electric-needle
   geometry remains load-bearing and the corpus is in-sample for M1.
 - A broader 2026-08-01 primary-source search found Nelson 1998 as a cleaner history/sublimation lead
   and Bailey–Hallett 2004 as a growth/size lead, plus Bacon et al. 2003. Nelson and Bacon bytes and the
@@ -186,10 +187,11 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
 
 ## 5. Ranked next actions
 
-1. The bounded `docs/plans/phase-6-wp1-source-lineage-and-tax2.md` is accepted. Add its
-   pre-execution, cold-resumable register to `research/phase6-source-currency.md`, including frozen
-   search scope/stopping rules for `YAMASHITA-FREEFALL-LINEAGE-01`,
-   `MATCHED-AIR-PRESSURE-01`, and `TAX2-PANEL-SPAN-01`, before browsing or numeric extraction.
+1. The bounded `docs/plans/phase-6-wp1-source-lineage-and-tax2.md` and Section 11 pre-execution
+   register are accepted. Before any live request, implement and independently review its exact
+   source-search executor, entry-specific atomic checkpoint/resume path, negative controls and
+   normalized `evidence/phase6-wp1-source-search-01/` publisher. All three question IDs remain
+   unexecuted; the candidate lock remains `passEligible=false`.
 2. The adversarial review of the candidate-source lock is clean. Retain `passEligible=false` until
    geometry, independence, observable definition and uncertainty all pass. Do not infer the missing
    Harrison crystallography or a convenient Nakaya measurement size from model output.
@@ -198,8 +200,9 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
    controls until WP3 freezes their exact schemas and policies. Under the current
    whole-grid rule the row count is `612 × S × D × Z` (three arms × 204 points × spacings × domains
    × physical-size strata); the 3×3×1 baseline is 5,508 and no rigorous D6h/monopole bound replaces it.
-4. Resolve the Yamashita primary-data lineage and separately search for a genuinely matched
-   air-pressure target. Pre-register and review the TAX2 span operator before execution. Do not
+4. From a clean committed and reviewed executor, resolve the Yamashita primary-data lineage and
+   separately search for a genuinely matched air-pressure target. Pre-register and review the TAX2
+   span operator before execution. Do not
    consume or compare new R15 model output during extraction; no personnel blindness to historical
    output is claimed. Do not promote TAX2 to held-out M1 evidence or infer a
    target from rejected candidates' broad size ranges.
@@ -254,6 +257,10 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
   incorporated, and exact `npm.cmd test` passed (419 scanned files; both typechecks; 81 files /
   1,442 tests). Its runner layer
   remains WP3-deferred and the ADR remains proposed.
+- WP1's bounded plan is committed at `004818f`. Its final offline-reviewed Section 11 register
+  freezes all live-search, citation/currency, identity, restart and publication semantics while
+  leaving every question explicitly unexecuted. The next commit implements/reviews the executor;
+  no endpoint was called and no TAX2 span was measured in the registration unit.
 - The repaired current table is 50,464 LF-normalized bytes with current SHA-256
   `c0b314b681146152207f061209a3097609e34a234b0027ed73faa427334c79e2`, propagated through the
   separately named `PHASE6_CURRENT_PARAMETER_TABLE_SHA256`. The final scoped review and exact root
@@ -262,7 +269,7 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
   `276494f69682adb2b071c2e2683a98281aef17b3558b4efa6301ceaf11dfa741` and both legacy values
   manifests remain untouched. This is a current content pin, not the R15 values/protocol freeze;
   that freeze remains deferred until WP1/WP2.
-- The compact `docs/PROGRESS.md` is the sole current-state authority (10,405 bytes / 127 lines at
+- The compact `docs/PROGRESS.md` is the sole current-state authority (13,489 bytes / 160 lines at
   this checkpoint). Its linked archive preserves
   the exact 191,859-byte pre-compaction body at SHA-256
   `2550319a3ac5d528c111875242419de91d2ed9b34f245f7a0364ede8b323f955`; an enforcing test pins the

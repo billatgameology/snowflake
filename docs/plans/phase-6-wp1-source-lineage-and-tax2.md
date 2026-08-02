@@ -16,7 +16,9 @@ This bounded plan treats three questions independently:
 2. `MATCHED-AIR-PRESSURE-01` — search for a genuinely matched experiment that varies background
    air pressure while controlling the other load-bearing conditions; and
 3. `TAX2-PANEL-SPAN-01` — pre-register, independently review, and then execute a deterministic
-   extraction of projected terminal spans from the 206 TAX2 panels.
+   extraction of two-dimensional projected span at each reported growth-time snapshot across all
+   216 candidate addresses, preserving the source's 206 reported observations and every
+   operator-classified blank, refusal or censored row.
 
 This work may freeze a validation target only if source independence, geometry, transport physics,
 observable definition, and uncertainty all pass. A documented source-limited result is an honest
@@ -59,9 +61,11 @@ tool and version, and record human-review uncertainty. A metadata- or stable-ID-
 lead: it cannot freeze a quantitative target without inspectable primary methods/data bytes.
 
 Third-party source bytes and renders remain ignored under `research/`. Transient extraction work
-belongs under `research/tmp/`. Durable numeric science outputs belong under a tracked
+belongs under `research/tmp/`. Durable normalized source-search ledgers belong under
+`evidence/phase6-wp1-source-search-01/`; durable numeric science outputs belong under a tracked
 `evidence/phase6-tax2-panel-span-01/` bundle that binds the exact source and operator bytes. Do not
-redistribute source photographs in that bundle. Every published evidence file must be registered
+redistribute raw catalog HTML, abstracts, source photographs or PDFs in either bundle. Every
+published evidence file must be registered
 with its byte count and SHA-256 in `evidence/MANIFEST.json`; `.gitattributes` already fixes the
 entire `evidence/**` subtree as `-text`, and the evidence-integrity test must reopen every entry.
 
@@ -73,9 +77,25 @@ independent evidence review.
 
 ## Steps
 
-- [ ] Add the three open entries to `research/phase6-source-currency.md`. Each begins explicitly
+- [x] Add the three open entries to `research/phase6-source-currency.md`. Each begins explicitly
   `UNEXECUTED` and freezes the search scope/stopping fields above before execution; a known pointer
-  is not recorded as a completed search.
+  is not recorded as a completed search. Section 11 now fixes 243 base query-route combinations,
+  derived citation/Rule 12 routes, finite traversal, admission rules, entry-specific atomic
+  checkpoints and durable evidence schemas. Three offline non-author review slices returned 0
+  blockers / 0 should-fixes on the final register; no request or numeric extraction ran.
+
+- [ ] Implement the deterministic source-search executor, entry-specific checkpoint/resume path,
+  normalized occurrence/candidate ledgers, and evidence publisher exactly from Section 11 in
+  `runner/src/phase6-wp1-source-search.ts`, with CLI wiring in
+  `runner/src/phase6-wp1-source-search-main.ts` and focused tests in
+  `runner/test/phase6-wp1-source-search.test.ts`. Pin the
+  register/executor/source identities and reject tracked dirty state. Tests must prove rejection of
+  an unregistered route/query, tampered response/checkpoint, shifted cursor-parent hash, malformed
+  identifier, conflicting identity bridge and manifest mutation; prove resumable no-response and
+  cap/access terminal states; and prove a late component merge cannot rename a scheduled request.
+  The focused command is
+  `npx.cmd vitest run runner/test/phase6-wp1-source-search.test.ts`. Obtain a non-author
+  code/evidence-boundary review before the first live request.
 
 - [ ] Execute `YAMASHITA-FREEFALL-LINEAGE-01`, beginning from authoritative `1910.06389v2`
   Figure 6.22 (printed p. 234 / PDF p. 235), Figure 7.21 (printed p. 268 / PDF p. 269), and the
