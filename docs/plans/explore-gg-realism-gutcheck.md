@@ -1,7 +1,8 @@
 # Plan — GG realism gut check (eyeball-only exploration)
 
 - **Phase:** Pre-Phase 7 exploration, maker-directed 2026-08-02. Not a charter phase gate.
-- **Status:** in progress — run registered and launched, extraction/render tooling being built
+- **Status:** complete — deliverables produced, agent eyeball verdict recorded below;
+  the maker's own sentence of judgment is the one open slot
 - **Started:** 2026-08-02
 - **Last touched:** 2026-08-02 by Claude Fable 5 (`claude-fable-5`)
 
@@ -89,9 +90,20 @@ implicated by anything here.
   run, no gate flags; a far-field or domain-contact stop are both acceptable terminations
   for an eyeball check. Logs: `out/gutcheck-gg-realism/grow.log` / `grow.err` /
   `grow.exit-status`.
-- [ ] Background `grow` run on the Mac writing checkpoint + PGM dumps under
+- [x] Background `grow` run on the Mac writing checkpoint + PGM dumps under
       `out/gutcheck-gg-realism/` with live/error/exit files. Record the termination reason
       (a domain-contact stop is acceptable here — it invalidates gates, not looks).
+
+  **Run outcome (copied from `out/gutcheck-gg-realism/grow.log` at write time):** stop
+  `reason=far-field` at tick 14900, exit status 0. Final line: `attached=138249
+  massDrift=3.708e-13 symErr=0 AR=0.0382979 hollow=0.0647034 sealedVoid=0.00121372
+  branches=6 radius=117 farField=0.0666502 domainContact=false`. Noise broke the exact
+  per-tick delta symmetry from tick 14091 (`deltaCheckCleanAllTicks=false
+  firstAsymmetricTick=14091`) — expected for a noise-on run, no gate is claimed. Checkpoint
+  `out/gutcheck-gg-realism/dendrite-384x384x48-seed20260802.ckpt` (120324920 bytes,
+  `roundTripIdentical=true`), sha256
+  `8aee546c478b50f41251b3bb1cb66e5d61bba263fa7c97522ee388aa8a54dd75` (printed by the
+  extraction script from the file bytes). ~24 min wall clock, ~85 ms/tick.
 - [x] Extraction script (new file): `scripts/gutcheck-extract-mesh.ts` — checkpoint →
       hex-lattice-aware resample (Gaussian splat through the exact embedding
       `x = i + j/2, y = j·√3/2, z = k`) → naive surface nets at iso 0.5 → binary mesh +
@@ -111,14 +123,75 @@ implicated by anything here.
       edge pass (warm where facing the key light, dark indigo opposite, weighted by normal
       tilt off face-on). Converged on the smoke mesh over 5 iterations; final render happens
       on the 384 mesh.
-- [ ] Side-by-side against a named J0521r2p frame (state the timestamp). Record the eyeball
+- [x] Side-by-side against a named J0521r2p frame (state the timestamp). Record the eyeball
       verdict here: what reads as real, what gives it away, one-line recommendation for
       Phase 7 planning. **Frame chosen:** 23.633 s (frame 709 of 788 @ 30 fps ≈ 90% of the
       26.27 s video), extracted with ffmpeg 8.0.1 from the main repo's local copy to
       `out/gutcheck-gg-realism/target-frame-23.633s.png`. Copyright: Libbrecht holds the
       video copyright (research/snowcrystals.com-videos.md), so the extracted frame and any
       composite containing it stay in gitignored `out/` and are never committed or published.
-- [ ] Append every dead end to **Tried and rejected** as it happens, not at the end.
+      Verdict recorded in **Eyeball verdict** below.
+- [x] Append every dead end to **Tried and rejected** as it happens, not at the end.
+
+## Deliverables (all local under gitignored `out/gutcheck-gg-realism/`; sha256 at write time)
+
+Everything below is **Evidence = unvalidated** (charter §1.5); nothing here supports any gate.
+
+| Artifact | Path | sha256 |
+|---|---|---|
+| Checkpoint (tick 14900) | `dendrite-384x384x48-seed20260802.ckpt` | `8aee546c478b50f41251b3bb1cb66e5d61bba263fa7c97522ee388aa8a54dd75` |
+| Level-set mesh (436,255 verts / 872,344 tris) | `dendrite-384-mesh.bin` | `271eacd778829d536e45c17aae4f8173d9fb5c1ebf2da2ff962e15ac7b261d43` |
+| Final render, 1600×1600 | `render-384-final.png` | `6305d48f89dd1a8a6ce86679f84611239c6f905737d3cc4e12e5c299f098da8f` |
+| Side-by-side (render left, J0521r2p @ 23.633 s right) | `side-by-side-23.633s.png` | `b90c64041f3c0637cf0389471d19e37cbc816be0f6aedabe1a8fe03168a5c984` |
+
+Reproduction from the checkpoint (or regrow with the registered command above):
+
+```
+node scripts/gutcheck-extract-mesh.ts out/gutcheck-gg-realism/dendrite-384x384x48-seed20260802.ckpt \
+  out/gutcheck-gg-realism/dendrite-384-mesh.bin --sigma 0.45 --spacing 0.4
+node app/scripts/spike-capture.mjs --mesh out/gutcheck-gg-realism/dendrite-384-mesh.bin \
+  --out out/gutcheck-gg-realism/render-384-final.png --size 1600 \
+  --params "keyI=2.4&fillI=0.9&thick=12&edge=1.1&edgePow=1.9&rough=0.045&zscale=2.5&bgTop=eeca7a&bgBottom=c3c9ee"
+ffmpeg -y -i out/gutcheck-gg-realism/render-384-final.png -i out/gutcheck-gg-realism/target-frame-23.633s.png \
+  -filter_complex "[0:v]scale=1080:1080[left];[1:v]crop=1424:1080:248:0,scale=-2:1080[right];[left][right]hstack=inputs=2" \
+  out/gutcheck-gg-realism/side-by-side-23.633s.png
+```
+
+Pixel identity of the PNGs across machines is not claimed (GPU rasterization); the mesh is
+deterministic given the checkpoint and flags. Suite check after all spike files were in the
+tree: exact `npm test` with `TMPDIR=/private/tmp`, exit 0, 1431 passed / 7 skipped
+(`out/gutcheck-gg-realism/npm-test.log`).
+
+## Eyeball verdict
+
+**Provenance: this is Claude Fable 5's (`claude-fable-5`) eyeballed judgment of
+`side-by-side-23.633s.png`, written 2026-08-02. It is an aesthetic comparison, not a
+measurement; nothing here is validated. The maker's own sentence goes in the slot below.**
+
+What reads as real: the silhouette. A sixfold fernlike stellar dendrite with six distinct
+arms, plausible sidebranch hierarchy, transparent refractive ice whose interior color is
+genuinely the refracted backdrop (no white volume), directional dark-edge/warm-glint line
+work, and a smooth, nowhere-voxelized surface. At arm's length it reads as a snow crystal,
+and the G-G shape realism itself was never the risk (the paper's own figures are the
+control).
+
+What gives it away, in one glance next to the footage: (1) **tip character** — the real
+crystal ends every branch in crisp hexagonal facets and arrowhead sector plates; the G-G
+dendrite's tips are knobby and rounded, and no render setting fixes a shape the model did
+not grow. (2) **Interior relief depth** — the footage's center is packed with bold radial
+ridges, concentric ribs, and a central hexagon; the G-G plate interior is nearly flat, and
+even with the recorded 2.5× z-relief stylization its features are an order of magnitude
+shallower. (3) Line boldness — the footage's contour lines are thick and clean; the
+render's are thin and speckled at lattice scale.
+
+One-line recommendation for Phase 7: **the ADR 0029 ice look transfers — the open risk is
+surface structure, not shading** — the backdrop/refraction/oblique-edge/orthographic shell
+worked on the first real mesh, while both giveaways (facet-straight tips, deep interior
+relief) are exactly what `LibbrechtKinetics`' faceted kinetics plus a relief-preserving
+level set are supposed to supply, supporting the ADR's choice to pair the Realistic
+profile with LK rather than G-G.
+
+**Maker verdict (one sentence, in the maker's own words):** _pending._
 
 ## Out of scope
 
@@ -159,15 +232,21 @@ All entries 2026-08-02, eyeballed on the 128,128,48 smoke mesh (renders kept loc
   branch relief while still not voxelized. (ADR 0029's cost note — relief-preserving
   smooth extraction is genuinely harder than blocky or over-smoothed — is confirmed by
   direct experience here.)
+- **Rendering the 384 plate at true 1:1 z proportions** — at aspect ratio 0.038 the
+  face-on relief shading nearly vanishes and the crystal reads as a faint ghost
+  (`out/gutcheck-gg-realism/render-384-v1.png`). Kept a `?zscale=` exaggeration knob
+  (final render uses 2.5×) and recorded it as a stylization, not a model claim. The honest
+  fix is a model whose plate actually carries deep relief — see the verdict.
 
-## Open questions
+## Open questions — all resolved during implementation
 
-- Where the render code lives: an `app/` dev-only route (gets typecheck + existing three.js
-  Rule 7 handling for free) vs. untracked scripts under `out/` (zero workspace friction, but
-  unreviewable). Decide at implementation; either is acceptable for a spike.
-- Which field defines the level set: smoothed attached-indicator, boundary mass `b`, or a blend.
-  The ADR 0029 language ties smooth advance to the LK fill fraction, which does not exist under
-  `GGThreshold` — this spike must find the G-G equivalent, and that finding is itself a useful
-  Phase 7 input.
-- Which J0521r2p frame is the canonical comparison target (late-growth ~90% timestamp is the
-  working default).
+- Where the render code lives → **`app/` dev-only page** (`app/spike-gg-realism.html` +
+  `app/src/spike-gg-realism.ts`, strict-typechecked and Rule 7-scanned) plus committed
+  scripts (`scripts/gutcheck-extract-mesh.ts`, `app/scripts/spike-capture.mjs`). Untracked
+  `out/` scripts were rejected because the deliverable code had to be committable and
+  reviewable.
+- Which field defines the level set → **attached indicator graded by attachment progress
+  `b / ggThreshBeta[2·min(nT,3) + min(nZ,1)]` on unattached boundary cells** (see the
+  extraction step above). This is the G-G analog of the LK fill fraction, and it worked:
+  the surface advances sub-cell smoothly between attachments. Phase 7 input as hoped.
+- Canonical comparison frame → **23.633 s** (frame 709/788, ≈90% of duration).

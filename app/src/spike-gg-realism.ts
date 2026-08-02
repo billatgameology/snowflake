@@ -130,6 +130,14 @@ async function main(): Promise<void> {
   geometry.setAttribute("position", new THREE.BufferAttribute(mesh.positions, 3));
   geometry.setAttribute("normal", new THREE.BufferAttribute(mesh.normals, 3));
   geometry.setIndex(new THREE.BufferAttribute(mesh.indices, 1));
+  // Optional z-relief exaggeration (?zscale=): the G-G plate is far thinner than the
+  // footage crystal's sector-plate relief, so face-on shading nearly vanishes at 1:1.
+  // A stated stylization knob, not a claim about the model.
+  const zscale = Number(param("zscale", "1"));
+  if (zscale !== 1) {
+    geometry.scale(1, 1, zscale);
+    geometry.computeVertexNormals();
+  }
   geometry.computeBoundingBox();
   const bbox = geometry.boundingBox;
   if (bbox === null) throw new Error("no bounding box");
