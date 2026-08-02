@@ -1,7 +1,7 @@
 # Plan — GG realism gut check (eyeball-only exploration)
 
 - **Phase:** Pre-Phase 7 exploration, maker-directed 2026-08-02. Not a charter phase gate.
-- **Status:** not started
+- **Status:** in progress — run registered and launched, extraction/render tooling being built
 - **Started:** 2026-08-02
 - **Last touched:** 2026-08-02 by Claude Fable 5 (`claude-fable-5`)
 
@@ -63,9 +63,32 @@ implicated by anything here.
 
 ## Steps
 
-- [ ] Pick the run: start from `--preset dendrite`, noise on, hexPrism, ~`384,384,48`; consult
+- [x] Pick the run: start from `--preset dendrite`, noise on, hexPrism, ~`384,384,48`; consult
       the G-G paper's fernlike parameter sets if the preset disappoints. Record the exact
       command, seed, and dims in this file **before** launching.
+
+  **Run record (written before launch, 2026-08-02).** Two sizing probes at `128,128,48`
+  (verbatim stdout: `out/gutcheck-gg-realism/probe-128.log`, local only — `out/` is
+  gitignored): the dendrite preset with `--noise 1e-5` (the G-G paper's stated order,
+  gg-machinery §6) and `--seed 20260802` reached far-field stop at tick 3800 with
+  `radius=38` (60% of hexRadius 63), `branches=6`, `AR=0.117`, ~8.4 ms/tick at 568,559
+  active cells. Scaling to `384,384,48` (hexRadius 191, ~5.17M active cells, ~9.1× per-tick
+  cost): expected stop near radius ~115 (≈230 cells across) at roughly tick 30–50k, order
+  an hour of wall clock. Registered command (run from the worktree root):
+
+  ```
+  node runner/src/main.ts grow --preset dendrite --dims 384,384,48 --domain hexPrism \
+    --ticks 60000 --seed 20260802 --noise 1e-5 \
+    --metrics-every 500 --full-metrics-every 2000 \
+    --pgm-every 1000 --pgm-dir out/gutcheck-gg-realism/pgm \
+    --out out/gutcheck-gg-realism/dendrite-384x384x48-seed20260802.ckpt
+  ```
+
+  Preset `dendrite` = the paper's classic stellar dendrite (ρ = 0.1 per `core/src/params.ts`
+  provenance comment; Fig. 14 of `research/GravnerGriffeath_PhysRevE09.pdf`). Observational
+  run, no gate flags; a far-field or domain-contact stop are both acceptable terminations
+  for an eyeball check. Logs: `out/gutcheck-gg-realism/grow.log` / `grow.err` /
+  `grow.exit-status`.
 - [ ] Background `grow` run on the Mac writing checkpoint + PGM dumps under
       `out/gutcheck-gg-realism/` with live/error/exit files. Record the termination reason
       (a domain-contact stop is acceptable here — it invalidates gates, not looks).
